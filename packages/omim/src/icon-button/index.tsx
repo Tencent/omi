@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import { MDCIconButtonToggle } from '@material/icon-button'
-
+import { domReady } from '../util/dom-ready'
 // @ts-ignore
 import { extract, htmlToVdom } from '../util.ts'
 
@@ -46,8 +46,9 @@ export default class IconButton extends WeElement<Props, Data>{
     color: String,
     disabled: Boolean
   }
-  install() {
-    document.addEventListener('DOMContentLoaded', () => {
+
+  installed() {
+    domReady(() => {
       this.update()
 
       const root = this.shadowRoot.querySelector('.mdc-icon-button')

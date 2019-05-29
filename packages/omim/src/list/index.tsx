@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCList} from '@material/list';
 import {MDCRipple} from '@material/ripple';
-
+import { domReady } from '../util/dom-ready'
 // @ts-ignore
 import { htmlToVdom } from '../util.ts'
 
@@ -43,8 +43,8 @@ export default class List extends WeElement<Props, Data>{
 
   listAll = new Array()
   
-  install() {
-		document.addEventListener('DOMContentLoaded', () => {
+  installed() {
+		domReady(() => {
 			//update first
 			this.update()
 			//init mdc list

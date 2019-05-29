@@ -23,10 +23,10 @@ interface Data {
 export default class Row extends WeElement<Props, Data>{
 	static css = theme() + css + rs
 
-	static resetTheme() {
-		this.css = theme() + css + rs
+  static resetTheme() {
+    this.css = theme() + css + rs
 	}
-
+	
 	static propTypes = {
 		cols: Object,
 		gutter: Number,
@@ -36,21 +36,15 @@ export default class Row extends WeElement<Props, Data>{
 	}
 
 	install() {
-		domReady.done ?
-			this._init() :
-			domReady(() => {
-				this._init()
+		domReady(() => {
+			const children = elementChildren(this)
+			children.forEach((child, index) => {
+				if (!child.hasAttribute('slot')) {
+					child.setAttribute('slot', index + '')
+				}
 			})
-	}
-
-	_init() {
-		const children = elementChildren(this)
-		children.forEach((child, index) => {
-			if (!child.hasAttribute('slot')) {
-				child.setAttribute('slot', index + '')
-			}
+			this.update()
 		})
-		this.update()
 	}
 
 	render(props) {

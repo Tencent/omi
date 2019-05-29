@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 export function domReady(callback) {
+  if(domReady.done){
+    callback()
+    return
+  }
   readyCallbacks.push(callback)
 }
 

@@ -1,6 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
-
+import { domReady } from '../util/dom-ready'
 //@ts-ignore
 import { theme } from '../theme.ts'
 
@@ -26,9 +26,9 @@ class LayoutGrid extends WeElement<Props, Data>{
     alignRight: Boolean
   }
 
-  install() {
+  installed() {
     if (!this.props.children) {
-      document.addEventListener('DOMContentLoaded', () => {
+      domReady(() => {
         this.update()
       })
     }
