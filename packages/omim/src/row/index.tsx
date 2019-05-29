@@ -35,7 +35,7 @@ export default class Row extends WeElement<Props, Data>{
 		type: String
 	}
 
-	install() {
+	installed() {
 		domReady(() => {
 			const children = elementChildren(this)
 			children.forEach((child, index) => {

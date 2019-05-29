@@ -295,7 +295,7 @@ var Row = /** @class */ (function (_super) {
     Row.resetTheme = function () {
         this.css = theme_ts_1.theme() + css + rs;
     };
-    Row.prototype.install = function () {
+    Row.prototype.installed = function () {
         var _this = this;
         dom_ready_1.domReady(function () {
             var children = element_children_1.elementChildren(_this);
