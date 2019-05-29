@@ -11,31 +11,35 @@
 <body>
 
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/button/index.js"></script>
   <script src="../../src/action-sheet/index.js"></script>
 
+  <m-button onclick="showA()">Android Action Sheet</m-button>
+  <br />
+  <m-button onclick="showB()">IOS Action Sheet</m-button>
   <script>
-    MActionSheet({
-      items: ['Option 1', 'Option 2'],
-      onItemClick: (item) => {
-        console.log(item)
-      }
-    })
+    function showA() {
+      MActionSheet({
+        items: ['Option 1', 'Option 2'],
+        onItemClick: (item) => {
+          console.log(item)
+        }
+      })
+    }
 
-    MActionSheet({
-      items: [{ label: 'Option 1' }, { label: 'Option 2' }],
-      onItemClick: (item) => {
-        console.log(item)
-      }
-    })
+    function showB() {
 
-    MActionSheet({
-      items: [{ label: 'Option 1' }, { label: 'Option 2' }],
-      onItemClick: (item) => {
-        console.log(item)
-      },
-      ios: true,
-      cancel: '取消'
-    })
+      MActionSheet({
+        items: ['Option 1', 'Option 2'],
+        onItemClick: (item) => {
+          console.log(item)
+        },
+        ios: true,
+        cancel: '取消'
+      })
+
+    }
+
 
   </script>
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
