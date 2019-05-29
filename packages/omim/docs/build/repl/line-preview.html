@@ -156,8 +156,9 @@
     })
 
     setTimeout(function(){
+      chart.props.data.datasets[0].data[0] += 0.01
       chart.update()
-    },500)
+    }, 1000)
   </script>
 </body>
 

@@ -115,41 +115,41 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 
 为了防止重复开发，先 PR 提交填下 owner 锁定该组件。
 
-| **Components**                         | **Owner**                    |
-| ------------------------------- | ----------------------------------- |
-| button | done |
-| icon | done |
-| text-field | done |
-| card | wscats |
-| chip | hulei |
-| dialog | zainchen |
-| elevation | liulinboyi |
-| image-list| done |
-| checkbox| done |
-| radio| lihengjun |
-| select| done |
-| slider| done |
-| switch| zainchen |
-| layout-grid| done |
-| linear-progress| done |
-| list| zainchen |
-| menu| done|
-| snackbar| done |
-| tab | FAKER-A |
-| tag | mtonhuang |
-| top-app-bar| zainchen |
-| typography| done |
-| drawer | zainchen |
-| badge | done |
-| fab | done |
-| icon-button | done |
-| toolbar | hulei |
-| avatar | done |
-| tree | done |
-| table | done |
-| nav | done |
-| action-sheet | done |
-| row | done |
+| **Components**                         | **Owner**                    |     **State**                    |
+| ------------------------------- | ----------------------------------- |----------------------------------- |
+| button | member |done |
+| icon | member |done |
+| text-field | member |done |
+| card | wscats |done |
+| chip | hulei |done |
+| dialog | zainchen |done |
+| elevation | liulinboyi |done |
+| image-list| member |done |
+| checkbox| member |done |
+| radio| lihengjun |done |
+| select| member |done |
+| slider| member |done |
+| switch| zainchen |done |
+| layout-grid| member |done |
+| linear-progress| member |done |
+| list| zainchen |done |
+| menu| member|done |
+| snackbar| member |done |
+| tab | FAKER-A |done |
+| tag | mtonhuang |done |
+| top-app-bar| zainchen |done |
+| typography| member |done |
+| drawer | zainchen |done |
+| badge | member |done |
+| fab | member |done |
+| icon-button | member |done |
+| toolbar | hulei |done |
+| avatar | member |done |
+| tree | member |done |
+| table | member |done |
+| nav | member |done |
+| action-sheet | member |done |
+| row | member |done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |

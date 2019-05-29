@@ -73,7 +73,13 @@ const config = {
           { name: '简介', md: 'introduction-chart' },
           { name: '柱状图', md: 'bar', demo: './repl/bar.html' },
           { name: '线状图', md: 'line', demo: './repl/line.html' },
-          { name: '散点图', md: 'scatter', demo: './repl/scatter.html' }
+          { name: '散点图', md: 'scatter', demo: './repl/scatter.html' },
+          { name: '饼图', md: 'pie', demo: './repl/pie.html' },
+          { name: '环状图', md: 'doughnut', demo: './repl/doughnut.html' },
+          { name: '雷达图', md: 'radar', demo: './repl/radar.html' },
+          { name: '极区图', md: 'polar-area', demo: './repl/polar-area.html' },
+          { name: '气泡图', md: 'bubble', demo: './repl/bubble.html' },
+          { name: '合成图', md: 'bar-line', demo: './repl/bar-line.html' }
         ]
       }
     ],
@@ -150,7 +156,15 @@ const config = {
           { name: 'Introduction', md: 'introduction-chart' },
           { name: 'Bar', md: 'bar', demo: './repl/bar.html' },
           { name: 'Line', md: 'line', demo: './repl/line.html' },
-          { name: 'Scatter', md: 'scatter', demo: './repl/scatter.html' }
+          { name: 'Scatter', md: 'scatter', demo: './repl/scatter.html' },
+          { name: 'Pie', md: 'pie', demo: './repl/pie.html' },
+          { name: 'Doughnut', md: 'doughnut', demo: './repl/doughnut.html' },
+          { name: 'Radar', md: 'radar', demo: './repl/radar.html' },
+          { name: 'PolarArea', md: 'polar-area', demo: './repl/polar-area.html' },
+          { name: 'Bubble', md: 'bubble', demo: './repl/bubble.html' },
+          { name: 'BarLine', md: 'bar-line', demo: './repl/bar-line.html' }
+
+          
         ]
       }
     ]

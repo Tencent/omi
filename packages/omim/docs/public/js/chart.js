@@ -32471,7 +32471,6 @@ var ChartBase = /** @class */ (function (_super) {
         this.chart.update();
     };
     ChartBase.prototype.render = function (props) {
-        console.log(props.data.datasets[0].data[0]);
         return (omi_1.h("div", { style: { width: props.width + 'px', height: props.height + 'px' } },
             omi_1.h("canvas", { ref: this._refCanvas })));
     };
@@ -32479,8 +32478,7 @@ var ChartBase = /** @class */ (function (_super) {
         data: Object,
         options: Object,
         width: Number,
-        height: Number,
-        horizontal: String
+        height: Number
     };
     return ChartBase;
 }(omi_1.WeElement));
@@ -32491,6 +32489,7 @@ var Bar = /** @class */ (function (_super) {
     }
     Bar.prototype.installed = function () {
         this.chart = new Chart(this.canvas.getContext('2d'), {
+            //@ts-ignore
             type: this.props.horizontal ? 'horizontalBar' : 'bar',
             data: this.props.data,
             options: this.props.options
@@ -32607,6 +32606,14 @@ var Bubble = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Bubble.prototype.installed = function () {
+        //@ts-ignore
+        var exp = this.props.options.elements.point.radius;
+        //@ts-ignore
+        this.props.options.elements.point.radius = function (context) {
+            var $v = context.dataset.data[context.dataIndex].v;
+            var $w = context.chart.width;
+            return (new Function('$v', '$w', 'return ' + exp))($v, $w);
+        };
         this.chart = new Chart(this.canvas.getContext('2d'), {
             type: 'bubble',
             data: this.props.data,

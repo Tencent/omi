@@ -1,6 +1,6 @@
 {
   "name": "@omim/core",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Material Design for Omi.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "material-design"
   ],
   "dependencies": {
-    "omi": "^6.3.16"
+    "omi": "^6.3.17"
   },
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
