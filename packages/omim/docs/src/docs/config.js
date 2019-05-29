@@ -42,7 +42,8 @@ const config = {
         title: '操作反馈',
         list: [
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'}
+          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
+          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'}
         ]
       },
       {
@@ -125,7 +126,8 @@ const config = {
         title: 'Operational Feedback',
         list: [
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'}
+          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
+          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'}
         ]
       },
       {
