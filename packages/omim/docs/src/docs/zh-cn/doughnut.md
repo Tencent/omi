@@ -1,8 +1,8 @@
 ## Doughnut
 
-Doughnut chart.
+环状图。
 
-## Usage
+## 使用
 
 ```html
 <m-doughnut id="myDoughnut" width="600" height="300" 

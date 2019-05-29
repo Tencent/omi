@@ -2,7 +2,7 @@
 
 极区图。
 
-## Usage
+## 使用
 
 ```html
 <m-polar-area id="myChart" width="600" height="350" 
