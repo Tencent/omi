@@ -34,10 +34,7 @@ export default class MPicker extends WeElement<Props, Data>{
 	render(props) {
 
 		return (
-			<div {...extractClass(props, 'm-picker')}>
-				{/* todo using text-field */}
-				<m-text-field css={`input{min-width:56px;}`} {...props} />
-			</div>
+			<m-text-field {...props} css={`input{min-width:56px;}`} />
 		)
 	}
 }

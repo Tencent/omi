@@ -275,8 +275,7 @@ var MPicker = /** @class */ (function (_super) {
         this.css = theme_ts_1.theme() + css;
     };
     MPicker.prototype.render = function (props) {
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-picker')),
-            omi_1.h("m-text-field", __assign({ css: "input{min-width:56px;}" }, props))));
+        return (omi_1.h("m-text-field", __assign({}, props, { css: "input{min-width:56px;}" })));
     };
     MPicker.css = theme_ts_1.theme() + css;
     MPicker.defaultProps = {};
