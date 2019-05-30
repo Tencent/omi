@@ -96,18 +96,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/base/component.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/base/component.js ***!
+  \**************************************************/
 /*! exports provided: MDCComponent, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -213,10 +213,10 @@ var MDCComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@material/base/foundation.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@material/base/foundation.js ***!
+  \***************************************************/
 /*! exports provided: MDCFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -302,22 +302,22 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dialog@2.2.0@@material/dialog/component.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_dialog@2.2.0@@material/dialog/component.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/dialog/component.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/dialog/component.js ***!
+  \****************************************************/
 /*! exports provided: MDCDialog */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCDialog", function() { return MDCDialog; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/dialog/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util */ "./node_modules/@material/dialog/util.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -501,10 +501,10 @@ var MDCDialog = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dialog@2.2.0@@material/dialog/constants.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_dialog@2.2.0@@material/dialog/constants.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/dialog/constants.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/dialog/constants.js ***!
+  \****************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -570,19 +570,19 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dialog@2.2.0@@material/dialog/foundation.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_dialog@2.2.0@@material/dialog/foundation.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/@material/dialog/foundation.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/dialog/foundation.js ***!
+  \*****************************************************/
 /*! exports provided: MDCDialogFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCDialogFoundation", function() { return MDCDialogFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/dialog/constants.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -832,21 +832,21 @@ var MDCDialogFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dialog@2.2.0@@material/dialog/index.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_dialog@2.2.0@@material/dialog/index.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/dialog/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/dialog/index.js ***!
+  \************************************************/
 /*! exports provided: util, MDCDialog, MDCDialogFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/util.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/@material/dialog/util.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "util", function() { return _util__WEBPACK_IMPORTED_MODULE_0__; });
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/@material/dialog/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCDialog", function() { return _component__WEBPACK_IMPORTED_MODULE_1__["MDCDialog"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/dialog/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCDialogFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCDialogFoundation"]; });
 
 /**
@@ -879,10 +879,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dialog@2.2.0@@material/dialog/util.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_@material_dialog@2.2.0@@material/dialog/util.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/@material/dialog/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@material/dialog/util.js ***!
+  \***********************************************/
 /*! exports provided: createFocusTrapInstance, isScrollable, areTopsMisaligned */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -891,7 +891,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFocusTrapInstance", function() { return createFocusTrapInstance; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isScrollable", function() { return isScrollable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "areTopsMisaligned", function() { return areTopsMisaligned; });
-/* harmony import */ var focus_trap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! focus-trap */ "./node_modules/_focus-trap@5.0.1@focus-trap/index.js");
+/* harmony import */ var focus_trap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! focus-trap */ "./node_modules/focus-trap/index.js");
 /* harmony import */ var focus_trap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(focus_trap__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * @license
@@ -936,10 +936,10 @@ function areTopsMisaligned(els) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@material/dom/ponyfill.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/dom/ponyfill.js ***!
+  \************************************************/
 /*! exports provided: closest, matches */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -996,21 +996,21 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/ripple/component.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/component.js ***!
+  \****************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1125,10 +1125,10 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/ripple/constants.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/constants.js ***!
+  \****************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1188,20 +1188,20 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/@material/ripple/foundation.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/ripple/foundation.js ***!
+  \*****************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1666,10 +1666,10 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/@material/ripple/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@material/ripple/util.js ***!
+  \***********************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1782,14 +1782,14 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/dialog/index.scss":
-/*!*************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/dialog/index.scss ***!
-  \*************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/dialog/index.scss":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/dialog/index.scss ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -1801,10 +1801,10 @@ exports.push([module.i, ".mdc-dialog,\n.mdc-dialog__scrim {\n  position: fixed;\
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1888,15 +1888,15 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_focus-trap@5.0.1@focus-trap/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/_focus-trap@5.0.1@focus-trap/index.js ***!
-  \************************************************************/
+/***/ "./node_modules/focus-trap/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/focus-trap/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var tabbable = __webpack_require__(/*! tabbable */ "./node_modules/_tabbable@4.0.0@tabbable/index.js");
-var xtend = __webpack_require__(/*! xtend */ "./node_modules/_xtend@4.0.1@xtend/immutable.js");
+var tabbable = __webpack_require__(/*! tabbable */ "./node_modules/tabbable/index.js");
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
 
 var activeFocusDelay;
 
@@ -2223,10 +2223,10 @@ module.exports = focusTrap;
 
 /***/ }),
 
-/***/ "./node_modules/_tabbable@4.0.0@tabbable/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/_tabbable@4.0.0@tabbable/index.js ***!
-  \********************************************************/
+/***/ "./node_modules/tabbable/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/tabbable/index.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2387,10 +2387,10 @@ module.exports = tabbable;
 
 /***/ }),
 
-/***/ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js":
-/*!******************************************************!*\
-  !*** ./node_modules/_tslib@1.9.3@tslib/tslib.es6.js ***!
-  \******************************************************/
+/***/ "./node_modules/tslib/tslib.es6.js":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
 /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2605,10 +2605,10 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./node_modules/_xtend@4.0.1@xtend/immutable.js":
-/*!******************************************************!*\
-  !*** ./node_modules/_xtend@4.0.1@xtend/immutable.js ***!
-  \******************************************************/
+/***/ "./node_modules/xtend/immutable.js":
+/*!*****************************************!*\
+  !*** ./node_modules/xtend/immutable.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -4649,7 +4649,7 @@ function extend() {
                         /***/
                     })
                     /******/
-                })["default"];
+                });
             });
             //# sourceMappingURL=index.js.map
             /***/ 
@@ -4710,7 +4710,7 @@ function extend() {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/dialog/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/dialog/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4763,7 +4763,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/dialog/index.scss");
-var dialog_1 = __webpack_require__(/*! @material/dialog */ "./node_modules/_@material_dialog@2.2.0@@material/dialog/index.js");
+var dialog_1 = __webpack_require__(/*! @material/dialog */ "./node_modules/@material/dialog/index.js");
 __webpack_require__(/*! ../button */ "./src/button/index.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
@@ -4824,7 +4824,7 @@ var Dialog = /** @class */ (function (_super) {
                     props.title && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' },
                         typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message,
-                        this.innerHTML ? util_ts_1.htmlToVdom(this.innerHTML) : props.children && util_ts_1.htmlToVdom(props.children),
+                        omi_1.h("slot", null),
                         omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" })),
                     (props.cancelButton || props.confirmButton) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },

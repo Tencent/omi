@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MList"] = factory(require("omi"));
+		exports["MListOld"] = factory(require("omi"));
 	else
-		root["MList"] = factory(root["Omi"]);
+		root["MListOld"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,23 +91,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/list/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/list-old/index.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/base/component.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/base/component.js ***!
+  \**************************************************/
 /*! exports provided: MDCComponent, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -213,10 +213,10 @@ var MDCComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@material/base/foundation.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@material/base/foundation.js ***!
+  \***************************************************/
 /*! exports provided: MDCFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -302,10 +302,10 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@material/dom/ponyfill.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/dom/ponyfill.js ***!
+  \************************************************/
 /*! exports provided: closest, matches */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -362,21 +362,21 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_list@2.1.1@@material/list/component.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_list@2.1.1@@material/list/component.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/list/component.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/list/component.js ***!
+  \**************************************************/
 /*! exports provided: MDCList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCList", function() { return MDCList; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_list@2.1.1@@material/list/constants.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_list@2.1.1@@material/list/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/list/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/list/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -626,10 +626,10 @@ var MDCList = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_list@2.1.1@@material/list/constants.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_list@2.1.1@@material/list/constants.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/list/constants.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/list/constants.js ***!
+  \**************************************************/
 /*! exports provided: strings, cssClasses, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -691,19 +691,19 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_list@2.1.1@@material/list/foundation.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_@material_list@2.1.1@@material/list/foundation.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@material/list/foundation.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@material/list/foundation.js ***!
+  \***************************************************/
 /*! exports provided: MDCListFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCListFoundation", function() { return MDCListFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_list@2.1.1@@material/list/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/list/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1153,19 +1153,19 @@ var MDCListFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_list@2.1.1@@material/list/index.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/_@material_list@2.1.1@@material/list/index.js ***!
-  \********************************************************************/
+/***/ "./node_modules/@material/list/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/@material/list/index.js ***!
+  \**********************************************/
 /*! exports provided: MDCList, MDCListFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_list@2.1.1@@material/list/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/list/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCList", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCList"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_list@2.1.1@@material/list/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/list/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCListFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCListFoundation"]; });
 
 /**
@@ -1196,21 +1196,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/ripple/component.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/component.js ***!
+  \****************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1325,10 +1325,10 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/ripple/constants.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/constants.js ***!
+  \****************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1388,20 +1388,20 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/@material/ripple/foundation.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/ripple/foundation.js ***!
+  \*****************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1866,21 +1866,21 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/ripple/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/ripple/index.js ***!
+  \************************************************/
 /*! exports provided: util, MDCRipple, MDCRippleFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "util", function() { return _util__WEBPACK_IMPORTED_MODULE_0__; });
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/@material/ripple/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return _component__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCRippleFoundation"]; });
 
 /**
@@ -1913,10 +1913,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/@material/ripple/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@material/ripple/util.js ***!
+  \***********************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2029,14 +2029,14 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/list/index.scss":
-/*!***********************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/list/index.scss ***!
-  \***********************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/list-old/index.scss":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/list-old/index.scss ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -2048,10 +2048,10 @@ exports.push([module.i, ".mdc-list {\n  font-family: Roboto, sans-serif;\n  -moz
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2135,10 +2135,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js":
-/*!******************************************************!*\
-  !*** ./node_modules/_tslib@1.9.3@tslib/tslib.es6.js ***!
-  \******************************************************/
+/***/ "./node_modules/tslib/tslib.es6.js":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
 /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2353,15 +2353,15 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./src/list/index.scss":
-/*!*****************************!*\
-  !*** ./src/list/index.scss ***!
-  \*****************************/
+/***/ "./src/list-old/index.scss":
+/*!*********************************!*\
+  !*** ./src/list-old/index.scss ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/list/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/list-old/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2372,10 +2372,10 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./src/list/index.tsx":
-/*!****************************!*\
-  !*** ./src/list/index.tsx ***!
-  \****************************/
+/***/ "./src/list-old/index.tsx":
+/*!********************************!*\
+  !*** ./src/list-old/index.tsx ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2413,9 +2413,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! ./index.scss */ "./src/list/index.scss");
-var list_1 = __webpack_require__(/*! @material/list */ "./node_modules/_@material_list@2.1.1@@material/list/index.js");
-var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js");
+var css = __webpack_require__(/*! ./index.scss */ "./src/list-old/index.scss");
+var list_1 = __webpack_require__(/*! @material/list */ "./node_modules/@material/list/index.js");
+var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/@material/ripple/index.js");
 var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
@@ -2571,6 +2571,7 @@ var List = /** @class */ (function (_super) {
                 omi_1.h("div", { style: 'display:none' }, this.listAll.push(listOne_1)));
         }
         else {
+            this.groupNum = -1;
             return omi_1.h("div", { class: 'mdc-list-group' }, props.children && props.children.map(function (list) {
                 if (list && list.nodeName === 'm-list') {
                     var listOne_2 = new Array();

@@ -85,13 +85,6 @@
 <m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
 <m-dialog
   id="m-dialog-alert"
-  onOpening
-  onOpened
-  onClosing
-  onClosed
-  onScrim
-  onCancel
-  onConfirm
   message="<p>Discard draft?</p>"
   cancel-button="{
     text: 'Cancel'
@@ -102,16 +95,16 @@
 ></m-dialog>
 <m-dialog
   id="m-dialog-simple"
-  onOpening
-  onOpened
-  onClosing
-  onClosed
-  onScrim
   title='Select an account'
   message="
-    <link rel='stylesheet' type='text/css' href='../css/mdc.list.min.css' />
+    <link rel='stylesheet' type='text/css' href='./dialog/mdc.list.min.css' />
+    <style>
+      .mdc-list-item {
+        padding-left: 15px;
+      }
+    </style>
     <ul class='mdc-list mdc-list--avatar-list'>
-      <li id='li-simple-0' class='mdc-list-item' tabindex='-1'>
+      <li id='li-simple-0' class='mdc-list-item' tabindex='0'>
         <table>
           <tr>
             <td>
@@ -143,7 +136,7 @@
           </tr>
         </table>
       </li>
-      <li id='li-simple-2' class='mdc-list-item' tabindex='0'>
+      <li id='li-simple-2' class='mdc-list-item' tabindex='-1'>
         <table>
           <tr>
             <td>
@@ -172,99 +165,6 @@
   onCancel
   onConfirm
   title='Phone ringtone'
-  message="
-    <link rel='stylesheet' type='text/css' href='../css/mdc.list.min.css' />
-    <style>
-      .m-list-radio {
-        padding: 0;
-      }
-    </style>
-    <ul class='mdc-list' style='list-style-type: none;'>
-      <li id='li-confirmation-0' class='mdc-list-item m-list-radio' tabindex='-1'>
-      <m-radio
-          css='
-            .mdc-form-field {
-              padding: 0 16px;
-              line-height: 48px;
-            }
-            .mdc-radio {
-              margin-left: -7.2px;
-            }
-            .mdc-form-field > label {
-              font-size: initial;
-              cursor: pointer;
-            }
-            /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-            .mdc-radio::before {
-              transition: auto;
-              z-index: 0;
-            }
-            .mdc-radio__native-control {
-              z-index: 0;
-            }
-          '
-          name='abc'
-          label='Never Gonna Give You Up'
-        ></m-radio>
-      </li>
-      <li id='li-confirmation-1' class='mdc-list-item m-list-radio' tabindex='-1'>
-        <m-radio
-          css='
-            .mdc-form-field {
-              padding: 0 16px;
-              line-height: 48px;
-            }
-            .mdc-radio {
-              margin-left: -7.2px;
-            }
-            .mdc-form-field > label {
-              font-size: initial;
-              padding-right: 86px;
-              cursor: pointer;
-            }
-            /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-            .mdc-radio::before {
-              transition: auto;
-              z-index: 0;
-            }
-            .mdc-radio__native-control {
-              z-index: 0;
-            }
-          '
-          name='abc'
-          label='Hot Cross Buns'
-        ></m-radio>
-      </li>
-      <li id='li-confirmation-2' class='mdc-list-item m-list-radio' tabindex='-1'>
-        <m-radio
-          css='
-            .mdc-form-field {
-              padding: 0 16px;
-              line-height: 48px;
-            }
-            .mdc-radio {
-              margin-left: -7.2px;
-            }
-            .mdc-form-field > label {
-              font-size: initial;
-              padding-right: 163px;
-              cursor: pointer;
-            }
-            /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-            .mdc-radio::before {
-              transition: auto;
-              z-index: 0;
-            }
-            .mdc-radio__native-control {
-              z-index: 0;
-            }
-          '
-          name='abc'
-          label='None'
-        ></m-radio>
-      </li>
-    </ul>
-  "
   cancel-button="{
     text: 'Cancel',
     unelevated: true,
@@ -281,13 +181,101 @@
       scale: 1.3
     }
   }"
-></m-dialog>
+>
+  <link rel='stylesheet' type='text/css' href='./dialog/mdc.list.min.css' />
+  <style>
+    .m-list-radio {
+      padding: 0;
+    }
+  </style>
+  <ul class='mdc-list' style='list-style-type: none;'>
+    <li id='li-confirmation-0' class='mdc-list-item m-list-radio' tabindex='-1'>
+    <m-radio
+        css='
+          .mdc-form-field {
+            padding: 0 16px;
+            line-height: 48px;
+          }
+          .mdc-radio {
+            margin-left: -7.2px;
+          }
+          .mdc-form-field > label {
+            font-size: initial;
+            cursor: pointer;
+          }
+          /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+          .mdc-radio::before {
+            transition: auto;
+            z-index: 0;
+          }
+          .mdc-radio__native-control {
+            z-index: 0;
+          }
+        '
+        name='abc'
+        label='Never Gonna Give You Up'
+      ></m-radio>
+    </li>
+    <li id='li-confirmation-1' class='mdc-list-item m-list-radio' tabindex='-1'>
+      <m-radio
+        css='
+          .mdc-form-field {
+            padding: 0 16px;
+            line-height: 48px;
+          }
+          .mdc-radio {
+            margin-left: -7.2px;
+          }
+          .mdc-form-field > label {
+            font-size: initial;
+            padding-right: 86px;
+            cursor: pointer;
+          }
+          /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+          .mdc-radio::before {
+            transition: auto;
+            z-index: 0;
+          }
+          .mdc-radio__native-control {
+            z-index: 0;
+          }
+        '
+        name='abc'
+        label='Hot Cross Buns'
+      ></m-radio>
+    </li>
+    <li id='li-confirmation-2' class='mdc-list-item m-list-radio' tabindex='-1'>
+      <m-radio
+        css='
+          .mdc-form-field {
+            padding: 0 16px;
+            line-height: 48px;
+          }
+          .mdc-radio {
+            margin-left: -7.2px;
+          }
+          .mdc-form-field > label {
+            font-size: initial;
+            padding-right: 163px;
+            cursor: pointer;
+          }
+          /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+          .mdc-radio::before {
+            transition: auto;
+            z-index: 0;
+          }
+          .mdc-radio__native-control {
+            z-index: 0;
+          }
+        '
+        name='abc'
+        label='None'
+      ></m-radio>
+    </li>
+  </ul>
+</m-dialog>
 <m-dialog
   id="m-dialog-scrollable"
-  scrollable
-  onScrim
-  onCancel
-  onConfirm
   title='The Wonderful Wizard of Oz'
   message="
     <p>
