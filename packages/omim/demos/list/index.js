@@ -28,6 +28,27 @@ define('my-app', class extends WeElement {
         onItemClick={this.onItemClick}
       ></m-list>
 
+      <m-list
+        css={`ul{
+        max-width:400px;
+        border: 1px solid rgba(0,0,0,.1);
+      }`}
+        items={[{
+          text: 'Line item1',
+          secondaryText: 'Secondary Text3'
+        },
+        {
+          text: 'Line item2',
+          secondaryText: 'Secondary Text3'
+        },
+        {
+          text: 'Line item3',
+          secondaryText: 'Secondary Text3'
+        }]}
+
+        onItemClick={this.onItemClick}
+      ></m-list>
+
     </div>
   }
 })

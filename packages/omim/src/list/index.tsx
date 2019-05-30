@@ -54,11 +54,18 @@ export default class List extends WeElement<Props, Data>{
 
   render(props) {
 
-    return <ul class="mdc-list">
+    return <ul {...extractClass(props, 'mdc-list', {
+      'mdc-list--two-line': props.items[0].secondaryText
+    })}>
       {props.items.map(item => <li class="mdc-list-item" >
-        <span class="mdc-list-item__text">{item.text ? item.text : item}</span>
+        <span class="mdc-list-item__text">
+          {item.text ? (item.text && item.secondaryText ? [
+            <span class="mdc-list-item__primary-text">{item.text}</span>,
+            <span class="mdc-list-item__secondary-text">{item.secondaryText}</span>] : item.text) : item}
+        </span>
       </li>)}
 
     </ul>
   }
 }
+
