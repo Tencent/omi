@@ -169,9 +169,9 @@
       thowText.innerHTML = "Accepted, thanks!";
     })
     //li-confirmation-0
-    const liConfirmation0 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-0');
-    const liConfirmation1 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-1');
-    const liConfirmation2 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-2');
+    const liConfirmation0 = document.querySelector('#li-confirmation-0');
+    const liConfirmation1 = document.querySelector('#li-confirmation-1');
+    const liConfirmation2 = document.querySelector('#li-confirmation-2');
     liConfirmation0.addEventListener('click', (e) => {
       liConfirmation0.setAttribute('tabindex', '0');
       liConfirmation1.setAttribute('tabindex', '-1');

@@ -1794,7 +1794,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".mdc-dialog,\n.mdc-dialog__scrim {\n  position: fixed;\n  top: 0;\n  left: 0;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: 100%;\n  height: 100%; }\n\n.mdc-dialog {\n  display: none;\n  z-index: 7; }\n  .mdc-dialog .mdc-dialog__surface {\n    background-color: #fff;\n    /* @alternate */\n    background-color: var(--mdc-theme-surface, #fff); }\n  .mdc-dialog .mdc-dialog__scrim {\n    background-color: rgba(0, 0, 0, 0.32); }\n  .mdc-dialog .mdc-dialog__title {\n    color: rgba(0, 0, 0, 0.87); }\n  .mdc-dialog .mdc-dialog__content {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-dialog.mdc-dialog--scrollable .mdc-dialog__title,\n  .mdc-dialog.mdc-dialog--scrollable .mdc-dialog__actions {\n    border-color: rgba(0, 0, 0, 0.12); }\n  .mdc-dialog .mdc-dialog__surface {\n    min-width: 280px; }\n  @media (max-width: 592px) {\n    .mdc-dialog .mdc-dialog__surface {\n      max-width: calc(100vw - 32px); } }\n  @media (min-width: 592px) {\n    .mdc-dialog .mdc-dialog__surface {\n      max-width: 560px; } }\n  .mdc-dialog .mdc-dialog__surface {\n    max-height: calc(100vh - 32px); }\n  .mdc-dialog .mdc-dialog__surface {\n    border-radius: 4px; }\n\n.mdc-dialog__scrim {\n  opacity: 0;\n  z-index: -1; }\n\n.mdc-dialog__container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  box-sizing: border-box;\n  transform: scale(0.8);\n  opacity: 0; }\n\n.mdc-dialog__surface {\n  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 0;\n  flex-shrink: 0;\n  box-sizing: border-box;\n  max-width: 100%;\n  max-height: 100%; }\n  .mdc-dialog[dir=\"rtl\"] .mdc-dialog__surface,\n  [dir=\"rtl\"] .mdc-dialog .mdc-dialog__surface {\n    text-align: right; }\n\n.mdc-dialog__title {\n  display: block;\n  margin-top: 0;\n  /* @alternate */\n  line-height: normal;\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 1.25rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0.0125em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  display: block;\n  position: relative;\n  flex-shrink: 0;\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0 24px 9px;\n  border-bottom: 1px solid transparent; }\n  .mdc-dialog__title::before {\n    display: inline-block;\n    width: 0;\n    height: 40px;\n    content: \"\";\n    vertical-align: 0; }\n  .mdc-dialog[dir=\"rtl\"] .mdc-dialog__title,\n  [dir=\"rtl\"] .mdc-dialog .mdc-dialog__title {\n    text-align: right; }\n\n.mdc-dialog--scrollable .mdc-dialog__title {\n  padding-bottom: 15px; }\n\n.mdc-dialog__content {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: 0.03125em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  flex-grow: 1;\n  box-sizing: border-box;\n  margin: 0;\n  padding: 20px 24px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n  .mdc-dialog__content > :first-child {\n    margin-top: 0; }\n  .mdc-dialog__content > :last-child {\n    margin-bottom: 0; }\n\n.mdc-dialog__title + .mdc-dialog__content {\n  padding-top: 0; }\n\n.mdc-dialog--scrollable .mdc-dialog__content {\n  padding-top: 8px;\n  padding-bottom: 8px; }\n\n.mdc-dialog__content .mdc-list:first-child:last-child {\n  padding: 6px 0 0; }\n\n.mdc-dialog--scrollable .mdc-dialog__content .mdc-list:first-child:last-child {\n  padding: 0; }\n\n.mdc-dialog__actions {\n  display: flex;\n  position: relative;\n  flex-shrink: 0;\n  flex-wrap: wrap;\n  align-items: center;\n  justify-content: flex-end;\n  box-sizing: border-box;\n  min-height: 52px;\n  margin: 0;\n  padding: 8px;\n  border-top: 1px solid transparent; }\n  .mdc-dialog--stacked .mdc-dialog__actions {\n    flex-direction: column;\n    align-items: flex-end; }\n\n.mdc-dialog__button {\n  /* @noflip */\n  margin-left: 8px;\n  /* @noflip */\n  margin-right: 0;\n  max-width: 100%;\n  text-align: right; }\n  [dir=\"rtl\"] .mdc-dialog__button, .mdc-dialog__button[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 8px; }\n  .mdc-dialog__button:first-child {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 0; }\n    [dir=\"rtl\"] .mdc-dialog__button:first-child, .mdc-dialog__button:first-child[dir=\"rtl\"] {\n      /* @noflip */\n      margin-left: 0;\n      /* @noflip */\n      margin-right: 0; }\n  .mdc-dialog[dir=\"rtl\"] .mdc-dialog__button,\n  [dir=\"rtl\"] .mdc-dialog .mdc-dialog__button {\n    text-align: left; }\n  .mdc-dialog--stacked .mdc-dialog__button:not(:first-child) {\n    margin-top: 12px; }\n\n.mdc-dialog--open,\n.mdc-dialog--opening,\n.mdc-dialog--closing {\n  display: flex; }\n\n.mdc-dialog--opening .mdc-dialog__scrim {\n  transition: opacity 150ms linear; }\n\n.mdc-dialog--opening .mdc-dialog__container {\n  transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n\n.mdc-dialog--closing .mdc-dialog__scrim,\n.mdc-dialog--closing .mdc-dialog__container {\n  transition: opacity 75ms linear; }\n\n.mdc-dialog--closing .mdc-dialog__container {\n  transform: scale(1); }\n\n.mdc-dialog--open .mdc-dialog__scrim {\n  opacity: 1; }\n\n.mdc-dialog--open .mdc-dialog__container {\n  transform: scale(1);\n  opacity: 1; }\n\n.mdc-dialog-scroll-lock {\n  overflow: hidden; }\n\n.mdc-dialog m-button {\n  margin-left: 8px; }\n\n.m-dialog-content-focus {\n  display: block;\n  margin-top: -16px; }\n", ""]);
+exports.push([module.i, ".mdc-dialog,\n.mdc-dialog__scrim {\n  position: fixed;\n  top: 0;\n  left: 0;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: 100%;\n  height: 100%; }\n\n.mdc-dialog {\n  display: none;\n  z-index: 7; }\n  .mdc-dialog .mdc-dialog__surface {\n    background-color: #ffffff;\n    /* @alternate */\n    background-color: var(--mdc-theme-surface, #ffffff); }\n  .mdc-dialog .mdc-dialog__scrim {\n    background-color: rgba(0, 0, 0, 0.32); }\n  .mdc-dialog .mdc-dialog__title {\n    color: rgba(0, 0, 0, 0.87); }\n  .mdc-dialog .mdc-dialog__content {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-dialog.mdc-dialog--scrollable .mdc-dialog__title,\n  .mdc-dialog.mdc-dialog--scrollable .mdc-dialog__actions {\n    border-color: rgba(0, 0, 0, 0.12); }\n  .mdc-dialog .mdc-dialog__surface {\n    min-width: 280px; }\n  @media (max-width: 592px) {\n    .mdc-dialog .mdc-dialog__surface {\n      max-width: calc(100vw - 32px); } }\n  @media (min-width: 592px) {\n    .mdc-dialog .mdc-dialog__surface {\n      max-width: 560px; } }\n  .mdc-dialog .mdc-dialog__surface {\n    max-height: calc(100vh - 32px); }\n  .mdc-dialog .mdc-dialog__surface {\n    border-radius: 4px; }\n\n.mdc-dialog__scrim {\n  opacity: 0;\n  z-index: -1; }\n\n.mdc-dialog__container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  box-sizing: border-box;\n  transform: scale(0.8);\n  opacity: 0; }\n\n.mdc-dialog__surface {\n  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);\n  display: flex;\n  flex-direction: column;\n  flex-grow: 0;\n  flex-shrink: 0;\n  box-sizing: border-box;\n  max-width: 100%;\n  max-height: 100%; }\n  .mdc-dialog[dir=\"rtl\"] .mdc-dialog__surface,\n  [dir=\"rtl\"] .mdc-dialog .mdc-dialog__surface {\n    text-align: right; }\n\n.mdc-dialog__title {\n  display: block;\n  margin-top: 0;\n  /* @alternate */\n  line-height: normal;\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 1.25rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0.0125em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  display: block;\n  position: relative;\n  flex-shrink: 0;\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0 24px 9px;\n  border-bottom: 1px solid transparent; }\n  .mdc-dialog__title::before {\n    display: inline-block;\n    width: 0;\n    height: 40px;\n    content: \"\";\n    vertical-align: 0; }\n  .mdc-dialog[dir=\"rtl\"] .mdc-dialog__title,\n  [dir=\"rtl\"] .mdc-dialog .mdc-dialog__title {\n    text-align: right; }\n\n.mdc-dialog--scrollable .mdc-dialog__title {\n  padding-bottom: 15px; }\n\n.mdc-dialog__content {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: 0.03125em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  flex-grow: 1;\n  box-sizing: border-box;\n  margin: 0;\n  padding: 20px 24px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n  .mdc-dialog__content > :first-child {\n    margin-top: 0; }\n  .mdc-dialog__content > :last-child {\n    margin-bottom: 0; }\n\n.mdc-dialog__title + .mdc-dialog__content {\n  padding-top: 0; }\n\n.mdc-dialog--scrollable .mdc-dialog__content {\n  padding-top: 8px;\n  padding-bottom: 8px; }\n\n.mdc-dialog__content .mdc-list:first-child:last-child {\n  padding: 6px 0 0; }\n\n.mdc-dialog--scrollable .mdc-dialog__content .mdc-list:first-child:last-child {\n  padding: 0; }\n\n.mdc-dialog__actions {\n  display: flex;\n  position: relative;\n  flex-shrink: 0;\n  flex-wrap: wrap;\n  align-items: center;\n  justify-content: flex-end;\n  box-sizing: border-box;\n  min-height: 52px;\n  margin: 0;\n  padding: 8px;\n  border-top: 1px solid transparent; }\n  .mdc-dialog--stacked .mdc-dialog__actions {\n    flex-direction: column;\n    align-items: flex-end; }\n\n.mdc-dialog__button {\n  /* @noflip */\n  margin-left: 8px;\n  /* @noflip */\n  margin-right: 0;\n  max-width: 100%;\n  text-align: right; }\n  [dir=\"rtl\"] .mdc-dialog__button, .mdc-dialog__button[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 8px; }\n  .mdc-dialog__button:first-child {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 0; }\n    [dir=\"rtl\"] .mdc-dialog__button:first-child, .mdc-dialog__button:first-child[dir=\"rtl\"] {\n      /* @noflip */\n      margin-left: 0;\n      /* @noflip */\n      margin-right: 0; }\n  .mdc-dialog[dir=\"rtl\"] .mdc-dialog__button,\n  [dir=\"rtl\"] .mdc-dialog .mdc-dialog__button {\n    text-align: left; }\n  .mdc-dialog--stacked .mdc-dialog__button:not(:first-child) {\n    margin-top: 12px; }\n\n.mdc-dialog--open,\n.mdc-dialog--opening,\n.mdc-dialog--closing {\n  display: flex; }\n\n.mdc-dialog--opening .mdc-dialog__scrim {\n  transition: opacity 150ms linear; }\n\n.mdc-dialog--opening .mdc-dialog__container {\n  transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n\n.mdc-dialog--closing .mdc-dialog__scrim,\n.mdc-dialog--closing .mdc-dialog__container {\n  transition: opacity 75ms linear; }\n\n.mdc-dialog--closing .mdc-dialog__container {\n  transform: scale(1); }\n\n.mdc-dialog--open .mdc-dialog__scrim {\n  opacity: 1; }\n\n.mdc-dialog--open .mdc-dialog__container {\n  transform: scale(1);\n  opacity: 1; }\n\n.mdc-dialog-scroll-lock {\n  overflow: hidden; }\n\n.mdc-dialog m-button {\n  margin-left: 8px; }\n\n.m-dialog-content-focus {\n  display: block;\n  margin-top: -16px; }\n", ""]);
 
 // exports
 
@@ -1898,6 +1898,8 @@ function toComment(sourceMap) {
 var tabbable = __webpack_require__(/*! tabbable */ "./node_modules/tabbable/index.js");
 var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
 
+var activeFocusDelay;
+
 var activeFocusTraps = (function() {
   var trapQueue = [];
   return {
@@ -1987,6 +1989,8 @@ function focusTrap(element, userOptions) {
   function deactivate(deactivateOptions) {
     if (!state.active) return;
 
+    clearTimeout(activeFocusDelay);
+
     removeListeners();
     state.active = false;
     state.paused = false;
@@ -2035,9 +2039,10 @@ function focusTrap(element, userOptions) {
 
     // Delay ensures that the focused element doesn't capture the event
     // that caused the focus trap activation.
-    delay(function() {
+    activeFocusDelay = delay(function() {
       tryFocus(getInitialFocusNode());
     });
+
     doc.addEventListener('focusin', checkFocusIn, true);
     doc.addEventListener('mousedown', checkPointerDown, {
       capture: true,
@@ -2739,17 +2744,17 @@ function extend() {
         /******/ return __webpack_require__(__webpack_require__.s = "./src/button/index.tsx");
         /******/ 
     })({
-        /***/ "./node_modules/@material/base/component.js": 
-        /*!**************************************************!*\
-          !*** ./node_modules/@material/base/component.js ***!
-          \**************************************************/
+        /***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js": 
+        /*!************************************************************************!*\
+          !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
+          \************************************************************************/
         /*! exports provided: MDCComponent, default */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function () { return MDCComponent; });
-            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+            /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
             /**
              * @license
              * Copyright 2016 Google Inc.
@@ -2853,10 +2858,10 @@ function extend() {
             //# sourceMappingURL=component.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/base/foundation.js": 
-        /*!***************************************************!*\
-          !*** ./node_modules/@material/base/foundation.js ***!
-          \***************************************************/
+        /***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js": 
+        /*!*************************************************************************!*\
+          !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
+          \*************************************************************************/
         /*! exports provided: MDCFoundation, default */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -2941,10 +2946,10 @@ function extend() {
             //# sourceMappingURL=foundation.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/dom/ponyfill.js": 
-        /*!************************************************!*\
-          !*** ./node_modules/@material/dom/ponyfill.js ***!
-          \************************************************/
+        /***/ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js": 
+        /*!*********************************************************************!*\
+          !*** ./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js ***!
+          \*********************************************************************/
         /*! exports provided: closest, matches */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -2999,20 +3004,20 @@ function extend() {
             //# sourceMappingURL=ponyfill.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/ripple/component.js": 
-        /*!****************************************************!*\
-          !*** ./node_modules/@material/ripple/component.js ***!
-          \****************************************************/
+        /***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js": 
+        /*!****************************************************************************!*\
+          !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js ***!
+          \****************************************************************************/
         /*! exports provided: MDCRipple */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function () { return MDCRipple; });
-            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-            /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
-            /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
-            /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+            /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
+            /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
+            /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
+            /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
             /**
              * @license
              * Copyright 2016 Google Inc.
@@ -3122,10 +3127,10 @@ function extend() {
             //# sourceMappingURL=component.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/ripple/constants.js": 
-        /*!****************************************************!*\
-          !*** ./node_modules/@material/ripple/constants.js ***!
-          \****************************************************/
+        /***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js": 
+        /*!****************************************************************************!*\
+          !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js ***!
+          \****************************************************************************/
         /*! exports provided: cssClasses, strings, numbers */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -3183,19 +3188,19 @@ function extend() {
             //# sourceMappingURL=constants.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/ripple/foundation.js": 
-        /*!*****************************************************!*\
-          !*** ./node_modules/@material/ripple/foundation.js ***!
-          \*****************************************************/
+        /***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js": 
+        /*!*****************************************************************************!*\
+          !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js ***!
+          \*****************************************************************************/
         /*! exports provided: MDCRippleFoundation, default */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function () { return MDCRippleFoundation; });
-            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-            /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
-            /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+            /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+            /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js");
+            /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
             /**
              * @license
              * Copyright 2016 Google Inc.
@@ -3654,19 +3659,19 @@ function extend() {
             //# sourceMappingURL=foundation.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/ripple/index.js": 
-        /*!************************************************!*\
-          !*** ./node_modules/@material/ripple/index.js ***!
-          \************************************************/
+        /***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js": 
+        /*!************************************************************************!*\
+          !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js ***!
+          \************************************************************************/
         /*! exports provided: util, MDCRipple, MDCRippleFoundation */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+            /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
             /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "util", function () { return _util__WEBPACK_IMPORTED_MODULE_0__; });
-            /* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/@material/ripple/component.js");
+            /* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function () { return _component__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"]; });
-            /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
+            /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function () { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCRippleFoundation"]; });
             /**
              * @license
@@ -3693,10 +3698,10 @@ function extend() {
             //# sourceMappingURL=index.js.map
             /***/ 
         }),
-        /***/ "./node_modules/@material/ripple/util.js": 
-        /*!***********************************************!*\
-          !*** ./node_modules/@material/ripple/util.js ***!
-          \***********************************************/
+        /***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js": 
+        /*!***********************************************************************!*\
+          !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js ***!
+          \***********************************************************************/
         /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -3813,23 +3818,23 @@ function extend() {
             //# sourceMappingURL=util.js.map
             /***/ 
         }),
-        /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/button/index.scss": 
-        /*!************************************************************************************************************!*\
-          !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/button/index.scss ***!
-          \************************************************************************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/button/index.scss": 
+        /*!*************************************************************************************************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/button/index.scss ***!
+          \*************************************************************************************************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+            exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
             // imports
             // module
-            exports.push([module.i, ".mdc-button {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.875rem;\n  line-height: 2.25rem;\n  font-weight: 500;\n  letter-spacing: 0.08929em;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 0 8px 0 8px;\n  display: inline-flex;\n  position: relative;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  min-width: 64px;\n  height: 36px;\n  border: none;\n  outline: none;\n  /* @alternate */\n  line-height: inherit;\n  user-select: none;\n  -webkit-appearance: none;\n  overflow: hidden;\n  vertical-align: middle;\n  border-radius: 4px; }\n  .mdc-button::-moz-focus-inner {\n    padding: 0;\n    border: 0; }\n  .mdc-button:active {\n    outline: none; }\n  .mdc-button:hover {\n    cursor: pointer; }\n  .mdc-button:disabled {\n    background-color: transparent;\n    color: rgba(0, 0, 0, 0.37);\n    cursor: default;\n    pointer-events: none; }\n  .mdc-button.mdc-button--dense {\n    border-radius: 4px; }\n  .mdc-button:not(:disabled) {\n    background-color: transparent; }\n  .mdc-button .mdc-button__icon {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 8px;\n    display: inline-block;\n    width: 18px;\n    height: 18px;\n    font-size: 18px;\n    vertical-align: top; }\n    [dir=\"rtl\"] .mdc-button .mdc-button__icon, .mdc-button .mdc-button__icon[dir=\"rtl\"] {\n      /* @noflip */\n      margin-left: 8px;\n      /* @noflip */\n      margin-right: 0; }\n  .mdc-button:not(:disabled) {\n    color: #0052d9;\n    /* @alternate */\n    color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-button__label + .mdc-button__icon {\n  /* @noflip */\n  margin-left: 8px;\n  /* @noflip */\n  margin-right: 0; }\n  [dir=\"rtl\"] .mdc-button__label + .mdc-button__icon, .mdc-button__label + .mdc-button__icon[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 8px; }\n\nsvg.mdc-button__icon {\n  fill: currentColor; }\n\n.mdc-button--raised .mdc-button__icon,\n.mdc-button--unelevated .mdc-button__icon,\n.mdc-button--outlined .mdc-button__icon {\n  /* @noflip */\n  margin-left: -4px;\n  /* @noflip */\n  margin-right: 8px; }\n  [dir=\"rtl\"] .mdc-button--raised .mdc-button__icon, .mdc-button--raised .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--unelevated .mdc-button__icon,\n  .mdc-button--unelevated .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--outlined .mdc-button__icon,\n  .mdc-button--outlined .mdc-button__icon[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 8px;\n    /* @noflip */\n    margin-right: -4px; }\n\n.mdc-button--raised .mdc-button__label + .mdc-button__icon,\n.mdc-button--unelevated .mdc-button__label + .mdc-button__icon,\n.mdc-button--outlined .mdc-button__label + .mdc-button__icon {\n  /* @noflip */\n  margin-left: 8px;\n  /* @noflip */\n  margin-right: -4px; }\n  [dir=\"rtl\"] .mdc-button--raised .mdc-button__label + .mdc-button__icon, .mdc-button--raised .mdc-button__label + .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--unelevated .mdc-button__label + .mdc-button__icon,\n  .mdc-button--unelevated .mdc-button__label + .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--outlined .mdc-button__label + .mdc-button__icon,\n  .mdc-button--outlined .mdc-button__label + .mdc-button__icon[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: -4px;\n    /* @noflip */\n    margin-right: 8px; }\n\n.mdc-button--raised,\n.mdc-button--unelevated {\n  padding: 0 16px 0 16px; }\n  .mdc-button--raised:disabled,\n  .mdc-button--unelevated:disabled {\n    background-color: rgba(0, 0, 0, 0.12);\n    color: rgba(0, 0, 0, 0.37); }\n  .mdc-button--raised:not(:disabled),\n  .mdc-button--unelevated:not(:disabled) {\n    background-color: #0052d9; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-button--raised:not(:disabled),\n      .mdc-button--unelevated:not(:disabled) {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #0052d9); } }\n  .mdc-button--raised:not(:disabled),\n  .mdc-button--unelevated:not(:disabled) {\n    color: #fff;\n    /* @alternate */\n    color: var(--mdc-theme-on-primary, #fff); }\n\n.mdc-button--raised {\n  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);\n  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); }\n  .mdc-button--raised:hover, .mdc-button--raised:focus {\n    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12); }\n  .mdc-button--raised:active {\n    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); }\n  .mdc-button--raised:disabled {\n    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12); }\n\n.mdc-button--outlined {\n  border-style: solid;\n  padding: 0 15px 0 15px;\n  border-width: 1px; }\n  .mdc-button--outlined:disabled {\n    border-color: rgba(0, 0, 0, 0.37); }\n  .mdc-button--outlined:not(:disabled) {\n    border-color: #0052d9;\n    /* @alternate */\n    border-color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-button--dense {\n  height: 32px;\n  font-size: .8125rem; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-button {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity; }\n  .mdc-button::before, .mdc-button::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-button::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-button.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-button.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-button.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-button.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-button.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-button::before, .mdc-button::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-button.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-button::before, .mdc-button::after {\n    background-color: #0052d9; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-button::before, .mdc-button::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #0052d9); } }\n  .mdc-button:hover::before {\n    opacity: 0.04; }\n  .mdc-button:not(.mdc-ripple-upgraded):focus::before, .mdc-button.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-button:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-button:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-button.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.mdc-button--raised::before, .mdc-button--raised::after,\n.mdc-button--unelevated::before,\n.mdc-button--unelevated::after {\n  background-color: #fff; }\n  @supports not (-ms-ime-align: auto) {\n    .mdc-button--raised::before, .mdc-button--raised::after,\n    .mdc-button--unelevated::before,\n    .mdc-button--unelevated::after {\n      /* @alternate */\n      background-color: var(--mdc-theme-on-primary, #fff); } }\n\n.mdc-button--raised:hover::before,\n.mdc-button--unelevated:hover::before {\n  opacity: 0.08; }\n\n.mdc-button--raised:not(.mdc-ripple-upgraded):focus::before, .mdc-button--raised.mdc-ripple-upgraded--background-focused::before,\n.mdc-button--unelevated:not(.mdc-ripple-upgraded):focus::before,\n.mdc-button--unelevated.mdc-ripple-upgraded--background-focused::before {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-button--raised:not(.mdc-ripple-upgraded)::after,\n.mdc-button--unelevated:not(.mdc-ripple-upgraded)::after {\n  transition: opacity 150ms linear; }\n\n.mdc-button--raised:not(.mdc-ripple-upgraded):active::after,\n.mdc-button--unelevated:not(.mdc-ripple-upgraded):active::after {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-button--raised.mdc-ripple-upgraded,\n.mdc-button--unelevated.mdc-ripple-upgraded {\n  --mdc-ripple-fg-opacity: 0.24; }\n\n.m-icon {\n  margin-right: 0.6em; }\n", ""]);
+            exports.push([module.i, ".mdc-button {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.875rem;\n  line-height: 2.25rem;\n  font-weight: 500;\n  letter-spacing: 0.08929em;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 0 8px 0 8px;\n  display: inline-flex;\n  position: relative;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  min-width: 64px;\n  height: 36px;\n  border: none;\n  outline: none;\n  /* @alternate */\n  line-height: inherit;\n  user-select: none;\n  -webkit-appearance: none;\n  overflow: hidden;\n  vertical-align: middle;\n  border-radius: 4px; }\n  .mdc-button::-moz-focus-inner {\n    padding: 0;\n    border: 0; }\n  .mdc-button:active {\n    outline: none; }\n  .mdc-button:hover {\n    cursor: pointer; }\n  .mdc-button:disabled {\n    background-color: transparent;\n    color: rgba(0, 0, 0, 0.37);\n    cursor: default;\n    pointer-events: none; }\n  .mdc-button.mdc-button--dense {\n    border-radius: 4px; }\n  .mdc-button:not(:disabled) {\n    background-color: transparent; }\n  .mdc-button .mdc-button__icon {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 8px;\n    display: inline-block;\n    width: 18px;\n    height: 18px;\n    font-size: 18px;\n    vertical-align: top; }\n    [dir=\"rtl\"] .mdc-button .mdc-button__icon, .mdc-button .mdc-button__icon[dir=\"rtl\"] {\n      /* @noflip */\n      margin-left: 8px;\n      /* @noflip */\n      margin-right: 0; }\n  .mdc-button:not(:disabled) {\n    color: #0052d9;\n    /* @alternate */\n    color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-button__label + .mdc-button__icon {\n  /* @noflip */\n  margin-left: 8px;\n  /* @noflip */\n  margin-right: 0; }\n  [dir=\"rtl\"] .mdc-button__label + .mdc-button__icon, .mdc-button__label + .mdc-button__icon[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: 8px; }\n\nsvg.mdc-button__icon {\n  fill: currentColor; }\n\n.mdc-button--raised .mdc-button__icon,\n.mdc-button--unelevated .mdc-button__icon,\n.mdc-button--outlined .mdc-button__icon {\n  /* @noflip */\n  margin-left: -4px;\n  /* @noflip */\n  margin-right: 8px; }\n  [dir=\"rtl\"] .mdc-button--raised .mdc-button__icon, .mdc-button--raised .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--unelevated .mdc-button__icon,\n  .mdc-button--unelevated .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--outlined .mdc-button__icon,\n  .mdc-button--outlined .mdc-button__icon[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 8px;\n    /* @noflip */\n    margin-right: -4px; }\n\n.mdc-button--raised .mdc-button__label + .mdc-button__icon,\n.mdc-button--unelevated .mdc-button__label + .mdc-button__icon,\n.mdc-button--outlined .mdc-button__label + .mdc-button__icon {\n  /* @noflip */\n  margin-left: 8px;\n  /* @noflip */\n  margin-right: -4px; }\n  [dir=\"rtl\"] .mdc-button--raised .mdc-button__label + .mdc-button__icon, .mdc-button--raised .mdc-button__label + .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--unelevated .mdc-button__label + .mdc-button__icon,\n  .mdc-button--unelevated .mdc-button__label + .mdc-button__icon[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-button--outlined .mdc-button__label + .mdc-button__icon,\n  .mdc-button--outlined .mdc-button__label + .mdc-button__icon[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: -4px;\n    /* @noflip */\n    margin-right: 8px; }\n\n.mdc-button--raised,\n.mdc-button--unelevated {\n  padding: 0 16px 0 16px; }\n  .mdc-button--raised:disabled,\n  .mdc-button--unelevated:disabled {\n    background-color: rgba(0, 0, 0, 0.12);\n    color: rgba(0, 0, 0, 0.37); }\n  .mdc-button--raised:not(:disabled),\n  .mdc-button--unelevated:not(:disabled) {\n    background-color: #0052d9; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-button--raised:not(:disabled),\n      .mdc-button--unelevated:not(:disabled) {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #0052d9); } }\n  .mdc-button--raised:not(:disabled),\n  .mdc-button--unelevated:not(:disabled) {\n    color: #ffffff;\n    /* @alternate */\n    color: var(--mdc-theme-on-primary, #ffffff); }\n\n.mdc-button--raised {\n  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);\n  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); }\n  .mdc-button--raised:hover, .mdc-button--raised:focus {\n    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12); }\n  .mdc-button--raised:active {\n    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); }\n  .mdc-button--raised:disabled {\n    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12); }\n\n.mdc-button--outlined {\n  border-style: solid;\n  padding: 0 15px 0 15px;\n  border-width: 1px; }\n  .mdc-button--outlined:disabled {\n    border-color: rgba(0, 0, 0, 0.37); }\n  .mdc-button--outlined:not(:disabled) {\n    border-color: #0052d9;\n    /* @alternate */\n    border-color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-button--dense {\n  height: 32px;\n  font-size: .8125rem; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-button {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n  .mdc-button::before, .mdc-button::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-button::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-button.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-button.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-button.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-button.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-button.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-button::before, .mdc-button::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-button.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-button::before, .mdc-button::after {\n    background-color: #0052d9; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-button::before, .mdc-button::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #0052d9); } }\n  .mdc-button:hover::before {\n    opacity: 0.04; }\n  .mdc-button:not(.mdc-ripple-upgraded):focus::before, .mdc-button.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-button:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-button:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-button.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.mdc-button--raised::before, .mdc-button--raised::after,\n.mdc-button--unelevated::before,\n.mdc-button--unelevated::after {\n  background-color: #ffffff; }\n  @supports not (-ms-ime-align: auto) {\n    .mdc-button--raised::before, .mdc-button--raised::after,\n    .mdc-button--unelevated::before,\n    .mdc-button--unelevated::after {\n      /* @alternate */\n      background-color: var(--mdc-theme-on-primary, #ffffff); } }\n\n.mdc-button--raised:hover::before,\n.mdc-button--unelevated:hover::before {\n  opacity: 0.08; }\n\n.mdc-button--raised:not(.mdc-ripple-upgraded):focus::before, .mdc-button--raised.mdc-ripple-upgraded--background-focused::before,\n.mdc-button--unelevated:not(.mdc-ripple-upgraded):focus::before,\n.mdc-button--unelevated.mdc-ripple-upgraded--background-focused::before {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-button--raised:not(.mdc-ripple-upgraded)::after,\n.mdc-button--unelevated:not(.mdc-ripple-upgraded)::after {\n  transition: opacity 150ms linear; }\n\n.mdc-button--raised:not(.mdc-ripple-upgraded):active::after,\n.mdc-button--unelevated:not(.mdc-ripple-upgraded):active::after {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-button--raised.mdc-ripple-upgraded,\n.mdc-button--unelevated.mdc-ripple-upgraded {\n  --mdc-ripple-fg-opacity: 0.24; }\n\n.m-icon {\n  margin-right: 0.6em; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n", ""]);
             // exports
             /***/ 
         }),
-        /***/ "./node_modules/css-loader/lib/css-base.js": 
-        /*!*************************************************!*\
-          !*** ./node_modules/css-loader/lib/css-base.js ***!
-          \*************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js": 
+        /*!*******************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+          \*******************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports) {
             /*
@@ -3904,10 +3909,10 @@ function extend() {
             }
             /***/ 
         }),
-        /***/ "./node_modules/tslib/tslib.es6.js": 
-        /*!*****************************************!*\
-          !*** ./node_modules/tslib/tslib.es6.js ***!
-          \*****************************************/
+        /***/ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js": 
+        /*!******************************************************!*\
+          !*** ./node_modules/_tslib@1.9.3@tslib/tslib.es6.js ***!
+          \******************************************************/
         /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -4199,7 +4204,7 @@ function extend() {
           \*******************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/button/index.scss");
+            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/button/index.scss");
             if (typeof result === "string") {
                 module.exports = result;
             }
@@ -4255,13 +4260,18 @@ function extend() {
             Object.defineProperty(exports, "__esModule", { value: true });
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/button/index.scss");
-            var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/@material/ripple/index.js");
+            var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js");
             __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+            //@ts-ignore
+            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Button = /** @class */ (function (_super) {
                 __extends(Button, _super);
                 function Button() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
+                Button.resetTheme = function () {
+                    this.css = theme_ts_1.theme() + css;
+                };
                 Button.prototype.installed = function () {
                     if (this.props.ripple) {
                         new ripple_1.MDCRipple(this.shadowRoot.querySelector('.mdc-button'));
@@ -4273,16 +4283,20 @@ function extend() {
                         'mdc-button--raised': props.raised,
                         'mdc-button--unelevated': props.unelevated,
                         'mdc-button--outlined': props.outlined
-                    })), (props.icon) && omi_1.h("m-icon", __assign({ class: 'm-icon' }, props.icon)), omi_1.h("span", { class: "mdc-button__label" }, omi_1.h("slot", null))));
+                    })), (props.icon) && omi_1.h("i", { class: "material-icons mdc-button__icon" }, props.icon), (props.svgIcon) && omi_1.h("m-icon", __assign({ class: 'm-icon' }, props.svgIcon)), omi_1.h("span", { class: "mdc-button__label" }, omi_1.h("slot", null))));
                 };
-                Button.css = css;
+                Button.css = theme_ts_1.theme() + css;
+                Button.defaultProps = {
+                    ripple: true
+                };
                 Button.propTypes = {
                     ripple: Boolean,
                     raised: Boolean,
                     dense: Boolean,
                     unelevated: Boolean,
                     outlined: Boolean,
-                    icon: Object
+                    svgIcon: Object,
+                    icon: String
                 };
                 Button = __decorate([
                     omi_1.tag('m-button')
@@ -4400,23 +4414,23 @@ function extend() {
                     /******/ return __webpack_require__(__webpack_require__.s = "./src/icon/index.tsx");
                     /******/
                 })({
-                    /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/icon/index.scss": 
-                    /*!**********************************************************************************************************!*\
-                      !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/icon/index.scss ***!
-                      \**********************************************************************************************************/
+                    /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
+                    /*!***********************************************************************************************************************************************!*\
+                      !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/icon/index.scss ***!
+                      \***********************************************************************************************************************************************/
                     /*! no static exports found */
                     /***/ (function (module, exports, __webpack_require__) {
-                        exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+                        exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
                         // imports
                         // module
                         exports.push([module.i, ".m-icon {\n  text-align: center;\n  display: inline-block; }\n\n.m-icon svg {\n  display: inline-block;\n  vertical-align: top; }\n\n.rotate {\n  display: inline-block;\n  -webkit-animation: rotate 1s infinite linear;\n  animation: rotate 1s infinite linear; }\n\ni div {\n  font-style: normal; }\n\n@-webkit-keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
                         // exports
                         /***/
                     }),
-                    /***/ "./node_modules/css-loader/lib/css-base.js": 
-                    /*!*************************************************!*\
-                      !*** ./node_modules/css-loader/lib/css-base.js ***!
-                      \*************************************************/
+                    /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js": 
+                    /*!*******************************************************************!*\
+                      !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+                      \*******************************************************************/
                     /*! no static exports found */
                     /***/ (function (module, exports) {
                         /*
@@ -4497,7 +4511,7 @@ function extend() {
                       \*****************************/
                     /*! no static exports found */
                     /***/ (function (module, exports, __webpack_require__) {
-                        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/icon/index.scss");
+                        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
                         if (typeof result === "string") {
                             module.exports = result;
                         }
@@ -4555,11 +4569,16 @@ function extend() {
                         Object.defineProperty(exports, "__esModule", { value: true });
                         var omi_1 = __webpack_require__(/*! omi */ "omi");
                         var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+                        //@ts-ignore
+                        var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
                         var Icon = /** @class */ (function (_super) {
                             __extends(Icon, _super);
                             function Icon() {
                                 return _super !== null && _super.apply(this, arguments) || this;
                             }
+                            Icon.resetTheme = function () {
+                                this.css = theme_ts_1.theme() + css;
+                            };
                             Icon.prototype.render = function (props) {
                                 return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon')), omi_1.h("svg", { viewBox: '0 0 ' + props.view + ' ' + props.view, class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
                                     var attrs = { d: item.path, fill: props.color || 'black' };
@@ -4568,7 +4587,7 @@ function extend() {
                                     return omi_1.h("path", __assign({}, attrs));
                                 })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                             };
-                            Icon.css = css;
+                            Icon.css = theme_ts_1.theme() + css;
                             Icon.defaultProps = {
                                 view: 1024,
                                 scale: 2
@@ -4577,7 +4596,9 @@ function extend() {
                                 path: String,
                                 paths: Object,
                                 view: Number,
-                                scale: Number
+                                scale: Number,
+                                color: String,
+                                rotate: Boolean
                             };
                             Icon = __decorate([
                                 omi_1.tag('m-icon')
@@ -4585,6 +4606,37 @@ function extend() {
                             return Icon;
                         }(omi_1.WeElement));
                         exports.default = Icon;
+                        /***/
+                    }),
+                    /***/ "./src/theme.ts": 
+                    /*!**********************!*\
+                      !*** ./src/theme.ts ***!
+                      \**********************/
+                    /*! no static exports found */
+                    /***/ (function (module, exports, __webpack_require__) {
+                        "use strict";
+                        Object.defineProperty(exports, "__esModule", { value: true });
+                        if (typeof window === 'object') {
+                            window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+                            window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+                            window.OmimThemeError = window.OmimThemeError || '#f5222d';
+                            window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+                            window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+                            window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+                            window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+                            window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+                            window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+                            window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+                            window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+                            window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+                            window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+                        }
+                        function theme() {
+                            if (typeof window === 'object') {
+                                return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
+                            }
+                        }
+                        exports.theme = theme;
                         /***/
                     }),
                     /***/ "omi": 
@@ -4602,6 +4654,37 @@ function extend() {
             //# sourceMappingURL=index.js.map
             /***/ 
         }),
+        /***/ "./src/theme.ts": 
+        /*!**********************!*\
+          !*** ./src/theme.ts ***!
+          \**********************/
+        /*! no static exports found */
+        /***/ (function (module, exports, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports, "__esModule", { value: true });
+            if (typeof window === 'object') {
+                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+                window.OmimThemeError = window.OmimThemeError || '#f5222d';
+                window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+                window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+                window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+                window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+                window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+                window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+                window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+                window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+                window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+                window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+            }
+            function theme() {
+                if (typeof window === 'object') {
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
+                }
+            }
+            exports.theme = theme;
+            /***/ 
+        }),
         /***/ "omi": 
         /*!******************************************************************************!*\
           !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
@@ -4612,7 +4695,7 @@ function extend() {
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 
@@ -4684,6 +4767,8 @@ var dialog_1 = __webpack_require__(/*! @material/dialog */ "./node_modules/@mate
 __webpack_require__(/*! ../button */ "./src/button/index.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
@@ -4702,12 +4787,16 @@ var Dialog = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Dialog.resetTheme = function () {
+        this.css = theme_ts_1.theme() + css;
+    };
     Dialog.prototype.updated = function () {
         this.props.show ? this.dialog.open() : this.dialog.close();
     };
     Dialog.prototype.installed = function () {
         var _this = this;
         this.dialog = new dialog_1.MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
+        this.props.show ? this.dialog.open() : this.dialog.close();
         this.dialog.listen('MDCDialog:opening', function (evt) {
             _this.fire('opening', evt);
             evt && evt.stopPropagation();
@@ -4732,16 +4821,17 @@ var Dialog = /** @class */ (function (_super) {
             omi_1.h("div", { class: 'mdc-dialog__scrim', onClick: this.onScrim }),
             omi_1.h("div", { class: 'mdc-dialog__container' },
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
-                    (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
+                    props.title && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' },
                         typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message,
+                        omi_1.h("slot", null),
                         omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" })),
-                    ((props.cancelButton) || (props.confirmButton)) &&
+                    (props.cancelButton || props.confirmButton) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
-                            (props.cancelButton) && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelButton), props.cancelButton.text),
-                            (props.confirmButton) && omi_1.h("m-button", __assign({ onClick: this.onConfirm, ripple: true }, props.confirmButton), props.confirmButton.text))))));
+                            props.cancelButton && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelButton), props.cancelButton.text),
+                            props.confirmButton && omi_1.h("m-button", __assign({ onClick: this.onConfirm, ripple: true }, props.confirmButton), props.confirmButton.text))))));
     };
-    Dialog.css = css;
+    Dialog.css = theme_ts_1.theme() + css;
     Dialog.propTypes = {
         show: Boolean,
         scrollable: Boolean,
@@ -4756,6 +4846,41 @@ var Dialog = /** @class */ (function (_super) {
     return Dialog;
 }(omi_1.WeElement));
 exports.default = Dialog;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),
@@ -4835,6 +4960,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map

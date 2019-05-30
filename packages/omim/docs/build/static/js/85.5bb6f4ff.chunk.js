@@ -1,0 +1,2 @@
+webpackJsonp([85],{39:function(n,r){n.exports="## ActionSheet\r\n\r\nActionSheet\r\n\r\n## \u4f7f\u7528\r\n\r\n```js\r\n MActionSheet({\r\n    items: ['Option 1', 'Option 2'],\r\n    onItemClick: (item) => {\r\n      console.log(item)\r\n    }\r\n  })\r\n}\r\n```\r\n\r\nIOS \u98ce\u683c:\r\n\r\n```js\r\nMActionSheet({\r\n  items: ['Option 1', 'Option 2'],\r\n  onItemClick: (item) => {\r\n    console.log(item)\r\n  },\r\n  ios: true,\r\n  cancel: '\u53d6\u6d88'\r\n})\r\n```\r\n"}});
+//# sourceMappingURL=85.5bb6f4ff.chunk.js.map
