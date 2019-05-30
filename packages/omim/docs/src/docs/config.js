@@ -60,13 +60,13 @@ const config = {
       {
         title: '数据',
         list: [
+          { name: 'List', md: 'list', demo: './repl/list.html' },
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
-          { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
-          { name: 'List', md: 'list', demo: './repl/list.html' }
+          { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
         ]
       },
       {
@@ -145,13 +145,13 @@ const config = {
       {
         title: 'Data',
         list: [
+          { name: 'List', md: 'list', demo: './repl/list.html' },
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
-          { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
-          { name: 'List', md: 'list', demo: './repl/list.html' }
+          { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
         ]
       },
       {

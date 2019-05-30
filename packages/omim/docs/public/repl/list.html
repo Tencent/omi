@@ -79,327 +79,203 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor">
-<h3 class="mdc-typography--subtitle1">List Groups</h3>
-<m-list
-  group
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-    .mdc-list-group__subheader {
-      background: #EEE;
-      margin: 0;
-      padding: 8px;
-    }
-  "
->
-  <m-list>
-    <subheader>
-      <table>
-        <tr>
-          <td><m-icon-button icon="wifi"></m-icon-button></td>
-          <td>group-0 (click)</td>
-        </tr>
-      </table>
-    </subheader>
-    <item text='group-0-0'></item>
-    <item text='group-0-1'></item>
-    <item divider='true' padded='true' inset='true'></item>
-    <item text='group-0-2'></item>
-    <item selected="true" text='group-0-3'></item>
-    <item text='group-0-4'></item>
-  </m-list>
-  <m-list>
-    <subheader>
-      <table>
-        <tr>
-          <td><m-icon-button icon="wifi"></m-icon-button></td>
-          <td>group-1 (click)</td>
-        </tr>
-      </table>
-    </subheader>
-    <item selected="true" text='group-1-0'></item>
-    <item text='group-1-1'></item>
-  </m-list>
-  <m-list>
-    <subheader>
-      <table>
-        <tr>
-          <td><m-icon-button icon="wifi"></m-icon-button></td>
-          <td>group-2 (click)</td>
-        </tr>
-      </table>
-    </subheader>
-    <item text='group-2-0'></item>
-    <item selected="true" text='group-2-1'></item>
-    <item text='group-2-1'></item>
-  </m-list>
-</m-list>
-  
-<h3 class="mdc-typography--subtitle1">Single-Line</h3>
-<m-list
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item text="Line">item</item>
-  <item text="Line">item</item>
-  <item text="Line">item</item>
-</m-list>
+  <m-list id="myList" single-selection css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }"
+    items="[{
+      text: 'Line item1',
+      icon: 'wifi'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      selected: true,
+      icon: 'bluetooth'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      icon: 'data_usage'
+    }]"></m-list>
 
-<h3 class="mdc-typography--subtitle1">Two-Line</h3>
-<m-list
-  onChange="onChange(event)"
-  two-line
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <div primary-text='Line item' secondary-text='Secondary text'></div>
-  <a primary-text='Line item' secondary-text='Secondary text'></a>
-  <p primary-text='Line item' secondary-text='Secondary text'></p>
-</m-list>
 
-<h3 class="mdc-typography--subtitle1">Leading Icon</h3>
-<m-list
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item text='Line item'>
-    <graphic><m-icon-button icon='favorite'></m-icon-button></graphic>
-  </item>
-  <item text='Line item'>
-    <graphic><m-icon-button icon='3d_rotation'></m-icon-button></graphic>
-  </item>
-  <item text='Line item'>
-    <graphic><m-icon-button icon='wb_cloudy'></m-icon-button></graphic>
-  </item>
-</m-list>
+  <m-list single-selection css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      rightIcon: 'wifi'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      selected: true,
+      rightIcon: 'bluetooth'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      rightIcon: 'data_usage'
+    }]"></m-list>
 
-<h3 class="mdc-typography--subtitle1">List with activated item</h3>
-<m-list
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item text='Inbox'>
-    <graphic><m-icon-button icon='inbox'></m-icon-button></graphic>
-  </item>
-  <item activated='true' text='Star'>
-    <graphic><m-icon-button icon='star'></m-icon-button></graphic>
-  </item>
-  <item text='Send'>
-    <graphic><m-icon-button icon='send'></m-icon-button></graphic>
-  </item>
-  <item text='Drafts'>
-    <graphic><m-icon-button icon='drafts'></m-icon-button></graphic>
-  </item>
-</m-list>
 
-<h3 class="mdc-typography--subtitle1">List with shaped activated item</h3>
-<m-list
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-    .mdc-list-item {
-      border-radius: 0 32px 32px 0;
-    }
-  ">
-  <item text='Inbox'>
-    <graphic><m-icon-button icon='inbox'></m-icon-button></graphic>
-  </item>
-  <item activated='true' text='Star'>
-    <graphic><m-icon-button icon='star'></m-icon-button></graphic>
-  </item>
-  <item text='Send'>
-    <graphic><m-icon-button icon='send'></m-icon-button></graphic>
-  </item>
-  <item text='Drafts'>
-    <graphic><m-icon-button icon='drafts'></m-icon-button></graphic>
-  </item>
-</m-list>
+  <m-list single-selection css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      icon: 'folder',
+      rightIcon: 'wifi'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      selected: true,
+      icon: 'folder',
+      rightIcon: 'bluetooth'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      icon: 'folder',
+      rightIcon: 'data_usage'
+    }]"></m-list>
 
-<h3 class="mdc-typography--subtitle1">Trailing Icon</h3>
-<m-list
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item text='Line item'>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-  <item text='Line item'>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-  <item text='Line item'>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-</m-list>
+  <m-list css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="['Line item1', 'Line item2', 'Line item3']"></m-list>
 
-<h3 class="mdc-typography--subtitle1">Two-Line with Leading and Trailing Icon and Divider</h3>
-<m-list
-  two-line
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-    .mdc-list-item__graphic {
-      margin-left: 0;
-      margin-right: 16px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: rgba(0,0,0,.3);
-      color: #fff;
-    }
-  ">
-  <item primary-text='Dog Photos' secondary-text='9 Jan 2018'>
-    <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-  <item primary-text='Cat Photos' secondary-text='22 Dec 2017'>
-    <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-  <item divider='true'></item>
-  <item primary-text='Potatoes' secondary-text='30 Noc 2017'>
-    <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-  <item primary-text='Carrots' secondary-text='17 Oct 2017'>
-    <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
-    <metas><m-icon-button icon='info'></m-icon-button></metas>
-  </item>
-</m-list>
+  <m-list css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="['Line item1', true, 'Line item2', true, 'Line item3']"></m-list>
 
-<h3 class="mdc-typography--subtitle1">List with Trailing Switch</h3>
-<m-list
-  id="m-list-switch"
-  onChange="onChangeSwitch(event)"
-  avatar
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item text='Dog Photos'>
-    <metas><m-switch id='m-switch-a' value='omim'></m-switch></metas>
-  </item>
-  <item text='Cat Photos'>
-    <metas><m-switch id='m-switch-b' checked="true" value='omio'></m-switch></metas>
-  </item>
-  <item text='Potatoes'>
-    <metas><m-switch id='m-switch-c' value='omix'></m-switch></metas>
-  </item>
-  <item text='Carrots'>
-    <metas><m-switch id='m-switch-d' checked="true" value='omi'></m-switch></metas>
-  </item>
-</m-list>
 
-<h3 class="mdc-typography--subtitle1">Other</h3>
-<m-list
-  disabled="true"
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item>Disabled-0</item>
-  <item disabled="true">Disabled-1</item>
-</m-list>
-<br/>
-<m-list
-  dense="true"
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item>Dense-0</item>
-  <item>Dense-1</item>
-</m-list>
-<br/>
-<m-list
-  avatar="true"
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item>Avatar-0</item>
-  <item>Avatar-1</item>
-</m-list>
-<br/>
-<m-list
-  two-line="true"
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item>Two Line-0</item>
-  <item>Two Line-1</item>
-</m-list>
-<br/>
-<m-list
-  onChange="onChange(event)"
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-  <item>Divider:</item>
-  <item divider="true"></item>
-  <item>Divider+Padded:</item>
-  <item divider="true" padded="true"></item>
-  <item>Divider+Inset:</item>
-  <item divider="true" inset="true"></item>
-  <item>Divider+Padded+Inset:</item>
-  <item divider="true" padded="true" inset="true"></item>
-  <item disabled="true">Disabled</item>
-  <item selected="true">Selected</item>
-  <item activated="true">Activated</item>
-  <item text='Graphic'>
-    <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
-  </item>
-  <item text='Text'></item>
-  <item primary-text='Primary Text' secondary-text='Secondary Text'></item>
-  <item text='Meta'>
-    <metas><m-icon-button icon='folder'></m-icon-button></metas>
-  </item>
-</m-list></textarea>
+  <m-list css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      secondaryText: 'Secondary Text3'
+    },
+    {
+      text: 'Line item2',
+      secondaryText: 'Secondary Text3'
+    },
+    {
+      text: 'Line item3',
+      secondaryText: 'Secondary Text3'
+    }]"></m-list>
+
+  <m-list css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      secondaryText: 'Secondary Text3'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      secondaryText: 'Secondary Text3'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      secondaryText: 'Secondary Text3'
+    }]"></m-list>
+
+
+
+  <m-list single-selection css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="['Line item1', 'Line item2', 'Line item3']"></m-list>
+
+
+  <m-list single-selection css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      secondaryText: 'Secondary Text3'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      secondaryText: 'Secondary Text3',
+      selected: true
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      secondaryText: 'Secondary Text3'
+    }]"></m-list>
+
+  <m-list single-selection css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      secondaryText: 'Secondary Text3',
+      icon: 'wifi'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      secondaryText: 'Secondary Text3',
+      selected: true,
+      icon: 'bluetooth'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      secondaryText: 'Secondary Text3',
+      icon: 'data_usage'
+    }]"></m-list>
+
+
+
+  <m-list checkbox css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      icon: 'wifi'
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      icon: 'bluetooth'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      icon: 'data_usage',
+      checked: true
+    }]"></m-list>
+
+
+  <m-list radio css="ul{
+    max-width:400px;
+    border: 1px solid rgba(0,0,0,.1);
+  }" items="[{
+      text: 'Line item1',
+      icon: 'wifi',
+      checked: true,
+    },
+    { divider: true },
+    {
+      text: 'Line item2',
+      icon: 'bluetooth'
+    },
+    { divider: true },
+    {
+      text: 'Line item3',
+      icon: 'data_usage'
+    }]"></m-list></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
