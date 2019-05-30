@@ -3,6 +3,13 @@ import { render, h } from 'omi'
 
 render(
   <div>
+    <h3>With font Icon</h3>
+    <m-text-field leftIcon='event' label='Label1' helperText='Helper Text' />
+
+    <h3>With font Icon</h3>
+    <m-text-field rightIcon='delete' label='Label1' helperText='Helper Text' />
+
+    <br />
     <h3>Filled</h3>
 
     <m-text-field label='Label1' helperText='Helper Text' />
@@ -14,7 +21,7 @@ render(
       path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'
       label='Label2'
       css={`
-        .mdc-text-field { 
+        .mdc-text-field {
           width:200px;
         }
       `}
@@ -32,8 +39,8 @@ render(
       }]}
       label='Label3'
       css={`
-        .mdc-text-field { 
-          width:200px; 
+        .mdc-text-field {
+          width:200px;
         }
       `}
     />
@@ -100,8 +107,8 @@ render(
     <m-text-field
       style="width:200px;display:block;"
       css={`
-        .mdc-text-field { 
-          width:200px; 
+        .mdc-text-field {
+          width:200px;
         }
       `}
       counter
@@ -113,8 +120,8 @@ render(
 
     <m-text-field
       css={`
-        .mdc-text-field { 
-          width:200px; 
+        .mdc-text-field {
+          width:200px;
         }
       `}
       textarea
@@ -167,12 +174,12 @@ render(
     <m-text-field
       label='Label'
       css={`
-        .mdc-floating-label{ 
-          color:red!important; 
+        .mdc-floating-label{
+          color:red!important;
         }
       `}
     />
-    
+
   </div>
   , 'body')
 
