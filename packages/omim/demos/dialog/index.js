@@ -1,5 +1,5 @@
 import '../../src/dialog/index.tsx'
-import '../../src/radio/index.tsx'
+import '../../src/list/index.tsx'
 
 import { render, WeElement, define, h } from 'omi'
 
@@ -18,31 +18,31 @@ define('my-app', class extends WeElement {
     console.log(e.detail.type)
   }
 
-  onShowAlert = (e) => {
+  onShowAlert = () => {
     this.alertShow = true
     this.showText = 'open alert!'
     this.update()
   }
 
-  onShowSimple = (e) => {
+  onShowSimple = () => {
     this.simpleShow = true
     this.showText = 'open simple!'
     this.update()
   }
 
-  onShowConfirmation = (e) => {
+  onShowConfirmation = () => {
     this.confirmationShow = true
     this.showText = 'open confirmation!'
     this.update()
   }
 
-  onShowScrollable = (e) => {
+  onShowScrollable = () => {
     this.scrollableShow = true
     this.showText = 'open scrollable!'
     this.update()
   }
   
-  onClose = (e) => {
+  onClose = () => {
     this.simpleShow = false
     this.alertShow = false
     this.confirmationShow = false
@@ -51,7 +51,7 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  onConfirm = (e) => {
+  onConfirm = () => {
     this.simpleShow = false
     this.alertShow = false
     this.confirmationShow = false
@@ -60,45 +60,11 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  simpleListIndex = [0, -1, -1]
-  onSimple = (e) => {
-    for(let i = 0; i < e.path.length; i++) {
-      if(e.path[i].id && e.path[i].id.indexOf('li-simple') !== -1) {
-        const num = parseInt(e.path[i].id[e.path[i].id.length-1])
-        for(let i = 0; i < this.simpleListIndex.length; i++) {
-          this.simpleListIndex[i] = i == num ? 0 : -1
-        }
-        console.log(e.path[i].id+'|'+num)
-        break;
-      }
-    }
-    this.simpleShow = false
-    this.update()
+  onItemClick = (e) => {
+    console.log(e)
   }
 
-  listIndex1 = 0
-  listIndex2 = -1
-  listIndex3 = -1
-  onList1 = (e) => {
-    this.listIndex1 = 0
-    this.listIndex2 = -1
-    this.listIndex3 = -1
-    this.update()
-  }
-  onList2 = (e) => {
-    this.listIndex1 = -1
-    this.listIndex2 = 0
-    this.listIndex3 = -1
-    this.update()
-  }
-  onList3 = (e) => {
-    this.listIndex1 = -1
-    this.listIndex2 = -1
-    this.listIndex3 = 0
-    this.update()
-  }
-
-  render(props, data) {
+  render() {
     return(
       <div>
         <m-button onClick={this.onShowAlert} ripple>Alert</m-button>
@@ -114,7 +80,6 @@ define('my-app', class extends WeElement {
           onCancel={this.onClose}
           onConfirm={this.onConfirm}
           show={this.alertShow}
-          // message={<p>Discard draft?</p>}
           cancel-button={{
             text: 'Cancel'
           }}
@@ -132,60 +97,29 @@ define('my-app', class extends WeElement {
           onScrim={this.onClose}
           css={css}
           show={this.simpleShow}
-          title='Select an account'
-          message={
-            <ul class="mdc-list mdc-list--avatar-list">
-              <li onClick={this.onSimple} id='li-simple-0' class="mdc-list-item" tabindex={this.simpleListIndex[0]}>
-                <table>
-                  <tr>
-                    <td>
-                    <m-icon
-                      view={48}
-                      color="rgba(0,0,0,.3)"
-                      path='M24 4c-7.73 0-14 6.27-14 14 0 10.5 14 26 14 26s14-15.5 14-26c0-7.73-6.27-14-14-14zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 20c-3.34 0-6.27-1.71-8-4.29.03-2.65 5.34-4.11 8-4.11s7.96 1.46 8 4.11C30.27 26.29 27.34 28 24 28z'>
-                    </m-icon>
-                    </td>
-                    <td>
-                      &nbsp;&nbsp;<span class="test-list-item__label">user1@example.com</span>
-                    </td>
-                  </tr>
-                </table>
-              </li>
-              <li onClick={this.onSimple} id='li-simple-1' class="mdc-list-item" tabindex={this.simpleListIndex[1]}>
-                <table>
-                  <tr>
-                    <td>
-                    <m-icon
-                      view={48}
-                      color="rgba(0,0,0,.3)"
-                      path='M42 12H26.83l6.59-6.59L32 4l-8 8-8-8-1.41 1.41L21.17 12H6c-2.21 0-4 1.79-4 4v24c0 2.21 1.79 4 4 4h36c2.21 0 4-1.79 4-4V16c0-2.21-1.79-4-4-4zm0 28H6V16h36v24zM18 20v16l14-8z'>
-                    </m-icon>
-                    </td>
-                    <td>
-                      &nbsp;&nbsp;<span class="test-list-item__label">user2@example.com</span>
-                    </td>
-                  </tr>
-                </table>
-              </li>
-              <li onClick={this.onSimple} id='li-simple-2' class="mdc-list-item" tabindex={this.simpleListIndex[2]}>
-                <table>
-                  <tr>
-                    <td>
-                    <m-icon
-                      view={48}
-                      color="rgba(0,0,0,.3)"
-                      path='M26 14h-4v8h-8v4h8v8h4v-8h8v-4h-8v-8zM24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z'>
-                    </m-icon>
-                    </td>
-                    <td>
-                      &nbsp;&nbsp;<span class="test-list-item__label">Add account</span>
-                    </td>
-                  </tr>
-                </table>
-              </li>
-            </ul>
-          }
-        />
+          title='Select an account'>
+          <m-list
+            singleSelection
+            css={`ul{
+            max-width:500px;
+          }`}
+            items={[{
+              text: 'user1@example.com',
+              icon: 'wifi'
+            },
+            {
+              text: 'user2@example.com',
+              selected: true,
+              icon: 'bluetooth'
+            },
+            {
+              text: 'Add account',
+              icon: 'data_usage'
+            }]}
+
+            onItemClick={this.onItemClick}
+          ></m-list>
+        </m-dialog>
         <m-dialog
           onOpening={this.onOpenClose}
           onOpened={this.onOpenClose}

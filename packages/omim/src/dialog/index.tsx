@@ -4,9 +4,6 @@ import { MDCDialog } from '@material/dialog'
 
 import '../button'
 
-// @ts-ignore
-import { htmlToVdom } from '../util.ts'
-
 //@ts-ignore
 import { theme } from '../theme.ts'
 
@@ -14,7 +11,6 @@ interface Props {
   show?: boolean,
   scrollable?: boolean,
   title?: string,
-  message?: string,
   cancelButton?: object,
   confirmButton?: object
 }
@@ -35,7 +31,6 @@ export default class Dialog extends WeElement<Props, Data>{
     show: Boolean,
     scrollable: Boolean,
     title: String,
-    message: String,
     cancelButton: Object,
     confirmButton: Object
   }
@@ -97,10 +92,8 @@ export default class Dialog extends WeElement<Props, Data>{
           <div class='mdc-dialog__surface'>
             {props.title && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
-              {typeof props.message === 'string' ? htmlToVdom(props.message) : props.message}
               <slot></slot>
-              {/* solve the problem that the content focus is empty */}
-              <a class='m-dialog-content-focus' href="#"></a>
+              <a class='m-dialog-content-focus' href="#"></a>  {/* solve the problem that the content focus is empty */}
             </section>
             {
               (props.cancelButton || props.confirmButton) &&

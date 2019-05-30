@@ -4649,7 +4649,7 @@ function extend() {
                         /***/
                     })
                     /******/
-                });
+                })["default"];
             });
             //# sourceMappingURL=index.js.map
             /***/ 
@@ -4765,8 +4765,6 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/dialog/index.scss");
 var dialog_1 = __webpack_require__(/*! @material/dialog */ "./node_modules/@material/dialog/index.js");
 __webpack_require__(/*! ../button */ "./src/button/index.js");
-// @ts-ignore
-var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Dialog = /** @class */ (function (_super) {
@@ -4823,7 +4821,7 @@ var Dialog = /** @class */ (function (_super) {
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     props.title && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' },
-                        typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message,
+                        props.message,
                         omi_1.h("slot", null),
                         omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" })),
                     (props.cancelButton || props.confirmButton) &&
@@ -4881,70 +4879,6 @@ function theme() {
     }
 }
 exports.theme = theme;
-
-
-/***/ }),
-
-/***/ "./src/util.ts":
-/*!*********************!*\
-  !*** ./src/util.ts ***!
-  \*********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function extract(props, prop) {
-    var _a;
-    if (typeof prop === 'string') {
-        if (props.hasOwnProperty(prop)) {
-            return _a = {}, _a[prop] = props[prop], _a;
-        }
-    }
-    else {
-        var res_1 = {};
-        prop.forEach(function (key) {
-            if (props.hasOwnProperty(key)) {
-                res_1[key] = props[key];
-            }
-        });
-        return res_1;
-    }
-}
-exports.extract = extract;
-var parser = new DOMParser();
-function htmlToVdom(html) {
-    if (!html)
-        return null;
-    return processNode(parser.parseFromString("<div>" + html + "</div>", "text/xml").childNodes[0]).children;
-}
-exports.htmlToVdom = htmlToVdom;
-function processNode(node) {
-    if (node.nodeType === 1) {
-        var i, child, attributes = {}, children = [];
-        for (i = 0; (child = node.attributes[i]); ++i) {
-            attributes[child.nodeName] = child.nodeValue;
-        }
-        for (i = 0; (child = node.childNodes[i]); ++i) {
-            var vn = processNode(child);
-            if (vn !== null)
-                children.push(vn);
-        }
-        return {
-            nodeName: node.tagName,
-            attributes: attributes,
-            children: children
-        };
-    }
-    if (node.nodeType === 3) {
-        var v = node.nodeValue.trim();
-        if (v !== '') {
-            return v;
-        }
-        return null;
-    }
-}
 
 
 /***/ }),
