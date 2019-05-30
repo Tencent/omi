@@ -1,27 +1,22 @@
 @import "../theme";
 @import "@material/list/mdc-list";
 
-.mdc-list-group__subheader {
-  cursor: pointer;
-}
+// .mdc-list-group__subheader {
+//   cursor: pointer;
+// }
 
-.mdc-list {
-  overflow: hidden;
-}
+// .mdc-list {
+//   overflow: hidden;
+// }
 
-.mdc-list-item__text-one-line-a {
-  margin-top: -16px;
-}
+// .mdc-list-item__text-one-line-a {
+//   margin-top: -16px;
+// }
 
-.mdc-list-item__text-one-line-b {
-  margin-top: -18px;
-}
+// .mdc-list-item__text-one-line-b {
+//   margin-top: -18px;
+// }
 
-.mdc-list-item__text-one-line-c {
-  margin-top: -5px;
-}
-
-// mouse hover black question
-:not(.mdc-list--non-interactive)>:not(.mdc-list-item--disabled).mdc-list-item::before {
-  z-index: 0;
-}
+// .mdc-list-item__text-one-line-c {
+//   margin-top: -5px;
+// }

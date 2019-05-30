@@ -2,34 +2,55 @@
 
 Material design’s responsive UI is based on a column-variate grid layout. It has 12 columns on desktop, 8 columns on tablet and 4 columns on phone.
 
-## Usage (Omi in the same way)
-
-```html
-<m-layout-grid
-  align-right
-  style='text-align:center;'
-  css='
-    .mdc-layout-grid__cell {
-      background: rgba(0,0,0,.2);
-      height: 100px;
-  }'>
-  <cell></cell>
-  <cell></cell>
-  <cell></cell>
-</m-layout-grid>
-```
-
-Because layout converts HTML strings into vdom, there will be a lot of overhead, so use this component in jsx, and use only its CSS in html.
+## Usage 
 
 ```js
-import { css } from '@omim/core/layout-grid'
+import * as css from '@omim/core/layout-grid'
 ```
 
-## API
+Then using class in HTML:
 
-### Props
-
-|  **Name**  | **Type**        | **Defaults**  | **Details**  |
-| ------------- |:-------------:|:-----:|:-------------:|
-| align-right | boolean | -- | Align right |
-| align-left | boolean | -- | Align left |
+```html
+<div>
+    <h3 class="mdc-typography--subtitle1">Columns</h3>
+    <div class="mdc-layout-grid demo-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 demo-cell"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 demo-cell"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 demo-cell"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 demo-cell"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 demo-cell"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 demo-cell"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 demo-cell"></div>
+        </div>
+    </div>
+    <h3 class="mdc-typography--subtitle1">Grid Left Alignment</h3>
+    <p class="mdc-typography--body2">This requires a max-width on the top-level grid element.</p>
+    <div class="mdc-layout-grid mdc-layout-grid--align-left demo-grid demo-grid--alignment">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell demo-cell"></div>
+            <div class="mdc-layout-grid__cell demo-cell"></div>
+            <div class="mdc-layout-grid__cell demo-cell"></div>
+        </div>
+    </div>
+    <h3 class="mdc-typography--subtitle1">Right Alignment</h3>
+    <p class="mdc-typography--body2">This requires a max-width on the top-level grid element.</p>
+    <div class="mdc-layout-grid mdc-layout-grid--align-right demo-grid demo-grid--alignment">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell demo-cell"></div>
+            <div class="mdc-layout-grid__cell demo-cell"></div>
+            <div class="mdc-layout-grid__cell demo-cell"></div>
+        </div>
+    </div>
+    <h3 class="mdc-typography--subtitle1">Cell Alignment</h3>
+    <p class="mdc-typography--body2">Cell alignment requires a cell height smaller than the inner height of the
+        grid.</p>
+    <div class="mdc-layout-grid demo-grid demo-grid--cell-alignment">
+        <div class="mdc-layout-grid__inner demo-inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--align-top demo-cell demo-cell--alignment"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--align-middle demo-cell demo-cell--alignment"></div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--align-bottom demo-cell demo-cell--alignment"></div>
+        </div>
+    </div>
+</div>
+```

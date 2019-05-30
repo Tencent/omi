@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, "ol {\n  list-style-type: decimal;\n  font-size: 14px; }\n\nli {\n  list-style: none;\n  display: inline-block;\n  color: rgba(0, 0, 0, 0.45);\n  vertical-align: middle; }\n\n.breadcrumb-li a {\n  color: rgba(0, 0, 0, 0.45); }\n\na {\n  text-decoration: none;\n  display: inline-block;\n  vertical-align: middle;\n  line-height: 20px;\n  height: 20px; }\n\n.split {\n  margin: 0 8px; }\n\n.current {\n  color: rgba(0, 0, 0, 0.7);\n  vertical-align: middle;\n  line-height: 20px;\n  height: 20px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 18px;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  vertical-align: top;\n  margin-right: 3px;\n  display: inline-block;\n  line-height: 20px;\n  height: 20px;\n  max-width: 24px;\n  overflow: hidden; }\n", ""]);
+exports.push([module.i, "ol {\n  list-style-type: decimal;\n  font-size: 14px;\n  padding: 0;\n  margin: 0; }\n\nli {\n  list-style: none;\n  display: inline-block;\n  color: rgba(0, 0, 0, 0.45);\n  vertical-align: middle; }\n\n.breadcrumb-li a {\n  color: rgba(0, 0, 0, 0.45); }\n\na {\n  text-decoration: none;\n  display: inline-block;\n  vertical-align: middle;\n  line-height: 20px;\n  height: 20px; }\n\n.split {\n  margin: 0 8px; }\n\n.current {\n  color: rgba(0, 0, 0, 0.7);\n  vertical-align: middle;\n  line-height: 20px;\n  height: 20px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 18px;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  vertical-align: top;\n  margin-right: 3px;\n  display: inline-block;\n  line-height: 20px;\n  height: 20px;\n  max-width: 24px;\n  overflow: hidden; }\n", ""]);
 
 // exports
 
@@ -287,7 +287,7 @@ var Breadcrumb = /** @class */ (function (_super) {
                     item.text));
             }
         });
-        return (omi_1.h("nav", __assign({}, omi_1.extractClass(props, 'm-breadcrumb', {})),
+        return (omi_1.h("nav", __assign({}, omi_1.extractClass(props, 'm-breadcrumb')),
             omi_1.h("ol", { class: "breadcrumb-ol" }, items)));
     };
     Breadcrumb.css = theme_ts_1.theme() + css;

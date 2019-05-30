@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("omi"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["omi"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["MLayoutGrid"] = factory(require("omi"));
+		exports["MLayoutGrid"] = factory();
 	else
-		root["MLayoutGrid"] = factory(root["Omi"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
+		root["MLayoutGrid"] = factory();
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -96,14 +96,33 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/layout-grid/index.scss":
-/*!******************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/layout-grid/index.scss ***!
-  \******************************************************************************************************************************************************/
+/***/ "./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+
+        var result = __webpack_require__(/*! !../../_css-loader@1.0.1@css-loader!../../_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./mdc-layout-grid.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss");
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -202,25 +221,6 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./src/layout-grid/index.scss":
-/*!************************************!*\
-  !*** ./src/layout-grid/index.scss ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/layout-grid/index.scss");
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-
 /***/ "./src/layout-grid/index.tsx":
 /*!***********************************!*\
   !*** ./src/layout-grid/index.tsx ***!
@@ -230,233 +230,129 @@ function toComment(sourceMap) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! ./index.scss */ "./src/layout-grid/index.scss");
-exports.css = css;
-var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
-//@ts-ignore
-var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-var parser = new DOMParser();
-var LayoutGrid = /** @class */ (function (_super) {
-    __extends(LayoutGrid, _super);
-    function LayoutGrid() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    LayoutGrid.resetTheme = function () {
-        this.css = theme_ts_1.theme() + css;
-    };
-    LayoutGrid.prototype.installed = function () {
-        var _this = this;
-        if (!this.props.children) {
-            dom_ready_1.domReady(function () {
-                _this.update();
-            });
-        }
-    };
-    LayoutGrid.prototype.renderChild = function (child) {
-        var _this = this;
-        if (child.childNodes) {
-            var arr = Array.prototype.slice.call(child.childNodes, 0);
-            arr = arr.filter(function (item) {
-                return item.nodeName === 'cell';
-            });
-            if (arr.length > 0) {
-                return omi_1.h("div", { class: "mdc-layout-grid__cell" },
-                    omi_1.h("div", { class: "mdc-layout-grid__inner" }, arr.map(function (item) {
-                        return _this.renderChild(item);
-                    })));
-            }
-            else {
-                var cell = omi_1.h("div", { class: omi_1.classNames('mdc-layout-grid__cell', {
-                        "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
-                        "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
-                        "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
-                    }) });
-                for (var i = 0, len = child.childNodes.length; i < len; i++) {
-                    if (child.childNodes[i].nodeType === 3) {
-                        cell.children.push(child.childNodes[i].nodeValue);
-                    }
-                    else {
-                        cell.children.push(processNode(child.childNodes[i]));
-                    }
-                }
-                return cell;
-            }
-        }
-        else {
-            if (child.children[0] && child.children[0].nodeName === 'cell') {
-                return omi_1.h("div", { class: "mdc-layout-grid__cell" },
-                    omi_1.h("div", { class: "mdc-layout-grid__inner" }, child.children.map(function (item) {
-                        return _this.renderChild(item);
-                    })));
-            }
-            else {
-                return omi_1.h("div", { class: omi_1.classNames('mdc-layout-grid__cell', {
-                        "mdc-layout-grid__cell--align-top": child.attributes && child.attributes['align-top'],
-                        "mdc-layout-grid__cell--align-middle": child.attributes && child.attributes['align-middle'],
-                        "mdc-layout-grid__cell--align-bottom": child.attributes && child.attributes['align-bottom']
-                    }) }, child.children);
-            }
-        }
-    };
-    LayoutGrid.prototype.render = function (props) {
-        var _this = this;
-        var arr = props.children;
-        if (!this.innerHTML.trim())
-            return;
-        if (!arr) {
-            var doc = parser.parseFromString("<div>" + this.innerHTML + "</div>", "text/xml");
-            arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0);
-            arr = arr.filter(function (item) {
-                return item.nodeName === 'cell';
-            });
-        }
-        //dom -> vdom
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-layout-grid', {
-            'mdc-layout-grid--align-right': props.alignRight,
-            'mdc-layout-grid--align-left': props.alignLeft
-        })),
-            omi_1.h("div", { class: "mdc-layout-grid__inner" }, arr.map(function (item) {
-                return _this.renderChild(item);
-            }))));
-    };
-    LayoutGrid.css = theme_ts_1.theme() + css;
-    LayoutGrid.propTypes = {
-        alignLeft: Boolean,
-        alignRight: Boolean
-    };
-    LayoutGrid = __decorate([
-        omi_1.tag('m-layout-grid')
-    ], LayoutGrid);
-    return LayoutGrid;
-}(omi_1.WeElement));
-function processNode(node) {
-    if (node.nodeType === 1) {
-        var i, child, attributes = {}, children = [];
-        for (i = 0; (child = node.attributes[i]); ++i) {
-            attributes[child.nodeName] = child.nodeValue;
-        }
-        for (i = 0; (child = node.childNodes[i]); ++i) {
-            children.push(processNode(child));
-        }
-        return {
-            nodeName: node.tagName,
-            attributes: attributes,
-            children: children
-        };
-    }
-    if (node.nodeType === 3) {
-        return node.nodeValue;
-    }
-}
+var css = __webpack_require__(/*! @material/layout-grid/mdc-layout-grid.scss */ "./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss");
+exports.default = css;
+// import { tag, WeElement, h, extractClass, classNames } from 'omi'
+// import * as css from './index.scss'
+// import { domReady } from '../util/dom-ready'
+// //@ts-ignore
+// import { theme } from '../theme.ts'
+// interface Props {
+// }
+// interface Data {
+// }
+// const parser = new DOMParser()
+// @tag('m-layout-grid')
+// class LayoutGrid extends WeElement<Props, Data>{
+//   static css = theme() + css
+//   static resetTheme() {
+//     this.css = theme() + css
+//   }
+//   static propTypes = {
+//     alignLeft: Boolean,
+//     alignRight: Boolean
+//   }
+//   installed() {
+//     if (!this.props.children) {
+//       domReady(() => {
+//         this.update()
+//       })
+//     }
+//   }
+//   renderChild(child) {
+//     if (child.childNodes) {
+//       let arr = Array.prototype.slice.call(child.childNodes, 0)
+//       arr = arr.filter((item) => {
+//         return item.nodeName === 'cell'
+//       })
+//       if (arr.length > 0) {
+//         return <div class="mdc-layout-grid__cell">
+//           <div class="mdc-layout-grid__inner">
+//             {arr.map(item => {
+//               return this.renderChild(item)
+//             })}
+//           </div>
+//         </div>
+//       } else {
+//         const cell = <div class={classNames('mdc-layout-grid__cell', {
+//           "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
+//           "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
+//           "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
+//         })}></div>
+//         for (let i = 0, len = child.childNodes.length; i < len; i++) {
+//           if (child.childNodes[i].nodeType === 3) {
+//             cell.children.push(child.childNodes[i].nodeValue)
+//           } else {
+//             cell.children.push(processNode(child.childNodes[i]))
+//           }
+//         }
+//         return cell
+//       }
+//     } else {
+//       if (child.children[0] && child.children[0].nodeName === 'cell') {
+//         return <div class="mdc-layout-grid__cell">
+//           <div class="mdc-layout-grid__inner">
+//             {child.children.map(item => {
+//               return this.renderChild(item)
+//             })}
+//           </div>
+//         </div>
+//       } else {
+//         return <div class={classNames('mdc-layout-grid__cell', {
+//           "mdc-layout-grid__cell--align-top": child.attributes && child.attributes['align-top'],
+//           "mdc-layout-grid__cell--align-middle": child.attributes && child.attributes['align-middle'],
+//           "mdc-layout-grid__cell--align-bottom": child.attributes && child.attributes['align-bottom']
+//         })}>{child.children}</div>
+//       }
+//     }
+//   }
+//   render(props) {
+//     let arr = props.children
+//     if (!this.innerHTML.trim()) return
+//     if (!arr) {
+//       const doc = parser.parseFromString(`<div>${this.innerHTML}</div>`, "text/xml");
+//       arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0)
+//       arr = arr.filter((item) => {
+//         return item.nodeName === 'cell'
+//       })
+//     }
+//     //dom -> vdom
+//     return (
+//       <div {...extractClass(props, 'mdc-layout-grid', {
+//         'mdc-layout-grid--align-right': props.alignRight,
+//         'mdc-layout-grid--align-left': props.alignLeft
+//       })}>
+//         <div class="mdc-layout-grid__inner">
+//           {arr.map(item => {
+//             return this.renderChild(item)
+//           })}
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+// function processNode(node) {
+//   if (node.nodeType === 1) {
+//     var i, child, attributes = {}, children = [];
+//     for (i = 0; (child = node.attributes[i]); ++i) {
+//       attributes[child.nodeName] = child.nodeValue;
+//     }
+//     for (i = 0; (child = node.childNodes[i]); ++i) {
+//       children.push(processNode(child));
+//     }
+//     return {
+//       nodeName: node.tagName,
+//       attributes,
+//       children
+//     }
+//   }
+//   if (node.nodeType === 3) {
+//     return node.nodeValue;
+//   }
+// }
+// export { css }
 
-
-/***/ }),
-
-/***/ "./src/theme.ts":
-/*!**********************!*\
-  !*** ./src/theme.ts ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-if (typeof window === 'object') {
-    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-    window.OmimThemeError = window.OmimThemeError || '#f5222d';
-    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
-    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
-    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
-    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
-    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
-    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
-    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
-    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
-    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
-    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
-}
-function theme() {
-    if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
-    }
-}
-exports.theme = theme;
-
-
-/***/ }),
-
-/***/ "./src/util/dom-ready.js":
-/*!*******************************!*\
-  !*** ./src/util/dom-ready.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var readyCallbacks = [];
-document.addEventListener('DOMContentLoaded', function () {
-    domReady.done = true;
-    readyCallbacks.forEach(function (callback) {
-        callback();
-    });
-});
-function domReady(callback) {
-    if (domReady.done) {
-        callback();
-        return;
-    }
-    readyCallbacks.push(callback);
-}
-exports.domReady = domReady;
-domReady.done = false;
-
-
-/***/ }),
-
-/***/ "omi":
-/*!******************************************************************************!*\
-  !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
