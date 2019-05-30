@@ -78,143 +78,18 @@ export default class List extends WeElement<Props, Data>{
     return null
   }
 
-  renderList(node) {
-    if(!node) {
-      return null
-    }
-    const { attributes: props } = node
-    const graphic = this.findElement(node.children, 'graphic')
-    const metas = this.findElement(node.children, 'metas')
-    // console.log(metas)  //调试中，组件内组件无法刷新问题
-    {(props && props['primary-text']) && (props.primaryText = props['primary-text'])}
-    {(props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])}
-    if(props && props.divider) {
-      return <li role="separator" {...extractClass(node, 'mdc-list-divider', {
-        'mdc-list-divider--padded': (props && props.padded),
-        'mdc-list-divider--inset': (props && props.inset)
-      })}></li>
-    } else {
-      return <li {...extractClass(node, 'mdc-list-item', {
-        'mdc-list-item--disabled': (props && props.disabled),
-        'mdc-list-item--selected': (props && props.selected),
-        'mdc-list-item--activated': (props && props.activated)
-      })} tabindex="0">
-        {props && (props.graphic || graphic) &&
-        <span class="mdc-list-item__graphic">
-          {typeof props.graphic === 'string' ? htmlToVdom(props.graphic) : props.graphic}
-          {graphic && (typeof graphic.children === 'string'  ? htmlToVdom(graphic.children) : graphic.children)}
-        </span>}
-        {props && (props.text || props.primaryText || props.secondaryText) &&
-        <span  class={classNames('mdc-list-item__text', {
-          'mdc-list-item__text-one-line-a': (!this.props.twoLine && props.primaryText && props.secondaryText),
-          'mdc-list-item__text-one-line-b': (!this.props.twoLine && props.primaryText && !props.secondaryText),
-          'mdc-list-item__text-one-line-c': (!this.props.twoLine && !props.primaryText && props.secondaryText)
-        })}>
-          {props.primaryText && <span class="mdc-list-item__primary-text">{props.primaryText}</span>}
-          {props.secondaryText && <span class="mdc-list-item__secondary-text">{props.secondaryText}</span>}
-          {props.text}
-        </span>}
-        {props && (props.meta || metas) &&
-        <span class="mdc-list-item__meta">
-          {typeof props.meta === 'string' ? htmlToVdom(props.meta) : props.meta}
-          {metas && (typeof metas.children === 'string'  ? htmlToVdom(metas.children) : metas.children)}
-        </span>}
-        {node.children.map((node) => {
-            return node && (!(node.nodeName === 'graphic' || node.nodeName === 'metas')) && (typeof node === 'string' ? htmlToVdom(node) : node)
-        })}
-      </li>
-    }
-  }
-
-  groupNum = -1
-  groupHeight = new Object()
-
-  onGroup = (evt) => {
-    let groupNo = null
-    let mList = null
-    for(let i = 0; i < evt.path.length; i++) {
-      if(evt.path[i].id === 'subheader') {
-        mList = evt.path[i].nextElementSibling
-        // console.log(evt.path[i])
-        groupNo = evt.path[i].accessKey
-        if(typeof this.groupHeight[groupNo] === 'undefined') {
-          this.groupHeight[groupNo] = mList.clientHeight
-        }
-        break;
-      }
-    }
-    if(mList) {
-      let height = mList.clientHeight
-      if(height != 0) {
-        const time = setInterval(() => {
-          height -= 20
-          height < 0 && (height = 0)
-          mList.style.height = height+'px'
-          height === 0 && clearInterval(time)
-        }, 10);
-      } else {
-        const time = setInterval(() => {
-          height += 20
-          height > this.groupHeight[groupNo] && (height = this.groupHeight[groupNo])
-          mList.style.height = height+'px'
-          height === this.groupHeight[groupNo] && clearInterval(time)
-        }, 10);
-      }
-    }
-  }
-  
   render(props) {
-    this.listAll = []
-    props.children = (this.innerHTML && !props.children) ? htmlToVdom(this.innerHTML) : props.children
-    if(!props.group) {
-      const listOne = new Array()
-      return <ul {...extractClass(props, 'mdc-list', {
-        'mdc-list--non-interactive': props.disabled,
-        'mdc-list--dense': props.dense,
-        'mdc-list--avatar-list': props.avatar,
-        'mdc-list--two-line': props.twoLine
-      })}>
-        {props.children && props.children.map((item) => {
-          if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
-            listOne.push(item)
-          }
-          return this.renderList(item)
-        })}
-        <div style='display:none'>{this.listAll.push(listOne)}</div>
-      </ul>
-    } else {
-      return <div class='mdc-list-group'>
-        {props.children && props.children.map((list) => {
-          if(list && list.nodeName === 'm-list') {
-            const listOne = new Array()
-            this.groupNum += 1
-            const subheader = this.findElement(list.children, 'subheader')
-            return [
-              (list.attributes && (list.attributes.subheader || subheader) &&
-              <h3 id='subheader' accessKey={this.groupNum.toString()} class='mdc-list-group__subheader' onClick={this.onGroup}>
-                {typeof list.attributes.subheader === 'string' ? htmlToVdom(list.attributes.subheader) : list.attributes.subheader}
-                {typeof subheader === 'string' ? htmlToVdom(subheader) : subheader}
-              </h3>),
-              <ul {...extractClass(list, 'mdc-list', {
-                'mdc-list--non-interactive': list.attributes && list.attributes.disabled,
-                'mdc-list--dense': list.attributes && list.attributes.dense,
-                'mdc-list--avatar-list': list.attributes && list.attributes.avatar,
-                'mdc-list--two-line': list.attributes && list.attributes.twoLine
-              })}>
-                {list.children && list.children.map((item) => {
-                  if(item.nodeName !== 'subheader') {
-                    if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
-                      listOne.push(item)
-                    }
-                    return this.renderList(item)
-                  }
-                })}
-                <div style='display:none'>{this.listAll.push(listOne)}</div>
-              </ul>
-            ]
-          }
-        })}
-      </div>
-    }
+    
+    return <ul class="mdc-list">
+    <li class="mdc-list-item" tabindex="0">
+      <span class="mdc-list-item__text">Single-line item</span>
+    </li>
+    <li class="mdc-list-item">
+      <span class="mdc-list-item__text">Single-line item</span>
+    </li>
+    <li class="mdc-list-item">
+      <span class="mdc-list-item__text">Single-line item</span>
+    </li>
+  </ul>
   }
 }
