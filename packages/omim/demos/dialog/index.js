@@ -62,6 +62,9 @@ define('my-app', class extends WeElement {
 
   onItemClick = (e) => {
     console.log(e)
+    this.simpleShow = false
+    this.showText = 'Accepted, thanks!'
+    this.update()
   }
 
   render() {
@@ -71,6 +74,7 @@ define('my-app', class extends WeElement {
         <m-button onClick={this.onShowSimple} ripple>Simple</m-button>
         <m-button onClick={this.onShowConfirmation} ripple>Confirmation</m-button>
         <m-button onClick={this.onShowScrollable} ripple>Scrollable</m-button>
+
         <m-dialog
           onOpening={this.onOpenClose}
           onOpened={this.onOpenClose}
@@ -80,45 +84,48 @@ define('my-app', class extends WeElement {
           onCancel={this.onClose}
           onConfirm={this.onConfirm}
           show={this.alertShow}
-          cancel-button={{
-            text: 'Cancel'
-          }}
-          confirm-button={{
-            text: 'Discard'
-          }}
-        >
-          <p style='margin-top: 0;'>Discard draft?</p>
+          cancel-button={{text: 'Cancel'}}
+          confirm-button={{text: 'Discard'}}>
+          <p style='margin-top:0'>Discard draft?</p>
         </m-dialog>
+
         <m-dialog
           onOpening={this.onOpenClose}
           onOpened={this.onOpenClose}
           onClosing={this.onOpenClose}
           onClosed={this.onOpenClose}
           onScrim={this.onClose}
-          css={css}
           show={this.simpleShow}
           title='Select an account'>
           <m-list
+            css={`
+              .mdc-list {
+                margin-bottom: 8px;
+              }
+              .mdc-list-item {
+                height: 56px;
+              }
+              .mdc-list-item__graphic {
+                background-color: rgba(0,0,0,.3);
+                color: #fff;
+                margin-left: 0;
+                margin-right: 16px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+              }
+              .mdc-list-item--selected .mdc-list-item__graphic {
+                color: #fff;
+              }
+            `}
             singleSelection
-            css={`ul{
-            max-width:500px;
-          }`}
-            items={[{
-              text: 'user1@example.com',
-              icon: 'wifi'
-            },
-            {
-              text: 'user2@example.com',
-              selected: true,
-              icon: 'bluetooth'
-            },
-            {
-              text: 'Add account',
-              icon: 'data_usage'
-            }]}
-
+            items={[
+              {text: 'user1@example.com', icon: 'person'},
+              {text: 'user2@example.com', icon: 'person', selected: true},
+              {text: 'Add account', icon: 'add'}
+            ]}
             onItemClick={this.onItemClick}
-          ></m-list>
+          />
         </m-dialog>
         <m-dialog
           onOpening={this.onOpenClose}
@@ -143,92 +150,35 @@ define('my-app', class extends WeElement {
             onClick: this.onConfirm
           }}
         >
-          <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
-          <ul class="mdc-list">
-            <li onClick={this.onList1} class="mdc-list-item m-list-radio" tabindex={this.listIndex1}>
-            <m-radio
-                css={`
-                  .mdc-form-field {
-                    padding: 0 16px;
-                    line-height: 48px;
-                  }
-                  .mdc-radio {
-                    margin-left: -7.2px;
-                  }
-                  .mdc-form-field > label {
-                    font-size: initial;
-                    cursor: pointer;
-                  }
-                  /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-                  .mdc-radio::before {
-                    transition: auto;
-                    z-index: 0;
-                  }
-                  .mdc-radio__native-control {
-                    z-index: 0;
-                  }
-                `}
-                name="abc"
-                label='Never Gonna Give You Up'
-              ></m-radio>
-            </li>
-            <li onClick={this.onList2} class="mdc-list-item m-list-radio" tabindex={this.listIndex2}>
-              <m-radio
-                css={`
-                  .mdc-form-field {
-                    padding: 0 16px;
-                    line-height: 48px;
-                  }
-                  .mdc-radio {
-                    margin-left: -7.2px;
-                  }
-                  .mdc-form-field > label {
-                    font-size: initial;
-                    padding-right: 86px;
-                    cursor: pointer;
-                  }
-                  /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-                  .mdc-radio::before {
-                    transition: auto;
-                    z-index: 0;
-                  }
-                  .mdc-radio__native-control {
-                    z-index: 0;
-                  }
-                `}
-                name="abc"
-                label='Hot Cross Buns'
-              ></m-radio>
-            </li>
-            <li onClick={this.onList3} class="mdc-list-item m-list-radio" tabindex={this.listIndex3}>
-              <m-radio
-                css={`
-                  .mdc-form-field {
-                    padding: 0 16px;
-                    line-height: 48px;
-                  }
-                  .mdc-radio {
-                    margin-left: -7.2px;
-                  }
-                  .mdc-form-field > label {
-                    font-size: initial;
-                    padding-right: 163px;
-                    cursor: pointer;
-                  }
-                  /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-                  .mdc-radio::before {
-                    transition: auto;
-                    z-index: 0;
-                  }
-                  .mdc-radio__native-control {
-                    z-index: 0;
-                  }
-                `}
-                name="abc"
-                label='None'
-              ></m-radio>
-            </li>
-          </ul>
+          <m-list
+            css={`
+              .mdc-list {
+                margin-bottom: 8px;
+              }
+              .mdc-list-item {
+                height: 56px;
+              }
+              .mdc-list-item__graphic {
+                background-color: rgba(0,0,0,.3);
+                color: #fff;
+                margin-left: 0;
+                margin-right: 16px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+              }
+              .mdc-list-item--selected .mdc-list-item__graphic {
+                color: #fff;
+              }
+            `}
+            singleSelection
+            items={[
+              {text: 'user1@example.com', icon: 'person'},
+              {text: 'user2@example.com', icon: 'person', selected: true},
+              {text: 'Add account', icon: 'add'}
+            ]}
+            onItemClick={this.onItemClick}
+          />
         </m-dialog>
         <m-dialog
           onOpening={this.onOpenClose}
