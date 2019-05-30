@@ -27,3 +27,12 @@ Card contain content and actions about a single subject.
   icons?: object
 }
 ```
+
+### Event
+
+```jsx
+{
+  onButtonAction?: function,
+  onIconAction?: function
+}
+```

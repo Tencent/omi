@@ -27,3 +27,12 @@
   icons?: object
 }
 ```
+
+### Event
+
+```jsx
+{
+  onButtonAction?: function,
+  onIconAction?: function
+}
+```
