@@ -2416,7 +2416,7 @@ var List = /** @class */ (function (_super) {
     List.resetTheme = function () {
         this.css = theme_ts_1.theme() + css;
     };
-    List.prototype.install = function () {
+    List.prototype.installed = function () {
         var _this = this;
         dom_ready_1.domReady(function () {
             //init mdc list
