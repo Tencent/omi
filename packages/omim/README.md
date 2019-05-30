@@ -237,3 +237,4 @@ Why??
 * [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
 * [material-theme-builder](https://material-theme-builder.glitch.me/)
 * [material-components-web](https://github.com/material-components/material-components-web)
+* [material-icons](https://material.io/tools/icons/?style=baseline)

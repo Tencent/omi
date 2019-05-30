@@ -5,7 +5,8 @@ import '../text-field'
 import { theme } from '../theme.ts'
 
 interface Props {
-	type: 'date' | 'time' | 'color' | 'datetime-local'
+	type: 'date' | 'time' | 'color' | 'datetime-local',
+	label: string
 }
 
 interface Data {
@@ -22,10 +23,12 @@ export default class MPicker extends WeElement<Props, Data>{
 	}
 
 	static defaultProps = {
-		type: String
+
 	}
 
 	static propTypes = {
+		type: String,
+		label: String
 	}
 
 	render(props) {
@@ -33,7 +36,7 @@ export default class MPicker extends WeElement<Props, Data>{
 		return (
 			<div {...extractClass(props, 'm-picker')}>
 				{/* todo using text-field */}
-				<m-text-field type={props.type} rightIcon='arrow' />
+				<m-text-field css={`input{min-width:56px;}`} {...props} />
 			</div>
 		)
 	}
