@@ -24,10 +24,10 @@ define('my-head', class extends WeElement {
           <img class="logo" src={logo} />
         </a>
         <ul class="menu">
-          {/* <li class="github_li">
-            <a href="https://github.com/Tencent/omi/tree/master/packages/omiu/examples/src/docs">{this.store.lan === 'en'?'Edit Docs':'编辑文档'}</a>
+          <li class="github_li">
+            <a href={this.store.data.lan === 'en'?'https://tencent.github.io/omi/packages/omim/docs/build/index.html':'https://tencent.github.io/omi/packages/omim/docs/build/cn.html'}>{this.store.data.lan === 'en'?'Omim Docs':'Omim文档'}</a>
           </li>
-          <li style='color:#aaa;'>|</li> */}
+          <li style='color:#aaa;'>|</li>
           <li class="github_li">
             <a href="https://github.com/Tencent/omi/" target="_blank">Github</a>
           </li>
