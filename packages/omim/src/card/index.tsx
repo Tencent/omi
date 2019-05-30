@@ -6,6 +6,13 @@ import '../icon-button'
 import { theme } from '../theme.ts'
 
 interface Props {
+  width?: string,
+  img?: string,
+  title: string,
+  subTitle?: string,
+  content: string,
+  buttons?: object,
+  icons?: object
 }
 
 interface Data {
@@ -53,7 +60,7 @@ export default class Card extends WeElement<Props, Data>{
           </div>
         </div>
 
-        <div class="mdc-card__actions">
+        {(props.buttons || props.icons) && <div class="mdc-card__actions">
           {props.buttons && <div class="mdc-card__action-buttons">
             {props.buttons.map((btn, index) => <button onClick={_ => this.btnClick(_, index)} class="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded">{btn}</button>)}
 
@@ -65,7 +72,7 @@ export default class Card extends WeElement<Props, Data>{
               return <m-icon-button onChange={_ => this.iconClick(_, index)} icons={icon}></m-icon-button>
             })}
           </div>}
-        </div>
+        </div>}
       </div>
     )
   }
