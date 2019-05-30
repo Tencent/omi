@@ -6,22 +6,13 @@
 
 ```html
 <m-dialog
-  id="m-dialog-alert"
-  onOpening
-  onOpened
-  onClosing
-  onClosed
-  onScrim
-  onCancel
-  onConfirm
-  message="<p>Discard draft?</p>"
-  cancel-button="{
-    text: 'Cancel'
-  }"
-  confirm-button="{
-    text: 'Discard'
-  }"
-></m-dialog>
+  show='true'
+  title='Omim'
+  cancel-button="{ text: 'Cancel' }"
+  confirm-button="{ text: 'Discard' }"
+>
+  <p>Welcome to omim!</p>
+</m-dialog>
 ```
 
 ## Omi 中使用
@@ -30,21 +21,11 @@ JSX:
 
 ```jsx
 <m-dialog
-  onOpening={this.onOpenClose}
-  onOpened={this.onOpenClose}
-  onClosing={this.onOpenClose}
-  onClosed={this.onOpenClose}
-  onScrim={this.onClose}
-  onCancel={this.onClose}
-  onConfirm={this.onConfirm}
   show={this.alertShow}
-  message={<p>Discard draft?</p>}
-  cancel-button={{
-    text: 'Cancel'
-  }}
-  confirm-button={{
-    text: 'Discard'
-  }}
+  title='Omim'
+  message={<p>Welcome to omim!</p>}
+  cancel-button={{ text: 'Cancel' }}
+  confirm-button={{ text: 'Discard' }}
 />
 ```
 

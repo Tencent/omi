@@ -6,22 +6,13 @@ Dialogs inform users about a task and can contain critical information, require 
 
 ```html
 <m-dialog
-  id="m-dialog-alert"
-  onOpening
-  onOpened
-  onClosing
-  onClosed
-  onScrim
-  onCancel
-  onConfirm
-  message="<p>Discard draft?</p>"
-  cancel-button="{
-    text: 'Cancel'
-  }"
-  confirm-button="{
-    text: 'Discard'
-  }"
-></m-dialog>
+  show='true'
+  title='Omim'
+  cancel-button="{ text: 'Cancel' }"
+  confirm-button="{ text: 'Discard' }"
+>
+  <p>Discard draft?</p>
+</m-dialog>
 ```
 
 ## Usage in Omi
@@ -30,21 +21,11 @@ JSX:
 
 ```jsx
 <m-dialog
-  onOpening={this.onOpenClose}
-  onOpened={this.onOpenClose}
-  onClosing={this.onOpenClose}
-  onClosed={this.onOpenClose}
-  onScrim={this.onClose}
-  onCancel={this.onClose}
-  onConfirm={this.onConfirm}
   show={this.alertShow}
+  title='Omim'
   message={<p>Discard draft?</p>}
-  cancel-button={{
-    text: 'Cancel'
-  }}
-  confirm-button={{
-    text: 'Discard'
-  }}
+  cancel-button={{ text: 'Cancel' }}
+  confirm-button={{ text: 'Discard' }}
 />
 ```
 
