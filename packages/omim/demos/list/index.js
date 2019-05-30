@@ -11,11 +11,23 @@ define('my-app', class extends WeElement {
 
   static css = css
 
+  onItemClick = (e) => {
+    console.log(e)
+  }
 
   render() {
     return <div>
-     
-     <m-list></m-list>
+
+      <m-list
+        css={`ul{
+        max-width:400px;
+        border: 1px solid rgba(0,0,0,.1);
+      }`}
+        items={['Line item1', 'Line item2', 'Line item3']}
+
+        onItemClick={this.onItemClick}
+      ></m-list>
+
     </div>
   }
 })
