@@ -1,5 +1,5 @@
 import { css } from '../../src/typography/index.tsx'
-import '../../src/list/index.tsx'
+import '../../src/list-old/index.tsx'
 import '../../src/switch/index.tsx'
 import '../../src/icon-button/index.tsx'
 import '../../src/checkbox/index.tsx'
@@ -92,7 +92,6 @@ define('my-app', class extends WeElement {
           .mdc-list-group__subheader {
             background: #EEE;
             margin: 0;
-            padding: 8px;
           }
         `}
       >

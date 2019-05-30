@@ -183,6 +183,7 @@ export default class List extends WeElement<Props, Data>{
         <div style='display:none'>{this.listAll.push(listOne)}</div>
       </ul>
     } else {
+      this.groupNum = -1
       return <div class='mdc-list-group'>
         {props.children && props.children.map((list) => {
           if(list && list.nodeName === 'm-list') {
