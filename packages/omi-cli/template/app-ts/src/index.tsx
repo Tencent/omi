@@ -3,6 +3,7 @@ import './hello-omi'
 import './index.css'
 import * as css from './_index.less'
 import * as logo from './logo.svg'
+import '@omim/core/text-field'
 
 interface MyAppProps {
 	name: string
@@ -33,8 +34,10 @@ export default class extends WeElement<MyAppProps, MyAppData> {
 					/>
 					<h1 class="app-title">Welcome to {props.name}</h1>
 				</header>
-				{this.data.abc}	
+				{this.data.abc}
 				<hello-omi onAbc={this.onAbc} msg="Omi"></hello-omi>
+
+				<m-text-field label='test'></m-text-field>
 			</div>
 		)
 	}
