@@ -215,7 +215,7 @@ define('my-app', class extends WeElement {
               }
             `}
             items={[{
-              text: 'I Love Omim, Me too',
+              text: 'I Love Omim, We too',
               icon: 'wifi',
               checked: `${this.radio.checked1}`,
               selected: `${this.radio.selected1}`

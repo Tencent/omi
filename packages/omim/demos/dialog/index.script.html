@@ -106,7 +106,7 @@
           }
         "
         items="[
-          {text: 'I Love Omim, Me too', icon: 'wifi'},
+          {text: 'I Love Omim, We too', icon: 'wifi'},
           {text: 'Hot Cross Buns', icon: 'bluetooth', checked: true, selected: true},
           {text: 'None', icon: 'data_usage'}
         ]"
@@ -228,9 +228,9 @@
     listConfirmation.addEventListener('itemclick', (e) => {
       console.log(e.detail);
       switch(e.detail.index) {
-        case 0: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, Me too', icon: 'wifi', checked: true, selected: true},{text: 'Hot Cross Buns', icon: 'bluetooth'},{text: 'None', icon: 'data_usage'}]"); break;
-        case 1: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, Me too', icon: 'wifi'},{text: 'Hot Cross Buns', icon: 'bluetooth', checked: true, selected: true},{text: 'None', icon: 'data_usage'}]"); break;
-        case 2: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, Me too', icon: 'wifi'},{text: 'Hot Cross Buns', icon: 'bluetooth'},{text: 'None', icon: 'data_usage', checked: true, selected: true}]"); break;
+        case 0: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, We too', icon: 'wifi', checked: true, selected: true},{text: 'Hot Cross Buns', icon: 'bluetooth'},{text: 'None', icon: 'data_usage'}]"); break;
+        case 1: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, We too', icon: 'wifi'},{text: 'Hot Cross Buns', icon: 'bluetooth', checked: true, selected: true},{text: 'None', icon: 'data_usage'}]"); break;
+        case 2: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, We too', icon: 'wifi'},{text: 'Hot Cross Buns', icon: 'bluetooth'},{text: 'None', icon: 'data_usage', checked: true, selected: true}]"); break;
       }
     })
 
