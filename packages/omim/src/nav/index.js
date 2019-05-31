@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/nav/index.scss":
-/*!**********************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/nav/index.scss ***!
-  \**********************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/nav/index.scss":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/nav/index.scss ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, ".material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 18px;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  vertical-align: top;\n  margin-right: 3px;\n  display: inline-block;\n  line-height: 35px;\n  height: 35px;\n  max-width: 24px;\n  overflow: hidden; }\n\n*,\n*::before,\n*::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\nli {\n  list-style: none;\n  margin: 0;\n  padding: 0px;\n  white-space: nowrap; }\n\nul {\n  margin: 0;\n  padding: 0;\n  width: 100%; }\n\n.m-nav {\n  border: 1px solid #ccc;\n  width: 256px;\n  border-radius: 4px; }\n\n.children {\n  transition: all .4s ease;\n  overflow: hidden; }\n\n.tree-item {\n  vertical-align: top;\n  position: relative; }\n\n.arrow {\n  vertical-align: top;\n  cursor: pointer;\n  height: 35px;\n  line-height: 35px;\n  position: absolute;\n  right: 10px;\n  top: 0px; }\n\n.close > .mdc-tree-title > .arrow {\n  transform: rotate(180deg); }\n\n.mdc-tree-title:hover {\n  background-color: rgba(24, 144, 255, 0.001); }\n\n.mdc-tree-title {\n  padding: 0 10px;\n  cursor: pointer;\n  height: 35px;\n  line-height: 35px;\n  display: block; }\n\n.text {\n  display: inline-block;\n  line-height: 35px;\n  height: 35px; }\n\n.mdc-tree-title:hover {\n  background-color: #cbebfc; }\n\n.mdc-tree-title.selected {\n  background-color: rgba(24, 144, 255, 0.05);\n  color: #0052d9; }\n\n.tree-item,\n.arrow {\n  transition: all .4s ease; }\n", ""]);
+exports.push([module.i, ".material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 18px;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  vertical-align: top;\n  margin-right: 3px;\n  display: inline-block;\n  line-height: 40px;\n  height: 40px;\n  max-width: 24px;\n  overflow: hidden; }\n\n*,\n*::before,\n*::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\nli {\n  list-style: none;\n  margin: 0;\n  padding: 0px;\n  white-space: nowrap; }\n\nul {\n  margin: 0;\n  padding: 0;\n  width: 100%; }\n\n.m-nav {\n  border: 1px solid #ccc;\n  width: 256px;\n  border-radius: 4px; }\n\n.children {\n  transition: all .4s ease;\n  overflow: hidden; }\n\n.tree-item {\n  vertical-align: top;\n  position: relative; }\n\n.arrow {\n  vertical-align: top;\n  cursor: pointer;\n  height: 40px;\n  line-height: 40px;\n  position: absolute;\n  right: 10px;\n  top: 0px; }\n\n.close > .mdc-tree-title > .arrow {\n  transform: rotate(180deg); }\n\n.mdc-tree-title:hover {\n  background-color: rgba(24, 144, 255, 0.001); }\n\n.mdc-tree-title {\n  padding: 0 10px;\n  cursor: pointer;\n  height: 40px;\n  line-height: 40px;\n  display: block; }\n\n.text {\n  display: inline-block;\n  line-height: 40px;\n  height: 40px; }\n\n.mdc-tree-title:hover {\n  background-color: #cbebfc; }\n\n.mdc-tree-title.selected {\n  background-color: rgba(24, 144, 255, 0.05);\n  color: #0052d9; }\n\n.tree-item,\n.arrow {\n  transition: all .4s ease; }\n", ""]);
 
 // exports
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/nav/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/nav/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -288,7 +288,7 @@ var Nav = /** @class */ (function (_super) {
                     omi_1.h("span", { class: 'text' }, node.title),
                     node.children && node.children.length > 0 && omi_1.h("svg", { onClick: function (_) { return _this.toggle(_, node.id, !node.close); }, viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
                         omi_1.h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" }))),
-                omi_1.h("div", { class: 'children', style: "height: " + (node.close ? 0 : (node.children ? (this._getChildCount(node)) * 35 : 0)) + "px;" },
+                omi_1.h("div", { class: 'children', style: "height: " + (node.close ? 0 : (node.children ? (this._getChildCount(node)) * 40 : 0)) + "px;" },
                     " ",
                     node.children && node.children.length > 0 && node.children.map(function (_) { return _this.renderNode(_, next); }))));
     };

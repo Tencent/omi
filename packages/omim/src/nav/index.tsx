@@ -56,7 +56,7 @@ export default class Nav extends WeElement<Props, Data>{
 				</span>
 
 
-				<div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 35 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_, next))}</div>
+				<div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 40 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_, next))}</div>
 			</li>
 		</ul>
 	}
