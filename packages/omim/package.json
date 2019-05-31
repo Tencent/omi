@@ -64,6 +64,7 @@
     "omi": "^6.3.17",
     "omio": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "to-string-loader": "^1.1.5",
@@ -99,6 +100,8 @@
     "useTabs": false
   },
   "dependencies": {
+    "moment": "^2.24.0",
+    "draggabilly": "^2.2.0",
     "@material/button": "^2.0.0",
     "@material/card": "^2.1.1",
     "@material/checkbox": "^2.1.0",
