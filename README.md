@@ -20,6 +20,7 @@ English | [简体中文](./README.CN.md)
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
 | [omil](https://github.com/Wscats/omil)|Webpack loader for Omi.js components|
+| [omi-snippets](https://github.com/Wscats/omi-snippets) |A beautify VSCode extension for .omi or .eno file, [Install now!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 
 #### Mini Program
 
@@ -53,7 +54,6 @@ English | [简体中文](./README.CN.md)
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
-| [omi-snippets](https://github.com/Wscats/omi-snippets) |A beautify VSCode extension for .omi or .eno file, [Install now!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 
 ## Why Omi?
 

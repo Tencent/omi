@@ -22,6 +22,7 @@
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
 |[omil](https://github.com/Wscats/omil)| Omi components 的 Webpack loader |
+| [omi-snippets](https://github.com/Wscats/omi-snippets) | VSCodse omi 文件扩展, [立即安装!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 
 #### 小程序生态
 
@@ -57,7 +58,6 @@
 | [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
-| [omi-snippets](https://github.com/Wscats/omi-snippets) | VSCodse omi 文件扩展, [立即安装!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 
 ### 特性
 
