@@ -2,107 +2,40 @@
 
 .table-fill {
   background: white;
-  border-radius: 3px;
-  border-collapse: collapse;
   margin: auto;
   padding: 5px;
   width: 100%;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   animation: float 5s infinite;
+  border-spacing: 0;
+  border-collapse: collapse;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 400;
 }
 
 th {
-  color: white;
-  background: #1b1e24;
-  border-right: 1px solid #343a45;
-  font-size: 15px;
-  font-weight: 100;
-  padding: 5px;
+  border-bottom: 1px solid #E0E0E0;
   text-align: left;
   vertical-align: middle;
-}
-
-th:first-child {
-  border-top-left-radius: 3px;
-}
-
-th:last-child {
-  border-top-right-radius: 3px;
-  border-right: none;
+  padding: 14px 40px 14px 16px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.75rem;
+  line-height: 1.3125rem;
+  font-weight: 500;
 }
 
 tr {
-  border-top: 1px solid #C1C3D1;
-  color: #666B85;
-  font-size: 16px;
-  font-weight: normal;
+  border-bottom: 1px solid #E0E0E0;
 }
 
 tr:hover td {
-  background:rgba($mdc-theme-secondary, .03);
-}
-
-tr:first-child {
-  border-top: none;
-}
-
-tr:last-child {
-  border-bottom: none;
-}
-
-tr:nth-child(odd) td {
-  background: rgb(245, 245, 245);
-}
-
-tr:nth-child(odd):hover td {
-  background:rgba($mdc-theme-secondary, .03);
-}
-
-tr:last-child td:first-child {
-  border-bottom-left-radius: 3px;
-}
-
-tr:last-child td:last-child {
-  border-bottom-right-radius: 3px;
+  background: #f5f5f5;
 }
 
 td {
-  background: #FFFFFF;
-  padding: 5px;
   text-align: left;
   vertical-align: middle;
-  font-weight: 300;
-  font-size: 14px;
-  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #C1C3D1;
-}
-
-td:last-child {
-  border-right: 0px;
-}
-
-th.text-left {
-  text-align: left;
-}
-
-th.text-center {
-  text-align: center;
-}
-
-th.text-right {
-  text-align: right;
-}
-
-td.text-left {
-  text-align: left;
-}
-
-td.text-center {
-  text-align: center;
-}
-
-td.text-right {
-  text-align: right;
+  font-size: 0.875rem;
+  padding: 14px 40px 14px 16px;
 }
 
 a {
