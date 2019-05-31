@@ -39,7 +39,8 @@ export default class Tag extends WeElement<Props, Data>{
         props.size ? 'mdc-tag--' + `${props.size}` : ''
       )}>
         <span><slot></slot></span>
-        {(props.icon) && <m-icon class='m-icon' {...props.icon}></m-icon>}
+        {props.svgIcon && <m-icon class='m-icon' {...props.svgIcon}></m-icon>}
+        {props.icon && <i class="material-icons mdc-button__icon">{props.icon}</i>}
       </div>
     )
   }

@@ -6,6 +6,14 @@
   display: inline-block;
 }
 
+.mdc-tag>span {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: bottom;
+  width: auto;
+}
+
 .mdc-tag {
   margin: 5px 5px 0 0;
   background-color: #fff;
@@ -18,7 +26,6 @@
   white-space: nowrap;
   font-family: Roboto, sans-serif;
   font-size: 12px;
-  line-height: 2.25rem;
   font-weight: 500;
   letter-spacing: 0.08929em;
   text-decoration: none;
@@ -33,6 +40,7 @@
   user-select: none;
   overflow: hidden;
   vertical-align: middle;
+  border-radius: $mdc-shape-small-component-radius;
 }
 
 .mdc-tag--active {
@@ -44,16 +52,19 @@
   border-color: rgba(103, 194, 58, 0.2);
   color: #09bb07 !important;
 }
+
 .mdc-tag--primary {
   background-color: rgba(64, 158, 255, 0.1);
   border-color: rgba(64, 158, 255, 0.2);
-  color: #0052d9 !important;
+  color: $mdc-theme-primary !important;
 }
+
 .mdc-tag--warn {
   background-color: rgba(230, 162, 60, 0.1);
   border-color: rgba(230, 162, 60, 0.2);
   color: #e6a23c !important;
 }
+
 .mdc-tag--danger {
   background-color: rgba(245, 108, 108, 0.1);
   border-color: rgba(245, 108, 108, 0.2);
@@ -75,4 +86,26 @@
   height: 20px;
   padding: 0 5px;
   line-height: 19px;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  margin-left: 8px;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: bottom;
 }
