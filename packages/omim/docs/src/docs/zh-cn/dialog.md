@@ -5,13 +5,8 @@
 ## 使用
 
 ```html
-<m-dialog
-  show='true'
-  title='Omim'
-  cancel-button="{ text: 'Cancel' }"
-  confirm-button="{ text: 'Discard' }"
->
-  <p>Welcome to omim!</p>
+<m-dialog cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
+  <p class="m-dialog-alert-p">Discard draft?</p>
 </m-dialog>
 ```
 
@@ -20,13 +15,9 @@
 JSX:
 
 ```jsx
-<m-dialog
-  show={this.alertShow}
-  title='Omim'
-  message={<p>Welcome to omim!</p>}
-  cancel-button={{ text: 'Cancel' }}
-  confirm-button={{ text: 'Discard' }}
-/>
+<m-dialog cancel-button={{text: 'Cancel'}} confirm-button={{text: 'Discard'}}>
+  <p style='margin:0'>Discard draft?</p>
+</m-dialog>
 ```
 
 ## API
@@ -36,9 +27,8 @@ JSX:
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
 | show | boolean | -- | 是否显示对话框 |
-| scrollable | boolean | -- | 是否在有滚动条时显示上下边框线 |
+| scrollable | boolean | -- | 对话框内容溢出保证滚动 |
 | title | string | -- | 对话框标题 |
-| message | string/dom | -- | 对话框内容 |
 | cancel-button | object | -- | 对话框取消按钮内容，支持所有 m-icon 属性 |
 | confirm-button | object | -- | 对话框确认按钮内容，支持所有 m-icon 属性 |
 | onOpening | function | -- | 对话框打开过程触发 |
