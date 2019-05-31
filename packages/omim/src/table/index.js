@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/table/index.scss":
-/*!************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/table/index.scss ***!
-  \************************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/table/index.scss":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/table/index.scss ***!
+  \************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/table/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/table/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -279,10 +279,18 @@ var Table = /** @class */ (function (_super) {
     Table.resetTheme = function () {
         this.css = theme_ts_1.theme() + css;
     };
+    // static propTypes = {
+    // 	dataSource: Object,
+    // 	columns: Object
+    // }
     Table.prototype.install = function () {
         this.dataSource = this.props.dataSource;
     };
     Table.prototype.render = function (props) {
+        if (!props.columns)
+            return;
+        if (!props.dataSource)
+            return;
         return (omi_1.h("table", { class: "table-fill" },
             omi_1.h("thead", null,
                 omi_1.h("tr", null, props.columns.map(function (item) {
@@ -303,10 +311,6 @@ var Table = /** @class */ (function (_super) {
             }))); }))));
     };
     Table.css = theme_ts_1.theme() + css;
-    Table.propTypes = {
-        dataSource: Object,
-        columns: Object
-    };
     Table = __decorate([
         omi_1.tag('m-table')
     ], Table);
