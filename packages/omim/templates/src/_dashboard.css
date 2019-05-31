@@ -8,12 +8,20 @@
 
 h3{
   font-weight: normal;
-
+  display: inline-block;
+  margin-top: 10px;
 }
 
 m-icon-button{
   position: absolute;
   right: 10px;
-  top: -13px;
+  top: -1px;
   color: rgba(0,0,0,.54)
+}
+
+m-breadcrumb{
+  display: inline-block;
+  position: relative;
+  top:-2px;
+  left:15px;
 }
