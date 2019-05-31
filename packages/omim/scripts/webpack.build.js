@@ -30,6 +30,9 @@ const config = {
         'to-string-loader',
         'css-loader',
         {
+          loader: 'resolve-url-loader'
+        },
+        {
           loader: 'sass-loader',
           options: {
             sourceMap: true,
@@ -43,6 +46,10 @@ const config = {
           }
         }
       ]
+    },
+    {
+      test: /\.(jpe?g|png|gif|svg)$/i, 
+      loader: "url-loader"
     },
     {
       test: /\.[t|j]sx?$/,

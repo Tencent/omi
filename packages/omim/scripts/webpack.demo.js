@@ -30,6 +30,9 @@ module.exports = {
         'to-string-loader',
         'css-loader',
         {
+          loader: 'resolve-url-loader'
+        },
+        {
           loader: 'sass-loader',
           options: {
             sourceMap: true,
@@ -43,6 +46,10 @@ module.exports = {
           }
         }
       ]
+    },
+    {
+      test: /\.(jpe?g|png|gif|svg)$/i, 
+      loader: "url-loader"
     },
     // {
     //   test: /\.scss$/,
