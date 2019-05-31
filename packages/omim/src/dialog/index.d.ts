@@ -5,7 +5,6 @@ interface Props {
     show?: boolean;
     scrollable?: boolean;
     title?: string;
-    message?: string;
     cancelButton?: object;
     confirmButton?: object;
 }
@@ -18,16 +17,15 @@ export default class Dialog extends WeElement<Props, Data> {
         show: BooleanConstructor;
         scrollable: BooleanConstructor;
         title: StringConstructor;
-        message: StringConstructor;
         cancelButton: ObjectConstructor;
         confirmButton: ObjectConstructor;
     };
     dialog: MDCDialog;
     updated(): void;
     installed(): void;
-    onScrim: (evt: Event) => void;
-    onCancel: (evt: Event) => void;
-    onConfirm: (evt: Event) => void;
+    onScrim: (e: any) => void;
+    onCancel: (e: any) => void;
+    onConfirm: (e: any) => void;
     render(props: any): JSX.Element;
 }
 export {};

@@ -5,13 +5,8 @@ Dialogs inform users about a task and can contain critical information, require 
 ## Usage
 
 ```html
-<m-dialog
-  show='true'
-  title='Omim'
-  cancel-button="{ text: 'Cancel' }"
-  confirm-button="{ text: 'Discard' }"
->
-  <p>Discard draft?</p>
+<m-dialog cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
+  <p class="m-dialog-alert-p">Discard draft?</p>
 </m-dialog>
 ```
 
@@ -20,13 +15,9 @@ Dialogs inform users about a task and can contain critical information, require 
 JSX:
 
 ```jsx
-<m-dialog
-  show={this.alertShow}
-  title='Omim'
-  message={<p>Discard draft?</p>}
-  cancel-button={{ text: 'Cancel' }}
-  confirm-button={{ text: 'Discard' }}
-/>
+<m-dialog cancel-button={{text: 'Cancel'}} confirm-button={{text: 'Discard'}}>
+  <p style='margin:0'>Discard draft?</p>
+</m-dialog>
 ```
 
 ## API
@@ -36,9 +27,8 @@ JSX:
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
 | show | boolean | -- | Whether to display a dialog box |
-| scrollable | boolean | -- | Displays upper and lower border lines when a scroll bar is present |
+| scrollable | boolean | -- | Dialog content overflow guarantees scrolling |
 | title | string | -- | Dialog title |
-| message | string/dom | -- | Dialog content |
 | cancel-button | object | -- | Dialog box cancels button content, supports all m-icon attribute |
 | confirm-button | object | -- | Dialog to confirm button content, supports all m-icon attribute |
 | onOpening | function | -- | Dialog opening trigger |
