@@ -19,10 +19,10 @@ export default class Table extends WeElement<Props, {}> {
   
 	dataSource = null
 
-	static propTypes = {
-		dataSource: Object,
-		columns: Object
-	}
+	// static propTypes = {
+	// 	dataSource: Object,
+	// 	columns: Object
+	// }
 
   install() {
     this.dataSource = this.props.dataSource
@@ -35,6 +35,8 @@ export default class Table extends WeElement<Props, {}> {
 
   render(props) {
 
+    if(!props.columns) return
+    if(!props.dataSource) return
     return (
       <table class="table-fill">
         <thead>

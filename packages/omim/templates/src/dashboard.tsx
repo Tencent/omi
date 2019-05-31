@@ -2,6 +2,7 @@ import * as css from './_dashboard.css'
 import { define, WeElement, h } from 'omi'
 import '@omim/core/row'
 import '@omim/core/icon-button'
+import '@omim/core/breadcrumb'
 
 define('my-dashboard', class extends WeElement {
   static css = css
@@ -12,6 +13,11 @@ define('my-dashboard', class extends WeElement {
     
       <div class='header'>
         <h3>Dashboard</h3>
+        <m-breadcrumb  split="/" items={[
+          { text: 'Home', href:'https://tencent.github.io/omi/', icon:'home' },
+          { text: 'Helper', icon:'help' },
+          { text: 'About', icon: 'people' }
+        ]}></m-breadcrumb>
         <m-icon-button icon="refresh"></m-icon-button>
       </div>
     
