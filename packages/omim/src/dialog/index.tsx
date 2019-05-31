@@ -66,8 +66,8 @@ export default class Dialog extends WeElement<Props, Data>{
           <div class='mdc-dialog__surface'>
             {props.title && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
-              <slot></slot>
               <a class='m-dialog-content-focus' href="#"></a>  {/* solve the problem that the content focus is empty */}
+              <slot></slot>
             </section>
             {(props.cancelButton || props.confirmButton) &&
             <footer class='mdc-dialog__actions'>

@@ -1782,10 +1782,10 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/dialog/index.scss":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/dialog/index.scss ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/dialog/index.scss":
+/*!**********************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/lib/loader.js??ref--4-3!./src/dialog/index.scss ***!
+  \**********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4710,7 +4710,7 @@ function extend() {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/dialog/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/resolve-url-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/dialog/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4771,18 +4771,9 @@ var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onScrim = function (evt) {
-            _this.fire('scrim');
-            evt && evt.stopPropagation();
-        };
-        _this.onCancel = function (evt) {
-            _this.fire('cancel');
-            evt && evt.stopPropagation();
-        };
-        _this.onConfirm = function (evt) {
-            _this.fire('confirm');
-            evt && evt.stopPropagation();
-        };
+        _this.onScrim = function (e) { _this.fire('scrim', e); };
+        _this.onCancel = function (e) { _this.fire('cancel', e); };
+        _this.onConfirm = function (e) { _this.fire('confirm', e); };
         return _this;
     }
     Dialog.resetTheme = function () {
@@ -4795,22 +4786,10 @@ var Dialog = /** @class */ (function (_super) {
         var _this = this;
         this.dialog = new dialog_1.MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
         this.props.show ? this.dialog.open() : this.dialog.close();
-        this.dialog.listen('MDCDialog:opening', function (evt) {
-            _this.fire('opening', evt);
-            evt && evt.stopPropagation();
-        });
-        this.dialog.listen('MDCDialog:opened', function (evt) {
-            _this.fire('opened', evt);
-            evt && evt.stopPropagation();
-        });
-        this.dialog.listen('MDCDialog:closing', function (evt) {
-            _this.fire('closing', evt);
-            evt && evt.stopPropagation();
-        });
-        this.dialog.listen('MDCDialog:closed', function (evt) {
-            _this.fire('closed', evt);
-            evt && evt.stopPropagation();
-        });
+        this.dialog.listen('MDCDialog:opening', function (e) { _this.fire('opening', e); });
+        this.dialog.listen('MDCDialog:opened', function (e) { _this.fire('opened', e); });
+        this.dialog.listen('MDCDialog:closing', function (e) { _this.fire('closing', e); });
+        this.dialog.listen('MDCDialog:closed', function (e) { _this.fire('closed', e); });
     };
     Dialog.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-dialog', {
@@ -4821,9 +4800,9 @@ var Dialog = /** @class */ (function (_super) {
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     props.title && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' },
-                        props.message,
-                        omi_1.h("slot", null),
-                        omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" })),
+                        omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" }),
+                        "  ",
+                        omi_1.h("slot", null)),
                     (props.cancelButton || props.confirmButton) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
                             props.cancelButton && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelButton), props.cancelButton.text),
@@ -4834,7 +4813,6 @@ var Dialog = /** @class */ (function (_super) {
         show: Boolean,
         scrollable: Boolean,
         title: String,
-        message: String,
         cancelButton: Object,
         confirmButton: Object
     };
