@@ -9,7 +9,8 @@ interface Props {
   type: string,
   active: boolean,
   size: string,
-  icon: object
+  icon: string,
+  svgIcon: object
 }
 
 interface Data {
@@ -28,7 +29,8 @@ export default class Tag extends WeElement<Props, Data>{
     type: String,
     active: Boolean,
     size: String,
-    icon: Object
+    icon: String,
+    svgIcon: Object
   }
 
   render(props) {
