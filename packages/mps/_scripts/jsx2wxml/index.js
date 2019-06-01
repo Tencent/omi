@@ -395,12 +395,12 @@ function transform(options) {
             if (classDeclName) {
                 isConverted = classDeclName === '_C' || classDeclName.endsWith('Tmpl');
             }
-            if (!t.isBinaryExpression(expr, { operator: '+' }) && !t.isLiteral(expr) && name.name === 'style' && !isConverted) {
-                const jsxID = path.findParent(p => p.isJSXOpeningElement()).get('name');
-                if (jsxID && jsxID.isJSXIdentifier() && constant_1.DEFAULT_Component_SET.has(jsxID.node.name)) {
-                    exprPath.replaceWith(t.callExpression(t.identifier(constant_1.INTERNAL_INLINE_STYLE), [expr]));
-                }
-            }
+            // if (!t.isBinaryExpression(expr, { operator: '+' }) && !t.isLiteral(expr) && name.name === 'style' && !isConverted) {
+            //     const jsxID = path.findParent(p => p.isJSXOpeningElement()).get('name');
+            //     if (jsxID && jsxID.isJSXIdentifier() && constant_1.DEFAULT_Component_SET.has(jsxID.node.name)) {
+            //         exprPath.replaceWith(t.callExpression(t.identifier(constant_1.INTERNAL_INLINE_STYLE), [expr]));
+            //     }
+            // }
             if (name.name.startsWith('on')) {
                 if (exprPath.isReferencedIdentifier()) {
                     const ids = [expr.name];
