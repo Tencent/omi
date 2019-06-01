@@ -1,5 +1,10 @@
 class Cube {
-  constructor(length, width, height) {}
+  constructor(position, length, width, height) {
+    this.position = position
+    this.length = length
+    this.width = width
+    this.height = height
+  }
 
   render() {
     //
