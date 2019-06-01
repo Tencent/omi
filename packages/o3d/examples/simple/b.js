@@ -2248,7 +2248,190 @@
 
 	});
 
-	console.log(Vector3, Matrix4);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Group = function () {
+	  function Group() {
+	    _classCallCheck(this, Group);
+
+	    this.children = [];
+	  }
+
+	  Group.prototype.add = function add(child) {
+	    this.children.push(child);
+	  };
+
+	  Group.prototype.render = function render(ctx) {
+	    var list = this.children.slice();
+	    for (var i = 0, l = list.length; i < l; i++) {
+	      var child = list[i];
+	      if (!child.isVisible()) {
+	        continue;
+	      }
+
+	      // draw the child:
+	      ctx.save();
+	      child.updateContext(ctx);
+	      child.render(ctx);
+	      ctx.restore();
+	    }
+	    return true;
+	  };
+
+	  return Group;
+	}();
+
+	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Stage = function (_Group) {
+	  _inherits(Stage, _Group);
+
+	  function Stage() {
+	    _classCallCheck$1(this, Stage);
+
+	    return _possibleConstructorReturn(this, _Group.call(this));
+	  }
+
+	  Stage.prototype.update = function update() {
+	    this.children.forEach(function (child) {
+	      child.render();
+	    });
+	  };
+
+	  return Stage;
+	}(Group);
+
+	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Cube = function () {
+	  function Cube(position, length, width, height) {
+	    _classCallCheck$2(this, Cube);
+
+	    this.position = position;
+	    this.length = length;
+	    this.width = width;
+	    this.height = height;
+
+	    this.rotation = {
+	      x: 0,
+	      y: 0,
+	      z: 0
+	    };
+	  }
+
+	  Cube.prototype.render = function render() {
+	    //
+	    //face z-sort
+	    //render
+	  };
+
+	  return Cube;
+	}();
+
+	function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Camera = function () {
+	  function Camera(option) {
+	    _classCallCheck$3(this, Camera);
+
+	    //http://blog.csdn.net/lyx2007825/article/details/8792475
+	    //http://www.cnblogs.com/yiyezhai/archive/2012/09/12/2677902.html
+	    this._createProp('x', option.x, this._update);
+	    this._createProp('y', option.y, this._update);
+	    this._createProp('z', option.z, this._update);
+
+	    //(vertical field of view(FOV))
+	    this.fov = option.fov || 75;
+	    this.ratio = option.ratio || 1920 / 1080;
+	    this.front = option.front || 1;
+	    this.back = option.back || 10000;
+	    this.target = [0, 0, 0];
+	    this._update();
+	  }
+
+	  Camera.prototype._update = function _update() {
+	    //http://webglfactory.blogspot.com/2011/06/how-to-create-view-matrix.html
+	    //http://4.bp.blogspot.com/_ltmZpULxXtI/TSn3hwEQuZI/AAAAAAAAAes/H93UF8OT1sE/s1600/gimballock_camera.png
+	    this.v_matrix = Matrix4.lookAt([], [this.x, this.y, this.z], this.target, [0, 1, 0]);
+	    this.p_matrix = Matrix4.getProjection(this.fov, this.ratio, this.front, this.back);
+	    this.un_p_matrix = new Matrix4().getInverse(this.p_matrix);
+	    this.un_v_matrix = new Matrix4().getInverse(this.v_matrix);
+	  };
+
+	  Camera.prototype.lookAt = function lookAt(target) {
+	    this.target = target;
+	    this._update();
+	  };
+
+	  Camera.prototype.createRay = function createRay(rotioX, ratioY) {
+	    var v3 = Vector3;
+
+	    var pl = [this.x, this.y, this.z];
+	    var m = new Matrix4().multiplyMatrices(this.un_v_matrix, this.un_p_matrix);
+
+	    var p2 = v3.applyProjection([rotioX, ratioY, 0], m);
+
+	    var v = v3.sub([], p2, pl);
+	    return {
+	      dir: v3.normalize(v, v),
+	      pt: pl
+	    };
+	  };
+
+	  Camera.prototype._createProp = function _createProp(name, defaultValue, setterCallback) {
+	    this['_' + name] = defaultValue;
+	    Object.defineProperty(this, name, {
+	      get: function get() {
+	        return this['_' + name];
+	      },
+	      set: function set(value) {
+	        this['_' + name] = value;
+	        setterCallback.call(this, value);
+	      }
+	    });
+	  };
+
+	  return Camera;
+	}();
+
+	var stage = new Stage({
+	  camera: new Camera({
+	    x: 0,
+	    y: 0,
+	    z: 600,
+	    rotateX: 0,
+	    rotateY: 0,
+	    fov: 60,
+	    ratio: 600 / 600,
+	    front: 1,
+	    back: 1000
+	  }),
+	  renderTo: '#root',
+	  width: 600,
+	  height: 400,
+	  renderer: 'canvas'
+	});
+
+	var cube = new Cube({
+	  x: 0,
+	  y: 0,
+	  z: 0
+	}, 100, 100, 100);
+
+	stage.add(cube);
+
+	animate();
+
+	function animate() {
+	  requestAnimationFrame(animate);
+	  cube.rotation.x += 0.01;
+	  cube.rotation.y += 0.02;
+	  stage.update();
+	}
 
 }());
 //# sourceMappingURL=b.js.map

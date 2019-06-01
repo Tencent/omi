@@ -4,6 +4,12 @@ class Cube {
     this.length = length
     this.width = width
     this.height = height
+
+    this.rotation ={
+      x: 0,
+      y: 0,
+      z: 0
+    }
   }
 
   render() {
@@ -12,3 +18,5 @@ class Cube {
     //render
   }
 }
+
+export {Cube}

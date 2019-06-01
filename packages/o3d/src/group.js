@@ -3,6 +3,10 @@ class Group {
     this.children = []
   }
 
+  add(child){
+    this.children.push(child)
+  }
+
   render(ctx) {
     let list = this.children.slice()
     for (let i = 0, l = list.length; i < l; i++) {
@@ -20,3 +24,5 @@ class Group {
     return true
   }
 }
+
+export {Group}
