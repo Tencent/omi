@@ -1,5 +1,5 @@
 /**
- * omi v6.3.17  http://omijs.org
+ * omi v6.4.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -389,26 +389,31 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     var parentNode = null;
     if (isArray(dom)) {
       var domLength = dom.length;
-      var vnodeLength = vnode.length;
-      var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
+      var maxLength = Math.max(vnode.length, domLength);
       parentNode = dom[0].parentNode;
       for (var i = 0; i < maxLength; i++) {
         var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
         ret.push(ele);
-        if (i > domLength - 1) {
+        if (parentNode && i > domLength - 1) {
           parentNode.appendChild(ele);
         }
       }
     } else {
-      vnode.forEach(function (item) {
-        var ele = idiff(dom, item, context, mountAll, componentRoot);
+      vnode.forEach(function (item, index) {
+        var ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot);
         ret.push(ele);
         parent && parent.appendChild(ele);
       });
     }
   } else {
     if (isArray(dom)) {
-      ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
+      dom.forEach(function (one, index) {
+        if (index === 0) {
+          ret = idiff(one, vnode, context, mountAll, componentRoot);
+        } else {
+          recollectNodeTree(one, false);
+        }
+      });
     } else {
       ret = idiff(dom, vnode, context, mountAll, componentRoot);
     }
@@ -1320,26 +1325,19 @@ var WeElement = function (_HTMLElement) {
     }
     this.attrsToProps();
     this.beforeInstall();
-    !this._isInstalled && this.install();
+    this.install();
     this.afterInstall();
-    var shadowRoot;
-    if (!this.shadowRoot) {
-      shadowRoot = this.attachShadow({
-        mode: 'open'
-      });
-    } else {
-      shadowRoot = this.shadowRoot;
-      var fc;
-      while (fc = shadowRoot.firstChild) {
-        shadowRoot.removeChild(fc);
-      }
-    }
+
+    var shadowRoot = this.attachShadow({
+      mode: 'open'
+    });
+
     if (this.constructor.css) {
       shadowRoot.appendChild(cssToDom(this.constructor.css));
     } else if (this.css) {
       shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
     }
-    !this._isInstalled && this.beforeRender();
+    this.beforeRender();
     options.afterInstall && options.afterInstall(this);
     if (this.constructor.observe) {
       this.beforeObserve();
@@ -1363,7 +1361,7 @@ var WeElement = function (_HTMLElement) {
     } else {
       shadowRoot.appendChild(this._host);
     }
-    !this._isInstalled && this.installed();
+    this.installed();
     this._isInstalled = true;
   };
 
@@ -1788,7 +1786,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.3.17';
+options.root.Omi.version = '6.4.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

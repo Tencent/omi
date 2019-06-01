@@ -167,21 +167,22 @@
             var parentNode = null;
             if (isArray(dom)) {
                 var domLength = dom.length;
-                var vnodeLength = vnode.length;
-                var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
+                var maxLength = Math.max(vnode.length, domLength);
                 parentNode = dom[0].parentNode;
                 for (var i = 0; i < maxLength; i++) {
                     var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
                     ret.push(ele);
-                    if (i > domLength - 1) parentNode.appendChild(ele);
+                    if (parentNode && i > domLength - 1) parentNode.appendChild(ele);
                 }
-            } else vnode.forEach(function(item) {
-                var ele = idiff(dom, item, context, mountAll, componentRoot);
+            } else vnode.forEach(function(item, index) {
+                var ele = idiff(0 === index ? dom : null, item, context, mountAll, componentRoot);
                 ret.push(ele);
                 parent && parent.appendChild(ele);
             });
         } else {
-            if (isArray(dom)) ret = idiff(dom[0], vnode, context, mountAll, componentRoot); else ret = idiff(dom, vnode, context, mountAll, componentRoot);
+            if (isArray(dom)) dom.forEach(function(one, index) {
+                if (0 === index) ret = idiff(one, vnode, context, mountAll, componentRoot); else recollectNodeTree(one, !1);
+            }); else ret = idiff(dom, vnode, context, mountAll, componentRoot);
             if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         }
         if (!--diffLevel) hydrating = !1;
@@ -899,18 +900,13 @@
             } else this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
             this.attrsToProps();
             this.beforeInstall();
-            !this.B && this.install();
+            this.install();
             this.afterInstall();
-            var shadowRoot;
-            if (!this.shadowRoot) shadowRoot = this.attachShadow({
+            var shadowRoot = this.attachShadow({
                 mode: 'open'
-            }); else {
-                shadowRoot = this.shadowRoot;
-                var fc;
-                while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
-            }
+            });
             if (this.constructor.css) shadowRoot.appendChild(cssToDom(this.constructor.css)); else if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
-            !this.B && this.beforeRender();
+            this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             if (this.constructor.observe) {
                 this.beforeObserve();
@@ -927,7 +923,7 @@
             if (isArray(this.L)) this.L.forEach(function(item) {
                 shadowRoot.appendChild(item);
             }); else shadowRoot.appendChild(this.L);
-            !this.B && this.installed();
+            this.installed();
             this.B = !0;
         };
         WeElement.prototype.disconnectedCallback = function() {
@@ -1086,7 +1082,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.17';
+    options.root.Omi.version = '6.4.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
