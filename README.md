@@ -391,7 +391,12 @@ define('hello-element', class extends WeElement {
     evt.stopPropagation()
   }
 
- static css = `
+  //If you need to use <hello-element></hello-element> directly in html, you must declare propTypes
+  static propTypes = {
+    msg: String
+  }
+
+  static css = `
       div {
         color: red;
         cursor: pointer;
@@ -400,7 +405,7 @@ define('hello-element', class extends WeElement {
   render(props) {
     return (
       <div onClick={this.onClick}>
-        Hello {props.msg} {props.propFromParent}
+        Hello {props.msg}
         <div>Click Me!</div>
       </div>
     )
@@ -415,17 +420,16 @@ import { define, render, WeElement } from 'omi'
 import './hello-element'
 
 define('my-app', class extends WeElement {
-  data = { abc: 'abc', passToChild: 123 }
+  data = { abc: 'abc' }
 
   // define CustomEvent Handler
   onAbc = evt => {
     // get evt data by evt.detail
     this.data.abc = ' by ' + evt.detail.name
-    this.data.passToChild = 1234
     this.update()
   }
 
-  css = `
+  static css = `
       div{
           color: green;
       }`
@@ -434,10 +438,9 @@ define('my-app', class extends WeElement {
   render(props, data) {
     return (
       <div>
-        Hello {props.name} {data.abc}
+        Hello {data.abc}
         <hello-element
           onAbc={this.onAbc}
-          propFromParent={data.passToChild}
           msg="WeElement"
         />
       </div>
