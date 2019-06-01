@@ -1402,6 +1402,93 @@
 		}
 	}
 
+	Matrix4.getProjection = function (angle, a, zMin, zMax) {
+		var ang = Math.tan(angle * .5 * Math.PI / 180); //angle*.5
+		return new Matrix4().set(0.5 / ang, 0, 0, 0, 0, 0.5 * a / ang, 0, 0, 0, 0, -(zMax + zMin) / (zMax - zMin), -2 * zMax * zMin / (zMax - zMin), 0, 0, -1, 0);
+	};
+
+	Matrix4.lookAt = function (out, eye, center, up) {
+		var x0,
+		    x1,
+		    x2,
+		    y0,
+		    y1,
+		    y2,
+		    z0,
+		    z1,
+		    z2,
+		    len,
+		    eyex = eye[0],
+		    eyey = eye[1],
+		    eyez = eye[2],
+		    upx = up[0],
+		    upy = up[1],
+		    upz = up[2],
+		    centerx = center[0],
+		    centery = center[1],
+		    centerz = center[2];
+
+		z0 = eyex - centerx;
+		z1 = eyey - centery;
+		z2 = eyez - centerz;
+
+		len = 1 / Math.sqrt(z0 * z0 + z1 * z1 + z2 * z2);
+		z0 *= len;
+		z1 *= len;
+		z2 *= len;
+
+		x0 = upy * z2 - upz * z1;
+		x1 = upz * z0 - upx * z2;
+		x2 = upx * z1 - upy * z0;
+		len = Math.sqrt(x0 * x0 + x1 * x1 + x2 * x2);
+		if (!len) {
+			x0 = 0;
+			x1 = 0;
+			x2 = 0;
+		} else {
+			len = 1 / len;
+			x0 *= len;
+			x1 *= len;
+			x2 *= len;
+		}
+
+		y0 = z1 * x2 - z2 * x1;
+		y1 = z2 * x0 - z0 * x2;
+		y2 = z0 * x1 - z1 * x0;
+
+		len = Math.sqrt(y0 * y0 + y1 * y1 + y2 * y2);
+		if (!len) {
+			y0 = 0;
+			y1 = 0;
+			y2 = 0;
+		} else {
+			len = 1 / len;
+			y0 *= len;
+			y1 *= len;
+			y2 *= len;
+		}
+
+		out[0] = x0;
+		out[1] = y0;
+		out[2] = z0;
+		out[3] = 0;
+		out[4] = x1;
+		out[5] = y1;
+		out[6] = z1;
+		out[7] = 0;
+		out[8] = x2;
+		out[9] = y2;
+		out[10] = z2;
+		out[11] = 0;
+		out[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+		out[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+		out[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+		out[15] = 1;
+
+		// return out;
+		return new Matrix4().set(out[0], out[4], out[8], out[12], out[1], out[5], out[9], out[13], out[2], out[6], out[10], out[14], out[3], out[7], out[11], out[15]);
+	};
+
 	Object.assign(Matrix4.prototype, {
 
 		isMatrix4: true,
@@ -2290,15 +2377,26 @@
 	var Stage = function (_Group) {
 	  _inherits(Stage, _Group);
 
-	  function Stage() {
+	  function Stage(option) {
 	    _classCallCheck$1(this, Stage);
 
-	    return _possibleConstructorReturn(this, _Group.call(this));
+	    var _this = _possibleConstructorReturn(this, _Group.call(this));
+
+	    _this.renderTo = typeof option.renderTo === 'string' ? document.querySelector(option.renderTo) : option.renderTo;
+	    _this.canvas = document.createElement('canvas');
+	    _this.canvas.width = option.width;
+	    _this.canvas.height = option.height;
+	    _this.ctx = _this.canvas.getContext('2d');
+
+	    _this.camera = option.camera;
+	    return _this;
 	  }
 
 	  Stage.prototype.update = function update() {
+	    var _this2 = this;
+
 	    this.children.forEach(function (child) {
-	      child.render();
+	      child.render(_this2.ctx, _this2.camera);
 	    });
 	  };
 
@@ -2321,12 +2419,18 @@
 	      y: 0,
 	      z: 0
 	    };
+	    this.testP = new Vector3(100, 100, 100);
+
+	    this.pv = new Matrix4();
 	  }
 
-	  Cube.prototype.render = function render() {
-	    //
+	  Cube.prototype.render = function render(ctx, camera) {
+	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
+	    //p*v*m
 	    //face z-sort
 	    //render
+	    this.testP.applyMatrix4(this.pv);
+	    console.log(this.testP);
 	  };
 
 	  return Cube;
@@ -2424,14 +2528,16 @@
 
 	stage.add(cube);
 
-	animate();
+	stage.update();
 
-	function animate() {
-	  requestAnimationFrame(animate);
-	  cube.rotation.x += 0.01;
-	  cube.rotation.y += 0.02;
-	  stage.update();
-	}
+	//animate();
+
+	// function animate() {
+	//   requestAnimationFrame(animate);
+	//   cube.rotation.x += 0.01;
+	//   cube.rotation.y += 0.02;
+	//   stage.update()
+	// }
 
 }());
 //# sourceMappingURL=b.js.map

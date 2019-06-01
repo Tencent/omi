@@ -26,13 +26,13 @@ const cube = new Cube({
 
 stage.add(cube)
 
-animate();
+stage.update()
 
+//animate();
 
-
-function animate() {
-  requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.02;
-  stage.update()
-}
+// function animate() {
+//   requestAnimationFrame(animate);
+//   cube.rotation.x += 0.01;
+//   cube.rotation.y += 0.02;
+//   stage.update()
+// }
