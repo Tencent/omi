@@ -43,7 +43,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       for (let i = 0; i < maxLength; i++) {
         let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
         ret.push(ele)
-        if (i > domLength - 1) {
+        if (parentNode && i > domLength - 1) {
           parentNode.appendChild(ele)
         }
       }
