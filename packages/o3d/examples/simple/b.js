@@ -982,7 +982,7 @@
 			this.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w;
 			this.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w;
 			this.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w;
-
+			this.w = w;
 			return this;
 		},
 
@@ -2418,8 +2418,12 @@
 	      x: 0,
 	      y: 0,
 	      z: 0
-	    };
-	    this.testP = new Vector3(100, 100, 100);
+	      //w 0.001694915254237288 10
+	      //w 0.0018181818181818182 50
+	      //w0.002               100
+	      //w0.0033333333333333335  300
+	      //w 0.01  500
+	    };this.testP = new Vector3(100, 100, 500);
 
 	    this.pv = new Matrix4();
 	  }
@@ -2427,10 +2431,11 @@
 	  Cube.prototype.render = function render(ctx, camera) {
 	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
 	    //p*v*m
-	    //face z-sort
+	    //face z-sort !!! w-sort !!
 	    //render
 	    this.testP.applyMatrix4(this.pv);
-	    console.log(this.testP);
+
+	    console.log(this.testP.w);
 	  };
 
 	  return Cube;

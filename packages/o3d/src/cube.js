@@ -14,7 +14,12 @@ class Cube {
       y: 0,
       z: 0
     }
-    this.testP = new Vector3(100, 100, 100)
+    //w 0.001694915254237288 10
+    //w 0.0018181818181818182 50
+    //w0.002               100
+    //w0.0033333333333333335  300
+    //w 0.01  500
+    this.testP = new Vector3(100, 100, 500)
 
     this.pv = new Matrix4()
   }
@@ -22,10 +27,11 @@ class Cube {
   render(ctx, camera) {
     this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix)
     //p*v*m
-    //face z-sort
+    //face z-sort !!! w-sort !!
     //render
     this.testP.applyMatrix4(this.pv)
-    console.log(this.testP)
+
+    console.log(this.testP.w)
   }
 }
 
