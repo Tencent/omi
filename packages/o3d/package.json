@@ -1,0 +1,17 @@
+{
+  "name": "o3d",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "o3d",
+    "three",
+    "3d",
+    "omi"
+  ],
+  "author": "dntzhang",
+  "license": "MIT"
+}
