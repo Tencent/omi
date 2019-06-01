@@ -38,8 +38,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     let parentNode = null
     if (isArray(dom)) {
       let domLength = dom.length
-      let vnodeLength = vnode.length
-      let maxLength = domLength >= vnodeLength ? domLength : vnodeLength
+			let maxLength = Math.max(vnode.length, domLength)
       parentNode = dom[0].parentNode
       for (let i = 0; i < maxLength; i++) {
         let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
@@ -49,15 +48,21 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         }
       }
     } else {
-      vnode.forEach(function(item) {
-        let ele = idiff(dom, item, context, mountAll, componentRoot)
-        ret.push(ele)
-        parent && parent.appendChild(ele)
-      })
+			vnode.forEach((item, index) => {
+				let ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot)
+				ret.push(ele)
+				parent && parent.appendChild(ele)
+			})
     }
   } else {
     if (isArray(dom)) {
-      ret = idiff(dom[0], vnode, context, mountAll, componentRoot)
+			dom.forEach((one,index)=>{
+				if(index === 0){
+					ret = idiff(one, vnode, context, mountAll, componentRoot)
+				}else{
+					recollectNodeTree(one, false)
+				}
+			})
     } else {
       ret = idiff(dom, vnode, context, mountAll, componentRoot)
     }

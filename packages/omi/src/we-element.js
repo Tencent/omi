@@ -38,26 +38,19 @@ export default class WeElement extends HTMLElement {
 		}
 		this.attrsToProps()
     this.beforeInstall()
-    !this._isInstalled && this.install()
+    this.install()
     this.afterInstall()
-    let shadowRoot
-    if (!this.shadowRoot) {
-      shadowRoot = this.attachShadow({
-        mode: 'open'
-      })
-    } else {
-      shadowRoot = this.shadowRoot
-      let fc
-      while ((fc = shadowRoot.firstChild)) {
-        shadowRoot.removeChild(fc)
-      }
-    }
+
+    const shadowRoot = this.attachShadow({
+			mode: 'open'
+		})
+
     if (this.constructor.css) {
       shadowRoot.appendChild(cssToDom(this.constructor.css))
     } else if (this.css) {
       shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
     }
-    !this._isInstalled && this.beforeRender()
+    this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {
       this.beforeObserve()
@@ -88,7 +81,7 @@ export default class WeElement extends HTMLElement {
     } else {
       shadowRoot.appendChild(this._host)
     }
-    !this._isInstalled && this.installed()
+    this.installed()
     this._isInstalled = true
   }
 
