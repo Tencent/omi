@@ -666,14 +666,20 @@ define('my-app', class extends WeElement {
 ```js
 import { define, render, WeElement } from 'omi'
 
-define('todo-list', function(props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>{item.text}</li>
-      ))}
-    </ul>
-  )
+define('todo-list', class extends WeElement {
+  static propTypes = {
+    items: Array
+  }
+
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    )
+  }
 })
 
 define('todo-app', class extends WeElement {
