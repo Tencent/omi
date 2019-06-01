@@ -22,7 +22,7 @@ English | [简体中文](./README.CN.md)
 | [omil](https://github.com/Wscats/omil)|Webpack loader for Omi.js components|
 | [omi-snippets](https://github.com/Wscats/omi-snippets) |A beautify VSCode extension for .omi or .eno file, [Install now!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 
-#### Mini Program
+#### Mini Program(小程序)
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
