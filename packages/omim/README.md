@@ -57,12 +57,12 @@ button.addEventListener('click', function () {
 //document.body.innerHTML = '<m-button>I am button</m-button>'
 ```
 
-## Change Theme Color
+## Change Theme
 
 ```js
 document.body.style.setProperty('--mdc-theme-primary', 'red')
 document.body.style.setProperty('--mdc-theme-secondary', 'blue')
-document.body.style.setProperty('--mdc-theme-error', 'yellow')
+document.body.style.setProperty('--mdc-shape-small-component-radius', '2px')
 ```
 
 All the config:
