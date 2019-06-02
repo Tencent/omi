@@ -36,7 +36,8 @@ const config = {
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
         ]
       },
       {
@@ -123,7 +124,8 @@ const config = {
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
         ]
       },
       {
