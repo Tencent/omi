@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     defaultActive: string;
     width: string;
@@ -11,7 +12,6 @@ interface Data {
 }
 export default class Tab extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     data: {
         active: any;
         tabBar: any;

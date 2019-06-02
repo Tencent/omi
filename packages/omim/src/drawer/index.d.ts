@@ -2,6 +2,7 @@ import { WeElement } from 'omi';
 import { MDCDismissibleDrawerFoundation } from '@material/drawer';
 import '../icon';
 import '../icon-button';
+import '../theme.ts';
 interface Props {
     frame?: boolean;
     dismissible?: boolean;
@@ -16,7 +17,6 @@ interface Data {
 }
 export default class Drawer extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static propTypes: {
         frame: BooleanConstructor;
         dismissible: BooleanConstructor;

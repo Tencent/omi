@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     total: number;
     pageSize: number;
@@ -16,7 +17,6 @@ interface Data {
 }
 export default class Pagination extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static defaultProps: {
         total: number;
         pageSize: number;

@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import { MDCSnackbar } from '@material/snackbar';
+import '../theme.ts';
 interface Props {
     show?: boolean;
     stacked?: boolean;
@@ -11,7 +12,6 @@ interface Data {
 }
 export default class Snackbar extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static defaultProps: {};
     static propTypes: {
         show: BooleanConstructor;

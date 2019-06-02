@@ -9,7 +9,7 @@
 </head>
 
 <body style="background-color:#f9f7f7;">
-  <script>document.body.style.setProperty('--mdc-theme-primary', '#ecb89a')</script>
+
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script src="../../src/switch/index.js"></script>
   <script src="../../src/button/index.js"></script>
@@ -51,6 +51,7 @@
   </div>
 
   <script>
+		document.body.style.setProperty('--mdc-theme-primary', '#ecb89a')
     function change(evt) {
       document.body.style.setProperty('--mdc-theme-primary',  evt.detail.checked ? '#0052d9' : '#ecb89a')
     }

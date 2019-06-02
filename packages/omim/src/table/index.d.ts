@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../checkbox/index.tsx';
+import '../theme.ts';
 interface Props {
     dataSource: any[];
     columns: object;
@@ -7,7 +8,6 @@ interface Props {
 }
 export default class Table extends WeElement<Props, {}> {
     static css: any;
-    static resetTheme(): void;
     dataSource: any[];
     columns: any[];
     checkbox: boolean;

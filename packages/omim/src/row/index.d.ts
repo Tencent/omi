@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     cols: object;
     gutter?: number;
@@ -10,7 +11,6 @@ interface Data {
 }
 export default class Row extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static propTypes: {
         cols: ObjectConstructor;
         gutter: NumberConstructor;

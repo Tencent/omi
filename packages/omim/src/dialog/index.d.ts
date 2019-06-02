@@ -1,6 +1,7 @@
 import { WeElement } from 'omi';
 import { MDCDialog } from '@material/dialog';
 import '../button';
+import '../theme.ts';
 interface Props {
     show?: boolean;
     scrollable?: boolean;
@@ -12,7 +13,6 @@ interface Data {
 }
 export default class Dialog extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static propTypes: {
         show: BooleanConstructor;
         scrollable: BooleanConstructor;

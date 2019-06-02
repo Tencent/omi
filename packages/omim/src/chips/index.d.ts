@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     chips: [{
         text: string;
@@ -23,7 +24,6 @@ interface Data {
 }
 export default class chipSet extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static defaultProps: {
         ripple: boolean;
     };

@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     checkbox?: boolean;
     node: object;
@@ -7,7 +8,6 @@ interface Data {
 }
 export default class Tree extends WeElement<Props, Data> {
     static css: any;
-    static resetTheme(): void;
     static propTypes: {
         checkbox: BooleanConstructor;
         node: ObjectConstructor;
