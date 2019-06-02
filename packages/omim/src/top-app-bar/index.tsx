@@ -52,19 +52,19 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   updated() {
+    this.topAppBar.destroy()
+    this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
     // Update after initializing the component
     // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
     // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
     this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget)
-    
   }
 
   installed() {
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
 
     this.topAppBar.listen('MDCTopAppBar:nav', (e) => {
-      console.log(e)
-      this.fire('navigation', this.props.navigation)
+      this.fire('navigation', {nav: this.props.navigation, index: '0'})
     });
 
     this.tagNum = new Object()
@@ -84,26 +84,32 @@ export default class topAppBar extends WeElement<Props, Data>{
         }
         const tagLength = this.tagNum[child.tagName].length
         child.setAttribute('slot', child.tagName + tagLength + '')
-        child.setAttribute('accessKey', tagLength + '')
         this.tagNum[child.tagName].push(tagLength)
       }
     })
   }
 
   onNav = (evt: any) => {
-    evt && this.fire('navigation', {element: evt.toElement.attributes, index: evt.toElement.accessKey})
+    evt && this.fire('navigation', {nav: 'navigation', index: this.findPathAccessKey(evt)})
   }
 
   onAction = (evt: any) => {
-    if(evt) {
-      !this.props.actionItems ? this.fire('action', {element: evt.toElement, index: evt.toElement.accessKey}) :
-      !this.isArray(this.props.actionItems) ? this.fire('action', {item: this.props.actionItems, index: evt.toElement.accessKey}) :
-      this.fire('action', {item: this.props.actionItems[evt.toElement.accessKey], index: evt.toElement.accessKey})
+    evt && this.fire('action', {act: 'action', index: this.findPathAccessKey(evt)})
+  }
+
+  findPathAccessKey(evt) {
+    let k = -1;
+    for(let i = 0; i < evt.path.length; i++) {
+      if(evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') {
+        k = evt.path[i].accessKey
+        break
+      }
     }
+    return k
   }
 
   isArray(value){
-    return typeof Array.isArray === "function" ? Array.isArray(value) : Object.prototype.toString.call(value) === "[object Array]"
+    return typeof Array.isArray === 'function' ? Array.isArray(value) : Object.prototype.toString.call(value) === '[object Array]'
   }
 
   render(props) {
@@ -118,23 +124,24 @@ export default class topAppBar extends WeElement<Props, Data>{
         <div class='mdc-top-app-bar__row'>
           {(props.navigation || this.tagNum['NAVIGATION'] || props.heading) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-            {props.navigation && <span class='mdc-top-app-bar__navigation-icon'>{props.navigation.text ? props.navigation.text : <span class='material-icons'>{props.navigation}</span>}</span>}
-            {this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
+            {(props.navigation && !this.tagNum['NAVIGATION']) ?
+            <span class='mdc-top-app-bar__navigation-icon'>{props.navigation.text ? props.navigation.text : <span class='material-icons'>{props.navigation}</span>}</span> :
+            this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNav}></slot>
             })}
             {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
           </section>}
           {(props.actionItems || this.tagNum['ACTIONITEM']) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-            {props.actionItems &&
-            (typeof props.actionItems === 'string' ? <span accessKey={'0'} class="mdc-top-app-bar__action-item material-icons" onClick={this.onAction}>{props.actionItems}</span> :
+            {(props.actionItems && !this.tagNum['ACTIONITEM']) ?
+            (typeof props.actionItems === 'string' ? <span accessKey={'0'} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{props.actionItems}</span> :
             this.isArray(props.actionItems) ?
             props.actionItems.map((item, index) => {
-              return item.text ? <span accessKey={index + ''} class="mdc-top-app-bar__action-item" onClick={this.onAction}>{item.text}</span> :
-              typeof item === 'string' && <span accessKey={index + ''} class="mdc-top-app-bar__action-item material-icons" onClick={this.onAction}>{item}</span>
+              return item.text ? <span accessKey={index + ''} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{item.text}</span> :
+              typeof item === 'string' && <span accessKey={index + ''} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{item}</span>
             }) :
-            props.actionItems.text && <span accessKey={'0'} class="mdc-top-app-bar__action-item" onClick={this.onAction}>{props.actionItems.text}</span>)}
-            {this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
+            props.actionItems.text && <span accessKey={'0'} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{props.actionItems.text}</span>) :
+            this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__action-item' name={'ACTIONITEM' + index} onClick={this.onAction}></slot>
             })}
           </section>}
