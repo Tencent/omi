@@ -1,0 +1,76 @@
+@import "../theme";
+
+div {
+  color: rgba(0, 0, 0, .65);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline-block;
+  min-width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  vertical-align: middle;
+  line-height: 32px;
+  text-align: center;
+  margin: 0 3px 0 3px;
+  cursor: pointer;
+  border-radius: $mdc-shape-small-component-radius;
+}
+
+.o-pager {
+  display: inline-block;
+}
+
+button {
+  width: 32px;
+  height: 32px;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  border: 1px solid #ccc;
+  background: none;
+  top: 1px;
+  border-radius: $mdc-shape-small-component-radius;
+  cursor: pointer;
+  outline: none;
+}
+
+button.btn-next:not(disabled):active,
+button.btn-prev:not(disabled):active {
+  background-color: #eee;
+}
+
+button:disabled {
+  pointer-events: none;
+  border-color: #eee;
+  cursor: default;
+}
+
+.more:after {
+  content: '...';
+}
+
+.more {
+  border: none;
+  cursor: default;
+}
+
+.active {
+  border-color: $mdc-theme-secondary;
+  color: $mdc-theme-secondary;
+}
+
+svg {
+  position: relative;
+  top: 2px;
+}

@@ -15,7 +15,7 @@ interface Data {
 
 
 @tag('m-picker')
-export default class MPicker extends WeElement<Props, Data>{
+export default class Picker extends WeElement<Props, Data>{
 	static css = theme() + css
 
 	static resetTheme() {

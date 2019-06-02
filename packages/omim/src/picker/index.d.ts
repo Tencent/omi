@@ -6,7 +6,7 @@ interface Props {
 }
 interface Data {
 }
-export default class MPicker extends WeElement<Props, Data> {
+export default class Picker extends WeElement<Props, Data> {
     static css: string;
     static resetTheme(): void;
     static defaultProps: {};
