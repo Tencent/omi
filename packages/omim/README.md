@@ -159,6 +159,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | chart polar area| member |done |
 | chart bubble| member |done |
 | chart bar line| member |done |
+| pagination| member |done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
@@ -196,14 +197,6 @@ export default class Button extends WeElement<ButtonProps, {}> {
 ...
 ```
 
-### Import core(todo)
-
-Support import all element of core:
-
-```
-import '@import/core'
-```
-
 ### Omim Page Templates(todo)
 
 [Coming!](https://github.com/Tencent/omi/tree/master/packages/omim/templates)
@@ -227,8 +220,6 @@ Why??
 
 ### Other(todo)
 
-* Fix render item of m-table in html element
-* Add theme to REPL 
 * Add omiu elements to omim
 
 ### Links
