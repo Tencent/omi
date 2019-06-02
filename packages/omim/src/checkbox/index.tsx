@@ -27,7 +27,7 @@ export default class Checkbox extends WeElement<Props, Data>{
   static resetTheme() {
     this.css = theme() + css
   }
-  
+
   static propTypes = {
     label: String,
     disabled: Boolean,
@@ -36,10 +36,14 @@ export default class Checkbox extends WeElement<Props, Data>{
     value: String
   }
 
+	changeHandler = (e)=>{
+		this.fire('change', e.currentTarget.checked)
+	}
+
   installed() {
     const checkbox = new MDCCheckbox(this.shadowRoot.querySelector('.mdc-checkbox'))
     const formField = new MDCFormField(this.shadowRoot.querySelector('.mdc-form-field'))
-    formField.input = checkbox
+		formField.input = checkbox
   }
 
   render(props) {
@@ -48,7 +52,7 @@ export default class Checkbox extends WeElement<Props, Data>{
         'mdc-checkbox--disabled': props.disabled
       })}>
         <div class="mdc-checkbox">
-          <input type="checkbox" {...extract(props, ['checked', 'value', 'indeterminate'])}
+          <input type="checkbox" onChange={this.changeHandler} {...extract(props, ['checked', 'value', 'indeterminate'])}
             class="mdc-checkbox__native-control"
             id="checkbox" />
           <div class="mdc-checkbox__background">
