@@ -51,7 +51,7 @@
     render: (item) => (
       Omi.html`<span>
         <a href="javascript:;" onClick=${e => {
-          table.props.dataSource.splice(table.props.dataSource.indexOf(item), 1)
+          table.dataSource.splice(table.dataSource.indexOf(item), 1)
           table.update()
         }}>Delete</a>
       </span>`
