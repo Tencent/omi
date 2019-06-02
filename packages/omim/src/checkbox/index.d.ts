@@ -18,6 +18,7 @@ export default class Checkbox extends WeElement<Props, Data> {
         checked: BooleanConstructor;
         value: StringConstructor;
     };
+    changeHandler: (e: any) => void;
     installed(): void;
     render(props: any): JSX.Element;
 }

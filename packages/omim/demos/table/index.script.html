@@ -28,7 +28,8 @@
 
 	<script>
 		const table = document.querySelector('#myTable')
-		table.props.dataSource = [{
+		table.checkbox = true
+		table.dataSource = [{
 			id: 1,
 			name: 'xwang',
 			age: 18,
@@ -55,7 +56,7 @@
 			address: 'Tencent'
 		}]
 
-		table.props.columns = [{
+		table.columns = [{
 			title: 'Name',
 			key: 'name',
 		}, {
