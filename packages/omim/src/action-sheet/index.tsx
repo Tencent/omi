@@ -1,6 +1,7 @@
 import { tag, WeElement, classNames, h, render } from 'omi'
 import * as css from './index.scss'
-
+//@ts-ignore
+import '../theme.ts'
 
 interface Props {
   items: any[],

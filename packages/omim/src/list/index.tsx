@@ -5,7 +5,7 @@ import { MDCRipple } from '@material/ripple';
 import { domReady } from '../util/dom-ready'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   items: object,
@@ -21,11 +21,7 @@ interface Data {
 
 @tag('m-list')
 export default class List extends WeElement<Props, Data>{
-  static css = theme() + css
-
-  static resetTheme() {
-    this.css = theme() + css
-  }
+  static css = css
 
   static propTypes = {
     items: Object,

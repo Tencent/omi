@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     ripple: boolean;
     raised: boolean;
@@ -12,8 +13,7 @@ interface Props {
 interface Data {
 }
 export default class Button extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static defaultProps: {
         ripple: boolean;
     };

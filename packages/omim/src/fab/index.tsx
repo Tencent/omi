@@ -2,10 +2,10 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import '../icon'
-import { domReady } from '../util/dom-ready' 
+import { domReady } from '../util/dom-ready'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   ripple: boolean,
@@ -20,12 +20,8 @@ interface Data {
 
 @tag('m-fab')
 export default class Fab extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     ripple: Boolean,
     mini: Boolean,

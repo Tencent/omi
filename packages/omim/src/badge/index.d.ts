@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     dot?: boolean;
     content?: string;
@@ -9,8 +10,7 @@ interface Props {
 interface Data {
 }
 export default class Badge extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static defaultProps: {
         x: number;
         y: number;

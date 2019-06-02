@@ -362,9 +362,9 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js":
 /*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js ***!
   \****************************************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -375,8 +375,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
 /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -491,9 +491,9 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js":
 /*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js ***!
   \****************************************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -554,9 +554,9 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js":
 /*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js ***!
   \*****************************************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -566,8 +566,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1032,9 +1032,9 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js ***!
   \***********************************************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1148,9 +1148,9 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/component.js":
+/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/component.js":
 /*!******************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/component.js ***!
+  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/component.js ***!
   \******************************************************************************/
 /*! exports provided: MDCTabBar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1160,10 +1160,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabBar", function() { return MDCTabBar; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_tab_scroller_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/tab-scroller/component */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/component.js");
-/* harmony import */ var _material_tab_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/tab/component */ "./node_modules/_@material_tab@2.2.0@@material/tab/component.js");
-/* harmony import */ var _material_tab_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab/foundation */ "./node_modules/_@material_tab@2.2.0@@material/tab/foundation.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/foundation.js");
+/* harmony import */ var _material_tab_scroller_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/tab-scroller/component */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/component.js");
+/* harmony import */ var _material_tab_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/tab/component */ "./node_modules/_@material_tab@2.3.0@@material/tab/component.js");
+/* harmony import */ var _material_tab_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab/foundation */ "./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1337,9 +1337,9 @@ var MDCTabBar = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/constants.js":
+/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js":
 /*!******************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/constants.js ***!
+  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js ***!
   \******************************************************************************/
 /*! exports provided: numbers, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1395,9 +1395,9 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/foundation.js":
+/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js":
 /*!*******************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/foundation.js ***!
+  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js ***!
   \*******************************************************************************/
 /*! exports provided: MDCTabBarFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1407,7 +1407,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabBarFoundation", function() { return MDCTabBarFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1780,20 +1780,25 @@ var MDCTabBarFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/index.js":
+/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/index.js":
 /*!**************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/index.js ***!
+  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/index.js ***!
   \**************************************************************************/
-/*! exports provided: MDCTabBar, MDCTabBarFoundation */
+/*! exports provided: MDCTabBar, numbers, strings, MDCTabBarFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTabBar", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTabBar"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTabBarFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTabBarFoundation"]; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["numbers"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["strings"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTabBarFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTabBarFoundation"]; });
 
 /**
  * @license
@@ -1819,13 +1824,14 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/component.js":
+/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/component.js":
 /*!******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/component.js ***!
+  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/component.js ***!
   \******************************************************************************************/
 /*! exports provided: MDCTabIndicator */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1835,9 +1841,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabIndicator", function() { return MDCTabIndicator; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _fading_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fading-foundation */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/fading-foundation.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/foundation.js");
-/* harmony import */ var _sliding_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sliding-foundation */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/sliding-foundation.js");
+/* harmony import */ var _fading_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fading-foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/fading-foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js");
+/* harmony import */ var _sliding_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sliding-foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/sliding-foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1910,9 +1916,9 @@ var MDCTabIndicator = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/constants.js":
+/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/constants.js":
 /*!******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/constants.js ***!
+  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/constants.js ***!
   \******************************************************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1956,9 +1962,9 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/fading-foundation.js":
+/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/fading-foundation.js":
 /*!**************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/fading-foundation.js ***!
+  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/fading-foundation.js ***!
   \**************************************************************************************************/
 /*! exports provided: MDCFadingTabIndicatorFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1967,7 +1973,7 @@ var strings = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFadingTabIndicatorFoundation", function() { return MDCFadingTabIndicatorFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2013,9 +2019,9 @@ var MDCFadingTabIndicatorFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/foundation.js":
+/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js":
 /*!*******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/foundation.js ***!
+  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js ***!
   \*******************************************************************************************/
 /*! exports provided: MDCTabIndicatorFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2025,7 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabIndicatorFoundation", function() { return MDCTabIndicatorFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2096,9 +2102,9 @@ var MDCTabIndicatorFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/sliding-foundation.js":
+/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/sliding-foundation.js":
 /*!***************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/sliding-foundation.js ***!
+  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/sliding-foundation.js ***!
   \***************************************************************************************************/
 /*! exports provided: MDCSlidingTabIndicatorFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2107,7 +2113,7 @@ var MDCTabIndicatorFoundation = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSlidingTabIndicatorFoundation", function() { return MDCSlidingTabIndicatorFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2171,9 +2177,9 @@ var MDCSlidingTabIndicatorFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/component.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/component.js":
 /*!****************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/component.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/component.js ***!
   \****************************************************************************************/
 /*! exports provided: MDCTabScroller */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2184,8 +2190,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
 /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/util.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/util.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2302,9 +2308,9 @@ var MDCTabScroller = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/constants.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js":
 /*!****************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/constants.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js ***!
   \****************************************************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2349,9 +2355,9 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/foundation.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/foundation.js":
 /*!*****************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/foundation.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/foundation.js ***!
   \*****************************************************************************************/
 /*! exports provided: MDCTabScrollerFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2361,10 +2367,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerFoundation", function() { return MDCTabScrollerFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/constants.js");
-/* harmony import */ var _rtl_default_scroller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rtl-default-scroller */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-default-scroller.js");
-/* harmony import */ var _rtl_negative_scroller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rtl-negative-scroller */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-negative-scroller.js");
-/* harmony import */ var _rtl_reverse_scroller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./rtl-reverse-scroller */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-reverse-scroller.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js");
+/* harmony import */ var _rtl_default_scroller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rtl-default-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-default-scroller.js");
+/* harmony import */ var _rtl_negative_scroller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rtl-negative-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-negative-scroller.js");
+/* harmony import */ var _rtl_reverse_scroller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./rtl-reverse-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-reverse-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2703,9 +2709,9 @@ var MDCTabScrollerFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-default-scroller.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-default-scroller.js":
 /*!***************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-default-scroller.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-default-scroller.js ***!
   \***************************************************************************************************/
 /*! exports provided: MDCTabScrollerRTLDefault, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2714,7 +2720,7 @@ var MDCTabScrollerFoundation = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerRTLDefault", function() { return MDCTabScrollerRTLDefault; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-scroller.js");
+/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2791,9 +2797,9 @@ var MDCTabScrollerRTLDefault = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-negative-scroller.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-negative-scroller.js":
 /*!****************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-negative-scroller.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-negative-scroller.js ***!
   \****************************************************************************************************/
 /*! exports provided: MDCTabScrollerRTLNegative, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2802,7 +2808,7 @@ var MDCTabScrollerRTLDefault = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerRTLNegative", function() { return MDCTabScrollerRTLNegative; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-scroller.js");
+/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2876,9 +2882,9 @@ var MDCTabScrollerRTLNegative = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-reverse-scroller.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-reverse-scroller.js":
 /*!***************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-reverse-scroller.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-reverse-scroller.js ***!
   \***************************************************************************************************/
 /*! exports provided: MDCTabScrollerRTLReverse, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2887,7 +2893,7 @@ var MDCTabScrollerRTLNegative = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerRTLReverse", function() { return MDCTabScrollerRTLReverse; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-scroller.js");
+/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2962,9 +2968,9 @@ var MDCTabScrollerRTLReverse = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-scroller.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js":
 /*!*******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/rtl-scroller.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js ***!
   \*******************************************************************************************/
 /*! exports provided: MDCTabScrollerRTL, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3007,9 +3013,9 @@ var MDCTabScrollerRTL = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/util.js":
+/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/util.js":
 /*!***********************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/util.js ***!
+  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/util.js ***!
   \***********************************************************************************/
 /*! exports provided: computeHorizontalScrollbarHeight */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3017,7 +3023,7 @@ var MDCTabScrollerRTL = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "computeHorizontalScrollbarHeight", function() { return computeHorizontalScrollbarHeight; });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-scroller@2.2.0@@material/tab-scroller/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -3068,9 +3074,9 @@ function computeHorizontalScrollbarHeight(documentObj, shouldCacheResult) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab@2.2.0@@material/tab/component.js":
+/***/ "./node_modules/_@material_tab@2.3.0@@material/tab/component.js":
 /*!**********************************************************************!*\
-  !*** ./node_modules/_@material_tab@2.2.0@@material/tab/component.js ***!
+  !*** ./node_modules/_@material_tab@2.3.0@@material/tab/component.js ***!
   \**********************************************************************/
 /*! exports provided: MDCTab */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3080,10 +3086,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTab", function() { return MDCTab; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js");
-/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
-/* harmony import */ var _material_tab_indicator_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab-indicator/component */ "./node_modules/_@material_tab-indicator@2.1.0@@material/tab-indicator/component.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab@2.2.0@@material/tab/foundation.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
+/* harmony import */ var _material_tab_indicator_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab-indicator/component */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -3215,9 +3221,9 @@ var MDCTab = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab@2.2.0@@material/tab/constants.js":
+/***/ "./node_modules/_@material_tab@2.3.0@@material/tab/constants.js":
 /*!**********************************************************************!*\
-  !*** ./node_modules/_@material_tab@2.2.0@@material/tab/constants.js ***!
+  !*** ./node_modules/_@material_tab@2.3.0@@material/tab/constants.js ***!
   \**********************************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3264,9 +3270,9 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab@2.2.0@@material/tab/foundation.js":
+/***/ "./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/_@material_tab@2.2.0@@material/tab/foundation.js ***!
+  !*** ./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js ***!
   \***********************************************************************/
 /*! exports provided: MDCTabFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3276,7 +3282,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabFoundation", function() { return MDCTabFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab@2.2.0@@material/tab/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab@2.3.0@@material/tab/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -3408,10 +3414,10 @@ var MDCTabFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tab/index.scss":
-/*!**********************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/tab/index.scss ***!
-  \**********************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tab/index.scss":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/tab/index.scss ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3841,10 +3847,10 @@ function __importDefault(mod) {
         /******/ return __webpack_require__(__webpack_require__.s = "./src/icon/index.tsx");
         /******/ 
     })({
-        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
-        /*!***********************************************************************************************************************************************!*\
-          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/icon/index.scss ***!
-          \***********************************************************************************************************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
+        /*!***********************************************************************************************************************************************************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/icon/index.scss ***!
+          \***********************************************************************************************************************************************************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
             exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
@@ -3938,7 +3944,7 @@ function __importDefault(mod) {
           \*****************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
+            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
             if (typeof result === "string") {
                 module.exports = result;
             }
@@ -3995,15 +4001,12 @@ function __importDefault(mod) {
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
             //@ts-ignore
-            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+            __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
-                Icon.resetTheme = function () {
-                    this.css = theme_ts_1.theme() + css;
-                };
                 Icon.prototype.render = function (props) {
                     return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon')), omi_1.h("svg", { viewBox: '0 0 ' + props.view + ' ' + props.view, class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
                         var attrs = { d: item.path, fill: props.color || 'black' };
@@ -4012,7 +4015,7 @@ function __importDefault(mod) {
                         return omi_1.h("path", __assign({}, attrs));
                     })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                 };
-                Icon.css = theme_ts_1.theme() + css;
+                Icon.css = css;
                 Icon.defaultProps = {
                     view: 1024,
                     scale: 2
@@ -4038,30 +4041,13 @@ function __importDefault(mod) {
           !*** ./src/theme.ts ***!
           \**********************/
         /*! no static exports found */
-        /***/ (function (module, exports, __webpack_require__) {
-            "use strict";
-            Object.defineProperty(exports, "__esModule", { value: true });
-            if (typeof window === 'object') {
-                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-                window.OmimThemeError = window.OmimThemeError || '#f5222d';
-                window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
-                window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
-                window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
-                window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
-                window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
-                window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
-                window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
-                window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
-                window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
-                window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+        /***/ (function (module, exports) {
+            if (!document.querySelector('#__omim-theme-style')) {
+                var style = document.createElement('style');
+                style.id = '__omim-theme-style';
+                style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+                document.querySelector('head').append(style);
             }
-            function theme() {
-                if (typeof window === 'object') {
-                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
-                }
-            }
-            exports.theme = theme;
             /***/ 
         }),
         /***/ "omi": 
@@ -4089,7 +4075,7 @@ function __importDefault(mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tab/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tab/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4142,11 +4128,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/tab/index.scss");
-var tab_bar_1 = __webpack_require__(/*! @material/tab-bar */ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/index.js");
+var tab_bar_1 = __webpack_require__(/*! @material/tab-bar */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
-var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 var Tab = /** @class */ (function (_super) {
@@ -4159,9 +4145,6 @@ var Tab = /** @class */ (function (_super) {
         };
         return _this;
     }
-    Tab.resetTheme = function () {
-        this.css = theme_ts_1.theme() + css;
-    };
     Tab.prototype.installed = function () {
         var _this = this;
         dom_ready_1.domReady(function () {
@@ -4219,7 +4202,7 @@ var Tab = /** @class */ (function (_super) {
                 omi_1.h("div", { class: "mdc-tab-scroller__scroll-area" },
                     omi_1.h("div", { class: "mdc-tab-scroller__scroll-content" }, children && children.map(function (vnode) { return _this.renderButton(vnode, defaultActive); }))))));
     };
-    Tab.css = theme_ts_1.theme() + css;
+    Tab.css = css;
     Tab.propTypes = {
         defaultActive: String,
         width: String,
@@ -4242,32 +4225,14 @@ exports.default = Tab;
   !*** ./src/theme.ts ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-if (typeof window === 'object') {
-    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-    window.OmimThemeError = window.OmimThemeError || '#f5222d';
-    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
-    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
-    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
-    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
-    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
-    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
-    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
-    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
-    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
-    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+if (!document.querySelector('#__omim-theme-style')) {
+    var style = document.createElement('style');
+    style.id = '__omim-theme-style';
+    style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+    document.querySelector('head').append(style);
 }
-function theme() {
-    if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
-    }
-}
-exports.theme = theme;
 
 
 /***/ }),

@@ -4,7 +4,7 @@ import * as rs from './responsive.scss'
 import { elementChildren } from '../util/element-children'
 import { domReady } from '../util/dom-ready'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
 	cols: object,
@@ -21,12 +21,8 @@ interface Data {
 
 @tag('m-row')
 export default class Row extends WeElement<Props, Data>{
-	static css = theme() + css + rs
+	static css = css + rs
 
-  static resetTheme() {
-    this.css = theme() + css + rs
-	}
-	
 	static propTypes = {
 		cols: Object,
 		gutter: Number,

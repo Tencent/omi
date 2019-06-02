@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import '../text-field'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
 	type: 'date' | 'time' | 'color' | 'datetime-local',
@@ -15,12 +15,8 @@ interface Data {
 
 
 @tag('m-picker')
-export default class MPicker extends WeElement<Props, Data>{
-	static css = theme() + css
-
-	static resetTheme() {
-		this.css = theme() + css
-	}
+export default class Picker extends WeElement<Props, Data>{
+	static css = css
 
 	static defaultProps = {
 

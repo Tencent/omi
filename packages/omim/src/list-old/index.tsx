@@ -7,7 +7,7 @@ import { domReady } from '../util/dom-ready'
 import { htmlToVdom } from '../util.ts'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   group?: boolean,
@@ -23,12 +23,8 @@ interface Data {
 
 @tag('m-list')
 export default class List extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     group: Boolean,
     disabled: Boolean,
@@ -42,7 +38,7 @@ export default class List extends WeElement<Props, Data>{
   }
 
   listAll = new Array()
-  
+
   installed() {
 		domReady(() => {
 			//update first
@@ -162,7 +158,7 @@ export default class List extends WeElement<Props, Data>{
       }
     }
   }
-  
+
   render(props) {
     this.listAll = []
     props.children = (this.innerHTML && !props.children) ? htmlToVdom(this.innerHTML) : props.children

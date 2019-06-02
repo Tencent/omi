@@ -104,7 +104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../_css-loader@1.0.1@css-loader!../../_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./mdc-layout-grid.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss");
+        var result = __webpack_require__(/*! !../../_css-loader@1.0.1@css-loader!../../_resolve-url-loader@3.1.0@resolve-url-loader!../../_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./mdc-layout-grid.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -115,10 +115,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -237,7 +237,7 @@ exports.default = css;
 // import * as css from './index.scss'
 // import { domReady } from '../util/dom-ready'
 // //@ts-ignore
-// import { theme } from '../theme.ts'
+// import '../theme.ts'
 // interface Props {
 // }
 // interface Data {
@@ -245,9 +245,9 @@ exports.default = css;
 // const parser = new DOMParser()
 // @tag('m-layout-grid')
 // class LayoutGrid extends WeElement<Props, Data>{
-//   static css = theme() + css
-//   static resetTheme() {
-//     this.css = theme() + css
+//   static css = css
+//
+//
 //   }
 //   static propTypes = {
 //     alignLeft: Boolean,

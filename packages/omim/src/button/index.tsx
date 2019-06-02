@@ -3,7 +3,7 @@ import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import '../icon'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   ripple: boolean,
@@ -21,11 +21,7 @@ interface Data {
 
 @tag('m-button')
 export default class Button extends WeElement<Props, Data>{
-  static css = theme() + css
-
-  static resetTheme() {
-    this.css = theme() + css
-  }
+  static css = css
 
   static defaultProps = {
     ripple: true

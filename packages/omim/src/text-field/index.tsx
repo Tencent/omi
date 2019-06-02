@@ -6,7 +6,7 @@ import '../icon'
 //import { MDCRipple } from '@material/ripple/index'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
 	type: 'date' | 'time' | 'color' | 'datetime-local',
@@ -65,6 +65,8 @@ function extract(from, props):any {
 
 @tag('m-text-field')
 export default class TextField extends WeElement<Props, Data>{
+  static css = css
+
   static defaultProps = {
 		showHelper: true,
 		type: 'text'
@@ -111,12 +113,6 @@ export default class TextField extends WeElement<Props, Data>{
 
 		leftIcon: String,
 		rightIcon: String
-  }
-
-  static css = theme() + css
-
-  static resetTheme() {
-    this.css = theme() + css
   }
 
   mdc: MDCTextField

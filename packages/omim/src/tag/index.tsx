@@ -3,7 +3,7 @@ import * as css from './index.scss'
 import '../icon'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   type: string,
@@ -19,12 +19,8 @@ interface Data {
 
 @tag('m-tag')
 export default class Tag extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     type: String,
     active: Boolean,

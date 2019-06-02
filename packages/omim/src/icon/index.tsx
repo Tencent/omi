@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   path?: string,
@@ -20,12 +20,8 @@ interface Data {
 
 @tag('m-icon')
 export default class Icon extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static defaultProps = {
     view: 1024,
     scale: 2

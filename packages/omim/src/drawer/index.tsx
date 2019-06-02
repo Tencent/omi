@@ -10,7 +10,7 @@ import '../icon-button'
 import { htmlToVdom } from '../util.ts'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   frame?: boolean,
@@ -29,12 +29,8 @@ interface Data {
 
 @tag('m-drawer')
 export default class Drawer extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     frame: Boolean,
     dismissible: Boolean,

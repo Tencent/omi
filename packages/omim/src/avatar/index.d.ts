@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     alt?: string;
     src?: string;
@@ -10,8 +11,7 @@ interface Props {
     backgroundColor?: string;
 }
 export default class Avatar extends WeElement<Props, {}> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static defaultProps: {
         size: number;
         color: string;

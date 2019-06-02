@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   z: number
@@ -12,12 +12,8 @@ interface Data {}
 
 @tag('m-elevation')
 export default class Elevation extends WeElement<Props, Data> {
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     z: Number
   }

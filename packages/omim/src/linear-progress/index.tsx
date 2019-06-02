@@ -3,7 +3,7 @@ import * as css from './index.scss'
 import { MDCLinearProgress } from '@material/linear-progress'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   buffer?: number,
@@ -19,12 +19,8 @@ interface Data {
 
 @tag('m-linear-progress')
 export default class LinearProgress extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static defaultProps = {
     buffer: 1,
     value: 0

@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     buffer?: number;
     value?: number;
@@ -8,8 +9,7 @@ interface Props {
 interface Data {
 }
 export default class LinearProgress extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static defaultProps: {
         buffer: number;
         value: number;

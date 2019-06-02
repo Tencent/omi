@@ -1,12 +1,12 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     z: number;
 }
 interface Data {
 }
 export default class Elevation extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         z: NumberConstructor;
     };

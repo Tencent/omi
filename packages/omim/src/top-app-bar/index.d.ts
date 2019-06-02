@@ -2,6 +2,7 @@ import { WeElement } from 'omi';
 import { MDCTopAppBar } from '@material/top-app-bar';
 import '../icon';
 import '../icon-button';
+import '../theme.ts';
 interface Props {
     heading?: string;
     short?: boolean;
@@ -20,8 +21,7 @@ interface Props {
 interface Data {
 }
 export default class topAppBar extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         heading: StringConstructor;
         short: BooleanConstructor;

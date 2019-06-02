@@ -4,37 +4,26 @@ Super easy to change theme colors, fonts and rounded corners.
 
 ## Usage
 
-### Change Theme Color
-
 ```js
-window.OmimThemePrimary =  'red'
-window.OmimThemeSecondary =  'blue'
-window.OmimThemeError =  'yellow'
-
-import '@omim/core/button'
+document.body.style.setProperty('--mdc-theme-primary', 'red')
+document.body.style.setProperty('--mdc-theme-secondary', 'blue')
+document.body.style.setProperty('--mdc-theme-error', 'yellow')
 ```
 
-or
+All the config:
 
-```html
-<m-button>I am button</m-button>
-
-<script src="https://unpkg.com/omi"></script>
-<script>
-  window.OmimThemePrimary =  'red'
-  window.OmimThemeSecondary =  'blue'
-  window.OmimThemeError =  'yellow'
-</script>
-<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
+```css
+--mdc-theme-primary: #0052d9;
+--mdc-theme-secondary: #1890ff;
+--mdc-theme-error: #f5222d;
+--mdc-theme-surface: #ffffff;
+--mdc-theme-on-primary: #ffffff;
+--mdc-theme-on-secondary: #ffffff;
+--mdc-theme-on-error: #ffffff;
+--mdc-theme-on-surface: #000000;
+--mdc-theme-background: #ffffff;
+--mdc-shape-small-component-radius: 4px;
+--mdc-shape-medium-component-radius: 4px;
+--mdc-shape-large-component-radius: 0px;
+--mdc-typography--font-family: Roboto, sans-serif;
 ```
-
-### Change the theme at runtime
-
-```js
-window.OmimThemePrimary = '#ecb89a'
-window.OmimThemeSecondary =  'blue'
-MButton.resetTheme()
-MSwitch.resetTheme()
-```
-
-[→ Click here for more configurations](https://github.com/Tencent/omi/blob/master/packages/omim/src/theme.ts)

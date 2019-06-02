@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     ripple: boolean;
     mini: boolean;
@@ -9,8 +10,7 @@ interface Props {
 interface Data {
 }
 export default class Fab extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         ripple: BooleanConstructor;
         mini: BooleanConstructor;

@@ -2,40 +2,34 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import '../checkbox/index.tsx'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
-	dataSource: object,
-	columns: object
+	dataSource: any[],
+	columns: object,
+	checkbox: boolean
 }
 
 @tag('m-table')
 export default class Table extends WeElement<Props, {}> {
-	static css = theme() + css
+	static css = css
 
-	static resetTheme() {
-		this.css = theme() + css
-	}
-
-	dataSource = null
-
+	dataSource:any[]
+	columns:any[]
+	checkbox: boolean
 	// static propTypes = {
 	// 	dataSource: Object,
 	// 	columns: Object
 	// }
 
-	install() {
-		this.dataSource = this.props.dataSource
-	}
-
 	removeItem = (item) => {
-		this.dataSource.splice(this.dataSource.indexOf(item), 1)
+		this.props.dataSource.splice(this.props.dataSource.indexOf(item), 1)
 		this.update()
 	}
 
 	_changeHandlerTh = (e, item) => {
 		this.fire('changeall', { item, checked: e.detail })
-		this.dataSource.forEach(item => {
+		this.props.dataSource.forEach(item => {
 			item.checked = e.detail
 		})
 
@@ -48,10 +42,23 @@ export default class Table extends WeElement<Props, {}> {
 		this.update()
 	}
 
+	beforeRender(){
+		if(this.dataSource){
+			this.props.dataSource =  this.dataSource
+		}
+		if(this.columns){
+			this.props.columns =  this.columns
+		}
+		if(this.hasOwnProperty('checkbox')){
+			this.props.checkbox =  this.checkbox
+		}
+
+	}
+
 	_getCheckedState() {
 		let c = 0, uc = 0
-		for (let i = 0, len = this.dataSource.length; i < len; i++) {
-			if (this.dataSource[i].checked) {
+		for (let i = 0, len = this.props.dataSource.length; i < len; i++) {
+			if (this.props.dataSource[i].checked) {
 				c++
 			} else {
 				uc++

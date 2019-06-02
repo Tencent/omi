@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     label?: string;
     menu?: object;
@@ -6,8 +7,7 @@ interface Props {
 interface Data {
 }
 export default class Select extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         label: StringConstructor;
         menu: ObjectConstructor;

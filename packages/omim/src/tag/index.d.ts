@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon';
+import '../theme.ts';
 interface Props {
     type: string;
     active: boolean;
@@ -10,8 +11,7 @@ interface Props {
 interface Data {
 }
 export default class Tag extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         type: StringConstructor;
         active: BooleanConstructor;

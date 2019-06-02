@@ -5,7 +5,7 @@ import { MDCCheckbox } from '@material/checkbox'
 // @ts-ignore
 import { extract } from '../util.ts'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   label?: string,
@@ -22,11 +22,7 @@ interface Data {
 
 @tag('m-checkbox')
 export default class Checkbox extends WeElement<Props, Data>{
-  static css = theme() + css
-
-  static resetTheme() {
-    this.css = theme() + css
-  }
+  static css = css
 
   static propTypes = {
     label: String,

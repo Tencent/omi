@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     group?: boolean;
     disabled?: boolean;
@@ -9,8 +10,7 @@ interface Props {
 interface Data {
 }
 export default class List extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         group: BooleanConstructor;
         disabled: BooleanConstructor;

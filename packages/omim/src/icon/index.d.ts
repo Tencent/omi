@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     path?: string;
     paths?: object;
@@ -10,8 +11,7 @@ interface Props {
 interface Data {
 }
 export default class Icon extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static defaultProps: {
         view: number;
         scale: number;

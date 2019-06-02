@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '../icon-button';
+import '../theme.ts';
 interface Props {
     width?: string;
     img?: string;
@@ -12,8 +13,7 @@ interface Props {
 interface Data {
 }
 export default class Card extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         width: StringConstructor;
         img: StringConstructor;

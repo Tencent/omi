@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     discrete?: boolean;
     value?: number;
@@ -11,8 +12,7 @@ interface Props {
 interface Data {
 }
 export default class Slider extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static defaultProps: {
         value: number;
         step: number;

@@ -1,12 +1,12 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     nodes: object;
 }
 interface Data {
 }
 export default class Nav extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         nodes: ObjectConstructor;
     };

@@ -8,27 +8,18 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
-<body>
+<body style="background-color: #fefefe;">
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 	<script src="../../src/table/index.js"></script>
 
 	<div>
-		<m-table id="myTable" columns="[{
-				title: 'Name',
-				key: 'name'
-			}, {
-				title: 'Age',
-				key: 'age'
-			}, {
-				title: 'Address',
-				key: 'address'
-			}]">
-		</m-table>
+		<m-table id="myTable"></m-table>
 	</div>
 
 	<script>
 		const table = document.querySelector('#myTable')
-		table.props.dataSource = [{
+		table.checkbox = true
+		table.dataSource = [{
 			id: 1,
 			name: 'xwang',
 			age: 18,
@@ -55,7 +46,7 @@
 			address: 'Tencent'
 		}]
 
-		table.props.columns = [{
+		table.columns = [{
 			title: 'Name',
 			key: 'name',
 		}, {

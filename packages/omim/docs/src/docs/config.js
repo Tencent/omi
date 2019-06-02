@@ -36,7 +36,8 @@ const config = {
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
         ]
       },
       {
@@ -61,6 +62,7 @@ const config = {
         title: '数据',
         list: [
           { name: 'List', md: 'list', demo: './repl/list.html' },
+          { name: 'Table', md: 'table', demo: 'https://tencent.github.io/omi/packages/omim/demos/table/index.script.html' },
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
@@ -122,7 +124,8 @@ const config = {
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
         ]
       },
       {
@@ -147,6 +150,7 @@ const config = {
         title: 'Data',
         list: [
           { name: 'List', md: 'list', demo: './repl/list.html' },
+          { name: 'Table', md: 'table', demo: 'https://tencent.github.io/omi/packages/omim/demos/table/index.script.html' },
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
@@ -170,7 +174,7 @@ const config = {
           { name: 'Bubble', md: 'bubble', demo: './repl/bubble.html' },
           { name: 'BarLine', md: 'bar-line', demo: './repl/bar-line.html' }
 
-          
+
         ]
       }
     ]

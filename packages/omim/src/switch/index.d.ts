@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import { MDCSwitch, MDCSwitchFoundation } from '@material/switch';
+import '../theme.ts';
 interface Props {
     label?: string;
     disabled?: boolean | string;
@@ -9,8 +10,7 @@ interface Props {
 interface Data {
 }
 export default class Switch extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         label: StringConstructor;
         disabled: BooleanConstructor;

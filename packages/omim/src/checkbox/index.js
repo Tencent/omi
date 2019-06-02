@@ -396,9 +396,9 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/component.js":
+/***/ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/component.js":
 /*!********************************************************************************!*\
-  !*** ./node_modules/_@material_checkbox@2.1.1@@material/checkbox/component.js ***!
+  !*** ./node_modules/_@material_checkbox@2.3.0@@material/checkbox/component.js ***!
   \********************************************************************************/
 /*! exports provided: MDCCheckbox */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -410,9 +410,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_animation_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/animation/util */ "./node_modules/_@material_animation@1.0.0@@material/animation/util.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
 /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js");
-/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/foundation.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -598,9 +598,9 @@ function validDescriptor(inputPropDesc) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/constants.js":
+/***/ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/constants.js":
 /*!********************************************************************************!*\
-  !*** ./node_modules/_@material_checkbox@2.1.1@@material/checkbox/constants.js ***!
+  !*** ./node_modules/_@material_checkbox@2.3.0@@material/checkbox/constants.js ***!
   \********************************************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -667,9 +667,9 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/foundation.js":
+/***/ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/foundation.js":
 /*!*********************************************************************************!*\
-  !*** ./node_modules/_@material_checkbox@2.1.1@@material/checkbox/foundation.js ***!
+  !*** ./node_modules/_@material_checkbox@2.3.0@@material/checkbox/foundation.js ***!
   \*********************************************************************************/
 /*! exports provided: MDCCheckboxFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -679,7 +679,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCCheckboxFoundation", function() { return MDCCheckboxFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/constants.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -869,20 +869,27 @@ var MDCCheckboxFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/index.js":
+/***/ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/index.js":
 /*!****************************************************************************!*\
-  !*** ./node_modules/_@material_checkbox@2.1.1@@material/checkbox/index.js ***!
+  !*** ./node_modules/_@material_checkbox@2.3.0@@material/checkbox/index.js ***!
   \****************************************************************************/
-/*! exports provided: MDCCheckbox, MDCCheckboxFoundation */
+/*! exports provided: MDCCheckbox, cssClasses, strings, numbers, MDCCheckboxFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCCheckbox", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCCheckbox"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCCheckboxFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCCheckboxFoundation"]; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["strings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["numbers"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCCheckboxFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCCheckboxFoundation"]; });
 
 /**
  * @license
@@ -906,6 +913,7 @@ __webpack_require__.r(__webpack_exports__);
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 
 
 //# sourceMappingURL=index.js.map
@@ -972,9 +980,9 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_form-field@2.1.1@@material/form-field/component.js":
+/***/ "./node_modules/_@material_form-field@2.3.0@@material/form-field/component.js":
 /*!************************************************************************************!*\
-  !*** ./node_modules/_@material_form-field@2.1.1@@material/form-field/component.js ***!
+  !*** ./node_modules/_@material_form-field@2.3.0@@material/form-field/component.js ***!
   \************************************************************************************/
 /*! exports provided: MDCFormField */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -984,7 +992,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFormField", function() { return MDCFormField; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_form-field@2.1.1@@material/form-field/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_form-field@2.3.0@@material/form-field/foundation.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -1071,9 +1079,9 @@ var MDCFormField = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_form-field@2.1.1@@material/form-field/constants.js":
+/***/ "./node_modules/_@material_form-field@2.3.0@@material/form-field/constants.js":
 /*!************************************************************************************!*\
-  !*** ./node_modules/_@material_form-field@2.1.1@@material/form-field/constants.js ***!
+  !*** ./node_modules/_@material_form-field@2.3.0@@material/form-field/constants.js ***!
   \************************************************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1114,9 +1122,9 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_form-field@2.1.1@@material/form-field/foundation.js":
+/***/ "./node_modules/_@material_form-field@2.3.0@@material/form-field/foundation.js":
 /*!*************************************************************************************!*\
-  !*** ./node_modules/_@material_form-field@2.1.1@@material/form-field/foundation.js ***!
+  !*** ./node_modules/_@material_form-field@2.3.0@@material/form-field/foundation.js ***!
   \*************************************************************************************/
 /*! exports provided: MDCFormFieldFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1126,7 +1134,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFormFieldFoundation", function() { return MDCFormFieldFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_form-field@2.1.1@@material/form-field/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_form-field@2.3.0@@material/form-field/constants.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -1205,20 +1213,25 @@ var MDCFormFieldFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_form-field@2.1.1@@material/form-field/index.js":
+/***/ "./node_modules/_@material_form-field@2.3.0@@material/form-field/index.js":
 /*!********************************************************************************!*\
-  !*** ./node_modules/_@material_form-field@2.1.1@@material/form-field/index.js ***!
+  !*** ./node_modules/_@material_form-field@2.3.0@@material/form-field/index.js ***!
   \********************************************************************************/
-/*! exports provided: MDCFormField, MDCFormFieldFoundation */
+/*! exports provided: MDCFormField, cssClasses, strings, MDCFormFieldFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_form-field@2.1.1@@material/form-field/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_form-field@2.3.0@@material/form-field/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFormField", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCFormField"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_form-field@2.1.1@@material/form-field/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFormFieldFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFormFieldFoundation"]; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_form-field@2.3.0@@material/form-field/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["strings"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_form-field@2.3.0@@material/form-field/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFormFieldFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFormFieldFoundation"]; });
 
 /**
  * @license
@@ -1244,13 +1257,14 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js":
 /*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/component.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js ***!
   \****************************************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1261,8 +1275,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
 /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1377,9 +1391,9 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js":
 /*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js ***!
   \****************************************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1440,9 +1454,9 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js":
 /*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/foundation.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js ***!
   \*****************************************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1452,8 +1466,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1918,9 +1932,9 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js":
+/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.1.1@@material/ripple/util.js ***!
+  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js ***!
   \***********************************************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2034,10 +2048,10 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/checkbox/index.scss":
-/*!***************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/checkbox/index.scss ***!
-  \***************************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/checkbox/index.scss":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/checkbox/index.scss ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2366,7 +2380,7 @@ function __importDefault(mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/checkbox/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/checkbox/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2419,20 +2433,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/checkbox/index.scss");
-var form_field_1 = __webpack_require__(/*! @material/form-field */ "./node_modules/_@material_form-field@2.1.1@@material/form-field/index.js");
-var checkbox_1 = __webpack_require__(/*! @material/checkbox */ "./node_modules/_@material_checkbox@2.1.1@@material/checkbox/index.js");
+var form_field_1 = __webpack_require__(/*! @material/form-field */ "./node_modules/_@material_form-field@2.3.0@@material/form-field/index.js");
+var checkbox_1 = __webpack_require__(/*! @material/checkbox */ "./node_modules/_@material_checkbox@2.3.0@@material/checkbox/index.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
-var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Checkbox = /** @class */ (function (_super) {
     __extends(Checkbox, _super);
     function Checkbox() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.changeHandler = function (e) {
+            _this.fire('change', e.currentTarget.checked);
+        };
+        return _this;
     }
-    Checkbox.resetTheme = function () {
-        this.css = theme_ts_1.theme() + css;
-    };
     Checkbox.prototype.installed = function () {
         var checkbox = new checkbox_1.MDCCheckbox(this.shadowRoot.querySelector('.mdc-checkbox'));
         var formField = new form_field_1.MDCFormField(this.shadowRoot.querySelector('.mdc-form-field'));
@@ -2443,14 +2458,14 @@ var Checkbox = /** @class */ (function (_super) {
             'mdc-checkbox--disabled': props.disabled
         })),
             omi_1.h("div", { class: "mdc-checkbox" },
-                omi_1.h("input", __assign({ type: "checkbox" }, util_ts_1.extract(props, ['checked', 'value', 'indeterminate']), { class: "mdc-checkbox__native-control", id: "checkbox" })),
+                omi_1.h("input", __assign({ type: "checkbox", onChange: this.changeHandler }, util_ts_1.extract(props, ['checked', 'value', 'indeterminate']), { class: "mdc-checkbox__native-control", id: "checkbox" })),
                 omi_1.h("div", { class: "mdc-checkbox__background" },
                     omi_1.h("svg", { class: "mdc-checkbox__checkmark", viewBox: "0 0 24 24" },
                         omi_1.h("path", { class: "mdc-checkbox__checkmark-path", fill: "none", d: "M1.73,12.91 8.1,19.28 22.79,4.59" })),
                     omi_1.h("div", { class: "mdc-checkbox__mixedmark" }))),
             omi_1.h("label", { for: "checkbox" }, props.label)));
     };
-    Checkbox.css = theme_ts_1.theme() + css;
+    Checkbox.css = css;
     Checkbox.propTypes = {
         label: String,
         disabled: Boolean,
@@ -2473,32 +2488,14 @@ exports.default = Checkbox;
   !*** ./src/theme.ts ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-if (typeof window === 'object') {
-    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-    window.OmimThemeError = window.OmimThemeError || '#f5222d';
-    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
-    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
-    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
-    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
-    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
-    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
-    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
-    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
-    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
-    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+if (!document.querySelector('#__omim-theme-style')) {
+    var style = document.createElement('style');
+    style.id = '__omim-theme-style';
+    style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+    document.querySelector('head').append(style);
 }
-function theme() {
-    if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
-    }
-}
-exports.theme = theme;
 
 
 /***/ }),

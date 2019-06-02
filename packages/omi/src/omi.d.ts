@@ -53,9 +53,7 @@ declare namespace Omi {
 		key?: Key | null;
 	}
 
-	type RenderableProps<P, RefType = any> = Readonly<
-		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
-	>;
+	type RenderableProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
 
 	interface WeElement<P, D> extends HTMLElement {
 		install?(): void;
@@ -112,7 +110,7 @@ declare namespace Omi {
 		host?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
-	
+
 		update?(): void;
 		fire?(name: string, data?: object): void;
 		css?(): string;
@@ -165,7 +163,7 @@ declare namespace Omi {
 		host?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
-	
+
 		update?(): void;
 		fire?(name: string, data?: object): void;
 		css?(): string;
@@ -202,7 +200,7 @@ declare namespace Omi {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
 	};
-	
+
 	var elements: object
 }
 
@@ -226,7 +224,7 @@ declare global {
 
 		interface ElementClass extends Omi.Component<any, any> {
 		}
-		
+
 		interface ElementAttributesProperty {
 			props: any;
 		}

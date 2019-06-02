@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../theme.ts';
 interface Props {
     label?: string;
     disabled?: boolean;
@@ -9,8 +10,7 @@ interface Props {
 interface Data {
 }
 export default class Checkbox extends WeElement<Props, Data> {
-    static css: string;
-    static resetTheme(): void;
+    static css: any;
     static propTypes: {
         label: StringConstructor;
         disabled: BooleanConstructor;
@@ -18,6 +18,7 @@ export default class Checkbox extends WeElement<Props, Data> {
         checked: BooleanConstructor;
         value: StringConstructor;
     };
+    changeHandler: (e: any) => void;
     installed(): void;
     render(props: any): JSX.Element;
 }

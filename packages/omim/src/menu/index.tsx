@@ -5,7 +5,7 @@ import { MDCMenu } from '@material/menu';
 import { extract, htmlToVdom } from '../util.ts'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   show?: boolean,
@@ -20,12 +20,8 @@ interface Data {
 
 @tag('m-menu')
 export default class Menu extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static defaultProps = {
 
   }
