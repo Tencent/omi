@@ -42,7 +42,7 @@ define('my-app', class extends WeElement {
   showDemoStart = false
 
   onDemoStart = e => {
-    console.log(e.detail)
+    console.log(e.detail.index)
     this.showDemoStart = !this.showDemoStart
     this.update()
   }
@@ -63,11 +63,16 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             adjust
             heading='Click to show menus'
-            navigation='menu'
-            action-items='unfold_more'
+            // navigation={{text: 'menu'}}
+            // action-items='unfold_more'
             onNavigation={this.onDemoStart}
             onAction={this.onDemoStart}
-          />
+          >
+            <navigation>1</navigation>
+            <actionitem>fdsafds</actionitem>
+            <actionitem>fdsafds</actionitem>
+            <actionitem>fdsafds</actionitem>
+          </m-top-app-bar>
         </div>}
         {this.showDemoStart &&
         <div id='demo-start'>
