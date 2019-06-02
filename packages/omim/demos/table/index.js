@@ -7,27 +7,31 @@ define('my-app', class extends WeElement {
     name: 'xwang',
     age: 18,
     address: 'Tencent'
-  }, {
-    id: 2,
-    name: 'dntzhang',
-    age: 12,
-    address: 'Tencent'
-  }, {
-    id: 3,
-    name: 'lucy',
-    age: 12,
-    address: 'Tencent'
-  }, {
-    id: 4,
-    name: 'john',
-    age: 12,
-    address: 'Tencent'
-  }, {
-    id: 5,
-    name: 'tim',
-    age: 12,
-    address: 'Tencent'
-  }];
+  }
+  // , {
+  //   id: 2,
+  //   name: 'dntzhang',
+  //   age: 12,
+  //   address: 'Tencent',
+  //   checked: true
+  // }, {
+  //   id: 3,
+  //   name: 'lucy',
+  //   age: 12,
+  //   address: 'Tencent'
+  // }, {
+  //   id: 4,
+  //   name: 'john',
+  //   age: 12,
+  //   address: 'Tencent'
+  // }, {
+  //   id: 5,
+  //   name: 'tim',
+  //   age: 12,
+  //   address: 'Tencent'
+  // }
+
+];
 
   columns = [{
     title: 'Name',
@@ -54,6 +58,7 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <m-table
+      checkbox
         ref={e => { this.table = e }}
         dataSource={this.dataSource}
         columns={this.columns}>

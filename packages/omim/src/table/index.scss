@@ -1,6 +1,6 @@
 @import "../theme";
 
-.table-fill {
+.m-table {
   background: white;
   margin: auto;
   padding: 5px;
@@ -10,6 +10,10 @@
   border-collapse: collapse;
   color: rgba(0, 0, 0, 0.87);
   font-weight: 400;
+}
+
+.m-table-checkbox th:first-child,.m-table-checkbox td:first-child{
+	padding: 2px 40px 2px 16px;
 }
 
 th {
