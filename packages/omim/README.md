@@ -67,7 +67,7 @@ document.body.style.setProperty('--mdc-theme-error', 'yellow')
 
 All the config:
 
-```css
+```
 --mdc-theme-primary: #0052d9;
 --mdc-theme-secondary: #1890ff;
 --mdc-theme-error: #f5222d;
