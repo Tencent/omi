@@ -9,7 +9,7 @@ interface Props {
 interface Data {
 }
 export default class List extends WeElement<Props, Data> {
-    static css: string;
+    static css: any;
     static resetTheme(): void;
     static propTypes: {
         items: ObjectConstructor;

@@ -5,7 +5,7 @@ import { MDCDialog } from '@material/dialog'
 import '../button'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   show?: boolean,
@@ -21,12 +21,8 @@ interface Data {
 
 @tag('m-dialog')
 export default class Dialog extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     show: Boolean,
     scrollable: Boolean,

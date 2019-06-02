@@ -2,7 +2,7 @@ import { tag, h, WeElement, extractClass } from 'omi'
 import * as css from './index.scss'
 import '../icon'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   dot?: boolean,
@@ -17,12 +17,8 @@ interface Data {
 
 @tag('m-badge')
 export default class Badge extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static defaultProps = {
     x: 0,
     y: 0

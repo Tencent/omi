@@ -4,7 +4,7 @@ interface Props {
 interface Data {
 }
 export default class Breadcrumb extends WeElement<Props, Data> {
-    static css: string;
+    static css: any;
     static resetTheme(): void;
     static defaultProps: {
         split: string;

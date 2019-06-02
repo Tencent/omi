@@ -8,7 +8,7 @@ import '../icon-button'
 import { htmlToVdom } from '../util.ts'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   heading?: string,
@@ -32,12 +32,8 @@ interface Data {
 
 @tag('m-top-app-bar')
 export default class topAppBar extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     heading: String,
     short: Boolean,

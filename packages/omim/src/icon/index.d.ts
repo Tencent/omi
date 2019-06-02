@@ -10,7 +10,7 @@ interface Props {
 interface Data {
 }
 export default class Icon extends WeElement<Props, Data> {
-    static css: string;
+    static css: any;
     static resetTheme(): void;
     static defaultProps: {
         view: number;

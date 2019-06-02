@@ -6,7 +6,7 @@ interface Props {
     checkbox: boolean;
 }
 export default class Table extends WeElement<Props, {}> {
-    static css: string;
+    static css: any;
     static resetTheme(): void;
     dataSource: any[];
     columns: any[];

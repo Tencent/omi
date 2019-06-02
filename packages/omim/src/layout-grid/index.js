@@ -111,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
         } else {
             module.exports = result.toString();
         }
-    
+
 
 /***/ }),
 
@@ -237,7 +237,7 @@ exports.default = css;
 // import * as css from './index.scss'
 // import { domReady } from '../util/dom-ready'
 // //@ts-ignore
-// import { theme } from '../theme.ts'
+// import '../theme.ts'
 // interface Props {
 // }
 // interface Data {
@@ -245,9 +245,9 @@ exports.default = css;
 // const parser = new DOMParser()
 // @tag('m-layout-grid')
 // class LayoutGrid extends WeElement<Props, Data>{
-//   static css = theme() + css
-//   static resetTheme() {
-//     this.css = theme() + css
+//   static css = css
+//
+//
 //   }
 //   static propTypes = {
 //     alignLeft: Boolean,

@@ -2,7 +2,7 @@ import { tag, h, WeElement, extractClass } from 'omi'
 import * as css from './index.scss'
 import '../icon'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   alt?: string,
@@ -16,11 +16,7 @@ interface Props {
 
 @tag('m-avatar')
 export default class Avatar extends WeElement<Props, {}>{
-  static css = theme() + css
-  
-  static resetTheme() {
-    this.css = theme() + css
-  }
+  static css = css
 
   static defaultProps = {
     size: 40,

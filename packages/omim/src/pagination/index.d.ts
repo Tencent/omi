@@ -15,7 +15,7 @@ interface Props {
 interface Data {
 }
 export default class Pagination extends WeElement<Props, Data> {
-    static css: string;
+    static css: any;
     static resetTheme(): void;
     static defaultProps: {
         total: number;

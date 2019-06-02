@@ -5,7 +5,7 @@ interface Props {
 interface Data {
 }
 export default class Nav extends WeElement<Props, Data> {
-    static css: string;
+    static css: any;
     static resetTheme(): void;
     static propTypes: {
         nodes: ObjectConstructor;

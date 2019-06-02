@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import '../checkbox/index.tsx'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
 	dataSource: any[],
@@ -12,11 +12,7 @@ interface Props {
 
 @tag('m-table')
 export default class Table extends WeElement<Props, {}> {
-	static css = theme() + css
-
-	static resetTheme() {
-		this.css = theme() + css
-	}
+	static css = css
 
 	dataSource:any[]
 	columns:any[]

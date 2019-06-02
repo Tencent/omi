@@ -1,7 +1,7 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
 	total: number,
@@ -24,11 +24,7 @@ interface Data {
 
 @tag('m-pagination')
 export default class Pagination extends WeElement<Props, Data>{
-	static css = theme() + css
-
-	static resetTheme() {
-		this.css = theme() + css
-	}
+	static css = css
 
 	static defaultProps = {
 		total: 0,

@@ -3,7 +3,7 @@ import * as css from './index.scss'
 import '../icon-button'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   width?: string,
@@ -21,11 +21,7 @@ interface Data {
 
 @tag('m-card')
 export default class Card extends WeElement<Props, Data>{
-  static css = theme() + css
-
-  static resetTheme() {
-    this.css = theme() + css
-  }
+  static css = css
 
   static propTypes = {
     width: String,

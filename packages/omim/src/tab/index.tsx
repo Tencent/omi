@@ -4,7 +4,7 @@ import { MDCTabBar } from '@material/tab-bar'
 import '../icon'
 import { domReady } from '../util/dom-ready'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 // @ts-ignore
 import { extract, htmlToVdom } from '../util.ts'
 
@@ -22,12 +22,8 @@ interface Data {
 
 @tag('m-tab')
 export default class Tab extends WeElement<Props, Data>{
-	static css = theme() + css
+	static css = css
 
-	static resetTheme() {
-    this.css = theme() + css
-	}
-	
 	data = {
 		active: null,
 		tabBar: null

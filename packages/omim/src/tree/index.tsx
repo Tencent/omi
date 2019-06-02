@@ -1,7 +1,7 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   checkbox?: boolean,
@@ -15,12 +15,8 @@ interface Data {
 
 @tag('m-tree')
 export default class Tree extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     checkbox: Boolean,
     node: Object

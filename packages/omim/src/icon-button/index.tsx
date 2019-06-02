@@ -7,7 +7,7 @@ import { domReady } from '../util/dom-ready'
 import { extract, htmlToVdom } from '../util.ts'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   ripple?: boolean,
@@ -26,12 +26,8 @@ interface Data {
 
 @tag('m-icon-button')
 export default class IconButton extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static defaultProps = {
     ripple: true
   }

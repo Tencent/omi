@@ -7,7 +7,7 @@ import { domReady } from '../util/dom-ready'
 import { extract, htmlToVdom } from '../util.ts'
 
 //@ts-ignore
-import { theme } from '../theme.ts'
+import '../theme.ts'
 
 interface Props {
   label?: string,
@@ -21,12 +21,8 @@ interface Data {
 
 @tag('m-select')
 export default class Select extends WeElement<Props, Data>{
-  static css = theme() + css
+  static css = css
 
-  static resetTheme() {
-    this.css = theme() + css
-  }
-  
   static propTypes = {
     label: String,
     menu: Object
