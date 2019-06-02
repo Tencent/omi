@@ -51,11 +51,14 @@
       padding: 0;
     }
 
+    .m-dialog-alert-p {
+      margin: 0;
+    }
+
   </style>
   <script src="./libs/omi.dev.js"></script>
-  <script src="../js/button.js"></script>
   <script src="../js/dialog.js"></script>
-  <script src="../js/radio.js"></script>
+  <script src="../js/list.js"></script>
 
 </head>
 
@@ -112,37 +115,18 @@
       dialogSimple.removeAttribute("show");
       thowText.innerHTML = "Declined... Maybe next time?";
     })
-    const liSmple0 = dialogSimple.shadowRoot.querySelector('#li-simple-0');
-    const liSmple1 = dialogSimple.shadowRoot.querySelector('#li-simple-1');
-    const liSmple2 = dialogSimple.shadowRoot.querySelector('#li-simple-2');
-    // console.log(liSmple0);
-    // console.log(liSmple1);
-    // console.log(liSmple2);
-    liSmple0.addEventListener('click', (e) => {
-      // console.log(e)
-      liSmple0.setAttribute('tabindex', '0');
-      liSmple1.setAttribute('tabindex', '-1');
-      liSmple2.setAttribute('tabindex', '-1');
+    //m-list-simple
+    const listSimple = document.getElementById('m-list-simple');
+    listSimple.addEventListener('itemclick', (e) => {
+      console.log(e.detail);
+      switch(e.detail.index) {
+        case 0: listSimple.setAttribute('items', "[{text: 'user1@example.com', icon: 'person', selected: true},{text: 'user2@example.com', icon: 'person'},{text: 'Add account', icon: 'add'}]"); break;
+        case 1: listSimple.setAttribute('items', "[{text: 'user1@example.com', icon: 'person'},{text: 'user2@example.com', icon: 'person', selected: true},{text: 'Add account', icon: 'add'}]"); break;
+        case 2: listSimple.setAttribute('items', "[{text: 'user1@example.com', icon: 'person'},{text: 'user2@example.com', icon: 'person'},{text: 'Add account', icon: 'add', selected: true}]"); break;
+      }
       dialogSimple.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
     })
-    liSmple1.addEventListener('click', (e) => {
-      // console.log(e)
-      liSmple0.setAttribute('tabindex', '-1');
-      liSmple1.setAttribute('tabindex', '0');
-      liSmple2.setAttribute('tabindex', '-1');
-      dialogSimple.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    liSmple2.addEventListener('click', (e) => {
-      // console.log(e)
-      liSmple0.setAttribute('tabindex', '-1');
-      liSmple1.setAttribute('tabindex', '-1');
-      liSmple2.setAttribute('tabindex', '0');
-      dialogSimple.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-
+    
     //Confirmation
     dialogConfirmation.addEventListener('opening', (e) => {
       console.log(e.detail.type)
@@ -168,29 +152,18 @@
       dialogConfirmation.removeAttribute("show");
       thowText.innerHTML = "Accepted, thanks!";
     })
-    //li-confirmation-0
-    const liConfirmation0 = document.querySelector('#li-confirmation-0');
-    const liConfirmation1 = document.querySelector('#li-confirmation-1');
-    const liConfirmation2 = document.querySelector('#li-confirmation-2');
-    liConfirmation0.addEventListener('click', (e) => {
-      liConfirmation0.setAttribute('tabindex', '0');
-      liConfirmation1.setAttribute('tabindex', '-1');
-      liConfirmation2.setAttribute('tabindex', '-1');
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    liConfirmation1.addEventListener('click', (e) => {
-      liConfirmation0.setAttribute('tabindex', '-1');
-      liConfirmation1.setAttribute('tabindex', '0');
-      liConfirmation2.setAttribute('tabindex', '-1');
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    liConfirmation2.addEventListener('click', (e) => {
-      liConfirmation0.setAttribute('tabindex', '-1');
-      liConfirmation1.setAttribute('tabindex', '-1');
-      liConfirmation2.setAttribute('tabindex', '0');
-      thowText.innerHTML = "Declined... Maybe next time?";
+    //m-list-confirmation
+    const listConfirmation = document.getElementById('m-list-confirmation');
+    listConfirmation.addEventListener('itemclick', (e) => {
+      console.log(e.detail);
+      switch(e.detail.index) {
+        case 0: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, We too', icon: 'wifi', checked: true, selected: true},{text: 'Hot Cross Buns', icon: 'bluetooth'},{text: 'None', icon: 'data_usage'}]"); break;
+        case 1: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, We too', icon: 'wifi'},{text: 'Hot Cross Buns', icon: 'bluetooth', checked: true, selected: true},{text: 'None', icon: 'data_usage'}]"); break;
+        case 2: listConfirmation.setAttribute('items', "[{text: 'I Love Omim, We too', icon: 'wifi'},{text: 'Hot Cross Buns', icon: 'bluetooth'},{text: 'None', icon: 'data_usage', checked: true, selected: true}]"); break;
+      }
     })
 
+    //Scrollable
     dialogScrollable.addEventListener('scrim', () => {
       dialogScrollable.removeAttribute("show");
       thowText.innerHTML = "Declined... Maybe next time?";
@@ -203,7 +176,7 @@
       dialogScrollable.removeAttribute("show");
       thowText.innerHTML = "Accepted, thanks!";
     })
-
+    
 
     function onShowAlert() {
       dialogAlert.setAttribute("show", true);

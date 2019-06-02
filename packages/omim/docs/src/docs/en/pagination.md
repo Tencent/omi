@@ -51,16 +51,16 @@ Pagination.
 
 ```jsx
 {
-		total: 0,
-		pageSize: 10,
-		numDisplay: 5,
-		currentPage: 0,
-		numEdge: 3,
-		linkTo: '#',
-		prevText: 'Prev',
-		nextText: 'Next',
-		ellipseText: '...',
-		prevShow: true,
-		nextShow: true
+  total: 0,
+  pageSize: 10,
+  numDisplay: 5,
+  currentPage: 0,
+  numEdge: 3,
+  linkTo: '#',
+  prevText: 'Prev',
+  nextText: 'Next',
+  ellipseText: '...',
+  prevShow: true,
+  nextShow: true
 }
 ```
