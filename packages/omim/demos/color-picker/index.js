@@ -6,6 +6,7 @@ import { render, h } from 'omi'
 render(
   <div>
    <m-color-picker></m-color-picker>
+   <div>abc</div>
   </div>
   , 'body')
 

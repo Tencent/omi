@@ -100,7 +100,6 @@
     "useTabs": false
   },
   "dependencies": {
-    "@simonwep/pickr": "^0.6.2",
     "moment": "^2.24.0",
     "draggabilly": "^2.2.0",
     "@material/button": "^2.0.0",
