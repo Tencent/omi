@@ -78,10 +78,8 @@ class mdDateTimePicker {
     */
     this._sDialog = {}
     this.root = root
-    console.log(root.querySelector)
     // attach the dialog if not present
     if (typeof document !== 'undefined' && !this.root.querySelector(`#mddtp-picker__${this._type}`)) {
-      console.log(1111)
       this._buildDialog(root)
     }
   }
@@ -404,7 +402,6 @@ class mdDateTimePicker {
       body.appendChild(right)
       body.appendChild(years)
     } else {
-      console.log(2222)
       const title = document.createElement('div')
       const hour = document.createElement('span')
       const span = document.createElement('span')
@@ -505,8 +502,6 @@ class mdDateTimePicker {
   * @param  {moment} m [date for today or current]
   */
   _initTimeDialog (m) {
-    console.log(m)
-    console.log(this._sDialog)
     const hour = this._sDialog.hour
     const minute = this._sDialog.minute
     const subtitle = this._sDialog.subtitle
@@ -659,7 +654,6 @@ class mdDateTimePicker {
   * @param  {moment} m [date for today or current]
   */
   _initDateDialog (m) {
-    console.log(m)
     const subtitle = this._sDialog.subtitle
     const title = this._sDialog.title
     const titleDay = this._sDialog.titleDay
