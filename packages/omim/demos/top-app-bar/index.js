@@ -1,6 +1,8 @@
 import '../../src/top-app-bar/index.tsx'
+import '../../src/icon-button/index.tsx'
 import '../../src/avatar/index.tsx'
 import '../../src/badge/index.tsx'
+
 import { render, WeElement, define, h } from 'omi'
 
 define('my-app', class extends WeElement {
@@ -41,6 +43,7 @@ define('my-app', class extends WeElement {
   showDemoStart = false
 
   onDemoStart = e => {
+    console.log(e.detail)
     this.showDemoStart = !this.showDemoStart
     this.update()
   }
@@ -48,6 +51,7 @@ define('my-app', class extends WeElement {
   titleOmi = ' (Omi)'
   
   onMenu = e => {
+    console.log(e.detail)
     this.titleOmi = this.titleOmi == '' ? ' (Omi)' : ''
     this.update()
   }
@@ -60,53 +64,24 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             adjust
             heading='Click to show menus'
+            navigation='zoom_out_map'
             onNavigation={this.onDemoStart}
-            //Support a lot of methods
-            //支持非常多种写法
-            navigation-element={<m-badge content={99} ><m-avatar backgroundColor='#87d068'>DNT</m-avatar></m-badge>}
-            // navigation='wifi'
-            // navigation={'favorite'}
-            // navigation={['favorite', 'favorite_border']}
-            // navigation={{
-            //   text: 'omim',
-            //   // mIconButton: {
-            //   //   icon: 'wifi',
-            //   //   icons: ['favorite', 'favorite_border']
-            //   // },
-            //   mIcon: {
-            //     view: 24,
-            //     path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z'
-            //   }
-            // }}
-            // onAction0={this.onDemoStart}
-            onAction1={this.onDemoStart}
-            //Support a lot of methods
-            //支持非常多种写法
-            action-elements={[
-              <img onClick={this.onDemoStart} style='width:50px' src='../../assets/pv4.jpeg'></img>,
-              <m-badge accessKey='1' content={99} ><m-avatar backgroundColor='#87d068'>DNT</m-avatar></m-badge>,
-              <m-icon-button icons={['favorite', 'favorite_border']}>wifi</m-icon-button>
-            ]}
-            // action-items='wifi'
-            // action-items={'wifi'}
-            // action-items={['wifi', 'favorite', 'favorite_border']}
-            // action-items={[['favorite', 'wifi'], ['favorite', 'favorite_border'], 'wifi', 'favorite_border']}
-            // action-items={[
-            //   {
-            //     text: 'omim',
-            //     mIconButton: {
-            //       // icon: 'wifi',
-            //       icons: ['favorite', 'favorite_border']
-            //     },
-            //     mIcon: {
-            //       view: 24,
-            //       path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z'
-            //     }
-            //   }
-            // ]}
+            onAction={this.onMenu}
           >
-            {/* <svg viewBox="0 0 24 24" class="" width="2em" height="2em" aria-hidden="true"><path d="M7.52 21.48C4.25 19.94 1.91 16.76 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.81-1.33 1.32zm.89-6.52c-.19 0-.37-.03-.52-.08-.16-.06-.29-.13-.4-.24-.11-.1-.2-.22-.26-.37-.06-.14-.09-.3-.09-.47h-1.3c0 .36.07.68.21.95.14.27.33.5.56.69.24.18.51.32.82.41.3.1.62.15.96.15.37 0 .72-.05 1.03-.15.32-.1.6-.25.83-.44s.42-.43.55-.72c.13-.29.2-.61.2-.97 0-.19-.02-.38-.07-.56-.05-.18-.12-.35-.23-.51-.1-.16-.24-.3-.4-.43-.17-.13-.37-.23-.61-.31.2-.09.37-.2.52-.33.15-.13.27-.27.37-.42.1-.15.17-.3.22-.46.05-.16.07-.32.07-.48 0-.36-.06-.68-.18-.96-.12-.28-.29-.51-.51-.69-.2-.19-.47-.33-.77-.43C9.1 8.05 8.76 8 8.39 8c-.36 0-.69.05-1 .16-.3.11-.57.26-.79.45-.21.19-.38.41-.51.67-.12.26-.18.54-.18.85h1.3c0-.17.03-.32.09-.45s.14-.25.25-.34c.11-.09.23-.17.38-.22.15-.05.3-.08.48-.08.4 0 .7.1.89.31.19.2.29.49.29.86 0 .18-.03.34-.08.49-.05.15-.14.27-.25.37-.11.1-.25.18-.41.24-.16.06-.36.09-.58.09H7.5v1.03h.77c.22 0 .42.02.6.07s.33.13.45.23c.12.11.22.24.29.4.07.16.1.35.1.57 0 .41-.12.72-.35.93-.23.23-.55.33-.95.33zm8.55-5.92c-.32-.33-.7-.59-1.14-.77-.43-.18-.92-.27-1.46-.27H12v8h2.3c.55 0 1.06-.09 1.51-.27.45-.18.84-.43 1.16-.76.32-.33.57-.73.74-1.19.17-.47.26-.99.26-1.57v-.4c0-.58-.09-1.1-.26-1.57-.18-.47-.43-.87-.75-1.2zm-.39 3.16c0 .42-.05.79-.14 1.13-.1.33-.24.62-.43.85-.19.23-.43.41-.71.53-.29.12-.62.18-.99.18h-.91V9.12h.97c.72 0 1.27.23 1.64.69.38.46.57 1.12.57 1.99v.4zM12 0l-.66.03 3.81 3.81 1.33-1.33c3.27 1.55 5.61 4.72 5.96 8.48h1.5C23.44 4.84 18.29 0 12 0z"></path></svg>
-            <svg viewBox="0 0 1024 1024" class="" width="2em" height="2em" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="#F98080"></path><path d="M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z" fill="#F95050"></path></svg> */}
+            {/* <navigation>1</navigation>
+            <navigation>2</navigation>
+            <navigation>3</navigation> */}
+            <actionitem>
+              <m-avatar icon="person" backgroundColor='#fde3cf' color='#f56a00' />
+            </actionitem>
+            <actionitem>
+              <m-icon-button icons={['favorite', 'favorite_border']}></m-icon-button>
+            </actionitem>
+            <actionitem>
+              <m-badge content="99">
+                <m-icon path="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z" color="black" />
+              </m-badge>
+            </actionitem>
           </m-top-app-bar>
         </div>}
         {this.showDemoStart &&
@@ -114,44 +89,23 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             adjust
             heading={'Standard' + this.titleOmi}
-            onNavigation={this.onMenu}
             navigation='favorite_border'
-            onAction0={this.onMenu}
-            onAction1={this.onMenu}
-            onAction2={this.onMenu}
-            action-items={[
-              ['favorite', 'wifi'],
-              { text: 'Omi' },
-              'favorite'
-            ]}
+            action-items={['favorite', {text: 'Omi'},'favorite']}
+            onNavigation={this.onMenu}
+            onAction={this.onMenu}
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
             adjust
             fixed
             heading={'Fixed' + this.titleOmi}
-            // onNavigation={this.onMenu}
             navigation={{
-              mIcon: {
                 view: 48,
-                path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z',
-                onClick: this.onMenu
-              }
+                path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
-            onAction0={this.onMenu}
-            onAction1={this.onMenu}
-            onAction2={this.onMenu}
-            onAction3={this.onMenu}
-            action-items={[
-              {
-                mIconButton: {
-                  icons: ['favorite', 'favorite_border']
-                }
-              },
-              'favorite',
-              'wifi',
-              'wifi'
-            ]}
+            action-items={['favorite', 'favorite_border', {path: 'M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'}]}
+            onNavigation={this.onMenu}
+            onAction={this.onMenu}
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
