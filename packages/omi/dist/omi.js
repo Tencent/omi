@@ -902,9 +902,14 @@
             this.beforeInstall();
             this.install();
             this.afterInstall();
-            var shadowRoot = this.attachShadow({
+            var shadowRoot;
+            if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
-            });
+            }); else {
+                shadowRoot = this.shadowRoot;
+                var fc;
+                while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
+            }
             if (this.constructor.css) shadowRoot.appendChild(cssToDom(this.constructor.css)); else if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
@@ -1082,7 +1087,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.4.3';
+    options.root.Omi.version = '6.4.4';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
