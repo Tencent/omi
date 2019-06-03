@@ -56,7 +56,9 @@ const config = {
           { name: 'Select', md: 'select', demo: './repl/select.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
+          { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
+          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' }
         ]
       },
       {
@@ -145,7 +147,9 @@ const config = {
           { name: 'Select', md: 'select', demo: './repl/select.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
+          { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
+          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' }
         ]
       },
       {

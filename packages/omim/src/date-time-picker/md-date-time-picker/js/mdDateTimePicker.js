@@ -1369,7 +1369,7 @@ class mdDateTimePicker {
       if (me._trigger) {
         me._trigger.dispatchEvent(onOk)
       }
-      me.onOk && me.onOk()
+      me.onOk && me.onOk(me._sDialog.sDate)
     }
   }
 

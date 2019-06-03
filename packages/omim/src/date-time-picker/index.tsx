@@ -53,11 +53,11 @@ export default class DateTimePicker extends WeElement<Props, Data>{
       init: this.props.init ? moment(this.props.init) : now,
       past: this.props.past ? moment(this.props.past) : moment().subtract(21, 'years'),
       future: this.props.future ? moment(this.props.future) : now,
-      onOk: ()=>{
-        //console.log(1)
+      onOk: (evt)=>{
+        this.fire('ok', evt)
       },
       onCancel:()=>{
-        //console.log(2)
+        this.fire('cancel')
       }
     })
 
