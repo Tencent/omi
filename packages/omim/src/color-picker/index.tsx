@@ -28,7 +28,8 @@ interface Props {
   strings?: {
     save: string,  // Default for save button
     clear: string // Default for clear button
-  }
+  },
+  width?: string
 }
 
 interface Data {
@@ -86,7 +87,9 @@ export default class ColorPicker extends WeElement<Props, Data>{
     swatches: Array,
     inline: Boolean,
 
-    strings: Object
+    strings: Object,
+
+    width: String
 
   }
 
@@ -97,7 +100,7 @@ export default class ColorPicker extends WeElement<Props, Data>{
       default: this.props.default,
       useAsButton: !this.props.button,
       swatches: this.props.swatches,
-
+      width: this.props.width,
       components: {
 
         // Main components
@@ -147,7 +150,7 @@ export default class ColorPicker extends WeElement<Props, Data>{
     return (
       <div {...extractClass(props, 'm-color-picker')}>
         <div class='picker'>
-
+ 
         </div>
       </div>
     )

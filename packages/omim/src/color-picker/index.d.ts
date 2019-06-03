@@ -21,6 +21,7 @@ interface Props {
         save: string;
         clear: string;
     };
+    width?: string;
 }
 interface Data {
 }
@@ -65,6 +66,7 @@ export default class ColorPicker extends WeElement<Props, Data> {
         swatches: ArrayConstructor;
         inline: BooleanConstructor;
         strings: ObjectConstructor;
+        width: StringConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;

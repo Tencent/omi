@@ -1,6 +1,6 @@
 import * as _ from './utils/utils';
 
-export default ({components: c, strings: s, useAsButton, inline, appClass}) => {
+export default ({components: c, strings: s, useAsButton, inline, appClass, width}) => {
     const hidden = con => con ? '' : 'style="display:none" hidden';
 
     const root = _.createFromTemplate(`
@@ -8,7 +8,7 @@ export default ({components: c, strings: s, useAsButton, inline, appClass}) => {
 
         ${useAsButton ? '' : '<button type="button" data-key="button" class="pcr-button"></button>'}
 
-        <div data-key="app" class="pcr-app ${appClass || ''}" ${inline ? 'style="position: unset"' : ''}>
+        <div data-key="app" class="pcr-app ${appClass || ''}" ${inline ? `style="position: unset;${width?`width:${width};`:''}"` : `${width?`width:${width};`:''}`}>
           <div class="pcr-selection" ${hidden(c.palette)}>
             <div data-con="preview" class="pcr-color-preview" ${hidden(c.preview)}>
               <button type="button" data-key="lastColor" class="pcr-last-color"></button>
