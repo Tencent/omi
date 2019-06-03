@@ -160,6 +160,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | chart bubble| member |done |
 | chart bar line| member |done |
 | pagination| member |done |
+| color-picker| member |done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
