@@ -49,7 +49,8 @@ class mdDateTimePicker {
     autoClose = false,
     inner24 = false,
     prevHandle = '<div class="mddtp-prev-handle"></div>',
-    nextHandle = '<div class="mddtp-next-handle"></div>'
+    nextHandle = '<div class="mddtp-next-handle"></div>',
+    root
   }) {
     this._type = type
     this._init = init
@@ -76,10 +77,12 @@ class mdDateTimePicker {
     * }
     */
     this._sDialog = {}
-
+    this.root = root
+    console.log(root.querySelector)
     // attach the dialog if not present
-    if (typeof document !== 'undefined' && !document.getElementById(`mddtp-picker__${this._type}`)) {
-      this._buildDialog()
+    if (typeof document !== 'undefined' && !this.root.querySelector(`#mddtp-picker__${this._type}`)) {
+      console.log(1111)
+      this._buildDialog(root)
     }
   }
 
@@ -200,7 +203,7 @@ class mdDateTimePicker {
 
   _selectDialog () {
     // now do what you normally would do
-    this._sDialog.picker = document.getElementById(`mddtp-picker__${[this._type]}`)
+    this._sDialog.picker = this.root.querySelector(`#mddtp-picker__${[this._type]}`)
     /**
     * [sDialogEls stores all inner components of the selected dialog or sDialog to be later getElementById]
     *
@@ -211,7 +214,7 @@ class mdDateTimePicker {
     ]
     let i = sDialogEls.length
     while (i--) {
-      this._sDialog[sDialogEls[i]] = document.getElementById(`mddtp-${this._type}__${sDialogEls[i]}`)
+      this._sDialog[sDialogEls[i]] = this.root.querySelector(`#mddtp-${this._type}__${sDialogEls[i]}`)
     }
 
     this._sDialog.tDate = this._init.clone()
@@ -305,7 +308,7 @@ class mdDateTimePicker {
   * @method _buildDateDialog
   *
   */
-  _buildDialog () {
+  _buildDialog (root) {
     const type = this._type
     const docfrag = document.createDocumentFragment()
     // outer most container of the picker
@@ -401,6 +404,7 @@ class mdDateTimePicker {
       body.appendChild(right)
       body.appendChild(years)
     } else {
+      console.log(2222)
       const title = document.createElement('div')
       const hour = document.createElement('span')
       const span = document.createElement('span')
@@ -493,7 +497,7 @@ class mdDateTimePicker {
     body.appendChild(action)
     docfrag.appendChild(container)
     // add the container to the end of body
-    document.getElementsByTagName('body').item(0).appendChild(docfrag)
+    root.appendChild(docfrag)
   }
 
   /**
@@ -501,6 +505,8 @@ class mdDateTimePicker {
   * @param  {moment} m [date for today or current]
   */
   _initTimeDialog (m) {
+    console.log(m)
+    console.log(this._sDialog)
     const hour = this._sDialog.hour
     const minute = this._sDialog.minute
     const subtitle = this._sDialog.subtitle
@@ -653,6 +659,7 @@ class mdDateTimePicker {
   * @param  {moment} m [date for today or current]
   */
   _initDateDialog (m) {
+    console.log(m)
     const subtitle = this._sDialog.subtitle
     const title = this._sDialog.title
     const titleDay = this._sDialog.titleDay
@@ -908,7 +915,7 @@ class mdDateTimePicker {
     const years = me._sDialog.years
     const title = me._sDialog.title
     const subtitle = me._sDialog.subtitle
-    const currentYear = document.getElementById('mddtp-date__currentYear')
+    const currentYear = this.root.querySelector('#mddtp-date__currentYear')
     if (mdDateTimePicker.dialog.view) {
       me._sDialog.right.style.display = 'none'
       me._sDialog.left.style.display = 'none'
@@ -944,7 +951,7 @@ class mdDateTimePicker {
     const sClass = 'mddtp-picker__cell--selected'
     hourView.onclick = function (e) {
       const sHour = 'mddtp-hour__selected'
-      const selectedHour = document.getElementById(sHour)
+      const selectedHour = this.root.querySelector('#'+sHour)
       let setHour = 0
       if (e.target && e.target.nodeName === 'SPAN') {
         // clear the previously selected hour
@@ -973,7 +980,7 @@ class mdDateTimePicker {
     }
     minuteView.onclick = function (e) {
       const sMinute = 'mddtp-minute__selected'
-      const selectedMinute = document.getElementById(sMinute)
+      const selectedMinute = this.root.querySelector('#'+sMinute)
       let setMinute = 0
       if (e.target && e.target.nodeName === 'SPAN') {
         // clear the previously selected hour
@@ -1006,7 +1013,7 @@ class mdDateTimePicker {
         const currentDate = me._sDialog.tDate.date(day)
         const sId = 'mddtp-date__selected'
         const sClass = 'mddtp-picker__cell--selected'
-        const selected = document.getElementById(sId)
+        const selected = this.root.querySelector('#'+sId)
         const subtitle = me._sDialog.subtitle
         const titleDay = me._sDialog.titleDay
         const titleMonth = me._sDialog.titleMonth
@@ -1164,7 +1171,7 @@ class mdDateTimePicker {
     const me = this
     el.onclick = function (e) {
       if (e.target && e.target.nodeName === 'LI') {
-        const selected = document.getElementById('mddtp-date__currentYear')
+        const selected = this.root.querySelector('#mddtp-date__currentYear')
         const subtitle = me._sDialog.subtitle
         const titleDay = me._sDialog.titleDay
         const titleMonth = me._sDialog.titleMonth
@@ -1304,7 +1311,7 @@ class mdDateTimePicker {
     const onDragEnd = function () {
       const minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
       const sMinute = 'mddtp-minute__selected'
-      const selectedMinute = document.getElementById(sMinute)
+      const selectedMinute = this.root.querySelector('#'+sMinute)
       const cOffset = circle.getBoundingClientRect()
       fakeNeedle.style.left = `left:${cOffset.left - hOffset.left}px`
       fakeNeedle.style.top = `top:${cOffset.top - hOffset.top}px`
