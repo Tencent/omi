@@ -1,2 +1,0 @@
-webpackJsonp([59],{71:function(n,i){n.exports='## Row\n\n24 Grids System.\n\n## Usage\n\n```html\n<m-row cols="[8, 8, 8]">\n  <div>col-8-0</div>\n  <div>col-8-1</div>\n  <div>col-8-2</div>\n</m-row>\n```\n\n## Usage in Omi\n\nJSX:\n\n```jsx\n<m-row cols={[8, 8, 8]}>\n  <div>col-8-0</div>\n  <div>col-8-1</div>\n  <div>col-8-2</div>\n</m-row>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n\tcols: object,\n\tgutter?: number,\n\tjustify?: string,\n\talign?: string,\n\ttype?: string\n}\n```'}});
-//# sourceMappingURL=59.7a495b6e.chunk.js.map

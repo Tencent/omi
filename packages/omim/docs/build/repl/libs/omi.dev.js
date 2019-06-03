@@ -1,5 +1,5 @@
 /**
- * omi v6.3.17  http://omijs.org
+ * omi v6.4.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -316,8 +316,8 @@
         }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
-    } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value != '') {
-      //value != '' fix for selected, disabled, checked
+    } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') {
+      //value !== '' fix for selected, disabled, checked with pure element
       // Attempt to set a DOM property to the given value.
       // IE & FF throw for certain property-value combinations.
       try {
@@ -392,26 +392,31 @@
       var parentNode = null;
       if (isArray(dom)) {
         var domLength = dom.length;
-        var vnodeLength = vnode.length;
-        var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
+        var maxLength = Math.max(vnode.length, domLength);
         parentNode = dom[0].parentNode;
         for (var i = 0; i < maxLength; i++) {
           var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
           ret.push(ele);
-          if (i > domLength - 1) {
+          if (parentNode && i > domLength - 1) {
             parentNode.appendChild(ele);
           }
         }
       } else {
-        vnode.forEach(function (item) {
-          var ele = idiff(dom, item, context, mountAll, componentRoot);
+        vnode.forEach(function (item, index) {
+          var ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot);
           ret.push(ele);
           parent && parent.appendChild(ele);
         });
       }
     } else {
       if (isArray(dom)) {
-        ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
+        dom.forEach(function (one, index) {
+          if (index === 0) {
+            ret = idiff(one, vnode, context, mountAll, componentRoot);
+          } else {
+            recollectNodeTree(one, false);
+          }
+        });
       } else {
         ret = idiff(dom, vnode, context, mountAll, componentRoot);
       }
@@ -1323,26 +1328,19 @@
       }
       this.attrsToProps();
       this.beforeInstall();
-      !this._isInstalled && this.install();
+      this.install();
       this.afterInstall();
-      var shadowRoot;
-      if (!this.shadowRoot) {
-        shadowRoot = this.attachShadow({
-          mode: 'open'
-        });
-      } else {
-        shadowRoot = this.shadowRoot;
-        var fc;
-        while (fc = shadowRoot.firstChild) {
-          shadowRoot.removeChild(fc);
-        }
-      }
+
+      var shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+
       if (this.constructor.css) {
         shadowRoot.appendChild(cssToDom(this.constructor.css));
       } else if (this.css) {
         shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
       }
-      !this._isInstalled && this.beforeRender();
+      this.beforeRender();
       options.afterInstall && options.afterInstall(this);
       if (this.constructor.observe) {
         this.beforeObserve();
@@ -1366,7 +1364,7 @@
       } else {
         shadowRoot.appendChild(this._host);
       }
-      !this._isInstalled && this.installed();
+      this.installed();
       this._isInstalled = true;
     };
 
@@ -1438,7 +1436,11 @@
               ele.props[key] = Number(val);
               break;
             case Boolean:
-              ele.props[key] = true;
+              if (val === 'false' || val === '0') {
+                ele.props[key] = false;
+              } else {
+                ele.props[key] = true;
+              }
               break;
             case Array:
             case Object:
@@ -1791,7 +1793,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.3.17';
+  options.root.Omi.version = '6.4.3';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

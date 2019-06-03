@@ -45,7 +45,8 @@ const config = {
         list: [
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
-          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'}
+          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
+          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'}
         ]
       },
       {
@@ -133,7 +134,8 @@ const config = {
         list: [
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
-          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'}
+          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
+          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'}
         ]
       },
       {
