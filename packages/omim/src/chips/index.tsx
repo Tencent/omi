@@ -31,7 +31,7 @@ interface Data {
 }
 
 @tag('m-chips')
-export default class chipSet extends WeElement<Props, Data>{
+export default class Chips extends WeElement<Props, Data>{
   static css = css
 
   static defaultProps = {

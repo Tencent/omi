@@ -22,7 +22,7 @@ interface Props {
 }
 interface Data {
 }
-export default class chipSet extends WeElement<Props, Data> {
+export default class Chips extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
         ripple: boolean;

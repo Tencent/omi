@@ -979,7 +979,7 @@
                         break;
 
                       case Boolean:
-                        ele.props[key] = !0;
+                        if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
                         break;
 
                       case Array:
@@ -1082,7 +1082,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.4.2';
+    options.root.Omi.version = '6.4.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

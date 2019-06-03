@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+
+  <div>
+    <m-color-picker id='picker' save="0" preview="0" button='0' clear='0' width="300px"></m-color-picker>
+  </div>
+
+  <script>
+    var picker = document.querySelector('#picker')
+    picker.addEventListener('change', function(evt){
+      console.log(evt.detail.color)
+    })
+  </script>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/color-picker/index.js"></script>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+</body>
+
+</html>
