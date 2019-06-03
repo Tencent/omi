@@ -909,7 +909,7 @@ class mdDateTimePicker {
     const years = me._sDialog.years
     const title = me._sDialog.title
     const subtitle = me._sDialog.subtitle
-    const currentYear = this.root.querySelector('#mddtp-date__currentYear')
+    const currentYear = me.root.querySelector('#mddtp-date__currentYear')
     if (mdDateTimePicker.dialog.view) {
       me._sDialog.right.style.display = 'none'
       me._sDialog.left.style.display = 'none'
@@ -945,7 +945,7 @@ class mdDateTimePicker {
     const sClass = 'mddtp-picker__cell--selected'
     hourView.onclick = function (e) {
       const sHour = 'mddtp-hour__selected'
-      const selectedHour = this.root.querySelector('#'+sHour)
+      const selectedHour = me.root.querySelector('#'+sHour)
       let setHour = 0
       if (e.target && e.target.nodeName === 'SPAN') {
         // clear the previously selected hour
@@ -974,7 +974,7 @@ class mdDateTimePicker {
     }
     minuteView.onclick = function (e) {
       const sMinute = 'mddtp-minute__selected'
-      const selectedMinute = this.root.querySelector('#'+sMinute)
+      const selectedMinute = me.root.querySelector('#'+sMinute)
       let setMinute = 0
       if (e.target && e.target.nodeName === 'SPAN') {
         // clear the previously selected hour
@@ -1007,7 +1007,7 @@ class mdDateTimePicker {
         const currentDate = me._sDialog.tDate.date(day)
         const sId = 'mddtp-date__selected'
         const sClass = 'mddtp-picker__cell--selected'
-        const selected = this.root.querySelector('#'+sId)
+        const selected = me.root.querySelector('#'+sId)
         const subtitle = me._sDialog.subtitle
         const titleDay = me._sDialog.titleDay
         const titleMonth = me._sDialog.titleMonth
@@ -1165,7 +1165,7 @@ class mdDateTimePicker {
     const me = this
     el.onclick = function (e) {
       if (e.target && e.target.nodeName === 'LI') {
-        const selected = this.root.querySelector('#mddtp-date__currentYear')
+        const selected = me.root.querySelector('#mddtp-date__currentYear')
         const subtitle = me._sDialog.subtitle
         const titleDay = me._sDialog.titleDay
         const titleMonth = me._sDialog.titleMonth
@@ -1305,7 +1305,7 @@ class mdDateTimePicker {
     const onDragEnd = function () {
       const minuteViewChildren = me._sDialog.minuteView.getElementsByTagName('div')
       const sMinute = 'mddtp-minute__selected'
-      const selectedMinute = this.root.querySelector('#'+sMinute)
+      const selectedMinute = me.root.querySelector('#'+sMinute)
       const cOffset = circle.getBoundingClientRect()
       fakeNeedle.style.left = `left:${cOffset.left - hOffset.left}px`
       fakeNeedle.style.top = `top:${cOffset.top - hOffset.top}px`
