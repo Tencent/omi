@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MChips"] = factory(require("omi"));
+		exports["MColorPicker"] = factory(require("omi"));
 	else
-		root["MChips"] = factory(root["Omi"]);
+		root["MColorPicker"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,1122 +91,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/chips/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/color-picker/index.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
-  \************************************************************************/
-/*! exports provided: MDCComponent, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-var MDCComponent = /** @class */ (function () {
-    function MDCComponent(root, foundation) {
-        var args = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            args[_i - 2] = arguments[_i];
-        }
-        this.root_ = root;
-        this.initialize.apply(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](args));
-        // Note that we initialize foundation here and not within the constructor's default param so that
-        // this.root_ is defined and can be used within the foundation class.
-        this.foundation_ = foundation === undefined ? this.getDefaultFoundation() : foundation;
-        this.foundation_.init();
-        this.initialSyncWithDOM();
-    }
-    MDCComponent.attachTo = function (root) {
-        // Subclasses which extend MDCBase should provide an attachTo() method that takes a root element and
-        // returns an instantiated component with its root set to that element. Also note that in the cases of
-        // subclasses, an explicit foundation class will not have to be passed in; it will simply be initialized
-        // from getDefaultFoundation().
-        return new MDCComponent(root, new _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]({}));
-    };
-    /* istanbul ignore next: method param only exists for typing purposes; it does not need to be unit tested */
-    MDCComponent.prototype.initialize = function () {
-        var _args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            _args[_i] = arguments[_i];
-        }
-        // Subclasses can override this to do any additional setup work that would be considered part of a
-        // "constructor". Essentially, it is a hook into the parent constructor before the foundation is
-        // initialized. Any additional arguments besides root and foundation will be passed in here.
-    };
-    MDCComponent.prototype.getDefaultFoundation = function () {
-        // Subclasses must override this method to return a properly configured foundation class for the
-        // component.
-        throw new Error('Subclasses must override getDefaultFoundation to return a properly configured ' +
-            'foundation class');
-    };
-    MDCComponent.prototype.initialSyncWithDOM = function () {
-        // Subclasses should override this method if they need to perform work to synchronize with a host DOM
-        // object. An example of this would be a form control wrapper that needs to synchronize its internal state
-        // to some property or attribute of the host DOM. Please note: this is *not* the place to perform DOM
-        // reads/writes that would cause layout / paint, as this is called synchronously from within the constructor.
-    };
-    MDCComponent.prototype.destroy = function () {
-        // Subclasses may implement this method to release any resources / deregister any listeners they have
-        // attached. An example of this might be deregistering a resize event from the window object.
-        this.foundation_.destroy();
-    };
-    MDCComponent.prototype.listen = function (evtType, handler) {
-        this.root_.addEventListener(evtType, handler);
-    };
-    MDCComponent.prototype.unlisten = function (evtType, handler) {
-        this.root_.removeEventListener(evtType, handler);
-    };
-    /**
-     * Fires a cross-browser-compatible custom event from the component root of the given type, with the given data.
-     */
-    MDCComponent.prototype.emit = function (evtType, evtData, shouldBubble) {
-        if (shouldBubble === void 0) { shouldBubble = false; }
-        var evt;
-        if (typeof CustomEvent === 'function') {
-            evt = new CustomEvent(evtType, {
-                bubbles: shouldBubble,
-                detail: evtData,
-            });
-        }
-        else {
-            evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(evtType, shouldBubble, false, evtData);
-        }
-        this.root_.dispatchEvent(evt);
-    };
-    return MDCComponent;
-}());
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCComponent);
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
-  \*************************************************************************/
-/*! exports provided: MDCFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFoundation", function() { return MDCFoundation; });
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var MDCFoundation = /** @class */ (function () {
-    function MDCFoundation(adapter) {
-        if (adapter === void 0) { adapter = {}; }
-        this.adapter_ = adapter;
-    }
-    Object.defineProperty(MDCFoundation, "cssClasses", {
-        get: function () {
-            // Classes extending MDCFoundation should implement this method to return an object which exports every
-            // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFoundation, "strings", {
-        get: function () {
-            // Classes extending MDCFoundation should implement this method to return an object which exports all
-            // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFoundation, "numbers", {
-        get: function () {
-            // Classes extending MDCFoundation should implement this method to return an object which exports all
-            // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFoundation, "defaultAdapter", {
-        get: function () {
-            // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
-            // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
-            // validation.
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCFoundation.prototype.init = function () {
-        // Subclasses should override this method to perform initialization routines (registering events, etc.)
-    };
-    MDCFoundation.prototype.destroy = function () {
-        // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
-    };
-    return MDCFoundation;
-}());
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js ***!
-  \*********************************************************************/
-/*! exports provided: closest, matches */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closest", function() { return closest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matches", function() { return matches; });
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-/**
- * @fileoverview A "ponyfill" is a polyfill that doesn't modify the global prototype chain.
- * This makes ponyfills safer than traditional polyfills, especially for libraries like MDC.
- */
-function closest(element, selector) {
-    if (element.closest) {
-        return element.closest(selector);
-    }
-    var el = element;
-    while (el) {
-        if (matches(el, selector)) {
-            return el;
-        }
-        el = el.parentElement;
-    }
-    return null;
-}
-function matches(element, selector) {
-    var nativeMatches = element.matches
-        || element.webkitMatchesSelector
-        || element.msMatchesSelector;
-    return nativeMatches.call(element, selector);
-}
-//# sourceMappingURL=ponyfill.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js ***!
-  \****************************************************************************/
-/*! exports provided: MDCRipple */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-var MDCRipple = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRipple, _super);
-    function MDCRipple() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.disabled = false;
-        return _this;
-    }
-    MDCRipple.attachTo = function (root, opts) {
-        if (opts === void 0) { opts = { isUnbounded: undefined }; }
-        var ripple = new MDCRipple(root);
-        // Only override unbounded behavior if option is explicitly specified
-        if (opts.isUnbounded !== undefined) {
-            ripple.unbounded = opts.isUnbounded;
-        }
-        return ripple;
-    };
-    MDCRipple.createAdapter = function (instance) {
-        return {
-            addClass: function (className) { return instance.root_.classList.add(className); },
-            browserSupportsCssVars: function () { return _util__WEBPACK_IMPORTED_MODULE_4__["supportsCssVariables"](window); },
-            computeBoundingRect: function () { return instance.root_.getBoundingClientRect(); },
-            containsEventTarget: function (target) { return instance.root_.contains(target); },
-            deregisterDocumentInteractionHandler: function (evtType, handler) {
-                return document.documentElement.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            deregisterInteractionHandler: function (evtType, handler) {
-                return instance.root_.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
-            getWindowPageOffset: function () { return ({ x: window.pageXOffset, y: window.pageYOffset }); },
-            isSurfaceActive: function () { return Object(_material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__["matches"])(instance.root_, ':active'); },
-            isSurfaceDisabled: function () { return Boolean(instance.disabled); },
-            isUnbounded: function () { return Boolean(instance.unbounded); },
-            registerDocumentInteractionHandler: function (evtType, handler) {
-                return document.documentElement.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            registerInteractionHandler: function (evtType, handler) {
-                return instance.root_.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
-            removeClass: function (className) { return instance.root_.classList.remove(className); },
-            updateCssVariable: function (varName, value) { return instance.root_.style.setProperty(varName, value); },
-        };
-    };
-    Object.defineProperty(MDCRipple.prototype, "unbounded", {
-        get: function () {
-            return Boolean(this.unbounded_);
-        },
-        set: function (unbounded) {
-            this.unbounded_ = Boolean(unbounded);
-            this.setUnbounded_();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRipple.prototype.activate = function () {
-        this.foundation_.activate();
-    };
-    MDCRipple.prototype.deactivate = function () {
-        this.foundation_.deactivate();
-    };
-    MDCRipple.prototype.layout = function () {
-        this.foundation_.layout();
-    };
-    MDCRipple.prototype.getDefaultFoundation = function () {
-        return new _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](MDCRipple.createAdapter(this));
-    };
-    MDCRipple.prototype.initialSyncWithDOM = function () {
-        var root = this.root_;
-        this.unbounded = 'mdcRippleIsUnbounded' in root.dataset;
-    };
-    /**
-     * Closure Compiler throws an access control error when directly accessing a
-     * protected or private property inside a getter/setter, like unbounded above.
-     * By accessing the protected property inside a method, we solve that problem.
-     * That's why this function exists.
-     */
-    MDCRipple.prototype.setUnbounded_ = function () {
-        this.foundation_.setUnbounded(Boolean(this.unbounded_));
-    };
-    return MDCRipple;
-}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
-
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js ***!
-  \****************************************************************************/
-/*! exports provided: cssClasses, strings, numbers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var cssClasses = {
-    // Ripple is a special case where the "root" component is really a "mixin" of sorts,
-    // given that it's an 'upgrade' to an existing component. That being said it is the root
-    // CSS class that all other CSS classes derive from.
-    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',
-    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',
-    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',
-    ROOT: 'mdc-ripple-upgraded',
-    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
-};
-var strings = {
-    VAR_FG_SCALE: '--mdc-ripple-fg-scale',
-    VAR_FG_SIZE: '--mdc-ripple-fg-size',
-    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
-    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',
-    VAR_LEFT: '--mdc-ripple-left',
-    VAR_TOP: '--mdc-ripple-top',
-};
-var numbers = {
-    DEACTIVATION_TIMEOUT_MS: 225,
-    FG_DEACTIVATION_MS: 150,
-    INITIAL_ORIGIN_SCALE: 0.6,
-    PADDING: 10,
-    TAP_DELAY_MS: 300,
-};
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js ***!
-  \*****************************************************************************/
-/*! exports provided: MDCRippleFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-// Activation events registered on the root element of each instance for activation
-var ACTIVATION_EVENT_TYPES = [
-    'touchstart', 'pointerdown', 'mousedown', 'keydown',
-];
-// Deactivation events registered on documentElement when a pointer-related down event occurs
-var POINTER_DEACTIVATION_EVENT_TYPES = [
-    'touchend', 'pointerup', 'mouseup', 'contextmenu',
-];
-// simultaneous nested activations
-var activatedTargets = [];
-var MDCRippleFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRippleFoundation, _super);
-    function MDCRippleFoundation(adapter) {
-        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
-        _this.activationAnimationHasEnded_ = false;
-        _this.activationTimer_ = 0;
-        _this.fgDeactivationRemovalTimer_ = 0;
-        _this.fgScale_ = '0';
-        _this.frame_ = { width: 0, height: 0 };
-        _this.initialSize_ = 0;
-        _this.layoutFrame_ = 0;
-        _this.maxRadius_ = 0;
-        _this.unboundedCoords_ = { left: 0, top: 0 };
-        _this.activationState_ = _this.defaultActivationState_();
-        _this.activationTimerCallback_ = function () {
-            _this.activationAnimationHasEnded_ = true;
-            _this.runDeactivationUXLogicIfReady_();
-        };
-        _this.activateHandler_ = function (e) { return _this.activate_(e); };
-        _this.deactivateHandler_ = function () { return _this.deactivate_(); };
-        _this.focusHandler_ = function () { return _this.handleFocus(); };
-        _this.blurHandler_ = function () { return _this.handleBlur(); };
-        _this.resizeHandler_ = function () { return _this.layout(); };
-        return _this;
-    }
-    Object.defineProperty(MDCRippleFoundation, "cssClasses", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "strings", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "numbers", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "defaultAdapter", {
-        get: function () {
-            return {
-                addClass: function () { return undefined; },
-                browserSupportsCssVars: function () { return true; },
-                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },
-                containsEventTarget: function () { return true; },
-                deregisterDocumentInteractionHandler: function () { return undefined; },
-                deregisterInteractionHandler: function () { return undefined; },
-                deregisterResizeHandler: function () { return undefined; },
-                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },
-                isSurfaceActive: function () { return true; },
-                isSurfaceDisabled: function () { return true; },
-                isUnbounded: function () { return true; },
-                registerDocumentInteractionHandler: function () { return undefined; },
-                registerInteractionHandler: function () { return undefined; },
-                registerResizeHandler: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                updateCssVariable: function () { return undefined; },
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRippleFoundation.prototype.init = function () {
-        var _this = this;
-        var supportsPressRipple = this.supportsPressRipple_();
-        this.registerRootHandlers_(supportsPressRipple);
-        if (supportsPressRipple) {
-            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;
-            requestAnimationFrame(function () {
-                _this.adapter_.addClass(ROOT_1);
-                if (_this.adapter_.isUnbounded()) {
-                    _this.adapter_.addClass(UNBOUNDED_1);
-                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple
-                    _this.layoutInternal_();
-                }
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.destroy = function () {
-        var _this = this;
-        if (this.supportsPressRipple_()) {
-            if (this.activationTimer_) {
-                clearTimeout(this.activationTimer_);
-                this.activationTimer_ = 0;
-                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);
-            }
-            if (this.fgDeactivationRemovalTimer_) {
-                clearTimeout(this.fgDeactivationRemovalTimer_);
-                this.fgDeactivationRemovalTimer_ = 0;
-                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);
-            }
-            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;
-            requestAnimationFrame(function () {
-                _this.adapter_.removeClass(ROOT_2);
-                _this.adapter_.removeClass(UNBOUNDED_2);
-                _this.removeCssVars_();
-            });
-        }
-        this.deregisterRootHandlers_();
-        this.deregisterDeactivationHandlers_();
-    };
-    /**
-     * @param evt Optional event containing position information.
-     */
-    MDCRippleFoundation.prototype.activate = function (evt) {
-        this.activate_(evt);
-    };
-    MDCRippleFoundation.prototype.deactivate = function () {
-        this.deactivate_();
-    };
-    MDCRippleFoundation.prototype.layout = function () {
-        var _this = this;
-        if (this.layoutFrame_) {
-            cancelAnimationFrame(this.layoutFrame_);
-        }
-        this.layoutFrame_ = requestAnimationFrame(function () {
-            _this.layoutInternal_();
-            _this.layoutFrame_ = 0;
-        });
-    };
-    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {
-        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;
-        if (unbounded) {
-            this.adapter_.addClass(UNBOUNDED);
-        }
-        else {
-            this.adapter_.removeClass(UNBOUNDED);
-        }
-    };
-    MDCRippleFoundation.prototype.handleFocus = function () {
-        var _this = this;
-        requestAnimationFrame(function () {
-            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
-        });
-    };
-    MDCRippleFoundation.prototype.handleBlur = function () {
-        var _this = this;
-        requestAnimationFrame(function () {
-            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
-        });
-    };
-    /**
-     * We compute this property so that we are not querying information about the client
-     * until the point in time where the foundation requests it. This prevents scenarios where
-     * client-side feature-detection may happen too early, such as when components are rendered on the server
-     * and then initialized at mount time on the client.
-     */
-    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {
-        return this.adapter_.browserSupportsCssVars();
-    };
-    MDCRippleFoundation.prototype.defaultActivationState_ = function () {
-        return {
-            activationEvent: undefined,
-            hasDeactivationUXRun: false,
-            isActivated: false,
-            isProgrammatic: false,
-            wasActivatedByPointer: false,
-            wasElementMadeActive: false,
-        };
-    };
-    /**
-     * supportsPressRipple Passed from init to save a redundant function call
-     */
-    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
-        var _this = this;
-        if (supportsPressRipple) {
-            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
-            });
-            if (this.adapter_.isUnbounded()) {
-                this.adapter_.registerResizeHandler(this.resizeHandler_);
-            }
-        }
-        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);
-        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);
-    };
-    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {
-        var _this = this;
-        if (evt.type === 'keydown') {
-            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
-        }
-        else {
-            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
-        var _this = this;
-        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
-        });
-        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
-        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);
-        if (this.adapter_.isUnbounded()) {
-            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
-        }
-    };
-    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
-        var _this = this;
-        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
-        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
-        });
-    };
-    MDCRippleFoundation.prototype.removeCssVars_ = function () {
-        var _this = this;
-        var rippleStrings = MDCRippleFoundation.strings;
-        var keys = Object.keys(rippleStrings);
-        keys.forEach(function (key) {
-            if (key.indexOf('VAR_') === 0) {
-                _this.adapter_.updateCssVariable(rippleStrings[key], null);
-            }
-        });
-    };
-    MDCRippleFoundation.prototype.activate_ = function (evt) {
-        var _this = this;
-        if (this.adapter_.isSurfaceDisabled()) {
-            return;
-        }
-        var activationState = this.activationState_;
-        if (activationState.isActivated) {
-            return;
-        }
-        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction
-        var previousActivationEvent = this.previousActivationEvent_;
-        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;
-        if (isSameInteraction) {
-            return;
-        }
-        activationState.isActivated = true;
-        activationState.isProgrammatic = evt === undefined;
-        activationState.activationEvent = evt;
-        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
-        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
-        if (hasActivatedChild) {
-            // Immediately reset activation state, while preserving logic that prevents touch follow-on events
-            this.resetActivationState_();
-            return;
-        }
-        if (evt !== undefined) {
-            activatedTargets.push(evt.target);
-            this.registerDeactivationHandlers_(evt);
-        }
-        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
-        if (activationState.wasElementMadeActive) {
-            this.animateActivation_();
-        }
-        requestAnimationFrame(function () {
-            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
-            activatedTargets = [];
-            if (!activationState.wasElementMadeActive
-                && evt !== undefined
-                && (evt.key === ' ' || evt.keyCode === 32)) {
-                // If space was pressed, try again within an rAF call to detect :active, because different UAs report
-                // active states inconsistently when they're called within event handling code:
-                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971
-                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741
-                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS
-                // variable is set within a rAF callback for a submit button interaction (#2241).
-                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);
-                if (activationState.wasElementMadeActive) {
-                    _this.animateActivation_();
-                }
-            }
-            if (!activationState.wasElementMadeActive) {
-                // Reset activation state immediately if element was not made active.
-                _this.activationState_ = _this.defaultActivationState_();
-            }
-        });
-    };
-    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {
-        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;
-    };
-    MDCRippleFoundation.prototype.animateActivation_ = function () {
-        var _this = this;
-        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;
-        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;
-        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;
-        this.layoutInternal_();
-        var translateStart = '';
-        var translateEnd = '';
-        if (!this.adapter_.isUnbounded()) {
-            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;
-            translateStart = startPoint.x + "px, " + startPoint.y + "px";
-            translateEnd = endPoint.x + "px, " + endPoint.y + "px";
-        }
-        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
-        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
-        // Cancel any ongoing activation/deactivation animations
-        clearTimeout(this.activationTimer_);
-        clearTimeout(this.fgDeactivationRemovalTimer_);
-        this.rmBoundedActivationClasses_();
-        this.adapter_.removeClass(FG_DEACTIVATION);
-        // Force layout in order to re-trigger the animation.
-        this.adapter_.computeBoundingRect();
-        this.adapter_.addClass(FG_ACTIVATION);
-        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);
-    };
-    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {
-        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
-        var startPoint;
-        if (wasActivatedByPointer) {
-            startPoint = Object(_util__WEBPACK_IMPORTED_MODULE_3__["getNormalizedEventCoords"])(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
-        }
-        else {
-            startPoint = {
-                x: this.frame_.width / 2,
-                y: this.frame_.height / 2,
-            };
-        }
-        // Center the element around the start point.
-        startPoint = {
-            x: startPoint.x - (this.initialSize_ / 2),
-            y: startPoint.y - (this.initialSize_ / 2),
-        };
-        var endPoint = {
-            x: (this.frame_.width / 2) - (this.initialSize_ / 2),
-            y: (this.frame_.height / 2) - (this.initialSize_ / 2),
-        };
-        return { startPoint: startPoint, endPoint: endPoint };
-    };
-    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {
-        var _this = this;
-        // This method is called both when a pointing device is released, and when the activation animation ends.
-        // The deactivation animation should only run after both of those occur.
-        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;
-        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;
-        var activationHasEnded = hasDeactivationUXRun || !isActivated;
-        if (activationHasEnded && this.activationAnimationHasEnded_) {
-            this.rmBoundedActivationClasses_();
-            this.adapter_.addClass(FG_DEACTIVATION);
-            this.fgDeactivationRemovalTimer_ = setTimeout(function () {
-                _this.adapter_.removeClass(FG_DEACTIVATION);
-            }, _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].FG_DEACTIVATION_MS);
-        }
-    };
-    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
-        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;
-        this.adapter_.removeClass(FG_ACTIVATION);
-        this.activationAnimationHasEnded_ = false;
-        this.adapter_.computeBoundingRect();
-    };
-    MDCRippleFoundation.prototype.resetActivationState_ = function () {
-        var _this = this;
-        this.previousActivationEvent_ = this.activationState_.activationEvent;
-        this.activationState_ = this.defaultActivationState_();
-        // Touch devices may fire additional events for the same interaction within a short time.
-        // Store the previous event until it's safe to assume that subsequent events are for new interactions.
-        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);
-    };
-    MDCRippleFoundation.prototype.deactivate_ = function () {
-        var _this = this;
-        var activationState = this.activationState_;
-        // This can happen in scenarios such as when you have a keyup event that blurs the element.
-        if (!activationState.isActivated) {
-            return;
-        }
-        var state = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, activationState);
-        if (activationState.isProgrammatic) {
-            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
-            this.resetActivationState_();
-        }
-        else {
-            this.deregisterDeactivationHandlers_();
-            requestAnimationFrame(function () {
-                _this.activationState_.hasDeactivationUXRun = true;
-                _this.animateDeactivation_(state);
-                _this.resetActivationState_();
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {
-        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;
-        if (wasActivatedByPointer || wasElementMadeActive) {
-            this.runDeactivationUXLogicIfReady_();
-        }
-    };
-    MDCRippleFoundation.prototype.layoutInternal_ = function () {
-        var _this = this;
-        this.frame_ = this.adapter_.computeBoundingRect();
-        var maxDim = Math.max(this.frame_.height, this.frame_.width);
-        // Surface diameter is treated differently for unbounded vs. bounded ripples.
-        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately
-        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically
-        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter
-        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via
-        // `overflow: hidden`.
-        var getBoundedRadius = function () {
-            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));
-            return hypotenuse + MDCRippleFoundation.numbers.PADDING;
-        };
-        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();
-        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform
-        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);
-        this.fgScale_ = "" + this.maxRadius_ / this.initialSize_;
-        this.updateLayoutCssVars_();
-    };
-    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {
-        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;
-        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + "px");
-        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);
-        if (this.adapter_.isUnbounded()) {
-            this.unboundedCoords_ = {
-                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),
-                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),
-            };
-            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + "px");
-            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + "px");
-        }
-    };
-    return MDCRippleFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCRippleFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/index.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/index.js ***!
-  \************************************************************************/
-/*! exports provided: util, MDCRipple, cssClasses, strings, numbers, MDCRippleFoundation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "util", function() { return _util__WEBPACK_IMPORTED_MODULE_0__; });
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return _component__WEBPACK_IMPORTED_MODULE_1__["MDCRipple"]; });
-
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"]; });
-
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"]; });
-
-/**
- * @license
- * Copyright 2019 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js ***!
-  \***********************************************************************/
-/*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsCssVariables", function() { return supportsCssVariables; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyPassive", function() { return applyPassive; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNormalizedEventCoords", function() { return getNormalizedEventCoords; });
-/**
- * Stores result from supportsCssVariables to avoid redundant processing to
- * detect CSS custom variable support.
- */
-var supportsCssVariables_;
-/**
- * Stores result from applyPassive to avoid redundant processing to detect
- * passive event listener support.
- */
-var supportsPassive_;
-function detectEdgePseudoVarBug(windowObj) {
-    // Detect versions of Edge with buggy var() support
-    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
-    var document = windowObj.document;
-    var node = document.createElement('div');
-    node.className = 'mdc-ripple-surface--test-edge-var-bug';
-    document.body.appendChild(node);
-    // The bug exists if ::before style ends up propagating to the parent element.
-    // Additionally, getComputedStyle returns null in iframes with display: "none" in Firefox,
-    // but Firefox is known to support CSS custom properties correctly.
-    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-    var computedStyle = windowObj.getComputedStyle(node);
-    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';
-    if (node.parentNode) {
-        node.parentNode.removeChild(node);
-    }
-    return hasPseudoVarBug;
-}
-function supportsCssVariables(windowObj, forceRefresh) {
-    if (forceRefresh === void 0) { forceRefresh = false; }
-    var CSS = windowObj.CSS;
-    var supportsCssVars = supportsCssVariables_;
-    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
-        return supportsCssVariables_;
-    }
-    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
-    if (!supportsFunctionPresent) {
-        return false;
-    }
-    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');
-    // See: https://bugs.webkit.org/show_bug.cgi?id=154669
-    // See: README section on Safari
-    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
-        CSS.supports('color', '#00000000'));
-    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
-        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
-    }
-    else {
-        supportsCssVars = false;
-    }
-    if (!forceRefresh) {
-        supportsCssVariables_ = supportsCssVars;
-    }
-    return supportsCssVars;
-}
-/**
- * Determine whether the current browser supports passive event listeners, and
- * if so, use them.
- */
-function applyPassive(globalObj, forceRefresh) {
-    if (globalObj === void 0) { globalObj = window; }
-    if (forceRefresh === void 0) { forceRefresh = false; }
-    if (supportsPassive_ === undefined || forceRefresh) {
-        var isSupported_1 = false;
-        try {
-            globalObj.document.addEventListener('test', function () { return undefined; }, {
-                get passive() {
-                    isSupported_1 = true;
-                    return isSupported_1;
-                },
-            });
-        }
-        catch (e) {
-        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
-        supportsPassive_ = isSupported_1;
-    }
-    return supportsPassive_ ? { passive: true } : false;
-}
-function getNormalizedEventCoords(evt, pageOffset, clientRect) {
-    if (!evt) {
-        return { x: 0, y: 0 };
-    }
-    var x = pageOffset.x, y = pageOffset.y;
-    var documentX = x + clientRect.left;
-    var documentY = y + clientRect.top;
-    var normalizedX;
-    var normalizedY;
-    // Determine touch point relative to the ripple container.
-    if (evt.type === 'touchstart') {
-        var touchEvent = evt;
-        normalizedX = touchEvent.changedTouches[0].pageX - documentX;
-        normalizedY = touchEvent.changedTouches[0].pageY - documentY;
-    }
-    else {
-        var mouseEvent = evt;
-        normalizedX = mouseEvent.pageX - documentX;
-        normalizedY = mouseEvent.pageY - documentY;
-    }
-    return { x: normalizedX, y: normalizedY };
-}
-//# sourceMappingURL=util.js.map
-
-/***/ }),
-
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/chips/index.scss":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/chips/index.scss ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/index.scss":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/color-picker/index.scss ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1215,7 +108,26 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, ".mdc-chip__icon--leading {\n  color: rgba(0, 0, 0, 0.54); }\n\n.mdc-chip__icon--trailing {\n  color: rgba(0, 0, 0, 0.54); }\n  .mdc-chip__icon--trailing:hover {\n    color: rgba(0, 0, 0, 0.62); }\n  .mdc-chip__icon--trailing:focus {\n    color: rgba(0, 0, 0, 0.87); }\n\n.mdc-chip__icon.mdc-chip__icon--leading:not(.mdc-chip__icon--leading-hidden) {\n  width: 20px;\n  height: 20px;\n  font-size: 20px; }\n\n.mdc-chip__icon.mdc-chip__icon--trailing {\n  width: 18px;\n  height: 18px;\n  font-size: 18px; }\n\n.mdc-chip__icon--trailing {\n  margin: 0 -4px 0 4px; }\n\n.mdc-chip {\n  border-radius: 16px;\n  background-color: #e0e0e0;\n  color: rgba(0, 0, 0, 0.87);\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: 0.01786em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  height: 32px;\n  display: inline-flex;\n  position: relative;\n  align-items: center;\n  box-sizing: border-box;\n  padding: 7px 12px;\n  outline: none;\n  cursor: pointer;\n  overflow: hidden; }\n  .mdc-chip:hover {\n    color: rgba(0, 0, 0, 0.87); }\n  .mdc-chip.mdc-chip--selected .mdc-chip__checkmark,\n  .mdc-chip .mdc-chip__icon--leading:not(.mdc-chip__icon--leading-hidden) {\n    /* @noflip */\n    margin-left: -4px;\n    /* @noflip */\n    margin-right: 4px;\n    margin-top: -4px;\n    margin-bottom: -4px; }\n    [dir=\"rtl\"] .mdc-chip.mdc-chip--selected .mdc-chip__checkmark, .mdc-chip.mdc-chip--selected .mdc-chip__checkmark[dir=\"rtl\"], [dir=\"rtl\"]\n    .mdc-chip .mdc-chip__icon--leading:not(.mdc-chip__icon--leading-hidden),\n    .mdc-chip .mdc-chip__icon--leading:not(.mdc-chip__icon--leading-hidden)[dir=\"rtl\"] {\n      /* @noflip */\n      margin-left: 4px;\n      /* @noflip */\n      margin-right: -4px; }\n  .mdc-chip:hover {\n    color: #000000;\n    /* @alternate */\n    color: var(--mdc-theme-on-surface, #000000); }\n\n.mdc-chip--exit {\n  transition: opacity 75ms cubic-bezier(0.4, 0, 0.2, 1), width 150ms cubic-bezier(0, 0, 0.2, 1), padding 100ms linear, margin 100ms linear;\n  opacity: 0; }\n\n.mdc-chip__text {\n  white-space: nowrap; }\n\n.mdc-chip__icon {\n  border-radius: 50%;\n  outline: none;\n  vertical-align: middle; }\n\n.mdc-chip__checkmark {\n  height: 20px; }\n\n.mdc-chip__checkmark-path {\n  transition: stroke-dashoffset 150ms 50ms cubic-bezier(0.4, 0, 0.6, 1);\n  stroke-width: 2px;\n  stroke-dashoffset: 29.78334;\n  stroke-dasharray: 29.78334; }\n\n.mdc-chip--selected .mdc-chip__checkmark-path {\n  stroke-dashoffset: 0; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected {\n  color: #0052d9;\n  /* @alternate */\n  color: var(--mdc-theme-primary, #0052d9); }\n  .mdc-chip-set--choice .mdc-chip.mdc-chip--selected .mdc-chip__icon--leading {\n    color: rgba(0, 82, 217, 0.54); }\n  .mdc-chip-set--choice .mdc-chip.mdc-chip--selected:hover {\n    color: #0052d9;\n    /* @alternate */\n    color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-chip-set--choice .mdc-chip .mdc-chip__checkmark-path {\n  stroke: #0052d9;\n  /* @alternate */\n  stroke: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-chip-set--choice .mdc-chip--selected {\n  background-color: #ffffff;\n  /* @alternate */\n  background-color: var(--mdc-theme-surface, #ffffff); }\n\n.mdc-chip__checkmark-svg {\n  width: 0;\n  height: 20px;\n  transition: width 150ms cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-chip--selected .mdc-chip__checkmark-svg {\n  width: 20px; }\n\n.mdc-chip-set--filter .mdc-chip__icon--leading {\n  transition: opacity 75ms linear;\n  transition-delay: -50ms;\n  opacity: 1; }\n  .mdc-chip-set--filter .mdc-chip__icon--leading + .mdc-chip__checkmark {\n    transition: opacity 75ms linear;\n    transition-delay: 80ms;\n    opacity: 0; }\n    .mdc-chip-set--filter .mdc-chip__icon--leading + .mdc-chip__checkmark .mdc-chip__checkmark-svg {\n      transition: width 0ms; }\n\n.mdc-chip-set--filter .mdc-chip--selected .mdc-chip__icon--leading {\n  opacity: 0; }\n  .mdc-chip-set--filter .mdc-chip--selected .mdc-chip__icon--leading + .mdc-chip__checkmark {\n    width: 0;\n    opacity: 1; }\n\n.mdc-chip-set--filter .mdc-chip__icon--leading-hidden.mdc-chip__icon--leading {\n  width: 0;\n  opacity: 0; }\n  .mdc-chip-set--filter .mdc-chip__icon--leading-hidden.mdc-chip__icon--leading + .mdc-chip__checkmark {\n    width: 20px; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-chip {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n  .mdc-chip::before, .mdc-chip::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-chip::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-chip.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-chip.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-chip.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-chip.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-chip.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-chip::before, .mdc-chip::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-chip.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-chip::before, .mdc-chip::after {\n    background-color: rgba(0, 0, 0, 0.87); }\n  .mdc-chip:hover::before {\n    opacity: 0.04; }\n  .mdc-chip:not(.mdc-ripple-upgraded):focus::before, .mdc-chip.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-chip:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-chip:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-chip.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected::before {\n  opacity: 0.08; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected::before, .mdc-chip-set--choice .mdc-chip.mdc-chip--selected::after {\n  background-color: #0052d9; }\n  @supports not (-ms-ime-align: auto) {\n    .mdc-chip-set--choice .mdc-chip.mdc-chip--selected::before, .mdc-chip-set--choice .mdc-chip.mdc-chip--selected::after {\n      /* @alternate */\n      background-color: var(--mdc-theme-primary, #0052d9); } }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected:hover::before {\n  opacity: 0.12; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected:not(.mdc-ripple-upgraded):focus::before, .mdc-chip-set--choice .mdc-chip.mdc-chip--selected.mdc-ripple-upgraded--background-focused::before {\n  transition-duration: 75ms;\n  opacity: 0.2; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected:not(.mdc-ripple-upgraded)::after {\n  transition: opacity 150ms linear; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected:not(.mdc-ripple-upgraded):active::after {\n  transition-duration: 75ms;\n  opacity: 0.2; }\n\n.mdc-chip-set--choice .mdc-chip.mdc-chip--selected.mdc-ripple-upgraded {\n  --mdc-ripple-fg-opacity: 0.2; }\n\n@keyframes mdc-chip-entry {\n  from {\n    transform: scale(0.8);\n    opacity: .4; }\n  to {\n    transform: scale(1);\n    opacity: 1; } }\n\n.mdc-chip-set {\n  padding: 4px;\n  display: flex;\n  flex-wrap: wrap;\n  box-sizing: border-box; }\n  .mdc-chip-set .mdc-chip {\n    margin: 4px; }\n\n.mdc-chip-set--input .mdc-chip {\n  animation: mdc-chip-entry 100ms cubic-bezier(0, 0, 0.2, 1); }\n\n.mdc-chip {\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n", ""]);
+exports.push([module.i, ".pickr {\n  position: relative;\n  overflow: visible;\n  transform: translateY(0); }\n  .pickr * {\n    box-sizing: border-box; }\n\n.pickr .pcr-button {\n  position: relative;\n  height: 2em;\n  width: 2em;\n  padding: 0.5em;\n  cursor: pointer;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  border-radius: 0.15em;\n  background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\" stroke=\"%2342445A\" stroke-width=\"5px\" stroke-linecap=\"round\"><path d=\"M45,45L5,5\"></path><path d=\"M45,5L5,45\"></path></svg>') no-repeat center;\n  background-size: 0;\n  transition: all 0.3s; }\n  .pickr .pcr-button::before {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 0.5em;\n    border-radius: 0.15em;\n    z-index: -1; }\n  .pickr .pcr-button::before {\n    z-index: initial; }\n  .pickr .pcr-button::after {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n    transition: background 0.3s;\n    background: currentColor;\n    border-radius: 0.15em; }\n  .pickr .pcr-button.clear {\n    background-size: 70%; }\n    .pickr .pcr-button.clear::before {\n      opacity: 0; }\n    .pickr .pcr-button.clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n  .pickr .pcr-button.disabled {\n    cursor: not-allowed; }\n\n.pickr input,\n.pickr button,\n.pcr-app input,\n.pcr-app button {\n  outline: none;\n  border: none;\n  -webkit-appearance: none; }\n  .pickr input:focus,\n  .pickr button:focus,\n  .pcr-app input:focus,\n  .pcr-app button:focus {\n    box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n\n.pcr-app {\n  position: fixed;\n  display: flex;\n  flex-direction: column;\n  z-index: 10000;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  box-shadow: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03);\n  width: 28.5em;\n  max-width: 95vw;\n  padding: 0.8em;\n  border-radius: 0.1em;\n  background: #fff;\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.3s;\n  left: 0;\n  top: 0; }\n  .pcr-app.visible {\n    visibility: visible;\n    opacity: 1; }\n\n.pcr-app .pcr-swatches {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 0.75em; }\n  .pcr-app .pcr-swatches.pcr-last {\n    margin: 0; }\n  @supports (display: grid) {\n    .pcr-app .pcr-swatches {\n      display: grid;\n      align-items: center;\n      justify-content: space-around;\n      grid-template-columns: repeat(auto-fit, 1.75em); } }\n  .pcr-app .pcr-swatches > button {\n    position: relative;\n    width: 1.75em;\n    height: 1.75em;\n    border-radius: 0.15em;\n    cursor: pointer;\n    margin: 2.5px;\n    flex-shrink: 0;\n    justify-self: center;\n    transition: all 0.15s;\n    overflow: hidden;\n    background: transparent;\n    z-index: 1; }\n    .pcr-app .pcr-swatches > button::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 6px;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-swatches > button::after {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: currentColor;\n      border: 1px solid rgba(0, 0, 0, 0.05);\n      border-radius: 0.15em;\n      box-sizing: border-box; }\n    .pcr-app .pcr-swatches > button:hover {\n      filter: brightness(1.05); }\n\n.pcr-app .pcr-interaction {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  margin: 0 -0.2em 0 -0.2em; }\n  .pcr-app .pcr-interaction > * {\n    margin: 0 0.2em; }\n  .pcr-app .pcr-interaction input {\n    letter-spacing: 0.07em;\n    font-size: 0.75em;\n    text-align: center;\n    cursor: pointer;\n    color: #75797e;\n    background: #f1f3f4;\n    border-radius: 0.15em;\n    transition: all 0.15s;\n    padding: 0.45em 0.5em;\n    margin-top: 0.75em; }\n    .pcr-app .pcr-interaction input:hover {\n      filter: brightness(0.975); }\n    .pcr-app .pcr-interaction input:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(66, 133, 244, 0.75); }\n  .pcr-app .pcr-interaction .pcr-result {\n    color: #75797e;\n    text-align: left;\n    flex: 1 1 8em;\n    min-width: 8em;\n    transition: all 0.2s;\n    border-radius: 0.15em;\n    background: #f1f3f4;\n    cursor: text; }\n    .pcr-app .pcr-interaction .pcr-result::selection {\n      background: #4285f4;\n      color: #fff; }\n  .pcr-app .pcr-interaction .pcr-type.active {\n    color: #fff;\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear,\n  .pcr-app .pcr-interaction .pcr-save {\n    color: #fff;\n    width: auto; }\n  .pcr-app .pcr-interaction .pcr-save,\n  .pcr-app .pcr-interaction .pcr-clear {\n    color: #fff; }\n    .pcr-app .pcr-interaction .pcr-save:hover,\n    .pcr-app .pcr-interaction .pcr-clear:hover {\n      filter: brightness(0.925); }\n  .pcr-app .pcr-interaction .pcr-save {\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear {\n    background: #f44250; }\n    .pcr-app .pcr-interaction .pcr-clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(244, 66, 80, 0.75); }\n\n.pcr-app .pcr-selection {\n  display: flex;\n  justify-content: space-between;\n  flex-grow: 1; }\n  .pcr-app .pcr-selection .pcr-picker {\n    position: absolute;\n    height: 18px;\n    width: 18px;\n    border: 2px solid #fff;\n    border-radius: 100%;\n    user-select: none; }\n  .pcr-app .pcr-selection .pcr-color-preview {\n    position: relative;\n    z-index: 1;\n    width: 2em;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    margin-right: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-preview::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 0.5em;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color {\n      cursor: pointer;\n      transition: background-color 0.3s, box-shadow 0.3s;\n      border-radius: 0.15em 0.15em 0 0;\n      z-index: 2; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      border-radius: 0 0 0.15em 0.15em; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color,\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      background: currentColor;\n      width: 100%;\n      height: 50%; }\n  .pcr-app .pcr-selection .pcr-color-palette,\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    position: relative;\n    user-select: none;\n    display: flex;\n    flex-direction: column;\n    cursor: grab;\n    cursor: -moz-grab;\n    cursor: -webkit-grab; }\n    .pcr-app .pcr-selection .pcr-color-palette:active,\n    .pcr-app .pcr-selection .pcr-color-chooser:active,\n    .pcr-app .pcr-selection .pcr-color-opacity:active {\n      cursor: grabbing;\n      cursor: -moz-grabbing;\n      cursor: -webkit-grabbing; }\n  .pcr-app .pcr-selection .pcr-color-palette {\n    width: 100%;\n    height: 8em;\n    z-index: 1; }\n    .pcr-app .pcr-selection .pcr-color-palette .pcr-palette {\n      flex-grow: 1;\n      border-radius: 0.15em; }\n      .pcr-app .pcr-selection .pcr-color-palette .pcr-palette::before {\n        position: absolute;\n        content: '';\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n        background-size: 0.5em;\n        border-radius: 0.15em;\n        z-index: -1; }\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    margin-left: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-picker,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-picker {\n      left: 50%;\n      transform: translateX(-50%); }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n      width: 8px;\n      flex-grow: 1;\n      border-radius: 50em; }\n  .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider {\n    background: linear-gradient(to bottom, red, yellow, lime, cyan, blue, magenta, red); }\n  .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n    background: linear-gradient(to bottom, transparent, black), url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 100%, 50%; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/scss/pickr.scss":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/color-picker/scss/pickr.scss ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".pickr {\n  position: relative;\n  overflow: visible;\n  transform: translateY(0); }\n  .pickr * {\n    box-sizing: border-box; }\n\n.pickr .pcr-button {\n  position: relative;\n  height: 2em;\n  width: 2em;\n  padding: 0.5em;\n  cursor: pointer;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  border-radius: 0.15em;\n  background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\" stroke=\"%2342445A\" stroke-width=\"5px\" stroke-linecap=\"round\"><path d=\"M45,45L5,5\"></path><path d=\"M45,5L5,45\"></path></svg>') no-repeat center;\n  background-size: 0;\n  transition: all 0.3s; }\n  .pickr .pcr-button::before {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 0.5em;\n    border-radius: 0.15em;\n    z-index: -1; }\n  .pickr .pcr-button::before {\n    z-index: initial; }\n  .pickr .pcr-button::after {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n    transition: background 0.3s;\n    background: currentColor;\n    border-radius: 0.15em; }\n  .pickr .pcr-button.clear {\n    background-size: 70%; }\n    .pickr .pcr-button.clear::before {\n      opacity: 0; }\n    .pickr .pcr-button.clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n  .pickr .pcr-button.disabled {\n    cursor: not-allowed; }\n\n.pickr input,\n.pickr button,\n.pcr-app input,\n.pcr-app button {\n  outline: none;\n  border: none;\n  -webkit-appearance: none; }\n  .pickr input:focus,\n  .pickr button:focus,\n  .pcr-app input:focus,\n  .pcr-app button:focus {\n    box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n\n.pcr-app {\n  position: fixed;\n  display: flex;\n  flex-direction: column;\n  z-index: 10000;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  box-shadow: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03);\n  width: 28.5em;\n  max-width: 95vw;\n  padding: 0.8em;\n  border-radius: 0.1em;\n  background: #fff;\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.3s;\n  left: 0;\n  top: 0; }\n  .pcr-app.visible {\n    visibility: visible;\n    opacity: 1; }\n\n.pcr-app .pcr-swatches {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 0.75em; }\n  .pcr-app .pcr-swatches.pcr-last {\n    margin: 0; }\n  @supports (display: grid) {\n    .pcr-app .pcr-swatches {\n      display: grid;\n      align-items: center;\n      justify-content: space-around;\n      grid-template-columns: repeat(auto-fit, 1.75em); } }\n  .pcr-app .pcr-swatches > button {\n    position: relative;\n    width: 1.75em;\n    height: 1.75em;\n    border-radius: 0.15em;\n    cursor: pointer;\n    margin: 2.5px;\n    flex-shrink: 0;\n    justify-self: center;\n    transition: all 0.15s;\n    overflow: hidden;\n    background: transparent;\n    z-index: 1; }\n    .pcr-app .pcr-swatches > button::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 6px;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-swatches > button::after {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: currentColor;\n      border: 1px solid rgba(0, 0, 0, 0.05);\n      border-radius: 0.15em;\n      box-sizing: border-box; }\n    .pcr-app .pcr-swatches > button:hover {\n      filter: brightness(1.05); }\n\n.pcr-app .pcr-interaction {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  margin: 0 -0.2em 0 -0.2em; }\n  .pcr-app .pcr-interaction > * {\n    margin: 0 0.2em; }\n  .pcr-app .pcr-interaction input {\n    letter-spacing: 0.07em;\n    font-size: 0.75em;\n    text-align: center;\n    cursor: pointer;\n    color: #75797e;\n    background: #f1f3f4;\n    border-radius: 0.15em;\n    transition: all 0.15s;\n    padding: 0.45em 0.5em;\n    margin-top: 0.75em; }\n    .pcr-app .pcr-interaction input:hover {\n      filter: brightness(0.975); }\n    .pcr-app .pcr-interaction input:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(66, 133, 244, 0.75); }\n  .pcr-app .pcr-interaction .pcr-result {\n    color: #75797e;\n    text-align: left;\n    flex: 1 1 8em;\n    min-width: 8em;\n    transition: all 0.2s;\n    border-radius: 0.15em;\n    background: #f1f3f4;\n    cursor: text; }\n    .pcr-app .pcr-interaction .pcr-result::selection {\n      background: #4285f4;\n      color: #fff; }\n  .pcr-app .pcr-interaction .pcr-type.active {\n    color: #fff;\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear,\n  .pcr-app .pcr-interaction .pcr-save {\n    color: #fff;\n    width: auto; }\n  .pcr-app .pcr-interaction .pcr-save,\n  .pcr-app .pcr-interaction .pcr-clear {\n    color: #fff; }\n    .pcr-app .pcr-interaction .pcr-save:hover,\n    .pcr-app .pcr-interaction .pcr-clear:hover {\n      filter: brightness(0.925); }\n  .pcr-app .pcr-interaction .pcr-save {\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear {\n    background: #f44250; }\n    .pcr-app .pcr-interaction .pcr-clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(244, 66, 80, 0.75); }\n\n.pcr-app .pcr-selection {\n  display: flex;\n  justify-content: space-between;\n  flex-grow: 1; }\n  .pcr-app .pcr-selection .pcr-picker {\n    position: absolute;\n    height: 18px;\n    width: 18px;\n    border: 2px solid #fff;\n    border-radius: 100%;\n    user-select: none; }\n  .pcr-app .pcr-selection .pcr-color-preview {\n    position: relative;\n    z-index: 1;\n    width: 2em;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    margin-right: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-preview::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 0.5em;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color {\n      cursor: pointer;\n      transition: background-color 0.3s, box-shadow 0.3s;\n      border-radius: 0.15em 0.15em 0 0;\n      z-index: 2; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      border-radius: 0 0 0.15em 0.15em; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color,\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      background: currentColor;\n      width: 100%;\n      height: 50%; }\n  .pcr-app .pcr-selection .pcr-color-palette,\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    position: relative;\n    user-select: none;\n    display: flex;\n    flex-direction: column;\n    cursor: grab;\n    cursor: -moz-grab;\n    cursor: -webkit-grab; }\n    .pcr-app .pcr-selection .pcr-color-palette:active,\n    .pcr-app .pcr-selection .pcr-color-chooser:active,\n    .pcr-app .pcr-selection .pcr-color-opacity:active {\n      cursor: grabbing;\n      cursor: -moz-grabbing;\n      cursor: -webkit-grabbing; }\n  .pcr-app .pcr-selection .pcr-color-palette {\n    width: 100%;\n    height: 8em;\n    z-index: 1; }\n    .pcr-app .pcr-selection .pcr-color-palette .pcr-palette {\n      flex-grow: 1;\n      border-radius: 0.15em; }\n      .pcr-app .pcr-selection .pcr-color-palette .pcr-palette::before {\n        position: absolute;\n        content: '';\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n        background-size: 0.5em;\n        border-radius: 0.15em;\n        z-index: -1; }\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    margin-left: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-picker,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-picker {\n      left: 50%;\n      transform: translateX(-50%); }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n      width: 8px;\n      flex-grow: 1;\n      border-radius: 50em; }\n  .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider {\n    background: linear-gradient(to bottom, red, yellow, lime, cyan, blue, magenta, red); }\n  .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n    background: linear-gradient(to bottom, transparent, black), url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 100%, 50%; }\n", ""]);
 
 // exports
 
@@ -1309,233 +221,15 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js":
-/*!******************************************************!*\
-  !*** ./node_modules/_tslib@1.9.3@tslib/tslib.es6.js ***!
-  \******************************************************/
-/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__extends", function() { return __extends; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__assign", function() { return __assign; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__rest", function() { return __rest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__decorate", function() { return __decorate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__param", function() { return __param; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__metadata", function() { return __metadata; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__awaiter", function() { return __awaiter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__generator", function() { return __generator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__exportStar", function() { return __exportStar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__values", function() { return __values; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncValues", function() { return __asyncValues; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__makeTemplateObject", function() { return __makeTemplateObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importStar", function() { return __importStar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importDefault", function() { return __importDefault; });
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    }
-    return __assign.apply(this, arguments);
-}
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-}
-
-function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-function __param(paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-}
-
-function __metadata(metadataKey, metadataValue) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-}
-
-function __awaiter(thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-}
-
-function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-}
-
-function __exportStar(m, exports) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-
-function __values(o) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-    if (m) return m.call(o);
-    return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-}
-
-function __read(o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-}
-
-function __spread() {
-    for (var ar = [], i = 0; i < arguments.length; i++)
-        ar = ar.concat(__read(arguments[i]));
-    return ar;
-}
-
-function __await(v) {
-    return this instanceof __await ? (this.v = v, this) : new __await(v);
-}
-
-function __asyncGenerator(thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-}
-
-function __asyncDelegator(o) {
-    var i, p;
-    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-}
-
-function __asyncValues(o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-}
-
-function __makeTemplateObject(cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
-
-function __importStar(mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result.default = mod;
-    return result;
-}
-
-function __importDefault(mod) {
-    return (mod && mod.__esModule) ? mod : { default: mod };
-}
-
-
-/***/ }),
-
-/***/ "./src/chips/index.scss":
-/*!******************************!*\
-  !*** ./src/chips/index.scss ***!
-  \******************************/
+/***/ "./src/color-picker/index.scss":
+/*!*************************************!*\
+  !*** ./src/color-picker/index.scss ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/chips/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -1546,10 +240,10 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./src/chips/index.tsx":
-/*!*****************************!*\
-  !*** ./src/chips/index.tsx ***!
-  \*****************************/
+/***/ "./src/color-picker/index.tsx":
+/*!************************************!*\
+  !*** ./src/color-picker/index.tsx ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1587,419 +281,1557 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! ./index.scss */ "./src/chips/index.scss");
-var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/index.js");
-__webpack_require__(/*! ../icon */ "./src/icon/index.js");
+var css = __webpack_require__(/*! ./index.scss */ "./src/color-picker/index.scss");
 //@ts-ignore
 __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-var chipSet = /** @class */ (function (_super) {
-    __extends(chipSet, _super);
-    function chipSet() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.trailingClickHandle = function (index) {
-            _this.fire('trailingIconInteraction', index);
-        };
-        _this.chipClickHandle = function (index) {
-            _this.fire('interaction', index);
-        };
-        return _this;
+var pickr_js_1 = __webpack_require__(/*! ./js/pickr.js */ "./src/color-picker/js/pickr.js");
+var ColorPicker = /** @class */ (function (_super) {
+    __extends(ColorPicker, _super);
+    function ColorPicker() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    chipSet.prototype.installed = function () {
-        if (this.props.ripple) {
-            this.shadowRoot.querySelectorAll('.mdc-chip').forEach(function (item) {
-                new ripple_1.MDCRipple(item);
+    ColorPicker.prototype.installed = function () {
+        var _this = this;
+        var picker = pickr_js_1.default.create({
+            el: this.shadowRoot.querySelector('.picker'),
+            inline: this.props.inline,
+            default: this.props.default,
+            useAsButton: !this.props.button,
+            swatches: this.props.swatches,
+            components: {
+                // Main components
+                preview: this.props.preview,
+                opacity: this.props.opacity,
+                hue: this.props.hue,
+                // Input / output Options
+                interaction: {
+                    hex: this.props.hex,
+                    rgba: this.props.rgba,
+                    hsla: this.props.hsla,
+                    hsva: this.props.hsva,
+                    cmyk: this.props.cmyk,
+                    input: this.props.input,
+                    clear: this.props.clear,
+                    save: this.props.save
+                }
+            },
+            strings: this.props.strings
+        });
+        picker.on('init', function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            _this.picker.show();
+            _this.fire('init', args[0]);
+        }).on('save', function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            _this.fire('save', {
+                color: args[0].toHEXA().toString(),
+                colorObject: args[0]
             });
+        }).on('change', function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            _this.fire('change', {
+                color: args[0].toHEXA().toString(),
+                colorObject: args[0]
+            });
+        }).on('swatchselect', function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            _this.fire('swatchselect', {
+                color: args[0].toHEXA().toString(),
+                colorObject: args[0]
+            });
+        });
+        this.picker = picker;
+    };
+    ColorPicker.prototype.render = function (props) {
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-color-picker')),
+            omi_1.h("div", { class: 'picker' })));
+    };
+    ColorPicker.css = css;
+    ColorPicker.defaultProps = {
+        button: true,
+        preview: true,
+        opacity: true,
+        hue: true,
+        hex: true,
+        rgba: true,
+        hsla: true,
+        hsva: false,
+        input: true,
+        clear: true,
+        save: true,
+        cmyk: false,
+        default: '#3365B7',
+        swatches: [],
+        inline: true,
+        strings: {
+            save: 'Save',
+            clear: 'Clear' // Default for clear button
         }
     };
-    chipSet.prototype.render = function (props) {
-        var _this = this;
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-chip-set', {
-            'mdc-chip-set--input': props.input,
-            'mdc-chip-set--choice': props.choice,
-            'mdc-chip-set--filter': props.filter
-        })), props.chips.map(function (item, index) {
-            return omi_1.h("div", __assign({ tabindex: "0" }, omi_1.extractClass(props, 'mdc-chip', {
-                'mdc-chip--selected': item.selected
-            }), { onClick: function () { return _this.chipClickHandle(index); } }),
-                (item.leading) && omi_1.h("i", { class: omi_1.classNames('material-icons', 'mdc-chip__icon', 'mdc-chip__icon--leading', { 'mdc-chip__icon--leading-hidden': props.filter && item.checkmark && item.selected }) },
-                    (item.leading.icon && typeof item.leading.icon === 'object') && omi_1.h("m-icon", __assign({ class: 'm-icon' }, item.leading.icon)),
-                    (item.leading.icon && typeof item.leading.icon === 'string') && item.leading.icon),
-                (props.filter && item.checkmark) && omi_1.h("div", { class: "mdc-chip__checkmark" },
-                    omi_1.h("svg", { class: "mdc-chip__checkmark-svg", viewBox: "-2 -3 30 30" },
-                        omi_1.h("path", { class: "mdc-chip__checkmark-path", fill: "none", stroke: "black", d: "M1.73,12.91 8.1,19.28 22.79,4.59" }))),
-                omi_1.h("div", { class: "mdc-chip__text" }, item.text),
-                (item.trailing) && omi_1.h("i", { class: "material-icons mdc-chip__icon mdc-chip__icon--trailing", onClick: function () { return _this.trailingClickHandle(index); } },
-                    (item.trailing.icon && typeof item.trailing.icon === 'object') && omi_1.h("m-icon", __assign({ class: 'm-icon' }, item.trailing.icon)),
-                    (item.trailing.icon && typeof item.trailing.icon === 'string') && item.trailing.icon));
-        })));
-    };
-    chipSet.css = css;
-    chipSet.defaultProps = {
-        ripple: true
-    };
-    chipSet.propTypes = {
-        ripple: Boolean,
-        chips: Object,
+    ColorPicker.propTypes = {
+        button: Boolean,
+        preview: Boolean,
+        opacity: Boolean,
+        hue: Boolean,
+        hex: Boolean,
+        rgba: Boolean,
+        hsla: Boolean,
+        hsva: Boolean,
         input: Boolean,
-        choice: Boolean,
-        filter: Boolean
+        clear: Boolean,
+        save: Boolean,
+        cmyk: Boolean,
+        default: String,
+        swatches: Array,
+        inline: Boolean,
+        strings: Object
     };
-    chipSet = __decorate([
-        omi_1.tag('m-chips')
-    ], chipSet);
-    return chipSet;
+    ColorPicker = __decorate([
+        omi_1.tag('m-color-picker')
+    ], ColorPicker);
+    return ColorPicker;
 }(omi_1.WeElement));
-exports.default = chipSet;
+exports.default = ColorPicker;
 
 
 /***/ }),
 
-/***/ "./src/icon/index.js":
-/*!***************************!*\
-  !*** ./src/icon/index.js ***!
-  \***************************/
+/***/ "./src/color-picker/js/libs/moveable.js":
+/*!**********************************************!*\
+  !*** ./src/color-picker/js/libs/moveable.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function webpackUniversalModuleDefinition(root, factory) {
-    if (true)
-        module.exports = factory(__webpack_require__(/*! omi */ "omi"));
-    else {}
-})(window, function (__WEBPACK_EXTERNAL_MODULE_omi__) {
-    return /******/ (function (modules) {
-        /******/ // The module cache
-        /******/ var installedModules = {};
-        /******/
-        /******/ // The require function
-        /******/ function __webpack_require__(moduleId) {
-            /******/
-            /******/ // Check if module is in cache
-            /******/ if (installedModules[moduleId]) {
-                /******/ return installedModules[moduleId].exports;
-                /******/ }
-            /******/ // Create a new module (and put it into the cache)
-            /******/ var module = installedModules[moduleId] = {
-                /******/ i: moduleId,
-                /******/ l: false,
-                /******/ exports: {}
-                /******/ 
-            };
-            /******/
-            /******/ // Execute the module function
-            /******/ modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-            /******/
-            /******/ // Flag the module as loaded
-            /******/ module.l = true;
-            /******/
-            /******/ // Return the exports of the module
-            /******/ return module.exports;
-            /******/ 
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__(/*! ../utils/utils */ "./src/color-picker/js/utils/utils.js");
+function Moveable(opt) {
+    var that = {
+        // Assign default values
+        options: Object.assign({
+            lockX: false,
+            lockY: false,
+            onchange: function () { return 0; }
+        }, opt),
+        _tapstart: function (evt) {
+            _.on(document, ['mouseup', 'touchend', 'touchcancel'], that._tapstop);
+            _.on(document, ['mousemove', 'touchmove'], that._tapmove);
+            // Prevent default touch event
+            evt.preventDefault();
+            // Trigger
+            that._tapmove(evt);
+        },
+        _tapmove: function (evt) {
+            var options = that.options, cache = that.cache;
+            var element = options.element;
+            var b = that.options.wrapper.getBoundingClientRect();
+            var x = 0, y = 0;
+            if (evt) {
+                var touch = evt && evt.touches && evt.touches[0];
+                x = evt ? (touch || evt).clientX : 0;
+                y = evt ? (touch || evt).clientY : 0;
+                // Reset to bounds
+                if (x < b.left)
+                    x = b.left;
+                else if (x > b.left + b.width)
+                    x = b.left + b.width;
+                if (y < b.top)
+                    y = b.top;
+                else if (y > b.top + b.height)
+                    y = b.top + b.height;
+                // Normalize
+                x -= b.left;
+                y -= b.top;
+            }
+            else if (cache) {
+                x = cache.x * b.width;
+                y = cache.y * b.height;
+            }
+            if (!options.lockX) {
+                element.style.left = "calc(" + x / b.width * 100 + "% - " + element.offsetWidth / 2 + "px)";
+            }
+            if (!options.lockY) {
+                element.style.top = "calc(" + y / b.height * 100 + "% - " + element.offsetWidth / 2 + "px)";
+            }
+            that.cache = { x: x / b.width, y: y / b.height };
+            options.onchange(x, y);
+        },
+        _tapstop: function () {
+            _.off(document, ['mouseup', 'touchend', 'touchcancel'], that._tapstop);
+            _.off(document, ['mousemove', 'touchmove'], that._tapmove);
+        },
+        trigger: function () {
+            that._tapmove();
+        },
+        update: function (x, y) {
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            var wrapperRect = that.options.wrapper.getBoundingClientRect();
+            that._tapmove({
+                clientX: wrapperRect.left + x,
+                clientY: wrapperRect.top + y
+            });
+        },
+        destroy: function () {
+            var options = that.options, _tapstart = that._tapstart;
+            _.off([options.wrapper, options.element], 'mousedown', _tapstart);
+            _.off([options.wrapper, options.element], 'touchstart', _tapstart, {
+                passive: false
+            });
         }
-        /******/
-        /******/
-        /******/ // expose the modules object (__webpack_modules__)
-        /******/ __webpack_require__.m = modules;
-        /******/
-        /******/ // expose the module cache
-        /******/ __webpack_require__.c = installedModules;
-        /******/
-        /******/ // define getter function for harmony exports
-        /******/ __webpack_require__.d = function (exports, name, getter) {
-            /******/ if (!__webpack_require__.o(exports, name)) {
-                /******/ Object.defineProperty(exports, name, { enumerable: true, get: getter });
-                /******/ }
-            /******/ 
-        };
-        /******/
-        /******/ // define __esModule on exports
-        /******/ __webpack_require__.r = function (exports) {
-            /******/ if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-                /******/ Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-                /******/ }
-            /******/ Object.defineProperty(exports, '__esModule', { value: true });
-            /******/ 
-        };
-        /******/
-        /******/ // create a fake namespace object
-        /******/ // mode & 1: value is a module id, require it
-        /******/ // mode & 2: merge all properties of value into the ns
-        /******/ // mode & 4: return value when already ns object
-        /******/ // mode & 8|1: behave like require
-        /******/ __webpack_require__.t = function (value, mode) {
-            /******/ if (mode & 1)
-                value = __webpack_require__(value);
-            /******/ if (mode & 8)
-                return value;
-            /******/ if ((mode & 4) && typeof value === 'object' && value && value.__esModule)
-                return value;
-            /******/ var ns = Object.create(null);
-            /******/ __webpack_require__.r(ns);
-            /******/ Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-            /******/ if (mode & 2 && typeof value != 'string')
-                for (var key in value)
-                    __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
-            /******/ return ns;
-            /******/ 
-        };
-        /******/
-        /******/ // getDefaultExport function for compatibility with non-harmony modules
-        /******/ __webpack_require__.n = function (module) {
-            /******/ var getter = module && module.__esModule ?
-                /******/ function getDefault() { return module['default']; } :
-                /******/ function getModuleExports() { return module; };
-            /******/ __webpack_require__.d(getter, 'a', getter);
-            /******/ return getter;
-            /******/ 
-        };
-        /******/
-        /******/ // Object.prototype.hasOwnProperty.call
-        /******/ __webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-        /******/
-        /******/ // __webpack_public_path__
-        /******/ __webpack_require__.p = "";
-        /******/
-        /******/
-        /******/ // Load entry module and return exports
-        /******/ return __webpack_require__(__webpack_require__.s = "./src/icon/index.tsx");
-        /******/ 
-    })({
-        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
-        /*!***********************************************************************************************************************************************!*\
-          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/icon/index.scss ***!
-          \***********************************************************************************************************************************************/
-        /*! no static exports found */
-        /***/ (function (module, exports, __webpack_require__) {
-            exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
-            // imports
-            // module
-            exports.push([module.i, ".m-icon {\n  text-align: center;\n  display: inline-block; }\n\n.m-icon svg {\n  display: inline-block;\n  vertical-align: top; }\n\n.rotate {\n  display: inline-block;\n  -webkit-animation: rotate 1s infinite linear;\n  animation: rotate 1s infinite linear; }\n\ni div {\n  font-style: normal; }\n\n@-webkit-keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
-            // exports
-            /***/ 
-        }),
-        /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js": 
-        /*!*******************************************************************!*\
-          !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-          \*******************************************************************/
-        /*! no static exports found */
-        /***/ (function (module, exports) {
-            /*
-                MIT License http://www.opensource.org/licenses/mit-license.php
-                Author Tobias Koppers @sokra
-            */
-            // css base code, injected by the css-loader
-            module.exports = function (useSourceMap) {
-                var list = [];
-                // return the list of modules as css string
-                list.toString = function toString() {
-                    return this.map(function (item) {
-                        var content = cssWithMappingToString(item, useSourceMap);
-                        if (item[2]) {
-                            return "@media " + item[2] + "{" + content + "}";
-                        }
-                        else {
-                            return content;
-                        }
-                    }).join("");
-                };
-                // import a list of modules into the list
-                list.i = function (modules, mediaQuery) {
-                    if (typeof modules === "string")
-                        modules = [[null, modules, ""]];
-                    var alreadyImportedModules = {};
-                    for (var i = 0; i < this.length; i++) {
-                        var id = this[i][0];
-                        if (typeof id === "number")
-                            alreadyImportedModules[id] = true;
-                    }
-                    for (i = 0; i < modules.length; i++) {
-                        var item = modules[i];
-                        // skip already imported module
-                        // this implementation is not 100% perfect for weird media query combinations
-                        //  when a module is imported multiple times with different media queries.
-                        //  I hope this will never occur (Hey this way we have smaller bundles)
-                        if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-                            if (mediaQuery && !item[2]) {
-                                item[2] = mediaQuery;
-                            }
-                            else if (mediaQuery) {
-                                item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-                            }
-                            list.push(item);
-                        }
-                    }
-                };
-                return list;
+    };
+    // Initilize
+    var options = that.options, _tapstart = that._tapstart;
+    _.on([options.wrapper, options.element], 'mousedown', _tapstart);
+    _.on([options.wrapper, options.element], 'touchstart', _tapstart, {
+        passive: false
+    });
+    return that;
+}
+exports.default = Moveable;
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/libs/nanopop.js":
+/*!*********************************************!*\
+  !*** ./src/color-picker/js/libs/nanopop.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Micro positioning-engine
+ * @param el
+ * @param reference
+ * @param pos
+ * @param padding
+ * @returns {{update(): void}}
+ * @constructor
+ */
+function Nanopop(_a) {
+    var el = _a.el, reference = _a.reference, pos = _a.pos, _b = _a.padding, padding = _b === void 0 ? 8 : _b;
+    var vBehaviour = { start: 'sme', middle: 'mse', end: 'ems' };
+    var hBehaviour = { top: 'tb', right: 'rl', bottom: 'bt', left: 'lr' };
+    var _c = pos.split('-'), position = _c[0], _d = _c[1], variant = _d === void 0 ? 'middle' : _d;
+    var isVertical = (position === 'top' || position === 'bottom');
+    return {
+        update: function () {
+            var rb = reference.getBoundingClientRect();
+            var eb = el.getBoundingClientRect();
+            var positions = isVertical ? {
+                t: rb.top - eb.height - padding,
+                b: rb.bottom + padding
+            } : {
+                r: rb.right + padding,
+                l: rb.left - eb.width - padding
             };
-            function cssWithMappingToString(item, useSourceMap) {
-                var content = item[1] || '';
-                var cssMapping = item[3];
-                if (!cssMapping) {
-                    return content;
+            var variants = isVertical ? {
+                s: rb.left + rb.width - eb.width,
+                m: (-eb.width / 2) + (rb.left + rb.width / 2),
+                e: rb.left
+            } : {
+                s: rb.bottom - eb.height,
+                m: rb.bottom - rb.height / 2 - eb.height / 2,
+                e: rb.bottom - rb.height
+            };
+            function apply(bevs, vars, styleprop) {
+                var vertical = styleprop === 'top';
+                var adder = vertical ? eb.height : eb.width;
+                var win = window[vertical ? 'innerHeight' : 'innerWidth'];
+                for (var _i = 0, bevs_1 = bevs; _i < bevs_1.length; _i++) {
+                    var ch = bevs_1[_i];
+                    var v = vars[ch];
+                    if (v > 0 && (v + adder) < win) {
+                        el.style[styleprop] = v + "px";
+                        break;
+                    }
                 }
-                if (useSourceMap && typeof btoa === 'function') {
-                    var sourceMapping = toComment(cssMapping);
-                    var sourceURLs = cssMapping.sources.map(function (source) {
-                        return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';
-                    });
-                    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+            }
+            apply(vBehaviour[variant], variants, isVertical ? 'left' : 'top');
+            apply(hBehaviour[position], positions, isVertical ? 'top' : 'left');
+        }
+    };
+}
+exports.default = Nanopop;
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/libs/selectable.js":
+/*!************************************************!*\
+  !*** ./src/color-picker/js/libs/selectable.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__(/*! ../utils/utils */ "./src/color-picker/js/utils/utils.js");
+function Selectable(opt) {
+    if (opt === void 0) { opt = {}; }
+    opt = Object.assign({
+        onchange: function () { return 0; },
+        className: '',
+        elements: []
+    }, opt);
+    var onTap = _.on(opt.elements, 'click', function (evt) {
+        opt.elements.forEach(function (e) {
+            return e.classList[evt.target === e ? 'add' : 'remove'](opt.className);
+        });
+        opt.onchange(evt);
+    });
+    return {
+        destroy: function () { return _.off.apply(_, onTap); }
+    };
+}
+exports.default = Selectable;
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/pickr.js":
+/*!**************************************!*\
+  !*** ./src/color-picker/js/pickr.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+// Import styles
+__webpack_require__(/*! ../scss/pickr.scss */ "./src/color-picker/scss/pickr.scss");
+// Import utils
+var _ = __webpack_require__(/*! ./utils/utils */ "./src/color-picker/js/utils/utils.js");
+var Color = __webpack_require__(/*! ./utils/color */ "./src/color-picker/js/utils/color.js");
+// Import classes
+var hsvacolor_1 = __webpack_require__(/*! ./utils/hsvacolor */ "./src/color-picker/js/utils/hsvacolor.js");
+var moveable_1 = __webpack_require__(/*! ./libs/moveable */ "./src/color-picker/js/libs/moveable.js");
+var selectable_1 = __webpack_require__(/*! ./libs/selectable */ "./src/color-picker/js/libs/selectable.js");
+var nanopop_1 = __webpack_require__(/*! ./libs/nanopop */ "./src/color-picker/js/libs/nanopop.js");
+var template_1 = __webpack_require__(/*! ./template */ "./src/color-picker/js/template.js");
+var Pickr = /** @class */ (function () {
+    function Pickr(opt) {
+        var _this = this;
+        // Will be used to prevent specific actions during initilization
+        this._initializingActive = true;
+        // Replace element with color picker
+        this._recalc = true;
+        // Current and last color for comparison
+        this._color = hsvacolor_1.HSVaColor();
+        this._lastColor = hsvacolor_1.HSVaColor();
+        this._swatchColors = [];
+        // Evenlistener name: [callbacks]
+        this._eventListener = {
+            'swatchselect': [],
+            'change': [],
+            'save': [],
+            'init': []
+        };
+        // Assign default values
+        this.options = opt = Object.assign({
+            appClass: null,
+            useAsButton: false,
+            disabled: false,
+            comparison: true,
+            components: {
+                interaction: {}
+            },
+            strings: {},
+            swatches: null,
+            inline: false,
+            default: '#42445A',
+            defaultRepresentation: null,
+            position: 'bottom-middle',
+            adjustableNumbers: true,
+            showAlways: false,
+            closeWithKey: 'Escape'
+        }, opt);
+        var swatches = opt.swatches, inline = opt.inline, components = opt.components, position = opt.position;
+        // Check interaction section
+        if (!components.interaction) {
+            components.interaction = {};
+        }
+        // Overwrite palette if preview, opacity or hue are true
+        var preview = components.preview, opacity = components.opacity, hue = components.hue, palette = components.palette;
+        components.palette = palette || preview || opacity || hue;
+        // Per default enabled if inline
+        if (inline) {
+            opt.showAlways = true;
+        }
+        // Initialize picker
+        this._preBuild();
+        this._buildComponents();
+        this._bindEvents();
+        // Finalize build
+        this._finalBuild();
+        // Append pre-defined swatch colors
+        if (swatches && swatches.length) {
+            swatches.forEach(function (color) { return _this.addSwatch(color); });
+        }
+        // Initialize positioning engine
+        this._nanopop = nanopop_1.default({
+            reference: this._root.button,
+            el: this._root.app,
+            pos: position
+        });
+        // Initilization is finish, pickr is visible and ready for usage
+        var button = this._root.button;
+        var that = this;
+        requestAnimationFrame((function cb() {
+            // offsetParent of body is always 0. So check if it is the body
+            if (button.offsetParent === null && button !== document.body) {
+                return requestAnimationFrame(cb);
+            }
+            // Apply default color
+            that.setColor(opt.default);
+            that._rePositioningPicker();
+            // Initialize color representation
+            if (opt.defaultRepresentation) {
+                that._representation = opt.defaultRepresentation;
+                that.setColorRepresentation(that._representation);
+            }
+            // Show pickr if locked
+            if (opt.showAlways) {
+                that.show();
+            }
+            // Initialization is done - pickr is usable, fire init event
+            that._initializingActive = false;
+            that._emit('init');
+        }));
+    }
+    // Does only the absolutly basic thing to initialize the components
+    Pickr.prototype._preBuild = function () {
+        var opt = this.options;
+        // Check if element is selector
+        if (typeof opt.el === 'string') {
+            // Resolve possible shadow dom access
+            opt.el = opt.el.split(/>>/g).reduce(function (pv, cv, ci, a) {
+                pv = pv.querySelector(cv);
+                return ci < a.length - 1 ? pv.shadowRoot : pv;
+            }, document);
+        }
+        // Create element and append it to body to
+        // prevent initialization errors
+        this._root = template_1.default(opt);
+        // Check if a custom button is used
+        if (opt.useAsButton) {
+            this._root.button = opt.el; // Replace button with customized button
+        }
+        document.body.appendChild(this._root.root);
+    };
+    Pickr.prototype._finalBuild = function () {
+        var opt = this.options;
+        var root = this._root;
+        // Remove from body
+        document.body.removeChild(root.root);
+        //if (opt.inline) {
+        var parentElement = opt.el.parentElement;
+        if (parentElement.lastChild === opt.el) {
+            parentElement.appendChild(root.app);
+        }
+        else {
+            parentElement.insertBefore(root.app, opt.el.nextSibling);
+        }
+        // } else {
+        //     document.body.appendChild(root.app);
+        // }
+        // Don't replace the the element if a custom button is used
+        if (!opt.useAsButton) {
+            // Replace element with actual color-picker
+            opt.el.parentNode.replaceChild(root.root, opt.el);
+        }
+        // Call disable to also add the disabled class
+        if (opt.disabled) {
+            this.disable();
+        }
+        // Check if color comparison is disabled, if yes - remove transitions so everything keeps smoothly
+        if (!opt.comparison) {
+            root.button.style.transition = 'none';
+            if (!opt.useAsButton) {
+                root.preview.lastColor.style.transition = 'none';
+            }
+        }
+        this.hide();
+    };
+    Pickr.prototype._buildComponents = function () {
+        // Instance reference
+        var inst = this;
+        var comp = this.options.components;
+        var components = {
+            palette: moveable_1.default({
+                element: inst._root.palette.picker,
+                wrapper: inst._root.palette.palette,
+                onchange: function (x, y) {
+                    if (!comp.palette)
+                        return;
+                    var _color = inst._color, _root = inst._root, options = inst.options;
+                    // Calculate saturation based on the position
+                    _color.s = (x / this.wrapper.offsetWidth) * 100;
+                    // Calculate the value
+                    _color.v = 100 - (y / this.wrapper.offsetHeight) * 100;
+                    // Prevent falling under zero
+                    _color.v < 0 ? _color.v = 0 : 0;
+                    // Set picker and gradient color
+                    var cssRGBaString = _color.toRGBA().toString();
+                    this.element.style.background = cssRGBaString;
+                    this.wrapper.style.background = "\n                        linear-gradient(to top, rgba(0, 0, 0, " + _color.a + "), transparent),\n                        linear-gradient(to left, hsla(" + _color.h + ", 100%, 50%, " + _color.a + "), rgba(255, 255, 255, " + _color.a + "))\n                    ";
+                    // Check if color is locked
+                    if (!options.comparison) {
+                        _root.button.style.color = cssRGBaString;
+                        if (!options.useAsButton) {
+                            _root.preview.lastColor.style.color = cssRGBaString;
+                        }
+                    }
+                    // Change current color
+                    _root.preview.currentColor.style.color = cssRGBaString;
+                    // Update the input field only if the user is currently not typing
+                    if (inst._recalc) {
+                        inst._updateOutput();
+                    }
+                    // If the user changes the color, remove the cleared icon
+                    _root.button.classList.remove('clear');
                 }
-                return [content].join('\n');
+            }),
+            hue: moveable_1.default({
+                lockX: true,
+                element: inst._root.hue.picker,
+                wrapper: inst._root.hue.slider,
+                onchange: function (x, y) {
+                    if (!comp.hue || !comp.palette)
+                        return;
+                    // Calculate hue
+                    inst._color.h = (y / this.wrapper.offsetHeight) * 360;
+                    // Update color
+                    this.element.style.backgroundColor = "hsl(" + inst._color.h + ", 100%, 50%)";
+                    components.palette.trigger();
+                }
+            }),
+            opacity: moveable_1.default({
+                lockX: true,
+                element: inst._root.opacity.picker,
+                wrapper: inst._root.opacity.slider,
+                onchange: function (x, y) {
+                    if (!comp.opacity || !comp.palette)
+                        return;
+                    // Calculate opacity
+                    inst._color.a = Math.round(((y / this.wrapper.offsetHeight)) * 1e2) / 100;
+                    // Update color
+                    this.element.style.background = "rgba(0, 0, 0, " + inst._color.a + ")";
+                    inst.components.palette.trigger();
+                }
+            }),
+            selectable: selectable_1.default({
+                elements: inst._root.interaction.options,
+                className: 'active',
+                onchange: function (e) {
+                    inst._representation = e.target.getAttribute('data-type').toUpperCase();
+                    inst._updateOutput();
+                }
+            })
+        };
+        this.components = components;
+    };
+    Pickr.prototype._bindEvents = function () {
+        var _this = this;
+        var _a = this, _root = _a._root, options = _a.options;
+        var eventBindings = [
+            // Clear color
+            _.on(_root.interaction.clear, 'click', function () { return _this._clearColor(); }),
+            // Select last color on click
+            _.on(_root.preview.lastColor, 'click', function () { return _this.setHSVA.apply(_this, _this._lastColor.toHSVA()); }),
+            // Save color
+            _.on(_root.interaction.save, 'click', function () {
+                !_this.applyColor() && !options.showAlways && _this.hide();
+            }),
+            // Detect user input and disable auto-recalculation
+            _.on(_root.interaction.result, ['keyup', 'input'], function (e) {
+                _this._recalc = false;
+                // Fire listener if initialization is finish and changed color was valid
+                if (_this.setColor(e.target.value, true) && !_this._initializingActive) {
+                    _this._emit('change', _this._color);
+                }
+                e.stopImmediatePropagation();
+            }),
+            // Cancel input detection on color change
+            _.on([
+                _root.palette.palette,
+                _root.palette.picker,
+                _root.hue.slider,
+                _root.hue.picker,
+                _root.opacity.slider,
+                _root.opacity.picker
+            ], ['mousedown', 'touchstart'], function () { return _this._recalc = true; })
+        ];
+        // Provide hiding / showing abilities only if showAlways is false
+        if (!options.showAlways) {
+            var ck_1 = options.closeWithKey;
+            eventBindings.push(
+            // Save and hide / show picker
+            _.on(_root.button, 'click', function () { return _this.isOpen() ? _this.hide() : _this.show(); }), 
+            // Close with escape key
+            _.on(document, 'keyup', function (e) { return _this.isOpen() && (e.key === ck_1 || e.code === ck_1) && _this.hide(); }), 
+            // Cancel selecting if the user taps behind the color picker
+            _.on(document, ['touchstart', 'mousedown'], function (e) {
+                if (_this.isOpen() && !_.eventPath(e).some(function (el) { return el === _root.app || el === _root.button; })) {
+                    _this.hide();
+                }
+            }, { capture: true }));
+        }
+        // Make input adjustable if enabled
+        if (options.adjustableNumbers) {
+            _.adjustableInputNumbers(_root.interaction.result, false);
+        }
+        if (!options.inline) {
+            var timeout_1 = null;
+            var that_1 = this;
+            // Re-calc position on window resize, scroll and wheel
+            eventBindings.push(_.on(window, ['scroll', 'resize'], function () {
+                if (that_1.isOpen()) {
+                    if (timeout_1 === null) {
+                        timeout_1 = setTimeout(function () { return timeout_1 = null; }, 100);
+                        // Update position on every frame
+                        requestAnimationFrame(function rs() {
+                            that_1._rePositioningPicker();
+                            (timeout_1 !== null) && requestAnimationFrame(rs);
+                        });
+                    }
+                    else {
+                        clearTimeout(timeout_1);
+                        timeout_1 = setTimeout(function () { return timeout_1 = null; }, 100);
+                    }
+                }
+            }));
+        }
+        // Save bindings
+        this._eventBindings = eventBindings;
+    };
+    Pickr.prototype._rePositioningPicker = function () {
+        // No repositioning needed if inline
+        if (!this.options.inline) {
+            this._nanopop.update();
+        }
+    };
+    Pickr.prototype._updateOutput = function () {
+        // Check if component is present
+        if (this._root.interaction.type()) {
+            // Construct function name and call if present
+            var method = "to" + this._root.interaction.type().getAttribute('data-type');
+            this._root.interaction.result.value = typeof this._color[method] === 'function' ? this._color[method]().toString() : '';
+        }
+        // Fire listener if initialization is finish
+        if (!this._initializingActive) {
+            this._emit('change', this._color);
+        }
+    };
+    Pickr.prototype._clearColor = function () {
+        var _a = this, _root = _a._root, options = _a.options;
+        // Change only the button color if it isn't customized
+        if (!options.useAsButton) {
+            _root.button.style.color = 'rgba(0, 0, 0, 0.15)';
+        }
+        _root.button.classList.add('clear');
+        if (!options.showAlways) {
+            this.hide();
+        }
+        if (!this._initializingActive) {
+            // Fire listener
+            this._emit('save', null);
+        }
+    };
+    Pickr.prototype._emit = function (event) {
+        var _this = this;
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        this._eventListener[event].forEach(function (cb) { return cb.apply(void 0, args.concat([_this])); });
+    };
+    Pickr.prototype.on = function (event, cb) {
+        // Validate
+        if (typeof cb === 'function' && typeof event === 'string' && event in this._eventListener) {
+            this._eventListener[event].push(cb);
+        }
+        return this;
+    };
+    Pickr.prototype.off = function (event, cb) {
+        var callBacks = this._eventListener[event];
+        if (callBacks) {
+            var index = callBacks.indexOf(cb);
+            if (~index) {
+                callBacks.splice(index, 1);
             }
-            // Adapted from convert-source-map (MIT)
-            function toComment(sourceMap) {
-                // eslint-disable-next-line no-undef
-                var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-                var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-                return '/*# ' + data + ' */';
+        }
+        return this;
+    };
+    /**
+     * Appends a color to the swatch palette
+     * @param color
+     * @returns {boolean}
+     */
+    Pickr.prototype.addSwatch = function (color) {
+        var _this = this;
+        var values = Color.parseToHSV(color).values;
+        if (values) {
+            var _a = this, _swatchColors = _a._swatchColors, _root = _a._root;
+            var hsvaColorObject_1 = hsvacolor_1.HSVaColor.apply(void 0, values);
+            // Create new swatch HTMLElement
+            var element = _.createElementFromString("<button type=\"button\" style=\"color: " + hsvaColorObject_1.toRGBA() + "\"></button>");
+            // Append element and save swatch data
+            _root.swatches.appendChild(element);
+            _swatchColors.push({ element: element, hsvaColorObject: hsvaColorObject_1 });
+            // Bind event
+            this._eventBindings.push(_.on(element, 'click', function () {
+                _this.setHSVA.apply(_this, hsvaColorObject_1.toHSVA().concat([true]));
+                _this._emit('swatchselect', hsvaColorObject_1);
+            }));
+            return true;
+        }
+        return false;
+    };
+    /**
+     * Removes a swatch color by it's index
+     * @param index
+     * @returns {boolean}
+     */
+    Pickr.prototype.removeSwatch = function (index) {
+        // Validate index
+        if (typeof index === 'number') {
+            var swatchColor = this._swatchColors[index];
+            // Check swatch data
+            if (swatchColor) {
+                var element = swatchColor.element;
+                // Remove HTML child and swatch data
+                this._root.swatches.removeChild(element);
+                this._swatchColors.splice(index, 1);
+                return true;
             }
-            /***/ 
-        }),
-        /***/ "./src/icon/index.scss": 
-        /*!*****************************!*\
-          !*** ./src/icon/index.scss ***!
-          \*****************************/
-        /*! no static exports found */
-        /***/ (function (module, exports, __webpack_require__) {
-            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
-            if (typeof result === "string") {
-                module.exports = result;
+        }
+        return false;
+    };
+    Pickr.prototype.applyColor = function (silent) {
+        if (silent === void 0) { silent = false; }
+        var _a = this._root, preview = _a.preview, button = _a.button;
+        // Change preview and current color
+        var cssRGBaString = this._color.toRGBA().toString();
+        preview.lastColor.style.color = cssRGBaString;
+        // Change only the button color if it isn't customized
+        if (!this.options.useAsButton) {
+            button.style.color = cssRGBaString;
+        }
+        // User changed the color so remove the clear clas
+        button.classList.remove('clear');
+        // Save last color
+        this._lastColor = this._color.clone();
+        // Fire listener
+        if (!this._initializingActive && !silent) {
+            this._emit('save', this._color);
+        }
+    };
+    /**
+     * Destroy's all functionalitys
+     */
+    Pickr.prototype.destroy = function () {
+        var _this = this;
+        this._eventBindings.forEach(function (args) { return _.off.apply(_, args); });
+        Object.keys(this.components).forEach(function (key) { return _this.components[key].destroy(); });
+    };
+    /**
+     * Destroy's all functionalitys and removes
+     * the pickr element.
+     */
+    Pickr.prototype.destroyAndRemove = function () {
+        this.destroy();
+        // Remove element
+        var root = this._root.root;
+        root.parentElement.removeChild(root);
+        // remove .pcr-app
+        var app = this._root.app;
+        app.parentElement.removeChild(app);
+        // There are references to various DOM elements stored in the pickr instance
+        // This cleans all of them to avoid detached DOMs
+        var pickr = this;
+        Object.keys(pickr).forEach(function (key) { return pickr[key] = null; });
+    };
+    /**
+     * Hides the color-picker ui.
+     */
+    Pickr.prototype.hide = function () {
+        this._root.app.classList.remove('visible');
+        return this;
+    };
+    /**
+     * Shows the color-picker ui.
+     */
+    Pickr.prototype.show = function () {
+        if (this.options.disabled)
+            return;
+        this._root.app.classList.add('visible');
+        this._rePositioningPicker();
+        return this;
+    };
+    /**
+     * @return {boolean} If the color picker is currently open
+     */
+    Pickr.prototype.isOpen = function () {
+        return this._root.app.classList.contains('visible');
+    };
+    /**
+     * Set a specific color.
+     * @param h Hue
+     * @param s Saturation
+     * @param v Value
+     * @param a Alpha channel (0 - 1)
+     * @param silent If the button should not change the color
+     * @return boolean if the color has been accepted
+     */
+    Pickr.prototype.setHSVA = function (h, s, v, a, silent) {
+        if (h === void 0) { h = 360; }
+        if (s === void 0) { s = 0; }
+        if (v === void 0) { v = 0; }
+        if (a === void 0) { a = 1; }
+        if (silent === void 0) { silent = false; }
+        // Deactivate color calculation
+        var recalc = this._recalc; // Save state
+        this._recalc = false;
+        // Validate input
+        if (h < 0 || h > 360 || s < 0 || s > 100 || v < 0 || v > 100 || a < 0 || a > 1) {
+            return false;
+        }
+        // Override current color and re-active color calculation
+        this._color = hsvacolor_1.HSVaColor(h, s, v, a);
+        // Short names
+        var _a = this.components, hue = _a.hue, opacity = _a.opacity, palette = _a.palette;
+        // Calculate y position of hue slider
+        var hueWrapper = hue.options.wrapper;
+        var hueY = hueWrapper.offsetHeight * (h / 360);
+        hue.update(0, hueY);
+        // Calculate y position of opacity slider
+        var opacityWrapper = opacity.options.wrapper;
+        var opacityY = opacityWrapper.offsetHeight * a;
+        opacity.update(0, opacityY);
+        // Calculate y and x position of color palette
+        var pickerWrapper = palette.options.wrapper;
+        var pickerX = pickerWrapper.offsetWidth * (s / 100);
+        var pickerY = pickerWrapper.offsetHeight * (1 - (v / 100));
+        palette.update(pickerX, pickerY);
+        // Restore old state
+        this._recalc = recalc;
+        // Update output if recalculation is enabled
+        if (this._recalc) {
+            this._updateOutput();
+        }
+        // Check if call is silent
+        if (!silent) {
+            this.applyColor();
+        }
+        return true;
+    };
+    /**
+     * Tries to parse a string which represents a color.
+     * Examples: #fff
+     *           rgb 10 10 200
+     *           hsva 10 20 5 0.5
+     * @param string
+     * @param silent
+     */
+    Pickr.prototype.setColor = function (string, silent) {
+        if (silent === void 0) { silent = false; }
+        // Check if null
+        if (string === null) {
+            this._clearColor();
+            return true;
+        }
+        var _a = Color.parseToHSV(string), values = _a.values, type = _a.type;
+        // Check if color is ok
+        if (values) {
+            // Change selected color format
+            var utype_1 = type.toUpperCase();
+            var options = this._root.interaction.options;
+            var target = options.find(function (el) { return el.getAttribute('data-type').startsWith(utype_1); });
+            // Auto select only if not hidden
+            if (target && !target.hidden) {
+                for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
+                    var el = options_1[_i];
+                    el.classList[el === target ? 'add' : 'remove']('active');
+                }
+            }
+            return this.setHSVA.apply(this, values.concat([silent]));
+        }
+    };
+    /**
+     * Changes the color _representation.
+     * Allowed values are HEX, RGB, HSV, HSL and CMYK
+     * @param type
+     * @returns {boolean} if the selected type was valid.
+     */
+    Pickr.prototype.setColorRepresentation = function (type) {
+        // Force uppercase to allow a case-sensitiv comparison
+        type = type.toUpperCase();
+        // Find button with given type and trigger click event
+        return !!this._root.interaction.options.find(function (v) { return v.getAttribute('data-type').startsWith(type) && !v.click(); });
+    };
+    /**
+     * Returns the current color representaion. See setColorRepresentation
+     * @returns {*}
+     */
+    Pickr.prototype.getColorRepresentation = function () {
+        return this._representation;
+    };
+    /**
+     * @returns HSVaColor Current HSVaColor object.
+     */
+    Pickr.prototype.getColor = function () {
+        return this._color;
+    };
+    /**
+     * @returns The root HTMLElement with all his components.
+     */
+    Pickr.prototype.getRoot = function () {
+        return this._root;
+    };
+    /**
+     * Disable pickr
+     */
+    Pickr.prototype.disable = function () {
+        this.hide();
+        this.options.disabled = true;
+        this._root.button.classList.add('disabled');
+        return this;
+    };
+    /**
+     * Enable pickr
+     */
+    Pickr.prototype.enable = function () {
+        this.options.disabled = false;
+        this._root.button.classList.remove('disabled');
+        return this;
+    };
+    return Pickr;
+}());
+// Expose pickr utils
+Pickr.utils = _;
+// Create instance via method
+Pickr.create = function (options) { return new Pickr(options); };
+// Assign version and export
+Pickr.version = '0.6.2';
+exports.default = Pickr;
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/template.js":
+/*!*****************************************!*\
+  !*** ./src/color-picker/js/template.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__(/*! ./utils/utils */ "./src/color-picker/js/utils/utils.js");
+exports.default = (function (_a) {
+    var c = _a.components, s = _a.strings, useAsButton = _a.useAsButton, inline = _a.inline, appClass = _a.appClass;
+    var hidden = function (con) { return con ? '' : 'style="display:none" hidden'; };
+    var root = _.createFromTemplate("\n      <div data-key=\"root\" class=\"pickr\">\n\n        " + (useAsButton ? '' : '<button type="button" data-key="button" class="pcr-button"></button>') + "\n\n        <div data-key=\"app\" class=\"pcr-app " + (appClass || '') + "\" " + (inline ? 'style="position: unset"' : '') + ">\n          <div class=\"pcr-selection\" " + hidden(c.palette) + ">\n            <div data-con=\"preview\" class=\"pcr-color-preview\" " + hidden(c.preview) + ">\n              <button type=\"button\" data-key=\"lastColor\" class=\"pcr-last-color\"></button>\n              <div data-key=\"currentColor\" class=\"pcr-current-color\"></div>\n            </div>\n\n            <div data-con=\"palette\" class=\"pcr-color-palette\">\n              <div data-key=\"picker\" class=\"pcr-picker\"></div>\n              <div data-key=\"palette\" class=\"pcr-palette\"></div>\n            </div>\n\n            <div data-con=\"hue\" class=\"pcr-color-chooser\" " + hidden(c.hue) + ">\n              <div data-key=\"picker\" class=\"pcr-picker\"></div>\n              <div data-key=\"slider\" class=\"pcr-hue pcr-slider\"></div>\n            </div>\n\n            <div data-con=\"opacity\" class=\"pcr-color-opacity\" " + hidden(c.opacity) + ">\n              <div data-key=\"picker\" class=\"pcr-picker\"></div>\n              <div data-key=\"slider\" class=\"pcr-opacity pcr-slider\"></div>\n            </div>\n          </div>\n\n          <div class=\"pcr-swatches " + (c.palette ? '' : ' pcr-last') + "\" data-key=\"swatches\"></div> \n\n          <div data-con=\"interaction\" class=\"pcr-interaction\" " + hidden(Object.keys(c.interaction).length) + ">\n            <input data-key=\"result\" class=\"pcr-result\" type=\"text\" spellcheck=\"false\" " + hidden(c.interaction.input) + ">\n\n            <input data-arr=\"options\" class=\"pcr-type\" data-type=\"HEXA\" value=\"HEXA\" type=\"button\" " + hidden(c.interaction.hex) + ">\n            <input data-arr=\"options\" class=\"pcr-type\" data-type=\"RGBA\" value=\"RGBA\" type=\"button\" " + hidden(c.interaction.rgba) + ">\n            <input data-arr=\"options\" class=\"pcr-type\" data-type=\"HSLA\" value=\"HSLA\" type=\"button\" " + hidden(c.interaction.hsla) + ">\n            <input data-arr=\"options\" class=\"pcr-type\" data-type=\"HSVA\" value=\"HSVA\" type=\"button\" " + hidden(c.interaction.hsva) + ">\n            <input data-arr=\"options\" class=\"pcr-type\" data-type=\"CMYK\" value=\"CMYK\" type=\"button\" " + hidden(c.interaction.cmyk) + ">\n\n            <input data-key=\"save\" class=\"pcr-save\" value=\"" + (s.save || 'Save') + "\" type=\"button\" " + hidden(c.interaction.save) + ">\n            <input data-key=\"clear\" class=\"pcr-clear\" value=\"" + (s.clear || 'Clear') + "\" type=\"button\" " + hidden(c.interaction.clear) + ">\n          </div>\n        </div>\n      </div>\n    ");
+    var int = root.interaction;
+    // Select option which is not hidden
+    int.options.find(function (o) { return !o.hidden && !o.classList.add('active'); });
+    // Create method to find currenlty active option
+    int.type = function () { return int.options.find(function (e) { return e.classList.contains('active'); }); };
+    return root;
+});
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/utils/color.js":
+/*!********************************************!*\
+  !*** ./src/color-picker/js/utils/color.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+// Shorthands
+var min = Math.min, max = Math.max, floor = Math.floor, round = Math.round;
+/**
+ * Tries to convert a color name to rgb/a hex representation
+ * @param name
+ * @returns {string | CanvasGradient | CanvasPattern}
+ */
+function standardizeColor(name) {
+    var ctx = document.createElement('canvas').getContext('2d');
+    ctx.fillStyle = name;
+    return ctx.fillStyle;
+}
+/**
+ * Convert HSV spectrum to RGB.
+ * @param h Hue
+ * @param s Saturation
+ * @param v Value
+ * @returns {number[]} Array with rgb values.
+ */
+function hsvToRgb(h, s, v) {
+    h = (h / 360) * 6;
+    s /= 100;
+    v /= 100;
+    var i = floor(h);
+    var f = h - i;
+    var p = v * (1 - s);
+    var q = v * (1 - f * s);
+    var t = v * (1 - (1 - f) * s);
+    var mod = i % 6;
+    var r = [v, q, p, p, t, v][mod];
+    var g = [t, v, v, q, p, p][mod];
+    var b = [p, p, t, v, v, q][mod];
+    return [
+        r * 255,
+        g * 255,
+        b * 255
+    ];
+}
+exports.hsvToRgb = hsvToRgb;
+/**
+ * Convert HSV spectrum to Hex.
+ * @param h Hue
+ * @param s Saturation
+ * @param v Value
+ * @returns {string[]} Hex values
+ */
+function hsvToHex(h, s, v) {
+    return hsvToRgb(h, s, v).map(function (v) {
+        return round(v).toString(16).padStart(2, '0');
+    });
+}
+exports.hsvToHex = hsvToHex;
+/**
+ * Convert HSV spectrum to CMYK.
+ * @param h Hue
+ * @param s Saturation
+ * @param v Value
+ * @returns {number[]} CMYK values
+ */
+function hsvToCmyk(h, s, v) {
+    var rgb = hsvToRgb(h, s, v);
+    var r = rgb[0] / 255;
+    var g = rgb[1] / 255;
+    var b = rgb[2] / 255;
+    var k, c, m, y;
+    k = min(1 - r, 1 - g, 1 - b);
+    c = k === 1 ? 0 : (1 - r - k) / (1 - k);
+    m = k === 1 ? 0 : (1 - g - k) / (1 - k);
+    y = k === 1 ? 0 : (1 - b - k) / (1 - k);
+    return [
+        c * 100,
+        m * 100,
+        y * 100,
+        k * 100
+    ];
+}
+exports.hsvToCmyk = hsvToCmyk;
+/**
+ * Convert HSV spectrum to HSL.
+ * @param h Hue
+ * @param s Saturation
+ * @param v Value
+ * @returns {number[]} HSL values
+ */
+function hsvToHsl(h, s, v) {
+    s /= 100, v /= 100;
+    var l = (2 - s) * v / 2;
+    if (l !== 0) {
+        if (l === 1) {
+            s = 0;
+        }
+        else if (l < 0.5) {
+            s = s * v / (l * 2);
+        }
+        else {
+            s = s * v / (2 - l * 2);
+        }
+    }
+    return [
+        h,
+        s * 100,
+        l * 100
+    ];
+}
+exports.hsvToHsl = hsvToHsl;
+/**
+ * Convert RGB to HSV.
+ * @param r Red
+ * @param g Green
+ * @param b Blue
+ * @return {number[]} HSV values.
+ */
+function rgbToHsv(r, g, b) {
+    r /= 255, g /= 255, b /= 255;
+    var h, s, v;
+    var minVal = min(r, g, b);
+    var maxVal = max(r, g, b);
+    var delta = maxVal - minVal;
+    v = maxVal;
+    if (delta === 0) {
+        h = s = 0;
+    }
+    else {
+        s = delta / maxVal;
+        var dr = (((maxVal - r) / 6) + (delta / 2)) / delta;
+        var dg = (((maxVal - g) / 6) + (delta / 2)) / delta;
+        var db = (((maxVal - b) / 6) + (delta / 2)) / delta;
+        if (r === maxVal) {
+            h = db - dg;
+        }
+        else if (g === maxVal) {
+            h = (1 / 3) + dr - db;
+        }
+        else if (b === maxVal) {
+            h = (2 / 3) + dg - dr;
+        }
+        if (h < 0) {
+            h += 1;
+        }
+        else if (h > 1) {
+            h -= 1;
+        }
+    }
+    return [
+        h * 360,
+        s * 100,
+        v * 100
+    ];
+}
+/**
+ * Convert CMYK to HSV.
+ * @param c Cyan
+ * @param m Magenta
+ * @param y Yellow
+ * @param k Key (Black)
+ * @return {number[]} HSV values.
+ */
+function cmykToHsv(c, m, y, k) {
+    c /= 100, m /= 100, y /= 100, k /= 100;
+    var r = (1 - min(1, c * (1 - k) + k)) * 255;
+    var g = (1 - min(1, m * (1 - k) + k)) * 255;
+    var b = (1 - min(1, y * (1 - k) + k)) * 255;
+    return rgbToHsv(r, g, b).slice();
+}
+/**
+ * Convert HSL to HSV.
+ * @param h Hue
+ * @param s Saturation
+ * @param l Lightness
+ * @return {number[]} HSV values.
+ */
+function hslToHsv(h, s, l) {
+    s /= 100, l /= 100;
+    s *= l < 0.5 ? l : 1 - l;
+    var ns = (2 * s / (l + s)) * 100;
+    var v = (l + s) * 100;
+    return [h, ns, v];
+}
+/**
+ * Convert HEX to HSV.
+ * @param hex Hexadecimal string of rgb colors, can have length 3 or 6.
+ * @return {number[]} HSV values.
+ */
+function hexToHsv(hex) {
+    return rgbToHsv.apply(void 0, hex.match(/.{2}/g).map(function (v) { return parseInt(v, 16); }));
+}
+/**
+ * Try's to parse a string which represents a color to a HSV array.
+ * Current supported types are cmyk, rgba, hsla and hexadecimal.
+ * @param str
+ * @return {*}
+ */
+function parseToHSV(str) {
+    var _a, _b;
+    // Check if string is a color-name
+    str = str.match(/^[a-zA-Z]+$/) ? standardizeColor(str) : str;
+    // Regular expressions to match different types of color represention
+    var regex = {
+        cmyk: /^cmyk[\D]+(\d+)[\D]+(\d+)[\D]+(\d+)[\D]+(\d+)/i,
+        rgba: /^(rgb|rgba)[\D]+(\d+)[\D]+(\d+)[\D]+(\d+)[\D]*?([\d.]+|$)/i,
+        hsla: /^(hsl|hsla)[\D]+(\d+)[\D]+(\d+)[\D]+(\d+)[\D]*?([\d.]+|$)/i,
+        hsva: /^(hsv|hsva)[\D]+(\d+)[\D]+(\d+)[\D]+(\d+)[\D]*?([\d.]+|$)/i,
+        hex: /^#?(([\dA-Fa-f]{3,4})|([\dA-Fa-f]{6})|([\dA-Fa-f]{8}))$/i
+    };
+    /**
+     * Takes an Array of any type, convert strings which represents
+     * a number to a number an anything else to undefined.
+     * @param array
+     * @return {*}
+     */
+    var numarize = function (array) { return array.map(function (v) { return /^(|\d+)\.\d+|\d+$/.test(v) ? Number(v) : undefined; }); };
+    var match;
+    for (var type in regex) {
+        // Check if current scheme passed
+        if (!(match = regex[type].exec(str)))
+            continue;
+        // Try to convert
+        switch (type) {
+            case 'cmyk': {
+                var _c = numarize(match), c = _c[1], m = _c[2], y = _c[3], k = _c[4];
+                if (c > 100 || m > 100 || y > 100 || k > 100)
+                    break;
+                return { values: cmykToHsv(c, m, y, k).concat([1]), type: type };
+            }
+            case 'rgba': {
+                var _d = numarize(match), r = _d[2], g = _d[3], b = _d[4], _e = _d[5], a = _e === void 0 ? 1 : _e;
+                if (r > 255 || g > 255 || b > 255 || a < 0 || a > 1)
+                    break;
+                return { values: rgbToHsv(r, g, b).concat([a]), type: type };
+            }
+            case 'hex': {
+                var splitAt = function (s, i) { return [s.substring(0, i), s.substring(i, s.length)]; };
+                var hex = match[1];
+                // Fill up opacity if not declared
+                if (hex.length === 3) {
+                    hex += 'F';
+                }
+                else if (hex.length === 6) {
+                    hex += 'FF';
+                }
+                var alpha = void 0;
+                if (hex.length === 4) {
+                    _a = splitAt(hex, 3).map(function (v) { return v + v; }), hex = _a[0], alpha = _a[1];
+                }
+                else if (hex.length === 8) {
+                    _b = splitAt(hex, 6), hex = _b[0], alpha = _b[1];
+                }
+                // Convert 0 - 255 to 0 - 1 for opacity
+                alpha = parseInt(alpha, 16) / 255;
+                return { values: hexToHsv(hex).concat([alpha]), type: type };
+            }
+            case 'hsla': {
+                var _f = numarize(match), h = _f[2], s = _f[3], l = _f[4], _g = _f[5], a = _g === void 0 ? 1 : _g;
+                if (h > 360 || s > 100 || l > 100 || a < 0 || a > 1)
+                    break;
+                return { values: hslToHsv(h, s, l).concat([a]), type: type };
+            }
+            case 'hsva': {
+                var _h = numarize(match), h = _h[2], s = _h[3], v = _h[4], _j = _h[5], a = _j === void 0 ? 1 : _j;
+                if (h > 360 || s > 100 || v > 100 || a < 0 || a > 1)
+                    break;
+                return { values: [h, s, v, a], type: type };
+            }
+        }
+    }
+    return { values: null, type: null };
+}
+exports.parseToHSV = parseToHSV;
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/utils/hsvacolor.js":
+/*!************************************************!*\
+  !*** ./src/color-picker/js/utils/hsvacolor.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var color_1 = __webpack_require__(/*! ./color */ "./src/color-picker/js/utils/color.js");
+/**
+ * Simple class which holds the properties
+ * of the color represention model hsla (hue saturation lightness alpha)
+ */
+function HSVaColor(h, s, v, a) {
+    if (h === void 0) { h = 0; }
+    if (s === void 0) { s = 0; }
+    if (v === void 0) { v = 0; }
+    if (a === void 0) { a = 1; }
+    var ceil = Math.ceil;
+    var that = {
+        h: h, s: s, v: v, a: a,
+        toHSVA: function () {
+            var hsva = [that.h, that.s, that.v];
+            var rhsva = hsva.map(ceil);
+            hsva.push(that.a);
+            hsva.toString = function () { return "hsva(" + rhsva[0] + ", " + rhsva[1] + "%, " + rhsva[2] + "%, " + that.a.toFixed(1) + ")"; };
+            return hsva;
+        },
+        toHSLA: function () {
+            var hsla = color_1.hsvToHsl(that.h, that.s, that.v);
+            var rhsla = hsla.map(ceil);
+            hsla.push(that.a);
+            hsla.toString = function () { return "hsla(" + rhsla[0] + ", " + rhsla[1] + "%, " + rhsla[2] + "%, " + that.a.toFixed(1) + ")"; };
+            return hsla;
+        },
+        toRGBA: function () {
+            var rgba = color_1.hsvToRgb(that.h, that.s, that.v);
+            var rrgba = rgba.map(ceil);
+            rgba.push(that.a);
+            rgba.toString = function () { return "rgba(" + rrgba[0] + ", " + rrgba[1] + ", " + rrgba[2] + ", " + that.a.toFixed(1) + ")"; };
+            return rgba;
+        },
+        toCMYK: function () {
+            var cmyk = color_1.hsvToCmyk(that.h, that.s, that.v);
+            var rcmyk = cmyk.map(ceil);
+            cmyk.toString = function () { return "cmyk(" + rcmyk[0] + "%, " + rcmyk[1] + "%, " + rcmyk[2] + "%, " + rcmyk[3] + "%)"; };
+            return cmyk;
+        },
+        toHEXA: function () {
+            var hex = color_1.hsvToHex(that.h, that.s, that.v);
+            hex.toString = function () {
+                // Check if alpha channel make sense, convert it to 255 number space, convert
+                // to hex and pad it with zeros if needet.
+                var alpha = that.a >= 1 ? '' : Number((that.a * 255).toFixed(0))
+                    .toString(16)
+                    .toUpperCase().padStart(2, '0');
+                return "#" + (hex.join('').toUpperCase() + alpha);
+            };
+            return hex;
+        },
+        clone: function () {
+            return HSVaColor(that.h, that.s, that.v, that.a);
+        }
+    };
+    return that;
+}
+exports.HSVaColor = HSVaColor;
+
+
+/***/ }),
+
+/***/ "./src/color-picker/js/utils/utils.js":
+/*!********************************************!*\
+  !*** ./src/color-picker/js/utils/utils.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Add event(s) to element(s).
+ * @param elements DOM-Elements
+ * @param events Event names
+ * @param fn Callback
+ * @param options Optional options
+ * @return Array passed arguments
+ */
+exports.on = eventListener.bind(null, 'addEventListener');
+/**
+ * Remove event(s) from element(s).
+ * @param elements DOM-Elements
+ * @param events Event names
+ * @param fn Callback
+ * @param options Optional options
+ * @return Array passed arguments
+ */
+exports.off = eventListener.bind(null, 'removeEventListener');
+function eventListener(method, elements, events, fn, options) {
+    if (options === void 0) { options = {}; }
+    // Normalize array
+    if (elements instanceof HTMLCollection || elements instanceof NodeList) {
+        elements = Array.from(elements);
+    }
+    else if (!Array.isArray(elements)) {
+        elements = [elements];
+    }
+    if (!Array.isArray(events)) {
+        events = [events];
+    }
+    for (var _i = 0, elements_1 = elements; _i < elements_1.length; _i++) {
+        var el = elements_1[_i];
+        for (var _a = 0, events_1 = events; _a < events_1.length; _a++) {
+            var ev = events_1[_a];
+            el[method](ev, fn, __assign({ capture: false }, options));
+        }
+    }
+    return Array.prototype.slice.call(arguments, 1);
+}
+/**
+ * Creates an DOM-Element out of a string (Single element).
+ * @param html HTML representing a single element
+ * @returns {Element | null} The element.
+ */
+function createElementFromString(html) {
+    var div = document.createElement('div');
+    div.innerHTML = html.trim();
+    return div.firstElementChild;
+}
+exports.createElementFromString = createElementFromString;
+/**
+ * Removes an attribute from a HTMLElement and returns the value.
+ * @param el
+ * @param name
+ * @return {string}
+ */
+function removeAttribute(el, name) {
+    var value = el.getAttribute(name);
+    el.removeAttribute(name);
+    return value;
+}
+exports.removeAttribute = removeAttribute;
+/**
+ * Creates a new html element, every element which has
+ * a 'data-key' attribute will be saved in a object (which will be returned)
+ * where the value of 'data-key' ist the object-key and the value the HTMLElement.
+ *
+ * It's possible to create a hierarchy if you add a 'data-con' attribute. Every
+ * sibling will be added to the object which will get the name from the 'data-con' attribute.
+ *
+ * If you want to create an Array out of multiple elements, you can use the 'data-arr' attribute,
+ * the value defines the key and all elements, which has the same parent and the same 'data-arr' attribute,
+ * would be added to it.
+ *
+ * @param str - The HTML String.
+ */
+function createFromTemplate(str) {
+    // Recursive function to resolve template
+    function resolve(element, base) {
+        if (base === void 0) { base = {}; }
+        // Check key and container attribute
+        var con = removeAttribute(element, 'data-con');
+        var key = removeAttribute(element, 'data-key');
+        // Check and save element
+        if (key) {
+            base[key] = element;
+        }
+        // Check all children
+        var subtree = con ? (base[con] = {}) : base;
+        for (var _i = 0, _a = Array.from(element.children); _i < _a.length; _i++) {
+            var child = _a[_i];
+            // Check if element should be saved as array
+            var arr = removeAttribute(child, 'data-arr');
+            if (arr) {
+                // Check if there is already an array and add element
+                (subtree[arr] || (subtree[arr] = [])).push(child);
             }
             else {
-                module.exports = result.toString();
+                resolve(child, subtree);
             }
-            /***/ 
-        }),
-        /***/ "./src/icon/index.tsx": 
-        /*!****************************!*\
-          !*** ./src/icon/index.tsx ***!
-          \****************************/
-        /*! no static exports found */
-        /***/ (function (module, exports, __webpack_require__) {
-            "use strict";
-            var __extends = (this && this.__extends) || (function () {
-                var extendStatics = function (d, b) {
-                    extendStatics = Object.setPrototypeOf ||
-                        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-                        function (d, b) { for (var p in b)
-                            if (b.hasOwnProperty(p))
-                                d[p] = b[p]; };
-                    return extendStatics(d, b);
-                };
-                return function (d, b) {
-                    extendStatics(d, b);
-                    function __() { this.constructor = d; }
-                    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-                };
-            })();
-            var __assign = (this && this.__assign) || function () {
-                __assign = Object.assign || function (t) {
-                    for (var s, i = 1, n = arguments.length; i < n; i++) {
-                        s = arguments[i];
-                        for (var p in s)
-                            if (Object.prototype.hasOwnProperty.call(s, p))
-                                t[p] = s[p];
-                    }
-                    return t;
-                };
-                return __assign.apply(this, arguments);
-            };
-            var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-                var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-                if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-                    r = Reflect.decorate(decorators, target, key, desc);
-                else
-                    for (var i = decorators.length - 1; i >= 0; i--)
-                        if (d = decorators[i])
-                            r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-                return c > 3 && r && Object.defineProperty(target, key, r), r;
-            };
-            Object.defineProperty(exports, "__esModule", { value: true });
-            var omi_1 = __webpack_require__(/*! omi */ "omi");
-            var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
-            //@ts-ignore
-            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-            var Icon = /** @class */ (function (_super) {
-                __extends(Icon, _super);
-                function Icon() {
-                    return _super !== null && _super.apply(this, arguments) || this;
-                }
-                Icon.resetTheme = function () {
-                    this.css = theme_ts_1.theme() + css;
-                };
-                Icon.prototype.render = function (props) {
-                    return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon')), omi_1.h("svg", { viewBox: '0 0 ' + props.view + ' ' + props.view, class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
-                        var attrs = { d: item.path, fill: props.color || 'black' };
-                        if (item.color)
-                            attrs.fill = item.color;
-                        return omi_1.h("path", __assign({}, attrs));
-                    })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
-                };
-                Icon.css = theme_ts_1.theme() + css;
-                Icon.defaultProps = {
-                    view: 1024,
-                    scale: 2
-                };
-                Icon.propTypes = {
-                    path: String,
-                    paths: Object,
-                    view: Number,
-                    scale: Number,
-                    color: String,
-                    rotate: Boolean
-                };
-                Icon = __decorate([
-                    omi_1.tag('m-icon')
-                ], Icon);
-                return Icon;
-            }(omi_1.WeElement));
-            exports.default = Icon;
-            /***/ 
-        }),
-        /***/ "./src/theme.ts": 
-        /*!**********************!*\
-          !*** ./src/theme.ts ***!
-          \**********************/
-        /*! no static exports found */
-        /***/ (function (module, exports, __webpack_require__) {
-            "use strict";
-            Object.defineProperty(exports, "__esModule", { value: true });
-            if (typeof window === 'object') {
-                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-                window.OmimThemeError = window.OmimThemeError || '#f5222d';
-                window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
-                window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
-                window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
-                window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
-                window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
-                window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
-                window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
-                window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
-                window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
-                window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+        }
+        return base;
+    }
+    return resolve(createElementFromString(str));
+}
+exports.createFromTemplate = createFromTemplate;
+/**
+ * Polyfill for safari & firefox for the eventPath event property.
+ * @param evt The event object.
+ * @return [String] event path.
+ */
+function eventPath(evt) {
+    var path = evt.path || (evt.composedPath && evt.composedPath());
+    if (path)
+        return path;
+    var el = evt.target.parentElement;
+    path = [evt.target, el];
+    while (el = el.parentElement)
+        path.push(el);
+    path.push(document, window);
+    return path;
+}
+exports.eventPath = eventPath;
+/**
+ * Creates the ability to change numbers in an input field with the scroll-wheel.
+ * @param el
+ * @param negative
+ */
+function adjustableInputNumbers(el, negative) {
+    if (negative === void 0) { negative = true; }
+    // Check if a char represents a number
+    var isNumChar = function (c) { return (c >= '0' && c <= '9') || c === '-' || c === '.'; };
+    function handleScroll(e) {
+        var val = el.value;
+        var off = el.selectionStart;
+        var numStart = off;
+        var num = ''; // Will be the number as string
+        // Look back
+        for (var i = off - 1; i > 0 && isNumChar(val[i]); i--) {
+            num = val[i] + num;
+            numStart--; // Find start of number
+        }
+        // Look forward
+        for (var i = off, n = val.length; i < n && isNumChar(val[i]); i++) {
+            num += val[i];
+        }
+        // Check if number is valid
+        if (num.length > 0 && !isNaN(num) && isFinite(num)) {
+            var mul = e.deltaY < 0 ? 1 : -1;
+            var inc = ([1, 10, 100])[Number(e.shiftKey || e.ctrlKey * 2)] * mul;
+            var newNum = Number(num) + inc;
+            if (!negative && newNum < 0) {
+                newNum = 0;
             }
-            function theme() {
-                if (typeof window === 'object') {
-                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
-                }
-            }
-            exports.theme = theme;
-            /***/ 
-        }),
-        /***/ "omi": 
-        /*!******************************************************************************!*\
-          !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
-          \******************************************************************************/
-        /*! no static exports found */
-        /***/ (function (module, exports) {
-            module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
-            /***/ 
-        })
-        /******/ 
-    })["default"];
-});
-//# sourceMappingURL=index.js.map
+            var newStr = val.substr(0, numStart) + newNum + val.substring(numStart + num.length, val.length);
+            var curPos = numStart + String(newNum).length;
+            // Update value and set cursor
+            el.value = newStr;
+            el.focus();
+            el.setSelectionRange(curPos, curPos);
+        }
+        // Prevent default
+        e.preventDefault();
+        // Trigger input event
+        el.dispatchEvent(new Event('input'));
+    }
+    // Bind events
+    exports.on(el, 'focus', function () { return exports.on(window, 'wheel', handleScroll, { passive: false }); });
+    exports.on(el, 'blur', function () { return exports.off(window, 'wheel', handleScroll); });
+}
+exports.adjustableInputNumbers = adjustableInputNumbers;
 
+
+/***/ }),
+
+/***/ "./src/color-picker/scss/pickr.scss":
+/*!******************************************!*\
+  !*** ./src/color-picker/scss/pickr.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(/*! !../../../node_modules/_css-loader@1.0.1@css-loader!../../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./pickr.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/scss/pickr.scss");
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
 
 /***/ }),
 

@@ -24,7 +24,11 @@ interface Props {
 
   swatches?: string[],
 
-  inline?: boolean
+  inline?: boolean,
+  strings?: {
+    save: string,  // Default for save button
+    clear: string // Default for clear button
+  }
 }
 
 interface Data {
@@ -55,7 +59,12 @@ export default class ColorPicker extends WeElement<Props, Data>{
     default: '#3365B7',
 
     swatches: [],
-    inline: true
+    inline: true,
+
+    strings: {
+      save: 'Save',  // Default for save button
+      clear: 'Clear' // Default for clear button
+    }
   }
 
   static propTypes = {
@@ -75,7 +84,9 @@ export default class ColorPicker extends WeElement<Props, Data>{
 
     default: String,
     swatches: Array,
-    inline: Boolean
+    inline: Boolean,
+
+    strings: Object
 
   }
 
@@ -105,7 +116,8 @@ export default class ColorPicker extends WeElement<Props, Data>{
           clear: this.props.clear,
           save: this.props.save
         }
-      }
+      },
+      strings: this.props.strings
     })
 
     picker.on('init', (...args) => {

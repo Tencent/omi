@@ -5,7 +5,7 @@ import { render, h } from 'omi'
 
 render(
   <div>
-   <m-color-picker></m-color-picker>
+   <m-color-picker strings={{save:'保存'}}></m-color-picker>
    <div>abc</div>
   </div>
   , 'body')

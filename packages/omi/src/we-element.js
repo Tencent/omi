@@ -159,7 +159,11 @@ export default class WeElement extends HTMLElement {
             ele.props[key] = Number(val)
             break
           case Boolean:
-            ele.props[key] = true
+            if (val === 'false' || val === '0') {
+              ele.props[key] = false
+            } else {
+              ele.props[key] = true
+            }
 						break
 					case Array:
           case Object:
