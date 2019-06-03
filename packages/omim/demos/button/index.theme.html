@@ -11,51 +11,55 @@
 <body style="background-color:#f9f7f7;">
 
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-  <script src="../../src/switch/index.js"></script>
+  <script src="../../src/color-picker/index.js"></script>
   <script src="../../src/button/index.js"></script>
 
-  <h3>Switch Color of Theme</h3>
-  <m-switch onchange="change(event)"></m-switch>
-  <div id='root'>
+  <h3>Change Theme</h3>
+  <div>
+    <m-color-picker id='picker' save="0" default="ecb89a" preview="0" button='0' clear='0'></m-color-picker>
 
-    <h3>Text Button</h3>
+    <div id='root'>
 
-    <m-button ripple>Default</m-button>
-    <m-button ripple dense>Dense</m-button>
-    <m-button ripple icon="favorite">ICON</m-button>
+      <h3>Text Button</h3>
 
-    <h3>Raised Button</h3>
+      <m-button ripple>Default</m-button>
+      <m-button ripple dense>Dense</m-button>
+      <m-button ripple icon="favorite">ICON</m-button>
 
-    <m-button ripple raised>Default</m-button>
-    <m-button ripple dense raised>Dense</m-button>
-    <m-button ripple raised icon="favorite">ICON</m-button>
+      <h3>Raised Button</h3>
 
-    <h3>Unelevated Button</h3>
+      <m-button ripple raised>Default</m-button>
+      <m-button ripple dense raised>Dense</m-button>
+      <m-button ripple raised icon="favorite">ICON</m-button>
 
-    <m-button ripple unelevated>Default</m-button>
-    <m-button ripple dense unelevated>Dense</m-button>
-    <m-button ripple unelevated icon="favorite">ICON</m-button>
+      <h3>Unelevated Button</h3>
 
-    <h3>Outlined Button</h3>
+      <m-button ripple unelevated>Default</m-button>
+      <m-button ripple dense unelevated>Dense</m-button>
+      <m-button ripple unelevated icon="favorite">ICON</m-button>
 
-    <m-button ripple outlined>Default</m-button>
-    <m-button ripple dense outlined>Dense</m-button>
-    <m-button ripple outlined icon="favorite">ICON</m-button>
+      <h3>Outlined Button</h3>
 
-    <h3>Shaped Button</h3>
+      <m-button ripple outlined>Default</m-button>
+      <m-button ripple dense outlined>Dense</m-button>
+      <m-button ripple outlined icon="favorite">ICON</m-button>
 
-    <m-button ripple unelevated css=".mdc-button{ border-radius: 18px;}">Default</m-button>
-    <m-button ripple dense unelevated css=".mdc-button{ border-radius: 18px!important;}">Dense</m-button>
-    <m-button ripple unelevated icon="favorite" css=".mdc-button{ border-radius: 18px;}">ICON</m-button>
+      <h3>Shaped Button</h3>
 
-  </div>
+      <m-button ripple unelevated css=".mdc-button{ border-radius: 18px;}">Default</m-button>
+      <m-button ripple dense unelevated css=".mdc-button{ border-radius: 18px!important;}">Dense</m-button>
+      <m-button ripple unelevated icon="favorite" css=".mdc-button{ border-radius: 18px;}">ICON</m-button>
 
-  <script>
-		document.body.style.setProperty('--mdc-theme-primary', '#ecb89a')
-    function change(evt) {
-      document.body.style.setProperty('--mdc-theme-primary',  evt.detail.checked ? '#0052d9' : '#ecb89a')
-    }
-  </script>
+    </div>
+
+    <script>
+      document.body.style.setProperty('--mdc-theme-primary', '#ecb89a')
+
+      var picker = document.querySelector('#picker')
+      picker.addEventListener('change', function (evt) {
+        document.body.style.setProperty('--mdc-theme-primary', evt.detail.color)
+      })
+    </script>
 
 </body>
 
