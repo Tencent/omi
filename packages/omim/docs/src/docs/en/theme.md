@@ -30,7 +30,7 @@ All the config:
 
 ## Code of REPL
 
-```HTML
+```html
 <m-color-picker id='picker' save="0" default="ecb89a" preview="0" button='0' clear='0' width="300px">
 </m-color-picker>
 

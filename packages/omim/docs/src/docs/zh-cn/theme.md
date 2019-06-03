@@ -30,7 +30,7 @@ document.body.style.setProperty('--mdc-theme-error', 'yellow')
 
 ## REPL 的实现代码
 
-```HTML
+```html
 <m-color-picker id='picker' save="0" default="ecb89a" preview="0" button='0' clear='0' width="300px">
 </m-color-picker>
 
