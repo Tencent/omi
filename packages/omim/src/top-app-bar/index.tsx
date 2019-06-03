@@ -1,6 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
-import {MDCTopAppBar} from '@material/top-app-bar';
+import {MDCTopAppBar} from '@material/top-app-bar'
 
 import { elementChildren } from '../util/element-children'
 import { domReady } from '../util/dom-ready'
@@ -16,7 +16,7 @@ interface Props {
   dense?: boolean,
   fixed?: boolean,
   adjust?: boolean,
-  navigation?: object,
+  navigations?: object,
   actionItems?: object,
   scrollTarget?: EventTarget
 }
@@ -37,7 +37,7 @@ export default class topAppBar extends WeElement<Props, Data>{
     dense: Boolean,
     fixed: Boolean,
     adjust: Boolean,
-    navigation: Object,
+    navigations: Object,
     actionItems: Object,
     scrollTarget: EventTarget
   }
@@ -46,12 +46,12 @@ export default class topAppBar extends WeElement<Props, Data>{
   tagNum = new Object()
 
   beforeUpdate() {
-    domReady(() => {
-      this.setChildrenAttribute()
-    })
+    this.setChildrenAttribute()
   }
 
   updated() {
+    //update this.topAppBar, more flexible operation
+    //更新 this.topAppBar 变量，操作更灵活
     this.topAppBar.destroy()
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
     // Update after initializing the component
@@ -64,11 +64,9 @@ export default class topAppBar extends WeElement<Props, Data>{
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
 
     this.topAppBar.listen('MDCTopAppBar:nav', (e) => {
-      this.fire('navigation', {nav: this.props.navigation, index: '0'})
-    });
+      this.fire('navigation', {nav: this.props.navigations, index: '0'})
+    })
 
-    this.tagNum = new Object()
-    
     domReady(() => {
       this.setChildrenAttribute()
       this.update()
@@ -76,16 +74,15 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   setChildrenAttribute() {
+    this.tagNum = new Object()
     const children = elementChildren(this)
     children.forEach((child) => {
-      if (!child.hasAttribute('slot')) {
-        if(typeof this.tagNum[child.tagName] === 'undefined') {
-          this.tagNum[child.tagName] = new Array()
-        }
-        const tagLength = this.tagNum[child.tagName].length
-        child.setAttribute('slot', child.tagName + tagLength + '')
-        this.tagNum[child.tagName].push(tagLength)
+      if(typeof this.tagNum[child.tagName] === 'undefined') {
+        this.tagNum[child.tagName] = new Array()
       }
+      const tagLength = this.tagNum[child.tagName].length
+      child.setAttribute('slot', child.tagName + tagLength + '')
+      this.tagNum[child.tagName].push(tagLength)
     })
   }
 
@@ -98,14 +95,13 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   findPathAccessKey(evt) {
-    let k = -1;
+    let returnIndex = -1
     for(let i = 0; i < evt.path.length; i++) {
       if(evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') {
-        k = evt.path[i].accessKey
-        break
+        returnIndex = evt.path[i].accessKey
+        return returnIndex
       }
     }
-    return k
   }
 
   isArray(value){
@@ -122,10 +118,18 @@ export default class topAppBar extends WeElement<Props, Data>{
         'mdc-top-app-bar--prominent': props.prominent
       })}>
         <div class='mdc-top-app-bar__row'>
-          {(props.navigation || this.tagNum['NAVIGATION'] || props.heading) &&
+          {(props.navigations || this.tagNum['NAVIGATION'] || props.heading) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-            {(props.navigation && !this.tagNum['NAVIGATION']) ?
-            <span class='mdc-top-app-bar__navigation-icon'>{props.navigation.text ? props.navigation.text : <span class='material-icons'>{props.navigation}</span>}</span> :
+            {(props.navigations && !this.tagNum['NAVIGATION']) ?
+            (typeof props.navigations === 'string' ? <span class='mdc-top-app-bar__navigation-icon material-icons'>{props.navigations}</span> :
+            this.isArray(props.navigations) ?
+            props.navigations.map((item, index) => {
+              if(index == 0) {
+                return item.text ? <span class='mdc-top-app-bar__navigation-icon'>{item.text}</span> : typeof item === 'string' && <span class='mdc-top-app-bar__navigation-icon material-icons'>{item}</span>
+              } else {
+                return item.text ? <span accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' onClick={this.onNav}>{item.text}</span> : typeof item === 'string' && <span accessKey={index + ''} class='mdc-top-app-bar__navigation-icon material-icons' onClick={this.onNav}>{item}</span>
+              }
+            }) : props.navigations.text && <span class='mdc-top-app-bar__navigation-icon'>{props.navigations.text}</span>) :
             this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNav}></slot>
             })}
@@ -139,8 +143,7 @@ export default class topAppBar extends WeElement<Props, Data>{
             props.actionItems.map((item, index) => {
               return item.text ? <span accessKey={index + ''} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{item.text}</span> :
               typeof item === 'string' && <span accessKey={index + ''} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{item}</span>
-            }) :
-            props.actionItems.text && <span accessKey={'0'} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{props.actionItems.text}</span>) :
+            }) : props.actionItems.text && <span accessKey={'0'} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{props.actionItems.text}</span>) :
             this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__action-item' name={'ACTIONITEM' + index} onClick={this.onAction}></slot>
             })}
