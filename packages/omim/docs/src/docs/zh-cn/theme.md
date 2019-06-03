@@ -27,3 +27,19 @@ document.body.style.setProperty('--mdc-theme-error', 'yellow')
 --mdc-shape-large-component-radius: 0px;
 --mdc-typography--font-family: Roboto, sans-serif;
 ```
+
+## REPL 的实现代码
+
+```HTML
+<m-color-picker id='picker' save="0" default="ecb89a" preview="0" button='0' clear='0' width="300px">
+</m-color-picker>
+
+<script>
+  document.body.style.setProperty('--mdc-theme-primary', '#ecb89a')
+
+  var picker = document.querySelector('#picker')
+  picker.addEventListener('change', function (evt) {
+    document.body.style.setProperty('--mdc-theme-primary', evt.detail.color)
+  })
+</script>
+```

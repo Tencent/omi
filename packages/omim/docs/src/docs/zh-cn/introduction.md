@@ -11,6 +11,7 @@
 * 同时支持 JSX 和 原生 HTML 标签的使用方式 
 * 每个组件可以单独使用
 * 超级容易更换主题颜色、字体和圆角
+* 扩展了 HTML 能力，你可以通过字符串 `'0'` 或者字符串 `'false'` 传递 false 给元素
 
 ## 使用指南
 
@@ -79,6 +80,39 @@ document.body.style.setProperty('--mdc-theme-error', 'yellow')
 --mdc-shape-medium-component-radius: 4px;
 --mdc-shape-large-component-radius: 0px;
 --mdc-typography--font-family: Roboto, sans-serif;
+```
+
+## HTML 扩展 
+
+当默认值为 true，需要传递 false 给 element 的时候，以前是历史难题，Omi 完美解决了这一点，你可以通过字符串 `'0'` 或者 字符串 `'false'` 来设置。
+
+```js
+define('my-element', class extends WeElement {
+  static defaultProps = {
+    show: true
+  }
+
+ static propTypes = {
+    show: Boolean
+  }
+
+  render(props) {
+    ...
+    ...
+  }
+})
+```
+
+Use:
+
+```html
+<my-element show="false"></my-element>
+```
+
+or
+
+```html
+<my-element show="0"></my-element>
 ```
 
 ## 贡献
