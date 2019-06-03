@@ -8,7 +8,7 @@ export default ({components: c, strings: s, useAsButton, inline, appClass, width
 
         ${useAsButton ? '' : '<button type="button" data-key="button" class="pcr-button"></button>'}
 
-        <div data-key="app" class="pcr-app ${appClass || ''}" ${inline ? `style="position: unset;${width?`width:${width};`:''}"` : `${width?`width:${width};`:''}`}>
+        <div data-key="app" class="pcr-app ${appClass || ''}" ${`style="${inline ? 'position: unset;':''}${width?`width:${width};`:''}"`}>
           <div class="pcr-selection" ${hidden(c.palette)}>
             <div data-con="preview" class="pcr-color-preview" ${hidden(c.preview)}>
               <button type="button" data-key="lastColor" class="pcr-last-color"></button>
