@@ -50,7 +50,9 @@ class mdDateTimePicker {
     inner24 = false,
     prevHandle = '<div class="mddtp-prev-handle"></div>',
     nextHandle = '<div class="mddtp-next-handle"></div>',
-    root
+    root,
+    onOk,
+    onCancel
   }) {
     this._type = type
     this._init = init
@@ -76,6 +78,8 @@ class mdDateTimePicker {
     *   picker: 'some-picker-selected'
     * }
     */
+    this.onOk = onOk
+    this.onCancel = onCancel
     this._sDialog = {}
     this.root = root
     // attach the dialog if not present
@@ -1357,6 +1361,7 @@ class mdDateTimePicker {
       if (me._trigger) {
         me._trigger.dispatchEvent(onCancel)
       }
+      me.onCancel && me.onCancel()
     }
     ok.onclick = function () {
       me._init = me._sDialog.sDate
@@ -1364,6 +1369,7 @@ class mdDateTimePicker {
       if (me._trigger) {
         me._trigger.dispatchEvent(onOk)
       }
+      me.onOk && me.onOk()
     }
   }
 

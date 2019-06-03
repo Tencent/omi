@@ -32,7 +32,7 @@ export default class DateTimePicker extends WeElement<Props, Data>{
   install(){
     moment.locale(this.props.lan);
   }
-  
+
   static propTypes = {
     type: String,
     show: Boolean,
@@ -52,7 +52,13 @@ export default class DateTimePicker extends WeElement<Props, Data>{
       root: this.shadowRoot.querySelector('.m-m-date-time-picker'),
       init: this.props.init ? moment(this.props.init) : now,
       past: this.props.past ? moment(this.props.past) : moment().subtract(21, 'years'),
-      future: this.props.future ? moment(this.props.future) : now
+      future: this.props.future ? moment(this.props.future) : now,
+      onOk: ()=>{
+        //console.log(1)
+      },
+      onCancel:()=>{
+        //console.log(2)
+      }
     })
 
     if (this.props.show) {
@@ -64,7 +70,7 @@ export default class DateTimePicker extends WeElement<Props, Data>{
   render(props) {
     return (
       <div {...extractClass(props, 'm-m-date-time-picker')}>
-
+        
       </div>
     )
   }
