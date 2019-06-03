@@ -6,9 +6,10 @@ import '../theme.ts'
 import Pickr from './js/pickr.js'
 
 interface Props {
-  preview: boolean,
-  opacity: boolean,
-  hue: boolean,
+  button?: boolean,
+  preview?: boolean,
+  opacity?: boolean,
+  hue?: boolean,
 
   hex?: boolean,
   rgba?: boolean,
@@ -21,7 +22,9 @@ interface Props {
 
   default?: string,
 
-  swatches?: string[]
+  swatches?: string[],
+
+  inline?: boolean
 }
 
 interface Data {
@@ -35,6 +38,7 @@ export default class ColorPicker extends WeElement<Props, Data>{
   picker: Pickr
 
   static defaultProps = {
+    button: true,
     preview: true,
     opacity: true,
     hue: true,
@@ -50,10 +54,12 @@ export default class ColorPicker extends WeElement<Props, Data>{
 
     default: '#3365B7',
 
-    swatches:[]
+    swatches: [],
+    inline: true
   }
 
   static propTypes = {
+    button: Boolean,
     preview: Boolean,
     opacity: Boolean,
     hue: Boolean,
@@ -68,18 +74,19 @@ export default class ColorPicker extends WeElement<Props, Data>{
     cmyk: Boolean,
 
     default: String,
-    swatches: Array
+    swatches: Array,
+    inline: Boolean
 
   }
 
   installed() {
     const picker = Pickr.create({
       el: this.shadowRoot.querySelector('.picker'),
-      inline: true,
+      inline: this.props.inline,
       default: this.props.default,
-
+      useAsButton: !this.props.button,
       swatches: this.props.swatches,
-  
+
       components: {
 
         // Main components
@@ -109,7 +116,6 @@ export default class ColorPicker extends WeElement<Props, Data>{
         color: args[0].toHEXA().toString(),
         colorObject: args[0]
       })
-      this.picker.hide()
     }).on('change', (...args) => {
       this.fire('change', {
         color: args[0].toHEXA().toString(),

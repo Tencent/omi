@@ -159,7 +159,7 @@ class Pickr {
         // Remove from body
         document.body.removeChild(root.root);
 
-        if (opt.inline) {
+        //if (opt.inline) {
             const {parentElement} = opt.el;
 
             if (parentElement.lastChild === opt.el) {
@@ -167,9 +167,9 @@ class Pickr {
             } else {
                 parentElement.insertBefore(root.app, opt.el.nextSibling);
             }
-        } else {
-            document.body.appendChild(root.app);
-        }
+        // } else {
+        //     document.body.appendChild(root.app);
+        // }
 
         // Don't replace the the element if a custom button is used
         if (!opt.useAsButton) {
