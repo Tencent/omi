@@ -1,0 +1,24 @@
+{
+  "name": "@omim/drawer",
+  "version": "0.0.1",
+  "description": "Material Design for Omi.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "omi",
+    "omim",
+    "material",
+    "material design",
+    "material-design"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi",
+  "typings": "./index.d.ts",
+  "types": "index.d.ts"
+}
