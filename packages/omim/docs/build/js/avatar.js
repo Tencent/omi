@@ -96,14 +96,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/avatar/index.scss":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/avatar/index.scss ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/avatar/index.scss":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/avatar/index.scss ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -115,10 +115,10 @@ exports.push([module.i, "img {\n  width: 100%;\n  height: 100%; }\n\n.m-avatar.s
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/avatar/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/avatar/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -265,7 +265,7 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/avatar/index.scss");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 //@ts-ignore
-var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Avatar = /** @class */ (function (_super) {
     __extends(Avatar, _super);
     function Avatar() {
@@ -284,7 +284,7 @@ var Avatar = /** @class */ (function (_super) {
             omi_1.h("img", { alt: props.alt, src: props.src }) :
             props.children ? props.children : this.innerHTML)));
     };
-    Avatar.css = theme_ts_1.theme() + css;
+    Avatar.css = css;
     Avatar.defaultProps = {
         size: 40,
         color: 'white',
@@ -418,23 +418,23 @@ exports.default = Avatar;
         /******/ return __webpack_require__(__webpack_require__.s = "./src/icon/index.tsx");
         /******/ 
     })({
-        /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/icon/index.scss": 
-        /*!**********************************************************************************************************!*\
-          !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/icon/index.scss ***!
-          \**********************************************************************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
+        /*!***********************************************************************************************************************************************************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/icon/index.scss ***!
+          \***********************************************************************************************************************************************************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+            exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
             // imports
             // module
             exports.push([module.i, ".m-icon {\n  text-align: center;\n  display: inline-block; }\n\n.m-icon svg {\n  display: inline-block;\n  vertical-align: top; }\n\n.rotate {\n  display: inline-block;\n  -webkit-animation: rotate 1s infinite linear;\n  animation: rotate 1s infinite linear; }\n\ni div {\n  font-style: normal; }\n\n@-webkit-keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
             // exports
             /***/ 
         }),
-        /***/ "./node_modules/css-loader/lib/css-base.js": 
-        /*!*************************************************!*\
-          !*** ./node_modules/css-loader/lib/css-base.js ***!
-          \*************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js": 
+        /*!*******************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+          \*******************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports) {
             /*
@@ -515,7 +515,7 @@ exports.default = Avatar;
           \*****************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/icon/index.scss");
+            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
             if (typeof result === "string") {
                 module.exports = result;
             }
@@ -572,7 +572,7 @@ exports.default = Avatar;
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
             //@ts-ignore
-            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+            __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
@@ -586,7 +586,7 @@ exports.default = Avatar;
                         return omi_1.h("path", __assign({}, attrs));
                     })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                 };
-                Icon.css = theme_ts_1.theme() + css;
+                Icon.css = css;
                 Icon.defaultProps = {
                     view: 1024,
                     scale: 2
@@ -612,20 +612,13 @@ exports.default = Avatar;
           !*** ./src/theme.ts ***!
           \**********************/
         /*! no static exports found */
-        /***/ (function (module, exports, __webpack_require__) {
-            "use strict";
-            Object.defineProperty(exports, "__esModule", { value: true });
-            if (typeof window === 'object') {
-                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-                window.OmimThemeError = window.OmimThemeError || '#f5222d';
+        /***/ (function (module, exports) {
+            if (!document.querySelector('#__omim-theme-style')) {
+                var style = document.createElement('style');
+                style.id = '__omim-theme-style';
+                style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+                document.querySelector('head').append(style);
             }
-            function theme() {
-                if (typeof window === 'object') {
-                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
-                }
-            }
-            exports.theme = theme;
             /***/ 
         }),
         /***/ "omi": 
@@ -638,7 +631,7 @@ exports.default = Avatar;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 
@@ -650,22 +643,14 @@ exports.default = Avatar;
   !*** ./src/theme.ts ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-if (typeof window === 'object') {
-    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+if (!document.querySelector('#__omim-theme-style')) {
+    var style = document.createElement('style');
+    style.id = '__omim-theme-style';
+    style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+    document.querySelector('head').append(style);
 }
-function theme() {
-    if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
-    }
-}
-exports.theme = theme;
 
 
 /***/ }),
@@ -681,6 +666,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map
