@@ -9,34 +9,31 @@ iframe{
   border-left: 2px solid #24292E; 
 }
 
-.switch{
-  width: 40px;
-  height: 40px;
-  background-color: rgb(96, 101, 114);
-  border-radius: 50%;
-  position: fixed;
-  right: 50px;
-  bottom: 50px;
-  cursor: pointer;
-  text-align: center;
-  z-index: 10000;
-}
-
-.switch img{
-  width: 30px;
-  height: 30px;
-  margin-top:5px; 
-}
-
-.switch.close img{
-  margin-top:10px; 
-  width: 20px;
-  height: 20px;
-}
-
-
 @media only screen and (max-width: 768px) {
   iframe{
       width: 100%;
   }
+}
+
+.icon{
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  cursor: pointer;
+  width:50px;
+  height:50px;
+  background-color: rgb(96, 101, 114);
+  text-align: center;
+  height: 50px;
+  line-height: 56px;
+  border-radius: 50%;
+  z-index: 10000;
+  
+}
+
+svg{
+  transition: left .5s ease;
+  left:0;
+  color: white;
+  position: relative;
 }
