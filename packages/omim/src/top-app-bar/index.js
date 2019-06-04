@@ -2311,10 +2311,26 @@ var topAppBar = /** @class */ (function (_super) {
         //更新 this.topAppBar 变量，操作更灵活
         this.topAppBar.destroy();
         this.topAppBar = new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
-        // Update after initializing the component
-        // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
-        // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
-        this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget);
+        if (this.props.scrollTarget) {
+            // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
+            // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画 (JSX 使用)
+            this.props.scrollTarget ? this.topAppBar.setScrollTarget(this.props.scrollTarget) : this.topAppBar.setScrollTarget(window);
+        }
+        else {
+            //(原生 js 使用)
+            if (this.props.scrollTargetId) {
+                var findTarge = document.querySelector('#' + this.props.scrollTargetId);
+                if (findTarge) {
+                    this.topAppBar.setScrollTarget(findTarge);
+                }
+                else {
+                    this.topAppBar.setScrollTarget(window);
+                }
+            }
+            else {
+                this.topAppBar.setScrollTarget(window);
+            }
+        }
     };
     topAppBar.prototype.installed = function () {
         var _this = this;
@@ -2332,20 +2348,22 @@ var topAppBar = /** @class */ (function (_super) {
         this.tagNum = new Object();
         var children = element_children_1.elementChildren(this);
         children.forEach(function (child) {
-            if (typeof _this.tagNum[child.tagName] === 'undefined') {
-                _this.tagNum[child.tagName] = new Array();
+            if (child.tagName === 'NAVIGATION' || child.tagName === 'ACTIONITEM') {
+                if (typeof _this.tagNum[child.tagName] === 'undefined') {
+                    _this.tagNum[child.tagName] = new Array();
+                }
+                var tagLength = _this.tagNum[child.tagName].length;
+                child.setAttribute('slot', child.tagName + tagLength + '');
+                _this.tagNum[child.tagName].push(tagLength);
             }
-            var tagLength = _this.tagNum[child.tagName].length;
-            child.setAttribute('slot', child.tagName + tagLength + '');
-            _this.tagNum[child.tagName].push(tagLength);
         });
     };
     topAppBar.prototype.findPathAccessKey = function (evt) {
-        var returnIndex = -1;
+        var index = -1;
         for (var i = 0; i < evt.path.length; i++) {
             if (evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') {
-                returnIndex = evt.path[i].accessKey;
-                return returnIndex;
+                index = evt.path[i].accessKey;
+                return index;
             }
         }
     };
@@ -2409,7 +2427,8 @@ var topAppBar = /** @class */ (function (_super) {
         adjust: Boolean,
         navigations: Object,
         actionItems: Object,
-        scrollTarget: EventTarget
+        scrollTarget: EventTarget,
+        scrollTargetId: String
     };
     topAppBar = __decorate([
         omi_1.tag('m-top-app-bar')

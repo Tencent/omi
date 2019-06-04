@@ -12,6 +12,7 @@ interface Props {
     navigations?: object;
     actionItems?: object;
     scrollTarget?: EventTarget;
+    scrollTargetId: string;
 }
 interface Data {
 }
@@ -31,6 +32,7 @@ export default class topAppBar extends WeElement<Props, Data> {
             new (): EventTarget;
             prototype: EventTarget;
         };
+        scrollTargetId: StringConstructor;
     };
     topAppBar: MDCTopAppBar;
     tagNum: Object;

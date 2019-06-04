@@ -18,7 +18,8 @@ interface Props {
   adjust?: boolean,
   navigations?: object,
   actionItems?: object,
-  scrollTarget?: EventTarget
+  scrollTarget?: EventTarget,
+  scrollTargetId: string
 }
 
 interface Data {
@@ -39,7 +40,8 @@ export default class topAppBar extends WeElement<Props, Data>{
     adjust: Boolean,
     navigations: Object,
     actionItems: Object,
-    scrollTarget: EventTarget
+    scrollTarget: EventTarget,
+    scrollTargetId: String
   }
 
   topAppBar: MDCTopAppBar
@@ -54,10 +56,24 @@ export default class topAppBar extends WeElement<Props, Data>{
     //更新 this.topAppBar 变量，操作更灵活
     this.topAppBar.destroy()
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
-    // Update after initializing the component
-    // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
-    // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
-    this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget)
+
+    if(this.props.scrollTarget) {
+      // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
+      // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画 (JSX 使用)
+      this.props.scrollTarget ? this.topAppBar.setScrollTarget(this.props.scrollTarget) : this.topAppBar.setScrollTarget(window)
+    } else {
+      //(原生 js 使用)
+      if(this.props.scrollTargetId) {
+        const findTarge = document.querySelector('#' + this.props.scrollTargetId)
+        if(findTarge) {
+          this.topAppBar.setScrollTarget(findTarge)
+        } else {
+          this.topAppBar.setScrollTarget(window)
+        }
+      } else {
+        this.topAppBar.setScrollTarget(window)
+      }
+    }
   }
 
   installed() {
@@ -77,12 +93,14 @@ export default class topAppBar extends WeElement<Props, Data>{
     this.tagNum = new Object()
     const children = elementChildren(this)
     children.forEach((child) => {
-      if(typeof this.tagNum[child.tagName] === 'undefined') {
-        this.tagNum[child.tagName] = new Array()
+      if(child.tagName === 'NAVIGATION' || child.tagName === 'ACTIONITEM') {
+        if(typeof this.tagNum[child.tagName] === 'undefined') {
+          this.tagNum[child.tagName] = new Array()
+        }
+        const tagLength = this.tagNum[child.tagName].length
+        child.setAttribute('slot', child.tagName + tagLength + '')
+        this.tagNum[child.tagName].push(tagLength)
       }
-      const tagLength = this.tagNum[child.tagName].length
-      child.setAttribute('slot', child.tagName + tagLength + '')
-      this.tagNum[child.tagName].push(tagLength)
     })
   }
 
@@ -95,11 +113,11 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   findPathAccessKey(evt) {
-    let returnIndex = -1
+    let index = -1
     for(let i = 0; i < evt.path.length; i++) {
       if(evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') {
-        returnIndex = evt.path[i].accessKey
-        return returnIndex
+        index = evt.path[i].accessKey
+        return index
       }
     }
   }

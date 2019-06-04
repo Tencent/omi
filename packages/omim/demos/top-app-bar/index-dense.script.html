@@ -60,16 +60,16 @@
 
     topAppBar.addEventListener('navigation', (e) => {
       console.log(e.detail);
-      topAppBar.setAttribute('heading', 'Dense + Fixed (Omim)');
+      topAppBar.setAttribute('heading', 'Dense (Omim)');
       document.body.style.setProperty('--mdc-theme-primary', '#0052d9');
     })
 
     topAppBar.addEventListener('action', (e) => {
       console.log(e.detail);
       switch(e.detail.index) {
-        case '0': topAppBar.setAttribute('heading', 'Dense + Fixed (Omi)'); document.body.style.setProperty('--mdc-theme-primary', '#000000'); break;
-        case '1': topAppBar.setAttribute('heading', 'Dense + Fixed (Omiu)'); document.body.style.setProperty('--mdc-theme-primary', '#018786'); break;
-        case '2': topAppBar.setAttribute('heading', 'Dense + Fixed (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#b00020'); break;
+        case '0': topAppBar.setAttribute('heading', 'Dense (Omi)'); document.body.style.setProperty('--mdc-theme-primary', '#6200ee'); break;
+        case '1': topAppBar.setAttribute('heading', 'Dense (Omiu)'); document.body.style.setProperty('--mdc-theme-primary', '#018786'); break;
+        case '2': topAppBar.setAttribute('heading', 'Dense (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#b00020'); break;
       }
     })
   </script>
