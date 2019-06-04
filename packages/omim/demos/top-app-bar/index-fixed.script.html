@@ -28,18 +28,8 @@
       adjust
       heading="Fixed"
       fixed
-      onNavigation
-      navigation="'menu'"
-      onAction0
-      onAction1
-      onAction2
-      action-items="[
-        'subdirectory_arrow_left',
-        {
-          text: 'Omi'
-        },
-        'refresh'
-      ]"
+      navigations="'favorite'"
+      action-items="['favorite_border', 'favorite_border', 'favorite_border']"
     ></m-top-app-bar>
     <div id="content" class="content">
       Why Omi?<br/>
@@ -68,17 +58,19 @@
     var topAppBar = document.querySelector('#topAppBar')
     var content = document.querySelector('#content')
 
-    topAppBar.addEventListener('navigation', () => {
-      content.innerHTML = "(Omi)";
+    topAppBar.addEventListener('navigation', (e) => {
+      console.log(e.detail);
+      topAppBar.setAttribute('heading', 'Fixed (Omim)');
+      document.body.style.setProperty('--mdc-theme-primary', '#0052d9');
     })
-    topAppBar.addEventListener('action0', () => {
-      content.innerHTML = "(Omim)";
-    })
-    topAppBar.addEventListener('action1', () => {
-      content.innerHTML = "(Omiu)";
-    })
-    topAppBar.addEventListener('action2', () => {
-      content.innerHTML = "(Omio)";
+
+    topAppBar.addEventListener('action', (e) => {
+      console.log(e.detail);
+      switch(e.detail.index) {
+        case '0': topAppBar.setAttribute('heading', 'Fixed (Omi)'); document.body.style.setProperty('--mdc-theme-primary', '#6200ee'); break;
+        case '1': topAppBar.setAttribute('heading', 'Fixed (Omiu)'); document.body.style.setProperty('--mdc-theme-primary', '#018786'); break;
+        case '2': topAppBar.setAttribute('heading', 'Fixed (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#b00020'); break;
+      }
     })
   </script>
 </body>

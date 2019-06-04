@@ -28,18 +28,8 @@
       adjust
       heading="Short"
       short
-      onNavigation
-      navigation="{
-        text: 'menu',
-        mIcon: {
-          view: 48,
-          path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
-        }
-      }"
-      onAction0
-      onAction1
-      onAction2
-      action-items="['3d_rotation']"
+      navigations="'favorite'"
+      action-items="'favorite_border'"
     ></m-top-app-bar>
     <div id="content" class="content">
       Why Omi?<br/>
@@ -61,24 +51,23 @@
       The original Path Updating store system. Proxy-based automatic accurate update, low power consumption, high degree of freedom, excellent performance, easy integration of requestIdleCallback,It will automatically update UI partially when data is changed<br/>
     </div>
   </div>
-  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: short; right: 0; top: 0; z-index: 3;">
     <!-- <img src="//alloyteam.github.io/github.png" alt=""> -->
   </a>
   <script>
     var topAppBar = document.querySelector('#topAppBar')
     var content = document.querySelector('#content')
 
-    topAppBar.addEventListener('navigation', () => {
-      content.innerHTML = "(Omi)";
+    topAppBar.addEventListener('navigation', (e) => {
+      console.log(e.detail);
+      topAppBar.setAttribute('heading', 'Short (Omim)');
+      document.body.style.setProperty('--mdc-theme-primary', '#0052d9');
     })
-    topAppBar.addEventListener('action0', () => {
-      content.innerHTML = "(Omim)";
-    })
-    topAppBar.addEventListener('action1', () => {
-      content.innerHTML = "(Omiu)";
-    })
-    topAppBar.addEventListener('action2', () => {
-      content.innerHTML = "(Omio)";
+
+    topAppBar.addEventListener('action', (e) => {
+      console.log(e.detail);
+      topAppBar.setAttribute('heading', 'Short (Omiu)');
+      document.body.style.setProperty('--mdc-theme-primary', '#018786');
     })
   </script>
 </body>

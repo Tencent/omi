@@ -9,9 +9,10 @@ interface Props {
     dense?: boolean;
     fixed?: boolean;
     adjust?: boolean;
-    navigation?: object;
+    navigations?: object;
     actionItems?: object;
     scrollTarget?: EventTarget;
+    scrollTargetId?: string;
 }
 interface Data {
 }
@@ -25,12 +26,13 @@ export default class topAppBar extends WeElement<Props, Data> {
         dense: BooleanConstructor;
         fixed: BooleanConstructor;
         adjust: BooleanConstructor;
-        navigation: ObjectConstructor;
+        navigations: ObjectConstructor;
         actionItems: ObjectConstructor;
         scrollTarget: {
             new (): EventTarget;
             prototype: EventTarget;
         };
+        scrollTargetId: StringConstructor;
     };
     topAppBar: MDCTopAppBar;
     tagNum: Object;
