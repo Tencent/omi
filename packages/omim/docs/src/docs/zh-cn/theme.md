@@ -13,8 +13,8 @@ document.body.style.setProperty('--mdc-theme-error', 'yellow')
 所有配置:
 
 ```css
---mdc-theme-primary: #0052d9;
---mdc-theme-secondary: #1890ff;
+--mdc-theme-primary: #0072d9;
+--mdc-theme-secondary: #2170b8;
 --mdc-theme-error: #f5222d;
 --mdc-theme-surface: #ffffff;
 --mdc-theme-on-primary: #ffffff;

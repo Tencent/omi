@@ -6,6 +6,12 @@
   <meta charset="UTF-8" />
   <title>Add Omi in One Minute</title>
   <style>
+		@font-face {
+			font-family: 'Material Icons';
+			font-style: normal;
+			font-weight: 400;
+			src: url(../md.woff2) format('woff2');
+		}
     * {
       margin: 0;
       padding: 0;
@@ -24,32 +30,14 @@
   <div>
     <m-top-app-bar
       id="topAppBar"
+      adjust
       heading="Dense + Fixed"
       dense
       fixed
-      onNavigation
-      navigation-icon="{
-        text: 'menu',
-        view: 48,
-        path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
-      }"
-      onAction0
-      onAction1
-      onAction2
-      action-items="[
-        {
-          view: 48,
-          path: 'M34.02 28h-1.59l-.55-.55c1.96-2.27 3.14-5.22 3.14-8.45 0-7.18-5.82-12.99-13-12.99S9.03 12 9.02 19H4l7.68 8L20 19h-6.98c.01-5 4.03-8.99 9-8.99s9 4.03 9 9-4.03 9-9 9c-1.29 0-2.52-.28-3.63-.77l-2.96 2.96c1.93 1.14 4.18 1.81 6.59 1.81 3.23 0 6.17-1.18 8.44-3.13l.54.54V31l10.01 9.98L43.99 38l-9.97-10z'
-        }, {
-          text: 'Omi'
-        }, {
-          view: 48,
-          path: 'M40 10H21.76L20 4H8C5.8 4 4 5.8 4 8v26c0 2.2 1.8 4 4 4h14l2 6h16c2.2 0 4-1.8 4-4V14c0-2.2-1.8-4-4-4zM14.33 29.17c-4.51 0-8.17-3.67-8.17-8.17s3.67-8.17 8.17-8.17c2.08 0 3.97.74 5.47 2.13l.13.13-2.44 2.36-.12-.11c-.57-.54-1.56-1.17-3.04-1.17-2.62 0-4.75 2.17-4.75 4.84s2.13 4.84 4.75 4.84c2.74 0 3.93-1.75 4.25-2.92h-4.42v-3.1h7.9l.03.14c.08.42.11.79.11 1.21-.01 4.71-3.24 7.99-7.87 7.99zm12.07-3.4c.67 1.2 1.48 2.35 2.38 3.4l-1.07 1.06-1.31-4.46zm1.54-1.54h-1.98l-.61-2.08h7.99s-.68 2.63-3.12 5.47c-1.07-1.23-1.81-2.43-2.28-3.39zM42 40c0 1.1-.9 2-2 2H26l4-4-1.63-5.53 1.84-1.84L35.58 36l1.46-1.46-5.41-5.37c1.8-2.07 3.2-4.5 3.83-7.01H38v-2.08h-7.27V18h-2.08v2.08h-3.92L22.35 12H40c1.1 0 2 .9 2 2v26z'
-        }
-      ]"
+      navigations="'favorite'"
+      action-items="['favorite_border', 'favorite_border', 'favorite_border']"
     ></m-top-app-bar>
     <div id="content" class="content">
-      <br/><br/><br/>
       Why Omi?<br/>
       One framework. Mobile & desktop & mini program.<br/>
       Tiny size<br/>
@@ -73,20 +61,22 @@
     <!-- <img src="//alloyteam.github.io/github.png" alt=""> -->
   </a>
   <script>
-    var topAppBar = document.querySelector('#topAppBar')
-    var content = document.querySelector('#content')
+    var topAppBar = document.querySelector('#topAppBar');
+    var content = document.querySelector('#content');
 
-    topAppBar.addEventListener('navigation', () => {
-      content.innerHTML = "<br/><br/><br/>(Omi)";
+    topAppBar.addEventListener('navigation', (e) => {
+      console.log(e.detail);
+      topAppBar.setAttribute('heading', 'Dense + Fixed (Omim)');
+      document.body.style.setProperty('--mdc-theme-primary', '#0072d9');
     })
-    topAppBar.addEventListener('action0', () => {
-      content.innerHTML = "<br/><br/><br/>(Omim)";
-    })
-    topAppBar.addEventListener('action1', () => {
-      content.innerHTML = "<br/><br/><br/>(Omiu)";
-    })
-    topAppBar.addEventListener('action2', () => {
-      content.innerHTML = "<br/><br/><br/>(Omio)";
+
+    topAppBar.addEventListener('action', (e) => {
+      console.log(e.detail);
+      switch(e.detail.index) {
+        case '0': topAppBar.setAttribute('heading', 'Dense + Fixed (Omi)'); document.body.style.setProperty('--mdc-theme-primary', '#6200ee'); break;
+        case '1': topAppBar.setAttribute('heading', 'Dense + Fixed (Omiu)'); document.body.style.setProperty('--mdc-theme-primary', '#018786'); break;
+        case '2': topAppBar.setAttribute('heading', 'Dense + Fixed (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#b00020'); break;
+      }
     })
   </script>
 </body>

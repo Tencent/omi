@@ -1,13 +1,13 @@
 * {
-  --mdc-theme-primary: #0052d9;
-  --mdc-theme-secondary: #1890ff;
+  --mdc-theme-primary: #0072d9;
+  --mdc-theme-secondary: #2170b8;
   --mdc-theme-error: #f5222d;
 }
 
 .mdc-top-app-bar {
-  background-color: #0052d9;
+  background-color: #0072d9;
   /* @alternate */
-  background-color: var(--mdc-theme-primary, #0052d9);
+  background-color: var(--mdc-theme-primary, #0072d9);
   color: white;
   display: flex;
   position: fixed;
@@ -606,7 +606,7 @@
 
 .mdc-ripple-surface--primary::before,
 .mdc-ripple-surface--primary::after {
-  background-color: #0052d9;
+  background-color: #0072d9;
 }
 
 @supports not (-ms-ime-align: auto) {
@@ -614,7 +614,7 @@
   .mdc-ripple-surface--primary::before,
   .mdc-ripple-surface--primary::after {
     /* @alternate */
-    background-color: var(--mdc-theme-primary, #0052d9);
+    background-color: var(--mdc-theme-primary, #0072d9);
   }
 }
 
@@ -643,7 +643,7 @@
 
 .mdc-ripple-surface--accent::before,
 .mdc-ripple-surface--accent::after {
-  background-color: #1890ff;
+  background-color: #2170b8;
 }
 
 @supports not (-ms-ime-align: auto) {
@@ -651,7 +651,7 @@
   .mdc-ripple-surface--accent::before,
   .mdc-ripple-surface--accent::after {
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #1890ff);
+    background-color: var(--mdc-theme-secondary, #2170b8);
   }
 }
 
