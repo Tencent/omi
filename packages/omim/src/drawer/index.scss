@@ -1,6 +1,18 @@
 @import "../theme";
 
+.m-drawer{
+  position:fixed;
+  z-index: 1000;
+}
+
+.m-drawer-show .mask{
+  pointer-events: all;
+  opacity:1;
+}
+
 .mask{
+  pointer-events: none;
+  opacity:0;
   top: 0;
   left: 0;
   right: 0;
@@ -11,4 +23,12 @@
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-tap-highlight-color: transparent;
   transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+
+
+.ctn{
+  position:fixed;
+  z-index: 1000;
+  transition: transform .3s ease;
 }
