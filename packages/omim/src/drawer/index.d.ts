@@ -14,7 +14,6 @@ export default class Drawer extends WeElement<Props, Data> {
     };
     static defaultProps: {};
     onMaskClick: () => void;
-    ctn: any;
     render(props: any): JSX.Element;
     _getTransfrom(position: any): string;
 }

@@ -2,6 +2,7 @@ import '../../src/top-app-bar/index.tsx'
 import '../../src/icon-button/index.tsx'
 import '../../src/avatar/index.tsx'
 import '../../src/badge/index.tsx'
+import '../../src/text-field/index.tsx'
 
 import { render, WeElement, define, h } from 'omi'
 
@@ -148,11 +149,34 @@ define('my-app', class extends WeElement {
             dense
             fixed
             heading={'Dense + Fixed' + this.titleOmi}
-            navigations='favorite'
-            action-items={['favorite_border', 'favorite_border', 'favorite_border']}
+            // navigations='favorite'
+            // action-items={['favorite_border', 'favorite_border', 'favorite_border']}
             onNavigation={this.onMenu}
-            onAction={this.onMenu}
-          />
+            onAction={this.onMenu}>
+            <navigation>
+              <m-icon
+                scale={1.5}
+                view={24}
+                path='M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z'>
+              </m-icon>
+            </navigation>
+            <h1>zain</h1>
+            <m-text-field
+              outlined
+              label='Label'
+              helperText='Helper Text'
+              css={`
+                .mdc-notched-outline__leading {
+                  border-radius: 28px 0 0 28px!important;
+                  width: 28px!important;
+                }
+                .mdc-notched-outline__trailing {
+                  border-radius: 0 28px 28px 0!important;
+                }
+              `}
+            ></m-text-field>
+            
+          </m-top-app-bar>
           <div style='height:15px;'></div>
           <m-top-app-bar
             adjust

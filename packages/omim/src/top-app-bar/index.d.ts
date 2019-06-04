@@ -42,7 +42,7 @@ export default class topAppBar extends WeElement<Props, Data> {
     setChildrenAttribute(): void;
     onNav: (evt: any) => void;
     onAction: (evt: any) => void;
-    findPathAccessKey(evt: any): number;
+    findPathAccessKey(evt: any): any;
     isArray(value: any): boolean;
     render(props: any): JSX.Element[];
 }

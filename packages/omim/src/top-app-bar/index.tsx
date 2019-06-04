@@ -46,9 +46,10 @@ export default class topAppBar extends WeElement<Props, Data>{
 
   topAppBar: MDCTopAppBar
   tagNum = new Object()
+  otherNum = 0
 
   beforeUpdate() {
-    this.setChildrenAttribute()
+    this._setChildrenAttribute()
   }
 
   updated() {
@@ -79,18 +80,15 @@ export default class topAppBar extends WeElement<Props, Data>{
   installed() {
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
 
-    this.topAppBar.listen('MDCTopAppBar:nav', (e) => {
-      this.fire('navigation', {nav: this.props.navigations, index: '0'})
-    })
-
     domReady(() => {
-      this.setChildrenAttribute()
+      this._setChildrenAttribute()
       this.update()
     })
   }
 
-  setChildrenAttribute() {
+  _setChildrenAttribute() {
     this.tagNum = new Object()
+    this.otherNum = 0
     const children = elementChildren(this)
     children.forEach((child) => {
       if(child.tagName === 'NAVIGATION' || child.tagName === 'ACTIONITEM') {
@@ -100,28 +98,37 @@ export default class topAppBar extends WeElement<Props, Data>{
         const tagLength = this.tagNum[child.tagName].length
         child.setAttribute('slot', child.tagName + tagLength + '')
         this.tagNum[child.tagName].push(tagLength)
+      } else {
+        // let omim = document.createElement("omim")
+        // omim.setAttribute('slot', 'OTHER')
+        // console.log(this)
+        // this.appendChild(omim)
+        // omim.appendChild(child)
+        //test
+        child.setAttribute('slot', 'OTHER')
+        this.otherNum++
       }
     })
   }
 
   onNav = (evt: any) => {
-    evt && this.fire('navigation', {nav: 'navigation', index: this.findPathAccessKey(evt)})
+    evt && this.fire('navigation', {nav: 'navigation', index: this._findPathAccessKey(evt)})
   }
 
   onAction = (evt: any) => {
-    evt && this.fire('action', {act: 'action', index: this.findPathAccessKey(evt)})
+    evt && this.fire('action', {act: 'action', index: this._findPathAccessKey(evt)})
   }
 
-  findPathAccessKey(evt) {
+  _findPathAccessKey(evt) {
     for(let i = 0; i < evt.path.length; i++) {
-      if((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') && evt.path[i].accessKey) {
+      if((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'OMIM') && evt.path[i].accessKey) {
         return evt.path[i].accessKey
       }
     }
     return -1
   }
 
-  isArray(value){
+  _isArray(value){
     return typeof Array.isArray === 'function' ? Array.isArray(value) : Object.prototype.toString.call(value) === '[object Array]'
   }
 
@@ -138,15 +145,11 @@ export default class topAppBar extends WeElement<Props, Data>{
           {(props.navigations || this.tagNum['NAVIGATION'] || props.heading) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
             {(props.navigations && !this.tagNum['NAVIGATION']) ?
-            (typeof props.navigations === 'string' ? <span class='mdc-top-app-bar__navigation-icon material-icons'>{props.navigations}</span> :
-            this.isArray(props.navigations) ?
+            (typeof props.navigations === 'string' ? <omim accessKey={'0'} class='mdc-top-app-bar__navigation-icon material-icons' onClick={this.onNav}>{props.navigations}</omim> :
+            this._isArray(props.navigations) ?
             props.navigations.map((item, index) => {
-              if(index == 0) {
-                return item.text ? <span class='mdc-top-app-bar__navigation-icon'>{item.text}</span> : typeof item === 'string' && <span class='mdc-top-app-bar__navigation-icon material-icons'>{item}</span>
-              } else {
-                return item.text ? <span accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' onClick={this.onNav}>{item.text}</span> : typeof item === 'string' && <span accessKey={index + ''} class='mdc-top-app-bar__navigation-icon material-icons' onClick={this.onNav}>{item}</span>
-              }
-            }) : props.navigations.text && <span class='mdc-top-app-bar__navigation-icon'>{props.navigations.text}</span>) :
+              return item.text ? <omim accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' onClick={this.onNav}>{item.text}</omim> : typeof item === 'string' && <omim accessKey={index + ''} class='mdc-top-app-bar__navigation-icon material-icons' onClick={this.onNav}>{item}</omim>
+            }) : props.navigations.text && <omim class='mdc-top-app-bar__navigation-icon'>{props.navigations.text}</omim>) :
             this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNav}></slot>
             })}
@@ -155,16 +158,17 @@ export default class topAppBar extends WeElement<Props, Data>{
           {(props.actionItems || this.tagNum['ACTIONITEM']) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
             {(props.actionItems && !this.tagNum['ACTIONITEM']) ?
-            (typeof props.actionItems === 'string' ? <span accessKey={'0'} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{props.actionItems}</span> :
-            this.isArray(props.actionItems) ?
+            (typeof props.actionItems === 'string' ? <omim accessKey={'0'} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{props.actionItems}</omim> :
+            this._isArray(props.actionItems) ?
             props.actionItems.map((item, index) => {
-              return item.text ? <span accessKey={index + ''} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{item.text}</span> :
-              typeof item === 'string' && <span accessKey={index + ''} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{item}</span>
-            }) : props.actionItems.text && <span accessKey={'0'} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{props.actionItems.text}</span>) :
+              return item.text ? <omim accessKey={index + ''} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{item.text}</omim> :
+              typeof item === 'string' && <omim accessKey={index + ''} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{item}</omim>
+            }) : props.actionItems.text && <omim accessKey={'0'} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{props.actionItems.text}</omim>) :
             this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__action-item' name={'ACTIONITEM' + index} onClick={this.onAction}></slot>
             })}
           </section>}
+          {this.otherNum > 0 && <slot name='OTHER'></slot>}
         </div>
       </header>,
       (props.adjust &&
