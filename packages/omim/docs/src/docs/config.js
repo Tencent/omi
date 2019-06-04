@@ -34,7 +34,7 @@ const config = {
         list: [
           { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
-          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
+          { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
           { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
@@ -125,7 +125,7 @@ const config = {
         list: [
           { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
-          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
+          { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
           { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }

@@ -44,7 +44,7 @@ define('my-app', class extends WeElement {
     icon: 'data_usage'
   }]
   showA = false
-  showB = false
+  showB = true
 
   onClickLeft = () => {
     this.showA = true
