@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@material/animation/util.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@material/animation/util.js ***!
-  \**************************************************/
+/***/ "./node_modules/_@material_animation@1.0.0@@material/animation/util.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/_@material_animation@1.0.0@@material/animation/util.js ***!
+  \*****************************************************************************/
 /*! exports provided: getCorrectPropertyName, getCorrectEventName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -190,18 +190,18 @@ function getCorrectEventName(windowObj, eventType) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/base/component.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@material/base/component.js ***!
-  \**************************************************/
+/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
+  \************************************************************************/
 /*! exports provided: MDCComponent, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -307,10 +307,10 @@ var MDCComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/@material/base/foundation.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@material/base/foundation.js ***!
-  \***************************************************/
+/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
+  \*************************************************************************/
 /*! exports provided: MDCFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -396,19 +396,19 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/@material/linear-progress/component.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@material/linear-progress/component.js ***!
-  \*************************************************************/
+/***/ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/component.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/component.js ***!
+  \**********************************************************************************************/
 /*! exports provided: MDCLinearProgress */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgress", function() { return MDCLinearProgress; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/linear-progress/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/foundation.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -497,10 +497,10 @@ var MDCLinearProgress = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/linear-progress/constants.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@material/linear-progress/constants.js ***!
-  \*************************************************************/
+/***/ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/constants.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/constants.js ***!
+  \**********************************************************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -543,20 +543,20 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/@material/linear-progress/foundation.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@material/linear-progress/foundation.js ***!
-  \**************************************************************/
+/***/ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/foundation.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/foundation.js ***!
+  \***********************************************************************************************/
 /*! exports provided: MDCLinearProgressFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgressFoundation", function() { return MDCLinearProgressFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_animation_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/animation/util */ "./node_modules/@material/animation/util.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/linear-progress/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+/* harmony import */ var _material_animation_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/animation/util */ "./node_modules/_@material_animation@1.0.0@@material/animation/util.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/constants.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -675,19 +675,19 @@ var MDCLinearProgressFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/linear-progress/index.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@material/linear-progress/index.js ***!
-  \*********************************************************/
+/***/ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/index.js":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/index.js ***!
+  \******************************************************************************************/
 /*! exports provided: MDCLinearProgress, MDCLinearProgressFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/linear-progress/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgress", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCLinearProgress"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/linear-progress/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgressFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCLinearProgressFoundation"]; });
 
 /**
@@ -718,29 +718,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/linear-progress/index.scss":
-/*!*********************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/linear-progress/index.scss ***!
-  \*********************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/linear-progress/index.scss":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/linear-progress/index.scss ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "@keyframes primary-indeterminate-translate {\n  0% {\n    transform: translateX(0); }\n  20% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(0); }\n  59.15% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(83.67142%); }\n  100% {\n    transform: translateX(200.61106%); } }\n\n@keyframes primary-indeterminate-scale {\n  0% {\n    transform: scaleX(0.08); }\n  36.65% {\n    animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1);\n    transform: scaleX(0.08); }\n  69.15% {\n    animation-timing-function: cubic-bezier(0.06, 0.11, 0.6, 1);\n    transform: scaleX(0.66148); }\n  100% {\n    transform: scaleX(0.08); } }\n\n@keyframes secondary-indeterminate-translate {\n  0% {\n    animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40969);\n    transform: translateX(0); }\n  25% {\n    animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73371);\n    transform: translateX(37.65191%); }\n  48.35% {\n    animation-timing-function: cubic-bezier(0.4, 0.62704, 0.6, 0.90203);\n    transform: translateX(84.38617%); }\n  100% {\n    transform: translateX(160.27778%); } }\n\n@keyframes secondary-indeterminate-scale {\n  0% {\n    animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397);\n    transform: scaleX(0.08); }\n  19.15% {\n    animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432);\n    transform: scaleX(0.4571); }\n  44.15% {\n    animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179);\n    transform: scaleX(0.72796); }\n  100% {\n    transform: scaleX(0.08); } }\n\n@keyframes buffering {\n  to {\n    transform: translateX(-10px); } }\n\n@keyframes primary-indeterminate-translate-reverse {\n  0% {\n    transform: translateX(0); }\n  20% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(0); }\n  59.15% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(-83.67142%); }\n  100% {\n    transform: translateX(-200.61106%); } }\n\n@keyframes secondary-indeterminate-translate-reverse {\n  0% {\n    animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40969);\n    transform: translateX(0); }\n  25% {\n    animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73371);\n    transform: translateX(-37.65191%); }\n  48.35% {\n    animation-timing-function: cubic-bezier(0.4, 0.62704, 0.6, 0.90203);\n    transform: translateX(-84.38617%); }\n  100% {\n    transform: translateX(-160.27778%); } }\n\n@keyframes buffering-reverse {\n  to {\n    transform: translateX(10px); } }\n\n.mdc-linear-progress {\n  position: relative;\n  width: 100%;\n  height: 4px;\n  transform: translateZ(0);\n  transition: opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1);\n  overflow: hidden; }\n  .mdc-linear-progress__bar {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: none;\n    transform-origin: top left;\n    transition: transform 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-linear-progress__bar-inner {\n    display: inline-block;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: none; }\n  .mdc-linear-progress__buffering-dots {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: buffering 250ms infinite linear;\n    background-repeat: repeat-x;\n    background-size: 10px 4px; }\n  .mdc-linear-progress__buffer {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    transform-origin: top left;\n    transition: transform 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-linear-progress__primary-bar {\n    transform: scaleX(0); }\n  .mdc-linear-progress__secondary-bar {\n    visibility: hidden; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__bar {\n    transition: none; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__primary-bar {\n    left: -145.166611%;\n    animation: primary-indeterminate-translate 2s infinite linear; }\n    .mdc-linear-progress--indeterminate .mdc-linear-progress__primary-bar > .mdc-linear-progress__bar-inner {\n      animation: primary-indeterminate-scale 2s infinite linear; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__secondary-bar {\n    left: -54.888891%;\n    animation: secondary-indeterminate-translate 2s infinite linear;\n    visibility: visible; }\n    .mdc-linear-progress--indeterminate .mdc-linear-progress__secondary-bar > .mdc-linear-progress__bar-inner {\n      animation: secondary-indeterminate-scale 2s infinite linear; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__bar,\n  .mdc-linear-progress--reversed .mdc-linear-progress__buffer {\n    right: 0;\n    transform-origin: center right; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__primary-bar {\n    animation-name: primary-indeterminate-translate-reverse; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__secondary-bar {\n    animation-name: secondary-indeterminate-translate-reverse; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__buffering-dots {\n    animation: buffering-reverse 250ms infinite linear; }\n  .mdc-linear-progress--closed {\n    opacity: 0; }\n\n.mdc-linear-progress__bar-inner {\n  background-color: #0052d9;\n  /* @alternate */\n  background-color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-linear-progress__buffering-dots {\n  background-image: url(\"data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' enable-background='new 0 0 5 2' xml:space='preserve' viewBox='0 0 5 2' preserveAspectRatio='none slice'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23e6e6e6'/%3E%3C/svg%3E\"); }\n\n.mdc-linear-progress__buffer {\n  background-color: #e6e6e6; }\n\n.mdc-linear-progress--indeterminate.mdc-linear-progress--reversed .mdc-linear-progress__primary-bar {\n  right: -145.166611%;\n  left: auto; }\n\n.mdc-linear-progress--indeterminate.mdc-linear-progress--reversed .mdc-linear-progress__secondary-bar {\n  right: -54.888891%;\n  left: auto; }\n", ""]);
+exports.push([module.i, "@keyframes primary-indeterminate-translate {\n  0% {\n    transform: translateX(0); }\n  20% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(0); }\n  59.15% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(83.67142%); }\n  100% {\n    transform: translateX(200.61106%); } }\n\n@keyframes primary-indeterminate-scale {\n  0% {\n    transform: scaleX(0.08); }\n  36.65% {\n    animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1);\n    transform: scaleX(0.08); }\n  69.15% {\n    animation-timing-function: cubic-bezier(0.06, 0.11, 0.6, 1);\n    transform: scaleX(0.66148); }\n  100% {\n    transform: scaleX(0.08); } }\n\n@keyframes secondary-indeterminate-translate {\n  0% {\n    animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40969);\n    transform: translateX(0); }\n  25% {\n    animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73371);\n    transform: translateX(37.65191%); }\n  48.35% {\n    animation-timing-function: cubic-bezier(0.4, 0.62704, 0.6, 0.90203);\n    transform: translateX(84.38617%); }\n  100% {\n    transform: translateX(160.27778%); } }\n\n@keyframes secondary-indeterminate-scale {\n  0% {\n    animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397);\n    transform: scaleX(0.08); }\n  19.15% {\n    animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432);\n    transform: scaleX(0.4571); }\n  44.15% {\n    animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179);\n    transform: scaleX(0.72796); }\n  100% {\n    transform: scaleX(0.08); } }\n\n@keyframes buffering {\n  to {\n    transform: translateX(-10px); } }\n\n@keyframes primary-indeterminate-translate-reverse {\n  0% {\n    transform: translateX(0); }\n  20% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(0); }\n  59.15% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(-83.67142%); }\n  100% {\n    transform: translateX(-200.61106%); } }\n\n@keyframes secondary-indeterminate-translate-reverse {\n  0% {\n    animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40969);\n    transform: translateX(0); }\n  25% {\n    animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73371);\n    transform: translateX(-37.65191%); }\n  48.35% {\n    animation-timing-function: cubic-bezier(0.4, 0.62704, 0.6, 0.90203);\n    transform: translateX(-84.38617%); }\n  100% {\n    transform: translateX(-160.27778%); } }\n\n@keyframes buffering-reverse {\n  to {\n    transform: translateX(10px); } }\n\n.mdc-linear-progress {\n  position: relative;\n  width: 100%;\n  height: 4px;\n  transform: translateZ(0);\n  transition: opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1);\n  overflow: hidden; }\n  .mdc-linear-progress__bar {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: none;\n    transform-origin: top left;\n    transition: transform 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-linear-progress__bar-inner {\n    display: inline-block;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: none; }\n  .mdc-linear-progress__buffering-dots {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: buffering 250ms infinite linear;\n    background-repeat: repeat-x;\n    background-size: 10px 4px; }\n  .mdc-linear-progress__buffer {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    transform-origin: top left;\n    transition: transform 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-linear-progress__primary-bar {\n    transform: scaleX(0); }\n  .mdc-linear-progress__secondary-bar {\n    visibility: hidden; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__bar {\n    transition: none; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__primary-bar {\n    left: -145.166611%;\n    animation: primary-indeterminate-translate 2s infinite linear; }\n    .mdc-linear-progress--indeterminate .mdc-linear-progress__primary-bar > .mdc-linear-progress__bar-inner {\n      animation: primary-indeterminate-scale 2s infinite linear; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__secondary-bar {\n    left: -54.888891%;\n    animation: secondary-indeterminate-translate 2s infinite linear;\n    visibility: visible; }\n    .mdc-linear-progress--indeterminate .mdc-linear-progress__secondary-bar > .mdc-linear-progress__bar-inner {\n      animation: secondary-indeterminate-scale 2s infinite linear; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__bar,\n  .mdc-linear-progress--reversed .mdc-linear-progress__buffer {\n    right: 0;\n    transform-origin: center right; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__primary-bar {\n    animation-name: primary-indeterminate-translate-reverse; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__secondary-bar {\n    animation-name: secondary-indeterminate-translate-reverse; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__buffering-dots {\n    animation: buffering-reverse 250ms infinite linear; }\n  .mdc-linear-progress--closed {\n    opacity: 0; }\n\n.mdc-linear-progress__bar-inner {\n  background-color: #0072d9;\n  /* @alternate */\n  background-color: var(--mdc-theme-primary, #0072d9); }\n\n.mdc-linear-progress__buffering-dots {\n  background-image: url(\"data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' enable-background='new 0 0 5 2' xml:space='preserve' viewBox='0 0 5 2' preserveAspectRatio='none slice'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23e6e6e6'/%3E%3C/svg%3E\"); }\n\n.mdc-linear-progress__buffer {\n  background-color: #e6e6e6; }\n\n.mdc-linear-progress--indeterminate.mdc-linear-progress--reversed .mdc-linear-progress__primary-bar {\n  right: -145.166611%;\n  left: auto; }\n\n.mdc-linear-progress--indeterminate.mdc-linear-progress--reversed .mdc-linear-progress__secondary-bar {\n  right: -54.888891%;\n  left: auto; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -824,10 +824,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/tslib/tslib.es6.js":
-/*!*****************************************!*\
-  !*** ./node_modules/tslib/tslib.es6.js ***!
-  \*****************************************/
+/***/ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js":
+/*!******************************************************!*\
+  !*** ./node_modules/_tslib@1.9.3@tslib/tslib.es6.js ***!
+  \******************************************************/
 /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1050,7 +1050,7 @@ function __importDefault(mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/linear-progress/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/linear-progress/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -1103,7 +1103,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/linear-progress/index.scss");
-var linear_progress_1 = __webpack_require__(/*! @material/linear-progress */ "./node_modules/@material/linear-progress/index.js");
+var linear_progress_1 = __webpack_require__(/*! @material/linear-progress */ "./node_modules/_@material_linear-progress@1.1.0@@material/linear-progress/index.js");
+//@ts-ignore
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var LinearProgress = /** @class */ (function (_super) {
     __extends(LinearProgress, _super);
     function LinearProgress() {
@@ -1156,6 +1158,23 @@ exports.default = LinearProgress;
 
 /***/ }),
 
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+if (!document.querySelector('#__omim-theme-style')) {
+    var style = document.createElement('style');
+    style.id = '__omim-theme-style';
+    style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+    document.querySelector('head').append(style);
+}
+
+
+/***/ }),
+
 /***/ "omi":
 /*!******************************************************************************!*\
   !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
@@ -1167,6 +1186,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map
