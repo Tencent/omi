@@ -32,14 +32,13 @@ export default class Drawer extends WeElement<Props, Data>{
     this.fire('close')
   }
 
-  ctn:any
   render(props) {
  
     return (
       <div {...extractClass(props,'m-drawer',{
         'm-drawer-show': props.show
       })}>
-        <div class='ctn' ref={_=>{this.ctn =_}} style={`transform: ${this._getTransfrom(props.position)}`}><slot ></slot></div>
+        <div class='ctn' style={`transform: ${this._getTransfrom(props.position)}`}><slot ></slot></div>
         <div class="mask" onClick={this.onMaskClick}></div>
       </div>
     )
@@ -56,7 +55,6 @@ export default class Drawer extends WeElement<Props, Data>{
     if(position === 'top'){
       return  `translateY(${this.props.show ? '0' : '-100'}%);top:0;`
     }
-
 
     if(position === 'bottom'){
       return  `translateY(${this.props.show ? '0' : '100'}%);bottom:0;`
