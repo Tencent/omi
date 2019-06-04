@@ -96,29 +96,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/tag/index.scss":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/tag/index.scss ***!
-  \*********************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tag/index.scss":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/tag/index.scss ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".m-icon {\n  margin-left: 0.6em;\n  text-align: center;\n  display: inline-block; }\n\n.mdc-tag {\n  margin: 5px 5px 0 0;\n  background-color: #fff;\n  color: #000;\n  padding: 0 10px;\n  height: 32px;\n  font-size: 12px;\n  box-sizing: border-box;\n  border: 1px solid rgba(64, 158, 255, 0.2);\n  white-space: nowrap;\n  font-family: Roboto, sans-serif;\n  font-size: 12px;\n  line-height: 2.25rem;\n  font-weight: 500;\n  letter-spacing: 0.08929em;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 0 10px;\n  display: inline-flex;\n  position: relative;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  line-height: inherit;\n  user-select: none;\n  overflow: hidden;\n  vertical-align: middle; }\n\n.mdc-tag--active {\n  background-color: #ccc; }\n\n.mdc-tag--success {\n  background-color: rgba(103, 194, 58, 0.1);\n  border-color: rgba(103, 194, 58, 0.2);\n  color: #09bb07 !important; }\n\n.mdc-tag--primary {\n  background-color: rgba(64, 158, 255, 0.1);\n  border-color: rgba(64, 158, 255, 0.2);\n  color: #0052d9 !important; }\n\n.mdc-tag--warn {\n  background-color: rgba(230, 162, 60, 0.1);\n  border-color: rgba(230, 162, 60, 0.2);\n  color: #e6a23c !important; }\n\n.mdc-tag--danger {\n  background-color: rgba(245, 108, 108, 0.1);\n  border-color: rgba(245, 108, 108, 0.2);\n  color: #e64340 !important; }\n\n.mdc-tag--mediun {\n  height: 28px;\n  line-height: 26px; }\n\n.mdc-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.mdc-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n", ""]);
+exports.push([module.i, ".m-icon {\n  margin-left: 0.6em;\n  text-align: center;\n  display: inline-block; }\n\n.mdc-tag > span {\n  display: inline-block;\n  width: 17px;\n  height: 17px;\n  vertical-align: bottom;\n  width: auto; }\n\n.mdc-tag {\n  margin: 5px 5px 0 0;\n  background-color: #fff;\n  color: #000;\n  padding: 0 10px;\n  height: 32px;\n  font-size: 12px;\n  box-sizing: border-box;\n  border: 1px solid rgba(64, 158, 255, 0.2);\n  white-space: nowrap;\n  font-family: Roboto, sans-serif;\n  font-size: 12px;\n  font-weight: 500;\n  letter-spacing: 0.08929em;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding: 0 10px;\n  display: inline-flex;\n  position: relative;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  line-height: inherit;\n  user-select: none;\n  overflow: hidden;\n  vertical-align: middle;\n  border-radius: 4px; }\n\n.mdc-tag--active {\n  background-color: #ccc; }\n\n.mdc-tag--success {\n  background-color: rgba(103, 194, 58, 0.1);\n  border-color: rgba(103, 194, 58, 0.2);\n  color: #09bb07 !important; }\n\n.mdc-tag--primary {\n  background-color: rgba(64, 158, 255, 0.1);\n  border-color: rgba(64, 158, 255, 0.2);\n  color: #0072d9 !important; }\n\n.mdc-tag--warn {\n  background-color: rgba(230, 162, 60, 0.1);\n  border-color: rgba(230, 162, 60, 0.2);\n  color: #e6a23c !important; }\n\n.mdc-tag--danger {\n  background-color: rgba(245, 108, 108, 0.1);\n  border-color: rgba(245, 108, 108, 0.2);\n  color: #e64340 !important; }\n\n.mdc-tag--mediun {\n  height: 28px;\n  line-height: 26px; }\n\n.mdc-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.mdc-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 15px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  margin-left: 8px;\n  display: inline-block;\n  width: 17px;\n  height: 17px;\n  vertical-align: bottom; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -311,23 +311,23 @@ function toComment(sourceMap) {
         /******/ return __webpack_require__(__webpack_require__.s = "./src/icon/index.tsx");
         /******/ 
     })({
-        /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/icon/index.scss": 
-        /*!**********************************************************************************************************!*\
-          !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/icon/index.scss ***!
-          \**********************************************************************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
+        /*!***********************************************************************************************************************************************************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/icon/index.scss ***!
+          \***********************************************************************************************************************************************************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+            exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
             // imports
             // module
             exports.push([module.i, ".m-icon {\n  text-align: center;\n  display: inline-block; }\n\n.m-icon svg {\n  display: inline-block;\n  vertical-align: top; }\n\n.rotate {\n  display: inline-block;\n  -webkit-animation: rotate 1s infinite linear;\n  animation: rotate 1s infinite linear; }\n\ni div {\n  font-style: normal; }\n\n@-webkit-keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
             // exports
             /***/ 
         }),
-        /***/ "./node_modules/css-loader/lib/css-base.js": 
-        /*!*************************************************!*\
-          !*** ./node_modules/css-loader/lib/css-base.js ***!
-          \*************************************************/
+        /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js": 
+        /*!*******************************************************************!*\
+          !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+          \*******************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports) {
             /*
@@ -408,7 +408,7 @@ function toComment(sourceMap) {
           \*****************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/icon/index.scss");
+            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
             if (typeof result === "string") {
                 module.exports = result;
             }
@@ -464,6 +464,8 @@ function toComment(sourceMap) {
             Object.defineProperty(exports, "__esModule", { value: true });
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+            //@ts-ignore
+            __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
@@ -487,7 +489,8 @@ function toComment(sourceMap) {
                     paths: Object,
                     view: Number,
                     scale: Number,
-                    color: String
+                    color: String,
+                    rotate: Boolean
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')
@@ -495,6 +498,20 @@ function toComment(sourceMap) {
                 return Icon;
             }(omi_1.WeElement));
             exports.default = Icon;
+            /***/ 
+        }),
+        /***/ "./src/theme.ts": 
+        /*!**********************!*\
+          !*** ./src/theme.ts ***!
+          \**********************/
+        /*! no static exports found */
+        /***/ (function (module, exports) {
+            if (!document.querySelector('#__omim-theme-style')) {
+                var style = document.createElement('style');
+                style.id = '__omim-theme-style';
+                style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+                document.querySelector('head').append(style);
+            }
             /***/ 
         }),
         /***/ "omi": 
@@ -507,7 +524,7 @@ function toComment(sourceMap) {
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 
@@ -522,7 +539,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/tag/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tag/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -576,6 +593,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/tag/index.scss");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//@ts-ignore
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Tag = /** @class */ (function (_super) {
     __extends(Tag, _super);
     function Tag() {
@@ -585,14 +604,16 @@ var Tag = /** @class */ (function (_super) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-tag', props.type ? 'mdc-tag--' + ("" + props.type) : '', props.size ? 'mdc-tag--' + ("" + props.size) : '')),
             omi_1.h("span", null,
                 omi_1.h("slot", null)),
-            (props.icon) && omi_1.h("m-icon", __assign({ class: 'm-icon' }, props.icon))));
+            props.svgIcon && omi_1.h("m-icon", __assign({ class: 'm-icon' }, props.svgIcon)),
+            props.icon && omi_1.h("i", { class: "material-icons mdc-button__icon" }, props.icon)));
     };
     Tag.css = css;
     Tag.propTypes = {
         type: String,
         active: Boolean,
         size: String,
-        icon: Object
+        icon: String,
+        svgIcon: Object
     };
     Tag = __decorate([
         omi_1.tag('m-tag')
@@ -600,6 +621,23 @@ var Tag = /** @class */ (function (_super) {
     return Tag;
 }(omi_1.WeElement));
 exports.default = Tag;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+if (!document.querySelector('#__omim-theme-style')) {
+    var style = document.createElement('style');
+    style.id = '__omim-theme-style';
+    style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+    document.querySelector('head').append(style);
+}
 
 
 /***/ }),
@@ -615,6 +653,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map

@@ -96,29 +96,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/nav/index.scss":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/nav/index.scss ***!
-  \*********************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/nav/index.scss":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/nav/index.scss ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 18px;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  vertical-align: top;\n  margin-right: 3px;\n  display: inline-block;\n  line-height: 35px;\n  height: 35px;\n  max-width: 24px;\n  overflow: hidden; }\n\n*,\n*::before,\n*::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\nli {\n  list-style: none;\n  margin: 0;\n  padding: 0px;\n  white-space: nowrap; }\n\nul {\n  margin: 0;\n  padding: 0;\n  width: 100%; }\n\n.m-nav {\n  border: 1px solid #ccc;\n  width: 256px;\n  border-radius: 4px; }\n\n.children {\n  transition: all .4s ease;\n  overflow: hidden; }\n\n.tree-item {\n  vertical-align: top;\n  position: relative; }\n\n.arrow {\n  vertical-align: top;\n  cursor: pointer;\n  height: 35px;\n  line-height: 35px;\n  position: absolute;\n  right: 10px;\n  top: 0px; }\n\n.close > .mdc-tree-title > .arrow {\n  transform: rotate(180deg); }\n\n.mdc-tree-title:hover {\n  background-color: rgba(24, 144, 255, 0.001); }\n\n.mdc-tree-title {\n  padding: 0 10px;\n  cursor: pointer;\n  height: 35px;\n  line-height: 35px;\n  display: block; }\n\n.text {\n  display: inline-block;\n  line-height: 35px;\n  height: 35px; }\n\n.mdc-tree-title:hover {\n  background-color: #cbebfc; }\n\n.mdc-tree-title.selected {\n  background-color: rgba(24, 144, 255, 0.05);\n  color: #0052d9; }\n\n.tree-item,\n.arrow {\n  transition: all .4s ease; }\n", ""]);
+exports.push([module.i, ".material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 18px;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased;\n  vertical-align: top;\n  margin-right: 3px;\n  display: inline-block;\n  line-height: 40px;\n  height: 40px;\n  max-width: 24px;\n  overflow: hidden; }\n\n*,\n*::before,\n*::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\nli {\n  list-style: none;\n  margin: 0;\n  padding: 0px;\n  white-space: nowrap; }\n\nul {\n  margin: 0;\n  padding: 0;\n  width: 100%; }\n\n.m-nav {\n  border: 1px solid #ccc;\n  width: 256px;\n  border-radius: 4px; }\n\n.children {\n  transition: all .4s ease;\n  overflow: hidden; }\n\n.tree-item {\n  vertical-align: top;\n  position: relative; }\n\n.arrow {\n  vertical-align: top;\n  cursor: pointer;\n  height: 40px;\n  line-height: 40px;\n  position: absolute;\n  right: 10px;\n  top: 0px; }\n\n.close > .mdc-tree-title > .arrow {\n  transform: rotate(180deg); }\n\n.mdc-tree-title:hover {\n  background-color: rgba(33, 112, 184, 0.001); }\n\n.mdc-tree-title {\n  padding: 0 10px;\n  cursor: pointer;\n  height: 40px;\n  line-height: 40px;\n  display: block; }\n\n.text {\n  display: inline-block;\n  line-height: 40px;\n  height: 40px; }\n\n.mdc-tree-title:hover {\n  background-color: #cbebfc; }\n\n.mdc-tree-title.selected {\n  background-color: rgba(33, 112, 184, 0.05);\n  color: #0072d9; }\n\n.tree-item,\n.arrow {\n  transition: all .4s ease; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/nav/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/nav/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -253,7 +253,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/nav/index.scss");
 //@ts-ignore
-var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Nav = /** @class */ (function (_super) {
     __extends(Nav, _super);
     function Nav() {
@@ -285,7 +285,7 @@ var Nav = /** @class */ (function (_super) {
                     omi_1.h("span", { class: 'text' }, node.title),
                     node.children && node.children.length > 0 && omi_1.h("svg", { onClick: function (_) { return _this.toggle(_, node.id, !node.close); }, viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
                         omi_1.h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" }))),
-                omi_1.h("div", { class: 'children', style: "height: " + (node.close ? 0 : (node.children ? (this._getChildCount(node)) * 35 : 0)) + "px;" },
+                omi_1.h("div", { class: 'children', style: "height: " + (node.close ? 0 : (node.children ? (this._getChildCount(node)) * 40 : 0)) + "px;" },
                     " ",
                     node.children && node.children.length > 0 && node.children.map(function (_) { return _this.renderNode(_, next); }))));
     };
@@ -304,7 +304,7 @@ var Nav = /** @class */ (function (_super) {
         var _this = this;
         return omi_1.h("div", { class: 'm-nav' }, props.nodes.map(function (node) { return _this.renderNode(node, 0); }));
     };
-    Nav.css = theme_ts_1.theme() + css;
+    Nav.css = css;
     Nav.propTypes = {
         nodes: Object
     };
@@ -323,32 +323,14 @@ exports.default = Nav;
   !*** ./src/theme.ts ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-if (typeof window === 'object') {
-    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
-    window.OmimThemeError = window.OmimThemeError || '#f5222d';
-    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
-    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
-    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
-    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
-    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
-    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
-    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
-    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
-    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
-    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
+if (!document.querySelector('#__omim-theme-style')) {
+    var style = document.createElement('style');
+    style.id = '__omim-theme-style';
+    style.textContent = "--mdc-theme-primary: #0052d9;\n  --mdc-theme-secondary: #1890ff;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
+    document.querySelector('head').append(style);
 }
-function theme() {
-    if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
-    }
-}
-exports.theme = theme;
 
 
 /***/ }),
@@ -364,6 +346,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map
