@@ -19,7 +19,7 @@ interface Props {
   navigations?: object,
   actionItems?: object,
   scrollTarget?: EventTarget,
-  scrollTargetId: string
+  scrollTargetId?: string
 }
 
 interface Data {

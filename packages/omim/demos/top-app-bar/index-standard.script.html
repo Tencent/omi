@@ -69,7 +69,12 @@
       document.body.style.setProperty('--mdc-theme-primary', '#0052d9');
       
       console.log('Target scroll bar has been switched');
-      topAppBar.setAttribute('scroll-target-id', 'all');
+      const topAppBarIdValue = topAppBar.getAttribute('scroll-target-id');
+      if(topAppBarIdValue) {
+        topAppBar.setAttribute('scroll-target-id', '');
+      } else {
+        topAppBar.setAttribute('scroll-target-id', 'all');
+      }
     })
 
     topAppBar.addEventListener('action', (e) => {

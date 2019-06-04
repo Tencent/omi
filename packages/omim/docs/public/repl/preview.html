@@ -155,19 +155,7 @@
 
     // window.onload = function() {
     // document.body.innerHTML = parent._sourceCode
-    if(parent.location.pathname.indexOf('repl/top-app-bar.html') != -1) {
-
-      const demoShowButton = document.getElementById("demo-show-button");
-      const topAppBarShowMenus = document.getElementById("m-top-app-bar-show-menus");
-
-      topAppBarShowMenus.addEventListener('navigation', () => {
-        window.open('./top-app-bar/index.html')
-      })
-      topAppBarShowMenus.addEventListener('action0', () => {
-        window.open('./top-app-bar')
-      })
-
-    }  else if(parent.location.pathname.indexOf('repl/select.html') != -1) {
+    if(parent.location.pathname.indexOf('repl/select.html') != -1) {
 
       function changeA(e) {
         console.log(e.detail)
