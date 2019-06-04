@@ -18,7 +18,7 @@ $palette-primary-100: nth($primary-color-palette, 2);
 $palette-primary-200: nth($primary-color-palette, 3);
 $palette-primary-300: nth($primary-color-palette, 4);
 $palette-primary-400: nth($primary-color-palette, 5);
-$palette-primary-500: nth($primary-color-palette, 6);
+$palette-primary-500: $mdc-theme-primary;
 $palette-primary-600: nth($primary-color-palette, 7);
 $palette-primary-700: nth($primary-color-palette, 8);
 $palette-primary-800: nth($primary-color-palette, 9);

@@ -41,10 +41,19 @@ export default class WeElement extends HTMLElement {
     this.install()
     this.afterInstall()
 
-    const shadowRoot = this.attachShadow({
-			mode: 'open'
-		})
-
+    let shadowRoot
+    if (!this.shadowRoot) {
+      shadowRoot = this.attachShadow({
+        mode: 'open'
+      })
+    } else {
+      shadowRoot = this.shadowRoot
+      let fc
+      while ((fc = shadowRoot.firstChild)) {
+        shadowRoot.removeChild(fc)
+      }
+    }
+    
     if (this.constructor.css) {
       shadowRoot.appendChild(cssToDom(this.constructor.css))
     } else if (this.css) {

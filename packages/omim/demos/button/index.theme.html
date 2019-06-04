@@ -57,7 +57,7 @@
 
       var picker = document.querySelector('#picker')
       picker.addEventListener('change', function (evt) {
-        document.body.style.setProperty('--mdc-theme-primary', evt.detail.color)
+        document.body.style.setProperty('--mdc-theme-primary', evt.detail.colorObject.toRGBA().toString())
       })
     </script>
 
