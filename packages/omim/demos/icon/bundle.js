@@ -174,7 +174,7 @@ eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nif (typeof window === 'object') {\r\n    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';\r\n    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';\r\n    window.OmimThemeError = window.OmimThemeError || '#f5222d';\r\n}\r\nfunction theme() {\r\n    if (typeof window === 'object') {\r\n        return \"* {\\n  --mdc-theme-primary: \" + window.OmimThemePrimary + \";\\n  --mdc-theme-secondary: \" + window.OmimThemeSecondary + \";\\n  --mdc-theme-error: \" + window.OmimThemeError + \";\\n}\";\r\n    }\r\n}\r\nexports.theme = theme;\r\n\n\n//# sourceURL=webpack:///./src/theme.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nif (typeof window === 'object') {\r\n    window.OmimThemePrimary = window.OmimThemePrimary || '#0072d9';\r\n    window.OmimThemeSecondary = window.OmimThemeSecondary || '#2170b8';\r\n    window.OmimThemeError = window.OmimThemeError || '#f5222d';\r\n}\r\nfunction theme() {\r\n    if (typeof window === 'object') {\r\n        return \"* {\\n  --mdc-theme-primary: \" + window.OmimThemePrimary + \";\\n  --mdc-theme-secondary: \" + window.OmimThemeSecondary + \";\\n  --mdc-theme-error: \" + window.OmimThemeError + \";\\n}\";\r\n    }\r\n}\r\nexports.theme = theme;\r\n\n\n//# sourceURL=webpack:///./src/theme.ts?");
 
 /***/ })
 

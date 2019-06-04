@@ -378,8 +378,8 @@ exports.default = Row;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 if (typeof window === 'object') {
-    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
-    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0072d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#2170b8';
     window.OmimThemeError = window.OmimThemeError || '#f5222d';
     window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
     window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';

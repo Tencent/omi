@@ -46,7 +46,7 @@ define('my-dashboard', class extends WeElement {
           width: 100%;
           display: block;
           text-align: center;
-          color: #0052d9;
+          color: #0072d9;
           height:40px;
           line-height:40px;
         }

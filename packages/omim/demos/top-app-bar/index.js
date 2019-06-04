@@ -45,14 +45,14 @@ define('my-app', class extends WeElement {
   `
 
   showDemoStart = false
-  themeColor = '#0052d9'
+  themeColor = '#0072d9'
   scrollTarget = null
 
   onDemoStart = e => {
     console.log(e.detail)
     this.showDemoStart = !this.showDemoStart
-    document.body.style.setProperty('--mdc-theme-primary', '#0052d9')
-    this.themeColor = '#0052d9'
+    document.body.style.setProperty('--mdc-theme-primary', '#0072d9')
+    this.themeColor = '#0072d9'
     this.update()
   }
   
