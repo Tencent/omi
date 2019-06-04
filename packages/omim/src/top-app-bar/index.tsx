@@ -113,13 +113,12 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   findPathAccessKey(evt) {
-    let index = -1
     for(let i = 0; i < evt.path.length; i++) {
-      if(evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') {
-        index = evt.path[i].accessKey
-        return index
+      if((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') && evt.path[i].accessKey) {
+        return evt.path[i].accessKey
       }
     }
+    return -1
   }
 
   isArray(value){
