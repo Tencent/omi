@@ -36,14 +36,15 @@ export default class topAppBar extends WeElement<Props, Data> {
     };
     topAppBar: MDCTopAppBar;
     tagNum: Object;
+    otherNum: number;
     beforeUpdate(): void;
     updated(): void;
     installed(): void;
-    setChildrenAttribute(): void;
+    _setChildrenAttribute(): void;
     onNav: (evt: any) => void;
     onAction: (evt: any) => void;
-    findPathAccessKey(evt: any): any;
-    isArray(value: any): boolean;
+    _findPathAccessKey(evt: any): any;
+    _isArray(value: any): boolean;
     render(props: any): JSX.Element[];
 }
 export {};

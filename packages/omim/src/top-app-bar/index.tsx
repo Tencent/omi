@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCTopAppBar} from '@material/top-app-bar'
 
@@ -16,6 +16,7 @@ interface Props {
   dense?: boolean,
   fixed?: boolean,
   adjust?: boolean,
+  bottom: boolean,
   navigations?: object,
   actionItems?: object,
   scrollTarget?: EventTarget,
@@ -38,6 +39,7 @@ export default class topAppBar extends WeElement<Props, Data>{
     dense: Boolean,
     fixed: Boolean,
     adjust: Boolean,
+    bottom: Boolean,
     navigations: Object,
     actionItems: Object,
     scrollTarget: EventTarget,
@@ -46,7 +48,14 @@ export default class topAppBar extends WeElement<Props, Data>{
 
   topAppBar: MDCTopAppBar
   tagNum = new Object()
-  otherNum = 0
+  other = false
+
+  receiveProps(props, data, oldProps) {
+    //test
+    console.log('---------------')
+    console.log(props)
+    console.log(oldProps)
+  }
 
   beforeUpdate() {
     this._setChildrenAttribute()
@@ -58,19 +67,16 @@ export default class topAppBar extends WeElement<Props, Data>{
     this.topAppBar.destroy()
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
 
+    // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
+    // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
     if(this.props.scrollTarget) {
-      // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
-      // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画 (JSX 使用)
-      this.props.scrollTarget ? this.topAppBar.setScrollTarget(this.props.scrollTarget) : this.topAppBar.setScrollTarget(window)
+      //(JSX 使用)
+      this.topAppBar.setScrollTarget(this.props.scrollTarget)
     } else {
       //(原生 js 使用)
       if(this.props.scrollTargetId) {
         const findTarge = document.querySelector('#' + this.props.scrollTargetId)
-        if(findTarge) {
-          this.topAppBar.setScrollTarget(findTarge)
-        } else {
-          this.topAppBar.setScrollTarget(window)
-        }
+        findTarge ? this.topAppBar.setScrollTarget(findTarge) : this.topAppBar.setScrollTarget(window)
       } else {
         this.topAppBar.setScrollTarget(window)
       }
@@ -88,7 +94,7 @@ export default class topAppBar extends WeElement<Props, Data>{
 
   _setChildrenAttribute() {
     this.tagNum = new Object()
-    this.otherNum = 0
+    this.other = false
     const children = elementChildren(this)
     children.forEach((child) => {
       if(child.tagName === 'NAVIGATION' || child.tagName === 'ACTIONITEM') {
@@ -99,19 +105,13 @@ export default class topAppBar extends WeElement<Props, Data>{
         child.setAttribute('slot', child.tagName + tagLength + '')
         this.tagNum[child.tagName].push(tagLength)
       } else {
-        // let omim = document.createElement("omim")
-        // omim.setAttribute('slot', 'OTHER')
-        // console.log(this)
-        // this.appendChild(omim)
-        // omim.appendChild(child)
-        //test
         child.setAttribute('slot', 'OTHER')
-        this.otherNum++
+        this.other = true
       }
     })
   }
 
-  onNav = (evt: any) => {
+  onNavigation = (evt: any) => {
     evt && this.fire('navigation', {nav: 'navigation', index: this._findPathAccessKey(evt)})
   }
 
@@ -120,59 +120,45 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   _findPathAccessKey(evt) {
-    for(let i = 0; i < evt.path.length; i++) {
-      if((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'OMIM') && evt.path[i].accessKey) {
+    for(let i = 0; i < evt.path.length; i++)
+      if((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'OMIM') && evt.path[i].accessKey)
         return evt.path[i].accessKey
-      }
-    }
     return -1
   }
-
-  _isArray(value){
-    return typeof Array.isArray === 'function' ? Array.isArray(value) : Object.prototype.toString.call(value) === '[object Array]'
-  }
-
+  
   render(props) {
     return [
       <header {...extractClass(props, 'mdc-top-app-bar', {
-        'mdc-top-app-bar--fixed': props.fixed,
+        'mdc-top-app-bar--fixed': props.fixed || props.bottom,
         'mdc-top-app-bar--dense': props.dense,
         'mdc-top-app-bar--short': props.short || props.shortCollapsed,
         'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
-        'mdc-top-app-bar--prominent': props.prominent
+        'mdc-top-app-bar--prominent': props.prominent,
+        'm-top-app-bar-bottom': props.bottom
       })}>
         <div class='mdc-top-app-bar__row'>
           {(props.navigations || this.tagNum['NAVIGATION'] || props.heading) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-            {(props.navigations && !this.tagNum['NAVIGATION']) ?
-            (typeof props.navigations === 'string' ? <omim accessKey={'0'} class='mdc-top-app-bar__navigation-icon material-icons' onClick={this.onNav}>{props.navigations}</omim> :
-            this._isArray(props.navigations) ?
-            props.navigations.map((item, index) => {
-              return item.text ? <omim accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' onClick={this.onNav}>{item.text}</omim> : typeof item === 'string' && <omim accessKey={index + ''} class='mdc-top-app-bar__navigation-icon material-icons' onClick={this.onNav}>{item}</omim>
-            }) : props.navigations.text && <omim class='mdc-top-app-bar__navigation-icon'>{props.navigations.text}</omim>) :
-            this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
-              return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNav}></slot>
-            })}
+            {props.navigations ? props.navigations.map((item, index) => {
+              return <omim accessKey={index + ''} class={classNames('mdc-top-app-bar__navigation-icon', {'material-icons': !item.text})} onClick={this.onNavigation}>{typeof item.text === 'string' ? item.text : item}</omim>
+            }) : (this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
+              return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNavigation}></slot>
+            }))}
             {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
           </section>}
           {(props.actionItems || this.tagNum['ACTIONITEM']) &&
           <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-            {(props.actionItems && !this.tagNum['ACTIONITEM']) ?
-            (typeof props.actionItems === 'string' ? <omim accessKey={'0'} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{props.actionItems}</omim> :
-            this._isArray(props.actionItems) ?
+            {props.actionItems ?
             props.actionItems.map((item, index) => {
-              return item.text ? <omim accessKey={index + ''} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{item.text}</omim> :
-              typeof item === 'string' && <omim accessKey={index + ''} class='mdc-top-app-bar__action-item material-icons' onClick={this.onAction}>{item}</omim>
-            }) : props.actionItems.text && <omim accessKey={'0'} class='mdc-top-app-bar__action-item' onClick={this.onAction}>{props.actionItems.text}</omim>) :
-            this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
+              return <omim accessKey={index + ''} class={classNames('mdc-top-app-bar__action-item', {'material-icons': !item.text})} onClick={this.onAction}>{typeof item.text === 'string' ? item.text : item}</omim>
+            }) : (this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
               return <slot accessKey={index + ''} class='mdc-top-app-bar__action-item' name={'ACTIONITEM' + index} onClick={this.onAction}></slot>
-            })}
+            }))}
           </section>}
-          {this.otherNum > 0 && <slot name='OTHER'></slot>}
+          {this.other === true && <slot name='OTHER'></slot>}
         </div>
       </header>,
-      (props.adjust &&
-      <div {...extractClass(props,
+      (props.adjust && <div {...extractClass(props,
         (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
         (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
         props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :

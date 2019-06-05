@@ -2295,25 +2295,27 @@ var topAppBar = /** @class */ (function (_super) {
     function topAppBar() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.tagNum = new Object();
+        _this.otherNum = 0;
         _this.onNav = function (evt) {
-            evt && _this.fire('navigation', { nav: 'navigation', index: _this.findPathAccessKey(evt) });
+            evt && _this.fire('navigation', { nav: 'navigation', index: _this._findPathAccessKey(evt) });
         };
         _this.onAction = function (evt) {
-            evt && _this.fire('action', { act: 'action', index: _this.findPathAccessKey(evt) });
+            evt && _this.fire('action', { act: 'action', index: _this._findPathAccessKey(evt) });
         };
         return _this;
     }
     topAppBar.prototype.beforeUpdate = function () {
-        this.setChildrenAttribute();
+        this._setChildrenAttribute();
     };
     topAppBar.prototype.updated = function () {
         //update this.topAppBar, more flexible operation
         //更新 this.topAppBar 变量，操作更灵活
         this.topAppBar.destroy();
         this.topAppBar = new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
+        // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
+        // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
         if (this.props.scrollTarget) {
-            // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
-            // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画 (JSX 使用)
+            //(JSX 使用)
             this.props.scrollTarget ? this.topAppBar.setScrollTarget(this.props.scrollTarget) : this.topAppBar.setScrollTarget(window);
         }
         else {
@@ -2336,13 +2338,14 @@ var topAppBar = /** @class */ (function (_super) {
         var _this = this;
         this.topAppBar = new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
         dom_ready_1.domReady(function () {
-            _this.setChildrenAttribute();
+            _this._setChildrenAttribute();
             _this.update();
         });
     };
-    topAppBar.prototype.setChildrenAttribute = function () {
+    topAppBar.prototype._setChildrenAttribute = function () {
         var _this = this;
         this.tagNum = new Object();
+        this.otherNum = 0;
         var children = element_children_1.elementChildren(this);
         children.forEach(function (child) {
             if (child.tagName === 'NAVIGATION' || child.tagName === 'ACTIONITEM') {
@@ -2353,17 +2356,21 @@ var topAppBar = /** @class */ (function (_super) {
                 child.setAttribute('slot', child.tagName + tagLength + '');
                 _this.tagNum[child.tagName].push(tagLength);
             }
+            else {
+                child.setAttribute('slot', 'OTHER');
+                _this.otherNum++;
+            }
         });
     };
-    topAppBar.prototype.findPathAccessKey = function (evt) {
+    topAppBar.prototype._findPathAccessKey = function (evt) {
         for (var i = 0; i < evt.path.length; i++) {
-            if ((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'SPAN') && evt.path[i].accessKey) {
+            if ((evt.path[i].tagName === 'SLOT' || evt.path[i].tagName === 'OMIM') && evt.path[i].accessKey) {
                 return evt.path[i].accessKey;
             }
         }
         return -1;
     };
-    topAppBar.prototype.isArray = function (value) {
+    topAppBar.prototype._isArray = function (value) {
         return typeof Array.isArray === 'function' ? Array.isArray(value) : Object.prototype.toString.call(value) === '[object Array]';
     };
     topAppBar.prototype.render = function (props) {
@@ -2380,26 +2387,27 @@ var topAppBar = /** @class */ (function (_super) {
                     (props.navigations || this.tagNum['NAVIGATION'] || props.heading) &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-start' },
                             (props.navigations && !this.tagNum['NAVIGATION']) ?
-                                (typeof props.navigations === 'string' ? omi_1.h("span", { accessKey: '0', class: 'mdc-top-app-bar__navigation-icon material-icons', onClick: this.onNav }, props.navigations) :
-                                    this.isArray(props.navigations) ?
+                                (typeof props.navigations === 'string' ? omi_1.h("omim", { accessKey: '0', class: 'mdc-top-app-bar__navigation-icon material-icons', onClick: this.onNav }, props.navigations) :
+                                    this._isArray(props.navigations) ?
                                         props.navigations.map(function (item, index) {
-                                            return item.text ? omi_1.h("span", { accessKey: index + '', class: 'mdc-top-app-bar__navigation-icon', onClick: _this.onNav }, item.text) : typeof item === 'string' && omi_1.h("span", { accessKey: index + '', class: 'mdc-top-app-bar__navigation-icon material-icons', onClick: _this.onNav }, item);
-                                        }) : props.navigations.text && omi_1.h("span", { class: 'mdc-top-app-bar__navigation-icon' }, props.navigations.text)) :
+                                            return item.text ? omi_1.h("omim", { accessKey: index + '', class: 'mdc-top-app-bar__navigation-icon', onClick: _this.onNav }, item.text) : typeof item === 'string' && omi_1.h("omim", { accessKey: index + '', class: 'mdc-top-app-bar__navigation-icon material-icons', onClick: _this.onNav }, item);
+                                        }) : props.navigations.text && omi_1.h("omim", { class: 'mdc-top-app-bar__navigation-icon' }, props.navigations.text)) :
                                 this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map(function (_, index) {
                                     return omi_1.h("slot", { accessKey: index + '', class: 'mdc-top-app-bar__navigation-icon', name: 'NAVIGATION' + index, onClick: _this.onNav });
                                 }),
                             props.heading && omi_1.h("span", { class: 'mdc-top-app-bar__title' }, props.heading)),
                     (props.actionItems || this.tagNum['ACTIONITEM']) &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' }, (props.actionItems && !this.tagNum['ACTIONITEM']) ?
-                            (typeof props.actionItems === 'string' ? omi_1.h("span", { accessKey: '0', class: 'mdc-top-app-bar__action-item material-icons', onClick: this.onAction }, props.actionItems) :
-                                this.isArray(props.actionItems) ?
+                            (typeof props.actionItems === 'string' ? omi_1.h("omim", { accessKey: '0', class: 'mdc-top-app-bar__action-item material-icons', onClick: this.onAction }, props.actionItems) :
+                                this._isArray(props.actionItems) ?
                                     props.actionItems.map(function (item, index) {
-                                        return item.text ? omi_1.h("span", { accessKey: index + '', class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, item.text) :
-                                            typeof item === 'string' && omi_1.h("span", { accessKey: index + '', class: 'mdc-top-app-bar__action-item material-icons', onClick: _this.onAction }, item);
-                                    }) : props.actionItems.text && omi_1.h("span", { accessKey: '0', class: 'mdc-top-app-bar__action-item', onClick: this.onAction }, props.actionItems.text)) :
+                                        return item.text ? omi_1.h("omim", { accessKey: index + '', class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, item.text) :
+                                            typeof item === 'string' && omi_1.h("omim", { accessKey: index + '', class: 'mdc-top-app-bar__action-item material-icons', onClick: _this.onAction }, item);
+                                    }) : props.actionItems.text && omi_1.h("omim", { accessKey: '0', class: 'mdc-top-app-bar__action-item', onClick: this.onAction }, props.actionItems.text)) :
                             this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map(function (_, index) {
                                 return omi_1.h("slot", { accessKey: index + '', class: 'mdc-top-app-bar__action-item', name: 'ACTIONITEM' + index, onClick: _this.onAction });
-                            })))),
+                            })),
+                    this.otherNum > 0 && omi_1.h("slot", { name: 'OTHER' }))),
             (props.adjust &&
                 omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
                     (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :

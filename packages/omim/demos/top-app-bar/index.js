@@ -33,7 +33,7 @@ define('my-app', class extends WeElement {
       justify-content: space-around;
       min-height: 200px;
       // min-width: 400px;
-      padding: 15px;
+      padding: 20px;
     }
     .iframe {
       width: 100%;
@@ -47,6 +47,7 @@ define('my-app', class extends WeElement {
 
   showDemoStart = false
   themeColor = '#0072d9'
+  searchColor = '#2196f3'
   scrollTarget = null
 
   onDemoStart = e => {
@@ -54,6 +55,7 @@ define('my-app', class extends WeElement {
     this.showDemoStart = !this.showDemoStart
     document.body.style.setProperty('--mdc-theme-primary', '#0072d9')
     this.themeColor = '#0072d9'
+    this.searchColor = '#2196f3'
     this.update()
   }
   
@@ -64,6 +66,7 @@ define('my-app', class extends WeElement {
     this.titleOmi = this.titleOmi == '' ? ' (Omim)' : ''
     document.body.style.setProperty('--mdc-theme-primary', '#018786')
     this.themeColor = '#018786'
+    this.searchColor = '#24BFA5'
     this.update()
   }
 
@@ -72,6 +75,7 @@ define('my-app', class extends WeElement {
     this.titleOmi = this.titleOmi == '' ? ' (Omim)' : ''
     document.body.style.setProperty('--mdc-theme-primary', '#018786')
     this.themeColor = '#018786'
+    this.searchColor = '#24BFA5'
     if(e.detail.index == '3') {
       this.scrollTarget = this.scrollTarget === null ? this.shadowRoot.querySelector('#demo-build') : null
     }
@@ -86,12 +90,13 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             heading={'Click to show menus' + this.titleOmi}
             scroll-target={this.scrollTarget}
+            // action-items={['wifi']}
             onNavigation={this.onDemoStart}
             onAction={this.onMenuStart}>
             <navigation>
               <m-avatar icon="person" backgroundColor='#FFF' color={this.themeColor} />
             </navigation>
-            <actionitem>
+            {/* <actionitem>
               <m-badge css={`.badge{background-color: #FFF; color: ${this.themeColor};}`} content="99">
                 <m-icon path="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z" color="#FFF" />
               </m-badge>
@@ -104,11 +109,8 @@ define('my-app', class extends WeElement {
               </m-icon>
             </actionitem>
             <actionitem>
-              <m-icon-button icons={['favorite', 'favorite_border']}></m-icon-button>
-            </actionitem>
-            <actionitem>
               <m-icon-button title='Switch scroll target' icons={['view_carousel', 'view_array']}></m-icon-button>
-            </actionitem>
+            </actionitem> */}
           </m-top-app-bar>
         </div>}
         {this.showDemoStart &&
@@ -116,7 +118,7 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             adjust
             heading={'Standard' + this.titleOmi}
-            navigations='favorite'
+            navigations={['menu']}
             action-items={['favorite_border', {text: 'Omi'},'wifi']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
@@ -126,7 +128,66 @@ define('my-app', class extends WeElement {
             adjust
             fixed
             heading={'Fixed' + this.titleOmi}
-            navigations={[{text: 'Omim'}, 'favorite', 'favorite']}
+            navigations={['menu', {text: 'Omim'}, 'favorite']}
+            onNavigation={this.onMenu}
+            onAction={this.onMenu}>
+            <div>
+              <m-text-field
+                outlined
+                label='search...'
+                paths={[{
+                  color: '#FFF',
+                  path: 'M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z'
+                }]}
+                css={`
+                  .mdc-text-field {
+                    margin-top: 13px;
+                    margin-right: 15px;
+                    height: 38px;
+                  }
+                  .mdc-text-field .mdc-text-field__input {
+                    caret-color: #FFF;
+                  }
+                  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+                    border-color: rgba(0, 0, 0, 0) !important;
+                    background: ${this.searchColor};
+                  }
+                  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+                    color: #FFF;
+                  }
+                  .mdc-notched-outline {
+                    overflow: hidden;
+                  }
+                  .mdc-notched-outline__trailing {
+                    border-radius: 0 6px 6px 0 !important;
+                  }
+                  .mdc-notched-outline__leading {
+                    border-radius: 6px 0 0 6px!important;
+                    width: 6px!important;
+                  }
+                  .mdc-text-field--with-leading-icon .icon {
+                    z-index: 1;
+                    top: 3px;
+                  }
+                  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label {
+                    top: 9px;
+                    left: 48px;
+                    color: #FFF;
+                  }
+                  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-flgatine-label--float-above {
+                    display: none;
+                  }
+                `}
+              ></m-text-field>
+            </div>
+          </m-top-app-bar>
+          <div style='height:15px;'></div>
+          <m-top-app-bar
+            adjust
+            dense
+            fixed
+            heading={'Dense + Fixed' + this.titleOmi}
+            navigations={['menu']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}>
             <actionitem>
@@ -146,44 +207,10 @@ define('my-app', class extends WeElement {
           <div style='height:15px;'></div>
           <m-top-app-bar
             adjust
-            dense
-            fixed
-            heading={'Dense + Fixed' + this.titleOmi}
-            // navigations='favorite'
-            // action-items={['favorite_border', 'favorite_border', 'favorite_border']}
-            onNavigation={this.onMenu}
-            onAction={this.onMenu}>
-            <navigation>
-              <m-icon
-                scale={1.5}
-                view={24}
-                path='M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z'>
-              </m-icon>
-            </navigation>
-            <h1>zain</h1>
-            <m-text-field
-              outlined
-              label='Label'
-              helperText='Helper Text'
-              css={`
-                .mdc-notched-outline__leading {
-                  border-radius: 28px 0 0 28px!important;
-                  width: 28px!important;
-                }
-                .mdc-notched-outline__trailing {
-                  border-radius: 0 28px 28px 0!important;
-                }
-              `}
-            ></m-text-field>
-            
-          </m-top-app-bar>
-          <div style='height:15px;'></div>
-          <m-top-app-bar
-            adjust
             prominent
             fixed
             heading={'Prominent + Fixed' + this.titleOmi}
-            navigations={['favorite', 'favorite', 'favorite', 'favorite', 'favorite']}
+            navigations={['menu', 'favorite', 'favorite', 'favorite', 'favorite']}
             action-items={['favorite_border', 'favorite_border', 'favorite_border', 'favorite_border', 'favorite_border']}
             onAction={this.onMenu}
             onNavigation={this.onMenu}
@@ -195,8 +222,8 @@ define('my-app', class extends WeElement {
             dense
             fixed
             heading={'Prominent + Dense + Fixed' + this.titleOmi}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            action-items={['favorite_border']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
           />
@@ -205,7 +232,7 @@ define('my-app', class extends WeElement {
             adjust
             fixed
             heading='Click to hide menus'
-            navigations='cancel'
+            navigations={['cancel']}
             action-items={['cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel']}
             onNavigation={this.onDemoStart}
             onAction={this.onDemoStart}
@@ -222,8 +249,8 @@ define('my-app', class extends WeElement {
             heading={'Short - Always Collapsed' + this.titleOmi}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            action-items={['favorite_border']}
           />
           <m-top-app-bar
             css={`
@@ -237,8 +264,8 @@ define('my-app', class extends WeElement {
             heading={'Short' + this.titleOmi}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            action-items={['favorite_border']}
           />
           <m-top-app-bar
             css={`
@@ -253,8 +280,8 @@ define('my-app', class extends WeElement {
             heading={'Short + Dense' + this.titleOmi}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            action-items={['favorite_border']}
           />
         </div>}
         <div id='demo-build' class='demos-display'>
