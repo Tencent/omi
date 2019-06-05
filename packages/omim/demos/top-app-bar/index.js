@@ -112,17 +112,9 @@ define('my-app', class extends WeElement {
               <m-icon-button title='Switch scroll target' icons={['view_carousel', 'view_array']}></m-icon-button>
             </actionitem>
           </m-top-app-bar>
-          <m-top-app-bar
-            css={`
-              .mdc-top-app-bar {
-                background: #DDD;
-              }
-            `}
-            bottom
-            onNavigation={this.onMenu}
-            onAction={this.onMenu}>
+          <m-top-app-bar bottom>
             <div style='width:100%'>
-              <m-tab default-active='speed' align="end" stacked>
+              <m-tab css={`.mdc-tab-bar {background: #EEE;}`} default-active='speed' align="end" stacked>
                 <item label="Recents" value="speed" icon="access_time"></item>
                 <item label="Nearby" value="fire" icon="near_me"></item>
                 <item label="Favorites" value="lol" icon="favorite"></item>
@@ -385,7 +377,7 @@ define('my-app', class extends WeElement {
               <iframe class='iframe' src='./index-short-collapsed.script.html'></iframe>
             </div>
           </div>
-          <div style='width:100%;height:500px;background:#EEE;'></div>
+          <div style='width:100%;height:500px;'></div>
         </div>
       </div>
     )
