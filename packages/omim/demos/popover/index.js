@@ -27,13 +27,13 @@ define('my-app', class extends WeElement {
 	render() {
 		return <div>
 			  <div>
-        <div style='position:relative;left:200px;top:100px;'>
+        <div style='position:relative;left:50px;top:90px;'>
         <div style='position:relative;left:43px;'>
           <m-button onClick={this.popoverIt}>top-left</m-button>
           <m-button onClick={this.popoverIt}>top</m-button>
           <m-button onClick={this.popoverIt}>top-right</m-button>
           </div>
-          <div style='position:relative;left:-50px;'>
+          <div style='position:relative;left:0px;'>
           <m-button onClick={this.popoverIt}>left-top</m-button>
           <br />
           <m-button onClick={this.popoverIt}>left</m-button>
@@ -45,7 +45,7 @@ define('my-app', class extends WeElement {
           <m-button onClick={this.popoverIt}>bottom</m-button>
           <m-button onClick={this.popoverIt}>bottom-right</m-button>
           <br />
-          <div style='position:relative;left:296px;top:-144px;'>
+          <div style='position:relative;left:246px;top:-144px;'>
           <m-button onClick={this.popoverIt}>right-top</m-button>
           <br />
           <m-button onClick={this.popoverIt}>right</m-button>
