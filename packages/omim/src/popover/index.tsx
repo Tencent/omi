@@ -156,4 +156,4 @@ export default class Popover extends WeElement<Props, {}> {
       </div>
     )
   }
-})
+}
