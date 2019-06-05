@@ -198,12 +198,12 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | input (lable,button)|  | |
 | input-number |  | |
 | input-table |  | |
-| loading |  | |
+| loading |member| done |
 | path-progress | member | done |
-| popover |  | |
+| popover | member | |
 | rate |  | |
 | step |  | |
-| toast |  | |
+| toast | member | done|
 | autocomplete |  | |
 | transfer list |  | |
 | bottom nav |  | |
