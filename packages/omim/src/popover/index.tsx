@@ -1,4 +1,4 @@
-import { define, WeElement, classNames, h } from 'omi'
+import { tag, WeElement, classNames, h } from 'omi'
 import * as css from './index.scss'
 
 //@ts-ignore
@@ -12,7 +12,8 @@ interface Props {
   target: string | HTMLElement 
 }
 
-define('m-popover', class extends WeElement<Props, {}> {
+@tag('m-popover')
+export default class Popover extends WeElement<Props, {}> {
   static css = css
 
   static defaultProps = {
