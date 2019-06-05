@@ -85,7 +85,7 @@ define('my-app', class extends WeElement {
 
   render() {
     return(
-      <div>
+      <div style='background:#FFF'>
         {!this.showDemoStart &&
         <div id='demo-show-button'>
           <m-top-app-bar
