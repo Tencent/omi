@@ -3,6 +3,7 @@ import '../../src/icon-button/index.tsx'
 import '../../src/avatar/index.tsx'
 import '../../src/badge/index.tsx'
 import '../../src/text-field/index.tsx'
+import '../../src/tab/index.tsx'
 
 import { render, WeElement, define, h } from 'omi'
 
@@ -76,7 +77,7 @@ define('my-app', class extends WeElement {
     document.body.style.setProperty('--mdc-theme-primary', '#018786')
     this.themeColor = '#018786'
     this.searchColor = '#24BFA5'
-    if(e.detail.index == '3') {
+    if(e.detail.index == '2') {
       this.scrollTarget = this.scrollTarget === null ? this.shadowRoot.querySelector('#demo-build') : null
     }
     this.update()
@@ -90,13 +91,12 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             heading={'Click to show menus' + this.titleOmi}
             scroll-target={this.scrollTarget}
-            // action-items={['wifi']}
             onNavigation={this.onDemoStart}
             onAction={this.onMenuStart}>
             <navigation>
               <m-avatar icon="person" backgroundColor='#FFF' color={this.themeColor} />
             </navigation>
-            {/* <actionitem>
+            <actionitem>
               <m-badge css={`.badge{background-color: #FFF; color: ${this.themeColor};}`} content="99">
                 <m-icon path="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z" color="#FFF" />
               </m-badge>
@@ -110,7 +110,24 @@ define('my-app', class extends WeElement {
             </actionitem>
             <actionitem>
               <m-icon-button title='Switch scroll target' icons={['view_carousel', 'view_array']}></m-icon-button>
-            </actionitem> */}
+            </actionitem>
+          </m-top-app-bar>
+          <m-top-app-bar
+            css={`
+              .mdc-top-app-bar {
+                background: #DDD;
+              }
+            `}
+            bottom
+            onNavigation={this.onMenu}
+            onAction={this.onMenu}>
+            <div style='width:100%'>
+              <m-tab default-active='speed' align="end" stacked>
+                <item label="Recents" value="speed" icon="access_time"></item>
+                <item label="Nearby" value="fire" icon="near_me"></item>
+                <item label="Favorites" value="lol" icon="favorite"></item>
+              </m-tab>
+            </div>
           </m-top-app-bar>
         </div>}
         {this.showDemoStart &&
@@ -119,7 +136,7 @@ define('my-app', class extends WeElement {
             adjust
             heading={'Standard' + this.titleOmi}
             navigations={['menu']}
-            action-items={['favorite_border', {text: 'Omi'},'wifi']}
+            actionItems={['favorite_border', {text: 'Omi'},'wifi']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
           ></m-top-app-bar>
@@ -210,8 +227,8 @@ define('my-app', class extends WeElement {
             prominent
             fixed
             heading={'Prominent + Fixed' + this.titleOmi}
-            navigations={['menu', 'favorite', 'favorite', 'favorite', 'favorite']}
-            action-items={['favorite_border', 'favorite_border', 'favorite_border', 'favorite_border', 'favorite_border']}
+            navigations={['menu', 'favorite', 'favorite']}
+            actionItems={['favorite_border', 'favorite_border', 'favorite_border']}
             onAction={this.onMenu}
             onNavigation={this.onMenu}
           />
@@ -223,7 +240,7 @@ define('my-app', class extends WeElement {
             fixed
             heading={'Prominent + Dense + Fixed' + this.titleOmi}
             navigations={['menu']}
-            action-items={['favorite_border']}
+            actionItems={['favorite_border']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
           />
@@ -232,8 +249,8 @@ define('my-app', class extends WeElement {
             adjust
             fixed
             heading='Click to hide menus'
-            navigations={['cancel']}
-            action-items={['cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel']}
+            navigations={['cancel', 'cancel', 'cancel']}
+            actionItems={['cancel', 'cancel', 'cancel']}
             onNavigation={this.onDemoStart}
             onAction={this.onDemoStart}
           />
@@ -250,7 +267,7 @@ define('my-app', class extends WeElement {
             onNavigation={this.onMenu}
             onAction={this.onMenu}
             navigations={['menu']}
-            action-items={['favorite_border']}
+            actionItems={['favorite_border']}
           />
           <m-top-app-bar
             css={`
@@ -265,7 +282,7 @@ define('my-app', class extends WeElement {
             onNavigation={this.onMenu}
             onAction={this.onMenu}
             navigations={['menu']}
-            action-items={['favorite_border']}
+            actionItems={['favorite_border']}
           />
           <m-top-app-bar
             css={`
@@ -281,7 +298,7 @@ define('my-app', class extends WeElement {
             onNavigation={this.onMenu}
             onAction={this.onMenu}
             navigations={['menu']}
-            action-items={['favorite_border']}
+            actionItems={['favorite_border']}
           />
         </div>}
         <div id='demo-build' class='demos-display'>

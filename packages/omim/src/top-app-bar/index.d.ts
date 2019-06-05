@@ -9,6 +9,7 @@ interface Props {
     dense?: boolean;
     fixed?: boolean;
     adjust?: boolean;
+    bottom: boolean;
     navigations?: object;
     actionItems?: object;
     scrollTarget?: EventTarget;
@@ -26,6 +27,7 @@ export default class topAppBar extends WeElement<Props, Data> {
         dense: BooleanConstructor;
         fixed: BooleanConstructor;
         adjust: BooleanConstructor;
+        bottom: BooleanConstructor;
         navigations: ObjectConstructor;
         actionItems: ObjectConstructor;
         scrollTarget: {
@@ -36,15 +38,14 @@ export default class topAppBar extends WeElement<Props, Data> {
     };
     topAppBar: MDCTopAppBar;
     tagNum: Object;
-    otherNum: number;
+    other: boolean;
     beforeUpdate(): void;
     updated(): void;
     installed(): void;
     _setChildrenAttribute(): void;
-    onNav: (evt: any) => void;
+    onNavigation: (evt: any) => void;
     onAction: (evt: any) => void;
     _findPathAccessKey(evt: any): any;
-    _isArray(value: any): boolean;
     render(props: any): JSX.Element[];
 }
 export {};

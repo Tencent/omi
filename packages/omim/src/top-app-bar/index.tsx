@@ -50,30 +50,19 @@ export default class topAppBar extends WeElement<Props, Data>{
   tagNum = new Object()
   other = false
 
-  receiveProps(props, data, oldProps) {
-    //test
-    console.log('---------------')
-    console.log(props)
-    console.log(oldProps)
-  }
-
   beforeUpdate() {
     this._setChildrenAttribute()
   }
 
   updated() {
-    //update this.topAppBar, more flexible operation
-    //更新 this.topAppBar 变量，操作更灵活
+    // update this.topAppBar, more flexible operation (更新 this.topAppBar 变量，操作更灵活)
     this.topAppBar.destroy()
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
 
-    // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use)
-    // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
-    if(this.props.scrollTarget) {
-      //(JSX 使用)
+    // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar (JSX use) (获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画)
+    if(this.props.scrollTarget) {  //(JSX 使用)
       this.topAppBar.setScrollTarget(this.props.scrollTarget)
-    } else {
-      //(原生 js 使用)
+    } else { // (原生 js 使用)
       if(this.props.scrollTargetId) {
         const findTarge = document.querySelector('#' + this.props.scrollTargetId)
         findTarge ? this.topAppBar.setScrollTarget(findTarge) : this.topAppBar.setScrollTarget(window)

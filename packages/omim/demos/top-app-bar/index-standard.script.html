@@ -31,7 +31,7 @@
       id="topAppBar"
       adjust
       heading="Standard"
-      navigations="'favorite'"
+      navigations="['favorite']"
       action-items="['favorite_border', 'favorite_border', 'favorite_border']"
     ></m-top-app-bar>
     <div id="content" class="content">
@@ -61,8 +61,7 @@
   </a>
   <script>
     var topAppBar = document.querySelector('#topAppBar')
-    var content = document.querySelector('#content')
-
+    
     topAppBar.addEventListener('navigation', (e) => {
       console.log(e.detail);
       topAppBar.setAttribute('heading', 'Standard (scroll target switch) (Omim)');
@@ -82,7 +81,7 @@
       switch(e.detail.index) {
         case '0': topAppBar.setAttribute('heading', 'Standard (Omi)'); document.body.style.setProperty('--mdc-theme-primary', '#6200ee'); break;
         case '1': topAppBar.setAttribute('heading', 'Standard (Omiu)'); document.body.style.setProperty('--mdc-theme-primary', '#018786'); break;
-        case '2': topAppBar.setAttribute('heading', 'Standard (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#b00020'); break;
+        case '2': topAppBar.setAttribute('heading', 'Standard (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#E081DF'); break;
       }
     })
   </script>

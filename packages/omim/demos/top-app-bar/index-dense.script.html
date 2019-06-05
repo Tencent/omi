@@ -28,7 +28,7 @@
       adjust
       heading="Dense"
       dense
-      navigations="'favorite'"
+      navigations="['favorite']"
       action-items="['favorite_border', 'favorite_border', 'favorite_border']"
     ></m-top-app-bar>
     <div id="content" class="content">
@@ -56,7 +56,6 @@
   </a> -->
   <script>
     var topAppBar = document.querySelector('#topAppBar')
-    var content = document.querySelector('#content')
 
     topAppBar.addEventListener('navigation', (e) => {
       console.log(e.detail);
