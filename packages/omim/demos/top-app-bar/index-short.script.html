@@ -28,8 +28,8 @@
       adjust
       heading="Short"
       short
-      navigations="'favorite'"
-      action-items="'favorite_border'"
+      navigations="['favorite']"
+      action-items="['favorite_border']"
     ></m-top-app-bar>
     <div id="content" class="content">
       Why Omi?<br/>
@@ -56,8 +56,7 @@
   </a>
   <script>
     var topAppBar = document.querySelector('#topAppBar')
-    var content = document.querySelector('#content')
-
+    
     topAppBar.addEventListener('navigation', (e) => {
       console.log(e.detail);
       topAppBar.setAttribute('heading', 'Short (Omim)');

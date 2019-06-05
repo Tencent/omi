@@ -51,7 +51,7 @@ export default class Tab extends WeElement<Props, Data>{
 	}
 
 	uninstall() {
-		this.data.tabBar.destory()
+		this.data.tabBar.destroy()
 	}
 
 	activateTab(value) {

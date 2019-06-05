@@ -33,7 +33,7 @@ const config = {
       {
         title: '导航',
         list: [
-          { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
+          { name: 'Top App Bar', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
@@ -128,7 +128,7 @@ const config = {
       {
         title: 'Navigation',
         list: [
-          { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
+          { name: 'Top App Bar', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
