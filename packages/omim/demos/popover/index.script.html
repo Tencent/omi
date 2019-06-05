@@ -9,20 +9,30 @@
 </head>
 
 <body style="background-color: #fefefe;">
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/popover/index.js"></script>
+	<script src="../../src/button/index.js"></script>
 
-	<m-pagination total="125" current-page="1" page-size="5" id="myPagination">
-	</m-pagination>
+
+	<div style="position:relative;left:100px;top:100px;">
+		<m-button id='myBtn'>top-left</m-button>
+	</div>
+	<m-popover id="myPopover" target="#myBtn">
+		<div>Test Content</div>
+		<div>Test Content</div>
+		<div>Test Content..</div>
+	</m-popover>
+
 
 	<script>
-		var pagination = document.querySelector('#myPagination')
-		pagination.addEventListener('change', function (evt) {
-			console.log(evt.detail)
+		var myPopover = document.querySelector('#myPopover')
+		var myBtn = document.querySelector('#myBtn')
+		myBtn.addEventListener('click', function () {
+			myPopover.pureSetAttribute('direction', 'top-left')
+			myPopover.setAttribute('show', '')
 		})
+
 	</script>
-	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-	<script src="../../src/pagination/index.js"></script>
-
-
 </body>
 
 </html>

@@ -288,7 +288,14 @@ var Popover = /** @class */ (function (_super) {
         };
         _this.left = 0;
         _this.top = 0;
-        _this.bodyClickHandler = function () {
+        _this._docClickHandler = function () {
+            //omi mode
+            if (_this['__omiattr_']) {
+                _this.props.show = false;
+                _this['__omiattr_'].show = false;
+            }
+            //html element mode
+            _this.removeAttribute('show');
             _this.fire('close');
         };
         _this.mouseDownHandler = function (evt) {
@@ -297,13 +304,13 @@ var Popover = /** @class */ (function (_super) {
         return _this;
     }
     Popover.prototype.uninstall = function () {
-        document.body.removeEventListener('mousedown', this.bodyClickHandler);
+        document.removeEventListener('mousedown', this._docClickHandler);
     };
     Popover.prototype.updated = function () {
         this._setPosition();
     };
     Popover.prototype.installed = function () {
-        document.body.addEventListener('mousedown', this.bodyClickHandler);
+        document.addEventListener('mousedown', this._docClickHandler);
         this._setPosition();
     };
     Popover.prototype.getScopeRoot = function (current) {
@@ -396,6 +403,13 @@ var Popover = /** @class */ (function (_super) {
     Popover.defaultProps = {
         x: 0,
         y: 0
+    };
+    Popover.propTypes = {
+        show: Boolean,
+        x: Number,
+        y: Number,
+        direction: String,
+        target: String
     };
     Popover = __decorate([
         omi_1.tag('m-popover')

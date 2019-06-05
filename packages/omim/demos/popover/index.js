@@ -14,7 +14,8 @@ define('my-app', class extends WeElement {
 
   onClose = () => {
     this.popoverShow = false
-    this.update()
+    //no need to update
+    // this.update()
   }
 
   static css = `

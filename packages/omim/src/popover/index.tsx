@@ -21,6 +21,14 @@ export default class Popover extends WeElement<Props, {}> {
     y: 0
   }
 
+  static propTypes = {
+    show: Boolean,
+    x: Number,
+    y: Number,
+    direction: String,
+    target: String
+  }
+
   close = () => {
     this.fire('close')
   }
@@ -32,12 +40,20 @@ export default class Popover extends WeElement<Props, {}> {
   left = 0
   top = 0
 
-  bodyClickHandler = () => {
+  _docClickHandler = () => {
+    //omi mode
+    if(this['__omiattr_']){
+      this.props.show = false
+      this['__omiattr_'].show = false
+    }
+    //html element mode
+    this.removeAttribute('show') 
+
     this.fire('close')
   }
   
   uninstall() {
-    document.body.removeEventListener('mousedown', this.bodyClickHandler)
+    document.removeEventListener('mousedown', this._docClickHandler)
   }
 
   mouseDownHandler = (evt) => {
@@ -49,7 +65,7 @@ export default class Popover extends WeElement<Props, {}> {
   }
 
   installed() {
-    document.body.addEventListener('mousedown', this.bodyClickHandler)
+    document.addEventListener('mousedown', this._docClickHandler)
     this._setPosition()
   }
 

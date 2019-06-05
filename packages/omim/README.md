@@ -200,7 +200,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | input-table |  | |
 | loading |member| done |
 | path-progress | member | done |
-| popover | member | |
+| popover | member | done |
 | rate |  | |
 | step |  | |
 | toast | member | done|

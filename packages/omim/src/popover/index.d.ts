@@ -13,11 +13,18 @@ export default class Popover extends WeElement<Props, {}> {
         x: number;
         y: number;
     };
+    static propTypes: {
+        show: BooleanConstructor;
+        x: NumberConstructor;
+        y: NumberConstructor;
+        direction: StringConstructor;
+        target: StringConstructor;
+    };
     close: () => void;
     confirm: () => void;
     left: number;
     top: number;
-    bodyClickHandler: () => void;
+    _docClickHandler: () => void;
     uninstall(): void;
     mouseDownHandler: (evt: any) => void;
     updated(): void;
