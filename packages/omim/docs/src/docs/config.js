@@ -16,6 +16,7 @@ const config = {
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Loading', md: 'loading', demo: './repl/loading.html' },
           { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' }
         ]
@@ -46,7 +47,8 @@ const config = {
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
           {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
-          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'}
+          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'},
+          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' }
         ]
       },
       {
@@ -72,7 +74,8 @@ const config = {
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
-          { name: 'Card', md: 'card', demo: './repl/card.html' }
+          { name: 'Card', md: 'card', demo: './repl/card.html' },
+          { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' }
         ]
       },
       {
@@ -107,6 +110,7 @@ const config = {
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Loading', md: 'loading', demo: './repl/loading.html' },
           { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' }
         ]
@@ -137,7 +141,8 @@ const config = {
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
           {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
-          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'}
+          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'},
+          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' }
         ]
       },
       {
@@ -163,7 +168,8 @@ const config = {
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
-          { name: 'Card', md: 'card', demo: './repl/card.html' }
+          { name: 'Card', md: 'card', demo: './repl/card.html' },
+          { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' }
         ]
       },
       {
