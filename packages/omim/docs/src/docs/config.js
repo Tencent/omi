@@ -48,7 +48,8 @@ const config = {
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
           {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
           {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'},
-          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' }
+          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' },
+          { name: 'Toast', md: 'toast', demo: 'https://tencent.github.io/omi/packages/omim/demos/toast/index.html' }
         ]
       },
       {
@@ -142,7 +143,8 @@ const config = {
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
           {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
           {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'},
-          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' }
+          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' },
+          { name: 'Toast', md: 'toast', demo: 'https://tencent.github.io/omi/packages/omim/demos/toast/index.html' }
         ]
       },
       {
