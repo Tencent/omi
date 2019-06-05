@@ -17,7 +17,7 @@
 | [omim![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omim)|  Omi 打造的跨框架 Material Design UI 组件库, 任意框架可以使用,([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/cn.html) && [加入我们](https://github.com/Tencent/omi/tree/master/packages/omim#contribution)!)|
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE8+)|
 | [omis](https://github.com/Tencent/omi/tree/master/packages/omis)| 服务端同构渲染解决方案(目前只能用 omio) |
-| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| Omi 官方 UI|
+| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| 简单 Omi UI|
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
@@ -66,7 +66,6 @@
 - [超快的更新和渲染](https://tencent.github.io/omi/packages/omi/examples/perfs/)
 - 小巧的尺寸
 - 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
-- 拥有官方 UI 组件库 - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
 - 使用  [reomi](https://github.com/Tencent/omi/tree/master/packages/reomi) 同时支持两种语法(omi 和 react)，可同时使用两个框架的生态
 - 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), 拥有 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
