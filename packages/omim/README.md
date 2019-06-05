@@ -195,6 +195,21 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | chart bar line| member |done |
 | pagination| member |done |
 | color-picker| member |done |
+| input (lable,button)|  | |
+| input-number |  | |
+| input-table |  | |
+| loading |  | |
+| path-progress |  | |
+| popover |  | |
+| rate |  | |
+| step |  | |
+| toast |  | |
+| autocomplete |  | |
+| transfer list |  | |
+| bottom nav |  | |
+| paper |  | |
+| accordion |  | |
+| toggle buttons |  | |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
@@ -253,9 +268,6 @@ The above code can register custom elements.
 
 Why??
 
-### Other(todo)
-
-* Add omiu elements to omim
 
 ### Links
 
