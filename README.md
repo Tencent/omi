@@ -18,7 +18,7 @@ English | [简体中文](./README.CN.md)
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ Other Templates](https://github.com/omijs) |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
-| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
+| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Simple Omi UI |
 | [omil](https://github.com/Wscats/omil)|Webpack loader for Omi.js components|
 | [omi-snippets](https://github.com/Wscats/omi-snippets) |A beautify VSCode extension for .omi or .eno file, [Install now!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 
@@ -64,7 +64,6 @@ English | [简体中文](./README.CN.md)
 - Supports TypeScript
 - Reactive data-binding
 - Having Cross-frameworks UI components - [omim](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-- Having official UI components - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)
 - Excellent compatibility(IE8+) with [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
 - Supporting both grammars of omi and react with [reomi](https://github.com/Tencent/omi/tree/master/packages/reomi)
 - Real [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support

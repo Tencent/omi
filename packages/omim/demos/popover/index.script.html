@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Omim Tree Demo</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body style="background-color: #fefefe;">
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/popover/index.js"></script>
+	<script src="../../src/button/index.js"></script>
+
+
+	<div style="position:relative;left:100px;top:100px;">
+		<m-button id='myBtn'>top-left</m-button>
+	</div>
+	<m-popover id="myPopover" target="#myBtn">
+		<div>Test Content</div>
+		<div>Test Content</div>
+		<div>Test Content..</div>
+	</m-popover>
+
+
+	<script>
+		var myPopover = document.querySelector('#myPopover')
+		var myBtn = document.querySelector('#myBtn')
+		myBtn.addEventListener('click', function () {
+			myPopover.pureSetAttribute('direction', 'top-left')
+			myPopover.setAttribute('show', '')
+		})
+
+	</script>
+</body>
+
+</html>

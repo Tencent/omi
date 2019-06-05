@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+</head>
+
+<body>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/path-progress/index.js"></script>
+
+
+  <div>
+    <m-path-progress type="Line" progress="0.5" text='test' options="{
+        strokeWidth: 2,
+        color: '#0072d9',
+        trailColor: '#ddd'
+      }"
+      initial-animate container-style="{
+        width: '200px',
+        height: '20px'
+      }"></m-path-progress>
+
+    <br /><br /><br />
+
+    <m-path-progress type="Circle" progress={0.5} text='test' options="{
+        strokeWidth: 2,
+        color: '#0072d9',
+        trailColor: '#ddd'
+      }"
+      initial-animate container-style="{
+        width: '200px',
+        height: '200px'
+      }"></m-path-progress>
+
+    <br /><br /><br />
+
+    <m-path-progress type="SemiCircle" progress="0.5" text="test" options="{
+        strokeWidth: 2,
+        color: '#0072d9',
+        trailColor: '#ddd'
+      }"
+      initial-animate container-style="{
+        width: '200px',
+        height: '100px'
+      }"></m-path-progress>
+  </div>
+
+
+</body>
+
+</html>

@@ -195,13 +195,24 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | chart bar line| member |done |
 | pagination| member |done |
 | color-picker| member |done |
+| input (lable,button)|  | |
+| input-number |  | |
+| input-table |  | |
+| loading |member| done |
+| path-progress | member | done |
+| popover | member | done |
+| rate |  | |
+| step |  | |
+| toast | member | done|
+| autocomplete |  | |
+| transfer list |  | |
+| bottom nav |  | |
+| paper |  | |
+| accordion |  | |
+| toggle buttons |  | |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
-
-Some [material packages](https://github.com/material-components/material-components-web/tree/master/packages) have not yet been released. Please wait for their release. Or pull the corresponding package from the branch to implement, without starting from scratch.
-
-有些 [material packages](https://github.com/material-components/material-components-web/tree/master/packages) 尚未发布，请等待其发布后 omi 再去实现。或者从分支中拉去对应的 package 进行实现，不必从零开始实现。
 
 ## Todo
 
@@ -253,9 +264,6 @@ The above code can register custom elements.
 
 Why??
 
-### Other(todo)
-
-* Add omiu elements to omim
 
 ### Links
 
