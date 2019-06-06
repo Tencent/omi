@@ -28,7 +28,7 @@
       adjust
       heading="Dense"
       dense
-      navigations="'favorite'"
+      navigations="['favorite']"
       action-items="['favorite_border', 'favorite_border', 'favorite_border']"
     ></m-top-app-bar>
     <div id="content" class="content">
@@ -56,7 +56,6 @@
   </a> -->
   <script>
     var topAppBar = document.querySelector('#topAppBar')
-    var content = document.querySelector('#content')
 
     topAppBar.addEventListener('navigation', (e) => {
       console.log(e.detail);
@@ -69,7 +68,7 @@
       switch(e.detail.index) {
         case '0': topAppBar.setAttribute('heading', 'Dense (Omi)'); document.body.style.setProperty('--mdc-theme-primary', '#6200ee'); break;
         case '1': topAppBar.setAttribute('heading', 'Dense (Omiu)'); document.body.style.setProperty('--mdc-theme-primary', '#018786'); break;
-        case '2': topAppBar.setAttribute('heading', 'Dense (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#b00020'); break;
+        case '2': topAppBar.setAttribute('heading', 'Dense (Omio)'); document.body.style.setProperty('--mdc-theme-primary', '#E081DF'); break;
       }
     })
   </script>

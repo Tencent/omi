@@ -2,6 +2,8 @@ import '../../src/top-app-bar/index.tsx'
 import '../../src/icon-button/index.tsx'
 import '../../src/avatar/index.tsx'
 import '../../src/badge/index.tsx'
+import '../../src/text-field/index.tsx'
+import '../../src/tab/index.tsx'
 
 import { render, WeElement, define, h } from 'omi'
 
@@ -32,7 +34,7 @@ define('my-app', class extends WeElement {
       justify-content: space-around;
       min-height: 200px;
       // min-width: 400px;
-      padding: 15px;
+      padding: 20px;
     }
     .iframe {
       width: 100%;
@@ -46,6 +48,7 @@ define('my-app', class extends WeElement {
 
   showDemoStart = false
   themeColor = '#0072d9'
+  searchColor = '#2196f3'
   scrollTarget = null
 
   onDemoStart = e => {
@@ -53,6 +56,7 @@ define('my-app', class extends WeElement {
     this.showDemoStart = !this.showDemoStart
     document.body.style.setProperty('--mdc-theme-primary', '#0072d9')
     this.themeColor = '#0072d9'
+    this.searchColor = '#2196f3'
     this.update()
   }
   
@@ -63,6 +67,7 @@ define('my-app', class extends WeElement {
     this.titleOmi = this.titleOmi == '' ? ' (Omim)' : ''
     document.body.style.setProperty('--mdc-theme-primary', '#018786')
     this.themeColor = '#018786'
+    this.searchColor = '#24BFA5'
     this.update()
   }
 
@@ -71,7 +76,8 @@ define('my-app', class extends WeElement {
     this.titleOmi = this.titleOmi == '' ? ' (Omim)' : ''
     document.body.style.setProperty('--mdc-theme-primary', '#018786')
     this.themeColor = '#018786'
-    if(e.detail.index == '3') {
+    this.searchColor = '#24BFA5'
+    if(e.detail.index == '2') {
       this.scrollTarget = this.scrollTarget === null ? this.shadowRoot.querySelector('#demo-build') : null
     }
     this.update()
@@ -79,7 +85,7 @@ define('my-app', class extends WeElement {
 
   render() {
     return(
-      <div>
+      <div style='background:#FFF'>
         {!this.showDemoStart &&
         <div id='demo-show-button'>
           <m-top-app-bar
@@ -103,11 +109,17 @@ define('my-app', class extends WeElement {
               </m-icon>
             </actionitem>
             <actionitem>
-              <m-icon-button icons={['favorite', 'favorite_border']}></m-icon-button>
-            </actionitem>
-            <actionitem>
               <m-icon-button title='Switch scroll target' icons={['view_carousel', 'view_array']}></m-icon-button>
             </actionitem>
+          </m-top-app-bar>
+          <m-top-app-bar bottom>
+            <div style='width:100%'>
+              <m-tab css={`.mdc-tab-bar {background: #EEE;}`} default-active='speed' align="end" stacked>
+                <item label="Recents" value="speed" icon="access_time"></item>
+                <item label="Nearby" value="fire" icon="near_me"></item>
+                <item label="Favorites" value="lol" icon="favorite"></item>
+              </m-tab>
+            </div>
           </m-top-app-bar>
         </div>}
         {this.showDemoStart &&
@@ -115,8 +127,8 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             adjust
             heading={'Standard' + this.titleOmi}
-            navigations='favorite'
-            action-items={['favorite_border', {text: 'Omi'},'wifi']}
+            navigations={['menu']}
+            actionItems={['favorite_border', {text: 'Omi'},'wifi']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
           ></m-top-app-bar>
@@ -125,7 +137,66 @@ define('my-app', class extends WeElement {
             adjust
             fixed
             heading={'Fixed' + this.titleOmi}
-            navigations={[{text: 'Omim'}, 'favorite', 'favorite']}
+            navigations={['menu', {text: 'Omim'}, 'favorite']}
+            onNavigation={this.onMenu}
+            onAction={this.onMenu}>
+            <div>
+              <m-text-field
+                outlined
+                label='search...'
+                paths={[{
+                  color: '#FFF',
+                  path: 'M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z'
+                }]}
+                css={`
+                  .mdc-text-field {
+                    margin-top: 13px;
+                    margin-right: 15px;
+                    height: 38px;
+                  }
+                  .mdc-text-field .mdc-text-field__input {
+                    caret-color: #FFF;
+                  }
+                  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+                    border-color: rgba(0, 0, 0, 0) !important;
+                    background: ${this.searchColor};
+                  }
+                  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+                    color: #FFF;
+                  }
+                  .mdc-notched-outline {
+                    overflow: hidden;
+                  }
+                  .mdc-notched-outline__trailing {
+                    border-radius: 0 6px 6px 0 !important;
+                  }
+                  .mdc-notched-outline__leading {
+                    border-radius: 6px 0 0 6px!important;
+                    width: 6px!important;
+                  }
+                  .mdc-text-field--with-leading-icon .icon {
+                    z-index: 1;
+                    top: 3px;
+                  }
+                  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label {
+                    top: 9px;
+                    left: 48px;
+                    color: #FFF;
+                  }
+                  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-flgatine-label--float-above {
+                    display: none;
+                  }
+                `}
+              ></m-text-field>
+            </div>
+          </m-top-app-bar>
+          <div style='height:15px;'></div>
+          <m-top-app-bar
+            adjust
+            dense
+            fixed
+            heading={'Dense + Fixed' + this.titleOmi}
+            navigations={['menu']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}>
             <actionitem>
@@ -145,22 +216,11 @@ define('my-app', class extends WeElement {
           <div style='height:15px;'></div>
           <m-top-app-bar
             adjust
-            dense
-            fixed
-            heading={'Dense + Fixed' + this.titleOmi}
-            navigations='favorite'
-            action-items={['favorite_border', 'favorite_border', 'favorite_border']}
-            onNavigation={this.onMenu}
-            onAction={this.onMenu}
-          />
-          <div style='height:15px;'></div>
-          <m-top-app-bar
-            adjust
             prominent
             fixed
             heading={'Prominent + Fixed' + this.titleOmi}
-            navigations={['favorite', 'favorite', 'favorite', 'favorite', 'favorite']}
-            action-items={['favorite_border', 'favorite_border', 'favorite_border', 'favorite_border', 'favorite_border']}
+            navigations={['menu', 'favorite', 'favorite']}
+            actionItems={['favorite_border', 'favorite_border', 'favorite_border']}
             onAction={this.onMenu}
             onNavigation={this.onMenu}
           />
@@ -171,8 +231,8 @@ define('my-app', class extends WeElement {
             dense
             fixed
             heading={'Prominent + Dense + Fixed' + this.titleOmi}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            actionItems={['favorite_border']}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
           />
@@ -181,8 +241,8 @@ define('my-app', class extends WeElement {
             adjust
             fixed
             heading='Click to hide menus'
-            navigations='cancel'
-            action-items={['cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel', 'cancel']}
+            navigations={['cancel', 'cancel', 'cancel']}
+            actionItems={['cancel', 'cancel', 'cancel']}
             onNavigation={this.onDemoStart}
             onAction={this.onDemoStart}
           />
@@ -198,8 +258,8 @@ define('my-app', class extends WeElement {
             heading={'Short - Always Collapsed' + this.titleOmi}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            actionItems={['favorite_border']}
           />
           <m-top-app-bar
             css={`
@@ -213,8 +273,8 @@ define('my-app', class extends WeElement {
             heading={'Short' + this.titleOmi}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            actionItems={['favorite_border']}
           />
           <m-top-app-bar
             css={`
@@ -229,8 +289,8 @@ define('my-app', class extends WeElement {
             heading={'Short + Dense' + this.titleOmi}
             onNavigation={this.onMenu}
             onAction={this.onMenu}
-            navigations='favorite'
-            action-items='favorite_border'
+            navigations={['menu']}
+            actionItems={['favorite_border']}
           />
         </div>}
         <div id='demo-build' class='demos-display'>
@@ -317,7 +377,7 @@ define('my-app', class extends WeElement {
               <iframe class='iframe' src='./index-short-collapsed.script.html'></iframe>
             </div>
           </div>
-          <div style='width:100%;height:500px;background:#EEE;'></div>
+          <div style='width:100%;height:500px;'></div>
         </div>
       </div>
     )
