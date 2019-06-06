@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import '@omim/core/button'
+import MyComponent from './MyComponent'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           Learn Omi and Omim
         </a>
         <m-button>Omim Button</m-button>
+        <MyComponent></MyComponent>
       </header>
     </div>
   );
