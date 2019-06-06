@@ -87,7 +87,7 @@ export default class Popover extends WeElement<Props, {}> {
 
       let tempLeft, tempTop
       let st = document.documentElement.scrollTop || document.body.scrollTop
-
+      let sl = document.documentElement.scrollLeft || document.body.scrollLeft
 
       switch (this.props.direction) {
         case 'top-left':
@@ -146,7 +146,7 @@ export default class Popover extends WeElement<Props, {}> {
           break
       }
 
-      tempLeft = tempLeft + this.props.x + 'px'
+      tempLeft = tempLeft + this.props.x + sl +'px'
       tempTop = tempTop + this.props.y + st + 'px'
 
       if (this.left !== tempLeft || this.top !== tempTop) {
