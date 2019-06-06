@@ -3,20 +3,21 @@ import '@omim/core/icon-button'
 import '@omim/core/button'
 
 class MyComponent extends React.Component {
-  onChange = (evt) => {
-    console.log(this)
+  onClick = (evt) => {
     console.log(evt)
   }
 
-  onClick = (evt) =>{
-    console.log(evt)
+  componentDidMount() {
+    this.iconBtn.addEventListener('change', (evt) => {
+      console.log(evt.detail.isOn)
+    })
   }
 
   render() {
     return (
       <div>
         <m-button onClick={this.onClick}>ABC</m-button>
-        <m-icon-button onChange={this.onChange} color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
+        <m-icon-button ref={e => { this.iconBtn = e }} color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
 
         <m-icon-button>
           <svg viewBox="0 0 24 24" width="2em" height="2em" aria-hidden="true">
