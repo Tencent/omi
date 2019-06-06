@@ -24,12 +24,12 @@ const config = {
       {
         title: '其他',
         list: [
+          { name: 'Omim', md: 'omim' },
+          { name: '路由', md: 'router' },
+          { name: '服务端渲染', md: 'ssr' },
           { name: '生态与例子', md: 'other' },
           { name: 'Mps', md: 'mps' },
-          { name: 'Omip 多端开发', md: 'omip' },
-          { name: '服务端渲染', md: 'ssr' },
-          { name: '路由', md: 'router' },
-          { name: 'Omiu', md: 'omiu' }
+          { name: 'Omip 多端开发', md: 'omip' }
         ]
       }
     ],
@@ -57,10 +57,10 @@ const config = {
       {
         title: 'Other',
         list: [
-          { name: 'Ecosystem and examples', md: 'other' },
-          { name: 'Server-Side Rendering', md: 'ssr' },
+          { name: 'Omim', md: 'omim' },
           { name: 'Router', md: 'router' },
-          { name: 'Omiu', md: 'omiu' }
+          { name: 'Server-Side Rendering', md: 'ssr' },
+          { name: 'Ecosystem and examples', md: 'other' }
         ]
       }
     ]

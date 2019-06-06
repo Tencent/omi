@@ -15,7 +15,7 @@ define('my-footer', class extends WeElement {
     ] = this.use
     const pre = this.store.getPre()
     const next = this.store.getNext()
-    console.log(pre,next)
+
     return (
       <div class='ft'>
         {pre &&<a href={'#/' + pre.md + `?index=${pre.index}&subIndex=${pre.subIndex}`} class='pre'>← {pre.name}</a>}
