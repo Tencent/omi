@@ -28,5 +28,5 @@ JSX:
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| elevation | number | 1 | 阴影深度，对应dp于规范。它接受0到24之间的值。 |
-| square | boolean | false | 如果true，圆角被禁用。 |
+| elevation | number | 1 | 阴影深度，对应 dp 规范。它接受 0 到 24 之间的值。 |
+| square | boolean | false | 如果 true，圆角被禁用。 |
