@@ -99,29 +99,25 @@ export default class TransitionGroup extends WeElement<Props, Data>{
       }, 0)
     } else {
 
-      console.log(vel)
       let iel = render(vel, null)
 
       // bind end event and trigger this.update()
       this.callback = function () {
-        console.log(111)
-        //@ts-ignore
+
+				//@ts-ignore
         this.shadowRoot.removeChild(iel)
-        setTimeout(()=>{
-          console.log(444)
-          this.update()
-        },1000)
+
+        this.update()
+
       }.bind(this)
       this.elOnce(iel, 'transitionend', this.callback)
       this.elOnce(iel, 'animationend', this.callback)
 
 
       if (insertIndex === len - 1) {
-        console.log('appendChild')
         //@ts-ignore
         this.shadowRoot.appendChild(iel)
       } else {
-        console.log('insertBefore')
         //@ts-ignore
         this.shadowRoot.insertBefore(iel, this.children[insertIndex])
       }
