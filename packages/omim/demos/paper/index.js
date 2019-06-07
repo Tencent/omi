@@ -6,6 +6,8 @@ define('my-app', class extends WeElement {
 
   css = `
     .m-paper-root {
+      display: inline-block;
+      padding: 24px 16px;
       margin: 10px;
     }
     h3 {
