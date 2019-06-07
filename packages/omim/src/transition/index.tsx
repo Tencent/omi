@@ -43,7 +43,7 @@ export default class Transition extends WeElement<Props, Data>{
 
   install() {
     if (this.props.appear)
-      this.appearing()
+      this.appear()
   }
 
   toggle() {
@@ -56,15 +56,15 @@ export default class Transition extends WeElement<Props, Data>{
 
   callback: () => void
 
-  appearing() {
-    this.fire('m-before-appear')
+  appear() {
+    this.fire('before-appear')
     this.classList.add(this.props.name + '-appear')
     this.classList.add(this.props.name + '-appear-active')
 
     this.callback = function () {
       this.classList.remove(this.props.name + '-appear-to')
       this.classList.remove(this.props.name + '-appear-active')
-      this.fire('m-after-appear')
+      this.fire('after-appear')
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
@@ -72,12 +72,12 @@ export default class Transition extends WeElement<Props, Data>{
     window.setTimeout(function () {
       this.classList.remove(this.props.name + '-appear')
       this.classList.add(this.props.name + '-appear-to')
-      this.fire('m-appear')
+      this.fire('appear')
     }.bind(this), 0)
   }
 
   enter() {
-    this.fire('m-before-enter')
+    this.fire('before-enter')
     this.classList.remove(this.props.name + '-leave-active')
     this.classList.remove(this.props.name + '-leave-to')
     this.classList.add(this.props.name + '-enter')
@@ -85,7 +85,7 @@ export default class Transition extends WeElement<Props, Data>{
 
     this.callback = function () {
       this.classList.remove(this.props.name + '-enter-active')
-      this.fire('m-after-enter')
+      this.fire('after-enter')
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
@@ -93,12 +93,12 @@ export default class Transition extends WeElement<Props, Data>{
     window.setTimeout(function () {
       this.classList.remove(this.props.name + '-enter')
       this.classList.add(this.props.name + '-enter-to')
-      this.fire('m-enter')
+      this.fire('enter')
     }.bind(this), 0)
   }
 
   leave() {
-    this.fire('m-before-leave')
+    this.fire('before-leave')
     this.classList.remove(this.props.name + '-enter-active')
     this.classList.remove(this.props.name + '-enter-to')
     this.classList.add(this.props.name + '-leave')
@@ -106,7 +106,7 @@ export default class Transition extends WeElement<Props, Data>{
 
     this.callback = function (e) {
       this.classList.remove(this.props.name + '-leave-active')
-      this.fire('m-after-leave')
+      this.fire('after-leave')
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
@@ -114,7 +114,7 @@ export default class Transition extends WeElement<Props, Data>{
     window.setTimeout(function () {
       this.classList.remove(this.props.name + '-leave')
       this.classList.add(this.props.name + '-leave-to')
-      this.fire('m-leave')
+      this.fire('leave')
     }.bind(this), 0)
   }
 
