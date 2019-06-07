@@ -9,17 +9,24 @@ define('my-app', class extends WeElement {
     opacity: 0;
   }
   .item-enter-active {
-    opacity: 1;
     transition: opacity 500ms ease-in;
   }
+
+  .item-enter-to {
+    opacity: 1;
+  }
+
+
   .item-leave {
     opacity: 1;
   }
   .item-leave-active {
-    opacity: 0;
     transition: opacity 500ms ease-in;
   }
-  
+
+  .item-leave-to {
+    opacity: 0;
+  }
   `
 
   _id = 0
@@ -39,17 +46,17 @@ define('my-app', class extends WeElement {
       <div style={{ marginTop: '2rem' }}>
         <ul style={{ marginBottom: '1rem' }}>
           <m-transition-group name="item">
-            {items.map(({ _id, text }) => (
+            {items.map(({ _id, text }) =>
               <li key={_id}>
                 <button
-                  onClick={() =>{
+                  onClick={() => {
                     this.items = items.filter(item => item._id !== _id)
                     this.update()
                   }}>
                   &times;
                 </button> {text}
               </li>
-            ))}
+            )}
           </m-transition-group>
         </ul>
         <button
