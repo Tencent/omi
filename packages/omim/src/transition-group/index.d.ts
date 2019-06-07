@@ -23,6 +23,8 @@ export default class TransitionGroup extends WeElement<Props, Data> {
     install(): void;
     toggle(): void;
     callback: () => void;
+    receiveProps(): boolean;
+    beforeRender(): void;
     appear(): void;
     _tempNode: HTMLElement;
     enter(): void;

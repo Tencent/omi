@@ -145,6 +145,13 @@ var TransitionGroup = /** @class */ (function (_super) {
         else
             this.leave();
     };
+    TransitionGroup.prototype.receiveProps = function () {
+        console.log(11);
+        return false;
+    };
+    TransitionGroup.prototype.beforeRender = function () {
+        console.log(22);
+    };
     TransitionGroup.prototype.appear = function () {
         this.fire('before-appear');
         this.classList.add(this.props.name + '-appear');
@@ -213,6 +220,7 @@ var TransitionGroup = /** @class */ (function (_super) {
         this.addEventListener(name, wrapCall);
     };
     TransitionGroup.prototype.render = function () {
+        console.log(333);
         return omi_1.h("slot", null);
     };
     TransitionGroup.css = "  \n  :host {\n    display: inline-block;\n  }";

@@ -12,7 +12,7 @@ interface Props {
 interface Data {
 
 }
-
+console.log(1111)
 @tag('m-transition-group')
 export default class TransitionGroup extends WeElement<Props, Data>{
 
@@ -51,6 +51,12 @@ export default class TransitionGroup extends WeElement<Props, Data>{
   }
 
   callback: () => void
+
+  receiveProps(){
+    console.log(11)
+    return false
+  }
+
 
   appear() {
     this.fire('before-appear')
@@ -132,7 +138,7 @@ export default class TransitionGroup extends WeElement<Props, Data>{
     this.addEventListener(name, wrapCall)
   }
 
-  render() {
-    return <slot></slot>
+  render(props) {
+    return props.children
   }
 }

@@ -38,7 +38,7 @@ define('my-app', class extends WeElement {
     return (
       <div style={{ marginTop: '2rem' }}>
         <ul style={{ marginBottom: '1rem' }}>
-          <transition-group name="item">
+          <m-transition-group name="item">
             {items.map(({ _id, text }) => (
               <li key={_id}>
                 <button
@@ -50,7 +50,7 @@ define('my-app', class extends WeElement {
                 </button> {text}
               </li>
             ))}
-          </transition-group>
+          </m-transition-group>
         </ul>
         <button
           onClick={() => {

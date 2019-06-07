@@ -876,15 +876,15 @@ class MyApp extends WeElement {
 
 ### 生命周期
 
-| Lifecycle method | When it gets called                          |
+| 钩子方法 |      触发时机                   |
 | ---------------- | -------------------------------------------- |
-| `install`        | before the component gets mounted to the DOM |
-| `installed`      | after the component gets mounted to the DOM  |
-| `uninstall`      | prior to removal from the DOM                |
-| `beforeUpdate`   | before update                           |
-| `updated`    | after update                             |
-| `beforeRender`   | before `render()`                           |
-| `receiveProps`   | parent element re-render will trigger it      |
+| `install`        | 初始化安装 |
+| `installed`      | 插入到文档之后且安装完成 |
+| `uninstall`      |   从文档中卸载移除        |
+| `beforeUpdate`   |  update 之前                         |
+| `updated`    |  update 之后                          |
+| `beforeRender`   |  `render()` 之前                         |
+| `receiveProps`   | 父组件更新时候触发, 返回 false 可以阻止更新      |
 
 ## 调试工具
 

@@ -624,7 +624,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 | `beforeUpdate`   | before update                           |
 | `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
-| `receiveProps`   | parent element re-render will trigger it      |
+| `receiveProps`   | parent element re-render will trigger it, `return false` will prevent update action|
 
 ## Debugging
 
