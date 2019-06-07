@@ -229,7 +229,7 @@
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
         } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
-        diffAttributes(out, vnode.attributes, props, vnode.children);
+        diffAttributes(out, vnode.attributes, props);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
         return out;
@@ -280,7 +280,7 @@
             node = next;
         }
     }
-    function diffAttributes(dom, attrs, old, children) {
+    function diffAttributes(dom, attrs, old) {
         var name;
         var update = !1;
         var isWeElement = dom.update;
@@ -309,7 +309,7 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, dom.data, oldClone)) dom.update();
+        if (isWeElement && dom.parentNode) if (update || dom.P || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, dom.data, oldClone)) dom.update();
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -918,7 +918,9 @@
                 proxyUpdate(this);
                 this.observed();
             }
-            this.L = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
+            var rendered = this.render(this.props, this.data, this.store);
+            this.P = '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
+            this.L = diff(null, rendered, {}, !1, null, !1);
             this.rendered();
             if (this.props.css) {
                 this.N = cssToDom(this.props.css);
@@ -948,7 +950,9 @@
                 this.N.textContent = this.O;
             }
             this.attrsToProps();
-            this.L = diff(this.L, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+            var rendered = this.render(this.props, this.data, this.store);
+            this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
+            this.L = diff(this.L, rendered, null, null, this.shadowRoot);
             this.J = !1;
             this.updated();
         };
@@ -995,7 +999,7 @@
             }
         };
         WeElement.prototype.fire = function(name, data) {
-            this.dispatchEvent(new CustomEvent(name.toLowerCase(), {
+            this.dispatchEvent(new CustomEvent(name.replace(/-/g, '').toLowerCase(), {
                 detail: data
             }));
         };
@@ -1087,7 +1091,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.4.4';
+    options.root.Omi.version = '6.5.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

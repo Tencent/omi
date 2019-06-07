@@ -67,9 +67,12 @@ export default class WeElement extends HTMLElement {
       this.observed()
     }
 
+    const rendered = this.render(this.props, this.data, this.store)
+    this.__hasChildren = Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0
+
     this._host = diff(
       null,
-      this.render(this.props, this.data, this.store),
+      rendered,
       {},
       false,
       null,
@@ -117,9 +120,13 @@ export default class WeElement extends HTMLElement {
       this._customStyleElement.textContent = this._customStyleContent
     }
     this.attrsToProps()
+
+    const rendered = this.render(this.props, this.data, this.store)
+    this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0)
+
     this._host = diff(
       this._host,
-      this.render(this.props, this.data, this.store),
+      rendered,
       null,
       null,
       this.shadowRoot
@@ -194,7 +201,7 @@ export default class WeElement extends HTMLElement {
   }
 
   fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }))
+    this.dispatchEvent(new CustomEvent(name.replace(/-/g, '').toLowerCase(), { detail: data }))
   }
 
   beforeInstall() { }

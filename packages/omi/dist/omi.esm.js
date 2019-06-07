@@ -1,5 +1,5 @@
 /**
- * omi v6.4.4  http://omijs.org
+ * omi v6.5.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -519,7 +519,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props, vnode.children);
+  diffAttributes(out, vnode.attributes, props);
   if (out.props) {
     out.props.children = vnode.children;
   }
@@ -662,7 +662,7 @@ function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old, children) {
+function diffAttributes(dom, attrs, old) {
   var name;
   var update = false;
   var isWeElement = dom.update;
@@ -706,7 +706,7 @@ function diffAttributes(dom, attrs, old, children) {
   }
 
   if (isWeElement && dom.parentNode) {
-    if (update || children.length > 0 || dom.store && !dom.store.data) {
+    if (update || dom.__hasChildren || dom.store && !dom.store.data) {
       if (dom.receiveProps(dom.props, dom.data, oldClone) !== false) {
         dom.update();
       }
@@ -1354,7 +1354,10 @@ var WeElement = function (_HTMLElement) {
       this.observed();
     }
 
-    this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+    var rendered = this.render(this.props, this.data, this.store);
+    this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
+
+    this._host = diff(null, rendered, {}, false, null, false);
     this.rendered();
 
     if (this.props.css) {
@@ -1397,7 +1400,11 @@ var WeElement = function (_HTMLElement) {
       this._customStyleElement.textContent = this._customStyleContent;
     }
     this.attrsToProps();
-    this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+
+    var rendered = this.render(this.props, this.data, this.store);
+    this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
+
+    this._host = diff(this._host, rendered, null, null, this.shadowRoot);
     this._willUpdate = false;
     this.updated();
   };
@@ -1464,7 +1471,7 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.fire = function fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }));
+    this.dispatchEvent(new CustomEvent(name.replace(/-/g, '').toLowerCase(), { detail: data }));
   };
 
   WeElement.prototype.beforeInstall = function beforeInstall() {};
@@ -1799,7 +1806,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.4.4';
+options.root.Omi.version = '6.5.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };
