@@ -14,7 +14,7 @@ define('my-app', class extends WeElement {
   render() {
     return <div>
       <button onClick={this.onClick}>Toggle</button>
-      <m-transition in={this.show} css={`
+      <m-transition in={this.show}   css={`
    .enter {
     opacity: 0;
   }
@@ -32,6 +32,7 @@ define('my-app', class extends WeElement {
       `}>
         <div>abc</div>
       </m-transition>
+      <div>xxx</div>
     </div>
 
   }
