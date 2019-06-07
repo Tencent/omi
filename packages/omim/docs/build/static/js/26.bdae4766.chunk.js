@@ -1,0 +1,2 @@
+webpackJsonp([26],{118:function(n,r){n.exports='## Loading\r\n\r\nLoading \u5143\u7d20\uff0c\u62e5\u6709\u591a\u79cd\u8272\u5f69\u548c\u5927\u5c0f\u53ef\u4ee5\u9009\u3002\r\n\r\n## \u4f7f\u7528\r\n\r\n```html\r\n<m-loading size="55" color="#2170b8"></m-loading>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  size?: number,\r\n  color?: string\r\n}\r\n```'}});
+//# sourceMappingURL=26.bdae4766.chunk.js.map

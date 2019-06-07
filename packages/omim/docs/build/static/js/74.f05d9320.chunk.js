@@ -1,0 +1,2 @@
+webpackJsonp([74],{70:function(r,e){r.exports='## Picker\r\n\r\nNative pickers(date, time, color).\r\n\r\n## Usage\r\n\r\n```html\r\n<m-picker type="date" label="date"></m-picker>\r\n\r\n<m-picker type="time" label="time"></m-picker>\r\n\r\n<m-picker type="color" label="color"></m-picker>\r\n\r\n<m-picker type="datetime-local" label="datetime-local"></m-picker>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n\ttype: \'date\' | \'time\' | \'color\' | \'datetime-local\',\r\n\tlabel: string\r\n}\r\n```'}});
+//# sourceMappingURL=74.f05d9320.chunk.js.map

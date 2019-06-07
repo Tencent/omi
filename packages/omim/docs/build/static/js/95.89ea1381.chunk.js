@@ -1,0 +1,2 @@
+webpackJsonp([95],{49:function(r,n){r.exports='## DateTimePicker\r\n\r\nDate Time Picker.\r\n\r\n## Usage\r\n\r\n```html\r\n<m-date-time-picker type="date" past="20180101" future="20200101" lan="en-us" show>\r\n</m-date-time-picker>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  show?: boolean,\r\n  type?: \'date\' | \'time\',\r\n  init?: string,\r\n  past?: string,\r\n  future?: string,\r\n  lan?: string\r\n}\r\n```\r\n\r\n### Default Props\r\n\r\n```jsx\r\n{\r\n  type: \'date\',\r\n  show: false\r\n}\r\n```'}});
+//# sourceMappingURL=95.89ea1381.chunk.js.map
