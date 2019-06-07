@@ -162,19 +162,18 @@
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !('__omiattr_' in dom);
         }
-        if (isArray(vnode)) {
+        if (isArray(vnode)) if (parent) {
+            var styles = parent.querySelectorAll('style');
+            styles.forEach(function(s) {
+                parent.removeChild(s);
+            });
+            innerDiffNode(parent, vnode);
+            styles.forEach(function(s) {
+                parent.appendChild(s);
+            });
+        } else {
             ret = [];
-            var parentNode = null;
-            if (isArray(dom)) {
-                var domLength = dom.length;
-                var maxLength = Math.max(vnode.length, domLength);
-                parentNode = dom[0].parentNode;
-                for (var i = 0; i < maxLength; i++) {
-                    var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
-                    ret.push(ele);
-                    if (parentNode && i > domLength - 1) parentNode.appendChild(ele);
-                }
-            } else vnode.forEach(function(item, index) {
+            vnode.forEach(function(item, index) {
                 var ele = idiff(0 === index ? dom : null, item, context, mountAll, componentRoot);
                 ret.push(ele);
                 parent && parent.appendChild(ele);
@@ -309,7 +308,7 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || dom.P || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, dom.data, oldClone)) dom.update();
+        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, dom.data, oldClone)) dom.update();
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -1091,7 +1090,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.5.0';
+    options.root.Omi.version = '6.6.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

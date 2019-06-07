@@ -183,7 +183,7 @@ declare namespace Omi {
 		...children: ComponentChildren[]
 	): VNode<any>;
 
-	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): void;
+	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 
 	function define(name: string, ctor: WeElementConstructor): void;
 	function defineElement(name: string, ctor: WeElementConstructor): void;

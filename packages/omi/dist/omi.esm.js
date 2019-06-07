@@ -1,5 +1,5 @@
 /**
- * omi v6.5.0  http://omijs.org
+ * omi v6.6.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -385,20 +385,18 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     hydrating = dom != null && !('__omiattr_' in dom);
   }
   if (isArray(vnode)) {
-    ret = [];
-    var parentNode = null;
-    if (isArray(dom)) {
-      var domLength = dom.length;
-      var maxLength = Math.max(vnode.length, domLength);
-      parentNode = dom[0].parentNode;
-      for (var i = 0; i < maxLength; i++) {
-        var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
-        ret.push(ele);
-        if (parentNode && i > domLength - 1) {
-          parentNode.appendChild(ele);
-        }
-      }
+    if (parent) {
+      var styles = parent.querySelectorAll('style');
+      styles.forEach(function (s) {
+        parent.removeChild(s);
+      });
+      innerDiffNode(parent, vnode);
+      styles.forEach(function (s) {
+        parent.appendChild(s);
+      });
     } else {
+
+      ret = [];
       vnode.forEach(function (item, index) {
         var ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot);
         ret.push(ele);
@@ -706,7 +704,8 @@ function diffAttributes(dom, attrs, old) {
   }
 
   if (isWeElement && dom.parentNode) {
-    if (update || dom.__hasChildren || dom.store && !dom.store.data) {
+    //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
+    if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
       if (dom.receiveProps(dom.props, dom.data, oldClone) !== false) {
         dom.update();
       }
@@ -1806,7 +1805,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.5.0';
+options.root.Omi.version = '6.6.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

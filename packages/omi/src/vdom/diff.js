@@ -34,26 +34,24 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
   if (isArray(vnode)) {
-    ret = []
-    let parentNode = null
-    if (isArray(dom)) {
-      let domLength = dom.length
-			let maxLength = Math.max(vnode.length, domLength)
-      parentNode = dom[0].parentNode
-      for (let i = 0; i < maxLength; i++) {
-        let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
-        ret.push(ele)
-        if (parentNode && i > domLength - 1) {
-          parentNode.appendChild(ele)
-        }
-      }
-    } else {
+		if (parent) {
+			const styles = parent.querySelectorAll('style')
+			styles.forEach(s => {
+				parent.removeChild(s)
+			})
+			innerDiffNode(parent, vnode)
+			styles.forEach(s => {
+				parent.appendChild(s)
+			})
+		} else {
+
+			ret = []
 			vnode.forEach((item, index) => {
 				let ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot)
 				ret.push(ele)
 				parent && parent.appendChild(ele)
 			})
-    }
+		}
   } else {
     if (isArray(dom)) {
 			dom.forEach((one,index)=>{
@@ -401,7 +399,8 @@ function diffAttributes(dom, attrs, old) {
   }
 
   if (isWeElement && dom.parentNode) {
-    if (update || dom.__hasChildren || (dom.store && !dom.store.data)) {
+		//__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
+    if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
       if (dom.receiveProps(dom.props, dom.data, oldClone) !== false) {
         dom.update()
       }
