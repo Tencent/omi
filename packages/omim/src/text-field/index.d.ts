@@ -13,7 +13,7 @@ interface Props {
     iconRight: boolean;
     counter: boolean;
     path: string;
-    paths: string;
+    paths: object;
     label: string;
     required: boolean;
     pattern: string;
@@ -52,7 +52,7 @@ export default class TextField extends WeElement<Props, Data> {
         iconRight: BooleanConstructor;
         counter: BooleanConstructor;
         path: StringConstructor;
-        paths: StringConstructor;
+        paths: ObjectConstructor;
         label: StringConstructor;
         required: BooleanConstructor;
         pattern: StringConstructor;

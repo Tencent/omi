@@ -21,7 +21,7 @@ interface Props {
   counter: boolean,
 
   path: string,
-  paths: string,
+  paths: object,
   //Multi-line Text Field (Textarea) with Character Counter  (textarea+counter)
 
   label: string,
@@ -83,7 +83,7 @@ export default class TextField extends WeElement<Props, Data>{
     counter: Boolean,
 
     path: String,
-    paths: String,
+    paths: Object,
 
     //Multi-line Text Field (Textarea) with Character Counter  (textarea+counter)
 
