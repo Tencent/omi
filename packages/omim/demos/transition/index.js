@@ -1,39 +1,70 @@
-import '../../src/transition/index.tsx'
+import '../../src/transition-group/index.tsx'
 import { define, WeElement, render, h } from 'omi'
 
 
 define('my-app', class extends WeElement {
 
-  show = false
-
-  onClick = (evt) => {
-    this.show = !this.show
-    this.update()
+  static css = `
+  .item-enter {
+    opacity: 0;
   }
+  .item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .item-leave {
+    opacity: 1;
+  }
+  .item-leave-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+  }
+  
+  `
+
+  _id = 0
+
+  items = [
+    { _id: this._id++, text: 'Buy eggs' },
+    { _id: this._id++, text: 'Pay bills' },
+    { _id: this._id++, text: 'Invite friends over' },
+    { _id: this._id++, text: 'Fix the TV' },
+  ]
+
+
 
   render() {
-    return <div>
-      <button onClick={this.onClick}>Toggle</button>
-      <m-transition in={this.show}   css={`
-   .enter {
-    opacity: 0;
-  }
-  .enter-active{
-    opacity: 1;
-    transition: opacity 1200ms;
-  }
-  .exit {
-    opacity: 1;
-  }
-  .exit-active{
-    opacity: 0;
-    transition: opacity 1200ms;
-  }
-      `}>
-        <div>abc</div>
-      </m-transition>
-      <div>xxx</div>
-    </div>
+    const items = this.items
+    return (
+      <div style={{ marginTop: '2rem' }}>
+        <ul style={{ marginBottom: '1rem' }}>
+          <transition-group name="item">
+            {items.map(({ _id, text }) => (
+              <li key={_id}>
+                <button
+                  onClick={() =>{
+                    this.items = items.filter(item => item._id !== _id)
+                    this.update()
+                  }}>
+                  &times;
+                </button> {text}
+              </li>
+            ))}
+          </transition-group>
+        </ul>
+        <button
+          onClick={() => {
+            const text = prompt('Enter some text');
+            if (text) {
+              this.items.push({ _id: this._id++, text })
+              this.update()
+            }
+          }}
+        >
+          Add Item
+      </button>
+      </div>
+    )
 
   }
 })

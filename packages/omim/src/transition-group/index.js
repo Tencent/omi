@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MTransition"] = factory(require("omi"));
+		exports["MTransitionGroup"] = factory(require("omi"));
 	else
-		root["MTransition"] = factory(root["Omi"]);
+		root["MTransitionGroup"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,29 +91,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/transition/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/transition-group/index.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/transition/index.tsx":
-/*!**********************************!*\
-  !*** ./src/transition/index.tsx ***!
-  \**********************************/
+/***/ "./src/transition-group/index.tsx":
+/*!****************************************!*\
+  !*** ./src/transition-group/index.tsx ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-/**
- * m-transition element based on vue-transition
- * Tom Fales (@enlightenmentor)
- * Licensed under the MIT License
- * https://github.com/enlightenmentor/vue-transition/blob/master/LICENSE
- *
- * modified by dntzhang
- *
- */
+//todo duration and delay support
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -135,25 +127,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var Transition = /** @class */ (function (_super) {
-    __extends(Transition, _super);
-    function Transition() {
+var TransitionGroup = /** @class */ (function (_super) {
+    __extends(TransitionGroup, _super);
+    function TransitionGroup() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Transition.prototype.install = function () {
+    TransitionGroup.prototype.install = function () {
         if (this.props.appear) {
             this.appear();
             this.props.show = true;
         }
     };
-    Transition.prototype.toggle = function () {
+    TransitionGroup.prototype.toggle = function () {
         this.props.show = !this.props.show;
         if (this.props.show)
             this.enter();
         else
             this.leave();
     };
-    Transition.prototype.appear = function () {
+    TransitionGroup.prototype.appear = function () {
         this.fire('before-appear');
         this.classList.add(this.props.name + '-appear');
         this.classList.add(this.props.name + '-appear-active');
@@ -170,7 +162,7 @@ var Transition = /** @class */ (function (_super) {
             this.fire('appear');
         }.bind(this), 0);
     };
-    Transition.prototype.enter = function () {
+    TransitionGroup.prototype.enter = function () {
         if (this.props.remove && this.children.length == 0) {
             this.appendChild(this._tempNode);
         }
@@ -191,7 +183,7 @@ var Transition = /** @class */ (function (_super) {
             this.fire('enter');
         }.bind(this), 0);
     };
-    Transition.prototype.leave = function () {
+    TransitionGroup.prototype.leave = function () {
         this.fire('before-leave');
         this.classList.remove(this.props.name + '-enter-active');
         this.classList.remove(this.props.name + '-enter-to');
@@ -213,34 +205,34 @@ var Transition = /** @class */ (function (_super) {
             this.fire('leave');
         }.bind(this), 0);
     };
-    Transition.prototype.once = function (name, callback) {
+    TransitionGroup.prototype.once = function (name, callback) {
         var wrapCall = function () {
             this.removeEventListener(name, wrapCall);
             callback();
         }.bind(this);
         this.addEventListener(name, wrapCall);
     };
-    Transition.prototype.render = function () {
+    TransitionGroup.prototype.render = function () {
         return omi_1.h("slot", null);
     };
-    Transition.css = "  \n  :host {\n    display: inline-block;\n  }";
-    Transition.propTypes = {
+    TransitionGroup.css = "  \n  :host {\n    display: inline-block;\n  }";
+    TransitionGroup.propTypes = {
         name: String,
         appear: Boolean,
         show: Boolean,
         remove: Boolean
     };
-    Transition.defaultProps = {
+    TransitionGroup.defaultProps = {
         name: 'm',
         appear: false,
         show: false
     };
-    Transition = __decorate([
-        omi_1.tag('m-transition')
-    ], Transition);
-    return Transition;
+    TransitionGroup = __decorate([
+        omi_1.tag('m-transition-group')
+    ], TransitionGroup);
+    return TransitionGroup;
 }(omi_1.WeElement));
-exports.default = Transition;
+exports.default = TransitionGroup;
 
 
 /***/ }),
