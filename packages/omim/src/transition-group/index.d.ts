@@ -1,12 +1,3 @@
-/**
- * m-transition element based on vue-transition
- * Tom Fales (@enlightenmentor)
- * Licensed under the MIT License
- * https://github.com/enlightenmentor/vue-transition/blob/master/LICENSE
- *
- * modified by dntzhang
- *
- */
 import { WeElement } from 'omi';
 interface Props {
     appear?: boolean;
@@ -16,7 +7,7 @@ interface Props {
 }
 interface Data {
 }
-export default class Transition extends WeElement<Props, Data> {
+export default class TransitionGroup extends WeElement<Props, Data> {
     static css: string;
     static propTypes: {
         name: StringConstructor;
