@@ -9,9 +9,10 @@
  */
 import { WeElement } from 'omi';
 interface Props {
-    appear: boolean;
-    active?: boolean;
+    appear?: boolean;
+    show?: boolean;
     name: string;
+    remove?: boolean;
 }
 interface Data {
 }
@@ -20,12 +21,13 @@ export default class Transition extends WeElement<Props, Data> {
     static propTypes: {
         name: StringConstructor;
         appear: BooleanConstructor;
-        active: BooleanConstructor;
+        show: BooleanConstructor;
+        remove: BooleanConstructor;
     };
     static defaultProps: {
         name: string;
         appear: boolean;
-        active: boolean;
+        show: boolean;
     };
     install(): void;
     toggle(): void;

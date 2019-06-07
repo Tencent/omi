@@ -11,9 +11,10 @@
 import { tag, WeElement, h } from 'omi'
 
 interface Props {
-  appear: boolean,
-  active?: boolean,
-  name: string
+  appear?: boolean,
+  show?: boolean,
+  name: string,
+  remove?: boolean
 }
 
 interface Data {
@@ -31,24 +32,27 @@ export default class Transition extends WeElement<Props, Data>{
   static propTypes = {
     name: String,
     appear: Boolean,
-    active: Boolean
+    show: Boolean,
+    remove: Boolean
 
   }
 
   static defaultProps = {
     name: 'm',
     appear: false,
-    active: false
+    show: false
   }
 
   install() {
-    if (this.props.appear)
+    if (this.props.appear){
       this.appear()
+      this.props.show = true
+    }
   }
 
   toggle() {
-    this.props.active = !this.props.active
-    if (this.props.active)
+    this.props.show = !this.props.show
+    if (this.props.show)
       this.enter()
     else
       this.leave()
@@ -76,7 +80,12 @@ export default class Transition extends WeElement<Props, Data>{
     }.bind(this), 0)
   }
 
+  _tempNode: HTMLElement
+  
   enter() {
+    if(this.children.length == 0){
+      this.appendChild(this._tempNode)
+    }
     this.fire('before-enter')
     this.classList.remove(this.props.name + '-leave-active')
     this.classList.remove(this.props.name + '-leave-to')
@@ -107,6 +116,8 @@ export default class Transition extends WeElement<Props, Data>{
     this.callback = function (e) {
       this.classList.remove(this.props.name + '-leave-active')
       this.fire('after-leave')
+      this._tempNode = this.children[0]
+      this._tempNode.parentNode.removeChild(this._tempNode)
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)

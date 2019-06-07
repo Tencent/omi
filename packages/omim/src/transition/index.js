@@ -141,19 +141,20 @@ var Transition = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Transition.prototype.install = function () {
-        if (this.props.appear)
+        if (this.props.appear) {
             this.appear();
+            this.props.show = true;
+        }
     };
     Transition.prototype.toggle = function () {
-        this.props.active = !this.props.active;
-        if (this.props.active)
+        this.props.show = !this.props.show;
+        if (this.props.show)
             this.enter();
         else
             this.leave();
     };
     Transition.prototype.appear = function () {
         this.fire('before-appear');
-        console.log('appear');
         this.classList.add(this.props.name + '-appear');
         this.classList.add(this.props.name + '-appear-active');
         this.callback = function () {
@@ -170,7 +171,11 @@ var Transition = /** @class */ (function (_super) {
         }.bind(this), 0);
     };
     Transition.prototype.enter = function () {
-        console.log('enter');
+        if (this.children.length == 0) {
+            console.log('add');
+            //@ts-ignore
+            this.appendChild(this._tempNode);
+        }
         this.fire('before-enter');
         this.classList.remove(this.props.name + '-leave-active');
         this.classList.remove(this.props.name + '-leave-to');
@@ -197,6 +202,8 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function (e) {
             this.classList.remove(this.props.name + '-leave-active');
             this.fire('after-leave');
+            this._tempNode = this.children[0];
+            this._tempNode.parentNode.removeChild(this._tempNode);
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -220,12 +227,13 @@ var Transition = /** @class */ (function (_super) {
     Transition.propTypes = {
         name: String,
         appear: Boolean,
-        active: Boolean
+        show: Boolean,
+        remove: Boolean
     };
     Transition.defaultProps = {
         name: 'm',
         appear: false,
-        active: false
+        show: false
     };
     Transition = __decorate([
         omi_1.tag('m-transition')
