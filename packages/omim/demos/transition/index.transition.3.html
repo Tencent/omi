@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+</head>
+
+<body>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/transition/index.js"></script>
+  <style>
+    m-transition {
+      display: block;
+      text-align: center;
+    }
+
+    .bounce-enter-active {
+      animation: bounce-in .5s;
+    }
+
+    .bounce-leave-active {
+      animation: bounce-in .5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(1.5);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+  <m-transition name="bounce" appear remove>
+    <h1>Hello m-transition</h1>
+  </m-transition>
+  <br>
+  <button onclick="toggleTransition()">Toggle</button>
+  <script>
+    const mTransition = document.querySelector('m-transition');
+    function toggleTransition() {
+      console.log(mTransition)
+      mTransition.toggle();
+    }
+  </script>
+</body>
+
+</html>

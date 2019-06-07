@@ -8,6 +8,8 @@
  *
  */
 
+//todo duration and delay support
+
 import { tag, WeElement, h } from 'omi'
 
 interface Props {
@@ -81,9 +83,9 @@ export default class Transition extends WeElement<Props, Data>{
   }
 
   _tempNode: HTMLElement
-  
+
   enter() {
-    if(this.children.length == 0){
+    if(this.props.remove && this.children.length == 0){
       this.appendChild(this._tempNode)
     }
     this.fire('before-enter')
@@ -117,7 +119,9 @@ export default class Transition extends WeElement<Props, Data>{
       this.classList.remove(this.props.name + '-leave-active')
       this.fire('after-leave')
       this._tempNode = this.children[0]
-      this._tempNode.parentNode.removeChild(this._tempNode)
+      if(this.props.remove){
+        this._tempNode.parentNode.removeChild(this._tempNode)
+      }
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)

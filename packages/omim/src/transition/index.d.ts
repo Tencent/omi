@@ -33,6 +33,7 @@ export default class Transition extends WeElement<Props, Data> {
     toggle(): void;
     callback: () => void;
     appear(): void;
+    _tempNode: HTMLElement;
     enter(): void;
     leave(): void;
     once(name: any, callback: any): void;

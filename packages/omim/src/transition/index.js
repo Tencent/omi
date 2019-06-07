@@ -171,9 +171,7 @@ var Transition = /** @class */ (function (_super) {
         }.bind(this), 0);
     };
     Transition.prototype.enter = function () {
-        if (this.children.length == 0) {
-            console.log('add');
-            //@ts-ignore
+        if (this.props.remove && this.children.length == 0) {
             this.appendChild(this._tempNode);
         }
         this.fire('before-enter');
@@ -203,7 +201,9 @@ var Transition = /** @class */ (function (_super) {
             this.classList.remove(this.props.name + '-leave-active');
             this.fire('after-leave');
             this._tempNode = this.children[0];
-            this._tempNode.parentNode.removeChild(this._tempNode);
+            if (this.props.remove) {
+                this._tempNode.parentNode.removeChild(this._tempNode);
+            }
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
