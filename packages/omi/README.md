@@ -1,4 +1,4 @@
-<p align="right">v<strong>6.0.0</strong></p>
+<p align="right">v<strong>6.6.2</strong></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - Next front end framework using web components with omio(IE8+) and omip(小程序) fallback in tiny js.</h2>
 
@@ -11,12 +11,13 @@
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://tencent.github.io/omi/site/docs/index.html)| Omi official documents |
+| [omim![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omim)| Cross-Frameworks components, powered by Material Design and Omi.([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html) && [JOIN US!](https://github.com/Tencent/omi/tree/master/packages/omim#contribution))|
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi for old browsers with same api(IE8+ and mobile browsers).|
 | [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| Server-side rendering(support omio only). |
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
-| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
+| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Simple Omi UI|
 
 #### Mini Program
 
