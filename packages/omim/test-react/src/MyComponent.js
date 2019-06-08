@@ -62,8 +62,6 @@ class MyComponent extends React.Component {
         <m-pagination total="26" css={`
          button,li{
            background: white;
-           display: inline-block;
-           vertical-align: bottom;
         }
         `} current-page="1" page-size="5" id="myPagination">
         </m-pagination>
