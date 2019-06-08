@@ -3,6 +3,7 @@
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
+* [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/MyComponent.js)
 
 ![](./assets/pv4.jpeg)
 
