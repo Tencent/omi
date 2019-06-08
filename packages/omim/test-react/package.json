@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=. react-scripts build",
+    "build-windows": "set PUBLIC_URL=.&& react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

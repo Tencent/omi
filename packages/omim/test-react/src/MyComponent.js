@@ -1,22 +1,49 @@
 import React from 'react';
 import '@omim/core/icon-button'
 import '@omim/core/button'
+import '@omim/core/checkbox'
+import '@omim/core/radio'
+import '@omim/core/pagination'
 
 class MyComponent extends React.Component {
   onClick = (evt) => {
-    console.log(evt)
+
+    import('@omim/core/loading').then(() => {
+      this.showLoading = true
+      this.forceUpdate()
+    })
   }
 
   componentDidMount() {
     this.iconBtn.addEventListener('change', (evt) => {
       console.log(evt.detail.isOn)
+      this.checked = !this.checked
+      this.forceUpdate()
     })
   }
 
+  checked = true
   render() {
     return (
       <div>
-        <m-button onClick={this.onClick}>ABC</m-button>
+
+        <m-button onClick={this.onClick}>Click me to dynamic Import @omim/core/loading</m-button>
+        <div>
+          <m-loading size="25"></m-loading>
+          <m-loading size="35"></m-loading>
+          <m-loading size="45"></m-loading>
+          <m-loading size="55"></m-loading>
+
+          <br />
+          <m-loading size="25" color="#2d7418"></m-loading>
+          <m-loading size="35" color="#f37736"></m-loading>
+          <m-loading size="45" color="#7bc043"></m-loading>
+          <m-loading size="55" color="#2170b8"></m-loading>
+        </div>
+        <m-radio checked='0'></m-radio>
+        <m-radio checked></m-radio>
+        <m-checkbox checked={this.checked}></m-checkbox>
+        <m-checkbox></m-checkbox>
         <m-icon-button ref={e => { this.iconBtn = e }} color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
 
         <m-icon-button>
@@ -30,6 +57,10 @@ class MyComponent extends React.Component {
               fill="#F95050"></path>
           </svg>
         </m-icon-button>
+        <br />
+        <m-pagination total="125" current-page="1" page-size="5" id="myPagination">
+        </m-pagination>
+
       </div>
     );
   }
