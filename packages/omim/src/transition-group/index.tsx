@@ -158,7 +158,6 @@ function insertChildAtIndex(parent, child, index) {
   if (index >= parent.children.length) {
     parent.appendChild(child)
   } else {
-    console.log(parent.children[index],parent.children)
     parent.insertBefore(child, parent.children[index])
   }
 }
