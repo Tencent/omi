@@ -63,7 +63,7 @@ define('my-app', class extends WeElement {
           onClick={() => {
             const text = prompt('Enter some text');
             if (text) {
-              this.items.push({ _id: this._id++, text })
+              this.items.splice(1,0,{ _id: this._id++, text })
               this.update()
             }
           }}

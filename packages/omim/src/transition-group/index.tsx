@@ -53,8 +53,7 @@ export default class TransitionGroup extends WeElement<Props, Data>{
 
     const vnodes = this.render(this.props)
     const len = vnodes.length
-    //@ts-ignore
-    window.xx = this
+
     //insert
     if (len > arr.length) {
       for (let i = 0; i < len; i++) {
@@ -104,7 +103,7 @@ export default class TransitionGroup extends WeElement<Props, Data>{
       // bind end event and trigger this.update()
       this.callback = function () {
 
-				//@ts-ignore
+        //@ts-ignore
         this.shadowRoot.removeChild(iel)
 
         this.update()
@@ -113,23 +112,13 @@ export default class TransitionGroup extends WeElement<Props, Data>{
       this.elOnce(iel, 'transitionend', this.callback)
       this.elOnce(iel, 'animationend', this.callback)
 
-
-      if (insertIndex === len - 1) {
-        //@ts-ignore
-        this.shadowRoot.appendChild(iel)
-      } else {
-        //@ts-ignore
-        this.shadowRoot.insertBefore(iel, this.children[insertIndex])
-      }
-      //@ts-ignore
+      insertChildAtIndex(this.shadowRoot, iel, insertIndex + 1)
+      
       iel.classList.add(this.props.name + '-enter')
-      //@ts-ignore
       iel.classList.add(this.props.name + '-enter-active')
 
       window.setTimeout(() => {
-        //@ts-ignore
         iel.classList.remove(this.props.name + '-enter')
-        //@ts-ignore
         iel.classList.add(this.props.name + '-enter-to')
       }, 0)
 
@@ -161,5 +150,15 @@ export default class TransitionGroup extends WeElement<Props, Data>{
 
   render(props) {
     return props.children
+  }
+}
+
+function insertChildAtIndex(parent, child, index) {
+  if (!index) index = 0
+  if (index >= parent.children.length) {
+    parent.appendChild(child)
+  } else {
+    console.log(parent.children[index],parent.children)
+    parent.insertBefore(child, parent.children[index])
   }
 }
