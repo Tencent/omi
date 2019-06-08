@@ -1,0 +1,5 @@
+class Button {
+  constructor(option){
+
+  }
+}
