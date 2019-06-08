@@ -1,5 +1,5 @@
 /**
- * omi v6.6.0  http://omijs.org
+ * omi v6.6.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1410,7 +1410,8 @@ var WeElement = function (_HTMLElement) {
 
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
     _HTMLElement.prototype.removeAttribute.call(this, key);
-    this.update();
+    //Avoid executing removeAttribute methods before connectedCallback
+    this._isInstalled && this.update();
   };
 
   WeElement.prototype.setAttribute = function setAttribute(key, val) {
@@ -1419,7 +1420,8 @@ var WeElement = function (_HTMLElement) {
     } else {
       _HTMLElement.prototype.setAttribute.call(this, key, val);
     }
-    this.update();
+    //Avoid executing setAttribute methods before connectedCallback
+    this._isInstalled && this.update();
   };
 
   WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
@@ -1805,7 +1807,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.6.0';
+options.root.Omi.version = '6.6.1';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

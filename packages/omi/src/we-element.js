@@ -137,7 +137,8 @@ export default class WeElement extends HTMLElement {
 
   removeAttribute(key) {
     super.removeAttribute(key)
-    this.update()
+    //Avoid executing removeAttribute methods before connectedCallback
+    this._isInstalled && this.update()
   }
 
   setAttribute(key, val) {
@@ -146,7 +147,8 @@ export default class WeElement extends HTMLElement {
     } else {
       super.setAttribute(key, val)
     }
-    this.update()
+    //Avoid executing setAttribute methods before connectedCallback
+    this._isInstalled && this.update()
   }
 
   pureRemoveAttribute(key) {

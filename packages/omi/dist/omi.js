@@ -957,11 +957,11 @@
         };
         WeElement.prototype.removeAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
-            this.update();
+            this.B && this.update();
         };
         WeElement.prototype.setAttribute = function(key, val) {
             if (val && 'object' == typeof val) _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val)); else _HTMLElement.prototype.setAttribute.call(this, key, val);
-            this.update();
+            this.B && this.update();
         };
         WeElement.prototype.pureRemoveAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -1090,7 +1090,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.0';
+    options.root.Omi.version = '6.6.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
