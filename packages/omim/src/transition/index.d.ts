@@ -12,7 +12,8 @@ interface Props {
     appear?: boolean;
     show?: boolean;
     name: string;
-    remove?: boolean;
+    removable?: boolean;
+    removed?: boolean;
 }
 interface Data {
 }
@@ -22,7 +23,7 @@ export default class Transition extends WeElement<Props, Data> {
         name: StringConstructor;
         appear: BooleanConstructor;
         show: BooleanConstructor;
-        remove: BooleanConstructor;
+        removable: BooleanConstructor;
     };
     static defaultProps: {
         name: string;

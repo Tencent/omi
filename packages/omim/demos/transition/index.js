@@ -13,27 +13,24 @@ define('my-app', class extends WeElement {
 
   .item-leave-active, .item-enter-active,.item-appear-active {
     transition: all 500ms ease-in;
-  }
-  
-  `
+  }`
 
   _id = 0
 
   items = [
-    { _id: this._id++, text: 'Buy eggs' },
-    { _id: this._id++, text: 'Pay bills' },
-    { _id: this._id++, text: 'Invite friends over' },
-    { _id: this._id++, text: 'Fix the TV' },
+    { _id: this._id++, text: 'Learn omi' },
+    { _id: this._id++, text: 'Learn omim' },
+    { _id: this._id++, text: 'Learn transition' },
+    { _id: this._id++, text: 'Learn transition group' },
   ]
 
   toggle = () => {
     this.removed = false
     this.show = !this.show
-    console.log(this.show)
     this.update()
   }
-  onRemoved= () => {
-    console.log(123)
+
+  onRemoved = () => {
     this.removed = true
   }
 
@@ -47,14 +44,14 @@ define('my-app', class extends WeElement {
       <div style={{ marginTop: '2rem' }}>
 
         <h1>Transition</h1>
-        <m-transition onRemoved={this.onRemoved} name="item" appear remove removed={this.removed} show={this.show}>
-          <p>Hello m-transition</p>
+        <m-transition onRemoved={this.onRemoved} name="item" appear removable removed={this.removed} show={this.show}>
+          <p>Hello transition</p>
         </m-transition>
         <br />
         <button onclick={this.toggle}>Toggle</button>
 
         <h1>Transition Group</h1>
-        <ul style={{ marginBottom: '1rem' }}>
+        <ul>
           <m-transition-group name="item" appear delay={200}>
             {items.map(({ _id, text }) =>
               <li key={_id}>
@@ -73,7 +70,7 @@ define('my-app', class extends WeElement {
           onClick={() => {
             const text = prompt('Enter some text');
             if (text) {
-              this.items.splice(1, 0, { _id: this._id++, text })
+              this.items.push({ _id: this._id++, text })
               this.update()
             }
           }}

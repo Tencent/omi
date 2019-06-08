@@ -16,7 +16,8 @@ interface Props {
   appear?: boolean,
   show?: boolean,
   name: string,
-  remove?: boolean
+  removable?: boolean,
+  removed?: boolean
 }
 
 interface Data {
@@ -35,7 +36,7 @@ export default class Transition extends WeElement<Props, Data>{
     name: String,
     appear: Boolean,
     show: Boolean,
-    remove: Boolean
+    removable: Boolean
 
   }
 
@@ -91,7 +92,7 @@ export default class Transition extends WeElement<Props, Data>{
   _tempNode: HTMLElement
 
   enter() {
-    if (this.props.remove && this.children.length == 0) {
+    if (this.props.removable && this.children.length == 0) {
       this.appendChild(this._tempNode)
     }
     this.fire('before-enter')
@@ -127,7 +128,7 @@ export default class Transition extends WeElement<Props, Data>{
         this.classList.remove(this.props.name + '-leave-active')
         this.fire('after-leave')
         this._tempNode = this.children[0]
-        if (this.props.remove) {
+        if (this.props.removable) {
           this._tempNode.parentNode.removeChild(this._tempNode)
           this.fire('removed')
         }
