@@ -58,7 +58,11 @@ class MyComponent extends React.Component {
           </svg>
         </m-icon-button>
         <br />
-        <m-pagination total="125" current-page="1" page-size="5" id="myPagination">
+        <m-pagination total="125" css={`
+         li{
+           background: white;
+        }
+        `} current-page="1" page-size="5" id="myPagination">
         </m-pagination>
 
       </div>

@@ -29,6 +29,7 @@ li {
 
 .o-pager {
   display: inline-block;
+  font-size: 14px; 
 }
 
 button {
@@ -36,10 +37,8 @@ button {
   height: 32px;
   appearance: none;
   -webkit-appearance: none;
-  position: relative;
   border: 1px solid #ccc;
   background: none;
-  top: 1px;
   border-radius: $mdc-shape-small-component-radius;
   cursor: pointer;
   outline: none;
