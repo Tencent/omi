@@ -44,6 +44,7 @@ class MyComponent extends React.Component {
         <m-radio checked></m-radio>
         <m-checkbox checked={this.checked}></m-checkbox>
         <m-checkbox></m-checkbox>
+        <br/>
         <m-icon-button ref={e => { this.iconBtn = e }} color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
 
         <m-icon-button>
@@ -58,9 +59,11 @@ class MyComponent extends React.Component {
           </svg>
         </m-icon-button>
         <br />
-        <m-pagination total="125" css={`
+        <m-pagination total="26" css={`
          button,li{
            background: white;
+           display: inline-block;
+           vertical-align: bottom;
         }
         `} current-page="1" page-size="5" id="myPagination">
         </m-pagination>
