@@ -96,7 +96,7 @@ export default class TransitionGroup extends WeElement<Props, Data>{
         el.classList.remove(this.props.name + '-leave')
         el.classList.add(this.props.name + '-leave-to')
       }, 0)
-    } else {
+    } else if(vel){
 
       let iel = render(vel, null)
 

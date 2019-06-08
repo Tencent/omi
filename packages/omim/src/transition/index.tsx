@@ -45,10 +45,9 @@ export default class Transition extends WeElement<Props, Data>{
     show: false
   }
 
-  install() {
-    if (this.props.appear){
-      this.appear()
-      this.props.show = true
+  installed() {
+    if (this.props.show && this.props.appear) {
+      this.appearing()
     }
   }
 
@@ -60,9 +59,16 @@ export default class Transition extends WeElement<Props, Data>{
       this.leave()
   }
 
+  receiveProps(props) {
+    if (props.show)
+      this.enter()
+    else
+      this.leave()
+  }
+
   callback: () => void
 
-  appear() {
+  appearing() {
     this.fire('before-appear')
     this.classList.add(this.props.name + '-appear')
     this.classList.add(this.props.name + '-appear-active')
@@ -85,7 +91,7 @@ export default class Transition extends WeElement<Props, Data>{
   _tempNode: HTMLElement
 
   enter() {
-    if(this.props.remove && this.children.length == 0){
+    if (this.props.remove && this.children.length == 0) {
       this.appendChild(this._tempNode)
     }
     this.fire('before-enter')
@@ -116,11 +122,16 @@ export default class Transition extends WeElement<Props, Data>{
     this.classList.add(this.props.name + '-leave-active')
 
     this.callback = function (e) {
-      this.classList.remove(this.props.name + '-leave-active')
-      this.fire('after-leave')
-      this._tempNode = this.children[0]
-      if(this.props.remove){
-        this._tempNode.parentNode.removeChild(this._tempNode)
+
+      if (!this.props.show) {
+        this.classList.remove(this.props.name + '-leave-active')
+        this.fire('after-leave')
+        this._tempNode = this.children[0]
+        if (this.props.remove) {
+          this._tempNode.parentNode.removeChild(this._tempNode)
+          this.fire('removed')
+        }
+
       }
     }.bind(this)
     this.once('transitionend', this.callback)
@@ -133,7 +144,6 @@ export default class Transition extends WeElement<Props, Data>{
     }.bind(this), 0)
   }
 
-
   once(name, callback) {
     const wrapCall = function () {
       this.removeEventListener(name, wrapCall)
@@ -142,7 +152,8 @@ export default class Transition extends WeElement<Props, Data>{
     this.addEventListener(name, wrapCall)
   }
 
-  render() {
+  render(props) {
+    if (props.removed) return
     return <slot></slot>
   }
 }
