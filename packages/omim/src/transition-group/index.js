@@ -136,6 +136,28 @@ var TransitionGroup = /** @class */ (function (_super) {
         //@ts-ignore 不是 slot，所以需要共享一下 host 的 css
         this.css = omi_1.getHost(this).constructor.css;
     };
+    TransitionGroup.prototype.installed = function () {
+        var _this = this;
+        if (this.props.appear) {
+            this.shadowRoot.childNodes.forEach(function (node, index) {
+                _this.appearing(node, index);
+            });
+        }
+    };
+    TransitionGroup.prototype.appearing = function (el, index) {
+        el.classList.add(this.props.name + '-appear');
+        el.classList.add(this.props.name + '-appear-active');
+        this.callback = function () {
+            el.classList.remove(this.props.name + '-appear-to');
+            el.classList.remove(this.props.name + '-appear-active');
+        }.bind(this);
+        this.elOnce(el, 'transitionend', this.callback);
+        this.elOnce(el, 'animationend', this.callback);
+        window.setTimeout(function () {
+            el.classList.remove(this.props.name + '-appear');
+            el.classList.add(this.props.name + '-appear-to');
+        }.bind(this), index * this.props.delay);
+    };
     TransitionGroup.prototype.receiveProps = function () {
         var _this = this;
         //find the leave item
@@ -192,7 +214,7 @@ var TransitionGroup = /** @class */ (function (_super) {
                 el.classList.add(_this.props.name + '-leave-to');
             }, 0);
         }
-        else {
+        else if (vel) {
             var iel_1 = omi_1.render(vel, null);
             // bind end event and trigger this.update()
             this.callback = function () {
@@ -233,7 +255,8 @@ var TransitionGroup = /** @class */ (function (_super) {
         name: String,
         appear: Boolean,
         show: Boolean,
-        remove: Boolean
+        remove: Boolean,
+        delay: Number
     };
     TransitionGroup.defaultProps = {
         name: 'm',

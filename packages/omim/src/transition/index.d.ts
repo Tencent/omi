@@ -29,14 +29,15 @@ export default class Transition extends WeElement<Props, Data> {
         appear: boolean;
         show: boolean;
     };
-    install(): void;
+    installed(): void;
     toggle(): void;
+    receiveProps(props: any): void;
     callback: () => void;
-    appear(): void;
+    appearing(): void;
     _tempNode: HTMLElement;
     enter(): void;
     leave(): void;
     once(name: any, callback: any): void;
-    render(): JSX.Element;
+    render(props: any): JSX.Element;
 }
 export {};

@@ -6,7 +6,8 @@ interface Props {
   appear?: boolean,
   show?: boolean,
   name: string,
-  remove?: boolean
+  remove?: boolean,
+  delay?: number
 }
 
 interface Data {
@@ -20,7 +21,8 @@ export default class TransitionGroup extends WeElement<Props, Data>{
     name: String,
     appear: Boolean,
     show: Boolean,
-    remove: Boolean
+    remove: Boolean,
+    delay: Number
 
   }
 
@@ -33,6 +35,33 @@ export default class TransitionGroup extends WeElement<Props, Data>{
   install() {
     //@ts-ignore 不是 slot，所以需要共享一下 host 的 css
     this.css = getHost(this).constructor.css
+  }
+
+  installed() {
+    if (this.props.appear) {
+      this.shadowRoot.childNodes.forEach((node, index) => {
+        this.appearing(node, index)
+      })
+    }
+  }
+
+  appearing(el, index) {
+
+    el.classList.add(this.props.name + '-appear')
+    el.classList.add(this.props.name + '-appear-active')
+
+    this.callback = function () {
+      el.classList.remove(this.props.name + '-appear-to')
+      el.classList.remove(this.props.name + '-appear-active')
+
+    }.bind(this)
+    this.elOnce(el, 'transitionend', this.callback)
+    this.elOnce(el, 'animationend', this.callback)
+
+    window.setTimeout(function () {
+      el.classList.remove(this.props.name + '-appear')
+      el.classList.add(this.props.name + '-appear-to')
+    }.bind(this), index*this.props.delay)
   }
 
   callback: () => void
@@ -96,7 +125,7 @@ export default class TransitionGroup extends WeElement<Props, Data>{
         el.classList.remove(this.props.name + '-leave')
         el.classList.add(this.props.name + '-leave-to')
       }, 0)
-    } else if(vel){
+    } else if (vel) {
 
       let iel = render(vel, null)
 
@@ -113,7 +142,7 @@ export default class TransitionGroup extends WeElement<Props, Data>{
       this.elOnce(iel, 'animationend', this.callback)
 
       insertChildAtIndex(this.shadowRoot, iel, insertIndex + 1)
-      
+
       iel.classList.add(this.props.name + '-enter')
       iel.classList.add(this.props.name + '-enter-active')
 

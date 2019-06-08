@@ -141,10 +141,9 @@ var Transition = /** @class */ (function (_super) {
     function Transition() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Transition.prototype.install = function () {
-        if (this.props.appear) {
-            this.appear();
-            this.props.show = true;
+    Transition.prototype.installed = function () {
+        if (this.props.show && this.props.appear) {
+            this.appearing();
         }
     };
     Transition.prototype.toggle = function () {
@@ -154,7 +153,13 @@ var Transition = /** @class */ (function (_super) {
         else
             this.leave();
     };
-    Transition.prototype.appear = function () {
+    Transition.prototype.receiveProps = function (props) {
+        if (props.show)
+            this.enter();
+        else
+            this.leave();
+    };
+    Transition.prototype.appearing = function () {
         this.fire('before-appear');
         this.classList.add(this.props.name + '-appear');
         this.classList.add(this.props.name + '-appear-active');
@@ -199,11 +204,14 @@ var Transition = /** @class */ (function (_super) {
         this.classList.add(this.props.name + '-leave');
         this.classList.add(this.props.name + '-leave-active');
         this.callback = function (e) {
-            this.classList.remove(this.props.name + '-leave-active');
-            this.fire('after-leave');
-            this._tempNode = this.children[0];
-            if (this.props.remove) {
-                this._tempNode.parentNode.removeChild(this._tempNode);
+            if (!this.props.show) {
+                this.classList.remove(this.props.name + '-leave-active');
+                this.fire('after-leave');
+                this._tempNode = this.children[0];
+                if (this.props.remove) {
+                    this._tempNode.parentNode.removeChild(this._tempNode);
+                    this.fire('removed');
+                }
             }
         }.bind(this);
         this.once('transitionend', this.callback);
@@ -221,7 +229,9 @@ var Transition = /** @class */ (function (_super) {
         }.bind(this);
         this.addEventListener(name, wrapCall);
     };
-    Transition.prototype.render = function () {
+    Transition.prototype.render = function (props) {
+        if (props.removed)
+            return;
         return omi_1.h("slot", null);
     };
     Transition.css = "  \n  :host {\n    display: inline-block;\n  }";

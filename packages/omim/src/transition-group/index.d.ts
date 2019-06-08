@@ -4,6 +4,7 @@ interface Props {
     show?: boolean;
     name: string;
     remove?: boolean;
+    delay?: number;
 }
 interface Data {
 }
@@ -13,6 +14,7 @@ export default class TransitionGroup extends WeElement<Props, Data> {
         appear: BooleanConstructor;
         show: BooleanConstructor;
         remove: BooleanConstructor;
+        delay: NumberConstructor;
     };
     static defaultProps: {
         name: string;
@@ -20,6 +22,8 @@ export default class TransitionGroup extends WeElement<Props, Data> {
         show: boolean;
     };
     install(): void;
+    installed(): void;
+    appearing(el: any, index: any): void;
     callback: () => void;
     receiveProps(): boolean;
     once(name: any, callback: any): void;

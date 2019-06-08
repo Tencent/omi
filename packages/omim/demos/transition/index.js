@@ -55,7 +55,7 @@ define('my-app', class extends WeElement {
 
         <h1>Transition Group</h1>
         <ul style={{ marginBottom: '1rem' }}>
-          <m-transition-group name="item">
+          <m-transition-group name="item" appear delay={200}>
             {items.map(({ _id, text }) =>
               <li key={_id}>
                 <button
