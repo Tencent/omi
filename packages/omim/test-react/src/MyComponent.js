@@ -59,7 +59,7 @@ class MyComponent extends React.Component {
         </m-icon-button>
         <br />
         <m-pagination total="125" css={`
-         li{
+         button,li{
            background: white;
         }
         `} current-page="1" page-size="5" id="myPagination">
