@@ -134,6 +134,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//todo duration and delay support
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);

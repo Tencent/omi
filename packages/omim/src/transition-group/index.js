@@ -133,84 +133,84 @@ var TransitionGroup = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     TransitionGroup.prototype.install = function () {
-        if (this.props.appear) {
-            this.appear();
-            this.props.show = true;
-        }
-    };
-    TransitionGroup.prototype.toggle = function () {
-        this.props.show = !this.props.show;
-        if (this.props.show)
-            this.enter();
-        else
-            this.leave();
+        //@ts-ignore 不是 slot，所以需要共享一下 host 的 css
+        this.css = omi_1.getHost(this).constructor.css;
     };
     TransitionGroup.prototype.receiveProps = function () {
-        console.log(11);
-        return false;
-    };
-    TransitionGroup.prototype.beforeRender = function () {
-        console.log(22);
-    };
-    TransitionGroup.prototype.appear = function () {
-        this.fire('before-appear');
-        this.classList.add(this.props.name + '-appear');
-        this.classList.add(this.props.name + '-appear-active');
-        this.callback = function () {
-            this.classList.remove(this.props.name + '-appear-to');
-            this.classList.remove(this.props.name + '-appear-active');
-            this.fire('after-appear');
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.classList.remove(this.props.name + '-appear');
-            this.classList.add(this.props.name + '-appear-to');
-            this.fire('appear');
-        }.bind(this), 0);
-    };
-    TransitionGroup.prototype.enter = function () {
-        if (this.props.remove && this.children.length == 0) {
-            this.appendChild(this._tempNode);
-        }
-        this.fire('before-enter');
-        this.classList.remove(this.props.name + '-leave-active');
-        this.classList.remove(this.props.name + '-leave-to');
-        this.classList.add(this.props.name + '-enter');
-        this.classList.add(this.props.name + '-enter-active');
-        this.callback = function () {
-            this.classList.remove(this.props.name + '-enter-active');
-            this.fire('after-enter');
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.classList.remove(this.props.name + '-enter');
-            this.classList.add(this.props.name + '-enter-to');
-            this.fire('enter');
-        }.bind(this), 0);
-    };
-    TransitionGroup.prototype.leave = function () {
-        this.fire('before-leave');
-        this.classList.remove(this.props.name + '-enter-active');
-        this.classList.remove(this.props.name + '-enter-to');
-        this.classList.add(this.props.name + '-leave');
-        this.classList.add(this.props.name + '-leave-active');
-        this.callback = function (e) {
-            this.classList.remove(this.props.name + '-leave-active');
-            this.fire('after-leave');
-            this._tempNode = this.children[0];
-            if (this.props.remove) {
-                this._tempNode.parentNode.removeChild(this._tempNode);
+        var _this = this;
+        //find the leave item
+        var el;
+        var vel;
+        var insertIndex;
+        var arr = [];
+        this.shadowRoot.childNodes.forEach(function (node) {
+            if (node['__omiattr_'] && node['__omiattr_'].hasOwnProperty('key')) {
+                arr.push(node);
             }
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.classList.remove(this.props.name + '-leave');
-            this.classList.add(this.props.name + '-leave-to');
-            this.fire('leave');
-        }.bind(this), 0);
+        });
+        var vnodes = this.render(this.props);
+        var len = vnodes.length;
+        //insert
+        if (len > arr.length) {
+            for (var i = 0; i < len; i++) {
+                if (i === len - 1) {
+                    vel = vnodes[i];
+                    insertIndex = i;
+                    break;
+                }
+                else if (vnodes[i].attributes.key !== arr[i]['__omiattr_'].key) {
+                    vel = vnodes[i];
+                    insertIndex = i;
+                    break;
+                }
+            }
+        }
+        else if (len < arr.length) { //delete
+            for (var i = 0; i < arr.length; i++) {
+                if (i === arr.length - 1) {
+                    el = arr[i];
+                }
+                else if (vnodes[i].attributes.key !== arr[i]['__omiattr_'].key) {
+                    el = arr[i];
+                    break;
+                }
+            }
+        }
+        if (el) {
+            // bind end event and trigger this.update()
+            this.callback = function () {
+                el.parentNode.removeChild(el);
+                this.update();
+            }.bind(this);
+            this.elOnce(el, 'transitionend', this.callback);
+            this.elOnce(el, 'animationend', this.callback);
+            // add leave class
+            el.classList.add(this.props.name + '-leave');
+            el.classList.add(this.props.name + '-leave-active');
+            window.setTimeout(function () {
+                el.classList.remove(_this.props.name + '-leave');
+                el.classList.add(_this.props.name + '-leave-to');
+            }, 0);
+        }
+        else {
+            var iel_1 = omi_1.render(vel, null);
+            // bind end event and trigger this.update()
+            this.callback = function () {
+                //@ts-ignore
+                this.shadowRoot.removeChild(iel_1);
+                this.update();
+            }.bind(this);
+            this.elOnce(iel_1, 'transitionend', this.callback);
+            this.elOnce(iel_1, 'animationend', this.callback);
+            insertChildAtIndex(this.shadowRoot, iel_1, insertIndex + 1);
+            iel_1.classList.add(this.props.name + '-enter');
+            iel_1.classList.add(this.props.name + '-enter-active');
+            window.setTimeout(function () {
+                iel_1.classList.remove(_this.props.name + '-enter');
+                iel_1.classList.add(_this.props.name + '-enter-to');
+            }, 0);
+        }
+        return false;
     };
     TransitionGroup.prototype.once = function (name, callback) {
         var wrapCall = function () {
@@ -219,11 +219,16 @@ var TransitionGroup = /** @class */ (function (_super) {
         }.bind(this);
         this.addEventListener(name, wrapCall);
     };
-    TransitionGroup.prototype.render = function () {
-        console.log(333);
-        return omi_1.h("slot", null);
+    TransitionGroup.prototype.elOnce = function (el, name, callback) {
+        var wrapCall = function () {
+            el.removeEventListener(name, wrapCall);
+            callback();
+        }.bind(el);
+        el.addEventListener(name, wrapCall);
     };
-    TransitionGroup.css = "  \n  :host {\n    display: inline-block;\n  }";
+    TransitionGroup.prototype.render = function (props) {
+        return props.children;
+    };
     TransitionGroup.propTypes = {
         name: String,
         appear: Boolean,
@@ -241,6 +246,16 @@ var TransitionGroup = /** @class */ (function (_super) {
     return TransitionGroup;
 }(omi_1.WeElement));
 exports.default = TransitionGroup;
+function insertChildAtIndex(parent, child, index) {
+    if (!index)
+        index = 0;
+    if (index >= parent.children.length) {
+        parent.appendChild(child);
+    }
+    else {
+        parent.insertBefore(child, parent.children[index]);
+    }
+}
 
 
 /***/ }),

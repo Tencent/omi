@@ -14,7 +14,7 @@
     "material-design"
   ],
   "dependencies": {
-    "omi": "^6.6.1"
+    "omi": "^6.6.2"
   },
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
