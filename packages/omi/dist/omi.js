@@ -168,9 +168,7 @@
                 parent.removeChild(s);
             });
             innerDiffNode(parent, vnode);
-            styles.forEach(function(s) {
-                parent.appendChild(s);
-            });
+            for (var i = styles.length - 1; i >= 0; i--) parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
         } else {
             ret = [];
             vnode.forEach(function(item, index) {
@@ -1090,7 +1088,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.1';
+    options.root.Omi.version = '6.6.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

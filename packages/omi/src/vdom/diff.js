@@ -39,10 +39,11 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 			styles.forEach(s => {
 				parent.removeChild(s)
 			})
-			innerDiffNode(parent, vnode)
-			styles.forEach(s => {
-				parent.appendChild(s)
-			})
+      innerDiffNode(parent, vnode)
+      
+      for (let i = styles.length - 1; i >= 0; i--) {
+        parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
+      }
 		} else {
 
 			ret = []
