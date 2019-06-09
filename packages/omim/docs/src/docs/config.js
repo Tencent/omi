@@ -84,7 +84,8 @@ const config = {
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
           { name: 'Card', md: 'card', demo: './repl/card.html' },
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
-          { name: 'Paper', md: 'paper', demo: './repl/paper.html' }
+          { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
+          { name: 'Step', md: 'step', demo: './repl/step.html' }
         ]
       },
       {
@@ -186,7 +187,8 @@ const config = {
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
           { name: 'Card', md: 'card', demo: './repl/card.html' },
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
-          { name: 'Paper', md: 'paper', demo: './repl/paper.html' }
+          { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
+          { name: 'Step', md: 'step', demo: './repl/step.html' }
         ]
       },
       {
