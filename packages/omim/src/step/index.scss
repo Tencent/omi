@@ -2,6 +2,11 @@
 
 .m-step {}
 
+*, *::before, *::after {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 ._item-icon {
   border: 1px solid rgba(0, 0, 0, 0.25);
   width: 32px;
@@ -94,7 +99,7 @@
   overflow: hidden;
   height: 60px;
   margin-right: 16px;
-  white-space: nowrap;
+	white-space: nowrap;
 }
 
 ._item:last-child ._item-title:after {
@@ -105,4 +110,59 @@
   position: relative;
   display: inline-block;
   padding-right: 16px;
+}
+
+.vertical ._item {
+	display: block;
+	overflow: visible;
+}
+
+.vertical ._item-tail::after {
+	display: inline-block;
+	background: #e8e8e8;
+	border-radius: 1px;
+	-webkit-transition: background .3s;
+	transition: background .3s;
+	content: '';
+	width: 1px;
+	height: 100%;
+}
+
+.vertical ._item-finish ._item-tail::after {
+	background: $mdc-theme-primary;
+}
+
+
+.vertical .next-error ._item-tail::after {
+	background: $mdc-theme-error;
+}
+
+.vertical ._item-title:after{
+	display: none;
+}
+
+.vertical>._item:not(:last-child)>._item-tail {
+	display: block;
+}
+
+.vertical>._item>._item-tail {
+	position: absolute;
+	top: 12px;
+	left: 16px;
+	width: 1px;
+	height: 100%;
+	padding: 38px 0 6px;
+}
+
+._item-tail {
+	position: absolute;
+	top: 12px;
+	left: 0;
+	width: 100%;
+	padding: 0 10px;
+	display: none;
+}
+
+.vertical>_item:not(:last-child)>._item-tail {
+	display: block;
 }

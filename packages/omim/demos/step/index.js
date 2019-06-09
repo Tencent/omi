@@ -34,6 +34,11 @@ define('my-app', class extends WeElement {
 				<m-step items={this.itemsA} />
 				<m-step items={this.itemsB} />
 				<m-step items={this.itemsC} />
+
+        <m-step items={this.itemsA} vertical/>
+				<m-step items={this.itemsB} vertical/>
+        <m-step items={this.itemsC} vertical/>
+
 			</div>
 
 		)

@@ -18,7 +18,9 @@ class Step extends WeElement {
 
   render(props) {
     return (
-      <div {...extractClass(props, 'm-step _horizontal')}>
+      <div {...extractClass(props, 'm-step', {
+				'vertical': props.vertical
+			})}>
         {props.items.map((item, index) => {
           return <div class={classNames('_item', {
             '_item-finish': item.state === state.DONE,
