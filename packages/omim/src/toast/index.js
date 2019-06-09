@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MAvatar"] = factory(require("omi"));
+		exports["MToast"] = factory(require("omi"));
 	else
-		root["MAvatar"] = factory(root["Omi"]);
+		root["MToast"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,15 +91,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/avatar/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/toast/index.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/avatar/index.scss":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/avatar/index.scss ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/toast/index.scss":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/toast/index.scss ***!
+  \************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, "img {\n  width: 100%;\n  height: 100%; }\n\n.m-avatar.square {\n  border-radius: 4px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n\n.m-avatar {\n  display: inline-block;\n  width: 40px;\n  height: 40px;\n  text-align: center;\n  vertical-align: middle;\n  background-color: #ccc;\n  color: white;\n  border-radius: 50%;\n  overflow: hidden; }\n\n.m-avatar .material-icons {\n  line-height: 40px; }\n", ""]);
+exports.push([module.i, ".m-toast {\n  position: fixed;\n  z-index: 5000;\n  width: 7.6em;\n  min-height: 7.6em;\n  top: 50%;\n  left: 50%;\n  margin-top: -3.8em;\n  margin-left: -3.8em;\n  background: rgba(17, 17, 17, 0.7);\n  text-align: center;\n  border-radius: 4px;\n  color: #FFFFFF; }\n\n.m-icon_toast {\n  margin: 22px 0 0;\n  display: block; }\n\n.m-icon_toast.m-icon-success-no-circle:before {\n  color: #FFFFFF;\n  font-size: 55px; }\n\n.m-icon_toast.m-loading {\n  margin: 30px 0 0;\n  width: 38px;\n  height: 38px;\n  vertical-align: baseline; }\n\n.m-toast__content {\n  margin: 0 0 15px; }\n\np {\n  margin: 0;\n  padding-bottom: 10px; }\n\n.icon {\n  margin-top: 25px;\n  margin-bottom: 3px;\n  display: inline-block; }\n\n.rotate {\n  display: inline-block;\n  -webkit-animation: rotate 1s infinite linear;\n  animation: rotate 1s infinite linear; }\n\n@-webkit-keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
 
 // exports
 
@@ -198,113 +198,6 @@ function toComment(sourceMap) {
 
 	return '/*# ' + data + ' */';
 }
-
-
-/***/ }),
-
-/***/ "./src/avatar/index.scss":
-/*!*******************************!*\
-  !*** ./src/avatar/index.scss ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/avatar/index.scss");
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-
-/***/ "./src/avatar/index.tsx":
-/*!******************************!*\
-  !*** ./src/avatar/index.tsx ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! ./index.scss */ "./src/avatar/index.scss");
-__webpack_require__(/*! ../icon */ "./src/icon/index.js");
-//@ts-ignore
-__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-var Avatar = /** @class */ (function (_super) {
-    __extends(Avatar, _super);
-    function Avatar() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Avatar.prototype.render = function (props) {
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-avatar', {
-            'square': props.square
-        }), { style: {
-                width: props.size + 'px',
-                height: props.size + 'px',
-                backgroundColor: props.backgroundColor,
-                lineHeight: props.size + 'px'
-            } }), props.icon ?
-            omi_1.h("i", { class: "material-icons mdc-icon-button__icon", style: { lineHeight: props.size + 'px', color: props.color } }, props.icon) : (props.src ?
-            omi_1.h("img", { alt: props.alt, src: props.src }) :
-            props.children ? props.children : this.innerHTML)));
-    };
-    Avatar.css = css;
-    Avatar.defaultProps = {
-        size: 40,
-        color: 'white',
-        backgroundColor: '#ccc'
-    };
-    Avatar.propTypes = {
-        alt: String,
-        src: String,
-        size: Number,
-        square: Boolean,
-        icon: String,
-        color: String,
-        backgroundColor: String
-    };
-    Avatar = __decorate([
-        omi_1.tag('m-avatar')
-    ], Avatar);
-    return Avatar;
-}(omi_1.WeElement));
-exports.default = Avatar;
 
 
 /***/ }),
@@ -613,11 +506,20 @@ exports.default = Avatar;
           \**********************/
         /*! no static exports found */
         /***/ (function (module, exports) {
-            if (!document.querySelector('#__omim-theme-style')) {
-                var style = document.createElement('style');
-                style.id = '__omim-theme-style';
-                style.textContent = "--mdc-theme-primary: #0072d9;\n  --mdc-theme-secondary: #2170b8;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
-                document.querySelector('head').append(style);
+            if (!document.body.style.getPropertyValue('--mdc-theme-primary')) {
+                document.body.style.setProperty('--mdc-theme-primary', '#0072d9');
+                document.body.style.setProperty('--mdc-theme-secondary', '#2170b8');
+                document.body.style.setProperty('--mdc-theme-error', '#f5222d');
+                document.body.style.setProperty('--mdc-theme-surface', '#ffffff');
+                document.body.style.setProperty('--mdc-theme-on-primary', '#ffffff');
+                document.body.style.setProperty('--mdc-theme-on-secondary', '#ffffff');
+                document.body.style.setProperty('--mdc-theme-on-error', '#ffffff');
+                document.body.style.setProperty('--mdc-theme-on-surface', '#000000');
+                document.body.style.setProperty('--mdc-theme-background', '#ffffff');
+                document.body.style.setProperty('--mdc-shape-small-component-radius', '4px');
+                document.body.style.setProperty('--mdc-shape-medium-component-radius', '4px');
+                document.body.style.setProperty('--mdc-shape-large-component-radius', '0px');
+                document.body.style.setProperty('--mdc-typography--font-family', 'Roboto, sans-serif');
             }
             /***/ 
         }),
@@ -660,6 +562,127 @@ if (!document.body.style.getPropertyValue('--mdc-theme-primary')) {
     document.body.style.setProperty('--mdc-shape-large-component-radius', '0px');
     document.body.style.setProperty('--mdc-typography--font-family', 'Roboto, sans-serif');
 }
+
+
+/***/ }),
+
+/***/ "./src/toast/index.scss":
+/*!******************************!*\
+  !*** ./src/toast/index.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/toast/index.scss");
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+
+/***/ "./src/toast/index.tsx":
+/*!*****************************!*\
+  !*** ./src/toast/index.tsx ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+var omi_1 = __webpack_require__(/*! omi */ "omi");
+var css = __webpack_require__(/*! ./index.scss */ "./src/toast/index.scss");
+__webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//@ts-ignore
+__webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+omi_1.define('m-toast', (_a = /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        function class_1() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        class_1.prototype.render = function (props) {
+            var cls = omi_1.extractClass(props, 'm-toast');
+            var type = props.type, show = props.show, children = props.children, iconSize = props.iconSize, others = __rest(props, ["type", "show", "children", "iconSize"]);
+            return (omi_1.h("div", { style: { display: show ? 'block' : 'none' } },
+                omi_1.h("div", __assign({}, cls, others),
+                    omi_1.h("i", { class: "icon" },
+                        omi_1.h("svg", __assign({ viewBox: "0 0 1024 1024" }, omi_1.extractClass({}, {
+                            'rotate': props.rotate
+                        }), { width: "3em", height: "3em", fill: "white", "aria-hidden": "true" }),
+                            omi_1.h("path", { d: props.path })),
+                        omi_1.h("div", { style: "color: white;" })),
+                    omi_1.h("p", { class: "m-toast_content" }, children))));
+        };
+        return class_1;
+    }(omi_1.WeElement)),
+    _a.defaultProps = {
+        show: false
+    },
+    _a.css = css,
+    _a));
+var toast = {}, dom;
+toast.showLoading = function (text) {
+    if (dom) {
+        document.body.removeChild(dom);
+    }
+    dom = omi_1.render(omi_1.h("m-toast", { path: 'M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 0 0-94.3-139.9 437.71 437.71 0 0 0-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z', rotate: true, show: true }, text || '加载中'), 'body');
+};
+toast.hideLoading = function () {
+    if (dom) {
+        document.body.removeChild(dom);
+        dom = null;
+    }
+};
+toast.show = function (_a) {
+    var path = _a.path, text = _a.text, rotate = _a.rotate;
+    if (dom) {
+        document.body.removeChild(dom);
+    }
+    dom = omi_1.render(omi_1.h("m-toast", { show: true, rotate: rotate, path: path }, text || ''), 'body');
+};
+toast.hide = toast.hideLoading;
+exports.default = toast;
 
 
 /***/ }),

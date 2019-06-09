@@ -275,11 +275,10 @@ var Drawer = /** @class */ (function (_super) {
         return _this;
     }
     Drawer.prototype.render = function (props) {
-        var _this = this;
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-drawer', {
             'm-drawer-show': props.show
         })),
-            omi_1.h("div", { class: 'ctn', ref: function (_) { _this.ctn = _; }, style: "transform: " + this._getTransfrom(props.position) },
+            omi_1.h("div", { class: 'ctn', style: "transform: " + this._getTransfrom(props.position) },
                 omi_1.h("slot", null)),
             omi_1.h("div", { class: "mask", onClick: this.onMaskClick })));
     };
@@ -320,11 +319,20 @@ exports.default = Drawer;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-if (!document.querySelector('#__omim-theme-style')) {
-    var style = document.createElement('style');
-    style.id = '__omim-theme-style';
-    style.textContent = "--mdc-theme-primary: #0072d9;\n  --mdc-theme-secondary: #2170b8;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
-    document.querySelector('head').append(style);
+if (!document.body.style.getPropertyValue('--mdc-theme-primary')) {
+    document.body.style.setProperty('--mdc-theme-primary', '#0072d9');
+    document.body.style.setProperty('--mdc-theme-secondary', '#2170b8');
+    document.body.style.setProperty('--mdc-theme-error', '#f5222d');
+    document.body.style.setProperty('--mdc-theme-surface', '#ffffff');
+    document.body.style.setProperty('--mdc-theme-on-primary', '#ffffff');
+    document.body.style.setProperty('--mdc-theme-on-secondary', '#ffffff');
+    document.body.style.setProperty('--mdc-theme-on-error', '#ffffff');
+    document.body.style.setProperty('--mdc-theme-on-surface', '#000000');
+    document.body.style.setProperty('--mdc-theme-background', '#ffffff');
+    document.body.style.setProperty('--mdc-shape-small-component-radius', '4px');
+    document.body.style.setProperty('--mdc-shape-medium-component-radius', '4px');
+    document.body.style.setProperty('--mdc-shape-large-component-radius', '0px');
+    document.body.style.setProperty('--mdc-typography--font-family', 'Roboto, sans-serif');
 }
 
 
