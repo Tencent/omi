@@ -1,6 +1,10 @@
 @import "../theme";
 
-.m-step {}
+.m-step {
+	width: 100%;
+	display: inline-block;
+	white-space: nowrap;
+}
 
 *, *::before, *::after {
 	-webkit-box-sizing: border-box;
@@ -95,10 +99,10 @@
 ._item {
   position: relative;
   display: inline-block;
-  /* background-color: white; */
-  overflow: hidden;
-  height: 60px;
-  margin-right: 16px;
+	overflow: hidden;
+	vertical-align: top;
+	height: 60px;
+	margin-right: 16px;
 	white-space: nowrap;
 }
 
