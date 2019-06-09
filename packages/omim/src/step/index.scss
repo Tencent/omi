@@ -20,13 +20,15 @@
   border-radius: 32px;
   font-size: 16px;
   margin-right: 8px;
-  display: inline-block;
+	display: inline-block;
+	vertical-align: top;
 }
 
 ._item-content {
   display: inline-block;
   position: relative;
-  top: 20px;
+	top: 5px;
+	vertical-align: top;
 }
 
 ._item-finish ._item-icon {
@@ -151,7 +153,7 @@
 
 .vertical>._item>._item-tail {
 	position: absolute;
-	top: 12px;
+	top: 0px;
 	left: 16px;
 	width: 1px;
 	height: 100%;
