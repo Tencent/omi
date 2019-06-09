@@ -16,6 +16,11 @@ const state = {
 class Step extends WeElement {
   static css = css
 
+	static propTypes = {
+		items: Object,
+		vertical: Boolean
+	}
+
   render(props) {
     return (
       <div {...extractClass(props, 'm-step', {

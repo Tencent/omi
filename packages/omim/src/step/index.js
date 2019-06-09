@@ -303,6 +303,10 @@ var Step = /** @class */ (function (_super) {
         })));
     };
     Step.css = css;
+    Step.propTypes = {
+        items: Object,
+        vertical: Boolean
+    };
     Step = __decorate([
         omi_1.tag('m-step')
     ], Step);
