@@ -1,6 +1,7 @@
 import { define, WeElement } from 'omi'
 import logo from './logo.svg'
 import '../app-intro'
+import '../omil/index.omi.js'
 import 'omiu/button'
 
 define('my-app', class extends WeElement {
@@ -27,6 +28,7 @@ define('my-app', class extends WeElement {
         </header>
         <app-intro />
         <o-button style='width:200px;'>I am omiu button.</o-button>
+        <app-omil />
       </div>
     )
   }
