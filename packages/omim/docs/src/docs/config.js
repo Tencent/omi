@@ -22,7 +22,7 @@ const config = {
       {
         title: '公用',
         list: [
-          { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
+          { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
@@ -32,7 +32,7 @@ const config = {
         title: '布局',
         list: [
           { name: 'Row', md: 'row', demo: './repl/row.html' },
-          
+
           { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
           { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }
         ]
@@ -84,7 +84,8 @@ const config = {
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
           { name: 'Card', md: 'card', demo: './repl/card.html' },
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
-          { name: 'Paper', md: 'paper', demo: './repl/paper.html' }
+          { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
+          { name: 'Step', md: 'step', demo: './repl/step.html' }
         ]
       },
       {
@@ -125,7 +126,7 @@ const config = {
       {
         title: 'Util',
         list: [
-          { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
+          { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
@@ -186,7 +187,8 @@ const config = {
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
           { name: 'Card', md: 'card', demo: './repl/card.html' },
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
-          { name: 'Paper', md: 'paper', demo: './repl/paper.html' }
+          { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
+          { name: 'Step', md: 'step', demo: './repl/step.html' }
         ]
       },
       {

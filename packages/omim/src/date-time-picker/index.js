@@ -18610,7 +18610,7 @@ webpackContext.id = "./node_modules/_moment@2.24.0@moment/locale sync recursive 
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../_webpack@4.32.2@webpack/buildin/module.js */ "./node_modules/_webpack@4.32.2@webpack/buildin/module.js")(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../_webpack@4.33.0@webpack/buildin/module.js */ "./node_modules/_webpack@4.33.0@webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -19194,7 +19194,7 @@ return Unipointer;
 
 /***/ }),
 
-/***/ "./node_modules/_webpack@4.32.2@webpack/buildin/module.js":
+/***/ "./node_modules/_webpack@4.33.0@webpack/buildin/module.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -20927,11 +20927,26 @@ exports.default = mdDateTimePicker;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-if (!document.querySelector('#__omim-theme-style')) {
-    var style = document.createElement('style');
-    style.id = '__omim-theme-style';
-    style.textContent = "--mdc-theme-primary: #0072d9;\n  --mdc-theme-secondary: #2170b8;\n  --mdc-theme-error: #f5222d;\n  --mdc-theme-surface: #ffffff;\n  --mdc-theme-on-primary: #ffffff;\n  --mdc-theme-on-secondary: #ffffff;\n  --mdc-theme-on-error: #ffffff;\n  --mdc-theme-on-surface: #000000;\n  --mdc-theme-background: #ffffff;\n  --mdc-shape-small-component-radius: 4px;\n  --mdc-shape-medium-component-radius: 4px;\n  --mdc-shape-large-component-radius: 0px;\n  --mdc-typography--font-family: Roboto, sans-serif;\n  ";
-    document.querySelector('head').append(style);
+theme();
+document.addEventListener('DOMContentLoaded', function () {
+    theme();
+});
+function theme() {
+    if (document.body && !document.body.style.getPropertyValue('--mdc-theme-primary')) {
+        document.body.style.setProperty('--mdc-theme-primary', '#0072d9');
+        document.body.style.setProperty('--mdc-theme-secondary', '#2170b8');
+        document.body.style.setProperty('--mdc-theme-error', '#f5222d');
+        document.body.style.setProperty('--mdc-theme-surface', '#ffffff');
+        document.body.style.setProperty('--mdc-theme-on-primary', '#ffffff');
+        document.body.style.setProperty('--mdc-theme-on-secondary', '#ffffff');
+        document.body.style.setProperty('--mdc-theme-on-error', '#ffffff');
+        document.body.style.setProperty('--mdc-theme-on-surface', '#000000');
+        document.body.style.setProperty('--mdc-theme-background', '#ffffff');
+        document.body.style.setProperty('--mdc-shape-small-component-radius', '4px');
+        document.body.style.setProperty('--mdc-shape-medium-component-radius', '4px');
+        document.body.style.setProperty('--mdc-shape-large-component-radius', '0px');
+        document.body.style.setProperty('--mdc-typography--font-family', 'Roboto, sans-serif');
+    }
 }
 
 

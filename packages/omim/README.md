@@ -211,6 +211,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | paper | zainchen | |
 | accordion |  | |
 | toggle buttons |  | |
+| editor |  | |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" ></m-step>
+	<title>Add Omi in One Minute</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+
+	<div>
+		<m-step items="[
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'In Progress', description: 'This is a description.', state: 2 },
+		{ name: 'Waiting', description: 'This is a description.', state: 3 }
+	]" ></m-step>
+		<m-step items="[
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'Error', description: 'This is a description.', state: 1 },
+		{ name: 'Waiting', description: 'This is a description.', state: 3 }
+	]" ></m-step>
+		<m-step items="[
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'Finished', description: 'This is a description.', state: 0 }
+	]" ></m-step>
+
+		<m-step items="[
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'In Progress', description: 'This is a description.', state: 2 },
+		{ name: 'Waiting', description: 'This is a description.', state: 3 }
+	]" vertical ></m-step>
+		<m-step items="[
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'Error', description: 'This is a description.', state: 1 },
+		{ name: 'Waiting', description: 'This is a description.', state: 3 }
+	]" vertical ></m-step>
+		<m-step items="[
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'Finished', description: 'This is a description.', state: 0 },
+		{ name: 'Finished', description: 'This is a description.', state: 0 }
+	]" vertical ></m-step>
+	</div>
+
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/step/index.js"></script>
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+		<img src="//alloyteam.github.io/github.png" alt="">
+	</a>
+</body>
+
+</html>
