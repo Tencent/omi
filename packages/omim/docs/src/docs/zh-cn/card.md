@@ -24,7 +24,9 @@
   subTitle?: string,
   content: string,
   buttons?: object,
-  icons?: object
+  icons?: object,
+  topTitle?: boolean,
+  overImg?: boolean
 }
 ```
 
