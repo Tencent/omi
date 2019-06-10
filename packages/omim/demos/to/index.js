@@ -28,8 +28,8 @@ define('my-app', class extends WeElement {
       <div>
         <input type='number' onInput={this.onInput} value={this.number} step={2}></input>
         <div>{this.out.number.toFixed(0)}</div>
-        <div style={{ height: this.out.number + 'px', background: 'red' }}></div>
         <div>{this.out.number.toFixed(0)}*{this.out.number.toFixed(0)}={(this.out.number * this.out.number).toFixed(0)}</div>
+        <div style={{ width: this.out.number * 5 + 'px', background: 'red', height: '5px' }}></div>
         <m-to from={{ number: this.from }} easing='bounce-in' onProgress={this.onProgress} to={{ number: this.to }} out={this.out} duration={1000}>
         </m-to>
       </div>
