@@ -46,8 +46,8 @@ export default class To extends WeElement<Props, Data>{
 
       if (this.to) this.to.stop()
       this.to = To2To.get(props.from)
-        .to(props.to, props.duration,To2To.easing[npn(props.easing)]||To2To.easing.linear)
-        .begin(()=>{
+        .to(props.to, props.duration, To2To.easing[npn(props.easing)] || To2To.easing.linear)
+        .begin(() => {
           this.fire('begin')
         })
         .progress((obj) => {
@@ -55,7 +55,7 @@ export default class To extends WeElement<Props, Data>{
           Object.assign(props.out, obj)
           this.fire('progress')
         })
-        .end(()=>{
+        .end(() => {
           this.fire('end')
         })
         .start()
