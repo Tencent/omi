@@ -3475,10 +3475,10 @@
       return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.to = null, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
-    _class2.prototype.receiveProps = function receiveProps(props) {
+    _class2.prototype.receiveProps = function receiveProps(props, a, b) {
       var _this2 = this;
 
-      if (props.restart) {
+      if (!(JSON.stringify(props.from) === JSON.stringify(b.from) && JSON.stringify(props.to) === JSON.stringify(b.to))) {
         if (this.to) this.to.stop();
         this.to = To.get(props.from).to(props.to, props.duration).progress(function (obj) {
           Object.assign(props.out, obj);
@@ -3506,16 +3506,14 @@
         args[_key2] = arguments[_key2];
       }
 
-      return _ret2 = (_temp2 = (_this3 = _possibleConstructorReturn$3(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this3), _this3.number = 10, _this3.from = _this3.number, _this3.to = _this3.number, _this3.out = {
+      return _ret2 = (_temp2 = (_this3 = _possibleConstructorReturn$3(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this3), _this3.number = 2, _this3.from = _this3.number, _this3.to = _this3.number, _this3.out = {
         number: _this3.number
       }, _this3.onInput = function (e) {
-        _this3.restart = true;
         _this3.to = Number(e.target.value);
         _this3.from = _this3.out.number;
         _this3.number = _this3.to;
         _this3.update();
       }, _this3.onProgress = function () {
-        _this3.restart = false;
         _this3.update();
       }, _temp2), _possibleConstructorReturn$3(_this3, _ret2);
     }
@@ -3524,13 +3522,22 @@
       return Omi.h(
         'div',
         null,
-        Omi.h('input', { type: 'number', onInput: this.onInput, value: this.number, step: 20 }),
+        Omi.h('input', { type: 'number', onInput: this.onInput, value: this.number, step: 2 }),
         Omi.h(
           'div',
           null,
           this.out.number.toFixed(0)
         ),
-        Omi.h('m-to', { from: { number: this.from }, restart: this.restart, onProgress: this.onProgress, to: { number: this.to }, out: this.out, duration: 1000 })
+        Omi.h(
+          'div',
+          null,
+          this.out.number.toFixed(0),
+          '*',
+          this.out.number.toFixed(0),
+          '=',
+          (this.out.number * this.out.number).toFixed(0)
+        ),
+        Omi.h('m-to', { from: { number: this.from }, onProgress: this.onProgress, to: { number: this.to }, out: this.out, duration: 1000 })
       );
     };
 

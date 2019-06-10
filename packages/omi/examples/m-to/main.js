@@ -5,9 +5,8 @@ import To from 'to2to'
 define('m-to', class extends WeElement {
   to = null
 
-  receiveProps(props) {
-
-    if (props.restart) {
+  receiveProps(props,a,b) {
+    if(!(JSON.stringify(props.from) === JSON.stringify(b.from)&&JSON.stringify(props.to) === JSON.stringify(b.to))){
       if (this.to) this.to.stop()
       this.to = To.get(props.from)
         .to(props.to, props.duration)
@@ -17,7 +16,6 @@ define('m-to', class extends WeElement {
         })
         .start()
     }
-
   }
 
   render(props) {
@@ -30,7 +28,7 @@ define('m-to', class extends WeElement {
 
 define('my-timer', class extends WeElement {
 
-  number = 10
+  number = 2
 
   from = this.number
   to = this.number
@@ -40,7 +38,6 @@ define('my-timer', class extends WeElement {
 
 
   onInput = (e) => {
-    this.restart = true
     this.to = Number(e.target.value)
     this.from = this.out.number
     this.number = this.to
@@ -48,16 +45,16 @@ define('my-timer', class extends WeElement {
   }
 
   onProgress = () => {
-    this.restart = false
     this.update()
   }
 
   render() {
     return (
       <div>
-        <input type='number' onInput={this.onInput} value={this.number} step={20}></input>
+        <input type='number' onInput={this.onInput} value={this.number} step={2}></input>
         <div>{this.out.number.toFixed(0)}</div>
-        <m-to from={{ number: this.from }} restart={this.restart} onProgress={this.onProgress} to={{ number: this.to }} out={this.out} duration={1000}>
+        <div>{this.out.number.toFixed(0)}*{this.out.number.toFixed(0)}={(this.out.number*this.out.number).toFixed(0)}</div>
+        <m-to from={{ number: this.from }} onProgress={this.onProgress} to={{ number: this.to }} out={this.out} duration={1000}>
         </m-to>
       </div>
     )
