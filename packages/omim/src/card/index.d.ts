@@ -9,6 +9,8 @@ interface Props {
     content: string;
     buttons?: object;
     icons?: object;
+    topTitle?: boolean;
+    overImg?: boolean;
 }
 interface Data {
 }
@@ -22,6 +24,8 @@ export default class Card extends WeElement<Props, Data> {
         content: StringConstructor;
         buttons: ObjectConstructor;
         icons: ObjectConstructor;
+        topTitle: BooleanConstructor;
+        overImg: BooleanConstructor;
     };
     btnClick: (evt: any, index: any) => void;
     iconClick: (evt: any, index: any) => void;

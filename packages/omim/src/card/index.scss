@@ -24,16 +24,25 @@
   padding: 0px 16px 16px;
 }
 
-.mdc-typography--subtitle2{
+.mdc-typography--subtitle2 {
   padding: 0;
   margin: 0;
   opacity: 0.7;
 }
 
-.mdc-typography--headline6{
+.mdc-typography--headline6 {
   margin: 10px 0px 0px;
 }
 
-.mdc-typography--body2{
+.mdc-typography--body2 {
   opacity: 0.63;
+}
+
+.over-img .mdc-card__secondary,
+.top-title .mdc-card__secondary {
+  padding-top: 1rem;
+}
+
+.over-img .mdc-card__primary {
+  color: white;
 }
