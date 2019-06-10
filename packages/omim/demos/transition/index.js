@@ -48,7 +48,7 @@ define('my-app', class extends WeElement {
           <p>Hello transition</p>
         </m-transition>
         <br />
-        <button onclick={this.toggle}>Toggle</button>
+        <button onclick={this.toggle}>Toggle</button>
 
         <h1>Transition Group</h1>
         <ul>
