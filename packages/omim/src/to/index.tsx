@@ -11,24 +11,6 @@ interface Data {
 }
 
 
-
-
-let arr = [];
-['Quadratic',
-  'Cubic',
-  'Quartic',
-  'Quintic',
-  'Sinusoidal',
-  'Exponential',
-  'Circular',
-  'Elastic',
-  'Back',
-  'Bounce'].forEach(item => {
-      const itemLower = item.toLowerCase()
-      arr.push( itemLower +'-'+ 'in',itemLower +'-'+ 'out',itemLower +'-'+ 'in-out')
-  })
-
-
 @tag('m-to')
 export default class To extends WeElement<Props, Data>{
 
