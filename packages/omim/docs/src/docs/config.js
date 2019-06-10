@@ -23,6 +23,7 @@ const config = {
         title: '公用',
         list: [
           { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
+          { name: 'To', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
@@ -127,6 +128,7 @@ const config = {
         title: 'Util',
         list: [
           { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
+          { name: 'To', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
