@@ -18,6 +18,7 @@
     "hook": "rollup -c config/rollup.example.js --watch",
     "decorators": "rollup -c config/rollup.example.js --watch",
     "to": "rollup -c config/rollup.example.js --watch",
+    "m-to": "rollup -c config/rollup.example.js --watch",
     "mobx": "rollup -c config/rollup.example.js --watch",
     "todomvc": "rollup -c config/rollup.example.js --watch",
     "mvvm": "rollup -c config/rollup.example.js --watch",
