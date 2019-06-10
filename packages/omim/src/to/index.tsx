@@ -3,7 +3,14 @@ import * as To2To from 'to2to'
 
 
 interface Props {
-  easing: "quadratic-in" | "quadratic-out" | "quadratic-in-out" | "cubic-in" | "cubic-out" | "cubic-in-out" | "quartic-in" | "quartic-out" | "quartic-in-out" | "quintic-in" | "quintic-out" | "quintic-in-out" | "sinusoidal-in" | "sinusoidal-out" | "sinusoidal-in-out" | "exponential-in" | "exponential-out" | "exponential-in-out" | "circular-in" | "circular-out" | "circular-in-out" | "elastic-in" | "elastic-out" | "elastic-in-out" | "back-in" | "back-out" | "back-in-out" | "bounce-in" | "bounce-out" | "bounce-in-out" //easing graphs http://tweenjs.github.io/tween.js/examples/03_graphs.html
+  from: object,
+  to: object,
+  duration: number,
+  out: object,
+  delay: number,
+  //easing graphs http://tweenjs.github.io/tween.js/examples/03_graphs.html
+  easing: "quadratic-in" | "quadratic-out" | "quadratic-in-out" | "cubic-in" | "cubic-out" | "cubic-in-out" | "quartic-in" | "quartic-out" | "quartic-in-out" | "quintic-in" | "quintic-out" | "quintic-in-out" | "sinusoidal-in" | "sinusoidal-out" | "sinusoidal-in-out" | "exponential-in" | "exponential-out" | "exponential-in-out" | "circular-in" | "circular-out" | "circular-in-out" | "elastic-in" | "elastic-out" | "elastic-in-out" | "back-in" | "back-out" | "back-in-out" | "bounce-in" | "bounce-out" | "bounce-in-out",
+  start: boolean
 }
 
 interface Data {
@@ -19,7 +26,8 @@ export default class To extends WeElement<Props, Data>{
     to: Object,
     duration: Number,
     out: Object,
-    easing: String
+    easing: String,
+    delay: Number
   }
 
   to = null
@@ -42,11 +50,12 @@ export default class To extends WeElement<Props, Data>{
       }
     }
 
-    if (restart) {
+    if (restart || props.start && !preProps.start) {
 
       if (this.to) this.to.stop()
       this.to = To2To.get(props.from)
-        .to(props.to, props.duration, To2To.easing[npn(props.easing)] || To2To.easing.linear)
+        .wait(props.delay || 0)
+        .to(props.to, props.duration, To2To.easing[npn(props.easing||'linear')])
         .begin(() => {
           this.fire('begin')
         })
@@ -59,6 +68,12 @@ export default class To extends WeElement<Props, Data>{
           this.fire('end')
         })
         .start()
+    }
+  }
+
+  installed(){
+    if(this.props.start){
+      this.receiveProps(this.props, null, {from:{},to:{}})
     }
   }
 

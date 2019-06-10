@@ -1801,11 +1801,12 @@ var To = /** @class */ (function (_super) {
                 }
             }
         }
-        if (restart) {
+        if (restart || props.start && !preProps.start) {
             if (this.to)
                 this.to.stop();
             this.to = To2To.get(props.from)
-                .to(props.to, props.duration, To2To.easing[npn(props.easing)] || To2To.easing.linear)
+                .wait(props.delay || 0)
+                .to(props.to, props.duration, To2To.easing[npn(props.easing || 'linear')])
                 .begin(function () {
                 _this.fire('begin');
             })
@@ -1820,6 +1821,11 @@ var To = /** @class */ (function (_super) {
                 .start();
         }
     };
+    To.prototype.installed = function () {
+        if (this.props.start) {
+            this.receiveProps(this.props, null, { from: {}, to: {} });
+        }
+    };
     To.prototype.render = function () {
         return (omi_1.h("slot", null));
     };
@@ -1828,7 +1834,8 @@ var To = /** @class */ (function (_super) {
         to: Object,
         duration: Number,
         out: Object,
-        easing: String
+        easing: String,
+        delay: Number
     };
     To = __decorate([
         omi_1.tag('m-to')
