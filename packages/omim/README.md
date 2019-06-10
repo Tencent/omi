@@ -203,7 +203,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | path-progress | member | done |
 | popover | member | done |
 | rate |  | |
-| step |  | |
+| step | member | done |
 | toast | member | done|
 | autocomplete |  | |
 | transfer list |  | |
