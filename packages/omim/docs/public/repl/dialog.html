@@ -83,6 +83,14 @@
 <m-button onClick="onShowSimple()" ripple>Simple</m-button>
 <m-button onClick="onShowConfirmation()" ripple>Confirmation</m-button>
 <m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
+<m-button onClick="onShowForm()" ripple>Form</m-button>
+
+<m-dialog id="m-dialog-form"
+  title='Input info'
+  cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
+  <p style='margin:0'>Input name or nickname</p>
+  <m-text-field id="myText" full-width ></m-text-field>
+</m-dialog>
 
 <m-dialog id="m-dialog-alert" cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
   <p class="m-dialog-alert-p">Discard draft?</p>
@@ -187,7 +195,7 @@
   <p>Today, however, they were not playing. Uncle Henry sat upon the doorstep and looked anxiously at the sky, which was even grayer than usual. Dorothy stood in the door with Toto in her arms, and looked at the sky too. Aunt Em was washing the dishes.</p>
   <p>From the far north they heard a low wail of the wind, and Uncle Henry and Dorothy could see where the long grass bowed in waves before the coming storm. There now came a sharp whistling in the air from the south, and as they turned their eyes that way they saw ripples in the grass coming from that direction also.</p>
 </m-dialog>
-
+  
 <p id="show-text"></p></textarea>
       </div>
       <div class="preview">
