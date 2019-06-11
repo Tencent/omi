@@ -1,5 +1,6 @@
 import '../../src/dialog/index.tsx'
 import '../../src/list/index.tsx'
+import '../../src/text-field/index.tsx'
 
 import { render, WeElement, define, h } from 'omi'
 
@@ -34,6 +35,11 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
+  onShowForm = (e) => {
+    this.formShow = true
+    this.update()
+  }
+
   onShowScrollable = () => {
     this.scrollableShow = true
     this.showText = 'open scrollable!'
@@ -45,6 +51,7 @@ define('my-app', class extends WeElement {
     this.alertShow = false
     this.confirmationShow = false
     this.scrollableShow = false
+    this.formShow = false
     this.showText = 'Declined... Maybe next time?'
     this.update()
   }
@@ -54,6 +61,7 @@ define('my-app', class extends WeElement {
     this.alertShow = false
     this.confirmationShow = false
     this.scrollableShow = false
+    this.formShow = false
     this.showText = 'Accepted, thanks!'
     this.update()
   }
@@ -64,7 +72,7 @@ define('my-app', class extends WeElement {
     this.showText = 'Accepted, thanks!'
     this.update()
   }
-
+  
   radio = {
     checked1: '',
     selected1: '',
@@ -111,7 +119,24 @@ define('my-app', class extends WeElement {
         <m-button onClick={this.onShowAlert} ripple>Alert</m-button>
         <m-button onClick={this.onShowSimple} ripple>Simple</m-button>
         <m-button onClick={this.onShowConfirmation} ripple>Confirmation</m-button>
+        <m-button onClick={this.onShowForm} ripple>Form</m-button>
         <m-button onClick={this.onShowScrollable} ripple>Scrollable</m-button>
+
+        <m-dialog
+          onOpening={this.onOpenClose}
+          onOpened={this.onOpenClose}
+          onClosing={this.onOpenClose}
+          onClosed={this.onOpenClose}
+          onScrim={this.onClose}
+          onCancel={this.onClose}
+          onConfirm={this.onConfirm}
+          show={this.formShow}
+          cancel-button={{text: 'Cancel'}}
+          title='Input info'
+          confirm-button={{text: 'Discard'}}>
+          <p style='margin:0'>Input name or nickname</p>
+          <m-text-field fullWidth label='Label2'></m-text-field>
+        </m-dialog>
 
         <m-dialog
           onOpening={this.onOpenClose}

@@ -4750,6 +4750,8 @@ var TextField = /** @class */ (function (_super) {
         if (props.fullWidth && !props.outlined) {
             inputProps.placeholder = props.label;
             props.label = null;
+            //直接修改 props 需要注意同步 this['__omiattr_']，不然下次和this['__omiattr_']的值进行 diff 结果相同导致不更新
+            this['__omiattr_'] && (this['__omiattr_'].label = null);
         }
         var vd = [
             omi_1.h("div", __assign({ ref: this.refIt }, cls),
