@@ -65,7 +65,6 @@ English | [简体中文](./README.CN.md)
 - Reactive data-binding
 - Having Cross-frameworks UI components - [omim](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
 - Excellent compatibility(IE8+) with [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
-- Supporting both grammars of omi and react with [reomi](https://github.com/Tencent/omi/tree/master/packages/reomi)
 - Real [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) base on **750** screen width
 - Compliance with browser trend and API design
@@ -257,9 +256,10 @@ You can also use `my-counter` tag directly in HTML：
 You can also quickly build omi projects using modern JS code:
 
 ```js
-import { render, WeElement, define } from 'omi'
+import { tag, WeElement, render } from 'omi'
 
-define('my-counter', class extends WeElement {
+@tag('my-counter')
+class MyCounter extends WeElement {
   data = {
     count: 1
   }
@@ -288,7 +288,7 @@ define('my-counter', class extends WeElement {
       </div>
     )
   }
-})
+}
 
 render(<my-counter />, 'body')
 ```
@@ -351,16 +351,6 @@ Add or remove the alias config in package.json to switch omi and omio：
 ```js
 "alias": {
   "omi": "omio"
-}
-```
-
-Using reomi:
-
-```js
-"alias": {
-  "omi": "reomi",
-  "react": "reomi",
-  "react-dom": "reomi"
 }
 ```
     
