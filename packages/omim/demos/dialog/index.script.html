@@ -20,13 +20,22 @@
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script src="../../src/dialog/index.js"></script>
   <script src="../../src/list/index.js"></script>
+  <script src="../../src/text-field/index.js"></script>
 
   <div>
     <m-button onClick="onShowAlert()" ripple>Alert</m-button>
     <m-button onClick="onShowSimple()" ripple>Simple</m-button>
     <m-button onClick="onShowConfirmation()" ripple>Confirmation</m-button>
     <m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
-    
+    <m-button onClick="onShowForm()" ripple>Form</m-button>
+
+    <m-dialog id="m-dialog-form"
+      title='Input info'
+      cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
+      <p style='margin:0'>Input name or nickname</p>
+      <m-text-field id="myText" full-width ></m-text-field>
+    </m-dialog>
+
     <m-dialog id="m-dialog-alert" cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
       <p class="m-dialog-alert-p">Discard draft?</p>
     </m-dialog>
@@ -141,6 +150,7 @@
     const dialogSimple = document.getElementById("m-dialog-simple");
     const dialogConfirmation = document.getElementById("m-dialog-confirmation");
     const dialogScrollable = document.getElementById("m-dialog-scrollable");
+    const dialogForm = document.getElementById("m-dialog-form");
     const thowText = document.getElementById("show-text");
 
     //Alert
@@ -247,8 +257,21 @@
       dialogScrollable.removeAttribute("show");
       thowText.innerHTML = "Accepted, thanks!";
     })
-    
 
+     
+    dialogForm.addEventListener('scrim', () => {
+      dialogForm.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogForm.addEventListener('cancel', () => {
+      dialogForm.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogForm.addEventListener('confirm', () => {
+      dialogForm.removeAttribute("show");
+      thowText.innerHTML = document.querySelector('#myText').mdc.value;
+    })
+    
     function onShowAlert() {
       dialogAlert.setAttribute("show", true);
       thowText.innerHTML = "open alert!";
@@ -265,6 +288,11 @@
       dialogScrollable.setAttribute("show", true);
       thowText.innerHTML = "open scrollable!";
     }
+    function onShowForm() {
+      dialogForm.setAttribute("show", true);
+      thowText.innerHTML = "open form!";
+    }
+    
   </script>
 </body>
 </html>
