@@ -86,7 +86,8 @@ const config = {
           { name: 'Card', md: 'card', demo: './repl/card.html' },
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
           { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
-          { name: 'Step', md: 'step', demo: './repl/step.html' }
+          { name: 'Step', md: 'step', demo: './repl/step.html' },
+          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' }
         ]
       },
       {
@@ -190,7 +191,8 @@ const config = {
           { name: 'Card', md: 'card', demo: './repl/card.html' },
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
           { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
-          { name: 'Step', md: 'step', demo: './repl/step.html' }
+          { name: 'Step', md: 'step', demo: './repl/step.html' },
+          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' }
         ]
       },
       {
