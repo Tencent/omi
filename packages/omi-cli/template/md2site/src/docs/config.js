@@ -5,13 +5,13 @@ const config = {
         title: '快速开始',
         list: [
           { name: '简介', md: 'introduction' },
-          { name: '配置', md: 'config', demo: './repl/index.html' }
+          { name: '配置', md: 'config' }
         ]
       },
       {
         title: '其他版块',
         list: [
-          { name: '测试其他', md: 'other-docs' }
+          { name: '带 REPL', md: 'other-docs', demo: './repl/index.html' }
         ]
       }
     ],
@@ -19,14 +19,14 @@ const config = {
       {
         title: 'QUICK START',
         list: [
-          { name: 'Introduction', md: 'introduction' ,demo: './repl/index.html'},
+          { name: 'Introduction', md: 'introduction' },
           { name: 'Config', md: 'config' }
         ]
       },
       {
         title: 'Other',
         list: [
-          { name: 'Other Docs', md: 'other-docs' }
+          { name: 'With REPL', md: 'other-docs', demo: './repl/index.html' }
         ]
       }
     ]

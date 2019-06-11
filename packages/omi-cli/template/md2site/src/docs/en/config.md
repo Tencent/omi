@@ -2,20 +2,19 @@
 
 ```js
 const config = {
-  lan: 'en',
   menus: {
-    cn: [
+    'zh-cn': [
       {
         title: '快速开始',
         list: [
-          { name: '安装', md: 'installation' },
+          { name: '简介', md: 'introduction' },
           { name: '配置', md: 'config' }
         ]
       },
       {
         title: '其他版块',
         list: [
-          { name: '测试其他', md: 'other-docs' }
+          { name: '带 REPL', md: 'other-docs', demo: './repl/index.html' }
         ]
       }
     ],
@@ -30,7 +29,7 @@ const config = {
       {
         title: 'Other',
         list: [
-          { name: 'Other Docs', md: 'other-docs' }
+          { name: 'With REPL', md: 'other-docs', demo: './repl/index.html' }
         ]
       }
     ]

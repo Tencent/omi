@@ -49,6 +49,7 @@ class Store {
         this.data.html = this.remarkable.render(m)
       })
     }
+    this.demo = this.data.menus[this.data.lan][0].list[0].demo
     this.initRouter()
   }
 
@@ -70,6 +71,8 @@ class Store {
           this.preSubIndex = evt.query.subIndex
           this.data.position = [Number(evt.query.index), Number(evt.query.subIndex)]
           this.data.sideBarShow = false
+          this.myDemo.demo = menus[this.preIndex].list[this.preSubIndex].demo
+          this.myDemo.update()
 
           this.getMarkDown(subItem.md, this.data.lan, m => {
             this.data.html = this.remarkable.render(m)
