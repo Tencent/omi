@@ -10,7 +10,6 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [@font-face doesn't work in Shadow DOM](#font-face-doesnt-work-in-shadow-dom)
 - [CSS3 transform not working with custom element](#css3-transform-not-working-with-custom-element)
 - [Rendering checkbox in the loop](#rendering-checkbox-in-the-loop)
-- [Rendering checkbox in the loop](#rendering-checkbox-in-the-loop)
 - [Can not call class as a function](#can-not-call-class-as-a-function)
 
 ## Share css between parent and child nodes
@@ -21,6 +20,9 @@ import { define, WeElement, render, getHost } from 'omi'
 define('my-ele', class extends WeElement {
   install() {
     this.css = getHost(this).css
+
+    //or when css of parent is static prop
+    //this.css = getHost(this).constructor.css
   }
 
   render(props) {
