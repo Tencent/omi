@@ -1,6 +1,6 @@
 ## To 
 
-Animation anything with m-to tag.
+Animate anything with m-to tag.
 
 ## Usage in Omi
 
