@@ -46,7 +46,7 @@ define('my-app', class extends WeElement {
     //@ts-ignore
     this.update()
   }
-
+  
   onDemoStart = () => {
     toggleFullScreen()
   }
