@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import logo from './logo.svg'
 import '../app-intro'
-import '../omil/index.omi.js'
+import '../app-omil'
 import 'omiu/button'
 
 define('my-app', class extends WeElement {

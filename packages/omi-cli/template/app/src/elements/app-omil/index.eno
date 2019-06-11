@@ -1,6 +1,6 @@
 <template name="app-omil">
-    <div class="omil">
-        <button onClick={this.testClick.bind(this)} class="weui-btn weui-btn_primary" style="width: 200px;">{this.data.title}</button>
+    <div class="app-omil">
+        <button onClick={this.omiSnippets.bind(this)} class="weui-btn weui-btn_primary" style="width: 200px;">{this.data.title}</button>
     </div>
 </template>
 <script>
@@ -18,8 +18,8 @@ export default {
             title: 'I am omil button.'
         }
     }
-    testClick() {
-        console.log('omil')
+    omiSnippets() {
+        window.open('https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets')
     }
 }
 </script>

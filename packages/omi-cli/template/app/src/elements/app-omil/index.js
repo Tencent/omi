@@ -9,12 +9,12 @@ const appOmil = class extends WeElement {
     return h(
       "div",
       {
-        class: "omil"
+        class: "app-omil"
       },
       h(
         "button",
         {
-          onClick: this.testClick.bind(this),
+          onClick: this.omiSnippets.bind(this),
           class: "weui-btn weui-btn_primary",
           style: "width: 200px;"
         },
@@ -59,8 +59,10 @@ const appOmil = class extends WeElement {
       title: "I am omil button."
     };
   }
-  testClick() {
-    console.log("omil");
+  omiSnippets() {
+    window.open(
+      "https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets"
+    );
   }
 };
 
