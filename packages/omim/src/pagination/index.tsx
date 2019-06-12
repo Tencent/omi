@@ -83,7 +83,7 @@ export default class Pagination extends WeElement<Props, Data>{
 			}
 
 			if (props.numEdge < interval[0] && props.ellipseText) {
-				arr.push(<li class="o-icon more btn-quicknext o-icon-more" />)
+				arr.push(<li class="m-icon more btn-quicknext m-icon-more" />)
 			}
 		}
 
@@ -93,7 +93,7 @@ export default class Pagination extends WeElement<Props, Data>{
 
 		if (interval[1] < this.pageNum && props.numEdge > 0) {
 			if (this.pageNum - props.numEdge > interval[1] && props.ellipseText) {
-				arr.push(<li class="o-icon more btn-quicknext o-icon-more" />)
+				arr.push(<li class="m-icon more btn-quicknext m-icon-more" />)
 			}
 			let begin = Math.max(this.pageNum - props.numEdge, interval[1])
 			for (var i = begin; i < this.pageNum; i++) {
@@ -102,9 +102,9 @@ export default class Pagination extends WeElement<Props, Data>{
 		}
 
 		return (
-			<div {...extractClass(props, 'o-pagination is-background')}>
+			<div {...extractClass(props, 'm-pagination is-background')}>
 				{props.prevShow && this.getPrev()}{' '}
-				<ul class="o-pager">
+				<ul class="m-pager">
 					{arr.map(p => {
 						return p
 					})}

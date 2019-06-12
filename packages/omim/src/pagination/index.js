@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, "div {\n  color: rgba(0, 0, 0, 0.65); }\n\n* {\n  box-sizing: border-box; }\n\nul,\nli {\n  padding: 0;\n  margin: 0; }\n\nli {\n  display: inline-block;\n  min-width: 32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px;\n  cursor: pointer;\n  border-radius: 4px; }\n\n.o-pager {\n  display: inline-block;\n  font-size: 14px; }\n\nbutton {\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  border: 1px solid #ccc;\n  background: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none; }\n\nbutton.btn-next:not(disabled):active,\nbutton.btn-prev:not(disabled):active {\n  background-color: #eee; }\n\nbutton:disabled {\n  pointer-events: none;\n  border-color: #eee;\n  cursor: default; }\n\n.more:after {\n  content: '...'; }\n\n.more {\n  border: none;\n  cursor: default; }\n\n.active {\n  border-color: #2170b8;\n  color: #2170b8; }\n\nsvg {\n  position: relative;\n  top: 2px; }\n", ""]);
+exports.push([module.i, "div {\n  color: rgba(0, 0, 0, 0.65); }\n\n* {\n  box-sizing: border-box; }\n\nul,\nli {\n  padding: 0;\n  margin: 0; }\n\nli {\n  display: inline-block;\n  min-width: 32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px;\n  cursor: pointer;\n  border-radius: 4px; }\n\n.m-pagination {\n  white-space: nowrap; }\n\n.m-pager {\n  display: inline-block;\n  font-size: 14px; }\n\nbutton {\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  border: 1px solid #ccc;\n  background: none;\n  border-radius: 4px;\n  cursor: pointer;\n  outline: none; }\n\nbutton.btn-next:not(disabled):active,\nbutton.btn-prev:not(disabled):active {\n  background-color: #eee; }\n\nbutton:disabled {\n  pointer-events: none;\n  border-color: #eee;\n  cursor: default; }\n\n.more:after {\n  content: '...'; }\n\n.more {\n  border: none;\n  cursor: default; }\n\n.active {\n  border-color: #2170b8;\n  color: #2170b8; }\n\nsvg {\n  position: relative;\n  top: 2px; }\n", ""]);
 
 // exports
 
@@ -292,7 +292,7 @@ var Pagination = /** @class */ (function (_super) {
                 arr.push(this.getItem(i, i + 1));
             }
             if (props.numEdge < interval[0] && props.ellipseText) {
-                arr.push(omi_1.h("li", { class: "o-icon more btn-quicknext o-icon-more" }));
+                arr.push(omi_1.h("li", { class: "m-icon more btn-quicknext m-icon-more" }));
             }
         }
         for (var i = interval[0]; i < interval[1]; i++) {
@@ -300,17 +300,17 @@ var Pagination = /** @class */ (function (_super) {
         }
         if (interval[1] < this.pageNum && props.numEdge > 0) {
             if (this.pageNum - props.numEdge > interval[1] && props.ellipseText) {
-                arr.push(omi_1.h("li", { class: "o-icon more btn-quicknext o-icon-more" }));
+                arr.push(omi_1.h("li", { class: "m-icon more btn-quicknext m-icon-more" }));
             }
             var begin = Math.max(this.pageNum - props.numEdge, interval[1]);
             for (var i = begin; i < this.pageNum; i++) {
                 arr.push(this.getItem(i, i + 1));
             }
         }
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-pagination is-background')),
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-pagination is-background')),
             props.prevShow && this.getPrev(),
             ' ',
-            omi_1.h("ul", { class: "o-pager" }, arr.map(function (p) {
+            omi_1.h("ul", { class: "m-pager" }, arr.map(function (p) {
                 return p;
             })),
             ' ',

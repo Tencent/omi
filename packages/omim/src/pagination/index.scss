@@ -27,7 +27,11 @@ li {
   border-radius: $mdc-shape-small-component-radius;
 }
 
-.o-pager {
+.m-pagination {
+  white-space: nowrap;
+}
+
+.m-pager {
   display: inline-block;
   font-size: 14px; 
 }
