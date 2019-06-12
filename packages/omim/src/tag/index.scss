@@ -8,8 +8,8 @@
 
 .mdc-tag>span {
   display: inline-block;
-  width: 17px;
-  height: 17px;
+  line-height: 32px;
+  height: 32px;
   vertical-align: bottom;
   width: auto;
 }
@@ -39,7 +39,6 @@
   line-height: inherit;
   user-select: none;
   overflow: hidden;
-  vertical-align: middle;
   border-radius: $mdc-shape-small-component-radius;
 }
 
@@ -106,6 +105,14 @@
   margin-left: 8px;
   display: inline-block;
   width: 17px;
-  height: 17px;
+  height: 32px;
+  line-height: 32px;
   vertical-align: bottom;
+}
+
+m-icon {
+  display: inline-block;
+  height: 32px;
+  line-height: 32px;
+  padding-top: 14px;
 }
