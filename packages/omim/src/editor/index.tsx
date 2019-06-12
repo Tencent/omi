@@ -4,6 +4,10 @@ import * as Quill from 'quill'
 //@ts-ignore
 import '../theme.ts'
 
+const style = document.createElement('style')
+style.textContent = css
+document.querySelector('head').appendChild(style)
+
 interface Props {
 }
 
@@ -19,17 +23,16 @@ export default class Editor extends WeElement<Props, Data> {
 
   installed() {
 
-    var editor = new Quill(this.shadowRoot.querySelector('#editor'), {
-      modules: { toolbar: this.shadowRoot.querySelector('#toolbar') },
+    document.body.appendChild(this.shadowRoot.querySelector('div'))
+    const editor = new Quill('#editor', {
+      modules: { toolbar: '#toolbar' },
       theme: 'snow'
-    });
-  
+    })
   }
 
   render(props) {
     return (
       <div>
-
         <div id="toolbar">
           <button class="ql-bold">Bold</button>
           <button class="ql-italic">Italic</button>
