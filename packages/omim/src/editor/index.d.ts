@@ -1,15 +1,14 @@
 import { WeElement } from 'omi';
+import * as Quill from 'quill';
 import '../theme.ts';
 interface Props {
-    z: number;
 }
 interface Data {
 }
-export default class Elevation extends WeElement<Props, Data> {
+export default class Editor extends WeElement<Props, Data> {
     static css: any;
-    static propTypes: {
-        z: NumberConstructor;
-    };
+    static propTypes: {};
+    editor: Quill;
     installed(): void;
     render(props: any): JSX.Element;
 }

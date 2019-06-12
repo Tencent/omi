@@ -87,7 +87,8 @@ const config = {
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
           { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
           { name: 'Step', md: 'step', demo: './repl/step.html' },
-          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' }
+          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' },
+          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' }
         ]
       },
       {
@@ -192,7 +193,8 @@ const config = {
           { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
           { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
           { name: 'Step', md: 'step', demo: './repl/step.html' },
-          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' }
+          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' },
+          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' }
         ]
       },
       {

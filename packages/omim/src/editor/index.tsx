@@ -43,9 +43,25 @@ export default class Editor extends WeElement<Props, Data> {
           ['clean']
         ],
       },
+      placeholder: '',
+      readOnly: false,
       theme: 'snow'
     })
 
+    editor.on('text-change', (delta, oldDelta, source) => {
+      // if (source == 'api') {
+      //   console.log("An API call triggered this change.");
+      // } else if (source == 'user') {
+      //   console.log("A user action triggered this change.");
+      // }
+
+      this.fire('text-change', {
+        content: editor.getContents(),
+        source
+      })
+    });
+
+    //more api https://quilljs.com/docs/api/
     this.editor = editor
   }
 
