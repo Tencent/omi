@@ -21,27 +21,42 @@ export default class Editor extends WeElement<Props, Data> {
 
   }
 
-  installed() {
+  editor: Quill
 
+  installed() {
+    var fonts = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu']
     document.body.appendChild(this.shadowRoot.querySelector('div'))
+
     const editor = new Quill('#editor', {
-      modules: { toolbar: '#toolbar' },
+      bounds: '#editor',
+      modules: {
+        //syntax': true, //require highlight.js
+        'toolbar': [
+          [{ 'font': fonts }, { 'size': [] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ 'color': [] }, { 'background': [] }],
+          [{ 'script': 'super' }, { 'script': 'sub' }],
+          [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block'],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+          ['direction', { 'align': [] }],
+          ['link', 'image', 'video'], // 'formula'  //require katex.js
+          ['clean']
+        ],
+      },
       theme: 'snow'
     })
+
+    this.editor = editor
   }
 
   render(props) {
     return (
       <div>
-        <div id="toolbar">
-          <button class="ql-bold">Bold</button>
-          <button class="ql-italic">Italic</button>
-        </div>
-
         <div id="editor">
-          <p>Hello World!</p>
+          {props.children.length > 0 ? props.children : (this.innerHTML ? this.innerHTML : '')}
         </div>
       </div>
     )
   }
 }
+
