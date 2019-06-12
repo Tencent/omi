@@ -1,0 +1,183 @@
+// Styles necessary for Quill
+
+LIST_STYLE = decimal lower-alpha lower-roman
+LIST_STYLE_WIDTH = 1.2em
+LIST_STYLE_MARGIN = 0.3em
+LIST_STYLE_OUTER_WIDTH = LIST_STYLE_MARGIN + LIST_STYLE_WIDTH
+MAX_INDENT = 9
+
+resets(arr)
+  unquote('list-' + join(' list-', arr))
+
+.ql-container
+  box-sizing: border-box
+  font-family: Helvetica, Arial, sans-serif
+  font-size: 13px
+  height: 100%
+  margin: 0px
+  position: relative
+
+.ql-container.ql-disabled
+  .ql-tooltip
+    visibility: hidden
+  .ql-editor
+    ul[data-checked] > li::before
+      pointer-events: none
+
+.ql-clipboard
+  left: -100000px
+  height: 1px
+  overflow-y: hidden
+  position: absolute
+  top: 50%
+  p
+    margin: 0
+    padding: 0
+
+.ql-editor
+  box-sizing: border-box
+  line-height: 1.42
+  height: 100%
+  outline: none
+  overflow-y: auto
+  padding: 12px 15px
+  tab-size: 4
+  -moz-tab-size: 4
+  text-align: left
+  white-space: pre-wrap
+  word-wrap: break-word
+  > *
+    cursor: text
+
+  p, ol, ul, pre, blockquote, h1, h2, h3, h4, h5, h6
+    margin: 0
+    padding: 0
+    counter-reset: resets(1..MAX_INDENT)
+  ol, ul
+    padding-left: 1.5em
+  ol > li, ul > li
+    list-style-type: none
+  ul > li::before
+    content: '\2022'
+  ul[data-checked=true],
+  ul[data-checked=false]
+    pointer-events: none
+    > li *
+      pointer-events: all
+    > li::before
+      color: #777
+      cursor: pointer
+      pointer-events: all
+  ul[data-checked=true] > li::before
+    content: '\2611'
+  ul[data-checked=false] > li::before
+    content: '\2610'
+  li::before
+    display: inline-block
+    white-space: nowrap
+    width: LIST_STYLE_WIDTH
+  li:not(.ql-direction-rtl)::before
+    margin-left: -1*LIST_STYLE_OUTER_WIDTH
+    margin-right: LIST_STYLE_MARGIN
+    text-align: right
+  li.ql-direction-rtl::before
+    margin-left: LIST_STYLE_MARGIN
+    margin-right: -1*LIST_STYLE_OUTER_WIDTH
+  ol, ul
+    li:not(.ql-direction-rtl)
+      padding-left: LIST_STYLE_OUTER_WIDTH
+    li.ql-direction-rtl
+      padding-right: LIST_STYLE_OUTER_WIDTH
+  ol
+    li
+      counter-reset: resets(1..MAX_INDENT)
+      counter-increment: unquote('list-0')
+      &:before
+        content: unquote('counter(list-0, ' + LIST_STYLE[0] + ')') '. '
+    for num in (1..MAX_INDENT)
+      li.ql-indent-{num}
+        counter-increment: unquote('list-' + num)
+        &:before
+          content: unquote('counter(list-' + num + ', ' + LIST_STYLE[num%3] + ')') '. '
+      if (num < MAX_INDENT)
+        li.ql-indent-{num}
+          counter-reset: resets((num+1)..MAX_INDENT)
+  for num in (1..MAX_INDENT)
+    .ql-indent-{num}:not(.ql-direction-rtl)
+      padding-left: (3*num)em
+    li.ql-indent-{num}:not(.ql-direction-rtl)
+      padding-left: (3*num + LIST_STYLE_OUTER_WIDTH)em
+    .ql-indent-{num}.ql-direction-rtl.ql-align-right
+      padding-right: (3*num)em
+    li.ql-indent-{num}.ql-direction-rtl.ql-align-right
+      padding-right: (3*num + LIST_STYLE_OUTER_WIDTH)em
+
+  .ql-video
+    display: block
+    max-width: 100%
+  .ql-video.ql-align-center
+    margin: 0 auto
+  .ql-video.ql-align-right
+    margin: 0 0 0 auto
+
+  .ql-bg-black
+    background-color: rgb(0,0,0)
+  .ql-bg-red
+    background-color: rgb(230,0,0)
+  .ql-bg-orange
+    background-color: rgb(255,153,0)
+  .ql-bg-yellow
+    background-color: rgb(255,255,0)
+  .ql-bg-green
+    background-color: rgb(0,138,0)
+  .ql-bg-blue
+    background-color: rgb(0,102,204)
+  .ql-bg-purple
+    background-color: rgb(153,51,255)
+
+  .ql-color-white
+    color: rgb(255,255,255)
+  .ql-color-red
+    color: rgb(230,0,0)
+  .ql-color-orange
+    color: rgb(255,153,0)
+  .ql-color-yellow
+    color: rgb(255,255,0)
+  .ql-color-green
+    color: rgb(0,138,0)
+  .ql-color-blue
+    color: rgb(0,102,204)
+  .ql-color-purple
+    color: rgb(153,51,255)
+
+  .ql-font-serif
+    font-family: Georgia, Times New Roman, serif
+  .ql-font-monospace
+    font-family: Monaco, Courier New, monospace
+
+  .ql-size-small
+    font-size: 0.75em
+  .ql-size-large
+    font-size: 1.5em
+  .ql-size-huge
+    font-size: 2.5em
+
+  .ql-direction-rtl
+    direction: rtl
+    text-align: inherit
+
+  .ql-align-center
+    text-align: center
+  .ql-align-justify
+    text-align: justify
+  .ql-align-right
+    text-align: right
+
+.ql-editor.ql-blank::before
+  color: rgba(0,0,0,0.6)
+  content: attr(data-placeholder)
+  font-style: italic
+  left: 15px
+  pointer-events: none
+  position: absolute
+  right: 15px

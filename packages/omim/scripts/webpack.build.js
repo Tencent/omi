@@ -48,6 +48,16 @@ const config = {
       ]
     },
     {
+      test: /\.css$/,
+      use: [
+        'to-string-loader',
+        'css-loader',
+        {
+          loader: 'resolve-url-loader'
+        }
+      ]
+    },
+    {
       test: /\.(jpe?g|png|gif|svg)$/i, 
       loader: "url-loader"
     },
