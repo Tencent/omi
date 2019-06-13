@@ -24,8 +24,9 @@ export default class Editor extends WeElement<Props, Data> {
   editor: Quill
 
   installed() {
-    var fonts = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu']
-    document.body.appendChild(this.shadowRoot.querySelector('div'))
+    const fonts = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu']
+    const ele = this.shadowRoot.querySelector('#editor')
+    document.body.appendChild(ele)
 
     const editor = new Quill('#editor', {
       bounds: '#editor',
@@ -61,14 +62,32 @@ export default class Editor extends WeElement<Props, Data> {
       })
     });
 
+
+    const ctn = document.createElement('div')
+    const placeholder = this.shadowRoot.querySelector('.placeholder')
+    const rect = placeholder.getBoundingClientRect()
+    const toolbar = document.querySelector('.ql-toolbar')
+    ctn.appendChild(toolbar)
+    ctn.appendChild(ele)
+    //@ts-ignore
+    ctn.style.position = 'absolute'
+    document.body.appendChild(ctn)
+    
+   
+    //@ts-ignore
+    ctn.style.left = rect.left + 'px'
+    //@ts-ignore
+    ctn.style.top = rect.top + 'px'
+    //console.log(rect)
+
     //more api https://quilljs.com/docs/api/
     this.editor = editor
   }
 
   render(props) {
     return (
-      <div>
-        <div id="editor">
+      <div class='placeholder'>
+        <div id="editor" >
           {props.children.length > 0 ? props.children : (this.innerHTML ? this.innerHTML : '')}
         </div>
       </div>
