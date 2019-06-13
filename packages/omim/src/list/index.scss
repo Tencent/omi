@@ -18,3 +18,13 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+.mdc-list--crl {
+	.mdc-radio, .mdc-checkbox{
+		margin-left: unset;
+	}
+}
+
+.mdc-list {
+	overflow: auto;
+}
