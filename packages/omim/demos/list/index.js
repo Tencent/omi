@@ -291,9 +291,10 @@ define('my-app', class extends WeElement {
         checkbox
         checkboxLeft
         css={`ul{
-        max-width:400px;
         border: 1px solid rgba(0,0,0,.1);
       }`}
+        width={300}
+        height={150}
         items={[{
           text: 'Line item1'
         },
@@ -305,6 +306,10 @@ define('my-app', class extends WeElement {
         {
           text: 'Line item3',
           checked: true
+        },
+        { divider: true },
+        {
+          text: 'Line item4'
         }]}
 
         onItemClick={this.onItemClick}
@@ -314,10 +319,10 @@ define('my-app', class extends WeElement {
         radio
         radioLeft
         css={`ul{
-        max-width:300px;
-        height:100px;
         border: 1px solid rgba(0,0,0,.1);
       }`}
+        width={300}
+        height={100}
         items={[{
           text: 'Line item1',
           checked: true,

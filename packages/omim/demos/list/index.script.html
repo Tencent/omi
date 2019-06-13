@@ -2,23 +2,22 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <meta charset="UTF-8" />
-  <title>Add Omi in One Minute</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Add Omi in One Minute</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-  <script src="../../src/list/index.js"></script>
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/list/index.js"></script>
 
-  <div>
+	<div>
 
-    <m-list id="myList" single-selection css="ul{
+		<m-list id="myList" single-selection css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
-    }"
-      items="[{
+    }" items="[{
         text: 'Line item1',
         icon: 'wifi'
       },
@@ -35,7 +34,7 @@
       }]"></m-list>
 
 
-    <m-list single-selection css="ul{
+		<m-list single-selection css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -55,7 +54,7 @@
       }]"></m-list>
 
 
-    <m-list single-selection css="ul{
+		<m-list single-selection css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -77,18 +76,18 @@
         rightIcon: 'data_usage'
       }]"></m-list>
 
-    <m-list css="ul{
+		<m-list css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="['Line item1', 'Line item2', 'Line item3']"></m-list>
 
-    <m-list css="ul{
+		<m-list css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="['Line item1', true, 'Line item2', true, 'Line item3']"></m-list>
 
 
-    <m-list css="ul{
+		<m-list css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -104,7 +103,7 @@
         secondaryText: 'Secondary Text3'
       }]"></m-list>
 
-    <m-list css="ul{
+		<m-list css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -124,13 +123,13 @@
 
 
 
-    <m-list single-selection css="ul{
+		<m-list single-selection css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="['Line item1', 'Line item2', 'Line item3']"></m-list>
 
 
-    <m-list single-selection css="ul{
+		<m-list single-selection css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -149,7 +148,7 @@
         secondaryText: 'Secondary Text3'
       }]"></m-list>
 
-    <m-list single-selection css="ul{
+		<m-list single-selection css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -173,7 +172,7 @@
 
 
 
-    <m-list checkbox css="ul{
+		<m-list checkbox css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -193,7 +192,7 @@
       }]"></m-list>
 
 
-    <m-list radio css="ul{
+		<m-list radio css="ul{
       max-width:400px;
       border: 1px solid rgba(0,0,0,.1);
     }" items="[{
@@ -212,16 +211,52 @@
         icon: 'data_usage'
       }]"></m-list>
 
-    <script>
 
-      document.querySelector('#myList').addEventListener('itemclick', function (evt) {
-        console.log(evt.detail)
-      })
-    </script>
-  </div>
-  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
-    <!-- <img src="//alloyteam.github.io/github.png" alt=""> -->
-  </a>
+		<m-list checkbox checkbox-left css="ul{
+        border: 1px solid rgba(0,0,0,.1);
+      }" width="300" height="150" items="[{
+          text: 'Line item1'
+        },
+        { divider: true },
+        {
+          text: 'Line item2'
+        },
+        { divider: true },
+        {
+          text: 'Line item3',
+          checked: true
+        },
+        { divider: true },
+        {
+          text: 'Line item4'
+        }]""
+      ></m-list>
+
+      <m-list
+        radio
+        radio-left
+        css=" ul{ border: 1px solid rgba(0,0,0,.1); }" width="300" height="150" items="[{
+          text: 'Line item1',
+          checked: true,
+        },
+        { divider: true },
+        {
+          text: 'Line item2'
+        },
+        { divider: true },
+        {
+          text: 'Line item3'
+        }]"></m-list>
+		<script>
+
+			document.querySelector('#myList').addEventListener('itemclick', function (evt) {
+				console.log(evt.detail)
+			})
+		</script>
+	</div>
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+		<!-- <img src="//alloyteam.github.io/github.png" alt=""> -->
+	</a>
 </body>
 
 </html>

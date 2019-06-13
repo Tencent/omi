@@ -275,7 +275,44 @@
     {
       text: 'Line item3',
       icon: 'data_usage'
-    }]"></m-list></textarea>
+		}]"></m-list>
+
+	<m-list checkbox checkbox-left css="ul{
+		border: 1px solid rgba(0,0,0,.1);
+	}" width="300" height="150" items="[{
+			text: 'Line item1'
+		},
+		{ divider: true },
+		{
+			text: 'Line item2'
+		},
+		{ divider: true },
+		{
+			text: 'Line item3',
+			checked: true
+		},
+		{ divider: true },
+		{
+			text: 'Line item4'
+		}]""
+	></m-list>
+
+	<m-list
+		radio
+		radio-left
+		css=" ul{ border: 1px solid rgba(0,0,0,.1); }" width="300" height="150" items="[{
+			text: 'Line item1',
+			checked: true,
+		},
+		{ divider: true },
+		{
+			text: 'Line item2'
+		},
+		{ divider: true },
+		{
+			text: 'Line item3'
+		}]"></m-list>
+	</textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>

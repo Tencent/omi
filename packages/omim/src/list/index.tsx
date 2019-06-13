@@ -3,16 +3,20 @@ import * as css from './index.scss'
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { domReady } from '../util/dom-ready'
-
+import { extract } from '../util/extract'
 //@ts-ignore
 import '../theme.ts'
 
 interface Props {
   items: object,
-  singleSelection: boolean,
-  checkbox: boolean,
-  radio: boolean,
-  onItemClick: (evt: CustomEvent) => void
+  singleSelection?: boolean
+  checkbox?: boolean
+	radio?: boolean
+	checkboxLeft?: boolean
+	radioLeft?: boolean
+	width?: number
+	height?: number
+  onItemClick?: (evt: CustomEvent) => void
 }
 
 interface Data {
@@ -27,7 +31,11 @@ export default class List extends WeElement<Props, Data>{
     items: Object,
     singleSelection: Boolean,
     checkbox: Boolean,
-    radio: Boolean
+		radio: Boolean,
+		checkboxLeft: Boolean,
+		radioLeft: Boolean,
+		width: Number,
+		height: Number
   }
 
   static defaultProps = {
@@ -68,8 +76,17 @@ export default class List extends WeElement<Props, Data>{
 	}
 
   render(props) {
-
-    return <ul {...extractClass(props, 'mdc-list', {
+		const style:any = {}
+		let hasStyle = false
+		if(props.width){
+			hasStyle = true
+			style.width = props.width + 'px'
+		}
+		if(props.height){
+			hasStyle = true
+			style.height = props.height + 'px'
+		}
+    return <ul {...(hasStyle?{style:style}:{})} {...extractClass(props, 'mdc-list', {
 			'mdc-list--two-line': props.items[0].secondaryText,
 			'mdc-list--crl': props.radioLeft || props.checkboxLeft
     })}>
