@@ -8,6 +8,7 @@ iframe{
   z-index: 9999;
   border-left: 2px solid #24292E; 
   min-width: 320px;
+  background-color: white;
 }
 
 @media only screen and (max-width: 768px) {
