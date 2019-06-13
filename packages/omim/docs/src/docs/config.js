@@ -88,7 +88,8 @@ const config = {
           { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
           { name: 'Step', md: 'step', demo: './repl/step.html' },
           { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' },
-          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' }
+          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' },
+          { name: 'Spreadsheet', md: 'spreadsheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/spreadsheet/index.html' }
         ]
       },
       {
@@ -194,7 +195,8 @@ const config = {
           { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
           { name: 'Step', md: 'step', demo: './repl/step.html' },
           { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' },
-          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' }
+          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' },
+          { name: 'Spreadsheet', md: 'spreadsheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/spreadsheet/index.html' }
         ]
       },
       {
