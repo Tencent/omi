@@ -58,6 +58,17 @@ const config = {
       ]
     },
     {
+      test: /\.less$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'resolve-url-loader'
+        },
+        'less-loader'
+      ]
+    },
+    {
       test: /\.(jpe?g|png|gif|svg)$/i, 
       loader: "url-loader"
     },
