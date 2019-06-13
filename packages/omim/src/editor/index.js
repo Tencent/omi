@@ -13868,7 +13868,8 @@ var Editor = /** @class */ (function (_super) {
     Editor.prototype.installed = function () {
         var _this = this;
         var fonts = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
-        document.body.appendChild(this.shadowRoot.querySelector('div'));
+        var ele = this.shadowRoot.querySelector('#editor');
+        document.body.appendChild(ele);
         var editor = new Quill('#editor', {
             bounds: '#editor',
             modules: {
@@ -13900,11 +13901,25 @@ var Editor = /** @class */ (function (_super) {
                 source: source
             });
         });
+        var ctn = document.createElement('div');
+        var placeholder = this.shadowRoot.querySelector('.placeholder');
+        var rect = placeholder.getBoundingClientRect();
+        var toolbar = document.querySelector('.ql-toolbar');
+        ctn.appendChild(toolbar);
+        ctn.appendChild(ele);
+        //@ts-ignore
+        ctn.style.position = 'absolute';
+        document.body.appendChild(ctn);
+        //@ts-ignore
+        ctn.style.left = rect.left + 'px';
+        //@ts-ignore
+        ctn.style.top = rect.top + 'px';
+        //console.log(rect)
         //more api https://quilljs.com/docs/api/
         this.editor = editor;
     };
     Editor.prototype.render = function (props) {
-        return (omi_1.h("div", null,
+        return (omi_1.h("div", { class: 'placeholder' },
             omi_1.h("div", { id: "editor" }, props.children.length > 0 ? props.children : (this.innerHTML ? this.innerHTML : ''))));
     };
     Editor.css = css;
