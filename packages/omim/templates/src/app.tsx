@@ -30,6 +30,14 @@ define('my-app', class extends WeElement {
       this.update()
     })
 
+     //@ts-ignore
+     route('/editor', () => {
+      import('./editor').then(_=>{
+        this.mainTag = 'my-editor'
+        this.update()
+      })
+    })
+
   }
   onDrawerClosed = () => {
 

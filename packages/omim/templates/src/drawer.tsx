@@ -55,6 +55,13 @@ define('my-drawer', class extends WeElement {
 		hash: '/about'
 	},
 	{
+		title: 'Editor',
+		id: 3,
+		icon: 'edit',
+		selected: hash === '#/editor',
+		hash: '/editor'
+	},
+	{
 		title: 'Page Templates',
 		id: 14,
 		icon: 'view_list',
