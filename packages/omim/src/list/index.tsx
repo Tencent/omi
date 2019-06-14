@@ -87,7 +87,7 @@ export default class List extends WeElement<Props, Data>{
 			style.height = props.height + 'px'
 		}
     return <ul {...(hasStyle?{style:style}:{})} {...extractClass(props, 'mdc-list', {
-			'mdc-list--two-line': props.items[0].secondaryText,
+			'mdc-list--two-line': props.items[0] ? props.items[0].secondaryText : '',
 			'mdc-list--crl': props.radioLeft || props.checkboxLeft
     })}>
       {props.items.map(item => {

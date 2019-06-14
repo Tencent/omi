@@ -1,24 +1,17 @@
 import { WeElement } from 'omi';
-import '../icon';
+import '../list';
 import '../theme.ts';
 interface Props {
-    type: string;
-    active: boolean;
-    size: string;
-    icon: string;
-    svgIcon: object;
+    left: object[];
+    right: object[];
 }
 interface Data {
 }
-export default class Tag extends WeElement<Props, Data> {
+export default class TransferList extends WeElement<Props, Data> {
     static css: any;
-    static propTypes: {
-        type: StringConstructor;
-        active: BooleanConstructor;
-        size: StringConstructor;
-        icon: StringConstructor;
-        svgIcon: ObjectConstructor;
-    };
+    static propTypes: {};
+    leftToRight: () => void;
+    rightToLeft: () => void;
     render(props: any): JSX.Element;
 }
 export {};

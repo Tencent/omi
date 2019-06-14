@@ -21,15 +21,13 @@ define('my-app', class extends WeElement {
         left={[{
           text: 'Line item1'
         },
-        { divider: true },
         {
-          text: 'Line item2'
+          text: 'Line item2',
+          checked: true
         },
-        { divider: true },
         {
           text: 'Line item3'
         },
-        { divider: true },
         {
           text: 'Line item4'
         }]}
@@ -37,17 +35,11 @@ define('my-app', class extends WeElement {
         right={[{
           text: 'Line item5'
         },
-        { divider: true },
         {
           text: 'Line item6'
         },
-        { divider: true },
         {
           text: 'Line item7'
-        },
-        { divider: true },
-        {
-          text: 'Line item8'
         }]}
 
         onItemClick={this.onItemClick}
