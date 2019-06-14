@@ -18,6 +18,8 @@ export default class TransferList extends WeElement<Props, Data>{
   static css = css
 
   static propTypes = {
+    left: Array,
+    right: Array
   }
 
   leftToRight = () => {
@@ -26,6 +28,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this._checkLeftDisabled()
     this._checkRightDisabled()
     this.update()
+    this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
   rightToLeft = () => {
@@ -35,6 +38,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this._checkLeftDisabled()
     this._checkRightDisabled()
     this.update()
+    this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
   sltLeftToRight = () => {
@@ -51,6 +55,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this._checkLeftDisabled()
     this._checkRightDisabled()
     this.update()
+    this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
   sltRightToRight = () => {
@@ -67,6 +72,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this._checkLeftDisabled()
     this._checkRightDisabled()
     this.update()
+    this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
   _rightBtnDiabled = true
@@ -87,14 +93,14 @@ export default class TransferList extends WeElement<Props, Data>{
 
   _checkLeftDisabled() {
     const len = this.props.left.length
-    if(len === 0){
+    if (len === 0) {
       this._rightBtnDiabled = true
       this._rightAllBtnDiabled = true
       return
-    }else{
+    } else {
       this._rightAllBtnDiabled = false
     }
-    for (let i = 0 ; i < len; i++) {
+    for (let i = 0; i < len; i++) {
       //@ts-ignore
       if (this.props.left[i].checked) {
         this._rightBtnDiabled = false
@@ -107,11 +113,11 @@ export default class TransferList extends WeElement<Props, Data>{
 
   _checkRightDisabled() {
     const len = this.props.right.length
-    if(len === 0){
+    if (len === 0) {
       this._leftBtnDiabled = true
       this._leftAllBtnDiabled = true
       return
-    }else{
+    } else {
       this._leftAllBtnDiabled = false
     }
     for (let i = 0; i < len; i++) {
@@ -122,7 +128,7 @@ export default class TransferList extends WeElement<Props, Data>{
       }
     }
     this._leftBtnDiabled = true
-    
+
   }
 
   onRightItemClick = (evt) => {
@@ -158,7 +164,7 @@ export default class TransferList extends WeElement<Props, Data>{
           <button disabled={this._leftBtnDiabled} onClick={this.sltRightToRight}>{'<'}</button>
           <button disabled={this._leftAllBtnDiabled} onClick={this.rightToLeft}>≪</button>
         </div>
-        
+
         <m-list
           checkbox
           checkboxLeft

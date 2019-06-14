@@ -14,10 +14,19 @@ define('my-app', class extends WeElement {
     console.log(e)
   }
 
+  installed() {
+
+  }
+
+  onChange = (evt) => {
+    console.log(evt.detail.left, evt.detail.right)
+  }
+
   render() {
     return <div>
 
       <m-transfer-list
+        onChange={this.onChange}
         left={[{
           text: 'Line item1'
         },
@@ -41,8 +50,6 @@ define('my-app', class extends WeElement {
         {
           text: 'Line item7'
         }]}
-
-        onItemClick={this.onItemClick}
       ></m-transfer-list>
 
 
