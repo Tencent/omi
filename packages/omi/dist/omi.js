@@ -90,11 +90,11 @@
         return hydrating || node._componentConstructor === vnode.nodeName;
     }
     function isNamedNode(node, nodeName) {
-        return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+        return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
     }
     function createNode(nodeName, isSvg) {
         var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
-        node.__n = nodeName;
+        node.normalizedNodeName = nodeName;
         return node;
     }
     function removeNode(node) {
@@ -969,7 +969,7 @@
         };
         WeElement.prototype.attrsToProps = function() {
             var ele = this;
-            if (!ele.__n) {
+            if (!ele.normalizedNodeName) {
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
                 if (attrs) Object.keys(attrs).forEach(function(key) {
@@ -1088,7 +1088,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.2';
+    options.root.Omi.version = '6.6.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
