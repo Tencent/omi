@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Add Omi in One Minute</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/list/index.js"></script>
+
+	<div>
+
+		<m-list id="myList" single-selection css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        icon: 'wifi'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        selected: true,
+        icon: 'bluetooth'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        icon: 'data_usage'
+      }]"></m-list>
+
+
+		<m-list single-selection css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        rightIcon: 'wifi'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        selected: true,
+        rightIcon: 'bluetooth'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        rightIcon: 'data_usage'
+      }]"></m-list>
+
+
+		<m-list single-selection css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        icon: 'folder',
+        rightIcon: 'wifi'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        selected: true,
+        icon: 'folder',
+        rightIcon: 'bluetooth'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        icon: 'folder',
+        rightIcon: 'data_usage'
+      }]"></m-list>
+
+		<m-list css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="['Line item1', 'Line item2', 'Line item3']"></m-list>
+
+		<m-list css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="['Line item1', true, 'Line item2', true, 'Line item3']"></m-list>
+
+
+		<m-list css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        secondaryText: 'Secondary Text3'
+      },
+      {
+        text: 'Line item2',
+        secondaryText: 'Secondary Text3'
+      },
+      {
+        text: 'Line item3',
+        secondaryText: 'Secondary Text3'
+      }]"></m-list>
+
+		<m-list css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        secondaryText: 'Secondary Text3'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        secondaryText: 'Secondary Text3'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        secondaryText: 'Secondary Text3'
+      }]"></m-list>
+
+
+
+		<m-list single-selection css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="['Line item1', 'Line item2', 'Line item3']"></m-list>
+
+
+		<m-list single-selection css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        secondaryText: 'Secondary Text3'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        secondaryText: 'Secondary Text3',
+        selected: true
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        secondaryText: 'Secondary Text3'
+      }]"></m-list>
+
+		<m-list single-selection css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        secondaryText: 'Secondary Text3',
+        icon: 'wifi'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        secondaryText: 'Secondary Text3',
+        selected: true,
+        icon: 'bluetooth'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        secondaryText: 'Secondary Text3',
+        icon: 'data_usage'
+      }]"></m-list>
+
+
+
+		<m-list checkbox css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        icon: 'wifi'
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        icon: 'bluetooth'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        icon: 'data_usage',
+        checked: true
+      }]"></m-list>
+
+
+		<m-list radio css="ul{
+      max-width:400px;
+      border: 1px solid rgba(0,0,0,.1);
+    }" items="[{
+        text: 'Line item1',
+        icon: 'wifi',
+        checked: true,
+      },
+      { divider: true },
+      {
+        text: 'Line item2',
+        icon: 'bluetooth'
+      },
+      { divider: true },
+      {
+        text: 'Line item3',
+        icon: 'data_usage'
+      }]"></m-list>
+
+
+		<m-list checkbox checkbox-left css="ul{
+        border: 1px solid rgba(0,0,0,.1);
+      }" width="300" height="150" items="[{
+          text: 'Line item1'
+        },
+        { divider: true },
+        {
+          text: 'Line item2'
+        },
+        { divider: true },
+        {
+          text: 'Line item3',
+          checked: true
+        },
+        { divider: true },
+        {
+          text: 'Line item4'
+        }]""
+      ></m-list>
+
+      <m-list
+        radio
+        radio-left
+        css=" ul{ border: 1px solid rgba(0,0,0,.1); }" width="300" height="150" items="[{
+          text: 'Line item1',
+          checked: true,
+        },
+        { divider: true },
+        {
+          text: 'Line item2'
+        },
+        { divider: true },
+        {
+          text: 'Line item3'
+        }]"></m-list>
+		<script>
+
+			document.querySelector('#myList').addEventListener('itemclick', function (evt) {
+				console.log(evt.detail)
+			})
+		</script>
+	</div>
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+		<!-- <img src="//alloyteam.github.io/github.png" alt=""> -->
+	</a>
+</body>
+
+</html>

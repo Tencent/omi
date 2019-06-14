@@ -206,12 +206,12 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | step | member | done |
 | toast | member | done|
 | autocomplete |  | |
-| transfer list |  | |
+| transfer list | member | |
 | bottom nav |  | |
 | paper | zainchen | |
 | accordion |  | |
 | toggle buttons |  | |
-| editor |  | |
+| editor | member | |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |

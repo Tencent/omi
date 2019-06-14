@@ -1,0 +1,28 @@
+@import '../theme';
+
+m-list, .btns{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+button{
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: $mdc-shape-small-component-radius;
+  border: 1px solid #ccc;
+  width: 46px;
+  height: 23px;
+  line-height: 17px;
+  margin-top: 3px;
+  outline: none;  
+  font-size: 12px;
+}
+
+button:active{
+  background-color: #ddd; 
+}
+
+.btns{
+  margin: 0 20px;
+}
