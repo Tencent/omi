@@ -69,7 +69,8 @@ const config = {
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
-          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' }
+          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
+          { name: 'TransferList', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' }
         ]
       },
       {
@@ -176,7 +177,8 @@ const config = {
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
-          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' }
+          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
+          { name: 'TransferList', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' }
         ]
       },
       {

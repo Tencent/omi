@@ -2,6 +2,15 @@
 
 Click or touch it to trigger an operation. The encapsulated logic is triggered in response to user clicks.
 
+## Import
+
+```js
+import '@omim/core/button'
+```
+
+Or use script tag to ref it.
+
+
 ## Usage
 
 ```html

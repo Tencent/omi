@@ -5,6 +5,8 @@ A small pop-up layer that feeds back user actions or requests.
 ## Usage
 
 ```js
+import toast from '@omim/core/toast'
+
 //show loading
 toast.showLoading()
 
