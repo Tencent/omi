@@ -85,6 +85,11 @@ export default class TransferList extends WeElement<Props, Data>{
     this._checkRightDisabled()
   }
 
+  installed(){
+    //除了第一次，后面不再从 attr 中取 props
+    this.normalizedNodeName = 'm-transfer-list'
+  }
+
   onLeftItemClick = (evt) => {
     evt.detail.item.checked = !evt.detail.item.checked
     this._checkLeftDisabled()
@@ -152,7 +157,7 @@ export default class TransferList extends WeElement<Props, Data>{
         min-width:190px;
         border-radius: ${document.body.style.getPropertyValue('--mdc-shape-medium-component-radius') || '4px'};
       }`}
-          {...(props.widht ? { wdith: props.width } : {})}
+          {...(props.width ? { wdith: props.width } : {})}
           height={props.height || 195}
           items={props.left}
           onItemClick={this.onLeftItemClick}

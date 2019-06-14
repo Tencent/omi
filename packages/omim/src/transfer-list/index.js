@@ -2984,6 +2984,10 @@ var TransferList = /** @class */ (function (_super) {
         this._checkLeftDisabled();
         this._checkRightDisabled();
     };
+    TransferList.prototype.installed = function () {
+        //除了第一次，后面不再从 attr 中取 props
+        this.normalizedNodeName = 'm-transfer-list';
+    };
     TransferList.prototype._checkLeftDisabled = function () {
         var len = this.props.left.length;
         if (len === 0) {
@@ -3024,7 +3028,7 @@ var TransferList = /** @class */ (function (_super) {
     };
     TransferList.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-m-transfer-list')),
-            omi_1.h("m-list", __assign({ checkbox: true, checkboxLeft: true, css: "ul{\n        border: 1px solid rgba(0,0,0,.1);\n        min-width:190px;\n        border-radius: " + (document.body.style.getPropertyValue('--mdc-shape-medium-component-radius') || '4px') + ";\n      }" }, (props.widht ? { wdith: props.width } : {}), { height: props.height || 195, items: props.left, onItemClick: this.onLeftItemClick })),
+            omi_1.h("m-list", __assign({ checkbox: true, checkboxLeft: true, css: "ul{\n        border: 1px solid rgba(0,0,0,.1);\n        min-width:190px;\n        border-radius: " + (document.body.style.getPropertyValue('--mdc-shape-medium-component-radius') || '4px') + ";\n      }" }, (props.width ? { wdith: props.width } : {}), { height: props.height || 195, items: props.left, onItemClick: this.onLeftItemClick })),
             omi_1.h("div", { class: 'btns' },
                 omi_1.h("button", { disabled: this._rightAllBtnDiabled, onClick: this.leftToRight }, "\u226B"),
                 omi_1.h("button", { disabled: this._rightBtnDiabled, onClick: this.sltLeftToRight }, ">"),

@@ -22,6 +22,7 @@ export default class TransferList extends WeElement<Props, Data> {
     _rightAllBtnDiabled: boolean;
     _leftAllBtnDiabled: boolean;
     install(): void;
+    installed(): void;
     onLeftItemClick: (evt: any) => void;
     _checkLeftDisabled(): void;
     _checkRightDisabled(): void;
