@@ -10,88 +10,88 @@ const config = {
       {
         title: '基础',
         list: [
-          { name: 'Button', md: 'button', demo: './repl/button.html' },
-          { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
-          { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
-          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
-          { name: 'Loading', md: 'loading', demo: './repl/loading.html' },
-          { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' }
+          { name: 'Button 按钮', md: 'button', demo: './repl/button.html' },
+          { name: 'Fab 动作按钮', md: 'fab', demo: './repl/fab.html' },
+          { name: 'Icon 图标', md: 'icon', demo: './repl/icon.html' },
+          { name: 'IconButton 图标按钮', md: 'icon-button', demo: './repl/icon-button.html' },
+          { name: 'Avatar 头像', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Loading 加载', md: 'loading', demo: './repl/loading.html' },
+          { name: 'Breadcrumb 面包屑', md: 'breadcrumb', demo: './repl/breadcrumb.html' }
         ]
       },
       {
         title: '公用',
         list: [
-          { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
-          { name: 'To', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
-          { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
-          { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
+          { name: 'Transition 过渡', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
+          { name: 'To 运动', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
+          { name: 'Theme 主题', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
+          { name: 'Typography 排版', md: 'typography', demo: './repl/typography.html' },
+          { name: 'Layout Grid 网格布局', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
         ]
       },
       {
         title: '布局',
         list: [
-          { name: 'Row', md: 'row', demo: './repl/row.html' },
+          { name: 'Row 行', md: 'row', demo: './repl/row.html' },
 
-          { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
-          { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }
+          { name: 'Elevation 高度盒', md: 'elevation', demo: './repl/elevation.html' },
+          { name: 'Image List 图片列表', md: 'image-list', demo: './repl/image-list.html' }
         ]
       },
       {
         title: '导航',
         list: [
-          { name: 'Top App Bar', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' },
-          { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
-          { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
-          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
+          { name: 'Menu 菜单', md: 'menu', demo: './repl/menu.html' },
+          { name: 'Drawer 抽屉', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
+          { name: 'Tab 标签切换', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Nav 导航', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Pagination 分页', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  },
+          { name: 'Top App Bar 顶部栏', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' }
         ]
       },
       {
         title: '操作反馈',
         list: [
-          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
-          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
-          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'},
-          { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' },
-          { name: 'Toast', md: 'toast', demo: 'https://tencent.github.io/omi/packages/omim/demos/toast/index.html' }
+          {name: 'Dialog 对话框', md: 'dialog', demo: './repl/dialog.html'},
+          {name: 'Snackbar 提醒', md: 'snackbar', demo: './repl/snackbar.html'},
+          {name: 'ActionSheet 行动表', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
+          {name: 'ColorPicker 颜色选择机', md: 'color-picker', demo: './repl/color-picker.html'},
+          { name: 'Popover 提示', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' },
+          { name: 'Toast 弹出提示', md: 'toast', demo: 'https://tencent.github.io/omi/packages/omim/demos/toast/index.html' }
         ]
       },
       {
         title: '表单',
         list: [
-          { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
-          { name: 'Select', md: 'select', demo: './repl/select.html' },
-          { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
-          { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
-          { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
-          { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
-          { name: 'TransferList', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' }
+          { name: 'Text Field 文本输入', md: 'text-field', demo: './repl/text-field.html' },
+          { name: 'Select 下拉选择', md: 'select', demo: './repl/select.html' },
+          { name: 'Checkbox 复选框', md: 'checkbox', demo: './repl/checkbox.html' },
+          { name: 'Radio 单选框', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Switch 切换', md: 'switch', demo: './repl/switch.html' },
+          { name: 'DateTimePicker 时间日期选择器', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
+          { name: 'Picker 原生选择器', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
+          { name: 'TransferList 穿梭列表', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' }
         ]
       },
       {
         title: '数据',
         list: [
-          { name: 'List', md: 'list', demo: './repl/list.html' },
-          { name: 'Table', md: 'table', demo: 'https://tencent.github.io/omi/packages/omim/demos/table/index.script.html' },
-          { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
-          { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
-          { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
-          { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
-          { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
-          { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
-          { name: 'Card', md: 'card', demo: './repl/card.html' },
-          { name: 'Path Progress', md: 'path-progress', demo: './repl/path-progress.html' },
-          { name: 'Paper', md: 'paper', demo: './repl/paper.html' },
-          { name: 'Step', md: 'step', demo: './repl/step.html' },
-          { name: 'Simple Card', md: 'simple-card', demo: './repl/simple-card.html' },
-          { name: 'Editor', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' },
-          { name: 'Spreadsheet', md: 'spreadsheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/spreadsheet/index.html' },
-          { name: 'Rate', md: 'rate', demo: 'https://tencent.github.io/omi/packages/omim/demos/rate/index.html' }
+          { name: 'List 列表', md: 'list', demo: './repl/list.html' },
+          { name: 'Table 表格', md: 'table', demo: 'https://tencent.github.io/omi/packages/omim/demos/table/index.script.html' },
+          { name: 'Linear Progress 线性进度', md: 'linear-progress', demo: './repl/linear-progress.html' },
+          { name: 'Slider 滑块', md: 'slider', demo: './repl/slider.html' },
+          { name: 'Chips 标签', md: 'chips', demo: './repl/chips.html' },
+          { name: 'Tag 标签', md: 'tag', demo: './repl/tag.html' },
+          { name: 'Badge 徽章', md: 'badge', demo: './repl/badge.html' },
+          { name: 'Tree 树', md: 'tree', demo: './repl/tree.html' },
+          { name: 'Card 卡片', md: 'card', demo: './repl/card.html' },
+          { name: 'Path Progress 路径进度', md: 'path-progress', demo: './repl/path-progress.html' },
+          { name: 'Paper 纸片', md: 'paper', demo: './repl/paper.html' },
+          { name: 'Step 步骤', md: 'step', demo: './repl/step.html' },
+          { name: 'Simple Card 简单卡片', md: 'simple-card', demo: './repl/simple-card.html' },
+          { name: 'Editor 富文本编辑器', md: 'editor', demo: 'https://tencent.github.io/omi/packages/omim/demos/editor/index.html' },
+          { name: 'Spreadsheet 电子表格', md: 'spreadsheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/spreadsheet/index.html' },
+          { name: 'Rate 评分', md: 'rate', demo: 'https://tencent.github.io/omi/packages/omim/demos/rate/index.html' }
         ]
       },
       {
@@ -150,12 +150,12 @@ const config = {
       {
         title: 'Navigation',
         list: [
-          { name: 'Top App Bar', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
           { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
-          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  }
+          { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  },
+          { name: 'Top App Bar', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' }
         ]
       },
       {
