@@ -1,5 +1,9 @@
 @import "../theme";
 
+:host {
+  display: block;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

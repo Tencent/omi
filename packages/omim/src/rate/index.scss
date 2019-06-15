@@ -1,0 +1,60 @@
+@import "../theme";
+
+:host {
+  display: inline-block;
+}
+
+.m-rate {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  padding: 2px;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+svg{
+  margin: 0;
+  padding: 0;
+}
+li{
+  width:auto;
+  height: auto;
+}
+
+._star {
+  position: relative;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  padding: 3px;
+}
+
+._star-first {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+}
+
+._star-second {
+  position: absolute;
+}
+
+._star-half ._star-first {
+  width: 1em;
+}
+
+._star-empty ._star-first {
+  width: 0;
+}
+
+.star-box{
+  position: relative;
+  left: -0.5em;
+  top: -0.2em;
+}

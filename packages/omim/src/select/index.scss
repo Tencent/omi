@@ -1,6 +1,10 @@
 @import "../theme";
 @import "@material/select/mdc-select";
 
+:host {
+  display: inline-block;
+}
+
 select {
   appearance: none;
   -webkit-appearance: none;

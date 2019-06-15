@@ -1,2 +1,6 @@
 @import "../theme";
 @import "@material/linear-progress/mdc-linear-progress";
+
+:host {
+  display: inline-block;
+}

@@ -1,5 +1,8 @@
 @import "../theme.scss";
 
+:host {
+  display: inline-block;
+}
 
 img{
   

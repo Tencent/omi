@@ -1,5 +1,9 @@
 @import "../theme";
 
+:host {
+  display: block;
+}
+
 ol {
   list-style-type: decimal;
   font-size: 14px; 

@@ -1,5 +1,9 @@
 @import '../theme';
 
+:host {
+  display: inline-block;
+}
+
 .m-icon {
   margin-left: 0.6em;
   text-align: center;

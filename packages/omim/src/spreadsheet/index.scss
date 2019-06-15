@@ -3,6 +3,10 @@
 @import "@material/button/mdc-button";
 @import "@material/icon-button/mdc-icon-button";
 
+:host {
+  display: block;
+}
+
 .mdc-snackbar__action:not(:disabled){
   color: $mdc-theme-secondary!important;
 }

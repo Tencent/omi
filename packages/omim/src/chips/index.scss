@@ -1,5 +1,6 @@
 @import "../theme";
 @import "@material/chips/mdc-chips";
+
 .mdc-chip {
   -moz-user-select:none;
   -webkit-user-select:none;
@@ -7,3 +8,6 @@
   user-select:none;
 }
 
+:host {
+  display: inline-block;
+}

@@ -1,2 +1,6 @@
 @import "../theme";
 @import "@material/elevation/mdc-elevation";
+
+:host {
+  display: inline-block;
+}

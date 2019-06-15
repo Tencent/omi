@@ -1,5 +1,9 @@
 @import "../theme";
 
+:host {
+  display: block;
+}
+
 .m-step {
 	width: 100%;
 	display: inline-block;

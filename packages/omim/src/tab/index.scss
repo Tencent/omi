@@ -4,6 +4,10 @@
 @import "@material/tab-indicator/mdc-tab-indicator";
 @import "@material/tab/mdc-tab";
 
+:host {
+  display: block;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

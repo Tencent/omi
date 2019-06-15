@@ -1,5 +1,9 @@
 @import "../theme";
 
+:host {
+  display: block;
+}
+
 .m-table {
   background: white;
   margin: auto;

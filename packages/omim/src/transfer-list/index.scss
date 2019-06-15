@@ -1,5 +1,9 @@
 @import '../theme';
 
+:host {
+  display: block;
+}
+
 m-list, .btns{
   display: inline-block;
   vertical-align: middle;

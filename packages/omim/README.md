@@ -196,22 +196,23 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | chart bar line| member |done |
 | pagination| member |done |
 | color-picker| member |done |
-| input (lable,button)|  | |
-| input-number |  | |
-| input-table |  | |
 | loading |member| done |
 | path-progress | member | done |
 | popover | member | done |
-| rate |  | |
+| rate | member | done|
 | step | member | done |
 | toast | member | done|
+| paper | zainchen | done|
+| transfer list | member | done|
+| editor | member | done|
+| input (lable,button)|  | |
+| input-number |  | |
+| input-table |  | |
 | autocomplete |  | |
-| transfer list | member | |
 | bottom nav |  | |
-| paper | zainchen | |
 | accordion |  | |
 | toggle buttons |  | |
-| editor | member | |
+| player | 132yse | |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |

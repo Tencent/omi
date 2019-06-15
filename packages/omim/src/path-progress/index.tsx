@@ -10,6 +10,12 @@ interface Data {
 }
 
 define('m-path-progress', class extends WeElement<Props, Data> {
+  static css = `
+  :host {
+    display: block;
+  }
+  `
+
   static defaultProps = {
     options: {},
     progress: 0,

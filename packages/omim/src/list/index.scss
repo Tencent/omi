@@ -3,6 +3,10 @@
 @import "@material/checkbox/mdc-checkbox";
 @import "@material/radio/mdc-radio";
 
+:host {
+  display: block;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

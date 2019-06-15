@@ -1,5 +1,9 @@
 @import "../theme";
 
+:host {
+  display: block;
+}
+
 div {
   color: rgba(0, 0, 0, .65);
 }
