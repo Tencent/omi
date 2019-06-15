@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, "img {\n  width: 100%;\n  height: 100%; }\n\n.m-avatar.square {\n  border-radius: 4px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n\n.m-avatar {\n  display: inline-block;\n  width: 40px;\n  height: 40px;\n  text-align: center;\n  vertical-align: middle;\n  background-color: #ccc;\n  color: white;\n  border-radius: 50%;\n  overflow: hidden; }\n\n.m-avatar .material-icons {\n  line-height: 40px; }\n", ""]);
+exports.push([module.i, ":host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.m-avatar.square {\n  border-radius: 4px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n\n.m-avatar {\n  display: inline-block;\n  width: 40px;\n  height: 40px;\n  text-align: center;\n  vertical-align: middle;\n  background-color: #ccc;\n  color: white;\n  border-radius: 50%;\n  overflow: hidden; }\n\n.m-avatar .material-icons {\n  line-height: 40px; }\n", ""]);
 
 // exports
 

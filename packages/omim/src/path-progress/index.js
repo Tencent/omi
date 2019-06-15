@@ -2680,6 +2680,7 @@ omi_1.define('m-path-progress', (_a = /** @class */ (function (_super) {
         };
         return class_1;
     }(omi_1.WeElement)),
+    _a.css = "\n  :host {\n    display: block;\n  }\n  ",
     _a.defaultProps = {
         options: {},
         progress: 0,

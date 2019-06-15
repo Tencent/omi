@@ -1,32 +1,25 @@
 import { WeElement } from 'omi';
-import '../icon';
 import '../theme.ts';
 interface Props {
-    ripple: boolean;
-    raised: boolean;
-    dense: boolean;
-    unelevated: boolean;
-    outlined: boolean;
-    svgIcon: object;
-    icon: string;
+    total: number;
 }
 interface Data {
 }
-export default class Button extends WeElement<Props, Data> {
+export default class Rate extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
-        ripple: boolean;
+        value: number;
     };
-    static propTypes: {
-        ripple: BooleanConstructor;
-        raised: BooleanConstructor;
-        dense: BooleanConstructor;
-        unelevated: BooleanConstructor;
-        outlined: BooleanConstructor;
-        svgIcon: ObjectConstructor;
-        icon: StringConstructor;
-    };
+    _current: number;
+    _rect: any;
+    _hover: boolean;
+    onSelect: (evt: any) => void;
+    onMouseMove: (evt: any) => void;
+    base: HTMLElement;
     installed(): void;
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
+    _getClass: (i: any, current: any) => "_star _star-half " | "_star" | "_star _star-empty ";
     render(props: any): JSX.Element;
 }
 export {};
