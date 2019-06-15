@@ -60,6 +60,6 @@ JSX:
 | color | string | black | 颜色 |
 | rotate | bool | false | 旋转动画 |
 
-* [→ 你可以直接使用 antd 的海量 svg path 作为 icon 的 path](https://ant.design/components/icon-cn/),你可以通过开发者工具查看对应 icon 的 path
-* [→ 也可以直接上 antd github 获取 svg path](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)
+* [→ 你可以使用 Google 的字体图标素材](https://material.io/tools/icons)
+* [→ Antd 的 SVG path](https://ant.design/components/icon/) & [→ Github](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)
 

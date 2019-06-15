@@ -60,6 +60,6 @@ Support multiple paths:
 | color | string | black | color |
 | rotate | bool | false | Rotate transform |
 
-* [→ You can use antd's SVG path directly](https://ant.design/components/icon/)
-* [→ You can find the path in the github of andt icons](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)
+* [→ SVG path by antd](https://ant.design/components/icon/) & [→ Github](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)
+* [→ SVG path by Material Icons](https://material.io/tools/icons/?style=baseline)
 

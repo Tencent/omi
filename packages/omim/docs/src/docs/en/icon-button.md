@@ -30,7 +30,7 @@ JSX:
 
 ## More Icons
 
-[Material Icons](https://material.io/tools/icons/?style=baseline)
+[→ Material Icons](https://material.io/tools/icons/?style=baseline)
 
 ## API
 
