@@ -2,6 +2,7 @@ import { WeElement } from 'omi';
 import '../theme.ts';
 interface Props {
     total: number;
+    half: boolean;
 }
 interface Data {
 }

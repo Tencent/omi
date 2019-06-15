@@ -277,8 +277,11 @@ var Rate = /** @class */ (function (_super) {
             var dx = evt.pageX - _this._rect.left;
             var value = dx / _this._rect.width * _this.props.total;
             var intValue = Math.floor(value);
+            var v = intValue + (value - intValue > 0.5 ? 1 : 0.5);
+            if (!_this.props.half)
+                v = Math.ceil(v);
             //@ts-ignore
-            _this.fire('selected', intValue + (value - intValue > 0.5 ? 1 : 0.5));
+            _this.fire('selected', v);
         };
         _this.onMouseMove = function (evt) {
             _this._rect = _this.base.getBoundingClientRect();
@@ -295,7 +298,7 @@ var Rate = /** @class */ (function (_super) {
         };
         _this._getClass = function (i, current) {
             if (i < current) {
-                if (current - i <= 0.5) {
+                if (_this.props.half && current - i <= 0.5) {
                     return '_star _star-half ';
                 }
                 return '_star';

@@ -4,7 +4,8 @@ import * as css from './index.scss'
 import '../theme.ts'
 
 interface Props {
-  total:number
+  total: number
+  half: boolean
 }
 
 interface Data {
@@ -30,8 +31,10 @@ export default class Rate extends WeElement<Props, Data>{
     const dx = evt.pageX - this._rect.left
     const value = dx / this._rect.width * this.props.total
     const intValue = Math.floor(value)
+    let v = intValue + (value - intValue > 0.5 ? 1 : 0.5)
+    if(!this.props.half) v = Math.ceil(v)
     //@ts-ignore
-    this.fire('selected', intValue + (value - intValue > 0.5 ? 1 : 0.5))
+    this.fire('selected', v)
   }
 
   onMouseMove = (evt) => {
@@ -57,7 +60,7 @@ export default class Rate extends WeElement<Props, Data>{
 
   _getClass = (i, current) => {
     if (i < current) {
-      if (current - i <= 0.5) {
+      if (this.props.half && current - i <= 0.5) {
         return '_star _star-half '
       }
       return '_star'
