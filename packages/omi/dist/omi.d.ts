@@ -112,7 +112,7 @@ declare namespace Omi {
 		elementId: number;
 
 		update?(): void;
-		fire?(name: string, data?: object): void;
+		fire?(name: string, data?: any): void;
 		css?(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
@@ -140,7 +140,7 @@ declare namespace Omi {
 		host: HTMLElement;
 
 		update(): void;
-		fire(name: string, data?: object): void;
+		fire(name: string, data?: any): void;
 
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
@@ -165,7 +165,7 @@ declare namespace Omi {
 		elementId: number;
 
 		update?(): void;
-		fire?(name: string, data?: object): void;
+		fire?(name: string, data?: any): void;
 		css?(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
