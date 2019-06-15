@@ -6,6 +6,7 @@ import '../theme.ts'
 interface Props {
   total: number
   half: boolean
+  value: number
 }
 
 interface Data {
@@ -18,6 +19,13 @@ export default class Rate extends WeElement<Props, Data>{
 
   static defaultProps = {
     value: 0
+  }
+
+  static propTypes = {
+    value: Number,
+    half: Boolean,
+    total: Number,
+    color: String
   }
 
   _current = 0
@@ -33,8 +41,11 @@ export default class Rate extends WeElement<Props, Data>{
     const intValue = Math.floor(value)
     let v = intValue + (value - intValue > 0.5 ? 1 : 0.5)
     if(!this.props.half) v = Math.ceil(v)
+
+    this.props.value = v
     //@ts-ignore
     this.fire('selected', v)
+    this.update()
   }
 
   onMouseMove = (evt) => {
@@ -45,8 +56,11 @@ export default class Rate extends WeElement<Props, Data>{
   }
 
   base:HTMLElement
+
   installed(){
     this.base = this.shadowRoot.querySelector('ul')
+    //update 不再从 attr 取 prop
+    this.normalizedNodeName = 'm-rate'
   }
 
   onMouseEnter = () => {

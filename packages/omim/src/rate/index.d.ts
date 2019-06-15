@@ -3,6 +3,7 @@ import '../theme.ts';
 interface Props {
     total: number;
     half: boolean;
+    value: number;
 }
 interface Data {
 }
@@ -10,6 +11,12 @@ export default class Rate extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
         value: number;
+    };
+    static propTypes: {
+        value: NumberConstructor;
+        half: BooleanConstructor;
+        total: NumberConstructor;
+        color: StringConstructor;
     };
     _current: number;
     _rect: any;

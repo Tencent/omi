@@ -280,8 +280,10 @@ var Rate = /** @class */ (function (_super) {
             var v = intValue + (value - intValue > 0.5 ? 1 : 0.5);
             if (!_this.props.half)
                 v = Math.ceil(v);
+            _this.props.value = v;
             //@ts-ignore
             _this.fire('selected', v);
+            _this.update();
         };
         _this.onMouseMove = function (evt) {
             _this._rect = _this.base.getBoundingClientRect();
@@ -311,6 +313,8 @@ var Rate = /** @class */ (function (_super) {
     }
     Rate.prototype.installed = function () {
         this.base = this.shadowRoot.querySelector('ul');
+        //update 不再从 attr 取 prop
+        this.normalizedNodeName = 'm-rate';
     };
     Rate.prototype.render = function (props) {
         var _this = this;
@@ -332,6 +336,12 @@ var Rate = /** @class */ (function (_super) {
     Rate.css = css;
     Rate.defaultProps = {
         value: 0
+    };
+    Rate.propTypes = {
+        value: Number,
+        half: Boolean,
+        total: Number,
+        color: String
     };
     Rate = __decorate([
         omi_1.tag('m-rate')

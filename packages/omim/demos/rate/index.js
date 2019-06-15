@@ -9,7 +9,6 @@ define('my-app', class extends WeElement {
 
   onSelected = (evt) => {
     this.valueA = evt.detail
-    this.update()
   }
 
   render() {
@@ -17,9 +16,9 @@ define('my-app', class extends WeElement {
       <div>
         <m-rate total={5} value={this.valueA} color='#f57c00' onSelected={this.onSelected} />
         <br />
-        <m-rate total={5} value={this.valueB} color='#07C160' />
+        <m-rate total={5} value={this.valueB} color='#0072d9' />
         <br />
-        <m-rate total={5} half value={this.valueC} />
+        <m-rate total={5} half value={this.valueC} color='red' />
       </div>
     )
   }
