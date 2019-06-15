@@ -49,5 +49,4 @@ JSX:
 | onChange | function | -- | Icon change trigger |
 
 * [→ You can use Material Icons from Google Fonts:](https://material.io/tools/icons)
-* [→ You can use antd's SVG path directly](https://ant.design/components/icon/)
-* [→ You can find the path in the github of andt icons](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)
+* [→ SVG path by antd](https://ant.design/components/icon/) & [→ Github](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)

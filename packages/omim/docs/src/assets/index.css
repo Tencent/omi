@@ -131,3 +131,7 @@ img{
 .content table tr:nth-child(2n) {
   background-color: #f6f8fa;
 }
+
+.content table {
+  margin-bottom: 20px; 
+}
