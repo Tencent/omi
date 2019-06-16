@@ -2,25 +2,26 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <meta charset="UTF-8" />
-  <title>Add Omi in One Minute</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Add Omi in One Minute</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-  <script src="../../src/bottom-nav/index.js"></script>
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/bottom-nav/index.js"></script>
 
 
 
-<m-bottom-nav selected-color='red' id='myNav' items="[
-  { icon: 'favorite', label: 'Favorites', selected: true },
-  { icon: 'location_on', label: 'Nearby' },
-  { icon: 'restore', label: 'Recents' }
-]"></m-bottom-nav>
+	<m-bottom-nav selected-color='red' id='myNav' items="[
+			{ icon: 'favorite', label: 'Favorites', selected: true },
+			{ icon: 'location_on', label: 'Nearby' },
+			{ icon: 'restore', label: 'Recents' }
+		]">
+	</m-bottom-nav>
 	<script>
-		document.querySelector('#myNav').addEventListener('change',function(evt){
+		document.querySelector('#myNav').addEventListener('change', function (evt) {
 			console.log(evt.detail)
 		})
 	</script>

@@ -46,6 +46,7 @@ const config = {
           { name: 'Tab 标签切换', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav 导航', md: 'nav', demo: './repl/nav.html' },
           { name: 'Pagination 分页', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  },
+          { name: 'Bottom Nav 底部导航栏', md: 'bottom-nav', demo: 'https://tencent.github.io/omi/packages/omim/demos/bottom-nav/index.script.html'  },
           { name: 'Top App Bar 顶部栏', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' }
         ]
       },
@@ -155,6 +156,7 @@ const config = {
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
           { name: 'Pagination', md: 'pagination', demo: 'https://tencent.github.io/omi/packages/omim/demos/pagination/index.script.html'  },
+          { name: 'Bottom Nav', md: 'bottom-nav', demo: 'https://tencent.github.io/omi/packages/omim/demos/bottom-nav/index.script.html'  },
           { name: 'Top App Bar', md: 'top-app-bar', demo: 'https://tencent.github.io/omi/packages/omim/demos/top-app-bar/index.html' }
         ]
       },

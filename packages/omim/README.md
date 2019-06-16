@@ -209,7 +209,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | input-number |  | |
 | input-table |  | |
 | autocomplete |  | |
-| bottom nav |  | |
+| bottom nav | member | done|
 | accordion |  | |
 | toggle buttons |  | |
 | player | 132yse | |
