@@ -938,7 +938,7 @@
                 break;
             }
         };
-        WeElement.prototype.update = function() {
+        WeElement.prototype.update = function(ignoreAttrs) {
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
@@ -946,7 +946,7 @@
                 this.O = this.props.css;
                 this.N.textContent = this.O;
             }
-            this.attrsToProps();
+            this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.data, this.store);
             this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
             this.L = diff(this.L, rendered, null, null, this.shadowRoot);
@@ -967,9 +967,9 @@
         WeElement.prototype.pureSetAttribute = function(key, val) {
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
-        WeElement.prototype.attrsToProps = function() {
+        WeElement.prototype.attrsToProps = function(ignoreAttrs) {
             var ele = this;
-            if (!ele.normalizedNodeName) {
+            if (!ele.normalizedNodeName && !ignoreAttrs) {
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
                 if (attrs) Object.keys(attrs).forEach(function(key) {
@@ -1088,7 +1088,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.4';
+    options.root.Omi.version = '6.6.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

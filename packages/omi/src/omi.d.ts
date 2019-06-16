@@ -111,7 +111,7 @@ declare namespace Omi {
 		normalizedNodeName?: string;
 		elementId: number;
 
-		update?(): void;
+		update?(ignoreAttrs?:boolean): void;
 		fire?(name: string, data?: any): void;
 		css?(): string;
 		// Abstract methods don't infer argument types
@@ -139,7 +139,7 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		update(): void;
+		update(ignoreAttrs?:boolean): void;
 		fire(name: string, data?: any): void;
 
 		// Abstract methods don't infer argument types
@@ -164,7 +164,7 @@ declare namespace Omi {
 		normalizedNodeName?: string;
 		elementId: number;
 
-		update?(): void;
+		update?(ignoreAttrs?:boolean): void;
 		fire?(name: string, data?: any): void;
 		css?(): string;
 		// Abstract methods don't infer argument types

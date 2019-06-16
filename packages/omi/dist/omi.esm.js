@@ -1,5 +1,5 @@
 /**
- * omi v6.6.4  http://omijs.org
+ * omi v6.6.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1390,7 +1390,7 @@ var WeElement = function (_HTMLElement) {
     }
   };
 
-  WeElement.prototype.update = function update() {
+  WeElement.prototype.update = function update(ignoreAttrs) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
@@ -1399,7 +1399,7 @@ var WeElement = function (_HTMLElement) {
       this._customStyleContent = this.props.css;
       this._customStyleElement.textContent = this._customStyleContent;
     }
-    this.attrsToProps();
+    this.attrsToProps(ignoreAttrs);
 
     var rendered = this.render(this.props, this.data, this.store);
     this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
@@ -1433,9 +1433,9 @@ var WeElement = function (_HTMLElement) {
     _HTMLElement.prototype.setAttribute.call(this, key, val);
   };
 
-  WeElement.prototype.attrsToProps = function attrsToProps() {
+  WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
     var ele = this;
-    if (ele.normalizedNodeName) return;
+    if (ele.normalizedNodeName || ignoreAttrs) return;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
     if (!attrs) return;
@@ -1808,7 +1808,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.6.4';
+options.root.Omi.version = '6.6.5';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

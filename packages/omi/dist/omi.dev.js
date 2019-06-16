@@ -1,5 +1,5 @@
 /**
- * omi v6.6.4  http://omijs.org
+ * omi v6.6.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1393,7 +1393,7 @@
       }
     };
 
-    WeElement.prototype.update = function update() {
+    WeElement.prototype.update = function update(ignoreAttrs) {
       this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
@@ -1402,7 +1402,7 @@
         this._customStyleContent = this.props.css;
         this._customStyleElement.textContent = this._customStyleContent;
       }
-      this.attrsToProps();
+      this.attrsToProps(ignoreAttrs);
 
       var rendered = this.render(this.props, this.data, this.store);
       this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
@@ -1436,9 +1436,9 @@
       _HTMLElement.prototype.setAttribute.call(this, key, val);
     };
 
-    WeElement.prototype.attrsToProps = function attrsToProps() {
+    WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
       var ele = this;
-      if (ele.normalizedNodeName) return;
+      if (ele.normalizedNodeName || ignoreAttrs) return;
       ele.props['css'] = ele.getAttribute('css');
       var attrs = this.constructor.propTypes;
       if (!attrs) return;
@@ -1811,7 +1811,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.6.4';
+  options.root.Omi.version = '6.6.5';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

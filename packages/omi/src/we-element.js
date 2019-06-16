@@ -53,7 +53,7 @@ export default class WeElement extends HTMLElement {
         shadowRoot.removeChild(fc)
       }
     }
-    
+
     if (this.constructor.css) {
       shadowRoot.appendChild(cssToDom(this.constructor.css))
     } else if (this.css) {
@@ -110,7 +110,7 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  update() {
+  update(ignoreAttrs) {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
@@ -119,7 +119,7 @@ export default class WeElement extends HTMLElement {
       this._customStyleContent = this.props.css
       this._customStyleElement.textContent = this._customStyleContent
     }
-    this.attrsToProps()
+    this.attrsToProps(ignoreAttrs)
 
     const rendered = this.render(this.props, this.data, this.store)
     this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0)
@@ -159,9 +159,9 @@ export default class WeElement extends HTMLElement {
     super.setAttribute(key, val)
   }
 
-  attrsToProps() {
+  attrsToProps(ignoreAttrs) {
     const ele = this
-    if (ele.normalizedNodeName) return
+    if (ele.normalizedNodeName || ignoreAttrs) return
     ele.props['css'] = ele.getAttribute('css')
     const attrs = this.constructor.propTypes
     if(!attrs) return
