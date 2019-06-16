@@ -5,7 +5,7 @@
 ## 使用
 
 ```html
-<image-list
+<m-image-list
   list="[
     { src: './image-list/3x2-1.jpg', label: 'Text label' },
     { src: './image-list/3x2-2.jpg', label: 'Text label' },
@@ -23,7 +23,7 @@
     { src: './image-list/3x2-14.jpg', label: 'Text label' },
     { src: './image-list/3x2-15.jpg', label: 'Text label' }
   ]"
-></image-list>
+></m-image-list>
 ```
 
 ## Omi 中使用
@@ -31,7 +31,7 @@
 JSX:
 
 ```jsx
-<image-list
+<m-image-list
   list={[
     { src: './image-list/3x2-1.jpg', label: 'Text label' },
     { src: './image-list/3x2-2.jpg', label: 'Text label' },
@@ -49,7 +49,7 @@ JSX:
     { src: './image-list/3x2-14.jpg', label: 'Text label' },
     { src: './image-list/3x2-15.jpg', label: 'Text label' }
   ]}
-></image-list>
+></m-image-list>
 ```
 
 ## API

@@ -14,7 +14,7 @@ interface Data {
 }
 
 
-@tag('image-list')
+@tag('m-image-list')
 export default class ImageList extends WeElement<Props, Data>{
   static css = css
 

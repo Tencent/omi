@@ -4,15 +4,11 @@ interface Props {
 }
 interface Data {
 }
-export default class Breadcrumb extends WeElement<Props, Data> {
+export default class BottomNav extends WeElement<Props, Data> {
     static css: any;
-    static defaultProps: {
-        split: string;
-    };
-    static propTypes: {
-        items: ObjectConstructor;
-        split: StringConstructor;
-    };
+    static defaultProps: {};
+    static propTypes: {};
+    installed(): void;
     render(props: any): JSX.Element;
 }
 export {};

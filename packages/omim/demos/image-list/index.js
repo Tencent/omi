@@ -24,7 +24,7 @@ const css = `
 
 render(
   <div>
-    <image-list css={css} list={[
+    <m-image-list css={css} list={[
       { src: 'https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/1.jpg', label: 'Text label' },
       { src: 'https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg', label: 'Text label' },
       { src: 'https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/3.jpg', label: 'Text label' },
@@ -41,14 +41,14 @@ render(
       { src: 'https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/14.jpg', label: 'Text label' },
       { src: 'https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/15.jpg', label: 'Text label' }
     ]}>
-    </image-list>
+    </m-image-list>
 
     <br></br>
 
     <br></br>
 
     <br></br>
-    <image-list css={`
+    <m-image-list css={`
 .mdc-image-list {
     column-count: 5;
 }`}
@@ -117,7 +117,7 @@ render(
           label: 'Text label'
         }
       ]}>
-    </image-list>
+    </m-image-list>
   </div>
   , 'body')
 
