@@ -30,8 +30,6 @@ export default class BottomNav extends WeElement<Props, Data>{
 		this.shadowRoot.querySelectorAll('.ripple').forEach(dom => {
 			new MDCRipple(dom)
 		})
-
-		this.normalizedNodeName = 'm-bottom-nav'
 	}
 
 	clickHandler = (item) => {
@@ -40,7 +38,7 @@ export default class BottomNav extends WeElement<Props, Data>{
 			this.props.items.forEach(_ => _.selected = false)
 			item.selected = true
 			this.fire('change', item)
-			this.update()
+			this.update(true)
 		}
 	}
 

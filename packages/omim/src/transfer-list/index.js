@@ -2923,7 +2923,7 @@ var TransferList = /** @class */ (function (_super) {
             _this.props.left.length = 0;
             _this._checkLeftDisabled();
             _this._checkRightDisabled();
-            _this.update();
+            _this.update(true);
             _this.fire('change', { left: _this.props.left, right: _this.props.right });
         };
         _this.rightToLeft = function () {
@@ -2931,7 +2931,7 @@ var TransferList = /** @class */ (function (_super) {
             _this.props.right.length = 0;
             _this._checkLeftDisabled();
             _this._checkRightDisabled();
-            _this.update();
+            _this.update(true);
             _this.fire('change', { left: _this.props.left, right: _this.props.right });
         };
         _this.sltLeftToRight = function () {
@@ -2946,7 +2946,7 @@ var TransferList = /** @class */ (function (_super) {
             _this.props.left = temp;
             _this._checkLeftDisabled();
             _this._checkRightDisabled();
-            _this.update();
+            _this.update(true);
             _this.fire('change', { left: _this.props.left, right: _this.props.right });
         };
         _this.sltRightToRight = function () {
@@ -2961,7 +2961,7 @@ var TransferList = /** @class */ (function (_super) {
             _this.props.right = temp;
             _this._checkLeftDisabled();
             _this._checkRightDisabled();
-            _this.update();
+            _this.update(true);
             _this.fire('change', { left: _this.props.left, right: _this.props.right });
         };
         _this._rightBtnDiabled = true;
@@ -2971,22 +2971,18 @@ var TransferList = /** @class */ (function (_super) {
         _this.onLeftItemClick = function (evt) {
             evt.detail.item.checked = !evt.detail.item.checked;
             _this._checkLeftDisabled();
-            _this.update();
+            _this.update(true);
         };
         _this.onRightItemClick = function (evt) {
             evt.detail.item.checked = !evt.detail.item.checked;
             _this._checkRightDisabled();
-            _this.update();
+            _this.update(true);
         };
         return _this;
     }
     TransferList.prototype.install = function () {
         this._checkLeftDisabled();
         this._checkRightDisabled();
-    };
-    TransferList.prototype.installed = function () {
-        //除了第一次，后面不再从 attr 中取 props
-        this.normalizedNodeName = 'm-transfer-list';
     };
     TransferList.prototype._checkLeftDisabled = function () {
         var len = this.props.left.length;

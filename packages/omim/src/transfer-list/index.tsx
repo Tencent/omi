@@ -27,7 +27,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this.props.left.length = 0
     this._checkLeftDisabled()
     this._checkRightDisabled()
-    this.update()
+    this.update(true)
     this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
@@ -37,7 +37,7 @@ export default class TransferList extends WeElement<Props, Data>{
 
     this._checkLeftDisabled()
     this._checkRightDisabled()
-    this.update()
+    this.update(true)
     this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
@@ -54,7 +54,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this.props.left = temp
     this._checkLeftDisabled()
     this._checkRightDisabled()
-    this.update()
+    this.update(true)
     this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
@@ -71,7 +71,7 @@ export default class TransferList extends WeElement<Props, Data>{
     this.props.right = temp
     this._checkLeftDisabled()
     this._checkRightDisabled()
-    this.update()
+    this.update(true)
     this.fire('change', { left: this.props.left, right: this.props.right })
   }
 
@@ -85,15 +85,10 @@ export default class TransferList extends WeElement<Props, Data>{
     this._checkRightDisabled()
   }
 
-  installed(){
-    //除了第一次，后面不再从 attr 中取 props
-    this.normalizedNodeName = 'm-transfer-list'
-  }
-
   onLeftItemClick = (evt) => {
     evt.detail.item.checked = !evt.detail.item.checked
     this._checkLeftDisabled()
-    this.update()
+    this.update(true)
   }
 
   _checkLeftDisabled() {
@@ -139,7 +134,7 @@ export default class TransferList extends WeElement<Props, Data>{
   onRightItemClick = (evt) => {
     evt.detail.item.checked = !evt.detail.item.checked
     this._checkRightDisabled()
-    this.update()
+    this.update(true)
   }
 
 

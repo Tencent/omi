@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.dev.js"></script>
 	<script src="../../src/bottom-nav/index.js"></script>
 
 
@@ -21,9 +21,12 @@
 		]">
 	</m-bottom-nav>
 	<script>
-		document.querySelector('#myNav').addEventListener('change', function (evt) {
+		var nav = document.querySelector('#myNav')
+		nav.addEventListener('change', function (evt) {
 			console.log(evt.detail)
 		})
+
+		nav.setAttribute('selected-color', 'green')
 	</script>
 </body>
 
