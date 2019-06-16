@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\nm-list, .btns {\n  display: inline-block;\n  vertical-align: middle; }\n\nbutton {\n  display: block;\n  appearance: none;\n  -webkit-appearance: none;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  width: 46px;\n  height: 23px;\n  line-height: 17px;\n  margin-top: 3px;\n  outline: none;\n  font-size: 12px;\n  cursor: pointer; }\n\nbutton:hover {\n  background-color: #f8f8f8; }\n\nbutton:active {\n  background-color: #ddd; }\n\n.btns {\n  margin: 0 20px; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\nm-list, .btns {\n  display: inline-block;\n  vertical-align: middle; }\n\nbutton {\n  display: block;\n  appearance: none;\n  -webkit-appearance: none;\n  border-radius: 4px;\n  border: 1px solid #ccc;\n  width: 46px;\n  height: 23px;\n  line-height: 17px;\n  margin-top: 3px;\n  outline: none;\n  font-size: 12px;\n  cursor: pointer; }\n\nbutton:hover {\n  background-color: #f8f8f8; }\n\nbutton:disabled {\n  cursor: not-allowed; }\n\nbutton:active {\n  background-color: #ddd; }\n\n.btns {\n  margin: 0 20px; }\n", ""]);
 
 // exports
 
