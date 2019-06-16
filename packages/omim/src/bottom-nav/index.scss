@@ -1,0 +1,34 @@
+@import "../theme";
+
+@import "@material/ripple/mdc-ripple";
+
+:host {
+  display: block;
+}
+
+button{
+	appearance: none;
+	-webkit-appearance: none;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+}
+
+.ripple{
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	z-index: 0;
+	overflow: hidden;
+	position: absolute;
+	border-radius: inherit;
+}
+
+
+.ripple-surface {
+  @include mdc-ripple-surface;
+  @include mdc-ripple-radius-bounded;
+  @include mdc-states;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/breadcrumb/index.js"></script>
+  
+  <div>
+    <m-breadcrumb split="/" items="[
+      { text: 'Home' },
+      { text: 'Helper' },
+      { text: 'About' }
+    ]"></m-breadcrumb>
+
+
+    <m-breadcrumb  split="/" items="[
+      { text: 'Home', href:'https://tencent.github.io/omi/', icon:'home' },
+      { text: 'Helper', icon:'help' },
+      { text: 'About', icon: 'people' }
+    ]"></m-breadcrumb>
+  </div>
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+</body>
+
+</html>
