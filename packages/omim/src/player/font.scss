@@ -1,0 +1,26 @@
+
+.epicon {
+  font-family:"epicon" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ep-full:before { content: "\e609"; }
+
+.ep-video:before { content: "\e608"; }
+
+.ep-full-web:before { content: "\e601"; }
+
+.ep-pause:before { content: "\e602"; }
+
+.ep-play:before { content: "\e603"; }
+
+.ep-setting:before { content: "\e604"; }
+
+.ep-volume-off:before { content: "\e605"; }
+
+.ep-volume-up:before { content: "\e606"; }
+
+.ep-volume:before { content: "\e607"; }
