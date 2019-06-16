@@ -2,10 +2,12 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 
+import '../icon'
 //@ts-ignore
 import '../theme.ts'
 
 interface Props {
+	items: any[]
 }
 
 interface Data {
@@ -20,23 +22,39 @@ export default class BottomNav extends WeElement<Props, Data>{
 	}
 
 	static propTypes = {
+		selectedColor: String,
+		items: Array
 	}
 
 	installed() {
-		new MDCRipple(this.shadowRoot.querySelector('.ripple'))
+		this.shadowRoot.querySelectorAll('.ripple').forEach(dom => {
+			new MDCRipple(dom)
+		})
+	}
+
+	clickHandler = (item) => {
+		this.fire('itemclick', item)
+		if (!item.selected) {
+			this.props.items.forEach(_ => _.selected = false)
+			item.selected = true
+			this.fire('change', item)
+			this.update()
+		}
 	}
 
 	render(props) {
-		return <div class="m-root">
-			<button class="mbb-root m-action-root" tabindex="0">
-				<span class="m-action-wrapper">
-					<svg class="msi-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-						<path fill="none" d="M0 0h24v24H0z"></path><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path>
-					</svg>
-					<span class="m-action-label">Recents</span>
-				</span>
-				<span class="ripple ripple-surface"></span>
-			</button>
+		return <div class="m-bn">
+			{props.items.map((item,index) => (
+				<button onClick={_ => { this.clickHandler(item) }} {...extractClass({}, 'item', {
+					'selected': item.selected
+				})} {...(item.selected && props.selectedColor) ? { style: `color:${props.selectedColor}` } : null} tabindex={index}>
+					<span class="m-action-wrapper">
+						{typeof item.icon === 'string' ? <i class="material-icons">{item.icon}</i> : <m-icon {...item.icon} />}
+						<span class="m-action-label">{item.label}</span>
+					</span>
+					<span class="ripple ripple-surface"></span>
+				</button>
+			))}
 		</div>
 
 	}

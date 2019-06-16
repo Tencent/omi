@@ -6,12 +6,35 @@
   display: block;
 }
 
+.m-bn{
+
+	height: 56px;
+	display: flex;
+	justify-content: center;
+	background-color: #fff;
+}
+
+
+.item.selected{
+	color:$mdc-theme-primary;
+}
+
+.item{
+	flex: 1;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 6px 12px 8px;
+    max-width: 168px;
+    min-width: 80px;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,padding-top 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
 button{
 	appearance: none;
 	-webkit-appearance: none;
 	position: relative;
 	cursor: pointer;
 	outline: none;
+	border: none;
 }
 
 .ripple{
@@ -31,4 +54,25 @@ button{
   @include mdc-ripple-surface;
   @include mdc-ripple-radius-bounded;
   @include mdc-states;
+}
+
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+m-icon{
+	display: block;
 }
