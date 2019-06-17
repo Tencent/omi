@@ -6,11 +6,13 @@ video {
   font-size: 12px;
   background: #000;
 }
+
 .eplayer {
   user-select: none;
   position: relative;
   overflow: hidden;
 }
+
 .controls {
   position: absolute;
   left: 0;
@@ -21,6 +23,7 @@ video {
   transition: 0.3s ease-out;
   z-index: 1;
 }
+
 .progress {
   position: relative;
   bottom: 15px;
@@ -28,34 +31,46 @@ video {
   right: 0;
   cursor: pointer;
 }
+
 .options {
   display: flex;
   align-items: center;
 }
+
 .epicon {
   color: var(--icons, rgba(255, 255, 255, 0.6));
   padding: 0 10px;
 }
+
 .epicon {
   font-size: 18px;
   transition: 0.3s;
   cursor: pointer;
 }
+
 .epicon:hover {
   color: #fff;
 }
+
 .time {
-  position: relative;
-  top: -2px;
+  display: inline-block;
+  height: 24px;
+  line-height: 25px;
+  vertical-align: top;
+  // position: relative;
+  // top: -2px;
 }
+
 .time b {
   font-weight: normal;
 }
+
 .line {
   padding: 0 1px;
   margin-bottom: -2px;
   cursor: pointer;
 }
+
 .line i {
   width: 4px;
   border-radius: 4px;
@@ -65,22 +80,27 @@ video {
   transform: scaleX(0.7);
   transition: 0.3s;
 }
+
 .line:hover i {
   height: 14px;
   background: var(--mdc-theme-primary, #6200ee);
 }
+
 .active i {
   background: var(--mdc-theme-primary, #6200ee);
 }
+
 .left {
   flex: 1;
 }
+
 .right {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
+
 .bg,
 .current,
 .buffer {
@@ -89,16 +109,20 @@ video {
   position: absolute;
   top: 0;
 }
+
 .bg {
   right: 0;
   background: var(--progress, rgba(255, 255, 255, 0.3));
 }
+
 .current {
   background: var(--mdc-theme-primary, #6200ee);
 }
+
 .buffer {
   background: var(--buffer, rgba(255, 255, 255, 0.5));
 }
+
 .dot {
   position: absolute;
   border-radius: 50%;
@@ -111,6 +135,7 @@ video {
   cursor: pointer;
   z-index: 1;
 }
+
 .cycle {
   position: absolute;
   border-radius: 50%;
@@ -124,14 +149,17 @@ video {
   cursor: pointer;
   z-index: 1;
 }
+
 @keyframes loading {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 .playing {
   position: absolute;
   z-index: 1;
@@ -140,6 +168,7 @@ video {
   right: 0;
   bottom: 0;
 }
+
 .loading {
   position: absolute;
   z-index: 1;
@@ -153,6 +182,7 @@ video {
   border-radius: 50%;
   animation: loading 1s linear infinite;
 }
+
 .ep-video {
   position: absolute;
   bottom: 25px;
@@ -162,4 +192,22 @@ video {
   z-index: 1;
   cursor: pointer;
   z-index: 1;
+}
+
+.icon {
+  cursor: pointer;
+  color: var(--icons, rgba(255, 255, 255, 0.6));
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  vertical-align: top;
+}
+
+.icon:hover {
+  color: white;
+}
+
+.ep-video {
+  transform: scale(4);
+  transform-origin: right bottom;
 }
