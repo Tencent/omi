@@ -16,7 +16,8 @@ const config = {
           { name: 'IconButton 图标按钮', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Avatar 头像', md: 'avatar', demo: './repl/avatar.html' },
           { name: 'Loading 加载', md: 'loading', demo: './repl/loading.html' },
-          { name: 'Breadcrumb 面包屑', md: 'breadcrumb', demo: './repl/breadcrumb.html' }
+          { name: 'Breadcrumb 面包屑', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
+          { name: 'Player 视频播放器', md: 'player', demo: 'https://tencent.github.io/omi/packages/omim/demos/player/index.script.html' }
         ]
       },
       {
@@ -127,7 +128,8 @@ const config = {
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
           { name: 'Loading', md: 'loading', demo: './repl/loading.html' },
-          { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' }
+          { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
+          { name: 'Player', md: 'player', demo: 'https://tencent.github.io/omi/packages/omim/demos/player/index.script.html' }
         ]
       },
       {

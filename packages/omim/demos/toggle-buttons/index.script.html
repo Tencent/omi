@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Add Omi in One Minute</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.dev.js"></script>
+	<script src="../../src/bottom-nav/index.js"></script>
+
+
+
+	<m-bottom-nav selected-color='red' id='myNav' items="[
+			{ icon: 'favorite', label: 'Favorites', selected: true },
+			{ icon: 'location_on', label: 'Nearby' },
+			{ icon: 'restore', label: 'Recents' }
+		]">
+	</m-bottom-nav>
+	<script>
+		var nav = document.querySelector('#myNav')
+		nav.addEventListener('change', function (evt) {
+			console.log(evt.detail)
+		})
+
+		nav.setAttribute('selected-color', 'green')
+	</script>
+</body>
+
+</html>
