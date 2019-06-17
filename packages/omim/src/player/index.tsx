@@ -4,10 +4,8 @@ import * as css from './index.scss'
 import '../theme.ts'
 
 interface Props {
-  ripple: boolean
-  mini: boolean
-  iconRight: boolean
-  icon: string
+  src: string
+  type?: string
 }
 
 interface Data { }
