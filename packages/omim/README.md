@@ -132,7 +132,7 @@ export default function SomeComponent(props) {
     return (
       <div>
         <p>The switch is {result ? 'on' : 'off'}</p>
-        <m-icon-button icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
+        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
         </m-icon-button>
       </div>
     )
@@ -149,24 +149,32 @@ Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwil
 import '@omim/core/icon-button'
 
 export default {
-  name: "HelloWorld",
+  name: 'HelloWorld',
   data: function() {
-    return { 
+    return {
       result: false
     }
   },
   methods: {
-    myEvent: function(evt) { 
+    myEvent: function(evt) {
       this.result = evt.detail.isOn
     }
   }
 }
 </script>
 
-<div class="component">
-  <p>The switch is {{result? 'on' : 'off'}}</p>
-  <m-icon-button icon="['favorite', 'favorite_border']" @change="myEvent"></m-icon-button>
-</div>
+<template>
+  <div class="component">
+    <p>The switch is {{result? 'on' : 'off'}}</p>
+    <m-icon-button color="red" icons="['favorite', 'favorite_border']" @change="myEvent"></m-icon-button>
+  </div>
+</template>
+```
+
+> Note that in order to display icon in react or vue app, you need to put this in HTML:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 ```
 
 ## Contribution
