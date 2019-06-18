@@ -7,8 +7,8 @@ export default function SomeComponent(props) {
     const [result, setSwitch] = useState(false)
 
     return <div>
-        <p>The switch is {result ? 'on' : 'off'}</p>
+        <p>The switch is {result ? 'on' : 'off'}.</p>
 
-        <m-icon-button icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}></m-icon-button>
+        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}></m-icon-button>
     </div>
 }
