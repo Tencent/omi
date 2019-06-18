@@ -8,7 +8,6 @@ export default function SomeComponent(props) {
 
     return <div>
         <p>The switch is {result ? 'on' : 'off'}.</p>
-
         <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}></m-icon-button>
     </div>
 }
