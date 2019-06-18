@@ -51,3 +51,15 @@ Spreadsheet powered by [x-spreadsheet](https://github.com/myliang/x-spreadsheet)
     }}>
 </m-spreadsheet>
 ```
+
+## API
+
+### Props
+
+```jsx
+{
+  data?: object
+  width?: number
+  height?: number
+}
+```
