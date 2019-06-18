@@ -55,7 +55,7 @@ JSX:
 | icon-right | boolean | -- | 图标在右侧 |
 | counter | boolean | -- | 记录输入字符个数，配合 min-length, max-length 一起使用 |
 | path | string | -- | 图标 path |
-| paths | string | -- | 多图标 path |
+| paths | object | -- | 多图标 path |
 | label | string | -- | 默认标签 |
 | required | boolean | -- | 检测输入框是否为空 |
 | pattern | string | -- | 输入值限制及检测 |

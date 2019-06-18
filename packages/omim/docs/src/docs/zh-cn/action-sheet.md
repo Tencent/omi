@@ -5,13 +5,12 @@ ActionSheet
 ## Usage
 
 ```js
- MActionSheet({
-    items: ['Option 1', 'Option 2'],
-    onItemClick: (item) => {
-      console.log(item)
-    }
-  })
-}
+MActionSheet({
+  items: ['Option 1', 'Option 2'],
+  onItemClick: (item) => {
+    console.log(item)
+  }
+})
 ```
 
 IOS Style:

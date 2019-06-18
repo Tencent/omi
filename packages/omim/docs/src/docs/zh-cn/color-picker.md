@@ -1,6 +1,6 @@
 ## ColorPicker
 
-基于 [pickr](https://github.com/Simonwep/pickr) 改造得颜色选择器。
+基于 [pickr](https://github.com/Simonwep/pickr) 改造的颜色选择器。
 
 ## 使用
 

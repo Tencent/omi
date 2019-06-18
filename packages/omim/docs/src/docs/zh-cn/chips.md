@@ -36,7 +36,7 @@ Chips 是紧凑的元素，允许用户输入信息、选择、过滤内容或�
 
 JSX:
 
-```html
+```jsx
 <m-chips filter chips={[
   {
     text: 'checkmark with selected',

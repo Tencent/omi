@@ -55,7 +55,7 @@ JSX:
 | icon-right | boolean | -- | The icon is on the right |
 | counter | boolean | -- | Record the number of input characters, match min-length, max-length be used together |
 | path | string | -- | icon path |
-| paths | string | -- | Many icons path |
+| paths | object | -- | Many icons path |
 | label | string | -- | Label defaults |
 | required | boolean | -- | Checks if the input box is empty |
 | pattern | string | -- | Input value limitation and detection |

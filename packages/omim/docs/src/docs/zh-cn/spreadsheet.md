@@ -51,3 +51,15 @@ Omi 和 [x-spreadsheet](https://github.com/myliang/x-spreadsheet) 打造表格�
     }}>
 </m-spreadsheet>
 ```
+
+## API
+
+### Props
+
+```jsx
+{
+  data?: object
+  width?: number
+  height?: number
+}
+```

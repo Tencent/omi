@@ -36,7 +36,7 @@ Chips are compact elements that allow users to enter information, select a choic
 
 JSX:
 
-```html
+```jsx
 <m-chips filter chips={[
   {
     text: 'checkmark with selected',
