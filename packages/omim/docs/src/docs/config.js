@@ -27,7 +27,6 @@ const config = {
           { name: 'To 运动', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
           { name: 'Theme 主题', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography 排版', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Layout Grid 网格布局', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
         ]
       },
       {
@@ -36,7 +35,8 @@ const config = {
           { name: 'Row 行', md: 'row', demo: './repl/row.html' },
 
           { name: 'Elevation 高度盒', md: 'elevation', demo: './repl/elevation.html' },
-          { name: 'Image List 图片列表', md: 'image-list', demo: './repl/image-list.html' }
+          { name: 'Image List 图片列表', md: 'image-list', demo: './repl/image-list.html' },
+          { name: 'Layout Grid 网格布局', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
         ]
       },
       {
@@ -72,7 +72,8 @@ const config = {
           { name: 'Switch 切换', md: 'switch', demo: './repl/switch.html' },
           { name: 'DateTimePicker 时间日期选择器', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
           { name: 'Picker 原生选择器', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
-          { name: 'TransferList 穿梭列表', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' }
+          { name: 'TransferList 穿梭列表', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
+          { name: 'Toggle Buttons 按钮组', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' }
         ]
       },
       {
@@ -138,8 +139,7 @@ const config = {
           { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
           { name: 'To', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
-          { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       },
       {
@@ -147,7 +147,8 @@ const config = {
         list: [
           { name: 'Row', md: 'row', demo: './repl/row.html' },
           { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
-          { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }
+          { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' },
+          { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
         ]
       },
       {
@@ -183,7 +184,8 @@ const config = {
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
           { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
-          { name: 'TransferList', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' }
+          { name: 'TransferList', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
+          { name: 'Toggle Buttons', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' }
         ]
       },
       {

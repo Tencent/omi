@@ -1671,6 +1671,7 @@ var ToggleButtons = /** @class */ (function (_super) {
     ], ToggleButtons);
     return ToggleButtons;
 }(omi_1.WeElement));
+exports.default = ToggleButtons;
 
 
 /***/ }),
