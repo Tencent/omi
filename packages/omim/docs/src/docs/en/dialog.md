@@ -4,6 +4,29 @@ Dialogs inform users about a task and can contain critical information, require 
 
 ## Usage
 
+```js
+import dialog from '@omim/core/dialog'
+
+dialog.confirm({
+  confirmText: 'OK',
+  cancelText: 'Cancel',
+  msg: 'Confirm deletion?',
+  confirm: function () {
+    
+  }
+})
+
+dialog.alert({
+  confirmText: 'YES',
+  msg: 'Successful!',
+  confirm: function () {
+
+  }
+})
+```
+
+Or:
+
 ```html
 <m-dialog cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
   <p class="m-dialog-alert-p">Discard draft?</p>

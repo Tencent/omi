@@ -3,7 +3,6 @@
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-* [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/MyComponent.js)
 
 ![](./assets/pv4.jpeg)
 
@@ -15,6 +14,11 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 * Each element can be used independently
 * Super easy to change theme colors, fonts and rounded corners
 * Extended HTML capabilities, you can pass false attributes to elements through string `'0'` or string `'flase'`
+
+## Cross Frameworks
+
+* [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/HookTest.js)
+* [Using Omim in Vue](https://tencent.github.io/omi/packages/omim/test-vue/dist/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-vue/app.vue)
 
 ## Usage
 
@@ -118,6 +122,65 @@ or
 <my-element show="0"></my-element>
 ```
 
+## Usage in React
+
+```jsx
+/** @jsx nativeEvents */
+import nativeEvents from 'jsx-native-events'
+import { useState } from 'react'
+import '@omim/core/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
+        </m-icon-button>
+      </div>
+    )
+}
+```
+
+Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme).
+
+
+## Usage in Vue
+
+```html
+<script>
+import '@omim/core/icon-button'
+
+export default {
+  name: 'HelloWorld',
+  data: function() {
+    return {
+      result: false
+    }
+  },
+  methods: {
+    myEvent: function(evt) {
+      this.result = evt.detail.isOn
+    }
+  }
+}
+</script>
+
+<template>
+  <div class="component">
+    <p>The switch is {{result? 'on' : 'off'}}</p>
+    <m-icon-button color="red" icons="['favorite', 'favorite_border']" @change="myEvent"></m-icon-button>
+  </div>
+</template>
+```
+
+> Note that in order to display icon in react or vue app, you need to put this in HTML:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+```
+
 ## Contribution
 
 ### CMD
@@ -211,8 +274,9 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | autocomplete |  | |
 | bottom nav | member | done|
 | accordion |  | |
-| toggle buttons |  | |
-| player | 132yse | |
+| expansion | member |  |
+| toggle buttons | member | done|
+| player | 132yse | done|
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |

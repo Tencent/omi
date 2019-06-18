@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, render } from 'omi'
 import * as css from './index.scss'
 import { MDCDialog } from '@material/dialog'
 
@@ -20,9 +20,10 @@ interface Data {
 }
 
 @tag('m-dialog')
-export default class Dialog extends WeElement<Props, Data>{
+class Dialog extends WeElement<Props, Data>{
   static css = css
-
+  static confirm: any
+  static alert: any
   static propTypes = {
     show: Boolean,
     scrollable: Boolean,
@@ -76,3 +77,38 @@ export default class Dialog extends WeElement<Props, Data>{
     )
   }
 }
+
+
+let dom
+
+Dialog.confirm = function (options) {
+  if (dom) {
+    document.body.removeChild(dom)
+  }
+  dom = render(<m-dialog
+    cancel-button={{text: options.cancelText||'Cancel'}}
+    confirm-button={{text: options.confirmText||'Confirm'}}
+    onCancel={_=>onConfirm(options.cancel)}
+    onConfirm={_=>onConfirm(options.confirm)}
+    show={true} ><p style='margin:0'>{options.msg}</p></m-dialog>, 'body')
+}
+
+function onConfirm(callback){
+  callback && callback()
+  if (dom) {
+    document.body.removeChild(dom)
+    dom = null
+  }
+}
+
+Dialog.alert = function (options) {
+  if (dom) {
+    document.body.removeChild(dom)
+  }
+  dom = render(<m-dialog
+    confirm-button={{text: options.confirmText||'Confirm'}}
+    onConfirm={_=>onConfirm(options.confirm)}
+    show={true} ><p style='margin:0'>{options.msg}</p></m-dialog>, 'body')
+}
+
+export default Dialog

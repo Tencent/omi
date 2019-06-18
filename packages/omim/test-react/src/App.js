@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import '@omim/core/button'
 import MyComponent from './MyComponent'
+import HookTest from './HookTest'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         >
           Learn Omi and Omim
         </a>
+        <HookTest></HookTest>
         <m-button>Omim Button</m-button>
         <MyComponent></MyComponent>
       </header>

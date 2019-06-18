@@ -4842,6 +4842,28 @@ var Dialog = /** @class */ (function (_super) {
     ], Dialog);
     return Dialog;
 }(omi_1.WeElement));
+var dom;
+Dialog.confirm = function (options) {
+    if (dom) {
+        document.body.removeChild(dom);
+    }
+    dom = omi_1.render(omi_1.h("m-dialog", { "cancel-button": { text: options.cancelText || 'Cancel' }, "confirm-button": { text: options.confirmText || 'Confirm' }, onCancel: function (_) { return onConfirm(options.cancel); }, onConfirm: function (_) { return onConfirm(options.confirm); }, show: true },
+        omi_1.h("p", { style: 'margin:0' }, options.msg)), 'body');
+};
+function onConfirm(callback) {
+    callback && callback();
+    if (dom) {
+        document.body.removeChild(dom);
+        dom = null;
+    }
+}
+Dialog.alert = function (options) {
+    if (dom) {
+        document.body.removeChild(dom);
+    }
+    dom = omi_1.render(omi_1.h("m-dialog", { "confirm-button": { text: options.confirmText || 'Confirm' }, onConfirm: function (_) { return onConfirm(options.confirm); }, show: true },
+        omi_1.h("p", { style: 'margin:0' }, options.msg)), 'body');
+};
 exports.default = Dialog;
 
 

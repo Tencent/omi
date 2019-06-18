@@ -11,8 +11,10 @@ interface Props {
 }
 interface Data {
 }
-export default class Dialog extends WeElement<Props, Data> {
+declare class Dialog extends WeElement<Props, Data> {
     static css: any;
+    static confirm: any;
+    static alert: any;
     static propTypes: {
         show: BooleanConstructor;
         scrollable: BooleanConstructor;
@@ -28,4 +30,4 @@ export default class Dialog extends WeElement<Props, Data> {
     onConfirm: (e: any) => void;
     render(props: any): JSX.Element;
 }
-export {};
+export default Dialog;
