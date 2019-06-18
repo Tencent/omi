@@ -4,6 +4,29 @@
 
 ## 使用
 
+```js
+import dialog from '@omim/core/dialog'
+
+dialog.confirm({
+  confirmText: '确认',
+  cancelText: '取消',
+  msg: '确认删除?',
+  confirm: function () {
+    
+  }
+})
+
+dialog.alert({
+  confirmText: '确认',
+  msg: '成功了！',
+  confirm: function () {
+
+  }
+})
+```
+
+或者：
+
 ```html
 <m-dialog cancel-button="{text: 'Cancel'}" confirm-button="{text: 'Discard'}">
   <p class="m-dialog-alert-p">Discard draft?</p>
