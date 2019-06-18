@@ -3,7 +3,6 @@
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-* [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/MyComponent.js)
 
 ![](./assets/pv4.jpeg)
 
@@ -15,6 +14,11 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 * Each element can be used independently
 * Super easy to change theme colors, fonts and rounded corners
 * Extended HTML capabilities, you can pass false attributes to elements through string `'0'` or string `'flase'`
+
+## Cross Frameworks
+
+* [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/HookTest.js)
+* [Using Omim in Vue](https://tencent.github.io/omi/packages/omim/test-vue/dist/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-vue/app.vue)
 
 ## Usage
 
