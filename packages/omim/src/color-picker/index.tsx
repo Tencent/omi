@@ -144,6 +144,11 @@ export default class ColorPicker extends WeElement<Props, Data>{
     })
 
     this.picker = picker
+
+  }
+
+  setColor(color){
+    return this.picker.setColor(color)
   }
 
   render(props) {

@@ -355,6 +355,9 @@ var ColorPicker = /** @class */ (function (_super) {
         });
         this.picker = picker;
     };
+    ColorPicker.prototype.setColor = function (color) {
+        return this.picker.setColor(color);
+    };
     ColorPicker.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-color-picker')),
             omi_1.h("div", { class: 'picker' })));
