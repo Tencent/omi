@@ -88,22 +88,16 @@ Dialog.confirm = function (options) {
   dom = render(<m-dialog
     cancel-button={{text: options.cancelText||'Cancel'}}
     confirm-button={{text: options.confirmText||'Confirm'}}
-    onCancel={_=>onCancel(options.cancel)}
+    onCancel={_=>onConfirm(options.cancel)}
     onConfirm={_=>onConfirm(options.confirm)}
     show={true} ><p style='margin:0'>{options.msg}</p></m-dialog>, 'body')
-}
-
-function onCancel(callback){
-  callback && callback()
-  if (dom) {
-    document.body.removeChild(dom)
-  }
 }
 
 function onConfirm(callback){
   callback && callback()
   if (dom) {
     document.body.removeChild(dom)
+    dom = null
   }
 }
 
