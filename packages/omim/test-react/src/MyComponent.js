@@ -1,3 +1,6 @@
+/** @jsx nativeEvents */
+import nativeEvents from 'jsx-native-events'
+
 import React from 'react';
 import '@omim/core/icon-button'
 import '@omim/core/button'
@@ -14,12 +17,10 @@ class MyComponent extends React.Component {
     })
   }
 
-  componentDidMount() {
-    this.iconBtn.addEventListener('change', (evt) => {
-      console.log(evt.detail.isOn)
-      this.checked = !this.checked
-      this.forceUpdate()
-    })
+  onChange = (evt) => {
+    console.log(evt.detail.isOn)
+    this.checked = !this.checked
+    this.forceUpdate()
   }
 
   checked = true
@@ -45,7 +46,7 @@ class MyComponent extends React.Component {
         <m-checkbox checked={this.checked}></m-checkbox>
         <m-checkbox></m-checkbox>
         <br/>
-        <m-icon-button ref={e => { this.iconBtn = e }} color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
+        <m-icon-button onEventChange={ this.onChange } color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
 
         <m-icon-button>
           <svg viewBox="0 0 24 24" width="2em" height="2em" aria-hidden="true">
