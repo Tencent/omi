@@ -13,6 +13,11 @@
 * 超级容易更换主题颜色、字体和圆角
 * 扩展了 HTML 能力，你可以通过字符串 `'0'` 或者字符串 `'false'` 传递 false 给元素
 
+## 跨框架
+
+* [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/HookTest.js)
+* [Using Omim in Vue](https://tencent.github.io/omi/packages/omim/test-vue/dist/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-vue/app.vue)
+
 ## 使用指南
 
 ### 通过 script
@@ -113,6 +118,64 @@ or
 
 ```html
 <my-element show="0"></my-element>
+```
+
+## React 中使用 omim
+
+```jsx
+/** @jsx nativeEvents */
+import nativeEvents from 'jsx-native-events'
+import { useState } from 'react'
+import '@omim/core/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
+        </m-icon-button>
+      </div>
+    )
+}
+```
+
+非常感谢 calebdwilliams 的 [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme)。
+
+## Vue 中使用 omim
+
+```html
+<script>
+import '@omim/core/icon-button'
+
+export default {
+  name: 'HelloWorld',
+  data: function() {
+    return {
+      result: false
+    }
+  },
+  methods: {
+    myEvent: function(evt) {
+      this.result = evt.detail.isOn
+    }
+  }
+}
+</script>
+
+<template>
+  <div class="component">
+    <p>The switch is {{result? 'on' : 'off'}}</p>
+    <m-icon-button color="red" icons="['favorite', 'favorite_border']" @change="myEvent"></m-icon-button>
+  </div>
+</template>
+```
+
+> 要在 react 和 vue 中正常显示 icon，需要在 HTML 中引入下面的 CSS:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 ```
 
 ## 贡献
