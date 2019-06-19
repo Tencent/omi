@@ -80,11 +80,11 @@ table {
 }
 
 .prev-year-btn:after {
-  content: '\AB';
+  content: '«';
 }
 
 .prev-month-btn:after {
-  content: '\2039';
+  content: '‹';
 }
 
 ._now{
@@ -117,11 +117,11 @@ table {
 }
 
 .next-year-btn:after {
-  content: '\BB';
+  content: '»';
 }
 
 .next-month-btn:after {
-  content: '\203A';
+  content: '›';
 }
 
 .next-year-btn {
