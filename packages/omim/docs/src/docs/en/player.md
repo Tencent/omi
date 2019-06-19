@@ -18,7 +18,7 @@ Video player modify from [eplayer](https://github.com/132yse/eplayer).
 or 
 
 ```jsx
-import '@omim/core/player'
+import 'omim/player'
 
 //using tag anywhere
 

@@ -11,8 +11,8 @@ Transition & Transition Group. 很容易运动一个或者一堆 dom 元素，�
 
 ```jsx
 import { define, WeElement, render, h } from 'omi'
-import '@omim/core/transition'
-import '@omim/core/transition-group'
+import 'omim/transition'
+import 'omim/transition-group'
 
 define('my-app', class extends WeElement {
 

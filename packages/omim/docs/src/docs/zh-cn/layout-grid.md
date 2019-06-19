@@ -6,7 +6,7 @@
 ## 使用 
 
 ```js
-import * as css from '@omim/core/layout-grid'
+import * as css from 'omim/layout-grid'
 ```
 
 在 HTML 中使用对应的 class:

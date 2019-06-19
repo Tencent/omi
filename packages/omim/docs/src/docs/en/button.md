@@ -5,7 +5,7 @@ Click or touch it to trigger an operation. The encapsulated logic is triggered i
 ## Import
 
 ```js
-import '@omim/core/button'
+import 'omim/button'
 ```
 
 Or use script tag to ref it.

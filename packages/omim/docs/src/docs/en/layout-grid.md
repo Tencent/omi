@@ -5,7 +5,7 @@ Material design’s responsive UI is based on a column-variate grid layout. It h
 ## Usage 
 
 ```js
-import * as css from '@omim/core/layout-grid'
+import * as css from 'omim/layout-grid'
 ```
 
 Then using class in HTML:

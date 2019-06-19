@@ -5,7 +5,7 @@
 ## 使用
 
 ```js
-import toast from '@omim/core/toast'
+import toast from 'omim/toast'
 
 //显示 loading
 toast.showLoading()

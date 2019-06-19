@@ -11,8 +11,8 @@ Transition & Transition Group. An easy way to perform animations when dom enters
 
 ```jsx
 import { define, WeElement, render, h } from 'omi'
-import '@omim/core/transition'
-import '@omim/core/transition-group'
+import 'omim/transition'
+import 'omim/transition-group'
 
 define('my-app', class extends WeElement {
 

@@ -26,7 +26,7 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 
 ```html
 <script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
+<script src="https://unpkg.com/omim@latest/button/index.js"></script>
 
 <m-button>I am button</m-button>
 ```
@@ -34,13 +34,13 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 ### Via npm
 
 ``` bash
-npm install @omim/core
+npm install omim
 ```
 
 Then:
 
 ```js
-import '@omim/core/button'
+import 'omim/button'
 ```
 
 Then use the element in Omi, React, Vue or Angular:
@@ -128,7 +128,7 @@ or
 /** @jsx nativeEvents */
 import nativeEvents from 'jsx-native-events'
 import { useState } from 'react'
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default function SomeComponent(props) {
     const [result, setSwitch] = useState(false)
@@ -150,7 +150,7 @@ Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwil
 
 ```html
 <script>
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default {
   name: 'HelloWorld',

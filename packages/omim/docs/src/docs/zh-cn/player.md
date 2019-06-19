@@ -18,7 +18,7 @@
 or 
 
 ```jsx
-import '@omim/core/player'
+import 'omim/player'
 
 //using tag anywhere
 

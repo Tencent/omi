@@ -38,7 +38,7 @@ npm install @omim/core
 Then:
 
 ```js
-import '@omim/core/button'
+import 'omim/button'
 ```
 
 Then use the element in Omi, React, Vue or Angular:
@@ -126,7 +126,7 @@ or
 /** @jsx nativeEvents */
 import nativeEvents from 'jsx-native-events'
 import { useState } from 'react'
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default function SomeComponent(props) {
     const [result, setSwitch] = useState(false)
@@ -147,7 +147,7 @@ Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwil
 
 ```html
 <script>
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default {
   name: 'HelloWorld',

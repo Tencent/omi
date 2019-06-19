@@ -5,7 +5,7 @@
 ## 导入
 
 ```js
-import '@omim/core/button'
+import 'omim/button'
 ```
 
 或者直接 script 标签引入。

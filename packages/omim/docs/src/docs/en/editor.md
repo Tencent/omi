@@ -6,7 +6,7 @@ Rich text editor.
 
 ```jsx
 import { render, h } from 'omi'
-import '@omim/core/editor'
+import 'omim/editor'
 
 render(
   <div>

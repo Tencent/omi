@@ -5,7 +5,7 @@
 ## 使用
 
 ```js
-import dialog from '@omim/core/dialog'
+import dialog from 'omim/dialog'
 
 dialog.confirm({
   confirmText: '确认',

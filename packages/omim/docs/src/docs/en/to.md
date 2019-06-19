@@ -39,7 +39,7 @@ Animate anything with m-to tag.
 
 ```jsx
 import { define, WeElement, render, h } from 'omi'
-import '@omim/core/to'
+import 'omim/to'
 
 define('my-app', class extends WeElement {
 

@@ -21,7 +21,7 @@ MDC Typography is a foundational module that applies these styles to MDC Web com
 ## Usage
 
 ```js
-import * as css from '@omim/core/typography'
+import * as css from 'omim/typography'
 
 console.log(css)
 ```

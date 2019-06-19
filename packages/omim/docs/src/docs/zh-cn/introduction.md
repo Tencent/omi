@@ -38,7 +38,7 @@ npm install @omim/core
 Then:
 
 ```js
-import '@omim/core/button'
+import 'omim/button'
 ```
 
 然后在任意框架中使用，比如 Omi, React, Vue or Angular:
@@ -126,7 +126,7 @@ or
 /** @jsx nativeEvents */
 import nativeEvents from 'jsx-native-events'
 import { useState } from 'react'
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default function SomeComponent(props) {
     const [result, setSwitch] = useState(false)
@@ -147,7 +147,7 @@ export default function SomeComponent(props) {
 
 ```html
 <script>
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default {
   name: 'HelloWorld',

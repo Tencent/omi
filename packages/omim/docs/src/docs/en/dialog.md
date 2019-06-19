@@ -5,7 +5,7 @@ Dialogs inform users about a task and can contain critical information, require 
 ## Usage
 
 ```js
-import dialog from '@omim/core/dialog'
+import dialog from 'omim/dialog'
 
 dialog.confirm({
   confirmText: 'OK',

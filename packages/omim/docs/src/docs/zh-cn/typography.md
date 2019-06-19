@@ -21,7 +21,7 @@ MDC Typography是一个基础模块，它将这些样式应用于MDC Web组件�
 ## 使用
 
 ```js
-import * as css from '@omim/core/typography'
+import * as css from 'omim/typography'
 
 console.log(css)
 ```

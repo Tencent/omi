@@ -36,6 +36,6 @@ npm install @omim/core
 然后:
 
 ```js
-import '@omim/core/chart'
+import 'omim/chart'
 ```
 
