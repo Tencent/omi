@@ -1,6 +1,6 @@
 # Omim
 
-[Omi](https://github.com/Tencent/omi) 打造的 Material Design 框架无关标准组件，任意框架都可以使用。
+[Omi](https://github.com/Tencent/omi) 打造的跨框架、跨主题组件库。任意框架使用、主题自由定制。
 
 ![](https://tencent.github.io/omi/packages/omim/assets/pv4.jpeg?a=1)
 

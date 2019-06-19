@@ -1,6 +1,6 @@
 # Omim
 
-Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
+ Cross **frameworks** and **themes** components by [Omi](https://github.com/Tencent/omi).
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
 
