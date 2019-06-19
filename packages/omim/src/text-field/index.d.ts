@@ -74,6 +74,7 @@ export default class TextField extends WeElement<Props, Data> {
         trailingIconContent: StringConstructor;
         leftIcon: StringConstructor;
         rightIcon: StringConstructor;
+        iconEvent: BooleanConstructor;
     };
     mdc: MDCTextField;
     root: HTMLElement;
@@ -82,6 +83,7 @@ export default class TextField extends WeElement<Props, Data> {
     layout: () => void;
     uninstall(): void;
     refIt: (e: any) => void;
+    iconClick: () => void;
     render(props: any): JSX.Element[];
 }
 export {};

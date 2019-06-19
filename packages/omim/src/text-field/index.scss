@@ -10,6 +10,11 @@
   pointer-events: none;
 }
 
+.material-icons.icon-event{
+  cursor: pointer;
+  pointer-events: all;
+}
+
 .mdc-text-field--with-leading-icon .icon{
   position: absolute;
   top: 12px;

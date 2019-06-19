@@ -9,6 +9,9 @@ render(
     <h3>With font Icon</h3>
     <m-text-field rightIcon='delete' label='Label1' helperText='Helper Text' />
 
+    <h3>With font Icon and Icon Event</h3>
+    <m-text-field rightIcon='delete' label='Label1' onIconClick={onIconClick} iconEvent={true} helperText='Helper Text' />
+
     <br />
     <h3>Filled</h3>
 
@@ -183,3 +186,6 @@ render(
   </div>
   , 'body')
 
+function onIconClick(){
+  console.log('icon click')
+}
