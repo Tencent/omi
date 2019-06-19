@@ -1,6 +1,6 @@
 import * as css from './_dashboard.css'
 import { define, WeElement, h } from 'omi'
-import '@omim/core/card'
+import 'omim/card'
 import * as bg from './bg.png'
 
 define('my-about', class extends WeElement {

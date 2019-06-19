@@ -1,10 +1,10 @@
 import * as css from './_dashboard.css'
 import { define, WeElement, h } from 'omi'
-import '@omim/core/row'
-import '@omim/core/icon-button'
-import '@omim/core/breadcrumb'
+import 'omim/row'
+import 'omim/icon-button'
+import 'omim/breadcrumb'
 import './top-card'
-import '@omim/core/editor'
+import 'omim/editor'
 
 define('my-editor', class extends WeElement {
   static css = css

@@ -1,7 +1,7 @@
 import logo from './logo.svg'
 import * as css from './_app.css'
 import { define, WeElement, h } from 'omi'
-import '@omim/core/button'
+import 'omim/button'
 import 'omi-router'
 import './dashboard'
 import './about'

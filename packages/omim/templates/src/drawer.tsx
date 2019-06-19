@@ -1,6 +1,6 @@
 import * as css from './_drawer.css'
 import { define, WeElement, h, extractClass } from 'omi'
-import '@omim/core/nav'
+import 'omim/nav'
 
 const hash = location.hash || '#/dashboard'
 
