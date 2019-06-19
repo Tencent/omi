@@ -1,9 +1,10 @@
-import { define, WeElement, extractClass, classNames } from 'omi'
-import css from './_index.css'
+import { WeElement, extractClass, classNames, h, tag } from 'omi'
+import css from './index.scss'
 import '../icon'
 import '../input'
 
-define('m-date-picker', class extends WeElement {
+@tag('m-date-picker')
+class DatePicker extends WeElement<{}, {}> {
 
   static css = css
 
@@ -178,7 +179,7 @@ define('m-date-picker', class extends WeElement {
       </div>
     )
   }
-})
+}
 
 
 
