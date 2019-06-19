@@ -3,8 +3,12 @@ import css from './index.scss'
 import '../icon'
 import '../input'
 
+interface Props {
+  lan: string
+}
+
 @tag('m-date-picker')
-class DatePicker extends WeElement<{}, {}> {
+class DatePicker extends WeElement<Props, {}> {
 
   static css = css
 
@@ -20,6 +24,14 @@ class DatePicker extends WeElement<{}, {}> {
 
     this.initDate()
 
+  }
+
+  locale: any
+  installed() {
+    import('./locale/' + this.props.lan).then((locale) => {
+      this.locale = locale
+      this.update(true)
+    })
   }
 
   initCurrentDate() {
@@ -147,7 +159,7 @@ class DatePicker extends WeElement<{}, {}> {
         {props.show && <div class='_ctn'>
           <div class="_header">
             <div style="position: relative;">
-              <a class="prev-year-btn" role="button" title="上一年"  onClick={this.gotoPreYear}></a>
+              <a class="prev-year-btn" role="button" title="上一年" onClick={this.gotoPreYear}></a>
               <a class="prev-month-btn" role="button" title="上个月" onClick={this.gotoPreMonth}></a>
               <span class="ym-select">
                 <a class="year-select" role="button" title="选择年份">{this.year}年</a>
