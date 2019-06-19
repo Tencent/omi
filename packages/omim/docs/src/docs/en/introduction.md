@@ -24,7 +24,7 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 
 ```html
 <script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
+<script src="https://unpkg.com/omim@latest/button/index.js"></script>
 
 <m-button>I am button</m-button>
 ```
@@ -32,7 +32,7 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 ### Via npm
 
 ``` bash
-npm install @omim/core
+npm install omim
 ```
 
 Then:

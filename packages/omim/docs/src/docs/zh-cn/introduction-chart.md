@@ -24,13 +24,13 @@
 
 ```html
 <script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@latest/chart/index.js"></script>
+<script src="https://unpkg.com/omim@latest/chart/index.js"></script>
 ```
 
 ### 通过 npm
 
 ``` bash
-npm install @omim/core
+npm install omim
 ```
 
 然后:

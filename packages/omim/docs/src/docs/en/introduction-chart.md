@@ -25,13 +25,13 @@
 
 ```html
 <script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@latest/chart/index.js"></script>
+<script src="https://unpkg.com/omim@latest/chart/index.js"></script>
 ```
 
 ### Via npm
 
 ``` bash
-npm install @omim/core
+npm install omim
 ```
 
 Then:

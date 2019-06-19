@@ -24,7 +24,7 @@
 
 ```html
 <script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
+<script src="https://unpkg.com/omim@latest/button/index.js"></script>
 
 <m-button>I am button</m-button>
 ```
@@ -32,7 +32,7 @@
 ### 通过 npm
 
 ``` bash
-npm install @omim/core
+npm install omim
 ```
 
 Then:
