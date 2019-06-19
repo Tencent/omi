@@ -68,3 +68,8 @@ JSX:
 | cols | number | -- |  多行输入框宽度，数值表示n个字符宽度 |
 | value | string | -- | 默认输入值 |
 | disabled | boolean | -- | 输入框失效 |
+| icon-event | boolean | -- | icon是否有绑定事件，鼠标形状会变成小手 |
+
+### Events
+
+* iconclick - 点击 icon 触发

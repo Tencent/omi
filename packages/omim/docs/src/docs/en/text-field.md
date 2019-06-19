@@ -68,3 +68,8 @@ JSX:
 | cols | number | -- |  The width of the multiline input box. The numeric value represents the width of n characters |
 | value | string | -- | Default input value |
 | disabled | boolean | -- | Input box prohibit |
+| icon-event | boolean | - | icon has a binding event or not,cursor becomes pointer if ture|
+
+### Events
+
+* iconclick - click icon to trigger
