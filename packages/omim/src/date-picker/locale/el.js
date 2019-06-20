@@ -3,7 +3,10 @@
 //! author : Aggelos Karalias : https://github.com/mehiel
 
 import moment from '../moment';
-import isFunction from '../lib/utils/is-function';
+
+function isFunction(functionToCheck) {
+    return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+}
 
 export default moment.defineLocale('el', {
     monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),

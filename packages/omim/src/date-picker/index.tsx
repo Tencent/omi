@@ -1,16 +1,22 @@
 import { WeElement, extractClass, classNames, h, tag } from 'omi'
 import css from './index.scss'
-import '../icon'
-import '../input'
 
 interface Props {
-  lan: string
+  lan: string,
+  selectedDate: string
 }
 
 @tag('m-date-picker')
 class DatePicker extends WeElement<Props, {}> {
 
+  static defaultProps = {
+    lan: 'en'
+  }
+
   static css = css
+  nowYear: number
+  nowMonth: number
+  nowDay: number
 
   install() {
     this.now = new Date()
@@ -28,11 +34,19 @@ class DatePicker extends WeElement<Props, {}> {
 
   locale: any
   installed() {
-    import('./locale/' + this.props.lan).then((locale) => {
-      this.locale = locale
+
+
+    import('./locale/' + this.props.lan + '.js').then((locale) => {
+      console.log(locale.default)
+      this.locale = locale.default
       this.update(true)
     })
   }
+
+  selectedDate: string
+  dateArr: string[]
+  currentDate: Date
+  now: Date
 
   initCurrentDate() {
     if (this.selectedDate) {
@@ -45,6 +59,19 @@ class DatePicker extends WeElement<Props, {}> {
       this.currentDate = this.now
     }
   }
+
+  year: number
+  month: number
+  day: number
+  begin: number
+  count: number
+  preMonthDate: Date
+  preYear: number
+  preMonth: number
+  preCount: number
+  nextMonthDate: Date
+  nextYear: number
+  nextMonth: number
 
   initDate() {
     this.year = this.currentDate.getFullYear()
@@ -89,6 +116,7 @@ class DatePicker extends WeElement<Props, {}> {
   }
 
 
+  noSelected: boolean
   onSelectDate = (evt) => {
     this.selectedDate = evt.target.getAttribute('data-date')
     this.noSelected = false
