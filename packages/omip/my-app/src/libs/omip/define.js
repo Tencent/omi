@@ -1,4 +1,3 @@
-const version = wx.getSystemInfoSync().SDKVersion
 
 export function define(name, ctor) {
   const ins = new ctor
@@ -33,25 +32,13 @@ export function define(name, ctor) {
   }
 
   config.properties = ctor.properties
-
-  //todo https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/observer.html
-  //基础库 v2.6.1 使用 数据监听器
-  if (compareVersion(version, '2.6.1') >= 0) {
-    config.observers = {}
-    Object.keys(ctor.properties).forEach(key => {
-      config.observers[key] = function (newVal) {
-        ins.props[key] = newVal
-        ins.update()
-      }
-    })
-  } else {
-    Object.keys(ctor.properties).forEach(key => {
-      ctor.properties[key].observer = function (newVal, oldVal, changedPath) {
-        ins.props[key] = newVal
-        ins.update()
-      }
-    })
-  }
+  
+  Object.keys(ctor.properties).forEach(key => {
+    ctor.properties[key].observer = function (newVal, oldVal, changedPath) {
+      ins.props[key] = newVal
+      ins.update()
+    }
+  })
 
   config.attached = function () {
     //ins.props = this.properties
@@ -72,30 +59,4 @@ export function define(name, ctor) {
   }
 
   Component(config)
-}
-
-function compareVersion(v1, v2) {
-  v1 = v1.split('.')
-  v2 = v2.split('.')
-  const len = Math.max(v1.length, v2.length)
-
-  while (v1.length < len) {
-    v1.push('0')
-  }
-  while (v2.length < len) {
-    v2.push('0')
-  }
-
-  for (let i = 0; i < len; i++) {
-    const num1 = parseInt(v1[i])
-    const num2 = parseInt(v2[i])
-
-    if (num1 > num2) {
-      return 1
-    } else if (num1 < num2) {
-      return -1
-    }
-  }
-
-  return 0
 }
