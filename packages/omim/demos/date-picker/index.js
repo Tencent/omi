@@ -5,7 +5,7 @@ import { render, h } from 'omi'
 
 render(
   <div>
-   <m-date-picker></m-date-picker>
+   <m-date-picker show={true}></m-date-picker>
   </div>
   , 'body')
 

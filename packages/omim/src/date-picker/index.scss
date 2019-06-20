@@ -29,7 +29,7 @@
 }
 
 ._today {
-  color: #07C160;
+  color: $mdc-theme-primary;
 }
 
 .input {
@@ -69,14 +69,11 @@ table {
 
 ._header {
   position: relative;
-  top: -2px;
-
-  position: relative;
   text-align: center;
   border: 1px solid #DADADA;
-  border-top: none;
-  height: 30px;
-  line-height: 30px;
+  // border-top: none;
+  height: 35px;
+  line-height: 35px;
 }
 
 .prev-year-btn:after {
@@ -88,12 +85,15 @@ table {
 }
 
 ._now{
-  color: #07C160;
+  color: $mdc-theme-primary;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+ 
 }
 
 .selected{
   display: block;
-  background-color: #07C160;
+  background-color: $mdc-theme-primary;
   color: white;
   border-radius: 50%;
   width: 30px;
@@ -102,6 +102,10 @@ table {
   position: relative;
   top: 2px;
   right: -5px;
+}
+
+.selected:hover{
+  color: white;
 }
 
 .prev-year-btn {

@@ -1,5 +1,5 @@
 import { WeElement, extractClass, classNames, h, tag } from 'omi'
-import css from './index.scss'
+import * as css from './index.scss'
 
 interface Props {
   lan: string,
@@ -121,6 +121,7 @@ class DatePicker extends WeElement<Props, {}> {
     this.selectedDate = evt.target.getAttribute('data-date')
     this.noSelected = false
     this.fire('select', this.selectedDate)
+    this.update(true)
   }
 
   getDay(y, x) {
