@@ -243,17 +243,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -263,6 +252,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/expansion/index.scss");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
 __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Expansion = /** @class */ (function (_super) {
@@ -271,7 +261,6 @@ var Expansion = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Expansion.prototype.receiveProps = function () {
-        //@ts-ignore
         var rect = this.shadowRoot.querySelector('div').getBoundingClientRect();
         if (this.props.expand) {
             this.style.height = rect.height + 'px';
@@ -281,23 +270,40 @@ var Expansion = /** @class */ (function (_super) {
         }
         return false;
     };
-    Expansion.prototype.installed = function () {
-        console.log(this.props.expand);
-        console.log(this.children[0]);
-        //@ts-ignore
-        var rect = this.children[0].getBoundingClientRect();
-        if (!this.props.expand) {
+    Expansion.prototype.setAttribute = function (attr, value) {
+        console.error(attr);
+        if (attr.toLowerCase() === 'expand') {
+            console.error(this.shadowRoot.querySelector('div').getBoundingClientRect().height);
+            this.style.height = this.shadowRoot.querySelector('div').getBoundingClientRect().height + 'px';
+        }
+        else {
+            //@ts-ignore
+            _super.prototype.pureSetAttribute.call(this, attr);
+        }
+    };
+    Expansion.prototype.removeAttribute = function (attr) {
+        if (attr === 'expand') {
             this.style.height = '0px';
         }
         else {
-            console.log(this.shadowRoot.firstChild);
-            console.log(rect.height);
-            this.style.height = rect.height + 'px';
+            //@ts-ignore
+            _super.prototype.pureRemoveAttribute.call(this, attr);
         }
     };
+    Expansion.prototype.install = function () {
+        var _this = this;
+        dom_ready_1.domReady(function () {
+            var rect = _this.shadowRoot.querySelector('div').getBoundingClientRect();
+            if (!_this.props.expand) {
+                _this.style.height = '0px';
+            }
+            else {
+                _this.style.height = rect.height + 'px';
+            }
+        });
+    };
     Expansion.prototype.render = function (props) {
-        console.log(123);
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-expansion')),
+        return (omi_1.h("div", null,
             omi_1.h("slot", null)));
     };
     Expansion.css = css;
@@ -342,6 +348,36 @@ function theme() {
         document.body.style.setProperty('--mdc-typography--font-family', 'Roboto, sans-serif');
     }
 }
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

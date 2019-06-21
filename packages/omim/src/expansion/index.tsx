@@ -1,6 +1,6 @@
 import { tag, WeElement, h, extractClass, getHost } from 'omi'
 import * as css from './index.scss'
-
+import { domReady }from '../util/dom-ready'
 //@ts-ignore
 import '../theme.ts'
 
@@ -22,7 +22,7 @@ export default class Expansion extends WeElement<Props, Data> {
   preHeight: number
 
   receiveProps(){
-    const rect = this._host.getBoundingClientRect()
+    const rect = this.shadowRoot.querySelector('div').getBoundingClientRect()
     if(this.props.expand){
       this.style.height =  rect.height + 'px'
     }else{
@@ -31,22 +31,42 @@ export default class Expansion extends WeElement<Props, Data> {
     return false
   }
 
-  installed() {
-    const rect = this._host.getBoundingClientRect()
-    if(!this.props.expand){
+  setAttribute(attr, value){
+    if(attr.toLowerCase() === 'expand'){
+      this.style.height = this.shadowRoot.querySelector('div').getBoundingClientRect().height + 'px'
+    }else{
+      //@ts-ignore
+      super.pureSetAttribute(attr)
+    }
+  }
+  
+
+  removeAttribute(attr){
+    if(attr === 'expand'){
       this.style.height = '0px'
     }else{
-      this.style.height = rect.height +'px'
+      //@ts-ignore
+      super.pureRemoveAttribute(attr)
     }
+  }
+  
+  install() {
+    domReady(()=>{
+      const rect = this.shadowRoot.querySelector('div').getBoundingClientRect()
+      
+      if(!this.props.expand){
+        this.style.height = '0px'
+      }else{
+        this.style.height = rect.height +'px'
+      }
+    })
   }
 
 
 
   render(props) {
     return (
-      <div
-        {...extractClass(props, 'm-expansion')}
-      >
+      <div>
         <slot />
       </div>
     )
