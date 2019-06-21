@@ -129,7 +129,9 @@ class DatePicker extends WeElement<Props, {}> {
     if (y === 0) {
       if (x < this.begin) {
         dateStr = this.preYear + '-' + (this.preMonth + 1) + '-' + (this.preCount - this.begin + x + 1)
-        return <td data-date={dateStr} class={'_out-date' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>{this.preCount - this.begin + x + 1}</td>
+        return <td data-date={dateStr} class={'_out-date' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>
+          {this.preCount - this.begin + x + 1}
+        </td>
       } else {
         const d = x - this.begin + 1
         dateStr = this.year + '-' + (this.month + 1) + '-' + d
@@ -154,7 +156,9 @@ class DatePicker extends WeElement<Props, {}> {
         }
       } else {
         dateStr = this.nextYear + '-' + (this.nextMonth + 1) + '-' + (temp - this.count)
-        return <td data-date={dateStr} class={'_out-date' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>{temp - this.count}</td>
+        return <td data-date={dateStr} class={'_out-date' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>
+          {temp - this.count}
+        </td>
       }
     }
   }
