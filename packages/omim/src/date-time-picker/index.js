@@ -18610,7 +18610,7 @@ webpackContext.id = "./node_modules/_moment@2.24.0@moment/locale sync recursive 
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../_webpack@4.33.0@webpack/buildin/module.js */ "./node_modules/_webpack@4.33.0@webpack/buildin/module.js")(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../_webpack@4.34.0@webpack/buildin/module.js */ "./node_modules/_webpack@4.34.0@webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -19194,7 +19194,7 @@ return Unipointer;
 
 /***/ }),
 
-/***/ "./node_modules/_webpack@4.33.0@webpack/buildin/module.js":
+/***/ "./node_modules/_webpack@4.34.0@webpack/buildin/module.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -19300,11 +19300,20 @@ var DateTimePicker = /** @class */ (function (_super) {
     DateTimePicker.prototype.install = function () {
         moment.locale(this.props.lan);
     };
+    DateTimePicker.prototype.receiveProps = function (props, data, pre) {
+        if (props.show && !pre.show) {
+            this.picker.show();
+        }
+        else if (pre.show && !props.show) {
+            this.picker.hide();
+        }
+        return false;
+    };
     DateTimePicker.prototype.installed = function () {
         var _this = this;
         var now = moment();
         //@ts-ignore
-        var dialog = new mdDateTimePicker_1.default({
+        var picker = new mdDateTimePicker_1.default({
             type: this.props.type,
             root: this.shadowRoot.querySelector('.m-m-date-time-picker'),
             init: this.props.init ? moment(this.props.init) : now,
@@ -19318,8 +19327,9 @@ var DateTimePicker = /** @class */ (function (_super) {
             }
         });
         if (this.props.show) {
-            dialog.show();
+            picker.show();
         }
+        this.picker = picker;
     };
     DateTimePicker.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-m-date-time-picker'))));

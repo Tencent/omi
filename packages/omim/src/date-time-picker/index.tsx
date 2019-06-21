@@ -29,7 +29,7 @@ export default class DateTimePicker extends WeElement<Props, Data>{
     show: false
   }
 
-  install(){
+  install() {
     moment.locale(this.props.lan);
   }
 
@@ -42,35 +42,50 @@ export default class DateTimePicker extends WeElement<Props, Data>{
     lan: String
   }
 
+  receiveProps(props, data, pre) {
+    if (props.show && !pre.show) {
+      this.picker.show()
+
+    } else if (pre.show && !props.show) {
+      this.picker.hide()
+    }
+
+    return false
+  }
+
+  picker: Picker
+
   installed() {
 
 
     const now = moment()
     //@ts-ignore
-    const dialog = new Picker({
+    const picker = new Picker({
       type: this.props.type,
       root: this.shadowRoot.querySelector('.m-m-date-time-picker'),
       init: this.props.init ? moment(this.props.init) : now,
       past: this.props.past ? moment(this.props.past) : moment().subtract(21, 'years'),
       future: this.props.future ? moment(this.props.future) : now,
-      onOk: (evt)=>{
+      onOk: (evt) => {
         this.fire('ok', evt)
       },
-      onCancel:()=>{
+      onCancel: () => {
         this.fire('cancel')
       }
     })
 
     if (this.props.show) {
-      dialog.show()
+      picker.show()
     }
+
+    this.picker = picker
 
   }
 
   render(props) {
     return (
       <div {...extractClass(props, 'm-m-date-time-picker')}>
-        
+
       </div>
     )
   }

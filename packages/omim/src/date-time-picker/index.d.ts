@@ -1,3 +1,4 @@
+import Picker from './md-date-time-picker/js/mdDateTimePicker';
 import { WeElement } from 'omi';
 import '../theme.ts';
 interface Props {
@@ -25,6 +26,8 @@ export default class DateTimePicker extends WeElement<Props, Data> {
         future: StringConstructor;
         lan: StringConstructor;
     };
+    receiveProps(props: any, data: any, pre: any): boolean;
+    picker: Picker;
     installed(): void;
     render(props: any): JSX.Element;
 }
