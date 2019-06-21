@@ -36,7 +36,8 @@ const config = {
 
           { name: 'Elevation 高度盒', md: 'elevation', demo: './repl/elevation.html' },
           { name: 'Image List 图片列表', md: 'image-list', demo: './repl/image-list.html' },
-          { name: 'Layout Grid 网格布局', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
+          { name: 'Layout Grid 网格布局', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' },
+          { name: 'Expansion 展开', md: 'expansion', demo: 'https://tencent.github.io/omi/packages/omim/demos/expansion/index.script.html' }
         ]
       },
       {
@@ -148,7 +149,8 @@ const config = {
           { name: 'Row', md: 'row', demo: './repl/row.html' },
           { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
           { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' },
-          { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' }
+          { name: 'Layout Grid', md: 'layout-grid', demo: 'https://tencent.github.io/omi/packages/omim/demos/layout-grid/index.repl.html' },
+          { name: 'Expansion', md: 'expansion', demo: 'https://tencent.github.io/omi/packages/omim/demos/expansion/index.script.html' }
         ]
       },
       {

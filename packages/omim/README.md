@@ -274,7 +274,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | autocomplete |  | |
 | bottom nav | member | done|
 | accordion |  | |
-| expansion | member |  |
+| expansion | member | done |
 | toggle buttons | member | done|
 | player | 132yse | done|
 | welcome to add a new element! |  |
