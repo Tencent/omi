@@ -171,8 +171,10 @@ class DateRangePicker extends WeElement<Props, {}> {
     this.fire('toggle', this.selectedDate)
   }
 
-  render(props) {
-    const arr = []
+	_getLeftArr(){
+		this.initCurrentDate()
+		this.initDate()
+		const arr = []
     for (let i = 0; i < 6; i++) {
       arr.push(<tr>
         {this.getDay(i, 0)}
@@ -183,10 +185,35 @@ class DateRangePicker extends WeElement<Props, {}> {
         {this.getDay(i, 5)}
         {this.getDay(i, 6)}
       </tr>)
-    }
+		}
+		return arr
+	}
+
+	_getRightArr(){
+		this.initCurrentDate()
+		this.currentDate = getNextMonth(this.currentDate)
+		this.initDate()
+		const arr = []
+    for (let i = 0; i < 6; i++) {
+      arr.push(<tr>
+        {this.getDay(i, 0)}
+        {this.getDay(i, 1)}
+        {this.getDay(i, 2)}
+        {this.getDay(i, 3)}
+        {this.getDay(i, 4)}
+        {this.getDay(i, 5)}
+        {this.getDay(i, 6)}
+      </tr>)
+		}
+		return arr
+	}
+
+  render(props) {
+		const leftArr = this._getLeftArr()
+		const rightArr = this._getRightArr()
 
     return (
-      <div>
+      <div class='m-date-range-picker'>
         <div class='m-date-picker'>
           {props.show && <div class='_ctn'>
             <div class="_header">
@@ -195,7 +222,7 @@ class DateRangePicker extends WeElement<Props, {}> {
                 <a class="prev-month-btn" role="button" title="上个月" onClick={this.gotoPreMonth}></a>
                 <span class="ym-select">
                   <a class="year-select" role="button" title="选择年份">{this.year}年</a>
-                  <a class="month-select" role="button" title="选择月份">{this.month + 1}月</a>
+                  <a class="month-select" role="button" title="选择月份">{this.month}月</a>
                 </span>
                 <a class="next-month-btn" title="下个月" onClick={this.gotoNextMonth}></a>
                 <a class="next-year-btn" title="下一年" onClick={this.gotoNextYear}></a>
@@ -214,7 +241,7 @@ class DateRangePicker extends WeElement<Props, {}> {
                 </tr>
               </thead>
               <tbody onClick={this.onSelectDate}>
-                {arr}
+                {leftArr}
               </tbody>
             </table>
           </div>}
@@ -249,7 +276,7 @@ class DateRangePicker extends WeElement<Props, {}> {
                 </tr>
               </thead>
               <tbody onClick={this.onSelectDate}>
-                {arr}
+                {rightArr}
               </tbody>
             </table>
           </div>}
