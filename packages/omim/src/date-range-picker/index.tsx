@@ -150,12 +150,14 @@ class DateRangePicker extends WeElement<Props, {}> {
           this.from = this.to
           this.to = temp
         }
+
+        this.fire('select', { fromDate: new Date(this.from), toDate: new Date(this.to), from: this.from, to: this.to })
       }
     } else {
       this.from = dateStr
     }
     this.noSelected = false
-    this.fire('select', { from: this.from, to: this.to })
+    
     this.update(true)
   }
 
@@ -165,9 +167,7 @@ class DateRangePicker extends WeElement<Props, {}> {
     if (y === 0) {
       if (x < this.begin) {
         dateStr = this.preYear + '-' + (this.preMonth + 1) + '-' + (this.preCount - this.begin + x + 1)
-        return <td data-date={dateStr} class={classNames('_out-date', {
-          'selected': (dateStr === this.from || dateStr === this.to) && !this.noSelected
-        })}>
+        return <td data-date={dateStr} class='_out-date'>
           {this.preCount - this.begin + x + 1}
         </td>
       } else {
@@ -195,9 +195,7 @@ class DateRangePicker extends WeElement<Props, {}> {
 
       } else {
         dateStr = this.nextYear + '-' + (this.nextMonth + 1) + '-' + (temp - this.count)
-        return <td data-date={dateStr} class={classNames('_out-date', {
-          'selected': (dateStr === this.from || dateStr === this.to) && !this.noSelected
-        })}>
+        return <td data-date={dateStr} class='_out-date'>
           {temp - this.count}
         </td>
       }
