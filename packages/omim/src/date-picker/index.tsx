@@ -13,6 +13,11 @@ class DatePicker extends WeElement<Props, {}> {
     lan: 'en'
   }
 
+  static propTypes = {
+    lan: String,
+    selectedDate: String
+  }
+
   static css = css
   nowYear: number
   nowMonth: number

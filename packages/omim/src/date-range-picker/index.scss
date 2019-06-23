@@ -1,5 +1,9 @@
 @import "../theme";
 
+:host {
+  display: block;
+}
+
 .m-date-range-picker{
 	font-size: 0.875rem;
   border-radius: $mdc-shape-medium-component-radius;

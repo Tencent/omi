@@ -17,6 +17,14 @@ class DateRangePicker extends WeElement<Props, {}> {
     lan: 'en'
   }
 
+  static propTypes = {
+    lan: String,
+    from: String,
+    to: String,
+    leftDate: String,
+    rightDate: String
+  }
+
   static css = css
   nowYear: number
   nowMonth: number
@@ -157,7 +165,7 @@ class DateRangePicker extends WeElement<Props, {}> {
       this.from = dateStr
     }
     this.noSelected = false
-    
+
     this.update(true)
   }
 
