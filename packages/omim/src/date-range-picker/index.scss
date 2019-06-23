@@ -96,12 +96,16 @@ thead{
   content: '‹';
 }
 
-._now{
+.now{
   color: $mdc-theme-primary;
   font-weight: bold;
   border-bottom: 1px solid #ccc;
-
 }
+
+.in-range {
+  background-color: #e6f7ff;
+}
+
 
 .selected{
   display: block;

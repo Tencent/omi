@@ -4,7 +4,9 @@ import * as css from './index.scss'
 interface Props {
   lan: string,
   from: string,
-  to: string
+  to: string,
+  leftDate: string,
+  rightDate: string
 
 }
 
@@ -25,13 +27,8 @@ class DateRangePicker extends WeElement<Props, {}> {
     this.nowYear = this.now.getFullYear()
     this.nowMonth = this.now.getMonth()
     this.nowDay = this.now.getDate()
-    this.from = this.props.from
+    this.from = this.props.from 
     this.to = this.props.to
-
-
-    this.initCurrentDate()
-
-    this.initDate(this.currentDate)
 
   }
 
@@ -48,18 +45,6 @@ class DateRangePicker extends WeElement<Props, {}> {
   dateArr: string[]
   currentDate: Date
   now: Date
-
-  initCurrentDate() {
-    if (this.from) {
-      this.dateArr = this.from.split('-')
-      this.currentDate = new Date(Number(this.dateArr[0]), Number(this.dateArr[1]) - 1, Number(this.dateArr[2]))
-
-    } else {
-      // this.from = this.nowYear + '-' + (this.nowMonth + 1) + '-' + this.nowDay
-      // this.noSelected = true
-      this.currentDate = this.now
-    }
-  }
 
   year: number
   month: number
@@ -118,52 +103,70 @@ class DateRangePicker extends WeElement<Props, {}> {
 
 
   noSelected: boolean
-  onSelectDate = (evt, isRight) => {
+  onSelectDate = (evt) => {
     if (evt.target.className.indexOf('_out-date') !== -1) return
-    if (isRight) {
-      this.to = evt.target.getAttribute('data-date')
+    const dateStr = evt.target.getAttribute('data-date')
+    if (this.from) {
+      if(this.to){
+        this.from = dateStr
+        this.to = null
+      }else{
+        if(dateStr === this.from) return
+        this.to = dateStr
+
+        if(new Date(this.from)>new Date(this.to)){
+          let temp  = this.from
+          this.from = this.to
+          this.to = temp
+        }
+      }
     } else {
-      this.from = evt.target.getAttribute('data-date')
+      this.from = dateStr
     }
     this.noSelected = false
     this.fire('select', { from: this.from, to: this.to })
     this.update(true)
   }
 
-  getDay(y, x, isRight) {
-    const date = isRight ? this.to : this.from
+  getDay(y, x) {
+   
     let dateStr
     if (y === 0) {
       if (x < this.begin) {
         dateStr = this.preYear + '-' + (this.preMonth + 1) + '-' + (this.preCount - this.begin + x + 1)
-        return <td data-date={dateStr} class={'_out-date' + (dateStr === date && !this.noSelected ? ' selected' : '')}>
+        return <td data-date={dateStr} class={classNames('_out-date', {
+          'selected': (dateStr === this.from || dateStr === this.to) && !this.noSelected
+        })}>
           {this.preCount - this.begin + x + 1}
         </td>
       } else {
         const d = x - this.begin + 1
         dateStr = this.year + '-' + (this.month + 1) + '-' + d
 
-        if (d === this.nowDay && this.year === this.nowYear && this.month === this.nowMonth) {
-          return <td data-date={dateStr} class={'_now' + (dateStr === date && !this.noSelected ? ' selected' : '')}>{d}</td>
-        } else {
-          let cls = dateStr === date && !this.noSelected ? { 'class': 'selected' } : null
-          return <td data-date={dateStr} {...cls}>{d}</td>
-        }
+        return <td data-date={dateStr} {...extractClass({}, {
+          'now': d === this.nowDay && this.year === this.nowYear && this.month === this.nowMonth,
+          'selected': (dateStr === this.from || dateStr === this.to) && !this.noSelected,
+          'in-range': inRange(this.from, this.to, dateStr)
+        })}>{d}</td>
+
 
       }
     } else {
       const temp = y * 7 + x - this.begin + 1
       if (temp <= this.count) {
         dateStr = this.year + '-' + (this.month + 1) + '-' + temp
-        if (temp === this.nowDay && this.year === this.nowYear && this.month === this.nowMonth) {
-          return <td data-date={dateStr} class={'_now' + (dateStr === date && !this.noSelected ? ' selected' : '')}>{temp}</td>
-        } else {
-          let cls = dateStr === date && !this.noSelected ? { 'class': 'selected' } : null
-          return <td data-date={dateStr} {...cls}>{temp}</td>
-        }
+
+        return <td data-date={dateStr} {...extractClass({}, {
+          'now': temp === this.nowDay && this.year === this.nowYear && this.month === this.nowMonth,
+          'selected': (dateStr === this.from || dateStr === this.to) && !this.noSelected,
+          'in-range': inRange(this.from, this.to, dateStr)
+        })}>{temp}</td>
+
       } else {
         dateStr = this.nextYear + '-' + (this.nextMonth + 1) + '-' + (temp - this.count)
-        return <td data-date={dateStr} class={'_out-date' + (dateStr === date && !this.noSelected ? ' selected' : '')}>
+        return <td data-date={dateStr} class={classNames('_out-date', {
+          'selected': (dateStr === this.from || dateStr === this.to) && !this.noSelected
+        })}>
           {temp - this.count}
         </td>
       }
@@ -173,42 +176,45 @@ class DateRangePicker extends WeElement<Props, {}> {
 
 
   toggle = () => {
-    this.initCurrentDate()
     this.initDate(this.currentDate)
     this.fire('toggle', { from: this.from, to: this.to })
   }
 
+  leftDate: Date
+  rightDate: Date
   _getLeftArr() {
-    this.initCurrentDate()
-    this.initDate(this.currentDate)
+    this.leftDate = this.props.leftDate?new Date(this.props.leftDate):new Date()
+
+    this.initDate(this.leftDate)
     const arr = []
     for (let i = 0; i < 6; i++) {
       arr.push(<tr>
-        {this.getDay(i, 0, false)}
-        {this.getDay(i, 1, false)}
-        {this.getDay(i, 2, false)}
-        {this.getDay(i, 3, false)}
-        {this.getDay(i, 4, false)}
-        {this.getDay(i, 5, false)}
-        {this.getDay(i, 6, false)}
+        {this.getDay(i, 0)}
+        {this.getDay(i, 1)}
+        {this.getDay(i, 2)}
+        {this.getDay(i, 3)}
+        {this.getDay(i, 4)}
+        {this.getDay(i, 5)}
+        {this.getDay(i, 6)}
       </tr>)
     }
     return arr
   }
 
   _getRightArr() {
-    this.initCurrentDate()
-    this.initDate(getNextMonth(this.currentDate))
+    this.rightDate = this.props.rightDate?new Date(this.props.rightDate):getNextMonth(this.leftDate)
+    this.initDate(this.rightDate)
+  
     const arr = []
     for (let i = 0; i < 6; i++) {
       arr.push(<tr>
-        {this.getDay(i, 0, true)}
-        {this.getDay(i, 1, true)}
-        {this.getDay(i, 2, true)}
-        {this.getDay(i, 3, true)}
-        {this.getDay(i, 4, true)}
-        {this.getDay(i, 5, true)}
-        {this.getDay(i, 6, true)}
+        {this.getDay(i, 0)}
+        {this.getDay(i, 1)}
+        {this.getDay(i, 2)}
+        {this.getDay(i, 3)}
+        {this.getDay(i, 4)}
+        {this.getDay(i, 5)}
+        {this.getDay(i, 6)}
       </tr>)
     }
     return arr
@@ -227,8 +233,8 @@ class DateRangePicker extends WeElement<Props, {}> {
                 <a class="prev-year-btn" role="button" title="上一年" onClick={this.gotoPreYear}></a>
                 <a class="prev-month-btn" role="button" title="上个月" onClick={this.gotoPreMonth}></a>
                 <span class="ym-select">
-                  <a class="year-select" role="button" title="选择年份">{this.year}年</a>
-                  <a class="month-select" role="button" title="选择月份">{this.month}月</a>
+                  <a class="year-select" role="button" title="选择年份">{this.leftDate.getFullYear()}年</a>
+                  <a class="month-select" role="button" title="选择月份">{this.leftDate.getMonth()+1}月</a>
                 </span>
                 <a class="next-month-btn" title="下个月" onClick={this.gotoNextMonth}></a>
                 <a class="next-year-btn" title="下一年" onClick={this.gotoNextYear}></a>
@@ -246,13 +252,11 @@ class DateRangePicker extends WeElement<Props, {}> {
                   <th>六</th>
                 </tr>
               </thead>
-              <tbody onClick={_ => this.onSelectDate(_, false)}>
+              <tbody onClick={this.onSelectDate}>
                 {leftArr}
               </tbody>
             </table>
           </div>}
-
-
         </div>
 
         <div class='m-date-picker'>
@@ -262,8 +266,8 @@ class DateRangePicker extends WeElement<Props, {}> {
                 <a class="prev-year-btn" role="button" title="上一年" onClick={this.gotoPreYear}></a>
                 <a class="prev-month-btn" role="button" title="上个月" onClick={this.gotoPreMonth}></a>
                 <span class="ym-select">
-                  <a class="year-select" role="button" title="选择年份">{this.year}年</a>
-                  <a class="month-select" role="button" title="选择月份">{this.month + 1}月</a>
+                <a class="year-select" role="button" title="选择年份">{this.rightDate.getFullYear()}年</a>
+                  <a class="month-select" role="button" title="选择月份">{this.rightDate.getMonth()+1}月</a>
                 </span>
                 <a class="next-month-btn" title="下个月" onClick={this.gotoNextMonth}></a>
                 <a class="next-year-btn" title="下一年" onClick={this.gotoNextYear}></a>
@@ -281,13 +285,11 @@ class DateRangePicker extends WeElement<Props, {}> {
                   <th>六</th>
                 </tr>
               </thead>
-              <tbody onClick={_ => this.onSelectDate(_, true)}>
+              <tbody onClick={this.onSelectDate}>
                 {rightArr}
               </tbody>
             </table>
           </div>}
-
-
         </div>
       </div>
 
@@ -295,6 +297,12 @@ class DateRangePicker extends WeElement<Props, {}> {
   }
 }
 
+function inRange(from, to, value) {
+  if (from && to) {
+    const v = new Date(value)
+    return new Date(from) < v && new Date(to) > v
+  }
+}
 
 
 //星期日是0
