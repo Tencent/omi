@@ -3,7 +3,9 @@ import * as css from './index.scss'
 
 interface Props {
   lan: string,
-  selectedDate: string
+  from: string,
+  to: string
+
 }
 
 @tag('m-date-range-picker')
@@ -23,38 +25,37 @@ class DateRangePicker extends WeElement<Props, {}> {
     this.nowYear = this.now.getFullYear()
     this.nowMonth = this.now.getMonth()
     this.nowDay = this.now.getDate()
-    this.selectedDate = this.props.selectedDate
+    this.from = this.props.from
+    this.to = this.props.to
 
 
     this.initCurrentDate()
 
-    this.initDate()
+    this.initDate(this.currentDate)
 
   }
 
   locale: any
   installed() {
-
-
     import('./locale/' + this.props.lan + '.js').then((locale) => {
-      console.log(locale.default)
       this.locale = locale.default
       this.update(true)
     })
   }
 
-  selectedDate: string
+  from: string
+  to: string
   dateArr: string[]
   currentDate: Date
   now: Date
 
   initCurrentDate() {
-    if (this.selectedDate) {
-      this.dateArr = this.selectedDate.split('-')
+    if (this.from) {
+      this.dateArr = this.from.split('-')
       this.currentDate = new Date(Number(this.dateArr[0]), Number(this.dateArr[1]) - 1, Number(this.dateArr[2]))
 
     } else {
-      // this.selectedDate = this.nowYear + '-' + (this.nowMonth + 1) + '-' + this.nowDay
+      // this.from = this.nowYear + '-' + (this.nowMonth + 1) + '-' + this.nowDay
       // this.noSelected = true
       this.currentDate = this.now
     }
@@ -73,63 +74,69 @@ class DateRangePicker extends WeElement<Props, {}> {
   nextYear: number
   nextMonth: number
 
-  initDate() {
-    this.year = this.currentDate.getFullYear()
-    this.month = this.currentDate.getMonth()
-    this.day = this.currentDate.getDate()
+  initDate(date) {
+    this.year = date.getFullYear()
+    this.month = date.getMonth()
+    this.day = date.getDate()
     this.begin = getFirstDayWeek(this.year, this.month)
     this.count = getMonthDayCount(this.year, this.month)
 
-    this.preMonthDate = getPreMonth(this.currentDate)
+    this.preMonthDate = getPreMonth(date)
     this.preYear = this.preMonthDate.getFullYear()
     this.preMonth = this.preMonthDate.getMonth()
     this.preCount = getMonthDayCount(this.preYear, this.preMonth)
 
 
-    this.nextMonthDate = getNextMonth(this.currentDate)
+    this.nextMonthDate = getNextMonth(date)
     this.nextYear = this.nextMonthDate.getFullYear()
     this.nextMonth = this.nextMonthDate.getMonth()
   }
 
   gotoNextMonth = () => {
     this.currentDate = getNextMonth(this.currentDate)
-    this.initDate()
+    this.initDate(this.currentDate)
     this.update()
   }
 
   gotoPreMonth = () => {
     this.currentDate = getPreMonth(this.currentDate)
-    this.initDate()
+    this.initDate(this.currentDate)
     this.update()
   }
 
   gotoNextYear = () => {
     this.currentDate = nextYear(this.currentDate)
-    this.initDate()
+    this.initDate(this.currentDate)
     this.update()
   }
 
   gotoPreYear = () => {
     this.currentDate = preYear(this.currentDate)
-    this.initDate()
+    this.initDate(this.currentDate)
     this.update()
   }
 
 
   noSelected: boolean
-  onSelectDate = (evt) => {
-    this.selectedDate = evt.target.getAttribute('data-date')
+  onSelectDate = (evt, isRight) => {
+    if (evt.target.className.indexOf('_out-date') !== -1) return
+    if (isRight) {
+      this.to = evt.target.getAttribute('data-date')
+    } else {
+      this.from = evt.target.getAttribute('data-date')
+    }
     this.noSelected = false
-    this.fire('select', this.selectedDate)
+    this.fire('select', { from: this.from, to: this.to })
     this.update(true)
   }
 
-  getDay(y, x) {
+  getDay(y, x, isRight) {
+    const date = isRight ? this.to : this.from
     let dateStr
     if (y === 0) {
       if (x < this.begin) {
         dateStr = this.preYear + '-' + (this.preMonth + 1) + '-' + (this.preCount - this.begin + x + 1)
-        return <td data-date={dateStr} class={'_out-date' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>
+        return <td data-date={dateStr} class={'_out-date' + (dateStr === date && !this.noSelected ? ' selected' : '')}>
           {this.preCount - this.begin + x + 1}
         </td>
       } else {
@@ -137,9 +144,9 @@ class DateRangePicker extends WeElement<Props, {}> {
         dateStr = this.year + '-' + (this.month + 1) + '-' + d
 
         if (d === this.nowDay && this.year === this.nowYear && this.month === this.nowMonth) {
-          return <td data-date={dateStr} class={'_now' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>{d}</td>
+          return <td data-date={dateStr} class={'_now' + (dateStr === date && !this.noSelected ? ' selected' : '')}>{d}</td>
         } else {
-          let cls = dateStr === this.selectedDate && !this.noSelected ? { 'class': 'selected' } : null
+          let cls = dateStr === date && !this.noSelected ? { 'class': 'selected' } : null
           return <td data-date={dateStr} {...cls}>{d}</td>
         }
 
@@ -149,14 +156,14 @@ class DateRangePicker extends WeElement<Props, {}> {
       if (temp <= this.count) {
         dateStr = this.year + '-' + (this.month + 1) + '-' + temp
         if (temp === this.nowDay && this.year === this.nowYear && this.month === this.nowMonth) {
-          return <td data-date={dateStr} class={'_now' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>{temp}</td>
+          return <td data-date={dateStr} class={'_now' + (dateStr === date && !this.noSelected ? ' selected' : '')}>{temp}</td>
         } else {
-          let cls = dateStr === this.selectedDate && !this.noSelected ? { 'class': 'selected' } : null
+          let cls = dateStr === date && !this.noSelected ? { 'class': 'selected' } : null
           return <td data-date={dateStr} {...cls}>{temp}</td>
         }
       } else {
         dateStr = this.nextYear + '-' + (this.nextMonth + 1) + '-' + (temp - this.count)
-        return <td data-date={dateStr} class={'_out-date' + (dateStr === this.selectedDate && !this.noSelected ? ' selected' : '')}>
+        return <td data-date={dateStr} class={'_out-date' + (dateStr === date && !this.noSelected ? ' selected' : '')}>
           {temp - this.count}
         </td>
       }
@@ -167,50 +174,49 @@ class DateRangePicker extends WeElement<Props, {}> {
 
   toggle = () => {
     this.initCurrentDate()
-    this.initDate()
-    this.fire('toggle', this.selectedDate)
+    this.initDate(this.currentDate)
+    this.fire('toggle', { from: this.from, to: this.to })
   }
 
-	_getLeftArr(){
-		this.initCurrentDate()
-		this.initDate()
-		const arr = []
+  _getLeftArr() {
+    this.initCurrentDate()
+    this.initDate(this.currentDate)
+    const arr = []
     for (let i = 0; i < 6; i++) {
       arr.push(<tr>
-        {this.getDay(i, 0)}
-        {this.getDay(i, 1)}
-        {this.getDay(i, 2)}
-        {this.getDay(i, 3)}
-        {this.getDay(i, 4)}
-        {this.getDay(i, 5)}
-        {this.getDay(i, 6)}
+        {this.getDay(i, 0, false)}
+        {this.getDay(i, 1, false)}
+        {this.getDay(i, 2, false)}
+        {this.getDay(i, 3, false)}
+        {this.getDay(i, 4, false)}
+        {this.getDay(i, 5, false)}
+        {this.getDay(i, 6, false)}
       </tr>)
-		}
-		return arr
-	}
+    }
+    return arr
+  }
 
-	_getRightArr(){
-		this.initCurrentDate()
-		this.currentDate = getNextMonth(this.currentDate)
-		this.initDate()
-		const arr = []
+  _getRightArr() {
+    this.initCurrentDate()
+    this.initDate(getNextMonth(this.currentDate))
+    const arr = []
     for (let i = 0; i < 6; i++) {
       arr.push(<tr>
-        {this.getDay(i, 0)}
-        {this.getDay(i, 1)}
-        {this.getDay(i, 2)}
-        {this.getDay(i, 3)}
-        {this.getDay(i, 4)}
-        {this.getDay(i, 5)}
-        {this.getDay(i, 6)}
+        {this.getDay(i, 0, true)}
+        {this.getDay(i, 1, true)}
+        {this.getDay(i, 2, true)}
+        {this.getDay(i, 3, true)}
+        {this.getDay(i, 4, true)}
+        {this.getDay(i, 5, true)}
+        {this.getDay(i, 6, true)}
       </tr>)
-		}
-		return arr
-	}
+    }
+    return arr
+  }
 
   render(props) {
-		const leftArr = this._getLeftArr()
-		const rightArr = this._getRightArr()
+    const leftArr = this._getLeftArr()
+    const rightArr = this._getRightArr()
 
     return (
       <div class='m-date-range-picker'>
@@ -240,7 +246,7 @@ class DateRangePicker extends WeElement<Props, {}> {
                   <th>六</th>
                 </tr>
               </thead>
-              <tbody onClick={this.onSelectDate}>
+              <tbody onClick={_ => this.onSelectDate(_, false)}>
                 {leftArr}
               </tbody>
             </table>
@@ -275,7 +281,7 @@ class DateRangePicker extends WeElement<Props, {}> {
                   <th>六</th>
                 </tr>
               </thead>
-              <tbody onClick={this.onSelectDate}>
+              <tbody onClick={_ => this.onSelectDate(_, true)}>
                 {rightArr}
               </tbody>
             </table>

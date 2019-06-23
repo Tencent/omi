@@ -13,7 +13,11 @@
 .m-date-picker {
 	display: inline-block;
   position: relative;
-  width: 300px;
+  width: 270px;
+}
+
+.m-date-picker:first-child {
+	margin-right: 10px; 
 }
 
 ._ctn{
@@ -35,6 +39,11 @@
 }
 
 ._out-date {
+  color: #9C9C9C;
+  cursor: not-allowed;
+}
+
+._out-date:hover {
   color: #9C9C9C;
 }
 
