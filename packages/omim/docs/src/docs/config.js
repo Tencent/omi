@@ -13,7 +13,7 @@ const config = {
           { name: 'Button 按钮', md: 'button', demo: './repl/button.html' },
           { name: 'Fab 动作按钮', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon 图标', md: 'icon', demo: './repl/icon.html' },
-          { name: 'IconButton 图标按钮', md: 'icon-button', demo: './repl/icon-button.html' },
+          { name: 'Icon Button 图标按钮', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Avatar 头像', md: 'avatar', demo: './repl/avatar.html' },
           { name: 'Loading 加载', md: 'loading', demo: './repl/loading.html' },
           { name: 'Breadcrumb 面包屑', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
@@ -57,8 +57,8 @@ const config = {
         list: [
           {name: 'Dialog 对话框', md: 'dialog', demo: './repl/dialog.html'},
           {name: 'Snackbar 提醒', md: 'snackbar', demo: './repl/snackbar.html'},
-          {name: 'ActionSheet 行动表', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
-          {name: 'ColorPicker 颜色选择机', md: 'color-picker', demo: './repl/color-picker.html'},
+          {name: 'Action Sheet 行动表', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
+          {name: 'Color Picker 颜色选择机', md: 'color-picker', demo: './repl/color-picker.html'},
           { name: 'Popover 提示', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' },
           { name: 'Toast 弹出提示', md: 'toast', demo: 'https://tencent.github.io/omi/packages/omim/demos/toast/index.html' }
         ]
@@ -71,10 +71,12 @@ const config = {
           { name: 'Checkbox 复选框', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio 单选框', md: 'radio', demo: './repl/radio.html' },
           { name: 'Switch 切换', md: 'switch', demo: './repl/switch.html' },
-          { name: 'DateTimePicker 时间日期选择器', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
           { name: 'Picker 原生选择器', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
-          { name: 'TransferList 穿梭列表', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
-          { name: 'Toggle Buttons 按钮组', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' }
+          { name: 'Transfer List 穿梭列表', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
+          { name: 'Toggle Buttons 按钮组', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' },
+          { name: 'Date Time Picker 时间日期选择器', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
+          { name: 'Date Picker 日期选择器', md: 'date-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-picker/index.html' },
+          { name: 'Date Range Picker 日期区间选择器', md: 'date-range-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-range-picker/index.html' }
         ]
       },
       {
@@ -127,7 +129,7 @@ const config = {
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
-          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
+          { name: 'Icon Button', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
           { name: 'Loading', md: 'loading', demo: './repl/loading.html' },
           { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
@@ -170,8 +172,8 @@ const config = {
         list: [
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
           {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'},
-          {name: 'ActionSheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
-          {name: 'ColorPicker', md: 'color-picker', demo: './repl/color-picker.html'},
+          {name: 'Action Sheet', md: 'action-sheet', demo: 'https://tencent.github.io/omi/packages/omim/demos/action-sheet/index.script.html'},
+          {name: 'Color Picker', md: 'color-picker', demo: './repl/color-picker.html'},
           { name: 'Popover', md: 'popover', demo: 'https://tencent.github.io/omi/packages/omim/demos/popover/index.html' },
           { name: 'Toast', md: 'toast', demo: 'https://tencent.github.io/omi/packages/omim/demos/toast/index.html' }
         ]
@@ -184,10 +186,12 @@ const config = {
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
-          { name: 'DateTimePicker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
           { name: 'Picker', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
-          { name: 'TransferList', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
-          { name: 'Toggle Buttons', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' }
+          { name: 'Transfer List', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
+          { name: 'Toggle Buttons', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' },
+          { name: 'Date Time Picker', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
+          { name: 'Date Picker', md: 'date-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-picker/index.html' },
+          { name: 'Date Range Picker', md: 'date-range-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-range-picker/index.html' }
         ]
       },
       {

@@ -2,11 +2,11 @@ import { WeElement, extractClass, classNames, h, tag } from 'omi'
 import * as css from './index.scss'
 
 interface Props {
-  lan: string,
-  from: string,
-  to: string,
-  leftDate: string,
-  rightDate: string
+  lan?: string,
+  from?: string,
+  to?: string,
+  leftDate?: string,
+  rightDate?: string
 
 }
 
@@ -263,7 +263,7 @@ class DateRangePicker extends WeElement<Props, {}> {
     return (
       <div class='m-date-range-picker'>
         <div class='m-date-picker'>
-          {props.show && <div class='_ctn'>
+          <div class='_ctn'>
             <div class="_header">
               <div style="position: relative;">
                 <a class="prev-year-btn" role="button" title="上一年" onClick={_ => this.gotoPreYear(false)}></a>
@@ -292,11 +292,11 @@ class DateRangePicker extends WeElement<Props, {}> {
                 {leftArr}
               </tbody>
             </table>
-          </div>}
+          </div>
         </div>
 
         <div class='m-date-picker'>
-          {props.show && <div class='_ctn'>
+          <div class='_ctn'>
             <div class="_header">
               <div style="position: relative;">
                 <a class="prev-year-btn" role="button" title="上一年" onClick={_ => this.gotoPreYear(true)}></a>
@@ -325,7 +325,7 @@ class DateRangePicker extends WeElement<Props, {}> {
                 {rightArr}
               </tbody>
             </table>
-          </div>}
+          </div>
         </div>
       </div>
 

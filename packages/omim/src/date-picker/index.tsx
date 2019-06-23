@@ -2,8 +2,8 @@ import { WeElement, extractClass, classNames, h, tag } from 'omi'
 import * as css from './index.scss'
 
 interface Props {
-  lan: string,
-  selectedDate: string
+  lan?: string,
+  selectedDate?: string
 }
 
 @tag('m-date-picker')
@@ -192,7 +192,7 @@ class DatePicker extends WeElement<Props, {}> {
 
     return (
       <div class='m-date-picker'>
-        {props.show && <div class='_ctn'>
+        <div class='_ctn'>
           <div class="_header">
             <div style="position: relative;">
               <a class="prev-year-btn" role="button" title="上一年" onClick={this.gotoPreYear}></a>
@@ -221,7 +221,7 @@ class DatePicker extends WeElement<Props, {}> {
               {arr}
             </tbody>
           </table>
-        </div>}
+        </div>
 
 
       </div>
