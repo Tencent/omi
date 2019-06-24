@@ -23,6 +23,16 @@ dialog.alert({
 
   }
 })
+
+dialog.prompt({
+  confirmText: 'OK',
+  cancelText: 'Cancel',
+  title:'User info',
+  subtitle:'Input you name',
+  confirm: function (val) {
+    console.log(val)
+  }
+})
 ```
 
 Or:

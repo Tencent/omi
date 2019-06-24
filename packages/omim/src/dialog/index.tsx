@@ -24,6 +24,8 @@ class Dialog extends WeElement<Props, Data>{
   static css = css
   static confirm: any
   static alert: any
+  static prompt: any
+
   static propTypes = {
     show: Boolean,
     scrollable: Boolean,
@@ -109,6 +111,46 @@ Dialog.alert = function (options) {
     confirm-button={{text: options.confirmText||'Confirm'}}
     onConfirm={_=>onConfirm(options.confirm)}
     show={true} ><p style='margin:0'>{options.msg}</p></m-dialog>, 'body')
+}
+
+
+Dialog.prompt = function (options) {
+  if (dom) {
+    document.body.removeChild(dom)
+  }
+  let ele
+  dom = render(<m-dialog
+    cancel-button={{text: options.cancelText||'Cancel'}}
+    confirm-button={{text: options.confirmText||'Confirm'}}
+    onCancel={_=>onConfirm(options.cancel)}
+    onConfirm={_=>promptCallback(options.confirm,dom)}
+    show={true}
+    title={options.title}>
+      <style>
+  {`
+  input { 
+    transition: all .3s;
+  }
+  input:focus { 
+    border-bottom:1px solid ${document.body.style.getPropertyValue('--mdc-theme-primary')|| '#0072d9 '}!important;
+  }
+  `}
+      </style>
+    <p style='margin:10px 0 0;'>{options.subtitle}</p>
+    <input style='width:100%;height: 30px;
+    border: none;font-size:14px;
+    border-bottom: 1px solid #ccc; outline: none;' ref={_=>ele=_}   type='text'></input>
+  </m-dialog>, 'body')
+
+  dom.ele = ele
+}
+
+function promptCallback(callback, dom){
+  callback && callback(dom.ele.value)
+  if (dom) {
+    document.body.removeChild(dom)
+    dom = null
+  }
 }
 
 export default Dialog

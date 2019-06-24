@@ -15,6 +15,7 @@ declare class Dialog extends WeElement<Props, Data> {
     static css: any;
     static confirm: any;
     static alert: any;
+    static prompt: any;
     static propTypes: {
         show: BooleanConstructor;
         scrollable: BooleanConstructor;

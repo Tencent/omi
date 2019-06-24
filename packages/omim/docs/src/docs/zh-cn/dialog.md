@@ -23,6 +23,16 @@ dialog.alert({
 
   }
 })
+
+dialog.prompt({
+  confirmText: '确认',
+  cancelText: '取消',
+  title:'用户信息输入',
+  subtitle:'输入你的用户名',
+  confirm: function (val) {
+    console.log(val)
+  }
+})
 ```
 
 或者：
