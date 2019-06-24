@@ -52,53 +52,25 @@ Many things can be represented in a tree structure, such as directories, organiz
 
 ```js
 var myTree = document.querySelector('#myTree')
-var nodeData = myTree.props.node
 
 myTree.addEventListener('check', (evt) => {
-	const node = getNodeById(evt.detail.id, nodeData)
-	if (!node.children) {
-		node.checked = evt.detail.checked
-	} else {
-		checkAll(node, evt.detail.state !== 'checked')
-	}
-	myTree.setAttribute('node', nodeData)
+	console.log(evt.detail)
 })
 
 
 myTree.addEventListener('toggle', (evt) => {
-	const node = getNodeById(evt.detail.id, nodeData)
-	node.close = !node.close
-	myTree.setAttribute('node', nodeData)
+	console.log(evt.detail)
 })
 
 myTree.addEventListener('nodeclick', (evt) => {
-	const pre = getNodeById(evt.detail.pre, nodeData)
-	pre.selected = false
-	const node = getNodeById(evt.detail.id, nodeData)
-	node.selected = true
-	myTree.setAttribute('node', nodeData)
+	console.log(evt.detail)
 })
+```
 
+Get the node data:
 
-function checkAll(node, checked) {
-	node.children && node.children.forEach(child => {
-		child.checked = checked
-		checkAll(child, checked)
-	})
-}
-
-function getNodeById(id, node) {
-	if (node.id === id) return node
-	if (node.children) {
-		for (let i = 0, len = node.children.length; i < len; i++) {
-			let child = node.children[i]
-			let target = getNodeById(id, child)
-			if (target) {
-				return target
-			}
-		}
-	}
-}
+```js
+console.log(myTree.props.node)
 ```
 
 ## API
