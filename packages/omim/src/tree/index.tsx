@@ -26,22 +26,20 @@ export default class Tree extends WeElement<Props, Data>{
 
   toggle = (id, open, node) => {
     node.close = open
-    this.fire('toggle', { id, open })
+    this.fire('toggle', { node, id, open })
     this.update(true)
   }
 
   _check = (node, state) => {
     if (node.disabled) return
 
-    const temp = this.getNodeById(node.id, this.props.node)
-		if (!temp.children) {
-
-			temp.checked = !temp.checked
+		if (!node.children) {
+			node.checked = !node.checked
 		} else {
-			this.checkAll(temp, state !== 'checked')
+			this.checkAll(node, state !== 'checked')
 		}
 		this.update(true)
-    this.fire('check', { id: node.id, checked: !node.checked, state: state })
+    this.fire('check', { node, id: node.id, checked: !node.checked, state: state })
   }
 
   checkAll(node, checked) {
@@ -51,13 +49,12 @@ export default class Tree extends WeElement<Props, Data>{
 		})
   }
   
-  onNodeClick = (id) => {
+  onNodeClick = (node) => {
     const pre = this.getNodeById(this._preSelected , this.props.node)
 		pre.selected = false
-		const node = this.getNodeById(id, this.props.node)
 		node.selected = true
 		this.update(true)
-    this.fire('nodeClick', { id, pre: this._preSelected })
+    this.fire('nodeclick', { node, id: node.id, pre: this._preSelected })
   }
 
   getNodeById(id, node) {
@@ -94,7 +91,7 @@ export default class Tree extends WeElement<Props, Data>{
           'mdc-tree-checkbox-checked': (node.children && node.children.length > 0) ? state === 'checked' : node.checked,
           'mdc-tree-checkbox-indeterminate': (node.children && node.children.length > 0) ? state === 'indeterminate' : false
         })}><span class="mdc-tree-checkbox-inner"></span></span>}
-        <span onClick={_ => this.onNodeClick(node.id)} class={classNames('mdc-tree-title', {
+        <span onClick={_ => this.onNodeClick(node)} class={classNames('mdc-tree-title', {
           'selected': node.selected
         })}>{node.icon && <i class='material-icons'>{node.icon}</i>}<span class='text'>{node.title}</span></span>
 

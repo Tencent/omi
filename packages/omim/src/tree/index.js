@@ -293,29 +293,27 @@ var Tree = /** @class */ (function (_super) {
         _this._preSelected = null;
         _this.toggle = function (id, open, node) {
             node.close = open;
-            _this.fire('toggle', { id: id, open: open });
+            _this.fire('toggle', { node: node, id: id, open: open });
             _this.update(true);
         };
         _this._check = function (node, state) {
             if (node.disabled)
                 return;
-            var temp = _this.getNodeById(node.id, _this.props.node);
-            if (!temp.children) {
-                temp.checked = !temp.checked;
+            if (!node.children) {
+                node.checked = !node.checked;
             }
             else {
-                _this.checkAll(temp, state !== 'checked');
+                _this.checkAll(node, state !== 'checked');
             }
             _this.update(true);
-            _this.fire('check', { id: node.id, checked: !node.checked, state: state });
+            _this.fire('check', { node: node, id: node.id, checked: !node.checked, state: state });
         };
-        _this.onNodeClick = function (id) {
+        _this.onNodeClick = function (node) {
             var pre = _this.getNodeById(_this._preSelected, _this.props.node);
             pre.selected = false;
-            var node = _this.getNodeById(id, _this.props.node);
             node.selected = true;
             _this.update(true);
-            _this.fire('nodeClick', { id: id, pre: _this._preSelected });
+            _this.fire('nodeclick', { node: node, id: node.id, pre: _this._preSelected });
         };
         return _this;
     }
@@ -360,7 +358,7 @@ var Tree = /** @class */ (function (_super) {
                         'mdc-tree-checkbox-indeterminate': (node.children && node.children.length > 0) ? state === 'indeterminate' : false
                     }) },
                     omi_1.h("span", { class: "mdc-tree-checkbox-inner" })),
-                omi_1.h("span", { onClick: function (_) { return _this.onNodeClick(node.id); }, class: omi_1.classNames('mdc-tree-title', {
+                omi_1.h("span", { onClick: function (_) { return _this.onNodeClick(node); }, class: omi_1.classNames('mdc-tree-title', {
                         'selected': node.selected
                     }) },
                     node.icon && omi_1.h("i", { class: 'material-icons' }, node.icon),

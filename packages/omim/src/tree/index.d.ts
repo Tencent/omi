@@ -16,7 +16,7 @@ export default class Tree extends WeElement<Props, Data> {
     toggle: (id: any, open: any, node: any) => void;
     _check: (node: any, state: any) => void;
     checkAll(node: any, checked: any): void;
-    onNodeClick: (id: any) => void;
+    onNodeClick: (node: any) => void;
     getNodeById(id: any, node: any): any;
     renderNode(node: any): JSX.Element;
     _isChecked(node: any, obj: any, tag: any): "indeterminate" | "checked" | "unchecked";
