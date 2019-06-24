@@ -310,7 +310,9 @@ var Tree = /** @class */ (function (_super) {
         };
         _this.onNodeClick = function (node) {
             var pre = _this.getNodeById(_this._preSelected, _this.props.node);
-            pre.selected = false;
+            if (pre) {
+                pre.selected = false;
+            }
             node.selected = true;
             _this.update(true);
             _this.fire('nodeclick', { node: node, id: node.id, pre: _this._preSelected });

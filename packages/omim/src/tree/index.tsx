@@ -33,42 +33,44 @@ export default class Tree extends WeElement<Props, Data>{
   _check = (node, state) => {
     if (node.disabled) return
 
-		if (!node.children) {
-			node.checked = !node.checked
-		} else {
-			this.checkAll(node, state !== 'checked')
-		}
-		this.update(true)
+    if (!node.children) {
+      node.checked = !node.checked
+    } else {
+      this.checkAll(node, state !== 'checked')
+    }
+    this.update(true)
     this.fire('check', { node, id: node.id, checked: !node.checked, state: state })
   }
 
   checkAll(node, checked) {
-		node.children && node.children.forEach(child => {
-			child.checked = checked
-			this.checkAll(child, checked)
-		})
+    node.children && node.children.forEach(child => {
+      child.checked = checked
+      this.checkAll(child, checked)
+    })
   }
-  
+
   onNodeClick = (node) => {
-    const pre = this.getNodeById(this._preSelected , this.props.node)
-		pre.selected = false
-		node.selected = true
-		this.update(true)
+    const pre = this.getNodeById(this._preSelected, this.props.node)
+    if (pre) {
+      pre.selected = false
+    }
+    node.selected = true
+    this.update(true)
     this.fire('nodeclick', { node, id: node.id, pre: this._preSelected })
   }
 
   getNodeById(id, node) {
-		if (node.id === id) return node
-		if (node.children) {
-			for (let i = 0, len = node.children.length; i < len; i++) {
-				let child = node.children[i]
-				let target = this.getNodeById(id, child)
-				if (target) {
-					return target
-				}
-			}
-		}
-	}
+    if (node.id === id) return node
+    if (node.children) {
+      for (let i = 0, len = node.children.length; i < len; i++) {
+        let child = node.children[i]
+        let target = this.getNodeById(id, child)
+        if (target) {
+          return target
+        }
+      }
+    }
+  }
 
   renderNode(node) {
     if (node.selected) {
