@@ -13,11 +13,13 @@ export default class Tree extends WeElement<Props, Data> {
         node: ObjectConstructor;
     };
     _preSelected: any;
-    toggle: (id: any, open: any) => void;
+    toggle: (id: any, open: any, node: any) => void;
     _check: (node: any, state: any) => void;
+    checkAll(node: any, checked: any): void;
     onNodeClick: (id: any) => void;
+    getNodeById(id: any, node: any): any;
     renderNode(node: any): JSX.Element;
-    _isChecked(node: any, obj: any, tag: any): "checked" | "indeterminate" | "unchecked";
+    _isChecked(node: any, obj: any, tag: any): "indeterminate" | "checked" | "unchecked";
     _getChildCount(node: any): number;
     render(props: any): JSX.Element;
 }

@@ -7,7 +7,7 @@ interface Props {
 }
 interface Data {
 }
-export default class Rate extends WeElement<Props, Data> {
+export default class Relation extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
         value: number;

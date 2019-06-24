@@ -50,49 +50,15 @@ define('my-app', class extends WeElement {
 	}
 
 	toggleHandler = (evt) => {
-		const node = this.getNodeById(evt.detail.id, this.node)
-		node.close = !node.close
-		this.update()
+		console.log(evt.detail.id)
 	}
 
 	onNodeClick = (evt) => {
-		const pre = this.getNodeById(evt.detail.pre, this.node)
-		pre.selected = false
-		const node = this.getNodeById(evt.detail.id, this.node)
-		node.selected = true
-		this.update()
+		console.log(evt.detail)
 	}
 
 	onCheck = (evt) => {
-		const node = this.getNodeById(evt.detail.id, this.node)
-		if (!node.children) {
-
-			node.checked = evt.detail.checked
-		} else {
-			this.checkAll(node, evt.detail.state !== 'checked')
-
-		}
-		this.update()
-	}
-
-	checkAll(node, checked) {
-		node.children && node.children.forEach(child => {
-			child.checked = checked
-			this.checkAll(child, checked)
-		})
-	}
-
-	getNodeById(id, node) {
-		if (node.id === id) return node
-		if (node.children) {
-			for (let i = 0, len = node.children.length; i < len; i++) {
-				let child = node.children[i]
-				let target = this.getNodeById(id, child)
-				if (target) {
-					return target
-				}
-			}
-		}
+		console.log(evt.detail)
 	}
 
 	render() {

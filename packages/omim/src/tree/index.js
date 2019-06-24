@@ -291,19 +291,54 @@ var Tree = /** @class */ (function (_super) {
     function Tree() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._preSelected = null;
-        _this.toggle = function (id, open) {
+        _this.toggle = function (id, open, node) {
+            node.close = open;
             _this.fire('toggle', { id: id, open: open });
+            _this.update(true);
         };
         _this._check = function (node, state) {
             if (node.disabled)
                 return;
+            var temp = _this.getNodeById(node.id, _this.props.node);
+            if (!temp.children) {
+                temp.checked = !temp.checked;
+            }
+            else {
+                _this.checkAll(temp, state !== 'checked');
+            }
+            _this.update(true);
             _this.fire('check', { id: node.id, checked: !node.checked, state: state });
         };
         _this.onNodeClick = function (id) {
+            var pre = _this.getNodeById(_this._preSelected, _this.props.node);
+            pre.selected = false;
+            var node = _this.getNodeById(id, _this.props.node);
+            node.selected = true;
+            _this.update(true);
             _this.fire('nodeClick', { id: id, pre: _this._preSelected });
         };
         return _this;
     }
+    Tree.prototype.checkAll = function (node, checked) {
+        var _this = this;
+        node.children && node.children.forEach(function (child) {
+            child.checked = checked;
+            _this.checkAll(child, checked);
+        });
+    };
+    Tree.prototype.getNodeById = function (id, node) {
+        if (node.id === id)
+            return node;
+        if (node.children) {
+            for (var i = 0, len = node.children.length; i < len; i++) {
+                var child = node.children[i];
+                var target = this.getNodeById(id, child);
+                if (target) {
+                    return target;
+                }
+            }
+        }
+    };
     Tree.prototype.renderNode = function (node) {
         var _this = this;
         if (node.selected) {
@@ -317,7 +352,7 @@ var Tree = /** @class */ (function (_super) {
             omi_1.h("li", { class: omi_1.classNames('tree-item', {
                     'close': node.close
                 }) },
-                node.children && node.children.length > 0 && omi_1.h("svg", { onClick: function (_) { return _this.toggle(node.id, !node.close); }, viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
+                node.children && node.children.length > 0 && omi_1.h("svg", { onClick: function (_) { return _this.toggle(node.id, !node.close, node); }, viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
                     omi_1.h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" })),
                 this.props.checkbox && omi_1.h("span", { onClick: function (_) { return _this._check(node, state); }, class: omi_1.classNames('mdc-tree-checkbox', {
                         'mdc-tree-checkbox-disabled': node.disabled,

@@ -24,18 +24,54 @@ export default class Tree extends WeElement<Props, Data>{
 
   _preSelected = null
 
-  toggle = (id, open) => {
+  toggle = (id, open, node) => {
+    node.close = open
     this.fire('toggle', { id, open })
+    this.update(true)
   }
 
   _check = (node, state) => {
     if (node.disabled) return
+
+    const temp = this.getNodeById(node.id, this.props.node)
+		if (!temp.children) {
+
+			temp.checked = !temp.checked
+		} else {
+			this.checkAll(temp, state !== 'checked')
+		}
+		this.update(true)
     this.fire('check', { id: node.id, checked: !node.checked, state: state })
   }
 
+  checkAll(node, checked) {
+		node.children && node.children.forEach(child => {
+			child.checked = checked
+			this.checkAll(child, checked)
+		})
+  }
+  
   onNodeClick = (id) => {
+    const pre = this.getNodeById(this._preSelected , this.props.node)
+		pre.selected = false
+		const node = this.getNodeById(id, this.props.node)
+		node.selected = true
+		this.update(true)
     this.fire('nodeClick', { id, pre: this._preSelected })
   }
+
+  getNodeById(id, node) {
+		if (node.id === id) return node
+		if (node.children) {
+			for (let i = 0, len = node.children.length; i < len; i++) {
+				let child = node.children[i]
+				let target = this.getNodeById(id, child)
+				if (target) {
+					return target
+				}
+			}
+		}
+	}
 
   renderNode(node) {
     if (node.selected) {
@@ -49,7 +85,7 @@ export default class Tree extends WeElement<Props, Data>{
       <li class={classNames('tree-item', {
         'close': node.close
       })}>
-        {node.children && node.children.length > 0 && <svg onClick={_ => this.toggle(node.id, !node.close)} viewBox="0 0 1024 1024"
+        {node.children && node.children.length > 0 && <svg onClick={_ => this.toggle(node.id, !node.close, node)} viewBox="0 0 1024 1024"
           class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
         </svg>}
