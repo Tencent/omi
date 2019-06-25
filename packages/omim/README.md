@@ -17,6 +17,7 @@
 
 ## Cross Frameworks
 
+* [Using Omim in Omi](https://tencent.github.io/omi/packages/omim/demos/icon-button/omi.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/demos/icon-button/omi.js)
 * [Using Omim in React](https://tencent.github.io/omi/packages/omim/test-react/build/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-react/src/HookTest.js)
 * [Using Omim in Vue](https://tencent.github.io/omi/packages/omim/test-vue/dist/index.html) & [Source Code](https://github.com/Tencent/omi/blob/master/packages/omim/test-vue/app.vue)
 
