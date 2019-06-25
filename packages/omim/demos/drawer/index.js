@@ -65,12 +65,12 @@ define('my-app', class extends WeElement {
     this.showD = true
     this.update()
   }
+
   onClose = () => {
     this.showA = false
     this.showB = false
     this.showC = false
     this.showD = false
-    this.update()
   }
 
   onItemClick = () => {

@@ -29,6 +29,8 @@ export default class Drawer extends WeElement<Props, Data>{
   }
 
   onMaskClick = () => {
+    this.props.show = false
+    this.update(true)
     this.fire('close')
   }
 
