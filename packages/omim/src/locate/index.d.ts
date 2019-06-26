@@ -1,33 +1,26 @@
 import { WeElement } from 'omi';
 import '../theme.ts';
 interface Props {
-    total: number;
-    half: boolean;
-    value: number;
+    to: string;
+    direction: string;
+    x: number;
+    y: number;
+    gutter: number;
 }
 interface Data {
 }
-export default class Relation extends WeElement<Props, Data> {
+export default class Locate extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
-        value: number;
+        x: number;
+        y: number;
+        gutter: number;
     };
-    static propTypes: {
-        value: NumberConstructor;
-        half: BooleanConstructor;
-        total: NumberConstructor;
-        color: StringConstructor;
-    };
-    _current: number;
-    _rect: any;
-    _hover: boolean;
-    onSelect: (evt: any) => void;
-    onMouseMove: (evt: any) => void;
-    base: HTMLElement;
-    installed(): void;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-    _getClass: (i: any, current: any) => "_star _star-half " | "_star" | "_star _star-empty ";
+    static propTypes: {};
+    getScopeRoot(current: any): any;
+    install(): void;
+    _setPosition(): void;
+    updated(): void;
     render(props: any): JSX.Element;
 }
 export {};

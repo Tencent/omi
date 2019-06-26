@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MRate"] = factory(require("omi"));
+		exports["MLocate"] = factory(require("omi"));
 	else
-		root["MRate"] = factory(root["Omi"]);
+		root["MLocate"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,15 +91,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/rate/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/locate/index.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/rate/index.scss":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/rate/index.scss ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/locate/index.scss":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/locate/index.scss ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loade
 
 
 // module
-exports.push([module.i, ":host {\n  display: inline-block; }\n\n.m-rate {\n  display: inline-block;\n  text-align: center;\n  cursor: pointer;\n  padding: 2px; }\n\nul,\nli {\n  list-style: none;\n  padding: 0;\n  margin: 0; }\n\nsvg {\n  margin: 0;\n  padding: 0; }\n\nli {\n  width: auto;\n  height: auto; }\n\n._star {\n  position: relative;\n  width: 1em;\n  height: 1em;\n  display: inline-block;\n  padding: 3px; }\n\n._star-first {\n  position: absolute;\n  z-index: 10;\n  overflow: hidden; }\n\n._star-second {\n  position: absolute; }\n\n._star-half ._star-first {\n  width: 1em; }\n\n._star-empty ._star-first {\n  width: 0; }\n\n.star-box {\n  position: relative;\n  left: -0.5em;\n  top: -0.2em; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block;\n  position: absolute; }\n\n.root {\n  width: auto;\n  height: auto; }\n", ""]);
 
 // exports
 
@@ -202,15 +202,15 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./src/rate/index.scss":
-/*!*****************************!*\
-  !*** ./src/rate/index.scss ***!
-  \*****************************/
+/***/ "./src/locate/index.scss":
+/*!*******************************!*\
+  !*** ./src/locate/index.scss ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/rate/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/locate/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -221,10 +221,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./src/rate/index.tsx":
-/*!****************************!*\
-  !*** ./src/rate/index.tsx ***!
-  \****************************/
+/***/ "./src/locate/index.tsx":
+/*!******************************!*\
+  !*** ./src/locate/index.tsx ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -243,17 +243,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -262,93 +251,117 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! ./index.scss */ "./src/rate/index.scss");
+var css = __webpack_require__(/*! ./index.scss */ "./src/locate/index.scss");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
 __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-var Rate = /** @class */ (function (_super) {
-    __extends(Rate, _super);
-    function Rate() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._current = 0;
-        _this._rect = null;
-        _this._hover = false;
-        _this.onSelect = function (evt) {
-            _this._rect = _this.base.getBoundingClientRect();
-            var dx = evt.pageX - _this._rect.left;
-            var value = dx / _this._rect.width * _this.props.total;
-            var intValue = Math.floor(value);
-            var v = intValue + (value - intValue > 0.5 ? 1 : 0.5);
-            if (!_this.props.half)
-                v = Math.ceil(v);
-            _this.props.value = v;
-            //@ts-ignore
-            _this.fire('selected', v);
-            _this.update();
-        };
-        _this.onMouseMove = function (evt) {
-            _this._rect = _this.base.getBoundingClientRect();
-            var dx = evt.pageX - _this._rect.left;
-            _this._current = dx / _this._rect.width * _this.props.total;
-            _this.update();
-        };
-        _this.onMouseEnter = function () {
-            _this._hover = true;
-        };
-        _this.onMouseLeave = function () {
-            _this._hover = false;
-            _this.update();
-        };
-        _this._getClass = function (i, current) {
-            if (i < current) {
-                if (_this.props.half && current - i <= 0.5) {
-                    return '_star _star-half ';
-                }
-                return '_star';
+var Locate = /** @class */ (function (_super) {
+    __extends(Locate, _super);
+    function Locate() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Locate.prototype.getScopeRoot = function (current) {
+        while (true) {
+            var p = current.parentNode;
+            if (p) {
+                current = p;
             }
             else {
-                return '_star _star-empty ';
+                return current;
             }
-        };
-        return _this;
-    }
-    Rate.prototype.installed = function () {
-        this.base = this.shadowRoot.querySelector('ul');
-        //update 不再从 attr 取 prop
-        this.normalizedNodeName = 'm-rate';
+        }
     };
-    Rate.prototype.render = function (props) {
+    Locate.prototype.install = function () {
         var _this = this;
-        return (omi_1.h("ul", __assign({ onMouseMove: this.onMouseMove, onMouseEnter: this.onMouseEnter, onMouseLeave: this.onMouseLeave, onClick: this.onSelect }, omi_1.extractClass(props, "m-rate")), Array.apply(0, Array(props.total)).map(function (x, i) {
-            return omi_1.h("li", { class: _this._getClass(i, _this._hover ? _this._current : props.value) },
-                omi_1.h("div", { class: 'star-box' },
-                    omi_1.h("div", { class: "_star-first" },
-                        omi_1.h("i", { class: "anticon anticon-star" },
-                            omi_1.h("svg", { xmlns: "http://www.w3.org/2000/svg", width: "2em", height: "2em", fill: props.color || "#f57c00", viewBox: "0 0 18 18" },
-                                omi_1.h("path", { d: "M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z" }),
-                                omi_1.h("path", { fill: "none", d: "M0 0h18v18H0z" })))),
-                    omi_1.h("div", { class: "_star-second" },
-                        omi_1.h("i", { class: "anticon anticon-star" },
-                            omi_1.h("svg", { xmlns: "http://www.w3.org/2000/svg", width: "2em", height: "2em", fill: "#E8E8E8", viewBox: "0 0 18 18" },
-                                omi_1.h("path", { d: "M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z" }),
-                                omi_1.h("path", { fill: "none", d: "M0 0h18v18H0z" }))))));
-        })));
+        dom_ready_1.domReady(function () {
+            _this._setPosition();
+        });
     };
-    Rate.css = css;
-    Rate.defaultProps = {
-        value: 0
+    Locate.prototype._setPosition = function () {
+        var root = this.getScopeRoot(this);
+        var ele = root.querySelector(this.props.to);
+        var rectA = this.shadowRoot.querySelector('.root').getBoundingClientRect();
+        var rectB = ele.getBoundingClientRect();
+        var tempLeft, tempTop;
+        var st = document.documentElement.scrollTop || document.body.scrollTop;
+        var sl = document.documentElement.scrollLeft || document.body.scrollLeft;
+        var gutter = this.props.gutter;
+        switch (this.props.direction) {
+            case 'top-left':
+                tempLeft = rectB.left;
+                tempTop = (rectB.top - rectA.height - gutter);
+                break;
+            case 'top':
+                console.log(11);
+                tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2);
+                tempTop = (rectB.top - rectA.height - gutter);
+                break;
+            case 'top-right':
+                tempLeft = rectB.left + rectB.width - rectA.width;
+                tempTop = (rectB.top - rectA.height - gutter);
+                break;
+            case 'left':
+                tempLeft = rectB.left - rectA.width - gutter;
+                tempTop = rectB.top + (rectB.height - rectA.height) / 2;
+                break;
+            case 'left-top':
+                tempLeft = rectB.left - rectA.width - gutter;
+                tempTop = rectB.top;
+                break;
+            case 'left-bottom':
+                tempLeft = rectB.left - rectA.width - gutter;
+                tempTop = rectB.top + (rectB.height - rectA.height);
+                break;
+            case 'bottom-left':
+                tempLeft = rectB.left;
+                tempTop = (rectB.top + rectB.height + gutter);
+                break;
+            case 'bottom':
+                tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2);
+                tempTop = (rectB.top + rectB.height + gutter);
+                break;
+            case 'bottom-right':
+                tempLeft = rectB.left + rectB.width - rectA.width;
+                tempTop = (rectB.top + rectB.height + gutter);
+                break;
+            case 'right':
+                tempLeft = rectB.left + rectB.width + gutter;
+                tempTop = rectB.top + (rectB.height - rectA.height) / 2;
+                break;
+            case 'right-top':
+                tempLeft = rectB.left + rectB.width + gutter;
+                tempTop = rectB.top;
+                break;
+            case 'right-bottom':
+                tempLeft = rectB.left + rectB.width + gutter;
+                tempTop = rectB.top + (rectB.height - rectA.height);
+                break;
+        }
+        tempLeft = tempLeft + this.props.x + sl + 'px';
+        tempTop = tempTop + this.props.y + st + 'px';
+        this.style.left = tempLeft;
+        this.style.top = tempTop;
     };
-    Rate.propTypes = {
-        value: Number,
-        half: Boolean,
-        total: Number,
-        color: String
+    Locate.prototype.updated = function () {
+        this._setPosition();
     };
-    Rate = __decorate([
-        omi_1.tag('m-rate')
-    ], Rate);
-    return Rate;
+    Locate.prototype.render = function (props) {
+        return (omi_1.h("div", { class: 'root', style: { display: props.show ? 'block' : 'none' } },
+            omi_1.h("slot", null)));
+    };
+    Locate.css = css;
+    Locate.defaultProps = {
+        x: 0,
+        y: 0,
+        gutter: 4
+    };
+    Locate.propTypes = {};
+    Locate = __decorate([
+        omi_1.tag('m-locate')
+    ], Locate);
+    return Locate;
 }(omi_1.WeElement));
-exports.default = Rate;
+exports.default = Locate;
 
 
 /***/ }),
@@ -381,6 +394,36 @@ function theme() {
         document.body.style.setProperty('--mdc-typography--font-family', 'Roboto, sans-serif');
     }
 }
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

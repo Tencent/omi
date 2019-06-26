@@ -1,16 +1,11 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
-import { MDCMenu } from '@material/menu';
-// @ts-ignore
-import { extract, htmlToVdom } from '../util.ts'
 
 //@ts-ignore
 import '../theme.ts'
 
 interface Props {
-  show?: boolean,
-  list: object,
-  anchor: boolean
+  list: object
 }
 
 interface Data {
@@ -27,66 +22,20 @@ export default class Menu extends WeElement<Props, Data>{
   }
 
   static propTypes = {
-    list: Object,
-    show: Boolean,
-    anchor: Boolean
+    list: Object
   }
 
-  menu: MDCMenu = null
-
-  installed() {
-    const menu = new MDCMenu(this.shadowRoot.querySelector('.mdc-menu'))
-    menu.open = this.props.show
-
-    menu.listen('MDCMenu:selected', (evt: CustomEvent) => {
-      this.fire('selected', evt.detail)
-    });
-    this.menu = menu
-  }
-
-  toggle() {
-    console.log(11)
-    this.menu.open = !this.menu.open
-  }
-
-  open() {
-    this.menu.open = true
-  }
-
-  close() {
-    this.menu.open = false
-  }
-
-  install() {
-
-  }
-
-  receiveProps() {
-    this.menu.open = this.props.show
+  clickHandler = (item)=>{
+    if(!item.disabled){
+      this.fire('selected', item)
+    }
   }
 
   render(props) {
-    if (props.anchor) {
-      return (
-        <div class='mdc-menu-surface--anchor'>
-          <div {...extractClass(props, 'mdc-menu mdc-menu-surface')} tabIndex={-1}>
-            <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-              {props.list.map(item => <li class="mdc-list-item" role="menuitem">
-                <span class={classNames('mdc-list-item__text', {
-                  'mdc-list-item--disabled': item.disabled
-                })}>{item.text}</span>
-              </li>)}
-
-            </ul>
-          </div>
-        </div>
-
-      )
-    }
     return (
       <div {...extractClass(props, 'mdc-menu mdc-menu-surface')} tabIndex={-1}>
         <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-          {props.list.map(item => <li class="mdc-list-item" role="menuitem">
+          {props.list.map(item => <li onClick={_=>this.clickHandler(item)} class="mdc-list-item" role="menuitem">
             <span class={classNames('mdc-list-item__text', {
               'mdc-list-item--disabled': item.disabled
             })}>{item.text}</span>

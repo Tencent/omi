@@ -1,110 +1,138 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
+import { domReady } from '../util/dom-ready'
 //@ts-ignore
 import '../theme.ts'
 
 interface Props {
-  total: number
-  half: boolean
-  value: number
+  to: string
+  direction: string
+  x: number
+  y: number
+  gutter: number
+  //transition: string
 }
 
 interface Data {
 
 }
 
-@tag('m-relation')
-export default class Relation extends WeElement<Props, Data>{
+@tag('m-locate')
+export default class Locate extends WeElement<Props, Data>{
   static css = css
 
   static defaultProps = {
-    value: 0
+    x: 0,
+    y: 0,
+    gutter: 4
   }
 
   static propTypes = {
-    value: Number,
-    half: Boolean,
-    total: Number,
-    color: String
   }
 
-  _current = 0
-
-  _rect = null
-
-  _hover = false
-
-  onSelect = (evt) => {
-    this._rect = this.base.getBoundingClientRect()
-    const dx = evt.pageX - this._rect.left
-    const value = dx / this._rect.width * this.props.total
-    const intValue = Math.floor(value)
-    let v = intValue + (value - intValue > 0.5 ? 1 : 0.5)
-    if(!this.props.half) v = Math.ceil(v)
-
-    this.props.value = v
-    //@ts-ignore
-    this.fire('selected', v)
-    this.update()
-  }
-
-  onMouseMove = (evt) => {
-    this._rect = this.base.getBoundingClientRect()
-    const dx = evt.pageX - this._rect.left
-    this._current = dx / this._rect.width * this.props.total
-    this.update()
-  }
-
-  base:HTMLElement
-
-  installed(){
-    this.base = this.shadowRoot.querySelector('ul')
-    //update 不再从 attr 取 prop
-    this.normalizedNodeName = 'm-rate'
-  }
-
-  onMouseEnter = () => {
-    this._hover = true
-  }
-
-  onMouseLeave = () => {
-    this._hover = false
-    this.update()
-  }
-
-  _getClass = (i, current) => {
-    if (i < current) {
-      if (this.props.half && current - i <= 0.5) {
-        return '_star _star-half '
+  getScopeRoot(current) {
+    while (true) {
+      const p = current.parentNode
+      if (p) {
+        current = p
+      } else {
+        return current
       }
-      return '_star'
-    } else {
-      return '_star _star-empty '
     }
+  }
+
+  install() {
+    domReady(() => {
+      this._setPosition()
+    })
+  }
+
+  _setPosition() {
+    const root = this.getScopeRoot(this)
+    const ele = root.querySelector(this.props.to)
+    const rectA = this.shadowRoot.querySelector('.root').getBoundingClientRect()
+    const rectB = ele.getBoundingClientRect()
+
+    let tempLeft, tempTop
+    let st = document.documentElement.scrollTop || document.body.scrollTop
+    let sl = document.documentElement.scrollLeft || document.body.scrollLeft
+
+    const gutter = this.props.gutter
+    switch (this.props.direction) {
+      case 'top-left':
+        tempLeft = rectB.left
+        tempTop = (rectB.top - rectA.height - gutter)
+        break
+      case 'top':
+        console.log(11)
+        tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2)
+        tempTop = (rectB.top - rectA.height - gutter)
+        break
+      case 'top-right':
+        tempLeft = rectB.left + rectB.width - rectA.width
+        tempTop = (rectB.top - rectA.height - gutter)
+        break
+
+      case 'left':
+        tempLeft = rectB.left - rectA.width - gutter
+        tempTop = rectB.top + (rectB.height - rectA.height) / 2
+        break
+      case 'left-top':
+        tempLeft = rectB.left - rectA.width - gutter
+        tempTop = rectB.top
+        break
+
+      case 'left-bottom':
+        tempLeft = rectB.left - rectA.width - gutter
+        tempTop = rectB.top + (rectB.height - rectA.height)
+        break
+
+      case 'bottom-left':
+        tempLeft = rectB.left
+        tempTop = (rectB.top + rectB.height + gutter)
+        break
+      case 'bottom':
+        tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2)
+        tempTop = (rectB.top + rectB.height + gutter)
+        break
+      case 'bottom-right':
+        tempLeft = rectB.left + rectB.width - rectA.width
+        tempTop = (rectB.top + rectB.height + gutter)
+        break
+
+
+      case 'right':
+        tempLeft = rectB.left + rectB.width + gutter
+        tempTop = rectB.top + (rectB.height - rectA.height) / 2
+        break
+      case 'right-top':
+        tempLeft = rectB.left + rectB.width + gutter
+        tempTop = rectB.top
+        break
+
+      case 'right-bottom':
+        tempLeft = rectB.left + rectB.width + gutter
+        tempTop = rectB.top + (rectB.height - rectA.height)
+        break
+    }
+
+    tempLeft = tempLeft + this.props.x + sl + 'px'
+    tempTop = tempTop + this.props.y + st + 'px'
+
+    this.style.left = tempLeft
+    this.style.top = tempTop
+
+  }
+
+  updated(){
+    this._setPosition()
   }
 
   render(props) {
     return (
-      <ul onMouseMove={this.onMouseMove} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} onClick={this.onSelect} {...extractClass(props, "m-rate")} >
-
-        {Array.apply(0, Array(props.total)).map((x, i) =>
-          <li class={this._getClass(i, this._hover ? this._current : props.value)}>
-            <div class='star-box'>
-              <div class="_star-first">
-                <i class="anticon anticon-star">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"  fill={props.color || "#f57c00"} viewBox="0 0 18 18"><path d="M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z" /><path fill="none" d="M0 0h18v18H0z" /></svg>
-                </i>
-              </div>
-              <div class="_star-second">
-                <i class="anticon anticon-star">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="#E8E8E8"  viewBox="0 0 18 18"><path d="M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z" /><path fill="none" d="M0 0h18v18H0z" /></svg>
-                </i>
-              </div>
-            </div>
-          </li>
-        )}
-
-      </ul>
+      <div class='root' style={{ display: props.show ? 'block' : 'none' }}>
+        <slot></slot>
+      </div>
     )
   }
 }
