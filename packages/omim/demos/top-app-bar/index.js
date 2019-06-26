@@ -136,10 +136,9 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             adjust
             fixed
-            heading={'Fixed' + this.titleOmi}
-            navigations={['menu', {text: 'Omim'}, 'favorite']}
-            onNavigation={this.onMenu}
-            onAction={this.onMenu}>
+            heading='Fixed'
+            navigations={['menu']}
+            onNavigation={this.onMenu}>
             <div>
               <m-text-field
                 outlined
