@@ -42,7 +42,7 @@ export default class DateTimePicker extends WeElement<Props, Data>{
     lan: String
   }
 
-  receiveProps(props, data, pre) {
+  receiveProps(props, pre) {
     if (props.show && !pre.show) {
       this.picker.show()
 

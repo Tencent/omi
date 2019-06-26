@@ -1784,7 +1784,7 @@ var To = /** @class */ (function (_super) {
         _this.to = null;
         return _this;
     }
-    To.prototype.receiveProps = function (props, data, preProps) {
+    To.prototype.receiveProps = function (props, preProps) {
         var _this = this;
         var restart = false;
         for (var key in props.from) {

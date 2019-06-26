@@ -26,7 +26,7 @@ export default class DateTimePicker extends WeElement<Props, Data> {
         future: StringConstructor;
         lan: StringConstructor;
     };
-    receiveProps(props: any, data: any, pre: any): boolean;
+    receiveProps(props: any, pre: any): boolean;
     picker: Picker;
     installed(): void;
     render(props: any): JSX.Element;

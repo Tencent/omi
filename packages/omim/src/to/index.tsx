@@ -32,7 +32,7 @@ export default class To extends WeElement<Props, Data>{
 
   to = null
 
-  receiveProps(props, data, preProps) {
+  receiveProps(props, preProps) {
     let restart = false
     for (let key in props.from) {
       if (props.from[key] !== preProps.from[key]) {

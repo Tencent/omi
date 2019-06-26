@@ -20,7 +20,7 @@ export default class To extends WeElement<Props, Data> {
         delay: NumberConstructor;
     };
     to: any;
-    receiveProps(props: any, data: any, preProps: any): void;
+    receiveProps(props: any, preProps: any): void;
     installed(): void;
     render(): JSX.Element;
 }

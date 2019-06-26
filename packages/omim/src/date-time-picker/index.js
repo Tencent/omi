@@ -19300,7 +19300,7 @@ var DateTimePicker = /** @class */ (function (_super) {
     DateTimePicker.prototype.install = function () {
         moment.locale(this.props.lan);
     };
-    DateTimePicker.prototype.receiveProps = function (props, data, pre) {
+    DateTimePicker.prototype.receiveProps = function (props, pre) {
         if (props.show && !pre.show) {
             this.picker.show();
         }
