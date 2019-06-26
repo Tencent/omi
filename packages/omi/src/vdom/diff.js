@@ -251,6 +251,9 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 
   if (vlen !== 0) {
     for (let i = 0; i < vlen; i++) {
+      if(!vchildren[i]) {
+        continue;
+      }
       vchild = vchildren[i]
       child = null
 
