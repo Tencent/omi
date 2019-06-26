@@ -73,7 +73,7 @@ export default class To extends WeElement<Props, Data>{
 
   installed(){
     if(this.props.start){
-      this.receiveProps(this.props, null, {from:{},to:{}})
+      this.receiveProps(this.props, {from:{},to:{}})
     }
   }
 

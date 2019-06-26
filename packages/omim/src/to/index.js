@@ -1823,7 +1823,7 @@ var To = /** @class */ (function (_super) {
     };
     To.prototype.installed = function () {
         if (this.props.start) {
-            this.receiveProps(this.props, null, { from: {}, to: {} });
+            this.receiveProps(this.props, { from: {}, to: {} });
         }
     };
     To.prototype.render = function () {
