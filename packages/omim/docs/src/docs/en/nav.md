@@ -53,44 +53,16 @@ Menu list of Navigation.
 
 ```js
 var myNav = document.querySelector('#myNav')
-var nodeData = myNav.props.nodes
 
 myNav.addEventListener('toggle', (evt) => {
-  const node = getNodeById(evt.detail.id, nodeData)
-  node.close = !node.close
-  myNav.setAttribute('nodes', nodeData)
+  console.log(evt.detail)
 })
 
 myNav.addEventListener('nodeclick', (evt) => {
-  const pre = getNodeById(evt.detail.pre, nodeData)
-  pre.selected = false
-  const node = getNodeById(evt.detail.id, nodeData)
-  node.selected = true
-  myNav.setAttribute('nodes', nodeData)
+  console.log(evt.detail)
 })
 
-function getNodeById(id, nodes) {
-  for (let i = 0, len = nodes.length; i < len; i++) {
-    let child = nodes[i]
-    let target = this._getNodeById(id, child)
-    if (target) {
-      return target
-    }
-  }
-}
-
-function _getNodeById(id, node) {
-  if (node.id === id) return node
-  if (node.children) {
-    for (let i = 0, len = node.children.length; i < len; i++) {
-      let child = node.children[i]
-      let target = _getNodeById(id, child)
-      if (target) {
-        return target
-      }
-    }
-  }
-}
+console.log(myNav.props.nodes)
 ```
 
 ## API

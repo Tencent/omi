@@ -22,15 +22,45 @@ export default class Nav extends WeElement<Props, Data>{
 
 	_preSelected = null
 
-	toggle = (evt, id, open) => {
+	toggle = (evt, node) => {
 		evt.stopPropagation()
-		this.fire('toggle', { id, open })
+		node.close = !node.close
+		this.update(true)
+		this.fire('toggle', { node })
 	}
 
-	onNodeClick = (id) => {
-		this.fire('nodeClick', { id, pre: this._preSelected })
+	onNodeClick = (node) => {
+		const pre = this.getNodeById(this._preSelected, this.props.nodes)
+		pre && (pre.selected = false)
+		node.selected = true
+		this.update(true)
+		this.fire('nodeClick', { node, pre })
 	}
 
+  getNodeById(id, nodes) {
+
+		for (let i = 0, len = nodes.length; i < len; i++) {
+			let child = nodes[i]
+			let target = this._getNodeById(id, child)
+			if (target) {
+				return target
+			}
+		}
+	}
+
+_getNodeById(id, node) {
+	if (node.id === id) return node
+	if (node.children) {
+		for (let i = 0, len = node.children.length; i < len; i++) {
+			let child = node.children[i]
+			let target = this._getNodeById(id, child)
+			if (target) {
+				return target
+			}
+		}
+	}
+}
+	
 	renderNode(node, level) {
 		if (node.selected) {
 			this._preSelected = node.id
@@ -42,10 +72,10 @@ export default class Nav extends WeElement<Props, Data>{
 			})}>
 
 
-				<span onClick={_ => this.onNodeClick(node.id)} style={`padding-left: ${level * 24 + 10}px;`} class={classNames('mdc-tree-title', {
+				<span onClick={_ => this.onNodeClick(node)} style={`padding-left: ${level * 24 + 10}px;`} class={classNames('mdc-tree-title', {
 					'selected': node.selected
 				})}>{node.icon && <i class='material-icons'>{node.icon}</i>}<span class='text'>{node.title}</span>
-					{node.children && node.children.length > 0 && <svg onClick={_ => this.toggle(_, node.id, !node.close)} viewBox="0 0 1024 1024"
+					{node.children && node.children.length > 0 && <svg onClick={_ => this.toggle(_, node)} viewBox="0 0 1024 1024"
 						class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
 						<path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
 					</svg>}

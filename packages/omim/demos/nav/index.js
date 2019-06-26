@@ -47,54 +47,11 @@ define('my-app', class extends WeElement {
   }]
 
 	toggleHandler = (evt) => {
-		const node = this.getNodeById(evt.detail.id, this.nodes)
-		node.close = !node.close
-		this.update()
+		console.log(evt.detail)
 	}
 
 	onNodeClick = (evt) => {
-		const pre = this.getNodeById(evt.detail.pre, this.nodes)
-		pre.selected = false
-		const node = this.getNodeById(evt.detail.id, this.nodes)
-		node.selected = true
-		this.update()
-	}
-
-	onCheck = (evt) => {
-		const node = this.getNodeById(evt.detail.id, this.nodes)
-		if (!node.children) {
-
-			node.checked = evt.detail.checked
-		} else {
-			this.checkAll(node, evt.detail.state !== 'checked')
-
-		}
-		this.update()
-	}
-
-  getNodeById(id, nodes) {
-
-			for (let i = 0, len = nodes.length; i < len; i++) {
-				let child = nodes[i]
-        let target = this._getNodeById(id, child)
-				if (target) {
-					return target
-				}
-			}
-
-  }
-
-	_getNodeById(id, node) {
-		if (node.id === id) return node
-		if (node.children) {
-			for (let i = 0, len = node.children.length; i < len; i++) {
-				let child = node.children[i]
-				let target = this._getNodeById(id, child)
-				if (target) {
-					return target
-				}
-			}
-		}
+		console.log(evt.detail)
 	}
 
 	render() {
@@ -103,7 +60,6 @@ define('my-app', class extends WeElement {
 
 				onNodeClick={this.onNodeClick}
 				onToggle={this.toggleHandler}
-				onCheck={this.onCheck}
 				nodes={this.nodes}>
 			</m-nav>
 		</div>

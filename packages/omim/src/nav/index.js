@@ -259,15 +259,43 @@ var Nav = /** @class */ (function (_super) {
     function Nav() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._preSelected = null;
-        _this.toggle = function (evt, id, open) {
+        _this.toggle = function (evt, node) {
             evt.stopPropagation();
-            _this.fire('toggle', { id: id, open: open });
+            node.close = !node.close;
+            _this.update(true);
+            _this.fire('toggle', { node: node });
         };
-        _this.onNodeClick = function (id) {
-            _this.fire('nodeClick', { id: id, pre: _this._preSelected });
+        _this.onNodeClick = function (node) {
+            var pre = _this.getNodeById(_this._preSelected, _this.props.nodes);
+            pre && (pre.selected = false);
+            node.selected = true;
+            _this.update(true);
+            _this.fire('nodeClick', { node: node, pre: pre });
         };
         return _this;
     }
+    Nav.prototype.getNodeById = function (id, nodes) {
+        for (var i = 0, len = nodes.length; i < len; i++) {
+            var child = nodes[i];
+            var target = this._getNodeById(id, child);
+            if (target) {
+                return target;
+            }
+        }
+    };
+    Nav.prototype._getNodeById = function (id, node) {
+        if (node.id === id)
+            return node;
+        if (node.children) {
+            for (var i = 0, len = node.children.length; i < len; i++) {
+                var child = node.children[i];
+                var target = this._getNodeById(id, child);
+                if (target) {
+                    return target;
+                }
+            }
+        }
+    };
     Nav.prototype.renderNode = function (node, level) {
         var _this = this;
         if (node.selected) {
@@ -278,12 +306,12 @@ var Nav = /** @class */ (function (_super) {
             omi_1.h("li", { class: omi_1.classNames('tree-item', {
                     'close': node.close
                 }) },
-                omi_1.h("span", { onClick: function (_) { return _this.onNodeClick(node.id); }, style: "padding-left: " + (level * 24 + 10) + "px;", class: omi_1.classNames('mdc-tree-title', {
+                omi_1.h("span", { onClick: function (_) { return _this.onNodeClick(node); }, style: "padding-left: " + (level * 24 + 10) + "px;", class: omi_1.classNames('mdc-tree-title', {
                         'selected': node.selected
                     }) },
                     node.icon && omi_1.h("i", { class: 'material-icons' }, node.icon),
                     omi_1.h("span", { class: 'text' }, node.title),
-                    node.children && node.children.length > 0 && omi_1.h("svg", { onClick: function (_) { return _this.toggle(_, node.id, !node.close); }, viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
+                    node.children && node.children.length > 0 && omi_1.h("svg", { onClick: function (_) { return _this.toggle(_, node); }, viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
                         omi_1.h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" }))),
                 omi_1.h("div", { class: 'children', style: "height: " + (node.close ? 0 : (node.children ? (this._getChildCount(node)) * 40 : 0)) + "px;" },
                     " ",
