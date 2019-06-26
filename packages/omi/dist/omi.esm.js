@@ -1,5 +1,5 @@
 /**
- * omi v6.6.5  http://omijs.org
+ * omi v6.6.6  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -668,6 +668,7 @@ function diffAttributes(dom, attrs, old) {
   var oldClone;
   if (dom.receiveProps) {
     oldClone = Object.assign({}, old);
+    dom.__prevProps = oldClone;
   }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
@@ -686,13 +687,6 @@ function diffAttributes(dom, attrs, old) {
       if (name === 'style') {
         setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
       }
-      if (dom.receiveProps) {
-        try {
-          old[name] = JSON.parse(JSON.stringify(attrs[name]));
-        } catch (e) {
-          console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
-        }
-      }
       dom.props[npn(name)] = attrs[name];
       update = true;
     } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -707,7 +701,7 @@ function diffAttributes(dom, attrs, old) {
   if (isWeElement && dom.parentNode) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
-      if (dom.receiveProps(dom.props, dom.data, oldClone) !== false) {
+      if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update();
       }
     }
@@ -1433,6 +1427,14 @@ var WeElement = function (_HTMLElement) {
     _HTMLElement.prototype.setAttribute.call(this, key, val);
   };
 
+  WeElement.prototype.restoreProps = function restoreProps() {
+    for (var i = 0, len = arguments.length; i < len; i++) {
+      var name = arguments[i];
+      this.props[name] = this.__prevProps[name];
+      this['__omiattr_'][name] = this.__prevProps[name];
+    }
+  };
+
   WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
     var ele = this;
     if (ele.normalizedNodeName || ignoreAttrs) return;
@@ -1808,7 +1810,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.6.5';
+options.root.Omi.version = '6.6.6';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

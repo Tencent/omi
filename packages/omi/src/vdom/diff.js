@@ -40,7 +40,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 				parent.removeChild(s)
 			})
       innerDiffNode(parent, vnode)
-      
+
       for (let i = styles.length - 1; i >= 0; i--) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
       }
@@ -354,7 +354,8 @@ function diffAttributes(dom, attrs, old) {
   let isWeElement = dom.update
   let oldClone
   if (dom.receiveProps) {
-    oldClone = Object.assign({}, old)
+		oldClone = Object.assign({}, old)
+		dom.__prevProps = oldClone
   }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
@@ -372,15 +373,6 @@ function diffAttributes(dom, attrs, old) {
     if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
         setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
-      }
-      if (dom.receiveProps) {
-        try {
-          old[name] = JSON.parse(JSON.stringify(attrs[name]))
-        } catch (e) {
-          console.warn(
-            'When using receiveProps, you cannot pass prop of cyclic dependencies down.'
-          )
-        }
       }
       dom.props[npn(name)] = attrs[name]
       update = true
@@ -402,7 +394,7 @@ function diffAttributes(dom, attrs, old) {
   if (isWeElement && dom.parentNode) {
 		//__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
-      if (dom.receiveProps(dom.props, dom.data, oldClone) !== false) {
+      if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update()
       }
     }

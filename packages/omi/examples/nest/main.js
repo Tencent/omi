@@ -18,11 +18,16 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
+	onClick = ()=>{
+		this.show=!this.show
+		this.update()
+	}
+
   static css =`
          div{
              color: green;
          }`
-  
+
 
   installed(){
     console.log(this.a)
@@ -31,10 +36,10 @@ define('my-app', class extends WeElement {
   render(props, data) {
     return (
       <div>
-       <div ref={this.a}>Hello {props.name} {data.abc} {this.dd.a}</div>
+       <div onClick={this.onClick}>Click Me</div>
         <hello-element ref={this.b}
           onMyEvent={this.onMyEvent}
-          propFromParent={data.passToChild}
+          propFromParent={Math.random()}
           dd={this.dd}
           msg="WeElement"
         />

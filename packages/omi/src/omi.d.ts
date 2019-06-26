@@ -63,7 +63,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, data: D, oldProps:RenderableProps<P>): any;
+		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 	}
@@ -76,7 +76,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, data: D, oldProps:RenderableProps<P>): any;
+		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 	}
@@ -89,7 +89,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, data: D, oldProps:RenderableProps<P>): any;
+		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 	}
@@ -114,6 +114,7 @@ declare namespace Omi {
 		update?(ignoreAttrs?:boolean): void;
 		fire?(name: string, data?: any): void;
 		css?(): string;
+		restoreProps?(...name:string[]): void
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -141,7 +142,7 @@ declare namespace Omi {
 
 		update(ignoreAttrs?:boolean): void;
 		fire(name: string, data?: any): void;
-
+		restoreProps?(...name:string[]): void
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -167,6 +168,7 @@ declare namespace Omi {
 		update?(ignoreAttrs?:boolean): void;
 		fire?(name: string, data?: any): void;
 		css?(): string;
+		restoreProps?(...name:string[]): void
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;

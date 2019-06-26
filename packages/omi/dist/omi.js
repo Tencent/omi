@@ -282,7 +282,10 @@
         var update = !1;
         var isWeElement = dom.update;
         var oldClone;
-        if (dom.receiveProps) oldClone = Object.assign({}, old);
+        if (dom.receiveProps) {
+            oldClone = Object.assign({}, old);
+            dom.Q = oldClone;
+        }
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
             setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
             if (isWeElement) {
@@ -292,11 +295,6 @@
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name] && 'ref' !== name) {
             if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-            if (dom.receiveProps) try {
-                old[name] = JSON.parse(JSON.stringify(attrs[name]));
-            } catch (e) {
-                console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
-            }
             dom.props[npn(name)] = attrs[name];
             update = !0;
         } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
@@ -306,7 +304,7 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, dom.data, oldClone)) dom.update();
+        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -967,6 +965,13 @@
         WeElement.prototype.pureSetAttribute = function(key, val) {
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
+        WeElement.prototype.restoreProps = function() {
+            for (var i = 0, len = arguments.length; i < len; i++) {
+                var name = arguments[i];
+                this.props[name] = this.Q[name];
+                this.__omiattr_[name] = this.Q[name];
+            }
+        };
         WeElement.prototype.attrsToProps = function(ignoreAttrs) {
             var ele = this;
             if (!ele.normalizedNodeName && !ignoreAttrs) {
@@ -1088,7 +1093,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.5';
+    options.root.Omi.version = '6.6.6';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -18,19 +18,18 @@ define('hello-element', class extends WeElement {
           color: red;
           cursor: pointer;
         }`
-  
 
-  receiveProps(props, data, oldProps) {
-    console.log(props, data, oldProps)
-  }
+
+  receiveProps(props, oldProps) {
+		this.restoreProps('propFromParent')
+		console.log(props, oldProps)
+		//props.propFromParent = oldProps.propFromParent
+	}
+
 
   render(props) {
     return (
-      <div onClick={this.onClick}>
-        Hello {props.msg} {props.propFromParent}
-        <div>Click Me!</div>
-        <div>{props.testDefault}</div>
-      </div>
+      <div onClick={this.onClick}> {props.propFromParent}</div>
     )
   }
 })
