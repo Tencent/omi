@@ -282,10 +282,7 @@
         var update = !1;
         var isWeElement = dom.update;
         var oldClone;
-        if (dom.receiveProps) {
-            oldClone = Object.assign({}, old);
-            dom.Q = oldClone;
-        }
+        if (dom.receiveProps) oldClone = Object.assign({}, old);
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
             setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
             if (isWeElement) {
@@ -304,7 +301,15 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
+        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) {
+            var op = dom.constructor.onceProps;
+            if (op) for (var i = 0, len = op.length; i < len; i++) {
+                var _name = op[i];
+                dom.props[_name] = oldClone[_name];
+                dom.__omiattr_[_name] = oldClone[_name];
+            }
+            if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
+        }
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -964,13 +969,6 @@
         };
         WeElement.prototype.pureSetAttribute = function(key, val) {
             _HTMLElement.prototype.setAttribute.call(this, key, val);
-        };
-        WeElement.prototype.restoreProps = function() {
-            for (var i = 0, len = arguments.length; i < len; i++) {
-                var name = arguments[i];
-                this.props[name] = this.Q[name];
-                this.__omiattr_[name] = this.Q[name];
-            }
         };
         WeElement.prototype.attrsToProps = function(ignoreAttrs) {
             var ele = this;

@@ -3,7 +3,6 @@ import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
 import { getPath } from './define'
-import { ATTR_KEY } from './constants'
 
 let id = 0
 
@@ -158,14 +157,6 @@ export default class WeElement extends HTMLElement {
 
   pureSetAttribute(key, val) {
     super.setAttribute(key, val)
-	}
-
-	restoreProps() {
-		for (let i = 0, len = arguments.length; i < len; i++) {
-			let name = arguments[i]
-			this.props[name] = this.__prevProps[name]
-			this[ATTR_KEY][name] = this.__prevProps[name]
-		}
 	}
 
   attrsToProps(ignoreAttrs) {

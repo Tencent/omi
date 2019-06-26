@@ -7,6 +7,10 @@ define('hello-element', class extends WeElement {
     testDefault: 'abc'
   }
 
+	static onceProps = [
+   'propFromParent'
+	]
+
   onClick = evt => {
     // trigger CustomEvent
     this.fire('myEvent', { name: 'dntzhang', age: 12 })
@@ -21,7 +25,7 @@ define('hello-element', class extends WeElement {
 
 
   receiveProps(props, oldProps) {
-		this.restoreProps('propFromParent')
+		//this.restoreProps('propFromParent')
 		console.log(props, oldProps)
 		//props.propFromParent = oldProps.propFromParent
 	}

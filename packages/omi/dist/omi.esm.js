@@ -668,7 +668,6 @@ function diffAttributes(dom, attrs, old) {
   var oldClone;
   if (dom.receiveProps) {
     oldClone = Object.assign({}, old);
-    dom.__prevProps = oldClone;
   }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
@@ -701,6 +700,15 @@ function diffAttributes(dom, attrs, old) {
   if (isWeElement && dom.parentNode) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
+      var op = dom.constructor.onceProps;
+      if (op) {
+        for (var i = 0, len = op.length; i < len; i++) {
+          var _name = op[i];
+          dom.props[_name] = oldClone[_name];
+          dom['__omiattr_'][_name] = oldClone[_name];
+        }
+      }
+
       if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update();
       }
@@ -1425,14 +1433,6 @@ var WeElement = function (_HTMLElement) {
 
   WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
     _HTMLElement.prototype.setAttribute.call(this, key, val);
-  };
-
-  WeElement.prototype.restoreProps = function restoreProps() {
-    for (var i = 0, len = arguments.length; i < len; i++) {
-      var name = arguments[i];
-      this.props[name] = this.__prevProps[name];
-      this['__omiattr_'][name] = this.__prevProps[name];
-    }
   };
 
   WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {

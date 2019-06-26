@@ -114,7 +114,6 @@ declare namespace Omi {
 		update?(ignoreAttrs?:boolean): void;
 		fire?(name: string, data?: any): void;
 		css?(): string;
-		restoreProps?(...name:string[]): void
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -142,7 +141,6 @@ declare namespace Omi {
 
 		update(ignoreAttrs?:boolean): void;
 		fire(name: string, data?: any): void;
-		restoreProps?(...name:string[]): void
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -168,7 +166,6 @@ declare namespace Omi {
 		update?(ignoreAttrs?:boolean): void;
 		fire?(name: string, data?: any): void;
 		css?(): string;
-		restoreProps?(...name:string[]): void
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;

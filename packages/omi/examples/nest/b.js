@@ -667,7 +667,6 @@
     var oldClone = void 0;
     if (dom.receiveProps) {
       oldClone = Object.assign({}, old);
-      dom.__prevProps = oldClone;
     }
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
@@ -700,6 +699,15 @@
     if (isWeElement && dom.parentNode) {
       //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
       if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
+        var op = dom.constructor.onceProps;
+        if (op) {
+          for (var i = 0, len = op.length; i < len; i++) {
+            var _name = op[i];
+            dom.props[_name] = oldClone[_name];
+            dom[ATTR_KEY][_name] = oldClone[_name];
+          }
+        }
+
         if (dom.receiveProps(dom.props, oldClone) !== false) {
           dom.update();
         }
@@ -1431,14 +1439,6 @@
       _HTMLElement.prototype.setAttribute.call(this, key, val);
     };
 
-    WeElement.prototype.restoreProps = function restoreProps() {
-      for (var i = 0, len = arguments.length; i < len; i++) {
-        var name = arguments[i];
-        this.props[name] = this.__prevProps[name];
-        this[ATTR_KEY][name] = this.__prevProps[name];
-      }
-    };
-
     WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
       var ele = this;
       if (ele.normalizedNodeName || ignoreAttrs) return;
@@ -1811,7 +1811,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.6.5';
+  options.root.Omi.version = '6.6.6';
 
   var _class$2, _temp2;
 
@@ -1841,7 +1841,7 @@
     }
 
     _class.prototype.receiveProps = function receiveProps(props, oldProps) {
-      this.restoreProps('propFromParent');
+      //this.restoreProps('propFromParent')
       console.log(props, oldProps);
       //props.propFromParent = oldProps.propFromParent
     };
@@ -1860,7 +1860,7 @@
     msg: '',
     propFromParent: '123111',
     testDefault: 'abc'
-  }, _class$2.css = '\n        div {\n          color: red;\n          cursor: pointer;\n        }', _temp2));
+  }, _class$2.onceProps = ['propFromParent'], _class$2.css = '\n        div {\n          color: red;\n          cursor: pointer;\n        }', _temp2));
 
   var _class$3, _temp2$1;
 
