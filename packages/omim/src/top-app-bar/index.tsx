@@ -55,7 +55,6 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   updated() {
-    // update this.topAppBar, more flexible operation (更新 this.topAppBar 变量，操作更灵活)
     this.topAppBar.destroy()
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
 
@@ -116,43 +115,44 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
   
   render(props) {
-    return [
-      <header {...extractClass(props, 'mdc-top-app-bar', {
-        'mdc-top-app-bar--fixed': props.fixed || props.bottom,
-        'mdc-top-app-bar--dense': props.dense,
-        'mdc-top-app-bar--short': props.short || props.shortCollapsed,
-        'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
-        'mdc-top-app-bar--prominent': props.prominent,
-        'm-top-app-bar-bottom': props.bottom
-      })}>
-        <div class='mdc-top-app-bar__row'>
-          {(props.navigations || this.tagNum['NAVIGATION'] || props.heading) &&
-          <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-            {props.navigations ? props.navigations.map((item, index) => {
-              return <omim accessKey={index + ''} class={classNames('mdc-top-app-bar__navigation-icon', {'material-icons': !item.text})} onClick={this.onNavigation}>{typeof item.text === 'string' ? item.text : item}</omim>
-            }) : (this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
-              return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNavigation}></slot>
-            }))}
-            {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
-          </section>}
-          {(props.actionItems || this.tagNum['ACTIONITEM']) &&
-          <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-            {props.actionItems ?
-            props.actionItems.map((item, index) => {
-              return <omim accessKey={index + ''} class={classNames('mdc-top-app-bar__action-item', {'material-icons': !item.text})} onClick={this.onAction}>{typeof item.text === 'string' ? item.text : item}</omim>
-            }) : (this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
-              return <slot accessKey={index + ''} class='mdc-top-app-bar__action-item' name={'ACTIONITEM' + index} onClick={this.onAction}></slot>
-            }))}
-          </section>}
-          {this.other === true && <slot name='OTHER'></slot>}
-        </div>
-      </header>,
-      (props.adjust && <div {...extractClass(props,
+    let node = [<header {...extractClass(props, 'mdc-top-app-bar', {
+      'mdc-top-app-bar--fixed': props.fixed || props.bottom,
+      'mdc-top-app-bar--dense': props.dense,
+      'mdc-top-app-bar--short': props.short || props.shortCollapsed,
+      'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
+      'mdc-top-app-bar--prominent': props.prominent,
+      'm-top-app-bar-bottom': props.bottom
+    })}>
+      <div class='mdc-top-app-bar__row'>
+        {(props.navigations || this.tagNum['NAVIGATION'] || props.heading) &&
+        <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
+          {props.navigations ? props.navigations.map((item, index) => {
+            return <omim accessKey={index + ''} class={classNames('mdc-top-app-bar__navigation-icon', {'material-icons': !item.text})} onClick={this.onNavigation}>{typeof item.text === 'string' ? item.text : item}</omim>
+          }) : (this.tagNum['NAVIGATION'] && this.tagNum['NAVIGATION'].map((_, index) => {
+            return <slot accessKey={index + ''} class='mdc-top-app-bar__navigation-icon' name={'NAVIGATION' + index} onClick={this.onNavigation}></slot>
+          }))}
+          {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
+        </section>}
+        {(props.actionItems || this.tagNum['ACTIONITEM']) &&
+        <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
+          {props.actionItems ?
+          props.actionItems.map((item, index) => {
+            return <omim accessKey={index + ''} class={classNames('mdc-top-app-bar__action-item', {'material-icons': !item.text})} onClick={this.onAction}>{typeof item.text === 'string' ? item.text : item}</omim>
+          }) : (this.tagNum['ACTIONITEM'] && this.tagNum['ACTIONITEM'].map((_, index) => {
+            return <slot accessKey={index + ''} class='mdc-top-app-bar__action-item' name={'ACTIONITEM' + index} onClick={this.onAction}></slot>
+          }))}
+        </section>}
+        {this.other === true && <slot name='OTHER'></slot>}
+      </div>
+    </header>]
+    if(props.adjust) {
+      node.push(<div {...extractClass(props,
         (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
         (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
         props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
         props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust'
       )}></div>)
-    ]
+    }
+    return node
   }
 }
