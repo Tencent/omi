@@ -240,7 +240,7 @@
                 keyed[key] = _child;
             } else if (props || (void 0 !== _child.splitText ? isHydrating ? _child.nodeValue.trim() : !0 : isHydrating)) children[childrenLen++] = _child;
         }
-        if (0 !== vlen) for (var i = 0; i < vlen; i++) {
+        if (0 !== vlen) for (var i = 0; i < vlen; i++) if (vchildren[i]) {
             vchild = vchildren[i];
             child = null;
             var key = vchild.key;
