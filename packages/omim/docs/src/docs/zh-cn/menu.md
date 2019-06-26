@@ -4,25 +4,46 @@
 
 ## 使用
 
-```html
-<m-menu anchor id="menu" onSelected="onSelected()" list="[
-  { text: 'A Menu Item' },
-  { text: 'A Disabled Menu Item', disabled: true },
-  { text: 'Another Menu Item' }
-]">
-</m-menu>
-```
-
-## Omi 中使用
-
-JSX:
-
 ```jsx
-<m-menu anchor show={this.show} onSelected={this.onSelected} list={[
-  { text: 'A Menu Item' },
-  { text: 'A Disabled Menu Item', disabled: true },
-  { text: 'Another Menu Item' }
-]}></m-menu>
+import 'omim/menu'
+import 'omim/button'
+import 'omim/locate'
+import { define, WeElement, render, h } from 'omi'
+
+
+define('my-app', class extends WeElement {
+  onSelected = (evt) => {
+    console.log(evt)
+    this.show = false
+    this.update()
+  }
+
+  show = true
+
+  onClick = () => {
+    this.show = !this.show
+    this.update()
+  }
+
+  render() {
+    return <div>
+      <m-button 
+        id='myBtn'
+        style='position: relative;top: 100px;left: 40px;'
+        onClick={this.onClick}>
+          OPEN MENU
+      </m-button>
+      <m-locate to="#myBtn"  direction='bottom-left' show={this.show}>
+        <m-menu onSelected={this.onSelected} list={[
+          { text: 'A Menu Item' },
+          { text: 'A Disabled Menu Item', disabled: true },
+          { text: 'Another Menu Item' }
+        ]}></m-menu>
+      </m-locate>
+    </div>
+  }
+})
+render(<my-app />, 'body')
 ```
 
 ## API
@@ -31,7 +52,8 @@ JSX:
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| show | boolean | -- | 是否显示菜单 |
 | list | object | -- | 列表内容 |
-| anchor | boolean | -- | 自动确定父元素 |
-| onSelected | function | -- | 选择触发 |
+
+### Events
+
+* select 

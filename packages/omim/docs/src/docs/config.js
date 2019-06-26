@@ -43,7 +43,7 @@ const config = {
       {
         title: '导航',
         list: [
-          { name: 'Menu 菜单', md: 'menu', demo: './repl/menu.html' },
+          { name: 'Menu 菜单', md: 'menu', demo: 'https://tencent.github.io/omi/packages/omim/demos/menu/index.html' },
           { name: 'Drawer 抽屉', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab 标签切换', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav 导航', md: 'nav', demo: './repl/nav.html' },
@@ -74,9 +74,9 @@ const config = {
           { name: 'Picker 原生选择器', md: 'picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/picker/index.script.html' },
           { name: 'Transfer List 穿梭列表', md: 'transfer-list', demo: 'https://tencent.github.io/omi/packages/omim/demos/transfer-list/index.script.html' },
           { name: 'Toggle Buttons 按钮组', md: 'toggle-buttons', demo: 'https://tencent.github.io/omi/packages/omim/demos/toggle-buttons/index.script.html' },
-          { name: 'Date Time Picker 时间日期选择器', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
+          { name: 'Date Time Picker 日期时间', md: 'date-time-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-time-picker/index.script.html' },
           { name: 'Date Picker 日期选择器', md: 'date-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-picker/index.html' },
-          { name: 'Date Range Picker 日期区间选择器', md: 'date-range-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-range-picker/index.html' }
+          { name: 'Date Range Picker 日期区间', md: 'date-range-picker', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-range-picker/index.html' }
         ]
       },
       {
@@ -158,7 +158,7 @@ const config = {
       {
         title: 'Navigation',
         list: [
-          { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
+          { name: 'Menu', md: 'menu', demo: 'https://tencent.github.io/omi/packages/omim/demos/menu/index.html' },
           { name: 'Drawer', md: 'drawer', demo: 'https://tencent.github.io/omi/packages/omim/demos/drawer/index.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
