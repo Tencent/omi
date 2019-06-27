@@ -271,6 +271,7 @@ var Drawer = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onMaskClick = function () {
             _this.props.show = false;
+            _this.prevProps.show = false;
             _this.update(true);
             _this.fire('close');
         };
