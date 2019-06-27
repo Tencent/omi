@@ -1375,6 +1375,28 @@
 			this.z = attribute.getZ(index);
 
 			return this;
+		},
+		//by dntzhang https://www.cnblogs.com/iamzhanglei/archive/2012/06/11/2544304.html
+		rotateXSelf: function rotateXSelf(p, theta) {
+			var v = this.clone().sub(p);
+			theta *= Math.PI / 180;
+			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+			this.y = p.y + R[0][0] * v.y + R[0][1] * v.z;
+			this.z = p.z + R[1][0] * v.y + R[1][1] * v.z;
+		},
+		rotateYSelf: function rotateYSelf(p, theta) {
+			var v = this.clone().sub(p);
+			theta *= Math.PI / 180;
+			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+			this.x = p.x + R[0][0] * v.x + R[0][1] * v.z;
+			this.z = p.z + R[1][0] * v.x + R[1][1] * v.z;
+		},
+		rotateZSelf: function rotateZSelf(p, theta) {
+			var v = this.clone().sub(p);
+			theta *= Math.PI / 180;
+			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+			this.x = p.x + R[0][0] * v.x + R[0][1] * v.y;
+			this.y = p.y + R[1][0] * v.x + R[1][1] * v.y;
 		}
 
 	});
@@ -2432,6 +2454,17 @@
 	    this.test7 = new Vector3(100 + 100, 100 + 100, 600);
 	    this.test8 = new Vector3(100, 100 + 100, 600);
 	    this.pv = new Matrix4();
+
+	    var rotation = 50;
+	    this.test1.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
+	    this.test2.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
+	    this.test5.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
+	    this.test6.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
+
+	    this.test3.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
+	    this.test4.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
+	    this.test7.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
+	    this.test8.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
 	  }
 
 	  Cube.prototype.render = function render(ctx, camera) {

@@ -20,14 +20,25 @@ class Cube {
     //w0.0033333333333333335  300
     //w 0.01  500
     this.test1 = new Vector3(100, 100, 500)
-    this.test2 = new Vector3(100+100, 100, 500)
-    this.test3 = new Vector3(100+100, 100+100, 500)
-    this.test4 = new Vector3(100, 100+100, 500)
+    this.test2 = new Vector3(100 + 100, 100, 500)
+    this.test3 = new Vector3(100 + 100, 100 + 100, 500)
+    this.test4 = new Vector3(100, 100 + 100, 500)
     this.test5 = new Vector3(100, 100, 600)
-    this.test6 = new Vector3(100+100, 100, 600)
-    this.test7 = new Vector3(100+100, 100+100, 600)
-    this.test8 = new Vector3(100, 100+100, 600)
+    this.test6 = new Vector3(100 + 100, 100, 600)
+    this.test7 = new Vector3(100 + 100, 100 + 100, 600)
+    this.test8 = new Vector3(100, 100 + 100, 600)
     this.pv = new Matrix4()
+
+    var rotation = 50
+    this.test1.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation)
+    this.test2.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation)
+    this.test5.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation)
+    this.test6.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation)
+
+    this.test3.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation)
+    this.test4.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation)
+    this.test7.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation)
+    this.test8.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation)
   }
 
   render(ctx, camera) {
