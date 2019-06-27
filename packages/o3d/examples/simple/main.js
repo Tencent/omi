@@ -4,7 +4,7 @@ const stage = new Stage({
   camera: new Camera({
     x: 0,
     y: 0,
-    z: 600,
+    z: 1000,
     rotateX: 0,
     rotateY: 0,
     fov: 60,

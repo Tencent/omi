@@ -2423,8 +2423,14 @@
 	      //w0.002               100
 	      //w0.0033333333333333335  300
 	      //w 0.01  500
-	    };this.testP = new Vector3(100, 100, 500);
-
+	    };this.test1 = new Vector3(100, 100, 500);
+	    this.test2 = new Vector3(100 + 100, 100, 500);
+	    this.test3 = new Vector3(100 + 100, 100 + 100, 500);
+	    this.test4 = new Vector3(100, 100 + 100, 500);
+	    this.test5 = new Vector3(100, 100, 600);
+	    this.test6 = new Vector3(100 + 100, 100, 600);
+	    this.test7 = new Vector3(100 + 100, 100 + 100, 600);
+	    this.test8 = new Vector3(100, 100 + 100, 600);
 	    this.pv = new Matrix4();
 	  }
 
@@ -2433,9 +2439,24 @@
 	    //p*v*m
 	    //face z-sort !!! w-sort !!
 	    //render
-	    this.testP.applyMatrix4(this.pv);
+	    this.test1.applyMatrix4(this.pv);
+	    this.test2.applyMatrix4(this.pv);
+	    this.test3.applyMatrix4(this.pv);
+	    this.test4.applyMatrix4(this.pv);
+	    this.test5.applyMatrix4(this.pv);
+	    this.test6.applyMatrix4(this.pv);
+	    this.test7.applyMatrix4(this.pv);
+	    this.test8.applyMatrix4(this.pv);
+	    console.log(this.test1);
+	    console.log(this.test2);
+	    console.log(this.test3);
+	    console.log(this.test4);
+	    console.log(this.test5);
+	    console.log(this.test6);
+	    console.log(this.test7);
+	    console.log(this.test8);
 
-	    console.log(this.testP.w);
+	    window.xxx = [this.test1, this.test2, this.test3, this.test4, this.test5, this.test6, this.test7, this.test8];
 	  };
 
 	  return Cube;
@@ -2511,7 +2532,7 @@
 	  camera: new Camera({
 	    x: 0,
 	    y: 0,
-	    z: 600,
+	    z: 1000,
 	    rotateX: 0,
 	    rotateY: 0,
 	    fov: 60,
