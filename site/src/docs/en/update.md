@@ -19,7 +19,9 @@ For example, click on the mask of the pop-up layer to close the pop-up, pass it 
 onMaskClick = ()=> {
   //change props
   this.props.show = false
-  //ignore attributes
+  //prevent parent component from updating diff without results
+  this.prevProps.show = false
+  //update self and ignore attributes in html mode
   this.update(true)
   //trigger events, which can be used to change external state variables to maintain consistency, but external components need not be updated
   this.fire('close')

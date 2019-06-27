@@ -68,3 +68,21 @@ Special attention should be paid to adding `static propTypes` if your custom ele
   <my-element name="dntzhang" my-age="20"></my-element>
 </body>
 ```
+
+### Once Props
+
+```jsx
+define('my-element', class extends WeElement {
+  install() {
+    this.name = this.props.name
+  }
+
+  render() {
+    return (
+      <h1>Hello, {this.name}!</h1>
+    )
+  }
+})
+```
+
+Next time the parent component updated and changed props, it will not affect the component.

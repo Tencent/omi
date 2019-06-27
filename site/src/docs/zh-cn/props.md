@@ -68,3 +68,23 @@ define('my-element', class extends WeElement {
   <my-element name="dntzhang" my-age="20"></my-element>
 </body>
 ```
+
+### 高级技巧
+
+这里介绍一次性使用 prop 的技巧:
+
+```jsx
+define('my-element', class extends WeElement {
+  install() {
+    this.name = this.props.name
+  }
+
+  render() {
+    return (
+      <h1>Hello, {this.name}!</h1>
+    )
+  }
+})
+```
+
+下次父组件 update 并且修改了 props 也不会影响到该组件。

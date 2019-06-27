@@ -19,7 +19,9 @@ this.update(true)
 onMaskClick = ()=> {
   //修复 props
   this.props.show = false
-  //忽略 attributes
+  //防止父组件更新 diff 不出结果
+  this.prevProps.show = false
+  //更新，并且再 html 模式下忽略 attributes
   this.update(true)
   //触发事件，可以通过这个更改外部的状态变量来保持一致性，但是外面的组件不用再更新
   this.fire('close')
