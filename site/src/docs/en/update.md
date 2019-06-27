@@ -7,7 +7,7 @@
 this.update()
 ```
 
-You can also pass parameters to decide whether to ignore attributes and force updates:
+You can also pass parameters to decide whether to ignore attributes in html mode and force updates:
 
 ```js
 this.update(true)

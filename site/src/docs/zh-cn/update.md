@@ -7,7 +7,7 @@
 this.update()
 ```
 
-也可以传递参数，决定是否忽略 attributes，强行更新:
+也可以传递参数，决定是否在 html 模式下忽略 attributes，强行更新:
 
 ```js
 this.update(true)
@@ -17,11 +17,11 @@ this.update(true)
 
 ```js
 onMaskClick = ()=> {
-  //修复 props
+  //修改 props
   this.props.show = false
   //防止父组件更新 diff 不出结果
   this.prevProps.show = false
-  //更新，并且再 html 模式下忽略 attributes
+  //更新，并且在 html 模式下忽略 attributes
   this.update(true)
   //触发事件，可以通过这个更改外部的状态变量来保持一致性，但是外面的组件不用再更新
   this.fire('close')
