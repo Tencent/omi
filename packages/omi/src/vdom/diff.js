@@ -393,15 +393,6 @@ function diffAttributes(dom, attrs, old) {
   if (isWeElement && dom.parentNode) {
 		//__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
-			const op = dom.constructor.onceProps
-			if(op){
-				for (let i = 0, len = op.length; i < len; i++) {
-					let name = op[i]
-					dom.props[name] = oldClone[name]
-					dom[ATTR_KEY][name] = oldClone[name]
-				}
-			}
-
       if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update()
       }

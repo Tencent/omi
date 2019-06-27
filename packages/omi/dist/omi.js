@@ -160,7 +160,7 @@
         var ret;
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
-            hydrating = null != dom && !('__omiattr_' in dom);
+            hydrating = null != dom && !('prevProps' in dom);
         }
         if (isArray(vnode)) if (parent) {
             var styles = parent.querySelectorAll('style');
@@ -199,7 +199,7 @@
                     recollectNodeTree(dom, !0);
                 }
             }
-            out.__omiattr_ = !0;
+            out.__p = !0;
             return out;
         }
         var vnodeName = vnode.nodeName;
@@ -218,9 +218,9 @@
                 recollectNodeTree(dom, !0);
             }
         }
-        var fc = out.firstChild, props = out.__omiattr_, vchildren = vnode.children;
+        var fc = out.firstChild, props = out.__p, vchildren = vnode.children;
         if (null == props) {
-            props = out.__omiattr_ = {};
+            props = out.__p = {};
             for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
@@ -234,7 +234,7 @@
     function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
-            var _child = originalChildren[i], props = _child.__omiattr_, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
+            var _child = originalChildren[i], props = _child.__p, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
             if (null != key) {
                 keyedLen++;
                 keyed[key] = _child;
@@ -265,8 +265,8 @@
         while (min <= childrenLen) if (void 0 !== (child = children[childrenLen--])) recollectNodeTree(child, !1);
     }
     function recollectNodeTree(node, unmountOnly) {
-        if (null != node.__omiattr_ && node.__omiattr_.ref) if ('function' == typeof node.__omiattr_.ref) node.__omiattr_.ref(null); else if (node.__omiattr_.ref.current) node.__omiattr_.ref.current = null;
-        if (!1 === unmountOnly || null == node.__omiattr_) removeNode(node);
+        if (null != node.__p && node.__p.ref) if ('function' == typeof node.__p.ref) node.__p.ref(null); else if (node.__p.ref.current) node.__p.ref.current = null;
+        if (!1 === unmountOnly || null == node.__p) removeNode(node);
         removeChildren(node);
     }
     function removeChildren(node) {
@@ -301,15 +301,7 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) {
-            var op = dom.constructor.onceProps;
-            if (op) for (var i = 0, len = op.length; i < len; i++) {
-                var _name = op[i];
-                dom.props[_name] = oldClone[_name];
-                dom.__omiattr_[_name] = oldClone[_name];
-            }
-            if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
-        }
+        if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -1091,7 +1083,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.6';
+    options.root.Omi.version = '6.6.7';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

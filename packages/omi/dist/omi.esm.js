@@ -1,5 +1,5 @@
 /**
- * omi v6.6.6  http://omijs.org
+ * omi v6.6.7  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -382,7 +382,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
     // hydration is indicated by the existing element to be diffed not having a prop cache
-    hydrating = dom != null && !('__omiattr_' in dom);
+    hydrating = dom != null && !('prevProps' in dom);
   }
   if (isArray(vnode)) {
     if (parent) {
@@ -457,7 +457,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       }
     }
 
-    out['__omiattr_'] = true;
+    out['prevProps'] = true;
 
     return out;
   }
@@ -494,11 +494,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   var fc = out.firstChild,
-      props = out['__omiattr_'],
+      props = out['prevProps'],
       vchildren = vnode.children;
 
   if (props == null) {
-    props = out['__omiattr_'] = {};
+    props = out['prevProps'] = {};
     for (var a = out.attributes, i = a.length; i--;) {
       props[a[i].name] = a[i].value;
     }
@@ -554,7 +554,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
   if (len !== 0) {
     for (var i = 0; i < len; i++) {
       var _child = originalChildren[i],
-          props = _child['__omiattr_'],
+          props = _child['prevProps'],
           key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
       if (key != null) {
         keyedLen++;
@@ -628,15 +628,15 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 function recollectNodeTree(node, unmountOnly) {
   // If the node's VNode had a ref function, invoke it with null here.
   // (this is part of the React spec, and smart for unsetting references)
-  if (node['__omiattr_'] != null && node['__omiattr_'].ref) {
-    if (typeof node['__omiattr_'].ref === 'function') {
-      node['__omiattr_'].ref(null);
-    } else if (node['__omiattr_'].ref.current) {
-      node['__omiattr_'].ref.current = null;
+  if (node['prevProps'] != null && node['prevProps'].ref) {
+    if (typeof node['prevProps'].ref === 'function') {
+      node['prevProps'].ref(null);
+    } else if (node['prevProps'].ref.current) {
+      node['prevProps'].ref.current = null;
     }
   }
 
-  if (unmountOnly === false || node['__omiattr_'] == null) {
+  if (unmountOnly === false || node['prevProps'] == null) {
     removeNode(node);
   }
 
@@ -700,15 +700,6 @@ function diffAttributes(dom, attrs, old) {
   if (isWeElement && dom.parentNode) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
-      var op = dom.constructor.onceProps;
-      if (op) {
-        for (var i = 0, len = op.length; i < len; i++) {
-          var _name = op[i];
-          dom.props[_name] = oldClone[_name];
-          dom['__omiattr_'][_name] = oldClone[_name];
-        }
-      }
-
       if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update();
       }
@@ -1810,7 +1801,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.6.6';
+options.root.Omi.version = '6.6.7';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };
