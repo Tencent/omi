@@ -5,7 +5,6 @@ import '../../src/date-picker/index.tsx'
 import '../../src/text-field/index.tsx'
 import '../../src/locate/index.tsx'
 import { define, WeElement, render, h } from 'omi'
-import { render, h } from 'omi'
 
 
 define('my-app', class extends WeElement {
