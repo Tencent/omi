@@ -276,6 +276,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | bottom nav | member | done|
 | expansion | member | done |
 | toggle buttons | member | done|
+| locate | member | done|
 | player | 132yse | done|
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
