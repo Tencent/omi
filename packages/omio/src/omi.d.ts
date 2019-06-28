@@ -64,7 +64,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(): void;
+		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 	}
 
 	interface ModelView<P, D> {
@@ -75,7 +75,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(): void;
+		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 	}
 
 	interface Component<P, D> {
@@ -86,7 +86,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(): void;
+		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {

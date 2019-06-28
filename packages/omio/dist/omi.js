@@ -542,7 +542,7 @@
                 if (component.beforeInstall) component.beforeInstall();
                 if (component.install) component.install();
                 if (component.constructor.observe) proxyUpdate(component);
-            } else if (component.receiveProps) component.receiveProps(props, component.data, component.props);
+            }
             if (context && context !== component.context) {
                 if (!component.__c) component.__c = component.context;
                 component.context = context;
@@ -571,8 +571,12 @@
                 component.data = previousState;
                 component.context = previousContext;
                 if (component.store || 2 == opts || shallowComparison(previousProps, props)) {
-                    skip = !1;
-                    if (component.beforeUpdate) component.beforeUpdate(props, data, context);
+                    var receiveResult = !0;
+                    if (component.receiveProps) receiveResult = component.receiveProps(props, previousProps);
+                    if (!1 !== receiveResult) {
+                        skip = !1;
+                        if (component.beforeUpdate) component.beforeUpdate(props, data, context);
+                    } else skip = !0;
                 } else skip = !0;
                 component.props = props;
                 component.data = data;
@@ -1276,7 +1280,7 @@
         htm: htm
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.2.1';
+    options.root.Omi.version = 'omio-2.2.2';
     var Omi = {
         h: h,
         createElement: h,

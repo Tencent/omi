@@ -45,7 +45,7 @@ options.root.Omi = {
   htm
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.2.1'
+options.root.Omi.version = 'omio-2.2.2'
 
 export default {
   h,
