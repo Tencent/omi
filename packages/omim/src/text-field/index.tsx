@@ -139,7 +139,7 @@ export default class TextField extends WeElement<Props, Data>{
   refIt = (e) => { this.root = e }
 
   iconClick = () => {
-    this.mdc.focus()
+    //this.mdc.focus()
     this.fire('iconclick')
   }
 

@@ -4741,7 +4741,7 @@ var TextField = /** @class */ (function (_super) {
         };
         _this.refIt = function (e) { _this.root = e; };
         _this.iconClick = function () {
-            _this.mdc.focus();
+            //this.mdc.focus()
             _this.fire('iconclick');
         };
         return _this;
