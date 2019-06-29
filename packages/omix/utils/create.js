@@ -6,6 +6,7 @@
 
 import obaa from './obaa'
 import mitt from './mitt'
+import config from './config'
 
 const ARRAYTYPE = '[object Array]'
 const OBJECTTYPE = '[object Object]'
@@ -173,6 +174,24 @@ function _update(kv, store) {
     })
   }
   store.onChange && store.onChange(kv)
+  config.logger.isOpen && storeChangeLogger(store)
+}
+
+function storeChangeLogger (store) {
+    store.onChange = (diffResult) => {
+        try {
+            const preState = wx.getStorageSync(`CurrentState`) || {}
+            const title = `State Changed`
+            console.groupCollapsed(`%c  ${ title } %c ${ Object.keys(diffResult) }`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
+            console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
+            console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
+            console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
+            console.groupEnd()
+            wx.setStorageSync(`CurrentState`, store.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 }
 
 function updateStoreByFnProp(ele, data) {
