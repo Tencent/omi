@@ -1,6 +1,6 @@
 const config = {
-  logger: { //State日志打印设置
-    isOpen: true // 是否打开State日志打印
+  logger: { // State log print configuration
+    isOpen: true // Whether to open the state log print
   }
 }
 
