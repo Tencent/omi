@@ -17,6 +17,7 @@
     "css": "rollup -c config/rollup.example.js --watch",
     "nest": "rollup -c config/rollup.example.js --watch",
     "event": "rollup -c config/rollup.example.js --watch",
+    "observer": "rollup -c config/rollup.example.js --watch",
     "hook": "rollup -c config/rollup.example.js --watch",
     "decorators": "rollup -c config/rollup.example.js --watch",
     "to": "rollup -c config/rollup.example.js --watch",
