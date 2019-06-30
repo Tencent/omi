@@ -18,21 +18,21 @@ const stage = new Stage({
   renderer: 'canvas'
 });
 
-const cube = new Cube({
-  x: 0,
-  y: 0,
-  z: 0
-},100, 100, 100)
+const cube = new Cube(100, 100, 100, {
+  center: new Vector3(0,0,200),
+  rotate:{
+    y: 30
+  }
+})
 
 stage.add(cube)
 
 stage.update()
 
-//animate();
+// animate()
 
 // function animate() {
-//   requestAnimationFrame(animate);
-//   cube.rotation.x += 0.01;
-//   cube.rotation.y += 0.02;
+//   requestAnimationFrame(animate)
+//   cube.rotate.y += 1
 //   stage.update()
 // }

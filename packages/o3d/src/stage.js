@@ -9,13 +9,20 @@ class Stage extends Group {
     this.canvas.height = option.height
     this.ctx = this.canvas.getContext('2d')
 
+    this.width = option.width
+    this.height = option.height
+    this.renderTo.appendChild(this.canvas)
     this.camera = option.camera
+
+    this.ctx.translate(this.width/2,this.height/2)
+    this.ctx.scale(1,-1)
   }
 
 
   update() {
+    this.ctx.clearRect(-this.width/2,this.height/2,this.width,this.height)
     this.children.forEach(child => {
-      child.render(this.ctx, this.camera)
+      child.update(this.ctx, this.camera)
     })
   }
 }

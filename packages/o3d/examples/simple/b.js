@@ -1397,6 +1397,14 @@
 			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
 			this.x = p.x + R[0][0] * v.x + R[0][1] * v.y;
 			this.y = p.y + R[1][0] * v.x + R[1][1] * v.y;
+		},
+
+		rotateY: function rotateY(p, theta, out) {
+			var v = this.clone().sub(p);
+			theta *= Math.PI / 180;
+			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+			out.x = p.x + R[0][0] * v.x + R[0][1] * v.z;
+			out.z = p.z + R[1][0] * v.x + R[1][1] * v.z;
 		}
 
 	});
@@ -2410,15 +2418,22 @@
 	    _this.canvas.height = option.height;
 	    _this.ctx = _this.canvas.getContext('2d');
 
+	    _this.width = option.width;
+	    _this.height = option.height;
+	    _this.renderTo.appendChild(_this.canvas);
 	    _this.camera = option.camera;
+
+	    _this.ctx.translate(_this.width / 2, _this.height / 2);
+	    _this.ctx.scale(1, -1);
 	    return _this;
 	  }
 
 	  Stage.prototype.update = function update() {
 	    var _this2 = this;
 
+	    this.ctx.clearRect(-this.width / 2, this.height / 2, this.width, this.height);
 	    this.children.forEach(function (child) {
-	      child.render(_this2.ctx, _this2.camera);
+	      child.update(_this2.ctx, _this2.camera);
 	    });
 	  };
 
@@ -2428,68 +2443,103 @@
 	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Cube = function () {
-	  function Cube(position, length, width, height) {
+	  function Cube(length, width, height, options) {
 	    _classCallCheck$2(this, Cube);
 
-	    this.position = position;
+	    options = options || {};
+	    this.center = options.center || new Vector3(0, 0, 0);
 	    this.length = length;
 	    this.width = width;
 	    this.height = height;
 
-	    this.rotation = {
+	    this.rotate = Object.assign({
 	      x: 0,
 	      y: 0,
 	      z: 0
-	      //w 0.001694915254237288 10
-	      //w 0.0018181818181818182 50
-	      //w0.002               100
-	      //w0.0033333333333333335  300
-	      //w 0.01  500
-	    };this.test1 = new Vector3(100, 100, 500);
-	    this.test2 = new Vector3(100 + 100, 100, 500);
-	    this.test3 = new Vector3(100 + 100, 100 + 100, 500);
-	    this.test4 = new Vector3(100, 100 + 100, 500);
-	    this.test5 = new Vector3(100, 100, 600);
-	    this.test6 = new Vector3(100 + 100, 100, 600);
-	    this.test7 = new Vector3(100 + 100, 100 + 100, 600);
-	    this.test8 = new Vector3(100, 100 + 100, 600);
+	    }, options.rotate);
 	    this.pv = new Matrix4();
 
-	    var rotation = 50;
-	    this.test1.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
-	    this.test2.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
-	    this.test5.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
-	    this.test6.rotateYSelf({ x: 150, y: 100, z: 550 }, rotation);
+	    var hl = this.length / 2;
+	    var hw = this.width / 2;
+	    var hh = this.height / 2;
+	    this.p0 = this.center.clone().sub({ x: hl, y: hh, z: hw });
+	    this.p1 = this.center.clone().sub({ x: hl - this.length, y: hh, z: hw });
+	    this.p2 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw });
+	    this.p3 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw });
 
-	    this.test3.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
-	    this.test4.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
-	    this.test7.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
-	    this.test8.rotateYSelf({ x: 150, y: 200, z: 550 }, rotation);
+	    this.p4 = this.center.clone().sub({ x: hl, y: hh, z: hw - this.width });
+
+	    this.p5 = this.center.clone().sub({ x: hl - this.length, y: hh, z: hw - this.width });
+	    this.p6 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw - this.width });
+	    this.p7 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw - this.width });
+
+	    //w 0.001694915254237288 10
+	    //w 0.0018181818181818182 50
+	    //w0.002               100
+	    //w0.0033333333333333335  300
+	    //w 0.01  500
+
+	    this.basePoints = [this.p0.clone(), this.p1.clone(), this.p2.clone(), this.p3.clone(), this.p4.clone(), this.p5.clone(), this.p6.clone(), this.p7.clone()];
+
+	    this.points = [this.p0, this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this.p7];
 	  }
 
-	  Cube.prototype.render = function render(ctx, camera) {
+	  Cube.prototype.transform = function transform(camera) {
+	    this.rotate.y = 100;
+	    var hl = this.length / 2;
+	    var hw = this.width / 2;
+	    var hh = this.height / 2;
+	    var yTopOrigin = { x: this.center.x, y: this.center.y - hh, z: this.center.z };
+	    var yBottomOrigin = { x: this.center.x, y: this.center.y + hh, z: this.center.z };
+	    this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0);
+	    this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1);
+	    this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4);
+	    this.basePoints[5].rotateY(yTopOrigin, this.rotate.y, this.p5);
+
+	    this.basePoints[2].rotateY(yBottomOrigin, this.rotate.y, this.p2);
+	    this.basePoints[3].rotateY(yBottomOrigin, this.rotate.y, this.p3);
+	    this.basePoints[6].rotateY(yBottomOrigin, this.rotate.y, this.p6);
+	    this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7);
+
 	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
+
 	    //p*v*m
 	    //face z-sort !!! w-sort !!
 	    //render
-	    this.test1.applyMatrix4(this.pv);
-	    this.test2.applyMatrix4(this.pv);
-	    this.test3.applyMatrix4(this.pv);
-	    this.test4.applyMatrix4(this.pv);
-	    this.test5.applyMatrix4(this.pv);
-	    this.test6.applyMatrix4(this.pv);
-	    this.test7.applyMatrix4(this.pv);
-	    this.test8.applyMatrix4(this.pv);
-	    console.log(this.test1);
-	    console.log(this.test2);
-	    console.log(this.test3);
-	    console.log(this.test4);
-	    console.log(this.test5);
-	    console.log(this.test6);
-	    console.log(this.test7);
-	    console.log(this.test8);
+	    for (var i = 0; i < 8; i++) {
+	      this['p' + i].applyMatrix4(this.pv);
+	    }
+	  };
 
-	    window.xxx = [this.test1, this.test2, this.test3, this.test4, this.test5, this.test6, this.test7, this.test8];
+	  Cube.prototype.update = function update(ctx, camera) {
+	    this.transform(camera);
+	    this.draw(ctx);
+	  };
+
+	  Cube.prototype.draw = function draw(ctx, scale) {
+	    var ps = this.points;
+	    ctx.beginPath();
+	    ctx.moveTo(ps[0].x * 1000, ps[0].y * 1000);
+
+	    ctx.lineTo(ps[1].x * 1000, ps[1].y * 1000);
+	    ctx.lineTo(ps[2].x * 1000, ps[2].y * 1000);
+	    ctx.lineTo(ps[3].x * 1000, ps[3].y * 1000);
+	    ctx.lineTo(ps[0].x * 1000, ps[0].y * 1000);
+	    ctx.lineTo(ps[4].x * 1000, ps[4].y * 1000);
+	    ctx.lineTo(ps[5].x * 1000, ps[5].y * 1000);
+	    ctx.lineTo(ps[6].x * 1000, ps[6].y * 1000);
+	    ctx.lineTo(ps[7].x * 1000, ps[7].y * 1000);
+	    ctx.lineTo(ps[4].x * 1000, ps[4].y * 1000);
+
+	    ctx.moveTo(ps[5].x * 1000, ps[5].y * 1000);
+	    ctx.lineTo(ps[1].x * 1000, ps[1].y * 1000);
+
+	    ctx.moveTo(ps[6].x * 1000, ps[6].y * 1000);
+	    ctx.lineTo(ps[2].x * 1000, ps[2].y * 1000);
+
+	    ctx.moveTo(ps[7].x * 1000, ps[7].y * 1000);
+	    ctx.lineTo(ps[3].x * 1000, ps[3].y * 1000);
+	    ctx.stroke();
 	  };
 
 	  return Cube;
@@ -2579,22 +2629,22 @@
 	  renderer: 'canvas'
 	});
 
-	var cube = new Cube({
-	  x: 0,
-	  y: 0,
-	  z: 0
-	}, 100, 100, 100);
+	var cube = new Cube(100, 100, 100, {
+	  center: new Vector3(0, 0, 200),
+	  rotate: {
+	    y: 30
+	  }
+	});
 
 	stage.add(cube);
 
 	stage.update();
 
-	//animate();
+	// animate()
 
 	// function animate() {
-	//   requestAnimationFrame(animate);
-	//   cube.rotation.x += 0.01;
-	//   cube.rotation.y += 0.02;
+	//   requestAnimationFrame(animate)
+	//   cube.rotate.y += 1
 	//   stage.update()
 	// }
 
