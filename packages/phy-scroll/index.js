@@ -1,4 +1,4 @@
-/* phy-scroll v1.0.2
+/* phy-scroll v1.0.3
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/phy-scroll
  * MIT Licensed.
@@ -402,13 +402,13 @@
         if (result > this.max) result = this.max;
         if (result < this.min) result = this.min;
         this.to(result, time, ease);
-        this.index = rpt + 1
+        this.index = (value < 0 ? -1 : 1) * (rpt + 1)
       } else {
         result = (value < 0 ? -1 : 1) * rpt * this.step;
         if (result > this.max) result = this.max;
         if (result < this.min) result = this.min;
         this.to(result, time, ease);
-        this.index = rpt 
+        this.index = (value < 0 ? -1 : 1) * rpt 
       }
     },
     destroy: function () {
