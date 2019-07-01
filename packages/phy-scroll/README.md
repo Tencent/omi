@@ -15,7 +15,7 @@ new PhyScroll({
   change: function (v) {
       //console.log(v);
   },
-  animationEnd: function (value) {
+  animationEnd: function (value, index) {
       console.log(value);
   },
   step:40
