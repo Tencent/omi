@@ -1,4 +1,4 @@
-/* phy-scroll v1.0.0
+/* phy-scroll v1.0.1
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/phy-scroll
  * MIT Licensed.
