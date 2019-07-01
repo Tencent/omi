@@ -32,6 +32,16 @@
 
 ; (function () {
 
+  var supportsPassiveOption = false;
+  try {
+    var opts = Object.defineProperty({}, 'passive', {
+      get: function() {
+        supportsPassiveOption = true;
+      }
+    });
+    window.addEventListener('test', null, opts);
+  } catch (e) {}
+
   var _elementStyle = document.createElement('div').style,
     endTransitionEventName,
     transitionDuration,
@@ -142,9 +152,11 @@
     this._cancelHandler = this._cancel.bind(this);
     bind(this.element, "touchstart", this._startHandler);
     bind(this.scroll, endTransitionEventName, this._transitionEndHandler);
-    bind(window, "touchmove", this._moveHandler);
-    bind(window, "touchend", this._endHandler);
-    bind(window, "touchcancel", this._cancelHandler);
+    document.addEventListener('touchmove', this._moveHandler, supportsPassiveOption ? {
+      passive: false
+    }: false)
+    bind(document, "touchend", this._endHandler);
+    bind(document, "touchcancel", this._cancelHandler);
     //当有step设置的时候防止执行两次end
     this._endCallbackTag = true;
 
