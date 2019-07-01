@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { _Math } from './math.js';
 import { Quaternion } from './quaternion.js';
 

@@ -47,6 +47,9 @@ class Cube {
     //w0.0033333333333333335  300
     //w 0.01  500
 
+    this.hh = hh
+    this.hl = hl
+    this.hw = hw
     this.basePoints = [
       this.p0.clone(),
       this.p1.clone(),
@@ -71,17 +74,14 @@ class Cube {
   }
 
   transform(camera) {
-    const hl = this.length / 2
-    const hw = this.width / 2
-    const hh = this.height / 2
     const yTopOrigin = {
       x: this.center.x,
-      y: this.center.y - hh,
+      y: this.center.y - this.hh,
       z: this.center.z
     }
     const yBottomOrigin = {
       x: this.center.x,
-      y: this.center.y + hh,
+      y: this.center.y + this.hh,
       z: this.center.z
     }
 
@@ -109,34 +109,34 @@ class Cube {
     }
   }
 
-  update(ctx, camera) {
+  update(ctx, camera, scale) {
     this.transform(camera)
-    this.draw(ctx)
+    this.draw(ctx, scale)
   }
 
   draw(ctx, scale) {
     const ps = this.points
     ctx.beginPath()
-    ctx.moveTo(ps[0].x * 1000, ps[0].y * 1000)
+    ctx.moveTo(ps[0].x * scale, ps[0].y * scale)
 
-    ctx.lineTo(ps[1].x * 1000, ps[1].y * 1000)
-    ctx.lineTo(ps[2].x * 1000, ps[2].y * 1000)
-    ctx.lineTo(ps[3].x * 1000, ps[3].y * 1000)
-    ctx.lineTo(ps[0].x * 1000, ps[0].y * 1000)
-    ctx.lineTo(ps[4].x * 1000, ps[4].y * 1000)
-    ctx.lineTo(ps[5].x * 1000, ps[5].y * 1000)
-    ctx.lineTo(ps[6].x * 1000, ps[6].y * 1000)
-    ctx.lineTo(ps[7].x * 1000, ps[7].y * 1000)
-    ctx.lineTo(ps[4].x * 1000, ps[4].y * 1000)
+    ctx.lineTo(ps[1].x * scale, ps[1].y * scale)
+    ctx.lineTo(ps[2].x * scale, ps[2].y * scale)
+    ctx.lineTo(ps[3].x * scale, ps[3].y * scale)
+    ctx.lineTo(ps[0].x * scale, ps[0].y * scale)
+    ctx.lineTo(ps[4].x * scale, ps[4].y * scale)
+    ctx.lineTo(ps[5].x * scale, ps[5].y * scale)
+    ctx.lineTo(ps[6].x * scale, ps[6].y * scale)
+    ctx.lineTo(ps[7].x * scale, ps[7].y * scale)
+    ctx.lineTo(ps[4].x * scale, ps[4].y * scale)
 
-    ctx.moveTo(ps[5].x * 1000, ps[5].y * 1000)
-    ctx.lineTo(ps[1].x * 1000, ps[1].y * 1000)
+    ctx.moveTo(ps[5].x * scale, ps[5].y * scale)
+    ctx.lineTo(ps[1].x * scale, ps[1].y * scale)
 
-    ctx.moveTo(ps[6].x * 1000, ps[6].y * 1000)
-    ctx.lineTo(ps[2].x * 1000, ps[2].y * 1000)
+    ctx.moveTo(ps[6].x * scale, ps[6].y * scale)
+    ctx.lineTo(ps[2].x * scale, ps[2].y * scale)
 
-    ctx.moveTo(ps[7].x * 1000, ps[7].y * 1000)
-    ctx.lineTo(ps[3].x * 1000, ps[3].y * 1000)
+    ctx.moveTo(ps[7].x * scale, ps[7].y * scale)
+    ctx.lineTo(ps[3].x * scale, ps[3].y * scale)
     ctx.stroke()
   }
 }

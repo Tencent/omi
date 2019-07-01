@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 
+	/* eslint-disable */
 	/**
 	 * @author alteredq / http://alteredqualia.com/
 	 * @author mrdoob / http://mrdoob.com/
@@ -132,12 +133,7 @@
 
 	};
 
-	/**
-	 * @author mikael emtinger / http://gomo.se/
-	 * @author alteredq / http://alteredqualia.com/
-	 * @author WestLangley / http://github.com/WestLangley
-	 * @author bhouston / http://clara.io
-	 */
+	/* eslint-disable */
 
 	function Quaternion(x, y, z, w) {
 
@@ -715,6 +711,8 @@
 		onChangeCallback: function onChangeCallback() {}
 
 	});
+
+	/* eslint-disable */
 
 	/**
 	 * @author mrdoob / http://mrdoob.com/
@@ -1408,6 +1406,8 @@
 		}
 
 	});
+
+	/* eslint-disable */
 
 	/**
 	 * @author mrdoob / http://mrdoob.com/
@@ -2425,6 +2425,8 @@
 
 	    _this.ctx.translate(_this.width / 2, _this.height / 2);
 	    _this.ctx.scale(1, -1);
+
+	    _this.scale = option.scale || 1000;
 	    return _this;
 	  }
 
@@ -2433,7 +2435,7 @@
 
 	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 	    this.children.forEach(function (child) {
-	      child.update(_this2.ctx, _this2.camera);
+	      child.update(_this2.ctx, _this2.camera, _this2.scale);
 	    });
 	  };
 
@@ -2479,23 +2481,23 @@
 	    //w0.0033333333333333335  300
 	    //w 0.01  500
 
+	    this.hh = hh;
+	    this.hl = hl;
+	    this.hw = hw;
 	    this.basePoints = [this.p0.clone(), this.p1.clone(), this.p2.clone(), this.p3.clone(), this.p4.clone(), this.p5.clone(), this.p6.clone(), this.p7.clone()];
 
 	    this.points = [this.p0, this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this.p7];
 	  }
 
 	  Cube.prototype.transform = function transform(camera) {
-	    var hl = this.length / 2;
-	    var hw = this.width / 2;
-	    var hh = this.height / 2;
 	    var yTopOrigin = {
 	      x: this.center.x,
-	      y: this.center.y - hh,
+	      y: this.center.y - this.hh,
 	      z: this.center.z
 	    };
 	    var yBottomOrigin = {
 	      x: this.center.x,
-	      y: this.center.y + hh,
+	      y: this.center.y + this.hh,
 	      z: this.center.z
 	    };
 
@@ -2523,34 +2525,34 @@
 	    }
 	  };
 
-	  Cube.prototype.update = function update(ctx, camera) {
+	  Cube.prototype.update = function update(ctx, camera, scale) {
 	    this.transform(camera);
-	    this.draw(ctx);
+	    this.draw(ctx, scale);
 	  };
 
 	  Cube.prototype.draw = function draw(ctx, scale) {
 	    var ps = this.points;
 	    ctx.beginPath();
-	    ctx.moveTo(ps[0].x * 1000, ps[0].y * 1000);
+	    ctx.moveTo(ps[0].x * scale, ps[0].y * scale);
 
-	    ctx.lineTo(ps[1].x * 1000, ps[1].y * 1000);
-	    ctx.lineTo(ps[2].x * 1000, ps[2].y * 1000);
-	    ctx.lineTo(ps[3].x * 1000, ps[3].y * 1000);
-	    ctx.lineTo(ps[0].x * 1000, ps[0].y * 1000);
-	    ctx.lineTo(ps[4].x * 1000, ps[4].y * 1000);
-	    ctx.lineTo(ps[5].x * 1000, ps[5].y * 1000);
-	    ctx.lineTo(ps[6].x * 1000, ps[6].y * 1000);
-	    ctx.lineTo(ps[7].x * 1000, ps[7].y * 1000);
-	    ctx.lineTo(ps[4].x * 1000, ps[4].y * 1000);
+	    ctx.lineTo(ps[1].x * scale, ps[1].y * scale);
+	    ctx.lineTo(ps[2].x * scale, ps[2].y * scale);
+	    ctx.lineTo(ps[3].x * scale, ps[3].y * scale);
+	    ctx.lineTo(ps[0].x * scale, ps[0].y * scale);
+	    ctx.lineTo(ps[4].x * scale, ps[4].y * scale);
+	    ctx.lineTo(ps[5].x * scale, ps[5].y * scale);
+	    ctx.lineTo(ps[6].x * scale, ps[6].y * scale);
+	    ctx.lineTo(ps[7].x * scale, ps[7].y * scale);
+	    ctx.lineTo(ps[4].x * scale, ps[4].y * scale);
 
-	    ctx.moveTo(ps[5].x * 1000, ps[5].y * 1000);
-	    ctx.lineTo(ps[1].x * 1000, ps[1].y * 1000);
+	    ctx.moveTo(ps[5].x * scale, ps[5].y * scale);
+	    ctx.lineTo(ps[1].x * scale, ps[1].y * scale);
 
-	    ctx.moveTo(ps[6].x * 1000, ps[6].y * 1000);
-	    ctx.lineTo(ps[2].x * 1000, ps[2].y * 1000);
+	    ctx.moveTo(ps[6].x * scale, ps[6].y * scale);
+	    ctx.lineTo(ps[2].x * scale, ps[2].y * scale);
 
-	    ctx.moveTo(ps[7].x * 1000, ps[7].y * 1000);
-	    ctx.lineTo(ps[3].x * 1000, ps[3].y * 1000);
+	    ctx.moveTo(ps[7].x * scale, ps[7].y * scale);
+	    ctx.lineTo(ps[3].x * scale, ps[3].y * scale);
 	    ctx.stroke();
 	  };
 

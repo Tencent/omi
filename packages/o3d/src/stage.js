@@ -19,6 +19,8 @@ class Stage extends Group {
 
     this.ctx.translate(this.width / 2, this.height / 2)
     this.ctx.scale(1, -1)
+
+    this.scale = option.scale || 1000
   }
 
   update() {
@@ -29,7 +31,7 @@ class Stage extends Group {
       this.height
     )
     this.children.forEach(child => {
-      child.update(this.ctx, this.camera)
+      child.update(this.ctx, this.camera, this.scale)
     })
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @author alteredq / http://alteredqualia.com/
  * @author mrdoob / http://mrdoob.com/
