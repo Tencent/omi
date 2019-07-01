@@ -2431,7 +2431,7 @@
 	  Stage.prototype.update = function update() {
 	    var _this2 = this;
 
-	    this.ctx.clearRect(-this.width / 2, this.height / 2, this.width, this.height);
+	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 	    this.children.forEach(function (child) {
 	      child.update(_this2.ctx, _this2.camera);
 	    });
@@ -2485,12 +2485,24 @@
 	  }
 
 	  Cube.prototype.transform = function transform(camera) {
-	    this.rotate.y = 100;
 	    var hl = this.length / 2;
 	    var hw = this.width / 2;
 	    var hh = this.height / 2;
-	    var yTopOrigin = { x: this.center.x, y: this.center.y - hh, z: this.center.z };
-	    var yBottomOrigin = { x: this.center.x, y: this.center.y + hh, z: this.center.z };
+	    var yTopOrigin = {
+	      x: this.center.x,
+	      y: this.center.y - hh,
+	      z: this.center.z
+	    };
+	    var yBottomOrigin = {
+	      x: this.center.x,
+	      y: this.center.y + hh,
+	      z: this.center.z
+	    };
+
+	    for (var i = 0; i < 8; i++) {
+	      this['p' + i].copy(this.basePoints[i]);
+	    }
+
 	    this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0);
 	    this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1);
 	    this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4);
@@ -2506,8 +2518,8 @@
 	    //p*v*m
 	    //face z-sort !!! w-sort !!
 	    //render
-	    for (var i = 0; i < 8; i++) {
-	      this['p' + i].applyMatrix4(this.pv);
+	    for (var _i = 0; _i < 8; _i++) {
+	      this['p' + _i].applyMatrix4(this.pv);
 	    }
 	  };
 
@@ -2640,13 +2652,13 @@
 
 	stage.update();
 
-	// animate()
+	animate();
 
-	// function animate() {
-	//   requestAnimationFrame(animate)
-	//   cube.rotate.y += 1
-	//   stage.update()
-	// }
+	function animate() {
+	  requestAnimationFrame(animate);
+	  cube.rotate.y += 1;
+	  stage.update();
+	}
 
 }());
 //# sourceMappingURL=b.js.map

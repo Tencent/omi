@@ -14,11 +14,4 @@ export default {
   Camera
 }
 
-export {
-  Vector3,
-  Matrix4,
-  Stage,
-  Cube,
-  Group,
-  Camera
-}
+export { Vector3, Matrix4, Stage, Cube, Group, Camera }

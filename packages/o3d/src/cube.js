@@ -1,7 +1,6 @@
 import { Matrix4 } from './matrix4'
 import { Vector3 } from './vector3'
 
-
 class Cube {
   constructor(length, width, height, options) {
     options = options || {}
@@ -10,11 +9,14 @@ class Cube {
     this.width = width
     this.height = height
 
-    this.rotate = Object.assign({
-      x: 0,
-      y: 0,
-      z: 0
-    }, options.rotate)
+    this.rotate = Object.assign(
+      {
+        x: 0,
+        y: 0,
+        z: 0
+      },
+      options.rotate
+    )
     this.pv = new Matrix4()
 
     const hl = this.length / 2
@@ -22,18 +24,22 @@ class Cube {
     const hh = this.height / 2
     this.p0 = this.center.clone().sub({ x: hl, y: hh, z: hw })
     this.p1 = this.center.clone().sub({ x: hl - this.length, y: hh, z: hw })
-    this.p2 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw })
+    this.p2 = this.center
+      .clone()
+      .sub({ x: hl - this.length, y: hh - this.height, z: hw })
     this.p3 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw })
-
 
     this.p4 = this.center.clone().sub({ x: hl, y: hh, z: hw - this.width })
 
-    this.p5 = this.center.clone().sub({ x: hl - this.length, y: hh, z: hw - this.width })
-    this.p6 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw - this.width })
-    this.p7 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw - this.width })
-
-
-  
+    this.p5 = this.center
+      .clone()
+      .sub({ x: hl - this.length, y: hh, z: hw - this.width })
+    this.p6 = this.center
+      .clone()
+      .sub({ x: hl - this.length, y: hh - this.height, z: hw - this.width })
+    this.p7 = this.center
+      .clone()
+      .sub({ x: hl, y: hh - this.height, z: hw - this.width })
 
     //w 0.001694915254237288 10
     //w 0.0018181818181818182 50
@@ -65,12 +71,24 @@ class Cube {
   }
 
   transform(camera) {
-    this.rotate.y = 100
     const hl = this.length / 2
     const hw = this.width / 2
     const hh = this.height / 2
-    const yTopOrigin = { x: this.center.x, y: this.center.y - hh, z: this.center.z }
-    const yBottomOrigin = { x: this.center.x, y: this.center.y + hh, z: this.center.z }
+    const yTopOrigin = {
+      x: this.center.x,
+      y: this.center.y - hh,
+      z: this.center.z
+    }
+    const yBottomOrigin = {
+      x: this.center.x,
+      y: this.center.y + hh,
+      z: this.center.z
+    }
+
+    for (let i = 0; i < 8; i++) {
+      this['p' + i].copy(this.basePoints[i])
+    }
+
     this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0)
     this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1)
     this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4)
@@ -89,12 +107,9 @@ class Cube {
     for (let i = 0; i < 8; i++) {
       this['p' + i].applyMatrix4(this.pv)
     }
-
-
-
   }
 
-  update(ctx,camera){
+  update(ctx, camera) {
     this.transform(camera)
     this.draw(ctx)
   }

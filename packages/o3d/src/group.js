@@ -3,7 +3,7 @@ class Group {
     this.children = []
   }
 
-  add(child){
+  add(child) {
     this.children.push(child)
   }
 
@@ -25,4 +25,4 @@ class Group {
   }
 }
 
-export {Group}
+export { Group }
