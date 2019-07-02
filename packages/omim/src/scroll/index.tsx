@@ -30,11 +30,9 @@ export default class Scroll extends WeElement<Props, {}> {
   }
 
   installed() {
-    //@ts-ignore
-    var target = this._host.firstChild
+    var target = this.rootNode.firstChild
     new PhyScroll({
-      //@ts-ignore
-      touch: this._host,
+      touch: this.rootNode,
       vertical: this.props.vertical === false ? false : true,
       scroll: target,
       min: this.props.min,
