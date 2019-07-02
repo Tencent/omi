@@ -335,6 +335,7 @@
             if (this.hasMaxSpeed && speed2 > this.maxSpeed) {
               speed2 = this.maxSpeed;
             }
+            if(speed2 <= 0) speed2 = 0.05
             var destination = current + (speed2 * speed2) / (2 * this.deceleration) * (distance < 0 ? -1 : 1);
 
             var tRatio = 1;
