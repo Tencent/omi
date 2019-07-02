@@ -108,7 +108,7 @@ declare namespace Omi {
 		props: RenderableProps<P>;
 		data?: D;
 		prevProps: RenderableProps<P>;
-		host?: HTMLElement;
+		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
 
@@ -139,7 +139,7 @@ declare namespace Omi {
 		props: RenderableProps<P>;
 		data: D;
 		prevProps: RenderableProps<P>;
-		host: HTMLElement;
+		rootNode?: HTMLElement;
 
 		update(ignoreAttrs?:boolean): void;
 		fire(name: string, data?: any): void;
@@ -162,7 +162,7 @@ declare namespace Omi {
 		props: RenderableProps<P>;
 		data?: D;
 		prevProps: RenderableProps<P>;
-		host?: HTMLElement;
+		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
 

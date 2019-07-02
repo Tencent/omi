@@ -1,5 +1,5 @@
 /**
- * omi v6.6.7  http://omijs.org
+ * omi v6.6.8  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1350,7 +1350,7 @@ var WeElement = function (_HTMLElement) {
     var rendered = this.render(this.props, this.data, this.store);
     this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-    this._host = diff(null, rendered, {}, false, null, false);
+    this.rootNode = diff(null, rendered, {}, false, null, false);
     this.rendered();
 
     if (this.props.css) {
@@ -1359,12 +1359,12 @@ var WeElement = function (_HTMLElement) {
       shadowRoot.appendChild(this._customStyleElement);
     }
 
-    if (isArray(this._host)) {
-      this._host.forEach(function (item) {
+    if (isArray(this.rootNode)) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item);
       });
     } else {
-      shadowRoot.appendChild(this._host);
+      shadowRoot.appendChild(this.rootNode);
     }
     this.installed();
     this._isInstalled = true;
@@ -1397,7 +1397,7 @@ var WeElement = function (_HTMLElement) {
     var rendered = this.render(this.props, this.data, this.store);
     this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-    this._host = diff(this._host, rendered, null, null, this.shadowRoot);
+    this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
     this._willUpdate = false;
     this.updated();
   };
@@ -1801,7 +1801,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.6.7';
+options.root.Omi.version = '6.6.8';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

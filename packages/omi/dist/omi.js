@@ -912,16 +912,16 @@
             }
             var rendered = this.render(this.props, this.data, this.store);
             this.P = '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
-            this.L = diff(null, rendered, {}, !1, null, !1);
+            this.rootNode = diff(null, rendered, {}, !1, null, !1);
             this.rendered();
             if (this.props.css) {
                 this.N = cssToDom(this.props.css);
                 this.O = this.props.css;
                 shadowRoot.appendChild(this.N);
             }
-            if (isArray(this.L)) this.L.forEach(function(item) {
+            if (isArray(this.rootNode)) this.rootNode.forEach(function(item) {
                 shadowRoot.appendChild(item);
-            }); else shadowRoot.appendChild(this.L);
+            }); else shadowRoot.appendChild(this.rootNode);
             this.installed();
             this.B = !0;
         };
@@ -944,7 +944,7 @@
             this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.data, this.store);
             this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
-            this.L = diff(this.L, rendered, null, null, this.shadowRoot);
+            this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
             this.J = !1;
             this.updated();
         };
@@ -1083,7 +1083,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.7';
+    options.root.Omi.version = '6.6.8';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

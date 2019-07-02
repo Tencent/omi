@@ -70,7 +70,7 @@ export default class WeElement extends HTMLElement {
     const rendered = this.render(this.props, this.data, this.store)
     this.__hasChildren = Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0
 
-    this._host = diff(
+    this.rootNode = diff(
       null,
       rendered,
       {},
@@ -86,12 +86,12 @@ export default class WeElement extends HTMLElement {
       shadowRoot.appendChild(this._customStyleElement)
     }
 
-    if (isArray(this._host)) {
-      this._host.forEach(function (item) {
+    if (isArray(this.rootNode)) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
-      shadowRoot.appendChild(this._host)
+      shadowRoot.appendChild(this.rootNode)
     }
     this.installed()
     this._isInstalled = true
@@ -124,8 +124,8 @@ export default class WeElement extends HTMLElement {
     const rendered = this.render(this.props, this.data, this.store)
     this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0)
 
-    this._host = diff(
-      this._host,
+    this.rootNode = diff(
+      this.rootNode,
       rendered,
       null,
       null,
