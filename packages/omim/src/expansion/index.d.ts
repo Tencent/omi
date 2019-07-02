@@ -10,7 +10,6 @@ export default class Expansion extends WeElement<Props, Data> {
     static propTypes: {
         expand: BooleanConstructor;
     };
-    _host: HTMLElement;
     preHeight: number;
     receiveProps(): boolean;
     setAttribute(attr: any, value: any): void;

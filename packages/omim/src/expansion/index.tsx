@@ -18,7 +18,6 @@ export default class Expansion extends WeElement<Props, Data> {
     expand: Boolean
   }
 
-  _host: HTMLElement
   preHeight: number
 
   receiveProps(){

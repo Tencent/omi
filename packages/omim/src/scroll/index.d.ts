@@ -1,11 +1,27 @@
 import { WeElement } from 'omi';
-export default class SimpleCard extends WeElement {
+interface Props {
+    vertical: boolean;
+    min: number;
+    max: number;
+    sensitivity: number;
+    factor: number;
+    step: number;
+    bindSelf: boolean;
+    preventDefault: boolean;
+    onChange: () => void;
+    onTouchStart: () => void;
+    onTouchMove: () => void;
+    onTouchEnd: () => void;
+    onTap: () => void;
+    onPressMove: () => void;
+    onAnimationEnd: () => void;
+}
+export default class Scroll extends WeElement<Props, {}> {
     static css: any;
     static propTypes: {
-        color: StringConstructor;
-        path: StringConstructor;
-        info: StringConstructor;
-        caption: StringConstructor;
+        vertical: BooleanConstructor;
     };
-    render(props: any): JSX.Element;
+    installed(): void;
+    render(): any;
 }
+export {};
