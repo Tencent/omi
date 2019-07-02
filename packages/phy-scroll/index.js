@@ -330,12 +330,16 @@
           if (dt < 300) {
 
             var distance = ((this.vertical ? evt.changedTouches[0].pageY : evt.changedTouches[0].pageX) - this.start) * this.sensitivity,
-              speed = Math.abs(distance) / dt,
-              speed2 = this.factor * speed;
+              speed = Math.abs(distance) / dt;
+            if(distance === 0 && self.step){
+              self.correction();
+              return
+            }
+            var speed2 = this.factor * speed;
             if (this.hasMaxSpeed && speed2 > this.maxSpeed) {
               speed2 = this.maxSpeed;
             }
-            if(speed2 <= 0) speed2 = 0.05
+            
             var destination = current + (speed2 * speed2) / (2 * this.deceleration) * (distance < 0 ? -1 : 1);
 
             var tRatio = 1;
