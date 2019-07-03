@@ -1,4 +1,4 @@
-import { Vector3, Stage, Cube, Camera } from '../../src/o3d'
+import { Vector3, Stage, Cube, Camera, Group } from '../../src/o3d'
 
 const camera = new Camera({
   x: 0,
@@ -21,14 +21,16 @@ const stage = new Stage({
   renderer: 'canvas'
 });
 
+const group = new Group()
 const cube = new Cube(100, 100, 100, {
   center: new Vector3(0, 0, 0),
   rotate: {
     y: 30
   }
 })
+group.add(cube)
 
-stage.add(cube)
+stage.add(group)
 
 stage.update()
 

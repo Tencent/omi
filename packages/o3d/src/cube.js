@@ -1,16 +1,16 @@
 import { Matrix4 } from './matrix4'
 import { Vector3 } from './vector3'
+import { Object3d } from './object3d'
 
-class Cube {
+class Cube extends Object3d{
   constructor(length, width, height, options) {
+    super()
     options = options || {}
     this.center = options.center || new Vector3(0, 0, 0)
     this.length = length
     this.width = width
     this.height = height
-    this.scaleX = 1
-    this.scaleY = 1
-    this.scaleZ = 1
+
     this.skewX = 0
     this.skewY = 0
     this.skewZ = 0

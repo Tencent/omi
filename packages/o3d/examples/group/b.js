@@ -2494,18 +2494,49 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Group = function () {
-	  function Group() {
-	    _classCallCheck(this, Group);
+	var Object3d = function () {
+	  function Object3d() {
+	    _classCallCheck(this, Object3d);
 
-	    this.children = [];
+	    this.alpha = 1;
+	    this.scaleX = 1;
+	    this.scaleY = 1;
+	    this.scaleZ = 1;
+	    this.visible = true;
+	  }
+
+	  Object3d.prototype.isVisible = function isVisible() {
+	    return this.visible && this.alpha > 0 && this.scaleX !== 0 && this.scaleY !== 0 && this.scaleZ !== 0;
+	  };
+
+	  Object3d.prototype.updateContext = function updateContext() {};
+
+	  return Object3d;
+	}();
+
+	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Group = function (_Object3d) {
+	  _inherits(Group, _Object3d);
+
+	  function Group() {
+	    _classCallCheck$1(this, Group);
+
+	    var _this = _possibleConstructorReturn(this, _Object3d.call(this));
+
+	    _this.children = [];
+	    return _this;
 	  }
 
 	  Group.prototype.add = function add(child) {
 	    this.children.push(child);
 	  };
 
-	  Group.prototype.render = function render(ctx) {
+	  Group.prototype.update = function update(ctx, camera, scale) {
 	    var list = this.children.slice();
 	    for (var i = 0, l = list.length; i < l; i++) {
 	      var child = list[i];
@@ -2516,28 +2547,28 @@
 	      // draw the child:
 	      ctx.save();
 	      child.updateContext(ctx);
-	      child.render(ctx);
+	      child.update(ctx, camera, scale);
 	      ctx.restore();
 	    }
 	    return true;
 	  };
 
 	  return Group;
-	}();
+	}(Object3d);
 
-	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Stage = function (_Group) {
-	  _inherits(Stage, _Group);
+	  _inherits$1(Stage, _Group);
 
 	  function Stage(option) {
-	    _classCallCheck$1(this, Stage);
+	    _classCallCheck$2(this, Stage);
 
-	    var _this = _possibleConstructorReturn(this, _Group.call(this));
+	    var _this = _possibleConstructorReturn$1(this, _Group.call(this));
 
 	    _this.renderTo = typeof option.renderTo === 'string' ? document.querySelector(option.renderTo) : option.renderTo;
 	    _this.canvas = document.createElement('canvas');
@@ -2569,60 +2600,68 @@
 	  return Stage;
 	}(Group);
 
-	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Cube = function () {
+	function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Cube = function (_Object3d) {
+	  _inherits$2(Cube, _Object3d);
+
 	  function Cube(length, width, height, options) {
-	    _classCallCheck$2(this, Cube);
+	    _classCallCheck$3(this, Cube);
+
+	    var _this = _possibleConstructorReturn$2(this, _Object3d.call(this));
 
 	    options = options || {};
-	    this.center = options.center || new Vector3(0, 0, 0);
-	    this.length = length;
-	    this.width = width;
-	    this.height = height;
-	    this.scaleX = 1;
-	    this.scaleY = 1;
-	    this.scaleZ = 1;
-	    this.skewX = 0;
-	    this.skewY = 0;
-	    this.skewZ = 0;
-	    this.originX = 0;
-	    this.originY = 0;
-	    this.originZ = 0;
+	    _this.center = options.center || new Vector3(0, 0, 0);
+	    _this.length = length;
+	    _this.width = width;
+	    _this.height = height;
 
-	    this.rotate = Object.assign({
+	    _this.skewX = 0;
+	    _this.skewY = 0;
+	    _this.skewZ = 0;
+	    _this.originX = 0;
+	    _this.originY = 0;
+	    _this.originZ = 0;
+
+	    _this.rotate = Object.assign({
 	      x: 0,
 	      y: 0,
 	      z: 0
 	    }, options.rotate);
-	    this.pv = new Matrix4();
+	    _this.pv = new Matrix4();
 
-	    var hl = this.length / 2;
-	    var hw = this.width / 2;
-	    var hh = this.height / 2;
-	    this.p0 = this.center.clone().sub({ x: hl, y: hh, z: hw });
-	    this.p1 = this.center.clone().sub({ x: hl - this.length, y: hh, z: hw });
-	    this.p2 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw });
-	    this.p3 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw });
+	    var hl = _this.length / 2;
+	    var hw = _this.width / 2;
+	    var hh = _this.height / 2;
+	    _this.p0 = _this.center.clone().sub({ x: hl, y: hh, z: hw });
+	    _this.p1 = _this.center.clone().sub({ x: hl - _this.length, y: hh, z: hw });
+	    _this.p2 = _this.center.clone().sub({ x: hl - _this.length, y: hh - _this.height, z: hw });
+	    _this.p3 = _this.center.clone().sub({ x: hl, y: hh - _this.height, z: hw });
 
-	    this.p4 = this.center.clone().sub({ x: hl, y: hh, z: hw - this.width });
+	    _this.p4 = _this.center.clone().sub({ x: hl, y: hh, z: hw - _this.width });
 
-	    this.p5 = this.center.clone().sub({ x: hl - this.length, y: hh, z: hw - this.width });
-	    this.p6 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw - this.width });
-	    this.p7 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw - this.width });
+	    _this.p5 = _this.center.clone().sub({ x: hl - _this.length, y: hh, z: hw - _this.width });
+	    _this.p6 = _this.center.clone().sub({ x: hl - _this.length, y: hh - _this.height, z: hw - _this.width });
+	    _this.p7 = _this.center.clone().sub({ x: hl, y: hh - _this.height, z: hw - _this.width });
 
-	    this.hh = hh;
-	    this.hl = hl;
-	    this.hw = hw;
-	    this.basePoints = [this.p0.clone(), this.p1.clone(), this.p2.clone(), this.p3.clone(), this.p4.clone(), this.p5.clone(), this.p6.clone(), this.p7.clone()];
+	    _this.hh = hh;
+	    _this.hl = hl;
+	    _this.hw = hw;
+	    _this.basePoints = [_this.p0.clone(), _this.p1.clone(), _this.p2.clone(), _this.p3.clone(), _this.p4.clone(), _this.p5.clone(), _this.p6.clone(), _this.p7.clone()];
 
-	    this.points = [this.p0, this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this.p7];
+	    _this.points = [_this.p0, _this.p1, _this.p2, _this.p3, _this.p4, _this.p5, _this.p6, _this.p7];
 
-	    var ps = this.points;
-	    this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
-	    this.faces = [[ps[0], ps[1], ps[2], ps[3], this.colors[0]], [ps[4], ps[5], ps[6], ps[7], this.colors[1]], [ps[4], ps[5], ps[1], ps[0], this.colors[2]], [ps[3], ps[2], ps[6], ps[7], this.colors[3]], [ps[3], ps[0], ps[4], ps[7], this.colors[4]], [ps[2], ps[1], ps[5], ps[6], this.colors[5]]];
+	    var ps = _this.points;
+	    _this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
+	    _this.faces = [[ps[0], ps[1], ps[2], ps[3], _this.colors[0]], [ps[4], ps[5], ps[6], ps[7], _this.colors[1]], [ps[4], ps[5], ps[1], ps[0], _this.colors[2]], [ps[3], ps[2], ps[6], ps[7], _this.colors[3]], [ps[3], ps[0], ps[4], ps[7], _this.colors[4]], [ps[2], ps[1], ps[5], ps[6], _this.colors[5]]];
 
-	    this._matrix = new Matrix4();
+	    _this._matrix = new Matrix4();
+
+	    return _this;
 	  }
 
 	  Cube.prototype.transform = function transform(camera) {
@@ -2685,16 +2724,16 @@
 	  };
 
 	  Cube.prototype.fill = function fill(ctx, scale) {
-	    var _this = this;
+	    var _this2 = this;
 
 	    var ps = this.points;
 
 	    this.faces.sort(function (a, b) {
-	      return _this._zOrder(a) - _this._zOrder(b);
+	      return _this2._zOrder(a) - _this2._zOrder(b);
 	    });
 
 	    this.faces.forEach(function (face) {
-	      _this._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
+	      _this2._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
 	    });
 	  };
 
@@ -2729,13 +2768,13 @@
 	  };
 
 	  return Cube;
-	}();
+	}(Object3d);
 
-	function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Camera = function () {
 	  function Camera(option) {
-	    _classCallCheck$3(this, Camera);
+	    _classCallCheck$4(this, Camera);
 
 	    //http://blog.csdn.net/lyx2007825/article/details/8792475
 	    //http://www.cnblogs.com/yiyezhai/archive/2012/09/12/2677902.html
@@ -2821,14 +2860,16 @@
 	  renderer: 'canvas'
 	});
 
+	var group = new Group();
 	var cube = new Cube(100, 100, 100, {
 	  center: new Vector3(0, 0, 0),
 	  rotate: {
 	    y: 30
 	  }
 	});
+	group.add(cube);
 
-	stage.add(cube);
+	stage.add(group);
 
 	stage.update();
 
