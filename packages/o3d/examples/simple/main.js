@@ -36,6 +36,7 @@ animate()
 
 function animate() {
   requestAnimationFrame(animate)
-  cube.rotate.y += 1
+ // cube.rotate.y += 1
+  camera.y++
   stage.update()
 }

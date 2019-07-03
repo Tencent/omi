@@ -2487,6 +2487,10 @@
 	    this.basePoints = [this.p0.clone(), this.p1.clone(), this.p2.clone(), this.p3.clone(), this.p4.clone(), this.p5.clone(), this.p6.clone(), this.p7.clone()];
 
 	    this.points = [this.p0, this.p1, this.p2, this.p3, this.p4, this.p5, this.p6, this.p7];
+
+	    var ps = this.points;
+	    this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
+	    this.faces = [[ps[0], ps[1], ps[2], ps[3], this.colors[0]], [ps[4], ps[5], ps[6], ps[7], this.colors[1]], [ps[4], ps[5], ps[1], ps[0], this.colors[2]], [ps[3], ps[2], ps[6], ps[7], this.colors[3]], [ps[3], ps[0], ps[4], ps[7], this.colors[4]], [ps[2], ps[1], ps[5], ps[6], this.colors[5]]];
 	  }
 
 	  Cube.prototype.transform = function transform(camera) {
@@ -2527,10 +2531,43 @@
 
 	  Cube.prototype.update = function update(ctx, camera, scale) {
 	    this.transform(camera);
-	    this.draw(ctx, scale);
+	    this.fill(ctx, scale, camera);
 	  };
 
-	  Cube.prototype.draw = function draw(ctx, scale) {
+	  Cube.prototype._rect = function _rect(ctx, p1, p2, p3, p4, scale, color) {
+	    ctx.beginPath();
+	    ctx.moveTo(p1.x * scale, p1.y * scale);
+	    ctx.fillStyle = color;
+	    ctx.lineTo(p2.x * scale, p2.y * scale);
+	    ctx.lineTo(p3.x * scale, p3.y * scale);
+	    ctx.lineTo(p4.x * scale, p4.y * scale);
+	    ctx.closePath();
+	    ctx.fill();
+	  };
+
+	  Cube.prototype.fill = function fill(ctx, scale, camera) {
+	    var _this = this;
+
+	    var ps = this.points;
+
+	    this.faces.sort(function (a, b) {
+	      return _this._zOrder(b, camera) - _this._zOrder(a, camera);
+	    });
+
+	    this.faces.forEach(function (face) {
+	      _this._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
+	    });
+	  };
+
+	  Cube.prototype._zOrder = function _zOrder(face, camera) {
+	    var x = (face[0].x + face[1].x + face[2].x + face[3].x) / 4;
+	    var y = (face[0].y + face[1].y + face[2].y + face[3].y) / 4;
+	    var z = (face[0].z + face[1].z + face[2].z + face[3].z) / 4;
+
+	    return Math.pow(x - camera.x, 2) + Math.pow(y - camera.y, 2) + Math.pow(z - camera.z, 2);
+	  };
+
+	  Cube.prototype.stroke = function stroke(ctx, scale) {
 	    var ps = this.points;
 	    ctx.beginPath();
 	    ctx.moveTo(ps[0].x * scale, ps[0].y * scale);
@@ -2664,7 +2701,8 @@
 
 	function animate() {
 	  requestAnimationFrame(animate);
-	  cube.rotate.y += 1;
+	  // cube.rotate.y += 1
+	  camera.y++;
 	  stage.update();
 	}
 

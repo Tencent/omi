@@ -71,6 +71,19 @@ class Cube {
       this.p6,
       this.p7
     ]
+
+    const ps = this.points
+    this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd']
+    this.faces = [
+      [ps[0], ps[1], ps[2], ps[3], this.colors[0]],
+      [ps[4], ps[5], ps[6], ps[7], this.colors[1]],
+      [ps[4], ps[5], ps[1], ps[0], this.colors[2]],
+      [ps[3], ps[2], ps[6], ps[7], this.colors[3]],
+      [ps[3], ps[0], ps[4], ps[7], this.colors[4]],
+      [ps[2], ps[1], ps[5], ps[6], this.colors[5]]
+    ]
+
+
   }
 
   transform(camera) {
@@ -111,10 +124,45 @@ class Cube {
 
   update(ctx, camera, scale) {
     this.transform(camera)
-    this.draw(ctx, scale)
+    this.fill(ctx, scale, camera)
   }
 
-  draw(ctx, scale) {
+  _rect(ctx, p1, p2, p3, p4, scale, color) {
+    ctx.beginPath()
+    ctx.moveTo(p1.x * scale, p1.y * scale)
+    ctx.fillStyle = color
+    ctx.lineTo(p2.x * scale, p2.y * scale)
+    ctx.lineTo(p3.x * scale, p3.y * scale)
+    ctx.lineTo(p4.x * scale, p4.y * scale)
+    ctx.closePath()
+    ctx.fill()
+  }
+
+  fill(ctx, scale, camera) {
+    const ps = this.points
+
+    this.faces.sort((a, b) => {
+      return this._zOrder(b, camera) - this._zOrder(a, camera)
+    })
+
+    this.faces.forEach((face) => {
+      this._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4])
+    })
+  }
+
+  _zOrder(face, camera) {
+    const x = (face[0].x + face[1].x + face[2].x + face[3].x) / 4
+    const y = (face[0].y + face[1].y + face[2].y + face[3].y) / 4
+    const z = (face[0].z + face[1].z + face[2].z + face[3].z) / 4
+
+    return Math.pow(x - camera.x, 2) + Math.pow(y - camera.y, 2) + Math.pow(z - camera.z, 2)
+
+  }
+
+
+
+
+  stroke(ctx, scale) {
     const ps = this.points
     ctx.beginPath()
     ctx.moveTo(ps[0].x * scale, ps[0].y * scale)
