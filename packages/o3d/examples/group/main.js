@@ -44,9 +44,9 @@ animate()
 
 function animate() {
   requestAnimationFrame(animate)
-  group.rotateX += 1
+ // group.rotateX += 1
   group.rotateY += 1
-  group.rotateZ += 1
+ // group.rotateZ += 1
   //camera.y += 1
   stage.update()
 }
