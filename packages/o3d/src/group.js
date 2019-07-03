@@ -10,7 +10,7 @@ class Group extends Object3d {
     this.children.push(child)
   }
 
-  update(ctx, camera, scale) {
+  update(ctx, camera, scale, groupMatrix) {
     let list = this.children.slice()
     for (let i = 0, l = list.length; i < l; i++) {
       let child = list[i] 
@@ -18,10 +18,19 @@ class Group extends Object3d {
         continue
       }
 
+      this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
+
+
+    if(groupMatrix){
+      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix)
+    }else{
+      this._groupMatrix = this._matrix
+    }
+    
       // draw the child:
       ctx.save()
       child.updateContext(ctx)
-      child.update(ctx, camera, scale)
+      child.update(ctx, camera, scale, this._groupMatrix)
       ctx.restore()
     }
     return true

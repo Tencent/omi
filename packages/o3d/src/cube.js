@@ -6,26 +6,14 @@ class Cube extends Object3d{
   constructor(length, width, height, options) {
     super()
     options = options || {}
-    this.center = options.center || new Vector3(0, 0, 0)
+    this.center = options.center || new Vector3(this.x, this.y, this.z)
     this.length = length
     this.width = width
     this.height = height
 
-    this.skewX = 0
-    this.skewY = 0
-    this.skewZ = 0
-    this.originX = 0
-    this.originY = 0
-    this.originZ = 0
+ 
 
-    this.rotate = Object.assign(
-      {
-        x: 0,
-        y: 0,
-        z: 0
-      },
-      options.rotate
-    )
+   
     this.pv = new Matrix4()
 
     const hl = this.length / 2
@@ -86,11 +74,9 @@ class Cube extends Object3d{
       [ps[2], ps[1], ps[5], ps[6], this.colors[5]]
     ]
 
-    this._matrix = new Matrix4()
-
   }
 
-  transform(camera) {
+  transform(camera, groupMatrix) {
     // const yTopOrigin = {
     //   x: this.center.x,
     //   y: this.center.y - this.hh,
@@ -117,10 +103,17 @@ class Cube extends Object3d{
     // this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7)
 
 
-    this._matrix.identity().appendTransform(this.center.x, this.center.y, this.center.z, this.scaleX, this.scaleY, this.scaleZ, this.rotate.x, this.rotate.y, this.rotate.z, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
+    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
+
+    if(groupMatrix){
+      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix)
+    }else{
+      this._groupMatrix = this._matrix
+    }
+    
 
     for (let i = 0; i < 8; i++) {
-      this.basePoints[i].applyMatrix4Out(this._matrix, this['p' + i])
+      this.basePoints[i].applyMatrix4Out(this._groupMatrix, this['p' + i])
     }
 
 
@@ -134,8 +127,8 @@ class Cube extends Object3d{
     }
   }
 
-  update(ctx, camera, scale) {
-    this.transform(camera)
+  update(ctx, camera, scale, groupMatrix) {
+    this.transform(camera, groupMatrix)
     this.fill(ctx, scale)
   }
 

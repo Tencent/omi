@@ -2503,6 +2503,22 @@
 	    this.scaleY = 1;
 	    this.scaleZ = 1;
 	    this.visible = true;
+	    this.skewX = 0;
+	    this.skewY = 0;
+	    this.skewZ = 0;
+	    this.originX = 0;
+	    this.originY = 0;
+	    this.originZ = 0;
+	    this.rotateX = 0;
+	    this.rotateY = 0;
+	    this.rotateZ = 0;
+	    this.x = 0;
+	    this.y = 0;
+	    this.z = 0;
+
+	    this._matrix = new Matrix4();
+
+	    this._groupMatrix = new Matrix4();
 	  }
 
 	  Object3d.prototype.isVisible = function isVisible() {
@@ -2536,7 +2552,7 @@
 	    this.children.push(child);
 	  };
 
-	  Group.prototype.update = function update(ctx, camera, scale) {
+	  Group.prototype.update = function update(ctx, camera, scale, groupMatrix) {
 	    var list = this.children.slice();
 	    for (var i = 0, l = list.length; i < l; i++) {
 	      var child = list[i];
@@ -2544,10 +2560,18 @@
 	        continue;
 	      }
 
+	      this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
+
+	      if (groupMatrix) {
+	        this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix);
+	      } else {
+	        this._groupMatrix = this._matrix;
+	      }
+
 	      // draw the child:
 	      ctx.save();
 	      child.updateContext(ctx);
-	      child.update(ctx, camera, scale);
+	      child.update(ctx, camera, scale, this._groupMatrix);
 	      ctx.restore();
 	    }
 	    return true;
@@ -2615,23 +2639,11 @@
 	    var _this = _possibleConstructorReturn$2(this, _Object3d.call(this));
 
 	    options = options || {};
-	    _this.center = options.center || new Vector3(0, 0, 0);
+	    _this.center = options.center || new Vector3(_this.x, _this.y, _this.z);
 	    _this.length = length;
 	    _this.width = width;
 	    _this.height = height;
 
-	    _this.skewX = 0;
-	    _this.skewY = 0;
-	    _this.skewZ = 0;
-	    _this.originX = 0;
-	    _this.originY = 0;
-	    _this.originZ = 0;
-
-	    _this.rotate = Object.assign({
-	      x: 0,
-	      y: 0,
-	      z: 0
-	    }, options.rotate);
 	    _this.pv = new Matrix4();
 
 	    var hl = _this.length / 2;
@@ -2659,12 +2671,10 @@
 	    _this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
 	    _this.faces = [[ps[0], ps[1], ps[2], ps[3], _this.colors[0]], [ps[4], ps[5], ps[6], ps[7], _this.colors[1]], [ps[4], ps[5], ps[1], ps[0], _this.colors[2]], [ps[3], ps[2], ps[6], ps[7], _this.colors[3]], [ps[3], ps[0], ps[4], ps[7], _this.colors[4]], [ps[2], ps[1], ps[5], ps[6], _this.colors[5]]];
 
-	    _this._matrix = new Matrix4();
-
 	    return _this;
 	  }
 
-	  Cube.prototype.transform = function transform(camera) {
+	  Cube.prototype.transform = function transform(camera, groupMatrix) {
 	    // const yTopOrigin = {
 	    //   x: this.center.x,
 	    //   y: this.center.y - this.hh,
@@ -2691,10 +2701,16 @@
 	    // this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7)
 
 
-	    this._matrix.identity().appendTransform(this.center.x, this.center.y, this.center.z, this.scaleX, this.scaleY, this.scaleZ, this.rotate.x, this.rotate.y, this.rotate.z, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
+	    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
+
+	    if (groupMatrix) {
+	      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix);
+	    } else {
+	      this._groupMatrix = this._matrix;
+	    }
 
 	    for (var i = 0; i < 8; i++) {
-	      this.basePoints[i].applyMatrix4Out(this._matrix, this['p' + i]);
+	      this.basePoints[i].applyMatrix4Out(this._groupMatrix, this['p' + i]);
 	    }
 
 	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
@@ -2707,8 +2723,8 @@
 	    }
 	  };
 
-	  Cube.prototype.update = function update(ctx, camera, scale) {
-	    this.transform(camera);
+	  Cube.prototype.update = function update(ctx, camera, scale, groupMatrix) {
+	    this.transform(camera, groupMatrix);
 	    this.fill(ctx, scale);
 	  };
 
@@ -2861,13 +2877,18 @@
 	});
 
 	var group = new Group();
+
 	var cube = new Cube(100, 100, 100, {
-	  center: new Vector3(0, 0, 0),
-	  rotate: {
-	    y: 30
-	  }
+	  center: new Vector3(0, 0, 0)
 	});
+	//cube.rotateY =30
 	group.add(cube);
+
+	var cubeB = new Cube(100, 100, 100, {
+	  center: new Vector3(200, 0, 0)
+	});
+	//cube.rotateY =30
+	group.add(cubeB);
 
 	stage.add(group);
 
@@ -2877,9 +2898,9 @@
 
 	function animate() {
 	  requestAnimationFrame(animate);
-	  cube.rotate.y += 1;
-	  cube.rotate.x += 1;
-	  cube.rotate.z += 1;
+	  group.rotateX += 1;
+	  group.rotateY += 1;
+	  group.rotateZ += 1;
 	  //camera.y += 1
 	  stage.update();
 	}

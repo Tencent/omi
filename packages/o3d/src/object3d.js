@@ -1,3 +1,5 @@
+import { Matrix4 } from './matrix4'
+
 class Object3d {
   constructor() {
     this.alpha = 1
@@ -5,6 +7,22 @@ class Object3d {
     this.scaleY = 1
     this.scaleZ = 1
     this.visible = true
+    this.skewX = 0
+    this.skewY = 0
+    this.skewZ = 0
+    this.originX = 0
+    this.originY = 0
+    this.originZ = 0
+    this.rotateX = 0
+    this.rotateY = 0
+    this.rotateZ = 0
+    this.x = 0
+    this.y = 0
+    this.z = 0
+
+    this._matrix = new Matrix4()
+
+    this._groupMatrix = new Matrix4()
   }
 
   isVisible() {
@@ -14,7 +32,7 @@ class Object3d {
   }
 
   updateContext(){
-    
+
   }
 
 

@@ -22,12 +22,10 @@ const stage = new Stage({
 });
 
 const cube = new Cube(100, 100, 100, {
-  center: new Vector3(0, 0, 0),
-  rotate: {
-    y: 30
-  }
+  center: new Vector3(0, 0, 0)
 })
 
+cube.rotateY = 30
 stage.add(cube)
 
 stage.update()
@@ -36,9 +34,9 @@ animate()
 
 function animate() {
   requestAnimationFrame(animate)
-  cube.rotate.y += 1
-  cube.rotate.x += 1
-  cube.rotate.z += 1
+  cube.rotateY += 1
+  cube.rotateX += 1
+  cube.rotateZ += 1
   //camera.y += 1
   stage.update()
 }
