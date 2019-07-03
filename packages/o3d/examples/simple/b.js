@@ -984,6 +984,22 @@
 			return this;
 		},
 
+		applyMatrix4Out: function applyMatrix4Out(m, out) {
+
+			var x = this.x,
+			    y = this.y,
+			    z = this.z;
+			var e = m.elements;
+
+			var w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15]);
+
+			out.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w;
+			out.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w;
+			out.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w;
+			out.w = w;
+			return out;
+		},
+
 		applyQuaternion: function applyQuaternion(q) {
 
 			var x = this.x,
@@ -1398,11 +1414,25 @@
 		},
 
 		rotateY: function rotateY(p, theta, out) {
-			var v = this.clone().sub(p);
+			var v = { x: this.x - p.x, y: this.y - p.y, z: this.z - p.z };
 			theta *= Math.PI / 180;
 			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
 			out.x = p.x + R[0][0] * v.x + R[0][1] * v.z;
 			out.z = p.z + R[1][0] * v.x + R[1][1] * v.z;
+		},
+		rotateX: function rotateX(p, theta, out) {
+			var v = { x: this.x - p.x, y: this.y - p.y, z: this.z - p.z };
+			theta *= Math.PI / 180;
+			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+			out.y = p.y + R[0][0] * v.y + R[0][1] * v.z;
+			out.z = p.z + R[1][0] * v.y + R[1][1] * v.z;
+		},
+		rotateZ: function rotateZ(p, theta, out) {
+			var v = { x: this.x - p.x, y: this.y - p.y, z: this.z - p.z };
+			theta *= Math.PI / 180;
+			var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+			out.x = p.x + R[0][0] * v.x + R[0][1] * v.y;
+			out.y = p.y + R[1][0] * v.x + R[1][1] * v.y;
 		}
 
 	});
@@ -1421,6 +1451,8 @@
 	 * @author bhouston / http://clara.io
 	 * @author WestLangley / http://github.com/WestLangley
 	 */
+
+	var DEG_TO_RAD = 0.017453292519943295;
 
 	function Matrix4() {
 
@@ -2361,6 +2393,101 @@
 			array[offset + 15] = te[15];
 
 			return array;
+		},
+
+		multiplyMatrices_: function multiplyMatrices_(a, be) {
+
+			var ae = a.elements;
+			var te = this.elements;
+			var a11 = ae[0],
+			    a12 = ae[4],
+			    a13 = ae[8],
+			    a14 = ae[12];
+			var a21 = ae[1],
+			    a22 = ae[5],
+			    a23 = ae[9],
+			    a24 = ae[13];
+			var a31 = ae[2],
+			    a32 = ae[6],
+			    a33 = ae[10],
+			    a34 = ae[14];
+			var a41 = ae[3],
+			    a42 = ae[7],
+			    a43 = ae[11],
+			    a44 = ae[15];
+
+			var b11 = be[0],
+			    b12 = be[1],
+			    b13 = be[2],
+			    b14 = be[3];
+			var b21 = be[4],
+			    b22 = be[5],
+			    b23 = be[6],
+			    b24 = be[7];
+			var b31 = be[8],
+			    b32 = be[9],
+			    b33 = be[10],
+			    b34 = be[11];
+			var b41 = be[12],
+			    b42 = be[13],
+			    b43 = be[14],
+			    b44 = be[15];
+
+			te[0] = a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41;
+			te[4] = a11 * b12 + a12 * b22 + a13 * b32 + a14 * b42;
+			te[8] = a11 * b13 + a12 * b23 + a13 * b33 + a14 * b43;
+			te[12] = a11 * b14 + a12 * b24 + a13 * b34 + a14 * b44;
+
+			te[1] = a21 * b11 + a22 * b21 + a23 * b31 + a24 * b41;
+			te[5] = a21 * b12 + a22 * b22 + a23 * b32 + a24 * b42;
+			te[9] = a21 * b13 + a22 * b23 + a23 * b33 + a24 * b43;
+			te[13] = a21 * b14 + a22 * b24 + a23 * b34 + a24 * b44;
+
+			te[2] = a31 * b11 + a32 * b21 + a33 * b31 + a34 * b41;
+			te[6] = a31 * b12 + a32 * b22 + a33 * b32 + a34 * b42;
+			te[10] = a31 * b13 + a32 * b23 + a33 * b33 + a34 * b43;
+			te[14] = a31 * b14 + a32 * b24 + a33 * b34 + a34 * b44;
+
+			te[3] = a41 * b11 + a42 * b21 + a43 * b31 + a44 * b41;
+			te[7] = a41 * b12 + a42 * b22 + a43 * b32 + a44 * b42;
+			te[11] = a41 * b13 + a42 * b23 + a43 * b33 + a44 * b43;
+			te[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
+
+			return this;
+		},
+
+		_arrayWrap: function _arrayWrap(arr) {
+			return window.Float32Array ? new Float32Array(arr) : arr;
+		},
+		appendTransform: function appendTransform(x, y, z, scaleX, scaleY, scaleZ, rotateX, rotateY, rotateZ, skewX, skewY, originX, originY, originZ) {
+
+			var rx = rotateX * DEG_TO_RAD;
+			var cosx = Math.cos(rx);
+			var sinx = Math.sin(rx);
+			var ry = rotateY * DEG_TO_RAD;
+			var cosy = Math.cos(ry);
+			var siny = Math.sin(ry);
+			var rz = rotateZ * DEG_TO_RAD;
+			var cosz = Math.cos(rz * -1);
+			var sinz = Math.sin(rz * -1);
+
+			this.multiplyMatrices_(this, this._arrayWrap([1, 0, 0, x, 0, cosx, sinx, y, 0, -sinx, cosx, z, 0, 0, 0, 1]));
+
+			this.multiplyMatrices_(this, this._arrayWrap([cosy, 0, siny, 0, 0, 1, 0, 0, -siny, 0, cosy, 0, 0, 0, 0, 1]));
+
+			this.multiplyMatrices_(this, this._arrayWrap([cosz * scaleX, sinz * scaleY, 0, 0, -sinz * scaleX, cosz * scaleY, 0, 0, 0, 0, 1 * scaleZ, 0, 0, 0, 0, 1]));
+
+			if (skewX || skewY) {
+				this.multiplyMatrices_(this, this._arrayWrap([this._rounded(Math.cos(skewX * DEG_TO_RAD)), this._rounded(Math.sin(skewX * DEG_TO_RAD)), 0, 0, -1 * this._rounded(Math.sin(skewY * DEG_TO_RAD)), this._rounded(Math.cos(skewY * DEG_TO_RAD)), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]));
+			}
+
+			if (originX || originY || originZ) {
+				this.elements[12] -= originX * this.elements[0] + originY * this.elements[4] + originZ * this.elements[8];
+				this.elements[13] -= originX * this.elements[1] + originY * this.elements[5] + originZ * this.elements[9];
+				this.elements[14] -= originX * this.elements[2] + originY * this.elements[6] + originZ * this.elements[10];
+			}
+
+			return this;
 		}
 
 	});
@@ -2453,6 +2580,15 @@
 	    this.length = length;
 	    this.width = width;
 	    this.height = height;
+	    this.scaleX = 1;
+	    this.scaleY = 1;
+	    this.scaleZ = 1;
+	    this.skewX = 0;
+	    this.skewY = 0;
+	    this.skewZ = 0;
+	    this.originX = 0;
+	    this.originY = 0;
+	    this.originZ = 0;
 
 	    this.rotate = Object.assign({
 	      x: 0,
@@ -2475,12 +2611,6 @@
 	    this.p6 = this.center.clone().sub({ x: hl - this.length, y: hh - this.height, z: hw - this.width });
 	    this.p7 = this.center.clone().sub({ x: hl, y: hh - this.height, z: hw - this.width });
 
-	    //w 0.001694915254237288 10
-	    //w 0.0018181818181818182 50
-	    //w0.002               100
-	    //w0.0033333333333333335  300
-	    //w 0.01  500
-
 	    this.hh = hh;
 	    this.hl = hl;
 	    this.hw = hw;
@@ -2491,33 +2621,42 @@
 	    var ps = this.points;
 	    this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
 	    this.faces = [[ps[0], ps[1], ps[2], ps[3], this.colors[0]], [ps[4], ps[5], ps[6], ps[7], this.colors[1]], [ps[4], ps[5], ps[1], ps[0], this.colors[2]], [ps[3], ps[2], ps[6], ps[7], this.colors[3]], [ps[3], ps[0], ps[4], ps[7], this.colors[4]], [ps[2], ps[1], ps[5], ps[6], this.colors[5]]];
+
+	    this._matrix = new Matrix4();
 	  }
 
 	  Cube.prototype.transform = function transform(camera) {
-	    var yTopOrigin = {
-	      x: this.center.x,
-	      y: this.center.y - this.hh,
-	      z: this.center.z
-	    };
-	    var yBottomOrigin = {
-	      x: this.center.x,
-	      y: this.center.y + this.hh,
-	      z: this.center.z
-	    };
+	    // const yTopOrigin = {
+	    //   x: this.center.x,
+	    //   y: this.center.y - this.hh,
+	    //   z: this.center.z
+	    // }
+	    // const yBottomOrigin = {
+	    //   x: this.center.x,
+	    //   y: this.center.y + this.hh,
+	    //   z: this.center.z
+	    // }
+
+	    // for (let i = 0; i < 8; i++) {
+	    //   this['p' + i].copy(this.basePoints[i])
+	    // }
+
+	    // this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0)
+	    // this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1)
+	    // this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4)
+	    // this.basePoints[5].rotateY(yTopOrigin, this.rotate.y, this.p5)
+
+	    // this.basePoints[2].rotateY(yBottomOrigin, this.rotate.y, this.p2)
+	    // this.basePoints[3].rotateY(yBottomOrigin, this.rotate.y, this.p3)
+	    // this.basePoints[6].rotateY(yBottomOrigin, this.rotate.y, this.p6)
+	    // this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7)
+
+
+	    this._matrix.identity().appendTransform(this.center.x, this.center.y, this.center.z, this.scaleX, this.scaleY, this.scaleZ, this.rotate.x, this.rotate.y, this.rotate.z, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
 
 	    for (var i = 0; i < 8; i++) {
-	      this['p' + i].copy(this.basePoints[i]);
+	      this.basePoints[i].applyMatrix4Out(this._matrix, this['p' + i]);
 	    }
-
-	    this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0);
-	    this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1);
-	    this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4);
-	    this.basePoints[5].rotateY(yTopOrigin, this.rotate.y, this.p5);
-
-	    this.basePoints[2].rotateY(yBottomOrigin, this.rotate.y, this.p2);
-	    this.basePoints[3].rotateY(yBottomOrigin, this.rotate.y, this.p3);
-	    this.basePoints[6].rotateY(yBottomOrigin, this.rotate.y, this.p6);
-	    this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7);
 
 	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
 
@@ -2683,7 +2822,7 @@
 	});
 
 	var cube = new Cube(100, 100, 100, {
-	  center: new Vector3(0, 0, 200),
+	  center: new Vector3(0, 0, 0),
 	  rotate: {
 	    y: 30
 	  }

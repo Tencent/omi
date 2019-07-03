@@ -22,7 +22,7 @@ const stage = new Stage({
 });
 
 const cube = new Cube(100, 100, 100, {
-  center: new Vector3(0, 0, 200),
+  center: new Vector3(0, 0, 0),
   rotate: {
     y: 30
   }

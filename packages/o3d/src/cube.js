@@ -8,6 +8,15 @@ class Cube {
     this.length = length
     this.width = width
     this.height = height
+    this.scaleX = 1
+    this.scaleY = 1
+    this.scaleZ = 1
+    this.skewX = 0
+    this.skewY = 0
+    this.skewZ = 0
+    this.originX = 0
+    this.originY = 0
+    this.originZ = 0
 
     this.rotate = Object.assign(
       {
@@ -40,12 +49,6 @@ class Cube {
     this.p7 = this.center
       .clone()
       .sub({ x: hl, y: hh - this.height, z: hw - this.width })
-
-    //w 0.001694915254237288 10
-    //w 0.0018181818181818182 50
-    //w0.002               100
-    //w0.0033333333333333335  300
-    //w 0.01  500
 
     this.hh = hh
     this.hl = hl
@@ -83,34 +86,43 @@ class Cube {
       [ps[2], ps[1], ps[5], ps[6], this.colors[5]]
     ]
 
+    this._matrix = new Matrix4()
 
   }
 
   transform(camera) {
-    const yTopOrigin = {
-      x: this.center.x,
-      y: this.center.y - this.hh,
-      z: this.center.z
-    }
-    const yBottomOrigin = {
-      x: this.center.x,
-      y: this.center.y + this.hh,
-      z: this.center.z
-    }
+    // const yTopOrigin = {
+    //   x: this.center.x,
+    //   y: this.center.y - this.hh,
+    //   z: this.center.z
+    // }
+    // const yBottomOrigin = {
+    //   x: this.center.x,
+    //   y: this.center.y + this.hh,
+    //   z: this.center.z
+    // }
+
+    // for (let i = 0; i < 8; i++) {
+    //   this['p' + i].copy(this.basePoints[i])
+    // }
+
+    // this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0)
+    // this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1)
+    // this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4)
+    // this.basePoints[5].rotateY(yTopOrigin, this.rotate.y, this.p5)
+
+    // this.basePoints[2].rotateY(yBottomOrigin, this.rotate.y, this.p2)
+    // this.basePoints[3].rotateY(yBottomOrigin, this.rotate.y, this.p3)
+    // this.basePoints[6].rotateY(yBottomOrigin, this.rotate.y, this.p6)
+    // this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7)
+
+
+    this._matrix.identity().appendTransform(this.center.x, this.center.y, this.center.z, this.scaleX, this.scaleY, this.scaleZ, this.rotate.x, this.rotate.y, this.rotate.z, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
 
     for (let i = 0; i < 8; i++) {
-      this['p' + i].copy(this.basePoints[i])
+      this.basePoints[i].applyMatrix4Out(this._matrix, this['p' + i])
     }
 
-    this.basePoints[0].rotateY(yTopOrigin, this.rotate.y, this.p0)
-    this.basePoints[1].rotateY(yTopOrigin, this.rotate.y, this.p1)
-    this.basePoints[4].rotateY(yTopOrigin, this.rotate.y, this.p4)
-    this.basePoints[5].rotateY(yTopOrigin, this.rotate.y, this.p5)
-
-    this.basePoints[2].rotateY(yBottomOrigin, this.rotate.y, this.p2)
-    this.basePoints[3].rotateY(yBottomOrigin, this.rotate.y, this.p3)
-    this.basePoints[6].rotateY(yBottomOrigin, this.rotate.y, this.p6)
-    this.basePoints[7].rotateY(yBottomOrigin, this.rotate.y, this.p7)
 
     this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix)
 

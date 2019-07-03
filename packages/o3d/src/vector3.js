@@ -290,6 +290,21 @@ Object.assign(Vector3.prototype, {
 
 	},
 
+	applyMatrix4Out: function (m, out) {
+
+		var x = this.x, y = this.y, z = this.z;
+		var e = m.elements;
+
+		var w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15]);
+
+		out.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w;
+		out.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w;
+		out.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w;
+		out.w = w
+		return out;
+
+	},
+
 	applyQuaternion: function (q) {
 
 		var x = this.x, y = this.y, z = this.z;
@@ -739,11 +754,25 @@ Object.assign(Vector3.prototype, {
 	},
 
 	rotateY: function (p, theta, out) {
-		var v = this.clone().sub(p);
+		var v = { x: this.x - p.x, y: this.y - p.y, z: this.z - p.z };
 		theta *= Math.PI / 180;
 		var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
 		out.x = p.x + R[0][0] * v.x + R[0][1] * v.z;
 		out.z = p.z + R[1][0] * v.x + R[1][1] * v.z;
+	},
+	rotateX: function (p, theta, out) {
+		var v = { x: this.x - p.x, y: this.y - p.y, z: this.z - p.z };
+		theta *= Math.PI / 180;
+		var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+		out.y = p.y + R[0][0] * v.y + R[0][1] * v.z;
+		out.z = p.z + R[1][0] * v.y + R[1][1] * v.z;
+	},
+	rotateZ: function (p, theta, out) {
+		var v = { x: this.x - p.x, y: this.y - p.y, z: this.z - p.z };
+		theta *= Math.PI / 180;
+		var R = [[Math.cos(theta), -Math.sin(theta)], [Math.sin(theta), Math.cos(theta)]];
+		out.x = p.x + R[0][0] * v.x + R[0][1] * v.y;
+		out.y = p.y + R[1][0] * v.x + R[1][1] * v.y;
 	}
 
 });
