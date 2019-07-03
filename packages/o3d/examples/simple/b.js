@@ -2531,7 +2531,7 @@
 
 	  Cube.prototype.update = function update(ctx, camera, scale) {
 	    this.transform(camera);
-	    this.fill(ctx, scale, camera);
+	    this.fill(ctx, scale);
 	  };
 
 	  Cube.prototype._rect = function _rect(ctx, p1, p2, p3, p4, scale, color) {
@@ -2545,13 +2545,13 @@
 	    ctx.fill();
 	  };
 
-	  Cube.prototype.fill = function fill(ctx, scale, camera) {
+	  Cube.prototype.fill = function fill(ctx, scale) {
 	    var _this = this;
 
 	    var ps = this.points;
 
 	    this.faces.sort(function (a, b) {
-	      return _this._zOrder(b, camera) - _this._zOrder(a, camera);
+	      return _this._zOrder(a) - _this._zOrder(b);
 	    });
 
 	    this.faces.forEach(function (face) {
@@ -2559,12 +2559,8 @@
 	    });
 	  };
 
-	  Cube.prototype._zOrder = function _zOrder(face, camera) {
-	    var x = (face[0].x + face[1].x + face[2].x + face[3].x) / 4;
-	    var y = (face[0].y + face[1].y + face[2].y + face[3].y) / 4;
-	    var z = (face[0].z + face[1].z + face[2].z + face[3].z) / 4;
-
-	    return Math.pow(x - camera.x, 2) + Math.pow(y - camera.y, 2) + Math.pow(z - camera.z, 2);
+	  Cube.prototype._zOrder = function _zOrder(face) {
+	    return face[0].w + face[1].w + face[2].w + face[3].w;
 	  };
 
 	  Cube.prototype.stroke = function stroke(ctx, scale) {
@@ -2701,7 +2697,7 @@
 
 	function animate() {
 	  requestAnimationFrame(animate);
-	  // cube.rotate.y += 1
+	  cube.rotate.y += 1;
 	  camera.y++;
 	  stage.update();
 	}
