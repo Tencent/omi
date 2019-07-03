@@ -8,20 +8,23 @@ class Camera {
     this._createProp('x', option.x, this._update)
     this._createProp('y', option.y, this._update)
     this._createProp('z', option.z, this._update)
+    //target x y z
+    this._createProp('tx', option.tx, this._update)
+    this._createProp('ty', option.ty, this._update)
+    this._createProp('tz', option.tz, this._update)
 
     //(vertical field of view(FOV))
     this.fov = option.fov || 75
     this.ratio = option.ratio || 1920 / 1080
     this.front = option.front || 1
     this.back = option.back || 10000
-    this.target = [0, 0, 0]
     this._update()
   }
 
   _update() {
     //http://webglfactory.blogspot.com/2011/06/how-to-create-view-matrix.html
     //http://4.bp.blogspot.com/_ltmZpULxXtI/TSn3hwEQuZI/AAAAAAAAAes/H93UF8OT1sE/s1600/gimballock_camera.png
-    this.v_matrix = Matrix4.lookAt([], [this.x, this.y, this.z], this.target, [
+    this.v_matrix = Matrix4.lookAt([], [this.x, this.y, this.z], [this.tx, this.ty, this.tz], [
       0,
       1,
       0

@@ -2570,20 +2570,23 @@
 	    this._createProp('x', option.x, this._update);
 	    this._createProp('y', option.y, this._update);
 	    this._createProp('z', option.z, this._update);
+	    //target x y z
+	    this._createProp('tx', option.tx, this._update);
+	    this._createProp('ty', option.ty, this._update);
+	    this._createProp('tz', option.tz, this._update);
 
 	    //(vertical field of view(FOV))
 	    this.fov = option.fov || 75;
 	    this.ratio = option.ratio || 1920 / 1080;
 	    this.front = option.front || 1;
 	    this.back = option.back || 10000;
-	    this.target = [0, 0, 0];
 	    this._update();
 	  }
 
 	  Camera.prototype._update = function _update() {
 	    //http://webglfactory.blogspot.com/2011/06/how-to-create-view-matrix.html
 	    //http://4.bp.blogspot.com/_ltmZpULxXtI/TSn3hwEQuZI/AAAAAAAAAes/H93UF8OT1sE/s1600/gimballock_camera.png
-	    this.v_matrix = Matrix4.lookAt([], [this.x, this.y, this.z], this.target, [0, 1, 0]);
+	    this.v_matrix = Matrix4.lookAt([], [this.x, this.y, this.z], [this.tx, this.ty, this.tz], [0, 1, 0]);
 	    this.p_matrix = Matrix4.getProjection(this.fov, this.ratio, this.front, this.back);
 	    this.un_p_matrix = new Matrix4().getInverse(this.p_matrix);
 	    this.un_v_matrix = new Matrix4().getInverse(this.v_matrix);
@@ -2625,18 +2628,21 @@
 	  return Camera;
 	}();
 
+	var camera = new Camera({
+	  x: 0,
+	  y: 0,
+	  z: 1000,
+	  tx: 0,
+	  ty: 0,
+	  tz: 0,
+	  fov: 60,
+	  ratio: 600 / 600,
+	  front: 1,
+	  back: 1000
+	});
+
 	var stage = new Stage({
-	  camera: new Camera({
-	    x: 0,
-	    y: 0,
-	    z: 1000,
-	    rotateX: 0,
-	    rotateY: 0,
-	    fov: 60,
-	    ratio: 600 / 600,
-	    front: 1,
-	    back: 1000
-	  }),
+	  camera: camera,
 	  renderTo: '#root',
 	  width: 600,
 	  height: 400,
