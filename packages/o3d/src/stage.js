@@ -22,8 +22,6 @@ class Stage extends Group {
     this.ctx.scale(1, -1)
 
     this.scale = option.scale || 1000
-
-
     this.pv = new Matrix4()
     this.pv.multiplyMatrices(this.camera.p_matrix, this.camera.v_matrix)
   }
@@ -41,35 +39,17 @@ class Stage extends Group {
     })
 
     this.renderList.sort((a, b) => {
-      return this._zOrder(a) - this._zOrder(b)
+      return a.zOrder(a) - b.zOrder(b)
     })
 
-    this.fill(this.ctx, this.scale)
+    this.draw(this.ctx, this.scale)
   }
 
-  _zOrder(face) {
-    return face[0].w + face[1].w + face[2].w + face[3].w
-  }
-
-  _rect(ctx, p1, p2, p3, p4, scale, color) {
-    ctx.beginPath()
-    ctx.moveTo(p1.x * scale, p1.y * scale)
-    ctx.fillStyle = color
-    ctx.lineTo(p2.x * scale, p2.y * scale)
-    ctx.lineTo(p3.x * scale, p3.y * scale)
-    ctx.lineTo(p4.x * scale, p4.y * scale)
-    ctx.closePath()
-    ctx.fill()
-  }
-
-  fill(ctx, scale) {
-    
-
+  draw(ctx, scale) {
     this.renderList.forEach((face) => {
-      this._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4])
+      face.draw.call(null, ctx,scale, face)
     })
   }
-
 }
 
 export { Stage }

@@ -2612,7 +2612,6 @@
 	    _this.ctx.scale(1, -1);
 
 	    _this.scale = option.scale || 1000;
-
 	    _this.pv = new Matrix4();
 	    _this.pv.multiplyMatrices(_this.camera.p_matrix, _this.camera.v_matrix);
 	    return _this;
@@ -2628,32 +2627,15 @@
 	    });
 
 	    this.renderList.sort(function (a, b) {
-	      return _this2._zOrder(a) - _this2._zOrder(b);
+	      return a.zOrder(a) - b.zOrder(b);
 	    });
 
-	    this.fill(this.ctx, this.scale);
+	    this.draw(this.ctx, this.scale);
 	  };
 
-	  Stage.prototype._zOrder = function _zOrder(face) {
-	    return face[0].w + face[1].w + face[2].w + face[3].w;
-	  };
-
-	  Stage.prototype._rect = function _rect(ctx, p1, p2, p3, p4, scale, color) {
-	    ctx.beginPath();
-	    ctx.moveTo(p1.x * scale, p1.y * scale);
-	    ctx.fillStyle = color;
-	    ctx.lineTo(p2.x * scale, p2.y * scale);
-	    ctx.lineTo(p3.x * scale, p3.y * scale);
-	    ctx.lineTo(p4.x * scale, p4.y * scale);
-	    ctx.closePath();
-	    ctx.fill();
-	  };
-
-	  Stage.prototype.fill = function fill(ctx, scale) {
-	    var _this3 = this;
-
+	  Stage.prototype.draw = function draw(ctx, scale) {
 	    this.renderList.forEach(function (face) {
-	      _this3._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
+	      face.draw.call(null, ctx, scale, face);
 	    });
 	  };
 
@@ -2704,6 +2686,11 @@
 	    var ps = _this.points;
 	    _this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
 	    _this.faces = [[ps[0], ps[1], ps[2], ps[3], _this.colors[0]], [ps[4], ps[5], ps[6], ps[7], _this.colors[1]], [ps[4], ps[5], ps[1], ps[0], _this.colors[2]], [ps[3], ps[2], ps[6], ps[7], _this.colors[3]], [ps[3], ps[0], ps[4], ps[7], _this.colors[4]], [ps[2], ps[1], ps[5], ps[6], _this.colors[5]]];
+
+	    _this.faces.forEach(function (face) {
+	      face.draw = _this.draw;
+	      face.zOrder = _this._zOrder;
+	    });
 
 	    return _this;
 	  }
@@ -2757,7 +2744,23 @@
 
 	  Cube.prototype.update = function update(pv, groupMatrix) {
 	    this.transform(pv, groupMatrix);
+
 	    return this.faces;
+	  };
+
+	  Cube.prototype.draw = function draw(ctx, scale, face) {
+	    var p1 = face[0];
+	    var p2 = face[1];
+	    var p3 = face[2];
+	    var p4 = face[3];
+	    ctx.beginPath();
+	    ctx.moveTo(p1.x * scale, p1.y * scale);
+	    ctx.fillStyle = face[4];
+	    ctx.lineTo(p2.x * scale, p2.y * scale);
+	    ctx.lineTo(p3.x * scale, p3.y * scale);
+	    ctx.lineTo(p4.x * scale, p4.y * scale);
+	    ctx.closePath();
+	    ctx.fill();
 	  };
 
 	  Cube.prototype._zOrder = function _zOrder(face) {

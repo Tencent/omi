@@ -2554,7 +2554,7 @@
 	    this.children.push(child);
 	  };
 
-	  Group.prototype.update = function update(ctx, camera, scale, groupMatrix) {
+	  Group.prototype.update = function update(pv, groupMatrix) {
 	    var list = this.children.slice();
 	    this.renderList.length = 0;
 	    for (var i = 0, l = list.length; i < l; i++) {
@@ -2572,10 +2572,10 @@
 	      }
 
 	      // draw the child:
-	      ctx.save();
-	      child.updateContext(ctx);
-	      this.renderList = this.renderList.concat(child.update(ctx, camera, scale, this._groupMatrix));
-	      ctx.restore();
+	      // ctx.save()
+	      // child.updateContext(ctx)
+	      this.renderList = this.renderList.concat(child.update(pv, this._groupMatrix));
+	      //ctx.restore()
 	    }
 	    return this.renderList;
 	  };
@@ -2624,11 +2624,11 @@
 	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 	    this.renderList.length = 0;
 	    this.children.forEach(function (child) {
-	      _this2.renderList = _this2.renderList.concat(child.update(_this2.ctx, _this2.camera, _this2.scale, _this2.pv));
+	      _this2.renderList = _this2.renderList.concat(child.update(_this2.pv).list);
 	    });
 
 	    this.renderList.sort(function (a, b) {
-	      return _this2._zOrder(a) - _this2._zOrder(b);
+	      return a.zOrder(a.list) - _this2._zOrder(b);
 	    });
 
 	    this.fill(this.ctx, this.scale);
@@ -2708,7 +2708,7 @@
 	    return _this;
 	  }
 
-	  Cube.prototype.transform = function transform(camera, groupMatrix) {
+	  Cube.prototype.transform = function transform(pv, groupMatrix) {
 	    // const yTopOrigin = {
 	    //   x: this.center.x,
 	    //   y: this.center.y - this.hh,
@@ -2747,19 +2747,35 @@
 	      this.basePoints[i].applyMatrix4Out(this._groupMatrix, this['p' + i]);
 	    }
 
-	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
-
 	    //p*v*m
 	    //face z-sort !!! w-sort !!
 	    //render
 	    for (var _i = 0; _i < 8; _i++) {
-	      this['p' + _i].applyMatrix4(this.pv);
+	      this['p' + _i].applyMatrix4(pv);
 	    }
 	  };
 
-	  Cube.prototype.update = function update(ctx, camera, scale, groupMatrix) {
-	    this.transform(camera, groupMatrix);
+	  Cube.prototype.update = function update(pv, groupMatrix) {
+	    var _this2 = this;
+
+	    this.transform(pv, groupMatrix);
+
+	    this.faces.forEach(function (face) {
+	      face.unshift(_this2.draw, _this2._zOrder);
+	    });
+
 	    return this.faces;
+	  };
+
+	  Cube.prototype.draw = function draw(ctx, p1, p2, p3, p4, scale, color) {
+	    ctx.beginPath();
+	    ctx.moveTo(p1.x * scale, p1.y * scale);
+	    ctx.fillStyle = color;
+	    ctx.lineTo(p2.x * scale, p2.y * scale);
+	    ctx.lineTo(p3.x * scale, p3.y * scale);
+	    ctx.lineTo(p4.x * scale, p4.y * scale);
+	    ctx.closePath();
+	    ctx.fill();
 	  };
 
 	  Cube.prototype._zOrder = function _zOrder(face) {
@@ -2905,7 +2921,7 @@
 	    return _this;
 	  }
 
-	  Circle.prototype.update = function update(xx, xxx, xxxx, pv, groupMatrix) {
+	  Circle.prototype.update = function update(pv, groupMatrix) {
 	    var _this2 = this;
 
 	    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
@@ -2925,7 +2941,22 @@
 	    });
 
 	    console.log(this.renderPaths);
-	    return this.renderPaths;
+	    return {
+	      list: [this.renderPaths],
+	      zOrder: this._zOrder
+	    };
+	  };
+
+	  Circle.prototype._zOrder = function _zOrder(item) {
+	    var w = 0;
+	    var count = 0;
+	    item.forEach(function (path, index) {
+	      count += path.length;
+	      path.forEach(function (point, subIndex) {
+	        w += point.w;
+	      });
+	    });
+	    return w / count;
 	  };
 
 	  Circle.prototype.draw = function draw(ctx) {

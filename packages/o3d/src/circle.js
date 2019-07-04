@@ -36,10 +36,13 @@ class Circle extends Object3d {
         this.renderPaths[index][subIndex] = point.clone()
       })
     })
+
+    this.renderPaths.zOrder = this._zOrder
+    this.renderPaths.draw = this.draw
   }
 
 
-  update(xx,xxx,xxxx,pv, groupMatrix) {
+  update(pv, groupMatrix) {
 
     this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
 
@@ -58,11 +61,22 @@ class Circle extends Object3d {
       })
     })
 
-    console.log(this.renderPaths)
     return this.renderPaths
   }
 
-  draw(ctx) {
+  _zOrder(item){
+    let w = 0
+    let count = 0
+    item.forEach((path) => {
+      count+=path.length
+      path.forEach((point) => {
+        w+=point.w
+      })
+    })
+    return w/count
+  }
+
+  draw(ctx, scale) {
     const w = this.width
     const h = this.height
     const k = 0.5522848

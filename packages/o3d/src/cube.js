@@ -71,6 +71,10 @@ class Cube extends Object3d{
       [ps[2], ps[1], ps[5], ps[6], this.colors[5]]
     ]
 
+    this.faces.forEach(face=>{
+      face.draw = this.draw
+      face.zOrder = this._zOrder
+    })
   }
 
   transform(pv, groupMatrix) {
@@ -128,6 +132,20 @@ class Cube extends Object3d{
     return this.faces
   }
 
+  draw(ctx, scale, face) {
+    const p1 = face[0]
+    const p2 = face[1]
+    const p3 = face[2]
+    const p4 = face[3]
+    ctx.beginPath()
+    ctx.moveTo(p1.x * scale, p1.y * scale)
+    ctx.fillStyle = face[4]
+    ctx.lineTo(p2.x * scale, p2.y * scale)
+    ctx.lineTo(p3.x * scale, p3.y * scale)
+    ctx.lineTo(p4.x * scale, p4.y * scale)
+    ctx.closePath()
+    ctx.fill()
+  }
 
 
   _zOrder(face) {
