@@ -10,7 +10,8 @@ class Circle extends Object3d {
     this.width = r * 2
     this.height = r * 2
 
-
+    this.stroke = options.stroke || 2
+    this.color = options.color || 'black'
     const w = this.width
     const h = this.height
     const k = 0.5522848
@@ -38,6 +39,7 @@ class Circle extends Object3d {
     })
 
     this.renderPaths.o3d = this
+    
   }
 
 
@@ -46,7 +48,7 @@ class Circle extends Object3d {
     this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
 
     if (groupMatrix) {
-      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix)
+      this._groupMatrix.multiplyMatrices(groupMatrix, this._matrix )
     } else {
       this._groupMatrix = this._matrix
     }
@@ -76,13 +78,17 @@ class Circle extends Object3d {
   }
 
   draw(ctx, scale, obj) {
+    ctx.save()
     ctx.beginPath()
+    ctx.lineWidth = this.stroke
+    ctx.strokeStyle = this.color
     ctx.moveTo(obj[0][0].x * scale, obj[0][0].y * scale)
     for (let i = 1; i < 5; i++) {
       ctx.bezierCurveTo(obj[i][0].x * scale, obj[i][0].y * scale, obj[i][1].x * scale, obj[i][1].y * scale, obj[i][2].x * scale, obj[i][2].y * scale)
     }
 
     ctx.stroke()
+    ctx.restore()
   }
 
 }

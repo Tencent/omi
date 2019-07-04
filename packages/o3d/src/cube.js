@@ -106,7 +106,7 @@ class Cube extends Object3d{
     this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ)
 
     if(groupMatrix){
-      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix)
+      this._groupMatrix.multiplyMatrices(groupMatrix, this._matrix)
     }else{
       this._groupMatrix = this._matrix
     }

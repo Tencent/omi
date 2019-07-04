@@ -24,6 +24,7 @@ class Stage extends Group {
     this.scale = option.scale || 1000
     this.pv = new Matrix4()
     this.pv.multiplyMatrices(this.camera.p_matrix, this.camera.v_matrix)
+    this.camera.stage = this
   }
 
   update() {

@@ -2551,7 +2551,9 @@
 	  }
 
 	  Group.prototype.add = function add(child) {
-	    this.children.push(child);
+	    for (var i = 0, len = arguments.length; i < len; i++) {
+	      this.children.push(arguments[i]);
+	    }
 	  };
 
 	  Group.prototype.update = function update(pv, groupMatrix) {
@@ -2614,6 +2616,7 @@
 	    _this.scale = option.scale || 1000;
 	    _this.pv = new Matrix4();
 	    _this.pv.multiplyMatrices(_this.camera.p_matrix, _this.camera.v_matrix);
+	    _this.camera.stage = _this;
 	    return _this;
 	  }
 
@@ -2723,7 +2726,7 @@
 	    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
 
 	    if (groupMatrix) {
-	      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix);
+	      this._groupMatrix.multiplyMatrices(groupMatrix, this._matrix);
 	    } else {
 	      this._groupMatrix = this._matrix;
 	    }
@@ -2824,6 +2827,9 @@
 	    this.p_matrix = Matrix4.getProjection(this.fov, this.ratio, this.front, this.back);
 	    this.un_p_matrix = new Matrix4().getInverse(this.p_matrix);
 	    this.un_v_matrix = new Matrix4().getInverse(this.v_matrix);
+	    if (this.stage) {
+	      this.stage.pv.multiplyMatrices(this.p_matrix, this.v_matrix);
+	    }
 	  };
 
 	  Camera.prototype.lookAt = function lookAt(target) {
@@ -2881,6 +2887,8 @@
 	    _this.width = r * 2;
 	    _this.height = r * 2;
 
+	    _this.stroke = options.stroke || 2;
+	    _this.color = options.color || 'black';
 	    var w = _this.width;
 	    var h = _this.height;
 	    var k = 0.5522848;
@@ -2902,6 +2910,7 @@
 	    });
 
 	    _this.renderPaths.o3d = _this;
+
 	    return _this;
 	  }
 
@@ -2911,7 +2920,7 @@
 	    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
 
 	    if (groupMatrix) {
-	      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix);
+	      this._groupMatrix.multiplyMatrices(groupMatrix, this._matrix);
 	    } else {
 	      this._groupMatrix = this._matrix;
 	    }
@@ -2940,13 +2949,17 @@
 	  };
 
 	  Circle.prototype.draw = function draw(ctx, scale, obj) {
+	    ctx.save();
 	    ctx.beginPath();
+	    ctx.lineWidth = this.stroke;
+	    ctx.strokeStyle = this.color;
 	    ctx.moveTo(obj[0][0].x * scale, obj[0][0].y * scale);
 	    for (var i = 1; i < 5; i++) {
 	      ctx.bezierCurveTo(obj[i][0].x * scale, obj[i][0].y * scale, obj[i][1].x * scale, obj[i][1].y * scale, obj[i][2].x * scale, obj[i][2].y * scale);
 	    }
 
 	    ctx.stroke();
+	    ctx.restore();
 	  };
 
 	  return Circle;
@@ -2973,21 +2986,59 @@
 	  renderer: 'canvas'
 	});
 
-	var circle = new Circle(100);
+	//蓝、黄、黑、绿、红
+	var circle = new Circle(80, {
+	  stroke: 5,
+	  color: 'red'
+	});
 
-	circle.rotateY = 30;
-	stage.add(circle);
+	var circleB = new Circle(80, {
+	  stroke: 5,
+	  color: 'yellow'
+	});
 
+	circleB.x = 60;
+
+	circleB.y = -60;
+
+	var circleC = new Circle(80, {
+	  stroke: 5,
+	  color: 'blue'
+	});
+
+	circleC.x = -60;
+
+	circleC.y = -60;
+
+	var circleD = new Circle(80, {
+	  stroke: 5,
+	  color: 'green'
+	});
+
+	circleD.x = 120;
+
+	var circleE = new Circle(80, {
+	  stroke: 5
+	});
+
+	circleE.x = -120;
+
+	var group = new Group();
+	//circle.rotateY = 30
+
+	group.add(circle, circleB, circleC, circleD, circleE);
+	group.rotateY = 90;
+
+	stage.add(group);
 	stage.update();
 
 	animate();
 
 	function animate() {
 	  requestAnimationFrame(animate);
-	  circle.rotateY += 1;
-	  // circle.rotateX += 1
-	  // circle.rotateZ += 1
-	  //camera.y += 1
+	  group.rotateY += 1;
+
+	  //camera.x += 10
 	  stage.update();
 	}
 

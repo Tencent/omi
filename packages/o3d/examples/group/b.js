@@ -2551,7 +2551,9 @@
 	  }
 
 	  Group.prototype.add = function add(child) {
-	    this.children.push(child);
+	    for (var i = 0, len = arguments.length; i < len; i++) {
+	      this.children.push(arguments[i]);
+	    }
 	  };
 
 	  Group.prototype.update = function update(pv, groupMatrix) {
@@ -2614,6 +2616,7 @@
 	    _this.scale = option.scale || 1000;
 	    _this.pv = new Matrix4();
 	    _this.pv.multiplyMatrices(_this.camera.p_matrix, _this.camera.v_matrix);
+	    _this.camera.stage = _this;
 	    return _this;
 	  }
 
@@ -2723,7 +2726,7 @@
 	    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
 
 	    if (groupMatrix) {
-	      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix);
+	      this._groupMatrix.multiplyMatrices(groupMatrix, this._matrix);
 	    } else {
 	      this._groupMatrix = this._matrix;
 	    }
@@ -2824,6 +2827,9 @@
 	    this.p_matrix = Matrix4.getProjection(this.fov, this.ratio, this.front, this.back);
 	    this.un_p_matrix = new Matrix4().getInverse(this.p_matrix);
 	    this.un_v_matrix = new Matrix4().getInverse(this.v_matrix);
+	    if (this.stage) {
+	      this.stage.pv.multiplyMatrices(this.p_matrix, this.v_matrix);
+	    }
 	  };
 
 	  Camera.prototype.lookAt = function lookAt(target) {

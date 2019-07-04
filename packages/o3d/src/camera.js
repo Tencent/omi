@@ -37,6 +37,9 @@ class Camera {
     )
     this.un_p_matrix = new Matrix4().getInverse(this.p_matrix)
     this.un_v_matrix = new Matrix4().getInverse(this.v_matrix)
+    if(this.stage){
+      this.stage.pv.multiplyMatrices(this.p_matrix, this.v_matrix)
+    }
   }
   lookAt(target) {
     this.target = target
