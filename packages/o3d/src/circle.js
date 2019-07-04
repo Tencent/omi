@@ -63,34 +63,24 @@ class Circle extends Object3d {
     return [this.renderPaths]
   }
 
-  order(item){
+  order(item) {
     let w = 0
     let count = 0
     item.forEach((path) => {
-      count+=path.length
+      count += path.length
       path.forEach((point) => {
-        w+=point.w
+        w += point.w
       })
     })
-    return w/count
+    return w / count
   }
 
-  draw(ctx, scale) {
-    const w = this.width
-    const h = this.height
-    const k = 0.5522848
-    const ox = (w / 2) * k
-    const oy = (h / 2) * k
-    const xe = w
-    const ye = h
-    const xm = w / 2
-    const ym = h / 2
-
-    ctx.moveTo(0, ym)
-    ctx.bezierCurveTo(0, ym - oy, xm - ox, 0, xm, 0)
-    ctx.bezierCurveTo(xm + ox, 0, xe, ym - oy, xe, ym)
-    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye)
-    ctx.bezierCurveTo(xm - ox, ye, 0, ym + oy, 0, ym)
+  draw(ctx, scale, obj) {
+    ctx.beginPath()
+    ctx.moveTo(obj[0][0].x * scale, obj[0][0].y * scale)
+    for (let i = 1; i < 5; i++) {
+      ctx.bezierCurveTo(obj[i][0].x * scale, obj[i][0].y * scale, obj[i][1].x * scale, obj[i][1].y * scale, obj[i][2].x * scale, obj[i][2].y * scale)
+    }
 
     ctx.stroke()
   }

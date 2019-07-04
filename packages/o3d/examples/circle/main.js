@@ -29,13 +29,13 @@ stage.add(circle)
 
 stage.update()
 
-// animate()
+animate()
 
-// function animate() {
-//   requestAnimationFrame(animate)
-//   circle.rotateY += 1
-//   circle.rotateX += 1
-//   circle.rotateZ += 1
-//   //camera.y += 1
-//   stage.update()
-// }
+function animate() {
+  requestAnimationFrame(animate)
+  circle.rotateY += 1
+  // circle.rotateX += 1
+  // circle.rotateZ += 1
+  //camera.y += 1
+  stage.update()
+}

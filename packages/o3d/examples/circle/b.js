@@ -2939,22 +2939,12 @@
 	    return w / count;
 	  };
 
-	  Circle.prototype.draw = function draw(ctx, scale) {
-	    var w = this.width;
-	    var h = this.height;
-	    var k = 0.5522848;
-	    var ox = w / 2 * k;
-	    var oy = h / 2 * k;
-	    var xe = w;
-	    var ye = h;
-	    var xm = w / 2;
-	    var ym = h / 2;
-
-	    ctx.moveTo(0, ym);
-	    ctx.bezierCurveTo(0, ym - oy, xm - ox, 0, xm, 0);
-	    ctx.bezierCurveTo(xm + ox, 0, xe, ym - oy, xe, ym);
-	    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
-	    ctx.bezierCurveTo(xm - ox, ye, 0, ym + oy, 0, ym);
+	  Circle.prototype.draw = function draw(ctx, scale, obj) {
+	    ctx.beginPath();
+	    ctx.moveTo(obj[0][0].x * scale, obj[0][0].y * scale);
+	    for (var i = 1; i < 5; i++) {
+	      ctx.bezierCurveTo(obj[i][0].x * scale, obj[i][0].y * scale, obj[i][1].x * scale, obj[i][1].y * scale, obj[i][2].x * scale, obj[i][2].y * scale);
+	    }
 
 	    ctx.stroke();
 	  };
@@ -2990,16 +2980,16 @@
 
 	stage.update();
 
-	// animate()
+	animate();
 
-	// function animate() {
-	//   requestAnimationFrame(animate)
-	//   circle.rotateY += 1
-	//   circle.rotateX += 1
-	//   circle.rotateZ += 1
-	//   //camera.y += 1
-	//   stage.update()
-	// }
+	function animate() {
+	  requestAnimationFrame(animate);
+	  circle.rotateY += 1;
+	  // circle.rotateX += 1
+	  // circle.rotateZ += 1
+	  //camera.y += 1
+	  stage.update();
+	}
 
 }());
 //# sourceMappingURL=b.js.map
