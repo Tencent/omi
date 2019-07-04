@@ -72,8 +72,7 @@ class Cube extends Object3d{
     ]
 
     this.faces.forEach(face=>{
-      face.draw = this.draw
-      face.zOrder = this._zOrder
+      face.o3d = this
     })
   }
 
@@ -148,7 +147,7 @@ class Cube extends Object3d{
   }
 
 
-  _zOrder(face) {
+  order(face) {
     return face[0].w + face[1].w + face[2].w + face[3].w
   }
 

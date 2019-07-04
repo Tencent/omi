@@ -39,15 +39,15 @@ class Stage extends Group {
     })
 
     this.renderList.sort((a, b) => {
-      return a.zOrder(a) - b.zOrder(b)
+      return a.o3d.order(a) - b.o3d.order(b)
     })
 
     this.draw(this.ctx, this.scale)
   }
 
   draw(ctx, scale) {
-    this.renderList.forEach((face) => {
-      face.draw.call(null, ctx,scale, face)
+    this.renderList.forEach((obj) => {
+      obj.o3d.draw(ctx, scale, obj)
     })
   }
 }

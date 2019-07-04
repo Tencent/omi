@@ -2627,15 +2627,15 @@
 	    });
 
 	    this.renderList.sort(function (a, b) {
-	      return a.zOrder(a) - b.zOrder(b);
+	      return a.o3d.order(a) - b.o3d.order(b);
 	    });
 
 	    this.draw(this.ctx, this.scale);
 	  };
 
 	  Stage.prototype.draw = function draw(ctx, scale) {
-	    this.renderList.forEach(function (face) {
-	      face.draw.call(null, ctx, scale, face);
+	    this.renderList.forEach(function (obj) {
+	      obj.o3d.draw(ctx, scale, obj);
 	    });
 	  };
 
@@ -2688,8 +2688,7 @@
 	    _this.faces = [[ps[0], ps[1], ps[2], ps[3], _this.colors[0]], [ps[4], ps[5], ps[6], ps[7], _this.colors[1]], [ps[4], ps[5], ps[1], ps[0], _this.colors[2]], [ps[3], ps[2], ps[6], ps[7], _this.colors[3]], [ps[3], ps[0], ps[4], ps[7], _this.colors[4]], [ps[2], ps[1], ps[5], ps[6], _this.colors[5]]];
 
 	    _this.faces.forEach(function (face) {
-	      face.draw = _this.draw;
-	      face.zOrder = _this._zOrder;
+	      face.o3d = _this;
 	    });
 	    return _this;
 	  }
@@ -2761,7 +2760,7 @@
 	    ctx.fill();
 	  };
 
-	  Cube.prototype._zOrder = function _zOrder(face) {
+	  Cube.prototype.order = function order(face) {
 	    return face[0].w + face[1].w + face[2].w + face[3].w;
 	  };
 

@@ -37,8 +37,7 @@ class Circle extends Object3d {
       })
     })
 
-    this.renderPaths.zOrder = this._zOrder
-    this.renderPaths.draw = this.draw
+    this.renderPaths.o3d = this
   }
 
 
@@ -61,10 +60,10 @@ class Circle extends Object3d {
       })
     })
 
-    return this.renderPaths
+    return [this.renderPaths]
   }
 
-  _zOrder(item){
+  order(item){
     let w = 0
     let count = 0
     item.forEach((path) => {

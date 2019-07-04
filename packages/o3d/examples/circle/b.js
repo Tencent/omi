@@ -2612,7 +2612,6 @@
 	    _this.ctx.scale(1, -1);
 
 	    _this.scale = option.scale || 1000;
-
 	    _this.pv = new Matrix4();
 	    _this.pv.multiplyMatrices(_this.camera.p_matrix, _this.camera.v_matrix);
 	    return _this;
@@ -2624,36 +2623,19 @@
 	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 	    this.renderList.length = 0;
 	    this.children.forEach(function (child) {
-	      _this2.renderList = _this2.renderList.concat(child.update(_this2.pv).list);
+	      _this2.renderList = _this2.renderList.concat(child.update(_this2.pv));
 	    });
 
 	    this.renderList.sort(function (a, b) {
-	      return a.zOrder(a.list) - _this2._zOrder(b);
+	      return a.o3d.order(a) - b.o3d.order(b);
 	    });
 
-	    this.fill(this.ctx, this.scale);
+	    this.draw(this.ctx, this.scale);
 	  };
 
-	  Stage.prototype._zOrder = function _zOrder(face) {
-	    return face[0].w + face[1].w + face[2].w + face[3].w;
-	  };
-
-	  Stage.prototype._rect = function _rect(ctx, p1, p2, p3, p4, scale, color) {
-	    ctx.beginPath();
-	    ctx.moveTo(p1.x * scale, p1.y * scale);
-	    ctx.fillStyle = color;
-	    ctx.lineTo(p2.x * scale, p2.y * scale);
-	    ctx.lineTo(p3.x * scale, p3.y * scale);
-	    ctx.lineTo(p4.x * scale, p4.y * scale);
-	    ctx.closePath();
-	    ctx.fill();
-	  };
-
-	  Stage.prototype.fill = function fill(ctx, scale) {
-	    var _this3 = this;
-
-	    this.renderList.forEach(function (face) {
-	      _this3._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
+	  Stage.prototype.draw = function draw(ctx, scale) {
+	    this.renderList.forEach(function (obj) {
+	      obj.o3d.draw(ctx, scale, obj);
 	    });
 	  };
 
@@ -2705,6 +2687,9 @@
 	    _this.colors = options.colors || ['red', 'green', 'blue', 'yellow', '#ccc', '#467fdd'];
 	    _this.faces = [[ps[0], ps[1], ps[2], ps[3], _this.colors[0]], [ps[4], ps[5], ps[6], ps[7], _this.colors[1]], [ps[4], ps[5], ps[1], ps[0], _this.colors[2]], [ps[3], ps[2], ps[6], ps[7], _this.colors[3]], [ps[3], ps[0], ps[4], ps[7], _this.colors[4]], [ps[2], ps[1], ps[5], ps[6], _this.colors[5]]];
 
+	    _this.faces.forEach(function (face) {
+	      face.o3d = _this;
+	    });
 	    return _this;
 	  }
 
@@ -2756,21 +2741,18 @@
 	  };
 
 	  Cube.prototype.update = function update(pv, groupMatrix) {
-	    var _this2 = this;
-
 	    this.transform(pv, groupMatrix);
-
-	    this.faces.forEach(function (face) {
-	      face.unshift(_this2.draw, _this2._zOrder);
-	    });
-
 	    return this.faces;
 	  };
 
-	  Cube.prototype.draw = function draw(ctx, p1, p2, p3, p4, scale, color) {
+	  Cube.prototype.draw = function draw(ctx, scale, face) {
+	    var p1 = face[0];
+	    var p2 = face[1];
+	    var p3 = face[2];
+	    var p4 = face[3];
 	    ctx.beginPath();
 	    ctx.moveTo(p1.x * scale, p1.y * scale);
-	    ctx.fillStyle = color;
+	    ctx.fillStyle = face[4];
 	    ctx.lineTo(p2.x * scale, p2.y * scale);
 	    ctx.lineTo(p3.x * scale, p3.y * scale);
 	    ctx.lineTo(p4.x * scale, p4.y * scale);
@@ -2778,7 +2760,7 @@
 	    ctx.fill();
 	  };
 
-	  Cube.prototype._zOrder = function _zOrder(face) {
+	  Cube.prototype.order = function order(face) {
 	    return face[0].w + face[1].w + face[2].w + face[3].w;
 	  };
 
@@ -2918,6 +2900,8 @@
 	        _this.renderPaths[index][subIndex] = point.clone();
 	      });
 	    });
+
+	    _this.renderPaths.o3d = _this;
 	    return _this;
 	  }
 
@@ -2940,26 +2924,22 @@
 	      });
 	    });
 
-	    console.log(this.renderPaths);
-	    return {
-	      list: [this.renderPaths],
-	      zOrder: this._zOrder
-	    };
+	    return [this.renderPaths];
 	  };
 
-	  Circle.prototype._zOrder = function _zOrder(item) {
+	  Circle.prototype.order = function order(item) {
 	    var w = 0;
 	    var count = 0;
-	    item.forEach(function (path, index) {
+	    item.forEach(function (path) {
 	      count += path.length;
-	      path.forEach(function (point, subIndex) {
+	      path.forEach(function (point) {
 	        w += point.w;
 	      });
 	    });
 	    return w / count;
 	  };
 
-	  Circle.prototype.draw = function draw(ctx) {
+	  Circle.prototype.draw = function draw(ctx, scale) {
 	    var w = this.width;
 	    var h = this.height;
 	    var k = 0.5522848;
