@@ -23,6 +23,8 @@ class Object3d {
     this._matrix = new Matrix4()
 
     this._groupMatrix = new Matrix4()
+
+    this.renderList = []
   }
 
   isVisible() {

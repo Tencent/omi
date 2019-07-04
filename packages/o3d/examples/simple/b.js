@@ -2519,6 +2519,8 @@
 	    this._matrix = new Matrix4();
 
 	    this._groupMatrix = new Matrix4();
+
+	    this.renderList = [];
 	  }
 
 	  Object3d.prototype.isVisible = function isVisible() {
@@ -2554,6 +2556,7 @@
 
 	  Group.prototype.update = function update(ctx, camera, scale, groupMatrix) {
 	    var list = this.children.slice();
+	    this.renderList.length = 0;
 	    for (var i = 0, l = list.length; i < l; i++) {
 	      var child = list[i];
 	      if (!child.isVisible()) {
@@ -2571,10 +2574,10 @@
 	      // draw the child:
 	      ctx.save();
 	      child.updateContext(ctx);
-	      child.update(ctx, camera, scale, this._groupMatrix);
+	      this.renderList = this.renderList.concat(child.update(ctx, camera, scale, this._groupMatrix));
 	      ctx.restore();
 	    }
-	    return true;
+	    return this.renderList;
 	  };
 
 	  return Group;
@@ -2616,8 +2619,38 @@
 	    var _this2 = this;
 
 	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
+	    this.renderList.length = 0;
 	    this.children.forEach(function (child) {
-	      child.update(_this2.ctx, _this2.camera, _this2.scale);
+	      _this2.renderList = _this2.renderList.concat(child.update(_this2.ctx, _this2.camera, _this2.scale));
+	    });
+
+	    this.renderList.sort(function (a, b) {
+	      return _this2._zOrder(a) - _this2._zOrder(b);
+	    });
+
+	    this.fill(this.ctx, this.scale);
+	  };
+
+	  Stage.prototype._zOrder = function _zOrder(face) {
+	    return face[0].w + face[1].w + face[2].w + face[3].w;
+	  };
+
+	  Stage.prototype._rect = function _rect(ctx, p1, p2, p3, p4, scale, color) {
+	    ctx.beginPath();
+	    ctx.moveTo(p1.x * scale, p1.y * scale);
+	    ctx.fillStyle = color;
+	    ctx.lineTo(p2.x * scale, p2.y * scale);
+	    ctx.lineTo(p3.x * scale, p3.y * scale);
+	    ctx.lineTo(p4.x * scale, p4.y * scale);
+	    ctx.closePath();
+	    ctx.fill();
+	  };
+
+	  Stage.prototype.fill = function fill(ctx, scale) {
+	    var _this3 = this;
+
+	    this.renderList.forEach(function (face) {
+	      _this3._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
 	    });
 	  };
 
@@ -2725,32 +2758,7 @@
 
 	  Cube.prototype.update = function update(ctx, camera, scale, groupMatrix) {
 	    this.transform(camera, groupMatrix);
-	    this.fill(ctx, scale);
-	  };
-
-	  Cube.prototype._rect = function _rect(ctx, p1, p2, p3, p4, scale, color) {
-	    ctx.beginPath();
-	    ctx.moveTo(p1.x * scale, p1.y * scale);
-	    ctx.fillStyle = color;
-	    ctx.lineTo(p2.x * scale, p2.y * scale);
-	    ctx.lineTo(p3.x * scale, p3.y * scale);
-	    ctx.lineTo(p4.x * scale, p4.y * scale);
-	    ctx.closePath();
-	    ctx.fill();
-	  };
-
-	  Cube.prototype.fill = function fill(ctx, scale) {
-	    var _this2 = this;
-
-	    var ps = this.points;
-
-	    this.faces.sort(function (a, b) {
-	      return _this2._zOrder(a) - _this2._zOrder(b);
-	    });
-
-	    this.faces.forEach(function (face) {
-	      _this2._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4]);
-	    });
+	    return this.faces;
 	  };
 
 	  Cube.prototype._zOrder = function _zOrder(face) {

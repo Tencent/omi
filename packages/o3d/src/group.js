@@ -12,6 +12,7 @@ class Group extends Object3d {
 
   update(ctx, camera, scale, groupMatrix) {
     let list = this.children.slice()
+    this.renderList.length = 0
     for (let i = 0, l = list.length; i < l; i++) {
       let child = list[i] 
       if (!child.isVisible()) {
@@ -30,10 +31,10 @@ class Group extends Object3d {
       // draw the child:
       ctx.save()
       child.updateContext(ctx)
-      child.update(ctx, camera, scale, this._groupMatrix)
+      this.renderList = this.renderList.concat(child.update(ctx, camera, scale, this._groupMatrix))
       ctx.restore()
     }
-    return true
+    return this.renderList
   }
 }
 

@@ -30,10 +30,41 @@ class Stage extends Group {
       this.width,
       this.height
     )
+    this.renderList.length = 0
     this.children.forEach(child => {
-      child.update(this.ctx, this.camera, this.scale)
+      this.renderList = this.renderList.concat(child.update(this.ctx, this.camera, this.scale))
+    })
+
+    this.renderList.sort((a, b) => {
+      return this._zOrder(a) - this._zOrder(b)
+    })
+
+    this.fill(this.ctx, this.scale)
+  }
+
+  _zOrder(face) {
+    return face[0].w + face[1].w + face[2].w + face[3].w
+  }
+
+  _rect(ctx, p1, p2, p3, p4, scale, color) {
+    ctx.beginPath()
+    ctx.moveTo(p1.x * scale, p1.y * scale)
+    ctx.fillStyle = color
+    ctx.lineTo(p2.x * scale, p2.y * scale)
+    ctx.lineTo(p3.x * scale, p3.y * scale)
+    ctx.lineTo(p4.x * scale, p4.y * scale)
+    ctx.closePath()
+    ctx.fill()
+  }
+
+  fill(ctx, scale) {
+    
+
+    this.renderList.forEach((face) => {
+      this._rect(ctx, face[0], face[1], face[2], face[3], scale, face[4])
     })
   }
+
 }
 
 export { Stage }
