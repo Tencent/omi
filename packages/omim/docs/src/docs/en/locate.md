@@ -4,8 +4,9 @@ Location tools, such as linking text boxes to date selectors and buttons to menu
 
 ## Usage
 
-```html
- <m-text-field rightIcon='today' id='myTextField' value={this.date} label='Date of birth' onIconClick={this.onIconClick} iconEvent={true} />
+```jsx
+<m-text-field rightIcon='today' id='myTextField' value={this.date} label='Date of birth' onIconClick={this.onIconClick} iconEvent={true} >
+</m-text-field>
 <m-locate to="#myTextField" direction='bottom-left' show={this.show}>
   <m-date-picker selected-date={this.date} onSelect={this.onSelect}></m-date-picker>
 </m-locate>
