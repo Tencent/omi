@@ -1,4 +1,5 @@
 import { Group } from './group'
+import { Matrix4 } from './matrix4'
 
 class Stage extends Group {
   constructor(option) {
@@ -21,6 +22,10 @@ class Stage extends Group {
     this.ctx.scale(1, -1)
 
     this.scale = option.scale || 1000
+
+
+    this.pv = new Matrix4()
+    this.pv.multiplyMatrices(this.camera.p_matrix, this.camera.v_matrix)
   }
 
   update() {
@@ -32,7 +37,7 @@ class Stage extends Group {
     )
     this.renderList.length = 0
     this.children.forEach(child => {
-      this.renderList = this.renderList.concat(child.update(this.ctx, this.camera, this.scale))
+      this.renderList = this.renderList.concat(child.update(this.pv))
     })
 
     this.renderList.sort((a, b) => {

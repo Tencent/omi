@@ -2554,7 +2554,7 @@
 	    this.children.push(child);
 	  };
 
-	  Group.prototype.update = function update(pv, groupMatrix) {
+	  Group.prototype.update = function update(ctx, camera, scale, groupMatrix) {
 	    var list = this.children.slice();
 	    this.renderList.length = 0;
 	    for (var i = 0, l = list.length; i < l; i++) {
@@ -2572,10 +2572,10 @@
 	      }
 
 	      // draw the child:
-	      // ctx.save()
-	      // child.updateContext(ctx)
-	      this.renderList = this.renderList.concat(child.update(pv, this._groupMatrix));
-	      //ctx.restore()
+	      ctx.save();
+	      child.updateContext(ctx);
+	      this.renderList = this.renderList.concat(child.update(ctx, camera, scale, this._groupMatrix));
+	      ctx.restore();
 	    }
 	    return this.renderList;
 	  };
@@ -2624,7 +2624,7 @@
 	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 	    this.renderList.length = 0;
 	    this.children.forEach(function (child) {
-	      _this2.renderList = _this2.renderList.concat(child.update(_this2.pv));
+	      _this2.renderList = _this2.renderList.concat(child.update(_this2.ctx, _this2.camera, _this2.scale, _this2.pv));
 	    });
 
 	    this.renderList.sort(function (a, b) {
@@ -2708,7 +2708,7 @@
 	    return _this;
 	  }
 
-	  Cube.prototype.transform = function transform(pv, groupMatrix) {
+	  Cube.prototype.transform = function transform(camera, groupMatrix) {
 	    // const yTopOrigin = {
 	    //   x: this.center.x,
 	    //   y: this.center.y - this.hh,
@@ -2747,16 +2747,18 @@
 	      this.basePoints[i].applyMatrix4Out(this._groupMatrix, this['p' + i]);
 	    }
 
+	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
+
 	    //p*v*m
 	    //face z-sort !!! w-sort !!
 	    //render
 	    for (var _i = 0; _i < 8; _i++) {
-	      this['p' + _i].applyMatrix4(pv);
+	      this['p' + _i].applyMatrix4(this.pv);
 	    }
 	  };
 
-	  Cube.prototype.update = function update(pv, groupMatrix) {
-	    this.transform(pv, groupMatrix);
+	  Cube.prototype.update = function update(ctx, camera, scale, groupMatrix) {
+	    this.transform(camera, groupMatrix);
 	    return this.faces;
 	  };
 
@@ -2862,6 +2864,93 @@
 	  return Camera;
 	}();
 
+	function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Circle = function (_Object3d) {
+	  _inherits$3(Circle, _Object3d);
+
+	  function Circle(r, options) {
+	    _classCallCheck$5(this, Circle);
+
+	    var _this = _possibleConstructorReturn$3(this, _Object3d.call(this));
+
+	    _this.r = r;
+
+	    _this.width = r * 2;
+	    _this.height = r * 2;
+
+	    var w = _this.width;
+	    var h = _this.height;
+	    var k = 0.5522848;
+	    var ox = w / 2 * k;
+	    var oy = h / 2 * k;
+	    var xe = w;
+	    var ye = h;
+	    var xm = w / 2;
+	    var ym = h / 2;
+
+	    _this.paths = [[new Vector3(0, ym, 0)], [new Vector3(0, ym - oy, 0), new Vector3(xm - ox, 0, 0), new Vector3(xm, 0, 0)], [new Vector3(xm + ox, 0, 0), new Vector3(xe, ym - oy, 0), new Vector3(xe, ym, 0)], [new Vector3(xe, ym + oy, 0), new Vector3(xm + ox, ye, 0), new Vector3(xm, ye, 0)], [new Vector3(xm - ox, ye, 0), new Vector3(0, ym + oy, 0), new Vector3(0, ym, 0)]];
+
+	    _this.renderPaths = [];
+	    _this.paths.forEach(function (path, index) {
+	      _this.renderPaths[index] = [];
+	      path.forEach(function (point, subIndex) {
+	        _this.renderPaths[index][subIndex] = point.clone();
+	      });
+	    });
+	    return _this;
+	  }
+
+	  Circle.prototype.update = function update(xx, xxx, xxxx, pv, groupMatrix) {
+	    var _this2 = this;
+
+	    this._matrix.identity().appendTransform(this.x, this.y, this.z, this.scaleX, this.scaleY, this.scaleZ, this.rotateX, this.rotateY, this.rotateZ, this.skewX, this.skewY, this.skewZ, this.originX, this.originY, this.originZ);
+
+	    if (groupMatrix) {
+	      this._groupMatrix.multiplyMatrices(this._matrix, groupMatrix);
+	    } else {
+	      this._groupMatrix = this._matrix;
+	    }
+
+	    this.paths.forEach(function (path, index) {
+	      path.forEach(function (point, subIndex) {
+	        point.applyMatrix4Out(_this2._groupMatrix, _this2.renderPaths[index][subIndex]);
+
+	        _this2.renderPaths[index][subIndex].applyMatrix4(pv);
+	      });
+	    });
+
+	    console.log(this.renderPaths);
+	    return this.renderPaths;
+	  };
+
+	  Circle.prototype.draw = function draw(ctx) {
+	    var w = this.width;
+	    var h = this.height;
+	    var k = 0.5522848;
+	    var ox = w / 2 * k;
+	    var oy = h / 2 * k;
+	    var xe = w;
+	    var ye = h;
+	    var xm = w / 2;
+	    var ym = h / 2;
+
+	    ctx.moveTo(0, ym);
+	    ctx.bezierCurveTo(0, ym - oy, xm - ox, 0, xm, 0);
+	    ctx.bezierCurveTo(xm + ox, 0, xe, ym - oy, xe, ym);
+	    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+	    ctx.bezierCurveTo(xm - ox, ye, 0, ym + oy, 0, ym);
+
+	    ctx.stroke();
+	  };
+
+	  return Circle;
+	}(Object3d);
+
 	var camera = new Camera({
 	  x: 0,
 	  y: 0,
@@ -2883,34 +2972,23 @@
 	  renderer: 'canvas'
 	});
 
-	var group = new Group();
+	var circle = new Circle(100);
 
-	var cube = new Cube(100, 100, 100, {
-	  center: new Vector3(0, 0, 0)
-	});
-	//cube.rotateY =30
-	group.add(cube);
-
-	var cubeB = new Cube(100, 100, 100, {
-	  center: new Vector3(200, 0, 0)
-	});
-	//cube.rotateY =30
-	group.add(cubeB);
-
-	stage.add(group);
+	circle.rotateY = 30;
+	stage.add(circle);
 
 	stage.update();
 
-	animate();
+	// animate()
 
-	function animate() {
-	  requestAnimationFrame(animate);
-	  // group.rotateX += 1
-	  group.rotateY += 1;
-	  // group.rotateZ += 1
-	  //camera.y += 1
-	  stage.update();
-	}
+	// function animate() {
+	//   requestAnimationFrame(animate)
+	//   circle.rotateY += 1
+	//   circle.rotateX += 1
+	//   circle.rotateZ += 1
+	//   //camera.y += 1
+	//   stage.update()
+	// }
 
 }());
 //# sourceMappingURL=b.js.map

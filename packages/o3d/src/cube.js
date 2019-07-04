@@ -13,9 +13,6 @@ class Cube extends Object3d{
 
  
 
-   
-    this.pv = new Matrix4()
-
     const hl = this.length / 2
     const hw = this.width / 2
     const hh = this.height / 2
@@ -76,7 +73,7 @@ class Cube extends Object3d{
 
   }
 
-  transform(camera, groupMatrix) {
+  transform(pv, groupMatrix) {
     // const yTopOrigin = {
     //   x: this.center.x,
     //   y: this.center.y - this.hh,
@@ -117,18 +114,17 @@ class Cube extends Object3d{
     }
 
 
-    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix)
 
     //p*v*m
     //face z-sort !!! w-sort !!
     //render
     for (let i = 0; i < 8; i++) {
-      this['p' + i].applyMatrix4(this.pv)
+      this['p' + i].applyMatrix4(pv)
     }
   }
 
-  update(ctx, camera, scale, groupMatrix) {
-    this.transform(camera, groupMatrix)
+  update(pv, groupMatrix) {
+    this.transform(pv, groupMatrix)
     return this.faces
   }
 

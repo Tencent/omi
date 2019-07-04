@@ -8,6 +8,7 @@
     "copy-typescript-definition": "copyfiles -f src/o3d.d.ts dist",
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "simple": "rollup -c config/rollup.example.js --watch",
+    "circle": "rollup -c config/rollup.example.js --watch",
     "group": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",

@@ -2554,7 +2554,7 @@
 	    this.children.push(child);
 	  };
 
-	  Group.prototype.update = function update(ctx, camera, scale, groupMatrix) {
+	  Group.prototype.update = function update(pv, groupMatrix) {
 	    var list = this.children.slice();
 	    this.renderList.length = 0;
 	    for (var i = 0, l = list.length; i < l; i++) {
@@ -2572,10 +2572,10 @@
 	      }
 
 	      // draw the child:
-	      ctx.save();
-	      child.updateContext(ctx);
-	      this.renderList = this.renderList.concat(child.update(ctx, camera, scale, this._groupMatrix));
-	      ctx.restore();
+	      // ctx.save()
+	      // child.updateContext(ctx)
+	      this.renderList = this.renderList.concat(child.update(pv, this._groupMatrix));
+	      //ctx.restore()
 	    }
 	    return this.renderList;
 	  };
@@ -2612,6 +2612,9 @@
 	    _this.ctx.scale(1, -1);
 
 	    _this.scale = option.scale || 1000;
+
+	    _this.pv = new Matrix4();
+	    _this.pv.multiplyMatrices(_this.camera.p_matrix, _this.camera.v_matrix);
 	    return _this;
 	  }
 
@@ -2621,7 +2624,7 @@
 	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 	    this.renderList.length = 0;
 	    this.children.forEach(function (child) {
-	      _this2.renderList = _this2.renderList.concat(child.update(_this2.ctx, _this2.camera, _this2.scale));
+	      _this2.renderList = _this2.renderList.concat(child.update(_this2.pv));
 	    });
 
 	    this.renderList.sort(function (a, b) {
@@ -2677,8 +2680,6 @@
 	    _this.width = width;
 	    _this.height = height;
 
-	    _this.pv = new Matrix4();
-
 	    var hl = _this.length / 2;
 	    var hw = _this.width / 2;
 	    var hh = _this.height / 2;
@@ -2707,7 +2708,7 @@
 	    return _this;
 	  }
 
-	  Cube.prototype.transform = function transform(camera, groupMatrix) {
+	  Cube.prototype.transform = function transform(pv, groupMatrix) {
 	    // const yTopOrigin = {
 	    //   x: this.center.x,
 	    //   y: this.center.y - this.hh,
@@ -2746,18 +2747,16 @@
 	      this.basePoints[i].applyMatrix4Out(this._groupMatrix, this['p' + i]);
 	    }
 
-	    this.pv.multiplyMatrices(camera.p_matrix, camera.v_matrix);
-
 	    //p*v*m
 	    //face z-sort !!! w-sort !!
 	    //render
 	    for (var _i = 0; _i < 8; _i++) {
-	      this['p' + _i].applyMatrix4(this.pv);
+	      this['p' + _i].applyMatrix4(pv);
 	    }
 	  };
 
-	  Cube.prototype.update = function update(ctx, camera, scale, groupMatrix) {
-	    this.transform(camera, groupMatrix);
+	  Cube.prototype.update = function update(pv, groupMatrix) {
+	    this.transform(pv, groupMatrix);
 	    return this.faces;
 	  };
 
