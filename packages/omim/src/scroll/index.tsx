@@ -30,11 +30,10 @@ export default class Scroll extends WeElement<Props, {}> {
   }
 
   installed() {
-    var target = this.rootNode.firstChild
     new PhyScroll({
-      touch: this.rootNode,
+      touch: this.childNodes[0],
       vertical: this.props.vertical === false ? false : true,
-      scroll: target,
+      scroll: this.childNodes[0].firstChild,
       min: this.props.min,
       max: this.props.max,
       sensitivity: this.props.sensitivity,
@@ -53,6 +52,6 @@ export default class Scroll extends WeElement<Props, {}> {
   }
 
   render() {
-    return this.props.children[0]
+    return <slot></slot>
   }
 }
