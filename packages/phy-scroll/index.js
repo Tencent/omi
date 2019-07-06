@@ -339,7 +339,7 @@
             if (this.hasMaxSpeed && speed2 > this.maxSpeed) {
               speed2 = this.maxSpeed;
             }
-            
+
             var destination = current + (speed2 * speed2) / (2 * this.deceleration) * (distance < 0 ? -1 : 1);
 
             var tRatio = 1;
@@ -362,6 +362,9 @@
               }
             }
             var duration = Math.round(speed / self.deceleration) * tRatio;
+
+            //Prevent too fast to flash directly
+            duration = Math.max(duration, 150)
 
             self.to(Math.round(destination), duration, ease);
           } else {
@@ -413,7 +416,7 @@
         if (result > this.max) result = this.max;
         if (result < this.min) result = this.min;
         this.to(result, time, ease);
-        this.index = (value < 0 ? -1 : 1) * rpt 
+        this.index = (value < 0 ? -1 : 1) * rpt
       }
     },
     destroy: function () {
