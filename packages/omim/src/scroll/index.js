@@ -202,9 +202,9 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_phy-scroll@1.0.5@phy-scroll/index.js":
+/***/ "./node_modules/_phy-scroll@1.0.6@phy-scroll/index.js":
 /*!************************************************************!*\
-  !*** ./node_modules/_phy-scroll@1.0.5@phy-scroll/index.js ***!
+  !*** ./node_modules/_phy-scroll@1.0.6@phy-scroll/index.js ***!
   \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -550,7 +550,7 @@ function toComment(sourceMap) {
             if (this.hasMaxSpeed && speed2 > this.maxSpeed) {
               speed2 = this.maxSpeed;
             }
-            
+
             var destination = current + (speed2 * speed2) / (2 * this.deceleration) * (distance < 0 ? -1 : 1);
 
             var tRatio = 1;
@@ -573,6 +573,9 @@ function toComment(sourceMap) {
               }
             }
             var duration = Math.round(speed / self.deceleration) * tRatio;
+
+            //Prevent too fast to flash directly
+            duration = Math.max(duration, 150)
 
             self.to(Math.round(destination), duration, ease);
           } else {
@@ -624,7 +627,7 @@ function toComment(sourceMap) {
         if (result > this.max) result = this.max;
         if (result < this.min) result = this.min;
         this.to(result, time, ease);
-        this.index = (value < 0 ? -1 : 1) * rpt 
+        this.index = (value < 0 ? -1 : 1) * rpt
       }
     },
     destroy: function () {
@@ -695,7 +698,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var css = __webpack_require__(/*! ./index.scss */ "./src/scroll/index.scss");
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var PhyScroll = __webpack_require__(/*! phy-scroll */ "./node_modules/_phy-scroll@1.0.5@phy-scroll/index.js");
+var PhyScroll = __webpack_require__(/*! phy-scroll */ "./node_modules/_phy-scroll@1.0.6@phy-scroll/index.js");
 var Scroll = /** @class */ (function (_super) {
     __extends(Scroll, _super);
     function Scroll() {
