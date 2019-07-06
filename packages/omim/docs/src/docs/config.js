@@ -25,6 +25,7 @@ const config = {
         list: [
           { name: 'Transition 过渡', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
           { name: 'To 运动', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
+          { name: 'Scroll 滚动', md: 'scroll', demo: 'https://tencent.github.io/omi/packages/omim/demos/scroll/index.html' },
           { name: 'Locate 定位', md: 'locate', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-picker/index.html' },
           { name: 'Theme 主题', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography 排版', md: 'typography', demo: './repl/typography.html' },
@@ -142,6 +143,7 @@ const config = {
         list: [
           { name: 'Transition', md: 'transition', demo: 'https://tencent.github.io/omi/packages/omim/demos/transition/index.html' },
           { name: 'To', md: 'to', demo: 'https://tencent.github.io/omi/packages/omim/demos/to/index.html' },
+          { name: 'Scroll', md: 'scroll', demo: 'https://tencent.github.io/omi/packages/omim/demos/scroll/index.html' },
           { name: 'Locate', md: 'locate', demo: 'https://tencent.github.io/omi/packages/omim/demos/date-picker/index.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' }

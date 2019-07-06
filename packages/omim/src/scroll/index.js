@@ -202,9 +202,9 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_phy-scroll@1.0.3@phy-scroll/index.js":
+/***/ "./node_modules/_phy-scroll@1.0.5@phy-scroll/index.js":
 /*!************************************************************!*\
-  !*** ./node_modules/_phy-scroll@1.0.3@phy-scroll/index.js ***!
+  !*** ./node_modules/_phy-scroll@1.0.5@phy-scroll/index.js ***!
   \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -541,11 +541,16 @@ function toComment(sourceMap) {
           if (dt < 300) {
 
             var distance = ((this.vertical ? evt.changedTouches[0].pageY : evt.changedTouches[0].pageX) - this.start) * this.sensitivity,
-              speed = Math.abs(distance) / dt,
-              speed2 = this.factor * speed;
+              speed = Math.abs(distance) / dt;
+            if(distance === 0 && self.step){
+              self.correction();
+              return
+            }
+            var speed2 = this.factor * speed;
             if (this.hasMaxSpeed && speed2 > this.maxSpeed) {
               speed2 = this.maxSpeed;
             }
+            
             var destination = current + (speed2 * speed2) / (2 * this.deceleration) * (distance < 0 ? -1 : 1);
 
             var tRatio = 1;
@@ -690,18 +695,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var css = __webpack_require__(/*! ./index.scss */ "./src/scroll/index.scss");
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var PhyScroll = __webpack_require__(/*! phy-scroll */ "./node_modules/_phy-scroll@1.0.3@phy-scroll/index.js");
+var PhyScroll = __webpack_require__(/*! phy-scroll */ "./node_modules/_phy-scroll@1.0.5@phy-scroll/index.js");
 var Scroll = /** @class */ (function (_super) {
     __extends(Scroll, _super);
     function Scroll() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Scroll.prototype.installed = function () {
-        var target = this.rootNode.firstChild;
         new PhyScroll({
-            touch: this.rootNode,
+            touch: this.childNodes[0],
             vertical: this.props.vertical === false ? false : true,
-            scroll: target,
+            scroll: this.childNodes[0].firstChild,
             min: this.props.min,
             max: this.props.max,
             sensitivity: this.props.sensitivity,
@@ -719,7 +723,7 @@ var Scroll = /** @class */ (function (_super) {
         });
     };
     Scroll.prototype.render = function () {
-        return this.props.children[0];
+        return omi_1.h("slot", null);
     };
     Scroll.css = css;
     Scroll.propTypes = {

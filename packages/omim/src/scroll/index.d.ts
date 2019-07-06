@@ -22,6 +22,6 @@ export default class Scroll extends WeElement<Props, {}> {
         vertical: BooleanConstructor;
     };
     installed(): void;
-    render(): any;
+    render(): JSX.Element;
 }
 export {};
