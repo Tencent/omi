@@ -1,6 +1,6 @@
 ## Scroll
 
-Mobile physical touch rolling simulation, based on [phy-scroll] (https://github.com/Tencent/omi/tree/master/packages/phy-scroll), includes (acceleration, inertia, friction, rebound).
+Mobile physical touch rolling simulation, based on [phy-scroll](https://github.com/Tencent/omi/tree/master/packages/phy-scroll), includes (acceleration, inertia, friction, rebound).
 
 [→ Touch Me](https://tencent.github.io/omi/packages/omim/demos/scroll/index.html)
 
