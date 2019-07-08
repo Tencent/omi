@@ -1,4 +1,4 @@
-/* css3transform 2.0.0
+/* css3transform 1.2.2
  * By dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/omi-transform/css3transform
  */
@@ -73,10 +73,8 @@
 
         },
         // 解决角度为90的整数倍导致Math.cos得到极小的数，其实是0。导致不渲染
-        _rounded: function (value, i) {
-            i = Math.pow(10, i || 15);
-            // default
-            return Math.round(value * i) / i;
+        epsilon: function (value) {
+            return Math.abs( value ) < 1e-10 ? 0 : value;
         },
         _arrayWrap: function (arr) {
             return window.Float32Array ? new Float32Array(arr) : arr;
@@ -84,14 +82,14 @@
         appendTransform: function (x, y, z, scaleX, scaleY, scaleZ, rotateX, rotateY, rotateZ, skewX, skewY, originX, originY, originZ) {
 
             var rx = rotateX * DEG_TO_RAD;
-            var cosx = this._rounded(Math.cos(rx));
-            var sinx = this._rounded(Math.sin(rx));
+            var cosx = this.epsilon(Math.cos(rx));
+            var sinx = this.epsilon(Math.sin(rx));
             var ry = rotateY * DEG_TO_RAD;
-            var cosy = this._rounded(Math.cos(ry));
-            var siny = this._rounded(Math.sin(ry));
+            var cosy = this.epsilon(Math.cos(ry));
+            var siny = this.epsilon(Math.sin(ry));
             var rz = rotateZ * DEG_TO_RAD;
-            var cosz = this._rounded(Math.cos(rz * -1));
-            var sinz = this._rounded(Math.sin(rz * -1));
+            var cosz = this.epsilon(Math.cos(rz * -1));
+            var sinz = this.epsilon(Math.sin(rz * -1));
 
             this.multiplyMatrices(this, this._arrayWrap([
                 1, 0, 0, x,
@@ -116,8 +114,8 @@
 
             if (skewX || skewY) {
                 this.multiplyMatrices(this, this._arrayWrap([
-                    this._rounded(Math.cos(skewX * DEG_TO_RAD)), this._rounded(Math.sin(skewX * DEG_TO_RAD)), 0, 0,
-                    -1 * this._rounded(Math.sin(skewY * DEG_TO_RAD)), this._rounded(Math.cos(skewY * DEG_TO_RAD)), 0, 0,
+                    this.epsilon(Math.cos(skewX * DEG_TO_RAD)), this.epsilon(Math.sin(skewX * DEG_TO_RAD)), 0, 0,
+                    -1 * this.epsilon(Math.sin(skewY * DEG_TO_RAD)), this.epsilon(Math.cos(skewY * DEG_TO_RAD)), 0, 0,
                     0, 0, 1, 0,
                     0, 0, 0, 1
                 ]));
