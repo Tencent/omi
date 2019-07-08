@@ -240,9 +240,7 @@
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
-  data = {
-    count: 1
-  }
+  count = 1
 
   static css = `
     span{
@@ -250,12 +248,12 @@ define('my-counter', class extends WeElement {
     }`
 
   sub = () => {
-    this.data.count--
+    this.count--
     this.update()
   }
 
   add = () => {
-    this.data.count++
+    this.count++
     this.update()
   }
 
@@ -263,7 +261,7 @@ define('my-counter', class extends WeElement {
     return (
       &lt;div&gt;
         &lt;button onClick={this.sub}>-&lt;/button&gt;
-        &lt;span>{this.data.count}&lt;/span&gt;
+        &lt;span>{this.count}&lt;/span&gt;
         &lt;button onClick={this.add}>+&lt;/button&gt;
       &lt;/div&gt;
     )
