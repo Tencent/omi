@@ -278,6 +278,8 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | toggle buttons | member | done|
 | locate | member | done|
 | player | 132yse | done|
+| finger | member |     |
+| scroll | member |  done   |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
