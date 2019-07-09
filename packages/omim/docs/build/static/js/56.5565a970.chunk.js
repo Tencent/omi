@@ -1,0 +1,2 @@
+webpackJsonp([56],{122:function(n,t){n.exports='## Date Range Picker\n\n\u65f6\u95f4\u533a\u95f4\u9009\u62e9\u5668\u3002\n\n## \u4f7f\u7528\n\n```html\n<m-date-range-picker\n  left-date="2018-6"\n  right-date="2019-10"\n  from="2018-6-9"\n  to="2018-10-10"\n>\n</m-date-range-picker>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  from?: string,\n  to?: string,\n  leftDate?: string,\n  rightDate?: string\n}\n```\n\n### Events\n\n* select'}});
+//# sourceMappingURL=56.5565a970.chunk.js.map
