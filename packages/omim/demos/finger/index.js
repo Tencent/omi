@@ -20,7 +20,7 @@ class MyApp extends WeElement {
 
   render() {
     return (
-      <div>
+      <div id='app'>
         <m-finger onTap={this.handleTap} onSwipe={this.handleSwipe}>
           <div class="touchArea">
             {this.data.wording}
@@ -31,14 +31,20 @@ class MyApp extends WeElement {
   }
 
   static css = `
+  #app{
+    text-align: center;
+    margin-top: 80px;
+  }
+
   .touchArea{
-    background-color: green;
+    background-color: #0072d9;
     width: 200px;
     min-height: 200px;
     text-align: center;
     color:white;
     height:auto;
     white-space: pre-line;
+    padding: 10px; 
 }
   `
 }
