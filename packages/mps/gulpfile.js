@@ -78,10 +78,11 @@ function compile(file, watch) {
   }).template.replace(/<block>/, '').replace(/([\s\S]*)<\/block>/, '$1')
   console.log('[编译完成]'.green, file.path)
 
-  const res = prettier.format(template, { parser: "angular" })
-  console.log('[代码美化]'.green, name + '.wxml')
+  //注释掉以修复 import 的问题
+  //const res = prettier.format(template, { parser: "angular" })
+  //console.log('[代码美化]'.green, name + '.wxml')
 
-  fs.writeFileSync(dir + '/' + name + '.wxml', res)
+  fs.writeFileSync(dir + '/' + name + '.wxml', template)
   console.log('[写入文件]'.green, name + '.wxml')
 
   if (watch) {
