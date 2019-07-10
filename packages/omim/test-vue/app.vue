@@ -1,5 +1,5 @@
 <script>
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default {
   name: 'HelloWorld',

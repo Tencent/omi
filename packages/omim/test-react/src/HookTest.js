@@ -1,7 +1,7 @@
 /** @jsx nativeEvents */
 import nativeEvents from 'jsx-native-events'
 import { useState } from 'react'
-import '@omim/core/icon-button'
+import 'omim/icon-button'
 
 export default function SomeComponent(props) {
     const [result, setSwitch] = useState(false)
