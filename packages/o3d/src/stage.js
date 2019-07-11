@@ -18,10 +18,9 @@ class Stage extends Group {
     this.renderTo.appendChild(this.canvas)
     this.camera = option.camera
 
-    this.ctx.translate(this.width / 2, this.height / 2)
+    this.ctx.translate(0, this.height)
     this.ctx.scale(1, -1)
 
-    this.scale = option.scale || 1000
     this.pv = new Matrix4()
     this.pv.multiplyMatrices(this.camera.p_matrix, this.camera.v_matrix)
     this.camera.stage = this
@@ -29,8 +28,8 @@ class Stage extends Group {
 
   update() {
     this.ctx.clearRect(
-      -this.width / 2,
-      -this.height / 2,
+      0,
+      0,
       this.width,
       this.height
     )
@@ -43,12 +42,12 @@ class Stage extends Group {
       return a.o3d.order(a) - b.o3d.order(b)
     })
 
-    this.draw(this.ctx, this.scale)
+    this.draw(this.ctx)
   }
 
-  draw(ctx, scale) {
+  draw(ctx) {
     this.renderList.forEach((obj) => {
-      obj.o3d.draw(ctx, scale, obj)
+      obj.o3d.draw(ctx, obj, this.width, this.height)
     })
   }
 }

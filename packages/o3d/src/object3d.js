@@ -33,8 +33,19 @@ class Object3d {
     )
   }
 
-  updateContext(){
+  updateContext() {
 
+  }
+
+
+  //[-1,1]  ->  [0, width] 
+  //[-1,1]  ->  [0, height]
+  mapX(x, width) {
+    return width * (x + 1) / 2
+  }
+
+  mapY(y, height) {
+    return height * (y + 1) / 2
   }
 
 
