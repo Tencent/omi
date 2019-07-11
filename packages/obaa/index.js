@@ -1,164 +1,70 @@
-/* obaa 1.0.0
+/* 
+ * obaa 2.0.0
  * By dntzhang
- * Github: https://github.com/Tencent/omi
+ * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
  * MIT Licensed.
  */
-;(function(win) {
-  var obaa = function(target, arr, callback) {
-    var _observe = function(target, arr, callback) {
-      if (!target.$observer) target.$observer = this
-      var $observer = target.$observer
-      var eventPropArr = []
-      if (obaa.isArray(target)) {
-        if (target.length === 0) {
-          target.$observeProps = {}
-          target.$observeProps.$observerPath = '#'
+
+ 
+// __r_: root
+// __c_: prop change callback
+// __p_: path
+
+; (function (win) {
+  function obaa(target, arr, callback) {
+
+    var eventPropArr = []
+    if (isArray(target)) {
+      if (target.length === 0) {
+        target.__o_ = {
+          __r_: target,
+          __p_: '#'
         }
-        $observer.mock(target)
       }
-      for (var prop in target) {
-        if (target.hasOwnProperty(prop)) {
-          if (callback) {
-            if (obaa.isArray(arr) && obaa.isInArray(arr, prop)) {
-              eventPropArr.push(prop)
-              $observer.watch(target, prop)
-            } else if (obaa.isString(arr) && prop == arr) {
-              eventPropArr.push(prop)
-              $observer.watch(target, prop)
-            }
-          } else {
+      mock(target, target)
+    }
+    for (var prop in target) {
+      if (target.hasOwnProperty(prop)) {
+        if (callback) {
+          if (isArray(arr) && isInArray(arr, prop)) {
             eventPropArr.push(prop)
-            $observer.watch(target, prop)
+            watch(target, prop, null, target)
+          } else if (isString(arr) && prop == arr) {
+            eventPropArr.push(prop)
+            watch(target, prop, null, target)
           }
-        }
-      }
-      $observer.target = target
-      if (!$observer.propertyChangedHandler)
-        $observer.propertyChangedHandler = []
-      var propChanged = callback ? callback : arr
-      $observer.propertyChangedHandler.push({
-        all: !callback,
-        propChanged: propChanged,
-        eventPropArr: eventPropArr
-      })
-    }
-    _observe.prototype = {
-      onPropertyChanged: function(prop, value, oldValue, target, path) {
-        if (value !== oldValue && this.propertyChangedHandler) {
-          var rootName = obaa._getRootName(prop, path)
-          for (
-            var i = 0, len = this.propertyChangedHandler.length;
-            i < len;
-            i++
-          ) {
-            var handler = this.propertyChangedHandler[i]
-            if (
-              handler.all ||
-              obaa.isInArray(handler.eventPropArr, rootName) ||
-              rootName.indexOf('Array-') === 0
-            ) {
-              handler.propChanged.call(this.target, prop, value, oldValue, path)
-            }
-          }
-        }
-        if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
-          this.watch(target, prop, target.$observeProps.$observerPath)
-        }
-      },
-      mock: function(target) {
-        var self = this
-        obaa.methods.forEach(function(item) {
-          target[item] = function() {
-            var old = Array.prototype.slice.call(this, 0)
-            var result = Array.prototype[item].apply(
-              this,
-              Array.prototype.slice.call(arguments)
-            )
-            if (new RegExp('\\b' + item + '\\b').test(obaa.triggerStr)) {
-              for (var cprop in this) {
-                if (
-                  this.hasOwnProperty(cprop) &&
-                  !obaa.isFunction(this[cprop])
-                ) {
-                  self.watch(this, cprop, this.$observeProps.$observerPath)
-                }
-              }
-              //todo
-              self.onPropertyChanged(
-                'Array-' + item,
-                this,
-                old,
-                this,
-                this.$observeProps.$observerPath
-              )
-            }
-            return result
-          }
-          target[
-            'pure' + item.substring(0, 1).toUpperCase() + item.substring(1)
-          ] = function() {
-            return Array.prototype[item].apply(
-              this,
-              Array.prototype.slice.call(arguments)
-            )
-          }
-        })
-      },
-      watch: function(target, prop, path) {
-        if (prop === '$observeProps' || prop === '$observer') return
-        if (obaa.isFunction(target[prop])) return
-        if (!target.$observeProps) target.$observeProps = {}
-        if (path !== undefined) {
-          target.$observeProps.$observerPath = path
         } else {
-          target.$observeProps.$observerPath = '#'
-        }
-        var self = this
-        var currentValue = (target.$observeProps[prop] = target[prop])
-        Object.defineProperty(target, prop, {
-          get: function() {
-            return this.$observeProps[prop]
-          },
-          set: function(value) {
-            var old = this.$observeProps[prop]
-            this.$observeProps[prop] = value
-            self.onPropertyChanged(
-              prop,
-              value,
-              old,
-              this,
-              target.$observeProps.$observerPath
-            )
-          }
-        })
-        if (typeof currentValue == 'object') {
-          if (obaa.isArray(currentValue)) {
-            this.mock(currentValue)
-            if (currentValue.length === 0) {
-              if (!currentValue.$observeProps) currentValue.$observeProps = {}
-              if (path !== undefined) {
-                currentValue.$observeProps.$observerPath = path
-              } else {
-                currentValue.$observeProps.$observerPath = '#'
-              }
-            }
-          }
-          for (var cprop in currentValue) {
-            if (currentValue.hasOwnProperty(cprop)) {
-              this.watch(
-                currentValue,
-                cprop,
-                target.$observeProps.$observerPath + '-' + prop
-              )
-            }
-          }
+          eventPropArr.push(prop)
+          watch(target, prop, null, target)
         }
       }
     }
-    return new _observe(target, arr, callback)
+    if (!target.__c_) {
+      target.__c_ = []
+    }
+    var propChanged = callback ? callback : arr
+    target.__c_.push({
+      all: !callback,
+      propChanged: propChanged,
+      eventPropArr: eventPropArr
+    })
   }
 
-  obaa.methods = [
+  var triggerStr = [
+    'concat',
+    'copyWithin',
+    'fill',
+    'pop',
+    'push',
+    'reverse',
+    'shift',
+    'sort',
+    'splice',
+    'unshift',
+    'size'
+  ].join(',')
+
+  var methods = [
     'concat',
     'copyWithin',
     'entries',
@@ -190,63 +96,168 @@
     'values',
     'size'
   ]
-  obaa.triggerStr = [
-    'concat',
-    'copyWithin',
-    'fill',
-    'pop',
-    'push',
-    'reverse',
-    'shift',
-    'sort',
-    'splice',
-    'unshift',
-    'size'
-  ].join(',')
 
-  obaa.isArray = function(obj) {
+  function mock(target, root) {
+    methods.forEach(function (item) {
+      target[item] = function () {
+        var old = Array.prototype.slice.call(this, 0)
+        var result = Array.prototype[item].apply(
+          this,
+          Array.prototype.slice.call(arguments)
+        )
+        if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
+          for (var cprop in this) {
+            if (
+              this.hasOwnProperty(cprop) &&
+              !isFunction(this[cprop])
+            ) {
+              watch(this, cprop, this.__o_.__p_, root)
+            }
+          }
+          //todo
+          onPropertyChanged(
+            'Array-' + item,
+            this,
+            old,
+            this,
+            this.__o_.__p_,
+            root
+          )
+        }
+        return result
+      }
+      target[
+        'pure' + item.substring(0, 1).toUpperCase() + item.substring(1)
+      ] = function () {
+        return Array.prototype[item].apply(
+          this,
+          Array.prototype.slice.call(arguments)
+        )
+      }
+    })
+  }
+
+  function watch(target, prop, path, root) {
+    if (prop === '__o_') return
+    if (isFunction(target[prop])) return
+    if (!target.__o_) target.__o_ = {
+      __r_: root
+    }
+    if (path !== undefined && path !== null) {
+      target.__o_.__p_ = path
+    } else {
+      target.__o_.__p_ = '#'
+    }
+
+    var currentValue = (target.__o_[prop] = target[prop])
+    Object.defineProperty(target, prop, {
+      get: function () {
+        return this.__o_[prop]
+      },
+      set: function (value) {
+        var old = this.__o_[prop]
+        this.__o_[prop] = value
+        onPropertyChanged(
+          prop,
+          value,
+          old,
+          this,
+          target.__o_.__p_,
+          root
+        )
+      },
+      configurable: true,
+      enumerable: true
+    })
+    if (typeof currentValue == 'object') {
+      if (isArray(currentValue)) {
+        mock(currentValue, root)
+        if (currentValue.length === 0) {
+          if (!currentValue.__o_) currentValue.__o_ = {}
+          if (path !== undefined) {
+            currentValue.__o_.__p_ = path
+          } else {
+            currentValue.__o_.__p_ = '#'
+          }
+        }
+      }
+      for (var cprop in currentValue) {
+        if (currentValue.hasOwnProperty(cprop)) {
+          watch(
+            currentValue,
+            cprop,
+            target.__o_.__p_ + '-' + prop,
+            root
+          )
+        }
+      }
+    }
+  }
+
+
+  function onPropertyChanged(prop, value, oldValue, target, path, root) {
+    if (value !== oldValue && root.__c_) {
+      var rootName = getRootName(prop, path)
+      for (
+        var i = 0, len = root.__c_.length;
+        i < len;
+        i++
+      ) {
+        var handler = root.__c_[i]
+        if (
+          handler.all ||
+          isInArray(handler.eventPropArr, rootName) ||
+          rootName.indexOf('Array-') === 0
+        ) {
+          handler.propChanged.call(target, prop, value, oldValue, path)
+        }
+      }
+    }
+
+    if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
+      watch(target, prop, target.__o_.__p_, root)
+    }
+  }
+
+  function isFunction(obj) {
+    return Object.prototype.toString.call(obj) == '[object Function]'
+  }
+
+
+
+  function isArray(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]'
   }
 
-  obaa.isString = function(obj) {
+  function isString(obj) {
     return typeof obj === 'string'
   }
 
-  obaa.isInArray = function(arr, item) {
-    for (var i = arr.length; --i > -1; ) {
+  function isInArray(arr, item) {
+    for (var i = arr.length; --i > -1;) {
       if (item === arr[i]) return true
     }
     return false
   }
 
-  obaa.isFunction = function(obj) {
-    return Object.prototype.toString.call(obj) == '[object Function]'
-  }
 
-  obaa._getRootName = function(prop, path) {
+  function getRootName(prop, path) {
     if (path === '#') {
       return prop
     }
     return path.split('-')[1]
   }
 
-  obaa.add = function(obj, prop) {
-    var $observer = obj.$observer
-    $observer.watch(obj, prop)
+  obaa.add = function (obj, prop) {
+    watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_)
   }
 
-  obaa.set = function(obj, prop, value, exec) {
-    if (!exec) {
-      obj[prop] = value
-    }
-    var $observer = obj.$observer
-    $observer.watch(obj, prop)
-    if (exec) {
-      obj[prop] = value
-    }
+  obaa.set = function (obj, prop, value) {
+    watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_)
+    obj[prop] = value
   }
 
-  Array.prototype.size = function(length) {
+  Array.prototype.size = function (length) {
     this.length = length
   }
 
@@ -259,4 +270,4 @@
   } else {
     win.obaa = obaa
   }
-})(Function('return this')())
+})(Function('return this')());

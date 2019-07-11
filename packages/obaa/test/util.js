@@ -87,3 +87,16 @@
   }
 
   window.deepEqual = deepEqual
+
+
+  function log() {
+    for (var i = 0, len = arguments.length; i < len; i++) {
+      if (!arguments[i]) {
+        console.error.apply(null, arguments)
+
+        return
+      }
+    }
+
+    console.log.apply(null, arguments)
+  }

@@ -64,6 +64,10 @@ obj.c = 4 //trigger observe callback
 //if obj.c is undefined
 obj.c = 3
 obj.c = 4 //don't trigger observe callback
+
+//add new observer prop
+obaa.add(obj, 'd')
+obj.d = 1 //trigger observe callback
 ```
 
 ## License 

@@ -1,6 +1,6 @@
 {
   "name": "obaa",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Observe any object's any change.",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "obaa",
     "omi",
     "observe",
+    "watch",
     "observable"
   ],
   "author": "dntzhang",
@@ -20,5 +21,5 @@
   "bugs": {
     "url": "https://github.com/Tencent/omi/issues"
   },
-  "homepage": "https://github.com/Tencent/omi#readme"
+  "homepage": "https://github.com/Tencent/omi/tree/master/packages/obaa"
 }
