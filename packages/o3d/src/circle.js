@@ -77,14 +77,14 @@ class Circle extends Object3d {
     return w / count
   }
 
-  draw(ctx, scale, obj) {
+  draw(ctx, obj, width, height) {
     ctx.save()
     ctx.beginPath()
     ctx.lineWidth = this.stroke
     ctx.strokeStyle = this.color
-    ctx.moveTo(obj[0][0].x * scale, obj[0][0].y * scale)
+    ctx.moveTo(this.mapX( obj[0][0].x,width) , this.mapY(obj[0][0].y,height))
     for (let i = 1; i < 5; i++) {
-      ctx.bezierCurveTo(obj[i][0].x * scale, obj[i][0].y * scale, obj[i][1].x * scale, obj[i][1].y * scale, obj[i][2].x * scale, obj[i][2].y * scale)
+      ctx.bezierCurveTo(this.mapX(obj[i][0].x ,width), this.mapY(obj[i][0].y,height) , this.mapX(obj[i][1].x,width) , this.mapY(obj[i][1].y,height) , this.mapX(obj[i][2].x,width) , this.mapY(obj[i][2].y ,height))
     }
 
     ctx.stroke()

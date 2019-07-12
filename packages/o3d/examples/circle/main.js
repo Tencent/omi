@@ -4,7 +4,7 @@ import { Circle } from '../../src/circle'
 const camera = new Camera({
   x: 0,
   y: 0,
-  z: 1000,
+  z: 600,
   tx: 0,
   ty: 0,
   tz: 0,

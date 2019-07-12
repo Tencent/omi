@@ -3,12 +3,12 @@ import { Vector3, Stage, Cube, Camera, Group } from '../../src/o3d'
 const camera = new Camera({
   x: 0,
   y: 0,
-  z: 1000,
+  z: 700,
   tx: 0,
   ty: 0,
   tz: 0,
   fov: 60,
-  ratio: 600 / 600,
+  ratio: 600 / 400,
   front: 1,
   back: 1000
 })
@@ -33,7 +33,7 @@ group.add(cube)
 const cubeB = new Cube(100, 100, 100, {
   center: new Vector3(200, 0, 0)
 })
-//cube.rotateY =30
+
 group.add(cubeB)
 
 stage.add(group)

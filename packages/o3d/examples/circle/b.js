@@ -2529,6 +2529,18 @@
 
 	  Object3d.prototype.updateContext = function updateContext() {};
 
+	  //[-1,1]  ->  [0, width] 
+	  //[-1,1]  ->  [0, height]
+
+
+	  Object3d.prototype.mapX = function mapX(x, width) {
+	    return width * (x + 1) / 2;
+	  };
+
+	  Object3d.prototype.mapY = function mapY(y, height) {
+	    return height * (y + 1) / 2;
+	  };
+
 	  return Object3d;
 	}();
 
@@ -2610,10 +2622,9 @@
 	    _this.renderTo.appendChild(_this.canvas);
 	    _this.camera = option.camera;
 
-	    _this.ctx.translate(_this.width / 2, _this.height / 2);
+	    _this.ctx.translate(0, _this.height);
 	    _this.ctx.scale(1, -1);
 
-	    _this.scale = option.scale || 1000;
 	    _this.pv = new Matrix4();
 	    _this.pv.multiplyMatrices(_this.camera.p_matrix, _this.camera.v_matrix);
 	    _this.camera.stage = _this;
@@ -2623,7 +2634,7 @@
 	  Stage.prototype.update = function update() {
 	    var _this2 = this;
 
-	    this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
+	    this.ctx.clearRect(0, 0, this.width, this.height);
 	    this.renderList.length = 0;
 	    this.children.forEach(function (child) {
 	      _this2.renderList = _this2.renderList.concat(child.update(_this2.pv));
@@ -2633,12 +2644,14 @@
 	      return a.o3d.order(a) - b.o3d.order(b);
 	    });
 
-	    this.draw(this.ctx, this.scale);
+	    this.draw(this.ctx);
 	  };
 
-	  Stage.prototype.draw = function draw(ctx, scale) {
+	  Stage.prototype.draw = function draw(ctx) {
+	    var _this3 = this;
+
 	    this.renderList.forEach(function (obj) {
-	      obj.o3d.draw(ctx, scale, obj);
+	      obj.o3d.draw(ctx, obj, _this3.width, _this3.height);
 	    });
 	  };
 
@@ -2748,17 +2761,18 @@
 	    return this.faces;
 	  };
 
-	  Cube.prototype.draw = function draw(ctx, scale, face) {
+	  Cube.prototype.draw = function draw(ctx, face, width, height) {
 	    var p1 = face[0];
 	    var p2 = face[1];
 	    var p3 = face[2];
 	    var p4 = face[3];
 	    ctx.beginPath();
-	    ctx.moveTo(p1.x * scale, p1.y * scale);
+	    ctx.moveTo(this.mapX(p1.x, width), this.mapY(p1.y, height));
 	    ctx.fillStyle = face[4];
-	    ctx.lineTo(p2.x * scale, p2.y * scale);
-	    ctx.lineTo(p3.x * scale, p3.y * scale);
-	    ctx.lineTo(p4.x * scale, p4.y * scale);
+	    ctx.lineTo(this.mapX(p2.x, width), this.mapY(p2.y, height));
+	    ctx.lineTo(this.mapX(p3.x, width), this.mapY(p3.y, height));
+	    ctx.lineTo(this.mapX(p4.x, width), this.mapY(p4.y, height));
+
 	    ctx.closePath();
 	    ctx.fill();
 	  };
@@ -2948,14 +2962,14 @@
 	    return w / count;
 	  };
 
-	  Circle.prototype.draw = function draw(ctx, scale, obj) {
+	  Circle.prototype.draw = function draw(ctx, obj, width, height) {
 	    ctx.save();
 	    ctx.beginPath();
 	    ctx.lineWidth = this.stroke;
 	    ctx.strokeStyle = this.color;
-	    ctx.moveTo(obj[0][0].x * scale, obj[0][0].y * scale);
+	    ctx.moveTo(this.mapX(obj[0][0].x, width), this.mapY(obj[0][0].y, height));
 	    for (var i = 1; i < 5; i++) {
-	      ctx.bezierCurveTo(obj[i][0].x * scale, obj[i][0].y * scale, obj[i][1].x * scale, obj[i][1].y * scale, obj[i][2].x * scale, obj[i][2].y * scale);
+	      ctx.bezierCurveTo(this.mapX(obj[i][0].x, width), this.mapY(obj[i][0].y, height), this.mapX(obj[i][1].x, width), this.mapY(obj[i][1].y, height), this.mapX(obj[i][2].x, width), this.mapY(obj[i][2].y, height));
 	    }
 
 	    ctx.stroke();
@@ -2968,7 +2982,7 @@
 	var camera = new Camera({
 	  x: 0,
 	  y: 0,
-	  z: 1000,
+	  z: 600,
 	  tx: 0,
 	  ty: 0,
 	  tz: 0,
