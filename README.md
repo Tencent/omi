@@ -262,9 +262,7 @@ import { tag, WeElement, render } from 'omi'
 
 @tag('my-counter')
 class MyCounter extends WeElement {
-  data = {
-    count: 1
-  }
+  count = 1
 
   static css = `
     span{
@@ -272,12 +270,12 @@ class MyCounter extends WeElement {
     }`
 
   sub = () => {
-    this.data.count--
+    this.count--
     this.update()
   }
 
   add = () => {
-    this.data.count++
+    this.count++
     this.update()
   }
 
@@ -285,7 +283,7 @@ class MyCounter extends WeElement {
     return (
       <div>
         <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
+        <span>{this.count}</span>
         <button onClick={this.add}>+</button>
       </div>
     )
@@ -295,7 +293,7 @@ class MyCounter extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
+[→ counter demo](https://codepen.io/dntzhang/pen/wLZGPK)
 
 
 ## Getting Started
