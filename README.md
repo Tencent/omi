@@ -135,7 +135,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 This page demonstrates using Omi **with no build tooling**,  directly run in the browser.
 
-- [→ Online Demo!](https://tencent.github.io/omi/packages/omi/examples/no-transpiler/)
+- [→ Online Demo!](https://codepen.io/dntzhang/pen/qzwbVj)
 
 ```html
 <!DOCTYPE html>
@@ -153,29 +153,29 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
     define('my-counter', class extends WeElement {
 
       install() {
-        this.data.count = 1
+        this.count = 1
         this.sub = this.sub.bind(this)
         this.add = this.add.bind(this)
       }
 
       sub() {
-        this.data.count--
+        this.count--
         this.update()
       }
 
       add() {
-        this.data.count++
+        this.count++
         this.update()
       }
 
       render() {
         return html`
-          <div>
-            <button onClick=${this.sub}>-</button>
-            <span>${this.data.count}</span>
-            <button onClick=${this.add}>+</button>
-          </div>
-          `}
+            <div>
+              <button onClick=${this.sub}>-</button>
+              <span>${this.count}</span>
+              <button onClick=${this.add}>+</button>
+            </div>
+            `}
     })
 
     render(html`<my-counter />`, 'body')
