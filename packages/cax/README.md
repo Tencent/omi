@@ -400,5 +400,6 @@ Page({
 
 * vscode 安装 lit-html 插件使 html`内容` 高亮
 * 还希望小程序 SVG 提供什么功能可以[开 issues](https://github.com/Tencent/omi/issues/new)告诉我们，评估后通过，我们去实现！
+* [Cax Canvas API](https://github.com/dntzhang/cax)
 * [Cax SVG Github](https://github.com/Tencent/omi/tree/master/packages/cax)
-* [参考文档](http://tutorials.jenkov.com/svg/index.html)
+* [SVG 参考文档](http://tutorials.jenkov.com/svg/index.html)
