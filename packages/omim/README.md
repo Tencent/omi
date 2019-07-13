@@ -272,7 +272,6 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | input (lable,button)|  | |
 | input-number |  | |
 | input-table |  | |
-| autocomplete |  | |
 | bottom nav | member | done|
 | expansion | member | done |
 | toggle buttons | member | done|
