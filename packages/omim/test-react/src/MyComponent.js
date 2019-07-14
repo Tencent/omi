@@ -2,16 +2,16 @@
 import nativeEvents from 'jsx-native-events'
 
 import React from 'react';
-import '@omim/core/icon-button'
-import '@omim/core/button'
-import '@omim/core/checkbox'
-import '@omim/core/radio'
-import '@omim/core/pagination'
+import 'omim/icon-button'
+import 'omim/button'
+import 'omim/checkbox'
+import 'omim/radio'
+import 'omim/pagination'
 
 class MyComponent extends React.Component {
   onClick = (evt) => {
 
-    import('@omim/core/loading').then(() => {
+    import('omim/loading').then(() => {
       this.showLoading = true
       this.forceUpdate()
     })
@@ -28,7 +28,7 @@ class MyComponent extends React.Component {
     return (
       <div>
 
-        <m-button onClick={this.onClick}>Click me to dynamic Import @omim/core/loading</m-button>
+        <m-button onClick={this.onClick}>Click me to dynamic Import omim/loading</m-button>
         <div>
           <m-loading size="25"></m-loading>
           <m-loading size="35"></m-loading>
