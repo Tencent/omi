@@ -15,6 +15,7 @@
     "slot": "rollup -c config/rollup.example.js --watch",
     "perfs": "rollup -c config/rollup.example.js --watch",
     "css": "rollup -c config/rollup.example.js --watch",
+    "clock": "rollup -c config/rollup.example.js --watch",
     "nest": "rollup -c config/rollup.example.js --watch",
     "event": "rollup -c config/rollup.example.js --watch",
     "observer": "rollup -c config/rollup.example.js --watch",
