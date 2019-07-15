@@ -1,52 +1,56 @@
-import { render, WeElement, define } from '../../src/omi'
+import { render, WeElement, define, html } from '../../src/omi'
 
-define('todo-list', function(props) {
-  return (
+define("todo-list", function(props) {
+  return html`
     <ul>
-      {props.items.map(item => (
-        <li key={item.id}>{item.text}</li>
-      ))}
+      ${props.items.map(
+        item => html`
+        <li key=${item.id}>${item.text}</li>
+      `
+      )}
     </ul>
-  )
-})
+  `;
+});
 
-define('todo-app', class extends WeElement {
-  static observe = true
-
-  data = { items: [], text: '' }
+define("todo-app", class extends WeElement {
+  constructor() {
+    super();
+    this.items = [];
+    this.text = '';
+  }
 
   render() {
-    return (
+    return html`
       <div>
         <h3>TODO</h3>
-        <todo-list items={this.data.items} />
-        <form onSubmit={this.handleSubmit}>
+        <todo-list items=${this.items} />
+        <form onSubmit=${this.handleSubmit.bind(this)}>
           <input
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.data.text}
+            onChange=${this.handleChange.bind(this)}
+            value=${this.text}
           />
-          <button>Add #{this.data.items.length + 1}</button>
+          <button>Add #${this.items.length + 1}</button>
         </form>
       </div>
-    )
+    `;
   }
 
-  handleChange = e => {
-    this.data.text = e.target.value
+  handleChange(e) {
+    this.text = e.target.value;
   }
 
-  handleSubmit = e => {
-    e.preventDefault()
-    if (!this.data.text.trim().length) {
-      return
+  handleSubmit(e) {
+    e.preventDefault();
+    if (!this.text.trim().length) {
+      return;
     }
-    this.data.items.push({
-      text: this.data.text,
+    this.items.push({
+      text: this.text,
       id: Date.now()
-    })
-    this.data.text = ''
+    });
+    this.text = "";
+    this.update();
   }
-})
+});
 
 render(<todo-app />, 'body')
