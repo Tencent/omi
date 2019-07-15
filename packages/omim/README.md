@@ -123,30 +123,6 @@ or
 <my-element show="0"></my-element>
 ```
 
-## Usage in React
-
-```jsx
-/** @jsx nativeEvents */
-import nativeEvents from 'jsx-native-events'
-import { useState } from 'react'
-import 'omim/icon-button'
-
-export default function SomeComponent(props) {
-    const [result, setSwitch] = useState(false)
-
-    return (
-      <div>
-        <p>The switch is {result ? 'on' : 'off'}</p>
-        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
-        </m-icon-button>
-      </div>
-    )
-}
-```
-
-Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme).
-
-
 ## Usage in Vue
 
 ```html
@@ -175,6 +151,29 @@ export default {
   </div>
 </template>
 ```
+
+## Usage in React
+
+```jsx
+/** @jsx nativeEvents */
+import nativeEvents from 'jsx-native-events'
+import { useState } from 'react'
+import 'omim/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
+        </m-icon-button>
+      </div>
+    )
+}
+```
+
+Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme).
 
 > Note that in order to display icon in react or vue app, you need to put this in HTML:
 
@@ -272,7 +271,6 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | input (lable,button)|  | |
 | input-number |  | |
 | input-table |  | |
-| autocomplete |  | |
 | bottom nav | member | done|
 | expansion | member | done |
 | toggle buttons | member | done|

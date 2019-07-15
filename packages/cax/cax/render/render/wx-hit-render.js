@@ -35,7 +35,7 @@ class WxHitRender extends Render {
   //   }
   // }
 
-  hitAABB(o, evt) {
+  hitAABB(o, evt, cb) {
     let list = o.children.slice(0),
       l = list.length
     for (let i = l - 1; i >= 0; i--) {
@@ -46,6 +46,7 @@ class WxHitRender extends Render {
       if (path.length > 0) {
         let target = path[path.length - 1]
         this._dispatchEvent(target, evt)
+        cb(target, path)
         return target
       }
     }

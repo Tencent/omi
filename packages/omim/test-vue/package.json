@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "dependencies": {
-    "@omim/core": "^0.8.1"
+    "omim": "latest"
   },
   "devDependencies": {},
   "scripts": {

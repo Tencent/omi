@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import '@omim/core/button'
+import 'omim/button'
 import MyComponent from './MyComponent'
 import HookTest from './HookTest'
 
