@@ -1,5 +1,5 @@
 /* 
- * obaa 2.0.2
+ * obaa 2.0.3
  * By dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
  * MIT Licensed.
