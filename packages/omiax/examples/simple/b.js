@@ -1,8 +1,93 @@
 (function () {
   'use strict';
 
-  /** Virtual DOM Node */
-  function VNode() {}
+  var stack = [];
+
+  /**
+   * JSX/hyperscript reviver.
+   * @see http://jasonformat.com/wtf-is-jsx
+   * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
+   *
+   * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
+   *
+   * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
+   * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
+   * the current _actual_ DOM structure, and applying only the differences.
+   *
+   * `h()`/`createElement()` accepts an element name, a list of attributes/props,
+   * and optionally children to append to the element.
+   *
+   * @example The following DOM tree
+   *
+   * `<div id="foo" name="bar">Hello!</div>`
+   *
+   * can be constructed using this function as:
+   *
+   * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
+   *
+   * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
+   * @param {Object} attributes	Any attributes/props to set on the created element.
+   * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
+   *
+   * @public
+   */
+  function h(nodeName, attributes) {
+    var children = [],
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
+    for (i = arguments.length; i-- > 2;) {
+      stack.push(arguments[i]);
+    }
+    if (attributes && attributes.children != null) {
+      if (!stack.length) stack.push(attributes.children);
+      delete attributes.children;
+    }
+    while (stack.length) {
+      if ((child = stack.pop()) && child.pop !== undefined) {
+        for (i = child.length; i--;) {
+          stack.push(child[i]);
+        }
+      } else {
+        if (typeof child === 'boolean') child = null;
+
+        if (simple = typeof nodeName !== 'function') {
+          if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+        }
+
+        if (simple && lastSimple) {
+          children[children.length - 1] += child;
+        } else if (children.length === 0) {
+          children = [child];
+        } else {
+          children.push(child);
+        }
+
+        lastSimple = simple;
+      }
+    }
+
+    var p = {};
+    p.nodeName = nodeName;
+    p.children = children;
+    p.attributes = attributes == null ? undefined : attributes;
+    p.key = attributes == null ? undefined : attributes.key;
+
+    return p;
+  }
+
+  // render modes
+
+  var NO_RENDER = 0;
+  var SYNC_RENDER = 1;
+  var FORCE_RENDER = 2;
+  var ASYNC_RENDER = 3;
+
+  var ATTR_KEY = '__omiattr_';
+
+  // DOM properties that should NOT have "px" added when numeric
+  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
   var nodeId = 1;
   function uniqueId() {
@@ -532,85 +617,6 @@
     // beforeUnmount(component) { }
   };
 
-  var stack = [];
-
-  /**
-   * JSX/hyperscript reviver.
-   * @see http://jasonformat.com/wtf-is-jsx
-   * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
-   *
-   * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
-   *
-   * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
-   * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
-   * the current _actual_ DOM structure, and applying only the differences.
-   *
-   * `h()`/`createElement()` accepts an element name, a list of attributes/props,
-   * and optionally children to append to the element.
-   *
-   * @example The following DOM tree
-   *
-   * `<div id="foo" name="bar">Hello!</div>`
-   *
-   * can be constructed using this function as:
-   *
-   * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
-   *
-   * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
-   * @param {Object} attributes	Any attributes/props to set on the created element.
-   * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
-   *
-   * @public
-   */
-  function h(nodeName, attributes) {
-    var children = [],
-        lastSimple = void 0,
-        child = void 0,
-        simple = void 0,
-        i = void 0;
-    for (i = arguments.length; i-- > 2;) {
-      stack.push(arguments[i]);
-    }
-    if (attributes && attributes.children != null) {
-      if (!stack.length) stack.push(attributes.children);
-      delete attributes.children;
-    }
-    while (stack.length) {
-      if ((child = stack.pop()) && child.pop !== undefined) {
-        for (i = child.length; i--;) {
-          stack.push(child[i]);
-        }
-      } else {
-        if (typeof child === 'boolean') child = null;
-
-        if (simple = typeof nodeName !== 'function') {
-          if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-        }
-
-        if (simple && lastSimple) {
-          children[children.length - 1] += child;
-        } else if (children.length === 0) {
-          children = [child];
-        } else {
-          children.push(child);
-        }
-
-        lastSimple = simple;
-      }
-    }
-
-    var p = new VNode();
-    p.nodeName = nodeName;
-    p.children = children;
-    p.attributes = attributes == null ? undefined : attributes;
-    p.key = attributes == null ? undefined : attributes.key;
-
-    // if a "vnode hook" is defined, pass every created VNode to it
-    if (options.vnode !== undefined) options.vnode(p);
-
-    return p;
-  }
-
   /* eslint-disable no-unused-vars */
 
   var getOwnPropertySymbols = Object.getOwnPropertySymbols;
@@ -844,28 +850,6 @@
     return current;
   }
 
-  /**
-   * Clones the given VNode, optionally adding attributes/props and replacing its children.
-   * @param {VNode} vnode		The virtual DOM element to clone
-   * @param {Object} props	Attributes/props to add when cloning
-   * @param {VNode} rest		Any additional arguments will be used as replacement children.
-   */
-  function cloneElement(vnode, props) {
-    return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
-  }
-
-  // render modes
-
-  var NO_RENDER = 0;
-  var SYNC_RENDER = 1;
-  var FORCE_RENDER = 2;
-  var ASYNC_RENDER = 3;
-
-  var ATTR_KEY = '__omiattr_';
-
-  // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-
   /** Managed queue of dirty components to be re-rendered */
 
   var items = [];
@@ -1028,7 +1012,7 @@
             }
           }
           for (var _i2 in value) {
-            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL$1.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
+            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
           }
         }
       } else {
@@ -1128,129 +1112,9 @@
     }
   }
 
-  var styleId = 0;
-
-  function getCtorName(ctor) {
-    for (var i = 0, len = options.styleCache.length; i < len; i++) {
-      var item = options.styleCache[i];
-
-      if (item.ctor === ctor) {
-        return item.attrName;
-      }
-    }
-
-    var attrName = 's' + styleId;
-    options.styleCache.push({ ctor: ctor, attrName: attrName });
-    styleId++;
-
-    return attrName;
-  }
-
-  // many thanks to https://github.com/thomaspark/scoper/
-  function scoper(css, prefix) {
-    prefix = '[' + prefix.toLowerCase() + ']';
-    // https://www.w3.org/TR/css-syntax-3/#lexical
-    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
-    // eslint-disable-next-line
-    var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
-    /**
-     * Example:
-     *
-     * .classname::pesudo { color:red }
-     *
-     * g1 is normal selector `.classname`
-     * g2 is pesudo class or pesudo element
-     * g3 is the suffix
-     */
-    css = css.replace(re, function (g0, g1, g2, g3) {
-      if (typeof g2 === 'undefined') {
-        g2 = '';
-      }
-
-      /* eslint-ignore-next-line */
-      if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
-        return g1 + g2 + g3;
-      }
-
-      var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-      //let prependClass = prefix + ' ' + g1.trim() + g2;
-
-      return appendClass + g3;
-      //return appendClass + ',' + prependClass + g3;
-    });
-
-    return css;
-  }
-
-  function addStyle(cssText, id) {
-    id = id.toLowerCase();
-    var ele = document.getElementById(id);
-    var head = document.getElementsByTagName('head')[0];
-    if (ele && ele.parentNode === head) {
-      head.removeChild(ele);
-    }
-
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-    someThingStyles.setAttribute('id', id);
-    if (window.ActiveXObject) {
-      someThingStyles.styleSheet.cssText = cssText;
-    } else {
-      someThingStyles.textContent = cssText;
-    }
-  }
-
-  function addStyleWithoutId(cssText) {
-    var head = document.getElementsByTagName('head')[0];
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-
-    if (window.ActiveXObject) {
-      someThingStyles.styleSheet.cssText = cssText;
-    } else {
-      someThingStyles.textContent = cssText;
-    }
-  }
-
-  function addScopedAttrStatic(vdom, attr) {
-    if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
-    }
-  }
-
-  function addStyleToHead(style, attr) {
-    if (options.scopedStyle) {
-      if (!options.staticStyleMapping[attr]) {
-        addStyle(scoper(style, attr), attr);
-        options.staticStyleMapping[attr] = true;
-      }
-    } else if (!options.staticStyleMapping[attr]) {
-      addStyleWithoutId(style);
-      options.staticStyleMapping[attr] = true;
-    }
-  }
-
-  function scopeVdom(attr, vdom) {
-    if (typeof vdom === 'object') {
-      vdom.attributes = vdom.attributes || {};
-      vdom.attributes[attr] = '';
-      vdom.css = vdom.css || {};
-      vdom.css[attr] = '';
-      vdom.children.forEach(function (child) {
-        return scopeVdom(attr, child);
-      });
-    }
-  }
-
-  function scopeHost(vdom, css) {
-    if (typeof vdom === 'object' && css) {
-      vdom.attributes = vdom.attributes || {};
-      for (var key in css) {
-        vdom.attributes[key] = '';
-      }
-    }
+  function draw(res) {
+    console.log(res);
+    return document.createElement('canvas');
   }
 
   /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -1271,9 +1135,6 @@
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
       if (c.installed) c.installed();
-      if (c.constructor.css || c.css) {
-        addStyleToHead(c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
-      }
     }
   }
 
@@ -1283,7 +1144,7 @@
    *	@returns {Element} dom			The created/mutated element
    *	@private
    */
-  function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+  function diff(dom, vnode, context, mountAll, parent, componentRoot, fromRender) {
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     if (!diffLevel++) {
       // when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -1303,7 +1164,13 @@
 
     ret = idiff(dom, vnode, context, mountAll, componentRoot);
     // append the element if its a new parent
-    if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+    if (parent && ret.parentNode !== parent) {
+      if (fromRender) {
+        parent.appendChild(draw(ret));
+      } else {
+        parent.appendChild(ret);
+      }
+    }
 
     // diffLevel being reduced to 0 means we're exiting the diff
     if (! --diffLevel) {
@@ -1343,7 +1210,7 @@
         }
       } else {
         // it wasn't a Text node: replace it with one and recycle the old Element
-        out = document.createTextNode(vnode);
+        out = options.doc.createTextNode(vnode);
         if (dom) {
           if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
           recollectNodeTree(dom, true);
@@ -1393,6 +1260,8 @@
     if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
       if (fc.nodeValue != vchildren[0]) {
         fc.nodeValue = vchildren[0];
+        //update rendering obj
+        fc._renderText.text = fc.nodeValue;
       }
     }
     // otherwise, if there are existing or new children, diff them:
@@ -1697,6 +1566,51 @@
   /** The `.render()` method for a PFC backing instance. */
   function doRender(props, data, context) {
     return this.constructor(props, context);
+  }
+
+  var styleId = 0;
+
+  function getCtorName(ctor) {
+    for (var i = 0, len = options.styleCache.length; i < len; i++) {
+      var item = options.styleCache[i];
+
+      if (item.ctor === ctor) {
+        return item.attrName;
+      }
+    }
+
+    var attrName = 's' + styleId;
+    options.styleCache.push({ ctor: ctor, attrName: attrName });
+    styleId++;
+
+    return attrName;
+  }
+
+  function addScopedAttrStatic(vdom, attr) {
+    if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
+    }
+  }
+
+  function scopeVdom(attr, vdom) {
+    if (typeof vdom === 'object') {
+      vdom.attributes = vdom.attributes || {};
+      vdom.attributes[attr] = '';
+      vdom.css = vdom.css || {};
+      vdom.css[attr] = '';
+      vdom.children.forEach(function (child) {
+        return scopeVdom(attr, child);
+      });
+    }
+  }
+
+  function scopeHost(vdom, css) {
+    if (typeof vdom === 'object' && css) {
+      vdom.attributes = vdom.attributes || {};
+      for (var key in css) {
+        vdom.attributes[key] = '';
+      }
+    }
   }
 
   /* obaa 1.0.0
@@ -2273,7 +2187,6 @@
    */
   function render(vnode, parent, store, empty, merge) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-    obsStore(store);
 
     if (empty) {
       while (parent.firstChild) {
@@ -2285,114 +2198,7 @@
       merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
     }
 
-    return diff(merge, vnode, store, false, parent, false);
-  }
-
-  function obsStore(store) {
-    if (store && store.data) {
-      store.instances = [];
-      extendStoreUpate(store);
-
-      obaa(store.data, function (prop, val, old, path) {
-        var patchs = {};
-        var key = fixPath(path + '-' + prop);
-        patchs[key] = true;
-        store.update(patchs);
-      });
-    }
-  }
-
-  function merge(vnode, merge, store) {
-    obsStore(store);
-
-    merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
-
-    return diff(merge, vnode, store);
-  }
-
-  function extendStoreUpate(store) {
-    store.update = function (patch) {
-      var _this = this;
-
-      var updateAll = matchGlobalData(this.globalData, patch);
-      if (Object.keys(patch).length > 0) {
-        this.instances.forEach(function (instance) {
-          if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
-            //update this.use
-            if (instance.constructor.use) {
-              instance.use = getUse(store.data, instance.constructor.use);
-            } else if (instance.initUse) {
-              instance.use = getUse(store.data, instance.initUse());
-            }
-
-            instance.update();
-          }
-        });
-        this.onChange && this.onChange(patch);
-      }
-    };
-  }
-
-  function matchGlobalData(globalData, diffResult) {
-    if (!globalData) return false;
-    for (var keyA in diffResult) {
-      if (globalData.indexOf(keyA) > -1) {
-        return true;
-      }
-      for (var i = 0, len = globalData.length; i < len; i++) {
-        if (includePath(keyA, globalData[i])) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function needUpdate(diffResult, updatePath) {
-    for (var keyA in diffResult) {
-      if (updatePath[keyA]) {
-        return true;
-      }
-      for (var keyB in updatePath) {
-        if (includePath(keyA, keyB)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function includePath(pathA, pathB) {
-    if (pathA.indexOf(pathB) === 0) {
-      var next = pathA.substr(pathB.length, 1);
-      if (next === '[' || next === '.') {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function fixPath(path) {
-    var mpPath = '';
-    var arr = path.replace('#-', '').split('-');
-    arr.forEach(function (item, index) {
-      if (index) {
-        if (isNaN(Number(item))) {
-          mpPath += '.' + item;
-        } else {
-          mpPath += '[' + item + ']';
-        }
-      } else {
-        mpPath += item;
-      }
-    });
-    return mpPath;
-  }
-
-  function rpx(str) {
-    return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
-      return window.innerWidth * Number(b) / 750 + 'px';
-    });
+    return diff(merge, vnode, store, false, parent, false, true);
   }
 
   function tag(name) {
@@ -2401,7 +2207,38 @@
     };
   }
 
-  var _class$1, _temp$1;
+  var WeElement = Component;
+  var root = getGlobal$1();
+  var omiax = {
+    h: h,
+    tag: tag,
+    define: define,
+    Component: Component,
+    render: render,
+    WeElement: WeElement,
+    options: options
+  };
+
+  root.Omi = omiax;
+  root.omi = omiax;
+  root.omiax = omiax;
+  root.omiax.version = '0.0.0';
+
+  function getGlobal$1() {
+    if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+      if (typeof self !== 'undefined') {
+        return self;
+      } else if (typeof window !== 'undefined') {
+        return window;
+      } else if (typeof global !== 'undefined') {
+        return global;
+      }
+      return function () {
+        return this;
+      }();
+    }
+    return global;
+  }
 
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2409,393 +2246,25 @@
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  var ModelView = (_temp$1 = _class$1 = function (_Component) {
-    _inherits(ModelView, _Component);
-
-    function ModelView() {
-      _classCallCheck$4(this, ModelView);
-
-      return _possibleConstructorReturn(this, _Component.apply(this, arguments));
-    }
-
-    ModelView.prototype.beforeInstall = function beforeInstall() {
-      this.data = this.vm.data;
-    };
-
-    return ModelView;
-  }(Component), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
-
-  /**
-   * classNames based on https://github.com/JedWatson/classnames
-   * by Jed Watson
-   * Licensed under the MIT License
-   * https://github.com/JedWatson/classnames/blob/master/LICENSE
-   * modified by dntzhang
-   */
-
-  var hasOwn = {}.hasOwnProperty;
-
-  function classNames() {
-    var classes = [];
-
-    for (var i = 0; i < arguments.length; i++) {
-      var arg = arguments[i];
-      if (!arg) continue;
-
-      var argType = typeof arg;
-
-      if (argType === 'string' || argType === 'number') {
-        classes.push(arg);
-      } else if (Array.isArray(arg) && arg.length) {
-        var inner = classNames.apply(null, arg);
-        if (inner) {
-          classes.push(inner);
-        }
-      } else if (argType === 'object') {
-        for (var key in arg) {
-          if (hasOwn.call(arg, key) && arg[key]) {
-            classes.push(key);
-          }
-        }
-      }
-    }
-
-    return classes.join(' ');
-  }
-
-  function extractClass() {
-    var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
-        props = _Array$prototype$slic[0],
-        args = _Array$prototype$slic.slice(1);
-
-    if (props) {
-      if (props['class']) {
-        args.unshift(props['class']);
-        delete props['class'];
-      } else if (props.className) {
-        args.unshift(props.className);
-        delete props.className;
-      }
-    }
-    if (args.length > 0) {
-      return { 'class': classNames.apply(null, args) };
-    }
-  }
-
-  function getHost(component) {
-    var base = component.base;
-    if (base) {
-      while (base.parentNode) {
-        if (base.parentNode._component) {
-          return base.parentNode._component;
-        } else {
-          base = base.parentNode;
-        }
-      }
-    }
-  }
-
-  /**
-   * preact-render-to-string based on preact-render-to-string
-   * by Jason Miller
-   * Licensed under the MIT License
-   * https://github.com/developit/preact-render-to-string
-   *
-   * modified by dntzhang
-   */
-
-  var encodeEntities = function encodeEntities(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  };
-
-  var indent = function indent(s, char) {
-    return String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
-  };
-
-  var mapping$1 = options.mapping;
-
-  var VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
-
-  var isLargeString = function isLargeString(s, length, ignoreLines) {
-    return String(s).length > (length || 40) || !ignoreLines && String(s).indexOf('\n') !== -1 || String(s).indexOf('<') !== -1;
-  };
-
-  var JS_TO_CSS = {};
-
-  // Convert an Object style to a CSSText string
-  function styleObjToCss(s) {
-    var str = '';
-    for (var prop in s) {
-      var val = s[prop];
-      if (val != null) {
-        if (str) str += ' ';
-        // str += jsToCss(prop);
-        str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
-        str += ': ';
-        str += val;
-        if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
-          str += 'px';
-        }
-        str += ';';
-      }
-    }
-    return str || undefined;
-  }
-
-  function renderToString(vnode, opts, store, isSvgMode) {
-    store = store || {};
-    opts = Object.assign({
-      scopedCSS: true
-    }, opts);
-    var css = {};
-    var html = _renderToString(vnode, opts, store, isSvgMode, css);
-    return {
-      css: Object.values(css),
-      html: html
-    };
-  }
-
-  /** The default export is an alias of `render()`. */
-  function _renderToString(vnode, opts, store, isSvgMode, css) {
-    if (vnode == null || typeof vnode === 'boolean') {
-      return '';
-    }
-
-    var nodeName = vnode.nodeName,
-        attributes = vnode.attributes,
-        isComponent = false;
-
-    var pretty = true && opts.pretty,
-        indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
-
-    // #text nodes
-    if (typeof vnode !== 'object' && !nodeName) {
-      return encodeEntities(vnode);
-    }
-
-    // components
-    var ctor = mapping$1[nodeName];
-    if (ctor) {
-      isComponent = true;
-
-      var props = getNodeProps$1(vnode),
-          rendered = void 0;
-      // class-based components
-      var c = new ctor(props, store);
-      // turn off stateful re-rendering:
-      c._disable = c.__x = true;
-      c.props = props;
-      c.store = store;
-      if (c.install) c.install();
-      if (c.beforeRender) c.beforeRender();
-      rendered = c.render(c.props, c.data, c.store);
-
-      if (opts.scopedCSS) {
-
-        if (c.constructor.css || c.css) {
-
-          var cssStr = c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css;
-          var cssAttr = '_s' + getCtorName(c.constructor);
-          css[cssAttr] = {
-            id: cssAttr,
-            css: scoper(cssStr, cssAttr)
-          };
-          addScopedAttrStatic(rendered, cssAttr);
-        }
-
-        c.scopedCSSAttr = vnode.css;
-        scopeHost(rendered, c.scopedCSSAttr);
-      }
-
-      return _renderToString(rendered, opts, store, false, css);
-    }
-
-    // render JSX to HTML
-    var s = '',
-        html = void 0;
-
-    if (attributes) {
-      var attrs = Object.keys(attributes);
-
-      // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
-      if (opts && opts.sortAttributes === true) attrs.sort();
-
-      for (var i = 0; i < attrs.length; i++) {
-        var name = attrs[i],
-            v = attributes[name];
-        if (name === 'children') continue;
-
-        if (name.match(/[\s\n\\/='"\0<>]/)) continue;
-
-        if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
-
-        if (name === 'className') {
-          if (attributes['class']) continue;
-          name = 'class';
-        } else if (isSvgMode && name.match(/^xlink:?./)) {
-          name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
-        }
-
-        if (name === 'style' && v && typeof v === 'object') {
-          v = styleObjToCss(v);
-        }
-
-        var hooked = opts.attributeHook && opts.attributeHook(name, v, store, opts, isComponent);
-        if (hooked || hooked === '') {
-          s += hooked;
-          continue;
-        }
-
-        if (name === 'dangerouslySetInnerHTML') {
-          html = v && v.__html;
-        } else if ((v || v === 0 || v === '') && typeof v !== 'function') {
-          if (v === true || v === '') {
-            v = name;
-            // in non-xml mode, allow boolean attributes
-            if (!opts || !opts.xml) {
-              s += ' ' + name;
-              continue;
-            }
-          }
-          s += ' ' + name + '="' + encodeEntities(v) + '"';
-        }
-      }
-    }
-
-    // account for >1 multiline attribute
-    if (pretty) {
-      var sub = s.replace(/^\n\s*/, ' ');
-      if (sub !== s && !~sub.indexOf('\n')) s = sub;else if (pretty && ~s.indexOf('\n')) s += '\n';
-    }
-
-    s = '<' + nodeName + s + '>';
-    if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s;
-
-    var isVoid = String(nodeName).match(VOID_ELEMENTS);
-    if (isVoid) s = s.replace(/>$/, ' />');
-
-    var pieces = [];
-    if (html) {
-      // if multiline, indent.
-      if (pretty && isLargeString(html)) {
-        html = '\n' + indentChar + indent(html, indentChar);
-      }
-      s += html;
-    } else if (vnode.children) {
-      var hasLarge = pretty && ~s.indexOf('\n');
-      for (var _i = 0; _i < vnode.children.length; _i++) {
-        var child = vnode.children[_i];
-        if (child != null && child !== false) {
-          var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-              ret = _renderToString(child, opts, store, childSvgMode, css);
-          if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
-          if (ret) pieces.push(ret);
-        }
-      }
-      if (pretty && hasLarge) {
-        for (var _i2 = pieces.length; _i2--;) {
-          pieces[_i2] = '\n' + indentChar + indent(pieces[_i2], indentChar);
-        }
-      }
-    }
-
-    if (pieces.length) {
-      s += pieces.join('');
-    } else if (opts && opts.xml) {
-      return s.substring(0, s.length - 1) + ' />';
-    }
-
-    if (!isVoid) {
-      if (pretty && ~s.indexOf('\n')) s += '\n';
-      s += '</' + nodeName + '>';
-    }
-
-    return s;
-  }
-
-  function assign$1(obj, props) {
-    for (var i in props) {
-      obj[i] = props[i];
-    }return obj;
-  }
-
-  function getNodeProps$1(vnode) {
-    var props = assign$1({}, vnode.attributes);
-    props.children = vnode.children;
-
-    var defaultProps = vnode.nodeName.defaultProps;
-    if (defaultProps !== undefined) {
-      for (var i in defaultProps) {
-        if (props[i] === undefined) {
-          props[i] = defaultProps[i];
-        }
-      }
-    }
-
-    return props;
-  }
-
-  var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a="number"==typeof s?u[s]:s;1===r[p]?e[0]=a:2===r[p]?(e[1]=e[1]||{})[r[++p]]=a:3===r[p]?e[1]=Object.assign(e[1]||{},a):e.push(r[p]?t.apply(null,n(t,a,u,["",null])):a);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],a=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,2,e):4===u&&r&&(s.push(n||e,2,r), r=""), e="";},f=0;f<n.length;f++){f&&(1===u&&a(), a(f));for(var h=0;h<n[f].length;h++)t=n[f][h], 1===u?"<"===t?(a(), s=[s], u=3):e+=t:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(a(), u=1):u&&("="===t?(u=4, r=e, e=""):"/"===t?(a(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,4), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(a(), u=2):e+=t);}return a(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
-
-  var html = htm.bind(h);
-
-  var WeElement = Component;
-  var defineElement = define;
-  function createRef() {
-    return {};
-  }
-
-  options.root.Omi = {
-    h: h,
-    createElement: h,
-    cloneElement: cloneElement,
-    createRef: createRef,
-    Component: Component,
-    render: render,
-    rerender: rerender,
-    options: options,
-    WeElement: WeElement,
-    define: define,
-    rpx: rpx,
-    ModelView: ModelView,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    getHost: getHost,
-    renderToString: renderToString,
-    tag: tag,
-    merge: merge,
-    html: html,
-    htm: htm
-  };
-  options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.2.2';
-
-  function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-  function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-  function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
   define('my-counter', function (_WeElement) {
-    _inherits$1(_class2, _WeElement);
+    _inherits(_class2, _WeElement);
 
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$5(this, _class2);
+      _classCallCheck$4(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.count = 1, _this.sub = function () {
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.count = 1, _this.sub = function () {
         _this.count--;
         _this.update();
       }, _this.add = function () {
         _this.count++;
         _this.update();
-      }, _temp), _possibleConstructorReturn$1(_this, _ret);
+      }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _class2.prototype.render = function render$$1() {

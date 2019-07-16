@@ -1,96 +1,64 @@
-import { h, h as createElement } from './h'
-import { cloneElement } from './clone-element'
+import { h } from './h'
 import Component from './component'
-import { render, merge } from './render'
-import { rerender } from './render-queue'
-import options from './options'
-import { define } from './define'
-import { rpx } from './rpx'
+import { render } from './render'
 import { tag } from './tag'
-import ModelView from './model-view'
-import { classNames, extractClass } from './class'
-import { getHost } from './get-host'
-import { renderToString } from './render-to-string'
-import htm from 'htm'
-
-const html = htm.bind(h)
+import { define } from './define'
+import options from './options'
 
 const WeElement = Component
-const defineElement = define
-function createRef() {
-  return {}
+const root = getGlobal()
+const omiax = {
+  h,
+  tag,
+	define,
+	Component,
+	render,
+	WeElement,
+	options
 }
 
-options.root.Omi = {
-  h,
-  createElement,
-  cloneElement,
-  createRef,
-  Component,
-  render,
-  rerender,
-  options,
-  WeElement,
-  define,
-  rpx,
-  ModelView,
-  defineElement,
-  classNames,
-  extractClass,
-  getHost,
-  renderToString,
-  tag,
-  merge,
-  html,
-  htm
-}
-options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.2.2'
+root.Omi = omiax
+root.omi = omiax
+root.omiax = omiax
+root.omiax.version = '0.0.0'
 
 export default {
   h,
-  createElement,
-  cloneElement,
-  createRef,
-  Component,
-  render,
-  rerender,
-  options,
-  WeElement,
-  define,
-  rpx,
-  ModelView,
-  defineElement,
-  classNames,
-  extractClass,
-  getHost,
-  renderToString,
   tag,
-  merge,
-  html,
-  htm
+	define,
+	Component,
+	render,
+	WeElement,
+	options
 }
 
 export {
   h,
-  createElement,
-  cloneElement,
-  createRef,
-  Component,
-  render,
-  rerender,
-  options,
-  WeElement,
-  define,
-  rpx,
-  ModelView,
-  defineElement,
-  classNames,
-  extractClass,
-  getHost,
-  renderToString,
   tag,
-  merge,
-  html,
-  htm
+	define,
+	Component,
+	render,
+	WeElement,
+	options
+}
+
+function getGlobal() {
+  if (
+    typeof global !== 'object' ||
+    !global ||
+    global.Math !== Math ||
+    global.Array !== Array
+  ) {
+    if (typeof self !== 'undefined') {
+      return self
+    } else if (typeof window !== 'undefined') {
+      return window
+    } else if (typeof global !== 'undefined') {
+      return global
+    }
+    return (function() {
+      return this
+    })()
+  }
+  return global
 }

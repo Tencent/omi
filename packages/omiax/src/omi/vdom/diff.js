@@ -7,7 +7,7 @@ import options from '../options'
 import { applyRef } from '../util'
 import { removeNode } from '../dom/index'
 import { isArray } from '../util'
-import { addStyleToHead, getCtorName } from '../style'
+import { draw } from '../../cax/draw'
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
 
@@ -26,9 +26,6 @@ export function flushMounts() {
   while ((c = mounts.pop())) {
     if (options.afterMount) options.afterMount(c)
     if (c.installed) c.installed()
-    if (c.constructor.css || c.css) {
-      addStyleToHead(c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css), '_s' + getCtorName(c.constructor))
-    }
   }
 }
 
@@ -38,7 +35,7 @@ export function flushMounts() {
  *	@returns {Element} dom			The created/mutated element
  *	@private
  */
-export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+export function diff(dom, vnode, context, mountAll, parent, componentRoot, fromRender) {
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   if (!diffLevel++) {
     // when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -56,9 +53,15 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     }
   }
 
-  ret = idiff(dom, vnode, context, mountAll, componentRoot)
-  // append the element if its a new parent
-  if (parent && ret.parentNode !== parent) parent.appendChild(ret)
+	ret = idiff(dom, vnode, context, mountAll, componentRoot)
+	// append the element if its a new parent
+	if (parent && ret.parentNode !== parent) {
+		if (fromRender) {
+			parent.appendChild(draw(ret))
+		} else {
+			parent.appendChild(ret)
+		}
+	}
 
   // diffLevel being reduced to 0 means we're exiting the diff
   if (!--diffLevel) {
@@ -103,7 +106,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       }
     } else {
       // it wasn't a Text node: replace it with one and recycle the old Element
-      out = document.createTextNode(vnode)
+      out = options.doc.createTextNode(vnode)
       if (dom) {
         if (dom.parentNode) dom.parentNode.replaceChild(out, dom)
         recollectNodeTree(dom, true)
@@ -164,7 +167,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     fc.nextSibling == null
   ) {
     if (fc.nodeValue != vchildren[0]) {
-      fc.nodeValue = vchildren[0]
+			fc.nodeValue = vchildren[0]
+			//update rendering obj
+			fc._renderText.text = fc.nodeValue
     }
   }
   // otherwise, if there are existing or new children, diff them:
@@ -272,7 +277,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
         if (f == null) {
-          dom.appendChild(child)
+					dom.appendChild(child)
         } else if (child === f.nextSibling) {
           removeNode(f)
         } else {
@@ -288,7 +293,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false)
   }
 
-  // remove orphaned unkeyed children:
+	// remove orphaned unkeyed children:
   while (min <= childrenLen) {
     if ((child = children[childrenLen--]) !== undefined)
       recollectNodeTree(child, false)
