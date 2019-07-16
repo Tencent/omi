@@ -21,7 +21,7 @@
           __p_: '#'
         }
       }
-      mock(target, target)
+      mock(target, target, '#')
     }
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
@@ -97,7 +97,7 @@
     'size'
   ]
 
-  function mock(target, root) {
+  function mock(target, root, prop) {
     methods.forEach(function (item) {
       target[item] = function () {
         var old = Array.prototype.slice.call(this, 0)
@@ -116,7 +116,7 @@
           }
           //todo
           onPropertyChanged(
-            'Array-' + item,
+            'Array-' + item + '-' + prop,
             this,
             old,
             this,
@@ -171,7 +171,7 @@
     })
     if (typeof currentValue == 'object') {
       if (isArray(currentValue)) {
-        mock(currentValue, root)
+        mock(currentValue, root, prop)
         if (currentValue.length === 0) {
           if (!currentValue.__o_) currentValue.__o_ = {}
           if (path !== undefined) {

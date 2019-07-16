@@ -27,7 +27,7 @@ var arr = [1, 2, 3];
 obaa(arr, function (name, value, old) {
     console.log(name + "__" + value+"__"+old);
 });
-arr.push(4);//Array-push__[1,2,3,4]__[1,2,3] 
+arr.push(4);//Array-push-#__[1,2,3,4]__[1,2,3] 
 arr[3] = 5;//3__5__4
 ```
 
