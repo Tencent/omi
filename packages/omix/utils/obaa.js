@@ -146,6 +146,7 @@
         if (typeof currentValue == 'object') {
           if (obaa.isArray(currentValue)) {
             this.mock(currentValue)
+            //为0，就不会进下面的 for 循环，就不会执行里面的 watch，就不会有 $observeProps 属性
             if (currentValue.length === 0) {
               if (!currentValue.$observeProps){
                 Object.defineProperty(currentValue, '$observeProps', {
@@ -156,9 +157,9 @@
                 })
               }
               if (path !== undefined) {
-                currentValue.$observeProps.$observerPath = path
+                currentValue.$observeProps.$observerPath = path + '-' + prop
               } else {
-                currentValue.$observeProps.$observerPath = '#'
+                currentValue.$observeProps.$observerPath = '#' + '-' + prop
               }
             }
           }
