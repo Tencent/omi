@@ -11,15 +11,15 @@
 
 	<script>
 		var result = [
-
+		
 			['a', { b: 1 }, 1, '#'],
 			['b', 'abc', 1, '#-a'],
 			['c', 3, undefined, '#'],
 			['c', 4, 3, '#'],
 			['d', 5, undefined, '#'],
-			['h', { i: 100 }, undefined, '#-e'],
+			['h', {i:100}, undefined, '#-e'],
 			['i', 22, 100, '#-e-h'],
-			["1", 3, 2, "#"]
+			["1" ,3, 2, "#"]
 		]
 	</script>
 
@@ -47,9 +47,9 @@
 		obaa.add(obj, 'd');
 		obj.d = 5;//c__4__3__#
 
-		obaa.set(obj.e, 'h', { i: 100 })
+		obaa.set(obj.e, 'h', {i:100})
 		obj.e.h.i = 22
-
+		
 		log(count === 7)
 
 	</script>
@@ -58,20 +58,20 @@
 		obaa(arr, function (prop, value, old, path) {
 			count++
 			if (count === 9) {
-				log(deepEqual(prop, 'Array-push-#'), deepEqual(value[2], 'abc'), deepEqual(old, [1, 3]), deepEqual(path, '#'))
+				log(deepEqual(prop, 'Array-push'), deepEqual(value[2], 'abc'), deepEqual(old, [1, 3]), deepEqual(path, '#'))
 			} else if (count === 10) {
 
 			} else if (count === 11) {
 				log(prop === 'newItem', value === 22, old === 11, path === '#-3')
 
 			} else if (count === 12) {
-				log(prop === 'Array-size-#', value.length === 2, old.length === 4, path === '#')
+				log(prop === 'Array-size', value.length === 2, old.length === 4, path === '#')
 
 			} else if (count === 13) {
 				//console.log(prop, value, old, path)
 
 
-			} else if (count == 8) {
+			} else if(count==8){
 				var item = result.shift()
 				log(deepEqual(prop, item[0]), deepEqual(value, item[1]), deepEqual(old, item[2]), deepEqual(path, item[3]))
 			}

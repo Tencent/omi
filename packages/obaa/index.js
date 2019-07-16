@@ -1,5 +1,5 @@
 /* 
- * obaa 2.0.0
+ * obaa 2.0.2
  * By dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
  * MIT Licensed.
@@ -21,7 +21,7 @@
           __p_: '#'
         }
       }
-      mock(target, target, '#')
+      mock(target, target)
     }
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
@@ -97,7 +97,7 @@
     'size'
   ]
 
-  function mock(target, root, prop) {
+  function mock(target, root) {
     methods.forEach(function (item) {
       target[item] = function () {
         var old = Array.prototype.slice.call(this, 0)
@@ -116,7 +116,7 @@
           }
           //todo
           onPropertyChanged(
-            'Array-' + item + '-' + prop,
+            'Array-' + item,
             this,
             old,
             this,
@@ -171,13 +171,13 @@
     })
     if (typeof currentValue == 'object') {
       if (isArray(currentValue)) {
-        mock(currentValue, root, prop)
+        mock(currentValue, root)
         if (currentValue.length === 0) {
           if (!currentValue.__o_) currentValue.__o_ = {}
-          if (path !== undefined) {
-            currentValue.__o_.__p_ = path
+          if (path !== undefined && path !== null) {
+            currentValue.__o_.__p_ = path + '-' + prop
           } else {
-            currentValue.__o_.__p_ = '#'
+            currentValue.__o_.__p_ = '#' + '-' + prop
           }
         }
       }

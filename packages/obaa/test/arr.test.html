@@ -13,16 +13,16 @@
 		var arr = []
 
 		obaa(arr,function(a,b,c,d){
-			console.log(a,b,c,d)
+			console.log(a,c,d)
 		})
 
 		arr.push('11')
 
 
-		var obj = {arr:[],d: 1,c:{d:3,e:[]}}
+		var obj = {arr:[1],d: 1,c:{d:3,e:[]}}
 
 		obaa(obj,function(a,b,c,d){
-			console.log(a,b,c,d)
+			console.log(a,c,d)
 		})
 
 		obj.arr.push('11')
