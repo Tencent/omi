@@ -2,9 +2,7 @@ import { define, render, WeElement, html } from '../../src/omi'
 
 define('my-clock', class extends WeElement {
 
-  install() {
-    this.updateTime()
-  }
+  install = this.updateTime
 
   updateTime() {
     const time = new Date()
@@ -15,9 +13,9 @@ define('my-clock', class extends WeElement {
 
   installed() {
     setInterval(() => {
-      this.install()
+      this.updateTime()
       this.update()
-    }, 1000);
+    }, 1000)
   }
 
   arr = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
@@ -27,7 +25,6 @@ define('my-clock', class extends WeElement {
     const { hours, minutes, seconds } = this
 
     return (
-
       <svg viewBox='-50 -50 100 100'>
         <circle class='clock-face' r='48' />
 
@@ -92,4 +89,3 @@ define('my-clock', class extends WeElement {
 })
 
 render(<my-clock></my-clock>, 'body')
-

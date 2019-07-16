@@ -1826,12 +1826,8 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.arr = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55], _temp), _possibleConstructorReturn$3(_this, _ret);
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.install = _this.updateTime, _this.arr = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55], _temp), _possibleConstructorReturn$3(_this, _ret);
     }
-
-    _class.prototype.install = function install() {
-      this.updateTime();
-    };
 
     _class.prototype.updateTime = function updateTime() {
       var time = new Date();
@@ -1844,7 +1840,7 @@
       var _this2 = this;
 
       setInterval(function () {
-        _this2.install();
+        _this2.updateTime();
         _this2.update();
       }, 1000);
     };
