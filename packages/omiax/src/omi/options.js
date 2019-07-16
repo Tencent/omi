@@ -1,3 +1,5 @@
+import mock from './mock/index'
+
 function getGlobal() {
   if (
     typeof global !== 'object' ||
@@ -27,8 +29,9 @@ export default {
   scopedStyle: true,
   mapping: {},
   isWeb: true,
-  staticStyleMapping: {},
-  doc: typeof document === 'object' ? document : null,
+	staticStyleMapping: {},
+	doc: mock.document,
+  //doc: typeof document === 'object' ? document : null,
   root: getGlobal(),
   //styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
   styleCache: []
