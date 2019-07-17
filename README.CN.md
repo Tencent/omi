@@ -176,7 +176,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 
 下面这个页面不需要任何构建工具就可以执行
 
-* [→ 点击这里看执行结果](https://tencent.github.io/omi/packages/omi/examples/no-transpiler/)
+- [→ Online Demo!](https://codepen.io/dntzhang/pen/qzwbVj)
 
 ```html
 <!DOCTYPE html>
@@ -194,18 +194,18 @@ export default class oButton extends WeElement<ButtonProps, {}> {
     define('my-counter', class extends WeElement {
 
       install() {
-        this.data.count = 1
+        this.count = 1
         this.sub = this.sub.bind(this)
         this.add = this.add.bind(this)
       }
 
       sub() {
-        this.data.count--
+        this.count--
         this.update()
       }
 
       add() {
-        this.data.count++
+        this.count++
         this.update()
       }
 
@@ -213,7 +213,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
         return html`
           <div>
             <button onClick=${this.sub}>-</button>
-            <span>${this.data.count}</span>
+            <span>${this.count}</span>
             <button onClick=${this.add}>+</button>
           </div>
           `}
@@ -290,6 +290,8 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 </body>
 ```
 
+[→ store demo](https://codepen.io/dntzhang/pen/wLZGPK)
+
 ## 再花 30 秒完全上手
 
 你也可以使用现代化的 JS 语法，快速构建 Omi 项目:
@@ -332,7 +334,7 @@ class MyCounter extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
+[→ counter demo](https://codepen.io/dntzhang/pen/wLZGPK)
 
 <!-- 
 你也可以定义成纯函数的形式:
