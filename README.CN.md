@@ -290,7 +290,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 </body>
 ```
 
-[→ store demo](https://codepen.io/dntzhang/pen/wLZGPK)
+[→ store demo](https://codepen.io/dntzhang/pen/EBJyaG)
 
 ## 再花 30 秒完全上手
 

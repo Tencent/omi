@@ -255,7 +255,7 @@ You can also use `my-counter` tag directly in HTML：
 </body>
 ```
 
-[→ store demo](https://codepen.io/dntzhang/pen/wLZGPK)
+[→ store demo](https://codepen.io/dntzhang/pen/EBJyaG)
 
 ### Add Omi in 30 Seconds
 
