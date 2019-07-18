@@ -1,0 +1,119 @@
+<html>
+
+<head></head>
+
+<body>
+
+
+  <script src="layout.js"></script>
+
+  <script>
+    function layoutNode(root) {
+      var rootNode = createNode(root);
+      computeLayout(rootNode);
+      walkNode(rootNode);
+      return rootNode;
+    }
+
+    function createNode(layer) {
+      return {
+        layer: layer,
+        layout: {
+          width: undefined, // computeLayout will mutate
+          height: undefined, // computeLayout will mutate
+          top: 0,
+          left: 0,
+        },
+        style: layer._originalStyle || {},
+        children: (layer.children || []).map(createNode)
+      };
+    }
+
+    function walkNode(node, parentLeft, parentTop) {
+      node.layer.frame.x = node.layout.left + (parentLeft || 0);
+      node.layer.frame.y = node.layout.top + (parentTop || 0);
+      node.layer.frame.width = node.layout.width;
+      node.layer.frame.height = node.layout.height;
+      if (node.children && node.children.length > 0) {
+        node.children.forEach(function (child) {
+          walkNode(child, node.layer.frame.x, node.layer.frame.y);
+        });
+      }
+    }
+
+    var root = layoutNode({
+      "children": [
+        {
+          "children": [
+            {
+              "children": [],
+              "frame": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 28
+              },
+              "_originalStyle": {
+                "fontFace": {
+                  "id": "Georgiaundefinednormal,400",
+                  "family": "Georgia",
+                  "attributes": {
+                    "style": "normal",
+                    "weight": 400
+                  }
+                },
+                "fontSize": 22,
+                "lineHeight": 28,
+                "height": 28,
+                "marginBottom": 10,
+                "color": "#333",
+                "textAlign": "center"
+              },
+              "type": "text",
+              "text": "Professor PuddinPop",
+              "color": "#333",
+              "fontFace": {
+                "id": "Georgiaundefinednormal,400",
+                "family": "Georgia",
+                "attributes": {
+                  "style": "normal",
+                  "weight": 400
+                }
+              },
+              "fontSize": 22,
+              "lineHeight": 28,
+              "textAlign": "center",
+              "parentLayer": null
+            }
+          ],
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 420,
+            "height": 700
+          },
+          "_originalStyle": {
+            "position": "relative",
+            "padding": 14,
+            "width": 420,
+            "height": 700,
+            "backgroundColor": "#f7f7f7",
+            "flexDirection": "column"
+          },
+          "backgroundColor": "#f7f7f7",
+          "parentLayer": null
+        }
+      ],
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 700
+      }
+    })
+
+    console.log(root)
+  </script>
+</body>
+
+</html>

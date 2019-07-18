@@ -655,4 +655,6 @@ var computeLayout = (function() {
   };
 })();
 
-export default computeLayout
+if (typeof module === 'object') {
+  module.exports = computeLayout;
+}
