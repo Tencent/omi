@@ -4,11 +4,10 @@ import Remarkable from 'remarkable'
 
 define('markdown-editor', class extends WeElement {
 
-  value = 'Hello, **world**!' 
+  value = 'Hello, **world**!'
 
   handleInput = (e) => {
-    console.log(11)
-    this.value = e.target.value 
+    this.value = e.target.value
     this.update()
   }
 
@@ -18,24 +17,27 @@ define('markdown-editor', class extends WeElement {
   }
 
 
-  render( ) {
+  render() {
     return (
       <div className="MarkdownEditor">
-      <h3>Input</h3>
-      <label htmlFor="markdown-content">
-        Enter some markdown
-      </label>
-      <textarea
-        id="markdown-content"
-        onInput={this.handleInput}
-        defaultValue={this.value}
-      />
-      <h3>Output</h3>
-      <div
-        className="content"
-        dangerouslySetInnerHTML={this.getRawMarkup()}
-      />
-    </div>
+        <h3>Input</h3>
+        <div htmlFor="markdown-content">
+          Enter some markdown
+      </div>
+        <textarea style={{
+          width: 300,
+          height: 140
+        }}
+          id="markdown-content"
+          onInput={this.handleInput}
+          defaultValue={this.value}
+        />
+        <h3>Output</h3>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={this.getRawMarkup()}
+        />
+      </div>
     )
   }
 })

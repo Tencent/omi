@@ -11722,7 +11722,6 @@
       }
 
       return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.value = 'Hello, **world**!', _this.handleInput = function (e) {
-        console.log(11);
         _this.value = e.target.value;
         _this.update();
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
@@ -11743,11 +11742,14 @@
           'Input'
         ),
         Omi.h(
-          'label',
+          'div',
           { htmlFor: 'markdown-content' },
           'Enter some markdown'
         ),
-        Omi.h('textarea', {
+        Omi.h('textarea', { style: {
+            width: 300,
+            height: 140
+          },
           id: 'markdown-content',
           onInput: this.handleInput,
           defaultValue: this.value
