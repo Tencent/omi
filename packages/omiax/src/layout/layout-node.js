@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 'use strict';
 
-var computeLayout = require('./layout');
+import  computeLayout  from './layout';
 
 /**
  * This computes the CSS layout for a RenderLayer tree and mutates the frame
@@ -57,7 +57,7 @@ function createNode (layer) {
       top: 0,
       left: 0,
     },
-    style: layer._originalStyle || {},
+    style: (layer.attributes && layer.attributes.style) || {},
     children: (layer.children || []).map(createNode)
   };
 }

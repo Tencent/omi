@@ -28,47 +28,60 @@ const stack = []
  *
  * @public
  */
-export function h(nodeName, attributes) {
+export function h(type, attributes) {
   let children = [],
     lastSimple,
     child,
     simple,
     i
-  for (i = arguments.length; i-- > 2; ) {
+  for (i = arguments.length; i-- > 2;) {
     stack.push(arguments[i])
   }
   if (attributes && attributes.children != null) {
     if (!stack.length) stack.push(attributes.children)
     delete attributes.children
   }
-  while (stack.length) {
-    if ((child = stack.pop()) && child.pop !== undefined) {
-      for (i = child.length; i--; ) stack.push(child[i])
-    } else {
-      if (typeof child === 'boolean') child = null
-
-      if ((simple = typeof nodeName !== 'function')) {
-        if (child == null) child = ''
-        else if (typeof child === 'number') child = String(child)
-        else if (typeof child !== 'string') simple = false
-      }
-
-      if (simple && lastSimple) {
-        children[children.length - 1] += child
-      } else if (children.length === 0) {
-        children = [child]
-      } else {
-        children.push(child)
-      }
-
-      lastSimple = simple
-    }
-  }
 
   let p = {}
-  p.nodeName = nodeName
+  if (type !== 'text') {
+    while (stack.length) {
+      if ((child = stack.pop()) && child.pop !== undefined) {
+        for (i = child.length; i--;) stack.push(child[i])
+      } else {
+        if (typeof child === 'boolean') child = null
+
+        if ((simple = typeof type !== 'function')) {
+          if (child == null) child = ''
+          else if (typeof child === 'number') child = String(child)
+          else if (typeof child !== 'string') simple = false
+        }
+
+        if (simple && lastSimple) {
+          children[children.length - 1] += child
+        } else if (children.length === 0) {
+          children = [child]
+        } else {
+          children.push(child)
+        }
+
+        lastSimple = simple
+      }
+    }
+  } else {
+    p.value = stack.pop()
+  }
+
+
+
+  p.type = type
+  p.frame = {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  }
   p.children = children
-	p.attributes = attributes == null ? undefined : attributes
+  p.attributes = attributes == null ? undefined : attributes
   p.key = attributes == null ? undefined : attributes.key
 
 
