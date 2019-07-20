@@ -1,4 +1,4 @@
-# Omis
+# Omi-SSR
 
 Omi server side rendering
 
