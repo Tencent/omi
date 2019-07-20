@@ -27,6 +27,8 @@ export function createComponent(Ctor, props, context) {
 		inst = new Component(props, context);
 		inst.constructor = Ctor;
 		inst.render = doRender;
+		inst.store = Ctor.store()
+		inst.store && (inst.store.update = inst.forceUpdate.bind(inst))
 	}
 
 
@@ -43,6 +45,6 @@ export function createComponent(Ctor, props, context) {
 
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, state, context) {
-	return this.constructor(props, context);
+function doRender(props) {
+	return this.constructor(props, this.store);
 }

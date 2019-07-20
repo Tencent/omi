@@ -156,7 +156,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 
 			if (initialBase || renderMode===SYNC_RENDER) {
 				if (cbase) cbase._component = null;
-				base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
+				base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
 			}
 		}
 

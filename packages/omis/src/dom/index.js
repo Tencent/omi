@@ -63,7 +63,7 @@ export function removeNode(node) {
  * @param {boolean} isSvg Are we currently diffing inside an svg?
  * @private
  */
-export function setAccessor(node, name, old, value, isSvg) {
+export function setAccessor(node, name, old, value, isSvg, store) {
 	if (name==='className') name = 'class';
 
 
@@ -102,7 +102,7 @@ export function setAccessor(node, name, old, value, isSvg) {
 		else {
 			node.removeEventListener(name, eventProxy, useCapture);
 		}
-		(node._listeners || (node._listeners = {}))[name] = value;
+		(node._listeners || (node._listeners = {}))[name] = value.bind(store);
 	}
 	else if (name!=='list' && name!=='type' && !isSvg && name in node) {
 		// Attempt to set a DOM property to the given value.

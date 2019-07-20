@@ -308,7 +308,7 @@
 	 * @param {boolean} isSvg Are we currently diffing inside an svg?
 	 * @private
 	 */
-	function setAccessor(node, name, old, value, isSvg) {
+	function setAccessor(node, name, old, value, isSvg, store) {
 		if (name === 'className') name = 'class';
 
 		if (name === 'key') {
@@ -342,7 +342,7 @@
 			} else {
 				node.removeEventListener(name, eventProxy, useCapture);
 			}
-			(node._listeners || (node._listeners = {}))[name] = value;
+			(node._listeners || (node._listeners = {}))[name] = value.bind(store);
 		} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
 			// Attempt to set a DOM property to the given value.
 			// IE & FF throw for certain property-value combinations.
@@ -408,7 +408,7 @@
 	 * @returns {import('../dom').PreactElement} The created/mutated element
 	 * @private
 	 */
-	function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+	function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
 		// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
 		if (!diffLevel++) {
 			// when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -418,7 +418,7 @@
 			hydrating = dom != null && !(ATTR_KEY in dom);
 		}
 
-		var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+		var ret = idiff(dom, vnode, context, mountAll, componentRoot, store);
 
 		// append the element if its a new parent
 		if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -442,7 +442,7 @@
 	 * @param {boolean} [componentRoot] ?
 	 * @private
 	 */
-	function idiff(dom, vnode, context, mountAll, componentRoot) {
+	function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 		var out = dom,
 		    prevSvgMode = isSvgMode;
 
@@ -517,11 +517,11 @@
 		}
 		// otherwise, if there are existing or new children, diff them:
 		else if (vchildren && vchildren.length || fc != null) {
-				innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+				innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null, store);
 			}
 
 		// Apply attributes/props from VNode to the DOM Element:
-		diffAttributes(out, vnode.attributes, props);
+		diffAttributes(out, vnode.attributes, props, store);
 
 		// restore previous SVG mode: (in case we're exiting an SVG namespace)
 		isSvgMode = prevSvgMode;
@@ -539,7 +539,7 @@
 	 * @param {boolean} isHydrating if `true`, consumes externally created elements
 	 *  similar to hydration
 	 */
-	function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+	function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
 		var originalChildren = dom.childNodes,
 		    children = [],
 		    keyed = {},
@@ -597,7 +597,7 @@
 					}
 
 				// morph the matched/found/created DOM child to match vchild (deep)
-				child = idiff(child, vchild, context, mountAll);
+				child = idiff(child, vchild, context, mountAll, null, store);
 
 				f = originalChildren[_i];
 				if (child && child !== dom && child !== f) {
@@ -671,20 +671,20 @@
 	 * @param {object} old Current/previous attributes (from previous VNode or
 	 *  element's prop cache)
 	 */
-	function diffAttributes(dom, attrs, old) {
+	function diffAttributes(dom, attrs, old, store) {
 		var name = void 0;
 
 		// remove attributes no longer present on the vnode by setting them to undefined
 		for (name in old) {
 			if (!(attrs && attrs[name] != null) && old[name] != null) {
-				setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+				setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, store);
 			}
 		}
 
 		// add new & update changed attributes
 		for (name in attrs) {
 			if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, store);
 			}
 		}
 	}
@@ -715,6 +715,8 @@
 			inst = new Component(props, context);
 			inst.constructor = Ctor;
 			inst.render = doRender;
+			inst.store = Ctor.store();
+			inst.store && (inst.store.update = inst.forceUpdate.bind(inst));
 		}
 
 		while (i--) {
@@ -729,8 +731,8 @@
 	}
 
 	/** The `.render()` method for a PFC backing instance. */
-	function doRender(props, state, context) {
-		return this.constructor(props, context);
+	function doRender(props) {
+		return this.constructor(props, this.store);
 	}
 
 	/**
@@ -876,7 +878,7 @@
 
 				if (initialBase || renderMode === SYNC_RENDER) {
 					if (cbase) cbase._component = null;
-					base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
+					base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
 				}
 			}
 
@@ -1108,7 +1110,7 @@
 	 * render(<Thing name="one" />, document.querySelector('#foo'));
 	 */
 	function render(vnode, parent, merge) {
-	  return diff(merge, vnode, {}, false, parent, false);
+	  return diff(merge, vnode, {}, false, typeof parent === 'string' ? document.querySelector(parent) : parent, false);
 	}
 
 	function createRef() {
@@ -1136,7 +1138,7 @@
 	    Omi.h(
 	      'button',
 	      { onClick: store.sub },
-	      'sub'
+	      '-'
 	    ),
 	    Omi.h(
 	      'text',
@@ -1146,7 +1148,7 @@
 	    Omi.h(
 	      'button',
 	      { onClick: store.add },
-	      'add'
+	      '+'
 	    )
 	  );
 	};
@@ -1156,11 +1158,13 @@
 	    data: {
 	      count: 1
 	    },
-	    add: function add() {
+	    add: function add(e) {
 	      this.data.count++;
+	      this.update();
 	    },
 	    sub: function sub() {
 	      this.data.count--;
+	      this.update();
 	    }
 	  };
 	};

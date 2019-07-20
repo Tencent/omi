@@ -3,9 +3,9 @@ import { render } from '../../src/omi'
 //逻辑store外置，UI只负责渲染
 const Counter = (props, store) => {
   return <div>
-    <button onClick={store.sub}>sub</button>
+    <button onClick={store.sub}>-</button>
     <text>{store.data.count}</text>
-    <button onClick={store.add}>add</button>
+    <button onClick={store.add}>+</button>
   </div>
 }
 
@@ -14,11 +14,13 @@ Counter.store = _ => {
     data: {
       count: 1
     },
-    add() {
-      this.data.count++
+    add(e) {
+			this.data.count++
+			this.update()
     },
     sub() {
-      this.data.count--
+			this.data.count--
+			this.update()
     }
   }
 }

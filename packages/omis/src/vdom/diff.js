@@ -44,7 +44,7 @@ export function flushMounts() {
  * @returns {import('../dom').PreactElement} The created/mutated element
  * @private
  */
-export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+export function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
 	// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
 	if (!diffLevel++) {
 		// when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -54,7 +54,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 		hydrating = dom!=null && !(ATTR_KEY in dom);
 	}
 
-	let ret = idiff(dom, vnode, context, mountAll, componentRoot);
+	let ret = idiff(dom, vnode, context, mountAll, componentRoot, store);
 
 	// append the element if its a new parent
 	if (parent && ret.parentNode!==parent) parent.appendChild(ret);
@@ -79,7 +79,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
  * @param {boolean} [componentRoot] ?
  * @private
  */
-function idiff(dom, vnode, context, mountAll, componentRoot) {
+function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 	let out = dom,
 		prevSvgMode = isSvgMode;
 
@@ -158,12 +158,12 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 	}
 	// otherwise, if there are existing or new children, diff them:
 	else if (vchildren && vchildren.length || fc!=null) {
-		innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML!=null);
+		innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML!=null, store);
 	}
 
 
 	// Apply attributes/props from VNode to the DOM Element:
-	diffAttributes(out, vnode.attributes, props);
+	diffAttributes(out, vnode.attributes, props, store);
 
 
 	// restore previous SVG mode: (in case we're exiting an SVG namespace)
@@ -183,7 +183,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
  * @param {boolean} isHydrating if `true`, consumes externally created elements
  *  similar to hydration
  */
-function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
 	let originalChildren = dom.childNodes,
 		children = [],
 		keyed = {},
@@ -238,7 +238,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 			}
 
 			// morph the matched/found/created DOM child to match vchild (deep)
-			child = idiff(child, vchild, context, mountAll);
+			child = idiff(child, vchild, context, mountAll, null, store);
 
 			f = originalChildren[i];
 			if (child && child!==dom && child!==f) {
@@ -318,20 +318,20 @@ export function removeChildren(node) {
  * @param {object} old Current/previous attributes (from previous VNode or
  *  element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, store) {
 	let name;
 
 	// remove attributes no longer present on the vnode by setting them to undefined
 	for (name in old) {
 		if (!(attrs && attrs[name]!=null) && old[name]!=null) {
-			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, store);
 		}
 	}
 
 	// add new & update changed attributes
 	for (name in attrs) {
 		if (name!=='children' && name!=='innerHTML' && (!(name in old) || attrs[name]!==(name==='value' || name==='checked' ? dom[name] : old[name]))) {
-			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, store);
 		}
 	}
 }
