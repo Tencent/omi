@@ -1173,6 +1173,11 @@
 	  return Omi.h(
 	    'div',
 	    null,
+	    Omi.h(
+	      'div',
+	      null,
+	      'Hello Omis'
+	    ),
 	    Omi.h(Counter, null)
 	  );
 	};

@@ -28,6 +28,7 @@ Counter.store = _ => {
 
 const App = (props, store) => {
   return <div>
+		<div>Hello Omis</div>
     <Counter></Counter>
   </div>
 }
