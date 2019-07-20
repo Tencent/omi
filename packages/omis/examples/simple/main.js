@@ -26,15 +26,18 @@ Counter.store = _ => {
 }
 
 
-const App = (props, store) => {
-  return <div>
-		<div>Hello Omis</div>
-    <Counter></Counter>
-  </div>
-}
+render(<Counter />, 'body')
 
-App.store = _ => {
+//or
+// const App = (props, store) => {
+//   return <div>
+// 		<div>Hello Omis</div>
+//     <Counter></Counter>
+//   </div>
+// }
 
-}
+// App.store = _ => {
 
-render(<App />, 'body')
+// }
+
+// render(<App />, 'body')

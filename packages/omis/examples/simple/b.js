@@ -1169,22 +1169,21 @@
 	  };
 	};
 
-	var App = function App(props, store) {
-	  return Omi.h(
-	    'div',
-	    null,
-	    Omi.h(
-	      'div',
-	      null,
-	      'Hello Omis'
-	    ),
-	    Omi.h(Counter, null)
-	  );
-	};
+	render(Omi.h(Counter, null), 'body');
 
-	App.store = function (_) {};
+	//or
+	// const App = (props, store) => {
+	//   return <div>
+	// 		<div>Hello Omis</div>
+	//     <Counter></Counter>
+	//   </div>
+	// }
 
-	render(Omi.h(App, null), 'body');
+	// App.store = _ => {
+
+	// }
+
+	// render(<App />, 'body')
 
 }());
 //# sourceMappingURL=b.js.map
