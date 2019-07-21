@@ -102,7 +102,7 @@ export function setAccessor(node, name, old, value, isSvg, store) {
 		else {
 			node.removeEventListener(name, eventProxy, useCapture);
 		}
-		(node._listeners || (node._listeners = {}))[name] = value.bind(store);
+		(node._listeners || (node._listeners = {}))[name] = value ? value.bind(store) : value;
 	}
 	else if (name!=='list' && name!=='type' && !isSvg && name in node) {
 		// Attempt to set a DOM property to the given value.
