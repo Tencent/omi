@@ -42,8 +42,8 @@ import { render, h } from 'omi'
 const Counter = (props, store) => {
   return (
     h('div', {}, [
-      h('button', { onClick: store.sub }, '-')
-      h('text', {}, store.count)
+      h('button', { onClick: store.sub }, '-'),
+      h('text', {}, store.count),
       h('button', { onClick: store.add }, '+')
     ])
   )
