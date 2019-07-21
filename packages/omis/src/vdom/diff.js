@@ -6,6 +6,7 @@ import { unmountComponent } from './component';
 import options from '../options';
 import { applyRef } from '../util';
 import { removeNode } from '../dom/index';
+import { addStyleToHead, getCtorName } from '../style'
 
 /**
  * Queue of components that have been mounted and are awaiting componentDidMount
@@ -26,6 +27,12 @@ let hydrating = false;
 export function flushMounts() {
 	let c;
 	while ((c = mounts.shift())) {
+		if (c.constructor.css) {
+      addStyleToHead(c.constructor.css, getCtorName(c.constructor))
+		}
+		if(c.props.css){
+			addStyleToHead(c.props.css, '_ds'+c.elementId)
+		}
 		if (options.afterMount) options.afterMount(c);
 		if (c.componentDidMount) c.componentDidMount();
 	}

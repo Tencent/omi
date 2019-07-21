@@ -1,6 +1,6 @@
 import { VNode } from './vnode';
 import options from './options';
-
+import {getCtorName} from './style'
 
 const stack = [];
 
@@ -76,8 +76,15 @@ export function h(nodeName, attributes) {
 	let p = new VNode();
 	p.nodeName = nodeName;
 	p.children = children;
-	p.attributes = attributes==null ? undefined : attributes;
-	p.key = attributes==null ? undefined : attributes.key;
+	p.attributes = attributes==null ? {} : attributes;
+	if(options.runTimeComponent.constructor.css){
+		p.attributes[getCtorName(options.runTimeComponent.constructor)] = ''
+	}
+	if(options.runTimeComponent.props && options.runTimeComponent.props.css){
+		p.attributes['_ds'+options.runTimeComponent.elementId] = ''
+	}
+
+	p.key = p.attributes.key;
 
 	// if a "vnode hook" is defined, pass every created VNode to it
 	if (options.vnode!==undefined) options.vnode(p);

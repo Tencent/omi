@@ -110,7 +110,9 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 	component._dirty = false;
 
 	if (!skip) {
+		options.runTimeComponent = component
 		rendered = component.render(props, state, context);
+		options.runTimeComponent = null
 
 		// context to pass to the child, can be updated via (grand-)parent component
 		if (component.getChildContext) {

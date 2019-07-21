@@ -17,6 +17,10 @@
  */
 
 /** @type {Options}  */
-const options = {};
+const options = {
+	runTimeComponent: {},
+	styleCache: [],
+	staticStyleMapping: {}
+};
 
 export default options;

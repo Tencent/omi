@@ -55,7 +55,6 @@ TreeNode.store = _ => {
 			]
 		},
 		open(path) {
-			console.log(path)
 			const node = this.getNodeByPath(path)
 			node.open = !node.open
 			this.update()
@@ -69,7 +68,7 @@ TreeNode.store = _ => {
 			arr.shift()
 			let current = this.data
 			let item
-			while (item = arr.pop()) {
+			while (item = arr.shift()) {
 				current = current.children[item]
 			}
 			return current
@@ -77,18 +76,10 @@ TreeNode.store = _ => {
 
 		extend(path) {
 			const node = this.getNodeByPath(path)
-			if (!node.children) {
-				node.children = [{
-					name: 'new child'
-				}]
-			} else {
-
-				node.children.push({
-					name: 'new child'
-				})
+			if(node){
+				node.open = !node.open
+				this.update()
 			}
-			node.open = true
-			this.update()
 		},
 
 		addChild(path){

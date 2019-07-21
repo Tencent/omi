@@ -17,9 +17,12 @@ import { enqueueRender } from './render-queue';
  *   }
  * }
  */
+
+ let id = 0
+
 export function Component(props, context) {
 	this._dirty = true;
-
+	this.elementId = id++
 	/**
 	 * @public
 	 * @type {object}

@@ -30,7 +30,92 @@
 	 */
 
 	/** @type {Options}  */
-	var options = {};
+	var options = {
+	  runTimeComponent: {},
+	  styleCache: [],
+	  staticStyleMapping: {}
+	};
+
+	var styleId = 0;
+
+	function getCtorName(ctor) {
+	  for (var i = 0, len = options.styleCache.length; i < len; i++) {
+	    var item = options.styleCache[i];
+
+	    if (item.ctor === ctor) {
+	      return item.attrName;
+	    }
+	  }
+
+	  var attrName = '_ss' + styleId;
+	  options.styleCache.push({ ctor: ctor, attrName: attrName });
+	  styleId++;
+
+	  return attrName;
+	}
+
+	// many thanks to https://github.com/thomaspark/scoper/
+	function scoper(css, prefix) {
+	  prefix = '[' + prefix.toLowerCase() + ']';
+	  // https://www.w3.org/TR/css-syntax-3/#lexical
+	  css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
+	  // eslint-disable-next-line
+	  var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
+	  /**
+	   * Example:
+	   *
+	   * .classname::pesudo { color:red }
+	   *
+	   * g1 is normal selector `.classname`
+	   * g2 is pesudo class or pesudo element
+	   * g3 is the suffix
+	   */
+	  css = css.replace(re, function (g0, g1, g2, g3) {
+	    if (typeof g2 === 'undefined') {
+	      g2 = '';
+	    }
+
+	    /* eslint-ignore-next-line */
+	    if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
+	      return g1 + g2 + g3;
+	    }
+
+	    var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
+	    //let prependClass = prefix + ' ' + g1.trim() + g2;
+
+	    return appendClass + g3;
+	    //return appendClass + ',' + prependClass + g3;
+	  });
+
+	  return css;
+	}
+
+	function addStyle(cssText, id) {
+	  id = id.toLowerCase();
+	  var ele = document.getElementById(id);
+	  var head = document.getElementsByTagName('head')[0];
+	  if (ele && ele.parentNode === head) {
+	    head.removeChild(ele);
+	  }
+
+	  var someThingStyles = document.createElement('style');
+	  head.appendChild(someThingStyles);
+	  someThingStyles.setAttribute('type', 'text/css');
+	  someThingStyles.setAttribute('id', id);
+	  if (window.ActiveXObject) {
+	    someThingStyles.styleSheet.cssText = cssText;
+	  } else {
+	    someThingStyles.textContent = cssText;
+	  }
+	}
+
+	function addStyleToHead(style, attr) {
+
+	  if (!options.staticStyleMapping[attr]) {
+	    addStyle(scoper(style, attr), attr);
+	    options.staticStyleMapping[attr] = true;
+	  }
+	}
 
 	var stack = [];
 
@@ -107,8 +192,15 @@
 		var p = new VNode();
 		p.nodeName = nodeName;
 		p.children = children;
-		p.attributes = attributes == null ? undefined : attributes;
-		p.key = attributes == null ? undefined : attributes.key;
+		p.attributes = attributes == null ? {} : attributes;
+		if (options.runTimeComponent.constructor.css) {
+			p.attributes[getCtorName(options.runTimeComponent.constructor)] = '';
+		}
+		if (options.runTimeComponent.props && options.runTimeComponent.props.css) {
+			p.attributes['_ds' + options.runTimeComponent.elementId] = '';
+		}
+
+		p.key = attributes.key;
 
 		// if a "vnode hook" is defined, pass every created VNode to it
 		if (options.vnode !== undefined) options.vnode(p);
@@ -391,6 +483,12 @@
 	function flushMounts() {
 		var c = void 0;
 		while (c = mounts.shift()) {
+			if (c.constructor.css) {
+				addStyleToHead(c.constructor.css, getCtorName(c.constructor));
+			}
+			if (c.props.css) {
+				addStyleToHead(c.props.css, '_ds' + c.elementId);
+			}
 			if (options.afterMount) options.afterMount(c);
 			if (c.componentDidMount) c.componentDidMount();
 		}
@@ -835,7 +933,9 @@
 		component._dirty = false;
 
 		if (!skip) {
+			options.runTimeComponent = component;
 			rendered = component.render(props, state, context);
+			options.runTimeComponent = null;
 
 			// context to pass to the child, can be updated via (grand-)parent component
 			if (component.getChildContext) {
@@ -1027,9 +1127,12 @@
 	 *   }
 	 * }
 	 */
+
+	var id = 0;
+
 	function Component(props, context) {
 		this._dirty = true;
-
+		this.elementId = id++;
 		/**
 	  * @public
 	  * @type {object}
@@ -1135,6 +1238,8 @@
 	var HelloMessage = function HelloMessage(props) {
 	  return h('div', {}, 'Hello ' + props.name);
 	};
+
+	HelloMessage.css = 'div{\n\tcolor: red;\n}';
 
 	render(Omi.h(HelloMessage, { name: 'Omis' }), 'body');
 
