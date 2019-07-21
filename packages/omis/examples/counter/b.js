@@ -342,7 +342,7 @@
 			} else {
 				node.removeEventListener(name, eventProxy, useCapture);
 			}
-			(node._listeners || (node._listeners = {}))[name] = value ? value.bind(store) : value;
+			(node._listeners || (node._listeners = {}))[name] = value.bind(store);
 		} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
 			// Attempt to set a DOM property to the given value.
 			// IE & FF throw for certain property-value combinations.
@@ -1132,11 +1132,58 @@
 		};
 	}
 
-	var HelloMessage = function HelloMessage(props) {
-	  return h('div', {}, 'Hello ' + props.name);
+	//逻辑store外置，UI只负责渲染
+	var Counter = function Counter(props, store) {
+	  return Omi.h(
+	    'div',
+	    null,
+	    Omi.h(
+	      'button',
+	      { onClick: store.sub },
+	      '-'
+	    ),
+	    Omi.h(
+	      'text',
+	      null,
+	      store.count
+	    ),
+	    Omi.h(
+	      'button',
+	      { onClick: store.add },
+	      '+'
+	    )
+	  );
 	};
 
-	render(Omi.h(HelloMessage, { name: 'Omis' }), 'body');
+	Counter.store = function (_) {
+	  return {
+	    count: 1,
+	    add: function add(e) {
+	      this.count++;
+	      this.update();
+	    },
+	    sub: function sub() {
+	      this.count--;
+	      this.update();
+	    }
+	  };
+	};
+
+	render(Omi.h(Counter, null), 'body');
+
+	//or
+	// const App = (props, store) => {
+	//   return <div>
+	// 		<div>Hello Omis</div>
+	//     <Counter></Counter>
+	//   </div>
+	// }
+
+	// App.store = _ => {
+
+	// }
+
+	// render(<App />, 'body')
 
 }());
 //# sourceMappingURL=b.js.map
