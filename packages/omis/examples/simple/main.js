@@ -4,22 +4,20 @@ import { render } from '../../src/omi'
 const Counter = (props, store) => {
   return <div>
     <button onClick={store.sub}>-</button>
-    <text>{store.data.count}</text>
+    <text>{store.count}</text>
     <button onClick={store.add}>+</button>
   </div>
 }
 
 Counter.store = _ => {
   return {
-    data: {
-      count: 1
-    },
+    count: 1,
     add(e) {
-			this.data.count++
+			this.count++
 			this.update()
     },
     sub() {
-			this.data.count--
+			this.count--
 			this.update()
     }
   }

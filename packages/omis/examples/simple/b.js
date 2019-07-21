@@ -170,7 +170,7 @@
 	/** Queue asynchronous re-render of a component and it's children */
 	var ASYNC_RENDER = 3;
 
-	var ATTR_KEY = '__preactattr_';
+	var ATTR_KEY = 'prevProps';
 
 	/** DOM properties that should NOT have "px" added when numeric */
 	var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -1143,7 +1143,7 @@
 	    Omi.h(
 	      'text',
 	      null,
-	      store.data.count
+	      store.count
 	    ),
 	    Omi.h(
 	      'button',
@@ -1155,15 +1155,13 @@
 
 	Counter.store = function (_) {
 	  return {
-	    data: {
-	      count: 1
-	    },
+	    count: 1,
 	    add: function add(e) {
-	      this.data.count++;
+	      this.count++;
 	      this.update();
 	    },
 	    sub: function sub() {
-	      this.data.count--;
+	      this.count--;
 	      this.update();
 	    }
 	  };

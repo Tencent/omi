@@ -170,7 +170,7 @@
 	/** Queue asynchronous re-render of a component and it's children */
 	var ASYNC_RENDER = 3;
 
-	var ATTR_KEY = '__preactattr_';
+	var ATTR_KEY = 'prevProps';
 
 	/** DOM properties that should NOT have "px" added when numeric */
 	var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -1131,10 +1131,9 @@
 	}
 
 	var Clock = function Clock(props, store) {
-		var _store$data = store.data,
-		    hours = _store$data.hours,
-		    minutes = _store$data.minutes,
-		    seconds = _store$data.seconds;
+		var hours = store.hours,
+		    minutes = store.minutes,
+		    seconds = store.seconds;
 
 		return Omi.h(
 			'svg',
@@ -1162,13 +1161,12 @@
 	Clock.store = function (_) {
 
 		var store = {
-			data: {},
 			arr: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
 			updateTime: function updateTime() {
 				var time = new Date();
-				this.data.hours = time.getHours();
-				this.data.minutes = time.getMinutes();
-				this.data.seconds = time.getSeconds();
+				this.hours = time.getHours();
+				this.minutes = time.getMinutes();
+				this.seconds = time.getSeconds();
 			}
 		};
 

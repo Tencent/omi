@@ -1,7 +1,7 @@
 import { render } from '../../src/omi'
 
 const Clock = (props, store) => {
-	const { hours, minutes, seconds } = store.data
+	const { hours, minutes, seconds } = store
 	return <svg viewBox='-50 -50 100 100'>
 		<circle class='clock-face' r='48' />
 
@@ -27,15 +27,12 @@ const Clock = (props, store) => {
 Clock.store = _ => {
 
 	const store = {
-		data: {
-
-		},
 		arr: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
 		updateTime() {
 			const time = new Date()
-			this.data.hours = time.getHours()
-			this.data.minutes = time.getMinutes()
-			this.data.seconds = time.getSeconds()
+			this.hours = time.getHours()
+			this.minutes = time.getMinutes()
+			this.seconds = time.getSeconds()
 		}
 	}
 
