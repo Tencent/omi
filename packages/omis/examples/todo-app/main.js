@@ -1,17 +1,21 @@
-import { render, WeElement, define, html } from '../../src/omi'
+import { render, h } from '../../src/omi'
 
 const TodoList = props => (
-	<ul>
-		{props.items.map(
-			item => <li key={item.id}>{item.text}</li>
-		)}
-	</ul>
+	h('ul', {}, props.items.map(
+		item => h('li', { key: item.id }, item.text)
+	))
 )
+
+	// <ul>
+	// 	{props.items.map(
+	// 		item => <li key={item.id}>{item.text}</li>
+	// 	)}
+	// </ul>
 
 const TodoApp = (props, store) => (
 	<div>
 		<h3>TODO</h3>
-		<todo-list items={store.items} />
+		<TodoList items={store.items} />
 		<form onSubmit={store.handleSubmit}>
 			<input onChange={store.handleChange} value={store.text} />
 			<button>Add #{store.items.length + 1}</button>
@@ -21,7 +25,7 @@ const TodoApp = (props, store) => (
 
 TodoApp.store = _ => (
 	{
-		items:[],
+		items: [],
 		text: '',
 		handleChange(e) {
 			this.text = e.target.value;
@@ -41,3 +45,5 @@ TodoApp.store = _ => (
 		}
 	}
 )
+
+render(<TodoApp></TodoApp>, 'body')
