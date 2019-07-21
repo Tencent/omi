@@ -77,11 +77,13 @@ export function h(nodeName, attributes) {
 	p.nodeName = nodeName;
 	p.children = children;
 	p.attributes = attributes==null ? {} : attributes;
-	if(options.runTimeComponent.constructor.css){
-		p.attributes[getCtorName(options.runTimeComponent.constructor)] = ''
-	}
-	if(options.runTimeComponent.props && options.runTimeComponent.props.css){
-		p.attributes['_ds'+options.runTimeComponent.elementId] = ''
+	if(options.runTimeComponent){
+		if(options.runTimeComponent.constructor.css){
+			p.attributes[getCtorName(options.runTimeComponent.constructor)] = ''
+		}
+		if(options.runTimeComponent.props && options.runTimeComponent.props.css){
+			p.attributes['_ds'+options.runTimeComponent.elementId] = ''
+		}
 	}
 
 	p.key = p.attributes.key;
