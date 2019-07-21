@@ -552,7 +552,7 @@
 
 			// update if it's already a Text node:
 			if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
-				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omi/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omis/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
 				if (dom.nodeValue != vnode) {
 					dom.nodeValue = vnode;
 				}
@@ -1017,7 +1017,7 @@
 		} else if (!skip) {
 			// Ensure that pending componentDidMount() hooks of child components
 			// are called before the componentDidUpdate() hook in the parent.
-			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omi/issues/750
+			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omis/issues/750
 			// flushMounts();
 
 			if (component.componentDidUpdate) {
@@ -1223,7 +1223,7 @@
 	}
 
 	if (typeof window !== 'undefined') {
-		window.Omi = {
+		window.Omis = {
 			h: h,
 			createElement: h,
 			cloneElement: cloneElement,
@@ -1240,16 +1240,16 @@
 	      minutes = store.minutes,
 	      seconds = store.seconds;
 
-	  return Omi.h(
+	  return Omis.h(
 	    "svg",
 	    { viewBox: "-50 -50 100 100" },
-	    Omi.h("circle", { "class": "clock-face", r: "48" }),
+	    Omis.h("circle", { "class": "clock-face", r: "48" }),
 	    store.arr.map(function (i) {
-	      return Omi.h("line", { "class": "major", y1: "35", y2: "45", transform: "rotate(" + 30 * i + ")" });
+	      return Omis.h("line", { "class": "major", y1: "35", y2: "45", transform: "rotate(" + 30 * i + ")" });
 	    }),
 	    store.arr.map(function (i) {
 	      return [1, 2, 3, 4].map(function (o) {
-	        return Omi.h("line", {
+	        return Omis.h("line", {
 	          "class": "minor",
 	          y1: "42",
 	          y2: "45",
@@ -1257,23 +1257,23 @@
 	        });
 	      });
 	    }),
-	    Omi.h("line", {
+	    Omis.h("line", {
 	      "class": "hour",
 	      y1: "2",
 	      y2: "-20",
 	      transform: "rotate(" + (30 * hours + minutes / 2) + ")"
 	    }),
-	    Omi.h("line", {
+	    Omis.h("line", {
 	      "class": "minute",
 	      y1: "4",
 	      y2: "-30",
 	      transform: "rotate(" + (6 * minutes + seconds / 10) + ")"
 	    }),
-	    Omi.h(
+	    Omis.h(
 	      "g",
 	      { transform: "rotate(" + 6 * seconds + ")" },
-	      Omi.h("line", { "class": "second", y1: "10", y2: "-38" }),
-	      Omi.h("line", { "class": "second-counterweight", y1: "10", y2: "2" })
+	      Omis.h("line", { "class": "second", y1: "10", y2: "-38" }),
+	      Omis.h("line", { "class": "second-counterweight", y1: "10", y2: "2" })
 	    )
 	  );
 	};
@@ -1299,7 +1299,7 @@
 	};
 
 	Clock.css = "\n\nsvg {\n\twidth: 100%;\n\theight: 100%;\n}\n\n.clock-face {\n\tstroke: #333;\n\tfill: white;\n}\n\n.minor {\n\tstroke: #999;\n\tstroke-width: 0.5;\n}\n\n.major {\n\tstroke: #333;\n\tstroke-width: 1;\n}\n\n.hour {\n\tstroke: #333;\n}\n\n.minute {\n\tstroke: #666;\n}\n\n.second,\n.second-counterweight {\n\tstroke: rgb(180, 0, 0);\n}\n\n.second-counterweight {\n\tstroke-width: 3;\n}\n";
-	render(Omi.h(Clock, null), 'body');
+	render(Omis.h(Clock, null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map

@@ -1,4 +1,4 @@
-import { render } from '../../src/omi'
+import { render } from '../../src/omis'
 
 //逻辑store外置，UI只负责渲染
 const Counter = (props, store) => {

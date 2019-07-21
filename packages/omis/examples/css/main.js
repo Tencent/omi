@@ -1,4 +1,4 @@
-import { render, h } from '../../src/omi'
+import { render, h } from '../../src/omis'
 
 const HelloMessage = props => {
   return h('div', {}, props.name)

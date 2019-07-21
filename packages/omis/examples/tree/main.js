@@ -1,4 +1,4 @@
-import { render } from '../../src/omi'
+import { render } from '../../src/omis'
 
 
 const TreeNode = (props, store) => {

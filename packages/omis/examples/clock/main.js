@@ -1,4 +1,4 @@
-import { render } from '../../src/omi'
+import { render } from '../../src/omis'
 
 const Clock = (props, store) => {
   const { hours, minutes, seconds } = store

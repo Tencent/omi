@@ -552,7 +552,7 @@
 
 			// update if it's already a Text node:
 			if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
-				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omi/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omis/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
 				if (dom.nodeValue != vnode) {
 					dom.nodeValue = vnode;
 				}
@@ -1017,7 +1017,7 @@
 		} else if (!skip) {
 			// Ensure that pending componentDidMount() hooks of child components
 			// are called before the componentDidUpdate() hook in the parent.
-			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omi/issues/750
+			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omis/issues/750
 			// flushMounts();
 
 			if (component.componentDidUpdate) {
@@ -1223,7 +1223,7 @@
 	}
 
 	if (typeof window !== 'undefined') {
-		window.Omi = {
+		window.Omis = {
 			h: h,
 			createElement: h,
 			cloneElement: cloneElement,
@@ -1248,20 +1248,20 @@
 	// </ul>
 
 	var TodoApp = function TodoApp(props, store) {
-		return Omi.h(
+		return Omis.h(
 			'div',
 			null,
-			Omi.h(
+			Omis.h(
 				'h3',
 				null,
 				'TODO'
 			),
-			Omi.h(TodoList, { items: store.items }),
-			Omi.h(
+			Omis.h(TodoList, { items: store.items }),
+			Omis.h(
 				'form',
 				{ onSubmit: store.handleSubmit },
-				Omi.h('input', { onChange: store.handleChange, value: store.text }),
-				Omi.h(
+				Omis.h('input', { onChange: store.handleChange, value: store.text }),
+				Omis.h(
 					'button',
 					null,
 					'Add #',
@@ -1293,7 +1293,7 @@
 		};
 	};
 
-	render(Omi.h(TodoApp, null), 'body');
+	render(Omis.h(TodoApp, null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map

@@ -12,17 +12,17 @@ export default {
 	output: {
 		format: "iife",
 		file: "examples/" + ENV + "/b.js",
-		name: "omi",
+		name: "omis",
 		sourcemap: true,
 		strict: true
 	},
 	plugins: [
 		memory({
-			path: "src/omi.js",
+			path: "src/omis.js",
 			contents: `
-				import Omi from './omi';
-				if (typeof module!='undefined') module.exports = Omi;
-				else self.Omi = Omi;
+				import Omis from './omis';
+				if (typeof module!='undefined') module.exports = Omis;
+				else self.Omis = Omis;
 			`
 		}),
 		nodeResolve({
@@ -51,7 +51,7 @@ export default {
 			plugins: [
 				"transform-decorators-legacy",
 				"transform-class-properties",
-				["transform-react-jsx", { pragma: "Omi.h" }]
+				["transform-react-jsx", { pragma: "Omis.h" }]
 			]
 		})
 	]

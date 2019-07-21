@@ -1,4 +1,4 @@
-import { render, h } from '../../src/omi'
+import { render, h } from '../../src/omis'
 
 const TodoList = props => (
 	h('ul', {}, props.items.map(

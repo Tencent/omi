@@ -1,7 +1,7 @@
-export = omi;
-export as namespace omi;
+export = Omis;
+export as namespace Omis;
 
-declare namespace omi {
+declare namespace Omis {
 	type Key = string | number;
 	type RefObject<T> = { current?: T | null };
 	type RefCallback<T> = (instance: T | null) => void;
@@ -41,10 +41,10 @@ declare namespace omi {
 
 	type ComponentFactory<P> = ComponentConstructor<P> | FunctionalComponent<P>;
 	/**
-	 * Define the contract for a virtual node in omi.
+	 * Define the contract for a virtual node in Omis.
 	 *
 	 * A virtual node has a name, a map of attributes, an array
-	 * of child {VNode}s and a key. The key is used by omi for
+	 * of child {VNode}s and a key. The key is used by Omis for
 	 * internal purposes.
 	 */
 	interface VNode<P = any> {
@@ -167,10 +167,10 @@ type Defaultize<Props, Defaults> =
 
 declare global {
 	namespace JSX {
-		interface Element extends omi.VNode<any> {
+		interface Element extends Omis.VNode<any> {
 		}
 
-		interface ElementClass extends omi.Component<any, any> {
+		interface ElementClass extends Omis.Component<any, any> {
 		}
 
 		interface ElementAttributesProperty {
@@ -450,7 +450,7 @@ declare global {
 		type GenericEventHandler = EventHandler<Event>;
 		type PointerEventHandler = EventHandler<PointerEvent>;
 
-		interface DOMAttributes extends omi.PreactDOMAttributes {
+		interface DOMAttributes extends Omis.PreactDOMAttributes {
 			// Image Events
 			onLoad?: GenericEventHandler;
 			onError?: GenericEventHandler;
@@ -638,7 +638,7 @@ declare global {
 			onTransitionEndCapture?: TransitionEventHandler;
 		}
 
-		interface HTMLAttributes extends omi.PreactHTMLAttributes, DOMAttributes {
+		interface HTMLAttributes extends Omis.PreactHTMLAttributes, DOMAttributes {
 			// Standard HTML Attributes
 			accept?: string;
 			acceptCharset?: string;

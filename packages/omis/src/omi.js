@@ -32,7 +32,7 @@ export {
 };
 
 if(typeof window !== 'undefined'){
-	window.Omi = {
+	window.Omis = {
 		h,
 		createElement,
 		cloneElement,

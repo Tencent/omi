@@ -6,27 +6,27 @@ const license = require("rollup-plugin-license");
 const pkg = require("../package.json");
 const licensePlugin = license({
 	banner:
-		" omi v" +
+		" omis v" +
 		pkg.version +
-		"  http://omijs.org\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
+		"  http://omijs.org\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omis\r\n MIT Licensed."
 });
 
 export default {
-	input: "src/omi.js",
+	input: "src/omis.js",
 	output: {
 		format: "iife",
-		file: "dist/omi.dev.js",
-		name: "omi",
+		file: "dist/omis.dev.js",
+		name: "omis",
 		sourcemap: true,
 		strict: true
 	},
 	plugins: [
 		memory({
-			path: "src/omi.js",
+			path: "src/omis.js",
 			contents: `
-				import Omi from './omi';
-				if (typeof module!='undefined') module.exports = Omi;
-				else self.Omi = Omi;
+				import Omis from './omis';
+				if (typeof module!='undefined') module.exports = Omis;
+				else self.Omis = Omis;
 			`
 		}),
 		nodeResolve({

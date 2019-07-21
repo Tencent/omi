@@ -1,27 +1,27 @@
 {
-  "name": "omi",
-  "version": "6.6.9",
-  "description": "Front End Cross-Frameworks Framework.",
-  "main": "dist/omi.js",
-  "jsnext:main": "dist/omi.esm.js",
-  "module": "dist/omi.esm.js",
-  "dev:main": "dist/omi.dev.js",
-  "minified:main": "dist/omi.min.js",
-  "types": "dist/omi.d.ts",
+  "name": "omis",
+  "version": "0.2.0",
+  "description": "Functional Component with store, scoped css and easy hyperscript.",
+  "main": "dist/omis.js",
+  "jsnext:main": "dist/omis.esm.js",
+  "module": "dist/omis.esm.js",
+  "dev:main": "dist/omis.dev.js",
+  "minified:main": "dist/omis.min.js",
+  "types": "dist/omis.d.ts",
   "scripts": {
     "clean": "rimraf test/ts/**/*.js",
-    "copy-typescript-definition": "copyfiles -f src/omi.d.ts dist",
+    "copy-typescript-definition": "copyfiles -f src/omis.d.ts dist",
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "start": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",
     "transpile": "npm-run-all transpile:main transpile:esm",
-    "optimize": "uglifyjs dist/omi.dev.js -c conditionals=false,sequences=false,loops=false,join_vars=false,collapse_vars=false --pure-funcs=Object.defineProperty --mangle-props --mangle-regex=\"/^(_|nextBase|prev[CPS]|_parentC)/\" --name-cache config/properties.json -b width=120,quote_style=3 -o dist/omi.js -p relative --in-source-map dist/omi.dev.js.map --source-map dist/omi.js.map",
-    "minify": "uglifyjs dist/omi.js -c collapse_vars,evaluate,screw_ie8,unsafe,loops=false,keep_fargs=false,pure_getters,unused,dead_code -m -o dist/omi.min.js -p relative --in-source-map dist/omi.js.map --source-map dist/omi.min.js.map",
-    "strip:main": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omi.dev.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omi.dev.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omi.dev.js",
-    "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omi.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omi.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omi.esm.js",
+    "optimize": "uglifyjs dist/omis.dev.js -c conditionals=false,sequences=false,loops=false,join_vars=false,collapse_vars=false --pure-funcs=Object.defineProperty --mangle-props --mangle-regex=\"/^(_|nextBase|prev[CPS]|_parentC)/\" --name-cache config/properties.json -b width=120,quote_style=3 -o dist/omis.js -p relative --in-source-map dist/omis.dev.js.map --source-map dist/omis.js.map",
+    "minify": "uglifyjs dist/omis.js -c collapse_vars,evaluate,screw_ie8,unsafe,loops=false,keep_fargs=false,pure_getters,unused,dead_code -m -o dist/omis.min.js -p relative --in-source-map dist/omis.js.map --source-map dist/omis.min.js.map",
+    "strip:main": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omis.dev.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omis.dev.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omis.dev.js",
+    "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omis.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omis.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omis.esm.js",
     "strip": "npm-run-all strip:main strip:esm",
-    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omi.min.js",
+    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omis.min.js",
     "test": "karma start test/karma.conf.js --single-run",
     "fix": "eslint src --fix",
     "fix-e": "eslint examples --fix",
@@ -32,10 +32,10 @@
   "eslintConfig": {
     "extends": "./config/eslint-config.js"
   },
-  "typings": "./dist/omi.d.ts",
+  "typings": "./dist/omis.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tencent/omi.git"
+    "url": "https://github.com/Tencent/omis.git"
   },
   "files": [
     "src",
@@ -43,7 +43,7 @@
     "typings.json"
   ],
   "keywords": [
-    "omi",
+    "omis",
     "webcomponents",
     "jsx",
     "proxy",
@@ -58,9 +58,9 @@
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tencent/omi/issues"
+    "url": "https://github.com/Tencent/omis/issues"
   },
-  "homepage": "https://github.com/Tencent/omi",
+  "homepage": "https://github.com/Tencent/omis",
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^5.0.0",
@@ -107,9 +107,9 @@
     "mobx": "^4.5.1",
     "mocha": "^5.0.4",
     "npm-run-all": "^4.0.0",
-    "omi-mobx": "^0.2.2",
-    "omi-tap": "^2.0.2",
-    "omi-transform": "^2.0.2",
+    "omis-mobx": "^0.2.2",
+    "omis-tap": "^2.0.2",
+    "omis-transform": "^2.0.2",
     "prettier": "^1.14.3",
     "remarkable": "^1.7.1",
     "rimraf": "^2.5.3",
@@ -138,7 +138,7 @@
   },
   "bundlesize": [
     {
-      "path": "./dist/omi.min.js",
+      "path": "./dist/omis.min.js",
       "threshold": "4Kb"
     }
   ],

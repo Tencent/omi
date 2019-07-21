@@ -552,7 +552,7 @@
 
 			// update if it's already a Text node:
 			if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
-				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omi/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omis/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
 				if (dom.nodeValue != vnode) {
 					dom.nodeValue = vnode;
 				}
@@ -1017,7 +1017,7 @@
 		} else if (!skip) {
 			// Ensure that pending componentDidMount() hooks of child components
 			// are called before the componentDidUpdate() hook in the parent.
-			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omi/issues/750
+			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omis/issues/750
 			// flushMounts();
 
 			if (component.componentDidUpdate) {
@@ -1223,7 +1223,7 @@
 	}
 
 	if (typeof window !== 'undefined') {
-		window.Omi = {
+		window.Omis = {
 			h: h,
 			createElement: h,
 			cloneElement: cloneElement,
@@ -1236,7 +1236,7 @@
 	}
 
 	var TreeNode = function TreeNode(props, store) {
-		return Omi.h(
+		return Omis.h(
 			'ul',
 			null,
 			createNode$1(store.data, '#', store)
@@ -1247,16 +1247,16 @@
 
 		var children = node.children;
 		var canOpen = children && children.length;
-		return Omi.h(
+		return Omis.h(
 			'li',
 			null,
-			Omi.h(
+			Omis.h(
 				'h4',
 				{ ondblclick: function ondblclick(e) {
 						return store.extend(path);
 					} },
 				node.name,
-				canOpen && Omi.h(
+				canOpen && Omis.h(
 					'span',
 					{ onclick: function onclick(e) {
 							return store.open(path);
@@ -1266,13 +1266,13 @@
 					']'
 				)
 			),
-			canOpen && node.open && Omi.h(
+			canOpen && node.open && Omis.h(
 				'ul',
 				null,
 				children.map(function (child, index) {
 					return createNode$1(child, path + '-' + index, store);
 				}),
-				Omi.h(
+				Omis.h(
 					'li',
 					{ 'class': 'add', onclick: function onclick(e) {
 							return store.addChild(path);
@@ -1333,7 +1333,7 @@
 
 	TreeNode.css = '\nh4{\n\tcursor:pointer;\n}\n\n.add{\n\tcursor:pointer;\n}\n';
 
-	render(Omi.h(TreeNode, null), 'body');
+	render(Omis.h(TreeNode, null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map
