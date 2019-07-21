@@ -18,7 +18,7 @@ const Counter = (props, store) => {
   return (
     <div>
       <button onClick={store.sub}>-</button>
-      <text>{store.count}</text>
+      <span>{store.count}</span>
       <button onClick={store.add}>+</button>
     </div>
   )
@@ -50,7 +50,7 @@ const Counter = (props, store) => {
   return (
     h('div', {}, [
       h('button', { onClick: store.sub }, '-'),
-      h('text', {}, store.count),
+      h('span', {}, store.count),
       h('button', { onClick: store.add }, '+')
     ])
   )

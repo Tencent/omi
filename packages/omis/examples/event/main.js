@@ -5,7 +5,7 @@ const Counter = (props, store) => {
   return (
     <div>
       <button onClick={store.sub}>-</button>
-      <text>{store.count}</text>
+      <span>{store.count}</span>
       <button onClick={store.add}>+</button>
     </div>
   )

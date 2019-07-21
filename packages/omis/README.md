@@ -9,6 +9,43 @@
 * Stores of each component can rely on global stores and be centralized
 * Each component store has an update method that executes the method to customize local refresh components
 
+## Usage
+
+```jsx
+import { render } from 'omis'
+
+const Counter = (props, store) => {
+  return (
+    <div>
+      <button onClick={store.sub}>-</button>
+      <span>{store.count}</span>
+      <button onClick={store.add}>+</button>
+    </div>
+  )
+}
+
+Counter.store = _ => {
+  return {
+    count: 1,
+    add(e) {
+      this.count++
+      this.update()
+    },
+    sub() {
+      this.count--
+      this.update()
+    }
+  }
+}
+
+Counter.css = `
+span{
+	color: red;
+}
+`
+
+render(<Counter />, 'body')
+```
 
 ## Develop
 
