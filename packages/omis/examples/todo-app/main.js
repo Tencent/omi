@@ -6,11 +6,11 @@ const TodoList = props => (
 	))
 )
 
-	// <ul>
-	// 	{props.items.map(
-	// 		item => <li key={item.id}>{item.text}</li>
-	// 	)}
-	// </ul>
+// <ul>
+// 	{props.items.map(
+// 		item => <li key={item.id}>{item.text}</li>
+// 	)}
+// </ul>
 
 const TodoApp = (props, store) => (
 	<div>
@@ -23,27 +23,26 @@ const TodoApp = (props, store) => (
 	</div>
 )
 
-TodoApp.store = _ => (
-	{
-		items: [],
-		text: '',
-		handleChange(e) {
-			this.text = e.target.value;
-		},
+TodoApp.store = _ => ({
+	items: [],
+	text: '',
+	handleChange(e) {
+		this.text = e.target.value
+	},
 
-		handleSubmit(e) {
-			e.preventDefault();
-			if (!this.text.trim().length) {
-				return;
-			}
-			this.items.push({
-				text: this.text,
-				id: Date.now()
-			});
-			this.text = "";
-			this.update();
+	handleSubmit(e) {
+		e.preventDefault()
+		if (!this.text.trim().length) {
+			return
 		}
+		this.items.push({
+			text: this.text,
+			id: Date.now()
+		})
+		this.text = ""
+		this.update()
 	}
+}
 )
 
 render(<TodoApp></TodoApp>, 'body')

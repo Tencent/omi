@@ -28,7 +28,7 @@ export function createComponent(Ctor, props, context) {
 		inst.constructor = Ctor;
 		inst.render = doRender;
 		if(Ctor.store){
-			inst.store = Ctor.store()
+			inst.store = Ctor.store(inst)
 			inst.store.update = inst.forceUpdate.bind(inst)
 		}
 	}

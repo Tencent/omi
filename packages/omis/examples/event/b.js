@@ -1161,29 +1161,38 @@
 	    add: function add(e) {
 	      this.count++;
 	      this.update();
+	      _.props.onChange(this.count);
 	    },
 	    sub: function sub() {
 	      this.count--;
 	      this.update();
+	      _.props.onChange(this.count);
 	    }
 	  };
 	};
 
-	render(Omi.h(Counter, null), 'body');
+	var App = function App(props, store) {
+	  return Omi.h(
+	    'div',
+	    null,
+	    Omi.h(
+	      'div',
+	      null,
+	      'Hello Omis'
+	    ),
+	    Omi.h(Counter, { onChange: store.changeHandle })
+	  );
+	};
 
-	//or
-	// const App = (props, store) => {
-	//   return <div>
-	// 		<div>Hello Omis</div>
-	//     <Counter></Counter>
-	//   </div>
-	// }
+	App.store = function (_) {
+	  return {
+	    changeHandle: function changeHandle(count) {
+	      console.log(count);
+	    }
+	  };
+	};
 
-	// App.store = _ => {
-
-	// }
-
-	// render(<App />, 'body')
+	render(Omi.h(App, null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map

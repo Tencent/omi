@@ -17,26 +17,31 @@ Counter.store = _ => {
     add(e) {
       this.count++
       this.update()
+      _.props.onChange(this.count)
     },
     sub() {
       this.count--
       this.update()
+      _.props.onChange(this.count)
     }
   }
 }
 
-render(<Counter />, 'body')
+const App = (props, store) => {
+  return (
+    <div>
+      <div>Hello Omis</div>
+      <Counter onChange={store.changeHandle}></Counter>
+    </div>
+  )
+}
 
-//or
-// const App = (props, store) => {
-//   return <div>
-// 		<div>Hello Omis</div>
-//     <Counter></Counter>
-//   </div>
-// }
+App.store = _ => {
+  return {
+    changeHandle(count) {
+      console.log(count)
+    }
+  }
+}
 
-// App.store = _ => {
-
-// }
-
-// render(<App />, 'body')
+render(<App />, 'body')

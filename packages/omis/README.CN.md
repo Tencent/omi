@@ -24,3 +24,7 @@ npm run build
 ## Todo
 
 * Web Components Supporting
+
+## License
+
+MIT 
