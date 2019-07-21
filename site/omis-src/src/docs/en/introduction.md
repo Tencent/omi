@@ -2,6 +2,13 @@
 
 Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Component Framework.
 
+* Functional style but non-functional programming
+* Structure-Style-Behavior Separation
+* Hyperscript is visually more friendly
+* Each component can have a store and be de-centralized
+* Stores of each component can rely on global stores and be centralized
+* Each component store has an update method that executes the method to customize local refresh components
+
 ## Add Omi in One Minute
 
 ```jsx

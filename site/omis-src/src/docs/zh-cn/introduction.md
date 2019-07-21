@@ -1,114 +1,60 @@
-<!-- <p align="center"><img src="https://github.com/Tencent/omi/raw/master/assets/omi-logo2019.svg?sanitize=true" alt="omi" width="300"/></p>
-<h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
-<p align="center"><b>基于 Web Components 并支持 IE8+(omio) 和 小程序(omip)</b></p>
- -->
+## Omis
 
-## Omi 是什么？
+Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的组件框架。
 
-Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
+* 函数式风格但非函数式编程 
+* 结构-样式-行为分离
+* hyperscript 视觉上更加友好
+* 每个组件可以带有一个 store，去中心化
+* 每个组件的 store 可以依赖全局 store，中心化
+* 每个组件 store 拥有 update 方法，执行该方法自定局部刷新组件
 
-
-<em> Omi looks really neat!<br> </em>
-　　　　— [Jason Miller (Creator of Preact)](https://twitter.com/_developit/)
-
-<em> I really like the trend towards "frameworks" that:<br><br>"export default class WeElement extends HTMLElement {..}"<br> <br>This one, Omi, is from Tencent.</em>       
-　　　　— [Dion Almaer](https://twitter.com/dalmaer/)
-
-## 一个 HTML 完全上手
-
-下面这个页面不需要任何构建工具就可以执行:
-
-```html
-<script src="https://unpkg.com/omi"></script>
-<script>
-  const { define, WeElement, html, render } = Omi
-
-  define('my-counter', class extends WeElement {
-    install() {
-      this.data.count = 1
-      this.sub = this.sub.bind(this)
-      this.add = this.add.bind(this)
-    }
-
-    sub() {
-      this.data.count--
-      this.update()
-    }
-
-    add() {
-      this.data.count++
-      this.update()
-    }
-
-    render() {
-      return html`
-        <div>
-          <button onClick=${this.sub}>-</button>
-          <span>${this.data.count}</span>
-          <button onClick=${this.add}>+</button>
-        </div>
-        `}
-  })
-
-  render(html`<my-counter />`, 'body')
-</script>
-```
-
-通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `my-counter` 标签：
+## 一分钟入门
 
 ```jsx
-<body>
-  <my-counter></my-counter>
-</body>
+import { render } from 'omi'
+
+const Counter = (props, store) => {
+  return (
+    <div>
+      <button onClick={store.sub}>-</button>
+      <text>{store.count}</text>
+      <button onClick={store.add}>+</button>
+    </div>
+  )
+}
+
+Counter.store = _ => {
+  return {
+    count: 1,
+    add(e) {
+      this.count++
+      this.update()
+    },
+    sub() {
+      this.count--
+      this.update()
+    }
+  }
+}
+
+render(<Counter />, 'body')
 ```
 
-* [点击这里看执行结果](https://tencent.github.io/omi/assets/omi.html)
+也可以直接使用 hyperscript，无需任何编译直接运行:
 
-你可以使用 JSX 和 ES2015+ 来书写自定义元素:
+```js
+import { render, h } from 'omi'
 
-
-```jsx {8-11}
-import { render, WeElement, define } from 'omi'
-
-define('my-counter', class extends WeElement {
-  data = {
-    count: 1
-  }
-
-  static css = `
-    span{
-        color: red;
-    }`
-
-  sub = () => {
-    this.data.count--
-    this.update()
-  }
-
-  add = () => {
-    this.data.count++
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
-})
-
-render(<my-counter />, 'body')
+const Counter = (props, store) => {
+  return (
+    h('div', {}, [
+      h('button', { onClick: store.sub }, '-'),
+      h('text', {}, store.count),
+      h('button', { onClick: store.add }, '+')
+    ])
+  )
+}
 ```
 
-看上面高亮的部分，可以给组件加样式，比如上面的 span 的作用域仅仅在组件内部，不会污染别的组件。到现在你已经成功入门 Omi 了！你学会了:
-
-* 为组件添加**结构**，如上面使用 JSX 书写结构
-* 为组件添加**行为**，如上面的 `onClick` 绑定事件
-* 为组件添加**样式**，如上面的 `static css`
-* 渲染组件到 body，当然也可以把组件渲染到任意其他组件
-
-恭喜你！
+恭喜你已经入门！
