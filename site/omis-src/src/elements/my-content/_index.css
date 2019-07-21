@@ -1,0 +1,30 @@
+.content{
+    margin-top: 60px;
+    margin-bottom: 30px;
+    margin-left: 260px;
+    padding: 1px 10px 10px 20px;
+    color: #24292e;
+    /* overflow: hidden; */
+    max-width: 900px;
+}
+
+h3{
+    color:#444444;
+}
+
+pre{
+    border: 1px solid #eee;
+    width: 100%;
+}
+li{
+    text-indent: 20px;
+    list-style:disc inside ;
+}
+
+@media only screen and (max-width: 768px) {
+    .content{
+        margin-left: 0;
+        border-left: none;
+        padding: 1px 10px 10px 10px;
+    }
+}

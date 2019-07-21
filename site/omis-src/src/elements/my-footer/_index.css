@@ -1,0 +1,14 @@
+.ft{
+  position: relative;
+  margin-top: 20px
+}
+
+.pre{
+  position: absolute;
+  left:15px;
+}
+
+.next{
+  position: absolute;
+  right: 15px;
+}
