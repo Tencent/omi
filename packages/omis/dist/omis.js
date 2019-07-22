@@ -126,7 +126,7 @@
             if (value) {
                 if (!old) node.addEventListener(name, eventProxy, useCapture);
             } else node.removeEventListener(name, eventProxy, useCapture);
-            (node.__l || (node.__l = {}))[name] = value ? value.bind(store) : value;
+            (node.__l || (node.__l = {}))[name] = value && store ? value.bind(store) : value;
         } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
             try {
                 node[name] = null == value ? '' : value;
@@ -457,6 +457,9 @@
         forceUpdate: function(callback) {
             if (callback) this.__h.push(callback);
             renderComponent(this, 2);
+        },
+        update: function(callback) {
+            this.forceUpdate(callback);
         },
         render: function() {}
     });

@@ -1,5 +1,5 @@
 /**
- * omis v0.2.0  http://omijs.org
+ * omis v0.3.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -431,7 +431,7 @@
 			} else {
 				node.removeEventListener(name, eventProxy, useCapture);
 			}
-			(node._listeners || (node._listeners = {}))[name] = value ? value.bind(store) : value;
+			(node._listeners || (node._listeners = {}))[name] = value && store ? value.bind(store) : value;
 		} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
 			// Attempt to set a DOM property to the given value.
 			// IE & FF throw for certain property-value combinations.
@@ -1179,7 +1179,9 @@
 			if (callback) this._renderCallbacks.push(callback);
 			renderComponent(this, 2);
 		},
-
+		update: function update(callback) {
+			this.forceUpdate(callback);
+		},
 
 		/**
 	  * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.

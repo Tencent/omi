@@ -1,6 +1,6 @@
 {
   "name": "omis",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Functional Component with store, scoped css and easy hyperscript.",
   "main": "dist/omis.js",
   "jsnext:main": "dist/omis.esm.js",
@@ -35,7 +35,7 @@
   "typings": "./dist/omis.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tencent/omis.git"
+    "url": "https://github.com/Tencent/omi.git"
   },
   "files": [
     "src",
@@ -44,6 +44,7 @@
   ],
   "keywords": [
     "omis",
+    "omi",
     "webcomponents",
     "jsx",
     "proxy",
@@ -53,14 +54,14 @@
     "vdom",
     "components",
     "virtual",
-    "dom"
+    "hyperscript"
   ],
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tencent/omis/issues"
+    "url": "https://github.com/Tencent/omi/issues"
   },
-  "homepage": "https://github.com/Tencent/omis",
+  "homepage": "https://github.com/Tencent/omi",
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^5.0.0",
@@ -107,9 +108,6 @@
     "mobx": "^4.5.1",
     "mocha": "^5.0.4",
     "npm-run-all": "^4.0.0",
-    "omis-mobx": "^0.2.2",
-    "omis-tap": "^2.0.2",
-    "omis-transform": "^2.0.2",
     "prettier": "^1.14.3",
     "remarkable": "^1.7.1",
     "rimraf": "^2.5.3",
@@ -139,7 +137,7 @@
   "bundlesize": [
     {
       "path": "./dist/omis.min.js",
-      "threshold": "4Kb"
+      "threshold": "3Kb"
     }
   ],
   "prettier": {
