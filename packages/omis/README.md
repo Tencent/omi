@@ -1,3 +1,5 @@
+English | [简体中文](./README.CN.md) 
+
 # Omis
 
 > Functional Component + Store + Scoped Style 
