@@ -2,7 +2,7 @@
 
 # Omis
 
-> Functional Component + Store + Scoped Style 
+> Functional Component + Store + Scoped Style in 3KB
 
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
