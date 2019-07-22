@@ -9,6 +9,8 @@
 * Stores of each component can rely on global stores and be centralized
 * Each component store has an update method that executes the method to customize local refresh components
 
+[→ Omis Codepen Demos](https://codepen.io/collection/XjLaRo/)
+
 ## Usage
 
 ```jsx
