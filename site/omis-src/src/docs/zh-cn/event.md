@@ -1,39 +1,46 @@
 ## Event
 
 ```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    alert('Hello Omi!')
-  }
+const Comp = (props, store) => {
+  return (
+    <div onClick={store.clickHandle}></div>
+  )
+}
 
-  render() {
-    return (
-      <h1 onClick={this.onClick}>Hello, world!</h1>
-    )
-  }
+Comp.store = _ => ({
+    clickHandle(){
+      console.log('clicked')
+    }
 })
 ```
 
 ### Custom Event
 
 ```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    this.fire('myevent', { name: 'abc' })
-  }
+const Comp = (props, store) => {
+  return (
+    <div onClick={store.clickHandle}></div>
+  )
+}
 
-  render(props) {
-    return (
-      <h1 onClick={this.onClick}>Hello, world!</h1>
-    )
+Comp.store = _ => ({
+    clickHandle(){
+      //触发自定义事件
+      _.props.onMyEvent()
+    }
+})
+
+const App = (props, store) => {
+  return (
+    <div>
+      <Comp onMyEvent={store.myEventHandle} />
+    </div>
+  )
+}
+
+App.store = ({
+  myEventHandle(){
+
   }
 })
 ```
-
-然后在你的自定义元素上绑定事件：
-
-```jsx
-<my-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-element>
-```
-
-通过 `this.fire` 触发自定义事件，fire 第一个参数是事件名称，第二个参数是传递的数据。通过 `evt.detail` 可以获取到传递的数据。

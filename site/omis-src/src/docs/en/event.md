@@ -1,39 +1,46 @@
 ## Event
 
 ```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    alert('Hello Omi!')
-  }
+const Comp = (props, store) => {
+  return (
+    <div onClick={store.clickHandle}></div>
+  )
+}
 
-  render() {
-    return (
-      <h1 onClick={this.onClick}>Hello, world!</h1>
-    )
-  }
+Comp.store = _ => ({
+    clickHandle(){
+      console.log('clicked')
+    }
 })
 ```
 
 ### Custom Event
 
 ```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    this.fire('myevent', { name: 'abc' })
-  }
+const Comp = (props, store) => {
+  return (
+    <div onClick={store.clickHandle}></div>
+  )
+}
 
-  render(props) {
-    return (
-      <h1 onClick={this.onClick}>Hello, world!</h1>
-    )
+Comp.store = _ => ({
+    clickHandle(){
+      //fire Custom Event
+      _.props.onMyEvent()
+    }
+})
+
+const App = (props, store) => {
+  return (
+    <div>
+      <Comp onMyEvent={store.myEventHandle} />
+    </div>
+  )
+}
+
+App.store = ({
+  myEventHandle(){
+
   }
 })
 ```
-
-Then bind events on your custom elements:
-
-```jsx
-<my-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-element>
-```
-
-Fire triggers a custom event by `this.fire`. The first parameter of fire is the name of the event, and the second parameter is the data passed. The transmitted data can be obtained by `evt.detail'.

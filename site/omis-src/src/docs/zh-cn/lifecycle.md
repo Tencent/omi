@@ -14,30 +14,25 @@
 举个例子:
 
 ```js
-import { render, WeElement, define } from 'omi'
+const Timer = (props, store) => <div>Seconds: {store.seconds}</div>
 
-define('my-timer', class extends WeElement {
-  data = {
-    seconds: 0
-  }
+Timer.store = _ => ({
+  seconds: 0,
 
   tick() {
-    this.data.seconds++
+    this.seconds++
     this.update()
-  }
+  },
 
   install() {
     this.interval = setInterval(() => this.tick(), 1000)
-  }
+  },
 
   uninstall() {
     clearInterval(this.interval)
   }
 
-  render() {
-    return <div>Seconds: {this.data.seconds}</div>
-  }
 })
 
-render(<my-timer />, 'body')
+render(<Timer />, 'body')
 ```
