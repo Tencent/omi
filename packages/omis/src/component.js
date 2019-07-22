@@ -77,7 +77,9 @@ extend(Component.prototype, {
 		renderComponent(this, FORCE_RENDER);
 	},
 
-
+	update(callback){
+		this.forceUpdate(callback)
+	},
 	/**
 	 * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
 	 * Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).

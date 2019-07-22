@@ -1,6 +1,5 @@
 import { render } from '../../src/omis'
 
-//逻辑store外置，UI只负责渲染
 const Counter = (props, store) => {
   return (
     <div>
@@ -30,18 +29,23 @@ Counter.store = _ => {
 const App = (props, store) => {
   return (
     <div>
-      <div>Hello Omis</div>
+      <div>Count from child event: {store.count}</div>
       <Counter onChange={store.changeHandle}></Counter>
     </div>
   )
 }
 
 App.store = _ => {
-  return {
+  const store = {
+    count: null,
     changeHandle(count) {
-      console.log(count)
+      this.count = count
+      this.update()
     }
   }
+
+  store.changeHandle = store.changeHandle.bind(store)
+  return store
 }
 
 render(<App />, 'body')

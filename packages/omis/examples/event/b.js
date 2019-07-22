@@ -193,11 +193,13 @@
 		p.nodeName = nodeName;
 		p.children = children;
 		p.attributes = attributes == null ? {} : attributes;
-		if (options.runTimeComponent.constructor.css) {
-			p.attributes[getCtorName(options.runTimeComponent.constructor)] = '';
-		}
-		if (options.runTimeComponent.props && options.runTimeComponent.props.css) {
-			p.attributes['_ds' + options.runTimeComponent.elementId] = '';
+		if (options.runTimeComponent) {
+			if (options.runTimeComponent.constructor.css) {
+				p.attributes[getCtorName(options.runTimeComponent.constructor)] = '';
+			}
+			if (options.runTimeComponent.props && options.runTimeComponent.props.css) {
+				p.attributes['_ds' + options.runTimeComponent.elementId] = '';
+			}
 		}
 
 		p.key = p.attributes.key;
@@ -552,7 +554,7 @@
 
 			// update if it's already a Text node:
 			if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
-				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/omis/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
 				if (dom.nodeValue != vnode) {
 					dom.nodeValue = vnode;
 				}
@@ -1017,7 +1019,7 @@
 		} else if (!skip) {
 			// Ensure that pending componentDidMount() hooks of child components
 			// are called before the componentDidUpdate() hook in the parent.
-			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/omis/issues/750
+			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
 			// flushMounts();
 
 			if (component.componentDidUpdate) {
@@ -1182,7 +1184,9 @@
 			if (callback) this._renderCallbacks.push(callback);
 			renderComponent(this, FORCE_RENDER);
 		},
-
+		update: function update(callback) {
+			this.forceUpdate(callback);
+		},
 
 		/**
 	  * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
@@ -1235,7 +1239,6 @@
 		};
 	}
 
-	//逻辑store外置，UI只负责渲染
 	var Counter = function Counter(props, store) {
 	  return Omis.h(
 	    'div',
@@ -1246,7 +1249,7 @@
 	      '-'
 	    ),
 	    Omis.h(
-	      'text',
+	      'span',
 	      null,
 	      store.count
 	    ),
@@ -1281,18 +1284,24 @@
 	    Omis.h(
 	      'div',
 	      null,
-	      'Hello Omis'
+	      'Count from child event: ',
+	      store.count
 	    ),
 	    Omis.h(Counter, { onChange: store.changeHandle })
 	  );
 	};
 
 	App.store = function (_) {
-	  return {
+	  var store = {
+	    count: null,
 	    changeHandle: function changeHandle(count) {
-	      console.log(count);
+	      this.count = count;
+	      this.update();
 	    }
 	  };
+
+	  store.changeHandle = store.changeHandle.bind(store);
+	  return store;
 	};
 
 	render(Omis.h(App, null), 'body');
