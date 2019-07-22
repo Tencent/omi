@@ -82,6 +82,12 @@ npm start example-name
 npm run build
 ```
 
+### Testing
+
+``` bash
+npm run test
+```
+
 ### Todo
 
 * Web Components Supporting
