@@ -34,7 +34,7 @@ export function setComponentProps(component, props, renderMode, context, mountAl
 			// 	component.componentWillReceiveProps(props, context);
 			// }
 			if (component.store.receiveProps) {
-				component.store.receiveProps(props, context)
+				component.__needUpdate_ = component.store.receiveProps(props, context)
 			}
 		}
 	}
@@ -99,19 +99,17 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		component.props = previousProps;
 		component.state = previousState;
 		component.context = previousContext;
-		if (renderMode!==FORCE_RENDER
-			&& component.shouldComponentUpdate
-			&& component.shouldComponentUpdate(props, state, context) === false) {
-			skip = true;
-		}
-		else {
-			// if (component.componentWillUpdate) {
-			// 	component.componentWillUpdate(props, state, context);
-			// }
-			if(component.store.beforeUpdate){
+		
+		if (component.__needUpdate_ !== false) {
+			skip = false
+			if (component.store.beforeUpdate) {
 				component.store.beforeUpdate(props, state, context)
 			}
+		} else {
+			skip = true
 		}
+		delete component.__needUpdate_
+    
 		component.props = props;
 		component.state = state;
 		component.context = context;

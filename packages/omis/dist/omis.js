@@ -146,7 +146,7 @@
             if (c.constructor.css) addStyleToHead(c.constructor.css, getCtorName(c.constructor));
             if (c.props.css) addStyleToHead(c.props.css, '_ds' + c.elementId);
             if (options.afterMount) options.afterMount(c);
-            if (c.componentDidMount) c.componentDidMount();
+            if (c.store.installed) c.store.installed();
         }
     }
     function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
@@ -288,8 +288,8 @@
             delete props.ref;
             delete props.key;
             if (void 0 === component.constructor.getDerivedStateFromProps) if (!component.base || mountAll) {
-                if (component.componentWillMount) component.componentWillMount();
-            } else if (component.componentWillReceiveProps) component.componentWillReceiveProps(props, context);
+                if (component.store.install) component.store.install();
+            } else if (component.store.receiveProps) component.R = component.store.receiveProps(props, context);
             if (context && context !== component.context) {
                 if (!component.__c) component.__c = component.context;
                 component.context = context;
@@ -312,7 +312,11 @@
                 component.props = previousProps;
                 component.state = previousState;
                 component.context = previousContext;
-                if (2 !== renderMode && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, state, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, state, context);
+                if (!1 !== component.R) {
+                    skip = !1;
+                    if (component.store.beforeUpdate) component.store.beforeUpdate(props, state, context);
+                } else skip = !0;
+                delete component.R;
                 component.props = props;
                 component.state = state;
                 component.context = context;
@@ -321,6 +325,7 @@
             component.__d = !1;
             if (!skip) {
                 options.runTimeComponent = component;
+                if (component.store.beforeRender) component.store.beforeRender();
                 rendered = component.render(props, state, context);
                 options.runTimeComponent = null;
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
@@ -367,7 +372,7 @@
                 }
             }
             if (!isUpdate || mountAll) mounts.push(component); else if (!skip) {
-                if (component.componentDidUpdate) component.componentDidUpdate(previousProps, previousState, snapshot);
+                if (component.store.updated) component.store.updated(previousProps, previousState, snapshot);
                 if (options.afterUpdate) options.afterUpdate(component);
             }
             while (component.__h.length) component.__h.pop().call(component);
@@ -403,7 +408,7 @@
         if (options.beforeUnmount) options.beforeUnmount(component);
         var base = component.base;
         component.__x = !0;
-        if (component.componentWillUnmount) component.componentWillUnmount();
+        if (component.store.uninstall) component.store.uninstall();
         component.base = null;
         var inner = component._component;
         if (inner) unmountComponent(inner); else if (base) {
@@ -419,6 +424,7 @@
         this.__d = !0;
         this.elementId = id++;
         this.context = context;
+        this.store = {};
         this.props = props;
         this.state = this.state || {};
         this.__h = [];

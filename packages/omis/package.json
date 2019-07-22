@@ -1,6 +1,6 @@
 {
   "name": "omis",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Functional Component with store, scoped css and easy hyperscript.",
   "main": "dist/omis.js",
   "jsnext:main": "dist/omis.esm.js",
