@@ -11,7 +11,7 @@ Server-side rendering (SSR) also has drawbacks, such as increasing server-side o
 
 ```bash
 $ npm i omi-cli -g      # install cli
-$ omi init-s my-app     # init project
+$ omi init-ssr my-app     # init project
 $ cd my-app           
 $ npm start             # develop
 $ npm run build         # release

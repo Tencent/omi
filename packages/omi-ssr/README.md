@@ -6,7 +6,7 @@ Omi server side rendering
 
 ```bash
 $ npm i omi-cli -g      # install cli
-$ omi init-s my-app     # init project
+$ omi init-ssr my-app     # init project
 $ cd my-app           
 $ npm start             # develop
 $ npm run build         # release

@@ -11,7 +11,7 @@
 
 ```bash
 $ npm i omi-cli -g      # 全局安装 cli
-$ omi init-s my-app     # 初始化项目 
+$ omi init-ssr my-app     # 初始化项目 
 $ cd my-app           
 $ npm start             # 开发
 $ npm run build         # 发布
