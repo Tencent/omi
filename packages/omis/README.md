@@ -20,7 +20,7 @@ npm i omis
 ```
 
 ```jsx
-import { render } from 'omis'
+import { render, h } from 'omis'
 
 const Counter = (props, store) => {
   return (

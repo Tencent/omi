@@ -1,6 +1,6 @@
 ## Omis
 
-Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的组件框架。
+Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的组件框架，只有 3KB。
 
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
@@ -9,10 +9,12 @@ Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的
 * 每个组件的 store 可以依赖全局 store，中心化
 * 每个组件 store 拥有 update 方法，执行该方法自定局部刷新组件
 
+[→ Omis 在线例子](https://codepen.io/collection/XjLaRo/)
+
 ## 一分钟入门
 
 ```jsx
-import { render } from 'omi'
+import { render, h } from 'omi'
 
 const Counter = (props, store) => {
   return (
@@ -38,14 +40,18 @@ Counter.store = _ => {
   }
 }
 
+Counter.css = `
+span{
+  color: red;
+}
+`
+
 render(<Counter />, 'body')
 ```
 
 也可以直接使用 hyperscript，无需任何编译直接运行:
 
 ```js
-import { render, h } from 'omi'
-
 const Counter = (props, store) => {
   return (
     h('div', {}, [

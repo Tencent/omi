@@ -1,6 +1,6 @@
 ## What's Omis ？
 
-Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Component Framework.
+Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Component Framework in 3KB.
 
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation
@@ -9,10 +9,12 @@ Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Comp
 * Stores of each component can rely on global stores and be centralized
 * Each component store has an update method that executes the method to customize local refresh components
 
+[→ Omis Codepen Demos](https://codepen.io/collection/XjLaRo/)
+
 ## Add Omi in One Minute
 
 ```jsx
-import { render } from 'omi'
+import { render, h } from 'omi'
 
 const Counter = (props, store) => {
   return (
@@ -38,14 +40,18 @@ Counter.store = _ => {
   }
 }
 
+Counter.css = `
+span{
+  color: red;
+}
+`
+
 render(<Counter />, 'body')
 ```
 
 You can also use hyperscript **with no build tooling**:
 
 ```js
-import { render, h } from 'omi'
-
 const Counter = (props, store) => {
   return (
     h('div', {}, [
