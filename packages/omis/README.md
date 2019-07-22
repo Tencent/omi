@@ -56,19 +56,33 @@ span{
 render(<Counter />, 'body')
 ```
 
-## Develop
+## Quick Start
+
+```bash
+$ npm i omi-cli -g     # install cli
+$ omi init-s my-app    # init project
+$ cd my-app            
+$ npm start            # develop
+$ npm run build        # release
+```
+
+> `npx omi-cli init-s my-app` 也是支持的(npm v5.2.0+).
+
+## Contribution
+
+### Develop
 
 ``` bash
 npm start example-name
 ```
 
-## Publish
+### Publish
 
 ``` bash
 npm run build
 ```
 
-## Todo
+### Todo
 
 * Web Components Supporting
 
