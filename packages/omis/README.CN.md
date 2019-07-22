@@ -9,7 +9,7 @@
 * hyperscript 视觉上更加友好
 * 每个组件可以带有一个 store，去中心化
 * 每个组件的 store 可以依赖全局 store，中心化
-* 每个组件 store 拥有 update 方法，执行该方法自定局部刷新组件
+* 每个组件 store 拥有 update 方法，执行该方法局部刷新组件
 
 [→ Omis 在线例子](https://codepen.io/collection/XjLaRo/)
 
