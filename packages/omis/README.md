@@ -66,7 +66,7 @@ $ npm start            # develop
 $ npm run build        # release
 ```
 
-> `npx omi-cli init-s my-app` 也是支持的(npm v5.2.0+).
+> `npx omi-cli init-s my-app` (npm v5.2.0+)
 
 ## Contribution
 
