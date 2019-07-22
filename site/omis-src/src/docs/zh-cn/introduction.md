@@ -29,7 +29,7 @@ const Counter = (props, store) => {
 Counter.store = _ => {
   return {
     count: 1,
-    add(e) {
+    add() {
       this.count++
       this.update()
     },
