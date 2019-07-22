@@ -15,6 +15,10 @@
 
 ## 快速入门
 
+```bash
+npm i omis
+```
+
 ```jsx
 import { render } from 'omis'
 

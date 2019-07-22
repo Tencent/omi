@@ -15,6 +15,10 @@ English | [简体中文](./README.CN.md)
 
 ## Usage
 
+```bash
+npm i omis
+```
+
 ```jsx
 import { render } from 'omis'
 
