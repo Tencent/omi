@@ -1239,6 +1239,8 @@
 		};
 	}
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 	var Counter = function Counter(props, store) {
 	  return Omis.h(
 	    'div',
@@ -1292,16 +1294,20 @@
 	};
 
 	App.store = function (_) {
-	  var store = {
-	    count: null,
-	    changeHandle: function changeHandle(count) {
-	      this.count = count;
-	      this.update();
-	    }
+	  var Store = function Store() {
+	    var _this = this;
+
+	    _classCallCheck(this, Store);
+
+	    this.count = null;
+
+	    this.changeHandle = function (count) {
+	      _this.count = count;
+	      _this.update();
+	    };
 	  };
 
-	  store.changeHandle = store.changeHandle.bind(store);
-	  return store;
+	  return new Store();
 	};
 
 	render(Omis.h(App, null), 'body');

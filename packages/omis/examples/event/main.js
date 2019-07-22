@@ -36,16 +36,15 @@ const App = (props, store) => {
 }
 
 App.store = _ => {
-  const store = {
-    count: null,
-    changeHandle(count) {
+  class Store {
+    count = null
+    changeHandle = (count) => {
       this.count = count
       this.update()
     }
   }
 
-  store.changeHandle = store.changeHandle.bind(store)
-  return store
+  return new Store
 }
 
 render(<App />, 'body')
