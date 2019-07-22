@@ -48,7 +48,7 @@ Counter.store = _ => {
 
 Counter.css = `
 span{
-	color: red;
+  color: red;
 }
 `
 
