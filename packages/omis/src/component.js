@@ -28,7 +28,7 @@ export function Component(props, context) {
 	 * @type {object}
 	 */
 	this.context = context;
-
+	this.store = {}
 	/**
 	 * @public
 	 * @type {object}

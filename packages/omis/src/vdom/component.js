@@ -26,10 +26,16 @@ export function setComponentProps(component, props, renderMode, context, mountAl
 
 	if (typeof component.constructor.getDerivedStateFromProps === 'undefined') {
 		if (!component.base || mountAll) {
-			if (component.componentWillMount) component.componentWillMount();
+			//if (component.componentWillMount) component.componentWillMount();
+			if (component.store.install) component.store.install()
 		}
-		else if (component.componentWillReceiveProps) {
-			component.componentWillReceiveProps(props, context);
+		else {
+			// if (component.componentWillReceiveProps) {
+			// 	component.componentWillReceiveProps(props, context);
+			// }
+			if (component.store.receiveProps) {
+				component.store.receiveProps(props, context)
+			}
 		}
 	}
 
@@ -98,8 +104,13 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 			&& component.shouldComponentUpdate(props, state, context) === false) {
 			skip = true;
 		}
-		else if (component.componentWillUpdate) {
-			component.componentWillUpdate(props, state, context);
+		else {
+			// if (component.componentWillUpdate) {
+			// 	component.componentWillUpdate(props, state, context);
+			// }
+			if(component.store.beforeUpdate){
+				component.store.beforeUpdate(props, state, context)
+			}
 		}
 		component.props = props;
 		component.state = state;
@@ -111,6 +122,9 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 
 	if (!skip) {
 		options.runTimeComponent = component
+		if(component.store.beforeRender){
+			component.store.beforeRender()
+		}
 		rendered = component.render(props, state, context);
 		options.runTimeComponent = null
 
@@ -199,8 +213,11 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		// Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
 		// flushMounts();
 
-		if (component.componentDidUpdate) {
-			component.componentDidUpdate(previousProps, previousState, snapshot);
+		// if (component.componentDidUpdate) {
+		// 	component.componentDidUpdate(previousProps, previousState, snapshot);
+		// }
+		if (component.store.updated) {
+			component.store.updated(previousProps, previousState, snapshot);
 		}
 		if (options.afterUpdate) options.afterUpdate(component);
 	}
@@ -274,8 +291,8 @@ export function unmountComponent(component) {
 
 	component._disable = true;
 
-	if (component.componentWillUnmount) component.componentWillUnmount();
-
+	//if (component.componentWillUnmount) component.componentWillUnmount();
+	if (component.store.uninstall) component.store.uninstall();
 	component.base = null;
 
 	// recursively tear down & recollect high-order component children:

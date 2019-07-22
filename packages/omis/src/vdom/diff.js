@@ -34,7 +34,8 @@ export function flushMounts() {
 			addStyleToHead(c.props.css, '_ds'+c.elementId)
 		}
 		if (options.afterMount) options.afterMount(c);
-		if (c.componentDidMount) c.componentDidMount();
+		//if (c.componentDidMount) c.componentDidMount();
+		if (c.store.installed) c.store.installed()
 	}
 }
 
