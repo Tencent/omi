@@ -1,10 +1,6 @@
-## JSX
+## JSX and Hyperscript
 
-JSX is the best UI expression with the least grammatical noise, the strongest expressive ability and Turing complete. The template engine is not complete, the template string is Turing complete, but the grammatical noise is too big. 
-
-```js
-JSX > JS
-```
+JSX and Hyperscript is the best UI expression with the least grammatical noise, the strongest expressive ability and Turing complete. The template engine is not complete, the template string is Turing complete, but the grammatical noise is too big. 
 
 ## Hello JSX
 
@@ -22,20 +18,22 @@ Variables or expressions, or JS statement blocks, are wrapped in single parenthe
 <h1>{user.name}</h1>
 ```
 
-Try it in Omi's render method:
+Hyperscript version:
 
-```jsx
-define('my-element', class extends WeElement {
-  render(props) {
-    return <h1>{props.name}</h1>
-  }
-})
+```js
+h('h1', {}, user.name)
 ```
 
-Using element:
+Try it in Omis:
 
 ```jsx
-<my-element name='dntzhang' />
+const Comp = props => <h1>{props.name}</h1>
+```
+
+Using Comp:
+
+```jsx
+<Comp name='omis' />
 ```
 
 You can also write expressions:
@@ -53,7 +51,7 @@ JSX can also be embedded in expressions:
 The above three elements are actually if else. If only if, you can:
 
 ```jsx
-<h1>{ user.age > 18 && <div>成年</div> }<h1>
+<h1>{ user.age > 18 && <div>Adult</div> }<h1>
 ```
 
 Powerful!
@@ -107,37 +105,45 @@ If it's a `{}'package, you need `return'. If you need an index:
 Here is a ninety-nine multiplication table:
 
 ```jsx
-import { define, render, WeElement } from 'omi'
+import { render, h } from 'omis'
 
-define('my-app', class extends WeElement {
-
-  static css = `span{
-    display: inline-block;
-    width: 68px;
-  }`
-
-  render(props) {
-    return (
+const MultiplicationTable = props =>
+  <div>
+    {props.numbers.map((a, indexA) =>
       <div>
-        {props.numbers.map((a, indexA) =>
-          <div>
-            {
-              props.numbers.map((b, indexB) => {
-                return indexA <= indexB && <span>{a}*{b}={a * b} </span>
-              })
-            }
-          </div>
-        )}
+        {
+          props.numbers.map((b, indexB) => {
+            return indexA <= indexB && <span>{a}*{b}={a * b} </span>
+          })
+        }
       </div>
-    )
-  }
-})
+    )}
+  </div>
 
-render(<my-app numbers={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />, 'body')
+
+MultiplicationTable.css = `
+span{
+  display: inline-block;
+  width: 68px;
+}
+`
+
+render(<MultiplicationTable numbers={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />, 'body')
 ```
 
 Result display:
 
 ![](https://github.com/Tencent/omi/raw/master/assets/99.jpg)
 
-[→ Online Demo](https://tencent.github.io/omi/packages/omi/examples/99/)
+[→ Online Demo](https://codepen.io/dntzhang-the-typescripter/pen/qebEOq)
+
+It can also be implemented directly with hyperscript:
+
+```js
+const MultiplicationTable = props =>
+  h('div', {}, props.numbers.map((a, indexA) =>
+    h('div', {}, props.numbers.map((b, indexB) =>
+      indexA <= indexB && h('span', {}, `${a}*${b}=${a * b}`)
+    ))
+  ))
+```

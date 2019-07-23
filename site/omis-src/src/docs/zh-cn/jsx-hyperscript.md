@@ -1,10 +1,6 @@
-## JSX
+## JSX 和 Hyperscript
 
-JSX 是目前为止开发体验最棒、语法噪音最少、表达能力最强且图灵完备的 UI 表达式，模板引擎不完备，模板字符串图灵完备但是语法噪音太大。即：
-
-```js
-JSX > JS
-```
+JSX 和 Hyperscript 是目前为止开发体验最棒、语法噪音最少、表达能力最强且图灵完备的 UI 表达式，模板引擎不完备，模板字符串图灵完备但是语法噪音太大。即：
 
 ## Hello JSX
 
@@ -22,20 +18,22 @@ const element = <h1>Hello, world!</h1>
 <h1>{user.name}</h1>
 ```
 
-在 Omi 的 render 里试试:
+Hyperscript 版本:
+
+```js
+h('h1', {}, user.name)
+```
+
+用在 Omis 里:
 
 ```jsx
-define('my-element', class extends WeElement {
-  render(props) {
-    return <h1>{props.name}</h1>
-  }
-})
+const Comp = props => <h1>{props.name}</h1>
 ```
 
 使用元素:
 
 ```jsx
-<my-element name='dntzhang' />
+<Comp name='omis' />
 ```
 
 还可以写表达式:
@@ -107,37 +105,45 @@ JSX 渲染:
 这里举一个九九乘法表:
 
 ```jsx
-import { define, render, WeElement } from 'omi'
+import { render, h } from 'omis'
 
-define('my-app', class extends WeElement {
-
-  static css = `span{
-    display: inline-block;
-    width: 68px;
-  }`
-
-  render(props) {
-    return (
+const MultiplicationTable = props =>
+  <div>
+    {props.numbers.map((a, indexA) =>
       <div>
-        {props.numbers.map((a, indexA) =>
-          <div>
-            {
-              props.numbers.map((b, indexB) => {
-                return indexA <= indexB && <span>{a}*{b}={a * b} </span>
-              })
-            }
-          </div>
-        )}
+        {
+          props.numbers.map((b, indexB) => {
+            return indexA <= indexB && <span>{a}*{b}={a * b} </span>
+          })
+        }
       </div>
-    )
-  }
-})
+    )}
+  </div>
 
-render(<my-app numbers={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />, 'body')
+
+MultiplicationTable.css = `
+span{
+  display: inline-block;
+  width: 68px;
+}
+`
+
+render(<MultiplicationTable numbers={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />, 'body')
 ```
 
 结果展示:
 
 ![](https://github.com/Tencent/omi/raw/master/assets/99.jpg)
 
-[→ 在线查看](https://tencent.github.io/omi/packages/omi/examples/99/)
+[→ 在线查看](https://codepen.io/dntzhang-the-typescripter/pen/qebEOq)
+
+也可以使用 hyperscript 直接实现：
+
+```js
+const MultiplicationTable = props =>
+  h('div', {}, props.numbers.map((a, indexA) =>
+    h('div', {}, props.numbers.map((b, indexB) =>
+      indexA <= indexB && h('span', {}, `${a}*${b}=${a * b}`)
+    ))
+  ))
+```
