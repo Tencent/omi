@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body style="background-color:#f9f7f7;">
+
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/color-picker/index.js"></script>
+  <script src="../../src/switch/index.js"></script>
+  <script src="../../src/button/index.js"></script>
+
+  <h3>Change Theme</h3>
+  <div>
+    <m-color-picker id='picker' save="0" default="ecb89a" preview="0" button='0' clear='0' width="300px">
+    </m-color-picker>
+    <br />
+    <m-switch id="mySWitch" label='Switching Dark Mode' style="color:#4e4e4e"> </m-switch>
+
+    <div id='root'>
+
+      <h3>Text Button</h3>
+
+      <m-button ripple>Default</m-button>
+      <m-button ripple dense>Dense</m-button>
+      <m-button ripple icon="favorite">ICON</m-button>
+
+      <h3>Raised Button</h3>
+
+      <m-button ripple raised>Default</m-button>
+      <m-button ripple dense raised>Dense</m-button>
+      <m-button ripple raised icon="favorite">ICON</m-button>
+
+      <h3>Unelevated Button</h3>
+
+      <m-button ripple unelevated>Default</m-button>
+      <m-button ripple dense unelevated>Dense</m-button>
+      <m-button ripple unelevated icon="favorite">ICON</m-button>
+
+      <h3>Outlined Button</h3>
+
+      <m-button ripple outlined>Default</m-button>
+      <m-button ripple dense outlined>Dense</m-button>
+      <m-button ripple outlined icon="favorite">ICON</m-button>
+
+      <h3>Shaped Button</h3>
+
+      <m-button ripple unelevated css=".mdc-button{ border-radius: 18px;}">Default</m-button>
+      <m-button ripple dense unelevated css=".mdc-button{ border-radius: 18px!important;}">Dense</m-button>
+      <m-button ripple unelevated icon="favorite" css=".mdc-button{ border-radius: 18px;}">ICON</m-button>
+
+    </div>
+
+    <script>
+      var preColor = '#ecb89a'
+      document.body.style.setProperty('--mdc-theme-primary', preColor)
+      document.body.style.setProperty('--mdc-theme-secondary', preColor)
+
+      var picker = document.querySelector('#picker')
+      picker.addEventListener('change', function (evt) {
+        preColor = evt.detail.colorObject.toRGBA().toString()
+        document.body.style.setProperty('--mdc-theme-primary', preColor)
+        document.body.style.setProperty('--mdc-theme-secondary', preColor)
+      })
+
+      var mySWitch = document.querySelector('#mySWitch')
+      mySWitch.addEventListener('change', function (evt) {
+        document.body.style.backgroundColor = evt.detail.checked ? 'black' : 'white';
+        document.body.style.color = evt.detail.checked ? 'white' : 'black';
+        document.body.style.setProperty('--mdc-theme-primary', evt.detail.checked ? '#4e4e4e' : preColor)
+        document.body.style.setProperty('--mdc-theme-secondary', evt.detail.checked ? '#4e4e4e' : preColor)
+      })
+    </script>
+
+</body>
+
+</html>
