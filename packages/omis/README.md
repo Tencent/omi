@@ -13,6 +13,7 @@ English | [简体中文](./README.CN.md)
 
 - [→ Omis Codepen Demos](https://codepen.io/collection/XjLaRo/)
 - [→ Docs](https://tencent.github.io/omi/site/omis/index.html)
+- [→ Omisu Button Codepen](https://codepen.io/dntzhang-the-typescripter/pen/eqJNyy) & [→ Omisu Button Source](https://github.com/Tencent/omi/blob/master/packages/omisu/src/button/index.tsx#L8-L31)
 
 ## Usage
 

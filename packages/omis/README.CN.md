@@ -13,6 +13,7 @@
 
 - [→ Omis 在线例子](https://codepen.io/collection/XjLaRo/)
 - [→ 文档](https://tencent.github.io/omi/site/omis/cn.html)
+- [→ Omisu 按钮例子](https://codepen.io/dntzhang-the-typescripter/pen/eqJNyy) & [→ Omisu 按钮源码](https://github.com/Tencent/omi/blob/master/packages/omisu/src/button/index.tsx#L8-L31)
 
 ## 快速入门
 
