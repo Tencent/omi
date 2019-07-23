@@ -7,7 +7,7 @@
 // Recommend install omi-snippets plugins in VSC
 // Omi-snippets: https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets
 import style from './_index.css'
-export default {
+export default class {
   static css = style + `
     button{
       background-color: #58bc58;
