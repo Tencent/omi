@@ -77,35 +77,10 @@ export function addStyle(cssText, id) {
   }
 }
 
-export function addScopedAttrStatic(vdom, attr) {
-  if (options.scopedStyle) {
-    scopeVdom(attr, vdom)
-  }
-}
-
 export function addStyleToHead(style, attr) {
 
 	if (!options.staticStyleMapping[attr]) {
 		addStyle(scoper(style, attr), attr)
 		options.staticStyleMapping[attr] = true
 	}
-}
-
-export function scopeVdom(attr, vdom) {
-  if (typeof vdom === 'object') {
-    vdom.attributes = vdom.attributes || {}
-    vdom.attributes[attr] = ''
-    vdom.css = vdom.css || {}
-    vdom.css[attr] = ''
-    vdom.children.forEach(child => scopeVdom(attr, child))
-  }
-}
-
-export function scopeHost(vdom, css) {
-  if (typeof vdom === 'object' && css) {
-    vdom.attributes = vdom.attributes || {}
-    for (let key in css) {
-      vdom.attributes[key] = ''
-    }
-  }
 }

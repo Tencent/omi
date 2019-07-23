@@ -1,4 +1,4 @@
-import { SYNC_RENDER, NO_RENDER, FORCE_RENDER, ASYNC_RENDER, ATTR_KEY } from '../constants';
+import { SYNC_RENDER, NO_RENDER, ASYNC_RENDER, ATTR_KEY } from '../constants';
 import options from '../options';
 import { extend, applyRef } from '../util';
 import { enqueueRender } from '../render-queue';

@@ -19,20 +19,13 @@ export const recyclerComponents = [];
 export function createComponent(Ctor, props, context) {
 	let inst, i = recyclerComponents.length;
 
-	if (Ctor.prototype && Ctor.prototype.render) {
-		inst = new Ctor(props, context);
-		Component.call(inst, props, context);
+	inst = new Component(props, context);
+	inst.constructor = Ctor;
+	inst.render = doRender;
+	if(Ctor.store){
+		inst.store = Ctor.store(inst)
+		inst.store.update = inst.update.bind(inst)
 	}
-	else {
-		inst = new Component(props, context);
-		inst.constructor = Ctor;
-		inst.render = doRender;
-		if(Ctor.store){
-			inst.store = Ctor.store(inst)
-			inst.store.update = inst.forceUpdate.bind(inst)
-		}
-	}
-
 
 	while (i--) {
 		if (recyclerComponents[i].constructor===Ctor) {
