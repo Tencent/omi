@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omis"], factory);
 	else if(typeof exports === 'object')
-		exports["MButton"] = factory(require("omis"));
+		exports["OButton"] = factory(require("omis"));
 	else
-		root["MButton"] = factory(root["Omis"]);
+		root["OButton"] = factory(root["Omis"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omis__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

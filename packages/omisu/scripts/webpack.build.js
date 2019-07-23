@@ -8,7 +8,7 @@ let library = name.replace(/-(\w)/g, ($, $1) => {
   return $1.toUpperCase()
 })
 
-library = 'M' + library.substr(0, 1).toUpperCase() + library.substr(1, library.length)
+library = 'O' + library.substr(0, 1).toUpperCase() + library.substr(1, library.length)
 
 const config = {
   devtool: 'source-map',
