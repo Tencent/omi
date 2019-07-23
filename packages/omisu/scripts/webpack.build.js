@@ -80,11 +80,11 @@ const config = {
     ]
   },
   externals: {
-    'omi': {
-      commonjs: "omi",
-      commonjs2: "omi",
-      amd: "omi",
-      root: "Omi"
+    'omis': {
+      commonjs: "omis",
+      commonjs2: "omis",
+      amd: "omis",
+      root: "Omis"
     }
   }
 }

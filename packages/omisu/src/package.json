@@ -1,18 +1,22 @@
 {
-  "name": "@omisu/button",
+  "name": "omisu",
   "version": "0.0.1",
-  "description": "Material Design for Omi.",
+  "description": "Omis UI.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "omi",
-    "omim",
+    "omis",
+    "omisu",
     "material",
     "material design",
     "material-design"
   ],
+  "dependencies": {
+    "omis": "latest"
+  },
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
   "bugs": {
@@ -20,5 +24,9 @@
   },
   "homepage": "https://github.com/Tencent/omi",
   "typings": "./index.d.ts",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  }
 }
