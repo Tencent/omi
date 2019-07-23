@@ -1583,26 +1583,26 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/button/index.scss");
 var class_1 = __webpack_require__(/*! ../utils/class */ "./src/utils/class.js");
 var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/@material/ripple/index.js");
 __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-var Button = function (props, store) { return omis_1.h("button", __assign({ onClick: store.clickHandle }, class_1.extractClass(props, 'mdc-button', {
-    'mdc-button--dense': props.dense,
-    'mdc-button--raised': props.raised,
-    'mdc-button--unelevated': props.unelevated,
-    'mdc-button--outlined': props.outlined
-})),
-    (props.icon) && omis_1.h("i", { class: "material-icons mdc-button__icon" }, props.icon),
-    omis_1.h("span", { class: "mdc-button__label" }, props.children)); };
-Button.store = function (_) {
-    return {
-        installed: function () {
-            if (_.props.ripple) {
-                new ripple_1.MDCRipple(_.base);
-            }
-        },
-        clickHandle: function (evt) {
-            _.props.onClick(evt);
-        }
-    };
+var Button = function (props, store) {
+    return omis_1.h("button", __assign({ onClick: store.clickHandle }, class_1.extractClass(props, 'mdc-button', {
+        'mdc-button--dense': props.dense,
+        'mdc-button--raised': props.raised,
+        'mdc-button--unelevated': props.unelevated,
+        'mdc-button--outlined': props.outlined
+    })),
+        (props.icon) && omis_1.h("i", { class: "material-icons mdc-button__icon" }, props.icon),
+        omis_1.h("span", { class: "mdc-button__label" }, props.children));
 };
+Button.store = function (_) { return ({
+    installed: function () {
+        if (_.props.ripple) {
+            new ripple_1.MDCRipple(_.base);
+        }
+    },
+    clickHandle: function (evt) {
+        _.props.onClick(evt);
+    }
+}); };
 Button.css = css;
 exports.default = Button;
 
