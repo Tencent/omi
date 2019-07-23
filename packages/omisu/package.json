@@ -1,0 +1,24 @@
+{
+  "name": "omisu",
+  "version": "0.0.0",
+  "description": "Omis UI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "omis",
+    "omi",
+    "omisu"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://tencent.github.io/omi/",
+  "author": "dntzhang",
+  "license": "MIT"
+}
