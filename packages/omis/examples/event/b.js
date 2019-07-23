@@ -492,7 +492,8 @@
 				addStyleToHead(c.props.css, '_ds' + c.elementId);
 			}
 			if (options.afterMount) options.afterMount(c);
-			if (c.componentDidMount) c.componentDidMount();
+			//if (c.componentDidMount) c.componentDidMount();
+			if (c.store.installed) c.store.installed();
 		}
 	}
 
@@ -856,9 +857,15 @@
 
 		if (typeof component.constructor.getDerivedStateFromProps === 'undefined') {
 			if (!component.base || mountAll) {
-				if (component.componentWillMount) component.componentWillMount();
-			} else if (component.componentWillReceiveProps) {
-				component.componentWillReceiveProps(props, context);
+				//if (component.componentWillMount) component.componentWillMount();
+				if (component.store.install) component.store.install();
+			} else {
+				// if (component.componentWillReceiveProps) {
+				// 	component.componentWillReceiveProps(props, context);
+				// }
+				if (component.store.receiveProps) {
+					component.__needUpdate_ = component.store.receiveProps(props, context);
+				}
 			}
 		}
 
@@ -921,11 +928,17 @@
 			component.props = previousProps;
 			component.state = previousState;
 			component.context = previousContext;
-			if (renderMode !== FORCE_RENDER && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+
+			if (component.__needUpdate_ !== false) {
+				skip = false;
+				if (component.store.beforeUpdate) {
+					component.store.beforeUpdate(props, state, context);
+				}
+			} else {
 				skip = true;
-			} else if (component.componentWillUpdate) {
-				component.componentWillUpdate(props, state, context);
 			}
+			delete component.__needUpdate_;
+
 			component.props = props;
 			component.state = state;
 			component.context = context;
@@ -936,6 +949,9 @@
 
 		if (!skip) {
 			options.runTimeComponent = component;
+			if (component.store.beforeRender) {
+				component.store.beforeRender();
+			}
 			rendered = component.render(props, state, context);
 			options.runTimeComponent = null;
 
@@ -1022,8 +1038,11 @@
 			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
 			// flushMounts();
 
-			if (component.componentDidUpdate) {
-				component.componentDidUpdate(previousProps, previousState, snapshot);
+			// if (component.componentDidUpdate) {
+			// 	component.componentDidUpdate(previousProps, previousState, snapshot);
+			// }
+			if (component.store.updated) {
+				component.store.updated(previousProps, previousState, snapshot);
 			}
 			if (options.afterUpdate) options.afterUpdate(component);
 		}
@@ -1092,8 +1111,8 @@
 
 		component._disable = true;
 
-		if (component.componentWillUnmount) component.componentWillUnmount();
-
+		//if (component.componentWillUnmount) component.componentWillUnmount();
+		if (component.store.uninstall) component.store.uninstall();
 		component.base = null;
 
 		// recursively tear down & recollect high-order component children:
@@ -1140,7 +1159,7 @@
 	  * @type {object}
 	  */
 		this.context = context;
-
+		this.store = {};
 		/**
 	  * @public
 	  * @type {object}
@@ -1239,8 +1258,6 @@
 		};
 	}
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 	var Counter = function Counter(props, store) {
 	  return Omis.h(
 	    'div',
@@ -1294,21 +1311,26 @@
 	};
 
 	App.store = function (_) {
-	  var Store = function Store() {
-	    var _this = this;
-
-	    _classCallCheck(this, Store);
-
-	    this.count = null;
-
-	    this.changeHandle = function (count) {
-	      _this.count = count;
-	      _this.update();
-	    };
+	  return {
+	    count: null,
+	    changeHandle: function changeHandle(count) {
+	      _.store.count = count;
+	      _.update();
+	    }
 	  };
-
-	  return new Store();
 	};
+
+	// App.store = _ => {
+	//   class Store {
+	//     count = null
+	//     changeHandle = (count) => {
+	//       this.count = count
+	//       this.update()
+	//     }
+	//   }
+
+	//   return new Store
+	// }
 
 	render(Omis.h(App, null), 'body');
 

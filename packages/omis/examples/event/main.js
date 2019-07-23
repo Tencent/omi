@@ -35,16 +35,25 @@ const App = (props, store) => {
   )
 }
 
-App.store = _ => {
-  class Store {
-    count = null
-    changeHandle = (count) => {
-      this.count = count
-      this.update()
-    }
-  }
 
-  return new Store
-}
+App.store = _ => ({
+  count: null,
+  changeHandle(count) {
+    _.store.count = count
+    _.update()
+  }
+})
+
+// App.store = _ => {
+//   class Store {
+//     count = null
+//     changeHandle = (count) => {
+//       this.count = count
+//       this.update()
+//     }
+//   }
+
+//   return new Store
+// }
 
 render(<App />, 'body')

@@ -38,9 +38,13 @@ const App = (props, store) => {
   )
 }
 
-App.store = ({
+App.store = _ => ({
   myEventHandle(){
+    //get this
+    const self = _.store
 
+    //update app
+    self.update()  //or _.update()
   }
 })
 ```
