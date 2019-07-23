@@ -21,7 +21,7 @@ declare namespace Omis {
 	 *
 	 * Use ClassAttributes instead
 	 */
-	type PreactHTMLAttributes = ClassAttributes<any>;
+	type OmiHTMLAttributes = ClassAttributes<any>;
 
 	interface Attributes {
 		key?: Key;
@@ -32,7 +32,7 @@ declare namespace Omis {
 		ref?: Ref<T>;
 	}
 
-	interface PreactDOMAttributes {
+	interface OmiDOMAttributes {
 		children?: ComponentChildren;
 		dangerouslySetInnerHTML?: {
 			__html: string;
@@ -441,7 +441,7 @@ declare global {
 		type GenericEventHandler = EventHandler<Event>;
 		type PointerEventHandler = EventHandler<PointerEvent>;
 
-		interface DOMAttributes extends Omis.PreactDOMAttributes {
+		interface DOMAttributes extends Omis.OmiDOMAttributes {
 			// Image Events
 			onLoad?: GenericEventHandler;
 			onError?: GenericEventHandler;
@@ -629,7 +629,7 @@ declare global {
 			onTransitionEndCapture?: TransitionEventHandler;
 		}
 
-		interface HTMLAttributes extends Omis.PreactHTMLAttributes, DOMAttributes {
+		interface HTMLAttributes extends Omis.OmiHTMLAttributes, DOMAttributes {
 			// Standard HTML Attributes
 			accept?: string;
 			acceptCharset?: string;

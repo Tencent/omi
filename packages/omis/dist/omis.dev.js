@@ -1,5 +1,5 @@
 /**
- * omis v0.4.0  http://omijs.org
+ * omis v0.5.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -34,7 +34,7 @@
 	 * @property {(component: Component) => void} [afterUpdate] Hook invoked after the DOM is updated with a component's latest render.
 	 * @property {(component: Component) => void} [beforeUnmount] Hook invoked immediately before a component is unmounted.
 	 * @property {(rerender: function) => void} [debounceRendering] Hook invoked whenever a rerender is requested. Can be used to debounce rerenders.
-	 * @property {(event: Event) => Event | void} [event] Hook invoked before any Preact event listeners. The return value (if any) replaces the native browser event given to event listeners
+	 * @property {(event: Event) => Event | void} [event] Hook invoked before any Omi event listeners. The return value (if any) replaces the native browser event given to event listeners
 	 */
 
     /** @type {Options}  */
@@ -290,7 +290,7 @@
 
     /**
 	 * Check if two nodes are equivalent.
-	 * @param {import('../dom').PreactElement} node DOM Node to compare
+	 * @param {import('../dom').OmiElement} node DOM Node to compare
 	 * @param {import('../vnode').VNode} vnode Virtual DOM node to compare
 	 * @param {boolean} [hydrating=false] If true, ignores component constructors
 	 *  when comparing.
@@ -308,7 +308,7 @@
 
     /**
 	 * Check if an Element has a given nodeName, case-insensitively.
-	 * @param {import('../dom').PreactElement} node A DOM Element to inspect the name of.
+	 * @param {import('../dom').OmiElement} node A DOM Element to inspect the name of.
 	 * @param {string} nodeName Unnormalized name to compare against.
 	 */
     function isNamedNode(node, nodeName) {
@@ -349,8 +349,8 @@
 	 */
 
     /**
-	 * Properties Preact adds to elements it creates
-	 * @typedef PreactElementExtensions
+	 * Properties Omi adds to elements it creates
+	 * @typedef OmiElementExtensions
 	 * @property {string} [normalizedNodeName] A normalized node name to use in diffing
 	 * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
 	 * @property {import('../component').Component} [_component] The component that rendered this DOM node
@@ -358,8 +358,8 @@
 	 */
 
     /**
-	 * A DOM element that has been extended with Preact properties
-	 * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
+	 * A DOM element that has been extended with Omi properties
+	 * @typedef {Element & ElementCSSInlineStyle & OmiElementExtensions} OmiElement
 	 */
 
     /**
@@ -367,10 +367,10 @@
 	 * @param {string} nodeName The DOM node to create
 	 * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
 	 *  namespace.
-	 * @returns {PreactElement} The created DOM node
+	 * @returns {OmiElement} The created DOM node
 	 */
     function createNode(nodeName, isSvg) {
-		/** @type {PreactElement} */
+		/** @type {OmiElement} */
 		var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
 		node.normalizedNodeName = nodeName;
 		return node;
@@ -389,7 +389,7 @@
 	 * Set a named attribute on the given Node, with special behavior for some names
 	 * and event handlers. If `value` is `null`, the attribute/handler will be
 	 * removed.
-	 * @param {PreactElement} node An element to mutate
+	 * @param {OmiElement} node An element to mutate
 	 * @param {string} name The name/key to set, such as an event or attribute name
 	 * @param {*} old The last value that was set for this name/node pair
 	 * @param {*} value An attribute value, such as a function to be used as an
@@ -494,14 +494,14 @@
 
     /**
 	 * Apply differences in a given vnode (and it's deep children) to a real DOM Node.
-	 * @param {import('../dom').PreactElement} dom A DOM node to mutate into the shape of a `vnode`
+	 * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
 	 * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing
 	 *  the desired DOM structure
 	 * @param {object} context The current context
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 * @param {Element} parent ?
 	 * @param {boolean} componentRoot ?
-	 * @returns {import('../dom').PreactElement} The created/mutated element
+	 * @returns {import('../dom').OmiElement} The created/mutated element
 	 * @private
 	 */
     function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
@@ -531,7 +531,7 @@
 
     /**
 	 * Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing.
-	 * @param {import('../dom').PreactElement} dom A DOM node to mutate into the shape of a `vnode`
+	 * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
 	 * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing the desired DOM structure
 	 * @param {object} context The current context
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
@@ -550,7 +550,7 @@
 
 			// update if it's already a Text node:
 			if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
-				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+				/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/Omi/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
 				if (dom.nodeValue != vnode) {
 					dom.nodeValue = vnode;
 				}
@@ -627,7 +627,7 @@
 
     /**
 	 * Apply child and attribute changes between a VNode and a DOM Node to the DOM.
-	 * @param {import('../dom').PreactElement} dom Element whose children should be compared & mutated
+	 * @param {import('../dom').OmiElement} dom Element whose children should be compared & mutated
 	 * @param {Array<import('../vnode').VNode>} vchildren Array of VNodes to compare to `dom.childNodes`
 	 * @param {object} context Implicitly descendant context object (from most
 	 *  recent `getChildContext()`)
@@ -723,7 +723,7 @@
 
     /**
 	 * Recursively recycle (or just unmount) a node and its descendants.
-	 * @param {import('../dom').PreactElement} node DOM node to start
+	 * @param {import('../dom').OmiElement} node DOM node to start
 	 *  unmount/removal from
 	 * @param {boolean} [unmountOnly=false] If `true`, only triggers unmount
 	 *  lifecycle, skips removal
@@ -762,7 +762,7 @@
 
     /**
 	 * Apply differences in attributes from a VNode to the given DOM Element.
-	 * @param {import('../dom').PreactElement} dom Element with attributes to diff `attrs` against
+	 * @param {import('../dom').OmiElement} dom Element with attributes to diff `attrs` against
 	 * @param {object} attrs The desired end-state key-value attribute pairs
 	 * @param {object} old Current/previous attributes (from previous VNode or
 	 *  element's prop cache)
@@ -804,17 +804,12 @@
 		var inst,
 		    i = recyclerComponents.length;
 
-		if (Ctor.prototype && Ctor.prototype.render) {
-			inst = new Ctor(props, context);
-			Component.call(inst, props, context);
-		} else {
-			inst = new Component(props, context);
-			inst.constructor = Ctor;
-			inst.render = doRender;
-			if (Ctor.store) {
-				inst.store = Ctor.store(inst);
-				inst.store.update = inst.forceUpdate.bind(inst);
-			}
+		inst = new Component(props, context);
+		inst.constructor = Ctor;
+		inst.render = doRender;
+		if (Ctor.store) {
+			inst.store = Ctor.store(inst);
+			inst.store.update = inst.update.bind(inst);
 		}
 
 		while (i--) {
@@ -1030,7 +1025,7 @@
 		} else if (!skip) {
 			// Ensure that pending componentDidMount() hooks of child components
 			// are called before the componentDidUpdate() hook in the parent.
-			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
+			// Note: disabled as it causes duplicate hooks, see https://github.com/developit/Omi/issues/750
 			// flushMounts();
 
 			// if (component.componentDidUpdate) {
@@ -1049,11 +1044,11 @@
 
     /**
 	 * Apply the Component referenced by a VNode to the DOM.
-	 * @param {import('../dom').PreactElement} dom The DOM node to mutate
+	 * @param {import('../dom').OmiElement} dom The DOM node to mutate
 	 * @param {import('../vnode').VNode} vnode A Component-referencing VNode
 	 * @param {object} context The current context
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
-	 * @returns {import('../dom').PreactElement} The created/mutated element
+	 * @returns {import('../dom').OmiElement} The created/mutated element
 	 * @private
 	 */
     function buildComponentFromVNode(dom, vnode, context, mountAll) {
@@ -1130,7 +1125,7 @@
 
     /**
 	 * Base Component class.
-	 * Provides `setState()` and `forceUpdate()`, which trigger rendering.
+	 * Provides `update()`, which trigger rendering.
 	 * @typedef {object} Component
 	 * @param {object} props The initial component props
 	 * @param {object} context The initial context from parent components' getChildContext
@@ -1173,34 +1168,16 @@
     extend(Component.prototype, {
 
 		/**
-	  * Update component state and schedule a re-render.
-	  * @param {object} state A dict of state properties to be shallowly merged
-	  * 	into the current state, or a function that will produce such a dict. The
-	  * 	function is called with the current state and props.
-	  * @param {() => void} callback A function to be called once component state is
-	  * 	updated
-	  */
-		setState: function setState(state, callback) {
-			if (!this.prevState) this.prevState = this.state;
-			this.state = extend(extend({}, this.state), typeof state === 'function' ? state(this.state, this.props) : state);
-			if (callback) this._renderCallbacks.push(callback);
-			enqueueRender(this);
-		},
-
-
-		/**
 	  * Immediately perform a synchronous re-render of the component.
 	  * @param {() => void} callback A function to be called after component is
 	  * 	re-rendered.
 	  * @private
 	  */
-		forceUpdate: function forceUpdate(callback) {
+		update: function update(callback) {
 			if (callback) this._renderCallbacks.push(callback);
 			renderComponent(this, 2);
 		},
-		update: function update(callback) {
-			this.forceUpdate(callback);
-		},
+
 
 		/**
 	  * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
@@ -1218,8 +1195,8 @@
     /**
 	 * Render JSX into a `parent` Element.
 	 * @param {import('./vnode').VNode} vnode A (JSX) VNode to render
-	 * @param {import('./dom').PreactElement} parent DOM element to render into
-	 * @param {import('./dom').PreactElement} [merge] Attempt to re-use an existing DOM tree rooted at
+	 * @param {import('./dom').OmiElement} parent DOM element to render into
+	 * @param {import('./dom').OmiElement} [merge] Attempt to re-use an existing DOM tree rooted at
 	 *  `merge`
 	 * @public
 	 *

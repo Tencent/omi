@@ -13,8 +13,8 @@ import options from '../options';
  */
 
 /**
- * Properties Preact adds to elements it creates
- * @typedef PreactElementExtensions
+ * Properties Omi adds to elements it creates
+ * @typedef OmiElementExtensions
  * @property {string} [normalizedNodeName] A normalized node name to use in diffing
  * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
  * @property {import('../component').Component} [_component] The component that rendered this DOM node
@@ -22,8 +22,8 @@ import options from '../options';
  */
 
 /**
- * A DOM element that has been extended with Preact properties
- * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
+ * A DOM element that has been extended with Omi properties
+ * @typedef {Element & ElementCSSInlineStyle & OmiElementExtensions} OmiElement
  */
 
 /**
@@ -31,10 +31,10 @@ import options from '../options';
  * @param {string} nodeName The DOM node to create
  * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
  *  namespace.
- * @returns {PreactElement} The created DOM node
+ * @returns {OmiElement} The created DOM node
  */
 export function createNode(nodeName, isSvg) {
-	/** @type {PreactElement} */
+	/** @type {OmiElement} */
 	let node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
 	node.normalizedNodeName = nodeName;
 	return node;
@@ -55,7 +55,7 @@ export function removeNode(node) {
  * Set a named attribute on the given Node, with special behavior for some names
  * and event handlers. If `value` is `null`, the attribute/handler will be
  * removed.
- * @param {PreactElement} node An element to mutate
+ * @param {OmiElement} node An element to mutate
  * @param {string} name The name/key to set, such as an event or attribute name
  * @param {*} old The last value that was set for this name/node pair
  * @param {*} value An attribute value, such as a function to be used as an

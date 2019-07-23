@@ -13,7 +13,7 @@
  * @property {(component: Component) => void} [afterUpdate] Hook invoked after the DOM is updated with a component's latest render.
  * @property {(component: Component) => void} [beforeUnmount] Hook invoked immediately before a component is unmounted.
  * @property {(rerender: function) => void} [debounceRendering] Hook invoked whenever a rerender is requested. Can be used to debounce rerenders.
- * @property {(event: Event) => Event | void} [event] Hook invoked before any Preact event listeners. The return value (if any) replaces the native browser event given to event listeners
+ * @property {(event: Event) => Event | void} [event] Hook invoked before any Omi event listeners. The return value (if any) replaces the native browser event given to event listeners
  */
 
 /** @type {Options}  */

@@ -258,17 +258,12 @@
     }
     function createComponent(Ctor, props, context) {
         var inst, i = recyclerComponents.length;
-        if (Ctor.prototype && Ctor.prototype.render) {
-            inst = new Ctor(props, context);
-            Component.call(inst, props, context);
-        } else {
-            inst = new Component(props, context);
-            inst.constructor = Ctor;
-            inst.render = doRender;
-            if (Ctor.store) {
-                inst.store = Ctor.store(inst);
-                inst.store.update = inst.forceUpdate.bind(inst);
-            }
+        inst = new Component(props, context);
+        inst.constructor = Ctor;
+        inst.render = doRender;
+        if (Ctor.store) {
+            inst.store = Ctor.store(inst);
+            inst.store.update = inst.update.bind(inst);
         }
         while (i--) if (recyclerComponents[i].constructor === Ctor) {
             inst.__b = recyclerComponents[i].__b;
@@ -454,18 +449,9 @@
     var recyclerComponents = [];
     var id = 0;
     extend(Component.prototype, {
-        setState: function(state, callback) {
-            if (!this.__s) this.__s = this.state;
-            this.state = extend(extend({}, this.state), 'function' == typeof state ? state(this.state, this.props) : state);
-            if (callback) this.__h.push(callback);
-            enqueueRender(this);
-        },
-        forceUpdate: function(callback) {
+        update: function(callback) {
             if (callback) this.__h.push(callback);
             renderComponent(this, 2);
-        },
-        update: function(callback) {
-            this.forceUpdate(callback);
         },
         render: function() {}
     });

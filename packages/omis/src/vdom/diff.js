@@ -42,14 +42,14 @@ export function flushMounts() {
 
 /**
  * Apply differences in a given vnode (and it's deep children) to a real DOM Node.
- * @param {import('../dom').PreactElement} dom A DOM node to mutate into the shape of a `vnode`
+ * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
  * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing
  *  the desired DOM structure
  * @param {object} context The current context
  * @param {boolean} mountAll Whether or not to immediately mount all components
  * @param {Element} parent ?
  * @param {boolean} componentRoot ?
- * @returns {import('../dom').PreactElement} The created/mutated element
+ * @returns {import('../dom').OmiElement} The created/mutated element
  * @private
  */
 export function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
@@ -80,7 +80,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot, store
 
 /**
  * Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing.
- * @param {import('../dom').PreactElement} dom A DOM node to mutate into the shape of a `vnode`
+ * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
  * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing the desired DOM structure
  * @param {object} context The current context
  * @param {boolean} mountAll Whether or not to immediately mount all components
@@ -100,7 +100,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 
 		// update if it's already a Text node:
 		if (dom && dom.splitText!==undefined && dom.parentNode && (!dom._component || componentRoot)) {
-			/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+			/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/Omi/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
 			if (dom.nodeValue!=vnode) {
 				dom.nodeValue = vnode;
 			}
@@ -183,7 +183,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 
 /**
  * Apply child and attribute changes between a VNode and a DOM Node to the DOM.
- * @param {import('../dom').PreactElement} dom Element whose children should be compared & mutated
+ * @param {import('../dom').OmiElement} dom Element whose children should be compared & mutated
  * @param {Array<import('../vnode').VNode>} vchildren Array of VNodes to compare to `dom.childNodes`
  * @param {object} context Implicitly descendant context object (from most
  *  recent `getChildContext()`)
@@ -279,7 +279,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
 
 /**
  * Recursively recycle (or just unmount) a node and its descendants.
- * @param {import('../dom').PreactElement} node DOM node to start
+ * @param {import('../dom').OmiElement} node DOM node to start
  *  unmount/removal from
  * @param {boolean} [unmountOnly=false] If `true`, only triggers unmount
  *  lifecycle, skips removal
@@ -321,7 +321,7 @@ export function removeChildren(node) {
 
 /**
  * Apply differences in attributes from a VNode to the given DOM Element.
- * @param {import('../dom').PreactElement} dom Element with attributes to diff `attrs` against
+ * @param {import('../dom').OmiElement} dom Element with attributes to diff `attrs` against
  * @param {object} attrs The desired end-state key-value attribute pairs
  * @param {object} old Current/previous attributes (from previous VNode or
  *  element's prop cache)

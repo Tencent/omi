@@ -21,7 +21,7 @@ declare namespace Omis {
 	 *
 	 * Use ClassAttributes instead
 	 */
-	type PreactHTMLAttributes = ClassAttributes<any>;
+	type OmiHTMLAttributes = ClassAttributes<any>;
 
 	interface Attributes {
 		key?: Key;
@@ -32,7 +32,7 @@ declare namespace Omis {
 		ref?: Ref<T>;
 	}
 
-	interface PreactDOMAttributes {
+	interface OmiDOMAttributes {
 		children?: ComponentChildren;
 		dangerouslySetInnerHTML?: {
 			__html: string;
@@ -95,16 +95,7 @@ declare namespace Omis {
 		context: any;
 		base?: HTMLElement;
 
-		// From https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e836acc75a78cf0655b5dfdbe81d69fdd4d8a252/types/react/index.d.ts#L402
-		// // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
-		// // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
-		// // Also, the ` | S` allows intellisense to not be dumbisense
-		setState<K extends keyof S>(
-			state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
-			callback?: () => void
-		): void;
-
-		forceUpdate(callback?: () => void): void;
+		update(callback?: () => void): void;
 
 		abstract render(props?: RenderableProps<P>, state?: Readonly<S>, context?: any): ComponentChild;
 
@@ -450,7 +441,7 @@ declare global {
 		type GenericEventHandler = EventHandler<Event>;
 		type PointerEventHandler = EventHandler<PointerEvent>;
 
-		interface DOMAttributes extends Omis.PreactDOMAttributes {
+		interface DOMAttributes extends Omis.OmiDOMAttributes {
 			// Image Events
 			onLoad?: GenericEventHandler;
 			onError?: GenericEventHandler;
@@ -638,7 +629,7 @@ declare global {
 			onTransitionEndCapture?: TransitionEventHandler;
 		}
 
-		interface HTMLAttributes extends Omis.PreactHTMLAttributes, DOMAttributes {
+		interface HTMLAttributes extends Omis.OmiHTMLAttributes, DOMAttributes {
 			// Standard HTML Attributes
 			accept?: string;
 			acceptCharset?: string;

@@ -208,7 +208,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 	else if (!skip) {
 		// Ensure that pending componentDidMount() hooks of child components
 		// are called before the componentDidUpdate() hook in the parent.
-		// Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
+		// Note: disabled as it causes duplicate hooks, see https://github.com/developit/Omi/issues/750
 		// flushMounts();
 
 		// if (component.componentDidUpdate) {
@@ -229,11 +229,11 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 
 /**
  * Apply the Component referenced by a VNode to the DOM.
- * @param {import('../dom').PreactElement} dom The DOM node to mutate
+ * @param {import('../dom').OmiElement} dom The DOM node to mutate
  * @param {import('../vnode').VNode} vnode A Component-referencing VNode
  * @param {object} context The current context
  * @param {boolean} mountAll Whether or not to immediately mount all components
- * @returns {import('../dom').PreactElement} The created/mutated element
+ * @returns {import('../dom').OmiElement} The created/mutated element
  * @private
  */
 export function buildComponentFromVNode(dom, vnode, context, mountAll) {
