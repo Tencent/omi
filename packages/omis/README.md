@@ -8,7 +8,7 @@ English | [简体中文](./README.CN.md)
 * Structure-Style-Behavior Separation
 * Hyperscript is visually more friendly
 * Each component can have a store and be de-centralized
-* Stores of each component can rely on global stores and be centralized
+* Support global store to share data and update on demand
 * Each component store has an update method that executes the method to customize local refresh components
 
 - [→ Omis Codepen Demos](https://codepen.io/collection/XjLaRo/)
