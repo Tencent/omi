@@ -1302,7 +1302,7 @@
 	  var eventPropArr = [];
 	  if (isArray(target)) {
 	    if (target.length === 0) {
-	      target.__o_ = {
+	      target['__o_'] = {
 	        __r_: target,
 	        __p_: '#'
 	      };
@@ -1348,11 +1348,11 @@
 	      if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
 	        for (var cprop in this) {
 	          if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
-	            watch(this, cprop, this.__o_.__p_, root);
+	            watch(this, cprop, this['__o_'].__p_, root);
 	          }
 	        }
 	        //todo
-	        onPropertyChanged('Array-' + item, this, old, this, this.__o_.__p_, root);
+	        onPropertyChanged('Array-' + item, this, old, this, this['__o_'].__p_, root);
 	      }
 	      return result;
 	    };
@@ -1365,24 +1365,24 @@
 	function watch(target, prop, path, root) {
 	  if (prop === '__o_') return;
 	  if (isFunction(target[prop])) return;
-	  if (!target.__o_) target.__o_ = {
+	  if (!target['__o_']) target['__o_'] = {
 	    __r_: root
 	  };
 	  if (path !== undefined && path !== null) {
-	    target.__o_.__p_ = path;
+	    target['__o_'].__p_ = path;
 	  } else {
-	    target.__o_.__p_ = '#';
+	    target['__o_'].__p_ = '#';
 	  }
 
-	  var currentValue = target.__o_[prop] = target[prop];
+	  var currentValue = target['__o_'][prop] = target[prop];
 	  Object.defineProperty(target, prop, {
 	    get: function get() {
-	      return this.__o_[prop];
+	      return this['__o_'][prop];
 	    },
 	    set: function set(value) {
-	      var old = this.__o_[prop];
-	      this.__o_[prop] = value;
-	      onPropertyChanged(prop, value, old, this, target.__o_.__p_, root);
+	      var old = this['__o_'][prop];
+	      this['__o_'][prop] = value;
+	      onPropertyChanged(prop, value, old, this, target['__o_'].__p_, root);
 	    },
 	    configurable: true,
 	    enumerable: true
@@ -1391,17 +1391,17 @@
 	    if (isArray(currentValue)) {
 	      mock(currentValue, root);
 	      if (currentValue.length === 0) {
-	        if (!currentValue.__o_) currentValue.__o_ = {};
+	        if (!currentValue['__o_']) currentValue['__o_'] = {};
 	        if (path !== undefined && path !== null) {
-	          currentValue.__o_.__p_ = path + '-' + prop;
+	          currentValue['__o_'].__p_ = path + '-' + prop;
 	        } else {
-	          currentValue.__o_.__p_ = '#' + '-' + prop;
+	          currentValue['__o_'].__p_ = '#' + '-' + prop;
 	        }
 	      }
 	    }
 	    for (var cprop in currentValue) {
 	      if (currentValue.hasOwnProperty(cprop)) {
-	        watch(currentValue, cprop, target.__o_.__p_ + '-' + prop, root);
+	        watch(currentValue, cprop, target['__o_'].__p_ + '-' + prop, root);
 	      }
 	    }
 	  }
@@ -1419,7 +1419,7 @@
 	  }
 
 	  if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
-	    watch(target, prop, target.__o_.__p_, root);
+	    watch(target, prop, target['__o_'].__p_, root);
 	  }
 	}
 
@@ -1450,11 +1450,11 @@
 	}
 
 	obaa.add = function (obj, prop) {
-	  watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
+	  watch(obj, prop, obj['__o_'].__p_, obj['__o_'].__r_);
 	};
 
 	obaa.set = function (obj, prop, value) {
-	  watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
+	  watch(obj, prop, obj['__o_'].__p_, obj['__o_'].__r_);
 	  obj[prop] = value;
 	};
 
