@@ -241,6 +241,116 @@
 	 */
 	var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
+	function getPath(obj) {
+	  if (Object.prototype.toString.call(obj) === '[object Array]') {
+	    var result = {};
+	    obj.forEach(function (item) {
+	      if (typeof item === 'string') {
+	        result[item] = true;
+	      } else {
+	        var tempPath = item[Object.keys(item)[0]];
+	        if (typeof tempPath === 'string') {
+	          result[tempPath] = true;
+	        } else {
+	          if (typeof tempPath[0] === 'string') {
+	            result[tempPath[0]] = true;
+	          } else {
+	            tempPath[0].forEach(function (path) {
+	              return result[path] = true;
+	            });
+	          }
+	        }
+	      }
+	    });
+	    return result;
+	  } else {
+	    return getUpdatePath(obj);
+	  }
+	}
+
+	function getUpdatePath(data) {
+	  var result = {};
+	  dataToPath(data, result);
+	  return result;
+	}
+
+	function dataToPath(data, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[key] = true;
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE) {
+	      _objToPath(data[key], key, result);
+	    } else if (type === ARRAYTYPE) {
+	      _arrayToPath(data[key], key, result);
+	    }
+	  });
+	}
+
+	function _objToPath(data, path, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[path + '.' + key] = true;
+	    delete result[path];
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE) {
+	      _objToPath(data[key], path + '.' + key, result);
+	    } else if (type === ARRAYTYPE) {
+	      _arrayToPath(data[key], path + '.' + key, result);
+	    }
+	  });
+	}
+
+	function _arrayToPath(data, path, result) {
+	  data.forEach(function (item, index) {
+	    result[path + '[' + index + ']'] = true;
+	    delete result[path];
+	    var type = Object.prototype.toString.call(item);
+	    if (type === OBJECTTYPE) {
+	      _objToPath(item, path + '[' + index + ']', result);
+	    } else if (type === ARRAYTYPE) {
+	      _arrayToPath(item, path + '[' + index + ']', result);
+	    }
+	  });
+	}
+
+	function getUse(data, paths) {
+	  var obj = [];
+	  paths.forEach(function (path, index) {
+	    var isPath = typeof path === 'string';
+	    if (isPath) {
+	      obj[index] = getTargetByPath(data, path);
+	    } else {
+	      var key = Object.keys(path)[0];
+	      var value = path[key];
+	      if (typeof value === 'string') {
+	        obj[index] = getTargetByPath(data, value);
+	      } else {
+	        var tempPath = value[0];
+	        if (typeof tempPath === 'string') {
+	          var tempVal = getTargetByPath(data, tempPath);
+	          obj[index] = value[1] ? value[1](tempVal) : tempVal;
+	        } else {
+	          var args = [];
+	          tempPath.forEach(function (path) {
+	            args.push(getTargetByPath(data, path));
+	          });
+	          obj[index] = value[1].apply(null, args);
+	        }
+	      }
+	      obj[key] = obj[index];
+	    }
+	  });
+	  return obj;
+	}
+
+	function getTargetByPath(origin, path) {
+	  var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+	  var current = origin;
+	  for (var i = 0, len = arr.length; i < len; i++) {
+	    current = current[arr[i]];
+	  }
+	  return current;
+	}
+
 	/**
 	 * Clones the given VNode, optionally adding attributes/props and replacing its
 	 * children.
@@ -502,14 +612,14 @@
 	 * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
 	 * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing
 	 *  the desired DOM structure
-	 * @param {object} context The current context
+	 * @param {object} $ The current $
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 * @param {Element} parent ?
 	 * @param {boolean} componentRoot ?
 	 * @returns {import('../dom').OmiElement} The created/mutated element
 	 * @private
 	 */
-	function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
+	function diff(dom, vnode, $, mountAll, parent, componentRoot, store) {
 		// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
 		if (!diffLevel++) {
 			// when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -519,7 +629,7 @@
 			hydrating = dom != null && !(ATTR_KEY in dom);
 		}
 
-		var ret = idiff(dom, vnode, context, mountAll, componentRoot, store);
+		var ret = idiff(dom, vnode, $, mountAll, componentRoot, store);
 
 		// append the element if its a new parent
 		if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -538,12 +648,12 @@
 	 * Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing.
 	 * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
 	 * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing the desired DOM structure
-	 * @param {object} context The current context
+	 * @param {object} $ The current $
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 * @param {boolean} [componentRoot] ?
 	 * @private
 	 */
-	function idiff(dom, vnode, context, mountAll, componentRoot, store) {
+	function idiff(dom, vnode, $, mountAll, componentRoot, store) {
 		var out = dom,
 		    prevSvgMode = isSvgMode;
 
@@ -576,7 +686,7 @@
 		// If the VNode represents a Component, perform a component diff:
 		var vnodeName = vnode.nodeName;
 		if (typeof vnodeName === 'function') {
-			return buildComponentFromVNode(dom, vnode, context, mountAll);
+			return buildComponentFromVNode(dom, vnode, $, mountAll);
 		}
 
 		// Tracks entering and exiting SVG namespace when descending through the tree.
@@ -618,7 +728,7 @@
 		}
 		// otherwise, if there are existing or new children, diff them:
 		else if (vchildren && vchildren.length || fc != null) {
-				innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null, store);
+				innerDiffNode(out, vchildren, $, mountAll, hydrating || props.dangerouslySetInnerHTML != null, store);
 			}
 
 		// Apply attributes/props from VNode to the DOM Element:
@@ -634,13 +744,13 @@
 	 * Apply child and attribute changes between a VNode and a DOM Node to the DOM.
 	 * @param {import('../dom').OmiElement} dom Element whose children should be compared & mutated
 	 * @param {Array<import('../vnode').VNode>} vchildren Array of VNodes to compare to `dom.childNodes`
-	 * @param {object} context Implicitly descendant context object (from most
+	 * @param {object} $ Implicitly descendant $ object (from most
 	 *  recent `getChildContext()`)
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 * @param {boolean} isHydrating if `true`, consumes externally created elements
 	 *  similar to hydration
 	 */
-	function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
+	function innerDiffNode(dom, vchildren, $, mountAll, isHydrating, store) {
 		var originalChildren = dom.childNodes,
 		    children = [],
 		    keyed = {},
@@ -698,7 +808,7 @@
 					}
 
 				// morph the matched/found/created DOM child to match vchild (deep)
-				child = idiff(child, vchild, context, mountAll, null, store);
+				child = idiff(child, vchild, $, mountAll, null, store);
 
 				f = originalChildren[_i];
 				if (child && child !== dom && child !== f) {
@@ -802,19 +912,33 @@
 	 * Components.
 	 * @param {function} Ctor The constructor of the component to create
 	 * @param {object} props The initial props of the component
-	 * @param {object} context The initial context of the component
+	 * @param {object} $ The initial $ of the component
 	 * @returns {import('../component').Component}
 	 */
-	function createComponent(Ctor, props, context) {
+	function createComponent(Ctor, props, $) {
 		var inst = void 0,
 		    i = recyclerComponents.length;
 
-		inst = new Component(props, context);
+		inst = new Component(props, $);
 		inst.constructor = Ctor;
 		inst.render = doRender;
 		if (Ctor.store) {
 			inst.store = Ctor.store(inst);
 			inst.store.update = inst.update.bind(inst);
+		}
+
+		if (inst.$ && inst.$.data) {
+
+			if (inst.constructor.use) {
+				inst.constructor.updatePath = getPath(inst.constructor.use);
+				inst.using = getUse(inst.$.data, inst.constructor.use);
+				inst.$.instances.push(inst);
+			} else if (inst.use) {
+				var use = inst.use();
+				inst._updatePath = getPath(use);
+				inst.using = getUse(inst.$.data, use);
+				inst.$.instances.push(inst);
+			}
 		}
 
 		while (i--) {
@@ -829,8 +953,8 @@
 	}
 
 	/** The `.render()` method for a PFC backing instance. */
-	function doRender(props, context) {
-		return this.constructor(props, this.store, context);
+	function doRender(props, $) {
+		return this.constructor(props, this.store, $);
 	}
 
 	/**
@@ -838,10 +962,10 @@
 	 * @param {import('../component').Component} component The Component to set props on
 	 * @param {object} props The new props
 	 * @param {number} renderMode Render options - specifies how to re-render the component
-	 * @param {object} context The new context
+	 * @param {object} $ The new $
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 */
-	function setComponentProps(component, props, renderMode, context, mountAll) {
+	function setComponentProps(component, props, renderMode, $, mountAll) {
 		if (component._disable) return;
 		component._disable = true;
 
@@ -855,16 +979,15 @@
 			if (component.store.install) component.store.install();
 		} else {
 			// if (component.componentWillReceiveProps) {
-			// 	component.componentWillReceiveProps(props, context);
+			// 	component.componentWillReceiveProps(props, $);
 			// }
 			if (component.store.receiveProps) {
-				component.__needUpdate_ = component.store.receiveProps(props, context);
+				component.__needUpdate_ = component.store.receiveProps(props, $);
 			}
 		}
 
-		if (context && context !== component.context) {
-			if (!component.prevContext) component.prevContext = component.context;
-			component.context = context;
+		if ($ && $ !== component.$) {
+			component.$ = $;
 		}
 
 		if (!component.prevProps) component.prevProps = component.props;
@@ -896,15 +1019,13 @@
 		if (component._disable) return;
 
 		var props = component.props,
-		    context = component.context,
+		    $ = component.$,
 		    previousProps = component.prevProps || props,
-		    previousContext = component.prevContext || context,
 		    isUpdate = component.base,
 		    nextBase = component.nextBase,
 		    initialBase = isUpdate || nextBase,
 		    initialChildComponent = component._component,
 		    skip = false,
-		    snapshot = previousContext,
 		    rendered = void 0,
 		    inst = void 0,
 		    cbase = void 0;
@@ -912,12 +1033,11 @@
 		// if updating
 		if (isUpdate) {
 			component.props = previousProps;
-			component.context = previousContext;
 
 			if (component.__needUpdate_ !== false) {
 				skip = false;
 				if (component.store.beforeUpdate) {
-					component.store.beforeUpdate(props, context);
+					component.store.beforeUpdate(props, $);
 				}
 			} else {
 				skip = true;
@@ -925,7 +1045,6 @@
 			delete component.__needUpdate_;
 
 			component.props = props;
-			component.context = context;
 		}
 
 		component.prevProps = component.prevContext = component.nextBase = null;
@@ -936,17 +1055,8 @@
 			if (component.store.beforeRender) {
 				component.store.beforeRender();
 			}
-			rendered = component.render(props, context);
+			rendered = component.render(props, $);
 			options.runTimeComponent = null;
-
-			// context to pass to the child, can be updated via (grand-)parent component
-			if (component.getChildContext) {
-				context = extend(extend({}, context), component.getChildContext());
-			}
-
-			if (isUpdate && component.getSnapshotBeforeUpdate) {
-				snapshot = component.getSnapshotBeforeUpdate(previousProps);
-			}
 
 			var childComponent = rendered && rendered.nodeName,
 			    toUnmount = void 0,
@@ -959,14 +1069,14 @@
 				inst = initialChildComponent;
 
 				if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
-					setComponentProps(inst, childProps, SYNC_RENDER, context, false);
+					setComponentProps(inst, childProps, SYNC_RENDER, $, false);
 				} else {
 					toUnmount = inst;
 
-					component._component = inst = createComponent(childComponent, childProps, context);
+					component._component = inst = createComponent(childComponent, childProps, $);
 					inst.nextBase = inst.nextBase || nextBase;
 					inst._parentComponent = component;
-					setComponentProps(inst, childProps, NO_RENDER, context, false);
+					setComponentProps(inst, childProps, NO_RENDER, $, false);
 					renderComponent(inst, SYNC_RENDER, mountAll, true);
 				}
 
@@ -982,7 +1092,7 @@
 
 				if (initialBase || renderMode === SYNC_RENDER) {
 					if (cbase) cbase._component = null;
-					base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
+					base = diff(cbase, rendered, $, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
 				}
 			}
 
@@ -1023,7 +1133,7 @@
 			// flushMounts();
 
 			if (component.store.updated) {
-				component.store.updated(previousProps, snapshot);
+				component.store.updated(previousProps);
 			}
 			if (options.afterUpdate) options.afterUpdate(component);
 		}
@@ -1037,12 +1147,12 @@
 	 * Apply the Component referenced by a VNode to the DOM.
 	 * @param {import('../dom').OmiElement} dom The DOM node to mutate
 	 * @param {import('../vnode').VNode} vnode A Component-referencing VNode
-	 * @param {object} context The current context
+	 * @param {object} $ The current $
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 * @returns {import('../dom').OmiElement} The created/mutated element
 	 * @private
 	 */
-	function buildComponentFromVNode(dom, vnode, context, mountAll) {
+	function buildComponentFromVNode(dom, vnode, $, mountAll) {
 		var c = dom && dom._component,
 		    originalComponent = c,
 		    oldDom = dom,
@@ -1054,7 +1164,7 @@
 		}
 
 		if (c && isOwner && (!mountAll || c._component)) {
-			setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
+			setComponentProps(c, props, ASYNC_RENDER, $, mountAll);
 			dom = c.base;
 		} else {
 			if (originalComponent && !isDirectOwner) {
@@ -1062,13 +1172,13 @@
 				dom = oldDom = null;
 			}
 
-			c = createComponent(vnode.nodeName, props, context);
+			c = createComponent(vnode.nodeName, props, $);
 			if (dom && !c.nextBase) {
 				c.nextBase = dom;
 				// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
 				oldDom = null;
 			}
-			setComponentProps(c, props, SYNC_RENDER, context, mountAll);
+			setComponentProps(c, props, SYNC_RENDER, $, mountAll);
 			dom = c.base;
 
 			if (oldDom && dom !== oldDom) {
@@ -1132,15 +1242,15 @@
 
 	var id = 0;
 
-	function Component(props, context) {
+	function Component(props, $) {
 		this._dirty = true;
 		this.elementId = id++;
 		/**
 	  * @public
 	  * @type {object}
 	  */
-		this.context = context;
 		this.store = {};
+		this.$ = $;
 		/**
 	  * @public
 	  * @type {object}
@@ -1176,6 +1286,182 @@
 		render: function render() {}
 	});
 
+	/* 
+	 * obaa 2.0.3
+	 * By dntzhang
+	 * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
+	 * MIT Licensed.
+	 */
+
+	// __r_: root
+	// __c_: prop change callback
+	// __p_: path
+
+	function obaa(target, arr, callback) {
+
+	  var eventPropArr = [];
+	  if (isArray(target)) {
+	    if (target.length === 0) {
+	      target.__o_ = {
+	        __r_: target,
+	        __p_: '#'
+	      };
+	    }
+	    mock(target, target);
+	  }
+	  for (var prop in target) {
+	    if (target.hasOwnProperty(prop)) {
+	      if (callback) {
+	        if (isArray(arr) && isInArray(arr, prop)) {
+	          eventPropArr.push(prop);
+	          watch(target, prop, null, target);
+	        } else if (isString(arr) && prop == arr) {
+	          eventPropArr.push(prop);
+	          watch(target, prop, null, target);
+	        }
+	      } else {
+	        eventPropArr.push(prop);
+	        watch(target, prop, null, target);
+	      }
+	    }
+	  }
+	  if (!target.__c_) {
+	    target.__c_ = [];
+	  }
+	  var propChanged = callback ? callback : arr;
+	  target.__c_.push({
+	    all: !callback,
+	    propChanged: propChanged,
+	    eventPropArr: eventPropArr
+	  });
+	}
+
+	var triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+
+	var methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
+
+	function mock(target, root) {
+	  methods.forEach(function (item) {
+	    target[item] = function () {
+	      var old = Array.prototype.slice.call(this, 0);
+	      var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+	      if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
+	        for (var cprop in this) {
+	          if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
+	            watch(this, cprop, this.__o_.__p_, root);
+	          }
+	        }
+	        //todo
+	        onPropertyChanged('Array-' + item, this, old, this, this.__o_.__p_, root);
+	      }
+	      return result;
+	    };
+	    target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function () {
+	      return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+	    };
+	  });
+	}
+
+	function watch(target, prop, path, root) {
+	  if (prop === '__o_') return;
+	  if (isFunction(target[prop])) return;
+	  if (!target.__o_) target.__o_ = {
+	    __r_: root
+	  };
+	  if (path !== undefined && path !== null) {
+	    target.__o_.__p_ = path;
+	  } else {
+	    target.__o_.__p_ = '#';
+	  }
+
+	  var currentValue = target.__o_[prop] = target[prop];
+	  Object.defineProperty(target, prop, {
+	    get: function get() {
+	      return this.__o_[prop];
+	    },
+	    set: function set(value) {
+	      var old = this.__o_[prop];
+	      this.__o_[prop] = value;
+	      onPropertyChanged(prop, value, old, this, target.__o_.__p_, root);
+	    },
+	    configurable: true,
+	    enumerable: true
+	  });
+	  if (typeof currentValue == 'object') {
+	    if (isArray(currentValue)) {
+	      mock(currentValue, root);
+	      if (currentValue.length === 0) {
+	        if (!currentValue.__o_) currentValue.__o_ = {};
+	        if (path !== undefined && path !== null) {
+	          currentValue.__o_.__p_ = path + '-' + prop;
+	        } else {
+	          currentValue.__o_.__p_ = '#' + '-' + prop;
+	        }
+	      }
+	    }
+	    for (var cprop in currentValue) {
+	      if (currentValue.hasOwnProperty(cprop)) {
+	        watch(currentValue, cprop, target.__o_.__p_ + '-' + prop, root);
+	      }
+	    }
+	  }
+	}
+
+	function onPropertyChanged(prop, value, oldValue, target, path, root) {
+	  if (value !== oldValue && root.__c_) {
+	    var rootName = getRootName(prop, path);
+	    for (var i = 0, len = root.__c_.length; i < len; i++) {
+	      var handler = root.__c_[i];
+	      if (handler.all || isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
+	        handler.propChanged.call(target, prop, value, oldValue, path);
+	      }
+	    }
+	  }
+
+	  if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
+	    watch(target, prop, target.__o_.__p_, root);
+	  }
+	}
+
+	function isFunction(obj) {
+	  return Object.prototype.toString.call(obj) == '[object Function]';
+	}
+
+	function isArray(obj) {
+	  return Object.prototype.toString.call(obj) === '[object Array]';
+	}
+
+	function isString(obj) {
+	  return typeof obj === 'string';
+	}
+
+	function isInArray(arr, item) {
+	  for (var i = arr.length; --i > -1;) {
+	    if (item === arr[i]) return true;
+	  }
+	  return false;
+	}
+
+	function getRootName(prop, path) {
+	  if (path === '#') {
+	    return prop;
+	  }
+	  return path.split('-')[1];
+	}
+
+	obaa.add = function (obj, prop) {
+	  watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
+	};
+
+	obaa.set = function (obj, prop, value) {
+	  watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
+	  obj[prop] = value;
+	};
+
+	Array.prototype.size = function (length) {
+	  this.length = length;
+	};
+
 	/**
 	 * Render JSX into a `parent` Element.
 	 * @param {import('./vnode').VNode} vnode A (JSX) VNode to render
@@ -1193,8 +1479,103 @@
 	 * const Thing = ({ name }) => <span>{ name }</span>;
 	 * render(<Thing name="one" />, document.querySelector('#foo'));
 	 */
-	function render(vnode, parent, merge) {
-	  return diff(merge, vnode, {}, false, typeof parent === 'string' ? document.querySelector(parent) : parent, false);
+	function render(vnode, parent, globalStore) {
+	  obsStore(globalStore);
+	  return diff(null, vnode, globalStore, false, typeof parent === 'string' ? document.querySelector(parent) : parent, false);
+	}
+
+	function obsStore(store) {
+	  if (store && store.data) {
+	    store.instances = [];
+	    extendStoreUpate(store);
+
+	    obaa(store.data, function (prop, val, old, path) {
+	      var patchs = {};
+	      var key = fixPath(path + '-' + prop);
+	      patchs[key] = true;
+	      store.update(patchs);
+	    });
+	  }
+	}
+
+	function extendStoreUpate(store) {
+	  store.update = function (patch) {
+	    var _this = this;
+
+	    var updateAll = matchGlobalData(this.globalData, patch);
+	    if (Object.keys(patch).length > 0) {
+
+	      this.instances.forEach(function (instance) {
+	        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
+	          //update this.using
+	          if (instance.constructor.use) {
+	            instance.using = getUse(store.data, instance.constructor.use);
+	          } else if (instance.use) {
+	            instance.using = getUse(store.data, instance.initUse());
+	          }
+
+	          instance.update();
+	        }
+	      });
+	      this.onChange && this.onChange(patch);
+	    }
+	  };
+	}
+
+	function matchGlobalData(globalData, diffResult) {
+	  if (!globalData) return false;
+	  for (var keyA in diffResult) {
+	    if (globalData.indexOf(keyA) > -1) {
+	      return true;
+	    }
+	    for (var i = 0, len = globalData.length; i < len; i++) {
+	      if (includePath(keyA, globalData[i])) {
+	        return true;
+	      }
+	    }
+	  }
+	  return false;
+	}
+
+	function needUpdate(diffResult, updatePath) {
+	  for (var keyA in diffResult) {
+	    if (updatePath[keyA]) {
+	      return true;
+	    }
+	    for (var keyB in updatePath) {
+	      if (includePath(keyA, keyB)) {
+	        return true;
+	      }
+	    }
+	  }
+	  return false;
+	}
+
+	function includePath(pathA, pathB) {
+	  if (pathA.indexOf(pathB) === 0) {
+	    var next = pathA.substr(pathB.length, 1);
+	    if (next === '[' || next === '.') {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
+
+	function fixPath(path) {
+	  var mpPath = '';
+	  var arr = path.replace('#-', '').split('-');
+	  arr.forEach(function (item, index) {
+	    if (index) {
+	      if (isNaN(Number(item))) {
+	        mpPath += '.' + item;
+	      } else {
+	        mpPath += '[' + item + ']';
+	      }
+	    } else {
+	      mpPath += item;
+	    }
+	  });
+	  return mpPath;
 	}
 
 	function createRef() {
@@ -1215,7 +1596,7 @@
 	}
 
 	var Counter = function Counter(props, store, context) {
-	  console.log(context);
+
 	  return Omis.h(
 	    'div',
 	    null,
@@ -1227,7 +1608,29 @@
 	    Omis.h(
 	      'span',
 	      null,
-	      store.count
+	      this.$.data.a
+	    ),
+	    Omis.h(
+	      'button',
+	      { onClick: store.add },
+	      '+'
+	    )
+	  );
+	};
+	var Counter2 = function Counter2(props, store, context) {
+
+	  return Omis.h(
+	    'div',
+	    null,
+	    Omis.h(
+	      'button',
+	      { onClick: store.sub },
+	      '-'
+	    ),
+	    Omis.h(
+	      'span',
+	      null,
+	      this.$.data.a
 	    ),
 	    Omis.h(
 	      'button',
@@ -1237,7 +1640,7 @@
 	  );
 	};
 
-	Counter.store = function (_) {
+	Counter2.store = function (_) {
 	  return {
 	    count: 1,
 	    add: function add(e) {
@@ -1246,9 +1649,10 @@
 	      _.props.onChange(this.count);
 	    },
 	    sub: function sub() {
+	      _.$.data.a = Math.random();
 	      this.count--;
-	      this.update();
-	      _.props.onChange(this.count);
+	      // this.update()
+	      // _.props.onChange(this.count)
 	    }
 	  };
 	};
@@ -1261,23 +1665,20 @@
 	      'div',
 	      null,
 	      'Count from child event: ',
-	      store.context.a
+	      this.$.data.a
 	    ),
-	    Omis.h(Counter, { onChange: store.changeHandle })
+	    Omis.h(Counter, { onChange: store.changeHandle }),
+	    Omis.h(Counter2, { onChange: store.changeHandle })
 	  );
 	};
+
+	Counter2.use = ['a'];
+	Counter.use = ['a'];
+	App.use = ['a'];
 
 	App.store = function (_) {
 	  return {
 	    count: null,
-	    context: { a: 111 },
-	    install: function install() {
-	      var _this = this;
-
-	      _.getChildContext = function () {
-	        return _this.context;
-	      };
-	    },
 	    changeHandle: function changeHandle(count) {
 	      _.store.count = count;
 	      _.update();
@@ -1285,7 +1686,7 @@
 	  };
 	};
 
-	render(Omis.h(App, null), 'body');
+	render(Omis.h(App, null), 'body', { data: { a: 11 } });
 
 }());
 //# sourceMappingURL=b.js.map

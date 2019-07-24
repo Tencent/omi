@@ -12,10 +12,10 @@ import { removeNode } from '../dom/index';
  * @param {import('../component').Component} component The Component to set props on
  * @param {object} props The new props
  * @param {number} renderMode Render options - specifies how to re-render the component
- * @param {object} context The new context
+ * @param {object} $ The new $
  * @param {boolean} mountAll Whether or not to immediately mount all components
  */
-export function setComponentProps(component, props, renderMode, context, mountAll) {
+export function setComponentProps(component, props, renderMode, $, mountAll) {
 	if (component._disable) return;
 	component._disable = true;
 
@@ -30,16 +30,15 @@ export function setComponentProps(component, props, renderMode, context, mountAl
 	}
 	else {
 		// if (component.componentWillReceiveProps) {
-		// 	component.componentWillReceiveProps(props, context);
+		// 	component.componentWillReceiveProps(props, $);
 		// }
 		if (component.store.receiveProps) {
-			component.__needUpdate_ = component.store.receiveProps(props, context)
+			component.__needUpdate_ = component.store.receiveProps(props, $)
 		}
 	}
 	
-	if (context && context!==component.context) {
-		if (!component.prevContext) component.prevContext = component.context;
-		component.context = context;
+	if ($ && $!==component.$) {
+		component.$ = $;
 	}
 
 	if (!component.prevProps) component.prevProps = component.props;
@@ -74,26 +73,23 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 	if (component._disable) return;
 
 	let props = component.props,
-		context = component.context,
+		$ = component.$,
 		previousProps = component.prevProps || props,
-		previousContext = component.prevContext || context,
 		isUpdate = component.base,
 		nextBase = component.nextBase,
 		initialBase = isUpdate || nextBase,
 		initialChildComponent = component._component,
 		skip = false,
-		snapshot = previousContext,
 		rendered, inst, cbase;
 
 	// if updating
 	if (isUpdate) {
 		component.props = previousProps;
-		component.context = previousContext;
 		
 		if (component.__needUpdate_ !== false) {
 			skip = false
 			if (component.store.beforeUpdate) {
-				component.store.beforeUpdate(props, context)
+				component.store.beforeUpdate(props, $)
 			}
 		} else {
 			skip = true
@@ -101,7 +97,6 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		delete component.__needUpdate_
     
 		component.props = props;
-		component.context = context;
 	}
 
 	component.prevProps = component.prevContext = component.nextBase = null;
@@ -112,17 +107,12 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		if(component.store.beforeRender){
 			component.store.beforeRender()
 		}
-		rendered = component.render(props, context);
+		rendered = component.render(props, $);
 		options.runTimeComponent = null
 
-		// context to pass to the child, can be updated via (grand-)parent component
-		if (component.getChildContext) {
-			context = extend(extend({}, context), component.getChildContext());
-		}
 
-		if (isUpdate && component.getSnapshotBeforeUpdate) {
-			snapshot = component.getSnapshotBeforeUpdate(previousProps);
-		}
+
+	
 
 		let childComponent = rendered && rendered.nodeName,
 			toUnmount, base;
@@ -134,15 +124,15 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 			inst = initialChildComponent;
 
 			if (inst && inst.constructor===childComponent && childProps.key==inst.__key) {
-				setComponentProps(inst, childProps, SYNC_RENDER, context, false);
+				setComponentProps(inst, childProps, SYNC_RENDER, $, false);
 			}
 			else {
 				toUnmount = inst;
 
-				component._component = inst = createComponent(childComponent, childProps, context);
+				component._component = inst = createComponent(childComponent, childProps, $);
 				inst.nextBase = inst.nextBase || nextBase;
 				inst._parentComponent = component;
-				setComponentProps(inst, childProps, NO_RENDER, context, false);
+				setComponentProps(inst, childProps, NO_RENDER, $, false);
 				renderComponent(inst, SYNC_RENDER, mountAll, true);
 			}
 
@@ -159,7 +149,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 
 			if (initialBase || renderMode===SYNC_RENDER) {
 				if (cbase) cbase._component = null;
-				base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
+				base = diff(cbase, rendered, $, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
 			}
 		}
 
@@ -201,7 +191,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		// flushMounts();
 
 		if (component.store.updated) {
-			component.store.updated(previousProps, snapshot);
+			component.store.updated(previousProps);
 		}
 		if (options.afterUpdate) options.afterUpdate(component);
 	}
@@ -217,12 +207,12 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
  * Apply the Component referenced by a VNode to the DOM.
  * @param {import('../dom').OmiElement} dom The DOM node to mutate
  * @param {import('../vnode').VNode} vnode A Component-referencing VNode
- * @param {object} context The current context
+ * @param {object} $ The current $
  * @param {boolean} mountAll Whether or not to immediately mount all components
  * @returns {import('../dom').OmiElement} The created/mutated element
  * @private
  */
-export function buildComponentFromVNode(dom, vnode, context, mountAll) {
+export function buildComponentFromVNode(dom, vnode, $, mountAll) {
 	let c = dom && dom._component,
 		originalComponent = c,
 		oldDom = dom,
@@ -234,7 +224,7 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll) {
 	}
 
 	if (c && isOwner && (!mountAll || c._component)) {
-		setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
+		setComponentProps(c, props, ASYNC_RENDER, $, mountAll);
 		dom = c.base;
 	}
 	else {
@@ -243,13 +233,13 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll) {
 			dom = oldDom = null;
 		}
 
-		c = createComponent(vnode.nodeName, props, context);
+		c = createComponent(vnode.nodeName, props, $);
 		if (dom && !c.nextBase) {
 			c.nextBase = dom;
 			// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
 			oldDom = null;
 		}
-		setComponentProps(c, props, SYNC_RENDER, context, mountAll);
+		setComponentProps(c, props, SYNC_RENDER, $, mountAll);
 		dom = c.base;
 
 		if (oldDom && dom!==oldDom) {

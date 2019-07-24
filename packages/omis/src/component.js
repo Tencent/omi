@@ -19,15 +19,15 @@ import { renderComponent } from './vdom/component';
 
  let id = 0
 
-export function Component(props, context) {
+export function Component(props, $) {
 	this._dirty = true;
 	this.elementId = id++
 	/**
 	 * @public
 	 * @type {object}
 	 */
-	this.context = context;
 	this.store = {}
+	this.$ = $
 	/**
 	 * @public
 	 * @type {object}

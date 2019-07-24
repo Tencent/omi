@@ -45,14 +45,14 @@ export function flushMounts() {
  * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
  * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing
  *  the desired DOM structure
- * @param {object} context The current context
+ * @param {object} $ The current $
  * @param {boolean} mountAll Whether or not to immediately mount all components
  * @param {Element} parent ?
  * @param {boolean} componentRoot ?
  * @returns {import('../dom').OmiElement} The created/mutated element
  * @private
  */
-export function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
+export function diff(dom, vnode, $, mountAll, parent, componentRoot, store) {
 	// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
 	if (!diffLevel++) {
 		// when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -62,7 +62,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot, store
 		hydrating = dom!=null && !(ATTR_KEY in dom);
 	}
 
-	let ret = idiff(dom, vnode, context, mountAll, componentRoot, store);
+	let ret = idiff(dom, vnode, $, mountAll, componentRoot, store);
 
 	// append the element if its a new parent
 	if (parent && ret.parentNode!==parent) parent.appendChild(ret);
@@ -82,12 +82,12 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot, store
  * Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing.
  * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
  * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing the desired DOM structure
- * @param {object} context The current context
+ * @param {object} $ The current $
  * @param {boolean} mountAll Whether or not to immediately mount all components
  * @param {boolean} [componentRoot] ?
  * @private
  */
-function idiff(dom, vnode, context, mountAll, componentRoot, store) {
+function idiff(dom, vnode, $, mountAll, componentRoot, store) {
 	let out = dom,
 		prevSvgMode = isSvgMode;
 
@@ -123,7 +123,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 	// If the VNode represents a Component, perform a component diff:
 	let vnodeName = vnode.nodeName;
 	if (typeof vnodeName==='function') {
-		return buildComponentFromVNode(dom, vnode, context, mountAll);
+		return buildComponentFromVNode(dom, vnode, $, mountAll);
 	}
 
 
@@ -166,7 +166,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 	}
 	// otherwise, if there are existing or new children, diff them:
 	else if (vchildren && vchildren.length || fc!=null) {
-		innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML!=null, store);
+		innerDiffNode(out, vchildren, $, mountAll, hydrating || props.dangerouslySetInnerHTML!=null, store);
 	}
 
 
@@ -185,13 +185,13 @@ function idiff(dom, vnode, context, mountAll, componentRoot, store) {
  * Apply child and attribute changes between a VNode and a DOM Node to the DOM.
  * @param {import('../dom').OmiElement} dom Element whose children should be compared & mutated
  * @param {Array<import('../vnode').VNode>} vchildren Array of VNodes to compare to `dom.childNodes`
- * @param {object} context Implicitly descendant context object (from most
+ * @param {object} $ Implicitly descendant $ object (from most
  *  recent `getChildContext()`)
  * @param {boolean} mountAll Whether or not to immediately mount all components
  * @param {boolean} isHydrating if `true`, consumes externally created elements
  *  similar to hydration
  */
-function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
+function innerDiffNode(dom, vchildren, $, mountAll, isHydrating, store) {
 	let originalChildren = dom.childNodes,
 		children = [],
 		keyed = {},
@@ -246,7 +246,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
 			}
 
 			// morph the matched/found/created DOM child to match vchild (deep)
-			child = idiff(child, vchild, context, mountAll, null, store);
+			child = idiff(child, vchild, $, mountAll, null, store);
 
 			f = originalChildren[i];
 			if (child && child!==dom && child!==f) {

@@ -1,5 +1,5 @@
 import { Component } from '../component';
-
+import {getPath, getUse} from '../util'
 /**
  * Retains a pool of Components for re-use.
  * @type {Component[]}
@@ -13,13 +13,13 @@ export const recyclerComponents = [];
  * Components.
  * @param {function} Ctor The constructor of the component to create
  * @param {object} props The initial props of the component
- * @param {object} context The initial context of the component
+ * @param {object} $ The initial $ of the component
  * @returns {import('../component').Component}
  */
-export function createComponent(Ctor, props, context) {
+export function createComponent(Ctor, props, $) {
 	let inst, i = recyclerComponents.length;
 
-	inst = new Component(props, context);
+	inst = new Component(props, $);
 	inst.constructor = Ctor;
 	inst.render = doRender;
 	if(Ctor.store){
@@ -27,6 +27,20 @@ export function createComponent(Ctor, props, context) {
 		inst.store.update = inst.update.bind(inst)
 	}
 
+	if ( inst.$ && inst.$.data) {
+
+		if(inst.constructor.use){
+			inst.constructor.updatePath = getPath(inst.constructor.use)
+			inst.using = getUse(inst.$.data, inst.constructor.use)
+			inst.$.instances.push(inst)
+		} else if(inst.use){
+			const use = inst.use()
+			inst._updatePath = getPath(use)
+			inst.using = getUse(inst.$.data, use)
+			inst.$.instances.push(inst)
+		}
+	}
+	
 	while (i--) {
 		if (recyclerComponents[i].constructor===Ctor) {
 			inst.nextBase = recyclerComponents[i].nextBase;
@@ -40,6 +54,6 @@ export function createComponent(Ctor, props, context) {
 
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, context) {
-	return this.constructor(props, this.store, context);
+function doRender(props, $) {
+	return this.constructor(props, this.store, $);
 }
