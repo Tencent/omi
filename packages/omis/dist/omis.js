@@ -545,6 +545,18 @@
             };
             if (void 0 !== path && null !== path) target.S.U = path; else target.S.U = '#';
             var currentValue = target.S[prop] = target[prop];
+            Object.defineProperty(target, prop, {
+                get: function() {
+                    return this.S[prop];
+                },
+                set: function(value) {
+                    var old = this.S[prop];
+                    this.S[prop] = value;
+                    onPropertyChanged(prop, value, old, this, target.S.U, root);
+                },
+                configurable: !0,
+                enumerable: !0
+            });
             if ('object' == typeof currentValue) {
                 if (isArray(currentValue)) {
                     mock(currentValue, root);
