@@ -1,5 +1,5 @@
 /**
- * omis v0.9.0  http://omijs.org
+ * omis v0.10.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -1285,18 +1285,18 @@ extend(Component.prototype, {
  * MIT Licensed.
  */
 
-// __r_: root
-// __c_: prop change callback
-// __p_: path
+// $_r: root
+// $_c: prop change callback
+// $_p: path
 
 function obaa(target, arr, callback) {
 
   var eventPropArr = [];
   if (isArray(target)) {
     if (target.length === 0) {
-      target['__o_'] = {
-        __r_: target,
-        __p_: '#'
+      target.$_o = {
+        $_r: target,
+        $_p: '#'
       };
     }
     mock(target, target);
@@ -1317,11 +1317,11 @@ function obaa(target, arr, callback) {
       }
     }
   }
-  if (!target.__c_) {
-    target.__c_ = [];
+  if (!target.$_c) {
+    target.$_c = [];
   }
   var propChanged = callback ? callback : arr;
-  target.__c_.push({
+  target.$_c.push({
     all: !callback,
     propChanged: propChanged,
     eventPropArr: eventPropArr
@@ -1340,11 +1340,11 @@ function mock(target, root) {
       if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
         for (var cprop in this) {
           if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
-            watch(this, cprop, this['__o_'].__p_, root);
+            watch(this, cprop, this.$_o.$_p, root);
           }
         }
         //todo
-        onPropertyChanged('Array-' + item, this, old, this, this['__o_'].__p_, root);
+        onPropertyChanged('Array-' + item, this, old, this, this.$_o.$_p, root);
       }
       return result;
     };
@@ -1357,24 +1357,24 @@ function mock(target, root) {
 function watch(target, prop, path, root) {
   if (prop === '__o_') return;
   if (isFunction(target[prop])) return;
-  if (!target['__o_']) target['__o_'] = {
-    __r_: root
+  if (!target.$_o) target.$_o = {
+    $_r: root
   };
   if (path !== undefined && path !== null) {
-    target['__o_'].__p_ = path;
+    target.$_o.$_p = path;
   } else {
-    target['__o_'].__p_ = '#';
+    target.$_o.$_p = '#';
   }
 
-  var currentValue = target['__o_'][prop] = target[prop];
+  var currentValue = target.$_o[prop] = target[prop];
   Object.defineProperty(target, prop, {
     get: function get() {
-      return this['__o_'][prop];
+      return this.$_o[prop];
     },
     set: function set(value) {
-      var old = this['__o_'][prop];
-      this['__o_'][prop] = value;
-      onPropertyChanged(prop, value, old, this, target['__o_'].__p_, root);
+      var old = this.$_o[prop];
+      this.$_o[prop] = value;
+      onPropertyChanged(prop, value, old, this, target.$_o.$_p, root);
     },
     configurable: true,
     enumerable: true
@@ -1383,27 +1383,27 @@ function watch(target, prop, path, root) {
     if (isArray(currentValue)) {
       mock(currentValue, root);
       if (currentValue.length === 0) {
-        if (!currentValue['__o_']) currentValue['__o_'] = {};
+        if (!currentValue.$_o) currentValue.$_o = {};
         if (path !== undefined && path !== null) {
-          currentValue['__o_'].__p_ = path + '-' + prop;
+          currentValue.$_o.$_p = path + '-' + prop;
         } else {
-          currentValue['__o_'].__p_ = '#' + '-' + prop;
+          currentValue.$_o.$_p = '#' + '-' + prop;
         }
       }
     }
     for (var cprop in currentValue) {
       if (currentValue.hasOwnProperty(cprop)) {
-        watch(currentValue, cprop, target['__o_'].__p_ + '-' + prop, root);
+        watch(currentValue, cprop, target.$_o.$_p + '-' + prop, root);
       }
     }
   }
 }
 
 function onPropertyChanged(prop, value, oldValue, target, path, root) {
-  if (value !== oldValue && root.__c_) {
+  if (value !== oldValue && root.$_c) {
     var rootName = getRootName(prop, path);
-    for (var i = 0, len = root.__c_.length; i < len; i++) {
-      var handler = root.__c_[i];
+    for (var i = 0, len = root.$_c.length; i < len; i++) {
+      var handler = root.$_c[i];
       if (handler.all || isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
         handler.propChanged.call(target, prop, value, oldValue, path);
       }
@@ -1411,7 +1411,7 @@ function onPropertyChanged(prop, value, oldValue, target, path, root) {
   }
 
   if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
-    watch(target, prop, target['__o_'].__p_, root);
+    watch(target, prop, target.$_o.$_p, root);
   }
 }
 
@@ -1442,11 +1442,11 @@ function getRootName(prop, path) {
 }
 
 obaa.add = function (obj, prop) {
-  watch(obj, prop, obj['__o_'].__p_, obj['__o_'].__r_);
+  watch(obj, prop, obj.$_o.$_p, obj.$_o.$_r);
 };
 
 obaa.set = function (obj, prop, value) {
-  watch(obj, prop, obj['__o_'].__p_, obj['__o_'].__r_);
+  watch(obj, prop, obj.$_o.$_p, obj.$_o.$_r);
   obj[prop] = value;
 };
 

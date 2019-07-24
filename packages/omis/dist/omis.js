@@ -496,9 +496,9 @@
     function obaa(target, arr, callback) {
         var eventPropArr = [];
         if (isArray(target)) {
-            if (0 === target.length) target.S = {
-                T: target,
-                U: '#'
+            if (0 === target.length) target.$_o = {
+                $_r: target,
+                $_p: '#'
             };
             mock(target, target);
         }
@@ -514,9 +514,9 @@
             eventPropArr.push(prop);
             watch(target, prop, null, target);
         }
-        if (!target.V) target.V = [];
+        if (!target.$_c) target.$_c = [];
         var propChanged = callback ? callback : arr;
-        target.V.push({
+        target.$_c.push({
             all: !callback,
             propChanged: propChanged,
             eventPropArr: eventPropArr
@@ -528,8 +528,8 @@
                 var old = Array.prototype.slice.call(this, 0);
                 var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
                 if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
-                    for (var cprop in this) if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) watch(this, cprop, this.S.U, root);
-                    onPropertyChanged('Array-' + item, this, old, this, this.S.U, root);
+                    for (var cprop in this) if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) watch(this, cprop, this.$_o.$_p, root);
+                    onPropertyChanged('Array-' + item, this, old, this, this.$_o.$_p, root);
                 }
                 return result;
             };
@@ -540,19 +540,19 @@
     }
     function watch(target, prop, path, root) {
         if ('__o_' !== prop) if (!isFunction(target[prop])) {
-            if (!target.S) target.S = {
-                T: root
+            if (!target.$_o) target.$_o = {
+                $_r: root
             };
-            if (void 0 !== path && null !== path) target.S.U = path; else target.S.U = '#';
-            var currentValue = target.S[prop] = target[prop];
+            if (void 0 !== path && null !== path) target.$_o.$_p = path; else target.$_o.$_p = '#';
+            var currentValue = target.$_o[prop] = target[prop];
             Object.defineProperty(target, prop, {
                 get: function() {
-                    return this.S[prop];
+                    return this.$_o[prop];
                 },
                 set: function(value) {
-                    var old = this.S[prop];
-                    this.S[prop] = value;
-                    onPropertyChanged(prop, value, old, this, target.S.U, root);
+                    var old = this.$_o[prop];
+                    this.$_o[prop] = value;
+                    onPropertyChanged(prop, value, old, this, target.$_o.$_p, root);
                 },
                 configurable: !0,
                 enumerable: !0
@@ -561,23 +561,23 @@
                 if (isArray(currentValue)) {
                     mock(currentValue, root);
                     if (0 === currentValue.length) {
-                        if (!currentValue.S) currentValue.S = {};
-                        if (void 0 !== path && null !== path) currentValue.S.U = path + '-' + prop; else currentValue.S.U = "#-" + prop;
+                        if (!currentValue.$_o) currentValue.$_o = {};
+                        if (void 0 !== path && null !== path) currentValue.$_o.$_p = path + '-' + prop; else currentValue.$_o.$_p = "#-" + prop;
                     }
                 }
-                for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.S.U + '-' + prop, root);
+                for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.$_o.$_p + '-' + prop, root);
             }
         }
     }
     function onPropertyChanged(prop, value, oldValue, target, path, root) {
-        if (value !== oldValue && root.V) {
+        if (value !== oldValue && root.$_c) {
             var rootName = getRootName(prop, path);
-            for (var i = 0, len = root.V.length; i < len; i++) {
-                var handler = root.V[i];
+            for (var i = 0, len = root.$_c.length; i < len; i++) {
+                var handler = root.$_c[i];
                 if (handler.all || isInArray(handler.eventPropArr, rootName) || 0 === rootName.indexOf('Array-')) handler.propChanged.call(target, prop, value, oldValue, path);
             }
         }
-        if (0 !== prop.indexOf('Array-') && 'object' == typeof value) watch(target, prop, target.S.U, root);
+        if (0 !== prop.indexOf('Array-') && 'object' == typeof value) watch(target, prop, target.$_o.$_p, root);
     }
     function isFunction(obj) {
         return '[object Function]' == Object.prototype.toString.call(obj);
@@ -687,10 +687,10 @@
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
-        watch(obj, prop, obj.S.U, obj.S.T);
+        watch(obj, prop, obj.$_o.$_p, obj.$_o.$_r);
     };
     obaa.set = function(obj, prop, value) {
-        watch(obj, prop, obj.S.U, obj.S.T);
+        watch(obj, prop, obj.$_o.$_p, obj.$_o.$_r);
         obj[prop] = value;
     };
     Array.prototype.size = function(length) {
