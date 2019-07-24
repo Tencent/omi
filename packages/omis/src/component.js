@@ -11,7 +11,7 @@ import { renderComponent } from './vdom/component';
  *
  * @example
  * class MyFoo extends Component {
- *   render(props, state) {
+ *   render(props) {
  *     return <div />;
  *   }
  * }
@@ -34,12 +34,6 @@ export function Component(props, context) {
 	 */
 	this.props = props;
 
-	/**
-	 * @public
-	 * @type {object}
-	 */
-	this.state = this.state || {};
-
 	this._renderCallbacks = [];
 }
 
@@ -58,11 +52,10 @@ extend(Component.prototype, {
 	},
 
 	/**
-	 * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
+	 * Accepts `props`, and returns a new Virtual DOM tree to build.
 	 * Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
 	 * @param {object} props Props (eg: JSX attributes) received from parent
 	 * 	element/component
-	 * @param {object} state The component's current state
 	 * @param {object} context Context object, as returned by the nearest
 	 *  ancestor's `getChildContext()`
 	 * @returns {import('./vnode').VNode | void}

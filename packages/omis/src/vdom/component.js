@@ -24,21 +24,19 @@ export function setComponentProps(component, props, renderMode, context, mountAl
 	delete props.ref;
 	delete props.key;
 
-	if (typeof component.constructor.getDerivedStateFromProps === 'undefined') {
-		if (!component.base || mountAll) {
-			//if (component.componentWillMount) component.componentWillMount();
-			if (component.store.install) component.store.install()
-		}
-		else {
-			// if (component.componentWillReceiveProps) {
-			// 	component.componentWillReceiveProps(props, context);
-			// }
-			if (component.store.receiveProps) {
-				component.__needUpdate_ = component.store.receiveProps(props, context)
-			}
+	if (!component.base || mountAll) {
+		//if (component.componentWillMount) component.componentWillMount();
+		if (component.store.install) component.store.install()
+	}
+	else {
+		// if (component.componentWillReceiveProps) {
+		// 	component.componentWillReceiveProps(props, context);
+		// }
+		if (component.store.receiveProps) {
+			component.__needUpdate_ = component.store.receiveProps(props, context)
 		}
 	}
-
+	
 	if (context && context!==component.context) {
 		if (!component.prevContext) component.prevContext = component.context;
 		component.context = context;
@@ -76,10 +74,8 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 	if (component._disable) return;
 
 	let props = component.props,
-		state = component.state,
 		context = component.context,
 		previousProps = component.prevProps || props,
-		previousState = component.prevState || state,
 		previousContext = component.prevContext || context,
 		isUpdate = component.base,
 		nextBase = component.nextBase,
@@ -89,21 +85,15 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		snapshot = previousContext,
 		rendered, inst, cbase;
 
-	if (component.constructor.getDerivedStateFromProps) {
-		state = extend(extend({}, state), component.constructor.getDerivedStateFromProps(props, state));
-		component.state = state;
-	}
-
 	// if updating
 	if (isUpdate) {
 		component.props = previousProps;
-		component.state = previousState;
 		component.context = previousContext;
 		
 		if (component.__needUpdate_ !== false) {
 			skip = false
 			if (component.store.beforeUpdate) {
-				component.store.beforeUpdate(props, state, context)
+				component.store.beforeUpdate(props, context)
 			}
 		} else {
 			skip = true
@@ -111,11 +101,10 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		delete component.__needUpdate_
     
 		component.props = props;
-		component.state = state;
 		component.context = context;
 	}
 
-	component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
+	component.prevProps = component.prevContext = component.nextBase = null;
 	component._dirty = false;
 
 	if (!skip) {
@@ -123,7 +112,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		if(component.store.beforeRender){
 			component.store.beforeRender()
 		}
-		rendered = component.render(props, state, context);
+		rendered = component.render(props, context);
 		options.runTimeComponent = null
 
 		// context to pass to the child, can be updated via (grand-)parent component
@@ -132,7 +121,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		}
 
 		if (isUpdate && component.getSnapshotBeforeUpdate) {
-			snapshot = component.getSnapshotBeforeUpdate(previousProps, previousState);
+			snapshot = component.getSnapshotBeforeUpdate(previousProps);
 		}
 
 		let childComponent = rendered && rendered.nodeName,
@@ -211,11 +200,8 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 		// Note: disabled as it causes duplicate hooks, see https://github.com/developit/Omi/issues/750
 		// flushMounts();
 
-		// if (component.componentDidUpdate) {
-		// 	component.componentDidUpdate(previousProps, previousState, snapshot);
-		// }
 		if (component.store.updated) {
-			component.store.updated(previousProps, previousState, snapshot);
+			component.store.updated(previousProps, snapshot);
 		}
 		if (options.afterUpdate) options.afterUpdate(component);
 	}

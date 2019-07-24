@@ -1,5 +1,5 @@
 /**
- * omis v0.5.0  http://omijs.org
+ * omis v0.6.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -821,8 +821,8 @@ function createComponent(Ctor, props, context) {
 }
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props) {
-	return this.constructor(props, this.store);
+function doRender(props, context) {
+	return this.constructor(props, this.store, context);
 }
 
 /**
@@ -842,17 +842,15 @@ function setComponentProps(component, props, renderMode, context, mountAll) {
 	delete props.ref;
 	delete props.key;
 
-	if (typeof component.constructor.getDerivedStateFromProps === 'undefined') {
-		if (!component.base || mountAll) {
-			//if (component.componentWillMount) component.componentWillMount();
-			if (component.store.install) component.store.install();
-		} else {
-			// if (component.componentWillReceiveProps) {
-			// 	component.componentWillReceiveProps(props, context);
-			// }
-			if (component.store.receiveProps) {
-				component.__needUpdate_ = component.store.receiveProps(props, context);
-			}
+	if (!component.base || mountAll) {
+		//if (component.componentWillMount) component.componentWillMount();
+		if (component.store.install) component.store.install();
+	} else {
+		// if (component.componentWillReceiveProps) {
+		// 	component.componentWillReceiveProps(props, context);
+		// }
+		if (component.store.receiveProps) {
+			component.__needUpdate_ = component.store.receiveProps(props, context);
 		}
 	}
 
@@ -890,10 +888,8 @@ function renderComponent(component, renderMode, mountAll, isChild) {
 	if (component._disable) return;
 
 	var props = component.props,
-	    state = component.state,
 	    context = component.context,
 	    previousProps = component.prevProps || props,
-	    previousState = component.prevState || state,
 	    previousContext = component.prevContext || context,
 	    isUpdate = component.base,
 	    nextBase = component.nextBase,
@@ -905,21 +901,15 @@ function renderComponent(component, renderMode, mountAll, isChild) {
 	    inst,
 	    cbase;
 
-	if (component.constructor.getDerivedStateFromProps) {
-		state = extend(extend({}, state), component.constructor.getDerivedStateFromProps(props, state));
-		component.state = state;
-	}
-
 	// if updating
 	if (isUpdate) {
 		component.props = previousProps;
-		component.state = previousState;
 		component.context = previousContext;
 
 		if (component.__needUpdate_ !== false) {
 			skip = false;
 			if (component.store.beforeUpdate) {
-				component.store.beforeUpdate(props, state, context);
+				component.store.beforeUpdate(props, context);
 			}
 		} else {
 			skip = true;
@@ -927,11 +917,10 @@ function renderComponent(component, renderMode, mountAll, isChild) {
 		delete component.__needUpdate_;
 
 		component.props = props;
-		component.state = state;
 		component.context = context;
 	}
 
-	component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
+	component.prevProps = component.prevContext = component.nextBase = null;
 	component._dirty = false;
 
 	if (!skip) {
@@ -939,7 +928,7 @@ function renderComponent(component, renderMode, mountAll, isChild) {
 		if (component.store.beforeRender) {
 			component.store.beforeRender();
 		}
-		rendered = component.render(props, state, context);
+		rendered = component.render(props, context);
 		options.runTimeComponent = null;
 
 		// context to pass to the child, can be updated via (grand-)parent component
@@ -948,7 +937,7 @@ function renderComponent(component, renderMode, mountAll, isChild) {
 		}
 
 		if (isUpdate && component.getSnapshotBeforeUpdate) {
-			snapshot = component.getSnapshotBeforeUpdate(previousProps, previousState);
+			snapshot = component.getSnapshotBeforeUpdate(previousProps);
 		}
 
 		var childComponent = rendered && rendered.nodeName,
@@ -1025,11 +1014,8 @@ function renderComponent(component, renderMode, mountAll, isChild) {
 		// Note: disabled as it causes duplicate hooks, see https://github.com/developit/Omi/issues/750
 		// flushMounts();
 
-		// if (component.componentDidUpdate) {
-		// 	component.componentDidUpdate(previousProps, previousState, snapshot);
-		// }
 		if (component.store.updated) {
-			component.store.updated(previousProps, previousState, snapshot);
+			component.store.updated(previousProps, snapshot);
 		}
 		if (options.afterUpdate) options.afterUpdate(component);
 	}
@@ -1130,7 +1116,7 @@ function unmountComponent(component) {
  *
  * @example
  * class MyFoo extends Component {
- *   render(props, state) {
+ *   render(props) {
  *     return <div />;
  *   }
  * }
@@ -1153,12 +1139,6 @@ function Component(props, context) {
   */
 	this.props = props;
 
-	/**
-  * @public
-  * @type {object}
-  */
-	this.state = this.state || {};
-
 	this._renderCallbacks = [];
 }
 
@@ -1177,11 +1157,10 @@ extend(Component.prototype, {
 
 
 	/**
-  * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
+  * Accepts `props`, and returns a new Virtual DOM tree to build.
   * Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
   * @param {object} props Props (eg: JSX attributes) received from parent
   * 	element/component
-  * @param {object} state The component's current state
   * @param {object} context Context object, as returned by the nearest
   *  ancestor's `getChildContext()`
   * @returns {import('./vnode').VNode | void}

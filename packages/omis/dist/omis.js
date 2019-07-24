@@ -272,8 +272,8 @@
         }
         return inst;
     }
-    function doRender(props) {
-        return this.constructor(props, this.store);
+    function doRender(props, context) {
+        return this.constructor(props, this.store, context);
     }
     function setComponentProps(component, props, renderMode, context, mountAll) {
         if (!component.__x) {
@@ -282,7 +282,7 @@
             component.__k = props.key;
             delete props.ref;
             delete props.key;
-            if (void 0 === component.constructor.getDerivedStateFromProps) if (!component.base || mountAll) {
+            if (!component.base || mountAll) {
                 if (component.store.install) component.store.install();
             } else if (component.store.receiveProps) component.R = component.store.receiveProps(props, context);
             if (context && context !== component.context) {
@@ -298,33 +298,27 @@
     }
     function renderComponent(component, renderMode, mountAll, isChild) {
         if (!component.__x) {
-            var rendered, inst, cbase, props = component.props, state = component.state, context = component.context, previousProps = component.__p || props, previousState = component.__s || state, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1, snapshot = previousContext;
-            if (component.constructor.getDerivedStateFromProps) {
-                state = extend(extend({}, state), component.constructor.getDerivedStateFromProps(props, state));
-                component.state = state;
-            }
+            var rendered, inst, cbase, props = component.props, context = component.context, previousProps = component.__p || props, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1, snapshot = previousContext;
             if (isUpdate) {
                 component.props = previousProps;
-                component.state = previousState;
                 component.context = previousContext;
                 if (!1 !== component.R) {
                     skip = !1;
-                    if (component.store.beforeUpdate) component.store.beforeUpdate(props, state, context);
+                    if (component.store.beforeUpdate) component.store.beforeUpdate(props, context);
                 } else skip = !0;
                 delete component.R;
                 component.props = props;
-                component.state = state;
                 component.context = context;
             }
-            component.__p = component.__s = component.__c = component.__b = null;
+            component.__p = component.__c = component.__b = null;
             component.__d = !1;
             if (!skip) {
                 options.runTimeComponent = component;
                 if (component.store.beforeRender) component.store.beforeRender();
-                rendered = component.render(props, state, context);
+                rendered = component.render(props, context);
                 options.runTimeComponent = null;
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
-                if (isUpdate && component.getSnapshotBeforeUpdate) snapshot = component.getSnapshotBeforeUpdate(previousProps, previousState);
+                if (isUpdate && component.getSnapshotBeforeUpdate) snapshot = component.getSnapshotBeforeUpdate(previousProps);
                 var toUnmount, base, childComponent = rendered && rendered.nodeName;
                 if ('function' == typeof childComponent) {
                     var childProps = getNodeProps(rendered);
@@ -367,7 +361,7 @@
                 }
             }
             if (!isUpdate || mountAll) mounts.push(component); else if (!skip) {
-                if (component.store.updated) component.store.updated(previousProps, previousState, snapshot);
+                if (component.store.updated) component.store.updated(previousProps, snapshot);
                 if (options.afterUpdate) options.afterUpdate(component);
             }
             while (component.__h.length) component.__h.pop().call(component);
@@ -421,7 +415,6 @@
         this.context = context;
         this.store = {};
         this.props = props;
-        this.state = this.state || {};
         this.__h = [];
     }
     function render(vnode, parent, merge) {

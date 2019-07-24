@@ -79,9 +79,9 @@ declare namespace Omis {
 		componentWillUnmount?(): void;
 		getChildContext?(): object;
 		componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
-		shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
-		componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
-		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
+		shouldComponentUpdate?(nextProps: Readonly<P>, nextContext: any): boolean;
+		componentWillUpdate?(nextProps: Readonly<P>, nextContext: any): void;
+		componentDidUpdate?(previousProps: Readonly<P>, previousContext: any): void;
 	}
 
 	abstract class Component<P, S> {
@@ -90,14 +90,13 @@ declare namespace Omis {
 		static displayName?: string;
 		static defaultProps?: any;
 
-		state: Readonly<S>;
 		props: RenderableProps<P>;
 		context: any;
 		base?: HTMLElement;
 
 		update(callback?: () => void): void;
 
-		abstract render(props?: RenderableProps<P>, state?: Readonly<S>, context?: any): ComponentChild;
+		abstract render(props?: RenderableProps<P>, context?: any): ComponentChild;
 
 		// Add these variables to avoid descendants shadowing them (some from properties.json for minification)
 		private __key;
@@ -108,7 +107,6 @@ declare namespace Omis {
 		private nextBase;
 		private prevContext;
 		private prevProps;
-		private prevState;
 		private __d;
 		private __x;
 		private __l;

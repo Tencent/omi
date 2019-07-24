@@ -1,15 +1,7 @@
-/**
- * omis v0.6.0  http://omijs.org
- * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omis
- * MIT Licensed.
- */
-
 (function () {
-    'use strict';
+	'use strict';
 
-    /**
+	/**
 	 * Virtual DOM Node
 	 * @typedef VNode
 	 * @property {string | function} nodeName The string of the DOM node to create or Component constructor to render
@@ -17,14 +9,14 @@
 	 * @property {string | number | undefined} key The key used to identify this VNode in a list
 	 * @property {object} attributes The properties of this VNode
 	 */
-    var VNode = function VNode() {};
+	var VNode = function VNode() {};
 
-    /**
+	/**
 	 * @typedef {import('./component').Component} Component
 	 * @typedef {import('./vnode').VNode} VNode
 	 */
 
-    /**
+	/**
 	 * Global options
 	 * @public
 	 * @typedef Options
@@ -37,16 +29,16 @@
 	 * @property {(event: Event) => Event | void} [event] Hook invoked before any Omi event listeners. The return value (if any) replaces the native browser event given to event listeners
 	 */
 
-    /** @type {Options}  */
-    var options = {
+	/** @type {Options}  */
+	var options = {
 	  runTimeComponent: {},
 	  styleCache: [],
 	  staticStyleMapping: {}
 	};
 
-    var styleId = 0;
+	var styleId = 0;
 
-    function getCtorName(ctor) {
+	function getCtorName(ctor) {
 	  for (var i = 0, len = options.styleCache.length; i < len; i++) {
 	    var item = options.styleCache[i];
 
@@ -62,8 +54,8 @@
 	  return attrName;
 	}
 
-    // many thanks to https://github.com/thomaspark/scoper/
-    function scoper(css, prefix) {
+	// many thanks to https://github.com/thomaspark/scoper/
+	function scoper(css, prefix) {
 	  prefix = '[' + prefix.toLowerCase() + ']';
 	  // https://www.w3.org/TR/css-syntax-3/#lexical
 	  css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
@@ -98,7 +90,7 @@
 	  return css;
 	}
 
-    function addStyle(cssText, id) {
+	function addStyle(cssText, id) {
 	  id = id.toLowerCase();
 	  var ele = document.getElementById(id);
 	  var head = document.getElementsByTagName('head')[0];
@@ -117,7 +109,7 @@
 	  }
 	}
 
-    function addStyleToHead(style, attr) {
+	function addStyleToHead(style, attr) {
 
 	  if (!options.staticStyleMapping[attr]) {
 	    addStyle(scoper(style, attr), attr);
@@ -125,11 +117,11 @@
 	  }
 	}
 
-    var stack = [];
+	var stack = [];
 
-    var EMPTY_CHILDREN = [];
+	var EMPTY_CHILDREN = [];
 
-    /**
+	/**
 	 * JSX/hyperscript reviver.
 	 * @see http://jasonformat.com/wtf-is-jsx
 	 * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
@@ -160,12 +152,12 @@
 	 *
 	 * @public
 	 */
-    function h(nodeName, attributes) {
+	function h(nodeName, attributes) {
 		var children = EMPTY_CHILDREN,
-		    lastSimple,
-		    child,
-		    simple,
-		    i;
+		    lastSimple = void 0,
+		    child = void 0,
+		    simple = void 0,
+		    i = void 0;
 		for (i = arguments.length; i-- > 2;) {
 			stack.push(arguments[i]);
 		}
@@ -218,38 +210,38 @@
 		return p;
 	}
 
-    /**
+	/**
 	 * Copy all properties from `props` onto `obj`.
 	 * @param {object} obj Object onto which properties should be copied.
 	 * @param {object} props Object from which to copy properties.
 	 * @returns {object}
 	 * @private
 	 */
-    function extend(obj, props) {
+	function extend(obj, props) {
 	  for (var i in props) {
 	    obj[i] = props[i];
 	  }return obj;
 	}
 
-    /** Invoke or update a ref, depending on whether it is a function or object ref.
+	/** Invoke or update a ref, depending on whether it is a function or object ref.
 	 *  @param {object|function} [ref=null]
 	 *  @param {any} [value]
 	 */
-    function applyRef(ref, value) {
+	function applyRef(ref, value) {
 	  if (ref) {
 	    if (typeof ref == 'function') ref(value);else ref.current = value;
 	  }
 	}
 
-    /**
+	/**
 	 * Call a function asynchronously, as soon as possible. Makes
 	 * use of HTML Promise to schedule the callback if available,
 	 * otherwise falling back to `setTimeout` (mainly for IE<11).
 	 * @type {(callback: function) => void}
 	 */
-    var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+	var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
-    /**
+	/**
 	 * Clones the given VNode, optionally adding attributes/props and replacing its
 	 * children.
 	 * @param {import('./vnode').VNode} vnode The virtual DOM element to clone
@@ -257,38 +249,51 @@
 	 * @param {Array<import('./vnode').VNode>} [rest] Any additional arguments will be used as replacement
 	 *  children.
 	 */
-    function cloneElement(vnode, props) {
+	function cloneElement(vnode, props) {
 	  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
 	}
 
-    /** DOM properties that should NOT have "px" added when numeric */
-    var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+	// render modes
 
-    /**
+	/** Do not re-render a component */
+	var NO_RENDER = 0;
+	/** Synchronously re-render a component and its children */
+	var SYNC_RENDER = 1;
+	/** Synchronously re-render a component, even if its lifecycle methods attempt to prevent it. */
+	var FORCE_RENDER = 2;
+	/** Queue asynchronous re-render of a component and it's children */
+	var ASYNC_RENDER = 3;
+
+	var ATTR_KEY = 'prevProps';
+
+	/** DOM properties that should NOT have "px" added when numeric */
+	var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+
+	/**
 	 * Managed queue of dirty components to be re-rendered
 	 * @type {Array<import('./component').Component>}
 	 */
-    var items = [];
+	var items = [];
 
-    /**
+	/**
 	 * Enqueue a rerender of a component
 	 * @param {import('./component').Component} component The component to rerender
 	 */
-    function enqueueRender(component) {
+	function enqueueRender(component) {
 		if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
 			(options.debounceRendering || defer)(rerender);
 		}
 	}
 
-    /** Rerender all enqueued dirty components */
-    function rerender() {
-		var p;
+	/** Rerender all enqueued dirty components */
+	function rerender() {
+		var p = void 0;
 		while (p = items.pop()) {
 			if (p._dirty) renderComponent(p);
 		}
 	}
 
-    /**
+	/**
 	 * Check if two nodes are equivalent.
 	 * @param {import('../dom').OmiElement} node DOM Node to compare
 	 * @param {import('../vnode').VNode} vnode Virtual DOM node to compare
@@ -296,7 +301,7 @@
 	 *  when comparing.
 	 * @private
 	 */
-    function isSameNodeType(node, vnode, hydrating) {
+	function isSameNodeType(node, vnode, hydrating) {
 		if (typeof vnode === 'string' || typeof vnode === 'number') {
 			return node.splitText !== undefined;
 		}
@@ -306,23 +311,23 @@
 		return hydrating || node._componentConstructor === vnode.nodeName;
 	}
 
-    /**
+	/**
 	 * Check if an Element has a given nodeName, case-insensitively.
 	 * @param {import('../dom').OmiElement} node A DOM Element to inspect the name of.
 	 * @param {string} nodeName Unnormalized name to compare against.
 	 */
-    function isNamedNode(node, nodeName) {
+	function isNamedNode(node, nodeName) {
 		return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 	}
 
-    /**
+	/**
 	 * Reconstruct Component-style `props` from a VNode.
 	 * Ensures default/fallback values from `defaultProps`:
 	 * Own-properties of `defaultProps` not present in `vnode.attributes` are added.
 	 * @param {import('../vnode').VNode} vnode The VNode to get props for
 	 * @returns {object} The props to use for this VNode
 	 */
-    function getNodeProps(vnode) {
+	function getNodeProps(vnode) {
 		var props = extend({}, vnode.attributes);
 		props.children = vnode.children;
 
@@ -338,17 +343,17 @@
 		return props;
 	}
 
-    /**
+	/**
 	 * A DOM event listener
 	 * @typedef {(e: Event) => void} EventListner
 	 */
 
-    /**
+	/**
 	 * A mapping of event types to event listeners
 	 * @typedef {Object.<string, EventListener>} EventListenerMap
 	 */
 
-    /**
+	/**
 	 * Properties Omi adds to elements it creates
 	 * @typedef OmiElementExtensions
 	 * @property {string} [normalizedNodeName] A normalized node name to use in diffing
@@ -357,35 +362,35 @@
 	 * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
 	 */
 
-    /**
+	/**
 	 * A DOM element that has been extended with Omi properties
 	 * @typedef {Element & ElementCSSInlineStyle & OmiElementExtensions} OmiElement
 	 */
 
-    /**
+	/**
 	 * Create an element with the given nodeName.
 	 * @param {string} nodeName The DOM node to create
 	 * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
 	 *  namespace.
 	 * @returns {OmiElement} The created DOM node
 	 */
-    function createNode(nodeName, isSvg) {
+	function createNode(nodeName, isSvg) {
 		/** @type {OmiElement} */
 		var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
 		node.normalizedNodeName = nodeName;
 		return node;
 	}
 
-    /**
+	/**
 	 * Remove a child node from its parent if attached.
 	 * @param {Node} node The node to remove
 	 */
-    function removeNode(node) {
+	function removeNode(node) {
 		var parentNode = node.parentNode;
 		if (parentNode) parentNode.removeChild(node);
 	}
 
-    /**
+	/**
 	 * Set a named attribute on the given Node, with special behavior for some names
 	 * and event handlers. If `value` is `null`, the attribute/handler will be
 	 * removed.
@@ -397,7 +402,7 @@
 	 * @param {boolean} isSvg Are we currently diffing inside an svg?
 	 * @private
 	 */
-    function setAccessor(node, name, old, value, isSvg, store) {
+	function setAccessor(node, name, old, value, isSvg, store) {
 		if (name === 'className') name = 'class';
 
 		if (name === 'key') {
@@ -417,8 +422,8 @@
 						if (!(i in value)) node.style[i] = '';
 					}
 				}
-				for (var i in value) {
-					node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+				for (var _i in value) {
+					node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
 				}
 			}
 		} else if (name === 'dangerouslySetInnerHTML') {
@@ -452,33 +457,33 @@
 		}
 	}
 
-    /**
+	/**
 	 * Proxy an event to hooked event handlers
 	 * @param {Event} e The event object from the browser
 	 * @private
 	 */
-    function eventProxy(e) {
+	function eventProxy(e) {
 		return this._listeners[e.type](options.event && options.event(e) || e);
 	}
 
-    /**
+	/**
 	 * Queue of components that have been mounted and are awaiting componentDidMount
 	 * @type {Array<import('../component').Component>}
 	 */
-    var mounts = [];
+	var mounts = [];
 
-    /** Diff recursion count, used to track the end of the diff cycle. */
-    var diffLevel = 0;
+	/** Diff recursion count, used to track the end of the diff cycle. */
+	var diffLevel = 0;
 
-    /** Global flag indicating if the diff is currently within an SVG */
-    var isSvgMode = false;
+	/** Global flag indicating if the diff is currently within an SVG */
+	var isSvgMode = false;
 
-    /** Global flag indicating if the diff is performing hydration */
-    var hydrating = false;
+	/** Global flag indicating if the diff is performing hydration */
+	var hydrating = false;
 
-    /** Invoke queued componentDidMount lifecycle methods */
-    function flushMounts() {
-		var c;
+	/** Invoke queued componentDidMount lifecycle methods */
+	function flushMounts() {
+		var c = void 0;
 		while (c = mounts.shift()) {
 			if (c.constructor.css) {
 				addStyleToHead(c.constructor.css, getCtorName(c.constructor));
@@ -492,7 +497,7 @@
 		}
 	}
 
-    /**
+	/**
 	 * Apply differences in a given vnode (and it's deep children) to a real DOM Node.
 	 * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
 	 * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing
@@ -504,14 +509,14 @@
 	 * @returns {import('../dom').OmiElement} The created/mutated element
 	 * @private
 	 */
-    function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
+	function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
 		// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
 		if (!diffLevel++) {
 			// when first starting the diff, check if we're diffing an SVG or within an SVG
 			isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
 			// hydration is indicated by the existing element to be diffed not having a prop cache
-			hydrating = dom != null && !('prevProps' in dom);
+			hydrating = dom != null && !(ATTR_KEY in dom);
 		}
 
 		var ret = idiff(dom, vnode, context, mountAll, componentRoot, store);
@@ -529,7 +534,7 @@
 		return ret;
 	}
 
-    /**
+	/**
 	 * Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing.
 	 * @param {import('../dom').OmiElement} dom A DOM node to mutate into the shape of a `vnode`
 	 * @param {import('../vnode').VNode} vnode A VNode (with descendants forming a tree) representing the desired DOM structure
@@ -538,7 +543,7 @@
 	 * @param {boolean} [componentRoot] ?
 	 * @private
 	 */
-    function idiff(dom, vnode, context, mountAll, componentRoot, store) {
+	function idiff(dom, vnode, context, mountAll, componentRoot, store) {
 		var out = dom,
 		    prevSvgMode = isSvgMode;
 
@@ -563,7 +568,7 @@
 				}
 			}
 
-			out['prevProps'] = true;
+			out[ATTR_KEY] = true;
 
 			return out;
 		}
@@ -595,11 +600,11 @@
 		}
 
 		var fc = out.firstChild,
-		    props = out['prevProps'],
+		    props = out[ATTR_KEY],
 		    vchildren = vnode.children;
 
 		if (props == null) {
-			props = out['prevProps'] = {};
+			props = out[ATTR_KEY] = {};
 			for (var a = out.attributes, i = a.length; i--;) {
 				props[a[i].name] = a[i].value;
 			}
@@ -625,7 +630,7 @@
 		return out;
 	}
 
-    /**
+	/**
 	 * Apply child and attribute changes between a VNode and a DOM Node to the DOM.
 	 * @param {import('../dom').OmiElement} dom Element whose children should be compared & mutated
 	 * @param {Array<import('../vnode').VNode>} vchildren Array of VNodes to compare to `dom.childNodes`
@@ -635,7 +640,7 @@
 	 * @param {boolean} isHydrating if `true`, consumes externally created elements
 	 *  similar to hydration
 	 */
-    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
+	function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
 		var originalChildren = dom.childNodes,
 		    children = [],
 		    keyed = {},
@@ -644,17 +649,17 @@
 		    len = originalChildren.length,
 		    childrenLen = 0,
 		    vlen = vchildren ? vchildren.length : 0,
-		    j,
-		    c,
-		    f,
-		    vchild,
-		    child;
+		    j = void 0,
+		    c = void 0,
+		    f = void 0,
+		    vchild = void 0,
+		    child = void 0;
 
 		// Build up a map of keyed children and an Array of unkeyed children:
 		if (len !== 0) {
 			for (var i = 0; i < len; i++) {
 				var _child = originalChildren[i],
-				    props = _child['prevProps'],
+				    props = _child[ATTR_KEY],
 				    key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
 				if (key != null) {
 					keyedLen++;
@@ -666,16 +671,16 @@
 		}
 
 		if (vlen !== 0) {
-			for (var i = 0; i < vlen; i++) {
-				vchild = vchildren[i];
+			for (var _i = 0; _i < vlen; _i++) {
+				vchild = vchildren[_i];
 				child = null;
 
 				// attempt to find a node based on key matching
-				var key = vchild.key;
-				if (key != null) {
-					if (keyedLen && keyed[key] !== undefined) {
-						child = keyed[key];
-						keyed[key] = undefined;
+				var _key = vchild.key;
+				if (_key != null) {
+					if (keyedLen && keyed[_key] !== undefined) {
+						child = keyed[_key];
+						keyed[_key] = undefined;
 						keyedLen--;
 					}
 				}
@@ -695,7 +700,7 @@
 				// morph the matched/found/created DOM child to match vchild (deep)
 				child = idiff(child, vchild, context, mountAll, null, store);
 
-				f = originalChildren[i];
+				f = originalChildren[_i];
 				if (child && child !== dom && child !== f) {
 					if (f == null) {
 						dom.appendChild(child);
@@ -710,8 +715,8 @@
 
 		// remove unused keyed children:
 		if (keyedLen) {
-			for (var i in keyed) {
-				if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+			for (var _i2 in keyed) {
+				if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
 			}
 		}
 
@@ -721,14 +726,14 @@
 		}
 	}
 
-    /**
+	/**
 	 * Recursively recycle (or just unmount) a node and its descendants.
 	 * @param {import('../dom').OmiElement} node DOM node to start
 	 *  unmount/removal from
 	 * @param {boolean} [unmountOnly=false] If `true`, only triggers unmount
 	 *  lifecycle, skips removal
 	 */
-    function recollectNodeTree(node, unmountOnly) {
+	function recollectNodeTree(node, unmountOnly) {
 		var component = node._component;
 		if (component) {
 			// if node is owned by a Component, unmount that component (ends up recursing back here)
@@ -736,9 +741,9 @@
 		} else {
 			// If the node's VNode had a ref function, invoke it with null here.
 			// (this is part of the React spec, and smart for unsetting references)
-			if (node['prevProps'] != null) applyRef(node['prevProps'].ref, null);
+			if (node[ATTR_KEY] != null) applyRef(node[ATTR_KEY].ref, null);
 
-			if (unmountOnly === false || node['prevProps'] == null) {
+			if (unmountOnly === false || node[ATTR_KEY] == null) {
 				removeNode(node);
 			}
 
@@ -746,12 +751,12 @@
 		}
 	}
 
-    /**
+	/**
 	 * Recollect/unmount all children.
 	 *	- we use .lastChild here because it causes less reflow than .firstChild
 	 *	- it's also cheaper than accessing the .childNodes Live NodeList
 	 */
-    function removeChildren(node) {
+	function removeChildren(node) {
 		node = node.lastChild;
 		while (node) {
 			var next = node.previousSibling;
@@ -760,15 +765,15 @@
 		}
 	}
 
-    /**
+	/**
 	 * Apply differences in attributes from a VNode to the given DOM Element.
 	 * @param {import('../dom').OmiElement} dom Element with attributes to diff `attrs` against
 	 * @param {object} attrs The desired end-state key-value attribute pairs
 	 * @param {object} old Current/previous attributes (from previous VNode or
 	 *  element's prop cache)
 	 */
-    function diffAttributes(dom, attrs, old, store) {
-		var name;
+	function diffAttributes(dom, attrs, old, store) {
+		var name = void 0;
 
 		// remove attributes no longer present on the vnode by setting them to undefined
 		for (name in old) {
@@ -785,14 +790,14 @@
 		}
 	}
 
-    /**
+	/**
 	 * Retains a pool of Components for re-use.
 	 * @type {Component[]}
 	 * @private
 	 */
-    var recyclerComponents = [];
+	var recyclerComponents = [];
 
-    /**
+	/**
 	 * Create a component. Normalizes differences between PFC's and classful
 	 * Components.
 	 * @param {function} Ctor The constructor of the component to create
@@ -800,8 +805,8 @@
 	 * @param {object} context The initial context of the component
 	 * @returns {import('../component').Component}
 	 */
-    function createComponent(Ctor, props, context) {
-		var inst,
+	function createComponent(Ctor, props, context) {
+		var inst = void 0,
 		    i = recyclerComponents.length;
 
 		inst = new Component(props, context);
@@ -823,12 +828,12 @@
 		return inst;
 	}
 
-    /** The `.render()` method for a PFC backing instance. */
-    function doRender(props, context) {
+	/** The `.render()` method for a PFC backing instance. */
+	function doRender(props, context) {
 		return this.constructor(props, this.store, context);
 	}
 
-    /**
+	/**
 	 * Set a component's `props` and possibly re-render the component
 	 * @param {import('../component').Component} component The Component to set props on
 	 * @param {object} props The new props
@@ -836,7 +841,7 @@
 	 * @param {object} context The new context
 	 * @param {boolean} mountAll Whether or not to immediately mount all components
 	 */
-    function setComponentProps(component, props, renderMode, context, mountAll) {
+	function setComponentProps(component, props, renderMode, context, mountAll) {
 		if (component._disable) return;
 		component._disable = true;
 
@@ -867,9 +872,9 @@
 
 		component._disable = false;
 
-		if (renderMode !== 0) {
-			if (renderMode === 1 || options.syncComponentUpdates !== false || !component.base) {
-				renderComponent(component, 1, mountAll);
+		if (renderMode !== NO_RENDER) {
+			if (renderMode === SYNC_RENDER || options.syncComponentUpdates !== false || !component.base) {
+				renderComponent(component, SYNC_RENDER, mountAll);
 			} else {
 				enqueueRender(component);
 			}
@@ -878,7 +883,7 @@
 		applyRef(component.__ref, component);
 	}
 
-    /**
+	/**
 	 * Render a Component, triggering necessary lifecycle events and taking
 	 * High-Order Components into account.
 	 * @param {import('../component').Component} component The component to render
@@ -887,7 +892,7 @@
 	 * @param {boolean} [isChild] ?
 	 * @private
 	 */
-    function renderComponent(component, renderMode, mountAll, isChild) {
+	function renderComponent(component, renderMode, mountAll, isChild) {
 		if (component._disable) return;
 
 		var props = component.props,
@@ -900,9 +905,9 @@
 		    initialChildComponent = component._component,
 		    skip = false,
 		    snapshot = previousContext,
-		    rendered,
-		    inst,
-		    cbase;
+		    rendered = void 0,
+		    inst = void 0,
+		    cbase = void 0;
 
 		// if updating
 		if (isUpdate) {
@@ -944,8 +949,8 @@
 			}
 
 			var childComponent = rendered && rendered.nodeName,
-			    toUnmount,
-			    base;
+			    toUnmount = void 0,
+			    base = void 0;
 
 			if (typeof childComponent === 'function') {
 				// set up high order component link
@@ -954,15 +959,15 @@
 				inst = initialChildComponent;
 
 				if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
-					setComponentProps(inst, childProps, 1, context, false);
+					setComponentProps(inst, childProps, SYNC_RENDER, context, false);
 				} else {
 					toUnmount = inst;
 
 					component._component = inst = createComponent(childComponent, childProps, context);
 					inst.nextBase = inst.nextBase || nextBase;
 					inst._parentComponent = component;
-					setComponentProps(inst, childProps, 0, context, false);
-					renderComponent(inst, 1, mountAll, true);
+					setComponentProps(inst, childProps, NO_RENDER, context, false);
+					renderComponent(inst, SYNC_RENDER, mountAll, true);
 				}
 
 				base = inst.base;
@@ -975,7 +980,7 @@
 					cbase = component._component = null;
 				}
 
-				if (initialBase || renderMode === 1) {
+				if (initialBase || renderMode === SYNC_RENDER) {
 					if (cbase) cbase._component = null;
 					base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
 				}
@@ -1028,7 +1033,7 @@
 		}if (!diffLevel && !isChild) flushMounts();
 	}
 
-    /**
+	/**
 	 * Apply the Component referenced by a VNode to the DOM.
 	 * @param {import('../dom').OmiElement} dom The DOM node to mutate
 	 * @param {import('../vnode').VNode} vnode A Component-referencing VNode
@@ -1037,7 +1042,7 @@
 	 * @returns {import('../dom').OmiElement} The created/mutated element
 	 * @private
 	 */
-    function buildComponentFromVNode(dom, vnode, context, mountAll) {
+	function buildComponentFromVNode(dom, vnode, context, mountAll) {
 		var c = dom && dom._component,
 		    originalComponent = c,
 		    oldDom = dom,
@@ -1049,7 +1054,7 @@
 		}
 
 		if (c && isOwner && (!mountAll || c._component)) {
-			setComponentProps(c, props, 3, context, mountAll);
+			setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
 			dom = c.base;
 		} else {
 			if (originalComponent && !isDirectOwner) {
@@ -1063,7 +1068,7 @@
 				// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
 				oldDom = null;
 			}
-			setComponentProps(c, props, 1, context, mountAll);
+			setComponentProps(c, props, SYNC_RENDER, context, mountAll);
 			dom = c.base;
 
 			if (oldDom && dom !== oldDom) {
@@ -1075,12 +1080,12 @@
 		return dom;
 	}
 
-    /**
+	/**
 	 * Remove a component from the DOM and recycle it.
 	 * @param {import('../component').Component} component The Component instance to unmount
 	 * @private
 	 */
-    function unmountComponent(component) {
+	function unmountComponent(component) {
 		if (options.beforeUnmount) options.beforeUnmount(component);
 
 		var base = component.base;
@@ -1096,7 +1101,7 @@
 		if (inner) {
 			unmountComponent(inner);
 		} else if (base) {
-			if (base['prevProps'] != null) applyRef(base['prevProps'].ref, null);
+			if (base[ATTR_KEY] != null) applyRef(base[ATTR_KEY].ref, null);
 
 			component.nextBase = base;
 
@@ -1109,7 +1114,7 @@
 		applyRef(component.__ref, null);
 	}
 
-    /**
+	/**
 	 * Base Component class.
 	 * Provides `update()`, which trigger rendering.
 	 * @typedef {object} Component
@@ -1125,9 +1130,9 @@
 	 * }
 	 */
 
-    var id = 0;
+	var id = 0;
 
-    function Component(props, context) {
+	function Component(props, context) {
 		this._dirty = true;
 		this.elementId = id++;
 		/**
@@ -1145,7 +1150,7 @@
 		this._renderCallbacks = [];
 	}
 
-    extend(Component.prototype, {
+	extend(Component.prototype, {
 
 		/**
 	  * Immediately perform a synchronous re-render of the component.
@@ -1155,7 +1160,7 @@
 	  */
 		update: function update(callback) {
 			if (callback) this._renderCallbacks.push(callback);
-			renderComponent(this, 2);
+			renderComponent(this, FORCE_RENDER);
 		},
 
 
@@ -1171,7 +1176,7 @@
 		render: function render() {}
 	});
 
-    /**
+	/**
 	 * Render JSX into a `parent` Element.
 	 * @param {import('./vnode').VNode} vnode A (JSX) VNode to render
 	 * @param {import('./dom').OmiElement} parent DOM element to render into
@@ -1188,26 +1193,15 @@
 	 * const Thing = ({ name }) => <span>{ name }</span>;
 	 * render(<Thing name="one" />, document.querySelector('#foo'));
 	 */
-    function render(vnode, parent, merge) {
+	function render(vnode, parent, merge) {
 	  return diff(merge, vnode, {}, false, typeof parent === 'string' ? document.querySelector(parent) : parent, false);
 	}
 
-    function createRef() {
+	function createRef() {
 		return {};
 	}
 
-    var Omis = {
-		h: h,
-		createElement: h,
-		cloneElement: cloneElement,
-		createRef: createRef,
-		Component: Component,
-		render: render,
-		rerender: rerender,
-		options: options
-	};
-
-    if (typeof window !== 'undefined') {
+	if (typeof window !== 'undefined') {
 		window.Omis = {
 			h: h,
 			createElement: h,
@@ -1220,6 +1214,78 @@
 		};
 	}
 
-    if (typeof module != 'undefined') module.exports = Omis;else self.Omis = Omis;
+	var Counter = function Counter(props, store, context) {
+	  console.log(context);
+	  return Omis.h(
+	    'div',
+	    null,
+	    Omis.h(
+	      'button',
+	      { onClick: store.sub },
+	      '-'
+	    ),
+	    Omis.h(
+	      'span',
+	      null,
+	      store.count
+	    ),
+	    Omis.h(
+	      'button',
+	      { onClick: store.add },
+	      '+'
+	    )
+	  );
+	};
+
+	Counter.store = function (_) {
+	  return {
+	    count: 1,
+	    add: function add(e) {
+	      this.count++;
+	      this.update();
+	      _.props.onChange(this.count);
+	    },
+	    sub: function sub() {
+	      this.count--;
+	      this.update();
+	      _.props.onChange(this.count);
+	    }
+	  };
+	};
+
+	var App = function App(props, store) {
+	  return Omis.h(
+	    'div',
+	    null,
+	    Omis.h(
+	      'div',
+	      null,
+	      'Count from child event: ',
+	      store.context.a
+	    ),
+	    Omis.h(Counter, { onChange: store.changeHandle })
+	  );
+	};
+
+	App.store = function (_) {
+	  return {
+	    count: null,
+	    context: { a: 111 },
+	    install: function install() {
+	      var _this = this;
+
+	      _.getChildContext = function () {
+	        return _this.context;
+	      };
+	    },
+	    changeHandle: function changeHandle(count) {
+	      _.store.count = count;
+	      _.update();
+	    }
+	  };
+	};
+
+	render(Omis.h(App, null), 'body');
+
 }());
-//# sourceMappingURL=omis.dev.js.map
+//# sourceMappingURL=b.js.map
