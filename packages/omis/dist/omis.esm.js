@@ -1,5 +1,5 @@
 /**
- * omis v0.10.0  http://omijs.org
+ * omis v0.11.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -1355,7 +1355,7 @@ function mock(target, root) {
 }
 
 function watch(target, prop, path, root) {
-  if (prop === '__o_') return;
+  if (prop === '$_o') return;
   if (isFunction(target[prop])) return;
   if (!target.$_o) target.$_o = {
     $_r: root

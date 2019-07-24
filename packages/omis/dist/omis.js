@@ -539,7 +539,7 @@
         });
     }
     function watch(target, prop, path, root) {
-        if ('__o_' !== prop) if (!isFunction(target[prop])) {
+        if ('$_o' !== prop) if (!isFunction(target[prop])) {
             if (!target.$_o) target.$_o = {
                 $_r: root
             };

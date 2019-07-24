@@ -137,7 +137,7 @@ function mock(target, root) {
 }
 
 function watch(target, prop, path, root) {
-  if (prop === '__o_') return
+  if (prop === '$_o') return
   if (isFunction(target[prop])) return
   if (!target.$_o) target.$_o = {
     $_r: root
