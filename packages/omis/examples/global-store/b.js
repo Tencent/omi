@@ -1608,51 +1608,113 @@
 	    Omis.h(
 	      'span',
 	      null,
-	      this.$.data.a
+	      this.using[0]
 	    ),
 	    Omis.h(
 	      'button',
 	      { onClick: store.add },
 	      '+'
+	    ),
+	    Omis.h(
+	      'div',
+	      null,
+	      Omis.h(
+	        'span',
+	        null,
+	        this.using[1]
+	      ),
+	      Omis.h(
+	        'button',
+	        { onClick: store.rename },
+	        'rename'
+	      )
+	    ),
+	    Omis.h(
+	      'div',
+	      null,
+	      this.using.reverseMotto
+	    ),
+	    Omis.h(
+	      'button',
+	      { onClick: store.changeMotto },
+	      'change motto'
+	    ),
+	    Omis.h(
+	      'div',
+	      null,
+	      this.using.name
+	    ),
+	    Omis.h(
+	      'div',
+	      null,
+	      this.using[3]
+	    ),
+	    Omis.h(
+	      'div',
+	      null,
+	      this.using.fullName,
+	      Omis.h(
+	        'button',
+	        { onClick: store.changeFirstName },
+	        'change first name'
+	      )
 	    )
 	  );
 	};
-	var Counter2 = function Counter2(props, store, context) {
+
+	Counter.store = function (_) {
+	  return {
+	    add: function add(e) {
+	      _.$.data.count++;
+	    },
+	    sub: function sub() {
+	      _.$.data.count--;
+	    },
+	    rename: function rename() {
+	      _.$.data.arr[0] = 'aa';
+	    },
+	    changeMotto: function changeMotto() {
+	      _.$.data.motto = 'ok';
+	    },
+	    changeFirstName: function changeFirstName() {
+	      _.$.data.userInfo.firstName = 'DNT';
+	    }
+	  };
+	};
+
+	var CounterB = function CounterB(props, store) {
 
 	  return Omis.h(
 	    'div',
 	    null,
 	    Omis.h(
-	      'button',
-	      { onClick: store.sub },
-	      '-'
-	    ),
-	    Omis.h(
 	      'span',
 	      null,
-	      this.$.data.a
+	      this.$.data.count
+	    ),
+	    Omis.h(
+	      'ul',
+	      null,
+	      this.$.data.arr.map(function (item) {
+	        return Omis.h(
+	          'li',
+	          null,
+	          item
+	        );
+	      })
 	    ),
 	    Omis.h(
 	      'button',
-	      { onClick: store.add },
-	      '+'
+	      { onClick: store.push },
+	      'array push'
 	    )
 	  );
 	};
 
-	Counter2.store = function (_) {
+	CounterB.store = function (_) {
 	  return {
-	    count: 1,
-	    add: function add(e) {
-	      this.count++;
-	      this.update();
-	      _.props.onChange(this.count);
-	    },
-	    sub: function sub() {
-	      _.$.data.a = Math.random();
-	      this.count--;
-	      // this.update()
-	      // _.props.onChange(this.count)
+	    push: function push() {
+	      _.$.data.arr.push(Math.random());
 	    }
 	  };
 	};
@@ -1665,16 +1727,37 @@
 	      'div',
 	      null,
 	      'Count from child event: ',
-	      this.$.data.a
+	      this.using.motto
 	    ),
 	    Omis.h(Counter, { onChange: store.changeHandle }),
-	    Omis.h(Counter2, { onChange: store.changeHandle })
+	    Omis.h('br', null),
+	    Omis.h('br', null),
+	    Omis.h(CounterB, { onChange: store.changeHandle })
 	  );
 	};
 
-	Counter2.use = ['a'];
-	Counter.use = ['a'];
-	App.use = ['a'];
+	Counter.use = ['count', //Direct string, accessible through this.using[0] 
+	'arr[0]', //It also supports path, which is accessible through this.using[1]
+	//Support JSON
+	{
+	  //Alias, accessible through this.using.reverseMotto
+	  reverseMotto: ['motto', //path
+	  function (target) {
+	    return target.split('').reverse().join('');
+	  } //computed
+	  ]
+	}, { name: 'arr[1]' }, //{ alias: path }，accessible through this.using.name
+	{
+	  //alias，accessible through this.using.fullName
+	  fullName: [['userInfo.firstName', 'userInfo.lastName'], //path array
+	  function (firstName, lastName) {
+	    return firstName + lastName;
+	  } //computed
+	  ]
+	}];
+
+	CounterB.use = ['count', { list: 'arr' }];
+	App.use = [{ motto: 'motto' }];
 
 	App.store = function (_) {
 	  return {
@@ -1686,7 +1769,18 @@
 	  };
 	};
 
-	render(Omis.h(App, null), 'body', { data: { a: 11 } });
+	render(Omis.h(App, null), 'body', {
+	  data: {
+	    count: 0,
+	    arr: ['china', 'tencent'],
+	    motto: 'I love omis.',
+	    userInfo: {
+	      firstName: 'dnt',
+	      lastName: 'zhang',
+	      age: 18
+	    }
+	  }
+	});
 
 }());
 //# sourceMappingURL=b.js.map

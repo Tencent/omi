@@ -59,13 +59,13 @@ declare namespace Omis {
 	>;
 
 	interface FunctionalComponent<P = {}> {
-		(props: RenderableProps<P>, context?: any): VNode<any> | null;
+		(props: RenderableProps<P>, $?: any): VNode<any> | null;
 		displayName?: string;
 		defaultProps?: Partial<P>;
 	}
 
 	interface ComponentConstructor<P = {}, S = {}> {
-		new (props: P, context?: any): Component<P, S>;
+		new (props: P, $?: any): Component<P, S>;
 		displayName?: string;
 		defaultProps?: Partial<P>;
 	}
@@ -85,18 +85,18 @@ declare namespace Omis {
 	}
 
 	abstract class Component<P, S> {
-		constructor(props?: P, context?: any);
+		constructor(props?: P, $?: any);
 
 		static displayName?: string;
 		static defaultProps?: any;
 
 		props: RenderableProps<P>;
-		context: any;
+		$: any;
 		base?: HTMLElement;
 
 		update(callback?: () => void): void;
 
-		abstract render(props?: RenderableProps<P>, context?: any): ComponentChild;
+		abstract render(props?: RenderableProps<P>, $?: any): ComponentChild;
 
 		// Add these variables to avoid descendants shadowing them (some from properties.json for minification)
 		private __key;

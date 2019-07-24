@@ -74,6 +74,79 @@
     function applyRef(ref, value) {
         if (ref) if ('function' == typeof ref) ref(value); else ref.current = value;
     }
+    function getPath(obj) {
+        if ('[object Array]' === Object.prototype.toString.call(obj)) {
+            var result = {};
+            obj.forEach(function(item) {
+                if ('string' == typeof item) result[item] = !0; else {
+                    var tempPath = item[Object.keys(item)[0]];
+                    if ('string' == typeof tempPath) result[tempPath] = !0; else if ('string' == typeof tempPath[0]) result[tempPath[0]] = !0; else tempPath[0].forEach(function(path) {
+                        return result[path] = !0;
+                    });
+                }
+            });
+            return result;
+        } else return getUpdatePath(obj);
+    }
+    function getUpdatePath(data) {
+        var result = {};
+        dataToPath(data, result);
+        return result;
+    }
+    function dataToPath(data, result) {
+        Object.keys(data).forEach(function(key) {
+            result[key] = !0;
+            var type = Object.prototype.toString.call(data[key]);
+            if (type === OBJECTTYPE) _objToPath(data[key], key, result); else if (type === ARRAYTYPE) _arrayToPath(data[key], key, result);
+        });
+    }
+    function _objToPath(data, path, result) {
+        Object.keys(data).forEach(function(key) {
+            result[path + '.' + key] = !0;
+            delete result[path];
+            var type = Object.prototype.toString.call(data[key]);
+            if (type === OBJECTTYPE) _objToPath(data[key], path + '.' + key, result); else if (type === ARRAYTYPE) _arrayToPath(data[key], path + '.' + key, result);
+        });
+    }
+    function _arrayToPath(data, path, result) {
+        data.forEach(function(item, index) {
+            result[path + '[' + index + ']'] = !0;
+            delete result[path];
+            var type = Object.prototype.toString.call(item);
+            if (type === OBJECTTYPE) _objToPath(item, path + '[' + index + ']', result); else if (type === ARRAYTYPE) _arrayToPath(item, path + '[' + index + ']', result);
+        });
+    }
+    function getUse(data, paths) {
+        var obj = [];
+        paths.forEach(function(path, index) {
+            var isPath = 'string' == typeof path;
+            if (isPath) obj[index] = getTargetByPath(data, path); else {
+                var key = Object.keys(path)[0];
+                var value = path[key];
+                if ('string' == typeof value) obj[index] = getTargetByPath(data, value); else {
+                    var tempPath = value[0];
+                    if ('string' == typeof tempPath) {
+                        var tempVal = getTargetByPath(data, tempPath);
+                        obj[index] = value[1] ? value[1](tempVal) : tempVal;
+                    } else {
+                        var args = [];
+                        tempPath.forEach(function(path) {
+                            args.push(getTargetByPath(data, path));
+                        });
+                        obj[index] = value[1].apply(null, args);
+                    }
+                }
+                obj[key] = obj[index];
+            }
+        });
+        return obj;
+    }
+    function getTargetByPath(origin, path) {
+        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var current = origin;
+        for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
+        return current;
+    }
     function cloneElement(vnode, props) {
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
@@ -149,12 +222,12 @@
             if (c.store.installed) c.store.installed();
         }
     }
-    function diff(dom, vnode, context, mountAll, parent, componentRoot, store) {
+    function diff(dom, vnode, $, mountAll, parent, componentRoot, store) {
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !('prevProps' in dom);
         }
-        var ret = idiff(dom, vnode, context, mountAll, componentRoot, store);
+        var ret = idiff(dom, vnode, $, mountAll, componentRoot, store);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         if (!--diffLevel) {
             hydrating = !1;
@@ -162,7 +235,7 @@
         }
         return ret;
     }
-    function idiff(dom, vnode, context, mountAll, componentRoot, store) {
+    function idiff(dom, vnode, $, mountAll, componentRoot, store) {
         var out = dom, prevSvgMode = isSvgMode;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         if ('string' == typeof vnode || 'number' == typeof vnode) {
@@ -179,7 +252,7 @@
             return out;
         }
         var vnodeName = vnode.nodeName;
-        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, context, mountAll);
+        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, $, mountAll);
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
@@ -197,12 +270,12 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML, store);
+        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, $, mountAll, hydrating || null != props.dangerouslySetInnerHTML, store);
         diffAttributes(out, vnode.attributes, props, store);
         isSvgMode = prevSvgMode;
         return out;
     }
-    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, store) {
+    function innerDiffNode(dom, vchildren, $, mountAll, isHydrating, store) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
             var _child = originalChildren[i], props = _child.__p, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
@@ -228,7 +301,7 @@
                 if (j === min) min++;
                 break;
             }
-            child = idiff(child, vchild, context, mountAll, null, store);
+            child = idiff(child, vchild, $, mountAll, null, store);
             f = originalChildren[i];
             if (child && child !== dom && child !== f) if (null == f) dom.appendChild(child); else if (child === f.nextSibling) removeNode(f); else dom.insertBefore(child, f);
         }
@@ -256,14 +329,24 @@
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode, store);
         for (name in attrs) if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, store);
     }
-    function createComponent(Ctor, props, context) {
+    function createComponent(Ctor, props, $) {
         var inst, i = recyclerComponents.length;
-        inst = new Component(props, context);
+        inst = new Component(props, $);
         inst.constructor = Ctor;
         inst.render = doRender;
         if (Ctor.store) {
             inst.store = Ctor.store(inst);
             inst.store.update = inst.update.bind(inst);
+        }
+        if (inst.$ && inst.$.data) if (inst.constructor.use) {
+            inst.constructor.updatePath = getPath(inst.constructor.use);
+            inst.using = getUse(inst.$.data, inst.constructor.use);
+            inst.$.instances.push(inst);
+        } else if (inst.use) {
+            var use = inst.use();
+            inst.M = getPath(use);
+            inst.using = getUse(inst.$.data, use);
+            inst.$.instances.push(inst);
         }
         while (i--) if (recyclerComponents[i].constructor === Ctor) {
             inst.__b = recyclerComponents[i].__b;
@@ -272,10 +355,10 @@
         }
         return inst;
     }
-    function doRender(props, context) {
-        return this.constructor(props, this.store, context);
+    function doRender(props, $) {
+        return this.constructor(props, this.store, $);
     }
-    function setComponentProps(component, props, renderMode, context, mountAll) {
+    function setComponentProps(component, props, renderMode, $, mountAll) {
         if (!component.__x) {
             component.__x = !0;
             component.__r = props.ref;
@@ -284,11 +367,8 @@
             delete props.key;
             if (!component.base || mountAll) {
                 if (component.store.install) component.store.install();
-            } else if (component.store.receiveProps) component.R = component.store.receiveProps(props, context);
-            if (context && context !== component.context) {
-                if (!component.__c) component.__c = component.context;
-                component.context = context;
-            }
+            } else if (component.store.receiveProps) component.R = component.store.receiveProps(props, $);
+            if ($ && $ !== component.$) component.$ = $;
             if (!component.__p) component.__p = component.props;
             component.props = props;
             component.__x = !1;
@@ -298,37 +378,33 @@
     }
     function renderComponent(component, renderMode, mountAll, isChild) {
         if (!component.__x) {
-            var rendered, inst, cbase, props = component.props, context = component.context, previousProps = component.__p || props, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1, snapshot = previousContext;
+            var rendered, inst, cbase, props = component.props, $ = component.$, previousProps = component.__p || props, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
             if (isUpdate) {
                 component.props = previousProps;
-                component.context = previousContext;
                 if (!1 !== component.R) {
                     skip = !1;
-                    if (component.store.beforeUpdate) component.store.beforeUpdate(props, context);
+                    if (component.store.beforeUpdate) component.store.beforeUpdate(props, $);
                 } else skip = !0;
                 delete component.R;
                 component.props = props;
-                component.context = context;
             }
             component.__p = component.__c = component.__b = null;
             component.__d = !1;
             if (!skip) {
                 options.runTimeComponent = component;
                 if (component.store.beforeRender) component.store.beforeRender();
-                rendered = component.render(props, context);
+                rendered = component.render(props, $);
                 options.runTimeComponent = null;
-                if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
-                if (isUpdate && component.getSnapshotBeforeUpdate) snapshot = component.getSnapshotBeforeUpdate(previousProps);
                 var toUnmount, base, childComponent = rendered && rendered.nodeName;
                 if ('function' == typeof childComponent) {
                     var childProps = getNodeProps(rendered);
                     inst = initialChildComponent;
-                    if (inst && inst.constructor === childComponent && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, context, !1); else {
+                    if (inst && inst.constructor === childComponent && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, $, !1); else {
                         toUnmount = inst;
-                        component._component = inst = createComponent(childComponent, childProps, context);
+                        component._component = inst = createComponent(childComponent, childProps, $);
                         inst.__b = inst.__b || nextBase;
                         inst.__u = component;
-                        setComponentProps(inst, childProps, 0, context, !1);
+                        setComponentProps(inst, childProps, 0, $, !1);
                         renderComponent(inst, 1, mountAll, !0);
                     }
                     base = inst.base;
@@ -338,7 +414,7 @@
                     if (toUnmount) cbase = component._component = null;
                     if (initialBase || 1 === renderMode) {
                         if (cbase) cbase._component = null;
-                        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0, component.store);
+                        base = diff(cbase, rendered, $, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0, component.store);
                     }
                 }
                 if (initialBase && base !== initialBase && inst !== initialChildComponent) {
@@ -361,30 +437,30 @@
                 }
             }
             if (!isUpdate || mountAll) mounts.push(component); else if (!skip) {
-                if (component.store.updated) component.store.updated(previousProps, snapshot);
+                if (component.store.updated) component.store.updated(previousProps);
                 if (options.afterUpdate) options.afterUpdate(component);
             }
             while (component.__h.length) component.__h.pop().call(component);
             if (!diffLevel && !isChild) flushMounts();
         }
     }
-    function buildComponentFromVNode(dom, vnode, context, mountAll) {
+    function buildComponentFromVNode(dom, vnode, $, mountAll) {
         var c = dom && dom._component, originalComponent = c, oldDom = dom, isDirectOwner = c && dom._componentConstructor === vnode.nodeName, isOwner = isDirectOwner, props = getNodeProps(vnode);
         while (c && !isOwner && (c = c.__u)) isOwner = c.constructor === vnode.nodeName;
         if (c && isOwner && (!mountAll || c._component)) {
-            setComponentProps(c, props, 3, context, mountAll);
+            setComponentProps(c, props, 3, $, mountAll);
             dom = c.base;
         } else {
             if (originalComponent && !isDirectOwner) {
                 unmountComponent(originalComponent);
                 dom = oldDom = null;
             }
-            c = createComponent(vnode.nodeName, props, context);
+            c = createComponent(vnode.nodeName, props, $);
             if (dom && !c.__b) {
                 c.__b = dom;
                 oldDom = null;
             }
-            setComponentProps(c, props, 1, context, mountAll);
+            setComponentProps(c, props, 1, $, mountAll);
             dom = c.base;
             if (oldDom && dom !== oldDom) {
                 oldDom._component = null;
@@ -409,16 +485,164 @@
         }
         applyRef(component.__r, null);
     }
-    function Component(props, context) {
+    function Component(props, $) {
         this.__d = !0;
         this.elementId = id++;
-        this.context = context;
         this.store = {};
+        this.$ = $;
         this.props = props;
         this.__h = [];
     }
-    function render(vnode, parent, merge) {
-        return diff(merge, vnode, {}, !1, 'string' == typeof parent ? document.querySelector(parent) : parent, !1);
+    function obaa(target, arr, callback) {
+        var eventPropArr = [];
+        if (isArray(target)) {
+            if (0 === target.length) target.S = {
+                T: target,
+                U: '#'
+            };
+            mock(target, target);
+        }
+        for (var prop in target) if (target.hasOwnProperty(prop)) if (callback) {
+            if (isArray(arr) && isInArray(arr, prop)) {
+                eventPropArr.push(prop);
+                watch(target, prop, null, target);
+            } else if (isString(arr) && prop == arr) {
+                eventPropArr.push(prop);
+                watch(target, prop, null, target);
+            }
+        } else {
+            eventPropArr.push(prop);
+            watch(target, prop, null, target);
+        }
+        if (!target.V) target.V = [];
+        var propChanged = callback ? callback : arr;
+        target.V.push({
+            all: !callback,
+            propChanged: propChanged,
+            eventPropArr: eventPropArr
+        });
+    }
+    function mock(target, root) {
+        methods.forEach(function(item) {
+            target[item] = function() {
+                var old = Array.prototype.slice.call(this, 0);
+                var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+                if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
+                    for (var cprop in this) if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) watch(this, cprop, this.S.U, root);
+                    onPropertyChanged('Array-' + item, this, old, this, this.S.U, root);
+                }
+                return result;
+            };
+            target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function() {
+                return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+            };
+        });
+    }
+    function watch(target, prop, path, root) {
+        if ('__o_' !== prop) if (!isFunction(target[prop])) {
+            if (!target.S) target.S = {
+                T: root
+            };
+            if (void 0 !== path && null !== path) target.S.U = path; else target.S.U = '#';
+            var currentValue = target.S[prop] = target[prop];
+            if ('object' == typeof currentValue) {
+                if (isArray(currentValue)) {
+                    mock(currentValue, root);
+                    if (0 === currentValue.length) {
+                        if (!currentValue.S) currentValue.S = {};
+                        if (void 0 !== path && null !== path) currentValue.S.U = path + '-' + prop; else currentValue.S.U = "#-" + prop;
+                    }
+                }
+                for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.S.U + '-' + prop, root);
+            }
+        }
+    }
+    function onPropertyChanged(prop, value, oldValue, target, path, root) {
+        if (value !== oldValue && root.V) {
+            var rootName = getRootName(prop, path);
+            for (var i = 0, len = root.V.length; i < len; i++) {
+                var handler = root.V[i];
+                if (handler.all || isInArray(handler.eventPropArr, rootName) || 0 === rootName.indexOf('Array-')) handler.propChanged.call(target, prop, value, oldValue, path);
+            }
+        }
+        if (0 !== prop.indexOf('Array-') && 'object' == typeof value) watch(target, prop, target.S.U, root);
+    }
+    function isFunction(obj) {
+        return '[object Function]' == Object.prototype.toString.call(obj);
+    }
+    function isArray(obj) {
+        return '[object Array]' === Object.prototype.toString.call(obj);
+    }
+    function isString(obj) {
+        return 'string' == typeof obj;
+    }
+    function isInArray(arr, item) {
+        for (var i = arr.length; --i > -1; ) if (item === arr[i]) return !0;
+        return !1;
+    }
+    function getRootName(prop, path) {
+        if ('#' === path) return prop; else return path.split('-')[1];
+    }
+    function render(vnode, parent, globalStore) {
+        obsStore(globalStore);
+        return diff(null, vnode, globalStore, !1, 'string' == typeof parent ? document.querySelector(parent) : parent, !1);
+    }
+    function obsStore(store) {
+        if (store && store.data) {
+            store.instances = [];
+            extendStoreUpate(store);
+            obaa(store.data, function(prop, val, old, path) {
+                var patchs = {};
+                var key = fixPath(path + '-' + prop);
+                patchs[key] = !0;
+                store.update(patchs);
+            });
+        }
+    }
+    function extendStoreUpate(store) {
+        store.update = function(patch) {
+            var _this = this;
+            var updateAll = matchGlobalData(this.globalData, patch);
+            if (Object.keys(patch).length > 0) {
+                this.instances.forEach(function(instance) {
+                    if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.M && needUpdate(patch, instance.M)) {
+                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.initUse());
+                        instance.update();
+                    }
+                });
+                this.onChange && this.onChange(patch);
+            }
+        };
+    }
+    function matchGlobalData(globalData, diffResult) {
+        if (!globalData) return !1;
+        for (var keyA in diffResult) {
+            if (globalData.indexOf(keyA) > -1) return !0;
+            for (var i = 0, len = globalData.length; i < len; i++) if (includePath(keyA, globalData[i])) return !0;
+        }
+        return !1;
+    }
+    function needUpdate(diffResult, updatePath) {
+        for (var keyA in diffResult) {
+            if (updatePath[keyA]) return !0;
+            for (var keyB in updatePath) if (includePath(keyA, keyB)) return !0;
+        }
+        return !1;
+    }
+    function includePath(pathA, pathB) {
+        if (0 === pathA.indexOf(pathB)) {
+            var next = pathA.substr(pathB.length, 1);
+            if ('[' === next || '.' === next) return !0;
+        }
+        return !1;
+    }
+    function fixPath(path) {
+        var mpPath = '';
+        var arr = path.replace('#-', '').split('-');
+        arr.forEach(function(item, index) {
+            if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+        });
+        return mpPath;
     }
     function createRef() {
         return {};
@@ -448,6 +672,18 @@
         },
         render: function() {}
     });
+    var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
+    var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
+    obaa.add = function(obj, prop) {
+        watch(obj, prop, obj.S.U, obj.S.T);
+    };
+    obaa.set = function(obj, prop, value) {
+        watch(obj, prop, obj.S.U, obj.S.T);
+        obj[prop] = value;
+    };
+    Array.prototype.size = function(length) {
+        this.length = length;
+    };
     var Omis = {
         h: h,
         createElement: h,
