@@ -206,7 +206,7 @@ Omi Store provides a way to pass data through the component tree without having 
     const { define, WeElement, html, render } = Omi
 
     define('my-counter', class extends WeElement {
-      initUse() {
+      use() {
         return ['count']
       }
       //or

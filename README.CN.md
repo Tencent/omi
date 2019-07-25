@@ -245,7 +245,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
     const { define, WeElement, html, render } = Omi
 
     define('my-counter', class extends WeElement {
-      initUse() {
+      use() {
         return ['count']
       }
 
