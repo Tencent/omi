@@ -29,12 +29,12 @@ export default class WeElement extends HTMLElement {
       this.store.instances.push(this)
     }
 
-    if (this.initUse) {
-      const use = this.initUse()
+    if (this.use) {
+      const use = this.use()
       this._updatePath = getPath(use)
-      this.use = getUse(this.store.data, use)
+      this.using = getUse(this.store.data, use)
     } else {
-      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use))
+      this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use))
 		}
 		this.attrsToProps()
     this.beforeInstall()

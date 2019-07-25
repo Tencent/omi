@@ -47,11 +47,11 @@ function extendStoreUpate(store) {
             needUpdate(patch, instance.constructor.updatePath)) ||(
 							instance._updatePath &&  needUpdate(patch, instance._updatePath))
         ) {
-					//update this.use
+					//update this.using
 					if(instance.constructor.use){
-						instance.use = getUse(store.data, instance.constructor.use)
-					} else if(instance.initUse){
-						instance.use = getUse(store.data, instance.initUse())
+						instance.using = getUse(store.data, instance.constructor.use)
+					} else if(instance.use){
+						instance.using = getUse(store.data, instance.use())
 					}
 
           instance.update()

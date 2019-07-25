@@ -47,7 +47,7 @@ describe('store', () => {
 	it('test initUse', () => {
 
     class Ele extends WeElement {
-			initUse (){
+			use (){
 				return ['a']
 			}
 

@@ -29,17 +29,17 @@ define('my-counter', class extends WeElement {
     return (
       <div>
         <button onClick={this.sub}>-</button>
-        <span>{this.use[0]}</span>
+        <span>{this.using[0]}</span>
         <button onClick={this.add}>+</button>
         <div>
-          <span>{this.use[1]}</span>
+          <span>{this.using[1]}</span>
           <button onClick={this.rename}>rename</button>
         </div>
-        <div>{this.use.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
-        <div>{this.use.name}</div>
-        <div>{this.use[3]}</div>
+        <div>{this.using.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
+        <div>{this.using.name}</div>
+        <div>{this.using[3]}</div>
         <div>
-          {this.use.fullName}
+          {this.using.fullName}
           <button onClick={this.changeFirstName}>change first name</button>
         </div>
       </div>

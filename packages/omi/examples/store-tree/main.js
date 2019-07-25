@@ -49,7 +49,7 @@ define('tree-node', class extends WeElement {
     this.store.deleteNode(id)
   }
 
-	initUse(){
+	use(){
 		return [
 			`tree[${this.props.id}]`
 		]

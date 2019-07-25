@@ -1,5 +1,5 @@
 /**
- * omi v6.6.9  http://omijs.org
+ * omi v6.7.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1311,12 +1311,12 @@ var WeElement = function (_HTMLElement) {
       this.store.instances.push(this);
     }
 
-    if (this.initUse) {
-      var use = this.initUse();
+    if (this.use) {
+      var use = this.use();
       this._updatePath = getPath(use);
-      this.use = getUse(this.store.data, use);
+      this.using = getUse(this.store.data, use);
     } else {
-      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+      this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
     }
     this.attrsToProps();
     this.beforeInstall();
@@ -1539,11 +1539,11 @@ function extendStoreUpate(store) {
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(function (instance) {
         if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
-          //update this.use
+          //update this.using
           if (instance.constructor.use) {
-            instance.use = getUse(store.data, instance.constructor.use);
-          } else if (instance.initUse) {
-            instance.use = getUse(store.data, instance.initUse());
+            instance.using = getUse(store.data, instance.constructor.use);
+          } else if (instance.use) {
+            instance.using = getUse(store.data, instance.use());
           }
 
           instance.update();
@@ -1803,7 +1803,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.6.9';
+options.root.Omi.version = '6.7.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

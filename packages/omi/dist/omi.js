@@ -512,7 +512,7 @@
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
                     if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.M && needUpdate(patch, instance.M)) {
-                        if (instance.constructor.use) instance.use = getUse(store.data, instance.constructor.use); else if (instance.initUse) instance.use = getUse(store.data, instance.initUse());
+                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.use());
                         instance.update();
                     }
                 });
@@ -885,11 +885,11 @@
                 p = p.parentNode || p.host;
             }
             if (this.store) this.store.instances.push(this);
-            if (this.initUse) {
-                var use = this.initUse();
+            if (this.use) {
+                var use = this.use();
                 this.M = getPath(use);
-                this.use = getUse(this.store.data, use);
-            } else this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+                this.using = getUse(this.store.data, use);
+            } else this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
             this.attrsToProps();
             this.beforeInstall();
             this.install();
@@ -1083,7 +1083,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.6.9';
+    options.root.Omi.version = '6.7.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
