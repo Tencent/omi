@@ -16,7 +16,7 @@ const config = {
           { name: '事件', md: 'event' },
           { name: '生命周期', md: 'lifecycle' },
           // { name: 'Ref', md: 'ref' },
-          // { name: 'Store', md: 'store' },
+          { name: 'GlobalStore-$', md: 'global-store' },
           { name: 'CSS', md: 'css' }
         ]
       }
@@ -37,7 +37,7 @@ const config = {
           { name: 'Event', md: 'event' },
           { name: 'Lifecycle', md: 'lifecycle' },
           // { name: 'Ref', md: 'ref' },
-          // { name: 'Store', md: 'store' },
+           { name: 'GlobalStore-$', md: 'global-store' },
           { name: 'CSS', md: 'css' }
         ]
       }
