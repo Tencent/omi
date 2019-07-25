@@ -1,5 +1,5 @@
 import {
-	render, h
+	render, h, define
 } from '../../src/omis'
 
 describe('web components', () => {
@@ -54,9 +54,9 @@ describe('web components', () => {
 		define('hello-msg', HelloMessage)
 
 	
-		document.body.innerHTML += `<hello-msg msg="Omis" user="{name:'dntzhang', age: 18}"></hello-msg>`
+		scratch.innerHTML += `<hello-msg msg="Omis" user="{name:'dntzhang', age: 18}"></hello-msg>`
 
-		expect(document.querySelector('hello-msg').shadowRoot.innerHTML).to.deep.equal()
+		expect(scratch.querySelector('hello-msg').shadowRoot.innerHTML).to.deep.equal('<style type="text/css" id="_ss0">div[_ss0]{\n\t\t\tcolor: red;\n\t\t}</style><div _ss0=""><div _ss0="">Hello Omis</div><div _ss0="">dntzhang</div><div _ss0="">18</div></div>')
 	})
 
 

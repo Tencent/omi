@@ -58,10 +58,10 @@ export function scoper(css, prefix) {
   return css
 }
 
-export function addStyle(cssText, id) {
+export function addStyle(cssText, id, parent) {
   id = id.toLowerCase()
   let ele = document.getElementById(id)
-  let head = document.getElementsByTagName('head')[0]
+  let head = parent || document.getElementsByTagName('head')[0]
   if (ele && ele.parentNode === head) {
     head.removeChild(ele)
   }
@@ -77,10 +77,13 @@ export function addStyle(cssText, id) {
   }
 }
 
-export function addStyleToHead(style, attr) {
-
-	if (!options.staticStyleMapping[attr]) {
-		addStyle(scoper(style, attr), attr)
-		options.staticStyleMapping[attr] = true
+export function addStyleToHead(style, attr, parent) {
+  //parent is shadowroot
+	if (parent || !options.staticStyleMapping[attr]) {
+    addStyle(scoper(style, attr), attr, parent)
+    //don't cache when is shadowroot
+    if(!parent){
+      options.staticStyleMapping[attr] = true
+    }
 	}
 }

@@ -1,6 +1,6 @@
 import { h } from './h'
 import { render } from './render'
-
+import { addStyleToHead, getCtorName } from './style'
 
 	; (function () {
 		if (
@@ -32,7 +32,17 @@ export function define(name, Component) {
 			})
 			this.props = {}
 			this.attrsToProps()
+		
+			//Component.css = null
+			if(Component.css){
+				addStyleToHead(Component.css, getCtorName(Component), shadowRoot)
+			}
+			
 			this._ele = render(h(Component, this.props), shadowRoot)
+
+			if(this.props.css){
+				addStyleToHead(this.props.css, '_ds'+this._ele._component.elementId, shadowRoot)
+			}
 		}
 
 		disconnectedCallback() {

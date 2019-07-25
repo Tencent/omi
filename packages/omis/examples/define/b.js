@@ -90,10 +90,10 @@
 	  return css;
 	}
 
-	function addStyle(cssText, id) {
+	function addStyle(cssText, id, parent) {
 	  id = id.toLowerCase();
 	  var ele = document.getElementById(id);
-	  var head = document.getElementsByTagName('head')[0];
+	  var head = parent || document.getElementsByTagName('head')[0];
 	  if (ele && ele.parentNode === head) {
 	    head.removeChild(ele);
 	  }
@@ -109,11 +109,13 @@
 	  }
 	}
 
-	function addStyleToHead(style, attr) {
+	function addStyleToHead(style, attr, parent) {
 
-	  if (!options.staticStyleMapping[attr]) {
-	    addStyle(scoper(style, attr), attr);
-	    options.staticStyleMapping[attr] = true;
+	  if (parent || !options.staticStyleMapping[attr]) {
+	    addStyle(scoper(style, attr), attr, parent);
+	    if (!parent) {
+	      options.staticStyleMapping[attr] = true;
+	    }
 	  }
 	}
 
@@ -1618,7 +1620,17 @@
 				});
 				this.props = {};
 				this.attrsToProps();
+
+				//Component.css = null
+				if (Component.css) {
+					addStyleToHead(Component.css, getCtorName(Component), shadowRoot);
+				}
+
 				this._ele = render(h(Component, this.props), shadowRoot);
+
+				if (this.props.css) {
+					addStyleToHead(this.props.css, '_ds' + this._ele._component.elementId, shadowRoot);
+				}
 			};
 
 			_class.prototype.disconnectedCallback = function disconnectedCallback() {};

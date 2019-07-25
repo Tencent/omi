@@ -119,7 +119,7 @@ module.exports = function(config) {
 							compact: true,
 							plugins : [
 								'transform-class-properties',
-								["transform-react-jsx", { "pragma":"Omis.h" }]
+								["transform-react-jsx", { "pragma":"h" }]
 							]
 						}
 					},
