@@ -1,6 +1,22 @@
 (function () {
 	'use strict';
 
+	function commonjsRequire () {
+		throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+	}
+
+	function createCommonjsModule(fn, module) {
+		return module = { exports: {} }, fn(module, module.exports), module.exports;
+	}
+
+	/**
+	 * omis v0.11.0  http://omijs.org
+	 * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
+	 * By dntzhang https://github.com/dntzhang
+	 * Github: https://github.com/Tencent/omis
+	 * MIT Licensed.
+	 */
+
 	/**
 	 * Virtual DOM Node
 	 * @typedef VNode
@@ -154,10 +170,10 @@
 	 */
 	function h(nodeName, attributes) {
 		var children = EMPTY_CHILDREN,
-		    lastSimple = void 0,
-		    child = void 0,
-		    simple = void 0,
-		    i = void 0;
+		    lastSimple,
+		    child,
+		    simple,
+		    i;
 		for (i = arguments.length; i-- > 2;) {
 			stack.push(arguments[i]);
 		}
@@ -363,19 +379,6 @@
 	  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
 	}
 
-	// render modes
-
-	/** Do not re-render a component */
-	var NO_RENDER = 0;
-	/** Synchronously re-render a component and its children */
-	var SYNC_RENDER = 1;
-	/** Synchronously re-render a component, even if its lifecycle methods attempt to prevent it. */
-	var FORCE_RENDER = 2;
-	/** Queue asynchronous re-render of a component and it's children */
-	var ASYNC_RENDER = 3;
-
-	var ATTR_KEY = 'prevProps';
-
 	/** DOM properties that should NOT have "px" added when numeric */
 	var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
@@ -397,7 +400,7 @@
 
 	/** Rerender all enqueued dirty components */
 	function rerender() {
-		var p = void 0;
+		var p;
 		while (p = items.pop()) {
 			if (p._dirty) renderComponent(p);
 		}
@@ -532,8 +535,8 @@
 						if (!(i in value)) node.style[i] = '';
 					}
 				}
-				for (var _i in value) {
-					node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
+				for (var i in value) {
+					node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
 				}
 			}
 		} else if (name === 'dangerouslySetInnerHTML') {
@@ -593,7 +596,7 @@
 
 	/** Invoke queued componentDidMount lifecycle methods */
 	function flushMounts() {
-		var c = void 0;
+		var c;
 		while (c = mounts.shift()) {
 			if (c.constructor.css) {
 				addStyleToHead(c.constructor.css, getCtorName(c.constructor));
@@ -626,7 +629,7 @@
 			isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
 			// hydration is indicated by the existing element to be diffed not having a prop cache
-			hydrating = dom != null && !(ATTR_KEY in dom);
+			hydrating = dom != null && !('prevProps' in dom);
 		}
 
 		var ret = idiff(dom, vnode, $, mountAll, componentRoot, store);
@@ -678,7 +681,7 @@
 				}
 			}
 
-			out[ATTR_KEY] = true;
+			out['prevProps'] = true;
 
 			return out;
 		}
@@ -710,11 +713,11 @@
 		}
 
 		var fc = out.firstChild,
-		    props = out[ATTR_KEY],
+		    props = out['prevProps'],
 		    vchildren = vnode.children;
 
 		if (props == null) {
-			props = out[ATTR_KEY] = {};
+			props = out['prevProps'] = {};
 			for (var a = out.attributes, i = a.length; i--;) {
 				props[a[i].name] = a[i].value;
 			}
@@ -759,17 +762,17 @@
 		    len = originalChildren.length,
 		    childrenLen = 0,
 		    vlen = vchildren ? vchildren.length : 0,
-		    j = void 0,
-		    c = void 0,
-		    f = void 0,
-		    vchild = void 0,
-		    child = void 0;
+		    j,
+		    c,
+		    f,
+		    vchild,
+		    child;
 
 		// Build up a map of keyed children and an Array of unkeyed children:
 		if (len !== 0) {
 			for (var i = 0; i < len; i++) {
 				var _child = originalChildren[i],
-				    props = _child[ATTR_KEY],
+				    props = _child['prevProps'],
 				    key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
 				if (key != null) {
 					keyedLen++;
@@ -781,16 +784,16 @@
 		}
 
 		if (vlen !== 0) {
-			for (var _i = 0; _i < vlen; _i++) {
-				vchild = vchildren[_i];
+			for (var i = 0; i < vlen; i++) {
+				vchild = vchildren[i];
 				child = null;
 
 				// attempt to find a node based on key matching
-				var _key = vchild.key;
-				if (_key != null) {
-					if (keyedLen && keyed[_key] !== undefined) {
-						child = keyed[_key];
-						keyed[_key] = undefined;
+				var key = vchild.key;
+				if (key != null) {
+					if (keyedLen && keyed[key] !== undefined) {
+						child = keyed[key];
+						keyed[key] = undefined;
 						keyedLen--;
 					}
 				}
@@ -810,7 +813,7 @@
 				// morph the matched/found/created DOM child to match vchild (deep)
 				child = idiff(child, vchild, $, mountAll, null, store);
 
-				f = originalChildren[_i];
+				f = originalChildren[i];
 				if (child && child !== dom && child !== f) {
 					if (f == null) {
 						dom.appendChild(child);
@@ -825,8 +828,8 @@
 
 		// remove unused keyed children:
 		if (keyedLen) {
-			for (var _i2 in keyed) {
-				if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
+			for (var i in keyed) {
+				if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
 			}
 		}
 
@@ -851,9 +854,9 @@
 		} else {
 			// If the node's VNode had a ref function, invoke it with null here.
 			// (this is part of the React spec, and smart for unsetting references)
-			if (node[ATTR_KEY] != null) applyRef(node[ATTR_KEY].ref, null);
+			if (node['prevProps'] != null) applyRef(node['prevProps'].ref, null);
 
-			if (unmountOnly === false || node[ATTR_KEY] == null) {
+			if (unmountOnly === false || node['prevProps'] == null) {
 				removeNode(node);
 			}
 
@@ -883,7 +886,7 @@
 	 *  element's prop cache)
 	 */
 	function diffAttributes(dom, attrs, old, store) {
-		var name = void 0;
+		var name;
 
 		// remove attributes no longer present on the vnode by setting them to undefined
 		for (name in old) {
@@ -916,7 +919,7 @@
 	 * @returns {import('../component').Component}
 	 */
 	function createComponent(Ctor, props, $) {
-		var inst = void 0,
+		var inst,
 		    i = recyclerComponents.length;
 
 		inst = new Component(props, $);
@@ -995,9 +998,9 @@
 
 		component._disable = false;
 
-		if (renderMode !== NO_RENDER) {
-			if (renderMode === SYNC_RENDER || options.syncComponentUpdates !== false || !component.base) {
-				renderComponent(component, SYNC_RENDER, mountAll);
+		if (renderMode !== 0) {
+			if (renderMode === 1 || options.syncComponentUpdates !== false || !component.base) {
+				renderComponent(component, 1, mountAll);
 			} else {
 				enqueueRender(component);
 			}
@@ -1026,9 +1029,9 @@
 		    initialBase = isUpdate || nextBase,
 		    initialChildComponent = component._component,
 		    skip = false,
-		    rendered = void 0,
-		    inst = void 0,
-		    cbase = void 0;
+		    rendered,
+		    inst,
+		    cbase;
 
 		// if updating
 		if (isUpdate) {
@@ -1059,8 +1062,8 @@
 			options.runTimeComponent = null;
 
 			var childComponent = rendered && rendered.nodeName,
-			    toUnmount = void 0,
-			    base = void 0;
+			    toUnmount,
+			    base;
 
 			if (typeof childComponent === 'function') {
 				// set up high order component link
@@ -1069,15 +1072,15 @@
 				inst = initialChildComponent;
 
 				if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
-					setComponentProps(inst, childProps, SYNC_RENDER, $, false);
+					setComponentProps(inst, childProps, 1, $, false);
 				} else {
 					toUnmount = inst;
 
 					component._component = inst = createComponent(childComponent, childProps, $);
 					inst.nextBase = inst.nextBase || nextBase;
 					inst._parentComponent = component;
-					setComponentProps(inst, childProps, NO_RENDER, $, false);
-					renderComponent(inst, SYNC_RENDER, mountAll, true);
+					setComponentProps(inst, childProps, 0, $, false);
+					renderComponent(inst, 1, mountAll, true);
 				}
 
 				base = inst.base;
@@ -1090,7 +1093,7 @@
 					cbase = component._component = null;
 				}
 
-				if (initialBase || renderMode === SYNC_RENDER) {
+				if (initialBase || renderMode === 1) {
 					if (cbase) cbase._component = null;
 					base = diff(cbase, rendered, $, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, component.store);
 				}
@@ -1164,7 +1167,7 @@
 		}
 
 		if (c && isOwner && (!mountAll || c._component)) {
-			setComponentProps(c, props, ASYNC_RENDER, $, mountAll);
+			setComponentProps(c, props, 3, $, mountAll);
 			dom = c.base;
 		} else {
 			if (originalComponent && !isDirectOwner) {
@@ -1178,7 +1181,7 @@
 				// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
 				oldDom = null;
 			}
-			setComponentProps(c, props, SYNC_RENDER, $, mountAll);
+			setComponentProps(c, props, 1, $, mountAll);
 			dom = c.base;
 
 			if (oldDom && dom !== oldDom) {
@@ -1211,7 +1214,7 @@
 		if (inner) {
 			unmountComponent(inner);
 		} else if (base) {
-			if (base[ATTR_KEY] != null) applyRef(base[ATTR_KEY].ref, null);
+			if (base['prevProps'] != null) applyRef(base['prevProps'].ref, null);
 
 			component.nextBase = base;
 
@@ -1270,7 +1273,7 @@
 	  */
 		update: function update(callback) {
 			if (callback) this._renderCallbacks.push(callback);
-			renderComponent(this, FORCE_RENDER);
+			renderComponent(this, 2);
 		},
 
 
@@ -1582,6 +1585,17 @@
 		return {};
 	}
 
+	var omis = {
+		h: h,
+		createElement: h,
+		cloneElement: cloneElement,
+		createRef: createRef,
+		Component: Component,
+		render: render,
+		rerender: rerender,
+		options: options
+	};
+
 	if (typeof window !== 'undefined') {
 		window.Omis = {
 			h: h,
@@ -1595,116 +1609,126 @@
 		};
 	}
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _omisDefine_0_1_0_omisDefine = createCommonjsModule(function (module) {
+	 (function () {
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	  var Omis = typeof commonjsRequire === 'function'
+	    ? omis
+	    : window.Omis,
+	    h = Omis.h,
+	    render = Omis.render,
+	    hyphenateRE = /\B([A-Z])/g
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	(function () {
-	  if (
-	  // No Reflect, no classes, no need for shim because native custom elements
-	  // require ES2015 classes or Reflect.
-	  window.Reflect === undefined || window.customElements === undefined ||
-	  // The webcomponentsjs custom elements polyfill doesn't require
-	  // ES2015-compatible construction (`super()` or `Reflect.construct`).
-	  window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
-	    return;
-	  }
-	  var BuiltInHTMLElement = HTMLElement;
-	  window.HTMLElement = function HTMLElement() {
-	    return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-	  };
-	  HTMLElement.prototype = BuiltInHTMLElement.prototype;
-	  HTMLElement.prototype.constructor = HTMLElement;
-	  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
-	})();
+	    ; (function () {
+	      if (
+	        // No Reflect, no classes, no need for shim because native custom elements
+	        // require ES2015 classes or Reflect.
+	        window.Reflect === undefined ||
+	        window.customElements === undefined ||
+	        // The webcomponentsjs custom elements polyfill doesn't require
+	        // ES2015-compatible construction (`super()` or `Reflect.construct`).
+	        window.customElements.hasOwnProperty('polyfillWrapFlushCallback')
+	      ) {
+	        return
+	      }
+	      var BuiltInHTMLElement = HTMLElement;
+	      window.HTMLElement = function HTMLElement() {
+	        return Reflect.construct(BuiltInHTMLElement, [], this.constructor)
+	      };
+	      HTMLElement.prototype = BuiltInHTMLElement.prototype;
+	      HTMLElement.prototype.constructor = HTMLElement;
+	      Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+	    })();
 
-	var hyphenateRE = /\B([A-Z])/g;
-	function hyphenate(str) {
-	  return str.replace(hyphenateRE, '-$1').toLowerCase();
-	}
+	  function define(name, Component) {
+	    customElements.define(name, class extends HTMLElement {
 
-	function define(name, Component$$1) {
-	  customElements.define(name, function (_HTMLElement) {
-	    _inherits(_class, _HTMLElement);
+	      connectedCallback() {
+	        var shadowRoot = this.attachShadow({
+	          mode: 'open'
+	        });
+	        this.props = {};
+	        this.attrsToProps();
+	        this._ele = render(h(Component, this.props), shadowRoot);
+	      }
 
-	    function _class() {
-	      _classCallCheck(this, _class);
+	      disconnectedCallback() {
 
-	      return _possibleConstructorReturn(this, _HTMLElement.apply(this, arguments));
-	    }
+	      }
 
-	    _class.prototype.connectedCallback = function connectedCallback() {
-	      var shadowRoot = this.attachShadow({
-	        mode: 'open'
-	      });
-	      this.props = {};
-	      this.attrsToProps();
-	      this._ele = render(h(Component$$1, this.props), shadowRoot);
-	    };
+	      addEventListener(name, callback) {
+	        this._ele._component.props['on' + name.charAt(0).toUpperCase() + name.slice(1)] = callback;
+	      }
 
-	    _class.prototype.disconnectedCallback = function disconnectedCallback() {};
-
-	    _class.prototype.addEventListener = function addEventListener(name, callback) {
-	      this._ele._component.props['on' + name.charAt(0).toUpperCase() + name.slice(1)] = callback;
-	    };
-
-	    _class.prototype.removeEventListener = function removeEventListener(name, callback) {
-	      var props = this._ele._component.props;
-	      var eventName = 'on' + name.charAt(0).toUpperCase() + name.slice(1);
-	      for (var key in props) {
-	        if (key === eventName && callback === props[key]) {
-	          delete props[key];
-	          break;
+	      removeEventListener(name, callback) {
+	        var props = this._ele._component.props;
+	        var eventName = 'on' + name.charAt(0).toUpperCase() + name.slice(1);
+	        for (var key in props) {
+	          if (key === eventName && callback === props[key]) {
+	            delete props[key];
+	            break
+	          }
 	        }
 	      }
-	    };
 
-	    _class.prototype.attrsToProps = function attrsToProps() {
-	      var _this2 = this;
-
-	      this.props['css'] = this.getAttribute('css');
-	      var attrs = Component$$1.propTypes;
-	      if (!attrs) return;
-	      Object.keys(attrs).forEach(function (key) {
-	        var type = attrs[key];
-	        var val = _this2.getAttribute(hyphenate(key));
-	        if (val !== null) {
-	          switch (type) {
-	            case String:
-	              _this2.props[key] = val;
-	              break;
-	            case Number:
-	              _this2.props[key] = Number(val);
-	              break;
-	            case Boolean:
-	              if (val === 'false' || val === '0') {
-	                _this2.props[key] = false;
-	              } else {
-	                _this2.props[key] = true;
-	              }
-	              break;
-	            case Array:
-	            case Object:
-	              _this2.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-	              break;
-	          }
-	        } else {
-	          if (Component$$1.defaultProps && Component$$1.defaultProps.hasOwnProperty(key)) {
-	            _this2.props[key] = Component$$1.defaultProps[key];
+	      attrsToProps() {
+	        this.props['css'] = this.getAttribute('css');
+	        var attrs = Component.propTypes;
+	        if (!attrs) return
+	        Object.keys(attrs).forEach(key => {
+	          var type = attrs[key];
+	          var val = this.getAttribute(hyphenate(key));
+	          if (val !== null) {
+	            switch (type) {
+	              case String:
+	                this.props[key] = val;
+	                break
+	              case Number:
+	                this.props[key] = Number(val);
+	                break
+	              case Boolean:
+	                if (val === 'false' || val === '0') {
+	                  this.props[key] = false;
+	                } else {
+	                  this.props[key] = true;
+	                }
+	                break
+	              case Array:
+	              case Object:
+	                this.props[key] = JSON.parse(val
+	                  .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+	                  .replace(/'([\s\S]*?)'/g, '"$1"')
+	                  .replace(/,(\s*})/g, '$1')
+	                );
+	                break
+	            }
 	          } else {
-	            _this2.props[key] = null;
+	            if (Component.defaultProps && Component.defaultProps.hasOwnProperty(key)) {
+	              this.props[key] = Component.defaultProps[key];
+	            } else {
+	              this.props[key] = null;
+	            }
 	          }
-	        }
-	      });
-	    };
+	        });
+	      }
+	    });
+	  }
 
-	    return _class;
-	  }(HTMLElement));
-	}
+	  function hyphenate(str) {
+	    return str.replace(hyphenateRE, '-$1').toLowerCase()
+	  }
+
+	  if ('object' !== 'undefined' && module.exports) {
+	    define.default = define;
+	    module.exports = define;
+	  } else {
+	    window.define = define;
+	  }
+
+	})();
+	});
 
 	var HelloMessage = function HelloMessage(props, store) {
-	  console.log(props);
 	  return Omis.h(
 	    'div',
 	    { onClick: store.clickHandler },
@@ -1742,9 +1766,7 @@
 	  user: Object
 	};
 
-	define('hello-msg', HelloMessage);
-
-	//render(<HelloMessage name="Omis" onMyEvent={_=>{console.log(222)}} />, 'body')
+	_omisDefine_0_1_0_omisDefine('hello-msg', HelloMessage);
 
 }());
 //# sourceMappingURL=b.js.map
