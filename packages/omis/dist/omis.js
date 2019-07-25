@@ -25,10 +25,10 @@
         });
         return css;
     }
-    function addStyle(cssText, id) {
+    function addStyle(cssText, id, parent) {
         id = id.toLowerCase();
         var ele = document.getElementById(id);
-        var head = document.getElementsByTagName('head')[0];
+        var head = parent || document.getElementsByTagName('head')[0];
         if (ele && ele.parentNode === head) head.removeChild(ele);
         var someThingStyles = document.createElement('style');
         head.appendChild(someThingStyles);
@@ -36,10 +36,10 @@
         someThingStyles.setAttribute('id', id);
         if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
     }
-    function addStyleToHead(style, attr) {
-        if (!options.staticStyleMapping[attr]) {
-            addStyle(scoper(style, attr), attr);
-            options.staticStyleMapping[attr] = !0;
+    function addStyleToHead(style, attr, parent) {
+        if (parent || !options.staticStyleMapping[attr]) {
+            addStyle(scoper(style, attr), attr, parent);
+            if (!parent) options.staticStyleMapping[attr] = !0;
         }
     }
     function h(nodeName, attributes) {
@@ -656,6 +656,86 @@
         });
         return mpPath;
     }
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+    function define(name, Component) {
+        customElements.define(name, function(_HTMLElement) {
+            function _class() {
+                _classCallCheck(this, _class);
+                return _possibleConstructorReturn(this, _HTMLElement.apply(this, arguments));
+            }
+            _inherits(_class, _HTMLElement);
+            _class.prototype.connectedCallback = function() {
+                var shadowRoot = this.attachShadow({
+                    mode: 'open'
+                });
+                this.props = {};
+                this.attrsToProps();
+                if (Component.css) addStyleToHead(Component.css, getCtorName(Component), shadowRoot);
+                this.W = render(h(Component, this.props), shadowRoot);
+                if (this.props.css) addStyleToHead(this.props.css, '_ds' + this.W._component.elementId, shadowRoot);
+            };
+            _class.prototype.disconnectedCallback = function() {};
+            _class.prototype.addEventListener = function(name, callback) {
+                this.W._component.props['on' + name.charAt(0).toUpperCase() + name.slice(1)] = callback;
+            };
+            _class.prototype.removeEventListener = function(name, callback) {
+                var props = this.W._component.props;
+                var eventName = 'on' + name.charAt(0).toUpperCase() + name.slice(1);
+                for (var key in props) if (key === eventName && callback === props[key]) {
+                    delete props[key];
+                    break;
+                }
+            };
+            _class.prototype.attrsToProps = function() {
+                var _this2 = this;
+                this.props.css = this.getAttribute('css');
+                var attrs = Component.propTypes;
+                if (attrs) Object.keys(attrs).forEach(function(key) {
+                    var type = attrs[key];
+                    var val = _this2.getAttribute(hyphenate(key));
+                    if (null !== val) switch (type) {
+                      case String:
+                        _this2.props[key] = val;
+                        break;
+
+                      case Number:
+                        _this2.props[key] = Number(val);
+                        break;
+
+                      case Boolean:
+                        if ('false' === val || '0' === val) _this2.props[key] = !1; else _this2.props[key] = !0;
+                        break;
+
+                      case Array:
+                      case Object:
+                        _this2.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                    } else if (Component.defaultProps && Component.defaultProps.hasOwnProperty(key)) _this2.props[key] = Component.defaultProps[key]; else _this2.props[key] = null;
+                });
+            };
+            return _class;
+        }(HTMLElement));
+    }
+    function hyphenate(str) {
+        return str.replace(/\B([A-Z])/g, '-$1').toLowerCase();
+    }
     function createRef() {
         return {};
     }
@@ -696,6 +776,17 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
+    !function() {
+        if (void 0 !== window.Reflect && void 0 !== window.customElements && !window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+            var BuiltInHTMLElement = HTMLElement;
+            window.HTMLElement = function() {
+                return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+            };
+            HTMLElement.prototype = BuiltInHTMLElement.prototype;
+            HTMLElement.prototype.constructor = HTMLElement;
+            Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+        }
+    }();
     var Omis = {
         h: h,
         createElement: h,
@@ -704,7 +795,8 @@
         Component: Component,
         render: render,
         rerender: rerender,
-        options: options
+        options: options,
+        define: define
     };
     if ('undefined' != typeof window) window.Omis = {
         h: h,
@@ -714,7 +806,8 @@
         Component: Component,
         render: render,
         rerender: rerender,
-        options: options
+        options: options,
+        define: define
     };
     if ('undefined' != typeof module) module.exports = Omis; else self.Omis = Omis;
 }();

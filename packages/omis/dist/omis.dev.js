@@ -1,5 +1,5 @@
 /**
- * omis v0.11.0  http://omijs.org
+ * omis v0.13.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -98,10 +98,10 @@
 	  return css;
 	}
 
-    function addStyle(cssText, id) {
+    function addStyle(cssText, id, parent) {
 	  id = id.toLowerCase();
 	  var ele = document.getElementById(id);
-	  var head = document.getElementsByTagName('head')[0];
+	  var head = parent || document.getElementsByTagName('head')[0];
 	  if (ele && ele.parentNode === head) {
 	    head.removeChild(ele);
 	  }
@@ -117,11 +117,14 @@
 	  }
 	}
 
-    function addStyleToHead(style, attr) {
-
-	  if (!options.staticStyleMapping[attr]) {
-	    addStyle(scoper(style, attr), attr);
-	    options.staticStyleMapping[attr] = true;
+    function addStyleToHead(style, attr, parent) {
+	  //parent is shadowroot
+	  if (parent || !options.staticStyleMapping[attr]) {
+	    addStyle(scoper(style, attr), attr, parent);
+	    //don't cache when is shadowroot
+	    if (!parent) {
+	      options.staticStyleMapping[attr] = true;
+	    }
 	  }
 	}
 
@@ -1573,6 +1576,123 @@
 	  return mpPath;
 	}
 
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    (function () {
+		if (
+		// No Reflect, no classes, no need for shim because native custom elements
+		// require ES2015 classes or Reflect.
+		window.Reflect === undefined || window.customElements === undefined ||
+		// The webcomponentsjs custom elements polyfill doesn't require
+		// ES2015-compatible construction (`super()` or `Reflect.construct`).
+		window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+			return;
+		}
+		var BuiltInHTMLElement = HTMLElement;
+		window.HTMLElement = function HTMLElement() {
+			return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+		};
+		HTMLElement.prototype = BuiltInHTMLElement.prototype;
+		HTMLElement.prototype.constructor = HTMLElement;
+		Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+	})();
+
+    function define(name, Component) {
+		customElements.define(name, function (_HTMLElement) {
+			_inherits(_class, _HTMLElement);
+
+			function _class() {
+				_classCallCheck(this, _class);
+
+				return _possibleConstructorReturn(this, _HTMLElement.apply(this, arguments));
+			}
+
+			_class.prototype.connectedCallback = function connectedCallback() {
+				var shadowRoot = this.attachShadow({
+					mode: 'open'
+				});
+				this.props = {};
+				this.attrsToProps();
+
+				//Component.css = null
+				if (Component.css) {
+					addStyleToHead(Component.css, getCtorName(Component), shadowRoot);
+				}
+
+				this._ele = render(h(Component, this.props), shadowRoot);
+
+				if (this.props.css) {
+					addStyleToHead(this.props.css, '_ds' + this._ele._component.elementId, shadowRoot);
+				}
+			};
+
+			_class.prototype.disconnectedCallback = function disconnectedCallback() {};
+
+			_class.prototype.addEventListener = function addEventListener(name, callback) {
+				this._ele._component.props['on' + name.charAt(0).toUpperCase() + name.slice(1)] = callback;
+			};
+
+			_class.prototype.removeEventListener = function removeEventListener(name, callback) {
+				var props = this._ele._component.props;
+				var eventName = 'on' + name.charAt(0).toUpperCase() + name.slice(1);
+				for (var key in props) {
+					if (key === eventName && callback === props[key]) {
+						delete props[key];
+						break;
+					}
+				}
+			};
+
+			_class.prototype.attrsToProps = function attrsToProps() {
+				var _this2 = this;
+
+				this.props['css'] = this.getAttribute('css');
+				var attrs = Component.propTypes;
+				if (!attrs) return;
+				Object.keys(attrs).forEach(function (key) {
+					var type = attrs[key];
+					var val = _this2.getAttribute(hyphenate(key));
+					if (val !== null) {
+						switch (type) {
+							case String:
+								_this2.props[key] = val;
+								break;
+							case Number:
+								_this2.props[key] = Number(val);
+								break;
+							case Boolean:
+								if (val === 'false' || val === '0') {
+									_this2.props[key] = false;
+								} else {
+									_this2.props[key] = true;
+								}
+								break;
+							case Array:
+							case Object:
+								_this2.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+								break;
+						}
+					} else {
+						if (Component.defaultProps && Component.defaultProps.hasOwnProperty(key)) {
+							_this2.props[key] = Component.defaultProps[key];
+						} else {
+							_this2.props[key] = null;
+						}
+					}
+				});
+			};
+
+			return _class;
+		}(HTMLElement));
+	}
+
+    function hyphenate(str) {
+		return str.replace(/\B([A-Z])/g, '-$1').toLowerCase();
+	}
+
     function createRef() {
 		return {};
 	}
@@ -1585,7 +1705,8 @@
 		Component: Component,
 		render: render,
 		rerender: rerender,
-		options: options
+		options: options,
+		define: define
 	};
 
     if (typeof window !== 'undefined') {
@@ -1597,7 +1718,8 @@
 			Component: Component,
 			render: render,
 			rerender: rerender,
-			options: options
+			options: options,
+			define: define
 		};
 	}
 

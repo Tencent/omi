@@ -1,6 +1,6 @@
 {
   "props": {
-    "cname": 47,
+    "cname": 48,
     "props": {
       "$_dirty": "__d",
       "$_disable": "__x",
@@ -42,7 +42,8 @@
       "$_customStyleContent": "O",
       "$__hasChildren": "P",
       "$__prevProps": "Q",
-      "$__needUpdate_": "R"
+      "$__needUpdate_": "R",
+      "$_ele": "W"
     }
   },
   "vars": {
