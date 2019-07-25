@@ -30,12 +30,12 @@ export function createComponent(Ctor, props, context, vnode) {
 
   if ( inst.store && inst.store.data) {
 		if(inst.constructor.use){
-			inst.use = getUse(inst.store.data, inst.constructor.use)
+			inst.using = getUse(inst.store.data, inst.constructor.use)
 			inst.store.instances.push(inst)
-		} else if(inst.initUse){
-			const use = inst.initUse()
+		} else if(inst.use){
+			const use = inst.use()
 			inst._updatePath = getPath(use)
-			inst.use = getUse(inst.store.data, use)
+			inst.using = getUse(inst.store.data, use)
 			inst.store.instances.push(inst)
 		}
 

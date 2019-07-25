@@ -491,12 +491,12 @@
         }
         vnode && (inst.scopedCssAttr = vnode.css);
         if (inst.store && inst.store.data) if (inst.constructor.use) {
-            inst.use = getUse(inst.store.data, inst.constructor.use);
+            inst.using = getUse(inst.store.data, inst.constructor.use);
             inst.store.instances.push(inst);
-        } else if (inst.initUse) {
-            var use = inst.initUse();
+        } else if (inst.use) {
+            var use = inst.use();
             inst.H = getPath(use);
-            inst.use = getUse(inst.store.data, use);
+            inst.using = getUse(inst.store.data, use);
             inst.store.instances.push(inst);
         }
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
@@ -718,7 +718,7 @@
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
                     if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.H && needUpdate(patch, instance.H)) {
-                        if (instance.constructor.use) instance.use = getUse(store.data, instance.constructor.use); else if (instance.initUse) instance.use = getUse(store.data, instance.initUse());
+                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.use());
                         instance.update();
                     }
                 });
@@ -1280,7 +1280,7 @@
         htm: htm
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.2.2';
+    options.root.Omi.version = 'omio-2.3.0';
     var Omi = {
         h: h,
         createElement: h,
