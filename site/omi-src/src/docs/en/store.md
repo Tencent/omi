@@ -21,7 +21,7 @@ define('my-counter', class extends WeElement {
   sub = () => this.store.sub()
 
   addIfOdd = () => {
-    if (this.use.count % 2 !== 0) {
+    if (this.using.count % 2 !== 0) {
       this.store.add()
     }
   }
@@ -33,7 +33,7 @@ define('my-counter', class extends WeElement {
   render() {
     return (
       <p>
-        Clicked: {this.use.count} times
+        Clicked: {this.using.count} times
         {' '}
         <button onClick={this.add}>+</button>
         {' '}
@@ -118,17 +118,17 @@ render() {
   return (
     <div>
       <button onClick={this.sub}>-</button>
-      <span>{this.use[0]}</span>
+      <span>{this.using[0]}</span>
       <button onClick={this.add}>+</button>
       <div>
-        <span>{this.use[1]}</span>
+        <span>{this.using[1]}</span>
         <button onClick={this.rename}>rename</button>
       </div>
-      <div>{this.use.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
-      <div>{this.use.name}</div>
-      <div>{this.use[3]}</div>
+      <div>{this.using.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
+      <div>{this.using.name}</div>
+      <div>{this.using[3]}</div>
       <div>
-        {this.use.fullName}
+        {this.using.fullName}
         <button onClick={this.changeFirstName}>change first name</button>
       </div>
     </div>
@@ -172,7 +172,7 @@ define('my-sidebar', class extends WeElement {
   ]
 
   render() {
-    const [menus, sideBarShow, lan] = this.use
+    const [menus, sideBarShow, lan] = this.using
 
     return (
       <div class={`list${sideBarShow ? ' show' : ''}`}>
@@ -188,12 +188,12 @@ define('my-sidebar', class extends WeElement {
 Here is an example of using the ES2015+ Grammar `const [xx, xxx] = xxxx` for fast assignment.
 
 
-## initUse
+## Dynamic use
 
-If you don't want the same components to have the same dependencies, you can use `initUse' to achieve dynamic use:
+If you don't want the same components to have the same dependencies, you can use dynamic use:
 
 ```js
-initUse() {
+use() {
   return [
     'a.b',
     'c[1].d',
