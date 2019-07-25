@@ -6,6 +6,7 @@ English | [简体中文](./README.CN.md)
 
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation
+* Web Components supporting
 * Hyperscript is visually more friendly
 * Each component can have a store and be de-centralized
 * Support global store to share data and update on demand
@@ -69,6 +70,55 @@ $ npm run build        # release
 
 > `npx omi-cli init-s my-app` (npm v5.2.0+)
 
+## Web Components
+
+```jsx
+import define from 'omis-define'
+
+const HelloMessage = (props, store) => {
+  return (
+    <div onClick={store.clickHandler} >
+      <div>Hello {props.msg}</div>
+      <div>{props.user.name}</div>
+      <div>{props.user.age}</div>
+    </div>
+  )
+}
+
+HelloMessage.css = `div{
+	color: red;
+}`
+
+HelloMessage.store = _ => {
+  return {
+    clickHandler() {
+      _.props.onMyEvent && _.props.onMyEvent(123)
+    }
+  }
+}
+
+HelloMessage.propTypes = {
+  msg: String,
+  user: Object
+}
+
+define('hello-msg', HelloMessage)
+```
+
+Then you can use `<hello-msg></hello-msg>` anywhere:
+
+```html
+<hello-msg msg="Omis" user="{name:'dntzhang', age: 18}"></hello-msg>
+
+<script>
+  var ele = document.querySelector('hello-msg')
+
+  ele.addEventListener('myEvent', function(evt){
+    console.log(evt)
+  })
+</script>
+```
+
 ## Contribution
 
 ### Develop
@@ -88,10 +138,6 @@ npm run build
 ``` bash
 npm run test
 ```
-
-### Todo
-
-* Web Components Supporting
 
 ## License
 

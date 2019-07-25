@@ -6,6 +6,7 @@
 
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
+* 支持 web components
 * hyperscript 视觉上更加友好
 * 每个组件可以带有一个 store，去中心化
 * 支持全局 store 共享数据，并且按需局部更新组件
@@ -69,6 +70,55 @@ $ npm run build        # release
 
 > `npx omi-cli init-s my-app` 也是支持的(npm v5.2.0+).
 
+## Web Components
+
+```jsx
+import define from 'omis-define'
+
+const HelloMessage = (props, store) => {
+  return (
+    <div onClick={store.clickHandler} >
+      <div>Hello {props.msg}</div>
+      <div>{props.user.name}</div>
+      <div>{props.user.age}</div>
+    </div>
+  )
+}
+
+HelloMessage.css = `div{
+	color: red;
+}`
+
+HelloMessage.store = _ => {
+  return {
+    clickHandler() {
+      _.props.onMyEvent && _.props.onMyEvent(123)
+    }
+  }
+}
+
+HelloMessage.propTypes = {
+  msg: String,
+  user: Object
+}
+
+define('hello-msg', HelloMessage)
+```
+
+然后这个标签就可以任意框架使用了:
+
+```html
+<hello-msg msg="Omis" user="{name:'dntzhang', age: 18}"></hello-msg>
+
+<script>
+  var ele = document.querySelector('hello-msg')
+
+  ele.addEventListener('myEvent', function(evt){
+    console.log(evt)
+  })
+</script>
+```
+
 ## 贡献代码
 
 ### 开发
@@ -88,10 +138,6 @@ npm run build
 ``` bash
 npm run test
 ```
-
-### Todo
-
-* Web Components Supporting
 
 ## License
 
