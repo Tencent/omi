@@ -2,7 +2,7 @@
 
 # Omis
 
-> Functional Component + Store + Scoped Style in 3KB
+> Functional Component + Store + Scoped Style + Web Components in 3KB
 
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
@@ -73,7 +73,7 @@ $ npm run build        # release
 ## Web Components
 
 ```jsx
-import define from 'omis-define'
+import { define } from 'omis'
 
 const HelloMessage = (props, store) => {
   return (

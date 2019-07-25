@@ -1,4 +1,4 @@
-import define from 'omis-define'
+import { define } from '../../src/omis'
 
 const HelloMessage = (props, store) => {
   return (

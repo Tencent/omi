@@ -3,6 +3,7 @@ import { cloneElement } from './clone-element';
 import { Component } from './component';
 import { render } from './render';
 import { rerender } from './render-queue';
+import { define } from './define';
 import options from './options';
 
 function createRef() {
@@ -17,7 +18,8 @@ export default {
 	Component,
 	render,
 	rerender,
-	options
+	options,
+	define
 };
 
 export {
@@ -28,7 +30,8 @@ export {
 	Component,
 	render,
 	rerender,
-	options
+	options,
+	define
 };
 
 if(typeof window !== 'undefined'){
@@ -40,6 +43,7 @@ if(typeof window !== 'undefined'){
 		Component,
 		render,
 		rerender,
-		options
+		options,
+		define
 	};
 }

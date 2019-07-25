@@ -2,7 +2,7 @@ English | [简体中文](./README.CN.md)
 
 # Omis
 
-> Functional Component + Store + Scoped Style in 3KB
+> Functional Component + Store + Scoped Style + + Web Components in 3KB
 
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation
@@ -73,7 +73,7 @@ $ npm run build        # release
 ## Web Components
 
 ```jsx
-import define from 'omis-define'
+import { define } from 'omis'
 
 const HelloMessage = (props, store) => {
   return (
