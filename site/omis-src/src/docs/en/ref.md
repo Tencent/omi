@@ -1,62 +1,18 @@
 ## Ref
 
-```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    console.log(this.h1)
-  }
-
-  render(props) {
-    return (
-      <div>
-        <h1 ref={e => { this.h1 = e }} onClick={this.onClick}>Hello, world!</h1>
-      </div>
-    )
-  }
-})
-```
-
-Add `ref = {e => {this. anyNameYouWant = e} ` to the element, and then you can access the element using `this. anyNameYouWant` in the JS code. You can improve the performance of update in two ways:
-
-* Assignment ahead of time
-* createRef
-
-### Assignment ahead of time
+Ref provides a way to access DOM nodes or Components created in render methods.
 
 ```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    console.log(this.h1)
+const HelloMessage = (props, store, _) => {
+  return h('h1', { ref: ele => _.h1 = ele }, `Hello ${props.name}`)
+}
+
+HelloMessage.store = _ => {
+  return {
+    installed() {
+      //h1 dom element
+      console.log(_.h1)
+    }
   }
-
-  myRef = e => { this.h1 = e }
-
-  render(props) {
-    return (
-      <div>
-        <h1 ref={this.myRef} onClick={this.onClick}>Hello, world!</h1>
-      </div>
-    )
-  }
-})
-```
-
-### createRef
-
-```jsx
-define('my-element', class extends WeElement {
-  onClick = (evt) => {
-    console.log(this.myRef.current)  //h1
-  }
-
-  myRef = createRef()
-
-  render(props) {
-    return (
-      <div>
-        <h1 ref={this.myRef} onClick={this.onClick}>Hello, world!</h1>
-      </div>
-    )
-  }
-})
+}
 ```

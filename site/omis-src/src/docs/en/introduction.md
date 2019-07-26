@@ -63,4 +63,19 @@ const Counter = (props, store) => {
 }
 ```
 
+## Description of parameters
+
+```jsx
+const Comp = (props, store, _, $) => {
+
+}
+
+Comp.store = (_, $) => {
+
+}
+```
+
+* `_` represents `component`
+* `$` represents `globalStore`
+
 You're already getting started! Congratulations!

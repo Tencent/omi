@@ -58,6 +58,21 @@ span{
 render(<Counter />, 'body')
 ```
 
+## Description of parameters
+
+```jsx
+const Comp = (props, store, _, $) => {
+
+}
+
+Comp.store = (_, $) => {
+
+}
+```
+
+* `_` represents `component`
+* `$` represents `globalStore`
+
 ## Quick Start
 
 ```bash

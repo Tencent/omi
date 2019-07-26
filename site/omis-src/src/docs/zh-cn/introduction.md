@@ -63,4 +63,19 @@ const Counter = (props, store) => {
 }
 ```
 
+## 参数说明
+
+```jsx
+const Comp = (props, store, _, $) => {
+
+}
+
+Comp.store = (_, $) => {
+
+}
+```
+
+* `_` 代表 `component`
+* `$` 代表 `globalStore`
+
 恭喜你已经入门！
