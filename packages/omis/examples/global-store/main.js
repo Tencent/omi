@@ -1,6 +1,6 @@
 import { render, h } from '../../src/omis'
 
-const Counter = function (props, store, context) {
+const Counter = function (props, store) {
 
 
   return (

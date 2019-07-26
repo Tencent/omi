@@ -68,7 +68,7 @@ function extendStoreUpate(store) {
 					if(instance.constructor.use){
 						instance.using = getUse(store.data, instance.constructor.use)
 					} else if(instance.use){
-						instance.using = getUse(store.data, instance.initUse())
+						instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use)
 					}
 
           instance.update()

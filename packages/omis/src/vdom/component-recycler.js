@@ -23,7 +23,7 @@ export function createComponent(Ctor, props, $) {
 	inst.constructor = Ctor;
 	inst.render = doRender;
 	if(Ctor.store){
-		inst.store = Ctor.store(inst)
+		inst.store = Ctor.store(inst, $)
 		inst.store.update = inst.update.bind(inst)
 	}
 
@@ -34,7 +34,7 @@ export function createComponent(Ctor, props, $) {
 			inst.using = getUse(inst.$.data, inst.constructor.use)
 			inst.$.instances.push(inst)
 		} else if(inst.use){
-			const use = inst.use()
+			const use = typeof inst.use === 'function' ? inst.use() : inst.use
 			inst._updatePath = getPath(use)
 			inst.using = getUse(inst.$.data, use)
 			inst.$.instances.push(inst)
@@ -55,5 +55,5 @@ export function createComponent(Ctor, props, $) {
 
 /** The `.render()` method for a PFC backing instance. */
 function doRender(props, $) {
-	return this.constructor(props, this.store, $);
+	return this.constructor(props, this.store, this, $);
 }

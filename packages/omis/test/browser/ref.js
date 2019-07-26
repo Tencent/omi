@@ -2,7 +2,7 @@ import {
 	render, h
 } from '../../src/omis'
 
-describe('context', () => {
+describe('ref', () => {
 	let scratch
 	//const Empty = () => null
 
@@ -24,7 +24,25 @@ describe('context', () => {
 
 	it('simple test', () => {
 
-		expect(1).to.deep.equal(1)
-	})
+		const HelloMessage = (props, store, _) => {
+			return h('div', { ref: ele => _.abc = ele }, `Hello ${props.name}`)
+		}
+		let a
+		HelloMessage.store = _ => {
 
+			return {
+				installed() {
+					a = _.abc
+				}
+			}
+		}
+
+		HelloMessage.css = `div{
+			color: red;
+		}`
+
+		render(<HelloMessage name="Omis" />, 'body')
+
+		expect(a.innerHTML).to.deep.equal('Hello Omis')
+	})
 })
