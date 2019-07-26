@@ -1,5 +1,5 @@
 /**
- * omis v0.13.0  http://omijs.org
+ * omis v0.14.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -1643,6 +1643,50 @@
 						delete props[key];
 						break;
 					}
+				}
+			};
+
+			_class.prototype.removeAttribute = function removeAttribute(key) {
+				_HTMLElement.prototype.removeAttribute.call(this, key);
+				delete this._ele._component.props[key];
+				if (Component.defaultProps.hasOwnProperty(key)) {
+					this._ele._component.props[key] = Component.defaultProps[key];
+				}
+				this._ele._component.update();
+			};
+
+			_class.prototype.setAttribute = function setAttribute(key, val) {
+				if (val && typeof val === 'object') {
+					val = JSON.stringify(val);
+					_HTMLElement.prototype.setAttribute.call(this, key, val);
+				} else {
+					val = val.toString();
+					_HTMLElement.prototype.setAttribute.call(this, key, val);
+				}
+				this.attrToProp(key, val, this._ele._component.props);
+				this._ele._component.update();
+			};
+
+			_class.prototype.attrToProp = function attrToProp(key, val, props) {
+				var type = Component.propTypes[key];
+				switch (type) {
+					case String:
+						props[key] = val;
+						break;
+					case Number:
+						props[key] = Number(val);
+						break;
+					case Boolean:
+						if (val === 'false' || val === '0') {
+							props[key] = false;
+						} else {
+							props[key] = true;
+						}
+						break;
+					case Array:
+					case Object:
+						props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+						break;
 				}
 			};
 

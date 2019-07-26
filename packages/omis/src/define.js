@@ -64,6 +64,54 @@ export function define(name, Component) {
 			}
 		}
 
+		removeAttribute(key) {
+			super.removeAttribute(key)
+			delete this._ele._component.props[key]
+			if(Component.defaultProps.hasOwnProperty(key)){
+				this._ele._component.props[key] = Component.defaultProps[key]
+			}
+			this._ele._component.update()
+		}
+	
+		setAttribute(key, val) {
+			if (val && typeof val === 'object') {
+				val = JSON.stringify(val)
+				super.setAttribute(key, val)
+			} else {
+				val = val.toString()
+				super.setAttribute(key, val)
+			}
+			this.attrToProp(key, val, this._ele._component.props)
+			this._ele._component.update()
+		}
+
+		attrToProp(key, val, props){
+			var type = Component.propTypes[key]
+			switch (type) {
+				case String:
+					props[key] = val
+					break
+				case Number:
+					props[key] = Number(val)
+					break
+				case Boolean:
+					if (val === 'false' || val === '0') {
+						props[key] = false
+					} else {
+						props[key] = true
+					}
+					break
+				case Array:
+				case Object:
+					props[key] = JSON.parse(val
+						.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+						.replace(/'([\s\S]*?)'/g, '"$1"')
+						.replace(/,(\s*})/g, '$1')
+					)
+					break
+			}
+		}
+
 		attrsToProps() {
 			this.props['css'] = this.getAttribute('css')
 			var attrs = Component.propTypes

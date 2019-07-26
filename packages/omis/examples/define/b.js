@@ -110,9 +110,10 @@
 	}
 
 	function addStyleToHead(style, attr, parent) {
-
+	  //parent is shadowroot
 	  if (parent || !options.staticStyleMapping[attr]) {
 	    addStyle(scoper(style, attr), attr, parent);
+	    //don't cache when is shadowroot
 	    if (!parent) {
 	      options.staticStyleMapping[attr] = true;
 	    }
@@ -1648,6 +1649,22 @@
 						break;
 					}
 				}
+			};
+
+			_class.prototype.removeAttribute = function removeAttribute(key) {
+				_HTMLElement.prototype.removeAttribute.call(this, key);
+				delete this._ele._component.props[key];
+				this._ele._component.update();
+			};
+
+			_class.prototype.setAttribute = function setAttribute(key, val) {
+				if (val && typeof val === 'object') {
+					_HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
+				} else {
+					_HTMLElement.prototype.setAttribute.call(this, key, val);
+				}
+				this._ele._component.props[key] = val;
+				this._ele._component.update();
 			};
 
 			_class.prototype.attrsToProps = function attrsToProps() {

@@ -704,6 +704,43 @@
                     break;
                 }
             };
+            _class.prototype.removeAttribute = function(key) {
+                _HTMLElement.prototype.removeAttribute.call(this, key);
+                delete this.W._component.props[key];
+                if (Component.defaultProps.hasOwnProperty(key)) this.W._component.props[key] = Component.defaultProps[key];
+                this.W._component.update();
+            };
+            _class.prototype.setAttribute = function(key, val) {
+                if (val && 'object' == typeof val) {
+                    val = JSON.stringify(val);
+                    _HTMLElement.prototype.setAttribute.call(this, key, val);
+                } else {
+                    val = val.toString();
+                    _HTMLElement.prototype.setAttribute.call(this, key, val);
+                }
+                this.attrToProp(key, val, this.W._component.props);
+                this.W._component.update();
+            };
+            _class.prototype.attrToProp = function(key, val, props) {
+                var type = Component.propTypes[key];
+                switch (type) {
+                  case String:
+                    props[key] = val;
+                    break;
+
+                  case Number:
+                    props[key] = Number(val);
+                    break;
+
+                  case Boolean:
+                    if ('false' === val || '0' === val) props[key] = !1; else props[key] = !0;
+                    break;
+
+                  case Array:
+                  case Object:
+                    props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                }
+            };
             _class.prototype.attrsToProps = function() {
                 var _this2 = this;
                 this.props.css = this.getAttribute('css');
