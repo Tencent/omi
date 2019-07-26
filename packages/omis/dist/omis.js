@@ -335,7 +335,7 @@
         inst.constructor = Ctor;
         inst.render = doRender;
         if (Ctor.store) {
-            inst.store = Ctor.store(inst);
+            inst.store = Ctor.store(inst, $);
             inst.store.update = inst.update.bind(inst);
         }
         if (inst.$ && inst.$.data) if (inst.constructor.use) {
@@ -343,7 +343,7 @@
             inst.using = getUse(inst.$.data, inst.constructor.use);
             inst.$.instances.push(inst);
         } else if (inst.use) {
-            var use = inst.use();
+            var use = 'function' == typeof inst.use ? inst.use() : inst.use;
             inst.M = getPath(use);
             inst.using = getUse(inst.$.data, use);
             inst.$.instances.push(inst);
@@ -356,7 +356,7 @@
         return inst;
     }
     function doRender(props, $) {
-        return this.constructor(props, this.store, $);
+        return this.constructor(props, this.store, this, $);
     }
     function setComponentProps(component, props, renderMode, $, mountAll) {
         if (!component.__x) {
@@ -618,7 +618,7 @@
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
                     if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.M && needUpdate(patch, instance.M)) {
-                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.initUse());
+                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, 'function' == typeof instance.use ? instance.use() : instance.use);
                         instance.update();
                     }
                 });

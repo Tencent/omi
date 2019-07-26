@@ -1,6 +1,6 @@
 ## What's Omis ？
 
-Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Component Framework in 3KB.
+Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Component Framework in tiny size.
 
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation

@@ -1,9 +1,10 @@
 ## Omis
 
-Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的组件框架，只有 3KB。
+Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的组件框架。
 
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
+* 超轻量代码尺寸大小(6kb)
 * hyperscript 视觉上更加友好
 * 每个组件可以带有一个 store，去中心化
 * 支持全局 store 共享数据，并且按需局部更新组件

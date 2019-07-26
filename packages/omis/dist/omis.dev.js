@@ -1,5 +1,5 @@
 /**
- * omis v0.14.0  http://omijs.org
+ * omis v1.0.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -921,7 +921,7 @@
 		inst.constructor = Ctor;
 		inst.render = doRender;
 		if (Ctor.store) {
-			inst.store = Ctor.store(inst);
+			inst.store = Ctor.store(inst, $);
 			inst.store.update = inst.update.bind(inst);
 		}
 
@@ -932,7 +932,7 @@
 				inst.using = getUse(inst.$.data, inst.constructor.use);
 				inst.$.instances.push(inst);
 			} else if (inst.use) {
-				var use = inst.use();
+				var use = typeof inst.use === 'function' ? inst.use() : inst.use;
 				inst._updatePath = getPath(use);
 				inst.using = getUse(inst.$.data, use);
 				inst.$.instances.push(inst);
@@ -952,7 +952,7 @@
 
     /** The `.render()` method for a PFC backing instance. */
     function doRender(props, $) {
-		return this.constructor(props, this.store, $);
+		return this.constructor(props, this.store, this, $);
 	}
 
     /**
@@ -1509,7 +1509,7 @@
 	          if (instance.constructor.use) {
 	            instance.using = getUse(store.data, instance.constructor.use);
 	          } else if (instance.use) {
-	            instance.using = getUse(store.data, instance.initUse());
+	            instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
 	          }
 
 	          instance.update();
