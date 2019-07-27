@@ -57,7 +57,7 @@ function createNode (layer) {
       top: 0,
       left: 0,
     },
-    style: (layer.attributes && layer.attributes.style) || {},
+    style: layer.style || (layer.attributes && layer.attributes.style) || {},
     children: (layer.children || []).map(createNode)
   };
 }

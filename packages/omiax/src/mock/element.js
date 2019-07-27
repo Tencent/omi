@@ -153,7 +153,7 @@ export default class Element {
 			const result = {}
 			result[key] = value
 
-			this.ownerDocument.setAttr(this.ref, result)
+			//this.ownerDocument.setAttr(this.ref, result)
 
 		}
 	}

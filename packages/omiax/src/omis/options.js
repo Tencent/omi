@@ -1,3 +1,4 @@
+import doc from '../mock/index'
 /**
  * @typedef {import('./component').Component} Component
  * @typedef {import('./vnode').VNode} VNode
@@ -20,7 +21,8 @@
 const options = {
 	runTimeComponent: {},
 	styleCache: [],
-	staticStyleMapping: {}
+	staticStyleMapping: {},
+	document: doc.document
 };
 
 export default options;

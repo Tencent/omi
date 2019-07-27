@@ -49,7 +49,7 @@ export default {
 			plugins: [
 				"transform-decorators-legacy",
 				"transform-class-properties",
-				["transform-react-jsx", { pragma: "Omi.h" }]
+				["transform-react-jsx", { pragma: "h" }]
 			]
 		})
 	]

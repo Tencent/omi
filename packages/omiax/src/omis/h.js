@@ -46,45 +46,48 @@ export function h(nodeName, attributes) {
 		if (!stack.length) stack.push(attributes.children);
 		delete attributes.children;
 	}
-	while (stack.length) {
-		if ((child = stack.pop()) && child.pop!==undefined) {
-			for (i=child.length; i--; ) stack.push(child[i]);
-		}
-		else {
-			if (typeof child==='boolean') child = null;
-
-			if ((simple = typeof nodeName!=='function')) {
-				if (child==null) child = '';
-				else if (typeof child==='number') child = String(child);
-				else if (typeof child!=='string') simple = false;
-			}
-
-			if (simple && lastSimple) {
-				children[children.length-1] += child;
-			}
-			else if (children===EMPTY_CHILDREN) {
-				children = [child];
+	let p = new VNode();
+	if (nodeName !== 'text') {
+		while (stack.length) {
+			if ((child = stack.pop()) && child.pop!==undefined) {
+				for (i=child.length; i--; ) stack.push(child[i]);
 			}
 			else {
-				children.push(child);
+				if (typeof child==='boolean') child = null;
+
+				if ((simple = typeof nodeName!=='function')) {
+					if (child==null) child = '';
+					else if (typeof child==='number') child = String(child);
+					else if (typeof child!=='string') simple = false;
+				}
+
+				if (simple && lastSimple) {
+					children[children.length-1] += child;
+				}
+				else if (children===EMPTY_CHILDREN) {
+					children = [child];
+				}
+				else {
+					children.push(child);
+				}
+
+				lastSimple = simple;
 			}
-
-			lastSimple = simple;
 		}
-	}
+	}else {
+    p.value = stack.pop()
+  }
 
-	let p = new VNode();
+	p.frame = {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  }
 	p.nodeName = nodeName;
 	p.children = children;
 	p.attributes = attributes==null ? {} : attributes;
-	if(options.runTimeComponent){
-		if(options.runTimeComponent.constructor.css){
-			p.attributes[getCtorName(options.runTimeComponent.constructor)] = ''
-		}
-		if(options.runTimeComponent.props && options.runTimeComponent.props.css){
-			p.attributes['_ds'+options.runTimeComponent.elementId] = ''
-		}
-	}
+
 
 	p.key = p.attributes.key;
 

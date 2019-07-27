@@ -1,5 +1,6 @@
-import { render } from './render'
-import { h } from './h'
+import { draw } from './render'
+import { h } from './omis/h'
+//import { h } from './h'
 
 const root = getGlobal()
 
@@ -28,5 +29,6 @@ function getGlobal() {
 }
 
 export {
-  render
+  draw,
+  h
 }

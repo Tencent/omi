@@ -1,4 +1,4 @@
-import { render } from '../../src/index'
+import { draw, h } from '../../src/index'
 
 const size = getSize();
 
@@ -25,7 +25,7 @@ const App = (props, store) => {
 }
 
 //渲染并注入 store
-console.log(render(App, store))
+console.log(draw(App, store))
 
 function getSize() {
   return {
