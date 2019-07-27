@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "simple": "rollup -c config/rollup.example.js --watch",
-    "hello": "rollup -c config/rollup.example.js --watch"
+    "start": "rollup -c config/rollup.example.js --watch"
   },
   "keywords": [
     "omi",
