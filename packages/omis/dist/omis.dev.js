@@ -1,5 +1,5 @@
 /**
- * omis v1.0.0  http://omijs.org
+ * omis v1.0.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -1750,7 +1750,8 @@
 		render: render,
 		rerender: rerender,
 		options: options,
-		define: define
+		define: define,
+		obaa: obaa
 	};
 
     if (typeof window !== 'undefined') {
@@ -1763,7 +1764,8 @@
 			render: render,
 			rerender: rerender,
 			options: options,
-			define: define
+			define: define,
+			obaa: obaa
 		};
 	}
 

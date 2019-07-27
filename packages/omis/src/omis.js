@@ -4,6 +4,7 @@ import { Component } from './component';
 import { render } from './render';
 import { rerender } from './render-queue';
 import { define } from './define';
+import { obaa } from './obaa';
 import options from './options';
 
 function createRef() {
@@ -19,7 +20,8 @@ export default {
 	render,
 	rerender,
 	options,
-	define
+	define,
+	obaa
 };
 
 export {
@@ -31,7 +33,8 @@ export {
 	render,
 	rerender,
 	options,
-	define
+	define,
+	obaa
 };
 
 if(typeof window !== 'undefined'){
@@ -44,6 +47,7 @@ if(typeof window !== 'undefined'){
 		render,
 		rerender,
 		options,
-		define
+		define,
+		obaa
 	};
 }

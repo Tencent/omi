@@ -833,7 +833,8 @@
         render: render,
         rerender: rerender,
         options: options,
-        define: define
+        define: define,
+        obaa: obaa
     };
     if ('undefined' != typeof window) window.Omis = {
         h: h,
@@ -844,7 +845,8 @@
         render: render,
         rerender: rerender,
         options: options,
-        define: define
+        define: define,
+        obaa: obaa
     };
     if ('undefined' != typeof module) module.exports = Omis; else self.Omis = Omis;
 }();
