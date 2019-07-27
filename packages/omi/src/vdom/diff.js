@@ -34,34 +34,34 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
   if (isArray(vnode)) {
-		if (parent) {
-			const styles = parent.querySelectorAll('style')
-			styles.forEach(s => {
-				parent.removeChild(s)
-			})
+    if (parent) {
+      const styles = parent.querySelectorAll('style')
+      styles.forEach(s => {
+        parent.removeChild(s)
+      })
       innerDiffNode(parent, vnode)
 
       for (let i = styles.length - 1; i >= 0; i--) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
       }
-		} else {
+    } else {
 
-			ret = []
-			vnode.forEach((item, index) => {
-				let ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot)
-				ret.push(ele)
-				parent && parent.appendChild(ele)
-			})
-		}
+      ret = []
+      vnode.forEach((item, index) => {
+        let ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot)
+        ret.push(ele)
+        parent && parent.appendChild(ele)
+      })
+    }
   } else {
     if (isArray(dom)) {
-			dom.forEach((one,index)=>{
-				if(index === 0){
-					ret = idiff(one, vnode, context, mountAll, componentRoot)
-				}else{
-					recollectNodeTree(one, false)
-				}
-			})
+      dom.forEach((one, index) => {
+        if (index === 0) {
+          ret = idiff(one, vnode, context, mountAll, componentRoot)
+        } else {
+          recollectNodeTree(one, false)
+        }
+      })
     } else {
       ret = idiff(dom, vnode, context, mountAll, componentRoot)
     }
@@ -119,8 +119,8 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   // If the VNode represents a Component, perform a component diff:
   let vnodeName = vnode.nodeName
   if (typeof vnodeName === 'function') {
-    for(let key in options.mapping){
-      if(options.mapping[key] === vnodeName){
+    for (let key in options.mapping) {
+      if (options.mapping[key] === vnodeName) {
         vnodeName = key
         vnode.nodeName = key
         break
@@ -158,7 +158,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--; )
+    for (let a = out.attributes, i = a.length; i--;)
       props[a[i].name] = a[i].value
   }
 
@@ -354,7 +354,7 @@ function diffAttributes(dom, attrs, old) {
   let isWeElement = dom.update
   let oldClone
   if (dom.receiveProps) {
-		oldClone = Object.assign({}, old)
+    oldClone = Object.assign({}, old)
   }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
@@ -380,7 +380,7 @@ function diffAttributes(dom, attrs, old) {
       name !== 'innerHTML' &&
       (!(name in old) ||
         attrs[name] !==
-          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
       if (isWeElement) {
@@ -391,7 +391,7 @@ function diffAttributes(dom, attrs, old) {
   }
 
   if (isWeElement && dom.parentNode) {
-		//__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
+    //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
       if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update()
