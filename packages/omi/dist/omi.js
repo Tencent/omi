@@ -174,7 +174,6 @@
             vnode.forEach(function(item, index) {
                 var ele = idiff(0 === index ? dom : null, item, context, mountAll, componentRoot);
                 ret.push(ele);
-                parent && parent.appendChild(ele);
             });
         } else {
             if (isArray(dom)) dom.forEach(function(one, index) {
@@ -1083,7 +1082,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.7.0';
+    options.root.Omi.version = '6.7.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -107,6 +107,27 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)|
 |[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
 
+## Contribution
+
+Build a example:
+
+```bash
+npm start example_name
+```
+
+Build omi:
+
+```bash
+npm run build
+```
+
+Unit testing
+
+```
+npm run test
+```
+
+
 ## Maintainers
 
 - [@f](https://github.com/f)

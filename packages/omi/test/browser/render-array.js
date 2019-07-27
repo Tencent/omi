@@ -119,7 +119,7 @@ describe('render array', () => {
 
 
 
-	it('render array 3', () => {
+	it('render array 4', () => {
 		define('my-element14', class extends WeElement {
 
 			render(props) {
@@ -148,5 +148,63 @@ describe('render array', () => {
 		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Element5</div><div>Element</div>')
 	})
 
+
+	it('render array 5', () => {
+		define('my-element15', class extends WeElement {
+
+			render(props) {
+				if (props.aa === 1) {
+					return <div>Hello2</div>
+				}
+				return  [<div>Element5</div>, <div>Element</div>]
+			}
+		})
+
+
+		define('my-app15', class extends WeElement {
+			aa = 1
+			installed() {
+					this.aa =2
+					this.update()
+
+			}
+
+			render(props) {
+				return <my-element15 aa={this.aa}></my-element15>
+			}
+		})
+
+		render(<my-app15 />,scratch)
+		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Element5</div><div>Element</div>')
+	})
+
+	it('render array 6', () => {
+		define('my-element16', class extends WeElement {
+
+			render(props) {
+				if (props.aa === 1) {
+					return  [<div>Element5</div>, <div>Element</div>]
+				}
+				return <div>Hello2</div>
+			}
+		})
+
+
+		define('my-app16', class extends WeElement {
+			aa = 1
+			installed() {
+					this.aa =2
+					this.update()
+
+			}
+
+			render(props) {
+				return <my-element16 aa={this.aa}></my-element16>
+			}
+		})
+
+		render(<my-app16 />,scratch)
+		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Hello2</div>')
+	})
 
 })

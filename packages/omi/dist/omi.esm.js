@@ -1,5 +1,5 @@
 /**
- * omi v6.7.0  http://omijs.org
+ * omi v6.7.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -398,12 +398,10 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
       }
     } else {
-
       ret = [];
       vnode.forEach(function (item, index) {
         var ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot);
         ret.push(ele);
-        parent && parent.appendChild(ele);
       });
     }
   } else {
@@ -1803,7 +1801,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.7.0';
+options.root.Omi.version = '6.7.1';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };

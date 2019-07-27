@@ -45,12 +45,10 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
       }
     } else {
-
       ret = []
       vnode.forEach((item, index) => {
         let ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot)
         ret.push(ele)
-        parent && parent.appendChild(ele)
       })
     }
   } else {
