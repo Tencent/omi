@@ -1,5 +1,5 @@
 /**
- * omi v6.7.1  http://omijs.org
+ * omi v6.8.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -198,6 +198,14 @@ function getTargetByPath(origin, path) {
 var hyphenateRE = /\B([A-Z])/g;
 function hyphenate(str) {
   return str.replace(hyphenateRE, '-$1').toLowerCase();
+}
+
+function getValByPath(path, current) {
+  var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  arr.forEach(function (prop) {
+    current = current[prop];
+  });
+  return current;
 }
 
 // DOM properties that should NOT have "px" added when numeric
@@ -1452,7 +1460,11 @@ var WeElement = function (_HTMLElement) {
             break;
           case Array:
           case Object:
-            ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+            if (val[0] === ':') {
+              ele.props[key] = getValByPath(val.substr(1), Omi.$);
+            } else {
+              ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+            }
             break;
         }
       } else {
@@ -1769,6 +1781,7 @@ function createRef() {
   return {};
 }
 
+var $ = {};
 var Component = WeElement;
 var defineElement = define;
 var elements = options.mapping;
@@ -1796,13 +1809,14 @@ var omi = {
   html: html,
   htm: htm,
   o: o,
-  elements: elements
+  elements: elements,
+  $: $
 };
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.7.1';
+options.root.Omi.version = '6.8.0';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $ };
 //# sourceMappingURL=omi.esm.js.map

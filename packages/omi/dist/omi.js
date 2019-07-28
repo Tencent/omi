@@ -84,6 +84,13 @@
     function hyphenate(str) {
         return str.replace(hyphenateRE, '-$1').toLowerCase();
     }
+    function getValByPath(path, current) {
+        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        arr.forEach(function(prop) {
+            current = current[prop];
+        });
+        return current;
+    }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
         if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else if ('function' == typeof vnode.nodeName) return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;
@@ -984,7 +991,7 @@
 
                       case Array:
                       case Object:
-                        ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
                 });
             }
@@ -1052,6 +1059,7 @@
         return u[r] || (u[r] = t(n));
     };
     var html = htm.bind(h);
+    var $ = {};
     var Component = WeElement;
     var defineElement = define;
     var elements = options.mapping;
@@ -1078,11 +1086,12 @@
         html: html,
         htm: htm,
         o: o,
-        elements: elements
+        elements: elements,
+        $: $
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.7.1';
+    options.root.Omi.version = '6.8.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -203,6 +203,9 @@ declare namespace Omi {
 		event?: (event: Event) => Event;
 	};
 
+	//props data center
+	var $: object
+
 	var elements: object
 }
 

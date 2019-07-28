@@ -20,6 +20,7 @@ function createRef() {
   return {}
 }
 
+const $ = {}
 const Component = WeElement
 const defineElement = define
 const elements = options.mapping
@@ -47,12 +48,13 @@ const omi = {
   html,
   htm,
   o,
-  elements
+	elements,
+	$
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.7.1'
+options.root.Omi.version = '6.8.0'
 
 export default omi
 
@@ -79,5 +81,6 @@ export {
   html,
   htm,
   o,
-  elements
+	elements,
+	$
 }

@@ -1,4 +1,4 @@
-import { cssToDom, nProps, isArray, getUse, hyphenate } from './util'
+import { cssToDom, nProps, isArray, getUse, hyphenate, getValByPath } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
@@ -161,13 +161,13 @@ export default class WeElement extends HTMLElement {
 
   attrsToProps(ignoreAttrs) {
     const ele = this
-    if (ele.normalizedNodeName || ignoreAttrs) return
+		if (ele.normalizedNodeName || ignoreAttrs) return
     ele.props['css'] = ele.getAttribute('css')
-    const attrs = this.constructor.propTypes
+		const attrs = this.constructor.propTypes
     if(!attrs) return
     Object.keys(attrs).forEach(key => {
       const type = attrs[key]
-      const val = ele.getAttribute(hyphenate(key))
+			const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
         switch (type) {
           case String:
@@ -185,11 +185,15 @@ export default class WeElement extends HTMLElement {
 						break
 					case Array:
           case Object:
-            ele.props[key] = JSON.parse(val
-              .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
-              .replace(/'([\s\S]*?)'/g, '"$1"')
-              .replace(/,(\s*})/g, '$1')
-              )
+						if (val[0] === ':') {
+							ele.props[key] = getValByPath(val.substr(1), Omi.$)
+						} else {
+							ele.props[key] = JSON.parse(val
+								.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+								.replace(/'([\s\S]*?)'/g, '"$1"')
+								.replace(/,(\s*})/g, '$1')
+								)
+						}
             break
         }
       } else {

@@ -130,3 +130,11 @@ const hyphenateRE = /\B([A-Z])/g
 export function hyphenate(str) {
   return str.replace(hyphenateRE, '-$1').toLowerCase()
 }
+
+export function getValByPath(path, current) {
+	const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+	arr.forEach(prop => {
+		current = current[prop]
+	})
+	return current
+}
