@@ -64,7 +64,7 @@ describe('$ props data center', () => {
 
 		Omi.$.user = { name: 'dntzhang', age: 18 }
 		scratch.innerHTML = `
-	<my-component user=":user" />
+	<my-component user=":user" ></my-component>
 	`
 
 
