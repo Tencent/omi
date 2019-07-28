@@ -11,7 +11,7 @@ define('my-sidebar', class extends WeElement {
   ]
 
   render() {
-    const [menus, sideBarShow, lan] = this.use
+    const [menus, sideBarShow, lan] = this.using
 
     return (
       <div class={`list${sideBarShow ? ' show' : ''}`}>

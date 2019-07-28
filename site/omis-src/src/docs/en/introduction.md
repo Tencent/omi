@@ -2,6 +2,7 @@
 
 Omis (pronounced /ˈomɪs/) is Functional Style, Easy Store and Hyperscript Component Framework in tiny size.
 
+* Web Components supporting
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation
 * Hyperscript is visually more friendly
@@ -77,5 +78,55 @@ Comp.store = (_, $) => {
 
 * `_` represents `component`
 * `$` represents `globalStore`
+
+
+## Web Components
+
+```jsx
+import { define } from 'omis'
+
+const HelloMessage = (props, store) => {
+  return (
+    <div onClick={store.clickHandler} >
+      <div>Hello {props.msg}</div>
+      <div>{props.user.name}</div>
+      <div>{props.user.age}</div>
+    </div>
+  )
+}
+
+HelloMessage.css = `div{
+	color: red;
+}`
+
+HelloMessage.store = _ => {
+  return {
+    clickHandler() {
+      _.props.onMyEvent && _.props.onMyEvent(123)
+    }
+  }
+}
+
+HelloMessage.propTypes = {
+  msg: String,
+  user: Object
+}
+
+define('hello-msg', HelloMessage)
+```
+
+Then you can use `<hello-msg></hello-msg>` anywhere:
+
+```html
+<hello-msg msg="Omis" user="{name:'dntzhang', age: 18}"></hello-msg>
+
+<script>
+  var ele = document.querySelector('hello-msg')
+
+  ele.addEventListener('myEvent', function(evt){
+    console.log(evt)
+  })
+</script>
+```
 
 You're already getting started! Congratulations!

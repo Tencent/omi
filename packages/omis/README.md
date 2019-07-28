@@ -2,7 +2,7 @@ English | [简体中文](./README.CN.md)
 
 # Omis
 
-> Functional Component + Store + Scoped Style + + Web Components in tiny size
+> Functional Component + Store + Scoped Style + Web Components in tiny size
 
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation

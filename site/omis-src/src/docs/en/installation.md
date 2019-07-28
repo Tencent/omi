@@ -2,8 +2,8 @@
 
 Simply download and include with `<script>`. Omis will be registered as a global variable.
 
-* [Omis Development Version](https://unpkg.com/omis@latest/dist/omi.js)
-* [Omis Production Version](https://unpkg.com/omis@latest/dist/omi.min.js)
+* [Omis Development Version](https://unpkg.com/omis@latest/dist/omis.js)
+* [Omis Production Version](https://unpkg.com/omis@latest/dist/omis.min.js)
 
 Install via npm:
 

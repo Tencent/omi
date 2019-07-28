@@ -2,6 +2,7 @@
 
 Omis (读 /ˈomɪs/) 是函数式风格，自带 store 且 hyperscript 友好的组件框架。
 
+* 支持 Web Components
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
 * 超轻量代码尺寸大小(6kb)
@@ -78,5 +79,54 @@ Comp.store = (_, $) => {
 
 * `_` 代表 `component`
 * `$` 代表 `globalStore`
+
+## Web Components
+
+```jsx
+import { define } from 'omis'
+
+const HelloMessage = (props, store) => {
+  return (
+    <div onClick={store.clickHandler} >
+      <div>Hello {props.msg}</div>
+      <div>{props.user.name}</div>
+      <div>{props.user.age}</div>
+    </div>
+  )
+}
+
+HelloMessage.css = `div{
+	color: red;
+}`
+
+HelloMessage.store = _ => {
+  return {
+    clickHandler() {
+      _.props.onMyEvent && _.props.onMyEvent(123)
+    }
+  }
+}
+
+HelloMessage.propTypes = {
+  msg: String,
+  user: Object
+}
+
+define('hello-msg', HelloMessage)
+```
+
+然后这个标签就可以任意框架使用了:
+
+```html
+<hello-msg msg="Omis" user="{name:'dntzhang', age: 18}"></hello-msg>
+
+<script>
+  var ele = document.querySelector('hello-msg')
+
+  ele.addEventListener('myEvent', function(evt){
+    console.log(evt)
+  })
+</script>
+```
 
 恭喜你已经入门！

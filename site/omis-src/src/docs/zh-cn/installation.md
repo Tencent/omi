@@ -2,8 +2,8 @@
 
 直接下载并用 `<script>` 标签引入，Omis 会被注册为一个全局变量。
 
-* [Omis 开发版本](https://unpkg.com/omis@latest/dist/omi.js)
-* [Omis 压缩版本](https://unpkg.com/omis@latest/dist/omi.min.js)
+* [Omis 开发版本](https://unpkg.com/omis@latest/dist/omis.js)
+* [Omis 压缩版本](https://unpkg.com/omis@latest/dist/omis.min.js)
 
 也可以通过 npm 安装
 
