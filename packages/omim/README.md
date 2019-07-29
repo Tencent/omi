@@ -9,7 +9,7 @@
 ## Features
 
 * Render by Custom Elements of Web Components
-* Any framework can use the components, such as Omi, React, Vue and Angular 
+* Any framework can use the components, such as Omi, React, Preact, Vue and Angular 
 * Support both JSX and native HTML elements 
 * Each element can be used independently
 * Super easy to change theme colors, fonts and rounded corners
@@ -150,6 +150,25 @@ export default {
     <m-icon-button color="red" icons="['favorite', 'favorite_border']" @change="myEvent"></m-icon-button>
   </div>
 </template>
+```
+
+## Usage in Preact
+
+```jsx
+import { useState } from 'preact'
+import 'omim/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <m-icon-button color="red" icons="['favorite', 'favorite_border']" onChange={e => setSwitch(e.detail.isOn)}>
+        </m-icon-button>
+      </div>
+    )
+}
 ```
 
 ## Usage in React

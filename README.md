@@ -3,7 +3,7 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-in-out.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
-<p align="center">Merge Web Components, JSX, HTM, Virtual DOM and Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Vue or Angular.</p>
+<p align="center">Merge Web Components, JSX, HTM, Virtual DOM and Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
 
 ## Ecosystem of Omi
 
@@ -60,7 +60,7 @@ English | [简体中文](./README.CN.md)
 ## Why Omi?
 
 - Tiny size and [High performance](https://tencent.github.io/omi/packages/omi/examples/perfs/)
-- Cross framework(react, vue, angular) custom elements by omi
+- Cross framework(react, preact, vue, angular) custom elements by omi
 - One framework. Mobile & desktop & mini program
 - Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'flase'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - Supports TypeScript
