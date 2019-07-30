@@ -41,7 +41,7 @@ export function cssToDom(css) {
   return node
 }
 
-export function npn(str) {
+export function camelCase(str) {
   return str.replace(/-(\w)/g, ($, $1) => {
     return $1.toUpperCase()
   })

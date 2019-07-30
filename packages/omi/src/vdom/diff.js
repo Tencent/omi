@@ -1,7 +1,7 @@
 import { ATTR_KEY } from '../constants'
 import { isSameNodeType, isNamedNode } from './index'
 import { createNode, setAccessor } from '../dom/index'
-import { npn, isArray } from '../util'
+import { camelCase, isArray } from '../util'
 import { removeNode } from '../dom/index'
 import options from '../options'
 
@@ -371,19 +371,22 @@ function diffAttributes(dom, attrs, old) {
       if (name === 'style') {
         setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
       }
-      dom.props[npn(name)] = attrs[name]
+      let ccName = camelCase(name)
+      dom.props[ccName] = old[ccName] = attrs[name]
       update = true
     } else if (
       name !== 'children' &&
-      name !== 'innerHTML' &&
       (!(name in old) ||
         attrs[name] !==
         (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
-      setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
+      setAccessor(dom, name, old[name], attrs[name], isSvgMode)
       if (isWeElement) {
-        dom.props[npn(name)] = attrs[name]
+        let ccName = camelCase(name)
+        dom.props[ccName] = old[ccName]  = attrs[name]
         update = true
+      } else {
+        old[name] = attrs[name]
       }
     }
   }

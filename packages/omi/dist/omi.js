@@ -27,7 +27,7 @@
         node.textContent = css;
         return node;
     }
-    function npn(str) {
+    function camelCase(str) {
         return str.replace(/-(\w)/g, function($, $1) {
             return $1.toUpperCase();
         });
@@ -298,14 +298,16 @@
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name] && 'ref' !== name) {
             if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-            dom.props[npn(name)] = attrs[name];
+            var ccName = camelCase(name);
+            dom.props[ccName] = old[ccName] = attrs[name];
             update = !0;
-        } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
-            setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        } else if (!('children' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
+            setAccessor(dom, name, old[name], attrs[name], isSvgMode);
             if (isWeElement) {
-                dom.props[npn(name)] = attrs[name];
+                var _ccName = camelCase(name);
+                dom.props[_ccName] = old[_ccName] = attrs[name];
                 update = !0;
-            }
+            } else old[name] = attrs[name];
         }
         if (isWeElement && dom.parentNode) if (update || dom.P || dom.children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
@@ -1091,7 +1093,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.8.0';
+    options.root.Omi.version = '6.8.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

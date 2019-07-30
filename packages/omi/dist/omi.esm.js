@@ -1,5 +1,5 @@
 /**
- * omi v6.8.0  http://omijs.org
+ * omi v6.8.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -113,7 +113,7 @@ function cssToDom(css) {
   return node;
 }
 
-function npn(str) {
+function camelCase(str) {
   return str.replace(/-(\w)/g, function ($, $1) {
     return $1.toUpperCase();
   });
@@ -694,13 +694,17 @@ function diffAttributes(dom, attrs, old) {
       if (name === 'style') {
         setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
       }
-      dom.props[npn(name)] = attrs[name];
+      var ccName = camelCase(name);
+      dom.props[ccName] = old[ccName] = attrs[name];
       update = true;
-    } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-      setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+    } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+      setAccessor(dom, name, old[name], attrs[name], isSvgMode);
       if (isWeElement) {
-        dom.props[npn(name)] = attrs[name];
+        var _ccName = camelCase(name);
+        dom.props[_ccName] = old[_ccName] = attrs[name];
         update = true;
+      } else {
+        old[name] = attrs[name];
       }
     }
   }
@@ -1815,7 +1819,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.8.0';
+options.root.Omi.version = '6.8.1';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $ };
