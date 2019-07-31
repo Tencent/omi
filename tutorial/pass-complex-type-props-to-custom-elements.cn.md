@@ -30,6 +30,103 @@ define('my-ele', class extends WeElement {
 <my-ele user="{ name: 'omi', age: 1}"></my-ele>
 ```
 
-直接传入 json 字符串，
+直接传入 json 字符串，omi 内部会将其 `JSON.parse` 转成 object 类型。
 
 
+## 方式二
+
+如果你不想写一大堆字符串在 html 标签上，可以使用下面的方式：
+
+```html
+<script>
+  Omi.$.user = { name: 'omi', age: 1 }
+</script>
+
+<my-ele user=":user"></my-ele>
+```
+
+当然也是支持 path:
+
+```html
+<script>
+  Omi.$.info = {
+    list: [
+      { name: 'dntzhang', age: 18 },
+      { name: 'mali', age: 18 }
+    ]
+  }
+</script>
+
+<my-ele user=":info.list[0]"></my-ele>
+<my-ele user=":info.list[1]"></my-ele>
+```
+
+
+
+
+## 传递 false 给自定义元素
+
+HTML 有个设计缺陷，就是你无法传递 false 给 attr 该元素，当该 attr 默认值是 true 的时候。比如:
+
+```js
+define('my-element', class extends WeElement {
+  static defaultProps = {
+    show: true
+  }
+
+ static propTypes = {
+    show: Boolean
+  }
+
+  render(props) {
+    ...
+    ...
+  }
+})
+```
+
+使用 Omi，你可以通过 false 字符串或者 0 字符串搞定:
+
+```html
+<my-element show="false"></my-element>
+```
+
+或
+
+```html
+<my-element show="0"></my-element>
+```
+
+## 原理
+
+可以看 [→Omi 源码](https://github.com/Tencent/omi/blob/master/packages/omi/src/we-element.js#L179-L197):
+
+```js
+  case Boolean:
+    if (val === 'false' || val === '0') {
+      ele.props[key] = false
+    } else {
+      ele.props[key] = true
+    }
+    break
+  case Array:
+  case Object:
+    if (val[0] === ':') {
+      ele.props[key] = getValByPath(val.substr(1), Omi.$)
+    } else {
+      ele.props[key] = JSON.parse(val
+        .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+        .replace(/'([\s\S]*?)'/g, '"$1"')
+        .replace(/,(\s*})/g, '$1')
+      )
+    }
+    break
+```
+
+这里可以看到，omi 内部还会对 josn 格式进行处理，防止 `JSON.parse` 出错。当然 eval 和 new Function 可以转化错误格式的 json 字符串，但是考虑到安全性，还是使用`JSON.parse` 。
+
+
+## Links
+
+* [Omi](https://github.com/Tencent/omi)
+* [omijs.org](https://dntzhang.github.io/omi.html)
