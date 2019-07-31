@@ -3,40 +3,35 @@ import { define, WeElement, html } from 'omi'
 
 define('my-ele', class extends WeElement {
   static propTypes = {
-    name: String
+    name: String,
+    user: Object
   }
 
   clickHandle = ()=>{
-   
-   this.fire('myEvent', true)
-
+    this.fire('myEvent', 'abc')
   }
 
   render(props) {
     return (
-      html`<div onClick=${this.clickHandle}>Hello, ${props.name}! </div>`
+      html`<div onClick=${this.clickHandle}>Hello, ${props.name}! ${props.user.name} ${props.user.age}! </div>
+      `
     )
   }
 })
 
-
 export default {
-  data: function() {
-    return {
-      result: false
-    }
+  created(){
+    Omi.$.user = { name:'Omi' ,age: 1 }
   },
   methods: {
     myEvent: function(evt) {
+      //output abc
       console.log(evt.detail)
     }
   }
 }
 </script>
 
-
 <template>
-  <div>
-    <my-ele name="Omi" @myEvent="myEvent" />
-  </div>
+  <my-ele name="Omi" user=":user" @myEvent="myEvent" />
 </template>
