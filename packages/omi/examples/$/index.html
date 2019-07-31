@@ -8,7 +8,20 @@
 	<script>
 		Omi.$.user = { name: 'dntzhang', age: 18 }
 	</script>
-	<my-component user=":user" ></my-component>
+	<my-component user=":user"></my-component>
+
+
+	<script>
+		Omi.$.info = {
+			list: [
+				{ name: 'dntzhang', age: 18 },
+				{ name: 'mali', age: 18 }
+			]
+		}
+	</script>
+	<my-component user=":info.list[0]"></my-component>
+	<my-component user=":info.list[1]"></my-component>
+
 
 </body>
 

@@ -35,8 +35,8 @@ export default class WeElement extends HTMLElement {
       this.using = getUse(this.store.data, use)
     } else {
       this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use))
-		}
-		this.attrsToProps()
+    }
+    this.attrsToProps()
     this.beforeInstall()
     this.install()
     this.afterInstall()
@@ -68,7 +68,7 @@ export default class WeElement extends HTMLElement {
     }
 
     const rendered = this.render(this.props, this.data, this.store)
-    this.__hasChildren = Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0
+    this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0
 
     this.rootNode = diff(
       null,
@@ -122,7 +122,7 @@ export default class WeElement extends HTMLElement {
     this.attrsToProps(ignoreAttrs)
 
     const rendered = this.render(this.props, this.data, this.store)
-    this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) ==='[object Array]' && rendered.length > 0)
+    this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0)
 
     this.rootNode = diff(
       this.rootNode,
@@ -157,17 +157,17 @@ export default class WeElement extends HTMLElement {
 
   pureSetAttribute(key, val) {
     super.setAttribute(key, val)
-	}
+  }
 
   attrsToProps(ignoreAttrs) {
     const ele = this
-		if (ele.normalizedNodeName || ignoreAttrs) return
+    if (ele.normalizedNodeName || ignoreAttrs) return
     ele.props['css'] = ele.getAttribute('css')
-		const attrs = this.constructor.propTypes
-    if(!attrs) return
+    const attrs = this.constructor.propTypes
+    if (!attrs) return
     Object.keys(attrs).forEach(key => {
       const type = attrs[key]
-			const val = ele.getAttribute(hyphenate(key))
+      const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
         switch (type) {
           case String:
@@ -182,27 +182,27 @@ export default class WeElement extends HTMLElement {
             } else {
               ele.props[key] = true
             }
-						break
-					case Array:
+            break
+          case Array:
           case Object:
-						if (val[0] === ':') {
-							ele.props[key] = getValByPath(val.substr(1), Omi.$)
-						} else {
-							ele.props[key] = JSON.parse(val
-								.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
-								.replace(/'([\s\S]*?)'/g, '"$1"')
-								.replace(/,(\s*})/g, '$1')
-								)
-						}
+            if (val[0] === ':') {
+              ele.props[key] = getValByPath(val.substr(1), Omi.$)
+            } else {
+              ele.props[key] = JSON.parse(val
+                .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+                .replace(/'([\s\S]*?)'/g, '"$1"')
+                .replace(/,(\s*})/g, '$1')
+              )
+            }
             break
         }
       } else {
         if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
           ele.props[key] = ele.constructor.defaultProps[key]
         } else {
-					ele.props[key] = null
-				}
-			}
+          ele.props[key] = null
+        }
+      }
     })
   }
 
