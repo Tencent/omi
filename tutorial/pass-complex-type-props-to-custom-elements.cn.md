@@ -66,7 +66,7 @@ define('my-ele', class extends WeElement {
 
 ## 传递 false 给自定义元素
 
-HTML 有个设计缺陷，就是你无法传递 false 给 attr 该元素，当该 attr 默认值是 true 的时候。比如:
+HTML 有个设计缺陷，当该 attr 默认值是 true 的时候，你无法传递 false 给 attr 该元素。比如:
 
 ```js
 define('my-element', class extends WeElement {
