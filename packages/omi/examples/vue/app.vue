@@ -27,11 +27,14 @@ export default {
     myEvent: function(evt) {
       //output abc
       console.log(evt.detail)
+
+      Omi.$.user.age = 2
+      this.$refs.myEle.update()
     }
   }
 }
 </script>
 
 <template>
-  <my-ele name="Omi" user=":user" @MyEvent="myEvent" />
+  <my-ele ref="myEle" name="Omi" user=":user" @MyEvent="myEvent" />
 </template>
