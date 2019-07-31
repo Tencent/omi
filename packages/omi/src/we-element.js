@@ -207,7 +207,7 @@ export default class WeElement extends HTMLElement {
   }
 
   fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name.replace(/-/g, '').toLowerCase(), { detail: data }))
+    this.dispatchEvent(new CustomEvent(name, { detail: data }))
   }
 
   beforeInstall() { }

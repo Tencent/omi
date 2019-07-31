@@ -8,9 +8,8 @@ define('my-ele', class extends WeElement {
 
   clickHandle = ()=>{
    
-  //  this.fire('myEvent')
+   this.fire('myEvent', true)
 
-    this.dispatchEvent(new CustomEvent('myEvent'), { detail: 111 })
   }
 
   render(props) {
@@ -20,17 +19,19 @@ define('my-ele', class extends WeElement {
   }
 })
 
-export default{
 
-  methods:{
-    myEvent(){
- console.log('abc')
-
+export default {
+  data: function() {
+    return {
+      result: false
+    }
+  },
+  methods: {
+    myEvent: function(evt) {
+      console.log(evt.detail)
     }
   }
-
 }
-
 </script>
 
 
