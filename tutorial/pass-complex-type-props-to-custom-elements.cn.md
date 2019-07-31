@@ -27,7 +27,7 @@ define('my-ele', class extends WeElement {
 ## 使用方式一
 
 ```html
-<my-ele user="{ name: 'omi', age: 1}"></my-ele>
+<my-ele user="{ name: 'omi', age: 1 }"></my-ele>
 ```
 
 直接传入 json 字符串，omi 内部会将其 `JSON.parse` 转成 object 类型。
