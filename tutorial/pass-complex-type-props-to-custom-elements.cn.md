@@ -166,7 +166,7 @@ export default {
       console.log(evt.detail)
 
       //更新自定义组件
-      Omi.$.user.age = 2
+      Omi.$.user.age = 2 //or this.$refs.myEle.props.user.age = 2
       this.$refs.myEle.update()
     }
   }
