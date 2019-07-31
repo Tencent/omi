@@ -16,7 +16,7 @@ define('my-ele', class extends WeElement {
 
   render(props) {
     return (
-      <div>{props.user.name},{props.use.age}}</div>
+      <div>{props.user.name},{props.use.age}</div>
     )
   }
 })
