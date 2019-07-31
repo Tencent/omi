@@ -61,6 +61,7 @@ define('my-ele', class extends WeElement {
 <my-ele user=":info.list[1]"></my-ele>
 ```
 
+[→ 例子 codepen](https://codepen.io/omijs/pen/LwbXxe)
 
 ## 传递 false 给自定义元素
 
@@ -97,7 +98,7 @@ define('my-element', class extends WeElement {
 
 ## 原理
 
-可以看 [→Omi 源码](https://github.com/Tencent/omi/blob/master/packages/omi/src/we-element.js#L179-L197):
+可以看 [→ Omi 源码](https://github.com/Tencent/omi/blob/master/packages/omi/src/we-element.js#L179-L197):
 
 ```js
   case Boolean:
