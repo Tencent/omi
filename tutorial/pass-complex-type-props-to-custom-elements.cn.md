@@ -137,7 +137,10 @@ define('my-ele', class extends WeElement {
   }
 
   clickHandle = ()=>{
-    this.fire('myEvent', 'abc')
+    //vue  and preact x
+    this.fire('MyEvent', 'abc')
+    //preact 8 and blow
+    this.fire('myevent', 'abc')
   }
 
   render(props) {
@@ -167,7 +170,7 @@ export default {
 </script>
 
 <template>
-  <my-ele name="Omi" user=":user" @myEvent="myEvent" />
+  <my-ele name="Omi" user=":user" @MyEvent="myEvent" />
 </template>
 ```
 
@@ -175,23 +178,20 @@ export default {
 ### 在 Preact 中使用
 
 
-```html
-<script>
-export default {
-  methods: {
-    myEvent: function(evt) {
-      //output abc
-      console.log(evt.detail)
-    }
-  }
-}
-</script>
+```jsx
+import { h, render } from 'preact';
 
-<template>
-  <my-ele name="Omi" @myEvent="myEvent" />
-</template>
+Omi.$.user = { name:'Omi' ,age: 1 }
+
+render((
+  <div id="foo">
+      <span>Hello, world!</span>
+      <my-ele name="Omi" user=":user" onMyEvent={ e => console.log(e.detail)} />
+  </div>
+), document.body);
 ```
 
+因为 preact 是最好的 web react 框架，而 react 不是，所以这里就不举 react 的例子了。 
 
 ## 最后
 

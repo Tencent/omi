@@ -8,7 +8,7 @@ define('my-ele', class extends WeElement {
   }
 
   clickHandle = ()=>{
-    this.fire('myEvent', 'abc')
+    this.fire('MyEvent', 'abc')
   }
 
   render(props) {
@@ -33,5 +33,5 @@ export default {
 </script>
 
 <template>
-  <my-ele name="Omi" user=":user" @myEvent="myEvent" />
+  <my-ele name="Omi" user=":user" @MyEvent="myEvent" />
 </template>
