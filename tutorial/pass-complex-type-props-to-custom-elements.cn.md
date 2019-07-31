@@ -164,16 +164,19 @@ export default {
     myEvent: function(evt) {
       //output abc
       console.log(evt.detail)
+
+      //更新自定义组件
+      Omi.$.user.age = 2
+      this.$refs.myEle.update()
     }
   }
 }
 </script>
 
 <template>
-  <my-ele name="Omi" user=":user" @MyEvent="myEvent" />
+  <my-ele ref="myEle" name="Omi" user=":user" @MyEvent="myEvent" />
 </template>
 ```
-
 
 ### 在 Preact 中使用
 
