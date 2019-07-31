@@ -125,6 +125,9 @@ define('my-element', class extends WeElement {
 
 这里可以看到，omi 内部还会对 josn 格式进行处理，防止 `JSON.parse` 出错。当然 eval 和 new Function 可以转化错误格式的 json 字符串，但是考虑到安全性，还是使用`JSON.parse` 。
 
+## 最后
+
+Omi 对 attrs 和 props 进行了全映射， attr 就是 props，在任意框架中都可以使用同样的方式使用 omi 定义的自定义元素。如果你有什么意见建议[欢迎让我知道](https://github.com/Tencent/omi/issues/new)。
 
 ## Links
 
