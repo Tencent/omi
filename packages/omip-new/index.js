@@ -7,9 +7,10 @@ const code = `
 import { render, h } from 'omis'
 
 const Index = (props, store) => {
+  const abc = <div></div> 
   return (
     <view>
-      <text> {store.item.index}}: {store.item.msg} </text>
+      <text> {store.item.index}: {store.item.msg} </text>
       <text> Time: {store.item.time} </text>
     </view>
   )
@@ -37,6 +38,7 @@ const ast = parser.parse(code, {
 });
 
 console.log(ast)
+var jsxList =[]
 traverse(ast, {
   enter(path) {
     if (path.isIdentifier({ name: "n" })) {
@@ -45,32 +47,16 @@ traverse(ast, {
   },
   JSXElement(p) {
     //p.stop();
+    //change attributes
     p.node.openingElement.attributes.push(t.jsxAttribute(t.JSXIdentifier('a'), t.StringLiteral('1')))
     console.log(p)
-  }
+    jsxList.push(p)
+  } 
 })
 
-console.log(generate(ast).code)
 
+//change tag name
+jsxList[0].node.openingElement.name.name = 'view'
+jsxList[0].node.closingElement.name.name = 'view'
+console.log(generate(jsxList[0].node).code)
 
-//输出
-// import { render, h } from 'omis';
-
-// const Index = (props, store) => {
-//   return <view a="1" a="1">
-//       <text a="1"> {store.item.index}}: {store.item.msg} </text>
-//       <text a="1"> Time: {store.item.time} </text>
-//     </view>;
-// };
-
-// Index.store = _ => {
-//   return {
-//     item: {
-//       index: 0,
-//       msg: 'this is a template',
-//       time: '2016-09-15'
-//     }
-//   };
-// };
-
-// render(<Index a="1" />, 'body');
