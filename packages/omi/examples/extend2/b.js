@@ -1871,7 +1871,7 @@
 
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  Omi.extend('model', function (el, path, scope) {
+  extend$1('model', function (el, path, scope) {
   	el.value = get(scope, path);
   	el.addEventListener('input', function () {
   		set(scope, path, el.value);
@@ -1879,7 +1879,7 @@
   	});
   });
 
-  define('my-component', function (_WeElement) {
+  define('my-input', function (_WeElement) {
   	_inherits$3(_class2, _WeElement);
 
   	function _class2() {
@@ -1891,14 +1891,47 @@
   			args[_key] = arguments[_key];
   		}
 
-  		return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.msg = 'a', _temp), _possibleConstructorReturn$3(_this, _ret);
+  		return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.inputHandle = function (evt) {
+  			_this.value = evt.target.value;
+  			_this.fire('input');
+  		}, _temp), _possibleConstructorReturn$3(_this, _ret);
   	}
+
+  	_class2.prototype.beforeRender = function beforeRender() {
+  		this.props[this.props.oModel] = get(getHost(this), this.props.oModel);
+  	};
 
   	_class2.prototype.render = function render$$1(props) {
   		return Omi.h(
   			'div',
   			null,
-  			Omi.h('input', { 'o-model': 'msg' }),
+  			Omi.h('input', { value: props.msg, oninput: this.inputHandle })
+  		);
+  	};
+
+  	return _class2;
+  }(WeElement));
+
+  define('my-component', function (_WeElement2) {
+  	_inherits$3(_class4, _WeElement2);
+
+  	function _class4() {
+  		var _temp2, _this2, _ret2;
+
+  		_classCallCheck$3(this, _class4);
+
+  		for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+  			args[_key2] = arguments[_key2];
+  		}
+
+  		return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn$3(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.msg = 'a', _temp2), _possibleConstructorReturn$3(_this2, _ret2);
+  	}
+
+  	_class4.prototype.render = function render$$1() {
+  		return Omi.h(
+  			'div',
+  			null,
+  			Omi.h('my-input', { 'o-model': 'msg' }),
   			Omi.h(
   				'div',
   				null,
@@ -1907,7 +1940,7 @@
   		);
   	};
 
-  	return _class2;
+  	return _class4;
   }(WeElement));
 
   render(Omi.h('my-component', null), 'body');

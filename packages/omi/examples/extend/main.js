@@ -2,7 +2,7 @@ import { define, render, WeElement, extend, set, get } from '../../src/omi'
 
 
 
-Omi.extend('model', (el, path, scope) => {
+extend('model', (el, path, scope) => {
 	el.value = get(scope, path)
 	el.addEventListener('input', () => {
 		set(scope, path, el.value)
