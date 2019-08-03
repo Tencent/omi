@@ -3,6 +3,7 @@ import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
 import { getPath } from './define'
+import { extention } from  './extend'
 
 let id = 0
 
@@ -94,7 +95,13 @@ export default class WeElement extends HTMLElement {
       shadowRoot.appendChild(this.rootNode)
     }
     this.installed()
-    this._isInstalled = true
+		this._isInstalled = true
+
+		for(let key in extention){
+			this.shadowRoot.querySelectorAll(`[o-${key}]`).forEach(node => {
+				extention[key](node, node.getAttribute(`o-${key}`), this)
+			})
+		}
   }
 
   disconnectedCallback() {

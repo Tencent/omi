@@ -1,16 +1,15 @@
-import { define, render, WeElement, extend } from '../../src/omi'
+import { define, render, WeElement, extend, set, get } from '../../src/omi'
 
-Omi.extend('model', {
-	installed(el, path) {
-		el.value = getValue(el, path)
 
-		el.addEventListener('change', () => {
 
-			setValue[el, path]
-			el.update()
-		})
-	}
+Omi.extend('model', (el, path, scope) => {
+	el.value = get(scope, path)
+	el.addEventListener('input', () => {
+		set(scope, path, el.value)
+		scope.update()
+	})
 })
+
 
 define('my-component', class extends WeElement {
 	msg = 'a'
@@ -18,7 +17,7 @@ define('my-component', class extends WeElement {
 	render(props) {
 		return (
 			<div>
-				<input v-model="msg"></input>
+				<input o-model="msg"></input>
 				<div>{this.msg}</div>
 			</div>
 		)
