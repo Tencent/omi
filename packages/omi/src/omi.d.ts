@@ -198,6 +198,10 @@ declare namespace Omi {
 	function extractClass(...args: any[]): object;
 	function o(obj: any): string;
 
+	function extend(name: string, handler: (el: HTMLElement, path: string, scope: WeElement) => void): void;
+	function get(obj: any, path: string): any;
+	function set(obj: any, path: string, value: any): void;
+
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;

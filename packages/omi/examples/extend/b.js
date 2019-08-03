@@ -1293,8 +1293,8 @@
 
   var extention = {};
 
-  function extend$1(name, options) {
-  	extention[name] = options;
+  function extend$1(name, handler) {
+  	extention[name] = handler;
   }
 
   function set(origin, path, value) {
@@ -1863,7 +1863,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.8.2';
+  options.root.Omi.version = '6.9.0';
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
