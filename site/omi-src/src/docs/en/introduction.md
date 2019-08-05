@@ -1,6 +1,6 @@
 ## What's Omi ？
 
-Omi (pronounced /ˈomɪ/) is next front end framework base on Web Component. One framework. Mobile & desktop & mini program.
+Omi (pronounced /ˈomɪ/) is cross-frameworks framework base on Web Component. One framework. Mobile & desktop & mini program.
 
 <em> Omi looks really neat!<br> </em>
 　　　　— [Jason Miller (Creator of Preact)](https://twitter.com/_developit/)
