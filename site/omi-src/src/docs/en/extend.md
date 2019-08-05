@@ -11,24 +11,24 @@ For example, you can easily implement two way binding through extend:
 import { define, WeElement, render, extend, get, set } from 'omi'
 
 extend('model', (el, path, scope) => {
-	el.value = get(scope, path)
-	el.addEventListener('input', () => {
-		set(scope, path, el.value)
-		scope.update()
-	})
+  el.value = get(scope, path)
+  el.addEventListener('input', () => {
+    set(scope, path, el.value)
+    scope.update()
+  })
 })
 
 define('my-component', class extends WeElement {
-	msg = 'two-way binding'
+  msg = 'two-way binding'
 
-	render(props) {
-		return (
-			<div>
-				<input o-model="msg"></input>
-				<div>{this.msg}</div>
-			</div>
-		)
-	}
+  render(props) {
+    return (
+      <div>
+        <input o-model="msg"></input>
+        <div>{this.msg}</div>
+      </div>
+    )
+  }
 })
 
 render(<my-component />, 'body')
