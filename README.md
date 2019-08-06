@@ -534,41 +534,41 @@ define('todo-list', class extends WeElement {
 })
 
 define('todo-app', class extends WeElement {
-  static observe = true
-
-  data = { items: [], text: '' }
+  items = []
+  text = ''
 
   render() {
     return (
       <div>
         <h3>TODO</h3>
-        <todo-list items={this.data.items} />
+        <todo-list items={this.items} />
         <form onSubmit={this.handleSubmit}>
           <input
             id="new-todo"
             onChange={this.handleChange}
-            value={this.data.text}
+            value={this.text}
           />
-          <button>Add #{this.data.items.length + 1}</button>
+          <button>Add #{this.items.length + 1}</button>
         </form>
       </div>
     )
   }
 
   handleChange = e => {
-    this.data.text = e.target.value
+    this.text = e.target.value
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    if (!this.data.text.trim().length) {
+    if (!this.text.trim().length) {
       return
     }
-    this.data.items.push({
-      text: this.data.text,
+    this.items.push({
+      text: this.text,
       id: Date.now()
     })
-    this.data.text = ''
+    this.text = ''
+    this.update()
   }
 })
 
