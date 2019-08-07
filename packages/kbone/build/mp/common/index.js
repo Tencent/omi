@@ -149,7 +149,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([1,1]);
+/******/ 	deferredModules.push([2,1]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -157,6 +157,12 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/ ([
 /* 0 */,
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -164,6 +170,9 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
 var omis_esm = __webpack_require__(0);
+
+// EXTERNAL MODULE: ./src/components/counter/_index.css
+var _index = __webpack_require__(1);
 
 // CONCATENATED MODULE: ./src/components/counter/index.js
 
@@ -192,7 +201,7 @@ const Counter = (props, store) => {
 
 Counter.store = _ => {
   return {
-    count: 2,
+    count: 3,
     add() {
       this.count++;
       this.update();

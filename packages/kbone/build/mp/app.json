@@ -1,9 +1,8 @@
 {
-  "pages": [
-    "pages/index/index"
-  ],
-  "window": {
-    "navigationBarTitleText": "miniprogram-project"
-  },
-  "sitemapLocation": "sitemap.json"
+	"pages": [
+		"pages/index/index"
+	],
+	"window": {
+		"navigationBarTitleText": "miniprogram-project"
+	}
 }

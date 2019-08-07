@@ -3,14 +3,6 @@ const config = require('../../config')
 
 function init(window, document) {require('../../common/vendors~index.js')(window, document);require('../../common/index.js')(window, document)}
 
-// const container = document.createElement('div');
-// container.id = 'app';
-// container.addEventListener('click', () => {
-//     console.log(11)
-// })
-// container.innerHTML = 'ABC'
-// document.body.appendChild(container);
-
 /**
  * 处理一些特殊的页面
  */

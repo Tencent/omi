@@ -1,4 +1,5 @@
 import { h } from 'omis'
+import './_index.css'
 
 const Counter = (props, store) => {
   return (
@@ -12,7 +13,7 @@ const Counter = (props, store) => {
 
 Counter.store = _ => {
   return {
-    count: 2,
+    count: 3,
     add() {
       this.count++
       this.update()
