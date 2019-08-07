@@ -1,4 +1,4 @@
-import { render } from 'omis'
+import { render, h } from 'omis'
 import Counter from './components/counter'
 
 export default function createApp() {

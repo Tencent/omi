@@ -1,4 +1,4 @@
-window["createApp"] =
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -192,7 +192,7 @@ const Counter = (props, store) => {
 
 Counter.store = _ => {
   return {
-    count: 1,
+    count: 2,
     add() {
       this.count++;
       this.update();
@@ -215,8 +215,8 @@ function createApp() {
   container.id = 'app';
   document.body.appendChild(container);
 
-  Object(omis_esm["b" /* render */])(h(counter, null), '#app');
+  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(counter, null), '#app');
 }
 
 /***/ })
-/******/ ])["default"];
+/******/ ])["default"];}

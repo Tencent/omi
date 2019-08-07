@@ -26,6 +26,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "stylehacks": "^4.0.3",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "omi-mp-webpack": "^0.0.1"
   }
 }
