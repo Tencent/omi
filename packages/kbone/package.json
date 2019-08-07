@@ -1,0 +1,32 @@
+{
+  "scripts": {
+    "build": "rimraf build/web && cross-env NODE_ENV=production webpack --config scripts/webpack.config.js --progress --hide-modules",
+    "mp": "cross-env NODE_ENV=production webpack --config scripts/webpack.mp.config.js --progress --hide-modules"
+  },
+  "dependencies": {
+    "omis": "latest"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.4",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "mini-css-extract-plugin": "^0.5.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "stylehacks": "^4.0.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "mp-webpack-plugin": "latest"
+  }
+}

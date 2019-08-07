@@ -5,7 +5,7 @@
 
 ## Omi 是什么？
 
-Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
+Omi (读音 /ˈomɪ/，类似于 欧米) 是跨框架框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
 
 
 <em> Omi looks really neat!<br> </em>

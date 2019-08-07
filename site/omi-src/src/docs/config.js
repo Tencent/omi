@@ -18,6 +18,7 @@ const config = {
           { name: 'Update', md: 'update' },
           { name: 'Ref', md: 'ref' },
           { name: 'Class', md: 'class' },
+          { name: 'Extend', md: 'extend' },
           { name: 'Store', md: 'store' },
           { name: 'CSS', md: 'css' }
         ]
@@ -52,6 +53,7 @@ const config = {
           { name: 'Update', md: 'update' },
           { name: 'Ref', md: 'ref' },
           { name: 'Class', md: 'class' },
+          { name: 'Extend', md: 'extend' },
           { name: 'Store', md: 'store' },
           { name: 'CSS', md: 'css' }
         ]

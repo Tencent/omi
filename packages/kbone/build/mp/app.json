@@ -1,0 +1,8 @@
+{
+	"pages": [
+		"pages/index/index"
+	],
+	"window": {
+		"navigationBarTitleText": "miniprogram-project"
+	}
+}

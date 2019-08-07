@@ -54,7 +54,7 @@ English | [简体中文](./README.CN.md)
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
-| [omi-piano](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
+| [omi-piano![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
 | [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
 
 ## Why Omi?
@@ -534,41 +534,41 @@ define('todo-list', class extends WeElement {
 })
 
 define('todo-app', class extends WeElement {
-  static observe = true
-
-  data = { items: [], text: '' }
+  items = []
+  text = ''
 
   render() {
     return (
       <div>
         <h3>TODO</h3>
-        <todo-list items={this.data.items} />
+        <todo-list items={this.items} />
         <form onSubmit={this.handleSubmit}>
           <input
             id="new-todo"
             onChange={this.handleChange}
-            value={this.data.text}
+            value={this.text}
           />
-          <button>Add #{this.data.items.length + 1}</button>
+          <button>Add #{this.items.length + 1}</button>
         </form>
       </div>
     )
   }
 
   handleChange = e => {
-    this.data.text = e.target.value
+    this.text = e.target.value
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    if (!this.data.text.trim().length) {
+    if (!this.text.trim().length) {
       return
     }
-    this.data.items.push({
-      text: this.data.text,
+    this.items.push({
+      text: this.text,
       id: Date.now()
     })
-    this.data.text = ''
+    this.text = ''
+    this.update()
   }
 })
 
