@@ -2,6 +2,51 @@
 
 使用 [omis](https://github.com/Tencent/omi/tree/master/packages/omis) 多端开发(小程序和Web)，基于 [kbone](https://github.com/wechat-miniprogram/kbone) 的 element 和 render。
 
+## 一套语法多端运行
+
+```jsx
+import { h } from 'omis'
+import css from './_index.css'
+
+const Counter = (props, store) => {
+  return (
+    <div>
+      <button onClick={store.sub}>-</button>
+      <span>{store.count}</span>
+      <button onClick={store.add}>+</button>
+
+      <div onClick={store.clickHandle}>跳转</div>
+    </div>
+  )
+}
+
+Counter.store = _ => {
+  return {
+    count: 1,
+    add() {
+      this.count++
+      this.update()
+    },
+    sub() {
+      this.count--
+      this.update()
+    },
+    clickHandle() {
+      if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+        wx.navigateTo({
+          url: '../log/index?id=1'
+        })
+      } else {
+        location.href = 'log.html'
+      }
+    }
+  }
+}
+
+Counter.css = css
+
+export default Counter
+```
 
 ## 快速开始
 
