@@ -191,7 +191,7 @@ var counter_Counter = function Counter(props, store) {
 
 counter_Counter.store = function (_) {
   return {
-    count: 3,
+    count: 1,
     add: function add() {
       this.count++;
       this.update();

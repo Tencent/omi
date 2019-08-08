@@ -9,7 +9,7 @@
     "mp"
   ],
   "scripts": {
-    "start": "cross-env NODE_ENV=production webpack --config scripts/webpack.mp.config.js --progress --hide-modules",
+    "start": "cross-env NODE_ENV=production webpack --config scripts/webpack.mp.config.js --watch --progress --hide-modules",
     "web": "node scripts/start.js",
     "build": "PUBLIC_URL=. node scripts/build.js",
     "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
