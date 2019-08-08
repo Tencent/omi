@@ -38,7 +38,7 @@
     }
     function addStyleToHead(style, attr, parent) {
         if (parent || !options.staticStyleMapping[attr]) {
-            addStyle(scoper(style, attr), attr, parent);
+            "undefined" != typeof wx && wx.getSystemInfoSync || addStyle(scoper(style, attr), attr, parent);
             if (!parent) options.staticStyleMapping[attr] = !0;
         }
     }

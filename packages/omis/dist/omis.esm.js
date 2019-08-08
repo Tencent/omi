@@ -1,5 +1,5 @@
 /**
- * omis v1.0.1  http://omijs.org
+ * omis v1.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omis
@@ -117,7 +117,7 @@ function addStyle(cssText, id, parent) {
 function addStyleToHead(style, attr, parent) {
   //parent is shadowroot
   if (parent || !options.staticStyleMapping[attr]) {
-    addStyle(scoper(style, attr), attr, parent);
+    "undefined" != typeof wx && wx.getSystemInfoSync || addStyle(scoper(style, attr), attr, parent);
     //don't cache when is shadowroot
     if (!parent) {
       options.staticStyleMapping[attr] = true;

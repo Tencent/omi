@@ -1,5 +1,5 @@
 import { h } from 'omis'
-import './_index.css'
+import css from './_index.css'
 
 const Counter = (props, store) => {
   return (
@@ -31,5 +31,7 @@ Counter.store = _ => {
     }
   }
 }
+
+Counter.css = css
 
 export default Counter

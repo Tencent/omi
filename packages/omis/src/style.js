@@ -80,7 +80,7 @@ export function addStyle(cssText, id, parent) {
 export function addStyleToHead(style, attr, parent) {
   //parent is shadowroot
 	if (parent || !options.staticStyleMapping[attr]) {
-    addStyle(scoper(style, attr), attr, parent)
+    "undefined" != typeof wx && wx.getSystemInfoSync || addStyle(scoper(style, attr), attr, parent)
     //don't cache when is shadowroot
     if(!parent){
       options.staticStyleMapping[attr] = true
