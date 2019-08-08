@@ -8,3 +8,5 @@ export default function createApp() {
 
   render(<Counter />, '#app')
 }
+
+"undefined" != typeof wx && wx.getSystemInfoSync || createApp()

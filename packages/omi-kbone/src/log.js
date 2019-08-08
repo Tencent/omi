@@ -7,3 +7,5 @@ export default function createApp() {
 
   render(<div >我是log页面</div>, '#app')
 }
+
+"undefined" != typeof wx && wx.getSystemInfoSync || createApp()

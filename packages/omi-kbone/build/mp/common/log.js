@@ -164,18 +164,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 /* harmony import */ var omis__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
-
 function createApp() {
-  const container = document.createElement('div');
+  var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-
-  Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* render */ "b"])(Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])(
-    'div',
-    null,
-    '\u6211\u662Flog\u9875\u9762'
-  ), '#app');
+  Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* render */ "b"])(Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])("div", null, "\u6211\u662Flog\u9875\u9762"), '#app');
 }
+"undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 
 /***/ })
 

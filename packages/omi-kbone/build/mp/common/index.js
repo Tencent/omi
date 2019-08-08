@@ -179,45 +179,28 @@ var _index = __webpack_require__(1);
 
 
 
-const Counter = (props, store) => {
-  return Object(omis_esm["a" /* h */])(
-    'div',
-    null,
-    Object(omis_esm["a" /* h */])(
-      'button',
-      { onClick: store.sub },
-      '-'
-    ),
-    Object(omis_esm["a" /* h */])(
-      'span',
-      null,
-      store.count
-    ),
-    Object(omis_esm["a" /* h */])(
-      'button',
-      { onClick: store.add },
-      '+'
-    ),
-    Object(omis_esm["a" /* h */])(
-      'div',
-      { onClick: store.clickHandle },
-      '\u8DF3\u8F6C'
-    )
-  );
+var counter_Counter = function Counter(props, store) {
+  return Object(omis_esm["a" /* h */])("div", null, Object(omis_esm["a" /* h */])("button", {
+    onClick: store.sub
+  }, "-"), Object(omis_esm["a" /* h */])("span", null, store.count), Object(omis_esm["a" /* h */])("button", {
+    onClick: store.add
+  }, "+"), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.clickHandle
+  }, "\u8DF3\u8F6C"));
 };
 
-Counter.store = _ => {
+counter_Counter.store = function (_) {
   return {
     count: 3,
-    add() {
+    add: function add() {
       this.count++;
       this.update();
     },
-    sub() {
+    sub: function sub() {
       this.count--;
       this.update();
     },
-    clickHandle() {
+    clickHandle: function clickHandle() {
       wx.navigateTo({
         url: '../log/index?id=1'
       });
@@ -225,19 +208,18 @@ Counter.store = _ => {
   };
 };
 
-/* harmony default export */ var counter = (Counter);
-// CONCATENATED MODULE: ./src/main.js
+/* harmony default export */ var counter = (counter_Counter);
+// CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 
 
-
 function createApp() {
-  const container = document.createElement('div');
+  var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-
   Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(counter, null), '#app');
 }
+"undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 
 /***/ })
 /******/ ])["default"];}

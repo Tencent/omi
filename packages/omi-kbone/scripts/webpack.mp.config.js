@@ -9,7 +9,7 @@ const isOptimize = false // 是否压缩业务代码，开发者工具可能无�
 module.exports = {
     mode: 'production',
     entry: {
-        index: path.resolve(__dirname, '../src/main.js'),
+        index: path.resolve(__dirname, '../src/index.js'),
         log: path.resolve(__dirname, '../src/log.js')
     },
     output: {
