@@ -72,7 +72,6 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "object-assign": "4.1.1",
-    "omis": "latest",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "prettier": "^1.14.3",
