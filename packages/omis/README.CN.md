@@ -11,6 +11,7 @@
 * 每个组件可以带有一个 store，去中心化
 * 支持全局 store 共享数据，并且按需局部更新组件
 * 每个组件 store 拥有 update 方法，执行该方法局部刷新组件
+* [支持小程序开发](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 - [→ Omis 在线例子](https://codepen.io/collection/XjLaRo/)
 - [→ 文档](https://tencent.github.io/omi/site/omis/cn.html)

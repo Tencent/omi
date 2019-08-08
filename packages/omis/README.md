@@ -11,6 +11,7 @@ English | [简体中文](./README.CN.md)
 * Each component can have a store and be de-centralized
 * Support global store to share data and update on demand
 * Each component store has an update method that executes the method to customize local refresh components
+* [Mini Program(小程序) supporting](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 - [→ Omis Codepen Demos](https://codepen.io/collection/XjLaRo/)
 - [→ Docs](https://tencent.github.io/omi/site/omis/index.html)
