@@ -174,6 +174,7 @@ var omis_esm = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/counter/_index.css
 var _index = __webpack_require__(1);
+var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
 
 // CONCATENATED MODULE: ./src/components/counter/index.js
 
@@ -201,13 +202,18 @@ counter_Counter.store = function (_) {
       this.update();
     },
     clickHandle: function clickHandle() {
-      wx.navigateTo({
-        url: '../log/index?id=1'
-      });
+      if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+        wx.navigateTo({
+          url: '../log/index?id=1'
+        });
+      } else {
+        location.href = 'log.html';
+      }
     }
   };
 };
 
+counter_Counter.css = _index_default.a;
 /* harmony default export */ var counter = (counter_Counter);
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
