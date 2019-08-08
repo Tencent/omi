@@ -27,7 +27,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.7.4",
 	"appid": "wxfaf6dad43f57c6bd",
-	"projectname": "omi-kbone",
+	"projectname": "kbone-demo1",
 	"debugOptions": {
 		"hidedInDevtools": [
 			{
