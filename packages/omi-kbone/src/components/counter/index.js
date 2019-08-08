@@ -24,10 +24,14 @@ Counter.store = _ => {
       this.count--
       this.update()
     },
-    clickHandle(){
-      wx.navigateTo({
-        url: '../log/index?id=1',
-      })
+    clickHandle() {
+      if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+        wx.navigateTo({
+          url: '../log/index?id=1'
+        })
+      } else {
+        location.href = 'log.html'
+      }
     }
   }
 }
