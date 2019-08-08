@@ -1,7 +1,7 @@
 const mp = require('miniprogram-render')
 const config = require('../../config')
 
-function init(window, document) {require('../../common/vendors~index~log.js')(window, document);require('../../common/index.js')(window, document)}
+function init(window, document) {require('../../common/vendors~index~log.js')(window, document);require('../../common/log.js')(window, document)}
 
 /**
  * 处理一些特殊的页面

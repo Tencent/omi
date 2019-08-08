@@ -58,7 +58,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		1: 0
+/******/ 		2: 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
@@ -149,86 +149,20 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([3,0]);
+/******/ 	deferredModules.push([2,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */,
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/******/ ({
 
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-/* 2 */,
-/* 3 */
+/***/ 2:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
-var omis_esm = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./src/components/counter/_index.css
-var _index = __webpack_require__(1);
-
-// CONCATENATED MODULE: ./src/components/counter/index.js
-
-
-
-const Counter = (props, store) => {
-  return Object(omis_esm["a" /* h */])(
-    'div',
-    null,
-    Object(omis_esm["a" /* h */])(
-      'button',
-      { onClick: store.sub },
-      '-'
-    ),
-    Object(omis_esm["a" /* h */])(
-      'span',
-      null,
-      store.count
-    ),
-    Object(omis_esm["a" /* h */])(
-      'button',
-      { onClick: store.add },
-      '+'
-    ),
-    Object(omis_esm["a" /* h */])(
-      'div',
-      { onClick: store.clickHandle },
-      '\u8DF3\u8F6C'
-    )
-  );
-};
-
-Counter.store = _ => {
-  return {
-    count: 3,
-    add() {
-      this.count++;
-      this.update();
-    },
-    sub() {
-      this.count--;
-      this.update();
-    },
-    clickHandle() {
-      wx.navigateTo({
-        url: '../log/index?id=1'
-      });
-    }
-  };
-};
-
-/* harmony default export */ var counter = (Counter);
-// CONCATENATED MODULE: ./src/main.mp.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
-
+/* harmony import */ var omis__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
 
 function createApp() {
@@ -236,8 +170,13 @@ function createApp() {
   container.id = 'app';
   document.body.appendChild(container);
 
-  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(counter, null), '#app');
+  Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* render */ "b"])(Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])(
+    'div',
+    null,
+    '\u6211\u662Flog\u9875\u9762'
+  ), '#app');
 }
 
 /***/ })
-/******/ ])["default"];}
+
+/******/ })["default"];}

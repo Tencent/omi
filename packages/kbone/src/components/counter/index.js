@@ -7,6 +7,8 @@ const Counter = (props, store) => {
       <button onClick={store.sub}>-</button>
       <span>{store.count}</span>
       <button onClick={store.add}>+</button>
+
+      <div onClick={store.clickHandle}>跳转</div>
     </div>
   )
 }
@@ -21,6 +23,11 @@ Counter.store = _ => {
     sub() {
       this.count--
       this.update()
+    },
+    clickHandle(){
+      wx.navigateTo({
+        url: '../log/index?id=1',
+      })
     }
   }
 }

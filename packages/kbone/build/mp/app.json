@@ -1,6 +1,7 @@
 {
 	"pages": [
-		"pages/index/index"
+		"pages/index/index",
+		"pages/log/index"
 	],
 	"window": {
 		"navigationBarTitleText": "miniprogram-project"

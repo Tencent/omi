@@ -11,10 +11,21 @@ module.exports = {
 				"regexp": "^\\/test\\/bbb(?:\\/)?$",
 				"options": "i"
 			}
+		],
+		"log": [
+			{
+				"regexp": "^\\/test\\/aaa(?:\\/)?$",
+				"options": "i"
+			},
+			{
+				"regexp": "^\\/test\\/bbb(?:\\/)?$",
+				"options": "i"
+			}
 		]
 	},
 	"pages": {
-		"index": {}
+		"index": {},
+		"log": {}
 	},
 	"redirect": {
 		"notFound": "index",
