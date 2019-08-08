@@ -16,7 +16,7 @@
     "fix": "eslint src --fix"
   },
   "dependencies": {
-    "omis": "latest"
+    "omis": "^1.0.3"
   },
   "browserslist": [
     "> 1%",
