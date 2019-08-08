@@ -226,7 +226,7 @@ Counter.store = _ => {
 };
 
 /* harmony default export */ var counter = (Counter);
-// CONCATENATED MODULE: ./src/main.mp.js
+// CONCATENATED MODULE: ./src/main.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 
 
