@@ -6,7 +6,6 @@
 
 ```jsx
 import { h, Component } from 'preact'
-//注意这里样式会全局作用
 import './index.css'
 
 class Counter extends Component {

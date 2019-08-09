@@ -6,7 +6,7 @@
 
 ```jsx
 import { h } from 'omis'
-import css from './_index.css'
+import './index.css'
 
 const Counter = (props, store) => {
   return (
@@ -43,10 +43,16 @@ Counter.store = _ => {
   }
 }
 
-Counter.css = css
-
 export default Counter
 ```
+
+注意这里 css 在小程序和web里都是全局作用，小程序没法做到 scoped style，在 web 里是可以做到 scoped，只需要这样：
+
+```js
+Counter.css = require('./_index.css')
+```
+
+使用下划线前缀并且赋值便可。
 
 ## 快速开始
 
