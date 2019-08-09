@@ -2,6 +2,11 @@
 
 使用 [preact](https://github.com/preactjs/preact) 多端开发(小程序和Web)，基于 [kbone](https://github.com/wechat-miniprogram/kbone) 的 element 和 render。
 
+## 特性
+
+* 与 taro 编译行不同，react-kbone 支持完整 JSX 语法，任意位置任意方式书写 JSX
+* 使用最好的 react web 框架，轻量迅速（react 不是最好的 react web 框架） 
+
 ## 一套语法多端运行
 
 ```jsx
