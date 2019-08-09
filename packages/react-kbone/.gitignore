@@ -1,0 +1,19 @@
+node_modules
+/node_modules
+/npm-debug.log
+.DS_Store
+/_dev
+/coverage
+package-lock.json
+
+# Editor and IDE configuration
+.vscode/
+.idea/
+
+/packages/*/node_modules
+/packages/*/yarn.lock
+/packages/*/yarn-error.log
+
+npm-debug.log
+
+build/web

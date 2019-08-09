@@ -1,0 +1,35 @@
+/* 去除 button 组件默认样式 */
+button {
+    position: relative;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    font-size: inherit;
+    text-align: inherit;
+    text-decoration: inherit;
+    line-height: inherit;
+    border-radius: inherit;
+    -webkit-tap-highlight-color: inherit;
+    overflow: hidden;
+    color: inherit;
+    background-color: inherit;
+}
+
+button:after {
+    content: "";
+    width: auto;
+    height: auto;
+    position: static;
+    top: 0;
+    left: 0;
+    border: none;
+    -webkit-transform: none;
+    transform: none;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    border-radius: 0;
+}
