@@ -25,11 +25,11 @@ Counter.store = _ => {
     count: 1,
     add() {
       this.count++
-      this.update()
+      _.update()
     },
     sub() {
       this.count--
-      this.update()
+      _.update()
     },
     clickHandle() {
       if ("undefined" != typeof wx && wx.getSystemInfoSync) {
@@ -81,6 +81,25 @@ npm run build    //发布 web
 │  ├─ components    //存放所有组件
 │  ├─ log.js        //入口文件，会 build 成  log.html
 │  └─ index.js      //入口文件，会 build 成  index.html
+```
+
+
+## 注意事项和已知问题
+
+* 不要使用 bindtap，使用 onClick
+* 图片请使用 cdn 地址或者 base64
+* DOM 上声明 data-xx 属性，在小程序 evt.target.dataset.xx 获取不到，请使用 function 传参方式
+
+```jsx
+<view class="todo-list">
+  {todo.map(item => (
+    <view>
+      <view class="toggle" onClick={function () { this.toggle(item.id) }}></view>
+      <text >{item.text} </text>
+      <view class="delete" onClick={function () { this.deleteItem(item.id) }}></view>
+    </view>
+  ))}
+</view>
 ```
 
 ## License

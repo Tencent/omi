@@ -1,0 +1,53 @@
+button {
+  background: none;
+  font-size: 30rpx;
+  color: #777;
+}
+
+button:after {
+  border: none;
+}
+
+.todo-count {
+  position: absolute;
+  left: 20rpx;
+  top: 20rpx;
+}
+
+.ib {
+  display: inline-block;
+}
+
+.footer {
+  height: 100rpx;
+  line-height: 66rpx;
+  width: 100%;
+  font-size: 30rpx;
+  background-color: rgb(247, 247, 247);
+  color: #777;
+  position: fixed;
+  bottom: 0px;
+}
+
+.clear-completed {
+  position: absolute;
+  top: 37rpx;
+  right: 10rpx;
+}
+
+.filters {
+  margin-left: 200rpx;
+}
+
+.filters view {
+  padding:0 10rpx;
+  margin: 20rpx;
+}
+
+.selected{
+  border: 1px solid rgba(175, 47, 47, 0.3);
+}
+
+.strong{
+  font-weight: 500;
+}

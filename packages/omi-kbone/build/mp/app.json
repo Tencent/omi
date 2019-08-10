@@ -4,6 +4,10 @@
 		"pages/log/index"
 	],
 	"window": {
-		"navigationBarTitleText": "miniprogram-project"
+		"navigationBarBackgroundColor": "#24292e",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": " ",
+		"backgroundColor": "#eeeeee",
+		"backgroundTextStyle": "light"
 	}
 }

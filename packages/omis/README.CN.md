@@ -41,11 +41,11 @@ Counter.store = _ => {
     count: 1,
     add() {
       this.count++
-      this.update()
+      _.update()
     },
     sub() {
       this.count--
-      this.update()
+      _.update()
     }
   }
 }
