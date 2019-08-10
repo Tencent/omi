@@ -2,21 +2,21 @@ import { h } from 'omis'
 import './index.css'
 
 const TodoFooter = ({ left, type, done }, { showAll, showActive, showDone, clearDone }) => {
-  return <view class="footer">
-    <view class="todo-count"><text class="strong">{left + ' '}items left</text> </view>
-    <view class="filters">
-      <view class='ib' onClick={showAll}>
+  return <div class="footer">
+    <div class="todo-count"><text class="strong">{left + ' '}items left</text> </div>
+    <div class="filters">
+      <div class='ib' onClick={showAll}>
         <text class={type === 'all' ? 'selected' : ''} >All</text>
-      </view>
-      <view class='ib' onClick={showActive}>
+      </div>
+      <div class='ib' onClick={showActive}>
         <text class={type === 'active' ? 'selected' : ''} >Active</text>
-      </view>
-      <view class='ib' onClick={showDone}>
+      </div>
+      <div class='ib' onClick={showDone}>
         <text class={type === 'done' ? 'selected' : ''} >Done</text>
-      </view>
-    </view>
+      </div>
+    </div>
     {done > 0 && <button class="clear-completed" onClick={clearDone}>Clear done</button>}
-  </view>
+  </div>
 }
 
 TodoFooter.store = ({props})=> {

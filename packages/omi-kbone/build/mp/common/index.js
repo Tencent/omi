@@ -183,13 +183,13 @@ module.exports = _defineProperty;
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 3 */,
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
+/* 4 */,
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -208,7 +208,7 @@ var _index = __webpack_require__(2);
 var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
 
 // EXTERNAL MODULE: ./src/components/todo-footer/index.css
-var todo_footer = __webpack_require__(4);
+var todo_footer = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./src/components/todo-footer/index.js
 
@@ -222,25 +222,25 @@ var todo_footer_TodoFooter = function TodoFooter(_ref, _ref2) {
       showActive = _ref2.showActive,
       showDone = _ref2.showDone,
       clearDone = _ref2.clearDone;
-  return Object(omis_esm["a" /* h */])("view", {
+  return Object(omis_esm["a" /* h */])("div", {
     "class": "footer"
-  }, Object(omis_esm["a" /* h */])("view", {
+  }, Object(omis_esm["a" /* h */])("div", {
     "class": "todo-count"
   }, Object(omis_esm["a" /* h */])("text", {
     "class": "strong"
-  }, left + ' ', "items left"), " "), Object(omis_esm["a" /* h */])("view", {
+  }, left + ' ', "items left"), " "), Object(omis_esm["a" /* h */])("div", {
     "class": "filters"
-  }, Object(omis_esm["a" /* h */])("view", {
+  }, Object(omis_esm["a" /* h */])("div", {
     "class": 'ib',
     onClick: showAll
   }, Object(omis_esm["a" /* h */])("text", {
     "class": type === 'all' ? 'selected' : ''
-  }, "All")), Object(omis_esm["a" /* h */])("view", {
+  }, "All")), Object(omis_esm["a" /* h */])("div", {
     "class": 'ib',
     onClick: showActive
   }, Object(omis_esm["a" /* h */])("text", {
     "class": type === 'active' ? 'selected' : ''
-  }, "Active")), Object(omis_esm["a" /* h */])("view", {
+  }, "Active")), Object(omis_esm["a" /* h */])("div", {
     "class": 'ib',
     onClick: showDone
   }, Object(omis_esm["a" /* h */])("text", {
@@ -286,12 +286,11 @@ var todo_Todo = function Todo(props, _ref) {
       type = _ref.type,
       newTodo = _ref.newTodo,
       done = _ref.done;
-  console.log(type);
-  return Object(omis_esm["a" /* h */])("view", {
+  return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
-  }, Object(omis_esm["a" /* h */])("view", {
+  }, Object(omis_esm["a" /* h */])("div", {
     "class": "title"
-  }, "todos"), Object(omis_esm["a" /* h */])("view", {
+  }, "todos"), Object(omis_esm["a" /* h */])("div", {
     "class": "form"
   }, Object(omis_esm["a" /* h */])("input", {
     "class": "new-todo",
@@ -302,17 +301,17 @@ var todo_Todo = function Todo(props, _ref) {
   }), Object(omis_esm["a" /* h */])("button", {
     "class": "add-btn",
     onClick: newTodo
-  }, "\u786E\u5B9A")), Object(omis_esm["a" /* h */])("view", {
+  }, "\u786E\u5B9A")), Object(omis_esm["a" /* h */])("div", {
     "class": "todo-list"
   }, todo.map(function (item) {
-    return (type === 'all' || type === 'active' && !item.done || type === 'done' && item.done) && Object(omis_esm["a" /* h */])("view", {
+    return (type === 'all' || type === 'active' && !item.done || type === 'done' && item.done) && Object(omis_esm["a" /* h */])("div", {
       "class": "todo-item".concat(item.done ? ' done' : '')
-    }, Object(omis_esm["a" /* h */])("view", {
+    }, Object(omis_esm["a" /* h */])("div", {
       "class": "toggle",
       onClick: function onClick() {
         this.toggle(item.id);
       }
-    }), Object(omis_esm["a" /* h */])("text", null, item.text, " "), Object(omis_esm["a" /* h */])("view", {
+    }), Object(omis_esm["a" /* h */])("text", null, item.text, " "), Object(omis_esm["a" /* h */])("div", {
       "class": "delete",
       onClick: function onClick() {
         this.deleteItem(item.id);
@@ -344,7 +343,7 @@ todo_Todo.store = function (_) {
     type: 'all',
     done: 0,
     textInput: function textInput(evt) {
-      this.inputText = evt.detail.value;
+      this.inputText = evt.target.value;
     },
     gotoAbout: function gotoAbout() {
       wx.navigateTo({

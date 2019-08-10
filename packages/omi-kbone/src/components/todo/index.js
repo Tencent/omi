@@ -3,29 +3,28 @@ import css from './_index.css'
 import TodoFooter from '../todo-footer'
 
 const Todo = (props, { clear, filter, textInput, inputText, todo, left, type, newTodo, done }) => {
-  console.log(type)
   return (
-    <view class="container">
-      <view class="title">todos</view>
+    <div class="container">
+      <div class="title">todos</div>
       {/* 需要使用cdn图片 */}
       {/* <img class="github" onClick={gotoAbout} src='./github-logo.png'></img> */}
-      <view class="form">
+      <div class="form">
         <input class="new-todo" onInput={textInput} value={inputText} placeholder="下一步行动计划是？" autofocus=""></input>
         <button class="add-btn" onClick={newTodo}>确定</button>
-      </view>
+      </div>
 
-      <view class="todo-list">
+      <div class="todo-list">
         {todo.map(item => (
-          (type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)) && <view class={`todo-item${item.done ? ' done' : ''}`}>
-            <view class="toggle" onClick={function () { this.toggle(item.id) }}></view>
+          (type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)) && <div class={`todo-item${item.done ? ' done' : ''}`}>
+            <div class="toggle" onClick={function () { this.toggle(item.id) }}></div>
             <text >{item.text} </text>
-            <view class="delete" onClick={function () { this.deleteItem(item.id) }}></view>
-          </view>
+            <div class="delete" onClick={function () { this.deleteItem(item.id) }}></div>
+          </div>
         ))}
-      </view>
+      </div>
 
       <TodoFooter onFilter={filter} onClear={clear} left={left} done={done} type={type} ></TodoFooter>
-    </view>
+    </div>
   )
 }
 
@@ -41,7 +40,7 @@ Todo.store = _ => {
 
 
     textInput(evt) {
-      this.inputText = evt.detail.value
+      this.inputText = evt.target.value
     },
 
     gotoAbout() {
@@ -81,8 +80,6 @@ Todo.store = _ => {
         }
       }
     },
-
-
 
     newTodo() {
       if (this.inputText.trim() === '') {
