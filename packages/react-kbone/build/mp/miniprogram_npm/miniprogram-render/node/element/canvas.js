@@ -4,7 +4,7 @@ const cache = require('../../util/cache')
 
 const pool = new Pool()
 
-class Canvas extends Element {
+class HTMLCanvasElement extends Element {
     /**
      * 创建实例
      */
@@ -21,7 +21,7 @@ class Canvas extends Element {
             }
         }
 
-        return new Canvas(options, tree)
+        return new HTMLCanvasElement(options, tree)
     }
 
     /**
@@ -65,8 +65,8 @@ class Canvas extends Element {
      * 初始化长宽
      */
     $_initRect() {
-        const width = parseInt(this.getAttribute('width'), 10)
-        const height = parseInt(this.getAttribute('height'), 10)
+        const width = parseInt(this.$_attrs.get('width'), 10)
+        const height = parseInt(this.$_attrs.get('height'), 10)
 
         if (typeof width === 'number' && width >= 0) this.$_style.width = `${width}px`
         if (typeof height === 'number' && height >= 0) this.$_style.height = `${height}px`
@@ -76,26 +76,26 @@ class Canvas extends Element {
      * 对外属性和方法
      */
     get width() {
-        return +this.getAttribute('width') || 0
+        return +this.$_attrs.get('width') || 0
     }
 
     set width(value) {
         if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-        this.setAttribute('width', value)
+        this.$_attrs.set('width', value)
         this.$_initRect()
     }
 
     get height() {
-        return +this.getAttribute('height') || 0
+        return +this.$_attrs.get('height') || 0
     }
 
     set height(value) {
         if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-        this.setAttribute('height', value)
+        this.$_attrs.set('height', value)
         this.$_initRect()
     }
 }
 
-module.exports = Canvas
+module.exports = HTMLCanvasElement

@@ -39,7 +39,7 @@ class WxComponent extends Element {
     }
 
     get $$behavior() {
-        return this.getAttribute('behavior') || ''
+        return this.$_attrs.get('behavior') || ''
     }
 }
 

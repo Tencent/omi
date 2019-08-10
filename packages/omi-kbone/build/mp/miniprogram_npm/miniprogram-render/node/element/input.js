@@ -103,7 +103,11 @@ class HTMLInputElement extends Element {
     }
 
     get value() {
-        return this.$_attrs.get('value')
+        const type = this.$_attrs.get('type')
+        const value = this.$_attrs.get('value')
+
+        if (type === 'checkbox' && value === undefined) return 'on'
+        return value
     }
 
     set value(value) {
@@ -144,6 +148,14 @@ class HTMLInputElement extends Element {
     set autofocus(value) {
         value = !!value
         this.$_attrs.set('autofocus', value)
+    }
+
+    set checked(value) {
+        this.$_attrs.set('checked', value)
+    }
+
+    get checked() {
+        return this.$_attrs.get('checked') || ''
     }
 
     focus() {

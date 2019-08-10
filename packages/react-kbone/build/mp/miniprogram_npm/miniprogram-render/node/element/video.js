@@ -4,7 +4,7 @@ const cache = require('../../util/cache')
 
 const pool = new Pool()
 
-class Video extends Element {
+class HTMLVideoElement extends Element {
     /**
      * 创建实例
      */
@@ -21,7 +21,7 @@ class Video extends Element {
             }
         }
 
-        return new Video(options, tree)
+        return new HTMLVideoElement(options, tree)
     }
 
     /**
@@ -65,8 +65,8 @@ class Video extends Element {
      * 初始化长宽
      */
     $_initRect() {
-        const width = parseInt(this.getAttribute('width'), 10)
-        const height = parseInt(this.getAttribute('height'), 10)
+        const width = parseInt(this.$_attrs.get('width'), 10)
+        const height = parseInt(this.$_attrs.get('height'), 10)
 
         if (typeof width === 'number' && width >= 0) this.$_style.width = `${width}px`
         if (typeof height === 'number' && height >= 0) this.$_style.height = `${height}px`
@@ -76,90 +76,90 @@ class Video extends Element {
      * 对外属性和方法
      */
     get src() {
-        return this.getAttribute('src') || ''
+        return this.$_attrs.get('src') || ''
     }
 
     set src(value) {
         if (!value || typeof value !== 'string') return
 
-        this.setAttribute('src', value)
+        this.$_attrs.set('src', value)
     }
 
     get width() {
-        return +this.getAttribute('width') || 0
+        return +this.$_attrs.get('width') || 0
     }
 
     set width(value) {
         if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-        this.setAttribute('width', value)
+        this.$_attrs.set('width', value)
         this.$_initRect()
     }
 
     get height() {
-        return +this.getAttribute('height') || 0
+        return +this.$_attrs.get('height') || 0
     }
 
     set height(value) {
         if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-        this.setAttribute('height', value)
+        this.$_attrs.set('height', value)
         this.$_initRect()
     }
 
     get autoplay() {
-        return !!this.getAttribute('autoplay')
+        return !!this.$_attrs.get('autoplay')
     }
 
     set autoplay(value) {
         value = !!value
-        this.setAttribute('autoplay', value)
+        this.$_attrs.set('autoplay', value)
     }
 
     get loop() {
-        return !!this.getAttribute('loop')
+        return !!this.$_attrs.get('loop')
     }
 
     set loop(value) {
         value = !!value
-        this.setAttribute('loop', value)
+        this.$_attrs.set('loop', value)
     }
 
     get muted() {
-        return !!this.getAttribute('muted')
+        return !!this.$_attrs.get('muted')
     }
 
     set muted(value) {
         value = !!value
-        this.setAttribute('muted', value)
+        this.$_attrs.set('muted', value)
     }
 
     get controls() {
-        const value = this.getAttribute('controls')
+        const value = this.$_attrs.get('controls')
         return value !== undefined ? !!value : true
     }
 
     set controls(value) {
-        this.setAttribute('controls', value)
+        this.$_attrs.set('controls', value)
     }
 
     get poster() {
-        return this.getAttribute('poster')
+        return this.$_attrs.get('poster')
     }
 
     set poster(value) {
         if (!value || typeof value !== 'string') return
 
-        this.setAttribute('poster', value)
+        this.$_attrs.set('poster', value)
     }
 
     get currentTime() {
-        return +this.getAttribute('currentTime') || 0
+        return +this.$_attrs.get('currentTime') || 0
     }
 
     get buffered() {
-        return this.getAttribute('buffered')
+        return this.$_attrs.get('buffered')
     }
 }
 
-module.exports = Video
+module.exports = HTMLVideoElement
