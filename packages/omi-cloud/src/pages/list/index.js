@@ -28,7 +28,9 @@ define('page-about', class extends WeElement {
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
-        app.globalData.db.collection('article').field({
+        app.globalData.db.collection('article').where({
+          type: app.globalData.db.command.neq('mp')
+        }).field({
           title: true,
           _id: true,
           order: true
@@ -75,10 +77,10 @@ define('page-about', class extends WeElement {
           </view>
         ))}
 
-        <view class='item' bindtap={this.gotoTodo}>
+        {/* <view class='item' bindtap={this.gotoTodo}>
           <text>Todo App【案例】 </text>
           <image src={arrowPng}></image>
-        </view>
+        </view> */}
 
 
         {/* <view class='item' bindtap={this.gotoAbout}>

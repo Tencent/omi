@@ -28,7 +28,9 @@ define('page-about', class extends WeElement {
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
-        app.globalData.db.collection('article').field({
+        app.globalData.db.collection('article').where({
+          type: 'mp'
+        }).field({
           title: true,
           _id: true,
           order: true
