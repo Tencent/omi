@@ -89,19 +89,6 @@ npm run build    //发布 web
 * 不要使用 bindtap，使用 onClick
 * 图片请使用 cdn 地址或者 base64
 * 如果要兼容 web，请用 HTML 和 CSS 标签，比如用 div，不用 view，不用 rpx 单位等
-* DOM 上声明 data-xx 属性，在小程序 evt.target.dataset.xx 获取不到，请使用 function 传参方式（官方正在修复）
-
-```jsx
-<div class="todo-list">
-  {todo.map(item => (
-    <div>
-      <div class="toggle" onClick={function () { this.toggle(item.id) }}></div>
-      <text >{item.text} </text>
-      <div class="delete" onClick={function () { this.deleteItem(item.id) }}></div>
-    </div>
-  ))}
-</div>
-```
 
 ## License
 

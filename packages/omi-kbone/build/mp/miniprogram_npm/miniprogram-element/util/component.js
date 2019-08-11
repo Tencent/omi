@@ -7,6 +7,7 @@ const textarea = require('../component/textarea')
 const picker = require('../component/picker')
 const button = require('../component/button')
 const map = require('../component/map')
+const text = require('../component/text')
 const coverView = require('../component/cover-view')
 const coverImage = require('../component/cover-image')
 const livePlayer = require('../component/live-player')
@@ -24,6 +25,7 @@ module.exports = {
         image: image.properties,
         button: button.properties,
         map: map.properties,
+        text: text.properties,
         'cover-view': coverView.properties,
         'cover-image': coverImage.properties,
         'live-player': livePlayer.properties,
@@ -40,6 +42,7 @@ module.exports = {
         ...image.handles,
         ...button.handles,
         ...map.handles,
+        ...text.handles,
         ...coverView.handles,
         ...coverImage.handles,
         ...livePlayer.handles,

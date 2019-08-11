@@ -93,6 +93,15 @@ class HTMLInputElement extends Element {
     /**
      * 对外属性和方法
      */
+    get name() {
+        return this.$_attrs.get('name')
+    }
+
+    set name(value) {
+        value = '' + value
+        return this.$_attrs.set('name', value)
+    }
+
     get type() {
         return this.$_attrs.get('type')
     }
@@ -106,7 +115,7 @@ class HTMLInputElement extends Element {
         const type = this.$_attrs.get('type')
         const value = this.$_attrs.get('value')
 
-        if (type === 'checkbox' && value === undefined) return 'on'
+        if ((type === 'radio' || type === 'checkbox') && value === undefined) return 'on'
         return value
     }
 

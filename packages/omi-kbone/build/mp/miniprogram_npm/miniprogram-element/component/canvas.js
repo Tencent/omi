@@ -22,6 +22,7 @@ module.exports = {
         onCanvasLongTap(evt) {
             this.callSimpleEvent('longtap', evt)
         },
+
         onCanvasError(evt) {
             this.callSimpleEvent('error', evt)
         },

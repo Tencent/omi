@@ -2,7 +2,7 @@ import { h } from 'omis'
 import css from './_index.css'
 import TodoFooter from '../todo-footer'
 
-const Todo = (props, { clear, filter, textInput, inputText, todo, left, type, newTodo, done }) => {
+const Todo = (props, { clear, filter, textInput, inputText, todo, left, type, newTodo, done, toggle, deleteItem }) => {
   return (
     <div class="container">
       <div class="title">todos</div>
@@ -16,9 +16,9 @@ const Todo = (props, { clear, filter, textInput, inputText, todo, left, type, ne
       <div class="todo-list">
         {todo.map(item => (
           (type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)) && <div class={`todo-item${item.done ? ' done' : ''}`}>
-            <div class="toggle" onClick={function () { this.toggle(item.id) }}></div>
+            <div class="toggle" data-id={item.id} onClick={toggle}></div>
             <text >{item.text} </text>
-            <div class="delete" onClick={function () { this.deleteItem(item.id) }}></div>
+            <div class="delete" data-id={item.id} onClick={deleteItem}></div>
           </div>
         ))}
       </div>
@@ -49,10 +49,10 @@ Todo.store = _ => {
       })
     },
 
-    toggle(id) {
+    toggle(evt) {
       for (let i = 0, len = this.todo.length; i < len; i++) {
         const item = this.todo[i]
-        if (item.id === id) {
+        if (item.id === Number(evt.target.dataset.id)) {
           item.done = !item.done
           this.computeCount()
           _.update()
@@ -69,10 +69,10 @@ Todo.store = _ => {
       }
     },
 
-    deleteItem(id) {
+    deleteItem(evt) {
       for (let i = 0, len = this.todo.length; i < len; i++) {
         const item = this.todo[i]
-        if (item.id === id) {
+        if (item.id === Number(evt.target.dataset.id)) {
           this.todo.splice(i, 1)
           this.computeCount()
           _.update()

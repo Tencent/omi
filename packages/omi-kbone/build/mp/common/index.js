@@ -196,10 +196,10 @@ module.exports = _defineProperty;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/_omis@1.0.3@omis/dist/omis.esm.js
+// EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
 var omis_esm = __webpack_require__(0);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime@7.5.5@@babel/runtime/helpers/defineProperty.js
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
 var defineProperty = __webpack_require__(1);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
@@ -285,7 +285,9 @@ var todo_Todo = function Todo(props, _ref) {
       left = _ref.left,
       type = _ref.type,
       newTodo = _ref.newTodo,
-      done = _ref.done;
+      done = _ref.done,
+      toggle = _ref.toggle,
+      deleteItem = _ref.deleteItem;
   return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
   }, Object(omis_esm["a" /* h */])("div", {
@@ -308,14 +310,12 @@ var todo_Todo = function Todo(props, _ref) {
       "class": "todo-item".concat(item.done ? ' done' : '')
     }, Object(omis_esm["a" /* h */])("div", {
       "class": "toggle",
-      onClick: function onClick() {
-        this.toggle(item.id);
-      }
+      "data-id": item.id,
+      onClick: toggle
     }), Object(omis_esm["a" /* h */])("text", null, item.text, " "), Object(omis_esm["a" /* h */])("div", {
       "class": "delete",
-      onClick: function onClick() {
-        this.deleteItem(item.id);
-      }
+      "data-id": item.id,
+      onClick: deleteItem
     }));
   })), Object(omis_esm["a" /* h */])(components_todo_footer, {
     onFilter: filter,
@@ -350,11 +350,11 @@ todo_Todo.store = function (_) {
         url: '../about/index'
       });
     },
-    toggle: function toggle(id) {
+    toggle: function toggle(evt) {
       for (var i = 0, len = this.todo.length; i < len; i++) {
         var item = this.todo[i];
 
-        if (item.id === id) {
+        if (item.id === Number(evt.target.dataset.id)) {
           item.done = !item.done;
           this.computeCount();
 
@@ -372,11 +372,11 @@ todo_Todo.store = function (_) {
         this.todo[i].done ? this.done++ : this.left++;
       }
     },
-    deleteItem: function deleteItem(id) {
+    deleteItem: function deleteItem(evt) {
       for (var i = 0, len = this.todo.length; i < len; i++) {
         var item = this.todo[i];
 
-        if (item.id === id) {
+        if (item.id === Number(evt.target.dataset.id)) {
           this.todo.splice(i, 1);
           this.computeCount();
 

@@ -20,9 +20,11 @@ module.exports = {
         onWebviewMessage(evt) {
             this.callSimpleEvent('message', evt)
         },
+
         onWebviewLoad(evt) {
             this.callSimpleEvent('load', evt)
         },
+
         onWebviewError(evt) {
             this.callSimpleEvent('error', evt)
         },

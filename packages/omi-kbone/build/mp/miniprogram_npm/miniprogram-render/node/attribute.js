@@ -1,5 +1,6 @@
 const Pool = require('../util/pool')
 const cache = require('../util/cache')
+const tool = require('../util/tool')
 
 const pool = new Pool()
 
@@ -83,6 +84,9 @@ class Attribute {
             element.className = value
         } else if (name === 'style') {
             element.style.cssText = value
+        } else if (name.indexOf('data-') === 0) {
+            const datasetName = tool.toCamel(name.substr(5))
+            element.dataset[datasetName] = value
         } else {
             const config = cache.getConfig()
 
@@ -114,6 +118,10 @@ class Attribute {
             return element.className
         } else if (name === 'style') {
             return element.style.cssText
+        } else if (name.indexOf('data-') === 0) {
+            const datasetName = tool.toCamel(name.substr(5))
+            if (!element.$__dataset) return undefined
+            return element.dataset[datasetName]
         } else {
             return map[name]
         }
@@ -132,6 +140,10 @@ class Attribute {
             return !!element.className
         } else if (name === 'style') {
             return !!element.style.cssText
+        } else if (name.indexOf('data-') === 0) {
+            const datasetName = tool.toCamel(name.substr(5))
+            if (!element.$__dataset) return false
+            return Object.prototype.hasOwnProperty.call(element.dataset, datasetName)
         } else {
             return Object.prototype.hasOwnProperty.call(map, name)
         }
@@ -148,6 +160,9 @@ class Attribute {
             element.id = ''
         } else if (name === 'class' || name === 'style') {
             this.set(name, '')
+        } else if (name.indexOf('data-') === 0) {
+            const datasetName = tool.toCamel(name.substr(5))
+            if (element.$__dataset) delete element.dataset[datasetName]
         } else {
             // 其他字段的设置需要触发父组件更新
             delete map[name]
@@ -187,19 +202,16 @@ class Attribute {
         const styleValue = this.get('style')
         if (idValue) {
             const item = {name: 'id', value: idValue}
-
             list.push(item)
             list.id = item
         }
         if (classValue) {
             const item = {name: 'class', value: classValue}
-
             list.push(item)
             list.class = item
         }
         if (styleValue) {
             const item = {name: 'style', value: styleValue}
-
             list.push(item)
             list.style = item
         }

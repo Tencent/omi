@@ -37,17 +37,18 @@ module.exports = {
     /**
      * 触发简单节点事件
      */
-    callSimpleEvent(eventName, evt) {
-        if (!this.domNode) return
+    callSimpleEvent(eventName, evt, domNode) {
+        domNode = domNode || this.domNode
+        if (!domNode) return
 
-        this.domNode.$$trigger(eventName, {
+        domNode.$$trigger(eventName, {
             event: new Event({
                 name: eventName,
-                target: this.domNode,
+                target: domNode,
                 eventPhase: Event.AT_TARGET,
                 detail: evt && evt.detail,
             }),
-            currentTarget: this.domNode,
+            currentTarget: domNode,
         })
     },
 
