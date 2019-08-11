@@ -1,3 +1,6 @@
+/**
+ * https://developers.weixin.qq.com/miniprogram/dev/component/map.html
+ */
 module.exports = {
     properties: [{
         name: 'longitude',

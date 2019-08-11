@@ -7,6 +7,7 @@
 * 与 taro 编译型不同，react-kbone 支持完整 JSX 语法，任意位置任意方式书写 JSX
 * 使用最好的 react web 框架 preact，轻量迅速（react 不是最好的 react web 框架） 
 * 一站式接入，webpack、es2018+、babel7+、jsx、hot reload、cli，你想要的都有
+* 由于 3kb preact 加持，生成出的包大小超级小！！
 
 ## 一套语法多端运行
 

@@ -1,3 +1,9 @@
+const mp = require('miniprogram-render')
+
+const {
+    cache,
+} = mp.$$adapter
+
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/component/input.html
  */
@@ -94,6 +100,16 @@ module.exports = {
             const value = domNode.getAttribute('adjust-position')
             return value !== undefined ? !!value : true
         },
+    }, {
+        name: 'checked',
+        get(domNode) {
+            return !!domNode.getAttribute('checked')
+        },
+    }, {
+        name: 'color',
+        get(domNode) {
+            return domNode.getAttribute('color') || '#09BB07'
+        },
     }],
     handles: {
         onInputInput(evt) {
@@ -117,6 +133,35 @@ module.exports = {
 
         onInputKeyBoardHeightChange(evt) {
             this.callSimpleEvent('keyboardheightchange', evt)
+        },
+
+        onRadioChange(evt) {
+            const window = cache.getWindow(this.pageId)
+            const domNode = this.domNode
+            const value = evt.detail.value
+            const name = domNode.name
+            const otherDomNodes = window.document.querySelectorAll(`input[name=${name}]`) || []
+
+            if (value === domNode.value) {
+                domNode.checked = true
+                for (const otherDomNode of otherDomNodes) {
+                    if (otherDomNode.type === 'radio' && otherDomNode !== domNode) {
+                        otherDomNode.checked = false
+                    }
+                }
+            }
+            this.callSimpleEvent('change', evt)
+        },
+
+        onCheckboxChange(evt) {
+            const domNode = this.domNode
+            const value = evt.detail.value || []
+            if (value.indexOf(domNode.value) >= 0) {
+                domNode.checked = true
+            } else {
+                domNode.checked = false
+            }
+            this.callSimpleEvent('change', evt)
         },
     },
 }

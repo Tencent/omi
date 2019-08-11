@@ -6,7 +6,7 @@ const {
     tool,
 } = mp.$$adapter
 
-const ELEMENT_DIFF_KEYS = ['nodeId', 'pageId', 'tagName', 'compName', 'id', 'class', 'style', 'src', 'isImage', 'isLeaf', 'isSimple', 'content']
+const ELEMENT_DIFF_KEYS = ['nodeId', 'pageId', 'tagName', 'compName', 'id', 'class', 'style', 'src', 'mode', 'lazyLoad', 'showMenuByLongpress', 'isImage', 'isLeaf', 'isSimple', 'content']
 const TEXT_NODE_DIFF_KEYS = ['nodeId', 'pageId', 'content']
 const NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT = ['INPUT', 'TEXTAREA', 'VIDEO', 'CANVAS', 'WX-COMPONENT'] // 需要分离 class 和 style 的节点
 const NEET_RENDER_TO_CUSTOM_ELEMENT = ['IFRAME', ...NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT] // 必须渲染成自定义组件的节点
@@ -16,6 +16,7 @@ const WX_COMP_NAME_MAP = {
     button: 'button',
     image: 'image',
     map: 'map',
+    text: 'text',
     'cover-view': 'cover-view',
     'cover-image': 'cover-image',
     'live-player': 'live-player',
@@ -46,8 +47,9 @@ function filterNodes(domNode, level) {
         domInfo.class = `h5-${domInfo.tagName} node-${domInfo.nodeId} ${domInfo.class || ''}` // 增加默认 class
         domInfo.domNode = child
 
-        // 特殊节点不需要处理样式
+        // 特殊节点不需要处理 id 和样式
         if (NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT.indexOf(child.tagName) >= 0) {
+            domInfo.id = ''
             domInfo.class = `h5-${domInfo.tagName}`
             domInfo.style = ''
         }
@@ -56,8 +58,14 @@ function filterNodes(domNode, level) {
         domInfo.isImage = domInfo.type === 'element' && domInfo.tagName === 'img'
         if (domInfo.isImage) {
             domInfo.src = child.src ? tool.completeURL(child.src, window.location.origin, true) : ''
+            domInfo.mode = child.getAttribute('mode') || ''
+            domInfo.lazyLoad = !!child.getAttribute('lazy-load')
+            domInfo.showMenuByLongpress = !!child.getAttribute('show-menu-by-longpress')
         } else {
             domInfo.src = ''
+            domInfo.mode = ''
+            domInfo.lazyLoad = false
+            domInfo.showMenuByLongpress = false
         }
 
         // 判断叶子节点
@@ -122,7 +130,9 @@ function checkComponentAttr(name, domNode, destData, oldData) {
         }
     }
 
-    // 补充 class 和 style
+    // 补充 id、class 和 style
+    const newId = domNode.id
+    if (!oldData || oldData.id !== newId) destData.id = newId
     const newClass = `wx-comp-${name} node-${domNode.$$nodeId} ${domNode.className || ''}`
     if (!oldData || oldData.class !== newClass) destData.class = newClass
     const newStyle = domNode.style.cssText
@@ -152,6 +162,24 @@ function dealWithLeafAndSimple(childNodes, onChildNodesUpdate) {
     return childNodes
 }
 
+/**
+ * 检查事件是否经过某个节点
+ */
+function checkEventAccessDomNode(evt, domNode, dest) {
+    dest = dest || domNode.ownerDocument.body
+    let target = evt.target
+
+    // 该节点就是目标节点
+    if (domNode === dest) return true
+
+    while (target && target !== dest) {
+        if (target === domNode) return true
+        target = target.parentNode
+    }
+
+    return false
+}
+
 module.exports = {
     WX_COMP_NAME_MAP,
     NOT_SUPPORT,
@@ -159,4 +187,5 @@ module.exports = {
     checkDiffChildNodes,
     checkComponentAttr,
     dealWithLeafAndSimple,
+    checkEventAccessDomNode,
 }
