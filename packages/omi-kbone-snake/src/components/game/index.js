@@ -11,7 +11,7 @@ for(let i = 0;i<16;i++){
   arr.push(row)
 }
 
-const TodoFooter = ({ left, type, done }, { showAll, showActive, showDone, clearDone }) => {
+const Game = ({ left, type, done }, { showAll, showActive, showDone, clearDone }) => {
   return <div class="game">
     {arr.map(row=>{
       return  <p>
@@ -28,7 +28,7 @@ const TodoFooter = ({ left, type, done }, { showAll, showActive, showDone, clear
   </div>
 }
 
-TodoFooter.store = ({props})=> {
+Game.store = ({props})=> {
   return {
     showAll() {
       props.onFilter('all')
@@ -48,4 +48,4 @@ TodoFooter.store = ({props})=> {
   }
 }
 
-export default TodoFooter
+export default Game

@@ -1,12 +1,12 @@
 import { render, h } from 'omis'
-import Todo from './components/todo'
+import Snake from './components/snake'
 
 export default function createApp() {
   const container = document.createElement('div')
   container.id = 'app'
   document.body.appendChild(container)
 
-  render(<Todo />, '#app')
+  render(<Snake />, '#app')
 }
 
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp()

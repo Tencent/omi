@@ -149,7 +149,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([5,0]);
+/******/ 	deferredModules.push([4,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -157,24 +157,9 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/ ([
 /* 0 */,
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-module.exports = _defineProperty;
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 /* 2 */
@@ -183,49 +168,39 @@ module.exports = _defineProperty;
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-/* 4 */,
-/* 5 */
+/* 3 */,
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/_omis@1.0.3@omis/dist/omis.esm.js
+// EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
 var omis_esm = __webpack_require__(0);
 
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime@7.5.5@@babel/runtime/helpers/defineProperty.js
-var defineProperty = __webpack_require__(1);
-var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
-
-// EXTERNAL MODULE: ./src/components/todo/_index.css
-var _index = __webpack_require__(2);
+// EXTERNAL MODULE: ./src/components/snake/_index.css
+var _index = __webpack_require__(1);
 var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
 
-// EXTERNAL MODULE: ./src/components/todo-footer/index.css
-var todo_footer = __webpack_require__(3);
+// EXTERNAL MODULE: ./src/components/game/index.css
+var game = __webpack_require__(2);
 
-// CONCATENATED MODULE: ./src/components/todo-footer/index.js
+// CONCATENATED MODULE: ./src/components/game/index.js
 
 
 var arr = [];
 
 for (var i = 0; i < 16; i++) {
-  var todo_footer_row = [];
+  var game_row = [];
 
   for (var j = 0; j < 16; j++) {
-    todo_footer_row.push(0);
+    game_row.push(0);
   }
 
-  arr.push(todo_footer_row);
+  arr.push(game_row);
 }
 
-var todo_footer_TodoFooter = function TodoFooter(_ref, _ref2) {
+var game_Game = function Game(_ref, _ref2) {
   var left = _ref.left,
       type = _ref.type,
       done = _ref.done;
@@ -248,7 +223,7 @@ var todo_footer_TodoFooter = function TodoFooter(_ref, _ref2) {
   }));
 };
 
-todo_footer_TodoFooter.store = function (_ref3) {
+game_Game.store = function (_ref3) {
   var props = _ref3.props;
   return {
     showAll: function showAll() {
@@ -266,17 +241,16 @@ todo_footer_TodoFooter.store = function (_ref3) {
   };
 };
 
-/* harmony default export */ var components_todo_footer = (todo_footer_TodoFooter);
-// CONCATENATED MODULE: ./src/components/todo/index.js
+/* harmony default export */ var components_game = (game_Game);
+// CONCATENATED MODULE: ./src/components/snake/index.js
 
 
 
 
-
-var todo_Todo = function Todo(props, store) {
+var snake_Snake = function Snake(props, store) {
   return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
-  }, Object(omis_esm["a" /* h */])(components_todo_footer, null), Object(omis_esm["a" /* h */])("div", {
+  }, Object(omis_esm["a" /* h */])(components_game, null), Object(omis_esm["a" /* h */])("div", {
     "class": "ctrl",
     style: "margin-top: 20rpx;"
   }, Object(omis_esm["a" /* h */])("div", {
@@ -346,140 +320,12 @@ var todo_Todo = function Todo(props, store) {
   }, "Pause(P)"))));
 };
 
-todo_Todo.store = function (_) {
-  var _ref;
-
-  return _ref = {
-    todo: [{
-      text: '学习 Kbone',
-      id: 0
-    }, {
-      text: '学习 Omi',
-      id: 1
-    }],
-    id: 1,
-    inputText: '',
-    left: 2,
-    type: 'all',
-    done: 0,
-    textInput: function textInput(evt) {
-      this.inputText = evt.target.value;
-    },
-    gotoAbout: function gotoAbout() {
-      wx.navigateTo({
-        url: '../about/index'
-      });
-    },
-    toggle: function toggle(evt) {
-      for (var i = 0, len = this.todo.length; i < len; i++) {
-        var item = this.todo[i];
-
-        if (item.id === Number(evt.target.dataset.id)) {
-          item.done = !item.done;
-          this.computeCount();
-
-          _.update();
-
-          break;
-        }
-      }
-    },
-    computeCount: function computeCount() {
-      this.left = 0;
-      this.done = 0;
-
-      for (var i = 0, len = this.todo.length; i < len; i++) {
-        this.todo[i].done ? this.done++ : this.left++;
-      }
-    },
-    deleteItem: function deleteItem(evt) {
-      for (var i = 0, len = this.todo.length; i < len; i++) {
-        var item = this.todo[i];
-
-        if (item.id === Number(evt.target.dataset.id)) {
-          this.todo.splice(i, 1);
-          this.computeCount();
-
-          _.update();
-
-          break;
-        }
-      }
-    },
-    newTodo: function newTodo() {
-      if (this.inputText.trim() === '') {
-        wx.showToast({
-          title: '内容不能为空',
-          icon: 'none',
-          duration: 2000
-        });
-        return;
-      }
-
-      this.todo.unshift({
-        text: this.inputText,
-        id: ++this.id,
-        done: false,
-        createTime: new Date()
-      });
-      this.computeCount();
-      this.inputText = '';
-
-      _.update();
-    },
-    installed: function installed() {},
-    filter: function filter(type) {
-      //因为是自定义事件
-      //注意这里的 this 指向，不能直接 this.type = type
-      _.store.type = type;
-
-      _.update();
-    },
-    clear: function clear(evt) {
-      //因为是自定义事件
-      //注意这里的 this 指向
-      var self = _.store;
-      wx.showModal({
-        title: '提示',
-        content: '确定清空已完成任务？',
-        success: function success(res) {
-          if (res.confirm) {
-            for (var i = 0, len = self.todo.length; i < len; i++) {
-              var item = self.todo[i];
-
-              if (item.done) {
-                self.todo.splice(i, 1);
-                len--;
-                i--;
-              }
-            }
-
-            self.done = 0;
-
-            _.update();
-          } else if (res.cancel) {
-            console.log('用户点击取消');
-          }
-        }
-      });
-    }
-  }, defineProperty_default()(_ref, "gotoAbout", function gotoAbout() {
-    wx.navigateTo({
-      url: '../about/index'
-    });
-  }), defineProperty_default()(_ref, "clickHandle", function clickHandle() {
-    if ("undefined" != typeof wx && wx.getSystemInfoSync) {
-      wx.navigateTo({
-        url: '../log/index?id=1'
-      });
-    } else {
-      location.href = 'log.html';
-    }
-  }), _ref;
+snake_Snake.store = function (_) {
+  return {};
 };
 
-todo_Todo.css = _index_default.a;
-/* harmony default export */ var todo = (todo_Todo);
+snake_Snake.css = _index_default.a;
+/* harmony default export */ var snake = (snake_Snake);
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 
@@ -488,7 +334,7 @@ function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(todo, null), '#app');
+  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(snake, null), '#app');
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 
