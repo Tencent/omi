@@ -92,11 +92,8 @@ npm run build    //发布 web
 						src="https://raw.githubusercontent.com/wechat-miniprogram/kbone/develop/docs/images/code1.jpg"></a></td>
 			<td><a target="_blank" href="http://omijs.org"><img width="260px"
 						src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud.jpg"></a></td>
-			<td width="260px"><a target="_blank" href="https://github.com/Tencent/omi/issues/new">告诉我们</a></td>
-			
-		</tr>
+			<td width="120px"><a target="_blank" href="https://github.com/Tencent/omi/issues/new">告诉我们</a></td>
 		
-	</tbody>
 </table>
 
 ## 注意事项和已知问题
