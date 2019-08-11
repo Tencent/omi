@@ -37,7 +37,9 @@ define('page-about', class extends WeElement {
           data: {
             // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
             md: data.md,
-            title: 'test',
+            title: 'Kbone',
+            type: 'mp',
+            order: 79,
             createTime: app.globalData.db.serverDate()
           },
           success: (res) => {
