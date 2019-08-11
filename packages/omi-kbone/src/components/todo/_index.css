@@ -138,3 +138,8 @@ todo-footer{
   right: 30rpx;
   top: 50rpx;
 }
+
+
+.add-btn:active{
+  background-color: #ddd;
+}

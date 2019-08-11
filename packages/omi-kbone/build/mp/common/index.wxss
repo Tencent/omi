@@ -139,6 +139,11 @@ todo-footer{
   top: 50rpx;
 }
 
+
+.add-btn:active{
+  background-color: #ddd;
+}
+
 .h5-button {
   background: none;
   font-size: 30rpx;
