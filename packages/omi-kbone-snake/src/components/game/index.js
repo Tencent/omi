@@ -13,31 +13,9 @@ const Game = ({ }, { }, _, { data }) => {
           })}
       </p>
     })}
-
-
   </div>
 }
 
 Game.use = ['map']
-
-Game.store = ({props})=> {
-  return {
-    showAll() {
-      props.onFilter('all')
-    },
-
-    showActive() {
-      props.onFilter('active')
-    },
-
-    showDone() {
-      props.onFilter('done')
-    },
-
-    clearDone() {
-      props.onClear()
-    }
-  }
-}
 
 export default Game

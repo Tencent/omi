@@ -260,25 +260,6 @@ var game_Game = function Game(_ref, _ref2, _, _ref3) {
 };
 
 game_Game.use = ['map'];
-
-game_Game.store = function (_ref4) {
-  var props = _ref4.props;
-  return {
-    showAll: function showAll() {
-      props.onFilter('all');
-    },
-    showActive: function showActive() {
-      props.onFilter('active');
-    },
-    showDone: function showDone() {
-      props.onFilter('done');
-    },
-    clearDone: function clearDone() {
-      props.onClear();
-    }
-  };
-};
-
 /* harmony default export */ var components_game = (game_Game);
 // CONCATENATED MODULE: ./src/components/index/index.js
 
