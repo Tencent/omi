@@ -98,7 +98,7 @@ npm run build    //发布 web
 		
 </table>
 
-## 注意事项和已知问题
+## 注意事项
 
 * 不要使用 bindtap，使用 onClick
 * 图片请使用 cdn 地址或者 base64
