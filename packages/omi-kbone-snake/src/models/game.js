@@ -15,9 +15,9 @@ class Game {
 
     this.snake = new Snake
 
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < this.size; i++) {
       const row = []
-      for (let j = 0; j < 16; j++) {
+      for (let j = 0; j < this.size; j++) {
         row.push(0)
       }
       this.map.push(row)
@@ -26,12 +26,10 @@ class Game {
 
   tick() {
 
-
     this.snake.move()
 
     const map = this.map
     for (let i = 0; i < this.size; i++) {
-
       for (let j = 0; j < this.size; j++) {
         map[i][j] = 0
       }
@@ -49,31 +47,36 @@ class Game {
 
   start() {
     this.loop = setInterval(() => {
-      if(Date.now() - this._preDate > this.interval){
+      if (Date.now() - this._preDate > this.interval) {
         this._preDate = Date.now()
-        if(!this.paused){
+        if (!this.paused) {
           this.tick()
         }
       }
     }, 16)
   }
 
-  stop(){
+  stop() {
     clearInterval(this.loop)
   }
 
-  pause(){
+  pause() {
     this.paused = true
   }
 
-  play(){
+  play() {
     this.paused = false
   }
 
-  reset(){
+  reset() {
+    this.paused = false
     this.interval = 500
     this.snake.body = [3, 1, 2, 1, 1, 1]
     this.snake.dir = 'right'
+  }
+
+  toggleSpeed() {
+    this.interval === 500 ? (this.interval = 150) : (this.interval = 500)
   }
 }
 

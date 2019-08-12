@@ -439,10 +439,10 @@ function () {
     value: function init() {
       this.snake = new snake();
 
-      for (var i = 0; i < 16; i++) {
+      for (var i = 0; i < this.size; i++) {
         var row = [];
 
-        for (var j = 0; j < 16; j++) {
+        for (var j = 0; j < this.size; j++) {
           row.push(0);
         }
 
@@ -502,9 +502,15 @@ function () {
   }, {
     key: "reset",
     value: function reset() {
+      this.paused = false;
       this.interval = 500;
       this.snake.body = [3, 1, 2, 1, 1, 1];
       this.snake.dir = 'right';
+    }
+  }, {
+    key: "toggleSpeed",
+    value: function toggleSpeed() {
+      this.interval === 500 ? this.interval = 150 : this.interval = 500;
     }
   }]);
 
@@ -545,7 +551,7 @@ stores_game.start();
     stores_game.reset();
   },
   toggleSpeed: function toggleSpeed() {
-    stores_game.interval === 500 ? stores_game.interval = 150 : stores_game.interval = 500;
+    stores_game.toggleSpeed();
   }
 });
 // CONCATENATED MODULE: ./src/index.js

@@ -32,6 +32,6 @@ export default {
     game.reset()
   },
   toggleSpeed() {
-    game.interval === 500 ? (game.interval = 150) : (game.interval = 500)
+    game.toggleSpeed()
   }
 }
