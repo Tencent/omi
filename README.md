@@ -7,6 +7,8 @@ English | [简体中文](./README.CN.md)
 
 ## Ecosystem of Omi
 
+[→ Omi Developer Roadmap](https://github.com/Tencent/omi/tree/master/assets/rm.md)
+
 #### Base
 
 | **Project**                         | **Description**                           |
