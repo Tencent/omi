@@ -3,7 +3,7 @@ import './index.css'
 
 const Game = ({ }, { }, _, { data }) => {
   return <div class="game">
-    {data.arr.map(row=>{
+    {data.map.map(row=>{
       return  <p>
           {row.map(col=>{
             if(col){
@@ -18,7 +18,7 @@ const Game = ({ }, { }, _, { data }) => {
   </div>
 }
 
-Game.use = ['arr']
+Game.use = ['map']
 
 Game.store = ({props})=> {
   return {

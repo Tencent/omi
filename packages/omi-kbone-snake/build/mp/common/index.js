@@ -149,7 +149,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([6,0]);
+/******/ 	deferredModules.push([7,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -157,19 +157,6 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/ ([
 /* 0 */,
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-/* 3 */,
-/* 4 */
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) {
@@ -181,7 +168,7 @@ function _classCallCheck(instance, Constructor) {
 module.exports = _classCallCheck;
 
 /***/ }),
-/* 5 */
+/* 2 */
 /***/ (function(module, exports) {
 
 function _defineProperties(target, props) {
@@ -203,7 +190,30 @@ function _createClass(Constructor, protoProps, staticProps) {
 module.exports = _createClass;
 
 /***/ }),
-/* 6 */
+/* 3 */
+/***/ (function(module, exports) {
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+module.exports = _objectDestructuringEmpty;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 6 */,
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -212,16 +222,16 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
 var omis_esm = __webpack_require__(0);
 
-// EXTERNAL MODULE: ./src/components/snake/_index.css
-var _index = __webpack_require__(1);
+// EXTERNAL MODULE: ./src/components/index/_index.css
+var _index = __webpack_require__(4);
 var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(7);
+var objectDestructuringEmpty = __webpack_require__(3);
 var objectDestructuringEmpty_default = /*#__PURE__*/__webpack_require__.n(objectDestructuringEmpty);
 
 // EXTERNAL MODULE: ./src/components/game/index.css
-var game = __webpack_require__(2);
+var game = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./src/components/game/index.js
 
@@ -236,7 +246,7 @@ var game_Game = function Game(_ref, _ref2, _, _ref3) {
   var data = _ref3.data;
   return Object(omis_esm["a" /* h */])("div", {
     "class": "game"
-  }, data.arr.map(function (row) {
+  }, data.map.map(function (row) {
     return Object(omis_esm["a" /* h */])("p", null, row.map(function (col) {
       if (col) {
         return Object(omis_esm["a" /* h */])("b", {
@@ -249,7 +259,7 @@ var game_Game = function Game(_ref, _ref2, _, _ref3) {
   }));
 };
 
-game_Game.use = ['arr'];
+game_Game.use = ['map'];
 
 game_Game.store = function (_ref4) {
   var props = _ref4.props;
@@ -270,12 +280,12 @@ game_Game.store = function (_ref4) {
 };
 
 /* harmony default export */ var components_game = (game_Game);
-// CONCATENATED MODULE: ./src/components/snake/index.js
+// CONCATENATED MODULE: ./src/components/index/index.js
 
 
 
 
-var snake_Snake = function Snake(props, store, _, $) {
+var index_Index = function Index(props, store, _, $) {
   return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
   }, Object(omis_esm["a" /* h */])(components_game, null), Object(omis_esm["a" /* h */])("div", {
@@ -323,54 +333,46 @@ var snake_Snake = function Snake(props, store, _, $) {
     "class": ""
   }, "Right")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn cm-btn space",
+    onClick: $.toggleSpeed,
     style: "top: 100rpx; left: 52rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
   }), Object(omis_esm["a" /* h */])("span", {
     "class": ""
-  }, "Drop (SPACE)")), Object(omis_esm["a" /* h */])("div", {
+  }, "\u52A0\u901F/\u51CF\u901F")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn dg small",
-    style: "top: 0rpx; left: 196rpx;"
+    onClick: $.reset,
+    style: "top: 0rpx; left: 156rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
   }), Object(omis_esm["a" /* h */])("span", {
     "class": ""
   }, "Reset(R)")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn RBZg small",
-    style: "top: 0rpx; left: 106rpx;"
+    onClick: $.pauseOrPlay,
+    style: "top: 0rpx; left: 60rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
   }), Object(omis_esm["a" /* h */])("span", {
     "class": ""
-  }, "Sound(S)")), Object(omis_esm["a" /* h */])("div", {
-    "class": "btn RBZg small",
-    style: "top: 0rpx; left: 16rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "Pause(P)"))));
+  }, "Pause/Play"))));
 };
 
-snake_Snake.store = function (_) {
-  return {};
-};
-
-snake_Snake.css = _index_default.a;
-/* harmony default export */ var snake = (snake_Snake);
+index_Index.css = _index_default.a;
+/* harmony default export */ var index = (index_Index);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
-var classCallCheck = __webpack_require__(4);
+var classCallCheck = __webpack_require__(1);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
-var createClass = __webpack_require__(5);
+var createClass = __webpack_require__(2);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // CONCATENATED MODULE: ./src/models/snake.js
 
 
 
-var models_snake_Snake =
+var snake_Snake =
 /*#__PURE__*/
 function () {
   function Snake() {
@@ -430,45 +432,114 @@ function () {
   return Snake;
 }();
 
-/* harmony default export */ var models_snake = (models_snake_Snake);
+/* harmony default export */ var snake = (snake_Snake);
+// CONCATENATED MODULE: ./src/models/game.js
+
+
+
+
+var models_game_Game =
+/*#__PURE__*/
+function () {
+  function Game() {
+    classCallCheck_default()(this, Game);
+
+    this.map = [];
+    this.size = 16;
+    this.loop = null;
+    this.interval = 500;
+    this.paused = false;
+    this._preDate = Date.now();
+    this.init();
+  }
+
+  createClass_default()(Game, [{
+    key: "init",
+    value: function init() {
+      this.snake = new snake();
+
+      for (var i = 0; i < 16; i++) {
+        var row = [];
+
+        for (var j = 0; j < 16; j++) {
+          row.push(0);
+        }
+
+        this.map.push(row);
+      }
+    }
+  }, {
+    key: "tick",
+    value: function tick() {
+      this.snake.move();
+      var map = this.map;
+
+      for (var i = 0; i < this.size; i++) {
+        for (var j = 0; j < this.size; j++) {
+          map[i][j] = 0;
+        }
+      }
+
+      for (var k = 0, len = this.snake.body.length; k < len; k += 2) {
+        this.snake.body[k + 1] %= this.size;
+        this.snake.body[k] %= this.size;
+        if (this.snake.body[k + 1] < 0) this.snake.body[k + 1] += this.size;
+        if (this.snake.body[k] < 0) this.snake.body[k] += this.size;
+        map[this.snake.body[k + 1]][this.snake.body[k]] = 1;
+      }
+    }
+  }, {
+    key: "start",
+    value: function start() {
+      var _this = this;
+
+      this.loop = setInterval(function () {
+        if (Date.now() - _this._preDate > _this.interval) {
+          _this._preDate = Date.now();
+
+          if (!_this.paused) {
+            _this.tick();
+          }
+        }
+      }, 16);
+    }
+  }, {
+    key: "stop",
+    value: function stop() {
+      clearInterval(this.loop);
+    }
+  }, {
+    key: "pause",
+    value: function pause() {
+      this.paused = true;
+    }
+  }, {
+    key: "play",
+    value: function play() {
+      this.paused = false;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.interval = 500;
+      this.snake.body = [3, 1, 2, 1, 1, 1];
+      this.snake.dir = 'right';
+    }
+  }]);
+
+  return Game;
+}();
+
+/* harmony default export */ var models_game = (models_game_Game);
 // CONCATENATED MODULE: ./src/stores/index.js
 
-var arr = [];
-var stores_snake = new models_snake();
-
-for (var i = 0; i < 16; i++) {
-  var stores_row = [];
-
-  for (var j = 0; j < 16; j++) {
-    stores_row.push(0);
-  }
-
-  arr.push(stores_row);
-}
-
-function tick() {
-  for (var _i = 0; _i < 16; _i++) {
-    for (var _j = 0; _j < 16; _j++) {
-      arr[_i][_j] = 0;
-    }
-  }
-
-  for (var k = 0, len = stores_snake.body.length; k < len; k += 2) {
-    stores_snake.body[k + 1] %= 16;
-    stores_snake.body[k] %= 16;
-    if (stores_snake.body[k + 1] < 0) stores_snake.body[k + 1] += 16;
-    if (stores_snake.body[k] < 0) stores_snake.body[k] += 16;
-    arr[stores_snake.body[k + 1]][stores_snake.body[k]] = 1;
-  }
-}
-
-setInterval(function () {
-  stores_snake.move();
-  tick();
-}, 500);
+var stores_game = new models_game();
+var stores_snake = stores_game.snake,
+    map = stores_game.map;
+stores_game.start();
 /* harmony default export */ var stores = ({
   data: {
-    arr: arr
+    map: map
   },
   turnUp: function turnUp() {
     stores_snake.turnUp();
@@ -481,6 +552,19 @@ setInterval(function () {
   },
   turnLeft: function turnLeft() {
     stores_snake.turnLeft();
+  },
+  pauseOrPlay: function pauseOrPlay() {
+    if (stores_game.paused) {
+      stores_game.play();
+    } else {
+      stores_game.pause();
+    }
+  },
+  reset: function reset() {
+    stores_game.reset();
+  },
+  toggleSpeed: function toggleSpeed() {
+    stores_game.interval === 500 ? stores_game.interval = 150 : stores_game.interval = 500;
   }
 });
 // CONCATENATED MODULE: ./src/index.js
@@ -492,19 +576,9 @@ function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(snake, null), '#app', stores);
+  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(index, null), '#app', stores);
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-function _objectDestructuringEmpty(obj) {
-  if (obj == null) throw new TypeError("Cannot destructure undefined");
-}
-
-module.exports = _objectDestructuringEmpty;
 
 /***/ })
 /******/ ])["default"];}

@@ -1,44 +1,13 @@
-import Snake from '../models/snake'
+import Game from '../models/game'
 
-const arr = []
+const game = new Game
+const { snake, map } = game
 
-const snake = new Snake
-
-for (let i = 0; i < 16; i++) {
-  const row = []
-  for (let j = 0; j < 16; j++) {
-    row.push(0)
-  }
-  arr.push(row)
-}
-
-function tick() {
-  for (let i = 0; i < 16; i++) {
-
-    for (let j = 0; j < 16; j++) {
-      arr[i][j] = 0
-    }
-  }
-
-  for (let k = 0, len = snake.body.length; k < len; k += 2) {
-    snake.body[k + 1] %= 16
-    snake.body[k] %= 16
-
-    if(snake.body[k + 1]<0)snake.body[k + 1]+=16
-    if(snake.body[k]<0)snake.body[k]+=16
-    arr[snake.body[k + 1]][snake.body[k]] = 1
-  }
-}
-
-
-setInterval(() => {
-  snake.move()
-  tick()
-}, 500)
+game.start()
 
 export default {
   data: {
-    arr
+    map
   },
   turnUp() {
     snake.turnUp()
@@ -51,5 +20,18 @@ export default {
   },
   turnLeft() {
     snake.turnLeft()
+  },
+  pauseOrPlay() {
+    if (game.paused) {
+      game.play()
+    } else {
+      game.pause()
+    }
+  },
+  reset() {
+    game.reset()
+  },
+  toggleSpeed() {
+    game.interval === 500 ? (game.interval = 150) : (game.interval = 500)
   }
 }

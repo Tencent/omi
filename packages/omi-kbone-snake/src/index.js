@@ -1,5 +1,5 @@
 import { render, h } from 'omis'
-import Snake from './components/snake'
+import Index from './components/index'
 import store from './stores/index'
 
 export default function createApp() {
@@ -7,7 +7,7 @@ export default function createApp() {
   container.id = 'app'
   document.body.appendChild(container)
 
-  render(<Snake />, '#app', store)
+  render(<Index />, '#app', store)
 }
 
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp()
