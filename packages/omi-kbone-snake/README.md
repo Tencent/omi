@@ -78,7 +78,9 @@ npm run build    //发布 web
 ├─ scripts
 ├─ src
 │  ├─ assets
-│  ├─ components    //存放所有组件
+│  ├─ components    //存放所有页面的组件
+│  ├─ models        //存放所有模型
+│  ├─ stores        //存放页面的 store
 │  ├─ log.js        //入口文件，会 build 成  log.html
 │  └─ index.js      //入口文件，会 build 成  index.html
 ```
