@@ -149,7 +149,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([4,0]);
+/******/ 	deferredModules.push([6,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -170,6 +170,40 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /***/ }),
 /* 3 */,
 /* 4 */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+module.exports = _classCallCheck;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+module.exports = _createClass;
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -182,35 +216,27 @@ var omis_esm = __webpack_require__(0);
 var _index = __webpack_require__(1);
 var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js
+var objectDestructuringEmpty = __webpack_require__(7);
+var objectDestructuringEmpty_default = /*#__PURE__*/__webpack_require__.n(objectDestructuringEmpty);
+
 // EXTERNAL MODULE: ./src/components/game/index.css
 var game = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./src/components/game/index.js
 
 
-var arr = [];
 
-for (var i = 0; i < 16; i++) {
-  var game_row = [];
 
-  for (var j = 0; j < 16; j++) {
-    game_row.push(0);
-  }
+var game_Game = function Game(_ref, _ref2, _, _ref3) {
+  objectDestructuringEmpty_default()(_ref);
 
-  arr.push(game_row);
-}
+  objectDestructuringEmpty_default()(_ref2);
 
-var game_Game = function Game(_ref, _ref2) {
-  var left = _ref.left,
-      type = _ref.type,
-      done = _ref.done;
-  var showAll = _ref2.showAll,
-      showActive = _ref2.showActive,
-      showDone = _ref2.showDone,
-      clearDone = _ref2.clearDone;
+  var data = _ref3.data;
   return Object(omis_esm["a" /* h */])("div", {
     "class": "game"
-  }, arr.map(function (row) {
+  }, data.arr.map(function (row) {
     return Object(omis_esm["a" /* h */])("p", null, row.map(function (col) {
       if (col) {
         return Object(omis_esm["a" /* h */])("b", {
@@ -223,8 +249,10 @@ var game_Game = function Game(_ref, _ref2) {
   }));
 };
 
-game_Game.store = function (_ref3) {
-  var props = _ref3.props;
+game_Game.use = ['arr'];
+
+game_Game.store = function (_ref4) {
+  var props = _ref4.props;
   return {
     showAll: function showAll() {
       props.onFilter('all');
@@ -326,17 +354,123 @@ snake_Snake.store = function (_) {
 
 snake_Snake.css = _index_default.a;
 /* harmony default export */ var snake = (snake_Snake);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
+var classCallCheck = __webpack_require__(4);
+var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
+var createClass = __webpack_require__(5);
+var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
+
+// CONCATENATED MODULE: ./src/models/snake.js
+
+
+
+var models_snake_Snake =
+/*#__PURE__*/
+function () {
+  function Snake() {
+    classCallCheck_default()(this, Snake);
+
+    this.body = [3, 1, 2, 1, 1, 1];
+    this.dir = 'right';
+  }
+
+  createClass_default()(Snake, [{
+    key: "move",
+    value: function move() {
+      var b = this.body;
+      b.pop();
+      b.pop();
+
+      switch (this.dir) {
+        case 'top':
+          b.unshift(b[0], b[1] - 1);
+          break;
+
+        case 'right':
+          b.unshift(b[0] + 1, b[1]);
+          break;
+
+        case 'down':
+          b.unshift(b[0], b[1] + 1);
+          break;
+
+        case 'left':
+          b.unshift(b[0] - 1, b[1]);
+          break;
+      }
+    }
+  }]);
+
+  return Snake;
+}();
+
+/* harmony default export */ var models_snake = (models_snake_Snake);
+// CONCATENATED MODULE: ./src/stores/index.js
+
+var arr = [];
+var stores_snake = new models_snake();
+
+for (var i = 0; i < 16; i++) {
+  var stores_row = [];
+
+  for (var j = 0; j < 16; j++) {
+    stores_row.push(0);
+  }
+
+  arr.push(stores_row);
+}
+
+function tick() {
+  for (var _i = 0; _i < 16; _i++) {
+    for (var _j = 0; _j < 16; _j++) {
+      arr[_i][_j] = 0;
+    }
+  }
+
+  for (var k = 0, len = stores_snake.body.length; k < len; k += 2) {
+    arr[stores_snake.body[k + 1]][stores_snake.body[k]] = 1;
+  }
+}
+
+setInterval(function () {
+  stores_snake.move();
+  tick();
+}, 1000);
+/* harmony default export */ var stores = ({
+  data: {
+    arr: arr
+  },
+  sub: function sub() {
+    this.data.count--;
+  },
+  add: function add() {
+    this.data.count++;
+  }
+});
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
+
 
 
 function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(snake, null), '#app');
+  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(snake, null), '#app', stores);
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+module.exports = _objectDestructuringEmpty;
 
 /***/ })
 /******/ ])["default"];}

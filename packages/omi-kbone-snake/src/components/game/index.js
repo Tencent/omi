@@ -1,19 +1,9 @@
 import { h } from 'omis'
 import './index.css'
 
-const arr = []
-
-for(let i = 0;i<16;i++){
-  const row = []
-  for(let j = 0;j<16;j++){
-    row.push(0)
-  }
-  arr.push(row)
-}
-
-const Game = ({ left, type, done }, { showAll, showActive, showDone, clearDone }) => {
+const Game = ({ }, { }, _, { data }) => {
   return <div class="game">
-    {arr.map(row=>{
+    {data.arr.map(row=>{
       return  <p>
           {row.map(col=>{
             if(col){
@@ -27,6 +17,8 @@ const Game = ({ left, type, done }, { showAll, showActive, showDone, clearDone }
 
   </div>
 }
+
+Game.use = ['arr']
 
 Game.store = ({props})=> {
   return {
