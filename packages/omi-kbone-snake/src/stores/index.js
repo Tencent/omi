@@ -21,6 +21,11 @@ function tick() {
   }
 
   for (let k = 0, len = snake.body.length; k < len; k += 2) {
+    snake.body[k + 1] %= 16
+    snake.body[k] %= 16
+
+    if(snake.body[k + 1]<0)snake.body[k + 1]+=16
+    if(snake.body[k]<0)snake.body[k]+=16
     arr[snake.body[k + 1]][snake.body[k]] = 1
   }
 }
@@ -29,16 +34,22 @@ function tick() {
 setInterval(() => {
   snake.move()
   tick()
-}, 1000)
+}, 500)
 
 export default {
   data: {
     arr
   },
-  sub() {
-    this.data.count--
+  turnUp() {
+    snake.turnUp()
   },
-  add() {
-    this.data.count++
+  turnRight() {
+    snake.turnRight()
+  },
+  turnDown() {
+    snake.turnDown()
+  },
+  turnLeft() {
+    snake.turnLeft()
   }
 }

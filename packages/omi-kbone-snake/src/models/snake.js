@@ -9,7 +9,7 @@ class Snake {
     b.pop()
     b.pop()
     switch (this.dir) {
-      case 'top':
+      case 'up':
         b.unshift(b[0], b[1] - 1)
         break
       case 'right':
@@ -22,6 +22,23 @@ class Snake {
         b.unshift(b[0] - 1, b[1])
         break
     }
+  }
+
+  turnUp() {
+    if (this.dir !== 'down')
+      this.dir = 'up'
+  }
+  turnRight() {
+    if (this.dir !== 'left')
+      this.dir = 'right'
+  }
+  turnDown() {
+    if (this.dir !== 'up')
+      this.dir = 'down'
+  }
+  turnLeft() {
+    if (this.dir !== 'right')
+      this.dir = 'left'
   }
 }
 

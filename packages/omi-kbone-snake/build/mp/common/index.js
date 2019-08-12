@@ -275,7 +275,7 @@ game_Game.store = function (_ref4) {
 
 
 
-var snake_Snake = function Snake(props, store) {
+var snake_Snake = function Snake(props, store, _, $) {
   return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
   }, Object(omis_esm["a" /* h */])(components_game, null), Object(omis_esm["a" /* h */])("div", {
@@ -283,6 +283,7 @@ var snake_Snake = function Snake(props, store) {
     style: "margin-top: 20rpx;"
   }, Object(omis_esm["a" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir",
+    onClick: $.turnUp,
     style: "top: 0rpx; left: 374rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
@@ -290,8 +291,9 @@ var snake_Snake = function Snake(props, store) {
     style: "transform: translate(0rpx, 63rpx) scale(1, 2);"
   }), Object(omis_esm["a" /* h */])("span", {
     "class": "_1zCL"
-  }, "Rotation")), Object(omis_esm["a" /* h */])("div", {
+  }, "Up")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir",
+    onClick: $.turnDown,
     style: "top: 180rpx; left: 374rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
@@ -301,6 +303,7 @@ var snake_Snake = function Snake(props, store) {
     "class": ""
   }, "Down")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir",
+    onClick: $.turnLeft,
     style: "top: 90rpx; left: 284rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
@@ -310,6 +313,7 @@ var snake_Snake = function Snake(props, store) {
     "class": ""
   }, "Left")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir",
+    onClick: $.turnRight,
     style: "top: 90rpx; left: 464rpx;"
   }, Object(omis_esm["a" /* h */])("i", {
     "class": ""
@@ -384,7 +388,7 @@ function () {
       b.pop();
 
       switch (this.dir) {
-        case 'top':
+        case 'up':
           b.unshift(b[0], b[1] - 1);
           break;
 
@@ -400,6 +404,26 @@ function () {
           b.unshift(b[0] - 1, b[1]);
           break;
       }
+    }
+  }, {
+    key: "turnUp",
+    value: function turnUp() {
+      if (this.dir !== 'down') this.dir = 'up';
+    }
+  }, {
+    key: "turnRight",
+    value: function turnRight() {
+      if (this.dir !== 'left') this.dir = 'right';
+    }
+  }, {
+    key: "turnDown",
+    value: function turnDown() {
+      if (this.dir !== 'up') this.dir = 'down';
+    }
+  }, {
+    key: "turnLeft",
+    value: function turnLeft() {
+      if (this.dir !== 'right') this.dir = 'left';
     }
   }]);
 
@@ -430,6 +454,10 @@ function tick() {
   }
 
   for (var k = 0, len = stores_snake.body.length; k < len; k += 2) {
+    stores_snake.body[k + 1] %= 16;
+    stores_snake.body[k] %= 16;
+    if (stores_snake.body[k + 1] < 0) stores_snake.body[k + 1] += 16;
+    if (stores_snake.body[k] < 0) stores_snake.body[k] += 16;
     arr[stores_snake.body[k + 1]][stores_snake.body[k]] = 1;
   }
 }
@@ -437,16 +465,22 @@ function tick() {
 setInterval(function () {
   stores_snake.move();
   tick();
-}, 1000);
+}, 500);
 /* harmony default export */ var stores = ({
   data: {
     arr: arr
   },
-  sub: function sub() {
-    this.data.count--;
+  turnUp: function turnUp() {
+    stores_snake.turnUp();
   },
-  add: function add() {
-    this.data.count++;
+  turnRight: function turnRight() {
+    stores_snake.turnRight();
+  },
+  turnDown: function turnDown() {
+    stores_snake.turnDown();
+  },
+  turnLeft: function turnLeft() {
+    stores_snake.turnLeft();
   }
 });
 // CONCATENATED MODULE: ./src/index.js
