@@ -230,8 +230,8 @@ var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
 var objectDestructuringEmpty = __webpack_require__(3);
 var objectDestructuringEmpty_default = /*#__PURE__*/__webpack_require__.n(objectDestructuringEmpty);
 
-// EXTERNAL MODULE: ./src/components/game/index.css
-var game = __webpack_require__(5);
+// EXTERNAL MODULE: ./src/components/game/_index.css
+var game_index = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./src/components/game/index.js
 
@@ -260,7 +260,7 @@ var game_Game = function Game(_ref, _ref2, _, _ref3) {
 };
 
 game_Game.use = ['map'];
-/* harmony default export */ var components_game = (game_Game);
+/* harmony default export */ var game = (game_Game);
 // CONCATENATED MODULE: ./src/components/index/index.js
 
 
@@ -269,7 +269,7 @@ game_Game.use = ['map'];
 var index_Index = function Index(props, store, _, $) {
   return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
-  }, Object(omis_esm["a" /* h */])(components_game, null), Object(omis_esm["a" /* h */])("div", {
+  }, Object(omis_esm["a" /* h */])(game, null), Object(omis_esm["a" /* h */])("div", {
     "class": "ctrl",
     style: "margin-top: 20rpx;"
   }, Object(omis_esm["a" /* h */])("div", {

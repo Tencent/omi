@@ -1,5 +1,5 @@
 import { h } from 'omis'
-import './index.css'
+import './_index.css'
 
 const Game = ({ }, { }, _, { data }) => {
   return <div class="game">
