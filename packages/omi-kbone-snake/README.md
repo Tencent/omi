@@ -104,6 +104,13 @@ npm run build    //发布 web
 * 图片请使用 cdn 地址或者 base64
 * 如果要兼容 web，请用 HTML 和 CSS 标签，比如用 div，不用 view，不用 rpx 单位等
 
+## Todo
+
+* 区别头部和食物颜色
+* 障碍物
+* 关卡设计
+* 开始(SNAKE)和结束动画(GAME OVER)
+
 ## License
 
 MIT 
