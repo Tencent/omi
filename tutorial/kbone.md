@@ -65,6 +65,24 @@ pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 page
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 
+## 谁在使用 kbone？
+
+<table>
+	<tbody>
+		<tr>
+			<td><a target="_blank" href="https://developers.weixin.qq.com/community/develop/mixflow"><img width="200px"
+						src="https://raw.githubusercontent.com/wechat-miniprogram/kbone/develop/docs/images/code1.jpg"></a></td>
+			<td><a target="_blank" href="http://omijs.org"><img width="200px"
+						src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud.jpg"></a></td>
+			<td width="92px"><a target="_blank" href="https://github.com/Tencent/omi/issues/new">告诉我们</a></td>
+		
+</table>
+
+## 注意事项
+
+* 不要使用 bindtap，使用 onClick
+* 图片请使用 cdn 地址或者 base64
+* 如果要兼容 web，请用 HTML 和 CSS 标签，比如用 div，不用 view，不用 rpx 单位等
 
 
 未完待续..
