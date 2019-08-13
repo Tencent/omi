@@ -4,10 +4,13 @@ class Snake {
     this.dir = 'right'
   }
 
-  move() {
+  move(eating) {
     const b = this.body
-    b.pop()
-    b.pop()
+    if (!eating) {
+      b.pop()
+      b.pop()
+    }
+
     switch (this.dir) {
       case 'up':
         b.unshift(b[0], b[1] - 1)

@@ -365,10 +365,13 @@ function () {
 
   createClass_default()(Snake, [{
     key: "move",
-    value: function move() {
+    value: function move(eating) {
       var b = this.body;
-      b.pop();
-      b.pop();
+
+      if (!eating) {
+        b.pop();
+        b.pop();
+      }
 
       switch (this.dir) {
         case 'up':
@@ -452,7 +455,14 @@ function () {
   }, {
     key: "tick",
     value: function tick() {
-      this.snake.move();
+      this.makeFood();
+      var eating = this.eat();
+      this.snake.move(eating);
+      this.mark();
+    }
+  }, {
+    key: "mark",
+    value: function mark() {
       var map = this.map;
 
       for (var i = 0; i < this.size; i++) {
@@ -467,6 +477,10 @@ function () {
         if (this.snake.body[k + 1] < 0) this.snake.body[k + 1] += this.size;
         if (this.snake.body[k] < 0) this.snake.body[k] += this.size;
         map[this.snake.body[k + 1]][this.snake.body[k]] = 1;
+      }
+
+      if (this.food) {
+        map[this.food[1]][this.food[0]] = 1;
       }
     }
   }, {
@@ -505,12 +519,43 @@ function () {
       this.paused = false;
       this.interval = 500;
       this.snake.body = [3, 1, 2, 1, 1, 1];
+      this.food = null;
       this.snake.dir = 'right';
     }
   }, {
     key: "toggleSpeed",
     value: function toggleSpeed() {
       this.interval === 500 ? this.interval = 150 : this.interval = 500;
+    }
+  }, {
+    key: "makeFood",
+    value: function makeFood() {
+      if (!this.food) {
+        this.food = [this._rd(0, this.size - 1), this._rd(0, this.size - 1)];
+
+        for (var k = 0, len = this.snake.body.length; k < len; k += 2) {
+          if (this.snake.body[k + 1] === this.food[1] && this.snake.body[k] === this.food[0]) {
+            this.food = null;
+            this.makeFood();
+            break;
+          }
+        }
+      }
+    }
+  }, {
+    key: "eat",
+    value: function eat() {
+      for (var k = 0, len = this.snake.body.length; k < len; k += 2) {
+        if (this.snake.body[k + 1] === this.food[1] && this.snake.body[k] === this.food[0]) {
+          this.food = null;
+          return true;
+        }
+      }
+    }
+  }, {
+    key: "_rd",
+    value: function _rd(from, to) {
+      return from + Math.floor(Math.random() * (to + 1));
     }
   }]);
 
