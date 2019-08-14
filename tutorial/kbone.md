@@ -305,7 +305,7 @@ TodoFooter.store = ({props})=> {
 export default TodoFooter
 ```
 
-上面完全使用 omis 开发，由于不喜欢react hook的设计，但又喜欢带状态的函数式组件，所有才有了 omis。omis 的好处一大堆：
+上面完全使用 omis 开发，由于不喜欢react hook的设计，但又喜欢带状态或者不带状态的函数式组件，所有才有了 omis。omis 的好处一大堆：
 
 > Functional Component + Store + Scoped Style + Web Components in tiny size
 
@@ -314,7 +314,7 @@ export default TodoFooter
 * 支持 web components
 * hyperscript 视觉上更加友好
 * 每个组件可以带有一个 store，去中心化
-* 支持全局 store 共享数据，并且按需局部更新组件
+* 支持全局 store 共享数据，并且按需局部更新组件，中心化
 * 每个组件 store 拥有 update 方法，执行该方法局部刷新组件
 
 如果你对 omis 不熟悉，可以看 [→ omis 文档](https://tencent.github.io/omi/site/omis/cn.html)
