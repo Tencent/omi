@@ -162,12 +162,6 @@ Todo.store = _ => {
       this.inputText = evt.target.value
     },
 
-    gotoAbout() {
-      wx.navigateTo({
-        url: '../about/index'
-      })
-    },
-
     toggle(evt) {
       for (let i = 0, len = this.todo.length; i < len; i++) {
         const item = this.todo[i]
@@ -256,23 +250,8 @@ Todo.store = _ => {
         }
       })
 
-    },
-
-    gotoAbout() {
-      wx.navigateTo({
-        url: '../about/index'
-      })
-    },
-
-    clickHandle() {
-      if ("undefined" != typeof wx && wx.getSystemInfoSync) {
-        wx.navigateTo({
-          url: '../log/index?id=1'
-        })
-      } else {
-        location.href = 'log.html'
-      }
     }
+
   }
 }
 
