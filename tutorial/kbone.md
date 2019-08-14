@@ -15,6 +15,7 @@ kbone 是小程序官方出的多端统一框架，市面上就很多跨端开�
 * 使用 vue + kbone 开发小程序 Counter
 * 使用 omis + kbone 开发小程序 TodoApp
 * 使用 omis + kbone 开发小程序游戏贪吃蛇
+* 使用 kbone 开发多页应用
 * 领域驱动设计在前端的集成
 * 理解 MVC、MVP、MVVM 模式
 * 使用 DOM 编写小程序游戏（并非小游戏）
