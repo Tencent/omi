@@ -29,8 +29,9 @@ function _Page(option) {
 }
 
 function _Component(option) {
-  const ready = option.ready
-  option.ready = function () {
+  const ready = (option.lifetimes && option.lifetimes.ready) || option.ready
+  option.lifetimes = option.lifetimes || {}
+  option.lifetimes.ready = function () {
     const page = getCurrentPages()[getCurrentPages().length - 1]
     this.context = option.context || page.context
     option.data = option.data || {}
@@ -128,8 +129,9 @@ function create(store, option) {
     }
     Page(option)
   } else {
-    const ready = store.ready
-    store.ready = function () {
+    const ready = (store.lifetimes && store.lifetimes.ready) || store.ready
+    store.lifetimes = store.lifetimes || {}
+    store.lifetimes.ready = function () {
       const page = getCurrentPages()[getCurrentPages().length - 1]
       this.context = store.context || page.context
       this.store = page.store
