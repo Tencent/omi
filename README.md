@@ -94,6 +94,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 | **Title Name**  | **Other language** | **Related**|
 | ----------------------------------------- | ------------------ |-----------------|
+|[Constructable Stylesheets: seamless reusable styles](https://developers.google.com/web/updates/2019/02/constructable-stylesheets)|||
 |[Web Components specifications](https://github.com/w3c/webcomponents)|||
 |[Web Components in a Nutshell](https://levelup.gitconnected.com/web-components-in-a-nutshell-1e114aa971b9)|||
 |[Using Web Components with React in 2019](https://www.grapecity.com/blogs/using-web-components-with-react-2019)|||
