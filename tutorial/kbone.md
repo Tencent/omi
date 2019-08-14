@@ -78,7 +78,11 @@ pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 page
 
 ## 实战 TodoApp
 
-<img src="../assets/todo-app.jpg"  width="400"/>
+|                   |                       |
+| ------------------------------- | ----------------------------------- |
+| <img src="../assets/todo-app.jpg"  width="400"/> | <img src="../assets/todo-app2.jpg"  width="400"/> |
+
+
 
 ### 快速开始
 
