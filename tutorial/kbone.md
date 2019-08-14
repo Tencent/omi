@@ -11,6 +11,10 @@ kbone 是小程序官方出的多端统一框架，市面上就很多跨端开�
 阅读本文你可以收获：
 
 * Kbone 基础原理
+* 使用 preact + kbone 开发小程序 Counter
+* 使用 vue + kbone 开发小程序 Counter
+* 使用 omis + kbone 开发小程序 TodoApp
+* 使用 omis + kbone 开发小程序游戏贪吃蛇
 * 领域驱动设计在前端的集成
 * 理解 MVC、MVP、MVVM 模式
 * 使用 DOM 编写小程序游戏（并非小游戏）
@@ -68,18 +72,266 @@ pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 page
 
 ![](../assets/kbone.png)
 
-其中 v-dom 相当于数据， mp-element 相当于模板，数据+模板完成渲染。其中前面三个步骤都是运行在小程序逻辑层(JSCore)当中，使用逻辑层自己模拟出来的 DOM/BOM API，也就是官方的 miniprogram-render。
+其中 v-dom 相当于数据(这里可能有点绕，dom 作为 dom 渲染的数据，但事实就是如此)， mp-element 相当于模板，数据+模板完成渲染。其中前面三个步骤都是运行在小程序逻辑层(JSCore)当中，使用逻辑层自己模拟出来的 DOM/BOM API，也就是官方的 miniprogram-render。
 
 ![](../assets/mp.png)
 
 ## 实战 TodoApp
 
+
+
+
+### 快速开始
+
+```js
+npm i omi-cli -g
+omi init-kbone my-app
+cd my-app
+npm start        //开发小程序
+npm run web      //开发 web
+npm run build    //发布 web
+```
+
+> 也支持一条命令 `npx omi-cli init-kbone my-app` (npm v5.2.0+)
+
+
+## 目录说明
+
+```
+├─ build
+│  ├─ mp     //微信开发者工具指向的目录，用于生产环境
+│  ├─ web    //web 编译出的文件，用于生产环境
+├─ config
+├─ public
+├─ scripts
+├─ src
+│  ├─ assets
+│  ├─ components    //存放所有组件
+│  ├─ log.js        //入口文件，会 build 成  log.html
+│  └─ index.js      //入口文件，会 build 成  index.html
+```
+
+定义结构：
+
+```jsx
+const Todo = (props, { clear, filter, textInput, inputText, todo, left, type, newTodo, done, toggle, deleteItem }) => {
+  return (
+    <div class="container">
+      <div class="title">todos</div>
+      <div class="form">
+        <input class="new-todo" onInput={textInput} value={inputText} placeholder="下一步行动计划是？" autofocus=""></input>
+        <button class="add-btn" onClick={newTodo}>确定</button>
+      </div>
+
+      <div class="todo-list">
+        {todo.map(item => (
+          (type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)) && <div class={`todo-item${item.done ? ' done' : ''}`}>
+            <div class="toggle" data-id={item.id} onClick={toggle}></div>
+            <text >{item.text} </text>
+            <div class="delete" data-id={item.id} onClick={deleteItem}></div>
+          </div>
+        ))}
+      </div>
+
+      <TodoFooter onFilter={filter} onClear={clear} left={left} done={done} type={type} ></TodoFooter>
+    </div>
+  )
+}
+```
+
+定义 store:
+
+```jsx
+
+Todo.store = _ => {
+  return {
+
+    todo: [{ text: '学习 Kbone', id: 0 }, { text: '学习 Omi', id: 1 }],
+    id: 1,
+    inputText: '',
+    left: 2,
+    type: 'all',
+    done: 0,
+
+
+    textInput(evt) {
+      this.inputText = evt.target.value
+    },
+
+    gotoAbout() {
+      wx.navigateTo({
+        url: '../about/index'
+      })
+    },
+
+    toggle(evt) {
+      for (let i = 0, len = this.todo.length; i < len; i++) {
+        const item = this.todo[i]
+        if (item.id === Number(evt.target.dataset.id)) {
+          item.done = !item.done
+          this.computeCount()
+          _.update()
+          break
+        }
+      }
+    },
+
+    computeCount() {
+      this.left = 0
+      this.done = 0
+      for (let i = 0, len = this.todo.length; i < len; i++) {
+        this.todo[i].done ? this.done++ : this.left++
+      }
+    },
+
+    deleteItem(evt) {
+      for (let i = 0, len = this.todo.length; i < len; i++) {
+        const item = this.todo[i]
+        if (item.id === Number(evt.target.dataset.id)) {
+          this.todo.splice(i, 1)
+          this.computeCount()
+          _.update()
+          break
+        }
+      }
+    },
+
+    newTodo() {
+      if (this.inputText.trim() === '') {
+        wx.showToast({
+          title: '内容不能为空',
+          icon: 'none',
+          duration: 2000
+        })
+
+        return
+      }
+
+      this.todo.unshift({
+        text: this.inputText,
+        id: ++this.id,
+        done: false,
+        createTime: new Date()
+      })
+      this.computeCount()
+      this.inputText = ''
+      _.update()
+
+    },
+
+    filter(type) {
+      //因为是自定义事件
+      //注意这里的 this 指向，不能直接 this.type = type
+      _.store.type = type
+      _.update()
+    },
+
+    clear(evt) {
+      //因为是自定义事件
+      //注意这里的 this 指向
+      const self = _.store
+      wx.showModal({
+        title: '提示',
+        content: '确定清空已完成任务？',
+        success: (res) => {
+          if (res.confirm) {
+            for (let i = 0, len = self.todo.length; i < len; i++) {
+              const item = self.todo[i]
+              if (item.done) {
+                self.todo.splice(i, 1)
+                len--
+                i--
+              }
+            }
+            self.done = 0
+            _.update()
+
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+
+    },
+
+    gotoAbout() {
+      wx.navigateTo({
+        url: '../about/index'
+      })
+    },
+
+    clickHandle() {
+      if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+        wx.navigateTo({
+          url: '../log/index?id=1'
+        })
+      } else {
+        location.href = 'log.html'
+      }
+    }
+  }
+}
+
+```
+
+
+抽取中 todo-footer 组件：
+
+```jsx
+import { h } from 'omis'
+import './index.css'
+
+const TodoFooter = ({ left, type, done }, { showAll, showActive, showDone, clearDone }) => {
+  return <div class="footer">
+    <div class="todo-count"><text class="strong">{left + ' '}items left</text> </div>
+    <div class="filters">
+      <div class='ib' onClick={showAll}>
+        <text class={type === 'all' ? 'selected' : ''} >All</text>
+      </div>
+      <div class='ib' onClick={showActive}>
+        <text class={type === 'active' ? 'selected' : ''} >Active</text>
+      </div>
+      <div class='ib' onClick={showDone}>
+        <text class={type === 'done' ? 'selected' : ''} >Done</text>
+      </div>
+    </div>
+    {done > 0 && <button class="clear-completed" onClick={clearDone}>Clear done</button>}
+  </div>
+}
+
+TodoFooter.store = ({props})=> {
+  return {
+    showAll() {
+      props.onFilter('all')
+    },
+
+    showActive() {
+      props.onFilter('active')
+    },
+
+    showDone() {
+      props.onFilter('done')
+    },
+
+    clearDone() {
+      props.onClear()
+    }
+  }
+}
+
+export default TodoFooter
+```
+
 [→ TodoApp 源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 ## 实战贪吃蛇
 
-
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
+
+
+## 实战 preact Counter
+
+## 实战 vue Counter
 
 
 ## 谁在使用 kbone？
