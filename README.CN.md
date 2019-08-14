@@ -127,6 +127,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 
 ## 必须收藏的资源
 
+* |[Web Components 规范](https://github.com/w3c/webcomponents)|||
 * [Comi 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md)
 * [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/omip-h5.md)
 * [如何通过小程序实现跨平台开发](https://developers.weixin.qq.com/community/develop/article/doc/00002cda45c930d87a380a74351813)
