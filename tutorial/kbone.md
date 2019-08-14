@@ -58,8 +58,8 @@ function init(window, document) {
 ```json
 {
   "usingComponents": {
-		"element": "miniprogram-element"
-	}
+    "element": "miniprogram-element"
+  }
 }
 ```
 
