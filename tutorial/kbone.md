@@ -8,7 +8,17 @@ kbone 是小程序官方出的多端统一框架，市面上就很多跨端开�
 * [vue-kbone](https://github.com/wechat-miniprogram/kbone)
 * [react-kbone](https://github.com/Tencent/omi/tree/master/packages/react-kbone)
 
-你甚至可以使用原生 js 开发，比如下面是修改 kbone 编译出的代码：
+阅读本文你可以收获：
+
+* Kbone 基础原理
+* 领域驱动设计在前端的集成
+* 理解 MVC、MVP、MVVM 模式
+* 使用 DOM 编写小程序游戏（并非小游戏）
+* 游戏主帧率和局部帧率控制
+
+## Kbone 基础原理
+
+打开 Kbone 官方编译出的小程序的 index.js，修改其中的代码：
 
 ```js
 const mp = require('miniprogram-render')
@@ -23,6 +33,11 @@ function init(window, document) {
 }
 ...
 ```
+
+运行效果如下:
+
+![](../assets/hello-kbone.png)
+
 
 上面的代码运行在小程序里。可以窥见其一二：
 
@@ -53,7 +68,9 @@ pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 page
 
 ![](../assets/kbone.png)
 
-其中 v-dom 相当于数据， mp-element 相当于模板，数据+模板完成渲染。
+其中 v-dom 相当于数据， mp-element 相当于模板，数据+模板完成渲染。其中前面三个步骤都是运行在小程序逻辑层(JSCore)当中，使用逻辑层自己模拟出来的 DOM/BOM API，也就是官方的 miniprogram-render。
+
+![](../assets/mp.png)
 
 ## 实战 TodoApp
 
