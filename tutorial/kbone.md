@@ -77,6 +77,10 @@ pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 page
 
 <img src="../assets/mp.png"  width="500"/>
 
+问：jsx 怎么生成 wxml 的？
+
+再绕一次：因为 react 或者 omi 里的 jsx 会生成 v-dom，在浏览器里最后都会映射到 dom api 生成 dom 树和设置属性，然后在小程序当中，jsx 生成 v-dom 然后映射到自己模拟的 dom api，所以可以生成另外一份 v-dom（浏览器中是真实 dom），作为自定义 element 的数据进行 wxml 渲染。
+
 ## 实战 TodoApp
 
 |                   |                       |
