@@ -1,0 +1,2 @@
+webpackJsonp([19],{39:function(n,o){n.exports="## CSS\n\nThis is the css of props, not `YourComponent.css`, which provides the ability to modify scoped style dynamic. \n\n## Example\n\n```jsx\nconst YourComponent = _ => (\n  <div>\n    <h1>Look at my color!<h1>\n  </div>\n)\n\nYourComponent.css = `h1 {\n  color: red;\n}`\n```\n\nThe h1 above is red. Is there any way to modify it?\n\n```jsx\n<YourComponent \n  css={`\n  h1{\n    color: blue !important;\n  }`} />  \n```\n\nSuper easy."}});
+//# sourceMappingURL=19.cab5eaab.chunk.js.map

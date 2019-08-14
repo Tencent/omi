@@ -19,6 +19,12 @@ const config = {
           { name: 'GlobalStore-$', md: 'global-store' },
           { name: 'CSS', md: 'css' }
         ]
+      },
+      {
+        title: '扩展',
+        list: [
+          { name: 'Kbone 多端开发', md: 'kbone' }
+        ]
       }
     ],
     en: [
@@ -39,6 +45,12 @@ const config = {
           { name: 'Ref', md: 'ref' },
            { name: 'GlobalStore-$', md: 'global-store' },
           { name: 'CSS', md: 'css' }
+        ]
+      },
+      {
+        title: 'Extention',
+        list: [
+          { name: 'Kbone', md: 'kbone' }
         ]
       }
     ]

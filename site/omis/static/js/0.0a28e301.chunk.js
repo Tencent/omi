@@ -1,0 +1,2 @@
+webpackJsonp([0],{58:function(n,e){n.exports="## Ref\n\nRef \u63d0\u4f9b\u4e86\u4e00\u79cd\u65b9\u5f0f\uff0c\u5141\u8bb8\u6211\u4eec\u8bbf\u95ee DOM \u8282\u70b9\u6216\u5728 render \u65b9\u6cd5\u4e2d\u521b\u5efa\u7684 Component\u3002\n\n```jsx\nconst HelloMessage = (props, store, _) => {\n  return h('h1', { ref: ele => _.h1 = ele }, `Hello ${props.name}`)\n}\n\nHelloMessage.store = _ => {\n  return {\n    installed() {\n      //h1 dom element\n      console.log(_.h1)\n    }\n  }\n}\n```"}});
+//# sourceMappingURL=0.0a28e301.chunk.js.map

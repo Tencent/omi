@@ -1,0 +1,2 @@
+webpackJsonp([1],{57:function(n,o){n.exports='\n## Props\n\n\u901a\u8fc7 Props \u5411\u5b50\u7ec4\u4ef6\u4f20\u9012\u6570\u636e\uff0c\u6bd4\u5982\uff1a\n\n```jsx\nconst Comp = props => <h1>Hello, {props.name}!</h1>\n```\n\n\u4f7f\u7528\u5143\u7d20:\n\n```jsx\n<Comp name="world" />\n```\n'}});
+//# sourceMappingURL=1.5fe108d1.chunk.js.map
