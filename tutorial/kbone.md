@@ -78,7 +78,7 @@ pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 page
 
 ## 实战 TodoApp
 
-
+![](../assets/todo-app.jpg)
 
 
 ### 快速开始
@@ -326,6 +326,10 @@ export default TodoFooter
 
 ## 实战贪吃蛇
 
+![](../assets/snake.jpg)
+
+参考和使用了部分 [react-tetris](https://chvin.github.io/react-tetris/) 的样式。
+
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 
@@ -353,5 +357,13 @@ export default TodoFooter
 * 图片请使用 cdn 地址或者 base64
 * 如果要兼容 web，请用 HTML 和 CSS 标签，比如用 div，不用 view，不用 rpx 单位等
 
+
+## 总览
+
+* Kbone 支持 Omi、React、Vue 和原生JS多端开发
+* Taro 支持 react 多端开发，JSX 书写有约束
+* Alita 支持 React Native 转微信小程序，JSX 书写无约束
+* uni-app 支持 vue 多端开发
+* mpvue 支持 vue 多端开发
 
 未完待续..
