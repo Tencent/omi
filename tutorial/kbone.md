@@ -40,7 +40,7 @@ function init(window, document) {
 
 运行效果如下:
 
-![](../assets/hello-kbone.png)
+<img src="../assets/hello-kbone.png"  width="300"/>
 
 
 上面的代码运行在小程序里。可以窥见其一二：
@@ -70,16 +70,15 @@ function init(window, document) {
 pageId 和 nodeId 两个参数缺一不可，组件内部会根据传入的 pageId 找到对应的 window/document，然后根据 nodeId 找到对应的 dom 节点进行渲染。
 上面说了，miniprogram-render 实现了轻量的 DOM 对象模型，所以不管是框架还是原生js执行之后，输出一些节点信息，也算是虚拟 DOM，比如嵌套的 childNodes。miniprogram-element 可以根据节点信息作为自定义组件的 data，并且遍历生产 WXML 组件的节点树。
 
-![](../assets/kbone.png)
+<img src="../assets/kbone.png"  width="400"/>
 
 其中 v-dom 相当于数据(这里可能有点绕，dom 作为 dom 渲染的数据，但事实就是如此)， mp-element 相当于模板，数据+模板完成渲染。其中前面三个步骤都是运行在小程序逻辑层(JSCore)当中，使用逻辑层自己模拟出来的 DOM/BOM API，也就是官方的 miniprogram-render。
 
-![](../assets/mp.png)
+<img src="../assets/mp.png"  width="500"/>
 
 ## 实战 TodoApp
 
-![](../assets/todo-app.jpg)
-
+<img src="../assets/todo-app.jpg"  width="400"/>
 
 ### 快速开始
 
@@ -326,7 +325,7 @@ export default TodoFooter
 
 ## 实战贪吃蛇
 
-![](../assets/snake.jpg)
+<img src="../assets/snake.jpg"  width="400"/>
 
 参考和使用了部分 [react-tetris](https://chvin.github.io/react-tetris/) 的样式。
 
