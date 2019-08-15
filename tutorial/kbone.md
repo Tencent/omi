@@ -11,9 +11,9 @@ kbone 是小程序官方出的多端统一框架，市面上就很多跨端开�
 阅读本文你可以收获：
 
 * Kbone 基础原理
-* 使用 preact + kbone 开发小程序 Counter
-* 使用 vue + kbone 开发小程序 Counter
 * 使用 omis + kbone 开发小程序 TodoApp
+* 使用 vue + kbone 开发小程序 Counter
+* 使用 preact + kbone 开发小程序 Counter
 * 使用 omis + kbone 开发小程序游戏贪吃蛇
 * 使用 kbone 开发多页应用
 * 领域驱动设计在前端的集成
@@ -161,7 +161,6 @@ Todo.store = _ => {
     type: 'all',
     done: 0,
 
-
     textInput(evt) {
       this.inputText = evt.target.value
     },
@@ -261,8 +260,7 @@ Todo.store = _ => {
 
 ```
 
-
-抽取中 todo-footer 组件：
+抽取 todo-footer 组件：
 
 ```jsx
 import { h } from 'omis'
@@ -328,6 +326,198 @@ export default TodoFooter
 下面使用 omis 开发一个复杂一点的游戏案例。
 
 ## 实战贪吃蛇
+
+### 领域模型设计
+
+* 提取主要实体，比如（蛇、游戏）
+* 从实体名词中总结出具体业务属性方法，
+  * 蛇
+    * 包含运动方向、body属性
+    * 包含移动和转向方法
+  * 游戏
+    * 包含结束暂停状态、地图、分数、帧率、游戏主角、食物
+    * 包含开始游戏、暂停游戏、结束游戏、生产食物、重置游戏等方法
+* 建立实体属性方法之间的联系
+  * 游戏主角唯一，即蛇
+  * 蛇吃食物，游戏分数增加
+  * 食物消失，游戏负责再次生产食物
+  * 蛇撞墙或撞自身，游戏状态结束
+
+### 使用代码描述蛇实体
+
+```js
+class Snake {
+  constructor() {
+    this.body = [3, 1, 2, 1, 1, 1]
+    this.dir = 'right'
+  }
+
+  move(eating) {
+    const b = this.body
+    if (!eating) {
+      b.pop()
+      b.pop()
+    }
+
+    switch (this.dir) {
+      case 'up':
+        b.unshift(b[0], b[1] - 1)
+        break
+      case 'right':
+        b.unshift(b[0] + 1, b[1])
+        break
+      case 'down':
+        b.unshift(b[0], b[1] + 1)
+        break
+      case 'left':
+        b.unshift(b[0] - 1, b[1])
+        break
+    }
+  }
+
+  turnUp() {
+    if (this.dir !== 'down')
+      this.dir = 'up'
+  }
+  turnRight() {
+    if (this.dir !== 'left')
+      this.dir = 'right'
+  }
+  turnDown() {
+    if (this.dir !== 'up')
+      this.dir = 'down'
+  }
+  turnLeft() {
+    if (this.dir !== 'right')
+      this.dir = 'left'
+  }
+}
+```
+
+### 使用代码描述游戏实体
+
+```js
+import Snake from './snake'
+
+class Game {
+  constructor() {
+    this.map = []
+    this.size = 16
+    this.loop = null
+    this.interval = 500
+    this.paused = false
+    this._preDate = Date.now()
+    this.init()
+  }
+
+  init() {
+
+    this.snake = new Snake
+
+    for (let i = 0; i < this.size; i++) {
+      const row = []
+      for (let j = 0; j < this.size; j++) {
+        row.push(0)
+      }
+      this.map.push(row)
+    }
+  }
+
+  tick() {
+
+    this.makeFood()
+    const eating = this.eat()
+    this.snake.move(eating)
+    this.mark()
+
+  }
+
+  mark() {
+    const map = this.map
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
+        map[i][j] = 0
+      }
+    }
+
+    for (let k = 0, len = this.snake.body.length; k < len; k += 2) {
+      this.snake.body[k + 1] %= this.size
+      this.snake.body[k] %= this.size
+
+      if (this.snake.body[k + 1] < 0) this.snake.body[k + 1] += this.size
+      if (this.snake.body[k] < 0) this.snake.body[k] += this.size
+      map[this.snake.body[k + 1]][this.snake.body[k]] = 1
+    }
+    if (this.food) {
+      map[this.food[1]][this.food[0]] = 1
+    }
+  }
+
+  start() {
+    this.loop = setInterval(() => {
+      if (Date.now() - this._preDate > this.interval) {
+        this._preDate = Date.now()
+        if (!this.paused) {
+          this.tick()
+        }
+      }
+    }, 16)
+  }
+
+  stop() {
+    clearInterval(this.loop)
+  }
+
+  pause() {
+    this.paused = true
+  }
+
+  play() {
+    this.paused = false
+  }
+
+  reset() {
+    this.paused = false
+    this.interval = 500
+    this.snake.body = [3, 1, 2, 1, 1, 1]
+    this.food = null
+    this.snake.dir = 'right'
+  }
+
+  toggleSpeed() {
+    this.interval === 500 ? (this.interval = 150) : (this.interval = 500)
+  }
+
+  makeFood() {
+    if (!this.food) {
+      this.food = [this._rd(0, this.size - 1), this._rd(0, this.size - 1)]
+      for (let k = 0, len = this.snake.body.length; k < len; k += 2) {
+        if (this.snake.body[k + 1] === this.food[1]
+          && this.snake.body[k] === this.food[0]) {
+          this.food = null
+          this.makeFood()
+          break
+        }
+
+      }
+    }
+  }
+
+  eat() {
+    for (let k = 0, len = this.snake.body.length; k < len; k += 2) {
+      if (this.snake.body[k + 1] === this.food[1]
+        && this.snake.body[k] === this.food[0]) {
+        this.food = null
+        return true
+      }
+    }
+  }
+
+  _rd(from, to) {
+    return from + Math.floor(Math.random() * (to + 1))
+  }
+}
+```
 
 <img src="../assets/snake.jpg"  width="400"/>
 
