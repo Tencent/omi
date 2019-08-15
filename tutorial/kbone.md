@@ -552,6 +552,7 @@ class Game {
 ]
 ```
 
+所以上面代表了一条长度为 5 的蛇和 1 个食物，你能在上图中找到吗？
 
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
