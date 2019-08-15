@@ -30,6 +30,7 @@ English | [简体中文](./README.CN.md)
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-kbone![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| 直接使用 Omis 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone)|
+| [omi-kbone-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone-snake)| omi-kbone 写的 MVP 架构的贪吃蛇游戏 |
 | [react-kbone![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/react-kbone)| 直接使用 React 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone)|
 | [omix![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix)| 极小却精巧的小程序框架|
 | [omi-cloud](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)| 小程序•云开发|
