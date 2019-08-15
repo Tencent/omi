@@ -1872,59 +1872,59 @@
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   extend$1('model', function (el, path, scope) {
-  	if (el.type === 'checkbox') {
-  		el.checked = get(scope, path);
-  		el.addEventListener('change', function () {
-  			set(scope, path, el.checked);
-  			scope.update();
-  		});
-  	} else {
-  		el.value = get(scope, path);
-  		el.addEventListener('input', function () {
-  			set(scope, path, el.value);
-  			scope.update();
-  		});
-  	}
+    if (el.type === 'checkbox') {
+      el.checked = get(scope, path);
+      el.addEventListener('change', function () {
+        set(scope, path, el.checked);
+        scope.update();
+      });
+    } else {
+      el.value = get(scope, path);
+      el.addEventListener('input', function () {
+        set(scope, path, el.value);
+        scope.update();
+      });
+    }
   });
 
   define('my-component', function (_WeElement) {
-  	_inherits$3(_class2, _WeElement);
+    _inherits$3(_class2, _WeElement);
 
-  	function _class2() {
-  		var _temp, _this, _ret;
+    function _class2() {
+      var _temp, _this, _ret;
 
-  		_classCallCheck$3(this, _class2);
+      _classCallCheck$3(this, _class2);
 
-  		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-  			args[_key] = arguments[_key];
-  		}
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
 
-  		return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.info = {
-  			msg: 'two-way binding',
-  			checked: true
-  		}, _temp), _possibleConstructorReturn$3(_this, _ret);
-  	}
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.info = {
+        msg: 'two-way binding',
+        checked: true
+      }, _temp), _possibleConstructorReturn$3(_this, _ret);
+    }
 
-  	_class2.prototype.render = function render$$1() {
-  		return Omi.h(
-  			'div',
-  			null,
-  			Omi.h(
-  				'input',
-  				{ 'o-model': 'info.msg' },
-  				' '
-  			),
-  			Omi.h('input', { type: 'checkbox', 'o-model': 'info.checked' }),
-  			Omi.h(
-  				'div',
-  				null,
-  				JSON.stringify(this.info),
-  				' '
-  			)
-  		);
-  	};
+    _class2.prototype.render = function render$$1() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'input',
+          { 'o-model': 'info.msg' },
+          ' '
+        ),
+        Omi.h('input', { type: 'checkbox', 'o-model': 'info.checked' }),
+        Omi.h(
+          'div',
+          null,
+          JSON.stringify(this.info),
+          ' '
+        )
+      );
+    };
 
-  	return _class2;
+    return _class2;
   }(WeElement));
 
   render(Omi.h('my-component', null), 'body');
