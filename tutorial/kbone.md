@@ -582,6 +582,42 @@ this.loop = setInterval(() => {
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 
+### 贪吃蛇目录说明
+
+```
+├─ build
+│  ├─ mp     //微信开发者工具指向的目录，用于生产环境
+│  ├─ web    //web 编译出的文件，用于生产环境
+├─ config
+├─ public
+├─ scripts
+├─ src
+│  ├─ assets
+│  ├─ components    //存放所有页面的组件
+│  ├─ models        //存放所有模型
+│  ├─ stores        //存放页面的 store
+│  └─ index.js      //入口文件，会 build 成 index.html
+```
+
+那么是 MVC、MVP 还是 MVVM?
+
+从贪吃蛇源码可以看出：视图(components)和模型(models)是分离的，没有相互依赖关系，但是在 MVC 中，视图依赖模型，耦合度太高，导致视图的可移植性大大降低，所以一定不是 MVC 架构。
+
+
+![](../assets/mvc-mvp-mvvm.png)
+
+在 MVP 模式中，视图不直接依赖模型，由 Presenter 负责完成 Model 和 View 的交互。MVVM 和 MVP 的模式比较接近。ViewModel 担任这 Presenter 的角色，并且提供 UI 视图所需要的数据源，而不是直接让 View 使用 Model 的数据源，这样大大提高了 View 和 Model 的可移植性，比如同样的 Model 切换使用 Flash、HTML、WPF 渲染，比如同样 View 使用不同的 Model，只要 Model 和 ViewModel 映射好，View 可以改动很小甚至不用改变。
+
+从贪吃蛇源码可以看出，View(components) 里直接使用了 Presenter(stores) 的 data 属性进行渲染，data 属性来自于 Model(models) 的属性，并没有出现 Model 到 ViewModel 的映射。所以一定不是 MVVM 架构。
+
+所以上面的贪吃蛇属于 **MVP** !只不过是进化版的 MVP，因为 M 里的 map 的变更会自定更是 View，从 M->P->V的回路是自动化的，代码里看不到任何逻辑。仅仅需要声明依赖:
+
+```js
+Game.use = ['map']
+```
+
+这样也规避了 MVVM 最大的问题： M 到 VM 映射的开销。
+
 ## 实战 vue Counter
 
 
