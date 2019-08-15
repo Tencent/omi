@@ -554,13 +554,104 @@ class Game {
 
 所以上面代表了一条长度为 5 的蛇和 1 个食物，你能在上图中找到吗？
 
+怎么控制主帧率和局部帧率。一般情况下，我们认为 60 FPS 是流畅的，所以我们定时器间隔是有 16ms，核心循环里的计算量越小，就越接近 60 FPS：
+
+```js
+this.loop = setInterval(() => {
+  //
+}, 16)
+```
+
+但是有些计算没有必要 16 秒计算一次，这样会降低帧率，所以可以记录上一次执行的时间用来控制帧率:
+
+```js
+this.loop = setInterval(() => {
+  //执行在这里是大约 60 FPS
+  if (Date.now() - this._preDate > this.interval) {
+    //执行在这里是大约  1000/this.interval FPS
+    this._preDate = Date.now()
+    //暂停判断
+    if (!this.paused) {
+      //核心循环逻辑
+      this.tick()
+    }
+  }
+}, 16)
+```
+
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
+
+
+## 实战 vue Counter
 
 
 ## 实战 preact Counter
 
-## 实战 vue Counter
+* 与 taro 编译型不同，react-kbone 支持完整 JSX 语法，任意位置任意方式书写 JSX
+* 使用最好的 react web 框架 preact，轻量迅速（react 不是最好的 react web 框架） 
+* 一站式接入，webpack、es2018+、babel7+、jsx、hot reload、cli，你想要的都有
+* 由于 3kb preact 加持，生成出的包大小超级小！！
 
+封装 Counter 组件：
+
+```jsx
+import { h, Component } from 'preact'
+import './index.css'
+
+class Counter extends Component {
+  state = { count: 1 }
+
+  sub = () => {
+    this.setState({ count: --this.state.count })
+  }
+
+  add = () => {
+    this.setState({ count: ++this.state.count })
+  }
+
+  clickHandle = () => {
+    if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+      wx.navigateTo({
+        url: '../log/index?id=1'
+      })
+    } else {
+      location.href = 'log.html'
+    }
+  }
+
+  render({ }, { count }) {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{count}</span>
+        <button onClick={this.add}>+</button>
+        <div onClick={this.clickHandle}>跳转</div>
+      </div>
+    )
+  }
+}
+
+export default Counter
+```
+
+页面入口 js:
+
+```jsx
+import { render, h } from 'preact'
+import Counter from './components/counter'
+
+export default function createApp() {
+  const container = document.createElement('div')
+  container.id = 'app'
+  document.body.appendChild(container)
+
+  render(<Counter />, container)
+}
+
+"undefined" != typeof wx && wx.getSystemInfoSync || createApp()
+```
+
+createApp 方法在编译到小程序会自动执行，所以要判断是是 web 才去主动执行 createApp，不然小程序里执行两遍。
 
 ## 谁在使用 kbone？
 
