@@ -554,6 +554,78 @@ class Game {
 
 所以上面代表了一条长度为 5 的蛇和 1 个食物，你能在上图中找到吗？
 
+### 游戏面板渲染
+
+```jsx
+import { h } from 'omis'
+import './_index.css'
+
+const Game = ({ }, { }, _, { data }) => {
+  return <div class="game">
+    {data.map.map(row=>{
+      return  <p>
+          {row.map(col=>{
+            if(col){
+              return <b class='s'></b>
+            }
+            return <b></b>
+          })}
+      </p>
+    })}
+  </div>
+}
+
+Game.use = ['map']
+
+export default Game
+```
+
+带有 class 为 s 的格式是黑色的，比如食物、蛇的身体，其余的会灰色底色。`Game.use` 的作用后面细讲，`map` 代表依赖 store.data.map，map更新会自动更新视图。
+
+### 定义 store 
+
+```js
+import Game from '../models/game'
+
+const game = new Game
+const { snake, map } = game
+
+game.start()
+
+export default {
+  data: {
+    map
+  },
+  turnUp() {
+    snake.turnUp()
+  },
+  turnRight() {
+    snake.turnRight()
+  },
+  turnDown() {
+    snake.turnDown()
+  },
+  turnLeft() {
+    snake.turnLeft()
+  },
+  pauseOrPlay() {
+    if (game.paused) {
+      game.play()
+    } else {
+      game.pause()
+    }
+  },
+  reset() {
+    game.reset()
+  },
+  toggleSpeed() {
+    game.toggleSpeed()
+  }
+}
+```
+
+### 帧率控制
+
 怎么控制主帧率和局部帧率。一般情况下，我们认为 60 FPS 是流畅的，所以我们定时器间隔是有 16ms，核心循环里的计算量越小，就越接近 60 FPS：
 
 ```js
