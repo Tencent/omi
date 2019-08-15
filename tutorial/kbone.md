@@ -1,4 +1,4 @@
-## 多端统一框架 kbone 深度体验 - 支持 Omi、React、Vue 和原生JS
+## 多端统一框架 kbone - 支持 Omi、React、Vue 和原生JS
 
 kbone 是小程序官方出的多端统一框架，市面上就很多跨端开发框架，但是 kbone 是最彻底的一款。因为:
 
