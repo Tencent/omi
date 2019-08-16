@@ -149,47 +149,48 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([13,0,3]);
+/******/ 	deferredModules.push([18,0,3]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
+/***/ 16:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 13:
+/***/ 18:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/preact/dist/preact.umd.js
-var preact_umd = __webpack_require__(0);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(0);
+var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(3);
-var objectDestructuringEmpty_default = /*#__PURE__*/__webpack_require__.n(objectDestructuringEmpty);
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(3);
+var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
-var classCallCheck = __webpack_require__(4);
+var classCallCheck = __webpack_require__(5);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
-var createClass = __webpack_require__(5);
+var createClass = __webpack_require__(6);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(6);
+var possibleConstructorReturn = __webpack_require__(7);
 var possibleConstructorReturn_default = /*#__PURE__*/__webpack_require__.n(possibleConstructorReturn);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(7);
+var getPrototypeOf = __webpack_require__(8);
 var getPrototypeOf_default = /*#__PURE__*/__webpack_require__.n(getPrototypeOf);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/assertThisInitialized.js
@@ -197,7 +198,7 @@ var assertThisInitialized = __webpack_require__(1);
 var assertThisInitialized_default = /*#__PURE__*/__webpack_require__.n(assertThisInitialized);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/inherits.js
-var inherits = __webpack_require__(8);
+var inherits = __webpack_require__(9);
 var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
@@ -205,7 +206,7 @@ var defineProperty = __webpack_require__(2);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // EXTERNAL MODULE: ./src/components/counter/index.css
-var counter = __webpack_require__(11);
+var counter = __webpack_require__(16);
 
 // CONCATENATED MODULE: ./src/components/counter/index.js
 
@@ -218,11 +219,10 @@ var counter = __webpack_require__(11);
 
 
 
-
 var counter_Counter =
 /*#__PURE__*/
-function (_Component) {
-  inherits_default()(Counter, _Component);
+function (_React$Component) {
+  inherits_default()(Counter, _React$Component);
 
   function Counter() {
     var _getPrototypeOf2;
@@ -268,33 +268,31 @@ function (_Component) {
 
   createClass_default()(Counter, [{
     key: "render",
-    value: function render(_ref, _ref2) {
-      objectDestructuringEmpty_default()(_ref);
-
-      var count = _ref2.count;
-      return Object(preact_umd["h"])("div", null, Object(preact_umd["h"])("button", {
+    value: function render() {
+      return react_default.a.createElement("div", null, react_default.a.createElement("button", {
         onClick: this.sub
-      }, "-"), Object(preact_umd["h"])("span", null, count), Object(preact_umd["h"])("button", {
+      }, "-"), react_default.a.createElement("span", null, this.state.count), react_default.a.createElement("button", {
         onClick: this.add
-      }, "+"), Object(preact_umd["h"])("div", {
+      }, "+"), react_default.a.createElement("div", {
         onClick: this.clickHandle
       }, "\u8DF3\u8F6C"));
     }
   }]);
 
   return Counter;
-}(preact_umd["Component"]);
+}(react_default.a.Component);
 
 /* harmony default export */ var components_counter = (counter_Counter);
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 
 
+
 function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(preact_umd["render"])(Object(preact_umd["h"])(components_counter, null), container);
+  react_dom_default.a.render(react_default.a.createElement(components_counter, null), container);
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 

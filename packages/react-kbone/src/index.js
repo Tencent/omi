@@ -1,4 +1,5 @@
-import { render, h } from 'preact'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import Counter from './components/counter'
 
 export default function createApp() {
@@ -6,7 +7,7 @@ export default function createApp() {
   container.id = 'app'
   document.body.appendChild(container)
 
-  render(<Counter />, container)
+  ReactDOM.render(<Counter />, container)
 }
 
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp()

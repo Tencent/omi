@@ -16,8 +16,8 @@
     "fix": "eslint src --fix"
   },
   "dependencies": {
-    "preact": "^8.5.1",
-    "styled-jsx": "^3.2.1"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "browserslist": [
     "> 1%",
@@ -156,7 +156,5 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "alias":{
-    
-  }
+  "alias": {}
 }

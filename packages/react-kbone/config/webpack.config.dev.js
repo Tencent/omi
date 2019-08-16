@@ -146,10 +146,10 @@ module.exports = {
               "presets": [
                 "@babel/preset-env",
                 [
-                  "@babel/preset-react",
-                  {
-                    "pragma": "h"
-                  }
+                  "@babel/preset-react"
+                  // {
+                  //   "pragma": "h"
+                  // }
                 ]
               ],
               "plugins": [
@@ -162,8 +162,8 @@ module.exports = {
                 ],
                 "@babel/plugin-proposal-function-bind",
                 "@babel/plugin-proposal-object-rest-spread",
-                "@babel/plugin-syntax-dynamic-import",
-                "styled-jsx/babel"
+                "@babel/plugin-syntax-dynamic-import"
+                // "styled-jsx/babel"
               ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/

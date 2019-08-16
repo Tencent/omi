@@ -1,7 +1,7 @@
-import { h, Component } from 'preact'
+import React from 'react'
 import './index.css'
 
-class Counter extends Component {
+class Counter extends React.Component {
   state = { count: 1 }
 
   sub = () => {
@@ -22,11 +22,11 @@ class Counter extends Component {
     }
   }
 
-  render({ }, { count }) {
+  render() {
     return (
       <div>
         <button onClick={this.sub}>-</button>
-        <span>{count}</span>
+        <span>{this.state.count}</span>
         <button onClick={this.add}>+</button>
         <div onClick={this.clickHandle}>跳转</div>
       </div>
