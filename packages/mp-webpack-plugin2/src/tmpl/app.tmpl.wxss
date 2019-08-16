@@ -1,0 +1,415 @@
+body {
+    display: block;
+}
+
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}
+
+address, article, aside, div, footer, header, hgroup, main, nav, section {
+    display: block;
+}
+
+blockquote {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 40px;
+    -webkit-margin-end: 40px;
+}
+
+figcaption {
+    display: block;
+}
+
+figure {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 40px;
+    -webkit-margin-end: 40px;
+}
+
+q {
+    display: inline;
+}
+
+center {
+    display: block;
+    text-align: center;
+}
+
+hr {
+    display: block;
+    -webkit-margin-before: 0.5em;
+    -webkit-margin-after: 0.5em;
+    -webkit-margin-start: auto;
+    -webkit-margin-end: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+video {
+    object-fit: contain;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* heading elements */
+
+h1 {
+    display: block;
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
+}
+
+h4 {
+    display: block;
+    -webkit-margin-before: 1.33em;
+    -webkit-margin-after: 1.33em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
+}
+
+h5 {
+    display: block;
+    font-size: .83em;
+    -webkit-margin-before: 1.67em;
+    -webkit-margin-after: 1.67em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
+}
+
+h6 {
+    display: block;
+    font-size: .67em;
+    -webkit-margin-before: 2.33em;
+    -webkit-margin-after: 2.33em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
+}
+
+/* tables */
+
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tfoot {
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+/* for tables without table section elements (can happen with XHTML or dynamically created tables) */
+table > tr {
+    vertical-align: middle;
+}
+
+col {
+    display: table-column;
+}
+
+colgroup {
+    display: table-column-group;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+th {
+    font-weight: bold;
+}
+
+caption {
+    display: table-caption;
+    text-align: center;
+}
+
+/* lists */
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 40px;
+}
+
+ol {
+    display: block;
+    list-style-type: decimal;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 40px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+dd {
+    display: block;
+    -webkit-margin-start: 40px;
+}
+
+dl {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}
+
+dt {
+    display: block;
+}
+
+/* form elements */
+
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+label {
+    cursor: default;
+}
+
+legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    border: none;
+}
+
+fieldset {
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.625em;
+    border: 2px groove ThreeDFace;
+    min-width: min-content;
+}
+
+/* Form controls don't go vertical. */
+input, textarea, keygen, select, button, progress {
+    -webkit-writing-mode: horizontal-tb !important;
+}
+
+input, textarea, keygen, select, button {
+    margin: 0em;
+    font: -webkit-small-control;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+}
+
+datalist {
+    display: none;
+}
+
+keygen, select {
+    border-radius: 5px;
+}
+
+area, param {
+    display: none;
+}
+
+select {
+    box-sizing: border-box;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    border: 1px solid #4c4c4c;
+    /* We want to be as close to background:transparent as possible without actually being transparent */
+    background-color: rgba(255, 255, 255, 0.01);
+    font: 11px Helvetica;
+    padding: 0 0.4em 0 0.4em;
+    border: 1px solid;
+    color: text;
+    background-color: -apple-system-control-background;
+    color: black;
+    background-color: white;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    cursor: default;
+}
+
+optgroup {
+    font-weight: bolder;
+}
+
+option {
+    font-weight: normal;
+}
+
+output {
+    display: inline;
+}
+
+/* inline elements */
+
+u, ins {
+    text-decoration: underline;
+}
+
+strong, b {
+    font-weight: bold;
+}
+
+i, cite, em, var, address, dfn {
+    font-style: italic;
+}
+
+tt, code, kbd, samp {
+    font-family: monospace;
+}
+
+pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}
+
+big {
+    font-size: larger;
+}
+
+small {
+    font-size: smaller;
+}
+
+s, strike, del {
+    text-decoration: line-through;
+}
+
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+/* other elements */
+
+iframe {
+    border: 2px inset;
+}
+
+details {
+    display: block;
+}
+
+summary {
+    display: block;
+}
+
+template {
+    display: none;
+}
+
+bdi, output {
+    unicode-bidi: isolate;
+}
+
+bdo {
+    unicode-bidi: bidi-override;
+}
+
+img {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/**
+ * 兼容标签样式
+ */
+img {
+    display: inline-block;
+}
+
+br {
+    display: inline-block;
+}
+
+a, abbr, b, button, code, i, label, small, span, strong, time {
+    display: inline;
+}
