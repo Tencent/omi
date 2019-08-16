@@ -695,6 +695,64 @@ Game.use = ['map']
 
 ## 实战 vue Counter
 
+```html
+<template>
+  <div>
+    <button @click="sub">-</button>
+    <span>{count}</span>
+    <button @click="add">+</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data(){
+      return {
+        count: 0
+      }
+    },
+    methods:{
+      add(){
+        this.count++
+      },
+      sub(){
+        this.count--
+      }
+    }
+  }
+</script>
+```
+
+## 实战 react Counter
+
+```jsx
+import React, { useState } from 'react'
+import './index.css'
+
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <div onClick={clickHandle}>跳转</div>
+    </div>
+  )
+}
+
+function clickHandle() {
+  if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+    wx.navigateTo({
+      url: '../log/index?id=1'
+    })
+  } else {
+    location.href = 'log.html'
+  }
+}
+
+export default Counter
+```
 
 ## 实战 preact Counter
 
