@@ -1,50 +1,38 @@
 # react-kbone
 
-使用 [preact](https://github.com/preactjs/preact) 多端开发(小程序和Web)，基于 [kbone](https://github.com/wechat-miniprogram/kbone) 的 element 和 render。
+使用 react 多端开发(小程序和Web)，基于 [kbone](https://github.com/wechat-miniprogram/kbone) 的 element 和 render。
 
 ## 特性
 
-* 与 taro 编译型不同，react-kbone 支持完整 JSX 语法，任意位置任意方式书写 JSX
-* 使用最好的 react web 框架 preact，轻量迅速（react 不是最好的 react web 框架） 
-* 一站式接入，webpack、es2018+、babel7+、jsx、hot reload、cli，你想要的都有
-* 由于 3kb preact 加持，生成出的包大小超级小！！
+* 一键接入，立即使用
+* 支持完整 JSX 语法，任意位置任意方式书写 JSX
+* webpack、hook、es2018+、babel7+、jsx、hot reload、cli，你想要的都有
 
 ## 一套语法多端运行
 
 ```jsx
-import { h, Component } from 'preact'
+import React, { useState } from 'react'
 import './index.css'
 
-class Counter extends Component {
-  state = { count: 1 }
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <div onClick={clickHandle}>跳转</div>
+    </div>
+  )
+}
 
-  sub = () => {
-    this.setState({ count: --this.state.count })
-  }
-
-  add = () => {
-    this.setState({ count: ++this.state.count })
-  }
-
-  clickHandle = () => {
-    if ("undefined" != typeof wx && wx.getSystemInfoSync) {
-      wx.navigateTo({
-        url: '../log/index?id=1'
-      })
-    } else {
-      location.href = 'log.html'
-    }
-  }
-
-  render({ }, { count }) {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{count}</span>
-        <button onClick={this.add}>+</button>
-        <div onClick={this.clickHandle}>跳转</div>
-      </div>
-    )
+function clickHandle() {
+  if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+    wx.navigateTo({
+      url: '../log/index?id=1'
+    })
+  } else {
+    location.href = 'log.html'
   }
 }
 
@@ -55,14 +43,14 @@ export default Counter
 
 ```js
 npm i omi-cli -g
-omi init-mpreact my-app
+omi init-mp-react my-app
 cd my-app
 npm start        //开发小程序
 npm run web      //开发 web
 npm run build    //发布 web
 ```
 
-> 也支持一条命令 `npx omi-cli init-mpreact my-app` (npm v5.2.0+)
+> 也支持一条命令 `npx omi-cli init-mp-react my-app` (npm v5.2.0+)
 
 ## 目录说明
 

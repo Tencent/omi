@@ -177,33 +177,9 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var react_dom = __webpack_require__(3);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
-var classCallCheck = __webpack_require__(5);
-var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
-var createClass = __webpack_require__(6);
-var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(7);
-var possibleConstructorReturn_default = /*#__PURE__*/__webpack_require__.n(possibleConstructorReturn);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(8);
-var getPrototypeOf_default = /*#__PURE__*/__webpack_require__.n(getPrototypeOf);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(1);
-var assertThisInitialized_default = /*#__PURE__*/__webpack_require__.n(assertThisInitialized);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/inherits.js
-var inherits = __webpack_require__(9);
-var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
-var defineProperty = __webpack_require__(2);
-var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/slicedToArray.js
+var slicedToArray = __webpack_require__(1);
+var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray);
 
 // EXTERNAL MODULE: ./src/components/counter/index.css
 var counter = __webpack_require__(16);
@@ -213,76 +189,36 @@ var counter = __webpack_require__(16);
 
 
 
+function Counter() {
+  var _useState = Object(react["useState"])(0),
+      _useState2 = slicedToArray_default()(_useState, 2),
+      count = _useState2[0],
+      setCount = _useState2[1];
 
-
-
-
-
-
-var counter_Counter =
-/*#__PURE__*/
-function (_React$Component) {
-  inherits_default()(Counter, _React$Component);
-
-  function Counter() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    classCallCheck_default()(this, Counter);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
+  return react_default.a.createElement("div", null, react_default.a.createElement("button", {
+    onClick: function onClick() {
+      return setCount(count - 1);
     }
+  }, "-"), react_default.a.createElement("span", null, count), react_default.a.createElement("button", {
+    onClick: function onClick() {
+      return setCount(count + 1);
+    }
+  }, "+"), react_default.a.createElement("div", {
+    onClick: clickHandle
+  }, "\u8DF3\u8F6C"));
+}
 
-    _this = possibleConstructorReturn_default()(this, (_getPrototypeOf2 = getPrototypeOf_default()(Counter)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    defineProperty_default()(assertThisInitialized_default()(_this), "state", {
-      count: 1
+function clickHandle() {
+  if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+    wx.navigateTo({
+      url: '../log/index?id=1'
     });
-
-    defineProperty_default()(assertThisInitialized_default()(_this), "sub", function () {
-      _this.setState({
-        count: --_this.state.count
-      });
-    });
-
-    defineProperty_default()(assertThisInitialized_default()(_this), "add", function () {
-      _this.setState({
-        count: ++_this.state.count
-      });
-    });
-
-    defineProperty_default()(assertThisInitialized_default()(_this), "clickHandle", function () {
-      if ("undefined" != typeof wx && wx.getSystemInfoSync) {
-        wx.navigateTo({
-          url: '../log/index?id=1'
-        });
-      } else {
-        location.href = 'log.html';
-      }
-    });
-
-    return _this;
+  } else {
+    location.href = 'log.html';
   }
+}
 
-  createClass_default()(Counter, [{
-    key: "render",
-    value: function render() {
-      return react_default.a.createElement("div", null, react_default.a.createElement("button", {
-        onClick: this.sub
-      }, "-"), react_default.a.createElement("span", null, this.state.count), react_default.a.createElement("button", {
-        onClick: this.add
-      }, "+"), react_default.a.createElement("div", {
-        onClick: this.clickHandle
-      }, "\u8DF3\u8F6C"));
-    }
-  }]);
-
-  return Counter;
-}(react_default.a.Component);
-
-/* harmony default export */ var components_counter = (counter_Counter);
+/* harmony default export */ var components_counter = (Counter);
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 

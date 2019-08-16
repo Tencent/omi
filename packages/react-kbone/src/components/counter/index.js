@@ -1,36 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.css'
 
-class Counter extends React.Component {
-  state = { count: 1 }
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <div onClick={clickHandle}>跳转</div>
+    </div>
+  )
+}
 
-  sub = () => {
-    this.setState({ count: --this.state.count })
-  }
-
-  add = () => {
-    this.setState({ count: ++this.state.count })
-  }
-
-  clickHandle = () => {
-    if ("undefined" != typeof wx && wx.getSystemInfoSync) {
-      wx.navigateTo({
-        url: '../log/index?id=1'
-      })
-    } else {
-      location.href = 'log.html'
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.state.count}</span>
-        <button onClick={this.add}>+</button>
-        <div onClick={this.clickHandle}>跳转</div>
-      </div>
-    )
+function clickHandle() {
+  if ("undefined" != typeof wx && wx.getSystemInfoSync) {
+    wx.navigateTo({
+      url: '../log/index?id=1'
+    })
+  } else {
+    location.href = 'log.html'
   }
 }
 
