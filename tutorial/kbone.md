@@ -7,6 +7,7 @@ kbone 是小程序官方出的多端统一框架，市面上就很多跨端开�
 * [omi-kbone](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 * [vue-kbone](https://github.com/wechat-miniprogram/kbone)
 * [react-kbone](https://github.com/Tencent/omi/tree/master/packages/react-kbone)
+* [preact-kbone](https://github.com/Tencent/omi/tree/master/packages/preact-kbone)
 
 阅读本文你可以收获：
 
