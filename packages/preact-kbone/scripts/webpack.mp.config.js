@@ -81,7 +81,8 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     plugins : [ 
-                        ["transform-react-jsx", { "pragma":"h" }] 
+                        ["transform-react-jsx", { "pragma":"h" }],
+                        ["class"]
                     ] 
                 }
             },

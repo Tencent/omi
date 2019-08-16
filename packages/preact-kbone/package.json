@@ -28,6 +28,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.6.0",
+    "babel-plugin-class": "0.0.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.0.5",
