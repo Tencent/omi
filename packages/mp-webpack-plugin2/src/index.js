@@ -33,7 +33,7 @@ function wrapChunks(compilation, chunks) {
     chunks.forEach(chunk => {
         chunk.files.forEach(fileName => {
             if (ModuleFilenameHelpers.matchObject({test: /\.js$/}, fileName)) {
-                const headerContent = 'module.exports = function(window, document) {' + globalVars.map(item => `var ${item} = window.${item}`).join(';') + ';'
+                const headerContent = 'module.exports = function(window, document) {' + globalVars.map(item => `var ${item} = window.${item}`).join(';') + ';window.HTMLIFrameElement = function(){};' 
                 const footerContent = '}'
 
                 compilation.assets[fileName] = new ConcatSource(headerContent, compilation.assets[fileName], footerContent)
