@@ -655,6 +655,25 @@ this.loop = setInterval(() => {
 }, 16)
 ```
 
+由于小程序 JSCore 里不支持 `requestAnimationFrame`，所以这里使用 setInterval。当然也可以使用 [raf-interval](https://github.com/dntzhang/raf-interval) 循环执行 tick:
+
+```js
+this.loop = setRafInterval(() => {
+  //执行在这里是大约 60 FPS
+  if (Date.now() - this._preDate > this.interval) {
+    //执行在这里是大约  1000/this.interval FPS
+    this._preDate = Date.now()
+    //暂停判断
+    if (!this.paused) {
+      //核心循环逻辑
+      this.tick()
+    }
+  }
+}, 16)
+```
+
+用法和 setInterval 一致，只是内部使用 setTimeout 且如果支持 `requestAnimationFrame` 会优先使用 `requestAnimationFrame`。
+
 [→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
 
 
