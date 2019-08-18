@@ -713,7 +713,21 @@ Game.use = ['map']
 
 这样也规避了 MVVM 最大的问题： M 到 VM 映射的开销。
 
-## 实战 vue Counter
+### 进化版 MVP 优势
+
+1、复用性
+
+Model 和 View 之间解耦，Model 或 View 中的一方发生变化，Presenter 接口不变，另一方就没必要对上述变化做出改变，那么 Model 层的业务逻辑具有很好的灵活性和可重用性。
+
+2、灵活性
+
+Presenter 的 data 变更自动映射到视图，使得 Presenter 很薄很薄，View 属于被动视图。而且基于 Presenter 的 data 可以使用任何平台、任何框架、任何技术进行渲染。
+
+3、测试性
+
+假如 View 和 Model 之间的紧耦合，在 Model 和 View 同时开发完成之前对其中一方进行测试是不可能的。出于同样的原因，对 View 或 Model 进行单元测试很困难。现在，MVP模式解决了所有的问题。MVP 模式中，View 和 Model 之间没有直接依赖，开发者能够借助模拟对象注入测试两者中的任一方。
+
+## 实战 Vue Counter
 
 ```html
 <template>
@@ -743,7 +757,7 @@ Game.use = ['map']
 </script>
 ```
 
-## 实战 react Counter
+## 实战 React Counter
 
 ```jsx
 import React, { useState } from 'react'
@@ -774,7 +788,7 @@ function clickHandle() {
 export default Counter
 ```
 
-## 实战 preact Counter
+## 实战 Preact Counter
 
 * 与 taro 编译型不同，react-kbone 支持完整 JSX 语法，任意位置任意方式书写 JSX
 * 使用最好的 react web 框架 preact，轻量迅速（react 不是最好的 react web 框架） 
