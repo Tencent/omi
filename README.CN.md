@@ -22,7 +22,7 @@
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
-|[omil](https://github.com/Wscats/omil)| Omi components 的 Webpack loader |
+| [omil](https://github.com/Wscats/omil)| 基于 .omi 单文件组件的 webpack 模块加载器 |
 | [omi-snippets](https://github.com/Wscats/omi-snippets) | VSCode omi 文件扩展, [立即安装!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets) |
 
 #### 小程序生态
