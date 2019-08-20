@@ -205,9 +205,9 @@ class MpPlugin {
             addFile(compilation, '../config.js', configJsContent)
 
             // project.config.json
-            const userPorjectConfigJson = options.projectConfig || {}
-            const projectConfigJson = Object.assign({}, projectConfigJsonTmpl)
-            const projectConfigJsonContent = JSON.stringify(_.merge(projectConfigJson, userPorjectConfigJson), null, '\t')
+            const userProjectConfigJson = options.projectConfig || {}
+            const projectConfigJson = JSON.parse(JSON.stringify(projectConfigJsonTmpl))
+            const projectConfigJsonContent = JSON.stringify(_.merge(projectConfigJson, userProjectConfigJson), null, '\t')
             addFile(compilation, '../project.config.json', projectConfigJsonContent)
 
             // package.json
