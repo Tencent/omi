@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window.HTMLIFrameElement = function(){};window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -164,11 +164,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 /* harmony import */ var omis__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
+
+var Comp = function Comp(prop, store, _) {
+  return Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])("canvas", {
+    "class": "canvas",
+    ref: function ref(ele) {
+      _.canvas = ele;
+    },
+    "canvas-id": "canvas",
+    width: "400",
+    height: "200"
+  });
+};
+
+Comp.store = function (_) {
+  return {
+    installed: function installed() {
+      var canvas = _.canvas;
+      canvas.$$getContext().then(function (ctx) {
+        ctx.setStrokeStyle("#00ff00");
+        ctx.setLineWidth(5);
+        ctx.rect(0, 0, 200, 200);
+        ctx.stroke();
+        ctx.setStrokeStyle("#ff0000");
+        ctx.setLineWidth(2);
+        ctx.moveTo(160, 100);
+        ctx.arc(100, 100, 60, 0, 2 * Math.PI, true);
+        ctx.moveTo(140, 100);
+        ctx.arc(100, 100, 40, 0, Math.PI, false);
+        ctx.moveTo(85, 80);
+        ctx.arc(80, 80, 5, 0, 2 * Math.PI, true);
+        ctx.moveTo(125, 80);
+        ctx.arc(120, 80, 5, 0, 2 * Math.PI, true);
+        ctx.stroke();
+        ctx.draw();
+      });
+    }
+  };
+};
+
 function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* render */ "b"])(Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])("div", null, "\u6211\u662Flog\u9875\u9762"), '#app');
+  Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* render */ "b"])(Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])("div", null, Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])("h1", null, "\u6211\u662Flog\u9875\u9762"), Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])(Comp, null)), '#app');
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 

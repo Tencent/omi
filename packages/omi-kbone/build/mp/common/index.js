@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window.HTMLIFrameElement = function(){};window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -196,10 +196,10 @@ module.exports = _defineProperty;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
+// EXTERNAL MODULE: ./node_modules/_omis@1.0.3@omis/dist/omis.esm.js
 var omis_esm = __webpack_require__(0);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime@7.5.5@@babel/runtime/helpers/defineProperty.js
 var defineProperty = __webpack_require__(1);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 

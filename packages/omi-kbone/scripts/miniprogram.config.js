@@ -50,7 +50,25 @@ module.exports = {
 	// 项目配置，会被合并到 project.config.json
 	projectConfig: {
 		appid: 'wxfaf6dad43f57c6bd',
-        projectname: 'kbone-demo1',
+		projectname: 'kbone-demo1',
+		condition: {
+			"miniprogram": {
+				"list": [
+					{
+						"id": 0,
+						"name": "首页",
+						"pathName": "pages/index/index",
+						"scene": null
+					},
+					{
+						"id": 1,
+						"name": "Log 页面",
+						"pathName": "pages/log/index",
+						"scene": null
+					}
+				]
+			}
+		}
 	},
 	// 包配置，会被合并到 package.json
 	packageConfig: {
