@@ -9,7 +9,7 @@
 | `beforeUpdate`   |  update 之前                          |
 | `updated`        |  update 之后                       |
 | `beforeRender`   |  `render()` 之前                         |
-| `receiveProps`   | 父元素重新渲染触发       |
+| `receiveProps`   | 父元素重新渲染触发，返回 false 可阻止更新       |
 
 举个例子:
 

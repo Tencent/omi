@@ -8,7 +8,7 @@ define('my-list', class extends WeElement {
   ]
 
   render(props) {
-    const [position] = this.use
+    const [position] = this.using
 
     return (
       <ul>

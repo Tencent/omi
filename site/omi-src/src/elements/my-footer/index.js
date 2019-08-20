@@ -12,7 +12,7 @@ define('my-footer', class extends WeElement {
     const [
       position,
       menus
-    ] = this.use
+    ] = this.using
     const pre = this.store.getPre()
     const next = this.store.getNext()
 
