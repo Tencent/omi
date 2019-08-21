@@ -72,6 +72,7 @@
 - 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
+- [很容易通过 extend api 实现双向绑定](https://codepen.io/omijs/pen/aeLYjx)
 - 支持 `TypeScript`
 - 响应式数据绑定
 - 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度

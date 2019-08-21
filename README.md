@@ -69,6 +69,7 @@ English | [简体中文](./README.CN.md)
 - Cross framework(react, preact, vue, angular) custom elements by omi
 - One framework. Mobile & desktop & mini program
 - Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'flase'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
+- [Easy two way binding by extend api](https://codepen.io/omijs/pen/aeLYjx)
 - Supports TypeScript
 - Reactive data-binding
 - [Native tap event support](https://github.com/Tencent/omi/releases/tag/v4.0.24)
