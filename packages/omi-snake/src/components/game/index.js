@@ -1,10 +1,10 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, rpx } from 'omi'
 
 
 define('my-game', class extends WeElement{
   static use = ['map']
-  
-  static css = require('./_index.css')
+
+  static css = rpx(require('./_index.css'))
 
   render(){
     return <div class="game">

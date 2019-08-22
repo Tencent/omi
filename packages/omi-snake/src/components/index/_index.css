@@ -1,18 +1,3 @@
-page {
-  background: #efcc19;
-  padding: 0;
-  margin: 0;
-  font: 20px/1 HanHei SC, PingHei, PingFang SC, STHeitiSC-Light, Helvetica Neue, Helvetica, Arial, sans-serif;
-  overflow: hidden;
-  cursor: default;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -moz-font-feature-settings: "liga", "kern";
-  direction: ltr;
-  text-align: left
-}
-
 .r {
   float: right
 }
@@ -35,20 +20,14 @@ page {
   user-select: none
 }
 
-
-
-._3Wmt div {
-  height: 22px;
-  width: 88px;
-  float: right
+h1{
+  text-align: center;
 }
 
-
-
 .ctrl {
-  width: 580px;
-  height: 330px;
-  margin: 20px auto 0;
+  width: 580rpx;
+  height: 330rpx;
+  margin: 20rpx auto 0;
   position: relative
 }
 
@@ -61,21 +40,17 @@ page {
 }
 
 .btn.small {
-  font-size: 16px
+  font-size: 16rpx
 }
 
-.btn span._1zCL {
-  position: absolute;
-  top: 5px;
-  left: 102px
-}
+
 
 .btn i {
   display: block;
   position: relative;
-  border: 1px solid #000;
+  border: 1rpx solid #000;
   border-radius: 50%;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, .2)
+  box-shadow: 0 3rpx 3rpx rgba(0, 0, 0, .2)
 }
 
 .btn i:after,
@@ -88,19 +63,19 @@ page {
   top: 0;
   left: 0;
   border-radius: 50%;
-  box-shadow: inset 0 5px 10px hsla(0, 0%, 100%, .8)
+  box-shadow: inset 0 5rpx 10rpx hsla(0, 0%, 100%, .8)
 }
 
 .btn i:after {
-  box-shadow: inset 0 -5px 10px rgba(0, 0, 0, .8)
+  box-shadow: inset 0 -5rpx 10rpx rgba(0, 0, 0, .8)
 }
 
 .btn i._23aw:before {
-  box-shadow: inset 0 -3px 6px hsla(0, 0%, 100%, .6)
+  box-shadow: inset 0 -3rpx 6rpx hsla(0, 0%, 100%, .6)
 }
 
 .btn i._23aw:after {
-  box-shadow: inset 0 5px 5px rgba(0, 0, 0, .6)
+  box-shadow: inset 0 5rpx 5rpx rgba(0, 0, 0, .6)
 }
 
 .btn.cm-btn i {
@@ -108,19 +83,19 @@ page {
   background: -moz-linear-gradient(top, #6e77ef, #6e77ef)
 }
 
-.btn.RBZg i {
+.btn.pp i {
   background: #2dc421;
   background: -moz-linear-gradient(top, #4bc441, #4bc441)
 }
 
-.btn.dg i {
+.btn.reset i {
   background: #dd1a1a;
   background: -moz-linear-gradient(top, #dc3333, #dc3333)
 }
 
 .btn.space i {
-  width: 160px;
-  height: 160px
+  width: 160rpx;
+  height: 160rpx
 }
 
 
@@ -130,41 +105,99 @@ page {
 
 
 .btn.cm-btn-dir i {
-  width: 100px;
-  height: 100px
+  width: 100rpx;
+  height: 100rpx
 }
 
 .btn.small i {
-  width: 52px;
-  height: 52px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, .2)
+  width: 52rpx;
+  height: 52rpx;
+  box-shadow: 1rpx 1rpx 1rpx rgba(0, 0, 0, .2)
 }
 
 .btn.small i:after,
 .btn.small i:before {
-  box-shadow: inset 0 3px 6px hsla(0, 0%, 100%, .8)
+  box-shadow: inset 0 3rpx 6rpx hsla(0, 0%, 100%, .8)
 }
 
 .btn.small i:after {
-  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .8)
+  box-shadow: inset 0 -3rpx 6rpx rgba(0, 0, 0, .8)
 }
 
 .btn.small i._23aw:before {
-  box-shadow: inset 0 -1px 2px hsla(0, 0%, 100%, .6)
+  box-shadow: inset 0 -1rpx 2rpx hsla(0, 0%, 100%, .6)
 }
 
 .btn.small i._23aw:after {
-  box-shadow: inset 0 3px 3px rgba(0, 0, 0, .7)
+  box-shadow: inset 0 3rpx 3rpx rgba(0, 0, 0, .7)
 }
 
 .btn.cm-btn-dir em {
   display: block;
   width: 0;
   height: 0;
-  border: 8px solid;
+  border: 8rpx solid;
   border-color: transparent transparent #111;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -12px 0 0 -8px
+  margin: -12rpx 0 0 -8rpx
+}
+
+
+.up {
+  top: 0rpx; 
+  left: 374rpx;
+}
+
+.up em{
+  transform: translate(0rpx, 70rpx) scale(1, 2);
+}
+
+
+.up span {
+  position: absolute;
+  top: 5rpx;
+  left: 102rpx
+}
+
+.down{
+  top: 180rpx; 
+  left: 374rpx;
+}
+
+.down em{
+  transform: translate(0rpx, -71rpx) rotate(180deg) scale(1, 2);
+}
+
+.left{
+  top: 90rpx; 
+  left: 284rpx;
+}
+
+.left em{
+  transform: translate(60rpx, -12rpx) rotate(270deg) scale(1, 2);
+}
+
+.right{
+  top: 90rpx; left: 464rpx;
+}
+
+.right em{
+  transform: translate(-60rpx, -12rpx) rotate(90deg) scale(1, 2);
+}
+
+.space{
+  top: 100rpx; 
+  left: 52rpx;
+}
+
+.reset{
+  top: 0rpx; 
+  left: 156rpx;
+}
+
+.pp{
+  top: 0rpx; 
+  left: 60rpx;
 }
