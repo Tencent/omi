@@ -5,33 +5,38 @@ const { snake, map } = game
 
 game.start()
 
-export default {
-  data: {
-    map
-  },
+class Store {
+  data = {
+    map,
+    paused: false
+  }
   turnUp() {
     snake.turnUp()
-  },
+  }
   turnRight() {
     snake.turnRight()
-  },
+  }
   turnDown() {
     snake.turnDown()
-  },
+  }
   turnLeft() {
     snake.turnLeft()
-  },
-  pauseOrPlay() {
+  }
+  pauseOrPlay = () => {
     if (game.paused) {
       game.play()
+      this.data.paused = false
     } else {
       game.pause()
+      this.data.paused = true
     }
-  },
+  }
   reset() {
     game.reset()
-  },
+  }
   toggleSpeed() {
     game.toggleSpeed()
   }
 }
+
+export default new Store

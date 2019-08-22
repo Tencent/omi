@@ -36,15 +36,6 @@ page {
 }
 
 
-
-._3Wmt div {
-  height: 22rpx;
-  width: 88rpx;
-  float: right
-}
-
-
-
 .ctrl {
   width: 580rpx;
   height: 330rpx;
@@ -64,11 +55,6 @@ page {
   font-size: 16rpx
 }
 
-.btn span._1zCL {
-  position: absolute;
-  top: 5rpx;
-  left: 102rpx
-}
 
 .btn i {
   display: block;
@@ -108,12 +94,12 @@ page {
   background: -moz-linear-gradient(top, #6e77ef, #6e77ef)
 }
 
-.btn.RBZg i {
+.btn.pp i {
   background: #2dc421;
   background: -moz-linear-gradient(top, #4bc441, #4bc441)
 }
 
-.btn.dg i {
+.btn.reset i {
   background: #dd1a1a;
   background: -moz-linear-gradient(top, #dc3333, #dc3333)
 }
@@ -167,4 +153,62 @@ page {
   top: 50%;
   left: 50%;
   margin: -12rpx 0 0 -8rpx
+}
+
+
+.up {
+  top: 0rpx; 
+  left: 374rpx;
+}
+
+.up em{
+  transform: translate(0rpx, 70rpx) scale(1, 2);
+}
+
+
+.up span {
+  position: absolute;
+  top: 5rpx;
+  left: 102rpx
+}
+
+.down{
+  top: 180rpx; 
+  left: 374rpx;
+}
+
+.down em{
+  transform: translate(0rpx, -71rpx) rotate(180deg) scale(1, 2);
+}
+
+.left{
+  top: 90rpx; 
+  left: 284rpx;
+}
+
+.left em{
+  transform: translate(60rpx, -12rpx) rotate(270deg) scale(1, 2);
+}
+
+.right{
+  top: 90rpx; left: 464rpx;
+}
+
+.right em{
+  transform: translate(-60rpx, -12rpx) rotate(90deg) scale(1, 2);
+}
+
+.space{
+  top: 100rpx; 
+  left: 52rpx;
+}
+
+.reset{
+  top: 0rpx; 
+  left: 156rpx;
+}
+
+.pp{
+  top: 0rpx; 
+  left: 60rpx;
 }

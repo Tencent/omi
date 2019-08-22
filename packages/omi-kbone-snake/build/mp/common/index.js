@@ -149,57 +149,16 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([7,0]);
+/******/ 	deferredModules.push([7,0,3]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */,
-/* 1 */
-/***/ (function(module, exports) {
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-module.exports = _classCallCheck;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-module.exports = _createClass;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-function _objectDestructuringEmpty(obj) {
-  if (obj == null) throw new TypeError("Cannot destructure undefined");
-}
-
-module.exports = _objectDestructuringEmpty;
-
-/***/ }),
+/* 1 */,
+/* 2 */,
+/* 3 */,
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -270,75 +229,32 @@ var index_Index = function Index(props, store, _, $) {
   return Object(omis_esm["a" /* h */])("div", {
     "class": "container"
   }, Object(omis_esm["a" /* h */])(game, null), Object(omis_esm["a" /* h */])("div", {
-    "class": "ctrl",
-    style: "margin-top: 20rpx;"
+    "class": "ctrl"
   }, Object(omis_esm["a" /* h */])("div", {
-    "class": "btn cm-btn cm-btn-dir",
-    onClick: $.turnUp,
-    style: "top: 0rpx; left: 374rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("em", {
-    style: "transform: translate(0rpx, 63rpx) scale(1, 2);"
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": "_1zCL"
-  }, "Up")), Object(omis_esm["a" /* h */])("div", {
-    "class": "btn cm-btn cm-btn-dir",
-    onClick: $.turnDown,
-    style: "top: 180rpx; left: 374rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("em", {
-    style: "transform: translate(0rpx, -71rpx) rotate(180deg) scale(1, 2);"
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "Down")), Object(omis_esm["a" /* h */])("div", {
-    "class": "btn cm-btn cm-btn-dir",
-    onClick: $.turnLeft,
-    style: "top: 90rpx; left: 284rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("em", {
-    style: "transform: translate(60rpx, -12rpx) rotate(270deg) scale(1, 2);"
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "Left")), Object(omis_esm["a" /* h */])("div", {
-    "class": "btn cm-btn cm-btn-dir",
-    onClick: $.turnRight,
-    style: "top: 90rpx; left: 464rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("em", {
-    style: "transform: translate(-60rpx, -12rpx) rotate(90deg) scale(1, 2);"
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "Right")), Object(omis_esm["a" /* h */])("div", {
+    "class": "btn cm-btn cm-btn-dir up",
+    onClick: $.turnUp
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Up")), Object(omis_esm["a" /* h */])("div", {
+    "class": "btn cm-btn cm-btn-dir down",
+    onClick: $.turnDown
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Down")), Object(omis_esm["a" /* h */])("div", {
+    "class": "btn cm-btn cm-btn-dir left",
+    onClick: $.turnLeft
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Left")), Object(omis_esm["a" /* h */])("div", {
+    "class": "btn cm-btn cm-btn-dir right",
+    onClick: $.turnRight
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Right")), Object(omis_esm["a" /* h */])("div", {
     "class": "btn cm-btn space",
-    onClick: $.toggleSpeed,
-    style: "top: 100rpx; left: 52rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "\u52A0\u901F/\u51CF\u901F")), Object(omis_esm["a" /* h */])("div", {
-    "class": "btn dg small",
-    onClick: $.reset,
-    style: "top: 0rpx; left: 156rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "Reset(R)")), Object(omis_esm["a" /* h */])("div", {
-    "class": "btn RBZg small",
-    onClick: $.pauseOrPlay,
-    style: "top: 0rpx; left: 60rpx;"
-  }, Object(omis_esm["a" /* h */])("i", {
-    "class": ""
-  }), Object(omis_esm["a" /* h */])("span", {
-    "class": ""
-  }, "Pause/Play"))));
+    onClick: $.toggleSpeed
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("span", null, "\u52A0\u901F/\u51CF\u901F")), Object(omis_esm["a" /* h */])("div", {
+    "class": "btn reset small",
+    onClick: $.reset
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("span", null, "Reset")), Object(omis_esm["a" /* h */])("div", {
+    "class": "btn pp small",
+    onClick: $.pauseOrPlay
+  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("span", null, $.data.paused ? 'Play' : 'Pause'))));
 };
 
+index_Index.use = ['paused'];
 index_Index.css = _index_default.a;
 /* harmony default export */ var index = (index_Index);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
@@ -348,6 +264,10 @@ var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
 var createClass = __webpack_require__(2);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
+var defineProperty = __webpack_require__(8);
+var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // CONCATENATED MODULE: ./src/models/snake.js
 
@@ -565,40 +485,74 @@ function () {
 /* harmony default export */ var models_game = (models_game_Game);
 // CONCATENATED MODULE: ./src/stores/index.js
 
+
+
+
 var stores_game = new models_game();
 var stores_snake = stores_game.snake,
     map = stores_game.map;
 stores_game.start();
-/* harmony default export */ var stores = ({
-  data: {
-    map: map
-  },
-  turnUp: function turnUp() {
-    stores_snake.turnUp();
-  },
-  turnRight: function turnRight() {
-    stores_snake.turnRight();
-  },
-  turnDown: function turnDown() {
-    stores_snake.turnDown();
-  },
-  turnLeft: function turnLeft() {
-    stores_snake.turnLeft();
-  },
-  pauseOrPlay: function pauseOrPlay() {
-    if (stores_game.paused) {
-      stores_game.play();
-    } else {
-      stores_game.pause();
-    }
-  },
-  reset: function reset() {
-    stores_game.reset();
-  },
-  toggleSpeed: function toggleSpeed() {
-    stores_game.toggleSpeed();
+
+var stores_Store =
+/*#__PURE__*/
+function () {
+  function Store() {
+    var _this = this;
+
+    classCallCheck_default()(this, Store);
+
+    defineProperty_default()(this, "data", {
+      map: map,
+      paused: false
+    });
+
+    defineProperty_default()(this, "pauseOrPlay", function () {
+      if (stores_game.paused) {
+        stores_game.play();
+        _this.data.paused = false;
+      } else {
+        stores_game.pause();
+        _this.data.paused = true;
+      }
+    });
   }
-});
+
+  createClass_default()(Store, [{
+    key: "turnUp",
+    value: function turnUp() {
+      stores_snake.turnUp();
+    }
+  }, {
+    key: "turnRight",
+    value: function turnRight() {
+      stores_snake.turnRight();
+    }
+  }, {
+    key: "turnDown",
+    value: function turnDown() {
+      stores_snake.turnDown();
+    }
+  }, {
+    key: "turnLeft",
+    value: function turnLeft() {
+      stores_snake.turnLeft();
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      stores_game.reset();
+    }
+  }, {
+    key: "toggleSpeed",
+    value: function toggleSpeed() {
+      stores_game.toggleSpeed();
+    }
+  }]);
+
+  return Store;
+}();
+
+/* harmony default export */ var stores = (new stores_Store());
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 
