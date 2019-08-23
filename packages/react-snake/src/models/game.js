@@ -9,6 +9,7 @@ class Game {
     this.paused = false
     this._preDate = Date.now()
     this.init()
+    this.onTick = null
   }
 
   init() {
@@ -60,6 +61,7 @@ class Game {
         this._preDate = Date.now()
         if (!this.paused) {
           this.tick()
+          this.onTick && this.onTick()
         }
       }
     }, 16)
