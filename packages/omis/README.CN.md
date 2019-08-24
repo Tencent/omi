@@ -6,7 +6,7 @@
 
 * 函数式风格但非函数式编程 
 * 结构-样式-行为分离
-* 支持 Scoped style 
+* 支持 scoped style 
 * 支持 web components
 * hyperscript 视觉上更加友好
 * 每个组件可以带有一个 store，去中心化
