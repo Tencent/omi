@@ -12,9 +12,9 @@ GlobalStore is Omi's built-in centralized data warehouse, which solves and provi
 ```jsx
 import { render, h } from 'omi'
 
-const Counter = function (props, store) {
+const Counter = function (props, store, _, $) {
   return <p>
-    Clicked: {this.$.data.count} times
+    Clicked: {$.data.count} times
     {' '}
     <button onClick={store.add}>+</button>
     <button onClick={store.sub}>-</button>
@@ -29,21 +29,21 @@ const Counter = function (props, store) {
 
 Counter.use = ['count']
 
-Counter.store = _ => {
+Counter.store = (_, $) => {
   return {
     add() {
-      _.$.add()
+      $.add()
     },
     sub() {
-      _.$.sub()
+      $.sub()
     },
     addIfOdd() {
-      if (_.$.data.count % 2 !== 0) {
-        _.$.add()
+      if ($.data.count % 2 !== 0) {
+        $.add()
       }
     },
     addAsync() {
-      setTimeout(() => _.$.add(), 1000)
+      setTimeout(() => $.add(), 1000)
     }
   }
 }
@@ -131,7 +131,7 @@ Let's look at the use of JSX:
 ...
 ```
 
-Without alias, you can also access it directly through `_.$.data.xxx'.
+Without alias, you can also access it directly through `$.data.xxx'.
 
 ### Path hit rule
 

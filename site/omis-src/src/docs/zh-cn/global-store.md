@@ -12,9 +12,9 @@ GlobalStore 是 Omis 内置的中心化数据仓库，他解决和提供了下�
 ```jsx
 import { render, h } from 'omi'
 
-const Counter = function (props, store) {
+const Counter = function (props, store, _, $) {
   return <p>
-    Clicked: {this.$.data.count} times
+    Clicked: {$.data.count} times
     {' '}
     <button onClick={store.add}>+</button>
     <button onClick={store.sub}>-</button>
@@ -29,21 +29,21 @@ const Counter = function (props, store) {
 
 Counter.use = ['count']
 
-Counter.store = _ => {
+Counter.store = (_, $) => {
   return {
     add() {
-      _.$.add()
+      $.add()
     },
     sub() {
-      _.$.sub()
+      $.sub()
     },
     addIfOdd() {
-      if (_.$.data.count % 2 !== 0) {
-        _.$.add()
+      if ($.data.count % 2 !== 0) {
+        $.add()
       }
     },
     addAsync() {
-      setTimeout(() => _.$.add(), 1000)
+      setTimeout(() => $.add(), 1000)
     }
   }
 }
@@ -131,7 +131,7 @@ Comp.use = [
 ...
 ```
 
-如果不带有 alias ，你也可以直接通过 `_.$.data.xxx` 访问。
+如果不带有 alias ，你也可以直接通过 `$.data.xxx` 访问。
 
 
 当 `$.data` 发生变化，依赖变更数据的组件会进行更新，举例说明 Path 命中规则:
