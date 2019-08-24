@@ -6,6 +6,7 @@ English | [简体中文](./README.CN.md)
 
 * Functional style but non-functional programming
 * Structure-Style-Behavior Separation
+* Scoped style supporting
 * Web Components supporting
 * Hyperscript is visually more friendly
 * Each component can have a store and be de-centralized
