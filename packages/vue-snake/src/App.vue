@@ -1,18 +1,16 @@
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Index from './components/index.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  },
+    Index
+	},
   render(h){
     return (
        <div id="app">
-        <div>abc</div>
-        <img alt="Vue logo" src={require('./assets/logo.png')} />
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <Index msg="Welcome to Your Vue.js App" />
       </div>
     )
   }
@@ -20,6 +18,21 @@ export default {
 </script>
 
 <style>
+body {
+  background: #efcc19;
+  padding: 0;
+  margin: 0;
+  font: 20rpx/1 HanHei SC, PingHei, PingFang SC, STHeitiSC-Light, Helvetica Neue, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  cursor: default;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga", "kern";
+  direction: ltr;
+  text-align: left
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

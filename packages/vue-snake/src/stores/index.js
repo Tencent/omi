@@ -1,55 +1,64 @@
 import Game from '../models/game'
+import Vue from 'vue'
 import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
 const game = new Game()
 const { snake, map } = game
 
 game.start()
 
-class Store {
-  data = {
+export default new Vuex.Store({
+	state: {
     map,
     paused: false
-  }
+  },
+	mutations: {
+    turnUp() {
+      snake.turnUp()
+    },
 
-  turnUp() {
-    snake.turnUp()
-  }
-  
-  turnRight() {
-    snake.turnRight()
-  }
+    turnRight() {
+      snake.turnRight()
+    },
 
-  turnDown() {
-    snake.turnDown()
-  }
+    turnDown() {
+      snake.turnDown()
+    },
 
-  turnLeft() {
-    snake.turnLeft()
-  }
+    turnLeft() {
+      snake.turnLeft()
+    },
 
-  pauseOrPlay = () => {
-    if (game.paused) {
-      game.play()
-      this.data.paused = false
-      this.onChange()
-    } else {
-      game.pause()
-      this.data.paused = true
-      this.onChange()
+    pauseOrPlay(state){
+      state.map[0] = 1
+      if (game.paused) {
+        game.play()
+        state.paused = false
+      } else {
+        game.pause()
+        state.paused = true
+      }
+    },
+
+    reset() {
+      game.reset()
+    },
+
+    toggleSpeed() {
+      game.toggleSpeed()
+    },
+
+    subscribe(render){
+      game.onTick = this.onChange = render
+    },
+    aa(state){
+      console.log(state)
+
+      state.map[0][0] = !state.map[0][0]
+      state.paused = !state.paused
+
     }
-  }
-  reset() {
-    game.reset()
-  }
-
-  toggleSpeed() {
-    game.toggleSpeed()
-  }
-
-  subscribe(render){
-    game.onTick = this.onChange = render
-  }
-}
-
-export default new Store()
+	}
+})
