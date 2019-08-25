@@ -1,15 +1,17 @@
-import { define, WeElement, render, h, extend, get, set } from '../../src/omi'
+import { define, WeElement, render, h, extend, get, set, bind, unbind } from '../../src/omi'
 
 extend('model', (el, path, scope) => {
   if (el.type === 'checkbox') {
-    el.checked = get(scope, path)
-    el.addEventListener('change', () => {
+		el.checked = get(scope, path)
+		unbind(el, 'change')
+    bind(el, 'change', () => {
       set(scope, path, el.checked)
       scope.update()
     })
   } else {
-    el.value = get(scope, path)
-    el.addEventListener('input', () => {
+		el.value = get(scope, path)
+		unbind(el, 'input')
+    bind(el, 'input', () => {
       set(scope, path, el.value)
       scope.update()
     })

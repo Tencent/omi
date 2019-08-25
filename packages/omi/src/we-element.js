@@ -139,7 +139,13 @@ export default class WeElement extends HTMLElement {
       this.shadowRoot
     )
     this._willUpdate = false
-    this.updated()
+		this.updated()
+
+		for(let key in extention){
+			this.shadowRoot.querySelectorAll(`[o-${key}]`).forEach(node => {
+				extention[key](node, node.getAttribute(`o-${key}`), this)
+			})
+		}
   }
 
   removeAttribute(key) {

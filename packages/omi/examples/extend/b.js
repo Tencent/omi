@@ -1319,6 +1319,20 @@
   	return current;
   }
 
+  function eventProxy$1(e) {
+  	return this._listeners[e.type](e);
+  }
+
+  function bind(el, type, handler) {
+  	el._listeners = el._listeners || {};
+  	el._listeners[type] = handler;
+  	el.addEventListener(type, eventProxy$1);
+  }
+
+  function unbind(el, type) {
+  	el.removeEventListener(type, eventProxy$1);
+  }
+
   var _class, _temp;
 
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1440,6 +1454,8 @@
     };
 
     WeElement.prototype.update = function update(ignoreAttrs) {
+      var _this3 = this;
+
       this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
@@ -1456,6 +1472,16 @@
       this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
       this._willUpdate = false;
       this.updated();
+
+      var _loop2 = function _loop2(key) {
+        _this3.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function (node) {
+          extention[key](node, node.getAttribute('o-' + key), _this3);
+        });
+      };
+
+      for (var key in extention) {
+        _loop2(key);
+      }
     };
 
     WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1858,7 +1884,9 @@
     $: $,
     extend: extend$1,
     get: get,
-    set: set
+    set: set,
+    bind: bind,
+    unbind: unbind
   };
 
   options.root.Omi = omi;
@@ -1874,13 +1902,15 @@
   extend$1('model', function (el, path, scope) {
     if (el.type === 'checkbox') {
       el.checked = get(scope, path);
-      el.addEventListener('change', function () {
+      unbind(el, 'change');
+      bind(el, 'change', function () {
         set(scope, path, el.checked);
         scope.update();
       });
     } else {
       el.value = get(scope, path);
-      el.addEventListener('input', function () {
+      unbind(el, 'input');
+      bind(el, 'input', function () {
         set(scope, path, el.value);
         scope.update();
       });

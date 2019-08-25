@@ -13,7 +13,7 @@ import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 import { o } from './o'
 import htm from 'htm'
-import { extend, get, set } from './extend'
+import { extend, get, set, bind, unbind } from './extend'
 
 const html = htm.bind(h)
 
@@ -53,12 +53,14 @@ const omi = {
 	$,
 	extend,
 	get,
-	set
+	set,
+	bind,
+	unbind
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.9.0'
+options.root.Omi.version = '6.9.1'
 
 export default omi
 
@@ -89,5 +91,7 @@ export {
 	$,
 	extend,
 	get,
-	set
+	set,
+	bind,
+	unbind
 }

@@ -25,3 +25,17 @@ export function get(origin, path) {
 
 	return current
 }
+
+function eventProxy(e) {
+  return this._listeners[e.type](e)
+}
+
+export function bind(el, type, handler){
+	el._listeners = el._listeners || {}
+	el._listeners[type] = handler
+	el.addEventListener(type, eventProxy)
+}
+
+export function unbind(el, type){
+	el.removeEventListener(type, eventProxy)
+}
