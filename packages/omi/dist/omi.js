@@ -484,6 +484,17 @@
         for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
         return current;
     }
+    function eventProxy$1(e) {
+        return this.__l[e.type](e);
+    }
+    function bind(el, type, handler) {
+        el.__l = el.__l || {};
+        el.__l[type] = handler;
+        el.addEventListener(type, eventProxy$1);
+    }
+    function unbind(el, type) {
+        el.removeEventListener(type, eventProxy$1);
+    }
     function _classCallCheck$1(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
@@ -963,6 +974,7 @@
             }
         };
         WeElement.prototype.update = function(ignoreAttrs) {
+            var _this3 = this;
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
@@ -976,6 +988,11 @@
             this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
             this.J = !1;
             this.updated();
+            for (var key in extention) !function(key) {
+                _this3.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function(node) {
+                    extention[key](node, node.getAttribute('o-' + key), _this3);
+                });
+            }(key);
         };
         WeElement.prototype.removeAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -1113,11 +1130,13 @@
         $: $,
         extend: extend$1,
         get: get,
-        set: set
+        set: set,
+        bind: bind,
+        unbind: unbind
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.9.0';
+    options.root.Omi.version = '6.9.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

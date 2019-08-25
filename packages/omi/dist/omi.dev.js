@@ -1320,6 +1320,20 @@
   	return current;
   }
 
+  function eventProxy$1(e) {
+  	return this._listeners[e.type](e);
+  }
+
+  function bind(el, type, handler) {
+  	el._listeners = el._listeners || {};
+  	el._listeners[type] = handler;
+  	el.addEventListener(type, eventProxy$1);
+  }
+
+  function unbind(el, type) {
+  	el.removeEventListener(type, eventProxy$1);
+  }
+
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1439,6 +1453,8 @@
     };
 
     WeElement.prototype.update = function update(ignoreAttrs) {
+      var _this3 = this;
+
       this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
@@ -1455,6 +1471,16 @@
       this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
       this._willUpdate = false;
       this.updated();
+
+      var _loop2 = function _loop2(key) {
+        _this3.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function (node) {
+          extention[key](node, node.getAttribute('o-' + key), _this3);
+        });
+      };
+
+      for (var key in extention) {
+        _loop2(key);
+      }
     };
 
     WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1860,12 +1886,14 @@
     $: $,
     extend: extend$1,
     get: get,
-    set: set
+    set: set,
+    bind: bind,
+    unbind: unbind
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.9.0';
+  options.root.Omi.version = '6.9.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

@@ -201,6 +201,8 @@ declare namespace Omi {
 	function extend(name: string, handler: (el: HTMLElement, path: string, scope: WeElement) => void): void;
 	function get(obj: any, path: string): any;
 	function set(obj: any, path: string, value: any): void;
+	function bind(el: HTMLElement, type: string, handler: (event: Event) => any): void;
+	function unbind(el: HTMLElement, type: string): void;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
