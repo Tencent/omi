@@ -2,9 +2,6 @@
 import Game from './game.vue'
 
 export default {
-  props: {
-    msg: String
-  },
   render(h){
 		const store = this.$store
 		const state = store.state

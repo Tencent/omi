@@ -52,13 +52,6 @@ export default new Vuex.Store({
 
     subscribe(render){
       game.onTick = this.onChange = render
-    },
-    aa(state){
-      console.log(state)
-
-      state.map[0][0] = !state.map[0][0]
-      state.paused = !state.paused
-
     }
 	}
 })

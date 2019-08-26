@@ -1,6 +1,5 @@
 <script>
 export default {
-  name: "HelloWorld",
   props: {
     map: Array
   },
@@ -27,11 +26,6 @@ export default {
         })}
       </div>
     );
-  },
-  methods: {
-    increment() {
-      this.$store.commit("increment");
-    }
   }
 };
 </script>
