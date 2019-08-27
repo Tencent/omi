@@ -1,4 +1,9 @@
 import './style';
-import App from './components/app';
+import { render, h } from 'preact'
+import Index from './components/index';
+import store from './stores/index'
 
-export default App;
+const app = document.createElement('div')
+document.body.appendChild(app)
+render(<Index store={store} />, app)
+

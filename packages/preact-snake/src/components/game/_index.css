@@ -1,0 +1,43 @@
+.game {
+
+  border: 2rpx solid #000;
+  padding: 10rpx 0 5rpx 0;
+  width: 725rpx;
+  margin: 10rpx auto;
+  background-color: #9ead86;
+  text-align: center;
+}
+
+.game p {
+  width: 725rpx;
+  height: 44rpx;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.game b {
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  padding: 4rpx;
+  border: 4rpx solid #879372;
+  margin: 0 4rpx 4rpx 0;
+}
+
+.game b.s:after {
+  background: #000;
+}
+
+.game b:after {
+  content: "";
+  display: block;
+  width: 24rpx;
+  height: 24rpx;
+  background: #879372;
+  overflow: hidden;
+}
