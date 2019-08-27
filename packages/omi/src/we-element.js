@@ -77,7 +77,7 @@ export default class WeElement extends HTMLElement {
       {},
       false,
       null,
-      false
+      this
     )
     this.rendered()
 
@@ -97,11 +97,6 @@ export default class WeElement extends HTMLElement {
     this.installed()
 		this._isInstalled = true
 
-		for(let key in extention){
-			this.shadowRoot.querySelectorAll(`[o-${key}]`).forEach(node => {
-				extention[key](node, node.getAttribute(`o-${key}`), this)
-			})
-		}
   }
 
   disconnectedCallback() {
@@ -136,16 +131,12 @@ export default class WeElement extends HTMLElement {
       rendered,
       null,
       null,
-      this.shadowRoot
+      this.shadowRoot,
+      this
     )
     this._willUpdate = false
 		this.updated()
 
-		for(let key in extention){
-			this.shadowRoot.querySelectorAll(`[o-${key}]`).forEach(node => {
-				extention[key](node, node.getAttribute(`o-${key}`), this)
-			})
-		}
   }
 
   removeAttribute(key) {

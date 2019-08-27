@@ -1,6 +1,7 @@
 import { IS_NON_DIMENSIONAL } from '../constants'
 import { applyRef } from '../util'
 import options from '../options'
+import { extention } from  '../extend'
 
 /**
  * Create an element with the given nodeName.
@@ -39,10 +40,14 @@ export function removeNode(node) {
  * @param {boolean} isSvg Are we currently diffing inside an svg?
  * @private
  */
-export function setAccessor(node, name, old, value, isSvg) {
+export function setAccessor(node, name, old, value, isSvg, component) {
   if (name === 'className') name = 'class'
 
-  if (name === 'key') {
+  if (name[0] == 'o' && name[1] == '-'){
+    if(extention[name]){
+      extention[name](node, value, component)
+    }
+  } else if (name === 'key') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null)

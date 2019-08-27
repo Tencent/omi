@@ -23,7 +23,7 @@ let hydrating = false
  *	@returns {Element} dom			The created/mutated element
  *	@private
  */
-export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+export function diff(dom, vnode, context, mountAll, parent, component) {
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   let ret
   if (!diffLevel++) {
@@ -39,7 +39,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       styles.forEach(s => {
         parent.removeChild(s)
       })
-      innerDiffNode(parent, vnode)
+      innerDiffNode(parent, vnode, null, null, null, component)
 
       for (let i = styles.length - 1; i >= 0; i--) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
@@ -47,7 +47,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     } else {
       ret = []
       vnode.forEach((item, index) => {
-        let ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot)
+        let ele = idiff(index === 0 ? dom : null, item, context, mountAll, component)
         ret.push(ele)
       })
     }
@@ -55,13 +55,13 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     if (isArray(dom)) {
       dom.forEach((one, index) => {
         if (index === 0) {
-          ret = idiff(one, vnode, context, mountAll, componentRoot)
+          ret = idiff(one, vnode, context, mountAll, component)
         } else {
           recollectNodeTree(one, false)
         }
       })
     } else {
-      ret = idiff(dom, vnode, context, mountAll, componentRoot)
+      ret = idiff(dom, vnode, context, mountAll, component)
     }
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret)
@@ -77,7 +77,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-function idiff(dom, vnode, context, mountAll, componentRoot) {
+function idiff(dom, vnode, context, mountAll, component) {
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
@@ -94,7 +94,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       dom &&
       dom.splitText !== undefined &&
       dom.parentNode &&
-      (!dom._component || componentRoot)
+      (!dom._component || component)
     ) {
       /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
       if (dom.nodeValue != vnode) {
@@ -182,13 +182,14 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
         vchildren,
         context,
         mountAll,
-        hydrating || props.dangerouslySetInnerHTML != null
+        hydrating || props.dangerouslySetInnerHTML != null,
+        component
       )
     }
   }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props)
+  diffAttributes(out, vnode.attributes, props, component)
   if (out.props) {
     out.props.children = vnode.children
   }
@@ -205,7 +206,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
  *	@param {Boolean} mountAll
  *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
  */
-function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component) {
   let originalChildren = dom.childNodes,
     children = [],
     keyed = {},
@@ -278,7 +279,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       }
 
       // morph the matched/found/created DOM child to match vchild (deep)
-      child = idiff(child, vchild, context, mountAll)
+      child = idiff(child, vchild, context, mountAll, component)
 
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
@@ -346,7 +347,7 @@ export function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, component) {
   let name
   let update = false
   let isWeElement = dom.update
@@ -357,7 +358,7 @@ function diffAttributes(dom, attrs, old) {
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
-      setAccessor(dom, name, old[name], (old[name] = undefined), isSvgMode)
+      setAccessor(dom, name, old[name], (old[name] = undefined), isSvgMode, component)
       if (isWeElement) {
         delete dom.props[name]
         update = true
@@ -369,7 +370,7 @@ function diffAttributes(dom, attrs, old) {
   for (name in attrs) {
     if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
-        setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
+        setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode, component)
       }
       let ccName = camelCase(name)
       dom.props[ccName] = old[ccName] = attrs[name]
@@ -380,7 +381,7 @@ function diffAttributes(dom, attrs, old) {
         attrs[name] !==
         (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
-      setAccessor(dom, name, old[name], attrs[name], isSvgMode)
+      setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
       if (isWeElement) {
         let ccName = camelCase(name)
         dom.props[ccName] = old[ccName]  = attrs[name]

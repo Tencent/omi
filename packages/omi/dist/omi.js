@@ -99,6 +99,31 @@
     function isNamedNode(node, nodeName) {
         return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
     }
+    function extend$1(name, handler) {
+        extention['o-' + name] = handler;
+    }
+    function set(origin, path, value) {
+        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var current = origin;
+        for (var i = 0, len = arr.length; i < len; i++) if (i === len - 1) current[arr[i]] = value; else current = current[arr[i]];
+    }
+    function get(origin, path) {
+        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var current = origin;
+        for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
+        return current;
+    }
+    function eventProxy(e) {
+        return this.__l[e.type](e);
+    }
+    function bind(el, type, handler) {
+        el.__l = el.__l || {};
+        el.__l[type] = handler;
+        el.addEventListener(type, eventProxy);
+    }
+    function unbind(el, type) {
+        el.removeEventListener(type, eventProxy);
+    }
     function createNode(nodeName, isSvg) {
         var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
         node.normalizedNodeName = nodeName;
@@ -108,9 +133,11 @@
         var parentNode = node.parentNode;
         if (parentNode) parentNode.removeChild(node);
     }
-    function setAccessor(node, name, old, value, isSvg) {
+    function setAccessor(node, name, old, value, isSvg, component) {
         if ('className' === name) name = 'class';
-        if ('key' === name) ; else if ('ref' === name) {
+        if ('o' == name[0] && '-' == name[1]) {
+            if (extention[name]) extention[name](node, value, component);
+        } else if ('key' === name) ; else if ('ref' === name) {
             applyRef(old, null);
             applyRef(value, node);
         } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
@@ -126,14 +153,14 @@
             name = name.toLowerCase().substring(2);
             if (value) {
                 if (!old) {
-                    node.addEventListener(name, eventProxy, useCapture);
+                    node.addEventListener(name, eventProxy$1, useCapture);
                     if ('tap' == name) {
                         node.addEventListener('touchstart', touchStart, useCapture);
                         node.addEventListener('touchend', touchEnd, useCapture);
                     }
                 }
             } else {
-                node.removeEventListener(name, eventProxy, useCapture);
+                node.removeEventListener(name, eventProxy$1, useCapture);
                 if ('tap' == name) {
                     node.removeEventListener('touchstart', touchStart, useCapture);
                     node.removeEventListener('touchend', touchEnd, useCapture);
@@ -150,7 +177,7 @@
             if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
         }
     }
-    function eventProxy(e) {
+    function eventProxy$1(e) {
         return this.__l[e.type](options.event && options.event(e) || e);
     }
     function touchStart(e) {
@@ -163,7 +190,7 @@
             detail: e
         }));
     }
-    function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+    function diff(dom, vnode, context, mountAll, parent, component) {
         var ret;
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
@@ -174,29 +201,29 @@
             styles.forEach(function(s) {
                 parent.removeChild(s);
             });
-            innerDiffNode(parent, vnode);
+            innerDiffNode(parent, vnode, null, null, null, component);
             for (var i = styles.length - 1; i >= 0; i--) parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
         } else {
             ret = [];
             vnode.forEach(function(item, index) {
-                var ele = idiff(0 === index ? dom : null, item, context, mountAll, componentRoot);
+                var ele = idiff(0 === index ? dom : null, item, context, mountAll, component);
                 ret.push(ele);
             });
         } else {
             if (isArray(dom)) dom.forEach(function(one, index) {
-                if (0 === index) ret = idiff(one, vnode, context, mountAll, componentRoot); else recollectNodeTree(one, !1);
-            }); else ret = idiff(dom, vnode, context, mountAll, componentRoot);
+                if (0 === index) ret = idiff(one, vnode, context, mountAll, component); else recollectNodeTree(one, !1);
+            }); else ret = idiff(dom, vnode, context, mountAll, component);
             if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         }
         if (!--diffLevel) hydrating = !1;
         return ret;
     }
-    function idiff(dom, vnode, context, mountAll, componentRoot) {
+    function idiff(dom, vnode, context, mountAll, component) {
         if (dom && vnode && dom.props) dom.props.children = vnode.children;
         var out = dom, prevSvgMode = isSvgMode;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         if ('string' == typeof vnode || 'number' == typeof vnode) {
-            if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
+            if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || component)) {
                 if (dom.nodeValue != vnode) dom.nodeValue = vnode;
             } else {
                 out = document.createTextNode(vnode);
@@ -231,13 +258,13 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
-        diffAttributes(out, vnode.attributes, props);
+        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML, component);
+        diffAttributes(out, vnode.attributes, props, component);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
         return out;
     }
-    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
             var _child = originalChildren[i], props = _child.__p, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
@@ -263,7 +290,7 @@
                 if (j === min) min++;
                 break;
             }
-            child = idiff(child, vchild, context, mountAll);
+            child = idiff(child, vchild, context, mountAll, component);
             f = originalChildren[i];
             if (child && child !== dom && child !== f) if (null == f) dom.appendChild(child); else if (child === f.nextSibling) removeNode(f); else dom.insertBefore(child, f);
         }
@@ -283,26 +310,26 @@
             node = next;
         }
     }
-    function diffAttributes(dom, attrs, old) {
+    function diffAttributes(dom, attrs, old, component) {
         var name;
         var update = !1;
         var isWeElement = dom.update;
         var oldClone;
         if (dom.receiveProps) oldClone = Object.assign({}, old);
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
-            setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
+            setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode, component);
             if (isWeElement) {
                 delete dom.props[name];
                 update = !0;
             }
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name] && 'ref' !== name) {
-            if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+            if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
             var ccName = camelCase(name);
             dom.props[ccName] = old[ccName] = attrs[name];
             update = !0;
         } else if (!('children' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
-            setAccessor(dom, name, old[name], attrs[name], isSvgMode);
+            setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
             if (isWeElement) {
                 var _ccName = camelCase(name);
                 dom.props[_ccName] = old[_ccName] = attrs[name];
@@ -469,31 +496,6 @@
             var type = Object.prototype.toString.call(item);
             if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
         });
-    }
-    function extend$1(name, handler) {
-        extention[name] = handler;
-    }
-    function set(origin, path, value) {
-        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
-        var current = origin;
-        for (var i = 0, len = arr.length; i < len; i++) if (i === len - 1) current[arr[i]] = value; else current = current[arr[i]];
-    }
-    function get(origin, path) {
-        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
-        var current = origin;
-        for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
-        return current;
-    }
-    function eventProxy$1(e) {
-        return this.__l[e.type](e);
-    }
-    function bind(el, type, handler) {
-        el.__l = el.__l || {};
-        el.__l[type] = handler;
-        el.addEventListener(type, eventProxy$1);
-    }
-    function unbind(el, type) {
-        el.removeEventListener(type, eventProxy$1);
     }
     function _classCallCheck$1(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -699,6 +701,7 @@
     'function' == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
     var hyphenateRE = /\B([A-Z])/g;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+    var extention = {};
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
@@ -900,7 +903,6 @@
     }();
     var callbacks = [];
     var nextTickCallback = [];
-    var extention = {};
     var id = 0;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
@@ -913,7 +915,6 @@
         }
         _inherits$1(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
-            var _this2 = this;
             var p = this.parentNode;
             while (p && !this.store) {
                 this.store = p.store;
@@ -947,7 +948,7 @@
             }
             var rendered = this.render(this.props, this.data, this.store);
             this.P = '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
-            this.rootNode = diff(null, rendered, {}, !1, null, !1);
+            this.rootNode = diff(null, rendered, {}, !1, null, this);
             this.rendered();
             if (this.props.css) {
                 this.N = cssToDom(this.props.css);
@@ -959,11 +960,6 @@
             }); else shadowRoot.appendChild(this.rootNode);
             this.installed();
             this.B = !0;
-            for (var key in extention) !function(key) {
-                _this2.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function(node) {
-                    extention[key](node, node.getAttribute('o-' + key), _this2);
-                });
-            }(key);
         };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
@@ -974,7 +970,6 @@
             }
         };
         WeElement.prototype.update = function(ignoreAttrs) {
-            var _this3 = this;
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
@@ -985,14 +980,9 @@
             this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.data, this.store);
             this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
-            this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
+            this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot, this);
             this.J = !1;
             this.updated();
-            for (var key in extention) !function(key) {
-                _this3.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function(node) {
-                    extention[key](node, node.getAttribute('o-' + key), _this3);
-                });
-            }(key);
         };
         WeElement.prototype.removeAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -1136,7 +1126,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.9.1';
+    options.root.Omi.version = '6.9.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

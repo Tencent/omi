@@ -1,5 +1,5 @@
 /**
- * omi v6.9.0  http://omijs.org
+ * omi v6.9.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -241,6 +241,48 @@ function isNamedNode(node, nodeName) {
   return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 }
 
+var extention = {};
+
+function extend$1(name, handler) {
+	extention['o-' + name] = handler;
+}
+
+function set(origin, path, value) {
+	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+	var current = origin;
+	for (var i = 0, len = arr.length; i < len; i++) {
+		if (i === len - 1) {
+			current[arr[i]] = value;
+		} else {
+			current = current[arr[i]];
+		}
+	}
+}
+
+function get(origin, path) {
+	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+	var current = origin;
+	for (var i = 0, len = arr.length; i < len; i++) {
+		current = current[arr[i]];
+	}
+
+	return current;
+}
+
+function eventProxy(e) {
+	return this._listeners[e.type](e);
+}
+
+function bind(el, type, handler) {
+	el._listeners = el._listeners || {};
+	el._listeners[type] = handler;
+	el.addEventListener(type, eventProxy);
+}
+
+function unbind(el, type) {
+	el.removeEventListener(type, eventProxy);
+}
+
 /**
  * Create an element with the given nodeName.
  * @param {string} nodeName The DOM node to create
@@ -276,10 +318,14 @@ function removeNode(node) {
  * @param {boolean} isSvg Are we currently diffing inside an svg?
  * @private
  */
-function setAccessor(node, name, old, value, isSvg) {
+function setAccessor(node, name, old, value, isSvg, component) {
   if (name === 'className') name = 'class';
 
-  if (name === 'key') {
+  if (name[0] == 'o' && name[1] == '-') {
+    if (extention[name]) {
+      extention[name](node, value, component);
+    }
+  } else if (name === 'key') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null);
@@ -307,14 +353,14 @@ function setAccessor(node, name, old, value, isSvg) {
     name = name.toLowerCase().substring(2);
     if (value) {
       if (!old) {
-        node.addEventListener(name, eventProxy, useCapture);
+        node.addEventListener(name, eventProxy$1, useCapture);
         if (name == 'tap') {
           node.addEventListener('touchstart', touchStart, useCapture);
           node.addEventListener('touchend', touchEnd, useCapture);
         }
       }
     } else {
-      node.removeEventListener(name, eventProxy, useCapture);
+      node.removeEventListener(name, eventProxy$1, useCapture);
       if (name == 'tap') {
         node.removeEventListener('touchstart', touchStart, useCapture);
         node.removeEventListener('touchend', touchEnd, useCapture);
@@ -353,7 +399,7 @@ function setAccessor(node, name, old, value, isSvg) {
  * @param {Event} e The event object from the browser
  * @private
  */
-function eventProxy(e) {
+function eventProxy$1(e) {
   return this._listeners[e.type](options.event && options.event(e) || e);
 }
 
@@ -384,7 +430,7 @@ var hydrating = false;
  *	@returns {Element} dom			The created/mutated element
  *	@private
  */
-function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+function diff(dom, vnode, context, mountAll, parent, component) {
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   var ret;
   if (!diffLevel++) {
@@ -400,7 +446,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       styles.forEach(function (s) {
         parent.removeChild(s);
       });
-      innerDiffNode(parent, vnode);
+      innerDiffNode(parent, vnode, null, null, null, component);
 
       for (var i = styles.length - 1; i >= 0; i--) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
@@ -408,7 +454,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     } else {
       ret = [];
       vnode.forEach(function (item, index) {
-        var ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot);
+        var ele = idiff(index === 0 ? dom : null, item, context, mountAll, component);
         ret.push(ele);
       });
     }
@@ -416,13 +462,13 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     if (isArray(dom)) {
       dom.forEach(function (one, index) {
         if (index === 0) {
-          ret = idiff(one, vnode, context, mountAll, componentRoot);
+          ret = idiff(one, vnode, context, mountAll, component);
         } else {
           recollectNodeTree(one, false);
         }
       });
     } else {
-      ret = idiff(dom, vnode, context, mountAll, componentRoot);
+      ret = idiff(dom, vnode, context, mountAll, component);
     }
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -438,7 +484,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-function idiff(dom, vnode, context, mountAll, componentRoot) {
+function idiff(dom, vnode, context, mountAll, component) {
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children;
   }
@@ -451,7 +497,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   // Fast case: Strings & Numbers create/update Text nodes.
   if (typeof vnode === 'string' || typeof vnode === 'number') {
     // update if it's already a Text node:
-    if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
+    if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || component)) {
       /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
       if (dom.nodeValue != vnode) {
         dom.nodeValue = vnode;
@@ -521,12 +567,12 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   // otherwise, if there are existing or new children, diff them:
   else if (vchildren && vchildren.length || fc != null) {
       if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
-        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null, component);
       }
     }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props);
+  diffAttributes(out, vnode.attributes, props, component);
   if (out.props) {
     out.props.children = vnode.children;
   }
@@ -543,7 +589,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
  *	@param {Boolean} mountAll
  *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
  */
-function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component) {
   var originalChildren = dom.childNodes,
       children = [],
       keyed = {},
@@ -601,7 +647,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
         }
 
       // morph the matched/found/created DOM child to match vchild (deep)
-      child = idiff(child, vchild, context, mountAll);
+      child = idiff(child, vchild, context, mountAll, component);
 
       f = originalChildren[i];
       if (child && child !== dom && child !== f) {
@@ -669,7 +715,7 @@ function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, component) {
   var name;
   var update = false;
   var isWeElement = dom.update;
@@ -680,7 +726,7 @@ function diffAttributes(dom, attrs, old) {
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
-      setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+      setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, component);
       if (isWeElement) {
         delete dom.props[name];
         update = true;
@@ -692,13 +738,13 @@ function diffAttributes(dom, attrs, old) {
   for (name in attrs) {
     if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
-        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
       }
       var ccName = camelCase(name);
       dom.props[ccName] = old[ccName] = attrs[name];
       update = true;
     } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-      setAccessor(dom, name, old[name], attrs[name], isSvgMode);
+      setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
       if (isWeElement) {
         var _ccName = camelCase(name);
         dom.props[_ccName] = old[_ccName] = attrs[name];
@@ -1289,48 +1335,6 @@ function _arrayToPath(data, path, result) {
   });
 }
 
-var extention = {};
-
-function extend$1(name, handler) {
-	extention[name] = handler;
-}
-
-function set(origin, path, value) {
-	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
-	var current = origin;
-	for (var i = 0, len = arr.length; i < len; i++) {
-		if (i === len - 1) {
-			current[arr[i]] = value;
-		} else {
-			current = current[arr[i]];
-		}
-	}
-}
-
-function get(origin, path) {
-	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
-	var current = origin;
-	for (var i = 0, len = arr.length; i < len; i++) {
-		current = current[arr[i]];
-	}
-
-	return current;
-}
-
-function eventProxy$1(e) {
-	return this._listeners[e.type](e);
-}
-
-function bind(el, type, handler) {
-	el._listeners = el._listeners || {};
-	el._listeners[type] = handler;
-	el.addEventListener(type, eventProxy$1);
-}
-
-function unbind(el, type) {
-	el.removeEventListener(type, eventProxy$1);
-}
-
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1354,8 +1358,6 @@ var WeElement = function (_HTMLElement) {
   }
 
   WeElement.prototype.connectedCallback = function connectedCallback() {
-    var _this2 = this;
-
     var p = this.parentNode;
     while (p && !this.store) {
       this.store = p.store;
@@ -1406,7 +1408,7 @@ var WeElement = function (_HTMLElement) {
     var rendered = this.render(this.props, this.data, this.store);
     this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-    this.rootNode = diff(null, rendered, {}, false, null, false);
+    this.rootNode = diff(null, rendered, {}, false, null, this);
     this.rendered();
 
     if (this.props.css) {
@@ -1424,16 +1426,6 @@ var WeElement = function (_HTMLElement) {
     }
     this.installed();
     this._isInstalled = true;
-
-    var _loop = function _loop(key) {
-      _this2.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function (node) {
-        extention[key](node, node.getAttribute('o-' + key), _this2);
-      });
-    };
-
-    for (var key in extention) {
-      _loop(key);
-    }
   };
 
   WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
@@ -1450,8 +1442,6 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.update = function update(ignoreAttrs) {
-    var _this3 = this;
-
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
@@ -1465,19 +1455,9 @@ var WeElement = function (_HTMLElement) {
     var rendered = this.render(this.props, this.data, this.store);
     this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-    this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
+    this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot, this);
     this._willUpdate = false;
     this.updated();
-
-    var _loop2 = function _loop2(key) {
-      _this3.shadowRoot.querySelectorAll('[o-' + key + ']').forEach(function (node) {
-        extention[key](node, node.getAttribute('o-' + key), _this3);
-      });
-    };
-
-    for (var key in extention) {
-      _loop2(key);
-    }
   };
 
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1890,7 +1870,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.9.1';
+options.root.Omi.version = '6.9.2';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind };
