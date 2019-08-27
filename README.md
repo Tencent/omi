@@ -721,7 +721,7 @@ Please contact us for any questions. Also, Add [Omi QQ Group](https://github.com
 
 ## Thanks
 
-* [preact](https://github.com/developit/preact)
+* [preact](https://github.com/developit/preact) - Omi, Omis and Omio are based on it.
 * [htm](https://github.com/developit/htm) 
 * [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
