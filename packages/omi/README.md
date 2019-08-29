@@ -31,7 +31,12 @@ define('my-counter', ['count'], _ => (
     <span>{_.store.data.count}</span>
     <button onClick={_.store.add}>+</button>
   </div>
-))
+), {
+    css: `span { color: red; }`,
+    installed() {
+      console.log('installed')
+    }
+  })
 
 render(<my-counter />, 'body', new Store)
 ```
