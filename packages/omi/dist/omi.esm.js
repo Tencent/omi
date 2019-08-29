@@ -1,5 +1,5 @@
 /**
- * omi v6.9.2  http://omijs.org
+ * omi v6.10.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1189,78 +1189,39 @@ function define(name, ctor) {
     options.mapping[name] = ctor;
     if (ctor.use) {
       ctor.updatePath = getPath(ctor.use);
-    } else if (ctor.data) {
-      //Compatible with older versions
-      ctor.updatePath = getUpdatePath(ctor.data);
     }
+    // else if (ctor.data) { //Compatible with older versions
+    //   ctor.updatePath = getUpdatePath(ctor.data)
+    // }
   } else {
-    var Element = function (_WeElement) {
-      _inherits(Element, _WeElement);
+    var depPaths;
+    if (arguments.length === 3) {
+      depPaths = arguments[1];
+      ctor = arguments[2];
+    }
 
-      function Element() {
-        var _temp, _this, _ret;
+    var Ele = function (_WeElement) {
+      _inherits(Ele, _WeElement);
 
-        _classCallCheck(this, Element);
+      function Ele() {
+        _classCallCheck(this, Ele);
 
-        for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
-          args[key] = arguments[key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn(_this, _ret);
+        return _possibleConstructorReturn(this, _WeElement.apply(this, arguments));
       }
 
-      Element.prototype.render = function render(props, data) {
-        return ctor.call(this, props, data);
+      Ele.prototype.render = function render() {
+        return ctor.call(this, this);
       };
 
-      Element.prototype.beforeRender = function beforeRender() {
-        this._useId = 0;
-      };
-
-      Element.prototype.useCss = function useCss(css) {
-        if (css === this._preCss) {
-          return;
-        }
-        this._preCss = css;
-        var style = this.shadowRoot.querySelector('style');
-        style && this.shadowRoot.removeChild(style);
-        this.shadowRoot.appendChild(cssToDom(css));
-      };
-
-      Element.prototype.useData = function useData(data) {
-        return this.use({ data: data });
-      };
-
-      Element.prototype.use = function use(option) {
-        var _this2 = this;
-
-        this._useId++;
-        var updater = function updater(newValue) {
-          var item = _this2._useMap[updater.id];
-
-          item.data = newValue;
-
-          _this2.update();
-          item.effect && item.effect();
-        };
-
-        updater.id = this._useId;
-        if (!this._isInstalled) {
-          this._useMap[this._useId] = option;
-          return [option.data, updater];
-        }
-
-        return [this._useMap[this._useId].data, updater];
-      };
-
-      Element.prototype.installed = function installed() {
-        this._isInstalled = true;
-      };
-
-      return Element;
+      return Ele;
     }(WeElement);
 
-    customElements.define(name, Element);
+    Ele.use = depPaths;
+
+    if (depPaths) {
+      Ele.updatePath = getPath(Ele.use);
+    }
+    customElements.define(name, Ele);
   }
 }
 
@@ -1870,7 +1831,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.9.2';
+options.root.Omi.version = '6.10.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind };

@@ -1,5 +1,4 @@
 import WeElement from './we-element'
-import { cssToDom } from './util'
 import options from './options'
 
 const OBJECTTYPE = '[object Object]'
@@ -19,64 +18,27 @@ export function define(name, ctor) {
     options.mapping[name] = ctor
     if (ctor.use) {
       ctor.updatePath = getPath(ctor.use)
-    } else if (ctor.data) { //Compatible with older versions
-      ctor.updatePath = getUpdatePath(ctor.data)
-    }
+    } 
+    // else if (ctor.data) { //Compatible with older versions
+    //   ctor.updatePath = getUpdatePath(ctor.data)
+    // }
   } else {
-    class Element extends WeElement {
-      _useId = 0
+    let depPaths
+    if(arguments.length === 3){
+      depPaths = arguments[1]
+      ctor = arguments[2]
+    }
+    class Ele extends WeElement {
+      static use = depPaths
 
-      _useMap = {}
-
-      _preCss = null
-
-      render(props, data) {
-        return ctor.call(this, props, data)
-      }
-
-      beforeRender() {
-        this._useId = 0
-      }
-
-      useCss(css) {
-        if (css === this._preCss) {
-          return
-        }
-        this._preCss = css
-        const style = this.shadowRoot.querySelector('style')
-        style && this.shadowRoot.removeChild(style)
-        this.shadowRoot.appendChild(cssToDom(css))
-      }
-
-      useData(data) {
-        return this.use({ data: data })
-      }
-
-      use(option) {
-        this._useId++
-        const updater = newValue => {
-          const item = this._useMap[updater.id]
-
-          item.data = newValue
-
-          this.update()
-          item.effect && item.effect()
-        }
-
-        updater.id = this._useId
-        if (!this._isInstalled) {
-          this._useMap[this._useId] = option
-          return [option.data, updater]
-        }
-
-        return [this._useMap[this._useId].data, updater]
-      }
-
-      installed() {
-        this._isInstalled = true
+      render() {
+        return ctor.call(this, this)
       }
     }
-    customElements.define(name, Element)
+    if(depPaths){
+      Ele.updatePath = getPath(Ele.use)
+    }
+    customElements.define(name, Ele)
   }
 }
 

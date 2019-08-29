@@ -401,58 +401,27 @@
             if (options.mapping[name]) return;
             customElements.define(name, ctor);
             options.mapping[name] = ctor;
-            if (ctor.use) ctor.updatePath = getPath(ctor.use); else if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
+            if (ctor.use) ctor.updatePath = getPath(ctor.use);
         } else {
-            var Element = function(_WeElement) {
-                function Element() {
-                    var _temp, _this, _ret;
-                    _classCallCheck(this, Element);
-                    for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
-                    return _ret = (_temp = _this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
-                    _this.C = 0, _this.D = {}, _this.K = null, _temp), _possibleConstructorReturn(_this, _ret);
+            var depPaths;
+            if (3 === arguments.length) {
+                depPaths = arguments[1];
+                ctor = arguments[2];
+            }
+            var Ele = function(_WeElement) {
+                function Ele() {
+                    _classCallCheck(this, Ele);
+                    return _possibleConstructorReturn(this, _WeElement.apply(this, arguments));
                 }
-                _inherits(Element, _WeElement);
-                Element.prototype.render = function(props, data) {
-                    return ctor.call(this, props, data);
+                _inherits(Ele, _WeElement);
+                Ele.prototype.render = function() {
+                    return ctor.call(this, this);
                 };
-                Element.prototype.beforeRender = function() {
-                    this.C = 0;
-                };
-                Element.prototype.useCss = function(css) {
-                    if (css !== this.K) {
-                        this.K = css;
-                        var style = this.shadowRoot.querySelector('style');
-                        style && this.shadowRoot.removeChild(style);
-                        this.shadowRoot.appendChild(cssToDom(css));
-                    }
-                };
-                Element.prototype.useData = function(data) {
-                    return this.use({
-                        data: data
-                    });
-                };
-                Element.prototype.use = function(option) {
-                    var _this2 = this;
-                    this.C++;
-                    var updater = function updater(newValue) {
-                        var item = _this2.D[updater.id];
-                        item.data = newValue;
-                        _this2.update();
-                        item.effect && item.effect();
-                    };
-                    updater.id = this.C;
-                    if (!this.B) {
-                        this.D[this.C] = option;
-                        return [ option.data, updater ];
-                    }
-                    return [ this.D[this.C].data, updater ];
-                };
-                Element.prototype.installed = function() {
-                    this.B = !0;
-                };
-                return Element;
+                return Ele;
             }(WeElement);
-            customElements.define(name, Element);
+            Ele.use = depPaths;
+            if (depPaths) Ele.updatePath = getPath(Ele.use);
+            customElements.define(name, Ele);
         }
     }
     function getPath(obj) {
@@ -1126,7 +1095,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.9.2';
+    options.root.Omi.version = '6.10.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
