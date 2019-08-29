@@ -7,25 +7,17 @@ const ARRAYTYPE = '[object Array]'
 export function define(name, ctor) {
   if (ctor.is === 'WeElement') {
     if(options.mapping[name]){
-      // if(options.mapping[name] === ctor){
-      //   console.warn(`You redefine custom elements named [${name}], redundant JS files may be referenced.`)
-      // } else {
-      //   console.warn(`This custom elements name [${name}] has already been used, please rename it.`)
-      // }
       return
     }
     customElements.define(name, ctor)
     options.mapping[name] = ctor
     if (ctor.use) {
       ctor.updatePath = getPath(ctor.use)
-    } 
-    // else if (ctor.data) { //Compatible with older versions
-    //   ctor.updatePath = getUpdatePath(ctor.data)
-    // }
+    }
   } else {
     let depPaths
     let options = {}
-    const len = arguments.length 
+    const len = arguments.length
     if(len === 3){
       if(typeof arguments[1] === 'function'){
         ctor = arguments[1]
@@ -41,11 +33,16 @@ export function define(name, ctor) {
     }
     if(typeof options === 'string'){
       options = { css: options }
-    }
+		}
+
     class Ele extends WeElement {
       static use = depPaths
 
       static css = options.css
+
+			static propTypes = options.propTypes
+
+			static defaultProps = options.defaultProps
 
       render() {
         return ctor.call(this, this)
@@ -80,13 +77,27 @@ export function define(name, ctor) {
       }
 
       receiveProps() {
-        options.receiveProps && options.receiveProps.apply(this, arguments)
+				if(options.receiveProps){
+					return options.receiveProps.apply(this, arguments)
+				}
       }
 
-    }
-    if(depPaths){
+		}
+
+		if(options.use){
+			if(typeof options.use  === 'function'){
+				Ele.prototype.use = function(){
+				 return options.use.apply(this, arguments)
+				}
+			} else {
+				Ele.use = options.use
+			}
+		}
+
+    if(Ele.use){
       Ele.updatePath = getPath(Ele.use)
-    }
+		}
+
     customElements.define(name, Ele)
   }
 }

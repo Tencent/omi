@@ -1,9 +1,8 @@
-import { cssToDom, nProps, isArray, getUse, hyphenate, getValByPath } from './util'
+import { cssToDom, isArray, getUse, hyphenate, getValByPath } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
 import { getPath } from './define'
-import { extention } from  './extend'
 
 let id = 0
 
@@ -12,9 +11,8 @@ export default class WeElement extends HTMLElement {
 
   constructor() {
     super()
-    this.props = Object.assign(
-      nProps(this.constructor.props),
-      this.constructor.defaultProps
+    this.props = Object.assign({},
+    	this.constructor.defaultProps
     )
     this.elementId = id++
     this.data = {}

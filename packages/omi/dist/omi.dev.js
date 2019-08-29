@@ -1,5 +1,5 @@
 /**
- * omi v6.10.2  http://omijs.org
+ * omi v6.11.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -148,15 +148,6 @@
 
   function isArray(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
-  }
-
-  function nProps(props) {
-    if (!props || isArray(props)) return {};
-    var result = {};
-    Object.keys(props).forEach(function (key) {
-      result[key] = props[key].value;
-    });
-    return result;
   }
 
   function getUse(data, paths) {
@@ -1181,11 +1172,6 @@
   function define(name, ctor) {
     if (ctor.is === 'WeElement') {
       if (options.mapping[name]) {
-        // if(options.mapping[name] === ctor){
-        //   console.warn(`You redefine custom elements named [${name}], redundant JS files may be referenced.`)
-        // } else {
-        //   console.warn(`This custom elements name [${name}] has already been used, please rename it.`)
-        // }
         return;
       }
       customElements.define(name, ctor);
@@ -1193,9 +1179,6 @@
       if (ctor.use) {
         ctor.updatePath = getPath(ctor.use);
       }
-      // else if (ctor.data) { //Compatible with older versions
-      //   ctor.updatePath = getUpdatePath(ctor.data)
-      // }
     } else {
       var depPaths;
       var _options = {};
@@ -1259,7 +1242,9 @@
         };
 
         Ele.prototype.receiveProps = function receiveProps() {
-          _options.receiveProps && _options.receiveProps.apply(this, arguments);
+          if (_options.receiveProps) {
+            return _options.receiveProps.apply(this, arguments);
+          }
         };
 
         return Ele;
@@ -1267,10 +1252,24 @@
 
       Ele.use = depPaths;
       Ele.css = _options.css;
+      Ele.propTypes = _options.propTypes;
+      Ele.defaultProps = _options.defaultProps;
 
-      if (depPaths) {
+
+      if (_options.use) {
+        if (typeof _options.use === 'function') {
+          Ele.prototype.use = function () {
+            return _options.use.apply(this, arguments);
+          };
+        } else {
+          Ele.use = _options.use;
+        }
+      }
+
+      if (Ele.use) {
         Ele.updatePath = getPath(Ele.use);
       }
+
       customElements.define(name, Ele);
     }
   }
@@ -1362,7 +1361,7 @@
 
       var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
 
-      _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+      _this.props = Object.assign({}, _this.constructor.defaultProps);
       _this.elementId = id++;
       _this.data = {};
       return _this;
@@ -1877,12 +1876,13 @@
     get: get,
     set: set,
     bind: bind,
-    unbind: unbind
+    unbind: unbind,
+    JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.10.2';
+  options.root.Omi.version = '6.11.0';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

@@ -42,14 +42,6 @@
     function isArray(obj) {
         return '[object Array]' === Object.prototype.toString.call(obj);
     }
-    function nProps(props) {
-        if (!props || isArray(props)) return {};
-        var result = {};
-        Object.keys(props).forEach(function(key) {
-            result[key] = props[key].value;
-        });
-        return result;
-    }
     function getUse(data, paths) {
         var obj = [];
         paths.forEach(function(path, index) {
@@ -451,13 +443,18 @@
                     _options.rendered && _options.rendered.apply(this, arguments);
                 };
                 Ele.prototype.receiveProps = function() {
-                    _options.receiveProps && _options.receiveProps.apply(this, arguments);
+                    if (_options.receiveProps) return _options.receiveProps.apply(this, arguments);
                 };
                 return Ele;
             }(WeElement);
             Ele.use = depPaths;
             Ele.css = _options.css;
-            if (depPaths) Ele.updatePath = getPath(Ele.use);
+            Ele.propTypes = _options.propTypes;
+            Ele.defaultProps = _options.defaultProps;
+            if (_options.use) if ('function' == typeof _options.use) Ele.prototype.use = function() {
+                return _options.use.apply(this, arguments);
+            }; else Ele.use = _options.use;
+            if (Ele.use) Ele.updatePath = getPath(Ele.use);
             customElements.define(name, Ele);
         }
     }
@@ -914,7 +911,7 @@
         function WeElement() {
             _classCallCheck$1(this, WeElement);
             var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
-            _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+            _this.props = Object.assign({}, _this.constructor.defaultProps);
             _this.elementId = id++;
             _this.data = {};
             return _this;
@@ -1129,11 +1126,12 @@
         get: get,
         set: set,
         bind: bind,
-        unbind: unbind
+        unbind: unbind,
+        JSONProxy: JSONPatcherProxy
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.10.2';
+    options.root.Omi.version = '6.11.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

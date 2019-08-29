@@ -14,6 +14,7 @@ import { classNames, extractClass } from './class'
 import { o } from './o'
 import htm from 'htm'
 import { extend, get, set, bind, unbind } from './extend'
+import JSONProxy from './proxy'
 
 const html = htm.bind(h)
 
@@ -55,12 +56,13 @@ const omi = {
 	get,
 	set,
 	bind,
-	unbind
+	unbind,
+	JSONProxy
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.10.2'
+options.root.Omi.version = '6.11.0'
 
 export default omi
 
@@ -93,5 +95,6 @@ export {
 	get,
 	set,
 	bind,
-	unbind
+	unbind,
+	JSONProxy
 }

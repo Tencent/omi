@@ -55,6 +55,19 @@ declare namespace Omi {
 
 	type RenderableProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
 
+	abstract class JSONProxy<T> {
+
+    /**
+     * Creates an instance of JSONPatcherProxy around your object of interest, for later observe, unobserve, pause, resume calls.
+     * @param {Object|Array} root - the object you want to wrap
+     * @param {Boolean} showDetachedWarning - whether to log a warning when a detached sub-object is modified.
+     * @returns {JSONPatcherProxy}
+     * @constructor
+     */
+		constructor(root: T, showDetachedWarning?: boolean);
+		public observe(record: boolean, callback?: Function): object;
+	}
+
 	interface WeElement<P, D> extends HTMLElement {
 		install?(): void;
 		installed?(): void;
