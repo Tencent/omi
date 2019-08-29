@@ -404,7 +404,7 @@
             if (ctor.use) ctor.updatePath = getPath(ctor.use);
         } else {
             var depPaths;
-            var _options;
+            var _options = {};
             var len = arguments.length;
             if (3 === len) if ('function' == typeof arguments[1]) {
                 ctor = arguments[1];
@@ -1133,7 +1133,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.10.1';
+    options.root.Omi.version = '6.10.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -24,7 +24,7 @@ export function define(name, ctor) {
     // }
   } else {
     let depPaths
-    let options
+    let options = {}
     const len = arguments.length 
     if(len === 3){
       if(typeof arguments[1] === 'function'){
