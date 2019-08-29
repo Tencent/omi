@@ -124,6 +124,7 @@ export default class WeElement extends HTMLElement {
     this.attrsToProps(ignoreAttrs)
 
     const rendered = this.render(this.props, this.data, this.store)
+    this.rendered()
     this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0)
 
     this.rootNode = diff(

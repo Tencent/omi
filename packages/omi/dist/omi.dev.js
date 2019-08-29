@@ -1,5 +1,5 @@
 /**
- * omi v6.10.0  http://omijs.org
+ * omi v6.10.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1198,9 +1198,23 @@
       // }
     } else {
       var depPaths;
-      if (arguments.length === 3) {
+      var _options;
+      var len = arguments.length;
+      if (len === 3) {
+        if (typeof arguments[1] === 'function') {
+          ctor = arguments[1];
+          _options = arguments[2];
+        } else {
+          depPaths = arguments[1];
+          ctor = arguments[2];
+        }
+      } else if (len === 4) {
         depPaths = arguments[1];
         ctor = arguments[2];
+        _options = arguments[3];
+      }
+      if (typeof _options === 'string') {
+        _options = { css: _options };
       }
 
       var Ele = function (_WeElement) {
@@ -1216,10 +1230,43 @@
           return ctor.call(this, this);
         };
 
+        Ele.prototype.install = function install() {
+          _options.install && _options.install.apply(this, arguments);
+        };
+
+        Ele.prototype.installed = function installed() {
+          _options.installed && _options.installed.apply(this, arguments);
+        };
+
+        Ele.prototype.uninstall = function uninstall() {
+          _options.uninstall && _options.uninstall.apply(this, arguments);
+        };
+
+        Ele.prototype.beforeUpdate = function beforeUpdate() {
+          _options.beforeUpdate && _options.beforeUpdate.apply(this, arguments);
+        };
+
+        Ele.prototype.updated = function updated() {
+          _options.updated && _options.updated.apply(this, arguments);
+        };
+
+        Ele.prototype.beforeRender = function beforeRender() {
+          _options.beforeRender && _options.beforeRender.apply(this, arguments);
+        };
+
+        Ele.prototype.rendered = function rendered() {
+          _options.rendered && _options.rendered.apply(this, arguments);
+        };
+
+        Ele.prototype.receiveProps = function receiveProps() {
+          _options.receiveProps && _options.receiveProps.apply(this, arguments);
+        };
+
         return Ele;
       }(WeElement);
 
       Ele.use = depPaths;
+      Ele.css = _options.css;
 
       if (depPaths) {
         Ele.updatePath = getPath(Ele.use);
@@ -1417,6 +1464,7 @@
       this.attrsToProps(ignoreAttrs);
 
       var rendered = this.render(this.props, this.data, this.store);
+      this.rendered();
       this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
       this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot, this);
@@ -1834,7 +1882,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.10.0';
+  options.root.Omi.version = '6.10.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

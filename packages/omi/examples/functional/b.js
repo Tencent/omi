@@ -1191,17 +1191,31 @@
       options.mapping[name] = ctor;
       if (ctor.use) {
         ctor.updatePath = getPath(ctor.use);
-      } else if (ctor.data) {
-        //Compatible with older versions
-        ctor.updatePath = getUpdatePath(ctor.data);
       }
+      // else if (ctor.data) { //Compatible with older versions
+      //   ctor.updatePath = getUpdatePath(ctor.data)
+      // }
     } else {
       var _class, _temp;
 
       var depPaths = void 0;
-      if (arguments.length === 3) {
+      var _options = void 0;
+      var len = arguments.length;
+      if (len === 3) {
+        if (typeof arguments[1] === 'function') {
+          ctor = arguments[1];
+          _options = arguments[2];
+        } else {
+          depPaths = arguments[1];
+          ctor = arguments[2];
+        }
+      } else if (len === 4) {
         depPaths = arguments[1];
         ctor = arguments[2];
+        _options = arguments[3];
+      }
+      if (typeof _options === 'string') {
+        _options = { css: _options };
       }
       var Ele = (_temp = _class = function (_WeElement) {
         _inherits(Ele, _WeElement);
@@ -1216,8 +1230,40 @@
           return ctor.call(this, this);
         };
 
+        Ele.prototype.install = function install() {
+          _options.install && _options.install.apply(this, arguments);
+        };
+
+        Ele.prototype.installed = function installed() {
+          _options.installed && _options.installed.apply(this, arguments);
+        };
+
+        Ele.prototype.uninstall = function uninstall() {
+          _options.uninstall && _options.uninstall.apply(this, arguments);
+        };
+
+        Ele.prototype.beforeUpdate = function beforeUpdate() {
+          _options.beforeUpdate && _options.beforeUpdate.apply(this, arguments);
+        };
+
+        Ele.prototype.updated = function updated() {
+          _options.updated && _options.updated.apply(this, arguments);
+        };
+
+        Ele.prototype.beforeRender = function beforeRender() {
+          _options.beforeRender && _options.beforeRender.apply(this, arguments);
+        };
+
+        Ele.prototype.rendered = function rendered() {
+          _options.rendered && _options.rendered.apply(this, arguments);
+        };
+
+        Ele.prototype.receiveProps = function receiveProps() {
+          _options.receiveProps && _options.receiveProps.apply(this, arguments);
+        };
+
         return Ele;
-      }(WeElement), _class.use = depPaths, _temp);
+      }(WeElement), _class.use = depPaths, _class.css = _options.css, _temp);
 
       if (depPaths) {
         Ele.updatePath = getPath(Ele.use);
@@ -1417,6 +1463,7 @@
       this.attrsToProps(ignoreAttrs);
 
       var rendered = this.render(this.props, this.data, this.store);
+      this.rendered();
       this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
       this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot, this);
@@ -1873,6 +1920,11 @@
         '+'
       )
     );
+  }, {
+    css: 'span { color: red; }',
+    installed: function installed() {
+      console.log('installed');
+    }
   });
 
   render(Omi.h('my-counter', null), 'body', new Store());

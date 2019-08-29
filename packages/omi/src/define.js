@@ -24,16 +24,65 @@ export function define(name, ctor) {
     // }
   } else {
     let depPaths
-    if(arguments.length === 3){
+    let options
+    const len = arguments.length 
+    if(len === 3){
+      if(typeof arguments[1] === 'function'){
+        ctor = arguments[1]
+        options = arguments[2]
+      } else {
+        depPaths = arguments[1]
+        ctor = arguments[2]
+      }
+    } else if(len === 4){
       depPaths = arguments[1]
       ctor = arguments[2]
+      options = arguments[3]
+    }
+    if(typeof options === 'string'){
+      options = { css: options }
     }
     class Ele extends WeElement {
       static use = depPaths
 
+      static css = options.css
+
       render() {
         return ctor.call(this, this)
       }
+
+      install() {
+        options.install && options.install.apply(this, arguments)
+      }
+
+      installed() {
+        options.installed && options.installed.apply(this, arguments)
+      }
+
+      uninstall() {
+        options.uninstall && options.uninstall.apply(this, arguments)
+      }
+
+      beforeUpdate() {
+        options.beforeUpdate && options.beforeUpdate.apply(this, arguments)
+      }
+
+      updated() {
+        options.updated && options.updated.apply(this, arguments)
+      }
+
+      beforeRender() {
+        options.beforeRender && options.beforeRender.apply(this, arguments)
+      }
+
+      rendered() {
+        options.rendered && options.rendered.apply(this, arguments)
+      }
+
+      receiveProps() {
+        options.receiveProps && options.receiveProps.apply(this, arguments)
+      }
+
     }
     if(depPaths){
       Ele.updatePath = getPath(Ele.use)
