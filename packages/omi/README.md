@@ -5,6 +5,37 @@ English | [简体中文](https://github.com/Tencent/omi/blob/master/README.CN.md
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 <p align="center">Merge Web Components, JSX, HTM, Virtual DOM, Functional style and Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
 
+
+## Quick Preview
+
+Pass data through the component tree without having to pass props down manually at every level by store, auto update the view on demand.
+
+```jsx
+import { define, render } from 'omi'
+
+class Store {
+  data = {
+    count: 1
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+}
+
+define('my-counter', ['count'], _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+  </div>
+))
+
+render(<my-counter />, 'body', new Store)
+```
+
 ## Ecosystem of Omi
 
 #### Base
