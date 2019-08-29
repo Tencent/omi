@@ -35,6 +35,8 @@ define('my-counter', ['count'], _ => (
 render(<my-counter />, 'body', new Store)
 ```
 
+The second parameter of `define` is optional.
+
 ## Ecosystem of Omi
 
 [→ Omi Developer Roadmap](https://github.com/Tencent/omi/tree/master/assets/rm.md)
