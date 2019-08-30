@@ -6,6 +6,16 @@ Actually, I used react, preact, vue and [omi framework](https://github.com/Tence
 
 * [Touch Online Demo(Mobile)](https://tencent.github.io/omi/packages/omi-snake/build/)
 
+Read this article and you can learn:
+
+* Integration of Domain Driven Design in Front End
+* Basic Principles of rpx unit of CSS
+* Using Omi to develop Snake Eating game
+* Understanding MVC, MVP, MVVM patterns
+* Use DOM to write small game (not canvas)
+* Game Main Frame Rate and Local Frame Rate Control
+* Omi store system
+
 ### Domain Model Design
 
 * Extract the main entities, such as (snake, game)
