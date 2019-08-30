@@ -3,8 +3,7 @@ import babel from 'rollup-plugin-babel';
 import memory from 'rollup-plugin-memory';
 import commonjs from "rollup-plugin-commonjs";
 
-var ENV = process.env.npm_lifecycle_event;
-
+var ENV = process.argv[5]
 
 export default {
 	input: 'examples/'+ENV+'/main.js',

@@ -1,11 +1,3 @@
-/**
- * omi v2.4.0  http://omijs.org
- * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
 
@@ -96,10 +88,10 @@
    */
   function h(nodeName, attributes) {
     var children = [],
-        lastSimple,
-        child,
-        simple,
-        i;
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
     for (i = arguments.length; i-- > 2;) {
       stack.push(arguments[i]);
     }
@@ -386,6 +378,15 @@
     return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
   }
 
+  // render modes
+
+  var NO_RENDER = 0;
+  var SYNC_RENDER = 1;
+  var FORCE_RENDER = 2;
+  var ASYNC_RENDER = 3;
+
+  var ATTR_KEY = '__omiattr_';
+
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
@@ -401,7 +402,7 @@
 
   /** Rerender all enqueued dirty components */
   function rerender() {
-    var p;
+    var p = void 0;
     while (p = items.pop()) {
       renderComponent(p);
     }
@@ -493,16 +494,16 @@
         return x && x.trim();
       });
     });
-    for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator]();;) {
+    for (var _iterator = properties, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
       var _ref3;
 
-      if (i) {
-        if (i >= i.length) break;
-        _ref3 = i[i++];
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref3 = _iterator[_i++];
       } else {
-        i = i.next();
-        if (i.done) break;
-        _ref3 = i.value;
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref3 = _i.value;
       }
 
       var _ref2 = _ref3;
@@ -550,8 +551,8 @@
               if (!(i in value)) node.style[i] = '';
             }
           }
-          for (var i in value) {
-            node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL$1.test(i) === false ? value[i] + 'px' : value[i];
+          for (var _i2 in value) {
+            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL$1.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
           }
         }
       } else {
@@ -790,7 +791,7 @@
 
   /** Invoke queued componentDidMount lifecycle methods */
   function flushMounts() {
-    var c;
+    var c = void 0;
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
       if (c.installed) c.installed();
@@ -813,9 +814,9 @@
       isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
       // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('__omiattr_' in dom);
+      hydrating = dom != null && !(ATTR_KEY in dom);
     }
-    var ret;
+    var ret = void 0;
 
     if (isArray(vnode)) {
       vnode = {
@@ -875,7 +876,7 @@
 
       //ie8 error
       try {
-        out['__omiattr_'] = true;
+        out[ATTR_KEY] = true;
       } catch (e) {}
 
       return out;
@@ -902,11 +903,11 @@
     }
 
     var fc = out.firstChild,
-        props = out['__omiattr_'],
+        props = out[ATTR_KEY],
         vchildren = vnode.children;
 
     if (props == null) {
-      props = out['__omiattr_'] = {};
+      props = out[ATTR_KEY] = {};
       for (var a = out.attributes, i = a.length; i--;) {
         props[a[i].name] = a[i].value;
       }
@@ -948,17 +949,17 @@
         len = originalChildren.length,
         childrenLen = 0,
         vlen = vchildren ? vchildren.length : 0,
-        j,
-        c,
-        f,
-        vchild,
-        child;
+        j = void 0,
+        c = void 0,
+        f = void 0,
+        vchild = void 0,
+        child = void 0;
 
     // Build up a map of keyed children and an Array of unkeyed children:
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child['__omiattr_'],
+            props = _child[ATTR_KEY],
             key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
@@ -970,16 +971,16 @@
     }
 
     if (vlen !== 0) {
-      for (var i = 0; i < vlen; i++) {
-        vchild = vchildren[i];
+      for (var _i = 0; _i < vlen; _i++) {
+        vchild = vchildren[_i];
         child = null;
 
         // attempt to find a node based on key matching
-        var key = vchild.key;
-        if (key != null) {
-          if (keyedLen && keyed[key] !== undefined) {
-            child = keyed[key];
-            keyed[key] = undefined;
+        var _key = vchild.key;
+        if (_key != null) {
+          if (keyedLen && keyed[_key] !== undefined) {
+            child = keyed[_key];
+            keyed[_key] = undefined;
             keyedLen--;
           }
         }
@@ -999,7 +1000,7 @@
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, context, mountAll);
 
-        f = originalChildren[i];
+        f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
             dom.appendChild(child);
@@ -1014,8 +1015,8 @@
 
     // remove unused keyed children:
     if (keyedLen) {
-      for (var i in keyed) {
-        if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+      for (var _i2 in keyed) {
+        if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
       }
     }
 
@@ -1037,9 +1038,9 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node['__omiattr_'] != null) applyRef(node['__omiattr_'].ref, null);
+      if (node[ATTR_KEY] != null) applyRef(node[ATTR_KEY].ref, null);
 
-      if (unmountOnly === false || node['__omiattr_'] == null) {
+      if (unmountOnly === false || node[ATTR_KEY] == null) {
         removeNode(node);
       }
 
@@ -1066,7 +1067,7 @@
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old) {
-    var name;
+    var name = void 0;
 
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
@@ -1089,6 +1090,9 @@
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  var OBJECTTYPE = '[object Object]';
+  var ARRAYTYPE = '[object Array]';
+
   function define(name, ctor) {
     if (ctor.is === 'WeElement') {
       options.mapping[name] = ctor;
@@ -1096,7 +1100,9 @@
         ctor.updatePath = getPath(ctor.use);
       }
     } else {
-      var depPaths;
+      var _class, _temp;
+
+      var depPaths = void 0;
       var config = {};
       var len = arguments.length;
       if (len === 3) {
@@ -1116,7 +1122,7 @@
         config = { css: config };
       }
 
-      var Comp = function (_Component) {
+      var Comp = (_temp = _class = function (_Component) {
         _inherits(Comp, _Component);
 
         function Comp() {
@@ -1164,12 +1170,7 @@
         };
 
         return Comp;
-      }(Component);
-
-      Comp.use = depPaths;
-      Comp.css = config.css;
-      Comp.propTypes = config.propTypes;
-      Comp.defaultProps = config.defaultProps;
+      }(Component), _class.use = depPaths, _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp);
 
 
       if (config.use) {
@@ -1227,9 +1228,9 @@
     Object.keys(data).forEach(function (key) {
       result[key] = true;
       var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(data[key], key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(data[key], key, result);
       }
     });
@@ -1240,9 +1241,9 @@
       result[path + '.' + key] = true;
       delete result[path];
       var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(data[key], path + '.' + key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(data[key], path + '.' + key, result);
       }
     });
@@ -1253,9 +1254,9 @@
       result[path + '[' + index + ']'] = true;
       delete result[path];
       var type = Object.prototype.toString.call(item);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(item, path + '[' + index + ']', result);
       }
     });
@@ -1275,7 +1276,7 @@
   /** Create a component. Normalizes differences between PFC's and classful Components. */
   function createComponent(Ctor, props, context, vnode) {
     var list = components[Ctor.name],
-        inst;
+        inst = void 0;
 
     if (Ctor.prototype && Ctor.prototype.render) {
       inst = new Ctor(props, context);
@@ -1323,18 +1324,18 @@
    * MIT Licensed.
    */
 
-  // $_r_: root
-  // $_c_: prop change callback
-  // $_p_: path
+  // __r_: root
+  // __c_: prop change callback
+  // __p_: path
 
   function obaa(target, arr, callback) {
 
     var eventPropArr = [];
     if (isArray$1(target)) {
       if (target.length === 0) {
-        target.$_o_ = {
-          $_r_: target,
-          $_p_: '#'
+        target.__o_ = {
+          __r_: target,
+          __p_: '#'
         };
       }
       mock(target, target);
@@ -1355,11 +1356,11 @@
         }
       }
     }
-    if (!target.$_c_) {
-      target.$_c_ = [];
+    if (!target.__c_) {
+      target.__c_ = [];
     }
     var propChanged = callback ? callback : arr;
-    target.$_c_.push({
+    target.__c_.push({
       all: !callback,
       propChanged: propChanged,
       eventPropArr: eventPropArr
@@ -1378,11 +1379,11 @@
         if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
           for (var cprop in this) {
             if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
-              watch(this, cprop, this.$_o_.$_p_, root);
+              watch(this, cprop, this.__o_.__p_, root);
             }
           }
           //todo
-          onPropertyChanged('Array-' + item, this, old, this, this.$_o_.$_p_, root);
+          onPropertyChanged('Array-' + item, this, old, this, this.__o_.__p_, root);
         }
         return result;
       };
@@ -1393,26 +1394,26 @@
   }
 
   function watch(target, prop, path, root) {
-    if (prop === '$_o_') return;
+    if (prop === '__o_') return;
     if (isFunction(target[prop])) return;
-    if (!target.$_o_) target.$_o_ = {
-      $_r_: root
+    if (!target.__o_) target.__o_ = {
+      __r_: root
     };
     if (path !== undefined && path !== null) {
-      target.$_o_.$_p_ = path;
+      target.__o_.__p_ = path;
     } else {
-      target.$_o_.$_p_ = '#';
+      target.__o_.__p_ = '#';
     }
 
-    var currentValue = target.$_o_[prop] = target[prop];
+    var currentValue = target.__o_[prop] = target[prop];
     Object.defineProperty(target, prop, {
       get: function get() {
-        return this.$_o_[prop];
+        return this.__o_[prop];
       },
       set: function set(value) {
-        var old = this.$_o_[prop];
-        this.$_o_[prop] = value;
-        onPropertyChanged(prop, value, old, this, target.$_o_.$_p_, root);
+        var old = this.__o_[prop];
+        this.__o_[prop] = value;
+        onPropertyChanged(prop, value, old, this, target.__o_.__p_, root);
       },
       configurable: true,
       enumerable: true
@@ -1421,27 +1422,27 @@
       if (isArray$1(currentValue)) {
         mock(currentValue, root);
         if (currentValue.length === 0) {
-          if (!currentValue.$_o_) currentValue.$_o_ = {};
+          if (!currentValue.__o_) currentValue.__o_ = {};
           if (path !== undefined && path !== null) {
-            currentValue.$_o_.$_p_ = path + '-' + prop;
+            currentValue.__o_.__p_ = path + '-' + prop;
           } else {
-            currentValue.$_o_.$_p_ = '#' + '-' + prop;
+            currentValue.__o_.__p_ = '#' + '-' + prop;
           }
         }
       }
       for (var cprop in currentValue) {
         if (currentValue.hasOwnProperty(cprop)) {
-          watch(currentValue, cprop, target.$_o_.$_p_ + '-' + prop, root);
+          watch(currentValue, cprop, target.__o_.__p_ + '-' + prop, root);
         }
       }
     }
   }
 
   function onPropertyChanged(prop, value, oldValue, target, path, root) {
-    if (value !== oldValue && root.$_c_) {
+    if (value !== oldValue && root.__c_) {
       var rootName = getRootName(prop, path);
-      for (var i = 0, len = root.$_c_.length; i < len; i++) {
-        var handler = root.$_c_[i];
+      for (var i = 0, len = root.__c_.length; i < len; i++) {
+        var handler = root.__c_[i];
         if (handler.all || isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
           handler.propChanged.call(target, prop, value, oldValue, path);
         }
@@ -1449,7 +1450,7 @@
     }
 
     if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
-      watch(target, prop, target.$_o_.$_p_, root);
+      watch(target, prop, target.__o_.__p_, root);
     }
   }
 
@@ -1480,11 +1481,11 @@
   }
 
   obaa.add = function (obj, prop) {
-    watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+    watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
   };
 
   obaa.set = function (obj, prop, value) {
-    watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+    watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
     obj[prop] = value;
   };
 
@@ -1557,9 +1558,9 @@
 
     component._disable = false;
 
-    if (opts !== 0) {
-      if (opts === 1 || options.syncComponentUpdates !== false || !component.base) {
-        renderComponent(component, 1, mountAll);
+    if (opts !== NO_RENDER) {
+      if (opts === SYNC_RENDER || options.syncComponentUpdates !== false || !component.base) {
+        renderComponent(component, SYNC_RENDER, mountAll);
       } else {
         enqueueRender(component);
       }
@@ -1569,7 +1570,7 @@
   }
 
   function shallowComparison(old, attrs) {
-    var name;
+    var name = void 0;
 
     for (name in old) {
       if (attrs[name] == null && old[name] != null) {
@@ -1613,16 +1614,16 @@
         initialBase = isUpdate || nextBase,
         initialChildComponent = component._component,
         skip = false,
-        rendered,
-        inst,
-        cbase;
+        rendered = void 0,
+        inst = void 0,
+        cbase = void 0;
 
     // if updating
     if (isUpdate) {
       component.props = previousProps;
       component.data = previousState;
       component.context = previousContext;
-      if (component.store || opts == 2 || shallowComparison(previousProps, props)) {
+      if (component.store || opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
         var receiveResult = true;
         if (component.receiveProps) {
           receiveResult = component.receiveProps(props, previousProps);
@@ -1662,8 +1663,8 @@
       }
 
       var childComponent = rendered && rendered.nodeName,
-          toUnmount,
-          base,
+          toUnmount = void 0,
+          base = void 0,
           ctor = options.mapping[childComponent];
 
       if (ctor) {
@@ -1673,15 +1674,15 @@
         inst = initialChildComponent;
 
         if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
-          setComponentProps(inst, childProps, 1, context, false);
+          setComponentProps(inst, childProps, SYNC_RENDER, context, false);
         } else {
           toUnmount = inst;
 
           component._component = inst = createComponent(ctor, childProps, context);
           inst.nextBase = inst.nextBase || nextBase;
           inst._parentComponent = component;
-          setComponentProps(inst, childProps, 0, context, false);
-          renderComponent(inst, 1, mountAll, true);
+          setComponentProps(inst, childProps, NO_RENDER, context, false);
+          renderComponent(inst, SYNC_RENDER, mountAll, true);
         }
 
         base = inst.base;
@@ -1694,7 +1695,7 @@
           cbase = component._component = null;
         }
 
-        if (initialBase || opts === 1) {
+        if (initialBase || opts === SYNC_RENDER) {
           if (cbase) cbase._component = null;
           base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
         }
@@ -1773,7 +1774,7 @@
     }
 
     if (c && isOwner && (!mountAll || c._component)) {
-      setComponentProps(c, props, 3, context, mountAll);
+      setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
       dom = c.base;
     } else {
       if (originalComponent && !isDirectOwner) {
@@ -1787,7 +1788,7 @@
         // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
         oldDom = null;
       }
-      setComponentProps(c, props, 1, context, mountAll);
+      setComponentProps(c, props, SYNC_RENDER, context, mountAll);
       dom = c.base;
 
       if (oldDom && dom !== oldDom) {
@@ -1828,7 +1829,7 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base['__omiattr_'] != null) applyRef(base['__omiattr_'].ref, null);
+      if (base[ATTR_KEY] != null) applyRef(base[ATTR_KEY].ref, null);
 
       component.nextBase = base;
 
@@ -1841,11 +1842,13 @@
     applyRef(component.__ref, null);
   }
 
+  var _class, _temp;
+
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var id = 0;
 
-  var Component = function () {
+  var Component = (_temp = _class = function () {
     function Component(props, store) {
       _classCallCheck$1(this, Component);
 
@@ -1861,7 +1864,7 @@
     Component.prototype.update = function update(callback) {
       this._willUpdate = true;
       if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-      renderComponent(this, 2);
+      renderComponent(this, FORCE_RENDER);
       if (options.componentChange) options.componentChange(this, this.base);
       this._willUpdate = false;
     };
@@ -1881,9 +1884,7 @@
     Component.prototype.render = function render() {};
 
     return Component;
-  }();
-
-  Component.is = 'WeElement';
+  }(), _class.is = 'WeElement', _temp);
 
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
@@ -2021,13 +2022,15 @@
     };
   }
 
+  var _class$1, _temp$1;
+
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  var ModelView = function (_Component) {
+  var ModelView = (_temp$1 = _class$1 = function (_Component) {
     _inherits$1(ModelView, _Component);
 
     function ModelView() {
@@ -2041,10 +2044,7 @@
     };
 
     return ModelView;
-  }(Component);
-
-  ModelView.observe = true;
-  ModelView.mergeUpdate = true;
+  }(Component), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
 
   /**
    * classNames based on https://github.com/JedWatson/classnames
@@ -2200,7 +2200,7 @@
       isComponent = true;
 
       var props = getNodeProps$1(vnode),
-          rendered;
+          rendered = void 0;
       // class-based components
       var c = new ctor(props, store);
       // turn off stateful re-rendering:
@@ -2233,7 +2233,7 @@
 
     // render JSX to HTML
     var s = '',
-        html;
+        html = void 0;
 
     if (attributes) {
       var attrs = Object.keys(attributes);
@@ -2304,8 +2304,8 @@
       s += html;
     } else if (vnode.children) {
       var hasLarge = pretty && ~s.indexOf('\n');
-      for (var i = 0; i < vnode.children.length; i++) {
-        var child = vnode.children[i];
+      for (var _i = 0; _i < vnode.children.length; _i++) {
+        var child = vnode.children[_i];
         if (child != null && child !== false) {
           var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
               ret = _renderToString(child, opts, store, childSvgMode, css);
@@ -2314,8 +2314,8 @@
         }
       }
       if (pretty && hasLarge) {
-        for (var i = pieces.length; i--;) {
-          pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar);
+        for (var _i2 = pieces.length; _i2--;) {
+          pieces[_i2] = '\n' + indentChar + indent(pieces[_i2], indentChar);
         }
       }
     }
@@ -2393,31 +2393,54 @@
   options.root.omi = options.root.Omi;
   options.root.Omi.version = 'omio-2.4.0';
 
-  var Omi = {
-    h: h,
-    createElement: h,
-    cloneElement: cloneElement,
-    createRef: createRef,
-    Component: Component,
-    render: render,
-    rerender: rerender,
-    options: options,
-    WeElement: WeElement,
-    define: define,
-    rpx: rpx,
-    ModelView: ModelView,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    getHost: getHost,
-    renderToString: renderToString,
-    tag: tag,
-    merge: merge,
-    html: html,
-    htm: htm,
-    obaa: obaa
+  function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var Store = function Store() {
+    var _this = this;
+
+    _classCallCheck$3(this, Store);
+
+    this.data = {
+      count: 1
+    };
+
+    this.sub = function () {
+      _this.data.count--;
+    };
+
+    this.add = function () {
+      _this.data.count++;
+    };
   };
 
-  if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
+  define('my-counter', ['count'], function (_) {
+    return Omi.h(
+      'div',
+      null,
+      Omi.h(
+        'button',
+        { onClick: _.store.sub },
+        '-'
+      ),
+      Omi.h(
+        'span',
+        null,
+        _.store.data.count
+      ),
+      Omi.h(
+        'button',
+        { onClick: _.store.add },
+        '+'
+      )
+    );
+  }, {
+    css: 'span { color: red; }',
+    installed: function installed() {
+      console.log('installed');
+    }
+  });
+
+  render(Omi.h('my-counter', null), 'body', new Store());
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

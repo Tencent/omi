@@ -429,9 +429,92 @@
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
         for (name in attrs) if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
     }
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
     function define(name, ctor) {
-        options.mapping[name] = ctor;
-        if (ctor.use) ctor.updatePath = getPath(ctor.use); else if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
+        if ('WeElement' === ctor.is) {
+            options.mapping[name] = ctor;
+            if (ctor.use) ctor.updatePath = getPath(ctor.use);
+        } else {
+            var depPaths;
+            var config = {};
+            var len = arguments.length;
+            if (3 === len) if ('function' == typeof arguments[1]) {
+                ctor = arguments[1];
+                config = arguments[2];
+            } else {
+                depPaths = arguments[1];
+                ctor = arguments[2];
+            } else if (4 === len) {
+                depPaths = arguments[1];
+                ctor = arguments[2];
+                config = arguments[3];
+            }
+            if ('string' == typeof config) config = {
+                css: config
+            };
+            var Comp = function(_Component) {
+                function Comp() {
+                    _classCallCheck(this, Comp);
+                    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+                }
+                _inherits(Comp, _Component);
+                Comp.prototype.render = function() {
+                    return ctor.call(this, this);
+                };
+                Comp.prototype.install = function() {
+                    config.install && config.install.apply(this, arguments);
+                };
+                Comp.prototype.installed = function() {
+                    config.installed && config.installed.apply(this, arguments);
+                };
+                Comp.prototype.uninstall = function() {
+                    config.uninstall && config.uninstall.apply(this, arguments);
+                };
+                Comp.prototype.beforeUpdate = function() {
+                    config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
+                };
+                Comp.prototype.updated = function() {
+                    config.updated && config.updated.apply(this, arguments);
+                };
+                Comp.prototype.beforeRender = function() {
+                    config.beforeRender && config.beforeRender.apply(this, arguments);
+                };
+                Comp.prototype.rendered = function() {
+                    config.rendered && config.rendered.apply(this, arguments);
+                };
+                Comp.prototype.receiveProps = function() {
+                    if (config.receiveProps) return config.receiveProps.apply(this, arguments);
+                };
+                return Comp;
+            }(Component);
+            Comp.use = depPaths;
+            Comp.css = config.css;
+            Comp.propTypes = config.propTypes;
+            Comp.defaultProps = config.defaultProps;
+            if (config.use) if ('function' == typeof config.use) Comp.prototype.use = function() {
+                return config.use.apply(this, arguments);
+            }; else Comp.use = config.use;
+            if (Comp.use) Comp.updatePath = getPath(Comp.use);
+            options.mapping[name] = Comp;
+        }
     }
     function getPath(obj) {
         if ('[object Array]' === Object.prototype.toString.call(obj)) {
@@ -508,6 +591,108 @@
     }
     function doRender(props, data, context) {
         return this.constructor(props, context);
+    }
+    function obaa(target, arr, callback) {
+        var eventPropArr = [];
+        if (isArray$1(target)) {
+            if (0 === target.length) target.$_o_ = {
+                $_r_: target,
+                $_p_: '#'
+            };
+            mock(target, target);
+        }
+        for (var prop in target) if (target.hasOwnProperty(prop)) if (callback) {
+            if (isArray$1(arr) && isInArray(arr, prop)) {
+                eventPropArr.push(prop);
+                watch(target, prop, null, target);
+            } else if (isString(arr) && prop == arr) {
+                eventPropArr.push(prop);
+                watch(target, prop, null, target);
+            }
+        } else {
+            eventPropArr.push(prop);
+            watch(target, prop, null, target);
+        }
+        if (!target.$_c_) target.$_c_ = [];
+        var propChanged = callback ? callback : arr;
+        target.$_c_.push({
+            all: !callback,
+            propChanged: propChanged,
+            eventPropArr: eventPropArr
+        });
+    }
+    function mock(target, root) {
+        methods.forEach(function(item) {
+            target[item] = function() {
+                var old = Array.prototype.slice.call(this, 0);
+                var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+                if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
+                    for (var cprop in this) if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) watch(this, cprop, this.$_o_.$_p_, root);
+                    onPropertyChanged('Array-' + item, this, old, this, this.$_o_.$_p_, root);
+                }
+                return result;
+            };
+            target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function() {
+                return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+            };
+        });
+    }
+    function watch(target, prop, path, root) {
+        if ('$_o_' !== prop) if (!isFunction(target[prop])) {
+            if (!target.$_o_) target.$_o_ = {
+                $_r_: root
+            };
+            if (void 0 !== path && null !== path) target.$_o_.$_p_ = path; else target.$_o_.$_p_ = '#';
+            var currentValue = target.$_o_[prop] = target[prop];
+            Object.defineProperty(target, prop, {
+                get: function() {
+                    return this.$_o_[prop];
+                },
+                set: function(value) {
+                    var old = this.$_o_[prop];
+                    this.$_o_[prop] = value;
+                    onPropertyChanged(prop, value, old, this, target.$_o_.$_p_, root);
+                },
+                configurable: !0,
+                enumerable: !0
+            });
+            if ('object' == typeof currentValue) {
+                if (isArray$1(currentValue)) {
+                    mock(currentValue, root);
+                    if (0 === currentValue.length) {
+                        if (!currentValue.$_o_) currentValue.$_o_ = {};
+                        if (void 0 !== path && null !== path) currentValue.$_o_.$_p_ = path + '-' + prop; else currentValue.$_o_.$_p_ = "#-" + prop;
+                    }
+                }
+                for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.$_o_.$_p_ + '-' + prop, root);
+            }
+        }
+    }
+    function onPropertyChanged(prop, value, oldValue, target, path, root) {
+        if (value !== oldValue && root.$_c_) {
+            var rootName = getRootName(prop, path);
+            for (var i = 0, len = root.$_c_.length; i < len; i++) {
+                var handler = root.$_c_[i];
+                if (handler.all || isInArray(handler.eventPropArr, rootName) || 0 === rootName.indexOf('Array-')) handler.propChanged.call(target, prop, value, oldValue, path);
+            }
+        }
+        if (0 !== prop.indexOf('Array-') && 'object' == typeof value) watch(target, prop, target.$_o_.$_p_, root);
+    }
+    function isFunction(obj) {
+        return '[object Function]' == Object.prototype.toString.call(obj);
+    }
+    function isArray$1(obj) {
+        return '[object Array]' === Object.prototype.toString.call(obj);
+    }
+    function isString(obj) {
+        return 'string' == typeof obj;
+    }
+    function isInArray(arr, item) {
+        for (var i = arr.length; --i > -1; ) if (item === arr[i]) return !0;
+        return !1;
+    }
+    function getRootName(prop, path) {
+        if ('#' === path) return prop; else return path.split('-')[1];
     }
     function fireTick() {
         callbacks.forEach(function(item) {
@@ -684,7 +869,7 @@
         }
         applyRef(component.__r, null);
     }
-    function _classCallCheck(instance, Constructor) {
+    function _classCallCheck$1(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
     function render(vnode, parent, store, empty, merge) {
@@ -766,14 +951,14 @@
             define(name, target);
         };
     }
-    function _classCallCheck$1(instance, Constructor) {
+    function _classCallCheck$2(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
-    function _possibleConstructorReturn(self, call) {
+    function _possibleConstructorReturn$1(self, call) {
         if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         return call && ("object" == typeof call || "function" == typeof call) ? call : self;
     }
-    function _inherits(subClass, superClass) {
+    function _inherits$1(subClass, superClass) {
         if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
         subClass.prototype = Object.create(superClass && superClass.prototype, {
             constructor: {
@@ -1044,125 +1229,14 @@
     var isSvgMode = !1;
     var hydrating = !1;
     var components = {};
-    var obaa = function obaa(target, arr, callback) {
-        var _observe = function(target, arr, callback) {
-            if (!target.$observer) target.$observer = this;
-            var $observer = target.$observer;
-            var eventPropArr = [];
-            if (obaa.isArray(target)) {
-                if (0 === target.length) {
-                    target.$observeProps = {};
-                    target.$observeProps.$observerPath = '#';
-                }
-                $observer.mock(target);
-            }
-            for (var prop in target) if (target.hasOwnProperty(prop)) if (callback) {
-                if (obaa.isArray(arr) && obaa.isInArray(arr, prop)) {
-                    eventPropArr.push(prop);
-                    $observer.watch(target, prop);
-                } else if (obaa.isString(arr) && prop == arr) {
-                    eventPropArr.push(prop);
-                    $observer.watch(target, prop);
-                }
-            } else {
-                eventPropArr.push(prop);
-                $observer.watch(target, prop);
-            }
-            $observer.target = target;
-            if (!$observer.propertyChangedHandler) $observer.propertyChangedHandler = [];
-            var propChanged = callback ? callback : arr;
-            $observer.propertyChangedHandler.push({
-                all: !callback,
-                propChanged: propChanged,
-                eventPropArr: eventPropArr
-            });
-        };
-        _observe.prototype = {
-            onPropertyChanged: function(prop, value, oldValue, target, path) {
-                if (value !== oldValue && this.propertyChangedHandler) {
-                    var rootName = obaa.y(prop, path);
-                    for (var i = 0, len = this.propertyChangedHandler.length; i < len; i++) {
-                        var handler = this.propertyChangedHandler[i];
-                        if (handler.all || obaa.isInArray(handler.eventPropArr, rootName) || 0 === rootName.indexOf('Array-')) handler.propChanged.call(this.target, prop, value, oldValue, path);
-                    }
-                }
-                if (0 !== prop.indexOf('Array-') && 'object' == typeof value) this.watch(target, prop, target.$observeProps.$observerPath);
-            },
-            mock: function(target) {
-                var self = this;
-                obaa.methods.forEach(function(item) {
-                    target[item] = function() {
-                        var old = Array.prototype.slice.call(this, 0);
-                        var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
-                        if (new RegExp('\\b' + item + '\\b').test(obaa.triggerStr)) {
-                            for (var cprop in this) if (this.hasOwnProperty(cprop) && !obaa.isFunction(this[cprop])) self.watch(this, cprop, this.$observeProps.$observerPath);
-                            self.onPropertyChanged('Array-' + item, this, old, this, this.$observeProps.$observerPath);
-                        }
-                        return result;
-                    };
-                    target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function() {
-                        return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
-                    };
-                });
-            },
-            watch: function(target, prop, path) {
-                if ('$observeProps' !== prop && '$observer' !== prop) if (!obaa.isFunction(target[prop])) {
-                    if (!target.$observeProps) target.$observeProps = {};
-                    if (void 0 !== path) target.$observeProps.$observerPath = path; else target.$observeProps.$observerPath = '#';
-                    var self = this;
-                    var currentValue = target.$observeProps[prop] = target[prop];
-                    Object.defineProperty(target, prop, {
-                        get: function() {
-                            return this.$observeProps[prop];
-                        },
-                        set: function(value) {
-                            var old = this.$observeProps[prop];
-                            this.$observeProps[prop] = value;
-                            self.onPropertyChanged(prop, value, old, this, target.$observeProps.$observerPath);
-                        }
-                    });
-                    if ('object' == typeof currentValue) {
-                        if (obaa.isArray(currentValue)) {
-                            this.mock(currentValue);
-                            if (0 === currentValue.length) {
-                                if (!currentValue.$observeProps) currentValue.$observeProps = {};
-                                if (void 0 !== path) currentValue.$observeProps.$observerPath = path; else currentValue.$observeProps.$observerPath = '#';
-                            }
-                        }
-                        for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) this.watch(currentValue, cprop, target.$observeProps.$observerPath + '-' + prop);
-                    }
-                }
-            }
-        };
-        return new _observe(target, arr, callback);
-    };
-    obaa.methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
-    obaa.triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
-    obaa.isArray = function(obj) {
-        return '[object Array]' === Object.prototype.toString.call(obj);
-    };
-    obaa.isString = function(obj) {
-        return 'string' == typeof obj;
-    };
-    obaa.isInArray = function(arr, item) {
-        for (var i = arr.length; --i > -1; ) if (item === arr[i]) return !0;
-        return !1;
-    };
-    obaa.isFunction = function(obj) {
-        return '[object Function]' == Object.prototype.toString.call(obj);
-    };
-    obaa.y = function(prop, path) {
-        if ('#' === path) return prop; else return path.split('-')[1];
-    };
+    var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
+    var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
-        var $observer = obj.$observer;
-        $observer.watch(obj, prop);
+        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
     };
-    obaa.set = function(obj, prop, value, exec) {
-        if (!exec) obj[prop] = value;
-        var $observer = obj.$observer;
-        $observer.watch(obj, prop);
-        if (exec) obj[prop] = value;
+    obaa.set = function(obj, prop, value) {
+        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+        obj[prop] = value;
     };
     Array.prototype.size = function(length) {
         this.length = length;
@@ -1172,7 +1246,7 @@
     var id = 0;
     var Component = function() {
         function Component(props, store) {
-            _classCallCheck(this, Component);
+            _classCallCheck$1(this, Component);
             this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
             this.elementId = id++;
             this.data = this.constructor.data || this.data || {};
@@ -1204,10 +1278,10 @@
     Component.is = 'WeElement';
     var ModelView = function(_Component) {
         function ModelView() {
-            _classCallCheck$1(this, ModelView);
-            return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+            _classCallCheck$2(this, ModelView);
+            return _possibleConstructorReturn$1(this, _Component.apply(this, arguments));
         }
-        _inherits(ModelView, _Component);
+        _inherits$1(ModelView, _Component);
         ModelView.prototype.beforeInstall = function() {
             this.data = this.vm.data;
         };
@@ -1277,10 +1351,11 @@
         tag: tag,
         merge: merge,
         html: html,
-        htm: htm
+        htm: htm,
+        obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.3.0';
+    options.root.Omi.version = 'omio-2.4.0';
     var Omi = {
         h: h,
         createElement: h,
@@ -1302,7 +1377,8 @@
         tag: tag,
         merge: merge,
         html: html,
-        htm: htm
+        htm: htm,
+        obaa: obaa
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

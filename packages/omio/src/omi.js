@@ -12,6 +12,7 @@ import { classNames, extractClass } from './class'
 import { getHost } from './get-host'
 import { renderToString } from './render-to-string'
 import htm from 'htm'
+import obaa from './obaa'
 
 const html = htm.bind(h)
 
@@ -42,10 +43,11 @@ options.root.Omi = {
   tag,
   merge,
   html,
-  htm
+  htm,
+  obaa
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.3.0'
+options.root.Omi.version = 'omio-2.4.0'
 
 export default {
   h,
@@ -68,7 +70,8 @@ export default {
   tag,
   merge,
   html,
-  htm
+  htm,
+  obaa
 }
 
 export {
@@ -92,5 +95,6 @@ export {
   tag,
   merge,
   html,
-  htm
+  htm,
+  obaa
 }

@@ -1,14 +1,100 @@
 import options from './options'
+import Component from './component'
 
 const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function define(name, ctor) {
-  options.mapping[name] = ctor
-  if (ctor.use) {
-    ctor.updatePath = getPath(ctor.use)
-  } else if (ctor.data) { //Compatible with older versions
-    ctor.updatePath = getUpdatePath(ctor.data)
+  if(ctor.is === 'WeElement'){
+    options.mapping[name] = ctor
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use)
+    }  
+  } else {
+    let depPaths
+    let config = {}
+    const len = arguments.length
+    if(len === 3){
+      if(typeof arguments[1] === 'function'){
+        ctor = arguments[1]
+        config = arguments[2]
+      } else {
+        depPaths = arguments[1]
+        ctor = arguments[2]
+      }
+    } else if(len === 4){
+      depPaths = arguments[1]
+      ctor = arguments[2]
+      config = arguments[3]
+    }
+    if(typeof config === 'string'){
+      config = { css: config }
+		}
+
+    class Comp extends Component {
+      static use = depPaths
+
+      static css = config.css
+
+			static propTypes = config.propTypes
+
+			static defaultProps = config.defaultProps
+
+      render() {
+        return ctor.call(this, this)
+      }
+
+      install() {
+        config.install && config.install.apply(this, arguments)
+      }
+
+      installed() {
+        config.installed && config.installed.apply(this, arguments)
+      }
+
+      uninstall() {
+        config.uninstall && config.uninstall.apply(this, arguments)
+      }
+
+      beforeUpdate() {
+        config.beforeUpdate && config.beforeUpdate.apply(this, arguments)
+      }
+
+      updated() {
+        config.updated && config.updated.apply(this, arguments)
+      }
+
+      beforeRender() {
+        config.beforeRender && config.beforeRender.apply(this, arguments)
+      }
+
+      rendered() {
+        config.rendered && config.rendered.apply(this, arguments)
+      }
+
+      receiveProps() {
+				if(config.receiveProps){
+					return config.receiveProps.apply(this, arguments)
+				}
+      }
+
+		}
+
+		if(config.use){
+			if(typeof config.use  === 'function'){
+				Comp.prototype.use = function(){
+				 return config.use.apply(this, arguments)
+				}
+			} else {
+				Comp.use = config.use
+			}
+		}
+
+    if(Comp.use){
+      Comp.updatePath = getPath(Comp.use)
+    }
+
+    options.mapping[name] = Comp
   }
 }
 

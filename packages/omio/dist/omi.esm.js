@@ -1,5 +1,5 @@
 /**
- * omi v2.3.0  http://omijs.org
+ * omi v2.4.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1080,13 +1080,110 @@ function diffAttributes(dom, attrs, old) {
   }
 }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 function define(name, ctor) {
-  options.mapping[name] = ctor;
-  if (ctor.use) {
-    ctor.updatePath = getPath(ctor.use);
-  } else if (ctor.data) {
-    //Compatible with older versions
-    ctor.updatePath = getUpdatePath(ctor.data);
+  if (ctor.is === 'WeElement') {
+    options.mapping[name] = ctor;
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use);
+    }
+  } else {
+    var depPaths;
+    var config = {};
+    var len = arguments.length;
+    if (len === 3) {
+      if (typeof arguments[1] === 'function') {
+        ctor = arguments[1];
+        config = arguments[2];
+      } else {
+        depPaths = arguments[1];
+        ctor = arguments[2];
+      }
+    } else if (len === 4) {
+      depPaths = arguments[1];
+      ctor = arguments[2];
+      config = arguments[3];
+    }
+    if (typeof config === 'string') {
+      config = { css: config };
+    }
+
+    var Comp = function (_Component) {
+      _inherits(Comp, _Component);
+
+      function Comp() {
+        _classCallCheck(this, Comp);
+
+        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+      }
+
+      Comp.prototype.render = function render() {
+        return ctor.call(this, this);
+      };
+
+      Comp.prototype.install = function install() {
+        config.install && config.install.apply(this, arguments);
+      };
+
+      Comp.prototype.installed = function installed() {
+        config.installed && config.installed.apply(this, arguments);
+      };
+
+      Comp.prototype.uninstall = function uninstall() {
+        config.uninstall && config.uninstall.apply(this, arguments);
+      };
+
+      Comp.prototype.beforeUpdate = function beforeUpdate() {
+        config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
+      };
+
+      Comp.prototype.updated = function updated() {
+        config.updated && config.updated.apply(this, arguments);
+      };
+
+      Comp.prototype.beforeRender = function beforeRender() {
+        config.beforeRender && config.beforeRender.apply(this, arguments);
+      };
+
+      Comp.prototype.rendered = function rendered() {
+        config.rendered && config.rendered.apply(this, arguments);
+      };
+
+      Comp.prototype.receiveProps = function receiveProps() {
+        if (config.receiveProps) {
+          return config.receiveProps.apply(this, arguments);
+        }
+      };
+
+      return Comp;
+    }(Component);
+
+    Comp.use = depPaths;
+    Comp.css = config.css;
+    Comp.propTypes = config.propTypes;
+    Comp.defaultProps = config.defaultProps;
+
+
+    if (config.use) {
+      if (typeof config.use === 'function') {
+        Comp.prototype.use = function () {
+          return config.use.apply(this, arguments);
+        };
+      } else {
+        Comp.use = config.use;
+      }
+    }
+
+    if (Comp.use) {
+      Comp.updatePath = getPath(Comp.use);
+    }
+
+    options.mapping[name] = Comp;
   }
 }
 
@@ -1216,173 +1313,176 @@ function doRender(props, data, context) {
   return this.constructor(props, context);
 }
 
-/* obaa 1.0.0
+/* 
+ * obaa 2.0.3
  * By dntzhang
- * Github: https://github.com/Tencent/omi
+ * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
  * MIT Licensed.
  */
 
-var obaa = function obaa(target, arr, callback) {
-  var _observe = function _observe(target, arr, callback) {
-    if (!target.$observer) target.$observer = this;
-    var $observer = target.$observer;
-    var eventPropArr = [];
-    if (obaa.isArray(target)) {
-      if (target.length === 0) {
-        target.$observeProps = {};
-        target.$observeProps.$observerPath = '#';
-      }
-      $observer.mock(target);
+// $_r_: root
+// $_c_: prop change callback
+// $_p_: path
+
+function obaa(target, arr, callback) {
+
+  var eventPropArr = [];
+  if (isArray$1(target)) {
+    if (target.length === 0) {
+      target.$_o_ = {
+        $_r_: target,
+        $_p_: '#'
+      };
     }
-    for (var prop in target) {
-      if (target.hasOwnProperty(prop)) {
-        if (callback) {
-          if (obaa.isArray(arr) && obaa.isInArray(arr, prop)) {
-            eventPropArr.push(prop);
-            $observer.watch(target, prop);
-          } else if (obaa.isString(arr) && prop == arr) {
-            eventPropArr.push(prop);
-            $observer.watch(target, prop);
-          }
-        } else {
+    mock(target, target);
+  }
+  for (var prop in target) {
+    if (target.hasOwnProperty(prop)) {
+      if (callback) {
+        if (isArray$1(arr) && isInArray(arr, prop)) {
           eventPropArr.push(prop);
-          $observer.watch(target, prop);
+          watch(target, prop, null, target);
+        } else if (isString(arr) && prop == arr) {
+          eventPropArr.push(prop);
+          watch(target, prop, null, target);
         }
-      }
-    }
-    $observer.target = target;
-    if (!$observer.propertyChangedHandler) $observer.propertyChangedHandler = [];
-    var propChanged = callback ? callback : arr;
-    $observer.propertyChangedHandler.push({
-      all: !callback,
-      propChanged: propChanged,
-      eventPropArr: eventPropArr
-    });
-  };
-  _observe.prototype = {
-    onPropertyChanged: function onPropertyChanged(prop, value, oldValue, target, path) {
-      if (value !== oldValue && this.propertyChangedHandler) {
-        var rootName = obaa._getRootName(prop, path);
-        for (var i = 0, len = this.propertyChangedHandler.length; i < len; i++) {
-          var handler = this.propertyChangedHandler[i];
-          if (handler.all || obaa.isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
-            handler.propChanged.call(this.target, prop, value, oldValue, path);
-          }
-        }
-      }
-      if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
-        this.watch(target, prop, target.$observeProps.$observerPath);
-      }
-    },
-    mock: function mock(target) {
-      var self = this;
-      obaa.methods.forEach(function (item) {
-        target[item] = function () {
-          var old = Array.prototype.slice.call(this, 0);
-          var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
-          if (new RegExp('\\b' + item + '\\b').test(obaa.triggerStr)) {
-            for (var cprop in this) {
-              if (this.hasOwnProperty(cprop) && !obaa.isFunction(this[cprop])) {
-                self.watch(this, cprop, this.$observeProps.$observerPath);
-              }
-            }
-            //todo
-            self.onPropertyChanged('Array-' + item, this, old, this, this.$observeProps.$observerPath);
-          }
-          return result;
-        };
-        target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function () {
-          return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
-        };
-      });
-    },
-    watch: function watch(target, prop, path) {
-      if (prop === '$observeProps' || prop === '$observer') return;
-      if (obaa.isFunction(target[prop])) return;
-      if (!target.$observeProps) target.$observeProps = {};
-      if (path !== undefined) {
-        target.$observeProps.$observerPath = path;
       } else {
-        target.$observeProps.$observerPath = '#';
+        eventPropArr.push(prop);
+        watch(target, prop, null, target);
       }
-      var self = this;
-      var currentValue = target.$observeProps[prop] = target[prop];
-      Object.defineProperty(target, prop, {
-        get: function get() {
-          return this.$observeProps[prop];
-        },
-        set: function set(value) {
-          var old = this.$observeProps[prop];
-          this.$observeProps[prop] = value;
-          self.onPropertyChanged(prop, value, old, this, target.$observeProps.$observerPath);
-        }
-      });
-      if (typeof currentValue == 'object') {
-        if (obaa.isArray(currentValue)) {
-          this.mock(currentValue);
-          if (currentValue.length === 0) {
-            if (!currentValue.$observeProps) currentValue.$observeProps = {};
-            if (path !== undefined) {
-              currentValue.$observeProps.$observerPath = path;
-            } else {
-              currentValue.$observeProps.$observerPath = '#';
-            }
+    }
+  }
+  if (!target.$_c_) {
+    target.$_c_ = [];
+  }
+  var propChanged = callback ? callback : arr;
+  target.$_c_.push({
+    all: !callback,
+    propChanged: propChanged,
+    eventPropArr: eventPropArr
+  });
+}
+
+var triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+
+var methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
+
+function mock(target, root) {
+  methods.forEach(function (item) {
+    target[item] = function () {
+      var old = Array.prototype.slice.call(this, 0);
+      var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+      if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
+        for (var cprop in this) {
+          if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
+            watch(this, cprop, this.$_o_.$_p_, root);
           }
         }
-        for (var cprop in currentValue) {
-          if (currentValue.hasOwnProperty(cprop)) {
-            this.watch(currentValue, cprop, target.$observeProps.$observerPath + '-' + prop);
-          }
+        //todo
+        onPropertyChanged('Array-' + item, this, old, this, this.$_o_.$_p_, root);
+      }
+      return result;
+    };
+    target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function () {
+      return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+    };
+  });
+}
+
+function watch(target, prop, path, root) {
+  if (prop === '$_o_') return;
+  if (isFunction(target[prop])) return;
+  if (!target.$_o_) target.$_o_ = {
+    $_r_: root
+  };
+  if (path !== undefined && path !== null) {
+    target.$_o_.$_p_ = path;
+  } else {
+    target.$_o_.$_p_ = '#';
+  }
+
+  var currentValue = target.$_o_[prop] = target[prop];
+  Object.defineProperty(target, prop, {
+    get: function get() {
+      return this.$_o_[prop];
+    },
+    set: function set(value) {
+      var old = this.$_o_[prop];
+      this.$_o_[prop] = value;
+      onPropertyChanged(prop, value, old, this, target.$_o_.$_p_, root);
+    },
+    configurable: true,
+    enumerable: true
+  });
+  if (typeof currentValue == 'object') {
+    if (isArray$1(currentValue)) {
+      mock(currentValue, root);
+      if (currentValue.length === 0) {
+        if (!currentValue.$_o_) currentValue.$_o_ = {};
+        if (path !== undefined && path !== null) {
+          currentValue.$_o_.$_p_ = path + '-' + prop;
+        } else {
+          currentValue.$_o_.$_p_ = '#' + '-' + prop;
         }
       }
     }
-  };
-  return new _observe(target, arr, callback);
-};
+    for (var cprop in currentValue) {
+      if (currentValue.hasOwnProperty(cprop)) {
+        watch(currentValue, cprop, target.$_o_.$_p_ + '-' + prop, root);
+      }
+    }
+  }
+}
 
-obaa.methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
-obaa.triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+function onPropertyChanged(prop, value, oldValue, target, path, root) {
+  if (value !== oldValue && root.$_c_) {
+    var rootName = getRootName(prop, path);
+    for (var i = 0, len = root.$_c_.length; i < len; i++) {
+      var handler = root.$_c_[i];
+      if (handler.all || isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
+        handler.propChanged.call(target, prop, value, oldValue, path);
+      }
+    }
+  }
 
-obaa.isArray = function (obj) {
+  if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
+    watch(target, prop, target.$_o_.$_p_, root);
+  }
+}
+
+function isFunction(obj) {
+  return Object.prototype.toString.call(obj) == '[object Function]';
+}
+
+function isArray$1(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
-};
+}
 
-obaa.isString = function (obj) {
+function isString(obj) {
   return typeof obj === 'string';
-};
+}
 
-obaa.isInArray = function (arr, item) {
+function isInArray(arr, item) {
   for (var i = arr.length; --i > -1;) {
     if (item === arr[i]) return true;
   }
   return false;
-};
+}
 
-obaa.isFunction = function (obj) {
-  return Object.prototype.toString.call(obj) == '[object Function]';
-};
-
-obaa._getRootName = function (prop, path) {
+function getRootName(prop, path) {
   if (path === '#') {
     return prop;
   }
   return path.split('-')[1];
-};
+}
 
 obaa.add = function (obj, prop) {
-  var $observer = obj.$observer;
-  $observer.watch(obj, prop);
+  watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
 };
 
-obaa.set = function (obj, prop, value, exec) {
-  if (!exec) {
-    obj[prop] = value;
-  }
-  var $observer = obj.$observer;
-  $observer.watch(obj, prop);
-  if (exec) {
-    obj[prop] = value;
-  }
+obaa.set = function (obj, prop, value) {
+  watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+  obj[prop] = value;
 };
 
 Array.prototype.size = function (length) {
@@ -1738,13 +1838,13 @@ function unmountComponent(component) {
   applyRef(component.__ref, null);
 }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var id = 0;
 
 var Component = function () {
   function Component(props, store) {
-    _classCallCheck(this, Component);
+    _classCallCheck$1(this, Component);
 
     this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
     this.elementId = id++;
@@ -1918,19 +2018,19 @@ function tag(name) {
   };
 }
 
-function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ModelView = function (_Component) {
-  _inherits(ModelView, _Component);
+  _inherits$1(ModelView, _Component);
 
   function ModelView() {
-    _classCallCheck$1(this, ModelView);
+    _classCallCheck$2(this, ModelView);
 
-    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+    return _possibleConstructorReturn$1(this, _Component.apply(this, arguments));
   }
 
   ModelView.prototype.beforeInstall = function beforeInstall() {
@@ -2284,10 +2384,11 @@ options.root.Omi = {
   tag: tag,
   merge: merge,
   html: html,
-  htm: htm
+  htm: htm,
+  obaa: obaa
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.3.0';
+options.root.Omi.version = 'omio-2.4.0';
 
 var omi = {
   h: h,
@@ -2310,9 +2411,10 @@ var omi = {
   tag: tag,
   merge: merge,
   html: html,
-  htm: htm
+  htm: htm,
+  obaa: obaa
 };
 
 export default omi;
-export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, ModelView, defineElement, classNames, extractClass, getHost, renderToString, tag, merge, html, htm };
+export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, ModelView, defineElement, classNames, extractClass, getHost, renderToString, tag, merge, html, htm, obaa };
 //# sourceMappingURL=omi.esm.js.map
