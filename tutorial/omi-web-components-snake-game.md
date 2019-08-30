@@ -6,14 +6,14 @@ Actually, I used react, vue, preact and [omi](https://github.com/Tencent/omi) to
 
 ### Domain Model Design
 
-* Extract the main entities, such as (snakes, games)
-* Summarize the specific business attribute methods from entity nouns.
+* Extract the main entities, such as (snake, game)
+* Summarize the specific business attribute methods from entity 
   * Snake
     * Contains the direction of motion, body attributes
-    * Including moving and steering methods
+    * Contains moving and steering methods
   * Game
-    * Includes end pause status, maps, scores, frame rates, game protagonists, food
-    * Include start game, pause game, end game, produce food, reset game, etc.
+    * Contains end pause status, maps, scores, frame rates, game protagonists, food
+    * Contains start game, pause game, end game, produce food, reset game, etc.
 * Establishing links between entity attribute methods
   * The only protagonist in the game is the snake.
   * Snakes eat food, and game scores increase
@@ -77,7 +77,7 @@ class Snake {
 }
 ```
 
-The snake's turn has a logic that it can't retreat in the opposite direction. For example, it is moving upward and can't turn directly downward. Therefore, there are corresponding conditional judgments in `turnUp', `turnRight`, `turnDown`, `turnLeft`.
+The snake's turn has a logic that it can't retreat in the opposite direction. For example, it is moving left and can't turn directly right. Therefore, there are corresponding conditional judgments in `turnUp`, `turnRight`, `turnDown`, `turnLeft`.
 
 ### Game Class
 
@@ -204,7 +204,7 @@ class Game {
 }
 ```
 
-You can see that the above image uses a 16*16 two-dimensional array to store snakes, food, and map information. Snakes and food occupy 1 lattice and the rest 0.
+You can see that the above code uses a 16*16 two-dimensional array to store snakes, food, and map information. Snakes and food occupy 1 lattice and the rest 0.
 
 ```js
 [
@@ -455,6 +455,7 @@ export function rpx(css) {
   })
 }
 ```
+### HTML structure screenshot
 
 ### Compatibility
 
@@ -470,6 +471,12 @@ If you want to be compatible with **IE8+**, Change on line in the package.json:
   }
 ```
 
+> Omio - Omi for old browsers with same api of omi(IE8+)
+
+HTML structure screenshot by omio:
+
+
+
 ### Reference
 
 Reference and use of the partial [react-tetris] (https://chvin.github.io/react-tetris/) style.
@@ -478,3 +485,4 @@ Reference and use of the partial [react-tetris] (https://chvin.github.io/react-t
 
 * [Game Source Code](https://github.com/Tencent/omi/tree/master/packages/omi-snake)
 * [Omi Github](https://github.com/Tencent/omi)
+* [Omi Store System](https://tencent.github.io/omi/site/docs/index.html#/store?index=1&subIndex=8)
