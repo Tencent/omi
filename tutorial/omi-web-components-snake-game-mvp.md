@@ -2,7 +2,7 @@
 
 <img src="../assets/omi-snake.png" width="300px" />
 
-Actually, I used react, preact, vue and [omi](https://github.com/Tencent/omi) to develop this game, and I found that the development experience of Omi is the best. Let me take you step by step to develop this simple game.
+Actually, I used react, preact, vue and [omi framework](https://github.com/Tencent/omi) to develop this game, and I found that the development experience of Omi is the best. Let me take you step by step to develop this simple game.
 
 ### Domain Model Design
 
