@@ -2,7 +2,7 @@
 
 ![](../assets/omi-snake.png)
 
-
+Actually, I used react, vue, preact and [omi](https://github.com/Tencent/omi) to develop this game, and I found that the development experience of Omi is the best. Let me take you step by step to develop this simple game.
 
 ### Domain Model Design
 
@@ -250,7 +250,7 @@ define('my-game', ['map'], _ => (
 ), rpx(require('./_index.css')))
 ```
 
-带有 class 为 s 的格式是黑色的，比如食物、蛇的身体，其余的会灰色底色。`Game.use` 的作用后面细讲，`map` 代表依赖 store.data.map，map更新会自动更新视图。
+The cell with `s` class is black, such as food, snake body, and the rest will be grey background. The `['map']` represents a dependency on `store.data`. The `map` updates automatically update views.
 
 ### Ctrl and Game Panel Rendering
 
@@ -322,11 +322,12 @@ export default {
 }
 ```
 
-会发现， store 很薄，只负责中转 View 的 action，到 Model，以及隐藏式自动映射 Model 上的数据到 View。
+You'll find that the store is thin and only responsible for transiting View action to Model and for automatically mapping data from Model to View.
 
-### 帧率控制
+### Frame Rate Control
 
-怎么控制主帧率和局部帧率。一般情况下，我们认为 60 FPS 是流畅的，所以我们定时器间隔是有 16ms，核心循环里的计算量越小，就越接近 60 FPS：
+How to control the main frame rate and the local frame rate? In general, we think that 60 FPS is fluent, so we have a 16 ms interval between timers. The smaller the amount of computation in the core cycle, the closer to 60 FPS:
+
 
 ```js
 this.loop = setInterval(() => {
@@ -334,95 +335,100 @@ this.loop = setInterval(() => {
 }, 16)
 ```
 
-但是有些计算没有必要 16 秒计算一次，这样会降低帧率，所以可以记录上一次执行的时间用来控制帧率:
+However, some computations do not need to be computed once in 16 seconds, which reduces the frame rate, so the last execution time can be recorded to control the frame rate:
+
+
 
 ```js
 this.loop = setInterval(() => {
-  //执行在这里是大约 60 FPS
+    //60 FPS
   if (Date.now() - this._preDate > this.interval) {
-    //执行在这里是大约  1000/this.interval FPS
+    //1000/this.interval FPS
     this._preDate = Date.now()
-    //暂停判断
     if (!this.paused) {
-      //核心循环逻辑
+      //Core Loop Logic
       this.tick()
     }
   }
 }, 16)
 ```
 
-由于小程序 JSCore 里不支持 `requestAnimationFrame`，所以这里使用 setInterval。当然也可以使用 [raf-interval](https://github.com/dntzhang/raf-interval) 循环执行 tick:
+You can use [raf-interval](https://github.com/dntzhang/raf-interval) base on `requestAnimationFrame` instead of `setInterval` to improve performance:
 
 ```js
 this.loop = setRafInterval(() => {
-  //执行在这里是大约 60 FPS
+  //60 FPS
   if (Date.now() - this._preDate > this.interval) {
-    //执行在这里是大约  1000/this.interval FPS
+    //1000/this.interval FPS
     this._preDate = Date.now()
-    //暂停判断
     if (!this.paused) {
-      //核心循环逻辑
+      //Core Loop Logic
       this.tick()
     }
   }
 }, 16)
 ```
 
-用法和 setInterval 一致，只是内部使用 setTimeout 且如果支持 `requestAnimationFrame` 会优先使用 `requestAnimationFrame`。
-
-[→ 贪吃蛇源码](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)
-
-
-### 贪吃蛇目录说明
+### File directory description
 
 ```
-├─ build
-│  ├─ mp     //微信开发者工具指向的目录，用于生产环境
-│  ├─ web    //web 编译出的文件，用于生产环境
+├─ build           //Compiled files for production environments
 ├─ config
 ├─ public
 ├─ scripts
 ├─ src
 │  ├─ assets
-│  ├─ components    //存放所有页面的组件
-│  ├─ models        //存放所有模型
-│  ├─ stores        //存放页面的 store
-│  └─ index.js      //入口文件，会 build 成 index.html
+│  ├─ components    //Components that store all view of pages
+│  ├─ models        //Store all models
+│  ├─ stores        //Store all store
+│  └─ index.js      //The entry file will be built into index.html
 ```
+So MVC, MVP or MVVM?
 
-那么是 MVC、MVP 还是 MVVM?
 
-从贪吃蛇源码可以看出：视图(components)和模型(models)是分离的，没有相互依赖关系，但是在 MVC 中，视图依赖模型，耦合度太高，导致视图的可移植性大大降低，所以一定不是 MVC 架构。
 
+From the snake-eating source code, we can see that the view (components) and the model are separated, and there is no interdependence. But in MVC, the view depends on the model and the coupling degree is too high, which leads to the greatly reduced portability of the view, so it must not be MVC architecture.
 
 ![](../assets/mvc-mvp-mvvm.png)
+In MVP mode, views do not depend directly on models, and Presenter is responsible for completing the interaction between Models and Views. MVVM and MVP are similar. ViewModel plays the role of Presenter and provides the data source needed for UI view, instead of directly letting View use the data source of Model. This greatly improves the portability of View and Model, such as using Flash, HTML, WPF rendering for the same model switch, such as using different models for the same View. As long as the Model and ViewModel are mapped well, View can be changed very little or not.
 
-在 MVP 模式中，视图不直接依赖模型，由 Presenter 负责完成 Model 和 View 的交互。MVVM 和 MVP 的模式比较接近。ViewModel 担任这 Presenter 的角色，并且提供 UI 视图所需要的数据源，而不是直接让 View 使用 Model 的数据源，这样大大提高了 View 和 Model 的可移植性，比如同样的 Model 切换使用 Flash、HTML、WPF 渲染，比如同样 View 使用不同的 Model，只要 Model 和 ViewModel 映射好，View 可以改动很小甚至不用改变。
 
-从贪吃蛇源码可以看出，View(components) 里直接使用了 Presenter(stores) 的 data 属性进行渲染，data 属性来自于 Model(models) 的属性，并没有出现 Model 到 ViewModel 的映射。所以一定不是 MVVM 架构。
 
-所以上面的贪吃蛇属于 **MVP** !只不过是进化版的 MVP，因为 M 里的 map 的变更会自定更是 View，从 M->P->V的回路是自动化的，代码里看不到任何逻辑。仅仅需要声明依赖:
+From the snake source code, we can see that the data attribute of Presenter (stores) is directly used to render in View (components). The data attribute comes from the attribute of Model (models), and there is no mapping between Model and ViewModel. So it must not be MVVM architecture.
+
+
+
+So the snake above belongs to ** MVP **! It's just an evolutionary version of MVP, because the map changes in M will be more customized than View, and the loop from M - > P - > V is automated, and there is no logic in the code. Simply declare dependency:
 
 ```js
-Game.use = ['map']
+define('tag-name', ['map'] ...
 ```
 
-这样也规避了 MVVM 最大的问题： M 到 VM 映射的开销。
+This also avoids the biggest problem of MVVM: the overhead of M-to-VM mapping.
 
-### 进化版 MVP 优势
+### Evolutionary MVP Advantages
 
-1、复用性
+1. Reusability
 
-Model 和 View 之间解耦，Model 或 View 中的一方发生变化，Presenter 接口不变，另一方就没必要对上述变化做出改变，那么 Model 层的业务逻辑具有很好的灵活性和可重用性。
 
-2、灵活性
 
-Presenter 的 data 变更自动映射到视图，使得 Presenter 很薄很薄，View 属于被动视图。而且基于 Presenter 的 data 可以使用任何平台、任何框架、任何技术进行渲染。
+Decoupling between Model and View, change of one side of Model or View, unchanged Presenter interface, and change of the other side is unnecessary, so the business logic of Model layer has good flexibility and reusability.
 
-3、测试性
 
-假如 View 和 Model 之间的紧耦合，在 Model 和 View 同时开发完成之前对其中一方进行测试是不可能的。出于同样的原因，对 View 或 Model 进行单元测试很困难。现在，MVP模式解决了所有的问题。MVP 模式中，View 和 Model 之间没有直接依赖，开发者能够借助模拟对象注入测试两者中的任一方。
 
+2. Flexibility
+
+
+
+Presenter's data changes are automatically mapped to views, making Presenter thin and thin, and View is a passive view. And Presenter-based data can be rendered using any platform, any framework, any technology.
+
+
+
+3. Testability
+
+
+
+If there is tight coupling between View and Model, it is impossible to test one of them before the simultaneous development of Model and View is completed. For the same reason, unit testing of View or Model is difficult. Now, the MVP model solves all the problems. In MVP mode, there is no direct dependency between View and Model, and developers can test either of them by injecting simulated objects.
 
 ### CSS rpx unit
 
