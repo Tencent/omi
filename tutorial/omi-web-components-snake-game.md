@@ -19,6 +19,24 @@ Rpx unit is very conducive to the overall workflow of front-end development, bec
 
 ### rpx 原理    
 
+```js
+export function rpx(str) {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, (a, b) => {
+    return (window.innerWidth * Number(b)) / 750 + 'px'
+  })
+}
+```
 
-### Web 里用 rpx
+### Compatibility
 
+The last 2 versions of all modern browsers are supported, including Chrome, Safari, Opera, Firefox, Edge. In addition, Internet Explorer 11 is also supported.
+
+Edge and Internet Explorer 11 require the web components polyfills.
+
+If you want to be compatible with **IE8+**, Change on line in the package.json:
+
+```json
+  "alias": {
+    "omi": "omio"
+  }
+```
