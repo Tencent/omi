@@ -1,5 +1,5 @@
 /**
- * omi v6.11.0  http://omijs.org
+ * omi v6.11.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1170,10 +1170,10 @@
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   function define(name, ctor) {
+    if (options.mapping[name]) {
+      return;
+    }
     if (ctor.is === 'WeElement') {
-      if (options.mapping[name]) {
-        return;
-      }
       customElements.define(name, ctor);
       options.mapping[name] = ctor;
       if (ctor.use) {
@@ -1181,12 +1181,12 @@
       }
     } else {
       var depPaths;
-      var _options = {};
+      var config = {};
       var len = arguments.length;
       if (len === 3) {
         if (typeof arguments[1] === 'function') {
           ctor = arguments[1];
-          _options = arguments[2];
+          config = arguments[2];
         } else {
           depPaths = arguments[1];
           ctor = arguments[2];
@@ -1194,10 +1194,10 @@
       } else if (len === 4) {
         depPaths = arguments[1];
         ctor = arguments[2];
-        _options = arguments[3];
+        config = arguments[3];
       }
-      if (typeof _options === 'string') {
-        _options = { css: _options };
+      if (typeof config === 'string') {
+        config = { css: config };
       }
 
       var Ele = function (_WeElement) {
@@ -1214,36 +1214,36 @@
         };
 
         Ele.prototype.install = function install() {
-          _options.install && _options.install.apply(this, arguments);
+          config.install && config.install.apply(this, arguments);
         };
 
         Ele.prototype.installed = function installed() {
-          _options.installed && _options.installed.apply(this, arguments);
+          config.installed && config.installed.apply(this, arguments);
         };
 
         Ele.prototype.uninstall = function uninstall() {
-          _options.uninstall && _options.uninstall.apply(this, arguments);
+          config.uninstall && config.uninstall.apply(this, arguments);
         };
 
         Ele.prototype.beforeUpdate = function beforeUpdate() {
-          _options.beforeUpdate && _options.beforeUpdate.apply(this, arguments);
+          config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
         };
 
         Ele.prototype.updated = function updated() {
-          _options.updated && _options.updated.apply(this, arguments);
+          config.updated && config.updated.apply(this, arguments);
         };
 
         Ele.prototype.beforeRender = function beforeRender() {
-          _options.beforeRender && _options.beforeRender.apply(this, arguments);
+          config.beforeRender && config.beforeRender.apply(this, arguments);
         };
 
         Ele.prototype.rendered = function rendered() {
-          _options.rendered && _options.rendered.apply(this, arguments);
+          config.rendered && config.rendered.apply(this, arguments);
         };
 
         Ele.prototype.receiveProps = function receiveProps() {
-          if (_options.receiveProps) {
-            return _options.receiveProps.apply(this, arguments);
+          if (config.receiveProps) {
+            return config.receiveProps.apply(this, arguments);
           }
         };
 
@@ -1251,18 +1251,18 @@
       }(WeElement);
 
       Ele.use = depPaths;
-      Ele.css = _options.css;
-      Ele.propTypes = _options.propTypes;
-      Ele.defaultProps = _options.defaultProps;
+      Ele.css = config.css;
+      Ele.propTypes = config.propTypes;
+      Ele.defaultProps = config.defaultProps;
 
 
-      if (_options.use) {
-        if (typeof _options.use === 'function') {
+      if (config.use) {
+        if (typeof config.use === 'function') {
           Ele.prototype.use = function () {
-            return _options.use.apply(this, arguments);
+            return config.use.apply(this, arguments);
           };
         } else {
-          Ele.use = _options.use;
+          Ele.use = config.use;
         }
       }
 
@@ -1271,6 +1271,7 @@
       }
 
       customElements.define(name, Ele);
+      options.mapping[name] = Ele;
     }
   }
 
@@ -1882,7 +1883,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.11.0';
+  options.root.Omi.version = '6.11.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

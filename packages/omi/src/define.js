@@ -5,10 +5,10 @@ const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function define(name, ctor) {
+  if(options.mapping[name]){
+    return
+  }
   if (ctor.is === 'WeElement') {
-    if(options.mapping[name]){
-      return
-    }
     customElements.define(name, ctor)
     options.mapping[name] = ctor
     if (ctor.use) {
@@ -16,12 +16,12 @@ export function define(name, ctor) {
     }
   } else {
     let depPaths
-    let options = {}
+    let config = {}
     const len = arguments.length
     if(len === 3){
       if(typeof arguments[1] === 'function'){
         ctor = arguments[1]
-        options = arguments[2]
+        config = arguments[2]
       } else {
         depPaths = arguments[1]
         ctor = arguments[2]
@@ -29,76 +29,77 @@ export function define(name, ctor) {
     } else if(len === 4){
       depPaths = arguments[1]
       ctor = arguments[2]
-      options = arguments[3]
+      config = arguments[3]
     }
-    if(typeof options === 'string'){
-      options = { css: options }
+    if(typeof config === 'string'){
+      config = { css: config }
 		}
 
     class Ele extends WeElement {
       static use = depPaths
 
-      static css = options.css
+      static css = config.css
 
-			static propTypes = options.propTypes
+			static propTypes = config.propTypes
 
-			static defaultProps = options.defaultProps
+			static defaultProps = config.defaultProps
 
       render() {
         return ctor.call(this, this)
       }
 
       install() {
-        options.install && options.install.apply(this, arguments)
+        config.install && config.install.apply(this, arguments)
       }
 
       installed() {
-        options.installed && options.installed.apply(this, arguments)
+        config.installed && config.installed.apply(this, arguments)
       }
 
       uninstall() {
-        options.uninstall && options.uninstall.apply(this, arguments)
+        config.uninstall && config.uninstall.apply(this, arguments)
       }
 
       beforeUpdate() {
-        options.beforeUpdate && options.beforeUpdate.apply(this, arguments)
+        config.beforeUpdate && config.beforeUpdate.apply(this, arguments)
       }
 
       updated() {
-        options.updated && options.updated.apply(this, arguments)
+        config.updated && config.updated.apply(this, arguments)
       }
 
       beforeRender() {
-        options.beforeRender && options.beforeRender.apply(this, arguments)
+        config.beforeRender && config.beforeRender.apply(this, arguments)
       }
 
       rendered() {
-        options.rendered && options.rendered.apply(this, arguments)
+        config.rendered && config.rendered.apply(this, arguments)
       }
 
       receiveProps() {
-				if(options.receiveProps){
-					return options.receiveProps.apply(this, arguments)
+				if(config.receiveProps){
+					return config.receiveProps.apply(this, arguments)
 				}
       }
 
 		}
 
-		if(options.use){
-			if(typeof options.use  === 'function'){
+		if(config.use){
+			if(typeof config.use  === 'function'){
 				Ele.prototype.use = function(){
-				 return options.use.apply(this, arguments)
+				 return config.use.apply(this, arguments)
 				}
 			} else {
-				Ele.use = options.use
+				Ele.use = config.use
 			}
 		}
 
     if(Ele.use){
       Ele.updatePath = getPath(Ele.use)
-		}
+    }
 
     customElements.define(name, Ele)
+    options.mapping[name] = Ele
   }
 }
 
