@@ -468,6 +468,8 @@ export function rpx(css) {
 ```
 ### HTML structure screenshot
 
+<img src="../assets/omi-snake-html.png" width="200px" />
+
 ### Compatibility
 
 The last 2 versions of all modern browsers are supported, including Chrome, Safari, Opera, Firefox, Edge. In addition, Internet Explorer 11 is also supported.
@@ -486,7 +488,7 @@ If you want to be compatible with **IE8+**, Change on line in the package.json:
 
 HTML structure screenshot by omio:
 
-
+<img src="../assets/omi-snake-html-omio.png" width="250px" />
 
 ### Reference
 
