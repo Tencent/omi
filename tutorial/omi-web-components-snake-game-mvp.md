@@ -490,10 +490,6 @@ HTML structure screenshot by omio:
 
 <img src="../assets/omi-snake-html-omio.png" width="450px" />
 
-### Reference
-
-Reference and use of the partial [react-tetris] (https://chvin.github.io/react-tetris/) style.
-
 ### Links
 
 * [Game Source Code](https://github.com/Tencent/omi/tree/master/packages/omi-snake)
