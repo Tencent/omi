@@ -468,7 +468,7 @@ export function rpx(css) {
 ```
 ### HTML structure screenshot
 
-<img src="../assets/omi-snake-html.png" width="200px" />
+<img src="../assets/omi-snake-html.png" width="340px" />
 
 ### Compatibility
 
@@ -488,7 +488,7 @@ If you want to be compatible with **IE8+**, Change on line in the package.json:
 
 HTML structure screenshot by omio:
 
-<img src="../assets/omi-snake-html-omio.png" width="250px" />
+<img src="../assets/omi-snake-html-omio.png" width="450px" />
 
 ### Reference
 
