@@ -4,6 +4,8 @@
 
 Actually, I used react, preact, vue and [omi framework](https://github.com/Tencent/omi) to develop this game, and I found that the development experience of Omi is the best. Let me take you step by step to develop this simple game.
 
+* [Touch Online Demo(Mobile)](https://tencent.github.io/omi/packages/omi-snake/build/)
+
 ### Domain Model Design
 
 * Extract the main entities, such as (snake, game)
