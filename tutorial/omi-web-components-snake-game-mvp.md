@@ -383,50 +383,61 @@ this.loop = setRafInterval(() => {
 │  ├─ stores        //Store all store
 │  └─ index.js      //The entry file will be built into index.html
 ```
+
 So MVC, MVP or MVVM?
 
-
-
-From the snake-eating source code, we can see that the view (components) and the model are separated, and there is no interdependence. But in MVC, the view depends on the model and the coupling degree is too high, which leads to the greatly reduced portability of the view, so it must not be MVC architecture.
+From the snake-eating source code, we can see that the view(components) and the model are separated, and there is no interdependence. But in MVC, the view depends on the model and the coupling degree is too high, which leads to the greatly reduced portability of the view, so it must not be MVC architecture.
 
 ![](../assets/mvc-mvp-mvvm.png)
+
 In MVP mode, views do not depend directly on models, and Presenter is responsible for completing the interaction between Models and Views. MVVM and MVP are similar. ViewModel plays the role of Presenter and provides the data source needed for UI view, instead of directly letting View use the data source of Model. This greatly improves the portability of View and Model, such as using Flash, HTML, WPF rendering for the same model switch, such as using different models for the same View. As long as the Model and ViewModel are mapped well, View can be changed very little or not.
 
 
-
-From the snake source code, we can see that the data attribute of Presenter (stores) is directly used to render in View (components). The data attribute comes from the attribute of Model (models), and there is no mapping between Model and ViewModel. So it must not be MVVM architecture.
-
+From the snake source code, we can see that the data attribute of Presenter (stores) is directly used to render in View (components). The data attribute comes from the attribute of Model(models), and there is no mapping between Model and ViewModel. So it must not be MVVM architecture.
 
 
-So the snake above belongs to ** MVP **! It's just an evolutionary version of MVP, because the map changes in M will be more customized than View, and the loop from M - > P - > V is automated, and there is no logic in the code. Simply declare dependency:
+
+So the snake above belongs to **MVP**! It's just an evolutionary version of MVP, because the `map` changes in M will be more customized than View, and the loop from M - > P - > V is automated, and there is no logic in the code. Simply declare dependency:
 
 ```js
-define('tag-name', ['map'] ...
+define('my-game', ['map'] ...
 ```
 
 This also avoids the biggest problem of MVVM: the overhead of M-to-VM mapping.
+
+You can also change data in the store and it will automatically update views:
+
+```js
+  pauseOrPlay = () => {
+    if (game.paused) {
+      game.play()
+      //auto update view
+      this.data.paused = false
+    } else {
+      game.pause()
+      //auto update view
+      this.data.paused = true
+    }
+  }
+```
+
+Because of:
+
+```js
+define('my-index', ['paused'], ...
+```
 
 ### Evolutionary MVP Advantages
 
 1. Reusability
 
-
-
 Decoupling between Model and View, change of one side of Model or View, unchanged Presenter interface, and change of the other side is unnecessary, so the business logic of Model layer has good flexibility and reusability.
-
-
 
 2. Flexibility
 
-
-
 Presenter's data changes are automatically mapped to views, making Presenter thin and thin, and View is a passive view. And Presenter-based data can be rendered using any platform, any framework, any technology.
 
-
-
 3. Testability
-
-
 
 If there is tight coupling between View and Model, it is impossible to test one of them before the simultaneous development of Model and View is completed. For the same reason, unit testing of View or Model is difficult. Now, the MVP model solves all the problems. In MVP mode, there is no direct dependency between View and Model, and developers can test either of them by injecting simulated objects.
 

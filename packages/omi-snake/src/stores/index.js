@@ -36,6 +36,7 @@ class Store {
       this.data.paused = true
     }
   }
+  
   reset() {
     game.reset()
   }
