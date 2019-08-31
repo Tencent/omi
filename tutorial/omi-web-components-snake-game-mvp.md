@@ -488,7 +488,7 @@ The last 2 versions of all modern browsers are supported, including Chrome, Safa
 
 Edge and Internet Explorer 11 require the web components polyfills.
 
-If you want to be compatible with **IE8+**, Change on line in the package.json:
+If you want to be compatible with **IE8+**, Change one line in the package.json:
 
 ```json
   "alias": {
