@@ -40,7 +40,9 @@ define('my-counter', ['count'], _ => (
 render(<my-counter />, 'body', new Store)
 ```
 
-`define` 的第二个参数是可选的。
+* `define` 的第二和第四个参数是可选的
+* `<my-counter></my-counter>` 可以用于任意框架或者无框架，比如 `document.createElement('my-counter')`
+
 
 ## Omi 生态
 

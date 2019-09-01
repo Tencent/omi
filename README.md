@@ -40,7 +40,8 @@ define('my-counter', ['count'], _ => (
 render(<my-counter />, 'body', new Store)
 ```
 
-The second parameter of `define` is optional.
+* The second and fourth parameter of `define` is optional
+* `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
 
 ## Ecosystem of Omi
 
