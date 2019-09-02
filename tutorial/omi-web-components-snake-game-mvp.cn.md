@@ -1,4 +1,4 @@
-## 使用 MVP 架构和 Omi 的 Web Components 开发贪吃蛇
+## 使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇
 
 <img src="../assets/omi-snake.png" width="300px" />
 
@@ -273,7 +273,6 @@ define('my-game', ['map'], _ => (
 import { define, rpx } from 'omi'
 import '../game'
 
-
 define('my-index', ['paused'], ({store}) => (
   <div class="container">
     <h1>OMI SNAKE</h1>
@@ -294,7 +293,7 @@ define('my-index', ['paused'], ({store}) => (
 ), rpx(require('./_index.css')))
 ```
 
-### Define the Store 
+### 定义 Store 
 
 ```js
 import Game from '../models/game'
@@ -304,44 +303,67 @@ const { snake, map } = game
 
 game.start()
 
-export default {
-  data: {
-    map
-  },
+class Store {
+  data = {
+    map,
+    paused: false
+  }
+
   turnUp() {
     snake.turnUp()
-  },
+  }
+  
   turnRight() {
     snake.turnRight()
-  },
+  }
+
   turnDown() {
     snake.turnDown()
-  },
+  }
+
   turnLeft() {
     snake.turnLeft()
-  },
-  pauseOrPlay() {
+  }
+
+  pauseOrPlay = () => {
     if (game.paused) {
       game.play()
+      this.data.paused = false
     } else {
       game.pause()
+      this.data.paused = true
     }
-  },
+  }
+  
   reset() {
     game.reset()
-  },
+  }
+
   toggleSpeed() {
     game.toggleSpeed()
   }
 }
+
+export default new Store
 ```
 
-You'll find that the store is thin and only responsible for transiting View action to Model and for automatically mapping data from Model to View.
 
-### Frame Rate Control
+会发现， store 很薄，只负责中转 View 的 action，到 Model，以及更改`this.data.paused`数据会自动更新 View，其中 `this.data.map` 的更改是在 model 中进行(game.js 的 tick 方法)。
 
-How to control the main frame rate and the local frame rate? In general, we think that 60 FPS is fluent, so we have a 16 ms interval between timers. The smaller the amount of computation in the core cycle, the closer to 60 FPS:
 
+因为定义组件时声明了依赖:
+
+```js
+define('my-index', ['paused'], ...
+```
+
+```js
+define('my-game', ['map'], ...
+```
+
+### 帧率控制
+
+怎么控制主帧率和局部帧率。一般情况下，我们认为 60 FPS 是流畅的，所以我们定时器间隔是有 16ms，核心循环里的计算量越小，就越接近 60 FPS：
 
 ```js
 this.loop = setInterval(() => {
@@ -349,129 +371,106 @@ this.loop = setInterval(() => {
 }, 16)
 ```
 
-However, some computations do not need to be computed once in 16 seconds, which reduces the frame rate, so the last execution time can be recorded to control the frame rate:
-
-
+但是有些计算没有必要 16 秒计算一次，这样会降低帧率，所以可以记录上一次执行的时间用来控制帧率:
 
 ```js
 this.loop = setInterval(() => {
-    //60 FPS
+  //执行在这里是大约 60 FPS
   if (Date.now() - this._preDate > this.interval) {
-    //1000/this.interval FPS
+    //执行在这里是大约  1000/this.interval FPS
     this._preDate = Date.now()
+    //暂停判断
     if (!this.paused) {
-      //Core Loop Logic
+      //核心循环逻辑
       this.tick()
     }
   }
 }, 16)
 ```
 
-You can use [raf-interval](https://github.com/dntzhang/raf-interval) base on `requestAnimationFrame` instead of `setInterval` to improve performance:
+你可以使用基于 `requestAnimationFrame` 的 [raf-interval](https://github.com/dntzhang/raf-interval) 来替代 `setInterval`，用于提高性能:
 
 ```js
 this.loop = setRafInterval(() => {
-  //60 FPS
+  //执行在这里是大约 60 FPS
   if (Date.now() - this._preDate > this.interval) {
-    //1000/this.interval FPS
+    //执行在这里是大约  1000/this.interval FPS
     this._preDate = Date.now()
+    //暂停判断
     if (!this.paused) {
-      //Core Loop Logic
+      //核心循环逻辑
       this.tick()
     }
   }
 }, 16)
 ```
 
-### File directory description
+### 贪吃蛇目录说明
 
 ```
-├─ build           //Compiled files for production environments
+├─ build            //web 编译出的文件，用于生产环境
 ├─ config
 ├─ public
 ├─ scripts
 ├─ src
 │  ├─ assets
-│  ├─ components    //Components that store all view of pages
-│  ├─ models        //Store all models
-│  ├─ stores        //Store all store
-│  └─ index.js      //The entry file will be built into index.html
+│  ├─ components    //存放所有页面的组件
+│  ├─ models        //存放所有模型
+│  ├─ stores        //存放页面的 store
+│  └─ index.js      //入口文件，会 build 成 index.html
 ```
 
-So MVC, MVP or MVVM?
 
-From the snake-eating source code, we can see that the view(components) and the model are separated, and there is no interdependence. But in MVC, the view depends on the model and the coupling degree is too high, which leads to the greatly reduced portability of the view, so it must not be MVC architecture.
+那么是 MVC、MVP 还是 MVVM?
+
+从贪吃蛇源码可以看出：视图(components)和模型(models)是分离的，没有相互依赖关系，但是在 MVC 中，视图依赖模型，耦合度太高，导致视图的可移植性大大降低，所以一定不是 MVC 架构。
+
 
 ![](../assets/mvc-mvp-mvvm.png)
 
-In MVP mode, views do not depend directly on models, and Presenter is responsible for completing the interaction between Models and Views. MVVM and MVP are similar. ViewModel plays the role of Presenter and provides the data source needed for UI view, instead of directly letting View use the data source of Model. This greatly improves the portability of View and Model, such as using Flash, HTML, WPF rendering for the same model switch, such as using different models for the same View. As long as the Model and ViewModel are mapped well, View can be changed very little or not.
+在 MVP 模式中，视图不直接依赖模型，由 Presenter 负责完成 Model 和 View 的交互。MVVM 和 MVP 的模式比较接近。ViewModel 担任这 Presenter 的角色，并且提供 UI 视图所需要的数据源，而不是直接让 View 使用 Model 的数据源，这样大大提高了 View 和 Model 的可移植性，比如同样的 Model 切换使用 Flash、HTML、WPF 渲染，比如同样 View 使用不同的 Model，只要 Model 和 ViewModel 映射好，View 可以改动很小甚至不用改变。
 
+从贪吃蛇源码可以看出，View(components) 里直接使用了 Presenter(stores) 的 data 属性进行渲染，data 属性来自于 Model(models) 的属性，并没有出现 Model 到 ViewModel 的映射。所以一定不是 MVVM 架构。
 
-From the snake source code, we can see that the data attribute of Presenter (stores) is directly used to render in View (components). The data attribute comes from the attribute of Model(models), and there is no mapping between Model and ViewModel. So it must not be MVVM architecture.
-
-
-
-So the snake above belongs to **MVP**! It's just an evolutionary version of MVP, because the `map` changes in M will be more customized than View, and the loop from M - > P - > V is automated, and there is no logic in the code. Simply declare dependency:
+所以上面的贪吃蛇属于 **MVP** !只不过是进化版的 MVP，因为 M 里的 map 的变更会自定更是 View，从 M->P->V的回路是自动化的，代码里看不到任何逻辑。仅仅需要声明依赖:
 
 ```js
 define('my-game', ['map'] ...
 ```
 
-This also avoids the biggest problem of MVVM: the overhead of M-to-VM mapping.
+这样也规避了 MVVM 最大的问题： M 到 VM 映射的开销。
 
-You can also change data in the store and it will automatically update views:
+### 进化版 MVP 优势
 
-```js
-  pauseOrPlay = () => {
-    if (game.paused) {
-      game.play()
-      //auto update view
-      this.data.paused = false
-    } else {
-      game.pause()
-      //auto update view
-      this.data.paused = true
-    }
-  }
-```
+1、复用性
 
-Because of:
+Model 和 View 之间解耦，Model 或 View 中的一方发生变化，Presenter 接口不变，另一方就没必要对上述变化做出改变，那么 Model 层的业务逻辑具有很好的灵活性和可重用性。
 
-```js
-define('my-index', ['paused'], ...
-```
+2、灵活性
 
-### Evolutionary MVP Advantages
+Presenter 的 data 变更自动映射到视图，使得 Presenter 很薄很薄，View 属于被动视图。而且基于 Presenter 的 data 可以使用任何平台、任何框架、任何技术进行渲染。
 
-1. Reusability
+3、测试性
 
-Decoupling between Model and View, change of one side of Model or View, unchanged Presenter interface, and change of the other side is unnecessary, so the business logic of Model layer has good flexibility and reusability.
+假如 View 和 Model 之间的紧耦合，在 Model 和 View 同时开发完成之前对其中一方进行测试是不可能的。出于同样的原因，对 View 或 Model 进行单元测试很困难。现在，MVP模式解决了所有的问题。MVP 模式中，View 和 Model 之间没有直接依赖，开发者能够借助模拟对象注入测试两者中的任一方。
 
-2. Flexibility
-
-Presenter's data changes are automatically mapped to views, making Presenter thin and thin, and View is a passive view. And Presenter-based data can be rendered using any platform, any framework, any technology.
-
-3. Testability
-
-If there is tight coupling between View and Model, it is impossible to test one of them before the simultaneous development of Model and View is completed. For the same reason, unit testing of View or Model is difficult. Now, the MVP model solves all the problems. In MVP mode, there is no direct dependency between View and Model, and developers can test either of them by injecting simulated objects.
 
 ### CSS rpx unit
 
-Rpx (responsive pixel) is a unit invented by wxss in wechat mini programe: it can be adapted according to the width of the screen. Set the screen width to 750 rpx. For example, on the iPhone 6, the screen width is 375 px, with 750 physical pixels, 750 rpx = 375 PX = 750 physical pixels, and 1 rpx = 0.5 PX = 1 Physical pixel.
+rpx（responsive pixel）最初来源于小程序的 wxss，但是知道其原理后也可以用于 web。 rpx 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。
 
-| **Device**                         | **rpx to px (screenwidth/750)**        | 	px to rpx (750/screenwidth) |
+| **设备**                         | **rpx 转 px (屏幕宽度/750)**        | 	px 转 rpx (750/屏幕宽度) |
 | ------------------------------- | ----------------------------------- | ---------------------|
 | iPhone5 | 	1rpx = 0.42px | 1px = 2.34rpx|
 | iPhone6 | 	1rpx = 0.5px | 1px = 2rpx|	
 | iPhone6 Plus | 	1rpx = 0.552px | 1px = 1.81rpx |
 
-Rpx unit is very conducive to the overall workflow of front-end development, because the designer's design draft is designed according to the width of 750, so the front-end page can directly use sketch export ruler for rpx layout.
+rpx 单元非常有利于前端开发的整体工作流程，因为设计人员的设计草图是按照750的宽度设计的，所以前端页面可以直接使用草图导出标尺进行 rpx 布局。
 
-Rpx can also be used for web development.
 
-### rpx principle    
+### rpx 原理    
 
-Because the device width can only be known at runtime, the mapping of rpx to PX needs to be calculated dynamically at runtime.
+因为设备宽度只能在运行时知道，所以需要在运行时动态计算 rpx 到 px 的映射。
 
 ```js
 export function rpx(css) {
@@ -480,17 +479,18 @@ export function rpx(css) {
   })
 }
 ```
-### HTML structure screenshot
+
+
+
+### 兼容性
+
+#### Omi HTML 输出结构
 
 <img src="../assets/omi-snake-html.png" width="340px" />
 
-### Compatibility
+从上图可以看到使用的 web components shadow dom 进行渲染，最新的两个版本的现代浏览器都支持。Edge 和 Internet Explorer 11 需要引入 web components polyfills。
 
-The last 2 versions of all modern browsers are supported, including Chrome, Safari, Opera, Firefox, Edge. In addition, Internet Explorer 11 is also supported.
-
-Edge and Internet Explorer 11 require the web components polyfills.
-
-If you want to be compatible with **IE8+**, Change one line in the package.json:
+如果你要兼容 **IE8+**, 只要改 package.json 里的一行代码便可以:
 
 ```json
   "alias": {
@@ -500,12 +500,12 @@ If you want to be compatible with **IE8+**, Change one line in the package.json:
 
 > Omio - Omi for old browsers with same api of omi(IE8+)
 
-HTML structure screenshot by omio:
+#### Omio HTML 输出结构
 
 <img src="../assets/omi-snake-html-omio.png" width="450px" />
 
 ### Links
 
-* [Game Source Code](https://github.com/Tencent/omi/tree/master/packages/omi-snake)
-* [Omi Github](https://github.com/Tencent/omi)
-* [Omi Store System](https://tencent.github.io/omi/site/docs/index.html#/store?index=1&subIndex=8)
+* [游戏源码](https://github.com/Tencent/omi/tree/master/packages/omi-snake)
+* [Omi源码](https://github.com/Tencent/omi)
+* [Omi Store 体系文档](https://tencent.github.io/omi/site/docs/cn.html#/store?index=1&subIndex=8)
