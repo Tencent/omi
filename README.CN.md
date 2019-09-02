@@ -177,6 +177,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 
 ## 必须收藏的资源
 
+* [使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.cn.md)
 * [Web Components 规范](https://github.com/w3c/webcomponents)
 * [Comi 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md)
 * [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/omip-h5.md)
