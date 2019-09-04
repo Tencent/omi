@@ -55,7 +55,7 @@ declare namespace Omi {
 
 	type RenderableProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
 
-	abstract class JSONProxy<T> {
+	class JSONProxy<T> {
 
     /**
      * Creates an instance of JSONPatcherProxy around your object of interest, for later observe, unobserve, pause, resume calls.
