@@ -1,3 +1,47 @@
+.game {
+
+  border: 2rpx solid #000;
+  padding: 10rpx 0 5rpx 0;
+  width: 725rpx;
+  margin: 10rpx auto;
+  background-color: #9ead86;
+  text-align: center;
+}
+
+.game .h5-p {
+  width: 725rpx;
+  height: 44rpx;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+.h5-a,.h5-abbr,.h5-address,.h5-area,.h5-article,.h5-aside,.h5-audio,.h5-b,.h5-base,.h5-bdi,.h5-bdo,.h5-blockquote,.h5-big,.h5-body,.h5-br,.h5-button,.h5-canvas,.h5-caption,.h5-center,.h5-cite,.h5-code,.h5-col,.h5-colgroup,.h5-data,.h5-datalist,.h5-dd,.h5-del,.h5-dfn,.h5-dir,.h5-div,.h5-dl,.h5-dt,.h5-em,.h5-fieldset,.h5-figcaption,.h5-figure,.h5-footer,.h5-form,.h5-h1,.h5-h2,.h5-h3,.h5-h4,.h5-h5,.h5-h6,.h5-header,.h5-hgroup,.h5-hr,.h5-i,.h5-iframe,.h5-img,.h5-input,.h5-ins,.h5-kbd,.h5-label,.h5-legend,.h5-li,.h5-link,.h5-main,.h5-map,.h5-mark,.h5-menu,.h5-nav,.h5-ol,.h5-optgroup,.h5-option,.h5-output,.h5-p,.h5-param,.h5-pre,.h5-progress,.h5-q,.h5-s,.h5-samp,.h5-section,.h5-select,.h5-small,.h5-source,.h5-span,.h5-strong,.h5-sub,.h5-sup,.h5-table,.h5-tbody,.h5-td,.h5-textarea,.h5-tfoot,.h5-th,.h5-thead,.h5-time,.h5-title,.h5-tt,.h5-tr,.h5-track,.h5-u,.h5-ul,.h5-video,.h5-wbr,.h5-strike,.h5-details,.h5-summary,page{
+  box-sizing: border-box;
+}
+
+.game .h5-b {
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  padding: 4rpx;
+  border: 4rpx solid #879372;
+  margin: 0 4rpx 4rpx 0;
+}
+
+.game .h5-b.s:after {
+  background: #000;
+}
+
+.game .h5-b:after {
+  content: "";
+  display: block;
+  width: 24rpx;
+  height: 24rpx;
+  background: #879372;
+  overflow: hidden;
+}
+
 page {
   background: #efcc19;
   padding: 0;
@@ -35,6 +79,9 @@ page {
   user-select: none
 }
 
+.h5-h1{
+  text-align: center;
+}
 
 .ctrl {
   width: 580rpx;
@@ -54,6 +101,7 @@ page {
 .btn.small {
   font-size: 16rpx
 }
+
 
 
 .btn .h5-i {
@@ -152,7 +200,7 @@ page {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -12rpx 0 0 -8rpx
+  margin: -18rpx 0 0 -8rpx
 }
 
 
@@ -213,45 +261,18 @@ page {
   left: 60rpx;
 }
 
-.game {
 
-  border: 2rpx solid #000;
-  padding: 10rpx 0 5rpx 0;
-  width: 725rpx;
-  margin: 10rpx auto;
-  background-color: #9ead86;
-  text-align: center;
-}
-
-.game .h5-p {
-  width: 725rpx;
-  height: 44rpx;
-  white-space: nowrap;
-}
-
-.h5-a,.h5-abbr,.h5-address,.h5-area,.h5-article,.h5-aside,.h5-audio,.h5-b,.h5-base,.h5-bdi,.h5-bdo,.h5-blockquote,.h5-big,.h5-body,.h5-br,.h5-button,.h5-canvas,.h5-caption,.h5-center,.h5-cite,.h5-code,.h5-col,.h5-colgroup,.h5-data,.h5-datalist,.h5-dd,.h5-del,.h5-dfn,.h5-dir,.h5-div,.h5-dl,.h5-dt,.h5-em,.h5-fieldset,.h5-figcaption,.h5-figure,.h5-footer,.h5-form,.h5-h1,.h5-h2,.h5-h3,.h5-h4,.h5-h5,.h5-h6,.h5-header,.h5-hgroup,.h5-hr,.h5-i,.h5-iframe,.h5-img,.h5-input,.h5-ins,.h5-kbd,.h5-label,.h5-legend,.h5-li,.h5-link,.h5-main,.h5-map,.h5-mark,.h5-menu,.h5-nav,.h5-ol,.h5-optgroup,.h5-option,.h5-output,.h5-p,.h5-param,.h5-pre,.h5-progress,.h5-q,.h5-s,.h5-samp,.h5-section,.h5-select,.h5-small,.h5-source,.h5-span,.h5-strong,.h5-sub,.h5-sup,.h5-table,.h5-tbody,.h5-td,.h5-textarea,.h5-tfoot,.h5-th,.h5-thead,.h5-time,.h5-title,.h5-tt,.h5-tr,.h5-track,.h5-u,.h5-ul,.h5-video,.h5-wbr,.h5-strike,.h5-details,.h5-summary,page{
-  box-sizing: border-box;
-}
-
-.game .h5-b {
-  display: inline-block;
-  width: 40rpx;
-  height: 40rpx;
-  padding: 4rpx;
-  border: 4rpx solid #879372;
-  margin: 0 4rpx 4rpx 0;
-}
-
-.game .h5-b.s:after {
-  background: #000;
-}
-
-.game .h5-b:after {
-  content: "";
-  display: block;
-  width: 24rpx;
-  height: 24rpx;
-  background: #879372;
+.h5-body {
+  background: #efcc19;
+  padding: 0;
+  margin: 0;
+  font: 20rpx/1 HanHei SC, PingHei, PingFang SC, STHeitiSC-Light, Helvetica Neue, Helvetica, Arial, sans-serif;
   overflow: hidden;
+  cursor: default;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga", "kern";
+  direction: ltr;
+  text-align: left
 }
-

@@ -1,21 +1,17 @@
-import { h } from 'omis'
+import { define, h, rpx } from 'omio'
 import './_index.css'
 
-const Game = ({ }, { }, _, { data }) => {
-  return <div class="game">
-    {data.map.map(row=>{
-      return  <p>
-          {row.map(col=>{
-            if(col){
-              return <b class='s'></b>
-            }
-            return <b></b>
-          })}
+define('my-game', ['map'], _ => (
+  <div class="game">
+    {_.store.data.map.map(row => {
+      return <p>
+        {row.map(col => {
+          if (col) {
+            return <b class='s'></b>
+          }
+          return <b></b>
+        })}
       </p>
     })}
   </div>
-}
-
-Game.use = ['map']
-
-export default Game
+), "undefined" != typeof wx && wx.getSystemInfoSync || rpx(require('./_index.css')))

@@ -35,6 +35,9 @@ page {
   user-select: none
 }
 
+h1{
+  text-align: center;
+}
 
 .ctrl {
   width: 580rpx;
@@ -54,6 +57,7 @@ page {
 .btn.small {
   font-size: 16rpx
 }
+
 
 
 .btn i {
@@ -152,7 +156,7 @@ page {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -12rpx 0 0 -8rpx
+  margin: -18rpx 0 0 -8rpx
 }
 
 

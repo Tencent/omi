@@ -12,6 +12,8 @@
   width: 725rpx;
   height: 44rpx;
   white-space: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
 *{

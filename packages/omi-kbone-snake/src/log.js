@@ -1,4 +1,4 @@
-import { render, h } from 'omis'
+import { render, h } from 'omio'
 
 export default function createApp() {
   const container = document.createElement('div')

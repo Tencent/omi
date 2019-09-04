@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window.HTMLIFrameElement = function(){};window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -149,26 +149,26 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([6,0]);
+/******/ 	deferredModules.push([8,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 6:
+/***/ 8:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
-/* harmony import */ var omis__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var omio__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
 function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* render */ "b"])(Object(omis__WEBPACK_IMPORTED_MODULE_0__[/* h */ "a"])("div", null, "\u6211\u662Flog\u9875\u9762"), '#app');
+  Object(omio__WEBPACK_IMPORTED_MODULE_0__[/* render */ "c"])(Object(omio__WEBPACK_IMPORTED_MODULE_0__[/* h */ "b"])("div", null, "\u6211\u662Flog\u9875\u9762"), '#app');
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 

@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window.HTMLIFrameElement = function(){};window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -149,7 +149,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([7,0,3]);
+/******/ 	deferredModules.push([9,0,3]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -165,98 +165,86 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 6 */,
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 8 */,
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/omis/dist/omis.esm.js
-var omis_esm = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./src/components/index/_index.css
-var _index = __webpack_require__(4);
-var _index_default = /*#__PURE__*/__webpack_require__.n(_index);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js
-var objectDestructuringEmpty = __webpack_require__(3);
-var objectDestructuringEmpty_default = /*#__PURE__*/__webpack_require__.n(objectDestructuringEmpty);
+// EXTERNAL MODULE: ./node_modules/omio/dist/omi.esm.js
+var omi_esm = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/game/_index.css
-var game_index = __webpack_require__(5);
+var _index = __webpack_require__(4);
 
 // CONCATENATED MODULE: ./src/components/game/index.js
 
 
-
-
-var game_Game = function Game(_ref, _ref2, _, _ref3) {
-  objectDestructuringEmpty_default()(_ref);
-
-  objectDestructuringEmpty_default()(_ref2);
-
-  var data = _ref3.data;
-  return Object(omis_esm["a" /* h */])("div", {
+Object(omi_esm["a" /* define */])('my-game', ['map'], function (_) {
+  return Object(omi_esm["b" /* h */])("div", {
     "class": "game"
-  }, data.map.map(function (row) {
-    return Object(omis_esm["a" /* h */])("p", null, row.map(function (col) {
+  }, _.store.data.map.map(function (row) {
+    return Object(omi_esm["b" /* h */])("p", null, row.map(function (col) {
       if (col) {
-        return Object(omis_esm["a" /* h */])("b", {
+        return Object(omi_esm["b" /* h */])("b", {
           "class": 's'
         });
       }
 
-      return Object(omis_esm["a" /* h */])("b", null);
+      return Object(omi_esm["b" /* h */])("b", null);
     }));
   }));
-};
+}, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(4)));
+// EXTERNAL MODULE: ./src/components/index/_index.css
+var index_index = __webpack_require__(6);
 
-game_Game.use = ['map'];
-/* harmony default export */ var game = (game_Game);
 // CONCATENATED MODULE: ./src/components/index/index.js
 
 
 
-
-var index_Index = function Index(props, store, _, $) {
-  return Object(omis_esm["a" /* h */])("div", {
+Object(omi_esm["a" /* define */])('my-index', ['paused'], function (_ref) {
+  var store = _ref.store;
+  return Object(omi_esm["b" /* h */])("div", {
     "class": "container"
-  }, Object(omis_esm["a" /* h */])(game, null), Object(omis_esm["a" /* h */])("div", {
+  }, Object(omi_esm["b" /* h */])("h1", null, "OMI SNAKE"), Object(omi_esm["b" /* h */])("my-game", null), Object(omi_esm["b" /* h */])("div", {
     "class": "ctrl"
-  }, Object(omis_esm["a" /* h */])("div", {
+  }, Object(omi_esm["b" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir up",
-    onClick: $.turnUp
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Up")), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.turnUp
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("em", null), Object(omi_esm["b" /* h */])("span", null, "Up")), Object(omi_esm["b" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir down",
-    onClick: $.turnDown
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Down")), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.turnDown
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("em", null), Object(omi_esm["b" /* h */])("span", null, "Down")), Object(omi_esm["b" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir left",
-    onClick: $.turnLeft
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Left")), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.turnLeft
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("em", null), Object(omi_esm["b" /* h */])("span", null, "Left")), Object(omi_esm["b" /* h */])("div", {
     "class": "btn cm-btn cm-btn-dir right",
-    onClick: $.turnRight
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("em", null), Object(omis_esm["a" /* h */])("span", null, "Right")), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.turnRight
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("em", null), Object(omi_esm["b" /* h */])("span", null, "Right")), Object(omi_esm["b" /* h */])("div", {
     "class": "btn cm-btn space",
-    onClick: $.toggleSpeed
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("span", null, "\u52A0\u901F/\u51CF\u901F")), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.toggleSpeed
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("span", null, "\u52A0\u901F/\u51CF\u901F")), Object(omi_esm["b" /* h */])("div", {
     "class": "btn reset small",
-    onClick: $.reset
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("span", null, "Reset")), Object(omis_esm["a" /* h */])("div", {
+    onClick: store.reset
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("span", null, "Reset")), Object(omi_esm["b" /* h */])("div", {
     "class": "btn pp small",
-    onClick: $.pauseOrPlay
-  }, Object(omis_esm["a" /* h */])("i", null), Object(omis_esm["a" /* h */])("span", null, $.data.paused ? 'Play' : 'Pause'))));
-};
-
-index_Index.use = ['paused'];
-index_Index.css = _index_default.a;
-/* harmony default export */ var index = (index_Index);
+    onClick: store.pauseOrPlay
+  }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("span", null, store.data.paused ? 'Play' : 'Pause'))));
+}, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(6)));
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
 var classCallCheck = __webpack_require__(1);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
@@ -266,7 +254,7 @@ var createClass = __webpack_require__(2);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
-var defineProperty = __webpack_require__(8);
+var defineProperty = __webpack_require__(3);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // CONCATENATED MODULE: ./src/models/snake.js
@@ -342,7 +330,7 @@ function () {
 
 
 
-var models_game_Game =
+var game_Game =
 /*#__PURE__*/
 function () {
   function Game() {
@@ -482,13 +470,13 @@ function () {
   return Game;
 }();
 
-/* harmony default export */ var models_game = (models_game_Game);
+/* harmony default export */ var game = (game_Game);
 // CONCATENATED MODULE: ./src/stores/index.js
 
 
 
 
-var stores_game = new models_game();
+var stores_game = new game();
 var stores_snake = stores_game.snake,
     map = stores_game.map;
 stores_game.start();
@@ -553,8 +541,12 @@ function () {
 }();
 
 /* harmony default export */ var stores = (new stores_Store());
+// EXTERNAL MODULE: ./src/assets/index.css
+var assets = __webpack_require__(7);
+
 // CONCATENATED MODULE: ./src/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
+
 
 
 
@@ -562,7 +554,7 @@ function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(omis_esm["b" /* render */])(Object(omis_esm["a" /* h */])(index, null), '#app', stores);
+  Object(omi_esm["c" /* render */])(Object(omi_esm["b" /* h */])("my-index", null), '#app', stores);
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 
