@@ -1,6 +1,6 @@
-# omi-kbone-snake
+# omi-kbone
 
-使用 [omi-kbone](https://github.com/Tencent/omi/tree/master/packages/omi-kbone) 多端开发(小程序和Web)的贪吃蛇游戏。
+使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。
 
 ## 一套语法多端运行
 
