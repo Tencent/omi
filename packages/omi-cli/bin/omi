@@ -34,16 +34,6 @@ program
         switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
     });
 
-program
-.command('init-kbone [projectName]')
-.description('Initialize a omi kbone project in the current folder')
-.action(function(projectName, option){
-    var cmd = 'init-kbone';
-    if(option.parent.mirror && typeof option.parent.mirror === 'string'){
-        options.mirror = option.parent.mirror;
-    }
-    switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
-});
 
     
 program
