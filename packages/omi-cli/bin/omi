@@ -35,6 +35,40 @@ program
     });
 
 program
+.command('init-kbone [projectName]')
+.description('Initialize a omi kbone project in the current folder')
+.action(function(projectName, option){
+    var cmd = 'init-kbone';
+    if(option.parent.mirror && typeof option.parent.mirror === 'string'){
+        options.mirror = option.parent.mirror;
+    }
+    switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+});
+
+    
+program
+    .command('init-ts [projectName]')
+    .description('Initialize a new omi project with typescript in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init-ts';
+        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    })
+    
+program
+.command('init-o [projectName]')
+.description('Initialize a new omio(IE8+) project in the current folder')
+.action(function(projectName, option){
+    var cmd = 'init-o';
+    if (option.parent.mirror && typeof option.parent.mirror === 'string') {
+        options.mirror = option.parent.mirror;
+    }
+    switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+});
+
+program
     .command('init-spa [projectName]')
     .description('Initialize a new SPA with omi-router in the current folder')
     .action(function(projectName, option){
@@ -45,16 +79,7 @@ program
         switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
     })
 
-program
-    .command('init-o [projectName]')
-    .description('Initialize a new omio(IE8+) project in the current folder')
-    .action(function(projectName, option){
-        var cmd = 'init-o';
-        if (option.parent.mirror && typeof option.parent.mirror === 'string') {
-            options.mirror = option.parent.mirror;
-        }
-        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
-    });
+
 
 program
     .command('init-weui [projectName]')
@@ -67,16 +92,6 @@ program
         switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
     });
 
-program
-    .command('init-mvvm [projectName]')
-    .description('Initialize a new MVVM project in the current folder')
-    .action(function(projectName, option){
-        var cmd = 'init-mvvm';
-        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
-            options.mirror = option.parent.mirror;
-        }
-        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
-    });
 
 program
     .command('init-mp [projectName]')
@@ -99,25 +114,15 @@ program
         }
         switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
     });
-    
-program
-    .command('init-ts [projectName]')
-    .description('Initialize a new omi project with typescript in the current folder')
-    .action(function(projectName, option){
-        var cmd = 'init-ts';
-        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
-            options.mirror = option.parent.mirror;
-        }
-        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
-    })
 
-program
-    .command('pr')
-    .description('Compile your omi project')
-    .action(function(option){
-        var cmd = 'pr';
-        switchCommand(cmd, { language: options.language });
-    });
+
+// program
+//     .command('pr')
+//     .description('Compile your omi project')
+//     .action(function(option){
+//         var cmd = 'pr';
+//         switchCommand(cmd, { language: options.language });
+//     });
 
 
 program
