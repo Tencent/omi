@@ -49,7 +49,7 @@
     }
     _observe.prototype = {
       onPropertyChanged: function(prop, value, oldValue, target, path) {
-        if (value !== oldValue && this.propertyChangedHandler) {
+        if (value !== oldValue && (!(isNaN(value) && isNaN(oldValue))) && this.propertyChangedHandler) {
           var rootName = obaa._getRootName(prop, path)
           for (
             var i = 0, len = this.propertyChangedHandler.length;
