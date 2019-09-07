@@ -1,6 +1,6 @@
 {
   "name": "obaa",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Observe any object's any change.",
   "main": "index.js",
   "scripts": {
