@@ -195,7 +195,7 @@ function watch(target, prop, path, root) {
 
 
 function onPropertyChanged(prop, value, oldValue, target, path, root) {
-  if (value !== oldValue && root.$_c_) {
+  if (value !== oldValue && (!(nan(value) && nan(oldValue))) && root.$_c_) {
     var rootName = getRootName(prop, path)
     for (
       var i = 0, len = root.$_c_.length;
@@ -239,6 +239,9 @@ function isInArray(arr, item) {
   return false
 }
 
+function nan(value) {
+  return typeof value === "number" && isNaN(value)
+}
 
 function getRootName(prop, path) {
   if (path === '#') {
