@@ -49,7 +49,7 @@
     }
     _observe.prototype = {
       onPropertyChanged: function(prop, value, oldValue, target, path) {
-        if (value !== oldValue && (!(isNaN(value) && isNaN(oldValue))) && this.propertyChangedHandler) {
+        if (value !== oldValue && (!(nan(value) && nan(oldValue))) && this.propertyChangedHandler) {
           var rootName = obaa._getRootName(prop, path)
           for (
             var i = 0, len = this.propertyChangedHandler.length;
@@ -268,6 +268,10 @@
 
   Array.prototype.size = function(length) {
     this.length = length
+  }
+
+  function nan(value) {
+      return typeof value === "number" && isNaN(value)
   }
 
   if (
