@@ -1,9 +1,9 @@
 import { render, WeElement, define, html } from '../../src/omi'
 
-define("todo-list", function(props) {
+define("todo-list", _ => {
   return html`
     <ul>
-      ${props.items.map(
+      ${_.props.items.map(
         item => html`
         <li key=${item.id}>${item.text}</li>
       `
