@@ -45,8 +45,6 @@ render(<my-counter />, 'body', new Store)
 
 ## Ecosystem of Omi
 
-[→ Omi Developer Roadmap](https://github.com/Tencent/omi/tree/master/assets/rm.md)
-
 #### Base
 
 | **Project**                         | **Description**                           |
