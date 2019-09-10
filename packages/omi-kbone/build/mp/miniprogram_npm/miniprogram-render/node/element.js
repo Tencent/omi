@@ -56,11 +56,11 @@ class Element extends Node {
     $$destroy() {
         super.$$destroy()
 
-        this.$_tagName = null
+        this.$_tagName = ''
         this.$_children.length = 0
-        this.$_nodeType = null
+        this.$_nodeType = Node.ELEMENT_NODE
         this.$_unary = null
-        this.$_notTriggerUpdate = null
+        this.$_notTriggerUpdate = false
         this.$_dataset = null
         this.$_classList = null
         this.$_style = null
@@ -882,7 +882,7 @@ class Element extends Node {
 
     getBoundingClientRect() {
         // 不作任何实现，只作兼容使用
-        console.warn('getBoundingClientRect is not supported')
+        console.warn('getBoundingClientRect is not supported, please use dom.$$getBoundingClientRect instead of it')
         return {}
     }
 }

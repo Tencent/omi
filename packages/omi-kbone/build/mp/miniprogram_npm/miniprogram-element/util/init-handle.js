@@ -6,9 +6,11 @@ const {
     Event,
 } = mp.$$adapter
 const {
-    WX_COMP_NAME_MAP,
     NOT_SUPPORT,
 } = _
+const {
+    wxCompNameMap
+} = component
 
 module.exports = {
     /**
@@ -20,16 +22,17 @@ module.exports = {
 
         if (tagName === 'WX-COMPONENT') {
             // 无可替换 html 标签
-            data.wxCompName = domNode.$$behavior
-            const wxCompName = WX_COMP_NAME_MAP[data.wxCompName]
+            data.wxCompName = domNode.behavior
+            const wxCompName = wxCompNameMap[data.wxCompName]
             if (wxCompName) _.checkComponentAttr(wxCompName, domNode, data)
+            else console.warn(`value "${data.wxCompName}" is not supported for wx-component's behavior`)
         } else if (NOT_SUPPORT.indexOf(tagName) >= 0) {
             // 不支持标签
             data.wxCompName = 'not-support'
             data.content = domNode.textContent
         } else {
             // 可替换 html 标签
-            const wxCompName = WX_COMP_NAME_MAP[tagName]
+            const wxCompName = wxCompNameMap[tagName]
             if (wxCompName) _.checkComponentAttr(wxCompName, domNode, data)
         }
     },

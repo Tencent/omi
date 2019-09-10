@@ -25,7 +25,10 @@ class Miniprogram {
      */
     init(url) {
         if (typeof url === 'string') this.$_pageUrl = url // 设置真实 url
-        const {origin, entry, router} = cache.getConfig()
+        const {
+            origin, entry, router, runtime
+        } = cache.getConfig()
+        const subpackagesMap = runtime.subpackagesMap || {}
 
         this.$_pageUrl = this.$_pageUrl || (origin + entry)
         this.window.location.$$reset(this.$_pageUrl)
@@ -52,7 +55,8 @@ class Miniprogram {
 
                         if (parseRes) {
                             // 匹配成功
-                            return `/pages/${pageName}/index`
+                            const packageName = subpackagesMap[pageName]
+                            return `/${packageName ? packageName + '/' : ''}pages/${pageName}/index`
                         }
                     }
 

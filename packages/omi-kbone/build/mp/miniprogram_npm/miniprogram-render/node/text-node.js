@@ -42,7 +42,7 @@ class TextNode extends Node {
     $$destroy() {
         super.$$destroy()
 
-        this.$_content = null
+        this.$_content = ''
     }
 
     /**

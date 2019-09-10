@@ -56,4 +56,7 @@ module.exports = {
 	packageConfig: {
 		author: 'wechat-miniprogram',
 	},
+	runtime: {
+		subpackagesMap: {}
+	}
 }

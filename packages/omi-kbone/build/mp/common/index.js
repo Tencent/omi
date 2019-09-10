@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window.HTMLIFrameElement = function(){};window["createApp"] =
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -165,13 +165,13 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 5 */,
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
+/* 6 */,
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -210,7 +210,7 @@ Object(omi_esm["a" /* define */])('my-game', ['map'], function (_) {
   }));
 }, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(4)));
 // EXTERNAL MODULE: ./src/components/index/_index.css
-var index_index = __webpack_require__(6);
+var index_index = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./src/components/index/index.js
 
@@ -244,7 +244,7 @@ Object(omi_esm["a" /* define */])('my-index', ['paused'], function (_ref) {
     "class": "btn pp small",
     onClick: store.pauseOrPlay
   }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("span", null, store.data.paused ? 'Play' : 'Pause'))));
-}, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(6)));
+}, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(5)));
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
 var classCallCheck = __webpack_require__(1);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);

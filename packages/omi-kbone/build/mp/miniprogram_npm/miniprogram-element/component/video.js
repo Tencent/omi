@@ -64,7 +64,7 @@ module.exports = {
     }, {
         name: 'direction',
         get(domNode) {
-            const value = +domNode.getAttribute('direction')
+            const value = parseInt(domNode.getAttribute('direction'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {

@@ -66,13 +66,13 @@ module.exports = {
     }, {
         name: 'minBitrate',
         get(domNode) {
-            const value = +domNode.getAttribute('min-bitrate')
+            const value = parseInt(domNode.getAttribute('min-bitrate'), 10)
             return !isNaN(value) ? value : 200
         },
     }, {
         name: 'maxBitrate',
         get(domNode) {
-            const value = +domNode.getAttribute('max-bitrate')
+            const value = parseInt(domNode.getAttribute('max-bitrate'), 10)
             return !isNaN(value) ? value : 1000
         },
     }, {

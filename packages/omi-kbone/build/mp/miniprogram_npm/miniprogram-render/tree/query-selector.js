@@ -191,7 +191,7 @@ class QuerySelector {
         this.parseCacheKeys = []
 
         const idReg = '#([\\\\\\w-]+)' // id 选择器
-        const tagReg = '\\*|[a-zA-Z-]\\w*' // 标签选择器
+        const tagReg = '\\*|wx-component|[a-zA-Z-]\\w*' // 标签选择器
         const classReg = '\\.([\\\\\\w-]+)' // 类选择器
         const pseudoReg = ':([\\\\\\w-]+)(?:\\(([^\\(\\)]*|(?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\))?' // 伪类选择器
         const attrReg = '\\[\\s*([\\\\\\w-]+)(?:([*^$|~!]?=)[\'"]?([^\'"\\[]+)[\'"]?)?\\s*\\]' // 属性选择器
@@ -316,8 +316,8 @@ class QuerySelector {
     }
 
     /**
-   * 查询符合条件的节点
-   */
+     * 查询符合条件的节点
+     */
     exec(selector, extra) {
         selector = selector.trim().replace(/\s+/g, ' ').replace(/\s*(,|[>\s+~](?!=)|[*^$|~!]?=)\s*/g, '$1')
         const {idMap, tagMap, classMap} = extra

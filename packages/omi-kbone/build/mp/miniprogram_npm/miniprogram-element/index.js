@@ -1,6 +1,7 @@
 const mp = require('miniprogram-render')
 const _ = require('./util/tool')
 const initHandle = require('./util/init-handle')
+const component = require('./util/component')
 
 const {
     cache,
@@ -8,9 +9,11 @@ const {
     tool,
 } = mp.$$adapter
 const {
-    WX_COMP_NAME_MAP,
     NOT_SUPPORT,
 } = _
+const {
+    wxCompNameMap,
+} = component
 
 // dom 子树作为自定义组件渲染的层级数
 const MAX_DOM_SUB_TREE_LEVEL = 10
@@ -141,8 +144,8 @@ Component({
 
             if (tagName === 'WX-COMPONENT') {
                 // 无可替换 html 标签
-                if (data.wxCompName !== domNode.$$behavior) newData.wxCompName = domNode.$$behavior
-                const wxCompName = WX_COMP_NAME_MAP[domNode.$$behavior]
+                if (data.wxCompName !== domNode.behavior) newData.wxCompName = domNode.behavior
+                const wxCompName = wxCompNameMap[domNode.behavior]
                 if (wxCompName) _.checkComponentAttr(wxCompName, domNode, newData, data)
             } else if (NOT_SUPPORT.indexOf(tagName) >= 0) {
                 // 不支持标签
@@ -150,7 +153,7 @@ Component({
                 if (data.content !== domNode.content) newData.content = domNode.textContent
             } else {
                 // 可替换 html 标签
-                const wxCompName = WX_COMP_NAME_MAP[tagName]
+                const wxCompName = wxCompNameMap[tagName]
                 if (wxCompName) _.checkComponentAttr(wxCompName, domNode, newData, data)
             }
 
@@ -160,7 +163,7 @@ Component({
         /**
          * 触发事件
          */
-        callEvent(evt, eventName, extra) {
+        callEvent(eventName, evt, extra) {
             const pageId = this.pageId
             const originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId
             const originNode = cache.getNode(pageId, originNodeId)
@@ -191,10 +194,15 @@ Component({
                             targetDomNode = window.document.getElementById(forValue)
                         } else {
                             targetDomNode = domNode.querySelector('input')
+
+                            // 寻找 switch 节点
+                            if (!targetDomNode) targetDomNode = domNode.querySelector('wx-component[behavior=switch]')
                         }
 
-                        if (targetDomNode && targetDomNode.tagName === 'INPUT' && !targetDomNode.disabled) {
-                            // 找到了目标节点
+                        if (!targetDomNode || !!targetDomNode.getAttribute('disabled')) return
+
+                        // 找到了目标节点
+                        if (targetDomNode.tagName === 'INPUT') {
                             if (_.checkEventAccessDomNode(evt, targetDomNode, domNode)) return
 
                             const type = targetDomNode.type
@@ -214,6 +222,15 @@ Component({
                             } else {
                                 targetDomNode.focus()
                             }
+                        } else if (targetDomNode.tagName === 'WX-COMPONENT') {
+                            if (_.checkEventAccessDomNode(evt, targetDomNode, domNode)) return
+
+                            const behavior = targetDomNode.behavior
+                            if (behavior === 'switch') {
+                                const checked = !targetDomNode.getAttribute('checked')
+                                targetDomNode.setAttribute('checked', checked)
+                                this.callSimpleEvent('change', {detail: {value: checked}}, targetDomNode)
+                            }
                         }
                     }
                 }, 0)
@@ -225,44 +242,52 @@ Component({
          */
         onTouchStart(evt) {
             if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'touchstart')
+                this.callEvent('touchstart', evt)
             }
         },
 
         onTouchMove(evt) {
             if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'touchmove')
+                this.callEvent('touchmove', evt)
             }
         },
 
         onTouchEnd(evt) {
             if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'touchend')
+                this.callEvent('touchend', evt)
             }
         },
 
         onTouchCancel(evt) {
             if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'touchcancel')
+                this.callEvent('touchcancel', evt)
             }
         },
 
         onTap(evt) {
             if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'click', {button: 0}) // 默认左键
+                this.callEvent('click', evt, {button: 0}) // 默认左键
             }
         },
 
         onImgLoad(evt) {
-            if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'load')
-            }
+            const pageId = this.pageId
+            const originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId
+            const originNode = cache.getNode(pageId, originNodeId)
+
+            if (!originNode) return
+
+            this.callSimpleEvent('load', evt, originNode)
         },
 
         onImgError(evt) {
-            if (this.document && this.document.$$checkEvent(evt)) {
-                this.callEvent(evt, 'error')
-            }
+            const pageId = this.pageId
+            const originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId
+            const originNode = cache.getNode(pageId, originNodeId)
+
+            if (!originNode) return
+
+            this.callSimpleEvent('error', evt, originNode)
         },
 
         ...initHandle,

@@ -23,6 +23,9 @@ module.exports = {
 			}
 		]
 	},
+	"runtime": {
+		"subpackagesMap": {}
+	},
 	"pages": {
 		"index": {},
 		"log": {}

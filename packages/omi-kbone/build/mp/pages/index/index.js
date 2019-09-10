@@ -104,6 +104,7 @@ Page({
             pageId: this.pageId
         })
         this.app = this.window.createApp()
+        this.window.$$trigger('wxload', {event: query})
     },
     onShow() {
         // 方便调试
@@ -111,16 +112,20 @@ Page({
             window: this.window,
             document: this.document,
         }
+        this.window.$$trigger('wxshow')
     },
     onReady() {
         if (this.pageConfig.loadingText) wx.hideLoading()
+        this.window.$$trigger('wxready')
     },
     onHide() {
         global.$$runtime = null
+        this.window.$$trigger('wxhide')
     },
     onUnload() {
         this.window.$$trigger('beforeunload')
-        this.app && this.app.$destroy && this.app.$destroy()
+        this.window.$$trigger('wxunload')
+        if (this.app && this.app.$destroy) this.app.$destroy()
         this.document.body.$$recycle() // 回收 dom 节点
 
         mp.destroyPage(this.pageId)

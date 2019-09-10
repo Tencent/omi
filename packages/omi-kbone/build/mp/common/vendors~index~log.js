@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window.HTMLIFrameElement = function(){};(window["webpackJsonpcreateApp"] = window["webpackJsonpcreateApp"] || []).push([[0],{
+module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;(window["webpackJsonpcreateApp"] = window["webpackJsonpcreateApp"] || []).push([[0],{
 
 /***/ 0:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -27,7 +27,7 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 /* unused harmony export htm */
 /* unused harmony export obaa */
 /**
- * omi v2.4.0  http://omijs.org
+ * omi v2.4.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1463,7 +1463,7 @@ function watch(target, prop, path, root) {
 }
 
 function onPropertyChanged(prop, value, oldValue, target, path, root) {
-  if (value !== oldValue && root.$_c_) {
+  if (value !== oldValue && !(nan(value) && nan(oldValue)) && root.$_c_) {
     var rootName = getRootName(prop, path);
     for (var i = 0, len = root.$_c_.length; i < len; i++) {
       var handler = root.$_c_[i];
@@ -1495,6 +1495,10 @@ function isInArray(arr, item) {
     if (item === arr[i]) return true;
   }
   return false;
+}
+
+function nan(value) {
+  return typeof value === "number" && isNaN(value);
 }
 
 function getRootName(prop, path) {
@@ -2416,7 +2420,7 @@ options.root.Omi = {
   obaa: obaa
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.4.0';
+options.root.Omi.version = 'omio-2.4.1';
 
 var omi = {
   h: h,
@@ -2447,11 +2451,11 @@ var omi = {
 
 //# sourceMappingURL=omi.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /***/ (function(module, exports) {
 
 var g;
