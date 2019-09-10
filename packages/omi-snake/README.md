@@ -1,5 +1,7 @@
 ## omi-snake
 
+[→ Touch the demo](https://tencent.github.io/omi/packages/omi-snake/build/index.html)
+
 ![](../../assets/omi-snake.png)
 
 ## Develop
