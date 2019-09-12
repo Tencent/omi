@@ -49,6 +49,31 @@ describe('install()', () => {
     expect(scratch.innerHTML).to.equal('<div>Ele</div>')
   })
 
+  it('should render components', () => {
+    define('my-ele', () => {
+      return <div>Ele2</div>
+    })
+
+
+    render(<my-ele />, scratch)
+
+
+    expect(scratch.innerHTML).to.equal('<div>Ele2</div>')
+  })
+
+
+
+  it('should render components', () => {
+    define('my-ele', _ => {
+      return <div>{_.props.msg}</div>
+    })
+
+
+    render(<my-ele msg="abc" />, scratch)
+
+    expect(scratch.innerHTML).to.equal('<div>abc</div>')
+  })
+
   it('should render components with props', () => {
     const PROPS = { foo: 'bar', onBaz: () => { } }
     let constructorProps
