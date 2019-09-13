@@ -925,9 +925,7 @@ console.log(Omi.elements)
 
 > [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - 兼容老浏览器的 Omi 版本(支持到 IE8+)
 
-> [Omis](https://github.com/Tencent/omi/tree/master/packages/omis) - Functional Component + Store + Scoped Style(支持到 IE9+)
-
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
+Omi works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
 ![→ Browsers Support](./assets/browsers-support.png)
 
