@@ -108,7 +108,7 @@
     return node;
   }
 
-  function npn(str) {
+  function camelCase(str) {
     return str.replace(/-(\w)/g, function ($, $1) {
       return $1.toUpperCase();
     });
@@ -140,15 +140,6 @@
 
   function isArray(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
-  }
-
-  function nProps(props) {
-    if (!props || isArray(props)) return {};
-    var result = {};
-    Object.keys(props).forEach(function (key) {
-      result[key] = props[key].value;
-    });
-    return result;
   }
 
   function getUse(data, paths) {
@@ -195,6 +186,14 @@
     return str.replace(hyphenateRE, '-$1').toLowerCase();
   }
 
+  function getValByPath(path, current) {
+    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    arr.forEach(function (prop) {
+      current = current[prop];
+    });
+    return current;
+  }
+
   // render modes
 
   var ATTR_KEY = 'prevProps';
@@ -232,6 +231,48 @@
     return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
   }
 
+  var extention = {};
+
+  function extend$1(name, handler) {
+  	extention['o-' + name] = handler;
+  }
+
+  function set(origin, path, value) {
+  	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  	var current = origin;
+  	for (var i = 0, len = arr.length; i < len; i++) {
+  		if (i === len - 1) {
+  			current[arr[i]] = value;
+  		} else {
+  			current = current[arr[i]];
+  		}
+  	}
+  }
+
+  function get(origin, path) {
+  	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  	var current = origin;
+  	for (var i = 0, len = arr.length; i < len; i++) {
+  		current = current[arr[i]];
+  	}
+
+  	return current;
+  }
+
+  function eventProxy(e) {
+  	return this._listeners[e.type](e);
+  }
+
+  function bind(el, type, handler) {
+  	el._listeners = el._listeners || {};
+  	el._listeners[type] = handler;
+  	el.addEventListener(type, eventProxy);
+  }
+
+  function unbind(el, type) {
+  	el.removeEventListener(type, eventProxy);
+  }
+
   /**
    * Create an element with the given nodeName.
    * @param {string} nodeName The DOM node to create
@@ -267,10 +308,14 @@
    * @param {boolean} isSvg Are we currently diffing inside an svg?
    * @private
    */
-  function setAccessor(node, name, old, value, isSvg) {
+  function setAccessor(node, name, old, value, isSvg, component) {
     if (name === 'className') name = 'class';
 
-    if (name === 'key') {
+    if (name[0] == 'o' && name[1] == '-') {
+      if (extention[name]) {
+        extention[name](node, value, component);
+      }
+    } else if (name === 'key') {
       // ignore
     } else if (name === 'ref') {
       applyRef(old, null);
@@ -298,14 +343,14 @@
       name = name.toLowerCase().substring(2);
       if (value) {
         if (!old) {
-          node.addEventListener(name, eventProxy, useCapture);
+          node.addEventListener(name, eventProxy$1, useCapture);
           if (name == 'tap') {
             node.addEventListener('touchstart', touchStart, useCapture);
             node.addEventListener('touchend', touchEnd, useCapture);
           }
         }
       } else {
-        node.removeEventListener(name, eventProxy, useCapture);
+        node.removeEventListener(name, eventProxy$1, useCapture);
         if (name == 'tap') {
           node.removeEventListener('touchstart', touchStart, useCapture);
           node.removeEventListener('touchend', touchEnd, useCapture);
@@ -344,7 +389,7 @@
    * @param {Event} e The event object from the browser
    * @private
    */
-  function eventProxy(e) {
+  function eventProxy$1(e) {
     return this._listeners[e.type](options.event && options.event(e) || e);
   }
 
@@ -375,7 +420,7 @@
    *	@returns {Element} dom			The created/mutated element
    *	@private
    */
-  function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+  function diff(dom, vnode, context, mountAll, parent, component) {
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     var ret = void 0;
     if (!diffLevel++) {
@@ -391,31 +436,29 @@
         styles.forEach(function (s) {
           parent.removeChild(s);
         });
-        innerDiffNode(parent, vnode);
+        innerDiffNode(parent, vnode, null, null, null, component);
 
         for (var i = styles.length - 1; i >= 0; i--) {
           parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
         }
       } else {
-
         ret = [];
         vnode.forEach(function (item, index) {
-          var ele = idiff(index === 0 ? dom : null, item, context, mountAll, componentRoot);
+          var ele = idiff(index === 0 ? dom : null, item, context, mountAll, component);
           ret.push(ele);
-          parent && parent.appendChild(ele);
         });
       }
     } else {
       if (isArray(dom)) {
         dom.forEach(function (one, index) {
           if (index === 0) {
-            ret = idiff(one, vnode, context, mountAll, componentRoot);
+            ret = idiff(one, vnode, context, mountAll, component);
           } else {
             recollectNodeTree(one, false);
           }
         });
       } else {
-        ret = idiff(dom, vnode, context, mountAll, componentRoot);
+        ret = idiff(dom, vnode, context, mountAll, component);
       }
       // append the element if its a new parent
       if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -431,7 +474,7 @@
   }
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-  function idiff(dom, vnode, context, mountAll, componentRoot) {
+  function idiff(dom, vnode, context, mountAll, component) {
     if (dom && vnode && dom.props) {
       dom.props.children = vnode.children;
     }
@@ -444,7 +487,7 @@
     // Fast case: Strings & Numbers create/update Text nodes.
     if (typeof vnode === 'string' || typeof vnode === 'number') {
       // update if it's already a Text node:
-      if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
+      if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || component)) {
         /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
         if (dom.nodeValue != vnode) {
           dom.nodeValue = vnode;
@@ -514,12 +557,12 @@
     // otherwise, if there are existing or new children, diff them:
     else if (vchildren && vchildren.length || fc != null) {
         if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
-          innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+          innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null, component);
         }
       }
 
     // Apply attributes/props from VNode to the DOM Element:
-    diffAttributes(out, vnode.attributes, props);
+    diffAttributes(out, vnode.attributes, props, component);
     if (out.props) {
       out.props.children = vnode.children;
     }
@@ -536,7 +579,7 @@
    *	@param {Boolean} mountAll
    *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
    */
-  function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+  function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component) {
     var originalChildren = dom.childNodes,
         children = [],
         keyed = {},
@@ -594,7 +637,7 @@
           }
 
         // morph the matched/found/created DOM child to match vchild (deep)
-        child = idiff(child, vchild, context, mountAll);
+        child = idiff(child, vchild, context, mountAll, component);
 
         f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
@@ -662,9 +705,9 @@
    *	@param {Object} attrs		The desired end-state key-value attribute pairs
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
-  function diffAttributes(dom, attrs, old) {
+  function diffAttributes(dom, attrs, old, component) {
     var name = void 0;
-    var update = false;
+    //let update = false
     var isWeElement = dom.update;
     var oldClone = void 0;
     if (dom.receiveProps) {
@@ -673,10 +716,10 @@
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
       if (!(attrs && attrs[name] != null) && old[name] != null) {
-        setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+        setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, component);
         if (isWeElement) {
           delete dom.props[name];
-          update = true;
+          //update = true
         }
       }
     }
@@ -685,26 +728,30 @@
     for (name in attrs) {
       if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
         if (name === 'style') {
-          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
         }
-        dom.props[npn(name)] = attrs[name];
-        update = true;
-      } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        var ccName = camelCase(name);
+        dom.props[ccName] = old[ccName] = attrs[name];
+        //update = true
+      } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+        setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
         if (isWeElement) {
-          dom.props[npn(name)] = attrs[name];
-          update = true;
+          var _ccName = camelCase(name);
+          dom.props[_ccName] = old[_ccName] = attrs[name];
+          //update = true
+        } else {
+          old[name] = attrs[name];
         }
       }
     }
 
     if (isWeElement && dom.parentNode) {
       //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
-      if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
-        if (dom.receiveProps(dom.props, oldClone) !== false) {
-          dom.update();
-        }
+      //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
+      if (dom.receiveProps(dom.props, oldClone) !== false) {
+        dom.update();
       }
+      //}
     }
   }
 
@@ -1122,91 +1169,105 @@
   var ARRAYTYPE = '[object Array]';
 
   function define(name, ctor) {
+    if (options.mapping[name]) {
+      return;
+    }
     if (ctor.is === 'WeElement') {
-      if (options.mapping[name]) {
-        // if(options.mapping[name] === ctor){
-        //   console.warn(`You redefine custom elements named [${name}], redundant JS files may be referenced.`)
-        // } else {
-        //   console.warn(`This custom elements name [${name}] has already been used, please rename it.`)
-        // }
-        return;
-      }
       customElements.define(name, ctor);
       options.mapping[name] = ctor;
       if (ctor.use) {
         ctor.updatePath = getPath(ctor.use);
-      } else if (ctor.data) {
-        //Compatible with older versions
-        ctor.updatePath = getUpdatePath(ctor.data);
       }
     } else {
-      var Element = function (_WeElement) {
-        _inherits(Element, _WeElement);
+      var _class, _temp;
 
-        function Element() {
-          var _temp, _this, _ret;
+      var depPaths = void 0;
+      var config = {};
+      var len = arguments.length;
+      if (len === 3) {
+        if (typeof arguments[1] === 'function') {
+          ctor = arguments[1];
+          config = arguments[2];
+        } else {
+          depPaths = arguments[1];
+          ctor = arguments[2];
+        }
+      } else if (len === 4) {
+        depPaths = arguments[1];
+        ctor = arguments[2];
+        config = arguments[3];
+      }
+      if (typeof config === 'string') {
+        config = { css: config };
+      }
 
-          _classCallCheck(this, Element);
+      var Ele = (_temp = _class = function (_WeElement) {
+        _inherits(Ele, _WeElement);
 
-          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
+        function Ele() {
+          _classCallCheck(this, Ele);
 
-          return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn(_this, _ret);
+          return _possibleConstructorReturn(this, _WeElement.apply(this, arguments));
         }
 
-        Element.prototype.render = function render(props, data) {
-          return ctor.call(this, props, data);
+        Ele.prototype.render = function render() {
+          return ctor.call(this, this);
         };
 
-        Element.prototype.beforeRender = function beforeRender() {
-          this._useId = 0;
+        Ele.prototype.install = function install() {
+          config.install && config.install.apply(this, arguments);
         };
 
-        Element.prototype.useCss = function useCss(css) {
-          if (css === this._preCss) {
-            return;
+        Ele.prototype.installed = function installed() {
+          config.installed && config.installed.apply(this, arguments);
+        };
+
+        Ele.prototype.uninstall = function uninstall() {
+          config.uninstall && config.uninstall.apply(this, arguments);
+        };
+
+        Ele.prototype.beforeUpdate = function beforeUpdate() {
+          config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
+        };
+
+        Ele.prototype.updated = function updated() {
+          config.updated && config.updated.apply(this, arguments);
+        };
+
+        Ele.prototype.beforeRender = function beforeRender() {
+          config.beforeRender && config.beforeRender.apply(this, arguments);
+        };
+
+        Ele.prototype.rendered = function rendered() {
+          config.rendered && config.rendered.apply(this, arguments);
+        };
+
+        Ele.prototype.receiveProps = function receiveProps() {
+          if (config.receiveProps) {
+            return config.receiveProps.apply(this, arguments);
           }
-          this._preCss = css;
-          var style = this.shadowRoot.querySelector('style');
-          style && this.shadowRoot.removeChild(style);
-          this.shadowRoot.appendChild(cssToDom(css));
         };
 
-        Element.prototype.useData = function useData(data) {
-          return this.use({ data: data });
-        };
+        return Ele;
+      }(WeElement), _class.use = depPaths, _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp);
 
-        Element.prototype.use = function use(option) {
-          var _this2 = this;
 
-          this._useId++;
-          var updater = function updater(newValue) {
-            var item = _this2._useMap[updater.id];
-
-            item.data = newValue;
-
-            _this2.update();
-            item.effect && item.effect();
+      if (config.use) {
+        if (typeof config.use === 'function') {
+          Ele.prototype.use = function () {
+            return config.use.apply(this, arguments);
           };
+        } else {
+          Ele.use = config.use;
+        }
+      }
 
-          updater.id = this._useId;
-          if (!this._isInstalled) {
-            this._useMap[this._useId] = option;
-            return [option.data, updater];
-          }
+      if (Ele.use) {
+        Ele.updatePath = getPath(Ele.use);
+      }
 
-          return [this._useMap[this._useId].data, updater];
-        };
-
-        Element.prototype.installed = function installed() {
-          this._isInstalled = true;
-        };
-
-        return Element;
-      }(WeElement);
-
-      customElements.define(name, Element);
+      customElements.define(name, Ele);
+      options.mapping[name] = Ele;
     }
   }
 
@@ -1299,7 +1360,7 @@
 
       var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
 
-      _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+      _this.props = Object.assign({}, _this.constructor.defaultProps);
       _this.elementId = id++;
       _this.data = {};
       return _this;
@@ -1356,7 +1417,7 @@
       var rendered = this.render(this.props, this.data, this.store);
       this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-      this.rootNode = diff(null, rendered, {}, false, null, false);
+      this.rootNode = diff(null, rendered, {}, false, null, this);
       this.rendered();
 
       if (this.props.css) {
@@ -1401,9 +1462,10 @@
       this.attrsToProps(ignoreAttrs);
 
       var rendered = this.render(this.props, this.data, this.store);
+      this.rendered();
       this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-      this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot);
+      this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot, this);
       this._willUpdate = false;
       this.updated();
     };
@@ -1458,7 +1520,11 @@
               break;
             case Array:
             case Object:
-              ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+              if (val[0] === ':') {
+                ele.props[key] = getValByPath(val.substr(1), Omi.$);
+              } else {
+                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+              }
               break;
           }
         } else {
@@ -1472,7 +1538,7 @@
     };
 
     WeElement.prototype.fire = function fire(name, data) {
-      this.dispatchEvent(new CustomEvent(name.replace(/-/g, '').toLowerCase(), { detail: data }));
+      this.dispatchEvent(new CustomEvent(name, { detail: data }));
     };
 
     WeElement.prototype.beforeInstall = function beforeInstall() {};
@@ -1772,6 +1838,7 @@
     return {};
   }
 
+  var $ = {};
   var Component = WeElement;
   var defineElement = define;
   var elements = options.mapping;
@@ -1799,12 +1866,19 @@
     html: html,
     htm: htm,
     o: o,
-    elements: elements
+    elements: elements,
+    $: $,
+    extend: extend$1,
+    get: get,
+    set: set,
+    bind: bind,
+    unbind: unbind,
+    JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.6.9';
+  options.root.Omi.version = '6.11.2';
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1821,7 +1895,7 @@
       }
     };
 
-    for (var i = 1; i < 1000; i++) {
+    for (var i = 1; i < 10000; i++) {
       var parentId = Math.floor(Math.pow(Math.random(), 2) * i);
       tree[i] = {
         id: i,
@@ -1883,6 +1957,13 @@
     _class2.prototype.use = function use() {
       return ['tree[' + this.props.id + ']'];
     };
+
+    // todo supporting
+    // useSelf(){
+    //   return [
+    // 		`tree[${this.props.id}]`
+    // 	]
+    // }
 
     _class2.prototype.render = function render$$1(props) {
       var _store$data$tree$prop = this.store.data.tree[props.id],

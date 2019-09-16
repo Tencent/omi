@@ -9,7 +9,7 @@ function generateTree() {
     }
   }
 
-  for (let i = 1; i < 1000; i++) {
+  for (let i = 1; i < 10000; i++) {
     let parentId = Math.floor(Math.pow(Math.random(), 2) * i)
     tree[i] = {
       id: i,
@@ -53,7 +53,14 @@ define('tree-node', class extends WeElement {
 		return [
 			`tree[${this.props.id}]`
 		]
-	}
+  }
+  
+  // todo supporting
+  // useSelf(){
+  //   return [
+	// 		`tree[${this.props.id}]`
+	// 	]
+  // }
 
   renderChild = childId => {
     const { id } = this.props
