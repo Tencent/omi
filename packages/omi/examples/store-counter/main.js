@@ -9,7 +9,7 @@ define('my-counter', class extends WeElement {
   sub = () => this.store.sub()
 
   addIfOdd = () => {
-    if (this.use.count % 2 !== 0) {
+    if (this.using.count % 2 !== 0) {
       this.store.add()
     }
   }
@@ -21,7 +21,7 @@ define('my-counter', class extends WeElement {
   render() {
     return (
       <p>
-        Clicked: {this.use.count} times
+        Clicked: {this.using.count} times
         {' '}
         <button onClick={this.add}>+</button>
         {' '}

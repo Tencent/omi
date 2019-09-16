@@ -3,19 +3,19 @@ import { render, WeElement, define } from '../../src/omi'
 define('add-todo', class extends WeElement {
 
   render() {
-    let input
-
     return (
       <div>
         <form onSubmit={e => {
           e.preventDefault()
-          if (!input.value.trim()) {
+          if (!this.input.value.trim()) {
             return
           }
-          this.store.addTodo(input.value)
-          input.value = ''
+
+          this.store.addTodo(this.input.value)
+    
+          this.input.value = ''
         }}>
-          <input ref={node => input = node} />
+          <input ref={node => this.input = node} />
           <button type="submit">
             Add Todo
         </button>
@@ -34,8 +34,9 @@ export const VisibilityFilters = {
 
 
 define('todo-list', class extends WeElement {
-
+  
   render() {
+    console.log(3333)
     return (
       <ul>
         {this.store.data.todos.map(todo => this.renderItem(todo))}

@@ -349,7 +349,7 @@ export function removeChildren(node) {
  */
 function diffAttributes(dom, attrs, old, component) {
   let name
-  let update = false
+  //let update = false
   let isWeElement = dom.update
   let oldClone
   if (dom.receiveProps) {
@@ -361,7 +361,7 @@ function diffAttributes(dom, attrs, old, component) {
       setAccessor(dom, name, old[name], (old[name] = undefined), isSvgMode, component)
       if (isWeElement) {
         delete dom.props[name]
-        update = true
+        //update = true
       }
     }
   }
@@ -374,7 +374,7 @@ function diffAttributes(dom, attrs, old, component) {
       }
       let ccName = camelCase(name)
       dom.props[ccName] = old[ccName] = attrs[name]
-      update = true
+      //update = true
     } else if (
       name !== 'children' &&
       (!(name in old) ||
@@ -385,7 +385,7 @@ function diffAttributes(dom, attrs, old, component) {
       if (isWeElement) {
         let ccName = camelCase(name)
         dom.props[ccName] = old[ccName]  = attrs[name]
-        update = true
+        //update = true
       } else {
         old[name] = attrs[name]
       }
@@ -394,10 +394,10 @@ function diffAttributes(dom, attrs, old, component) {
 
   if (isWeElement && dom.parentNode) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
-    if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
+    //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
       if (dom.receiveProps(dom.props, oldClone) !== false) {
         dom.update()
       }
-    }
+    //}
   }
 }

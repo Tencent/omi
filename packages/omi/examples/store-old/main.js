@@ -13,15 +13,13 @@ define('todo-list', class extends WeElement {
 })
 
 define('todo-app', class extends WeElement {
-  static get data() {
-    return {
-      showList: null,
-      items: null,
-      text: null,
-      firstName: null,
-      lastName: null
-    }
-  }
+  static use = [
+    'showList',
+    'items',
+    'text',
+    'firstName',
+    'lastName'
+  ]
 
   render(props, data, store) {
     return (
