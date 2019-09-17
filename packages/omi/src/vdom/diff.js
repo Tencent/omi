@@ -23,7 +23,7 @@ let hydrating = false
  *	@returns {Element} dom			The created/mutated element
  *	@private
  */
-export function diff(dom, vnode, context, mountAll, parent, component) {
+export function diff(dom, vnode, parent, component, updateSelf) {
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   let ret
   if (!diffLevel++) {
@@ -47,7 +47,7 @@ export function diff(dom, vnode, context, mountAll, parent, component) {
     } else {
       ret = []
       vnode.forEach((item, index) => {
-        let ele = idiff(index === 0 ? dom : null, item, context, mountAll, component)
+        let ele = idiff(index === 0 ? dom : null, item, component, updateSelf)
         ret.push(ele)
       })
     }
@@ -55,13 +55,13 @@ export function diff(dom, vnode, context, mountAll, parent, component) {
     if (isArray(dom)) {
       dom.forEach((one, index) => {
         if (index === 0) {
-          ret = idiff(one, vnode, context, mountAll, component)
+          ret = idiff(one, vnode, component, updateSelf)
         } else {
           recollectNodeTree(one, false)
         }
       })
     } else {
-      ret = idiff(dom, vnode, context, mountAll, component)
+      ret = idiff(dom, vnode, component, updateSelf)
     }
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret)
@@ -77,7 +77,7 @@ export function diff(dom, vnode, context, mountAll, parent, component) {
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-function idiff(dom, vnode, context, mountAll, component) {
+function idiff(dom, vnode, component, updateSelf) {
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
@@ -180,16 +180,15 @@ function idiff(dom, vnode, context, mountAll, component) {
       innerDiffNode(
         out,
         vchildren,
-        context,
-        mountAll,
         hydrating || props.dangerouslySetInnerHTML != null,
-        component
+        component,
+        updateSelf
       )
     }
   }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props, component)
+  diffAttributes(out, vnode.attributes, props, component, updateSelf)
   if (out.props) {
     out.props.children = vnode.children
   }
@@ -202,11 +201,9 @@ function idiff(dom, vnode, context, mountAll, component) {
 /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
  *	@param {Element} dom			Element whose children should be compared & mutated
  *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
- *	@param {Object} context			Implicitly descendant context object (from most recent `getChildContext()`)
- *	@param {Boolean} mountAll
  *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
  */
-function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component) {
+function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
   let originalChildren = dom.childNodes,
     children = [],
     keyed = {},
@@ -279,7 +276,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component
       }
 
       // morph the matched/found/created DOM child to match vchild (deep)
-      child = idiff(child, vchild, context, mountAll, component)
+      child = idiff(child, vchild, component, updateSelf)
 
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
@@ -347,7 +344,7 @@ export function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old, component) {
+function diffAttributes(dom, attrs, old, component, updateSelf) {
   let name
   //let update = false
   let isWeElement = dom.update
@@ -392,7 +389,7 @@ function diffAttributes(dom, attrs, old, component) {
     }
   }
 
-  if (isWeElement && dom.parentNode) {
+  if (isWeElement && !updateSelf && dom.parentNode) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
       if (dom.receiveProps(dom.props, oldClone) !== false) {

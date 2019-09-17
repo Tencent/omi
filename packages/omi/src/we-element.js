@@ -72,8 +72,6 @@ export default class WeElement extends HTMLElement {
     this.rootNode = diff(
       null,
       rendered,
-      {},
-      false,
       null,
       this
     )
@@ -110,7 +108,7 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  update(ignoreAttrs) {
+  update(ignoreAttrs, updateSelf) {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
@@ -128,14 +126,17 @@ export default class WeElement extends HTMLElement {
     this.rootNode = diff(
       this.rootNode,
       rendered,
-      null,
-      null,
       this.shadowRoot,
-      this
+      this,
+      updateSelf
     )
     this._willUpdate = false
 		this.updated()
 
+  }
+
+  updateSelf(ignoreAttrs) {
+    this.update(ignoreAttrs, true)
   }
 
   removeAttribute(key) {

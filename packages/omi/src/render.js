@@ -27,7 +27,7 @@ export function render(vnode, parent, store) {
     })
     parent.store = store
   }
-  return diff(null, vnode, {}, false, parent, false)
+  return diff(null, vnode, parent, false)
 }
 
 function update(patch, store) {
