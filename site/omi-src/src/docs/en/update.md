@@ -27,3 +27,9 @@ onMaskClick = ()=> {
   this.fire('close')
 }
 ```
+
+### UpdateSelf
+
+![](https://github.com/Tencent/omi/raw/master/assets/update.png)
+
+`updateSelf` method does not update child components.
