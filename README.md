@@ -752,7 +752,7 @@ npm run test
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 
-Please contact us for any questions. Also, Add [Omi QQ Group](https://github.com/Tencent/omi/issues/169).
+Please contact us for any questions. 
 
 ## Thanks
 
