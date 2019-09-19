@@ -75,7 +75,7 @@ program
     .command('init-weui [projectName]')
     .description('Initialize a mobile project with weui in the current folder')
     .action(function(projectName, option){
-        var cmd = 'init-o';
+        var cmd = 'init-weui';
         if (option.parent.mirror && typeof option.parent.mirror === 'string') {
             options.mirror = option.parent.mirror;
         }
