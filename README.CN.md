@@ -428,7 +428,7 @@ const [count, setCount] = this.useData(0)
 
 ### 安装
 
-​```bash
+```bash
 $ npm i omi-cli -g    # install cli
 $ omi init my-app     # 初始化项目，也可以在空目录里执行 'omi init'
 $ cd my-app           # 如果在空目录里执行 'omi init' 忽略这条命令
@@ -534,7 +534,7 @@ $ npm run build       # 编译发布
 
 先创建一个自定义元素:
 
-​```js
+```js
 import { define, WeElement } from 'omi'
 
 define('hello-element', class extends WeElement {
@@ -905,7 +905,7 @@ class MyApp extends WeElement {
 
 ### 查看所有注册的元素
 
-​```js
+```js
 console.log(Omi.elements)
 ```
 
