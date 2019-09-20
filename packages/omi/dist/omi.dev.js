@@ -1,5 +1,5 @@
 /**
- * omi v6.11.2  http://omijs.org
+ * omi v6.11.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -424,7 +424,7 @@
    *	@returns {Element} dom			The created/mutated element
    *	@private
    */
-  function diff(dom, vnode, context, mountAll, parent, component) {
+  function diff(dom, vnode, parent, component, updateSelf) {
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     var ret;
     if (!diffLevel++) {
@@ -448,7 +448,7 @@
       } else {
         ret = [];
         vnode.forEach(function (item, index) {
-          var ele = idiff(index === 0 ? dom : null, item, context, mountAll, component);
+          var ele = idiff(index === 0 ? dom : null, item, component, updateSelf);
           ret.push(ele);
         });
       }
@@ -456,13 +456,13 @@
       if (isArray(dom)) {
         dom.forEach(function (one, index) {
           if (index === 0) {
-            ret = idiff(one, vnode, context, mountAll, component);
+            ret = idiff(one, vnode, component, updateSelf);
           } else {
             recollectNodeTree(one, false);
           }
         });
       } else {
-        ret = idiff(dom, vnode, context, mountAll, component);
+        ret = idiff(dom, vnode, component, updateSelf);
       }
       // append the element if its a new parent
       if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -478,7 +478,7 @@
   }
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-  function idiff(dom, vnode, context, mountAll, component) {
+  function idiff(dom, vnode, component, updateSelf) {
     if (dom && vnode && dom.props) {
       dom.props.children = vnode.children;
     }
@@ -561,12 +561,12 @@
     // otherwise, if there are existing or new children, diff them:
     else if (vchildren && vchildren.length || fc != null) {
         if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
-          innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null, component);
+          innerDiffNode(out, vchildren, hydrating || props.dangerouslySetInnerHTML != null, component, updateSelf);
         }
       }
 
     // Apply attributes/props from VNode to the DOM Element:
-    diffAttributes(out, vnode.attributes, props, component);
+    diffAttributes(out, vnode.attributes, props, component, updateSelf);
     if (out.props) {
       out.props.children = vnode.children;
     }
@@ -579,11 +579,9 @@
   /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
    *	@param {Element} dom			Element whose children should be compared & mutated
    *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
-   *	@param {Object} context			Implicitly descendant context object (from most recent `getChildContext()`)
-   *	@param {Boolean} mountAll
    *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
    */
-  function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, component) {
+  function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
     var originalChildren = dom.childNodes,
         children = [],
         keyed = {},
@@ -641,7 +639,7 @@
           }
 
         // morph the matched/found/created DOM child to match vchild (deep)
-        child = idiff(child, vchild, context, mountAll, component);
+        child = idiff(child, vchild, component, updateSelf);
 
         f = originalChildren[i];
         if (child && child !== dom && child !== f) {
@@ -709,9 +707,9 @@
    *	@param {Object} attrs		The desired end-state key-value attribute pairs
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
-  function diffAttributes(dom, attrs, old, component) {
+  function diffAttributes(dom, attrs, old, component, updateSelf) {
     var name;
-    var update = false;
+    //let update = false
     var isWeElement = dom.update;
     var oldClone;
     if (dom.receiveProps) {
@@ -723,7 +721,7 @@
         setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, component);
         if (isWeElement) {
           delete dom.props[name];
-          update = true;
+          //update = true
         }
       }
     }
@@ -736,26 +734,26 @@
         }
         var ccName = camelCase(name);
         dom.props[ccName] = old[ccName] = attrs[name];
-        update = true;
+        //update = true
       } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
         setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
         if (isWeElement) {
           var _ccName = camelCase(name);
           dom.props[_ccName] = old[_ccName] = attrs[name];
-          update = true;
+          //update = true
         } else {
           old[name] = attrs[name];
         }
       }
     }
 
-    if (isWeElement && dom.parentNode) {
+    if (isWeElement && !updateSelf && dom.parentNode) {
       //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
-      if (update || dom.__hasChildren || dom.children.length > 0 || dom.store && !dom.store.data) {
-        if (dom.receiveProps(dom.props, oldClone) !== false) {
-          dom.update();
-        }
+      //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
+      if (dom.receiveProps(dom.props, oldClone) !== false) {
+        dom.update();
       }
+      //}
     }
   }
 
@@ -1419,7 +1417,7 @@
       var rendered = this.render(this.props, this.data, this.store);
       this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-      this.rootNode = diff(null, rendered, {}, false, null, this);
+      this.rootNode = diff(null, rendered, null, this);
       this.rendered();
 
       if (this.props.css) {
@@ -1452,7 +1450,7 @@
       }
     };
 
-    WeElement.prototype.update = function update(ignoreAttrs) {
+    WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
       this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
@@ -1467,9 +1465,13 @@
       this.rendered();
       this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-      this.rootNode = diff(this.rootNode, rendered, null, null, this.shadowRoot, this);
+      this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
       this._willUpdate = false;
       this.updated();
+    };
+
+    WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
+      this.update(ignoreAttrs, true);
     };
 
     WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1595,7 +1597,7 @@
       });
       parent.store = store;
     }
-    return diff(null, vnode, {}, false, parent, false);
+    return diff(null, vnode, parent, false);
   }
 
   function update(patch, store) {
@@ -1883,7 +1885,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.11.2';
+  options.root.Omi.version = '6.11.3';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
