@@ -18,10 +18,22 @@ function checkIsArray(json) {
   let count = 0
   if(!json.child) return false
   for (let i = 0, len = json.child.length; i < len; i++) {
-    let tagName = json.child[i].tag
+    let tagItem = json.child[i];
+    let tagName = tagItem.tag;
+    let tagAttr = tagItem.attr;
+
     if (tagName) {
+
+      if(tagAttr && tagAttr.bindtap){
+        tagAttr.bindclick = tagAttr.bindtap;
+      }
+
       if (tagName === 'block') {
-        if (json.child[i].attr['wx:if'] || json.child[i].attr['wx:for']) {
+        if(tagAttr){
+          tagAttr.style = '{{{"width": "100%"}}}';
+        }
+
+        if (tagAttr['wx:if'] || tagAttr['wx:for']) {
           count++
         }
       } else {
