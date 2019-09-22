@@ -547,6 +547,10 @@
                         if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.use());
                         instance.update();
                     }
+                    if (instance.R && needUpdate(patch, instance.R)) {
+                        _this.usingSelf = getUse(store.data, instance.useSelf());
+                        instance.updateSelf();
+                    }
                 });
                 this.onChange && this.onChange(patch);
             }
@@ -923,6 +927,11 @@
                 this.M = getPath(use);
                 this.using = getUse(this.store.data, use);
             } else this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
+            if (this.useSelf) {
+                var _use = this.useSelf();
+                this.R = getPath(_use);
+                this.usingSelf = getUse(this.store.data, _use);
+            }
             this.attrsToProps();
             this.beforeInstall();
             this.install();
@@ -1128,7 +1137,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.11.3';
+    options.root.Omi.version = '6.12.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

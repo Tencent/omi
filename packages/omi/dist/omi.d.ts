@@ -79,6 +79,8 @@ declare namespace Omi {
 		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
+		use(): any[];
+		useSelf(): any[];
 	}
 
 	interface ModelView<P, D> {
@@ -105,6 +107,8 @@ declare namespace Omi {
 		receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
+		use(): any[];
+		useSelf(): any[];
 	}
 
 	abstract class WeElement<P = {}, D = {}> {

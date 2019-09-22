@@ -1380,6 +1380,11 @@ var WeElement = function (_HTMLElement) {
     } else {
       this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
     }
+    if (this.useSelf) {
+      var _use = this.useSelf();
+      this._updateSelfPath = getPath(_use);
+      this.usingSelf = getUse(this.store.data, _use);
+    }
     this.attrsToProps();
     this.beforeInstall();
     this.install();
@@ -1572,142 +1577,147 @@ var WeElement = function (_HTMLElement) {
 WeElement.is = 'WeElement';
 
 function render(vnode, parent, store) {
-  parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-  if (store) {
-    store.instances = [];
-    extendStoreUpate(store);
+	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+	if (store) {
+		store.instances = [];
+		extendStoreUpate(store);
 
-    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-      var patchs = {};
-      if (patch.op === 'remove') {
-        // fix arr splice
-        var kv = getArrayPatch(patch.path, store);
-        patchs[kv.k] = kv.v;
+		store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
+			var patchs = {};
+			if (patch.op === 'remove') {
+				// fix arr splice
+				var kv = getArrayPatch(patch.path, store);
+				patchs[kv.k] = kv.v;
 
-        update(patchs, store);
-      } else {
-        var key = fixPath(patch.path);
-        patchs[key] = patch.value;
+				update(patchs, store);
+			} else {
+				var key = fixPath(patch.path);
+				patchs[key] = patch.value;
 
-        update(patchs, store);
-      }
-    });
-    parent.store = store;
-  }
-  return diff(null, vnode, parent, false);
+				update(patchs, store);
+			}
+		});
+		parent.store = store;
+	}
+	return diff(null, vnode, parent, false);
 }
 
 function update(patch, store) {
-  store.update(patch);
+	store.update(patch);
 }
 
 function extendStoreUpate(store) {
-  store.update = function (patch) {
-    var _this = this;
+	store.update = function (patch) {
+		var _this = this;
 
-    var updateAll = matchGlobalData(this.globalData, patch);
+		var updateAll = matchGlobalData(this.globalData, patch);
 
-    if (Object.keys(patch).length > 0) {
-      this.instances.forEach(function (instance) {
-        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
-          //update this.using
-          if (instance.constructor.use) {
-            instance.using = getUse(store.data, instance.constructor.use);
-          } else if (instance.use) {
-            instance.using = getUse(store.data, instance.use());
-          }
+		if (Object.keys(patch).length > 0) {
+			this.instances.forEach(function (instance) {
+				if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
+					//update this.using
+					if (instance.constructor.use) {
+						instance.using = getUse(store.data, instance.constructor.use);
+					} else if (instance.use) {
+						instance.using = getUse(store.data, instance.use());
+					}
 
-          instance.update();
-        }
-      });
-      this.onChange && this.onChange(patch);
-    }
-  };
+					instance.update();
+				}
+
+				if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+					_this.usingSelf = getUse(store.data, instance.useSelf());
+					instance.updateSelf();
+				}
+			});
+			this.onChange && this.onChange(patch);
+		}
+	};
 }
 
 function matchGlobalData(globalData, diffResult) {
-  if (!globalData) return false;
-  for (var keyA in diffResult) {
-    if (globalData.indexOf(keyA) > -1) {
-      return true;
-    }
-    for (var i = 0, len = globalData.length; i < len; i++) {
-      if (includePath(keyA, globalData[i])) {
-        return true;
-      }
-    }
-  }
-  return false;
+	if (!globalData) return false;
+	for (var keyA in diffResult) {
+		if (globalData.indexOf(keyA) > -1) {
+			return true;
+		}
+		for (var i = 0, len = globalData.length; i < len; i++) {
+			if (includePath(keyA, globalData[i])) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function needUpdate(diffResult, updatePath) {
-  for (var keyA in diffResult) {
-    if (updatePath[keyA]) {
-      return true;
-    }
-    for (var keyB in updatePath) {
-      if (includePath(keyA, keyB)) {
-        return true;
-      }
-    }
-  }
-  return false;
+	for (var keyA in diffResult) {
+		if (updatePath[keyA]) {
+			return true;
+		}
+		for (var keyB in updatePath) {
+			if (includePath(keyA, keyB)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function includePath(pathA, pathB) {
-  if (pathA.indexOf(pathB) === 0) {
-    var next = pathA.substr(pathB.length, 1);
-    if (next === '[' || next === '.') {
-      return true;
-    }
-  }
-  return false;
+	if (pathA.indexOf(pathB) === 0) {
+		var next = pathA.substr(pathB.length, 1);
+		if (next === '[' || next === '.') {
+			return true;
+		}
+	}
+	return false;
 }
 
 function fixPath(path) {
-  var mpPath = '';
-  var arr = path.replace('/', '').split('/');
-  arr.forEach(function (item, index) {
-    if (index) {
-      if (isNaN(Number(item))) {
-        mpPath += '.' + item;
-      } else {
-        mpPath += '[' + item + ']';
-      }
-    } else {
-      mpPath += item;
-    }
-  });
-  return mpPath;
+	var mpPath = '';
+	var arr = path.replace('/', '').split('/');
+	arr.forEach(function (item, index) {
+		if (index) {
+			if (isNaN(Number(item))) {
+				mpPath += '.' + item;
+			} else {
+				mpPath += '[' + item + ']';
+			}
+		} else {
+			mpPath += item;
+		}
+	});
+	return mpPath;
 }
 
 function getArrayPatch(path, store) {
-  var arr = path.replace('/', '').split('/');
-  var current = store.data[arr[0]];
-  for (var i = 1, len = arr.length; i < len - 1; i++) {
-    current = current[arr[i]];
-  }
-  return { k: fixArrPath(path), v: current };
+	var arr = path.replace('/', '').split('/');
+	var current = store.data[arr[0]];
+	for (var i = 1, len = arr.length; i < len - 1; i++) {
+		current = current[arr[i]];
+	}
+	return { k: fixArrPath(path), v: current };
 }
 
 function fixArrPath(path) {
-  var mpPath = '';
-  var arr = path.replace('/', '').split('/');
-  var len = arr.length;
-  arr.forEach(function (item, index) {
-    if (index < len - 1) {
-      if (index) {
-        if (isNaN(Number(item))) {
-          mpPath += '.' + item;
-        } else {
-          mpPath += '[' + item + ']';
-        }
-      } else {
-        mpPath += item;
-      }
-    }
-  });
-  return mpPath;
+	var mpPath = '';
+	var arr = path.replace('/', '').split('/');
+	var len = arr.length;
+	arr.forEach(function (item, index) {
+		if (index < len - 1) {
+			if (index) {
+				if (isNaN(Number(item))) {
+					mpPath += '.' + item;
+				} else {
+					mpPath += '[' + item + ']';
+				}
+			} else {
+				mpPath += item;
+			}
+		}
+	});
+	return mpPath;
 }
 
 function tag(name, pure) {
@@ -1882,7 +1892,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.11.3';
+options.root.Omi.version = '6.12.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

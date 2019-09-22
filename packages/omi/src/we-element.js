@@ -34,7 +34,12 @@ export default class WeElement extends HTMLElement {
       this.using = getUse(this.store.data, use)
     } else {
       this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use))
-    }
+		}
+		if(this.useSelf){
+			const use = this.useSelf()
+      this._updateSelfPath = getPath(use)
+      this.usingSelf = getUse(this.store.data, use)
+		}
     this.attrsToProps()
     this.beforeInstall()
     this.install()
