@@ -1,37 +1,38 @@
 import { render, WeElement, define } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
-  static use = [
-    { count: 'count' }
-  ]
-
-  add = () => this.store.add()
-  sub = () => this.store.sub()
+  use = ['count', 'adding']
 
   addIfOdd = () => {
-    if (this.using.count % 2 !== 0) {
+    if (this.store.data.count % 2 !== 0) {
       this.store.add()
     }
   }
 
   addAsync = () => {
-    setTimeout(() => this.store.add(), 1000)
+    this.store.data.adding = true
+    setTimeout(() => {
+      this.store.data.adding = false
+      this.store.add()
+    }, 1000)
   }
 
   render() {
+    const store = this.store
+    const { data, add, sub } = store
     return (
       <p>
-        Clicked: {this.using.count} times
+        Clicked: {data.count} times
         {' '}
-        <button onClick={this.add}>+</button>
+        <button onClick={add}>+</button>
         {' '}
-        <button onClick={this.sub}>-</button>
+        <button onClick={sub}>-</button>
         {' '}
-        <button onClick={this.addIfOdd}>
+        <button disabled={data.count % 2 === 0} onClick={this.addIfOdd}>
           Add if odd
         </button>
         {' '}
-        <button onClick={this.addAsync}>
+        <button disabled={data.adding} onClick={this.addAsync}>
           Add async
         </button>
       </p>
@@ -39,14 +40,15 @@ define('my-counter', class extends WeElement {
   }
 })
 
-render(<my-counter />, 'body', {
-  data: {
-    count: 0
-  },
-  sub() {
+render(<my-counter />, 'body', new class Store {
+  data = {
+    count: 0,
+    adding: false
+  }
+  sub = () => {
     this.data.count--
-  },
-  add() {
+  }
+  add = () => {
     this.data.count++
-  },
+  }
 })
