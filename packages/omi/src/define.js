@@ -90,8 +90,22 @@ export function define(name, ctor) {
 				 return config.use.apply(this, arguments)
 				}
 			} else {
-				Ele.use = config.use
+				Ele.prototype.use = function(){
+          return config.use
+         }
 			}
+    }
+    
+    if(config.useSelf){
+			if(typeof config.useSelf  === 'function'){
+				Ele.prototype.useSelf = function(){
+				 return config.useSelf.apply(this, arguments)
+				}
+			} else {
+        Ele.prototype.useSelf = function(){
+          return config.useSelf
+         }
+      }
 		}
 
     if(Ele.use){

@@ -44,7 +44,7 @@ describe('store', () => {
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
   })
 
-	it('test initUse', () => {
+	it('test use method', () => {
 
     class Ele extends WeElement {
 			use (){
@@ -68,6 +68,31 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
 	})
+
+
+	it('test use prop', () => {
+
+    class Ele extends WeElement {
+      use = ['a']
+      
+			installed(){
+				this.store.data.a = 2
+			}
+
+      render() {
+				return <div>{this.store.data.a}</div>
+      }
+    }
+
+    define('my-ele6', Ele)
+    sinon.spy(Ele.prototype, 'render')
+    render(<my-ele6 />, scratch, {
+			data:{a:1}
+		})
+
+    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
+
 
 	it('test static use', () => {
 
@@ -118,4 +143,28 @@ describe('store', () => {
     expect(scratch.firstChild.shadowRoot.firstChild.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
 
+
+
+	it('test useSelf', () => {
+
+    class Ele extends WeElement {
+		 useSelf = ['a']
+
+			installed(){
+				this.store.data.a = 2
+			}
+
+      render() {
+				return <div>{this.store.data.a}</div>
+      }
+    }
+
+    define('my-ele7', Ele)
+    sinon.spy(Ele.prototype, 'render')
+    render(<my-ele7 />, scratch, {
+			data:{a:1}
+		})
+
+    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 })

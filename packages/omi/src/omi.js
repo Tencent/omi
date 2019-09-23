@@ -9,7 +9,6 @@ import { cloneElement } from './clone-element'
 import { getHost } from './get-host'
 import { rpx } from './rpx'
 import { tick, nextTick } from './tick'
-import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 import { o } from './o'
 import htm from 'htm'
@@ -42,7 +41,6 @@ const omi = {
   rpx,
   tick,
   nextTick,
-  ModelView,
   defineElement,
   classNames,
   extractClass,
@@ -62,7 +60,7 @@ const omi = {
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.12.0'
+options.root.Omi.version = '6.13.0'
 
 export default omi
 
@@ -81,7 +79,6 @@ export {
   rpx,
   tick,
   nextTick,
-  ModelView,
   defineElement,
   classNames,
   extractClass,

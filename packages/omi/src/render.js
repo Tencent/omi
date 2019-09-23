@@ -51,14 +51,14 @@ function extendStoreUpate(store) {
 					if (instance.constructor.use) {
 						instance.using = getUse(store.data, instance.constructor.use)
 					} else if (instance.use) {
-						instance.using = getUse(store.data, instance.use())
+						instance.using = getUse(store.data,  typeof instance.use === 'function' ? instance.use() : instance.use)
 					}
 
 					instance.update()
 				}
 
 				if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-					this.usingSelf = getUse(store.data, instance.useSelf())
+					this.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
 					instance.updateSelf()
 				}
 			})

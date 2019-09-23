@@ -29,14 +29,20 @@ export default class WeElement extends HTMLElement {
     }
 
     if (this.use) {
-      const use = this.use()
+      let use 
+      if(typeof this.use === 'function'){
+        use = this.use()
+      }else{
+        use = this.use
+      }
+      
       this._updatePath = getPath(use)
       this.using = getUse(this.store.data, use)
     } else {
       this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use))
 		}
 		if(this.useSelf){
-			const use = this.useSelf()
+			const use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf
       this._updateSelfPath = getPath(use)
       this.usingSelf = getUse(this.store.data, use)
 		}

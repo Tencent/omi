@@ -1257,7 +1257,21 @@ function define(name, ctor) {
           return config.use.apply(this, arguments);
         };
       } else {
-        Ele.use = config.use;
+        Ele.prototype.use = function () {
+          return config.use;
+        };
+      }
+    }
+
+    if (config.useSelf) {
+      if (typeof config.useSelf === 'function') {
+        Ele.prototype.useSelf = function () {
+          return config.useSelf.apply(this, arguments);
+        };
+      } else {
+        Ele.prototype.useSelf = function () {
+          return config.useSelf;
+        };
       }
     }
 
@@ -1374,14 +1388,20 @@ var WeElement = function (_HTMLElement) {
     }
 
     if (this.use) {
-      var use = this.use();
+      var use;
+      if (typeof this.use === 'function') {
+        use = this.use();
+      } else {
+        use = this.use;
+      }
+
       this._updatePath = getPath(use);
       this.using = getUse(this.store.data, use);
     } else {
       this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
     }
     if (this.useSelf) {
-      var _use = this.useSelf();
+      var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
       this._updateSelfPath = getPath(_use);
       this.usingSelf = getUse(this.store.data, _use);
     }
@@ -1619,14 +1639,14 @@ function extendStoreUpate(store) {
 					if (instance.constructor.use) {
 						instance.using = getUse(store.data, instance.constructor.use);
 					} else if (instance.use) {
-						instance.using = getUse(store.data, instance.use());
+						instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
 					}
 
 					instance.update();
 				}
 
 				if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-					_this.usingSelf = getUse(store.data, instance.useSelf());
+					_this.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
 					instance.updateSelf();
 				}
 			});
@@ -1756,35 +1776,6 @@ function rpx(str) {
   });
 }
 
-function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ModelView = function (_WeElement) {
-  _inherits$2(ModelView, _WeElement);
-
-  function ModelView() {
-    _classCallCheck$2(this, ModelView);
-
-    return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
-  }
-
-  ModelView.prototype.beforeInstall = function beforeInstall() {
-    this.data = this.vm.data;
-  };
-
-  ModelView.prototype.observed = function observed() {
-    this.vm.data = this.data;
-  };
-
-  return ModelView;
-}(WeElement);
-
-ModelView.observe = true;
-ModelView.mergeUpdate = false;
-
 /**
  * classNames based on https://github.com/JedWatson/classnames
  * by Jed Watson
@@ -1872,7 +1863,6 @@ var omi = {
   rpx: rpx,
   tick: tick,
   nextTick: nextTick,
-  ModelView: ModelView,
   defineElement: defineElement,
   classNames: classNames,
   extractClass: extractClass,
@@ -1892,8 +1882,8 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.12.0';
+options.root.Omi.version = '6.13.0';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };
 //# sourceMappingURL=omi.esm.js.map

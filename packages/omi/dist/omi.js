@@ -446,7 +446,14 @@
             Ele.defaultProps = config.defaultProps;
             if (config.use) if ('function' == typeof config.use) Ele.prototype.use = function() {
                 return config.use.apply(this, arguments);
-            }; else Ele.use = config.use;
+            }; else Ele.prototype.use = function() {
+                return config.use;
+            };
+            if (config.useSelf) if ('function' == typeof config.useSelf) Ele.prototype.useSelf = function() {
+                return config.useSelf.apply(this, arguments);
+            }; else Ele.prototype.useSelf = function() {
+                return config.useSelf;
+            };
             if (Ele.use) Ele.updatePath = getPath(Ele.use);
             customElements.define(name, Ele);
             options.mapping[name] = Ele;
@@ -544,11 +551,11 @@
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
                     if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.M && needUpdate(patch, instance.M)) {
-                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.use());
+                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, 'function' == typeof instance.use ? instance.use() : instance.use);
                         instance.update();
                     }
                     if (instance.R && needUpdate(patch, instance.R)) {
-                        _this.usingSelf = getUse(store.data, instance.useSelf());
+                        _this.usingSelf = getUse(store.data, 'function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf);
                         instance.updateSelf();
                     }
                 });
@@ -621,25 +628,6 @@
         return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
             return window.innerWidth * Number(b) / 750 + 'px';
         });
-    }
-    function _classCallCheck$2(instance, Constructor) {
-        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-    }
-    function _possibleConstructorReturn$2(self, call) {
-        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
-    }
-    function _inherits$2(subClass, superClass) {
-        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: !1,
-                writable: !0,
-                configurable: !0
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     function classNames() {
         var classes = [];
@@ -923,12 +911,13 @@
             }
             if (this.store) this.store.instances.push(this);
             if (this.use) {
-                var use = this.use();
+                var use;
+                if ('function' == typeof this.use) use = this.use(); else use = this.use;
                 this.M = getPath(use);
                 this.using = getUse(this.store.data, use);
             } else this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
             if (this.useSelf) {
-                var _use = this.useSelf();
+                var _use = 'function' == typeof this.useSelf ? this.useSelf() : this.useSelf;
                 this.R = getPath(_use);
                 this.usingSelf = getUse(this.store.data, _use);
             }
@@ -1056,22 +1045,6 @@
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
-    var ModelView = function(_WeElement) {
-        function ModelView() {
-            _classCallCheck$2(this, ModelView);
-            return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
-        }
-        _inherits$2(ModelView, _WeElement);
-        ModelView.prototype.beforeInstall = function() {
-            this.data = this.vm.data;
-        };
-        ModelView.prototype.observed = function() {
-            this.vm.data = this.data;
-        };
-        return ModelView;
-    }(WeElement);
-    ModelView.observe = !0;
-    ModelView.mergeUpdate = !1;
     var hasOwn = {}.hasOwnProperty;
     var n = function(t, r, u, e) {
         for (var p = 1; p < r.length; p++) {
@@ -1118,7 +1091,6 @@
         rpx: rpx,
         tick: tick,
         nextTick: nextTick,
-        ModelView: ModelView,
         defineElement: defineElement,
         classNames: classNames,
         extractClass: extractClass,
@@ -1137,7 +1109,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.12.0';
+    options.root.Omi.version = '6.13.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
