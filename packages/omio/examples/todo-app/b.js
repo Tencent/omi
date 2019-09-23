@@ -26,7 +26,6 @@
    */
   var options = {
     scopedStyle: true,
-    store: null,
     mapping: {},
     isWeb: true,
     staticStyleMapping: {},
@@ -59,174 +58,36 @@
 
   var stack = [];
 
-  var EMPTY_CHILDREN = [];
-
-  var map = {
-    br: 'view',
-    hr: 'view',
-
-    p: 'view',
-    h1: 'view',
-    h2: 'view',
-    h3: 'view',
-    h4: 'view',
-    h5: 'view',
-    h6: 'view',
-    abbr: 'view',
-    address: 'view',
-    b: 'view',
-    bdi: 'view',
-    bdo: 'view',
-    blockquote: 'view',
-    cite: 'view',
-    code: 'view',
-    del: 'view',
-    ins: 'view',
-    dfn: 'view',
-    em: 'view',
-    strong: 'view',
-    samp: 'view',
-    kbd: 'view',
-    var: 'view',
-    i: 'view',
-    mark: 'view',
-    pre: 'view',
-    q: 'view',
-    ruby: 'view',
-    rp: 'view',
-    rt: 'view',
-    s: 'view',
-    small: 'view',
-    sub: 'view',
-    sup: 'view',
-    time: 'view',
-    u: 'view',
-    wbr: 'view',
-
-    form: 'form',
-    input: 'input',
-    textarea: 'textarea',
-    button: 'button',
-    select: 'picker',
-    option: 'view',
-    optgroup: 'view',
-    label: 'label',
-    fieldset: 'view',
-    datalist: 'picker',
-    legend: 'view',
-    output: 'view',
-
-    iframe: 'view',
-
-    img: 'image',
-    canvas: 'canvas',
-    figure: 'view',
-    figcaption: 'view',
-
-    audio: 'audio',
-    source: 'audio',
-    video: 'video',
-    track: 'video',
-
-    a: 'navigator',
-    nav: 'view',
-    link: 'navigator',
-
-    ul: 'view',
-    ol: 'view',
-    li: 'view',
-    dl: 'view',
-    dt: 'view',
-    dd: 'view',
-    menu: 'view',
-    command: 'view',
-
-    table: 'view',
-    caption: 'view',
-    th: 'view',
-    td: 'view',
-    tr: 'view',
-    thead: 'view',
-    tbody: 'view',
-    tfoot: 'view',
-    col: 'view',
-    colgroup: 'view',
-
-    div: 'view',
-    main: 'view',
-    //'span': 'label',
-    span: 'text',
-    header: 'view',
-    footer: 'view',
-    section: 'view',
-    article: 'view',
-    aside: 'view',
-    details: 'view',
-    dialog: 'view',
-    summary: 'view',
-
-    progress: 'progress',
-    meter: 'progress',
-    head: 'view',
-    meta: 'view',
-    base: 'text',
-    map: 'map',
-    area: 'navigator',
-
-    script: 'view',
-    noscript: 'view',
-    embed: 'view',
-    object: 'view',
-    param: 'view',
-
-    view: 'view',
-    'scroll-view': 'scroll-view',
-    swiper: 'swiper',
-    icon: 'icon',
-    text: 'text',
-
-    checkbox: 'checkbox',
-    radio: 'radio',
-    picker: 'picker',
-    'picker-view': 'picker-view',
-    slider: 'slider',
-    switch: 'switch',
-    navigator: 'navigator',
-
-    image: 'image',
-    'contact-button': 'contact-button',
-    block: 'block'
-
-    /**
-     * JSX/hyperscript reviver.
-     * @see http://jasonformat.com/wtf-is-jsx
-     * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
-     *
-     * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
-     *
-     * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
-     * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
-     * the current _actual_ DOM structure, and applying only the differences.
-     *
-     * `h()`/`createElement()` accepts an element name, a list of attributes/props,
-     * and optionally children to append to the element.
-     *
-     * @example The following DOM tree
-     *
-     * `<div id="foo" name="bar">Hello!</div>`
-     *
-     * can be constructed using this function as:
-     *
-     * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
-     *
-     * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
-     * @param {Object} attributes	Any attributes/props to set on the created element.
-     * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
-     *
-     * @public
-     */
-  };function h(nodeName, attributes) {
-    var children = EMPTY_CHILDREN,
+  /**
+   * JSX/hyperscript reviver.
+   * @see http://jasonformat.com/wtf-is-jsx
+   * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
+   *
+   * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
+   *
+   * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
+   * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
+   * the current _actual_ DOM structure, and applying only the differences.
+   *
+   * `h()`/`createElement()` accepts an element name, a list of attributes/props,
+   * and optionally children to append to the element.
+   *
+   * @example The following DOM tree
+   *
+   * `<div id="foo" name="bar">Hello!</div>`
+   *
+   * can be constructed using this function as:
+   *
+   * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
+   *
+   * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
+   * @param {Object} attributes	Any attributes/props to set on the created element.
+   * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
+   *
+   * @public
+   */
+  function h(nodeName, attributes) {
+    var children = [],
         lastSimple = void 0,
         child = void 0,
         simple = void 0,
@@ -252,7 +113,7 @@
 
         if (simple && lastSimple) {
           children[children.length - 1] += child;
-        } else if (children === EMPTY_CHILDREN) {
+        } else if (children.length === 0) {
           children = [child];
         } else {
           children.push(child);
@@ -263,23 +124,149 @@
     }
 
     var p = new VNode();
-    p.nodeName = options.isWeb ? nodeName : map[nodeName];
+    p.nodeName = nodeName;
+    p.children = children;
     p.attributes = attributes == null ? undefined : attributes;
-    if (children && typeof children[0] === 'string' && !options.isWeb) {
-      if (p.attributes) {
-        p.attributes.value = children[0];
-      } else {
-        p.attributes = { value: children[0] };
-      }
-    } else {
-      p.children = children;
-    }
     p.key = attributes == null ? undefined : attributes.key;
 
     // if a "vnode hook" is defined, pass every created VNode to it
     if (options.vnode !== undefined) options.vnode(p);
 
     return p;
+  }
+
+  /* eslint-disable no-unused-vars */
+
+  var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+  function toObject(val) {
+    if (val === null || val === undefined) {
+      throw new TypeError('Object.assign cannot be called with null or undefined');
+    }
+
+    return Object(val);
+  }
+
+  function assign(target, source) {
+    var from;
+    var to = toObject(target);
+    var symbols;
+
+    for (var s = 1; s < arguments.length; s++) {
+      from = Object(arguments[s]);
+
+      for (var key in from) {
+        if (hasOwnProperty.call(from, key)) {
+          to[key] = from[key];
+        }
+      }
+
+      if (getOwnPropertySymbols) {
+        symbols = getOwnPropertySymbols(from);
+        for (var i = 0; i < symbols.length; i++) {
+          if (propIsEnumerable.call(from, symbols[i])) {
+            to[symbols[i]] = from[symbols[i]];
+          }
+        }
+      }
+    }
+
+    return to;
+  }
+
+  if (typeof Element !== 'undefined' && !Element.prototype.addEventListener) {
+    var runListeners = function runListeners(oEvent) {
+      if (!oEvent) {
+        oEvent = window.event;
+      }
+      for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) {
+            oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+          }
+          break;
+        }
+      }
+    };
+
+    var oListeners = {};
+
+    Element.prototype.addEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (oListeners.hasOwnProperty(sEventType)) {
+        var oEvtListeners = oListeners[sEventType];
+        for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+          if (oEvtListeners.aEls[iElId] === this) {
+            nElIdx = iElId;break;
+          }
+        }
+        if (nElIdx === -1) {
+          oEvtListeners.aEls.push(this);
+          oEvtListeners.aEvts.push([fListener]);
+          this["on" + sEventType] = runListeners;
+        } else {
+          var aElListeners = oEvtListeners.aEvts[nElIdx];
+          if (this["on" + sEventType] !== runListeners) {
+            aElListeners.splice(0);
+            this["on" + sEventType] = runListeners;
+          }
+          for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) {
+            if (aElListeners[iLstId] === fListener) {
+              return;
+            }
+          }
+          aElListeners.push(fListener);
+        }
+      } else {
+        oListeners[sEventType] = { aEls: [this], aEvts: [[fListener]] };
+        this["on" + sEventType] = runListeners;
+      }
+    };
+    Element.prototype.removeEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (!oListeners.hasOwnProperty(sEventType)) {
+        return;
+      }
+      var oEvtListeners = oListeners[sEventType];
+      for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          nElIdx = iElId;break;
+        }
+      }
+      if (nElIdx === -1) {
+        return;
+      }
+      for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) {
+        if (aElListeners[iLstId] === fListener) {
+          aElListeners.splice(iLstId, 1);
+        }
+      }
+    };
+  }
+
+  if (typeof Object.create !== 'function') {
+    Object.create = function (proto, propertiesObject) {
+      if (typeof proto !== 'object' && typeof proto !== 'function') {
+        throw new TypeError('Object prototype may only be an Object: ' + proto);
+      } else if (proto === null) {
+        throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+      }
+
+      // if (typeof propertiesObject != 'undefined') {
+      //     throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+      // }
+
+      function F() {}
+      F.prototype = proto;
+
+      return new F();
+    };
+  }
+
+  if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
   }
 
   /**
@@ -293,6 +280,16 @@
     for (var i in props) {
       obj[i] = props[i];
     }return obj;
+  }
+
+  /** Invoke or update a ref, depending on whether it is a function or object ref.
+   *  @param {object|function} [ref=null]
+   *  @param {any} [value]
+   */
+  function applyRef(ref, value) {
+    if (ref) {
+      if (typeof ref == 'function') ref(value);else ref.current = value;
+    }
   }
 
   /**
@@ -319,6 +316,58 @@
 
   var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  }
+
+  function nProps(props) {
+    if (!props || isArray(props)) return {};
+    var result = {};
+    Object.keys(props).forEach(function (key) {
+      result[key] = props[key].value;
+    });
+    return result;
+  }
+
+  function getUse(data, paths) {
+    var obj = [];
+    paths.forEach(function (path, index) {
+      var isPath = typeof path === 'string';
+      if (isPath) {
+        obj[index] = getTargetByPath(data, path);
+      } else {
+        var key = Object.keys(path)[0];
+        var value = path[key];
+        if (typeof value === 'string') {
+          obj[index] = getTargetByPath(data, value);
+        } else {
+          var tempPath = value[0];
+          if (typeof tempPath === 'string') {
+            var tempVal = getTargetByPath(data, tempPath);
+            obj[index] = value[1] ? value[1](tempVal) : tempVal;
+          } else {
+            var args = [];
+            tempPath.forEach(function (path) {
+              args.push(getTargetByPath(data, path));
+            });
+            obj[index] = value[1].apply(null, args);
+          }
+        }
+        obj[key] = obj[index];
+      }
+    });
+    return obj;
+  }
+
+  function getTargetByPath(origin, path) {
+    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    var current = origin;
+    for (var i = 0, len = arr.length; i < len; i++) {
+      current = current[arr[i]];
+    }
+    return current;
+  }
+
   /**
    * Clones the given VNode, optionally adding attributes/props and replacing its children.
    * @param {VNode} vnode		The virtual DOM element to clone
@@ -336,10 +385,10 @@
   var FORCE_RENDER = 2;
   var ASYNC_RENDER = 3;
 
-  var ATTR_KEY = '__preactattr_';
+  var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+  var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
   /** Managed queue of dirty components to be re-rendered */
 
@@ -351,20 +400,15 @@
     }
   }
 
+  /** Rerender all enqueued dirty components */
   function rerender() {
-    var p = void 0,
-        list = items;
-    items = [];
-    var element = void 0;
-    while (p = list.pop()) {
-      element = p.base;
+    var p = void 0;
+    while (p = items.pop()) {
       renderComponent(p);
-    }
-    if (!list.length) {
-      if (options.componentChange) options.componentChange(p, element);
     }
   }
 
+  var mapping = options.mapping;
   /**
    * Check if two nodes are equivalent.
    *
@@ -378,6 +422,10 @@
       return node.splitText !== undefined;
     }
     if (typeof vnode.nodeName === 'string') {
+      var ctor = mapping[vnode.nodeName];
+      if (ctor) {
+        return hydrating || node._componentConstructor === ctor;
+      }
       return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
     }
     return hydrating || node._componentConstructor === vnode.nodeName;
@@ -488,8 +536,8 @@
     if (name === 'key') {
       // ignore
     } else if (name === 'ref') {
-      if (old) old(null);
-      if (value) value(node);
+      applyRef(old, null);
+      applyRef(value, node);
     } else if (name === 'class' && !isSvg) {
       node.className = value || '';
     } else if (name === 'style') {
@@ -504,7 +552,7 @@
             }
           }
           for (var _i2 in value) {
-            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
+            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL$1.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
           }
         }
       } else {
@@ -548,9 +596,19 @@
       var useCapture = name !== (name = name.replace(/Capture$/, ''));
       name = name.toLowerCase().substring(2);
       if (value) {
-        if (!old) node.addEventListener(name, eventProxy, useCapture);
+        if (!old) {
+          node.addEventListener(name, eventProxy, useCapture);
+          if (name == 'tap') {
+            node.addEventListener('touchstart', touchStart, useCapture);
+            node.addEventListener('touchend', touchEnd, useCapture);
+          }
+        }
       } else {
         node.removeEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.removeEventListener('touchstart', touchStart, useCapture);
+          node.removeEventListener('touchend', touchEnd, useCapture);
+        }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
     } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
@@ -582,6 +640,143 @@
     return this._listeners[e.type](options.event && options.event(e) || e);
   }
 
+  function touchStart(e) {
+    this.___touchX = e.touches[0].pageX;
+    this.___touchY = e.touches[0].pageY;
+    this.___scrollTop = document.body.scrollTop;
+  }
+
+  function touchEnd(e) {
+    if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+      this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+    }
+  }
+
+  var styleId = 0;
+
+  function getCtorName(ctor) {
+    for (var i = 0, len = options.styleCache.length; i < len; i++) {
+      var item = options.styleCache[i];
+
+      if (item.ctor === ctor) {
+        return item.attrName;
+      }
+    }
+
+    var attrName = 's' + styleId;
+    options.styleCache.push({ ctor: ctor, attrName: attrName });
+    styleId++;
+
+    return attrName;
+  }
+
+  // many thanks to https://github.com/thomaspark/scoper/
+  function scoper(css, prefix) {
+    prefix = '[' + prefix.toLowerCase() + ']';
+    // https://www.w3.org/TR/css-syntax-3/#lexical
+    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
+    // eslint-disable-next-line
+    var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
+    /**
+     * Example:
+     *
+     * .classname::pesudo { color:red }
+     *
+     * g1 is normal selector `.classname`
+     * g2 is pesudo class or pesudo element
+     * g3 is the suffix
+     */
+    css = css.replace(re, function (g0, g1, g2, g3) {
+      if (typeof g2 === 'undefined') {
+        g2 = '';
+      }
+
+      /* eslint-ignore-next-line */
+      if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
+        return g1 + g2 + g3;
+      }
+
+      var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
+      //let prependClass = prefix + ' ' + g1.trim() + g2;
+
+      return appendClass + g3;
+      //return appendClass + ',' + prependClass + g3;
+    });
+
+    return css;
+  }
+
+  function addStyle(cssText, id) {
+    id = id.toLowerCase();
+    var ele = document.getElementById(id);
+    var head = document.getElementsByTagName('head')[0];
+    if (ele && ele.parentNode === head) {
+      head.removeChild(ele);
+    }
+
+    var someThingStyles = document.createElement('style');
+    head.appendChild(someThingStyles);
+    someThingStyles.setAttribute('type', 'text/css');
+    someThingStyles.setAttribute('id', id);
+    if (window.ActiveXObject) {
+      someThingStyles.styleSheet.cssText = cssText;
+    } else {
+      someThingStyles.textContent = cssText;
+    }
+  }
+
+  function addStyleWithoutId(cssText) {
+    var head = document.getElementsByTagName('head')[0];
+    var someThingStyles = document.createElement('style');
+    head.appendChild(someThingStyles);
+    someThingStyles.setAttribute('type', 'text/css');
+
+    if (window.ActiveXObject) {
+      someThingStyles.styleSheet.cssText = cssText;
+    } else {
+      someThingStyles.textContent = cssText;
+    }
+  }
+
+  function addScopedAttrStatic(vdom, attr) {
+    if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
+    }
+  }
+
+  function addStyleToHead(style, attr) {
+    if (options.scopedStyle) {
+      if (!options.staticStyleMapping[attr]) {
+        addStyle(scoper(style, attr), attr);
+        options.staticStyleMapping[attr] = true;
+      }
+    } else if (!options.staticStyleMapping[attr]) {
+      addStyleWithoutId(style);
+      options.staticStyleMapping[attr] = true;
+    }
+  }
+
+  function scopeVdom(attr, vdom) {
+    if (typeof vdom === 'object') {
+      vdom.attributes = vdom.attributes || {};
+      vdom.attributes[attr] = '';
+      vdom.css = vdom.css || {};
+      vdom.css[attr] = '';
+      vdom.children.forEach(function (child) {
+        return scopeVdom(attr, child);
+      });
+    }
+  }
+
+  function scopeHost(vdom, css) {
+    if (typeof vdom === 'object' && css) {
+      vdom.attributes = vdom.attributes || {};
+      for (var key in css) {
+        vdom.attributes[key] = '';
+      }
+    }
+  }
+
   /** Queue of components that have been mounted and are awaiting componentDidMount */
   var mounts = [];
 
@@ -599,8 +794,10 @@
     var c = void 0;
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
-      if (c.componentDidMount) c.componentDidMount();
       if (c.installed) c.installed();
+      if (c.constructor.css || c.css) {
+        addStyleToHead(c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
+      }
     }
   }
 
@@ -619,9 +816,16 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
+    var ret = void 0;
 
-    var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    if (isArray(vnode)) {
+      vnode = {
+        nodeName: 'span',
+        children: vnode
+      };
+    }
 
+    ret = idiff(dom, vnode, context, mountAll, componentRoot);
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
@@ -649,6 +853,9 @@
       vnode.nodeName = options.mapping[vnodeName];
       return buildComponentFromVNode(dom, vnode, context, mountAll);
     }
+    if (typeof vnodeName == 'function') {
+      return buildComponentFromVNode(dom, vnode, context, mountAll);
+    }
 
     // Fast case: Strings & Numbers create/update Text nodes.
     if (typeof vnode === 'string' || typeof vnode === 'number') {
@@ -667,7 +874,10 @@
         }
       }
 
-      out[ATTR_KEY] = true;
+      //ie8 error
+      try {
+        out[ATTR_KEY] = true;
+      } catch (e) {}
 
       return out;
     }
@@ -828,7 +1038,7 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
+      if (node[ATTR_KEY] != null) applyRef(node[ATTR_KEY].ref, null);
 
       if (unmountOnly === false || node[ATTR_KEY] == null) {
         removeNode(node);
@@ -874,6 +1084,184 @@
     }
   }
 
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var OBJECTTYPE = '[object Object]';
+  var ARRAYTYPE = '[object Array]';
+
+  function define(name, ctor) {
+    if (ctor.is === 'WeElement') {
+      options.mapping[name] = ctor;
+      if (ctor.use) {
+        ctor.updatePath = getPath(ctor.use);
+      }
+    } else {
+      var _class, _temp;
+
+      var depPaths = void 0;
+      var config = {};
+      var len = arguments.length;
+      if (len === 3) {
+        if (typeof arguments[1] === 'function') {
+          ctor = arguments[1];
+          config = arguments[2];
+        } else {
+          depPaths = arguments[1];
+          ctor = arguments[2];
+        }
+      } else if (len === 4) {
+        depPaths = arguments[1];
+        ctor = arguments[2];
+        config = arguments[3];
+      }
+      if (typeof config === 'string') {
+        config = { css: config };
+      }
+
+      var Comp = (_temp = _class = function (_Component) {
+        _inherits(Comp, _Component);
+
+        function Comp() {
+          _classCallCheck(this, Comp);
+
+          return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+        }
+
+        Comp.prototype.render = function render() {
+          return ctor.call(this, this);
+        };
+
+        Comp.prototype.install = function install() {
+          config.install && config.install.apply(this, arguments);
+        };
+
+        Comp.prototype.installed = function installed() {
+          config.installed && config.installed.apply(this, arguments);
+        };
+
+        Comp.prototype.uninstall = function uninstall() {
+          config.uninstall && config.uninstall.apply(this, arguments);
+        };
+
+        Comp.prototype.beforeUpdate = function beforeUpdate() {
+          config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
+        };
+
+        Comp.prototype.updated = function updated() {
+          config.updated && config.updated.apply(this, arguments);
+        };
+
+        Comp.prototype.beforeRender = function beforeRender() {
+          config.beforeRender && config.beforeRender.apply(this, arguments);
+        };
+
+        Comp.prototype.rendered = function rendered() {
+          config.rendered && config.rendered.apply(this, arguments);
+        };
+
+        Comp.prototype.receiveProps = function receiveProps() {
+          if (config.receiveProps) {
+            return config.receiveProps.apply(this, arguments);
+          }
+        };
+
+        return Comp;
+      }(Component), _class.use = depPaths, _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp);
+
+
+      if (config.use) {
+        if (typeof config.use === 'function') {
+          Comp.prototype.use = function () {
+            return config.use.apply(this, arguments);
+          };
+        } else {
+          Comp.use = config.use;
+        }
+      }
+
+      if (Comp.use) {
+        Comp.updatePath = getPath(Comp.use);
+      }
+
+      options.mapping[name] = Comp;
+    }
+  }
+
+  function getPath(obj) {
+    if (Object.prototype.toString.call(obj) === '[object Array]') {
+      var result = {};
+      obj.forEach(function (item) {
+        if (typeof item === 'string') {
+          result[item] = true;
+        } else {
+          var tempPath = item[Object.keys(item)[0]];
+          if (typeof tempPath === 'string') {
+            result[tempPath] = true;
+          } else {
+            if (typeof tempPath[0] === 'string') {
+              result[tempPath[0]] = true;
+            } else {
+              tempPath[0].forEach(function (path) {
+                return result[path] = true;
+              });
+            }
+          }
+        }
+      });
+      return result;
+    } else {
+      return getUpdatePath(obj);
+    }
+  }
+
+  function getUpdatePath(data) {
+    var result = {};
+    dataToPath(data, result);
+    return result;
+  }
+
+  function dataToPath(data, result) {
+    Object.keys(data).forEach(function (key) {
+      result[key] = true;
+      var type = Object.prototype.toString.call(data[key]);
+      if (type === OBJECTTYPE) {
+        _objToPath(data[key], key, result);
+      } else if (type === ARRAYTYPE) {
+        _arrayToPath(data[key], key, result);
+      }
+    });
+  }
+
+  function _objToPath(data, path, result) {
+    Object.keys(data).forEach(function (key) {
+      result[path + '.' + key] = true;
+      delete result[path];
+      var type = Object.prototype.toString.call(data[key]);
+      if (type === OBJECTTYPE) {
+        _objToPath(data[key], path + '.' + key, result);
+      } else if (type === ARRAYTYPE) {
+        _arrayToPath(data[key], path + '.' + key, result);
+      }
+    });
+  }
+
+  function _arrayToPath(data, path, result) {
+    data.forEach(function (item, index) {
+      result[path + '[' + index + ']'] = true;
+      delete result[path];
+      var type = Object.prototype.toString.call(item);
+      if (type === OBJECTTYPE) {
+        _objToPath(item, path + '[' + index + ']', result);
+      } else if (type === ARRAYTYPE) {
+        _arrayToPath(item, path + '[' + index + ']', result);
+      }
+    });
+  }
+
   /** Retains a pool of Components for re-use, keyed on component name.
    *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
    *	@private
@@ -886,7 +1274,7 @@
   }
 
   /** Create a component. Normalizes differences between PFC's and classful Components. */
-  function createComponent(Ctor, props, context) {
+  function createComponent(Ctor, props, context, vnode) {
     var list = components[Ctor.name],
         inst = void 0;
 
@@ -898,9 +1286,18 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    inst.store = options.store;
-    if (window && window.Omi) {
-      window.Omi.instances.push(inst);
+    vnode && (inst.scopedCssAttr = vnode.css);
+
+    if (inst.store && inst.store.data) {
+      if (inst.constructor.use) {
+        inst.using = getUse(inst.store.data, inst.constructor.use);
+        inst.store.instances.push(inst);
+      } else if (inst.use) {
+        var use = inst.use();
+        inst._updatePath = getPath(use);
+        inst.using = getUse(inst.store.data, use);
+        inst.store.instances.push(inst);
+      }
     }
 
     if (list) {
@@ -916,304 +1313,223 @@
   }
 
   /** The `.render()` method for a PFC backing instance. */
-  function doRender(props, state, context) {
+  function doRender(props, data, context) {
     return this.constructor(props, context);
   }
 
-  var styleId = 0;
-
-  function getCtorName(ctor) {
-    for (var i = 0, len = options.styleCache.length; i < len; i++) {
-      var item = options.styleCache[i];
-
-      if (item.ctor === ctor) {
-        return item.attrName;
-      }
-    }
-
-    var attrName = 'static_' + styleId;
-    options.styleCache.push({ ctor: ctor, attrName: attrName });
-    styleId++;
-
-    return attrName;
-  }
-
-  // many thanks to https://github.com/thomaspark/scoper/
-  function scoper(css, prefix) {
-    prefix = '[' + prefix.toLowerCase() + ']';
-    // https://www.w3.org/TR/css-syntax-3/#lexical
-    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
-    // eslint-disable-next-line
-    var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
-    /**
-     * Example:
-     *
-     * .classname::pesudo { color:red }
-     *
-     * g1 is normal selector `.classname`
-     * g2 is pesudo class or pesudo element
-     * g3 is the suffix
-     */
-    css = css.replace(re, function (g0, g1, g2, g3) {
-      if (typeof g2 === 'undefined') {
-        g2 = '';
-      }
-
-      /* eslint-ignore-next-line */
-      if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
-        return g1 + g2 + g3;
-      }
-
-      var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-      //let prependClass = prefix + ' ' + g1.trim() + g2;
-
-      return appendClass + g3;
-      //return appendClass + ',' + prependClass + g3;
-    });
-
-    return css;
-  }
-
-  function addStyle(cssText, id) {
-    id = id.toLowerCase();
-    var ele = document.getElementById(id);
-    var head = document.getElementsByTagName('head')[0];
-    if (ele && ele.parentNode === head) {
-      head.removeChild(ele);
-    }
-
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-    someThingStyles.setAttribute('id', id);
-    if (window.ActiveXObject) {
-      someThingStyles.styleSheet.cssText = cssText;
-    } else {
-      someThingStyles.textContent = cssText;
-    }
-  }
-
-  function addStyleWithoutId(cssText) {
-    var head = document.getElementsByTagName('head')[0];
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-
-    if (window.ActiveXObject) {
-      someThingStyles.styleSheet.cssText = cssText;
-    } else {
-      someThingStyles.textContent = cssText;
-    }
-  }
-
-  function addScopedAttr(vdom, style, attr, component) {
-    if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
-      style = scoper(style, attr);
-      if (style !== component._preStyle) {
-        addStyle(style, attr);
-      }
-    } else if (style !== component._preStyle) {
-      addStyleWithoutId(style);
-    }
-    component._preStyle = style;
-  }
-
-  function addScopedAttrStatic(vdom, style, attr) {
-    if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
-      if (!options.staticStyleMapping[attr]) {
-        addStyle(scoper(style, attr), attr);
-        options.staticStyleMapping[attr] = true;
-      }
-    } else if (!options.staticStyleMapping[attr]) {
-      addStyleWithoutId(style);
-      options.staticStyleMapping[attr] = true;
-    }
-  }
-
-  function scopeVdom(attr, vdom) {
-    if (typeof vdom !== 'string') {
-      vdom.attributes = vdom.attributes || {};
-      vdom.attributes[attr] = '';
-      vdom.children.forEach(function (child) {
-        return scopeVdom(attr, child);
-      });
-    }
-  }
-
-  /* obaa 1.0.0
+  /* 
+   * obaa 2.0.3
    * By dntzhang
-   * Github: https://github.com/Tencent/omi
+   * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
    * MIT Licensed.
    */
 
-  var obaa = function obaa(target, arr, callback) {
-    var _observe = function _observe(target, arr, callback) {
-      if (!target.$observer) target.$observer = this;
-      var $observer = target.$observer;
-      var eventPropArr = [];
-      if (obaa.isArray(target)) {
-        if (target.length === 0) {
-          target.$observeProps = {};
-          target.$observeProps.$observerPath = '#';
-        }
-        $observer.mock(target);
+  // $_r_: root
+  // $_c_: prop change callback
+  // $_p_: path
+
+  function obaa(target, arr, callback) {
+
+    var eventPropArr = [];
+    if (isArray$1(target)) {
+      if (target.length === 0) {
+        target.$_o_ = {
+          $_r_: target,
+          $_p_: '#'
+        };
       }
-      for (var prop in target) {
-        if (target.hasOwnProperty(prop)) {
-          if (callback) {
-            if (obaa.isArray(arr) && obaa.isInArray(arr, prop)) {
-              eventPropArr.push(prop);
-              $observer.watch(target, prop);
-            } else if (obaa.isString(arr) && prop == arr) {
-              eventPropArr.push(prop);
-              $observer.watch(target, prop);
-            }
-          } else {
+      mock(target, target);
+    }
+    for (var prop in target) {
+      if (target.hasOwnProperty(prop)) {
+        if (callback) {
+          if (isArray$1(arr) && isInArray(arr, prop)) {
             eventPropArr.push(prop);
-            $observer.watch(target, prop);
+            watch(target, prop, null, target);
+          } else if (isString(arr) && prop == arr) {
+            eventPropArr.push(prop);
+            watch(target, prop, null, target);
           }
-        }
-      }
-      $observer.target = target;
-      if (!$observer.propertyChangedHandler) $observer.propertyChangedHandler = [];
-      var propChanged = callback ? callback : arr;
-      $observer.propertyChangedHandler.push({
-        all: !callback,
-        propChanged: propChanged,
-        eventPropArr: eventPropArr
-      });
-    };
-    _observe.prototype = {
-      onPropertyChanged: function onPropertyChanged(prop, value, oldValue, target, path) {
-        if (value !== oldValue && this.propertyChangedHandler) {
-          var rootName = obaa._getRootName(prop, path);
-          for (var i = 0, len = this.propertyChangedHandler.length; i < len; i++) {
-            var handler = this.propertyChangedHandler[i];
-            if (handler.all || obaa.isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
-              handler.propChanged.call(this.target, prop, value, oldValue, path);
-            }
-          }
-        }
-        if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
-          this.watch(target, prop, target.$observeProps.$observerPath);
-        }
-      },
-      mock: function mock(target) {
-        var self = this;
-        obaa.methods.forEach(function (item) {
-          target[item] = function () {
-            var old = Array.prototype.slice.call(this, 0);
-            var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
-            if (new RegExp('\\b' + item + '\\b').test(obaa.triggerStr)) {
-              for (var cprop in this) {
-                if (this.hasOwnProperty(cprop) && !obaa.isFunction(this[cprop])) {
-                  self.watch(this, cprop, this.$observeProps.$observerPath);
-                }
-              }
-              //todo
-              self.onPropertyChanged('Array-' + item, this, old, this, this.$observeProps.$observerPath);
-            }
-            return result;
-          };
-          target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function () {
-            return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
-          };
-        });
-      },
-      watch: function watch(target, prop, path) {
-        if (prop === '$observeProps' || prop === '$observer') return;
-        if (obaa.isFunction(target[prop])) return;
-        if (!target.$observeProps) target.$observeProps = {};
-        if (path !== undefined) {
-          target.$observeProps.$observerPath = path;
         } else {
-          target.$observeProps.$observerPath = '#';
+          eventPropArr.push(prop);
+          watch(target, prop, null, target);
         }
-        var self = this;
-        var currentValue = target.$observeProps[prop] = target[prop];
-        Object.defineProperty(target, prop, {
-          get: function get() {
-            return this.$observeProps[prop];
-          },
-          set: function set(value) {
-            var old = this.$observeProps[prop];
-            this.$observeProps[prop] = value;
-            self.onPropertyChanged(prop, value, old, this, target.$observeProps.$observerPath);
-          }
-        });
-        if (typeof currentValue == 'object') {
-          if (obaa.isArray(currentValue)) {
-            this.mock(currentValue);
-            if (currentValue.length === 0) {
-              if (!currentValue.$observeProps) currentValue.$observeProps = {};
-              if (path !== undefined) {
-                currentValue.$observeProps.$observerPath = path;
-              } else {
-                currentValue.$observeProps.$observerPath = '#';
-              }
+      }
+    }
+    if (!target.$_c_) {
+      target.$_c_ = [];
+    }
+    var propChanged = callback ? callback : arr;
+    target.$_c_.push({
+      all: !callback,
+      propChanged: propChanged,
+      eventPropArr: eventPropArr
+    });
+  }
+
+  var triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+
+  var methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
+
+  function mock(target, root) {
+    methods.forEach(function (item) {
+      target[item] = function () {
+        var old = Array.prototype.slice.call(this, 0);
+        var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+        if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
+          for (var cprop in this) {
+            if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
+              watch(this, cprop, this.$_o_.$_p_, root);
             }
           }
-          for (var cprop in currentValue) {
-            if (currentValue.hasOwnProperty(cprop)) {
-              this.watch(currentValue, cprop, target.$observeProps.$observerPath + '-' + prop);
-            }
+          //todo
+          onPropertyChanged('Array-' + item, this, old, this, this.$_o_.$_p_, root);
+        }
+        return result;
+      };
+      target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function () {
+        return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+      };
+    });
+  }
+
+  function watch(target, prop, path, root) {
+    if (prop === '$_o_') return;
+    if (isFunction(target[prop])) return;
+    if (!target.$_o_) target.$_o_ = {
+      $_r_: root
+    };
+    if (path !== undefined && path !== null) {
+      target.$_o_.$_p_ = path;
+    } else {
+      target.$_o_.$_p_ = '#';
+    }
+
+    var currentValue = target.$_o_[prop] = target[prop];
+    Object.defineProperty(target, prop, {
+      get: function get() {
+        return this.$_o_[prop];
+      },
+      set: function set(value) {
+        var old = this.$_o_[prop];
+        this.$_o_[prop] = value;
+        onPropertyChanged(prop, value, old, this, target.$_o_.$_p_, root);
+      },
+      configurable: true,
+      enumerable: true
+    });
+    if (typeof currentValue == 'object') {
+      if (isArray$1(currentValue)) {
+        mock(currentValue, root);
+        if (currentValue.length === 0) {
+          if (!currentValue.$_o_) currentValue.$_o_ = {};
+          if (path !== undefined && path !== null) {
+            currentValue.$_o_.$_p_ = path + '-' + prop;
+          } else {
+            currentValue.$_o_.$_p_ = '#' + '-' + prop;
           }
         }
       }
-    };
-    return new _observe(target, arr, callback);
-  };
+      for (var cprop in currentValue) {
+        if (currentValue.hasOwnProperty(cprop)) {
+          watch(currentValue, cprop, target.$_o_.$_p_ + '-' + prop, root);
+        }
+      }
+    }
+  }
 
-  obaa.methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
-  obaa.triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+  function onPropertyChanged(prop, value, oldValue, target, path, root) {
+    if (value !== oldValue && !(nan(value) && nan(oldValue)) && root.$_c_) {
+      var rootName = getRootName(prop, path);
+      for (var i = 0, len = root.$_c_.length; i < len; i++) {
+        var handler = root.$_c_[i];
+        if (handler.all || isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
+          handler.propChanged.call(target, prop, value, oldValue, path);
+        }
+      }
+    }
 
-  obaa.isArray = function (obj) {
+    if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
+      watch(target, prop, target.$_o_.$_p_, root);
+    }
+  }
+
+  function isFunction(obj) {
+    return Object.prototype.toString.call(obj) == '[object Function]';
+  }
+
+  function isArray$1(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
-  };
+  }
 
-  obaa.isString = function (obj) {
+  function isString(obj) {
     return typeof obj === 'string';
-  };
+  }
 
-  obaa.isInArray = function (arr, item) {
+  function isInArray(arr, item) {
     for (var i = arr.length; --i > -1;) {
       if (item === arr[i]) return true;
     }
     return false;
-  };
+  }
 
-  obaa.isFunction = function (obj) {
-    return Object.prototype.toString.call(obj) == '[object Function]';
-  };
+  function nan(value) {
+    return typeof value === "number" && isNaN(value);
+  }
 
-  obaa._getRootName = function (prop, path) {
+  function getRootName(prop, path) {
     if (path === '#') {
       return prop;
     }
     return path.split('-')[1];
-  };
+  }
 
   obaa.add = function (obj, prop) {
-    var $observer = obj.$observer;
-    $observer.watch(obj, prop);
+    watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
   };
 
-  obaa.set = function (obj, prop, value, exec) {
-    if (!exec) {
-      obj[prop] = value;
-    }
-    var $observer = obj.$observer;
-    $observer.watch(obj, prop);
-    if (exec) {
-      obj[prop] = value;
-    }
+  obaa.set = function (obj, prop, value) {
+    watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+    obj[prop] = value;
   };
 
   Array.prototype.size = function (length) {
     this.length = length;
   };
+
+  var callbacks = [];
+  var nextTickCallback = [];
+
+  function fireTick() {
+    callbacks.forEach(function (item) {
+      item.fn.call(item.scope);
+    });
+
+    nextTickCallback.forEach(function (nextItem) {
+      nextItem.fn.call(nextItem.scope);
+    });
+    nextTickCallback.length = 0;
+  }
+
+  function proxyUpdate(ele) {
+    var timeout = null;
+    obaa(ele.data, function () {
+      if (ele._willUpdate) {
+        return;
+      }
+      if (ele.constructor.mergeUpdate) {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function () {
+          ele.update();
+          fireTick();
+        }, 0);
+      } else {
+        ele.update();
+        fireTick();
+      }
+    });
+  }
 
   /** Set a component's `props` (generally derived from JSX attributes).
    *	@param {Object} props
@@ -1229,15 +1545,11 @@
     if (component.__key = props.key) delete props.key;
 
     if (!component.base || mountAll) {
-      if (component.componentWillMount) component.componentWillMount();
+      if (component.beforeInstall) component.beforeInstall();
       if (component.install) component.install();
       if (component.constructor.observe) {
-        obaa(component.data, function () {
-          component.update();
-        });
+        proxyUpdate(component);
       }
-    } else if (component.componentWillReceiveProps) {
-      component.componentWillReceiveProps(props, context);
     }
 
     if (context && context !== component.context) {
@@ -1258,7 +1570,32 @@
       }
     }
 
-    if (component.__ref) component.__ref(component);
+    applyRef(component.__ref, component);
+  }
+
+  function shallowComparison(old, attrs) {
+    var name = void 0;
+
+    for (name in old) {
+      if (attrs[name] == null && old[name] != null) {
+        return true;
+      }
+    }
+
+    if (old.children.length > 0 || attrs.children.length > 0) {
+      return true;
+    }
+
+    for (name in attrs) {
+      if (name != 'children') {
+        var type = typeof attrs[name];
+        if (type == 'function' || type == 'object') {
+          return true;
+        } else if (attrs[name] != old[name]) {
+          return true;
+        }
+      }
+    }
   }
 
   /** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
@@ -1271,10 +1608,10 @@
     if (component._disable) return;
 
     var props = component.props,
-        state = component.state,
+        data = component.data,
         context = component.context,
         previousProps = component.prevProps || props,
-        previousState = component.prevState || state,
+        previousState = component.prevState || data,
         previousContext = component.prevContext || context,
         isUpdate = component.base,
         nextBase = component.nextBase,
@@ -1288,33 +1625,41 @@
     // if updating
     if (isUpdate) {
       component.props = previousProps;
-      component.state = previousState;
+      component.data = previousState;
       component.context = previousContext;
-      if (opts !== FORCE_RENDER && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+      if (component.store || opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
+        var receiveResult = true;
+        if (component.receiveProps) {
+          receiveResult = component.receiveProps(props, previousProps);
+        }
+        if (receiveResult !== false) {
+          skip = false;
+          if (component.beforeUpdate) {
+            component.beforeUpdate(props, data, context);
+          }
+        } else {
+          skip = true;
+        }
+      } else {
         skip = true;
-      } else if (component.componentWillUpdate) {
-        component.componentWillUpdate(props, state, context);
-      } else if (component.beforeUpdate) {
-        component.beforeUpdate(props, state, context);
       }
       component.props = props;
-      component.state = state;
+      component.data = data;
       component.context = context;
     }
 
     component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
 
     if (!skip) {
-      rendered = component.render(props, state, context);
+      component.beforeRender && component.beforeRender();
+      rendered = component.render(props, data, context);
 
       //don't rerender
-      if (component.staticCss) {
-        addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
+      if (component.constructor.css || component.css) {
+        addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
       }
 
-      if (component.css) {
-        addScopedAttr(rendered, component.css(), '_style_' + component._id, component);
-      }
+      scopeHost(rendered, component.scopedCssAttr);
 
       // context to pass to the child, can be updated via (grand-)parent component
       if (component.getChildContext) {
@@ -1396,11 +1741,12 @@
       // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
       // flushMounts();
 
-      if (component.componentDidUpdate) {
-        component.componentDidUpdate(previousProps, previousState, previousContext);
-      }
       if (component.afterUpdate) {
+        //deprecated
         component.afterUpdate(previousProps, previousState, previousContext);
+      }
+      if (component.updated) {
+        component.updated(previousProps, previousState, previousContext);
       }
       if (options.afterUpdate) options.afterUpdate(component);
     }
@@ -1440,7 +1786,7 @@
         dom = oldDom = null;
       }
 
-      c = createComponent(vnode.nodeName, props, context);
+      c = createComponent(vnode.nodeName, props, context, vnode);
       if (dom && !c.nextBase) {
         c.nextBase = dom;
         // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
@@ -1469,8 +1815,16 @@
 
     component._disable = true;
 
-    if (component.componentWillUnmount) component.componentWillUnmount();
     if (component.uninstall) component.uninstall();
+
+    if (component.store && component.store.instances) {
+      for (var i = 0, len = component.store.instances.length; i < len; i++) {
+        if (component.store.instances[i] === component) {
+          component.store.instances.splice(i, 1);
+          break;
+        }
+      }
+    }
 
     component.base = null;
 
@@ -1479,7 +1833,7 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base[ATTR_KEY] && base[ATTR_KEY].ref) base[ATTR_KEY].ref(null);
+      if (base[ATTR_KEY] != null) applyRef(base[ATTR_KEY].ref, null);
 
       component.nextBase = base;
 
@@ -1489,213 +1843,575 @@
       removeChildren(base);
     }
 
-    if (component.__ref) component.__ref(null);
+    applyRef(component.__ref, null);
   }
+
+  var _class, _temp;
+
+  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var id = 0;
-  function getId() {
-    return id++;
-  }
-  /** Base Component class.
-   *	Provides `setState()` and `forceUpdate()`, which trigger rendering.
-   *	@public
-   *
-   *	@example
-   *	class MyFoo extends Component {
-   *		render(props, state) {
-   *			return <div />;
-   *		}
-   *	}
-   */
-  function Component(props, context) {
-    /** @public
-     *	@type {object}
-     */
-    this.context = context;
 
-    /** @public
-     *	@type {object}
-     */
-    this.props = props;
+  var Component = (_temp = _class = function () {
+    function Component(props, store) {
+      _classCallCheck$1(this, Component);
 
-    /** @public
-     *	@type {object}
-     */
-    this.state = this.state || {};
+      this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+      this.elementId = id++;
+      this.data = this.constructor.data || this.data || {};
 
-    this._id = getId();
+      this._preCss = null;
 
-    this._preStyle = null;
+      this.store = store;
+    }
 
-    this.store = null;
-  }
-
-  Component.is = 'WeElement';
-
-  extend(Component.prototype, {
-    /** Returns a `boolean` indicating if the component should re-render when receiving the given `props` and `state`.
-     *	@param {object} nextProps
-     *	@param {object} nextState
-     *	@param {object} nextContext
-     *	@returns {Boolean} should the component re-render
-     *	@name shouldComponentUpdate
-     *	@function
-     */
-
-    /** Update component state by copying properties from `state` to `this.state`.
-     *	@param {object} state		A hash of state properties to update with new values
-     *	@param {function} callback	A function to be called once component state is updated
-     */
-    setState: function setState(state, callback) {
-      var s = this.state;
-      if (!this.prevState) this.prevState = extend({}, s);
-      extend(s, typeof state === 'function' ? state(s, this.props) : state);
-      if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-      enqueueRender(this);
-    },
-
-
-    /** Immediately perform a synchronous re-render of the component.
-     *	@param {function} callback		A function to be called after component is re-rendered.
-     *	@private
-     */
-    forceUpdate: function forceUpdate(callback) {
+    Component.prototype.update = function update(callback) {
+      this._willUpdate = true;
       if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
       renderComponent(this, FORCE_RENDER);
       if (options.componentChange) options.componentChange(this, this.base);
-    },
-    update: function update(callback) {
-      this.forceUpdate(callback);
-    },
+      this._willUpdate = false;
+    };
 
+    Component.prototype.fire = function fire(type, data) {
+      var _this = this;
 
-    /** Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
-     *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
-     *	@param {object} props		Props (eg: JSX attributes) received from parent element/component
-     *	@param {object} state		The component's current state
-     *	@param {object} context		Context object (if a parent component has provided context)
-     *	@returns VNode
-     */
-    render: function render() {}
-  });
+      Object.keys(this.props).every(function (key) {
+        if ('on' + type.toLowerCase() === key.toLowerCase()) {
+          _this.props[key]({ detail: data });
+          return false;
+        }
+        return true;
+      });
+    };
+
+    Component.prototype.render = function render() {};
+
+    return Component;
+  }(), _class.is = 'WeElement', _temp);
 
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
    *	@param {Element} parent		DOM element to render into
-   *	@param {Element} [merge]	Attempt to re-use an existing DOM tree rooted at `merge`
+   *	@param {object} [store]
    *	@public
-   *
-   *	@example
-   *	// render a div into <body>:
-   *	render(<div id="hello">hello!</div>, document.body);
-   *
-   *	@example
-   *	// render a "Thing" component into #foo:
-   *	const Thing = ({ name }) => <span>{ name }</span>;
-   *	render(<Thing name="one" />, document.querySelector('#foo'));
    */
-  function render(vnode, parent, store) {
-
+  function render(vnode, parent, store, empty, merge) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    obsStore(store);
 
-    if (store && store.merge) {
-      store.merge = typeof store.merge === 'string' ? document.querySelector(store.merge) : store.merge;
-    }
-
-    options.store = store;
-
-    return diff(store && store.merge, vnode, {}, false, parent, false);
-  }
-
-  var OBJECTTYPE = '[object Object]';
-  var ARRAYTYPE = '[object Array]';
-
-  function define(name, ctor) {
-    if (ctor.is === 'WeElement') {
-      options.mapping[name] = ctor;
-      if (ctor.data && !ctor.pure) {
-        ctor.updatePath = getUpdatePath(ctor.data);
+    if (empty) {
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
       }
     }
+
+    if (merge) {
+      merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
+    }
+
+    return diff(merge, vnode, store, false, parent, false);
   }
 
-  function getUpdatePath(data) {
-    var result = {};
-    dataToPath(data, result);
-    return result;
+  function obsStore(store) {
+    if (store && store.data) {
+      store.instances = [];
+      extendStoreUpate(store);
+
+      obaa(store.data, function (prop, val, old, path) {
+        var patchs = {};
+        var key = fixPath(path + '-' + prop);
+        patchs[key] = true;
+        store.update(patchs);
+      });
+    }
   }
 
-  function dataToPath(data, result) {
-    Object.keys(data).forEach(function (key) {
-      result[key] = true;
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === OBJECTTYPE) {
-        _objToPath(data[key], key, result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(data[key], key, result);
+  function merge(vnode, merge, store) {
+    obsStore(store);
+
+    merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
+
+    return diff(merge, vnode, store);
+  }
+
+  function extendStoreUpate(store) {
+    store.update = function (patch) {
+      var _this = this;
+
+      var updateAll = matchGlobalData(this.globalData, patch);
+      if (Object.keys(patch).length > 0) {
+        this.instances.forEach(function (instance) {
+          if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
+            //update this.use
+            if (instance.constructor.use) {
+              instance.using = getUse(store.data, instance.constructor.use);
+            } else if (instance.use) {
+              instance.using = getUse(store.data, instance.use());
+            }
+
+            instance.update();
+          }
+        });
+        this.onChange && this.onChange(patch);
       }
+    };
+  }
+
+  function matchGlobalData(globalData, diffResult) {
+    if (!globalData) return false;
+    for (var keyA in diffResult) {
+      if (globalData.indexOf(keyA) > -1) {
+        return true;
+      }
+      for (var i = 0, len = globalData.length; i < len; i++) {
+        if (includePath(keyA, globalData[i])) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function needUpdate(diffResult, updatePath) {
+    for (var keyA in diffResult) {
+      if (updatePath[keyA]) {
+        return true;
+      }
+      for (var keyB in updatePath) {
+        if (includePath(keyA, keyB)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function includePath(pathA, pathB) {
+    if (pathA.indexOf(pathB) === 0) {
+      var next = pathA.substr(pathB.length, 1);
+      if (next === '[' || next === '.') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function fixPath(path) {
+    var mpPath = '';
+    var arr = path.replace('#-', '').split('-');
+    arr.forEach(function (item, index) {
+      if (index) {
+        if (isNaN(Number(item))) {
+          mpPath += '.' + item;
+        } else {
+          mpPath += '[' + item + ']';
+        }
+      } else {
+        mpPath += item;
+      }
+    });
+    return mpPath;
+  }
+
+  function rpx(str) {
+    return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+      return window.innerWidth * Number(b) / 750 + 'px';
     });
   }
 
-  function _objToPath(data, path, result) {
-    Object.keys(data).forEach(function (key) {
-      result[path + '.' + key] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === OBJECTTYPE) {
-        _objToPath(data[key], path + '.' + key, result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(data[key], path + '.' + key, result);
-      }
-    });
+  function tag(name) {
+    return function (target) {
+      define(name, target);
+    };
   }
 
-  function _arrayToPath(data, path, result) {
-    data.forEach(function (item, index) {
-      result[path + '[' + index + ']'] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(item);
-      if (type === OBJECTTYPE) {
-        _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(item, path + '[' + index + ']', result);
+  var _class$1, _temp$1;
+
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var ModelView = (_temp$1 = _class$1 = function (_Component) {
+    _inherits$1(ModelView, _Component);
+
+    function ModelView() {
+      _classCallCheck$2(this, ModelView);
+
+      return _possibleConstructorReturn$1(this, _Component.apply(this, arguments));
+    }
+
+    ModelView.prototype.beforeInstall = function beforeInstall() {
+      this.data = this.vm.data;
+    };
+
+    return ModelView;
+  }(Component), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
+
+  /**
+   * classNames based on https://github.com/JedWatson/classnames
+   * by Jed Watson
+   * Licensed under the MIT License
+   * https://github.com/JedWatson/classnames/blob/master/LICENSE
+   * modified by dntzhang
+   */
+
+  var hasOwn = {}.hasOwnProperty;
+
+  function classNames() {
+    var classes = [];
+
+    for (var i = 0; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (!arg) continue;
+
+      var argType = typeof arg;
+
+      if (argType === 'string' || argType === 'number') {
+        classes.push(arg);
+      } else if (Array.isArray(arg) && arg.length) {
+        var inner = classNames.apply(null, arg);
+        if (inner) {
+          classes.push(inner);
+        }
+      } else if (argType === 'object') {
+        for (var key in arg) {
+          if (hasOwn.call(arg, key) && arg[key]) {
+            classes.push(key);
+          }
+        }
       }
-    });
+    }
+
+    return classes.join(' ');
   }
 
-  var instances = [];
+  function extractClass() {
+    var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
+        props = _Array$prototype$slic[0],
+        args = _Array$prototype$slic.slice(1);
+
+    if (props) {
+      if (props['class']) {
+        args.unshift(props['class']);
+        delete props['class'];
+      } else if (props.className) {
+        args.unshift(props.className);
+        delete props.className;
+      }
+    }
+    if (args.length > 0) {
+      return { 'class': classNames.apply(null, args) };
+    }
+  }
+
+  function getHost(component) {
+    var base = component.base;
+    if (base) {
+      while (base.parentNode) {
+        if (base.parentNode._component) {
+          return base.parentNode._component;
+        } else {
+          base = base.parentNode;
+        }
+      }
+    }
+  }
+
+  /**
+   * preact-render-to-string based on preact-render-to-string
+   * by Jason Miller
+   * Licensed under the MIT License
+   * https://github.com/developit/preact-render-to-string
+   *
+   * modified by dntzhang
+   */
+
+  var encodeEntities = function encodeEntities(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  };
+
+  var indent = function indent(s, char) {
+    return String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+  };
+
+  var mapping$1 = options.mapping;
+
+  var VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+
+  var isLargeString = function isLargeString(s, length, ignoreLines) {
+    return String(s).length > (length || 40) || !ignoreLines && String(s).indexOf('\n') !== -1 || String(s).indexOf('<') !== -1;
+  };
+
+  var JS_TO_CSS = {};
+
+  // Convert an Object style to a CSSText string
+  function styleObjToCss(s) {
+    var str = '';
+    for (var prop in s) {
+      var val = s[prop];
+      if (val != null) {
+        if (str) str += ' ';
+        // str += jsToCss(prop);
+        str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+        str += ': ';
+        str += val;
+        if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
+          str += 'px';
+        }
+        str += ';';
+      }
+    }
+    return str || undefined;
+  }
+
+  function renderToString(vnode, opts, store, isSvgMode) {
+    store = store || {};
+    opts = Object.assign({
+      scopedCSS: true
+    }, opts);
+    var css = {};
+    var html = _renderToString(vnode, opts, store, isSvgMode, css);
+    return {
+      css: Object.values(css),
+      html: html
+    };
+  }
+
+  /** The default export is an alias of `render()`. */
+  function _renderToString(vnode, opts, store, isSvgMode, css) {
+    if (vnode == null || typeof vnode === 'boolean') {
+      return '';
+    }
+
+    var nodeName = vnode.nodeName,
+        attributes = vnode.attributes,
+        isComponent = false;
+
+    var pretty = true && opts.pretty,
+        indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
+
+    // #text nodes
+    if (typeof vnode !== 'object' && !nodeName) {
+      return encodeEntities(vnode);
+    }
+
+    // components
+    var ctor = mapping$1[nodeName];
+    if (ctor) {
+      isComponent = true;
+
+      var props = getNodeProps$1(vnode),
+          rendered = void 0;
+      // class-based components
+      var c = new ctor(props, store);
+      // turn off stateful re-rendering:
+      c._disable = c.__x = true;
+      c.props = props;
+      c.store = store;
+      if (c.install) c.install();
+      if (c.beforeRender) c.beforeRender();
+      rendered = c.render(c.props, c.data, c.store);
+
+      if (opts.scopedCSS) {
+
+        if (c.constructor.css || c.css) {
+
+          var cssStr = c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css;
+          var cssAttr = '_s' + getCtorName(c.constructor);
+          css[cssAttr] = {
+            id: cssAttr,
+            css: scoper(cssStr, cssAttr)
+          };
+          addScopedAttrStatic(rendered, cssAttr);
+        }
+
+        c.scopedCSSAttr = vnode.css;
+        scopeHost(rendered, c.scopedCSSAttr);
+      }
+
+      return _renderToString(rendered, opts, store, false, css);
+    }
+
+    // render JSX to HTML
+    var s = '',
+        html = void 0;
+
+    if (attributes) {
+      var attrs = Object.keys(attributes);
+
+      // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
+      if (opts && opts.sortAttributes === true) attrs.sort();
+
+      for (var i = 0; i < attrs.length; i++) {
+        var name = attrs[i],
+            v = attributes[name];
+        if (name === 'children') continue;
+
+        if (name.match(/[\s\n\\/='"\0<>]/)) continue;
+
+        if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
+
+        if (name === 'className') {
+          if (attributes['class']) continue;
+          name = 'class';
+        } else if (isSvgMode && name.match(/^xlink:?./)) {
+          name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
+        }
+
+        if (name === 'style' && v && typeof v === 'object') {
+          v = styleObjToCss(v);
+        }
+
+        var hooked = opts.attributeHook && opts.attributeHook(name, v, store, opts, isComponent);
+        if (hooked || hooked === '') {
+          s += hooked;
+          continue;
+        }
+
+        if (name === 'dangerouslySetInnerHTML') {
+          html = v && v.__html;
+        } else if ((v || v === 0 || v === '') && typeof v !== 'function') {
+          if (v === true || v === '') {
+            v = name;
+            // in non-xml mode, allow boolean attributes
+            if (!opts || !opts.xml) {
+              s += ' ' + name;
+              continue;
+            }
+          }
+          s += ' ' + name + '="' + encodeEntities(v) + '"';
+        }
+      }
+    }
+
+    // account for >1 multiline attribute
+    if (pretty) {
+      var sub = s.replace(/^\n\s*/, ' ');
+      if (sub !== s && !~sub.indexOf('\n')) s = sub;else if (pretty && ~s.indexOf('\n')) s += '\n';
+    }
+
+    s = '<' + nodeName + s + '>';
+    if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s;
+
+    var isVoid = String(nodeName).match(VOID_ELEMENTS);
+    if (isVoid) s = s.replace(/>$/, ' />');
+
+    var pieces = [];
+    if (html) {
+      // if multiline, indent.
+      if (pretty && isLargeString(html)) {
+        html = '\n' + indentChar + indent(html, indentChar);
+      }
+      s += html;
+    } else if (vnode.children) {
+      var hasLarge = pretty && ~s.indexOf('\n');
+      for (var _i = 0; _i < vnode.children.length; _i++) {
+        var child = vnode.children[_i];
+        if (child != null && child !== false) {
+          var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
+              ret = _renderToString(child, opts, store, childSvgMode, css);
+          if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
+          if (ret) pieces.push(ret);
+        }
+      }
+      if (pretty && hasLarge) {
+        for (var _i2 = pieces.length; _i2--;) {
+          pieces[_i2] = '\n' + indentChar + indent(pieces[_i2], indentChar);
+        }
+      }
+    }
+
+    if (pieces.length) {
+      s += pieces.join('');
+    } else if (opts && opts.xml) {
+      return s.substring(0, s.length - 1) + ' />';
+    }
+
+    if (!isVoid) {
+      if (pretty && ~s.indexOf('\n')) s += '\n';
+      s += '</' + nodeName + '>';
+    }
+
+    return s;
+  }
+
+  function assign$1(obj, props) {
+    for (var i in props) {
+      obj[i] = props[i];
+    }return obj;
+  }
+
+  function getNodeProps$1(vnode) {
+    var props = assign$1({}, vnode.attributes);
+    props.children = vnode.children;
+
+    var defaultProps = vnode.nodeName.defaultProps;
+    if (defaultProps !== undefined) {
+      for (var i in defaultProps) {
+        if (props[i] === undefined) {
+          props[i] = defaultProps[i];
+        }
+      }
+    }
+
+    return props;
+  }
+
+  var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p],h="number"==typeof s?u[s]:s,a=r[++p];1===a?e[0]=h:3===a?e[1]=Object.assign(e[1]||{},h):5===a?(e[1]=e[1]||{})[r[++p]]=h:6===a?e[1][r[++p]]+=h+"":e.push(a?t.apply(null,n(t,h,u,["",null])):h);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],h=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,5,e):u>=5&&((e||!n&&5===u)&&(s.push(e,u,r), u=6), n&&(s.push(n,u,r), u=6)), e="";},a=0;a<n.length;a++){a&&(1===u&&h(), h(a));for(var f=0;f<n[a].length;f++)t=n[a][f], 1===u?"<"===t?(h(), s=[s], u=3):e+=t:4===u?"--"===e&&">"===t?(u=1, e=""):e=t+e[0]:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(h(), u=1):u&&("="===t?(u=5, r=e, e=""):"/"===t&&(u<5||">"===n[a][f+1])?(h(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,2), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(h(), u=2):e+=t), 3===u&&"!--"===e&&(u=4, s=s[0]);}return h(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
+
+  var html = htm.bind(h);
+
   var WeElement = Component;
+  var defineElement = define;
+  function createRef() {
+    return {};
+  }
 
   options.root.Omi = {
     h: h,
     createElement: h,
     cloneElement: cloneElement,
+    createRef: createRef,
     Component: Component,
     render: render,
     rerender: rerender,
     options: options,
-    instances: instances,
     WeElement: WeElement,
-    define: define
+    define: define,
+    rpx: rpx,
+    ModelView: ModelView,
+    defineElement: defineElement,
+    classNames: classNames,
+    extractClass: extractClass,
+    getHost: getHost,
+    renderToString: renderToString,
+    tag: tag,
+    merge: merge,
+    html: html,
+    htm: htm,
+    obaa: obaa
   };
+  options.root.omi = options.root.Omi;
+  options.root.Omi.version = 'omio-2.4.1';
 
-  options.root.Omi.version = '3.0.6';
+  var _class$2, _temp$2, _class2, _temp3;
 
-  var _class2, _temp2;
+  function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-  define('todo-list', function (_WeElement) {
-    _inherits(_class, _WeElement);
+  define('todo-list', (_temp$2 = _class$2 = function (_WeElement) {
+    _inherits$2(_class, _WeElement);
 
     function _class() {
-      _classCallCheck(this, _class);
+      _classCallCheck$3(this, _class);
 
-      return _possibleConstructorReturn(this, _WeElement.apply(this, arguments));
+      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
     }
 
     _class.prototype.render = function render$$1(props) {
@@ -1713,24 +2429,25 @@
     };
 
     return _class;
-  }(WeElement));
+  }(WeElement), _class$2.css = 'span{color:red;}', _temp$2));
 
-  define('todo-app', (_temp2 = _class2 = function (_WeElement2) {
-    _inherits(_class2, _WeElement2);
+  define('todo-app', (_temp3 = _class2 = function (_WeElement2) {
+    _inherits$2(_class2, _WeElement2);
 
     function _class2() {
-      var _temp, _this2, _ret;
+      var _temp2, _this2, _ret;
 
-      _classCallCheck(this, _class2);
+      _classCallCheck$3(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.data = { items: [], text: '' }, _this2.handleChange = function (e) {
+      return _ret = (_temp2 = (_this2 = _possibleConstructorReturn$2(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.data = { items: [{ text: 'Omio' }], text: '' }, _this2.handleInput = function (e) {
         _this2.data.text = e.target.value;
       }, _this2.handleSubmit = function (e) {
         e.preventDefault();
+
         if (!_this2.data.text.trim().length) {
           return;
         }
@@ -1739,7 +2456,8 @@
           id: Date.now()
         });
         _this2.data.text = '';
-      }, _temp), _possibleConstructorReturn(_this2, _ret);
+        _this2.update();
+      }, _temp2), _possibleConstructorReturn$2(_this2, _ret);
     }
 
     _class2.prototype.render = function render$$1() {
@@ -1756,8 +2474,7 @@
           'form',
           { onSubmit: this.handleSubmit },
           Omi.h('input', {
-            id: 'new-todo',
-            onChange: this.handleChange,
+            onInput: this.handleInput,
             value: this.data.text
           }),
           Omi.h(
@@ -1771,7 +2488,7 @@
     };
 
     return _class2;
-  }(WeElement), _class2.observe = true, _temp2));
+  }(WeElement), _class2.css = 'span{color:red;}', _temp3));
 
   render(Omi.h('todo-app', null), 'body');
 

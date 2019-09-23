@@ -131,9 +131,9 @@ render(<my-counter />, 'body', new Store)
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
-| **Omi**                         | **React**                           |
-| ------------------------------- | ----------------------------------- |
-| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) |
+| **Omi**                         | **React**                           | **Omio**                           |
+| ------------------------------- | ----------------------------------- |----------------------------------- |
+| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) || ![Omio](https://tencent.github.io/omi/assets/omio.png) |
 
 Omi uses Shadow DOM based style isolation and semantic structure.
 

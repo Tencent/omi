@@ -13,9 +13,7 @@ define('todo-list', class extends WeElement {
 })
 
 define('todo-app', class extends WeElement {
-  static observe = true
-
-  data = { items: [], text: '' }
+  data = { items: [{ text: 'Omio' }], text: '' }
 
   render() {
     return (
@@ -24,8 +22,7 @@ define('todo-app', class extends WeElement {
         <todo-list items={this.data.items} />
         <form onSubmit={this.handleSubmit}>
           <input
-            id="new-todo"
-            onChange={this.handleChange}
+            onInput={this.handleInput}
             value={this.data.text}
           />
           <button>Add #{this.data.items.length + 1}</button>
@@ -34,7 +31,7 @@ define('todo-app', class extends WeElement {
     )
   }
 
-  handleChange = e => {
+  handleInput = e => {
     this.data.text = e.target.value
   }
 
@@ -48,6 +45,7 @@ define('todo-app', class extends WeElement {
       id: Date.now()
     })
     this.data.text = ''
+    this.update()
   }
 })
 

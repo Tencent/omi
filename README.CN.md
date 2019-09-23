@@ -136,9 +136,9 @@ render(<my-counter />, 'body', new Store)
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow DOM 隔离样式和语义化结构:
 
-| **Omi** | **React** |
-|-|-|
-| ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
+| **Omi**                         | **React**                           | **Omio**                           |
+| ------------------------------- | ----------------------------------- |----------------------------------- |
+| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) || ![Omio](https://tencent.github.io/omi/assets/omio.png) |
 
 
 ### TypeScript 智能提示
