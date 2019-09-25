@@ -1,7 +1,6 @@
 import {
   SYNC_RENDER,
   NO_RENDER,
-  FORCE_RENDER,
   ASYNC_RENDER,
   ATTR_KEY
 } from '../constants'
@@ -72,30 +71,6 @@ export function setComponentProps(component, props, opts, context, mountAll) {
   applyRef(component.__ref, component)
 }
 
-function shallowComparison(old, attrs) {
-  let name
-
-  for (name in old) {
-    if (attrs[name] == null && old[name] != null) {
-      return true
-    }
-  }
-
-  if (old.children.length > 0 || attrs.children.length > 0) {
-    return true
-  }
-
-  for (name in attrs) {
-    if (name != 'children') {
-      let type = typeof attrs[name]
-      if (type == 'function' || type == 'object') {
-        return true
-      } else if (attrs[name] != old[name]) {
-        return true
-      }
-    }
-  }
-}
 
 /** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
  *	@param {Component} component
@@ -126,18 +101,15 @@ export function renderComponent(component, opts, mountAll, isChild) {
     component.props = previousProps
     component.data = previousState
     component.context = previousContext
-    if (component.store || opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
-      let receiveResult = true
-      if (component.receiveProps) {
-        receiveResult = component.receiveProps(props, previousProps)
-      }
-      if (receiveResult !== false) {
-        skip = false
-        if (component.beforeUpdate) {
-          component.beforeUpdate(props, data, context)
-        }
-      } else {
-        skip = true
+    
+    let receiveResult = true
+    if (component.receiveProps) {
+      receiveResult = component.receiveProps(props, previousProps)
+    }
+    if (receiveResult !== false) {
+      skip = false
+      if (component.beforeUpdate) {
+        component.beforeUpdate(props, data, context)
       }
     } else {
       skip = true

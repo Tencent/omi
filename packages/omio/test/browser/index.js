@@ -197,7 +197,7 @@ describe('install()', () => {
   })
 
 
-  it('should rerender', () => {
+  it('should rerender a', () => {
 
     let count = 0
     class C2 extends Component {
@@ -228,11 +228,11 @@ describe('install()', () => {
     render(<c3-ele />, scratch)
 
 
-    expect(count).to.equal(1)
+    expect(count).to.equal(2)
   })
 
 
-  it('should rerender', () => {
+  it('should rerender b', () => {
 
     let count = 0
     class C2 extends Component {
@@ -268,7 +268,7 @@ describe('install()', () => {
 
 
 
-  it('should rerender', () => {
+  it('should rerender c', () => {
 
     let count = 0
     class C2 extends Component {
