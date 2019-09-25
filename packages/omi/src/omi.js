@@ -4,11 +4,9 @@ import WeElement from './we-element'
 import { render } from './render'
 import { define } from './define'
 import { tag } from './tag'
-import { observe } from './observe'
 import { cloneElement } from './clone-element'
 import { getHost } from './get-host'
 import { rpx } from './rpx'
-import { tick, nextTick } from './tick'
 import { classNames, extractClass } from './class'
 import { o } from './o'
 import htm from 'htm'
@@ -35,12 +33,9 @@ const omi = {
   createElement,
   options,
   define,
-  observe,
   cloneElement,
   getHost,
   rpx,
-  tick,
-  nextTick,
   defineElement,
   classNames,
   extractClass,
@@ -60,7 +55,7 @@ const omi = {
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.13.0'
+options.root.Omi.version = '6.14.0'
 
 export default omi
 
@@ -73,12 +68,9 @@ export {
   createElement,
   options,
   define,
-  observe,
   cloneElement,
   getHost,
   rpx,
-  tick,
-  nextTick,
   defineElement,
   classNames,
   extractClass,

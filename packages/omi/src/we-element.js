@@ -1,7 +1,6 @@
 import { cssToDom, isArray, getUse, hyphenate, getValByPath } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
-import { proxyUpdate } from './observe'
 import { getPath } from './define'
 
 let id = 0
@@ -15,7 +14,6 @@ export default class WeElement extends HTMLElement {
     	this.constructor.defaultProps
     )
     this.elementId = id++
-    this.data = {}
   }
 
   connectedCallback() {
@@ -71,13 +69,9 @@ export default class WeElement extends HTMLElement {
     }
     this.beforeRender()
     options.afterInstall && options.afterInstall(this)
-    if (this.constructor.observe) {
-      this.beforeObserve()
-      proxyUpdate(this)
-      this.observed()
-    }
+  
 
-    const rendered = this.render(this.props, this.data, this.store)
+    const rendered = this.render(this.props, this.store)
     this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0
 
     this.rootNode = diff(
@@ -130,7 +124,7 @@ export default class WeElement extends HTMLElement {
     }
     this.attrsToProps(ignoreAttrs)
 
-    const rendered = this.render(this.props, this.data, this.store)
+    const rendered = this.render(this.props, this.store)
     this.rendered()
     this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0)
 
@@ -245,7 +239,4 @@ export default class WeElement extends HTMLElement {
 
   receiveProps() { }
 
-  beforeObserve() { }
-
-  observed() { }
 }

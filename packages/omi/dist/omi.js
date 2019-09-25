@@ -324,45 +324,6 @@
         }
         if (isWeElement && !updateSelf && dom.parentNode) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
-    function tick(fn, scope) {
-        callbacks.push({
-            fn: fn,
-            scope: scope
-        });
-    }
-    function fireTick() {
-        callbacks.forEach(function(item) {
-            item.fn.call(item.scope);
-        });
-        nextTickCallback.forEach(function(nextItem) {
-            nextItem.fn.call(nextItem.scope);
-        });
-        nextTickCallback.length = 0;
-    }
-    function nextTick(fn, scope) {
-        nextTickCallback.push({
-            fn: fn,
-            scope: scope
-        });
-    }
-    function observe(target) {
-        target.observe = !0;
-    }
-    function proxyUpdate(ele) {
-        var timeout = null;
-        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function() {
-            if (!ele.J) if (ele.constructor.mergeUpdate) {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    ele.update();
-                    fireTick();
-                }, 0);
-            } else {
-                ele.update();
-                fireTick();
-            }
-        });
-    }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
@@ -694,6 +655,151 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
+    var id = 0;
+    var WeElement = function(_HTMLElement) {
+        function WeElement() {
+            _classCallCheck$1(this, WeElement);
+            var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
+            _this.props = Object.assign({}, _this.constructor.defaultProps);
+            _this.elementId = id++;
+            return _this;
+        }
+        _inherits$1(WeElement, _HTMLElement);
+        WeElement.prototype.connectedCallback = function() {
+            var p = this.parentNode;
+            while (p && !this.store) {
+                this.store = p.store;
+                p = p.parentNode || p.host;
+            }
+            if (this.store) this.store.instances.push(this);
+            if (this.use) {
+                var use;
+                if ('function' == typeof this.use) use = this.use(); else use = this.use;
+                this.M = getPath(use);
+                this.using = getUse(this.store.data, use);
+            } else this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
+            if (this.useSelf) {
+                var _use = 'function' == typeof this.useSelf ? this.useSelf() : this.useSelf;
+                this.R = getPath(_use);
+                this.usingSelf = getUse(this.store.data, _use);
+            }
+            this.attrsToProps();
+            this.beforeInstall();
+            this.install();
+            this.afterInstall();
+            var shadowRoot;
+            if (!this.shadowRoot) shadowRoot = this.attachShadow({
+                mode: 'open'
+            }); else {
+                shadowRoot = this.shadowRoot;
+                var fc;
+                while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
+            }
+            if (this.constructor.css) shadowRoot.appendChild(cssToDom(this.constructor.css)); else if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
+            this.beforeRender();
+            options.afterInstall && options.afterInstall(this);
+            var rendered = this.render(this.props, this.store);
+            this.P = '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
+            this.rootNode = diff(null, rendered, null, this);
+            this.rendered();
+            if (this.props.css) {
+                this.N = cssToDom(this.props.css);
+                this.O = this.props.css;
+                shadowRoot.appendChild(this.N);
+            }
+            if (isArray(this.rootNode)) this.rootNode.forEach(function(item) {
+                shadowRoot.appendChild(item);
+            }); else shadowRoot.appendChild(this.rootNode);
+            this.installed();
+            this.B = !0;
+        };
+        WeElement.prototype.disconnectedCallback = function() {
+            this.uninstall();
+            this.B = !1;
+            if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
+                this.store.instances.splice(i, 1);
+                break;
+            }
+        };
+        WeElement.prototype.update = function(ignoreAttrs, updateSelf) {
+            this.J = !0;
+            this.beforeUpdate();
+            this.beforeRender();
+            if (this.O != this.props.css) {
+                this.O = this.props.css;
+                this.N.textContent = this.O;
+            }
+            this.attrsToProps(ignoreAttrs);
+            var rendered = this.render(this.props, this.store);
+            this.rendered();
+            this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
+            this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
+            this.J = !1;
+            this.updated();
+        };
+        WeElement.prototype.updateSelf = function(ignoreAttrs) {
+            this.update(ignoreAttrs, !0);
+        };
+        WeElement.prototype.removeAttribute = function(key) {
+            _HTMLElement.prototype.removeAttribute.call(this, key);
+            this.B && this.update();
+        };
+        WeElement.prototype.setAttribute = function(key, val) {
+            if (val && 'object' == typeof val) _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val)); else _HTMLElement.prototype.setAttribute.call(this, key, val);
+            this.B && this.update();
+        };
+        WeElement.prototype.pureRemoveAttribute = function(key) {
+            _HTMLElement.prototype.removeAttribute.call(this, key);
+        };
+        WeElement.prototype.pureSetAttribute = function(key, val) {
+            _HTMLElement.prototype.setAttribute.call(this, key, val);
+        };
+        WeElement.prototype.attrsToProps = function(ignoreAttrs) {
+            var ele = this;
+            if (!ele.normalizedNodeName && !ignoreAttrs) {
+                ele.props.css = ele.getAttribute('css');
+                var attrs = this.constructor.propTypes;
+                if (attrs) Object.keys(attrs).forEach(function(key) {
+                    var type = attrs[key];
+                    var val = ele.getAttribute(hyphenate(key));
+                    if (null !== val) switch (type) {
+                      case String:
+                        ele.props[key] = val;
+                        break;
+
+                      case Number:
+                        ele.props[key] = Number(val);
+                        break;
+
+                      case Boolean:
+                        if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
+                        break;
+
+                      case Array:
+                      case Object:
+                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                    } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
+                });
+            }
+        };
+        WeElement.prototype.fire = function(name, data) {
+            this.dispatchEvent(new CustomEvent(name, {
+                detail: data
+            }));
+        };
+        WeElement.prototype.beforeInstall = function() {};
+        WeElement.prototype.install = function() {};
+        WeElement.prototype.afterInstall = function() {};
+        WeElement.prototype.installed = function() {};
+        WeElement.prototype.uninstall = function() {};
+        WeElement.prototype.beforeUpdate = function() {};
+        WeElement.prototype.updated = function() {};
+        WeElement.prototype.beforeRender = function() {};
+        WeElement.prototype.rendered = function() {};
+        WeElement.prototype.receiveProps = function() {};
+        return WeElement;
+    }(HTMLElement);
+    WeElement.is = 'WeElement';
     var JSONPatcherProxy = function() {
         function deepClone(obj) {
             switch (typeof obj) {
@@ -890,161 +996,6 @@
         };
         return JSONPatcherProxy;
     }();
-    var callbacks = [];
-    var nextTickCallback = [];
-    var id = 0;
-    var WeElement = function(_HTMLElement) {
-        function WeElement() {
-            _classCallCheck$1(this, WeElement);
-            var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
-            _this.props = Object.assign({}, _this.constructor.defaultProps);
-            _this.elementId = id++;
-            _this.data = {};
-            return _this;
-        }
-        _inherits$1(WeElement, _HTMLElement);
-        WeElement.prototype.connectedCallback = function() {
-            var p = this.parentNode;
-            while (p && !this.store) {
-                this.store = p.store;
-                p = p.parentNode || p.host;
-            }
-            if (this.store) this.store.instances.push(this);
-            if (this.use) {
-                var use;
-                if ('function' == typeof this.use) use = this.use(); else use = this.use;
-                this.M = getPath(use);
-                this.using = getUse(this.store.data, use);
-            } else this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
-            if (this.useSelf) {
-                var _use = 'function' == typeof this.useSelf ? this.useSelf() : this.useSelf;
-                this.R = getPath(_use);
-                this.usingSelf = getUse(this.store.data, _use);
-            }
-            this.attrsToProps();
-            this.beforeInstall();
-            this.install();
-            this.afterInstall();
-            var shadowRoot;
-            if (!this.shadowRoot) shadowRoot = this.attachShadow({
-                mode: 'open'
-            }); else {
-                shadowRoot = this.shadowRoot;
-                var fc;
-                while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
-            }
-            if (this.constructor.css) shadowRoot.appendChild(cssToDom(this.constructor.css)); else if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
-            this.beforeRender();
-            options.afterInstall && options.afterInstall(this);
-            if (this.constructor.observe) {
-                this.beforeObserve();
-                proxyUpdate(this);
-                this.observed();
-            }
-            var rendered = this.render(this.props, this.data, this.store);
-            this.P = '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
-            this.rootNode = diff(null, rendered, null, this);
-            this.rendered();
-            if (this.props.css) {
-                this.N = cssToDom(this.props.css);
-                this.O = this.props.css;
-                shadowRoot.appendChild(this.N);
-            }
-            if (isArray(this.rootNode)) this.rootNode.forEach(function(item) {
-                shadowRoot.appendChild(item);
-            }); else shadowRoot.appendChild(this.rootNode);
-            this.installed();
-            this.B = !0;
-        };
-        WeElement.prototype.disconnectedCallback = function() {
-            this.uninstall();
-            this.B = !1;
-            if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
-                this.store.instances.splice(i, 1);
-                break;
-            }
-        };
-        WeElement.prototype.update = function(ignoreAttrs, updateSelf) {
-            this.J = !0;
-            this.beforeUpdate();
-            this.beforeRender();
-            if (this.O != this.props.css) {
-                this.O = this.props.css;
-                this.N.textContent = this.O;
-            }
-            this.attrsToProps(ignoreAttrs);
-            var rendered = this.render(this.props, this.data, this.store);
-            this.rendered();
-            this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
-            this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
-            this.J = !1;
-            this.updated();
-        };
-        WeElement.prototype.updateSelf = function(ignoreAttrs) {
-            this.update(ignoreAttrs, !0);
-        };
-        WeElement.prototype.removeAttribute = function(key) {
-            _HTMLElement.prototype.removeAttribute.call(this, key);
-            this.B && this.update();
-        };
-        WeElement.prototype.setAttribute = function(key, val) {
-            if (val && 'object' == typeof val) _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val)); else _HTMLElement.prototype.setAttribute.call(this, key, val);
-            this.B && this.update();
-        };
-        WeElement.prototype.pureRemoveAttribute = function(key) {
-            _HTMLElement.prototype.removeAttribute.call(this, key);
-        };
-        WeElement.prototype.pureSetAttribute = function(key, val) {
-            _HTMLElement.prototype.setAttribute.call(this, key, val);
-        };
-        WeElement.prototype.attrsToProps = function(ignoreAttrs) {
-            var ele = this;
-            if (!ele.normalizedNodeName && !ignoreAttrs) {
-                ele.props.css = ele.getAttribute('css');
-                var attrs = this.constructor.propTypes;
-                if (attrs) Object.keys(attrs).forEach(function(key) {
-                    var type = attrs[key];
-                    var val = ele.getAttribute(hyphenate(key));
-                    if (null !== val) switch (type) {
-                      case String:
-                        ele.props[key] = val;
-                        break;
-
-                      case Number:
-                        ele.props[key] = Number(val);
-                        break;
-
-                      case Boolean:
-                        if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
-                        break;
-
-                      case Array:
-                      case Object:
-                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-                    } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
-                });
-            }
-        };
-        WeElement.prototype.fire = function(name, data) {
-            this.dispatchEvent(new CustomEvent(name, {
-                detail: data
-            }));
-        };
-        WeElement.prototype.beforeInstall = function() {};
-        WeElement.prototype.install = function() {};
-        WeElement.prototype.afterInstall = function() {};
-        WeElement.prototype.installed = function() {};
-        WeElement.prototype.uninstall = function() {};
-        WeElement.prototype.beforeUpdate = function() {};
-        WeElement.prototype.updated = function() {};
-        WeElement.prototype.beforeRender = function() {};
-        WeElement.prototype.rendered = function() {};
-        WeElement.prototype.receiveProps = function() {};
-        WeElement.prototype.beforeObserve = function() {};
-        WeElement.prototype.observed = function() {};
-        return WeElement;
-    }(HTMLElement);
-    WeElement.is = 'WeElement';
     var hasOwn = {}.hasOwnProperty;
     var n = function(t, r, u, e) {
         for (var p = 1; p < r.length; p++) {
@@ -1085,12 +1036,9 @@
         createElement: h,
         options: options,
         define: define,
-        observe: observe,
         cloneElement: cloneElement,
         getHost: getHost,
         rpx: rpx,
-        tick: tick,
-        nextTick: nextTick,
         defineElement: defineElement,
         classNames: classNames,
         extractClass: extractClass,
@@ -1109,7 +1057,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.13.0';
+    options.root.Omi.version = '6.14.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

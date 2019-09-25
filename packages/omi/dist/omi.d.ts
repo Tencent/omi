@@ -103,14 +103,9 @@ declare namespace Omi {
 
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
-		static props: object;
-		static data: object;
-		static observe: boolean;
-		static mergeUpdate: boolean;
 		static css: string;
 
 		props: RenderableProps<P>;
-		data?: D;
 		prevProps: RenderableProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
@@ -122,7 +117,7 @@ declare namespace Omi {
 		css?(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
-		abstract render(props: RenderableProps<P>, data: D): void;
+		abstract render(props: RenderableProps<P>, store: any): void;
 	}
 
 	// The class type (not instance of class)
@@ -131,19 +126,15 @@ declare namespace Omi {
 		new(): WeElement;
 	}
 
-	abstract class Component<P = {}, D = {}> {
+	abstract class Component<P = {}> {
 		constructor();
 
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
-		static props: object;
-		static data: object;
-		static observe: boolean;
-		static mergeUpdate: boolean;
+
 		static css: string;
 
 		props: RenderableProps<P>;
-		data?: D;
 		prevProps: RenderableProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
@@ -155,7 +146,7 @@ declare namespace Omi {
 		css?(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
-		abstract render(props: RenderableProps<P>, data: D): void;
+		abstract render(props: RenderableProps<P>, store: any): void;
 	}
 
 	function h<P>(

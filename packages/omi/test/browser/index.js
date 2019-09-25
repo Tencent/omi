@@ -7,7 +7,7 @@ import {
   getHost
 } from '../../src/omi'
 
-describe('install()', () => {
+describe('base', () => {
   let scratch
   //const Empty = () => null
 
@@ -40,7 +40,7 @@ describe('install()', () => {
     render(<my-ele />, scratch)
 
     expect(Ele.prototype.render)
-      .to.have.been.calledOnce.and.to.have.been.calledWithMatch({}, {})
+      .to.have.been.calledOnce.and.to.have.been.calledWithMatch({})
       .and.to.have.returned(sinon.match({ nodeName: 'div' }))
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>Ele</div>')
@@ -67,7 +67,7 @@ describe('install()', () => {
      expect(constructorProps).to.deep.equal(PROPS)
 
     expect(C2.prototype.render)
-      .to.have.been.calledOnce.and.to.have.been.calledWithMatch(PROPS, {})
+      .to.have.been.calledOnce.and.to.have.been.calledWithMatch(PROPS)
       .and.to.have.returned(
         sinon.match({
           nodeName: 'div',
