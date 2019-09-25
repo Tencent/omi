@@ -9,9 +9,7 @@ interface Props {
     step: number;
     displayMarkers?: boolean;
 }
-interface Data {
-}
-export default class Slider extends WeElement<Props, Data> {
+export default class Slider extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         value: number;

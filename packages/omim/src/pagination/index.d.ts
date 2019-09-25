@@ -13,9 +13,7 @@ interface Props {
     prevShow: boolean;
     nextShow: boolean;
 }
-interface Data {
-}
-export default class Pagination extends WeElement<Props, Data> {
+export default class Pagination extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         total: number;

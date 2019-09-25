@@ -15,9 +15,7 @@ interface Props {
     removable?: boolean;
     removed?: boolean;
 }
-interface Data {
-}
-export default class Transition extends WeElement<Props, Data> {
+export default class Transition extends WeElement<Props> {
     static css: string;
     static propTypes: {
         name: StringConstructor;

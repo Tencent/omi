@@ -96,14 +96,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/index.scss":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/color-picker/index.scss ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/color-picker/index.scss":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/color-picker/index.scss ***!
+  \**************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -115,14 +115,14 @@ exports.push([module.i, ".pickr {\n  position: relative;\n  overflow: visible;\n
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/scss/pickr.scss":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/color-picker/scss/pickr.scss ***!
-  \************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/color-picker/scss/pickr.scss":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/color-picker/scss/pickr.scss ***!
+  \*******************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -134,10 +134,10 @@ exports.push([module.i, ".pickr {\n  position: relative;\n  overflow: visible;\n
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -229,7 +229,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/resolve-url-loader!../../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/color-picker/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -622,6 +622,13 @@ exports.default = Selectable;
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 // Import styles
 __webpack_require__(/*! ../scss/pickr.scss */ "./src/color-picker/scss/pickr.scss");
@@ -969,7 +976,7 @@ var Pickr = /** @class */ (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this._eventListener[event].forEach(function (cb) { return cb.apply(void 0, args.concat([_this])); });
+        this._eventListener[event].forEach(function (cb) { return cb.apply(void 0, __spreadArrays(args, [_this])); });
     };
     Pickr.prototype.on = function (event, cb) {
         // Validate
@@ -1006,7 +1013,7 @@ var Pickr = /** @class */ (function () {
             _swatchColors.push({ element: element, hsvaColorObject: hsvaColorObject_1 });
             // Bind event
             this._eventBindings.push(_.on(element, 'click', function () {
-                _this.setHSVA.apply(_this, hsvaColorObject_1.toHSVA().concat([true]));
+                _this.setHSVA.apply(_this, __spreadArrays(hsvaColorObject_1.toHSVA(), [true]));
                 _this._emit('swatchselect', hsvaColorObject_1);
             }));
             return true;
@@ -1180,7 +1187,7 @@ var Pickr = /** @class */ (function () {
                     el.classList[el === target ? 'add' : 'remove']('active');
                 }
             }
-            return this.setHSVA.apply(this, values.concat([silent]));
+            return this.setHSVA.apply(this, __spreadArrays(values, [silent]));
         }
     };
     /**
@@ -1279,6 +1286,13 @@ exports.default = (function (_a) {
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 // Shorthands
 var min = Math.min, max = Math.max, floor = Math.floor, round = Math.round;
@@ -1442,7 +1456,7 @@ function cmykToHsv(c, m, y, k) {
     var r = (1 - min(1, c * (1 - k) + k)) * 255;
     var g = (1 - min(1, m * (1 - k) + k)) * 255;
     var b = (1 - min(1, y * (1 - k) + k)) * 255;
-    return rgbToHsv(r, g, b).slice();
+    return __spreadArrays(rgbToHsv(r, g, b));
 }
 /**
  * Convert HSL to HSV.
@@ -1502,13 +1516,13 @@ function parseToHSV(str) {
                 var _c = numarize(match), c = _c[1], m = _c[2], y = _c[3], k = _c[4];
                 if (c > 100 || m > 100 || y > 100 || k > 100)
                     break;
-                return { values: cmykToHsv(c, m, y, k).concat([1]), type: type };
+                return { values: __spreadArrays(cmykToHsv(c, m, y, k), [1]), type: type };
             }
             case 'rgba': {
                 var _d = numarize(match), r = _d[2], g = _d[3], b = _d[4], _e = _d[5], a = _e === void 0 ? 1 : _e;
                 if (r > 255 || g > 255 || b > 255 || a < 0 || a > 1)
                     break;
-                return { values: rgbToHsv(r, g, b).concat([a]), type: type };
+                return { values: __spreadArrays(rgbToHsv(r, g, b), [a]), type: type };
             }
             case 'hex': {
                 var splitAt = function (s, i) { return [s.substring(0, i), s.substring(i, s.length)]; };
@@ -1529,13 +1543,13 @@ function parseToHSV(str) {
                 }
                 // Convert 0 - 255 to 0 - 1 for opacity
                 alpha = parseInt(alpha, 16) / 255;
-                return { values: hexToHsv(hex).concat([alpha]), type: type };
+                return { values: __spreadArrays(hexToHsv(hex), [alpha]), type: type };
             }
             case 'hsla': {
                 var _f = numarize(match), h = _f[2], s = _f[3], l = _f[4], _g = _f[5], a = _g === void 0 ? 1 : _g;
                 if (h > 360 || s > 100 || l > 100 || a < 0 || a > 1)
                     break;
-                return { values: hslToHsv(h, s, l).concat([a]), type: type };
+                return { values: __spreadArrays(hslToHsv(h, s, l), [a]), type: type };
             }
             case 'hsva': {
                 var _h = numarize(match), h = _h[2], s = _h[3], v = _h[4], _j = _h[5], a = _j === void 0 ? 1 : _j;
@@ -1829,7 +1843,7 @@ exports.adjustableInputNumbers = adjustableInputNumbers;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../../node_modules/_css-loader@1.0.1@css-loader!../../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./pickr.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/color-picker/scss/pickr.scss");
+        var result = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/resolve-url-loader!../../../node_modules/sass-loader/dist/cjs.js??ref--4-3!./pickr.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/color-picker/scss/pickr.scss");
 
         if (typeof result === "string") {
             module.exports = result;

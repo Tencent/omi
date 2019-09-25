@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_base64-js@1.3.0@base64-js/index.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/_base64-js@1.3.0@base64-js/index.js ***!
-  \**********************************************************/
+/***/ "./node_modules/base64-js/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/base64-js/index.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -171,7 +171,8 @@ function toByteArray (b64) {
     ? validLen - 4
     : validLen
 
-  for (var i = 0; i < len; i += 4) {
+  var i
+  for (i = 0; i < len; i += 4) {
     tmp =
       (revLookup[b64.charCodeAt(i)] << 18) |
       (revLookup[b64.charCodeAt(i + 1)] << 12) |
@@ -259,10 +260,10 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ "./node_modules/_buffer@4.9.1@buffer/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/_buffer@4.9.1@buffer/index.js ***!
-  \****************************************************/
+/***/ "./node_modules/buffer/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/buffer/index.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -277,9 +278,9 @@ function fromByteArray (uint8) {
 
 
 
-var base64 = __webpack_require__(/*! base64-js */ "./node_modules/_base64-js@1.3.0@base64-js/index.js")
-var ieee754 = __webpack_require__(/*! ieee754 */ "./node_modules/_ieee754@1.1.13@ieee754/index.js")
-var isArray = __webpack_require__(/*! isarray */ "./node_modules/_isarray@1.0.0@isarray/index.js")
+var base64 = __webpack_require__(/*! base64-js */ "./node_modules/base64-js/index.js")
+var ieee754 = __webpack_require__(/*! ieee754 */ "./node_modules/ieee754/index.js")
+var isArray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js")
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -2057,18 +2058,18 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../_webpack@4.33.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.33.0@webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_quill@1.3.6@quill/dist/quill.snow.css":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_quill@1.3.6@quill/dist/quill.snow.css ***!
-  \*********************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/quill/dist/quill.snow.css":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/quill/dist/quill.snow.css ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -2080,10 +2081,10 @@ exports.push([module.i, "/*!\n * Quill Editor v1.3.6\n * https://quilljs.com/\n 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2167,10 +2168,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_ieee754@1.1.13@ieee754/index.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/_ieee754@1.1.13@ieee754/index.js ***!
-  \*******************************************************/
+/***/ "./node_modules/ieee754/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/ieee754/index.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2262,10 +2263,10 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ "./node_modules/_isarray@1.0.0@isarray/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/_isarray@1.0.0@isarray/index.js ***!
-  \******************************************************/
+/***/ "./node_modules/isarray/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/isarray/index.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2278,10 +2279,10 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ "./node_modules/_quill@1.3.6@quill/dist/quill.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/_quill@1.3.6@quill/dist/quill.js ***!
-  \*******************************************************/
+/***/ "./node_modules/quill/dist/quill.js":
+/*!******************************************!*\
+  !*** ./node_modules/quill/dist/quill.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13769,19 +13770,19 @@ module.exports = __webpack_require__(63);
 /***/ })
 /******/ ])["default"];
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../_buffer@4.9.1@buffer/index.js */ "./node_modules/_buffer@4.9.1@buffer/index.js").Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../buffer/index.js */ "./node_modules/buffer/index.js").Buffer))
 
 /***/ }),
 
-/***/ "./node_modules/_quill@1.3.6@quill/dist/quill.snow.css":
-/*!*************************************************************!*\
-  !*** ./node_modules/_quill@1.3.6@quill/dist/quill.snow.css ***!
-  \*************************************************************/
+/***/ "./node_modules/quill/dist/quill.snow.css":
+/*!************************************************!*\
+  !*** ./node_modules/quill/dist/quill.snow.css ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../_css-loader@1.0.1@css-loader!../../_resolve-url-loader@3.1.0@resolve-url-loader!./quill.snow.css */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_quill@1.3.6@quill/dist/quill.snow.css");
+        var result = __webpack_require__(/*! !../../css-loader!../../resolve-url-loader!./quill.snow.css */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/quill/dist/quill.snow.css");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -13792,7 +13793,7 @@ module.exports = __webpack_require__(63);
 
 /***/ }),
 
-/***/ "./node_modules/_webpack@4.33.0@webpack/buildin/global.js":
+/***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -13853,8 +13854,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! quill/dist/quill.snow.css */ "./node_modules/_quill@1.3.6@quill/dist/quill.snow.css");
-var Quill = __webpack_require__(/*! quill */ "./node_modules/_quill@1.3.6@quill/dist/quill.js");
+var css = __webpack_require__(/*! quill/dist/quill.snow.css */ "./node_modules/quill/dist/quill.snow.css");
+var Quill = __webpack_require__(/*! quill */ "./node_modules/quill/dist/quill.js");
 //@ts-ignore
 __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var style = document.createElement('style');

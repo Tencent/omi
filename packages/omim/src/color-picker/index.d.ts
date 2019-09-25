@@ -23,9 +23,7 @@ interface Props {
     };
     width?: string;
 }
-interface Data {
-}
-export default class ColorPicker extends WeElement<Props, Data> {
+export default class ColorPicker extends WeElement<Props> {
     static css: any;
     picker: Pickr;
     static defaultProps: {

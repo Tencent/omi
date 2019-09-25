@@ -13,9 +13,7 @@ interface Props {
     width?: number;
     height?: number;
 }
-interface Data {
-}
-export default class Spreadsheet extends WeElement<Props, Data> {
+export default class Spreadsheet extends WeElement<Props> {
     static defaultProps: {};
     static propTypes: {};
     spreadsheet: XSpreadsheet;

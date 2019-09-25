@@ -96,18 +96,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/base/component.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/base/component.js ***!
+  \**************************************************/
 /*! exports provided: MDCComponent, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -213,10 +213,10 @@ var MDCComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@material/base/foundation.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@material/base/foundation.js ***!
+  \***************************************************/
 /*! exports provided: MDCFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -302,10 +302,10 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@material/dom/ponyfill.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/dom/ponyfill.js ***!
+  \************************************************/
 /*! exports provided: closest, matches */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -362,22 +362,22 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/component.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/_@material_snackbar@2.3.0@@material/snackbar/component.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/@material/snackbar/component.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material/snackbar/component.js ***!
+  \******************************************************/
 /*! exports provided: MDCSnackbar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSnackbar", function() { return MDCSnackbar; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/constants.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/snackbar/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/snackbar/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util */ "./node_modules/@material/snackbar/util.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -543,10 +543,10 @@ var MDCSnackbar = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/constants.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/_@material_snackbar@2.3.0@@material/snackbar/constants.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/@material/snackbar/constants.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material/snackbar/constants.js ***!
+  \******************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -614,19 +614,19 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/foundation.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/_@material_snackbar@2.3.0@@material/snackbar/foundation.js ***!
-  \*********************************************************************************/
+/***/ "./node_modules/@material/snackbar/foundation.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material/snackbar/foundation.js ***!
+  \*******************************************************/
 /*! exports provided: MDCSnackbarFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSnackbarFoundation", function() { return MDCSnackbarFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/snackbar/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -823,28 +823,28 @@ var MDCSnackbarFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/index.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_snackbar@2.3.0@@material/snackbar/index.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/snackbar/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/snackbar/index.js ***!
+  \**************************************************/
 /*! exports provided: util, MDCSnackbar, cssClasses, strings, numbers, MDCSnackbarFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/util.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/@material/snackbar/util.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "util", function() { return _util__WEBPACK_IMPORTED_MODULE_0__; });
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component */ "./node_modules/@material/snackbar/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSnackbar", function() { return _component__WEBPACK_IMPORTED_MODULE_1__["MDCSnackbar"]; });
 
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/snackbar/constants.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/snackbar/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSnackbarFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCSnackbarFoundation"]; });
 
 /**
@@ -878,17 +878,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/util.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/_@material_snackbar@2.3.0@@material/snackbar/util.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/@material/snackbar/util.js":
+/*!*************************************************!*\
+  !*** ./node_modules/@material/snackbar/util.js ***!
+  \*************************************************/
 /*! exports provided: announce */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "announce", function() { return announce; });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/snackbar/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -973,14 +973,14 @@ function announce(ariaEl, labelEl) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/snackbar/index.scss":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/snackbar/index.scss ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/snackbar/index.scss":
+/*!**********************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/snackbar/index.scss ***!
+  \**********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -992,10 +992,10 @@ exports.push([module.i, ".mdc-snackbar {\n  z-index: 8;\n  margin: 8px;\n  displ
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1079,10 +1079,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/_tslib@1.10.0@tslib/tslib.es6.js ***!
-  \*******************************************************/
+/***/ "./node_modules/tslib/tslib.es6.js":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
 /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1316,7 +1316,7 @@ function __importDefault(mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/snackbar/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/resolve-url-loader!../../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/snackbar/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -1369,7 +1369,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/snackbar/index.scss");
-var snackbar_1 = __webpack_require__(/*! @material/snackbar */ "./node_modules/_@material_snackbar@2.3.0@@material/snackbar/index.js");
+var snackbar_1 = __webpack_require__(/*! @material/snackbar */ "./node_modules/@material/snackbar/index.js");
 //@ts-ignore
 __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Snackbar = /** @class */ (function (_super) {

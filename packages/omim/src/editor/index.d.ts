@@ -3,9 +3,7 @@ import * as Quill from 'quill';
 import '../theme.ts';
 interface Props {
 }
-interface Data {
-}
-export default class Editor extends WeElement<Props, Data> {
+export default class Editor extends WeElement<Props> {
     static css: any;
     static propTypes: {};
     editor: Quill;

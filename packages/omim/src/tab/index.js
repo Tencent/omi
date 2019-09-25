@@ -96,18 +96,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@material/base/component.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/base/component.js ***!
+  \**************************************************/
 /*! exports provided: MDCComponent, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -213,10 +213,10 @@ var MDCComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@material/base/foundation.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@material/base/foundation.js ***!
+  \***************************************************/
 /*! exports provided: MDCFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -302,10 +302,10 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@material/dom/ponyfill.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/dom/ponyfill.js ***!
+  \************************************************/
 /*! exports provided: closest, matches */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -362,21 +362,21 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/ripple/component.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/component.js ***!
+  \****************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -491,10 +491,10 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@material/ripple/constants.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/constants.js ***!
+  \****************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -554,20 +554,20 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/@material/ripple/foundation.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/ripple/foundation.js ***!
+  \*****************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1032,10 +1032,10 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_@material_ripple@2.3.0@@material/ripple/util.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/@material/ripple/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@material/ripple/util.js ***!
+  \***********************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1148,22 +1148,22 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/component.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/component.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/@material/tab-bar/component.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/tab-bar/component.js ***!
+  \*****************************************************/
 /*! exports provided: MDCTabBar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabBar", function() { return MDCTabBar; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_tab_scroller_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/tab-scroller/component */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/component.js");
-/* harmony import */ var _material_tab_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/tab/component */ "./node_modules/_@material_tab@2.3.0@@material/tab/component.js");
-/* harmony import */ var _material_tab_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab/foundation */ "./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_tab_scroller_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/tab-scroller/component */ "./node_modules/@material/tab-scroller/component.js");
+/* harmony import */ var _material_tab_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/tab/component */ "./node_modules/@material/tab/component.js");
+/* harmony import */ var _material_tab_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab/foundation */ "./node_modules/@material/tab/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab-bar/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1337,10 +1337,10 @@ var MDCTabBar = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/@material/tab-bar/constants.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/tab-bar/constants.js ***!
+  \*****************************************************/
 /*! exports provided: numbers, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1395,19 +1395,19 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/@material/tab-bar/foundation.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material/tab-bar/foundation.js ***!
+  \******************************************************/
 /*! exports provided: MDCTabBarFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabBarFoundation", function() { return MDCTabBarFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab-bar/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1780,24 +1780,24 @@ var MDCTabBarFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/index.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/index.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/@material/tab-bar/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/@material/tab-bar/index.js ***!
+  \*************************************************/
 /*! exports provided: MDCTabBar, numbers, strings, MDCTabBarFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/tab-bar/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTabBar", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTabBar"]; });
 
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab-bar/constants.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["numbers"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["strings"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab-bar/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTabBarFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTabBarFoundation"]; });
 
 /**
@@ -1829,21 +1829,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/component.js":
-/*!******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/component.js ***!
-  \******************************************************************************************/
+/***/ "./node_modules/@material/tab-indicator/component.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material/tab-indicator/component.js ***!
+  \***********************************************************/
 /*! exports provided: MDCTabIndicator */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabIndicator", function() { return MDCTabIndicator; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _fading_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fading-foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/fading-foundation.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js");
-/* harmony import */ var _sliding_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sliding-foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/sliding-foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _fading_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fading-foundation */ "./node_modules/@material/tab-indicator/fading-foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab-indicator/foundation.js");
+/* harmony import */ var _sliding_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sliding-foundation */ "./node_modules/@material/tab-indicator/sliding-foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -1916,10 +1916,10 @@ var MDCTabIndicator = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/constants.js":
-/*!******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/constants.js ***!
-  \******************************************************************************************/
+/***/ "./node_modules/@material/tab-indicator/constants.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material/tab-indicator/constants.js ***!
+  \***********************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1962,18 +1962,18 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/fading-foundation.js":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/fading-foundation.js ***!
-  \**************************************************************************************************/
+/***/ "./node_modules/@material/tab-indicator/fading-foundation.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material/tab-indicator/fading-foundation.js ***!
+  \*******************************************************************/
 /*! exports provided: MDCFadingTabIndicatorFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFadingTabIndicatorFoundation", function() { return MDCFadingTabIndicatorFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab-indicator/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2019,19 +2019,19 @@ var MDCFadingTabIndicatorFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js ***!
-  \*******************************************************************************************/
+/***/ "./node_modules/@material/tab-indicator/foundation.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@material/tab-indicator/foundation.js ***!
+  \************************************************************/
 /*! exports provided: MDCTabIndicatorFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabIndicatorFoundation", function() { return MDCTabIndicatorFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab-indicator/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2102,18 +2102,18 @@ var MDCTabIndicatorFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/sliding-foundation.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/sliding-foundation.js ***!
-  \***************************************************************************************************/
+/***/ "./node_modules/@material/tab-indicator/sliding-foundation.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@material/tab-indicator/sliding-foundation.js ***!
+  \********************************************************************/
 /*! exports provided: MDCSlidingTabIndicatorFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSlidingTabIndicatorFoundation", function() { return MDCSlidingTabIndicatorFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab-indicator/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2177,21 +2177,21 @@ var MDCSlidingTabIndicatorFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/component.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/component.js ***!
-  \****************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/component.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/component.js ***!
+  \**********************************************************/
 /*! exports provided: MDCTabScroller */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScroller", function() { return MDCTabScroller; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/_@material_dom@1.1.0@@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/util.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab-scroller/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/tab-scroller/util.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2308,10 +2308,10 @@ var MDCTabScroller = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js ***!
-  \****************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/constants.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/constants.js ***!
+  \**********************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2355,22 +2355,22 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/foundation.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/foundation.js ***!
-  \*****************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/foundation.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/foundation.js ***!
+  \***********************************************************/
 /*! exports provided: MDCTabScrollerFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerFoundation", function() { return MDCTabScrollerFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js");
-/* harmony import */ var _rtl_default_scroller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rtl-default-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-default-scroller.js");
-/* harmony import */ var _rtl_negative_scroller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rtl-negative-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-negative-scroller.js");
-/* harmony import */ var _rtl_reverse_scroller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./rtl-reverse-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-reverse-scroller.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab-scroller/constants.js");
+/* harmony import */ var _rtl_default_scroller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rtl-default-scroller */ "./node_modules/@material/tab-scroller/rtl-default-scroller.js");
+/* harmony import */ var _rtl_negative_scroller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rtl-negative-scroller */ "./node_modules/@material/tab-scroller/rtl-negative-scroller.js");
+/* harmony import */ var _rtl_reverse_scroller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./rtl-reverse-scroller */ "./node_modules/@material/tab-scroller/rtl-reverse-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2709,18 +2709,18 @@ var MDCTabScrollerFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-default-scroller.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-default-scroller.js ***!
-  \***************************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/rtl-default-scroller.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/rtl-default-scroller.js ***!
+  \*********************************************************************/
 /*! exports provided: MDCTabScrollerRTLDefault, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerRTLDefault", function() { return MDCTabScrollerRTLDefault; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/@material/tab-scroller/rtl-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2797,18 +2797,18 @@ var MDCTabScrollerRTLDefault = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-negative-scroller.js":
-/*!****************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-negative-scroller.js ***!
-  \****************************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/rtl-negative-scroller.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/rtl-negative-scroller.js ***!
+  \**********************************************************************/
 /*! exports provided: MDCTabScrollerRTLNegative, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerRTLNegative", function() { return MDCTabScrollerRTLNegative; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/@material/tab-scroller/rtl-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2882,18 +2882,18 @@ var MDCTabScrollerRTLNegative = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-reverse-scroller.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-reverse-scroller.js ***!
-  \***************************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/rtl-reverse-scroller.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/rtl-reverse-scroller.js ***!
+  \*********************************************************************/
 /*! exports provided: MDCTabScrollerRTLReverse, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabScrollerRTLReverse", function() { return MDCTabScrollerRTLReverse; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _rtl_scroller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rtl-scroller */ "./node_modules/@material/tab-scroller/rtl-scroller.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -2968,10 +2968,10 @@ var MDCTabScrollerRTLReverse = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/rtl-scroller.js ***!
-  \*******************************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/rtl-scroller.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/rtl-scroller.js ***!
+  \*************************************************************/
 /*! exports provided: MDCTabScrollerRTL, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3013,17 +3013,17 @@ var MDCTabScrollerRTL = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/util.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/util.js ***!
-  \***********************************************************************************/
+/***/ "./node_modules/@material/tab-scroller/util.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/tab-scroller/util.js ***!
+  \*****************************************************/
 /*! exports provided: computeHorizontalScrollbarHeight */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "computeHorizontalScrollbarHeight", function() { return computeHorizontalScrollbarHeight; });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab-scroller@2.3.0@@material/tab-scroller/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab-scroller/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -3074,22 +3074,22 @@ function computeHorizontalScrollbarHeight(documentObj, shouldCacheResult) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab@2.3.0@@material/tab/component.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/_@material_tab@2.3.0@@material/tab/component.js ***!
-  \**********************************************************************/
+/***/ "./node_modules/@material/tab/component.js":
+/*!*************************************************!*\
+  !*** ./node_modules/@material/tab/component.js ***!
+  \*************************************************/
 /*! exports provided: MDCTab */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTab", function() { return MDCTab; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/component.js");
-/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/_@material_ripple@2.3.0@@material/ripple/foundation.js");
-/* harmony import */ var _material_tab_indicator_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab-indicator/component */ "./node_modules/_@material_tab-indicator@2.3.0@@material/tab-indicator/component.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _material_tab_indicator_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab-indicator/component */ "./node_modules/@material/tab-indicator/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab/foundation.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -3221,10 +3221,10 @@ var MDCTab = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab@2.3.0@@material/tab/constants.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/_@material_tab@2.3.0@@material/tab/constants.js ***!
-  \**********************************************************************/
+/***/ "./node_modules/@material/tab/constants.js":
+/*!*************************************************!*\
+  !*** ./node_modules/@material/tab/constants.js ***!
+  \*************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3270,19 +3270,19 @@ var strings = {
 
 /***/ }),
 
-/***/ "./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_@material_tab@2.3.0@@material/tab/foundation.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/@material/tab/foundation.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/tab/foundation.js ***!
+  \**************************************************/
 /*! exports provided: MDCTabFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTabFoundation", function() { return MDCTabFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_tab@2.3.0@@material/tab/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab/constants.js");
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -3414,14 +3414,14 @@ var MDCTabFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tab/index.scss":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/tab/index.scss ***!
-  \**********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/tab/index.scss":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/tab/index.scss ***!
+  \*****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -3433,10 +3433,10 @@ exports.push([module.i, "/**\n * @license\n * Copyright 2018 Google Inc.\n *\n *
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -3520,10 +3520,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/_tslib@1.10.0@tslib/tslib.es6.js ***!
-  \*******************************************************/
+/***/ "./node_modules/tslib/tslib.es6.js":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
 /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3858,23 +3858,23 @@ function __importDefault(mod) {
         /******/ return __webpack_require__(__webpack_require__.s = "./src/icon/index.tsx");
         /******/ 
     })({
-        /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss": 
-        /*!***********************************************************************************************************************************************************************************************************!*\
-          !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/icon/index.scss ***!
-          \***********************************************************************************************************************************************************************************************************/
+        /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/icon/index.scss": 
+        /*!******************************************************************************************************************************************!*\
+          !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/icon/index.scss ***!
+          \******************************************************************************************************************************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+            exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
             // imports
             // module
             exports.push([module.i, ":host {\n  display: inline-block; }\n\n.m-icon {\n  text-align: center;\n  display: inline-block; }\n\n.m-icon svg {\n  display: inline-block;\n  vertical-align: top; }\n\n.rotate {\n  display: inline-block;\n  -webkit-animation: rotate 1s infinite linear;\n  animation: rotate 1s infinite linear; }\n\ni div {\n  font-style: normal; }\n\n@-webkit-keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes rotate {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
             // exports
             /***/ 
         }),
-        /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js": 
-        /*!*******************************************************************!*\
-          !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-          \*******************************************************************/
+        /***/ "./node_modules/css-loader/lib/css-base.js": 
+        /*!*************************************************!*\
+          !*** ./node_modules/css-loader/lib/css-base.js ***!
+          \*************************************************/
         /*! no static exports found */
         /***/ (function (module, exports) {
             /*
@@ -3955,7 +3955,7 @@ function __importDefault(mod) {
           \*****************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/icon/index.scss");
+            var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/resolve-url-loader!../../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/icon/index.scss");
             if (typeof result === "string") {
                 module.exports = result;
             }
@@ -4101,7 +4101,7 @@ function __importDefault(mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/tab/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/resolve-url-loader!../../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/tab/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4154,7 +4154,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/tab/index.scss");
-var tab_bar_1 = __webpack_require__(/*! @material/tab-bar */ "./node_modules/_@material_tab-bar@2.3.0@@material/tab-bar/index.js");
+var tab_bar_1 = __webpack_require__(/*! @material/tab-bar */ "./node_modules/@material/tab-bar/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore

@@ -96,17 +96,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/circle.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/circle.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/progressbar.js/src/circle.js":
+/*!***************************************************!*\
+  !*** ./node_modules/progressbar.js/src/circle.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Circle shaped progress bar
 
-var Shape = __webpack_require__(/*! ./shape */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/shape.js");
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js");
+var Shape = __webpack_require__(/*! ./shape */ "./node_modules/progressbar.js/src/shape.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/progressbar.js/src/utils.js");
 
 var Circle = function Circle(container, options) {
     // Use two arcs to form a circle
@@ -147,17 +147,17 @@ module.exports = Circle;
 
 /***/ }),
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/line.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/line.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/progressbar.js/src/line.js":
+/*!*************************************************!*\
+  !*** ./node_modules/progressbar.js/src/line.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Line shaped progress bar
 
-var Shape = __webpack_require__(/*! ./shape */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/shape.js");
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js");
+var Shape = __webpack_require__(/*! ./shape */ "./node_modules/progressbar.js/src/shape.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/progressbar.js/src/utils.js");
 
 var Line = function Line(container, options) {
     this._pathTemplate = 'M 0,{center} L 100,{center}';
@@ -187,45 +187,45 @@ module.exports = Line;
 
 /***/ }),
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/main.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/main.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/progressbar.js/src/main.js":
+/*!*************************************************!*\
+  !*** ./node_modules/progressbar.js/src/main.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
     // Higher level API, different shaped progress bars
-    Line: __webpack_require__(/*! ./line */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/line.js"),
-    Circle: __webpack_require__(/*! ./circle */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/circle.js"),
-    SemiCircle: __webpack_require__(/*! ./semicircle */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/semicircle.js"),
+    Line: __webpack_require__(/*! ./line */ "./node_modules/progressbar.js/src/line.js"),
+    Circle: __webpack_require__(/*! ./circle */ "./node_modules/progressbar.js/src/circle.js"),
+    SemiCircle: __webpack_require__(/*! ./semicircle */ "./node_modules/progressbar.js/src/semicircle.js"),
 
     // Lower level API to use any SVG path
-    Path: __webpack_require__(/*! ./path */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/path.js"),
+    Path: __webpack_require__(/*! ./path */ "./node_modules/progressbar.js/src/path.js"),
 
     // Base-class for creating new custom shapes
     // to be in line with the API of built-in shapes
     // Undocumented.
-    Shape: __webpack_require__(/*! ./shape */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/shape.js"),
+    Shape: __webpack_require__(/*! ./shape */ "./node_modules/progressbar.js/src/shape.js"),
 
     // Internal utils, undocumented.
-    utils: __webpack_require__(/*! ./utils */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js")
+    utils: __webpack_require__(/*! ./utils */ "./node_modules/progressbar.js/src/utils.js")
 };
 
 
 /***/ }),
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/path.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/path.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/progressbar.js/src/path.js":
+/*!*************************************************!*\
+  !*** ./node_modules/progressbar.js/src/path.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Lower level API to animate any kind of svg path
 
-var Tweenable = __webpack_require__(/*! shifty */ "./node_modules/_shifty@1.5.4@shifty/dist/shifty.js");
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js");
+var Tweenable = __webpack_require__(/*! shifty */ "./node_modules/shifty/dist/shifty.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/progressbar.js/src/utils.js");
 
 var EASING_ALIASES = {
     easeIn: 'easeInCubic',
@@ -398,18 +398,18 @@ module.exports = Path;
 
 /***/ }),
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/semicircle.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/semicircle.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/progressbar.js/src/semicircle.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/progressbar.js/src/semicircle.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Semi-SemiCircle shaped progress bar
 
-var Shape = __webpack_require__(/*! ./shape */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/shape.js");
-var Circle = __webpack_require__(/*! ./circle */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/circle.js");
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js");
+var Shape = __webpack_require__(/*! ./shape */ "./node_modules/progressbar.js/src/shape.js");
+var Circle = __webpack_require__(/*! ./circle */ "./node_modules/progressbar.js/src/circle.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/progressbar.js/src/utils.js");
 
 var SemiCircle = function SemiCircle(container, options) {
     // Use one arc to form a SemiCircle
@@ -457,17 +457,17 @@ module.exports = SemiCircle;
 
 /***/ }),
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/shape.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/shape.js ***!
-  \************************************************************************/
+/***/ "./node_modules/progressbar.js/src/shape.js":
+/*!**************************************************!*\
+  !*** ./node_modules/progressbar.js/src/shape.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Base object for different progress bar shapes
 
-var Path = __webpack_require__(/*! ./path */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/path.js");
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js");
+var Path = __webpack_require__(/*! ./path */ "./node_modules/progressbar.js/src/path.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/progressbar.js/src/utils.js");
 
 var DESTROYED_ERROR = 'Object is destroyed';
 
@@ -786,10 +786,10 @@ module.exports = Shape;
 
 /***/ }),
 
-/***/ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_progressbar.js@1.0.1@progressbar.js/src/utils.js ***!
-  \************************************************************************/
+/***/ "./node_modules/progressbar.js/src/utils.js":
+/*!**************************************************!*\
+  !*** ./node_modules/progressbar.js/src/utils.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -934,10 +934,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/_shifty@1.5.4@shifty/dist/shifty.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/_shifty@1.5.4@shifty/dist/shifty.js ***!
-  \**********************************************************/
+/***/ "./node_modules/shifty/dist/shifty.js":
+/*!********************************************!*\
+  !*** ./node_modules/shifty/dist/shifty.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2626,7 +2626,7 @@ var __assign = (this && this.__assign) || function () {
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var ProgressBar = __webpack_require__(/*! progressbar.js */ "./node_modules/_progressbar.js@1.0.1@progressbar.js/src/main.js");
+var ProgressBar = __webpack_require__(/*! progressbar.js */ "./node_modules/progressbar.js/src/main.js");
 omi_1.define('m-path-progress', (_a = /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {

@@ -34,9 +34,7 @@ interface Props {
     leadingIconContent: string;
     trailingIconContent: string;
 }
-interface Data {
-}
-export default class TextField extends WeElement<Props, Data> {
+export default class TextField extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         showHelper: boolean;

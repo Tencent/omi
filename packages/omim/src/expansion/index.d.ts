@@ -3,9 +3,7 @@ import '../theme.ts';
 interface Props {
     expand: boolean;
 }
-interface Data {
-}
-export default class Expansion extends WeElement<Props, Data> {
+export default class Expansion extends WeElement<Props> {
     static css: any;
     static propTypes: {
         expand: BooleanConstructor;

@@ -20,9 +20,7 @@ interface Props {
     filter?: boolean;
     ripple?: boolean;
 }
-interface Data {
-}
-export default class Chips extends WeElement<Props, Data> {
+export default class Chips extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         ripple: boolean;

@@ -7,9 +7,7 @@ interface Props {
     checked?: boolean | string;
     value?: string;
 }
-interface Data {
-}
-export default class Switch extends WeElement<Props, Data> {
+export default class Switch extends WeElement<Props> {
     static css: any;
     static propTypes: {
         label: StringConstructor;

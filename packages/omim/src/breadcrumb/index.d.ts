@@ -2,9 +2,7 @@ import { WeElement } from 'omi';
 import '../theme.ts';
 interface Props {
 }
-interface Data {
-}
-export default class Breadcrumb extends WeElement<Props, Data> {
+export default class Breadcrumb extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         split: string;

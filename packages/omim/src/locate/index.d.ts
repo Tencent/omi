@@ -7,9 +7,7 @@ interface Props {
     y: number;
     gutter: number;
 }
-interface Data {
-}
-export default class Locate extends WeElement<Props, Data> {
+export default class Locate extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         x: number;

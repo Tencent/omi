@@ -10,7 +10,7 @@ interface Props {
     color?: string;
     backgroundColor?: string;
 }
-export default class Avatar extends WeElement<Props, {}> {
+export default class Avatar extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         size: number;

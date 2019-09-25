@@ -5,9 +5,7 @@ interface Props {
     left: object[];
     right: object[];
 }
-interface Data {
-}
-export default class TransferList extends WeElement<Props, Data> {
+export default class TransferList extends WeElement<Props> {
     static css: any;
     static propTypes: {
         left: ArrayConstructor;

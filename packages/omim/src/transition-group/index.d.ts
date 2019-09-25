@@ -6,9 +6,7 @@ interface Props {
     remove?: boolean;
     delay?: number;
 }
-interface Data {
-}
-export default class TransitionGroup extends WeElement<Props, Data> {
+export default class TransitionGroup extends WeElement<Props> {
     static propTypes: {
         name: StringConstructor;
         appear: BooleanConstructor;

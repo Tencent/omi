@@ -6,9 +6,7 @@ interface Props {
     indeterminate: boolean;
     reversed: boolean;
 }
-interface Data {
-}
-export default class LinearProgress extends WeElement<Props, Data> {
+export default class LinearProgress extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         buffer: number;

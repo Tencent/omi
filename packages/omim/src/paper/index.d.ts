@@ -4,9 +4,7 @@ interface Props {
     elevation: number;
     square?: boolean;
 }
-interface Data {
-}
-export default class Paper extends WeElement<Props, Data> {
+export default class Paper extends WeElement<Props> {
     static css: any;
     static propTypes: {
         elevation: NumberConstructor;

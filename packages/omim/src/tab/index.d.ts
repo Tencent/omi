@@ -8,9 +8,7 @@ interface Props {
     useMinWidth: boolean;
     stacked: boolean;
 }
-interface Data {
-}
-export default class Tab extends WeElement<Props, Data> {
+export default class Tab extends WeElement<Props> {
     static css: any;
     data: {
         active: any;

@@ -96,29 +96,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/simple-card/index.scss":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./src/simple-card/index.scss ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/simple-card/index.scss":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/simple-card/index.scss ***!
+  \*************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".card {\n  display: inline-block;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-decoration: none;\n  height: 85px;\n  white-space: nowrap;\n  width: 100%;\n  text-align: center;\n  border-radius: 4px;\n  overflow: hidden; }\n\n.icon {\n  display: inline-block;\n  width: 50%;\n  height: 85px;\n  vertical-align: top;\n  padding-top: 20px; }\n\n* {\n  box-sizing: border-box; }\n\n.text {\n  display: inline-block;\n  width: 50%;\n  height: 85px;\n  vertical-align: top;\n  color: white;\n  line-height: 20px;\n  padding-top: 20px; }\n\n.info {\n  font-weight: bold;\n  margin-bottom: 5px; }\n\n.caption {\n  font-size: 14px; }\n", ""]);
+exports.push([module.i, ":host {\n  display: inline-block; }\n\n.card {\n  display: inline-block;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-decoration: none;\n  height: 85px;\n  white-space: nowrap;\n  width: 100%;\n  text-align: center;\n  border-radius: 4px;\n  overflow: hidden; }\n\n.icon {\n  display: inline-block;\n  width: 50%;\n  height: 85px;\n  vertical-align: top;\n  padding-top: 20px; }\n\n* {\n  box-sizing: border-box; }\n\n.text {\n  display: inline-block;\n  width: 50%;\n  height: 85px;\n  vertical-align: top;\n  color: white;\n  line-height: 20px;\n  padding-top: 20px; }\n\n.info {\n  font-weight: bold;\n  margin-bottom: 5px; }\n\n.caption {\n  font-size: 14px; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/simple-card/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/resolve-url-loader!../../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/simple-card/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;

@@ -7,9 +7,7 @@ interface Props {
     checked?: boolean;
     value: string;
 }
-interface Data {
-}
-export default class Checkbox extends WeElement<Props, Data> {
+export default class Checkbox extends WeElement<Props> {
     static css: any;
     static propTypes: {
         label: StringConstructor;

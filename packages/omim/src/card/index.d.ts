@@ -12,9 +12,7 @@ interface Props {
     topTitle?: boolean;
     overImg?: boolean;
 }
-interface Data {
-}
-export default class Card extends WeElement<Props, Data> {
+export default class Card extends WeElement<Props> {
     static css: any;
     static propTypes: {
         width: StringConstructor;

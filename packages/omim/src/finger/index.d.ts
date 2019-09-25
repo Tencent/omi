@@ -1,9 +1,7 @@
 import { WeElement } from 'omi';
 interface Props {
 }
-interface Data {
-}
-export default class Finger extends WeElement<Props, Data> {
+export default class Finger extends WeElement<Props> {
     static css: string;
     preV: {
         x: any;

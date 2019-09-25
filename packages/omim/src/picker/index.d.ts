@@ -5,9 +5,7 @@ interface Props {
     type: 'date' | 'time' | 'color' | 'datetime-local';
     label: string;
 }
-interface Data {
-}
-export default class Picker extends WeElement<Props, Data> {
+export default class Picker extends WeElement<Props> {
     static css: any;
     static defaultProps: {};
     static propTypes: {

@@ -4,9 +4,7 @@ import '../theme.ts';
 interface Props {
     items: any[];
 }
-interface Data {
-}
-export default class BottomNav extends WeElement<Props, Data> {
+export default class BottomNav extends WeElement<Props> {
     static css: any;
     static defaultProps: {};
     static propTypes: {

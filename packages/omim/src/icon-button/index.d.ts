@@ -10,9 +10,7 @@ interface Props {
     color: string;
     disabled: boolean;
 }
-interface Data {
-}
-export default class IconButton extends WeElement<Props, Data> {
+export default class IconButton extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         ripple: boolean;

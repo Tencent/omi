@@ -7,9 +7,7 @@ interface Props {
     x?: number;
     y?: number;
 }
-interface Data {
-}
-export default class Badge extends WeElement<Props, Data> {
+export default class Badge extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         x: number;

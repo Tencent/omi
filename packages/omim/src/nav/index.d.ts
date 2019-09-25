@@ -3,9 +3,7 @@ import '../theme.ts';
 interface Props {
     nodes: object;
 }
-interface Data {
-}
-export default class Nav extends WeElement<Props, Data> {
+export default class Nav extends WeElement<Props> {
     static css: any;
     static propTypes: {
         nodes: ObjectConstructor;

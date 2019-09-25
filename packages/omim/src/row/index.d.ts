@@ -7,9 +7,7 @@ interface Props {
     align?: string;
     type?: string;
 }
-interface Data {
-}
-export default class Row extends WeElement<Props, Data> {
+export default class Row extends WeElement<Props> {
     static css: any;
     static propTypes: {
         cols: ObjectConstructor;

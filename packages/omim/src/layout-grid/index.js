@@ -96,15 +96,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss ***!
-  \***********************************************************************************************/
+/***/ "./node_modules/@material/layout-grid/mdc-layout-grid.scss":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@material/layout-grid/mdc-layout-grid.scss ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../_css-loader@1.0.1@css-loader!../../_resolve-url-loader@3.1.0@resolve-url-loader!../../_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./mdc-layout-grid.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss");
+        var result = __webpack_require__(/*! !../../css-loader!../../resolve-url-loader!../../sass-loader/dist/cjs.js??ref--4-3!./mdc-layout-grid.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./node_modules/@material/layout-grid/mdc-layout-grid.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -115,14 +115,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.0@resolve-url-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-3!./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./node_modules/@material/layout-grid/mdc-layout-grid.scss":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./node_modules/@material/layout-grid/mdc-layout-grid.scss ***!
+  \******************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -134,10 +134,10 @@ exports.push([module.i, ":root {\n  --mdc-layout-grid-margin-desktop: 24px;\n  -
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -231,7 +231,7 @@ function toComment(sourceMap) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var css = __webpack_require__(/*! @material/layout-grid/mdc-layout-grid.scss */ "./node_modules/_@material_layout-grid@0.41.0@@material/layout-grid/mdc-layout-grid.scss");
+var css = __webpack_require__(/*! @material/layout-grid/mdc-layout-grid.scss */ "./node_modules/@material/layout-grid/mdc-layout-grid.scss");
 exports.default = css;
 // import { tag, WeElement, h, extractClass, classNames } from 'omi'
 // import * as css from './index.scss'

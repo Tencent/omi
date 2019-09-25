@@ -4,9 +4,7 @@ interface Props {
     position?: 'left' | 'right' | 'top' | 'bottom';
     show?: boolean;
 }
-interface Data {
-}
-export default class Drawer extends WeElement<Props, Data> {
+export default class Drawer extends WeElement<Props> {
     static css: any;
     static propTypes: {
         show: BooleanConstructor;

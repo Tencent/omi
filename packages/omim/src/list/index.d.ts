@@ -11,9 +11,7 @@ interface Props {
     height?: number;
     onItemClick?: (evt: CustomEvent) => void;
 }
-interface Data {
-}
-export default class List extends WeElement<Props, Data> {
+export default class List extends WeElement<Props> {
     static css: any;
     static propTypes: {
         items: ObjectConstructor;

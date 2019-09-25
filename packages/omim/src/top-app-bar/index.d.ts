@@ -15,9 +15,7 @@ interface Props {
     scrollTarget?: EventTarget;
     scrollTargetId?: string;
 }
-interface Data {
-}
-export default class topAppBar extends WeElement<Props, Data> {
+export default class topAppBar extends WeElement<Props> {
     static css: any;
     static propTypes: {
         heading: StringConstructor;

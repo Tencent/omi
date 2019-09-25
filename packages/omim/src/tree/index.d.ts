@@ -4,9 +4,7 @@ interface Props {
     checkbox?: boolean;
     node: object;
 }
-interface Data {
-}
-export default class Tree extends WeElement<Props, Data> {
+export default class Tree extends WeElement<Props> {
     static css: any;
     static propTypes: {
         checkbox: BooleanConstructor;

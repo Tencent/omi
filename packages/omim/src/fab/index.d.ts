@@ -7,9 +7,7 @@ interface Props {
     iconRight: boolean;
     icon: string;
 }
-interface Data {
-}
-export default class Fab extends WeElement<Props, Data> {
+export default class Fab extends WeElement<Props> {
     static css: any;
     static propTypes: {
         ripple: BooleanConstructor;

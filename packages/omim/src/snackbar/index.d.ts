@@ -8,9 +8,7 @@ interface Props {
     buttonText?: string;
     leading?: boolean;
 }
-interface Data {
-}
-export default class Snackbar extends WeElement<Props, Data> {
+export default class Snackbar extends WeElement<Props> {
     static css: any;
     static defaultProps: {};
     static propTypes: {

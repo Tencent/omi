@@ -4,9 +4,7 @@ interface Props {
     size?: number;
     color?: string;
 }
-interface Data {
-}
-export default class Loading extends WeElement<Props, Data> {
+export default class Loading extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         size: number;

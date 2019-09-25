@@ -5,9 +5,7 @@ interface Props {
     half: boolean;
     value: number;
 }
-interface Data {
-}
-export default class Rate extends WeElement<Props, Data> {
+export default class Rate extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         value: number;

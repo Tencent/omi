@@ -4,9 +4,7 @@ interface Props {
     masonry: boolean;
     list: object;
 }
-interface Data {
-}
-export default class ImageList extends WeElement<Props, Data> {
+export default class ImageList extends WeElement<Props> {
     static css: any;
     static defaultProps: {};
     static propTypes: {

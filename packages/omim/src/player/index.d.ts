@@ -4,9 +4,7 @@ interface Props {
     src: string;
     type?: string;
 }
-interface Data {
-}
-export default class Player extends WeElement<Props, Data> {
+export default class Player extends WeElement<Props> {
     video: any;
     disX: any;
     timer: any;

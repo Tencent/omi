@@ -8,9 +8,7 @@ interface Props {
     color?: string;
     rotate?: boolean;
 }
-interface Data {
-}
-export default class Icon extends WeElement<Props, Data> {
+export default class Icon extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         view: number;

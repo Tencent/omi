@@ -4,7 +4,7 @@ interface Props {
     multipleSelection?: boolean;
     items: any[];
 }
-export default class ToggleButtons extends WeElement<Props, {}> {
+export default class ToggleButtons extends WeElement<Props> {
     static defaultProps: {};
     static propTypes: {
         multipleSelection: BooleanConstructor;

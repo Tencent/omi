@@ -9,9 +9,7 @@ interface Props {
     future?: string;
     lan?: string;
 }
-interface Data {
-}
-export default class DateTimePicker extends WeElement<Props, Data> {
+export default class DateTimePicker extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         type: string;

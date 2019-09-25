@@ -8,9 +8,7 @@ interface Props {
     icon: string;
     svgIcon: object;
 }
-interface Data {
-}
-export default class Tag extends WeElement<Props, Data> {
+export default class Tag extends WeElement<Props> {
     static css: any;
     static propTypes: {
         type: StringConstructor;

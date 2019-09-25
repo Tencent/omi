@@ -9,9 +9,7 @@ interface Props {
     cancelButton?: object;
     confirmButton?: object;
 }
-interface Data {
-}
-declare class Dialog extends WeElement<Props, Data> {
+declare class Dialog extends WeElement<Props> {
     static css: any;
     static confirm: any;
     static alert: any;

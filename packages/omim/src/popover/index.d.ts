@@ -7,7 +7,7 @@ interface Props {
     direction: string;
     target: string | HTMLElement;
 }
-export default class Popover extends WeElement<Props, {}> {
+export default class Popover extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         x: number;

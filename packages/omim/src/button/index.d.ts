@@ -10,9 +10,7 @@ interface Props {
     svgIcon: object;
     icon: string;
 }
-interface Data {
-}
-export default class Button extends WeElement<Props, Data> {
+export default class Button extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         ripple: boolean;

@@ -3,9 +3,7 @@ import '../theme.ts';
 interface Props {
     list: object;
 }
-interface Data {
-}
-export default class Menu extends WeElement<Props, Data> {
+export default class Menu extends WeElement<Props> {
     static css: any;
     static defaultProps: {};
     static propTypes: {
