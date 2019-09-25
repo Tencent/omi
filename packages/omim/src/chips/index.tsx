@@ -26,12 +26,8 @@ interface Props {
   ripple?: boolean
 }
 
-interface Data {
-
-}
-
 @tag('m-chips')
-export default class Chips extends WeElement<Props, Data>{
+export default class Chips extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

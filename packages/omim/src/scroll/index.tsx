@@ -22,7 +22,7 @@ interface Props {
 
 
 @tag('m-scroll')
-export default class Scroll extends WeElement<Props, {}> {
+export default class Scroll extends WeElement<Props> {
   static css = css
 
   static propTypes = {

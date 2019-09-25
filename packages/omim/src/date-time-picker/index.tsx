@@ -15,13 +15,8 @@ interface Props {
   lan?: string
 }
 
-interface Data {
-
-}
-
-
 @tag('m-date-time-picker')
-export default class DateTimePicker extends WeElement<Props, Data>{
+export default class DateTimePicker extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

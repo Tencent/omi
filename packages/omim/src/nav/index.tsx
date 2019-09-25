@@ -7,13 +7,8 @@ interface Props {
 	nodes: object
 }
 
-interface Data {
-
-}
-
-
 @tag('m-nav')
-export default class Nav extends WeElement<Props, Data>{
+export default class Nav extends WeElement<Props>{
 	static css = css
 
 	static propTypes = {

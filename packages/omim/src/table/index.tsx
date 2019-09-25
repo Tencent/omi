@@ -11,7 +11,7 @@ interface Props {
 }
 
 @tag('m-table')
-export default class Table extends WeElement<Props, {}> {
+export default class Table extends WeElement<Props> {
 	static css = css
 
 	dataSource:any[]

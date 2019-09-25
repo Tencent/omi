@@ -15,12 +15,8 @@ interface Props {
   value?: string
 }
 
-interface Data {
-
-}
-
 @tag('m-switch')
-export default class Switch extends WeElement<Props, Data>{
+export default class Switch extends WeElement<Props>{
   static css = css
 
   static propTypes = {

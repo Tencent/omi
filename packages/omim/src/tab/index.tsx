@@ -16,12 +16,8 @@ interface Props {
 	stacked: boolean
 }
 
-interface Data {
-
-}
-
 @tag('m-tab')
-export default class Tab extends WeElement<Props, Data>{
+export default class Tab extends WeElement<Props>{
 	static css = css
 
 	data = {

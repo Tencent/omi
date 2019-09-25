@@ -11,7 +11,7 @@ interface Props {
 }
 
 @tag('m-date-range-picker')
-class DateRangePicker extends WeElement<Props, {}> {
+class DateRangePicker extends WeElement<Props> {
 
   static defaultProps = {
     lan: 'en'

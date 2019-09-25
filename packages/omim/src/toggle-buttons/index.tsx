@@ -11,7 +11,7 @@ interface Props {
 }
 
 @tag('m-toggle-buttons')
-export default class ToggleButtons extends WeElement<Props, {}> {
+export default class ToggleButtons extends WeElement<Props> {
   static defaultProps = {
 
   }

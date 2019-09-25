@@ -14,13 +14,8 @@ interface Props {
   menu?: object
 }
 
-interface Data {
-
-}
-
-
 @tag('m-select')
-export default class Select extends WeElement<Props, Data>{
+export default class Select extends WeElement<Props>{
   static css = css
 
   static propTypes = {

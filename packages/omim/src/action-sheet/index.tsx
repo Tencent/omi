@@ -12,7 +12,7 @@ interface Props {
 }
 
 @tag('m-action-sheet')
-class ActionSheet extends WeElement<Props, {}> {
+class ActionSheet extends WeElement<Props> {
   static defaultProps = {
     type: '',
     items: [],

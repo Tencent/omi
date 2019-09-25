@@ -15,13 +15,8 @@ interface Props {
   value: string
 }
 
-interface Data {
-
-}
-
-
 @tag('m-checkbox')
-export default class Checkbox extends WeElement<Props, Data>{
+export default class Checkbox extends WeElement<Props>{
   static css = css
 
   static propTypes = {

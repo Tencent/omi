@@ -10,12 +10,9 @@ interface Props {
 	items: any[]
 }
 
-interface Data {
-
-}
 
 @tag('m-bottom-nav')
-export default class BottomNav extends WeElement<Props, Data>{
+export default class BottomNav extends WeElement<Props>{
 	static css = css
 
 	static defaultProps = {

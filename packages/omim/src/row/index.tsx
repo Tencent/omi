@@ -14,13 +14,8 @@ interface Props {
 	type?: string
 }
 
-interface Data {
-
-}
-
-
 @tag('m-row')
-export default class Row extends WeElement<Props, Data>{
+export default class Row extends WeElement<Props>{
 	static css = css + rs
 
 	static propTypes = {

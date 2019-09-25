@@ -9,13 +9,8 @@ interface Props {
   color?: string
 }
 
-interface Data {
-
-}
-
-
 @tag('m-loading')
-export default class Loading extends WeElement<Props, Data>{
+export default class Loading extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

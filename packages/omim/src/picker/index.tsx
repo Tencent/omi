@@ -9,13 +9,8 @@ interface Props {
 	label: string
 }
 
-interface Data {
-
-}
-
-
 @tag('m-picker')
-export default class Picker extends WeElement<Props, Data>{
+export default class Picker extends WeElement<Props>{
 	static css = css
 
 	static defaultProps = {

@@ -12,13 +12,8 @@ interface Props {
   reversed: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-linear-progress')
-export default class LinearProgress extends WeElement<Props, Data>{
+export default class LinearProgress extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

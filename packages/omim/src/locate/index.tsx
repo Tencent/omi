@@ -13,12 +13,8 @@ interface Props {
   //transition: string
 }
 
-interface Data {
-
-}
-
 @tag('m-locate')
-export default class Locate extends WeElement<Props, Data>{
+export default class Locate extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

@@ -8,13 +8,8 @@ interface Props {
   node: object
 }
 
-interface Data {
-
-}
-
-
 @tag('m-tree')
-export default class Tree extends WeElement<Props, Data>{
+export default class Tree extends WeElement<Props>{
   static css = css
 
   static propTypes = {

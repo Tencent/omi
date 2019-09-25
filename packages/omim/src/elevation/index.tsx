@@ -8,10 +8,9 @@ interface Props {
   z: number
 }
 
-interface Data {}
 
 @tag('m-elevation')
-export default class Elevation extends WeElement<Props, Data> {
+export default class Elevation extends WeElement<Props> {
   static css = css
 
   static propTypes = {

@@ -7,12 +7,9 @@ import '../theme.ts'
 interface Props {
 }
 
-interface Data {
-
-}
 
 @tag('m-breadcrumb')
-export default class Breadcrumb extends WeElement<Props, Data>{
+export default class Breadcrumb extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

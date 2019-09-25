@@ -32,12 +32,8 @@ interface Props {
   width?: string
 }
 
-interface Data {
-
-}
-
 @tag('m-color-picker')
-export default class ColorPicker extends WeElement<Props, Data>{
+export default class ColorPicker extends WeElement<Props>{
   static css = css
 
   picker: Pickr

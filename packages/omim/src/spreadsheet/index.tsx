@@ -18,13 +18,8 @@ interface Props {
   height?: number
 }
 
-interface Data {
-
-}
-
-
 @tag('m-spreadsheet')
-export default class Spreadsheet extends WeElement<Props, Data>{
+export default class Spreadsheet extends WeElement<Props>{
 
   static defaultProps = {
 

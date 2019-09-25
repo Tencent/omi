@@ -8,10 +8,8 @@ interface Props {
   type?: string
 }
 
-interface Data { }
-
 @tag('m-player')
-export default class Player extends WeElement<Props, Data> {
+export default class Player extends WeElement<Props> {
   video: any
 
   disX: any

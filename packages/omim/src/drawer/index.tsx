@@ -9,13 +9,8 @@ interface Props {
   show?: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-drawer')
-export default class Drawer extends WeElement<Props, Data>{
+export default class Drawer extends WeElement<Props>{
   static css = css
 
   static propTypes = {

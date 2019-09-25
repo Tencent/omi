@@ -9,12 +9,8 @@ interface Props {
   right: object[]
 }
 
-interface Data {
-
-}
-
 @tag('m-transfer-list')
-export default class TransferList extends WeElement<Props, Data>{
+export default class TransferList extends WeElement<Props>{
   static css = css
 
   static propTypes = {

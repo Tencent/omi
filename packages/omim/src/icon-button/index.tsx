@@ -20,12 +20,8 @@ interface Props {
   disabled: boolean
 }
 
-interface Data {
-
-}
-
 @tag('m-icon-button')
-export default class IconButton extends WeElement<Props, Data>{
+export default class IconButton extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

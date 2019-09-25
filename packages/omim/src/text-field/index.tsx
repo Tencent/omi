@@ -49,10 +49,6 @@ interface Props {
   trailingIconContent: string
 }
 
-interface Data {
-
-}
-
 function extract(from, props):any {
   const to = {}
   props.forEach(prop => {
@@ -64,7 +60,7 @@ function extract(from, props):any {
 }
 
 @tag('m-text-field')
-export default class TextField extends WeElement<Props, Data>{
+export default class TextField extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

@@ -9,12 +9,8 @@ interface Props {
   square?: boolean
 }
 
-interface Data {
-
-}
-
 @tag('m-paper')
-export default class Paper extends WeElement<Props, Data>{
+export default class Paper extends WeElement<Props>{
   static css = css
 
   static propTypes = {

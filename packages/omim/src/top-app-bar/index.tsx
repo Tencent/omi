@@ -23,12 +23,8 @@ interface Props {
   scrollTargetId?: string
 }
 
-interface Data {
-
-}
-
 @tag('m-top-app-bar')
-export default class topAppBar extends WeElement<Props, Data>{
+export default class topAppBar extends WeElement<Props>{
   static css = css
 
   static propTypes = {

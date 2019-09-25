@@ -17,13 +17,8 @@ interface Props {
 	nextShow: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-pagination')
-export default class Pagination extends WeElement<Props, Data>{
+export default class Pagination extends WeElement<Props>{
 	static css = css
 
 	static defaultProps = {

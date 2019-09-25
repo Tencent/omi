@@ -20,12 +20,8 @@ interface Props {
   removed?: boolean
 }
 
-interface Data {
-
-}
-
 @tag('m-transition')
-export default class Transition extends WeElement<Props, Data>{
+export default class Transition extends WeElement<Props>{
 
   static css = `  
   :host {

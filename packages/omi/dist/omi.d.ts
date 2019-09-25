@@ -68,7 +68,7 @@ declare namespace Omi {
 		public observe(record: boolean, callback?: Function): object;
 	}
 
-	interface WeElement<P, D> extends HTMLElement {
+	interface WeElement<P> extends HTMLElement {
 		install?(): void;
 		installed?(): void;
 		uninstall?(): void;
@@ -83,7 +83,7 @@ declare namespace Omi {
 		useSelf(): any[];
 	}
 
-	interface Component<P, D> extends HTMLElement {
+	interface Component<P> extends HTMLElement {
 		install?(): void;
 		installed?(): void;
 		uninstall?(): void;
@@ -98,7 +98,7 @@ declare namespace Omi {
 		useSelf(): any[];
 	}
 
-	abstract class WeElement<P = {}, D = {}> {
+	abstract class WeElement<P = {}> {
 		constructor();
 
 		// Allow static members to reference class type parameters
@@ -205,10 +205,10 @@ declare global {
 		interface Element extends Omi.VNode<any> {
 		}
 
-		interface ElementClass extends Omi.WeElement<any, any> {
+		interface ElementClass extends Omi.WeElement<any> {
 		}
 
-		interface ElementClass extends Omi.Component<any, any> {
+		interface ElementClass extends Omi.Component<any> {
 		}
 
 		interface ElementAttributesProperty {

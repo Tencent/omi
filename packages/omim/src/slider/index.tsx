@@ -15,13 +15,8 @@ interface Props {
   displayMarkers?: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-slider')
-export default class Slider extends WeElement<Props, Data>{
+export default class Slider extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

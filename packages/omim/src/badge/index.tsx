@@ -11,12 +11,9 @@ interface Props {
   y?: number
 }
 
-interface Data {
-
-}
 
 @tag('m-badge')
-export default class Badge extends WeElement<Props, Data>{
+export default class Badge extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

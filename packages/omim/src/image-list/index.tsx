@@ -9,13 +9,8 @@ interface Props {
   list: object
 }
 
-interface Data {
-
-}
-
-
 @tag('m-image-list')
-export default class ImageList extends WeElement<Props, Data>{
+export default class ImageList extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

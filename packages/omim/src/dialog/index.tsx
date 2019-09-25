@@ -15,12 +15,8 @@ interface Props {
   confirmButton?: object
 }
 
-interface Data {
-
-}
-
 @tag('m-dialog')
-class Dialog extends WeElement<Props, Data>{
+class Dialog extends WeElement<Props>{
   static css = css
   static confirm: any
   static alert: any

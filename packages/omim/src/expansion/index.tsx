@@ -8,10 +8,8 @@ interface Props {
   expand: boolean
 }
 
-interface Data {}
-
 @tag('m-expansion')
-export default class Expansion extends WeElement<Props, Data> {
+export default class Expansion extends WeElement<Props> {
   static css = css
 
   static propTypes = {

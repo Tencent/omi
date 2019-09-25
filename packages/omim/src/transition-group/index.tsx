@@ -10,12 +10,8 @@ interface Props {
   delay?: number
 }
 
-interface Data {
-
-}
-
 @tag('m-transition-group')
-export default class TransitionGroup extends WeElement<Props, Data>{
+export default class TransitionGroup extends WeElement<Props>{
 
   static propTypes = {
     name: String,

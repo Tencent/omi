@@ -5,12 +5,8 @@ interface Props {
 
 }
 
-interface Data {
-
-}
-
 @tag('m-finger')
-export default class Finger extends WeElement<Props, Data>{
+export default class Finger extends WeElement<Props>{
   
   static css = `:host {
   display: inline-block;

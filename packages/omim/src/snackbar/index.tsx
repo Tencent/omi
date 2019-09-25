@@ -13,13 +13,8 @@ interface Props {
   leading?: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-snackbar')
-export default class Snackbar extends WeElement<Props, Data>{
+export default class Snackbar extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

@@ -13,7 +13,7 @@ interface Props {
 }
 
 @tag('m-popover')
-export default class Popover extends WeElement<Props, {}> {
+export default class Popover extends WeElement<Props> {
   static css = css
 
   static defaultProps = {

@@ -15,7 +15,7 @@ interface Props {
 }
 
 @tag('m-avatar')
-export default class Avatar extends WeElement<Props, {}>{
+export default class Avatar extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

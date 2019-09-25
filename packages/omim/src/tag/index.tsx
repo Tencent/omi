@@ -13,12 +13,8 @@ interface Props {
   svgIcon: object
 }
 
-interface Data {
-
-}
-
 @tag('m-tag')
-export default class Tag extends WeElement<Props, Data>{
+export default class Tag extends WeElement<Props>{
   static css = css
 
   static propTypes = {

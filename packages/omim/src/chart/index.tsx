@@ -8,7 +8,7 @@ interface Props {
   height: number
 }
 
-class ChartBase extends WeElement<Props, {}> {
+class ChartBase extends WeElement<Props> {
   chart: Chart
   canvas: HTMLCanvasElement
 

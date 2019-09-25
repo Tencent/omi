@@ -9,12 +9,8 @@ interface Props {
   value: number
 }
 
-interface Data {
-
-}
-
 @tag('m-rate')
-export default class Rate extends WeElement<Props, Data>{
+export default class Rate extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

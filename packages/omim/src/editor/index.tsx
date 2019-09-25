@@ -11,10 +11,8 @@ document.querySelector('head').appendChild(style)
 interface Props {
 }
 
-interface Data { }
-
 @tag('m-editor')
-export default class Editor extends WeElement<Props, Data> {
+export default class Editor extends WeElement<Props> {
   static css = css
 
   static propTypes = {

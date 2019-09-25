@@ -5,11 +5,8 @@ interface Props {
   containerStyle: Object
 }
 
-interface Data {
 
-}
-
-define('m-path-progress', class extends WeElement<Props, Data> {
+define('m-path-progress', class extends WeElement<Props> {
   static css = `
   :host {
     display: block;

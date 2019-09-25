@@ -8,13 +8,8 @@ interface Props {
   list: object
 }
 
-interface Data {
-
-}
-
-
 @tag('m-menu')
-export default class Menu extends WeElement<Props, Data>{
+export default class Menu extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

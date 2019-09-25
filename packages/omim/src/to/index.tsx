@@ -13,13 +13,8 @@ interface Props {
   start: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-to')
-export default class To extends WeElement<Props, Data>{
+export default class To extends WeElement<Props>{
 
   static propTypes = {
     from: Object,

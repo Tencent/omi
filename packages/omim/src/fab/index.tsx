@@ -14,12 +14,8 @@ interface Props {
   icon: string
 }
 
-interface Data {
-
-}
-
 @tag('m-fab')
-export default class Fab extends WeElement<Props, Data>{
+export default class Fab extends WeElement<Props>{
   static css = css
 
   static propTypes = {

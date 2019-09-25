@@ -16,13 +16,8 @@ interface Props {
   name?: string
 }
 
-interface Data {
-
-}
-
-
 @tag('m-radio')
-class Radio extends WeElement<Props, Data>{
+class Radio extends WeElement<Props>{
   static css = css
 
   static propTypes = {

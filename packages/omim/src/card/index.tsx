@@ -17,12 +17,8 @@ interface Props {
   overImg?: boolean
 }
 
-interface Data {
-
-}
-
 @tag('m-card')
-export default class Card extends WeElement<Props, Data>{
+export default class Card extends WeElement<Props>{
   static css = css
 
   static propTypes = {

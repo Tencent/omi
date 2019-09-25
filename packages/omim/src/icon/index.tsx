@@ -13,13 +13,8 @@ interface Props {
   rotate?: boolean
 }
 
-interface Data {
-
-}
-
-
 @tag('m-icon')
-export default class Icon extends WeElement<Props, Data>{
+export default class Icon extends WeElement<Props>{
   static css = css
 
   static defaultProps = {

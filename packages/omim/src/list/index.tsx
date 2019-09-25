@@ -19,12 +19,8 @@ interface Props {
   onItemClick?: (evt: CustomEvent) => void
 }
 
-interface Data {
-
-}
-
 @tag('m-list')
-export default class List extends WeElement<Props, Data>{
+export default class List extends WeElement<Props>{
   static css = css
 
   static propTypes = {
