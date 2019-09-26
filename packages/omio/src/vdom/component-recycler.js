@@ -55,6 +55,6 @@ export function createComponent(Ctor, props, context, vnode) {
 }
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, data, context) {
+function doRender(props, context) {
   return this.constructor(props, context)
 }

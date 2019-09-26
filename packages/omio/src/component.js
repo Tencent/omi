@@ -9,13 +9,11 @@ export default class Component {
   static is = 'WeElement'
 
   constructor(props, store) {
-    this.props = assign(
-      nProps(this.constructor.props),
+    this.props = assign({ },
       this.constructor.defaultProps,
       props
     )
     this.elementId = id++
-    this.data = this.constructor.data || this.data || {}
 
     this._preCss = null
 
@@ -23,6 +21,7 @@ export default class Component {
   }
 
   update(callback) {
+    if(this._willUpdate) return
     this._willUpdate = true
     if (callback)
       (this._renderCallbacks = this._renderCallbacks || []).push(callback)

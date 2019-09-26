@@ -47,7 +47,7 @@ describe('lifecycle', () => {
 	});
 
 	// 	测试beforeRender
-	it ('should render beforeRender', () => {
+	it ('should render beforeRender c', () => {
 		class M2 extends WeElement {
 			static observe = true
 			data = {
@@ -114,7 +114,7 @@ describe('lifecycle', () => {
 	});
 
 	// 测试uninstall
-	it ('should render uninstall', () => {
+	it ('should render uninstall c', () => {
 		class M4 extends WeElement {
 			static observe = true
 			data = {
@@ -159,7 +159,7 @@ describe('lifecycle', () => {
 		expect(scratch.innerHTML).to.equal('<div><div>dl</div></div>');
 	});
 
-	it ('should render beforeUpdate', () => {
+	it ('should render beforeUpdate c', () => {
 		let beforeUpdateable = false;
 		class M5 extends WeElement {
 			static observe = true;

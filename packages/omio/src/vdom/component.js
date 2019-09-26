@@ -23,7 +23,6 @@ import {
   getCtorName,
   scopeHost
 } from '../style'
-import { proxyUpdate } from '../observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props
@@ -41,9 +40,6 @@ export function setComponentProps(component, props, opts, context, mountAll) {
   if (!component.base || mountAll) {
     if (component.beforeInstall) component.beforeInstall()
     if (component.install) component.install()
-    if (component.constructor.observe) {
-      proxyUpdate(component)
-    }
   }
 
   if (context && context !== component.context) {
@@ -82,10 +78,8 @@ export function renderComponent(component, opts, mountAll, isChild) {
   if (component._disable) return
 
   let props = component.props,
-    data = component.data,
     context = component.context,
     previousProps = component.prevProps || props,
-    previousState = component.prevState || data,
     previousContext = component.prevContext || context,
     isUpdate = component.base,
     nextBase = component.nextBase,
@@ -99,7 +93,6 @@ export function renderComponent(component, opts, mountAll, isChild) {
   // if updating
   if (isUpdate) {
     component.props = previousProps
-    component.data = previousState
     component.context = previousContext
     
     let receiveResult = true
@@ -109,21 +102,20 @@ export function renderComponent(component, opts, mountAll, isChild) {
     if (receiveResult !== false) {
       skip = false
       if (component.beforeUpdate) {
-        component.beforeUpdate(props, data, context)
+        component.beforeUpdate(props, context)
       }
     } else {
       skip = true
     }
     component.props = props
-    component.data = data
     component.context = context
   }
 
-  component.prevProps = component.prevState = component.prevContext = component.nextBase = null
+  component.prevProps = component.prevContext = component.nextBase = null
 
   if (!skip) {
     component.beforeRender && component.beforeRender()
-    rendered = component.render(props, data, context)
+    rendered = component.render(props, context)
 
     //don't rerender
     if (component.constructor.css || component.css) {
@@ -224,10 +216,10 @@ export function renderComponent(component, opts, mountAll, isChild) {
 
     if (component.afterUpdate) {
       //deprecated
-      component.afterUpdate(previousProps, previousState, previousContext)
+      component.afterUpdate(previousProps, previousContext)
     }
     if (component.updated) {
-      component.updated(previousProps, previousState, previousContext)
+      component.updated(previousProps, previousContext)
     }
     if (options.afterUpdate) options.afterUpdate(component)
   }

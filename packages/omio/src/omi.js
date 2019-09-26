@@ -7,7 +7,6 @@ import options from './options'
 import { define } from './define'
 import { rpx } from './rpx'
 import { tag } from './tag'
-import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 import { getHost } from './get-host'
 import { renderToString } from './render-to-string'
@@ -34,7 +33,6 @@ options.root.Omi = {
   WeElement,
   define,
   rpx,
-  ModelView,
   defineElement,
   classNames,
   extractClass,
@@ -47,7 +45,7 @@ options.root.Omi = {
   obaa
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.4.1'
+options.root.Omi.version = 'omio-2.5.0'
 
 export default {
   h,
@@ -61,7 +59,6 @@ export default {
   WeElement,
   define,
   rpx,
-  ModelView,
   defineElement,
   classNames,
   extractClass,
@@ -86,7 +83,6 @@ export {
   WeElement,
   define,
   rpx,
-  ModelView,
   defineElement,
   classNames,
   extractClass,

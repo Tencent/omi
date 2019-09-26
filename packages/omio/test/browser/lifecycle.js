@@ -47,9 +47,8 @@ describe('lifecycle', () => {
 	});
 
 	// 	测试beforeRender
-	it ('should render beforeRender', () => {
+	it ('should render beforeRender b', () => {
 		class M2 extends WeElement {
-			static observe = true
 			data = {
 				name: 'M2'
 			}
@@ -63,6 +62,7 @@ describe('lifecycle', () => {
 				name: 'Omi',
 				age: 18
 			}
+			data={}
 
 			beforeRender () {
 				console.log('beforeRender')
@@ -114,15 +114,15 @@ describe('lifecycle', () => {
 	});
 
 	// 测试uninstall
-	it ('should render uninstall', () => {
+	it ('should render uninstall b', () => {
 		class M4 extends WeElement {
-			static observe = true
 			data = {
 				name: 'M4',
 				isShow: true
 			}
 			installed () {
 				this.data.isShow = false
+				this.update()
 			}
 			render () {
 				return <div>{
@@ -139,6 +139,7 @@ describe('lifecycle', () => {
 			static defaultProps = {
 				name: 'children'
 			}
+			data = {}
 			render (props) {
 				return <div>{props.name}</div>;
 			}
@@ -159,15 +160,16 @@ describe('lifecycle', () => {
 		expect(scratch.innerHTML).to.equal('<div><div>dl</div></div>');
 	});
 
-	it ('should render beforeUpdate', () => {
+	it ('should render beforeUpdate b', () => {
 		let beforeUpdateable = false;
 		class M5 extends WeElement {
-			static observe = true;
+			
 			data = {
 				name: 'M5'
 			}
 			installed () {
 				this.data.name = 'dl';
+				this.update()
 			}
 			render () {
 				return <div><children name={this.data.name}></children></div>;
@@ -202,7 +204,6 @@ describe('lifecycle', () => {
 	it ('should render afterUpdate', () => {
 		let afterUpdateable = false;
 		class M6 extends WeElement {
-			static observe = true;
 
 			data = {
 				name: 'M6'
@@ -210,6 +211,7 @@ describe('lifecycle', () => {
 
 			installed () {
 				this.data.name = 'dl'
+				this.update()
 			}
 
 			render () {
@@ -249,7 +251,6 @@ describe('lifecycle', () => {
 	it ('should render updated', () => {
 		let updatedable = false;
 		class M6 extends WeElement {
-			static observe = true;
 
 			data = {
 				name: 'M6'
@@ -257,6 +258,7 @@ describe('lifecycle', () => {
 
 			installed() {
 				this.data.name = 'dl';
+				this.update()
 			}
 
 			render () {

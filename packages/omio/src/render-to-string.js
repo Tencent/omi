@@ -100,7 +100,7 @@ function _renderToString(vnode, opts, store, isSvgMode, css) {
     c.store = store;
     if (c.install) c.install();
     if (c.beforeRender) c.beforeRender();
-    rendered = c.render(c.props, c.data, c.store);
+    rendered = c.render(c.props, c.store);
 
     if(opts.scopedCSS){
 
