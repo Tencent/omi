@@ -33,11 +33,18 @@ export function createComponent(Ctor, props, context, vnode) {
 			inst.using = getUse(inst.store.data, inst.constructor.use)
 			inst.store.instances.push(inst)
 		} else if(inst.use){
-			const use = inst.use()
+			const use = typeof inst.use === 'function' ? inst.use() : inst.use
 			inst._updatePath = getPath(use)
 			inst.using = getUse(inst.store.data, use)
 			inst.store.instances.push(inst)
-		}
+    }
+    
+    if(inst.useSelf){
+			const use = typeof inst.useSelf === 'function' ? inst.useSelf() : inst.useSelf
+			inst._updateSelfPath = getPath(use)
+			inst.usingSelf = getUse(inst.store.data, use)
+			inst.store.updateSelfInstances.push(inst)
+    }
 
 
   }

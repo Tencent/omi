@@ -31,6 +31,7 @@ export function render(vnode, parent, store, empty, merge) {
 function obsStore(store){
   if (store && store.data) {
     store.instances = []
+    store.updateSelfInstances = []
     extendStoreUpate(store)
 
     obaa(store.data, (prop, val, old, path) => {
@@ -70,12 +71,20 @@ function extendStoreUpate(store) {
 					if(instance.constructor.use){
 						instance.using = getUse(store.data, instance.constructor.use)
 					} else if(instance.use){
-						instance.using = getUse(store.data, instance.use())
+						instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use)
 					}
 
           instance.update()
         }
       })
+
+      this.updateSelfInstances.forEach(instance => {
+        if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+          this.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
+          instance.updateSelf()
+        }
+      })
+      
       this.onChange && this.onChange(patch)
     }
   }

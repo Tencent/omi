@@ -86,7 +86,21 @@ export function define(name, ctor) {
 				 return config.use.apply(this, arguments)
 				}
 			} else {
-				Comp.use = config.use
+				Comp.prototype.use = function(){
+          return config.use
+        }
+			}
+    }
+    
+    if(config.useSelf){
+			if(typeof config.useSelf  === 'function'){
+				Comp.prototype.useSelf = function(){
+				 return config.useSelf.apply(this, arguments)
+				}
+			} else {
+				Comp.prototype.useSelf = function(){
+          return config.useSelf
+        }
 			}
 		}
 
