@@ -50,14 +50,6 @@
     function isArray(obj) {
         return '[object Array]' === Object.prototype.toString.call(obj);
     }
-    function nProps(props) {
-        if (!props || isArray(props)) return {};
-        var result = {};
-        Object.keys(props).forEach(function(key) {
-            result[key] = props[key].value;
-        });
-        return result;
-    }
     function getUse(data, paths) {
         var obj = [];
         paths.forEach(function(path, index) {
@@ -311,7 +303,7 @@
             if (c.constructor.css || c.css) addStyleToHead(c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css, '_s' + getCtorName(c.constructor));
         }
     }
-    function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+    function diff(dom, vnode, context, mountAll, parent, componentRoot, updateSelf) {
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !('__omiattr_' in dom);
@@ -321,7 +313,7 @@
             nodeName: 'span',
             children: vnode
         };
-        ret = idiff(dom, vnode, context, mountAll, componentRoot);
+        ret = idiff(dom, vnode, context, mountAll, componentRoot, updateSelf);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         if (!--diffLevel) {
             hydrating = !1;
@@ -329,15 +321,15 @@
         }
         return ret;
     }
-    function idiff(dom, vnode, context, mountAll, componentRoot) {
+    function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
         var out = dom, prevSvgMode = isSvgMode;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         var vnodeName = vnode.nodeName;
         if (options.mapping[vnodeName]) {
             vnode.nodeName = options.mapping[vnodeName];
-            return buildComponentFromVNode(dom, vnode, context, mountAll);
+            return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf);
         }
-        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, context, mountAll);
+        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf);
         if ('string' == typeof vnode || 'number' == typeof vnode) {
             if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
                 if (dom.nodeValue != vnode) dom.nodeValue = vnode;
@@ -370,12 +362,12 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
+        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML, updateSelf);
         diffAttributes(out, vnode.attributes, props);
         isSvgMode = prevSvgMode;
         return out;
     }
-    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, updateSelf) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
             var _child = originalChildren[i], props = _child.__omiattr_, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
@@ -401,7 +393,7 @@
                 if (j === min) min++;
                 break;
             }
-            child = idiff(child, vchild, context, mountAll);
+            child = idiff(child, vchild, context, mountAll, null, updateSelf);
             f = originalChildren[i];
             if (child && child !== dom && child !== f) if (null == f) dom.appendChild(child); else if (child === f.nextSibling) removeNode(f); else dom.insertBefore(child, f);
         }
@@ -511,7 +503,14 @@
             Comp.defaultProps = config.defaultProps;
             if (config.use) if ('function' == typeof config.use) Comp.prototype.use = function() {
                 return config.use.apply(this, arguments);
-            }; else Comp.use = config.use;
+            }; else Comp.prototype.use = function() {
+                return config.use;
+            };
+            if (config.useSelf) if ('function' == typeof config.useSelf) Comp.prototype.useSelf = function() {
+                return config.useSelf.apply(this, arguments);
+            }; else Comp.prototype.useSelf = function() {
+                return config.useSelf;
+            };
             if (Comp.use) Comp.updatePath = getPath(Comp.use);
             options.mapping[name] = Comp;
         }
@@ -573,14 +572,22 @@
             inst.render = doRender;
         }
         vnode && (inst.scopedCssAttr = vnode.css);
-        if (inst.store && inst.store.data) if (inst.constructor.use) {
-            inst.using = getUse(inst.store.data, inst.constructor.use);
-            inst.store.instances.push(inst);
-        } else if (inst.use) {
-            var use = inst.use();
-            inst.H = getPath(use);
-            inst.using = getUse(inst.store.data, use);
-            inst.store.instances.push(inst);
+        if (inst.store && inst.store.data) {
+            if (inst.constructor.use) {
+                inst.using = getUse(inst.store.data, inst.constructor.use);
+                inst.store.instances.push(inst);
+            } else if (inst.use) {
+                var use = 'function' == typeof inst.use ? inst.use() : inst.use;
+                inst.H = getPath(use);
+                inst.using = getUse(inst.store.data, use);
+                inst.store.instances.push(inst);
+            }
+            if (inst.useSelf) {
+                var _use = 'function' == typeof inst.useSelf ? inst.useSelf() : inst.useSelf;
+                inst.I = getPath(_use);
+                inst.usingSelf = getUse(inst.store.data, _use);
+                inst.store.updateSelfInstances.push(inst);
+            }
         }
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
@@ -589,8 +596,155 @@
         }
         return inst;
     }
-    function doRender(props, data, context) {
+    function doRender(props, context) {
         return this.constructor(props, context);
+    }
+    function setComponentProps(component, props, opts, context, mountAll) {
+        if (!component.__x) {
+            component.__x = !0;
+            if (component.__r = props.ref) delete props.ref;
+            if (component.__k = props.key) delete props.key;
+            if (!component.base || mountAll) {
+                if (component.beforeInstall) component.beforeInstall();
+                if (component.install) component.install();
+            }
+            if (context && context !== component.context) {
+                if (!component.__c) component.__c = component.context;
+                component.context = context;
+            }
+            if (!component.__p) component.__p = component.props;
+            component.props = props;
+            component.__x = !1;
+            if (0 !== opts) if (1 === opts || !1 !== options.syncComponentUpdates || !component.base) renderComponent(component, 1, mountAll); else enqueueRender(component);
+            applyRef(component.__r, component);
+        }
+    }
+    function renderComponent(component, opts, mountAll, isChild, updateSelf) {
+        if (!component.__x) {
+            var rendered, inst, cbase, props = component.props, context = component.context, previousProps = component.__p || props, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
+            if (isUpdate) {
+                component.props = previousProps;
+                component.context = previousContext;
+                var receiveResult = !0;
+                if (component.receiveProps) receiveResult = component.receiveProps(props, previousProps);
+                if (!1 !== receiveResult) {
+                    skip = !1;
+                    if (component.beforeUpdate) component.beforeUpdate(props, context);
+                } else skip = !0;
+                component.props = props;
+                component.context = context;
+            }
+            component.__p = component.__c = component.__b = null;
+            if (!skip) {
+                component.beforeRender && component.beforeRender();
+                rendered = component.render(props, context);
+                if (component.constructor.css || component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
+                scopeHost(rendered, component.scopedCssAttr);
+                if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
+                var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
+                if (ctor) {
+                    var childProps = getNodeProps(rendered);
+                    inst = initialChildComponent;
+                    if (inst && inst.constructor === ctor && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, context, !1); else {
+                        toUnmount = inst;
+                        component._component = inst = createComponent(ctor, childProps, context);
+                        inst.__b = inst.__b || nextBase;
+                        inst.__u = component;
+                        setComponentProps(inst, childProps, 0, context, !1);
+                        renderComponent(inst, 1, mountAll, !0);
+                    }
+                    base = inst.base;
+                } else {
+                    cbase = initialBase;
+                    toUnmount = initialChildComponent;
+                    if (toUnmount) cbase = component._component = null;
+                    if (initialBase || 1 === opts) {
+                        if (cbase) cbase._component = null;
+                        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0, updateSelf);
+                    }
+                }
+                if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+                    var baseParent = initialBase.parentNode;
+                    if (baseParent && base !== baseParent) {
+                        baseParent.replaceChild(base, initialBase);
+                        if (!toUnmount) {
+                            initialBase._component = null;
+                            recollectNodeTree(initialBase, !1);
+                        }
+                    }
+                }
+                if (toUnmount) unmountComponent(toUnmount);
+                component.base = base;
+                if (base && !isChild) {
+                    var componentRef = component, t = component;
+                    while (t = t.__u) (componentRef = t).base = base;
+                    base._component = componentRef;
+                    base._componentConstructor = componentRef.constructor;
+                }
+            }
+            if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
+                if (component.afterUpdate) component.afterUpdate(previousProps, previousContext);
+                if (component.updated) component.updated(previousProps, previousContext);
+                if (options.afterUpdate) options.afterUpdate(component);
+            }
+            if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
+            if (!diffLevel && !isChild) flushMounts();
+        }
+    }
+    function buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf) {
+        var c = dom && dom._component, originalComponent = c, oldDom = dom, isDirectOwner = c && dom._componentConstructor === vnode.nodeName, isOwner = isDirectOwner, props = getNodeProps(vnode);
+        while (c && !isOwner && (c = c.__u)) isOwner = c.constructor === vnode.nodeName;
+        if (c && isOwner && (!mountAll || c._component)) {
+            if (!updateSelf) setComponentProps(c, props, 3, context, mountAll);
+            dom = c.base;
+        } else {
+            if (originalComponent && !isDirectOwner) {
+                unmountComponent(originalComponent);
+                dom = oldDom = null;
+            }
+            c = createComponent(vnode.nodeName, props, context, vnode);
+            if (dom && !c.__b) {
+                c.__b = dom;
+                oldDom = null;
+            }
+            setComponentProps(c, props, 1, context, mountAll);
+            dom = c.base;
+            if (oldDom && dom !== oldDom) {
+                oldDom._component = null;
+                recollectNodeTree(oldDom, !1);
+            }
+        }
+        return dom;
+    }
+    function unmountComponent(component) {
+        if (options.beforeUnmount) options.beforeUnmount(component);
+        var base = component.base;
+        component.__x = !0;
+        if (component.uninstall) component.uninstall();
+        if (component.store && component.store.instances) {
+            var i, len;
+            for (i = 0, len = component.store.instances.length; i < len; i++) if (component.store.instances[i] === component) {
+                component.store.instances.splice(i, 1);
+                break;
+            }
+            for (i = 0, len = component.store.updateSelfInstances.length; i < len; i++) if (component.store.updateSelfInstances[i] === component) {
+                component.store.updateSelfInstances.splice(i, 1);
+                break;
+            }
+        }
+        component.base = null;
+        var inner = component._component;
+        if (inner) unmountComponent(inner); else if (base) {
+            if (null != base.__omiattr_) applyRef(base.__omiattr_.ref, null);
+            component.__b = base;
+            removeNode(base);
+            collectComponent(component);
+            removeChildren(base);
+        }
+        applyRef(component.__r, null);
+    }
+    function _classCallCheck$1(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
     function obaa(target, arr, callback) {
         var eventPropArr = [];
@@ -697,184 +851,6 @@
     function getRootName(prop, path) {
         if ('#' === path) return prop; else return path.split('-')[1];
     }
-    function fireTick() {
-        callbacks.forEach(function(item) {
-            item.fn.call(item.scope);
-        });
-        nextTickCallback.forEach(function(nextItem) {
-            nextItem.fn.call(nextItem.scope);
-        });
-        nextTickCallback.length = 0;
-    }
-    function proxyUpdate(ele) {
-        var timeout = null;
-        obaa(ele.data, function() {
-            if (!ele.A) if (ele.constructor.mergeUpdate) {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    ele.update();
-                    fireTick();
-                }, 0);
-            } else {
-                ele.update();
-                fireTick();
-            }
-        });
-    }
-    function setComponentProps(component, props, opts, context, mountAll) {
-        if (!component.__x) {
-            component.__x = !0;
-            if (component.__r = props.ref) delete props.ref;
-            if (component.__k = props.key) delete props.key;
-            if (!component.base || mountAll) {
-                if (component.beforeInstall) component.beforeInstall();
-                if (component.install) component.install();
-                if (component.constructor.observe) proxyUpdate(component);
-            }
-            if (context && context !== component.context) {
-                if (!component.__c) component.__c = component.context;
-                component.context = context;
-            }
-            if (!component.__p) component.__p = component.props;
-            component.props = props;
-            component.__x = !1;
-            if (0 !== opts) if (1 === opts || !1 !== options.syncComponentUpdates || !component.base) renderComponent(component, 1, mountAll); else enqueueRender(component);
-            applyRef(component.__r, component);
-        }
-    }
-    function shallowComparison(old, attrs) {
-        var name;
-        for (name in old) if (null == attrs[name] && null != old[name]) return !0;
-        if (old.children.length > 0 || attrs.children.length > 0) return !0;
-        for (name in attrs) if ('children' != name) {
-            var type = typeof attrs[name];
-            if ('function' == type || 'object' == type) return !0; else if (attrs[name] != old[name]) return !0;
-        }
-    }
-    function renderComponent(component, opts, mountAll, isChild) {
-        if (!component.__x) {
-            var rendered, inst, cbase, props = component.props, data = component.data, context = component.context, previousProps = component.__p || props, previousState = component.__s || data, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
-            if (isUpdate) {
-                component.props = previousProps;
-                component.data = previousState;
-                component.context = previousContext;
-                if (component.store || 2 == opts || shallowComparison(previousProps, props)) {
-                    var receiveResult = !0;
-                    if (component.receiveProps) receiveResult = component.receiveProps(props, previousProps);
-                    if (!1 !== receiveResult) {
-                        skip = !1;
-                        if (component.beforeUpdate) component.beforeUpdate(props, data, context);
-                    } else skip = !0;
-                } else skip = !0;
-                component.props = props;
-                component.data = data;
-                component.context = context;
-            }
-            component.__p = component.__s = component.__c = component.__b = null;
-            if (!skip) {
-                component.beforeRender && component.beforeRender();
-                rendered = component.render(props, data, context);
-                if (component.constructor.css || component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
-                scopeHost(rendered, component.scopedCssAttr);
-                if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
-                var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
-                if (ctor) {
-                    var childProps = getNodeProps(rendered);
-                    inst = initialChildComponent;
-                    if (inst && inst.constructor === ctor && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, context, !1); else {
-                        toUnmount = inst;
-                        component._component = inst = createComponent(ctor, childProps, context);
-                        inst.__b = inst.__b || nextBase;
-                        inst.__u = component;
-                        setComponentProps(inst, childProps, 0, context, !1);
-                        renderComponent(inst, 1, mountAll, !0);
-                    }
-                    base = inst.base;
-                } else {
-                    cbase = initialBase;
-                    toUnmount = initialChildComponent;
-                    if (toUnmount) cbase = component._component = null;
-                    if (initialBase || 1 === opts) {
-                        if (cbase) cbase._component = null;
-                        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0);
-                    }
-                }
-                if (initialBase && base !== initialBase && inst !== initialChildComponent) {
-                    var baseParent = initialBase.parentNode;
-                    if (baseParent && base !== baseParent) {
-                        baseParent.replaceChild(base, initialBase);
-                        if (!toUnmount) {
-                            initialBase._component = null;
-                            recollectNodeTree(initialBase, !1);
-                        }
-                    }
-                }
-                if (toUnmount) unmountComponent(toUnmount);
-                component.base = base;
-                if (base && !isChild) {
-                    var componentRef = component, t = component;
-                    while (t = t.__u) (componentRef = t).base = base;
-                    base._component = componentRef;
-                    base._componentConstructor = componentRef.constructor;
-                }
-            }
-            if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
-                if (component.afterUpdate) component.afterUpdate(previousProps, previousState, previousContext);
-                if (component.updated) component.updated(previousProps, previousState, previousContext);
-                if (options.afterUpdate) options.afterUpdate(component);
-            }
-            if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
-            if (!diffLevel && !isChild) flushMounts();
-        }
-    }
-    function buildComponentFromVNode(dom, vnode, context, mountAll) {
-        var c = dom && dom._component, originalComponent = c, oldDom = dom, isDirectOwner = c && dom._componentConstructor === vnode.nodeName, isOwner = isDirectOwner, props = getNodeProps(vnode);
-        while (c && !isOwner && (c = c.__u)) isOwner = c.constructor === vnode.nodeName;
-        if (c && isOwner && (!mountAll || c._component)) {
-            setComponentProps(c, props, 3, context, mountAll);
-            dom = c.base;
-        } else {
-            if (originalComponent && !isDirectOwner) {
-                unmountComponent(originalComponent);
-                dom = oldDom = null;
-            }
-            c = createComponent(vnode.nodeName, props, context, vnode);
-            if (dom && !c.__b) {
-                c.__b = dom;
-                oldDom = null;
-            }
-            setComponentProps(c, props, 1, context, mountAll);
-            dom = c.base;
-            if (oldDom && dom !== oldDom) {
-                oldDom._component = null;
-                recollectNodeTree(oldDom, !1);
-            }
-        }
-        return dom;
-    }
-    function unmountComponent(component) {
-        if (options.beforeUnmount) options.beforeUnmount(component);
-        var base = component.base;
-        component.__x = !0;
-        if (component.uninstall) component.uninstall();
-        if (component.store && component.store.instances) for (var i = 0, len = component.store.instances.length; i < len; i++) if (component.store.instances[i] === component) {
-            component.store.instances.splice(i, 1);
-            break;
-        }
-        component.base = null;
-        var inner = component._component;
-        if (inner) unmountComponent(inner); else if (base) {
-            if (null != base.__omiattr_) applyRef(base.__omiattr_.ref, null);
-            component.__b = base;
-            removeNode(base);
-            collectComponent(component);
-            removeChildren(base);
-        }
-        applyRef(component.__r, null);
-    }
-    function _classCallCheck$1(instance, Constructor) {
-        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-    }
     function render(vnode, parent, store, empty, merge) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
         obsStore(store);
@@ -885,6 +861,7 @@
     function obsStore(store) {
         if (store && store.data) {
             store.instances = [];
+            store.updateSelfInstances = [];
             extendStoreUpate(store);
             obaa(store.data, function(prop, val, old, path) {
                 var patchs = {};
@@ -906,8 +883,14 @@
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
                     if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.H && needUpdate(patch, instance.H)) {
-                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, instance.use());
+                        if (instance.constructor.use) instance.using = getUse(store.data, instance.constructor.use); else if (instance.use) instance.using = getUse(store.data, 'function' == typeof instance.use ? instance.use() : instance.use);
                         instance.update();
+                    }
+                });
+                this.updateSelfInstances.forEach(function(instance) {
+                    if (instance.I && needUpdate(patch, instance.I)) {
+                        _this.usingSelf = getUse(store.data, 'function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf);
+                        instance.updateSelf();
                     }
                 });
                 this.onChange && this.onChange(patch);
@@ -953,25 +936,6 @@
         return function(target) {
             define(name, target);
         };
-    }
-    function _classCallCheck$2(instance, Constructor) {
-        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-    }
-    function _possibleConstructorReturn$1(self, call) {
-        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
-    }
-    function _inherits$1(subClass, superClass) {
-        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: !1,
-                writable: !0,
-                configurable: !0
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     function classNames() {
         var classes = [];
@@ -1046,7 +1010,7 @@
             c.store = store;
             if (c.install) c.install();
             if (c.beforeRender) c.beforeRender();
-            rendered = c.render(c.props, c.data, c.store);
+            rendered = c.render(c.props, c.store);
             if (opts.scopedCSS) {
                 if (c.constructor.css || c.css) {
                     var cssStr = c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css;
@@ -1232,36 +1196,30 @@
     var isSvgMode = !1;
     var hydrating = !1;
     var components = {};
-    var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
-    var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
-    obaa.add = function(obj, prop) {
-        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
-    };
-    obaa.set = function(obj, prop, value) {
-        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
-        obj[prop] = value;
-    };
-    Array.prototype.size = function(length) {
-        this.length = length;
-    };
-    var callbacks = [];
-    var nextTickCallback = [];
     var id = 0;
     var Component = function() {
         function Component(props, store) {
             _classCallCheck$1(this, Component);
-            this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+            this.props = assign({}, this.constructor.defaultProps, props);
             this.elementId = id++;
-            this.data = this.constructor.data || this.data || {};
             this.z = null;
             this.store = store;
         }
         Component.prototype.update = function(callback) {
-            this.A = !0;
-            if (callback) (this.__h = this.__h || []).push(callback);
-            renderComponent(this, 2);
-            if (options.componentChange) options.componentChange(this, this.base);
-            this.A = !1;
+            if (!this.A) {
+                this.A = !0;
+                if (callback) (this.__h = this.__h || []).push(callback);
+                renderComponent(this, 2);
+                if (options.componentChange) options.componentChange(this, this.base);
+                this.A = !1;
+            }
+        };
+        Component.prototype.updateSelf = function() {
+            if (!this.J) {
+                this.J = !0;
+                renderComponent(this, 2, null, null, !0);
+                this.J = !1;
+            }
         };
         Component.prototype.fire = function(type, data) {
             var _this = this;
@@ -1279,19 +1237,18 @@
         return Component;
     }();
     Component.is = 'WeElement';
-    var ModelView = function(_Component) {
-        function ModelView() {
-            _classCallCheck$2(this, ModelView);
-            return _possibleConstructorReturn$1(this, _Component.apply(this, arguments));
-        }
-        _inherits$1(ModelView, _Component);
-        ModelView.prototype.beforeInstall = function() {
-            this.data = this.vm.data;
-        };
-        return ModelView;
-    }(Component);
-    ModelView.observe = !0;
-    ModelView.mergeUpdate = !0;
+    var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
+    var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
+    obaa.add = function(obj, prop) {
+        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+    };
+    obaa.set = function(obj, prop, value) {
+        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+        obj[prop] = value;
+    };
+    Array.prototype.size = function(length) {
+        this.length = length;
+    };
     var hasOwn = {}.hasOwnProperty;
     var encodeEntities = function(s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -1345,7 +1302,6 @@
         WeElement: WeElement,
         define: define,
         rpx: rpx,
-        ModelView: ModelView,
         defineElement: defineElement,
         classNames: classNames,
         extractClass: extractClass,
@@ -1358,7 +1314,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.4.1';
+    options.root.Omi.version = 'omio-2.5.0';
     var Omi = {
         h: h,
         createElement: h,
@@ -1371,7 +1327,6 @@
         WeElement: WeElement,
         define: define,
         rpx: rpx,
-        ModelView: ModelView,
         defineElement: defineElement,
         classNames: classNames,
         extractClass: extractClass,

@@ -1,6 +1,6 @@
 {
   "props": {
-    "cname": 33,
+    "cname": 35,
     "props": {
       "$_dirty": "__d",
       "$_disable": "__x",
@@ -32,7 +32,9 @@
       "$___touchY": "D",
       "$___scrollTop": "F",
       "$__x": "G",
-      "$_updatePath": "H"
+      "$_updatePath": "H",
+      "$_updateSelfPath": "I",
+      "$_willUpdateSelf": "J"
     }
   },
   "vars": {
