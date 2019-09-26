@@ -116,6 +116,7 @@ render(<my-counter />, 'body', new Store)
 
 - 框架无关，任何框架可以使用 Omi 自定义元素
 - 提供桌面、移动和小程序整体解决方案
+- 无状态视图的架构设计
 - 小巧的尺寸和[高性能](https://tencent.github.io/omi/packages/omi/examples/perfs/)
 - 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
