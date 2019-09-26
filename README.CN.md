@@ -24,13 +24,16 @@ class Store {
   }
 }
 
-define('my-counter', ['count'], _ => (
+define('my-counter', _ => (
   <div>
     <button onClick={_.store.sub}>-</button>
     <span>{_.store.data.count}</span>
     <button onClick={_.store.add}>+</button>
   </div>
 ), {
+    use: ['count'], 
+    //或者使用 useSelf, useSelf 只会更新自身，不更新子组件
+    //useSelf: ['count'], 
     css: `span { color: red; }`,
     installed() {
       console.log('installed')
@@ -40,7 +43,6 @@ define('my-counter', ['count'], _ => (
 render(<my-counter />, 'body', new Store)
 ```
 
-* `define` 的第二和第四个参数是可选的
 * `<my-counter></my-counter>` 可以用于任意框架或者无框架，比如 `document.createElement('my-counter')`
 
 

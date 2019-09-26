@@ -24,13 +24,16 @@ class Store {
   }
 }
 
-define('my-counter', ['count'], _ => (
+define('my-counter', _ => (
   <div>
     <button onClick={_.store.sub}>-</button>
     <span>{_.store.data.count}</span>
     <button onClick={_.store.add}>+</button>
   </div>
 ), {
+    use: ['count'], 
+    //or using useSelf, useSelf will update self only, exclude children components
+    //useSelf: ['count'], 
     css: `span { color: red; }`,
     installed() {
       console.log('installed')
@@ -40,7 +43,6 @@ define('my-counter', ['count'], _ => (
 render(<my-counter />, 'body', new Store)
 ```
 
-* The second and fourth parameter of `define` is optional
 * `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
 
 ## Ecosystem of Omi
