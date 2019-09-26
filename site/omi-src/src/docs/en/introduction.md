@@ -102,7 +102,7 @@ Looking at the highlighted part above, you can style the components. For example
 
 * Add ** structure ** for components, such as JSX writing structure above
 * Add ** behavior ** to the component, such as the `onClick'binding event above
-* Add ** style ** to the component, such as `static css'above`
+* Add ** style ** to the component, such as `static css` above
 * Rendering components to body, of course, can also render components to any other component
 
 
