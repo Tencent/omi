@@ -655,7 +655,7 @@ npm install --save-dev @babel/preset-react
 }
 ```
 
-如果你的 css 文件以 `_` 开头, css 会使用 to-string-loader. 如：
+如果你的 css 文件以 `_` 开头, css 会使用 to-string-loader, 如：
 
 ``` js
 import { tag, WeElement render } from 'omi'

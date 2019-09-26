@@ -552,7 +552,7 @@ For example, the following configuration:
 }
 ```
 
-If your CSS file starts with "`_`", CSS will use `to-string-loader`., such as:
+If your CSS file starts with "`_`", CSS will use `to-string-loader`, such as:
 
 ``` js
 import { tag, WeElement render } from 'omi'
