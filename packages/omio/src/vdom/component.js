@@ -74,7 +74,7 @@ export function setComponentProps(component, props, opts, context, mountAll) {
  *	@param {boolean} [opts.build=false]		If `true`, component will build and store a DOM node if not already associated with one.
  *	@private
  */
-export function renderComponent(component, opts, mountAll, isChild) {
+export function renderComponent(component, opts, mountAll, isChild, updateSelf) {
   if (component._disable) return
 
   let props = component.props,
@@ -173,7 +173,8 @@ export function renderComponent(component, opts, mountAll, isChild) {
           context,
           mountAll || !isUpdate,
           initialBase && initialBase.parentNode,
-          true
+          true,
+          updateSelf
         )
       }
     }
@@ -238,7 +239,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
  *	@returns {Element} dom	The created/mutated element
  *	@private
  */
-export function buildComponentFromVNode(dom, vnode, context, mountAll) {
+export function buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf) {
   let c = dom && dom._component,
     originalComponent = c,
     oldDom = dom,
@@ -250,7 +251,9 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll) {
   }
 
   if (c && isOwner && (!mountAll || c._component)) {
-    setComponentProps(c, props, ASYNC_RENDER, context, mountAll)
+    if(!updateSelf){
+      setComponentProps(c, props, ASYNC_RENDER, context, mountAll)
+    }
     dom = c.base
   } else {
     if (originalComponent && !isDirectOwner) {

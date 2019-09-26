@@ -106,6 +106,70 @@ describe('install()', () => {
     expect(scratch.innerHTML).to.equal('<div foo="bar"></div>')
   })
 
+  it('update self', () => {
+  
+    let count = 0
+    class C2 extends Component {
+      render(props) {
+        count++
+        return <div {...props} />
+      }
+    }
+
+    class C3 extends Component {
+     
+
+      installed(){
+        this.updateSelf()
+      }
+      render(props) {
+        return <div  >
+          <c2-ele></c2-ele>
+        </div>
+      }
+    }
+
+
+    define('c2-ele', C2)
+
+    define('c3-ele', C3)
+    render(<c3-ele  />, scratch)
+
+    expect(count).to.equal(1)
+  })
+
+  it('update ', () => {
+  
+    let count = 0
+    class C2 extends Component {
+      render(props) {
+        count++
+        return <div {...props} />
+      }
+    }
+
+    class C3 extends Component {
+     
+
+      installed(){
+        this.update()
+      }
+      render(props) {
+        return <div  >
+          <c2-ele></c2-ele>
+        </div>
+      }
+    }
+
+
+    define('c2-ele', C2)
+
+    define('c3-ele', C3)
+    render(<c3-ele  />, scratch)
+
+    expect(count).to.equal(2)
+  })
+
   it('should render array', () => {
 
     class C2 extends Component {

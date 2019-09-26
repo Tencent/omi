@@ -30,6 +30,14 @@ export default class Component {
     this._willUpdate = false
   }
 
+  updateSelf() {
+    if(this._willUpdateSelf) return
+    this._willUpdateSelf = true
+    renderComponent(this, FORCE_RENDER, null, null, true)
+    this._willUpdateSelf = false
+  }
+
+
   fire(type, data) {
     Object.keys(this.props).every(key => {
       if ('on' + type.toLowerCase() === key.toLowerCase()) {
