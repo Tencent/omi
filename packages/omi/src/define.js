@@ -110,7 +110,7 @@ export function define(name, ctor) {
 }
 
 export function getPath(obj) {
-  if (getType(obj) === '[object Array]') {
+  if (getType(obj) === 'Array') {
     const result = {}
     obj.forEach(item => {
       if (typeof item === 'string') {
