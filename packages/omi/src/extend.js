@@ -1,7 +1,7 @@
-export const extention = {}
+export const extension = {}
 
 export function extend(name, handler) {
-	extention['o-' + name] = handler
+	extension['o-' + name] = handler
 }
 
 export function set(origin, path, value) {

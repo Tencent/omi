@@ -1,7 +1,7 @@
 import { IS_NON_DIMENSIONAL } from '../constants'
 import { applyRef } from '../util'
 import options from '../options'
-import { extention } from  '../extend'
+import { extension } from  '../extend'
 
 /**
  * Create an element with the given nodeName.
@@ -44,8 +44,8 @@ export function setAccessor(node, name, old, value, isSvg, component) {
   if (name === 'className') name = 'class'
 
   if (name[0] == 'o' && name[1] == '-'){
-    if(extention[name]){
-      extention[name](node, value, component)
+    if(extension[name]){
+      extension[name](node, value, component)
     }
   } else if (name === 'key') {
     // ignore

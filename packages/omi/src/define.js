@@ -1,11 +1,12 @@
 import WeElement from './we-element'
 import options from './options'
 
-const OBJECTTYPE = '[object Object]'
-const ARRAYTYPE = '[object Array]'
+const getType = function(obj) {
+  return Object.prototype.toString.call(obj).slice(8, -1)
+}
 
 export function define(name, ctor) {
-  if(options.mapping[name]){
+  if (options.mapping[name]) {
     return
   }
   if (ctor.is === 'WeElement') {
@@ -18,31 +19,31 @@ export function define(name, ctor) {
     let depPaths
     let config = {}
     const len = arguments.length
-    if(len === 3){
-      if(typeof arguments[1] === 'function'){
+    if (len === 3) {
+      if (typeof arguments[1] === 'function') {
         ctor = arguments[1]
         config = arguments[2]
       } else {
         depPaths = arguments[1]
         ctor = arguments[2]
       }
-    } else if(len === 4){
+    } else if (len === 4) {
       depPaths = arguments[1]
       ctor = arguments[2]
       config = arguments[3]
     }
-    if(typeof config === 'string'){
+    if (typeof config === 'string') {
       config = { css: config }
-		}
+    }
 
     class Ele extends WeElement {
       static use = depPaths
 
       static css = config.css
 
-			static propTypes = config.propTypes
+      static propTypes = config.propTypes
 
-			static defaultProps = config.defaultProps
+      static defaultProps = config.defaultProps
 
       render() {
         return ctor.call(this, this)
@@ -77,38 +78,29 @@ export function define(name, ctor) {
       }
 
       receiveProps() {
-				if(config.receiveProps){
-					return config.receiveProps.apply(this, arguments)
-				}
+        if (config.receiveProps) {
+          return config.receiveProps.apply(this, arguments)
+        }
       }
-
-		}
-
-		if(config.use){
-			if(typeof config.use  === 'function'){
-				Ele.prototype.use = function(){
-				 return config.use.apply(this, arguments)
-				}
-			} else {
-				Ele.prototype.use = function(){
-          return config.use
-         }
-			}
     }
-    
-    if(config.useSelf){
-			if(typeof config.useSelf  === 'function'){
-				Ele.prototype.useSelf = function(){
-				 return config.useSelf.apply(this, arguments)
-				}
-			} else {
-        Ele.prototype.useSelf = function(){
-          return config.useSelf
-         }
-      }
-		}
 
-    if(Ele.use){
+    if (config.use) {
+      Ele.prototype.use = function() {
+        return typeof config.use === 'function'
+          ? config.use.apply(this, arguments)
+          : config.use
+      }
+    }
+
+    if (config.useSelf) {
+      Ele.prototype.useSelf = function() {
+        return typeof config.useSelf === 'function'
+          ? config.useSelf.apply(this, arguments)
+          : config.useSelf
+      }
+    }
+
+    if (Ele.use) {
       Ele.updatePath = getPath(Ele.use)
     }
 
@@ -118,7 +110,7 @@ export function define(name, ctor) {
 }
 
 export function getPath(obj) {
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
+  if (getType(obj) === '[object Array]') {
     const result = {}
     obj.forEach(item => {
       if (typeof item === 'string') {
@@ -128,10 +120,10 @@ export function getPath(obj) {
         if (typeof tempPath === 'string') {
           result[tempPath] = true
         } else {
-          if(typeof tempPath[0] === 'string'){
+          if (typeof tempPath[0] === 'string') {
             result[tempPath[0]] = true
-          }else{
-            tempPath[0].forEach(path => result[path] = true)
+          } else {
+            tempPath[0].forEach(path => (result[path] = true))
           }
         }
       }
@@ -151,10 +143,10 @@ export function getUpdatePath(data) {
 function dataToPath(data, result) {
   Object.keys(data).forEach(key => {
     result[key] = true
-    const type = Object.prototype.toString.call(data[key])
-    if (type === OBJECTTYPE) {
+    const type = getType(data[key])
+    if (type === 'Object') {
       _objToPath(data[key], key, result)
-    } else if (type === ARRAYTYPE) {
+    } else if (type === 'Array') {
       _arrayToPath(data[key], key, result)
     }
   })
@@ -164,10 +156,10 @@ function _objToPath(data, path, result) {
   Object.keys(data).forEach(key => {
     result[path + '.' + key] = true
     delete result[path]
-    const type = Object.prototype.toString.call(data[key])
-    if (type === OBJECTTYPE) {
+    const type = getType(data[key])
+    if (type === 'Object') {
       _objToPath(data[key], path + '.' + key, result)
-    } else if (type === ARRAYTYPE) {
+    } else if (type === 'Array') {
       _arrayToPath(data[key], path + '.' + key, result)
     }
   })
@@ -177,10 +169,10 @@ function _arrayToPath(data, path, result) {
   data.forEach((item, index) => {
     result[path + '[' + index + ']'] = true
     delete result[path]
-    const type = Object.prototype.toString.call(item)
-    if (type === OBJECTTYPE) {
+    const type = getType(item)
+    if (type === 'Object') {
       _objToPath(item, path + '[' + index + ']', result)
-    } else if (type === ARRAYTYPE) {
+    } else if (type === 'Array') {
       _arrayToPath(item, path + '[' + index + ']', result)
     }
   })
