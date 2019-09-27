@@ -1,7 +1,7 @@
 import { define, h, rpx } from 'omio'
 import './_index.css'
 
-define('my-game', ['map'], _ => (
+define('my-game', _ => (
   <div class="game">
     {_.store.data.map.map(row => {
       return <p>
@@ -14,4 +14,7 @@ define('my-game', ['map'], _ => (
       </p>
     })}
   </div>
-), "undefined" != typeof wx && wx.getSystemInfoSync || rpx(require('./_index.css')))
+), {
+    use: ['map'],
+    css: ("undefined" != typeof wx && wx.getSystemInfoSync) ? '' : rpx(require('./_index.css'))
+  })

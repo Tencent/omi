@@ -13,7 +13,7 @@ import { define, h, rpx } from 'omio'
 import '../game'
 import './_index.css'
 
-define('my-index', ['paused'], ({ store }) => (
+define('my-index', ({ store }) => (
   <div class="container">
     <h1>OMI SNAKE</h1>
 
@@ -29,8 +29,10 @@ define('my-index', ['paused'], ({ store }) => (
       <div class="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{store.data.paused ? 'Play' : 'Pause'}</span></div>
     </div>
   </div>
-
-), "undefined" != typeof wx && wx.getSystemInfoSync || rpx(require('./_index.css')))
+), {
+    useSelf: ['paused'],
+    css: ("undefined" != typeof wx && wx.getSystemInfoSync) ? '' : rpx(require('./_index.css'))
+  })
 ```
 
 游戏界面:
@@ -39,7 +41,7 @@ define('my-index', ['paused'], ({ store }) => (
 import { define, h, rpx } from 'omio'
 import './_index.css'
 
-define('my-game', ['map'], _ => (
+define('my-game', _ => (
   <div class="game">
     {_.store.data.map.map(row => {
       return <p>
@@ -52,12 +54,15 @@ define('my-game', ['map'], _ => (
       </p>
     })}
   </div>
-), "undefined" != typeof wx && wx.getSystemInfoSync || rpx(require('./_index.css')))
+), {
+    use: ['map'],
+    css: ("undefined" != typeof wx && wx.getSystemInfoSync) ? '' : rpx(require('./_index.css'))
+  })
 ```
 
 ## 快速开始
 
-```js
+``` bash
 npm i omi-cli -g
 omi init-kbone my-app
 cd my-app
