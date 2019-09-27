@@ -58,7 +58,7 @@ myNav.addEventListener('toggle', (evt) => {
   console.log(evt.detail)
 })
 
-myNav.addEventListener('nodeclick', (evt) => {
+myNav.addEventListener('nodeClick', (evt) => {
   console.log(evt.detail)
 })
 
