@@ -9,14 +9,13 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 ## Use immediately
 
 ```bash
-$ npm i omi-cli -g             
-$ omi init-o my-app   
+$ npx omi-cli init-o my-app   
 $ cd my-app           
 $ npm start                     
 $ npm run build               
 ```
 
-Required omi-cli v3.3.0+.
+> 如果想要使用 babel7 + webpack4(对IE不友好), 请使用 `npx omi-cli init my-app`   
 
 ## Differences to omi
 
