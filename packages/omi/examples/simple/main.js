@@ -1,20 +1,14 @@
-import { define, render, WeElement } from '../../src/omi'
+import { define } from '../../src/omi'
 
-define('my-component', class extends WeElement {
-  static propTypes = {
-    first: String,
-    last: String,
-    boolTest: Boolean
+define('my-component', _ =>
+  <div>
+    Hello, World! I'm {_.props.first}, {_.props.last}
+  </div>, {
+    propTypes: {
+      first: String,
+      last: String
+    }
   }
+)
 
-  render(props) {
-    console.error(props.boolTest)
-    return (
-      
-      <div>Hello, World! I'm {`${props.first}, ${props.last}`}</div>
-    )
-  }
-})
-
-render(<my-component first="dnt" last='zhang' bool-test />, 'body')
 

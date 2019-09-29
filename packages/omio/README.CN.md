@@ -2,21 +2,20 @@
 
 # Omio
 
-> 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)
+> 兼容老浏览器的 Omi 版本(支持到IE8+)
 
 ---
 
 ## 立即使用
 
 ```bash
-$ npm i omi-cli -g             
-$ omi init my-app   
+$ npx omi-cli init-o my-app   
 $ cd my-app           
 $ npm start                     
 $ npm run build               
 ```
 
-要求  omi-cli v3.3.0+。
+> 如果想要使用 babel7 + webpack4(对IE不友好), 请使用 `npx omi-cli init my-app`   
 
 ### 与 omi 不同之处
 

@@ -2,7 +2,7 @@ import { define, h, rpx } from 'omio'
 import '../game'
 import './_index.css'
 
-define('my-index', ['paused'], ({ store }) => (
+define('my-index', ({ store }) => (
   <div class="container">
     <h1>OMI SNAKE</h1>
 
@@ -18,6 +18,8 @@ define('my-index', ['paused'], ({ store }) => (
       <div class="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{store.data.paused ? 'Play' : 'Pause'}</span></div>
     </div>
   </div>
-
-), "undefined" != typeof wx && wx.getSystemInfoSync || rpx(require('./_index.css')))
+), {
+    useSelf: ['paused'],
+    css: ("undefined" != typeof wx && wx.getSystemInfoSync) ? '' : rpx(require('./_index.css'))
+  })
 

@@ -194,7 +194,7 @@ var _index = __webpack_require__(4);
 // CONCATENATED MODULE: ./src/components/game/index.js
 
 
-Object(omi_esm["a" /* define */])('my-game', ['map'], function (_) {
+Object(omi_esm["a" /* define */])('my-game', function (_) {
   return Object(omi_esm["b" /* h */])("div", {
     "class": "game"
   }, _.store.data.map.map(function (row) {
@@ -208,7 +208,10 @@ Object(omi_esm["a" /* define */])('my-game', ['map'], function (_) {
       return Object(omi_esm["b" /* h */])("b", null);
     }));
   }));
-}, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(4)));
+}, {
+  use: ['map'],
+  css: "undefined" != typeof wx && wx.getSystemInfoSync ? '' : Object(omi_esm["d" /* rpx */])(__webpack_require__(4))
+});
 // EXTERNAL MODULE: ./src/components/index/_index.css
 var index_index = __webpack_require__(5);
 
@@ -216,7 +219,7 @@ var index_index = __webpack_require__(5);
 
 
 
-Object(omi_esm["a" /* define */])('my-index', ['paused'], function (_ref) {
+Object(omi_esm["a" /* define */])('my-index', function (_ref) {
   var store = _ref.store;
   return Object(omi_esm["b" /* h */])("div", {
     "class": "container"
@@ -244,7 +247,10 @@ Object(omi_esm["a" /* define */])('my-index', ['paused'], function (_ref) {
     "class": "btn pp small",
     onClick: store.pauseOrPlay
   }, Object(omi_esm["b" /* h */])("i", null), Object(omi_esm["b" /* h */])("span", null, store.data.paused ? 'Play' : 'Pause'))));
-}, "undefined" != typeof wx && wx.getSystemInfoSync || Object(omi_esm["d" /* rpx */])(__webpack_require__(5)));
+}, {
+  useSelf: ['paused'],
+  css: "undefined" != typeof wx && wx.getSystemInfoSync ? '' : Object(omi_esm["d" /* rpx */])(__webpack_require__(5))
+});
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
 var classCallCheck = __webpack_require__(1);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
