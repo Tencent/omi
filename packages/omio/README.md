@@ -10,7 +10,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
 ```bash
 $ npm i omi-cli -g             
-$ omi init my-app   
+$ omi init-o my-app   
 $ cd my-app           
 $ npm start                     
 $ npm run build               

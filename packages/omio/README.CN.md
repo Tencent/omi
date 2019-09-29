@@ -10,7 +10,7 @@
 
 ```bash
 $ npm i omi-cli -g             
-$ omi init my-app   
+$ omi init-o my-app   
 $ cd my-app           
 $ npm start                     
 $ npm run build               
