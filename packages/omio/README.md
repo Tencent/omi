@@ -15,7 +15,7 @@ $ npm start
 $ npm run build               
 ```
 
-> 如果想要使用 babel7 + webpack4(对IE不友好), 请使用 `npx omi-cli init my-app`   
+> If you want use babel7 + webpack4(not friendly to IE), please use `npx omi-cli init my-app`   
 
 ## Differences to omi
 
