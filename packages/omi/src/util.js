@@ -109,8 +109,14 @@ export function getUse(data, paths) {
   return obj
 }
 
+export function pathToArr(path) {
+	if(typeof path !== 'string' || !path) return []
+	// return path.split(/\.|\[|\]/).filter(name => !!name)
+	return path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+}
+
 export function getTargetByPath(origin, path) {
-  const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+  const arr = pathToArr(path)
   let current = origin
   for (let i = 0, len = arr.length; i < len; i++) {
     current = current[arr[i]]
@@ -124,7 +130,7 @@ export function hyphenate(str) {
 }
 
 export function getValByPath(path, current) {
-	const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+	const arr = pathToArr(path)
 	arr.forEach(prop => {
 		current = current[prop]
 	})

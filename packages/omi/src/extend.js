@@ -1,3 +1,5 @@
+import {pathToArr} from './util'
+
 export const extension = {}
 
 export function extend(name, handler) {
@@ -5,7 +7,7 @@ export function extend(name, handler) {
 }
 
 export function set(origin, path, value) {
-	const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+	const arr = pathToArr(path)
 	let current = origin
 	for (let i = 0, len = arr.length; i < len; i++) {
 			if (i === len - 1) {
@@ -17,7 +19,7 @@ export function set(origin, path, value) {
 }
 
 export function get(origin, path) {
-	const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+	const arr = pathToArr(path)
 	let current = origin
 	for (let i = 0, len = arr.length; i < len; i++) {
 		current = current[arr[i]]
