@@ -1,4 +1,4 @@
-English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
+English | [简体中文](./README.CN.md) 
 
 # Omio
 
