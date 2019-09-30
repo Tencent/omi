@@ -45,6 +45,29 @@ render(<my-counter />, 'body', new Store)
 
 * `<my-counter></my-counter>` 可以用于任意框架或者无框架，比如 `document.createElement('my-counter')`
 
+你也可以通过 use 去实现计算属性，比如:
+
+```jsx
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+    <div>Double: {_.using.doubleCount}</div>
+  </div>
+), {
+    use: [
+      'count',
+      {
+        doubleCount: [
+          'count',
+          count => count * 2
+        ]
+      }]
+  })
+```
+
+你也可以使用 useSelf, useSelf 只会更新自身，不更新子组件。使用 useSelf 的时候在 JSX 里通过 _.usingSelf 访问对应属性。
 
 ## Omi 生态
 
@@ -289,83 +312,7 @@ export default class oButton extends WeElement<ButtonProps> {
 </body>
 ```
 
-## 再花 30 秒完全上手
 
-你也可以使用现代化的 JS 语法，快速构建 Omi 项目:
-
-```js
-import { tag, WeElement, render } from 'omi'
-
-@tag('my-counter')
-class MyCounter extends WeElement {
-  data = {
-    count: 1
-  }
-
-  static css = `
-    span{
-        color: red;
-    }`
-
-  sub = () => {
-    this.data.count--
-    this.update()
-  }
-
-  add = () => {
-    this.data.count++
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
-}
-
-render(<my-counter />, 'body')
-```
-
-[→ counter demo](https://codepen.io/dntzhang/pen/wLZGPK)
-
-<!-- 
-你也可以定义成纯函数的形式:
-
-```js
-import { define, render } from 'omi'
-
-define('my-counter', function() {
-  const [count, setCount] = this.use({
-    data: 0,
-    effect: function() {
-      document.title = `The num is ${this.data}.`
-    }
-  })
-
-  this.useCss(`button{ color: red; }`)
-
-  return (
-    <div>
-      <button onClick={() => setCount(count - 1)}>-</button>
-      <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>+</button>
-    </div>
-  )
-})
-
-render(<my-counter />, 'body')
-```
-
-如果你不需要 effect 方法, 可以直接使用 `useData`:
-
-```js
-const [count, setCount] = this.useData(0)
-​``` -->
 
 ## 快速入门
 

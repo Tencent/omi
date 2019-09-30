@@ -45,6 +45,30 @@ render(<my-counter />, 'body', new Store)
 
 * `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
 
+You can also implement computed props through use, such as:
+
+```jsx
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+    <div>Double: {_.using.doubleCount}</div>
+  </div>
+), {
+    use: [
+      'count',
+      {
+        doubleCount: [
+          'count',
+          count => count * 2
+        ]
+      }]
+  })
+```
+
+You can also use useSelf, useSelf only updates itself. When using useSelf, the corresponding attributes are accessed through. usingSelf in JSX.
+
 ## Ecosystem of Omi
 
 #### Base
@@ -251,48 +275,6 @@ You can also use `my-counter` tag directly in HTML：
   <my-counter></my-counter>
 </body>
 ```
-
-### Add Omi in 30 Seconds
-
-You can also quickly build omi projects using modern JS code:
-
-```js
-import { tag, WeElement, render } from 'omi'
-
-@tag('my-counter')
-class MyCounter extends WeElement {
-  count = 1
-
-  static css = `
-    span{
-        color: red;
-    }`
-
-  sub = () => {
-    this.count--
-    this.update()
-  }
-
-  add = () => {
-    this.count++
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
-}
-
-render(<my-counter />, 'body')
-```
-
-[→ counter demo](https://codepen.io/dntzhang/pen/wLZGPK)
 
 
 ## Getting Started
