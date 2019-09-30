@@ -192,7 +192,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 This page demonstrates using Omi **with no build tooling**,  directly run in the browser.
 
-- [→ Online Demo!](https://codepen.io/dntzhang/pen/qzwbVj)
+- [→ Online Demo!](https://codepen.io/omijs/pen/PMZWNb)
 
 ```html
 <!DOCTYPE html>

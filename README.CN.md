@@ -231,7 +231,7 @@ export default class oButton extends WeElement<ButtonProps> {
 
 下面这个页面不需要任何构建工具就可以执行
 
-- [→ Online Demo!](https://codepen.io/dntzhang/pen/qzwbVj)
+- [→ Online Demo!](https://codepen.io/omijs/pen/PMZWNb)
 
 ```html
 <!DOCTYPE html>
