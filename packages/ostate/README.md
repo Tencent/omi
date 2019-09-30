@@ -6,10 +6,17 @@ Observable state for JavaScript apps.
 
 ```jsx
 const App =  o({
-  render(){},
+  render(){
+
+  },
   use:[],
   useSelf(){
 
+  },
+  store: {
+    data: {
+      count: 1
+    }
   }
 })
 
@@ -18,3 +25,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+## Usage in Vue
