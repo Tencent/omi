@@ -236,7 +236,6 @@ export default class oButton extends WeElement<ButtonProps> {
 - [Omi 生态](#omi-生态)
 - [必须收藏的资源](#必须收藏的资源)
 - [一个 HTML 完全上手](#一个-html-完全上手)
-- [再花 30 秒完全上手](#再花-30-秒完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
   - [项目模板](#项目模板)
