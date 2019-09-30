@@ -49,40 +49,33 @@ export function define(name, ctor) {
         return ctor.call(this, this)
       }
 
-      install() {
-        config.install && config.install.apply(this, arguments)
-      }
-
-      installed() {
-        config.installed && config.installed.apply(this, arguments)
-      }
-
-      uninstall() {
-        config.uninstall && config.uninstall.apply(this, arguments)
-      }
-
-      beforeUpdate() {
-        config.beforeUpdate && config.beforeUpdate.apply(this, arguments)
-      }
-
-      updated() {
-        config.updated && config.updated.apply(this, arguments)
-      }
-
-      beforeRender() {
-        config.beforeRender && config.beforeRender.apply(this, arguments)
-      }
-
-      rendered() {
-        config.rendered && config.rendered.apply(this, arguments)
-      }
-
       receiveProps() {
         if (config.receiveProps) {
           return config.receiveProps.apply(this, arguments)
         }
       }
-    }
+		}
+
+		const EleHooks = ['install','installed','uninstall','beforeUpdate','updated','beforeRender','rendered'],
+			storeHelpers = ['use', 'useSelf']
+
+    EleHooks.forEach(hook => {
+      if (config[hook]) {
+        Ele.prototype[hook] = function() {
+          config[hook].apply(this, arguments)
+        }
+      }
+		})
+
+    storeHelpers.forEach(func => {
+      if (config[func]) {
+        Ele.prototype[func] = function() {
+          return typeof config[func] === 'function'
+            ? config[func].apply(this, arguments)
+            : config[func]
+        }
+      }
+    })
 
     if (config.use) {
       Ele.prototype.use = function() {
