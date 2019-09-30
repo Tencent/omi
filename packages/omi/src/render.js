@@ -51,14 +51,14 @@ function extendStoreUpate(store) {
 					if (instance.constructor.use) {
 						instance.using = getUse(store.data, instance.constructor.use)
 					} else if (instance.use) {
-						instance.using = getUse(store.data,  typeof instance.use === 'function' ? instance.use() : instance.use)
+						instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use)
 					}
 
 					instance.update()
 				}
 
 				if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-					this.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
+					instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
 					instance.updateSelf()
 				}
 			})
@@ -129,7 +129,7 @@ function getArrayPatch(path, store) {
 	for (let i = 1, len = arr.length; i < len - 1; i++) {
 		current = current[arr[i]]
 	}
-  return { k: fixArrPath(path), v: current }
+	return { k: fixArrPath(path), v: current }
 }
 
 function fixArrPath(path) {

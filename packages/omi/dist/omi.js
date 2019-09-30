@@ -499,7 +499,7 @@
                         instance.update();
                     }
                     if (instance.R && needUpdate(patch, instance.R)) {
-                        _this.usingSelf = getUse(store.data, 'function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf);
+                        instance.usingSelf = getUse(store.data, 'function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf);
                         instance.updateSelf();
                     }
                 });
@@ -1043,7 +1043,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.14.1';
+    options.root.Omi.version = '6.14.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
