@@ -244,94 +244,38 @@ export default class oButton extends WeElement<ButtonProps> {
 <body>
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script>
-    const { define, WeElement, html, render } = Omi
+    const { define, render, html } = Omi
 
-    define('my-counter', class extends WeElement {
-
-      install() {
-        this.count = 1
-        this.sub = this.sub.bind(this)
-        this.add = this.add.bind(this)
-      }
-
-      sub() {
-        this.count--
-        this.update()
-      }
-
-      add() {
-        this.count++
-        this.update()
-      }
-
-      render() {
-        return html`
-          <div>
-            <button onClick=${this.sub}>-</button>
-            <span>${this.count}</span>
-            <button onClick=${this.add}>+</button>
-          </div>
-          `}
-    })
-
-    render(html`<my-counter />`, 'body')
-  </script>
-</body>
-
-</html>
-```
-
-### 使用 store 
-
-```html
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8" />
-  <title>Omi demo without transpiler</title>
-</head>
-
-<body>
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-  <script>
-    const { define, WeElement, html, render } = Omi
-
-    define('my-counter', class extends WeElement {
-      use() {
-        return ['count']
-      }
-
-      install() {
-        this.sub = this.sub.bind(this)
-        this.add = this.add.bind(this)
-      }
-
-      sub() {
-        this.store.data.count--
-      }
-
-      add() {
-        this.store.data.count++
-      }
-
-      render() {
-        return html`
-          <div>
-            <button onClick=${this.sub}>-</button>
-            <span>${this.store.data.count}</span>
-            <button onClick=${this.add}>+</button>
-          </div>
-          `}
-    })
-
-    render(html`<my-counter />`, 'body', {
-      data: {
+    class Store {
+      data = {
         count: 1
       }
-    })
-  </script>
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    }
 
+    define('my-counter', _ => html`
+      <div>
+        <button onClick=${_.store.sub}>-</button>
+        <span>${_.store.data.count}</span>
+        <button onClick=${_.store.add}>+</button>
+      </div>
+    `, {
+      use: ['count'],
+      //or using useSelf, useSelf will update self only, exclude children components
+      //useSelf: ['count'], 
+      css: `span { color: red; }`,
+      installed() {
+        console.log('installed')
+      }
+    })
+
+    render(html`<my-counter />`, 'body', new Store)
+  </script>
 </body>
 
 </html>
@@ -344,8 +288,6 @@ export default class oButton extends WeElement<ButtonProps> {
   <my-counter></my-counter>
 </body>
 ```
-
-[→ store demo](https://codepen.io/dntzhang/pen/EBJyaG)
 
 ## 再花 30 秒完全上手
 
