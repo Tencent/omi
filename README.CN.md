@@ -218,8 +218,6 @@ export default class oButton extends WeElement<ButtonProps> {
   - [安装](#安装)
   - [项目模板](#项目模板)
   - [Hello Element](#hello-element)
-  - [TodoApp](#todoapp)
-  - [Store](#store)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
@@ -670,7 +668,7 @@ define('my-app', class extends WeElement {
 
 你也可以忘掉这一对繁琐的配置直接使用 omi-cli，不需要你配置任何东西。
 
-### TodoApp
+<!-- ### TodoApp
 
 下面列举一个相对完整的 TodoApp 的例子:
 
@@ -733,50 +731,7 @@ define('todo-app', class extends WeElement {
 })
 
 render(<todo-app />, 'body')
-```
-
-### Store
-
-Omi 的 Store 体系： 从根组件注入，在所有子组件可以共享。使用起来非常简单：
-
-```js
-import { define, render, WeElement } from 'omi'
-
-define('my-hello', class extends WeElement {
-  render() {
-    //任意子组件的任意方法都可以使用 this.store 访问注入的 store
-    return <div>{this.store.name}</div>
-  }
-})
-
-define('my-app', class extends WeElement {
-  handleClick = () => {
-     //任意子组件的任意方法都可以使用 this.store 访问注入的 store
-    this.store.reverse()
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <my-hello />
-        <button onclick={this.handleClick}>reverse</button>
-      </div>
-    )
-  }
-})
-
-const store = {
-  name: 'abc',
-  reverse: function() {
-    this.name = this.name.split("").reverse().join("")
-  }
-}
-//通过第三个参数注入
-render(<my-app />, document.body, store)
-```
-
-与全局变量不同的是， 当有多个根节点的时候就可以注入多个 store，而全局变量只有一个。
+``` -->
 
 <!-- 
 使用 Store 体系可以告别 update 方法，基于 Proxy 的全自动属性追踪和更新机制。强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上,

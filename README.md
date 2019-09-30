@@ -179,7 +179,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [Install](#install)
   - [Project Template](#project-template)
   - [Hello Element](#hello-element)
-  - [TodoApp](#todoapp)
   - [TypeScript Auto Complete](#typescript-auto-complete)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
@@ -566,7 +565,7 @@ define('my-app', class extends WeElement {
 ```
 
 You can also forget the tedious configuration and use omi-cli directly, no need to configure anything.
-
+<!-- 
 ### TodoApp
 
 Here is a relatively complete example of TodoApp:
@@ -630,7 +629,7 @@ define('todo-app', class extends WeElement {
 })
 
 render(<todo-app />, 'body')
-```
+``` -->
 
 ### TypeScript Auto Complete
 
