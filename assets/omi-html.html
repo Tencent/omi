@@ -2,50 +2,50 @@
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-	<meta charset="UTF-8" />
-	<title>Using omi-html</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omi</title>
 </head>
 
 <body>
-	<script src="https://unpkg.com/omi"></script>
-	<script src="https://unpkg.com/omi-html"></script>
-	<script>
-		const { define, WeElement, render } = Omi
+  <script src="https://unpkg.com/omi"></script>
+  <script>
+    const { define, render, html } = Omi
 
-		define('my-counter', class extends WeElement {
+    class Store {
+      data = {
+        count: 1
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    }
 
-			install() {
-				this.constructor.observe = true
-				this.data.count = 1
-				this.sub = this.sub.bind(this)
-				this.add = this.add.bind(this)
-			}
+    define('my-counter', _ => html`
+  <div>
+    <button onClick=${_.store.sub}>-</button>
+    <span>${_.store.data.count}</span>
+    <button onClick=${_.store.add}>+</button>
+  </div>
+`, {
+        use: ['count'],
+        //or using useSelf, useSelf will update self only, exclude children components
+        //useSelf: ['count'], 
+        css: `span { color: red; }`,
+        installed() {
+          console.log('installed')
+        }
+      })
 
-			sub() {
-				this.data.count--
-			}
+    render(html`<my-counter />`, 'body', new Store)
+  </script>
 
-			add() {
-				this.data.count++
-			}
-
-			render() {
-				return html`
-					<div>
-						<button onClick=${this.sub}>-</button>
-						<span>${this.data.count}</span>
-						<button onClick=${this.add}>+</button>
-					</div>
-					`}
-		})
-
-		render(html`<my-counter />`, 'body')
-	</script>
-
-	<a href="https://github.com/Tencent/omi/tree/master/packages/omi-html" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
-		<img src="//alloyteam.github.io/github.png" alt="">
-	</a>
+  <a href="https://github.com/Tencent/omi/" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
 </body>
 
 </html>
