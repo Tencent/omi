@@ -1,7 +1,7 @@
 import WeElement from './we-element'
 import options from './options'
 
-const getType = function(obj) {
+const getType = function (obj) {
   return Object.prototype.toString.call(obj).slice(8, -1)
 }
 
@@ -54,22 +54,22 @@ export function define(name, ctor) {
           return config.receiveProps.apply(this, arguments)
         }
       }
-		}
+    }
 
-		const EleHooks = ['install','installed','uninstall','beforeUpdate','updated','beforeRender','rendered'],
-			storeHelpers = ['use', 'useSelf']
+    const eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
+      storeHelpers = ['use', 'useSelf']
 
-    EleHooks.forEach(hook => {
+    eleHooks.forEach(hook => {
       if (config[hook]) {
-        Ele.prototype[hook] = function() {
+        Ele.prototype[hook] = function () {
           config[hook].apply(this, arguments)
         }
       }
-		})
+    })
 
     storeHelpers.forEach(func => {
       if (config[func]) {
-        Ele.prototype[func] = function() {
+        Ele.prototype[func] = function () {
           return typeof config[func] === 'function'
             ? config[func].apply(this, arguments)
             : config[func]
@@ -77,21 +77,6 @@ export function define(name, ctor) {
       }
     })
 
-    if (config.use) {
-      Ele.prototype.use = function() {
-        return typeof config.use === 'function'
-          ? config.use.apply(this, arguments)
-          : config.use
-      }
-    }
-
-    if (config.useSelf) {
-      Ele.prototype.useSelf = function() {
-        return typeof config.useSelf === 'function'
-          ? config.useSelf.apply(this, arguments)
-          : config.useSelf
-      }
-    }
 
     if (Ele.use) {
       Ele.updatePath = getPath(Ele.use)
