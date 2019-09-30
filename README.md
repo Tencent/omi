@@ -343,10 +343,6 @@ Add or remove the alias config in package.json to switch omi and omio：
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
-|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
-<!-- |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.| -->
-
-The base Template(`omi init my-app`) is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
 
 ### Hello Element
 
