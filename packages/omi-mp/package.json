@@ -67,7 +67,10 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
+    "start": "export NODE_ENV='COMPONENT' && concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
+    "start-wx-component": "export NODE_ENV='WXCOMPONENT' && concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
+    "wx-component-build": "export NODE_ENV='WXCOMPONENT' && concurrently --kill-others \"gulp build\" \"node scripts/start.js\" && npm run build",
+    "wx-build": "export NODE_ENV='COMPONENT' && concurrently --kill-others \"gulp build\" \"node scripts/start.js\" && npm run build",
     "test": "node test/index.js",
     "build": "node scripts/build.js",
     "fix": "eslint src --fix",
