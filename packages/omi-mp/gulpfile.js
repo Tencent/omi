@@ -403,3 +403,4 @@ gulp.task('app-wxss', ['copy'], () => {
 })
 
 gulp.task('default', ['copy', 'components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route', 'watch'])
+gulp.task('build', ['copy', 'components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
