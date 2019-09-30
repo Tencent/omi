@@ -67,8 +67,11 @@
         });
         return obj;
     }
+    function pathToArr(path) {
+        if ('string' != typeof path || !path) return []; else return path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    }
     function getTargetByPath(origin, path) {
-        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var arr = pathToArr(path);
         var current = origin;
         for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
         return current;
@@ -77,7 +80,7 @@
         return str.replace(hyphenateRE, '-$1').toLowerCase();
     }
     function getValByPath(path, current) {
-        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var arr = pathToArr(path);
         arr.forEach(function(prop) {
             current = current[prop];
         });
@@ -92,15 +95,15 @@
         return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
     }
     function extend$1(name, handler) {
-        extention['o-' + name] = handler;
+        extension['o-' + name] = handler;
     }
     function set(origin, path, value) {
-        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var arr = pathToArr(path);
         var current = origin;
         for (var i = 0, len = arr.length; i < len; i++) if (i === len - 1) current[arr[i]] = value; else current = current[arr[i]];
     }
     function get(origin, path) {
-        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var arr = pathToArr(path);
         var current = origin;
         for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
         return current;
@@ -128,7 +131,7 @@
     function setAccessor(node, name, old, value, isSvg, component) {
         if ('className' === name) name = 'class';
         if ('o' == name[0] && '-' == name[1]) {
-            if (extention[name]) extention[name](node, value, component);
+            if (extension[name]) extension[name](node, value, component);
         } else if ('key' === name) ; else if ('ref' === name) {
             applyRef(old, null);
             applyRef(value, node);
@@ -375,27 +378,6 @@
                 Ele.prototype.render = function() {
                     return ctor.call(this, this);
                 };
-                Ele.prototype.install = function() {
-                    config.install && config.install.apply(this, arguments);
-                };
-                Ele.prototype.installed = function() {
-                    config.installed && config.installed.apply(this, arguments);
-                };
-                Ele.prototype.uninstall = function() {
-                    config.uninstall && config.uninstall.apply(this, arguments);
-                };
-                Ele.prototype.beforeUpdate = function() {
-                    config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
-                };
-                Ele.prototype.updated = function() {
-                    config.updated && config.updated.apply(this, arguments);
-                };
-                Ele.prototype.beforeRender = function() {
-                    config.beforeRender && config.beforeRender.apply(this, arguments);
-                };
-                Ele.prototype.rendered = function() {
-                    config.rendered && config.rendered.apply(this, arguments);
-                };
                 Ele.prototype.receiveProps = function() {
                     if (config.receiveProps) return config.receiveProps.apply(this, arguments);
                 };
@@ -405,23 +387,24 @@
             Ele.css = config.css;
             Ele.propTypes = config.propTypes;
             Ele.defaultProps = config.defaultProps;
-            if (config.use) if ('function' == typeof config.use) Ele.prototype.use = function() {
-                return config.use.apply(this, arguments);
-            }; else Ele.prototype.use = function() {
-                return config.use;
-            };
-            if (config.useSelf) if ('function' == typeof config.useSelf) Ele.prototype.useSelf = function() {
-                return config.useSelf.apply(this, arguments);
-            }; else Ele.prototype.useSelf = function() {
-                return config.useSelf;
-            };
+            var eleHooks = [ 'install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered' ], storeHelpers = [ 'use', 'useSelf' ];
+            eleHooks.forEach(function(hook) {
+                if (config[hook]) Ele.prototype[hook] = function() {
+                    config[hook].apply(this, arguments);
+                };
+            });
+            storeHelpers.forEach(function(func) {
+                if (config[func]) Ele.prototype[func] = function() {
+                    return 'function' == typeof config[func] ? config[func].apply(this, arguments) : config[func];
+                };
+            });
             if (Ele.use) Ele.updatePath = getPath(Ele.use);
             customElements.define(name, Ele);
             options.mapping[name] = Ele;
         }
     }
     function getPath(obj) {
-        if ('[object Array]' === Object.prototype.toString.call(obj)) {
+        if ('Array' === getType(obj)) {
             var result = {};
             obj.forEach(function(item) {
                 if ('string' == typeof item) result[item] = !0; else {
@@ -442,24 +425,24 @@
     function dataToPath(data, result) {
         Object.keys(data).forEach(function(key) {
             result[key] = !0;
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], key, result); else if ('[object Array]' === type) _arrayToPath(data[key], key, result);
+            var type = getType(data[key]);
+            if ('Object' === type) _objToPath(data[key], key, result); else if ('Array' === type) _arrayToPath(data[key], key, result);
         });
     }
     function _objToPath(data, path, result) {
         Object.keys(data).forEach(function(key) {
             result[path + '.' + key] = !0;
             delete result[path];
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], path + '.' + key, result); else if ('[object Array]' === type) _arrayToPath(data[key], path + '.' + key, result);
+            var type = getType(data[key]);
+            if ('Object' === type) _objToPath(data[key], path + '.' + key, result); else if ('Array' === type) _arrayToPath(data[key], path + '.' + key, result);
         });
     }
     function _arrayToPath(data, path, result) {
         data.forEach(function(item, index) {
             result[path + '[' + index + ']'] = !0;
             delete result[path];
-            var type = Object.prototype.toString.call(item);
-            if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
+            var type = getType(item);
+            if ('Object' === type) _objToPath(item, path + '[' + index + ']', result); else if ('Array' === type) _arrayToPath(item, path + '[' + index + ']', result);
         });
     }
     function _classCallCheck$1(instance, Constructor) {
@@ -651,10 +634,13 @@
     'function' == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
     var hyphenateRE = /\B([A-Z])/g;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-    var extention = {};
+    var extension = {};
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
+    var getType = function(obj) {
+        return Object.prototype.toString.call(obj).slice(8, -1);
+    };
     var id = 0;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
@@ -1057,7 +1043,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.14.0';
+    options.root.Omi.version = '6.14.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

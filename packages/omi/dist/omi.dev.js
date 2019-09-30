@@ -1,5 +1,5 @@
 /**
- * omi v6.14.0  http://omijs.org
+ * omi v6.14.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -180,8 +180,14 @@
     return obj;
   }
 
+  function pathToArr(path) {
+    if (typeof path !== 'string' || !path) return [];
+    // return path.split(/\.|\[|\]/).filter(name => !!name)
+    return path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  }
+
   function getTargetByPath(origin, path) {
-    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    var arr = pathToArr(path);
     var current = origin;
     for (var i = 0, len = arr.length; i < len; i++) {
       current = current[arr[i]];
@@ -195,7 +201,7 @@
   }
 
   function getValByPath(path, current) {
-    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    var arr = pathToArr(path);
     arr.forEach(function (prop) {
       current = current[prop];
     });
@@ -235,14 +241,14 @@
     return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
   }
 
-  var extention = {};
+  var extension = {};
 
   function extend$1(name, handler) {
-  	extention['o-' + name] = handler;
+  	extension['o-' + name] = handler;
   }
 
   function set(origin, path, value) {
-  	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  	var arr = pathToArr(path);
   	var current = origin;
   	for (var i = 0, len = arr.length; i < len; i++) {
   		if (i === len - 1) {
@@ -254,7 +260,7 @@
   }
 
   function get(origin, path) {
-  	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  	var arr = pathToArr(path);
   	var current = origin;
   	for (var i = 0, len = arr.length; i < len; i++) {
   		current = current[arr[i]];
@@ -316,8 +322,8 @@
     if (name === 'className') name = 'class';
 
     if (name[0] == 'o' && name[1] == '-') {
-      if (extention[name]) {
-        extention[name](node, value, component);
+      if (extension[name]) {
+        extension[name](node, value, component);
       }
     } else if (name === 'key') {
       // ignore
@@ -763,6 +769,10 @@
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  var getType = function getType(obj) {
+    return Object.prototype.toString.call(obj).slice(8, -1);
+  };
+
   function define(name, ctor) {
     if (options.mapping[name]) {
       return;
@@ -807,34 +817,6 @@
           return ctor.call(this, this);
         };
 
-        Ele.prototype.install = function install() {
-          config.install && config.install.apply(this, arguments);
-        };
-
-        Ele.prototype.installed = function installed() {
-          config.installed && config.installed.apply(this, arguments);
-        };
-
-        Ele.prototype.uninstall = function uninstall() {
-          config.uninstall && config.uninstall.apply(this, arguments);
-        };
-
-        Ele.prototype.beforeUpdate = function beforeUpdate() {
-          config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
-        };
-
-        Ele.prototype.updated = function updated() {
-          config.updated && config.updated.apply(this, arguments);
-        };
-
-        Ele.prototype.beforeRender = function beforeRender() {
-          config.beforeRender && config.beforeRender.apply(this, arguments);
-        };
-
-        Ele.prototype.rendered = function rendered() {
-          config.rendered && config.rendered.apply(this, arguments);
-        };
-
         Ele.prototype.receiveProps = function receiveProps() {
           if (config.receiveProps) {
             return config.receiveProps.apply(this, arguments);
@@ -850,29 +832,24 @@
       Ele.defaultProps = config.defaultProps;
 
 
-      if (config.use) {
-        if (typeof config.use === 'function') {
-          Ele.prototype.use = function () {
-            return config.use.apply(this, arguments);
-          };
-        } else {
-          Ele.prototype.use = function () {
-            return config.use;
-          };
-        }
-      }
+      var eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
+          storeHelpers = ['use', 'useSelf'];
 
-      if (config.useSelf) {
-        if (typeof config.useSelf === 'function') {
-          Ele.prototype.useSelf = function () {
-            return config.useSelf.apply(this, arguments);
-          };
-        } else {
-          Ele.prototype.useSelf = function () {
-            return config.useSelf;
+      eleHooks.forEach(function (hook) {
+        if (config[hook]) {
+          Ele.prototype[hook] = function () {
+            config[hook].apply(this, arguments);
           };
         }
-      }
+      });
+
+      storeHelpers.forEach(function (func) {
+        if (config[func]) {
+          Ele.prototype[func] = function () {
+            return typeof config[func] === 'function' ? config[func].apply(this, arguments) : config[func];
+          };
+        }
+      });
 
       if (Ele.use) {
         Ele.updatePath = getPath(Ele.use);
@@ -884,7 +861,7 @@
   }
 
   function getPath(obj) {
-    if (Object.prototype.toString.call(obj) === '[object Array]') {
+    if (getType(obj) === 'Array') {
       var result = {};
       obj.forEach(function (item) {
         if (typeof item === 'string') {
@@ -919,10 +896,10 @@
   function dataToPath(data, result) {
     Object.keys(data).forEach(function (key) {
       result[key] = true;
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      var type = getType(data[key]);
+      if (type === 'Object') {
         _objToPath(data[key], key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === 'Array') {
         _arrayToPath(data[key], key, result);
       }
     });
@@ -932,10 +909,10 @@
     Object.keys(data).forEach(function (key) {
       result[path + '.' + key] = true;
       delete result[path];
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      var type = getType(data[key]);
+      if (type === 'Object') {
         _objToPath(data[key], path + '.' + key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === 'Array') {
         _arrayToPath(data[key], path + '.' + key, result);
       }
     });
@@ -945,10 +922,10 @@
     data.forEach(function (item, index) {
       result[path + '[' + index + ']'] = true;
       delete result[path];
-      var type = Object.prototype.toString.call(item);
-      if (type === '[object Object]') {
+      var type = getType(item);
+      if (type === 'Object') {
         _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === '[object Array]') {
+      } else if (type === 'Array') {
         _arrayToPath(item, path + '[' + index + ']', result);
       }
     });
@@ -1826,7 +1803,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.14.0';
+  options.root.Omi.version = '6.14.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
