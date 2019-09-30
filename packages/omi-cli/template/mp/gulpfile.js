@@ -1,4 +1,4 @@
-let gulp = require('gulp')
+let gulp = require('gulp') 
 let path = require('path')
 let tap = require('gulp-tap')
 let compile = require('./scripts/mp/index')
@@ -6,88 +6,106 @@ let fs = require('fs')
 let compileWxss = require('./scripts/mp/wxss')
 var prettier = require('prettier')
 
+const WXCOMPONENT_ENV = 'WXCOMPONENT';
+
 gulp.task('components', ['copy'], () => {
+  const isWxComponent = process.env.NODE_ENV === WXCOMPONENT_ENV;
+  const src = isWxComponent ? 'src/mp/components/**/*.js' : 'src/mp/components/*/*.js'; // 判断是否微信组件 
+
   return gulp
-    .src('src/mp/components/*/*.js')
+    .src(src)
     .pipe(
       tap(file => {
-        let dir = path.dirname(file.path)
+        let dir = isWxComponent ? file.path.replace('.js', '') : path.dirname(file.path)
         let arr = dir.split(/\\|\//)
         let name = arr[arr.length-1]
-        if(path.basename(file.path) == name+'.js') {
-          let wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
-          let json = require(dir + '/' + name + '.json')
-          let importStr = json2import(json)
-          let hyperscript = compile(wxml)
-          file.contents = Buffer.concat([
-            Buffer.from(
-              `${importStr}import componentCss from './${name}.wxss'
-import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+        let preName = arr[arr.length-2];
 
-  `
-            ),
-            Buffer.from(
-              file.contents
-                .toString()
-                .replace('Component({', 
-                `const mpOption = function () {
-  return ({`)+`
-}`),
-            Buffer.from(`
-class Element extends WeElement {
-  static props = mpOption().properties
+        try{
+          if(path.basename(file.path) == name+'.js') {
+            let filePathComponentDomStr = fileComponentDom(file.path);
+            let contentPath = isWxComponent ? dir : dir + '/' + name;
+            let wxml = fs.readFileSync(contentPath + '.wxml', 'utf8')
+            let js = fs.readFileSync(contentPath + '.js', 'utf8')
+            let json = require(contentPath + '.json')
+            let importStr = json2import(json, dir)
+            let hyperscript = compile(wxml)
 
-  data = mpOption().data
+            // 判断组件下面是不是压缩过 
+            if(js.includes('webpackBootstrap')){
+              return
+            }
 
-  render = render
+            file.contents = Buffer.concat([
+              Buffer.from(
+                `${importStr}import componentCss from './${name}.wxss'
+  import { h, WeElement, rpx } from 'omi'
+  import { setData } from ${isWxComponent && preName === 'components' ? "'../../utils/set-data'" : "'../../../utils/set-data'"}
 
-  css = css
+    `
+              ),
+              Buffer.from(
+                file.contents
+                  .toString()
+                  .replace('Component({', 
+                  `const mpOption = function () {
+    return ({`)+`
+  }`),
+              Buffer.from(`
+  class Element extends WeElement {
+    static props = mpOption().properties
 
-  beforeRender() {}
+    data = mpOption().data
 
-  beforeUpdate() {}
+    render = render
 
-  afterUpdate() {}
+    css = css
 
-  install = function() {
-    this.properties = this.props
-    Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
-    this._mpOption = mpOption()
-    this._mpOption.created && this._mpOption.created.call(this)
-    Object.keys(this._mpOption.methods).forEach(key => {
-      if(typeof this._mpOption.methods[key] === 'function'){
-        this[key] = this._mpOption.methods[key].bind(this)
-      }
-    })
-  }
+    beforeRender() {}
 
-  uninstall = mpOption().detached || function() {}
+    beforeUpdate() {}
 
-  installed = function() {
-    this._mpOption.attached && this._mpOption.attached.call(this)
-    this._mpOption.ready && this._mpOption.ready.call(this)
-  }
+    afterUpdate() {}
 
-  adoptedCallback = mpOption().moved || function() {}
-
-  triggerEvent = function(name, data) {
-    this.fire(name, data)
-  }
-
-  setData = setData
-}
-
-function css() {
-  return rpx(componentCss)
-}
-
-${prettier.format(hyperscript, { parser: "babel" })}
-
-customElements.define('${name}', Element)
-          `)
-          ])
+    install = function() {
+      this.properties = this.props
+      Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
+      this._mpOption = mpOption()
+      this._mpOption.created && this._mpOption.created.call(this)
+      Object.keys(this._mpOption.methods).forEach(key => {
+        if(typeof this._mpOption.methods[key] === 'function'){
+          this[key] = this._mpOption.methods[key].bind(this)
         }
+      })
+    }
+
+    uninstall = mpOption().detached || function() {}
+
+    installed = function() {
+      this._mpOption.attached && this._mpOption.attached.call(this)
+      this._mpOption.ready && this._mpOption.ready.call(this)
+    }
+
+    adoptedCallback = mpOption().moved || function() {}
+
+    triggerEvent = function(name, data) {
+      this.fire(name, data)
+    }
+
+    setData = setData
+  }
+
+  function css() {
+    return rpx(componentCss)
+  }
+
+  ${prettier.format(hyperscript, { parser: "babel" })}
+
+  customElements.define('${filePathComponentDomStr}', Element)
+            `)
+            ])
+          }
+        }catch(e){}
       })
     )
     .pipe(gulp.dest('src/mp/components/'))
@@ -107,9 +125,10 @@ gulp.task('pages', ['copy'], () => {
         let name = arr[arr.length-1]
         if(path.basename(file.path) == name+'.js') {
           let wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
-          let hyperscript = compile(wxml)
           let json = require(dir + '/' + name + '.json')
-          let importStr = json2import(json)
+          let hyperscript = compile(replaceWxmlComponentHtml(dir, wxml,json))
+
+          let importStr = json2import(json, dir)
           file.contents = Buffer.concat([
             Buffer.from(
               `${importStr}import appCss from '../../app.wxss'
@@ -251,10 +270,71 @@ function route(arr) {
   return result.join('\r\n')
 }
 
-function json2import(json) {
+// 打包生成web component 转换统一src 路径
+function fileComponentDom(filePth) { 
+  let filePathArray = filePth.replace(__dirname, '').replace('.js', '').split('/');
+  filePathArray.shift();  
+  
+  return 'wx-h5-' + filePathArray.join('-');
+}
+
+// 组件转换绝对路径 不再需要依赖强匹配目录文件夹
+function replaceComponentOnPath(tag, str, tagName) {
+  const reg = new RegExp(`<(${tag})(?=\\s)|<(\\/${tag})>`, 'g');
+
+  return str.replace(reg, function(match, $1, $2) {
+      if ($1) {
+          return '<' + tagName;
+      }
+      return '</' + tagName + '>'
+  });
+}
+
+// 匹配转换html 转换 目录文件夹名字
+function replaceWxmlComponentHtml(dir, html,json) {
+  Object.keys(json.usingComponents).forEach((key, i) => {
+    html = replaceComponentOnPath(
+      key,
+      html,
+      fileComponentDom(path.join(dir, json.usingComponents[key]))
+    );
+  })
+
+  return html;
+}
+
+
+function json2import(json, dir) {
   let arr = []
   if (json.usingComponents) {
+
     Object.keys(json.usingComponents).forEach(key => {
+      let usingArry = path.resolve(dir, json.usingComponents[key]).split('/');
+      usingArry.pop();
+      let wxssPath = '';
+
+      try{
+        let indexWsxx = [...usingArry, 'index.wxss'].join('/');
+        fs.statSync(indexWsxx);
+        wxssPath = json.usingComponents[key];
+      }catch(e){
+          
+      }
+
+      try{
+        let keyWsxx = [...usingArry, key + '.wxss'].join('/');
+        fs.statSync(keyWsxx);
+        wxssPath = keyWsxx;
+      }catch(e){
+          
+      }
+
+      wxssPath && arr.push(`import '${wxssPath}'`)
+
+      // let wxml = fs.readFileSync(wxssPath, 'utf8')
+      // console.log(Buffer.from(compileWxss(wxml)))
+
+      // arr.push(Buffer.from(compileWxss(wxml)))
       arr.push(`import '${json.usingComponents[key]}'`)
     })
   }
@@ -323,3 +403,4 @@ gulp.task('app-wxss', ['copy'], () => {
 })
 
 gulp.task('default', ['copy', 'components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route', 'watch'])
+gulp.task('build', ['copy', 'components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
