@@ -80,7 +80,7 @@ function extendStoreUpate(store) {
 
       this.updateSelfInstances.forEach(instance => {
         if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-          this.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
+          instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
           instance.updateSelf()
         }
       })

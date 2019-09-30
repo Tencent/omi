@@ -1,6 +1,6 @@
 {
   "name": "omio",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Omi for old browsers(IE8+).",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",

@@ -889,7 +889,7 @@
                 });
                 this.updateSelfInstances.forEach(function(instance) {
                     if (instance.I && needUpdate(patch, instance.I)) {
-                        _this.usingSelf = getUse(store.data, 'function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf);
+                        instance.usingSelf = getUse(store.data, 'function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf);
                         instance.updateSelf();
                     }
                 });
@@ -1314,7 +1314,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.5.0';
+    options.root.Omi.version = 'omio-2.5.1';
     var Omi = {
         h: h,
         createElement: h,
