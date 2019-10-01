@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { o } from './ostate/index'
+import omis from './omis/index'
 
 class Store {
   data = {
@@ -15,18 +15,18 @@ class Store {
   }
 }
 
-const Counter = o({
+const Counter = omis({
   render() {
     return <div>
-      <button onClick={o.store.sub}>-</button>
-      <span>{o.store.data.count}</span>
-      <button onClick={o.store.add}>+</button>
+      <button onClick={omis.store.sub}>-</button>
+      <span>{omis.store.data.count}</span>
+      <button onClick={omis.store.add}>+</button>
     </div>
   },
   use: ['count']
 })
 
-const App = o({
+const App = omis({
   render() {
     return <Counter></Counter>
   },

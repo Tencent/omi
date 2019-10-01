@@ -14,11 +14,11 @@ function useForceUpdate() {
   return update
 }
 
-export function o(options) {
+export default function omis(options) {
 
   console.log(this)
   if (options.store) {
-    o.store = options.store
+    omis.store = options.store
 
   }
   if (options.use) {
@@ -36,9 +36,9 @@ export function o(options) {
     const wantedForceUpdateHook = options.useForceUpdate || useForceUpdate
     const forceUpdate = wantedForceUpdateHook()
 
-    if (o.store.data && !o.store.___$observe_) {
-      o.store.___$observe_ = true
-      obaa(o.store.data, (a, b, c, d, e) => {
+    if (omis.store.data && !omis.store.___$observe_) {
+      omis.store.___$observe_ = true
+      obaa(omis.store.data, (a, b, c, d, e) => {
         console.log(a, b, c, d, e)
         forceUpdate()
       })
@@ -55,8 +55,8 @@ export function o(options) {
 
 
 
-o.useInstances = []
-o.useSelfInstances = []
+omis.useInstances = []
+omis.useSelfInstances = []
 
 
 
