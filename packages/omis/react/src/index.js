@@ -28,7 +28,10 @@ const Counter = omis({
 
 const App = omis({
   render() {
-    return <Counter></Counter>
+    return <div>
+      <div>{omis.store.data.count}</div>
+      <Counter></Counter>
+    </div>
   },
   store: new Store()
 })

@@ -3,6 +3,10 @@ import {
   useCallback
 } from 'react'
 import obaa from './obaa'
+import {
+  getPath,
+  needUpdate
+} from './path'
 
 function useForceUpdate() {
   const [, setTick] = useState(0)
@@ -14,51 +18,40 @@ function useForceUpdate() {
   return update
 }
 
-export default function omis(options) {
-
+function Omis(options) {
+  const updatePath = options.use ? getPath(options.use) : null
+  this.options = options
   if (options.store) {
     omis.store = options.store
+    obaa(omis.store.data, (prop, val, old, path) => {
 
-  }
-  if (options.use) {
+      // if (updatePath && needUpdate(path + '-' + prop, updatePath)) {
+      this.forceUpdate()
+      // }
 
-  }
-
-  //https://github.com/mobxjs/mobx-react-lite/blob/master/src/useObserver.ts
-
-
-  //  setInterval(()=>{
-  //  // forceUpdate()
-  //  },2000)
-  return (props, ref) => {
-
-    const wantedForceUpdateHook = options.useForceUpdate || useForceUpdate
-    const forceUpdate = wantedForceUpdateHook()
-
-    if (omis.store.data && !omis.store.___$observe_) {
-      omis.store.___$observe_ = true
-      obaa(omis.store.data, (a, b, c, d, e) => {
-        console.log(a, b, c, d, e)
-        forceUpdate()
-      })
-    }
-
-    //如果没有监听，就进行监听，保证监听一次
-    // setInterval(()=>{
-
-    //   forceUpdate()
-    // },2000)
-    return options.render(props, ref)
+    })
   }
 }
 
+Omis.prototype = {
+  render: function () {
+    return (props, ref) => {
+      console.log(this.options)
+      this.forceUpdate = useForceUpdate()
 
+      return this.options.render(props, ref)
+    }
+  }
+}
 
-omis.useInstances = []
-omis.useSelfInstances = []
-
+export default function omis(options) {
+  const o = new Omis(options)
+  return o.render.call(o)
+}
 
 
 
 
 //const Context = React.createContext();
+
+//https://github.com/mobxjs/mobx-react-lite/blob/master/src/useObserver.ts
