@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import omis from './omis/index'
+import omis from './omis'
 
 class Store {
   data = {

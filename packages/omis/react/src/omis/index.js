@@ -1,57 +1,43 @@
-import {
-  useState,
-  useCallback
-} from 'react'
+import React from 'react'
 import obaa from './obaa'
 import {
   getPath,
-  needUpdate
+  needUpdate,
+  fixPath
 } from './path'
 
-function useForceUpdate() {
-  const [, setTick] = useState(0)
+const components = []
+const patch = {}
 
-  const update = useCallback(() => {
-    setTick(tick => tick + 1)
-  }, [])
-
-  return update
-}
-
-function Omis(options) {
-  const updatePath = options.use ? getPath(options.use) : null
-  this.options = options
+export default function omis(options) {
   if (options.store) {
     omis.store = options.store
     obaa(omis.store.data, (prop, val, old, path) => {
 
-      // if (updatePath && needUpdate(path + '-' + prop, updatePath)) {
-      this.forceUpdate()
-      // }
+      components.forEach(component => {
+
+        patch[fixPath(path + '-' + prop)] = true
+
+        if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
+          component.forceUpdate()
+        }
+      })
 
     })
   }
-}
 
-Omis.prototype = {
-  render: function () {
-    return (props, ref) => {
-      console.log(this.options)
-      this.forceUpdate = useForceUpdate()
+  const updatePath = options.use ? getPath(options.use) : null
 
-      return this.options.render(props, ref)
+  return class extends React.Component {
+    constructor(props) {
+      super(props)
+      components.push(this)
+      this.__$updatePath_ = updatePath
+    }
+
+    render() {
+      return options.render.apply(this, arguments)
     }
   }
+
 }
-
-export default function omis(options) {
-  const o = new Omis(options)
-  return o.render.call(o)
-}
-
-
-
-
-//const Context = React.createContext();
-
-//https://github.com/mobxjs/mobx-react-lite/blob/master/src/useObserver.ts
