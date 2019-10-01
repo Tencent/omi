@@ -16,7 +16,6 @@ function useForceUpdate() {
 
 export default function omis(options) {
 
-  console.log(this)
   if (options.store) {
     omis.store = options.store
 

@@ -17,11 +17,11 @@ class Store {
 
 const Counter = omis({
   render() {
-    return <div>
+    return <>
       <button onClick={omis.store.sub}>-</button>
       <span>{omis.store.data.count}</span>
       <button onClick={omis.store.add}>+</button>
-    </div>
+    </>
   },
   use: ['count']
 })
