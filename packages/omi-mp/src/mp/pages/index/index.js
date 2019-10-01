@@ -131,7 +131,8 @@ function render() {
                 ontap: this.bindViewTap,
                 class: `userinfo-avatar`,
                 src: userInfo.avatarUrl,
-                mode: `cover`
+                mode: `cover`,
+                onclick: this.bindViewTap
               },
               []
             ),

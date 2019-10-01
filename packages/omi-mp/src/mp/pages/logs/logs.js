@@ -82,7 +82,7 @@ function render() {
     logs.map((log, index) => {
       return h(
         "block",
-        {},
+        { style: { width: "100%" } },
         h("span", { class: `log-item` }, [`${index + 1}. ${log}`]),
         h("span", { class: `log-item` }, [`by omi-mp`])
       );

@@ -88,7 +88,7 @@ function css() {
 function render() {
   const { name, age } = this.data;
   return h("div", null, [
-    h("button", { ontap: this.myMethods }, [
+    h("button", { ontap: this.myMethods, onclick: this.myMethods }, [
       `Click me will log dntzhang to the console panel`
     ]),
     h("div", null, [`props - name:${name}, age:${age}`]),
