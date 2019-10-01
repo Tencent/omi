@@ -1,6 +1,6 @@
-## Ostate
+## Omis
 
-Observable state for JavaScript apps.
+Observable store system for JavaScript apps.
 
 ## Usage in React
 
