@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { o } from './ostate'
+import { o } from './ostate/index'
 
 class Store {
   data = {
@@ -30,7 +30,7 @@ const App = o({
   render() {
     return <Counter></Counter>
   },
-  store: new Store
+  store: new Store()
 })
 
 
