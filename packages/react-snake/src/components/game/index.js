@@ -1,11 +1,11 @@
 import React from 'react'
-import { $r } from '../../utils/omis'
+import { $ } from '../../utils/omis'
 
 require('../../utils/css').add(require('./_index.css'))
 
-export default $r({
+export default $({
   render() {
-    const { map } = $r.store.data
+    const { map } = $.store.data
     return <div className="game">
       {map.map(row => {
         return <p>

@@ -8,10 +8,10 @@ const updateSelfComponents = []
 let isSelf = false
 let currentComponent = null
 
-export function $r(options) {
+export function $(options) {
   if (options.store) {
-    $r.store = options.store
-    obaa($r.store.data, (prop, val, old, path) => {
+    $.store = options.store
+    obaa($.store.data, (prop, val, old, path) => {
       const patch = {}
 
       patch[fixPath(path + '-' + prop)] = true

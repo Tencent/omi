@@ -303,10 +303,10 @@
   var isSelf = false;
   var currentComponent = null;
 
-  function $r(options) {
+  function $(options) {
     if (options.store) {
-      $r.store = options.store;
-      obaa($r.store.data, function (prop, val, old, path) {
+      $.store = options.store;
+      obaa($.store.data, function (prop, val, old, path) {
         var patch = {};
 
         patch[fixPath(path + '-' + prop)] = true;
@@ -367,10 +367,13 @@
     }(React.Component);
   }
 
+  function $v(options) {}
+
   var root = getGlobal();
 
   var omis = {
-    $r: $r
+    $: $,
+    $v: $v
   };
 
   root.Omis = omis;

@@ -1,9 +1,11 @@
-import { $r } from './react'
+import { $ } from './react'
+import { $v } from './vue'
 
 const root = getGlobal()
 
 const omis = {
-  $r
+  $,
+  $v
 }
 
 root.Omis = omis
@@ -12,7 +14,7 @@ root.Omis.version = '2.0.0'
 
 export default omis
 
-export { $r }
+export { $, $v }
 
 function getGlobal() {
   if (

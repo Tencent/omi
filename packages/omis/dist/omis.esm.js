@@ -300,10 +300,10 @@ var updateSelfComponents = [];
 var isSelf = false;
 var currentComponent = null;
 
-function $r(options) {
+function $(options) {
   if (options.store) {
-    $r.store = options.store;
-    obaa($r.store.data, function (prop, val, old, path) {
+    $.store = options.store;
+    obaa($.store.data, function (prop, val, old, path) {
       var patch = {};
 
       patch[fixPath(path + '-' + prop)] = true;
@@ -364,10 +364,13 @@ function $r(options) {
   }(React.Component);
 }
 
+function $v(options) {}
+
 var root = getGlobal();
 
 var omis = {
-  $r: $r
+  $: $,
+  $v: $v
 };
 
 root.Omis = omis;
@@ -384,5 +387,5 @@ function getGlobal() {
 }
 
 export default omis;
-export { $r };
+export { $, $v };
 //# sourceMappingURL=omis.esm.js.map

@@ -2,13 +2,13 @@ import React from 'react'
 import Game from '../game'
 
 import store from '../../stores/index'
-import { $r } from '../../utils/omis'
+import { $ } from '../../utils/omis'
 require('../../utils/css').add(require('./_index.css'))
 
 
-export default $r({
+export default $({
   render() {
-    const { store } = $r
+    const { store } = $
     const { paused } = store.data
     return <div className="container">
       <h1>REACT + OMIS SNAKE</h1>

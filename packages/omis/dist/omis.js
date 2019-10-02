@@ -177,10 +177,10 @@
         });
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
-    function $r(options) {
+    function $(options) {
         if (options.store) {
-            $r.store = options.store;
-            obaa($r.store.data, function(prop, val, old, path) {
+            $.store = options.store;
+            obaa($.store.data, function(prop, val, old, path) {
                 var patch = {};
                 patch[fixPath(path + '-' + prop)] = !0;
                 components.forEach(function(component) {
@@ -231,6 +231,7 @@
             return _class2;
         }(React.Component);
     }
+    function $v(options) {}
     React = React && React.hasOwnProperty('default') ? React.default : React;
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
@@ -254,7 +255,8 @@
         }(); else return global;
     }();
     var omis = {
-        $r: $r
+        $: $,
+        $v: $v
     };
     root.Omis = omis;
     root.omis = omis;
