@@ -320,18 +320,10 @@
             });
         });
     };
-    var root = function() {
-        if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
-            return this;
-        }(); else return global;
-    }();
-    var omis = {
+    var Omis = {
         $: $,
         $v: $v
     };
-    root.Omis = omis;
-    root.omis = omis;
-    root.Omis.version = '2.0.1';
-    if ('undefined' != typeof module) module.exports = omis; else self.Omis = omis;
+    if ('undefined' != typeof module) module.exports = Omis; else self.Omis = Omis;
 }(React, Vue, Vuex);
 //# sourceMappingURL=omis.js.map

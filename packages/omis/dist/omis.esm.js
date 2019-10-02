@@ -1,5 +1,5 @@
 /**
- * omis v2.0.1  http://omijs.org
+ * omis v2.0.2  http://omijs.org
  * Observable store system for JavaScript apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -465,25 +465,7 @@ function recUpdate(root) {
   });
 }
 
-var root = getGlobal();
-
-var omis = {
-  $: $,
-  $v: $v
-};
-
-root.Omis = omis;
-root.omis = omis;
-root.Omis.version = '2.0.1';
-
-function getGlobal() {
-  if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-    return self || window || global || function () {
-      return this;
-    }();
-  }
-  return global;
-}
+var omis = { $: $, $v: $v };
 
 export default omis;
 export { $, $v };
