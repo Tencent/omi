@@ -1,4 +1,3 @@
-
 const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
@@ -20,7 +19,7 @@ export function getUsing(data, paths) {
           obj[index] = value[1] ? value[1](tempVal) : tempVal
         } else {
           const args = []
-          tempPath.forEach(path =>{
+          tempPath.forEach(path => {
             args.push(getTargetByPath(data, path))
           })
           obj[index] = value[1].apply(null, args)
@@ -33,14 +32,16 @@ export function getUsing(data, paths) {
 }
 
 export function getTargetByPath(origin, path) {
-  const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+  const arr = path
+    .replace(/]/g, '')
+    .replace(/\[/g, '.')
+    .split('.')
   let current = origin
   for (let i = 0, len = arr.length; i < len; i++) {
     current = current[arr[i]]
   }
   return current
 }
-
 
 export function getPath(obj) {
   if (Object.prototype.toString.call(obj) === '[object Array]') {
@@ -52,19 +53,16 @@ export function getPath(obj) {
         const tempPath = item[Object.keys(item)[0]]
         if (typeof tempPath === 'string') {
           result[tempPath] = true
+        } else if (typeof tempPath[0] === 'string') {
+          result[tempPath[0]] = true
         } else {
-          if(typeof tempPath[0] === 'string'){
-            result[tempPath[0]] = true
-          }else{
-            tempPath[0].forEach(path => result[path] = true)
-          }
+          tempPath[0].forEach(path => (result[path] = true))
         }
       }
     })
     return result
-  } else {
-    return getUpdatePath(obj)
   }
+  return getUpdatePath(obj)
 }
 
 export function getUpdatePath(data) {
@@ -110,7 +108,6 @@ function _arrayToPath(data, path, result) {
     }
   })
 }
-
 
 export function needUpdate(diffResult, updatePath) {
   for (let keyA in diffResult) {

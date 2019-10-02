@@ -1,10 +1,6 @@
 import React from 'react'
-import {obaa} from './obaa'
-import {
-  getPath,
-  needUpdate,
-  fixPath
-} from './path'
+import { obaa } from './obaa'
+import { getPath, needUpdate, fixPath } from './path'
 
 const components = []
 const updateSelfComponents = []
@@ -20,16 +16,22 @@ export function $r(options) {
 
       patch[fixPath(path + '-' + prop)] = true
       components.forEach(component => {
-        if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
-          component.setState({ __$id_: component.state.__$id_++ });
+        if (
+          component.__$updatePath_ &&
+          needUpdate(patch, component.__$updatePath_)
+        ) {
+          component.setState({ __$id_: component.state.__$id_++ })
 
           isSelf = false
         }
       })
 
       updateSelfComponents.forEach(component => {
-        if (component.__$updateSelfPath_ && needUpdate(patch, component.__$updateSelfPath_)) {
-          component.setState({ __$id_: component.state.__$id_++ });
+        if (
+          component.__$updateSelfPath_ &&
+          needUpdate(patch, component.__$updateSelfPath_)
+        ) {
+          component.setState({ __$id_: component.state.__$id_++ })
           isSelf = true
           currentComponent = component
         }
@@ -41,7 +43,6 @@ export function $r(options) {
   const updateSelfPath = options.useSelf && getPath(options.useSelf)
 
   return class extends React.Component {
-
     state = {
       __$id_: 0
     }

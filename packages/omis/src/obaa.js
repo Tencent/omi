@@ -1,7 +1,5 @@
-
 export function obaa(target, arr, callback) {
-
-  var eventPropArr = []
+  let eventPropArr = []
   if (isArray(target)) {
     if (target.length === 0) {
       target.__o_ = {
@@ -11,7 +9,7 @@ export function obaa(target, arr, callback) {
     }
     mock(target, target)
   }
-  for (var prop in target) {
+  for (let prop in target) {
     if (target.hasOwnProperty(prop)) {
       if (callback) {
         if (isArray(arr) && isInArray(arr, prop)) {
@@ -30,15 +28,15 @@ export function obaa(target, arr, callback) {
   if (!target.__c_) {
     target.__c_ = []
   }
-  var propChanged = callback ? callback : arr
+  let propChanged = callback ? callback : arr
   target.__c_.push({
     all: !callback,
-    propChanged: propChanged,
-    eventPropArr: eventPropArr
+    propChanged,
+    eventPropArr
   })
 }
 
-var triggerStr = [
+let triggerStr = [
   'concat',
   'copyWithin',
   'fill',
@@ -52,7 +50,7 @@ var triggerStr = [
   'size'
 ].join(',')
 
-var methods = [
+let methods = [
   'concat',
   'copyWithin',
   'entries',
@@ -86,19 +84,16 @@ var methods = [
 ]
 
 function mock(target, root) {
-  methods.forEach(function (item) {
-    target[item] = function () {
-      var old = Array.prototype.slice.call(this, 0)
-      var result = Array.prototype[item].apply(
+  methods.forEach(item => {
+    target[item] = function() {
+      let old = Array.prototype.slice.call(this, 0)
+      let result = Array.prototype[item].apply(
         this,
         Array.prototype.slice.call(arguments)
       )
       if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
-        for (var cprop in this) {
-          if (
-            this.hasOwnProperty(cprop) &&
-            !isFunction(this[cprop])
-          ) {
+        for (let cprop in this) {
+          if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) {
             watch(this, cprop, this.__o_.__p_, root)
           }
         }
@@ -116,7 +111,7 @@ function mock(target, root) {
     }
     target[
       'pure' + item.substring(0, 1).toUpperCase() + item.substring(1)
-    ] = function () {
+    ] = function() {
       return Array.prototype[item].apply(
         this,
         Array.prototype.slice.call(arguments)
@@ -128,31 +123,25 @@ function mock(target, root) {
 function watch(target, prop, path, root) {
   if (prop === '__o_') return
   if (isFunction(target[prop])) return
-  if (!target.__o_) target.__o_ = {
-    __r_: root
-  }
+  if (!target.__o_)
+    target.__o_ = {
+      __r_: root
+    }
   if (path !== undefined && path !== null) {
     target.__o_.__p_ = path
   } else {
     target.__o_.__p_ = '#'
   }
 
-  var currentValue = (target.__o_[prop] = target[prop])
+  let currentValue = (target.__o_[prop] = target[prop])
   Object.defineProperty(target, prop, {
-    get: function () {
+    get() {
       return this.__o_[prop]
     },
-    set: function (value) {
-      var old = this.__o_[prop]
+    set(value) {
+      let old = this.__o_[prop]
       this.__o_[prop] = value
-      onPropertyChanged(
-        prop,
-        value,
-        old,
-        this,
-        target.__o_.__p_,
-        root
-      )
+      onPropertyChanged(prop, value, old, this, target.__o_.__p_, root)
     },
     configurable: true,
     enumerable: true
@@ -169,27 +158,19 @@ function watch(target, prop, path, root) {
         }
       }
     }
-    for (var cprop in currentValue) {
+    for (let cprop in currentValue) {
       if (currentValue.hasOwnProperty(cprop)) {
-        watch(
-          currentValue,
-          cprop,
-          target.__o_.__p_ + '-' + prop,
-          root
-        )
+        watch(currentValue, cprop, target.__o_.__p_ + '-' + prop, root)
       }
     }
   }
 }
 
-
 function onPropertyChanged(prop, value, oldValue, target, path, root) {
-  if (value !== oldValue && (!(nan(value) && nan(oldValue))) && root.__c_) {
-    var rootName = getRootName(prop, path)
-    for (
-      var i = 0, len = root.__c_.length; i < len; i++
-    ) {
-      var handler = root.__c_[i]
+  if (value !== oldValue && !(nan(value) && nan(oldValue)) && root.__c_) {
+    let rootName = getRootName(prop, path)
+    for (let i = 0, len = root.__c_.length; i < len; i++) {
+      let handler = root.__c_[i]
       if (
         handler.all ||
         isInArray(handler.eventPropArr, rootName) ||
@@ -210,7 +191,7 @@ function isFunction(obj) {
 }
 
 function nan(value) {
-  return typeof value === "number" && isNaN(value)
+  return typeof value === 'number' && isNaN(value)
 }
 
 function isArray(obj) {
@@ -222,12 +203,11 @@ function isString(obj) {
 }
 
 function isInArray(arr, item) {
-  for (var i = arr.length; --i > -1;) {
+  for (let i = arr.length; --i > -1; ) {
     if (item === arr[i]) return true
   }
   return false
 }
-
 
 function getRootName(prop, path) {
   if (path === '#') {
@@ -236,11 +216,11 @@ function getRootName(prop, path) {
   return path.split('-')[1]
 }
 
-obaa.add = function (obj, prop) {
+obaa.add = function(obj, prop) {
   watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_)
 }
 
-obaa.set = function (obj, prop, value) {
+obaa.set = function(obj, prop, value) {
   watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_)
   obj[prop] = value
 }

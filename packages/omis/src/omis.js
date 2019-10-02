@@ -1,5 +1,4 @@
-
-import {$r} from './react'
+import { $r } from './react'
 
 const root = getGlobal()
 
@@ -13,10 +12,7 @@ root.Omis.version = '2.0.0'
 
 export default omis
 
-export {
-  $r
-}
-
+export { $r }
 
 function getGlobal() {
   if (
