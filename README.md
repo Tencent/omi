@@ -69,6 +69,36 @@ define('my-counter', _ => (
 
 You can also use useSelf, useSelf only updates itself. When using useSelf, the corresponding attributes are accessed through. usingSelf in JSX.
 
+Path is also supported:
+
+```js
+class Store {
+  data = {
+    list: [
+      { name: { first: 'dnt', last: 'zhang' } }
+    ]
+  }
+}
+
+...
+...
+
+define('my-counter', _ => (
+  ...
+  ...
+), {
+    use: [
+      'list[0].name', //Direct string, accessible through this.using[0] 
+      {
+        //alias，accessible through this.using.fullName
+        fullName: [
+          ['list[0].name.first', 'list[0].name.last'],
+          (first, last) => first + last
+        ]
+      }]
+  })
+```
+
 ## Ecosystem of Omi
 
 #### Base

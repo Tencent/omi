@@ -86,23 +86,23 @@ Data of store:
 }
 ```
 
-Static use:
+Use grammar:
 
 ```jsx
-static use = [
-  'count', //Direct string, accessible through this.use[0] 
-  'arr[0]', //It also supports path, which is accessible through this.use[1]
+use = [
+  'count', //Direct string, accessible through this.using[0] 
+  'arr[0]', //It also supports path, which is accessible through this.using[1]
   //Support JSON
   {
-    //Alias, accessible through this.use.reverseMotto
+    //Alias, accessible through this.using.reverseMotto
     reverseMotto: [
       'motto', //path
       target => target.split('').reverse().join('')  //computed
     ]
   },
-  { name: 'arr[1]' }, //{ alias: path }，accessible through this.use.name
+  { name: 'arr[1]' }, //{ alias: path }，accessible through this.using.name
   {
-    //alias，accessible through this.use.fullName
+    //alias，accessible through this.using.fullName
     fullName: [
       ['userInfo.firstName', 'userInfo.lastName'], //path array
       (firstName, lastName) => firstName + lastName //computed

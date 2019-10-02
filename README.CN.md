@@ -69,6 +69,37 @@ define('my-counter', _ => (
 
 你也可以使用 useSelf, useSelf 只会更新自身，不更新子组件。使用 useSelf 的时候在 JSX 里通过 _.usingSelf 访问对应属性。
 
+
+路径也是支持的，比如下面的例子:
+
+```js
+class Store {
+  data = {
+    list: [
+      { name: { first: 'dnt', last: 'zhang' } }
+    ]
+  }
+}
+
+...
+...
+
+define('my-counter', _ => (
+  ...
+  ...
+), {
+    use: [
+      'list[0].name', //可以通过 this.using[0] 访问
+      {
+        // fullName 是别名， 可以通过 this.using.fullName 访问
+        fullName: [
+          ['list[0].name.first', 'list[0].name.last'],
+          (first, last) => first + last
+        ]
+      }]
+  })
+```
+
 ## Omi 生态
 
 [→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
