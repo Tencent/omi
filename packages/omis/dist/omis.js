@@ -78,7 +78,7 @@
         return '[object Function]' === Object.prototype.toString.call(obj);
     }
     function nan(value) {
-        return "number" == typeof value && isNaN(value);
+        return 'number' == typeof value && isNaN(value);
     }
     function isArray(obj) {
         return '[object Array]' === Object.prototype.toString.call(obj);
@@ -105,7 +105,8 @@
                 }
             });
             return result;
-        } else return getUpdatePath(obj);
+        }
+        return getUpdatePath(obj);
     }
     function getUpdatePath(data) {
         var result = {};

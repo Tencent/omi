@@ -12,7 +12,6 @@
   React = React && React.hasOwnProperty('default') ? React['default'] : React;
 
   function obaa(target, arr, callback) {
-
     var eventPropArr = [];
     if (isArray(target)) {
       if (target.length === 0) {
@@ -98,6 +97,7 @@
         this.__o_[prop] = value;
         onPropertyChanged(prop, value, old, this, target.__o_.__p_, root);
       },
+
       configurable: true,
       enumerable: true
     });
@@ -142,7 +142,7 @@
   }
 
   function nan(value) {
-    return typeof value === "number" && isNaN(value);
+    return typeof value === 'number' && isNaN(value);
   }
 
   function isArray(obj) {
@@ -192,21 +192,18 @@
           var tempPath = item[Object.keys(item)[0]];
           if (typeof tempPath === 'string') {
             result[tempPath] = true;
+          } else if (typeof tempPath[0] === 'string') {
+            result[tempPath[0]] = true;
           } else {
-            if (typeof tempPath[0] === 'string') {
-              result[tempPath[0]] = true;
-            } else {
-              tempPath[0].forEach(function (path) {
-                return result[path] = true;
-              });
-            }
+            tempPath[0].forEach(function (path) {
+              return result[path] = true;
+            });
           }
         }
       });
       return result;
-    } else {
-      return getUpdatePath(obj);
     }
+    return getUpdatePath(obj);
   }
 
   function getUpdatePath(data) {
