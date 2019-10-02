@@ -49,18 +49,18 @@ define('tree-node', class extends WeElement {
     this.store.deleteNode(id)
   }
 
-	use(){
-		return [
-			`tree[${this.props.id}]`
-		]
-  }
-  
-  // todo supporting
-  // useSelf(){
-  //   return [
+	// use(){
+	// 	return [
 	// 		`tree[${this.props.id}]`
 	// 	]
   // }
+  
+  // todo supporting
+  useSelf(){
+    return [
+			`tree[${this.props.id}]`
+		]
+  }
 
   renderChild = childId => {
     const { id } = this.props
