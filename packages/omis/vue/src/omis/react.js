@@ -64,22 +64,6 @@ export function $(options) {
       return !isSelf
     }
 
-    componentWillUnmount() {
-      for (let i = 0, len = components.length; i < len; i++) {
-        if (components[i] === this) {
-          components.splice(i, 1)
-          break
-        }
-      }
-
-      for (let i = 0, len = updateSelfComponents.length; i < len; i++) {
-        if (updateSelfComponents[i] === this) {
-          updateSelfComponents.splice(i, 1)
-          break
-        }
-      }
-    }  
-
     render() {
       return options.render.apply(this, arguments)
     }
