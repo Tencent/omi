@@ -1,4 +1,4 @@
-!function(React, Vue, Vuex) {
+!function(Vue, Vuex) {
     'use strict';
     function obaa(target, arr, callback) {
         var eventPropArr = [];
@@ -158,90 +158,7 @@
         });
         return mpPath;
     }
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-    }
-    function _possibleConstructorReturn(self, call) {
-        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
-    }
-    function _inherits(subClass, superClass) {
-        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: !1,
-                writable: !0,
-                configurable: !0
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-    }
     function $(options) {
-        if (options.store) {
-            $.store = options.store;
-            obaa($.store.data, function(prop, val, old, path) {
-                var patch = {};
-                patch[fixPath(path + '-' + prop)] = !0;
-                components.forEach(function(component) {
-                    if (component.W && needUpdate(patch, component.W)) {
-                        component.setState({
-                            X: component.state.X++
-                        });
-                        isSelf = !1;
-                    }
-                });
-                updateSelfComponents.forEach(function(component) {
-                    if (component.Y && needUpdate(patch, component.Y)) {
-                        component.setState({
-                            X: component.state.X++
-                        });
-                        isSelf = !0;
-                        currentComponent = component;
-                    }
-                });
-            });
-        }
-        var updatePath = options.use && getPath(options.use);
-        var updateSelfPath = options.useSelf && getPath(options.useSelf);
-        return function(_React$Component) {
-            function _class2(props) {
-                _classCallCheck(this, _class2);
-                var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
-                _this.state = {
-                    X: 0
-                };
-                if (updatePath) {
-                    components.push(_this);
-                    _this.W = updatePath;
-                }
-                if (updateSelfPath) {
-                    updateSelfComponents.push(_this);
-                    _this.Y = updateSelfPath;
-                }
-                return _this;
-            }
-            _inherits(_class2, _React$Component);
-            _class2.prototype.shouldComponentUpdate = function() {
-                if (currentComponent === this) return !0; else return !isSelf;
-            };
-            _class2.prototype.componentWillUnmount = function() {
-                for (var i = 0, len = components.length; i < len; i++) if (components[i] === this) {
-                    components.splice(i, 1);
-                    break;
-                }
-                for (var _i = 0, _len = updateSelfComponents.length; _i < _len; _i++) if (updateSelfComponents[_i] === this) {
-                    updateSelfComponents.splice(_i, 1);
-                    break;
-                }
-            };
-            _class2.prototype.render = function() {
-                return options.render.apply(this, arguments);
-            };
-            return _class2;
-        }(React.Component);
-    }
-    function $v(options) {
         var beforeCreate = options.beforeCreate;
         var destroyed = options.destroyed;
         var use = options.use;
@@ -250,17 +167,17 @@
         options.beforeCreate = function() {
             if (use) {
                 this.W = getPath(use);
-                components$1.push(this);
+                components.push(this);
             }
             if (useSelf) {
                 this.Y = getPath(useSelf);
-                updateSelfComponents$1.push(this);
+                updateSelfComponents.push(this);
             }
             beforeCreate && beforeCreate.apply(this, arguments);
         };
         options.destroyed = function() {
-            for (var i = 0, len = components$1.length; i < len; i++) if (components$1[i] === this) {
-                components$1.splice(i, 1);
+            for (var i = 0, len = components.length; i < len; i++) if (components[i] === this) {
+                components.splice(i, 1);
                 break;
             }
             destroyed && destroyed.apply(this, arguments);
@@ -279,7 +196,6 @@
             recUpdate(child);
         });
     }
-    React = React && React.hasOwnProperty('default') ? React.default : React;
     Vue = Vue && Vue.hasOwnProperty('default') ? Vue.default : Vue;
     Vuex = Vuex && Vuex.hasOwnProperty('default') ? Vuex.default : Vuex;
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
@@ -294,14 +210,10 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
+    Vue.use(Vuex);
     var components = [];
     var updateSelfComponents = [];
-    var isSelf = !1;
-    var currentComponent = null;
-    Vue.use(Vuex);
-    var components$1 = [];
-    var updateSelfComponents$1 = [];
-    $v.render = function(comp, renderTo, store) {
+    $.render = function(comp, renderTo, store) {
         Vue.config.productionTip = !1;
         new Vue({
             render: function(h) {
@@ -312,18 +224,17 @@
         obaa(store.data, function(prop, val, old, path) {
             var patch = {};
             patch[fixPath(path + '-' + prop)] = !0;
-            components$1.forEach(function(component) {
+            components.forEach(function(component) {
                 if (component.W && needUpdate(patch, component.W)) recUpdate(component);
             });
-            updateSelfComponents$1.forEach(function(component) {
+            updateSelfComponents.forEach(function(component) {
                 if (component.Y && needUpdate(patch, component.Y)) component.$forceUpdate();
             });
         });
     };
     var Omiv = {
-        $: $,
-        $v: $v
+        $: $
     };
     if ('undefined' != typeof module) module.exports = Omiv; else self.Omiv = Omiv;
-}(React, Vue, Vuex);
+}(Vue, Vuex);
 //# sourceMappingURL=omiv.js.map

@@ -10,7 +10,7 @@ Vue.use(Vuex)
 const components = []
 const updateSelfComponents = []
 
-export function $v(options) {
+export function $(options) {
 
   const beforeCreate = options.beforeCreate
   const destroyed = options.destroyed
@@ -53,7 +53,7 @@ export function $v(options) {
 
 }
 
-$v.render = function (comp, renderTo, store) {
+$.render = function (comp, renderTo, store) {
 
   Vue.config.productionTip = false
 
