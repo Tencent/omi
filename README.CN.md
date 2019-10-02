@@ -77,7 +77,7 @@ define('my-counter', _ => (
 
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-docs](https://tencent.github.io/omi/site/docs/cn.html) 和 [例子](https://codepen.io/collection/DrMYgV/) 和 [wcd demos](https://webcomponents.dev/demos/omi)| Omi 官方文档 |
+| [omi-docs](https://tencent.github.io/omi/site/docs/cn.html) 和 [例子](https://codepen.io/collection/DrMYgV/) 和 [webcomponents.dev](https://webcomponents.dev/)| Omi 官方文档 |
 | [omim![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omim)|  Omi 打造的跨框架 Material Design UI 组件库, 任意框架可以使用,([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/cn.html) && [加入我们](https://github.com/Tencent/omi/tree/master/packages/omim#contribution)!)|
 | [omi-kbone![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| 使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。|
 | [omio](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到 IE8+) |
