@@ -1,96 +1,15 @@
 /*!
- *  omix v1.0.2 by dntzhang
+ *  omix v2.0.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
 
 import obaa from './obaa'
-import mitt from './mitt'
 import config from './config'
 
 const ARRAYTYPE = '[object Array]'
 const OBJECTTYPE = '[object Object]'
 const FUNCTIONTYPE = '[object Function]'
-
-function _Page(option) {
-  const onLoad = option.onLoad
-  option.onLoad = function (e) {
-    this.context = option.context
-    this.oData = JSON.parse(JSON.stringify(option.data))
-    if (!option.data.___walked) {
-      walk(option.data, true)
-    }
-    //fn prop
-    this.setData(option.data)
-    observe(this, option.data)
-    onLoad && onLoad.call(this, e)
-  }
-  Page(option)
-}
-
-function _Component(option) {
-  const ready = (option.lifetimes && option.lifetimes.ready) || option.ready
-  option.lifetimes = option.lifetimes || {}
-  option.ready = option.lifetimes.ready = function () {
-    const page = getCurrentPages()[getCurrentPages().length - 1]
-    this.context = option.context || page.context
-    option.data = option.data || {}
-    this.oData = JSON.parse(JSON.stringify(option.data))
-    if (!option.data.___walked) {
-      walk(option.data, true)
-    }
-    observe(this, option.data)
-    ready && ready.call(this)
-  }
-  Component(option)
-}
-
-function fixPath(path) {
-  let mpPath = ''
-  const arr = path.replace('#-', '').split('-')
-  arr.forEach((item, index) => {
-    if (index) {
-      if (isNaN(parseInt(item))) {
-        mpPath += '.' + item
-      } else {
-        mpPath += '[' + item + ']'
-      }
-    } else {
-      mpPath += item
-    }
-  })
-  return mpPath
-}
-
-function observe(ele, data) {
-  obaa(ele.oData, (prop, value, old, path) => {
-    let patch = {}
-    if (prop.indexOf('Array-push') === 0) {
-      let dl = value.length - old.length
-      for (let i = 0; i < dl; i++) {
-        patch[fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
-      }
-    } else if (prop.indexOf('Array-') === 0) {
-      patch[fixPath(path)] = value
-    } else {
-      patch[fixPath(path + '-' + prop)] = value
-    }
-
-    
-    ele.setData(patch)
-    //update fn prop
-    updateByFnProp(ele, data)
-    
-  })
-}
-
-function updateByFnProp(ele, data) {
-  let patch = {}
-  for (let key in data.__fnMapping) {
-    patch[key] = data.__fnMapping[key].call(ele.oData)
-  }
-  ele.setData(patch)
-}
 
 
 function create(store, option) {
@@ -314,11 +233,57 @@ function type(obj) {
   return Object.prototype.toString.call(obj)
 }
 
-create.Page = _Page
-create.Component = _Component
+
+
+function fixPath(path) {
+  let mpPath = ''
+  const arr = path.replace('#-', '').split('-')
+  arr.forEach((item, index) => {
+    if (index) {
+      if (isNaN(parseInt(item))) {
+        mpPath += '.' + item
+      } else {
+        mpPath += '[' + item + ']'
+      }
+    } else {
+      mpPath += item
+    }
+  })
+  return mpPath
+}
+
+function observe(ele, data) {
+  obaa(ele.oData, (prop, value, old, path) => {
+    let patch = {}
+    if (prop.indexOf('Array-push') === 0) {
+      let dl = value.length - old.length
+      for (let i = 0; i < dl; i++) {
+        patch[fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
+      }
+    } else if (prop.indexOf('Array-') === 0) {
+      patch[fixPath(path)] = value
+    } else {
+      patch[fixPath(path + '-' + prop)] = value
+    }
+
+    
+    ele.setData(patch)
+    //update fn prop
+    updateByFnProp(ele, data)
+    
+  })
+}
+
+function updateByFnProp(ele, data) {
+  let patch = {}
+  for (let key in data.__fnMapping) {
+    patch[key] = data.__fnMapping[key].call(ele.oData)
+  }
+  ele.setData(patch)
+}
+
+
 create.obaa = obaa
-create.mitt = mitt
-create.emitter = mitt()
 
 
 export default create

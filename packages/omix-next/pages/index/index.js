@@ -1,36 +1,27 @@
-import create from '../../utils/create'
-
+//index.js
+//获取应用实例
 const app = getApp()
 
-create.Page({
-  context: {
-    abc: '公共数据从页面注入到页面的所有组件',
-    //事件发送和监听器,或者 create.mitt()
-    emitter: create.emitter
-  },
+Page({
   data: {
     motto: 'Hello World',
-    userInfo: { },
+    userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-		reverseMotto() {
-      return this.motto.split('').reverse().join('')
-    }
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function () {
+  bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
   onLoad: function () {
-    console.log(this.context)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse) {
+    } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -51,40 +42,13 @@ create.Page({
         }
       })
     }
-
-    this.context.emitter.on('foo', e => console.log('foo', e) )
-
-    setTimeout(() => {
-      this.oData.userInfo = {
-        nickName: 'dnt',
-        avatarUrl: this.data.userInfo.avatarUrl
-      }
-    }, 2000)
-
-
-    setTimeout(() => {
-      this.oData.userInfo.nickName = 'dntzhang'
-    }, 4000)
-
-		setTimeout(() => {
-      this.oData.motto = 'abc'
-    }, 4000)
-
-
-    
   },
-  getUserInfo: function (e) {
+  getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  },
-
-  onTap: function(){
-    wx.navigateTo({
-      url: "/pages/other/other"
-   });
   }
 })
