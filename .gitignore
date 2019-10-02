@@ -11,6 +11,7 @@ package-lock.json
 .vscode/
 .idea/
 
+vue
 /packages/*/node_modules
 /packages/*/yarn.lock
 /packages/*/yarn-error.log

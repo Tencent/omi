@@ -331,7 +331,7 @@
     };
     root.Omis = omis;
     root.omis = omis;
-    root.Omis.version = '2.0.0';
+    root.Omis.version = '2.0.1';
     if ('undefined' != typeof module) module.exports = omis; else self.Omis = omis;
 }(React, Vue, Vuex);
 //# sourceMappingURL=omis.js.map

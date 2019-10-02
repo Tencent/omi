@@ -10,7 +10,7 @@ const omis = {
 
 root.Omis = omis
 root.omis = omis
-root.Omis.version = '2.0.0'
+root.Omis.version = '2.0.1'
 
 export default omis
 
