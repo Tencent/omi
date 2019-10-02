@@ -50,23 +50,3 @@ const App = omis({
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-
-
-// export class Grandmother extends React.Component {
-//   info = {
-//     lastName: "Sanchez"
-//   };
-
-//   render() {
-//     return (
-//       <Context.Provider value={this.info}>
-//         <Mother />
-//       </Context.Provider>
-//     );
-//   }
-// }
-
-
-// const Child = () => {
-//   return <Context.Consumer>{context => <p>{context.lastName}</p>}</Context.Consumer>;
-// };

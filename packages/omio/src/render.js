@@ -146,31 +146,3 @@ export function fixPath(path) {
   return mpPath
 }
 
-function getArrayPatch(path, store) {
-  const arr = path.replace('/', '').split('/')
-  let current = store.data[arr[0]]
-  for (let i = 1, len = arr.length; i < len - 1; i++) {
-    current = current[arr[i]]
-  }
-  return { k: fixArrPath(path), v: current }
-}
-
-function fixArrPath(path) {
-  let mpPath = ''
-  const arr = path.replace('/', '').split('/')
-  const len = arr.length
-  arr.forEach((item, index) => {
-    if (index < len - 1) {
-      if (index) {
-        if (isNaN(Number(item))) {
-          mpPath += '.' + item
-        } else {
-          mpPath += '[' + item + ']'
-        }
-      } else {
-        mpPath += item
-      }
-    }
-  })
-  return mpPath
-}

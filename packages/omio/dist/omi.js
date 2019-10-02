@@ -1314,7 +1314,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.5.1';
+    options.root.Omi.version = 'omio-2.5.2';
     var Omi = {
         h: h,
         createElement: h,
