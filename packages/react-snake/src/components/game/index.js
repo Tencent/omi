@@ -1,5 +1,6 @@
 import React from 'react'
-import './_index.css'
+
+require('../../utils/css').add(require('./_index.css'))
 
 export default ({ map }) => (
   <div class="game">

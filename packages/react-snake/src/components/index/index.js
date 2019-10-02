@@ -1,6 +1,7 @@
 import React from 'react'
 import Game from '../game'
-import './_index.css'
+
+require('../../utils/css').add(require('./_index.css'))
 
 
 
