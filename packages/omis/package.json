@@ -1,6 +1,6 @@
 {
   "name": "omis",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Observable store system for React apps.",
   "main": "dist/omis.js",
   "jsnext:main": "dist/omis.esm.js",
@@ -63,9 +63,7 @@
   },
   "homepage": "https://github.com/Tencent/omi",
   "dependencies": {
-    "react": "^16.10.1",
-    "vue": "^2.6.10",
-    "vuex": "^3.1.1"
+    "react": "^16.10.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",

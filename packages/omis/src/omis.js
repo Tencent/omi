@@ -1,7 +1,6 @@
 import { $ } from './react'
-import { $v } from './vue'
 
-export default { $, $v }
+export default { $ }
 
-export { $, $v }
+export { $ }
 

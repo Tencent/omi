@@ -1,4 +1,4 @@
-!function(React, Vue, Vuex) {
+!function(React) {
     'use strict';
     function obaa(target, arr, callback) {
         var eventPropArr = [];
@@ -241,47 +241,7 @@
             return _class2;
         }(React.Component);
     }
-    function $v(options) {
-        var beforeCreate = options.beforeCreate;
-        var destroyed = options.destroyed;
-        var use = options.use;
-        var useSelf = options.useSelf;
-        options.computed = options.computed || {};
-        options.beforeCreate = function() {
-            if (use) {
-                this.W = getPath(use);
-                components$1.push(this);
-            }
-            if (useSelf) {
-                this.Y = getPath(useSelf);
-                updateSelfComponents$1.push(this);
-            }
-            beforeCreate && beforeCreate.apply(this, arguments);
-        };
-        options.destroyed = function() {
-            for (var i = 0, len = components$1.length; i < len; i++) if (components$1[i] === this) {
-                components$1.splice(i, 1);
-                break;
-            }
-            destroyed && destroyed.apply(this, arguments);
-        };
-        options.computed.state = function() {
-            return this.$store.data;
-        };
-        options.computed.store = function() {
-            return this.$store;
-        };
-        return options;
-    }
-    function recUpdate(root) {
-        root.$forceUpdate();
-        root.$children.forEach(function(child) {
-            recUpdate(child);
-        });
-    }
     React = React && React.hasOwnProperty('default') ? React.default : React;
-    Vue = Vue && Vue.hasOwnProperty('default') ? Vue.default : Vue;
-    Vuex = Vuex && Vuex.hasOwnProperty('default') ? Vuex.default : Vuex;
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
@@ -298,32 +258,9 @@
     var updateSelfComponents = [];
     var isSelf = !1;
     var currentComponent = null;
-    Vue.use(Vuex);
-    var components$1 = [];
-    var updateSelfComponents$1 = [];
-    $v.render = function(comp, renderTo, store) {
-        Vue.config.productionTip = !1;
-        new Vue({
-            render: function(h) {
-                return h(comp);
-            },
-            store: store
-        }).$mount(renderTo);
-        obaa(store.data, function(prop, val, old, path) {
-            var patch = {};
-            patch[fixPath(path + '-' + prop)] = !0;
-            components$1.forEach(function(component) {
-                if (component.W && needUpdate(patch, component.W)) recUpdate(component);
-            });
-            updateSelfComponents$1.forEach(function(component) {
-                if (component.Y && needUpdate(patch, component.Y)) component.$forceUpdate();
-            });
-        });
-    };
     var Omis = {
-        $: $,
-        $v: $v
+        $: $
     };
     if ('undefined' != typeof module) module.exports = Omis; else self.Omis = Omis;
-}(React, Vue, Vuex);
+}(React);
 //# sourceMappingURL=omis.js.map
