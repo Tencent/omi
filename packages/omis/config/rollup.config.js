@@ -13,7 +13,9 @@ const licensePlugin = license({
 
 export default {
 	external: [
-    'react'
+		'react',
+		'vue',
+		'vuex'
   ],
 	input: "src/omis.js",
 	output: {

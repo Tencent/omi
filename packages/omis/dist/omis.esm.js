@@ -7,6 +7,8 @@
  */
 
 import React from 'react';
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 function obaa(target, arr, callback) {
   var eventPropArr = [];
@@ -356,6 +358,22 @@ function $(options) {
       return !isSelf;
     };
 
+    _class2.prototype.componentWillUnmount = function componentWillUnmount() {
+      for (var i = 0, len = components.length; i < len; i++) {
+        if (components[i] === this) {
+          components.splice(i, 1);
+          break;
+        }
+      }
+
+      for (var _i = 0, _len = updateSelfComponents.length; _i < _len; _i++) {
+        if (updateSelfComponents[_i] === this) {
+          updateSelfComponents.splice(_i, 1);
+          break;
+        }
+      }
+    };
+
     _class2.prototype.render = function render() {
       return options.render.apply(this, arguments);
     };
@@ -364,7 +382,88 @@ function $(options) {
   }(React.Component);
 }
 
-function $v(options) {}
+Vue.use(Vuex);
+
+var components$1 = [];
+var updateSelfComponents$1 = [];
+
+function $v(options) {
+
+  var beforeCreate = options.beforeCreate;
+  var destroyed = options.destroyed;
+  var use = options.use;
+  var useSelf = options.useSelf;
+  options.computed = options.computed || {};
+
+  options.beforeCreate = function () {
+    if (use) {
+      this.__$updatePath_ = getPath(use);
+      components$1.push(this);
+    }
+    if (useSelf) {
+      this.__$updateSelfPath_ = getPath(useSelf);
+      updateSelfComponents$1.push(this);
+    }
+    beforeCreate && beforeCreate.apply(this, arguments);
+  };
+
+  options.destroyed = function () {
+    for (var i = 0, len = components$1.length; i < len; i++) {
+      if (components$1[i] === this) {
+        components$1.splice(i, 1);
+        break;
+      }
+    }
+
+    destroyed && destroyed.apply(this, arguments);
+  };
+
+  options.computed.state = function () {
+    return this.$store.data;
+  };
+
+  options.computed.store = function () {
+    return this.$store;
+  };
+
+  return options;
+}
+
+$v.render = function (comp, renderTo, store) {
+
+  Vue.config.productionTip = false;
+
+  new Vue({
+    render: function render(h) {
+      return h(comp);
+    },
+    store: store
+  }).$mount(renderTo);
+
+  obaa(store.data, function (prop, val, old, path) {
+    var patch = {};
+
+    patch[fixPath(path + '-' + prop)] = true;
+    components$1.forEach(function (component) {
+      if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
+        recUpdate(component);
+      }
+    });
+
+    updateSelfComponents$1.forEach(function (component) {
+      if (component.__$updateSelfPath_ && needUpdate(patch, component.__$updateSelfPath_)) {
+        component.$forceUpdate();
+      }
+    });
+  });
+};
+
+function recUpdate(root) {
+  root.$forceUpdate();
+  root.$children.forEach(function (child) {
+    recUpdate(child);
+  });
+}
 
 var root = getGlobal();
 
