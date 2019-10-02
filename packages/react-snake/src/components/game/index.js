@@ -1,5 +1,5 @@
 import React from 'react'
-import { $ } from '../../utils/omis'
+import { $ } from 'omis'
 
 require('../../utils/css').add(require('./_index.css'))
 

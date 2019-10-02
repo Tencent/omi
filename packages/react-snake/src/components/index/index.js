@@ -2,7 +2,7 @@ import React from 'react'
 import Game from '../game'
 
 import store from '../../stores/index'
-import { $ } from '../../utils/omis'
+import { $ } from 'omis'
 require('../../utils/css').add(require('./_index.css'))
 
 
