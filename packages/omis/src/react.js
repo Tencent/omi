@@ -10,8 +10,8 @@ let currentComponent = null
 
 export function $r(options) {
   if (options.store) {
-    omis.store = options.store
-    obaa(omis.store.data, (prop, val, old, path) => {
+    $r.store = options.store
+    obaa($r.store.data, (prop, val, old, path) => {
       const patch = {}
 
       patch[fixPath(path + '-' + prop)] = true

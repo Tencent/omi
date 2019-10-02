@@ -31,11 +31,9 @@ class Store {
     if (game.paused) {
       game.play()
       this.data.paused = false
-      this.onChange()
     } else {
       game.pause()
       this.data.paused = true
-      this.onChange()
     }
   }
   reset() {
@@ -46,9 +44,6 @@ class Store {
     game.toggleSpeed()
   }
 
-  subscribe(render){
-    game.onTick = this.onChange = render
-  }
 }
 
 export default new Store()

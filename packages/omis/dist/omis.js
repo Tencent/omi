@@ -179,8 +179,8 @@
     }
     function $r(options) {
         if (options.store) {
-            omis.store = options.store;
-            obaa(omis.store.data, function(prop, val, old, path) {
+            $r.store = options.store;
+            obaa($r.store.data, function(prop, val, old, path) {
                 var patch = {};
                 patch[fixPath(path + '-' + prop)] = !0;
                 components.forEach(function(component) {
@@ -253,12 +253,12 @@
             return this;
         }(); else return global;
     }();
-    var omis$1 = {
+    var omis = {
         $r: $r
     };
-    root.Omis = omis$1;
-    root.omis = omis$1;
+    root.Omis = omis;
+    root.omis = omis;
     root.Omis.version = '2.0.0';
-    if ('undefined' != typeof module) module.exports = omis$1; else self.Omis = omis$1;
+    if ('undefined' != typeof module) module.exports = omis; else self.Omis = omis;
 }(React);
 //# sourceMappingURL=omis.js.map

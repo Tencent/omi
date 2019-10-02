@@ -305,8 +305,8 @@
 
   function $r(options) {
     if (options.store) {
-      omis.store = options.store;
-      obaa(omis.store.data, function (prop, val, old, path) {
+      $r.store = options.store;
+      obaa($r.store.data, function (prop, val, old, path) {
         var patch = {};
 
         patch[fixPath(path + '-' + prop)] = true;
@@ -369,12 +369,12 @@
 
   var root = getGlobal();
 
-  var omis$1 = {
+  var omis = {
     $r: $r
   };
 
-  root.Omis = omis$1;
-  root.omis = omis$1;
+  root.Omis = omis;
+  root.omis = omis;
   root.Omis.version = '2.0.0';
 
   function getGlobal() {
@@ -386,6 +386,6 @@
     return global;
   }
 
-  if (typeof module != 'undefined') module.exports = omis$1;else self.Omis = omis$1;
+  if (typeof module != 'undefined') module.exports = omis;else self.Omis = omis;
 }(React));
 //# sourceMappingURL=omis.dev.js.map

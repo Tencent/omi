@@ -1,26 +1,32 @@
 import React from 'react'
 import Game from '../game'
 
+import store from '../../stores/index'
+import { $r } from '../../utils/omis'
 require('../../utils/css').add(require('./_index.css'))
 
 
+export default $r({
+  render() {
+    const { store } = $r
+    const { paused } = store.data
+    return <div className="container">
+      <h1>REACT + OMIS SNAKE</h1>
 
-const Index = ({store}) => (
-   <div class="container">
-    <h1>OMI SNAKE</h1>
+      <Game></Game>
 
-    <Game map={store.data.map}></Game>
-
-    <div class="ctrl">
-      <div class="btn cm-btn cm-btn-dir up" onClick={store.turnUp}><i></i><em></em><span>Up</span></div>
-      <div class="btn cm-btn cm-btn-dir down" onClick={store.turnDown}><i></i><em></em><span>Down</span></div>
-      <div class="btn cm-btn cm-btn-dir left" onClick={store.turnLeft}><i></i><em></em><span >Left</span></div>
-      <div class="btn cm-btn cm-btn-dir right" onClick={store.turnRight}><i></i><em></em><span >Right</span></div>
-      <div class="btn cm-btn space" onClick={store.toggleSpeed}><i></i><span >加速/减速</span></div>
-      <div class="btn reset small" onClick={store.reset}><i ></i><span >Reset</span></div>
-      <div class="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{store.data.paused ? 'Play' : 'Pause'}</span></div>
+      <div className="ctrl">
+        <div className="btn cm-btn cm-btn-dir up" onClick={store.turnUp}><i></i><em></em><span>Up</span></div>
+        <div className="btn cm-btn cm-btn-dir down" onClick={store.turnDown}><i></i><em></em><span>Down</span></div>
+        <div className="btn cm-btn cm-btn-dir left" onClick={store.turnLeft}><i></i><em></em><span >Left</span></div>
+        <div className="btn cm-btn cm-btn-dir right" onClick={store.turnRight}><i></i><em></em><span >Right</span></div>
+        <div className="btn cm-btn space" onClick={store.toggleSpeed}><i></i><span >加速/减速</span></div>
+        <div className="btn reset small" onClick={store.reset}><i ></i><span >Reset</span></div>
+        <div className="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{paused ? 'Play' : 'Pause'}</span></div>
+      </div>
     </div>
-  </div>
-)
+  },
+  useSelf: ['paused'],
+  store
+})
 
-export default Index
