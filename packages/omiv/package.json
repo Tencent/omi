@@ -1,27 +1,27 @@
 {
-  "name": "omis",
-  "version": "2.0.2",
-  "description": "Observable store system for React apps.",
-  "main": "dist/omis.js",
-  "jsnext:main": "dist/omis.esm.js",
-  "module": "dist/omis.esm.js",
-  "dev:main": "dist/omis.dev.js",
-  "minified:main": "dist/omis.min.js",
-  "types": "dist/omis.d.ts",
+  "name": "omiv",
+  "version": "0.1.0",
+  "description": "Observable store system for Vue apps.",
+  "main": "dist/omiv.js",
+  "jsnext:main": "dist/omiv.esm.js",
+  "module": "dist/omiv.esm.js",
+  "dev:main": "dist/omiv.dev.js",
+  "minified:main": "dist/omiv.min.js",
+  "types": "dist/omiv.d.ts",
   "scripts": {
     "clean": "rimraf test/ts/**/*.js",
-    "copy-typescript-definition": "copyfiles -f src/omis.d.ts dist",
+    "copy-typescript-definition": "copyfiles -f src/omiv.d.ts dist",
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "start": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",
     "transpile": "npm-run-all transpile:main transpile:esm",
-    "optimize": "uglifyjs dist/omis.dev.js -c conditionals=false,sequences=false,loops=false,join_vars=false,collapse_vars=false --pure-funcs=Object.defineProperty --mangle-props --mangle-regex=\"/^(_|nextBase|prev[CPS]|_parentC)/\" --name-cache config/properties.json -b width=120,quote_style=3 -o dist/omis.js -p relative --in-source-map dist/omis.dev.js.map --source-map dist/omis.js.map",
-    "minify": "uglifyjs dist/omis.js -c collapse_vars,evaluate,screw_ie8,unsafe,loops=false,keep_fargs=false,pure_getters,unused,dead_code -m -o dist/omis.min.js -p relative --in-source-map dist/omis.js.map --source-map dist/omis.min.js.map",
-    "strip:main": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omis.dev.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omis.dev.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omis.dev.js",
-    "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omis.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omis.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omis.esm.js",
+    "optimize": "uglifyjs dist/omiv.dev.js -c conditionals=false,sequences=false,loops=false,join_vars=false,collapse_vars=false --pure-funcs=Object.defineProperty --mangle-props --mangle-regex=\"/^(_|nextBase|prev[CPS]|_parentC)/\" --name-cache config/properties.json -b width=120,quote_style=3 -o dist/omiv.js -p relative --in-source-map dist/omiv.dev.js.map --source-map dist/omiv.js.map",
+    "minify": "uglifyjs dist/omiv.js -c collapse_vars,evaluate,screw_ie8,unsafe,loops=false,keep_fargs=false,pure_getters,unused,dead_code -m -o dist/omiv.min.js -p relative --in-source-map dist/omiv.js.map --source-map dist/omiv.min.js.map",
+    "strip:main": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omiv.dev.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omiv.dev.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omiv.dev.js",
+    "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omiv.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omiv.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omiv.esm.js",
     "strip": "npm-run-all strip:main strip:esm",
-    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omis.min.js",
+    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omiv.min.js",
     "test": "karma start test/karma.conf.js --single-run",
     "fix": "eslint src --fix",
     "fix-e": "eslint examples --fix",
@@ -32,7 +32,7 @@
   "eslintConfig": {
     "extends": "./config/eslint-config.js"
   },
-  "typings": "./dist/omis.d.ts",
+  "typings": "./dist/omiv.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Tencent/omi.git"
@@ -43,7 +43,7 @@
     "typings.json"
   ],
   "keywords": [
-    "omis",
+    "omiv",
     "omi",
     "webcomponents",
     "jsx",
@@ -138,7 +138,7 @@
   },
   "bundlesize": [
     {
-      "path": "./dist/omis.min.js",
+      "path": "./dist/omiv.min.js",
       "threshold": "4Kb"
     }
   ],

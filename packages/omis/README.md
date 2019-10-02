@@ -1,8 +1,8 @@
 ## Omis
 
-Observable store system for JavaScript apps.
+Observable store system for React apps.
 
-## Usage in React
+## Usage 
 
 ```jsx
 import { $ } from 'omis'
@@ -35,10 +35,4 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 )
-```
-
-## Usage in Vue
-
-```jsx
-import { $v } from 'omis'
 ```
