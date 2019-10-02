@@ -89,7 +89,7 @@ Store 里的 data:
 Use 所以语法如下:
 
 ```jsx
-static use = [
+use = [
   'count', //直接字符串，可通过 this.using[0] 访问
   'arr[0]', //也支持 path，可通过 this.using[1] 访问
   //支持 json
