@@ -1,6 +1,6 @@
-### React Omis Snake
+### React/Preact Omis Snake
 
-This project was powered by React and [Omis](https://github.com/Tencent/omi/tree/master/packages/omis) and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was powered by React/Preact and [Omis](https://github.com/Tencent/omi/tree/master/packages/omis) and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
