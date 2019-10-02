@@ -5,13 +5,24 @@ Observable store system for JavaScript apps.
 ## Usage in React
 
 ```jsx
-const App =  o({
-  render(){
+import { $ } from 'omis'
 
+const Counter = $({
+  render() {
+    return <div>{$.store.data.count}</div>
   },
-  use:[],
-  useSelf(){
+  use: ['count']
+  //or
+  //useSelf: ['count']
+})
 
+const App = $({
+  render() {
+    return (
+      <div>
+        <Counter />
+      </div>
+    )
   },
   store: {
     data: {
@@ -23,7 +34,11 @@ const App =  o({
 ReactDOM.render(
   <App />,
   document.getElementById('root')
-);
+)
 ```
 
 ## Usage in Vue
+
+```jsx
+import { $v } from 'omis'
+```
