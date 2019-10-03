@@ -57,7 +57,7 @@ create(store, {
 
 ```html
 <view class="container log-list">
-  <block wx:for="{{store.logs}}" wx:for-item="log">
+  <block wx:for="{{logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>
   <view>
@@ -79,7 +79,7 @@ create({
 ```html
 <view class="ctn">
   <view>
-    <text>Log Length: {{store.logs.length}}</text>
+    <text>Log Length: {{logs.length}}</text>
   </view>
 </view>
 ```
