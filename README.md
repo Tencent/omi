@@ -99,6 +99,8 @@ define('my-counter', _ => (
   })
 ```
 
+![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
+
 ## Ecosystem of Omi
 
 #### Base

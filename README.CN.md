@@ -100,6 +100,8 @@ define('my-counter', _ => (
   })
 ```
 
+![](https://github.com/Tencent/omi/raw/master/assets/store.cn.jpg)
+
 ## Omi 生态
 
 [→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
