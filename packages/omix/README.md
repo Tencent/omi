@@ -96,7 +96,7 @@ export default {
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     logs: [],
-		reverseMotto() {
+    reverseMotto() {
       return this.motto.split('').reverse().join('')
     }
   },
