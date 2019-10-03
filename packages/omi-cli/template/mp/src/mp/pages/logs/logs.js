@@ -2,7 +2,7 @@ import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
 import pageCss from './logs.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+import { setData } from '../../../utils/helper'
 
   //logs.js
 const util = require('../../utils/util.js')
@@ -51,6 +51,7 @@ class Element extends WeElement {
 
   install() {
     this.properties = this.props
+    this.data = this.data || {};
     Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
     this._mpOption = mpOption()
     Object.keys(this._mpOption).forEach(key => {
@@ -82,12 +83,16 @@ function render() {
     logs.map((log, index) => {
       return h(
         "block",
-        {},
+        { style: { width: "100%" } },
         h("span", { class: `log-item` }, [`${index + 1}. ${log}`]),
         h("span", { class: `log-item` }, [`by omi-mp`])
       );
     }),
-    h("my-ele", { onmyevent: this.myEventHandler, name: `dntzhang` }, []),
+    h(
+      "wx-h5-src-mp-components-my-ele-my-ele",
+      { onmyevent: this.myEventHandler, name: `dntzhang` },
+      []
+    ),
     h("img", { src: require("../../images/wechat.png") }, [])
   ]);
 }

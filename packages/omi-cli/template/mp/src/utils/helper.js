@@ -19,3 +19,13 @@ function updateByPath(origin, path, value) {
     }
   }
 }
+
+export function fixProps(properties){
+  let props = {}
+  for(let key in properties){
+    if(properties[key].hasOwnProperty('value')){
+      props[key] = properties[key].value
+    }
+  }
+  return props
+}

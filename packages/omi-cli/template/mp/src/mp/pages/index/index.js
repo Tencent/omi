@@ -2,7 +2,7 @@
 import appCss from '../../app.wxss'
 import pageCss from './index.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+import { setData } from '../../../utils/helper'
 
   //index.js
 //获取应用实例
@@ -89,6 +89,7 @@ class Element extends WeElement {
 
   install() {
     this.properties = this.props
+    this.data = this.data || {};
     Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
     this._mpOption = mpOption()
     Object.keys(this._mpOption).forEach(key => {
@@ -131,7 +132,8 @@ function render() {
                 ontap: this.bindViewTap,
                 class: `userinfo-avatar`,
                 src: userInfo.avatarUrl,
-                mode: `cover`
+                mode: `cover`,
+                onclick: this.bindViewTap
               },
               []
             ),
