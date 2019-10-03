@@ -8,7 +8,9 @@
     </block>
   </view>
   <view class="usermotto">
-    <text class="user-motto">{{motto}}-{{reverseMotto}}</text>
+    <text class="user-motto">{{motto}}</text>
+		<text class="user-motto">-{{reverseMotto}}</text>
   </view>
-  <test-store />
+  <hello c="{{abc}}"  ddd="{{ddd}}"></hello>
+  <button bindtap="onTap">点击我测试全局单一 store</button>
 </view>

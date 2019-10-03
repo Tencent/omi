@@ -1,22 +1,11 @@
 import create from '../../utils/create'
+import store from '../../store'
 
+//获取应用实例
 const app = getApp()
 
-create.Page({
-  context: {
-    abc: '公共数据从页面注入到页面的所有组件',
-    //事件发送和监听器,或者 create.mitt()
-    emitter: create.emitter
-  },
-  data: {
-    motto: 'Hello World',
-    userInfo: { },
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-		reverseMotto() {
-      return this.motto.split('').reverse().join('')
-    }
-  },
+create(store, {
+
   //事件处理函数
   bindViewTap: function () {
     wx.navigateTo({
@@ -24,67 +13,40 @@ create.Page({
     })
   },
   onLoad: function () {
-    console.log(this.context)
     if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
+      this.store.data.userInfo = app.globalData.userInfo
+      this.store.data.hasUserInfo = true
+
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+        this.store.data.userInfo = res.userInfo
+        this.store.data.hasUserInfo = true
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+          this.store.data.userInfo = res.userInfo
+          this.store.data.hasUserInfo = true
         }
       })
     }
 
-    this.context.emitter.on('foo', e => console.log('foo', e) )
+    setTimeout(() => {
+      this.store.data.logs.push('abc')
+      this.store.data.motto = '123456'
+    }, 1000)
 
     setTimeout(() => {
-      this.oData.userInfo = {
-        nickName: 'dnt',
-        avatarUrl: this.data.userInfo.avatarUrl
-      }
+      this.store.data.motto = 'abcdefg'
     }, 2000)
-
-
-    setTimeout(() => {
-      this.oData.userInfo.nickName = 'dntzhang'
-    }, 4000)
-
-		setTimeout(() => {
-      this.oData.motto = 'abc'
-    }, 4000)
-
-
-    
   },
   getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-
-  onTap: function(){
-    wx.navigateTo({
-      url: "/pages/other/other"
-   });
+    this.store.data.userInfo = e.detail.userInfo
+    this.store.data.hasUserInfo = true
+    
   }
 })

@@ -9,13 +9,12 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
-		"coverView": true
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.3",
+	"libVersion": "2.4.1",
 	"appid": "wxfaf6dad43f57c6bd",
-	"projectname": "miniprogram-1",
+	"projectname": "omix",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

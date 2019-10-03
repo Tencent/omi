@@ -1,31 +1,13 @@
+//logs.js
 import create from '../../utils/create'
-import util from '../../utils/util'
+import store from '../../store'
 
-create.Page({
-  data: {
-    logs: [],
-    motto: 'Hello World',
-		reverseMotto() {
-      return this.motto.split('').reverse().join('')
-    }
-  },
+const util = require('../../utils/util.js')
+
+create(store, {
   onLoad: function () {
-    this.oData.logs = (wx.getStorageSync('logs') || []).map(log => {
+    this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
       return util.formatTime(new Date(log))
     })
-
-    setTimeout(() => {
-      this.oData.logs[0] = 'Changed!'
-      this.oData.motto = Math.random() +  ''
-    }, 1000)
-
-
-    setTimeout(() => {
-      this.oData.logs.push(Math.random(), Math.random())
-    }, 2000)
-
-    setTimeout(() => {
-      this.oData.logs.splice(this.oData.logs.length-1,1)
-    }, 4000)
   }
 })

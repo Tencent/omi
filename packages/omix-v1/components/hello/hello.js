@@ -1,6 +1,7 @@
+import create from '../../utils/create'
 
 // components/hello/hello.js
-Component({
+create.Component({
   /**
    * 组件的属性列表
    */
