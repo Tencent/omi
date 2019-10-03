@@ -80,7 +80,7 @@ function observeStore(store) {
 function _update(kv, store) {
   for (let key in store.instances) {
     store.instances[key].forEach(ins => {
-      if(store.updateAll || needUpdate(kv,ins.__updatePath)){
+      if(store.updateAll || ins.__updatePath && needUpdate(kv,ins.__updatePath)){
         ins.setData.call(ins, kv)
         updateStoreByFnProp(ins, store.data)
       }
