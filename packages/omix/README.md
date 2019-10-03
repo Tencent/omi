@@ -33,16 +33,17 @@ import util from '../../utils/util'
 import store from '../../store'
 
 create(store, {
+  //声明依赖
+  use: ['logs'],
+
   onLoad: function () {
     this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
       return util.formatTime(new Date(log))
     })
 
-
     setTimeout(() => {
       this.store.data.logs[0] = 'Changed!'
     }, 1000)
-
 
     setTimeout(() => {
       this.store.data.logs.push(Math.random(), Math.random())
@@ -85,7 +86,7 @@ create({
 ```
 
 
-## 调试
+## 其他配置
 
 修改 store.js 的 debug 字段用来打开和关闭 log 调试:
 
@@ -101,7 +102,8 @@ export default {
       return this.motto.split('').reverse().join('')
     }
   },
-  debug: true //我是开关
+  debug: true, //我是开关
+  updateAll: true //当为 true 时，无脑全部更新，组件或页面不需要声明 use
 }
 ```
 
