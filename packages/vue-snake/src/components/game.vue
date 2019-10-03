@@ -4,7 +4,7 @@ import { $ } from 'omiv'
 export default $({
   use: ['map'],
   render(h) {
-    const {map} = this.$store.data
+    const { map } = this.$store.data
     return (
       <div class="game">
         {map.map(row => {
@@ -12,15 +12,15 @@ export default $({
             <p>
               {row.map(col => {
                 if (col) {
-                  return <b class="s"></b>;
+                  return <b class="s"></b>
                 }
-                return <b></b>;
+                return <b></b>
               })}
             </p>
-          );
+          )
         })}
       </div>
-    );
+    )
   }
 })
 </script>
@@ -62,7 +62,7 @@ export default $({
 }
 
 .game b:after {
-  content: "";
+  content: '';
   display: block;
   width: 24px;
   height: 24px;
