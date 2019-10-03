@@ -104,6 +104,11 @@ export default {
   },
   debug: true //我是开关
 }
+```
+
+默认是打开的，`store.data` 的所以变动都会出现在开发者工具 log 面板，如下图所示:
+
+![](../../assets/omix.png)
 
 ## 注意
 
