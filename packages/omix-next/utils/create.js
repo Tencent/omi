@@ -20,27 +20,17 @@ function create(store, option) {
 
     getApp().globalData && (getApp().globalData.store = store)
    
-    option.data = option.data || {}
-    option.data.store = store.data
+    option.data = store.data
     observeStore(store)
     const onLoad = option.onLoad
 
     option.onLoad = function (e) {
       this.store = store
 
-      this.context = option.context
-      const temp = option.data.store
-      delete option.data.store
-      this.oData = JSON.parse(JSON.stringify(option.data))
-      if (!option.data.___walked) {
-        walk(option.data, true)
-      }
-      observe(this, option.data)
-      option.data.store = temp
 
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-      if (!option.data.store.___walked) {
+      if (!option.data.___walked) {
         walk(this.store.data)
       }
       this.setData.call(this, option.data)
@@ -52,11 +42,10 @@ function create(store, option) {
     store.lifetimes = store.lifetimes || {}
     store.ready = store.lifetimes.ready = function () {
       const page = getCurrentPages()[getCurrentPages().length - 1]
-      this.context = store.context || page.context
+ 
       this.store = page.store
 
-      store.data = store.data || {}
-      store.data.store = this.store.data
+      store.data = this.store.data
       this.setData.call(this, store.data)
 
       this.store.instances[page.route].push(this)
@@ -73,12 +62,12 @@ function observeStore(store) {
     if (prop.indexOf('Array-push') === 0) {
       let dl = value.length - old.length
       for (let i = 0; i < dl; i++) {
-        patch['store.' + fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
+        patch[ fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
       }
     } else if (prop.indexOf('Array-') === 0) {
-      patch['store.' + fixPath(path)] = value
+      patch[ fixPath(path)] = value
     } else {
-      patch['store.' + fixPath(path + '-' + prop)] = value
+      patch[ fixPath(path + '-' + prop)] = value
     }
 
     _update(patch, store)
@@ -252,27 +241,7 @@ function fixPath(path) {
   return mpPath
 }
 
-function observe(ele, data) {
-  obaa(ele.oData, (prop, value, old, path) => {
-    let patch = {}
-    if (prop.indexOf('Array-push') === 0) {
-      let dl = value.length - old.length
-      for (let i = 0; i < dl; i++) {
-        patch[fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
-      }
-    } else if (prop.indexOf('Array-') === 0) {
-      patch[fixPath(path)] = value
-    } else {
-      patch[fixPath(path + '-' + prop)] = value
-    }
 
-    
-    ele.setData(patch)
-    //update fn prop
-    updateByFnProp(ele, data)
-    
-  })
-}
 
 function updateByFnProp(ele, data) {
   let patch = {}

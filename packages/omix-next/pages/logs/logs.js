@@ -1,15 +1,13 @@
 //logs.js
+import create from '../../utils/create'
+import store from '../../store'
+
 const util = require('../../utils/util.js')
 
-Page({
-  data: {
-    logs: []
-  },
+create(store, {
   onLoad: function () {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return util.formatTime(new Date(log))
-      })
+    this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
+      return util.formatTime(new Date(log))
     })
   }
 })
