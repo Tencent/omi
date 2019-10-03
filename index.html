@@ -82,7 +82,6 @@
 			-webkit-box-align: center;
 			-ms-flex-align: center;
 			align-items: center;
-			margin-top: 20px;
 		}
 
 		@media (min-width: 700px) {
@@ -191,10 +190,23 @@
 			margin-top: 100px;
 		}
 
+		#container img{
+				width: 150px;
+			}
+
 		@media only screen and (max-width: 500px) {
 			#container canvas {
 				width: 100%;
 			}
+
+			#container img{
+				width: 80px;
+			}
+
+			#container {
+				margin-top: 25px;
+			}
+
 		}
 
 		#wp {
@@ -206,7 +218,7 @@
 <body>
 	<div id="wp">
 		<div id="container">
-			<img style="width: 150px;height: 150px;"
+			<img 
 				src="https://github.com/Tencent/omi/raw/master/assets/omi-logo2019.svg?sanitize=true">
 		</div>
 		<div class="info">
@@ -214,7 +226,7 @@
 				Front End Cross-Frameworks Framework
 			</p>
 			<div class="links">
-				<a class="button red" href="https://tencent.github.io/omi/site/docs/index.html" target="_blank">
+				<a class="button" style='color: #79e670;' href="https://tencent.github.io/omi/site/docs/index.html" target="_blank">
 					<svg viewBox="0 0 180 60">
 						<path
 							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
@@ -222,7 +234,7 @@
 					</svg>
 					<span>Omi Docs</span>
 				</a>
-				<a class="button green" href="https://tencent.github.io/omi/packages/omim/docs/build/index.html"  target="_blank">
+				<a class="button" style='color: #a747e7;' href="https://tencent.github.io/omi/packages/omim/docs/build/index.html"  target="_blank">
 					<svg viewBox="0 0 180 60">
 						<path
 							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
@@ -237,9 +249,36 @@
 							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
 						</path>
 					</svg>
-					<span>Omi Kbone</span>
+					<span>Omi + Kbone</span>
 				</a>
-				<a class="button blue" href="https://github.com/Tencent/omi" target="_blank">
+				<a class="button" style='color: #cb86e2;' href="https://github.com/Tencent/omi/tree/master/packages/omix" target="_blank">
+					<svg viewBox="0 0 180 60">
+						<path
+							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
+						</path>
+					</svg>
+					<span>Omix + 小程序</span>
+				</a>
+			</div>
+			<div class="links">
+				<a class="button" style='color: #61dafb;'  href="https://github.com/Tencent/omi/tree/master/packages/omis" target="_blank">
+					<svg viewBox="0 0 180 60">
+						<path
+							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
+						</path>
+					</svg>
+					<span>Omis + React</span>
+				</a>
+				<a class="button "  style='color: #42b983;' href="https://github.com/Tencent/omi/tree/master/packages/omiv"  target="_blank">
+					<svg viewBox="0 0 180 60">
+						<path
+							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
+						</path>
+					</svg>
+					<span>Omiv + Vue</span>
+				</a>
+		
+				<a class="button" style='color:white;' href="https://github.com/Tencent/omi" target="_blank">
 					<svg viewBox="0 0 180 60">
 						<path
 							d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z">
@@ -285,15 +324,22 @@ render(&lt;my-counter /&gt;, 'body', new Store)
 
 
 	<script>
-		 document.getElementById('wp').style.marginTop = (window.innerHeight - 700) / 2 + 'px'
+	
+		function detectMobile() {
+			if (window.innerWidth <= 800 && window.innerHeight <= 900) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
-		// function detectMobile() {
-		// 	if (window.innerWidth <= 800 && window.innerHeight <= 900) {
-		// 		return true;
-		// 	} else {
-		// 		return false;
-		// 	}
-		// }
+		if(detectMobile()){
+			//document.getElementById('wp').style.marginTop = (window.innerHeight - 800) / 2 + 'px'
+
+		}else{
+			document.getElementById('wp').style.marginTop = (window.innerHeight - 700) / 2 + 'px'
+
+		}
 
 
 
