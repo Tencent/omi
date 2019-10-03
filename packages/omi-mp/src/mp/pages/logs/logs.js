@@ -2,7 +2,7 @@ import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
 import pageCss from './logs.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+import { setData } from '../../../utils/helper'
 
   //logs.js
 const util = require('../../utils/util.js')

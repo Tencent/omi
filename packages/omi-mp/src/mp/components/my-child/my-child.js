@@ -1,7 +1,7 @@
 
 import componentCss from './my-child.wxss'
   import { h, WeElement, rpx } from 'omi'
-  import { setData } from '../../../utils/set-data'
+  import { setData, fixProps } from '../../../utils/helper'
 
     // components/my-child/my-child.js
 const mpOption = function () {
@@ -30,7 +30,7 @@ const mpOption = function () {
 
   }
   class Element extends WeElement {
-    static props = mpOption().properties
+    static defaultProps = fixProps(mpOption().properties)
 
     data = mpOption().data
 

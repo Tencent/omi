@@ -2,7 +2,7 @@
 import appCss from '../../app.wxss'
 import pageCss from './index.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+import { setData } from '../../../utils/helper'
 
   //index.js
 //获取应用实例

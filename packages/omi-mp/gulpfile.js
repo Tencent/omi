@@ -40,7 +40,7 @@ gulp.task('components', ['copy'], () => {
               Buffer.from(
                 `${importStr}import componentCss from './${name}.wxss'
   import { h, WeElement, rpx } from 'omi'
-  import { setData } from ${isWxComponent && preName === 'components' ? "'../../utils/set-data'" : "'../../../utils/set-data'"}
+  import { setData, fixProps } from ${isWxComponent && preName === 'components' ? "'../../utils/helper'" : "'../../../utils/helper'"}
 
     `
               ),
@@ -53,7 +53,7 @@ gulp.task('components', ['copy'], () => {
   }`),
               Buffer.from(`
   class Element extends WeElement {
-    static props = mpOption().properties
+    static defaultProps = fixProps(mpOption().properties)
 
     data = mpOption().data
 
@@ -134,7 +134,7 @@ gulp.task('pages', ['copy'], () => {
               `${importStr}import appCss from '../../app.wxss'
 import pageCss from './${name}.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+import { setData } from '../../../utils/helper'
 
   `
             ),
