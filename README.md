@@ -67,7 +67,7 @@ define('my-counter', _ => (
   })
 ```
 
-You can also use useSelf, useSelf only updates itself. When using useSelf, the corresponding attributes are accessed through. usingSelf in JSX.
+You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through. `usingSelf` in JSX.
 
 Path is also supported:
 
