@@ -135,6 +135,11 @@ data: {
 
 其中 reverseMotto 可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
 
+## Q & A
+
+* 比如我一个弹窗组件，可能在很多页面使用，也可能在同一个页面使用多次；如果使用store来作为组件间通信的话，怎么应用可以实现组件是纯组件而不跟业务相关呢?
+
+纯组件不用不用 create 创建，且该组件内使用 triggerEvent 通知父组件改变 store.data 或者调用 store 的方法与外界通讯。
 
 ## License
 
