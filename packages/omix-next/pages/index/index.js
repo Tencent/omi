@@ -37,7 +37,12 @@ create(store, {
 
     setTimeout(() => {
       this.store.data.logs.push('abc')
+      this.store.data.motto = '123456'
     }, 1000)
+
+    setTimeout(() => {
+      this.store.data.motto = 'abcdefg'
+    }, 2000)
   },
   getUserInfo: function (e) {
     this.store.data.userInfo = e.detail.userInfo

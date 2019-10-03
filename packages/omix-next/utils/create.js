@@ -105,7 +105,7 @@ function storeChangeLogger (store) {
 }
 
 function updateStoreByFnProp(ele, data) {
-  if(data.store){
+  if(data){
     let patch = {}
     for (let key in data.__fnMapping) {
       patch[key] = data.__fnMapping[key].call(data)
@@ -115,24 +115,6 @@ function updateStoreByFnProp(ele, data) {
 }
 
 
-function extendStoreMethod(data) {
-  data.method = function (path, fn) {
-    //fnMapping[path] = fn
-    //data??
-    data.__fnMapping = data.__fnMapping || {}
-    data.__fnMapping[path] = fn
-    let ok = getObjByPath(path, data)
-    Object.defineProperty(ok.obj, ok.key, {
-      enumerable: true,
-      get: () => {
-        return fn.call(data)
-      },
-      set: () => {
-        console.warn('Please using this.data.method to set method prop of data!')
-      }
-    })
-  }
-}
 
 function getObjByPath(path, data) {
   const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
