@@ -89,6 +89,7 @@ class Element extends WeElement {
 
   install() {
     this.properties = this.props
+    this.data = this.data || {};
     Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
     this._mpOption = mpOption()
     Object.keys(this._mpOption).forEach(key => {

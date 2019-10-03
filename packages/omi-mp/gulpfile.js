@@ -293,13 +293,16 @@ function replaceComponentOnPath(tag, str, tagName) {
 
 // 匹配转换html 转换 目录文件夹名字
 function replaceWxmlComponentHtml(dir, html,json) {
-  Object.keys(json.usingComponents).forEach((key, i) => {
-    html = replaceComponentOnPath(
-      key,
-      html,
-      fileComponentDom(path.join(dir, json.usingComponents[key]))
-    );
-  })
+  if(json.usingComponents){
+    Object.keys(json.usingComponents).forEach((key, i) => {
+      html = replaceComponentOnPath(
+        key,
+        html,
+        fileComponentDom(path.join(dir, json.usingComponents[key]))
+      );
+    })
+  }
+
 
   return html;
 }
