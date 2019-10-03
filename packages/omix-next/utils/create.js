@@ -107,8 +107,8 @@ function storeChangeLogger (store) {
 function updateStoreByFnProp(ele, data) {
   if(data.store){
     let patch = {}
-    for (let key in data.store.__fnMapping) {
-      patch['store.' + key] = data.store.__fnMapping[key].call(data)
+    for (let key in data.__fnMapping) {
+      patch[key] = data.__fnMapping[key].call(data)
     }
     ele.setData(patch)
   }
@@ -148,73 +148,60 @@ function getObjByPath(path, data) {
   }
 }
 
-function walk(data, tag) {
+function walk(data) {
+  //___walked 用于标记是否已经观察遍历了
   data.___walked = true
   Object.keys(data).forEach(key => {
     const obj = data[key]
     const tp = type(obj)
     if (tp == FUNCTIONTYPE) {
-      setProp(key, obj, data, tag)
+      setProp(key, obj, data)
     } else if (tp == OBJECTTYPE) {
       Object.keys(obj).forEach(subKey => {
-        _walk(obj[subKey], key + '.' + subKey, data, tag)
+        _walk(obj[subKey], key + '.' + subKey, data)
       })
 
     } else if (tp == ARRAYTYPE) {
       obj.forEach((item, index) => {
-        _walk(item, key + '[' + index + ']', data, tag)
+        _walk(item, key + '[' + index + ']', data)
       })
 
     }
   })
 }
 
-function _walk(obj, path, data, tag) {
+function _walk(obj, path, data) {
   const tp = type(obj)
   if (tp == FUNCTIONTYPE) {
-    setProp(path, obj, data, tag)
+    setProp(path, obj, data)
   } else if (tp == OBJECTTYPE) {
     Object.keys(obj).forEach(subKey => {
-      _walk(obj[subKey], path + '.' + subKey, data, tag)
+      _walk(obj[subKey], path + '.' + subKey, data)
     })
 
   } else if (tp == ARRAYTYPE) {
     obj.forEach((item, index) => {
-      _walk(item, path + '[' + index + ']', data, tag)
+      _walk(item, path + '[' + index + ']', data)
     })
 
   }
 }
 
-function setProp(path, fn, data, tag) {
+function setProp(path, fn, data) {
   const ok = getObjByPath(path, data)
 
-  if (tag) {
-    data.__fnMapping = data.__fnMapping || {}
-    data.__fnMapping[path] = fn
-    Object.defineProperty(ok.obj, ok.key, {
-      enumerable: true,
-      get: () => {
-        return fn.call(ok.obj)
-      },
-      set: () => {
-        console.warn('Please using this.data.method to set method prop of data!')
-      }
-    })
-  } else {
-    data.store = data.store || {}
-    data.store.__fnMapping = data.store.__fnMapping || {}
-    data.store.__fnMapping[path] = fn
-    Object.defineProperty(ok.obj.store, ok.key, {
-      enumerable: true,
-      get: () => {
-        return fn.call(ok.obj)
-      },
-      set: () => {
-        console.warn('Please using this.data.method to set method prop of data!')
-      }
-    })
-  }
+  data.__fnMapping = data.__fnMapping || {}
+  data.__fnMapping[path] = fn
+  Object.defineProperty(ok.obj, ok.key, {
+    enumerable: true,
+    get: () => {
+      return fn.call(ok.obj)
+    },
+    set: () => {
+      console.warn('Please using this.data.method to set method prop of data!')
+    }
+  })
+  
 
 }
 

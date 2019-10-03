@@ -34,6 +34,10 @@ create(store, {
         }
       })
     }
+
+    setTimeout(() => {
+      this.store.data.logs.push('abc')
+    }, 1000)
   },
   getUserInfo: function (e) {
     this.store.data.userInfo = e.detail.userInfo
