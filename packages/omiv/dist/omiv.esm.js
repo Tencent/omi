@@ -1,13 +1,10 @@
 /**
- * omiv v0.1.0  http://omijs.org
+ * omiv v0.1.2  http://omijs.org
  * Observable store system for JavaScript apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
-
-import Vue from 'vue';
-import Vuex from 'vuex';
 
 function obaa(target, arr, callback) {
   var eventPropArr = [];
@@ -289,20 +286,40 @@ function fixPath(path) {
   return mpPath;
 }
 
-Vue.use(Vuex);
-
 var components = [];
 var updateSelfComponents = [];
+var store;
 
 function $(options) {
-
   var beforeCreate = options.beforeCreate;
   var destroyed = options.destroyed;
   var use = options.use;
   var useSelf = options.useSelf;
   options.computed = options.computed || {};
 
+  if (options.store) {
+    store = options.store;
+
+    obaa(store.data, function (prop, val, old, path) {
+      var patch = {};
+
+      patch[fixPath(path + '-' + prop)] = true;
+      components.forEach(function (component) {
+        if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
+          recUpdate(component);
+        }
+      });
+
+      updateSelfComponents.forEach(function (component) {
+        if (component.__$updateSelfPath_ && needUpdate(patch, component.__$updateSelfPath_)) {
+          component.$forceUpdate();
+        }
+      });
+    });
+  }
+
   options.beforeCreate = function () {
+    this.$store = store;
     if (use) {
       this.__$updatePath_ = getPath(use);
       components.push(this);
@@ -335,35 +352,6 @@ function $(options) {
 
   return options;
 }
-
-$.render = function (comp, renderTo, store) {
-
-  Vue.config.productionTip = false;
-
-  new Vue({
-    render: function render(h) {
-      return h(comp);
-    },
-    store: store
-  }).$mount(renderTo);
-
-  obaa(store.data, function (prop, val, old, path) {
-    var patch = {};
-
-    patch[fixPath(path + '-' + prop)] = true;
-    components.forEach(function (component) {
-      if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
-        recUpdate(component);
-      }
-    });
-
-    updateSelfComponents.forEach(function (component) {
-      if (component.__$updateSelfPath_ && needUpdate(patch, component.__$updateSelfPath_)) {
-        component.$forceUpdate();
-      }
-    });
-  });
-};
 
 function recUpdate(root) {
   root.$forceUpdate();

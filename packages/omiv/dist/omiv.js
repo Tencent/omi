@@ -1,4 +1,4 @@
-!function(Vue, Vuex) {
+!function() {
     'use strict';
     function obaa(target, arr, callback) {
         var eventPropArr = [];
@@ -164,7 +164,21 @@
         var use = options.use;
         var useSelf = options.useSelf;
         options.computed = options.computed || {};
+        if (options.store) {
+            store = options.store;
+            obaa(store.data, function(prop, val, old, path) {
+                var patch = {};
+                patch[fixPath(path + '-' + prop)] = !0;
+                components.forEach(function(component) {
+                    if (component.W && needUpdate(patch, component.W)) recUpdate(component);
+                });
+                updateSelfComponents.forEach(function(component) {
+                    if (component.Y && needUpdate(patch, component.Y)) component.$forceUpdate();
+                });
+            });
+        }
         options.beforeCreate = function() {
+            this.$store = store;
             if (use) {
                 this.W = getPath(use);
                 components.push(this);
@@ -196,8 +210,6 @@
             recUpdate(child);
         });
     }
-    Vue = Vue && Vue.hasOwnProperty('default') ? Vue.default : Vue;
-    Vuex = Vuex && Vuex.hasOwnProperty('default') ? Vuex.default : Vuex;
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
@@ -210,31 +222,12 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
-    Vue.use(Vuex);
     var components = [];
     var updateSelfComponents = [];
-    $.render = function(comp, renderTo, store) {
-        Vue.config.productionTip = !1;
-        new Vue({
-            render: function(h) {
-                return h(comp);
-            },
-            store: store
-        }).$mount(renderTo);
-        obaa(store.data, function(prop, val, old, path) {
-            var patch = {};
-            patch[fixPath(path + '-' + prop)] = !0;
-            components.forEach(function(component) {
-                if (component.W && needUpdate(patch, component.W)) recUpdate(component);
-            });
-            updateSelfComponents.forEach(function(component) {
-                if (component.Y && needUpdate(patch, component.Y)) component.$forceUpdate();
-            });
-        });
-    };
+    var store;
     var Omiv = {
         $: $
     };
     if ('undefined' != typeof module) module.exports = Omiv; else self.Omiv = Omiv;
-}(Vue, Vuex);
+}();
 //# sourceMappingURL=omiv.js.map

@@ -1,6 +1,6 @@
 {
   "name": "omiv",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Observable store system for Vue apps.",
   "main": "dist/omiv.js",
   "jsnext:main": "dist/omiv.esm.js",
@@ -63,8 +63,7 @@
   },
   "homepage": "https://github.com/Tencent/omi",
   "dependencies": {
-    "vue": "^2.6.10",
-    "vuex": "^3.1.1"
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
