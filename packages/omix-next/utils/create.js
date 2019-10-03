@@ -5,7 +5,6 @@
 */
 
 import obaa from './obaa'
-import config from './config'
 
 const ARRAYTYPE = '[object Array]'
 const OBJECTTYPE = '[object Object]'
@@ -84,7 +83,7 @@ function _update(kv, store) {
     })
   }
   store.onChange && store.onChange(kv)
-  config.logger.isOpen && storeChangeLogger(store)
+  store.debug && storeChangeLogger(store)
 }
 
 function storeChangeLogger (store) {

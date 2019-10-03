@@ -4,8 +4,16 @@
 
 极小却精巧的小程序框架，对小程序入侵性几乎为零
 
+## 3分钟精通 
 
-### 实战中心化 API
+### API
+
+* `create(store, option)`      创建页面， store 可跨页面共享
+* `create(option)`             创建组件
+* `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+
+
+## 实战
 
 定义 store:
 
@@ -78,15 +86,26 @@ create({
 
 喜欢中心化还是喜欢去中心化任你挑选，或者同一个小程序可以混合两种模式。
 
-## 3分钟精通 
+## 调试
 
-### API
+修改 store.js 的 debug 字段用来打开和关闭 log 调试:
 
-* `create(store, option)`      创建页面， store 可跨页面共享
-* `create(option)`             创建组件
-* `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+```js
+export default {
+  data: {
+    motto: 'Hello World',
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    logs: [],
+		reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
+  },
+  debug: true //我是开关
+}
 
-#### 注意
+## 注意
 
 
 这里需要注意，改变数组的 length 不会触发视图更新，需要使用 size 方法:

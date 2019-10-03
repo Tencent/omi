@@ -8,5 +8,6 @@ export default {
 		reverseMotto() {
       return this.motto.split('').reverse().join('')
     }
-  }
+  },
+  debug: true
 }
