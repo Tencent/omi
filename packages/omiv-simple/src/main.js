@@ -1,16 +1,12 @@
-import { $ } from 'omiv'
+import Vue from 'vue'
 import App from './App.vue'
 
-$.render(App, '#app', new class {
-  data = {
-    count: 1
-  }
-  sub = () => {
-    this.data.count--
-  }
-  add = () => {
-    this.data.count++
-  }
-})
+Vue.config.productionTip = false
+
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
+
 
 

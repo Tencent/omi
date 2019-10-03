@@ -5,18 +5,24 @@ Observable store system for Vue apps.
 ## Usage 
 
 ```jsx
-import { $v } from 'omiv'
-import App from './App.vue'
+import { $ } from 'omiv'
+import HelloWorld from './components/HelloWorld.vue'
 
-$v.render(App, '#app', new class {
-  data = {
-    count: 1
-  }
-  sub = () => {
-    this.data.count--
-  }
-  add = () => {
-    this.data.count++
+export default $({
+  name: 'app',
+  components: {
+    HelloWorld
+  },
+  store: new class {
+    data = {
+      count: 1
+    };
+    sub = () => {
+      this.data.count--
+    };
+    add = () => {
+      this.data.count++
+    }
   }
 })
 ```
