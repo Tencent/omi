@@ -1,29 +1,41 @@
 <script>
 import Game from './game.vue'
+import store from '../stores/index'
+import { $ } from 'omiv'
 
-export default {
+export default $({
+  useSelf: ['paused'],
   render(h){
-		const store = this.$store
-		const state = store.state
+    const { 
+      turnUp, 
+      turnDown, 
+      turnLeft, 
+      turnRight, 
+      toggleSpeed, 
+      reset, 
+      pauseOrPlay
+    } = this.$store
+
     return  (
 		<div class="container">
 			<h1>VUE SNAKE</h1>
 
-			<Game map={state.map}></Game>
+			<Game></Game>
 
 			<div class="ctrl">
-				<div class="btn cm-btn cm-btn-dir up" onClick={_=>store.commit('turnUp')}><i></i><em></em><span>Up</span></div>
-				<div class="btn cm-btn cm-btn-dir down" onClick={_=>store.commit('turnDown')}><i></i><em></em><span>Down</span></div>
-				<div class="btn cm-btn cm-btn-dir left" onClick={_=>store.commit('turnLeft')}><i></i><em></em><span >Left</span></div>
-				<div class="btn cm-btn cm-btn-dir right" onClick={_=>store.commit('turnRight')}><i></i><em></em><span >Right</span></div>
-				<div class="btn cm-btn space" onClick={_=>store.commit('toggleSpeed')}><i></i><span >加速/减速</span></div>
-				<div class="btn reset small" onClick={_=>store.commit('reset')}><i ></i><span >Reset</span></div>
-				<div class="btn pp small" onClick={_=>store.commit('pauseOrPlay')}><i></i><span >{state.paused ? 'Play' : 'Pause'}</span></div>
+				<div class="btn cm-btn cm-btn-dir up" onClick={turnUp}><i></i><em></em><span>Up</span></div>
+				<div class="btn cm-btn cm-btn-dir down" onClick={turnDown}><i></i><em></em><span>Down</span></div>
+				<div class="btn cm-btn cm-btn-dir left" onClick={turnLeft}><i></i><em></em><span >Left</span></div>
+				<div class="btn cm-btn cm-btn-dir right" onClick={turnRight}><i></i><em></em><span >Right</span></div>
+				<div class="btn cm-btn space" onClick={toggleSpeed}><i></i><span >加速/减速</span></div>
+				<div class="btn reset small" onClick={reset}><i ></i><span >Reset</span></div>
+				<div class="btn pp small" onClick={pauseOrPlay}><i></i><span >{this.$store.data.paused ? 'Play' : 'Pause'}</span></div>
 			</div>
 		</div>
     )
-  }
-}
+  },
+  store
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
