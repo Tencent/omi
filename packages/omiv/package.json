@@ -1,6 +1,6 @@
 {
   "name": "omiv",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Observable store system for Vue apps.",
   "main": "dist/omiv.js",
   "jsnext:main": "dist/omiv.esm.js",
@@ -45,16 +45,8 @@
   "keywords": [
     "omiv",
     "omi",
-    "webcomponents",
-    "jsx",
-    "proxy",
-    "preact",
-    "react",
-    "virtual dom",
-    "vdom",
-    "components",
-    "virtual",
-    "dom"
+    "vuex",
+    "vue"
   ],
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",

@@ -1,5 +1,5 @@
 /**
- * omiv v0.1.3  http://omijs.org
+ * omiv v0.1.4  http://omijs.org
  * Observable store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
