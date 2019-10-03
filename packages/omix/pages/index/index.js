@@ -5,7 +5,12 @@ import store from '../../store'
 const app = getApp()
 
 create(store, {
-
+  use: [
+    'motto',
+    'userInfo',
+    'hasUserInfo',
+    'canIUse',
+  ],
   //事件处理函数
   bindViewTap: function () {
     wx.navigateTo({

@@ -5,6 +5,7 @@
 */
 
 import obaa from './obaa'
+import { getPath, needUpdate, fixPath } from './path'
 
 const ARRAYTYPE = '[object Array]'
 const OBJECTTYPE = '[object Object]'
@@ -26,6 +27,7 @@ function create(store, option) {
     option.onLoad = function (e) {
       this.store = store
 
+      option.use && (this.__updatePath = getPath(option.use))
 
       store.instances[this.route] = []
       store.instances[this.route].push(this)
@@ -41,7 +43,7 @@ function create(store, option) {
     store.lifetimes = store.lifetimes || {}
     store.ready = store.lifetimes.ready = function () {
       const page = getCurrentPages()[getCurrentPages().length - 1]
- 
+      store.use && (this.__updatePath = getPath(store.use))
       this.store = page.store
 
       store.data = this.store.data
@@ -78,8 +80,10 @@ function observeStore(store) {
 function _update(kv, store) {
   for (let key in store.instances) {
     store.instances[key].forEach(ins => {
-      ins.setData.call(ins, kv)
-      updateStoreByFnProp(ins, store.data)
+      if(store.updateAll || needUpdate(kv,ins.__updatePath)){
+        ins.setData.call(ins, kv)
+        updateStoreByFnProp(ins, store.data)
+      }
     })
   }
   store.onChange && store.onChange(kv)
@@ -192,22 +196,7 @@ function type(obj) {
 
 
 
-function fixPath(path) {
-  let mpPath = ''
-  const arr = path.replace('#-', '').split('-')
-  arr.forEach((item, index) => {
-    if (index) {
-      if (isNaN(parseInt(item))) {
-        mpPath += '.' + item
-      } else {
-        mpPath += '[' + item + ']'
-      }
-    } else {
-      mpPath += item
-    }
-  })
-  return mpPath
-}
+
 
 
 
