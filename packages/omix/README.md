@@ -121,7 +121,7 @@ this.oData.arr.push(111) //会触发视图更新
 this.oData.arr.purePush(111) //不会触发视图更新
 ```
 
-####  函数属性
+###  函数属性
 
 ```js
   use: [
@@ -139,6 +139,18 @@ this.oData.arr.purePush(111) //不会触发视图更新
 ```
 
 函数属性定义在页面或者组件的 use 里，如上面的 `reverseMotto`， 它可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
+
+### store 变化监听
+
+```js
+const handler = function (evt) {
+  console.log(evt)
+}
+//监听，允许绑定多个
+store.onChange(handler)
+//移除监听
+store.offChange(handler) 
+```
 
 ## Q & A
 

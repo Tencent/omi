@@ -10,7 +10,7 @@ import { getPath, needUpdate, fixPath, getUsing } from './path'
 const ARRAYTYPE = '[object Array]'
 const OBJECTTYPE = '[object Object]'
 const FUNCTIONTYPE = '[object Function]'
-
+const changes = []
 
 function create(store, option) {
   if (arguments.length === 2) {
@@ -18,6 +18,22 @@ function create(store, option) {
       store.instances = {}
     }
 
+    if(!store.onChange){
+      store.onChange = function(fn){
+        changes.push(fn)
+      }
+    }
+
+    if(!store.offChange){
+      store.offChange = function(fn){
+        for(let i = 0,len =changes.length;i<len;i++){
+          if(changes[i] === fn){
+            changes.splice(i, 1)
+            break
+          }
+        }
+      }
+    }
     getApp().globalData && (getApp().globalData.store = store)
    
     option.data = store.data
@@ -94,25 +110,26 @@ function _update(kv, store) {
       }
     })
   }
-  store.onChange && store.onChange(kv)
-  store.debug && storeChangeLogger(store)
+  changes.forEach(change => {
+    change(kv)
+  })
+  store.debug && storeChangeLogger(store, kv)
 }
 
-function storeChangeLogger (store) {
-    store.onChange = (diffResult) => {
-        try {
-            const preState = wx.getStorageSync(`CurrentState`) || {}
-            const title = `State Changed`
-            console.groupCollapsed(`%c  ${ title } %c ${ Object.keys(diffResult) }`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
-            console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
-            console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
-            console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
-            console.groupEnd()
-            wx.setStorageSync(`CurrentState`, store.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
+function storeChangeLogger (store, diffResult) {
+  try {
+      const preState = wx.getStorageSync(`CurrentState`) || {}
+      const title = `State Changed`
+      console.groupCollapsed(`%c  ${ title } %c ${ Object.keys(diffResult) }`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
+      console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
+      console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
+      console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
+      console.groupEnd()
+      wx.setStorageSync(`CurrentState`, store.data)
+  } catch (e) {
+      console.log(e)
+  }
+    
 }
 
 function updateStoreByFnProp(ele, data) {

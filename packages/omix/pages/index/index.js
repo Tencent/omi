@@ -54,6 +54,14 @@ create(store, {
     setTimeout(() => {
       this.store.data.motto = 'abcdefg'
     }, 2000)
+
+    const handler = function (evt) {
+      console.log(evt)
+    }
+    store.onChange(handler)
+
+    store.offChange(handler) 
+    
   },
   getUserInfo: function (e) {
     this.store.data.userInfo = e.detail.userInfo
