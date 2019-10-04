@@ -1,16 +1,24 @@
-//index.js
+import create from '../../utils/create'
+import store from '../../store'
+
 //获取应用实例
 import { IMyApp } from '../../app'
 
 const app = getApp<IMyApp>()
 
-Page({
-  data: {
-    motto: '点击 “编译” 以构建',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-  },
+create(store, {
+  use: [
+    'motto',
+    'userInfo',
+    'hasUserInfo',
+    'canIUse',
+    {
+      reverseMotto:[
+        ['motto'],
+        (motto: string) => motto.split('').reverse().join('')
+      ]
+    }
+  ],
   //事件处理函数
   bindViewTap() {
     wx.navigateTo({
@@ -19,39 +27,40 @@ Page({
   },
   onLoad() {
     if (app.globalData.userInfo) {
-      this.setData!({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
-      })
-    } else if (this.data.canIUse){
+      this.store.data.userInfo = app.globalData.userInfo
+      this.store.data.hasUserInfo = true
+
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = (res) => {
-        this.setData!({
-          userInfo: res,
-          hasUserInfo: true
-        })
+      app.userInfoReadyCallback = res => {
+        this.store.data.userInfo = res
+        this.store.data.hasUserInfo = true
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
-          this.setData!({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+          this.store.data.userInfo = res.userInfo
+          this.store.data.hasUserInfo = true
         }
       })
     }
+
+    setTimeout(() => {
+      this.store.data.logs.push('abc')
+      this.store.data.motto = '123456'
+    }, 1000)
+
+    setTimeout(() => {
+      this.store.data.motto = 'abcdefg'
+    }, 2000)
   },
 
   getUserInfo(e: any) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData!({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    this.store.data.userInfo = e.detail.userInfo
+    this.store.data.hasUserInfo = true
+    
   }
 })

@@ -1,15 +1,13 @@
 //logs.js
 import { formatTime } from '../../utils/util'
+import create from '../../utils/create'
+import store from '../../store'
 
-Page({
-  data: {
-    logs: [] as string[]
-  },
-  onLoad() {
-    this.setData!({
-      logs: (wx.getStorageSync('logs') || []).map((log: number) => {
-        return formatTime(new Date(log))
-      })
+create(store, {
+  use: ['logs'],
+  onLoad: function () {
+    this.store.data.logs = (wx.getStorageSync('logs') || []).map((log: string) => {
+      return formatTime(new Date(log))
     })
-  },
+  }
 })
