@@ -2,30 +2,28 @@ const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function getUsing(data, paths) {
-  const obj = []
+  if(!paths) return
+  const obj = {}
   paths.forEach((path, index) => {
     const isPath = typeof path === 'string'
-    if (isPath) {
-      obj[index] = getTargetByPath(data, path)
-    } else {
+    if (!isPath) {
       const key = Object.keys(path)[0]
       const value = path[key]
-      if (typeof value === 'string') {
-        obj[index] = getTargetByPath(data, value)
-      } else {
+      if (typeof value !== 'string') {
+
         const tempPath = value[0]
         if (typeof tempPath === 'string') {
           const tempVal = getTargetByPath(data, tempPath)
-          obj[index] = value[1] ? value[1](tempVal) : tempVal
+          obj[key] = value[1] ? value[1](tempVal) : tempVal
         } else {
           const args = []
           tempPath.forEach(path => {
             args.push(getTargetByPath(data, path))
           })
-          obj[index] = value[1].apply(null, args)
+          obj[key] = value[1].apply(null, args)
         }
+
       }
-      obj[key] = obj[index]
     }
   })
   return obj

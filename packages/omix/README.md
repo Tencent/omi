@@ -95,10 +95,7 @@ export default {
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    logs: [],
-    reverseMotto() {
-      return this.motto.split('').reverse().join('')
-    }
+    logs: []
   },
   debug: true, //我是开关
   updateAll: true //当为 true 时，无脑全部更新，组件或页面不需要声明 use
@@ -125,15 +122,21 @@ this.oData.arr.purePush(111) //不会触发视图更新
 ####  函数属性
 
 ```js
-data: {
-    motto: 'Hello World',
-    reverseMotto() {
-      return this.motto.split('').reverse().join('')
+  use: [
+    'motto',
+    'userInfo',
+    'hasUserInfo',
+    'canIUse',
+    {
+      reverseMotto:[
+        ['motto'],
+        motto => motto.split('').reverse().join('')
+      ]
     }
-},
+  ],
 ```
 
-其中 reverseMotto 可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
+函数属性定义在页面或者组件的 use 里，如上面的 `reverseMotto`， 它可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
 
 ## Q & A
 

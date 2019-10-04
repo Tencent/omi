@@ -5,7 +5,7 @@
 */
 
 import obaa from './obaa'
-import { getPath, needUpdate, fixPath } from './path'
+import { getPath, needUpdate, fixPath, getUsing } from './path'
 
 const ARRAYTYPE = '[object Array]'
 const OBJECTTYPE = '[object Object]'
@@ -28,13 +28,15 @@ function create(store, option) {
       this.store = store
 
       option.use && (this.__updatePath = getPath(option.use))
-
+      this.__use = option.use
       store.instances[this.route] = []
       store.instances[this.route].push(this)
       if (!option.data.___walked) {
         walk(this.store.data)
       }
-      this.setData.call(this, option.data)
+      this.setData(option.data)
+      const using = getUsing(store.data, option.use)
+      using && this.setData(using)
       onLoad && onLoad.call(this, e)
     }
     Page(option)
@@ -45,10 +47,11 @@ function create(store, option) {
       const page = getCurrentPages()[getCurrentPages().length - 1]
       store.use && (this.__updatePath = getPath(store.use))
       this.store = page.store
-
+      this.__use = store.use
       store.data = this.store.data
-      this.setData.call(this, store.data)
-
+      this.setData(store.data)
+      const using = getUsing(this.store.data, store.use)
+      using && this.setData(using)
       this.store.instances[page.route].push(this)
       ready && ready.call(this)
     }
@@ -82,6 +85,11 @@ function _update(kv, store) {
     store.instances[key].forEach(ins => {
       if(store.updateAll || ins.__updatePath && needUpdate(kv,ins.__updatePath)){
         ins.setData.call(ins, kv)
+
+        const using = getUsing(store.data, ins.__use)
+        using && ins.setData(using)
+
+        //即将废弃
         updateStoreByFnProp(ins, store.data)
       }
     })

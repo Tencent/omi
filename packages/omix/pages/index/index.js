@@ -10,6 +10,12 @@ create(store, {
     'userInfo',
     'hasUserInfo',
     'canIUse',
+    {
+      reverseMotto:[
+        ['motto'],
+        motto => motto.split('').reverse().join('')
+      ]
+    }
   ],
   //事件处理函数
   bindViewTap: function () {
