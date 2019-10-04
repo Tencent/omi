@@ -2,6 +2,8 @@
 
 > 小程序全局状态管理，极小却精巧，对小程序入侵性几乎为零
 
+TypeScript 版本可以点击这里 [omix-ts](https://github.com/Tencent/omi/tree/master/packages/omix-ts)
+
 ## 3分钟精通 
 
 ### API
