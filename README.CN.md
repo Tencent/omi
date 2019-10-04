@@ -102,6 +102,36 @@ define('my-counter', _ => (
 
 ![](https://github.com/Tencent/omi/raw/master/assets/store.cn.jpg)
 
+### API 和 钩子
+
+```jsx
+define('my-component', _ => (
+  ...
+  ...
+), {
+    use: ['path', 'path.a', 'path[1].b'],
+    useSelf: ['path.c', 'path[1].d'],
+    css: 'h1 { color: red; }',
+    propTypes: {
+
+    },
+    defaultProps: {
+
+    },
+
+    //生命周期
+    install() { }, 
+    installed() { }, 
+    uninstall() { }, 
+    receiveProps() { },
+    beforeUpdate() { }, 
+    updated() { }, 
+    beforeRender() { }, 
+    rendered() { } 
+
+  })
+```
+
 ## Omi 生态
 
 [→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)

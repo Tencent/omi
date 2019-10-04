@@ -101,6 +101,36 @@ define('my-counter', _ => (
 
 ![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
 
+### API and Hooks
+
+```jsx
+define('my-component', _ => (
+  ...
+  ...
+), {
+    use: ['path', 'path.a', 'path[1].b'],
+    useSelf: ['path.c', 'path[1].d'],
+    css: 'h1 { color: red; }',
+    propTypes: {
+
+    },
+    defaultProps: {
+
+    },
+
+    //life cycle
+    install() { }, 
+    installed() { }, 
+    uninstall() { }, 
+    receiveProps() { },
+    beforeUpdate() { }, 
+    updated() { }, 
+    beforeRender() { }, 
+    rendered() { } 
+
+  })
+```
+
 ## Ecosystem of Omi
 
 #### Base
