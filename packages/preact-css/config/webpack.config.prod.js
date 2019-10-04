@@ -182,7 +182,9 @@ module.exports = {
                 [
                   "@babel/preset-react",
                   {
-                    "pragma": "h"
+                    "pragma": "Preact.h", // default pragma is React.createElement
+                    "pragmaFrag": "Preact.Fragment", // default is React.Fragment
+                    "throwIfNamespace": false // defaults to true
                   }
                 ]
               ],

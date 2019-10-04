@@ -1,14 +1,16 @@
-import { render, h } from 'preact'
+import * as Preact from 'preact'
+
 import './preact-css'
 
 
 function Counter() {
 
   return (
-
-    <div>Hello Preact X</div>
-
+    <>
+      <div>Hello Preact X</div>
+      <div>Hello Preact CSS</div>
+    </>
   )
 }
 
-render(<Counter />, document.querySelector('#root'))
+Preact.render(<Counter />, document.querySelector('#root'))
