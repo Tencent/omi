@@ -1,7 +1,6 @@
 import * as Preact from 'preact'
 import { $ } from 'omis'
-
-require('../../utils/css').add(require('./_index.css'))
+import { rpx } from '../../utils/css'
 
 export default $({
   render() {
@@ -19,6 +18,7 @@ export default $({
       })}
     </div>
   },
+  css: rpx(require('./_index.css')),
   use: ['map']
 })
 

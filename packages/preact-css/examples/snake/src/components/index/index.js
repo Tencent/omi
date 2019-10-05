@@ -3,7 +3,7 @@ import Game from '../game'
 
 import store from '../../stores/index'
 import { $ } from 'omis'
-require('../../utils/css').add(require('./_index.css'))
+import { rpx } from '../../utils/css'
 
 
 export default $({
@@ -11,7 +11,7 @@ export default $({
     const { store } = $
     const { paused } = store.data
     return <div className="container">
-      <h1>[P]REACT + OMIS SNAKE</h1>
+      <h1>Preact + Omis + Preact-CSS Snake Demo</h1>
 
       <Game></Game>
 
@@ -26,6 +26,7 @@ export default $({
       </div>
     </div>
   },
+  css: rpx(require('./_index.css')),
   useSelf: ['paused'],
   store
 })

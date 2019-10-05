@@ -22,7 +22,6 @@ let old = options.vnode
 options.vnode = vnode => {
   const component = componentNode && (componentNode._component || componentNode.__c)
   if (component) {
-
     if(component.constructor.css){
       const styleId = getStyleId(component.constructor)
       appendStyle(component.constructor.css, styleId);
