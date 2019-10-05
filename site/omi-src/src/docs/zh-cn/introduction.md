@@ -14,58 +14,7 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是跨框架框架，基于 Web Compone
 <em> I really like the trend towards "frameworks" that:<br><br>"export default class WeElement extends HTMLElement {..}"<br> <br>This one, Omi, is from Tencent.</em>       
 　　　　— [Dion Almaer](https://twitter.com/dalmaer/)
 
-## 一个 HTML 完全上手
-
-下面这个页面不需要任何构建工具就可以执行:
-
-```html
-<script src="https://unpkg.com/omi"></script>
-<script>
-  const { define, WeElement, html, render } = Omi
-
-  define('my-counter', class extends WeElement {
-    install() {
-      this.data.count = 1
-      this.sub = this.sub.bind(this)
-      this.add = this.add.bind(this)
-    }
-
-    sub() {
-      this.data.count--
-      this.update()
-    }
-
-    add() {
-      this.data.count++
-      this.update()
-    }
-
-    render() {
-      return html`
-        <div>
-          <button onClick=${this.sub}>-</button>
-          <span>${this.data.count}</span>
-          <button onClick=${this.add}>+</button>
-        </div>
-        `}
-  })
-
-  render(html`<my-counter />`, 'body')
-</script>
-```
-
-通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `my-counter` 标签：
-
-```jsx
-<body>
-  <my-counter></my-counter>
-</body>
-```
-
-* [点击这里看执行结果](https://tencent.github.io/omi/assets/omi.html)
-
-你可以使用 JSX 和 ES2015+ 来书写自定义元素:
-
+## 快速上手
 
 ```jsx {8-11}
 import { render, WeElement, define } from 'omi'
@@ -104,6 +53,14 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
+通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `my-counter` 标签：
+
+```jsx
+<body>
+  <my-counter></my-counter>
+</body>
+```
+
 看上面高亮的部分，可以给组件加样式，比如上面的 span 的作用域仅仅在组件内部，不会污染别的组件。到现在你已经成功入门 Omi 了！你学会了:
 
 * 为组件添加**结构**，如上面使用 JSX 书写结构
@@ -111,4 +68,41 @@ render(<my-counter />, 'body')
 * 为组件添加**样式**，如上面的 `static css`
 * 渲染组件到 body，当然也可以把组件渲染到任意其他组件
 
-恭喜你！
+
+## 无状态视图和 Store 系统
+
+```jsx
+import { define, render } from 'omi'
+
+class Store {
+  data = {
+    count: 1
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+}
+
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+  </div>
+), {
+    use: ['count'], 
+    //or using useSelf, useSelf will update self only, exclude children components
+    //useSelf: ['count'], 
+    css: `span { color: red; }`,
+    installed() {
+      console.log('installed')
+    }
+  })
+
+render(<my-counter />, 'body', new Store)
+```
+
+入门了，恭喜你！
