@@ -1,69 +1,112 @@
-## Develop
+## preact-css
 
-```bash
-npm install
-npm start
+> Scoped css with pure css string for preact.
+
+
+## Usage
+
+```jsx
+import * as Preact from 'preact'
+import './preact-css'
+
+
+function Comp() {
+  return (
+    <>
+      <h1>Hello Preact X</h1>
+      <div>Hello Preact CSS</div>
+    </>
+  )
+}
+
+Comp.css = `
+h1{
+  color: red;
+}
+`
+
+Preact.render(<Comp />, document.querySelector('#root'))
 ```
 
-## Release
+Work with class component:
 
-```bash
-npm run build
+```jsx
+class Comp extends Preact.Component {
+  static css = `
+h1{
+  color: green;
+}
+`
+
+  render() {
+    return (
+      <>
+        <h1>I'm green</h1>
+        <div>I'm black</div>
+      </>
+    )
+  }
+}
+
+Preact.render(<Comp />, document.querySelector('#root3'))
 ```
 
-## Eslint + Prettier
+## How to use rpx unit?
 
-``` bash
-npm run fix
+Super easy:
+
+```jsx
+function rpx(css) {
+  return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, (a, b) => {
+    return (window.innerWidth * Number(b)) / 750 + 'px'
+  })
+}
+
+Comp.css = rpx(`
+h1{
+  font-size: 10rpx;
+}
+`)
 ```
 
-## Directory description
+## How to import css string from css file?
 
-```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-```
 
-## Build Scripts
+If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack,
+For example, the following configuration:
 
-```json
-"scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
+```js
+{
+  test: /[\\|\/]_[\S]*\.css$/,
+  use: [
+    'to-string-loader',
+    'css-loader'
+  ]
 }
 ```
 
-You can set up the PUBLIC_URL, such as:
+If your CSS file starts with "`_`", CSS will use `to-string-loader`, such as:
 
-```bash
-...
-"build": "PUBLIC_URL=https://fe.wxpay.oa.com/dv node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& node scripts/build.js",
-...
-```
+```jsx
+class Comp extends Preact.Component {
+  static css = require('./_index.css')
 
-## Switch omi and omio
+  //or using rpx in runtime
+  //static css = rpx(require('./_index.css'))
 
-Add or remove the alias config in package.json to switch omi and omio：
-
-```js
- ...
- "alias": {
-    "omi": "omio"
+  render() {
+    return (
+      <>
+        <h1>I'm green</h1>
+        <div>I'm black</div>
+      </>
+    )
   }
-  ...
+}
+
+Preact.render(<Comp />, document.querySelector('#root3'))
 ```
 
 ## License
 
-MIT 
-
+MIT © Tencent
