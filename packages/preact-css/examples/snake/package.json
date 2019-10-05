@@ -47,6 +47,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "preact": "^10.0.0",
+    "preact-css": "^0.1.0",
     "prettier": "^1.14.3",
     "promise": "8.0.1",
     "raf": "3.4.0",
