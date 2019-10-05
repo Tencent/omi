@@ -1,6 +1,6 @@
 ## preact-css
 
-> Scoped css with pure css string for preact.
+> Scoped css with pure css string for [preact](https://github.com/preactjs/preact), inspired by [omi](https://github.com/Tencent/omi).
 
 
 ## Usage
@@ -51,7 +51,7 @@ h1{
 Preact.render(<Comp />, document.querySelector('#root3'))
 ```
 
-## How to use rpx unit?
+## How to use rpx unit like omi ?
 
 Super easy:
 
