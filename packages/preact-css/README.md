@@ -2,6 +2,11 @@
 
 > Scoped css with pure css string for [preact](https://github.com/preactjs/preact), inspired by [omi](https://github.com/Tencent/omi).
 
+Install it now:
+
+```bash
+npm i preact-css
+```
 
 ## Usage
 
