@@ -14,7 +14,6 @@ npm i preact-css
 import * as Preact from 'preact'
 import 'preact-css'
 
-
 function Comp() {
   return (
     <>
@@ -75,7 +74,6 @@ h1{
 ```
 
 ## How to import css string from css file?
-
 
 If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack,
 For example, the following configuration:
