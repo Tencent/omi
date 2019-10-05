@@ -7,7 +7,7 @@
 
 ```jsx
 import * as Preact from 'preact'
-import './preact-css'
+import 'preact-css'
 
 
 function Comp() {
