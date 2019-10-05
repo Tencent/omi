@@ -1,12 +1,12 @@
 /**
- * omis v2.0.3  http://omijs.org
+ * omis v2.0.4  http://omijs.org
  * Observable store system for JavaScript apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-import React from 'react';
+import { Component } from 'react';
 
 function obaa(target, arr, callback) {
   var eventPropArr = [];
@@ -377,7 +377,7 @@ function $(options) {
     };
 
     return _class2;
-  }(React.Component);
+  }(Component);
 }
 
 var omis = { $: $ };

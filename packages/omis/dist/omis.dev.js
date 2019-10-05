@@ -1,5 +1,5 @@
 /**
- * omis v2.0.3  http://omijs.org
+ * omis v2.0.4  http://omijs.org
  * Observable store system for JavaScript apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -8,8 +8,6 @@
 
 (function (React) {
   'use strict';
-
-  React = React && React.hasOwnProperty('default') ? React['default'] : React;
 
   function obaa(target, arr, callback) {
     var eventPropArr = [];
