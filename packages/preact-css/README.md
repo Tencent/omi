@@ -110,6 +110,10 @@ class Comp extends Preact.Component {
 Preact.render(<Comp />, document.querySelector('#root3'))
 ```
 
+## Related links
+
+* [Preact issue - Scoped css with pure css string](https://github.com/preactjs/preact/issues/1898)
+
 ## License
 
 MIT © Tencent
