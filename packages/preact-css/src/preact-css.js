@@ -1,34 +1,31 @@
 import { options } from 'preact'
 import { getStyleId, appendStyle } from './style'
 
-let componentNode;
+let componentNode
 
 // store a reference to the "current component" vnode
-let oldDiff = options._diff || options.__b;
+let oldDiff = options._diff || options.__b
 options._diff = options.__b = vnode => {
-  componentNode = vnode;
-  if (oldDiff) oldDiff(vnode);
-};
+  componentNode = vnode
+  if (oldDiff) oldDiff(vnode)
+}
 
 // reset component reference at end of diffing:
-let oldDiffed = options.diffed;
+let oldDiffed = options.diffed
 options.diffed = vnode => {
-  if (componentNode === vnode) componentNode = null;
-  if (oldDiffed) oldDiffed(vnode);
-};
+  if (componentNode === vnode) componentNode = null
+  if (oldDiffed) oldDiffed(vnode)
+}
 
 // our vnode hook looks up the associated component
-let old = options.vnode;
+let old = options.vnode
 options.vnode = vnode => {
-  const component = componentNode && (componentNode._component || componentNode.__c);
+  const component = componentNode && (componentNode._component || componentNode.__c)
   if (component) {
-    // component is the component instance
-    //component.css;
-    const styleId = getStyleId(component.constructor);
+
+    const styleId = getStyleId(component.constructor)
     appendStyle(component.constructor.css, styleId);
-    // example: assign component's unique CSS ID:
     (vnode.props || (vnode.props = {}))[styleId] = ''
   }
-  if (old) old(vnode);
-};
-
+  if (old) old(vnode)
+}
