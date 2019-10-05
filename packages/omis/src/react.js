@@ -47,6 +47,8 @@ export function $(options) {
       __$id_: 0
     }
 
+    static css = options.css
+
     constructor(props) {
       super(props)
       if (updatePath) {

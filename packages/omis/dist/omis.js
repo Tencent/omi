@@ -178,6 +178,7 @@
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     function $(options) {
+        var _class, _temp;
         if (options.store) {
             $.store = options.store;
             obaa($.store.data, function(prop, val, old, path) {
@@ -204,9 +205,9 @@
         }
         var updatePath = options.use && getPath(options.use);
         var updateSelfPath = options.useSelf && getPath(options.useSelf);
-        return function(_React$Component) {
-            function _class2(props) {
-                _classCallCheck(this, _class2);
+        return _temp = _class = function(_React$Component) {
+            function _class(props) {
+                _classCallCheck(this, _class);
                 var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
                 _this.state = {
                     X: 0
@@ -221,11 +222,11 @@
                 }
                 return _this;
             }
-            _inherits(_class2, _React$Component);
-            _class2.prototype.shouldComponentUpdate = function() {
+            _inherits(_class, _React$Component);
+            _class.prototype.shouldComponentUpdate = function() {
                 if (currentComponent === this) return !0; else return !isSelf;
             };
-            _class2.prototype.componentWillUnmount = function() {
+            _class.prototype.componentWillUnmount = function() {
                 for (var i = 0, len = components.length; i < len; i++) if (components[i] === this) {
                     components.splice(i, 1);
                     break;
@@ -235,11 +236,11 @@
                     break;
                 }
             };
-            _class2.prototype.render = function() {
+            _class.prototype.render = function() {
                 return options.render.apply(this, arguments);
             };
-            return _class2;
-        }(React.Component);
+            return _class;
+        }(React.Component), _class.css = options.css, _temp;
     }
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];

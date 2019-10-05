@@ -1,5 +1,5 @@
 /**
- * omis v2.0.4  http://omijs.org
+ * omis v2.0.5  http://omijs.org
  * Observable store system for JavaScript apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -302,6 +302,8 @@
   var currentComponent = null;
 
   function $(options) {
+    var _class, _temp;
+
     if (options.store) {
       $.store = options.store;
       obaa($.store.data, function (prop, val, old, path) {
@@ -329,11 +331,11 @@
     var updatePath = options.use && getPath(options.use);
     var updateSelfPath = options.useSelf && getPath(options.useSelf);
 
-    return function (_React$Component) {
-      _inherits(_class2, _React$Component);
+    return _temp = _class = function (_React$Component) {
+      _inherits(_class, _React$Component);
 
-      function _class2(props) {
-        _classCallCheck(this, _class2);
+      function _class(props) {
+        _classCallCheck(this, _class);
 
         var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
 
@@ -352,12 +354,12 @@
         return _this;
       }
 
-      _class2.prototype.shouldComponentUpdate = function shouldComponentUpdate() {
+      _class.prototype.shouldComponentUpdate = function shouldComponentUpdate() {
         if (currentComponent === this) return true;
         return !isSelf;
       };
 
-      _class2.prototype.componentWillUnmount = function componentWillUnmount() {
+      _class.prototype.componentWillUnmount = function componentWillUnmount() {
         for (var i = 0, len = components.length; i < len; i++) {
           if (components[i] === this) {
             components.splice(i, 1);
@@ -373,12 +375,12 @@
         }
       };
 
-      _class2.prototype.render = function render() {
+      _class.prototype.render = function render() {
         return options.render.apply(this, arguments);
       };
 
-      return _class2;
-    }(React.Component);
+      return _class;
+    }(React.Component), _class.css = options.css, _temp;
   }
 
   var Omis = { $: $ };
