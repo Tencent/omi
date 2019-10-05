@@ -42,7 +42,7 @@
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.5.0",
     "object-assign": "4.1.1",
-    "omis": "^2.0.4",
+    "omis": "^2.0.5",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
