@@ -1,16 +1,27 @@
 import * as Preact from 'preact'
-
 import './preact-css'
 
 
-function Counter() {
-
+function Comp() {
   return (
     <>
-      <div>Hello Preact X</div>
+      <h1>Hello Preact X</h1>
       <div>Hello Preact CSS</div>
     </>
   )
 }
 
-Preact.render(<Counter />, document.querySelector('#root'))
+Comp.css = `
+h1{
+  color: red;
+}
+`
+
+Preact.render(<Comp />, document.querySelector('#root'))
+
+
+//Test Multiple rendering only append style once
+Preact.render(<Comp />, document.querySelector('#root2'))
+
+
+

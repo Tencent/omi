@@ -1,5 +1,5 @@
 import { options } from 'preact'
-
+import { getStyleId, appendStyle } from './style'
 
 let componentNode;
 
@@ -24,9 +24,10 @@ options.vnode = vnode => {
   if (component) {
     // component is the component instance
     //component.css;
-    component._styleId = 'abcef';
+    const styleId = getStyleId(component.constructor);
+    appendStyle(component.constructor.css, styleId);
     // example: assign component's unique CSS ID:
-    (vnode.props || (vnode.props = {}))[component._styleId] = '';
+    (vnode.props || (vnode.props = {}))[styleId] = ''
   }
   if (old) old(vnode);
 };
