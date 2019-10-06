@@ -65,9 +65,4 @@ const storeB = new class Store {
   }
 }
 
-function combine(options) {
-	options.__combine_ = true
-	return options
-}
-
-render(<my-counter />, 'body', combine({ storeA, storeB }) )
+render(<my-counter />, 'body', { storeA, storeB } )
