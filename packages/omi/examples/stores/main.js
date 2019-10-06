@@ -6,21 +6,21 @@ define('my-counter', class extends WeElement {
 	}
 
   addIfOdd = () => {
-    if (this.storeA.data.count % 2 !== 0) {
-      this.storeA.add()
+    if (this.store.storeA.data.count % 2 !== 0) {
+      this.store.storeA.add()
     }
   }
 
   addAsync = () => {
-    this.storeA.data.adding = true
+    this.store.storeA.data.adding = true
     setTimeout(() => {
-      this.storeA.data.adding = false
-      this.storeA.add()
+      this.store.storeA.data.adding = false
+      this.store.storeA.add()
     }, 1000)
   }
 
   render() {
-    const store = this.storeA
+    const store = this.store.storeA
     const { data, add, sub } = store
     return (
       <p>
