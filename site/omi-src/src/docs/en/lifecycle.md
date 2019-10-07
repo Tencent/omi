@@ -16,14 +16,13 @@ For example:
 import { render, WeElement, define } from 'omi'
 
 define('my-timer', class extends WeElement {
-  static observe = true
-
   data = {
     seconds: 0
   }
 
   tick() {
     this.data.seconds++
+    this.update()
   }
 
   install() {
