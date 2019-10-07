@@ -4,7 +4,7 @@ import '../my-list'
 define('my-sidebar', class extends WeElement {
   static css = require('./_index.css')
 
-  static use = [
+  use = [
     'menus',
     'sideBarShow',
     'lan'

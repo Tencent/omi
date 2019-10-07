@@ -4,10 +4,10 @@ import logo from './omi-logo2019.svg'
 define('my-head', class extends WeElement {
   static css = require('./_index.css')
 
-  static use = [
+  use = [
     'position'
   ]
-  
+
   toggleMenus = evt => {
     this.store.toogleSidebar()
     evt.stopPropagation()

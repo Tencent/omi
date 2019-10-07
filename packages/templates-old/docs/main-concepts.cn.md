@@ -321,7 +321,7 @@ Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题
 import { render, WeElement, define } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
-  static use = [
+  use = [
     { count: 'count' }
   ]
 
@@ -372,13 +372,13 @@ render(<my-counter />, 'body', {
 })
 ```
 
-* 通过 `static use` 声明依赖的 path
+* 通过 `use` 声明依赖的 path
 * `store` 通过 render 的第三个参数从根节点注入到所有组件。
 
 下面举一个复杂的 `use` 例子：
 
 ```jsx
-static use = [
+use = [
   'count', //直接字符串，JSX 里可通过 this.use[0] 访问
   'arr[0]', //也支持 path，JSX 里可通过 this.use[1] 访问
   //支持 json
@@ -434,7 +434,7 @@ render() {
 
 当 `store.data` 发生变化，依赖变更数据的组件会进行更新，举例说明 Path 命中规则:
 
-| Proxy Path(由数据更改产生) | static use 中的 path | 是否更新 |
+| Proxy Path(由数据更改产生) |  use 中的 path | 是否更新 |
 | ---------- | ---------- | -------- |
 | abc        | abc        | 更新     |
 | abc[1]     | abc        | 更新     |

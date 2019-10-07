@@ -376,7 +376,7 @@ Unlike global variables, when there are multiple root nodes, multiple stores can
 ```js
 define('my-first-element', class extends WeElement {
   //You must declare use here for view updating
-  static use = [
+  use = [
     { myName: 'name' }
   ]
 

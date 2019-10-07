@@ -61,7 +61,7 @@ render(<Counter />, 'body', {
 })
 ```
 
-* Declare a dependent path by `static use'.
+* Declare a dependent path by `use'.
 * `globalStore` injects all components from the root node through the third parameter of render.
 
 Here is a complicated example of `use'.
@@ -84,7 +84,7 @@ Data of globalStore:
 Static use:
 
 ```jsx
-static use = [
+use = [
   'count', //Direct string, accessible through this.use[0] 
   'arr[0]', //It also supports path, which is accessible through this.use[1]
   //Support JSON
@@ -135,7 +135,7 @@ Without alias, you can also access it directly through `$.data.xxx'.
 
 ### Path hit rule
 
-| Observe Path | path in static use   | update |
+| Observe Path | path in use   | update |
 | ---------- | ---------- | -------- |
 | abc        | abc        | true     |
 | abc[1]     | abc        | true     |

@@ -4,7 +4,7 @@ import '../my-footer'
 define('my-content', class extends WeElement {
   static css = require('./_index.css')
 
-  static use = [
+  use = [
     'html'
   ]
 

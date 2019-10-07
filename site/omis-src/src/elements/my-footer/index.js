@@ -3,7 +3,7 @@ import { define, WeElement } from 'omi'
 define('my-footer', class extends WeElement {
   static css = require('./_index.css')
 
-  static use = [
+  use = [
     'position',
     'menu'
   ]

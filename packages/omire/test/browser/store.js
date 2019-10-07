@@ -69,10 +69,10 @@ describe('store', () => {
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
 	})
 
-	it('test static use', () => {
+	it('test use', () => {
 
     class Ele extends WeElement {
-			static use = ['a']
+			use = ['a']
 
 			installed(){
 				this.store.data.a = 2

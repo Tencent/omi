@@ -1,7 +1,7 @@
 import { render, WeElement, define } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
-  static use = [
+  use = [
     'count',
     'arr[0]',
     {
