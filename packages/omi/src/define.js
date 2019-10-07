@@ -1,10 +1,6 @@
 import WeElement from './we-element'
 import options from './options'
 
-const getType = function (obj) {
-  return Object.prototype.toString.call(obj).slice(8, -1)
-}
-
 export function define(name, ctor) {
   if (options.mapping[name]) {
     return
@@ -12,9 +8,7 @@ export function define(name, ctor) {
   if (ctor.is === 'WeElement') {
     customElements.define(name, ctor)
     options.mapping[name] = ctor
-    if (ctor.use) {
-      ctor.updatePath = getPath(ctor.use)
-    }
+
   } else {
     let depPaths
     let config = {}
@@ -37,7 +31,6 @@ export function define(name, ctor) {
     }
 
     class Ele extends WeElement {
-      static use = depPaths
 
       static css = config.css
 
@@ -77,36 +70,9 @@ export function define(name, ctor) {
       }
     })
 
-
-    if (Ele.use) {
-      Ele.updatePath = getPath(Ele.use)
-    }
-
     customElements.define(name, Ele)
     options.mapping[name] = Ele
   }
-}
-
-export function getPath(obj, out, name) {
-	const result = {}
-	obj.forEach(item => {
-		if (typeof item === 'string') {
-			result[item] = true
-		} else {
-			const tempPath = item[Object.keys(item)[0]]
-			if (typeof tempPath === 'string') {
-				result[tempPath] = true
-			} else {
-				if (typeof tempPath[0] === 'string') {
-					result[tempPath[0]] = true
-				} else {
-					tempPath[0].forEach(path => (result[path] = true))
-				}
-			}
-		}
-	})
-	if(out) out[name] = result
-	return result
 }
 
 

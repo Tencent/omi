@@ -20,7 +20,8 @@
   var options = {
     store: null,
     root: getGlobal(),
-    mapping: {}
+    mapping: {},
+    isMultiStore: false
   };
 
   var stack = [];
@@ -142,7 +143,7 @@
     return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
-  function getUse(data, paths) {
+  function getUse(data, paths, out, name) {
     var obj = [];
     paths.forEach(function (path, index) {
       var isPath = typeof path === 'string';
@@ -169,6 +170,7 @@
         obj[key] = obj[index];
       }
     });
+    if (out) out[name] = obj;
     return obj;
   }
 
@@ -198,6 +200,30 @@
       current = current[prop];
     });
     return current;
+  }
+
+  function getPath(obj, out, name) {
+    var result = {};
+    obj.forEach(function (item) {
+      if (typeof item === 'string') {
+        result[item] = true;
+      } else {
+        var tempPath = item[Object.keys(item)[0]];
+        if (typeof tempPath === 'string') {
+          result[tempPath] = true;
+        } else {
+          if (typeof tempPath[0] === 'string') {
+            result[tempPath[0]] = true;
+          } else {
+            tempPath[0].forEach(function (path) {
+              return result[path] = true;
+            });
+          }
+        }
+      }
+    });
+    if (out) out[name] = result;
+    return result;
   }
 
   // render modes
@@ -759,188 +785,23 @@
     }
   }
 
+  var _class, _temp;
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  var getType = function getType(obj) {
-    return Object.prototype.toString.call(obj).slice(8, -1);
-  };
-
-  function define(name, ctor) {
-    if (options.mapping[name]) {
-      return;
-    }
-    if (ctor.is === 'WeElement') {
-      customElements.define(name, ctor);
-      options.mapping[name] = ctor;
-      if (ctor.use) {
-        ctor.updatePath = getPath(ctor.use);
-      }
-    } else {
-      var _class, _temp;
-
-      var depPaths = void 0;
-      var config = {};
-      var len = arguments.length;
-      if (len === 3) {
-        if (typeof arguments[1] === 'function') {
-          ctor = arguments[1];
-          config = arguments[2];
-        } else {
-          depPaths = arguments[1];
-          ctor = arguments[2];
-        }
-      } else if (len === 4) {
-        depPaths = arguments[1];
-        ctor = arguments[2];
-        config = arguments[3];
-      }
-      if (typeof config === 'string') {
-        config = { css: config };
-      }
-
-      var Ele = (_temp = _class = function (_WeElement) {
-        _inherits(Ele, _WeElement);
-
-        function Ele() {
-          _classCallCheck(this, Ele);
-
-          return _possibleConstructorReturn(this, _WeElement.apply(this, arguments));
-        }
-
-        Ele.prototype.render = function render() {
-          return ctor.call(this, this);
-        };
-
-        Ele.prototype.receiveProps = function receiveProps() {
-          if (config.receiveProps) {
-            return config.receiveProps.apply(this, arguments);
-          }
-        };
-
-        return Ele;
-      }(WeElement), _class.use = depPaths, _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp);
-
-
-      var eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
-          storeHelpers = ['use', 'useSelf'];
-
-      eleHooks.forEach(function (hook) {
-        if (config[hook]) {
-          Ele.prototype[hook] = function () {
-            config[hook].apply(this, arguments);
-          };
-        }
-      });
-
-      storeHelpers.forEach(function (func) {
-        if (config[func]) {
-          Ele.prototype[func] = function () {
-            return typeof config[func] === 'function' ? config[func].apply(this, arguments) : config[func];
-          };
-        }
-      });
-
-      if (Ele.use) {
-        Ele.updatePath = getPath(Ele.use);
-      }
-
-      customElements.define(name, Ele);
-      options.mapping[name] = Ele;
-    }
-  }
-
-  function getPath(obj) {
-    if (getType(obj) === 'Array') {
-      var result = {};
-      obj.forEach(function (item) {
-        if (typeof item === 'string') {
-          result[item] = true;
-        } else {
-          var tempPath = item[Object.keys(item)[0]];
-          if (typeof tempPath === 'string') {
-            result[tempPath] = true;
-          } else {
-            if (typeof tempPath[0] === 'string') {
-              result[tempPath[0]] = true;
-            } else {
-              tempPath[0].forEach(function (path) {
-                return result[path] = true;
-              });
-            }
-          }
-        }
-      });
-      return result;
-    } else {
-      return getUpdatePath(obj);
-    }
-  }
-
-  function getUpdatePath(data) {
-    var result = {};
-    dataToPath(data, result);
-    return result;
-  }
-
-  function dataToPath(data, result) {
-    Object.keys(data).forEach(function (key) {
-      result[key] = true;
-      var type = getType(data[key]);
-      if (type === 'Object') {
-        _objToPath(data[key], key, result);
-      } else if (type === 'Array') {
-        _arrayToPath(data[key], key, result);
-      }
-    });
-  }
-
-  function _objToPath(data, path, result) {
-    Object.keys(data).forEach(function (key) {
-      result[path + '.' + key] = true;
-      delete result[path];
-      var type = getType(data[key]);
-      if (type === 'Object') {
-        _objToPath(data[key], path + '.' + key, result);
-      } else if (type === 'Array') {
-        _arrayToPath(data[key], path + '.' + key, result);
-      }
-    });
-  }
-
-  function _arrayToPath(data, path, result) {
-    data.forEach(function (item, index) {
-      result[path + '[' + index + ']'] = true;
-      delete result[path];
-      var type = getType(item);
-      if (type === 'Object') {
-        _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === 'Array') {
-        _arrayToPath(item, path + '[' + index + ']', result);
-      }
-    });
-  }
-
-  var _class, _temp;
-
-  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-  function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-  function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
   var id = 0;
 
   var WeElement = (_temp = _class = function (_HTMLElement) {
-    _inherits$1(WeElement, _HTMLElement);
+    _inherits(WeElement, _HTMLElement);
 
     function WeElement() {
-      _classCallCheck$1(this, WeElement);
+      _classCallCheck(this, WeElement);
 
-      var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
+      var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
       _this.props = Object.assign({}, _this.constructor.defaultProps);
       _this.elementId = id++;
@@ -953,9 +814,6 @@
         this.store = p.store;
         p = p.parentNode || p.host;
       }
-      if (this.store) {
-        this.store.instances.push(this);
-      }
 
       if (this.use) {
         var use = void 0;
@@ -965,15 +823,41 @@
           use = this.use;
         }
 
-        this._updatePath = getPath(use);
-        this.using = getUse(this.store.data, use);
-      } else {
-        this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use));
+        if (options.isMultiStore) {
+          var _updatePath = {};
+          var using = {};
+          for (var storeName in use) {
+            _updatePath[storeName] = {};
+            using[storeName] = {};
+            getPath(use[storeName], _updatePath, storeName);
+            getUse(this.store[storeName].data, use[storeName], using, storeName);
+            this.store[storeName].instances.push(this);
+          }
+          this.using = using;
+          this._updatePath = _updatePath;
+        } else {
+          this._updatePath = getPath(use);
+          this.using = getUse(this.store.data, use);
+          this.store.instances.push(this);
+        }
       }
       if (this.useSelf) {
         var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
-        this._updateSelfPath = getPath(_use);
-        this.usingSelf = getUse(this.store.data, _use);
+        if (options.isMultiStore) {
+          var _updatePath2 = {};
+          var _using = {};
+          for (var _storeName in _use) {
+            getPath(_use[_storeName], _updatePath2, _storeName);
+            getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
+            this.store[_storeName].updateSelfInstances.push(this);
+          }
+          this.usingSelf = _using;
+          this._updateSelfPath = _updatePath2;
+        } else {
+          this._updateSelfPath = getPath(_use);
+          this.usingSelf = getUse(this.store.data, _use);
+          this.store.updateSelfInstances.push(this);
+        }
       }
       this.attrsToProps();
       this.beforeInstall();
@@ -1516,78 +1400,88 @@
   function render(vnode, parent, store) {
   	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
   	if (store) {
-  		store.instances = [];
-  		extendStoreUpate(store);
-  		console.log(store.data);
-  		store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-  			console.log(55);
-  			var patchs = {};
-  			if (patch.op === 'remove') {
-  				// fix arr splice
-  				var kv = getArrayPatch(patch.path, store);
-  				patchs[kv.k] = kv.v;
-
-  				update(patchs, store);
-  			} else {
-  				var key = fixPath(patch.path);
-  				patchs[key] = patch.value;
-  				console.log(44);
-  				update(patchs, store);
+  		if (store.data) {
+  			observeStore(store);
+  		} else {
+  			options.isMultiStore = true;
+  			//Multi-store injection
+  			for (var key in store) {
+  				observeStore(store[key], key);
   			}
-  		});
+  		}
   		parent.store = store;
   	}
   	return diff(null, vnode, parent, false);
+  }
+
+  function observeStore(store, key) {
+  	store.instances = [];
+  	store.updateSelfInstances = [];
+  	extendStoreUpate(store, key);
+
+  	store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
+  		var patchs = {};
+  		if (patch.op === 'remove') {
+  			// fix arr splice
+  			var kv = getArrayPatch(patch.path, store);
+  			patchs[kv.k] = kv.v;
+
+  			update(patchs, store);
+  		} else {
+  			var _key = fixPath(patch.path);
+  			patchs[_key] = patch.value;
+
+  			update(patchs, store);
+  		}
+  	});
   }
 
   function update(patch, store) {
   	store.update(patch);
   }
 
-  function extendStoreUpate(store) {
-  	console.log(333);
+  function extendStoreUpate(store, key) {
   	store.update = function (patch) {
-  		var _this = this;
-
-  		var updateAll = matchGlobalData(this.globalData, patch);
-  		console.log(22);
   		if (Object.keys(patch).length > 0) {
   			this.instances.forEach(function (instance) {
-  				if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
-  					//update this.using
-  					if (instance.constructor.use) {
-  						console.log(11);
-  						instance.using = getUse(store.data, instance.constructor.use);
-  					} else if (instance.use) {
-  						instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
+  				if (key) {
+  					if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
+  						if (instance.use) {
+  							getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
+  						}
+
+  						instance.update();
   					}
+  				} else {
+  					if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
+  						if (instance.use) {
+  							instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
+  						}
 
-  					instance.update();
+  						instance.update();
+  					}
   				}
+  			});
 
-  				if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-  					instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
-  					instance.updateSelf();
+  			this.updateSelfInstances.forEach(function (instance) {
+  				if (key) {
+  					if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
+  						if (instance.useSelf) {
+  							getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
+  						}
+
+  						instance.updateSelf();
+  					}
+  				} else {
+  					if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+  						instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
+  						instance.updateSelf();
+  					}
   				}
   			});
   			this.onChange && this.onChange(patch);
   		}
   	};
-  }
-
-  function matchGlobalData(globalData, diffResult) {
-  	if (!globalData) return false;
-  	for (var keyA in diffResult) {
-  		if (globalData.indexOf(keyA) > -1) {
-  			return true;
-  		}
-  		for (var i = 0, len = globalData.length; i < len; i++) {
-  			if (includePath(keyA, globalData[i])) {
-  				return true;
-  			}
-  		}
-  	}
-  	return false;
   }
 
   function needUpdate(diffResult, updatePath) {
@@ -1637,7 +1531,10 @@
   	for (var i = 1, len = arr.length; i < len - 1; i++) {
   		current = current[arr[i]];
   	}
-  	return { k: fixArrPath(path), v: current };
+  	return {
+  		k: fixArrPath(path),
+  		v: current
+  	};
   }
 
   function fixArrPath(path) {
@@ -1658,6 +1555,85 @@
   		}
   	});
   	return mpPath;
+  }
+
+  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  function define(name, ctor) {
+    if (options.mapping[name]) {
+      return;
+    }
+    if (ctor.is === 'WeElement') {
+      customElements.define(name, ctor);
+      options.mapping[name] = ctor;
+    } else {
+      var _class, _temp;
+      var config = {};
+      var len = arguments.length;
+      if (len === 3) {
+        if (typeof arguments[1] === 'function') {
+          ctor = arguments[1];
+          config = arguments[2];
+        } else {
+          ctor = arguments[2];
+        }
+      } else if (len === 4) {
+        ctor = arguments[2];
+        config = arguments[3];
+      }
+      if (typeof config === 'string') {
+        config = { css: config };
+      }
+
+      var Ele = (_temp = _class = function (_WeElement) {
+        _inherits$1(Ele, _WeElement);
+
+        function Ele() {
+          _classCallCheck$1(this, Ele);
+
+          return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
+        }
+
+        Ele.prototype.render = function render() {
+          return ctor.call(this, this);
+        };
+
+        Ele.prototype.receiveProps = function receiveProps() {
+          if (config.receiveProps) {
+            return config.receiveProps.apply(this, arguments);
+          }
+        };
+
+        return Ele;
+      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp);
+
+
+      var eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
+          storeHelpers = ['use', 'useSelf'];
+
+      eleHooks.forEach(function (hook) {
+        if (config[hook]) {
+          Ele.prototype[hook] = function () {
+            config[hook].apply(this, arguments);
+          };
+        }
+      });
+
+      storeHelpers.forEach(function (func) {
+        if (config[func]) {
+          Ele.prototype[func] = function () {
+            return typeof config[func] === 'function' ? config[func].apply(this, arguments) : config[func];
+          };
+        }
+      });
+
+      customElements.define(name, Ele);
+      options.mapping[name] = Ele;
+    }
   }
 
   function tag(name, pure) {
@@ -1819,21 +1795,23 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.use = ['storeA'], _this.addIfOdd = function () {
-        if (_this.store.data.storeA.count % 2 !== 0) {
-          _this.store.add();
+      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.useSelf = {
+        storeA: ['count', 'adding']
+      }, _this.addIfOdd = function () {
+        if (_this.store.storeA.data.count % 2 !== 0) {
+          _this.store.storeA.add();
         }
       }, _this.addAsync = function () {
-        _this.store.data.adding = true;
+        _this.store.storeA.data.adding = true;
         setTimeout(function () {
           _this.store.storeA.data.adding = false;
-          _this.store.add();
+          _this.store.storeA.add();
         }, 1000);
       }, _temp), _possibleConstructorReturn$2(_this, _ret);
     }
 
     _class2.prototype.render = function render$$1() {
-      var store = this.store;
+      var store = this.store.storeA;
       var data = store.data,
           add = store.add,
           sub = store.sub;
@@ -1842,7 +1820,7 @@
         'p',
         null,
         'Clicked: ',
-        data.storeA.count,
+        data.count,
         ' times',
         ' ',
         Omi.h(
@@ -1865,7 +1843,7 @@
         ' ',
         Omi.h(
           'button',
-          { disabled: data.storeA.adding, onClick: this.addAsync },
+          { disabled: data.adding, onClick: this.addAsync },
           'Add async'
         )
       );
@@ -1885,12 +1863,10 @@
     };
 
     this.sub = function () {
-      console.log(_this2);
       _this2.data.count--;
     };
 
     this.add = function () {
-      console.log(_this2);
       _this2.data.count++;
     };
   }();
@@ -1909,9 +1885,7 @@
     };
   }();
 
-  function combine(options$$1) {}
-
-  render(Omi.h('my-counter', null), 'body', combine({ storeA: storeA, storeB: storeB }));
+  render(Omi.h('my-counter', null), 'body', { storeA: storeA, storeB: storeB });
 
 }());
 //# sourceMappingURL=b.js.map

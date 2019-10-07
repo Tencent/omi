@@ -137,3 +137,25 @@ export function getValByPath(path, current) {
 	})
 	return current
 }
+
+export function getPath(obj, out, name) {
+	const result = {}
+	obj.forEach(item => {
+		if (typeof item === 'string') {
+			result[item] = true
+		} else {
+			const tempPath = item[Object.keys(item)[0]]
+			if (typeof tempPath === 'string') {
+				result[tempPath] = true
+			} else {
+				if (typeof tempPath[0] === 'string') {
+					result[tempPath[0]] = true
+				} else {
+					tempPath[0].forEach(path => (result[path] = true))
+				}
+			}
+		}
+	})
+	if(out) out[name] = result
+	return result
+}

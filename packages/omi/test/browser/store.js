@@ -74,7 +74,7 @@ describe('store', () => {
 
     class Ele extends WeElement {
       use = ['a']
-      
+
 			installed(){
 				this.store.data.a = 2
 			}
@@ -94,10 +94,10 @@ describe('store', () => {
 	})
 
 
-	it('test static use', () => {
+	it('test  use', () => {
 
     class Ele extends WeElement {
-			static use = ['a']
+			 use = ['a']
 
 			installed(){
 				this.store.data.a = 2
@@ -167,7 +167,7 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
-  
+
 
   it('test auto updata a', () => {
 
@@ -191,7 +191,7 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
-  
+
   it('test auto updata b', () => {
 
     class Ele extends WeElement {
@@ -214,11 +214,11 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
-  
+
   it('test auto updata c', () => {
 
     class Ele extends WeElement {
-	
+
 
 			installed(){
 				this.store.data.a.b = 2
@@ -237,7 +237,7 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
   })
-  
+
 
   it('test auto updata with array path a', () => {
 
@@ -261,7 +261,7 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
-  
+
 
   it('test auto updata with array path b', () => {
 
@@ -285,7 +285,7 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
-  
+
   it('test auto updata with array path c', () => {
 
     class Ele extends WeElement {
@@ -308,7 +308,7 @@ describe('store', () => {
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
   })
-  
+
   it('test auto updata with array path c', () => {
 
     class Ele extends WeElement {

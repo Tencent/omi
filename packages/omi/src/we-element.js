@@ -1,276 +1,274 @@
-import { cssToDom, isArray, getUse, hyphenate, getValByPath } from './util'
+import {
+	cssToDom,
+	isArray,
+	getUse,
+	hyphenate,
+	getValByPath
+} from './util'
 import { diff } from './vdom/diff'
 import options from './options'
-import { getPath } from './define'
+import { getPath } from './util'
 
 let id = 0
 
 export default class WeElement extends HTMLElement {
-  static is = 'WeElement'
+	static is = 'WeElement'
 
-  constructor() {
-    super()
-    this.props = Object.assign({},
-    	this.constructor.defaultProps
-    )
-    this.elementId = id++
-  }
+	constructor() {
+		super()
+		this.props = Object.assign({},
+			this.constructor.defaultProps
+		)
+		this.elementId = id++
+	}
 
-  connectedCallback() {
-    let p = this.parentNode
-    while (p && !this.store) {
-      this.store = p.store
-      p = p.parentNode || p.host
-    }
+	connectedCallback() {
+		let p = this.parentNode
+		while (p && !this.store) {
+			this.store = p.store
+			p = p.parentNode || p.host
+		}
 
-    if (this.use) {
-      let use
-      if(typeof this.use === 'function'){
-        use = this.use()
-      }else{
-        use = this.use
-      }
+		if (this.use) {
+			let use
+			if (typeof this.use === 'function') {
+				use = this.use()
+			} else {
+				use = this.use
+			}
 
 
-			if(options.isMultiStore){
+			if (options.isMultiStore) {
 				let _updatePath = {}
 				let using = {}
-				for(let storeName in use){
+				for (let storeName in use) {
 					_updatePath[storeName] = {}
 					using[storeName] = {}
 					getPath(use[storeName], _updatePath, storeName)
-				  getUse(this.store[storeName].data, use[storeName], using, storeName)
+					getUse(this.store[storeName].data, use[storeName], using, storeName)
 					this.store[storeName].instances.push(this)
 				}
 				this.using = using
 				this._updatePath = _updatePath
-			}else{
+			} else {
 				this._updatePath = getPath(use)
 				this.using = getUse(this.store.data, use)
 				this.store.instances.push(this)
 			}
-    } else {
-			if(this.constructor.use ){
-				if(options.isMultiStore){
-					this._updatePath = getPath(use[storeName], storeName)
-					this.using = getUse(this.store[storeName].data, use[storeName], storeName)
-					this.store[storeName].instances.push(this)
-
-				}else{
-					this.using = getUse(this.store.data, this.constructor.use)
-					this.store.instances.push(this)
-
-				}
-			}
-
 		}
-		if(this.useSelf){
+		if (this.useSelf) {
 			const use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf
-			if(options.isMultiStore){
-				for(let storeName in use){
-					this._updateSelfPath = getPath(use[storeName], storeName)
-					this.usingSelf = getUse(this.store[storeName].data, use[storeName], storeName)
+			if (options.isMultiStore) {
+				let _updatePath = {}
+				let using = {}
+				for (let storeName in use) {
+					getPath(use[storeName], _updatePath, storeName)
+					getUse(this.store[storeName].data, use[storeName], using, storeName)
 					this.store[storeName].updateSelfInstances.push(this)
 				}
-			}else{
+				this.usingSelf = using
+				this._updateSelfPath = _updatePath
+			} else {
 				this._updateSelfPath = getPath(use)
 				this.usingSelf = getUse(this.store.data, use)
 				this.store.updateSelfInstances.push(this)
 			}
 		}
-    this.attrsToProps()
-    this.beforeInstall()
-    this.install()
-    this.afterInstall()
+		this.attrsToProps()
+		this.beforeInstall()
+		this.install()
+		this.afterInstall()
 
-    let shadowRoot
-    if (!this.shadowRoot) {
-      shadowRoot = this.attachShadow({
-        mode: 'open'
-      })
-    } else {
-      shadowRoot = this.shadowRoot
-      let fc
-      while ((fc = shadowRoot.firstChild)) {
-        shadowRoot.removeChild(fc)
-      }
-    }
+		let shadowRoot
+		if (!this.shadowRoot) {
+			shadowRoot = this.attachShadow({
+				mode: 'open'
+			})
+		} else {
+			shadowRoot = this.shadowRoot
+			let fc
+			while ((fc = shadowRoot.firstChild)) {
+				shadowRoot.removeChild(fc)
+			}
+		}
 
-    if (this.constructor.css) {
-      shadowRoot.appendChild(cssToDom(this.constructor.css))
-    } else if (this.css) {
-      shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
-    }
-    this.beforeRender()
-    options.afterInstall && options.afterInstall(this)
+		if (this.constructor.css) {
+			shadowRoot.appendChild(cssToDom(this.constructor.css))
+		} else if (this.css) {
+			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
+		}
+		this.beforeRender()
+		options.afterInstall && options.afterInstall(this)
 
 
-    const rendered = this.render(this.props, this.store)
-    this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0
+		const rendered = this.render(this.props, this.store)
+		this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0
 
-    this.rootNode = diff(
-      null,
-      rendered,
-      null,
-      this
-    )
-    this.rendered()
+		this.rootNode = diff(
+			null,
+			rendered,
+			null,
+			this
+		)
+		this.rendered()
 
-    if (this.props.css) {
-      this._customStyleElement = cssToDom(this.props.css)
-      this._customStyleContent = this.props.css
-      shadowRoot.appendChild(this._customStyleElement)
-    }
+		if (this.props.css) {
+			this._customStyleElement = cssToDom(this.props.css)
+			this._customStyleContent = this.props.css
+			shadowRoot.appendChild(this._customStyleElement)
+		}
 
-    if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function (item) {
-        shadowRoot.appendChild(item)
-      })
-    } else {
-      shadowRoot.appendChild(this.rootNode)
-    }
-    this.installed()
+		if (isArray(this.rootNode)) {
+			this.rootNode.forEach(function (item) {
+				shadowRoot.appendChild(item)
+			})
+		} else {
+			shadowRoot.appendChild(this.rootNode)
+		}
+		this.installed()
 		this._isInstalled = true
 
-  }
+	}
 
-  disconnectedCallback() {
-    this.uninstall()
-    this._isInstalled = false
-    if (this.store) {
-      for (let i = 0, len = this.store.instances.length; i < len; i++) {
-        if (this.store.instances[i] === this) {
-          this.store.instances.splice(i, 1)
-          break
-        }
-      }
-    }
-  }
+	disconnectedCallback() {
+		this.uninstall()
+		this._isInstalled = false
+		if (this.store) {
+			for (let i = 0, len = this.store.instances.length; i < len; i++) {
+				if (this.store.instances[i] === this) {
+					this.store.instances.splice(i, 1)
+					break
+				}
+			}
+		}
+	}
 
-  update(ignoreAttrs, updateSelf) {
-    this._willUpdate = true
-    this.beforeUpdate()
-    this.beforeRender()
-    //fix null !== undefined
-    if (this._customStyleContent != this.props.css) {
-      this._customStyleContent = this.props.css
-      this._customStyleElement.textContent = this._customStyleContent
-    }
-    this.attrsToProps(ignoreAttrs)
+	update(ignoreAttrs, updateSelf) {
+		this._willUpdate = true
+		this.beforeUpdate()
+		this.beforeRender()
+		//fix null !== undefined
+		if (this._customStyleContent != this.props.css) {
+			this._customStyleContent = this.props.css
+			this._customStyleElement.textContent = this._customStyleContent
+		}
+		this.attrsToProps(ignoreAttrs)
 
-    const rendered = this.render(this.props, this.store)
-    this.rendered()
-    this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0)
+		const rendered = this.render(this.props, this.store)
+		this.rendered()
+		this.__hasChildren = this.__hasChildren || (Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0)
 
-    this.rootNode = diff(
-      this.rootNode,
-      rendered,
-      this.shadowRoot,
-      this,
-      updateSelf
-    )
-    this._willUpdate = false
+		this.rootNode = diff(
+			this.rootNode,
+			rendered,
+			this.shadowRoot,
+			this,
+			updateSelf
+		)
+		this._willUpdate = false
 		this.updated()
 
-  }
+	}
 
-  updateSelf(ignoreAttrs) {
-    this.update(ignoreAttrs, true)
-  }
+	updateSelf(ignoreAttrs) {
+		this.update(ignoreAttrs, true)
+	}
 
-  removeAttribute(key) {
-    super.removeAttribute(key)
-    //Avoid executing removeAttribute methods before connectedCallback
-    this._isInstalled && this.update()
-  }
+	removeAttribute(key) {
+		super.removeAttribute(key)
+		//Avoid executing removeAttribute methods before connectedCallback
+		this._isInstalled && this.update()
+	}
 
-  setAttribute(key, val) {
-    if (val && typeof val === 'object') {
-      super.setAttribute(key, JSON.stringify(val))
-    } else {
-      super.setAttribute(key, val)
-    }
-    //Avoid executing setAttribute methods before connectedCallback
-    this._isInstalled && this.update()
-  }
+	setAttribute(key, val) {
+		if (val && typeof val === 'object') {
+			super.setAttribute(key, JSON.stringify(val))
+		} else {
+			super.setAttribute(key, val)
+		}
+		//Avoid executing setAttribute methods before connectedCallback
+		this._isInstalled && this.update()
+	}
 
-  pureRemoveAttribute(key) {
-    super.removeAttribute(key)
-  }
+	pureRemoveAttribute(key) {
+		super.removeAttribute(key)
+	}
 
-  pureSetAttribute(key, val) {
-    super.setAttribute(key, val)
-  }
+	pureSetAttribute(key, val) {
+		super.setAttribute(key, val)
+	}
 
-  attrsToProps(ignoreAttrs) {
-    const ele = this
-    if (ele.normalizedNodeName || ignoreAttrs) return
-    ele.props['css'] = ele.getAttribute('css')
-    const attrs = this.constructor.propTypes
-    if (!attrs) return
-    Object.keys(attrs).forEach(key => {
-      const type = attrs[key]
-      const val = ele.getAttribute(hyphenate(key))
-      if (val !== null) {
-        switch (type) {
-          case String:
-            ele.props[key] = val
-            break
-          case Number:
-            ele.props[key] = Number(val)
-            break
-          case Boolean:
-            if (val === 'false' || val === '0') {
-              ele.props[key] = false
-            } else {
-              ele.props[key] = true
-            }
-            break
-          case Array:
-          case Object:
-            if (val[0] === ':') {
-              ele.props[key] = getValByPath(val.substr(1), Omi.$)
-            } else {
-              ele.props[key] = JSON.parse(val
-                .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
-                .replace(/'([\s\S]*?)'/g, '"$1"')
-                .replace(/,(\s*})/g, '$1')
-              )
-            }
-            break
-        }
-      } else {
-        if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
-          ele.props[key] = ele.constructor.defaultProps[key]
-        } else {
-          ele.props[key] = null
-        }
-      }
-    })
-  }
+	attrsToProps(ignoreAttrs) {
+		const ele = this
+		if (ele.normalizedNodeName || ignoreAttrs) return
+		ele.props['css'] = ele.getAttribute('css')
+		const attrs = this.constructor.propTypes
+		if (!attrs) return
+		Object.keys(attrs).forEach(key => {
+			const type = attrs[key]
+			const val = ele.getAttribute(hyphenate(key))
+			if (val !== null) {
+				switch (type) {
+					case String:
+						ele.props[key] = val
+						break
+					case Number:
+						ele.props[key] = Number(val)
+						break
+					case Boolean:
+						if (val === 'false' || val === '0') {
+							ele.props[key] = false
+						} else {
+							ele.props[key] = true
+						}
+						break
+					case Array:
+					case Object:
+						if (val[0] === ':') {
+							ele.props[key] = getValByPath(val.substr(1), Omi.$)
+						} else {
+							ele.props[key] = JSON.parse(val
+								.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+								.replace(/'([\s\S]*?)'/g, '"$1"')
+								.replace(/,(\s*})/g, '$1')
+							)
+						}
+						break
+				}
+			} else {
+				if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+					ele.props[key] = ele.constructor.defaultProps[key]
+				} else {
+					ele.props[key] = null
+				}
+			}
+		})
+	}
 
-  fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name, { detail: data }))
-  }
+	fire(name, data) {
+		this.dispatchEvent(new CustomEvent(name, {
+			detail: data
+		}))
+	}
 
-  beforeInstall() { }
+	beforeInstall() {}
 
-  install() { }
+	install() {}
 
-  afterInstall() { }
+	afterInstall() {}
 
-  installed() { }
+	installed() {}
 
-  uninstall() { }
+	uninstall() {}
 
-  beforeUpdate() { }
+	beforeUpdate() {}
 
-  updated() { }
+	updated() {}
 
-  beforeRender() { }
+	beforeRender() {}
 
-  rendered() { }
+	rendered() {}
 
-  receiveProps() { }
+	receiveProps() {}
 
 }
