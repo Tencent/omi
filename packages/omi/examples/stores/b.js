@@ -796,247 +796,249 @@
   var id = 0;
 
   var WeElement = (_temp = _class = function (_HTMLElement) {
-    _inherits(WeElement, _HTMLElement);
+  	_inherits(WeElement, _HTMLElement);
 
-    function WeElement() {
-      _classCallCheck(this, WeElement);
+  	function WeElement() {
+  		_classCallCheck(this, WeElement);
 
-      var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+  		var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-      _this.props = Object.assign({}, _this.constructor.defaultProps);
-      _this.elementId = id++;
-      return _this;
-    }
+  		_this.props = Object.assign({}, _this.constructor.defaultProps);
+  		_this.elementId = id++;
+  		return _this;
+  	}
 
-    WeElement.prototype.connectedCallback = function connectedCallback() {
-      var p = this.parentNode;
-      while (p && !this.store) {
-        this.store = p.store;
-        p = p.parentNode || p.host;
-      }
+  	WeElement.prototype.connectedCallback = function connectedCallback() {
+  		var p = this.parentNode;
+  		while (p && !this.store) {
+  			this.store = p.store;
+  			p = p.parentNode || p.host;
+  		}
 
-      if (this.use) {
-        var use = void 0;
-        if (typeof this.use === 'function') {
-          use = this.use();
-        } else {
-          use = this.use;
-        }
+  		if (this.use) {
+  			var use = void 0;
+  			if (typeof this.use === 'function') {
+  				use = this.use();
+  			} else {
+  				use = this.use;
+  			}
 
-        if (options.isMultiStore) {
-          var _updatePath = {};
-          var using = {};
-          for (var storeName in use) {
-            _updatePath[storeName] = {};
-            using[storeName] = {};
-            getPath(use[storeName], _updatePath, storeName);
-            getUse(this.store[storeName].data, use[storeName], using, storeName);
-            this.store[storeName].instances.push(this);
-          }
-          this.using = using;
-          this._updatePath = _updatePath;
-        } else {
-          this._updatePath = getPath(use);
-          this.using = getUse(this.store.data, use);
-          this.store.instances.push(this);
-        }
-      }
-      if (this.useSelf) {
-        var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
-        if (options.isMultiStore) {
-          var _updatePath2 = {};
-          var _using = {};
-          for (var _storeName in _use) {
-            getPath(_use[_storeName], _updatePath2, _storeName);
-            getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
-            this.store[_storeName].updateSelfInstances.push(this);
-          }
-          this.usingSelf = _using;
-          this._updateSelfPath = _updatePath2;
-        } else {
-          this._updateSelfPath = getPath(_use);
-          this.usingSelf = getUse(this.store.data, _use);
-          this.store.updateSelfInstances.push(this);
-        }
-      }
-      this.attrsToProps();
-      this.beforeInstall();
-      this.install();
-      this.afterInstall();
+  			if (options.isMultiStore) {
+  				var _updatePath = {};
+  				var using = {};
+  				for (var storeName in use) {
+  					_updatePath[storeName] = {};
+  					using[storeName] = {};
+  					getPath(use[storeName], _updatePath, storeName);
+  					getUse(this.store[storeName].data, use[storeName], using, storeName);
+  					this.store[storeName].instances.push(this);
+  				}
+  				this.using = using;
+  				this._updatePath = _updatePath;
+  			} else {
+  				this._updatePath = getPath(use);
+  				this.using = getUse(this.store.data, use);
+  				this.store.instances.push(this);
+  			}
+  		}
+  		if (this.useSelf) {
+  			var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
+  			if (options.isMultiStore) {
+  				var _updatePath2 = {};
+  				var _using = {};
+  				for (var _storeName in _use) {
+  					getPath(_use[_storeName], _updatePath2, _storeName);
+  					getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
+  					this.store[_storeName].updateSelfInstances.push(this);
+  				}
+  				this.usingSelf = _using;
+  				this._updateSelfPath = _updatePath2;
+  			} else {
+  				this._updateSelfPath = getPath(_use);
+  				this.usingSelf = getUse(this.store.data, _use);
+  				this.store.updateSelfInstances.push(this);
+  			}
+  		}
+  		this.attrsToProps();
+  		this.beforeInstall();
+  		this.install();
+  		this.afterInstall();
 
-      var shadowRoot = void 0;
-      if (!this.shadowRoot) {
-        shadowRoot = this.attachShadow({
-          mode: 'open'
-        });
-      } else {
-        shadowRoot = this.shadowRoot;
-        var fc = void 0;
-        while (fc = shadowRoot.firstChild) {
-          shadowRoot.removeChild(fc);
-        }
-      }
+  		var shadowRoot = void 0;
+  		if (!this.shadowRoot) {
+  			shadowRoot = this.attachShadow({
+  				mode: 'open'
+  			});
+  		} else {
+  			shadowRoot = this.shadowRoot;
+  			var fc = void 0;
+  			while (fc = shadowRoot.firstChild) {
+  				shadowRoot.removeChild(fc);
+  			}
+  		}
 
-      if (this.constructor.css) {
-        shadowRoot.appendChild(cssToDom(this.constructor.css));
-      } else if (this.css) {
-        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-      }
-      this.beforeRender();
-      options.afterInstall && options.afterInstall(this);
+  		if (this.constructor.css) {
+  			shadowRoot.appendChild(cssToDom(this.constructor.css));
+  		} else if (this.css) {
+  			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+  		}
+  		this.beforeRender();
+  		options.afterInstall && options.afterInstall(this);
 
-      var rendered = this.render(this.props, this.store);
-      this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
+  		var rendered = this.render(this.props, this.store);
+  		this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-      this.rootNode = diff(null, rendered, null, this);
-      this.rendered();
+  		this.rootNode = diff(null, rendered, null, this);
+  		this.rendered();
 
-      if (this.props.css) {
-        this._customStyleElement = cssToDom(this.props.css);
-        this._customStyleContent = this.props.css;
-        shadowRoot.appendChild(this._customStyleElement);
-      }
+  		if (this.props.css) {
+  			this._customStyleElement = cssToDom(this.props.css);
+  			this._customStyleContent = this.props.css;
+  			shadowRoot.appendChild(this._customStyleElement);
+  		}
 
-      if (isArray(this.rootNode)) {
-        this.rootNode.forEach(function (item) {
-          shadowRoot.appendChild(item);
-        });
-      } else {
-        shadowRoot.appendChild(this.rootNode);
-      }
-      this.installed();
-      this._isInstalled = true;
-    };
+  		if (isArray(this.rootNode)) {
+  			this.rootNode.forEach(function (item) {
+  				shadowRoot.appendChild(item);
+  			});
+  		} else {
+  			shadowRoot.appendChild(this.rootNode);
+  		}
+  		this.installed();
+  		this._isInstalled = true;
+  	};
 
-    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-      this.uninstall();
-      this._isInstalled = false;
-      if (this.store) {
-        for (var i = 0, len = this.store.instances.length; i < len; i++) {
-          if (this.store.instances[i] === this) {
-            this.store.instances.splice(i, 1);
-            break;
-          }
-        }
-      }
-    };
+  	WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+  		this.uninstall();
+  		this._isInstalled = false;
+  		if (this.store) {
+  			for (var i = 0, len = this.store.instances.length; i < len; i++) {
+  				if (this.store.instances[i] === this) {
+  					this.store.instances.splice(i, 1);
+  					break;
+  				}
+  			}
+  		}
+  	};
 
-    WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
-      this._willUpdate = true;
-      this.beforeUpdate();
-      this.beforeRender();
-      //fix null !== undefined
-      if (this._customStyleContent != this.props.css) {
-        this._customStyleContent = this.props.css;
-        this._customStyleElement.textContent = this._customStyleContent;
-      }
-      this.attrsToProps(ignoreAttrs);
+  	WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+  		this._willUpdate = true;
+  		this.beforeUpdate();
+  		this.beforeRender();
+  		//fix null !== undefined
+  		if (this._customStyleContent != this.props.css) {
+  			this._customStyleContent = this.props.css;
+  			this._customStyleElement.textContent = this._customStyleContent;
+  		}
+  		this.attrsToProps(ignoreAttrs);
 
-      var rendered = this.render(this.props, this.store);
-      this.rendered();
-      this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
+  		var rendered = this.render(this.props, this.store);
+  		this.rendered();
+  		this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-      this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
-      this._willUpdate = false;
-      this.updated();
-    };
+  		this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
+  		this._willUpdate = false;
+  		this.updated();
+  	};
 
-    WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-      this.update(ignoreAttrs, true);
-    };
+  	WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
+  		this.update(ignoreAttrs, true);
+  	};
 
-    WeElement.prototype.removeAttribute = function removeAttribute(key) {
-      _HTMLElement.prototype.removeAttribute.call(this, key);
-      //Avoid executing removeAttribute methods before connectedCallback
-      this._isInstalled && this.update();
-    };
+  	WeElement.prototype.removeAttribute = function removeAttribute(key) {
+  		_HTMLElement.prototype.removeAttribute.call(this, key);
+  		//Avoid executing removeAttribute methods before connectedCallback
+  		this._isInstalled && this.update();
+  	};
 
-    WeElement.prototype.setAttribute = function setAttribute(key, val) {
-      if (val && typeof val === 'object') {
-        _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
-      } else {
-        _HTMLElement.prototype.setAttribute.call(this, key, val);
-      }
-      //Avoid executing setAttribute methods before connectedCallback
-      this._isInstalled && this.update();
-    };
+  	WeElement.prototype.setAttribute = function setAttribute(key, val) {
+  		if (val && typeof val === 'object') {
+  			_HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
+  		} else {
+  			_HTMLElement.prototype.setAttribute.call(this, key, val);
+  		}
+  		//Avoid executing setAttribute methods before connectedCallback
+  		this._isInstalled && this.update();
+  	};
 
-    WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
-      _HTMLElement.prototype.removeAttribute.call(this, key);
-    };
+  	WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+  		_HTMLElement.prototype.removeAttribute.call(this, key);
+  	};
 
-    WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
-      _HTMLElement.prototype.setAttribute.call(this, key, val);
-    };
+  	WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+  		_HTMLElement.prototype.setAttribute.call(this, key, val);
+  	};
 
-    WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-      var ele = this;
-      if (ele.normalizedNodeName || ignoreAttrs) return;
-      ele.props['css'] = ele.getAttribute('css');
-      var attrs = this.constructor.propTypes;
-      if (!attrs) return;
-      Object.keys(attrs).forEach(function (key) {
-        var type = attrs[key];
-        var val = ele.getAttribute(hyphenate(key));
-        if (val !== null) {
-          switch (type) {
-            case String:
-              ele.props[key] = val;
-              break;
-            case Number:
-              ele.props[key] = Number(val);
-              break;
-            case Boolean:
-              if (val === 'false' || val === '0') {
-                ele.props[key] = false;
-              } else {
-                ele.props[key] = true;
-              }
-              break;
-            case Array:
-            case Object:
-              if (val[0] === ':') {
-                ele.props[key] = getValByPath(val.substr(1), Omi.$);
-              } else {
-                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-              }
-              break;
-          }
-        } else {
-          if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
-            ele.props[key] = ele.constructor.defaultProps[key];
-          } else {
-            ele.props[key] = null;
-          }
-        }
-      });
-    };
+  	WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+  		var ele = this;
+  		if (ele.normalizedNodeName || ignoreAttrs) return;
+  		ele.props['css'] = ele.getAttribute('css');
+  		var attrs = this.constructor.propTypes;
+  		if (!attrs) return;
+  		Object.keys(attrs).forEach(function (key) {
+  			var type = attrs[key];
+  			var val = ele.getAttribute(hyphenate(key));
+  			if (val !== null) {
+  				switch (type) {
+  					case String:
+  						ele.props[key] = val;
+  						break;
+  					case Number:
+  						ele.props[key] = Number(val);
+  						break;
+  					case Boolean:
+  						if (val === 'false' || val === '0') {
+  							ele.props[key] = false;
+  						} else {
+  							ele.props[key] = true;
+  						}
+  						break;
+  					case Array:
+  					case Object:
+  						if (val[0] === ':') {
+  							ele.props[key] = getValByPath(val.substr(1), Omi.$);
+  						} else {
+  							ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+  						}
+  						break;
+  				}
+  			} else {
+  				if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+  					ele.props[key] = ele.constructor.defaultProps[key];
+  				} else {
+  					ele.props[key] = null;
+  				}
+  			}
+  		});
+  	};
 
-    WeElement.prototype.fire = function fire(name, data) {
-      this.dispatchEvent(new CustomEvent(name, { detail: data }));
-    };
+  	WeElement.prototype.fire = function fire(name, data) {
+  		this.dispatchEvent(new CustomEvent(name, {
+  			detail: data
+  		}));
+  	};
 
-    WeElement.prototype.beforeInstall = function beforeInstall() {};
+  	WeElement.prototype.beforeInstall = function beforeInstall() {};
 
-    WeElement.prototype.install = function install() {};
+  	WeElement.prototype.install = function install() {};
 
-    WeElement.prototype.afterInstall = function afterInstall() {};
+  	WeElement.prototype.afterInstall = function afterInstall() {};
 
-    WeElement.prototype.installed = function installed() {};
+  	WeElement.prototype.installed = function installed() {};
 
-    WeElement.prototype.uninstall = function uninstall() {};
+  	WeElement.prototype.uninstall = function uninstall() {};
 
-    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+  	WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-    WeElement.prototype.updated = function updated() {};
+  	WeElement.prototype.updated = function updated() {};
 
-    WeElement.prototype.beforeRender = function beforeRender() {};
+  	WeElement.prototype.beforeRender = function beforeRender() {};
 
-    WeElement.prototype.rendered = function rendered() {};
+  	WeElement.prototype.rendered = function rendered() {};
 
-    WeElement.prototype.receiveProps = function receiveProps() {};
+  	WeElement.prototype.receiveProps = function receiveProps() {};
 
-    return WeElement;
+  	return WeElement;
   }(HTMLElement), _class.is = 'WeElement', _temp);
 
   /*!
@@ -1775,117 +1777,87 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.14.2';
+  options.root.Omi.version = '6.15.0';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  define('my-app', function (_) {
+  	var store = _.store.storeA;
+  	var data = store.data,
+  	    add = store.add,
+  	    sub = store.sub;
 
-  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-  define('my-counter', function (_WeElement) {
-    _inherits$2(_class2, _WeElement);
-
-    function _class2() {
-      var _temp, _this, _ret;
-
-      _classCallCheck$2(this, _class2);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.useSelf = {
-        storeA: ['count', 'adding']
-      }, _this.addIfOdd = function () {
-        if (_this.store.storeA.data.count % 2 !== 0) {
-          _this.store.storeA.add();
-        }
-      }, _this.addAsync = function () {
-        _this.store.storeA.data.adding = true;
-        setTimeout(function () {
-          _this.store.storeA.data.adding = false;
-          _this.store.storeA.add();
-        }, 1000);
-      }, _temp), _possibleConstructorReturn$2(_this, _ret);
-    }
-
-    _class2.prototype.render = function render$$1() {
-      var store = this.store.storeA;
-      var data = store.data,
-          add = store.add,
-          sub = store.sub;
-
-      return Omi.h(
-        'p',
-        null,
-        'Clicked: ',
-        data.count,
-        ' times',
-        ' ',
-        Omi.h(
-          'button',
-          { onClick: add },
-          '+'
-        ),
-        ' ',
-        Omi.h(
-          'button',
-          { onClick: sub },
-          '-'
-        ),
-        ' ',
-        Omi.h(
-          'button',
-          { disabled: data.count % 2 === 0, onClick: this.addIfOdd },
-          'Add if odd'
-        ),
-        ' ',
-        Omi.h(
-          'button',
-          { disabled: data.adding, onClick: this.addAsync },
-          'Add async'
-        )
-      );
-    };
-
-    return _class2;
-  }(WeElement));
+  	return Omi.h(
+  		'p',
+  		null,
+  		'Clicked: ',
+  		data.count,
+  		' times',
+  		Omi.h(
+  			'button',
+  			{ onClick: add },
+  			'+'
+  		),
+  		Omi.h(
+  			'button',
+  			{ onClick: sub },
+  			'-'
+  		),
+  		Omi.h(
+  			'div',
+  			null,
+  			_.store.storeB.data.msg,
+  			Omi.h(
+  				'button',
+  				{ onClick: _.store.storeB.changeMsg },
+  				'change storeB\'s msg'
+  			)
+  		)
+  	);
+  }, {
+  	useSelf: {
+  		storeA: ['count', 'adding'],
+  		storeB: ['msg']
+  	}
+  });
 
   var storeA = new function Store() {
-    var _this2 = this;
+  	var _this = this;
 
-    _classCallCheck$2(this, Store);
+  	_classCallCheck$2(this, Store);
 
-    this.data = {
-      count: 0,
-      adding: false
-    };
+  	this.data = {
+  		count: 0,
+  		adding: false
+  	};
 
-    this.sub = function () {
-      _this2.data.count--;
-    };
+  	this.sub = function () {
+  		_this.data.count--;
+  	};
 
-    this.add = function () {
-      _this2.data.count++;
-    };
+  	this.add = function () {
+  		_this.data.count++;
+  	};
   }();
 
   var storeB = new function Store() {
-    var _this3 = this;
+  	var _this2 = this;
 
-    _classCallCheck$2(this, Store);
+  	_classCallCheck$2(this, Store);
 
-    this.data = {
-      msg: 'abc'
-    };
+  	this.data = {
+  		msg: 'abc'
+  	};
 
-    this.changeMsg = function () {
-      _this3.data.msg = 'bcd';
-    };
+  	this.changeMsg = function () {
+  		_this2.data.msg = 'bcd';
+  	};
   }();
 
-  render(Omi.h('my-counter', null), 'body', { storeA: storeA, storeB: storeB });
+  render(Omi.h('my-app', null), 'body', {
+  	storeA: storeA,
+  	storeB: storeB
+  });
 
 }());
 //# sourceMappingURL=b.js.map
