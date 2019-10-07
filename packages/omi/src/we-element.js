@@ -22,27 +22,61 @@ export default class WeElement extends HTMLElement {
       this.store = p.store
       p = p.parentNode || p.host
     }
-    if (this.store) {
-      this.store.instances.push(this)
-    }
 
     if (this.use) {
-      let use 
+      let use
       if(typeof this.use === 'function'){
         use = this.use()
       }else{
         use = this.use
       }
-      
-      this._updatePath = getPath(use)
-      this.using = getUse(this.store.data, use)
+
+
+			if(options.isMultiStore){
+				let _updatePath = {}
+				let using = {}
+				for(let storeName in use){
+					_updatePath[storeName] = {}
+					using[storeName] = {}
+					getPath(use[storeName], _updatePath, storeName)
+				  getUse(this.store[storeName].data, use[storeName], using, storeName)
+					this.store[storeName].instances.push(this)
+				}
+				this.using = using
+				this._updatePath = _updatePath
+			}else{
+				this._updatePath = getPath(use)
+				this.using = getUse(this.store.data, use)
+				this.store.instances.push(this)
+			}
     } else {
-      this.constructor.use && (this.using = getUse(this.store.data, this.constructor.use))
+			if(this.constructor.use ){
+				if(options.isMultiStore){
+					this._updatePath = getPath(use[storeName], storeName)
+					this.using = getUse(this.store[storeName].data, use[storeName], storeName)
+					this.store[storeName].instances.push(this)
+
+				}else{
+					this.using = getUse(this.store.data, this.constructor.use)
+					this.store.instances.push(this)
+
+				}
+			}
+
 		}
 		if(this.useSelf){
 			const use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf
-      this._updateSelfPath = getPath(use)
-      this.usingSelf = getUse(this.store.data, use)
+			if(options.isMultiStore){
+				for(let storeName in use){
+					this._updateSelfPath = getPath(use[storeName], storeName)
+					this.usingSelf = getUse(this.store[storeName].data, use[storeName], storeName)
+					this.store[storeName].updateSelfInstances.push(this)
+				}
+			}else{
+				this._updateSelfPath = getPath(use)
+				this.usingSelf = getUse(this.store.data, use)
+				this.store.updateSelfInstances.push(this)
+			}
 		}
     this.attrsToProps()
     this.beforeInstall()
@@ -69,7 +103,7 @@ export default class WeElement extends HTMLElement {
     }
     this.beforeRender()
     options.afterInstall && options.afterInstall(this)
-  
+
 
     const rendered = this.render(this.props, this.store)
     this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0

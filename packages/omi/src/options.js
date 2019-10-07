@@ -24,5 +24,6 @@ function getGlobal() {
 export default {
   store: null,
   root: getGlobal(),
-  mapping: {}
+	mapping: {},
+	isMultiStore: false
 }

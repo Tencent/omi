@@ -87,71 +87,27 @@ export function define(name, ctor) {
   }
 }
 
-export function getPath(obj) {
-  if (getType(obj) === 'Array') {
-    const result = {}
-    obj.forEach(item => {
-      if (typeof item === 'string') {
-        result[item] = true
-      } else {
-        const tempPath = item[Object.keys(item)[0]]
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true
-        } else {
-          if (typeof tempPath[0] === 'string') {
-            result[tempPath[0]] = true
-          } else {
-            tempPath[0].forEach(path => (result[path] = true))
-          }
-        }
-      }
-    })
-    return result
-  } else {
-    return getUpdatePath(obj)
-  }
+export function getPath(obj, out, name) {
+	const result = {}
+	obj.forEach(item => {
+		if (typeof item === 'string') {
+			result[item] = true
+		} else {
+			const tempPath = item[Object.keys(item)[0]]
+			if (typeof tempPath === 'string') {
+				result[tempPath] = true
+			} else {
+				if (typeof tempPath[0] === 'string') {
+					result[tempPath[0]] = true
+				} else {
+					tempPath[0].forEach(path => (result[path] = true))
+				}
+			}
+		}
+	})
+	if(out) out[name] = result
+	return result
 }
 
-export function getUpdatePath(data) {
-  const result = {}
-  dataToPath(data, result)
-  return result
-}
 
-function dataToPath(data, result) {
-  Object.keys(data).forEach(key => {
-    result[key] = true
-    const type = getType(data[key])
-    if (type === 'Object') {
-      _objToPath(data[key], key, result)
-    } else if (type === 'Array') {
-      _arrayToPath(data[key], key, result)
-    }
-  })
-}
 
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(key => {
-    result[path + '.' + key] = true
-    delete result[path]
-    const type = getType(data[key])
-    if (type === 'Object') {
-      _objToPath(data[key], path + '.' + key, result)
-    } else if (type === 'Array') {
-      _arrayToPath(data[key], path + '.' + key, result)
-    }
-  })
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach((item, index) => {
-    result[path + '[' + index + ']'] = true
-    delete result[path]
-    const type = getType(item)
-    if (type === 'Object') {
-      _objToPath(item, path + '[' + index + ']', result)
-    } else if (type === 'Array') {
-      _arrayToPath(item, path + '[' + index + ']', result)
-    }
-  })
-}

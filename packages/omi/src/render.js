@@ -1,33 +1,47 @@
 import { diff } from './vdom/diff'
 import JSONProxy from './proxy'
 import { getUse } from './util'
+import options from './options'
 
 export function render(vnode, parent, store) {
 	parent = typeof parent === 'string' ? document.querySelector(parent) : parent
 	if (store) {
-		store.instances = []
-		extendStoreUpate(store)
-
-		store.data = new JSONProxy(store.data).observe(false, function (patch) {
-			const patchs = {}
-			if (patch.op === 'remove') {
-				// fix arr splice
-				const kv = getArrayPatch(patch.path, store)
-				patchs[kv.k] = kv.v
-
-				update(patchs, store)
-
-			} else {
-				const key = fixPath(patch.path)
-				patchs[key] = patch.value
-
-				update(patchs, store)
-
+		if (store.data) {
+			observeStore(store)
+		} else {
+			//Multi-store injection
+			for (let key in store) {
+				observeStore(store[key])
 			}
-		})
+			options.isMultiStore = true
+		}
 		parent.store = store
 	}
 	return diff(null, vnode, parent, false)
+}
+
+function  observeStore(store) {
+	store.instances = []
+	store.updateSelfInstances = []
+	extendStoreUpate(store)
+
+	store.data = new JSONProxy(store.data).observe(false, function (patch) {
+		const patchs = {}
+		if (patch.op === 'remove') {
+			// fix arr splice
+			const kv = getArrayPatch(patch.path, store)
+			patchs[kv.k] = kv.v
+
+			update(patchs, store)
+
+		} else {
+			const key = fixPath(patch.path)
+			patchs[key] = patch.value
+
+			update(patchs, store)
+
+		}
+	})
 }
 
 function update(patch, store) {
@@ -57,6 +71,9 @@ function extendStoreUpate(store) {
 					instance.update()
 				}
 
+			})
+
+			this.updateSelfInstances.forEach(instance => {
 				if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
 					instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
 					instance.updateSelf()

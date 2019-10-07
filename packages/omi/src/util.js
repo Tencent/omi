@@ -79,7 +79,7 @@ export function isArray(obj) {
 }
 
 
-export function getUse(data, paths) {
+export function getUse(data, paths, out, name) {
   const obj = []
   paths.forEach((path, index) => {
     const isPath = typeof path === 'string'
@@ -105,7 +105,8 @@ export function getUse(data, paths) {
       }
       obj[key] = obj[index]
     }
-  })
+	})
+	if(out) out[name] = obj
   return obj
 }
 
