@@ -1,10 +1,9 @@
 English | [简体中文](https://github.com/Tencent/omi/blob/master/README.CN.md) 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
-<p align="center"><img src="https://tencent.github.io/omi/assets/omi-in-out.jpg" alt="omi" width="1000"/></p>
+<p align="center"><img src="https://tencent.github.io/omi/assets/omi.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 <p align="center">Merge Web Components, JSX, HTM, Virtual DOM, Functional style and Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
-
 
 ## Quick Preview
 
@@ -25,13 +24,16 @@ class Store {
   }
 }
 
-define('my-counter', ['count'], _ => (
+define('my-counter', _ => (
   <div>
     <button onClick={_.store.sub}>-</button>
     <span>{_.store.data.count}</span>
     <button onClick={_.store.add}>+</button>
   </div>
 ), {
+    use: ['count'], 
+    //or using useSelf, useSelf will update self only, exclude children components
+    //useSelf: ['count'], 
     css: `span { color: red; }`,
     installed() {
       console.log('installed')
@@ -41,8 +43,150 @@ define('my-counter', ['count'], _ => (
 render(<my-counter />, 'body', new Store)
 ```
 
-* The second and fourth parameter of `define` is optional
 * `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
+
+You can also implement computed props through use, such as:
+
+```jsx
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+    <div>Double: {_.using.doubleCount}</div>
+  </div>
+), {
+    use: [
+      'count',
+      {
+        doubleCount: [
+          'count',
+          count => count * 2
+        ]
+      }]
+  })
+```
+
+You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through. `usingSelf` in JSX.
+
+Path is also supported:
+
+```js
+class Store {
+  data = {
+    list: [
+      { name: { first: 'dnt', last: 'zhang' } }
+    ]
+  }
+}
+
+...
+...
+
+define('my-counter', _ => (
+  ...
+  ...
+), {
+    use: [
+      'list[0].name', //Direct string, accessible through this.using[0] 
+      {
+        //alias，accessible through this.using.fullName
+        fullName: [
+          ['list[0].name.first', 'list[0].name.last'],
+          (first, last) => first + last
+        ]
+      }]
+  })
+```
+
+![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
+
+### Multi-store injection
+
+```jsx
+import { define, render } from 'omi'
+
+define('my-app', _ => {
+	const store = _.store.storeA
+	const { data, add, sub } = store
+	return (
+		<p>
+			Clicked: {data.count} times
+			<button onClick={add}>+</button>
+			<button onClick={sub}>-</button>
+
+			<div>
+				{_.store.storeB.data.msg}
+				<button  onClick={_.store.storeB.changeMsg}>
+				change storeB's msg
+				</button>
+			</div>
+		</p>
+	)
+}, {
+	useSelf: {
+		storeA: ['count', 'adding'],
+		storeB: ['msg']
+	}
+})
+
+const storeA = new class Store {
+	data = {
+		count: 0,
+		adding: false
+	}
+	sub = () => {
+		this.data.count--
+	}
+	add = () => {
+		this.data.count++
+	}
+}
+
+const storeB = new class Store {
+	data = {
+		msg: 'abc'
+	}
+	changeMsg = () => {
+		this.data.msg = 'bcd'
+	}
+}
+
+render( <my-app /> , 'body', {
+	storeA,
+	storeB
+})
+```
+
+### API and Hooks
+
+```jsx
+define('my-component', _ => (
+  ...
+  ...
+), {
+    use: ['path', 'path.a', 'path[1].b'],
+    useSelf: ['path.c', 'path[1].d'],
+    css: 'h1 { color: red; }',
+    propTypes: {
+
+    },
+    defaultProps: {
+
+    },
+
+    //life cycle
+    install() { }, 
+    installed() { }, 
+    uninstall() { }, 
+    receiveProps() { },
+    beforeUpdate() { }, 
+    updated() { }, 
+    beforeRender() { }, 
+    rendered() { } 
+
+  })
+```
 
 ## Ecosystem of Omi
 
@@ -50,11 +194,12 @@ render(<my-counter />, 'body', new Store)
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-docs](https://tencent.github.io/omi/site/docs/index.html) and [codepen](https://codepen.io/collection/DrMYgV/) and [wcd demos](https://webcomponents.dev/demos/omi)| Omi official documents |
+| [omi-docs](https://tencent.github.io/omi/site/docs/index.html) and [codepen](https://codepen.io/collection/DrMYgV/) and [webcomponents.dev](https://webcomponents.dev/)| Omi official documents |
 | [omim![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omim)| Cross **frameworks** and **themes** components.([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html) && [JOIN US!](https://github.com/Tencent/omi/tree/master/packages/omim#contribution))|
-| [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis) and [codepen](https://codepen.io/collection/XjLaRo/) and [docs](https://tencent.github.io/omi/site/omis/index.html)| Functional Component + Store + Scoped Style + Web Components in tiny size|
-| [omi-kbone![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| 直接使用 Omis 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone)|
+| [omi-kbone![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| 使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。 |
 | [omio](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi for old browsers with same api(IE8+)|
+| [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| Omis + React|
+| [omiv![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omiv)| Omiv + Vue|
 | [omi-ssr](https://github.com/Tencent/omi/tree/master/packages/omi-ssr)| Server-side rendering(support omio only)|
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ Other Templates](https://github.com/omijs) |
@@ -68,9 +213,10 @@ render(<my-counter />, 'body', new Store)
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
-| [omi-kbone-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone-snake)| omi-kbone 写的 MVP 架构的贪吃蛇小程序 |
-| [react-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/react-snake)| The Snake-Eating Game Based on MVP Architecture Written by React |
+| [omi-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/omi-snake/build/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
+| [omi-kbone-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的贪吃蛇小程序 |
+| [Preact-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| The Snake-Eating Game Based on MVP Architecture Written by Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/master/packages/preact-css) + Omis |
+| [[P]react-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| The Snake-Eating Game Based on MVP Architecture Written by React/Preact |
 
 #### Mini Program(小程序)
 
@@ -86,7 +232,7 @@ render(<my-counter />, 'body', new Store)
 | [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
 | [westore](https://github.com/Tencent/westore/)| 小程序状态管理 |
 | [comi](https://github.com/Tencent/omi/tree/master/packages/comi)| 小程序代码高亮和 markdown 渲染组件 |
-| [wx-touch-event](https://github.com/qbright/wx-touch-event)| 基于 AlloyFinger/omi-finger 改造的小程序手势解决方案 |
+| [wx-touch-event](https://github.com/qbright/wx-touch-event)| 基于 [AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) 改造的小程序手势解决方案 |
 
 #### Other
 
@@ -104,15 +250,17 @@ render(<my-counter />, 'body', new Store)
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
-|[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
+| [omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 | [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
+| [omi-cv](https://github.com/Wscats/CV) |Create a front-end engineer curriculum vitae, [Get Started!](http://wscats.github.io/CV/omi/build/index.html)|
 
 ## Why Omi?
 
 - Tiny size and [High performance](https://tencent.github.io/omi/packages/omi/examples/perfs/)
-- Cross framework(react, preact, vue, angular) custom elements by omi
+- Cross frameworks(react, preact, vue, angular), components of omi are pure custom elements
 - One framework. Mobile & desktop & mini program
+- Stateless View Architecture Design
 - Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'flase'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - [Easy two way binding by extend api](https://codepen.io/omijs/pen/aeLYjx)
 - Supports TypeScript
@@ -132,9 +280,9 @@ render(<my-counter />, 'body', new Store)
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
-| **Omi**                         | **React**                           |
-| ------------------------------- | ----------------------------------- |
-| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) |
+| **Omi**                         | **React**                           | **Omio**                           |
+| ------------------------------- | ----------------------------------- |----------------------------------- |
+| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) | ![Omio](https://tencent.github.io/omi/assets/omio.png) |
 
 Omi uses Shadow DOM based style isolation and semantic structure.
 
@@ -142,6 +290,10 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 | **Title Name**  | **Other language** | **Related**|
 | ----------------------------------------- | ------------------ |-----------------|
+|[Snake-Eating Game Making with Web Components of Omi and MVP Architecture](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.md)|||
+|[Constructable Stylesheets: seamless reusable styles](https://developers.google.com/web/updates/2019/02/constructable-stylesheets)|||
+|[Web Components specifications](https://github.com/w3c/webcomponents)|||
+|[Web Components in a Nutshell](https://levelup.gitconnected.com/web-components-in-a-nutshell-1e114aa971b9)|||
 |[Using Web Components with React in 2019](https://www.grapecity.com/blogs/using-web-components-with-react-2019)|||
 |[Using Web Components in React](https://coryrylan.com/blog/using-web-components-in-react)|||
 |[Styling We Components Using A Shared Style Sheet](https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/)|
