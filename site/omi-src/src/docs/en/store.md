@@ -144,7 +144,7 @@ Without alias, you can also access it directly through `this.store.data.xxx'.
 
 ### Path hit rule
 
-| Proxy Path | path in static use   | update |
+| Proxy Path | path in use   | update |
 | ---------- | ---------- | -------- |
 | abc        | abc        | true     |
 | abc[1]     | abc        | true     |
