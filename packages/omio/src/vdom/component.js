@@ -5,7 +5,7 @@ import {
   ATTR_KEY
 } from '../constants'
 import options from '../options'
-import { extend, applyRef } from '../util'
+import { extend, applyRef, removeItem } from '../util'
 import { enqueueRender } from '../render-queue'
 import { getNodeProps } from './index'
 import {
@@ -292,21 +292,17 @@ export function unmountComponent(component) {
 
 	if (component.uninstall) component.uninstall()
 
-	if (component.store && component.store.instances) {
-    let i, len
-		for (i = 0, len = component.store.instances.length; i < len; i++) {
-			if (component.store.instances[i] === component) {
-				component.store.instances.splice(i, 1)
-				break
-			}
+	if (component.store) {
+    if(options.isMultiStore){
+      for(let key in component.store){
+        const current = component.store[key]
+        removeItem(component, current.instances)
+        removeItem(component, current.updateSelfInstances)
+      }
+    } else {
+      removeItem(component, component.store.instances)
+      removeItem(component, component.store.updateSelfInstances)
     }
-    
-    for (i = 0, len = component.store.updateSelfInstances.length; i < len; i++) {
-			if (component.store.updateSelfInstances[i] === component) {
-				component.store.updateSelfInstances.splice(i, 1)
-				break
-			}
-		}
 	}
 
   component.base = null

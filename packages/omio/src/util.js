@@ -251,3 +251,11 @@ export function getPath(obj, out, name) {
   
 }
 
+export function removeItem(item, arr){
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === item) {
+      arr.splice(i, 1)
+      break
+    }
+  }
+}

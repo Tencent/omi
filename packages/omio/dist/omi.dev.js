@@ -1,5 +1,5 @@
 /**
- * omi v2.6.0  http://omijs.org
+ * omi v2.6.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -392,6 +392,15 @@
     });
     out && (out[name] = result);
     return result;
+  }
+
+  function removeItem(item, arr) {
+    for (var i = 0, len = arr.length; i < len; i++) {
+      if (arr[i] === item) {
+        arr.splice(i, 1);
+        break;
+      }
+    }
   }
 
   /**
@@ -1441,21 +1450,16 @@
 
     if (component.uninstall) component.uninstall();
 
-    if (component.store && component.store.instances) {
-      var i,
-          len;
-      for (i = 0, len = component.store.instances.length; i < len; i++) {
-        if (component.store.instances[i] === component) {
-          component.store.instances.splice(i, 1);
-          break;
+    if (component.store) {
+      if (options.isMultiStore) {
+        for (var key in component.store) {
+          var current = component.store[key];
+          removeItem(component, current.instances);
+          removeItem(component, current.updateSelfInstances);
         }
-      }
-
-      for (i = 0, len = component.store.updateSelfInstances.length; i < len; i++) {
-        if (component.store.updateSelfInstances[i] === component) {
-          component.store.updateSelfInstances.splice(i, 1);
-          break;
-        }
+      } else {
+        removeItem(component, component.store.instances);
+        removeItem(component, component.store.updateSelfInstances);
       }
     }
 
@@ -2307,7 +2311,7 @@
     obaa: obaa
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.6.0';
+  options.root.Omi.version = 'omio-2.6.1';
 
   var Omi = {
     h: h,
