@@ -134,12 +134,25 @@ export default class WeElement extends HTMLElement {
 		this.uninstall()
 		this._isInstalled = false
 		if (this.store) {
-			for (let i = 0, len = this.store.instances.length; i < len; i++) {
-				if (this.store.instances[i] === this) {
-					this.store.instances.splice(i, 1)
-					break
+			if(options.isMultiStore){
+				for(let key in this.store){
+					const current = this.store[key]
+					for (let i = 0, len = current.instances.length; i < len; i++) {
+						if (current.instances[i] === this) {
+							current.instances.splice(i, 1)
+							break
+						}
+					}
+				}
+			} else {
+				for (let i = 0, len = this.store.instances.length; i < len; i++) {
+					if (this.store.instances[i] === this) {
+						this.store.instances.splice(i, 1)
+						break
+					}
 				}
 			}
+			
 		}
 	}
 

@@ -691,7 +691,13 @@
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
             this.B = !1;
-            if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
+            if (this.store) if (options.isMultiStore) for (var key in this.store) {
+                var current = this.store[key];
+                for (var i = 0, len = current.instances.length; i < len; i++) if (current.instances[i] === this) {
+                    current.instances.splice(i, 1);
+                    break;
+                }
+            } else for (var i = 0, _len = this.store.instances.length; i < _len; i++) if (this.store.instances[i] === this) {
                 this.store.instances.splice(i, 1);
                 break;
             }
@@ -1032,7 +1038,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.1';
+    options.root.Omi.version = '6.15.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
