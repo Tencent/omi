@@ -150,7 +150,7 @@ declare namespace Omi {
 
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object, empty?: boolean, merge?: string | Element | Document | ShadowRoot | DocumentFragment): void;
 
-	function define(name: string, ctor: WeElementConstructor): void;
+	function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
 	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
 	function tick(callback: Callback, scope?: any): void;
 	function nextTick(callback: Callback, scope?: any): void;

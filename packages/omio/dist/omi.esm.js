@@ -1,5 +1,5 @@
 /**
- * omi v2.5.2  http://omijs.org
+ * omi v2.6.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -37,7 +37,8 @@ var options = {
   doc: typeof document === 'object' ? document : null,
   root: getGlobal(),
   //styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
-  styleCache: []
+  styleCache: [],
+  isMultiStore: false
   //componentChange(component, element) { },
   /** If `true`, `prop` changes trigger synchronous component updates.
    *	@name syncComponentUpdates
@@ -325,7 +326,7 @@ function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
 }
 
-function getUse(data, paths) {
+function getUse(data, paths, out, name) {
   var obj = [];
   paths.forEach(function (path, index) {
     var isPath = typeof path === 'string';
@@ -352,6 +353,7 @@ function getUse(data, paths) {
       obj[key] = obj[index];
     }
   });
+  out && (out[name] = obj);
   return obj;
 }
 
@@ -362,6 +364,31 @@ function getTargetByPath(origin, path) {
     current = current[arr[i]];
   }
   return current;
+}
+
+function getPath(obj, out, name) {
+
+  var result = {};
+  obj.forEach(function (item) {
+    if (typeof item === 'string') {
+      result[item] = true;
+    } else {
+      var tempPath = item[Object.keys(item)[0]];
+      if (typeof tempPath === 'string') {
+        result[tempPath] = true;
+      } else {
+        if (typeof tempPath[0] === 'string') {
+          result[tempPath[0]] = true;
+        } else {
+          tempPath[0].forEach(function (path) {
+            return result[path] = true;
+          });
+        }
+      }
+    }
+  });
+  out && (out[name] = result);
+  return result;
 }
 
 /**
@@ -1071,198 +1098,6 @@ function diffAttributes(dom, attrs, old) {
   }
 }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function define(name, ctor) {
-  if (ctor.is === 'WeElement') {
-    options.mapping[name] = ctor;
-    if (ctor.use) {
-      ctor.updatePath = getPath(ctor.use);
-    }
-  } else {
-    var depPaths;
-    var config = {};
-    var len = arguments.length;
-    if (len === 3) {
-      if (typeof arguments[1] === 'function') {
-        ctor = arguments[1];
-        config = arguments[2];
-      } else {
-        depPaths = arguments[1];
-        ctor = arguments[2];
-      }
-    } else if (len === 4) {
-      depPaths = arguments[1];
-      ctor = arguments[2];
-      config = arguments[3];
-    }
-    if (typeof config === 'string') {
-      config = { css: config };
-    }
-
-    var Comp = function (_Component) {
-      _inherits(Comp, _Component);
-
-      function Comp() {
-        _classCallCheck(this, Comp);
-
-        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
-      }
-
-      Comp.prototype.render = function render() {
-        return ctor.call(this, this);
-      };
-
-      Comp.prototype.install = function install() {
-        config.install && config.install.apply(this, arguments);
-      };
-
-      Comp.prototype.installed = function installed() {
-        config.installed && config.installed.apply(this, arguments);
-      };
-
-      Comp.prototype.uninstall = function uninstall() {
-        config.uninstall && config.uninstall.apply(this, arguments);
-      };
-
-      Comp.prototype.beforeUpdate = function beforeUpdate() {
-        config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
-      };
-
-      Comp.prototype.updated = function updated() {
-        config.updated && config.updated.apply(this, arguments);
-      };
-
-      Comp.prototype.beforeRender = function beforeRender() {
-        config.beforeRender && config.beforeRender.apply(this, arguments);
-      };
-
-      Comp.prototype.rendered = function rendered() {
-        config.rendered && config.rendered.apply(this, arguments);
-      };
-
-      Comp.prototype.receiveProps = function receiveProps() {
-        if (config.receiveProps) {
-          return config.receiveProps.apply(this, arguments);
-        }
-      };
-
-      return Comp;
-    }(Component);
-
-    Comp.use = depPaths;
-    Comp.css = config.css;
-    Comp.propTypes = config.propTypes;
-    Comp.defaultProps = config.defaultProps;
-
-
-    if (config.use) {
-      if (typeof config.use === 'function') {
-        Comp.prototype.use = function () {
-          return config.use.apply(this, arguments);
-        };
-      } else {
-        Comp.prototype.use = function () {
-          return config.use;
-        };
-      }
-    }
-
-    if (config.useSelf) {
-      if (typeof config.useSelf === 'function') {
-        Comp.prototype.useSelf = function () {
-          return config.useSelf.apply(this, arguments);
-        };
-      } else {
-        Comp.prototype.useSelf = function () {
-          return config.useSelf;
-        };
-      }
-    }
-
-    if (Comp.use) {
-      Comp.updatePath = getPath(Comp.use);
-    }
-
-    options.mapping[name] = Comp;
-  }
-}
-
-function getPath(obj) {
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
-    var result = {};
-    obj.forEach(function (item) {
-      if (typeof item === 'string') {
-        result[item] = true;
-      } else {
-        var tempPath = item[Object.keys(item)[0]];
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true;
-        } else {
-          if (typeof tempPath[0] === 'string') {
-            result[tempPath[0]] = true;
-          } else {
-            tempPath[0].forEach(function (path) {
-              return result[path] = true;
-            });
-          }
-        }
-      }
-    });
-    return result;
-  } else {
-    return getUpdatePath(obj);
-  }
-}
-
-function getUpdatePath(data) {
-  var result = {};
-  dataToPath(data, result);
-  return result;
-}
-
-function dataToPath(data, result) {
-  Object.keys(data).forEach(function (key) {
-    result[key] = true;
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], key, result);
-    }
-  });
-}
-
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(function (key) {
-    result[path + '.' + key] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], path + '.' + key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], path + '.' + key, result);
-    }
-  });
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach(function (item, index) {
-    result[path + '[' + index + ']'] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(item);
-    if (type === '[object Object]') {
-      _objToPath(item, path + '[' + index + ']', result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(item, path + '[' + index + ']', result);
-    }
-  });
-}
-
 /** Retains a pool of Components for re-use, keyed on component name.
  *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
  *	@private
@@ -1289,22 +1124,47 @@ function createComponent(Ctor, props, context, vnode) {
   }
   vnode && (inst.scopedCssAttr = vnode.css);
 
-  if (inst.store && inst.store.data) {
-    if (inst.constructor.use) {
-      inst.using = getUse(inst.store.data, inst.constructor.use);
-      inst.store.instances.push(inst);
-    } else if (inst.use) {
+  if (inst.store) {
+    if (inst.use) {
       var use = typeof inst.use === 'function' ? inst.use() : inst.use;
-      inst._updatePath = getPath(use);
-      inst.using = getUse(inst.store.data, use);
-      inst.store.instances.push(inst);
+
+      if (options.isMultiStore) {
+        var _updatePath = {};
+        var using = {};
+        for (var storeName in use) {
+          _updatePath[storeName] = {};
+          using[storeName] = {};
+          getPath(use[storeName], _updatePath, storeName);
+          getUse(inst.store[storeName].data, use[storeName], using, storeName);
+          inst.store[storeName].instances.push(inst);
+        }
+        inst.using = using;
+        inst._updatePath = _updatePath;
+      } else {
+        inst._updatePath = getPath(use);
+        inst.using = getUse(inst.store.data, use);
+        inst.store.instances.push(inst);
+      }
     }
 
     if (inst.useSelf) {
       var _use = typeof inst.useSelf === 'function' ? inst.useSelf() : inst.useSelf;
-      inst._updateSelfPath = getPath(_use);
-      inst.usingSelf = getUse(inst.store.data, _use);
-      inst.store.updateSelfInstances.push(inst);
+
+      if (options.isMultiStore) {
+        var _updatePath2 = {};
+        var _using = {};
+        for (var _storeName in _use) {
+          getPath(_use[_storeName], _updatePath2, _storeName);
+          getUse(inst.store[_storeName].data, _use[_storeName], _using, _storeName);
+          inst.store[_storeName].updateSelfInstances.push(inst);
+        }
+        inst.usingSelf = _using;
+        inst._updateSelfPath = _updatePath2;
+      } else {
+        inst._updateSelfPath = getPath(_use);
+        inst.usingSelf = getUse(inst.store.data, _use);
+        inst.store.updateSelfInstances.push(inst);
+      }
     }
   }
 
@@ -1616,13 +1476,13 @@ function unmountComponent(component) {
   applyRef(component.__ref, null);
 }
 
-function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var id = 0;
 
 var Component = function () {
   function Component(props, store) {
-    _classCallCheck$1(this, Component);
+    _classCallCheck(this, Component);
 
     this.props = assign({}, this.constructor.defaultProps, props);
     this.elementId = id++;
@@ -1855,7 +1715,18 @@ Array.prototype.size = function (length) {
  */
 function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-  obsStore(store);
+
+  if (store && store.data) {
+
+    obsStore(store);
+  } else {
+    options.isMultiStore = true;
+    for (var key in store) {
+      if (store[key].data) {
+        obsStore(store[key], key);
+      }
+    }
+  }
 
   if (empty) {
     while (parent.firstChild) {
@@ -1870,19 +1741,18 @@ function render(vnode, parent, store, empty, merge) {
   return diff(merge, vnode, store, false, parent, false);
 }
 
-function obsStore(store) {
-  if (store && store.data) {
-    store.instances = [];
-    store.updateSelfInstances = [];
-    extendStoreUpate(store);
+function obsStore(store, storeName) {
 
-    obaa(store.data, function (prop, val, old, path) {
-      var patchs = {};
-      var key = fixPath(path + '-' + prop);
-      patchs[key] = true;
-      store.update(patchs);
-    });
-  }
+  store.instances = [];
+  store.updateSelfInstances = [];
+  extendStoreUpate(store, storeName);
+
+  obaa(store.data, function (prop, val, old, path) {
+    var patchs = {};
+    var key = fixPath(path + '-' + prop);
+    patchs[key] = true;
+    store.update(patchs);
+  });
 }
 
 function merge(vnode, merge, store) {
@@ -1893,50 +1763,48 @@ function merge(vnode, merge, store) {
   return diff(merge, vnode, store);
 }
 
-function extendStoreUpate(store) {
+function extendStoreUpate(store, key) {
   store.update = function (patch) {
-    var _this = this;
-
-    var updateAll = matchGlobalData(this.globalData, patch);
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(function (instance) {
-        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
-          //update this.use
-          if (instance.constructor.use) {
-            instance.using = getUse(store.data, instance.constructor.use);
-          } else if (instance.use) {
-            instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
-          }
+        if (key) {
+          if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
+            if (instance.use) {
+              getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
+            }
 
-          instance.update();
+            instance.update();
+          }
+        } else {
+          if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
+            if (instance.use) {
+              instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
+            }
+            instance.update();
+          }
         }
       });
 
       this.updateSelfInstances.forEach(function (instance) {
-        if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-          instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
-          instance.updateSelf();
+        if (key) {
+          if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
+            if (instance.useSelf) {
+              getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
+            }
+
+            instance.updateSelf();
+          }
+        } else {
+          if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+            instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
+            instance.updateSelf();
+          }
         }
       });
 
       this.onChange && this.onChange(patch);
     }
   };
-}
-
-function matchGlobalData(globalData, diffResult) {
-  if (!globalData) return false;
-  for (var keyA in diffResult) {
-    if (globalData.indexOf(keyA) > -1) {
-      return true;
-    }
-    for (var i = 0, len = globalData.length; i < len; i++) {
-      if (includePath(keyA, globalData[i])) {
-        return true;
-      }
-    }
-  }
-  return false;
 }
 
 function needUpdate(diffResult, updatePath) {
@@ -1978,6 +1846,106 @@ function fixPath(path) {
     }
   });
   return mpPath;
+}
+
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function define(name, ctor, config) {
+  if (ctor.is === 'WeElement') {
+    options.mapping[name] = ctor;
+  } else {
+
+    if (typeof config === 'string') {
+      config = { css: config };
+    } else {
+      config = config || {};
+    }
+
+    var Comp = function (_Component) {
+      _inherits(Comp, _Component);
+
+      function Comp() {
+        _classCallCheck$1(this, Comp);
+
+        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+      }
+
+      Comp.prototype.render = function render() {
+        return ctor.call(this, this);
+      };
+
+      Comp.prototype.install = function install() {
+        config.install && config.install.apply(this, arguments);
+      };
+
+      Comp.prototype.installed = function installed() {
+        config.installed && config.installed.apply(this, arguments);
+      };
+
+      Comp.prototype.uninstall = function uninstall() {
+        config.uninstall && config.uninstall.apply(this, arguments);
+      };
+
+      Comp.prototype.beforeUpdate = function beforeUpdate() {
+        config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
+      };
+
+      Comp.prototype.updated = function updated() {
+        config.updated && config.updated.apply(this, arguments);
+      };
+
+      Comp.prototype.beforeRender = function beforeRender() {
+        config.beforeRender && config.beforeRender.apply(this, arguments);
+      };
+
+      Comp.prototype.rendered = function rendered() {
+        config.rendered && config.rendered.apply(this, arguments);
+      };
+
+      Comp.prototype.receiveProps = function receiveProps() {
+        if (config.receiveProps) {
+          return config.receiveProps.apply(this, arguments);
+        }
+      };
+
+      return Comp;
+    }(Component);
+
+    Comp.css = config.css;
+    Comp.propTypes = config.propTypes;
+    Comp.defaultProps = config.defaultProps;
+
+
+    if (config.use) {
+      if (typeof config.use === 'function') {
+        Comp.prototype.use = function () {
+          return config.use.apply(this, arguments);
+        };
+      } else {
+        Comp.prototype.use = function () {
+          return config.use;
+        };
+      }
+    }
+
+    if (config.useSelf) {
+      if (typeof config.useSelf === 'function') {
+        Comp.prototype.useSelf = function () {
+          return config.useSelf.apply(this, arguments);
+        };
+      } else {
+        Comp.prototype.useSelf = function () {
+          return config.useSelf;
+        };
+      }
+    }
+
+    options.mapping[name] = Comp;
+  }
 }
 
 function rpx(str) {
@@ -2336,7 +2304,7 @@ options.root.Omi = {
   obaa: obaa
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.5.2';
+options.root.Omi.version = 'omio-2.6.0';
 
 var omi = {
   h: h,
