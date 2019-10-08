@@ -4,12 +4,20 @@ let tap = require('gulp-tap')
 let compile = require('./scripts/mp/index')
 let fs = require('fs')
 let compileWxss = require('./scripts/mp/wxss')
-var prettier = require('prettier')
+let prettier = require('prettier')
+let postcss = require('gulp-postcss');
+let autoprefixer = require('autoprefixer');
+let cssnano = require('cssnano');
 
 const WXCOMPONENT_ENV = 'WXCOMPONENT';
+const isWxComponent = process.env.NODE_ENV === WXCOMPONENT_ENV;
+
+const plugins = [
+  autoprefixer({overrideBrowserslist: ['last 2 version', '>1%', 'ios 7']}),
+  cssnano()
+];
 
 gulp.task('components', ['copy'], () => {
-  const isWxComponent = process.env.NODE_ENV === WXCOMPONENT_ENV;
   const src = isWxComponent ? 'src/mp/components/**/*.js' : 'src/mp/components/*/*.js'; // 判断是否微信组件 
 
   return gulp
@@ -30,6 +38,7 @@ gulp.task('components', ['copy'], () => {
             let json = require(contentPath + '.json')
             let importStr = json2import(json, dir)
             let hyperscript = compile(wxml)
+            let componentWxss = isWxComponent ? fs.readFileSync('src/mp/component.wxss', 'utf8') : '';
 
             // 判断组件下面是不是压缩过 
             if(js.includes('webpackBootstrap')){
@@ -96,7 +105,7 @@ gulp.task('components', ['copy'], () => {
   }
 
   function css() {
-    return rpx(componentCss)
+    return '${isWxComponent ? componentWxss.replace(/[\r\n]/g,"") : ""}' + rpx(componentCss)
   }
 
   ${prettier.format(hyperscript, { parser: "babel" })}
@@ -292,7 +301,7 @@ function replaceComponentOnPath(tag, str, tagName) {
 }
 
 // 匹配转换html 转换 目录文件夹名字
-function replaceWxmlComponentHtml(dir, html,json) {
+function replaceWxmlComponentHtml(dir, html, json) {
   if(json.usingComponents){
     Object.keys(json.usingComponents).forEach((key, i) => {
       html = replaceComponentOnPath(
@@ -378,25 +387,27 @@ function walk(path) {
 
 gulp.task('pages-wxss', ['copy'], () => {
   return gulp
-    .src('src/mp/pages/*/*.wxss')
+    .src(isWxComponent ? 'src/mp/pages/**/*.wxss' : 'src/mp/pages/*/*.wxss')
     .pipe(
       tap(file => {
         file.contents = Buffer.from(compileWxss(file.contents.toString()))
-
+        
       })
     )
+    .pipe(postcss(plugins))
     .pipe(gulp.dest('src/mp/pages/'))
 })
 
 gulp.task('components-wxss', ['copy'], () => {
   return gulp
-    .src('src/mp/components/*/*.wxss')
+    .src(isWxComponent ? 'src/mp/components/**/*.wxss' : 'src/mp/components/*/*.wxss')
     .pipe(
       tap(file => {
         file.contents = Buffer.from(compileWxss(file.contents.toString()))
 
       })
     )
+    .pipe(postcss(plugins))
     .pipe(gulp.dest('src/mp/components/'))
 })
 
@@ -410,6 +421,7 @@ gulp.task('app-wxss', ['copy'], () => {
 
       })
     )
+    .pipe(postcss(plugins))
     .pipe(gulp.dest('src/mp'))
 })
 

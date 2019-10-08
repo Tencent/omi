@@ -18,11 +18,10 @@ function compileWxss(str) {
         })
 
       })
-
       rule.selectors[index] = cssStringify(sltObjs)
     })
   })
-  return css.stringify(obj)
+  return css.stringify(obj).replace(new RegExp('flex:','g'), 'display: flex; flex:')
 }
 
 module.exports = compileWxss
