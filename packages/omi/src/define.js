@@ -1,7 +1,7 @@
 import WeElement from './we-element'
 import options from './options'
 
-export function define(name, ctor) {
+export function define(name, ctor, config) {
   if (options.mapping[name]) {
     return
   }
@@ -10,24 +10,11 @@ export function define(name, ctor) {
     options.mapping[name] = ctor
 
   } else {
-    let depPaths
-    let config = {}
-    const len = arguments.length
-    if (len === 3) {
-      if (typeof arguments[1] === 'function') {
-        ctor = arguments[1]
-        config = arguments[2]
-      } else {
-        depPaths = arguments[1]
-        ctor = arguments[2]
-      }
-    } else if (len === 4) {
-      depPaths = arguments[1]
-      ctor = arguments[2]
-      config = arguments[3]
-    }
+   
     if (typeof config === 'string') {
       config = { css: config }
+    } else {
+      config = config || { }
     }
 
     class Ele extends WeElement {

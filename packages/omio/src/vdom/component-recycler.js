@@ -1,6 +1,6 @@
 import Component from '../component'
-import { getUse } from '../util'
-import { getPath } from  '../define'
+import { getUse, getPath } from '../util'
+import options from  '../options'
 /** Retains a pool of Components for re-use, keyed on component name.
  *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
  *	@private
@@ -28,22 +28,47 @@ export function createComponent(Ctor, props, context, vnode) {
   }
   vnode && (inst.scopedCssAttr = vnode.css)
 
-  if ( inst.store && inst.store.data) {
-		if(inst.constructor.use){
-			inst.using = getUse(inst.store.data, inst.constructor.use)
-			inst.store.instances.push(inst)
-		} else if(inst.use){
-			const use = typeof inst.use === 'function' ? inst.use() : inst.use
-			inst._updatePath = getPath(use)
-			inst.using = getUse(inst.store.data, use)
-			inst.store.instances.push(inst)
+  if (inst.store) {
+		if(inst.use){
+      const use = typeof inst.use === 'function' ? inst.use() : inst.use
+      
+      if(options.isMultiStore){
+        let _updatePath = {}
+				let using = {}
+				for (let storeName in use) {
+					_updatePath[storeName] = {}
+					using[storeName] = {}
+					getPath(use[storeName], _updatePath, storeName)
+					getUse(inst.store[storeName].data, use[storeName], using, storeName)
+					inst.store[storeName].instances.push(inst)
+				}
+				inst.using = using
+				inst._updatePath = _updatePath
+      }else{
+        inst._updatePath = getPath(use)
+        inst.using = getUse(inst.store.data, use)
+        inst.store.instances.push(inst)
+      }
     }
     
     if(inst.useSelf){
-			const use = typeof inst.useSelf === 'function' ? inst.useSelf() : inst.useSelf
-			inst._updateSelfPath = getPath(use)
-			inst.usingSelf = getUse(inst.store.data, use)
-			inst.store.updateSelfInstances.push(inst)
+      const use = typeof inst.useSelf === 'function' ? inst.useSelf() : inst.useSelf
+      
+      if (options.isMultiStore) {
+				let _updatePath = {}
+				let using = {}
+				for (let storeName in use) {
+					getPath(use[storeName], _updatePath, storeName)
+					getUse(inst.store[storeName].data, use[storeName], using, storeName)
+					inst.store[storeName].updateSelfInstances.push(inst)
+				}
+				inst.usingSelf = using
+				inst._updateSelfPath = _updatePath
+			} else {
+        inst._updateSelfPath = getPath(use)
+        inst.usingSelf = getUse(inst.store.data, use)
+        inst.store.updateSelfInstances.push(inst)
+      }
     }
 
 

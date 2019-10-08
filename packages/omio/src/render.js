@@ -1,6 +1,7 @@
 import { diff } from './vdom/diff'
 import obaa from './obaa'
 import { getUse } from './util'
+import options from './options'
 
 /** Render JSX into a `parent` Element.
  *	@param {VNode} vnode		A (JSX) VNode to render
@@ -10,7 +11,18 @@ import { getUse } from './util'
  */
 export function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
-  obsStore(store)
+
+  if(store && store.data){
+
+    obsStore(store)
+  } else {
+    options.isMultiStore = true
+    for(let key in store){
+      if(store[key].data){
+        obsStore(store[key], key)
+      }
+    }
+  }
 
   if (empty) {
     while (parent.firstChild) {
@@ -28,19 +40,18 @@ export function render(vnode, parent, store, empty, merge) {
   return diff(merge, vnode, store, false, parent, false)
 }
 
-function obsStore(store){
-  if (store && store.data) {
-    store.instances = []
-    store.updateSelfInstances = []
-    extendStoreUpate(store)
+function obsStore(store, storeName){
+  
+  store.instances = []
+  store.updateSelfInstances = []
+  extendStoreUpate(store, storeName)
 
-    obaa(store.data, (prop, val, old, path) => {
-			const patchs = {}
-      const key = fixPath(path + '-' + prop)
-      patchs[key] = true
-			store.update(patchs)
-    })
-  }
+  obaa(store.data, (prop, val, old, path) => {
+    const patchs = {}
+    const key = fixPath(path + '-' + prop)
+    patchs[key] = true
+    store.update(patchs)
+  })
 }
 
 export function merge(vnode, merge, store) {
@@ -54,34 +65,44 @@ export function merge(vnode, merge, store) {
   return diff(merge, vnode, store)
 }
 
-function extendStoreUpate(store) {
+function extendStoreUpate(store, key) {
   store.update = function(patch) {
-    const updateAll = matchGlobalData(this.globalData, patch)
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(instance => {
-        if (
-          updateAll ||
-          this.updateAll ||
-          (instance.constructor.updatePath &&
-						needUpdate(patch, instance.constructor.updatePath)) ||
-						(instance._updatePath &&
-							needUpdate(patch, instance._updatePath))
-        ) {
-					//update this.use
-					if(instance.constructor.use){
-						instance.using = getUse(store.data, instance.constructor.use)
-					} else if(instance.use){
-						instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use)
-					}
+        if (key) {
+					if ((
+							instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key]))) {
+						if (instance.use) {
+							getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key)
+						}
 
-          instance.update()
+						instance.update()
+					}
+				} else {
+          if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
+            if(instance.use){
+              instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use)
+            }
+            instance.update()
+          }
         }
       })
 
       this.updateSelfInstances.forEach(instance => {
-        if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-          instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
-          instance.updateSelf()
+        if (key) {
+					if ((
+							instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key]))) {
+						if (instance.useSelf) {
+							getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key)
+						}
+
+						instance.updateSelf()
+					}
+				} else {
+          if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+            instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)
+            instance.updateSelf()
+          }
         }
       })
       
@@ -90,20 +111,6 @@ function extendStoreUpate(store) {
   }
 }
 
-export function matchGlobalData(globalData, diffResult) {
-  if (!globalData) return false
-  for (let keyA in diffResult) {
-    if (globalData.indexOf(keyA) > -1) {
-      return true
-    }
-    for (let i = 0, len = globalData.length; i < len; i++) {
-      if (includePath(keyA, globalData[i])) {
-        return true
-      }
-    }
-  }
-  return false
-}
 
 export function needUpdate(diffResult, updatePath) {
   for (let keyA in diffResult) {

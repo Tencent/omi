@@ -49,7 +49,7 @@ describe('install()', () => {
     expect(scratch.innerHTML).to.equal('<div>Ele</div>')
   })
 
-  it('should render components', () => {
+  it('should render components b', () => {
     define('my-ele', () => {
       return <div>Ele2</div>
     })
@@ -63,7 +63,7 @@ describe('install()', () => {
 
 
 
-  it('should render components', () => {
+  it('should render components c', () => {
     define('my-ele', _ => {
       return <div>{_.props.msg}</div>
     })

@@ -31,7 +31,8 @@ export default {
   doc: typeof document === 'object' ? document : null,
   root: getGlobal(),
   //styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
-  styleCache: []
+  styleCache: [],
+	isMultiStore: false
   //componentChange(component, element) { },
   /** If `true`, `prop` changes trigger synchronous component updates.
    *	@name syncComponentUpdates

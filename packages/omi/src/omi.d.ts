@@ -162,7 +162,7 @@ declare namespace Omi {
 
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 
-	function define(name: string, ctorOrDepPaths: any[] | WeElementConstructor, ctorOrOptions?: WeElementConstructor | string | object, cssStringOrOptions?: string | object): void;
+	function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
 	function defineElement(name: string, ctorOrDepPaths: any[] | WeElementConstructor, ctorOrOptions?: WeElementConstructor | string | object, cssStringOrOptions?: string | object): void;
 	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
 	function tick(callback: Callback, scope?: any): void;

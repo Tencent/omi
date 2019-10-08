@@ -52,7 +52,7 @@ h1{
   }
 }
 
-Preact.render(<Comp />, document.querySelector('#root3'))
+Preact.render(<Comp />, document.querySelector('#root'))
 ```
 
 ## How to use rpx unit like omi ?
@@ -107,7 +107,7 @@ class Comp extends Preact.Component {
   }
 }
 
-Preact.render(<Comp />, document.querySelector('#root3'))
+Preact.render(<Comp />, document.querySelector('#root'))
 ```
 
 ## Related links
