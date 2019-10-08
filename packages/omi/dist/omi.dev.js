@@ -1,5 +1,5 @@
 /**
- * omi v6.15.0  http://omijs.org
+ * omi v6.15.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1569,7 +1569,7 @@
 
   function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  function define(name, ctor) {
+  function define(name, ctor, config) {
     if (options.mapping[name]) {
       return;
     }
@@ -1577,21 +1577,11 @@
       customElements.define(name, ctor);
       options.mapping[name] = ctor;
     } else {
-      var config = {};
-      var len = arguments.length;
-      if (len === 3) {
-        if (typeof arguments[1] === 'function') {
-          ctor = arguments[1];
-          config = arguments[2];
-        } else {
-          ctor = arguments[2];
-        }
-      } else if (len === 4) {
-        ctor = arguments[2];
-        config = arguments[3];
-      }
+
       if (typeof config === 'string') {
         config = { css: config };
+      } else {
+        config = config || {};
       }
 
       var Ele = function (_WeElement) {
@@ -1784,7 +1774,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.15.0';
+  options.root.Omi.version = '6.15.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

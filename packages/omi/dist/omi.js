@@ -479,23 +479,14 @@
         });
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
-    function define(name, ctor) {
+    function define(name, ctor, config) {
         if (!options.mapping[name]) if ('WeElement' === ctor.is) {
             customElements.define(name, ctor);
             options.mapping[name] = ctor;
         } else {
-            var config = {};
-            var len = arguments.length;
-            if (3 === len) if ('function' == typeof arguments[1]) {
-                ctor = arguments[1];
-                config = arguments[2];
-            } else ctor = arguments[2]; else if (4 === len) {
-                ctor = arguments[2];
-                config = arguments[3];
-            }
             if ('string' == typeof config) config = {
                 css: config
-            };
+            }; else config = config || {};
             var Ele = function(_WeElement) {
                 function Ele() {
                     _classCallCheck$1(this, Ele);
@@ -1041,7 +1032,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.0';
+    options.root.Omi.version = '6.15.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
