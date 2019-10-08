@@ -4,7 +4,7 @@
 * Omiv typescript support
 * Omis typescript support
 
-## Omi & Omio
+## Omis & Omiv
 
 * Multi-store injection
 * Add store.updateSelfInstances 
