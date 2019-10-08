@@ -3,7 +3,8 @@ import {
 	isArray,
 	getUse,
 	hyphenate,
-	getValByPath
+	getValByPath,
+	removeItem
 } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
@@ -137,22 +138,13 @@ export default class WeElement extends HTMLElement {
 			if(options.isMultiStore){
 				for(let key in this.store){
 					const current = this.store[key]
-					for (let i = 0, len = current.instances.length; i < len; i++) {
-						if (current.instances[i] === this) {
-							current.instances.splice(i, 1)
-							break
-						}
-					}
+					removeItem(this, current.instances)
+				  removeItem(this, current.updateSelfInstances)
 				}
 			} else {
-				for (let i = 0, len = this.store.instances.length; i < len; i++) {
-					if (this.store.instances[i] === this) {
-						this.store.instances.splice(i, 1)
-						break
-					}
-				}
+				removeItem(this, this.store.instances)
+				removeItem(this, this.store.updateSelfInstances)
 			}
-			
 		}
 	}
 

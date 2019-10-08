@@ -1,5 +1,5 @@
 /**
- * omi v6.15.2  http://omijs.org
+ * omi v6.15.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -229,6 +229,15 @@ function getPath(obj, out, name) {
   });
   if (out) out[name] = result;
   return result;
+}
+
+function removeItem(item, arr) {
+  for (var i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === item) {
+      arr.splice(i, 1);
+      break;
+    }
+  }
 }
 
 // DOM properties that should NOT have "px" added when numeric
@@ -914,20 +923,12 @@ var WeElement = function (_HTMLElement) {
 			if (options.isMultiStore) {
 				for (var key in this.store) {
 					var current = this.store[key];
-					for (var i = 0, len = current.instances.length; i < len; i++) {
-						if (current.instances[i] === this) {
-							current.instances.splice(i, 1);
-							break;
-						}
-					}
+					removeItem(this, current.instances);
+					removeItem(this, current.updateSelfInstances);
 				}
 			} else {
-				for (var i = 0, _len = this.store.instances.length; i < _len; i++) {
-					if (this.store.instances[i] === this) {
-						this.store.instances.splice(i, 1);
-						break;
-					}
-				}
+				removeItem(this, this.store.instances);
+				removeItem(this, this.store.updateSelfInstances);
 			}
 		}
 	};
@@ -1783,7 +1784,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.15.2';
+options.root.Omi.version = '6.15.3';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

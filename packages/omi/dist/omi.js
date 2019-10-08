@@ -100,6 +100,12 @@
         if (out) out[name] = result;
         return result;
     }
+    function removeItem(item, arr) {
+        for (var i = 0, len = arr.length; i < len; i++) if (arr[i] === item) {
+            arr.splice(i, 1);
+            break;
+        }
+    }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
         if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else if ('function' == typeof vnode.nodeName) return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;
@@ -693,13 +699,11 @@
             this.B = !1;
             if (this.store) if (options.isMultiStore) for (var key in this.store) {
                 var current = this.store[key];
-                for (var i = 0, len = current.instances.length; i < len; i++) if (current.instances[i] === this) {
-                    current.instances.splice(i, 1);
-                    break;
-                }
-            } else for (var i = 0, _len = this.store.instances.length; i < _len; i++) if (this.store.instances[i] === this) {
-                this.store.instances.splice(i, 1);
-                break;
+                removeItem(this, current.instances);
+                removeItem(this, current.updateSelfInstances);
+            } else {
+                removeItem(this, this.store.instances);
+                removeItem(this, this.store.updateSelfInstances);
             }
         };
         WeElement.prototype.update = function(ignoreAttrs, updateSelf) {
@@ -1038,7 +1042,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.2';
+    options.root.Omi.version = '6.15.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
