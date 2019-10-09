@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import omis from './omis'
-
+import {$} from './omis/omis'
+console.log($)
 class Store {
   data = {
     count: 1,
@@ -20,26 +20,26 @@ class Store {
   } 
 }
 
-const Counter = omis({
+const Counter = $({
   render() {
-    const $ = omis.store
+    const $s = $.store
     return <>
-      <button onClick={$.sub}>-</button>
-      <span>{$.data.count}</span>
-      <button onClick={$.add}>+</button>
+      <button onClick={$s.sub}>-</button>
+      <span>{$s.data.count}</span>
+      <button onClick={$s.add}>+</button>
       <div>{Math.random()}</div>
     </>
   },
   use: ['count']
 })
 
-const App = omis({
+const App = $({
   render() {
-    const $ = omis.store
+    const $s = $.store
     return <div>
-      <div>{$.data.msg}</div>
-      <button onClick={$.random}>Click me to updateSelf-{$.data.num}</button>
-      <div>{$.data.count}</div>
+      <div>{$s.data.msg}</div>
+      <button onClick={$s.random}>Click me to updateSelf-{$s.data.num}</button>
+      <div>{$s.data.count}</div>
       <Counter></Counter>
     </div>
   },
