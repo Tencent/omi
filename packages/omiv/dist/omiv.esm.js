@@ -1,6 +1,6 @@
 /**
- * omiv v0.1.4  http://omijs.org
- * Observable store system for Vue apps.
+ * omiv v0.2.0  http://omijs.org
+ * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
@@ -177,72 +177,26 @@ Array.prototype.size = function (length) {
   this.length = length;
 };
 
-function getPath(obj) {
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
-    var result = {};
-    obj.forEach(function (item) {
-      if (typeof item === 'string') {
-        result[item] = true;
-      } else {
-        var tempPath = item[Object.keys(item)[0]];
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true;
-        } else if (typeof tempPath[0] === 'string') {
-          result[tempPath[0]] = true;
-        } else {
-          tempPath[0].forEach(function (path) {
-            return result[path] = true;
-          });
-        }
-      }
-    });
-    return result;
-  }
-  return getUpdatePath(obj);
-}
-
-function getUpdatePath(data) {
+function getPath(obj, out, name) {
   var result = {};
-  dataToPath(data, result);
+  obj.forEach(function (item) {
+    if (typeof item === 'string') {
+      result[item] = true;
+    } else {
+      var tempPath = item[Object.keys(item)[0]];
+      if (typeof tempPath === 'string') {
+        result[tempPath] = true;
+      } else if (typeof tempPath[0] === 'string') {
+        result[tempPath[0]] = true;
+      } else {
+        tempPath[0].forEach(function (path) {
+          return result[path] = true;
+        });
+      }
+    }
+  });
+  out && (out[name] = result);
   return result;
-}
-
-function dataToPath(data, result) {
-  Object.keys(data).forEach(function (key) {
-    result[key] = true;
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], key, result);
-    }
-  });
-}
-
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(function (key) {
-    result[path + '.' + key] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], path + '.' + key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], path + '.' + key, result);
-    }
-  });
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach(function (item, index) {
-    result[path + '[' + index + ']'] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(item);
-    if (type === '[object Object]') {
-      _objToPath(item, path + '[' + index + ']', result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(item, path + '[' + index + ']', result);
-    }
-  });
 }
 
 function needUpdate(diffResult, updatePath) {
@@ -286,9 +240,8 @@ function fixPath(path) {
   return mpPath;
 }
 
-var components = [];
-var updateSelfComponents = [];
 var store;
+var isMultiStore = false;
 
 function $(options) {
   var beforeCreate = options.beforeCreate;
@@ -299,50 +252,73 @@ function $(options) {
 
   if (options.store) {
     store = options.store;
-
-    obaa(store.data, function (prop, val, old, path) {
-      var patch = {};
-
-      patch[fixPath(path + '-' + prop)] = true;
-      components.forEach(function (component) {
-        if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
-          recUpdate(component);
+    if (store.data) {
+      observe(store);
+    } else {
+      isMultiStore = true;
+      for (var key in store) {
+        if (store[key].data) {
+          observe(store[key], key);
         }
-      });
-
-      updateSelfComponents.forEach(function (component) {
-        if (component.__$updateSelfPath_ && needUpdate(patch, component.__$updateSelfPath_)) {
-          component.$forceUpdate();
-        }
-      });
-    });
+      }
+    }
   }
 
   options.beforeCreate = function () {
     this.$store = store;
-    if (use) {
-      this.__$updatePath_ = getPath(use);
-      components.push(this);
-    }
-    if (useSelf) {
-      this.__$updateSelfPath_ = getPath(useSelf);
-      updateSelfComponents.push(this);
+    if (isMultiStore) {
+      if (use) {
+        var updatePath = {};
+        for (var storeName in use) {
+          getPath(use[storeName], updatePath, storeName);
+          store[storeName].components.push(this);
+        }
+        this.__$updatePath_ = updatePath;
+      }
+
+      if (useSelf) {
+        var updateSelfPath = {};
+        for (var _storeName in useSelf) {
+          getPath(useSelf[_storeName], updateSelfPath, _storeName);
+          store[_storeName].updateSelfComponents.push(this);
+        }
+        this.__$updateSelfPath_ = updateSelfPath;
+      }
+    } else {
+      if (use) {
+        this.__$updatePath_ = getPath(use);
+        store.components.push(this);
+      }
+      if (useSelf) {
+        this.__$updateSelfPath_ = getPath(useSelf);
+        store.updateSelfComponents.push(this);
+      }
     }
     beforeCreate && beforeCreate.apply(this, arguments);
   };
 
   options.destroyed = function () {
-    for (var i = 0, len = components.length; i < len; i++) {
-      if (components[i] === this) {
-        components.splice(i, 1);
-        break;
+    if (isMultiStore) {
+      for (var _key in store) {
+        removeItem(this, store[_key].components);
+        removeItem(this, store[_key].updateSelfComponents);
       }
+    } else {
+      removeItem(this, store.updateSelfComponents);
+      removeItem(this, store.components);
     }
 
     destroyed && destroyed.apply(this, arguments);
   };
 
   options.computed.state = function () {
+    if (isMultiStore) {
+      var state = {};
+      Object.keys(store).forEach(function (k) {
+        state[k] = store[k].data;
+      });
+      return state;
+    }
     return this.$store.data;
   };
 
@@ -358,6 +334,47 @@ function recUpdate(root) {
   root.$children.forEach(function (child) {
     recUpdate(child);
   });
+}
+
+function observe(store, storeName) {
+  store.components = [];
+  store.updateSelfComponents = [];
+
+  obaa(store.data, function (prop, val, old, path) {
+    var patch = {};
+
+    patch[fixPath(path + '-' + prop)] = true;
+    store.components.forEach(function (component) {
+      var p = component.__$updatePath_;
+      if (storeName) {
+        if (p && p[storeName] && needUpdate(patch, p[storeName])) {
+          recUpdate(component);
+        }
+      } else if (p && needUpdate(patch, p)) {
+        recUpdate(component);
+      }
+    });
+
+    store.updateSelfComponents.forEach(function (component) {
+      var sp = component.__$updateSelfPath_;
+      if (storeName) {
+        if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
+          component.$forceUpdate();
+        }
+      } else if (sp && needUpdate(patch, sp)) {
+        component.$forceUpdate();
+      }
+    });
+  });
+}
+
+function removeItem(item, arr) {
+  for (var i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === item) {
+      arr.splice(i, 1);
+      break;
+    }
+  }
 }
 
 var omiv = { $: $ };

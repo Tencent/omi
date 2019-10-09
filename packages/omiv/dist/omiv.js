@@ -93,48 +93,18 @@
     function getRootName(prop, path) {
         if ('#' === path) return prop; else return path.split('-')[1];
     }
-    function getPath(obj) {
-        if ('[object Array]' === Object.prototype.toString.call(obj)) {
-            var result = {};
-            obj.forEach(function(item) {
-                if ('string' == typeof item) result[item] = !0; else {
-                    var tempPath = item[Object.keys(item)[0]];
-                    if ('string' == typeof tempPath) result[tempPath] = !0; else if ('string' == typeof tempPath[0]) result[tempPath[0]] = !0; else tempPath[0].forEach(function(path) {
-                        return result[path] = !0;
-                    });
-                }
-            });
-            return result;
-        }
-        return getUpdatePath(obj);
-    }
-    function getUpdatePath(data) {
+    function getPath(obj, out, name) {
         var result = {};
-        dataToPath(data, result);
+        obj.forEach(function(item) {
+            if ('string' == typeof item) result[item] = !0; else {
+                var tempPath = item[Object.keys(item)[0]];
+                if ('string' == typeof tempPath) result[tempPath] = !0; else if ('string' == typeof tempPath[0]) result[tempPath[0]] = !0; else tempPath[0].forEach(function(path) {
+                    return result[path] = !0;
+                });
+            }
+        });
+        out && (out[name] = result);
         return result;
-    }
-    function dataToPath(data, result) {
-        Object.keys(data).forEach(function(key) {
-            result[key] = !0;
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], key, result); else if ('[object Array]' === type) _arrayToPath(data[key], key, result);
-        });
-    }
-    function _objToPath(data, path, result) {
-        Object.keys(data).forEach(function(key) {
-            result[path + '.' + key] = !0;
-            delete result[path];
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], path + '.' + key, result); else if ('[object Array]' === type) _arrayToPath(data[key], path + '.' + key, result);
-        });
-    }
-    function _arrayToPath(data, path, result) {
-        data.forEach(function(item, index) {
-            result[path + '[' + index + ']'] = !0;
-            delete result[path];
-            var type = Object.prototype.toString.call(item);
-            if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
-        });
     }
     function needUpdate(diffResult, updatePath) {
         for (var keyA in diffResult) {
@@ -166,37 +136,60 @@
         options.computed = options.computed || {};
         if (options.store) {
             store = options.store;
-            obaa(store.data, function(prop, val, old, path) {
-                var patch = {};
-                patch[fixPath(path + '-' + prop)] = !0;
-                components.forEach(function(component) {
-                    if (component.W && needUpdate(patch, component.W)) recUpdate(component);
-                });
-                updateSelfComponents.forEach(function(component) {
-                    if (component.Y && needUpdate(patch, component.Y)) component.$forceUpdate();
-                });
-            });
+            if (store.data) observe(store); else {
+                isMultiStore = !0;
+                for (var key in store) if (store[key].data) observe(store[key], key);
+            }
         }
         options.beforeCreate = function() {
             this.$store = store;
-            if (use) {
-                this.W = getPath(use);
-                components.push(this);
-            }
-            if (useSelf) {
-                this.Y = getPath(useSelf);
-                updateSelfComponents.push(this);
+            if (isMultiStore) {
+                if (use) {
+                    var updatePath = {};
+                    for (var storeName in use) {
+                        getPath(use[storeName], updatePath, storeName);
+                        store[storeName].components.push(this);
+                    }
+                    this.W = updatePath;
+                }
+                if (useSelf) {
+                    var updateSelfPath = {};
+                    for (var _storeName in useSelf) {
+                        getPath(useSelf[_storeName], updateSelfPath, _storeName);
+                        store[_storeName].updateSelfComponents.push(this);
+                    }
+                    this.Y = updateSelfPath;
+                }
+            } else {
+                if (use) {
+                    this.W = getPath(use);
+                    store.components.push(this);
+                }
+                if (useSelf) {
+                    this.Y = getPath(useSelf);
+                    store.updateSelfComponents.push(this);
+                }
             }
             beforeCreate && beforeCreate.apply(this, arguments);
         };
         options.destroyed = function() {
-            for (var i = 0, len = components.length; i < len; i++) if (components[i] === this) {
-                components.splice(i, 1);
-                break;
+            if (isMultiStore) for (var _key in store) {
+                removeItem(this, store[_key].components);
+                removeItem(this, store[_key].updateSelfComponents);
+            } else {
+                removeItem(this, store.updateSelfComponents);
+                removeItem(this, store.components);
             }
             destroyed && destroyed.apply(this, arguments);
         };
         options.computed.state = function() {
+            if (isMultiStore) {
+                var state = {};
+                Object.keys(store).forEach(function(k) {
+                    state[k] = store[k].data;
+                });
+                return state;
+            }
             return this.$store.data;
         };
         options.computed.store = function() {
@@ -210,6 +203,32 @@
             recUpdate(child);
         });
     }
+    function observe(store, storeName) {
+        store.components = [];
+        store.updateSelfComponents = [];
+        obaa(store.data, function(prop, val, old, path) {
+            var patch = {};
+            patch[fixPath(path + '-' + prop)] = !0;
+            store.components.forEach(function(component) {
+                var p = component.W;
+                if (storeName) {
+                    if (p && p[storeName] && needUpdate(patch, p[storeName])) recUpdate(component);
+                } else if (p && needUpdate(patch, p)) recUpdate(component);
+            });
+            store.updateSelfComponents.forEach(function(component) {
+                var sp = component.Y;
+                if (storeName) {
+                    if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) component.$forceUpdate();
+                } else if (sp && needUpdate(patch, sp)) component.$forceUpdate();
+            });
+        });
+    }
+    function removeItem(item, arr) {
+        for (var i = 0, len = arr.length; i < len; i++) if (arr[i] === item) {
+            arr.splice(i, 1);
+            break;
+        }
+    }
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
@@ -222,9 +241,8 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
-    var components = [];
-    var updateSelfComponents = [];
     var store;
+    var isMultiStore = !1;
     var Omiv = {
         $: $
     };
