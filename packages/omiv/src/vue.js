@@ -1,9 +1,8 @@
 import { obaa } from './obaa'
 import { getPath, needUpdate, fixPath } from './path'
 
-const components = []
-const updateSelfComponents = []
 let store
+let isMultiStore = false
 
 export function $(options) {
   const beforeCreate = options.beforeCreate
@@ -14,60 +13,80 @@ export function $(options) {
 
   if (options.store) {
     store = options.store
-
-    obaa(store.data, (prop, val, old, path) => {
-      const patch = {}
-
-      patch[fixPath(path + '-' + prop)] = true
-      components.forEach(component => {
-        if (
-          component.__$updatePath_ &&
-          needUpdate(patch, component.__$updatePath_)
-        ) {
-          recUpdate(component)
+    if (store.data) {
+      observe(store)
+    } else {
+      isMultiStore = true
+      for (let key in store) {
+        if (store[key].data) {
+          observe(store[key], key)
         }
-      })
+      }
+    }
 
-      updateSelfComponents.forEach(component => {
-        if (
-          component.__$updateSelfPath_ &&
-          needUpdate(patch, component.__$updateSelfPath_)
-        ) {
-          component.$forceUpdate()
-        }
-      })
-    })
   }
 
-  options.beforeCreate = function() {
+  options.beforeCreate = function () {
     this.$store = store
-    if (use) {
-      this.__$updatePath_ = getPath(use)
-      components.push(this)
-    }
-    if (useSelf) {
-      this.__$updateSelfPath_ = getPath(useSelf)
-      updateSelfComponents.push(this)
+    if (isMultiStore) {
+      if (use) {
+        let updatePath = {}
+        for (let storeName in use) {
+          getPath(use[storeName], updatePath, storeName)
+          store[storeName].components.push(this)
+        }
+        this.__$updatePath_ = updatePath
+
+
+      }
+
+      if (useSelf) {
+        let updateSelfPath = {}
+        for (let storeName in useSelf) {
+          getPath(useSelf[storeName], updateSelfPath, storeName)
+          store[storeName].updateSelfComponents.push(this)
+        }
+        this.__$updateSelfPath_ = updateSelfPath
+      }
+    } else {
+      if (use) {
+        this.__$updatePath_ = getPath(use)
+        store.components.push(this)
+      }
+      if (useSelf) {
+        this.__$updateSelfPath_ = getPath(useSelf)
+        store.updateSelfComponents.push(this)
+      }
     }
     beforeCreate && beforeCreate.apply(this, arguments)
   }
 
-  options.destroyed = function() {
-    for (let i = 0, len = components.length; i < len; i++) {
-      if (components[i] === this) {
-        components.splice(i, 1)
-        break
+  options.destroyed = function () {
+    if (isMultiStore) {
+      for (let key in store) {
+        removeItem(this, store[key].components)
+        removeItem(this, store[key].updateSelfComponents)
       }
+    } else {
+      removeItem(this, store.updateSelfComponents)
+      removeItem(this, store.components)
     }
 
     destroyed && destroyed.apply(this, arguments)
   }
 
-  options.computed.state = function() {
+  options.computed.state = function () {
+    if (isMultiStore) {
+      let state = {}
+      Object.keys(store).forEach(k => {
+        state[k] = store[k].data
+      })
+      return state
+    }
     return this.$store.data
   }
 
-  options.computed.store = function() {
+  options.computed.store = function () {
     return this.$store
   }
 
@@ -79,4 +98,45 @@ function recUpdate(root) {
   root.$children.forEach(child => {
     recUpdate(child)
   })
+}
+
+function observe(store, storeName) {
+  store.components = []
+  store.updateSelfComponents = []
+
+  obaa(store.data, (prop, val, old, path) => {
+    const patch = {}
+
+    patch[fixPath(path + '-' + prop)] = true
+    store.components.forEach(component => {
+      const p = component.__$updatePath_
+      if (storeName) {
+        if (p && p[storeName] && needUpdate(patch, p[storeName])) {
+          recUpdate(component)
+        }
+      } else if (p && needUpdate(patch, p)) {
+        recUpdate(component)
+      }
+    })
+
+    store.updateSelfComponents.forEach(component => {
+      const sp = component.__$updateSelfPath_
+      if (storeName) {
+        if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
+          component.$forceUpdate()
+        }
+      } else if (sp && needUpdate(patch, sp)) {
+        component.$forceUpdate()
+      }
+    })
+  })
+}
+
+function removeItem(item, arr) {
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === item) {
+      arr.splice(i, 1)
+      break
+    }
+  }
 }

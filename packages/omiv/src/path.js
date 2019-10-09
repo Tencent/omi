@@ -1,6 +1,3 @@
-const OBJECTTYPE = '[object Object]'
-const ARRAYTYPE = '[object Array]'
-
 export function getUsing(data, paths) {
   const obj = []
   paths.forEach((path, index) => {
@@ -43,71 +40,26 @@ export function getTargetByPath(origin, path) {
   return current
 }
 
-export function getPath(obj) {
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
-    const result = {}
-    obj.forEach(item => {
-      if (typeof item === 'string') {
-        result[item] = true
-      } else {
-        const tempPath = item[Object.keys(item)[0]]
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true
-        } else if (typeof tempPath[0] === 'string') {
-          result[tempPath[0]] = true
-        } else {
-          tempPath[0].forEach(path => (result[path] = true))
-        }
-      }
-    })
-    return result
-  }
-  return getUpdatePath(obj)
-}
-
-export function getUpdatePath(data) {
+export function getPath(obj, out, name) {
   const result = {}
-  dataToPath(data, result)
+  obj.forEach(item => {
+    if (typeof item === 'string') {
+      result[item] = true
+    } else {
+      const tempPath = item[Object.keys(item)[0]]
+      if (typeof tempPath === 'string') {
+        result[tempPath] = true
+      } else if (typeof tempPath[0] === 'string') {
+        result[tempPath[0]] = true
+      } else {
+        tempPath[0].forEach(path => (result[path] = true))
+      }
+    }
+  })
+  out && (out[name] = result)
   return result
 }
 
-function dataToPath(data, result) {
-  Object.keys(data).forEach(key => {
-    result[key] = true
-    const type = Object.prototype.toString.call(data[key])
-    if (type === OBJECTTYPE) {
-      _objToPath(data[key], key, result)
-    } else if (type === ARRAYTYPE) {
-      _arrayToPath(data[key], key, result)
-    }
-  })
-}
-
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(key => {
-    result[path + '.' + key] = true
-    delete result[path]
-    const type = Object.prototype.toString.call(data[key])
-    if (type === OBJECTTYPE) {
-      _objToPath(data[key], path + '.' + key, result)
-    } else if (type === ARRAYTYPE) {
-      _arrayToPath(data[key], path + '.' + key, result)
-    }
-  })
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach((item, index) => {
-    result[path + '[' + index + ']'] = true
-    delete result[path]
-    const type = Object.prototype.toString.call(item)
-    if (type === OBJECTTYPE) {
-      _objToPath(item, path + '[' + index + ']', result)
-    } else if (type === ARRAYTYPE) {
-      _arrayToPath(item, path + '[' + index + ']', result)
-    }
-  })
-}
 
 export function needUpdate(diffResult, updatePath) {
   for (let keyA in diffResult) {
