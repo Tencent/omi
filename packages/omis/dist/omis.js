@@ -93,48 +93,18 @@
     function getRootName(prop, path) {
         if ('#' === path) return prop; else return path.split('-')[1];
     }
-    function getPath(obj) {
-        if ('[object Array]' === Object.prototype.toString.call(obj)) {
-            var result = {};
-            obj.forEach(function(item) {
-                if ('string' == typeof item) result[item] = !0; else {
-                    var tempPath = item[Object.keys(item)[0]];
-                    if ('string' == typeof tempPath) result[tempPath] = !0; else if ('string' == typeof tempPath[0]) result[tempPath[0]] = !0; else tempPath[0].forEach(function(path) {
-                        return result[path] = !0;
-                    });
-                }
-            });
-            return result;
-        }
-        return getUpdatePath(obj);
-    }
-    function getUpdatePath(data) {
+    function getPath(obj, out, name) {
         var result = {};
-        dataToPath(data, result);
+        obj.forEach(function(item) {
+            if ('string' == typeof item) result[item] = !0; else {
+                var tempPath = item[Object.keys(item)[0]];
+                if ('string' == typeof tempPath) result[tempPath] = !0; else if ('string' == typeof tempPath[0]) result[tempPath[0]] = !0; else tempPath[0].forEach(function(path) {
+                    return result[path] = !0;
+                });
+            }
+        });
+        out && (out[name] = result);
         return result;
-    }
-    function dataToPath(data, result) {
-        Object.keys(data).forEach(function(key) {
-            result[key] = !0;
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], key, result); else if ('[object Array]' === type) _arrayToPath(data[key], key, result);
-        });
-    }
-    function _objToPath(data, path, result) {
-        Object.keys(data).forEach(function(key) {
-            result[path + '.' + key] = !0;
-            delete result[path];
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], path + '.' + key, result); else if ('[object Array]' === type) _arrayToPath(data[key], path + '.' + key, result);
-        });
-    }
-    function _arrayToPath(data, path, result) {
-        data.forEach(function(item, index) {
-            result[path + '[' + index + ']'] = !0;
-            delete result[path];
-            var type = Object.prototype.toString.call(item);
-            if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
-        });
     }
     function needUpdate(diffResult, updatePath) {
         for (var keyA in diffResult) {
@@ -181,30 +151,11 @@
         var _class, _temp;
         if (options.store) {
             $.store = options.store;
-            obaa($.store.data, function(prop, val, old, path) {
-                var patch = {};
-                patch[fixPath(path + '-' + prop)] = !0;
-                components.forEach(function(component) {
-                    if (component.W && needUpdate(patch, component.W)) {
-                        component.setState({
-                            X: component.state.X++
-                        });
-                        isSelf = !1;
-                    }
-                });
-                updateSelfComponents.forEach(function(component) {
-                    if (component.Y && needUpdate(patch, component.Y)) {
-                        component.setState({
-                            X: component.state.X++
-                        });
-                        isSelf = !0;
-                        currentComponent = component;
-                    }
-                });
-            });
+            if ($.store.data) observe($.store); else {
+                isMultiStore = !0;
+                for (var key in $.store) if ($.store[key].data) observe($.store[key], key);
+            }
         }
-        var updatePath = options.use && getPath(options.use);
-        var updateSelfPath = options.useSelf && getPath(options.useSelf);
         return _temp = _class = function(_React$Component) {
             function _class(props) {
                 _classCallCheck(this, _class);
@@ -212,13 +163,32 @@
                 _this.state = {
                     X: 0
                 };
-                if (updatePath) {
-                    components.push(_this);
-                    _this.W = updatePath;
-                }
-                if (updateSelfPath) {
-                    updateSelfComponents.push(_this);
-                    _this.Y = updateSelfPath;
+                if (isMultiStore) {
+                    if (options.use) {
+                        var updatePath = {};
+                        for (var storeName in options.use) {
+                            getPath(options.use[storeName], updatePath, storeName);
+                            $.store[storeName].components.push(_this);
+                        }
+                        _this.W = updatePath;
+                    }
+                    if (options.useSelf) {
+                        var updateSelfPath = {};
+                        for (var _storeName in options.useSelf) {
+                            getPath(options.useSelf[_storeName], updateSelfPath, _storeName);
+                            $.store[_storeName].updateSelfComponents.push(_this);
+                        }
+                        _this.Y = updateSelfPath;
+                    }
+                } else {
+                    if (options.use) {
+                        $.store.components.push(_this);
+                        _this.W = getPath(options.use);
+                    }
+                    if (options.useSelf) {
+                        $.store.updateSelfComponents.push(_this);
+                        _this.Y = getPath(options.useSelf);
+                    }
                 }
                 return _this;
             }
@@ -227,20 +197,59 @@
                 if (currentComponent === this) return !0; else return !isSelf;
             };
             _class.prototype.componentWillUnmount = function() {
-                for (var i = 0, len = components.length; i < len; i++) if (components[i] === this) {
-                    components.splice(i, 1);
-                    break;
-                }
-                for (var _i = 0, _len = updateSelfComponents.length; _i < _len; _i++) if (updateSelfComponents[_i] === this) {
-                    updateSelfComponents.splice(_i, 1);
-                    break;
-                }
+                removeItem(this, $.store.components);
+                removeItem(this, $.store.updateSelfComponents);
             };
             _class.prototype.render = function() {
                 return options.render.apply(this, arguments);
             };
             return _class;
         }(React.Component), _class.css = options.css, _temp;
+    }
+    function removeItem(item, arr) {
+        for (var i = 0, len = arr.length; i < len; i++) if (arr[i] === item) {
+            arr.splice(i, 1);
+            break;
+        }
+    }
+    function observe(store, storeName) {
+        store.components = [];
+        store.updateSelfComponents = [];
+        obaa(store.data, function(prop, val, old, path) {
+            var patch = {};
+            patch[fixPath(path + '-' + prop)] = !0;
+            store.components.forEach(function(component) {
+                var p = component.W;
+                if (storeName) {
+                    if (p && p[storeName] && needUpdate(patch, p[storeName])) {
+                        update(component);
+                        isSelf = !1;
+                    }
+                } else if (p && needUpdate(patch, p)) {
+                    update(component);
+                    isSelf = !1;
+                }
+            });
+            store.updateSelfComponents.forEach(function(component) {
+                var sp = component.Y;
+                if (storeName) {
+                    if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
+                        update(component);
+                        isSelf = !0;
+                        currentComponent = component;
+                    }
+                } else if (sp && needUpdate(patch, sp)) {
+                    update(component);
+                    isSelf = !0;
+                    currentComponent = component;
+                }
+            });
+        });
+    }
+    function update(component) {
+        component.setState({
+            X: component.state.X++
+        });
     }
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
@@ -254,10 +263,9 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
-    var components = [];
-    var updateSelfComponents = [];
     var isSelf = !1;
     var currentComponent = null;
+    var isMultiStore = !1;
     var Omis = {
         $: $
     };

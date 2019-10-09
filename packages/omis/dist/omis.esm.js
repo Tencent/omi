@@ -1,6 +1,6 @@
 /**
- * omis v2.0.5  http://omijs.org
- * Observable store system for JavaScript apps.
+ * omis v2.1.0  http://omijs.org
+ * 1kb store system for React apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
@@ -179,72 +179,26 @@ Array.prototype.size = function (length) {
   this.length = length;
 };
 
-function getPath(obj) {
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
-    var result = {};
-    obj.forEach(function (item) {
-      if (typeof item === 'string') {
-        result[item] = true;
-      } else {
-        var tempPath = item[Object.keys(item)[0]];
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true;
-        } else if (typeof tempPath[0] === 'string') {
-          result[tempPath[0]] = true;
-        } else {
-          tempPath[0].forEach(function (path) {
-            return result[path] = true;
-          });
-        }
-      }
-    });
-    return result;
-  }
-  return getUpdatePath(obj);
-}
-
-function getUpdatePath(data) {
+function getPath(obj, out, name) {
   var result = {};
-  dataToPath(data, result);
+  obj.forEach(function (item) {
+    if (typeof item === 'string') {
+      result[item] = true;
+    } else {
+      var tempPath = item[Object.keys(item)[0]];
+      if (typeof tempPath === 'string') {
+        result[tempPath] = true;
+      } else if (typeof tempPath[0] === 'string') {
+        result[tempPath[0]] = true;
+      } else {
+        tempPath[0].forEach(function (path) {
+          return result[path] = true;
+        });
+      }
+    }
+  });
+  out && (out[name] = result);
   return result;
-}
-
-function dataToPath(data, result) {
-  Object.keys(data).forEach(function (key) {
-    result[key] = true;
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], key, result);
-    }
-  });
-}
-
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(function (key) {
-    result[path + '.' + key] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], path + '.' + key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], path + '.' + key, result);
-    }
-  });
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach(function (item, index) {
-    result[path + '[' + index + ']'] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(item);
-    if (type === '[object Object]') {
-      _objToPath(item, path + '[' + index + ']', result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(item, path + '[' + index + ']', result);
-    }
-  });
 }
 
 function needUpdate(diffResult, updatePath) {
@@ -294,41 +248,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var components = [];
-var updateSelfComponents = [];
-
 var isSelf = false;
 var currentComponent = null;
+var isMultiStore = false;
 
 function $(options) {
   var _class, _temp;
 
   if (options.store) {
     $.store = options.store;
-    obaa($.store.data, function (prop, val, old, path) {
-      var patch = {};
-
-      patch[fixPath(path + '-' + prop)] = true;
-      components.forEach(function (component) {
-        if (component.__$updatePath_ && needUpdate(patch, component.__$updatePath_)) {
-          component.setState({ __$id_: component.state.__$id_++ });
-
-          isSelf = false;
+    if ($.store.data) {
+      observe($.store);
+    } else {
+      isMultiStore = true;
+      for (var key in $.store) {
+        if ($.store[key].data) {
+          observe($.store[key], key);
         }
-      });
-
-      updateSelfComponents.forEach(function (component) {
-        if (component.__$updateSelfPath_ && needUpdate(patch, component.__$updateSelfPath_)) {
-          component.setState({ __$id_: component.state.__$id_++ });
-          isSelf = true;
-          currentComponent = component;
-        }
-      });
-    });
+      }
+    }
   }
-
-  var updatePath = options.use && getPath(options.use);
-  var updateSelfPath = options.useSelf && getPath(options.useSelf);
 
   return _temp = _class = function (_React$Component) {
     _inherits(_class, _React$Component);
@@ -342,14 +281,37 @@ function $(options) {
         __$id_: 0
       };
 
-      if (updatePath) {
-        components.push(_this);
-        _this.__$updatePath_ = updatePath;
+
+      if (isMultiStore) {
+
+        if (options.use) {
+          var updatePath = {};
+          for (var storeName in options.use) {
+            getPath(options.use[storeName], updatePath, storeName);
+            $.store[storeName].components.push(_this);
+          }
+          _this.__$updatePath_ = updatePath;
+        }
+
+        if (options.useSelf) {
+          var updateSelfPath = {};
+          for (var _storeName in options.useSelf) {
+            getPath(options.useSelf[_storeName], updateSelfPath, _storeName);
+            $.store[_storeName].updateSelfComponents.push(_this);
+          }
+          _this.__$updateSelfPath_ = updateSelfPath;
+        }
+      } else {
+        if (options.use) {
+          $.store.components.push(_this);
+          _this.__$updatePath_ = getPath(options.use);
+        }
+        if (options.useSelf) {
+          $.store.updateSelfComponents.push(_this);
+          _this.__$updateSelfPath_ = getPath(options.useSelf);
+        }
       }
-      if (updateSelfPath) {
-        updateSelfComponents.push(_this);
-        _this.__$updateSelfPath_ = updateSelfPath;
-      }
+
       return _this;
     }
 
@@ -359,19 +321,8 @@ function $(options) {
     };
 
     _class.prototype.componentWillUnmount = function componentWillUnmount() {
-      for (var i = 0, len = components.length; i < len; i++) {
-        if (components[i] === this) {
-          components.splice(i, 1);
-          break;
-        }
-      }
-
-      for (var _i = 0, _len = updateSelfComponents.length; _i < _len; _i++) {
-        if (updateSelfComponents[_i] === this) {
-          updateSelfComponents.splice(_i, 1);
-          break;
-        }
-      }
+      removeItem(this, $.store.components);
+      removeItem(this, $.store.updateSelfComponents);
     };
 
     _class.prototype.render = function render() {
@@ -380,6 +331,58 @@ function $(options) {
 
     return _class;
   }(Component), _class.css = options.css, _temp;
+}
+
+function removeItem(item, arr) {
+  for (var i = 0, len = arr.length; i < len; i++) {
+    if (arr[i] === item) {
+      arr.splice(i, 1);
+      break;
+    }
+  }
+}
+
+function observe(store, storeName) {
+
+  store.components = [];
+  store.updateSelfComponents = [];
+  obaa(store.data, function (prop, val, old, path) {
+    var patch = {};
+
+    patch[fixPath(path + '-' + prop)] = true;
+    store.components.forEach(function (component) {
+      var p = component.__$updatePath_;
+      if (storeName) {
+        if (p && p[storeName] && needUpdate(patch, p[storeName])) {
+          update(component);
+
+          isSelf = false;
+        }
+      } else if (p && needUpdate(patch, p)) {
+        update(component);
+        isSelf = false;
+      }
+    });
+
+    store.updateSelfComponents.forEach(function (component) {
+      var sp = component.__$updateSelfPath_;
+      if (storeName) {
+        if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
+          update(component);
+          isSelf = true;
+          currentComponent = component;
+        }
+      } else if (sp && needUpdate(patch, sp)) {
+        update(component);
+        isSelf = true;
+        currentComponent = component;
+      }
+    });
+  });
+}
+
+function update(component) {
+  component.setState({ __$id_: component.state.__$id_++ });
 }
 
 var omis = { $: $ };
