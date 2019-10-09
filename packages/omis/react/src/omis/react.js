@@ -104,25 +104,37 @@ function observe(store, storeName) {
 
     patch[fixPath(path + '-' + prop)] = true
     store.components.forEach(component => {
-      if (
-        component.__$updatePath_ &&
-        needUpdate(patch, component.__$updatePath_)
-      ) {
-        component.setState({ __$id_: component.state.__$id_++ })
+      const p = component.__$updatePath_
+      if (storeName) {
+        if (p && p[storeName] && needUpdate(patch, p[storeName])) {
+          update(component)
 
+          isSelf = false
+        }
+      } else if (p && needUpdate(patch, p)) {
+        update(component)
         isSelf = false
       }
+
     })
 
     store.updateSelfComponents.forEach(component => {
-      if (
-        component.__$updateSelfPath_ &&
-        needUpdate(patch, component.__$updateSelfPath_)
-      ) {
-        component.setState({ __$id_: component.state.__$id_++ })
+      const sp = component.__$updateSelfPath_
+      if (storeName) {
+        if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
+          update(component)
+          isSelf = true
+          currentComponent = component
+        }
+      } else if (sp && needUpdate(patch, sp)) {
+        update(component)
         isSelf = true
         currentComponent = component
       }
     })
   })
+}
+
+function update(component){
+  component.setState({ __$id_: component.state.__$id_++ })
 }
