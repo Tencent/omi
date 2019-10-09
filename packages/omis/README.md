@@ -67,7 +67,6 @@ const nameStore = new class Store {
     name: 'hello'
   }
   rename = () => {
-    console.log(123)
     this.data.name = 'bcd'
   }
 }
