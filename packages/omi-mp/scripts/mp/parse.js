@@ -2,6 +2,8 @@ let htmlToJson = require('html2json').html2json
 let map = require('./tag-mapping')
 let reURL = /^(https?):\/\/.+$/;
 
+
+const inputEvent = ['bindfocus', 'bindkeydown', 'bindkeypree', 'bindkeyup', 'bindinput', 'bindchange', 'bindblue']
 function parse(wxml, fnName) {
   return walk(htmlToJson(minifier(wxml)), fnName)
 }
@@ -28,6 +30,13 @@ function checkIsArray(json) {
         tagAttr.bindclick = tagAttr.bindtap;
       }
 
+      if(tagName === 'input'){
+        inputEvent.forEach((item) => {
+          if(tagAttr[item]){
+            tagAttr[item] = `helpInputEvent.bind(this,this.${tagAttr[item]})`
+          }
+        })
+      }
       if (tagName === 'block') {
         if(tagAttr){
           tagAttr.style = '{{{"width": "100%"}}}';
@@ -47,7 +56,6 @@ function checkIsArray(json) {
 
   return false
 }
-
 
 function walk(node, fnName) {
   if(checkIsArray(node)){
