@@ -29,3 +29,22 @@ export function fixProps(properties){
   }
   return props
 }
+
+// 代理input
+export function helpInputEvent(fn, e){
+  if(!e.detail){
+    Object.defineProperty(e,'detail',{
+      value: {},
+      writable: false,
+      configurable : true
+    });
+  }
+
+  Object.defineProperty(e.detail,'value',{
+    value: e.target.value,
+    writable: false,
+    configurable : true
+  });
+
+  fn && fn(e)
+}
