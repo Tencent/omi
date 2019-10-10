@@ -44,11 +44,12 @@ gulp.task('components', ['copy'], () => {
             if(js.includes('webpackBootstrap')){
               return
             }
+
             file.contents = Buffer.concat([
               Buffer.from(
                 `${importStr}import componentCss from './${name}.wxss'
   import { h, WeElement, rpx } from 'omi'
-  import { setData } from ${isWxComponent && preName === 'components' ? "'../../utils/set-data'" : "'../../../utils/set-data'"}
+  import { setData, fixProps, helpInputEvent } from ${isWxComponent && preName === 'components' ? "'../../utils/helper'" : "'../../../utils/helper'"}
 
     `
               ),
@@ -61,7 +62,7 @@ gulp.task('components', ['copy'], () => {
   }`),
               Buffer.from(`
   class Element extends WeElement {
-    static props = mpOption().properties
+    static defaultProps = fixProps(mpOption().properties)
 
     data = mpOption().data
 
@@ -74,6 +75,8 @@ gulp.task('components', ['copy'], () => {
     beforeUpdate() {}
 
     afterUpdate() {}
+
+    helpInputEvent = helpInputEvent;
 
     install = function() {
       this.properties = this.props
@@ -142,7 +145,7 @@ gulp.task('pages', ['copy'], () => {
               `${importStr}import appCss from '../../app.wxss'
 import pageCss from './${name}.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+import { setData, helpInputEvent } from '../../../utils/helper'
 
   `
             ),
@@ -167,6 +170,8 @@ class Element extends WeElement {
   beforeUpdate() {}
 
   afterUpdate() {}
+
+  helpInputEvent = helpInputEvent;
 
   install() {
     this.properties = this.props
@@ -300,14 +305,17 @@ function replaceComponentOnPath(tag, str, tagName) {
 }
 
 // 匹配转换html 转换 目录文件夹名字
-function replaceWxmlComponentHtml(dir, html,json) {
-  Object.keys(json.usingComponents).forEach((key, i) => {
-    html = replaceComponentOnPath(
-      key,
-      html,
-      fileComponentDom(path.join(dir, json.usingComponents[key]))
-    );
-  })
+function replaceWxmlComponentHtml(dir, html, json) {
+  if(json.usingComponents){
+    Object.keys(json.usingComponents).forEach((key, i) => {
+      html = replaceComponentOnPath(
+        key,
+        html,
+        fileComponentDom(path.join(dir, json.usingComponents[key]))
+      );
+    })
+  }
+
 
   return html;
 }
@@ -387,6 +395,7 @@ gulp.task('pages-wxss', ['copy'], () => {
     .pipe(
       tap(file => {
         file.contents = Buffer.from(compileWxss(file.contents.toString()))
+        
       })
     )
     .pipe(postcss(plugins))
@@ -398,8 +407,8 @@ gulp.task('components-wxss', ['copy'], () => {
     .src(isWxComponent ? 'src/mp/components/**/*.wxss' : 'src/mp/components/*/*.wxss')
     .pipe(
       tap(file => {
-        console.log(file)
         file.contents = Buffer.from(compileWxss(file.contents.toString()))
+
       })
     )
     .pipe(postcss(plugins))
@@ -413,6 +422,7 @@ gulp.task('app-wxss', ['copy'], () => {
     .pipe(
       tap(file => {
         file.contents = Buffer.from(compileWxss(file.contents.toString()))
+
       })
     )
     .pipe(postcss(plugins))
