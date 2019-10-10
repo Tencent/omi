@@ -2,8 +2,7 @@
 import { define, rpx } from 'omi'
 import '../game'
 
-
-define('my-index', ['paused'], ({store}) => (
+define('my-index', ({store}) => (
   <div class="container">
     <h1>OMI SNAKE</h1>
 
@@ -20,5 +19,8 @@ define('my-index', ['paused'], ({store}) => (
     </div>
   </div>
 
-), rpx(require('./_index.css')))
+), {
+  use: ['paused'],
+  css: rpx(require('./_index.css'))
+})
 

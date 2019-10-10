@@ -42,7 +42,7 @@
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.5.0",
     "object-assign": "4.1.1",
-    "omi": "^6.11.1",
+    "omi": "^6.15.3",
     "omi-router": "latest",
     "omio": "^2.4.0",
     "omiu": "latest",

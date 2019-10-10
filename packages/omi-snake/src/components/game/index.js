@@ -1,6 +1,6 @@
 import { define, rpx } from 'omi'
 
-define('my-game', ['map'], _ => (
+define('my-game', _ => (
   <div class="game">
     {_.store.data.map.map(row => {
       return <p>
@@ -13,5 +13,8 @@ define('my-game', ['map'], _ => (
       </p>
     })}
   </div>
-), rpx(require('./_index.css')))
+), {
+  use: ['map'],
+  css: rpx(require('./_index.css'))
+})
 
