@@ -68,8 +68,6 @@ describe('base', () => {
       expect(document.querySelector('#app').innerHTML)
         .to.equal('<span class="count">3</span> <button id="btn">Increment</button>')
     })
-
-
   })
 
 
