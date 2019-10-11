@@ -1,4 +1,5 @@
 import Counter from './components/counter.vue'
+import Simple from './components/simple.vue'
 import Vue from 'vue'
 
 describe('base', () => {
@@ -35,7 +36,12 @@ describe('base', () => {
 
   it('simple test', () => {
 
-    expect(1).to.equal(1)
+    new Vue({
+      render: h => h(Simple)
+    }).$mount('#app')
+
+    expect(document.querySelector('#app').innerHTML).to.equal('<span class="count">2</span> <button>Increment</button>')
+
   })
 
 
