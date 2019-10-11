@@ -1,6 +1,16 @@
 import Counter from './components/counter.vue'
 import Simple from './components/simple.vue'
+import Event from './components/event.vue'
 import Vue from 'vue'
+
+const errorHandler = (error, vm)=>{
+  console.error('--------------------------------------------------------------------')
+  throw error
+  
+}
+
+Vue.config.errorHandler = errorHandler;
+Vue.prototype.$throw = (error)=> errorHandler(error,this);
 
 describe('base', () => {
   let scratch
@@ -45,6 +55,21 @@ describe('base', () => {
   })
 
 
+  it('simple event test', (done) => {
+
+    new Vue({
+      render: h => h(Event)
+    }).$mount('#app')
+
+    document.querySelector('#btn').click()
+
+    Vue.nextTick(()=>{
+      done()
+      expect(document.querySelector('#app').innerHTML).to.equal('<span class="count">3</span> <button id="btn">Increment</button>')
+    })
+
+
+  })
 
 
 
