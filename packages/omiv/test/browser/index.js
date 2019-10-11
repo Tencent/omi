@@ -1,11 +1,13 @@
 import Counter from './components/counter.vue'
+import Vue from 'vue'
 
 describe('base', () => {
   let scratch
 
   before(() => {
     scratch = document.createElement('div')
-      ; (document.body || document.documentElement).appendChild(scratch)
+    scratch.id = 'app'
+    document.body.appendChild(scratch)
   })
 
   beforeEach(() => {
@@ -13,46 +15,31 @@ describe('base', () => {
   })
 
   after(() => {
-    scratch.parentNode.removeChild(scratch)
+    scratch.parentNode && scratch.parentNode.removeChild(scratch)
     scratch = null
   })
 
-  it('simple', () => {
- 
+  it('simple test', () => {
+
+    new Vue({
+      render: h => h(Counter)
+    }).$mount('#app')
+
+    // Vue.nextTick(()=>{
+    //   done()
+    // })
+
+    expect(document.querySelector('#app').innerHTML).to.equal('<span class="count">0</span> <button>Increment</button>')
+
+  })
+
+  it('simple test', () => {
+
     expect(1).to.equal(1)
   })
 
 
-  // it('should render components with props', () => {
-  //   const PROPS = { foo: 'bar', onBaz: () => { } }
-  //   let constructorProps
 
-  //   class C2 extends WeElement {
-  //     install() {
-  //       constructorProps = this.props
-  //     }
-  //     render(props) {
-  //       return <div {...props} />
-  //     }
-  //   }
-  //   sinon.spy(C2.prototype, 'render')
-
-  //   define('c2-ele', C2)
-  //   render(<c2-ele {...PROPS} />, scratch)
-
-  //    expect(constructorProps).to.deep.equal(PROPS)
-
-  //   expect(C2.prototype.render)
-  //     .to.have.been.calledOnce.and.to.have.been.calledWithMatch(PROPS)
-  //     .and.to.have.returned(
-  //       sinon.match({
-  //         nodeName: 'div',
-  //         attributes: PROPS
-  //       })
-  //     )
-
-  //   expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div foo="bar"></div>')
-  // })
 
 
 })
