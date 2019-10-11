@@ -3,14 +3,14 @@ import Simple from './components/simple.vue'
 import Event from './components/event.vue'
 import Vue from 'vue'
 
-const errorHandler = (error, vm)=>{
+const errorHandler = (error, vm) => {
   console.error('--------------------------------------------------------------------')
   throw error
-  
+
 }
 
 Vue.config.errorHandler = errorHandler;
-Vue.prototype.$throw = (error)=> errorHandler(error,this);
+Vue.prototype.$throw = (error) => errorHandler(error, this);
 
 describe('base', () => {
   let scratch
@@ -63,7 +63,7 @@ describe('base', () => {
 
     document.querySelector('#btn').click()
 
-    Vue.nextTick(()=>{
+    Vue.nextTick(() => {
       done()
       expect(document.querySelector('#app').innerHTML).to.equal('<span class="count">3</span> <button id="btn">Increment</button>')
     })
