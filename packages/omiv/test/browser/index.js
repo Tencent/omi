@@ -65,7 +65,8 @@ describe('base', () => {
 
     Vue.nextTick(() => {
       done()
-      expect(document.querySelector('#app').innerHTML).to.equal('<span class="count">3</span> <button id="btn">Increment</button>')
+      expect(document.querySelector('#app').innerHTML)
+        .to.equal('<span class="count">3</span> <button id="btn">Increment</button>')
     })
 
 
