@@ -70,6 +70,22 @@ describe('base', () => {
     })
   })
 
+  it('multi-store test', (done) => {
+
+    new Vue({
+      render: h => h(require('./components/multi-store.vue')
+        .default)
+    }).$mount('#app')
+
+    document.querySelector('#btn').click()
+
+    Vue.nextTick(() => {
+      done()
+      expect(document.querySelector('#app').innerHTML)
+        .to.equal('<span class="count">1</span> <button id="btn">sub</button>')
+    })
+  })
+
 
 
 })
