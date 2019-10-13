@@ -9,20 +9,8 @@ import { $ } from 'omiv'
 import HelloWorld from './components/HelloWorld.vue'
 
 export default $({
-  name: 'app',
   components: {
     HelloWorld
-  },
-  store: new class {
-    data = {
-      count: 1
-    };
-    sub = () => {
-      this.data.count--
-    };
-    add = () => {
-      this.data.count++
-    }
   }
 })
 ```
@@ -53,22 +41,32 @@ export default $({
 </script>
 ```
 
+Store injection:
+
+```jsx
+import { render } from 'omiv'
+import App from 'App.vue'
+
+const store = new class {
+  data = {
+    count: 1
+  };
+  sub = () => {
+    this.data.count--
+  };
+  add = () => {
+    this.data.count++
+  }
+}
+
+render(App, '#app', store)
+```
+
 ## Multi-store injection
 
-Injecting multiple stores from the root node:
+Injecting multiple stores by `render` method:
 
-```html
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue + Omiv App"/>
-  </div>
-</template>
-
-<script>
-import { $ } from './omiv/omiv'
-import HelloWorld from './components/HelloWorld.vue'
-
+```jsx
 const cs = new class {
   data = {
     count: 1
@@ -90,14 +88,26 @@ const ns = new class {
   }
 }
 
+render(App, '#app', { cs, ns })
+```
+
+App.vue:
+
+```html
+<template>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue + Omiv App"/>
+  </div>
+</template>
+
+<script>
+import { $ } from './omiv/omiv'
+import HelloWorld from './components/HelloWorld.vue'
+
 export default $({
-  name: 'app',
   components: {
     HelloWorld
-  },
-  store: {
-    cs, 
-    ns
   }
 })
 </script>

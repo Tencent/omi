@@ -8,8 +8,6 @@
 <script>
 import { $ } from '../../../src/omiv'
 
-
-console.log(111111111111)
 export default $({
   use: ['count']
 })

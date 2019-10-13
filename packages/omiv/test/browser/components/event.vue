@@ -6,22 +6,10 @@
 </template>
 
 <script>
-import { $ } from '../../../src/omiv' 
+import { $ } from '../../../src/omiv'
 
-const cs = new class {
-  data = {
-    count: 2
-  }
-  sub = () => {
-    this.data.count--
-  }
-  add = () => {
-    this.data.count++
-  }
-}
 
 export default $({
-  store: cs,
   use: ['count']
 })
 </script>

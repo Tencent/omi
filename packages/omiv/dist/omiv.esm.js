@@ -1,10 +1,12 @@
 /**
- * omiv v0.2.0  http://omijs.org
+ * omiv v0.3.0  http://omijs.org
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
+
+import Vue from 'vue';
 
 function obaa(target, arr, callback) {
   var eventPropArr = [];
@@ -250,20 +252,6 @@ function $(options) {
   var useSelf = options.useSelf;
   options.computed = options.computed || {};
 
-  if (options.store) {
-    store = options.store;
-    if (store.data) {
-      observe(store);
-    } else {
-      isMultiStore = true;
-      for (var key in store) {
-        if (store[key].data) {
-          observe(store[key], key);
-        }
-      }
-    }
-  }
-
   options.beforeCreate = function () {
     this.$store = store;
     if (isMultiStore) {
@@ -299,9 +287,9 @@ function $(options) {
 
   options.destroyed = function () {
     if (isMultiStore) {
-      for (var _key in store) {
-        removeItem(this, store[_key].components);
-        removeItem(this, store[_key].updateSelfComponents);
+      for (var key in store) {
+        removeItem(this, store[key].components);
+        removeItem(this, store[key].updateSelfComponents);
       }
     } else {
       removeItem(this, store.updateSelfComponents);
@@ -319,11 +307,11 @@ function $(options) {
       });
       return state;
     }
-    return this.$store.data;
+    return store.data;
   };
 
   options.computed.store = function () {
-    return this.$store;
+    return store;
   };
 
   return options;
@@ -377,8 +365,34 @@ function removeItem(item, arr) {
   }
 }
 
-var omiv = { $: $ };
+function render(app, renderTo, store, options) {
+  reset(store);
+  new Vue(Object.assign({
+    render: function render(h) {
+      return h(app);
+    }
+  }, options)).$mount(renderTo);
+}
+
+function reset(s) {
+  if (s) {
+    store = s;
+    if (store.data) {
+      isMultiStore = false;
+      observe(store);
+    } else {
+      isMultiStore = true;
+      for (var key in store) {
+        if (store[key].data) {
+          observe(store[key], key);
+        }
+      }
+    }
+  }
+}
+
+var omiv = { $: $, render: render, reset: reset };
 
 export default omiv;
-export { $ };
+export { $, render, reset };
 //# sourceMappingURL=omiv.esm.js.map

@@ -1,4 +1,4 @@
-!function() {
+!function(Vue) {
     'use strict';
     function obaa(target, arr, callback) {
         var eventPropArr = [];
@@ -134,13 +134,6 @@
         var use = options.use;
         var useSelf = options.useSelf;
         options.computed = options.computed || {};
-        if (options.store) {
-            store = options.store;
-            if (store.data) observe(store); else {
-                isMultiStore = !0;
-                for (var key in store) if (store[key].data) observe(store[key], key);
-            }
-        }
         options.beforeCreate = function() {
             this.$store = store;
             if (isMultiStore) {
@@ -173,9 +166,9 @@
             beforeCreate && beforeCreate.apply(this, arguments);
         };
         options.destroyed = function() {
-            if (isMultiStore) for (var _key in store) {
-                removeItem(this, store[_key].components);
-                removeItem(this, store[_key].updateSelfComponents);
+            if (isMultiStore) for (var key in store) {
+                removeItem(this, store[key].components);
+                removeItem(this, store[key].updateSelfComponents);
             } else {
                 removeItem(this, store.updateSelfComponents);
                 removeItem(this, store.components);
@@ -190,10 +183,10 @@
                 });
                 return state;
             }
-            return this.$store.data;
+            return store.data;
         };
         options.computed.store = function() {
-            return this.$store;
+            return store;
         };
         return options;
     }
@@ -229,6 +222,27 @@
             break;
         }
     }
+    function render(app, renderTo, store, options) {
+        reset(store);
+        new Vue(Object.assign({
+            render: function(h) {
+                return h(app);
+            }
+        }, options)).$mount(renderTo);
+    }
+    function reset(s) {
+        if (s) {
+            store = s;
+            if (store.data) {
+                isMultiStore = !1;
+                observe(store);
+            } else {
+                isMultiStore = !0;
+                for (var key in store) if (store[key].data) observe(store[key], key);
+            }
+        }
+    }
+    Vue = Vue && Vue.hasOwnProperty('default') ? Vue.default : Vue;
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
@@ -244,8 +258,10 @@
     var store;
     var isMultiStore = !1;
     var Omiv = {
-        $: $
+        $: $,
+        render: render,
+        reset: reset
     };
     if ('undefined' != typeof module) module.exports = Omiv; else self.Omiv = Omiv;
-}();
+}(Vue);
 //# sourceMappingURL=omiv.js.map

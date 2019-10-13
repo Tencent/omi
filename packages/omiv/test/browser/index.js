@@ -2,6 +2,7 @@ import Counter from './components/counter.vue'
 import Simple from './components/simple.vue'
 import Event from './components/event.vue'
 import Vue from 'vue'
+import { render } from '../../src/omiv'
 //import Nest from './components/nest.vue'
 
 const errorHandler = (error, vm) => {
@@ -47,9 +48,18 @@ describe('base', () => {
 
   it('simple test', () => {
 
-    new Vue({
-      render: h => h(Simple)
-    }).$mount('#app')
+
+    render(Simple, '#app', new class {
+      data = {
+        count: 2
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    })
 
     expect(document.querySelector('#app').innerHTML).to.equal('<span class="count">2</span> <button>Increment</button>')
 
@@ -58,25 +68,54 @@ describe('base', () => {
 
   it('simple event test', (done) => {
 
-    new Vue({
-      render: h => h(Event)
-    }).$mount('#app')
+    render(Event, '#app', new class {
+      data = {
+        count: 4
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    })
+
 
     document.querySelector('#btn').click()
 
     Vue.nextTick(() => {
       done()
       expect(document.querySelector('#app').innerHTML)
-        .to.equal('<span class="count">3</span> <button id="btn">Increment</button>')
+        .to.equal('<span class="count">5</span> <button id="btn">Increment</button>')
     })
   })
 
   it('multi-store test', (done) => {
 
-    new Vue({
-      render: h => h(require('./components/multi-store.vue')
-        .default)
-    }).$mount('#app')
+    const cs = new class {
+      data = {
+        count: 2
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    }
+
+    const rs = new class {
+      data = {
+        name: 'omiv'
+      }
+      rename = () => {
+        this.data.name = 'omiv + vue'
+      }
+    }
+
+    render(require('./components/multi-store.vue')
+    .default, '#app', {cs,rs})
+
 
     document.querySelector('#btn').click()
 
@@ -87,21 +126,30 @@ describe('base', () => {
     })
   })
 
-  // it('nest test', (done) => {
-  //   reset()
-  //   new Vue({
-  //     render: h => h(require('./components/nest.vue')
-  //       .default)
-  //   }).$mount('#app')
+  it('nest test', (done) => {
 
-  //   //document.querySelector('#btn').click()
+    const cs = new class {
+      data = {
+        count: 2
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    }
+    render(require('./components/nest.vue')
+    .default, '#app', cs)
 
-  //   Vue.nextTick(() => {
-  //     done()
-  //     expect(document.querySelector('#app').innerHTML)
-  //       .to.equal('<span class="count">1</span> <button id="btn">sub</button>')
-  //   })
-  // })
+    document.querySelector('button').click()
+
+    Vue.nextTick(() => {
+      done()
+      expect(document.querySelector('#app').innerHTML)
+        .to.equal('<div><span class="count">3</span> <button>Increment</button></div>')
+    })
+  })
 
 
 })

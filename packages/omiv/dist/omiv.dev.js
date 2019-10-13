@@ -1,13 +1,15 @@
 /**
- * omiv v0.2.0  http://omijs.org
+ * omiv v0.3.0  http://omijs.org
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-(function () {
+(function (Vue) {
   'use strict';
+
+  Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 
   function obaa(target, arr, callback) {
     var eventPropArr = [];
@@ -253,20 +255,6 @@
     var useSelf = options.useSelf;
     options.computed = options.computed || {};
 
-    if (options.store) {
-      store = options.store;
-      if (store.data) {
-        observe(store);
-      } else {
-        isMultiStore = true;
-        for (var key in store) {
-          if (store[key].data) {
-            observe(store[key], key);
-          }
-        }
-      }
-    }
-
     options.beforeCreate = function () {
       this.$store = store;
       if (isMultiStore) {
@@ -302,9 +290,9 @@
 
     options.destroyed = function () {
       if (isMultiStore) {
-        for (var _key in store) {
-          removeItem(this, store[_key].components);
-          removeItem(this, store[_key].updateSelfComponents);
+        for (var key in store) {
+          removeItem(this, store[key].components);
+          removeItem(this, store[key].updateSelfComponents);
         }
       } else {
         removeItem(this, store.updateSelfComponents);
@@ -322,11 +310,11 @@
         });
         return state;
       }
-      return this.$store.data;
+      return store.data;
     };
 
     options.computed.store = function () {
-      return this.$store;
+      return store;
     };
 
     return options;
@@ -380,9 +368,35 @@
     }
   }
 
-  var Omiv = { $: $ };
+  function render(app, renderTo, store, options) {
+    reset(store);
+    new Vue(Object.assign({
+      render: function render(h) {
+        return h(app);
+      }
+    }, options)).$mount(renderTo);
+  }
+
+  function reset(s) {
+    if (s) {
+      store = s;
+      if (store.data) {
+        isMultiStore = false;
+        observe(store);
+      } else {
+        isMultiStore = true;
+        for (var key in store) {
+          if (store[key].data) {
+            observe(store[key], key);
+          }
+        }
+      }
+    }
+  }
+
+  var Omiv = { $: $, render: render, reset: reset };
 
   if (typeof module != 'undefined') module.exports = Omiv;else self.Omiv = Omiv;
 
-}());
+}(Vue));
 //# sourceMappingURL=omiv.dev.js.map

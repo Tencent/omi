@@ -1,5 +1,6 @@
 import { obaa } from './obaa'
 import { getPath, needUpdate, fixPath } from './path'
+import Vue from 'vue'
 
 let store
 let isMultiStore = false
@@ -10,21 +11,6 @@ export function $(options) {
   const use = options.use
   const useSelf = options.useSelf
   options.computed = options.computed || {}
-
-  if (options.store) {
-    store = options.store
-    if (store.data) {
-      observe(store)
-    } else {
-      isMultiStore = true
-      for (let key in store) {
-        if (store[key].data) {
-          observe(store[key], key)
-        }
-      }
-    }
-
-  }
 
   options.beforeCreate = function () {
     this.$store = store
@@ -83,11 +69,11 @@ export function $(options) {
       })
       return state
     }
-    return this.$store.data
+    return store.data
   }
 
   options.computed.store = function () {
-    return this.$store
+    return store
   }
 
   return options
@@ -137,6 +123,31 @@ function removeItem(item, arr) {
     if (arr[i] === item) {
       arr.splice(i, 1)
       break
+    }
+  }
+}
+
+export function render(app, renderTo, store, options) {
+  reset(store)
+  new Vue(Object.assign({
+    render: h => h(app),
+  }, options)).$mount(renderTo)
+
+}
+
+export function reset(s) {
+  if (s) {
+    store = s
+    if (store.data) {
+      isMultiStore = false
+      observe(store)
+    } else {
+      isMultiStore = true
+      for (let key in store) {
+        if (store[key].data) {
+          observe(store[key], key)
+        }
+      }
     }
   }
 }
