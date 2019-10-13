@@ -2,6 +2,7 @@ import Counter from './components/counter.vue'
 import Simple from './components/simple.vue'
 import Event from './components/event.vue'
 import Vue from 'vue'
+//import Nest from './components/nest.vue'
 
 const errorHandler = (error, vm) => {
   console.error('--------------------------------------------------------------------')
@@ -86,6 +87,21 @@ describe('base', () => {
     })
   })
 
+  // it('nest test', (done) => {
+  //   reset()
+  //   new Vue({
+  //     render: h => h(require('./components/nest.vue')
+  //       .default)
+  //   }).$mount('#app')
+
+  //   //document.querySelector('#btn').click()
+
+  //   Vue.nextTick(() => {
+  //     done()
+  //     expect(document.querySelector('#app').innerHTML)
+  //       .to.equal('<span class="count">1</span> <button id="btn">sub</button>')
+  //   })
+  // })
 
 
 })
