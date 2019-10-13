@@ -1,6 +1,5 @@
 <script>
 import Game from './game.vue'
-import store from '../stores/index'
 import { $ } from 'omiv'
 
 export default $({
@@ -31,8 +30,7 @@ export default $({
 			</div>
       </div>
     )
-  },
-  store
+  }
 })
 </script>
 
