@@ -220,6 +220,7 @@ define('my-component', _ => (
 | [omi-kbone-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的贪吃蛇小程序 |
 | [Preact-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/master/packages/preact-css) + Omis 写的贪吃蛇 |
 | [[P]react-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| react/preact 写的 MVP 架构的贪吃蛇游戏 |
+| [vue-snake![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/vue-snake) | Vue + Omiv 写的 MVP 架构的贪吃蛇游戏 |
 
 #### 小程序生态
 

@@ -1,5 +1,7 @@
 # vue-snake
 
+Snake Eating Game by Vue + Omiv.
+
 ## Project setup
 ```
 npm install
