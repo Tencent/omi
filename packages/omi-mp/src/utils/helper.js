@@ -30,6 +30,28 @@ export function fixProps(properties){
   return props
 }
 
+// 找到dom属性 保持跟微信api 一样 放入detail
+function findDomData(dom) {
+  const resData = {};
+
+  if(!dom) {
+    return resData
+  }
+
+  const attr = dom.attributes;
+
+  for(let key of Object.keys(attr)){
+    let item = attr[key];
+    let localName = item.localName.replace(/\s+/g, ""); 
+
+    if(localName.match(/^data-/)){
+      resData[localName.replace('data-', '')] = item.value;
+    }
+  }
+  
+  return resData;
+}
+
 // 代理input
 export function helpInputEvent(fn, e){
   if(!e.detail){
@@ -40,8 +62,11 @@ export function helpInputEvent(fn, e){
     });
   }
 
-  Object.defineProperty(e.detail,'value',{
-    value: e.target.value,
+  Object.defineProperty(e,'detail',{
+    value: {
+      value: e.target.value,
+      ...findDomData(e.target)
+    },
     writable: false,
     configurable : true
   });
