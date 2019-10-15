@@ -207,4 +207,93 @@ describe('render array', () => {
 		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Hello2</div>')
 	})
 
+
+	it('render array 7', () => {
+		define('my-element17', class extends WeElement {
+
+			render(props) {
+				if (props.aa === 1) {
+					return  [<div>Element5</div>, <div>Element</div>]
+				}
+				return <div>Hello2</div>
+			}
+		})
+
+
+		define('my-app17', class extends WeElement {
+			aa = 1
+			installed() {
+					this.aa =2
+					this.updateSelf()
+
+			}
+
+			render(props) {
+				return <my-element17 aa={this.aa}></my-element17>
+			}
+		})
+
+		render(<my-app17 />,scratch)
+		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Element5</div><div>Element</div>')
+	})
+
+
+	it('render array 8', () => {
+		define('my-element18', class extends WeElement {
+
+			render(props) {
+				if (props.aa === 1) {
+					return  [<div>Element1</div>, <div>Element2</div>]
+				}
+				return[<div>Element3</div>, <div>Element4</div>, <div>Element5</div>]
+			}
+		})
+
+
+		define('my-app18', class extends WeElement {
+			aa = 1
+			installed() {
+					this.aa =2
+					this.update()
+
+			}
+
+			render(props) {
+				return <my-element18 aa={this.aa}></my-element18>
+			}
+		})
+
+		render(<my-app18 />,scratch)
+		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Element3</div><div>Element4</div><div>Element5</div>')
+	})
+
+
+	it('render array 9', () => {
+		define('my-element19', class extends WeElement {
+
+			render(props) {
+				if (props.aa === 1) {
+					return  [<div>Element1</div>, <div>Element2</div>]
+				}
+				return[<div>Element3</div>]
+			}
+		})
+
+
+		define('my-app19', class extends WeElement {
+			aa = 1
+			installed() {
+					this.aa =2
+					this.update()
+
+			}
+
+			render(props) {
+				return <my-element19 aa={this.aa}></my-element19>
+			}
+		})
+
+		render(<my-app19 />,scratch)
+		expect(scratch.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).to.equal('<div>Element3</div>')
+	})
 })

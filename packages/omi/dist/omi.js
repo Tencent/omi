@@ -216,7 +216,7 @@
             styles.forEach(function(s) {
                 parent.removeChild(s);
             });
-            innerDiffNode(parent, vnode, null, null, null);
+            innerDiffNode(parent, vnode, hydrating, component, updateSelf);
             for (var i = styles.length - 1; i >= 0; i--) parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
         } else {
             ret = [];
@@ -1042,7 +1042,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.3';
+    options.root.Omi.version = '6.15.4';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

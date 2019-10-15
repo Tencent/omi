@@ -39,7 +39,7 @@ export function diff(dom, vnode, parent, component, updateSelf) {
       styles.forEach(s => {
         parent.removeChild(s)
       })
-      innerDiffNode(parent, vnode, null, null, null, component)
+      innerDiffNode(parent, vnode, hydrating, component, updateSelf)
 
       for (let i = styles.length - 1; i >= 0; i--) {
         parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
