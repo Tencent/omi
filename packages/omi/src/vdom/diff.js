@@ -1,7 +1,7 @@
 import { ATTR_KEY } from '../constants'
 import { isSameNodeType, isNamedNode } from './index'
 import { createNode, setAccessor } from '../dom/index'
-import { camelCase, isArray } from '../util'
+import { camelCase, isArray, Fragment } from '../util'
 import { removeNode } from '../dom/index'
 import options from '../options'
 
@@ -32,6 +32,9 @@ export function diff(dom, vnode, parent, component, updateSelf) {
 
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
+  }
+  if(vnode.nodeName === Fragment){
+    vnode = vnode.children
   }
   if (isArray(vnode)) {
     if (parent) {

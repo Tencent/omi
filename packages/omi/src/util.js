@@ -47,6 +47,10 @@ export function camelCase(str) {
   })
 }
 
+export function Fragment(props) {
+  return props.children
+}
+
 export function extend(obj, props) {
   for (let i in props) obj[i] = props[i]
   return obj

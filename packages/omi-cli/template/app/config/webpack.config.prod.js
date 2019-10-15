@@ -182,7 +182,8 @@ module.exports = {
                 [
                   "@babel/preset-react",
                   {
-                    "pragma": "Omi.h"
+                    "pragma": "Omi.h",
+                    "pragmaFrag": "Omi.h.f"
                   }
                 ]
               ],

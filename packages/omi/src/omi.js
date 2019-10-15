@@ -12,6 +12,9 @@ import { o } from './o'
 import htm from 'htm'
 import { extend, get, set, bind, unbind } from './extend'
 import JSONProxy from './proxy'
+import { Fragment } from './util'
+
+h.f = Fragment
 
 const html = htm.bind(h)
 
@@ -50,7 +53,7 @@ const omi = {
 	set,
 	bind,
 	unbind,
-	JSONProxy
+  JSONProxy
 }
 
 options.root.Omi = omi
@@ -85,5 +88,5 @@ export {
 	set,
 	bind,
 	unbind,
-	JSONProxy
+  JSONProxy
 }
