@@ -7,7 +7,7 @@
 this.update()
 ```
 
-也可以传递参数，决定是否在 html 模式下忽略 attributes，强行更新:
+也可以传递参数，决定是否在 html 模式下忽略 attributes:
 
 ```js
 this.update(true)
