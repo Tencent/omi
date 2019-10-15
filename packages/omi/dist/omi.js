@@ -32,6 +32,9 @@
             return $1.toUpperCase();
         });
     }
+    function Fragment(props) {
+        return props.children;
+    }
     function extend(obj, props) {
         for (var i in props) obj[i] = props[i];
         return obj;
@@ -211,6 +214,7 @@
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !('prevProps' in dom);
         }
+        if (vnode.nodeName === Fragment) vnode = vnode.children;
         if (isArray(vnode)) if (parent) {
             var styles = parent.querySelectorAll('style');
             styles.forEach(function(s) {
@@ -1007,6 +1011,7 @@
         for (var r = "", e = 0; e < n.length; e++) r += n[e].length + "-" + n[e];
         return u[r] || (u[r] = t(n));
     };
+    h.f = Fragment;
     var html = htm.bind(h);
     var $ = {};
     var Component = WeElement;
@@ -1042,7 +1047,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.4';
+    options.root.Omi.version = '6.15.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
