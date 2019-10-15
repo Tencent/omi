@@ -101,6 +101,9 @@
             break;
         }
     }
+    function Fragment(props) {
+        return props.children;
+    }
     function cloneElement(vnode, props) {
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
@@ -332,7 +335,7 @@
         if (isArray(vnode)) vnode = {
             nodeName: 'span',
             children: vnode
-        };
+        }; else if (vnode && vnode.nodeName === Fragment) vnode.nodeName = 'span';
         ret = idiff(dom, vnode, context, mountAll, componentRoot, updateSelf);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         if (!--diffLevel) {
@@ -1268,6 +1271,7 @@
         for (var r = "", e = 0; e < n.length; e++) r += n[e].length + "-" + n[e];
         return u[r] || (u[r] = t(n));
     };
+    h.f = Fragment;
     var html = htm.bind(h);
     var WeElement = Component;
     var defineElement = define;
@@ -1295,7 +1299,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.6.1';
+    options.root.Omi.version = 'omio-2.6.2';
     var Omi = {
         h: h,
         createElement: h,

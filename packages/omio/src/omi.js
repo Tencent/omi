@@ -12,6 +12,9 @@ import { getHost } from './get-host'
 import { renderToString } from './render-to-string'
 import htm from 'htm'
 import obaa from './obaa'
+import { Fragment } from './util'
+
+h.f = Fragment
 
 const html = htm.bind(h)
 
@@ -45,7 +48,7 @@ options.root.Omi = {
   obaa
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.6.1'
+options.root.Omi.version = 'omio-2.6.2'
 
 export default {
   h,

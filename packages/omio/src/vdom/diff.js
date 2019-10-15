@@ -6,7 +6,7 @@ import { unmountComponent } from './component'
 import options from '../options'
 import { applyRef } from '../util'
 import { removeNode } from '../dom/index'
-import { isArray } from '../util'
+import { isArray, Fragment } from '../util'
 import { addStyleToHead, getCtorName } from '../style'
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
@@ -54,6 +54,8 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot, updat
       nodeName: 'span',
       children: vnode
     }
+  } else if(vnode && vnode.nodeName === Fragment) {
+    vnode.nodeName = 'span'
   }
 
   ret = idiff(dom, vnode, context, mountAll, componentRoot, updateSelf)

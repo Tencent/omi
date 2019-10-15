@@ -259,3 +259,7 @@ export function removeItem(item, arr){
     }
   }
 }
+
+export function Fragment(props) {
+  return props.children
+}
