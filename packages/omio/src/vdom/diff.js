@@ -38,7 +38,7 @@ export function flushMounts() {
  *	@returns {Element} dom			The created/mutated element
  *	@private
  */
-export function diff(dom, vnode, context, mountAll, parent, componentRoot, updateSelf) {
+export function diff(dom, vnode, store, mountAll, parent, componentRoot, updateSelf) {
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   if (!diffLevel++) {
     // when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -58,7 +58,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot, updat
     vnode.nodeName = 'span'
   }
 
-  ret = idiff(dom, vnode, context, mountAll, componentRoot, updateSelf)
+  ret = idiff(dom, vnode, store, mountAll, componentRoot, updateSelf)
   // append the element if its a new parent
   if (parent && ret.parentNode !== parent) parent.appendChild(ret)
 
@@ -73,7 +73,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot, updat
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
+function idiff(dom, vnode, store, mountAll, componentRoot, updateSelf) {
   let out = dom,
     prevSvgMode = isSvgMode
 
@@ -84,10 +84,10 @@ function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
   let vnodeName = vnode.nodeName
   if (options.mapping[vnodeName]) {
     vnode.nodeName = options.mapping[vnodeName]
-    return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf)
+    return buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf)
   }
   if (typeof vnodeName == 'function') {
-    return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf)
+    return buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf)
   }
 
   // Fast case: Strings & Numbers create/update Text nodes.
@@ -174,7 +174,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
     innerDiffNode(
       out,
       vchildren,
-      context,
+      store,
       mountAll,
       hydrating || props.dangerouslySetInnerHTML != null,
       updateSelf
@@ -193,11 +193,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
 /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
  *	@param {Element} dom			Element whose children should be compared & mutated
  *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
- *	@param {Object} context			Implicitly descendant context object (from most recent `getChildContext()`)
+ *	@param {Object} store			Implicitly descendant context object (from most recent `getChildContext()`)
  *	@param {Boolean} mountAll
  *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
  */
-function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, updateSelf) {
+function innerDiffNode(dom, vchildren, store, mountAll, isHydrating, updateSelf) {
   let originalChildren = dom.childNodes,
     children = [],
     keyed = {},
@@ -270,7 +270,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, updateSel
       }
 
       // morph the matched/found/created DOM child to match vchild (deep)
-      child = idiff(child, vchild, context, mountAll, null, updateSelf)
+      child = idiff(child, vchild, store, mountAll, null, updateSelf)
 
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {

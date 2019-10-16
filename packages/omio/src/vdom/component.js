@@ -30,7 +30,7 @@ import {
  *	@param {boolean} [opts.renderSync=false]	If `true` and {@link options.syncComponentUpdates} is `true`, triggers synchronous rendering.
  *	@param {boolean} [opts.render=true]			If `false`, no render will be triggered.
  */
-export function setComponentProps(component, props, opts, context, mountAll) {
+export function setComponentProps(component, props, opts, store, mountAll) {
   if (component._disable) return
   component._disable = true
 
@@ -40,11 +40,6 @@ export function setComponentProps(component, props, opts, context, mountAll) {
   if (!component.base || mountAll) {
     if (component.beforeInstall) component.beforeInstall()
     if (component.install) component.install()
-  }
-
-  if (context && context !== component.context) {
-    if (!component.prevContext) component.prevContext = component.context
-    component.context = context
   }
 
   if (!component.prevProps) component.prevProps = component.props
@@ -78,9 +73,8 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
   if (component._disable) return
 
   let props = component.props,
-    context = component.context,
+    store = component.store,
     previousProps = component.prevProps || props,
-    previousContext = component.prevContext || context,
     isUpdate = component.base,
     nextBase = component.nextBase,
     initialBase = isUpdate || nextBase,
@@ -93,7 +87,6 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
   // if updating
   if (isUpdate) {
     component.props = previousProps
-    component.context = previousContext
     
     let receiveResult = true
     if (component.receiveProps) {
@@ -102,20 +95,19 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
     if (receiveResult !== false) {
       skip = false
       if (component.beforeUpdate) {
-        component.beforeUpdate(props, context)
+        component.beforeUpdate(props, store)
       }
     } else {
       skip = true
     }
     component.props = props
-    component.context = context
   }
 
-  component.prevProps = component.prevContext = component.nextBase = null
+  component.prevProps = component.nextBase = null
 
   if (!skip) {
     component.beforeRender && component.beforeRender()
-    rendered = component.render(props, context)
+    rendered = component.render(props, store)
 
     //don't rerender
     if (component.constructor.css || component.css) {
@@ -127,10 +119,6 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
 
     scopeHost(rendered, component.scopedCssAttr)
 
-    // context to pass to the child, can be updated via (grand-)parent component
-    if (component.getChildContext) {
-      context = extend(extend({}, context), component.getChildContext())
-    }
 
     let childComponent = rendered && rendered.nodeName,
       toUnmount,
@@ -144,14 +132,14 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
       inst = initialChildComponent
 
       if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
-        setComponentProps(inst, childProps, SYNC_RENDER, context, false)
+        setComponentProps(inst, childProps, SYNC_RENDER, store, false)
       } else {
         toUnmount = inst
 
-        component._component = inst = createComponent(ctor, childProps, context)
+        component._component = inst = createComponent(ctor, childProps, store)
         inst.nextBase = inst.nextBase || nextBase
         inst._parentComponent = component
-        setComponentProps(inst, childProps, NO_RENDER, context, false)
+        setComponentProps(inst, childProps, NO_RENDER, store, false)
         renderComponent(inst, SYNC_RENDER, mountAll, true)
       }
 
@@ -170,7 +158,7 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
         base = diff(
           cbase,
           rendered,
-          context,
+          store,
           mountAll || !isUpdate,
           initialBase && initialBase.parentNode,
           true,
@@ -217,10 +205,10 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
 
     if (component.afterUpdate) {
       //deprecated
-      component.afterUpdate(previousProps, previousContext)
+      component.afterUpdate(previousProps, store)
     }
     if (component.updated) {
-      component.updated(previousProps, previousContext)
+      component.updated(previousProps, store)
     }
     if (options.afterUpdate) options.afterUpdate(component)
   }
@@ -239,7 +227,7 @@ export function renderComponent(component, opts, mountAll, isChild, updateSelf) 
  *	@returns {Element} dom	The created/mutated element
  *	@private
  */
-export function buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf) {
+export function buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf) {
   let c = dom && dom._component,
     originalComponent = c,
     oldDom = dom,
@@ -252,7 +240,7 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll, updateSel
 
   if (c && isOwner && (!mountAll || c._component)) {
     if(!updateSelf){
-      setComponentProps(c, props, ASYNC_RENDER, context, mountAll)
+      setComponentProps(c, props, ASYNC_RENDER, store, mountAll)
     }
     dom = c.base
   } else {
@@ -261,13 +249,13 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll, updateSel
       dom = oldDom = null
     }
 
-    c = createComponent(vnode.nodeName, props, context, vnode)
+    c = createComponent(vnode.nodeName, props, store, vnode)
     if (dom && !c.nextBase) {
       c.nextBase = dom
       // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
       oldDom = null
     }
-    setComponentProps(c, props, SYNC_RENDER, context, mountAll)
+    setComponentProps(c, props, SYNC_RENDER, store, mountAll)
     dom = c.base
 
     if (oldDom && dom !== oldDom) {
@@ -296,12 +284,12 @@ export function unmountComponent(component) {
     if(options.isMultiStore){
       for(let key in component.store){
         const current = component.store[key]
-        removeItem(component, current.instances)
-        removeItem(component, current.updateSelfInstances)
+        current.instances && removeItem(component, current.instances)
+        current.updateSelfInstances && removeItem(component, current.updateSelfInstances)
       }
     } else {
-      removeItem(component, component.store.instances)
-      removeItem(component, component.store.updateSelfInstances)
+      component.store.instances && removeItem(component, component.store.instances)
+      component.store.updateSelfInstances && removeItem(component, component.store.updateSelfInstances)
     }
 	}
 

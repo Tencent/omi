@@ -12,17 +12,19 @@ import options from './options'
 export function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
 
-  if(store && store.data){
-
-    obsStore(store)
-  } else {
-    options.isMultiStore = true
-    for(let key in store){
-      if(store[key].data){
-        obsStore(store[key], key)
+  if (store) {
+    if (store.data) {
+      obsStore(store)
+    } else {
+      options.isMultiStore = true
+      for (let key in store) {
+        if (store[key].data) {
+          obsStore(store[key], key)
+        }
       }
     }
   }
+  
 
   if (empty) {
     while (parent.firstChild) {

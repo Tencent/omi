@@ -14,15 +14,15 @@ export function collectComponent(component) {
 }
 
 /** Create a component. Normalizes differences between PFC's and classful Components. */
-export function createComponent(Ctor, props, context, vnode) {
+export function createComponent(Ctor, props, store, vnode) {
   let list = components[Ctor.name],
     inst
 
   if (Ctor.prototype && Ctor.prototype.render) {
-    inst = new Ctor(props, context)
-    Component.call(inst, props, context)
+    inst = new Ctor(props, store)
+    Component.call(inst, props, store)
   } else {
-    inst = new Component(props, context)
+    inst = new Component(props, store)
     inst.constructor = Ctor
     inst.render = doRender
   }
@@ -87,6 +87,6 @@ export function createComponent(Ctor, props, context, vnode) {
 }
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, context) {
-  return this.constructor(props, context)
+function doRender(props, store) {
+  return this.constructor(props, store)
 }

@@ -326,7 +326,7 @@
             if (c.constructor.css || c.css) addStyleToHead(c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css, '_s' + getCtorName(c.constructor));
         }
     }
-    function diff(dom, vnode, context, mountAll, parent, componentRoot, updateSelf) {
+    function diff(dom, vnode, store, mountAll, parent, componentRoot, updateSelf) {
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !('__omiattr_' in dom);
@@ -336,7 +336,7 @@
             nodeName: 'span',
             children: vnode
         }; else if (vnode && vnode.nodeName === Fragment) vnode.nodeName = 'span';
-        ret = idiff(dom, vnode, context, mountAll, componentRoot, updateSelf);
+        ret = idiff(dom, vnode, store, mountAll, componentRoot, updateSelf);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         if (!--diffLevel) {
             hydrating = !1;
@@ -344,15 +344,15 @@
         }
         return ret;
     }
-    function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
+    function idiff(dom, vnode, store, mountAll, componentRoot, updateSelf) {
         var out = dom, prevSvgMode = isSvgMode;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         var vnodeName = vnode.nodeName;
         if (options.mapping[vnodeName]) {
             vnode.nodeName = options.mapping[vnodeName];
-            return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf);
+            return buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf);
         }
-        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf);
+        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf);
         if ('string' == typeof vnode || 'number' == typeof vnode) {
             if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
                 if (dom.nodeValue != vnode) dom.nodeValue = vnode;
@@ -385,12 +385,12 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML, updateSelf);
+        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, store, mountAll, hydrating || null != props.dangerouslySetInnerHTML, updateSelf);
         diffAttributes(out, vnode.attributes, props);
         isSvgMode = prevSvgMode;
         return out;
     }
-    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, updateSelf) {
+    function innerDiffNode(dom, vchildren, store, mountAll, isHydrating, updateSelf) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
             var _child = originalChildren[i], props = _child.__omiattr_, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
@@ -416,7 +416,7 @@
                 if (j === min) min++;
                 break;
             }
-            child = idiff(child, vchild, context, mountAll, null, updateSelf);
+            child = idiff(child, vchild, store, mountAll, null, updateSelf);
             f = originalChildren[i];
             if (child && child !== dom && child !== f) if (null == f) dom.appendChild(child); else if (child === f.nextSibling) removeNode(f); else dom.insertBefore(child, f);
         }
@@ -448,13 +448,13 @@
         var name = component.constructor.name;
         (components[name] || (components[name] = [])).push(component);
     }
-    function createComponent(Ctor, props, context, vnode) {
+    function createComponent(Ctor, props, store, vnode) {
         var inst, list = components[Ctor.name];
         if (Ctor.prototype && Ctor.prototype.render) {
-            inst = new Ctor(props, context);
-            Component.call(inst, props, context);
+            inst = new Ctor(props, store);
+            Component.call(inst, props, store);
         } else {
-            inst = new Component(props, context);
+            inst = new Component(props, store);
             inst.constructor = Ctor;
             inst.render = doRender;
         }
@@ -506,10 +506,10 @@
         }
         return inst;
     }
-    function doRender(props, context) {
-        return this.constructor(props, context);
+    function doRender(props, store) {
+        return this.constructor(props, store);
     }
-    function setComponentProps(component, props, opts, context, mountAll) {
+    function setComponentProps(component, props, opts, store, mountAll) {
         if (!component.__x) {
             component.__x = !0;
             if (component.__r = props.ref) delete props.ref;
@@ -517,10 +517,6 @@
             if (!component.base || mountAll) {
                 if (component.beforeInstall) component.beforeInstall();
                 if (component.install) component.install();
-            }
-            if (context && context !== component.context) {
-                if (!component.__c) component.__c = component.context;
-                component.context = context;
             }
             if (!component.__p) component.__p = component.props;
             component.props = props;
@@ -531,36 +527,33 @@
     }
     function renderComponent(component, opts, mountAll, isChild, updateSelf) {
         if (!component.__x) {
-            var rendered, inst, cbase, props = component.props, context = component.context, previousProps = component.__p || props, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
+            var rendered, inst, cbase, props = component.props, store = component.store, previousProps = component.__p || props, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
             if (isUpdate) {
                 component.props = previousProps;
-                component.context = previousContext;
                 var receiveResult = !0;
                 if (component.receiveProps) receiveResult = component.receiveProps(props, previousProps);
                 if (!1 !== receiveResult) {
                     skip = !1;
-                    if (component.beforeUpdate) component.beforeUpdate(props, context);
+                    if (component.beforeUpdate) component.beforeUpdate(props, store);
                 } else skip = !0;
                 component.props = props;
-                component.context = context;
             }
-            component.__p = component.__c = component.__b = null;
+            component.__p = component.__b = null;
             if (!skip) {
                 component.beforeRender && component.beforeRender();
-                rendered = component.render(props, context);
+                rendered = component.render(props, store);
                 if (component.constructor.css || component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
                 scopeHost(rendered, component.scopedCssAttr);
-                if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
                 if (ctor) {
                     var childProps = getNodeProps(rendered);
                     inst = initialChildComponent;
-                    if (inst && inst.constructor === ctor && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, context, !1); else {
+                    if (inst && inst.constructor === ctor && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, store, !1); else {
                         toUnmount = inst;
-                        component._component = inst = createComponent(ctor, childProps, context);
+                        component._component = inst = createComponent(ctor, childProps, store);
                         inst.__b = inst.__b || nextBase;
                         inst.__u = component;
-                        setComponentProps(inst, childProps, 0, context, !1);
+                        setComponentProps(inst, childProps, 0, store, !1);
                         renderComponent(inst, 1, mountAll, !0);
                     }
                     base = inst.base;
@@ -570,7 +563,7 @@
                     if (toUnmount) cbase = component._component = null;
                     if (initialBase || 1 === opts) {
                         if (cbase) cbase._component = null;
-                        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0, updateSelf);
+                        base = diff(cbase, rendered, store, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0, updateSelf);
                     }
                 }
                 if (initialBase && base !== initialBase && inst !== initialChildComponent) {
@@ -593,31 +586,31 @@
                 }
             }
             if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
-                if (component.afterUpdate) component.afterUpdate(previousProps, previousContext);
-                if (component.updated) component.updated(previousProps, previousContext);
+                if (component.afterUpdate) component.afterUpdate(previousProps, store);
+                if (component.updated) component.updated(previousProps, store);
                 if (options.afterUpdate) options.afterUpdate(component);
             }
             if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
             if (!diffLevel && !isChild) flushMounts();
         }
     }
-    function buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf) {
+    function buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf) {
         var c = dom && dom._component, originalComponent = c, oldDom = dom, isDirectOwner = c && dom._componentConstructor === vnode.nodeName, isOwner = isDirectOwner, props = getNodeProps(vnode);
         while (c && !isOwner && (c = c.__u)) isOwner = c.constructor === vnode.nodeName;
         if (c && isOwner && (!mountAll || c._component)) {
-            if (!updateSelf) setComponentProps(c, props, 3, context, mountAll);
+            if (!updateSelf) setComponentProps(c, props, 3, store, mountAll);
             dom = c.base;
         } else {
             if (originalComponent && !isDirectOwner) {
                 unmountComponent(originalComponent);
                 dom = oldDom = null;
             }
-            c = createComponent(vnode.nodeName, props, context, vnode);
+            c = createComponent(vnode.nodeName, props, store, vnode);
             if (dom && !c.__b) {
                 c.__b = dom;
                 oldDom = null;
             }
-            setComponentProps(c, props, 1, context, mountAll);
+            setComponentProps(c, props, 1, store, mountAll);
             dom = c.base;
             if (oldDom && dom !== oldDom) {
                 oldDom._component = null;
@@ -633,11 +626,11 @@
         if (component.uninstall) component.uninstall();
         if (component.store) if (options.isMultiStore) for (var key in component.store) {
             var current = component.store[key];
-            removeItem(component, current.instances);
-            removeItem(component, current.updateSelfInstances);
+            current.instances && removeItem(component, current.instances);
+            current.updateSelfInstances && removeItem(component, current.updateSelfInstances);
         } else {
-            removeItem(component, component.store.instances);
-            removeItem(component, component.store.updateSelfInstances);
+            component.store.instances && removeItem(component, component.store.instances);
+            component.store.updateSelfInstances && removeItem(component, component.store.updateSelfInstances);
         }
         component.base = null;
         var inner = component._component;
@@ -760,7 +753,7 @@
     }
     function render(vnode, parent, store, empty, merge) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-        if (store && store.data) obsStore(store); else {
+        if (store) if (store.data) obsStore(store); else {
             options.isMultiStore = !0;
             for (var key in store) if (store[key].data) obsStore(store[key], key);
         }
@@ -1299,7 +1292,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.6.2';
+    options.root.Omi.version = 'omio-2.6.3';
     var Omi = {
         h: h,
         createElement: h,

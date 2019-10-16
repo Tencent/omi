@@ -1,5 +1,5 @@
 /**
- * omi v2.6.2  http://omijs.org
+ * omi v2.6.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -837,7 +837,7 @@
    *	@returns {Element} dom			The created/mutated element
    *	@private
    */
-  function diff(dom, vnode, context, mountAll, parent, componentRoot, updateSelf) {
+  function diff(dom, vnode, store, mountAll, parent, componentRoot, updateSelf) {
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     if (!diffLevel++) {
       // when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -857,7 +857,7 @@
       vnode.nodeName = 'span';
     }
 
-    ret = idiff(dom, vnode, context, mountAll, componentRoot, updateSelf);
+    ret = idiff(dom, vnode, store, mountAll, componentRoot, updateSelf);
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
@@ -872,7 +872,7 @@
   }
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-  function idiff(dom, vnode, context, mountAll, componentRoot, updateSelf) {
+  function idiff(dom, vnode, store, mountAll, componentRoot, updateSelf) {
     var out = dom,
         prevSvgMode = isSvgMode;
 
@@ -883,10 +883,10 @@
     var vnodeName = vnode.nodeName;
     if (options.mapping[vnodeName]) {
       vnode.nodeName = options.mapping[vnodeName];
-      return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf);
+      return buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf);
     }
     if (typeof vnodeName == 'function') {
-      return buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf);
+      return buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf);
     }
 
     // Fast case: Strings & Numbers create/update Text nodes.
@@ -953,7 +953,7 @@
     }
     // otherwise, if there are existing or new children, diff them:
     else if (vchildren && vchildren.length || fc != null) {
-        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null, updateSelf);
+        innerDiffNode(out, vchildren, store, mountAll, hydrating || props.dangerouslySetInnerHTML != null, updateSelf);
       }
 
     // Apply attributes/props from VNode to the DOM Element:
@@ -968,11 +968,11 @@
   /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
    *	@param {Element} dom			Element whose children should be compared & mutated
    *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
-   *	@param {Object} context			Implicitly descendant context object (from most recent `getChildContext()`)
+   *	@param {Object} store			Implicitly descendant context object (from most recent `getChildContext()`)
    *	@param {Boolean} mountAll
    *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
    */
-  function innerDiffNode(dom, vchildren, context, mountAll, isHydrating, updateSelf) {
+  function innerDiffNode(dom, vchildren, store, mountAll, isHydrating, updateSelf) {
     var originalChildren = dom.childNodes,
         children = [],
         keyed = {},
@@ -1030,7 +1030,7 @@
           }
 
         // morph the matched/found/created DOM child to match vchild (deep)
-        child = idiff(child, vchild, context, mountAll, null, updateSelf);
+        child = idiff(child, vchild, store, mountAll, null, updateSelf);
 
         f = originalChildren[i];
         if (child && child !== dom && child !== f) {
@@ -1128,15 +1128,15 @@
   }
 
   /** Create a component. Normalizes differences between PFC's and classful Components. */
-  function createComponent(Ctor, props, context, vnode) {
+  function createComponent(Ctor, props, store, vnode) {
     var list = components[Ctor.name],
         inst;
 
     if (Ctor.prototype && Ctor.prototype.render) {
-      inst = new Ctor(props, context);
-      Component.call(inst, props, context);
+      inst = new Ctor(props, store);
+      Component.call(inst, props, store);
     } else {
-      inst = new Component(props, context);
+      inst = new Component(props, store);
       inst.constructor = Ctor;
       inst.render = doRender;
     }
@@ -1199,8 +1199,8 @@
   }
 
   /** The `.render()` method for a PFC backing instance. */
-  function doRender(props, context) {
-    return this.constructor(props, context);
+  function doRender(props, store) {
+    return this.constructor(props, store);
   }
 
   /** Set a component's `props` (generally derived from JSX attributes).
@@ -1209,7 +1209,7 @@
    *	@param {boolean} [opts.renderSync=false]	If `true` and {@link options.syncComponentUpdates} is `true`, triggers synchronous rendering.
    *	@param {boolean} [opts.render=true]			If `false`, no render will be triggered.
    */
-  function setComponentProps(component, props, opts, context, mountAll) {
+  function setComponentProps(component, props, opts, store, mountAll) {
     if (component._disable) return;
     component._disable = true;
 
@@ -1219,11 +1219,6 @@
     if (!component.base || mountAll) {
       if (component.beforeInstall) component.beforeInstall();
       if (component.install) component.install();
-    }
-
-    if (context && context !== component.context) {
-      if (!component.prevContext) component.prevContext = component.context;
-      component.context = context;
     }
 
     if (!component.prevProps) component.prevProps = component.props;
@@ -1252,9 +1247,8 @@
     if (component._disable) return;
 
     var props = component.props,
-        context = component.context,
+        store = component.store,
         previousProps = component.prevProps || props,
-        previousContext = component.prevContext || context,
         isUpdate = component.base,
         nextBase = component.nextBase,
         initialBase = isUpdate || nextBase,
@@ -1267,7 +1261,6 @@
     // if updating
     if (isUpdate) {
       component.props = previousProps;
-      component.context = previousContext;
 
       var receiveResult = true;
       if (component.receiveProps) {
@@ -1276,20 +1269,19 @@
       if (receiveResult !== false) {
         skip = false;
         if (component.beforeUpdate) {
-          component.beforeUpdate(props, context);
+          component.beforeUpdate(props, store);
         }
       } else {
         skip = true;
       }
       component.props = props;
-      component.context = context;
     }
 
-    component.prevProps = component.prevContext = component.nextBase = null;
+    component.prevProps = component.nextBase = null;
 
     if (!skip) {
       component.beforeRender && component.beforeRender();
-      rendered = component.render(props, context);
+      rendered = component.render(props, store);
 
       //don't rerender
       if (component.constructor.css || component.css) {
@@ -1297,11 +1289,6 @@
       }
 
       scopeHost(rendered, component.scopedCssAttr);
-
-      // context to pass to the child, can be updated via (grand-)parent component
-      if (component.getChildContext) {
-        context = extend(extend({}, context), component.getChildContext());
-      }
 
       var childComponent = rendered && rendered.nodeName,
           toUnmount,
@@ -1315,14 +1302,14 @@
         inst = initialChildComponent;
 
         if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
-          setComponentProps(inst, childProps, 1, context, false);
+          setComponentProps(inst, childProps, 1, store, false);
         } else {
           toUnmount = inst;
 
-          component._component = inst = createComponent(ctor, childProps, context);
+          component._component = inst = createComponent(ctor, childProps, store);
           inst.nextBase = inst.nextBase || nextBase;
           inst._parentComponent = component;
-          setComponentProps(inst, childProps, 0, context, false);
+          setComponentProps(inst, childProps, 0, store, false);
           renderComponent(inst, 1, mountAll, true);
         }
 
@@ -1338,7 +1325,7 @@
 
         if (initialBase || opts === 1) {
           if (cbase) cbase._component = null;
-          base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, updateSelf);
+          base = diff(cbase, rendered, store, mountAll || !isUpdate, initialBase && initialBase.parentNode, true, updateSelf);
         }
       }
 
@@ -1380,10 +1367,10 @@
 
       if (component.afterUpdate) {
         //deprecated
-        component.afterUpdate(previousProps, previousContext);
+        component.afterUpdate(previousProps, store);
       }
       if (component.updated) {
-        component.updated(previousProps, previousContext);
+        component.updated(previousProps, store);
       }
       if (options.afterUpdate) options.afterUpdate(component);
     }
@@ -1403,7 +1390,7 @@
    *	@returns {Element} dom	The created/mutated element
    *	@private
    */
-  function buildComponentFromVNode(dom, vnode, context, mountAll, updateSelf) {
+  function buildComponentFromVNode(dom, vnode, store, mountAll, updateSelf) {
     var c = dom && dom._component,
         originalComponent = c,
         oldDom = dom,
@@ -1416,7 +1403,7 @@
 
     if (c && isOwner && (!mountAll || c._component)) {
       if (!updateSelf) {
-        setComponentProps(c, props, 3, context, mountAll);
+        setComponentProps(c, props, 3, store, mountAll);
       }
       dom = c.base;
     } else {
@@ -1425,13 +1412,13 @@
         dom = oldDom = null;
       }
 
-      c = createComponent(vnode.nodeName, props, context, vnode);
+      c = createComponent(vnode.nodeName, props, store, vnode);
       if (dom && !c.nextBase) {
         c.nextBase = dom;
         // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
         oldDom = null;
       }
-      setComponentProps(c, props, 1, context, mountAll);
+      setComponentProps(c, props, 1, store, mountAll);
       dom = c.base;
 
       if (oldDom && dom !== oldDom) {
@@ -1460,12 +1447,12 @@
       if (options.isMultiStore) {
         for (var key in component.store) {
           var current = component.store[key];
-          removeItem(component, current.instances);
-          removeItem(component, current.updateSelfInstances);
+          current.instances && removeItem(component, current.instances);
+          current.updateSelfInstances && removeItem(component, current.updateSelfInstances);
         }
       } else {
-        removeItem(component, component.store.instances);
-        removeItem(component, component.store.updateSelfInstances);
+        component.store.instances && removeItem(component, component.store.instances);
+        component.store.updateSelfInstances && removeItem(component, component.store.updateSelfInstances);
       }
     }
 
@@ -1729,14 +1716,15 @@
   function render(vnode, parent, store, empty, merge) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
-    if (store && store.data) {
-
-      obsStore(store);
-    } else {
-      options.isMultiStore = true;
-      for (var key in store) {
-        if (store[key].data) {
-          obsStore(store[key], key);
+    if (store) {
+      if (store.data) {
+        obsStore(store);
+      } else {
+        options.isMultiStore = true;
+        for (var key in store) {
+          if (store[key].data) {
+            obsStore(store[key], key);
+          }
         }
       }
     }
@@ -2319,7 +2307,7 @@
     obaa: obaa
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.6.2';
+  options.root.Omi.version = 'omio-2.6.3';
 
   var Omi = {
     h: h,
