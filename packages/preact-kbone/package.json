@@ -1,22 +1,25 @@
 {
-  "name": "react-kbone",
+  "name": "preact-kbone",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "keywords": [
-    "react",
+    "preact-kbone",
     "kbone",
+    "react",
+    "preact",
     "mp"
   ],
   "scripts": {
     "start": "cross-env NODE_ENV=production webpack --config scripts/webpack.mp.config.js --watch --progress --hide-modules",
+    "mp": "cross-env NODE_ENV=production webpack --config scripts/webpack.mp.config.js --watch --progress --hide-modules",
     "web": "node scripts/start.js",
     "build": "PUBLIC_URL=. node scripts/build.js",
     "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
     "fix": "eslint src --fix"
   },
   "dependencies": {
-    "preact": "^8.5.1",
+    "preact": "^10.0.0",
     "styled-jsx": "^3.2.1"
   },
   "browserslist": [
@@ -41,7 +44,7 @@
     "stylehacks": "^4.0.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
-    "mp-webpack-plugin2": "^0.0.3",
+    "mp-webpack-plugin": "^0.4.2",
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
@@ -157,7 +160,5 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "alias":{
-    
-  }
+  "alias": {}
 }

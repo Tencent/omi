@@ -5,11 +5,15 @@ class Counter extends Component {
   state = { count: 1 }
 
   sub = () => {
-    this.setState({ count: --this.state.count })
+    this.setState(prevState => {
+      return { count: --prevState.count }
+    });
   }
 
   add = () => {
-    this.setState({ count: ++this.state.count })
+    this.setState(prevState => {
+      return { count: ++prevState.count }
+    });
   }
 
   clickHandle = () => {
@@ -25,10 +29,10 @@ class Counter extends Component {
   render({ }, { count }) {
     return (
       <div>
-        <button onClick={this.sub}>-</button>
+        <button onclick={this.sub}>-</button>
         <span>{count}</span>
-        <button onClick={this.add}>+</button>
-        <div onClick={this.clickHandle}>跳转</div>
+        <button onclick={this.add}>+</button>
+        <div onclick={this.clickHandle}>跳转</div>
       </div>
     )
   }

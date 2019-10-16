@@ -23,6 +23,11 @@ module.exports = {
 			}
 		]
 	},
+	"runtime": {
+		"subpackagesMap": {},
+		"tabBarMap": {},
+		"usingComponents": {}
+	},
 	"pages": {
 		"index": {},
 		"log": {}

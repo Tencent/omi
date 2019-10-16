@@ -199,6 +199,7 @@ class EventTarget {
 
         if (handlers && handlers.length) {
             // 触发 addEventListener 绑定的事件
+            console.log(handlers)
             handlers.forEach(handler => handler.call(this || null, event))
         }
     }

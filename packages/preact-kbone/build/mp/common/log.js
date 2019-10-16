@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
+module.exports = function(window, document) {const App = function(options) {window.appOptions = options};var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -163,13 +163,12 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createApp; });
 /* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var preact__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(preact__WEBPACK_IMPORTED_MODULE_0__);
 
 function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(preact__WEBPACK_IMPORTED_MODULE_0__["render"])(Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])("div", null, "\u6211\u662Flog\u9875\u9762"), container);
+  Object(preact__WEBPACK_IMPORTED_MODULE_0__[/* render */ "c"])(Object(preact__WEBPACK_IMPORTED_MODULE_0__[/* h */ "b"])("div", null, "\u6211\u662Flog\u9875\u9762"), container);
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 

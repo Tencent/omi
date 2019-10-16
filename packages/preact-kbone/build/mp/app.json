@@ -5,5 +5,7 @@
 	],
 	"window": {
 		"navigationBarTitleText": "miniprogram-project"
-	}
+	},
+	"subpackages": [],
+	"preloadRule": {}
 }

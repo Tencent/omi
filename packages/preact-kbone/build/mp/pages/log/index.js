@@ -22,7 +22,8 @@ function dealWithPage(evt, window, value) {
     } else if (value !== 'none') {
         const targeturl = `${window.location.origin}/redirect?url=${encodeURIComponent(url)}`
         const options = {url: `/pages/${value}/index?type=${type}&targeturl=${encodeURIComponent(targeturl)}`}
-        if (type === 'jump') wx.redirectTo(options)
+        if (window.$$miniprogram.isTabBarPage(`/pages/${value}/index`)) wx.switchTab(options)
+        else if (type === 'jump') wx.redirectTo(options)
         else if (type === 'open') wx.navigateTo(options)
     }
 }
@@ -49,6 +50,9 @@ Page({
         this.window = mpRes.window
         this.document = mpRes.document
         this.query = query
+
+        // 写入 page 的方法
+        if (typeof this.getTabBar === 'function') this.window.getTabBar = this.getTabBar.bind(this)
 
         init(this.window, this.document)
 
@@ -104,6 +108,7 @@ Page({
             pageId: this.pageId
         })
         this.app = this.window.createApp()
+        this.window.$$trigger('wxload', {event: query})
     },
     onShow() {
         // 方便调试
@@ -111,16 +116,20 @@ Page({
             window: this.window,
             document: this.document,
         }
+        this.window.$$trigger('wxshow')
     },
     onReady() {
         if (this.pageConfig.loadingText) wx.hideLoading()
+        this.window.$$trigger('wxready')
     },
     onHide() {
         global.$$runtime = null
+        this.window.$$trigger('wxhide')
     },
     onUnload() {
         this.window.$$trigger('beforeunload')
-        this.app && this.app.$destroy && this.app.$destroy()
+        this.window.$$trigger('wxunload')
+        if (this.app && this.app.$destroy) this.app.$destroy()
         this.document.body.$$recycle() // 回收 dom 节点
 
         mp.destroyPage(this.pageId)
@@ -128,6 +137,7 @@ Page({
 
         this.pageConfig = null
         this.pageId = null
+        this.window.getTabBar = null
         this.window = null
         this.document = null
         this.app = null

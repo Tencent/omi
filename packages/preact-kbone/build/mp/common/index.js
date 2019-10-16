@@ -1,4 +1,4 @@
-module.exports = function(window, document) {var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
+module.exports = function(window, document) {const App = function(options) {window.appOptions = options};var navigator = window.navigator;var HTMLElement = window.HTMLElement;var localStorage = window.localStorage;var sessionStorage = window.sessionStorage;var location = window.location;window["createApp"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -169,8 +169,8 @@ module.exports = function(window, document) {var navigator = window.navigator;va
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/preact/dist/preact.umd.js
-var preact_umd = __webpack_require__(0);
+// EXTERNAL MODULE: ./node_modules/preact/dist/preact.module.js
+var preact_module = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectDestructuringEmpty.js
 var objectDestructuringEmpty = __webpack_require__(3);
@@ -242,14 +242,18 @@ function (_Component) {
     });
 
     defineProperty_default()(assertThisInitialized_default()(_this), "sub", function () {
-      _this.setState({
-        count: --_this.state.count
+      _this.setState(function (prevState) {
+        return {
+          count: --prevState.count
+        };
       });
     });
 
     defineProperty_default()(assertThisInitialized_default()(_this), "add", function () {
-      _this.setState({
-        count: ++_this.state.count
+      _this.setState(function (prevState) {
+        return {
+          count: ++prevState.count
+        };
       });
     });
 
@@ -272,18 +276,18 @@ function (_Component) {
       objectDestructuringEmpty_default()(_ref);
 
       var count = _ref2.count;
-      return Object(preact_umd["h"])("div", null, Object(preact_umd["h"])("button", {
-        onClick: this.sub
-      }, "-"), Object(preact_umd["h"])("span", null, count), Object(preact_umd["h"])("button", {
-        onClick: this.add
-      }, "+"), Object(preact_umd["h"])("div", {
-        onClick: this.clickHandle
+      return Object(preact_module["b" /* h */])("div", null, Object(preact_module["b" /* h */])("button", {
+        onclick: this.sub
+      }, "-"), Object(preact_module["b" /* h */])("span", null, count), Object(preact_module["b" /* h */])("button", {
+        onclick: this.add
+      }, "+"), Object(preact_module["b" /* h */])("div", {
+        onclick: this.clickHandle
       }, "\u8DF3\u8F6C"));
     }
   }]);
 
   return Counter;
-}(preact_umd["Component"]);
+}(preact_module["a" /* Component */]);
 
 /* harmony default export */ var components_counter = (counter_Counter);
 // CONCATENATED MODULE: ./src/index.js
@@ -294,7 +298,7 @@ function createApp() {
   var container = document.createElement('div');
   container.id = 'app';
   document.body.appendChild(container);
-  Object(preact_umd["render"])(Object(preact_umd["h"])(components_counter, null), container);
+  Object(preact_module["c" /* render */])(Object(preact_module["b" /* h */])(components_counter, null), container);
 }
 "undefined" != typeof wx && wx.getSystemInfoSync || createApp();
 
