@@ -8,6 +8,7 @@ let prettier = require('prettier')
 let postcss = require('gulp-postcss');
 let autoprefixer = require('autoprefixer');
 let cssnano = require('cssnano');
+const os = require('os');
 
 const WXCOMPONENT_ENV = 'WXCOMPONENT';
 const isWxComponent = process.env.NODE_ENV === WXCOMPONENT_ENV;
@@ -49,7 +50,7 @@ gulp.task('components', ['copy'], () => {
               Buffer.from(
                 `${importStr}import componentCss from './${name}.wxss'
   import { h, WeElement, rpx } from 'omi'
-  import { setData, fixProps } from ${isWxComponent && preName === 'components' ? "'../../utils/helper'" : "'../../../utils/helper'"}
+  import { setData, fixProps, helpInputEvent } from ${isWxComponent && preName === 'components' ? "'../../utils/helper'" : "'../../../utils/helper'"}
 
     `
               ),
@@ -75,6 +76,8 @@ gulp.task('components', ['copy'], () => {
     beforeUpdate() {}
 
     afterUpdate() {}
+
+    helpInputEvent = helpInputEvent;
 
     install = function() {
       this.properties = this.props
@@ -143,7 +146,7 @@ gulp.task('pages', ['copy'], () => {
               `${importStr}import appCss from '../../app.wxss'
 import pageCss from './${name}.wxss'
 import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/helper'
+import { setData, helpInputEvent } from '../../../utils/helper'
 
   `
             ),
@@ -168,6 +171,8 @@ class Element extends WeElement {
   beforeUpdate() {}
 
   afterUpdate() {}
+
+  helpInputEvent = helpInputEvent;
 
   install() {
     this.properties = this.props
@@ -282,7 +287,7 @@ function route(arr) {
 
 // 打包生成web component 转换统一src 路径
 function fileComponentDom(filePth) { 
-  let filePathArray = filePth.replace(__dirname, '').replace('.js', '').split('/');
+  let filePathArray = filePth.replace(__dirname, '').replace('.js', '').split(os.type().includes('Windows') ? '\\' : '/');
   filePathArray.shift();  
   
   return 'wx-h5-' + filePathArray.join('-');
