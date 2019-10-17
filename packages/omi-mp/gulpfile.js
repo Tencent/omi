@@ -8,6 +8,7 @@ let prettier = require('prettier')
 let postcss = require('gulp-postcss');
 let autoprefixer = require('autoprefixer');
 let cssnano = require('cssnano');
+const os = require('os');
 
 const WXCOMPONENT_ENV = 'WXCOMPONENT';
 const isWxComponent = process.env.NODE_ENV === WXCOMPONENT_ENV;
@@ -286,7 +287,7 @@ function route(arr) {
 
 // 打包生成web component 转换统一src 路径
 function fileComponentDom(filePth) { 
-  let filePathArray = filePth.replace(__dirname, '').replace('.js', '').split('/');
+  let filePathArray = filePth.replace(__dirname, '').replace('.js', '').split(os.type().includes('Windows') ? '\\' : '/');
   filePathArray.shift();  
   
   return 'wx-h5-' + filePathArray.join('-');
