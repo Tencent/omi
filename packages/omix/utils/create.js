@@ -34,7 +34,6 @@ function create(store, option) {
         }
       }
     }
-    getApp().globalData && (getApp().globalData.store = store)
    
     option.data = store.data
     observeStore(store)

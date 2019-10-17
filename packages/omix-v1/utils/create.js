@@ -99,7 +99,6 @@ function create(store, option) {
       store.instances = {}
     }
 
-    getApp().globalData && (getApp().globalData.store = store)
    
     option.data = option.data || {}
     option.data.store = store.data
