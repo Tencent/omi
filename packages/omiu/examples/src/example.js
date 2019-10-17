@@ -127,7 +127,8 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  render(props, data) {
+  render(props) {
+    const data = this.data
     return (
       <div class="ctn">
         <o-button

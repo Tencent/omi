@@ -4,6 +4,8 @@ import css from './_index.css'
 define('o-input-number', class extends WeElement {
   static css = css
 
+  data = { }
+
   install() {
     this.data.value = this.props.value
   }
@@ -35,7 +37,8 @@ define('o-input-number', class extends WeElement {
     this.props.onChange(this.data.value)
   }
 
-  render(props, data) {
+  render(props) {
+    const data = this.data
     return (
       <div {...extractClass(props, 'o-input-number')}>
         <span
