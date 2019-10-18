@@ -1284,7 +1284,7 @@
 	options.root.Omi.version = "4.0.7";
 
 	/**
-	 * omi v4.0.7  http://omijs.org
+	 * omi v4.0.7  https://tencent.github.io/omi/
 	 * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
 	 * By dntzhang https://github.com/dntzhang
 	 * Github: https://github.com/Tencent/omi

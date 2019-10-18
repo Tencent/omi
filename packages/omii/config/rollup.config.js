@@ -5,7 +5,7 @@ import memory from 'rollup-plugin-memory';
 const license = require('rollup-plugin-license');
 const pkg = require('../package.json');
 const licensePlugin = license({
-	banner: " omix v" + pkg.version + "  http://omijs.org\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omix\r\n MIT Licensed."
+	banner: " omix v" + pkg.version + "  https://tencent.github.io/omi/\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omix\r\n MIT Licensed."
 })
 
 export default {

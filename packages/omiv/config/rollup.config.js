@@ -8,7 +8,7 @@ const licensePlugin = license({
 	banner:
 		" omiv v" +
 		pkg.version +
-		"  http://omijs.org\r\n1kb store system for Vue apps.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
+		"  https://tencent.github.io/omi/\r\n1kb store system for Vue apps.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
 });
 
 export default {

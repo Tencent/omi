@@ -8,7 +8,7 @@ const licensePlugin = license({
 	banner:
 		" omis v" +
 		pkg.version +
-		"  http://omijs.org\r\n 1kb store system for React apps.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
+		"  https://tencent.github.io/omi/\r\n 1kb store system for React apps.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
 });
 
 export default {

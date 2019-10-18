@@ -1,5 +1,5 @@
 /**
- * omis v2.1.0  http://omijs.org
+ * omis v2.1.0  https://tencent.github.io/omi/
  * 1kb store system for React apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi

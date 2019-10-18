@@ -12,4 +12,4 @@
 # TECHNOLOGY COLOPHON
 
   CSS3, HTML5, JavaScript
-  Omi server-side rendering -- http://omijs.org/
+  Omi server-side rendering -- https://tencent.github.io/omi//

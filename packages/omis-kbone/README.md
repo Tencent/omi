@@ -90,7 +90,7 @@ npm run build    //发布 web
 		<tr>
 			<td><a target="_blank" href="https://developers.weixin.qq.com/community/develop/mixflow"><img width="200px"
 						src="https://raw.githubusercontent.com/wechat-miniprogram/kbone/develop/docs/images/code1.jpg"></a></td>
-			<td><a target="_blank" href="http://omijs.org"><img width="200px"
+			<td><a target="_blank" href="https://tencent.github.io/omi/"><img width="200px"
 						src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud.jpg"></a></td>
 			<td width="92px"><a target="_blank" href="https://github.com/Tencent/omi/issues/new">告诉我们</a></td>
 		

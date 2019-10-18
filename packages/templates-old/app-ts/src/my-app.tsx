@@ -15,7 +15,7 @@ define('my-app', class extends WeElement {
         <div>
           <a
             className="App-link"
-            href="http://omijs.org"
+            href="https://tencent.github.io/omi/"
             target="_blank"
             rel="noopener noreferrer"
           >

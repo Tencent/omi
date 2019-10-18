@@ -1,5 +1,5 @@
 /**
- * omis v2.0.0  http://omijs.org
+ * omis v2.0.0  https://tencent.github.io/omi/
  * Observable store system for JavaScript apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi

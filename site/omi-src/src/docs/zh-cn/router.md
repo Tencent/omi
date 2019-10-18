@@ -1,6 +1,6 @@
 # omi-router
 
-omi-router 是 [Omi](http://omijs.org) 专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
+omi-router 是 [Omi](https://tencent.github.io/omi/) 专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
 
 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)
 

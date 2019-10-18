@@ -18,7 +18,7 @@ define('my-head', class extends WeElement {
           <img src={require('./menu.png')} alt="" />
         </div>
 
-        <a href="http://omijs.org">
+        <a href="https://tencent.github.io/omi/">
           <img class="logo" src={logo} />
         </a>
         <ul class="menu">

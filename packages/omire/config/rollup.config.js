@@ -8,7 +8,7 @@ const licensePlugin = license({
 	banner:
 		" omi v" +
 		pkg.version +
-		"  http://omijs.org\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
+		"  https://tencent.github.io/omi/\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
 });
 
 export default {
