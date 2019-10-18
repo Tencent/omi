@@ -47,7 +47,7 @@ export default class Expansion extends WeElement<Props> {
     }
   }
   
-  install() {
+  installed() {
     domReady(()=>{
       const rect = this.shadowRoot.querySelector('div').getBoundingClientRect()
       
