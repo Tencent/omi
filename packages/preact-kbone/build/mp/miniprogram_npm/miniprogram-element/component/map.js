@@ -5,19 +5,19 @@ module.exports = {
     properties: [{
         name: 'longitude',
         get(domNode) {
-            const value = +domNode.getAttribute('longitude')
+            const value = parseInt(domNode.getAttribute('longitude'), 10)
             return !isNaN(value) ? value : 39.92
         },
     }, {
         name: 'latitude',
         get(domNode) {
-            const value = +domNode.getAttribute('latitude')
+            const value = parseInt(domNode.getAttribute('latitude'), 10)
             return !isNaN(value) ? value : 116.46
         },
     }, {
         name: 'scale',
         get(domNode) {
-            const value = +domNode.getAttribute('scale')
+            const value = parseInt(domNode.getAttribute('scale'), 10)
             return !isNaN(value) ? value : 16
         },
     }, {
@@ -69,7 +69,7 @@ module.exports = {
     }, {
         name: 'layerStyle',
         get(domNode) {
-            const value = +domNode.getAttribute('layer-style')
+            const value = parseInt(domNode.getAttribute('layer-style'), 10)
             return !isNaN(value) ? value : 1
         },
     }, {

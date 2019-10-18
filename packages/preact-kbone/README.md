@@ -19,11 +19,15 @@ class Counter extends Component {
   state = { count: 1 }
 
   sub = () => {
-    this.setState({ count: --this.state.count })
+    this.setState(prevState => {
+      return { count: --prevState.count }
+    })
   }
 
   add = () => {
-    this.setState({ count: ++this.state.count })
+    this.setState(prevState => {
+      return { count: ++prevState.count }
+    })
   }
 
   clickHandle = () => {

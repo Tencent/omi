@@ -213,6 +213,30 @@ class Cookie {
             .map(cookie => `${cookie.key}=${cookie.value}`)
             .join('; ')
     }
+
+    /**
+     * 序列化
+     */
+    serialize() {
+        try {
+            return JSON.stringify(this.$_map)
+        } catch (err) {
+            console.log('cannot serialize the cookie')
+            return ''
+        }
+    }
+
+    /**
+     * 反序列化
+     */
+    deserialize(str) {
+        try {
+            this.$_map = JSON.parse(str)
+        } catch (err) {
+            console.log('cannot deserialize the cookie')
+            this.$_map = {}
+        }
+    }
 }
 
 module.exports = Cookie

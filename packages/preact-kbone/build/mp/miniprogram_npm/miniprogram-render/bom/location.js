@@ -156,9 +156,20 @@ class Location extends EventTarget {
 
                 param = '?' + param.join('&')
 
-                wx.redirectTo({
-                    url: `${matchRoute}${param}`
+                const callMethod = window.$$miniprogram.isTabBarPage(matchRoute) ? 'switchTab' : 'redirectTo'
+                wx[callMethod]({
+                    url: `${matchRoute}${param}`,
                 })
+
+                if (callMethod === 'switchTab') {
+                    // switchTab 不会销毁页面实例，所以也需要恢复成原状
+                    this.$_protocol = oldValues.protocol
+                    this.$_hostname = oldValues.hostname
+                    this.$_port = oldValues.port
+                    this.$_pathname = oldValues.pathname
+                    this.$_search = oldValues.search
+                    this.$_hash = oldValues.hash
+                }
 
                 return true
             } else {
@@ -214,8 +225,9 @@ class Location extends EventTarget {
 
             param = '?' + param.join('&')
 
-            wx.navigateTo({
-                url: `${matchRoute}${param}`
+            const callMethod = window.$$miniprogram.isTabBarPage(matchRoute) ? 'switchTab' : 'navigateTo'
+            wx[callMethod]({
+                url: `${matchRoute}${param}`,
             })
         } else {
             window.$$trigger('pagenotfound', {
@@ -538,14 +550,16 @@ class Location extends EventTarget {
     }
 
     reload() {
+        const window = cache.getWindow(this.$_pageId)
         let param = ['type=jump', `targeturl=${encodeURIComponent(this.href)}`]
         if (this.$_search) param.push(`search=${encodeURIComponent(this.$_search)}`)
         if (this.$_hash) param.push(`hash=${encodeURIComponent(this.$_hash)}`)
 
         param = '?' + param.join('&')
 
-        wx.redirectTo({
-            url: `${this.$_pageRoute}${param}`
+        const callMethod = window.$$miniprogram.isTabBarPage(this.$_pageRoute) ? 'switchTab' : 'redirectTo'
+        wx[callMethod]({
+            url: `${this.$_pageRoute}${param}`,
         })
     }
 

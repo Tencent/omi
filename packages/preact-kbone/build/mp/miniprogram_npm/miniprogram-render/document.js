@@ -14,6 +14,7 @@ const Video = require('./node/element/video')
 const Canvas = require('./node/element/canvas')
 const NotSupport = require('./node/element/not-support')
 const WxComponent = require('./node/element/wx-component')
+const WxCustomComponent = require('./node/element/wx-custom-component')
 const Cookie = require('./bom/cookie')
 
 const CONSTRUCTOR_MAP = {
@@ -25,10 +26,44 @@ const CONSTRUCTOR_MAP = {
     CANVAS: Canvas,
     'WX-COMPONENT': WxComponent,
 }
+const WX_COMPONENT_MAP = {}
+const WX_COMPONENT_LIST = [
+    'movable-view', 'cover-image', 'cover-view', 'movable-area', 'scroll-view', 'swiper', 'swiper-item', 'view',
+    'icon', 'progress', 'rich-text', 'text',
+    'button', 'checkbox', 'checkbox-group', 'editor', 'form', 'input', 'label', 'picker', 'picker-view', 'picker-view-column', 'radio', 'radio-group', 'slider', 'switch', 'textarea',
+    'functional-page-navigator', 'navigator',
+    'audio', 'camera', 'image', 'live-player', 'live-pusher', 'video',
+    'map',
+    'canvas',
+    'ad', 'official-account', 'open-data', 'web-view'
+]
+WX_COMPONENT_LIST.forEach(name => WX_COMPONENT_MAP[name] = name)
+let WX_CUSTOM_COMPONENT_MAP = {}
+
+/**
+ * 判断是否是内置组件
+ */
+function checkIsWxComponent(tagName, notNeedPrefix) {
+    const hasPrefix = tagName.indexOf('wx-') === 0
+    if (notNeedPrefix) {
+        return hasPrefix ? WX_COMPONENT_MAP[tagName.slice(3)] : WX_COMPONENT_MAP[tagName]
+    } else {
+        return hasPrefix ? WX_COMPONENT_MAP[tagName.slice(3)] : false
+    }
+}
 
 class Document extends EventTarget {
     constructor(pageId, nodeIdMap) {
         super()
+
+        const config = cache.getConfig()
+        const runtime = config.runtime || {}
+        const cookieStore = runtime.cookieStore
+        WX_CUSTOM_COMPONENT_MAP = runtime.usingComponents || {}
+
+        this.$_pageId = pageId
+        const pageRoute = tool.getPageRoute(pageId)
+        const pageName = tool.getPageName(pageRoute)
 
         // 用于封装特殊标签和对应构造器
         const that = this
@@ -52,6 +87,7 @@ class Document extends EventTarget {
             children: [],
         }, nodeIdMap, this)
         this.$_cookie = new Cookie()
+        this.$_config = null
 
         // documentElement
         this.$_node = this.$$createElement({
@@ -68,6 +104,16 @@ class Document extends EventTarget {
 
         // 更新 body 的 parentNode
         this.$_tree.root.$$updateParent(this.$_node)
+
+        // 处久化 cookie
+        if (cookieStore === 'storage') {
+            try {
+                const cookie = wx.getStorageSync(`PAGE_COOKIE_${pageName}`)
+                if (cookie) this.$$cookieInstance.deserialize(cookie)
+            } catch (err) {
+                // ignore
+            }
+        }
     }
 
     /**
@@ -88,6 +134,20 @@ class Document extends EventTarget {
         return this.$_cookie.getCookie(this.URL, true)
     }
 
+    /**
+     * 获取 cookie 实例
+     */
+    get $$cookieInstance() {
+        return this.$_cookie
+    }
+
+    /**
+     * 创建内置组件的时候是否支持不用前缀写法
+     */
+    get $$notNeedPrefix() {
+        if (!this.$_config) this.$_config = cache.getConfig()
+        return this.$_config && this.$_config.runtime && this.$_config.runtime.wxComponent === 'noprefix'
+    }
 
     /**
      * 触发节点事件
@@ -100,12 +160,27 @@ class Document extends EventTarget {
      * 内部所有节点创建都走此接口，统一把控
      */
     $$createElement(options, tree) {
-        const tagName = options.tagName.toUpperCase()
+        const originTagName = options.tagName
+        const tagName = originTagName.toUpperCase()
+        let wxComponentName = null
         tree = tree || this.$_tree
 
         const constructorClass = CONSTRUCTOR_MAP[tagName]
         if (constructorClass) {
             return constructorClass.$$create(options, tree)
+        // eslint-disable-next-line no-cond-assign
+        } else if (wxComponentName = checkIsWxComponent(originTagName, this.$$notNeedPrefix)) {
+            // 内置组件的特殊写法，转成 wx-component 节点
+            options.tagName = 'wx-component'
+            options.attrs = options.attrs || {}
+            options.attrs.behavior = wxComponentName
+            return WxComponent.$$create(options, tree)
+        } else if (WX_CUSTOM_COMPONENT_MAP[originTagName]) {
+            // 自定义组件的特殊写法，转成 wx-custom-component 节点
+            options.tagName = 'wx-custom-component'
+            options.attrs = options.attrs || {}
+            options.componentName = originTagName
+            return WxCustomComponent.$$create(options, tree)
         } else if (!tool.isTagNameSupport(tagName)) {
             return NotSupport.$$create(options, tree)
         } else {
@@ -125,6 +200,37 @@ class Document extends EventTarget {
      */
     $$createComment(options, tree) {
         return Comment.$$create(options, tree || this.$_tree)
+    }
+
+    /**
+     * 处理 Set-Cookie 头串
+     */
+    $$setCookie(str) {
+        if (str && typeof str === 'string') {
+            let start = 0
+            let startSplit = 0
+            let nextSplit = str.indexOf(',', startSplit)
+            const cookies = []
+
+            while (nextSplit >= 0) {
+                const lastSplitStr = str.substring(start, nextSplit)
+                const splitStr = str.substr(nextSplit)
+
+                if (/^,\s*([^,=;\x00-\x1F]+)=([^;\n\r\0\x00-\x1F]*).*/.test(splitStr)) {
+                // 分割成功，则上一片是完整 cookie
+                    cookies.push(lastSplitStr)
+                    start = nextSplit + 1
+                }
+
+                startSplit = nextSplit + 1
+                nextSplit = str.indexOf(',', startSplit)
+            }
+
+            // 塞入最后一片 cookie
+            cookies.push(str.substr(start))
+
+            cookies.forEach(cookie => this.cookie = cookie)
+        }
     }
 
     /**
@@ -203,7 +309,7 @@ class Document extends EventTarget {
     createElement(tagName) {
         if (typeof tagName !== 'string') return
 
-        tagName = tagName.trim().toLowerCase()
+        tagName = tagName.trim()
         if (!tagName) return
 
         return this.$$createElement({

@@ -47,14 +47,13 @@ module.exports = {
     }, {
         name: 'maxlength',
         get(domNode) {
-            const value = +domNode.maxlength
+            const value = parseInt(domNode.maxlength, 10)
             return !isNaN(value) ? value : 140
         },
     }, {
         name: 'cursorSpacing',
         get(domNode) {
-            const value = +domNode.getAttribute('cursor-spacing')
-            return !isNaN(value) ? value : 0
+            return +domNode.getAttribute('cursor-spacing') || 0
         },
     }, {
         name: 'autoFocus',
@@ -79,19 +78,19 @@ module.exports = {
     }, {
         name: 'cursor',
         get(domNode) {
-            const value = +domNode.getAttribute('cursor')
+            const value = parseInt(domNode.getAttribute('cursor'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {
         name: 'selectionStart',
         get(domNode) {
-            const value = +domNode.getAttribute('selection-start')
+            const value = parseInt(domNode.getAttribute('selection-start'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {
         name: 'selectionEnd',
         get(domNode) {
-            const value = +domNode.getAttribute('selection-end')
+            const value = parseInt(domNode.getAttribute('selection-end'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {
@@ -116,7 +115,7 @@ module.exports = {
             if (!this.domNode) return
 
             this.domNode.value = evt.detail.value
-            this.callSimpleEvent('input', evt)
+            this.callEvent('input', evt)
         },
 
         onInputFocus(evt) {
@@ -124,6 +123,9 @@ module.exports = {
         },
 
         onInputBlur(evt) {
+            if (!this.domNode) return
+
+            this.domNode.setAttribute('focus', false)
             this.callSimpleEvent('blur', evt)
         },
 

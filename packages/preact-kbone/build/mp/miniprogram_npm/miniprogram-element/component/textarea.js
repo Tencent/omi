@@ -30,7 +30,7 @@ module.exports = {
     }, {
         name: 'maxlength',
         get(domNode) {
-            const value = +domNode.maxlength
+            const value = parseInt(domNode.maxlength, 10)
             return !isNaN(value) ? value : 140
         }
     }, {
@@ -61,7 +61,7 @@ module.exports = {
     }, {
         name: 'cursor',
         get(domNode) {
-            const value = +domNode.getAttribute('cursor')
+            const value = parseInt(domNode.getAttribute('cursor'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {
@@ -73,13 +73,13 @@ module.exports = {
     }, {
         name: 'selectionStart',
         get(domNode) {
-            const value = +domNode.getAttribute('selection-start')
+            const value = parseInt(domNode.getAttribute('selection-start'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {
         name: 'selectionEnd',
         get(domNode) {
-            const value = +domNode.getAttribute('selection-end')
+            const value = parseInt(domNode.getAttribute('selection-end'), 10)
             return !isNaN(value) ? value : -1
         },
     }, {
@@ -95,6 +95,9 @@ module.exports = {
         },
 
         onTextareaBlur(evt) {
+            if (!this.domNode) return
+
+            this.domNode.setAttribute('focus', false)
             this.callSimpleEvent('blur', evt)
         },
 
@@ -106,7 +109,7 @@ module.exports = {
             if (!this.domNode) return
 
             this.domNode.value = evt.detail.value
-            this.callSimpleEvent('input', evt)
+            this.callEvent('input', evt)
         },
 
         onTextareaConfirm(evt) {

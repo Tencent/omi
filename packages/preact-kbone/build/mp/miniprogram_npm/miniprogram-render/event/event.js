@@ -38,20 +38,14 @@ class Event {
 
         // 处理 touches
         if (options.touches && options.touches.length) {
-            this.$_touches = options.touches.map(touch => {
-                touch.target = options.target
-                return touch
-            })
+            this.$_touches = options.touches.map(touch => ({...touch, target: options.target}))
 
             this.$$checkTargetTouches()
         }
 
         // 处理 changedTouches
         if (options.changedTouches && options.changedTouches.length) {
-            this.$_changedTouches = options.changedTouches.map(touch => {
-                touch.target = options.target
-                return touch
-            })
+            this.$_changedTouches = options.changedTouches.map(touch => ({...touch, target: options.target}))
         }
     }
 

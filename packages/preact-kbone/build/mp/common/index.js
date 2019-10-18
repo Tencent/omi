@@ -277,11 +277,11 @@ function (_Component) {
 
       var count = _ref2.count;
       return Object(preact_module["b" /* h */])("div", null, Object(preact_module["b" /* h */])("button", {
-        onclick: this.sub
+        onClick: this.sub
       }, "-"), Object(preact_module["b" /* h */])("span", null, count), Object(preact_module["b" /* h */])("button", {
-        onclick: this.add
+        onClick: this.add
       }, "+"), Object(preact_module["b" /* h */])("div", {
-        onclick: this.clickHandle
+        onClick: this.clickHandle
       }, "\u8DF3\u8F6C"));
     }
   }]);

@@ -33,7 +33,8 @@ function getPageRoute(pageId) {
  * 从 pageRoute 中获取小程序页面名称
  */
 function getPageName(pageRoute) {
-    return pageRoute.split('/')[1]
+    const splitPageRoute = pageRoute.split('/')
+    return splitPageRoute[1] === 'pages' ? splitPageRoute[2] : splitPageRoute[1]
 }
 
 /**

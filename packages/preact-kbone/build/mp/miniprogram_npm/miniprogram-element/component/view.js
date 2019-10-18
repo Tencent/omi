@@ -15,13 +15,13 @@ module.exports = {
     }, {
         name: 'hoverStartTime',
         get(domNode) {
-            const value = +domNode.getAttribute('hover-start-time')
+            const value = parseInt(domNode.getAttribute('hover-start-time'), 10)
             return !isNaN(value) ? value : 50
         },
     }, {
         name: 'hoverStayTime',
         get(domNode) {
-            const value = +domNode.getAttribute('hover-stay-time')
+            const value = parseInt(domNode.getAttribute('hover-stay-time'), 10)
             return !isNaN(value) ? value : 400
         },
     }],

@@ -4,7 +4,7 @@ const cache = require('../../util/cache')
 
 const pool = new Pool()
 
-class WxComponent extends Element {
+class WxCustomComponent extends Element {
     /**
      * 创建实例
      */
@@ -21,7 +21,25 @@ class WxComponent extends Element {
             }
         }
 
-        return new WxComponent(options, tree)
+        return new WxCustomComponent(options, tree)
+    }
+
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    $$init(options, tree) {
+        this.$_behavior = options.componentName
+
+        super.$$init(options, tree)
+    }
+
+    /**
+     * 覆写父类的 $$destroy 方法
+     */
+    $$destroy() {
+        super.$$destroy()
+
+        this.$_behavior = null
     }
 
     /**
@@ -39,8 +57,8 @@ class WxComponent extends Element {
     }
 
     get behavior() {
-        return this.$_attrs.get('behavior') || ''
+        return this.$_behavior
     }
 }
 
-module.exports = WxComponent
+module.exports = WxCustomComponent

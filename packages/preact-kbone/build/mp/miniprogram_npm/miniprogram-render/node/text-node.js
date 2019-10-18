@@ -42,7 +42,7 @@ class TextNode extends Node {
     $$destroy() {
         super.$$destroy()
 
-        this.$_content = null
+        this.$_content = ''
     }
 
     /**
@@ -106,6 +106,14 @@ class TextNode extends Node {
 
         this.$_content = value
         this.$_triggerParentUpdate()
+    }
+
+    get data() {
+        return this.textContent
+    }
+
+    set data(value) {
+        this.textContent = value
     }
 
     cloneNode() {

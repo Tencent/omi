@@ -27,7 +27,7 @@ class EventTarget {
      * 初始化实例
      */
     $$init() {
-    // 补充实例的属性，用于 'xxx' in XXX 判断
+        // 补充实例的属性，用于 'xxx' in XXX 判断
         this.ontouchstart = null
         this.ontouchmove = null
         this.ontouchend = null
@@ -187,20 +187,19 @@ class EventTarget {
     /**
      * 触发节点事件
      */
-    $$trigger(eventName, {event, isCapture} = {}) {
+    $$trigger(eventName, {event, args = [], isCapture} = {}) {
         eventName = eventName.toLowerCase()
         const handlers = this.$_getHandlers(eventName, isCapture)
         const onEventName = `on${eventName}`
 
         if (typeof this[onEventName] === 'function') {
             // 触发 onXXX 绑定的事件
-            this[onEventName].call(this || null, event)
+            this[onEventName].call(this || null, event, ...args)
         }
 
         if (handlers && handlers.length) {
             // 触发 addEventListener 绑定的事件
-            console.log(handlers)
-            handlers.forEach(handler => handler.call(this || null, event))
+            handlers.forEach(handler => handler.call(this || null, event, ...args))
         }
     }
 
