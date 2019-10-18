@@ -1,6 +1,6 @@
 {
   "name": "omi-router",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Router for Omi.",
   "main": "index.js",
   "types": "index.d.ts",

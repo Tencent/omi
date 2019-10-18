@@ -1,4 +1,4 @@
-﻿English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
+﻿English | [简体中文](./README.CN.md) 
 
 # omi-router
 
@@ -38,7 +38,6 @@ import './user'
 import './user-list'
 
 define('my-app', class extends WeElement {
-  static observe = true
 
   data = { tag: 'my-home' }
 
@@ -46,20 +45,24 @@ define('my-app', class extends WeElement {
 
     route('/', () => {
       this.data.tag = 'my-home'
+      this.update()
     })
 
     route('/about', (evt) => {
       console.log(evt.query)
       this.data.tag = 'my-about'
+      this.update()
     })
 
     route('/user-list', () => {
       this.data.tag = 'user-list'
+      this.update()
     })
 
     route('/user/:name/category/:category', (evt) => {
       this.data.tag = 'my-user'
       this.data.params = evt.params
+      this.update()
     })
 
     route('*', function () {
