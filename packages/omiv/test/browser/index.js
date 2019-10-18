@@ -1,6 +1,7 @@
 import Counter from './components/counter.vue'
 import Simple from './components/simple.vue'
 import Event from './components/event.vue'
+import Nest2 from './components/nest2.vue'
 import Vue from 'vue'
 import { render } from '../../src/omiv'
 //import Nest from './components/nest.vue'
@@ -148,6 +149,33 @@ describe('base', () => {
       done()
       expect(document.querySelector('#app').innerHTML)
         .to.equal('<div><span class="count">3</span> <button>Increment</button></div>')
+    })
+  })
+
+  it('nest test with pure component', (done) => {
+
+    const cs = new class {
+      data = {
+        count: 2,
+        title: 'abc'
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.title = 'cde'
+        this.data.count++
+      }
+    }
+    render(require('./components/nest2.vue')
+    .default, '#app', cs)
+
+    document.querySelector('button').click()
+
+    Vue.nextTick(() => {
+      done()
+      expect(document.querySelector('#app').innerHTML)
+        .to.equal('<div>3</div> <button id="btn"></button> <h3>cde</h3>')
     })
   })
 
