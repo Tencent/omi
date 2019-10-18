@@ -12,7 +12,7 @@ export default class Expansion extends WeElement<Props> {
     receiveProps(): boolean;
     setAttribute(attr: any, value: any): void;
     removeAttribute(attr: any): void;
-    install(): void;
+    installed(): void;
     render(props: any): JSX.Element;
 }
 export {};
