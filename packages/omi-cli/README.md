@@ -33,7 +33,6 @@ Directory description:
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
-<!-- |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.| -->
 
 
 ## Switch omi, omio and reomi

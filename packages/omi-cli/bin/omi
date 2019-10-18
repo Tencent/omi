@@ -58,18 +58,6 @@ program
     switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
 });
 
-program
-    .command('init-spa [projectName]')
-    .description('Initialize a new SPA with omi-router in the current folder')
-    .action(function(projectName, option){
-        var cmd = 'init-spa';
-        if (option.parent.mirror && typeof option.parent.mirror === 'string') {
-            options.mirror = option.parent.mirror;
-        }
-        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
-    })
-
-
 
 program
     .command('init-weui [projectName]')
@@ -176,7 +164,7 @@ function help() {
     console.log(`     ${chalk.green('init-kbone  [project-name]')}     Initialize a new omi kbone project in the current folder `)
     console.log(`     ${chalk.green('init-ts  [project-name]')}        Initialize a new omi project with typescript in the current folder `)
     console.log(`     ${chalk.green('init-weui  [project-name]')}      Initialize a mobile project with weui in the current folder `)  
-    console.log(`     ${chalk.green('init-spa  [project-name]')}       Initialize a new omi spa  with omi-router in the current folder `)
+
     console.log(`     ${chalk.green('init-mp  [project-name]')}        Initialize a new omi-mp in the current folder `)
     console.log(`     ${chalk.green('init-md2site  [project-name]')}   Initialize a project of static site generator by markdown in the current folder `)
     console.log();
