@@ -1,6 +1,6 @@
 /**
  * omis v2.2.0  https://tencent.github.io/omi/
- * 1kb store system for React apps.
+ * 1kb store system for React/Preact apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
