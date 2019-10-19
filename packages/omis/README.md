@@ -1,11 +1,11 @@
 ## Omis
 
-1kb store system for React apps.
+1kb store system for React/Preact apps.
 
 ## Usage 
 
 ```jsx
-import { $ } from 'omis'
+import { $, render } from 'omis'
 
 const Counter = $({
   render() {
@@ -23,18 +23,18 @@ const App = $({
         <Counter />
       </div>
     )
-  },
-  store: {
-    data: {
-      count: 1
-    }
   }
 })
 
-ReactDOM.render(
+render(
+  ReactDOM.render, //use Preact.render here when using preact
   <App />,
-  document.getElementById('root')
-)
+  '#root',
+  {
+    data: {
+      count: 1
+    }
+  })
 ```
 
 ## Multi-store injection
@@ -43,7 +43,7 @@ ReactDOM.render(
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { $ } from './omis/omis'
+import { $, render } from './omis/omis'
 
 const countStore = new class Store {
   data = {
@@ -99,13 +99,15 @@ const App = $({
       <Counter></Counter>
     </div>
   },
-  store: {
-    nameStore,
-    countStore
-  },
   useSelf: { countStore: ['num'] }
 })
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
+render(
+  ReactDOM.render, //use Preact.render here when using preact
+  <App />,
+  '#root',
+  {
+    nameStore,
+    countStore
+  })
 ```

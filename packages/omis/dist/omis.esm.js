@@ -1,5 +1,5 @@
 /**
- * omis v2.1.0  https://tencent.github.io/omi/
+ * omis v2.2.0  https://tencent.github.io/omi/
  * 1kb store system for React apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -385,8 +385,30 @@ function update(component) {
   component.setState({ __$id_: component.state.__$id_++ });
 }
 
-var omis = { $: $ };
+function render(renderer, app, renderTo, store) {
+  reset(store);
+  renderer(app, typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo);
+}
+
+function reset(s) {
+  if (s) {
+    $.store = s;
+    if ($.store.data) {
+      isMultiStore = false;
+      observe($.store);
+    } else {
+      isMultiStore = true;
+      for (var key in $.store) {
+        if ($.store[key].data) {
+          observe($.store[key], key);
+        }
+      }
+    }
+  }
+}
+
+var omis = { $: $, render: render, reset: reset };
 
 export default omis;
-export { $ };
+export { $, render, reset };
 //# sourceMappingURL=omis.esm.js.map
