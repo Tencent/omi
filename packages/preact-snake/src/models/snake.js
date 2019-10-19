@@ -24,6 +24,8 @@ class Snake {
       case 'left':
         b.unshift(b[0] - 1, b[1])
         break
+      default:;
+
     }
   }
 

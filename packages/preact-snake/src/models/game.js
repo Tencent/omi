@@ -9,11 +9,12 @@ class Game {
     this.paused = false
     this._preDate = Date.now()
     this.init()
+    this.onTick = null
   }
 
   init() {
 
-    this.snake = new Snake
+    this.snake = new Snake()
 
     for (let i = 0; i < this.size; i++) {
       const row = []
@@ -60,6 +61,7 @@ class Game {
         this._preDate = Date.now()
         if (!this.paused) {
           this.tick()
+          this.onTick && this.onTick()
         }
       }
     }, 16)

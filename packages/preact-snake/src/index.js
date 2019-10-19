@@ -1,9 +1,8 @@
-import './style';
-import { render, h } from 'preact'
-import Index from './components/index';
+import * as Preact from 'preact'
+import 'preact-css'
+import Index from './components/index'
+import './assets/index.css'
 import store from './stores/index'
+import { render } from 'omis'
 
-const app = document.createElement('div')
-document.body.appendChild(app)
-render(<Index store={store} />, app)
-
+render(Preact.render, <Index />, '#root', store)
