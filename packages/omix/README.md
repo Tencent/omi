@@ -214,7 +214,7 @@ import store from '../../store/store'
 
 create(store, {
   //声明依赖
-  use: ['a.name'],
+  use: ['a.name', 'b'],
 
   onLoad: function () {
     setTimeout(() => {
