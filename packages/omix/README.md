@@ -162,7 +162,7 @@ store-a.js:
 export default {
   data: {
     a: {
-      name: 'moix'
+      name: 'omix'
     }
   }
 }
