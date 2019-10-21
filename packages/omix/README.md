@@ -200,7 +200,7 @@ export default {
 
 ```html
 <view>
-	<text>{{a.name}}-{{b.name}}</text>
+  <text>{{a.name}}-{{b.name}}</text>
 </view>
 ```
 
