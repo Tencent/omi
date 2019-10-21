@@ -8,10 +8,9 @@ TypeScript 版本的例子可以点击这里 [omix-ts](https://github.com/Tencen
 
 ### API
 
-* `create(store, option)`      创建页面， store 可跨页面共享
-* `create(option)`             创建组件
-* `this.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
-
+* `create(store, option)`     创建页面， store 可跨页面共享
+* `create(option)`            创建组件
+* `this.store.data` 或 `this.data`   全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
 ## 实战
 
