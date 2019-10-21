@@ -200,7 +200,8 @@ export default {
 
 ```html
 <view>
-  <text>{{a.name}}-{{b.name}}</text>
+  <text>{{a.name}}</text>
+  <text>{{b.name}}-{{b.age}}</text>
 </view>
 ```
 
@@ -223,6 +224,19 @@ create(store, {
   }
 })
 ```
+
+扩展公共方法用于多个视图，比如 store-methods.js:
+
+```js
+import store from './store.js'
+
+export function changeAge(age){
+  store.data.b.age = age
+}
+```
+
+如果仅一个视图使用可以把该方法写在视图的 js 里便可以，不用提取到单独的文件。
+
 ## Q & A
 
 * 比如我一个弹窗组件，可能在很多页面使用，也可能在同一个页面使用多次；如果使用store来作为组件间通信的话，怎么应用可以实现组件是纯组件而不跟业务相关呢?
