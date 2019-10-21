@@ -41,7 +41,7 @@ create(store, {
     })
 
     setTimeout(() => {
-      this.store.data.logs[0] = 'Changed!'
+      this.data.logs[0] = 'Changed!'
     }, 1000)
 
     setTimeout(() => {
@@ -49,7 +49,7 @@ create(store, {
     }, 2000)
 
     setTimeout(() => {
-      this.store.data.logs.splice(this.store.data.logs.length - 1, 1)
+      this.data.logs.splice(this.store.data.logs.length - 1, 1)
     }, 3000)
   }
 })
