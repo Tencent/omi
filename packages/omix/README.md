@@ -34,7 +34,7 @@ import store from '../../store'
 
 create(store, {
   //声明依赖
-  use: ['logs'],
+  use: ['logs'], //也支持复制的格式，比如 ['list[0].name']
 
   onLoad: function () {
     this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
@@ -152,6 +152,77 @@ store.onChange(handler)
 store.offChange(handler) 
 ```
 
+### 复杂 store 拆分到多文件
+
+这里举个例子：
+
+store-a.js:
+
+```js
+export default {
+  data: {
+    a: {
+      name: 'moix'
+    }
+  }
+}
+```
+
+store-b.js:
+
+```js
+export default {
+  data: {
+    b: {
+      name: 'I Love Omix',
+      age: 18
+    }
+  }
+}
+```
+
+store.js:
+
+```js
+import a from './a.js'
+import b from './b.js'
+
+export default {
+  data: {
+    a: a.data.a,
+    b: b.data.b
+  }
+}
+```
+
+
+数据绑定:
+
+```html
+<view>
+	<text>{{a.name}}-{{b.name}}</text>
+</view>
+```
+
+数据使用:
+
+```js
+import create from '../../utils/create'
+import store from '../../store/store'
+
+
+create(store, {
+  //声明依赖
+  use: ['a.name'],
+
+  onLoad: function () {
+    setTimeout(() => {
+      store.data.a.name = 'omi'
+    }, 2000)
+
+  }
+})
+```
 ## Q & A
 
 * 比如我一个弹窗组件，可能在很多页面使用，也可能在同一个页面使用多次；如果使用store来作为组件间通信的话，怎么应用可以实现组件是纯组件而不跟业务相关呢?

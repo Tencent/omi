@@ -60,12 +60,12 @@ create(store, {
     }
     store.onChange(handler)
 
-    store.offChange(handler) 
-    
+    store.offChange(handler)
+
   },
   getUserInfo: function (e) {
     this.store.data.userInfo = e.detail.userInfo
     this.store.data.hasUserInfo = true
-    
+
   }
 })
