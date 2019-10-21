@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>obaa test</title>
+	<script src="util.js"></script>
+	<script src="../index.js"></script>
+</head>
+
+<body>
+
+	<script>
+		var countB = 0
+		var objB = {
+			a: 1,
+			b: 2
+		}
+		obaa(objB, function (prop, value, old, path) {
+			console.log(prop, value, old, path)
+			countB++
+		})
+
+
+		Object.assign(objB, {
+			a:2,
+			b:3
+		})
+
+
+		log(countB === 2)
+
+	</script>
+	<script>
+
+
+	</script>
+
+
+
+
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position:absolute;right:0;top:0;">
+		<img src="http://alloyteam.github.io/github.png" alt="" />
+	</a>
+
+</body>
+
+</html>
