@@ -1,7 +1,7 @@
 {
   "name": "omis",
-  "version": "2.1.0",
-  "description": "1kb store system for React apps.",
+  "version": "2.2.0",
+  "description": "1kb store system for React/Preact apps.",
   "main": "dist/omis.js",
   "jsnext:main": "dist/omis.esm.js",
   "module": "dist/omis.esm.js",

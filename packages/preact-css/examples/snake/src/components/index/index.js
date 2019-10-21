@@ -1,7 +1,6 @@
 import * as Preact from 'preact'
 import Game from '../game'
 
-import store from '../../stores/index'
 import { $ } from 'omis'
 import { rpx } from '../../utils/css'
 
@@ -27,6 +26,5 @@ export default $({
     </div>
   },
   css: rpx(require('./_index.css')),
-  useSelf: ['paused'],
-  store
+  useSelf: ['paused']
 })

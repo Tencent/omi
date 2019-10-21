@@ -1,5 +1,5 @@
 /**
- * omiv v0.3.0  https://tencent.github.io/omi/
+ * omiv v0.3.1  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi

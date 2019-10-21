@@ -1,6 +1,6 @@
 /**
- * omis v2.1.0  https://tencent.github.io/omi/
- * 1kb store system for React apps.
+ * omis v2.2.0  https://tencent.github.io/omi/
+ * 1kb store system for React/Preact apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
@@ -386,7 +386,29 @@
     component.setState({ __$id_: component.state.__$id_++ });
   }
 
-  var Omis = { $: $ };
+  function render(renderer, app, renderTo, store) {
+    reset(store);
+    renderer(app, typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo);
+  }
+
+  function reset(s) {
+    if (s) {
+      $.store = s;
+      if ($.store.data) {
+        isMultiStore = false;
+        observe($.store);
+      } else {
+        isMultiStore = true;
+        for (var key in $.store) {
+          if ($.store[key].data) {
+            observe($.store[key], key);
+          }
+        }
+      }
+    }
+  }
+
+  var Omis = { $: $, render: render, reset: reset };
 
   if (typeof module != 'undefined') module.exports = Omis;else self.Omis = Omis;
 

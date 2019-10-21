@@ -251,6 +251,22 @@
             X: component.state.X++
         });
     }
+    function render(renderer, app, renderTo, store) {
+        reset(store);
+        renderer(app, 'string' == typeof renderTo ? document.querySelector(renderTo) : renderTo);
+    }
+    function reset(s) {
+        if (s) {
+            $.store = s;
+            if ($.store.data) {
+                isMultiStore = !1;
+                observe($.store);
+            } else {
+                isMultiStore = !0;
+                for (var key in $.store) if ($.store[key].data) observe($.store[key], key);
+            }
+        }
+    }
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
@@ -267,7 +283,9 @@
     var currentComponent = null;
     var isMultiStore = !1;
     var Omis = {
-        $: $
+        $: $,
+        render: render,
+        reset: reset
     };
     if ('undefined' != typeof module) module.exports = Omis; else self.Omis = Omis;
 }(React);

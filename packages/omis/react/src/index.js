@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {$} from './omis/omis'
+import {$, render} from './omis/omis'
+
 console.log($)
 class Store {
   data = {
@@ -17,7 +18,7 @@ class Store {
   }
   random = () => {
     this.data.num = Math.random()
-  } 
+  }
 }
 
 const Counter = $({
@@ -43,10 +44,9 @@ const App = $({
       <Counter></Counter>
     </div>
   },
-  store: new Store(),
   useSelf: ['num']
 })
 
+render(ReactDOM.render, < App / > , '#root', new Store)
 
-ReactDOM.render(<App />, document.getElementById('root'));
 

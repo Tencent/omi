@@ -138,3 +138,26 @@ function observe(store, storeName) {
 function update(component){
   component.setState({ __$id_: component.state.__$id_++ })
 }
+
+
+export function render(renderer, app, renderTo, store) {
+  reset(store)
+  renderer(app, typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo)
+}
+
+export function reset(s) {
+  if (s) {
+    $.store = s
+    if ($.store.data) {
+      isMultiStore = false
+      observe($.store)
+    } else {
+      isMultiStore = true
+      for (let key in $.store) {
+        if ($.store[key].data) {
+          observe($.store[key], key)
+        }
+      }
+    }
+  }
+}

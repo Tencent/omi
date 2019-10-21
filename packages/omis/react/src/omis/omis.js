@@ -1,6 +1,6 @@
-import { $ } from './react'
+import { $, render, reset } from './react'
 
-export default { $ }
+export default { $, render, reset}
 
-export { $ }
+export { $, render, reset }
 

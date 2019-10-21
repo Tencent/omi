@@ -1,6 +1,6 @@
 import Game from '../models/game'
 
-const game = new Game
+const game = new Game()
 const { snake, map } = game
 
 game.start()
@@ -43,6 +43,7 @@ class Store {
   toggleSpeed() {
     game.toggleSpeed()
   }
+
 }
 
-export default new Store
+export default new Store()
