@@ -33,7 +33,7 @@ import store from '../../store'
 
 create(store, {
   //声明依赖
-  use: ['logs'], //也支持复制的格式，比如 ['list[0].name']
+  use: ['logs'], //也支持复杂的格式，比如 ['list[0].name']
 
   onLoad: function () {
     this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
