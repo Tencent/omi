@@ -66,7 +66,7 @@ create(store, {
 </view>
 ```
 
-可以看到里面使用 test-store 组件, 看下组件源码:
+可以看到里面使用 test-store 组件, 组件内也可以组件使用全局的 logs，组件源码:
 
 ```js
 import create from '../../utils/create'
