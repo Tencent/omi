@@ -153,7 +153,7 @@ store.offChange(handler)
 
 ### 复杂 store 拆分到多文件
 
-这里举个例子：
+当小程序变得非常复杂的时候，单文件单一的 store 会变得非常臃肿，所以需要拆分为多个 store 到新的文件，这里举个例子：
 
 store-a.js:
 
@@ -180,7 +180,7 @@ export function changeAge(){
 }
 ```
 
-store.js:
+store.js 合并所以子 store 到对应模块(a, b):
 
 ```js
 import { data as dataA, changeName } from 'store-a.js'
