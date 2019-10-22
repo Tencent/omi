@@ -158,42 +158,45 @@ store.offChange(handler)
 store-a.js:
 
 ```js
-export default {
-  data: {
-    a: {
-      name: 'omix'
-    }
-  }
+export const data = {
+  name: 'omix'
+}
+
+export function changeName(){
+  data.name = 'Omix'
 }
 ```
 
 store-b.js:
 
 ```js
-export default {
-  data: {
-    b: {
-      name: 'I Love Omix',
-      age: 18
-    }
-  }
+export const data = {
+  name: 'dntzhang',
+  age: 18
+}
+
+export function changeAge(){
+  data.age++
 }
 ```
 
 store.js:
 
 ```js
-import a from './a.js'
-import b from './b.js'
+import { data as dataA, changeName } from 'store-a.js'
+import { data as dataB, changeAge } from 'store-b.js'
 
-export default {
-  data: {
-    a: a.data.a,
-    b: b.data.b
-  }
+const store = {
+  data:{
+    a: dataA,
+    b: dataB
+  },
+  a: { changeName },
+  b: { changeAge }
 }
-```
 
+export default store
+```
 
 数据绑定:
 
@@ -210,31 +213,22 @@ export default {
 import create from '../../utils/create'
 import store from '../../store/store'
 
-
 create(store, {
   //声明依赖
   use: ['a.name', 'b'],
-
   onLoad: function () {
-    setTimeout(() => {
-      store.data.a.name = 'omi'
-    }, 2000)
+    setTimeout(_ => {
+      store.a.changeName()
+    }, 1000)
 
+    setTimeout(_ => {
+      store.b.changeAge()
+    }, 2000)
   }
 })
 ```
 
-扩展公共方法用于多个视图，比如 store-methods.js:
-
-```js
-import store from './store.js'
-
-export function changeAge(age){
-  store.data.b.age = age
-}
-```
-
-如果仅一个视图使用可以把该方法写在视图的 js 里便可以，不用提取到单独的文件。
+完整的案例可以 [点击这里](https://github.com/Tencent/omi/tree/master/packages/omix-multi-store)
 
 ## Q & A
 
