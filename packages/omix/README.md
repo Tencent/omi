@@ -1,6 +1,6 @@
 ## omix
 
-> 小程序全局状态管理，极小却精巧，对小程序入侵性几乎为零
+> 小程序全局状态管理，极小却精巧，对小程序零入侵，能驾驭小项目、中项目和大型项目
 
 TypeScript 版本的例子可以点击这里 [omix-ts](https://github.com/Tencent/omi/tree/master/packages/omix-ts)
 
