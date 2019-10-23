@@ -112,12 +112,12 @@ export default {
 这里需要注意，改变数组的 length 不会触发视图更新，需要使用 size 方法:
 
 ```js
-this.oData.arr.size(2) //会触发视图更新
-this.oData.arr.length = 2 //不会触发视图更新
+this.data.arr.size(2) //会触发视图更新
+this.data.arr.length = 2 //不会触发视图更新
 
-this.oData.arr.push(111) //会触发视图更新
+this.data.arr.push(111) //会触发视图更新
 //每个数组的方法都有对应的 pureXXX 方法
-this.oData.arr.purePush(111) //不会触发视图更新
+this.data.arr.purePush(111) //不会触发视图更新
 ```
 
 ###  函数属性
