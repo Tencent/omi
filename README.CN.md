@@ -950,7 +950,7 @@ npm run test
 ## 感谢
 
 * [preact](https://github.com/developit/preact)
-* [htm](https://github.com/developit/htm) 
+* [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) 
 * [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
