@@ -218,7 +218,7 @@
 <body>
 	<div id="wp">
 		<div id="container">
-			<img 
+			<img
 				src="https://tencent.github.io/omi/assets/omi-logo2019.svg">
 		</div>
 		<div class="info">
@@ -285,7 +285,7 @@
 					</svg>
 					<span>Omiv + Vue</span>
 				</a>
-		
+
 				<a class="button" style='color:white;' href="https://github.com/Tencent/omi" target="_blank">
 					<svg viewBox="0 0 180 60">
 						<path
@@ -317,13 +317,13 @@ class Store {
 }
 
 define('my-counter', _ => (
-  &lt;div&gt;
+  &lt;&gt;
     &lt;button onClick={_.store.sub}&gt;-&lt;/button&gt;
     &lt;span&gt;{_.store.data.count}&lt;/span&gt;
-    &lt;button onClick={_.store.add}&gt;+&lt;/button&gt;			
-  &lt;/div&gt;, {
-		use: ['count']
-	}
+    &lt;button onClick={_.store.add}&gt;+&lt;/button&gt;
+  &lt;/&gt;, {
+    use: ['count']
+  }
 ))
 
 render(&lt;my-counter /&gt;, 'body', new Store)
@@ -332,7 +332,7 @@ render(&lt;my-counter /&gt;, 'body', new Store)
 
 
 	<script>
-	
+
 		function detectMobile() {
 			if (window.innerWidth <= 800 && window.innerHeight <= 900) {
 				return true;
