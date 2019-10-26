@@ -1,21 +1,21 @@
 import { define, WeElement } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 
 define('hello-element', class extends WeElement {
+  use = ['name']
+
   installed() {
     setTimeout(() => {
-      this.store.name = 'Good Job!'
-      this.update()
+      this.store.data.name = 'Good Job!'
     }, 1000)
   }
-  css() {
-    return style
-  }
 
-  render(props, data) {
+  static css = css
+
+  render() {
     return (
       <div class="hello">
-        <h1> {this.store.name} </h1>
+        <h1> {this.store.data.name} </h1>
         <div> I am hello element.</div>
         <div class="omi" />
       </div>
