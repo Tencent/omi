@@ -9,17 +9,16 @@ interface MyAppProps {
 	name: string
 }
 
-interface MyAppData {
-	abc: string
-}
 
 @tag('my-app')
-export default class extends WeElement<MyAppProps, MyAppData> {
+export default class extends WeElement<MyAppProps> {
 
 	static css = css
 
+	abc: string
+
 	onAbc = (evt: CustomEvent) => {
-		this.data.abc = ` by ${evt.detail.name}`
+		this.abc = ` by ${evt.detail.name}`
 		this.update()
 	}
 
@@ -34,7 +33,7 @@ export default class extends WeElement<MyAppProps, MyAppData> {
 					/>
 					<h1 class="app-title">Welcome to {props.name}</h1>
 				</header>
-				{this.data.abc}
+				{this.abc}
 				<hello-omi onAbc={this.onAbc} msg="Omi"></hello-omi>
 
 				<m-text-field label='test'></m-text-field>

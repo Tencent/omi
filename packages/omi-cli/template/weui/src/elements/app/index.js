@@ -1,5 +1,5 @@
 import { define, WeElement } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 import iconFooter from './icon_footer.png'
 import iconNavForm from './icon_nav_form.png'
 import iconNavLayout from './icon_nav_layout.png'
@@ -23,10 +23,11 @@ import '../slider-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
-  static observe = true
+
+  static css = css
 
   css() {
-    return style
+    return css
   }
 
   data = {
@@ -43,80 +44,94 @@ define('my-app', class extends WeElement {
     route('/button', () => {
       this.data.tag = 'button-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/list', () => {
       this.data.tag = 'list-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/msg', () => {
       this.data.tag = 'msg-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/selection', () => {
       this.data.tag = 'selection-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/toptip', () => {
       this.data.tag = 'toptip-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/switch', () => {
       this.data.tag = 'switch-panel'
       this.data.atHome = false
+      this.update()
     })
 
 
     route('/icon', () => {
       this.data.tag = 'icon-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/loading', () => {
       this.data.tag = 'loading-panel'
       this.data.atHome = false
+      this.update()
     })
-
-    
 
     route('/article', () => {
       this.data.tag = 'article-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/dialog', () => {
       this.data.tag = 'dialog-panel'
       this.data.atHome = false
+      this.update()
     })
 
     route('/slider', () => {
       this.data.tag = 'slider-panel'
       this.data.atHome = false
+      this.update()
     })
 
 
     route('*', () => {
       this.data.atHome = true
+      this.update()
     })
   }
 
   clickForm = () => {
     this.data.visible.form = !this.data.visible.form
+    this.update()
   }
 
   clickLayout = () => {
     this.data.visible.layout = !this.data.visible.layout
+    this.update()
   }
 
   clickFeedback = () => {
     this.data.visible.feedback = !this.data.visible.feedback
+    this.update()
   }
-  
-  render(props, data) {
+
+  render() {
+    const data = this.data
     return (
       <div>
         <div class="page home">

@@ -1,0 +1,58 @@
+{
+  "name": "omiu",
+  "version": "0.1.1",
+  "description": "Omi ui.",
+  "main": "dist/omiu.js",
+  "minified:main": "dist/omiu.min.js",
+  "scripts": {
+    "simple": "webpack -w",
+    "build": "webpack",
+    "build-min": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "omi",
+    "omiu",
+    "webcomponents",
+    "jsx",
+    "proxy",
+    "preact",
+    "react",
+    "virtual dom",
+    "vdom",
+    "components",
+    "virtual",
+    "dom"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-omi": "^0.1.1",
+    "cax": "^1.2.10",
+    "css-loader": "^2.1.0",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "file-loader": "^2.0.0",
+    "omi": "latest",
+    "progressbar.js": "latest",
+    "to-string-loader": "^1.1.5",
+    "url-loader": "^1.1.2",
+    "webpack": "^3.4.1"
+  },
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi"
+}
