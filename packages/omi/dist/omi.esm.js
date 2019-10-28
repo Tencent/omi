@@ -1,5 +1,5 @@
 /**
- * omi v6.15.7  https://tencent.github.io/omi/
+ * omi v6.15.8  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1588,70 +1588,66 @@ function _possibleConstructorReturn$1(self, call) { if (!self) { throw new Refer
 
 function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var storeHelpers = ['use', 'useSelf'];
+
 function define(name, ctor, config) {
-  if (options.mapping[name]) {
-    return;
-  }
-  if (ctor.is === 'WeElement') {
-    customElements.define(name, ctor);
-    options.mapping[name] = ctor;
-  } else {
+	if (options.mapping[name]) {
+		return;
+	}
+	if (ctor.is === 'WeElement') {
+		customElements.define(name, ctor);
+		options.mapping[name] = ctor;
+	} else {
 
-    if (typeof config === 'string') {
-      config = { css: config };
-    } else {
-      config = config || {};
-    }
+		if (typeof config === 'string') {
+			config = { css: config };
+		} else {
+			config = config || {};
+		}
 
-    var Ele = function (_WeElement) {
-      _inherits$1(Ele, _WeElement);
+		var Ele = function (_WeElement) {
+			_inherits$1(Ele, _WeElement);
 
-      function Ele() {
-        _classCallCheck$1(this, Ele);
+			function Ele() {
+				_classCallCheck$1(this, Ele);
 
-        return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
-      }
+				return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
+			}
 
-      Ele.prototype.render = function render() {
-        return ctor.call(this, this);
-      };
+			Ele.prototype.render = function render() {
+				return ctor.call(this, this);
+			};
 
-      Ele.prototype.receiveProps = function receiveProps() {
-        if (config.receiveProps) {
-          return config.receiveProps.apply(this, arguments);
-        }
-      };
+			return Ele;
+		}(WeElement);
 
-      return Ele;
-    }(WeElement);
+		Ele.css = config.css;
+		Ele.propTypes = config.propTypes;
+		Ele.defaultProps = config.defaultProps;
 
-    Ele.css = config.css;
-    Ele.propTypes = config.propTypes;
-    Ele.defaultProps = config.defaultProps;
+		var _loop = function _loop(key) {
+			if (typeof config[key] === 'function') {
+				Ele.prototype[key] = function () {
+					return config[key].apply(this, arguments);
+				};
+			}
+		};
 
+		for (var key in config) {
+			_loop(key);
+		}
 
-    var eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
-        storeHelpers = ['use', 'useSelf'];
+		storeHelpers.forEach(function (func) {
+			if (config[func] && config[func] !== 'function') {
+				Ele.prototype[func] = function () {
+					return config[func];
+				};
+			}
+		});
 
-    eleHooks.forEach(function (hook) {
-      if (config[hook]) {
-        Ele.prototype[hook] = function () {
-          config[hook].apply(this, arguments);
-        };
-      }
-    });
-
-    storeHelpers.forEach(function (func) {
-      if (config[func]) {
-        Ele.prototype[func] = function () {
-          return typeof config[func] === 'function' ? config[func].apply(this, arguments) : config[func];
-        };
-      }
-    });
-
-    customElements.define(name, Ele);
-    options.mapping[name] = Ele;
-  }
+		customElements.define(name, Ele);
+		options.mapping[name] = Ele;
+	}
 }
 
 function tag(name, pure) {
@@ -1795,7 +1791,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.15.7';
+options.root.Omi.version = '6.15.8';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

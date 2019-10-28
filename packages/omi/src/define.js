@@ -1,65 +1,60 @@
 import WeElement from './we-element'
 import options from './options'
 
+const storeHelpers = ['use', 'useSelf']
+
 export function define(name, ctor, config) {
-  if (options.mapping[name]) {
-    return
-  }
-  if (ctor.is === 'WeElement') {
-    customElements.define(name, ctor)
-    options.mapping[name] = ctor
+	if (options.mapping[name]) {
+		return
+	}
+	if (ctor.is === 'WeElement') {
+		customElements.define(name, ctor)
+		options.mapping[name] = ctor
 
-  } else {
-   
-    if (typeof config === 'string') {
-      config = { css: config }
-    } else {
-      config = config || { }
-    }
+	} else {
 
-    class Ele extends WeElement {
+		if (typeof config === 'string') {
+			config = { css: config }
+		} else {
+			config = config || {}
+		}
 
-      static css = config.css
+		class Ele extends WeElement {
 
-      static propTypes = config.propTypes
+			static css = config.css
 
-      static defaultProps = config.defaultProps
+			static propTypes = config.propTypes
 
-      render() {
-        return ctor.call(this, this)
-      }
+			static defaultProps = config.defaultProps
 
-      receiveProps() {
-        if (config.receiveProps) {
-          return config.receiveProps.apply(this, arguments)
-        }
-      }
-    }
+			render() {
+				return ctor.call(this, this)
+			}
 
-    const eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
-      storeHelpers = ['use', 'useSelf']
+		}
 
-    eleHooks.forEach(hook => {
-      if (config[hook]) {
-        Ele.prototype[hook] = function () {
-          config[hook].apply(this, arguments)
-        }
-      }
-    })
 
-    storeHelpers.forEach(func => {
-      if (config[func]) {
-        Ele.prototype[func] = function () {
-          return typeof config[func] === 'function'
-            ? config[func].apply(this, arguments)
-            : config[func]
-        }
-      }
-    })
+		for (let key in config) {
+			if (typeof config[key] === 'function') {
+				Ele.prototype[key] = function () {
+					return config[key].apply(this, arguments)
+				}
+			}
+		}
 
-    customElements.define(name, Ele)
-    options.mapping[name] = Ele
-  }
+
+
+		storeHelpers.forEach(func => {
+			if (config[func] && config[func] !== 'function') {
+				Ele.prototype[func] = function () {
+					return config[func]
+				}
+			}
+		})
+
+		customElements.define(name, Ele)
+		options.mapping[name] = Ele
+	}
 }
 
 

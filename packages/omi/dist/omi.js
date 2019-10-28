@@ -507,23 +507,19 @@
                 Ele.prototype.render = function() {
                     return ctor.call(this, this);
                 };
-                Ele.prototype.receiveProps = function() {
-                    if (config.receiveProps) return config.receiveProps.apply(this, arguments);
-                };
                 return Ele;
             }(WeElement);
             Ele.css = config.css;
             Ele.propTypes = config.propTypes;
             Ele.defaultProps = config.defaultProps;
-            var eleHooks = [ 'install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered' ], storeHelpers = [ 'use', 'useSelf' ];
-            eleHooks.forEach(function(hook) {
-                if (config[hook]) Ele.prototype[hook] = function() {
-                    config[hook].apply(this, arguments);
+            for (var key in config) !function(key) {
+                if ('function' == typeof config[key]) Ele.prototype[key] = function() {
+                    return config[key].apply(this, arguments);
                 };
-            });
+            }(key);
             storeHelpers.forEach(function(func) {
-                if (config[func]) Ele.prototype[func] = function() {
-                    return 'function' == typeof config[func] ? config[func].apply(this, arguments) : config[func];
+                if (config[func] && 'function' !== config[func]) Ele.prototype[func] = function() {
+                    return config[func];
                 };
             });
             customElements.define(name, Ele);
@@ -986,6 +982,7 @@
         };
         return JSONPatcherProxy;
     }();
+    var storeHelpers = [ 'use', 'useSelf' ];
     var hasOwn = {}.hasOwnProperty;
     var n = function(t, r, u, e) {
         for (var p = 1; p < r.length; p++) {
@@ -1048,7 +1045,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.7';
+    options.root.Omi.version = '6.15.8';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

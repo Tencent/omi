@@ -1,334 +1,351 @@
 import {
-  define,
-  render,
-  WeElement,
-  cloneElement,
-  createRef,
-  getHost
+	define,
+	render,
+	WeElement,
+	cloneElement,
+	createRef,
+	getHost
 } from '../../src/omi'
 
 describe('store', () => {
-  let scratch
-  //const Empty = () => null
+	let scratch
+	//const Empty = () => null
 
-  before(() => {
-    scratch = document.createElement('div')
-      ; (document.body || document.documentElement).appendChild(scratch)
-  })
+	before(() => {
+		scratch = document.createElement('div')
+			; (document.body || document.documentElement).appendChild(scratch)
+	})
 
-  beforeEach(() => {
-    //let c = scratch.firstElementChild;
-    //if (c) render(<Empty />, scratch, { merge: c })
-    scratch.innerHTML = ''
-  })
+	beforeEach(() => {
+		//let c = scratch.firstElementChild;
+		//if (c) render(<Empty />, scratch, { merge: c })
+		scratch.innerHTML = ''
+	})
 
-  after(() => {
-    scratch.parentNode.removeChild(scratch)
-    scratch = null
-  })
+	after(() => {
+		scratch.parentNode.removeChild(scratch)
+		scratch = null
+	})
 
-  it('should render store.data', () => {
+	it('should render store.data', () => {
 
-    class Ele extends WeElement {
-      render() {
+		class Ele extends WeElement {
+			render() {
 				return <div>{this.store.data.a}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele2', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele2 />, scratch, {
-			data:{a:1}
+		define('my-ele2', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele2 />, scratch, {
+			data: { a: 1 }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
+	})
 
 	it('test use method', () => {
 
-    class Ele extends WeElement {
-			use (){
+		class Ele extends WeElement {
+			use() {
 				return ['a']
 			}
 
-			installed(){
+			installed() {
 				this.store.data.a = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele4', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele4 />, scratch, {
-			data:{a:1}
+		define('my-ele4', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele4 />, scratch, {
+			data: { a: 1 }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
 	})
 
 
 	it('test use prop', () => {
 
-    class Ele extends WeElement {
-      use = ['a']
+		class Ele extends WeElement {
+			use = ['a']
 
-			installed(){
+			installed() {
 				this.store.data.a = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele6', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele6 />, scratch, {
-			data:{a:1}
+		define('my-ele6', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele6 />, scratch, {
+			data: { a: 1 }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
 	})
 
 
 	it('test  use', () => {
 
-    class Ele extends WeElement {
-			 use = ['a']
+		class Ele extends WeElement {
+			use = ['a']
 
-			installed(){
+			installed() {
 				this.store.data.a = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele5', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele5 />, scratch, {
-			data:{a:1}
+		define('my-ele5', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele5 />, scratch, {
+			data: { a: 1 }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
 	})
 
 	it('should render store.data in sub element', () => {
 		class SubEle extends WeElement {
-      render() {
+			render() {
 				return <div>{this.store.data.a}</div>
-      }
-    }
+			}
+		}
 
 		define('sub-ele', SubEle)
 
-    class Ele extends WeElement {
-      render() {
+		class Ele extends WeElement {
+			render() {
 				return <div><sub-ele></sub-ele></div>
-      }
-    }
+			}
+		}
 
 		define('my-ele3', Ele)
 
 
 
-    render(<my-ele3 />, scratch, {
-			data:{a:2}
+		render(<my-ele3 />, scratch, {
+			data: { a: 2 }
 		})
 
-    expect(scratch.firstChild.shadowRoot.firstChild.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.firstChild.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
 
 
 	it('test useSelf', () => {
 
-    class Ele extends WeElement {
-		 useSelf = ['a']
+		class Ele extends WeElement {
+			useSelf = ['a']
 
-			installed(){
+			installed() {
 				this.store.data.a = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele7', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele7 />, scratch, {
-			data:{a:1}
+		define('my-ele7', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele7 />, scratch, {
+			data: { a: 1 }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
 
-  it('test auto updata a', () => {
+	it('test auto updata a', () => {
 
-    class Ele extends WeElement {
-		 use = ['a.b']
+		class Ele extends WeElement {
+			use = ['a.b']
 
-			installed(){
+			installed() {
 				this.store.data.a.b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a.b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele8', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele8 />, scratch, {
-			data:{a:{b:1}}
+		define('my-ele8', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele8 />, scratch, {
+			data: { a: { b: 1 } }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
-  it('test auto updata b', () => {
+	it('test auto updata b', () => {
 
-    class Ele extends WeElement {
-		 use = ['a']
+		class Ele extends WeElement {
+			use = ['a']
 
-			installed(){
+			installed() {
 				this.store.data.a.b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a.b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele9', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele9 />, scratch, {
-			data:{a:{b:1}}
+		define('my-ele9', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele9 />, scratch, {
+			data: { a: { b: 1 } }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
-  it('test auto updata c', () => {
+	it('test auto updata c', () => {
 
-    class Ele extends WeElement {
+		class Ele extends WeElement {
 
 
-			installed(){
+			installed() {
 				this.store.data.a.b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a.b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele10', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele10 />, scratch, {
-			data:{a:{b:1}}
+		define('my-ele10', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele10 />, scratch, {
+			data: { a: { b: 1 } }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
+	})
 
 
-  it('test auto updata with array path a', () => {
+	it('test auto updata with array path a', () => {
 
-    class Ele extends WeElement {
-      useSelf = ['a[0]']
+		class Ele extends WeElement {
+			useSelf = ['a[0]']
 
-			installed(){
+			installed() {
 				this.store.data.a[0].b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a[0].b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele11', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele11 />, scratch, {
-			data:{a:[{b:1}]}
+		define('my-ele11', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele11 />, scratch, {
+			data: { a: [{ b: 1 }] }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
 
-  it('test auto updata with array path b', () => {
+	it('test auto updata with array path b', () => {
 
-    class Ele extends WeElement {
-      useSelf = ['a[0].b']
+		class Ele extends WeElement {
+			useSelf = ['a[0].b']
 
-			installed(){
+			installed() {
 				this.store.data.a[0].b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a[0].b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele12', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele12 />, scratch, {
-			data:{a:[{b:1}]}
+		define('my-ele12', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele12 />, scratch, {
+			data: { a: [{ b: 1 }] }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
-  it('test auto updata with array path c', () => {
+	it('test auto updata with array path c', () => {
 
-    class Ele extends WeElement {
-      use = ['a[0].b']
+		class Ele extends WeElement {
+			use = ['a[0].b']
 
-			installed(){
+			installed() {
 				this.store.data.a[0].b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a[0].b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele13', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele13 />, scratch, {
-			data:{a:[{b:1}]}
+		define('my-ele13', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele13 />, scratch, {
+			data: { a: [{ b: 1 }] }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
-  })
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
 
-  it('test auto updata with array path c', () => {
+	it('test auto updata with array path c', () => {
 
-    class Ele extends WeElement {
-      use = ['a']
+		class Ele extends WeElement {
+			use = ['a']
 
-			installed(){
+			installed() {
 				this.store.data.a[0].b = 2
 			}
 
-      render() {
+			render() {
 				return <div>{this.store.data.a[0].b}</div>
-      }
-    }
+			}
+		}
 
-    define('my-ele14', Ele)
-    sinon.spy(Ele.prototype, 'render')
-    render(<my-ele14 />, scratch, {
-			data:{a:[{b:1}]}
+		define('my-ele14', Ele)
+		sinon.spy(Ele.prototype, 'render')
+		render(<my-ele14 />, scratch, {
+			data: { a: [{ b: 1 }] }
 		})
 
-    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+		expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
+
+	it('test extention method', () => {
+
+		define('my-ele15', _ => <div onClick={_.myMethod()}>1</div>, {
+			install() {
+				this.a = 1
+			},
+			myMethod() {
+				this.a++
+			}
+		})
+
+		render(<my-ele15 />, scratch)
+
+		scratch.firstChild.shadowRoot.querySelector('div').click()
+		expect(scratch.firstChild.a).to.equal(2)
 	})
 })
