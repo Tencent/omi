@@ -1,12 +1,13 @@
 import options from './options'
 import Component from './component'
 
+const storeHelpers = ['use', 'useSelf']
 
 export function define(name, ctor, config) {
   if(ctor.is === 'WeElement'){
     options.mapping[name] = ctor
   } else {
-  
+
     if(typeof config === 'string'){
       config = { css: config }
 		} else {
@@ -25,65 +26,24 @@ export function define(name, ctor, config) {
         return ctor.call(this, this)
       }
 
-      install() {
-        config.install && config.install.apply(this, arguments)
-      }
-
-      installed() {
-        config.installed && config.installed.apply(this, arguments)
-      }
-
-      uninstall() {
-        config.uninstall && config.uninstall.apply(this, arguments)
-      }
-
-      beforeUpdate() {
-        config.beforeUpdate && config.beforeUpdate.apply(this, arguments)
-      }
-
-      updated() {
-        config.updated && config.updated.apply(this, arguments)
-      }
-
-      beforeRender() {
-        config.beforeRender && config.beforeRender.apply(this, arguments)
-      }
-
-      rendered() {
-        config.rendered && config.rendered.apply(this, arguments)
-      }
-
-      receiveProps() {
-				if(config.receiveProps){
-					return config.receiveProps.apply(this, arguments)
-				}
-      }
-
 		}
 
-		if(config.use){
-			if(typeof config.use  === 'function'){
-				Comp.prototype.use = function(){
-				 return config.use.apply(this, arguments)
+		for (let key in config) {
+			if (typeof config[key] === 'function') {
+				Comp.prototype[key] = function () {
+					return config[key].apply(this, arguments)
 				}
-			} else {
-				Comp.prototype.use = function(){
-          return config.use
-        }
-			}
-    }
-    
-    if(config.useSelf){
-			if(typeof config.useSelf  === 'function'){
-				Comp.prototype.useSelf = function(){
-				 return config.useSelf.apply(this, arguments)
-				}
-			} else {
-				Comp.prototype.useSelf = function(){
-          return config.useSelf
-        }
 			}
 		}
+
+		storeHelpers.forEach(func => {
+			if (config[func] && config[func] !== 'function') {
+				Comp.prototype[func] = function () {
+					return config[func]
+				}
+			}
+		})
+
 
     options.mapping[name] = Comp
   }

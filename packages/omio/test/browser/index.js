@@ -107,7 +107,7 @@ describe('install()', () => {
   })
 
   it('update self', () => {
-  
+
     let count = 0
     class C2 extends Component {
       render(props) {
@@ -117,7 +117,7 @@ describe('install()', () => {
     }
 
     class C3 extends Component {
-     
+
 
       installed(){
         this.updateSelf()
@@ -139,7 +139,7 @@ describe('install()', () => {
   })
 
   it('update ', () => {
-  
+
     let count = 0
     class C2 extends Component {
       render(props) {
@@ -149,7 +149,7 @@ describe('install()', () => {
     }
 
     class C3 extends Component {
-     
+
 
       installed(){
         this.update()
@@ -619,7 +619,24 @@ describe('install()', () => {
       expect(scratch.innerHTML).to.equal('<div _ss6=\"\">a</div>')
 
       expect(document.head.querySelector('#_ss6').innerHTML).to.equal('div[_ss6]{ color:red; }')
-    })
+		})
+
+		it('test extention method', () => {
+
+			define('my-ele15', _ => <div id="abc" onClick={_.myMethod()}>1</div>, {
+				install() {
+					this.a = 1
+				},
+				myMethod() {
+					this.a++
+				}
+			})
+
+			render(<my-ele15 />, scratch)
+
+			scratch.querySelector('#abc').click()
+			expect(scratch.firstChild._component.a).to.equal(2)
+		})
   })
 
 

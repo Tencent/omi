@@ -862,45 +862,21 @@
                 Comp.prototype.render = function() {
                     return ctor.call(this, this);
                 };
-                Comp.prototype.install = function() {
-                    config.install && config.install.apply(this, arguments);
-                };
-                Comp.prototype.installed = function() {
-                    config.installed && config.installed.apply(this, arguments);
-                };
-                Comp.prototype.uninstall = function() {
-                    config.uninstall && config.uninstall.apply(this, arguments);
-                };
-                Comp.prototype.beforeUpdate = function() {
-                    config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
-                };
-                Comp.prototype.updated = function() {
-                    config.updated && config.updated.apply(this, arguments);
-                };
-                Comp.prototype.beforeRender = function() {
-                    config.beforeRender && config.beforeRender.apply(this, arguments);
-                };
-                Comp.prototype.rendered = function() {
-                    config.rendered && config.rendered.apply(this, arguments);
-                };
-                Comp.prototype.receiveProps = function() {
-                    if (config.receiveProps) return config.receiveProps.apply(this, arguments);
-                };
                 return Comp;
             }(Component);
             Comp.css = config.css;
             Comp.propTypes = config.propTypes;
             Comp.defaultProps = config.defaultProps;
-            if (config.use) if ('function' == typeof config.use) Comp.prototype.use = function() {
-                return config.use.apply(this, arguments);
-            }; else Comp.prototype.use = function() {
-                return config.use;
-            };
-            if (config.useSelf) if ('function' == typeof config.useSelf) Comp.prototype.useSelf = function() {
-                return config.useSelf.apply(this, arguments);
-            }; else Comp.prototype.useSelf = function() {
-                return config.useSelf;
-            };
+            for (var key in config) !function(key) {
+                if ('function' == typeof config[key]) Comp.prototype[key] = function() {
+                    return config[key].apply(this, arguments);
+                };
+            }(key);
+            storeHelpers.forEach(function(func) {
+                if (config[func] && 'function' !== config[func]) Comp.prototype[func] = function() {
+                    return config[func];
+                };
+            });
             options.mapping[name] = Comp;
         }
     }
@@ -1227,6 +1203,7 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
+    var storeHelpers = [ 'use', 'useSelf' ];
     var hasOwn = {}.hasOwnProperty;
     var encodeEntities = function(s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -1293,7 +1270,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.6.4';
+    options.root.Omi.version = 'omio-2.6.5';
     var Omi = {
         h: h,
         createElement: h,

@@ -1,5 +1,5 @@
 /**
- * omi v2.6.4  https://tencent.github.io/omi/
+ * omi v2.6.5  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1853,98 +1853,61 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var storeHelpers = ['use', 'useSelf'];
+
 function define(name, ctor, config) {
-  if (ctor.is === 'WeElement') {
-    options.mapping[name] = ctor;
-  } else {
+	if (ctor.is === 'WeElement') {
+		options.mapping[name] = ctor;
+	} else {
 
-    if (typeof config === 'string') {
-      config = { css: config };
-    } else {
-      config = config || {};
-    }
+		if (typeof config === 'string') {
+			config = { css: config };
+		} else {
+			config = config || {};
+		}
 
-    var Comp = function (_Component) {
-      _inherits(Comp, _Component);
+		var Comp = function (_Component) {
+			_inherits(Comp, _Component);
 
-      function Comp() {
-        _classCallCheck$1(this, Comp);
+			function Comp() {
+				_classCallCheck$1(this, Comp);
 
-        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
-      }
+				return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+			}
 
-      Comp.prototype.render = function render() {
-        return ctor.call(this, this);
-      };
+			Comp.prototype.render = function render() {
+				return ctor.call(this, this);
+			};
 
-      Comp.prototype.install = function install() {
-        config.install && config.install.apply(this, arguments);
-      };
+			return Comp;
+		}(Component);
 
-      Comp.prototype.installed = function installed() {
-        config.installed && config.installed.apply(this, arguments);
-      };
+		Comp.css = config.css;
+		Comp.propTypes = config.propTypes;
+		Comp.defaultProps = config.defaultProps;
 
-      Comp.prototype.uninstall = function uninstall() {
-        config.uninstall && config.uninstall.apply(this, arguments);
-      };
+		var _loop = function _loop(key) {
+			if (typeof config[key] === 'function') {
+				Comp.prototype[key] = function () {
+					return config[key].apply(this, arguments);
+				};
+			}
+		};
 
-      Comp.prototype.beforeUpdate = function beforeUpdate() {
-        config.beforeUpdate && config.beforeUpdate.apply(this, arguments);
-      };
+		for (var key in config) {
+			_loop(key);
+		}
 
-      Comp.prototype.updated = function updated() {
-        config.updated && config.updated.apply(this, arguments);
-      };
+		storeHelpers.forEach(function (func) {
+			if (config[func] && config[func] !== 'function') {
+				Comp.prototype[func] = function () {
+					return config[func];
+				};
+			}
+		});
 
-      Comp.prototype.beforeRender = function beforeRender() {
-        config.beforeRender && config.beforeRender.apply(this, arguments);
-      };
-
-      Comp.prototype.rendered = function rendered() {
-        config.rendered && config.rendered.apply(this, arguments);
-      };
-
-      Comp.prototype.receiveProps = function receiveProps() {
-        if (config.receiveProps) {
-          return config.receiveProps.apply(this, arguments);
-        }
-      };
-
-      return Comp;
-    }(Component);
-
-    Comp.css = config.css;
-    Comp.propTypes = config.propTypes;
-    Comp.defaultProps = config.defaultProps;
-
-
-    if (config.use) {
-      if (typeof config.use === 'function') {
-        Comp.prototype.use = function () {
-          return config.use.apply(this, arguments);
-        };
-      } else {
-        Comp.prototype.use = function () {
-          return config.use;
-        };
-      }
-    }
-
-    if (config.useSelf) {
-      if (typeof config.useSelf === 'function') {
-        Comp.prototype.useSelf = function () {
-          return config.useSelf.apply(this, arguments);
-        };
-      } else {
-        Comp.prototype.useSelf = function () {
-          return config.useSelf;
-        };
-      }
-    }
-
-    options.mapping[name] = Comp;
-  }
+		options.mapping[name] = Comp;
+	}
 }
 
 function rpx(str) {
@@ -2305,7 +2268,7 @@ options.root.Omi = {
   obaa: obaa
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.6.4';
+options.root.Omi.version = 'omio-2.6.5';
 
 var omi = {
   h: h,
