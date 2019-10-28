@@ -201,7 +201,8 @@
             if (value) node.innerHTML = value.__html || '';
         } else if ('o' == name[0] && 'n' == name[1]) {
             var useCapture = name !== (name = name.replace(/Capture$/, ''));
-            name = name.toLowerCase().substring(2);
+            var nameLower = name.toLowerCase();
+            name = (nameLower in node ? nameLower : name).slice(2);
             if (value) {
                 if (!old) {
                     node.addEventListener(name, eventProxy, useCapture);
@@ -1292,7 +1293,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.6.3';
+    options.root.Omi.version = 'omio-2.6.4';
     var Omi = {
         h: h,
         createElement: h,
