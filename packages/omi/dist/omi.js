@@ -168,7 +168,8 @@
             if (value) node.innerHTML = value.__html || '';
         } else if ('o' == name[0] && 'n' == name[1]) {
             var useCapture = name !== (name = name.replace(/Capture$/, ''));
-            name = name.toLowerCase().substring(2);
+            var nameLower = name.toLowerCase();
+            name = (nameLower in node ? nameLower : name).slice(2);
             if (value) {
                 if (!old) {
                     node.addEventListener(name, eventProxy$1, useCapture);
@@ -1047,7 +1048,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.6';
+    options.root.Omi.version = '6.15.7';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

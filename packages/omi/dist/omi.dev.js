@@ -1,5 +1,5 @@
 /**
- * omi v6.15.6  https://tencent.github.io/omi/
+ * omi v6.15.7  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -390,7 +390,8 @@
       if (value) node.innerHTML = value.__html || '';
     } else if (name[0] == 'o' && name[1] == 'n') {
       var useCapture = name !== (name = name.replace(/Capture$/, ''));
-      name = name.toLowerCase().substring(2);
+      var nameLower = name.toLowerCase();
+      name = (nameLower in node ? nameLower : name).slice(2);
       if (value) {
         if (!old) {
           node.addEventListener(name, eventProxy$1, useCapture);
@@ -1797,7 +1798,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.15.6';
+  options.root.Omi.version = '6.15.7';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
