@@ -184,7 +184,11 @@ define('my-component', _ => (
     beforeUpdate() { }, 
     updated() { }, 
     beforeRender() { }, 
-    rendered() { } 
+    rendered() { },
+    
+    //自定义方法
+    myMethodA() { },
+    myMethodB() { }
 
   })
 ```

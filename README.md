@@ -183,7 +183,11 @@ define('my-component', _ => (
     beforeUpdate() { }, 
     updated() { }, 
     beforeRender() { }, 
-    rendered() { } 
+    rendered() { }, 
+
+    //custom methods
+    myMethodA() { },
+    myMethodB() { }
 
   })
 ```
