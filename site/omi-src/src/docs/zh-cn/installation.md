@@ -89,6 +89,7 @@ $ npm run build        # release
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
+|Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
 |小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
 |mps|`omi init-mps my-app`| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS) |
 |mps ts 版本|`omi init-mps-ts my-app`| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS) |
@@ -98,4 +99,3 @@ $ npm run build        # release
 |TypeScript 模板(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
 |Mobile 模板|`omi init-weui my-app`| 使用 weui 和 omi-router 的模板|
 |omi-mp 模板(omi-cli v3.0.13+)|`omi init-mp my-app`  |使用微信小程序开发 H5|
-|MVVM 模板(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM 模板|

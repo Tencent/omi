@@ -88,8 +88,9 @@ Add or remove the alias config in package.json to switch omi and omio：
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
+|Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
 |小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
 |Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
-|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
+
