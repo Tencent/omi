@@ -153,7 +153,7 @@ page {
 }
 
 .up em{
-  transform: translate(0rpx, 70rpx) scale(1, 2);
+  transform: translate(4rpx, 68rpx) scale(1, 2);
 }
 
 
@@ -169,7 +169,7 @@ page {
 }
 
 .down em{
-  transform: translate(0rpx, -71rpx) rotate(180deg) scale(1, 2);
+  transform: translate(4rpx, -60rpx) rotate(180deg) scale(1, 2);
 }
 
 .left{
@@ -178,15 +178,15 @@ page {
 }
 
 .left em{
-  transform: translate(60rpx, -12rpx) rotate(270deg) scale(1, 2);
+  transform: translate(62rpx, -4rpx) rotate(270deg) scale(1, 2);
 }
 
 .right{
-  top: 90rpx; left: 464rpx;
+  top: 90rpx; left: 466rpx;
 }
 
 .right em{
-  transform: translate(-60rpx, -12rpx) rotate(90deg) scale(1, 2);
+  transform: translate(-56rpx, -4rpx) rotate(90deg) scale(1, 2);
 }
 
 .space{

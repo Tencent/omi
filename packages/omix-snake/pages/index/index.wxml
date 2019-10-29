@@ -8,7 +8,7 @@
 		<view class="btn cm-btn cm-btn-dir right" onClick="{{store.turnRight}}"><i></i><em></em><span >Right</span></view>
 		<view class="btn cm-btn space" onClick="{{store.toggleSpeed}}"><i></i><span >加速/减速</span></view>
 		<view class="btn reset small" onClick="{{store.reset}}"><i ></i><span >Reset</span></view>
-		<view class="btn pp small" onClick="{{store.pauseOrPlay}}"><i></i><span >"{{paused ? 'Play' : 'Pause'}}"</span></view>
+		<view class="btn pp small" onClick="{{store.pauseOrPlay}}"><i></i><span >{{paused ? 'Play' : 'Pause'}}</span></view>
 	</view>
 
 </view>
