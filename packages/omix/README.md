@@ -19,6 +19,8 @@
 * `create(option)`             创建组件
 * `this.store` 和 `this.data`  全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
+当你传入一个参数的时候是创建组件，传入二个参数的时候是创建页面，store 会注入到页面的所以组件。如果不需要注入 store 的组件用使用 `Component` 构造器。
+
 ## 实战
 
 定义 store:
