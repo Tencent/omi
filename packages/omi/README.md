@@ -164,14 +164,14 @@ define('my-app', _ => {
 	return (
 		<p>
 			Clicked: {data.count} times
-			<button onClick={add}>+</button>
+      <button onClick={add}>+</button>
 			<button onClick={sub}>-</button>
 
 			<div>
 				{_.store.storeB.data.msg}
 				<button onClick={_.store.storeB.changeMsg}>
 					change storeB's msg
-				</button>
+        </button>
 			</div>
 
 			<div>{_.computed.dobuleCount}</div>
