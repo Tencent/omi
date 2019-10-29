@@ -1,5 +1,5 @@
 /*!
- *  omix v2.0.1 by dntzhang
+ *  omix v2.1.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -43,10 +43,13 @@ function create(store, option) {
       this.__use = option.use
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-
+      this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
-      using && this.setData(using)
+      if(using){
+        option.computed && compute(option.computed, store, using)
+        this.setData(using)
+      }
       onLoad && onLoad.call(this, e)
     }
     Page(option)
@@ -58,10 +61,14 @@ function create(store, option) {
       store.use && (this.__updatePath = getPath(store.use))
       this.store = page.store
       this.__use = store.use
+      this.computed = store.computed
       store.data = this.store.data
       this.setData(store.data)
       const using = getUsing(this.store.data, store.use)
-      using && this.setData(using)
+      if (using) {
+        store.computed && compute(store.computed, this.store, using)
+        this.setData(using)
+      }
       this.store.instances[page.route].push(this)
       ready && ready.call(this)
     }
@@ -69,6 +76,11 @@ function create(store, option) {
   }
 }
 
+function compute(computed, store, using){
+  for(let key in computed){
+    using[key] = computed[key].call(store.data)
+  }
+}
 
 function observeStore(store) {
   obaa(store.data, (prop, value, old, path) => {
@@ -97,7 +109,10 @@ function _update(kv, store) {
         ins.setData.call(ins, kv)
 
         const using = getUsing(store.data, ins.__use)
-        using && ins.setData(using)
+        if(using){
+          compute(ins.computed, store, using)
+          ins.setData(using)
+        }
 
       }
     })

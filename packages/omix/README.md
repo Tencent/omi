@@ -34,7 +34,12 @@ import store from '../../store'
 create(store, {
   //声明依赖
   use: ['logs'], //也支持复杂的格式，比如 ['list[0].name']
-
+  //计算属性，可以直接绑定在 wxml 里
+  computed: {
+    logsLength() {
+      return this.logs.length
+    }
+  },
   onLoad: function () {
     this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
       return util.formatTime(new Date(log))
@@ -72,15 +77,20 @@ create(store, {
 import create from '../../utils/create'
 
 create({
-  
+  use: ['logs'],
+  //计算属性
+  computed: {
+    logsLength() {
+      return this.logs.length
+    }
+  }
 })
 ```
 
 ```html
 <view class="ctn">
-  <view>
-    <text>Log Length: {{logs.length}}</text>
-  </view>
+	<view>Log Length: {{logs.length}}</view>
+	<view>Log Length by computed: {{logsLength}}</view>
 </view>
 ```
 
@@ -120,24 +130,23 @@ this.data.arr.push(111) //会触发视图更新
 this.data.arr.purePush(111) //不会触发视图更新
 ```
 
-###  函数属性
+###  计算属性
 
 ```js
   use: [
     'motto',
     'userInfo',
     'hasUserInfo',
-    'canIUse',
-    {
-      reverseMotto:[
-        ['motto'],
-        motto => motto.split('').reverse().join('')
-      ]
-    }
+    'canIUse'
   ],
+  computed: {
+    reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
+  }
 ```
 
-函数属性定义在页面或者组件的 use 里，如上面的 `reverseMotto`， 它可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
+计算属性定义在页面或者组件的 `computed` 里，如上面的 `reverseMotto`， 它可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
 
 ### store 变化监听
 

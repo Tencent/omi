@@ -1,5 +1,4 @@
 <view class="ctn">
-  <view>
-    <text>Log Length: {{logs.length}}</text>
-  </view>
+	<view>Log Length: {{logs.length}}</view>
+	<view>Log Length by computed: {{logsLength}}</view>
 </view>
