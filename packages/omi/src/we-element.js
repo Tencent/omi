@@ -72,8 +72,8 @@ export default class WeElement extends HTMLElement {
 		}
 
 		if(this.compute){
-			for(let key in this.compute){
-				this.computed[key] = this.compute[key].call(this.store.data)
+			for (let key in this.compute) {
+				this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data)
 			}
 		}
 

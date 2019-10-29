@@ -115,6 +115,10 @@
     });
   }
 
+  function Fragment(props) {
+    return props.children;
+  }
+
   function extend(obj, props) {
     for (var i in props) {
       obj[i] = props[i];
@@ -224,6 +228,16 @@
     });
     if (out) out[name] = result;
     return result;
+  }
+
+  function removeItem(item, arr) {
+    if (!arr) return;
+    for (var i = 0, len = arr.length; i < len; i++) {
+      if (arr[i] === item) {
+        arr.splice(i, 1);
+        break;
+      }
+    }
   }
 
   // render modes
@@ -372,7 +386,8 @@
       if (value) node.innerHTML = value.__html || '';
     } else if (name[0] == 'o' && name[1] == 'n') {
       var useCapture = name !== (name = name.replace(/Capture$/, ''));
-      name = name.toLowerCase().substring(2);
+      var nameLower = name.toLowerCase();
+      name = (nameLower in node ? nameLower : name).slice(2);
       if (value) {
         if (!old) {
           node.addEventListener(name, eventProxy$1, useCapture);
@@ -462,13 +477,16 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
+    if (vnode.nodeName === Fragment) {
+      vnode = vnode.children;
+    }
     if (isArray(vnode)) {
       if (parent) {
         var styles = parent.querySelectorAll('style');
         styles.forEach(function (s) {
           parent.removeChild(s);
         });
-        innerDiffNode(parent, vnode, null, null, null, component);
+        innerDiffNode(parent, vnode, hydrating, component, updateSelf);
 
         for (var i = styles.length - 1; i >= 0; i--) {
           parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
@@ -805,6 +823,7 @@
 
   		_this.props = Object.assign({}, _this.constructor.defaultProps);
   		_this.elementId = id++;
+  		_this.computed = {};
   		return _this;
   	}
 
@@ -816,12 +835,7 @@
   		}
 
   		if (this.use) {
-  			var use = void 0;
-  			if (typeof this.use === 'function') {
-  				use = this.use();
-  			} else {
-  				use = this.use;
-  			}
+  			var use = typeof this.use === 'function' ? this.use() : this.use;
 
   			if (options.isMultiStore) {
   				var _updatePath = {};
@@ -859,6 +873,13 @@
   				this.store.updateSelfInstances.push(this);
   			}
   		}
+
+  		if (this.compute) {
+  			for (var key in this.compute) {
+  				this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
+  			}
+  		}
+
   		this.attrsToProps();
   		this.beforeInstall();
   		this.install();
@@ -912,11 +933,15 @@
   		this.uninstall();
   		this._isInstalled = false;
   		if (this.store) {
-  			for (var i = 0, len = this.store.instances.length; i < len; i++) {
-  				if (this.store.instances[i] === this) {
-  					this.store.instances.splice(i, 1);
-  					break;
+  			if (options.isMultiStore) {
+  				for (var key in this.store) {
+  					var current = this.store[key];
+  					removeItem(this, current.instances);
+  					removeItem(this, current.updateSelfInstances);
   				}
+  			} else {
+  				removeItem(this, this.store.instances);
+  				removeItem(this, this.store.updateSelfInstances);
   			}
   		}
   	};
@@ -1446,6 +1471,7 @@
   	store.update = function (patch) {
   		if (Object.keys(patch).length > 0) {
   			this.instances.forEach(function (instance) {
+  				compute(instance, key);
   				if (key) {
   					if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
   						if (instance.use) {
@@ -1466,6 +1492,7 @@
   			});
 
   			this.updateSelfInstances.forEach(function (instance) {
+  				compute(instance, key);
   				if (key) {
   					if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
   						if (instance.useSelf) {
@@ -1484,6 +1511,14 @@
   			this.onChange && this.onChange(patch);
   		}
   	};
+  }
+
+  function compute(instance, isMultiStore) {
+  	if (instance.compute) {
+  		for (var ck in instance.compute) {
+  			instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
+  		}
+  	}
   }
 
   function needUpdate(diffResult, updatePath) {
@@ -1565,77 +1600,69 @@
 
   function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  function define(name, ctor) {
-    if (options.mapping[name]) {
-      return;
-    }
-    if (ctor.is === 'WeElement') {
-      customElements.define(name, ctor);
-      options.mapping[name] = ctor;
-    } else {
-      var _class, _temp;
-      var config = {};
-      var len = arguments.length;
-      if (len === 3) {
-        if (typeof arguments[1] === 'function') {
-          ctor = arguments[1];
-          config = arguments[2];
-        } else {
-          ctor = arguments[2];
-        }
-      } else if (len === 4) {
-        ctor = arguments[2];
-        config = arguments[3];
-      }
-      if (typeof config === 'string') {
-        config = { css: config };
-      }
+  var storeHelpers = ['use', 'useSelf'];
 
-      var Ele = (_temp = _class = function (_WeElement) {
-        _inherits$1(Ele, _WeElement);
+  function define(name, ctor, config) {
+  	if (options.mapping[name]) {
+  		return;
+  	}
+  	if (ctor.is === 'WeElement') {
+  		customElements.define(name, ctor);
+  		options.mapping[name] = ctor;
+  	} else {
+  		var _class, _temp2;
 
-        function Ele() {
-          _classCallCheck$1(this, Ele);
+  		if (typeof config === 'string') {
+  			config = { css: config };
+  		} else {
+  			config = config || {};
+  		}
 
-          return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
-        }
+  		var Ele = (_temp2 = _class = function (_WeElement) {
+  			_inherits$1(Ele, _WeElement);
 
-        Ele.prototype.render = function render() {
-          return ctor.call(this, this);
-        };
+  			function Ele() {
+  				var _temp, _this, _ret;
 
-        Ele.prototype.receiveProps = function receiveProps() {
-          if (config.receiveProps) {
-            return config.receiveProps.apply(this, arguments);
-          }
-        };
+  				_classCallCheck$1(this, Ele);
 
-        return Ele;
-      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp);
+  				for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  					args[_key] = arguments[_key];
+  				}
 
+  				return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
+  			}
 
-      var eleHooks = ['install', 'installed', 'uninstall', 'beforeUpdate', 'updated', 'beforeRender', 'rendered'],
-          storeHelpers = ['use', 'useSelf'];
+  			Ele.prototype.render = function render() {
+  				return ctor.call(this, this);
+  			};
 
-      eleHooks.forEach(function (hook) {
-        if (config[hook]) {
-          Ele.prototype[hook] = function () {
-            config[hook].apply(this, arguments);
-          };
-        }
-      });
+  			return Ele;
+  		}(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp2);
 
-      storeHelpers.forEach(function (func) {
-        if (config[func]) {
-          Ele.prototype[func] = function () {
-            return typeof config[func] === 'function' ? config[func].apply(this, arguments) : config[func];
-          };
-        }
-      });
+  		var _loop = function _loop(key) {
+  			if (typeof config[key] === 'function') {
+  				Ele.prototype[key] = function () {
+  					return config[key].apply(this, arguments);
+  				};
+  			}
+  		};
 
-      customElements.define(name, Ele);
-      options.mapping[name] = Ele;
-    }
+  		for (var key in config) {
+  			_loop(key);
+  		}
+
+  		storeHelpers.forEach(function (func) {
+  			if (config[func] && config[func] !== 'function') {
+  				Ele.prototype[func] = function () {
+  					return config[func];
+  				};
+  			}
+  		});
+
+  		customElements.define(name, Ele);
+  		options.mapping[name] = Ele;
+  	}
   }
 
   function tag(name, pure) {
@@ -1735,6 +1762,8 @@
 
   var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a="number"==typeof s?u[s]:s;1===r[p]?e[0]=a:2===r[p]?(e[1]=e[1]||{})[r[++p]]=a:3===r[p]?e[1]=Object.assign(e[1]||{},a):e.push(r[p]?t.apply(null,n(t,a,u,["",null])):a);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],a=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,2,e):4===u&&r&&(s.push(n||e,2,r), r=""), e="";},f=0;f<n.length;f++){f&&(1===u&&a(), a(f));for(var h=0;h<n[f].length;h++)t=n[f][h], 1===u?"<"===t?(a(), s=[s], u=3):e+=t:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(a(), u=1):u&&("="===t?(u=4, r=e, e=""):"/"===t?(a(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,4), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(a(), u=2):e+=t);}return a(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
 
+  h.f = Fragment;
+
   var html = htm.bind(h);
 
   function createRef() {
@@ -1777,7 +1806,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.15.0';
+  options.root.Omi.version = '6.15.8';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1812,12 +1841,30 @@
   				{ onClick: _.store.storeB.changeMsg },
   				'change storeB\'s msg'
   			)
+  		),
+  		Omi.h(
+  			'div',
+  			null,
+  			_.computed.dobuleCount
+  		),
+  		Omi.h(
+  			'div',
+  			null,
+  			_.computed.reverseMsg
   		)
   	);
   }, {
   	useSelf: {
   		storeA: ['count', 'adding'],
   		storeB: ['msg']
+  	},
+  	compute: {
+  		dobuleCount: function dobuleCount() {
+  			return this.storeA.data.count * 2;
+  		},
+  		reverseMsg: function reverseMsg() {
+  			return this.storeB.data.msg.split('').reverse().join('');
+  		}
   	}
   });
 

@@ -52,7 +52,7 @@ function extendStoreUpate(store, key) {
 	store.update = function (patch) {
 		if (Object.keys(patch).length > 0) {
 			this.instances.forEach(instance => {
-				compute(instance)
+				compute(instance, key)
 				if (key) {
 					if ((
 						instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key]))) {
@@ -77,7 +77,7 @@ function extendStoreUpate(store, key) {
 			})
 
 			this.updateSelfInstances.forEach(instance => {
-				compute(instance)
+				compute(instance, key)
 				if (key) {
 					if ((
 						instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key]))) {
@@ -99,10 +99,10 @@ function extendStoreUpate(store, key) {
 	}
 }
 
-function compute(instance) {
+function compute(instance, isMultiStore) {
 	if (instance.compute) {
 		for (let ck in instance.compute) {
-			instance.computed[ck] = instance.compute[ck].call(instance.store.data)
+			instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data)
 		}
 	}
 }

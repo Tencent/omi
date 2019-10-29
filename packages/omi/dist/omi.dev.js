@@ -1,5 +1,5 @@
 /**
- * omi v6.15.8  https://tencent.github.io/omi/
+ * omi v6.16.0  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -825,6 +825,7 @@
 
   		_this.props = Object.assign({}, _this.constructor.defaultProps);
   		_this.elementId = id++;
+  		_this.computed = {};
   		return _this;
   	}
 
@@ -836,12 +837,7 @@
   		}
 
   		if (this.use) {
-  			var use;
-  			if (typeof this.use === 'function') {
-  				use = this.use();
-  			} else {
-  				use = this.use;
-  			}
+  			var use = typeof this.use === 'function' ? this.use() : this.use;
 
   			if (options.isMultiStore) {
   				var _updatePath = {};
@@ -879,6 +875,13 @@
   				this.store.updateSelfInstances.push(this);
   			}
   		}
+
+  		if (this.compute) {
+  			for (var key in this.compute) {
+  				this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
+  			}
+  		}
+
   		this.attrsToProps();
   		this.beforeInstall();
   		this.install();
@@ -1472,6 +1475,7 @@
   	store.update = function (patch) {
   		if (Object.keys(patch).length > 0) {
   			this.instances.forEach(function (instance) {
+  				compute(instance, key);
   				if (key) {
   					if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
   						if (instance.use) {
@@ -1492,6 +1496,7 @@
   			});
 
   			this.updateSelfInstances.forEach(function (instance) {
+  				compute(instance, key);
   				if (key) {
   					if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
   						if (instance.useSelf) {
@@ -1510,6 +1515,14 @@
   			this.onChange && this.onChange(patch);
   		}
   	};
+  }
+
+  function compute(instance, isMultiStore) {
+  	if (instance.compute) {
+  		for (var ck in instance.compute) {
+  			instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
+  		}
+  	}
   }
 
   function needUpdate(diffResult, updatePath) {
@@ -1612,9 +1625,15 @@
   			_inherits$1(Ele, _WeElement);
 
   			function Ele() {
+  				var _temp, _this, _ret;
+
   				_classCallCheck$1(this, Ele);
 
-  				return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
+  				for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
+  					args[key] = arguments[key];
+  				}
+
+  				return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
   			}
 
   			Ele.prototype.render = function render() {
@@ -1794,7 +1813,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.15.8';
+  options.root.Omi.version = '6.16.0';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

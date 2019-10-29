@@ -406,6 +406,7 @@
         store.update = function(patch) {
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
+                    compute(instance, key);
                     if (key) {
                         if (instance.M && instance.M[key] && needUpdate(patch, instance.M[key])) {
                             if (instance.use) getUse(store.data, ('function' == typeof instance.use ? instance.use() : instance.use)[key], instance.using, key);
@@ -417,6 +418,7 @@
                     }
                 });
                 this.updateSelfInstances.forEach(function(instance) {
+                    compute(instance, key);
                     if (key) {
                         if (instance.R && instance.R[key] && needUpdate(patch, instance.R[key])) {
                             if (instance.useSelf) getUse(store.data, ('function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
@@ -430,6 +432,9 @@
                 this.onChange && this.onChange(patch);
             }
         };
+    }
+    function compute(instance, isMultiStore) {
+        if (instance.compute) for (var ck in instance.compute) instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
     }
     function needUpdate(diffResult, updatePath) {
         for (var keyA in diffResult) {
@@ -500,8 +505,11 @@
             }; else config = config || {};
             var Ele = function(_WeElement) {
                 function Ele() {
+                    var _temp, _this, _ret;
                     _classCallCheck$1(this, Ele);
-                    return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
+                    for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
+                    return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
+                    _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
                 }
                 _inherits$1(Ele, _WeElement);
                 Ele.prototype.render = function() {
@@ -617,6 +625,7 @@
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
             _this.props = Object.assign({}, _this.constructor.defaultProps);
             _this.elementId = id++;
+            _this.computed = {};
             return _this;
         }
         _inherits(WeElement, _HTMLElement);
@@ -627,8 +636,7 @@
                 p = p.parentNode || p.host;
             }
             if (this.use) {
-                var use;
-                if ('function' == typeof this.use) use = this.use(); else use = this.use;
+                var use = 'function' == typeof this.use ? this.use() : this.use;
                 if (options.isMultiStore) {
                     var _updatePath = {};
                     var using = {};
@@ -665,6 +673,7 @@
                     this.store.updateSelfInstances.push(this);
                 }
             }
+            if (this.compute) for (var key in this.compute) this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
             this.attrsToProps();
             this.beforeInstall();
             this.install();
@@ -1045,7 +1054,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.15.8';
+    options.root.Omi.version = '6.16.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

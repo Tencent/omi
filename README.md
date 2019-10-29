@@ -155,6 +155,45 @@ render( <my-app /> , 'body', {
 })
 ```
 
+How to Multi-store injection with `compute` and `computed`? Very simple:
+
+```jsx
+define('my-app', _ => {
+	const store = _.store.storeA
+	const { data, add, sub } = store
+	return (
+		<p>
+			Clicked: {data.count} times
+			<button onClick={add}>+</button>
+			<button onClick={sub}>-</button>
+
+			<div>
+				{_.store.storeB.data.msg}
+				<button onClick={_.store.storeB.changeMsg}>
+					change storeB's msg
+				</button>
+			</div>
+
+			<div>{_.computed.dobuleCount}</div>
+			<div>{_.computed.reverseMsg}</div>
+		</p>
+	)
+}, {
+		useSelf: {
+			storeA: ['count', 'adding'],
+			storeB: ['msg']
+		},
+		compute: {
+			dobuleCount() {
+				return this.storeA.data.count * 2
+			},
+			reverseMsg() {
+				return this.storeB.data.msg.split('').reverse().join('')
+			}
+		}
+	})
+```
+
 ### API and Hooks
 
 ```jsx

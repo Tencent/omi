@@ -11,18 +11,29 @@ define('my-app', _ => {
 
 			<div>
 				{_.store.storeB.data.msg}
-				<button  onClick={_.store.storeB.changeMsg}>
-				change storeB's msg
+				<button onClick={_.store.storeB.changeMsg}>
+					change storeB's msg
 				</button>
 			</div>
+
+			<div>{_.computed.dobuleCount}</div>
+			<div>{_.computed.reverseMsg}</div>
 		</p>
 	)
 }, {
-	useSelf: {
-		storeA: ['count', 'adding'],
-		storeB: ['msg']
-	}
-})
+		useSelf: {
+			storeA: ['count', 'adding'],
+			storeB: ['msg']
+		},
+		compute: {
+			dobuleCount() {
+				return this.storeA.data.count * 2
+			},
+			reverseMsg() {
+				return this.storeB.data.msg.split('').reverse().join('')
+			}
+		}
+	})
 
 const storeA = new class Store {
 	data = {
@@ -46,7 +57,7 @@ const storeB = new class Store {
 	}
 }
 
-render( <my-app /> , 'body', {
+render(<my-app />, 'body', {
 	storeA,
 	storeB
 })
