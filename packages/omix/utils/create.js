@@ -1,5 +1,5 @@
 /*!
- *  omix v2.0.0 by dntzhang
+ *  omix v2.0.1 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -7,9 +7,6 @@
 import obaa from './obaa'
 import { getPath, needUpdate, fixPath, getUsing } from './path'
 
-const ARRAYTYPE = '[object Array]'
-const OBJECTTYPE = '[object Object]'
-const FUNCTIONTYPE = '[object Function]'
 const changes = []
 
 function create(store, option) {
@@ -34,7 +31,7 @@ function create(store, option) {
         }
       }
     }
-   
+
     option.data = store.data
     observeStore(store)
     const onLoad = option.onLoad
@@ -46,9 +43,7 @@ function create(store, option) {
       this.__use = option.use
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-      if (!option.data.___walked) {
-        walk(this.store.data)
-      }
+
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
       using && this.setData(using)
@@ -90,8 +85,8 @@ function observeStore(store) {
     }
 
     _update(patch, store)
-    
-    
+
+
   })
 }
 
@@ -104,8 +99,6 @@ function _update(kv, store) {
         const using = getUsing(store.data, ins.__use)
         using && ins.setData(using)
 
-        //即将废弃
-        updateStoreByFnProp(ins, store.data)
       }
     })
   }
@@ -128,109 +121,9 @@ function storeChangeLogger (store, diffResult) {
   } catch (e) {
       console.log(e)
   }
-    
-}
-
-function updateStoreByFnProp(ele, data) {
-  if(data){
-    let patch = {}
-    for (let key in data.__fnMapping) {
-      patch[key] = data.__fnMapping[key].call(data)
-    }
-    ele.setData(patch)
-  }
-}
-
-
-
-function getObjByPath(path, data) {
-  const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
-  const len = arr.length
-  if (len > 1) {
-    let current = data[arr[0]]
-    for (let i = 1; i < len - 1; i++) {
-      current = current[arr[i]]
-    }
-    return { obj: current, key: arr[len - 1] }
-  } else {
-    return { obj: data, key: arr[0] }
-  }
-}
-
-function walk(data) {
-  //___walked 用于标记是否已经观察遍历了
-  data.___walked = true
-  Object.keys(data).forEach(key => {
-    const obj = data[key]
-    const tp = type(obj)
-    if (tp == FUNCTIONTYPE) {
-      setProp(key, obj, data)
-    } else if (tp == OBJECTTYPE) {
-      Object.keys(obj).forEach(subKey => {
-        _walk(obj[subKey], key + '.' + subKey, data)
-      })
-
-    } else if (tp == ARRAYTYPE) {
-      obj.forEach((item, index) => {
-        _walk(item, key + '[' + index + ']', data)
-      })
-
-    }
-  })
-}
-
-function _walk(obj, path, data) {
-  const tp = type(obj)
-  if (tp == FUNCTIONTYPE) {
-    setProp(path, obj, data)
-  } else if (tp == OBJECTTYPE) {
-    Object.keys(obj).forEach(subKey => {
-      _walk(obj[subKey], path + '.' + subKey, data)
-    })
-
-  } else if (tp == ARRAYTYPE) {
-    obj.forEach((item, index) => {
-      _walk(item, path + '[' + index + ']', data)
-    })
-
-  }
-}
-
-function setProp(path, fn, data) {
-  const ok = getObjByPath(path, data)
-
-  data.__fnMapping = data.__fnMapping || {}
-  data.__fnMapping[path] = fn
-  Object.defineProperty(ok.obj, ok.key, {
-    enumerable: true,
-    get: () => {
-      return fn.call(ok.obj)
-    },
-    set: () => {
-      console.warn('Please using this.data.method to set method prop of data!')
-    }
-  })
-  
 
 }
 
-function type(obj) {
-  return Object.prototype.toString.call(obj)
-}
-
-
-
-
-
-
-
-function updateByFnProp(ele, data) {
-  let patch = {}
-  for (let key in data.__fnMapping) {
-    patch[key] = data.__fnMapping[key].call(ele.oData)
-  }
-  ele.setData(patch)
-}
 
 
 create.obaa = obaa

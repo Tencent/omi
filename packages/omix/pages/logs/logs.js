@@ -1,6 +1,6 @@
 //logs.js
 import create from '../../utils/create'
-import store from '../../store'
+import store from '../../store/index'
 
 const util = require('../../utils/util.js')
 
