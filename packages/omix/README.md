@@ -89,8 +89,8 @@ create({
 
 ```html
 <view class="ctn">
-	<view>Log Length: {{logs.length}}</view>
-	<view>Log Length by computed: {{logsLength}}</view>
+  <view>Log Length: {{logs.length}}</view>
+  <view>Log Length by computed: {{logsLength}}</view>
 </view>
 ```
 
