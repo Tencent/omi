@@ -498,39 +498,6 @@ class Game {
 
 所以上面代表了一条长度为 5 的蛇和 1 个食物，你能在上图中找到吗？
 
-### 游戏面板渲染
-
-WXML:
-
-```html
-<view class="game">
-  <view class="p" wx:for="{{map}}" wx:for-item="row" wx:for-index="index">
-    <block wx:for="{{row}}" wx:for-item="col">
-      <block wx:if="{{col}}">
-        <view class="b s"></view>
-      </block>
-      <block wx:else>
-        <view class="b"></view>
-      </block>
-    </block>
-  </view>
-</view>
-```
-
-带有 class 为 s 的格式是黑色的，比如食物、蛇的身体，其余的会灰色底色。
-
-对应 js:
-
-```js
-import create from '../../utils/create'
-
-create({
-  use: ['map']
-})
-```
-
-`map` 代表依赖 store.data.map，map 更新会自动更新视图。
-
 ### 定义 store 
 
 ```js
@@ -581,6 +548,98 @@ export default new Store
 ```
 
 会发现， store 很薄，只负责中转 View 的 action，到 Model，以及隐藏式自动映射 Model 上的数据到 View。
+
+### 游戏面板渲染
+
+WXML:
+
+```html
+<view class="game">
+  <view class="p" wx:for="{{map}}" wx:for-item="row" wx:for-index="index">
+    <block wx:for="{{row}}" wx:for-item="col">
+      <block wx:if="{{col}}">
+        <view class="b s"></view>
+      </block>
+      <block wx:else>
+        <view class="b"></view>
+      </block>
+    </block>
+  </view>
+</view>
+```
+
+带有 class 为 s 的格式是黑色的，比如食物、蛇的身体，其余的会灰色底色。
+
+对应 js:
+
+```js
+import create from '../../utils/create'
+
+create({
+  use: ['map']
+})
+```
+
+`map` 代表依赖 store.data.map，map 更新会自动更新视图。
+
+### 控制主界面面板
+
+```html
+<view>
+	<game />
+	<view class="ctrl">
+		<view class="btn cm-btn cm-btn-dir up" bindtap="turnUp"><i></i><em></em><span>上</span></view>
+		<view class="btn cm-btn cm-btn-dir down" bindtap="turnDown"><i></i><em></em><span>下</span></view>
+		<view class="btn cm-btn cm-btn-dir left" bindtap="turnLeft"><i></i><em></em><span >左</span></view>
+		<view class="btn cm-btn cm-btn-dir right" bindtap="turnRight"><i></i><em></em><span >右</span></view>
+		<view class="btn cm-btn space" bindtap="toggleSpeed"><i></i><span >{{highSpeed? '减速': '加速'}}</span></view>
+		<view class="btn reset small" bindtap="reset"><i ></i><span >重置</span></view>
+		<view class="btn pp small" bindtap="pauseOrPlay"><i></i><span >{{paused ? '继续' : '暂停'}}</span></view>
+	</view>
+</view>
+```
+
+主界面使用 page，引用 component:
+
+```json
+{
+  "usingComponents": {
+    "game": "/components/game/index"
+  }
+}
+```
+
+对应 JS:
+
+```JS
+import create from '../../utils/create'
+import store from '../../store/index'
+
+create(store, {
+  use: ['paused', 'highSpeed'],
+  turnUp() {
+    store.turnUp()
+  },
+  turnDown() {
+    store.turnDown()
+  },
+  turnLeft() {
+    store.turnLeft()
+  },
+  turnRight() {
+    store.turnRight()
+  },
+  toggleSpeed() {
+    store.toggleSpeed()
+  },
+  reset() {
+    store.reset()
+  },
+  pauseOrPlay() {
+    store.pauseOrPlay()
+  }
+})
+```
 
 ### 帧率控制
 
@@ -664,7 +723,7 @@ Presenter 的 data 变更自动映射到视图，使得 Presenter 很薄很薄�
 
 3、测试性
 
-假如 View 和 Model 之间的紧耦合，在 Model 和 View 同时开发完成之前对其中一方进行测试是不可能的。出于同样的原因，对 View 或 Model 进行单元测试很困难。现在，MVP模式解
+假如 View 和 Model 之间的紧耦合，在 Model 和 View 同时开发完成之前对其中一方进行测试是不可能的。出于同样的原因，对 View 或 Model 进行单元测试很困难。现在，MVP模式解决了所有的问题。MVP 模式中，View 和 Model 之间没有直接依赖，开发者能够借助模拟对象注入测试两者中的任一方。
 
 
 
