@@ -24,7 +24,9 @@
 
 ## 简单实战
 
-定义 store:
+> 实现一个简单的 log 列表的展示
+
+定义 全局 store:
 
 ```js
 export default {
@@ -105,7 +107,7 @@ create({
 ```
 
 
-## 其他配置
+## 其他可选配置说明
 
 修改 store.js 的 debug 字段用来打开和关闭 log 调试:
 
@@ -136,7 +138,7 @@ this.data.arr.size(2) //会触发视图更新
 this.data.arr.length = 2 //不会触发视图更新
 
 this.data.arr.push(111) //会触发视图更新
-//每个数组的方法都有对应的 pureXXX 方法
+//每个数组的方法都有对应的 pure 前缀方法，比如 purePush、pureShift、purePop 等
 this.data.arr.purePush(111) //不会触发视图更新
 ```
 
@@ -637,7 +639,7 @@ this.loop = setRafInterval(() => {
 从贪吃蛇源码可以看出：视图(components，pages)和模型(models)是分离的，没有相互依赖关系，但是在 MVC 中，视图依赖模型，耦合度太高，导致视图的可移植性大大降低，所以一定不是 MVC 架构。
 
 
-![](../assets/mvc-mvp-mvvm.png)
+![](https://tencent.github.io/omi/assets/mvc-mvp-mvvm.png)
 
 在 MVP 模式中，视图不直接依赖模型，由 Presenter 负责完成 Model 和 View 的交互。MVVM 和 MVP 的模式比较接近。ViewModel 担任这 Presenter 的角色，并且提供 UI 视图所需要的数据源，而不是直接让 View 使用 Model 的数据源，这样大大提高了 View 和 Model 的可移植性，比如同样的 Model 切换使用 Flash、HTML、WPF 渲染，比如同样 View 使用不同的 Model，只要 Model 和 ViewModel 映射好，View 可以改动很小甚至不用改变。
 
