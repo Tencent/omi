@@ -1,9 +1,8 @@
-## OMIX 2.0
-
-> 原生小程序全局状态管理
+## 原生小程序框架 OMIX 2.0 发布
 
 #### 特性
 
+* 全局状态管理
 * 无状态视图设计
 * 对小程序零入侵
 * 只有一个 API
@@ -192,8 +191,8 @@ store-b.js:
 
 ```js
 export const data = {
-  name: 'dntzhang',
-  age: 18
+  name: 'omix',
+  age: 2
 }
 
 export function changeAge(){
@@ -503,7 +502,7 @@ class Game {
 
 WXML:
 
-```jsx
+```html
 <view class="game">
   <view class="p" wx:for="{{map}}" wx:for-item="row" wx:for-index="index">
     <block wx:for="{{row}}" wx:for-item="col">
@@ -648,7 +647,7 @@ this.loop = setRafInterval(() => {
 所以上面的贪吃蛇属于 **MVP** !只不过是进化版的 MVP，因为 M 里的 map 的变更会自定更是 View，从 M->P->V的回路是自动化的，代码里看不到任何逻辑。仅仅需要声明依赖:
 
 ```js
-Game.use = ['map']
+use: ['map']
 ```
 
 这样也规避了 MVVM 最大的问题： M 到 VM 映射的开销。
