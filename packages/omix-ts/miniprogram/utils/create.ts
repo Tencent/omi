@@ -1,5 +1,5 @@
 /*!
- *  omix v2.0.0 by dntzhang
+ *  omix v2.1.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -7,9 +7,6 @@
 import obaa from './obaa'
 import { getPath, needUpdate, fixPath, getUsing } from './path'
 
-const ARRAYTYPE = '[object Array]'
-const OBJECTTYPE = '[object Object]'
-const FUNCTIONTYPE = '[object Function]'
 
 interface StoreChangeCallback {
   (detail: any): void;
@@ -67,7 +64,7 @@ interface ComponentOption {
 
 interface PageOption {
     [key: string]: any,
-    /** 
+    /**
      * 依赖 store 上的 path
      */
     use?: Array<string | object>
@@ -85,10 +82,10 @@ interface PageOption {
      */
     onShow?(): void;
     /** 生命周期回调—监听页面初次渲染完成
-     * 
+     *
      * 页面初次渲染完成时触发。一个页面只会调用一次，代表页面已经准备妥当，可以和视图层进行交互。
-     * 
-   
+     *
+
      * 注意：对界面内容进行设置的 API 如`wx.setNavigationBarTitle`，请在`onReady`之后进行。
     */
     onReady?(): void;
@@ -182,8 +179,7 @@ function create(store: any | ComponentOption, option?: PageOption) {
         }
       }
     }
-    getApp().globalData && (getApp().globalData.store = store)
-   
+
     option.data = store.data
     observeStore(store)
     const onLoad = option.onLoad
@@ -195,12 +191,13 @@ function create(store: any | ComponentOption, option?: PageOption) {
       this.__use = option.use
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-      if (!option.data.___walked) {
-        walk(this.store.data)
-      }
+      this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
-      using && this.setData(using)
+
+      option.computed && compute(option.computed, store, using)
+      this.setData(using)
+
       onLoad && onLoad.call(this, e)
     }
     Page(option)
@@ -212,10 +209,14 @@ function create(store: any | ComponentOption, option?: PageOption) {
       store.use && (this.__updatePath = getPath(store.use))
       this.store = page.store
       this.__use = store.use
+      this.computed = store.computed
       store.data = this.store.data
       this.setData(store.data)
       const using = getUsing(this.store.data, store.use)
-      using && this.setData(using)
+
+      store.computed && compute(store.computed, this.store, using)
+      this.setData(using)
+
       this.store.instances[page.route].push(this)
       ready && ready.call(this)
     }
@@ -223,6 +224,11 @@ function create(store: any | ComponentOption, option?: PageOption) {
   }
 }
 
+function compute(computed, store, using){
+  for(let key in computed){
+    using[key] = computed[key].call(store.data)
+  }
+}
 
 function observeStore(store) {
   obaa(store.data, (prop, value, old, path) => {
@@ -239,8 +245,8 @@ function observeStore(store) {
     }
 
     _update(patch, store)
-    
-    
+
+
   })
 }
 
@@ -251,10 +257,11 @@ function _update(kv, store) {
         ins.setData.call(ins, kv)
 
         const using = getUsing(store.data, ins.__use)
-        using && ins.setData(using)
 
-        //即将废弃
-        updateStoreByFnProp(ins, store.data)
+        compute(ins.computed, store, using)
+        ins.setData(using)
+
+
       }
     })
   }
@@ -277,110 +284,8 @@ function storeChangeLogger (store, diffResult) {
   } catch (e) {
       console.log(e)
   }
-    
-}
-
-function updateStoreByFnProp(ele, data) {
-  if(data){
-    let patch = {}
-    for (let key in data.__fnMapping) {
-      patch[key] = data.__fnMapping[key].call(data)
-    }
-    ele.setData(patch)
-  }
-}
-
-
-
-function getObjByPath(path, data) {
-  const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
-  const len = arr.length
-  if (len > 1) {
-    let current = data[arr[0]]
-    for (let i = 1; i < len - 1; i++) {
-      current = current[arr[i]]
-    }
-    return { obj: current, key: arr[len - 1] }
-  } else {
-    return { obj: data, key: arr[0] }
-  }
-}
-
-function walk(data) {
-  //___walked 用于标记是否已经观察遍历了
-  data.___walked = true
-  Object.keys(data).forEach(key => {
-    const obj = data[key]
-    const tp = type(obj)
-    if (tp == FUNCTIONTYPE) {
-      setProp(key, obj, data)
-    } else if (tp == OBJECTTYPE) {
-      Object.keys(obj).forEach(subKey => {
-        _walk(obj[subKey], key + '.' + subKey, data)
-      })
-
-    } else if (tp == ARRAYTYPE) {
-      obj.forEach((item, index) => {
-        _walk(item, key + '[' + index + ']', data)
-      })
-
-    }
-  })
-}
-
-function _walk(obj, path, data) {
-  const tp = type(obj)
-  if (tp == FUNCTIONTYPE) {
-    setProp(path, obj, data)
-  } else if (tp == OBJECTTYPE) {
-    Object.keys(obj).forEach(subKey => {
-      _walk(obj[subKey], path + '.' + subKey, data)
-    })
-
-  } else if (tp == ARRAYTYPE) {
-    obj.forEach((item, index) => {
-      _walk(item, path + '[' + index + ']', data)
-    })
-
-  }
-}
-
-function setProp(path, fn, data) {
-  const ok = getObjByPath(path, data)
-
-  data.__fnMapping = data.__fnMapping || {}
-  data.__fnMapping[path] = fn
-  Object.defineProperty(ok.obj, ok.key, {
-    enumerable: true,
-    get: () => {
-      return fn.call(ok.obj)
-    },
-    set: () => {
-      console.warn('Please using this.data.method to set method prop of data!')
-    }
-  })
-  
 
 }
-
-function type(obj) {
-  return Object.prototype.toString.call(obj)
-}
-
-
-
-
-
-
-
-function updateByFnProp(ele, data) {
-  let patch = {}
-  for (let key in data.__fnMapping) {
-    patch[key] = data.__fnMapping[key].call(ele.oData)
-  }
-  ele.setData(patch)
-}
-
 
 create.obaa = obaa
 

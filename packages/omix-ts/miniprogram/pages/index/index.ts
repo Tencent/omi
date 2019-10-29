@@ -11,14 +11,13 @@ create(store, {
     'motto',
     'userInfo',
     'hasUserInfo',
-    'canIUse',
-    {
-      reverseMotto:[
-        ['motto'],
-        (motto: string) => motto.split('').reverse().join('')
-      ]
-    }
+    'canIUse'
   ],
+  computed: {
+    reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
+  },
   //事件处理函数
   bindViewTap() {
     wx.navigateTo({
@@ -61,6 +60,6 @@ create(store, {
   getUserInfo(e: any) {
     this.store.data.userInfo = e.detail.userInfo
     this.store.data.hasUserInfo = true
-    
+
   }
 })
