@@ -52,9 +52,10 @@ function extendStoreUpate(store, key) {
 	store.update = function (patch) {
 		if (Object.keys(patch).length > 0) {
 			this.instances.forEach(instance => {
+				compute(instance)
 				if (key) {
 					if ((
-							instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key]))) {
+						instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key]))) {
 						if (instance.use) {
 							getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key)
 						}
@@ -63,7 +64,7 @@ function extendStoreUpate(store, key) {
 					}
 				} else {
 					if ((
-							instance._updatePath && needUpdate(patch, instance._updatePath))) {
+						instance._updatePath && needUpdate(patch, instance._updatePath))) {
 						if (instance.use) {
 							instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use)
 						}
@@ -76,9 +77,10 @@ function extendStoreUpate(store, key) {
 			})
 
 			this.updateSelfInstances.forEach(instance => {
+				compute(instance)
 				if (key) {
 					if ((
-							instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key]))) {
+						instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key]))) {
 						if (instance.useSelf) {
 							getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key)
 						}
@@ -97,6 +99,13 @@ function extendStoreUpate(store, key) {
 	}
 }
 
+function compute(instance) {
+	if (instance.compute) {
+		for (let ck in instance.compute) {
+			instance.computed[ck] = instance.compute[ck].call(instance.store.data)
+		}
+	}
+}
 
 export function needUpdate(diffResult, updatePath) {
 	for (let keyA in diffResult) {

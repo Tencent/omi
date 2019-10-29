@@ -21,6 +21,7 @@ export default class WeElement extends HTMLElement {
 			this.constructor.defaultProps
 		)
 		this.elementId = id++
+		this.computed = {}
 	}
 
 	connectedCallback() {
@@ -31,13 +32,7 @@ export default class WeElement extends HTMLElement {
 		}
 
 		if (this.use) {
-			let use
-			if (typeof this.use === 'function') {
-				use = this.use()
-			} else {
-				use = this.use
-			}
-
+			const use = typeof this.use === 'function' ? this.use() : this.use
 
 			if (options.isMultiStore) {
 				let _updatePath = {}
@@ -75,6 +70,13 @@ export default class WeElement extends HTMLElement {
 				this.store.updateSelfInstances.push(this)
 			}
 		}
+
+		if(this.compute){
+			for(let key in this.compute){
+				this.computed[key] = this.compute[key].call(this.store.data)
+			}
+		}
+
 		this.attrsToProps()
 		this.beforeInstall()
 		this.install()
