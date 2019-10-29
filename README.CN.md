@@ -45,7 +45,10 @@ render(<my-counter />, 'body', new Store)
 
 * `<my-counter></my-counter>` 可以用于任意框架或者无框架，比如 `document.createElement('my-counter')`
 
-你也可以通过 use 去实现计算属性，比如:
+
+你也可以使用 `useSelf`, `useSelf` 只会更新自身，不更新子组件。使用 `useSelf` 的时候在 JSX 里通过 `usingSelf` 访问对应属性。
+
+你也可以通过 `compute` 去实现 `computed` 计算属性，比如:
 
 ```jsx
 define('my-counter', _ => (
@@ -53,22 +56,17 @@ define('my-counter', _ => (
     <button onClick={_.store.sub}>-</button>
     <span>{_.store.data.count}</span>
     <button onClick={_.store.add}>+</button>
-    <div>Double: {_.using.doubleCount}</div>
+    <div>Double: {_.computed.doubleCount}</div>
   </div>
 ), {
-    use: [
-      'count',
-      {
-        doubleCount: [
-          'count',
-          count => count * 2
-        ]
-      }]
+    use: ['count'],
+    compute: {
+      doubleCount() {
+        return this.count * 2
+      }
+    }
   })
 ```
-
-你也可以使用 `useSelf`, `useSelf` 只会更新自身，不更新子组件。使用 `useSelf` 的时候在 JSX 里通过 `usingSelf` 访问对应属性。
-
 
 路径也是支持的，比如下面的例子:
 
@@ -90,13 +88,12 @@ define('my-counter', _ => (
 ), {
     use: [
       'list[0].name', //可以通过 this.using[0] 访问
-      {
-        // fullName 是别名， 可以通过 this.using.fullName 访问
-        fullName: [
-          ['list[0].name.first', 'list[0].name.last'],
-          (first, last) => first + last
-        ]
-      }]
+    ],
+    compute: {
+      fullName() {
+        return this.list[0].name.first + this.list[0].name.last
+      }
+    }
   })
 ```
 

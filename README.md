@@ -45,7 +45,9 @@ render(<my-counter />, 'body', new Store)
 
 * `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
 
-You can also implement computed props through use, such as:
+You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through. `usingSelf` in JSX.
+
+You can also implement `computed` props through `compute`, such as:
 
 ```jsx
 define('my-counter', _ => (
@@ -53,21 +55,17 @@ define('my-counter', _ => (
     <button onClick={_.store.sub}>-</button>
     <span>{_.store.data.count}</span>
     <button onClick={_.store.add}>+</button>
-    <div>Double: {_.using.doubleCount}</div>
+    <div>Double: {_.computed.doubleCount}</div>
   </div>
 ), {
-    use: [
-      'count',
-      {
-        doubleCount: [
-          'count',
-          count => count * 2
-        ]
-      }]
+    use: ['count'],
+    compute: {
+      doubleCount() {
+        return this.count * 2
+      }
+    }
   })
 ```
-
-You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through. `usingSelf` in JSX.
 
 Path is also supported:
 
@@ -88,14 +86,13 @@ define('my-counter', _ => (
   ...
 ), {
     use: [
-      'list[0].name', //Direct string, accessible through this.using[0] 
-      {
-        //alias，accessible through this.using.fullName
-        fullName: [
-          ['list[0].name.first', 'list[0].name.last'],
-          (first, last) => first + last
-        ]
-      }]
+      'list[0].name', //Direct string path dep, accessible through this.using[0] 
+    ],
+    compute: {
+      fullName() {
+        return this.list[0].name.first + this.list[0].name.last
+      }
+    }
   })
 ```
 
@@ -165,8 +162,13 @@ define('my-component', _ => (
   ...
   ...
 ), {
-    use: ['path', 'path.a', 'path[1].b'],
+    use: ['count', 'path.a', 'path[1].b'],
     useSelf: ['path.c', 'path[1].d'],
+    compute: {
+      doubleCount() {
+        return this.count * 2
+      }
+    },
     css: 'h1 { color: red; }',
     propTypes: {
 
