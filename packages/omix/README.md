@@ -1,16 +1,23 @@
-## omix
+## OMIX 2.0
 
-> 原生小程序全局状态管理，对小程序零入侵，能驾驭小项目、中项目和大型项目
+> 原生小程序全局状态管理
 
-TypeScript 版本的例子可以点击这里 [omix-ts](https://github.com/Tencent/omi/tree/master/packages/omix-ts)
+特性：
 
-## 3分钟精通 
+* 无状态视图设计
+* 对小程序零入侵
+* 只有一个 API
+* 轻松驾驭小项目、中项目和大型项目
+
+我们坚信，好的设计只有一种，这一种我们认为刚刚好。
+
+## 3分钟入门 
 
 ### API
 
-* `create(store, option)`     创建页面， store 可跨页面共享
-* `create(option)`            创建组件
-* `this.store.data` 或 `this.data`   全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+* `create(store, option)`      创建页面， store 可跨页面共享
+* `create(option)`             创建组件
+* `this.store` 和 `this.data`  全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
 ## 实战
 
@@ -32,9 +39,9 @@ import util from '../../utils/util'
 import store from '../../store'
 
 create(store, {
-  //声明依赖
-  use: ['logs'], //也支持复杂的格式，比如 ['list[0].name']
-  //计算属性，可以直接绑定在 wxml 里
+  // 声明依赖
+  use: ['logs'], //也支持复杂路径依赖，比如 ['list[0].name']
+  // 计算属性，可以直接绑定在 wxml 里
   computed: {
     logsLength() {
       return this.logs.length
@@ -50,7 +57,7 @@ create(store, {
     }, 1000)
 
     setTimeout(() => {
-      this.store.data.logs.push(Math.random(), Math.random())
+      this.data.logs.push(Math.random(), Math.random())
     }, 2000)
 
     setTimeout(() => {
@@ -115,7 +122,7 @@ export default {
 
 默认是打开的，`store.data` 的所以变动都会出现在开发者工具 log 面板，如下图所示:
 
-![](../../assets/omix.png)
+![](https://tencent.github.io/omi/assets/omix.png)
 
 ## 其他
 
@@ -263,6 +270,10 @@ create(store, {
 * 比如我一个弹窗组件，可能在很多页面使用，也可能在同一个页面使用多次；如果使用store来作为组件间通信的话，怎么应用可以实现组件是纯组件而不跟业务相关呢?
 
 纯组件不用不用 create 创建，且该组件内使用 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 通知父组件改变 store.data 或者调用 store 的方法与外界通讯。
+
+* TypeScript 版本有吗？
+
+TypeScript 版本的例子可以点击这里 [omix-ts](https://github.com/Tencent/omi/tree/master/packages/omix-ts)
 
 ## License
 
