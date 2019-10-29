@@ -46,10 +46,10 @@ function create(store, option) {
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
-      if(using){
-        option.computed && compute(option.computed, store, using)
-        this.setData(using)
-      }
+
+      option.computed && compute(option.computed, store, using)
+      this.setData(using)
+
       onLoad && onLoad.call(this, e)
     }
     Page(option)
@@ -65,10 +65,10 @@ function create(store, option) {
       store.data = this.store.data
       this.setData(store.data)
       const using = getUsing(this.store.data, store.use)
-      if (using) {
-        store.computed && compute(store.computed, this.store, using)
-        this.setData(using)
-      }
+
+      store.computed && compute(store.computed, this.store, using)
+      this.setData(using)
+
       this.store.instances[page.route].push(this)
       ready && ready.call(this)
     }
@@ -109,10 +109,10 @@ function _update(kv, store) {
         ins.setData.call(ins, kv)
 
         const using = getUsing(store.data, ins.__use)
-        if(using){
-          compute(ins.computed, store, using)
-          ins.setData(using)
-        }
+
+        compute(ins.computed, store, using)
+        ins.setData(using)
+
 
       }
     })

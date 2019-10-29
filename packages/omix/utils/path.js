@@ -2,7 +2,7 @@ const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function getUsing(data, paths) {
-  if(!paths) return
+  if(!paths) return {}
   const obj = {}
   paths.forEach((path, index) => {
     const isPath = typeof path === 'string'
