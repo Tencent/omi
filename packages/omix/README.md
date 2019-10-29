@@ -586,16 +586,16 @@ create({
 
 ```html
 <view>
-	<game />
-	<view class="ctrl">
-		<view class="btn cm-btn cm-btn-dir up" bindtap="turnUp"><i></i><em></em><span>上</span></view>
-		<view class="btn cm-btn cm-btn-dir down" bindtap="turnDown"><i></i><em></em><span>下</span></view>
-		<view class="btn cm-btn cm-btn-dir left" bindtap="turnLeft"><i></i><em></em><span >左</span></view>
-		<view class="btn cm-btn cm-btn-dir right" bindtap="turnRight"><i></i><em></em><span >右</span></view>
-		<view class="btn cm-btn space" bindtap="toggleSpeed"><i></i><span >{{highSpeed? '减速': '加速'}}</span></view>
-		<view class="btn reset small" bindtap="reset"><i ></i><span >重置</span></view>
-		<view class="btn pp small" bindtap="pauseOrPlay"><i></i><span >{{paused ? '继续' : '暂停'}}</span></view>
-	</view>
+  <game />
+  <view class="ctrl">
+    <view class="btn cm-btn cm-btn-dir up" bindtap="turnUp"><i></i><em></em><span>上</span></view>
+    <view class="btn cm-btn cm-btn-dir down" bindtap="turnDown"><i></i><em></em><span>下</span></view>
+    <view class="btn cm-btn cm-btn-dir left" bindtap="turnLeft"><i></i><em></em><span >左</span></view>
+    <view class="btn cm-btn cm-btn-dir right" bindtap="turnRight"><i></i><em></em><span >右</span></view>
+    <view class="btn cm-btn space" bindtap="toggleSpeed"><i></i><span >{{highSpeed? '减速': '加速'}}</span></view>
+    <view class="btn reset small" bindtap="reset"><i ></i><span >重置</span></view>
+    <view class="btn pp small" bindtap="pauseOrPlay"><i></i><span >{{paused ? '继续' : '暂停'}}</span></view>
+  </view>
 </view>
 ```
 
