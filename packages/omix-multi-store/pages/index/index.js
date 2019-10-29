@@ -3,6 +3,11 @@ import store from '../../store/store'
 
 create(store, {
   use: ['a.name', 'b'],
+  computed: {
+    reverseName() {
+      return this.a.name.split('').reverse().join('')
+    }
+  },
   onLoad: function () {
     setTimeout(_ => {
       store.a.changeName()
