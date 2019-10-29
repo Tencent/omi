@@ -8,7 +8,8 @@ game.start()
 class Store {
   data = {
     map,
-    paused: false
+    paused: false,
+    highSpeed: false
   }
   turnUp() {
     snake.turnUp()
@@ -36,6 +37,7 @@ class Store {
   }
   toggleSpeed() {
     game.toggleSpeed()
+    this.data.highSpeed = !this.data.highSpeed
   }
 }
 

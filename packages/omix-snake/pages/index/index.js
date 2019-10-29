@@ -1,10 +1,27 @@
 import create from '../../utils/create'
 import store from '../../store/index'
 
-//获取应用实例
-const app = getApp()
-
 create(store, {
-  use: [
-  ]
+  use: ['paused', 'highSpeed'],
+  turnUp() {
+    store.turnUp()
+  },
+  turnDown() {
+    store.turnDown()
+  },
+  turnLeft() {
+    store.turnLeft()
+  },
+  turnRight() {
+    store.turnRight()
+  },
+  toggleSpeed() {
+    store.toggleSpeed()
+  },
+  reset() {
+    store.reset()
+  },
+  pauseOrPlay() {
+    store.pauseOrPlay()
+  }
 })
