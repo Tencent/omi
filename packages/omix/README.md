@@ -1,6 +1,6 @@
 ## omix
 
-> 小程序全局状态管理，极小却精巧，对小程序零入侵，能驾驭小项目、中项目和大型项目
+> 原生小程序全局状态管理，对小程序零入侵，能驾驭小项目、中项目和大型项目
 
 TypeScript 版本的例子可以点击这里 [omix-ts](https://github.com/Tencent/omi/tree/master/packages/omix-ts)
 
@@ -237,7 +237,26 @@ create(store, {
 })
 ```
 
-完整的案例可以 [点击这里](https://github.com/Tencent/omi/tree/master/packages/omix-multi-store)
+多 store 注入的完整的案例可以 [点击这里](https://github.com/Tencent/omi/tree/master/packages/omix-multi-store)
+
+
+### Path 命中规则
+
+当 `store.data` 发生变化，相关依赖的组件会进行更新，举例说明 Path 命中规则:
+
+| Observer Path(由数据更改产生) |  use 中的 path | 是否更新 |
+| ---------- | ---------- | -------- |
+| abc        | abc        | 更新     |
+| abc[1]     | abc        | 更新     |
+| abc.a      | abc        | 更新     |
+| abc        | abc.a      | 不更新   |
+| abc        | abc[1]     | 不更新   |
+| abc        | abc[1].c   | 不更新   |
+| abc.b      | abc.b      | 更新     |
+
+只要注入组件的 path 等于 use 里声明 或者在 use 里声明的其中 path 子节点下就会进行更新，以上只要命中一个条件便进行更新！
+
+> 如果你的小程序真的很小，那么请无视上面的规则，直接把 store 的 updateAll 声明为 true 便可。如果小程序页面很多很复杂，为了更优的性能，请给每一个页面或非存组件声明 `use`。
 
 ## Q & A
 
