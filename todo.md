@@ -1,5 +1,12 @@
 # Todo List
 
+## Compute and Computed
+
+* Omio
+* Omix
+* Omiv
+* Omis
+
 ## Omio
 
 * Using preact x
