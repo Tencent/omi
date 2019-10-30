@@ -1,8 +1,9 @@
 ## 原生小程序框架 OMIX 2.0 发布
 
+> 小程序全局状态管理
+
 #### 特性
 
-* 全局状态管理
 * 无状态视图设计
 * 对小程序零入侵
 * 只有一个 API
@@ -25,7 +26,9 @@
 
 > 实现一个简单的 log 列表的展示
 
-定义 全局 store:
+![](https://tencent.github.io/omi/assets/logs.png)
+
+定义全局 store:
 
 ```js
 export default {
@@ -76,13 +79,10 @@ create(store, {
   <block wx:for="{{logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>
-  <view>
-    <test-store></test-store>
-  </view>
 </view>
 ```
 
-可以看到里面使用 test-store 组件, 组件内也可以组件使用全局的 logs，组件源码:
+定义 test-store 组件, 组件内也可以组件使用全局的 logs，组件源码:
 
 ```js
 import create from '../../utils/create'
@@ -105,7 +105,6 @@ create({
 </view>
 ```
 
-
 ## 其他可选配置说明
 
 修改 store.js 的 debug 字段用来打开和关闭 log 调试:
@@ -124,7 +123,7 @@ export default {
 }
 ```
 
-默认是打开的，`store.data` 的所以变动都会出现在开发者工具 log 面板，如下图所示:
+全局更新开发默认是关闭的，调试开关默认打开，可以在`store.data` 的所以变动都会出现在开发者工具 log 面板，如下图所示:
 
 ![](https://tencent.github.io/omi/assets/omix.png)
 
