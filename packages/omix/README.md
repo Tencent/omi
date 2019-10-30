@@ -10,6 +10,10 @@
 * 轻松驾驭小项目、中项目和大型项目
 * 轻松驾驭小游戏，是的没错，使用 **小程序开发小游戏**，本文案例二使用 OMIX 一步一步实现一个小游戏
 
+OMIX 2.0 是 westore 的进化版，westore 使用的是 diff 出 setData 的 patch，omix 2.0 使用的是 observer 监听数据的变更得到 setData 的 patch。
+和 omix 对比，westore 运行时需要更多的计算，omix 初始化时需要更多的内存，数据变更时 omix 速度比 westore 快，编程体验方面，omix 不需要手动 update。
+
+
 好的设计只有一种，我们认为 OMIX 2.0 的设计刚刚好。
 
 ## 快速入门 
