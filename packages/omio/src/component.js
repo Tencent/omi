@@ -17,7 +17,8 @@ export default class Component {
 
     this._preCss = null
 
-    this.store = store
+		this.store = store
+		this.computed = {}
   }
 
   update(callback) {

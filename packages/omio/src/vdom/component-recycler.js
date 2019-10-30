@@ -31,7 +31,7 @@ export function createComponent(Ctor, props, store, vnode) {
   if (inst.store) {
 		if(inst.use){
       const use = typeof inst.use === 'function' ? inst.use() : inst.use
-      
+
       if(options.isMultiStore){
         let _updatePath = {}
 				let using = {}
@@ -50,10 +50,10 @@ export function createComponent(Ctor, props, store, vnode) {
         inst.store.instances.push(inst)
       }
     }
-    
+
     if(inst.useSelf){
       const use = typeof inst.useSelf === 'function' ? inst.useSelf() : inst.useSelf
-      
+
       if (options.isMultiStore) {
 				let _updatePath = {}
 				let using = {}
@@ -69,7 +69,13 @@ export function createComponent(Ctor, props, store, vnode) {
         inst.usingSelf = getUse(inst.store.data, use)
         inst.store.updateSelfInstances.push(inst)
       }
-    }
+		}
+
+		if(inst.compute){
+			for (let key in inst.compute) {
+				inst.computed[key] = inst.compute[key].call(options.isMultiStore ? inst.store : inst.store.data)
+			}
+		}
 
 
   }

@@ -1,34 +1,38 @@
-import { define, render, WeElement } from '../../src/omi'
+import { define, render } from '../../src/omi'
 
-define('my-hello', class extends WeElement {
-  render() {
-    //use this.store in any method of any children components
-    return <div>{this.store.name}</div>
-  }
-})
-
-define('my-app', class extends WeElement {
-  handleClick = () => {
-    //use this.store in any method of any children components
-    this.store.reverse()
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <my-hello />
-        <button onclick={this.handleClick}>reverse</button>
-      </div>
-    )
-  }
-})
-
-const store = {
-  name: 'imO',
-  reverse: function () {
-    this.name = this.name.split("").reverse().join("")
-  }
+class Store {
+	data = {
+		count: 1
+	}
+	sub = () => {
+		this.data.count--
+	}
+	add = () => {
+		this.data.count++
+	}
 }
-//Injection through a third parameter
-render(<my-app />, document.body, store)
+
+define('my-counter', _ => {
+	console.log(_.usingSelf)
+	return <div>
+		<button onClick={_.store.sub}>-</button>
+		<span>{_.store.data.count}</span>
+		<button onClick={_.store.add}>+</button>
+		<div>Double: {_.computed.doubleCount}</div>
+	</div>
+}, {
+		useSelf: ['count'],
+		compute:{
+			doubleCount(){
+				return this.count * 2
+			}
+		},
+		//or using useSelf, useSelf will update self only, exclude children components
+		//useSelf: ['count'],
+		css: `span { color: red; }`,
+		installed() {
+			console.log('installed')
+		}
+	})
+
+render(<my-counter />, 'body', new Store)

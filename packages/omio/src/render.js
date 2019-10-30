@@ -24,7 +24,7 @@ export function render(vnode, parent, store, empty, merge) {
       }
     }
   }
-  
+
 
   if (empty) {
     while (parent.firstChild) {
@@ -43,7 +43,7 @@ export function render(vnode, parent, store, empty, merge) {
 }
 
 function obsStore(store, storeName){
-  
+
   store.instances = []
   store.updateSelfInstances = []
   extendStoreUpate(store, storeName)
@@ -71,6 +71,7 @@ function extendStoreUpate(store, key) {
   store.update = function(patch) {
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(instance => {
+				compute(instance, key)
         if (key) {
 					if ((
 							instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key]))) {
@@ -91,6 +92,7 @@ function extendStoreUpate(store, key) {
       })
 
       this.updateSelfInstances.forEach(instance => {
+				compute(instance, key)
         if (key) {
 					if ((
 							instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key]))) {
@@ -107,12 +109,19 @@ function extendStoreUpate(store, key) {
           }
         }
       })
-      
+
       this.onChange && this.onChange(patch)
     }
   }
 }
 
+function compute(instance, isMultiStore) {
+	if (instance.compute) {
+		for (let ck in instance.compute) {
+			instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data)
+		}
+	}
+}
 
 export function needUpdate(diffResult, updatePath) {
   for (let keyA in diffResult) {

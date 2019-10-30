@@ -48,7 +48,7 @@ options.root.Omi = {
   obaa
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.6.5'
+options.root.Omi.version = 'omio-2.7.0'
 
 export default {
   h,

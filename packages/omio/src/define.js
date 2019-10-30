@@ -22,6 +22,8 @@ export function define(name, ctor, config) {
 
 			static defaultProps = config.defaultProps
 
+			compute = config.compute
+
       render() {
         return ctor.call(this, this)
       }
