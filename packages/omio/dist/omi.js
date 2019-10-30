@@ -499,6 +499,7 @@
                     inst.store.updateSelfInstances.push(inst);
                 }
             }
+            if (inst.compute) for (var key in inst.compute) inst.computed[key] = inst.compute[key].call(options.isMultiStore ? inst.store : inst.store.data);
         }
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
@@ -782,6 +783,7 @@
         store.update = function(patch) {
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
+                    compute(instance, key);
                     if (key) {
                         if (instance.H && instance.H[key] && needUpdate(patch, instance.H[key])) {
                             if (instance.use) getUse(store.data, ('function' == typeof instance.use ? instance.use() : instance.use)[key], instance.using, key);
@@ -793,6 +795,7 @@
                     }
                 });
                 this.updateSelfInstances.forEach(function(instance) {
+                    compute(instance, key);
                     if (key) {
                         if (instance.I && instance.I[key] && needUpdate(patch, instance.I[key])) {
                             if (instance.useSelf) getUse(store.data, ('function' == typeof instance.useSelf ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
@@ -806,6 +809,9 @@
                 this.onChange && this.onChange(patch);
             }
         };
+    }
+    function compute(instance, isMultiStore) {
+        if (instance.compute) for (var ck in instance.compute) instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
     }
     function needUpdate(diffResult, updatePath) {
         for (var keyA in diffResult) {
@@ -855,8 +861,11 @@
             }; else config = config || {};
             var Comp = function(_Component) {
                 function Comp() {
+                    var _temp, _this, _ret;
                     _classCallCheck$1(this, Comp);
-                    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+                    for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
+                    return _ret = (_temp = _this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [ this ].concat(args))), 
+                    _this.compute = config.compute, _temp), _possibleConstructorReturn(_this, _ret);
                 }
                 _inherits(Comp, _Component);
                 Comp.prototype.render = function() {
@@ -1158,6 +1167,7 @@
             this.elementId = id++;
             this.z = null;
             this.store = store;
+            this.computed = {};
         }
         Component.prototype.update = function(callback) {
             if (!this.A) {
@@ -1270,7 +1280,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.6.5';
+    options.root.Omi.version = 'omio-2.7.0';
     var Omi = {
         h: h,
         createElement: h,

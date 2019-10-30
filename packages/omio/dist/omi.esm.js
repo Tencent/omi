@@ -1,5 +1,5 @@
 /**
- * omi v2.6.5  https://tencent.github.io/omi/
+ * omi v2.7.0  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1182,6 +1182,12 @@ function createComponent(Ctor, props, store, vnode) {
         inst.store.updateSelfInstances.push(inst);
       }
     }
+
+    if (inst.compute) {
+      for (var key in inst.compute) {
+        inst.computed[key] = inst.compute[key].call(options.isMultiStore ? inst.store : inst.store.data);
+      }
+    }
   }
 
   if (list) {
@@ -1488,6 +1494,7 @@ var Component = function () {
     this._preCss = null;
 
     this.store = store;
+    this.computed = {};
   }
 
   Component.prototype.update = function update(callback) {
@@ -1766,6 +1773,7 @@ function extendStoreUpate(store, key) {
   store.update = function (patch) {
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(function (instance) {
+        compute(instance, key);
         if (key) {
           if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
             if (instance.use) {
@@ -1785,6 +1793,7 @@ function extendStoreUpate(store, key) {
       });
 
       this.updateSelfInstances.forEach(function (instance) {
+        compute(instance, key);
         if (key) {
           if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
             if (instance.useSelf) {
@@ -1804,6 +1813,14 @@ function extendStoreUpate(store, key) {
       this.onChange && this.onChange(patch);
     }
   };
+}
+
+function compute(instance, isMultiStore) {
+  if (instance.compute) {
+    for (var ck in instance.compute) {
+      instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
+    }
+  }
 }
 
 function needUpdate(diffResult, updatePath) {
@@ -1870,9 +1887,15 @@ function define(name, ctor, config) {
 			_inherits(Comp, _Component);
 
 			function Comp() {
+				var _temp, _this, _ret;
+
 				_classCallCheck$1(this, Comp);
 
-				return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+				for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
+					args[key] = arguments[key];
+				}
+
+				return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.compute = config.compute, _temp), _possibleConstructorReturn(_this, _ret);
 			}
 
 			Comp.prototype.render = function render() {
@@ -2268,7 +2291,7 @@ options.root.Omi = {
   obaa: obaa
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.6.5';
+options.root.Omi.version = 'omio-2.7.0';
 
 var omi = {
   h: h,
