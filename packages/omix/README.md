@@ -65,14 +65,17 @@ create(store, {
     })
 
     setTimeout(() => {
+      //响应式，自动更新视图
       this.data.logs[0] = 'Changed!'
     }, 1000)
 
     setTimeout(() => {
+      //响应式，自动更新视图
       this.data.logs.push(Math.random(), Math.random())
     }, 2000)
 
     setTimeout(() => {
+      //响应式，自动更新视图
       this.data.logs.splice(this.store.data.logs.length - 1, 1)
     }, 3000)
   }
