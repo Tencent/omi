@@ -730,6 +730,45 @@ Presenter 的 data 变更自动映射到视图，使得 Presenter 很薄很薄�
 假如 View 和 Model 之间的紧耦合，在 Model 和 View 同时开发完成之前对其中一方进行测试是不可能的。出于同样的原因，对 View 或 Model 进行单元测试很困难。现在，MVP模式解决了所有的问题。MVP 模式中，View 和 Model 之间没有直接依赖，开发者能够借助模拟对象注入测试两者中的任一方。
 
 
+举个逻辑复用的例子，比如 OMI 团队发起的 snake-mvp 项目，下面的几个项目的 model 和 presenter 几乎一模一样，完全复用，只是渲染视图层根据不同的框架做了不同的适配。
+
+![](https://tencent.github.io/omi/assets/snake-mvp.png)
+
+比如 react:
+
+```jsx
+import React from 'react'
+import Game from '../game'
+
+import store from '../../stores/index'
+import { $ } from 'omis'
+require('../../utils/css').add(require('./_index.css'))
+
+export default $({
+  render() {
+    const { store } = $
+    const { paused } = store.data
+    return <div className="container">
+      <h1>[P]REACT + OMIS SNAKE</h1>
+
+      <Game></Game>
+
+      <div className="ctrl">
+        <div className="btn cm-btn cm-btn-dir up" onClick={store.turnUp}><i></i><em></em><span>Up</span></div>
+        <div className="btn cm-btn cm-btn-dir down" onClick={store.turnDown}><i></i><em></em><span>Down</span></div>
+        <div className="btn cm-btn cm-btn-dir left" onClick={store.turnLeft}><i></i><em></em><span >Left</span></div>
+        <div className="btn cm-btn cm-btn-dir right" onClick={store.turnRight}><i></i><em></em><span >Right</span></div>
+        <div className="btn cm-btn space" onClick={store.toggleSpeed}><i></i><span >Gear</span></div>
+        <div className="btn reset small" onClick={store.reset}><i ></i><span >Reset</span></div>
+        <div className="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{paused ? 'Play' : 'Pause'}</span></div>
+      </div>
+    </div>
+  },
+  useSelf: ['paused'],
+  store
+})
+```
+
 
 ## Q & A
 
