@@ -25,7 +25,7 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 * `create(option)`             创建组件
 * `this.store` 和 `this.data`  全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
-> 不需要注入 store 的页面或组件用使用`Page`和`Component` 构造器,  `Component` 通过 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 与上层通讯
+> 不需要注入 store 的页面或组件用使用`Page`和`Component` 构造器,  `Component` 通过 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 与上层通讯或与上层的 store 交互
 
 ## 简单实战
 
