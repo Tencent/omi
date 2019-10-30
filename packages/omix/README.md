@@ -21,11 +21,11 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 
 ### API
 
-* `create(store, option)`      创建页面， store 可跨页面共享
+* `create(store, option)`      创建页面， store 从页面注入，可跨页面跨组件共享
 * `create(option)`             创建组件
 * `this.store` 和 `this.data`  全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
-当你传入一个参数的时候是创建组件，传入二个参数的时候是创建页面，store 会注入到页面的所以组件。如果不需要注入 store 的组件用使用 `Component` 构造器。
+> 不需要注入 store 的页面或组件用使用`Page`和`Component` 构造器,  `Component` 通过 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 与上层通讯
 
 ## 简单实战
 
