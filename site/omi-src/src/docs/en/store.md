@@ -86,29 +86,25 @@ Data of store:
 }
 ```
 
-Use grammar:
+Use and compute grammar:
 
 ```jsx
 use = [
   'count', //Direct string, accessible through this.using[0] 
   'arr[0]', //It also supports path, which is accessible through this.using[1]
-  //Support JSON
-  {
-    //Alias, accessible through this.using.reverseMotto
-    reverseMotto: [
-      'motto', //path
-      target => target.split('').reverse().join('')  //computed
-    ]
-  },
-  { name: 'arr[1]' }, //{ alias: path }，accessible through this.using.name
-  {
-    //alias，accessible through this.using.fullName
-    fullName: [
-      ['userInfo.firstName', 'userInfo.lastName'], //path array
-      (firstName, lastName) => firstName + lastName //computed
-    ]
-  },
+  'motto',
+  'userInfo',
+  { name: 'arr[1]' } //{ alias: path }，accessible through this.using.name
 ]
+
+compute = {
+  reverseMotto() {
+    return this.motto.split('').reverse().join('')
+  },
+  fullName() {
+    return this.userInfo.firstName + this.userInfo.lastName
+  }
+}
 ```
 
 Let's look at the use of JSX:
@@ -126,11 +122,11 @@ render() {
         <span>{this.using[1]}</span>
         <button onClick={this.rename}>rename</button>
       </div>
-      <div>{this.using.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
+      <div>{this.computed.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
       <div>{this.using.name}</div>
       <div>{this.using[3]}</div>
       <div>
-        {this.using.fullName}
+        {this.computed.fullName}
         <button onClick={this.changeFirstName}>change first name</button>
       </div>
     </div>

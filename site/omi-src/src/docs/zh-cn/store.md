@@ -86,29 +86,25 @@ Store 里的 data:
 }
 ```
 
-Use 所以语法如下:
+Use 和 Compute 语法如下:
 
 ```jsx
 use = [
   'count', //直接字符串，可通过 this.using[0] 访问
   'arr[0]', //也支持 path，可通过 this.using[1] 访问
-  //支持 json
-  {
-    //alias，可通过 this.using.reverseMotto 访问
-    reverseMotto: [
-      'motto', //path
-      target => target.split('').reverse().join('')  //computed
-    ]
-  },
-  { name: 'arr[1]' }, //{ alias: path }，可通过 this.using.name 访问
-  {
-    //alias，可通过 this.using.fullName 访问
-    fullName: [
-      ['userInfo.firstName', 'userInfo.lastName'], //path array
-      (firstName, lastName) => firstName + lastName //computed
-    ]
-  },
+  'motto',
+  'userInfo',
+  { name: 'arr[1]' } //{ alias: path }，可通过 this.using.name 访问
 ]
+
+compute = {
+  reverseMotto() {
+    return this.motto.split('').reverse().join('')
+  },
+  fullName() {
+    return this.userInfo.firstName + this.userInfo.lastName
+  }
+}
 ```
 
 下面看看 JSX 中使用:
@@ -126,11 +122,11 @@ render() {
         <span>{this.using[1]}</span>
         <button onClick={this.rename}>rename</button>
       </div>
-      <div>{this.using.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
+      <div>{this.computed.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
       <div>{this.using.name}</div>
       <div>{this.using[3]}</div>
       <div>
-        {this.using.fullName}
+        {this.computed.fullName}
         <button onClick={this.changeFirstName}>change first name</button>
       </div>
     </div>
