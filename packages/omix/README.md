@@ -7,8 +7,9 @@
 * 无状态视图设计
 * 对小程序零入侵
 * 只有一个 API
+* 支持计算属性
 * 轻松驾驭小项目、中项目和大型项目
-* 轻松驾驭小游戏，是的没错，使用 **小程序开发小游戏**，本文案例二使用 OMIX 一步一步实现一个小游戏
+* 也适用小游戏，是的没错，使用 **小程序开发小游戏**，本文第二个案例使用 OMIX 实现一个小游戏
 
 OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 diff，diff 出的 json 就是 setData 的 patch，omix 2.0 使用的是 observer 监听数据的变更得到 setData 的 patch。
 和 omix 对比，westore 运行时需要更多的计算，omix 初始化时需要更多的内存和计算，但是数据变更时 omix 速度比 westore 快，编程体验方面，omix 不需要手动 update，westore 需要手动 update。
