@@ -737,7 +737,7 @@ Presenter 的 data 变更自动映射到视图，使得 Presenter 很薄很薄�
 
 ![](https://tencent.github.io/omi/assets/snake-mvp.png)
 
-比如 react:
+比如 react 的视图层 :
 
 ```jsx
 import React from 'react'
