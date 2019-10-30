@@ -2,7 +2,7 @@
 
 > 数据触手可及，状态无处遁形
 
-![](https://tencent.github.io/omi/assets/omix2.png)
+![](../../assets/omix2.png)
 
 #### 特性
 
