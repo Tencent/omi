@@ -2019,7 +2019,7 @@ function focusTrap(element, userOptions) {
         : config.returnFocusOnDeactivate;
     if (returnFocus) {
       delay(function() {
-        tryFocus(state.nodeFocusedBeforeActivation);
+        tryFocus(getReturnFocusNode(state.nodeFocusedBeforeActivation));
       });
     }
 
@@ -2117,11 +2117,16 @@ function focusTrap(element, userOptions) {
 
     if (!node) {
       throw new Error(
-        "You can't have a focus-trap without at least one focusable element"
+        'Your focus-trap needs to have at least one focusable element'
       );
     }
 
     return node;
+  }
+
+  function getReturnFocusNode(previousActiveElement) {
+    var node = getNodeForOption('setReturnFocus');
+    return node ? node : previousActiveElement;
   }
 
   // This needs to be done on mousedown and touchstart instead of click
@@ -2206,7 +2211,6 @@ function focusTrap(element, userOptions) {
       tryFocus(getInitialFocusNode());
       return;
     }
-
     node.focus();
     state.mostRecentlyFocusedNode = node;
     if (isSelectableInput(node)) {
@@ -4804,9 +4808,9 @@ var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onScrim = function (e) { _this.fire('scrim', e); };
-        _this.onCancel = function (e) { _this.fire('cancel', e); };
-        _this.onConfirm = function (e) { _this.fire('confirm', e); };
+        _this.onScrim = function (e) { _this._fire('scrim', e); };
+        _this.onCancel = function (e) { _this._fire('cancel', e); };
+        _this.onConfirm = function (e) { _this._fire('confirm', e); };
         return _this;
     }
     Dialog.prototype.updated = function () {
@@ -4816,10 +4820,16 @@ var Dialog = /** @class */ (function (_super) {
         var _this = this;
         this.dialog = new dialog_1.MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
         this.props.show ? this.dialog.open() : this.dialog.close();
-        this.dialog.listen('MDCDialog:opening', function (e) { _this.fire('opening', e); });
-        this.dialog.listen('MDCDialog:opened', function (e) { _this.fire('opened', e); });
-        this.dialog.listen('MDCDialog:closing', function (e) { _this.fire('closing', e); });
-        this.dialog.listen('MDCDialog:closed', function (e) { _this.fire('closed', e); });
+        this.dialog.listen('MDCDialog:opening', function (e) { _this._fire('opening', e); });
+        this.dialog.listen('MDCDialog:opened', function (e) { _this._fire('opened', e); });
+        this.dialog.listen('MDCDialog:closing', function (e) { _this._fire('closing', e); });
+        this.dialog.listen('MDCDialog:closed', function (e) { _this._fire('closed', e); });
+    };
+    Dialog.prototype._fire = function (type, e) {
+        this.fire(type, e);
+        this.fire(type.replace(/\b(\w)(\w*)/g, function ($0, $1, $2) {
+            return $1.toUpperCase() + $2.toLowerCase();
+        }), e);
     };
     Dialog.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-dialog', {
@@ -4879,7 +4889,7 @@ Dialog.prompt = function (options) {
     }
     var ele;
     dom = omi_1.render(omi_1.h("m-dialog", { "cancel-button": { text: options.cancelText || 'Cancel' }, "confirm-button": { text: options.confirmText || 'Confirm' }, onCancel: function (_) { return onConfirm(options.cancel); }, onConfirm: function (_) { return promptCallback(options.confirm, dom); }, show: true, title: options.title },
-        omi_1.h("style", null, "\n  input { \n    transition: all .3s;\n  }\n  input:focus { \n    border-bottom:1px solid " + (document.body.style.getPropertyValue('--mdc-theme-primary') || '#0072d9 ') + "!important;\n  }\n  "),
+        omi_1.h("style", null, "\n  input {\n    transition: all .3s;\n  }\n  input:focus {\n    border-bottom:1px solid " + (document.body.style.getPropertyValue('--mdc-theme-primary') || '#0072d9 ') + "!important;\n  }\n  "),
         omi_1.h("p", { style: 'margin:10px 0 0;' }, options.subtitle),
         omi_1.h("input", { style: 'width:100%;height: 30px;\n    border: none;font-size:14px;\n    border-bottom: 1px solid #ccc; outline: none;', ref: function (_) { return ele = _; }, type: 'text' })), 'body');
     dom.ele = ele;

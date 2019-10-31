@@ -27,6 +27,7 @@ declare class Dialog extends WeElement<Props> {
     onScrim: (e: any) => void;
     onCancel: (e: any) => void;
     onConfirm: (e: any) => void;
+    _fire(type: any, e: any): void;
     render(props: any): JSX.Element;
 }
 export default Dialog;

@@ -41,15 +41,22 @@ class Dialog extends WeElement<Props>{
 
     this.props.show ? this.dialog.open() : this.dialog.close()
 
-    this.dialog.listen('MDCDialog:opening', (e) => { this.fire('opening', e) })
-    this.dialog.listen('MDCDialog:opened', (e) => { this.fire('opened', e) })
-    this.dialog.listen('MDCDialog:closing', (e) => { this.fire('closing', e) })
-    this.dialog.listen('MDCDialog:closed', (e) => { this.fire('closed', e) })
+    this.dialog.listen('MDCDialog:opening', (e) => { this._fire('opening', e) })
+    this.dialog.listen('MDCDialog:opened', (e) => { this._fire('opened', e) })
+    this.dialog.listen('MDCDialog:closing', (e) => { this._fire('closing', e) })
+    this.dialog.listen('MDCDialog:closed', (e) => { this._fire('closed', e) })
   }
 
-  onScrim = (e)  => {this.fire('scrim', e)}
-  onCancel = (e) => {this.fire('cancel', e)}
-  onConfirm = (e) => {this.fire('confirm', e)}
+  onScrim = (e)  => {this._fire('scrim', e)}
+  onCancel = (e) => {this._fire('cancel', e)}
+  onConfirm = (e) => {this._fire('confirm', e)}
+
+	_fire(type, e) {
+		this.fire(type, e)
+		this.fire(type.replace(/\b(\w)(\w*)/g, function ($0, $1, $2) {
+			return $1.toUpperCase() + $2.toLowerCase();
+		}), e)
+	}
 
   render(props) {
     return (
@@ -124,10 +131,10 @@ Dialog.prompt = function (options) {
     title={options.title}>
       <style>
   {`
-  input { 
+  input {
     transition: all .3s;
   }
-  input:focus { 
+  input:focus {
     border-bottom:1px solid ${document.body.style.getPropertyValue('--mdc-theme-primary')|| '#0072d9 '}!important;
   }
   `}
