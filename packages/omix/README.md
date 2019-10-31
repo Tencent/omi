@@ -135,7 +135,7 @@ export default {
 }
 ```
 
-全局更新开发默认是关闭的，调试开关默认打开，可以在`store.data` 的所以变动都会出现在开发者工具 log 面板，如下图所示:
+全局更新开发默认是关闭的，调试开关默认打开，可以在`store.data` 的所有变动都会出现在开发者工具 log 面板，如下图所示:
 
 ![](https://tencent.github.io/omi/assets/omix.png)
 
