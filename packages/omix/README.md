@@ -2,7 +2,7 @@
 
 > 数据触手可及，状态无处遁形
 
-<img src="https://tencent.github.io/omi/assets/omix2.png"  width="420"/>
+<p align="center"><img src="https://tencent.github.io/omi/assets/omix2.png" alt="omix" width="720"/></p>
 
 #### 特性
 
