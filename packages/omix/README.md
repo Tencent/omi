@@ -64,6 +64,7 @@ create(store, {
     }
   },
   onLoad: function () {
+    //响应式，自动更新视图
     this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
       return util.formatTime(new Date(log))
     })
