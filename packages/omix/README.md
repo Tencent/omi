@@ -2,7 +2,7 @@
 
 > 数据触手可及，状态无处遁形
 
-![](../../assets/omix2.png)
+<img src="https://tencent.github.io/omi/assets/omix2.png"  width="420"/>
 
 #### 特性
 
@@ -34,7 +34,8 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 
 > 实现一个简单的 log 列表的展示
 
-![](https://tencent.github.io/omi/assets/logs.png)
+
+<img src="https://tencent.github.io/omi/assets/logs.png"  width="400"/>
 
 定义全局 store:
 
