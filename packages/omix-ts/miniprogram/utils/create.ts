@@ -62,12 +62,20 @@ interface ComponentOption {
   [key: string]: any
 }
 
+interface Computed {
+  [key: string]: any
+}
+
 interface PageOption {
     [key: string]: any,
     /**
      * 依赖 store 上的 path
      */
     use?: Array<string | object>
+    /**
+     * 计算属性
+     */
+    computed?: Computed,
     /** 生命周期回调—监听页面加载
      *
      * 页面加载时触发。一个页面只会调用一次，可以在 onLoad 的参数中获取打开当前页面路径中的参数。
