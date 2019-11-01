@@ -96,7 +96,7 @@ define('my-counter', _ => (
   })
 ```
 
-![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
+![](https://tencent.github.io/omi/assets/store.jpg)
 
 ### Multi-store injection
 

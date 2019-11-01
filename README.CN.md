@@ -97,7 +97,7 @@ define('my-counter', _ => (
   })
 ```
 
-![](https://github.com/Tencent/omi/raw/master/assets/store.cn.jpg)
+![](https://tencent.github.io/omi/assets/store.cn.jpg)
 
 ### 多个 store 注入
 
