@@ -13,6 +13,7 @@
 * 支持计算属性
 * 轻松驾驭小项目、中项目和大型项目
 * 也适用小游戏，是的没错，使用 **小程序开发小游戏**，本文第二个案例使用 OMIX 实现一个小游戏
+* 【更新】支持有状态(data)的 Page，看文章最后的 QA
 
 OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 diff，diff 出的 json 就是 setData 的 patch，omix 2.0 使用的是 observer 监听数据的变更得到 setData 的 patch。
 和 omix 对比，westore 运行时需要更多的计算，omix 初始化时需要更多的内存和计算，但是数据变更时 omix 速度比 westore 快，编程体验方面，omix 不需要手动 update，westore 需要手动 update。
@@ -787,6 +788,63 @@ export default $({
 * TypeScript 版本有吗？
 
 TypeScript 版本的例子可以点击这里 [omix-ts](https://github.com/Tencent/omi/tree/master/packages/omix-ts)
+
+* 关于 omix 不支持定义私有 data 的疑惑
+
+项目一开始的时候没有使用 omix 做状态管理，后来由于业务需求引用了 omix，但是使用过程中发现 omix v2 不允许定义私有 data。
+
+如果不支持定义私有 data 的话，那么在项目上使用 omix 的时候，是否就需要把所有页面原有的 data 都合并到 store 中？
+
+在页面数量过多的时候，我想这是一件比较痛苦的事。
+
+对比了一下 omix、omix-v1、westore、dd-store，发现后三者都支持定义私有 data。
+
+想请教一下，是什么原因，导致 omix 舍弃了 omix-v1 支持定义私有 data 的特性呢？
+
+这是否违背了 omix 对小程序零入侵的特性？
+
+### 答：支持页面拥有私有 data:
+
+举个例子：
+
+```js
+create(store, {
+  use: [
+    'motto',
+    'userInfo',
+    'hasUserInfo',
+    'canIUse'
+  ],
+  computed: {
+    reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
+  },
+  data: {
+    name: 'omix'
+  },
+```
+
+这个时候全局 store 的 data 会挂在在 `data.$` 下，所以绑定 wxml 的时候需要加上前缀，比如:
+
+```html
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!$.hasUserInfo && $.canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{$.userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{$.userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{$.motto}}-{{reverseMotto}}-{{name}}</text>
+  </view>
+  <test-store />
+</view>
+```
+
+注意，data 和 computed 的属性不需要 $ 前缀。
 
 ## License
 
