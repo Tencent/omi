@@ -188,7 +188,12 @@ function create(store: any | ComponentOption, option?: PageOption) {
       }
     }
 
-    option.data = store.data
+    const hasData = typeof option.data !== 'undefined'
+    if (option.data) {
+      option.data.$ = store.data
+    } else {
+      option.data = store.data
+    }
     observeStore(store)
     const onLoad = option.onLoad
 
@@ -197,6 +202,7 @@ function create(store: any | ComponentOption, option?: PageOption) {
 
       option.use && (this.__updatePath = getPath(option.use))
       this.__use = option.use
+      this.__hasData = hasData
       store.instances[this.route] = []
       store.instances[this.route].push(this)
       this.computed = option.computed
@@ -262,7 +268,15 @@ function _update(kv, store) {
   for (let key in store.instances) {
     store.instances[key].forEach(ins => {
       if(store.updateAll || ins.__updatePath && needUpdate(kv,ins.__updatePath)){
-        ins.setData.call(ins, kv)
+        if (ins.__hasData) {
+          for (let pk in kv) {
+            kv['$.' + pk] = kv[pk]
+            delete kv[pk]
+          }
+          ins.setData.call(ins, kv)
+        } else {
+          ins.setData.call(ins, kv)
+        }
 
         const using = getUsing(store.data, ins.__use)
 

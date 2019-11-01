@@ -1,5 +1,5 @@
 /*!
- *  omix v2.1.0 by dntzhang
+ *  omix v2.2.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -15,24 +15,28 @@ function create(store, option) {
       store.instances = {}
     }
 
-    if(!store.onChange){
-      store.onChange = function(fn){
+    if (!store.onChange) {
+      store.onChange = function (fn) {
         changes.push(fn)
       }
     }
 
-    if(!store.offChange){
-      store.offChange = function(fn){
-        for(let i = 0,len =changes.length;i<len;i++){
-          if(changes[i] === fn){
+    if (!store.offChange) {
+      store.offChange = function (fn) {
+        for (let i = 0, len = changes.length; i < len; i++) {
+          if (changes[i] === fn) {
             changes.splice(i, 1)
             break
           }
         }
       }
     }
-
-    option.data = store.data
+    const hasData = typeof option.data !== 'undefined'
+    if (option.data) {
+      option.data.$ = store.data
+    } else {
+      option.data = store.data
+    }
     observeStore(store)
     const onLoad = option.onLoad
 
@@ -41,6 +45,7 @@ function create(store, option) {
 
       option.use && (this.__updatePath = getPath(option.use))
       this.__use = option.use
+      this.__hasData = hasData
       store.instances[this.route] = []
       store.instances[this.route].push(this)
       this.computed = option.computed
@@ -76,8 +81,8 @@ function create(store, option) {
   }
 }
 
-function compute(computed, store, using){
-  for(let key in computed){
+function compute(computed, store, using) {
+  for (let key in computed) {
     using[key] = computed[key].call(store.data)
   }
 }
@@ -88,12 +93,12 @@ function observeStore(store) {
     if (prop.indexOf('Array-push') === 0) {
       let dl = value.length - old.length
       for (let i = 0; i < dl; i++) {
-        patch[ fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
+        patch[fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
       }
     } else if (prop.indexOf('Array-') === 0) {
-      patch[ fixPath(path)] = value
+      patch[fixPath(path)] = value
     } else {
-      patch[ fixPath(path + '-' + prop)] = value
+      patch[fixPath(path + '-' + prop)] = value
     }
 
     _update(patch, store)
@@ -105,8 +110,16 @@ function observeStore(store) {
 function _update(kv, store) {
   for (let key in store.instances) {
     store.instances[key].forEach(ins => {
-      if(store.updateAll || ins.__updatePath && needUpdate(kv,ins.__updatePath)){
-        ins.setData.call(ins, kv)
+      if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
+        if (ins.__hasData) {
+          for (let pk in kv) {
+            kv['$.' + pk] = kv[pk]
+            delete kv[pk]
+          }
+          ins.setData.call(ins, kv)
+        } else {
+          ins.setData.call(ins, kv)
+        }
 
         const using = getUsing(store.data, ins.__use)
 
@@ -123,18 +136,18 @@ function _update(kv, store) {
   store.debug && storeChangeLogger(store, kv)
 }
 
-function storeChangeLogger (store, diffResult) {
+function storeChangeLogger(store, diffResult) {
   try {
-      const preState = wx.getStorageSync(`CurrentState`) || {}
-      const title = `State Changed`
-      console.groupCollapsed(`%c  ${ title } %c ${ Object.keys(diffResult) }`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
-      console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
-      console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
-      console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
-      console.groupEnd()
-      wx.setStorageSync(`CurrentState`, store.data)
+    const preState = wx.getStorageSync(`CurrentState`) || {}
+    const title = `State Changed`
+    console.groupCollapsed(`%c  ${title} %c ${Object.keys(diffResult)}`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
+    console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
+    console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
+    console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
+    console.groupEnd()
+    wx.setStorageSync(`CurrentState`, store.data)
   } catch (e) {
-      console.log(e)
+    console.log(e)
   }
 
 }
