@@ -300,6 +300,7 @@ define('my-component', _ => (
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 | [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
 | [Soo](https://github.com/tonis2/Soo)| 和 Omi 一样的 API，但是更小且没有 JSX, virtual DOM 和 store|
+| [CEE](https://omijs.github.io/cee/out/)| custom-elements-everywhere 评分 |
 
 ### 特性
 
