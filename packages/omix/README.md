@@ -187,9 +187,16 @@ store.onChange(handler)
 store.offChange(handler) 
 ```
 
-### 复杂 store 拆分到多文件
+### 复杂小程序 store 管理
 
-当小程序变得非常复杂的时候，单文件单一的 store 会变得非常臃肿，所以需要拆分为多个 store 到新的文件，这里举个例子：
+ 
+
+当小程序变得非常复杂的时候，单文件单一的 store 会变得非常臃肿，这里有两种方案：
+
+* 拆分单一 store 到多个文件
+* 拆分单一 store 到多个 store
+
+#### 拆分单一 store 到多个文件
 
 store-a.js:
 
@@ -266,6 +273,31 @@ create(store, {
 
 多 store 注入的完整的案例可以 [点击这里](https://github.com/Tencent/omi/tree/master/packages/omix-multi-store)
 
+#### 拆分单一 store 到多个 store
+
+Page A:
+
+```js
+import create from '../../utils/create'
+import store from '../../store/store-page-a.js'
+
+create(store, {
+ 
+})
+```
+
+Page B:
+
+```js
+import create from '../../utils/create'
+import store from '../../store/store-page-b.js'
+
+create(store, {
+ 
+})
+```
+
+Page A 的 Page B 的 store 完全是两个不同的 store。
 
 ### Path 命中规则
 
