@@ -316,7 +316,7 @@ class Store {
   }
 }
 
-define('my-counter', _ => (
+define('my-counter', _ =>
   &lt;&gt;
     &lt;button onClick={_.store.sub}&gt;-&lt;/button&gt;
     &lt;span&gt;{_.store.data.count}&lt;/span&gt;
