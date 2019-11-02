@@ -27,7 +27,7 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 
 * `create(store, option)`      创建页面， store 从页面注入，可跨页面跨组件共享, 如果 option 定义了 data，store 的 data 会挂载在 `this.data.$` 下面
 * `create(option)`             创建组件
-* `this.store` 和 `this.data`  全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+* `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
 > 不需要注入 store 的页面或组件用使用`Page`和`Component` 构造器,  `Component` 通过 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 与上层通讯或与上层的 store 交互
 
@@ -72,17 +72,17 @@ create(store, {
 
     setTimeout(() => {
       //响应式，自动更新视图
-      this.data.logs[0] = 'Changed!'
+      this.store.data.logs[0] = 'Changed!'
     }, 1000)
 
     setTimeout(() => {
       //响应式，自动更新视图
-      this.data.logs.push(Math.random(), Math.random())
+      this.store.data.logs.push(Math.random(), Math.random())
     }, 2000)
 
     setTimeout(() => {
       //响应式，自动更新视图
-      this.data.logs.splice(this.store.data.logs.length - 1, 1)
+      this.store.data.logs.splice(this.store.data.logs.length - 1, 1)
     }, 3000)
   }
 })
@@ -146,12 +146,15 @@ export default {
 这里需要注意，改变数组的 length 不会触发视图更新，需要使用 size 方法:
 
 ```js
-this.data.arr.size(2) //会触发视图更新
-this.data.arr.length = 2 //不会触发视图更新
+this.store.data.arr.size(2) //会触发视图更新
+this.store.data.arr.length = 2 //不会触发视图更新
 
-this.data.arr.push(111) //会触发视图更新
+this.store.data.arr.push(111) //会触发视图更新
 //每个数组的方法都有对应的 pure 前缀方法，比如 purePush、pureShift、purePop 等
-this.data.arr.purePush(111) //不会触发视图更新
+this.store.data.arr.purePush(111) //不会触发视图更新
+
+this.store.set(this.store.data, 'newProp', 'newPropVal')  //会触发视图更新
+this.store.data.newProp = 'newPropVal' //新增属性不会触发视图更新，必须使用 create.set
 ```
 
 ###  计算属性

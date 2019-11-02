@@ -255,15 +255,15 @@
     $observer.watch(obj, prop)
   }
 
-  obaa.set = function(obj, prop, value, exec) {
-    if (!exec) {
-      obj[prop] = value
-    }
-    var $observer = obj.$observer
-    $observer.watch(obj, prop)
-    if (exec) {
-      obj[prop] = value
-    }
+  obaa.set = function(obj, prop, value, oba) {
+    // if (exec) {
+    //   obj[prop] = value
+    // }
+    var $observer = obj.$observer || oba
+    $observer.watch(obj, prop, obj.$observeProps.$observerPath)
+    //if (!exec) {
+    obj[prop] = value
+    //}
   }
 
   Array.prototype.size = function(length) {
@@ -276,7 +276,7 @@
 
   if (
     typeof module != 'undefined' &&
-    module.exports 
+    module.exports
   ) {
     module.exports = obaa
   } else if (typeof define === 'function' && define.amd) {
