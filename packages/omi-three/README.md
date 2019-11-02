@@ -1,31 +1,66 @@
 # Omi-Three
 
-```html
-<script>
-Omi.$.aspect = window.innerWidth / window.innerHeight
-</script>
-<o-perspective-camera
-    id="camera"
-    fov="75"  
-    aspect=":aspect"
-    near="0.1"  
-    far="1000"
-    z="5">
-</o-perspective-camera>
+## Usage
 
-<o-scene id="scene" >
-  <o-mesh id="cube">
-    <o-box-geometry 
-      width="1" 
-      height="1" 
-      depth="1">
-    </o-box-geometry >
-    <o-base-material 
-      color="0x00ff00">
-    </o-base-material>
-  <o-mesh>
-</o-scene>
+```jsx
+import { render, define, WeElement } from 'omi'
+import 'omi-canvas'
+import omiUrl from './omi.jpg'
+
+define('my-app', class extends WeElement {
+  static observe = true
+
+  data = {
+    scale: 0.5
+  }
+
+  css() {
+    return `
+        div{
+          text-align: center;
+        }`
+  }
+
+  onClick = (evt) => {
+    this.data.scale = 0.5 + Math.random() * 0.1
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Omi-Three</h1>
+        <omi-three width={400} height={400} css='border: 1px solid #ccc;'>
+          <group alpha={0.5} y={270}>
+            <perspective-camera
+              id="camera"
+              fov="75"  
+              aspect=":aspect"
+              near="0.1"  
+              far="1000"
+              z="5">
+            </perspective-camera>
+            <mesh id="cube">
+              <box-geometry 
+                width="1" 
+                height="1" 
+                depth="1">
+              </box-geometry >
+              <base-material 
+                color="0x00ff00">
+              </base-material>
+            <mesh>
+          </group>
+        </omi-three>
+      </div>
+    )
+  }
+})
+
+render(<my-app />, 'body')
 ```
+
+
+
 
 ```js
 import o3 from 'omi-three'
