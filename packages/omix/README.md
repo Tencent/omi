@@ -21,6 +21,15 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 
 好的设计只有一种，我们认为 OMIX 2.0 的设计刚刚好。
 
+## 快速使用
+
+```
+npx omi-cli init-x my-app
+```
+
+然后把小程序工作目录设置到 my-app 就可以开始愉快地使用 OMIX 了。
+
+
 ## 快速入门 
 
 ### API
