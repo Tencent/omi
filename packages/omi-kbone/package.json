@@ -9,6 +9,7 @@
     "mp"
   ],
   "scripts": {
+    "mp": "npm run start",
     "start": "cross-env NODE_ENV=production webpack --config scripts/webpack.mp.config.js --watch --progress --hide-modules",
     "web": "node scripts/start.js",
     "build": "PUBLIC_URL=. node scripts/build.js",

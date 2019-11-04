@@ -76,13 +76,21 @@ module.exports = {
                 ],
             },
             {
+              test: /\.less$/,
+              use: [
+                  MiniCssExtractPlugin.loader,
+                  'css-loader',
+                  'less-loader'
+              ],
+            },
+            {
                 test: /\.[t|j]sx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    plugins : [ 
-                        ["transform-react-jsx", { "pragma":"h" }] 
-                    ] 
+                    plugins : [
+                        ["transform-react-jsx", { "pragma":"h" }]
+                    ]
                 }
             },
             {
