@@ -3,7 +3,7 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-v6.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
-<p align="center">Merge Web Components, JSX, HTM, Virtual DOM, Functional style and Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
+<p align="center">Merge Web Components, JSX, Virtual DOM, Functional style, observe and Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
 
 ## Quick Preview
 
@@ -45,7 +45,7 @@ render(<my-counter />, 'body', new Store)
 
 * `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
 
-You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through. `usingSelf` in JSX.
+You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through `usingSelf` in JSX.
 
 You can also implement `computed` props through `compute`, such as:
 
