@@ -24,13 +24,22 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 
 好的设计只有一种，我们认为 OMIX 2.0 的设计刚刚好。
 
+## 快速使用
+
+```
+npx omi-cli init-x my-app
+```
+
+然后把小程序工作目录设置到 my-app 就可以开始愉快地使用 OMIX 了。
+
+
 ## 快速入门 
 
 ### API
 
 * `create(store, option)`      创建页面， store 从页面注入，可跨页面跨组件共享, 如果 option 定义了 data，store 的 data 会挂载在 `this.data.$` 下面
 * `create(option)`             创建组件
-* `this.store` 和 `this.data`  全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+* `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
 > 不需要注入 store 的页面或组件用使用`Page`和`Component` 构造器,  `Component` 通过 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 与上层通讯或与上层的 store 交互
 
@@ -75,17 +84,17 @@ create(store, {
 
     setTimeout(() => {
       //响应式，自动更新视图
-      this.data.logs[0] = 'Changed!'
+      this.store.data.logs[0] = 'Changed!'
     }, 1000)
 
     setTimeout(() => {
       //响应式，自动更新视图
-      this.data.logs.push(Math.random(), Math.random())
+      this.store.data.logs.push(Math.random(), Math.random())
     }, 2000)
 
     setTimeout(() => {
       //响应式，自动更新视图
-      this.data.logs.splice(this.store.data.logs.length - 1, 1)
+      this.store.data.logs.splice(this.store.data.logs.length - 1, 1)
     }, 3000)
   }
 })
@@ -149,12 +158,15 @@ export default {
 这里需要注意，改变数组的 length 不会触发视图更新，需要使用 size 方法:
 
 ```js
-this.data.arr.size(2) //会触发视图更新
-this.data.arr.length = 2 //不会触发视图更新
+this.store.data.arr.size(2) //会触发视图更新
+this.store.data.arr.length = 2 //不会触发视图更新
 
-this.data.arr.push(111) //会触发视图更新
+this.store.data.arr.push(111) //会触发视图更新
 //每个数组的方法都有对应的 pure 前缀方法，比如 purePush、pureShift、purePop 等
-this.data.arr.purePush(111) //不会触发视图更新
+this.store.data.arr.purePush(111) //不会触发视图更新
+
+this.store.set(this.store.data, 'newProp', 'newPropVal')  //会触发视图更新
+this.store.data.newProp = 'newPropVal' //新增属性不会触发视图更新，必须使用 create.set
 ```
 
 ###  计算属性
@@ -187,9 +199,16 @@ store.onChange(handler)
 store.offChange(handler) 
 ```
 
-### 复杂 store 拆分到多文件
+### 复杂小程序 store 管理
 
-当小程序变得非常复杂的时候，单文件单一的 store 会变得非常臃肿，所以需要拆分为多个 store 到新的文件，这里举个例子：
+当小程序变得非常复杂的时候，单文件单一的 store 会变得非常臃肿，这里有两种方案：
+
+* 拆分单一 store 到多个文件
+* 拆分单一 store 到多个 store
+
+两种方案可以视情况任选一种，或者两种混合使用，比如对于超过100个页面的小程序来说，多页面多 store 应该是很常见的。
+
+#### 拆分单一 store 到多个文件
 
 store-a.js:
 
@@ -266,6 +285,31 @@ create(store, {
 
 多 store 注入的完整的案例可以 [点击这里](https://github.com/Tencent/omi/tree/master/packages/omix-multi-store)
 
+#### 拆分单一 store 到多个 store
+
+Page A:
+
+```js
+import create from '../../utils/create'
+import store from '../../store/store-page-a.js'
+
+create(store, {
+ 
+})
+```
+
+Page B:
+
+```js
+import create from '../../utils/create'
+import store from '../../store/store-page-b.js'
+
+create(store, {
+ 
+})
+```
+
+Page A 的 Page B 的 store 完全是两个不同的 store。
 
 ### Path 命中规则
 

@@ -9,7 +9,8 @@ create(store, {
     'motto',
     'userInfo',
     'hasUserInfo',
-    'canIUse'
+    'canIUse',
+    'newProp'
   ],
   computed: {
     reverseMotto() {
@@ -54,12 +55,17 @@ create(store, {
       this.store.data.motto = 'abcdefg'
     }, 2000)
 
+    setTimeout(() => {
+      this.store.set(this.store.data, 'newProp', 'newPropVal')
+    }, 3000)
+
+
     const handler = function (evt) {
       console.log(evt)
     }
     store.onChange(handler)
 
-    store.offChange(handler)
+    //store.offChange(handler)
 
   },
   getUserInfo: function (e) {

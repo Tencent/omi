@@ -8,7 +8,7 @@
     </block>
   </view>
   <view class="usermotto">
-    <text class="user-motto">{{motto}}-{{reverseMotto}}</text>
+    <text class="user-motto">{{motto}}-{{reverseMotto}}-{{newProp}}</text>
   </view>
   <test-store />
 </view>

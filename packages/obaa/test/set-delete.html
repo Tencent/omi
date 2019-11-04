@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>obaa test</title>
+	<script src="util.js"></script>
+	<script src="../index.js"></script>
+</head>
+
+<body>
+
+	<script>
+		var obj = {
+			a: 1,
+			d: {
+				c: 1
+			}
+		}
+		obaa(obj, (a, b, c, d) => {
+			console.log(a, b, c, d)
+		})
+
+		obaa.set(obj.d, 'b', 1)
+
+		console.log(obj)
+
+	</script>
+
+
+
+
+</body>
+
+</html>

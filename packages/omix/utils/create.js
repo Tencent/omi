@@ -1,5 +1,5 @@
 /*!
- *  omix v2.2.0 by dntzhang
+ *  omix v2.3.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -7,7 +7,6 @@
 import obaa from './obaa'
 import { getPath, needUpdate, fixPath, getUsing } from './path'
 
-const changes = []
 
 function create(store, option) {
   if (arguments.length === 2) {
@@ -15,6 +14,11 @@ function create(store, option) {
       store.instances = {}
     }
 
+    if(!store.__changes_){
+      store.__changes_ = []
+    }
+
+    const changes = store.__changes_
     if (!store.onChange) {
       store.onChange = function (fn) {
         changes.push(fn)
@@ -88,7 +92,7 @@ function compute(computed, store, using) {
 }
 
 function observeStore(store) {
-  obaa(store.data, (prop, value, old, path) => {
+  const oba = obaa(store.data, (prop, value, old, path) => {
     let patch = {}
     if (prop.indexOf('Array-push') === 0) {
       let dl = value.length - old.length
@@ -105,6 +109,12 @@ function observeStore(store) {
 
 
   })
+
+  if(!store.set) {
+    store.set = function (obj, prop, val) {
+      obaa.set(obj, prop, val, oba)
+    }
+  }
 }
 
 function _update(kv, store) {
@@ -130,7 +140,7 @@ function _update(kv, store) {
       }
     })
   }
-  changes.forEach(change => {
+  store.__changes_.forEach(change => {
     change(kv)
   })
   store.debug && storeChangeLogger(store, kv)
@@ -139,11 +149,11 @@ function _update(kv, store) {
 function storeChangeLogger(store, diffResult) {
   try {
     const preState = wx.getStorageSync(`CurrentState`) || {}
-    const title = `State Changed`
+    const title = `Data Changed`
     console.groupCollapsed(`%c  ${title} %c ${Object.keys(diffResult)}`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
-    console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
-    console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
-    console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
+    console.log(`%c    Pre Data`, 'color:#ff65af; font-weight: bold', preState)
+    console.log(`%c Change Data`, 'color:#3d91cf; font-weight: bold', diffResult)
+    console.log(`%c   Next Data`, 'color:#2c9f67; font-weight: bold', store.data)
     console.groupEnd()
     wx.setStorageSync(`CurrentState`, store.data)
   } catch (e) {
