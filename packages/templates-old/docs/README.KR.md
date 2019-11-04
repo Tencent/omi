@@ -40,14 +40,14 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi 공식 문서 |
-| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi 의 구 브라우전 지원 버전 (IE8+, 모바일 브라우저).|
-| [md2site![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://tencent.github.io/omi/assets/md2site/)| Omio로 개발되고 마크다운으로 제너레이트 된 정적 사이트. |
-| [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM 도입. [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 강력 지원 |
-| [omi-chart![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| chart-x tag를 사용한 심플 HTML5 차트. |
+| [omio![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi 의 구 브라우전 지원 버전 (IE8+, 모바일 브라우저).|
+| [md2site![](https://dntzhang.github.io/cax/asset/hot.png) ](https://tencent.github.io/omi/assets/md2site/)| Omio로 개발되고 마크다운으로 제너레이트 된 정적 사이트. |
+| [omi-mvvm![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM 도입. [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 강력 지원 |
+| [omi-chart![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| chart-x tag를 사용한 심플 HTML5 차트. |
 | [omi-html](https://github.com/Tencent/omi/tree/master/packages/omi-html)| [htm](https://github.com/developit/htm) 사용 |
-| [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Omi 스니펫 - 30초 가이드 |
+| [omi-30-seconds![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Omi 스니펫 - 30초 가이드 |
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Component, jsx 그리고 canvas의 완벽한 조합 |
-| [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Wechat 미니프로그램 개발을 위한 Singe Page |
+| [omi-mp![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Wechat 미니프로그램 개발을 위한 Singe Page |
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) | Omi 공식 라우터 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| 브라우저 개발자 확장도구 |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
