@@ -340,6 +340,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 | **Title Name**  | **Other language** | **Related**|
 | ----------------------------------------- | ------------------ |-----------------|
+|[Web Components bookmarks](https://www.notion.so/Web-Components-bookmarks-64066078f891433dbc74997dc4d64302)|||
 |[Snake-Eating Game Making with Web Components of Omi and MVP Architecture](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.md)|||
 |[Constructable Stylesheets: seamless reusable styles](https://developers.google.com/web/updates/2019/02/constructable-stylesheets)|||
 |[Web Components specifications](https://github.com/w3c/webcomponents)|||
