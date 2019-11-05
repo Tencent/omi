@@ -1,5 +1,5 @@
 import create from '../../utils/create'
-import store from '../../store'
+import store from '../../store/index'
 
 //获取应用实例
 import { IMyApp } from '../../app'

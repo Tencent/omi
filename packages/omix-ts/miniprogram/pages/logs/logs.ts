@@ -1,7 +1,7 @@
 //logs.js
 import { formatTime } from '../../utils/util'
 import create from '../../utils/create'
-import store from '../../store'
+import store from '../../store/index'
 
 create(store, {
   use: ['logs'],

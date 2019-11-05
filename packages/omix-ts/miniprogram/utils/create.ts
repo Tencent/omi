@@ -12,8 +12,6 @@ interface StoreChangeCallback {
   (detail: any): void;
 }
 
-const changes:Array<StoreChangeCallback> = []
-
 interface IPageScrollOption {
   /** 页面在垂直方向已滚动的距离（单位px） */
   scrollTop: number;
@@ -171,16 +169,21 @@ function create(store: any | ComponentOption, option?: PageOption) {
       store.instances = {}
     }
 
-    if(!store.onChange){
-      store.onChange = function(fn: StoreChangeCallback){
+    if(!store.__changes_){
+      store.__changes_ = []
+    }
+
+    const changes = store.__changes_
+    if (!store.onChange) {
+      store.onChange = function (fn: StoreChangeCallback) {
         changes.push(fn)
       }
     }
 
-    if(!store.offChange){
-      store.offChange = function(fn: StoreChangeCallback){
-        for(let i = 0,len =changes.length;i<len;i++){
-          if(changes[i] === fn){
+    if (!store.offChange) {
+      store.offChange = function (fn: StoreChangeCallback) {
+        for (let i = 0, len = changes.length; i < len; i++) {
+          if (changes[i] === fn) {
             changes.splice(i, 1)
             break
           }
@@ -238,36 +241,42 @@ function create(store: any | ComponentOption, option?: PageOption) {
   }
 }
 
-function compute(computed, store, using){
-  for(let key in computed){
+function compute(computed, store, using) {
+  for (let key in computed) {
     using[key] = computed[key].call(store.data)
   }
 }
 
 function observeStore(store) {
-  obaa(store.data, (prop, value, old, path) => {
+  const oba = obaa(store.data, (prop, value, old, path) => {
     let patch = {}
     if (prop.indexOf('Array-push') === 0) {
       let dl = value.length - old.length
       for (let i = 0; i < dl; i++) {
-        patch[ fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
+        patch[fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
       }
     } else if (prop.indexOf('Array-') === 0) {
-      patch[ fixPath(path)] = value
+      patch[fixPath(path)] = value
     } else {
-      patch[ fixPath(path + '-' + prop)] = value
+      patch[fixPath(path + '-' + prop)] = value
     }
 
     _update(patch, store)
 
 
   })
+
+  if(!store.set) {
+    store.set = function (obj, prop, val) {
+      obaa.set(obj, prop, val, oba)
+    }
+  }
 }
 
 function _update(kv, store) {
   for (let key in store.instances) {
     store.instances[key].forEach(ins => {
-      if(store.updateAll || ins.__updatePath && needUpdate(kv,ins.__updatePath)){
+      if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
         if (ins.__hasData) {
           for (let pk in kv) {
             kv['$.' + pk] = kv[pk]
@@ -287,24 +296,24 @@ function _update(kv, store) {
       }
     })
   }
-  changes.forEach(change => {
+  store.__changes_.forEach(change => {
     change(kv)
   })
   store.debug && storeChangeLogger(store, kv)
 }
 
-function storeChangeLogger (store, diffResult) {
+function storeChangeLogger(store, diffResult) {
   try {
-      const preState = wx.getStorageSync(`CurrentState`) || {}
-      const title = `State Changed`
-      console.groupCollapsed(`%c  ${ title } %c ${ Object.keys(diffResult) }`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
-      console.log(`%c    Pre State`, 'color:#ff65af; font-weight: bold', preState)
-      console.log(`%c Change State`, 'color:#3d91cf; font-weight: bold', diffResult)
-      console.log(`%c   Next State`, 'color:#2c9f67; font-weight: bold', store.data)
-      console.groupEnd()
-      wx.setStorageSync(`CurrentState`, store.data)
+    const preState = wx.getStorageSync(`CurrentState`) || {}
+    const title = `Data Changed`
+    console.groupCollapsed(`%c  ${title} %c ${Object.keys(diffResult)}`, 'color:#e0c184; font-weight: bold', 'color:#f0a139; font-weight: bold')
+    console.log(`%c    Pre Data`, 'color:#ff65af; font-weight: bold', preState)
+    console.log(`%c Change Data`, 'color:#3d91cf; font-weight: bold', diffResult)
+    console.log(`%c   Next Data`, 'color:#2c9f67; font-weight: bold', store.data)
+    console.groupEnd()
+    wx.setStorageSync(`CurrentState`, store.data)
   } catch (e) {
-      console.log(e)
+    console.log(e)
   }
 
 }
