@@ -139,6 +139,32 @@ export default $({
 </script>
 ```
 
+## Computed
+
+```js
+render(App, '#app', new class {
+  data = {
+    count: 1
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+  //look here
+  getDoubleCount = () => {
+    return this.data.count * 2
+  }
+})
+```
+
+Bind `getDoubleCount` to template:
+
+```html
+<div>double: {{store.getDoubleCount()}}</div>
+```
+
 ## Differences to Vuex
 
 Vuex:
