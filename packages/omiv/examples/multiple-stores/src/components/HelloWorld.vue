@@ -1,9 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="store.sub">-</button>
-    <span>{{state.count}}</span>
-    <button @click="store.add">+</button>
+    <button @click="store.cs.sub">-</button>
+    <span>{{state.cs.count}}</span>
+    <button @click="store.cs.add">+</button>
+    <div>double: {{store.cs.getDoubleCount()}}</div>
   </div>
 </template>
 
@@ -15,7 +16,9 @@ export default $({
   props: {
     msg: String
   },
-  useSelf: ['count']
+  useSelf: {
+    cs: ['count']
+  }
 })
 </script>
 

@@ -4,8 +4,7 @@ import { render } from 'omiv'
 Vue.config.productionTip = false
 
 
-
-render(App, '#app', new class {
+const cs = new class {
   data = {
     count: 1
   }
@@ -19,7 +18,18 @@ render(App, '#app', new class {
   getDoubleCount = () => {
     return this.data.count * 2
   }
-})
+}
+
+const ns = new class {
+  data = {
+    name: 'omiv'
+  }
+  rename = () => {
+    this.data.name = 'omiv + vue'
+  }
+}
+
+render(App, '#app', { cs, ns })
 
 
 
