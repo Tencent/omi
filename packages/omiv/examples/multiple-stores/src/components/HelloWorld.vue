@@ -5,6 +5,7 @@
     <span>{{state.cs.count}}</span>
     <button @click="store.cs.add">+</button>
     <div>double: {{store.cs.getDoubleCount()}}</div>
+		<span>{{state.ns.name}}</span>
   </div>
 </template>
 

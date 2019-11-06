@@ -4,6 +4,7 @@
     <button @click="store.sub">-</button>
     <span>{{state.count}}</span>
     <button @click="store.add">+</button>
+		<div>double: {{store.getDoubleCount()}}</div>
   </div>
 </template>
 
