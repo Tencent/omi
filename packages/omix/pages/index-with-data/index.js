@@ -12,7 +12,8 @@ create(store, {
     'canIUse'
   ],
   computed: {
-    reverseMotto() {
+    reverseMotto(scope) {
+      console.log(scope.data)
       return this.motto.split('').reverse().join('')
     }
   },

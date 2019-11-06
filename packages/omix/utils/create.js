@@ -1,5 +1,5 @@
 /*!
- *  omix v2.3.0 by dntzhang
+ *  omix v2.3.1 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -56,7 +56,7 @@ function create(store, option) {
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
 
-      option.computed && compute(option.computed, store, using)
+      option.computed && compute(option.computed, store, using, this)
       this.setData(using)
 
       onLoad && onLoad.call(this, e)
@@ -75,7 +75,7 @@ function create(store, option) {
       this.setData(store.data)
       const using = getUsing(this.store.data, store.use)
 
-      store.computed && compute(store.computed, this.store, using)
+      store.computed && compute(store.computed, this.store, using, this)
       this.setData(using)
 
       this.store.instances[page.route].push(this)
@@ -85,9 +85,9 @@ function create(store, option) {
   }
 }
 
-function compute(computed, store, using) {
+function compute(computed, store, using, scope) {
   for (let key in computed) {
-    using[key] = computed[key].call(store.data)
+    using[key] = computed[key].call(store.data, scope)
   }
 }
 
@@ -133,7 +133,7 @@ function _update(kv, store) {
 
         const using = getUsing(store.data, ins.__use)
 
-        compute(ins.computed, store, using)
+        compute(ins.computed, store, using, ins)
         ins.setData(using)
 
 
