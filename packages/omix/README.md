@@ -30,8 +30,13 @@ OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 di
 npx omi-cli init-x my-app
 ```
 
-然后把小程序工作目录设置到 my-app 就可以开始愉快地使用 OMIX 了。
+如果你习惯使用 TypeScript，可以使用 TypeScript 的模板：
 
+```
+npx omi-cli init-x-ts my-app
+```
+
+然后把小程序工作目录设置到 my-app 就可以开始愉快地使用 OMIX 了。
 
 ## 快速入门 
 
