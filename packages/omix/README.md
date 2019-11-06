@@ -898,6 +898,28 @@ create(store, {
 
 注意，data 和 computed 的属性不需要 $ 前缀。
 
+计算属性访问 data:
+
+```js
+create(store, {
+  use: [
+    'motto',
+    'userInfo',
+    'hasUserInfo',
+    'canIUse'
+  ],
+  computed: {
+    reverseMotto(scope) {
+      //看这里，通过 scope
+      console.log(scope.data)
+      return this.motto.split('').reverse().join('')
+    }
+  },
+  data: {
+    name: 'omix'
+  },
+```
+
 ## License
 
 MIT © Tencent
