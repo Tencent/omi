@@ -4,60 +4,50 @@ import options from './options'
 const storeHelpers = ['use', 'useSelf']
 
 export function define(name, ctor, config) {
-	if (options.mapping[name]) {
-		return
-	}
-	if (ctor.is === 'WeElement') {
-		customElements.define(name, ctor)
-		options.mapping[name] = ctor
+  if (options.mapping[name]) {
+    return
+  }
+  if (ctor.is === 'WeElement') {
+    customElements.define(name, ctor)
+    options.mapping[name] = ctor
+  } else {
+    if (typeof config === 'string') {
+      config = { css: config }
+    } else {
+      config = config || {}
+    }
 
-	} else {
+    class Ele extends WeElement {
+      static css = config.css
 
-		if (typeof config === 'string') {
-			config = { css: config }
-		} else {
-			config = config || {}
-		}
+      static propTypes = config.propTypes
 
-		class Ele extends WeElement {
+      static defaultProps = config.defaultProps
 
-			static css = config.css
+      compute = config.compute
 
-			static propTypes = config.propTypes
+      render() {
+        return ctor.call(this, this)
+      }
+    }
 
-			static defaultProps = config.defaultProps
+    for (let key in config) {
+      if (typeof config[key] === 'function') {
+        Ele.prototype[key] = function() {
+          return config[key].apply(this, arguments)
+        }
+      }
+    }
 
-			compute = config.compute
+    storeHelpers.forEach(func => {
+      if (config[func] && config[func] !== 'function') {
+        Ele.prototype[func] = function() {
+          return config[func]
+        }
+      }
+    })
 
-			render() {
-				return ctor.call(this, this)
-			}
-
-		}
-
-
-		for (let key in config) {
-			if (typeof config[key] === 'function') {
-				Ele.prototype[key] = function () {
-					return config[key].apply(this, arguments)
-				}
-			}
-		}
-
-
-
-		storeHelpers.forEach(func => {
-			if (config[func] && config[func] !== 'function') {
-				Ele.prototype[func] = function () {
-					return config[func]
-				}
-			}
-		})
-
-		customElements.define(name, Ele)
-		options.mapping[name] = Ele
-	}
+    customElements.define(name, Ele)
+    options.mapping[name] = Ele
+  }
 }
-
-
-

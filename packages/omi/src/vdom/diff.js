@@ -33,7 +33,7 @@ export function diff(dom, vnode, parent, component, updateSelf) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
-  if(vnode.nodeName === Fragment){
+  if (vnode.nodeName === Fragment) {
     vnode = vnode.children
   }
   if (isArray(vnode)) {
@@ -45,7 +45,9 @@ export function diff(dom, vnode, parent, component, updateSelf) {
       innerDiffNode(parent, vnode, hydrating, component, updateSelf)
 
       for (let i = styles.length - 1; i >= 0; i--) {
-        parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i])
+        parent.firstChild
+          ? parent.insertBefore(styles[i], parent.firstChild)
+          : parent.appendChild(style[i])
       }
     } else {
       ret = []
@@ -133,8 +135,8 @@ function idiff(dom, vnode, component, updateSelf) {
     vnodeName === 'svg'
       ? true
       : vnodeName === 'foreignObject'
-        ? false
-        : isSvgMode
+      ? false
+      : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
@@ -159,7 +161,7 @@ function idiff(dom, vnode, component, updateSelf) {
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--;)
+    for (let a = out.attributes, i = a.length; i--; )
       props[a[i].name] = a[i].value
   }
 
@@ -358,7 +360,14 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
-      setAccessor(dom, name, old[name], (old[name] = undefined), isSvgMode, component)
+      setAccessor(
+        dom,
+        name,
+        old[name],
+        (old[name] = undefined),
+        isSvgMode,
+        component
+      )
       if (isWeElement) {
         delete dom.props[name]
         //update = true
@@ -370,7 +379,14 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   for (name in attrs) {
     if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
-        setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode, component)
+        setAccessor(
+          dom,
+          name,
+          old[name],
+          (old[name] = attrs[name]),
+          isSvgMode,
+          component
+        )
       }
       let ccName = camelCase(name)
       dom.props[ccName] = old[ccName] = attrs[name]
@@ -379,12 +395,12 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       name !== 'children' &&
       (!(name in old) ||
         attrs[name] !==
-        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
       if (isWeElement) {
         let ccName = camelCase(name)
-        dom.props[ccName] = old[ccName]  = attrs[name]
+        dom.props[ccName] = old[ccName] = attrs[name]
         //update = true
       } else {
         old[name] = attrs[name]
@@ -395,9 +411,9 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   if (isWeElement && !updateSelf && dom.parentNode) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
-      if (dom.receiveProps(dom.props, oldClone) !== false) {
-        dom.update()
-      }
+    if (dom.receiveProps(dom.props, oldClone) !== false) {
+      dom.update()
+    }
     //}
   }
 }
