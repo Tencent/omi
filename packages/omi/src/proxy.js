@@ -11,12 +11,12 @@ const JSONPatcherProxy = (function() {
    */
   function deepClone(obj) {
     switch (typeof obj) {
-    case 'object':
-      return JSON.parse(JSON.stringify(obj)) //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
-    case 'undefined':
-      return null //this is how JSON.stringify behaves for array items
-    default:
-      return obj //no need to clone primitives
+      case 'object':
+        return JSON.parse(JSON.stringify(obj)) //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
+      case 'undefined':
+        return null //this is how JSON.stringify behaves for array items
+      default:
+        return obj //no need to clone primitives
     }
   }
   JSONPatcherProxy.deepClone = deepClone

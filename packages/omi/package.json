@@ -147,5 +147,8 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
+  },
+  "dependencies": {
+    "husky": "^3.0.9"
   }
 }

@@ -1,7 +1,7 @@
 import { IS_NON_DIMENSIONAL } from '../constants'
 import { applyRef } from '../util'
 import options from '../options'
-import { extension } from  '../extend'
+import { extension } from '../extend'
 
 /**
  * Create an element with the given nodeName.
@@ -43,8 +43,8 @@ export function removeNode(node) {
 export function setAccessor(node, name, old, value, isSvg, component) {
   if (name === 'className') name = 'class'
 
-  if (name[0] == 'o' && name[1] == '-'){
-    if(extension[name]){
+  if (name[0] == 'o' && name[1] == '-') {
+    if (extension[name]) {
       extension[name](node, value, component)
     }
   } else if (name === 'key') {
@@ -73,8 +73,8 @@ export function setAccessor(node, name, old, value, isSvg, component) {
     if (value) node.innerHTML = value.__html || ''
   } else if (name[0] == 'o' && name[1] == 'n') {
     let useCapture = name !== (name = name.replace(/Capture$/, ''))
-		let nameLower = name.toLowerCase()
-		name = (nameLower in node ? nameLower : name).slice(2)
+    let nameLower = name.toLowerCase()
+    name = (nameLower in node ? nameLower : name).slice(2)
     if (value) {
       if (!old) {
         node.addEventListener(name, eventProxy, useCapture)
@@ -91,16 +91,26 @@ export function setAccessor(node, name, old, value, isSvg, component) {
       }
     }
     ;(node._listeners || (node._listeners = {}))[name] = value
-  } else if (node.nodeName === 'INPUT' && name === 'value'){
+  } else if (node.nodeName === 'INPUT' && name === 'value') {
     node[name] = value == null ? '' : value
-  } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') { //value !== '' fix for selected, disabled, checked with pure element
+  } else if (
+    name !== 'list' &&
+    name !== 'type' &&
+    name !== 'css' &&
+    !isSvg &&
+    name in node &&
+    value !== ''
+  ) {
+    //value !== '' fix for selected, disabled, checked with pure element
     // Attempt to set a DOM property to the given value.
     // IE & FF throw for certain property-value combinations.
     try {
       node[name] = value == null ? '' : value
     } catch (e) {}
     if ((value == null || value === false) && name != 'spellcheck')
-      node.pureRemoveAttribute ? node.pureRemoveAttribute(name) :  node.removeAttribute(name)
+      node.pureRemoveAttribute
+        ? node.pureRemoveAttribute(name)
+        : node.removeAttribute(name)
   } else {
     let ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''))
     // spellcheck is treated differently than all other boolean values and
@@ -112,7 +122,10 @@ export function setAccessor(node, name, old, value, isSvg, component) {
           'http://www.w3.org/1999/xlink',
           name.toLowerCase()
         )
-      else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) :  node.removeAttribute(name)
+      else
+        node.pureRemoveAttribute
+          ? node.pureRemoveAttribute(name)
+          : node.removeAttribute(name)
     } else if (typeof value !== 'function') {
       if (ns) {
         node.setAttributeNS(
@@ -121,7 +134,9 @@ export function setAccessor(node, name, old, value, isSvg, component) {
           value
         )
       } else {
-        node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value)
+        node.pureSetAttribute
+          ? node.pureSetAttribute(name, value)
+          : node.setAttribute(name, value)
       }
     }
   }

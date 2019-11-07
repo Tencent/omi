@@ -14,7 +14,7 @@
  * this.constructor so that the native HTMLElement constructor can access the
  * current under-construction element's definition.
  */
-; (function () {
+;(function() {
   if (
     // No Reflect, no classes, no need for shim because native custom elements
     // require ES2015 classes or Reflect.
@@ -82,7 +82,6 @@ export function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]'
 }
 
-
 export function getUse(data, paths, out, name) {
   const obj = []
   paths.forEach((path, index) => {
@@ -101,7 +100,7 @@ export function getUse(data, paths, out, name) {
           obj[index] = value[1] ? value[1](tempVal) : tempVal
         } else {
           const args = []
-          tempPath.forEach(path =>{
+          tempPath.forEach(path => {
             args.push(getTargetByPath(data, path))
           })
           obj[index] = value[1].apply(null, args)
@@ -109,15 +108,18 @@ export function getUse(data, paths, out, name) {
       }
       obj[key] = obj[index]
     }
-	})
-	if(out) out[name] = obj
+  })
+  if (out) out[name] = obj
   return obj
 }
 
 export function pathToArr(path) {
-	if(typeof path !== 'string' || !path) return []
-	// return path.split(/\.|\[|\]/).filter(name => !!name)
-	return path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+  if (typeof path !== 'string' || !path) return []
+  // return path.split(/\.|\[|\]/).filter(name => !!name)
+  return path
+    .replace(/]/g, '')
+    .replace(/\[/g, '.')
+    .split('.')
 }
 
 export function getTargetByPath(origin, path) {
@@ -135,37 +137,37 @@ export function hyphenate(str) {
 }
 
 export function getValByPath(path, current) {
-	const arr = pathToArr(path)
-	arr.forEach(prop => {
-		current = current[prop]
-	})
-	return current
+  const arr = pathToArr(path)
+  arr.forEach(prop => {
+    current = current[prop]
+  })
+  return current
 }
 
 export function getPath(obj, out, name) {
-	const result = {}
-	obj.forEach(item => {
-		if (typeof item === 'string') {
-			result[item] = true
-		} else {
-			const tempPath = item[Object.keys(item)[0]]
-			if (typeof tempPath === 'string') {
-				result[tempPath] = true
-			} else {
-				if (typeof tempPath[0] === 'string') {
-					result[tempPath[0]] = true
-				} else {
-					tempPath[0].forEach(path => (result[path] = true))
-				}
-			}
-		}
-	})
-	if(out) out[name] = result
-	return result
+  const result = {}
+  obj.forEach(item => {
+    if (typeof item === 'string') {
+      result[item] = true
+    } else {
+      const tempPath = item[Object.keys(item)[0]]
+      if (typeof tempPath === 'string') {
+        result[tempPath] = true
+      } else {
+        if (typeof tempPath[0] === 'string') {
+          result[tempPath[0]] = true
+        } else {
+          tempPath[0].forEach(path => (result[path] = true))
+        }
+      }
+    }
+  })
+  if (out) out[name] = result
+  return result
 }
 
-export function removeItem(item, arr){
-  if(!arr) return
+export function removeItem(item, arr) {
+  if (!arr) return
   for (let i = 0, len = arr.length; i < len; i++) {
     if (arr[i] === item) {
       arr.splice(i, 1)
