@@ -1,5 +1,5 @@
 /*!
- *  omix v2.3.1 by dntzhang
+ *  omix v2.3.2 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -192,7 +192,9 @@ function create(store: any | ComponentOption, option?: PageOption) {
     }
 
     const hasData = typeof option.data !== 'undefined'
+    let clone
     if (option.data) {
+      clone = JSON.parse(JSON.stringify(option.data))
       option.data.$ = store.data
     } else {
       option.data = store.data
@@ -206,6 +208,9 @@ function create(store: any | ComponentOption, option?: PageOption) {
       option.use && (this.__updatePath = getPath(option.use))
       this.__use = option.use
       this.__hasData = hasData
+      if(hasData){
+        Object.assign(option.data, JSON.parse(JSON.stringify(clone)))
+      }
       store.instances[this.route] = []
       store.instances[this.route].push(this)
       this.computed = option.computed
