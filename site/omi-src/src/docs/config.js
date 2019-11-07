@@ -26,12 +26,12 @@ const config = {
       {
         title: '其他',
         list: [
-          { name: 'Omim', md: 'omim' },
+          { name: 'Omim', md: 'omim' },,
+          { name: 'Kbone 多端开发', md: 'kbone' },
           { name: '路由', md: 'router' },
           { name: '服务端渲染', md: 'ssr' },
           { name: '生态与例子', md: 'other' },
-          { name: 'Mps', md: 'mps' },
-          { name: 'Omip 多端开发', md: 'omip' }
+          { name: 'Mps', md: 'mps' }
         ]
       }
     ],
