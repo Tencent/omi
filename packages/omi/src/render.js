@@ -23,7 +23,7 @@ export function render(vnode, parent, store) {
 function observeStore(store, key) {
 	store.instances = []
 	store.updateSelfInstances = []
-	extendStoreUpate(store, key)
+	extendStoreUpdate(store, key)
 
 	store.data = new JSONProxy(store.data).observe(false, function (patch) {
 		const patchs = {}
@@ -48,7 +48,7 @@ function update(patch, store) {
 	store.update(patch)
 }
 
-function extendStoreUpate(store, key) {
+function extendStoreUpdate(store, key) {
 	store.update = function (patch) {
 		if (Object.keys(patch).length > 0) {
 			this.instances.forEach(instance => {
