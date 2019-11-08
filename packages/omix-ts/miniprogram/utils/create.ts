@@ -284,8 +284,10 @@ function _update(kv, store) {
       if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
         if (ins.__hasData) {
           for (let pk in kv) {
-            kv['$.' + pk] = kv[pk]
-            delete kv[pk]
+            if (!/\$\./.test(pk)) {
+              kv['$.' + pk] = kv[pk]
+              delete kv[pk]
+            }
           }
           ins.setData.call(ins, kv)
         } else {

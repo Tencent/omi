@@ -128,7 +128,7 @@ function _update(kv, store) {
       if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
         if (ins.__hasData) {
           for (let pk in kv) {
-            if (!/\$./.test(pk)) {
+            if (!/\$\./.test(pk)) {
               kv['$.' + pk] = kv[pk]
               delete kv[pk]
             }
