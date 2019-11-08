@@ -54,7 +54,7 @@ Store injection:
 
 ```jsx
 import { render } from 'omiv'
-import App from 'App.vue'
+import App from './App.vue'
 
 const store = new class {
   data = {
