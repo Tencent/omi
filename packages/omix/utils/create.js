@@ -1,5 +1,5 @@
 /*!
- *  omix v2.3.2 by dntzhang
+ *  omix v2.3.3 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -14,7 +14,7 @@ function create(store, option) {
       store.instances = {}
     }
 
-    if(!store.__changes_){
+    if (!store.__changes_) {
       store.__changes_ = []
     }
 
@@ -52,7 +52,7 @@ function create(store, option) {
       option.use && (this.__updatePath = getPath(option.use))
       this.__use = option.use
       this.__hasData = hasData
-      if(hasData){
+      if (hasData) {
         Object.assign(option.data, JSON.parse(JSON.stringify(clone)))
       }
       store.instances[this.route] = []
@@ -115,7 +115,7 @@ function observeStore(store) {
 
   })
 
-  if(!store.set) {
+  if (!store.set) {
     store.set = function (obj, prop, val) {
       obaa.set(obj, prop, val, oba)
     }
@@ -127,13 +127,14 @@ function _update(kv, store) {
     store.instances[key].forEach(ins => {
       if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
         if (ins.__hasData) {
-          for (let pk in kv) {
+          const patch = Object.assign({}, kv)
+          for (let pk in patch) {
             if (!/\$\./.test(pk)) {
-              kv['$.' + pk] = kv[pk]
-              delete kv[pk]
+              patch['$.' + pk] = kv[pk]
+              delete patch[pk]
             }
           }
-          ins.setData.call(ins, kv)
+          ins.setData.call(ins, patch)
         } else {
           ins.setData.call(ins, kv)
         }

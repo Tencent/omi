@@ -2,7 +2,7 @@ import create from '../../utils/create'
 
 
 create({
-  use: ['logs'],
+  use: ['logs', 'motto'],
   computed: {
     logsLength() {
       return this.logs.length
