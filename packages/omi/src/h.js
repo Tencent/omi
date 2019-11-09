@@ -40,11 +40,7 @@ export function h(nodeName, attributes) {
     }
   }
 
-  let p = new VNode()
-  p.nodeName = nodeName
-  p.children = children
-  p.attributes = attributes == null ? undefined : attributes
-  p.key = attributes == null ? undefined : attributes.key
+  const p = new VNode(nodeName, attributes, children)
 
   // if a "vnode hook" is defined, pass every created VNode to it
   if (options.vnode !== undefined) options.vnode(p)
