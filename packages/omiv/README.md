@@ -4,7 +4,15 @@
 
 ## Usage 
 
-```jsx
+```html
+<template>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue + Omiv App" />
+  </div>
+</template>
+
+<script>
 import { $ } from 'omiv'
 import HelloWorld from './components/HelloWorld.vue'
 
@@ -13,6 +21,7 @@ export default $({
     HelloWorld
   }
 })
+</script>
 ```
 
 HelloWrold.vue:
@@ -45,7 +54,7 @@ Store injection:
 
 ```jsx
 import { render } from 'omiv'
-import App from 'App.vue'
+import App from './App.vue'
 
 const store = new class {
   data = {
