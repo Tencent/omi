@@ -8,10 +8,18 @@ define('my-app', class extends WeElement {
     y: 10
   }
 
-  onTick = () => {
-    this.cubeRotation.x += 0.01;
-    this.cubeRotation.y += 0.01;
-    //this.update()
+
+
+  installed() {
+
+    setInterval(() => {
+      this.cubeRotation.x += 0.01;
+      this.cubeRotation.y += 0.01;
+      this.ot.update()
+    }, 16)
+
+
+
   }
 
   render() {
@@ -19,7 +27,7 @@ define('my-app', class extends WeElement {
       <div>
         <h1>Omi-Three</h1>
         <omi-three
-          onTick={this.onTick}
+          ref={_ => this.ot = _}
           width={window.innerWidth}
           height={window.innerHeight} >
           <perspective-camera

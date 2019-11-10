@@ -4,40 +4,47 @@
 
 ```jsx
 import { render, define, WeElement } from 'omi'
-import 'omi-three'
-import omiUrl from './omi.jpg'
+import '../../src/index.js'
 
 define('my-app', class extends WeElement {
 
-  data = {
-    scale: 0.5
+  cubeRotation = {
+    x: 10,
+    y: 10
   }
 
-  onClick = (evt) => {
-    this.data.scale = 0.5 + Math.random() * 0.1
+  installed() {
+    setInterval(() => {
+      this.cubeRotation.x += 0.01;
+      this.cubeRotation.y += 0.01;
+      this.ot.update()
+    }, 16)
   }
 
   render() {
     return (
       <div>
         <h1>Omi-Three</h1>
-        <omi-three width={400} height={400} css='border: 1px solid #ccc;'>
+        <omi-three
+          ref={_ => this.ot = _}
+          width={window.innerWidth}
+          height={window.innerHeight} >
+          <perspective-camera
+            id="camera"
+            fov="75"
+            aspect=":aspect"
+            near="0.1"
+            far="1000"
+            z="5">
+          </perspective-camera>
           <group alpha={0.5} y={270}>
-            <perspective-camera
-              id="camera"
-              fov="75"  
-              aspect=":aspect"
-              near="0.1"  
-              far="1000"
-              z="5">
-            </perspective-camera>
-            <mesh id="cube">
-              <box-geometry 
-                width="1" 
-                height="1" 
+            <mesh rotation={this.cubeRotation} id="cube">
+              <box-geometry
+                width="1"
+                height="1"
                 depth="1">
               </box-geometry >
-              <base-material 
+              <base-material
                 color="0x00ff00">
               </base-material>
             </mesh>

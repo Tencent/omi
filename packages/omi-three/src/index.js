@@ -12,12 +12,8 @@ define('omi-three', class extends WeElement {
       canvas: this.canvas
     })
     this.renderer.setSize(window.innerWidth, window.innerHeight)
-    this._objectPool = new ObjectPool()
-    this.threeRender( this.props.children, this.scene, this._objectPool)
-  }
-
-  updated() {
-    this.threeUpdate(this.props.children, this.scene)
+    this.pool = new ObjectPool()
+    this.threeRender()
   }
 
   render(props) {
@@ -31,25 +27,21 @@ define('omi-three', class extends WeElement {
     )
   }
 
-  threeRender(children, scene, pool) {
-    children.forEach(child => {
-      const obj = pool.getObj(child.nodeName, child, scene)
-      obj && scene.add(obj)
+  threeRender() {
+    this.props.children.forEach(child => {
+      const obj = this.pool.getObj(child.nodeName, child, this.scene)
+      obj && this.scene.add(obj)
     })
 
-    this.animate()
+    this.renderer.render(this.scene, this.scene.camera)
+
   }
 
-  animate(){
-    this.fire('Tick')
-    requestAnimationFrame( _=>this.animate() );
-    this.renderer.render( this.scene, this.scene.camera );
-  }
 
-  threeUpdate(children, scene) {
+  update() {
     //this.scene.empty()
-    this._objectPool.reset()
-    this.threeRender(children, scene, this._objectPool)
+    this.pool.reset()
+    this.threeRender(this.props.children, this.scene, this.pool)
   }
 
 })

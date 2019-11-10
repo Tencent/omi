@@ -5249,16 +5249,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.cubeRotation = {
       x: 10,
       y: 10
-    }, _this.onTick = function () {
-      _this.cubeRotation.x += 0.01;
-      _this.cubeRotation.y += 0.01;
-      //this.update()
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(_class2, [{
+    key: 'installed',
+    value: function installed() {
+      var _this2 = this;
+
+      setInterval(function () {
+        _this2.cubeRotation.x += 0.01;
+        _this2.cubeRotation.y += 0.01;
+        _this2.ot.update();
+      }, 16);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       return Omi.h(
         'div',
         null,
@@ -5270,7 +5279,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         Omi.h(
           'omi-three',
           {
-            onTick: this.onTick,
+            ref: function ref(_) {
+              return _this3.ot = _;
+            },
             width: window.innerWidth,
             height: window.innerHeight },
           Omi.h('perspective-camera', {
@@ -5381,13 +5392,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         canvas: this.canvas
       });
       this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this._objectPool = new _objectPool2['default']();
-      this.threeRender(this.props.children, this.scene, this._objectPool);
-    }
-  }, {
-    key: 'updated',
-    value: function updated() {
-      this.threeUpdate(this.props.children, this.scene);
+      this.pool = new _objectPool2['default']();
+      this.threeRender();
     }
   }, {
     key: 'render',
@@ -5404,31 +5410,22 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }, {
     key: 'threeRender',
-    value: function threeRender(children, scene, pool) {
-      children.forEach(function (child) {
-        var obj = pool.getObj(child.nodeName, child, scene);
-        obj && scene.add(obj);
-      });
-
-      this.animate();
-    }
-  }, {
-    key: 'animate',
-    value: function animate() {
+    value: function threeRender() {
       var _this3 = this;
 
-      this.fire('Tick');
-      requestAnimationFrame(function (_) {
-        return _this3.animate();
+      this.props.children.forEach(function (child) {
+        var obj = _this3.pool.getObj(child.nodeName, child, _this3.scene);
+        obj && _this3.scene.add(obj);
       });
+
       this.renderer.render(this.scene, this.scene.camera);
     }
   }, {
-    key: 'threeUpdate',
-    value: function threeUpdate(children, scene) {
+    key: 'update',
+    value: function update() {
       //this.scene.empty()
-      this._objectPool.reset();
-      this.threeRender(children, scene, this._objectPool);
+      this.pool.reset();
+      this.threeRender(this.props.children, this.scene, this.pool);
     }
   }]);
 
@@ -5515,6 +5512,15 @@ var ObjectPool = function () {
             var _obj = this.groupList[0];
             reset(_obj);
             mix(attr, _obj);
+
+            _obj.children.forEach(function (child) {
+              _obj.remove(child);
+            });
+
+            vnode.children.forEach(function (child) {
+              _obj.add(_this2.getObj(child.nodeName, child, scene));
+            });
+
             return _obj;
           } else {
             var group = new THREE.Group();
@@ -5531,7 +5537,6 @@ var ObjectPool = function () {
           var geometry = new THREE.BoxGeometry(1, 1, 1);
           var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
           var mesh = new THREE.Mesh(geometry, material);
-          console.log(attr.rotation);
           Object.assign(mesh.rotation, attr.rotation);
           this.usingMesh.push(mesh);
 
@@ -5580,7 +5585,6 @@ function reset(obj) {
 
 function mix(attr, obj) {
   if (!attr) return;
-  console.log(attr, obj);
   caxProps.forEach(function (prop) {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop];

@@ -50,6 +50,15 @@ export default class ObjectPool {
           const obj = this.groupList[0]
           reset(obj)
           mix(attr, obj)
+
+          obj.children.forEach(child => {
+            obj.remove(child)
+          })
+
+          vnode.children.forEach(child => {
+            obj.add(this.getObj(child.nodeName, child, scene))
+          })
+
           return obj
         } else {
           const group = new THREE.Group()
@@ -66,7 +75,6 @@ export default class ObjectPool {
         var geometry = new THREE.BoxGeometry(1, 1, 1);
         var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const mesh = new THREE.Mesh(geometry, material)
-        console.log(attr.rotation)
         Object.assign(mesh.rotation, attr.rotation)
         this.usingMesh.push(mesh)
 
@@ -112,7 +120,6 @@ function reset(obj) {
 
 function mix(attr, obj) {
   if (!attr) return
-  console.log(attr,obj)
   caxProps.forEach(prop => {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop]
