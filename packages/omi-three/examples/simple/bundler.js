@@ -5226,7 +5226,7 @@ var _omi = __webpack_require__(0);
 
 __webpack_require__(4);
 
-var _logo = __webpack_require__(7);
+var _logo = __webpack_require__(6);
 
 var _logo2 = _interopRequireDefault(_logo);
 
@@ -5707,8 +5707,7 @@ function mix(attr, obj) {
 // }
 
 /***/ }),
-/* 6 */,
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "54cac84c60ede7b5aa3010e8b7489a7e.png";
