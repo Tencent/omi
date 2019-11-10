@@ -4,21 +4,13 @@
 
 ```jsx
 import { render, define, WeElement } from 'omi'
-import 'omi-canvas'
+import 'omi-three'
 import omiUrl from './omi.jpg'
 
 define('my-app', class extends WeElement {
-  static observe = true
 
   data = {
     scale: 0.5
-  }
-
-  css() {
-    return `
-        div{
-          text-align: center;
-        }`
   }
 
   onClick = (evt) => {
@@ -48,7 +40,7 @@ define('my-app', class extends WeElement {
               <base-material 
                 color="0x00ff00">
               </base-material>
-            <mesh>
+            </mesh>
           </group>
         </omi-three>
       </div>

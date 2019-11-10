@@ -1,11 +1,11 @@
-import THREE from 'three'
+import * as THREE from 'three'
 
 const caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow']
 
 export default class ObjectPool {
   constructor() {
     this.textList = []
-    this.bitmapList = []
+    this.usingMesh = []
     this.testListUsing = []
     this.bitmapListUsing = []
 
@@ -25,7 +25,7 @@ export default class ObjectPool {
     })
   }
 
-  getObj(type, vnode, stage) {
+  getObj(type, vnode, scene) {
     const attr = vnode.attributes
     switch (type) {
       case 'text':
@@ -52,36 +52,32 @@ export default class ObjectPool {
           mix(attr, obj)
           return obj
         } else {
-          const group = new Three.Group()
+          const group = new THREE.Group()
           mix(attr, group)
           this.groupListUsing.push(group)
-          vnode.children.forEach(child =>{
-            group.add(this.getObj(child.nodeName,child,stage))
+          vnode.children.forEach(child => {
+            group.add(this.getObj(child.nodeName, child, scene))
           })
           return group
         }
 
-      case 'bitmap':
-        if (this.bitmapList.length > 0) {
-          const obj = this.bitmapList[0]
-          reset(obj)
-          mix(attr, obj)
-          return obj
-        } else {
-          const bitmap = new cax.Bitmap(attr.src, () => {
-            stage.update()
-          })
+      case 'mesh':
 
-          mix(attr, bitmap)
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const mesh = new THREE.Mesh(geometry, material)
 
-          this.bitmapListUsing.push(bitmap)
 
-          return bitmap
-        }
+        this.usingMesh.push(mesh)
 
+        return mesh
+      case 'perspective-camera':
+        scene.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        scene.camera.position.z = 5;
+        return null
     }
-
   }
+
 
   add(type) {
     switch (type) {
@@ -113,7 +109,7 @@ function reset(obj) {
 
 
 function mix(attr, obj) {
-  if(!attr) return
+  if (!attr) return
   caxProps.forEach(prop => {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop]

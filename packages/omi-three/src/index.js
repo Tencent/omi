@@ -1,22 +1,26 @@
 import { WeElement, define } from 'omi'
-import THREE from 'three'
+import * as THREE from 'three'
 import ObjectPool from './object-pool'
 
-
-define('omi-canvas', class extends WeElement {
+define('omi-three', class extends WeElement {
 
   install() {
 
   }
 
   installed() {
-    this.stage = new THREE.Scene(this.canvas)
+
+    this.scene = new THREE.Scene()
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas
+    })
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
     this._objectPool = new ObjectPool()
-    render(this.props.children, this.stage, this._objectPool)
+    render(this.renderer, this.props.children, this.scene, this._objectPool)
   }
 
   updated() {
-    update(this.props.children, this.stage, this._objectPool)
+    update(this.props.children, this.scene, this._objectPool)
   }
 
   render(props) {
@@ -32,16 +36,34 @@ define('omi-canvas', class extends WeElement {
 })
 
 
-function render(children, stage, pool) {
+function render(renderer, children, scene, pool) {
   children.forEach(child => {
-    stage.add(pool.getObj(child.nodeName, child, stage))
+    const obj = pool.getObj(child.nodeName, child, scene)
+    console.log(obj)
+    obj && scene.add(obj)
   })
-  stage.update()
+
+
+  //renderer.render(scene, scene.camera);
+
+  animate(renderer, scene, scene.camera)
 }
 
+const animate = function (renderer, scene, camera) {
 
-function update(children, stage, pool) {
-  stage.empty()
+  requestAnimationFrame( ()=>{
+    animate(renderer, scene, camera)
+  } );
+
+
+
+  renderer.render( scene, camera );
+};
+
+
+
+function update(children, scene, pool) {
+  scene.empty()
   pool.reset()
-  render(children, stage, pool)
+  render(children, scene, pool)
 }
