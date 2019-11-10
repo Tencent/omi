@@ -5285,7 +5285,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             width: window.innerWidth,
             height: window.innerHeight },
           Omi.h('perspective-camera', {
-            id: 'camera',
             fov: '75',
             aspect: ':aspect',
             near: '0.1',
@@ -5296,13 +5295,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             { alpha: 0.5, y: 270 },
             Omi.h(
               'mesh',
-              { rotation: this.cubeRotation, id: 'cube' },
+              { rotation: this.cubeRotation },
               Omi.h('box-geometry', {
-                width: '1',
-                height: '1',
-                depth: '1' }),
+                width: 1,
+                height: 1,
+                depth: 1 }),
               Omi.h('base-material', {
-                color: '0x00ff00' })
+                color: 0x00ff00 })
             )
           )
         )
@@ -5460,12 +5459,19 @@ var ObjectPool = function () {
     _classCallCheck(this, ObjectPool);
 
     this.textList = [];
-    this.usingMesh = [];
     this.testListUsing = [];
-    this.bitmapListUsing = [];
+
+    this.meshList = [];
+    this.meshListUsing = [];
 
     this.groupList = [];
     this.groupListUsing = [];
+
+    this.boxGeometryList = [];
+    this.boxGeometryListUsing = [];
+
+    this.meshBasicMaterialList = [];
+    this.meshBasicMaterialListUsing = [];
   }
 
   _createClass(ObjectPool, [{
@@ -5476,11 +5482,17 @@ var ObjectPool = function () {
       this.testListUsing.forEach(function (item) {
         _this.textList.push(item);
       });
-      this.bitmapListUsing.forEach(function (item) {
-        _this.bitmapList.push(item);
-      });
+
       this.groupListUsing.forEach(function (item) {
         _this.groupList.push(item);
+      });
+
+      this.boxGeometryListUsing.forEach(function (item) {
+        _this.boxGeometryList.push(item);
+      });
+
+      this.meshBasicMaterialListUsing.forEach(function (item) {
+        _this.meshBasicMaterialList.push(item);
       });
     }
   }, {
@@ -5492,10 +5504,10 @@ var ObjectPool = function () {
       switch (type) {
         case 'text':
           if (this.textList.length > 0) {
-            var obj = this.textList[0];
-            reset(obj);
-            mix(attr, obj);
-            return obj;
+            var _obj = this.textList[0];
+            reset(_obj);
+            mix(attr, _obj);
+            return _obj;
           } else {
             //https://github.com/dntzhang/cax/blob/master/packages/cax/src/render/display/text.js
             var text = new cax.Text(attr.text, {
@@ -5509,19 +5521,19 @@ var ObjectPool = function () {
           }
         case 'group':
           if (this.groupList.length > 0) {
-            var _obj = this.groupList[0];
-            reset(_obj);
-            mix(attr, _obj);
+            var _obj2 = this.groupList[0];
+            reset(_obj2);
+            mix(attr, _obj2);
 
-            _obj.children.forEach(function (child) {
-              _obj.remove(child);
+            _obj2.children.forEach(function (child) {
+              _obj2.remove(child);
             });
 
             vnode.children.forEach(function (child) {
-              _obj.add(_this2.getObj(child.nodeName, child, scene));
+              _obj2.add(_this2.getObj(child.nodeName, child, scene));
             });
 
-            return _obj;
+            return _obj2;
           } else {
             var group = new THREE.Group();
             mix(attr, group);
@@ -5531,14 +5543,48 @@ var ObjectPool = function () {
             });
             return group;
           }
+        case 'box-geometry':
+
+          var obj = this.boxGeometryList.find(function (item) {
+            return item.width === vnode.attributes.width && item.height === vnode.attributes.height && item.depth === vnode.attributes.depth;
+          });
+          if (!obj) {
+            obj = new THREE.BoxGeometry(vnode.attributes.width, vnode.attributes.height, vnode.attributes.depth);
+            this.boxGeometryList.push(obj);
+          }
+          return obj;
+
+        case 'base-material':
+          var bm = void 0;
+          if (this.meshBasicMaterialList.length > 0) {
+            bm = this.meshBasicMaterialList[0];
+            bm.color = new THREE.Color(vnode.attributes.color);
+          } else {
+            bm = new THREE.MeshBasicMaterial({ color: vnode.attributes.color });
+            this.meshBasicMaterialList.push(bm);
+          }
+
+          return bm;
 
         case 'mesh':
 
-          var geometry = new THREE.BoxGeometry(1, 1, 1);
-          var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-          var mesh = new THREE.Mesh(geometry, material);
+          var g = void 0,
+              m = void 0;
+          vnode.children.forEach(function (child) {
+            switch (child.nodeName) {
+
+              case 'box-geometry':
+                g = _this2.getObj(child.nodeName, child, scene);
+                break;
+              case 'base-material':
+
+                m = _this2.getObj(child.nodeName, child, scene);
+                break;
+            }
+          });
+          var mesh = new THREE.Mesh(g, m);
           Object.assign(mesh.rotation, attr.rotation);
-          this.usingMesh.push(mesh);
+          this.meshList.push(mesh);
 
           return mesh;
         case 'perspective-camera':

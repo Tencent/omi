@@ -5,23 +5,37 @@ const caxProps = ['rotation']
 export default class ObjectPool {
   constructor() {
     this.textList = []
-    this.usingMesh = []
     this.testListUsing = []
-    this.bitmapListUsing = []
+
+
+    this.meshList = []
+    this.meshListUsing = []
 
     this.groupList = []
     this.groupListUsing = []
+
+    this.boxGeometryList = []
+    this.boxGeometryListUsing = []
+
+    this.meshBasicMaterialList = []
+    this.meshBasicMaterialListUsing = []
   }
 
   reset() {
     this.testListUsing.forEach(item => {
       this.textList.push(item)
     })
-    this.bitmapListUsing.forEach(item => {
-      this.bitmapList.push(item)
-    })
+
     this.groupListUsing.forEach(item => {
       this.groupList.push(item)
+    })
+
+    this.boxGeometryListUsing.forEach(item => {
+      this.boxGeometryList.push(item)
+    })
+
+    this.meshBasicMaterialListUsing.forEach(item => {
+      this.meshBasicMaterialList.push(item)
     })
   }
 
@@ -69,14 +83,50 @@ export default class ObjectPool {
           })
           return group
         }
+      case 'box-geometry':
+
+
+        let obj = this.boxGeometryList.find(item => item.width === vnode.attributes.width &&
+          item.height === vnode.attributes.height
+          && item.depth === vnode.attributes.depth
+        )
+        if (!obj) {
+          obj = new THREE.BoxGeometry(vnode.attributes.width, vnode.attributes.height, vnode.attributes.depth);
+          this.boxGeometryList.push(obj)
+        }
+        return obj
+
+
+      case 'base-material':
+        let bm
+        if (this.meshBasicMaterialList.length > 0) {
+          bm = this.meshBasicMaterialList[0]
+          bm.color = new THREE.Color(vnode.attributes.color)
+        } else {
+          bm = new THREE.MeshBasicMaterial({ color: vnode.attributes.color });
+          this.meshBasicMaterialList.push(bm)
+        }
+
+        return bm
 
       case 'mesh':
 
-        var geometry = new THREE.BoxGeometry(1, 1, 1);
-        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const mesh = new THREE.Mesh(geometry, material)
+        let g, m
+        vnode.children.forEach(child => {
+          switch (child.nodeName) {
+
+            case 'box-geometry':
+              g = this.getObj(child.nodeName, child, scene)
+              break
+            case 'base-material':
+
+              m = this.getObj(child.nodeName, child, scene)
+              break
+          }
+        })
+        const mesh = new THREE.Mesh(g, m)
         Object.assign(mesh.rotation, attr.rotation)
-        this.usingMesh.push(mesh)
+        this.meshList.push(mesh)
 
         return mesh
       case 'perspective-camera':

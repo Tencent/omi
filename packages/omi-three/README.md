@@ -30,7 +30,6 @@ define('my-app', class extends WeElement {
           width={window.innerWidth}
           height={window.innerHeight} >
           <perspective-camera
-            id="camera"
             fov="75"
             aspect=":aspect"
             near="0.1"
@@ -38,14 +37,14 @@ define('my-app', class extends WeElement {
             z="5">
           </perspective-camera>
           <group alpha={0.5} y={270}>
-            <mesh rotation={this.cubeRotation} id="cube">
+            <mesh rotation={this.cubeRotation}>
               <box-geometry
-                width="1"
-                height="1"
-                depth="1">
+                width={1}
+                height={1}
+                depth={1}>
               </box-geometry >
               <base-material
-                color="0x00ff00">
+                color={0x00ff00}>
               </base-material>
             </mesh>
           </group>

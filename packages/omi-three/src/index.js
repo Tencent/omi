@@ -43,6 +43,5 @@ define('omi-three', class extends WeElement {
     this.pool.reset()
     this.threeRender(this.props.children, this.scene, this.pool)
   }
-
 })
 
