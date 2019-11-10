@@ -58,7 +58,7 @@ define('my-app', class extends WeElement {
 render(<my-app />, 'body')
 ```
 
-等同于:
+Same as:
 
 ```html
 <html>
