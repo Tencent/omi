@@ -5300,7 +5300,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                 width: 1,
                 height: 1,
                 depth: 1 }),
-              Omi.h('base-material', {
+              Omi.h('phong-material', {
                 color: 0x00ff00 })
             )
           )
@@ -5393,6 +5393,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this.pool = new _objectPool2['default']();
       this.threeRender();
+
+      var scene = this.scene;
+      var light = new THREE.PointLight(0xffffff, 1, 100);
+      light.position.set(0, 10, 0);
+      light.castShadow = true; // default false
+      scene.add(light);
+
+      var light = new THREE.AmbientLight(0x404040); // soft white light
+      scene.add(light);
     }
   }, {
     key: 'render',
@@ -5472,6 +5481,9 @@ var ObjectPool = function () {
 
     this.meshBasicMaterialList = [];
     this.meshBasicMaterialListUsing = [];
+
+    this.phoneMaterialList = [];
+    this.phoneMaterialListUsing = [];
   }
 
   _createClass(ObjectPool, [{
@@ -5566,6 +5578,18 @@ var ObjectPool = function () {
 
           return bm;
 
+        case 'phong-material':
+          var pm = void 0;
+          if (this.phoneMaterialList.length > 0) {
+            pm = this.phoneMaterialList[0];
+            pm.color = new THREE.Color(vnode.attributes.color);
+          } else {
+            pm = new THREE.MeshPhongMaterial({ color: vnode.attributes.color });
+            this.phoneMaterialList.push(pm);
+          }
+
+          return pm;
+
         case 'mesh':
 
           var g = void 0,
@@ -5577,6 +5601,10 @@ var ObjectPool = function () {
                 g = _this2.getObj(child.nodeName, child, scene);
                 break;
               case 'base-material':
+
+                m = _this2.getObj(child.nodeName, child, scene);
+                break;
+              case 'phong-material':
 
                 m = _this2.getObj(child.nodeName, child, scene);
                 break;

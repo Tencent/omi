@@ -14,6 +14,15 @@ define('omi-three', class extends WeElement {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.pool = new ObjectPool()
     this.threeRender()
+
+    const scene = this.scene
+    var light = new THREE.PointLight(0xffffff, 1, 100);
+    light.position.set(0, 10, 0);
+    light.castShadow = true; // default false
+    scene.add(light);
+
+    var light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
   }
 
   render(props) {

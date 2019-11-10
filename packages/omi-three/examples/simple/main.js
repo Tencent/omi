@@ -44,9 +44,9 @@ define('my-app', class extends WeElement {
                 height={1}
                 depth={1}>
               </box-geometry >
-              <base-material
+              <phong-material
                 color={0x00ff00}>
-              </base-material>
+              </phong-material>
             </mesh>
           </group>
         </omi-three>

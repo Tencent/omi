@@ -19,6 +19,9 @@ export default class ObjectPool {
 
     this.meshBasicMaterialList = []
     this.meshBasicMaterialListUsing = []
+
+    this.phoneMaterialList = []
+    this.phoneMaterialListUsing = []
   }
 
   reset() {
@@ -109,6 +112,18 @@ export default class ObjectPool {
 
         return bm
 
+      case 'phong-material':
+        let pm
+        if (this.phoneMaterialList.length > 0) {
+          pm = this.phoneMaterialList[0]
+          pm.color = new THREE.Color(vnode.attributes.color)
+        } else {
+          pm = new THREE.MeshPhongMaterial({ color: vnode.attributes.color });
+          this.phoneMaterialList.push(pm)
+        }
+
+        return pm
+
       case 'mesh':
 
         let g, m
@@ -122,7 +137,12 @@ export default class ObjectPool {
 
               m = this.getObj(child.nodeName, child, scene)
               break
+            case 'phong-material':
+
+              m = this.getObj(child.nodeName, child, scene)
+              break
           }
+
         })
         const mesh = new THREE.Mesh(g, m)
         Object.assign(mesh.rotation, attr.rotation)
