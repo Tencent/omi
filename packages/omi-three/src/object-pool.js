@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-const caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow']
+const caxProps = ['rotation']
 
 export default class ObjectPool {
   constructor() {
@@ -66,8 +66,8 @@ export default class ObjectPool {
         var geometry = new THREE.BoxGeometry(1, 1, 1);
         var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const mesh = new THREE.Mesh(geometry, material)
-
-
+        console.log(attr.rotation)
+        Object.assign(mesh.rotation, attr.rotation)
         this.usingMesh.push(mesh)
 
         return mesh
@@ -91,37 +91,41 @@ export default class ObjectPool {
 }
 
 function reset(obj) {
-  obj.x = 0
-  obj.y = 0
-  obj.scale = 1
-  obj.rotation = 0
-  obj.skewX = 0
-  obj.skewY = 0
-  obj.originX = 0
-  obj.originY = 0
-  obj.alpha = 1
-  obj.compositeOperation = null
-  obj.cursor = 'default'
-  obj.fixed = false
-  obj.shadow = null
+  // obj.x = 0
+  // obj.y = 0
+  // obj.scale = 1
+  obj.rotation.x = 0
+  obj.rotation.y = 0
+  obj.rotation.z = 0
+  // obj.skewX = 0
+  // obj.skewY = 0
+  // obj.originX = 0
+  // obj.originY = 0
+  // obj.alpha = 1
+  // obj.compositeOperation = null
+  // obj.cursor = 'default'
+  // obj.fixed = false
+  // obj.shadow = null
 }
 
 
 
 function mix(attr, obj) {
   if (!attr) return
+  console.log(attr,obj)
   caxProps.forEach(prop => {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop]
     }
   })
 
-  Object.keys(attr).forEach(key => {
-    if (key[0] == 'o' && key[1] == 'n') {
-      const type = key.toLowerCase().substring(2)
-      obj.on(type, attr[key])
-    }
-  })
+  //bindEvent
+  // Object.keys(attr).forEach(key => {
+  //   if (key[0] == 'o' && key[1] == 'n') {
+  //     const type = key.toLowerCase().substring(2)
+  //     obj.on(type, attr[key])
+  //   }
+  // })
 }
 
 

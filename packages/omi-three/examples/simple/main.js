@@ -3,26 +3,25 @@ import '../../src/index.js'
 
 define('my-app', class extends WeElement {
 
-  data = {
-    scale: 0.5
+  cubeRotation = {
+    x: 10,
+    y: 10
   }
 
-  onClick = (evt) => {
-    this.data.scale = 0.5 + Math.random() * 0.1
-  }
-
-  installed(){
-    console.log(this.cube)
-    this.cube.rotation.x += 0.01;
-    this.cube.rotation.y += 0.01;
-
+  onTick = () => {
+    this.cubeRotation.x += 0.01;
+    this.cubeRotation.y += 0.01;
+    //this.update()
   }
 
   render() {
     return (
       <div>
         <h1>Omi-Three</h1>
-        <omi-three width={window.innerWidth} height={window.innerHeight} >
+        <omi-three
+          onTick={this.onTick}
+          width={window.innerWidth}
+          height={window.innerHeight} >
           <perspective-camera
             id="camera"
             fov="75"
@@ -32,7 +31,7 @@ define('my-app', class extends WeElement {
             z="5">
           </perspective-camera>
           <group alpha={0.5} y={270}>
-            <mesh  ref={_=>this.cube=_} id="cube">
+            <mesh rotation={this.cubeRotation} id="cube">
               <box-geometry
                 width="1"
                 height="1"

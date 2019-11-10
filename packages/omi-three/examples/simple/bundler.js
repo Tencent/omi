@@ -5246,25 +5246,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
-      scale: 0.5
-    }, _this.onClick = function (evt) {
-      _this.data.scale = 0.5 + Math.random() * 0.1;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.cubeRotation = {
+      x: 10,
+      y: 10
+    }, _this.onTick = function () {
+      _this.cubeRotation.x += 0.01;
+      _this.cubeRotation.y += 0.01;
+      //this.update()
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(_class2, [{
-    key: 'installed',
-    value: function installed() {
-      console.log(this.cube);
-      this.cube.rotation.x += 0.01;
-      this.cube.rotation.y += 0.01;
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return Omi.h(
         'div',
         null,
@@ -5275,7 +5269,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         ),
         Omi.h(
           'omi-three',
-          { width: window.innerWidth, height: window.innerHeight },
+          {
+            onTick: this.onTick,
+            width: window.innerWidth,
+            height: window.innerHeight },
           Omi.h('perspective-camera', {
             id: 'camera',
             fov: '75',
@@ -5288,9 +5285,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             { alpha: 0.5, y: 270 },
             Omi.h(
               'mesh',
-              { ref: function ref(_) {
-                  return _this2.cube = _;
-                }, id: 'cube' },
+              { rotation: this.cubeRotation, id: 'cube' },
               Omi.h('box-geometry', {
                 width: '1',
                 height: '1',
@@ -5378,9 +5373,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'install',
-    value: function install() {}
-  }, {
     key: 'installed',
     value: function installed() {
 
@@ -5390,12 +5382,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       });
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this._objectPool = new _objectPool2['default']();
-      render(this.renderer, this.props.children, this.scene, this._objectPool);
+      this.threeRender(this.props.children, this.scene, this._objectPool);
     }
   }, {
     key: 'updated',
     value: function updated() {
-      update(this.props.children, this.scene, this._objectPool);
+      this.threeUpdate(this.props.children, this.scene);
     }
   }, {
     key: 'render',
@@ -5410,37 +5402,38 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         width: props.width,
         height: props.height });
     }
+  }, {
+    key: 'threeRender',
+    value: function threeRender(children, scene, pool) {
+      children.forEach(function (child) {
+        var obj = pool.getObj(child.nodeName, child, scene);
+        obj && scene.add(obj);
+      });
+
+      this.animate();
+    }
+  }, {
+    key: 'animate',
+    value: function animate() {
+      var _this3 = this;
+
+      this.fire('Tick');
+      requestAnimationFrame(function (_) {
+        return _this3.animate();
+      });
+      this.renderer.render(this.scene, this.scene.camera);
+    }
+  }, {
+    key: 'threeUpdate',
+    value: function threeUpdate(children, scene) {
+      //this.scene.empty()
+      this._objectPool.reset();
+      this.threeRender(children, scene, this._objectPool);
+    }
   }]);
 
   return _class;
 }(_omi.WeElement));
-
-function render(renderer, children, scene, pool) {
-  children.forEach(function (child) {
-    var obj = pool.getObj(child.nodeName, child, scene);
-    console.log(obj);
-    obj && scene.add(obj);
-  });
-
-  //renderer.render(scene, scene.camera);
-
-  animate(renderer, scene, scene.camera);
-}
-
-var animate = function animate(renderer, scene, camera) {
-
-  requestAnimationFrame(function () {
-    animate(renderer, scene, camera);
-  });
-
-  renderer.render(scene, camera);
-};
-
-function update(children, scene, pool) {
-  scene.empty();
-  pool.reset();
-  render(children, scene, pool);
-}
 
 /***/ }),
 /* 5 */
@@ -5463,7 +5456,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow'];
+var caxProps = ['rotation'];
 
 var ObjectPool = function () {
   function ObjectPool() {
@@ -5538,7 +5531,8 @@ var ObjectPool = function () {
           var geometry = new THREE.BoxGeometry(1, 1, 1);
           var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
           var mesh = new THREE.Mesh(geometry, material);
-
+          console.log(attr.rotation);
+          Object.assign(mesh.rotation, attr.rotation);
           this.usingMesh.push(mesh);
 
           return mesh;
@@ -5567,35 +5561,39 @@ exports['default'] = ObjectPool;
 
 
 function reset(obj) {
-  obj.x = 0;
-  obj.y = 0;
-  obj.scale = 1;
-  obj.rotation = 0;
-  obj.skewX = 0;
-  obj.skewY = 0;
-  obj.originX = 0;
-  obj.originY = 0;
-  obj.alpha = 1;
-  obj.compositeOperation = null;
-  obj.cursor = 'default';
-  obj.fixed = false;
-  obj.shadow = null;
+  // obj.x = 0
+  // obj.y = 0
+  // obj.scale = 1
+  obj.rotation.x = 0;
+  obj.rotation.y = 0;
+  obj.rotation.z = 0;
+  // obj.skewX = 0
+  // obj.skewY = 0
+  // obj.originX = 0
+  // obj.originY = 0
+  // obj.alpha = 1
+  // obj.compositeOperation = null
+  // obj.cursor = 'default'
+  // obj.fixed = false
+  // obj.shadow = null
 }
 
 function mix(attr, obj) {
   if (!attr) return;
+  console.log(attr, obj);
   caxProps.forEach(function (prop) {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop];
     }
   });
 
-  Object.keys(attr).forEach(function (key) {
-    if (key[0] == 'o' && key[1] == 'n') {
-      var type = key.toLowerCase().substring(2);
-      obj.on(type, attr[key]);
-    }
-  });
+  //bindEvent
+  // Object.keys(attr).forEach(key => {
+  //   if (key[0] == 'o' && key[1] == 'n') {
+  //     const type = key.toLowerCase().substring(2)
+  //     obj.on(type, attr[key])
+  //   }
+  // })
 }
 
 // getImageInfo(attr.src, (w, h, img) => {
