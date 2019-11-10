@@ -58,73 +58,57 @@ define('my-app', class extends WeElement {
 render(<my-app />, 'body')
 ```
 
-
-
-
-```js
-import o3 from 'omi-three'
-
-const cube = o3.query('#cube')
-const scene = o3.query('#scene')
-const camera = o3.query('#camera')
-
-const animate = function () {
-  requestAnimationFrame(animate)
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
-  renderer.render(scene, camera)
-}
-```
+等同于:
 
 ```html
 <html>
 
 <head>
-	<title>My first three.js app</title>
-	<style>
-		body {
-			margin: 0;
-		}
+  <title>My first three.js app</title>
+  <style>
+    body {
+      margin: 0;
+    }
 
-		canvas {
-			width: 100%;
-			height: 100%
-		}
+    canvas {
+      width: 100%;
+      height: 100%
+    }
 
-	</style>
+  </style>
 </head>
 
 <body>
-	<script src="https://unpkg.com/three@0.110.0/build/three.js"></script>
-	<script>
-		var scene = new THREE.Scene();
-		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  <script src="https://unpkg.com/three@0.110.0/build/three.js"></script>
+  <script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-		var renderer = new THREE.WebGLRenderer();
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		document.body.appendChild(renderer.domElement);
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-		var geometry = new THREE.BoxGeometry(1, 1, 1);
-		var material = new THREE.MeshBasicMaterial({
-			color: 0x00ff00
-		});
-		var cube = new THREE.Mesh(geometry, material);
-		scene.add(cube);
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
+    var material = new THREE.MeshBasicMaterial({
+      color: 0x00ff00
+    });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
-		camera.position.z = 5;
+    camera.position.z = 5;
 
-		var animate = function () {
-			requestAnimationFrame(animate);
+    var animate = function () {
+      requestAnimationFrame(animate);
 
-			cube.rotation.x += 0.01;
-			cube.rotation.y += 0.01;
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
 
-			renderer.render(scene, camera);
-		};
+      renderer.render(scene, camera);
+    };
 
-		animate();
+    animate();
 
-	</script>
+  </script>
 </body>
 
 </html>
