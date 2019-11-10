@@ -1,5 +1,6 @@
 ﻿import { render, define, WeElement } from 'omi'
 import '../../src/index.js'
+import omiLogo from './logo.png'
 
 define('my-app', class extends WeElement {
 
@@ -8,8 +9,6 @@ define('my-app', class extends WeElement {
     y: 10
   }
 
-
-
   installed() {
 
     setInterval(() => {
@@ -17,8 +16,6 @@ define('my-app', class extends WeElement {
       this.cubeRotation.y += 0.01;
       this.ot.update()
     }, 16)
-
-
 
   }
 
@@ -31,11 +28,11 @@ define('my-app', class extends WeElement {
           width={window.innerWidth}
           height={window.innerHeight} >
           <perspective-camera
-            fov="75"
-            aspect=":aspect"
-            near="0.1"
-            far="1000"
-            z="5">
+            fov={75}
+            aspect={window.innerWidth / window.innerHeight}
+            near={0.1}
+            far={1000}
+            z={5}>
           </perspective-camera>
           <group alpha={0.5} y={270}>
             <mesh rotation={this.cubeRotation}>
@@ -45,7 +42,9 @@ define('my-app', class extends WeElement {
                 depth={1}>
               </box-geometry >
               <phong-material
-                color={0x00ff00}>
+                color={0xffffff}
+                map={omiLogo}
+                >
               </phong-material>
             </mesh>
           </group>

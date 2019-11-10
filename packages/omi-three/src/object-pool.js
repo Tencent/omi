@@ -118,7 +118,11 @@ export default class ObjectPool {
           pm = this.phoneMaterialList[0]
           pm.color = new THREE.Color(vnode.attributes.color)
         } else {
-          pm = new THREE.MeshPhongMaterial({ color: vnode.attributes.color });
+          const opts = { color: vnode.attributes.color }
+          if(vnode.attributes.map){
+            opts.map = THREE.ImageUtils.loadTexture(vnode.attributes.map)
+          }
+          pm = new THREE.MeshPhongMaterial(opts);
           this.phoneMaterialList.push(pm)
         }
 

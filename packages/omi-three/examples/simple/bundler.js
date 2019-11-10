@@ -5226,6 +5226,12 @@ var _omi = __webpack_require__(0);
 
 __webpack_require__(4);
 
+var _logo = __webpack_require__(7);
+
+var _logo2 = _interopRequireDefault(_logo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -5285,11 +5291,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             width: window.innerWidth,
             height: window.innerHeight },
           Omi.h('perspective-camera', {
-            fov: '75',
-            aspect: ':aspect',
-            near: '0.1',
-            far: '1000',
-            z: '5' }),
+            fov: 75,
+            aspect: window.innerWidth / window.innerHeight,
+            near: 0.1,
+            far: 1000,
+            z: 5 }),
           Omi.h(
             'group',
             { alpha: 0.5, y: 270 },
@@ -5301,7 +5307,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                 height: 1,
                 depth: 1 }),
               Omi.h('phong-material', {
-                color: 0x00ff00 })
+                color: 0xffffff,
+                map: _logo2['default']
+              })
             )
           )
         )
@@ -5584,7 +5592,11 @@ var ObjectPool = function () {
             pm = this.phoneMaterialList[0];
             pm.color = new THREE.Color(vnode.attributes.color);
           } else {
-            pm = new THREE.MeshPhongMaterial({ color: vnode.attributes.color });
+            var opts = { color: vnode.attributes.color };
+            if (vnode.attributes.map) {
+              opts.map = THREE.ImageUtils.loadTexture(vnode.attributes.map);
+            }
+            pm = new THREE.MeshPhongMaterial(opts);
             this.phoneMaterialList.push(pm);
           }
 
@@ -5693,6 +5705,13 @@ function mix(attr, obj) {
 //   }
 //   img.src = src
 // }
+
+/***/ }),
+/* 6 */,
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "54cac84c60ede7b5aa3010e8b7489a7e.png";
 
 /***/ })
 /******/ ]);
