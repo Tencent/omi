@@ -12,6 +12,10 @@ export function $(options) {
   const useSelf = options.useSelf
   options.computed = options.computed || {}
 
+  if (options.store) {
+    reset(options.store)
+  }
+
   options.beforeCreate = function () {
     this.$store = store
     if (isMultiStore) {
@@ -22,8 +26,6 @@ export function $(options) {
           store[storeName].components.push(this)
         }
         this.__$updatePath_ = updatePath
-
-
       }
 
       if (useSelf) {
@@ -119,7 +121,7 @@ function observe(store, storeName) {
 }
 
 function removeItem(item, arr) {
-  for (let i = 0, len = arr.length; i < len; i++) {
+  for (let i = 0, len = arr.length;i < len;i++) {
     if (arr[i] === item) {
       arr.splice(i, 1)
       break
@@ -129,10 +131,14 @@ function removeItem(item, arr) {
 
 export function render(app, renderTo, store, options) {
   reset(store)
-  new Vue(Object.assign({
-    render: h => h(app),
-  }, options)).$mount(renderTo)
-
+  new Vue(
+    Object.assign(
+      {
+        render: h => h(app)
+      },
+      options
+    )
+  ).$mount(renderTo)
 }
 
 export function reset(s) {
