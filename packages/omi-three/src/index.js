@@ -1,23 +1,21 @@
 import { WeElement, define } from 'omi'
-import THREE from 'three'
+import * as THREE from 'three'
 import ObjectPool from './object-pool'
 
-
-define('omi-canvas', class extends WeElement {
-
-  install() {
-
-  }
+define('omi-three', class extends WeElement {
 
   installed() {
-    this.stage = new THREE.Scene(this.canvas)
-    this._objectPool = new ObjectPool()
-    render(this.props.children, this.stage, this._objectPool)
+
+    this.scene = new THREE.Scene()
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas
+    })
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.pool = new ObjectPool()
+    this.threeRender()
+
   }
 
-  updated() {
-    update(this.props.children, this.stage, this._objectPool)
-  }
 
   render(props) {
     return (
@@ -29,19 +27,25 @@ define('omi-canvas', class extends WeElement {
       </canvas>
     )
   }
+
+  threeRender() {
+    this.props.children.forEach(child => {
+      const obj = this.pool.getObj(child.nodeName, child, this.scene)
+      obj && this.scene.add(obj)
+    })
+
+    this.renderer.render(this.scene, this.scene.camera)
+
+  }
+
+
+  update() {
+    while (this.scene.children.length > 0) {
+      this.scene.remove(this.scene.children[0]);
+    }
+
+    this.pool.reset()
+    this.threeRender(this.props.children, this.scene, this.pool)
+  }
 })
 
-
-function render(children, stage, pool) {
-  children.forEach(child => {
-    stage.add(pool.getObj(child.nodeName, child, stage))
-  })
-  stage.update()
-}
-
-
-function update(children, stage, pool) {
-  stage.empty()
-  pool.reset()
-  render(children, stage, pool)
-}

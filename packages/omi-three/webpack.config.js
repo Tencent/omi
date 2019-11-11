@@ -57,19 +57,19 @@ var config  = {
 if(ENV === 'build'||ENV === 'build-min'){
     config = {
         entry: {
-            'omi-canvas': './src/index.js'
+            'omi-three': './src/index.js'
         },
         output: {
             // path: __dirname,
             path: path.join(__dirname, 'dist/'),
-            library:'OmiCanvas',
+            library:'OmiThree',
             libraryTarget: 'umd',
             filename:  '[name].js'
             //umdNamedDefine: true
         },
         externals: {
             "omi": 'omi',
-            "cax": 'cax'
+            "three": 'three'
         },
         module: {
             loaders: [
@@ -90,7 +90,7 @@ if(ENV === 'build'||ENV === 'build-min'){
         },
         plugins: [
             // Avoid publishing files when compilation fails
-            new webpack.BannerPlugin(" omi-canvas v"+packageJSON.version+" By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
+            new webpack.BannerPlugin(" omi-three v"+packageJSON.version+" By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
             new webpack.NoEmitOnErrorsPlugin()
         ],
         stats: {
@@ -104,7 +104,7 @@ if(ENV === 'build'||ENV === 'build-min'){
     if(ENV === 'build-min'){
         config.plugins.push(new webpack.optimize.UglifyJsPlugin());
         config.entry = {
-            'omi-canvas.min': './src/index.js'
+            'omi-three.min': './src/index.js'
         };
     }
 }

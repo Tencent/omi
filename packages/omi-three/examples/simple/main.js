@@ -1,58 +1,59 @@
-﻿
-import { render, define, WeElement } from 'omi'
-import '../../src/index'
-import omiUrl from './omi.jpg'
+﻿import { render, define, WeElement } from 'omi'
+import '../../src/index.js'
+import omiLogo from './logo.png'
 
 define('my-app', class extends WeElement {
-  static observe = true
 
-  data = {
-    scale: 0.5
+  cubeRotation = {
+    x: 10,
+    y: 10
   }
 
-  css() {
-    return `
-        div{
-          text-align: center;
-        }`
-  }
-
-  onClick = (evt) => {
-    this.data.scale = 0.5 + Math.random() * 0.1
+  installed() {
+    setInterval(() => {
+      this.cubeRotation.x += 0.01;
+      this.cubeRotation.y += 0.01;
+      this.ot.update()
+    }, 16)
   }
 
   render() {
     return (
-      <div>
-        <h1>Omi</h1>
-        <omi-canvas width={400} height={400} css='border: 1px solid #ccc;'>
-          <text
-            text='Hello omi-canvas'
-            font='30px Segoe UI'
-            color='#ff7700'
-            baseline='top'
-            x={80}
-            y={100}
-          />
-          <bitmap
-            onClick={this.onClick}
-            src={omiUrl}
-            cursor='pointer'
-            scale={this.data.scale}
-            x={130}
-            y={140}
-          />
-          <group alpha={0.5} y={270}>
-            <text
-              text='I am in a group.'
-              font='30px Segoe UI'
-              color='#ff7700'
-              baseline='top'
-              x={80}
-            />
-          </group>
-        </omi-canvas>
-      </div>
+
+      <omi-three ref={_ => this.ot = _}
+        width={window.innerWidth}
+        height={window.innerHeight} >
+
+        <perspective-camera
+          fov={75}
+          aspect={window.innerWidth / window.innerHeight}
+          near={0.1} far={1000} z={5}>
+        </perspective-camera>
+
+        <point-light
+          color={0xffffff} intensity={1} distance={1000}
+          position={{
+            x: 110,
+            y: 110,
+            z: 110
+          }}
+          castShadow={true}>
+        </point-light>
+
+        <ambient-light color={0x404040}></ambient-light>
+
+        <group alpha={0.5} y={270}>
+          <mesh rotation={this.cubeRotation}>
+            <box-geometry
+              width={1} height={1} depth={1}>
+            </box-geometry >
+            <phong-material map={omiLogo}>
+            </phong-material>
+          </mesh>
+        </group>
+
+      </omi-three>
+
     )
   }
 })
