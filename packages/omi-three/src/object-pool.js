@@ -89,12 +89,12 @@ export default class ObjectPool {
       case 'box-geometry':
 
 
-        let obj = this.boxGeometryList.find(item => item.width === vnode.attributes.width &&
-          item.height === vnode.attributes.height
-          && item.depth === vnode.attributes.depth
+        let obj = this.boxGeometryList.find(item => item.width === attr.width &&
+          item.height === attr.height
+          && item.depth === attr.depth
         )
         if (!obj) {
-          obj = new THREE.BoxGeometry(vnode.attributes.width, vnode.attributes.height, vnode.attributes.depth);
+          obj = new THREE.BoxGeometry(attr.width, attr.height, attr.depth);
           this.boxGeometryList.push(obj)
         }
         return obj
@@ -104,9 +104,9 @@ export default class ObjectPool {
         let bm
         if (this.meshBasicMaterialList.length > 0) {
           bm = this.meshBasicMaterialList[0]
-          bm.color = new THREE.Color(vnode.attributes.color)
+          bm.color = new THREE.Color(attr.color)
         } else {
-          bm = new THREE.MeshBasicMaterial({ color: vnode.attributes.color });
+          bm = new THREE.MeshBasicMaterial({ color: attr.color });
           this.meshBasicMaterialList.push(bm)
         }
 
@@ -116,11 +116,11 @@ export default class ObjectPool {
         let pm
         if (this.phoneMaterialList.length > 0) {
           pm = this.phoneMaterialList[0]
-          pm.color = new THREE.Color(vnode.attributes.color)
+          pm.color = new THREE.Color(attr.color)
         } else {
-          const opts = { color: vnode.attributes.color }
-          if(vnode.attributes.map){
-            opts.map = THREE.ImageUtils.loadTexture(vnode.attributes.map)
+          const opts = { color: attr.color }
+          if (attr.map) {
+            opts.map = THREE.ImageUtils.loadTexture(attr.map)
           }
           pm = new THREE.MeshPhongMaterial(opts);
           this.phoneMaterialList.push(pm)
@@ -157,6 +157,21 @@ export default class ObjectPool {
         scene.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         scene.camera.position.z = 5;
         return null
+      case 'point-light':
+        //todo，相同color、intensity和distance的复用
+        const pl = new THREE.PointLight(attr.color, attr.intensity, attr.distance);
+        pl.position.set(attr.position.x, attr.position.y, attr.position.z);
+        pl.castShadow = attr.castShadow; // default false
+
+        return pl
+
+      case 'ambient-light':
+        //todo，复用并改变color
+        const al = new THREE.AmbientLight(attr.color);
+
+
+        return al
+
     }
   }
 

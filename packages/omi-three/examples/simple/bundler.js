@@ -5275,42 +5275,42 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       var _this3 = this;
 
       return Omi.h(
-        'div',
-        null,
+        'omi-three',
+        {
+          ref: function ref(_) {
+            return _this3.ot = _;
+          },
+          width: window.innerWidth,
+          height: window.innerHeight },
+        Omi.h('perspective-camera', {
+          fov: 75,
+          aspect: window.innerWidth / window.innerHeight,
+          near: 0.1,
+          far: 1000,
+          z: 5 }),
+        Omi.h('point-light', {
+          color: 0xffffff,
+          intensity: 1,
+          distance: 1000,
+          position: {
+            x: 110,
+            y: 110,
+            z: 110
+          },
+          castShadow: true }),
+        Omi.h('ambient-light', { color: 0x404040 }),
         Omi.h(
-          'h1',
-          null,
-          'Omi-Three'
-        ),
-        Omi.h(
-          'omi-three',
-          {
-            ref: function ref(_) {
-              return _this3.ot = _;
-            },
-            width: window.innerWidth,
-            height: window.innerHeight },
-          Omi.h('perspective-camera', {
-            fov: 75,
-            aspect: window.innerWidth / window.innerHeight,
-            near: 0.1,
-            far: 1000,
-            z: 5 }),
+          'group',
+          { alpha: 0.5, y: 270 },
           Omi.h(
-            'group',
-            { alpha: 0.5, y: 270 },
-            Omi.h(
-              'mesh',
-              { rotation: this.cubeRotation },
-              Omi.h('box-geometry', {
-                width: 1,
-                height: 1,
-                depth: 1 }),
-              Omi.h('phong-material', {
-                color: 0xffffff,
-                map: _logo2['default']
-              })
-            )
+            'mesh',
+            { rotation: this.cubeRotation },
+            Omi.h('box-geometry', {
+              width: 1,
+              height: 1,
+              depth: 1 }),
+            Omi.h('phong-material', {
+              map: _logo2['default'] })
           )
         )
       );
@@ -5401,15 +5401,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this.pool = new _objectPool2['default']();
       this.threeRender();
-
-      var scene = this.scene;
-      var light = new THREE.PointLight(0xffffff, 1, 100);
-      light.position.set(0, 10, 0);
-      light.castShadow = true; // default false
-      scene.add(light);
-
-      var light = new THREE.AmbientLight(0x404040); // soft white light
-      scene.add(light);
     }
   }, {
     key: 'render',
@@ -5439,7 +5430,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }, {
     key: 'update',
     value: function update() {
-      //this.scene.empty()
+      while (this.scene.children.length > 0) {
+        this.scene.remove(this.scene.children[0]);
+      }
+
       this.pool.reset();
       this.threeRender(this.props.children, this.scene, this.pool);
     }
@@ -5566,10 +5560,10 @@ var ObjectPool = function () {
         case 'box-geometry':
 
           var obj = this.boxGeometryList.find(function (item) {
-            return item.width === vnode.attributes.width && item.height === vnode.attributes.height && item.depth === vnode.attributes.depth;
+            return item.width === attr.width && item.height === attr.height && item.depth === attr.depth;
           });
           if (!obj) {
-            obj = new THREE.BoxGeometry(vnode.attributes.width, vnode.attributes.height, vnode.attributes.depth);
+            obj = new THREE.BoxGeometry(attr.width, attr.height, attr.depth);
             this.boxGeometryList.push(obj);
           }
           return obj;
@@ -5578,9 +5572,9 @@ var ObjectPool = function () {
           var bm = void 0;
           if (this.meshBasicMaterialList.length > 0) {
             bm = this.meshBasicMaterialList[0];
-            bm.color = new THREE.Color(vnode.attributes.color);
+            bm.color = new THREE.Color(attr.color);
           } else {
-            bm = new THREE.MeshBasicMaterial({ color: vnode.attributes.color });
+            bm = new THREE.MeshBasicMaterial({ color: attr.color });
             this.meshBasicMaterialList.push(bm);
           }
 
@@ -5590,11 +5584,11 @@ var ObjectPool = function () {
           var pm = void 0;
           if (this.phoneMaterialList.length > 0) {
             pm = this.phoneMaterialList[0];
-            pm.color = new THREE.Color(vnode.attributes.color);
+            pm.color = new THREE.Color(attr.color);
           } else {
-            var opts = { color: vnode.attributes.color };
-            if (vnode.attributes.map) {
-              opts.map = THREE.ImageUtils.loadTexture(vnode.attributes.map);
+            var opts = { color: attr.color };
+            if (attr.map) {
+              opts.map = THREE.ImageUtils.loadTexture(attr.map);
             }
             pm = new THREE.MeshPhongMaterial(opts);
             this.phoneMaterialList.push(pm);
@@ -5631,6 +5625,20 @@ var ObjectPool = function () {
           scene.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
           scene.camera.position.z = 5;
           return null;
+        case 'point-light':
+          //todo，相同color、intensity和distance的复用
+          var pl = new THREE.PointLight(attr.color, attr.intensity, attr.distance);
+          pl.position.set(attr.position.x, attr.position.y, attr.position.z);
+          pl.castShadow = attr.castShadow; // default false
+
+          return pl;
+
+        case 'ambient-light':
+          //todo，复用并改变color
+          var al = new THREE.AmbientLight(attr.color);
+
+          return al;
+
       }
     }
   }, {

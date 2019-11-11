@@ -4,7 +4,6 @@ import ObjectPool from './object-pool'
 
 define('omi-three', class extends WeElement {
 
-
   installed() {
 
     this.scene = new THREE.Scene()
@@ -15,15 +14,8 @@ define('omi-three', class extends WeElement {
     this.pool = new ObjectPool()
     this.threeRender()
 
-    const scene = this.scene
-    var light = new THREE.PointLight(0xffffff, 1, 100);
-    light.position.set(0, 10, 0);
-    light.castShadow = true; // default false
-    scene.add(light);
-
-    var light = new THREE.AmbientLight(0x404040); // soft white light
-    scene.add(light);
   }
+
 
   render(props) {
     return (
@@ -48,7 +40,10 @@ define('omi-three', class extends WeElement {
 
 
   update() {
-    //this.scene.empty()
+    while (this.scene.children.length > 0) {
+      this.scene.remove(this.scene.children[0]);
+    }
+
     this.pool.reset()
     this.threeRender(this.props.children, this.scene, this.pool)
   }
