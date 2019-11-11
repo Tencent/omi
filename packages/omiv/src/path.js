@@ -60,7 +60,6 @@ export function getPath(obj, out, name) {
   return result
 }
 
-
 export function needUpdate(diffResult, updatePath) {
   for (let keyA in diffResult) {
     if (updatePath[keyA]) {

@@ -12,7 +12,11 @@ export function $(options) {
   const useSelf = options.useSelf
   options.computed = options.computed || {}
 
-  options.beforeCreate = function () {
+  if (options.store) {
+    reset(options.store)
+  }
+
+  options.beforeCreate = function() {
     this.$store = store
     if (isMultiStore) {
       if (use) {
@@ -22,8 +26,6 @@ export function $(options) {
           store[storeName].components.push(this)
         }
         this.__$updatePath_ = updatePath
-
-
       }
 
       if (useSelf) {
@@ -47,7 +49,7 @@ export function $(options) {
     beforeCreate && beforeCreate.apply(this, arguments)
   }
 
-  options.destroyed = function () {
+  options.destroyed = function() {
     if (isMultiStore) {
       for (let key in store) {
         removeItem(this, store[key].components)
@@ -61,7 +63,7 @@ export function $(options) {
     destroyed && destroyed.apply(this, arguments)
   }
 
-  options.computed.state = function () {
+  options.computed.state = function() {
     if (isMultiStore) {
       let state = {}
       Object.keys(store).forEach(k => {
@@ -72,7 +74,7 @@ export function $(options) {
     return store.data
   }
 
-  options.computed.store = function () {
+  options.computed.store = function() {
     return store
   }
 
@@ -129,10 +131,14 @@ function removeItem(item, arr) {
 
 export function render(app, renderTo, store, options) {
   reset(store)
-  new Vue(Object.assign({
-    render: h => h(app),
-  }, options)).$mount(renderTo)
-
+  new Vue(
+    Object.assign(
+      {
+        render: h => h(app)
+      },
+      options
+    )
+  ).$mount(renderTo)
 }
 
 export function reset(s) {
