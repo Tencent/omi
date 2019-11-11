@@ -1,5 +1,5 @@
 /*!
- *  omix v2.3.4 by dntzhang
+ *  omix v2.3.5 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -90,7 +90,8 @@ function create(store, option) {
       store.computed && compute(store.computed, this.store, using, this)
       this.setData(using)
 
-      this.store.instances[page.route].push(this)
+      page._omixComponents = page._omixComponents || []
+      page._omixComponents.push(this)
       ready && ready.call(this)
     }
     Component(store)
@@ -132,26 +133,11 @@ function observeStore(store) {
 function _update(kv, store) {
   for (let key in store.instances) {
     store.instances[key].forEach(ins => {
-      if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
-        if (ins.__hasData) {
-          const patch = Object.assign({}, kv)
-          for (let pk in patch) {
-            if (!/\$\./.test(pk)) {
-              patch['$.' + pk] = kv[pk]
-              delete patch[pk]
-            }
-          }
-          ins.setData.call(ins, patch)
-        } else {
-          ins.setData.call(ins, kv)
-        }
-
-        const using = getUsing(store.data, ins.__use)
-
-        compute(ins.computed, store, using, ins)
-        ins.setData(using)
-
-
+      _updateOne(kv, store, ins)
+      if(ins._omixComponents){
+        ins._omixComponents.forEach(compIns => {
+          _updateOne(kv, store, compIns)
+        })
       }
     })
   }
@@ -159,6 +145,30 @@ function _update(kv, store) {
     change(kv)
   })
   store.debug && storeChangeLogger(store, kv)
+}
+
+function _updateOne(kv, store, ins){
+  if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
+    if (ins.__hasData) {
+      const patch = Object.assign({}, kv)
+      for (let pk in patch) {
+        if (!/\$\./.test(pk)) {
+          patch['$.' + pk] = kv[pk]
+          delete patch[pk]
+        }
+      }
+      ins.setData.call(ins, patch)
+    } else {
+      ins.setData.call(ins, kv)
+    }
+
+    const using = getUsing(store.data, ins.__use)
+
+    compute(ins.computed, store, using, ins)
+    ins.setData(using)
+
+
+  }
 }
 
 function storeChangeLogger(store, diffResult) {
