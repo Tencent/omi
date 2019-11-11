@@ -1,5 +1,5 @@
 /*!
- *  omix v2.3.3 by dntzhang
+ *  omix v2.3.4 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -45,6 +45,7 @@ function create(store, option) {
     }
     observeStore(store)
     const onLoad = option.onLoad
+    const onUnload = option.onUnload
 
     option.onLoad = function (e) {
       this.store = store
@@ -55,7 +56,7 @@ function create(store, option) {
       if (hasData) {
         Object.assign(option.data, JSON.parse(JSON.stringify(clone)))
       }
-      store.instances[this.route] = []
+      store.instances[this.route] = store.instances[this.route] || []
       store.instances[this.route].push(this)
       this.computed = option.computed
       this.setData(option.data)
@@ -66,6 +67,12 @@ function create(store, option) {
 
       onLoad && onLoad.call(this, e)
     }
+
+    option.onUnload = function (e) {
+      store.instances[this.route] = store.instances[this.route].filter(ins => ins !== this)
+      onUnload && onUnload.call(this, e)
+    }
+
     Page(option)
   } else {
     const ready = (store.lifetimes && store.lifetimes.ready) || store.ready
