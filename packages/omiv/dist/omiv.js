@@ -134,6 +134,7 @@
         var use = options.use;
         var useSelf = options.useSelf;
         options.computed = options.computed || {};
+        if (options.store) reset(options.store);
         options.beforeCreate = function() {
             this.$store = store;
             if (isMultiStore) {

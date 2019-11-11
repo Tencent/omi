@@ -1,5 +1,5 @@
 /**
- * omiv v0.3.1  https://tencent.github.io/omi/
+ * omiv v0.3.2  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -251,6 +251,10 @@ function $(options) {
   var use = options.use;
   var useSelf = options.useSelf;
   options.computed = options.computed || {};
+
+  if (options.store) {
+    reset(options.store);
+  }
 
   options.beforeCreate = function () {
     this.$store = store;
