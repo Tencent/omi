@@ -16,7 +16,7 @@ export function $(options) {
     reset(options.store)
   }
 
-  options.beforeCreate = function () {
+  options.beforeCreate = function() {
     this.$store = store
     if (isMultiStore) {
       if (use) {
@@ -49,7 +49,7 @@ export function $(options) {
     beforeCreate && beforeCreate.apply(this, arguments)
   }
 
-  options.destroyed = function () {
+  options.destroyed = function() {
     if (isMultiStore) {
       for (let key in store) {
         removeItem(this, store[key].components)
@@ -63,7 +63,7 @@ export function $(options) {
     destroyed && destroyed.apply(this, arguments)
   }
 
-  options.computed.state = function () {
+  options.computed.state = function() {
     if (isMultiStore) {
       let state = {}
       Object.keys(store).forEach(k => {
@@ -74,7 +74,7 @@ export function $(options) {
     return store.data
   }
 
-  options.computed.store = function () {
+  options.computed.store = function() {
     return store
   }
 
@@ -121,7 +121,7 @@ function observe(store, storeName) {
 }
 
 function removeItem(item, arr) {
-  for (let i = 0, len = arr.length;i < len;i++) {
+  for (let i = 0, len = arr.length; i < len; i++) {
     if (arr[i] === item) {
       arr.splice(i, 1)
       break
