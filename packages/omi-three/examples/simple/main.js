@@ -20,23 +20,18 @@ define('my-app', class extends WeElement {
   render() {
     return (
 
-      <omi-three
-        ref={_ => this.ot = _}
+      <omi-three ref={_ => this.ot = _}
         width={window.innerWidth}
         height={window.innerHeight} >
 
         <perspective-camera
           fov={75}
           aspect={window.innerWidth / window.innerHeight}
-          near={0.1}
-          far={1000}
-          z={5}>
+          near={0.1} far={1000} z={5}>
         </perspective-camera>
 
         <point-light
-          color={0xffffff}
-          intensity={1}
-          distance={1000}
+          color={0xffffff} intensity={1} distance={1000}
           position={{
             x: 110,
             y: 110,
@@ -50,12 +45,9 @@ define('my-app', class extends WeElement {
         <group alpha={0.5} y={270}>
           <mesh rotation={this.cubeRotation}>
             <box-geometry
-              width={1}
-              height={1}
-              depth={1}>
+              width={1} height={1} depth={1}>
             </box-geometry >
-            <phong-material
-              map={omiLogo}>
+            <phong-material map={omiLogo}>
             </phong-material>
           </mesh>
         </group>
