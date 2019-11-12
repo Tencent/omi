@@ -1,0 +1,90 @@
+<html>
+
+<head>
+	<title>My first three.js app</title>
+	<style>
+		body {
+			margin: 0;
+		}
+
+		canvas {
+			width: 100%;
+			height: 100%
+		}
+	</style>
+</head>
+
+<body>
+	<script src="https://unpkg.com/three@0.110.0/build/three.js"></script>
+	<script>
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+		var renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+
+		var light = new THREE.PointLight(0x333333, 1, 100);
+		light.position.set(0, 10, 95);
+		light.castShadow = true; // default false
+		scene.add(light);
+
+		scene.add(new THREE.AmbientLight(0x404040)); // soft white light
+
+		var sphere = new THREE.SphereBufferGeometry(0.1, 16, 8);
+		//lights
+		light1 = new THREE.PointLight(0xff0040, 2, 100);
+		light1.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xff0040 })));
+		scene.add(light1);
+		light2 = new THREE.PointLight(0x0040ff, 2, 100);
+		light2.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0x0040ff })));
+		scene.add(light2);
+		light3 = new THREE.PointLight(0x80ff80, 2, 100);
+		light3.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0x80ff80 })));
+		scene.add(light3);
+		light4 = new THREE.PointLight(0xffaa00, 2, 100);
+		light4.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffaa00 })));
+		scene.add(light4);
+
+
+
+		var geometry = new THREE.BoxGeometry(1, 1, 1);
+		var material = new THREE.MeshPhongMaterial({
+			color: 0xffffff
+		});
+		var cube = new THREE.Mesh(geometry, material);
+		cube.position.z = 95
+		scene.add(cube);
+
+		camera.position.z = 100;
+
+		var animate = function () {
+			requestAnimationFrame(animate);
+
+			cube.rotation.x += 0.01;
+			cube.rotation.y += 0.01;
+
+
+			var time = Date.now() * 0.001;
+			light1.position.x = Math.sin(time * 0.7) * 5;
+			light1.position.y = Math.cos(time * 0.5) * 5;
+			light1.position.z = Math.cos(time * 0.3) * 10 + 85;
+			light2.position.x = Math.cos(time * 0.3) * 5;
+			light2.position.y = Math.sin(time * 0.5) * 5;
+			light2.position.z = Math.sin(time * 0.7) * 10 + 85;
+			light3.position.x = Math.sin(time * 0.7) * 5;
+			light3.position.y = Math.cos(time * 0.3) * 5;
+			light3.position.z = Math.sin(time * 0.5) * 10 + 85;
+			light4.position.x = Math.sin(time * 0.3) * 5;
+			light4.position.y = Math.cos(time * 0.7) * 5;
+			light4.position.z = Math.sin(time * 0.5) * 10 + 85;
+
+			renderer.render(scene, camera);
+		};
+
+		animate();
+
+	</script>
+</body>
+
+</html>
