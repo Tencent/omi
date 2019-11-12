@@ -34,8 +34,7 @@ $ npm run build
 > 特别注意，由于 concurrently 不明原因起不来导致 npm start 报错，可以试着分两个命令行执行，和 npm start 同样的效果:
 
 ```bash
-gulp
-node scripts/start.js
+npm run start
 ```
 
 把小程序项目拷贝到 src-mp 目录，如果是新的小程序，可以在 src-mp 目录创建小程序，目录要求：
