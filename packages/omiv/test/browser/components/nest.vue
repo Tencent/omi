@@ -7,11 +7,10 @@
 <script>
 
 import Child from './child.vue'
-import { $ } from '../../../src/omiv'
 
-export default $({
+export default {
 	components: {
 		Child
 	}
-})
+}
 </script>

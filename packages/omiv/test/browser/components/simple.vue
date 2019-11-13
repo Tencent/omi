@@ -8,8 +8,5 @@
 <script>
 import { $ } from '../../../src/omiv'
 
-
-export default $({
-
-})
+export default $({})
 </script>
