@@ -7,14 +7,14 @@ import Omiv, { render } from '../../src/omiv'
 //import Nest from './components/nest.vue'
 
 const errorHandler = (error, vm) => {
-  console.error('--------------------------------------------------------------------')
+  console.error(
+    '--------------------------------------------------------------------'
+  )
   throw error
-
 }
 
-
-Vue.config.errorHandler = errorHandler;
-Vue.prototype.$throw = (error) => errorHandler(error, this);
+Vue.config.errorHandler = errorHandler
+Vue.prototype.$throw = error => errorHandler(error, this)
 
 describe('base', () => {
   let scratch
@@ -178,7 +178,7 @@ describe('base', () => {
     })
   })
 
-  it('mixin $store test', (done) => {
+  it('mixin $store test use', done => {
     const cs = new (class {
       data = {
         count: 2
@@ -191,6 +191,30 @@ describe('base', () => {
       }
     })()
     render(require('./components/child2.vue').default, '#app', cs)
+
+    document.querySelector('button').click()
+
+    Vue.nextTick(() => {
+      done()
+      expect(document.querySelector('#app').innerHTML).to.equal(
+        '<span class="count">3</span> <button>Increment</button>'
+      )
+    })
+  })
+
+  it('mixin $store test useSelf', done => {
+    const cs = new (class {
+      data = {
+        count: 2
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    })()
+    render(require('./components/child3.vue').default, '#app', cs)
 
     document.querySelector('button').click()
 
