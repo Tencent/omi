@@ -5,14 +5,12 @@
     <span>{{state.cs.count}}</span>
     <button @click="store.cs.add">+</button>
     <div>double: {{store.cs.getDoubleCount()}}</div>
-		<span>{{state.ns.name}}</span>
+    <span>{{state.ns.name}}</span>
   </div>
 </template>
 
 <script>
-import { $ } from 'omiv'
-
-export default $({
+export default {
   name: 'HelloWorld',
   props: {
     msg: String
@@ -20,7 +18,7 @@ export default $({
   useSelf: {
     cs: ['count']
   }
-})
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

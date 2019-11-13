@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <img alt="Vue logo"
+      src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue + Omiv App" />
   </div>
 </template>
 
 <script>
-import { $ } from 'omiv'
 import HelloWorld from './components/HelloWorld.vue'
 
-export default $({
+export default {
   name: 'app',
   components: {
     HelloWorld
   }
-})
+}
 </script>
 
 <style>
