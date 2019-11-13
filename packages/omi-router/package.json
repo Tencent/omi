@@ -1,6 +1,6 @@
 {
   "name": "omi-router",
-  "version": "2.0.11",
+  "version": "2.1.0",
   "description": "Router for Omi.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/Tencent/omi.git"
   },
   "dependencies": {
-    "path-to-regexp": "latest"
+    "path-to-regexp": "3.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

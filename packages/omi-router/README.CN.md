@@ -85,7 +85,8 @@ define('my-app', class extends WeElement {
     route.to('/user/vorshen/category/html')
   }
 
-  render(props, data) {
+  render() {
+    const data = this.data
     return (
       <div>
         <ul>

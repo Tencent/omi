@@ -69,8 +69,8 @@ define('my-app', class extends WeElement {
       `
   }
 
-  render(props, data) {
-    console.log(data.tag)
+  render() {
+    const data = this.data
     return (
       <div>
         <ul>
