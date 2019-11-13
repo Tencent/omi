@@ -1,5 +1,5 @@
-import { $, render, reset } from './vue'
+import { $, render, reset, install } from './vue'
 
-export default { $, render, reset }
+export default { $, render, reset, install }
 
-export { $, render, reset }
+export { $, render, reset, install }

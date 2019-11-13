@@ -6,8 +6,6 @@
  * MIT Licensed.
  */
 
-import Vue from 'vue';
-
 function obaa(target, arr, callback) {
   var eventPropArr = [];
   if (isArray(target)) {
@@ -242,7 +240,8 @@ function fixPath(path) {
   return mpPath;
 }
 
-var store;
+var Vue = void 0;
+var store = void 0;
 var isMultiStore = false;
 
 function $(options) {
@@ -371,6 +370,12 @@ function removeItem(item, arr) {
 
 function render(app, renderTo, store, options) {
   reset(store);
+  if (!Vue) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.');
+    }
+    return;
+  }
   new Vue(Object.assign({
     render: function render(h) {
       return h(app);
@@ -395,8 +400,32 @@ function reset(s) {
   }
 }
 
-var omiv = { $: $, render: render, reset: reset };
+function install(_Vue) {
+  if (Vue && _Vue === Vue) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('[omiv] already installed. Vue.use(Omiv) should be called only once.');
+    }
+    return;
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+function applyMixin(Vue) {
+  Vue.mixin({ beforeCreate: omivInit });
+
+  function omivInit() {
+    var options = this.$options;
+    if (options.store) {
+      this.$store = typeof options.store === "function" ? options.store() : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var omiv = { $: $, render: render, reset: reset, install: install };
 
 export default omiv;
-export { $, render, reset };
+export { $, render, reset, install };
 //# sourceMappingURL=omiv.esm.js.map

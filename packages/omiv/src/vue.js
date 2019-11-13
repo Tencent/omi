@@ -1,7 +1,7 @@
 import { obaa } from './obaa'
 import { getPath, needUpdate, fixPath } from './path'
-import Vue from 'vue'
 
+let Vue
 let store
 let isMultiStore = false
 
@@ -131,12 +131,22 @@ function removeItem(item, arr) {
 
 export function render(app, renderTo, store, options) {
   reset(store)
+  if (!Vue) {
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line
+      console.error(
+        '[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.'
+      )
+    }
+    return
+  }
   new Vue(
     Object.assign(
       {
         render: h => h(app)
       },
-      options
+      options,
+      store ? { store } : {}
     )
   ).$mount(renderTo)
 }
@@ -154,6 +164,34 @@ export function reset(s) {
           observe(store[key], key)
         }
       }
+    }
+  }
+}
+
+export function install(_Vue) {
+  if (Vue && _Vue === Vue) {
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line
+      console.error(
+        '[omiv] already installed. Vue.use(Omiv) should be called only once.'
+      )
+    }
+    return
+  }
+  Vue = _Vue
+  applyMixin(Vue)
+}
+
+function applyMixin(Vue) {
+  Vue.mixin({ beforeCreate: omivInit })
+
+  function omivInit() {
+    const options = this.$options
+    if (options.store) {
+      this.$store =
+        typeof options.store === 'function' ? options.store() : options.store
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store
     }
   }
 }
