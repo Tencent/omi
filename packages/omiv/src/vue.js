@@ -183,15 +183,81 @@ export function install(_Vue) {
 }
 
 function applyMixin(Vue) {
-  Vue.mixin({ beforeCreate: omivInit })
+  const omivComputed = {
+    state() {
+      if (isMultiStore) {
+        let state = {}
+        Object.keys(this.$store).forEach(k => {
+          state[k] = store[k].data
+        })
+        return state
+      }
+      return this.$store.data
+    },
+    store() {
+      return this.$store
+    }
+  }
 
   function omivInit() {
     const options = this.$options
+    const use = options.use
+    const useSelf = options.useSelf
+
     if (options.store) {
       this.$store =
         typeof options.store === 'function' ? options.store() : options.store
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store
     }
+
+    if (isMultiStore) {
+      if (use) {
+        let updatePath = {}
+        for (let storeName in use) {
+          getPath(use[storeName], updatePath, storeName)
+          this.$store[storeName].components.push(this)
+        }
+        this.__$updatePath_ = updatePath
+      }
+
+      if (useSelf) {
+        let updateSelfPath = {}
+        for (let storeName in useSelf) {
+          getPath(useSelf[storeName], updateSelfPath, storeName)
+          this.$store[storeName].updateSelfComponents.push(this)
+        }
+        this.__$updateSelfPath_ = updateSelfPath
+      }
+    } else {
+      if (use) {
+        // { count: true }
+        this.__$updatePath_ = getPath(use)
+        // 依赖 store 的组件，压入了一个 vm 实例
+        this.$store.components.push(this)
+      }
+      if (useSelf) {
+        this.__$updateSelfPath_ = getPath(useSelf)
+        this.$store.updateSelfComponents.push(this)
+      }
+    }
   }
+
+  function omivDestroyed() {
+    if (isMultiStore) {
+      for (let key in this.$store) {
+        removeItem(this, this.$store[key].components)
+        removeItem(this, this.$store[key].updateSelfComponents)
+      }
+    } else {
+      removeItem(this, this.$store.updateSelfComponents)
+      removeItem(this, this.$store.components)
+    }
+  }
+
+  Vue.mixin({
+    beforeCreate: omivInit,
+    computed: omivComputed,
+    destroyed: omivDestroyed
+  })
 }
