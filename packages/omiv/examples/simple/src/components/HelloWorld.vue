@@ -4,20 +4,18 @@
     <button @click="store.sub">-</button>
     <span>{{state.count}}</span>
     <button @click="store.add">+</button>
-		<div>double: {{store.getDoubleCount()}}</div>
+    <div>double: {{store.getDoubleCount()}}</div>
   </div>
 </template>
 
 <script>
-import { $ } from 'omiv'
-
-export default $({
+export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
   useSelf: ['count']
-})
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
