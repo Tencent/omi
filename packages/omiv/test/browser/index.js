@@ -178,7 +178,7 @@ describe('base', () => {
     })
   })
 
-  it('mixin $store test', () => {
+  it('mixin $store test', (done) => {
     const cs = new (class {
       data = {
         count: 2
@@ -195,10 +195,10 @@ describe('base', () => {
     document.querySelector('button').click()
 
     Vue.nextTick(() => {
+      done()
       expect(document.querySelector('#app').innerHTML).to.equal(
         '<div><span class="count">3</span> <button>Increment</button></div>'
       )
-      done()
     })
   })
 })
