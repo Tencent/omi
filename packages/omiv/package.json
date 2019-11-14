@@ -1,6 +1,6 @@
 {
   "name": "omiv",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "1kb store system for Vue apps.",
   "main": "dist/omiv.js",
   "jsnext:main": "dist/omiv.esm.js",

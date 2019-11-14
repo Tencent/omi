@@ -1,5 +1,5 @@
 /**
- * omiv v0.3.2  https://tencent.github.io/omi/
+ * omiv v1.0.0  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -240,8 +240,8 @@ function fixPath(path) {
   return mpPath;
 }
 
-var Vue = void 0;
-var store = void 0;
+var Vue;
+var store;
 var isMultiStore = false;
 
 function $(options) {
@@ -372,6 +372,7 @@ function render(app, renderTo, store, options) {
   reset(store);
   if (!Vue) {
     if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line
       console.error('[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.');
     }
     return;
@@ -380,7 +381,7 @@ function render(app, renderTo, store, options) {
     render: function render(h) {
       return h(app);
     }
-  }, options)).$mount(renderTo);
+  }, options, store ? { store: store } : {})).$mount(renderTo);
 }
 
 function reset(s) {
@@ -403,6 +404,7 @@ function reset(s) {
 function install(_Vue) {
   if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line
       console.error('[omiv] already installed. Vue.use(Omiv) should be called only once.');
     }
     return;
@@ -412,16 +414,82 @@ function install(_Vue) {
 }
 
 function applyMixin(Vue) {
-  Vue.mixin({ beforeCreate: omivInit });
+  var omivComputed = {
+    state: function state() {
+      if (isMultiStore) {
+        var state = {};
+        Object.keys(this.$store).forEach(function (k) {
+          state[k] = store[k].data;
+        });
+        return state;
+      }
+      return this.$store.data;
+    },
+    store: function store() {
+      return this.$store;
+    }
+  };
 
   function omivInit() {
     var options = this.$options;
+    var use = options.use;
+    var useSelf = options.useSelf;
+
     if (options.store) {
-      this.$store = typeof options.store === "function" ? options.store() : options.store;
+      this.$store = typeof options.store === 'function' ? options.store() : options.store;
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store;
     }
+
+    if (isMultiStore) {
+      if (use) {
+        var updatePath = {};
+        for (var storeName in use) {
+          getPath(use[storeName], updatePath, storeName);
+          this.$store[storeName].components.push(this);
+        }
+        this.__$updatePath_ = updatePath;
+      }
+
+      if (useSelf) {
+        var updateSelfPath = {};
+        for (var _storeName2 in useSelf) {
+          getPath(useSelf[_storeName2], updateSelfPath, _storeName2);
+          this.$store[_storeName2].updateSelfComponents.push(this);
+        }
+        this.__$updateSelfPath_ = updateSelfPath;
+      }
+    } else {
+      if (use) {
+        // { count: true }
+        this.__$updatePath_ = getPath(use);
+        // 依赖 store 的组件，压入了一个 vm 实例
+        this.$store.components.push(this);
+      }
+      if (useSelf) {
+        this.__$updateSelfPath_ = getPath(useSelf);
+        this.$store.updateSelfComponents.push(this);
+      }
+    }
   }
+
+  function omivDestroyed() {
+    if (isMultiStore) {
+      for (var key in this.$store) {
+        removeItem(this, this.$store[key].components);
+        removeItem(this, this.$store[key].updateSelfComponents);
+      }
+    } else {
+      removeItem(this, this.$store.updateSelfComponents);
+      removeItem(this, this.$store.components);
+    }
+  }
+
+  Vue.mixin({
+    beforeCreate: omivInit,
+    computed: omivComputed,
+    destroyed: omivDestroyed
+  });
 }
 
 var omiv = { $: $, render: render, reset: reset, install: install };

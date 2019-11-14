@@ -7,4 +7,6 @@ declare namespace omiv {
   function render(app: any, renderTo: string, store: any, options: any): void;
 
   function reset(store: any): void;
+
+  function install(Vue: any): void;
 }

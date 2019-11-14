@@ -1,4 +1,4 @@
-!function(Vue) {
+!function() {
     'use strict';
     function obaa(target, arr, callback) {
         var eventPropArr = [];
@@ -225,11 +225,13 @@
     }
     function render(app, renderTo, store, options) {
         reset(store);
-        new Vue(Object.assign({
+        if (Vue) new Vue(Object.assign({
             render: function(h) {
                 return h(app);
             }
-        }, options)).$mount(renderTo);
+        }, options, store ? {
+            store: store
+        } : {})).$mount(renderTo); else if ('production' !== process.env.NODE_ENV) console.error('[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.');
     }
     function reset(s) {
         if (s) {
@@ -243,7 +245,76 @@
             }
         }
     }
-    Vue = Vue && Vue.hasOwnProperty('default') ? Vue.default : Vue;
+    function install(_Vue) {
+        if (!Vue || _Vue !== Vue) {
+            Vue = _Vue;
+            applyMixin(Vue);
+        } else if ('production' !== process.env.NODE_ENV) console.error('[omiv] already installed. Vue.use(Omiv) should be called only once.');
+    }
+    function applyMixin(Vue) {
+        function omivInit() {
+            var options = this.$options;
+            var use = options.use;
+            var useSelf = options.useSelf;
+            if (options.store) this.$store = 'function' == typeof options.store ? options.store() : options.store; else if (options.parent && options.parent.$store) this.$store = options.parent.$store;
+            if (isMultiStore) {
+                if (use) {
+                    var updatePath = {};
+                    for (var storeName in use) {
+                        getPath(use[storeName], updatePath, storeName);
+                        this.$store[storeName].components.push(this);
+                    }
+                    this.W = updatePath;
+                }
+                if (useSelf) {
+                    var updateSelfPath = {};
+                    for (var _storeName2 in useSelf) {
+                        getPath(useSelf[_storeName2], updateSelfPath, _storeName2);
+                        this.$store[_storeName2].updateSelfComponents.push(this);
+                    }
+                    this.Y = updateSelfPath;
+                }
+            } else {
+                if (use) {
+                    this.W = getPath(use);
+                    this.$store.components.push(this);
+                }
+                if (useSelf) {
+                    this.Y = getPath(useSelf);
+                    this.$store.updateSelfComponents.push(this);
+                }
+            }
+        }
+        function omivDestroyed() {
+            if (isMultiStore) for (var key in this.$store) {
+                removeItem(this, this.$store[key].components);
+                removeItem(this, this.$store[key].updateSelfComponents);
+            } else {
+                removeItem(this, this.$store.updateSelfComponents);
+                removeItem(this, this.$store.components);
+            }
+        }
+        var omivComputed = {
+            state: function() {
+                if (isMultiStore) {
+                    var state = {};
+                    Object.keys(this.$store).forEach(function(k) {
+                        state[k] = store[k].data;
+                    });
+                    return state;
+                }
+                return this.$store.data;
+            },
+            store: function() {
+                return this.$store;
+            }
+        };
+        Vue.mixin({
+            beforeCreate: omivInit,
+            computed: omivComputed,
+            destroyed: omivDestroyed
+        });
+    }
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
@@ -256,13 +327,15 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
+    var Vue;
     var store;
     var isMultiStore = !1;
     var Omiv = {
         $: $,
         render: render,
-        reset: reset
+        reset: reset,
+        install: install
     };
     if ('undefined' != typeof module) module.exports = Omiv; else self.Omiv = Omiv;
-}(Vue);
+}();
 //# sourceMappingURL=omiv.js.map
