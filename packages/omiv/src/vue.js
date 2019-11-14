@@ -211,6 +211,11 @@ function applyMixin(Vue) {
       this.$store = options.parent.$store
     }
 
+    // FIXME: 修复不是在 main.js 中注入 store 的问题
+    if (this.$store && !store) {
+      reset(this.$store)
+    }
+
     if (isMultiStore) {
       if (use) {
         let updatePath = {}
