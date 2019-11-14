@@ -165,6 +165,11 @@ export function reset(s) {
         }
       }
     }
+  } else {
+    // 为了测试用例正确执行的特殊处理，测试用例中多次执行 Omiv.render
+    // 导致 store 变量存储的是上一个用例的 store，使得再次调用 Omiv.render(Component, '#app')
+    // 不传 store 的时候，会被污染，导致用例执行异常。正常项目中应该不会走到这里的逻辑。
+    store = undefined
   }
 }
 
@@ -201,11 +206,18 @@ function applyMixin(Vue) {
     const use = options.use
     const useSelf = options.useSelf
 
+    // TODO: 可能要处理一下在不同地方注入多个 store ？
+
     if (options.store) {
       this.$store =
         typeof options.store === 'function' ? options.store() : options.store
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store
+    }
+
+    // 修复不是在 main.js 中注入 store 的问题
+    if (this.$store && !store) {
+      reset(this.$store)
     }
 
     if (isMultiStore) {

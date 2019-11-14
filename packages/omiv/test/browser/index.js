@@ -225,4 +225,19 @@ describe('base', () => {
       )
     })
   })
+
+  it('child vue component inject store', done => {
+
+    render(require('./components/nest3.vue').default, '#app')
+
+    document.querySelector('button').click()
+
+    Vue.nextTick(() => {
+      done()
+      expect(document.querySelector('#app').innerHTML).to.equal(
+        '<div><span class="count">2</span> <button>Increment</button></div>'
+      )
+    })
+  })
+
 })
