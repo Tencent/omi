@@ -184,7 +184,7 @@ export function install(_Vue) {
 
 function applyMixin(Vue) {
   const omivComputed = {
-    state() {
+    $state() {
       if (isMultiStore) {
         let state = {}
         Object.keys(this.$store).forEach(k => {
@@ -193,9 +193,6 @@ function applyMixin(Vue) {
         return state
       }
       return this.$store.data
-    },
-    store() {
-      return this.$store
     }
   }
 

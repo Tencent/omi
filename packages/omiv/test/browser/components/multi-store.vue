@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <span class="count">{{ state.cs.count }}</span>
-    <button id="btn" @click="store.cs.sub">sub</button>
+    <span class="count">{{ $state.cs.count }}</span>
+    <button id="btn" @click="$store.cs.sub">sub</button>
   </div>
 </template>
 

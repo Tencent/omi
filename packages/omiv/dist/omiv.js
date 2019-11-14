@@ -295,7 +295,7 @@
             }
         }
         var omivComputed = {
-            state: function() {
+            $state: function() {
                 if (isMultiStore) {
                     var state = {};
                     Object.keys(this.$store).forEach(function(k) {
@@ -304,9 +304,6 @@
                     return state;
                 }
                 return this.$store.data;
-            },
-            store: function() {
-                return this.$store;
             }
         };
         Vue.mixin({

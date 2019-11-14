@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div>{{state.count}}</div>
-    <button id="btn" @click="store.add"></button>
-    <Child :title='state.title' />
+    <div>{{$state.count}}</div>
+    <button id="btn" @click="$store.add"></button>
+    <Child :title='$state.title' />
   </div>
 </template>
 

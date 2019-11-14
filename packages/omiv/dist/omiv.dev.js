@@ -1,5 +1,5 @@
 /**
- * omiv v1.0.0  https://tencent.github.io/omi/
+ * omiv v1.0.1  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -418,7 +418,7 @@
 
   function applyMixin(Vue) {
     var omivComputed = {
-      state: function state() {
+      $state: function $state() {
         if (isMultiStore) {
           var state = {};
           Object.keys(this.$store).forEach(function (k) {
@@ -427,9 +427,6 @@
           return state;
         }
         return this.$store.data;
-      },
-      store: function store() {
-        return this.$store;
       }
     };
 

@@ -29,9 +29,9 @@ HelloWrold.vue:
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="store.sub">-</button>
+    <button @click="$store.sub">-</button>
     <span>{{state.count}}</span>
-    <button @click="store.add">+</button>
+    <button @click="$store.add">+</button>
   </div>
 </template>
 
@@ -108,9 +108,9 @@ HelloWorld.vue:
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="store.cs.sub">-</button>
+    <button @click="$store.cs.sub">-</button>
     <span>{{state.cs.count}}</span>
-    <button @click="store.cs.add">+</button>
+    <button @click="$store.cs.add">+</button>
   </div>
 </template>
 
@@ -150,7 +150,7 @@ render(App, '#app', new class {
 Bind `getDoubleCount` to template:
 
 ```html
-<div>double: {{store.getDoubleCount()}}</div>
+<div>double: {{$store.getDoubleCount()}}</div>
 ```
 
 ## Differences to Vuex
