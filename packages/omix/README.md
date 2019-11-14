@@ -9,7 +9,7 @@
 * 全局状态管理
 * 无状态视图设计
 * 对小程序零入侵
-* 只有一个 API
+* 极简的 API
 * 响应式视图
 * 对 MVP 架构友好 
 * 支持计算属性
@@ -17,6 +17,7 @@
 * 多页单 store，多页多 store，单页多 store 拆分，统统都支持
 * 也适用小游戏，是的没错，使用 **小程序开发小游戏**，本文第二个案例使用 OMIX 实现一个小游戏
 * 【更新】支持有状态(data)的 Page，看文章最后的 QA
+* 【更新】支持 Component 作为页面的根组件构造页面
 
 OMIX 2.0 是 westore 的进化版，westore 使用的是数据变更前后的 diff，diff 出的 json 就是 setData 的 patch，omix 2.0 使用的是 observer 监听数据的变更得到 setData 的 patch。
 和 omix 对比，westore 运行时需要更多的计算，omix 初始化时需要更多的内存和计算，但是数据变更时 omix 速度比 westore 快，编程体验方面，omix 不需要手动 update，westore 需要手动 update。
@@ -42,9 +43,10 @@ npx omi-cli init-x-ts my-app
 
 ### API
 
-* `create(store, option)`      创建页面， store 从页面注入，可跨页面跨组件共享, 如果 option 定义了 data，store 的 data 会挂载在 `this.data.$` 下面
-* `create(option)`             创建组件
-* `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+* `create.Page(store, option)`         创建页面， store 从页面注入，可跨页面跨组件共享, 如果 option 定义了 data，store 的 data 会挂载在 `this.data.$` 下面
+* `create.Component(option)`           创建组件
+* `create.Component(store, option)`    创建[组件页面](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/component.html)
+* `this.store.data`     全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 
 > 不需要注入 store 的页面或组件用使用`Page`和`Component` 构造器,  `Component` 通过 [triggerEvent](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html) 与上层通讯或与上层的 store 交互
 
@@ -72,7 +74,7 @@ import create from '../../utils/create'
 import util from '../../utils/util'
 import store from '../../store'
 
-create(store, {
+create.Page(store, {
   // 声明依赖
   use: ['logs'], //也支持复杂路径依赖，比如 ['list[0].name']
   // 计算属性，可以直接绑定在 wxml 里
@@ -118,7 +120,7 @@ create(store, {
 ```js
 import create from '../../utils/create'
 
-create({
+create.Component({
   use: ['logs'],
   //计算属性
   computed: {
@@ -273,7 +275,7 @@ export default store
 import create from '../../utils/create'
 import store from '../../store/store'
 
-create(store, {
+create.Page(store, {
   //声明依赖
   use: ['a.name', 'b'],
   onLoad: function () {
@@ -298,7 +300,7 @@ Page A:
 import create from '../../utils/create'
 import store from '../../store/store-page-a.js'
 
-create(store, {
+create.Page(store, {
  
 })
 ```
@@ -309,7 +311,7 @@ Page B:
 import create from '../../utils/create'
 import store from '../../store/store-page-b.js'
 
-create(store, {
+create.Page(store, {
  
 })
 ```
@@ -640,7 +642,7 @@ WXML:
 ```js
 import create from '../../utils/create'
 
-create({
+create.Component({
   use: ['map']
 })
 ```
@@ -680,7 +682,7 @@ create({
 import create from '../../utils/create'
 import store from '../../store/index'
 
-create(store, {
+create.Page(store, {
   use: ['paused', 'highSpeed'],
   turnUp() {
     store.turnUp()

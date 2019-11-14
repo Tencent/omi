@@ -1,5 +1,5 @@
 /*!
- *  omix v2.3.5 by dntzhang
+ *  omix v2.4.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -75,8 +75,115 @@ function create(store, option) {
 
     Page(option)
   } else {
-    const ready = (store.lifetimes && store.lifetimes.ready) || store.ready
     store.lifetimes = store.lifetimes || {}
+    const ready = store.lifetimes.ready || store.ready
+
+    store.ready = store.lifetimes.ready = function () {
+      const page = getCurrentPages()[getCurrentPages().length - 1]
+      store.use && (this.__updatePath = getPath(store.use))
+      this.store = page.store
+      this.__use = store.use
+
+      this.computed = store.computed
+      store.data = this.store.data
+      this.setData(store.data)
+      const using = getUsing(this.store.data, store.use)
+
+      store.computed && compute(store.computed, this.store, using, this)
+      this.setData(using)
+
+      page._omixComponents = page._omixComponents || []
+      page._omixComponents.push(this)
+      ready && ready.call(this)
+    }
+    Component(store)
+  }
+}
+
+create.Page = function (store, option) {
+  create(store, option)
+}
+
+create.Component = function (store, option) {
+  if (arguments.length === 2) {
+    if (!store.instances) {
+      store.instances = {}
+    }
+
+    if (!store.__changes_) {
+      store.__changes_ = []
+    }
+
+    const changes = store.__changes_
+    if (!store.onChange) {
+      store.onChange = function (fn) {
+        changes.push(fn)
+      }
+    }
+
+    if (!store.offChange) {
+      store.offChange = function (fn) {
+        for (let i = 0, len = changes.length; i < len; i++) {
+          if (changes[i] === fn) {
+            changes.splice(i, 1)
+            break
+          }
+        }
+      }
+    }
+    const hasData = typeof option.data !== 'undefined'
+    let clone
+    if (option.data) {
+      clone = JSON.parse(JSON.stringify(option.data))
+      option.data.$ = store.data
+    } else {
+      option.data = store.data
+    }
+    observeStore(store)
+
+    const detached = option.detached
+
+    option.lifetimes = option.lifetimes || {}
+    const created = option.lifetimes.created || option.created
+    const ready = option.lifetimes.ready || option.ready
+
+    option.created = option.lifetimes.created = function (e) {
+      this.store = store
+
+      option.use && (this.__updatePath = getPath(option.use))
+      this.__use = option.use
+      this.__hasData = hasData
+      if (hasData) {
+        Object.assign(option.data, JSON.parse(JSON.stringify(clone)))
+      }
+
+      created && created.call(this, e)
+    }
+
+    option.ready = option.lifetimes.ready = function (e) {
+      const store = this.store
+      store.instances[this.route] = store.instances[this.route] || []
+      store.instances[this.route].push(this)
+      this.computed = option.computed
+      this.setData(option.data)
+      const using = getUsing(store.data, option.use)
+
+      option.computed && compute(option.computed, store, using, this)
+      this.setData(using)
+
+      ready && ready.call(this, e)
+    }
+
+    option.lifetimes.detached = option.detached = function (e) {
+      this.store.instances[this.route] = this.store.instances[this.route].filter(ins => ins !== this)
+      detached && detached.call(this, e)
+    }
+
+    Component(option)
+  } else {
+    store.lifetimes = store.lifetimes || {}
+    const ready = store.lifetimes.ready || store.ready
+
     store.ready = store.lifetimes.ready = function () {
       const page = getCurrentPages()[getCurrentPages().length - 1]
       store.use && (this.__updatePath = getPath(store.use))
