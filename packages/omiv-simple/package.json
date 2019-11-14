@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "omiv": "^0.3.1",
+    "omiv": "^1.0.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {

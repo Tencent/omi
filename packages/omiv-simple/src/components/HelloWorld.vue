@@ -8,14 +8,13 @@
 </template>
 
 <script>
-import { $ } from 'omiv'
-export default $({
-  name: 'HelloWorld',
+export default {
+  name: "HelloWorld",
   props: {
     msg: String
   },
-  useSelf: ['count']
-})
+  useSelf: ["count"]
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
