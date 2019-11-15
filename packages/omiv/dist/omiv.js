@@ -243,7 +243,7 @@
                 isMultiStore = !0;
                 for (var key in store) if (store[key].data) observe(store[key], key);
             }
-        }
+        } else store = void 0;
     }
     function install(_Vue) {
         if (!Vue || _Vue !== Vue) {
@@ -257,6 +257,7 @@
             var use = options.use;
             var useSelf = options.useSelf;
             if (options.store) this.$store = 'function' == typeof options.store ? options.store() : options.store; else if (options.parent && options.parent.$store) this.$store = options.parent.$store;
+            if (this.$store && !store) reset(this.$store);
             if (isMultiStore) {
                 if (use) {
                     var updatePath = {};

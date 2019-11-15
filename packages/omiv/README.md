@@ -30,7 +30,7 @@ HelloWrold.vue:
   <div class="hello">
     <h1>{{ msg }}</h1>
     <button @click="$store.sub">-</button>
-    <span>{{state.count}}</span>
+    <span>{{$state.count}}</span>
     <button @click="$store.add">+</button>
   </div>
 </template>
@@ -109,7 +109,7 @@ HelloWorld.vue:
   <div class="hello">
     <h1>{{ msg }}</h1>
     <button @click="$store.cs.sub">-</button>
-    <span>{{state.cs.count}}</span>
+    <span>{{$state.cs.count}}</span>
     <button @click="$store.cs.add">+</button>
   </div>
 </template>
