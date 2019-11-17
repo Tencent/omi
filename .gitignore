@@ -20,3 +20,6 @@ vue-ms
 npm-debug.log
 /packages/*/todo.md
 bak.js
+
+# test ouput
+coverage

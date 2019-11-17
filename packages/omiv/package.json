@@ -23,6 +23,7 @@
     "strip": "npm-run-all strip:main strip:esm",
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omiv.min.js",
     "test": "karma start test/karma.conf.js --single-run",
+    "coverage": "cross-env COVERAGE=true karma start test/karma.conf.js --single-run",
     "fix": "eslint src --fix",
     "fix-e": "eslint examples --fix",
     "lint": "eslint src test",
