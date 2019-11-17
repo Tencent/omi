@@ -3,7 +3,7 @@
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-v6.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
-<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 任意前端框架集成</b></p>
+<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omi-kbone) 和 任意前端框架集成</b></p>
 
 ## 快速概览
 
