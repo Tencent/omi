@@ -10,7 +10,7 @@
 import { $ } from '../../../src/omiv'
 
 export default $({
-  use: {
+  useSelf: {
     cs: ['count']
   }
 })

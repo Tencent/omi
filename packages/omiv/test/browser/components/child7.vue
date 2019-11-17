@@ -7,6 +7,17 @@
 
 <script>
 export default {
-  useSelf: ['count']
+  store: new (class {
+    data = {
+      count: 2
+    }
+    sub = () => {
+      this.data.count--
+    }
+    add = () => {
+      this.data.count++
+    }
+  })(),
+  use: ['count']
 }
 </script>

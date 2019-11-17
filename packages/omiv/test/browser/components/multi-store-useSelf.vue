@@ -7,11 +7,9 @@
 </template>
 
 <script>
-import { $ } from '../../../src/omiv'
-
-export default $({
-  use: {
+export default {
+  useSelf: {
     cs: ['count']
   }
-})
+}
 </script>
