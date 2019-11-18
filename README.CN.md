@@ -242,8 +242,8 @@ define('my-component', _ => (
 | [omim![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omim)|  Omi 打造的跨框架 Material Design UI 组件库, 任意框架可以使用,([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/cn.html) && [加入我们](https://github.com/Tencent/omi/tree/master/packages/omim#contribution)!)|
 | [omi-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| 使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。|
 | [omio](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到 IE8+) |
+| [omiv![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omiv)| 1kb 搞定 Vue 无状态视图状态管理 |
 | [omis![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| Omis + React|
-| [omiv![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omiv)| Omiv + Vue|
 | [omi-ssr](https://github.com/Tencent/omi/tree/master/packages/omi-ssr)| 服务端同构渲染解决方案(目前只能用 omio) |
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| 简单 Omi UI|
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
