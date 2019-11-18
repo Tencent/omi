@@ -11,4 +11,5 @@
     <text class="user-motto">{{motto}}-{{reverseMotto}}-{{newProp}}</text>
   </view>
   <test-store />
+	<pure-ele aa="{{motto}}" />
 </view>

@@ -5,7 +5,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    aa: {
+      type: String,
+      value: ''
+    }
   },
 
   /**
@@ -16,9 +19,8 @@ Component({
   },
 
   ready: function () {
-    this.context.emitter.emit('foo', { a: 'b' })
     setTimeout(()=>{
-      this.oData.a.b = 1
+      this.setData({'a.b': 1})
     },3000)
   },
   /**
