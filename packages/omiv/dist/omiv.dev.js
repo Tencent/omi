@@ -1,5 +1,5 @@
 /**
- * omiv v1.0.2  https://tencent.github.io/omi/
+ * omiv v1.0.3  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -371,8 +371,7 @@
     }
   }
 
-  function render(app, renderTo, store, options) {
-    reset(store);
+  function render(app, renderTo, initStore, options) {
     if (!Vue) {
       if (process.env.NODE_ENV !== 'production') {
         // eslint-disable-next-line
@@ -380,11 +379,15 @@
       }
       return;
     }
-    new Vue(Object.assign({
+    // fix: 如果是在子节点通过 $ 注入的 store， 在 根实例中拿不到 $store
+    initStore = initStore || store;
+    reset(initStore);
+
+    return new Vue(Object.assign({
       render: function render(h) {
         return h(app);
       }
-    }, options, store ? { store: store } : {})).$mount(renderTo);
+    }, options, initStore ? { store: initStore } : {})).$mount(renderTo);
   }
 
   function reset(s) {
@@ -409,14 +412,8 @@
     }
   }
 
+  // Vue.use 会判断是否重复安装
   function install(_Vue) {
-    if (Vue && _Vue === Vue) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line
-        console.error('[omiv] already installed. Vue.use(Omiv) should be called only once.');
-      }
-      return;
-    }
     Vue = _Vue;
     applyMixin(Vue);
   }

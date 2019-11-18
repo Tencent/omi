@@ -223,15 +223,18 @@
             break;
         }
     }
-    function render(app, renderTo, store, options) {
-        reset(store);
-        if (Vue) new Vue(Object.assign({
-            render: function(h) {
-                return h(app);
-            }
-        }, options, store ? {
-            store: store
-        } : {})).$mount(renderTo); else if ('production' !== process.env.NODE_ENV) console.error('[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.');
+    function render(app, renderTo, initStore, options) {
+        if (Vue) {
+            initStore = initStore || store;
+            reset(initStore);
+            return new Vue(Object.assign({
+                render: function(h) {
+                    return h(app);
+                }
+            }, options, initStore ? {
+                store: initStore
+            } : {})).$mount(renderTo);
+        } else if ('production' !== process.env.NODE_ENV) console.error('[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.');
     }
     function reset(s) {
         if (s) {
@@ -246,10 +249,8 @@
         } else store = void 0;
     }
     function install(_Vue) {
-        if (!Vue || _Vue !== Vue) {
-            Vue = _Vue;
-            applyMixin(Vue);
-        } else if ('production' !== process.env.NODE_ENV) console.error('[omiv] already installed. Vue.use(Omiv) should be called only once.');
+        Vue = _Vue;
+        applyMixin(Vue);
     }
     function applyMixin(Vue) {
         function omivInit() {
