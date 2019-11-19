@@ -1,0 +1,17 @@
+{
+  "props": {
+    "cname": 5,
+    "props": {
+      "$__o_": "a",
+      "$__r_": "b",
+      "$__p_": "c",
+      "$__c_": "d",
+      "$__$updatePath_": "e",
+      "$__$updateSelfPath_": "f"
+    }
+  },
+  "vars": {
+    "cname": -1,
+    "props": {}
+  }
+}

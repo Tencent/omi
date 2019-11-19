@@ -1,0 +1,7 @@
+import { getUsing } from '../../src/path'
+
+describe('path', () => {
+  it('simple test', () => {
+    expect(1).to.equal(1)
+  })
+})
