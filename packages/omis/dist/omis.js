@@ -3,9 +3,9 @@
     function obaa(target, arr, callback) {
         var eventPropArr = [];
         if (isArray(target)) {
-            if (0 === target.length) target.S = {
-                T: target,
-                U: '#'
+            if (0 === target.length) target.__o_ = {
+                __r_: target,
+                __p_: '#'
             };
             mock(target, target);
         }
@@ -21,9 +21,9 @@
             eventPropArr.push(prop);
             watch(target, prop, null, target);
         }
-        if (!target.V) target.V = [];
+        if (!target.__c_) target.__c_ = [];
         var propChanged = callback ? callback : arr;
-        target.V.push({
+        target.__c_.push({
             all: !callback,
             propChanged: propChanged,
             eventPropArr: eventPropArr
@@ -35,8 +35,8 @@
                 var old = Array.prototype.slice.call(this, 0);
                 var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
                 if (new RegExp('\\b' + item + '\\b').test(triggerStr)) {
-                    for (var cprop in this) if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) watch(this, cprop, this.S.U, root);
-                    onPropertyChanged('Array-' + item, this, old, this, this.S.U, root);
+                    for (var cprop in this) if (this.hasOwnProperty(cprop) && !isFunction(this[cprop])) watch(this, cprop, this.__o_.__p_, root);
+                    onPropertyChanged('Array-' + item, this, old, this, this.__o_.__p_, root);
                 }
                 return result;
             };
@@ -47,32 +47,44 @@
     }
     function watch(target, prop, path, root) {
         if ('__o_' !== prop) if (!isFunction(target[prop])) {
-            if (!target.S) target.S = {
-                T: root
+            if (!target.__o_) target.__o_ = {
+                __r_: root
             };
-            if (void 0 !== path && null !== path) target.S.U = path; else target.S.U = '#';
-            var currentValue = target.S[prop] = target[prop];
+            if (void 0 !== path && null !== path) target.__o_.__p_ = path; else target.__o_.__p_ = '#';
+            var currentValue = target.__o_[prop] = target[prop];
+            Object.defineProperty(target, prop, {
+                get: function() {
+                    return this.__o_[prop];
+                },
+                set: function(value) {
+                    var old = this.__o_[prop];
+                    this.__o_[prop] = value;
+                    onPropertyChanged(prop, value, old, this, target.__o_.__p_, root);
+                },
+                configurable: !0,
+                enumerable: !0
+            });
             if ('object' == typeof currentValue) {
                 if (isArray(currentValue)) {
                     mock(currentValue, root);
                     if (0 === currentValue.length) {
-                        if (!currentValue.S) currentValue.S = {};
-                        if (void 0 !== path && null !== path) currentValue.S.U = path + '-' + prop; else currentValue.S.U = '#-' + prop;
+                        if (!currentValue.__o_) currentValue.__o_ = {};
+                        if (void 0 !== path && null !== path) currentValue.__o_.__p_ = path + '-' + prop; else currentValue.__o_.__p_ = '#-' + prop;
                     }
                 }
-                for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.S.U + '-' + prop, root);
+                for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.__o_.__p_ + '-' + prop, root);
             }
         }
     }
     function onPropertyChanged(prop, value, oldValue, target, path, root) {
-        if (value !== oldValue && (!nan(value) || !nan(oldValue)) && root.V) {
+        if (value !== oldValue && (!nan(value) || !nan(oldValue)) && root.__c_) {
             var rootName = getRootName(prop, path);
-            for (var i = 0, len = root.V.length; i < len; i++) {
-                var handler = root.V[i];
+            for (var i = 0, len = root.__c_.length; i < len; i++) {
+                var handler = root.__c_[i];
                 if (handler.all || isInArray(handler.eventPropArr, rootName) || 0 === rootName.indexOf('Array-')) handler.propChanged.call(target, prop, value, oldValue, path);
             }
         }
-        if (0 !== prop.indexOf('Array-') && 'object' == typeof value) watch(target, prop, target.S.U, root);
+        if (0 !== prop.indexOf('Array-') && 'object' == typeof value) watch(target, prop, target.__o_.__p_, root);
     }
     function isFunction(obj) {
         return '[object Function]' === Object.prototype.toString.call(obj);
@@ -161,7 +173,7 @@
                 _classCallCheck(this, _class);
                 var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
                 _this.state = {
-                    X: 0
+                    __$id_: 0
                 };
                 if (isMultiStore) {
                     if (options.use) {
@@ -170,7 +182,7 @@
                             getPath(options.use[storeName], updatePath, storeName);
                             $.store[storeName].components.push(_this);
                         }
-                        _this.W = updatePath;
+                        _this.__$updatePath_ = updatePath;
                     }
                     if (options.useSelf) {
                         var updateSelfPath = {};
@@ -178,16 +190,16 @@
                             getPath(options.useSelf[_storeName], updateSelfPath, _storeName);
                             $.store[_storeName].updateSelfComponents.push(_this);
                         }
-                        _this.Y = updateSelfPath;
+                        _this.__$updateSelfPath_ = updateSelfPath;
                     }
                 } else {
                     if (options.use) {
                         $.store.components.push(_this);
-                        _this.W = getPath(options.use);
+                        _this.__$updatePath_ = getPath(options.use);
                     }
                     if (options.useSelf) {
                         $.store.updateSelfComponents.push(_this);
-                        _this.Y = getPath(options.useSelf);
+                        _this.__$updateSelfPath_ = getPath(options.useSelf);
                     }
                 }
                 return _this;
@@ -219,7 +231,7 @@
             var patch = {};
             patch[fixPath(path + '-' + prop)] = !0;
             store.components.forEach(function(component) {
-                var p = component.W;
+                var p = component.__$updatePath_;
                 if (storeName) {
                     if (p && p[storeName] && needUpdate(patch, p[storeName])) {
                         update(component);
@@ -231,7 +243,7 @@
                 }
             });
             store.updateSelfComponents.forEach(function(component) {
-                var sp = component.Y;
+                var sp = component.__$updateSelfPath_;
                 if (storeName) {
                     if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
                         update(component);
@@ -248,7 +260,7 @@
     }
     function update(component) {
         component.setState({
-            X: component.state.X++
+            __$id_: component.state.__$id_++
         });
     }
     function render(renderer, app, renderTo, store) {
@@ -270,10 +282,10 @@
     var triggerStr = [ 'concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size' ].join(',');
     var methods = [ 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size' ];
     obaa.add = function(obj, prop) {
-        watch(obj, prop, obj.S.U, obj.S.T);
+        watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
     };
     obaa.set = function(obj, prop, value) {
-        watch(obj, prop, obj.S.U, obj.S.T);
+        watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_);
         obj[prop] = value;
     };
     Array.prototype.size = function(length) {
