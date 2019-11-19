@@ -1,6 +1,6 @@
 {
   "name": "omiv",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "1kb store system for Vue apps.",
   "main": "dist/omiv.js",
   "jsnext:main": "dist/omiv.esm.js",
@@ -16,7 +16,7 @@
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",
     "transpile": "npm-run-all transpile:main transpile:esm",
-    "optimize": "uglifyjs dist/omiv.dev.js -c conditionals=false,sequences=false,loops=false,join_vars=false,collapse_vars=false --pure-funcs=Object.defineProperty --mangle-props --mangle-regex=\"/^(_|nextBase|prev[CPS]|_parentC)/\" --name-cache config/properties.json -b width=120,quote_style=3 -o dist/omiv.js -p relative --in-source-map dist/omiv.dev.js.map --source-map dist/omiv.js.map",
+    "optimize": "uglifyjs dist/omiv.dev.js -c conditionals=false,sequences=false,loops=false,join_vars=false,collapse_vars=false -b width=120,quote_style=3 -o dist/omiv.js -p relative --in-source-map dist/omiv.dev.js.map --source-map dist/omiv.js.map",
     "minify": "uglifyjs dist/omiv.js -c collapse_vars,evaluate,screw_ie8,unsafe,loops=false,keep_fargs=false,pure_getters,unused,dead_code -m -o dist/omiv.min.js -p relative --in-source-map dist/omiv.js.map --source-map dist/omiv.min.js.map",
     "strip:main": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omiv.dev.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omiv.dev.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omiv.dev.js",
     "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omiv.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omiv.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omiv.esm.js",
