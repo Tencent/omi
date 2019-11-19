@@ -92,6 +92,9 @@ function observe(store, storeName) {
   store.components = []
   store.updateSelfComponents = []
 
+  // 非 window 环境下不需要观察数据
+  if (typeof window === 'undefined') return
+
   obaa(store.data, (prop, val, old, path) => {
     const patch = {}
 
@@ -208,6 +211,18 @@ function applyMixin(Vue) {
         typeof options.store === 'function' ? options.store() : options.store
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store
+    }
+
+    // 在 ssr 中用于替换 store
+    if (this.$store && !this.$store.replaceState) {
+      this.$store.replaceState = (store = {}) => {
+        Object.keys(store).forEach(key => {
+          // 过滤观察字段
+          if (!key.startsWith('_')) {
+            this.$store.data[key] = store[key]
+          }
+        })
+      }
     }
 
     // 修复不是在 main.js 中注入 store 的问题
