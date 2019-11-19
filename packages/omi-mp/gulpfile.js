@@ -117,7 +117,9 @@ gulp.task('components', ['copy'], () => {
             `)
             ])
           }
-        }catch(e){}
+        }catch(e){
+          throw e
+        }
       })
     )
     .pipe(gulp.dest('src/mp/components/'))

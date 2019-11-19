@@ -2,8 +2,6 @@ let htmlToJson = require('html2json').html2json
 let map = require('./tag-mapping')
 let reURL = /^(https?):\/\/.+$/;
 
-
-const inputEvent = ['bindfocus', 'bindkeydown', 'bindkeypree', 'bindkeyup', 'bindinput', 'bindchange', 'bindblue']
 function parse(wxml, fnName) {
   return walk(htmlToJson(minifier(wxml)), fnName)
 }
@@ -30,13 +28,6 @@ function checkIsArray(json) {
         tagAttr.bindclick = tagAttr.bindtap;
       }
 
-      if(tagName === 'input'){
-        inputEvent.forEach((item) => {
-          if(tagAttr[item]){
-            tagAttr[item] = `helpInputEvent.bind(this,this.${tagAttr[item]})`
-          }
-        })
-      }
       if (tagName === 'block') {
         if(tagAttr){
           tagAttr.style = '{{{"width": "100%"}}}';
@@ -156,9 +147,9 @@ function _walk(node, currentIndex, children) {
       delete node.attr['wx:for-items']
       delete node.attr['wx:for-index']
       delete node.attr['wx:for-item']
-     
+
       result = `${ifCond} ${current}`
-      
+
     } else if (node.tag == 'block') {
       result = isArray ? `${ifCond} [${c}]` : `${ifCond} ${c}`
     } else {
@@ -205,9 +196,24 @@ function stringify(attr, tag) {
           isBind = true
         }
         let str = v.join ? joinNestArray(v) : v
-  
+
         if (str.indexOf('{{') === 0) {
-          attr[key] = braces(str)
+
+          if(Array.isArray(v)){
+            attr[key] = '';
+            v.forEach((item)=> {
+
+              if(item.includes('{{')){
+                 attr[key] += '${' + braces(item) +'} '
+                 return
+              }
+              attr[key] += item
+            })
+            attr[key] = '`' + attr[key] + '`'
+          }else{
+            attr[key] = braces(str)
+          }
+
           result +=
             "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
         } else {

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "test-store": "/components/test-store/test-store"
+		"test-store": "/components/test-store/test-store",
+		"pure-ele": "/components/hello/hello"
   }
 }
