@@ -5,6 +5,8 @@ let Vue
 let store
 let isMultiStore = false
 
+// TODO: 所有使用 $ 包裹一层的 vue 组件才会被挂载 store 属性， 这个最好是能够直接混入处理
+// 关键的一点是： 没有调用 render 函数渲染的 vue 组件，store 临时变量不会被赋予（reset 函数）， 所以 $ 函数的混入是没用的。。。
 export function $(options) {
   const beforeCreate = options.beforeCreate
   const destroyed = options.destroyed
@@ -38,11 +40,15 @@ export function $(options) {
       }
     } else {
       if (use) {
+        // { count: true }
         this.__$updatePath_ = getPath(use)
+        // 依赖 store 的组件，压入了一个 vm 实例
         store.components.push(this)
       }
       if (useSelf) {
+        // { count: true }
         this.__$updateSelfPath_ = getPath(useSelf)
+
         store.updateSelfComponents.push(this)
       }
     }
@@ -92,15 +98,15 @@ function observe(store, storeName) {
   store.components = []
   store.updateSelfComponents = []
 
-  // 非 window 环境下不需要观察数据
   if (typeof window === 'undefined') return
-
+  // TODO: 观察 ？
   obaa(store.data, (prop, val, old, path) => {
     const patch = {}
 
     patch[fixPath(path + '-' + prop)] = true
     store.components.forEach(component => {
       const p = component.__$updatePath_
+
       if (storeName) {
         if (p && p[storeName] && needUpdate(patch, p[storeName])) {
           recUpdate(component)
@@ -111,6 +117,7 @@ function observe(store, storeName) {
     })
 
     store.updateSelfComponents.forEach(component => {
+      
       const sp = component.__$updateSelfPath_
       if (storeName) {
         if (sp && sp[storeName] && needUpdate(patch, sp[storeName])) {
@@ -132,20 +139,22 @@ function removeItem(item, arr) {
   }
 }
 
+// store initStore
 export function render(app, renderTo, initStore, options) {
   if (!Vue) {
     if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line
       console.error(
         '[Omiv] has not been installed yet. Vue.use(Omiv) should be called first.'
       )
     }
     return
   }
-  // fix: 如果是在子节点通过 $ 注入的 store， 在 根实例中拿不到 $store
+  // FIXME: 如果是在子节点通过 $ 注入的 store， 在 根实例中拿不到 $store
   initStore = initStore || store
-  reset(initStore)
 
+  reset(initStore)
+  // TODO: store 没有注入
+  // TODO: 会直接返回一个 vm 实例
   return new Vue(
     Object.assign(
       {
@@ -157,6 +166,7 @@ export function render(app, renderTo, initStore, options) {
   ).$mount(renderTo)
 }
 
+// 重置 store ？
 export function reset(s) {
   if (s) {
     store = s
@@ -179,15 +189,25 @@ export function reset(s) {
   }
 }
 
-// Vue.use 会判断是否重复安装
 export function install(_Vue) {
+  // TODO: Vue.use 会去做判断是否重复安装了。。
+  // if (Vue && _Vue === Vue) {
+  //   if (process.env.NODE_ENV !== 'production') {
+  //     console.error(
+  //       '[omiv] already installed. Vue.use(Omiv) should be called only once.'
+  //     )
+  //   }
+  //   return
+  // }
   Vue = _Vue
+
   applyMixin(Vue)
 }
 
 function applyMixin(Vue) {
   const omivComputed = {
     $state() {
+      // FIXME: 这里需要合理的提示， 如果 this.$store 不存在
       if (isMultiStore) {
         let state = {}
         Object.keys(this.$store).forEach(k => {
@@ -201,11 +221,8 @@ function applyMixin(Vue) {
 
   function omivInit() {
     const options = this.$options
-    const use = options.use
-    const useSelf = options.useSelf
 
-    // TODO: 可能要处理一下在不同地方注入多个 store ？
-
+    // 所有组件都挂载上 $store
     if (options.store) {
       this.$store =
         typeof options.store === 'function' ? options.store() : options.store
@@ -213,17 +230,14 @@ function applyMixin(Vue) {
       this.$store = options.parent.$store
     }
 
-    // 在 ssr 中用于替换 store
-    if (this.$store && !this.$store.replaceState) {
-      this.$store.replaceState = (store = {}) => {
-        Object.keys(store).forEach(key => {
-          // 过滤观察字段
-          if (!key.startsWith('_')) {
-            this.$store.data[key] = store[key]
-          }
-        })
-      }
-    }
+    // TODO: 如果不处理，main.js 没有
+    // if (!this.$store) return
+
+    // console.log('options', options.name, options.computed, options.useSelf)
+    const use = options.use
+    const useSelf = options.useSelf
+
+    
 
     // 修复不是在 main.js 中注入 store 的问题
     if (this.$store && !store) {
@@ -256,6 +270,7 @@ function applyMixin(Vue) {
         this.$store.components.push(this)
       }
       if (useSelf) {
+        // { count: true }
         this.__$updateSelfPath_ = getPath(useSelf)
         this.$store.updateSelfComponents.push(this)
       }
