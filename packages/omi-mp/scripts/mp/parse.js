@@ -2,8 +2,6 @@ let htmlToJson = require('html2json').html2json
 let map = require('./tag-mapping')
 let reURL = /^(https?):\/\/.+$/;
 
-
-const inputEvent = ['bindfocus', 'bindkeydown', 'bindkeypree', 'bindkeyup', 'bindinput', 'bindchange', 'bindblue']
 function parse(wxml, fnName) {
   return walk(htmlToJson(minifier(wxml)), fnName)
 }
@@ -30,13 +28,6 @@ function checkIsArray(json) {
         tagAttr.bindclick = tagAttr.bindtap;
       }
 
-      if(tagName === 'input'){
-        inputEvent.forEach((item) => {
-          if(tagAttr[item]){
-            tagAttr[item] = `helpInputEvent.bind(this,this.${tagAttr[item]})`
-          }
-        })
-      }
       if (tagName === 'block') {
         if(tagAttr){
           tagAttr.style = '{{{"width": "100%"}}}';
@@ -171,6 +162,7 @@ function _walk(node, currentIndex, children) {
   } else {
     result = `h('${map(node.tag)}',${stringify(node.attr, map(node.tag))},[${c}])`
   }
+// console.log(result)
   return result
 }
 
@@ -196,6 +188,7 @@ function stringify(attr, tag) {
     keys.forEach((key, index) => {
       if(key.indexOf(':') == -1){
         let v = attr[key]
+
         let isBind = false
         if (key.indexOf('bind') === 0) {
           key = key.replace('bind', 'on')
@@ -205,11 +198,28 @@ function stringify(attr, tag) {
           isBind = true
         }
         let str = v.join ? joinNestArray(v) : v
-  
+
         if (str.indexOf('{{') === 0) {
-          attr[key] = braces(str)
+
+          if(Array.isArray(v)){
+            attr[key] = '';
+            v.forEach((item)=> {
+
+              if(item.includes('{{')){
+                 attr[key] += '${' + braces(item) +'} '
+                 return
+              }
+              attr[key] += item
+            })
+            attr[key] = '`' + attr[key] + '`'
+          }else{
+            attr[key] = braces(str)
+          }
+
+
           result +=
             "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
+
         } else {
           attr[key] = bracesText(str)
           if(isImg && key === 'src'){
