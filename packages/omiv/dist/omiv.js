@@ -179,9 +179,11 @@
             beforeCreate && beforeCreate.apply(this, arguments);
         };
         options.destroyed = function() {
-            if (isMultiStore) for (var key in store) {
-                removeItem(this, store[key].components);
-                removeItem(this, store[key].updateSelfComponents);
+            if (isMultiStore) {
+                for (var key in store) if ('replaceState' !== key) {
+                    removeItem(this, store[key].components);
+                    removeItem(this, store[key].updateSelfComponents);
+                }
             } else {
                 removeItem(this, store.updateSelfComponents);
                 removeItem(this, store.components);
@@ -212,7 +214,7 @@
     function observe(store, storeName) {
         store.components = [];
         store.updateSelfComponents = [];
-        obaa(store.data, function(prop, val, old, path) {
+        if ('undefined' != typeof window) obaa(store.data, function(prop, val, old, path) {
             var patch = {};
             patch[fixPath(path + '-' + prop)] = !0;
             store.components.forEach(function(component) {
@@ -266,10 +268,17 @@
     }
     function applyMixin(Vue) {
         function omivInit() {
+            var _this = this;
             var options = this.$options;
             var use = options.use;
             var useSelf = options.useSelf;
             if (options.store) this.$store = 'function' == typeof options.store ? options.store() : options.store; else if (options.parent && options.parent.$store) this.$store = options.parent.$store;
+            if (this.$store && !this.$store.replaceState) this.$store.replaceState = function() {
+                var store = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+                Object.keys(store).forEach(function(key) {
+                    if (!key.startsWith('_')) _this.$store.data[key] = store[key];
+                });
+            };
             if (this.$store && !store) reset(this.$store);
             if (isMultiStore) {
                 if (use) {
@@ -300,9 +309,11 @@
             }
         }
         function omivDestroyed() {
-            if (isMultiStore) for (var key in this.$store) {
-                removeItem(this, this.$store[key].components);
-                removeItem(this, this.$store[key].updateSelfComponents);
+            if (isMultiStore) {
+                for (var key in this.$store) if ('replaceState' !== key) {
+                    removeItem(this, this.$store[key].components);
+                    removeItem(this, this.$store[key].updateSelfComponents);
+                }
             } else {
                 removeItem(this, this.$store.updateSelfComponents);
                 removeItem(this, this.$store.components);

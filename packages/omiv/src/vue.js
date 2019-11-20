@@ -16,7 +16,7 @@ export function $(options) {
     reset(options.store)
   }
 
-  options.beforeCreate = function() {
+  options.beforeCreate = function () {
     this.$store = store
     if (isMultiStore) {
       if (use) {
@@ -49,11 +49,13 @@ export function $(options) {
     beforeCreate && beforeCreate.apply(this, arguments)
   }
 
-  options.destroyed = function() {
+  options.destroyed = function () {
     if (isMultiStore) {
       for (let key in store) {
-        removeItem(this, store[key].components)
-        removeItem(this, store[key].updateSelfComponents)
+        if (key !== 'replaceState') {
+          removeItem(this, store[key].components)
+          removeItem(this, store[key].updateSelfComponents)
+        }
       }
     } else {
       removeItem(this, store.updateSelfComponents)
@@ -63,7 +65,7 @@ export function $(options) {
     destroyed && destroyed.apply(this, arguments)
   }
 
-  options.computed.state = function() {
+  options.computed.state = function () {
     if (isMultiStore) {
       let state = {}
       Object.keys(store).forEach(k => {
@@ -74,7 +76,7 @@ export function $(options) {
     return store.data
   }
 
-  options.computed.store = function() {
+  options.computed.store = function () {
     return store
   }
 
@@ -265,8 +267,10 @@ function applyMixin(Vue) {
   function omivDestroyed() {
     if (isMultiStore) {
       for (let key in this.$store) {
-        removeItem(this, this.$store[key].components)
-        removeItem(this, this.$store[key].updateSelfComponents)
+        if (key !== 'replaceState') {
+          removeItem(this, this.$store[key].components)
+          removeItem(this, this.$store[key].updateSelfComponents)
+        }
       }
     } else {
       removeItem(this, this.$store.updateSelfComponents)

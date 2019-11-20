@@ -1,5 +1,5 @@
 /**
- * omiv v1.0.4  https://tencent.github.io/omi/
+ * omiv v1.0.5  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -294,8 +294,10 @@
     options.destroyed = function () {
       if (isMultiStore) {
         for (var key in store) {
-          removeItem(this, store[key].components);
-          removeItem(this, store[key].updateSelfComponents);
+          if (key !== 'replaceState') {
+            removeItem(this, store[key].components);
+            removeItem(this, store[key].updateSelfComponents);
+          }
         }
       } else {
         removeItem(this, store.updateSelfComponents);
@@ -333,6 +335,9 @@
   function observe(store, storeName) {
     store.components = [];
     store.updateSelfComponents = [];
+
+    // 非 window 环境下不需要观察数据
+    if (typeof window === 'undefined') return;
 
     obaa(store.data, function (prop, val, old, path) {
       var patch = {};
@@ -433,6 +438,8 @@
     };
 
     function omivInit() {
+      var _this = this;
+
       var options = this.$options;
       var use = options.use;
       var useSelf = options.useSelf;
@@ -443,6 +450,20 @@
         this.$store = typeof options.store === 'function' ? options.store() : options.store;
       } else if (options.parent && options.parent.$store) {
         this.$store = options.parent.$store;
+      }
+
+      // 在 ssr 中用于替换 store
+      if (this.$store && !this.$store.replaceState) {
+        this.$store.replaceState = function () {
+          var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+          Object.keys(store).forEach(function (key) {
+            // 过滤观察字段
+            if (!key.startsWith('_')) {
+              _this.$store.data[key] = store[key];
+            }
+          });
+        };
       }
 
       // 修复不是在 main.js 中注入 store 的问题
@@ -485,8 +506,10 @@
     function omivDestroyed() {
       if (isMultiStore) {
         for (var key in this.$store) {
-          removeItem(this, this.$store[key].components);
-          removeItem(this, this.$store[key].updateSelfComponents);
+          if (key !== 'replaceState') {
+            removeItem(this, this.$store[key].components);
+            removeItem(this, this.$store[key].updateSelfComponents);
+          }
         }
       } else {
         removeItem(this, this.$store.updateSelfComponents);
