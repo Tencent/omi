@@ -1,7 +1,0 @@
-import { obaa } from '../../src/obaa'
-
-describe('path', () => {
-  it('isString test', () => {
-    expect(isString('123')).to.equal(true)
-  })
-})
