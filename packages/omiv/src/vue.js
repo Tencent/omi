@@ -1,5 +1,6 @@
 import { obaa } from './obaa'
 import { getPath, needUpdate, fixPath } from './path'
+import createLogger from './plugins/logger'
 
 let Vue
 let store
@@ -16,7 +17,7 @@ export function $(options) {
     reset(options.store)
   }
 
-  options.beforeCreate = function () {
+  options.beforeCreate = function() {
     this.$store = store
     if (isMultiStore) {
       if (use) {
@@ -49,7 +50,7 @@ export function $(options) {
     beforeCreate && beforeCreate.apply(this, arguments)
   }
 
-  options.destroyed = function () {
+  options.destroyed = function() {
     if (isMultiStore) {
       for (let key in store) {
         if (key !== 'replaceState') {
@@ -65,7 +66,7 @@ export function $(options) {
     destroyed && destroyed.apply(this, arguments)
   }
 
-  options.computed.state = function () {
+  options.computed.state = function() {
     if (isMultiStore) {
       let state = {}
       Object.keys(store).forEach(k => {
@@ -76,7 +77,7 @@ export function $(options) {
     return store.data
   }
 
-  options.computed.store = function () {
+  options.computed.store = function() {
     return store
   }
 
@@ -93,6 +94,19 @@ function recUpdate(root) {
 function observe(store, storeName) {
   store.components = []
   store.updateSelfComponents = []
+  store._subscribers = []
+
+  if (store.logPlugin) {
+    store.plugins = store.plugins
+      ? [...store.plugins, createLogger()]
+      : [createLogger()]
+  }
+
+  // 启动插件
+  const { plugins = [] } = store
+  if (plugins.length) {
+    plugins.forEach(plugin => plugin(store))
+  }
 
   // 非 window 环境下不需要观察数据
   if (typeof window === 'undefined') return
@@ -101,6 +115,11 @@ function observe(store, storeName) {
     const patch = {}
 
     patch[fixPath(path + '-' + prop)] = true
+
+    store._subscribers.forEach(sub =>
+      sub({ type: path + '-' + prop, value: val }, store.data)
+    )
+
     store.components.forEach(component => {
       const p = component.__$updatePath_
       if (storeName) {
