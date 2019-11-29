@@ -3,6 +3,7 @@ let map = require('./tag-mapping')
 let reURL = /^(https?):\/\/.+$/;
 
 function parse(wxml, fnName) {
+  console.log(htmlToJson(minifier(wxml)).child[0].attr)
   return walk(htmlToJson(minifier(wxml)), fnName)
 }
 
@@ -147,9 +148,9 @@ function _walk(node, currentIndex, children) {
       delete node.attr['wx:for-items']
       delete node.attr['wx:for-index']
       delete node.attr['wx:for-item']
-     
+
       result = `${ifCond} ${current}`
-      
+
     } else if (node.tag == 'block') {
       result = isArray ? `${ifCond} [${c}]` : `${ifCond} ${c}`
     } else {
@@ -162,7 +163,6 @@ function _walk(node, currentIndex, children) {
   } else {
     result = `h('${map(node.tag)}',${stringify(node.attr, map(node.tag))},[${c}])`
   }
-// console.log(result)
   return result
 }
 
@@ -188,7 +188,6 @@ function stringify(attr, tag) {
     keys.forEach((key, index) => {
       if(key.indexOf(':') == -1){
         let v = attr[key]
-
         let isBind = false
         if (key.indexOf('bind') === 0) {
           key = key.replace('bind', 'on')
@@ -200,11 +199,11 @@ function stringify(attr, tag) {
         let str = v.join ? joinNestArray(v) : v
 
         if (str.indexOf('{{') === 0) {
-
-          if(Array.isArray(v)){
+            //适用['xx','xxxx']
+          if(Array.isArray(v) && !str.includes('[{')){ 
             attr[key] = '';
-            v.forEach((item)=> {
 
+            v.forEach((item)=> {
               if(item.includes('{{')){
                  attr[key] += '${' + braces(item) +'} '
                  return
@@ -213,13 +212,12 @@ function stringify(attr, tag) {
             })
             attr[key] = '`' + attr[key] + '`'
           }else{
+            //[{imgPath:'item/201901/0102171606717010u0.jpeg'}] 这种就直接转换
             attr[key] = braces(str)
           }
 
-
           result +=
             "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
-
         } else {
           attr[key] = bracesText(str)
           if(isImg && key === 'src'){
@@ -243,7 +241,7 @@ function stringify(attr, tag) {
 
 function fixImgSrc(src) {
   if (reURL.test(src)) {
-    return src
+    return `'${src}'`
   } else {
     return `require('${src}')`
   }
