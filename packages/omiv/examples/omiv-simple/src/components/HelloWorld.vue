@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="store.sub">-</button>
-    <span>{{state.count}}</span>
-    <button @click="store.add">+</button>
+    <button @click="$store.sub">-</button>
+    <span>{{$state.count}}</span>
+    <button @click="$store.add">+</button>
   </div>
 </template>
 
