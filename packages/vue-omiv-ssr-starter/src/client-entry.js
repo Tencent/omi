@@ -2,7 +2,6 @@ import { createApp } from "./app";
 
 const { app, router, store } = createApp();
 
-// TODO: omiv 缺少一个 replaceStore
 if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__);
 }

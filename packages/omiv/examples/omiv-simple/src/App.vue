@@ -18,6 +18,7 @@ export default {
     data = {
       count: 1
     }
+    logPlugin = true
     sub = () => {
       this.data.count--
     }

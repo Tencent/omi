@@ -3,7 +3,6 @@ import axios from "axios";
 axios.defaults.baseURL = "http://jsonplaceholder.typicode.com/";
 
 export default function () {
-  console.log(" ======= omiv store .....");
   return new (class {
     data = {
       topics: [],
@@ -14,7 +13,6 @@ export default function () {
     };
     increment = () => {
       this.data.count++;
-      console.log(this.data.count);
     };
 
     increment1 = () => {

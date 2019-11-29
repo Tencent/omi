@@ -9,6 +9,7 @@ const cs = new (class {
   data = {
     count: 1
   }
+  logPlugin = true
   sub = () => {
     this.data.count--
   }
@@ -25,6 +26,7 @@ const ns = new (class {
   data = {
     name: 'omiv'
   }
+  logPlugin = true
   rename = () => {
     this.data.name = 'omiv + vue'
   }
