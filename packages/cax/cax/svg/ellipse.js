@@ -21,7 +21,7 @@ export function ellipse(props, scope) {
   )
   // ellipse.x = Number(options.cx)
   // ellipse.y = Number(options.cy)
-  transform(props, ellipse, Number(options.cx), Number(options.cy))
+  transform(props, ellipse, Number(options.cx) - Number(options.rx), Number(options.cy) - Number(options.ry))
   parseEvent(props, ellipse, scope)
   return ellipse
 }
