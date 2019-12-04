@@ -5,16 +5,20 @@ function parse(a) {
   a = a.replace(/,/g, ' ').replace(/\s+/g, ',')
   const data = {}
   const order = []
+  const arr = []
+
   for (let i in (a = a.match(/(\w+\((\-?\d+\.?\d*e?\-?\d*,?)+\))+/g))) {
     let c = a[i].match(/[\w\.\-]+/g)
     const key = c.shift()
     c = c.map(item => Number(item))
     order.push(key)
+    arr.push(c)
     data[key] = c
   }
   return {
     order: order,
-    data: data
+    data: data,
+    arr: arr
   }
 }
 
@@ -31,7 +35,7 @@ export function transform(props, target, x, y) {
     if (obj.data.matrix) {
       args.push({ a: obj.data.matrix[0], b: obj.data.matrix[1], c: obj.data.matrix[2], d: obj.data.matrix[3], e: obj.data.matrix[4], f: obj.data.matrix[5] })
     } else {
-      obj.order.forEach(prop => {
+      obj.order.forEach((prop, index) => {
         if (prop === 'rotate') {
           obj.data[prop][0] *= Math.PI / 180
           //svg rotate 2、3个参数不影响 position，origin会影响position，所以注释
@@ -48,7 +52,7 @@ export function transform(props, target, x, y) {
         } else if (prop === 'skew') {
           args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, obj.data[prop][1] * Math.PI / 180]))
         } else {
-          args.push(mt[prop].apply(null, obj.data[prop]))
+          args.push(mt[prop].apply(null, obj.arr[index]))
         }
 
 
