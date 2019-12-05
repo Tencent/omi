@@ -2,8 +2,11 @@ let htmlToJson = require('html2json').html2json
 let map = require('./tag-mapping')
 let reURL = /^(https?):\/\/.+$/;
 
+const inputEvent = ['bindfocus', 'bindkeydown', 'bindkeypree', 'bindkeyup', 'bindinput', 'bindchange', 'bindblue']
+const WXCOMPONENT_ENV = 'WXCOMPONENT';
+const isWxComponent = process.env.NODE_ENV === WXCOMPONENT_ENV;
+
 function parse(wxml, fnName) {
-  console.log(htmlToJson(minifier(wxml)).child[0].attr)
   return walk(htmlToJson(minifier(wxml)), fnName)
 }
 
@@ -22,11 +25,17 @@ function checkIsArray(json) {
     let tagItem = json.child[i];
     let tagName = tagItem.tag;
     let tagAttr = tagItem.attr;
-
     if (tagName) {
-
       if(tagAttr && tagAttr.bindtap){
         tagAttr.bindclick = tagAttr.bindtap;
+      }
+
+      if(isWxComponent && tagName === 'input'){
+        inputEvent.forEach((item) => {
+          if(tagAttr[item]){
+            tagAttr[item] = `helpInputEvent.bind(this,this.${tagAttr[item]})`
+          }
+        })
       }
 
       if (tagName === 'block') {
@@ -199,11 +208,11 @@ function stringify(attr, tag) {
         let str = v.join ? joinNestArray(v) : v
 
         if (str.indexOf('{{') === 0) {
-            //适用['xx','xxxx']
-          if(Array.isArray(v) && !str.includes('[{')){ 
-            attr[key] = '';
 
+          if(Array.isArray(v) && v[0] !== '{{'){
+            attr[key] = '';
             v.forEach((item)=> {
+
               if(item.includes('{{')){
                  attr[key] += '${' + braces(item) +'} '
                  return
@@ -212,7 +221,6 @@ function stringify(attr, tag) {
             })
             attr[key] = '`' + attr[key] + '`'
           }else{
-            //[{imgPath:'item/201901/0102171606717010u0.jpeg'}] 这种就直接转换
             attr[key] = braces(str)
           }
 
@@ -241,7 +249,7 @@ function stringify(attr, tag) {
 
 function fixImgSrc(src) {
   if (reURL.test(src)) {
-    return `'${src}'`
+    return src
   } else {
     return `require('${src}')`
   }
