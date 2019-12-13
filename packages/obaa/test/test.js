@@ -118,3 +118,13 @@ QUnit.test("complex obj", function (assert) {
 
 
 })
+
+QUnit.test("empty obj", function (assert) {
+  var obj = {}
+  var res
+  obba(obj, (a, b, c, d) => {
+    res = [a, b, c, d]
+  })
+  obba.set(obj, 'newProp', 'newPropValue')
+  assert.equal(obj.newProp, newPropValue)
+})

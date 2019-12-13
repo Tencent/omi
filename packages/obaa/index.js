@@ -23,6 +23,9 @@
       }
       mock(target, target)
     }
+    if (target && typeof target === 'object' && Object.keys(target).length === 0) {
+      track(target)
+    }
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
         if (callback) {
@@ -173,13 +176,11 @@
       if (isArray(currentValue)) {
         mock(currentValue, root)
         if (currentValue.length === 0) {
-          if (!currentValue.__o_) currentValue.__o_ = {}
-          if (path !== undefined && path !== null) {
-            currentValue.__o_.__p_ = path + '-' + prop
-          } else {
-            currentValue.__o_.__p_ = '#' + '-' + prop
-          }
+          track(currentValue, prop, path)
         }
+      }
+      if (currentValue && Object.keys(currentValue).length === 0) {
+        track(currentValue, prop, path)
       }
       for (var cprop in currentValue) {
         if (currentValue.hasOwnProperty(cprop)) {
@@ -190,6 +191,22 @@
             root
           )
         }
+      }
+    }
+  }
+
+  function track(obj, prop, path) {
+    if (obj.__o_) {
+      return
+    }
+    obj.__o_ = {}
+    if (path !== undefined && path !== null) {
+      obj.__o_.__p_ = path + '-' + prop
+    } else {
+      if (prop !== undefined && prop !== null) {
+        obj.__o_.__p_ = '#' + '-' + prop
+      } else {
+        obj.__o_.__p_ = '#'
       }
     }
   }
@@ -255,7 +272,9 @@
   }
 
   obaa.set = function (obj, prop, value) {
-    watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_)
+    if (obj[prop] === undefined) {
+      watch(obj, prop, obj.__o_.__p_, obj.__o_.__r_)
+    }
     obj[prop] = value
   }
 

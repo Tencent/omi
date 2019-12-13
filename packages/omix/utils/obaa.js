@@ -15,6 +15,9 @@ export default function obaa(target, arr, callback) {
       }
       $observer.mock(target)
     }
+    if (target && typeof target === 'object' && Object.keys(target).length === 0) {
+      $observer.track(target)
+    }
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
         if (callback) {
@@ -169,10 +172,10 @@ export default function obaa(target, arr, callback) {
         writable: true,
         value: {}
       })
-      if (path !== undefined) {
+      if (path !== undefined && path !== null) {
         obj.$observeProps.$observerPath = path + '-' + prop
       } else {
-        if (prop !== undefined) {
+        if (prop !== undefined && prop !== null) {
           obj.$observeProps.$observerPath = '#' + '-' + prop
         } else {
           obj.$observeProps.$observerPath = '#'
