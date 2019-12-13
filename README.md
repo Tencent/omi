@@ -235,7 +235,7 @@ define('my-component', _ => (
 
 ## Ecosystem of Omi
 
-#### Base
+#### Base :100:
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
@@ -255,7 +255,7 @@ define('my-component', _ => (
 | [omi-snippets](https://github.com/Wscats/omi-snippets) |A beautify VSCode extension for .omi or .eno file, [Install now!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets)|
 | [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) or [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy) | Observe or Proxy any object's any change |
 
-#### Snake MVP
+#### Snake MVP :snake:
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
@@ -266,7 +266,7 @@ define('my-component', _ => (
 | [vue-snake](https://github.com/Tencent/omi/tree/master/packages/vue-snake) | The Snake-Eating Game Based on MVP Architecture Written by Vue + Omiv |
 | [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix-snake) | The Snake-Eating Game Based on MVP Architecture Written by Omix  |
 
-#### Mini Program(小程序)
+#### Mini Program(小程序) :+1:
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
@@ -282,7 +282,7 @@ define('my-component', _ => (
 | [comi](https://github.com/Tencent/omi/tree/master/packages/comi)| 小程序代码高亮和 markdown 渲染组件 |
 | [wx-touch-event](https://github.com/qbright/wx-touch-event)| 基于 [AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) 改造的小程序手势解决方案 |
 
-#### Other
+#### Other :books:
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
