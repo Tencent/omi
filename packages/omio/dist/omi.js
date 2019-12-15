@@ -657,6 +657,10 @@
             };
             mock(target, target);
         }
+        if (target && 'object' == typeof target && 0 === Object.keys(target).length) {
+            track(target);
+            target.$_o_.$_r_ = target;
+        }
         for (var prop in target) if (target.hasOwnProperty(prop)) if (callback) {
             if (isArray$1(arr) && isInArray(arr, prop)) {
                 eventPropArr.push(prop);
@@ -715,13 +719,17 @@
             if ('object' == typeof currentValue) {
                 if (isArray$1(currentValue)) {
                     mock(currentValue, root);
-                    if (0 === currentValue.length) {
-                        if (!currentValue.$_o_) currentValue.$_o_ = {};
-                        if (void 0 !== path && null !== path) currentValue.$_o_.$_p_ = path + '-' + prop; else currentValue.$_o_.$_p_ = "#-" + prop;
-                    }
+                    if (0 === currentValue.length) track(currentValue, prop, path);
                 }
+                if (currentValue && 0 === Object.keys(currentValue).length) track(currentValue, prop, path);
                 for (var cprop in currentValue) if (currentValue.hasOwnProperty(cprop)) watch(currentValue, cprop, target.$_o_.$_p_ + '-' + prop, root);
             }
+        }
+    }
+    function track(obj, prop, path) {
+        if (!obj.$_o_) {
+            obj.$_o_ = {};
+            if (void 0 !== path && null !== path) obj.$_o_.$_p_ = path + '-' + prop; else if (void 0 !== prop && null !== prop) obj.$_o_.$_p_ = "#-" + prop; else obj.$_o_.$_p_ = '#';
         }
     }
     function onPropertyChanged(prop, value, oldValue, target, path, root) {
@@ -737,6 +745,9 @@
     function isFunction(obj) {
         return '[object Function]' == Object.prototype.toString.call(obj);
     }
+    function nan(value) {
+        return "number" == typeof value && isNaN(value);
+    }
     function isArray$1(obj) {
         return '[object Array]' === Object.prototype.toString.call(obj);
     }
@@ -746,9 +757,6 @@
     function isInArray(arr, item) {
         for (var i = arr.length; --i > -1; ) if (item === arr[i]) return !0;
         return !1;
-    }
-    function nan(value) {
-        return "number" == typeof value && isNaN(value);
     }
     function getRootName(prop, path) {
         if ('#' === path) return prop; else return path.split('-')[1];
@@ -1207,7 +1215,7 @@
         watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
     };
     obaa.set = function(obj, prop, value) {
-        watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
+        if (void 0 === obj[prop]) watch(obj, prop, obj.$_o_.$_p_, obj.$_o_.$_r_);
         obj[prop] = value;
     };
     Array.prototype.size = function(length) {
@@ -1280,7 +1288,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.7.0';
+    options.root.Omi.version = 'omio-2.8.0';
     var Omi = {
         h: h,
         createElement: h,
