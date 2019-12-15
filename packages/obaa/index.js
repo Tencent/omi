@@ -1,11 +1,11 @@
-/* 
- * obaa 2.0.3
+/*
+ * obaa 2.1.0
  * By dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
  * MIT Licensed.
  */
 
- 
+
 // __r_: root
 // __c_: prop change callback
 // __p_: path
@@ -25,6 +25,7 @@
     }
     if (target && typeof target === 'object' && Object.keys(target).length === 0) {
       track(target)
+      target.__o_.__r_ = target
     }
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
