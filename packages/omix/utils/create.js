@@ -57,7 +57,6 @@ function create(store, option) {
       }
       store.instances[this.route] = store.instances[this.route] || []
       store.instances[this.route].push(this)
-      this.dataBuffer = {}
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
@@ -164,7 +163,6 @@ create.Component = function (store, option) {
       const store = this.store
       store.instances[this.route] = store.instances[this.route] || []
       store.instances[this.route].push(this)
-      this.dataBuffer = {}
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
@@ -236,6 +234,17 @@ function observeStore(store) {
       obaa.set(obj, prop, val, oba)
     }
   }
+
+  const backer = store.data
+  Object.defineProperty(store, 'data', {
+    enumerable: true,
+    get: function() {
+      return backer
+    },
+    set: function() {
+      throw new Error('You must not replace store.data directly, instead assign nest prop')
+    }
+  })
 }
 
 function _update(kv, store) {
@@ -276,14 +285,17 @@ function _updateImpl(data, store, ins) {
   if (!wx.nextTick) {
     return _doUpdate(data, store, ins)
   }
-  Object.assign(ins.dataBuffer, data)
-  if (!ins.tickScheduled) {
+  if (ins._omixDataBuffer === undefined) {
+    ins._omixDataBuffer = {}
+  }
+  Object.assign(ins._omixDataBuffer, data)
+  if (!ins._omixTickScheduled) {
     wx.nextTick(function() {
-      _doUpdate(ins.dataBuffer, store, ins)
-      ins.dataBuffer = {}
-      ins.tickScheduled = false
+      _doUpdate(ins._omixDataBuffer, store, ins)
+      ins._omixDataBuffer = {}
+      ins._omixTickScheduled = false
     })
-    ins.tickScheduled = true
+    ins._omixTickScheduled = true
   }
 }
 

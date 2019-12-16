@@ -173,7 +173,7 @@ this.store.data.arr.push(111) //会触发视图更新
 this.store.data.arr.purePush(111) //不会触发视图更新
 
 this.store.set(this.store.data, 'newProp', 'newPropVal')  //会触发视图更新
-this.store.data.newProp = 'newPropVal' //新增属性不会触发视图更新，必须使用 create.set
+this.store.data.newProp = 'newPropVal' //新增属性不会触发视图更新，必须使用 store.set
 ```
 
 ###  计算属性
