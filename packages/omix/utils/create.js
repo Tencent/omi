@@ -7,7 +7,6 @@
 import obaa from './obaa'
 import { getPath, needUpdate, fixPath, getUsing } from './path'
 
-
 function create(store, option) {
   if (arguments.length === 2) {
     if (!store.instances) {
@@ -58,6 +57,7 @@ function create(store, option) {
       }
       store.instances[this.route] = store.instances[this.route] || []
       store.instances[this.route].push(this)
+      this.dataBuffer = {}
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
@@ -164,6 +164,7 @@ create.Component = function (store, option) {
       const store = this.store
       store.instances[this.route] = store.instances[this.route] || []
       store.instances[this.route].push(this)
+      this.dataBuffer = {}
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
@@ -255,27 +256,45 @@ function _update(kv, store) {
 }
 
 function _updateOne(kv, store, ins){
-  if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
-    if (ins.__hasData) {
-      const patch = Object.assign({}, kv)
-      for (let pk in patch) {
-        if (!/\$\./.test(pk)) {
-          patch['$.' + pk] = kv[pk]
-          delete patch[pk]
-        }
-      }
-      ins.setData.call(ins, patch)
-    } else {
-      ins.setData.call(ins, kv)
-    }
-
-    const using = getUsing(store.data, ins.__use)
-
-    compute(ins.computed, store, using, ins)
-    ins.setData(using)
-
-
+  if (!(store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath))) {
+    return
   }
+  if (!ins.__hasData) {
+    return _updateImpl(kv, store, ins)
+  }
+  const patch = Object.assign({}, kv)
+  for (let pk in patch) {
+    if (!/\$\./.test(pk)) {
+      patch['$.' + pk] = kv[pk]
+      delete patch[pk]
+    }
+  }
+  _updateImpl(patch, store, ins)
+}
+
+function _updateImpl(data, store, ins) {
+  if (!wx.nextTick) {
+    return _doUpdate(data, store, ins)
+  }
+  Object.assign(ins.dataBuffer, data)
+  if (!ins.tickScheduled) {
+    wx.nextTick(function() {
+      _doUpdate(ins.dataBuffer, store, ins)
+      ins.dataBuffer = {}
+      ins.tickScheduled = false
+    })
+    ins.tickScheduled = true
+  }
+}
+
+function _doUpdate(data, store, ins) {
+  if (Object.keys(data).length === 0) {
+    return
+  }
+  ins.setData.call(ins, data)
+  const using = getUsing(store.data, ins.__use)
+  ins.computed && compute(ins.computed, store, using, ins)
+  ins.setData.call(ins, using)
 }
 
 function storeChangeLogger(store, diffResult) {
@@ -291,7 +310,6 @@ function storeChangeLogger(store, diffResult) {
   } catch (e) {
     console.log(e)
   }
-
 }
 
 
