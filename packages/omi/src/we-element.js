@@ -29,6 +29,16 @@ export default class WeElement extends HTMLElement {
       p = p.parentNode || p.host
     }
 
+		this.attrsToProps()
+
+		if (this.props.use) {
+			this.use = this.props.use
+		}
+
+		if (this.props.useSelf) {
+			this.use = this.props.useSelf
+		}
+
     if (this.use) {
       const use = typeof this.use === 'function' ? this.use() : this.use
 
@@ -76,9 +86,9 @@ export default class WeElement extends HTMLElement {
           options.isMultiStore ? this.store : this.store.data
         )
       }
-    }
+		}
 
-    this.attrsToProps()
+
     this.beforeInstall()
     this.install()
     this.afterInstall()
