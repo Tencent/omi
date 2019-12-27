@@ -233,6 +233,12 @@ define('my-component', _ => (
   })
 ```
 
+### Inject use or useSelf through prop
+
+```jsx
+<my-counter use={['count']} ></my-counter>
+```
+
 ## Ecosystem of Omi
 
 #### :100:Base 

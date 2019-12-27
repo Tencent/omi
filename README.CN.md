@@ -229,6 +229,12 @@ define('my-component', _ => (
   })
 ```
 
+### 通过 prop 注入 use 或 useSelf
+
+```jsx
+<my-counter use={['count']} ></my-counter>
+```
+
 ## Omi 生态
 
 [→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
