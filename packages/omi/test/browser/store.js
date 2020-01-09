@@ -2,9 +2,7 @@ import {
 	define,
 	render,
 	WeElement,
-	cloneElement,
-	createRef,
-	getHost
+	h
 } from '../../src/omi'
 
 describe('store', () => {
@@ -347,5 +345,42 @@ describe('store', () => {
 
 		scratch.firstChild.shadowRoot.querySelector('div').click()
 		expect(scratch.firstChild.a).to.equal(2)
+	})
+
+	it('test use prop', () => {
+
+
+		const store = {
+			data: {
+				count: 1
+			}
+		}
+
+		store.sub = () => {
+			store.data.count--
+		}
+
+		store.add = () => {
+			store.data.count++
+		}
+
+		define('my-counter111', _ => (
+			<h.f>
+				<button onClick={_.store.sub}>-</button>
+				<span>{_.store.data.count}</span>
+				<button onClick={_.store.add}>+</button>
+			</h.f>
+		))
+
+		define('my-ele16', _ => (
+			<div>
+				<my-counter111 use={['count']} ></my-counter111>
+			</div>
+		))
+
+		render(<my-ele16 />, scratch, store)
+		scratch.firstChild.shadowRoot.querySelector('my-counter111').shadowRoot.querySelector('button').click()
+
+		expect(scratch.firstChild.shadowRoot.querySelector('my-counter111').shadowRoot.querySelector('span').innerHTML).to.equal('0')
 	})
 })
