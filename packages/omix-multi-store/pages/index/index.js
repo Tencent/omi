@@ -8,6 +8,9 @@ create(store, {
       return this.a.name.split('').reverse().join('')
     }
   },
+  data: {
+    value: "内部数据"
+  },
   onLoad: function () {
     setTimeout(_ => {
       store.a.changeName()
