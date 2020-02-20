@@ -4,7 +4,7 @@ const cache = require('../../util/cache')
 
 const pool = new Pool()
 
-class NotSupport extends Element {
+class WxCustomComponent extends Element {
     /**
      * 创建实例
      */
@@ -21,18 +21,16 @@ class NotSupport extends Element {
             }
         }
 
-        return new NotSupport(options, tree)
+        return new WxCustomComponent(options, tree)
     }
 
     /**
      * 覆写父类的 $$init 方法
      */
     $$init(options, tree) {
-        super.$$init(options, tree)
+        this.$_behavior = options.componentName
 
-        // 处理特殊节点
-        const window = cache.getWindow(this.$_pageId)
-        if (window.onDealWithNotSupportDom) window.onDealWithNotSupportDom(this)
+        super.$$init(options, tree)
     }
 
     /**
@@ -40,6 +38,8 @@ class NotSupport extends Element {
      */
     $$destroy() {
         super.$$destroy()
+
+        this.$_behavior = null
     }
 
     /**
@@ -55,6 +55,10 @@ class NotSupport extends Element {
             pool.add(this)
         }
     }
+
+    get behavior() {
+        return this.$_behavior
+    }
 }
 
-module.exports = NotSupport
+module.exports = WxCustomComponent

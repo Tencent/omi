@@ -28,6 +28,7 @@ Component({
     },
     data: {
         wxCompName: '', // 需要渲染的内置组件名
+        wxCustomCompName: '', // 需要渲染的自定义组件名
         innerChildNodes: [], // 内置组件的孩子节点
         childNodes: [], // 孩子节点
     },
@@ -51,6 +52,7 @@ Component({
 
         // 记录 dom
         this.domNode = cache.getNode(pageId, nodeId)
+        if (!this.domNode) return
 
         // TODO，为了兼容基础库的一个 bug，暂且如此实现
         if (this.domNode.tagName === 'CANVAS') this.domNode._wxComponent = this
@@ -72,12 +74,12 @@ Component({
         // 初始化孩子节点
         const childNodes = _.filterNodes(this.domNode, DOM_SUB_TREE_LEVEL - 1)
         const dataChildNodes = _.dealWithLeafAndSimple(childNodes, this.onChildNodesUpdate)
-        if (data.wxCompName) {
-            // 内置组件
+        if (data.wxCompName || data.wxCustomCompName) {
+            // 内置组件/自定义组件
             data.innerChildNodes = dataChildNodes
             data.childNodes = []
         } else {
-            // 非内置组件
+            // 普通标签
             data.innerChildNodes = []
             data.childNodes = dataChildNodes
         }
@@ -101,15 +103,16 @@ Component({
 
             // 儿子节点有变化
             const childNodes = _.filterNodes(this.domNode, DOM_SUB_TREE_LEVEL - 1)
-            if (_.checkDiffChildNodes(childNodes, this.data.childNodes)) {
+            const oldChildNodes = this.data.wxCompName || this.data.wxCustomCompName ? this.data.innerChildNodes : this.data.childNodes
+            if (_.checkDiffChildNodes(childNodes, oldChildNodes)) {
                 const dataChildNodes = _.dealWithLeafAndSimple(childNodes, this.onChildNodesUpdate)
                 const newData = {}
-                if (this.data.wxCompName) {
-                    // 内置组件
+                if (this.data.wxCompName || this.data.wxCustomCompName) {
+                    // 内置组件/自定义组件
                     newData.innerChildNodes = dataChildNodes
                     newData.childNodes = []
                 } else {
-                    // 非内置组件
+                    // 普通标签
                     newData.innerChildNodes = []
                     newData.childNodes = dataChildNodes
                 }
@@ -143,10 +146,15 @@ Component({
             const tagName = domNode.tagName
 
             if (tagName === 'WX-COMPONENT') {
-                // 无可替换 html 标签
+                // 内置组件
                 if (data.wxCompName !== domNode.behavior) newData.wxCompName = domNode.behavior
                 const wxCompName = wxCompNameMap[domNode.behavior]
                 if (wxCompName) _.checkComponentAttr(wxCompName, domNode, newData, data)
+            } else if (tagName === 'WX-CUSTOM-COMPONENT') {
+                // 自定义组件
+                if (data.wxCustomCompName !== domNode.behavior) newData.wxCustomCompName = domNode.behavior
+                if (data.nodeId !== this.nodeId) data.nodeId = this.nodeId
+                if (data.pageId !== this.pageId) data.pageId = this.pageId
             } else if (NOT_SUPPORT.indexOf(tagName) >= 0) {
                 // 不支持标签
                 newData.wxCompName = 'not-support'
@@ -207,17 +215,17 @@ Component({
 
                             const type = targetDomNode.type
                             if (type === 'radio') {
-                                targetDomNode.checked = true
+                                targetDomNode.setAttribute('checked', true)
                                 const name = targetDomNode.name
                                 const otherDomNodes = window.document.querySelectorAll(`input[name=${name}]`) || []
                                 for (const otherDomNode of otherDomNodes) {
                                     if (otherDomNode.type === 'radio' && otherDomNode !== targetDomNode) {
-                                        otherDomNode.checked = false
+                                        otherDomNode.setAttribute('checked', false)
                                     }
                                 }
                                 this.callSimpleEvent('change', {detail: {value: targetDomNode.value}}, targetDomNode)
                             } else if (type === 'checkbox') {
-                                targetDomNode.checked = !targetDomNode.checked
+                                targetDomNode.setAttribute('checked', !targetDomNode.checked)
                                 this.callSimpleEvent('change', {detail: {value: targetDomNode.checked ? [targetDomNode.value] : []}}, targetDomNode)
                             } else {
                                 targetDomNode.focus()
@@ -231,6 +239,60 @@ Component({
                                 targetDomNode.setAttribute('checked', checked)
                                 this.callSimpleEvent('change', {detail: {value: checked}}, targetDomNode)
                             }
+                        }
+                    } else if ((domNode.tagName === 'BUTTON' || (domNode.tagName === 'WX-COMPONENT' && domNode.behavior === 'button')) && evt.type === 'click' && !isCapture) {
+                        // 处理 button 点击
+                        const type = domNode.tagName === 'BUTTON' ? domNode.getAttribute('type') : domNode.getAttribute('form-type')
+                        const formAttr = domNode.getAttribute('form')
+                        const form = formAttr ? window.document.getElementById('formAttr') : _.findParentNode(domNode, 'FORM')
+
+                        if (!form) return
+                        if (type !== 'submit' && type !== 'reset') return
+
+                        const inputList = form.querySelectorAll('input[name]')
+                        const textareaList = form.querySelectorAll('textarea[name]')
+                        const switchList = form.querySelectorAll('wx-component[behavior=switch]').filter(item => !!item.getAttribute('name'))
+                        const sliderList = form.querySelectorAll('wx-component[behavior=slider]').filter(item => !!item.getAttribute('name'))
+                        const pickerList = form.querySelectorAll('wx-component[behavior=picker]').filter(item => !!item.getAttribute('name'))
+
+                        if (type === 'submit') {
+                            const formData = {}
+                            if (inputList.length) {
+                                inputList.forEach(item => {
+                                    if (item.type === 'radio') {
+                                        if (item.checked) formData[item.name] = item.value
+                                    } else if (item.type === 'checkbox') {
+                                        formData[item.name] = formData[item.name] || []
+                                        if (item.checked) formData[item.name].push(item.value)
+                                    } else {
+                                        formData[item.name] = item.value
+                                    }
+                                })
+                            }
+                            if (textareaList.length) textareaList.forEach(item => formData[item.getAttribute('name')] = item.value)
+                            if (switchList.length) switchList.forEach(item => formData[item.getAttribute('name')] = !!item.getAttribute('checked'))
+                            if (sliderList.length) sliderList.forEach(item => formData[item.getAttribute('name')] = +item.getAttribute('value') || 0)
+                            if (pickerList.length) pickerList.forEach(item => formData[item.getAttribute('name')] = item.getAttribute('value'))
+
+                            this.callSimpleEvent('submit', {detail: {value: formData}, extra: {$$from: 'button'}}, form)
+                        } else if (type === 'reset') {
+                            if (inputList.length) {
+                                inputList.forEach(item => {
+                                    if (item.type === 'radio') {
+                                        item.setAttribute('checked', false)
+                                    } else if (item.type === 'checkbox') {
+                                        item.setAttribute('checked', false)
+                                    } else {
+                                        item.setAttribute('value', '')
+                                    }
+                                })
+                            }
+                            if (textareaList.length) textareaList.forEach(item => item.setAttribute('value', ''))
+                            if (switchList.length) switchList.forEach(item => item.setAttribute('checked', undefined))
+                            if (sliderList.length) sliderList.forEach(item => item.setAttribute('value', undefined))
+                            if (pickerList.length) pickerList.forEach(item => item.setAttribute('value', undefined))
+
+                            this.callSimpleEvent('reset', {extra: {$$from: 'button'}}, form)
                         }
                     }
                 }, 0)

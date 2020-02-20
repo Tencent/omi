@@ -26,7 +26,7 @@ class Miniprogram {
     init(url) {
         if (typeof url === 'string') this.$_pageUrl = url // 设置真实 url
         const {
-            origin, entry, router, runtime
+            origin, entry, router, runtime = {}
         } = cache.getConfig()
         const subpackagesMap = runtime.subpackagesMap || {}
 
@@ -78,6 +78,17 @@ class Miniprogram {
         }
 
         return null
+    }
+
+    /**
+     * 判断是否 tabBar 页面
+     */
+    isTabBarPage(pageRoute) {
+        const {
+            runtime = {}
+        } = cache.getConfig()
+        const tabBarMap = runtime.tabBarMap || {}
+        return !!tabBarMap[pageRoute]
     }
 }
 

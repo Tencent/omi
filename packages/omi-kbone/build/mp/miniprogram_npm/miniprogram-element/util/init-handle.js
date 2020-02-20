@@ -4,12 +4,14 @@ const component = require('./component')
 
 const {
     Event,
+    EventTarget,
 } = mp.$$adapter
 const {
     NOT_SUPPORT,
 } = _
 const {
-    wxCompNameMap
+    wxCompNameMap,
+    handles,
 } = component
 
 module.exports = {
@@ -21,11 +23,16 @@ module.exports = {
         const tagName = domNode.tagName
 
         if (tagName === 'WX-COMPONENT') {
-            // 无可替换 html 标签
+            // 内置组件
             data.wxCompName = domNode.behavior
             const wxCompName = wxCompNameMap[data.wxCompName]
             if (wxCompName) _.checkComponentAttr(wxCompName, domNode, data)
             else console.warn(`value "${data.wxCompName}" is not supported for wx-component's behavior`)
+        } else if (tagName === 'WX-CUSTOM-COMPONENT') {
+            // 自定义组件
+            data.wxCustomCompName = domNode.behavior
+            data.nodeId = this.nodeId
+            data.pageId = this.pageId
         } else if (NOT_SUPPORT.indexOf(tagName) >= 0) {
             // 不支持标签
             data.wxCompName = 'not-support'
@@ -38,22 +45,23 @@ module.exports = {
     },
 
     /**
-     * 触发简单节点事件
+     * 触发简单节点事件，不做冒泡处理
      */
     callSimpleEvent(eventName, evt, domNode) {
         domNode = domNode || this.domNode
         if (!domNode) return
 
-        domNode.$$trigger(eventName, {
-            event: new Event({
-                name: eventName,
-                target: domNode,
-                eventPhase: Event.AT_TARGET,
-                detail: evt && evt.detail,
-            }),
-            currentTarget: domNode,
-        })
+        EventTarget.$$process(domNode, new Event({
+            touches: evt.touches,
+            changedTouches: evt.changedTouches,
+            name: eventName,
+            target: domNode,
+            eventPhase: Event.AT_TARGET,
+            detail: evt && evt.detail,
+            $$extra: evt && evt.extra,
+            bubbles: false,
+        }))
     },
 
-    ...component.handles,
+    ...handles,
 }

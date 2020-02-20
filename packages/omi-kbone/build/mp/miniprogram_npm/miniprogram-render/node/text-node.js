@@ -108,6 +108,14 @@ class TextNode extends Node {
         this.$_triggerParentUpdate()
     }
 
+    get data() {
+        return this.textContent
+    }
+
+    set data(value) {
+        this.textContent = value
+    }
+
     cloneNode() {
         return this.ownerDocument.$$createTextNode({
             content: this.$_content,

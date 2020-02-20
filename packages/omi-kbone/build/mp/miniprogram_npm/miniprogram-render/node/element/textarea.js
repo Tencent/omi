@@ -94,7 +94,7 @@ class HTMLTextAreaElement extends Element {
      * 对外属性和方法
      */
     get type() {
-        return this.$_attrs.get('type')
+        return this.$_attrs.get('type') || 'textarea'
     }
 
     set type(value) {

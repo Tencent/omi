@@ -103,7 +103,7 @@ class HTMLInputElement extends Element {
     }
 
     get type() {
-        return this.$_attrs.get('type')
+        return this.$_attrs.get('type') || 'text'
     }
 
     set type(value) {

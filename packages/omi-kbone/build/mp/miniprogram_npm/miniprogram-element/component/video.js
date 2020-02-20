@@ -64,7 +64,7 @@ module.exports = {
     }, {
         name: 'direction',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('direction'), 10)
+            const value = parseFloat(domNode.getAttribute('direction'))
             return !isNaN(value) ? value : -1
         },
     }, {

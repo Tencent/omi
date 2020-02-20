@@ -115,7 +115,7 @@ function checkHit(node, rule) {
     // 属性选择器
     if (attr) {
         for (const {name, opr, val} of attr) {
-            const nodeVal = node[name]
+            const nodeVal = node[name] || node.getAttribute(name)
 
             if (nodeVal === undefined) return false
             if (opr) {

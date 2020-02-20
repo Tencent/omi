@@ -41,6 +41,12 @@ class WxComponent extends Element {
     get behavior() {
         return this.$_attrs.get('behavior') || ''
     }
+
+    set behavior(value) {
+        if (typeof value !== 'string') return
+
+        this.$_attrs.set('behavior', value)
+    }
 }
 
 module.exports = WxComponent

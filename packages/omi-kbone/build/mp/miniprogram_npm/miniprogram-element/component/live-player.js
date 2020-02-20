@@ -48,13 +48,13 @@ module.exports = {
     }, {
         name: 'minCache',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('min-cache'), 10)
+            const value = parseFloat(domNode.getAttribute('min-cache'))
             return !isNaN(value) ? value : 1
         },
     }, {
         name: 'maxCache',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('max-cache'), 10)
+            const value = parseFloat(domNode.getAttribute('max-cache'))
             return !isNaN(value) ? value : 3
         },
     }, {

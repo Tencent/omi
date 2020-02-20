@@ -15,26 +15,22 @@ module.exports = {
     }, {
         name: 'upperThreshold',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('upper-threshold'), 10)
-            return !isNaN(value) ? value : 50
+            return domNode.getAttribute('upper-threshold') || '50'
         },
     }, {
         name: 'lowerThreshold',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('lower-threshold'), 10)
-            return !isNaN(value) ? value : 50
+            return domNode.getAttribute('lower-threshold') || '50'
         },
     }, {
         name: 'scrollTop',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('scroll-top'), 10)
-            return !isNaN(value) ? value : ''
+            return domNode.getAttribute('scroll-top') || ''
         },
     }, {
         name: 'scrollLeft',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('scroll-left'), 10)
-            return !isNaN(value) ? value : ''
+            return domNode.getAttribute('scroll-left') || ''
         },
     }, {
         name: 'scrollIntoView',

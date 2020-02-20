@@ -1,5 +1,6 @@
 const pageMap = {}
 let configCache = {}
+const cookieCache = {}
 
 /**
  * 初始化
@@ -74,6 +75,13 @@ function getConfig() {
     return configCache
 }
 
+/**
+ * 获取全局 cookie
+ */
+function getCookie() {
+    return cookieCache
+}
+
 module.exports = {
     init,
     destroy,
@@ -83,4 +91,5 @@ module.exports = {
     getNode,
     setConfig,
     getConfig,
+    getCookie,
 }

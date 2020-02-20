@@ -48,6 +48,15 @@ class Element extends Node {
         this.$_attrs = null
 
         this.$_initAttrs(options.attrs)
+
+        // 补充实例的属性，用于 'xxx' in XXX 判断
+        this.onclick = null
+        this.ontouchstart = null
+        this.ontouchmove = null
+        this.ontouchend = null
+        this.ontouchcancel = null
+        this.onload = null
+        this.onerror = null
     }
 
     /**
@@ -327,7 +336,7 @@ class Element extends Node {
      * 调用 cloneNode 接口时用于处理额外的属性
      */
     $$dealWithAttrsForCloneNode() {
-    // 具体实现逻辑由子类实现
+        // 具体实现逻辑由子类实现
         return {}
     }
 
@@ -365,6 +374,25 @@ class Element extends Node {
                     .exec()
             } else {
                 window.$$createSelectorQuery().select(`.miniprogram-root >>> .node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject())).exec()
+            }
+        })
+    }
+
+    /**
+     * 获取对应节点的 NodesRef 对象
+     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.html
+     */
+    $$getNodesRef() {
+        tool.flushThrottleCache() // 先清空 setData
+        const window = cache.getWindow(this.$_pageId)
+        return new Promise((resolve, reject) => {
+            if (!window) reject()
+
+            if (this.tagName === 'CANVAS') {
+                // TODO，为了兼容基础库的一个 bug，暂且如此实现
+                resolve(wx.createSelectorQuery().in(this._wxComponent).select(`.node-${this.$_nodeId}`))
+            } else {
+                resolve(window.$$createSelectorQuery().select(`.miniprogram-root >>> .node-${this.$_nodeId}`))
             }
         })
     }
@@ -578,12 +606,6 @@ class Element extends Node {
     set textContent(text) {
         text = '' + text
 
-        // 空串不新增 textNode 节点
-        if (!text) return
-
-        const nodeId = `b-${tool.getId()}` // 运行时生成，使用 b- 前缀
-        const child = this.ownerDocument.$$createTextNode({content: text, nodeId})
-
         // 删除所有子节点
         this.$_children.forEach(node => {
             node.$$updateParent(null)
@@ -592,6 +614,12 @@ class Element extends Node {
             this.$_updateChildrenExtra(node, true)
         })
         this.$_children.length = 0
+
+        // 空串不新增 textNode 节点
+        if (!text) return
+
+        const nodeId = `b-${tool.getId()}` // 运行时生成，使用 b- 前缀
+        const child = this.ownerDocument.$$createTextNode({content: text, nodeId})
 
         this.appendChild(child)
     }
@@ -862,6 +890,30 @@ class Element extends Node {
         if (typeof name !== 'string') return false
 
         return this.$_attrs.remove(name)
+    }
+
+    setAttributeNS(namespace, name, value) {
+        // 不支持 namespace，使用 setAttribute 来兼容
+        console.warn(`namespace ${namespace} is not supported`)
+        this.setAttribute(name, value)
+    }
+
+    getAttributeNS(namespace, name) {
+        // 不支持 namespace，使用 setAttribute 来兼容
+        console.warn(`namespace ${namespace} is not supported`)
+        return this.getAttribute(name)
+    }
+
+    hasAttributeNS(namespace, name) {
+        // 不支持 namespace，使用 setAttribute 来兼容
+        console.warn(`namespace ${namespace} is not supported`)
+        return this.hasAttribute(name)
+    }
+
+    removeAttributeNS(namespace, name) {
+        // 不支持 namespace，使用 setAttribute 来兼容
+        console.warn(`namespace ${namespace} is not supported`)
+        return this.removeAttribute(name)
     }
 
     contains(otherElement) {

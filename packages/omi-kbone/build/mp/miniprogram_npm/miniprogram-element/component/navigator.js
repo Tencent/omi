@@ -20,7 +20,7 @@ module.exports = {
     }, {
         name: 'delta',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('delta'), 10)
+            const value = parseFloat(domNode.getAttribute('delta'))
             return !isNaN(value) ? value : 1
         },
     }, {
@@ -56,13 +56,13 @@ module.exports = {
     }, {
         name: 'hoverStartTime',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('hover-start-time'), 10)
+            const value = parseFloat(domNode.getAttribute('hover-start-time'))
             return !isNaN(value) ? value : 50
         },
     }, {
         name: 'hoverStayTime',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('hover-stay-time'), 10)
+            const value = parseFloat(domNode.getAttribute('hover-stay-time'))
             return !isNaN(value) ? value : 600
         },
     }],

@@ -47,7 +47,7 @@ module.exports = {
     }, {
         name: 'maxlength',
         get(domNode) {
-            const value = parseInt(domNode.maxlength, 10)
+            const value = parseFloat(domNode.maxlength)
             return !isNaN(value) ? value : 140
         },
     }, {
@@ -78,19 +78,19 @@ module.exports = {
     }, {
         name: 'cursor',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('cursor'), 10)
+            const value = parseFloat(domNode.getAttribute('cursor'))
             return !isNaN(value) ? value : -1
         },
     }, {
         name: 'selectionStart',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('selection-start'), 10)
+            const value = parseFloat(domNode.getAttribute('selection-start'))
             return !isNaN(value) ? value : -1
         },
     }, {
         name: 'selectionEnd',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('selection-end'), 10)
+            const value = parseFloat(domNode.getAttribute('selection-end'))
             return !isNaN(value) ? value : -1
         },
     }, {
@@ -114,11 +114,13 @@ module.exports = {
         onInputInput(evt) {
             if (!this.domNode) return
 
-            this.domNode.value = evt.detail.value
+            const value = '' + evt.detail.value
+            this.domNode.setAttribute('value', value)
             this.callEvent('input', evt)
         },
 
         onInputFocus(evt) {
+            this._inputOldValue = this.domNode.value
             this.callSimpleEvent('focus', evt)
         },
 
@@ -126,6 +128,10 @@ module.exports = {
             if (!this.domNode) return
 
             this.domNode.setAttribute('focus', false)
+            if (this._inputOldValue !== undefined && this.domNode.value !== this._inputOldValue) {
+                this._inputOldValue = undefined
+                this.callEvent('change', evt)
+            }
             this.callSimpleEvent('blur', evt)
         },
 
@@ -145,25 +151,27 @@ module.exports = {
             const otherDomNodes = window.document.querySelectorAll(`input[name=${name}]`) || []
 
             if (value === domNode.value) {
-                domNode.checked = true
+                domNode.setAttribute('checked', true)
                 for (const otherDomNode of otherDomNodes) {
                     if (otherDomNode.type === 'radio' && otherDomNode !== domNode) {
-                        otherDomNode.checked = false
+                        otherDomNode.setAttribute('checked', false)
                     }
                 }
             }
-            this.callSimpleEvent('change', evt)
+            this.callEvent('input', evt)
+            this.callEvent('change', evt)
         },
 
         onCheckboxChange(evt) {
             const domNode = this.domNode
             const value = evt.detail.value || []
             if (value.indexOf(domNode.value) >= 0) {
-                domNode.checked = true
+                domNode.setAttribute('checked', true)
             } else {
-                domNode.checked = false
+                domNode.setAttribute('checked', false)
             }
-            this.callSimpleEvent('change', evt)
+            this.callEvent('input', evt)
+            this.callEvent('change', evt)
         },
     },
 }

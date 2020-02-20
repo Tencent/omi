@@ -10,13 +10,13 @@ module.exports = {
     }, {
         name: 'max',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('max'), 10)
+            const value = parseFloat(domNode.getAttribute('max'))
             return !isNaN(value) ? value : 100
         },
     }, {
         name: 'step',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('step'), 10)
+            const value = parseFloat(domNode.getAttribute('step'))
             return !isNaN(value) ? value : 1
         },
     }, {
@@ -52,7 +52,7 @@ module.exports = {
     }, {
         name: 'blockSize',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('block-size'), 10)
+            const value = parseFloat(domNode.getAttribute('block-size'))
             return !isNaN(value) ? value : 28
         },
     }, {
@@ -68,6 +68,9 @@ module.exports = {
     }],
     handles: {
         onSliderChange(evt) {
+            if (!this.domNode) return
+
+            this.domNode.$$setAttributeWithoutUpdate('value', evt.detail.value)
             this.callSimpleEvent('change', evt)
         },
 
