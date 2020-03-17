@@ -1,0 +1,2 @@
+@import './wxParse.wxss';
+@import './prism.wxss';
