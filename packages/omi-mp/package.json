@@ -11,8 +11,8 @@
     "concurrently": "^4.0.1",
     "css": "^2.2.4",
     "css-what": "^2.1.2",
-    "gulp": "^3.9.1",
-    "gulp-tap": "^1.0.1",
+    "gulp": "^4.0.2",
+    "gulp-tap": "^2.0.0",
     "html2json": "^1.0.2",
     "uglify-js": "^3.4.9"
   },
@@ -32,7 +32,7 @@
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
-     "cross-env": "^6.0.3",
+    "cross-env": "^6.0.3",
     "css-loader": "0.28.7",
     "cssnano": "^4.1.10",
     "dotenv": "4.0.0",
@@ -70,7 +70,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-   "start": "cross-env NODE_ENV=\"COMPONENT\" concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
+    "start": "cross-env NODE_ENV=\"COMPONENT\" concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
     "start-wx-component": "cross-env NODE_ENV=\"WXCOMPONENT\" concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
     "wx-component-build": "cross-env NODE_ENV=\"WXCOMPONENT\" concurrently --kill-others \"gulp build\" && npm run build",
     "wx-build": "cross-env NODE_ENV=\"COMPONENT\" concurrently --kill-others \"gulp build\" && npm run build",
