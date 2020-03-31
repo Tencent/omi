@@ -6,9 +6,9 @@ const license = require("rollup-plugin-license");
 const pkg = require("../package.json");
 const licensePlugin = license({
 	banner:
-		" omi v" +
+		" Omi v" +
 		pkg.version +
-		"  https://tencent.github.io/omi/\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
+		"  http://omijs.org\r\nFront End Cross-Frameworks Framework.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed."
 });
 
 export default {

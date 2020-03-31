@@ -25,7 +25,7 @@ let hydrating = false
  */
 export function diff(dom, vnode, parent, component, updateSelf) {
   //first render return undefined
-  if(!dom && !vnode) return
+  if (!dom && !vnode) return
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   let ret
   if (!diffLevel++) {

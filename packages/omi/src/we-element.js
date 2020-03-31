@@ -88,7 +88,6 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-
     this.beforeInstall()
     this.install()
     this.afterInstall()
