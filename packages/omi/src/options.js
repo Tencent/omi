@@ -18,8 +18,8 @@ function getGlobal() {
 }
 
 /** Global options
- *	@public
- *	@namespace options {Object}
+ *  @public
+ *  @namespace options {Object}
  */
 export default {
   store: null,

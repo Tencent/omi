@@ -1,5 +1,5 @@
 /**
- * omi v6.17.0  https://tencent.github.io/omi/
+ * omi v6.17.1  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -19,8 +19,8 @@
   }
 
   /** Global options
-   *	@public
-   *	@namespace options {Object}
+   *  @public
+   *  @namespace options {Object}
    */
   var options = {
     store: null,
@@ -251,9 +251,9 @@
   /**
    * Check if two nodes are equivalent.
    *
-   * @param {Node} node			DOM Node to compare
-   * @param {VNode} vnode			Virtual DOM node to compare
-   * @param {boolean} [hydrating=false]	If true, ignores component constructors when comparing.
+   * @param {Node} node      DOM Node to compare
+   * @param {VNode} vnode      Virtual DOM node to compare
+   * @param {boolean} [hydrating=false]  If true, ignores component constructors when comparing.
    * @private
    */
   function isSameNodeType(node, vnode, hydrating) {
@@ -271,8 +271,8 @@
   /**
    * Check if an Element has a given nodeName, case-insensitively.
    *
-   * @param {Element} node	A DOM Element to inspect the name of.
-   * @param {String} nodeName	Unnormalized name to compare against.
+   * @param {Element} node  A DOM Element to inspect the name of.
+   * @param {String} nodeName  Unnormalized name to compare against.
    */
   function isNamedNode(node, nodeName) {
     return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
@@ -463,12 +463,14 @@
   var hydrating = false;
 
   /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
-   *	@param {Element} [dom=null]		A DOM node to mutate into the shape of the `vnode`
-   *	@param {VNode} vnode			A VNode (with descendants forming a tree) representing the desired DOM structure
-   *	@returns {Element} dom			The created/mutated element
-   *	@private
+   *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
+   *  @param {VNode} vnode      A VNode (with descendants forming a tree) representing the desired DOM structure
+   *  @returns {Element} dom      The created/mutated element
+   *  @private
    */
   function diff(dom, vnode, parent, component, updateSelf) {
+    //first render return undefined
+    if (!dom && !vnode) return;
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     var ret;
     if (!diffLevel++) {
@@ -478,7 +480,7 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !('prevProps' in dom);
     }
-    if (vnode.nodeName === Fragment) {
+    if (vnode && vnode.nodeName === Fragment) {
       vnode = vnode.children;
     }
     if (isArray(vnode)) {
@@ -624,9 +626,9 @@
   }
 
   /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
-   *	@param {Element} dom			Element whose children should be compared & mutated
-   *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
-   *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
+   *  @param {Element} dom      Element whose children should be compared & mutated
+   *  @param {Array} vchildren    Array of VNodes to compare to `dom.childNodes`
+   *  @param {Boolean} isHydrating  If `true`, consumes externally created elements similar to hydration
    */
   function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
     var originalChildren = dom.childNodes,
@@ -715,8 +717,8 @@
   }
 
   /** Recursively recycle (or just unmount) a node and its descendants.
-   *	@param {Node} node						DOM node to start unmount/removal from
-   *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
+   *  @param {Node} node            DOM node to start unmount/removal from
+   *  @param {Boolean} [unmountOnly=false]  If `true`, only triggers unmount lifecycle, skips removal
    */
   function recollectNodeTree(node, unmountOnly) {
     // If the node's VNode had a ref function, invoke it with null here.
@@ -737,8 +739,8 @@
   }
 
   /** Recollect/unmount all children.
-   *	- we use .lastChild here because it causes less reflow than .firstChild
-   *	- it's also cheaper than accessing the .childNodes Live NodeList
+   *  - we use .lastChild here because it causes less reflow than .firstChild
+   *  - it's also cheaper than accessing the .childNodes Live NodeList
    */
   function removeChildren(node) {
     node = node.lastChild;
@@ -750,9 +752,9 @@
   }
 
   /** Apply differences in attributes from a VNode to the given DOM Element.
-   *	@param {Element} dom		Element with attributes to diff `attrs` against
-   *	@param {Object} attrs		The desired end-state key-value attribute pairs
-   *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
+   *  @param {Element} dom    Element with attributes to diff `attrs` against
+   *  @param {Object} attrs    The desired end-state key-value attribute pairs
+   *  @param {Object} old      Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old, component, updateSelf) {
     var name;
@@ -931,7 +933,7 @@
           shadowRoot.appendChild(item);
         });
       } else {
-        shadowRoot.appendChild(this.rootNode);
+        this.rootNode && shadowRoot.appendChild(this.rootNode);
       }
       this.installed();
       this._isInstalled = true;
@@ -1151,17 +1153,17 @@
           will emit
           {op: replace, path: '/arr/1', value: arr_2}
           {op: remove, path: '/arr/2'}
-           by default, the second operation would revoke the proxy, and this renders arr revoked.
+            by default, the second operation would revoke the proxy, and this renders arr revoked.
           That's why we need to remember the proxies that are inherited.
         */
       var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
       /*
       Why do we need to check instance.isProxifyingTreeNow?
-       We need to make sure we mark revokables as inherited ONLY when we're observing,
+        We need to make sure we mark revokables as inherited ONLY when we're observing,
       because throughout the first proxification, a sub-object is proxified and then assigned to
       its parent object. This assignment of a pre-proxified object can fool us into thinking
       that it's a proxified object moved around, while in fact it's the first assignment ever.
-       Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+        Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
       but in fact is is a proxified object moved around the tree
       */
       if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -1239,7 +1241,7 @@
               this is an inherited proxy (an already proxified object that was moved around),
               we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
               And we know that because we mark moved proxies with `inherited` flag when we move them
-               it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+                it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
               We DO want to revoke the proxy if it was removed again.
             */
             revokableProxyInstance.inherited = false;
@@ -1686,9 +1688,9 @@
 
   /**
    * Clones the given VNode, optionally adding attributes/props and replacing its children.
-   * @param {VNode} vnode		The virtual DOM element to clone
-   * @param {Object} props	Attributes/props to add when cloning
-   * @param {VNode} rest		Any additional arguments will be used as replacement children.
+   * @param {VNode} vnode    The virtual DOM element to clone
+   * @param {Object} props  Attributes/props to add when cloning
+   * @param {VNode} rest    Any additional arguments will be used as replacement children.
    */
   function cloneElement(vnode, props) {
     return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
@@ -1818,7 +1820,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.17.0';
+  options.root.Omi.version = '6.17.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

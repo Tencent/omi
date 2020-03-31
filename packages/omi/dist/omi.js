@@ -210,33 +210,35 @@
         }));
     }
     function diff(dom, vnode, parent, component, updateSelf) {
-        var ret;
-        if (!diffLevel++) {
-            isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
-            hydrating = null != dom && !('prevProps' in dom);
+        if (dom || vnode) {
+            var ret;
+            if (!diffLevel++) {
+                isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
+                hydrating = null != dom && !('prevProps' in dom);
+            }
+            if (vnode && vnode.nodeName === Fragment) vnode = vnode.children;
+            if (isArray(vnode)) if (parent) {
+                var styles = parent.querySelectorAll('style');
+                styles.forEach(function(s) {
+                    parent.removeChild(s);
+                });
+                innerDiffNode(parent, vnode, hydrating, component, updateSelf);
+                for (var i = styles.length - 1; i >= 0; i--) parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
+            } else {
+                ret = [];
+                vnode.forEach(function(item, index) {
+                    var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
+                    ret.push(ele);
+                });
+            } else {
+                if (isArray(dom)) dom.forEach(function(one, index) {
+                    if (0 === index) ret = idiff(one, vnode, component, updateSelf); else recollectNodeTree(one, !1);
+                }); else ret = idiff(dom, vnode, component, updateSelf);
+                if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+            }
+            if (!--diffLevel) hydrating = !1;
+            return ret;
         }
-        if (vnode.nodeName === Fragment) vnode = vnode.children;
-        if (isArray(vnode)) if (parent) {
-            var styles = parent.querySelectorAll('style');
-            styles.forEach(function(s) {
-                parent.removeChild(s);
-            });
-            innerDiffNode(parent, vnode, hydrating, component, updateSelf);
-            for (var i = styles.length - 1; i >= 0; i--) parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
-        } else {
-            ret = [];
-            vnode.forEach(function(item, index) {
-                var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
-                ret.push(ele);
-            });
-        } else {
-            if (isArray(dom)) dom.forEach(function(one, index) {
-                if (0 === index) ret = idiff(one, vnode, component, updateSelf); else recollectNodeTree(one, !1);
-            }); else ret = idiff(dom, vnode, component, updateSelf);
-            if (parent && ret.parentNode !== parent) parent.appendChild(ret);
-        }
-        if (!--diffLevel) hydrating = !1;
-        return ret;
     }
     function idiff(dom, vnode, component, updateSelf) {
         if (dom && vnode && dom.props) dom.props.children = vnode.children;
@@ -702,7 +704,7 @@
             }
             if (isArray(this.rootNode)) this.rootNode.forEach(function(item) {
                 shadowRoot.appendChild(item);
-            }); else shadowRoot.appendChild(this.rootNode);
+            }); else this.rootNode && shadowRoot.appendChild(this.rootNode);
             this.installed();
             this.B = !0;
         };
@@ -1058,7 +1060,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.17.0';
+    options.root.Omi.version = '6.17.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

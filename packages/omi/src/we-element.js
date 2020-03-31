@@ -29,15 +29,15 @@ export default class WeElement extends HTMLElement {
       p = p.parentNode || p.host
     }
 
-		this.attrsToProps()
+    this.attrsToProps()
 
-		if (this.props.use) {
-			this.use = this.props.use
-		}
+    if (this.props.use) {
+      this.use = this.props.use
+    }
 
-		if (this.props.useSelf) {
-			this.use = this.props.useSelf
-		}
+    if (this.props.useSelf) {
+      this.use = this.props.useSelf
+    }
 
     if (this.use) {
       const use = typeof this.use === 'function' ? this.use() : this.use
@@ -86,7 +86,7 @@ export default class WeElement extends HTMLElement {
           options.isMultiStore ? this.store : this.store.data
         )
       }
-		}
+    }
 
 
     this.beforeInstall()
@@ -135,7 +135,7 @@ export default class WeElement extends HTMLElement {
         shadowRoot.appendChild(item)
       })
     } else {
-      shadowRoot.appendChild(this.rootNode)
+      this.rootNode && shadowRoot.appendChild(this.rootNode)
     }
     this.installed()
     this._isInstalled = true
