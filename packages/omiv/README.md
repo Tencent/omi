@@ -72,6 +72,14 @@ const store = new class {
 render(App, '#app', store)
 ```
 
+You can pass options to Vue through the fourth parameter:
+
+```js
+render(App, '#app', store, {
+  router
+})
+```
+
 ## Multi-store injection
 
 Injecting multiple stores by `render` method:
