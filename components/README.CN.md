@@ -11,3 +11,10 @@
 * 支持折叠展示（用css实现，数据格式不变，用一个字段区分层级）
 * 支持前后列冻结
 * 支持表头固定，局部滚动
+* colSpan 和 rowSpan 支持
+* 虚拟化表，无限滚动
+
+### 参考
+
+* https://v3.material-ui.com/demos/tables/#tables
+* https://www.datatables.net/
