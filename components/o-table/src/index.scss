@@ -31,6 +31,10 @@ th {
   font-weight: 500;
 }
 
+.m-table-border td, .m-table-border th {
+	border-right: 1px solid #ebeef5;
+}
+
 tr {
   border-bottom: 1px solid #E0E0E0;
 }

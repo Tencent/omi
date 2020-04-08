@@ -4,12 +4,14 @@ interface Props {
     dataSource: any[];
     columns: object;
     checkbox: boolean;
+    border: boolean;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
     dataSource: any[];
     columns: any[];
     checkbox: boolean;
+    border: boolean;
     removeItem: (item: any) => void;
     _changeHandlerTh: (e: any, item: any) => void;
     _changeHandlerTd: (e: any, item: any) => void;

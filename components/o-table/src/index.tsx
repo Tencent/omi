@@ -7,7 +7,8 @@ import '../theme.ts'
 interface Props {
 	dataSource: any[],
 	columns: object,
-	checkbox: boolean
+	checkbox: boolean,
+	border: boolean
 }
 
 @tag('m-table')
@@ -17,6 +18,7 @@ export default class Table extends WeElement<Props> {
 	dataSource:any[]
 	columns:any[]
 	checkbox: boolean
+	border: boolean
 	// static propTypes = {
 	// 	dataSource: Object,
 	// 	columns: Object
@@ -53,6 +55,9 @@ export default class Table extends WeElement<Props> {
 			this.props.checkbox =  this.checkbox
 		}
 
+		if(this.hasOwnProperty('border')){
+			this.props.border =  this.border
+		}
 	}
 
 	_getCheckedState() {
@@ -78,7 +83,8 @@ export default class Table extends WeElement<Props> {
 		if (!props.dataSource) return
 		return (
 			<table {...extractClass(props, 'm-table', {
-				'm-table-checkbox': props.checkbox
+				'm-table-checkbox': props.checkbox,
+				'm-table-border': props.border
 			})}>
 				<thead>
 					<tr>
