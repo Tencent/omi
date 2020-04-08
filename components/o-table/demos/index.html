@@ -48,6 +48,13 @@
 		}]
 
 		table.columns = [{
+			title: 'ID',
+			render: item => (
+				Omi.h('strong', null, Omi.h(
+					'i', null, item.id
+				))
+			),
+		}, {
 			title: 'Name',
 			key: 'name',
 		}, {
@@ -58,7 +65,7 @@
 			key: 'address',
 		}, {
 			title: '操作',
-			render: (item) => (
+			render: item => (
 				Omi.html`<span>
 					<a href="javascript:;" onClick=${e => {
 						table.props.dataSource.splice(table.props.dataSource.indexOf(item), 1)
