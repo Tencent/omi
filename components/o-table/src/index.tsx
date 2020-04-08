@@ -11,7 +11,7 @@ interface Props {
 	border: boolean
 }
 
-@tag('m-table')
+@tag('o-table')
 export default class Table extends WeElement<Props> {
 	static css = css
 
@@ -82,9 +82,9 @@ export default class Table extends WeElement<Props> {
 		if (!props.columns) return
 		if (!props.dataSource) return
 		return (
-			<table {...extractClass(props, 'm-table', {
-				'm-table-checkbox': props.checkbox,
-				'm-table-border': props.border
+			<table {...extractClass(props, 'o-table', {
+				'o-table-checkbox': props.checkbox,
+				'o-table-border': props.border
 			})}>
 				<thead>
 					<tr>

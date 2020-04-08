@@ -4,7 +4,7 @@
   display: block;
 }
 
-.m-table {
+.o-table {
   background: white;
   margin: auto;
   padding: 5px;
@@ -16,7 +16,7 @@
   font-weight: 400;
 }
 
-.m-table-checkbox th:first-child,.m-table-checkbox td:first-child{
+.o-table-checkbox th:first-child,.o-table-checkbox td:first-child{
 	padding: 2px 40px 2px 16px;
 }
 
@@ -31,8 +31,16 @@ th {
   font-weight: 500;
 }
 
-.m-table-border td, .m-table-border th {
+.o-table-border td, .o-table-border th {
 	border-right: 1px solid #ebeef5;
+}
+
+.o-table-border td:first-child, .o-table-border th:first-child {
+	border-left: 1px solid #ebeef5;
+}
+
+.o-table-border th {
+	border-top: 1px solid #ebeef5;
 }
 
 tr {

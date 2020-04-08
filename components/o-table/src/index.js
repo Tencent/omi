@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.m-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: rgba(0, 0, 0, 0.87);\n  font-weight: 400; }\n\n.m-table-checkbox th:first-child, .m-table-checkbox td:first-child {\n  padding: 2px 40px 2px 16px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 14px 40px 14px 16px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500; }\n\n.m-table-border td, .m-table-border th {\n  border-right: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 14px 40px 14px 16px; }\n\na {\n  text-decoration: none;\n  color: #2170b8; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: rgba(0, 0, 0, 0.87);\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child, .o-table-checkbox td:first-child {\n  padding: 2px 40px 2px 16px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 14px 40px 14px 16px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500; }\n\n.o-table-border td, .o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child, .o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 14px 40px 14px 16px; }\n\na {\n  text-decoration: none;\n  color: #2170b8; }\n", ""]);
 
 // exports
 
@@ -329,9 +329,9 @@ var Table = /** @class */ (function (_super) {
             return;
         if (!props.dataSource)
             return;
-        return (omi_1.h("table", __assign({}, omi_1.extractClass(props, 'm-table', {
-            'm-table-checkbox': props.checkbox,
-            'm-table-border': props.border
+        return (omi_1.h("table", __assign({}, omi_1.extractClass(props, 'o-table', {
+            'o-table-checkbox': props.checkbox,
+            'o-table-border': props.border
         })),
             omi_1.h("thead", null,
                 omi_1.h("tr", null, props.columns.map(function (item, index) {
@@ -357,7 +357,7 @@ var Table = /** @class */ (function (_super) {
     };
     Table.css = css;
     Table = __decorate([
-        omi_1.tag('m-table')
+        omi_1.tag('o-table')
     ], Table);
     return Table;
 }(omi_1.WeElement));
