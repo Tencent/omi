@@ -26,6 +26,19 @@ export default class Table extends WeElement<Props> {
 
 	changeHandler = (e) => {
 		this.fire('change', e.currentTarget.checked)
+
+
+		if(this.props.indeterminate) {
+			this.props.checked = true
+			this.props.indeterminate = false
+
+			if(this.prevProps) {
+				this.prevProps.checked = true
+				this.prevProps.indeterminate = false
+			}
+
+			this.update(true)
+		}
 	}
 
 	render(props) {

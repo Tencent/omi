@@ -271,6 +271,15 @@ var Table = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.changeHandler = function (e) {
             _this.fire('change', e.currentTarget.checked);
+            if (_this.props.indeterminate) {
+                _this.props.checked = true;
+                _this.props.indeterminate = false;
+                if (_this.prevProps) {
+                    _this.prevProps.checked = true;
+                    _this.prevProps.indeterminate = false;
+                }
+                _this.update(true);
+            }
         };
         return _this;
     }
