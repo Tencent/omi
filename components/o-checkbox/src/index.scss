@@ -9,9 +9,6 @@
 }
 
 .o-checkbox {
-	// width: 18px;
-	// height: 18px;
-	// border: 1px solid rgba(0,0,0,.54);
 	position: relative;
 	font-size: 14px;
 	color: rgba(0, 0, 0, 0.87);
@@ -27,19 +24,19 @@
 	opacity: 1;
 }
 
-.indeterminate .o-checkbox__checkmark{
+.o-checkbox__indeterminate .o-checkbox__checkmark{
 	opacity: 0;
 }
 
 .o-checkbox__checkmark {
 	position: absolute;
-    top: 4px;
-    left: 2px;
-    width: 100%;
-    opacity: 1;
-		transition: opacity 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
-		width: 14px;
-		height: 14px;
+	top: 4px;
+	left: 2px;
+	width: 100%;
+	opacity: 1;
+	transition: opacity 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
+	width: 14px;
+	height: 14px;
 	color: #ffffff;
 }
 
@@ -56,8 +53,6 @@
 }
 
 .o-checkbox__background{
-
-
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
@@ -69,17 +64,22 @@
 	pointer-events: none;
 	will-change: background-color, border-color;
 	transition: background-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1), border-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
-
 }
+
 .o-checkbox__background,.o-checkbox__label{
 	display: inline-block;
-	width: 18px;
 	height: 18px;
 	vertical-align: middle;
 }
+
+.o-checkbox__background{
+	width: 18px;
+}
+
 .o-checkbox__label{
 	margin-left: 10px;
 }
+
 .o-checkbox__native-control:indeterminate ~ .o-checkbox__background .o-checkbox__mixedmark {
 	transform: scaleX(1) rotate(0deg);
 	opacity: 1;
@@ -112,8 +112,28 @@
 }
 
 .o-checkbox__native-control:enabled:not(:checked):not(:indeterminate)~.o-checkbox__background {
-	// border-color: rgba(0,0,0,.54);
 	background-color: transparent;
 	border: 1px solid rgba(0,0,0,.54);
 	color: white;
+}
+
+
+.o-checkbox__native-control:disabled:checked ~ .o-checkbox__background, .o-checkbox__native-control:disabled:indeterminate ~ .o-checkbox__background {
+	border-color: #2170b8;
+	border-color: var(--o-theme-secondary, #2170b8);
+	background-color: #2170b8;
+	background-color: var(--o-theme-secondary, #2170b8);
+
+	opacity: 0.68;
+}
+
+.o-checkbox__native-control:disabled:not(:checked):not(:indeterminate)~.o-checkbox__background {
+	background-color: transparent;
+	border: 1px solid rgba(0,0,0,.34);
+	color: white;
+}
+
+
+.o-checkbox__disabled .o-checkbox__label{
+	color: #888;
 }
