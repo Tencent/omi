@@ -94,7 +94,7 @@ export default class Table extends WeElement<Props> {
 							if (width !== undefined) {
 								obj.style = { width: typeof width === 'number' ? width + 'px' : width }
 							}
-							return <th {...obj} class="text-left">{index === 0 && props.checkbox && <m-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, item)} />}{item.title}</th>
+							return <th {...obj} class="text-left">{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, item)} />}{item.title}</th>
 						})}
 					</tr>
 				</thead>
@@ -107,7 +107,7 @@ export default class Table extends WeElement<Props> {
 								if (width !== undefined) {
 									obj.style = { width: typeof width === 'number' ? width + 'px' : width }
 								}
-								return <td {...obj} class="text-left">{subIndex === 0 && props.checkbox && <m-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{subItem.render ? subItem.render(item) : item[subItem.key]}</td>
+								return <td {...obj} class="text-left">{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{subItem.render ? subItem.render(item) : item[subItem.key]}</td>
 							})}
 						</tr>
 					))}
