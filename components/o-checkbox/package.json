@@ -1,15 +1,12 @@
 {
   "name": "@omiu/checkbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "scripts": {
     "start": "node ./scripts/webpack.build.js -- demo",
     "build": "node ./scripts/webpack.build.js -- build"
-  },
-  "eslintConfig": {
-    "extends": "./config/eslint-config.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
