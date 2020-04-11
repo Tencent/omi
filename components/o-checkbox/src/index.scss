@@ -1,5 +1,3 @@
-@import "../theme";
-
 :host {
   display: inline-block;
 }
@@ -16,10 +14,10 @@
 }
 
 .o-checkbox__native-control:enabled:checked ~ .o-checkbox__background, .o-checkbox__native-control:enabled:indeterminate ~ .o-checkbox__background {
-	border-color: #2170b8;
-	border-color: var(--o-theme-secondary, #2170b8);
+	border-color: #07c160;
+	border-color: var(--o-theme-primary, #07c160);
 	background-color: #2170b8;
-	background-color: var(--o-theme-secondary, #2170b8);
+	background-color: var(--o-theme-primary, #07c160);
 
 	opacity: 1;
 }
@@ -119,10 +117,10 @@
 
 
 .o-checkbox__native-control:disabled:checked ~ .o-checkbox__background, .o-checkbox__native-control:disabled:indeterminate ~ .o-checkbox__background {
-	border-color: #2170b8;
-	border-color: var(--o-theme-secondary, #2170b8);
+	border-color: #07c160;
+	border-color: var(--o-theme-primary, #07c160);
 	background-color: #2170b8;
-	background-color: var(--o-theme-secondary, #2170b8);
+	background-color: var(--o-theme-primary, #07c160);
 
 	opacity: 0.68;
 }
