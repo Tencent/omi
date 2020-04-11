@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <div>
-      <o-checkbox label="Label"></o-checkbox>
-      <br />
 
-      <o-checkbox checked label="checked"></o-checkbox>
-      <br />
+		<o-checkbox label="Label"></o-checkbox>
+		<br />
 
-      <o-checkbox @change="onChange" indeterminate label="indeterminate"></o-checkbox>
-      <br />
+		<o-checkbox checked label="checked"></o-checkbox>
+		<br />
 
-      <o-checkbox disabled label="disabled"></o-checkbox>
-      <br />
-      <o-checkbox disabled checked label="disabled checked"></o-checkbox>
-    </div>
+		<o-checkbox @change="onChange" indeterminate label="indeterminate"></o-checkbox>
+		<br />
+
+		<o-checkbox disabled label="disabled"></o-checkbox>
+		<br />
+		<o-checkbox disabled checked label="disabled checked"></o-checkbox>
+
   </div>
 </template>
 
