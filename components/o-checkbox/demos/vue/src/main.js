@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-//import '../../../src/index.js'
-import '@omiu/checkbox'
 
 Vue.config.productionTip = false
 

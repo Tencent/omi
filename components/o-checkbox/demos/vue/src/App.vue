@@ -19,6 +19,8 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+//import '../../../src/index.js'
+import '@omiu/checkbox'
 
 export default {
   name: 'App',
