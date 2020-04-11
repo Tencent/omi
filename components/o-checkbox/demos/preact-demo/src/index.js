@@ -2,6 +2,7 @@ import './style';
 import { Component } from 'preact';
 //import '../../../src/index.js'
 import '@omiu/checkbox'
+
 export default class App extends Component {
   onChange = (evt) => {
     console.log(evt.detail)
