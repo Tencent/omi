@@ -2,8 +2,12 @@ const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
 
-const name = 'o-table'
-const library = 'OTable'
+const pkgName = require('../package.json')
+const componentName = pkgName.name.split('/')[1]
+
+const name = 'o-' + componentName
+const library = 'O' + componentName.split('-').map(name => name.charAt(0).toUpperCase() + name.slice(1)).join('')
+
 
 const config = {
   devtool: 'source-map',
@@ -74,7 +78,7 @@ const config = {
     }
     ]
   },
-  watch: true,
+  watch: process.argv[3] === 'demo',
   externals: {
     'omi': {
       commonjs: "omi",

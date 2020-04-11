@@ -1,24 +1,20 @@
 {
-  "name": "omim",
+  "name": "@omiu/checkbox",
   "version": "0.0.0",
-  "description": "Omi components that implement Google's Material Design.",
-  "main": "dist/omim.js",
-  "jsnext:main": "dist/omim.esm.js",
-  "module": "dist/omim.esm.js",
-  "dev:main": "dist/omim.dev.js",
-  "minified:main": "dist/omim.min.js",
-  "types": "dist/omim.d.ts",
+  "description": "Omi UI Components.",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
-    "start": "webpack -w --config ./scripts/webpack.demo.js &&",
-    "build": "node ./scripts/webpack.build.js"
+    "start": "node ./scripts/webpack.build.js -- demo",
+    "build": "node ./scripts/webpack.build.js -- build"
   },
   "eslintConfig": {
     "extends": "./config/eslint-config.js"
   },
-  "typings": "./dist/omim.d.ts",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tencent/omim.git"
+    "url": "https://github.com/Tencent/omi.git"
   },
   "files": [
     "devtools",
@@ -32,10 +28,9 @@
     "typings.json"
   ],
   "keywords": [
+    "omiu",
     "omi",
-    "material",
     "omio",
-    "omim",
     "preact",
     "react",
     "virtual dom",
@@ -47,9 +42,9 @@
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tencent/omim/issues"
+    "url": "https://github.com/Tencent/omi/issues"
   },
-  "homepage": "https://github.com/Tencent/omim/tree/master/packages/omio",
+  "homepage": "http://omijs.org",
   "devDependencies": {
     "css": "^2.2.4",
     "css-loader": "^1.0.1",
@@ -99,42 +94,6 @@
     "useTabs": false
   },
   "dependencies": {
-    "@material/button": "^2.0.0",
-    "@material/card": "^2.1.1",
-    "@material/checkbox": "^2.1.0",
-    "@material/chips": "^2.1.0",
-    "@material/dialog": "^2.0.0",
-    "@material/drawer": "^2.1.1",
-    "@material/elevation": "^1.1.0",
-    "@material/fab": "^2.1.1",
-    "@material/form-field": "^2.0.0",
-    "@material/icon-button": "^2.1.1",
-    "@material/image-list": "^1.1.1",
-    "@material/layout-grid": "^0.41.0",
-    "@material/linear-progress": "^1.1.0",
-    "@material/list": "^2.0.0",
-    "@material/menu": "^2.0.0",
-    "@material/menu-surface": "^1.1.1",
-    "@material/radio": "^2.0.0",
-    "@material/ripple": "^2.0.0",
-    "@material/select": "^2.0.0",
-    "@material/slider": "^1.1.0",
-    "@material/snackbar": "^2.0.0",
-    "@material/switch": "^2.0.0",
-    "@material/tab-bar": "^2.1.0",
-    "@material/textfield": "^1.1.1",
-    "@material/top-app-bar": "^2.1.0",
-    "@material/typography": "^1.0.0",
-    "chart.js": "^2.8.0",
-    "draggabilly": "^2.2.0",
-    "less-loader": "^4.1.0",
-    "moment": "^2.24.0",
-    "omi-router": "^2.0.10",
-    "phy-scroll": "^1.0.6",
-    "progressbar.js": "^1.0.1",
-    "quill": "^1.3.6",
-    "style-loader": "^0.23.1",
-    "to2to": "^1.0.2",
-    "x-data-spreadsheet": "^1.0.24"
+
   }
 }
