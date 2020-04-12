@@ -15,7 +15,8 @@ const config = {
     filename: 'index.js',
     libraryTarget: 'umd',
     library: library,
-    libraryExport: "default"
+    libraryExport: "default",
+    globalObject: 'this'
   },
   mode: 'development',
   module: {

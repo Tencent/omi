@@ -13,15 +13,19 @@ export default class App extends Component {
       <div>
         <o-checkbox label="Label"></o-checkbox>
         <br />
+        <br />
 
         <o-checkbox checked label="checked"></o-checkbox>
+        <br />
         <br />
 
         <o-checkbox onChange={this.onChange} indeterminate label="indeterminate"></o-checkbox>
         <br />
+        <br />
 
         <o-checkbox disabled label="disabled"></o-checkbox>
-        <br />
+        <br /> <br />
+
         <o-checkbox disabled checked label="disabled checked"></o-checkbox>
       </div>
     );

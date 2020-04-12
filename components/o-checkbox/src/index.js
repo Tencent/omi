@@ -7,7 +7,7 @@
 		exports["OCheckbox"] = factory(require("omi"));
 	else
 		root["OCheckbox"] = factory(root["Omi"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
