@@ -25,6 +25,6 @@
   "dependencies": {
     "preact": "^10.1.0",
     "preact-render-to-string": "^5.1.2",
-    "@omiu/checkbox": "^0.0.3"
+    "@omiu/checkbox": "^0.0.4"
   }
 }

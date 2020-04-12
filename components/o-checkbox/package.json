@@ -1,6 +1,6 @@
 {
   "name": "@omiu/checkbox",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "types": "src/index.d.ts",

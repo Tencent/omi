@@ -28,13 +28,14 @@
 
 .o-checkbox__checkmark {
 	position: absolute;
-	top: 4px;
-	left: 2px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	width: 100%;
 	opacity: 1;
 	transition: opacity 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
-	width: 14px;
-	height: 14px;
+
 	color: #ffffff;
 }
 
@@ -51,6 +52,7 @@
 }
 
 .o-checkbox__background{
+	position: relative;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
@@ -122,7 +124,7 @@
 	background-color: #2170b8;
 	background-color: var(--o-theme-primary, #07c160);
 
-	opacity: 0.68;
+	opacity: 0.5;
 }
 
 .o-checkbox__native-control:disabled:not(:checked):not(:indeterminate)~.o-checkbox__background {
