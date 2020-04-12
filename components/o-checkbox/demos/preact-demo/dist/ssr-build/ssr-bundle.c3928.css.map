@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///style.css"],"names":[],"mappings":"AAAA;CACC,mDAAmD;CACnD,gBAAgB;AACjB;;AAEA;CACC,kBAAkB;AACnB","file":"ssr-bundle.c3928.css","sourcesContent":["html, body {\n\tfont: 14px/1.21 'Helvetica Neue', arial, sans-serif;\n\tfont-weight: 400;\n}\n\nh1 {\n\ttext-align: center;\n}\n"],"sourceRoot":""}

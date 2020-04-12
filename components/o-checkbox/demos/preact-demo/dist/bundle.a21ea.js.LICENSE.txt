@@ -1,0 +1,51 @@
+/*!
+ * https://github.com/Palindrom/JSONPatcherProxy
+ * (c) 2017 Starcounter
+ * MIT license
+ */
+
+/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */
+
+/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */
+
+/*! ../theme.ts */
+
+/*! ./index.scss */
+
+/*! no static exports found */
+
+/*! omi */
+
+/*!******************!*\
+        !*** ./theme.ts ***!
+        \******************/
+
+/*!***********************!*\
+        !*** ./src/index.tsx ***!
+        \***********************/
+
+/*!************************!*\
+        !*** ./src/index.scss ***!
+        \************************/
+
+/*!*******************************************************************!*\
+        !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+        \*******************************************************************/
+
+/*!******************************************************************************!*\
+        !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
+        \******************************************************************************/
+
+/*!****************************************************************************************************************************************************************************************************!*\
+        !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+        \****************************************************************************************************************************************************************************************************/
+
+/**
+ * @license
+ * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ */
