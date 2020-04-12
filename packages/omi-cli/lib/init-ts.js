@@ -35,7 +35,7 @@ function init(args) {
 			process.exit(1);
 		}
 	}
-		
+
 	createApp();
 
 	function createApp() {
@@ -85,12 +85,25 @@ function init(args) {
 	}
 
 	function done() {
+    success(`Congratulation! "${projectName}" has been created successfully! `);
 		console.log();
-		console.log();
-		console.log();
-		success(`Congratulation! "${projectName}" has been created successfully! `);
-		console.log();
-		console.log(`${chalk.bold.cyan("Omi ts")} https://github.com/Tencent/omi`);
+		console.log(`${chalk.bold.cyan("Omi " + templateName)} https://github.com/Tencent/omi`);
+    console.log();
+    console.log();
+    console.log();
+
+    console.log('Change directory command:');
+    success(`cd ${projectName}`);
+    console.log();
+    console.log();
+    console.log('Development command:');
+    success('npm start');
+    console.log();
+    console.log();
+    console.log('Release command:');
+    success('npm run build');
+    console.log();
+    console.log();
 	}
 }
 
