@@ -14,14 +14,8 @@
     "url": "https://github.com/Tencent/omi.git"
   },
   "files": [
-    "devtools",
-    "debug",
     "src",
     "dist",
-    "devtools.js",
-    "devtools.js.map",
-    "debug.js",
-    "debug.js.map",
     "typings.json"
   ],
   "keywords": [
