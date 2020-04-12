@@ -89,9 +89,7 @@ function init(args) {
 
 	function done() {
     success(`Congratulation! "${projectName}" has been created successfully! `);
-		console.log();
-		console.log(`${chalk.bold.cyan("Omi " + templateName)} https://github.com/Tencent/omi`);
-    console.log();
+
     console.log();
     console.log();
 
