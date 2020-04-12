@@ -21,7 +21,7 @@ export default class Component {
 		this.computed = {}
   }
 
-  update(callback) {
+  update(ignoreAttrs, updateSelf, callback) {
     if(this._willUpdate) return
     this._willUpdate = true
     if (callback)

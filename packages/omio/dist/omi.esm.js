@@ -1,10 +1,13 @@
 /**
- * omi v2.8.0  https://tencent.github.io/omi/
+ * omi v2.8.1  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
+
+import htm from 'htm';
+export { default as htm } from 'htm';
 
 /** Virtual DOM Node */
 function VNode() {}
@@ -1497,7 +1500,7 @@ var Component = function () {
     this.computed = {};
   }
 
-  Component.prototype.update = function update(callback) {
+  Component.prototype.update = function update(ignoreAttrs, updateSelf, callback) {
     if (this._willUpdate) return;
     this._willUpdate = true;
     if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
@@ -2275,8 +2278,6 @@ function getNodeProps$1(vnode) {
   return props;
 }
 
-var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a="number"==typeof s?u[s]:s;1===r[p]?e[0]=a:2===r[p]?(e[1]=e[1]||{})[r[++p]]=a:3===r[p]?e[1]=Object.assign(e[1]||{},a):e.push(r[p]?t.apply(null,n(t,a,u,["",null])):a);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],a=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,2,e):4===u&&r&&(s.push(n||e,2,r), r=""), e="";},f=0;f<n.length;f++){f&&(1===u&&a(), a(f));for(var h=0;h<n[f].length;h++)t=n[f][h], 1===u?"<"===t?(a(), s=[s], u=3):e+=t:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(a(), u=1):u&&("="===t?(u=4, r=e, e=""):"/"===t?(a(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,4), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(a(), u=2):e+=t);}return a(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
-
 h.f = Fragment;
 
 var html = htm.bind(h);
@@ -2338,5 +2339,5 @@ var omi = {
 };
 
 export default omi;
-export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, defineElement, classNames, extractClass, getHost, renderToString, tag, merge, html, htm, obaa };
+export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, defineElement, classNames, extractClass, getHost, renderToString, tag, merge, html, obaa };
 //# sourceMappingURL=omi.esm.js.map

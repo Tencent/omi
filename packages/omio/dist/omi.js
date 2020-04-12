@@ -1,4 +1,4 @@
-!function() {
+!function(htm) {
     'use strict';
     function VNode() {}
     function h(nodeName, attributes) {
@@ -260,7 +260,7 @@
     }
     function scoper(css, prefix) {
         prefix = '[' + prefix.toLowerCase() + ']';
-        css = css.replace(/\/\*[^*]*\*+([^\/][^*]*\*+)*\//g, '');
+        css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
         var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|s*{)', 'g');
         css = css.replace(re, function(g0, g1, g2, g3) {
             if (void 0 === g2) g2 = '';
@@ -1002,7 +1002,7 @@
             if (opts && !0 === opts.sortAttributes) attrs.sort();
             for (var i = 0; i < attrs.length; i++) {
                 var name = attrs[i], v = attributes[name];
-                if ('children' !== name) if (!name.match(/[\s\n\\\/='"\0<>]/)) if (opts && opts.allAttributes || 'key' !== name && 'ref' !== name) {
+                if ('children' !== name) if (!name.match(/[\s\n\\/='"\0<>]/)) if (opts && opts.allAttributes || 'key' !== name && 'ref' !== name) {
                     if ('className' === name) {
                         if (attributes.class) continue;
                         name = 'class';
@@ -1029,7 +1029,7 @@
             if (sub !== s && !~sub.indexOf('\n')) s = sub; else if (pretty && ~s.indexOf('\n')) s += '\n';
         }
         s = '<' + nodeName + s + '>';
-        if (String(nodeName).match(/[\s\n\\\/='"\0<>]/)) throw s;
+        if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s;
         var isVoid = String(nodeName).match(VOID_ELEMENTS);
         if (isVoid) s = s.replace(/>$/, ' />');
         var pieces = [];
@@ -1066,13 +1066,10 @@
         if (void 0 !== defaultProps) for (var i in defaultProps) if (void 0 === props[i]) props[i] = defaultProps[i];
         return props;
     }
-    function htm(t) {
-        var r = n(this, e(t), arguments, []);
-        return r.length > 1 ? r : r[0];
-    }
     function createRef() {
         return {};
     }
+    htm = htm && htm.hasOwnProperty('default') ? htm.default : htm;
     var options = {
         scopedStyle: !0,
         mapping: {},
@@ -1177,7 +1174,7 @@
             this.store = store;
             this.computed = {};
         }
-        Component.prototype.update = function(callback) {
+        Component.prototype.update = function(ignoreAttrs, updateSelf, callback) {
             if (!this.A) {
                 this.A = !0;
                 if (callback) (this.__h = this.__h || []).push(callback);
@@ -1235,31 +1232,6 @@
         return String(s).length > (length || 40) || !ignoreLines && -1 !== String(s).indexOf('\n') || -1 !== String(s).indexOf('<');
     };
     var JS_TO_CSS = {};
-    var n = function(t, r, u, e) {
-        for (var p = 1; p < r.length; p++) {
-            var s = r[p++], a = "number" == typeof s ? u[s] : s;
-            1 === r[p] ? e[0] = a : 2 === r[p] ? (e[1] = e[1] || {})[r[++p]] = a : 3 === r[p] ? e[1] = Object.assign(e[1] || {}, a) : e.push(r[p] ? t.apply(null, n(t, a, u, [ "", null ])) : a);
-        }
-        return e;
-    }, t = function(n) {
-        for (var t, r, u = 1, e = "", p = "", s = [ 0 ], a = function(n) {
-            1 === u && (n || (e = e.replace(/^\s*\n\s*|\s*\n\s*$/g, ""))) ? s.push(n || e, 0) : 3 === u && (n || e) ? (s.push(n || e, 1), 
-            u = 2) : 2 === u && "..." === e && n ? s.push(n, 3) : 2 === u && e && !n ? s.push(!0, 2, e) : 4 === u && r && (s.push(n || e, 2, r), 
-            r = ""), e = "";
-        }, f = 0; f < n.length; f++) {
-            f && (1 === u && a(), a(f));
-            for (var h = 0; h < n[f].length; h++) t = n[f][h], 1 === u ? "<" === t ? (a(), s = [ s ], u = 3) : e += t : p ? t === p ? p = "" : e += t : '"' === t || "'" === t ? p = t : ">" === t ? (a(), 
-            u = 1) : u && ("=" === t ? (u = 4, r = e, e = "") : "/" === t ? (a(), 3 === u && (s = s[0]), u = s, (s = s[0]).push(u, 4), 
-            u = 0) : " " === t || "\t" === t || "\n" === t || "\r" === t ? (a(), u = 2) : e += t);
-        }
-        return a(), s;
-    }, r = "function" == typeof Map, u = r ? new Map() : {}, e = r ? function(n) {
-        var r = u.get(n);
-        return r || u.set(n, r = t(n)), r;
-    } : function(n) {
-        for (var r = "", e = 0; e < n.length; e++) r += n[e].length + "-" + n[e];
-        return u[r] || (u[r] = t(n));
-    };
     h.f = Fragment;
     var html = htm.bind(h);
     var WeElement = Component;
@@ -1313,5 +1285,5 @@
         obaa: obaa
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
-}();
+}(htm);
 //# sourceMappingURL=omi.js.map
