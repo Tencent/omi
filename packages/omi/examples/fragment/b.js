@@ -1,11 +1,3 @@
-/**
- * Omi v6.17.1  http://omijs.org
- * Front End Cross-Frameworks Framework.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
 
@@ -198,10 +190,10 @@
 
   function h(nodeName, attributes) {
     var children = [],
-        lastSimple,
-        child,
-        simple,
-        i;
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
     for (i = arguments.length; i-- > 2;) {
       stack.push(arguments[i]);
     }
@@ -248,6 +240,10 @@
 
     return p;
   }
+
+  // render modes
+
+  var ATTR_KEY = 'prevProps';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -383,8 +379,8 @@
             if (!(i in value)) node.style[i] = '';
           }
         }
-        for (var i in value) {
-          node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+        for (var _i in value) {
+          node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
         }
       }
     } else if (name === 'dangerouslySetInnerHTML') {
@@ -476,13 +472,13 @@
     //first render return undefined
     if (!dom && !vnode) return;
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
-    var ret;
+    var ret = void 0;
     if (!diffLevel++) {
       // when first starting the diff, check if we're diffing an SVG or within an SVG
       isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
       // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('prevProps' in dom);
+      hydrating = dom != null && !(ATTR_KEY in dom);
     }
     if (vnode && vnode.nodeName === Fragment) {
       vnode = vnode.children;
@@ -558,7 +554,7 @@
         }
       }
 
-      out['prevProps'] = true;
+      out[ATTR_KEY] = true;
 
       return out;
     }
@@ -595,11 +591,11 @@
     }
 
     var fc = out.firstChild,
-        props = out['prevProps'],
+        props = out[ATTR_KEY],
         vchildren = vnode.children;
 
     if (props == null) {
-      props = out['prevProps'] = {};
+      props = out[ATTR_KEY] = {};
       for (var a = out.attributes, i = a.length; i--;) {
         props[a[i].name] = a[i].value;
       }
@@ -643,17 +639,17 @@
         len = originalChildren.length,
         childrenLen = 0,
         vlen = vchildren ? vchildren.length : 0,
-        j,
-        c,
-        f,
-        vchild,
-        child;
+        j = void 0,
+        c = void 0,
+        f = void 0,
+        vchild = void 0,
+        child = void 0;
 
     // Build up a map of keyed children and an Array of unkeyed children:
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child['prevProps'],
+            props = _child[ATTR_KEY],
             key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
@@ -665,16 +661,16 @@
     }
 
     if (vlen !== 0) {
-      for (var i = 0; i < vlen; i++) {
-        vchild = vchildren[i];
+      for (var _i = 0; _i < vlen; _i++) {
+        vchild = vchildren[_i];
         child = null;
 
         // attempt to find a node based on key matching
-        var key = vchild.key;
-        if (key != null) {
-          if (keyedLen && keyed[key] !== undefined) {
-            child = keyed[key];
-            keyed[key] = undefined;
+        var _key = vchild.key;
+        if (_key != null) {
+          if (keyedLen && keyed[_key] !== undefined) {
+            child = keyed[_key];
+            keyed[_key] = undefined;
             keyedLen--;
           }
         }
@@ -694,7 +690,7 @@
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, component, updateSelf);
 
-        f = originalChildren[i];
+        f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
             dom.appendChild(child);
@@ -709,8 +705,8 @@
 
     // remove unused keyed children:
     if (keyedLen) {
-      for (var i in keyed) {
-        if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+      for (var _i2 in keyed) {
+        if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
       }
     }
 
@@ -727,15 +723,15 @@
   function recollectNodeTree(node, unmountOnly) {
     // If the node's VNode had a ref function, invoke it with null here.
     // (this is part of the React spec, and smart for unsetting references)
-    if (node['prevProps'] != null && node['prevProps'].ref) {
-      if (typeof node['prevProps'].ref === 'function') {
-        node['prevProps'].ref(null);
-      } else if (node['prevProps'].ref.current) {
-        node['prevProps'].ref.current = null;
+    if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) {
+      if (typeof node[ATTR_KEY].ref === 'function') {
+        node[ATTR_KEY].ref(null);
+      } else if (node[ATTR_KEY].ref.current) {
+        node[ATTR_KEY].ref.current = null;
       }
     }
 
-    if (unmountOnly === false || node['prevProps'] == null) {
+    if (unmountOnly === false || node[ATTR_KEY] == null) {
       removeNode(node);
     }
 
@@ -761,10 +757,10 @@
    *  @param {Object} old      Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old, component, updateSelf) {
-    var name;
+    var name = void 0;
     //let update = false
     var isWeElement = dom.update;
-    var oldClone;
+    var oldClone = void 0;
     if (dom.receiveProps) {
       oldClone = Object.assign({}, old);
     }
@@ -810,6 +806,8 @@
     }
   }
 
+  var _class, _temp;
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -818,7 +816,7 @@
 
   var id = 0;
 
-  var WeElement = function (_HTMLElement) {
+  var WeElement = (_temp = _class = function (_HTMLElement) {
     _inherits(WeElement, _HTMLElement);
 
     function WeElement() {
@@ -899,14 +897,14 @@
       this.install();
       this.afterInstall();
 
-      var shadowRoot;
+      var shadowRoot = void 0;
       if (!this.shadowRoot) {
         shadowRoot = this.attachShadow({
           mode: 'open'
         });
       } else {
         shadowRoot = this.shadowRoot;
-        var fc;
+        var fc = void 0;
         while (fc = shadowRoot.firstChild) {
           shadowRoot.removeChild(fc);
         }
@@ -1078,9 +1076,7 @@
     WeElement.prototype.receiveProps = function receiveProps() {};
 
     return WeElement;
-  }(HTMLElement);
-
-  WeElement.is = 'WeElement';
+  }(HTMLElement), _class.is = 'WeElement', _temp);
 
   /*!
    * https://github.com/Palindrom/JSONPatcherProxy
@@ -1471,8 +1467,8 @@
 
         update(patchs, store);
       } else {
-        var key = fixPath(patch.path);
-        patchs[key] = patch.value;
+        var _key = fixPath(patch.path);
+        patchs[_key] = patch.value;
 
         update(patchs, store);
       }
@@ -1626,13 +1622,15 @@
       customElements.define(name, ctor);
       options.mapping[name] = ctor;
     } else {
+      var _class, _temp2;
+
       if (typeof config === 'string') {
         config = { css: config };
       } else {
         config = config || {};
       }
 
-      var Ele = function (_WeElement) {
+      var Ele = (_temp2 = _class = function (_WeElement) {
         _inherits$1(Ele, _WeElement);
 
         function Ele() {
@@ -1640,8 +1638,8 @@
 
           _classCallCheck$1(this, Ele);
 
-          for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
-            args[key] = arguments[key];
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
           }
 
           return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
@@ -1652,11 +1650,7 @@
         };
 
         return Ele;
-      }(WeElement);
-
-      Ele.css = config.css;
-      Ele.propTypes = config.propTypes;
-      Ele.defaultProps = config.defaultProps;
+      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _temp2);
 
       var _loop = function _loop(key) {
         if (typeof config[key] === 'function') {
@@ -1826,6 +1820,21 @@
   options.root.omi = omi;
   options.root.Omi.version = '6.17.2';
 
-  if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
+  define('my-component', function (_) {
+
+  	return h('svg', null, h(h.f, null, h("circle", {
+  		cx: "18",
+  		cy: "4.54",
+  		r: "2"
+  	}), h("path", {
+  		d: "M15 17h-2c0 1.65-1.35 3-3 3s-3-1.35-3-3 1.35-3 3-3v-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5zm3-3.5h-1.86l1.67-3.67C18.42 8.5 17.44 7 15.96 7h-5.2c-.81 0-1.54.47-1.87 1.2L8.22 10l1.92.53.65-1.53H13l-1.83 4.1c-.6 1.33.39 2.9 1.85 2.9H18v5h2v-5.5c0-1.1-.9-2-2-2z"
+  	})));
+  }, {
+  	propTypes: {
+  		first: String,
+  		last: String
+  	}
+  });
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

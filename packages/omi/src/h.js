@@ -1,4 +1,5 @@
 import options from './options'
+import { Fragment } from './util'
 
 const stack = []
 
@@ -37,6 +38,10 @@ export function h(nodeName, attributes) {
 
       lastSimple = simple
     }
+  }
+
+  if (nodeName === Fragment) {
+    return children
   }
 
   const p = {
