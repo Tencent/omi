@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["OIconAccessAlarm"] = factory(require("omi"));
+		exports["AccessAlarm"] = factory(require("omi"));
 	else
-		root["OIconAccessAlarm"] = factory(root["Omi"]);
+		root["AccessAlarm"] = factory(root["Omi"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -166,4 +166,4 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /******/ })["default"];
 });
-//# sourceMappingURL=OIconAccessAlarm.js.map
+//# sourceMappingURL=AccessAlarm.js.map

@@ -9,7 +9,7 @@ const componentName = pkgName.name.split('/')[1]
 const config = {
   devtool: 'source-map',
   entry: {
-    'OIconAccessAlarm': './esm/AccessAlarm.js'
+    'AccessAlarm': './esm/AccessAlarm.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist/'),
