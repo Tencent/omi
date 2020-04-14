@@ -4,13 +4,17 @@ const webpack = require('webpack')
 
 const pkgName = require('../package.json')
 const componentName = pkgName.name.split('/')[1]
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 
 const config = {
-  devtool: 'source-map',
+  // devtool: 'source-map',
   entry: {
-    'AccessAlarm': './esm/AccessAlarm.js'
+    'access-alarm': './esm/AccessAlarm.js'
   },
+  plugins: [
+    new ProgressBarPlugin()
+  ],
   output: {
     path: path.resolve(__dirname, '../dist/'),
     filename: '[name].js',
@@ -87,10 +91,13 @@ const config = {
   }
 }
 
-webpack(config, (err, stats) => { // Stats Object
+const compilation = webpack(config, (err, stats) => { // Stats Object
   if (err || stats.hasErrors()) {
     // Handle errors here
   }
   // Done processing
+})
+
+compilation.hooks.done.tap('buildModule',function(){
 
 })
