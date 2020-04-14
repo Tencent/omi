@@ -1,17 +1,13 @@
 const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
-
+const entry = require('./entry')
 const pkgName = require('../package.json')
-const componentName = pkgName.name.split('/')[1]
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-
 
 const config = {
   // devtool: 'source-map',
-  entry: {
-    'access-alarm': './esm/AccessAlarm.js'
-  },
+  entry: entry,
   plugins: [
     new ProgressBarPlugin()
   ],

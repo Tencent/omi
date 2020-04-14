@@ -3,7 +3,7 @@ const path = require('path');
 
 const root = '../node_modules/@material-ui/icons/esm'
 
-const arr = [];
+const entiy = {};
 
 const files = fs.readdirSync(root);
 
@@ -19,10 +19,17 @@ for (let i = 0; i < files.length; i++) {
 
   const type = path.extname(files[i]).substring(1)
   const name = path.basename(files[i], '.' + type)
-
+  const hname = hyphenate(name)
+  entiy[hname] = './esm/' + hname + '.js'
 
   const data = fs.readFileSync(root + '/' + files[i], "utf-8")
-  console.log(data)
+
+  fs.writeFileSync(`../esm/${hname}.js`, data
+    .replace("import React from 'react'", "import { h } from 'omi'")
+    .replace(/React.createElement/g, 'h')
+    .replace(/React.Fragment/g, 'h.f')
+  )
+
 }
 
-fs.writeFileSync('./list.json', JSON.stringify({ list: arr }))
+fs.writeFileSync('./entry.js', 'module.exports =' + JSON.stringify(entiy))
