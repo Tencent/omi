@@ -1,0 +1,79 @@
+@import "../theme.scss";
+
+:host {
+	display: inline-block;
+}
+
+.o-button {
+	display: inline-block;
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	background: #fff;
+	border: 1px solid #dcdfe6;
+	color: #606266;
+	-webkit-appearance: none;
+	text-align: center;
+	box-sizing: border-box;
+	outline: none;
+	margin: 0;
+	transition: .1s;
+	font-weight: 500;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	padding: 12px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+}
+
+
+.o-button:hover {
+	border-color: #07c160;
+	border-color: var(--o-theme-primary, #07c160);
+	color: #07c160;
+	border-color: #c6e2ff;
+	background-color: #ecf5ff
+}
+
+.o-button:active {
+	color: #3a8ee6;
+	border-color: #3a8ee6;
+	outline: none
+}
+
+.o-button-primary {
+	color: #fff;
+	background-color: $o-theme-primary;
+	border-color: $o-theme-primary;
+}
+
+.o-button-primary:hover {
+	background: $o-theme-primary-hover;
+	border-color: $o-theme-primary-hover;
+	color: #fff
+}
+
+.o-button-primary:active {
+	background: $o-theme-primary-active;
+	border-color: $o-theme-primary-active;
+	color: #fff
+}
+
+.o-button-error {
+	color: #fff;
+	background-color: $o-theme-error;
+	border-color: $o-theme-error;
+}
+
+.o-button-error:hover {
+	background: $o-theme-error-hover;
+	border-color: $o-theme-error-hover;
+	color: #fff
+}
+
+.o-button-error:active {
+	background: $o-theme-error-active;
+	border-color: $o-theme-error-active;
+	color: #fff
+}
