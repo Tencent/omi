@@ -29,9 +29,9 @@
 
 
 .o-button:hover {
-	border-color: #07c160;
-	border-color: var(--o-theme-primary, #07c160);
-	color: #07c160;
+	border-color: $o-primary;
+	border-color: var(--o-primary, $o-primary);
+	color: $o-primary;
 	border-color: #c6e2ff;
 	background-color: #ecf5ff
 }
@@ -44,36 +44,48 @@
 
 .o-button-primary {
 	color: #fff;
-	background-color: $o-theme-primary;
-	border-color: $o-theme-primary;
+	background-color: $o-primary;
+	border-color: $o-primary;
+	background-color: var(--o-primary, $o-primary);
+	border-color: var(--o-primary, $o-primary);
 }
 
 .o-button-primary:hover {
-	background: $o-theme-primary-hover;
-	border-color: $o-theme-primary-hover;
+	background-color: $o-primary-hover;
+	border-color: $o-primary-hover;
+	background-color: var(--o-primary-hover, $o-primary-hover);
+	border-color: var(--o-primary-hover, $o-primary-hover);
 	color: #fff
 }
 
 .o-button-primary:active {
-	background: $o-theme-primary-active;
-	border-color: $o-theme-primary-active;
+	background-color: $o-primary-active;
+	border-color: $o-primary-active;
+	background-color: var(--o-primary-active, $o-primary-active);
+	border-color: var(--o-primary-active, $o-primary-active);
 	color: #fff
 }
 
 .o-button-error {
 	color: #fff;
-	background-color: $o-theme-error;
-	border-color: $o-theme-error;
+	background-color: $o-error;
+	border-color: $o-error;
+	background-color: var(--o-error, $o-error);
+	border-color: var(--o-error, $o-error);
 }
 
 .o-button-error:hover {
-	background: $o-theme-error-hover;
-	border-color: $o-theme-error-hover;
+	background-color: $o-error-hover;
+	border-color: $o-error-hover;
+	background-color: var(--o-error-hover, $o-error-hover);
+	border-color: var(--o-error-hover, $o-error-hover);
 	color: #fff
 }
 
 .o-button-error:active {
-	background: $o-theme-error-active;
-	border-color: $o-theme-error-active;
+	background-color: $o-error-active;
+	border-color: $o-error-active;
+	background-color: var(--o-error-active, $o-error-active);
+	border-color: var(--o-error-active, $o-error-active);
 	color: #fff
 }

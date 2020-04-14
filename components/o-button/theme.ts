@@ -1,3 +1,5 @@
+import * as Color from 'color'
+
 theme()
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -5,27 +7,48 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function theme() {
-  if (document.body && !document.body.style.getPropertyValue('--o-theme-primary')) {
-    document.body.style.setProperty('--o-theme-primary', '#07c160')
-    document.body.style.setProperty('--o-theme-secondary', '#07c160')
-    document.body.style.setProperty('--o-theme-error', '#f5222d')
-    document.body.style.setProperty('--o-theme-surface', '#ffffff')
-    document.body.style.setProperty('--o-theme-on-primary', '#ffffff')
-    document.body.style.setProperty('--o-theme-on-secondary', '#ffffff')
-    document.body.style.setProperty('--o-theme-on-error', '#ffffff')
-    document.body.style.setProperty('--o-theme-on-surface', '#000000')
-    document.body.style.setProperty('--o-theme-background', '#ffffff')
-    document.body.style.setProperty('--o-shape-small-component-radius', '4px')
-    document.body.style.setProperty('--o-shape-medium-component-radius', '4px')
-    document.body.style.setProperty('--o-shape-large-component-radius', '0px')
-    document.body.style.setProperty('--o-typography--font-family', 'Roboto, sans-serif')
+  if (document.body && !document.body.style.getPropertyValue('--o-primary')) {
+    setTheme('primary', '#07c160')
+    setTheme('error', '#f5222d')
+    setTheme('surface', '#ffffff')
+    setTheme('on-primary', '#ffffff')
+    setTheme('on-error', '#ffffff')
+    setTheme('on-surface', '#000000')
+    setTheme('background', '#ffffff')
+    setTheme('small-radius', '4px')
+    setTheme('medium-radius', '4px')
+    setTheme('large-radius', '0px')
+    setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
   }
 }
 
-function darken(color) {
+function setTheme(key, value) {
+  const style = document.body.style
 
+  style.setProperty('--o-' + key, value)
+  switch (key) {
+    case 'primary':
+      style.setProperty('--o-primary-hover', Color(value).fade(0.382))
+      style.setProperty('--o-primary-active', Color(value).darken(0.1))
+      break
+    case 'error':
+      style.setProperty('--o-error-hover', Color(value).fade(0.382))
+      style.setProperty('--o-error-active', Color(value).darken(0.1))
+      break
+
+  }
 }
 
-function lighten(color) {
 
+if (typeof window !== undefined) {
+  //@ts-ignore
+  window.Omiu = {
+    setTheme: setTheme,
+    setThemePrimary: function (color) {
+      setTheme('primary', color)
+    },
+    setThemeError: function (color) {
+      setTheme('error', color)
+    }
+  }
 }
