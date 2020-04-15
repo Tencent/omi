@@ -8,7 +8,7 @@ class Store {
       menus: config.menus,
       lan: data.lan,
       html: '',
-      sideBarShow: window.innerWidth > 768
+      sideBarShow: false
     }
     let id = 0
     this.map = {}

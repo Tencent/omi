@@ -1,9 +1,9 @@
 .content{
   position: relative;
-  padding: 70px 0;
-  max-width: 800px;
+  padding: 70px 30px;
+  max-width: 900px;
   margin: 0 auto;
-  padding-left: 50px;
+  margin-left: 290px;
 }
 
 h3{
@@ -19,7 +19,7 @@ li{
     list-style:disc inside ;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
     .content{
         margin-left: 0;
         border-left: none;
