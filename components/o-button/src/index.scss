@@ -29,20 +29,23 @@
 
 
 .o-button:hover {
-	border-color: $o-primary;
-	border-color: var(--o-primary, $o-primary);
+	border-color: $o-primary-hover-border;
+	border-color: var(--o-primary-hover-border, $o-primary-hover-border);
 	color: $o-primary;
-	border-color: #c6e2ff;
-	background-color: #ecf5ff
+	color: var(--o-primary, $o-primary);
+	background-color: $o-primary-hover-bg;
+	background-color: var(--o-primary-hover-bg, $o-primary-hover-bg);
 }
 
 .o-button:active {
-	color: #3a8ee6;
-	border-color: #3a8ee6;
+	color: $o-primary;
+	color: var(--o-primary, $o-primary);
+	border-color: $o-primary;
+	border-color: var(--o-primary, $o-primary);
 	outline: none
 }
 
-$type-list: primary error;
+$type-list: primary error info warn;
 
 @each $type in $type-list {
 	.o-button-#{$type} {
