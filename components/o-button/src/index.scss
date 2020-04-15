@@ -60,10 +60,10 @@ $type-list: primary error;
 	.o-button-#{$type}.o-button-plain {
 		color:map-get($options, $type);
 		color: var(--o-#{$type}, map-get($options, $type));
-		background-color: map-get($options, $type#{-plain-bg});
-		background-color: var(--o-#{$type}-plain-bg, map-get($options, $type#{-plain-bg}));
-		border-color: map-get($options, $type#{-fade-lot});
-		border-color: var(--o-#{$type}-fade-lot, map-get($options, $type#{-fade-lot}));
+		background-color: map-get($options, $type#{-fade-lot});
+		background-color: var(--o-#{$type}-fade-lot, map-get($options, $type#{-fade-lot}));
+		border-color: map-get($options, $type#{-fade-some});
+		border-color: var(--o-#{$type}-fade-some, map-get($options, $type#{-fade-some}));
 	}
 
 	.o-button-#{$type}:hover {

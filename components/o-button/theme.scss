@@ -1,28 +1,30 @@
 $o-primary: #07c160;
 $o-primary-active: darken($o-primary, 10%);
 $o-primary-fade-little : fade-out($o-primary, 0.382);
-$o-primary-fade-lot: fade-out($o-primary, 0.618);
+$o-primary-fade-some: fade-out($o-primary, 0.618);
+$o-primary-fade-lot: fade-out($o-primary, 0.9);
 
-$o-primary-plain-bg:  fade-out($o-primary, 0.9);
 $o-primary-hover-border: fade-out($o-primary, 0.618);
 $o-primary-hover-bg: fade-out($o-primary, 0.9);
 
 $o-error: #fa5151;
 $o-error-active: darken($o-error, 10%);
 $o-error-fade-little : fade-out($o-error, 0.382);
-$o-error-fade-lot: fade-out($o-error, 0.618);
+$o-error-fade-some: fade-out($o-error, 0.618);
+$o-error-fade-lot: fade-out($o-error, 0.9);
 
 
 $options: (
 	primary: $o-primary,
 	primary-active: $o-primary-active,
 	primary-fade-little: $o-primary-fade-little,
+	primary-fade-some: $o-primary-fade-some,
 	primary-fade-lot: $o-primary-fade-lot,
-	primary-plain-bg: $o-primary-plain-bg,
 
 	error: $o-error,
 	error-active: $o-error-active,
 	error-fade-little: $o-error-fade-little,
+	error-fade-some: $o-error-fade-some,
 	error-fade-lot: $o-error-fade-lot,
 );
 
