@@ -105,8 +105,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 
-var colorString = __webpack_require__(/*! color-string */ "./node_modules/_color-string@1.5.3@color-string/index.js");
-var convert = __webpack_require__(/*! color-convert */ "./node_modules/_color-convert@1.9.3@color-convert/index.js");
+var colorString = __webpack_require__(/*! color-string */ "./node_modules/color-string/index.js");
+var convert = __webpack_require__(/*! color-convert */ "./node_modules/color-convert/index.js");
 var _slice = [].slice;
 var skippedModels = [
     // to be honest, I don't really feel like keyword belongs in color convert, but eh.
@@ -494,15 +494,15 @@ module.exports = Color;
 
 /***/ }),
 
-/***/ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/_color-convert@1.9.3@color-convert/conversions.js ***!
-  \************************************************************************/
+/***/ "./node_modules/color-convert/conversions.js":
+/*!***************************************************!*\
+  !*** ./node_modules/color-convert/conversions.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/_color-name@1.1.3@color-name/index.js");
+var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
 
 // NOTE: conversions should only return primitive values (i.e. arrays, or
 //       values that give correct `typeof` results).
@@ -1373,15 +1373,15 @@ convert.rgb.gray = function (rgb) {
 
 /***/ }),
 
-/***/ "./node_modules/_color-convert@1.9.3@color-convert/index.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/_color-convert@1.9.3@color-convert/index.js ***!
-  \******************************************************************/
+/***/ "./node_modules/color-convert/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/color-convert/index.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js");
-var route = __webpack_require__(/*! ./route */ "./node_modules/_color-convert@1.9.3@color-convert/route.js");
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
+var route = __webpack_require__(/*! ./route */ "./node_modules/color-convert/route.js");
 
 var convert = {};
 
@@ -1462,14 +1462,14 @@ module.exports = convert;
 
 /***/ }),
 
-/***/ "./node_modules/_color-convert@1.9.3@color-convert/route.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/_color-convert@1.9.3@color-convert/route.js ***!
-  \******************************************************************/
+/***/ "./node_modules/color-convert/route.js":
+/*!*********************************************!*\
+  !*** ./node_modules/color-convert/route.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js");
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
 
 /*
 	this function routes a model to all other models.
@@ -1570,10 +1570,10 @@ module.exports = function (fromModel) {
 
 /***/ }),
 
-/***/ "./node_modules/_color-name@1.1.3@color-name/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/_color-name@1.1.3@color-name/index.js ***!
-  \************************************************************/
+/***/ "./node_modules/color-name/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/color-name/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1734,180 +1734,16 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/_color-name@1.1.4@color-name/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/_color-name@1.1.4@color-name/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-	"aliceblue": [240, 248, 255],
-	"antiquewhite": [250, 235, 215],
-	"aqua": [0, 255, 255],
-	"aquamarine": [127, 255, 212],
-	"azure": [240, 255, 255],
-	"beige": [245, 245, 220],
-	"bisque": [255, 228, 196],
-	"black": [0, 0, 0],
-	"blanchedalmond": [255, 235, 205],
-	"blue": [0, 0, 255],
-	"blueviolet": [138, 43, 226],
-	"brown": [165, 42, 42],
-	"burlywood": [222, 184, 135],
-	"cadetblue": [95, 158, 160],
-	"chartreuse": [127, 255, 0],
-	"chocolate": [210, 105, 30],
-	"coral": [255, 127, 80],
-	"cornflowerblue": [100, 149, 237],
-	"cornsilk": [255, 248, 220],
-	"crimson": [220, 20, 60],
-	"cyan": [0, 255, 255],
-	"darkblue": [0, 0, 139],
-	"darkcyan": [0, 139, 139],
-	"darkgoldenrod": [184, 134, 11],
-	"darkgray": [169, 169, 169],
-	"darkgreen": [0, 100, 0],
-	"darkgrey": [169, 169, 169],
-	"darkkhaki": [189, 183, 107],
-	"darkmagenta": [139, 0, 139],
-	"darkolivegreen": [85, 107, 47],
-	"darkorange": [255, 140, 0],
-	"darkorchid": [153, 50, 204],
-	"darkred": [139, 0, 0],
-	"darksalmon": [233, 150, 122],
-	"darkseagreen": [143, 188, 143],
-	"darkslateblue": [72, 61, 139],
-	"darkslategray": [47, 79, 79],
-	"darkslategrey": [47, 79, 79],
-	"darkturquoise": [0, 206, 209],
-	"darkviolet": [148, 0, 211],
-	"deeppink": [255, 20, 147],
-	"deepskyblue": [0, 191, 255],
-	"dimgray": [105, 105, 105],
-	"dimgrey": [105, 105, 105],
-	"dodgerblue": [30, 144, 255],
-	"firebrick": [178, 34, 34],
-	"floralwhite": [255, 250, 240],
-	"forestgreen": [34, 139, 34],
-	"fuchsia": [255, 0, 255],
-	"gainsboro": [220, 220, 220],
-	"ghostwhite": [248, 248, 255],
-	"gold": [255, 215, 0],
-	"goldenrod": [218, 165, 32],
-	"gray": [128, 128, 128],
-	"green": [0, 128, 0],
-	"greenyellow": [173, 255, 47],
-	"grey": [128, 128, 128],
-	"honeydew": [240, 255, 240],
-	"hotpink": [255, 105, 180],
-	"indianred": [205, 92, 92],
-	"indigo": [75, 0, 130],
-	"ivory": [255, 255, 240],
-	"khaki": [240, 230, 140],
-	"lavender": [230, 230, 250],
-	"lavenderblush": [255, 240, 245],
-	"lawngreen": [124, 252, 0],
-	"lemonchiffon": [255, 250, 205],
-	"lightblue": [173, 216, 230],
-	"lightcoral": [240, 128, 128],
-	"lightcyan": [224, 255, 255],
-	"lightgoldenrodyellow": [250, 250, 210],
-	"lightgray": [211, 211, 211],
-	"lightgreen": [144, 238, 144],
-	"lightgrey": [211, 211, 211],
-	"lightpink": [255, 182, 193],
-	"lightsalmon": [255, 160, 122],
-	"lightseagreen": [32, 178, 170],
-	"lightskyblue": [135, 206, 250],
-	"lightslategray": [119, 136, 153],
-	"lightslategrey": [119, 136, 153],
-	"lightsteelblue": [176, 196, 222],
-	"lightyellow": [255, 255, 224],
-	"lime": [0, 255, 0],
-	"limegreen": [50, 205, 50],
-	"linen": [250, 240, 230],
-	"magenta": [255, 0, 255],
-	"maroon": [128, 0, 0],
-	"mediumaquamarine": [102, 205, 170],
-	"mediumblue": [0, 0, 205],
-	"mediumorchid": [186, 85, 211],
-	"mediumpurple": [147, 112, 219],
-	"mediumseagreen": [60, 179, 113],
-	"mediumslateblue": [123, 104, 238],
-	"mediumspringgreen": [0, 250, 154],
-	"mediumturquoise": [72, 209, 204],
-	"mediumvioletred": [199, 21, 133],
-	"midnightblue": [25, 25, 112],
-	"mintcream": [245, 255, 250],
-	"mistyrose": [255, 228, 225],
-	"moccasin": [255, 228, 181],
-	"navajowhite": [255, 222, 173],
-	"navy": [0, 0, 128],
-	"oldlace": [253, 245, 230],
-	"olive": [128, 128, 0],
-	"olivedrab": [107, 142, 35],
-	"orange": [255, 165, 0],
-	"orangered": [255, 69, 0],
-	"orchid": [218, 112, 214],
-	"palegoldenrod": [238, 232, 170],
-	"palegreen": [152, 251, 152],
-	"paleturquoise": [175, 238, 238],
-	"palevioletred": [219, 112, 147],
-	"papayawhip": [255, 239, 213],
-	"peachpuff": [255, 218, 185],
-	"peru": [205, 133, 63],
-	"pink": [255, 192, 203],
-	"plum": [221, 160, 221],
-	"powderblue": [176, 224, 230],
-	"purple": [128, 0, 128],
-	"rebeccapurple": [102, 51, 153],
-	"red": [255, 0, 0],
-	"rosybrown": [188, 143, 143],
-	"royalblue": [65, 105, 225],
-	"saddlebrown": [139, 69, 19],
-	"salmon": [250, 128, 114],
-	"sandybrown": [244, 164, 96],
-	"seagreen": [46, 139, 87],
-	"seashell": [255, 245, 238],
-	"sienna": [160, 82, 45],
-	"silver": [192, 192, 192],
-	"skyblue": [135, 206, 235],
-	"slateblue": [106, 90, 205],
-	"slategray": [112, 128, 144],
-	"slategrey": [112, 128, 144],
-	"snow": [255, 250, 250],
-	"springgreen": [0, 255, 127],
-	"steelblue": [70, 130, 180],
-	"tan": [210, 180, 140],
-	"teal": [0, 128, 128],
-	"thistle": [216, 191, 216],
-	"tomato": [255, 99, 71],
-	"turquoise": [64, 224, 208],
-	"violet": [238, 130, 238],
-	"wheat": [245, 222, 179],
-	"white": [255, 255, 255],
-	"whitesmoke": [245, 245, 245],
-	"yellow": [255, 255, 0],
-	"yellowgreen": [154, 205, 50]
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/_color-string@1.5.3@color-string/index.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/_color-string@1.5.3@color-string/index.js ***!
-  \****************************************************************/
+/***/ "./node_modules/color-string/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/color-string/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(/*! color-name */ "./node_modules/_color-name@1.1.4@color-name/index.js");
-var swizzle = __webpack_require__(/*! simple-swizzle */ "./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js");
+var colorNames = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
+var swizzle = __webpack_require__(/*! simple-swizzle */ "./node_modules/simple-swizzle/index.js");
 
 var reverseNames = {};
 
@@ -2143,14 +1979,14 @@ function hexDouble(num) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -2162,10 +1998,10 @@ exports.push([module.i, ":host {\n  display: inline-block; }\n\n.o-button {\n  d
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2249,37 +2085,17 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function isArrayish(obj) {
-	if (!obj || typeof obj === 'string') {
-		return false;
-	}
-
-	return obj instanceof Array || Array.isArray(obj) ||
-		(obj.length >= 0 && (obj.splice instanceof Function ||
-			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js ***!
-  \********************************************************************/
+/***/ "./node_modules/simple-swizzle/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/simple-swizzle/index.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isArrayish = __webpack_require__(/*! is-arrayish */ "./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js");
+var isArrayish = __webpack_require__(/*! is-arrayish */ "./node_modules/simple-swizzle/node_modules/is-arrayish/index.js");
 
 var concat = Array.prototype.concat;
 var slice = Array.prototype.slice;
@@ -2310,6 +2126,26 @@ swizzle.wrap = function (fn) {
 
 /***/ }),
 
+/***/ "./node_modules/simple-swizzle/node_modules/is-arrayish/index.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/simple-swizzle/node_modules/is-arrayish/index.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function isArrayish(obj) {
+	if (!obj || typeof obj === 'string') {
+		return false;
+	}
+
+	return obj instanceof Array || Array.isArray(obj) ||
+		(obj.length >= 0 && (obj.splice instanceof Function ||
+			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
+};
+
+
+/***/ }),
+
 /***/ "./src/index.scss":
 /*!************************!*\
   !*** ./src/index.scss ***!
@@ -2318,7 +2154,7 @@ swizzle.wrap = function (fn) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;

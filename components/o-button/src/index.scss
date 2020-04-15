@@ -42,50 +42,30 @@
 	outline: none
 }
 
-.o-button-primary {
-	color: #fff;
-	background-color: $o-primary;
-	border-color: $o-primary;
-	background-color: var(--o-primary, $o-primary);
-	border-color: var(--o-primary, $o-primary);
-}
+$type-list: primary error;
 
-.o-button-primary:hover {
-	background-color: $o-primary-hover;
-	border-color: $o-primary-hover;
-	background-color: var(--o-primary-hover, $o-primary-hover);
-	border-color: var(--o-primary-hover, $o-primary-hover);
-	color: #fff
-}
+@each $type in $type-list {
+	.o-button-#{$type} {
+		color: #fff;
+		background-color: map-get($options, $type);
+		border-color: map-get($options, $type);
+		background-color: var(--o-#{$type}, map-get($options, $type));
+		border-color: var(--o-#{$type}, map-get($options, $type));
+	}
 
-.o-button-primary:active {
-	background-color: $o-primary-active;
-	border-color: $o-primary-active;
-	background-color: var(--o-primary-active, $o-primary-active);
-	border-color: var(--o-primary-active, $o-primary-active);
-	color: #fff
-}
+	.o-button-#{$type}:hover {
+		background-color:  map-get($options, $type#{-hover});
+		border-color:  map-get($options, $type#{-hover});
+		background-color: var(--o-#{$type}-hover,  map-get($options, $type#{-hover}));
+		border-color: var(--o-#{$type}-hover,  map-get($options, $type#{-hover}));
+		color: #fff;
+	}
 
-.o-button-error {
-	color: #fff;
-	background-color: $o-error;
-	border-color: $o-error;
-	background-color: var(--o-error, $o-error);
-	border-color: var(--o-error, $o-error);
-}
-
-.o-button-error:hover {
-	background-color: $o-error-hover;
-	border-color: $o-error-hover;
-	background-color: var(--o-error-hover, $o-error-hover);
-	border-color: var(--o-error-hover, $o-error-hover);
-	color: #fff
-}
-
-.o-button-error:active {
-	background-color: $o-error-active;
-	border-color: $o-error-active;
-	background-color: var(--o-error-active, $o-error-active);
-	border-color: var(--o-error-active, $o-error-active);
-	color: #fff
+	.o-button-#{$type}:active {
+		background-color: map-get($options, $type#{-active});
+		border-color: map-get($options, $type#{-active});
+		background-color: var(--o-#{$type}-active, map-get($options, $type#{-active}));
+		border-color: var(--o-#{$type}-active, map-get($options, $type#{-active}));
+		color: #fff
+	}
 }

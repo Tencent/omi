@@ -7,6 +7,15 @@ $o-error-active: darken($o-error, 10%);
 $o-error-hover: fade-out($o-error, 0.382);
 
 
+$options: (
+	primary: $o-primary,
+	primary-active: $o-primary-active,
+	primary-hover: $o-primary-hover,
+	error: $o-error,
+	error-active: $o-error-active,
+	error-hover: $o-error-hover
+);
+
 $o-surface: #ffffff;
 
 $o-on-primary: #ffffff;
