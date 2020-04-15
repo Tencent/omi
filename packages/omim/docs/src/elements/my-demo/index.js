@@ -31,6 +31,7 @@ define('my-demo', class extends WeElement {
 
   render() {
     if (!this.demo) return
+    // iframe 加上 display 的原因是 visibility hidden 在 ios 下不会隐藏的bug
     return (
       <div>
         <iframe style={`width:${window.innerWidth - 1180}px;height:${window.innerHeight - 59}px;visibility:${this.show ? 'visible' : 'hidden'};display:${this.show ? 'block' : 'none'};`} src={this.demo} ></iframe>
