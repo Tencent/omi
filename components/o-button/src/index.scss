@@ -45,7 +45,7 @@
 	outline: none
 }
 
-$type-list: primary error info warn;
+$type-list: primary error;
 
 @each $type in $type-list {
 	.o-button-#{$type} {
@@ -56,11 +56,21 @@ $type-list: primary error info warn;
 		border-color: var(--o-#{$type}, map-get($options, $type));
 	}
 
+
+	.o-button-#{$type}.o-button-plain {
+		color:map-get($options, $type);
+		color: var(--o-#{$type}, map-get($options, $type));
+		background-color: map-get($options, $type#{-plain-bg});
+		background-color: var(--o-#{$type}-plain-bg, map-get($options, $type#{-plain-bg}));
+		border-color: map-get($options, $type#{-fade-lot});
+		border-color: var(--o-#{$type}-fade-lot, map-get($options, $type#{-fade-lot}));
+	}
+
 	.o-button-#{$type}:hover {
-		background-color:  map-get($options, $type#{-hover});
-		border-color:  map-get($options, $type#{-hover});
-		background-color: var(--o-#{$type}-hover,  map-get($options, $type#{-hover}));
-		border-color: var(--o-#{$type}-hover,  map-get($options, $type#{-hover}));
+		background-color:  map-get($options, $type#{-fade-little});
+		border-color:  map-get($options, $type#{-fade-little});
+		background-color: var(--o-#{$type}-fade-little,  map-get($options, $type#{-fade-little}));
+		border-color: var(--o-#{$type}-fade-little,  map-get($options, $type#{-fade-little}));
 		color: #fff;
 	}
 

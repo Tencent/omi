@@ -28,15 +28,20 @@ function setTheme(key, value) {
   style.setProperty('--o-' + key, value)
   switch (key) {
     case 'primary':
-      style.setProperty('--o-primary-hover', Color(value).fade(0.382))
+      style.setProperty('--o-primary-fade-little', Color(value).fade(0.382))
+      style.setProperty('--o-primary-fade-lot', Color(value).fade(0.618))
       style.setProperty('--o-primary-active', Color(value).darken(0.1))
+
+
+      style.setProperty('--o-primary-plain-bg', Color(value).fade(0.9))
 
       style.setProperty('--o-primary-hover-border', Color(value).fade(0.618))
       style.setProperty('--o-primary-hover-bg', Color(value).fade(0.9))
 
       break
     case 'error':
-      style.setProperty('--o-error-hover', Color(value).fade(0.382))
+      style.setProperty('--o-error-fade-little', Color(value).fade(0.382))
+      style.setProperty('--o-error-fade-lot', Color(value).fade(0.618))
       style.setProperty('--o-error-active', Color(value).darken(0.1))
       break
 

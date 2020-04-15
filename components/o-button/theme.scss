@@ -1,22 +1,29 @@
 $o-primary: #07c160;
 $o-primary-active: darken($o-primary, 10%);
-$o-primary-hover: fade-out($o-primary, 0.382);
+$o-primary-fade-little : fade-out($o-primary, 0.382);
+$o-primary-fade-lot: fade-out($o-primary, 0.618);
 
+$o-primary-plain-bg:  fade-out($o-primary, 0.9);
 $o-primary-hover-border: fade-out($o-primary, 0.618);
 $o-primary-hover-bg: fade-out($o-primary, 0.9);
 
-$o-error: #f5222d;
+$o-error: #fa5151;
 $o-error-active: darken($o-error, 10%);
-$o-error-hover: fade-out($o-error, 0.382);
+$o-error-fade-little : fade-out($o-error, 0.382);
+$o-error-fade-lot: fade-out($o-error, 0.618);
 
 
 $options: (
 	primary: $o-primary,
 	primary-active: $o-primary-active,
-	primary-hover: $o-primary-hover,
+	primary-fade-little: $o-primary-fade-little,
+	primary-fade-lot: $o-primary-fade-lot,
+	primary-plain-bg: $o-primary-plain-bg,
+
 	error: $o-error,
 	error-active: $o-error-active,
-	error-hover: $o-error-hover
+	error-fade-little: $o-error-fade-little,
+	error-fade-lot: $o-error-fade-lot,
 );
 
 $o-surface: #ffffff;
