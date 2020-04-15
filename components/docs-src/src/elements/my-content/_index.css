@@ -3,7 +3,13 @@
   padding: 70px 30px;
   max-width: 900px;
   margin: 0 auto;
-  margin-left: 290px;
+
+}
+
+@media screen and (max-width: 1400px){
+  .content {
+      margin-left: 290px;
+  }
 }
 
 h3{
