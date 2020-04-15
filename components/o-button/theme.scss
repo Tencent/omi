@@ -1,0 +1,21 @@
+$o-primary: #07c160;
+$o-primary-active: darken($o-primary, 10%);
+$o-primary-hover: fade-out($o-primary, 0.382);
+
+$o-error: #f5222d;
+$o-error-active: darken($o-error, 10%);
+$o-error-hover: fade-out($o-error, 0.382);
+
+
+$o-surface: #ffffff;
+
+$o-on-primary: #ffffff;
+$o-on-secondary: #ffffff;
+$o-on-error: #ffffff;
+$o-on-surface: #000000;
+$o-background: #ffffff;
+
+$o-small-radius: 4px;
+$o-medium-radius: 4px;
+$o-large-radius: 0px;
+$o-font-family: -apple-system-font,"Helvetica Neue",sans-serif;

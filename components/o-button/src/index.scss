@@ -1,0 +1,91 @@
+@import "../theme.scss";
+
+:host {
+	display: inline-block;
+}
+
+.o-button {
+	display: inline-block;
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	background: #fff;
+	border: 1px solid #dcdfe6;
+	color: #606266;
+	-webkit-appearance: none;
+	text-align: center;
+	box-sizing: border-box;
+	outline: none;
+	margin: 0;
+	transition: .1s;
+	font-weight: 500;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	padding: 12px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+}
+
+
+.o-button:hover {
+	border-color: $o-primary;
+	border-color: var(--o-primary, $o-primary);
+	color: $o-primary;
+	border-color: #c6e2ff;
+	background-color: #ecf5ff
+}
+
+.o-button:active {
+	color: #3a8ee6;
+	border-color: #3a8ee6;
+	outline: none
+}
+
+.o-button-primary {
+	color: #fff;
+	background-color: $o-primary;
+	border-color: $o-primary;
+	background-color: var(--o-primary, $o-primary);
+	border-color: var(--o-primary, $o-primary);
+}
+
+.o-button-primary:hover {
+	background-color: $o-primary-hover;
+	border-color: $o-primary-hover;
+	background-color: var(--o-primary-hover, $o-primary-hover);
+	border-color: var(--o-primary-hover, $o-primary-hover);
+	color: #fff
+}
+
+.o-button-primary:active {
+	background-color: $o-primary-active;
+	border-color: $o-primary-active;
+	background-color: var(--o-primary-active, $o-primary-active);
+	border-color: var(--o-primary-active, $o-primary-active);
+	color: #fff
+}
+
+.o-button-error {
+	color: #fff;
+	background-color: $o-error;
+	border-color: $o-error;
+	background-color: var(--o-error, $o-error);
+	border-color: var(--o-error, $o-error);
+}
+
+.o-button-error:hover {
+	background-color: $o-error-hover;
+	border-color: $o-error-hover;
+	background-color: var(--o-error-hover, $o-error-hover);
+	border-color: var(--o-error-hover, $o-error-hover);
+	color: #fff
+}
+
+.o-button-error:active {
+	background-color: $o-error-active;
+	border-color: $o-error-active;
+	background-color: var(--o-error-active, $o-error-active);
+	border-color: var(--o-error-active, $o-error-active);
+	color: #fff
+}
