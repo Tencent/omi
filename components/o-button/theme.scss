@@ -7,11 +7,11 @@ $o-primary-fade-lot: fade-out($o-primary, 0.9);
 $o-primary-hover-border: fade-out($o-primary, 0.618);
 $o-primary-hover-bg: fade-out($o-primary, 0.9);
 
-$o-error: #fa5151;
-$o-error-active: darken($o-error, 10%);
-$o-error-fade-little : fade-out($o-error, 0.382);
-$o-error-fade-some: fade-out($o-error, 0.618);
-$o-error-fade-lot: fade-out($o-error, 0.9);
+$o-danger: #fa5151;
+$o-danger-active: darken($o-danger, 10%);
+$o-danger-fade-little : fade-out($o-danger, 0.382);
+$o-danger-fade-some: fade-out($o-danger, 0.618);
+$o-danger-fade-lot: fade-out($o-danger, 0.9);
 
 
 $options: (
@@ -21,18 +21,18 @@ $options: (
 	primary-fade-some: $o-primary-fade-some,
 	primary-fade-lot: $o-primary-fade-lot,
 
-	error: $o-error,
-	error-active: $o-error-active,
-	error-fade-little: $o-error-fade-little,
-	error-fade-some: $o-error-fade-some,
-	error-fade-lot: $o-error-fade-lot,
+	danger: $o-danger,
+	danger-active: $o-danger-active,
+	danger-fade-little: $o-danger-fade-little,
+	danger-fade-some: $o-danger-fade-some,
+	danger-fade-lot: $o-danger-fade-lot,
 );
 
 $o-surface: #ffffff;
 
 $o-on-primary: #ffffff;
 $o-on-secondary: #ffffff;
-$o-on-error: #ffffff;
+$o-on-danger: #ffffff;
 $o-on-surface: #000000;
 $o-background: #ffffff;
 

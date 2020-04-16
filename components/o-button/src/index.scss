@@ -45,7 +45,7 @@
 	outline: none
 }
 
-$type-list: primary error;
+$type-list: primary danger;
 
 @each $type in $type-list {
 	.o-button-#{$type} {
