@@ -64,6 +64,7 @@ export default class Button extends WeElement<Props>{
 			'o-button-disabled': props.disabled,
 			'o-button-block': props.block
 		})} type={props.nativeType} >
+			{props.loading && [<i class='loading'></i>, ' ']}
 			<slot></slot>
 		</button>
 	}
