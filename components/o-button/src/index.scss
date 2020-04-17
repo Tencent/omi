@@ -57,7 +57,7 @@ $type-list: primary danger;
 	}
 
 
-	.o-button-#{$type}.o-button-plain {
+	.o-button-#{$type}.is-plain {
 		color:map-get($options, $type);
 		color: var(--o-#{$type}, map-get($options, $type));
 		background-color: map-get($options, $type#{-fade-lot});
@@ -108,4 +108,39 @@ $type-list: primary danger;
   100% {
     transform: rotate3d(0, 0, 1, 360deg);
   }
+}
+
+.o-button-medium {
+	padding: 10px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+}
+
+.o-button-small {
+	padding: 9px 15px;
+	font-size: 12px;
+	border-radius: 3px;
+}
+
+.o-button-mini {
+	padding: 7px 15px;
+	font-size: 12px;
+	border-radius: 3px;
+}
+
+.o-button.is-round {
+	border-radius: 20px;
+}
+
+.o-button.is-circle {
+	border-radius: 20px;
+	padding: 12px;
+}
+
+.o-button.is-disabled, .o-button.is-disabled:focus, .o-button.is-disabled:hover {
+	color: #c0c4cc;
+	cursor: not-allowed;
+	background-image: none;
+	background-color: #fff;
+	border-color: #ebeef5;
 }
