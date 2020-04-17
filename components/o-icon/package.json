@@ -1,6 +1,6 @@
 {
   "name": "@omiu/icon",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -13,11 +13,6 @@
     "type": "git",
     "url": "https://github.com/Tencent/omi.git"
   },
-  "files": [
-    "src",
-    "dist",
-    "typings.json"
-  ],
   "keywords": [
     "omiu",
     "omi",
