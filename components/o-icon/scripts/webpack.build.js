@@ -12,7 +12,7 @@ const config = {
     new ProgressBarPlugin()
   ],
   output: {
-    path: path.resolve(__dirname, '../dist/'),
+    path: path.resolve(__dirname, '../'),
     filename: '[name].js',
     libraryTarget: 'umd',
     library: '[name]',
