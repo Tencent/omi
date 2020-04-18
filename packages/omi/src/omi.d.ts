@@ -112,6 +112,8 @@ declare namespace Omi {
     elementId: number;
 
     update?(ignoreAttrs?:boolean, updateSelf?:boolean): void;
+    forceUpdate?(): void;
+    updateProps?(obj: any): void;
     updateSelf?(ignoreAttrs?:boolean): void;
     fire?(name: string, data?: any): void;
     css?(): string;
@@ -141,6 +143,8 @@ declare namespace Omi {
     elementId: number;
 
     update?(ignoreAttrs?:boolean, updateSelf?:boolean): void;
+    forceUpdate?(): void;
+    updateProps?(obj: any): void;
     updateSelf?(ignoreAttrs?:boolean): void;
     fire?(name: string, data?: any): void;
     css?(): string;

@@ -186,6 +186,20 @@ export default class WeElement extends HTMLElement {
     this.updated()
   }
 
+  forceUpdate() {
+    this.update(true)
+  }
+
+  updateProps(obj) {
+    Object.keys(obj).forEach(key => {
+      this.props[key] = obj[key]
+      if (this.prevProps) {
+        this.prevProps[key] = obj[key]
+      }
+    })
+    this.forceUpdate()
+  }
+
   updateSelf(ignoreAttrs) {
     this.update(ignoreAttrs, true)
   }

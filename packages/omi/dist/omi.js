@@ -737,6 +737,17 @@
             this.J = !1;
             this.updated();
         };
+        WeElement.prototype.forceUpdate = function() {
+            this.update(!0);
+        };
+        WeElement.prototype.updateProps = function(obj) {
+            var _this2 = this;
+            Object.keys(obj).forEach(function(key) {
+                _this2.props[key] = obj[key];
+                if (_this2.__p) _this2.__p[key] = obj[key];
+            });
+            this.forceUpdate();
+        };
         WeElement.prototype.updateSelf = function(ignoreAttrs) {
             this.update(ignoreAttrs, !0);
         };
@@ -1059,7 +1070,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.17.2';
+    options.root.Omi.version = '6.17.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
