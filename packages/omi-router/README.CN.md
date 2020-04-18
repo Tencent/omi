@@ -2,7 +2,7 @@
 
 # omi-router
 
-omi-router是 [Omi](https://tencent.github.io/omi/) 专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
+omi-router 是 [Omi](https://tencent.github.io/omi/) 专属的 router 插件，文件尺寸轻量，使用简便，功能强大。用于 Omi 制作 Web 单页应用的首选解决方案。
 
 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)
 
@@ -11,8 +11,8 @@ omi-router是 [Omi](https://tencent.github.io/omi/) 专属的router插件，文�
 * 无刷新加载页面内容
 * 无刷新前进和后退页面
 * 路由中的某个链接的传播和分享（别人看到的和你一样的状态）
-* 转场动画（a标签跳转不仅要白屏，而且没有转场动画）
-* 资源复用（单页中的许多资源一定是可以共用的，最典型的比如omi.js，如果不是单页的话，你需要加载多次）
+* 转场动画（a 标签跳转不仅要白屏，而且没有转场动画）
+* 资源复用（单页中的许多资源一定是可以共用的，最典型的比如 omi.js，如果不是单页的话，你需要加载多次）
 
 好了，好处这么多，看看怎么安装使用吧~~
 

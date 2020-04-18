@@ -2,7 +2,7 @@
 
 <p align="center"><img src="../../assets/snake.jpg" alt="omi" width="200"/></p>
 
-使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。
+使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和 Web)的贪吃蛇游戏。
 
 ## 一套语法多端运行
 

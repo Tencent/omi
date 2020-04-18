@@ -5,7 +5,7 @@
 * 对 SEO 友好
 * 更快的首屏展示时间
 
-用服务器端渲染 (SSR) 也有缺点，比如增加服务器端开销。开发者可以自行权衡是否使用 SSR，或者直接使用 [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md) 预渲染，预渲染不需要服务器端额外的开销，直接在构建时候无头浏览器生成骨架屏，所以也就没有动态数据内容，而 SSR 可以返回动态数据生成的HTML，还可以把数据序列化与 HTML 一同返回。
+用服务器端渲染 (SSR) 也有缺点，比如增加服务器端开销。开发者可以自行权衡是否使用 SSR，或者直接使用 [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md) 预渲染，预渲染不需要服务器端额外的开销，直接在构建时候无头浏览器生成骨架屏，所以也就没有动态数据内容，而 SSR 可以返回动态数据生成的 HTML，还可以把数据序列化与 HTML 一同返回。
 
 ## 快速使用
 
