@@ -1,6 +1,6 @@
 {
-  "name": "omim",
-  "version": "0.0.0",
+  "name": "@omiu/table",
+  "version": "0.0.1",
   "description": "Omi components that implement Google's Material Design.",
   "main": "dist/omim.js",
   "jsnext:main": "dist/omim.esm.js",
@@ -60,7 +60,7 @@
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.12.0",
-    "omi": "^6.17.1",
+    "omi": "latest",
     "omio": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "resolve-url-loader": "^3.1.0",
