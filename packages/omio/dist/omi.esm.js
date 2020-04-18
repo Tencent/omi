@@ -1,13 +1,10 @@
 /**
- * omi v2.8.1  https://tencent.github.io/omi/
+ * omi v2.8.2  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
-
-import htm from 'htm';
-export { default as htm } from 'htm';
 
 /** Virtual DOM Node */
 function VNode() {}
@@ -2280,8 +2277,6 @@ function getNodeProps$1(vnode) {
 
 h.f = Fragment;
 
-var html = htm.bind(h);
-
 var WeElement = Component;
 var defineElement = define;
 function createRef() {
@@ -2307,12 +2302,10 @@ options.root.Omi = {
   renderToString: renderToString,
   tag: tag,
   merge: merge,
-  html: html,
-  htm: htm,
   obaa: obaa
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.8.0';
+options.root.Omi.version = 'omio-2.8.2';
 
 var omi = {
   h: h,
@@ -2333,11 +2326,9 @@ var omi = {
   renderToString: renderToString,
   tag: tag,
   merge: merge,
-  html: html,
-  htm: htm,
   obaa: obaa
 };
 
 export default omi;
-export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, defineElement, classNames, extractClass, getHost, renderToString, tag, merge, html, obaa };
+export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, defineElement, classNames, extractClass, getHost, renderToString, tag, merge, obaa };
 //# sourceMappingURL=omi.esm.js.map

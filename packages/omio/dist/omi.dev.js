@@ -1,15 +1,13 @@
 /**
- * omi v2.8.1  https://tencent.github.io/omi/
+ * omi v2.8.2  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-(function (htm) {
+(function () {
   'use strict';
-
-  htm = htm && htm.hasOwnProperty('default') ? htm['default'] : htm;
 
   /** Virtual DOM Node */
   function VNode() {}
@@ -2282,8 +2280,6 @@
 
   h.f = Fragment;
 
-  var html = htm.bind(h);
-
   var WeElement = Component;
   var defineElement = define;
   function createRef() {
@@ -2309,12 +2305,10 @@
     renderToString: renderToString,
     tag: tag,
     merge: merge,
-    html: html,
-    htm: htm,
     obaa: obaa
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.8.0';
+  options.root.Omi.version = 'omio-2.8.2';
 
   var Omi = {
     h: h,
@@ -2335,11 +2329,9 @@
     renderToString: renderToString,
     tag: tag,
     merge: merge,
-    html: html,
-    htm: htm,
     obaa: obaa
   };
 
   if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
-}(htm));
+}());
 //# sourceMappingURL=omi.dev.js.map

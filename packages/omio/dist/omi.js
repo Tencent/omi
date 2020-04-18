@@ -1,4 +1,4 @@
-!function(htm) {
+!function() {
     'use strict';
     function VNode() {}
     function h(nodeName, attributes) {
@@ -1069,7 +1069,6 @@
     function createRef() {
         return {};
     }
-    htm = htm && htm.hasOwnProperty('default') ? htm.default : htm;
     var options = {
         scopedStyle: !0,
         mapping: {},
@@ -1233,7 +1232,6 @@
     };
     var JS_TO_CSS = {};
     h.f = Fragment;
-    var html = htm.bind(h);
     var WeElement = Component;
     var defineElement = define;
     options.root.Omi = {
@@ -1255,12 +1253,10 @@
         renderToString: renderToString,
         tag: tag,
         merge: merge,
-        html: html,
-        htm: htm,
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.8.0';
+    options.root.Omi.version = 'omio-2.8.2';
     var Omi = {
         h: h,
         createElement: h,
@@ -1280,10 +1276,8 @@
         renderToString: renderToString,
         tag: tag,
         merge: merge,
-        html: html,
-        htm: htm,
         obaa: obaa
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
-}(htm);
+}();
 //# sourceMappingURL=omi.js.map

@@ -10,13 +10,11 @@ import { tag } from './tag'
 import { classNames, extractClass } from './class'
 import { getHost } from './get-host'
 import { renderToString } from './render-to-string'
-import htm from 'htm'
 import obaa from './obaa'
 import { Fragment } from './util'
 
 h.f = Fragment
 
-const html = htm.bind(h)
 
 const WeElement = Component
 const defineElement = define
@@ -43,12 +41,10 @@ options.root.Omi = {
   renderToString,
   tag,
   merge,
-  html,
-  htm,
   obaa
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.8.0'
+options.root.Omi.version = 'omio-2.8.2'
 
 export default {
   h,
@@ -69,8 +65,6 @@ export default {
   renderToString,
   tag,
   merge,
-  html,
-  htm,
   obaa
 }
 
@@ -93,7 +87,5 @@ export {
   renderToString,
   tag,
   merge,
-  html,
-  htm,
   obaa
 }
