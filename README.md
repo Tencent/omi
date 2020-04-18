@@ -407,11 +407,7 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
 <body>
   <script src="https://unpkg.com/omi"></script>
   <script>
-    const {
-      define,
-      render,
-      h
-    } = Omi
+    const { define, render, h } = Omi
 
     class Store {
       data = {
