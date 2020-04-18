@@ -438,49 +438,49 @@ export default class oButton extends WeElement<ButtonProps> {
 </head>
 
 <body>
-	<script src="https://unpkg.com/omi"></script>
-	<script>
-		const {
-			define,
-			render,
-			h
-		} = Omi
+  <script src="https://unpkg.com/omi"></script>
+  <script>
+    const {
+      define,
+      render,
+      h
+    } = Omi
 
-		class Store {
-			data = {
-				count: 1
-			}
-			sub = () => {
-				this.data.count--
-			}
-			add = () => {
-				this.data.count++
-			}
-		}
+    class Store {
+      data = {
+        count: 1
+      }
+      sub = () => {
+        this.data.count--
+      }
+      add = () => {
+        this.data.count++
+      }
+    }
 
-		define('my-counter', _ => (
-			h(h.f, null,
-				h('button', {
-					onClick: _.store.sub
-				}, '-'),
-				h('span', null, _.store.data.count),
-				h('button', {
-					onClick: _.store.add
-				}, '+')
-			)
-		), {
-			use: ['count'],
-			//or using useSelf, useSelf will update self only, exclude children components
-			//useSelf: ['count'],
-			css: `span { color: red; }`,
-			installed() {
-				console.log('installed')
-			}
-		})
+    define('my-counter', _ => (
+      h(h.f, null,
+        h('button', {
+          onClick: _.store.sub
+        }, '-'),
+        h('span', null, _.store.data.count),
+        h('button', {
+          onClick: _.store.add
+        }, '+')
+      )
+    ), {
+      use: ['count'],
+      //or using useSelf, useSelf will update self only, exclude children components
+      //useSelf: ['count'],
+      css: `span { color: red; }`,
+      installed() {
+        console.log('installed')
+      }
+    })
 
-		render(h('my-counter'), 'body', new Store)
+    render(h('my-counter'), 'body', new Store)
 
-	</script>
+  </script>
 </body>
 
 </html>
