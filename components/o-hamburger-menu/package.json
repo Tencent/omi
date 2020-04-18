@@ -1,5 +1,5 @@
 {
-  "name": "@omiu/button",
+  "name": "@omiu/hamburger-menu",
   "version": "0.0.1",
   "description": "Omi UI Components.",
   "main": "src/index.js",
@@ -14,9 +14,7 @@
     "url": "https://github.com/Tencent/omi.git"
   },
   "files": [
-    "src",
-    "dist",
-    "typings.json"
+    "src"
   ],
   "keywords": [
     "omiu",
@@ -85,6 +83,6 @@
     "useTabs": false
   },
   "dependencies": {
-    
+
   }
 }
