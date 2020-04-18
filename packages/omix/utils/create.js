@@ -161,8 +161,8 @@ create.Component = function (store, option) {
 
     option.ready = option.lifetimes.ready = function (e) {
       const store = this.store
-      store.instances[this.route] = store.instances[this.route] || []
-      store.instances[this.route].push(this)
+      store.instances[this.is] = store.instances[this.is] || []
+      store.instances[this.is].push(this)
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
@@ -174,7 +174,7 @@ create.Component = function (store, option) {
     }
 
     option.lifetimes.detached = option.detached = function (e) {
-      this.store.instances[this.route] = this.store.instances[this.route].filter(ins => ins !== this)
+      this.store.instances[this.is] = this.store.instances[this.is].filter(ins => ins !== this)
       detached && detached.call(this, e)
     }
 
