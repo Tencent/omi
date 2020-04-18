@@ -4,7 +4,7 @@
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<meta charset="UTF-8" />
-	<title>Add Omi in One Minute</title>
+	<title>Omiu Button</title>
 </head>
 
 <body>
@@ -14,19 +14,80 @@
 	</a>
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 	<script src="../../src/index.js"></script>
-
-
+	<script src="../../../o-icon/dist/ac-unit-outlined.js"></script>
+	<script src="../../../o-icon/dist/accessible-rounded.js"></script>
 	<div>
-		<o-button>sdfs</o-button>
-		<o-button type="primary" >sdfs</o-button>
+		<o-button>Default</o-button>
+		<o-button type="primary">Primary</o-button>
 
-		<o-button type="error">sdfs</o-button>
+		<o-button type="danger">Danger</o-button>
 
-		<o-button>sdfs<o-icon-xx></o-icon-xx></o-button>
+		<o-button type="primary"><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined> Icon</o-button>
+		<o-button type="danger">Icon <o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+	</div>
+
+	<div style="margin-top:10px;">
+		<o-button disabled>Default</o-button>
+		<o-button disabled type="primary">Primary</o-button>
+
+		<o-button disabled type="danger">Danger</o-button>
+
+		<o-button disabled type="primary"><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined> Icon</o-button>
+		<o-button disabled type="danger">Icon <o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+	</div>
+
+	<div style="margin-top:10px;">
+		<o-button plain>Plain</o-button>
+		<o-button plain type="primary">Primary</o-button>
+
+		<o-button plain type="danger">Danger</o-button>
+
+		<o-button plain type="primary"><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined> Icon</o-button>
+		<o-button plain type="danger">Icon <o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+
+
+		<o-button plain type="primary"><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+		<o-button plain type="danger"><o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+
+		<o-button plain type="danger" size="medium"><o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+		<o-button plain type="danger" size="small"><o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+		<o-button plain type="danger" size="mini"><o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
 	</div>
 
 
+	<div style="margin-top:10px;">
+		<o-button plain loading>Plain</o-button>
+		<o-button plain loading type="primary">Primary</o-button>
 
+		<o-button plain loading type="danger">Danger</o-button>
+
+
+		<o-button plain loading type="primary"><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+		<o-button plain loading type="danger"><o-icon-accessible-rounded></o-icon-accessible-rounded></o-button>
+	</div>
+
+
+	<div style="margin-top:10px;">
+		<o-button>Default</o-button>
+		<o-button size="medium">Medium</o-button>
+		<o-button size="small">Small</o-button>
+		<o-button size="mini">Mini</o-button>
+	</div>
+
+	<div style="margin-top:10px;">
+		<o-button round>Default</o-button>
+		<o-button round size="medium">Medium</o-button>
+		<o-button round size="small">Small</o-button>
+		<o-button round size="mini">Mini</o-button>
+	</div>
+
+	<div style="margin-top:10px;">
+		<o-button circle><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+		<o-button type="primary" circle ><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+		<o-button type="danger" circle ><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+		<o-button type="primary" plain circle ><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+		<o-button type="danger" plain circle ><o-icon-ac-unit-outlined></o-icon-ac-unit-outlined></o-button>
+	</div>
 </body>
 
 </html>

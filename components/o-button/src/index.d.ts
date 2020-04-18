@@ -16,7 +16,6 @@ interface Props {
 export default class Button extends WeElement<Props> {
     static css: any;
     static defaultProps: {
-        size: string;
         plain: boolean;
         round: boolean;
         circle: boolean;

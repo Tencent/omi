@@ -1,0 +1,42 @@
+iframe{
+  width: 750px;
+  height: 100%;
+  top: 60px;
+  right: 0;
+  position: fixed;
+  border: none;
+  z-index: 9999;
+  border-left: 2px solid #24292E;
+}
+
+.switch{
+  width: 40px;
+  height: 40px;
+  background-color: #AA0000;
+  border-radius: 50%;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  cursor: pointer;
+  text-align: center;
+  z-index: 10000;
+}
+
+.switch img{
+  width: 30px;
+  height: 30px;
+  margin-top:5px;
+}
+
+.switch.close img{
+  margin-top:10px;
+  width: 20px;
+  height: 20px;
+}
+
+
+@media only screen and (max-width: 800px) {
+  iframe{
+      width: 100%;
+  }
+}
