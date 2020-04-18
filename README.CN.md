@@ -995,7 +995,7 @@ npm run test
         <td><a target="_blank" href="https://github.com/aolu11"><img width="60px" src="https://avatars2.githubusercontent.com/u/1127488?s=60&amp;v=4"></a></td>
         </tr></tbody></table>
 
-这里是 [todo list](./todo.md), 欢迎一起贡献。
+感谢所有贡献者，欢迎更多人加入一起贡献。
 
 ## 核心维护者
 

@@ -5,6 +5,17 @@ English | [简体中文](./README.CN.md)
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 <p align="center">Merge Web Components, JSX, Virtual DOM, Functional style, observe or Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
 
+## Omiu
+
+> Cross-Frameworks Components powered by Omi
+
+
+| **Name**                         | **CodePen**            | **Docs** |
+| -------------- | --------------------- | ----------------|
+| [@omiu/button](https://github.com/Tencent/omi/tree/master/components/o-button) | [CodePen](https://codepen.io/omijs/pen/LYppwYG) |  |
+| Coming... | |  |
+| Coming... | |  |
+
 ## Quick Preview
 
 Pass data through the component tree without having to pass props down manually at every level by store, auto update the view on demand.
@@ -852,7 +863,7 @@ npm run test
         <td><a target="_blank" href="https://github.com/aolu11"><img width="60px" src="https://avatars2.githubusercontent.com/u/1127488?s=60&amp;v=4"></a></td>
         </tr></tbody></table>
 
-Here is the [todo list](./todo.md), welcome to contribute together.
+Welcome to contribute together.
 
 ## Design philosophy
 
