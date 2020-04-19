@@ -1,0 +1,44 @@
+$o-primary: #07c160;
+$o-primary-active: darken($o-primary, 10%);
+$o-primary-fade-little : fade-out($o-primary, 0.382);
+$o-primary-fade-some: fade-out($o-primary, 0.618);
+$o-primary-fade-more: fade-out($o-primary, 0.759);
+$o-primary-fade-lot: fade-out($o-primary, 0.9);
+
+$o-primary-hover-border: fade-out($o-primary, 0.618);
+$o-primary-hover-bg: fade-out($o-primary, 0.9);
+
+$o-danger: #fa5151;
+$o-danger-active: darken($o-danger, 10%);
+$o-danger-fade-little : fade-out($o-danger, 0.382);
+$o-danger-fade-some: fade-out($o-danger, 0.618);
+$o-danger-fade-lot: fade-out($o-danger, 0.9);
+
+
+$options: (
+	primary: $o-primary,
+	primary-active: $o-primary-active,
+	primary-fade-little: $o-primary-fade-little,
+	primary-fade-some: $o-primary-fade-some,
+	primary-fade-more: $o-primary-fade-more,
+	primary-fade-lot: $o-primary-fade-lot,
+
+	danger: $o-danger,
+	danger-active: $o-danger-active,
+	danger-fade-little: $o-danger-fade-little,
+	danger-fade-some: $o-danger-fade-some,
+	danger-fade-lot: $o-danger-fade-lot,
+);
+
+$o-surface: #ffffff;
+
+$o-on-primary: #ffffff;
+$o-on-secondary: #ffffff;
+$o-on-danger: #ffffff;
+$o-on-surface: #000000;
+$o-background: #ffffff;
+
+$o-small-radius: 4px;
+$o-medium-radius: 4px;
+$o-large-radius: 0px;
+$o-font-family: -apple-system-font,"Helvetica Neue",sans-serif;
