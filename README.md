@@ -12,13 +12,14 @@ English | [简体中文](./README.CN.md)
 
 | **Name**         | **Status**         | **Example**            | **Docs** |
 | -------------- | ----------|----------- | ----------------|
-| [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen](https://codepen.io/omijs/pen/LYppwYG) |  |
+| [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen](https://codepen.io/omijs/pen/LYppwYG) | [Button Docs][omiu-button-docs] |
 | Coming... | |  | |
 | Coming... | |  | |
 
 [omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
 [omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
 [omiu-button-package]: https://www.npmjs.com/package/@omiu/button
+[omiu-button-docs]: https://tencent.github.io/omi/components/docs/index.html#/button?index=1&subIndex=0
 
 ## Quick Preview
 
