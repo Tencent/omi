@@ -634,6 +634,7 @@
 	display: block
 }
 
-.o-tree--highlight-current .o-tree-node.is-current>.o-tree-node__content {
-	background-color: #f0f7ff
+.o-tree-node.is-current>.o-tree-node__content {
+	background-color: $o-primary-fade-more;
+	background-color: var(--o-primary-fade-more, $o-primary-fade-more);
 }

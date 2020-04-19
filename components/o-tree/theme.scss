@@ -2,6 +2,7 @@ $o-primary: #07c160;
 $o-primary-active: darken($o-primary, 10%);
 $o-primary-fade-little : fade-out($o-primary, 0.382);
 $o-primary-fade-some: fade-out($o-primary, 0.618);
+$o-primary-fade-more: fade-out($o-primary, 0.759);
 $o-primary-fade-lot: fade-out($o-primary, 0.9);
 
 $o-primary-hover-border: fade-out($o-primary, 0.618);
@@ -19,6 +20,7 @@ $options: (
 	primary-active: $o-primary-active,
 	primary-fade-little: $o-primary-fade-little,
 	primary-fade-some: $o-primary-fade-some,
+	primary-fade-more: $o-primary-fade-more,
 	primary-fade-lot: $o-primary-fade-lot,
 
 	danger: $o-danger,
