@@ -53,17 +53,17 @@ export default class Tabs extends WeElement<Props>{
 	render(props) {
 
 		return (
-			<div class="el-tabs el-tabs--top">
-				<div class="el-tabs__header is-top">
-					<div class="el-tabs__nav-wrap is-top">
-						<div class="el-tabs__nav-scroll">
-							<div role="tablist" class="el-tabs__nav is-top" style="transform: translateX(0px);">
-								<div class="el-tabs__active-bar is-top" style={`width: ${this._width}px; transform: translateX(${this._x}px);`}></div>
+			<div class="o-tabs o-tabs--top">
+				<div class="o-tabs__header is-top">
+					<div class="o-tabs__nav-wrap is-top">
+						<div class="o-tabs__nav-scroll">
+							<div role="tablist" class="o-tabs__nav is-top" style="transform: translateX(0px);">
+								<div class="o-tabs__active-bar is-top" style={`width: ${this._width}px; transform: translateX(${this._x}px);`}></div>
 
 								{props.list.map((tab, index) => {
 
 									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
-										{...extractClass(props, 'el-tabs__item', {
+										{...extractClass(props, 'o-tabs__item', {
 											'is-top': true,
 											'is-active': props.activeIndex === index
 										})}
