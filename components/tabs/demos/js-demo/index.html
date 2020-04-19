@@ -4,7 +4,7 @@
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<meta charset="UTF-8" />
-	<title>Omiu Button</title>
+	<title>Omiu Tabs</title>
 </head>
 
 <body>
@@ -14,19 +14,13 @@
 	</a>
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 	<script src="../../src/index.js"></script>
-	<script src="../../../o-icon/done.js"></script>
+	<script src="../../../icon/ac-unit-outlined.js"></script>
+	<script src="../../../icon/accessible-rounded.js"></script>
 
-	<o-toast done label="已完成">
-	</o-toast>
-
-
-	<!-- <o-toast loading label="数据加载中">
-	</o-toast> -->
-
-	<!-- <o-toast label="已完成">
-		<o-icon-done style="width: 50px;height:50px;"></o-icon-done>
-	</o-toast> -->
-
+	<div>
+		<o-tabs list="['用户管理','系统设置','权限管理中心']" active-index="0">
+		</o-tabs>
+	</div>
 
 </body>
 

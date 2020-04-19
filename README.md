@@ -16,7 +16,7 @@ English | [简体中文](./README.CN.md)
 | Coming... | |  | |
 | Coming... | |  | |
 
-[omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/o-button
+[omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
 [omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
 [omiu-button-package]: https://www.npmjs.com/package/@omiu/button
 
