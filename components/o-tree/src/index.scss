@@ -597,8 +597,8 @@
 	cursor: pointer;
 	color: #C0C4CC;
 	font-size: 12px;
-	-webkit-transform: rotate(0);
-	transform: rotate(0);
+	-webkit-transform: rotate(-90deg);
+	transform: rotate(-90deg);
 	-webkit-transition: -webkit-transform .3s ease-in-out;
 	transition: -webkit-transform .3s ease-in-out;
 	transition: transform .3s ease-in-out;
@@ -606,8 +606,8 @@
 }
 
 .o-tree-node__expand-icon.expanded {
-	-webkit-transform: rotate(90deg);
-	transform: rotate(90deg)
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg)
 }
 
 .o-tree-node__expand-icon.is-leaf {

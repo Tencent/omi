@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["OButton"] = factory(require("omi"));
+		exports["OTree"] = factory(require("omi"));
 	else
-		root["OButton"] = factory(root["Omi"]);
+		root["OTree"] = factory(root["Omi"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -105,8 +105,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 
-var colorString = __webpack_require__(/*! color-string */ "./node_modules/color-string/index.js");
-var convert = __webpack_require__(/*! color-convert */ "./node_modules/color-convert/index.js");
+var colorString = __webpack_require__(/*! color-string */ "./node_modules/_color-string@1.5.3@color-string/index.js");
+var convert = __webpack_require__(/*! color-convert */ "./node_modules/_color-convert@1.9.3@color-convert/index.js");
 var _slice = [].slice;
 var skippedModels = [
     // to be honest, I don't really feel like keyword belongs in color convert, but eh.
@@ -494,15 +494,15 @@ module.exports = Color;
 
 /***/ }),
 
-/***/ "./node_modules/color-convert/conversions.js":
-/*!***************************************************!*\
-  !*** ./node_modules/color-convert/conversions.js ***!
-  \***************************************************/
+/***/ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/_color-convert@1.9.3@color-convert/conversions.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
+var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/_color-name@1.1.3@color-name/index.js");
 
 // NOTE: conversions should only return primitive values (i.e. arrays, or
 //       values that give correct `typeof` results).
@@ -1373,15 +1373,15 @@ convert.rgb.gray = function (rgb) {
 
 /***/ }),
 
-/***/ "./node_modules/color-convert/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/color-convert/index.js ***!
-  \*********************************************/
+/***/ "./node_modules/_color-convert@1.9.3@color-convert/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/_color-convert@1.9.3@color-convert/index.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
-var route = __webpack_require__(/*! ./route */ "./node_modules/color-convert/route.js");
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js");
+var route = __webpack_require__(/*! ./route */ "./node_modules/_color-convert@1.9.3@color-convert/route.js");
 
 var convert = {};
 
@@ -1462,14 +1462,14 @@ module.exports = convert;
 
 /***/ }),
 
-/***/ "./node_modules/color-convert/route.js":
-/*!*********************************************!*\
-  !*** ./node_modules/color-convert/route.js ***!
-  \*********************************************/
+/***/ "./node_modules/_color-convert@1.9.3@color-convert/route.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/_color-convert@1.9.3@color-convert/route.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js");
 
 /*
 	this function routes a model to all other models.
@@ -1570,10 +1570,10 @@ module.exports = function (fromModel) {
 
 /***/ }),
 
-/***/ "./node_modules/color-name/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/color-name/index.js ***!
-  \******************************************/
+/***/ "./node_modules/_color-name@1.1.3@color-name/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/_color-name@1.1.3@color-name/index.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1734,16 +1734,180 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/color-string/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/color-string/index.js ***!
-  \********************************************/
+/***/ "./node_modules/_color-name@1.1.4@color-name/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/_color-name@1.1.4@color-name/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+	"aliceblue": [240, 248, 255],
+	"antiquewhite": [250, 235, 215],
+	"aqua": [0, 255, 255],
+	"aquamarine": [127, 255, 212],
+	"azure": [240, 255, 255],
+	"beige": [245, 245, 220],
+	"bisque": [255, 228, 196],
+	"black": [0, 0, 0],
+	"blanchedalmond": [255, 235, 205],
+	"blue": [0, 0, 255],
+	"blueviolet": [138, 43, 226],
+	"brown": [165, 42, 42],
+	"burlywood": [222, 184, 135],
+	"cadetblue": [95, 158, 160],
+	"chartreuse": [127, 255, 0],
+	"chocolate": [210, 105, 30],
+	"coral": [255, 127, 80],
+	"cornflowerblue": [100, 149, 237],
+	"cornsilk": [255, 248, 220],
+	"crimson": [220, 20, 60],
+	"cyan": [0, 255, 255],
+	"darkblue": [0, 0, 139],
+	"darkcyan": [0, 139, 139],
+	"darkgoldenrod": [184, 134, 11],
+	"darkgray": [169, 169, 169],
+	"darkgreen": [0, 100, 0],
+	"darkgrey": [169, 169, 169],
+	"darkkhaki": [189, 183, 107],
+	"darkmagenta": [139, 0, 139],
+	"darkolivegreen": [85, 107, 47],
+	"darkorange": [255, 140, 0],
+	"darkorchid": [153, 50, 204],
+	"darkred": [139, 0, 0],
+	"darksalmon": [233, 150, 122],
+	"darkseagreen": [143, 188, 143],
+	"darkslateblue": [72, 61, 139],
+	"darkslategray": [47, 79, 79],
+	"darkslategrey": [47, 79, 79],
+	"darkturquoise": [0, 206, 209],
+	"darkviolet": [148, 0, 211],
+	"deeppink": [255, 20, 147],
+	"deepskyblue": [0, 191, 255],
+	"dimgray": [105, 105, 105],
+	"dimgrey": [105, 105, 105],
+	"dodgerblue": [30, 144, 255],
+	"firebrick": [178, 34, 34],
+	"floralwhite": [255, 250, 240],
+	"forestgreen": [34, 139, 34],
+	"fuchsia": [255, 0, 255],
+	"gainsboro": [220, 220, 220],
+	"ghostwhite": [248, 248, 255],
+	"gold": [255, 215, 0],
+	"goldenrod": [218, 165, 32],
+	"gray": [128, 128, 128],
+	"green": [0, 128, 0],
+	"greenyellow": [173, 255, 47],
+	"grey": [128, 128, 128],
+	"honeydew": [240, 255, 240],
+	"hotpink": [255, 105, 180],
+	"indianred": [205, 92, 92],
+	"indigo": [75, 0, 130],
+	"ivory": [255, 255, 240],
+	"khaki": [240, 230, 140],
+	"lavender": [230, 230, 250],
+	"lavenderblush": [255, 240, 245],
+	"lawngreen": [124, 252, 0],
+	"lemonchiffon": [255, 250, 205],
+	"lightblue": [173, 216, 230],
+	"lightcoral": [240, 128, 128],
+	"lightcyan": [224, 255, 255],
+	"lightgoldenrodyellow": [250, 250, 210],
+	"lightgray": [211, 211, 211],
+	"lightgreen": [144, 238, 144],
+	"lightgrey": [211, 211, 211],
+	"lightpink": [255, 182, 193],
+	"lightsalmon": [255, 160, 122],
+	"lightseagreen": [32, 178, 170],
+	"lightskyblue": [135, 206, 250],
+	"lightslategray": [119, 136, 153],
+	"lightslategrey": [119, 136, 153],
+	"lightsteelblue": [176, 196, 222],
+	"lightyellow": [255, 255, 224],
+	"lime": [0, 255, 0],
+	"limegreen": [50, 205, 50],
+	"linen": [250, 240, 230],
+	"magenta": [255, 0, 255],
+	"maroon": [128, 0, 0],
+	"mediumaquamarine": [102, 205, 170],
+	"mediumblue": [0, 0, 205],
+	"mediumorchid": [186, 85, 211],
+	"mediumpurple": [147, 112, 219],
+	"mediumseagreen": [60, 179, 113],
+	"mediumslateblue": [123, 104, 238],
+	"mediumspringgreen": [0, 250, 154],
+	"mediumturquoise": [72, 209, 204],
+	"mediumvioletred": [199, 21, 133],
+	"midnightblue": [25, 25, 112],
+	"mintcream": [245, 255, 250],
+	"mistyrose": [255, 228, 225],
+	"moccasin": [255, 228, 181],
+	"navajowhite": [255, 222, 173],
+	"navy": [0, 0, 128],
+	"oldlace": [253, 245, 230],
+	"olive": [128, 128, 0],
+	"olivedrab": [107, 142, 35],
+	"orange": [255, 165, 0],
+	"orangered": [255, 69, 0],
+	"orchid": [218, 112, 214],
+	"palegoldenrod": [238, 232, 170],
+	"palegreen": [152, 251, 152],
+	"paleturquoise": [175, 238, 238],
+	"palevioletred": [219, 112, 147],
+	"papayawhip": [255, 239, 213],
+	"peachpuff": [255, 218, 185],
+	"peru": [205, 133, 63],
+	"pink": [255, 192, 203],
+	"plum": [221, 160, 221],
+	"powderblue": [176, 224, 230],
+	"purple": [128, 0, 128],
+	"rebeccapurple": [102, 51, 153],
+	"red": [255, 0, 0],
+	"rosybrown": [188, 143, 143],
+	"royalblue": [65, 105, 225],
+	"saddlebrown": [139, 69, 19],
+	"salmon": [250, 128, 114],
+	"sandybrown": [244, 164, 96],
+	"seagreen": [46, 139, 87],
+	"seashell": [255, 245, 238],
+	"sienna": [160, 82, 45],
+	"silver": [192, 192, 192],
+	"skyblue": [135, 206, 235],
+	"slateblue": [106, 90, 205],
+	"slategray": [112, 128, 144],
+	"slategrey": [112, 128, 144],
+	"snow": [255, 250, 250],
+	"springgreen": [0, 255, 127],
+	"steelblue": [70, 130, 180],
+	"tan": [210, 180, 140],
+	"teal": [0, 128, 128],
+	"thistle": [216, 191, 216],
+	"tomato": [255, 99, 71],
+	"turquoise": [64, 224, 208],
+	"violet": [238, 130, 238],
+	"wheat": [245, 222, 179],
+	"white": [255, 255, 255],
+	"whitesmoke": [245, 245, 245],
+	"yellow": [255, 255, 0],
+	"yellowgreen": [154, 205, 50]
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/_color-string@1.5.3@color-string/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/_color-string@1.5.3@color-string/index.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
-var swizzle = __webpack_require__(/*! simple-swizzle */ "./node_modules/simple-swizzle/index.js");
+var colorNames = __webpack_require__(/*! color-name */ "./node_modules/_color-name@1.1.4@color-name/index.js");
+var swizzle = __webpack_require__(/*! simple-swizzle */ "./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js");
 
 var reverseNames = {};
 
@@ -1979,29 +2143,29 @@ function hexDouble(num) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ":host {\n  display: inline-block; }\n\n.o-button {\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  border: 1px solid #dcdfe6;\n  color: #606266;\n  -webkit-appearance: none;\n  text-align: center;\n  box-sizing: border-box;\n  outline: none;\n  margin: 0;\n  transition: .1s;\n  font-weight: 500;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  padding: 12px 20px;\n  font-size: 14px;\n  border-radius: 4px; }\n\n.o-button:hover {\n  border-color: rgba(7, 193, 96, 0.382);\n  border-color: var(--o-primary-hover-border, rgba(7, 193, 96, 0.382));\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: rgba(7, 193, 96, 0.1);\n  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.1)); }\n\n.o-button:active {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  outline: none; }\n\n.o-button-primary {\n  color: #fff;\n  background-color: #07c160;\n  border-color: #07c160;\n  background-color: var(--o-primary, #07c160);\n  border-color: var(--o-primary, #07c160); }\n\n.o-button-primary.is-plain {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: rgba(7, 193, 96, 0.1);\n  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));\n  border-color: rgba(7, 193, 96, 0.382);\n  border-color: var(--o-primary-fade-some, rgba(7, 193, 96, 0.382)); }\n\n.o-button-primary:hover {\n  background-color: rgba(7, 193, 96, 0.618);\n  border-color: rgba(7, 193, 96, 0.618);\n  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));\n  border-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));\n  color: #fff; }\n\n.o-button-primary:active {\n  background-color: #059048;\n  border-color: #059048;\n  background-color: var(--o-primary-active, #059048);\n  border-color: var(--o-primary-active, #059048);\n  color: #fff; }\n\n.o-button-danger {\n  color: #fff;\n  background-color: #fa5151;\n  border-color: #fa5151;\n  background-color: var(--o-danger, #fa5151);\n  border-color: var(--o-danger, #fa5151); }\n\n.o-button-danger.is-plain {\n  color: #fa5151;\n  color: var(--o-danger, #fa5151);\n  background-color: rgba(250, 81, 81, 0.1);\n  background-color: var(--o-danger-fade-lot, rgba(250, 81, 81, 0.1));\n  border-color: rgba(250, 81, 81, 0.382);\n  border-color: var(--o-danger-fade-some, rgba(250, 81, 81, 0.382)); }\n\n.o-button-danger:hover {\n  background-color: rgba(250, 81, 81, 0.618);\n  border-color: rgba(250, 81, 81, 0.618);\n  background-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));\n  border-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));\n  color: #fff; }\n\n.o-button-danger:active {\n  background-color: #f91f1f;\n  border-color: #f91f1f;\n  background-color: var(--o-danger-active, #f91f1f);\n  border-color: var(--o-danger-active, #f91f1f);\n  color: #fff; }\n\n.loading {\n  width: 1em;\n  height: 1em;\n  display: inline-block;\n  animation: loading 1s steps(12, end) infinite;\n  vertical-align: -0.125em; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n.o-button-medium {\n  padding: 10px 20px;\n  font-size: 14px;\n  border-radius: 4px; }\n\n.o-button-small {\n  padding: 9px 15px;\n  font-size: 12px;\n  border-radius: 3px; }\n\n.o-button-mini {\n  padding: 7px 15px;\n  font-size: 12px;\n  border-radius: 3px; }\n\n.o-button.is-round {\n  border-radius: 20px; }\n\n.o-button.is-circle {\n  border-radius: 20px;\n  padding: 12px; }\n\n.o-button.is-disabled, .o-button.is-disabled:focus, .o-button.is-disabled:hover {\n  color: #c0c4cc;\n  cursor: not-allowed;\n  background-image: none;\n  background-color: #fff;\n  border-color: #ebeef5; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-fade-in-enter,\n.o-fade-in-leave-active,\n.o-fade-in-linear-enter,\n.o-fade-in-linear-leave,\n.o-fade-in-linear-leave-active,\n.fade-in-linear-enter,\n.fade-in-linear-leave,\n.fade-in-linear-leave-active {\n  opacity: 0; }\n\n.o-checkbox,\n.o-checkbox__input {\n  display: inline-block;\n  position: relative; }\n\n.fade-in-linear-enter-active,\n.fade-in-linear-leave-active {\n  -webkit-transition: opacity .2s linear;\n  transition: opacity .2s linear; }\n\n.o-fade-in-linear-enter-active,\n.o-fade-in-linear-leave-active {\n  -webkit-transition: opacity .2s linear;\n  transition: opacity .2s linear; }\n\n.o-fade-in-enter-active,\n.o-fade-in-leave-active {\n  -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);\n  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1); }\n\n.o-zoom-in-center-enter-active,\n.o-zoom-in-center-leave-active {\n  -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);\n  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1); }\n\n.o-zoom-in-center-enter,\n.o-zoom-in-center-leave-active {\n  opacity: 0;\n  -webkit-transform: scaleX(0);\n  transform: scaleX(0); }\n\n.o-zoom-in-top-enter-active,\n.o-zoom-in-top-leave-active {\n  opacity: 1;\n  -webkit-transform: scaleY(1);\n  transform: scaleY(1);\n  -webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  -webkit-transform-origin: center top;\n  transform-origin: center top; }\n\n.o-zoom-in-top-enter,\n.o-zoom-in-top-leave-active {\n  opacity: 0;\n  -webkit-transform: scaleY(0);\n  transform: scaleY(0); }\n\n.o-zoom-in-bottom-enter-active,\n.o-zoom-in-bottom-leave-active {\n  opacity: 1;\n  -webkit-transform: scaleY(1);\n  transform: scaleY(1);\n  -webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  -webkit-transform-origin: center bottom;\n  transform-origin: center bottom; }\n\n.o-zoom-in-bottom-enter,\n.o-zoom-in-bottom-leave-active {\n  opacity: 0;\n  -webkit-transform: scaleY(0);\n  transform: scaleY(0); }\n\n.o-zoom-in-left-enter-active,\n.o-zoom-in-left-leave-active {\n  opacity: 1;\n  -webkit-transform: scale(1, 1);\n  transform: scale(1, 1);\n  -webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);\n  -webkit-transform-origin: top left;\n  transform-origin: top left; }\n\n.o-zoom-in-left-enter,\n.o-zoom-in-left-leave-active {\n  opacity: 0;\n  -webkit-transform: scale(0.45, 0.45);\n  transform: scale(0.45, 0.45); }\n\n.collapse-transition {\n  -webkit-transition: .3s height ease-in-out, .3s padding-top ease-in-out, .3s padding-bottom ease-in-out;\n  transition: .3s height ease-in-out, .3s padding-top ease-in-out, .3s padding-bottom ease-in-out; }\n\n.horizontal-collapse-transition {\n  -webkit-transition: .3s width ease-in-out, .3s padding-left ease-in-out, .3s padding-right ease-in-out;\n  transition: .3s width ease-in-out, .3s padding-left ease-in-out, .3s padding-right ease-in-out; }\n\n.o-list-enter-active,\n.o-list-leave-active {\n  -webkit-transition: all 1s;\n  transition: all 1s; }\n\n.o-list-enter,\n.o-list-leave-active {\n  opacity: 0;\n  -webkit-transform: translateY(-30px);\n  transform: translateY(-30px); }\n\n.o-opacity-transition {\n  -webkit-transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1);\n  transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1); }\n\n.o-checkbox {\n  color: #606266;\n  font-weight: 500;\n  font-size: 14px;\n  cursor: pointer;\n  white-space: nowrap;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  margin-right: 30px; }\n\n.o-checkbox.is-bordered {\n  padding: 9px 20px 9px 10px;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  line-height: normal;\n  height: 40px; }\n\n.o-checkbox.is-bordered.is-checked {\n  border-color: #409EFF; }\n\n.o-checkbox.is-bordered.is-disabled {\n  border-color: #EBEEF5;\n  cursor: not-allowed; }\n\n.o-checkbox.is-bordered + .o-checkbox.is-bordered {\n  margin-left: 10px; }\n\n.o-checkbox.is-bordered.o-checkbox--medium {\n  padding: 7px 20px 7px 10px;\n  border-radius: 4px;\n  height: 36px; }\n\n.o-checkbox.is-bordered.o-checkbox--medium .o-checkbox__label {\n  line-height: 17px;\n  font-size: 14px; }\n\n.o-checkbox.is-bordered.o-checkbox--medium .o-checkbox__inner {\n  height: 14px;\n  width: 14px; }\n\n.o-checkbox.is-bordered.o-checkbox--small {\n  padding: 5px 15px 5px 10px;\n  border-radius: 3px;\n  height: 32px; }\n\n.o-checkbox.is-bordered.o-checkbox--small .o-checkbox__label {\n  line-height: 15px;\n  font-size: 12px; }\n\n.o-checkbox.is-bordered.o-checkbox--small .o-checkbox__inner {\n  height: 12px;\n  width: 12px; }\n\n.o-checkbox.is-bordered.o-checkbox--small .o-checkbox__inner::after {\n  height: 6px;\n  width: 2px; }\n\n.o-checkbox.is-bordered.o-checkbox--mini {\n  padding: 3px 15px 3px 10px;\n  border-radius: 3px;\n  height: 28px; }\n\n.o-checkbox.is-bordered.o-checkbox--mini .o-checkbox__label {\n  line-height: 12px;\n  font-size: 12px; }\n\n.o-checkbox-button__inner,\n.o-checkbox__input {\n  line-height: 1;\n  vertical-align: middle;\n  white-space: nowrap;\n  outline: 0; }\n\n.o-checkbox.is-bordered.o-checkbox--mini .o-checkbox__inner {\n  height: 12px;\n  width: 12px; }\n\n.o-checkbox.is-bordered.o-checkbox--mini .o-checkbox__inner::after {\n  height: 6px;\n  width: 2px; }\n\n.o-checkbox__input {\n  cursor: pointer; }\n\n.o-checkbox__input.is-disabled .o-checkbox__inner {\n  background-color: #edf2fc;\n  border-color: #DCDFE6;\n  cursor: not-allowed; }\n\n.o-checkbox__input.is-disabled .o-checkbox__inner::after {\n  cursor: not-allowed;\n  border-color: #C0C4CC; }\n\n.o-checkbox__input.is-disabled .o-checkbox__inner + .o-checkbox__label {\n  cursor: not-allowed; }\n\n.o-checkbox__input.is-disabled.is-checked .o-checkbox__inner {\n  background-color: #F2F6FC;\n  border-color: #DCDFE6; }\n\n.o-checkbox__input.is-disabled.is-checked .o-checkbox__inner::after {\n  border-color: #C0C4CC; }\n\n.o-checkbox__input.is-disabled.is-indeterminate .o-checkbox__inner {\n  background-color: #F2F6FC;\n  border-color: #DCDFE6; }\n\n.o-checkbox__input.is-disabled.is-indeterminate .o-checkbox__inner::before {\n  background-color: #C0C4CC;\n  border-color: #C0C4CC; }\n\n.o-checkbox__input.is-checked .o-checkbox__inner,\n.o-checkbox__input.is-indeterminate .o-checkbox__inner {\n  background-color: #409EFF;\n  border-color: #409EFF; }\n\n.o-checkbox__input.is-disabled + span.o-checkbox__label {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-checkbox__input.is-checked .o-checkbox__inner::after {\n  -webkit-transform: rotate(45deg) scaleY(1);\n  transform: rotate(45deg) scaleY(1); }\n\n.o-checkbox__input.is-checked + .o-checkbox__label {\n  color: #409EFF; }\n\n.o-checkbox__input.is-focus .o-checkbox__inner {\n  border-color: #409EFF; }\n\n.o-checkbox__input.is-indeterminate .o-checkbox__inner::before {\n  content: '';\n  position: absolute;\n  display: block;\n  background-color: #FFF;\n  height: 2px;\n  -webkit-transform: scale(0.5);\n  transform: scale(0.5);\n  left: 0;\n  right: 0;\n  top: 5px; }\n\n.o-checkbox__input.is-indeterminate .o-checkbox__inner::after {\n  display: none; }\n\n.o-checkbox__inner {\n  display: inline-block;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 2px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 14px;\n  height: 14px;\n  background-color: #FFF;\n  z-index: 1;\n  -webkit-transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46), background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);\n  transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46), background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46); }\n\n.o-checkbox__inner:hover {\n  border-color: #409EFF; }\n\n.o-checkbox__inner::after {\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n  content: \"\";\n  border: 1px solid #FFF;\n  border-left: 0;\n  border-top: 0;\n  height: 7px;\n  left: 4px;\n  position: absolute;\n  top: 1px;\n  -webkit-transform: rotate(45deg) scaleY(0);\n  transform: rotate(45deg) scaleY(0);\n  width: 3px;\n  -webkit-transition: -webkit-transform .15s ease-in .05s;\n  transition: -webkit-transform .15s ease-in .05s;\n  transition: transform .15s ease-in .05s;\n  transition: transform .15s ease-in .05s, -webkit-transform .15s ease-in .05s;\n  -webkit-transform-origin: center;\n  transform-origin: center; }\n\n.o-checkbox__original {\n  opacity: 0;\n  outline: 0;\n  position: absolute;\n  margin: 0;\n  width: 0;\n  height: 0;\n  z-index: -1; }\n\n.o-checkbox-button,\n.o-checkbox-button__inner {\n  display: inline-block;\n  position: relative; }\n\n.o-checkbox__label {\n  display: inline-block;\n  padding-left: 10px;\n  line-height: 19px;\n  font-size: 14px; }\n\n.o-checkbox:last-of-type {\n  margin-right: 0; }\n\n.o-checkbox-button__inner {\n  font-weight: 500;\n  cursor: pointer;\n  background: #FFF;\n  border: 1px solid #DCDFE6;\n  border-left: 0;\n  color: #606266;\n  -webkit-appearance: none;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 0;\n  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  padding: 12px 20px;\n  font-size: 14px;\n  border-radius: 0; }\n\n.o-checkbox-button__inner.is-round {\n  padding: 12px 20px; }\n\n.o-checkbox-button__inner:hover {\n  color: #409EFF; }\n\n.o-checkbox-button__inner [class*=el-icon-] {\n  line-height: .9; }\n\n.o-checkbox-button__inner [class*=el-icon-] + span {\n  margin-left: 5px; }\n\n.o-checkbox-button__original {\n  opacity: 0;\n  outline: 0;\n  position: absolute;\n  margin: 0;\n  z-index: -1; }\n\n.o-checkbox-button.is-checked .o-checkbox-button__inner {\n  color: #FFF;\n  background-color: #409EFF;\n  border-color: #409EFF;\n  -webkit-box-shadow: -1px 0 0 0 #8cc5ff;\n  box-shadow: -1px 0 0 0 #8cc5ff; }\n\n.o-checkbox-button.is-checked:first-child .o-checkbox-button__inner {\n  border-left-color: #409EFF; }\n\n.o-checkbox-button.is-disabled .o-checkbox-button__inner {\n  color: #C0C4CC;\n  cursor: not-allowed;\n  background-image: none;\n  background-color: #FFF;\n  border-color: #EBEEF5;\n  -webkit-box-shadow: none;\n  box-shadow: none; }\n\n.o-checkbox-button.is-disabled:first-child .o-checkbox-button__inner {\n  border-left-color: #EBEEF5; }\n\n.o-checkbox-button:first-child .o-checkbox-button__inner {\n  border-left: 1px solid #DCDFE6;\n  border-radius: 4px 0 0 4px;\n  -webkit-box-shadow: none !important;\n  box-shadow: none !important; }\n\n.o-checkbox-button.is-focus .o-checkbox-button__inner {\n  border-color: #409EFF; }\n\n.o-checkbox-button:last-child .o-checkbox-button__inner {\n  border-radius: 0 4px 4px 0; }\n\n.o-checkbox-button--medium .o-checkbox-button__inner {\n  padding: 10px 20px;\n  font-size: 14px;\n  border-radius: 0; }\n\n.o-checkbox-button--medium .o-checkbox-button__inner.is-round {\n  padding: 10px 20px; }\n\n.o-checkbox-button--small .o-checkbox-button__inner {\n  padding: 9px 15px;\n  font-size: 12px;\n  border-radius: 0; }\n\n.o-checkbox-button--small .o-checkbox-button__inner.is-round {\n  padding: 9px 15px; }\n\n.o-checkbox-button--mini .o-checkbox-button__inner {\n  padding: 7px 15px;\n  font-size: 12px;\n  border-radius: 0; }\n\n.o-checkbox-button--mini .o-checkbox-button__inner.is-round {\n  padding: 7px 15px; }\n\n.o-checkbox-group {\n  font-size: 0; }\n\n.o-tree {\n  position: relative;\n  cursor: default;\n  background: #FFF;\n  color: #606266; }\n\n.o-tree__empty-block {\n  position: relative;\n  min-height: 60px;\n  text-align: center;\n  width: 100%;\n  height: 100%; }\n\n.o-tree__empty-text {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  color: #909399;\n  font-size: 14px; }\n\n.o-tree__drop-indicator {\n  position: absolute;\n  left: 0;\n  right: 0;\n  height: 1px;\n  background-color: #409EFF; }\n\n.o-tree-node {\n  white-space: nowrap;\n  outline: 0; }\n\n.o-tree-node:focus > .o-tree-node__content {\n  background-color: #F5F7FA; }\n\n.o-tree-node.is-drop-inner > .o-tree-node__content .o-tree-node__label {\n  background-color: #409EFF;\n  color: #fff; }\n\n.o-tree-node__content {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  height: 26px;\n  cursor: pointer; }\n\n.o-tree-node__content > .o-tree-node__expand-icon {\n  padding: 6px; }\n\n.o-tree-node__content > label.o-checkbox {\n  margin-right: 8px; }\n\n.o-tree-node__content:hover {\n  background-color: #F5F7FA; }\n\n.o-tree.is-dragging .o-tree-node__content {\n  cursor: move; }\n\n.o-tree.is-dragging .o-tree-node__content * {\n  pointer-events: none; }\n\n.o-tree.is-dragging.is-drop-not-allow .o-tree-node__content {\n  cursor: not-allowed; }\n\n.o-tree-node__expand-icon {\n  cursor: pointer;\n  color: #C0C4CC;\n  font-size: 12px;\n  -webkit-transform: rotate(-90deg);\n  transform: rotate(-90deg);\n  -webkit-transition: -webkit-transform .3s ease-in-out;\n  transition: -webkit-transform .3s ease-in-out;\n  transition: transform .3s ease-in-out;\n  transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out; }\n\n.o-tree-node__expand-icon.expanded {\n  -webkit-transform: rotate(0deg);\n  transform: rotate(0deg); }\n\n.o-tree-node__expand-icon.is-leaf {\n  color: transparent;\n  cursor: default; }\n\n.o-tree-node__label {\n  font-size: 14px; }\n\n.o-tree-node__loading-icon {\n  margin-right: 8px;\n  font-size: 14px;\n  color: #C0C4CC; }\n\n.o-tree-node > .o-tree-node__children {\n  overflow: hidden;\n  background-color: transparent; }\n\n.o-tree-node.is-expanded > .o-tree-node__children {\n  display: block; }\n\n.o-tree--highlight-current .o-tree-node.is-current > .o-tree-node__content {\n  background-color: #f0f7ff; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2085,17 +2249,37 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/simple-swizzle/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/simple-swizzle/index.js ***!
-  \**********************************************/
+/***/ "./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function isArrayish(obj) {
+	if (!obj || typeof obj === 'string') {
+		return false;
+	}
+
+	return obj instanceof Array || Array.isArray(obj) ||
+		(obj.length >= 0 && (obj.splice instanceof Function ||
+			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isArrayish = __webpack_require__(/*! is-arrayish */ "./node_modules/simple-swizzle/node_modules/is-arrayish/index.js");
+var isArrayish = __webpack_require__(/*! is-arrayish */ "./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js");
 
 var concat = Array.prototype.concat;
 var slice = Array.prototype.slice;
@@ -2126,26 +2310,6 @@ swizzle.wrap = function (fn) {
 
 /***/ }),
 
-/***/ "./node_modules/simple-swizzle/node_modules/is-arrayish/index.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/simple-swizzle/node_modules/is-arrayish/index.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function isArrayish(obj) {
-	if (!obj || typeof obj === 'string') {
-		return false;
-	}
-
-	return obj instanceof Array || Array.isArray(obj) ||
-		(obj.length >= 0 && (obj.splice instanceof Function ||
-			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
-};
-
-
-/***/ }),
-
 /***/ "./src/index.scss":
 /*!************************!*\
   !*** ./src/index.scss ***!
@@ -2154,7 +2318,7 @@ module.exports = function isArrayish(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2209,56 +2373,50 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 //@ts-ignore
 __webpack_require__(/*! ../theme.ts */ "./theme.ts");
-var Button = /** @class */ (function (_super) {
-    __extends(Button, _super);
-    function Button() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var Tree = /** @class */ (function (_super) {
+    __extends(Tree, _super);
+    function Tree() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onNodeClick = function (evt, node) {
+            evt.stopPropagation();
+            node.expanded = !node.expanded;
+            _this.forceUpdate();
+        };
+        _this.onNodeArrowClick = function () {
+        };
+        return _this;
     }
-    Button.prototype.render = function (props) {
-        var _a;
-        return omi_1.h("button", __assign({ disabled: props.disabled }, omi_1.extractClass(props, 'o-button', (_a = {},
-            _a['o-button-' + props.type] = props.type,
-            _a['o-button-' + props.size] = props.size,
-            _a['is-plain'] = props.plain,
-            _a['is-round'] = props.round,
-            _a['is-circle'] = props.circle,
-            _a['is-disabled'] = props.disabled,
-            _a['is-block'] = props.block,
-            _a)), { type: props.nativeType }),
-            props.loading && [omi_1.h("svg", { class: "loading", viewBox: "0 0 1024 1024", focusable: "false", "data-icon": "loading", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true" },
-                    omi_1.h("path", { d: "M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z" })), ' '],
-            omi_1.h("slot", null));
+    Tree.prototype.renderNode = function (node, level) {
+        var _this = this;
+        return omi_1.h("div", __assign({ role: "treeitem", onClick: function (evt) { _this.onNodeClick(evt, node); } }, omi_1.extractClass({}, 'o-tree-node', {
+            'is-expanded': node.expanded,
+        }), { draggable: "false" }),
+            omi_1.h("div", { class: "o-tree-node__content", style: "padding-left: " + level * 18 + "px;" },
+                node.children && node.children.length > 0 && omi_1.h("svg", __assign({ onClick: function (_) { return _this.onNodeArrowClick(_, node); }, viewBox: "0 0 1024 1024" }, omi_1.extractClass({}, 'o-tree-node__expand-icon', {
+                    'expanded': node.expanded,
+                }), { "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" }),
+                    omi_1.h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" })),
+                omi_1.h("span", { class: "o-tree-node__label" }, node.label)),
+            node.expanded && node.children && node.children.length > 0 && omi_1.h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
+                return _this.renderNode(child, level + 1);
+            })));
     };
-    Button.css = css;
-    Button.defaultProps = {
-        plain: false,
-        round: false,
-        circle: false,
-        loading: false,
-        disabled: false,
-        autofocus: false,
-        nativeType: 'button',
-        block: false
+    Tree.prototype.render = function (props) {
+        var _this = this;
+        return (omi_1.h("div", { role: "tree", class: "o-tree" }, props.data.map(function (node) {
+            return _this.renderNode(node, 0);
+        })));
     };
-    Button.propTypes = {
-        size: String,
-        type: String,
-        plain: Boolean,
-        round: Boolean,
-        circle: Boolean,
-        loading: Boolean,
-        disabled: Boolean,
-        icon: String,
-        autofocus: Boolean,
-        nativeType: String,
-        block: Boolean
+    Tree.css = css;
+    Tree.propTypes = {
+        data: Object
     };
-    Button = __decorate([
-        omi_1.tag('o-button')
-    ], Button);
-    return Button;
+    Tree = __decorate([
+        omi_1.tag('o-tree')
+    ], Tree);
+    return Tree;
 }(omi_1.WeElement));
-exports.default = Button;
+exports.default = Tree;
 
 
 /***/ }),
