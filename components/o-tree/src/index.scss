@@ -612,7 +612,9 @@
 
 .o-tree-node__expand-icon.is-leaf {
 	color: transparent;
-	cursor: default
+	cursor: default;
+	width: 12px;
+	height: 12px;
 }
 
 .o-tree-node__label {
