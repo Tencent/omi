@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["OButton"] = factory(require("omi"));
+		exports["OLink"] = factory(require("omi"));
 	else
-		root["OButton"] = factory(root["Omi"]);
+		root["OLink"] = factory(root["Omi"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -2380,7 +2380,7 @@ var Link = /** @class */ (function (_super) {
     }
     Link.prototype.render = function (props) {
         var _a;
-        return omi_1.h("a", __assign({ disabled: props.disabled }, omi_1.extractClass(props, 'o-link', (_a = {},
+        return omi_1.h("a", __assign({ disabled: props.disabled, href: props.href, target: props.target }, omi_1.extractClass(props, 'o-link', (_a = {},
             _a['o-link-' + props.type] = props.type,
             _a['o-link-' + props.size] = props.size,
             _a['is-underline'] = props.underline,
@@ -2397,7 +2397,9 @@ var Link = /** @class */ (function (_super) {
     Link.propTypes = {
         type: String,
         disabled: Boolean,
-        underline: Boolean
+        underline: Boolean,
+        href: String,
+        target: String
     };
     Link = __decorate([
         omi_1.tag('o-link')

@@ -4,6 +4,8 @@ interface Props {
     type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
     disabled?: boolean;
     underline?: boolean;
+    href?: string;
+    target: string;
 }
 export default class Link extends WeElement<Props> {
     static css: any;
@@ -15,6 +17,8 @@ export default class Link extends WeElement<Props> {
         type: StringConstructor;
         disabled: BooleanConstructor;
         underline: BooleanConstructor;
+        href: StringConstructor;
+        target: StringConstructor;
     };
     render(props: any): JSX.Element;
 }
