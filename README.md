@@ -10,11 +10,15 @@ English | [简体中文](./README.CN.md)
 > Cross-Frameworks Components powered by Omi
 
 
-| **Name**                         | **CodePen**            | **Docs** |
-| -------------- | --------------------- | ----------------|
-| [@omiu/button](https://github.com/Tencent/omi/tree/master/components/o-button) | [CodePen](https://codepen.io/omijs/pen/LYppwYG) |  |
-| Coming... | |  |
-| Coming... | |  |
+| **Name**         | **Status**         | **Example**            | **Docs** |
+| -------------- | ----------|----------- | ----------------|
+| [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen](https://codepen.io/omijs/pen/LYppwYG) |  |
+| Coming... | |  | |
+| Coming... | |  | |
+
+[omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/o-button
+[omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
+[omiu-button-package]: https://www.npmjs.com/package/@omiu/button
 
 ## Quick Preview
 
