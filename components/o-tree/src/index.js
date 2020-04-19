@@ -2393,6 +2393,7 @@ var Tree = /** @class */ (function (_super) {
         if (node.selected) {
             this.prevSelectedNode = node;
         }
+        this._tempTagName = 'o-icon-' + node.icon;
         return omi_1.h("div", __assign({ role: "treeitem", onClick: function (evt) { _this.onNodeClick(evt, node); } }, omi_1.extractClass({}, 'o-tree-node', {
             'is-expanded': node.expanded,
             'is-current': node.selected
@@ -2402,7 +2403,9 @@ var Tree = /** @class */ (function (_super) {
                     'expanded': node.expanded,
                 }), { "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" }),
                     omi_1.h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" })) : omi_1.h("span", { class: "is-leaf o-tree-node__expand-icon" }),
-                omi_1.h("span", { style: node.color && { color: node.color }, class: "o-tree-node__label" }, node.label)),
+                omi_1.h("span", { style: node.color && { color: node.color }, class: "o-tree-node__label" },
+                    node.icon && omi_1.h(this._tempTagName, null),
+                    node.label)),
             node.expanded && node.children && node.children.length > 0 && omi_1.h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
                 return _this.renderNode(child, level + 1);
             })));

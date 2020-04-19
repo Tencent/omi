@@ -9,6 +9,7 @@ export default class Tree extends WeElement<Props> {
         data: ObjectConstructor;
     };
     onNodeClick: (evt: any, node: any) => void;
+    _tempTagName: string;
     prevSelectedNode: any;
     onNodeArrowClick: () => void;
     renderNode(node: any, level: any): JSX.Element;
