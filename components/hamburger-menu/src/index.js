@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["OButton"] = factory(require("omi"));
+		exports["OHamburgerMenu"] = factory(require("omi"));
 	else
-		root["OButton"] = factory(root["Omi"]);
+		root["OHamburgerMenu"] = factory(root["Omi"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -2378,11 +2378,10 @@ var Button = /** @class */ (function (_super) {
     function Button() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onClick = function () {
-            _this.props.active = !_this.props.active;
-            _this.update(true);
-            if (_this.prevProps) {
-                _this.prevProps.active = _this.props.active;
-            }
+            _this.updateProps({
+                active: !_this.props.active
+            });
+            _this.fire('change', _this.props.active);
         };
         return _this;
     }

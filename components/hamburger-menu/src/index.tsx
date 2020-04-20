@@ -28,12 +28,14 @@ export default class Button extends WeElement<Props>{
 	}
 
 	onClick = () => {
-		this.props.active = !this.props.active
-		this.update(true)
 
-		if(this.prevProps) {
-			this.prevProps.active = this.props.active
-		}
+		this.updateProps({
+			active: !this.props.active
+		})
+
+		this.fire('change', this.props.active)
+
+
 	}
 
 

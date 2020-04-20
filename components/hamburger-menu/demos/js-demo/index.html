@@ -27,7 +27,11 @@
 		<o-hamburger-menu active color="#f5222d"></o-hamburger-menu>
 	</div>
 
-
+	<script>
+		document.querySelector('o-hamburger-menu').addEventListener('change', function (evt) {
+			console.log(evt.detail)
+		})
+	</script>
 
 </body>
 
