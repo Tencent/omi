@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["OTree"] = factory(require("omi"));
+		exports["OTabs"] = factory(require("omi"));
 	else
-		root["OTree"] = factory(root["Omi"]);
+		root["OTabs"] = factory(root["Omi"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -2406,6 +2406,14 @@ var Tabs = /** @class */ (function (_super) {
         this.baseRect = this.rootNode.getBoundingClientRect();
         this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
     };
+    Tabs.prototype.removeTab = function (index) {
+        this.props.list.splice(index, 1);
+        this.forceUpdate();
+    };
+    Tabs.prototype.addTab = function (tab) {
+        this.props.list.push(tab);
+        this.forceUpdate();
+    };
     Tabs.prototype.render = function (props) {
         var _a, _b, _c, _d, _e;
         var _this = this;
@@ -2416,7 +2424,6 @@ var Tabs = /** @class */ (function (_super) {
             width: this._width + "px",
             transform: "translateX(" + this._x + "px)"
         };
-        console.log(activeBarStyle);
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-tabs', (_a = {},
             _a["o-tabs--" + props.position] = props.position,
             _a["o-tabs--" + props.type] = props.type,
@@ -2444,7 +2451,7 @@ var Tabs = /** @class */ (function (_super) {
                                     _a))),
                                     tab.icon && omi_1.h(_this._tempTagName, null),
                                     tab.label,
-                                    props.closable && omi_1.h("svg", { class: "o-icon-close", style: props.activeIndex === index && "visibility: visible;", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
+                                    props.closable && omi_1.h("svg", { onClick: function (_) { _this.removeTab(index); }, class: "o-icon-close", style: props.activeIndex === index && "visibility: visible;", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
                                         omi_1.h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })));
                             })))))));
     };

@@ -60,7 +60,19 @@ export default class Tabs extends WeElement<Props>{
 		this.baseRect = this.rootNode.getBoundingClientRect()
 		this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
 	}
+
+	removeTab(index) {
+		this.props.list.splice(index, 1)
+		this.forceUpdate()
+	}
+
+	addTab(tab) {
+		this.props.list.push(tab)
+		this.forceUpdate()
+	}
+
 	_tempTagName: string
+
 	render(props) {
 
 		const activeBarStyle = (props.position === 'left' || props.position === 'right') ? {
@@ -70,7 +82,7 @@ export default class Tabs extends WeElement<Props>{
 				width: `${this._width}px`,
 				transform: `translateX(${this._x}px)`
 			}
-		console.log(activeBarStyle)
+
 		return (
 			<div {...extractClass(props, 'o-tabs', {
 				[`o-tabs--${props.position}`]: props.position,
@@ -99,7 +111,7 @@ export default class Tabs extends WeElement<Props>{
 											'is-active': props.activeIndex === index,
 											'is-closable': props.closable
 										})}
-									>{tab.icon && <this._tempTagName />}{tab.label}{props.closable &&<svg class="o-icon-close" style={props.activeIndex === index&&`visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
+									>{tab.icon && <this._tempTagName />}{tab.label}{props.closable && <svg onClick={_ => { this.removeTab(index) }} class="o-icon-close" style={props.activeIndex === index && `visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
 								})}
 
 							</div>

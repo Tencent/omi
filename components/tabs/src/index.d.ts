@@ -26,6 +26,8 @@ export default class Tabs extends WeElement<Props> {
     onTabClick: (evt: any, index: any) => void;
     setActiveBar(ele: any, index: any): void;
     installed(): void;
+    removeTab(index: any): void;
+    addTab(tab: any): void;
     _tempTagName: string;
     render(props: any): JSX.Element;
 }

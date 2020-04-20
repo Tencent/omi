@@ -1,6 +1,6 @@
 {
-  "name": "@omiu/tree",
-  "version": "0.0.0",
+  "name": "@omiu/tabs",
+  "version": "0.0.1",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "types": "src/index.d.ts",
