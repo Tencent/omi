@@ -8,6 +8,7 @@ interface Props {
 	activeIndex: number
 	type?: 'card' | 'border-card'
 	position?: 'left' | 'right' | 'top' | 'bottom'
+	closable?: boolean
 }
 
 
@@ -17,14 +18,16 @@ export default class Tabs extends WeElement<Props>{
 	static css = css
 
 	static defaultProps = {
-		position: 'top'
+		position: 'top',
+		closable: false
 	}
 
 	static propTypes = {
 		list: Array,
 		activeIndex: Number,
 		type: String,
-		position: String
+		position: String,
+		closable: Boolean
 	}
 
 	_x
@@ -57,16 +60,16 @@ export default class Tabs extends WeElement<Props>{
 		this.baseRect = this.rootNode.getBoundingClientRect()
 		this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
 	}
-
+	_tempTagName: string
 	render(props) {
 
-		const activeBarStyle = (props.position === 'left' || props.position === 'right') ?{
+		const activeBarStyle = (props.position === 'left' || props.position === 'right') ? {
 			height: `40px`,
-			transform: `translateY(${props.activeIndex*40}px)`
-		}:{
-			width: `${this._width}px`,
-			transform: `translateX(${this._x}px)`
-		}
+			transform: `translateY(${props.activeIndex * 40}px)`
+		} : {
+				width: `${this._width}px`,
+				transform: `translateX(${this._x}px)`
+			}
 		console.log(activeBarStyle)
 		return (
 			<div {...extractClass(props, 'o-tabs', {
@@ -89,13 +92,14 @@ export default class Tabs extends WeElement<Props>{
 									})} style={activeBarStyle}></div>}
 
 								{props.list.map((tab, index) => {
-
+									this._tempTagName = 'o-icon-' + tab.icon
 									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
 										{...extractClass(props, 'o-tabs__item', {
 											[`is-${props.position}`]: props.position,
-											'is-active': props.activeIndex === index
+											'is-active': props.activeIndex === index,
+											'is-closable': props.closable
 										})}
-									>{tab}</div>
+									>{tab.icon && <this._tempTagName />}{tab.label}{props.closable &&<svg class="o-icon-close" style={props.activeIndex === index&&`visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
 								})}
 
 							</div>

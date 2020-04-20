@@ -148,7 +148,12 @@
   border-radius: 3px
 }
 
+.o-tabs__item:hover .o-icon-close {
+  visibility: visible;
+}
+
 .o-tabs__item .o-icon-close {
+	visibility: hidden;
   border-radius: 50%;
   text-align: center;
   -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
@@ -784,4 +789,9 @@
     transform: translateX(-100%);
     opacity: 0
   }
+}
+
+.o-icon-close {
+ display: inline-block;
+ vertical-align: -0.125em;
 }
