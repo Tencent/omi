@@ -2379,6 +2379,10 @@ var Tabs = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onTabClick = function (evt, index) {
             _this.setActiveBar(evt.currentTarget, index);
+            _this.fire('change', {
+                tab: _this.props.list[index],
+                index: index
+            });
         };
         return _this;
     }
@@ -2444,7 +2448,7 @@ var Tabs = /** @class */ (function (_super) {
                             props.list.map(function (tab, index) {
                                 var _a;
                                 _this._tempTagName = 'o-icon-' + tab.icon;
-                                return omi_1.h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return _this.onTabClick(evt, index); }, tabindex: props.active === index ? '0' : -1 }, omi_1.extractClass(props, 'o-tabs__item', (_a = {},
+                                return omi_1.h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return props.activeIndex !== index && _this.onTabClick(evt, index); }, tabindex: props.active === index ? '0' : -1 }, omi_1.extractClass(props, 'o-tabs__item', (_a = {},
                                     _a["is-" + props.position] = props.position,
                                     _a['is-active'] = props.activeIndex === index,
                                     _a['is-closable'] = props.closable,

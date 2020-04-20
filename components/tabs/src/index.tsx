@@ -35,6 +35,10 @@ export default class Tabs extends WeElement<Props>{
 	baseRect
 	onTabClick = (evt, index) => {
 		this.setActiveBar(evt.currentTarget, index)
+		this.fire('change', {
+			tab: this.props.list[index],
+			index: index
+		})
 	}
 
 	setActiveBar(ele, index) {
@@ -105,7 +109,7 @@ export default class Tabs extends WeElement<Props>{
 
 								{props.list.map((tab, index) => {
 									this._tempTagName = 'o-icon-' + tab.icon
-									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
+									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt =>props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
 										{...extractClass(props, 'o-tabs__item', {
 											[`is-${props.position}`]: props.position,
 											'is-active': props.activeIndex === index,
