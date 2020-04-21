@@ -14,6 +14,7 @@ English | [简体中文](./README.CN.md)
 | -------------- | ----------|----------- | ----------------|
 | [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
 | [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
+| [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -28,6 +29,14 @@ English | [简体中文](./README.CN.md)
 [omiu-tabs-package]: https://www.npmjs.com/package/@omiu/tabs
 [omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/index.html#/tabs?index=1&subIndex=1
 [omiu-tabs-codepen]: https://codepen.io/omijs/pen/XWmjyXK
+
+
+[omiu-radio-github]: https://github.com/Tencent/omi/tree/master/components/radio
+[omiu-radio-status]: https://img.shields.io/npm/v/@omiu/radio.svg
+[omiu-radio-package]: https://www.npmjs.com/package/@omiu/radio
+[omiu-radio-docs]: https://tencent.github.io/omi/components/docs/index.html#/radio?index=1&subIndex=2
+[omiu-radio-codepen]: https://codepen.io/omijs/pen/GRpjapr
+
 
 ## Quick Preview
 
