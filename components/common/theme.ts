@@ -30,10 +30,9 @@ function setTheme(key, value) {
     case 'primary':
       style.setProperty('--o-primary-fade-little', Color(value).fade(0.382))
       style.setProperty('--o-primary-fade-some', Color(value).fade(0.618))
+      style.setProperty('--o-primary-fade-more', Color(value).fade(0.759))
       style.setProperty('--o-primary-fade-lot', Color(value).fade(0.9))
       style.setProperty('--o-primary-active', Color(value).darken(0.1))
-
-
 
       style.setProperty('--o-primary-hover-border', Color(value).fade(0.618))
       style.setProperty('--o-primary-hover-bg', Color(value).fade(0.9))
@@ -42,6 +41,7 @@ function setTheme(key, value) {
     case 'danger':
       style.setProperty('--o-danger-fade-little', Color(value).fade(0.382))
       style.setProperty('--o-danger-fade-some', Color(value).fade(0.618))
+      style.setProperty('--o-danger-fade-more', Color(value).fade(0.759))
       style.setProperty('--o-danger-fade-lot', Color(value).fade(0.9))
       style.setProperty('--o-danger-active', Color(value).darken(0.1))
       break

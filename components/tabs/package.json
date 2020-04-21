@@ -85,5 +85,6 @@
     "useTabs": false
   },
   "dependencies": {
+    "@omiu/common": "latest"
   }
 }

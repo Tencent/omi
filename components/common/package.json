@@ -1,6 +1,6 @@
 {
   "name": "@omiu/common",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Omi UI Components.",
   "main": "index.js",
   "scripts": {
