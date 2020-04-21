@@ -30,7 +30,7 @@ npm install @omiu/button
 然后导入（自动全局注册）:
 
 ```js
-import 'omim/button'
+import '@omiu/button'
 ```
 
 然后在任意框架中使用，比如 Omi, React, Vue or Angular:
@@ -136,7 +136,7 @@ export default function SomeComponent(props) {
 
 非常感谢 calebdwilliams 的 [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme)。
 
-## Vue 中使用 omim
+## Vue 中使用 Omiu
 
 ```html
 <script>
@@ -173,19 +173,13 @@ export default {
 Build 组件:
 
 ```bash
-npm run build -- component-name
-```
-
-Build 所有组件:
-
-```bash
-npm run build-all
+npm run build 
 ```
 
 Build 例子:
 
 ```bash
-npm start demo-name
+npm start
 ```
 
 发布:
@@ -198,7 +192,7 @@ npm publish --access public
 
 * [material icon 搜索](https://material-ui.com/zh/components/material-icons/) 
 
-把大写转成驼峰就是对应的 omiu 组件。比如 `@material-ui/icons/AccessAlarm`，对应的就是
+把大写转成中划线就是对应的 omiu 组件。比如 `@material-ui/icons/AccessAlarm`，对应的就是
 
 ```js
 import '@omiu/icon/access-alarm'

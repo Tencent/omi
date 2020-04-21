@@ -4,14 +4,14 @@ const config = {
       {
         title: 'OMIU',
         list: [
-          { name: '简介', md: 'introduction' },
-          { name: '安装', md: 'installation' }
+          { name: '简介', md: 'introduction' }
         ]
       },
       {
-        title: '基础概念',
+        title: '基础组件',
         list: [
-          { name: 'Button 按钮', md: 'button' }
+          { name: 'Button 按钮', md: 'button' },
+          { name: 'Tabs 选项卡', md: 'tabs' }
         ]
       }
 
@@ -20,14 +20,14 @@ const config = {
       {
         title: 'OMIU',
         list: [
-          { name: 'Introduction', md: 'introduction' },
-          { name: 'Installation', md: 'installation' }
+          { name: 'Introduction', md: 'introduction' }
         ]
       },
       {
         title: 'Base',
         list: [
-          { name: 'Button', md: 'button' }
+          { name: 'Button', md: 'button' },
+          { name: 'Tabs', md: 'tabs' }
         ]
       }
     ]
