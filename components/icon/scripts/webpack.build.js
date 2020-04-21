@@ -3,7 +3,7 @@ const glob = require('glob')
 const webpack = require('webpack')
 const entry = require('./entry')
 const pkgName = require('../package.json')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 const config = {
   // devtool: 'source-map',

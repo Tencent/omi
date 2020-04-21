@@ -1,6 +1,6 @@
 {
   "name": "@omiu/button",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -49,6 +49,7 @@
     "omi": "latest",
     "omio": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
@@ -84,5 +85,7 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "dependencies": {}
+  "dependencies": {
+    "@omiu/common": "latest"
+  }
 }

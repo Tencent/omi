@@ -1,8 +1,13 @@
-@import "../theme.scss";
+@import "@omiu/common/theme.scss";
 
 :host {
 	display: inline-block;
 }
+
+:host([block]) {
+	display: block;
+}
+
 
 .o-button {
 	display: inline-block;
@@ -143,4 +148,9 @@ $type-list: primary danger;
 	background-image: none;
 	background-color: #fff;
 	border-color: #ebeef5;
+}
+
+.o-button.is-block {
+ display: block;
+ width: 100%;
 }

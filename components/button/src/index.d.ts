@@ -1,5 +1,5 @@
 import { WeElement } from 'omi';
-import '../theme.ts';
+import '@omiu/common/theme.ts';
 interface Props {
     size?: 'medium' | 'small' | 'mini';
     type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';

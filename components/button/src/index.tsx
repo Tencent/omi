@@ -1,7 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
-//@ts-ignore
-import '../theme.ts'
+import '@omiu/common/theme.ts'
 
 interface Props {
 	size?: 'medium' | 'small' | 'mini',

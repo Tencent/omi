@@ -96,413 +96,590 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./color.js":
-/*!******************!*\
-  !*** ./color.js ***!
-  \******************/
+/***/ "./node_modules/_@omiu_common@0.0.1@@omiu/common/color.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/_@omiu_common@0.0.1@@omiu/common/color.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var colorString = __webpack_require__(/*! color-string */ "./node_modules/color-string/index.js");
-var convert = __webpack_require__(/*! color-convert */ "./node_modules/color-convert/index.js");
+
+var colorString = __webpack_require__(/*! color-string */ "./node_modules/_color-string@1.5.3@color-string/index.js");
+var convert = __webpack_require__(/*! color-convert */ "./node_modules/_color-convert@1.9.3@color-convert/index.js");
+
 var _slice = [].slice;
+
 var skippedModels = [
-    // to be honest, I don't really feel like keyword belongs in color convert, but eh.
-    'keyword',
-    // gray conflicts with some method names, and has its own method defined.
-    'gray',
-    // shouldn't really be in color-convert either...
-    'hex'
+	// to be honest, I don't really feel like keyword belongs in color convert, but eh.
+	'keyword',
+
+	// gray conflicts with some method names, and has its own method defined.
+	'gray',
+
+	// shouldn't really be in color-convert either...
+	'hex'
 ];
+
 var hashedModelKeys = {};
 Object.keys(convert).forEach(function (model) {
-    hashedModelKeys[_slice.call(convert[model].labels).sort().join('')] = model;
+	hashedModelKeys[_slice.call(convert[model].labels).sort().join('')] = model;
 });
+
 var limiters = {};
+
 function Color(obj, model) {
-    if (!(this instanceof Color)) {
-        return new Color(obj, model);
-    }
-    if (model && model in skippedModels) {
-        model = null;
-    }
-    if (model && !(model in convert)) {
-        throw new Error('Unknown model: ' + model);
-    }
-    var i;
-    var channels;
-    if (obj == null) { // eslint-disable-line no-eq-null,eqeqeq
-        this.model = 'rgb';
-        this.color = [0, 0, 0];
-        this.valpha = 1;
-    }
-    else if (obj instanceof Color) {
-        this.model = obj.model;
-        this.color = obj.color.slice();
-        this.valpha = obj.valpha;
-    }
-    else if (typeof obj === 'string') {
-        var result = colorString.get(obj);
-        if (result === null) {
-            throw new Error('Unable to parse color from string: ' + obj);
-        }
-        this.model = result.model;
-        channels = convert[this.model].channels;
-        this.color = result.value.slice(0, channels);
-        this.valpha = typeof result.value[channels] === 'number' ? result.value[channels] : 1;
-    }
-    else if (obj.length) {
-        this.model = model || 'rgb';
-        channels = convert[this.model].channels;
-        var newArr = _slice.call(obj, 0, channels);
-        this.color = zeroArray(newArr, channels);
-        this.valpha = typeof obj[channels] === 'number' ? obj[channels] : 1;
-    }
-    else if (typeof obj === 'number') {
-        // this is always RGB - can be converted later on.
-        obj &= 0xFFFFFF;
-        this.model = 'rgb';
-        this.color = [
-            (obj >> 16) & 0xFF,
-            (obj >> 8) & 0xFF,
-            obj & 0xFF
-        ];
-        this.valpha = 1;
-    }
-    else {
-        this.valpha = 1;
-        var keys = Object.keys(obj);
-        if ('alpha' in obj) {
-            keys.splice(keys.indexOf('alpha'), 1);
-            this.valpha = typeof obj.alpha === 'number' ? obj.alpha : 0;
-        }
-        var hashedKeys = keys.sort().join('');
-        if (!(hashedKeys in hashedModelKeys)) {
-            throw new Error('Unable to parse color from object: ' + JSON.stringify(obj));
-        }
-        this.model = hashedModelKeys[hashedKeys];
-        var labels = convert[this.model].labels;
-        var color = [];
-        for (i = 0; i < labels.length; i++) {
-            color.push(obj[labels[i]]);
-        }
-        this.color = zeroArray(color);
-    }
-    // perform limitations (clamping, etc.)
-    if (limiters[this.model]) {
-        channels = convert[this.model].channels;
-        for (i = 0; i < channels; i++) {
-            var limit = limiters[this.model][i];
-            if (limit) {
-                this.color[i] = limit(this.color[i]);
-            }
-        }
-    }
-    this.valpha = Math.max(0, Math.min(1, this.valpha));
-    if (Object.freeze) {
-        Object.freeze(this);
-    }
+	if (!(this instanceof Color)) {
+		return new Color(obj, model);
+	}
+
+	if (model && model in skippedModels) {
+		model = null;
+	}
+
+	if (model && !(model in convert)) {
+		throw new Error('Unknown model: ' + model);
+	}
+
+	var i;
+	var channels;
+
+	if (obj == null) { // eslint-disable-line no-eq-null,eqeqeq
+		this.model = 'rgb';
+		this.color = [0, 0, 0];
+		this.valpha = 1;
+	} else if (obj instanceof Color) {
+		this.model = obj.model;
+		this.color = obj.color.slice();
+		this.valpha = obj.valpha;
+	} else if (typeof obj === 'string') {
+		var result = colorString.get(obj);
+		if (result === null) {
+			throw new Error('Unable to parse color from string: ' + obj);
+		}
+
+		this.model = result.model;
+		channels = convert[this.model].channels;
+		this.color = result.value.slice(0, channels);
+		this.valpha = typeof result.value[channels] === 'number' ? result.value[channels] : 1;
+	} else if (obj.length) {
+		this.model = model || 'rgb';
+		channels = convert[this.model].channels;
+		var newArr = _slice.call(obj, 0, channels);
+		this.color = zeroArray(newArr, channels);
+		this.valpha = typeof obj[channels] === 'number' ? obj[channels] : 1;
+	} else if (typeof obj === 'number') {
+		// this is always RGB - can be converted later on.
+		obj &= 0xFFFFFF;
+		this.model = 'rgb';
+		this.color = [
+			(obj >> 16) & 0xFF,
+			(obj >> 8) & 0xFF,
+			obj & 0xFF
+		];
+		this.valpha = 1;
+	} else {
+		this.valpha = 1;
+
+		var keys = Object.keys(obj);
+		if ('alpha' in obj) {
+			keys.splice(keys.indexOf('alpha'), 1);
+			this.valpha = typeof obj.alpha === 'number' ? obj.alpha : 0;
+		}
+
+		var hashedKeys = keys.sort().join('');
+		if (!(hashedKeys in hashedModelKeys)) {
+			throw new Error('Unable to parse color from object: ' + JSON.stringify(obj));
+		}
+
+		this.model = hashedModelKeys[hashedKeys];
+
+		var labels = convert[this.model].labels;
+		var color = [];
+		for (i = 0; i < labels.length; i++) {
+			color.push(obj[labels[i]]);
+		}
+
+		this.color = zeroArray(color);
+	}
+
+	// perform limitations (clamping, etc.)
+	if (limiters[this.model]) {
+		channels = convert[this.model].channels;
+		for (i = 0; i < channels; i++) {
+			var limit = limiters[this.model][i];
+			if (limit) {
+				this.color[i] = limit(this.color[i]);
+			}
+		}
+	}
+
+	this.valpha = Math.max(0, Math.min(1, this.valpha));
+
+	if (Object.freeze) {
+		Object.freeze(this);
+	}
 }
+
 Color.prototype = {
-    toString: function () {
-        return this.string();
-    },
-    toJSON: function () {
-        return this[this.model]();
-    },
-    string: function (places) {
-        var self = this.model in colorString.to ? this : this.rgb();
-        self = self.round(typeof places === 'number' ? places : 1);
-        var args = self.valpha === 1 ? self.color : self.color.concat(this.valpha);
-        return colorString.to[self.model](args);
-    },
-    percentString: function (places) {
-        var self = this.rgb().round(typeof places === 'number' ? places : 1);
-        var args = self.valpha === 1 ? self.color : self.color.concat(this.valpha);
-        return colorString.to.rgb.percent(args);
-    },
-    array: function () {
-        return this.valpha === 1 ? this.color.slice() : this.color.concat(this.valpha);
-    },
-    object: function () {
-        var result = {};
-        var channels = convert[this.model].channels;
-        var labels = convert[this.model].labels;
-        for (var i = 0; i < channels; i++) {
-            result[labels[i]] = this.color[i];
-        }
-        if (this.valpha !== 1) {
-            result.alpha = this.valpha;
-        }
-        return result;
-    },
-    unitArray: function () {
-        var rgb = this.rgb().color;
-        rgb[0] /= 255;
-        rgb[1] /= 255;
-        rgb[2] /= 255;
-        if (this.valpha !== 1) {
-            rgb.push(this.valpha);
-        }
-        return rgb;
-    },
-    unitObject: function () {
-        var rgb = this.rgb().object();
-        rgb.r /= 255;
-        rgb.g /= 255;
-        rgb.b /= 255;
-        if (this.valpha !== 1) {
-            rgb.alpha = this.valpha;
-        }
-        return rgb;
-    },
-    round: function (places) {
-        places = Math.max(places || 0, 0);
-        return new Color(this.color.map(roundToPlace(places)).concat(this.valpha), this.model);
-    },
-    alpha: function (val) {
-        if (arguments.length) {
-            return new Color(this.color.concat(Math.max(0, Math.min(1, val))), this.model);
-        }
-        return this.valpha;
-    },
-    // rgb
-    red: getset('rgb', 0, maxfn(255)),
-    green: getset('rgb', 1, maxfn(255)),
-    blue: getset('rgb', 2, maxfn(255)),
-    hue: getset(['hsl', 'hsv', 'hsl', 'hwb', 'hcg'], 0, function (val) { return ((val % 360) + 360) % 360; }),
-    saturationl: getset('hsl', 1, maxfn(100)),
-    lightness: getset('hsl', 2, maxfn(100)),
-    saturationv: getset('hsv', 1, maxfn(100)),
-    value: getset('hsv', 2, maxfn(100)),
-    chroma: getset('hcg', 1, maxfn(100)),
-    gray: getset('hcg', 2, maxfn(100)),
-    white: getset('hwb', 1, maxfn(100)),
-    wblack: getset('hwb', 2, maxfn(100)),
-    cyan: getset('cmyk', 0, maxfn(100)),
-    magenta: getset('cmyk', 1, maxfn(100)),
-    yellow: getset('cmyk', 2, maxfn(100)),
-    black: getset('cmyk', 3, maxfn(100)),
-    x: getset('xyz', 0, maxfn(100)),
-    y: getset('xyz', 1, maxfn(100)),
-    z: getset('xyz', 2, maxfn(100)),
-    l: getset('lab', 0, maxfn(100)),
-    a: getset('lab', 1),
-    b: getset('lab', 2),
-    keyword: function (val) {
-        if (arguments.length) {
-            return new Color(val);
-        }
-        return convert[this.model].keyword(this.color);
-    },
-    hex: function (val) {
-        if (arguments.length) {
-            return new Color(val);
-        }
-        return colorString.to.hex(this.rgb().round().color);
-    },
-    rgbNumber: function () {
-        var rgb = this.rgb().color;
-        return ((rgb[0] & 0xFF) << 16) | ((rgb[1] & 0xFF) << 8) | (rgb[2] & 0xFF);
-    },
-    luminosity: function () {
-        // http://www.w3.org/TR/WCAG20/#relativeluminancedef
-        var rgb = this.rgb().color;
-        var lum = [];
-        for (var i = 0; i < rgb.length; i++) {
-            var chan = rgb[i] / 255;
-            lum[i] = (chan <= 0.03928) ? chan / 12.92 : Math.pow(((chan + 0.055) / 1.055), 2.4);
-        }
-        return 0.2126 * lum[0] + 0.7152 * lum[1] + 0.0722 * lum[2];
-    },
-    contrast: function (color2) {
-        // http://www.w3.org/TR/WCAG20/#contrast-ratiodef
-        var lum1 = this.luminosity();
-        var lum2 = color2.luminosity();
-        if (lum1 > lum2) {
-            return (lum1 + 0.05) / (lum2 + 0.05);
-        }
-        return (lum2 + 0.05) / (lum1 + 0.05);
-    },
-    level: function (color2) {
-        var contrastRatio = this.contrast(color2);
-        if (contrastRatio >= 7.1) {
-            return 'AAA';
-        }
-        return (contrastRatio >= 4.5) ? 'AA' : '';
-    },
-    isDark: function () {
-        // YIQ equation from http://24ways.org/2010/calculating-color-contrast
-        var rgb = this.rgb().color;
-        var yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-        return yiq < 128;
-    },
-    isLight: function () {
-        return !this.isDark();
-    },
-    negate: function () {
-        var rgb = this.rgb();
-        for (var i = 0; i < 3; i++) {
-            rgb.color[i] = 255 - rgb.color[i];
-        }
-        return rgb;
-    },
-    lighten: function (ratio) {
-        var hsl = this.hsl();
-        //hsl.color[2] += hsl.color[2] * ratio;
-        hsl.color[2] += ratio * 100;
-        return hsl;
-    },
-    darken: function (ratio) {
-        var hsl = this.hsl();
-        //hsl.color[2] -= hsl.color[2] * ratio;
-        hsl.color[2] -= ratio * 100;
-        return hsl;
-    },
-    saturate: function (ratio) {
-        var hsl = this.hsl();
-        hsl.color[1] += hsl.color[1] * ratio;
-        return hsl;
-    },
-    desaturate: function (ratio) {
-        var hsl = this.hsl();
-        hsl.color[1] -= hsl.color[1] * ratio;
-        return hsl;
-    },
-    whiten: function (ratio) {
-        var hwb = this.hwb();
-        hwb.color[1] += hwb.color[1] * ratio;
-        return hwb;
-    },
-    blacken: function (ratio) {
-        var hwb = this.hwb();
-        hwb.color[2] += hwb.color[2] * ratio;
-        return hwb;
-    },
-    grayscale: function () {
-        // http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
-        var rgb = this.rgb().color;
-        var val = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
-        return Color.rgb(val, val, val);
-    },
-    fade: function (ratio) {
-        return this.alpha(this.valpha - (this.valpha * ratio));
-    },
-    opaquer: function (ratio) {
-        return this.alpha(this.valpha + (this.valpha * ratio));
-    },
-    rotate: function (degrees) {
-        var hsl = this.hsl();
-        var hue = hsl.color[0];
-        hue = (hue + degrees) % 360;
-        hue = hue < 0 ? 360 + hue : hue;
-        hsl.color[0] = hue;
-        return hsl;
-    },
-    mix: function (mixinColor, weight) {
-        // ported from sass implementation in C
-        // https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
-        if (!mixinColor || !mixinColor.rgb) {
-            throw new Error('Argument to "mix" was not a Color instance, but rather an instance of ' + typeof mixinColor);
-        }
-        var color1 = mixinColor.rgb();
-        var color2 = this.rgb();
-        var p = weight === undefined ? 0.5 : weight;
-        var w = 2 * p - 1;
-        var a = color1.alpha() - color2.alpha();
-        var w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
-        var w2 = 1 - w1;
-        return Color.rgb(w1 * color1.red() + w2 * color2.red(), w1 * color1.green() + w2 * color2.green(), w1 * color1.blue() + w2 * color2.blue(), color1.alpha() * p + color2.alpha() * (1 - p));
-    }
+	toString: function () {
+		return this.string();
+	},
+
+	toJSON: function () {
+		return this[this.model]();
+	},
+
+	string: function (places) {
+		var self = this.model in colorString.to ? this : this.rgb();
+		self = self.round(typeof places === 'number' ? places : 1);
+		var args = self.valpha === 1 ? self.color : self.color.concat(this.valpha);
+		return colorString.to[self.model](args);
+	},
+
+	percentString: function (places) {
+		var self = this.rgb().round(typeof places === 'number' ? places : 1);
+		var args = self.valpha === 1 ? self.color : self.color.concat(this.valpha);
+		return colorString.to.rgb.percent(args);
+	},
+
+	array: function () {
+		return this.valpha === 1 ? this.color.slice() : this.color.concat(this.valpha);
+	},
+
+	object: function () {
+		var result = {};
+		var channels = convert[this.model].channels;
+		var labels = convert[this.model].labels;
+
+		for (var i = 0; i < channels; i++) {
+			result[labels[i]] = this.color[i];
+		}
+
+		if (this.valpha !== 1) {
+			result.alpha = this.valpha;
+		}
+
+		return result;
+	},
+
+	unitArray: function () {
+		var rgb = this.rgb().color;
+		rgb[0] /= 255;
+		rgb[1] /= 255;
+		rgb[2] /= 255;
+
+		if (this.valpha !== 1) {
+			rgb.push(this.valpha);
+		}
+
+		return rgb;
+	},
+
+	unitObject: function () {
+		var rgb = this.rgb().object();
+		rgb.r /= 255;
+		rgb.g /= 255;
+		rgb.b /= 255;
+
+		if (this.valpha !== 1) {
+			rgb.alpha = this.valpha;
+		}
+
+		return rgb;
+	},
+
+	round: function (places) {
+		places = Math.max(places || 0, 0);
+		return new Color(this.color.map(roundToPlace(places)).concat(this.valpha), this.model);
+	},
+
+	alpha: function (val) {
+		if (arguments.length) {
+			return new Color(this.color.concat(Math.max(0, Math.min(1, val))), this.model);
+		}
+
+		return this.valpha;
+	},
+
+	// rgb
+	red: getset('rgb', 0, maxfn(255)),
+	green: getset('rgb', 1, maxfn(255)),
+	blue: getset('rgb', 2, maxfn(255)),
+
+	hue: getset(['hsl', 'hsv', 'hsl', 'hwb', 'hcg'], 0, function (val) { return ((val % 360) + 360) % 360; }), // eslint-disable-line brace-style
+
+	saturationl: getset('hsl', 1, maxfn(100)),
+	lightness: getset('hsl', 2, maxfn(100)),
+
+	saturationv: getset('hsv', 1, maxfn(100)),
+	value: getset('hsv', 2, maxfn(100)),
+
+	chroma: getset('hcg', 1, maxfn(100)),
+	gray: getset('hcg', 2, maxfn(100)),
+
+	white: getset('hwb', 1, maxfn(100)),
+	wblack: getset('hwb', 2, maxfn(100)),
+
+	cyan: getset('cmyk', 0, maxfn(100)),
+	magenta: getset('cmyk', 1, maxfn(100)),
+	yellow: getset('cmyk', 2, maxfn(100)),
+	black: getset('cmyk', 3, maxfn(100)),
+
+	x: getset('xyz', 0, maxfn(100)),
+	y: getset('xyz', 1, maxfn(100)),
+	z: getset('xyz', 2, maxfn(100)),
+
+	l: getset('lab', 0, maxfn(100)),
+	a: getset('lab', 1),
+	b: getset('lab', 2),
+
+	keyword: function (val) {
+		if (arguments.length) {
+			return new Color(val);
+		}
+
+		return convert[this.model].keyword(this.color);
+	},
+
+	hex: function (val) {
+		if (arguments.length) {
+			return new Color(val);
+		}
+
+		return colorString.to.hex(this.rgb().round().color);
+	},
+
+	rgbNumber: function () {
+		var rgb = this.rgb().color;
+		return ((rgb[0] & 0xFF) << 16) | ((rgb[1] & 0xFF) << 8) | (rgb[2] & 0xFF);
+	},
+
+	luminosity: function () {
+		// http://www.w3.org/TR/WCAG20/#relativeluminancedef
+		var rgb = this.rgb().color;
+
+		var lum = [];
+		for (var i = 0; i < rgb.length; i++) {
+			var chan = rgb[i] / 255;
+			lum[i] = (chan <= 0.03928) ? chan / 12.92 : Math.pow(((chan + 0.055) / 1.055), 2.4);
+		}
+
+		return 0.2126 * lum[0] + 0.7152 * lum[1] + 0.0722 * lum[2];
+	},
+
+	contrast: function (color2) {
+		// http://www.w3.org/TR/WCAG20/#contrast-ratiodef
+		var lum1 = this.luminosity();
+		var lum2 = color2.luminosity();
+
+		if (lum1 > lum2) {
+			return (lum1 + 0.05) / (lum2 + 0.05);
+		}
+
+		return (lum2 + 0.05) / (lum1 + 0.05);
+	},
+
+	level: function (color2) {
+		var contrastRatio = this.contrast(color2);
+		if (contrastRatio >= 7.1) {
+			return 'AAA';
+		}
+
+		return (contrastRatio >= 4.5) ? 'AA' : '';
+	},
+
+	isDark: function () {
+		// YIQ equation from http://24ways.org/2010/calculating-color-contrast
+		var rgb = this.rgb().color;
+		var yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+		return yiq < 128;
+	},
+
+	isLight: function () {
+		return !this.isDark();
+	},
+
+	negate: function () {
+		var rgb = this.rgb();
+		for (var i = 0; i < 3; i++) {
+			rgb.color[i] = 255 - rgb.color[i];
+		}
+		return rgb;
+	},
+
+	lighten: function (ratio) {
+		var hsl = this.hsl();
+    //hsl.color[2] += hsl.color[2] * ratio;
+    hsl.color[2] += ratio * 100;
+		return hsl;
+	},
+
+	darken: function (ratio) {
+		var hsl = this.hsl();
+    //hsl.color[2] -= hsl.color[2] * ratio;
+    hsl.color[2] -= ratio * 100;
+		return hsl;
+	},
+
+	saturate: function (ratio) {
+		var hsl = this.hsl();
+		hsl.color[1] += hsl.color[1] * ratio;
+		return hsl;
+	},
+
+	desaturate: function (ratio) {
+		var hsl = this.hsl();
+		hsl.color[1] -= hsl.color[1] * ratio;
+		return hsl;
+	},
+
+	whiten: function (ratio) {
+		var hwb = this.hwb();
+		hwb.color[1] += hwb.color[1] * ratio;
+		return hwb;
+	},
+
+	blacken: function (ratio) {
+		var hwb = this.hwb();
+		hwb.color[2] += hwb.color[2] * ratio;
+		return hwb;
+	},
+
+	grayscale: function () {
+		// http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+		var rgb = this.rgb().color;
+		var val = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
+		return Color.rgb(val, val, val);
+	},
+
+	fade: function (ratio) {
+		return this.alpha(this.valpha - (this.valpha * ratio));
+	},
+
+	opaquer: function (ratio) {
+		return this.alpha(this.valpha + (this.valpha * ratio));
+	},
+
+	rotate: function (degrees) {
+		var hsl = this.hsl();
+		var hue = hsl.color[0];
+		hue = (hue + degrees) % 360;
+		hue = hue < 0 ? 360 + hue : hue;
+		hsl.color[0] = hue;
+		return hsl;
+	},
+
+	mix: function (mixinColor, weight) {
+		// ported from sass implementation in C
+		// https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
+		if (!mixinColor || !mixinColor.rgb) {
+			throw new Error('Argument to "mix" was not a Color instance, but rather an instance of ' + typeof mixinColor);
+		}
+		var color1 = mixinColor.rgb();
+		var color2 = this.rgb();
+		var p = weight === undefined ? 0.5 : weight;
+
+		var w = 2 * p - 1;
+		var a = color1.alpha() - color2.alpha();
+
+		var w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
+		var w2 = 1 - w1;
+
+		return Color.rgb(
+				w1 * color1.red() + w2 * color2.red(),
+				w1 * color1.green() + w2 * color2.green(),
+				w1 * color1.blue() + w2 * color2.blue(),
+				color1.alpha() * p + color2.alpha() * (1 - p));
+	}
 };
+
 // model conversion methods and static constructors
 Object.keys(convert).forEach(function (model) {
-    if (skippedModels.indexOf(model) !== -1) {
-        return;
-    }
-    var channels = convert[model].channels;
-    // conversion methods
-    Color.prototype[model] = function () {
-        if (this.model === model) {
-            return new Color(this);
-        }
-        if (arguments.length) {
-            return new Color(arguments, model);
-        }
-        var newAlpha = typeof arguments[channels] === 'number' ? channels : this.valpha;
-        return new Color(assertArray(convert[this.model][model].raw(this.color)).concat(newAlpha), model);
-    };
-    // 'static' construction methods
-    Color[model] = function (color) {
-        if (typeof color === 'number') {
-            color = zeroArray(_slice.call(arguments), channels);
-        }
-        return new Color(color, model);
-    };
+	if (skippedModels.indexOf(model) !== -1) {
+		return;
+	}
+
+	var channels = convert[model].channels;
+
+	// conversion methods
+	Color.prototype[model] = function () {
+		if (this.model === model) {
+			return new Color(this);
+		}
+
+		if (arguments.length) {
+			return new Color(arguments, model);
+		}
+
+		var newAlpha = typeof arguments[channels] === 'number' ? channels : this.valpha;
+		return new Color(assertArray(convert[this.model][model].raw(this.color)).concat(newAlpha), model);
+	};
+
+	// 'static' construction methods
+	Color[model] = function (color) {
+		if (typeof color === 'number') {
+			color = zeroArray(_slice.call(arguments), channels);
+		}
+		return new Color(color, model);
+	};
 });
+
 function roundTo(num, places) {
-    return Number(num.toFixed(places));
+	return Number(num.toFixed(places));
 }
+
 function roundToPlace(places) {
-    return function (num) {
-        return roundTo(num, places);
-    };
+	return function (num) {
+		return roundTo(num, places);
+	};
 }
+
 function getset(model, channel, modifier) {
-    model = Array.isArray(model) ? model : [model];
-    model.forEach(function (m) {
-        (limiters[m] || (limiters[m] = []))[channel] = modifier;
-    });
-    model = model[0];
-    return function (val) {
-        var result;
-        if (arguments.length) {
-            if (modifier) {
-                val = modifier(val);
-            }
-            result = this[model]();
-            result.color[channel] = val;
-            return result;
-        }
-        result = this[model]().color[channel];
-        if (modifier) {
-            result = modifier(result);
-        }
-        return result;
-    };
+	model = Array.isArray(model) ? model : [model];
+
+	model.forEach(function (m) {
+		(limiters[m] || (limiters[m] = []))[channel] = modifier;
+	});
+
+	model = model[0];
+
+	return function (val) {
+		var result;
+
+		if (arguments.length) {
+			if (modifier) {
+				val = modifier(val);
+			}
+
+			result = this[model]();
+			result.color[channel] = val;
+			return result;
+		}
+
+		result = this[model]().color[channel];
+		if (modifier) {
+			result = modifier(result);
+		}
+
+		return result;
+	};
 }
+
 function maxfn(max) {
-    return function (v) {
-        return Math.max(0, Math.min(max, v));
-    };
+	return function (v) {
+		return Math.max(0, Math.min(max, v));
+	};
 }
+
 function assertArray(val) {
-    return Array.isArray(val) ? val : [val];
+	return Array.isArray(val) ? val : [val];
 }
+
 function zeroArray(arr, length) {
-    for (var i = 0; i < length; i++) {
-        if (typeof arr[i] !== 'number') {
-            arr[i] = 0;
-        }
-    }
-    return arr;
+	for (var i = 0; i < length; i++) {
+		if (typeof arr[i] !== 'number') {
+			arr[i] = 0;
+		}
+	}
+
+	return arr;
 }
+
 module.exports = Color;
 
 
 /***/ }),
 
-/***/ "./node_modules/color-convert/conversions.js":
-/*!***************************************************!*\
-  !*** ./node_modules/color-convert/conversions.js ***!
-  \***************************************************/
+/***/ "./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.ts":
+/*!****************************************************************!*\
+  !*** ./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.ts ***!
+  \****************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _color__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./color */ "./node_modules/_@omiu_common@0.0.1@@omiu/common/color.js");
+/* harmony import */ var _color__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_color__WEBPACK_IMPORTED_MODULE_0__);
+
+
+theme()
+
+document.addEventListener('DOMContentLoaded', () => {
+  theme()
+})
+
+function theme() {
+  if (document.body && !document.body.style.getPropertyValue('--o-primary')) {
+    setTheme('primary', '#07c160')
+    setTheme('danger', '#f5222d')
+    setTheme('surface', '#ffffff')
+    setTheme('on-primary', '#ffffff')
+    setTheme('on-danger', '#ffffff')
+    setTheme('on-surface', '#000000')
+    setTheme('background', '#ffffff')
+    setTheme('small-radius', '4px')
+    setTheme('medium-radius', '4px')
+    setTheme('large-radius', '0px')
+    setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
+  }
+}
+
+function setTheme(key, value) {
+  const style = document.body.style
+
+  style.setProperty('--o-' + key, value)
+  switch (key) {
+    case 'primary':
+      style.setProperty('--o-primary-fade-little', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.382))
+      style.setProperty('--o-primary-fade-some', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.618))
+      style.setProperty('--o-primary-fade-more', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.759))
+      style.setProperty('--o-primary-fade-lot', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.9))
+      style.setProperty('--o-primary-active', _color__WEBPACK_IMPORTED_MODULE_0__(value).darken(0.1))
+
+      style.setProperty('--o-primary-hover-border', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.618))
+      style.setProperty('--o-primary-hover-bg', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.9))
+
+      break
+    case 'danger':
+      style.setProperty('--o-danger-fade-little', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.382))
+      style.setProperty('--o-danger-fade-some', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.618))
+      style.setProperty('--o-danger-fade-more', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.759))
+      style.setProperty('--o-danger-fade-lot', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.9))
+      style.setProperty('--o-danger-active', _color__WEBPACK_IMPORTED_MODULE_0__(value).darken(0.1))
+      break
+
+  }
+}
+
+
+if (typeof window !== undefined) {
+  //@ts-ignore
+  window.Omiu = {
+    setTheme: setTheme,
+    setThemePrimary: function (color) {
+      setTheme('primary', color)
+    },
+    setThemeError: function (color) {
+      setTheme('error', color)
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/_color-convert@1.9.3@color-convert/conversions.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
+var cssKeywords = __webpack_require__(/*! color-name */ "./node_modules/_color-name@1.1.3@color-name/index.js");
 
 // NOTE: conversions should only return primitive values (i.e. arrays, or
 //       values that give correct `typeof` results).
@@ -1373,15 +1550,15 @@ convert.rgb.gray = function (rgb) {
 
 /***/ }),
 
-/***/ "./node_modules/color-convert/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/color-convert/index.js ***!
-  \*********************************************/
+/***/ "./node_modules/_color-convert@1.9.3@color-convert/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/_color-convert@1.9.3@color-convert/index.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
-var route = __webpack_require__(/*! ./route */ "./node_modules/color-convert/route.js");
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js");
+var route = __webpack_require__(/*! ./route */ "./node_modules/_color-convert@1.9.3@color-convert/route.js");
 
 var convert = {};
 
@@ -1462,14 +1639,14 @@ module.exports = convert;
 
 /***/ }),
 
-/***/ "./node_modules/color-convert/route.js":
-/*!*********************************************!*\
-  !*** ./node_modules/color-convert/route.js ***!
-  \*********************************************/
+/***/ "./node_modules/_color-convert@1.9.3@color-convert/route.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/_color-convert@1.9.3@color-convert/route.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/color-convert/conversions.js");
+var conversions = __webpack_require__(/*! ./conversions */ "./node_modules/_color-convert@1.9.3@color-convert/conversions.js");
 
 /*
 	this function routes a model to all other models.
@@ -1570,10 +1747,10 @@ module.exports = function (fromModel) {
 
 /***/ }),
 
-/***/ "./node_modules/color-name/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/color-name/index.js ***!
-  \******************************************/
+/***/ "./node_modules/_color-name@1.1.3@color-name/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/_color-name@1.1.3@color-name/index.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1734,16 +1911,180 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/color-string/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/color-string/index.js ***!
-  \********************************************/
+/***/ "./node_modules/_color-name@1.1.4@color-name/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/_color-name@1.1.4@color-name/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+	"aliceblue": [240, 248, 255],
+	"antiquewhite": [250, 235, 215],
+	"aqua": [0, 255, 255],
+	"aquamarine": [127, 255, 212],
+	"azure": [240, 255, 255],
+	"beige": [245, 245, 220],
+	"bisque": [255, 228, 196],
+	"black": [0, 0, 0],
+	"blanchedalmond": [255, 235, 205],
+	"blue": [0, 0, 255],
+	"blueviolet": [138, 43, 226],
+	"brown": [165, 42, 42],
+	"burlywood": [222, 184, 135],
+	"cadetblue": [95, 158, 160],
+	"chartreuse": [127, 255, 0],
+	"chocolate": [210, 105, 30],
+	"coral": [255, 127, 80],
+	"cornflowerblue": [100, 149, 237],
+	"cornsilk": [255, 248, 220],
+	"crimson": [220, 20, 60],
+	"cyan": [0, 255, 255],
+	"darkblue": [0, 0, 139],
+	"darkcyan": [0, 139, 139],
+	"darkgoldenrod": [184, 134, 11],
+	"darkgray": [169, 169, 169],
+	"darkgreen": [0, 100, 0],
+	"darkgrey": [169, 169, 169],
+	"darkkhaki": [189, 183, 107],
+	"darkmagenta": [139, 0, 139],
+	"darkolivegreen": [85, 107, 47],
+	"darkorange": [255, 140, 0],
+	"darkorchid": [153, 50, 204],
+	"darkred": [139, 0, 0],
+	"darksalmon": [233, 150, 122],
+	"darkseagreen": [143, 188, 143],
+	"darkslateblue": [72, 61, 139],
+	"darkslategray": [47, 79, 79],
+	"darkslategrey": [47, 79, 79],
+	"darkturquoise": [0, 206, 209],
+	"darkviolet": [148, 0, 211],
+	"deeppink": [255, 20, 147],
+	"deepskyblue": [0, 191, 255],
+	"dimgray": [105, 105, 105],
+	"dimgrey": [105, 105, 105],
+	"dodgerblue": [30, 144, 255],
+	"firebrick": [178, 34, 34],
+	"floralwhite": [255, 250, 240],
+	"forestgreen": [34, 139, 34],
+	"fuchsia": [255, 0, 255],
+	"gainsboro": [220, 220, 220],
+	"ghostwhite": [248, 248, 255],
+	"gold": [255, 215, 0],
+	"goldenrod": [218, 165, 32],
+	"gray": [128, 128, 128],
+	"green": [0, 128, 0],
+	"greenyellow": [173, 255, 47],
+	"grey": [128, 128, 128],
+	"honeydew": [240, 255, 240],
+	"hotpink": [255, 105, 180],
+	"indianred": [205, 92, 92],
+	"indigo": [75, 0, 130],
+	"ivory": [255, 255, 240],
+	"khaki": [240, 230, 140],
+	"lavender": [230, 230, 250],
+	"lavenderblush": [255, 240, 245],
+	"lawngreen": [124, 252, 0],
+	"lemonchiffon": [255, 250, 205],
+	"lightblue": [173, 216, 230],
+	"lightcoral": [240, 128, 128],
+	"lightcyan": [224, 255, 255],
+	"lightgoldenrodyellow": [250, 250, 210],
+	"lightgray": [211, 211, 211],
+	"lightgreen": [144, 238, 144],
+	"lightgrey": [211, 211, 211],
+	"lightpink": [255, 182, 193],
+	"lightsalmon": [255, 160, 122],
+	"lightseagreen": [32, 178, 170],
+	"lightskyblue": [135, 206, 250],
+	"lightslategray": [119, 136, 153],
+	"lightslategrey": [119, 136, 153],
+	"lightsteelblue": [176, 196, 222],
+	"lightyellow": [255, 255, 224],
+	"lime": [0, 255, 0],
+	"limegreen": [50, 205, 50],
+	"linen": [250, 240, 230],
+	"magenta": [255, 0, 255],
+	"maroon": [128, 0, 0],
+	"mediumaquamarine": [102, 205, 170],
+	"mediumblue": [0, 0, 205],
+	"mediumorchid": [186, 85, 211],
+	"mediumpurple": [147, 112, 219],
+	"mediumseagreen": [60, 179, 113],
+	"mediumslateblue": [123, 104, 238],
+	"mediumspringgreen": [0, 250, 154],
+	"mediumturquoise": [72, 209, 204],
+	"mediumvioletred": [199, 21, 133],
+	"midnightblue": [25, 25, 112],
+	"mintcream": [245, 255, 250],
+	"mistyrose": [255, 228, 225],
+	"moccasin": [255, 228, 181],
+	"navajowhite": [255, 222, 173],
+	"navy": [0, 0, 128],
+	"oldlace": [253, 245, 230],
+	"olive": [128, 128, 0],
+	"olivedrab": [107, 142, 35],
+	"orange": [255, 165, 0],
+	"orangered": [255, 69, 0],
+	"orchid": [218, 112, 214],
+	"palegoldenrod": [238, 232, 170],
+	"palegreen": [152, 251, 152],
+	"paleturquoise": [175, 238, 238],
+	"palevioletred": [219, 112, 147],
+	"papayawhip": [255, 239, 213],
+	"peachpuff": [255, 218, 185],
+	"peru": [205, 133, 63],
+	"pink": [255, 192, 203],
+	"plum": [221, 160, 221],
+	"powderblue": [176, 224, 230],
+	"purple": [128, 0, 128],
+	"rebeccapurple": [102, 51, 153],
+	"red": [255, 0, 0],
+	"rosybrown": [188, 143, 143],
+	"royalblue": [65, 105, 225],
+	"saddlebrown": [139, 69, 19],
+	"salmon": [250, 128, 114],
+	"sandybrown": [244, 164, 96],
+	"seagreen": [46, 139, 87],
+	"seashell": [255, 245, 238],
+	"sienna": [160, 82, 45],
+	"silver": [192, 192, 192],
+	"skyblue": [135, 206, 235],
+	"slateblue": [106, 90, 205],
+	"slategray": [112, 128, 144],
+	"slategrey": [112, 128, 144],
+	"snow": [255, 250, 250],
+	"springgreen": [0, 255, 127],
+	"steelblue": [70, 130, 180],
+	"tan": [210, 180, 140],
+	"teal": [0, 128, 128],
+	"thistle": [216, 191, 216],
+	"tomato": [255, 99, 71],
+	"turquoise": [64, 224, 208],
+	"violet": [238, 130, 238],
+	"wheat": [245, 222, 179],
+	"white": [255, 255, 255],
+	"whitesmoke": [245, 245, 245],
+	"yellow": [255, 255, 0],
+	"yellowgreen": [154, 205, 50]
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/_color-string@1.5.3@color-string/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/_color-string@1.5.3@color-string/index.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(/*! color-name */ "./node_modules/color-name/index.js");
-var swizzle = __webpack_require__(/*! simple-swizzle */ "./node_modules/simple-swizzle/index.js");
+var colorNames = __webpack_require__(/*! color-name */ "./node_modules/_color-name@1.1.4@color-name/index.js");
+var swizzle = __webpack_require__(/*! simple-swizzle */ "./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js");
 
 var reverseNames = {};
 
@@ -1979,29 +2320,29 @@ function hexDouble(num) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ":host {\n  display: inline-block; }\n\n.o-button {\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  border: 1px solid #dcdfe6;\n  color: #606266;\n  -webkit-appearance: none;\n  text-align: center;\n  box-sizing: border-box;\n  outline: none;\n  margin: 0;\n  transition: .1s;\n  font-weight: 500;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  padding: 12px 20px;\n  font-size: 14px;\n  border-radius: 4px; }\n\n.o-button:hover {\n  border-color: rgba(7, 193, 96, 0.382);\n  border-color: var(--o-primary-hover-border, rgba(7, 193, 96, 0.382));\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: rgba(7, 193, 96, 0.1);\n  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.1)); }\n\n.o-button:active {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  outline: none; }\n\n.o-button-primary {\n  color: #fff;\n  background-color: #07c160;\n  border-color: #07c160;\n  background-color: var(--o-primary, #07c160);\n  border-color: var(--o-primary, #07c160); }\n\n.o-button-primary.is-plain {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: rgba(7, 193, 96, 0.1);\n  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));\n  border-color: rgba(7, 193, 96, 0.382);\n  border-color: var(--o-primary-fade-some, rgba(7, 193, 96, 0.382)); }\n\n.o-button-primary:hover {\n  background-color: rgba(7, 193, 96, 0.618);\n  border-color: rgba(7, 193, 96, 0.618);\n  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));\n  border-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));\n  color: #fff; }\n\n.o-button-primary:active {\n  background-color: #059048;\n  border-color: #059048;\n  background-color: var(--o-primary-active, #059048);\n  border-color: var(--o-primary-active, #059048);\n  color: #fff; }\n\n.o-button-danger {\n  color: #fff;\n  background-color: #fa5151;\n  border-color: #fa5151;\n  background-color: var(--o-danger, #fa5151);\n  border-color: var(--o-danger, #fa5151); }\n\n.o-button-danger.is-plain {\n  color: #fa5151;\n  color: var(--o-danger, #fa5151);\n  background-color: rgba(250, 81, 81, 0.1);\n  background-color: var(--o-danger-fade-lot, rgba(250, 81, 81, 0.1));\n  border-color: rgba(250, 81, 81, 0.382);\n  border-color: var(--o-danger-fade-some, rgba(250, 81, 81, 0.382)); }\n\n.o-button-danger:hover {\n  background-color: rgba(250, 81, 81, 0.618);\n  border-color: rgba(250, 81, 81, 0.618);\n  background-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));\n  border-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));\n  color: #fff; }\n\n.o-button-danger:active {\n  background-color: #f91f1f;\n  border-color: #f91f1f;\n  background-color: var(--o-danger-active, #f91f1f);\n  border-color: var(--o-danger-active, #f91f1f);\n  color: #fff; }\n\n.loading {\n  width: 1em;\n  height: 1em;\n  display: inline-block;\n  animation: loading 1s steps(12, end) infinite;\n  vertical-align: -0.125em; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n.o-button-medium {\n  padding: 10px 20px;\n  font-size: 14px;\n  border-radius: 4px; }\n\n.o-button-small {\n  padding: 9px 15px;\n  font-size: 12px;\n  border-radius: 3px; }\n\n.o-button-mini {\n  padding: 7px 15px;\n  font-size: 12px;\n  border-radius: 3px; }\n\n.o-button.is-round {\n  border-radius: 20px; }\n\n.o-button.is-circle {\n  border-radius: 20px;\n  padding: 12px; }\n\n.o-button.is-disabled, .o-button.is-disabled:focus, .o-button.is-disabled:hover {\n  color: #c0c4cc;\n  cursor: not-allowed;\n  background-image: none;\n  background-color: #fff;\n  border-color: #ebeef5; }\n", ""]);
+exports.push([module.i, ":host {\n  display: inline-block; }\n\n:host([block]) {\n  display: block; }\n\n.o-button {\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  border: 1px solid #dcdfe6;\n  color: #606266;\n  -webkit-appearance: none;\n  text-align: center;\n  box-sizing: border-box;\n  outline: none;\n  margin: 0;\n  transition: .1s;\n  font-weight: 500;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  padding: 12px 20px;\n  font-size: 14px;\n  border-radius: 4px; }\n\n.o-button:hover {\n  border-color: rgba(7, 193, 96, 0.382);\n  border-color: var(--o-primary-hover-border, rgba(7, 193, 96, 0.382));\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: rgba(7, 193, 96, 0.1);\n  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.1)); }\n\n.o-button:active {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  outline: none; }\n\n.o-button-primary {\n  color: #fff;\n  background-color: #07c160;\n  border-color: #07c160;\n  background-color: var(--o-primary, #07c160);\n  border-color: var(--o-primary, #07c160); }\n\n.o-button-primary.is-plain {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: rgba(7, 193, 96, 0.1);\n  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));\n  border-color: rgba(7, 193, 96, 0.382);\n  border-color: var(--o-primary-fade-some, rgba(7, 193, 96, 0.382)); }\n\n.o-button-primary:hover {\n  background-color: rgba(7, 193, 96, 0.618);\n  border-color: rgba(7, 193, 96, 0.618);\n  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));\n  border-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));\n  color: #fff; }\n\n.o-button-primary:active {\n  background-color: #059048;\n  border-color: #059048;\n  background-color: var(--o-primary-active, #059048);\n  border-color: var(--o-primary-active, #059048);\n  color: #fff; }\n\n.o-button-danger {\n  color: #fff;\n  background-color: #fa5151;\n  border-color: #fa5151;\n  background-color: var(--o-danger, #fa5151);\n  border-color: var(--o-danger, #fa5151); }\n\n.o-button-danger.is-plain {\n  color: #fa5151;\n  color: var(--o-danger, #fa5151);\n  background-color: rgba(250, 81, 81, 0.1);\n  background-color: var(--o-danger-fade-lot, rgba(250, 81, 81, 0.1));\n  border-color: rgba(250, 81, 81, 0.382);\n  border-color: var(--o-danger-fade-some, rgba(250, 81, 81, 0.382)); }\n\n.o-button-danger:hover {\n  background-color: rgba(250, 81, 81, 0.618);\n  border-color: rgba(250, 81, 81, 0.618);\n  background-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));\n  border-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));\n  color: #fff; }\n\n.o-button-danger:active {\n  background-color: #f91f1f;\n  border-color: #f91f1f;\n  background-color: var(--o-danger-active, #f91f1f);\n  border-color: var(--o-danger-active, #f91f1f);\n  color: #fff; }\n\n.loading {\n  width: 1em;\n  height: 1em;\n  display: inline-block;\n  animation: loading 1s steps(12, end) infinite;\n  vertical-align: -0.125em; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n.o-button-medium {\n  padding: 10px 20px;\n  font-size: 14px;\n  border-radius: 4px; }\n\n.o-button-small {\n  padding: 9px 15px;\n  font-size: 12px;\n  border-radius: 3px; }\n\n.o-button-mini {\n  padding: 7px 15px;\n  font-size: 12px;\n  border-radius: 3px; }\n\n.o-button.is-round {\n  border-radius: 20px; }\n\n.o-button.is-circle {\n  border-radius: 20px;\n  padding: 12px; }\n\n.o-button.is-disabled, .o-button.is-disabled:focus, .o-button.is-disabled:hover {\n  color: #c0c4cc;\n  cursor: not-allowed;\n  background-image: none;\n  background-color: #fff;\n  border-color: #ebeef5; }\n\n.o-button.is-block {\n  display: block;\n  width: 100%; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2085,17 +2426,37 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/simple-swizzle/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/simple-swizzle/index.js ***!
-  \**********************************************/
+/***/ "./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function isArrayish(obj) {
+	if (!obj || typeof obj === 'string') {
+		return false;
+	}
+
+	return obj instanceof Array || Array.isArray(obj) ||
+		(obj.length >= 0 && (obj.splice instanceof Function ||
+			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/_simple-swizzle@0.2.2@simple-swizzle/index.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isArrayish = __webpack_require__(/*! is-arrayish */ "./node_modules/simple-swizzle/node_modules/is-arrayish/index.js");
+var isArrayish = __webpack_require__(/*! is-arrayish */ "./node_modules/_is-arrayish@0.3.2@is-arrayish/index.js");
 
 var concat = Array.prototype.concat;
 var slice = Array.prototype.slice;
@@ -2126,26 +2487,6 @@ swizzle.wrap = function (fn) {
 
 /***/ }),
 
-/***/ "./node_modules/simple-swizzle/node_modules/is-arrayish/index.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/simple-swizzle/node_modules/is-arrayish/index.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function isArrayish(obj) {
-	if (!obj || typeof obj === 'string') {
-		return false;
-	}
-
-	return obj instanceof Array || Array.isArray(obj) ||
-		(obj.length >= 0 && (obj.splice instanceof Function ||
-			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
-};
-
-
-/***/ }),
-
 /***/ "./src/index.scss":
 /*!************************!*\
   !*** ./src/index.scss ***!
@@ -2154,7 +2495,7 @@ module.exports = function isArrayish(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2207,8 +2548,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-//@ts-ignore
-__webpack_require__(/*! ../theme.ts */ "./theme.ts");
+__webpack_require__(/*! @omiu/common/theme.ts */ "./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.ts");
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button() {
@@ -2259,72 +2599,6 @@ var Button = /** @class */ (function (_super) {
     return Button;
 }(omi_1.WeElement));
 exports.default = Button;
-
-
-/***/ }),
-
-/***/ "./theme.ts":
-/*!******************!*\
-  !*** ./theme.ts ***!
-  \******************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Color = __webpack_require__(/*! ./color */ "./color.js");
-theme();
-document.addEventListener('DOMContentLoaded', function () {
-    theme();
-});
-function theme() {
-    if (document.body && !document.body.style.getPropertyValue('--o-primary')) {
-        setTheme('primary', '#07c160');
-        setTheme('danger', '#f5222d');
-        setTheme('surface', '#ffffff');
-        setTheme('on-primary', '#ffffff');
-        setTheme('on-danger', '#ffffff');
-        setTheme('on-surface', '#000000');
-        setTheme('background', '#ffffff');
-        setTheme('small-radius', '4px');
-        setTheme('medium-radius', '4px');
-        setTheme('large-radius', '0px');
-        setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif');
-    }
-}
-function setTheme(key, value) {
-    var style = document.body.style;
-    style.setProperty('--o-' + key, value);
-    switch (key) {
-        case 'primary':
-            style.setProperty('--o-primary-fade-little', Color(value).fade(0.382));
-            style.setProperty('--o-primary-fade-some', Color(value).fade(0.618));
-            style.setProperty('--o-primary-fade-lot', Color(value).fade(0.9));
-            style.setProperty('--o-primary-active', Color(value).darken(0.1));
-            style.setProperty('--o-primary-hover-border', Color(value).fade(0.618));
-            style.setProperty('--o-primary-hover-bg', Color(value).fade(0.9));
-            break;
-        case 'danger':
-            style.setProperty('--o-danger-fade-little', Color(value).fade(0.382));
-            style.setProperty('--o-danger-fade-some', Color(value).fade(0.618));
-            style.setProperty('--o-danger-fade-lot', Color(value).fade(0.9));
-            style.setProperty('--o-danger-active', Color(value).darken(0.1));
-            break;
-    }
-}
-if (typeof window !== undefined) {
-    //@ts-ignore
-    window.Omiu = {
-        setTheme: setTheme,
-        setThemePrimary: function (color) {
-            setTheme('primary', color);
-        },
-        setThemeError: function (color) {
-            setTheme('error', color);
-        }
-    };
-}
 
 
 /***/ }),
