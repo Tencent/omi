@@ -350,7 +350,7 @@ define('my-component', _ => (
 - Cross frameworks(react, preact, vue, angular), components of omi are pure custom elements
 - One framework. Mobile & desktop & mini program
 - Stateless View Architecture Design
-- Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'flase'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
+- Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'false'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - [Easy two way binding by extend api](https://codepen.io/omijs/pen/aeLYjx)
 - Supports TypeScript
 - Reactive data-binding
@@ -537,7 +537,7 @@ You can set up the PUBLIC_URL, such as：
 ```json
 ...
 "build": "PUBLIC_URL=https://fe.wxpay.oa.com/dv node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& node scripts/build.js",
+"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv && node scripts/build.js",
 ...
 ```
 
@@ -672,7 +672,7 @@ npm install --save-dev @babel/preset-react
 }
 ```
 
-If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack,
+If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack.
 For example, the following configuration:
 
 ```js
