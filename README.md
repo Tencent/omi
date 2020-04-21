@@ -13,7 +13,7 @@ English | [简体中文](./README.CN.md)
 | **Name**         | **Status**         | **Example**            | **Docs** |
 | -------------- | ----------|----------- | ----------------|
 | [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
-| [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Button Docs][omiu-tabs-docs]|
+| [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -27,7 +27,7 @@ English | [简体中文](./README.CN.md)
 [omiu-tabs-status]: https://img.shields.io/npm/v/@omiu/tabs.svg
 [omiu-tabs-package]: https://www.npmjs.com/package/@omiu/tabs
 [omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/index.html#/tabs?index=1&subIndex=1
-[omiu-tabs-codepen]: https://codepen.io/omijs/details/XWmjyXK
+[omiu-tabs-codepen]: https://codepen.io/omijs/pen/XWmjyXK
 
 ## Quick Preview
 
