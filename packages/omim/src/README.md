@@ -13,7 +13,7 @@
 * Support both JSX and native HTML elements 
 * Each element can be used independently
 * Super easy to change theme colors, fonts and rounded corners
-* Extended HTML capabilities, you can pass false attributes to elements through string `'0'` or string `'flase'`
+* Extended HTML capabilities, you can pass false attributes to elements through string `'0'` or string `'false'`
 
 ## Cross Frameworks
 
