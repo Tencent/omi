@@ -795,3 +795,15 @@
  display: inline-block;
  vertical-align: -0.125em;
 }
+
+.o-icon-add {
+	position: absolute;
+	top: 50%;
+	margin-top: -0.5em;
+	margin-left: 0.5em;
+	cursor: pointer;
+ }
+
+ .o-icon-add:hover {
+	color: $o-primary;
+ }

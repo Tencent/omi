@@ -9,6 +9,7 @@ interface Props {
 	type?: 'card' | 'border-card'
 	position?: 'left' | 'right' | 'top' | 'bottom'
 	closable?: boolean
+	addable?: boolean
 }
 
 
@@ -19,7 +20,8 @@ export default class Tabs extends WeElement<Props>{
 
 	static defaultProps = {
 		position: 'top',
-		closable: false
+		closable: false,
+		addable: false
 	}
 
 	static propTypes = {
@@ -27,7 +29,8 @@ export default class Tabs extends WeElement<Props>{
 		activeIndex: Number,
 		type: String,
 		position: String,
-		closable: Boolean
+		closable: Boolean,
+		addable: Boolean
 	}
 
 	_x
@@ -66,13 +69,21 @@ export default class Tabs extends WeElement<Props>{
 	}
 
 	removeTab(index) {
-		this.props.list.splice(index, 1)
+		const removedTab = this.props.list.splice(index, 1)[0]
 		this.forceUpdate()
+		this.fire('removed', {
+			removedTab: removedTab,
+			index: index
+		})
 	}
 
 	addTab(tab) {
 		this.props.list.push(tab)
 		this.forceUpdate()
+	}
+
+	onAddIconClick() {
+		this.fire('addIconClick')
 	}
 
 	_tempTagName: string
@@ -109,7 +120,7 @@ export default class Tabs extends WeElement<Props>{
 
 								{props.list.map((tab, index) => {
 									this._tempTagName = 'o-icon-' + tab.icon
-									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt =>props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
+									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
 										{...extractClass(props, 'o-tabs__item', {
 											[`is-${props.position}`]: props.position,
 											'is-active': props.activeIndex === index,
@@ -119,6 +130,11 @@ export default class Tabs extends WeElement<Props>{
 								})}
 
 							</div>
+
+							{props.addable && <svg class="o-icon-add" fill="currentColor" width="1em" height="1em" focusable="false"
+								viewBox="0 0 24 24" aria-hidden="true"
+								onClick={this.onAddIconClick}
+							><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>}
 						</div>
 					</div>
 				</div>
