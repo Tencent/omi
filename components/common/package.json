@@ -1,6 +1,6 @@
 {
   "name": "@omiu/common",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Omi UI Components.",
   "main": "index.js",
   "scripts": {
@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "color-convert": "^2.0.1",
+    "color-string": "^1.5.3"
+  }
 }
