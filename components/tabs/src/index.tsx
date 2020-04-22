@@ -1,6 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
-import '@omiu/common/theme.ts'
+import '@omiu/common'
 
 interface Props {
 	list?: any[]
@@ -68,10 +68,10 @@ export default class Tabs extends WeElement<Props>{
 	}
 
 	removeTab(index) {
-		const removedTab = this.props.list.splice(index, 1)[0]
+		const tab = this.props.list.splice(index, 1)[0]
 		this.forceUpdate()
-		this.fire('removed', {
-			removedTab: removedTab,
+		this.fire('remove', {
+			tab: tab,
 			index: index
 		})
 	}
