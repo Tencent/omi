@@ -1,12 +1,13 @@
 {
   "name": "@omiu/link",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Omi UI Components.",
   "main": "src/index.js",
+  "module": "src/index.esm.js",
   "types": "src/index.d.ts",
   "scripts": {
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build"
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
@@ -37,6 +38,7 @@
   },
   "homepage": "http://omijs.org",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
     "css": "^2.2.4",
     "css-loader": "^1.0.1",
     "file": "^0.2.2",
@@ -49,7 +51,13 @@
     "omi": "latest",
     "omio": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "resolve-url-loader": "^3.1.0",
+    "rollup": "^2.7.1",
+    "rollup-plugin-license": "^2.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-scss": "^2.4.0",
+    "rollup-plugin-typescript": "^1.0.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "to-string-loader": "^1.1.5",
@@ -84,5 +92,7 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "dependencies": {}
+  "dependencies": {
+    "@omiu/common": "latest"
+  }
 }
