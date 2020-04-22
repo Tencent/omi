@@ -1,4 +1,4 @@
-//import nodeResolve from "rollup-plugin-node-resolve";
+import nodeResolve from "rollup-plugin-node-resolve";
 
 import typescript from 'rollup-plugin-typescript';
 import scss from 'rollup-plugin-scss'
@@ -20,9 +20,9 @@ export default {
     strict: true
   },
   plugins: [
-    // nodeResolve({
-    // 	main: true
-    // }),
+    nodeResolve({
+    	main: true
+    }),
     scss({
       //output: false,
       output: function (styles, styleNodes) {

@@ -1,5 +1,5 @@
 /**
- * @omiu/radio v0.0.2 http://omijs.org
+ * @omiu/radio v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -7,7 +7,6 @@
  */
 
 import { h, extractClass, tag, WeElement } from 'omi';
-import colorName from 'color-name';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -231,7 +230,158 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var isArrayish = function isArrayish(obj) {
+var _colorName_1_1_4_colorName = {
+	"aliceblue": [240, 248, 255],
+	"antiquewhite": [250, 235, 215],
+	"aqua": [0, 255, 255],
+	"aquamarine": [127, 255, 212],
+	"azure": [240, 255, 255],
+	"beige": [245, 245, 220],
+	"bisque": [255, 228, 196],
+	"black": [0, 0, 0],
+	"blanchedalmond": [255, 235, 205],
+	"blue": [0, 0, 255],
+	"blueviolet": [138, 43, 226],
+	"brown": [165, 42, 42],
+	"burlywood": [222, 184, 135],
+	"cadetblue": [95, 158, 160],
+	"chartreuse": [127, 255, 0],
+	"chocolate": [210, 105, 30],
+	"coral": [255, 127, 80],
+	"cornflowerblue": [100, 149, 237],
+	"cornsilk": [255, 248, 220],
+	"crimson": [220, 20, 60],
+	"cyan": [0, 255, 255],
+	"darkblue": [0, 0, 139],
+	"darkcyan": [0, 139, 139],
+	"darkgoldenrod": [184, 134, 11],
+	"darkgray": [169, 169, 169],
+	"darkgreen": [0, 100, 0],
+	"darkgrey": [169, 169, 169],
+	"darkkhaki": [189, 183, 107],
+	"darkmagenta": [139, 0, 139],
+	"darkolivegreen": [85, 107, 47],
+	"darkorange": [255, 140, 0],
+	"darkorchid": [153, 50, 204],
+	"darkred": [139, 0, 0],
+	"darksalmon": [233, 150, 122],
+	"darkseagreen": [143, 188, 143],
+	"darkslateblue": [72, 61, 139],
+	"darkslategray": [47, 79, 79],
+	"darkslategrey": [47, 79, 79],
+	"darkturquoise": [0, 206, 209],
+	"darkviolet": [148, 0, 211],
+	"deeppink": [255, 20, 147],
+	"deepskyblue": [0, 191, 255],
+	"dimgray": [105, 105, 105],
+	"dimgrey": [105, 105, 105],
+	"dodgerblue": [30, 144, 255],
+	"firebrick": [178, 34, 34],
+	"floralwhite": [255, 250, 240],
+	"forestgreen": [34, 139, 34],
+	"fuchsia": [255, 0, 255],
+	"gainsboro": [220, 220, 220],
+	"ghostwhite": [248, 248, 255],
+	"gold": [255, 215, 0],
+	"goldenrod": [218, 165, 32],
+	"gray": [128, 128, 128],
+	"green": [0, 128, 0],
+	"greenyellow": [173, 255, 47],
+	"grey": [128, 128, 128],
+	"honeydew": [240, 255, 240],
+	"hotpink": [255, 105, 180],
+	"indianred": [205, 92, 92],
+	"indigo": [75, 0, 130],
+	"ivory": [255, 255, 240],
+	"khaki": [240, 230, 140],
+	"lavender": [230, 230, 250],
+	"lavenderblush": [255, 240, 245],
+	"lawngreen": [124, 252, 0],
+	"lemonchiffon": [255, 250, 205],
+	"lightblue": [173, 216, 230],
+	"lightcoral": [240, 128, 128],
+	"lightcyan": [224, 255, 255],
+	"lightgoldenrodyellow": [250, 250, 210],
+	"lightgray": [211, 211, 211],
+	"lightgreen": [144, 238, 144],
+	"lightgrey": [211, 211, 211],
+	"lightpink": [255, 182, 193],
+	"lightsalmon": [255, 160, 122],
+	"lightseagreen": [32, 178, 170],
+	"lightskyblue": [135, 206, 250],
+	"lightslategray": [119, 136, 153],
+	"lightslategrey": [119, 136, 153],
+	"lightsteelblue": [176, 196, 222],
+	"lightyellow": [255, 255, 224],
+	"lime": [0, 255, 0],
+	"limegreen": [50, 205, 50],
+	"linen": [250, 240, 230],
+	"magenta": [255, 0, 255],
+	"maroon": [128, 0, 0],
+	"mediumaquamarine": [102, 205, 170],
+	"mediumblue": [0, 0, 205],
+	"mediumorchid": [186, 85, 211],
+	"mediumpurple": [147, 112, 219],
+	"mediumseagreen": [60, 179, 113],
+	"mediumslateblue": [123, 104, 238],
+	"mediumspringgreen": [0, 250, 154],
+	"mediumturquoise": [72, 209, 204],
+	"mediumvioletred": [199, 21, 133],
+	"midnightblue": [25, 25, 112],
+	"mintcream": [245, 255, 250],
+	"mistyrose": [255, 228, 225],
+	"moccasin": [255, 228, 181],
+	"navajowhite": [255, 222, 173],
+	"navy": [0, 0, 128],
+	"oldlace": [253, 245, 230],
+	"olive": [128, 128, 0],
+	"olivedrab": [107, 142, 35],
+	"orange": [255, 165, 0],
+	"orangered": [255, 69, 0],
+	"orchid": [218, 112, 214],
+	"palegoldenrod": [238, 232, 170],
+	"palegreen": [152, 251, 152],
+	"paleturquoise": [175, 238, 238],
+	"palevioletred": [219, 112, 147],
+	"papayawhip": [255, 239, 213],
+	"peachpuff": [255, 218, 185],
+	"peru": [205, 133, 63],
+	"pink": [255, 192, 203],
+	"plum": [221, 160, 221],
+	"powderblue": [176, 224, 230],
+	"purple": [128, 0, 128],
+	"rebeccapurple": [102, 51, 153],
+	"red": [255, 0, 0],
+	"rosybrown": [188, 143, 143],
+	"royalblue": [65, 105, 225],
+	"saddlebrown": [139, 69, 19],
+	"salmon": [250, 128, 114],
+	"sandybrown": [244, 164, 96],
+	"seagreen": [46, 139, 87],
+	"seashell": [255, 245, 238],
+	"sienna": [160, 82, 45],
+	"silver": [192, 192, 192],
+	"skyblue": [135, 206, 235],
+	"slateblue": [106, 90, 205],
+	"slategray": [112, 128, 144],
+	"slategrey": [112, 128, 144],
+	"snow": [255, 250, 250],
+	"springgreen": [0, 255, 127],
+	"steelblue": [70, 130, 180],
+	"tan": [210, 180, 140],
+	"teal": [0, 128, 128],
+	"thistle": [216, 191, 216],
+	"tomato": [255, 99, 71],
+	"turquoise": [64, 224, 208],
+	"violet": [238, 130, 238],
+	"wheat": [245, 222, 179],
+	"white": [255, 255, 255],
+	"whitesmoke": [245, 245, 245],
+	"yellow": [255, 255, 0],
+	"yellowgreen": [154, 205, 50]
+};
+
+var _isArrayish_0_3_2_isArrayish = function isArrayish(obj) {
 	if (!obj || typeof obj === 'string') {
 		return false;
 	}
@@ -241,7 +391,7 @@ var isArrayish = function isArrayish(obj) {
 			(Object.getOwnPropertyDescriptor(obj, (obj.length - 1)) && obj.constructor.name !== 'String')));
 };
 
-var simpleSwizzle = createCommonjsModule(function (module) {
+var _simpleSwizzle_0_2_2_simpleSwizzle = createCommonjsModule(function (module) {
 
 
 
@@ -254,7 +404,7 @@ var swizzle = module.exports = function swizzle(args) {
 	for (var i = 0, len = args.length; i < len; i++) {
 		var arg = args[i];
 
-		if (isArrayish(arg)) {
+		if (_isArrayish_0_3_2_isArrayish(arg)) {
 			// http://jsperf.com/javascript-array-concat-vs-push/98
 			results = concat.call(results, slice.call(arg));
 		} else {
@@ -272,7 +422,7 @@ swizzle.wrap = function (fn) {
 };
 });
 
-var colorString = createCommonjsModule(function (module) {
+var _colorString_1_5_3_colorString = createCommonjsModule(function (module) {
 /* MIT license */
 
 
@@ -280,9 +430,9 @@ var colorString = createCommonjsModule(function (module) {
 var reverseNames = {};
 
 // create a list of reverse color names
-for (var name in colorName) {
-	if (colorName.hasOwnProperty(name)) {
-		reverseNames[colorName[name]] = name;
+for (var name in _colorName_1_1_4_colorName) {
+	if (_colorName_1_1_4_colorName.hasOwnProperty(name)) {
+		reverseNames[_colorName_1_1_4_colorName[name]] = name;
 	}
 }
 
@@ -378,7 +528,7 @@ cs.get.rgb = function (string) {
 			return [0, 0, 0, 0];
 		}
 
-		rgb = colorName[match[1]];
+		rgb = _colorName_1_1_4_colorName[match[1]];
 
 		if (!rgb) {
 			return null;
@@ -441,7 +591,7 @@ cs.get.hwb = function (string) {
 };
 
 cs.to.hex = function () {
-	var rgba = simpleSwizzle(arguments);
+	var rgba = _simpleSwizzle_0_2_2_simpleSwizzle(arguments);
 
 	return (
 		'#' +
@@ -455,7 +605,7 @@ cs.to.hex = function () {
 };
 
 cs.to.rgb = function () {
-	var rgba = simpleSwizzle(arguments);
+	var rgba = _simpleSwizzle_0_2_2_simpleSwizzle(arguments);
 
 	return rgba.length < 4 || rgba[3] === 1
 		? 'rgb(' + Math.round(rgba[0]) + ', ' + Math.round(rgba[1]) + ', ' + Math.round(rgba[2]) + ')'
@@ -463,7 +613,7 @@ cs.to.rgb = function () {
 };
 
 cs.to.rgb.percent = function () {
-	var rgba = simpleSwizzle(arguments);
+	var rgba = _simpleSwizzle_0_2_2_simpleSwizzle(arguments);
 
 	var r = Math.round(rgba[0] / 255 * 100);
 	var g = Math.round(rgba[1] / 255 * 100);
@@ -475,7 +625,7 @@ cs.to.rgb.percent = function () {
 };
 
 cs.to.hsl = function () {
-	var hsla = simpleSwizzle(arguments);
+	var hsla = _simpleSwizzle_0_2_2_simpleSwizzle(arguments);
 	return hsla.length < 4 || hsla[3] === 1
 		? 'hsl(' + hsla[0] + ', ' + hsla[1] + '%, ' + hsla[2] + '%)'
 		: 'hsla(' + hsla[0] + ', ' + hsla[1] + '%, ' + hsla[2] + '%, ' + hsla[3] + ')';
@@ -484,7 +634,7 @@ cs.to.hsl = function () {
 // hwb is a bit different than rgb(a) & hsl(a) since there is no alpha specific syntax
 // (hwb have alpha optional & 1 is default value)
 cs.to.hwb = function () {
-	var hwba = simpleSwizzle(arguments);
+	var hwba = _simpleSwizzle_0_2_2_simpleSwizzle(arguments);
 
 	var a = '';
 	if (hwba.length >= 4 && hwba[3] !== 1) {
@@ -508,8 +658,8 @@ function hexDouble(num) {
 	return (str.length < 2) ? '0' + str : str;
 }
 });
-var colorString_1 = colorString.to;
-var colorString_2 = colorString.get;
+var _colorString_1_5_3_colorString_1 = _colorString_1_5_3_colorString.to;
+var _colorString_1_5_3_colorString_2 = _colorString_1_5_3_colorString.get;
 
 /* MIT license */
 /* eslint-disable no-mixed-operators */
@@ -520,8 +670,8 @@ var colorString_2 = colorString.get;
 //       do not use box values types (i.e. Number(), String(), etc.)
 
 const reverseKeywords = {};
-for (const key of Object.keys(colorName)) {
-	reverseKeywords[colorName[key]] = key;
+for (const key of Object.keys(_colorName_1_1_4_colorName)) {
+	reverseKeywords[_colorName_1_1_4_colorName[key]] = key;
 }
 
 const convert = {
@@ -696,8 +846,8 @@ convert.rgb.keyword = function (rgb) {
 	let currentClosestDistance = Infinity;
 	let currentClosestKeyword;
 
-	for (const keyword of Object.keys(colorName)) {
-		const value = colorName[keyword];
+	for (const keyword of Object.keys(_colorName_1_1_4_colorName)) {
+		const value = _colorName_1_1_4_colorName[keyword];
 
 		// Compute comparative distance
 		const distance = comparativeDistance(rgb, value);
@@ -713,7 +863,7 @@ convert.rgb.keyword = function (rgb) {
 };
 
 convert.keyword.rgb = function (keyword) {
-	return colorName[keyword];
+	return _colorName_1_1_4_colorName[keyword];
 };
 
 convert.rgb.xyz = function (rgb) {
@@ -1523,7 +1673,7 @@ models.forEach(fromModel => {
 	});
 });
 
-var colorConvert = convert$1;
+var _colorConvert_2_0_1_colorConvert = convert$1;
 
 var _slice = [].slice;
 
@@ -1539,8 +1689,8 @@ var skippedModels = [
 ];
 
 var hashedModelKeys = {};
-Object.keys(colorConvert).forEach(function (model) {
-	hashedModelKeys[_slice.call(colorConvert[model].labels).sort().join('')] = model;
+Object.keys(_colorConvert_2_0_1_colorConvert).forEach(function (model) {
+	hashedModelKeys[_slice.call(_colorConvert_2_0_1_colorConvert[model].labels).sort().join('')] = model;
 });
 
 var limiters = {};
@@ -1554,7 +1704,7 @@ function Color(obj, model) {
 		model = null;
 	}
 
-	if (model && !(model in colorConvert)) {
+	if (model && !(model in _colorConvert_2_0_1_colorConvert)) {
 		throw new Error('Unknown model: ' + model);
 	}
 
@@ -1570,18 +1720,18 @@ function Color(obj, model) {
 		this.color = obj.color.slice();
 		this.valpha = obj.valpha;
 	} else if (typeof obj === 'string') {
-		var result = colorString.get(obj);
+		var result = _colorString_1_5_3_colorString.get(obj);
 		if (result === null) {
 			throw new Error('Unable to parse color from string: ' + obj);
 		}
 
 		this.model = result.model;
-		channels = colorConvert[this.model].channels;
+		channels = _colorConvert_2_0_1_colorConvert[this.model].channels;
 		this.color = result.value.slice(0, channels);
 		this.valpha = typeof result.value[channels] === 'number' ? result.value[channels] : 1;
 	} else if (obj.length) {
 		this.model = model || 'rgb';
-		channels = colorConvert[this.model].channels;
+		channels = _colorConvert_2_0_1_colorConvert[this.model].channels;
 		var newArr = _slice.call(obj, 0, channels);
 		this.color = zeroArray(newArr, channels);
 		this.valpha = typeof obj[channels] === 'number' ? obj[channels] : 1;
@@ -1611,7 +1761,7 @@ function Color(obj, model) {
 
 		this.model = hashedModelKeys[hashedKeys];
 
-		var labels = colorConvert[this.model].labels;
+		var labels = _colorConvert_2_0_1_colorConvert[this.model].labels;
 		var color = [];
 		for (i = 0; i < labels.length; i++) {
 			color.push(obj[labels[i]]);
@@ -1622,7 +1772,7 @@ function Color(obj, model) {
 
 	// perform limitations (clamping, etc.)
 	if (limiters[this.model]) {
-		channels = colorConvert[this.model].channels;
+		channels = _colorConvert_2_0_1_colorConvert[this.model].channels;
 		for (i = 0; i < channels; i++) {
 			var limit = limiters[this.model][i];
 			if (limit) {
@@ -1648,16 +1798,16 @@ Color.prototype = {
 	},
 
 	string: function (places) {
-		var self = this.model in colorString.to ? this : this.rgb();
+		var self = this.model in _colorString_1_5_3_colorString.to ? this : this.rgb();
 		self = self.round(typeof places === 'number' ? places : 1);
 		var args = self.valpha === 1 ? self.color : self.color.concat(this.valpha);
-		return colorString.to[self.model](args);
+		return _colorString_1_5_3_colorString.to[self.model](args);
 	},
 
 	percentString: function (places) {
 		var self = this.rgb().round(typeof places === 'number' ? places : 1);
 		var args = self.valpha === 1 ? self.color : self.color.concat(this.valpha);
-		return colorString.to.rgb.percent(args);
+		return _colorString_1_5_3_colorString.to.rgb.percent(args);
 	},
 
 	array: function () {
@@ -1666,8 +1816,8 @@ Color.prototype = {
 
 	object: function () {
 		var result = {};
-		var channels = colorConvert[this.model].channels;
-		var labels = colorConvert[this.model].labels;
+		var channels = _colorConvert_2_0_1_colorConvert[this.model].channels;
+		var labels = _colorConvert_2_0_1_colorConvert[this.model].labels;
 
 		for (var i = 0; i < channels; i++) {
 			result[labels[i]] = this.color[i];
@@ -1756,7 +1906,7 @@ Color.prototype = {
 			return new Color(val);
 		}
 
-		return colorConvert[this.model].keyword(this.color);
+		return _colorConvert_2_0_1_colorConvert[this.model].keyword(this.color);
 	},
 
 	hex: function (val) {
@@ -1764,7 +1914,7 @@ Color.prototype = {
 			return new Color(val);
 		}
 
-		return colorString.to.hex(this.rgb().round().color);
+		return _colorString_1_5_3_colorString.to.hex(this.rgb().round().color);
 	},
 
 	rgbNumber: function () {
@@ -1912,12 +2062,12 @@ Color.prototype = {
 };
 
 // model conversion methods and static constructors
-Object.keys(colorConvert).forEach(function (model) {
+Object.keys(_colorConvert_2_0_1_colorConvert).forEach(function (model) {
 	if (skippedModels.indexOf(model) !== -1) {
 		return;
 	}
 
-	var channels = colorConvert[model].channels;
+	var channels = _colorConvert_2_0_1_colorConvert[model].channels;
 
 	// conversion methods
 	Color.prototype[model] = function () {
@@ -1930,7 +2080,7 @@ Object.keys(colorConvert).forEach(function (model) {
 		}
 
 		var newAlpha = typeof arguments[channels] === 'number' ? channels : this.valpha;
-		return new Color(assertArray(colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
+		return new Color(assertArray(_colorConvert_2_0_1_colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
 	};
 
 	// 'static' construction methods
