@@ -1,0 +1,152 @@
+:host {
+  display: inline-block; }
+
+:host([block]) {
+  display: block; }
+
+.o-button {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px; }
+
+.o-button:hover {
+  border-color: rgba(7, 193, 96, 0.382);
+  border-color: var(--o-primary-hover-border, rgba(7, 193, 96, 0.382));
+  color: #07c160;
+  color: var(--o-primary, #07c160);
+  background-color: rgba(7, 193, 96, 0.1);
+  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.1)); }
+
+.o-button:active {
+  color: #07c160;
+  color: var(--o-primary, #07c160);
+  border-color: #07c160;
+  border-color: var(--o-primary, #07c160);
+  outline: none; }
+
+.o-button-primary {
+  color: #fff;
+  background-color: #07c160;
+  border-color: #07c160;
+  background-color: var(--o-primary, #07c160);
+  border-color: var(--o-primary, #07c160); }
+
+.o-button-primary.is-plain {
+  color: #07c160;
+  color: var(--o-primary, #07c160);
+  background-color: rgba(7, 193, 96, 0.1);
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));
+  border-color: rgba(7, 193, 96, 0.382);
+  border-color: var(--o-primary-fade-some, rgba(7, 193, 96, 0.382)); }
+
+.o-button-primary:hover {
+  background-color: rgba(7, 193, 96, 0.618);
+  border-color: rgba(7, 193, 96, 0.618);
+  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));
+  border-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));
+  color: #fff; }
+
+.o-button-primary:active {
+  background-color: #059048;
+  border-color: #059048;
+  background-color: var(--o-primary-active, #059048);
+  border-color: var(--o-primary-active, #059048);
+  color: #fff; }
+
+.o-button-danger {
+  color: #fff;
+  background-color: #fa5151;
+  border-color: #fa5151;
+  background-color: var(--o-danger, #fa5151);
+  border-color: var(--o-danger, #fa5151); }
+
+.o-button-danger.is-plain {
+  color: #fa5151;
+  color: var(--o-danger, #fa5151);
+  background-color: rgba(250, 81, 81, 0.1);
+  background-color: var(--o-danger-fade-lot, rgba(250, 81, 81, 0.1));
+  border-color: rgba(250, 81, 81, 0.382);
+  border-color: var(--o-danger-fade-some, rgba(250, 81, 81, 0.382)); }
+
+.o-button-danger:hover {
+  background-color: rgba(250, 81, 81, 0.618);
+  border-color: rgba(250, 81, 81, 0.618);
+  background-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));
+  border-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));
+  color: #fff; }
+
+.o-button-danger:active {
+  background-color: #f91f1f;
+  border-color: #f91f1f;
+  background-color: var(--o-danger-active, #f91f1f);
+  border-color: var(--o-danger-active, #f91f1f);
+  color: #fff; }
+
+.loading {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  animation: loading 1s steps(12, end) infinite;
+  vertical-align: -0.125em; }
+
+@-webkit-keyframes loading {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg); }
+  100% {
+    transform: rotate3d(0, 0, 1, 360deg); } }
+
+@keyframes loading {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg); }
+  100% {
+    transform: rotate3d(0, 0, 1, 360deg); } }
+
+.o-button-medium {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px; }
+
+.o-button-small {
+  padding: 9px 15px;
+  font-size: 12px;
+  border-radius: 3px; }
+
+.o-button-mini {
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 3px; }
+
+.o-button.is-round {
+  border-radius: 20px; }
+
+.o-button.is-circle {
+  border-radius: 20px;
+  padding: 12px; }
+
+.o-button.is-disabled, .o-button.is-disabled:focus, .o-button.is-disabled:hover {
+  color: #c0c4cc;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: #fff;
+  border-color: #ebeef5; }
+
+.o-button.is-block {
+  display: block;
+  width: 100%; }

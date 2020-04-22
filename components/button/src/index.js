@@ -100,10 +100,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!****************************************************************!*\
   !*** ./node_modules/_@omiu_common@0.0.1@@omiu/common/color.js ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: Color */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Color", function() { return Color; });
 
 
 var colorString = __webpack_require__(/*! color-string */ "./node_modules/_color-string@1.5.3@color-string/index.js");
@@ -587,14 +589,27 @@ function zeroArray(arr, length) {
 	return arr;
 }
 
-module.exports = Color;
+
+/***/ }),
+
+/***/ "./node_modules/_@omiu_common@0.0.1@@omiu/common/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/_@omiu_common@0.0.1@@omiu/common/index.js ***!
+  \****************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _theme_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./theme.js */ "./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.js");
+
 
 
 /***/ }),
 
-/***/ "./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.ts":
+/***/ "./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.js":
 /*!****************************************************************!*\
-  !*** ./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.ts ***!
+  !*** ./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.js ***!
   \****************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -602,7 +617,6 @@ module.exports = Color;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _color__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./color */ "./node_modules/_@omiu_common@0.0.1@@omiu/common/color.js");
-/* harmony import */ var _color__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_color__WEBPACK_IMPORTED_MODULE_0__);
 
 
 theme()
@@ -633,22 +647,22 @@ function setTheme(key, value) {
   style.setProperty('--o-' + key, value)
   switch (key) {
     case 'primary':
-      style.setProperty('--o-primary-fade-little', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.382))
-      style.setProperty('--o-primary-fade-some', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.618))
-      style.setProperty('--o-primary-fade-more', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.759))
-      style.setProperty('--o-primary-fade-lot', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.9))
-      style.setProperty('--o-primary-active', _color__WEBPACK_IMPORTED_MODULE_0__(value).darken(0.1))
+      style.setProperty('--o-primary-fade-little', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.382))
+      style.setProperty('--o-primary-fade-some', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.618))
+      style.setProperty('--o-primary-fade-more', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.759))
+      style.setProperty('--o-primary-fade-lot', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.9))
+      style.setProperty('--o-primary-active', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).darken(0.1))
 
-      style.setProperty('--o-primary-hover-border', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.618))
-      style.setProperty('--o-primary-hover-bg', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.9))
+      style.setProperty('--o-primary-hover-border', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.618))
+      style.setProperty('--o-primary-hover-bg', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.9))
 
       break
     case 'danger':
-      style.setProperty('--o-danger-fade-little', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.382))
-      style.setProperty('--o-danger-fade-some', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.618))
-      style.setProperty('--o-danger-fade-more', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.759))
-      style.setProperty('--o-danger-fade-lot', _color__WEBPACK_IMPORTED_MODULE_0__(value).fade(0.9))
-      style.setProperty('--o-danger-active', _color__WEBPACK_IMPORTED_MODULE_0__(value).darken(0.1))
+      style.setProperty('--o-danger-fade-little', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.382))
+      style.setProperty('--o-danger-fade-some', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.618))
+      style.setProperty('--o-danger-fade-more', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.759))
+      style.setProperty('--o-danger-fade-lot', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).fade(0.9))
+      style.setProperty('--o-danger-active', Object(_color__WEBPACK_IMPORTED_MODULE_0__["Color"])(value).darken(0.1))
       break
 
   }
@@ -2548,7 +2562,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-__webpack_require__(/*! @omiu/common/theme.ts */ "./node_modules/_@omiu_common@0.0.1@@omiu/common/theme.ts");
+__webpack_require__(/*! @omiu/common */ "./node_modules/_@omiu_common@0.0.1@@omiu/common/index.js");
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button() {

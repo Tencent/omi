@@ -23,7 +23,7 @@ Object.keys(convert).forEach(function (model) {
 
 var limiters = {};
 
-function Color(obj, model) {
+export function Color(obj, model) {
 	if (!(this instanceof Color)) {
 		return new Color(obj, model);
 	}
@@ -480,5 +480,3 @@ function zeroArray(arr, length) {
 
 	return arr;
 }
-
-module.exports = Color;
