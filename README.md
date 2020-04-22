@@ -15,6 +15,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
 | [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
 | [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
+| [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] ||
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -36,6 +37,13 @@ English | [简体中文](./README.CN.md)
 [omiu-radio-package]: https://www.npmjs.com/package/@omiu/radio
 [omiu-radio-docs]: https://tencent.github.io/omi/components/docs/index.html#/radio?index=1&subIndex=2
 [omiu-radio-codepen]: https://codepen.io/omijs/pen/GRpjapr
+
+
+[omiu-link-github]: https://github.com/Tencent/omi/tree/master/components/link
+[omiu-link-status]: https://img.shields.io/npm/v/@omiu/link.svg
+[omiu-link-package]: https://www.npmjs.com/package/@omiu/link
+[omiu-link-docs]: https://tencent.github.io/omi/components/docs/index.html#/link?index=1&subIndex=3
+[omiu-link-codepen]: https://codepen.io/omijs/pen/KKdNBaO
 
 
 ## Quick Preview
