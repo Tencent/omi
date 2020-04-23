@@ -1,6 +1,6 @@
 {
   "name": "@omiu/radio",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",
