@@ -1,5 +1,4 @@
 import { WeElement } from 'omi';
-import '@omiu/common';
 interface Props {
     list?: any[];
     activeIndex: number;
