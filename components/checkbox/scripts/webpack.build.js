@@ -1,7 +1,7 @@
 const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
-
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const pkgName = require('../package.json')
 const componentName = pkgName.name.split('/')[1]
 
@@ -11,6 +11,9 @@ const library = 'O' + componentName.split('-').map(name => name.charAt(0).toUppe
 
 const config = {
   devtool: 'source-map',
+  plugins: [
+    new ProgressBarPlugin()
+  ],
   entry: {
     [name]: './src/index.tsx'
   },

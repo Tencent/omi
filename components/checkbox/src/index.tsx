@@ -1,7 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
-//@ts-ignore
-import '../theme.ts'
+
 
 interface Props {
 	disabled: boolean,
