@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "description": "Omi UI Components.",
   "main": "src/index.js",
+  "module": "src/index.esm.js",
   "scripts": {
     "build": "rollup -c scripts/rollup.config.js"
   },

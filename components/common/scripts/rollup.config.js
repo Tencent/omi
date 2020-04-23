@@ -9,10 +9,10 @@ const licensePlugin = license({
 });
 
 export default {
-  input: "./src/index.js",
+  input: "./src/index.esm.js",
   output: {
     format: "umd",
-    file: "./index.umd.js",
+    file: "./src/index.js",
     name: pkg.name,
     sourcemap: true,
     strict: true
