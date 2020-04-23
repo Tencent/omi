@@ -1,6 +1,5 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
-import '@omiu/common'
 
 interface Props {
 	size?: 'medium' | 'small' | 'mini',
