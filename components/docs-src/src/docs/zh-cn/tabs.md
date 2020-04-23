@@ -54,3 +54,9 @@ import '@omiu/tabs'
   addable: boolean;
 }
 ```
+
+### 事件
+
+* change
+* remove
+* addIconClick

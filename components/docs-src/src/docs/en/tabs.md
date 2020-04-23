@@ -54,3 +54,9 @@ Or use script tag to ref it.
   addable: boolean;
 }
 ```
+
+### Event
+
+* change
+* remove
+* addIconClick
