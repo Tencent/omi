@@ -1,5 +1,4 @@
 import { WeElement } from 'omi';
-import '@omiu/common';
 interface Props {
     type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
     disabled?: boolean;
