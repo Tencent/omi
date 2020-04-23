@@ -1,11 +1,15 @@
 .content{
-    margin-top: 60px;
-    margin-bottom: 30px;
-    margin-left: 260px;
-    padding: 1px 10px 10px 20px;
-    color: #24292e;
-    /* overflow: hidden; */
-    max-width: 900px;
+  position: relative;
+  padding: 70px 30px;
+  max-width: 900px;
+  margin: 0 auto;
+
+}
+
+@media screen and (max-width: 1500px){
+  .content {
+      margin-left: 290px;
+  }
 }
 
 h3{
@@ -21,10 +25,10 @@ li{
     list-style:disc inside ;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
     .content{
         margin-left: 0;
         border-left: none;
-        padding: 1px 10px 10px 10px;
+        padding: 70px 10px 70px 10px;
     }
 }

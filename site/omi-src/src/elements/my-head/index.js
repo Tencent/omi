@@ -29,7 +29,7 @@ define('my-head', class extends WeElement {
         </a>
         <ul class="menu">
           <li class="github_li">
-            <a href={this.store.data.lan === 'en'?'https://tencent.github.io/omi/packages/omim/docs/build/index.html':'https://tencent.github.io/omi/packages/omim/docs/build/cn.html'}>{this.store.data.lan === 'en'?'Omim Docs':'Omim文档'}</a>
+            <a href={this.store.data.lan === 'en'?'https://tencent.github.io/omi/components/docs/':'https://tencent.github.io/omi/components/docs/cn.html'}>{this.store.data.lan === 'en'?'Omiu Docs':'Omiu文档'}</a>
           </li>
           <li style='color:#aaa;'>|</li>
           <li class="github_li">

@@ -6,7 +6,7 @@ iframe{
   position: fixed;
   border: none;
   z-index: 9999;
-  border-left: 2px solid #24292E; 
+  border-left: 2px solid #24292E;
 }
 
 .switch{
@@ -25,17 +25,17 @@ iframe{
 .switch img{
   width: 30px;
   height: 30px;
-  margin-top:5px; 
+  margin-top:5px;
 }
 
 .switch.close img{
-  margin-top:10px; 
+  margin-top:10px;
   width: 20px;
   height: 20px;
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
   iframe{
       width: 100%;
   }
