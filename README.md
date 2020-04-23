@@ -15,7 +15,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
 | [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
 | [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
-| [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] ||
+| [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] | [Link Docs][omiu-link-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
