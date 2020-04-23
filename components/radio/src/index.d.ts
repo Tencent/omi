@@ -1,5 +1,4 @@
 import { WeElement } from 'omi';
-import '@omiu/common';
 interface Props {
     label?: string;
     disabled?: boolean;
