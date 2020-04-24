@@ -127,7 +127,7 @@
 
 			})
 
-			document.querySelector('#filledPanel').addEventListener('click', function (evt) {
+			function handler(evt) {
 				console.log(evt.target.nodeName)
 				var icon
 				switch (evt.target.nodeName.toLowerCase()) {
@@ -156,8 +156,12 @@
 				copy('<script src="https://unpkg.com/@omiu/icon@0.0.2/'+icon+'.js"><\/script> <o-icon-'+icon+'><\/o-icon-'+icon+'>')
 
 				sucAlert('Copied! <script src="https://unpkg.com/@omiu/icon@0.0.2/'+icon+'.js"><\/script> <o-icon-'+icon+'><\/o-icon-'+icon+'>')
-			})
-
+			}
+			document.querySelector('#filledPanel').addEventListener('click', handler)
+			document.querySelector('#outlinedPanel').addEventListener('click', handler)
+			document.querySelector('#roundedPanel').addEventListener('click', handler)
+			document.querySelector('#twoTonePanel').addEventListener('click', handler)
+			document.querySelector('#sharpPanel').addEventListener('click', handler)
 			function sucAlert(msg) {
 				var msgEle  = document.createElement('o-message')
 				msgEle.setAttribute('type', 'success')

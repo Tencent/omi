@@ -11,6 +11,7 @@ const config = {
         title: '基础组件',
         list: [
           { name: 'Button 按钮', md: 'button' },
+          { name: 'Icon 图标', md: 'icon' },
           { name: 'Tabs 选项卡', md: 'tabs' },
           { name: 'Radio 单选框', md: 'radio' },
           { name: 'Link 文字链接', md: 'link' },
@@ -32,6 +33,7 @@ const config = {
         title: 'Base',
         list: [
           { name: 'Button', md: 'button' },
+          { name: 'Icon', md: 'icon' },
           { name: 'Tabs', md: 'tabs' },
           { name: 'Radio', md: 'radio' },
           { name: 'Link', md: 'link' },
