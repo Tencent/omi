@@ -31,7 +31,7 @@ English | [简体中文](./README.CN.md)
 [omiu-icon-github]: https://github.com/Tencent/omi/tree/master/components/icon
 [omiu-icon-status]: https://img.shields.io/npm/v/@omiu/icon.svg
 [omiu-icon-package]: https://www.npmjs.com/package/@omiu/icon
-[omiu-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/link?index=1&subIndex=1
+[omiu-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/icon?index=1&subIndex=1
 [omiu-icon-codepen]: https://tencent.github.io/omi/components/icon/demos/icon.html
 
 [omiu-tabs-github]: https://github.com/Tencent/omi/tree/master/components/tabs
