@@ -10,7 +10,23 @@ interface Props {
 	addable?: boolean
 }
 
+const readyCallbacks = []
+document.addEventListener('DOMContentLoaded', () => {
+	domReady.done = true
+	readyCallbacks.forEach(callback => {
+		callback()
+	})
+})
 
+function domReady(callback) {
+	if (domReady.done) {
+		callback()
+		return
+	}
+	readyCallbacks.push(callback)
+}
+
+domReady.done = false
 
 @tag('o-tabs')
 export default class Tabs extends WeElement<Props>{
@@ -58,6 +74,13 @@ export default class Tabs extends WeElement<Props>{
 		}
 		this.updateProps({
 			activeIndex: index
+		})
+	}
+
+	install() {
+		domReady(() => {
+			this.baseRect = this.rootNode.getBoundingClientRect()
+			this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
 		})
 	}
 

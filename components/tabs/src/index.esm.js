@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.7 http://omijs.org
+ * @omiu/tabs v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -722,6 +722,21 @@ var css = `:host {
 `
 
 
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+domReady.done = false;
 var Tabs = /** @class */ (function (_super) {
     __extends(Tabs, _super);
     function Tabs() {
@@ -753,6 +768,13 @@ var Tabs = /** @class */ (function (_super) {
         }
         this.updateProps({
             activeIndex: index
+        });
+    };
+    Tabs.prototype.install = function () {
+        var _this = this;
+        domReady(function () {
+            _this.baseRect = _this.rootNode.getBoundingClientRect();
+            _this.setActiveBar(_this['$tab' + _this.props.activeIndex], _this.props.activeIndex);
         });
     };
     Tabs.prototype.installed = function () {

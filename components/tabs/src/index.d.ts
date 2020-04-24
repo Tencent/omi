@@ -27,6 +27,7 @@ export default class Tabs extends WeElement<Props> {
     baseRect: any;
     onTabClick: (evt: any, index: any) => void;
     setActiveBar(ele: any, index: any): void;
+    install(): void;
     installed(): void;
     removeTab(index: any): void;
     addTab(tab: any): void;

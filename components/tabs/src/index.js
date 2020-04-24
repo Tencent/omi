@@ -263,6 +263,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+domReady.done = false;
 var Tabs = /** @class */ (function (_super) {
     __extends(Tabs, _super);
     function Tabs() {
@@ -294,6 +309,13 @@ var Tabs = /** @class */ (function (_super) {
         }
         this.updateProps({
             activeIndex: index
+        });
+    };
+    Tabs.prototype.install = function () {
+        var _this = this;
+        domReady(function () {
+            _this.baseRect = _this.rootNode.getBoundingClientRect();
+            _this.setActiveBar(_this['$tab' + _this.props.activeIndex], _this.props.activeIndex);
         });
     };
     Tabs.prototype.installed = function () {
