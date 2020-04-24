@@ -2,6 +2,8 @@
 
 Omiu 是基于 [Omi](https://github.com/Tencent/omi) 开发的跨框架 UI 组件库，输出标准 Web Components 的 Custom Elements，任意组件可以同时在 React、Vue、Preact、Omi 或者原生 JS 等任意框架或无框架中使用，非常方便。总体来看，Omiu 有这些特性:
 
+> [Omiu Codepen 合集](https://codepen.io/collection/XBJjke)
+
 * 跨框架使用
 * 高品质的 UI 交互细节
 * 集成 MUI 海量 ICON 
