@@ -5,6 +5,67 @@
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 <p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omi-kbone) 和 任意前端框架集成</b></p>
 
+## Omiu
+
+> Cross-Frameworks Components powered by Omi
+
+
+| **Name**         | **Status**         | **Example**            | **Docs** |
+| -------------- | ----------|----------- | ----------------|
+| [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
+| [@omiu/icon][omiu-icon-github] | [![omiu-icon-status]][omiu-icon-package]|[Icon Online][omiu-icon-codepen] | [Icon Docs][omiu-icon-docs]|
+| [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
+| [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
+| [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] | [Link Docs][omiu-link-docs]|
+| [@omiu/checkbox][omiu-checkbox-github] | [![omiu-checkbox-status]][omiu-checkbox-package]|[CodePen][omiu-checkbox-codepen] | [Checkbox Docs][omiu-checkbox-docs]|
+| [@omiu/hamburger-menu][omiu-hamburger-menu-github] | [![omiu-hamburger-menu-status]][omiu-hamburger-menu-package]|[CodePen][omiu-hamburger-menu-codepen] | [Hamburger Menu Docs][omiu-hamburger-menu-docs]|
+| Coming... | |  | |
+| Coming... | |  | |
+
+[omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
+[omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
+[omiu-button-package]: https://www.npmjs.com/package/@omiu/button
+[omiu-button-docs]: https://tencent.github.io/omi/components/docs/cn.html#/button?index=1&subIndex=0
+[omiu-button-codepen]: https://codepen.io/omijs/pen/LYppwYG
+
+[omiu-icon-github]: https://github.com/Tencent/omi/tree/master/components/icon
+[omiu-icon-status]: https://img.shields.io/npm/v/@omiu/icon.svg
+[omiu-icon-package]: https://www.npmjs.com/package/@omiu/icon
+[omiu-icon-docs]: https://tencent.github.io/omi/components/docs/cn.html#/icon?index=1&subIndex=1
+[omiu-icon-codepen]: https://tencent.github.io/omi/components/icon/demos/icon.html
+
+[omiu-tabs-github]: https://github.com/Tencent/omi/tree/master/components/tabs
+[omiu-tabs-status]: https://img.shields.io/npm/v/@omiu/tabs.svg
+[omiu-tabs-package]: https://www.npmjs.com/package/@omiu/tabs
+[omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/cn.html#/tabs?index=1&subIndex=2
+[omiu-tabs-codepen]: https://codepen.io/omijs/pen/XWmjyXK
+
+
+[omiu-radio-github]: https://github.com/Tencent/omi/tree/master/components/radio
+[omiu-radio-status]: https://img.shields.io/npm/v/@omiu/radio.svg
+[omiu-radio-package]: https://www.npmjs.com/package/@omiu/radio
+[omiu-radio-docs]: https://tencent.github.io/omi/components/docs/cn.html#/radio?index=1&subIndex=3
+[omiu-radio-codepen]: https://codepen.io/omijs/pen/GRpjapr
+
+
+[omiu-link-github]: https://github.com/Tencent/omi/tree/master/components/link
+[omiu-link-status]: https://img.shields.io/npm/v/@omiu/link.svg
+[omiu-link-package]: https://www.npmjs.com/package/@omiu/link
+[omiu-link-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link?index=1&subIndex=4
+[omiu-link-codepen]: https://codepen.io/omijs/pen/KKdNBaO
+
+[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
+[omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
+[omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
+[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link?index=1&subIndex=5
+[omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
+
+[omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/master/components/hamburger-menu
+[omiu-hamburger-menu-status]: https://img.shields.io/npm/v/@omiu/hamburger-menu.svg
+[omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
+[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link?index=1&subIndex=6
+[omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
+
 ## 快速概览
 
 整个组件树共享数据，并且数据变更自动更新视图。
