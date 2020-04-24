@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Omiu Button</title>
+</head>
+
+<body>
+
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+		<img src="//alloyteam.github.io/github.png" alt="">
+	</a>
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../../common//src/index.js"></script>
+	<script src="../../src/index.js"></script>
+	<script src="../../../icon/ac-unit-outlined.js"></script>
+	<script src="../../../icon/accessible-rounded.js"></script>
+	<style>
+		o-button {
+			margin-top: 10px;
+		}
+
+	</style>
+	<!-- <div>
+		<o-message type="success" center message="复制标签成功 <xx-xx></xx-xx>"></o-message>
+	</div> -->
+
+
+	<script>
+	function sucAlert(msg) {
+		document.body.innerHTML+='	<o-message type="success" center message="'+msg+'"></o-message>'	
+	}
+
+	sucAlert('复制标签成功22 <xx-xx></xx-xx>')
+
+	</script>
+</body>
+
+</html>
