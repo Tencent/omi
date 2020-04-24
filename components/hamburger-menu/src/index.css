@@ -1,0 +1,33 @@
+:host {
+  display: inline-block; }
+
+a {
+  text-decoration: none;
+  cursor: pointer; }
+
+.o-hamburger-menu .fixin {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  background-color: black;
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  margin: 5px 0;
+  width: 26px; }
+
+.o-hamburger-menu.active .top-bun {
+  -moz-transform: rotate(45deg) translate(19%, 250%);
+  -ms-transform: rotate(45deg) translate(19%, 250%);
+  -o-transform: rotate(45deg) translate(19%, 250%);
+  -webkit-transform: rotate(45deg) translate(19%, 250%);
+  transform: rotate(45deg) translate(19%, 250%); }
+
+.o-hamburger-menu.active .patty {
+  opacity: 0; }
+
+.o-hamburger-menu.active .bottom-bun {
+  -moz-transform: rotate(-45deg) translate(19%, -250%);
+  -ms-transform: rotate(-45deg) translate(19%, -250%);
+  -o-transform: rotate(-45deg) translate(19%, -250%);
+  -webkit-transform: rotate(-45deg) translate(19%, -250%);
+  transform: rotate(-45deg) translate(19%, -250%); }
