@@ -1,6 +1,6 @@
 ## Icon  
 
-<iframe height="372" style="width: 100%;" scrolling="no" title="OMIU Link" src="https://tencent.github.io/omi/components/icon/demos/icon.html" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+<iframe height="372" style="width: 100%;" scrolling="yes" title="OMIU Link" src="https://tencent.github.io/omi/components/icon/demos/icon.html" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
 </iframe>
 
 ## Import
