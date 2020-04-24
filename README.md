@@ -16,6 +16,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
 | [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
 | [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] | [Link Docs][omiu-link-docs]|
+| [@omiu/link][omiu-checkbox-github] | [![omiu-checkbox-status]][omiu-checkbox-package]|[CodePen][omiu-checkbox-codepen] | [Checkbox Docs][omiu-checkbox-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -45,6 +46,11 @@ English | [简体中文](./README.CN.md)
 [omiu-link-docs]: https://tencent.github.io/omi/components/docs/index.html#/link?index=1&subIndex=3
 [omiu-link-codepen]: https://codepen.io/omijs/pen/KKdNBaO
 
+[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
+[omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
+[omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
+[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/index.html#/link?index=1&subIndex=4
+[omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
 
 ## Quick Preview
 

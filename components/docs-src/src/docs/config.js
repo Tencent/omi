@@ -13,7 +13,8 @@ const config = {
           { name: 'Button 按钮', md: 'button' },
           { name: 'Tabs 选项卡', md: 'tabs' },
           { name: 'Radio 单选框', md: 'radio' },
-          { name: 'Link 文字链接', md: 'link' }
+          { name: 'Link 文字链接', md: 'link' },
+          { name: 'Checkbox 复选框', md: 'checkbox' }
         ]
       }
 
@@ -31,7 +32,8 @@ const config = {
           { name: 'Button', md: 'button' },
           { name: 'Tabs', md: 'tabs' },
           { name: 'Radio', md: 'radio' },
-          { name: 'Link', md: 'link' }
+          { name: 'Link', md: 'link' },
+          { name: 'Checkbox', md: 'checkbox' }
         ]
       }
     ]
