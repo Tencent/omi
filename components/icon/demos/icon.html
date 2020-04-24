@@ -105,20 +105,20 @@
 		<script src="https://unpkg.com/@omiu/icon@0.0.2/account-balance-rounded.js"></script>
 		<script src="https://unpkg.com/@omiu/icon@0.0.2/account-balance-two-tone.js"></script>
 		<script src="https://unpkg.com/@omiu/icon@0.0.2/account-balance-sharp.js"></script>
-		<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+		<script src="https://unpkg.com/@omiu/message@0.0.2/src/index.js"></script>
 		<script>
 			var hyphenateRE = /\B([A-Z])/g
 			var hyphenate = function (str) {
 				return str.replace(hyphenateRE, '-$1').toLowerCase()
 			}
 
-			document.querySelectorAll('p').forEach(function(p){
+			document.querySelectorAll('p').forEach(function (p) {
 				p.innerText = hyphenate(p.innerText)
 			})
 
 			var panels = document.querySelectorAll('.panel')
 			var currentIndex = 0
-			document.querySelector('o-tabs').addEventListener('change',function(evt){
+			document.querySelector('o-tabs').addEventListener('change', function (evt) {
 				console.log(evt.detail)
 				panels[currentIndex].classList.remove('active')
 
@@ -127,91 +127,104 @@
 
 			})
 
-			document.querySelector('#filledPanel').addEventListener('click',function(evt){
+			document.querySelector('#filledPanel').addEventListener('click', function (evt) {
 				console.log(evt.target.nodeName)
 				var icon
-				switch(evt.target.nodeName.toLowerCase()){
+				switch (evt.target.nodeName.toLowerCase()) {
 					case 'p':
-					icon = evt.target.innerText
-					break;
+						icon = evt.target.innerText
+						break;
 
 					case 'svg':
-					icon = hyphenate(evt.target.getAttribute('title'))
-					break;
+						icon = hyphenate(evt.target.getAttribute('title'))
+						break;
 
 					case 'path':
-					icon = hyphenate(evt.target.parentNode.getAttribute('title'))
-					break;
+						icon = hyphenate(evt.target.parentNode.getAttribute('title'))
+						break;
 
 					case 'circle':
-					icon = hyphenate(evt.target.parentNode.getAttribute('title'))
-					break;
+						icon = hyphenate(evt.target.parentNode.getAttribute('title'))
+						break;
 
 					case 'span':
-					icon = evt.target.childNodes[1].innerText
-					break;
+						icon = evt.target.childNodes[1].innerText
+						break;
 
 				}
 
-				copy(icon)
+				copy('<o-icon-'+icon+'><\/o-icon-'+icon+'>')
+
+				sucAlert('Copied!  <o-icon-'+icon+'><\/o-icon-'+icon+'>')
 			})
 
+			function sucAlert(msg) {
+				var msgEle  = document.createElement('o-message')
+				msgEle.setAttribute('type', 'success')
+				msgEle.setAttribute('center', '')
+				msgEle.setAttribute('message', msg)
+
+				document.body.appendChild(msgEle)
+				//触发 tabs 的bug ！
+				//document.body.innerHTML += '<o-message type="success" center message="' + msg + '"></o-message>'
+			}
+
+
 			function select(element) {
-		var selectedText;
+				var selectedText;
 
-		if (element.nodeName === 'SELECT') {
-			element.focus();
+				if (element.nodeName === 'SELECT') {
+					element.focus();
 
-			selectedText = element.value;
-		}
-		else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-			var isReadOnly = element.hasAttribute('readonly');
+					selectedText = element.value;
+				}
+				else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+					var isReadOnly = element.hasAttribute('readonly');
 
-			if (!isReadOnly) {
-				element.setAttribute('readonly', '');
+					if (!isReadOnly) {
+						element.setAttribute('readonly', '');
+					}
+
+					element.select();
+					element.setSelectionRange(0, element.value.length);
+
+					if (!isReadOnly) {
+						element.removeAttribute('readonly');
+					}
+
+					selectedText = element.value;
+				}
+				else {
+					if (element.hasAttribute('contenteditable')) {
+						element.focus();
+					}
+
+					var selection = window.getSelection();
+					var range = document.createRange();
+
+					range.selectNodeContents(element);
+					selection.removeAllRanges();
+					selection.addRange(range);
+
+					selectedText = selection.toString();
+				}
+
+				return selectedText;
 			}
 
-			element.select();
-			element.setSelectionRange(0, element.value.length);
+			function copy(text) {
+				var ele = document.querySelector('#copyInput')
+				ele.value = text
+				select(ele)
 
-			if (!isReadOnly) {
-				element.removeAttribute('readonly');
+				var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+				ele.style.top = `${yPosition}px`;
+
+
+
+				document.execCommand('copy')
 			}
-
-			selectedText = element.value;
-		}
-		else {
-			if (element.hasAttribute('contenteditable')) {
-				element.focus();
-			}
-
-			var selection = window.getSelection();
-			var range = document.createRange();
-
-			range.selectNodeContents(element);
-			selection.removeAllRanges();
-			selection.addRange(range);
-
-			selectedText = selection.toString();
-		}
-
-		return selectedText;
-	}
-
-	function copy(text) {
-		var ele = document.querySelector('#copyInput')
-		ele.value = text
-		select(ele)
-
-		var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-		ele.style.top = `${yPosition}px`;
-
-
-
-		document.execCommand('copy')
-	}
 
 		</script>
-
 
 	</body></html>
