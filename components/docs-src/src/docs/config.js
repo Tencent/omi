@@ -14,7 +14,9 @@ const config = {
           { name: 'Tabs 选项卡', md: 'tabs' },
           { name: 'Radio 单选框', md: 'radio' },
           { name: 'Link 文字链接', md: 'link' },
-          { name: 'Checkbox 复选框', md: 'checkbox' }
+          { name: 'Checkbox 复选框', md: 'checkbox' },
+          { name: 'Hamburger Menu 汉堡包菜单', md: 'hamburger-menu' }
+
         ]
       }
 
@@ -33,7 +35,8 @@ const config = {
           { name: 'Tabs', md: 'tabs' },
           { name: 'Radio', md: 'radio' },
           { name: 'Link', md: 'link' },
-          { name: 'Checkbox', md: 'checkbox' }
+          { name: 'Checkbox', md: 'checkbox' },
+          { name: 'Hamburger Menu', md: 'hamburger-menu' }
         ]
       }
     ]
