@@ -57,13 +57,13 @@
 [omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
 [omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
 [omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
-[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link?index=1&subIndex=5
+[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/cn.html#/checkbox?index=1&subIndex=5
 [omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
 
 [omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/master/components/hamburger-menu
 [omiu-hamburger-menu-status]: https://img.shields.io/npm/v/@omiu/hamburger-menu.svg
 [omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
-[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link?index=1&subIndex=6
+[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/cn.html#/hamburger-menu?index=1&subIndex=6
 [omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
 
 ## 快速概览
