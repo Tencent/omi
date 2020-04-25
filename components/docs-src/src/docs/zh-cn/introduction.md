@@ -184,6 +184,12 @@ Build 例子:
 npm start
 ```
 
+生成文档:
+
+```bash
+npm run docs
+```
+
 发布:
 
 ```bash

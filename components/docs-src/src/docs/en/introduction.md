@@ -182,6 +182,12 @@ Build Demo:
 npm start 
 ```
 
+Generate the docs:
+
+```bash
+npm run docs
+```
+
 Public to npm:
 
 ```bash
