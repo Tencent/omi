@@ -6,7 +6,7 @@ If you are familiar with TypeScript, you can easily understand these parts of th
 * defaultProps
 * Events
 
-下面举例说明。
+Now, let me show you some examples.
 
 ## Props
 
