@@ -1,6 +1,6 @@
 import { WeElement } from 'omi';
-import '@omiu/common/theme.ts';
 interface Props {
+    value?: string;
     disabled?: boolean;
     type?: string;
     placeholder?: string;
@@ -10,6 +10,7 @@ interface Props {
     prefixIcon?: string;
     maxLength?: number;
     autoComplete?: string;
+    block?: boolean;
 }
 export default class Input extends WeElement<Props> {
     static css: any;
@@ -19,6 +20,7 @@ export default class Input extends WeElement<Props> {
         rows: number;
         trim: boolean;
         autoComplete: string;
+        block: boolean;
     };
     static propTypes: {
         disabled: BooleanConstructor;
@@ -30,9 +32,14 @@ export default class Input extends WeElement<Props> {
         prefixIcon: StringConstructor;
         maxLength: NumberConstructor;
         autoComplete: StringConstructor;
+        block: BooleanConstructor;
     };
     _tempTagName: string;
     valueLength: number;
+    handleBlur: () => void;
+    handleFocus: () => void;
+    handleChange: (evt: any) => void;
+    handleInput: (evt: any) => void;
     clearInput: () => void;
     render(props: any): JSX.Element;
 }

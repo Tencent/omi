@@ -1,16 +1,12 @@
-@import "@omiu/common/theme.scss";
-
 :host {
-  display: inline-block;
-}
+  display: inline-block; }
 
 .o-textarea {
   position: relative;
   display: inline-block;
   width: 100%;
   vertical-align: bottom;
-  font-size: 14px
-}
+  font-size: 14px; }
 
 .o-textarea__inner {
   display: block;
@@ -26,35 +22,28 @@
   background-image: none;
   border: 1px solid #DCDFE6;
   border-radius: 4px;
-  -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-  transition: border-color .2s cubic-bezier(.645, .045, .355, 1)
-}
+  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }
 
 .o-textarea__inner::-webkit-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea__inner:-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea__inner::-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea__inner::placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea__inner:hover {
-  border-color: #C0C4CC
-}
+  border-color: #C0C4CC; }
 
 .o-textarea__inner:focus {
   outline: 0;
-  border-color: $o-primary;
-  border-color: var(--o-primary, $o-primary);
-}
+  border-color: #07c160;
+  border-color: var(--o-primary, #07c160); }
 
 .o-textarea .o-input__count {
   color: #909399;
@@ -62,86 +51,69 @@
   position: absolute;
   font-size: 12px;
   bottom: 5px;
-  right: 10px
-}
+  right: 10px; }
 
 .o-textarea.is-disabled .o-textarea__inner {
   background-color: #F5F7FA;
   border-color: #E4E7ED;
   color: #C0C4CC;
-  cursor: not-allowed
-}
+  cursor: not-allowed; }
 
 .o-textarea.is-disabled .o-textarea__inner::-webkit-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea.is-disabled .o-textarea__inner:-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea.is-disabled .o-textarea__inner::-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea.is-disabled .o-textarea__inner::placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-textarea.is-exceed .o-textarea__inner {
-  border-color: #F56C6C
-}
+  border-color: #F56C6C; }
 
 .o-textarea.is-exceed .o-input__count {
-  color: #F56C6C
-}
+  color: #F56C6C; }
 
 .o-input {
   position: relative;
   font-size: 14px;
   display: inline-block;
-  width: 100%
-}
+  width: 100%; }
 
 .o-input::-webkit-scrollbar {
   z-index: 11;
-  width: 6px
-}
+  width: 6px; }
 
 .o-input::-webkit-scrollbar:horizontal {
-  height: 6px
-}
+  height: 6px; }
 
 .o-input::-webkit-scrollbar-thumb {
   border-radius: 5px;
   width: 6px;
-  background: #b4bccc
-}
+  background: #b4bccc; }
 
 .o-input::-webkit-scrollbar-corner {
-  background: #fff
-}
+  background: #fff; }
 
 .o-input::-webkit-scrollbar-track {
-  background: #fff
-}
+  background: #fff; }
 
 .o-input::-webkit-scrollbar-track-piece {
   background: #fff;
-  width: 6px
-}
+  width: 6px; }
 
 .o-input .o-input__clear {
   color: #C0C4CC;
   font-size: 14px;
   cursor: pointer;
-  -webkit-transition: color .2s cubic-bezier(.645, .045, .355, 1);
-  transition: color .2s cubic-bezier(.645, .045, .355, 1)
-}
+  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }
 
 .o-input .o-input__clear:hover {
-  color: #909399
-}
+  color: #909399; }
 
 .o-input .o-input__count {
   height: 100%;
@@ -152,15 +124,13 @@
   -ms-flex-align: center;
   align-items: center;
   color: #909399;
-  font-size: 12px
-}
+  font-size: 12px; }
 
 .o-input .o-input__count .o-input__count-inner {
   background: #FFF;
   line-height: initial;
   display: inline-block;
-  padding: 0 5px
-}
+  padding: 0 5px; }
 
 .o-input__inner {
   -webkit-appearance: none;
@@ -177,10 +147,9 @@
   line-height: 40px;
   outline: 0;
   padding: 0 15px;
-  -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-  transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-  width: 100%
-}
+  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  width: 100%; }
 
 .o-input__prefix,
 .o-input__suffix {
@@ -189,53 +158,42 @@
   -webkit-transition: all .3s;
   text-align: center;
   height: 100%;
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input__inner::-webkit-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input__inner:-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input__inner::-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input__inner::placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input__inner:hover {
-  border-color: #C0C4CC
-}
+  border-color: #C0C4CC; }
 
 .o-input.is-active .o-input__inner,
 .o-input__inner:focus {
-  border-color: $o-primary;
-  border-color: var(--o-primary, $o-primary);
-  outline: 0
-}
+  border-color: #07c160;
+  border-color: var(--o-primary, #07c160);
+  outline: 0; }
 
 .o-input__suffix {
   right: 5px;
   transition: all .3s;
-  pointer-events: none
-}
+  pointer-events: none; }
 
 .o-input__suffix-inner {
-  pointer-events: all
-}
+  pointer-events: all; }
 
 .o-input__prefix {
   left: 5px;
-  transition: all .3s
-}
+  transition: all .3s; }
 
 .o-input__icon {
-
   position: absolute;
   width: 35px;
   height: 100%;
@@ -244,138 +202,107 @@
   padding-top: 0.215em;
   text-align: center;
   color: #bfcbd9;
-  transition: all .3s;
-}
+  transition: all .3s; }
 
 .o-input--small .o-input__icon,
 .o-input--medium .o-input__icon {
-  padding-top: 0.135em;
-}
+  padding-top: 0.135em; }
 
 .o-input--mini .o-input__icon {
-  padding-top: 0.125em;
-}
+  padding-top: 0.125em; }
 
 .o-input__icon.is-prefix {
-  left: 0;
-}
+  left: 0; }
 
 .o-input.o-input-prefix input {
-  padding-left: 30px;
-}
+  padding-left: 30px; }
 
 .o-input.o-input-suffix input {
-  padding-right: 30px;
-}
-
-
+  padding-right: 30px; }
 
 .o-input__icon:after {
   content: '';
   height: 100%;
   width: 0;
   display: inline-block;
-  vertical-align: middle
-}
+  vertical-align: middle; }
 
 .o-input__validateIcon {
-  pointer-events: none
-}
+  pointer-events: none; }
 
 .o-input.is-disabled .o-input__inner {
   background-color: #F5F7FA;
   border-color: #E4E7ED;
   color: #C0C4CC;
-  cursor: not-allowed
-}
+  cursor: not-allowed; }
 
 .o-input.is-disabled .o-input__inner::-webkit-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input.is-disabled .o-input__inner:-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input.is-disabled .o-input__inner::-ms-input-placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input.is-disabled .o-input__inner::placeholder {
-  color: #C0C4CC
-}
+  color: #C0C4CC; }
 
 .o-input.is-disabled .o-input__icon {
-  cursor: not-allowed
-}
+  cursor: not-allowed; }
 
 .o-input.is-exceed .o-input__inner {
-  border-color: #F56C6C
-}
+  border-color: #F56C6C; }
 
 .o-input.is-exceed .o-input__suffix .o-input__count {
-  color: #F56C6C
-}
+  color: #F56C6C; }
 
 .o-input--suffix .o-input__inner {
-  padding-right: 30px
-}
+  padding-right: 30px; }
 
 .o-input--prefix .o-input__inner {
-  padding-left: 30px
-}
+  padding-left: 30px; }
 
 .o-input--medium {
-  font-size: 14px
-}
+  font-size: 14px; }
 
 .o-input--medium .o-input__inner {
   height: 36px;
-  line-height: 36px
-}
+  line-height: 36px; }
 
 .o-input--medium .o-input__icon {
-  line-height: 36px
-}
+  line-height: 36px; }
 
 .o-input--small {
-  font-size: 13px
-}
+  font-size: 13px; }
 
 .o-input--small .o-input__inner {
   height: 32px;
-  line-height: 32px
-}
+  line-height: 32px; }
 
 .o-input--small .o-input__icon {
-  line-height: 32px
-}
+  line-height: 32px; }
 
 .o-input--mini {
-  font-size: 12px
-}
+  font-size: 12px; }
 
 .o-input--mini .o-input__inner {
   height: 28px;
-  line-height: 28px
-}
+  line-height: 28px; }
 
 .o-input--mini .o-input__icon {
-  line-height: 28px
-}
+  line-height: 28px; }
 
 .o-input-group {
   line-height: normal;
   display: inline-table;
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0
-}
+  border-spacing: 0; }
 
-.o-input-group>.o-input__inner {
+.o-input-group > .o-input__inner {
   vertical-align: middle;
-  display: table-cell
-}
+  display: table-cell; }
 
 .o-input-group__append,
 .o-input-group__prepend {
@@ -388,33 +315,28 @@
   border-radius: 4px;
   padding: 0 20px;
   width: 1px;
-  white-space: nowrap
-}
+  white-space: nowrap; }
 
 .o-input-group--prepend .o-input__inner,
 .o-input-group__append {
   border-top-left-radius: 0;
-  border-bottom-left-radius: 0
-}
+  border-bottom-left-radius: 0; }
 
 .o-input-group--append .o-input__inner,
 .o-input-group__prepend {
   border-top-right-radius: 0;
-  border-bottom-right-radius: 0
-}
+  border-bottom-right-radius: 0; }
 
 .o-input-group__append:focus,
 .o-input-group__prepend:focus {
-  outline: 0
-}
+  outline: 0; }
 
 .o-input-group__append .o-button,
 .o-input-group__append .o-select,
 .o-input-group__prepend .o-button,
 .o-input-group__prepend .o-select {
   display: inline-block;
-  margin: -10px -20px
-}
+  margin: -10px -20px; }
 
 .o-input-group__append button.o-button,
 .o-input-group__append div.o-select .o-input__inner,
@@ -426,34 +348,28 @@
   background-color: transparent;
   color: inherit;
   border-top: 0;
-  border-bottom: 0
-}
+  border-bottom: 0; }
 
 .o-input-group__append .o-button,
 .o-input-group__append .o-input,
 .o-input-group__prepend .o-button,
 .o-input-group__prepend .o-input {
-  font-size: inherit
-}
+  font-size: inherit; }
 
 .o-input-group__prepend {
-  border-right: 0
-}
+  border-right: 0; }
 
 .o-input-group__append {
-  border-left: 0
-}
+  border-left: 0; }
 
 .o-input-group--append .o-select .o-input.is-focus .o-input__inner,
 .o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {
-  border-color: transparent
-}
+  border-color: transparent; }
 
 .o-input__inner::-ms-clear {
   display: none;
   width: 0;
-  height: 0
-}
+  height: 0; }
 
 .o-icon-clear {
   position: absolute;
@@ -465,24 +381,17 @@
   display: none;
   border-radius: 50%;
   width: 1em;
-  height: 1em;
-}
+  height: 1em; }
 
 .o-icon-clear:hover {
-
   background: #b1b4b9;
-  color: white;
-
-
-}
+  color: white; }
 
 .o-input:hover .o-icon-clear {
-	display: block;
-	cursor: pointer;
-}
+  display: block;
+  cursor: pointer; }
 
-.o-input .o-input__count{
-	position: absolute;
-	top:0px;
-	right: 4px;
-}
+.o-input .o-input__count {
+  position: absolute;
+  top: 0px;
+  right: 4px; }

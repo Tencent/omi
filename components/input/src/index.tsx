@@ -1,9 +1,8 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
-//@ts-ignore
-import '@omiu/common/theme.ts'
 
 interface Props {
+	value?: string
 	disabled?: boolean
 	type?: string
 	placeholder?: string
@@ -13,6 +12,7 @@ interface Props {
 	prefixIcon?: string
 	maxLength?: number
 	autoComplete?: string
+	block?: boolean
 }
 
 
@@ -26,7 +26,8 @@ export default class Input extends WeElement<Props>{
 		autosize: false,
 		rows: 2,
 		trim: false,
-		autoComplete: 'off'
+		autoComplete: 'off',
+		block: false
 	}
 
 
@@ -39,14 +40,37 @@ export default class Input extends WeElement<Props>{
 		size: String,
 		prefixIcon: String,
 		maxLength: Number,
-		autoComplete: String
+		autoComplete: String,
+		block: Boolean
 	}
 
 	_tempTagName: string
 	valueLength = 0
 
-	clearInput = () => {
+	handleBlur = () => {
+		this.fire('blur', this.props.value)
+	}
+	handleFocus = () => {
+		this.fire('focus', this.props.value)
+	}
+	handleChange = (evt) => {
 
+		this.props.value = evt.target.value
+		this.fire('change', this.props.value)
+	}
+
+	handleInput = (evt) => {
+		this.props.value = evt.target.value
+		this.fire('change', this.props.value)
+		if (this.props.maxLength) {
+			this.valueLength = evt.target.value.length
+			this.update()
+		}
+	}
+	clearInput = () => {
+		this.updateProps({
+			value: ''
+		})
 	}
 
 	render(props) {
@@ -89,11 +113,13 @@ export default class Input extends WeElement<Props>{
 					type={type}
 					className="o-input__inner"
 					autocomplete={autoComplete}
-				// onChange={this.handleChange.bind(this)}
-				// onFocus={this.handleFocus.bind(this)}
-				// onBlur={this.handleBlur.bind(this)}
+					maxLength={props.maxLength}
+					onChange={this.handleChange}
+					onFocus={this.handleFocus}
+					onBlur={this.handleBlur}
+					onInput={this.handleInput}
 				/>
-				{props.clearable && <svg onClick={_ => { this.clearInput() }} class="o-icon-clear" fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}
+				{props.clearable && <svg onClick={this.clearInput} class="o-icon-clear" fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}
 
 				{props.maxLength && <span class="o-input__count"><span class="o-input__count-inner">
 					{this.valueLength}/{props.maxLength}
