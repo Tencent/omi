@@ -27,7 +27,14 @@ const config = {
         list: [
           { name: 'Tree 树形控件', md: 'tree' }
         ]
+      },
+      {
+        title: '通知',
+        list: [
+          { name: 'Loading 加载', md: 'loading' }
+        ]
       }
+
 
     ],
     en: [
@@ -55,6 +62,12 @@ const config = {
         title: 'Data',
         list: [
           { name: 'Tree', md: 'tree' }
+        ]
+      },
+      {
+        title: 'Notice',
+        list: [
+          { name: 'Loading', md: 'loading' }
         ]
       }
     ]

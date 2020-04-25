@@ -1,0 +1,61 @@
+@import "@omiu/common/theme";
+
+:host {
+  display: inline-block;
+}
+
+.o-root {
+  display: inline-block;
+  line-height: 1;
+  color: $o-primary;
+}
+
+.o-static {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.o-indeterminate {
+  animation: o-rotate 1.4s linear infinite;
+}
+
+.o-circle {
+  stroke: currentColor;
+}
+
+.o-circleStatic {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.o-circleIndeterminate {
+  animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+  animation-name: o-keyframes-mui-progress-circular-dash;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+}
+
+@-webkit-keyframes o-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes o-keyframes-mui-progress-circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px;
+  }
+}
+
+.o-circleDisableShrink {
+  animation: none;
+}

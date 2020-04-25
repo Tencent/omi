@@ -7,6 +7,7 @@ const props = content.match(new RegExp('interface Props \\{[\\s\\S]*?}'))[0].rep
 
 const defaultPropsContext = content.match(new RegExp('static defaultProps = \\{[\\s\\S]*?}'))
 let defaultProps
+
 if (defaultPropsContext) {
 
   defaultProps = defaultPropsContext[0].replace('static defaultProps = ', '').replace(/    /g, '  ').replace(/  }/g, ')')
