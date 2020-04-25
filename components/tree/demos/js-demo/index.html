@@ -2,23 +2,23 @@
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-	<meta charset="UTF-8" />
-	<title>Omiu Tree</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu Tree</title>
 </head>
 
 <body>
 
-	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
-		<img src="//alloyteam.github.io/github.png" alt="">
-	</a>
-	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-	<script src="../../src/index.js"></script>
-	<script src="../../../icon/ac-unit-outlined.js"></script>
-	<script src="../../../icon/accessible-rounded.js"></script>
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/index.js"></script>
+  <script src="../../../icon/ac-unit-outlined.js"></script>
+  <script src="../../../icon/accessible-rounded.js"></script>
 
-	<div>
-		<o-tree style="width:400px;" data=" [{
+  <div>
+    <o-tree style="width:400px;" data=" [{
 			label: '一级 1',
 			expanded: true,
 			selected: true,
@@ -62,8 +62,19 @@
 				}]
 			}]
 		}]"></o-tree>
-	</div>
+  </div>
 
+  <script>
+    const treeEle = document.querySelector('o-tree')
+    treeEle.addEventListener('nodeClick', function (evt) {
+      console.log(evt.detail)
+    })
+
+    treeEle.addEventListener('contextMenu', function (evt) {
+      console.log(evt.detail)
+    })
+
+  </script>
 </body>
 
 </html>

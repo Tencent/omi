@@ -1,5 +1,4 @@
 import { WeElement } from 'omi';
-import '../theme.ts';
 interface Props {
     data?: object;
 }
@@ -11,7 +10,8 @@ export default class Tree extends WeElement<Props> {
     onNodeClick: (evt: any, node: any) => void;
     _tempTagName: string;
     prevSelectedNode: any;
-    onNodeArrowClick: () => void;
+    onNodeArrowClick: (node: any) => void;
+    onContextMenu: (evt: any, node: any) => void;
     renderNode(node: any, level: any): JSX.Element;
     render(props: any): JSX.Element;
 }
