@@ -27,12 +27,12 @@ events.forEach(event => {
   eventMap[event] = 1
 })
 
-const cn = `## ${upperCaseName} 复选框
+const cnContent = `## ${upperCaseName} ${package.docsExtend.cnName}
 
-用于选择多个选项。
+${package.docsExtend.cnDescription}
 
-<iframe height="391" style="width: 100%;" scrolling="no" title="OMIU Checkbox" src="https://codepen.io/omijs/embed/MWapwNZ?height=391&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
-  See the Pen <a href='https://codepen.io/omijs/pen/MWapwNZ'>OMIU Checkbox</a> by OMI
+<iframe height="${package.docsExtend.codepenHeight}" style="width: 100%;" scrolling="no" title="OMIU ${upperCaseName}" src="${package.docsExtend.codepen}?height=${package.docsExtend.codepenHeight}&theme-id=default&default-tab=${package.docsExtend.codepenDefaultTab}" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='${package.docsExtend.codepen}'>OMIU Checkbox</a> by OMI
   (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
@@ -77,7 +77,62 @@ ${Object.keys(eventMap).map(event => {
 }).join('')}
 `
 
-fs.writeFileSync('./xx.md', cn)
-console.log(props)
-console.log(defaultProps)
-console.log(Object.keys(eventMap))
+fs.writeFileSync(`../docs-src/src/docs/zh-cn/${name}.md`, cnContent)
+
+
+
+const enContent = `## ${upperCaseName}
+
+${package.description}
+
+<iframe height="${package.docsExtend.codepenHeight}" style="width: 100%;" scrolling="no" title="OMIU ${upperCaseName}" src="${package.docsExtend.codepen}?height=${package.docsExtend.codepenHeight}&theme-id=default&default-tab=${package.docsExtend.codepenDefaultTab}" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='${package.docsExtend.codepen}'>OMIU Checkbox</a> by OMI
+  (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
+## Import
+
+\`\`\`js
+import '${packageName}'
+\`\`\`
+
+Or use script tag to ref it.
+
+
+\`\`\`html
+<script src="https://unpkg.com/${packageName}"></script>
+\`\`\`
+
+## Usage
+
+\`\`\`html
+<${tagName}> </${tagName}>
+\`\`\`
+
+
+## API
+
+### Props
+
+\`\`\`jsx
+${props}
+\`\`\`
+
+### defaultProps
+
+\`\`\`jsx
+${defaultProps}
+\`\`\`
+
+### Events
+
+${Object.keys(eventMap).map(event => {
+  return `* ${event}\n`
+}).join('')}
+`
+
+
+fs.writeFileSync(`../docs-src/src/docs/en/${name}.md`, enContent)
+// console.log(props)
+// console.log(defaultProps)
+// console.log(Object.keys(eventMap))

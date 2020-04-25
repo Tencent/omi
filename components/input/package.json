@@ -1,7 +1,14 @@
 {
   "name": "@omiu/input",
   "version": "0.0.2",
-  "description": "Omi UI Components.",
+  "description": "Generally used to input information and submit it to the server.",
+  "docsExtend": {
+    "cnName": "输入框",
+    "cnDescription": "一般用于输入信息提交给服务器。",
+    "codepen": "https://codepen.io/omijs/pen/yLYMGqa",
+    "codepenHeight": 391,
+    "codepenDefaultTab": "html,css,result"
+  },
   "main": "src/index.js",
   "module": "src/index.esm.js",
   "types": "src/index.d.ts",
@@ -81,12 +88,6 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omim.min.js",
-      "threshold": "4Kb"
-    }
-  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,
