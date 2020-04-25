@@ -19,6 +19,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] | [Link Docs][omiu-link-docs]|
 | [@omiu/checkbox][omiu-checkbox-github] | [![omiu-checkbox-status]][omiu-checkbox-package]|[CodePen][omiu-checkbox-codepen] | [Checkbox Docs][omiu-checkbox-docs]|
 | [@omiu/hamburger-menu][omiu-hamburger-menu-github] | [![omiu-hamburger-menu-status]][omiu-hamburger-menu-package]|[CodePen][omiu-hamburger-menu-codepen] | [Hamburger Menu Docs][omiu-hamburger-menu-docs]|
+| [@omiu/input][omiu-input-github] | [![omiu-input-status]][omiu-input-package]|[CodePen][omiu-input-codepen] | [Input Docs][omiu-input-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -65,6 +66,12 @@ English | [简体中文](./README.CN.md)
 [omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
 [omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/index.html#/hamburger-menu?index=1&subIndex=6
 [omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
+
+[omiu-input-github]: https://github.com/Tencent/omi/tree/master/components/input
+[omiu-input-status]: https://img.shields.io/npm/v/@omiu/input.svg
+[omiu-input-package]: https://www.npmjs.com/package/@omiu/input
+[omiu-input-docs]: https://tencent.github.io/omi/components/docs/index.html#/input?index=1&subIndex=7
+[omiu-input-codepen]: https://codepen.io/omijs/pen/yLYMGqa
 
 ## Quick Preview
 
