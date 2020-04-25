@@ -87,7 +87,8 @@ export default class Input extends WeElement<Props>{
 						[`o-input--${size}`]: props.size,
 						'is-disabled': this.props.disabled,
 						'o-input-suffix': suffixIcon,
-						'o-input-prefix': prefixIcon
+						'o-input-prefix': prefixIcon,
+						'is-block': props.block
 					}
 				)
 			} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

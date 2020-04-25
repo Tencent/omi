@@ -71,6 +71,9 @@ function __decorate(decorators, target, key, desc) {
 var css = `:host {
   display: inline-block; }
 
+:host([block]) {
+  display: block; }
+
 .o-textarea {
   position: relative;
   display: inline-block;
@@ -465,6 +468,10 @@ var css = `:host {
   position: absolute;
   top: 0px;
   right: 4px; }
+
+.o-input.is-block {
+  display: block;
+  width: 100%; }
 `
 
 
@@ -507,6 +514,7 @@ var Input = /** @class */ (function (_super) {
             _a['is-disabled'] = this.props.disabled,
             _a['o-input-suffix'] = suffixIcon,
             _a['o-input-prefix'] = prefixIcon,
+            _a['is-block'] = props.block,
             _a)), { onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave }),
             (prefixIcon || suffixIcon) && h(this._tempTagName, __assign({ css: "svg{\n\t\t\t\t\t\twidth: 1em;\n\t\t\t\t\t}" }, extractClass(props, 'o-input__icon', {
                 'is-prefix': prefixIcon,

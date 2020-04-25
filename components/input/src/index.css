@@ -1,6 +1,9 @@
 :host {
   display: inline-block; }
 
+:host([block]) {
+  display: block; }
+
 .o-textarea {
   position: relative;
   display: inline-block;
@@ -395,3 +398,7 @@
   position: absolute;
   top: 0px;
   right: 4px; }
+
+.o-input.is-block {
+  display: block;
+  width: 100%; }
