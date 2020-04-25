@@ -1,5 +1,5 @@
 /**
- * Omi v6.17.3  http://omijs.org
+ * Omi v6.17.4  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -23,7 +23,10 @@ var options = {
   store: null,
   root: getGlobal(),
   mapping: {},
-  isMultiStore: false
+  isMultiStore: false,
+  //when set true, using props of hypescript, don't use getAttribute
+  //if you render all the node tree by omi self, set it
+  ignoreAttrs: false
 };
 
 /**
@@ -1022,8 +1025,8 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+    if (options.ignoreAttrs || ignoreAttrs) return;
     var ele = this;
-    if (ele.normalizedNodeName || ignoreAttrs) return;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
     if (!attrs) return;
@@ -1837,7 +1840,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.17.3';
+options.root.Omi.version = '6.17.4';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

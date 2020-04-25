@@ -130,7 +130,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function(item) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -229,8 +229,8 @@ export default class WeElement extends HTMLElement {
   }
 
   attrsToProps(ignoreAttrs) {
+    if (options.ignoreAttrs || ignoreAttrs) return
     const ele = this
-    if (ele.normalizedNodeName || ignoreAttrs) return
     ele.props['css'] = ele.getAttribute('css')
     const attrs = this.constructor.propTypes
     if (!attrs) return
@@ -287,23 +287,23 @@ export default class WeElement extends HTMLElement {
     )
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 }

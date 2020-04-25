@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.17.3",
+  "version": "6.17.4",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -60,7 +60,7 @@
   "bugs": {
     "url": "https://github.com/Tencent/omi/issues"
   },
-  "homepage": "https://github.com/Tencent/omi",
+  "homepage": "http://omijs.org/",
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^5.0.0",
@@ -136,12 +136,10 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omi.min.js",
-      "threshold": "4Kb"
-    }
-  ],
+  "bundlesize": [{
+    "path": "./dist/omi.min.js",
+    "threshold": "4Kb"
+  }],
   "prettier": {
     "singleQuote": true,
     "semi": false,

@@ -600,7 +600,8 @@
             }(); else return global;
         }(),
         mapping: {},
-        isMultiStore: !1
+        isMultiStore: !1,
+        ignoreAttrs: !1
     };
     !function() {
         if (void 0 !== window.Reflect && void 0 !== window.customElements && !window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
@@ -766,8 +767,8 @@
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
         WeElement.prototype.attrsToProps = function(ignoreAttrs) {
-            var ele = this;
-            if (!ele.normalizedNodeName && !ignoreAttrs) {
+            if (!options.ignoreAttrs && !ignoreAttrs) {
+                var ele = this;
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
                 if (attrs) Object.keys(attrs).forEach(function(key) {
@@ -1070,7 +1071,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.17.3';
+    options.root.Omi.version = '6.17.4';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -9,7 +9,7 @@ function getGlobal() {
       self ||
       window ||
       global ||
-      (function() {
+      (function () {
         return this
       })()
     )
@@ -25,5 +25,8 @@ export default {
   store: null,
   root: getGlobal(),
   mapping: {},
-  isMultiStore: false
+  isMultiStore: false,
+  //when set true, using props of hypescript, don't use getAttribute
+  //if you render all the node tree by omi self, set it
+  ignoreAttrs: false
 }
