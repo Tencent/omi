@@ -935,7 +935,10 @@ npm run test
         <td><a target="_blank" href="https://github.com/aolu11"><img width="60px" src="https://avatars2.githubusercontent.com/u/1127488?s=60&amp;v=4"></a></td>
         </tr></tbody></table>
 
-Welcome to contribute together.
+Any form of contribution is welcome. The above contributors have been officially released by Tencent.
+
+We very much welcome developers to contribute to Tencent's open source, and we will also give them incentives to acknowledge and thank them. Here we provide an official description of Tencent's open source contribution. Specific contribution rules for each project are formulated by the project team. Developers can choose the appropriate project and participate according to the corresponding rules. The Tencent Project Management Committee will report regularly to qualified contributors and awards will be issued by the official contact.
+
 
 ## Design philosophy
 
