@@ -21,6 +21,12 @@ const config = {
           { name: 'Input 输入框', md: 'input' }
 
         ]
+      },
+      {
+        title: '数据',
+        list: [
+          { name: 'Tree 树形控件', md: 'tree' }
+        ]
       }
 
     ],
@@ -43,6 +49,12 @@ const config = {
           { name: 'Checkbox', md: 'checkbox' },
           { name: 'Hamburger Menu', md: 'hamburger-menu' },
           { name: 'Input', md: 'input' }
+        ]
+      },
+      {
+        title: 'Data',
+        list: [
+          { name: 'Tree', md: 'tree' }
         ]
       }
     ]

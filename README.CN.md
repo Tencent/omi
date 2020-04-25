@@ -74,6 +74,13 @@
 [omiu-input-docs]: https://tencent.github.io/omi/components/docs/cn.html#/input?index=1&subIndex=7
 [omiu-input-codepen]: https://codepen.io/omijs/pen/yLYMGqa
 
+[omiu-tree-github]: https://github.com/Tencent/omi/tree/master/components/tree
+[omiu-tree-status]: https://img.shields.io/npm/v/@omiu/tree.svg
+[omiu-tree-package]: https://www.npmjs.com/package/@omiu/tree
+[omiu-tree-docs]: https://tencent.github.io/omi/components/docs/cn.html#/tree?index=2&subIndex=0
+[omiu-tree-codepen]: https://codepen.io/omijs/pen/yLYMrdg
+
+
 ## 快速概览
 
 整个组件树共享数据，并且数据变更自动更新视图。

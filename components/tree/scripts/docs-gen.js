@@ -107,7 +107,7 @@ Or use script tag to ref it.
 ## Usage
 
 \`\`\`html
-<${tagName}> </${tagName}>
+<${tagName}></${tagName}>
 \`\`\`
 
 ## API

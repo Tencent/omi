@@ -2,8 +2,8 @@
 
 Components that show tree nested data structures.
 
-<iframe height="391" style="width: 100%;" scrolling="no" title="OMIU Tree" src="https://codepen.io/omijs/embed/yLYMGqa?height=391&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
-  See the Pen <a href='https://codepen.io/omijs/pen/yLYMGqa'>OMIU Checkbox</a> by OMI
+<iframe height="391" style="width: 100%;" scrolling="no" title="OMIU Tree" src="https://codepen.io/omijs/embed/yLYMrdg?height=391&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='https://codepen.io/omijs/pen/yLYMrdg'>OMIU Checkbox</a> by OMI
   (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
@@ -23,7 +23,7 @@ Or use script tag to ref it.
 ## Usage
 
 ```html
-<o-tree> </o-tree>
+<o-tree></o-tree>
 ```
 
 ## API
