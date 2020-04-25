@@ -2,164 +2,164 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 
 interface Props {
-	list?: any[]
-	activeIndex: number
-	type?: 'card' | 'border-card'
-	position?: 'left' | 'right' | 'top' | 'bottom'
-	closable?: boolean
-	addable?: boolean
+  list?: any[]
+  activeIndex: number
+  type?: 'card' | 'border-card'
+  position?: 'left' | 'right' | 'top' | 'bottom'
+  closable?: boolean
+  addable?: boolean
 }
 
 const readyCallbacks = []
 document.addEventListener('DOMContentLoaded', () => {
-	domReady.done = true
-	readyCallbacks.forEach(callback => {
-		callback()
-	})
+  domReady.done = true
+  readyCallbacks.forEach(callback => {
+    callback()
+  })
 })
 
 function domReady(callback) {
-	if (domReady.done) {
-		callback()
-		return
-	}
-	readyCallbacks.push(callback)
+  if (domReady.done) {
+    callback()
+    return
+  }
+  readyCallbacks.push(callback)
 }
 
 domReady.done = false
 
 @tag('o-tabs')
 export default class Tabs extends WeElement<Props>{
-	static css = css
+  static css = css
 
-	static defaultProps = {
-		position: 'top',
-		closable: false,
-		addable: false
-	}
+  static defaultProps = {
+    position: 'top',
+    closable: false,
+    addable: false
+  }
 
-	static propTypes = {
-		list: Array,
-		activeIndex: Number,
-		type: String,
-		position: String,
-		closable: Boolean,
-		addable: Boolean
-	}
+  static propTypes = {
+    list: Array,
+    activeIndex: Number,
+    type: String,
+    position: String,
+    closable: Boolean,
+    addable: Boolean
+  }
 
-	_x
-	_width
-	baseRect
-	onTabClick = (evt, index) => {
-		this.setActiveBar(evt.currentTarget, index)
-		this.fire('change', {
-			tab: this.props.list[index],
-			index: index
-		})
-	}
+  _x
+  _width
+  baseRect
+  onTabClick = (evt, index) => {
+    this.setActiveBar(evt.currentTarget, index)
+    this.fire('change', {
+      tab: this.props.list[index],
+      index: index
+    })
+  }
 
-	setActiveBar(ele, index) {
-		const rect = ele.getBoundingClientRect()
-		this._x = rect.left - this.baseRect.left
-		this._width = rect.width
-		if (index === 0) {
-			this._x = 0
-			this._width -= 20
-		} else if (index === this.props.list.length - 1) {
-			this._x += 20
-			this._width -= 20
-		} else {
-			this._x += 20
-			this._width -= 40
-		}
-		this.updateProps({
-			activeIndex: index
-		})
-	}
+  setActiveBar(ele, index) {
+    const rect = ele.getBoundingClientRect()
+    this._x = rect.left - this.baseRect.left
+    this._width = rect.width
+    if (index === 0) {
+      this._x = 0
+      this._width -= 20
+    } else if (index === this.props.list.length - 1) {
+      this._x += 20
+      this._width -= 20
+    } else {
+      this._x += 20
+      this._width -= 40
+    }
+    this.updateProps({
+      activeIndex: index
+    })
+  }
 
-	install() {
-		domReady(() => {
-			this.baseRect = this.rootNode.getBoundingClientRect()
-			this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
-		})
-	}
+  install() {
+    domReady(() => {
+      this.baseRect = this.rootNode.getBoundingClientRect()
+      this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
+    })
+  }
 
-	installed() {
-		this.baseRect = this.rootNode.getBoundingClientRect()
-		this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
-	}
+  installed() {
+    this.baseRect = this.rootNode.getBoundingClientRect()
+    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
+  }
 
-	removeTab(index) {
-		const tab = this.props.list.splice(index, 1)[0]
-		this.forceUpdate()
-		this.fire('remove', {
-			tab: tab,
-			index: index
-		})
-	}
+  removeTab(index) {
+    const tab = this.props.list.splice(index, 1)[0]
+    this.forceUpdate()
+    this.fire('remove', {
+      tab: tab,
+      index: index
+    })
+  }
 
-	addTab(tab) {
-		this.props.list.push(tab)
-		this.forceUpdate()
-	}
+  addTab(tab) {
+    this.props.list.push(tab)
+    this.forceUpdate()
+  }
 
-	onAddIconClick() {
-		this.fire('addIconClick')
-	}
+  onAddIconClick() {
+    this.fire('addIconClick')
+  }
 
-	_tempTagName: string
+  _tempTagName: string
 
-	render(props) {
+  render(props) {
 
-		const activeBarStyle = (props.position === 'left' || props.position === 'right') ? {
-			height: `40px`,
-			transform: `translateY(${props.activeIndex * 40}px)`
-		} : {
-				width: `${this._width}px`,
-				transform: `translateX(${this._x}px)`
-			}
+    const activeBarStyle = (props.position === 'left' || props.position === 'right') ? {
+      height: `40px`,
+      transform: `translateY(${props.activeIndex * 40}px)`
+    } : {
+        width: `${this._width}px`,
+        transform: `translateX(${this._x}px)`
+      }
 
-		return (
-			<div {...extractClass(props, 'o-tabs', {
-				[`o-tabs--${props.position}`]: props.position,
-				[`o-tabs--${props.type}`]: props.type
-			})}>
-				<div class={classNames('o-tabs__header', {
-					[`is-${props.position}`]: props.position
-				})} >
-					<div class={classNames('o-tabs__nav-wrap', {
-						[`is-${props.position}`]: props.position
-					})}	>
-						<div class="o-tabs__nav-scroll">
-							<div role="tablist" class={classNames('o-tabs__nav', {
-								[`is-${props.position}`]: props.position
-							})} >
-								{!props.type && <div
-									class={classNames('o-tabs__active-bar', {
-										[`is-${props.position}`]: props.position
-									})} style={activeBarStyle}></div>}
+    return (
+      <div {...extractClass(props, 'o-tabs', {
+        [`o-tabs--${props.position}`]: props.position,
+        [`o-tabs--${props.type}`]: props.type
+      })}>
+        <div class={classNames('o-tabs__header', {
+          [`is-${props.position}`]: props.position
+        })} >
+          <div class={classNames('o-tabs__nav-wrap', {
+            [`is-${props.position}`]: props.position
+          })}  >
+            <div class="o-tabs__nav-scroll">
+              <div role="tablist" class={classNames('o-tabs__nav', {
+                [`is-${props.position}`]: props.position
+              })} >
+                {!props.type && <div
+                  class={classNames('o-tabs__active-bar', {
+                    [`is-${props.position}`]: props.position
+                  })} style={activeBarStyle}></div>}
 
-								{props.list.map((tab, index) => {
-									this._tempTagName = 'o-icon-' + tab.icon
-									return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
-										{...extractClass(props, 'o-tabs__item', {
-											[`is-${props.position}`]: props.position,
-											'is-active': props.activeIndex === index,
-											'is-closable': props.closable
-										})}
-									>{tab.icon && <this._tempTagName />}{tab.label}{props.closable && <svg onClick={_ => { this.removeTab(index) }} class="o-icon-close" style={props.activeIndex === index && `visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
-								})}
+                {props.list.map((tab, index) => {
+                  this._tempTagName = 'o-icon-' + tab.icon
+                  return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
+                    {...extractClass(props, 'o-tabs__item', {
+                      [`is-${props.position}`]: props.position,
+                      'is-active': props.activeIndex === index,
+                      'is-closable': props.closable
+                    })}
+                  >{tab.icon && <this._tempTagName />}{tab.label}{props.closable && <svg onClick={_ => { this.removeTab(index) }} class="o-icon-close" style={props.activeIndex === index && `visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
+                })}
 
-							</div>
+              </div>
 
-							{props.addable && <svg class="o-icon-add" fill="currentColor" width="1em" height="1em" focusable="false"
-								viewBox="0 0 24 24" aria-hidden="true"
-								onClick={this.onAddIconClick}
-							><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>}
-						</div>
-					</div>
-				</div>
-			</div>
-		)
-	}
+              {props.addable && <svg class="o-icon-add" fill="currentColor" width="1em" height="1em" focusable="false"
+                viewBox="0 0 24 24" aria-hidden="true"
+                onClick={this.onAddIconClick}
+              ><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }

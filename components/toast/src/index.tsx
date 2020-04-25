@@ -4,33 +4,33 @@ import * as css from './index.scss'
 import '../theme.ts'
 
 interface Props {
-	label?: string,
-	loading?: boolean,
-	done?: boolean
+  label?: string,
+  loading?: boolean,
+  done?: boolean
 }
 
 
 
 @tag('o-toast')
 export default class Button extends WeElement<Props>{
-	static css = css
+  static css = css
 
-	static propTypes = {
-		label: String,
-		loading: Boolean,
-		done: Boolean
-	}
+  static propTypes = {
+    label: String,
+    loading: Boolean,
+    done: Boolean
+  }
 
-	render(props) {
+  render(props) {
 
-		return [
-			<div class="o-mask-transparent"></div>,
-			<div class="o-toast">
-				<slot />
-				{props.loading && <i class="o-loading"></i>}
-				{props.done && <i class="o-done"></i>}
-				<p class="o-toast-content">{props.label}</p>
-			</div>
-		]
-	}
+    return [
+      <div class="o-mask-transparent"></div>,
+      <div class="o-toast">
+        <slot />
+        {props.loading && <i class="o-loading"></i>}
+        {props.done && <i class="o-done"></i>}
+        <p class="o-toast-content">{props.label}</p>
+      </div>
+    ]
+  }
 }
