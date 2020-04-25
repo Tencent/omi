@@ -63,6 +63,7 @@ export default class Tree extends WeElement<Props>{
           return this.renderNode(child, level + 1)
         })}
       </div>}
+      {node.sign && <span class="sign">{node.sign}</span>}
     </div>
   }
 

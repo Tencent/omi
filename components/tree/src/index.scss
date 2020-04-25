@@ -546,7 +546,8 @@
 
 .o-tree-node {
   white-space: nowrap;
-  outline: 0
+  outline: 0;
+  position: relative;
 }
 
 .o-tree-node:focus>.o-tree-node__content {
@@ -639,4 +640,12 @@
 .o-tree-node.is-current>.o-tree-node__content {
   background-color: $o-primary-fade-more;
   background-color: var(--o-primary-fade-more, $o-primary-fade-more);
+}
+
+
+.sign {
+  position: absolute;
+  font-size: 10px;
+  top: 4px;
+  right: 4px;
 }

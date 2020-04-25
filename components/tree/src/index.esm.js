@@ -519,7 +519,8 @@ var css = `:host {
 
 .o-tree-node {
   white-space: nowrap;
-  outline: 0; }
+  outline: 0;
+  position: relative; }
 
 .o-tree-node:focus > .o-tree-node__content {
   background-color: #F5F7FA; }
@@ -591,6 +592,12 @@ var css = `:host {
 .o-tree-node.is-current > .o-tree-node__content {
   background-color: rgba(7, 193, 96, 0.241);
   background-color: var(--o-primary-fade-more, rgba(7, 193, 96, 0.241)); }
+
+.sign {
+  position: absolute;
+  font-size: 10px;
+  top: 4px;
+  right: 4px; }
 `
 
 
@@ -640,7 +647,8 @@ var Tree = /** @class */ (function (_super) {
                     node.label)),
             node.expanded && node.children && node.children.length > 0 && h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
                 return _this.renderNode(child, level + 1);
-            })));
+            })),
+            node.sign && h("span", { class: "sign" }, node.sign));
     };
     Tree.prototype.render = function (props) {
         var _this = this;

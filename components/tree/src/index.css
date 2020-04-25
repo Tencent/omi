@@ -461,7 +461,8 @@
 
 .o-tree-node {
   white-space: nowrap;
-  outline: 0; }
+  outline: 0;
+  position: relative; }
 
 .o-tree-node:focus > .o-tree-node__content {
   background-color: #F5F7FA; }
@@ -533,3 +534,9 @@
 .o-tree-node.is-current > .o-tree-node__content {
   background-color: rgba(7, 193, 96, 0.241);
   background-color: var(--o-primary-fade-more, rgba(7, 193, 96, 0.241)); }
+
+.sign {
+  position: absolute;
+  font-size: 10px;
+  top: 4px;
+  right: 4px; }

@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Components that show tree nested data structures.",
   "docsExtend": {
-    "cnName": "输入框",
+    "cnName": "树形控件",
     "cnDescription": "展示树形嵌套数据结构的组件。",
-    "codepen": "yLYMGqa",
+    "codepen": "yLYMrdg",
     "codepenHeight": 391,
     "codepenDefaultTab": "html,result"
   },
