@@ -5,9 +5,9 @@
   "docsExtend": {
     "cnName": "输入框",
     "cnDescription": "一般用于输入信息提交给服务器。",
-    "codepen": "https://codepen.io/omijs/pen/yLYMGqa",
+    "codepen": "yLYMGqa",
     "codepenHeight": 391,
-    "codepenDefaultTab": "html,css,result"
+    "codepenDefaultTab": "html,result"
   },
   "main": "src/index.js",
   "module": "src/index.esm.js",

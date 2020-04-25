@@ -31,8 +31,8 @@ const cnContent = `## ${upperCaseName} ${package.docsExtend.cnName}
 
 ${package.docsExtend.cnDescription}
 
-<iframe height="${package.docsExtend.codepenHeight}" style="width: 100%;" scrolling="no" title="OMIU ${upperCaseName}" src="${package.docsExtend.codepen}?height=${package.docsExtend.codepenHeight}&theme-id=default&default-tab=${package.docsExtend.codepenDefaultTab}" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
-  See the Pen <a href='${package.docsExtend.codepen}'>OMIU Checkbox</a> by OMI
+<iframe height="${package.docsExtend.codepenHeight}" style="width: 100%;" scrolling="no" title="OMIU ${upperCaseName}" src="https://codepen.io/omijs/embed/${package.docsExtend.codepen}?height=${package.docsExtend.codepenHeight}&theme-id=default&default-tab=${package.docsExtend.codepenDefaultTab}" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='https://codepen.io/omijs/pen/${package.docsExtend.codepen}'>OMIU Checkbox</a> by OMI
   (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
@@ -85,8 +85,8 @@ const enContent = `## ${upperCaseName}
 
 ${package.description}
 
-<iframe height="${package.docsExtend.codepenHeight}" style="width: 100%;" scrolling="no" title="OMIU ${upperCaseName}" src="${package.docsExtend.codepen}?height=${package.docsExtend.codepenHeight}&theme-id=default&default-tab=${package.docsExtend.codepenDefaultTab}" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
-  See the Pen <a href='${package.docsExtend.codepen}'>OMIU Checkbox</a> by OMI
+<iframe height="${package.docsExtend.codepenHeight}" style="width: 100%;" scrolling="no" title="OMIU ${upperCaseName}" src="https://codepen.io/omijs/embed/${package.docsExtend.codepen}?height=${package.docsExtend.codepenHeight}&theme-id=default&default-tab=${package.docsExtend.codepenDefaultTab}" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='https://codepen.io/omijs/pen/${package.docsExtend.codepen}'>OMIU Checkbox</a> by OMI
   (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
