@@ -49,13 +49,13 @@ Or use script tag to ref it.
 
 ```jsx
 {
-  position: string;
-  closable: boolean;
-  addable: boolean;
+  position: 'top',
+  closable: false,
+  addable: false
 }
 ```
 
-### Event
+### Events
 
 * change
 * remove

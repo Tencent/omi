@@ -22,3 +22,20 @@ Or use script tag to ref it.
 <o-icon-accessibility></o-icon-accessibility>
 ```
 
+## Related links
+
+* [material icon search](https://material-ui.com/zh/components/material-icons/) 
+
+Converting upper case to middle dash is the corresponding omiu component. Such as `@material-ui/icons/AccessAlarm`, the omiu element is:
+
+```js
+import '@omiu/icon/access-alarm'
+```
+
+Using in html:
+
+```html
+<o-icon-access-alarm></o-icon-access-alarm>
+```
+
+So Easy!

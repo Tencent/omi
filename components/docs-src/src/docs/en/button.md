@@ -49,13 +49,13 @@ Or use script tag to ref it.
 
 ```jsx
 {
-  plain: boolean;
-  round: boolean;
-  circle: boolean;
-  loading: boolean;
-  disabled: boolean;
-  autofocus: boolean;
-  nativeType: string;
-  block: boolean;
+  plain: false,
+  round: false,
+  circle: false,
+  loading: false,
+  disabled: false,
+  autofocus: false,
+  nativeType: 'button',
+  block: false
 }
 ```

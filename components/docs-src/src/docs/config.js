@@ -4,7 +4,8 @@ const config = {
       {
         title: 'OMIU',
         list: [
-          { name: '简介', md: 'introduction' }
+          { name: '简介', md: 'introduction' },
+          { name: '文档解释', md: 'doc-explanation' }
         ]
       },
       {
@@ -26,7 +27,8 @@ const config = {
       {
         title: 'OMIU',
         list: [
-          { name: 'Introduction', md: 'introduction' }
+          { name: 'Introduction', md: 'introduction' },
+          { name: 'Explanation', md: 'doc-explanation' }
         ]
       },
       {

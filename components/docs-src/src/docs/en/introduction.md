@@ -6,7 +6,7 @@ Omiu is a cross framework UI component library developed based on [OMI](https://
 
 * Cross frameworks 
 * High quality UI interaction details
-* Integrated all the MUI Icon
+* Integrated [all the MUI Icon](https://tencent.github.io/omi/components/icon/demos/icon.html)
 * Mobile terminal and PC share one set of components
 * Theme switching support at runtime (color, font, and fillets)
 * Components directly decoupled, independently polished, independently released, independently quoted
@@ -188,20 +188,4 @@ Public to npm:
 npm publish --access public
 ```
 
-## Related links
 
-* [material icon search](https://material-ui.com/zh/components/material-icons/) 
-
-Converting upper case to middle dash is the corresponding omiu component. Such as `@material-ui/icons/AccessAlarm`, the omiu element is:
-
-```js
-import '@omiu/icon/access-alarm'
-```
-
-Using in html:
-
-```html
-<o-icon-access-alarm></o-icon-access-alarm>
-```
-
-So Easy!

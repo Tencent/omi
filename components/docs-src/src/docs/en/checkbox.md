@@ -41,6 +41,6 @@ Or use script tag to ref it.
 }
 ```
 
-### Event
+### Events
 
 * change

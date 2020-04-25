@@ -6,7 +6,7 @@ Omiu 是基于 [Omi](https://github.com/Tencent/omi) 开发的跨框架 UI 组�
 
 * 跨框架使用
 * 高品质的 UI 交互细节
-* 集成 MUI 海量 ICON 
+* 集成 MUI [海量 ICON](https://tencent.github.io/omi/components/icon/demos/icon.html)
 * 移动端和 PC 共用一套组件
 * 运行时的主题切换支持(颜色、字体和圆角)
 * 组件直接解耦，独立打磨，独立发布，独立引用
@@ -189,21 +189,3 @@ npm start
 ```bash
 npm publish --access public
 ```
-
-## 相关链接
-
-* [material icon 搜索](https://material-ui.com/zh/components/material-icons/) 
-
-把大写转成中划线就是对应的 omiu 组件。比如 `@material-ui/icons/AccessAlarm`，对应的就是
-
-```js
-import '@omiu/icon/access-alarm'
-```
-
-在 HTML 里就可以使用:
-
-```html
-<o-icon-access-alarm></o-icon-access-alarm>
-```
-
-是不是很方便！

@@ -24,3 +24,20 @@ import '@omiu/icon/accessibility'
 <o-icon-accessibility></o-icon-accessibility>
 ```
 
+## 相关链接
+
+* [material icon 搜索](https://material-ui.com/zh/components/material-icons/) 
+
+把大写转成中划线就是对应的 omiu 组件。比如 `@material-ui/icons/AccessAlarm`，对应的就是
+
+```js
+import '@omiu/icon/access-alarm'
+```
+
+在 HTML 里就可以使用:
+
+```html
+<o-icon-access-alarm></o-icon-access-alarm>
+```
+
+是不是很方便！

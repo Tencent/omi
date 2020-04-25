@@ -49,9 +49,9 @@ import '@omiu/tabs'
 
 ```jsx
 {
-  position: string;
-  closable: boolean;
-  addable: boolean;
+  position: 'top',
+  closable: false,
+  addable: false
 }
 ```
 
