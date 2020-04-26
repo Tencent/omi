@@ -7,8 +7,7 @@ English | [简体中文](./README.CN.md)
 
 ## Omiu
 
-> Cross-Frameworks Components powered by Omi
-
+> Cross-Frameworks and [Cross-Themes](https://tencent.github.io/omi/components/docs/#/theme?index=0&subIndex=1) UI Components powered by Omi
 
 | **Name**         | **Status**         | **Example**            | **Docs** |
 | -------------- | ----------|----------- | ----------------|
