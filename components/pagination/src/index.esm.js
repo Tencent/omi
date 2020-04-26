@@ -1,5 +1,5 @@
 /**
- * @omiu/pagination v0.0.1 http://omijs.org
+ * @omiu/pagination v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
