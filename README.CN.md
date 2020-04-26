@@ -18,12 +18,13 @@
 | [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
 | [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] | [Link Docs][omiu-link-docs]|
 | [@omiu/checkbox][omiu-checkbox-github] | [![omiu-checkbox-status]][omiu-checkbox-package]|[CodePen][omiu-checkbox-codepen] | [Checkbox Docs][omiu-checkbox-docs]|
-| [@omiu/hamburger-menu][omiu-hamburger-menu-github] | [![omiu-hamburger-menu-status]][omiu-hamburger-menu-package]|[CodePen][omiu-hamburger-menu-codepen] | [Hamburger Menu Docs][omiu-hamburger-menu-docs]|
+| [@omiu/hamburger-menu][omiu-hamburger-menu-github] | [![omiu-hamburger-menu-status]][omiu-hamburger-menu-package]|[CodePen][omiu-hamburger-menu-codepen] | [HamburgerMenu Docs][omiu-hamburger-menu-docs]|
 | [@omiu/input][omiu-input-github] | [![omiu-input-status]][omiu-input-package]|[CodePen][omiu-input-codepen] | [Input Docs][omiu-input-docs]|
 | [@omiu/tree][omiu-tree-github] | [![omiu-tree-status]][omiu-tree-package]|[CodePen][omiu-tree-codepen] | [Tree Docs][omiu-tree-docs]|
 | [@omiu/pagination][omiu-pagination-github] | [![omiu-pagination-status]][omiu-pagination-package]|[CodePen][omiu-pagination-codepen] | [Pagination Docs][omiu-pagination-docs]|
 | [@omiu/loading][omiu-loading-github] | [![omiu-loading-status]][omiu-loading-package]|[CodePen][omiu-loading-codepen] | [Loading Docs][omiu-loading-docs]|
 | [@omiu/toast][omiu-toast-github] | [![omiu-toast-status]][omiu-toast-package]|[CodePen][omiu-toast-codepen] | [Toast Docs][omiu-toast-docs]|
+| [@omiu/action-sheet][omiu-action-sheet-github] | [![omiu-action-sheet-status]][omiu-action-sheet-package]|[CodePen][omiu-action-sheet-codepen] | [ActionSheet Docs][omiu-action-sheet-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 | Coming... | |  | |
@@ -102,6 +103,11 @@
 [omiu-toast-docs]: https://tencent.github.io/omi/components/docs/cn.html#/toast?index=3&subIndex=1
 [omiu-toast-codepen]: https://codepen.io/omijs/pen/YzyVwOO
 
+[omiu-action-sheet-github]: https://github.com/Tencent/omi/tree/master/components/action-sheet
+[omiu-action-sheet-status]: https://img.shields.io/npm/v/@omiu/action-sheet.svg
+[omiu-action-sheet-package]: https://www.npmjs.com/package/@omiu/action-sheet
+[omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/cn.html#/action-sheet?index=3&subIndex=2
+[omiu-action-sheet-codepen]: https://codepen.io/omijs/pen/wvKdoNJ
 ## 快速概览
 
 整个组件树共享数据，并且数据变更自动更新视图。
