@@ -1,7 +1,7 @@
 English | [简体中文](./README.CN.md) 
 
-<p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
-<p align="center"><img src="https://tencent.github.io/omi/assets/omi-v6.jpg" alt="omi" width="1000"/></p>
+<p align="center"><img src="https://act.weixin.qq.com/static/images/202004/66db4dd6d8e36905da961a6093732ac1.svg" alt="omi" width="100"/></p>
+<p align="center"><img src="https://act.weixin.qq.com/static/images/202004/6a846733981abfc2beb81dbc8beb358a.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 <p align="center">Merge Web Components, JSX, Virtual DOM, Functional style, observe or Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
 
