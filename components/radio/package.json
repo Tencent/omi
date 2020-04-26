@@ -1,6 +1,6 @@
 {
   "name": "@omiu/radio",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",
@@ -93,6 +93,7 @@
     "useTabs": false
   },
   "dependencies": {
-    "@omiu/common": "latest"
+    "@omiu/common": "latest",
+    "omi": "latest"
   }
 }
