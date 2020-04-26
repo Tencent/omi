@@ -22,6 +22,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/input][omiu-input-github] | [![omiu-input-status]][omiu-input-package]|[CodePen][omiu-input-codepen] | [Input Docs][omiu-input-docs]|
 | [@omiu/tree][omiu-tree-github] | [![omiu-tree-status]][omiu-tree-package]|[CodePen][omiu-tree-codepen] | [Tree Docs][omiu-tree-docs]|
 | [@omiu/loading][omiu-loading-github] | [![omiu-loading-status]][omiu-loading-package]|[CodePen][omiu-loading-codepen] | [Loading Docs][omiu-loading-docs]|
+| [@omiu/toast][omiu-toast-github] | [![omiu-toast-status]][omiu-toast-package]|[CodePen][omiu-toast-codepen] | [Toast Docs][omiu-toast-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 | Coming... | |  | |
@@ -87,6 +88,13 @@ English | [简体中文](./README.CN.md)
 [omiu-loading-package]: https://www.npmjs.com/package/@omiu/loading
 [omiu-loading-docs]: https://tencent.github.io/omi/components/docs/index.html#/loading?index=3&subIndex=0
 [omiu-loading-codepen]: https://codepen.io/omijs/pen/oNjZRwO
+
+[omiu-toast-github]: https://github.com/Tencent/omi/tree/master/components/toast
+[omiu-toast-status]: https://img.shields.io/npm/v/@omiu/toast.svg
+[omiu-toast-package]: https://www.npmjs.com/package/@omiu/toast
+[omiu-toast-docs]: https://tencent.github.io/omi/components/docs/index.html#/toast?index=3&subIndex=1
+[omiu-toast-codepen]: https://codepen.io/omijs/pen/YzyVwOO
+
 
 ## Quick Preview
 
