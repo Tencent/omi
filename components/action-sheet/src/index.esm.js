@@ -1,5 +1,5 @@
 /**
- * @omiu/action-sheet v0.0.1 http://omijs.org
+ * @omiu/action-sheet v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -228,6 +228,7 @@ var ActionSheet = /** @class */ (function (_super) {
     function ActionSheet() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.handleMaskClick = function (e) {
+            _this.hide();
             _this.fire('close');
         };
         return _this;

@@ -279,6 +279,7 @@ var ActionSheet = /** @class */ (function (_super) {
     function ActionSheet() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.handleMaskClick = function (e) {
+            _this.hide();
             _this.fire('close');
         };
         return _this;

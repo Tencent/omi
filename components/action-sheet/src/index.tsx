@@ -80,6 +80,7 @@ export default class ActionSheet extends WeElement<Props> {
   }
 
   handleMaskClick = e => {
+    this.hide()
     this.fire('close')
   }
 
