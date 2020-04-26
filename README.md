@@ -28,7 +28,6 @@ English | [简体中文](./README.CN.md)
 | [@omiu/color-picker][omiu-color-picker-github] | [![omiu-color-picker-status]][omiu-color-picker-package]|[CodePen][omiu-color-picker-codepen] | [ColorPicker Docs][omiu-color-picker-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
-| Coming... | |  | |
 
 [omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
 [omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
