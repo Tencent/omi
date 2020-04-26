@@ -30,7 +30,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   size?: number,
   color?: string
@@ -39,7 +39,7 @@ Or use script tag to ref it.
 
 ### 默认属性
 
-```jsx
+```tsx
 {
   size: 40
 )

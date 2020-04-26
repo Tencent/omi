@@ -35,7 +35,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
   disabled?: boolean;
@@ -47,7 +47,7 @@ Or use script tag to ref it.
 
 ### defaultProps
 
-```jsx
+```tsx
 {
   underline: true,
   disabled: false

@@ -31,7 +31,7 @@ import '@omiu/toast'
 
 ### 属性
 
-```jsx
+```tsx
 {
   label?: string
   loading?: boolean
@@ -43,7 +43,7 @@ import '@omiu/toast'
 ```
 
 ### 默认属性
-```jsx
+```tsx
 {
   duration: 2000,
   autoClose: false,

@@ -29,7 +29,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   size?: 'medium' | 'small' | 'mini';
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
@@ -47,7 +47,7 @@ Or use script tag to ref it.
 
 ### defaultProps
 
-```jsx
+```tsx
 {
   plain: false,
   round: false,

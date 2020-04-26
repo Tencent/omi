@@ -31,7 +31,7 @@ import '@omiu/tree'
 
 ### 属性
 
-```jsx
+```tsx
 {
   data?: object
 }

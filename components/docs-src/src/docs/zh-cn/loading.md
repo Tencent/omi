@@ -31,7 +31,7 @@ import '@omiu/loading'
 
 ### 属性
 
-```jsx
+```tsx
 {
   size?: number,
   color?: string
@@ -39,7 +39,7 @@ import '@omiu/loading'
 ```
 
 ### 默认属性
-```jsx
+```tsx
 {
   size: 40
 )

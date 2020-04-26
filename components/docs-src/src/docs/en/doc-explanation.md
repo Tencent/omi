@@ -12,7 +12,7 @@ Now, let me show you some examples.
 
 > All properties, types, and optional values
 
-```jsx
+```tsx
 {
   //size of component
   size?: 'medium' | 'small' | 'mini';
@@ -31,7 +31,7 @@ Now, let me show you some examples.
 
 > Represents the default value of the property
 
-```jsx
+```tsx
 {
   size: 'medium' 
 }
@@ -44,7 +44,7 @@ Not all properties need to have default values.
 > The events supported by the component belong to `CustomEvent` ，Therefore, the data passed by the component to the event listener can be obtained from `event.detail`.
 
 * change -  triggered by text change, `event.detail` type declaration:
-```jsx
+```tsx
 {
   value: string
 }

@@ -39,7 +39,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   label?: string;
   disabled?: boolean;

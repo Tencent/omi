@@ -117,7 +117,7 @@ or
 
 ## React 中使用 omiu
 
-```jsx
+```tsx
 /** @jsx nativeEvents */
 import nativeEvents from 'jsx-native-events'
 import { useState } from 'react'

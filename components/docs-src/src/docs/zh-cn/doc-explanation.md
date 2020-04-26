@@ -12,7 +12,7 @@
 
 > 所有属性、类型和可选值
 
-```jsx
+```tsx
 {
   //控件的尺寸
   size?: 'medium' | 'small' | 'mini';
@@ -31,7 +31,7 @@
 
 > 代表属性的默认值
 
-```jsx
+```tsx
 {
   size: 'medium' 
 }
@@ -44,7 +44,7 @@
 > 组件支持的事件，属于 `CustomEvent`，所以可以从 `event.detail` 获取组件传递给事件监听器的数据。
 
 * change - 文本改变触发，event.detail 类型声明:
-```jsx
+```tsx
 {
   value: string
 }

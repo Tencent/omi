@@ -31,7 +31,7 @@ import '@omiu/input'
 
 ### 属性
 
-```jsx
+```tsx
 {
   value?: string
   disabled?: boolean
@@ -49,7 +49,7 @@ import '@omiu/input'
 
 ### 默认属性
 
-```jsx
+```tsx
 {
   type: 'text',
   autosize: false,

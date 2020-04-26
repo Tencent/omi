@@ -34,7 +34,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   list?: any[];
   activeIndex: number;
@@ -47,7 +47,7 @@ Or use script tag to ref it.
 
 ### defaultProps
 
-```jsx
+```tsx
 {
   position: 'top',
   closable: false,

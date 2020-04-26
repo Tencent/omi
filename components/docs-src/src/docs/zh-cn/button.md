@@ -31,7 +31,7 @@ import '@omiu/button'
 
 ### 属性
 
-```jsx
+```tsx
 {
   size?: 'medium' | 'small' | 'mini';
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
@@ -49,7 +49,7 @@ import '@omiu/button'
 
 ### 属性默认值
 
-```jsx
+```tsx
 {
   plain: false,
   round: false,

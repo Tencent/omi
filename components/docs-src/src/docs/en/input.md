@@ -31,7 +31,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   value?: string
   disabled?: boolean
@@ -49,7 +49,7 @@ Or use script tag to ref it.
 
 ### defaultProps
 
-```jsx
+```tsx
 {
   type: 'text',
   autosize: false,

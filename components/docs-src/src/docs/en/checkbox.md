@@ -31,7 +31,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   disabled: boolean;
   checked: boolean;

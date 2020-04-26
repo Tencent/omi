@@ -30,7 +30,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   data?: object
 }

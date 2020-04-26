@@ -31,7 +31,8 @@ const config = {
       {
         title: '通知',
         list: [
-          { name: 'Loading 加载', md: 'loading' }
+          { name: 'Loading 加载', md: 'loading' },
+          { name: 'Toast 弹出式提示', md: 'toast' }
         ]
       }
 
@@ -67,7 +68,8 @@ const config = {
       {
         title: 'Notice',
         list: [
-          { name: 'Loading', md: 'loading' }
+          { name: 'Loading', md: 'loading' },
+          { name: 'Toast', md: 'toast' }
         ]
       }
     ]

@@ -31,7 +31,7 @@ import '@omiu/checkbox'
 
 ### 属性
 
-```jsx
+```tsx
 {
   disabled: boolean;
   checked: boolean;

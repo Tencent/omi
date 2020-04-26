@@ -35,7 +35,7 @@ import '@omiu/link'
 
 ### 属性
 
-```jsx
+```tsx
 {
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
   disabled?: boolean;
@@ -47,7 +47,7 @@ import '@omiu/link'
 
 ### 属性默认值
 
-```jsx
+```tsx
 {
   underline: true,
   disabled: false

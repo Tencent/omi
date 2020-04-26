@@ -117,7 +117,7 @@ or
 
 ## Using omiu in react
 
-```jsx
+```tsx
 /** @jsx nativeEvents */
 import nativeEvents from 'jsx-native-events'
 import { useState } from 'react'

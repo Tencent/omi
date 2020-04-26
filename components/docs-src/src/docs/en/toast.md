@@ -30,7 +30,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   label?: string
   loading?: boolean
@@ -43,7 +43,7 @@ Or use script tag to ref it.
 
 ### 默认属性
 
-```jsx
+```tsx
 {
   duration: 2000,
   autoClose: false,

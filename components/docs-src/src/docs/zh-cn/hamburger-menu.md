@@ -31,7 +31,7 @@ import '@omiu/hamburger-menu'
 
 ### 属性
 
-```jsx
+```tsx
 {
   active?: boolean;
   ariaLabel?: string;
@@ -41,7 +41,7 @@ import '@omiu/hamburger-menu'
 
 ## 属性默认值
 
-```jsx
+```tsx
 {
   active: false,
   ariaLabel: '',

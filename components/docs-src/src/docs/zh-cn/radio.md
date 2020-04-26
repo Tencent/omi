@@ -40,7 +40,7 @@ import '@omiu/radio'
 
 ### 属性
 
-```jsx
+```tsx
 {
   label?: string;
   disabled?: boolean;

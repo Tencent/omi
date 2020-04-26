@@ -34,7 +34,7 @@ import '@omiu/tabs'
 
 ### 属性
 
-```jsx
+```tsx
 {
   list?: any[];
   activeIndex: number;
@@ -47,7 +47,7 @@ import '@omiu/tabs'
 
 ### 属性默认值
 
-```jsx
+```tsx
 {
   position: 'top',
   closable: false,

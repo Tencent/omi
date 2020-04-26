@@ -31,7 +31,7 @@ Or use script tag to ref it.
 
 ### Props
 
-```jsx
+```tsx
 {
   active?: boolean;
   ariaLabel?: string;
@@ -41,7 +41,7 @@ Or use script tag to ref it.
 
 ## defaultProps
 
-```jsx
+```tsx
 {
   active: false,
   ariaLabel: '',
