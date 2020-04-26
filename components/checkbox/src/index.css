@@ -16,7 +16,7 @@
 .o-checkbox__native-control:enabled:indeterminate ~ .o-checkbox__background {
   border-color: #07c160;
   border-color: var(--o-primary, #07c160);
-  background-color: #2170b8;
+  background-color: #07c160;
   background-color: var(--o-primary, #07c160);
   opacity: 1; }
 
@@ -108,7 +108,7 @@
 .o-checkbox__native-control:disabled:indeterminate ~ .o-checkbox__background {
   border-color: #07c160;
   border-color: var(--o-primary, #07c160);
-  background-color: #2170b8;
+  background-color: #07c160;
   background-color: var(--o-primary, #07c160);
   opacity: 0.5; }
 
