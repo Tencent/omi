@@ -1,5 +1,5 @@
 /**
- * @omiu/button v0.0.6 http://omijs.org
+ * @omiu/button v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
