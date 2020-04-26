@@ -8,7 +8,7 @@ class Store {
       menus: config.menus,
       lan: data.lan,
       html: '',
-      sideBarShow: window.innerWidth > 768
+      sideBarShow: false
     }
     let id = 0
     this.map = {}
@@ -20,24 +20,24 @@ class Store {
         this.map[item.id] = item
         item.index = index
         item.subIndex = subIndex
-        this.positionMap[index+'-'+subIndex] = item
+        this.positionMap[index + '-' + subIndex] = item
       })
     })
     this.preIndex = 0
     this.preSubIndex = 0
   }
 
-  getNext(){
+  getNext() {
     const item = this.positionMap[this.data.position.join('-')]
-    if(item){
-      return this.map[item.id+1]
+    if (item) {
+      return this.map[item.id + 1]
     }
   }
 
-  getPre(){
+  getPre() {
     const item = this.positionMap[this.data.position.join('-')]
-    if(item){
-      return this.map[item.id-1]
+    if (item) {
+      return this.map[item.id - 1]
     }
   }
 
@@ -66,9 +66,10 @@ class Store {
       item.list.forEach(subItem => {
         route('/' + subItem.md, evt => {
           menus[this.preIndex].list[this.preSubIndex].selected = false
-          this.preIndex = evt.query.index
-          this.preSubIndex = evt.query.subIndex
-          this.data.position = [Number(evt.query.index), Number(evt.query.subIndex)]
+          const indexs = getIndexs(subItem.md, this.data.lan, config)
+          this.preIndex = indexs[0]
+          this.preSubIndex = indexs[1]
+          this.data.position = [indexs[0], indexs[1]]
           this.data.sideBarShow = false
 
           this.getMarkDown(subItem.md, this.data.lan, m => {
@@ -87,5 +88,17 @@ class Store {
     })
   }
 }
+
+function getIndexs(name, lan, config) {
+  const menus = config.menus[lan]
+  for (let i = 0, len = menus.length; i < len; i++) {
+    for (let j = 0, sLen = menus[i].list.length; j < sLen; j++) {
+      if (name === menus[i].list[j].md) {
+        return [i, j]
+      }
+    }
+  }
+}
+
 
 export default Store

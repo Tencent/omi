@@ -19,7 +19,7 @@ define('my-list', class extends WeElement {
             return <li>
               <a
                 href={
-                  '#/' + item.md + `?index=${props.index}&subIndex=${subIndex}`
+                  '#/' + item.md 
                 }
                 {...cls}
               >
