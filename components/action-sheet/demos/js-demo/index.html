@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu ActionSheet</title>
+</head>
+
+<body>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="https://unpkg.com/@omiu/button@0.0.7/src/index.js"></script>
+  <script src="../../src/index.js"></script>
+
+  <div>
+    <o-button id="btnA" block type="default">IOS ActionSheet</o-button>
+    <o-action-sheet id="actionSheetA" menus="[{
+      label: 'Option 1'
+    }, {
+      label: 'Option 2'
+    }]" actions="[{
+      label: 'Cancel'
+    }]" show="0" type="ios">
+    </o-action-sheet>
+
+    <o-button id="btnB" block type="default" style="margin-top: 15px; ">Android ActionSheet</o-button>
+    <o-action-sheet id="actionSheetB" menus="[{
+      label: 'Option 1'
+    }, {
+      label: 'Option 2'
+    }]" actions="[{
+      label: 'Cancel'
+    }]" show="0" type="android">
+    </o-action-sheet>
+  </div>
+  <script>
+    const actionSheetA = document.querySelector('#actionSheetA')
+    const actionSheetB = document.querySelector('#actionSheetB')
+    document.querySelector('#btnA').addEventListener('click', function (evt) {
+      console.log(1)
+      actionSheetA.show()
+    })
+
+    document.querySelector('#btnB').addEventListener('click', function (evt) {
+      console.log(2)
+      actionSheetB.show()
+    })
+
+    actionSheetA.addEventListener('itemClick', function (evt) {
+      console.log(evt.detail)
+    })
+
+    actionSheetB.addEventListener('itemClick', function (evt) {
+      console.log(evt.detail)
+    })
+  </script>
+</body>
+
+</html>
