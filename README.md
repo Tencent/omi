@@ -25,6 +25,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/toast][omiu-toast-github] | [![omiu-toast-status]][omiu-toast-package]|[CodePen][omiu-toast-codepen] | [Toast Docs][omiu-toast-docs]|
 | [@omiu/action-sheet][omiu-action-sheet-github] | [![omiu-action-sheet-status]][omiu-action-sheet-package]|[CodePen][omiu-action-sheet-codepen] | [ActionSheet Docs][omiu-action-sheet-docs]|
 | [@omiu/switch][omiu-switch-github] | [![omiu-switch-status]][omiu-switch-package]|[CodePen][omiu-switch-codepen] | [Switch Docs][omiu-switch-docs]|
+| [@omiu/color-picker][omiu-color-picker-github] | [![omiu-color-picker-status]][omiu-color-picker-package]|[CodePen][omiu-color-picker-codepen] | [ColorPicker Docs][omiu-color-picker-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 | Coming... | |  | |
@@ -116,6 +117,12 @@ English | [简体中文](./README.CN.md)
 [omiu-action-sheet-package]: https://www.npmjs.com/package/@omiu/action-sheet
 [omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/index.html#/action-sheet?index=4&subIndex=2
 [omiu-action-sheet-codepen]: https://codepen.io/omijs/pen/wvKdoNJ
+
+[omiu-color-picker-github]: https://github.com/Tencent/omi/tree/master/components/color-picker
+[omiu-color-picker-status]: https://img.shields.io/npm/v/@omiu/color-picker.svg
+[omiu-color-picker-package]: https://www.npmjs.com/package/@omiu/color-picker
+[omiu-color-picker-docs]: https://tencent.github.io/omi/components/docs/index.html#/color-picker?index=2&subIndex=3
+[omiu-color-picker-codepen]: https://codepen.io/omijs/pen/gOaWmZE
 
 ## Quick Preview
 
