@@ -70,11 +70,11 @@ import '${packageName}'
 
 ### 属性
 
-\`\`\`jsx
+\`\`\`tsx
 ${props}
 \`\`\`
 
-${defaultProps ? '### 默认属性\n' : ''}${defaultProps ? '\`\`\`jsx\n' : ''}${defaultProps ? defaultProps : ''}
+${defaultProps ? '### 默认属性\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### 事件\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
   return `* ${event}\n`
 }).join('') : ''}`
@@ -115,11 +115,11 @@ Or use script tag to ref it.
 
 ### Props
 
-\`\`\`jsx
+\`\`\`tsx
 ${props}
 \`\`\`
 
-${defaultProps ? '### 默认属性\n\n' : ''}${defaultProps ? '\`\`\`jsx\n' : ''}${defaultProps ? defaultProps : ''}
+${defaultProps ? '### 默认属性\n\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### Events\n\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
   return `* ${event}\n`
 }).join('') : ''}`
