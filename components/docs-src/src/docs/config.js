@@ -25,7 +25,9 @@ const config = {
       {
         title: '数据',
         list: [
-          { name: 'Tree 树形控件', md: 'tree' }
+          { name: 'Tree 树形控件', md: 'tree' },
+          { name: 'Pagination 分页', md: 'pagination' }
+
         ]
       },
       {
@@ -62,7 +64,8 @@ const config = {
       {
         title: 'Data',
         list: [
-          { name: 'Tree', md: 'tree' }
+          { name: 'Tree', md: 'tree' },
+          { name: 'Pagination', md: 'pagination' }
         ]
       },
       {
