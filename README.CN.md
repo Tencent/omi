@@ -25,6 +25,7 @@
 | [@omiu/loading][omiu-loading-github] | [![omiu-loading-status]][omiu-loading-package]|[CodePen][omiu-loading-codepen] | [Loading Docs][omiu-loading-docs]|
 | [@omiu/toast][omiu-toast-github] | [![omiu-toast-status]][omiu-toast-package]|[CodePen][omiu-toast-codepen] | [Toast Docs][omiu-toast-docs]|
 | [@omiu/action-sheet][omiu-action-sheet-github] | [![omiu-action-sheet-status]][omiu-action-sheet-package]|[CodePen][omiu-action-sheet-codepen] | [ActionSheet Docs][omiu-action-sheet-docs]|
+| [@omiu/switch][omiu-switch-github] | [![omiu-switch-status]][omiu-switch-package]|[CodePen][omiu-switch-codepen] | [Switch Docs][omiu-switch-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 | Coming... | |  | |
@@ -61,53 +62,62 @@
 [omiu-link-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link?index=1&subIndex=4
 [omiu-link-codepen]: https://codepen.io/omijs/pen/KKdNBaO
 
-[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
-[omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
-[omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
-[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/cn.html#/checkbox?index=1&subIndex=5
-[omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
+
 
 [omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/master/components/hamburger-menu
 [omiu-hamburger-menu-status]: https://img.shields.io/npm/v/@omiu/hamburger-menu.svg
 [omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
-[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/cn.html#/hamburger-menu?index=1&subIndex=6
+[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/cn.html#/hamburger-menu?index=1&subIndex=5
 [omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
 
 [omiu-input-github]: https://github.com/Tencent/omi/tree/master/components/input
 [omiu-input-status]: https://img.shields.io/npm/v/@omiu/input.svg
 [omiu-input-package]: https://www.npmjs.com/package/@omiu/input
-[omiu-input-docs]: https://tencent.github.io/omi/components/docs/cn.html#/input?index=1&subIndex=7
+[omiu-input-docs]: https://tencent.github.io/omi/components/docs/cn.html#/input?index=2&subIndex=0
 [omiu-input-codepen]: https://codepen.io/omijs/pen/yLYMGqa
+
+[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
+[omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
+[omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
+[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/cn.html#/checkbox?index=2&subIndex=1
+[omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
+
+[omiu-switch-github]: https://github.com/Tencent/omi/tree/master/components/switch
+[omiu-switch-status]: https://img.shields.io/npm/v/@omiu/switch.svg
+[omiu-switch-package]: https://www.npmjs.com/package/@omiu/switch
+[omiu-switch-docs]: https://tencent.github.io/omi/components/docs/index.html#/switch?index=2&subIndex=2
+[omiu-switch-codepen]: https://codepen.io/omijs/pen/BaoRpLd
 
 [omiu-tree-github]: https://github.com/Tencent/omi/tree/master/components/tree
 [omiu-tree-status]: https://img.shields.io/npm/v/@omiu/tree.svg
 [omiu-tree-package]: https://www.npmjs.com/package/@omiu/tree
-[omiu-tree-docs]: https://tencent.github.io/omi/components/docs/cn.html#/tree?index=2&subIndex=0
+[omiu-tree-docs]: https://tencent.github.io/omi/components/docs/cn.html#/tree?index=3&subIndex=0
 [omiu-tree-codepen]: https://codepen.io/omijs/pen/yLYMrdg
 
 [omiu-pagination-github]: https://github.com/Tencent/omi/tree/master/components/pagination
 [omiu-pagination-status]: https://img.shields.io/npm/v/@omiu/pagination.svg
 [omiu-pagination-package]: https://www.npmjs.com/package/@omiu/pagination
-[omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/cn.html#/pagination?index=2&subIndex=1
+[omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/cn.html#/pagination?index=3&subIndex=1
 [omiu-pagination-codepen]: https://codepen.io/omijs/pen/MWamyBQ
 
 [omiu-loading-github]: https://github.com/Tencent/omi/tree/master/components/loading
 [omiu-loading-status]: https://img.shields.io/npm/v/@omiu/loading.svg
 [omiu-loading-package]: https://www.npmjs.com/package/@omiu/loading
-[omiu-loading-docs]: https://tencent.github.io/omi/components/docs/cn.html#/loading?index=3&subIndex=0
+[omiu-loading-docs]: https://tencent.github.io/omi/components/docs/cn.html#/loading?index=4&subIndex=0
 [omiu-loading-codepen]: https://codepen.io/omijs/pen/oNjZRwO
 
 [omiu-toast-github]: https://github.com/Tencent/omi/tree/master/components/toast
 [omiu-toast-status]: https://img.shields.io/npm/v/@omiu/toast.svg
 [omiu-toast-package]: https://www.npmjs.com/package/@omiu/toast
-[omiu-toast-docs]: https://tencent.github.io/omi/components/docs/cn.html#/toast?index=3&subIndex=1
+[omiu-toast-docs]: https://tencent.github.io/omi/components/docs/cn.html#/toast?index=4&subIndex=1
 [omiu-toast-codepen]: https://codepen.io/omijs/pen/YzyVwOO
 
 [omiu-action-sheet-github]: https://github.com/Tencent/omi/tree/master/components/action-sheet
 [omiu-action-sheet-status]: https://img.shields.io/npm/v/@omiu/action-sheet.svg
 [omiu-action-sheet-package]: https://www.npmjs.com/package/@omiu/action-sheet
-[omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/cn.html#/action-sheet?index=3&subIndex=2
+[omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/cn.html#/action-sheet?index=4&subIndex=2
 [omiu-action-sheet-codepen]: https://codepen.io/omijs/pen/wvKdoNJ
+
 ## 快速概览
 
 整个组件树共享数据，并且数据变更自动更新视图。
