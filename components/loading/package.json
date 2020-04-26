@@ -1,6 +1,6 @@
 {
   "name": "@omiu/loading",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "You can show this while you're waiting.",
   "docsExtend": {
     "cnName": "加载",
@@ -95,6 +95,7 @@
     "useTabs": false
   },
   "dependencies": {
-    "@omiu/common": "latest"
+    "@omiu/common": "latest",
+    "omi": "latest"
   }
 }
