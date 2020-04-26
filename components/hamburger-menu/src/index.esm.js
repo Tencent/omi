@@ -1,5 +1,5 @@
 /**
- * @omiu/hamburger-menu v0.0.4 http://omijs.org
+ * @omiu/hamburger-menu v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
