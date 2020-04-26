@@ -34,7 +34,8 @@ const config = {
         title: '通知',
         list: [
           { name: 'Loading 加载', md: 'loading' },
-          { name: 'Toast 弹出式提示', md: 'toast' }
+          { name: 'Toast 弹出式提示', md: 'toast' },
+          { name: 'ActionSheet 弹出式菜单', md: 'action-sheet' }
         ]
       }
 
@@ -72,7 +73,8 @@ const config = {
         title: 'Notice',
         list: [
           { name: 'Loading', md: 'loading' },
-          { name: 'Toast', md: 'toast' }
+          { name: 'Toast', md: 'toast' },
+          { name: 'ActionSheet', md: 'action-sheet' }
         ]
       }
     ]

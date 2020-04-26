@@ -1,4 +1,4 @@
-## ActionSheet 行动表
+## ActionSheet 弹出式菜单
 
 移动端弹出式选项列表
 
