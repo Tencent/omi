@@ -1,4 +1,4 @@
-## Theme 
+## Custom Theme 
 
 Omiu supports dynamic theme switching at runtime.
 

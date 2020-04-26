@@ -5,6 +5,7 @@ const config = {
         title: 'OMIU',
         list: [
           { name: '简介', md: 'introduction' },
+          { name: '自定义主题', md: 'theme' },
           { name: '文档解释', md: 'doc-explanation' }
         ]
       },
@@ -51,6 +52,7 @@ const config = {
         title: 'OMIU',
         list: [
           { name: 'Introduction', md: 'introduction' },
+          { name: 'Custom Theme', md: 'theme' },
           { name: 'Explanation', md: 'doc-explanation' }
         ]
       },
