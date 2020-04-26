@@ -1,0 +1,325 @@
+@import 'lib/variables';
+@import 'lib/mixins';
+
+.pickr {
+    position: relative;
+    overflow: visible;
+    transform: translateY(0); // Create local transform space
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.pickr .pcr-button {
+    @include transparency-background;
+    position: relative;
+    height: 2em;
+    width: 2em;
+    padding: 0.5em;
+    cursor: pointer;
+    font-family: $font-family;
+    border-radius: $border-radius-mid;
+    background: $icon-x no-repeat center;
+    background-size: 0;
+    transition: all 0.3s;
+
+    &::before {
+        z-index: initial;
+    }
+
+    &::after {
+        @include pseudo-reset;
+        height: 100%;
+        width: 100%;
+        transition: background 0.3s;
+        background: currentColor;
+        border-radius: $border-radius-mid;
+    }
+
+    &.clear {
+        background-size: 70%;
+
+        &::before {
+            opacity: 0;
+        }
+
+        &:focus {
+            @include focus(currentColor);
+        }
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+    }
+}
+
+.pickr,
+.pcr-app {
+
+    input,
+    button {
+        outline: none;
+        border: none;
+        -webkit-appearance: none;
+
+        &:focus {
+            @include focus(currentColor);
+        }
+    }
+}
+
+.pcr-app {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 10000;
+    font-family: $font-family;
+    box-shadow: $box-shadow-app;
+    width: 22.5em;
+    max-width: 95vw;
+    padding: 0.8em;
+    border-radius: 0.1em;
+    background: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    left: 0;
+    top: 0;
+
+    &.visible {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.pcr-app .pcr-swatches {
+
+    // Flex fallback
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.75em;
+
+    &.pcr-last {
+        margin: 0;
+    }
+
+    @supports (display: grid) {
+        display: grid;
+        align-items: center;
+        justify-content: space-around;
+        grid-template-columns: repeat(auto-fit, 1.75em);
+    }
+
+    > button {
+        @include transparency-background(6px);
+        position: relative;
+        width: 1.75em;
+        height: 1.75em;
+        border-radius: 0.15em;
+        cursor: pointer;
+        margin: 2.5px;
+        flex-shrink: 0;
+        justify-self: center;
+        transition: all 0.15s;
+        overflow: hidden;
+        background: transparent;
+        z-index: 1;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            border: 1px solid rgba(black, 0.05);
+            border-radius: 0.15em;
+            box-sizing: border-box;
+        }
+
+        &:hover {
+            filter: brightness(1.05);
+        }
+    }
+}
+
+.pcr-app .pcr-interaction {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 -0.2em 0 -0.2em;
+
+    > * {
+        margin: 0 0.2em;
+    }
+
+    input {
+        letter-spacing: 0.07em;
+        font-size: 0.75em;
+        text-align: center;
+        cursor: pointer;
+        color: $palette-darkgray;
+        background: $palette-snowwhite;
+        border-radius: $border-radius-mid;
+        transition: all 0.15s;
+        padding: 0.45em 0.5em;
+        margin-top: 0.75em;
+
+        &:hover {
+            filter: brightness(0.975);
+        }
+
+        &:focus {
+            @include focus();
+        }
+    }
+
+    .pcr-result {
+        color: $palette-darkgray;
+        text-align: left;
+        flex: 1 1 8em;
+        min-width: 8em;
+        transition: all 0.2s;
+        border-radius: $border-radius-mid;
+        background: $palette-snowwhite;
+        cursor: text;
+
+        &::selection {
+            background: $palette-cloud-blue;
+            color: #fff;
+        }
+    }
+
+    .pcr-type.active {
+        color: #fff;
+        background: $palette-cloud-blue;
+    }
+
+    .pcr-clear,
+    .pcr-save {
+        color: #fff;
+        width: auto;
+    }
+
+    .pcr-save,
+    .pcr-clear {
+        color: #fff;
+
+        &:hover {
+            filter: brightness(0.925);
+        }
+    }
+
+    .pcr-save {
+        background: $palette-cloud-blue;
+    }
+
+    .pcr-clear {
+        background: $palette-soft-red;
+
+        &:focus {
+            @include focus(rgba($palette-soft-red, 0.75));
+        }
+    }
+}
+
+.pcr-app .pcr-selection {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    .pcr-picker {
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        border: 2px solid #fff;
+        border-radius: 100%;
+        user-select: none;
+    }
+
+    .pcr-color-preview {
+        @include transparency-background;
+        position: relative;
+        z-index: 1;
+        width: 2em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 0.75em;
+
+        .pcr-last-color {
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border-radius: 0.15em 0.15em 0 0;
+            z-index: 2;
+        }
+
+        .pcr-current-color {
+            border-radius: 0 0 0.15em 0.15em;
+        }
+
+        .pcr-last-color,
+        .pcr-current-color {
+            background: currentColor;
+            width: 100%;
+            height: 50%;
+        }
+    }
+
+    .pcr-color-palette,
+    .pcr-color-chooser,
+    .pcr-color-opacity {
+        position: relative;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+
+        &:active {
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        }
+    }
+
+    .pcr-color-palette {
+        width: 100%;
+        height: 8em;
+        z-index: 1;
+
+        .pcr-palette {
+            flex-grow: 1;
+            border-radius: $border-radius-mid;
+            @include transparency-background;
+        }
+    }
+
+    .pcr-color-chooser,
+    .pcr-color-opacity {
+        margin-left: 0.75em;
+
+        .pcr-picker {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .pcr-slider {
+            width: 8px;
+            flex-grow: 1;
+            border-radius: 50em;
+        }
+    }
+
+    .pcr-color-chooser .pcr-slider {
+        background: $color-rainbow;
+    }
+
+    .pcr-color-opacity .pcr-slider {
+        background: linear-gradient(to bottom, transparent, black), $icon-transparency;
+        background-size: 100%, 50%;
+    }
+}

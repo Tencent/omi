@@ -1,0 +1,38 @@
+// Font family
+$font-family: -apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Roboto",
+"Helvetica Neue", Arial, sans-serif, !default;
+
+// Colors
+$palette-cloud-blue: #4285f4 !default;
+$palette-soft-red: #f44250 !default;
+$palette-snowwhite: #f1f3f4 !default;
+$palette-lightgray: #c4c4c4 !default;
+$palette-darkgray: #75797e !default;
+
+// Constants
+$box-shadow-app: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03) !default;
+@mixin focus($color: rgba($palette-cloud-blue, 0.75)) {
+    box-shadow: 0 0 0 1px $palette-snowwhite, 0 0 0 3px $color;
+}
+
+$color-rainbow: linear-gradient(to bottom,
+    hsl(0, 100%, 50%),
+    hsl(60, 100%, 50%),
+    hsl(120, 100%, 50%),
+    hsl(180, 100%, 50%),
+    hsl(240, 100%, 50%),
+    hsl(300, 100%, 50%),
+    hsl(360, 100%, 50%)) !default;
+
+// Box shadows
+$box-shadow-small: 0 1px 2px 0 rgba(0, 0, 0, 0.2) !default;
+
+// Border radius
+$border-radius-mid: 0.15em !default;
+
+// Inline SVG muster
+$icon-transparency: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>') !default;
+$icon-x: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" stroke="%2342445A" stroke-width="5px" stroke-linecap="round"><path d="M45,45L5,5"></path><path d="M45,5L5,45"></path></svg>') !default;
