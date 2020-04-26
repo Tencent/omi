@@ -55,33 +55,6 @@ button.addEventListener('click', function () {
 //document.body.innerHTML = '<o-button>I am omiu button</o-button>'
 ```
 
-## Change Theme
-
-```js
-const setTheme = Omiu.setTheme
-
-setTheme('primary', '#07c160')
-setTheme('danger', '#f5222d')
-setTheme('surface', '#ffffff')
-setTheme('on-primary', '#ffffff')
-setTheme('on-danger', '#ffffff')
-setTheme('on-surface', '#000000')
-setTheme('background', '#ffffff')
-setTheme('small-radius', '4px')
-setTheme('medium-radius', '4px')
-setTheme('large-radius', '0px')
-setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
-```
-
-or
-
-```js
-Omiu.setThemePrimary('green')
-Omiu.setThemeError('red')
-```
-
-
-
 ## HTML Extension 
 
 When the default value is true and you need to pass false to the element, it used to be a historical problem. OMI has solved this problem perfectly. You can set it through the string `'0'` or the string `'false'`.

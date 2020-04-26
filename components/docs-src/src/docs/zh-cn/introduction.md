@@ -55,33 +55,6 @@ button.addEventListener('click', function () {
 //document.body.innerHTML = '<o-button>I am omiu button</o-button>'
 ```
 
-## 更改主题
-
-```js
-const setTheme = Omiu.setTheme
-
-setTheme('primary', '#07c160')
-setTheme('danger', '#f5222d')
-setTheme('surface', '#ffffff')
-setTheme('on-primary', '#ffffff')
-setTheme('on-danger', '#ffffff')
-setTheme('on-surface', '#000000')
-setTheme('background', '#ffffff')
-setTheme('small-radius', '4px')
-setTheme('medium-radius', '4px')
-setTheme('large-radius', '0px')
-setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
-```
-
-或者
-
-```js
-Omiu.setThemePrimary('green')
-Omiu.setThemeError('red')
-```
-
-
-
 ## HTML 扩展 
 
 当默认值为 true，需要传递 false 给 element 的时候，以前是历史难题，Omi 完美解决了这一点，你可以通过字符串 `'0'` 或者 字符串 `'false'` 来设置。
