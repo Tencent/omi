@@ -32,95 +32,95 @@ English | [简体中文](./README.CN.md)
 [omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
 [omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
 [omiu-button-package]: https://www.npmjs.com/package/@omiu/button
-[omiu-button-docs]: https://tencent.github.io/omi/components/docs/index.html#/button?index=1&subIndex=0
+[omiu-button-docs]: https://tencent.github.io/omi/components/docs/index.html#/button
 [omiu-button-codepen]: https://codepen.io/omijs/pen/LYppwYG
 
 [omiu-icon-github]: https://github.com/Tencent/omi/tree/master/components/icon
 [omiu-icon-status]: https://img.shields.io/npm/v/@omiu/icon.svg
 [omiu-icon-package]: https://www.npmjs.com/package/@omiu/icon
-[omiu-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/icon?index=1&subIndex=1
+[omiu-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/icon
 [omiu-icon-codepen]: https://tencent.github.io/omi/components/icon/demos/icon.html
 
 [omiu-tabs-github]: https://github.com/Tencent/omi/tree/master/components/tabs
 [omiu-tabs-status]: https://img.shields.io/npm/v/@omiu/tabs.svg
 [omiu-tabs-package]: https://www.npmjs.com/package/@omiu/tabs
-[omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/index.html#/tabs?index=1&subIndex=2
+[omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/index.html#/tabs
 [omiu-tabs-codepen]: https://codepen.io/omijs/pen/XWmjyXK
 
 
 [omiu-radio-github]: https://github.com/Tencent/omi/tree/master/components/radio
 [omiu-radio-status]: https://img.shields.io/npm/v/@omiu/radio.svg
 [omiu-radio-package]: https://www.npmjs.com/package/@omiu/radio
-[omiu-radio-docs]: https://tencent.github.io/omi/components/docs/index.html#/radio?index=1&subIndex=3
+[omiu-radio-docs]: https://tencent.github.io/omi/components/docs/index.html#/radio
 [omiu-radio-codepen]: https://codepen.io/omijs/pen/GRpjapr
 
 
 [omiu-link-github]: https://github.com/Tencent/omi/tree/master/components/link
 [omiu-link-status]: https://img.shields.io/npm/v/@omiu/link.svg
 [omiu-link-package]: https://www.npmjs.com/package/@omiu/link
-[omiu-link-docs]: https://tencent.github.io/omi/components/docs/index.html#/link?index=1&subIndex=4
+[omiu-link-docs]: https://tencent.github.io/omi/components/docs/index.html#/link
 [omiu-link-codepen]: https://codepen.io/omijs/pen/KKdNBaO
 
 
 [omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/master/components/hamburger-menu
 [omiu-hamburger-menu-status]: https://img.shields.io/npm/v/@omiu/hamburger-menu.svg
 [omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
-[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/index.html#/hamburger-menu?index=1&subIndex=5
+[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/index.html#/hamburger-menu
 [omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
 
 
 [omiu-input-github]: https://github.com/Tencent/omi/tree/master/components/input
 [omiu-input-status]: https://img.shields.io/npm/v/@omiu/input.svg
 [omiu-input-package]: https://www.npmjs.com/package/@omiu/input
-[omiu-input-docs]: https://tencent.github.io/omi/components/docs/index.html#/input?index=2&subIndex=0
+[omiu-input-docs]: https://tencent.github.io/omi/components/docs/index.html#/input
 [omiu-input-codepen]: https://codepen.io/omijs/pen/yLYMGqa
 
 [omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
 [omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
 [omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
-[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/index.html#/checkbox?index=2&subIndex=1
+[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/index.html#/checkbox
 [omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
 
 [omiu-switch-github]: https://github.com/Tencent/omi/tree/master/components/switch
 [omiu-switch-status]: https://img.shields.io/npm/v/@omiu/switch.svg
 [omiu-switch-package]: https://www.npmjs.com/package/@omiu/switch
-[omiu-switch-docs]: https://tencent.github.io/omi/components/docs/index.html#/switch?index=2&subIndex=2
+[omiu-switch-docs]: https://tencent.github.io/omi/components/docs/index.html#/switch
 [omiu-switch-codepen]: https://codepen.io/omijs/pen/BaoRpLd
 
 [omiu-tree-github]: https://github.com/Tencent/omi/tree/master/components/tree
 [omiu-tree-status]: https://img.shields.io/npm/v/@omiu/tree.svg
 [omiu-tree-package]: https://www.npmjs.com/package/@omiu/tree
-[omiu-tree-docs]: https://tencent.github.io/omi/components/docs/index.html#/tree?index=3&subIndex=0
+[omiu-tree-docs]: https://tencent.github.io/omi/components/docs/index.html#/tree
 [omiu-tree-codepen]: https://codepen.io/omijs/pen/yLYMrdg
 
 [omiu-pagination-github]: https://github.com/Tencent/omi/tree/master/components/pagination
 [omiu-pagination-status]: https://img.shields.io/npm/v/@omiu/pagination.svg
 [omiu-pagination-package]: https://www.npmjs.com/package/@omiu/pagination
-[omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/index.html#/pagination?index=3&subIndex=1
+[omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/index.html#/pagination
 [omiu-pagination-codepen]: https://codepen.io/omijs/pen/MWamyBQ
 
 [omiu-loading-github]: https://github.com/Tencent/omi/tree/master/components/loading
 [omiu-loading-status]: https://img.shields.io/npm/v/@omiu/loading.svg
 [omiu-loading-package]: https://www.npmjs.com/package/@omiu/loading
-[omiu-loading-docs]: https://tencent.github.io/omi/components/docs/index.html#/loading?index=4&subIndex=0
+[omiu-loading-docs]: https://tencent.github.io/omi/components/docs/index.html#/loading
 [omiu-loading-codepen]: https://codepen.io/omijs/pen/oNjZRwO
 
 [omiu-toast-github]: https://github.com/Tencent/omi/tree/master/components/toast
 [omiu-toast-status]: https://img.shields.io/npm/v/@omiu/toast.svg
 [omiu-toast-package]: https://www.npmjs.com/package/@omiu/toast
-[omiu-toast-docs]: https://tencent.github.io/omi/components/docs/index.html#/toast?index=4&subIndex=1
+[omiu-toast-docs]: https://tencent.github.io/omi/components/docs/index.html#/toast
 [omiu-toast-codepen]: https://codepen.io/omijs/pen/YzyVwOO
 
 [omiu-action-sheet-github]: https://github.com/Tencent/omi/tree/master/components/action-sheet
 [omiu-action-sheet-status]: https://img.shields.io/npm/v/@omiu/action-sheet.svg
 [omiu-action-sheet-package]: https://www.npmjs.com/package/@omiu/action-sheet
-[omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/index.html#/action-sheet?index=4&subIndex=2
+[omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/index.html#/action-sheet
 [omiu-action-sheet-codepen]: https://codepen.io/omijs/pen/wvKdoNJ
 
 [omiu-color-picker-github]: https://github.com/Tencent/omi/tree/master/components/color-picker
 [omiu-color-picker-status]: https://img.shields.io/npm/v/@omiu/color-picker.svg
 [omiu-color-picker-package]: https://www.npmjs.com/package/@omiu/color-picker
-[omiu-color-picker-docs]: https://tencent.github.io/omi/components/docs/index.html#/color-picker?index=2&subIndex=3
+[omiu-color-picker-docs]: https://tencent.github.io/omi/components/docs/index.html#/color-picker
 [omiu-color-picker-codepen]: https://codepen.io/omijs/pen/gOaWmZE
 
 ## Quick Preview
