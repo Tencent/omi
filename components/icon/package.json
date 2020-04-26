@@ -1,6 +1,6 @@
 {
   "name": "@omiu/icon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -68,12 +68,6 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omim.min.js",
-      "threshold": "4Kb"
-    }
-  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,
@@ -81,6 +75,6 @@
     "useTabs": false
   },
   "dependencies": {
-    "@material-ui/icons": "^4.9.1"
+    "omi": "latest"
   }
 }
