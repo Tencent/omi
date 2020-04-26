@@ -128,7 +128,7 @@ ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### Events\n\n' : ''}${eventMap ?
 fs.writeFileSync(`../docs-src/src/docs/en/${name}.md`, enContent)
 
 
-fs.writeFileSync(`../${name}/README.md`, enContent)
+fs.writeFileSync(`../${name}/README.md`, enContent.replace(/<iframe[\s\S]*?<\/iframe>/, `* [→ CodePen](https://codepen.io/omijs/pen/${package.docsExtend.codepen})`))
 // console.log(props)
 // console.log(defaultProps)
 // console.log(Object.keys(eventMap))
