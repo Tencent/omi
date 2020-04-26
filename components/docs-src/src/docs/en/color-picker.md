@@ -54,7 +54,9 @@ Or use script tag to ref it.
   strings?: {
     save: string,  // Default for save button
     clear: string // Default for clear button
-  }
+  }, 
+  width?: string
+}
 ```
 
 ### 默认属性
@@ -83,7 +85,8 @@ Or use script tag to ref it.
   strings: {
     save: 'Save',  // Default for save button
     clear: 'Clear' // Default for clear button
-)
+  }
+}
 ```
 ### Events
 

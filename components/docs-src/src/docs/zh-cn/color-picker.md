@@ -55,7 +55,9 @@ import '@omiu/color-picker'
   strings?: {
     save: string,  // Default for save button
     clear: string // Default for clear button
-  }
+  }, 
+  width?: string
+}
 ```
 
 ### 默认属性
@@ -83,7 +85,8 @@ import '@omiu/color-picker'
   strings: {
     save: 'Save',  // Default for save button
     clear: 'Clear' // Default for clear button
-)
+  }
+}
 ```
 ### 事件
 * init
