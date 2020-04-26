@@ -99,6 +99,7 @@
     "useTabs": false
   },
   "dependencies": {
-
+    "@omiu/common": "latest",
+    "omi": "latest"
   }
 }
