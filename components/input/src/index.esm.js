@@ -1,5 +1,5 @@
 /**
- * @omiu/input v0.0.2 http://omijs.org
+ * @omiu/input v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -516,7 +516,7 @@ var Input = /** @class */ (function (_super) {
             _a['o-input-prefix'] = prefixIcon,
             _a['is-block'] = props.block,
             _a)), { onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave }),
-            (prefixIcon || suffixIcon) && h(this._tempTagName, __assign({ css: "svg{\n\t\t\t\t\t\twidth: 1em;\n\t\t\t\t\t}" }, extractClass(props, 'o-input__icon', {
+            (prefixIcon || suffixIcon) && h(this._tempTagName, __assign({ css: "svg{\n            width: 1em;\n          }" }, extractClass(props, 'o-input__icon', {
                 'is-prefix': prefixIcon,
                 'is-suffix': suffixIcon
             }))),

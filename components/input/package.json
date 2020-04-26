@@ -1,6 +1,6 @@
 {
   "name": "@omiu/input",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generally used to input information and submit it to the server.",
   "docsExtend": {
     "cnName": "输入框",
@@ -95,6 +95,7 @@
     "useTabs": false
   },
   "dependencies": {
-    "@omiu/common": "latest"
+    "@omiu/common": "latest",
+    "omi": "latest"
   }
 }
