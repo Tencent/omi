@@ -21,6 +21,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/hamburger-menu][omiu-hamburger-menu-github] | [![omiu-hamburger-menu-status]][omiu-hamburger-menu-package]|[CodePen][omiu-hamburger-menu-codepen] | [Hamburger Menu Docs][omiu-hamburger-menu-docs]|
 | [@omiu/input][omiu-input-github] | [![omiu-input-status]][omiu-input-package]|[CodePen][omiu-input-codepen] | [Input Docs][omiu-input-docs]|
 | [@omiu/tree][omiu-tree-github] | [![omiu-tree-status]][omiu-tree-package]|[CodePen][omiu-tree-codepen] | [Tree Docs][omiu-tree-docs]|
+| [@omiu/pagination][omiu-pagination-github] | [![omiu-pagination-status]][omiu-pagination-package]|[CodePen][omiu-pagination-codepen] | [Pagination Docs][omiu-pagination-docs]|
 | [@omiu/loading][omiu-loading-github] | [![omiu-loading-status]][omiu-loading-package]|[CodePen][omiu-loading-codepen] | [Loading Docs][omiu-loading-docs]|
 | [@omiu/toast][omiu-toast-github] | [![omiu-toast-status]][omiu-toast-package]|[CodePen][omiu-toast-codepen] | [Toast Docs][omiu-toast-docs]|
 | Coming... | |  | |
@@ -82,6 +83,12 @@ English | [简体中文](./README.CN.md)
 [omiu-tree-package]: https://www.npmjs.com/package/@omiu/tree
 [omiu-tree-docs]: https://tencent.github.io/omi/components/docs/index.html#/tree?index=2&subIndex=0
 [omiu-tree-codepen]: https://codepen.io/omijs/pen/yLYMrdg
+
+[omiu-pagination-github]: https://github.com/Tencent/omi/tree/master/components/pagination
+[omiu-pagination-status]: https://img.shields.io/npm/v/@omiu/pagination.svg
+[omiu-pagination-package]: https://www.npmjs.com/package/@omiu/pagination
+[omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/index.html#/pagination?index=2&subIndex=1
+[omiu-pagination-codepen]: https://codepen.io/omijs/pen/MWamyBQ
 
 [omiu-loading-github]: https://github.com/Tencent/omi/tree/master/components/loading
 [omiu-loading-status]: https://img.shields.io/npm/v/@omiu/loading.svg
