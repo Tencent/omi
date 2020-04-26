@@ -26,7 +26,6 @@ const config = {
       {
         title: '其他',
         list: [
-          { name: 'Omim', md: 'omim' },,
           { name: 'Kbone 多端开发', md: 'kbone' },
           { name: '路由', md: 'router' },
           { name: '服务端渲染', md: 'ssr' },
@@ -61,10 +60,9 @@ const config = {
       {
         title: 'Other',
         list: [
-          { name: 'Omim', md: 'omim' },
           { name: 'Router', md: 'router' },
           { name: 'Server-Side Rendering', md: 'ssr' },
-          { name: 'Ecosystem and examples', md: 'other' }
+          { name: 'Ecosystem and Examples', md: 'other' }
         ]
       }
     ]
