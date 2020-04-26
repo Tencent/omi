@@ -1,4 +1,4 @@
-## Hamburger Menu 汉堡包菜单 
+## HamburgerMenu 汉堡包菜单 
 
 用于切换打开和关闭侧边面板的菜单按钮。
 

@@ -17,7 +17,7 @@ const config = {
           { name: 'Tabs 选项卡', md: 'tabs' },
           { name: 'Radio 单选框', md: 'radio' },
           { name: 'Link 文字链接', md: 'link' },
-          { name: 'Hamburger Menu 汉堡包菜单', md: 'hamburger-menu' }
+          { name: 'HamburgerMenu 汉堡包菜单', md: 'hamburger-menu' }
         ]
       },
       {
@@ -25,7 +25,8 @@ const config = {
         list: [
           { name: 'Input 输入框', md: 'input' },
           { name: 'Checkbox 复选框', md: 'checkbox' },
-          { name: 'Switch 开关', md: 'switch' }
+          { name: 'Switch 开关', md: 'switch' },
+          { name: 'ColorPicker 颜色选择器', md: 'color-picker' }
         ]
       },
       {
@@ -72,7 +73,8 @@ const config = {
         list: [
           { name: 'Input', md: 'input' },
           { name: 'Checkbox', md: 'checkbox' },
-          { name: 'Switch', md: 'switch' }
+          { name: 'Switch', md: 'switch' },
+          { name: 'ColorPicker', md: 'color-picker' }
         ]
       },
       {

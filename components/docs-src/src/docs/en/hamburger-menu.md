@@ -1,4 +1,4 @@
-## Hamburger Menu  
+## HamburgerMenu  
 
 A menu button to toggle the side panel on and off.
 
