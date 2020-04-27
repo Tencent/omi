@@ -26,6 +26,7 @@
 | [@omiu/action-sheet][omiu-action-sheet-github] | [![omiu-action-sheet-status]][omiu-action-sheet-package]|[CodePen][omiu-action-sheet-codepen] | [ActionSheet Docs][omiu-action-sheet-docs]|
 | [@omiu/switch][omiu-switch-github] | [![omiu-switch-status]][omiu-switch-package]|[CodePen][omiu-switch-codepen] | [Switch Docs][omiu-switch-docs]|
 | [@omiu/color-picker][omiu-color-picker-github] | [![omiu-color-picker-status]][omiu-color-picker-package]|[CodePen][omiu-color-picker-codepen] | [ColorPicker Docs][omiu-color-picker-docs]|
+| [@omiu/chart][omiu-chart-github] | [![omiu-chart-status]][omiu-chart-package]|[CodePen][omiu-chart-codepen] | [Chart Docs][omiu-chart-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -122,6 +123,12 @@
 [omiu-color-picker-package]: https://www.npmjs.com/package/@omiu/color-picker
 [omiu-color-picker-docs]: https://tencent.github.io/omi/components/docs/cn.html#/color-picker
 [omiu-color-picker-codepen]: https://codepen.io/omijs/pen/gOaWmZE
+
+[omiu-chart-github]: https://github.com/Tencent/omi/tree/master/components/chart
+[omiu-chart-status]: https://img.shields.io/npm/v/@omiu/chart.svg
+[omiu-chart-package]: https://www.npmjs.com/package/@omiu/chart
+[omiu-chart-docs]: https://tencent.github.io/omi/components/docs/cn.html#/chart
+[omiu-chart-codepen]: https://codepen.io/omijs/pen/pojPKLr
 
 ## 快速概览
 

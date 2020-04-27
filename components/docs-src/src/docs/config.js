@@ -48,7 +48,7 @@ const config = {
       {
         title: '图表',
         list: [
-          { name: '简介', md: 'introduction-chart' },
+          { name: '简介', md: 'chart' },
           { name: 'Bar 柱状图', md: 'bar' },
           { name: 'Line 线状图', md: 'line' },
           { name: 'Scatter 散点图', md: 'scatter' },
@@ -108,7 +108,7 @@ const config = {
       {
         title: 'Chart',
         list: [
-          { name: 'Introduction', md: 'introduction-chart' },
+          { name: 'Introduction', md: 'chart' },
           { name: 'Bar', md: 'bar', demo: './repl/bar.html' },
           { name: 'Line', md: 'line', demo: './repl/line.html' },
           { name: 'Scatter', md: 'scatter', demo: './repl/scatter.html' },
