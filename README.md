@@ -27,6 +27,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/switch][omiu-switch-github] | [![omiu-switch-status]][omiu-switch-package]|[CodePen][omiu-switch-codepen] | [Switch Docs][omiu-switch-docs]|
 | [@omiu/color-picker][omiu-color-picker-github] | [![omiu-color-picker-status]][omiu-color-picker-package]|[CodePen][omiu-color-picker-codepen] | [ColorPicker Docs][omiu-color-picker-docs]|
 | [@omiu/chart][omiu-chart-github] | [![omiu-chart-status]][omiu-chart-package]|[CodePen][omiu-chart-codepen] | [Chart Docs][omiu-chart-docs]|
+| [@omiu/toggle-icon][omiu-toggle-icon-github] | [![omiu-toggle-icon-status]][omiu-toggle-icon-package]|[CodePen][omiu-toggle-icon-codepen] | [ToggleIcon Docs][omiu-toggle-icon-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -129,6 +130,12 @@ English | [简体中文](./README.CN.md)
 [omiu-chart-package]: https://www.npmjs.com/package/@omiu/chart
 [omiu-chart-docs]: https://tencent.github.io/omi/components/docs/index.html#/chart
 [omiu-chart-codepen]: https://codepen.io/omijs/pen/pojPKLr
+
+[omiu-toggle-icon-github]: https://github.com/Tencent/omi/tree/master/components/toggle-icon
+[omiu-toggle-icon-status]: https://img.shields.io/npm/v/@omiu/toggle-icon.svg
+[omiu-toggle-icon-package]: https://www.npmjs.com/package/@omiu/toggle-icon
+[omiu-toggle-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/toggle-icon
+[omiu-toggle-icon-codepen]: https://codepen.io/omijs/pen/ZEbKwXX
 
 ## Quick Preview
 
