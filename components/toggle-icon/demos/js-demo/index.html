@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu ActionSheet</title>
+</head>
+
+<body>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="https://unpkg.com/@omiu/button@0.0.7/src/index.js"></script>
+  <script src="../../../icon/favorite.js"></script>
+  <script src="../../../icon/favorite-border.js"></script>
+  <script src="../../src/index.js"></script>
+
+  <div>
+    <o-toggle-icon icons="['favorite-border','favorite']"></o-toggle-icon>
+
+    <o-toggle-icon is-on color="red" icons="['favorite-border','favorite']"></o-toggle-icon>
+    <o-toggle-icon disabled icons="['favorite', 'favorite-border']"></o-toggle-icon>
+
+  </div>
+  <script>
+    document.querySelector('o-toggle-icon').addEventListener('change', function (evt) {
+      console.log(evt.detail)
+    })
+  </script>
+</body>
+
+</html>
