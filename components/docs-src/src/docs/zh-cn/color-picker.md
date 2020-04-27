@@ -1,6 +1,6 @@
 ## ColorPicker 颜色选择器
 
-Color Picker
+基于强力 [pickr](https://github.com/Simonwep/pickr) 实现的颜色选择器
 
 <iframe height="351" style="width: 100%;" scrolling="no" title="OMIU ColorPicker" src="https://codepen.io/omijs/embed/gOaWmZE?height=351&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
   See the Pen <a href='https://codepen.io/omijs/pen/gOaWmZE'>OMIU Checkbox</a> by OMI

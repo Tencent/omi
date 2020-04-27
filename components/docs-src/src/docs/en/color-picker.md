@@ -1,6 +1,6 @@
 ## ColorPicker
 
-Color Picker
+Color Picker base on [pickr](https://github.com/Simonwep/pickr)
 
 <iframe height="351" style="width: 100%;" scrolling="no" title="OMIU ColorPicker" src="https://codepen.io/omijs/embed/gOaWmZE?height=351&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
   See the Pen <a href='https://codepen.io/omijs/pen/gOaWmZE'>OMIU Checkbox</a> by OMI
