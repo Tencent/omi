@@ -321,7 +321,7 @@ var ColorPicker = /** @class */ (function (_super) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            _this.picker.show();
+            //this.picker.show()
             _this.fire('init', args[0]);
         }).on('save', function () {
             var args = [];

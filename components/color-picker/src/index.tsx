@@ -119,7 +119,7 @@ export default class ColorPicker extends WeElement<Props>{
     })
 
     picker.on('init', (...args) => {
-      this.picker.show()
+      //this.picker.show()
       this.fire('init', args[0])
     }).on('save', (...args) => {
       this.fire('save', {
