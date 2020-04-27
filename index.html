@@ -24,7 +24,6 @@
     #container {
       text-align: center;
     }
-
   </style>
 
   <style>
@@ -213,7 +212,6 @@
     #wp {
       z-index: 10;
     }
-
   </style>
 </head>
 
@@ -254,6 +252,9 @@
           <span>Omix + 小程序</span>
         </a>
 
+
+      </div>
+      <div class="links">
         <a class="button" style='color: #07c160;' href="https://github.com/Tencent/omi/tree/master/packages/omi-kbone"
           target="_blank">
           <svg viewBox="0 0 180 60">
@@ -263,8 +264,7 @@
           </svg>
           <span>Omi + Kbone</span>
         </a>
-      </div>
-      <div class="links">
+
         <a class="button " style='color: #42b983;' href="https://github.com/Tencent/omi/tree/master/packages/omiv"
           target="_blank">
           <svg viewBox="0 0 180 60">
@@ -275,7 +275,7 @@
           <span>Omiv + Vue</span>
         </a>
 
-
+        <!--
         <a class="button" style='color: #6cb0f5'
           href="https://tencent.github.io/omi/packages/omim/docs/build/index.html" target="_blank">
           <svg viewBox="0 0 180 60">
@@ -284,7 +284,7 @@
             </path>
           </svg>
           <span>Omim Docs</span>
-        </a>
+        </a> -->
         <a class="button" style='color: #61dafb;' href="https://github.com/Tencent/omi/tree/master/packages/omis"
           target="_blank">
           <svg viewBox="0 0 180 60">
@@ -351,7 +351,7 @@ render(&lt;my-counter /&gt;, 'body', new Store)
     }
 
     if (detectMobile()) {
-      //document.getElementById('wp').style.marginTop = (window.innerHeight - 800) / 2 + 'px'
+      document.getElementById('wp').style.marginTop = (window.innerHeight - 600) / 2 + 'px'
 
     } else {
       document.getElementById('wp').style.marginTop = (window.innerHeight - 700) / 2 + 'px'
