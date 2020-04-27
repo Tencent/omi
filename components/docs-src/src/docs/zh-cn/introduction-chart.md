@@ -4,6 +4,10 @@
 
 <p align="center"><a href="https://github.com/Tencent/omi">Omi</a> 和 <a href="https://www.chartjs.org/" target="_blank">chart.js</a> 扩展的图表📈标签<p>
 
+<iframe height="433" style="width: 100%;" scrolling="no" title="OMIU Chart" src="https://codepen.io/omijs/embed/pojPKLr?height=433&theme-id=dark&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='https://codepen.io/omijs/pen/pojPKLr'>OMIU Chart</a> by OMI
+  (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 ## 支持的标签
 
