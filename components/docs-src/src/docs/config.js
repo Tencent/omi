@@ -49,15 +49,15 @@ const config = {
         title: '图表',
         list: [
           { name: '简介', md: 'introduction-chart' },
-          { name: '柱状图', md: 'bar' },
-          { name: '线状图', md: 'line' },
-          { name: '散点图', md: 'scatter' },
-          { name: '饼图', md: 'pie' },
-          { name: '环状图', md: 'doughnut' },
-          { name: '雷达图', md: 'radar' },
-          { name: '极区图', md: 'polar-area' },
-          { name: '气泡图', md: 'bubble' },
-          { name: '合成图', md: 'bar-line' }
+          { name: 'Bar 柱状图', md: 'bar' },
+          { name: 'Line 线状图', md: 'line' },
+          { name: 'Scatter 散点图', md: 'scatter' },
+          { name: 'Pie 饼图', md: 'pie' },
+          { name: 'Doughnut 环状图', md: 'doughnut' },
+          { name: 'Radar 雷达图', md: 'radar' },
+          { name: 'PolarArea 极区图', md: 'polar-area' },
+          { name: 'Bubble 气泡图', md: 'bubble' },
+          { name: 'BarLine 合成图', md: 'bar-line' }
         ]
       }
     ],
