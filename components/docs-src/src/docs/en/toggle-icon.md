@@ -2,7 +2,10 @@
 
 Icon with two state switches
 
-* [→ CodePen](https://codepen.io/omijs/pen/ZEbKwXX)
+<iframe height="351" style="width: 100%;" scrolling="no" title="OMIU ToggleIcon" src="https://codepen.io/omijs/embed/ZEbKwXX?height=351&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='https://codepen.io/omijs/pen/ZEbKwXX'>OMIU Checkbox</a> by OMI
+  (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 ## Import
 
