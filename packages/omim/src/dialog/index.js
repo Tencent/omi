@@ -4866,7 +4866,7 @@ Dialog.confirm = function (options) {
     if (dom) {
         document.body.removeChild(dom);
     }
-    dom = omi_1.render(omi_1.h("m-dialog", { "cancel-button": { text: options.cancelText || 'Cancel' }, "confirm-button": { text: options.confirmText || 'Confirm' }, onCancel: function (_) { return onConfirm(options.cancel); }, onConfirm: function (_) { return onConfirm(options.confirm); }, show: true },
+    dom = omi_1.render(omi_1.h("m-dialog", { cancelButton: { text: options.cancelText || 'Cancel' }, confirmButton: { text: options.confirmText || 'Confirm' }, onCancel: function (_) { return onConfirm(options.cancel); }, onConfirm: function (_) { return onConfirm(options.confirm); }, show: true },
         omi_1.h("p", { style: 'margin:0' }, options.msg)), 'body');
 };
 function onConfirm(callback) {
@@ -4880,7 +4880,7 @@ Dialog.alert = function (options) {
     if (dom) {
         document.body.removeChild(dom);
     }
-    dom = omi_1.render(omi_1.h("m-dialog", { "confirm-button": { text: options.confirmText || 'Confirm' }, onConfirm: function (_) { return onConfirm(options.confirm); }, show: true },
+    dom = omi_1.render(omi_1.h("m-dialog", { confirmButton: { text: options.confirmText || 'Confirm' }, onConfirm: function (_) { return onConfirm(options.confirm); }, show: true },
         omi_1.h("p", { style: 'margin:0' }, options.msg)), 'body');
 };
 Dialog.prompt = function (options) {
@@ -4888,7 +4888,7 @@ Dialog.prompt = function (options) {
         document.body.removeChild(dom);
     }
     var ele;
-    dom = omi_1.render(omi_1.h("m-dialog", { "cancel-button": { text: options.cancelText || 'Cancel' }, "confirm-button": { text: options.confirmText || 'Confirm' }, onCancel: function (_) { return onConfirm(options.cancel); }, onConfirm: function (_) { return promptCallback(options.confirm, dom); }, show: true, title: options.title },
+    dom = omi_1.render(omi_1.h("m-dialog", { cancelButton: { text: options.cancelText || 'Cancel' }, confirmButton: { text: options.confirmText || 'Confirm' }, onCancel: function (_) { return onConfirm(options.cancel); }, onConfirm: function (_) { return promptCallback(options.confirm, dom); }, show: true, title: options.title },
         omi_1.h("style", null, "\n  input {\n    transition: all .3s;\n  }\n  input:focus {\n    border-bottom:1px solid " + (document.body.style.getPropertyValue('--mdc-theme-primary') || '#0072d9 ') + "!important;\n  }\n  "),
         omi_1.h("p", { style: 'margin:10px 0 0;' }, options.subtitle),
         omi_1.h("input", { style: 'width:100%;height: 30px;\n    border: none;font-size:14px;\n    border-bottom: 1px solid #ccc; outline: none;', ref: function (_) { return ele = _; }, type: 'text' })), 'body');

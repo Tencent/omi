@@ -1,6 +1,6 @@
 {
   "name": "omim",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Material Design for Omi.",
   "main": "index.js",
   "scripts": {

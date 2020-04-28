@@ -91,8 +91,8 @@ Dialog.confirm = function (options) {
     document.body.removeChild(dom)
   }
   dom = render(<m-dialog
-    cancel-button={{text: options.cancelText||'Cancel'}}
-    confirm-button={{text: options.confirmText||'Confirm'}}
+    cancelButton={{text: options.cancelText||'Cancel'}}
+    confirmButton={{text: options.confirmText||'Confirm'}}
     onCancel={_=>onConfirm(options.cancel)}
     onConfirm={_=>onConfirm(options.confirm)}
     show={true} ><p style='margin:0'>{options.msg}</p></m-dialog>, 'body')
@@ -111,7 +111,7 @@ Dialog.alert = function (options) {
     document.body.removeChild(dom)
   }
   dom = render(<m-dialog
-    confirm-button={{text: options.confirmText||'Confirm'}}
+    confirmButton={{text: options.confirmText||'Confirm'}}
     onConfirm={_=>onConfirm(options.confirm)}
     show={true} ><p style='margin:0'>{options.msg}</p></m-dialog>, 'body')
 }
@@ -123,8 +123,8 @@ Dialog.prompt = function (options) {
   }
   let ele
   dom = render(<m-dialog
-    cancel-button={{text: options.cancelText||'Cancel'}}
-    confirm-button={{text: options.confirmText||'Confirm'}}
+    cancelButton={{text: options.cancelText||'Cancel'}}
+    confirmButton={{text: options.confirmText||'Confirm'}}
     onCancel={_=>onConfirm(options.cancel)}
     onConfirm={_=>promptCallback(options.confirm,dom)}
     show={true}
