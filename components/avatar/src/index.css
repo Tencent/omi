@@ -1,18 +1,12 @@
-@import "@omiu/common/theme.scss";
-
 :host {
-  display: inline-block;
-}
+  display: inline-block; }
 
 img {
-
   width: 100%;
-  height: 100%;
-}
+  height: 100%; }
 
 .o-avatar.square {
-  border-radius: 4px;
-}
+  border-radius: 4px; }
 
 .material-icons {
   font-family: 'Material Icons';
@@ -27,8 +21,7 @@ img {
   word-wrap: normal;
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-}
+  -webkit-font-smoothing: antialiased; }
 
 .o-avatar {
   display: inline-block;
@@ -39,14 +32,7 @@ img {
   background-color: #ccc;
   color: white;
   border-radius: 50%;
-  overflow: hidden;
-
-
-}
-
-
+  overflow: hidden; }
 
 .o-avatar .material-icons {
-  line-height: 40px;
-
-}
+  line-height: 40px; }

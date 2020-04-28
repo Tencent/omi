@@ -1,11 +1,11 @@
 {
-  "name": "@omiu/badge",
+  "name": "@omiu/avatar",
   "version": "0.0.1",
   "description": "A head that symbolizes an image or personality",
   "docsExtend": {
     "cnName": "头像",
     "cnDescription": "象征着想象或者个性的头像",
-    "codepen": "wvKdoNJ",
+    "codepen": "QWjgaze",
     "codepenHeight": 351,
     "codepenDefaultTab": "html,result"
   },

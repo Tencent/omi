@@ -12,7 +12,7 @@ interface Props {
   backgroundColor?: string
 }
 
-@tag('m-avatar')
+@tag('o-avatar')
 export default class Avatar extends WeElement<Props>{
   static css = css
 
@@ -38,7 +38,7 @@ export default class Avatar extends WeElement<Props>{
 
     this._iconTag = 'o-icon-' + props.icon
     return (
-      <div {...extractClass(props, 'm-avatar', {
+      <div {...extractClass(props, 'o-avatar', {
         'square': props.square
       })} style={{
         width: props.size + 'px',

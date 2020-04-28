@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ":host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.m-avatar.square {\n  border-radius: 4px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n\n.m-avatar {\n  display: inline-block;\n  width: 40px;\n  height: 40px;\n  text-align: center;\n  vertical-align: middle;\n  background-color: #ccc;\n  color: white;\n  border-radius: 50%;\n  overflow: hidden; }\n\n.m-avatar .material-icons {\n  line-height: 40px; }\n", ""]);
+exports.push([module.i, ":host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.o-avatar.square {\n  border-radius: 4px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n\n.o-avatar {\n  display: inline-block;\n  width: 40px;\n  height: 40px;\n  text-align: center;\n  vertical-align: middle;\n  background-color: #ccc;\n  color: white;\n  border-radius: 50%;\n  overflow: hidden; }\n\n.o-avatar .material-icons {\n  line-height: 40px; }\n", ""]);
 
 // exports
 
@@ -270,7 +270,7 @@ var Avatar = /** @class */ (function (_super) {
     }
     Avatar.prototype.render = function (props) {
         this._iconTag = 'o-icon-' + props.icon;
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-avatar', {
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-avatar', {
             'square': props.square
         }), { style: {
                 width: props.size + 'px',
@@ -297,7 +297,7 @@ var Avatar = /** @class */ (function (_super) {
         backgroundColor: String
     };
     Avatar = __decorate([
-        omi_1.tag('m-avatar')
+        omi_1.tag('o-avatar')
     ], Avatar);
     return Avatar;
 }(omi_1.WeElement));
