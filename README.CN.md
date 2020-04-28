@@ -28,6 +28,9 @@
 | [@omiu/color-picker][omiu-color-picker-github] | [![omiu-color-picker-status]][omiu-color-picker-package]|[CodePen][omiu-color-picker-codepen] | [ColorPicker Docs][omiu-color-picker-docs]|
 | [@omiu/chart][omiu-chart-github] | [![omiu-chart-status]][omiu-chart-package]|[CodePen][omiu-chart-codepen] | [Chart Docs][omiu-chart-docs]|
 | [@omiu/toggle-icon][omiu-toggle-icon-github] | [![omiu-toggle-icon-status]][omiu-toggle-icon-package]|[CodePen][omiu-toggle-icon-codepen] | [ToggleIcon Docs][omiu-toggle-icon-docs]|
+| [@omiu/o-icon][omiu-o-icon-github] | [![omiu-o-icon-status]][omiu-o-icon-package]|[CodePen][omiu-o-icon-codepen] | [OIcon Docs][omiu-o-icon-docs]|
+| [@omiu/badge][omiu-badge-github] | [![omiu-badge-status]][omiu-badge-package]|[CodePen][omiu-badge-codepen] | [Badge Docs][omiu-badge-docs]|
+| [@omiu/avatar][omiu-avatar-github] | [![omiu-avatar-status]][omiu-avatar-package]|[CodePen][omiu-avatar-codepen] | [Avatar Docs][omiu-avatar-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -136,6 +139,24 @@
 [omiu-toggle-icon-package]: https://www.npmjs.com/package/@omiu/toggle-icon
 [omiu-toggle-icon-docs]: https://tencent.github.io/omi/components/docs/cn.html#/toggle-icon
 [omiu-toggle-icon-codepen]: https://codepen.io/omijs/pen/ZEbKwXX
+
+[omiu-o-icon-github]: https://github.com/Tencent/omi/tree/master/components/o-icon
+[omiu-o-icon-status]: https://img.shields.io/npm/v/@omiu/o-icon.svg
+[omiu-o-icon-package]: https://www.npmjs.com/package/@omiu/o-icon
+[omiu-o-icon-docs]: https://tencent.github.io/omi/components/docs/cn.html#/o-icon
+[omiu-o-icon-codepen]: https://codepen.io/omijs/pen/QWjgapY
+
+[omiu-badge-github]: https://github.com/Tencent/omi/tree/master/components/badge
+[omiu-badge-status]: https://img.shields.io/npm/v/@omiu/badge.svg
+[omiu-badge-package]: https://www.npmjs.com/package/@omiu/badge
+[omiu-badge-docs]: https://tencent.github.io/omi/components/docs/cn.html#/badge
+[omiu-badge-codepen]: https://codepen.io/omijs/pen/WNQOdaB
+
+[omiu-avatar-github]: https://github.com/Tencent/omi/tree/master/components/avatar
+[omiu-avatar-status]: https://img.shields.io/npm/v/@omiu/avatar.svg
+[omiu-avatar-package]: https://www.npmjs.com/package/@omiu/avatar
+[omiu-avatar-docs]: https://tencent.github.io/omi/components/docs/cn.html#/avatar
+[omiu-avatar-codepen]: https://codepen.io/omijs/pen/QWjgaze
 
 ## 快速概览
 
