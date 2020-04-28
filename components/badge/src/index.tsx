@@ -1,8 +1,5 @@
 import { tag, h, WeElement, extractClass } from 'omi'
 import * as css from './index.scss'
-import '../icon'
-//@ts-ignore
-import '../theme.ts'
 
 interface Props {
   dot?: boolean,
@@ -12,7 +9,7 @@ interface Props {
 }
 
 
-@tag('m-badge')
+@tag('o-badge')
 export default class Badge extends WeElement<Props>{
   static css = css
 
@@ -40,7 +37,7 @@ export default class Badge extends WeElement<Props>{
 
   render(props) {
     if (props.content) {
-      return <div {...extractClass(props, 'm-badge')}>
+      return <div {...extractClass(props, 'o-badge')}>
         {props.children ? props.children[0] : <slot></slot>}
         <span class="badge" style={`right:${props.x * -1}px;top:${props.y}px;`}>{props.content}</span>
       </div>
@@ -48,13 +45,13 @@ export default class Badge extends WeElement<Props>{
 
     if (props.dot) {
       return (
-        <div class="m-badge">
+        <div class="o-badge">
           {props.children ? props.children[0] : <slot></slot>}
           <span style={`right:${props.x * -1}px;top:${props.y}px;`} class="circle badge"></span>
         </div>
       )
     }
-    return <div class="m-badge">{props.children ? props.children[0] : <slot></slot>}</div>
+    return <div class="o-badge">{props.children ? props.children[0] : <slot></slot>}</div>
   }
 }
 

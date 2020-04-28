@@ -1,20 +1,11 @@
-@import "@omiu/common/theme.scss";
-
-
-
 .o-badge {
   position: relative;
-  display: inline-block;
-}
+  display: inline-block; }
 
 .badge {
-
   background-color: #F95050;
   color: #FFFFFF;
   line-height: 1.2;
-
-
-
   top: 0;
   right: 0;
   height: 20px;
@@ -35,14 +26,11 @@
   border-radius: 10px;
   flex-direction: row;
   justify-content: center;
-  transform-origin: 100% 0%;
-}
+  transform-origin: 100% 0%; }
 
 .circle {
-
   width: 8px;
   height: 8px;
   border-radius: 50%;
   min-width: 8px;
-  padding: 0;
-}
+  padding: 0; }

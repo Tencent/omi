@@ -1,11 +1,11 @@
 {
-  "name": "@omiu/avatar",
+  "name": "@omiu/badge",
   "version": "0.0.1",
-  "description": "A head that symbolizes an image or personality",
+  "description": "Mark in the upper right corner of the icon",
   "docsExtend": {
-    "cnName": "头像",
-    "cnDescription": "象征着想象或者个性的头像",
-    "codepen": "wvKdoNJ",
+    "cnName": "徽章",
+    "cnDescription": "图标右上角的标记",
+    "codepen": "WNQOdaB",
     "codepenHeight": 351,
     "codepenDefaultTab": "html,result"
   },

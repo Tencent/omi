@@ -1,6 +1,4 @@
 import { WeElement } from 'omi';
-import '../icon';
-import '../theme.ts';
 interface Props {
     dot?: boolean;
     content?: string;

@@ -1,26 +1,26 @@
-## ActionSheet
+## Badge
 
-Mobile pop-up options list
+Mark in the upper right corner of the icon
 
-* [→ CodePen](https://codepen.io/omijs/pen/wvKdoNJ)
+* [→ CodePen](https://codepen.io/omijs/pen/WNQOdaB)
 
 ## Import
 
 ```js
-import '@omiu/action-sheet'
+import '@omiu/badge'
 ```
 
 Or use script tag to ref it.
 
 
 ```html
-<script src="https://unpkg.com/@omiu/action-sheet"></script>
+<script src="https://unpkg.com/@omiu/badge"></script>
 ```
 
 ## Usage
 
 ```html
-<o-action-sheet></o-action-sheet>
+<o-badge></o-badge>
 ```
 
 ## API
@@ -29,10 +29,10 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  type: string,
-  menus: any[],
-  actions: any[],
-  show: boolean
+  dot?: boolean,
+  content?: string,
+  x?: number,
+  y?: number
 }
 ```
 
@@ -40,13 +40,7 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  type: '',
-  menus: [],
-  actions: [],
-  show: false
+  x: 0,
+  y: 0
 )
 ```
-### Events
-
-* itemClick
-* close
