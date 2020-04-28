@@ -14,6 +14,9 @@ const config = {
         list: [
           { name: 'Button 按钮', md: 'button' },
           { name: 'Icon 图标', md: 'icon' },
+          { name: 'OIcon 矢量图标', md: 'o-icon' },
+          { name: 'Badge 徽章', md: 'badge' },
+          { name: 'Avatar 头像', md: 'avatar' },
           { name: 'ToggleIcon 可切换图标', md: 'toggle-icon' },
           { name: 'Tabs 选项卡', md: 'tabs' },
           { name: 'Radio 单选框', md: 'radio' },
@@ -76,6 +79,9 @@ const config = {
         list: [
           { name: 'Button', md: 'button' },
           { name: 'Icon', md: 'icon' },
+          { name: 'OIcon', md: 'o-icon' },
+          { name: 'Badge', md: 'badge' },
+          { name: 'Avatar', md: 'avatar' },
           { name: 'ToggleIcon', md: 'toggle-icon' },
           { name: 'Tabs', md: 'tabs' },
           { name: 'Radio', md: 'radio' },
