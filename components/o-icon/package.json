@@ -1,0 +1,101 @@
+{
+  "name": "@omiu/o-icon",
+  "version": "0.0.1",
+  "description": "SVG Icon",
+  "docsExtend": {
+    "cnName": "矢量图标",
+    "cnDescription": "SVG 矢量图标",
+    "codepen": "QWjgapY",
+    "codepenHeight": 351,
+    "codepenDefaultTab": "html,result"
+  },
+  "main": "src/index.js",
+  "module": "src/index.esm.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "docs": "node ./scripts/docs-gen.js",
+    "start": "node ./scripts/webpack.build.js -- demo",
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+  },
+  "typings": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "files": [
+    "src",
+    "dist",
+    "typings.json"
+  ],
+  "keywords": [
+    "omiu",
+    "omi",
+    "omio",
+    "preact",
+    "react",
+    "virtual dom",
+    "vdom",
+    "components",
+    "virtual",
+    "dom"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "http://omijs.org",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "css": "^2.2.4",
+    "css-loader": "^1.0.1",
+    "file": "^0.2.2",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.5",
+    "node-sass": "^4.12.0",
+    "omi": "latest",
+    "omio": "latest",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
+    "resolve-url-loader": "^3.1.0",
+    "rollup": "^2.7.1",
+    "rollup-plugin-license": "^2.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-scss": "^2.4.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "to-string-loader": "^1.1.5",
+    "ts-loader": "^5.4.4",
+    "typescript": "^3.2.1",
+    "url": "^0.11.0",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "babel-cli",
+      "babel-core",
+      "babel-eslint",
+      "babel-loader",
+      "jscodeshift",
+      "rollup-plugin-babel"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "tabWidth": 2,
+    "useTabs": false
+  },
+  "dependencies": {
+    "@omiu/common": "latest",
+    "omi": "latest"
+  }
+}

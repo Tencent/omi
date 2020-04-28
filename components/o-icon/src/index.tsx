@@ -1,8 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 
-//@ts-ignore
-import '../theme.ts'
 
 interface Props {
   path?: string,
@@ -13,7 +11,7 @@ interface Props {
   rotate?: boolean
 }
 
-@tag('m-icon')
+@tag('o-icon')
 export default class Icon extends WeElement<Props>{
   static css = css
 
@@ -33,7 +31,7 @@ export default class Icon extends WeElement<Props>{
 
   render(props) {
     return (
-      <i {...extractClass(props, 'm-icon')} >
+      <i {...extractClass(props, 'o-icon')} >
         <svg
           viewBox={'0 0 ' + props.view + ' ' + props.view}
           class={classNames({ rotate: props.rotate })}
