@@ -278,12 +278,12 @@ var Breadcrumb = /** @class */ (function (_super) {
             }
             if (index !== props.items.length - 1) {
                 items.push(omi_1.h("li", { class: "breadcrumb-li" },
-                    item.icon && omi_1.h(_this._tempIcon, { class: "icon" }, item.icon),
+                    item.icon && omi_1.h(_this._tempIcon, { class: "icon" }),
                     omi_1.h("a", { class: "", href: item.href }, item.text)), omi_1.h("li", { class: 'split' }, props.split));
             }
             else {
                 items.push(omi_1.h("li", { class: "current" },
-                    item.icon && omi_1.h(_this._tempIcon, { class: "icon" }, item.icon),
+                    item.icon && omi_1.h(_this._tempIcon, { class: "icon" }),
                     item.text));
             }
         });

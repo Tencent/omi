@@ -1,6 +1,6 @@
 {
   "name": "@omiu/breadcrumb",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Display the position of the current page in the system hierarchy and be able to navigate",
   "docsExtend": {
     "cnName": "面包屑",

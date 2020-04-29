@@ -1,5 +1,5 @@
 /**
- * @omiu/breadcrumb v0.0.2 http://omijs.org
+ * @omiu/breadcrumb v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -110,12 +110,12 @@ var Breadcrumb = /** @class */ (function (_super) {
             }
             if (index !== props.items.length - 1) {
                 items.push(h("li", { class: "breadcrumb-li" },
-                    item.icon && h(_this._tempIcon, { class: "icon" }, item.icon),
+                    item.icon && h(_this._tempIcon, { class: "icon" }),
                     h("a", { class: "", href: item.href }, item.text)), h("li", { class: 'split' }, props.split));
             }
             else {
                 items.push(h("li", { class: "current" },
-                    item.icon && h(_this._tempIcon, { class: "icon" }, item.icon),
+                    item.icon && h(_this._tempIcon, { class: "icon" }),
                     item.text));
             }
         });

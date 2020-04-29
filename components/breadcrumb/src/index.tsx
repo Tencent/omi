@@ -36,10 +36,10 @@ export default class Breadcrumb extends WeElement<Props>{
 
       if (index !== props.items.length - 1) {
         items.push(<li class="breadcrumb-li">
-          {item.icon && <this._tempIcon class="icon">{item.icon}</this._tempIcon>}<a class="" href={item.href}>{item.text}</a>
+          {item.icon && <this._tempIcon class="icon"></this._tempIcon>}<a class="" href={item.href}>{item.text}</a>
         </li>, <li class='split'>{props.split}</li>)
       } else {
-        items.push(<li class="current">{item.icon && <this._tempIcon class="icon">{item.icon}</this._tempIcon>}{item.text}
+        items.push(<li class="current">{item.icon && <this._tempIcon class="icon"></this._tempIcon>}{item.text}
         </li>)
       }
     })
