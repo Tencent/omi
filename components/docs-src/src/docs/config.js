@@ -21,7 +21,8 @@ const config = {
           { name: 'Tabs 选项卡', md: 'tabs' },
           { name: 'Radio 单选框', md: 'radio' },
           { name: 'Link 文字链接', md: 'link' },
-          { name: 'HamburgerMenu 汉堡包菜单', md: 'hamburger-menu' }
+          { name: 'HamburgerMenu 汉堡包菜单', md: 'hamburger-menu' },
+          { name: 'Breadcrumb 面包屑', md: 'breadcrumb' }
         ]
       },
       {
@@ -86,7 +87,8 @@ const config = {
           { name: 'Tabs', md: 'tabs' },
           { name: 'Radio', md: 'radio' },
           { name: 'Link', md: 'link' },
-          { name: 'Hamburger Menu', md: 'hamburger-menu' }
+          { name: 'Hamburger Menu', md: 'hamburger-menu' },
+          { name: 'Breadcrumb', md: 'breadcrumb' }
         ]
       },
       {

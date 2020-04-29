@@ -1,0 +1,36 @@
+:host {
+  display: block; }
+
+ol {
+  list-style-type: decimal;
+  font-size: 14px;
+  padding: 0;
+  margin: 0; }
+
+li {
+  list-style: none;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.45);
+  vertical-align: middle; }
+
+.breadcrumb-li a {
+  color: rgba(0, 0, 0, 0.45); }
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 20px;
+  height: 20px; }
+
+.split {
+  margin: 0 8px; }
+
+.current {
+  color: rgba(0, 0, 0, 0.7);
+  vertical-align: middle;
+  line-height: 20px;
+  height: 20px; }
+
+.icon {
+  vertical-align: -0.2em; }

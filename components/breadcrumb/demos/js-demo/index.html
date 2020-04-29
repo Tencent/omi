@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu ActionSheet</title>
+</head>
+
+<body>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+
+  <script src="https://unpkg.com/@omiu/icon@0.0.3/home.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.3/help.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.3/people.js"></script>
+  <script src="../../src/index.js"></script>
+
+
+  <div>
+    <div>
+      <o-breadcrumb split="/" items="[
+        { text: 'Home' },
+        { text: 'Helper' },
+        { text: 'About' }
+      ]"></o-breadcrumb>
+
+
+      <o-breadcrumb split="/" items="[
+        { text: 'Home', href:'https://tencent.github.io/omi/', icon:'home' },
+        { text: 'Helper', icon:'help' },
+        { text: 'About', icon: 'people' }
+      ]"></o-breadcrumb>
+    </div>
+  </div>
+</body>
+
+</html>
