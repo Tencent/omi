@@ -162,7 +162,7 @@
 [omiu-breadcrumb-github]: https://github.com/Tencent/omi/tree/master/components/breadcrumb
 [omiu-breadcrumb-status]: https://img.shields.io/npm/v/@omiu/breadcrumb.svg
 [omiu-breadcrumb-package]: https://www.npmjs.com/package/@omiu/breadcrumb
-[omiu-breadcrumb-docs]: https://tencent.github.io/omi/components/docs/index.html#/breadcrumb
+[omiu-breadcrumb-docs]: https://tencent.github.io/omi/components/docs/cn.html#/breadcrumb
 [omiu-breadcrumb-codepen]: https://codepen.io/omijs/pen/wvKqGxB
 
 
