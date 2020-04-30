@@ -51,7 +51,7 @@ Or use script tag to ref it.
   strings?: {
     save: string,  // Default for save button
     clear: string // Default for clear button
-  }, 
+  },
   width?: string
 }
 ```
