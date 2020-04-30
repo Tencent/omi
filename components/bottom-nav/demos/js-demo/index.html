@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu Icon</title>
+</head>
+
+<body>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.3/favorite.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.3/location-on.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.3/restore.js"></script>
+  <script src="../../src/index.js"></script>
+
+
+  <m-bottom-nav selected-color='#07c160' id='myNav' items="[
+    { icon: 'favorite', label: 'Favorites', selected: true },
+    { icon: 'location-on', label: 'Nearby' },
+    { icon: 'restore', label: 'Recents' }
+  ]">
+  </m-bottom-nav>
+
+  <script>
+    document.querySelector('#myNav').addEventListener('change', function (evt) {
+      console.log(evt.detail)
+    })
+  </script>
+</body>
+
+</html>
