@@ -373,12 +373,8 @@ define('my-component', _ => (
     use: ['path', 'path.a', 'path[1].b'],
     useSelf: ['path.c', 'path[1].d'],
     css: 'h1 { color: red; }',
-    propTypes: {
-
-    },
-    defaultProps: {
-
-    },
+    propTypes: { },
+    defaultProps: { },
     isLightDom: true, //default is false
 
     //生命周期
