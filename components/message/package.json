@@ -94,6 +94,7 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/transition": "latest",
     "omi": "latest"
   }
 }

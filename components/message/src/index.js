@@ -96,14 +96,62 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "../transition/src/index.tsx":
-/*!***********************************!*\
-  !*** ../transition/src/index.tsx ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@omiu/transition/src/index.esm.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@omiu/transition/src/index.esm.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * @omiu/transition v0.0.1 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
+
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
 
 /**
  * o-transition element based on vue-transition
@@ -114,28 +162,6 @@ return /******/ (function(modules) { // webpackBootstrap
  * modified by dntzhang
  *
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-//todo duration and delay support
-var omi_1 = __webpack_require__(/*! omi */ "omi");
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);
     function Transition() {
@@ -153,6 +179,7 @@ var Transition = /** @class */ (function (_super) {
     };
     Transition.prototype.enter = function () {
         this.fire('BeforeEnter');
+        this.fire('beforeEnter');
         this.transitionTarget.classList.remove(this.props.name + '-leave-active');
         this.transitionTarget.classList.remove(this.props.name + '-leave-to');
         this.transitionTarget.classList.add(this.props.name + '-enter');
@@ -160,6 +187,7 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function () {
             this.transitionTarget.classList.remove(this.props.name + '-enter-active');
             this.fire('AfterEnter');
+            this.fire('afterEnter');
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -171,6 +199,7 @@ var Transition = /** @class */ (function (_super) {
     };
     Transition.prototype.leave = function () {
         this.fire('BeforeLeave');
+        this.fire('beforeLeave');
         this.transitionTarget.classList.remove(this.props.name + '-enter-active');
         this.transitionTarget.classList.remove(this.props.name + '-enter-to');
         this.transitionTarget.classList.add(this.props.name + '-leave');
@@ -178,6 +207,7 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function (e) {
             this.transitionTarget.classList.remove(this.props.name + '-leave-active');
             this.fire('AfterLeave');
+            this.fire('afterLeave');
             if (this.props.autoRemove && this.parentNode) {
                 this.parentNode.removeChild(this);
             }
@@ -210,23 +240,25 @@ var Transition = /** @class */ (function (_super) {
         name: 'o'
     };
     Transition = __decorate([
-        omi_1.tag('o-transition')
+        Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-transition')
     ], Transition);
     return Transition;
-}(omi_1.WeElement));
-exports.default = Transition;
+}(omi__WEBPACK_IMPORTED_MODULE_0__["WeElement"]));
+
+/* harmony default export */ __webpack_exports__["default"] = (Transition);
+//# sourceMappingURL=index.esm.js.map
 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -238,10 +270,10 @@ exports.push([module.i, ".o-message__closeBtn:focus,\n.o-message__content:focus 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -333,7 +365,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -386,7 +418,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-__webpack_require__(/*! ../../transition/src/index.tsx */ "../transition/src/index.tsx");
+__webpack_require__(/*! @omiu/transition */ "./node_modules/@omiu/transition/src/index.esm.js");
 var Message = /** @class */ (function (_super) {
     __extends(Message, _super);
     function Message() {

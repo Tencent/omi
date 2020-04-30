@@ -1,5 +1,5 @@
 import { WeElement } from 'omi';
-import '../../transition/src/index.tsx';
+import '@omiu/transition';
 interface Props {
     type?: 'success' | 'warning' | 'info' | 'error';
     message: string;

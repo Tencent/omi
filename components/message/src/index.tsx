@@ -1,6 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
-import '../../transition/src/index.tsx'
+import '@omiu/transition'
 
 interface Props {
   type?: 'success' | 'warning' | 'info' | 'error'
