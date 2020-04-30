@@ -1,11 +1,11 @@
 {
   "name": "@omiu/transition",
   "version": "0.0.1",
-  "description": "Mobile pop-up options list",
+  "description": "Define transition animation for entering and leaving",
   "docsExtend": {
-    "cnName": "弹出式菜单",
-    "cnDescription": "移动端弹出式选项列表",
-    "codepen": "wvKdoNJ",
+    "cnName": "过渡动画",
+    "cnDescription": "定义进入离开的过渡动画",
+    "codepen": "JjYyezQ",
     "codepenHeight": 351,
     "codepenDefaultTab": "html,result"
   },

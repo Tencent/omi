@@ -96,6 +96,129 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "../transition/src/index.tsx":
+/*!***********************************!*\
+  !*** ../transition/src/index.tsx ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * o-transition element based on vue-transition
+ * Tom Fales (@enlightenmentor)
+ * Licensed under the MIT License
+ * https://github.com/enlightenmentor/vue-transition/blob/master/LICENSE
+ *
+ * modified by dntzhang
+ *
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+//todo duration and delay support
+var omi_1 = __webpack_require__(/*! omi */ "omi");
+var Transition = /** @class */ (function (_super) {
+    __extends(Transition, _super);
+    function Transition() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Transition.prototype.installed = function () {
+        var _this = this;
+        this.transitionTarget = this.childNodes[0];
+        this.enter();
+        if (this.props.leavingTime) {
+            setTimeout(function () {
+                _this.leave();
+            }, this.props.leavingTime);
+        }
+    };
+    Transition.prototype.enter = function () {
+        this.fire('BeforeEnter');
+        this.transitionTarget.classList.remove(this.props.name + '-leave-active');
+        this.transitionTarget.classList.remove(this.props.name + '-leave-to');
+        this.transitionTarget.classList.add(this.props.name + '-enter');
+        this.transitionTarget.classList.add(this.props.name + '-enter-active');
+        this.callback = function () {
+            this.transitionTarget.classList.remove(this.props.name + '-enter-active');
+            this.fire('AfterEnter');
+        }.bind(this);
+        this.once('transitionend', this.callback);
+        this.once('animationend', this.callback);
+        window.setTimeout(function () {
+            this.transitionTarget.classList.remove(this.props.name + '-enter');
+            this.transitionTarget.classList.add(this.props.name + '-enter-to');
+            this.fire('enter');
+        }.bind(this), 0);
+    };
+    Transition.prototype.leave = function () {
+        this.fire('BeforeLeave');
+        this.transitionTarget.classList.remove(this.props.name + '-enter-active');
+        this.transitionTarget.classList.remove(this.props.name + '-enter-to');
+        this.transitionTarget.classList.add(this.props.name + '-leave');
+        this.transitionTarget.classList.add(this.props.name + '-leave-active');
+        this.callback = function (e) {
+            this.transitionTarget.classList.remove(this.props.name + '-leave-active');
+            this.fire('AfterLeave');
+            if (this.props.autoRemove && this.parentNode) {
+                this.parentNode.removeChild(this);
+            }
+        }.bind(this);
+        this.once('transitionend', this.callback);
+        this.once('animationend', this.callback);
+        window.setTimeout(function () {
+            this.transitionTarget.classList.remove(this.props.name + '-leave');
+            this.transitionTarget.classList.add(this.props.name + '-leave-to');
+            this.fire('leave');
+        }.bind(this), 0);
+    };
+    Transition.prototype.once = function (name, callback) {
+        var wrapCall = function () {
+            this.removeEventListener(name, wrapCall);
+            callback();
+        }.bind(this);
+        this.addEventListener(name, wrapCall);
+    };
+    Transition.prototype.render = function () {
+        return;
+    };
+    Transition.propTypes = {
+        name: String,
+        leavingTime: Number,
+        autoRemove: Boolean
+    };
+    Transition.isLightDom = true;
+    Transition.defaultProps = {
+        name: 'o'
+    };
+    Transition = __decorate([
+        omi_1.tag('o-transition')
+    ], Transition);
+    return Transition;
+}(omi_1.WeElement));
+exports.default = Transition;
+
+
+/***/ }),
+
 /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
@@ -108,7 +231,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ".o-message__closeBtn:focus,\n.o-message__content:focus {\n  outline-width: 0; }\n\n.o-message {\n  min-width: 380px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 4px;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #EBEEF5;\n  position: fixed;\n  left: 50%;\n  top: 20px;\n  -webkit-transform: translateX(-50%);\n  transform: translateX(-50%);\n  background-color: #edf2fc;\n  -webkit-transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, transform .4s, top .4s;\n  transition: opacity .3s, transform .4s, top .4s, -webkit-transform .4s;\n  overflow: hidden;\n  padding: 15px 15px 15px 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.o-message.is-center {\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.o-message.is-closable .o-message__content {\n  padding-right: 16px; }\n\n.o-message p {\n  margin: 0; }\n\n.o-message--info .o-message__content {\n  color: #909399; }\n\n.o-message--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8; }\n\n.o-message--success .o-message__content {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8; }\n\n.o-message--warning .o-message__content {\n  color: #E6A23C; }\n\n.o-message--error {\n  background-color: #fef0f0;\n  border-color: #fde2e2; }\n\n.o-message--error .o-message__content {\n  color: #F56C6C; }\n\n.o-message__icon {\n  margin-right: 10px; }\n\n.o-message__content {\n  padding: 0;\n  font-size: 14px;\n  line-height: 1; }\n\n.o-message__closeBtn {\n  position: absolute;\n  top: 50%;\n  right: 15px;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  cursor: pointer;\n  color: #C0C4CC;\n  font-size: 16px; }\n\n.o-message__closeBtn:hover {\n  color: #909399; }\n\n.o-message .o-icon-success {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message .o-icon-error {\n  color: #F56C6C; }\n\n.o-message .o-icon-info {\n  color: #909399; }\n\n.o-message .o-icon-warning {\n  color: #E6A23C; }\n\n.o-message-fade-enter,\n.o-message-fade-leave-active {\n  opacity: 0;\n  -webkit-transform: translate(-50%, -100%);\n  transform: translate(-50%, -100%); }\n", ""]);
+exports.push([module.i, ".o-message__closeBtn:focus,\n.o-message__content:focus {\n  outline-width: 0; }\n\n.o-message {\n  min-width: 380px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 4px;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #EBEEF5;\n  position: fixed;\n  left: 50%;\n  top: 20px;\n  -webkit-transform: translateX(-50%);\n  transform: translateX(-50%);\n  background-color: #edf2fc;\n  -webkit-transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, transform .4s, top .4s;\n  transition: opacity .3s, transform .4s, top .4s, -webkit-transform .4s;\n  overflow: hidden;\n  padding: 15px 15px 15px 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.o-message.is-center {\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.o-message.is-closable .o-message__content {\n  padding-right: 16px; }\n\n.o-message p {\n  margin: 0; }\n\n.o-message--info .o-message__content {\n  color: #909399; }\n\n.o-message--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8; }\n\n.o-message--success .o-message__content {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8; }\n\n.o-message--warning .o-message__content {\n  color: #E6A23C; }\n\n.o-message--error {\n  background-color: #fef0f0;\n  border-color: #fde2e2; }\n\n.o-message--error .o-message__content {\n  color: #F56C6C; }\n\n.o-message__icon {\n  margin-right: 10px; }\n\n.o-message__content {\n  padding: 0;\n  font-size: 14px;\n  line-height: 1; }\n\n.o-message__closeBtn {\n  position: absolute;\n  top: 50%;\n  right: 15px;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  cursor: pointer;\n  color: #C0C4CC;\n  font-size: 16px; }\n\n.o-message__closeBtn:hover {\n  color: #909399; }\n\n.o-message .o-icon-success {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message .o-icon-error {\n  color: #F56C6C; }\n\n.o-message .o-icon-info {\n  color: #909399; }\n\n.o-message .o-icon-warning {\n  color: #E6A23C; }\n\n.fade-enter,\n.fade-leave-active,\n.fade-leave-to {\n  opacity: 0;\n  -webkit-transform: translate(-50%, -100%);\n  transform: translate(-50%, -100%); }\n", ""]);
 
 // exports
 
@@ -263,37 +386,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+__webpack_require__(/*! ../../transition/src/index.tsx */ "../transition/src/index.tsx");
 var Message = /** @class */ (function (_super) {
     __extends(Message, _super);
     function Message() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.enter = true;
+        _this.onAfterLeave = function () {
+            _this.parentElement.removeChild(_this);
+        };
         return _this;
     }
-    Message.prototype.installed = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.enter = false;
-            _this.update();
-        });
-        setTimeout(function () {
-            _this.enter = true;
-            _this.update();
-        }, this.props.duration + 400);
-        setTimeout(function () {
-            _this.parentNode.removeChild(_this);
-        }, this.props.duration + 400 + 400);
-    };
     Message.prototype.render = function (props) {
         var _a;
-        return omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-message', (_a = {},
-            _a['o-message--' + props.type] = props.type,
-            _a['is-closable'] = props.closable,
-            _a['is-center'] = props.center,
-            _a['o-message-fade-enter'] = this.enter,
-            _a)), { style: "top: 20px; z-index: 2000;" }),
-            omi_1.h("p", { class: "o-message__content" }, props.message),
-            props.showClose && omi_1.h("i", { class: "o-message__closeBtn o-icon-close" }));
+        return (omi_1.h("o-transition", { onAfterLeave: this.onAfterLeave, "leaving-time": props.duration, "auto-remove": true, name: "fade" },
+            omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-message', (_a = {},
+                _a['o-message--' + props.type] = props.type,
+                _a['is-closable'] = props.closable,
+                _a['is-center'] = props.center,
+                _a)), { style: "top: 20px; z-index: 2000;" }),
+                omi_1.h("p", { class: "o-message__content" }, props.message),
+                props.showClose && omi_1.h("i", { class: "o-message__closeBtn o-icon-close" }))));
     };
     Message.css = css;
     Message.defaultProps = {

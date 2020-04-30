@@ -10,14 +10,12 @@
 
 //todo duration and delay support
 
-import { tag, WeElement, h } from 'omi'
+import { tag, WeElement } from 'omi'
 
 interface Props {
-  appear?: boolean,
-  show?: boolean,
-  name: string,
-  removable?: boolean,
-  removed?: boolean
+  name: string
+  leavingTime?: number
+  autoRemove?: boolean
 }
 
 @tag('o-transition')
@@ -25,119 +23,81 @@ export default class Transition extends WeElement<Props>{
 
   static propTypes = {
     name: String,
-    appear: Boolean,
-    show: Boolean,
-    removable: Boolean,
-    removed: Boolean
-
+    leavingTime: Number,
+    autoRemove: Boolean
   }
 
   static isLightDom = true
 
   static defaultProps = {
-    name: 'o',
-    appear: false,
-    show: false
+    name: 'o'
   }
+
+  transitionTarget
 
   installed() {
-    // if (this.props.show && this.props.appear) {
-    //   this.appearing()
-    //   console.log(1111111)
-    // }
 
+    this.transitionTarget = this.childNodes[0]
     this.enter()
-  }
 
-  toggle() {
-    this.props.show = !this.props.show
-    if (this.props.show)
-      this.enter()
-    else
-      this.leave()
-  }
-
-  receiveProps(props) {
-    if (props.show)
-      this.enter()
-    else
-      this.leave()
+    if (this.props.leavingTime) {
+      setTimeout(() => {
+        this.leave()
+      }, this.props.leavingTime)
+    }
   }
 
   callback: () => void
 
-  appearing() {
-    this.fire('before-appear')
-    this.classList.add(this.props.name + '-appear')
-    this.classList.add(this.props.name + '-appear-active')
-
-    this.callback = function () {
-      this.classList.remove(this.props.name + '-appear-to')
-      this.classList.remove(this.props.name + '-appear-active')
-      this.fire('after-appear')
-    }.bind(this)
-    this.once('transitionend', this.callback)
-    this.once('animationend', this.callback)
-
-    window.setTimeout(function () {
-      this.classList.remove(this.props.name + '-appear')
-      this.classList.add(this.props.name + '-appear-to')
-      this.fire('appear')
-    }.bind(this), 0)
-  }
-
-  _tempNode: HTMLElement
-
   enter() {
-    if (this.props.removable && this.children.length == 0) {
-      this.appendChild(this._tempNode)
-    }
-    this.fire('before-enter')
-    this.classList.remove(this.props.name + '-leave-active')
-    this.classList.remove(this.props.name + '-leave-to')
-    this.classList.add(this.props.name + '-enter')
-    this.classList.add(this.props.name + '-enter-active')
+
+    this.fire('BeforeEnter')
+    this.fire('beforeEnter')
+    this.transitionTarget.classList.remove(this.props.name + '-leave-active')
+    this.transitionTarget.classList.remove(this.props.name + '-leave-to')
+    this.transitionTarget.classList.add(this.props.name + '-enter')
+    this.transitionTarget.classList.add(this.props.name + '-enter-active')
 
     this.callback = function () {
-      this.classList.remove(this.props.name + '-enter-active')
-      this.fire('after-enter')
+      this.transitionTarget.classList.remove(this.props.name + '-enter-active')
+      this.fire('AfterEnter')
+      this.fire('afterEnter')
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
 
     window.setTimeout(function () {
-      this.classList.remove(this.props.name + '-enter')
-      this.classList.add(this.props.name + '-enter-to')
+      this.transitionTarget.classList.remove(this.props.name + '-enter')
+      this.transitionTarget.classList.add(this.props.name + '-enter-to')
       this.fire('enter')
     }.bind(this), 0)
   }
 
   leave() {
-    this.fire('before-leave')
-    this.classList.remove(this.props.name + '-enter-active')
-    this.classList.remove(this.props.name + '-enter-to')
-    this.classList.add(this.props.name + '-leave')
-    this.classList.add(this.props.name + '-leave-active')
+    this.fire('BeforeLeave')
+    this.fire('beforeLeave')
+    this.transitionTarget.classList.remove(this.props.name + '-enter-active')
+    this.transitionTarget.classList.remove(this.props.name + '-enter-to')
+    this.transitionTarget.classList.add(this.props.name + '-leave')
+    this.transitionTarget.classList.add(this.props.name + '-leave-active')
 
     this.callback = function (e) {
 
-      //if (!this.props.show) {
-      this.classList.remove(this.props.name + '-leave-active')
-      this.fire('after-leave')
-      this._tempNode = this.children[0]
-      if (this.props.removable) {
-        this._tempNode.parentNode.removeChild(this._tempNode)
-        this.fire('removed')
+      this.transitionTarget.classList.remove(this.props.name + '-leave-active')
+
+      this.fire('AfterLeave')
+      this.fire('afterLeave')
+      if (this.props.autoRemove && this.parentNode) {
+        this.parentNode.removeChild(this)
       }
 
-      //}
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
 
     window.setTimeout(function () {
-      this.classList.remove(this.props.name + '-leave')
-      this.classList.add(this.props.name + '-leave-to')
+      this.transitionTarget.classList.remove(this.props.name + '-leave')
+      this.transitionTarget.classList.add(this.props.name + '-leave-to')
       this.fire('leave')
     }.bind(this), 0)
   }
@@ -150,10 +110,7 @@ export default class Transition extends WeElement<Props>{
     this.addEventListener(name, wrapCall)
   }
 
-  render(props) {
-    console.log(22)
-    if (props.removed) return
-    //注入 props.name 到 props.children[0]
-    return props.children[0]
+  render() {
+    return
   }
 }

@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '../../transition/src/index.tsx';
 interface Props {
     type?: 'success' | 'warning' | 'info' | 'error';
     message: string;
@@ -18,8 +19,7 @@ export default class Message extends WeElement<Props> {
         center: BooleanConstructor;
         duration: NumberConstructor;
     };
-    enter: boolean;
-    installed(): void;
+    onAfterLeave: () => void;
     render(props: any): JSX.Element;
 }
 export {};

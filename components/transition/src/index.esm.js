@@ -1,12 +1,12 @@
 /**
- * @omiu/action-sheet v0.0.2 http://omijs.org
+ * @omiu/transition v0.0.1 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-import { classNames, h, tag, WeElement } from 'omi';
+import { tag, WeElement } from 'omi';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -37,29 +37,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-}
-
 function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,245 +44,97 @@ function __decorate(decorators, target, key, desc) {
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
-
-var css = `.o-actionsheet {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  -webkit-transform: translate(0, 100%);
-  transform: translate(0, 100%);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  z-index: 5000;
-  width: 100%;
-  background-color: #EFEFF4;
-  -webkit-transition: -webkit-transform .3s;
-  transition: -webkit-transform .3s;
-  transition: transform .3s;
-  transition: transform .3s, -webkit-transform .3s; }
-
-.o-actionsheet__title {
-  position: relative;
-  height: 65px;
-  padding: 0 20px;
-  line-height: 1.4;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  text-align: center;
-  font-size: 14px;
-  color: #808080;
-  background: #FCFCFD; }
-
-.o-actionsheet__title:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 1px;
-  border-bottom: 1px solid #e5e5e5;
-  color: #e5e5e5;
-  -webkit-transform-origin: 0 100%;
-  transform-origin: 0 100%;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5); }
-
-.o-actionsheet__title .o-actionsheet__title-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; }
-
-.o-actionsheet__menu {
-  background-color: #FCFCFD; }
-
-.o-actionsheet__action {
-  margin-top: 6px;
-  background-color: #FCFCFD; }
-
-.o-actionsheet__cell {
-  position: relative;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 18px; }
-
-.o-actionsheet__cell:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 1px;
-  border-top: 1px solid #e5e5e5;
-  color: #e5e5e5;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5); }
-
-.o-actionsheet__cell:active {
-  background-color: #ECECEC; }
-
-.o-actionsheet__cell:first-child:before {
-  display: none; }
-
-.o-skin_android .o-actionsheet {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  bottom: auto;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 274px;
-  box-sizing: border-box;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  background: transparent;
-  -webkit-transition: -webkit-transform .3s;
-  transition: -webkit-transform .3s;
-  transition: transform .3s;
-  transition: transform .3s, -webkit-transform .3s; }
-
-.o-skin_android .o-actionsheet__action {
-  display: none; }
-
-.o-skin_android .o-actionsheet__menu {
-  border-radius: 2px;
-  box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.1); }
-
-.o-skin_android .o-actionsheet__cell {
-  padding: 13px 24px;
-  font-size: 16px;
-  line-height: 1.4;
-  text-align: left; }
-
-.o-skin_android .o-actionsheet__cell:first-child {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px; }
-
-.o-skin_android .o-actionsheet__cell:last-child {
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px; }
-
-.o-actionsheet_toggle {
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0); }
-
-.mask {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0.4;
-  z-index: 100;
-  left: 0;
-  top: 0; }
-
-.o-skin_android .o-actionsheet_toggle {
-  opacity: 1 !important;
-  top: 50% !important;
-  bottom: auto !important; }
-
-.o-skin_android .o-actionsheet {
-  opacity: 0;
-  transition: opacity .3s;
-  top: 150%;
-  bottom: 0; }
-`
-
-
-var ActionSheet = /** @class */ (function (_super) {
-    __extends(ActionSheet, _super);
-    function ActionSheet() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.handleMaskClick = function (e) {
-            _this.hide();
-            _this.fire('close');
-        };
-        return _this;
+/**
+ * o-transition element based on vue-transition
+ * Tom Fales (@enlightenmentor)
+ * Licensed under the MIT License
+ * https://github.com/enlightenmentor/vue-transition/blob/master/LICENSE
+ *
+ * modified by dntzhang
+ *
+ */
+var Transition = /** @class */ (function (_super) {
+    __extends(Transition, _super);
+    function Transition() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    ActionSheet.prototype.renderMenuItem = function () {
+    Transition.prototype.installed = function () {
         var _this = this;
-        return this.props.menus.map(function (menu, idx) {
-            var _a;
-            var label = menu.label, className = menu.className, others = __rest(menu, ["label", "className"]);
-            var cls = classNames((_a = {
-                    'o-actionsheet__cell': true
-                },
-                _a[className] = className,
-                _a));
-            return (h("div", __assign({ key: idx, onClick: function (_) {
-                    _this.hide();
-                    _this.fire('itemClick', menu);
-                } }, others, { class: cls }), label));
-        });
+        this.transitionTarget = this.childNodes[0];
+        this.enter();
+        if (this.props.leavingTime) {
+            setTimeout(function () {
+                _this.leave();
+            }, this.props.leavingTime);
+        }
     };
-    ActionSheet.prototype.show = function () {
-        this.updateProps({
-            show: true
-        });
+    Transition.prototype.enter = function () {
+        this.fire('BeforeEnter');
+        this.fire('beforeEnter');
+        this.transitionTarget.classList.remove(this.props.name + '-leave-active');
+        this.transitionTarget.classList.remove(this.props.name + '-leave-to');
+        this.transitionTarget.classList.add(this.props.name + '-enter');
+        this.transitionTarget.classList.add(this.props.name + '-enter-active');
+        this.callback = function () {
+            this.transitionTarget.classList.remove(this.props.name + '-enter-active');
+            this.fire('AfterEnter');
+            this.fire('afterEnter');
+        }.bind(this);
+        this.once('transitionend', this.callback);
+        this.once('animationend', this.callback);
+        window.setTimeout(function () {
+            this.transitionTarget.classList.remove(this.props.name + '-enter');
+            this.transitionTarget.classList.add(this.props.name + '-enter-to');
+            this.fire('enter');
+        }.bind(this), 0);
     };
-    ActionSheet.prototype.hide = function () {
-        this.updateProps({
-            show: false
-        });
+    Transition.prototype.leave = function () {
+        this.fire('BeforeLeave');
+        this.fire('beforeLeave');
+        this.transitionTarget.classList.remove(this.props.name + '-enter-active');
+        this.transitionTarget.classList.remove(this.props.name + '-enter-to');
+        this.transitionTarget.classList.add(this.props.name + '-leave');
+        this.transitionTarget.classList.add(this.props.name + '-leave-active');
+        this.callback = function (e) {
+            this.transitionTarget.classList.remove(this.props.name + '-leave-active');
+            this.fire('AfterLeave');
+            this.fire('afterLeave');
+            if (this.props.autoRemove && this.parentNode) {
+                this.parentNode.removeChild(this);
+            }
+        }.bind(this);
+        this.once('transitionend', this.callback);
+        this.once('animationend', this.callback);
+        window.setTimeout(function () {
+            this.transitionTarget.classList.remove(this.props.name + '-leave');
+            this.transitionTarget.classList.add(this.props.name + '-leave-to');
+            this.fire('leave');
+        }.bind(this), 0);
     };
-    ActionSheet.prototype.renderActions = function () {
-        var _this = this;
-        return this.props.actions.map(function (action, idx) {
-            var _a;
-            var label = action.label, className = action.className, others = __rest(action, ["label", "className"]);
-            var cls = classNames((_a = {
-                    'o-actionsheet__cell': true
-                },
-                _a[className] = className,
-                _a));
-            return (h("div", __assign({ key: idx }, others, { onClick: function (_) {
-                    _this.hide();
-                    _this.fire('itemClick', action);
-                }, className: cls }), label));
-        });
+    Transition.prototype.once = function (name, callback) {
+        var wrapCall = function () {
+            this.removeEventListener(name, wrapCall);
+            callback();
+        }.bind(this);
+        this.addEventListener(name, wrapCall);
     };
-    ActionSheet.prototype.render = function () {
-        var _a = this.props, show = _a.show, type = _a.type, menus = _a.menus, actions = _a.actions, others = __rest(_a, ["show", "type", "menus", "actions"]);
-        var cls = classNames({
-            'o-actionsheet': true,
-            'o-actionsheet_toggle': show
-        });
-        var styleType = type ? type : 'ios';
-        return (h("div", { className: styleType === 'android' ? 'o-skin_android' : '' },
-            h("div", { class: "mask", style: { display: show ? 'block' : 'none' }, onClick: this.handleMaskClick }),
-            h("div", __assign({ className: cls }, others),
-                h("div", { className: "o-actionsheet__menu" }, this.renderMenuItem()),
-                h("div", { className: "o-actionsheet__action" }, this.renderActions()))));
+    Transition.prototype.render = function () {
+        return;
     };
-    ActionSheet.css = css;
-    ActionSheet.defaultProps = {
-        type: '',
-        menus: [],
-        actions: [],
-        show: false
+    Transition.propTypes = {
+        name: String,
+        leavingTime: Number,
+        autoRemove: Boolean
     };
-    ActionSheet.propTypes = {
-        type: String,
-        menus: Array,
-        actions: Array,
-        show: Boolean
+    Transition.isLightDom = true;
+    Transition.defaultProps = {
+        name: 'o'
     };
-    ActionSheet = __decorate([
-        tag('o-action-sheet')
-    ], ActionSheet);
-    return ActionSheet;
+    Transition = __decorate([
+        tag('o-transition')
+    ], Transition);
+    return Transition;
 }(WeElement));
 
-export default ActionSheet;
+export default Transition;
 //# sourceMappingURL=index.esm.js.map

@@ -1,8 +1,9 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
+import '../../transition/src/index.tsx'
 
 interface Props {
-  type?:  'success' | 'warning' | 'info' | 'error'
+  type?: 'success' | 'warning' | 'info' | 'error'
   message: string
   showClose: boolean
   center: boolean
@@ -27,39 +28,26 @@ export default class Message extends WeElement<Props>{
     duration: Number
   }
 
-  enter = true
-
-  installed() {
-
-    setTimeout(() => {
-      this.enter = false
-      this.update()
-    })
-
-    setTimeout(() => {
-      this.enter = true
-      this.update()
-    }, this.props.duration + 400)
-
-
-    setTimeout(() => {
-      this.parentNode.removeChild(this)
-    }, this.props.duration + 400 + 400)
+  onAfterLeave = () => {
+    this.parentElement.removeChild(this)
   }
 
   render(props) {
 
-    return <div  {...extractClass(props, 'o-message', {
-      ['o-message--' + props.type]: props.type,
-      'is-closable': props.closable,
-      'is-center': props.center,
-      'o-message-fade-enter': this.enter
-    })}
-      style="top: 20px; z-index: 2000;">
-      {/* <i class="o-message__icon o-icon-success"></i> */}
-      <p class="o-message__content">{props.message}</p>
-      {props.showClose && <i class="o-message__closeBtn o-icon-close"></i>}
-    </div>
+    return (
+      <o-transition onAfterLeave={this.onAfterLeave} leaving-time={props.duration} auto-remove name="fade">
+        <div  {...extractClass(props, 'o-message', {
+          ['o-message--' + props.type]: props.type,
+          'is-closable': props.closable,
+          'is-center': props.center
+        })}
+          style="top: 20px; z-index: 2000;">
+          {/* <i class="o-message__icon o-icon-success"></i> */}
+          <p class="o-message__content">{props.message}</p>
+          {props.showClose && <i class="o-message__closeBtn o-icon-close"></i>}
+        </div>
+      </o-transition>
+    )
 
 
   }

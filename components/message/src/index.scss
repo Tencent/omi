@@ -58,7 +58,7 @@
 
 .o-message--success .o-message__content {
   color: $o-primary;
-	color: var(--o-primary, $o-primary);
+  color: var(--o-primary, $o-primary);
 }
 
 .o-message--warning {
@@ -106,7 +106,7 @@
 
 .o-message .o-icon-success {
   color: $o-primary;
-	color: var(--o-primary, $o-primary);
+  color: var(--o-primary, $o-primary);
 }
 
 .o-message .o-icon-error {
@@ -121,8 +121,9 @@
   color: #E6A23C
 }
 
-.o-message-fade-enter,
-.o-message-fade-leave-active {
+.fade-enter,
+.fade-leave-active,
+.fade-leave-to {
   opacity: 0;
   -webkit-transform: translate(-50%, -100%);
   transform: translate(-50%, -100%)

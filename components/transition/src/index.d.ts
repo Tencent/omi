@@ -9,35 +9,26 @@
  */
 import { WeElement } from 'omi';
 interface Props {
-    appear?: boolean;
-    show?: boolean;
     name: string;
-    removable?: boolean;
-    removed?: boolean;
+    leavingTime?: number;
+    autoRemove?: boolean;
 }
 export default class Transition extends WeElement<Props> {
     static propTypes: {
         name: StringConstructor;
-        appear: BooleanConstructor;
-        show: BooleanConstructor;
-        removable: BooleanConstructor;
-        removed: BooleanConstructor;
+        leavingTime: NumberConstructor;
+        autoRemove: BooleanConstructor;
     };
     static isLightDom: boolean;
     static defaultProps: {
         name: string;
-        appear: boolean;
-        show: boolean;
     };
+    transitionTarget: any;
     installed(): void;
-    toggle(): void;
-    receiveProps(props: any): void;
     callback: () => void;
-    appearing(): void;
-    _tempNode: HTMLElement;
     enter(): void;
     leave(): void;
     once(name: any, callback: any): void;
-    render(props: any): any;
+    render(): void;
 }
 export {};
