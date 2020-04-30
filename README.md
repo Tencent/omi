@@ -32,6 +32,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/badge][omiu-badge-github] | [![omiu-badge-status]][omiu-badge-package]|[CodePen][omiu-badge-codepen] | [Badge Docs][omiu-badge-docs]|
 | [@omiu/avatar][omiu-avatar-github] | [![omiu-avatar-status]][omiu-avatar-package]|[CodePen][omiu-avatar-codepen] | [Avatar Docs][omiu-avatar-docs]|
 | [@omiu/breadcrumb][omiu-breadcrumb-github] | [![omiu-breadcrumb-status]][omiu-breadcrumb-package]|[CodePen][omiu-breadcrumb-codepen] | [Breadcrumb Docs][omiu-breadcrumb-docs]|
+| [@omiu/bottom-nav][omiu-bottom-nav-github] | [![omiu-bottom-nav-status]][omiu-bottom-nav-package]|[CodePen][omiu-bottom-nav-codepen] | [BottomNav Docs][omiu-bottom-nav-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -164,6 +165,13 @@ English | [简体中文](./README.CN.md)
 [omiu-breadcrumb-package]: https://www.npmjs.com/package/@omiu/breadcrumb
 [omiu-breadcrumb-docs]: https://tencent.github.io/omi/components/docs/index.html#/breadcrumb
 [omiu-breadcrumb-codepen]: https://codepen.io/omijs/pen/wvKqGxB
+
+
+[omiu-bottom-nav-github]: https://github.com/Tencent/omi/tree/master/components/bottom-nav
+[omiu-bottom-nav-status]: https://img.shields.io/npm/v/@omiu/bottom-nav.svg
+[omiu-bottom-nav-package]: https://www.npmjs.com/package/@omiu/bottom-nav
+[omiu-bottom-nav-docs]: https://tencent.github.io/omi/components/docs/index.html#/bottom-nav
+[omiu-bottom-nav-codepen]: https://codepen.io/omijs/pen/zYvdjEY
 
 
 ## Quick Preview
