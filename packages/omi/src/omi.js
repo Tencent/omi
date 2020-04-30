@@ -19,7 +19,7 @@ h.f = Fragment
 const html = htm.bind(h)
 
 function createRef() {
-  return {}
+	return {}
 }
 
 const $ = {}
@@ -28,65 +28,65 @@ const defineElement = define
 const elements = options.mapping
 
 const omi = {
-  tag,
-  WeElement,
-  Component,
-  render,
-  h,
-  createElement,
-  options,
-  define,
-  cloneElement,
-  getHost,
-  rpx,
-  defineElement,
-  classNames,
-  extractClass,
-  createRef,
-  html,
-  htm,
-  o,
-  elements,
-  $,
-  extend,
-  get,
-  set,
-  bind,
-  unbind,
-  JSONProxy
+	tag,
+	WeElement,
+	Component,
+	render,
+	h,
+	createElement,
+	options,
+	define,
+	cloneElement,
+	getHost,
+	rpx,
+	defineElement,
+	classNames,
+	extractClass,
+	createRef,
+	html,
+	htm,
+	o,
+	elements,
+	$,
+	extend,
+	get,
+	set,
+	bind,
+	unbind,
+	JSONProxy
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.17.4'
+options.root.Omi.version = '6.18.0'
 
 export default omi
 
 export {
-  tag,
-  WeElement,
-  Component,
-  render,
-  h,
-  createElement,
-  options,
-  define,
-  cloneElement,
-  getHost,
-  rpx,
-  defineElement,
-  classNames,
-  extractClass,
-  createRef,
-  html,
-  htm,
-  o,
-  elements,
-  $,
-  extend,
-  get,
-  set,
-  bind,
-  unbind,
-  JSONProxy
+	tag,
+	WeElement,
+	Component,
+	render,
+	h,
+	createElement,
+	options,
+	define,
+	cloneElement,
+	getHost,
+	rpx,
+	defineElement,
+	classNames,
+	extractClass,
+	createRef,
+	html,
+	htm,
+	o,
+	elements,
+	$,
+	extend,
+	get,
+	set,
+	bind,
+	unbind,
+	JSONProxy
 }

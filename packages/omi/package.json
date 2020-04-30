@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.17.4",
+  "version": "6.18.0",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -136,10 +136,12 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [{
-    "path": "./dist/omi.min.js",
-    "threshold": "4Kb"
-  }],
+  "bundlesize": [
+    {
+      "path": "./dist/omi.min.js",
+      "threshold": "4Kb"
+    }
+  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,
