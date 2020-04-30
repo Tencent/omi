@@ -1167,6 +1167,7 @@ npm run test
 
 ## 核心维护者
 
+- [AlloyTeam](http://alloyteam.com/)
 - [@Wscats](https://github.com/Wscats)
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)

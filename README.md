@@ -1053,6 +1053,7 @@ The Omi design was driven by The Zen of Python, by Tim Peters philosophy:
 
 ## Core Maintainers
 
+- [AlloyTeam](http://alloyteam.com/)
 - [@Wscats](https://github.com/Wscats)
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)
