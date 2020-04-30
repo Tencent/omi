@@ -21,6 +21,7 @@ export default class Message extends WeElement<Props> {
     };
     enter: boolean;
     installed(): void;
+    transition: any;
     render(props: any): JSX.Element;
 }
 export {};

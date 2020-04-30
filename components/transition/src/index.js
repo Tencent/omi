@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ".o-message__closeBtn:focus,\n.o-message__content:focus {\n  outline-width: 0; }\n\n.o-message {\n  min-width: 380px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 4px;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #EBEEF5;\n  position: fixed;\n  left: 50%;\n  top: 20px;\n  -webkit-transform: translateX(-50%);\n  transform: translateX(-50%);\n  background-color: #edf2fc;\n  -webkit-transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, transform .4s, top .4s;\n  transition: opacity .3s, transform .4s, top .4s, -webkit-transform .4s;\n  overflow: hidden;\n  padding: 15px 15px 15px 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.o-message.is-center {\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.o-message.is-closable .o-message__content {\n  padding-right: 16px; }\n\n.o-message p {\n  margin: 0; }\n\n.o-message--info .o-message__content {\n  color: #909399; }\n\n.o-message--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8; }\n\n.o-message--success .o-message__content {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8; }\n\n.o-message--warning .o-message__content {\n  color: #E6A23C; }\n\n.o-message--error {\n  background-color: #fef0f0;\n  border-color: #fde2e2; }\n\n.o-message--error .o-message__content {\n  color: #F56C6C; }\n\n.o-message__icon {\n  margin-right: 10px; }\n\n.o-message__content {\n  padding: 0;\n  font-size: 14px;\n  line-height: 1; }\n\n.o-message__closeBtn {\n  position: absolute;\n  top: 50%;\n  right: 15px;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  cursor: pointer;\n  color: #C0C4CC;\n  font-size: 16px; }\n\n.o-message__closeBtn:hover {\n  color: #909399; }\n\n.o-message .o-icon-success {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message .o-icon-error {\n  color: #F56C6C; }\n\n.o-message .o-icon-info {\n  color: #909399; }\n\n.o-message .o-icon-warning {\n  color: #E6A23C; }\n\n.o-message-fade-enter,\n.o-message-fade-leave-active {\n  opacity: 0;\n  -webkit-transform: translate(-50%, -100%);\n  transform: translate(-50%, -100%); }\n\n.msgbox-fade-enter-active {\n  -webkit-animation: msgbox-fade-in .3s;\n  animation: msgbox-fade-in .3s; }\n\n.msgbox-fade-leave-active {\n  -webkit-animation: msgbox-fade-out .3s;\n  animation: msgbox-fade-out .3s; }\n\n@-webkit-keyframes msgbox-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes msgbox-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes msgbox-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes msgbox-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n", ""]);
+exports.push([module.i, ".o-message__closeBtn:focus,\n.o-message__content:focus {\n  outline-width: 0; }\n\n.o-message {\n  min-width: 380px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 4px;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #EBEEF5;\n  position: fixed;\n  left: 50%;\n  top: 20px;\n  -webkit-transform: translateX(-50%);\n  transform: translateX(-50%);\n  background-color: #edf2fc;\n  -webkit-transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, top .4s, -webkit-transform .4s;\n  transition: opacity .3s, transform .4s, top .4s;\n  transition: opacity .3s, transform .4s, top .4s, -webkit-transform .4s;\n  overflow: hidden;\n  padding: 15px 15px 15px 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.o-message.is-center {\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n.o-message.is-closable .o-message__content {\n  padding-right: 16px; }\n\n.o-message p {\n  margin: 0; }\n\n.o-message--info .o-message__content {\n  color: #909399; }\n\n.o-message--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8; }\n\n.o-message--success .o-message__content {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8; }\n\n.o-message--warning .o-message__content {\n  color: #E6A23C; }\n\n.o-message--error {\n  background-color: #fef0f0;\n  border-color: #fde2e2; }\n\n.o-message--error .o-message__content {\n  color: #F56C6C; }\n\n.o-message__icon {\n  margin-right: 10px; }\n\n.o-message__content {\n  padding: 0;\n  font-size: 14px;\n  line-height: 1; }\n\n.o-message__closeBtn {\n  position: absolute;\n  top: 50%;\n  right: 15px;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  cursor: pointer;\n  color: #C0C4CC;\n  font-size: 16px; }\n\n.o-message__closeBtn:hover {\n  color: #909399; }\n\n.o-message .o-icon-success {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-message .o-icon-error {\n  color: #F56C6C; }\n\n.o-message .o-icon-info {\n  color: #909399; }\n\n.o-message .o-icon-warning {\n  color: #E6A23C; }\n\n.o-message-fade-enter,\n.o-message-fade-leave-active {\n  opacity: 0;\n  -webkit-transform: translate(-50%, -100%);\n  transform: translate(-50%, -100%); }\n\n.msgbox-fade-enter-active {\n  -webkit-animation: msgbox-fade-in .3s;\n  animation: msgbox-fade-in .3s; }\n\n.msgbox-fade-leave-active {\n  -webkit-animation: msgbox-fade-out .3s;\n  animation: msgbox-fade-out .3s; }\n\n@-webkit-keyframes msgbox-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes msgbox-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes msgbox-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes msgbox-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity .5s; }\n\n.fade-enter,\n.fade-leave-to {\n  opacity: 0; }\n", ""]);
 
 // exports
 
@@ -248,9 +248,11 @@ var Transition = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Transition.prototype.installed = function () {
-        if (this.props.show && this.props.appear) {
-            this.appearing();
-        }
+        // if (this.props.show && this.props.appear) {
+        //   this.appearing()
+        //   console.log(1111111)
+        // }
+        this.enter();
     };
     Transition.prototype.toggle = function () {
         this.props.show = !this.props.show;
@@ -310,15 +312,15 @@ var Transition = /** @class */ (function (_super) {
         this.classList.add(this.props.name + '-leave');
         this.classList.add(this.props.name + '-leave-active');
         this.callback = function (e) {
-            if (!this.props.show) {
-                this.classList.remove(this.props.name + '-leave-active');
-                this.fire('after-leave');
-                this._tempNode = this.children[0];
-                if (this.props.removable) {
-                    this._tempNode.parentNode.removeChild(this._tempNode);
-                    this.fire('removed');
-                }
+            //if (!this.props.show) {
+            this.classList.remove(this.props.name + '-leave-active');
+            this.fire('after-leave');
+            this._tempNode = this.children[0];
+            if (this.props.removable) {
+                this._tempNode.parentNode.removeChild(this._tempNode);
+                this.fire('removed');
             }
+            //}
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -346,8 +348,10 @@ var Transition = /** @class */ (function (_super) {
         name: String,
         appear: Boolean,
         show: Boolean,
-        removable: Boolean
+        removable: Boolean,
+        removed: Boolean
     };
+    Transition.isLightDom = true;
     Transition.defaultProps = {
         name: 'o',
         appear: false,
@@ -437,6 +441,7 @@ var Message = /** @class */ (function (_super) {
         //   this.enter = false
         //   this.update()
         // })
+        var _this = this;
         // setTimeout(() => {
         //   this.enter = true
         //   this.update()
@@ -444,11 +449,16 @@ var Message = /** @class */ (function (_super) {
         // setTimeout(() => {
         //   this.parentNode.removeChild(this)
         // }, this.props.duration + 400 + 400)
+        setTimeout(function () {
+            _this.transition.leave();
+            console.log('leave');
+        }, 3400);
     };
     Message.prototype.render = function (props) {
         var _a;
+        var _this = this;
         console.log(111);
-        return (omi_1.h("o-transition", { name: "msgbox-fade" },
+        return (omi_1.h("o-transition", { ref: function (_) { return _this.transition = _; }, show: true, style: "display:block;", name: "fade" },
             omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-message', (_a = {},
                 _a['o-message--' + props.type] = props.type,
                 _a['is-closable'] = props.closable,

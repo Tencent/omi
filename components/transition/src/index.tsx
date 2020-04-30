@@ -27,9 +27,12 @@ export default class Transition extends WeElement<Props>{
     name: String,
     appear: Boolean,
     show: Boolean,
-    removable: Boolean
+    removable: Boolean,
+    removed: Boolean
 
   }
+
+  static isLightDom = true
 
   static defaultProps = {
     name: 'o',
@@ -38,9 +41,12 @@ export default class Transition extends WeElement<Props>{
   }
 
   installed() {
-    if (this.props.show && this.props.appear) {
-      this.appearing()
-    }
+    // if (this.props.show && this.props.appear) {
+    //   this.appearing()
+    //   console.log(1111111)
+    // }
+
+    this.enter()
   }
 
   toggle() {
@@ -115,16 +121,16 @@ export default class Transition extends WeElement<Props>{
 
     this.callback = function (e) {
 
-      if (!this.props.show) {
-        this.classList.remove(this.props.name + '-leave-active')
-        this.fire('after-leave')
-        this._tempNode = this.children[0]
-        if (this.props.removable) {
-          this._tempNode.parentNode.removeChild(this._tempNode)
-          this.fire('removed')
-        }
-
+      //if (!this.props.show) {
+      this.classList.remove(this.props.name + '-leave-active')
+      this.fire('after-leave')
+      this._tempNode = this.children[0]
+      if (this.props.removable) {
+        this._tempNode.parentNode.removeChild(this._tempNode)
+        this.fire('removed')
       }
+
+      //}
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)

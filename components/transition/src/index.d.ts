@@ -21,7 +21,9 @@ export default class Transition extends WeElement<Props> {
         appear: BooleanConstructor;
         show: BooleanConstructor;
         removable: BooleanConstructor;
+        removed: BooleanConstructor;
     };
+    static isLightDom: boolean;
     static defaultProps: {
         name: string;
         appear: boolean;

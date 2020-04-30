@@ -47,12 +47,19 @@ export default class Message extends WeElement<Props>{
     // setTimeout(() => {
     //   this.parentNode.removeChild(this)
     // }, this.props.duration + 400 + 400)
-  }
 
+
+    setTimeout(() => {
+      this.transition.leave()
+      console.log('leave')
+    }, 3400)
+
+  }
+  transition
   render(props) {
 
     console.log(111)
-    return (<o-transition name="msgbox-fade">
+    return (<o-transition ref={_ => this.transition = _} show={true} style="display:block;" name="fade">
       <div  {...extractClass(props, 'o-message', {
         ['o-message--' + props.type]: props.type,
         'is-closable': props.closable,
