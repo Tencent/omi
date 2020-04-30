@@ -384,6 +384,7 @@ define('my-component', _ => (
     defaultProps: {
 
     },
+    isLightDom: true, //default is false
 
     //life cycle
     install() { }, 

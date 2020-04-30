@@ -379,6 +379,7 @@ define('my-component', _ => (
     defaultProps: {
 
     },
+    isLightDom: true, //default is false
 
     //生命周期
     install() { }, 

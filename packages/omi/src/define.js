@@ -24,6 +24,8 @@ export function define(name, ctor, config) {
 
       static defaultProps = config.defaultProps
 
+      static isLightDom = config.isLightDom
+
       compute = config.compute
 
       render() {
@@ -33,7 +35,7 @@ export function define(name, ctor, config) {
 
     for (let key in config) {
       if (typeof config[key] === 'function') {
-        Ele.prototype[key] = function() {
+        Ele.prototype[key] = function () {
           return config[key].apply(this, arguments)
         }
       }
@@ -41,7 +43,7 @@ export function define(name, ctor, config) {
 
     storeHelpers.forEach(func => {
       if (config[func] && config[func] !== 'function') {
-        Ele.prototype[func] = function() {
+        Ele.prototype[func] = function () {
           return config[func]
         }
       }

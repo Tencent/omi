@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.18.0",
+  "version": "6.18.1",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -88,6 +88,7 @@
     "flow-bin": "^0.67.1",
     "gzip-size-cli": "^2.0.0",
     "htm": "^2.1.1",
+    "husky": "^3.0.9",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jest": "^23.6.0",
     "jscodeshift": "^0.5.0",
@@ -136,19 +137,15 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omi.min.js",
-      "threshold": "4Kb"
-    }
-  ],
+  "bundlesize": [{
+    "path": "./dist/omi.min.js",
+    "threshold": "4Kb"
+  }],
   "prettier": {
     "singleQuote": true,
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
   },
-  "dependencies": {
-    "husky": "^3.0.9"
-  }
+  "dependencies": {}
 }
