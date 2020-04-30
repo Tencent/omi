@@ -1877,7 +1877,7 @@
   }(WeElement), _class$1.propTypes = {
   	first: String,
   	last: String
-  }, _class$1.isLight = true, _temp$1));
+  }, _class$1.isLightDom = true, _temp$1));
 
 }());
 //# sourceMappingURL=b.js.map
