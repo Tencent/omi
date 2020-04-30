@@ -52,7 +52,7 @@ import '${packageName}'
 ## 使用
 
 \`\`\`html
-<${tagName}> </${tagName}>
+<${tagName}></${tagName}>
 \`\`\`
 
 
@@ -106,7 +106,7 @@ Or use script tag to ref it.
 ## Usage
 
 \`\`\`html
-<${tagName}> </${tagName}>
+<${tagName}></${tagName}>
 \`\`\`
 
 

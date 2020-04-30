@@ -56,7 +56,7 @@ import '${packageName}'
 ## 使用
 
 \`\`\`html
-<${tagName}> </${tagName}>
+<${tagName}></${tagName}>
 \`\`\`
 
 
