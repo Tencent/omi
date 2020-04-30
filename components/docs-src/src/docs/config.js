@@ -18,11 +18,19 @@ const config = {
           { name: 'Badge 徽章', md: 'badge' },
           { name: 'Avatar 头像', md: 'avatar' },
           { name: 'ToggleIcon 可切换图标', md: 'toggle-icon' },
-          { name: 'Tabs 选项卡', md: 'tabs' },
+
           { name: 'Radio 单选框', md: 'radio' },
           { name: 'Link 文字链接', md: 'link' },
-          { name: 'HamburgerMenu 汉堡包菜单', md: 'hamburger-menu' },
-          { name: 'Breadcrumb 面包屑', md: 'breadcrumb' }
+          { name: 'HamburgerMenu 汉堡包菜单', md: 'hamburger-menu' }
+
+        ]
+      },
+      {
+        title: '导航',
+        list: [
+          { name: 'Tabs 选项卡', md: 'tabs' },
+          { name: 'Breadcrumb 面包屑', md: 'breadcrumb' },
+          { name: 'BottomNav 底部导航', md: 'bottom-nav' }
         ]
       },
       {
@@ -84,11 +92,17 @@ const config = {
           { name: 'Badge', md: 'badge' },
           { name: 'Avatar', md: 'avatar' },
           { name: 'ToggleIcon', md: 'toggle-icon' },
-          { name: 'Tabs', md: 'tabs' },
           { name: 'Radio', md: 'radio' },
           { name: 'Link', md: 'link' },
-          { name: 'Hamburger Menu', md: 'hamburger-menu' },
-          { name: 'Breadcrumb', md: 'breadcrumb' }
+          { name: 'Hamburger Menu', md: 'hamburger-menu' }
+        ]
+      },
+      {
+        title: 'Navigation',
+        list: [
+          { name: 'Tabs', md: 'tabs' },
+          { name: 'Breadcrumb', md: 'breadcrumb' },
+          { name: 'BottomNav', md: 'bottom-nav' }
         ]
       },
       {
