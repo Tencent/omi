@@ -96,9 +96,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@omiu_transition@0.0.3@@omiu/transition/src/index.esm.js":
+/***/ "./node_modules/_@omiu_transition@0.0.4@@omiu/transition/src/index.esm.js":
 /*!********************************************************************************!*\
-  !*** ./node_modules/_@omiu_transition@0.0.3@@omiu/transition/src/index.esm.js ***!
+  !*** ./node_modules/_@omiu_transition@0.0.4@@omiu/transition/src/index.esm.js ***!
   \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/transition v0.0.3 http://omijs.org
+ * @omiu/transition v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -196,12 +196,6 @@ var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
 }));
 });
 
-var domReady = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    'default': _dready_0_0_1_dready,
-    __moduleExports: _dready_0_0_1_dready
-});
-
 /**
  * o-transition element based on vue-transition
  * Tom Fales (@enlightenmentor)
@@ -219,7 +213,7 @@ var Transition = /** @class */ (function (_super) {
     Transition.prototype.installed = function () {
         var _this = this;
         if (this.props.appear) {
-            domReady(function () {
+            _dready_0_0_1_dready(function () {
                 _this.transitionTarget = _this.children[0];
                 _this.enter();
                 if (_this.props.leavingTime) {
@@ -500,7 +494,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-__webpack_require__(/*! @omiu/transition */ "./node_modules/_@omiu_transition@0.0.3@@omiu/transition/src/index.esm.js");
+__webpack_require__(/*! @omiu/transition */ "./node_modules/_@omiu_transition@0.0.4@@omiu/transition/src/index.esm.js");
 var Message = /** @class */ (function (_super) {
     __extends(Message, _super);
     function Message() {

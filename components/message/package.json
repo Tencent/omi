@@ -1,11 +1,19 @@
 {
   "name": "@omiu/message",
   "version": "0.0.3",
-  "description": "Omi UI Components.",
+  "description": "Top message alert",
+  "docsExtend": {
+    "cnName": "消息",
+    "cnDescription": "顶部消息提醒",
+    "codepen": "JjYyezQ",
+    "codepenHeight": 351,
+    "codepenDefaultTab": "html,result"
+  },
   "main": "src/index.js",
   "module": "src/index.esm.js",
   "types": "src/index.d.ts",
   "scripts": {
+    "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
     "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
   },
