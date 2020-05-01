@@ -1,6 +1,6 @@
 ## ColorPicker
 
-Color Picker base on [pickr](https://github.com/Simonwep/pickr)
+Color Picker
 
 <iframe height="351" style="width: 100%;" scrolling="no" title="OMIU ColorPicker" src="https://codepen.io/omijs/embed/gOaWmZE?height=351&theme-id=default&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
   See the Pen <a href='https://codepen.io/omijs/pen/gOaWmZE'>OMIU Checkbox</a> by OMI
@@ -54,7 +54,7 @@ Or use script tag to ref it.
   strings?: {
     save: string,  // Default for save button
     clear: string // Default for clear button
-  }, 
+  },
   width?: string
 }
 ```
@@ -93,4 +93,4 @@ Or use script tag to ref it.
 * init
 * save
 * change
-* swatchselect
+* swatch-select

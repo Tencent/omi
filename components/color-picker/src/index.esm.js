@@ -1,5 +1,5 @@
 /**
- * @omiu/color-picker v0.0.3 http://omijs.org
+ * @omiu/color-picker v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2241,7 +2241,7 @@ var ColorPicker = /** @class */ (function (_super) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            _this.fire('swatchselect', {
+            _this.fire('swatch-select', {
                 color: args[0].toHEXA().toString(),
                 colorObject: args[0]
             });

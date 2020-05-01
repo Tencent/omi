@@ -132,7 +132,7 @@ export default class ColorPicker extends WeElement<Props>{
         colorObject: args[0]
       })
     }).on('swatchselect', (...args) => {
-      this.fire('swatchselect', {
+      this.fire('swatch-select', {
         color: args[0].toHEXA().toString(),
         colorObject: args[0]
       })

@@ -90,4 +90,4 @@ Or use script tag to ref it.
 * init
 * save
 * change
-* swatchselect
+* swatch-select

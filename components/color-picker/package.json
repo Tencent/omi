@@ -1,6 +1,6 @@
 {
   "name": "@omiu/color-picker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Color Picker",
   "docsExtend": {
     "cnName": "颜色选择器",

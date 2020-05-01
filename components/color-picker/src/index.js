@@ -346,7 +346,7 @@ var ColorPicker = /** @class */ (function (_super) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            _this.fire('swatchselect', {
+            _this.fire('swatch-select', {
                 color: args[0].toHEXA().toString(),
                 colorObject: args[0]
             });
