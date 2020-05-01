@@ -131,7 +131,7 @@ fs.writeFileSync(`../${name}/README.md`, enContent.replace(/<iframe[\s\S]*?<\/if
 
 function extract(startWith, str) {
   const start = str.indexOf(startWith)
-
+  if (start === -1) return ''
   let end = start + startWith.length
   let stackCount = 1
   while (end < str.length) {
