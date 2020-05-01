@@ -40,7 +40,7 @@ export default class ActionSheet extends WeElement<Props> {
       return (
         <div key={idx} onClick={_ => {
           this.hide()
-          this.fire('ItemClick', menu)
+          this.fire('item-click', menu)
         }} {...others} class={cls}>
           {label}
         </div>
@@ -71,7 +71,7 @@ export default class ActionSheet extends WeElement<Props> {
       return (
         <div key={idx} {...others} onClick={_ => {
           this.hide()
-          this.fire('ItemClick', action)
+          this.fire('item-click', action)
         }} className={cls}>
           {label}
         </div>

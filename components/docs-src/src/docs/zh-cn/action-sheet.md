@@ -50,5 +50,5 @@ import '@omiu/action-sheet'
 }
 ```
 ### 事件
-* ItemClick
+* item-click
 * close

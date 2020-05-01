@@ -48,5 +48,5 @@ Or use script tag to ref it.
 ```
 ### Events
 
-* ItemClick
+* item-click
 * close
