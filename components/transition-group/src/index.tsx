@@ -31,7 +31,6 @@ export default class TransitionGroup extends WeElement<Props>{
       this.enter(node, index)
     })
 
-
     if (this.props.leavingTime) {
       setTimeout(() => {
         this.childNodes.forEach((node, index) => {
@@ -50,7 +49,6 @@ export default class TransitionGroup extends WeElement<Props>{
     node.classList.add(this.props.name + '-enter-active')
 
     this.callback = function () {
-      node.classList.remove(this.props.name + '-enter-to')
       node.classList.remove(this.props.name + '-enter-active')
 
     }.bind(this)
@@ -70,7 +68,6 @@ export default class TransitionGroup extends WeElement<Props>{
     node.classList.add(this.props.name + '-leave-active')
 
     this.callback = function () {
-      node.classList.remove(this.props.name + '-leave-to')
       node.classList.remove(this.props.name + '-leave-active')
 
     }.bind(this)
@@ -122,7 +119,7 @@ class TestTG extends WeElement {
   render() {
     return (
       <ul>
-        <o-transition-group name="fade" delay={300}>
+        <o-transition-group name="fade" leaving-time={3000} delay={300}>
           <li>aa</li>
           <li>bb</li>
           <li>cc</li>

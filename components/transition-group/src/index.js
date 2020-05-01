@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["OTransition"] = factory(require("omi"));
+		exports["OTransitionGroup"] = factory(require("omi"));
 	else
-		root["OTransition"] = factory(root["Omi"]);
+		root["OTransitionGroup"] = factory(root["Omi"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -150,7 +150,6 @@ var TransitionGroup = /** @class */ (function (_super) {
         node.classList.add(this.props.name + '-enter');
         node.classList.add(this.props.name + '-enter-active');
         this.callback = function () {
-            node.classList.remove(this.props.name + '-enter-to');
             node.classList.remove(this.props.name + '-enter-active');
         }.bind(this);
         this.elOnce(node, 'transitionend', this.callback);
@@ -166,7 +165,6 @@ var TransitionGroup = /** @class */ (function (_super) {
         node.classList.add(this.props.name + '-leave');
         node.classList.add(this.props.name + '-leave-active');
         this.callback = function () {
-            node.classList.remove(this.props.name + '-leave-to');
             node.classList.remove(this.props.name + '-leave-active');
         }.bind(this);
         this.elOnce(node, 'transitionend', this.callback);
@@ -216,7 +214,7 @@ var TestTG = /** @class */ (function (_super) {
     }
     TestTG.prototype.render = function () {
         return (omi_1.h("ul", null,
-            omi_1.h("o-transition-group", { name: "fade", delay: 300 },
+            omi_1.h("o-transition-group", { name: "fade", "leaving-time": 3000, delay: 300 },
                 omi_1.h("li", null, "aa"),
                 omi_1.h("li", null, "bb"),
                 omi_1.h("li", null, "cc"))));
