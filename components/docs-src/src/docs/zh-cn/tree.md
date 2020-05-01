@@ -23,7 +23,7 @@ import '@omiu/tree'
 ## 使用
 
 ```html
-<o-tree> </o-tree>
+<o-tree></o-tree>
 ```
 
 
@@ -39,6 +39,6 @@ import '@omiu/tree'
 
 
 ### 事件
-* nodeClick
-* nodeArrowClick
-* contextMenu
+* node-click
+* node-arrow-click
+* context-menu

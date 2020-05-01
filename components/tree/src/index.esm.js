@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.2 http://omijs.org
+ * @omiu/tree v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -611,16 +611,16 @@ var Tree = /** @class */ (function (_super) {
             _this.prevSelectedNode.selected = false;
             node.selected = true;
             _this.forceUpdate();
-            _this.fire('nodeClick', node);
+            _this.fire('node-click', node);
         };
         _this.onNodeArrowClick = function (node) {
-            _this.fire('nodeArrowClick', node);
-            _this.fire('nodeClick', node);
+            _this.fire('node-arrow-click', node);
+            _this.fire('node-click', node);
         };
         _this.onContextMenu = function (evt, node) {
             evt.stopPropagation();
             evt.preventDefault();
-            _this.fire('contextMenu', {
+            _this.fire('context-menu', {
                 evt: evt,
                 node: node
             });

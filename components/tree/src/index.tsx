@@ -21,21 +21,21 @@ export default class Tree extends WeElement<Props>{
     this.prevSelectedNode.selected = false
     node.selected = true
     this.forceUpdate()
-    this.fire('nodeClick', node)
+    this.fire('node-click', node)
   }
 
   _tempTagName: string
   prevSelectedNode
 
   onNodeArrowClick = (node) => {
-    this.fire('nodeArrowClick', node)
-    this.fire('nodeClick', node)
+    this.fire('node-arrow-click', node)
+    this.fire('node-click', node)
   }
 
   onContextMenu = (evt, node) => {
     evt.stopPropagation()
     evt.preventDefault()
-    this.fire('contextMenu', {
+    this.fire('context-menu', {
       evt,
       node
     })

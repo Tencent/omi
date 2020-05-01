@@ -39,6 +39,6 @@ Or use script tag to ref it.
 
 ### Events
 
-* nodeClick
-* nodeArrowClick
-* contextMenu
+* node-click
+* node-arrow-click
+* context-menu

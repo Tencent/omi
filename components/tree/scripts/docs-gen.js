@@ -3,17 +3,12 @@ const fs = require('fs')
 
 const content = fs.readFileSync('./src/index.tsx', 'utf-8')
 
-const props = content.match(new RegExp('interface Props \\{[\\s\\S]*?}'))[0].replace('interface Props ', '')
+const props = extract('interface Props {', content).replace('interface Props ', '')
 
-const defaultPropsContext = content.match(new RegExp('static defaultProps = \\{[\\s\\S]*?}'))
-let defaultProps
-if (defaultPropsContext) {
-
-  defaultProps = defaultPropsContext[0].replace('static defaultProps = ', '').replace(/    /g, '  ').replace(/  }/g, ')')
-}
+const defaultProps = extract('static defaultProps = {', content).replace('static defaultProps = ', '').replace(/  }/g, '}').replace(/    /g, '  ')
 
 
-const eventContexts = content.match(new RegExp('this.fire\\([\\s\\S]*?,', 'g'))
+const eventContexts = content.match(new RegExp('this.fire\\([\\s\\S]*?[,|)]', 'g'))
 const package = require('../package.json')
 const packageName = package.name
 const name = packageName.split('/')[1]
@@ -28,7 +23,7 @@ let events, eventMap
 if (eventContexts) {
 
   events = eventContexts.map(event => {
-    return event.replace('this.fire(\'', '').replace('\',', '')
+    return event.replace('this.fire(\'', '').replace('\',', '').replace('\')', '')
   })
   eventMap = {}
   events.forEach(event => {
@@ -69,11 +64,11 @@ import '${packageName}'
 
 ### 属性
 
-\`\`\`jsx
+\`\`\`tsx
 ${props}
 \`\`\`
 
-${defaultProps ? '### 默认属性\n' : ''}${defaultProps ? '\`\`\`jsx\n' : ''}${defaultProps ? defaultProps : ''}
+${defaultProps ? '### 默认属性\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### 事件\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
   return `* ${event}\n`
 }).join('') : ''}`
@@ -114,17 +109,45 @@ Or use script tag to ref it.
 
 ### Props
 
-\`\`\`jsx
+\`\`\`tsx
 ${props}
 \`\`\`
 
-${defaultProps ? '### 默认属性\n\n' : ''}${defaultProps ? '\`\`\`jsx\n' : ''}${defaultProps ? defaultProps : ''}
+${defaultProps ? '### 默认属性\n\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### Events\n\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
   return `* ${event}\n`
 }).join('') : ''}`
 
 
 fs.writeFileSync(`../docs-src/src/docs/en/${name}.md`, enContent)
+
+
+fs.writeFileSync(`../${name}/README.md`, enContent.replace(/<iframe[\s\S]*?<\/iframe>/, `* [→ CodePen](https://codepen.io/omijs/pen/${package.docsExtend.codepen})`))
 // console.log(props)
 // console.log(defaultProps)
 // console.log(Object.keys(eventMap))
+
+
+
+function extract(startWith, str) {
+  const start = str.indexOf(startWith)
+  if (start === -1) return ''
+  let end = start + startWith.length
+  let stackCount = 1
+  while (end < str.length) {
+    if (str[end] === '}') {
+      if (stackCount === 1) {
+
+        break
+      } else {
+        stackCount--
+      }
+    } else if (str[end] === '{') {
+      stackCount++
+    }
+
+    end++
+  }
+
+  return str.substring(start, end + 1)
+}
