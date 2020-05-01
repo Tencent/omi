@@ -33,6 +33,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/avatar][omiu-avatar-github] | [![omiu-avatar-status]][omiu-avatar-package]|[CodePen][omiu-avatar-codepen] | [Avatar Docs][omiu-avatar-docs]|
 | [@omiu/breadcrumb][omiu-breadcrumb-github] | [![omiu-breadcrumb-status]][omiu-breadcrumb-package]|[CodePen][omiu-breadcrumb-codepen] | [Breadcrumb Docs][omiu-breadcrumb-docs]|
 | [@omiu/bottom-nav][omiu-bottom-nav-github] | [![omiu-bottom-nav-status]][omiu-bottom-nav-package]|[CodePen][omiu-bottom-nav-codepen] | [BottomNav Docs][omiu-bottom-nav-docs]|
+| [@omiu/transition][omiu-transition-github] | [![omiu-transition-status]][omiu-transition-package]|[CodePen][omiu-transition-codepen] | [Transition Docs][omiu-transition-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -173,6 +174,11 @@ English | [简体中文](./README.CN.md)
 [omiu-bottom-nav-docs]: https://tencent.github.io/omi/components/docs/index.html#/bottom-nav
 [omiu-bottom-nav-codepen]: https://codepen.io/omijs/pen/zYvdjEY
 
+[omiu-transition-github]: https://github.com/Tencent/omi/tree/master/components/transition
+[omiu-transition-status]: https://img.shields.io/npm/v/@omiu/transition.svg
+[omiu-transition-package]: https://www.npmjs.com/package/@omiu/transition
+[omiu-transition-docs]: https://tencent.github.io/omi/components/docs/index.html#/transition
+[omiu-transition-codepen]: https://codepen.io/omijs/pen/JjYyezQ
 
 ## Quick Preview
 

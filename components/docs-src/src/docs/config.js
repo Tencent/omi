@@ -15,11 +15,12 @@ const config = {
           { name: 'Button 按钮', md: 'button' },
           { name: 'Icon 图标', md: 'icon' },
           { name: 'OIcon 矢量图标', md: 'o-icon' },
+          { name: 'Transition 过渡动画', md: 'transition' },
+
           { name: 'Badge 徽章', md: 'badge' },
           { name: 'Avatar 头像', md: 'avatar' },
           { name: 'ToggleIcon 可切换图标', md: 'toggle-icon' },
 
-          { name: 'Radio 单选框', md: 'radio' },
           { name: 'Link 文字链接', md: 'link' },
           { name: 'HamburgerMenu 汉堡包菜单', md: 'hamburger-menu' }
 
@@ -39,6 +40,7 @@ const config = {
           { name: 'Input 输入框', md: 'input' },
           { name: 'Checkbox 复选框', md: 'checkbox' },
           { name: 'Switch 开关', md: 'switch' },
+          { name: 'Radio 单选框', md: 'radio' },
           { name: 'ColorPicker 颜色选择器', md: 'color-picker' }
         ]
       },
@@ -89,10 +91,11 @@ const config = {
           { name: 'Button', md: 'button' },
           { name: 'Icon', md: 'icon' },
           { name: 'OIcon', md: 'o-icon' },
+          { name: 'Transition', md: 'transition' },
           { name: 'Badge', md: 'badge' },
           { name: 'Avatar', md: 'avatar' },
           { name: 'ToggleIcon', md: 'toggle-icon' },
-          { name: 'Radio', md: 'radio' },
+
           { name: 'Link', md: 'link' },
           { name: 'Hamburger Menu', md: 'hamburger-menu' }
         ]
@@ -111,6 +114,7 @@ const config = {
           { name: 'Input', md: 'input' },
           { name: 'Checkbox', md: 'checkbox' },
           { name: 'Switch', md: 'switch' },
+          { name: 'Radio', md: 'radio' },
           { name: 'ColorPicker', md: 'color-picker' }
         ]
       },
