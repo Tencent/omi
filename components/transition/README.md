@@ -32,6 +32,7 @@ Or use script tag to ref it.
   name: string
   leavingTime?: number
   autoRemove?: boolean
+  appear?: boolean
 }
 ```
 
@@ -44,9 +45,9 @@ Or use script tag to ref it.
 ```
 ### Events
 
-* BeforeEnter
-* AfterEnter
+* before-enter
+* after-enter
 * enter
-* BeforeLeave
-* AfterLeave
+* before-leave
+* after-leave
 * leave

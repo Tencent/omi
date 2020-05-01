@@ -17,6 +17,7 @@ interface Props {
   name: string
   leavingTime?: number
   autoRemove?: boolean
+  appear?: boolean
 }
 
 @tag('o-transition')
@@ -25,7 +26,8 @@ export default class Transition extends WeElement<Props>{
   static propTypes = {
     name: String,
     leavingTime: Number,
-    autoRemove: Boolean
+    autoRemove: Boolean,
+    appear: Boolean
   }
 
   static isLightDom = true
@@ -38,18 +40,20 @@ export default class Transition extends WeElement<Props>{
 
   installed() {
 
-    domReady(() => {
+    if(this.props.appear) {
+      domReady(() => {
 
-      this.transitionTarget = this.children[0]
+        this.transitionTarget = this.children[0]
 
-      this.enter()
+        this.enter()
 
-      if (this.props.leavingTime) {
-        setTimeout(() => {
-          this.leave()
-        }, this.props.leavingTime)
-      }
-    })
+        if (this.props.leavingTime) {
+          setTimeout(() => {
+            this.leave()
+          }, this.props.leavingTime)
+        }
+      })
+    }
 
   }
 
@@ -57,7 +61,7 @@ export default class Transition extends WeElement<Props>{
 
   enter() {
 
-    this.fire('BeforeEnter')
+    this.fire('before-enter')
     this.transitionTarget.classList.remove(this.props.name + '-leave-active')
     this.transitionTarget.classList.remove(this.props.name + '-leave-to')
     this.transitionTarget.classList.add(this.props.name + '-enter')
@@ -65,7 +69,7 @@ export default class Transition extends WeElement<Props>{
 
     this.callback = function () {
       this.transitionTarget.classList.remove(this.props.name + '-enter-active')
-      this.fire('AfterEnter')
+      this.fire('after-enter')
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
@@ -78,7 +82,7 @@ export default class Transition extends WeElement<Props>{
   }
 
   leave() {
-    this.fire('BeforeLeave')
+    this.fire('before-leave')
     this.transitionTarget.classList.remove(this.props.name + '-enter-active')
     this.transitionTarget.classList.remove(this.props.name + '-enter-to')
     this.transitionTarget.classList.add(this.props.name + '-leave')
@@ -88,7 +92,7 @@ export default class Transition extends WeElement<Props>{
 
       this.transitionTarget.classList.remove(this.props.name + '-leave-active')
 
-      this.fire('AfterLeave')
+      this.fire('after-leave')
       if (this.props.autoRemove && this.parentNode) {
         this.parentNode.removeChild(this)
       }

@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.2 http://omijs.org
+ * @omiu/transition v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -109,25 +109,27 @@ var Transition = /** @class */ (function (_super) {
     }
     Transition.prototype.installed = function () {
         var _this = this;
-        domReady(function () {
-            _this.transitionTarget = _this.children[0];
-            _this.enter();
-            if (_this.props.leavingTime) {
-                setTimeout(function () {
-                    _this.leave();
-                }, _this.props.leavingTime);
-            }
-        });
+        if (this.props.appear) {
+            domReady(function () {
+                _this.transitionTarget = _this.children[0];
+                _this.enter();
+                if (_this.props.leavingTime) {
+                    setTimeout(function () {
+                        _this.leave();
+                    }, _this.props.leavingTime);
+                }
+            });
+        }
     };
     Transition.prototype.enter = function () {
-        this.fire('BeforeEnter');
+        this.fire('before-enter');
         this.transitionTarget.classList.remove(this.props.name + '-leave-active');
         this.transitionTarget.classList.remove(this.props.name + '-leave-to');
         this.transitionTarget.classList.add(this.props.name + '-enter');
         this.transitionTarget.classList.add(this.props.name + '-enter-active');
         this.callback = function () {
             this.transitionTarget.classList.remove(this.props.name + '-enter-active');
-            this.fire('AfterEnter');
+            this.fire('after-enter');
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -138,14 +140,14 @@ var Transition = /** @class */ (function (_super) {
         }.bind(this), 0);
     };
     Transition.prototype.leave = function () {
-        this.fire('BeforeLeave');
+        this.fire('before-leave');
         this.transitionTarget.classList.remove(this.props.name + '-enter-active');
         this.transitionTarget.classList.remove(this.props.name + '-enter-to');
         this.transitionTarget.classList.add(this.props.name + '-leave');
         this.transitionTarget.classList.add(this.props.name + '-leave-active');
         this.callback = function (e) {
             this.transitionTarget.classList.remove(this.props.name + '-leave-active');
-            this.fire('AfterLeave');
+            this.fire('after-leave');
             if (this.props.autoRemove && this.parentNode) {
                 this.parentNode.removeChild(this);
             }
@@ -171,7 +173,8 @@ var Transition = /** @class */ (function (_super) {
     Transition.propTypes = {
         name: String,
         leavingTime: Number,
-        autoRemove: Boolean
+        autoRemove: Boolean,
+        appear: Boolean
     };
     Transition.isLightDom = true;
     Transition.defaultProps = {

@@ -12,12 +12,14 @@ interface Props {
     name: string;
     leavingTime?: number;
     autoRemove?: boolean;
+    appear?: boolean;
 }
 export default class Transition extends WeElement<Props> {
     static propTypes: {
         name: StringConstructor;
         leavingTime: NumberConstructor;
         autoRemove: BooleanConstructor;
+        appear: BooleanConstructor;
     };
     static isLightDom: boolean;
     static defaultProps: {

@@ -36,6 +36,7 @@ import '@omiu/transition'
   name: string
   leavingTime?: number
   autoRemove?: boolean
+  appear?: boolean
 }
 ```
 
@@ -46,9 +47,9 @@ import '@omiu/transition'
 }
 ```
 ### 事件
-* BeforeEnter
-* AfterEnter
+* before-enter
+* after-enter
 * enter
-* BeforeLeave
-* AfterLeave
+* before-leave
+* after-leave
 * leave
