@@ -21,7 +21,7 @@ export default class BottomNav extends WeElement<Props>{
   }
 
   clickHandler = (item) => {
-    this.fire('itemClick', item)
+    this.fire('item-click', item)
     if (!item.selected) {
       this.props.items.forEach(_ => _.selected = false)
       item.selected = true

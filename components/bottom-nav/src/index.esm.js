@@ -1,5 +1,5 @@
 /**
- * @omiu/bottom-nav v0.0.1 http://omijs.org
+ * @omiu/bottom-nav v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -106,7 +106,7 @@ var BottomNav = /** @class */ (function (_super) {
     function BottomNav() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.clickHandler = function (item) {
-            _this.fire('itemClick', item);
+            _this.fire('item-click', item);
             if (!item.selected) {
                 _this.props.items.forEach(function (_) { return _.selected = false; });
                 item.selected = true;

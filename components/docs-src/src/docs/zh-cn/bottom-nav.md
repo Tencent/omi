@@ -23,7 +23,7 @@ import '@omiu/bottom-nav'
 ## 使用
 
 ```html
-<o-bottom-nav> </o-bottom-nav>
+<o-bottom-nav></o-bottom-nav>
 ```
 
 
@@ -44,5 +44,5 @@ import '@omiu/bottom-nav'
 }
 ```
 ### 事件
-* itemClick
+* item-click
 * change
