@@ -11,7 +11,11 @@
 //todo duration and delay support
 
 import { tag, WeElement } from 'omi'
-import domReady from 'dready'
+import * as _domReady from 'dready'
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupDomReady } from 'dready'
+
+const domReady = _rollupDomReady || _domReady
 
 interface Props {
   name: string

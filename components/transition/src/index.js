@@ -182,7 +182,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 //todo duration and delay support
 var omi_1 = __webpack_require__(/*! omi */ "omi");
+var _domReady = __webpack_require__(/*! dready */ "./node_modules/_dready@0.0.1@dready/index.js");
+// tslint:disable-next-line:no-duplicate-imports
 var dready_1 = __webpack_require__(/*! dready */ "./node_modules/_dready@0.0.1@dready/index.js");
+var domReady = dready_1.default || _domReady;
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);
     function Transition() {
@@ -191,7 +194,7 @@ var Transition = /** @class */ (function (_super) {
     Transition.prototype.installed = function () {
         var _this = this;
         if (this.props.appear) {
-            dready_1.default(function () {
+            domReady(function () {
                 _this.transitionTarget = _this.children[0];
                 _this.enter();
                 if (_this.props.leavingTime) {

@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.4 http://omijs.org
+ * @omiu/transition v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -87,6 +87,12 @@ var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
 }));
 });
 
+var _domReady = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': _dready_0_0_1_dready,
+    __moduleExports: _dready_0_0_1_dready
+});
+
 /**
  * o-transition element based on vue-transition
  * Tom Fales (@enlightenmentor)
@@ -96,6 +102,7 @@ var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
  * modified by dntzhang
  *
  */
+var domReady = _dready_0_0_1_dready || _domReady;
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);
     function Transition() {
@@ -104,7 +111,7 @@ var Transition = /** @class */ (function (_super) {
     Transition.prototype.installed = function () {
         var _this = this;
         if (this.props.appear) {
-            _dready_0_0_1_dready(function () {
+            domReady(function () {
                 _this.transitionTarget = _this.children[0];
                 _this.enter();
                 if (_this.props.leavingTime) {
