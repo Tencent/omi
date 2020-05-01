@@ -11,7 +11,7 @@
 //todo duration and delay support
 
 import { tag, WeElement } from 'omi'
-import * as domReady from 'dready'
+import domReady from 'dready'
 
 interface Props {
   name: string
@@ -40,7 +40,7 @@ export default class Transition extends WeElement<Props>{
 
   installed() {
 
-    if(this.props.appear) {
+    if (this.props.appear) {
       domReady(() => {
 
         this.transitionTarget = this.children[0]

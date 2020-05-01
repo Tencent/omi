@@ -35,7 +35,7 @@ export default class Message extends WeElement<Props>{
   render(props) {
 
     return (
-      <o-transition onafter-leave={this.onAfterLeave} leaving-time={props.duration} auto-remove name="fade">
+      <o-transition appear onafter-leave={this.onAfterLeave} leaving-time={props.duration} auto-remove name="fade">
         <div  {...extractClass(props, 'o-message', {
           ['o-message--' + props.type]: props.type,
           'is-closable': props.closable,

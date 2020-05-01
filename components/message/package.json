@@ -80,12 +80,6 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omim.min.js",
-      "threshold": "4Kb"
-    }
-  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,

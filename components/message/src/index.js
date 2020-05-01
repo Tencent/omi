@@ -96,19 +96,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@omiu/transition/src/index.esm.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@omiu/transition/src/index.esm.js ***!
-  \********************************************************/
+/***/ "./node_modules/_@omiu_transition@0.0.3@@omiu/transition/src/index.esm.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/_@omiu_transition@0.0.3@@omiu/transition/src/index.esm.js ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/transition v0.0.1 http://omijs.org
+ * @omiu/transition v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -153,6 +153,55 @@ function __decorate(decorators, target, key, desc) {
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
+// if the module has no dependencies, the above pattern can be simplified to
+(function (root, factory) {
+  {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  }
+}(commonjsGlobal, function () {
+
+  const readyCallbacks = [];
+  document.addEventListener('DOMContentLoaded', () => {
+    domReady.done = true;
+    readyCallbacks.forEach(callback => {
+      callback();
+    });
+  });
+
+  function domReady(callback) {
+    if (domReady.done) {
+      callback();
+      return
+    }
+    readyCallbacks.push(callback);
+  }
+
+  domReady.done = false;
+
+
+  // Just return a value to define the module export.
+  // This example returns an object, but the module
+  // can return a function as the exported value.
+  return domReady
+}));
+});
+
+var domReady = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': _dready_0_0_1_dready,
+    __moduleExports: _dready_0_0_1_dready
+});
+
 /**
  * o-transition element based on vue-transition
  * Tom Fales (@enlightenmentor)
@@ -169,25 +218,27 @@ var Transition = /** @class */ (function (_super) {
     }
     Transition.prototype.installed = function () {
         var _this = this;
-        this.transitionTarget = this.childNodes[0];
-        this.enter();
-        if (this.props.leavingTime) {
-            setTimeout(function () {
-                _this.leave();
-            }, this.props.leavingTime);
+        if (this.props.appear) {
+            domReady(function () {
+                _this.transitionTarget = _this.children[0];
+                _this.enter();
+                if (_this.props.leavingTime) {
+                    setTimeout(function () {
+                        _this.leave();
+                    }, _this.props.leavingTime);
+                }
+            });
         }
     };
     Transition.prototype.enter = function () {
-        this.fire('BeforeEnter');
-        this.fire('beforeEnter');
+        this.fire('before-enter');
         this.transitionTarget.classList.remove(this.props.name + '-leave-active');
         this.transitionTarget.classList.remove(this.props.name + '-leave-to');
         this.transitionTarget.classList.add(this.props.name + '-enter');
         this.transitionTarget.classList.add(this.props.name + '-enter-active');
         this.callback = function () {
             this.transitionTarget.classList.remove(this.props.name + '-enter-active');
-            this.fire('AfterEnter');
-            this.fire('afterEnter');
+            this.fire('after-enter');
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -198,16 +249,14 @@ var Transition = /** @class */ (function (_super) {
         }.bind(this), 0);
     };
     Transition.prototype.leave = function () {
-        this.fire('BeforeLeave');
-        this.fire('beforeLeave');
+        this.fire('before-leave');
         this.transitionTarget.classList.remove(this.props.name + '-enter-active');
         this.transitionTarget.classList.remove(this.props.name + '-enter-to');
         this.transitionTarget.classList.add(this.props.name + '-leave');
         this.transitionTarget.classList.add(this.props.name + '-leave-active');
         this.callback = function (e) {
             this.transitionTarget.classList.remove(this.props.name + '-leave-active');
-            this.fire('AfterLeave');
-            this.fire('afterLeave');
+            this.fire('after-leave');
             if (this.props.autoRemove && this.parentNode) {
                 this.parentNode.removeChild(this);
             }
@@ -233,7 +282,8 @@ var Transition = /** @class */ (function (_super) {
     Transition.propTypes = {
         name: String,
         leavingTime: Number,
-        autoRemove: Boolean
+        autoRemove: Boolean,
+        appear: Boolean
     };
     Transition.isLightDom = true;
     Transition.defaultProps = {
@@ -248,17 +298,18 @@ var Transition = /** @class */ (function (_super) {
 /* harmony default export */ __webpack_exports__["default"] = (Transition);
 //# sourceMappingURL=index.esm.js.map
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../_webpack@4.43.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.43.0@webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -270,10 +321,10 @@ exports.push([module.i, ".o-message__closeBtn:focus,\n.o-message__content:focus 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -357,6 +408,37 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "./node_modules/_webpack@4.43.0@webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
 /***/ "./src/index.scss":
 /*!************************!*\
   !*** ./src/index.scss ***!
@@ -365,7 +447,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -418,7 +500,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-__webpack_require__(/*! @omiu/transition */ "./node_modules/@omiu/transition/src/index.esm.js");
+__webpack_require__(/*! @omiu/transition */ "./node_modules/_@omiu_transition@0.0.3@@omiu/transition/src/index.esm.js");
 var Message = /** @class */ (function (_super) {
     __extends(Message, _super);
     function Message() {
@@ -430,7 +512,7 @@ var Message = /** @class */ (function (_super) {
     }
     Message.prototype.render = function (props) {
         var _a;
-        return (omi_1.h("o-transition", { onAfterLeave: this.onAfterLeave, "leaving-time": props.duration, "auto-remove": true, name: "fade" },
+        return (omi_1.h("o-transition", { appear: true, "onafter-leave": this.onAfterLeave, "leaving-time": props.duration, "auto-remove": true, name: "fade" },
             omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-message', (_a = {},
                 _a['o-message--' + props.type] = props.type,
                 _a['is-closable'] = props.closable,
