@@ -335,7 +335,7 @@ var Tabs = /** @class */ (function (_super) {
         this.forceUpdate();
     };
     Tabs.prototype.onAddIconClick = function () {
-        this.fire('addIconClick');
+        this.fire('add-icon-click');
     };
     Tabs.prototype.render = function (props) {
         var _a, _b, _c, _d, _e;

@@ -104,7 +104,7 @@ export default class Tabs extends WeElement<Props>{
   }
 
   onAddIconClick() {
-    this.fire('addIconClick')
+    this.fire('add-icon-click')
   }
 
   _tempTagName: string

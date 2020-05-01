@@ -59,4 +59,4 @@ Or use script tag to ref it.
 
 * change
 * remove
-* addIconClick
+* add-icon-click

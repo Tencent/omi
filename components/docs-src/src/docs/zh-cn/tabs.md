@@ -59,4 +59,4 @@ import '@omiu/tabs'
 
 * change
 * remove
-* addIconClick
+* add-icon-click
