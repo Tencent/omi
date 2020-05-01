@@ -1,6 +1,6 @@
 {
   "name": "@omiu/message",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Top message alert",
   "docsExtend": {
     "cnName": "消息",
