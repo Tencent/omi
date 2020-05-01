@@ -23,7 +23,7 @@ import '@omiu/action-sheet'
 ## 使用
 
 ```html
-<o-action-sheet> </o-action-sheet>
+<o-action-sheet></o-action-sheet>
 ```
 
 
@@ -47,8 +47,8 @@ import '@omiu/action-sheet'
   menus: [],
   actions: [],
   show: false
-)
+}
 ```
 ### 事件
-* itemClick
+* ItemClick
 * close

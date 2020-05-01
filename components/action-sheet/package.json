@@ -1,6 +1,6 @@
 {
   "name": "@omiu/action-sheet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mobile pop-up options list",
   "docsExtend": {
     "cnName": "弹出式菜单",

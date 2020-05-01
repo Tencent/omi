@@ -44,9 +44,9 @@ Or use script tag to ref it.
   menus: [],
   actions: [],
   show: false
-)
+}
 ```
 ### Events
 
-* itemClick
+* ItemClick
 * close

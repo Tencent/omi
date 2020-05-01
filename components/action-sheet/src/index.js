@@ -296,7 +296,7 @@ var ActionSheet = /** @class */ (function (_super) {
                 _a));
             return (omi_1.h("div", __assign({ key: idx, onClick: function (_) {
                     _this.hide();
-                    _this.fire('itemClick', menu);
+                    _this.fire('ItemClick', menu);
                 } }, others, { class: cls }), label));
         });
     };
@@ -322,7 +322,7 @@ var ActionSheet = /** @class */ (function (_super) {
                 _a));
             return (omi_1.h("div", __assign({ key: idx }, others, { onClick: function (_) {
                     _this.hide();
-                    _this.fire('itemClick', action);
+                    _this.fire('ItemClick', action);
                 }, className: cls }), label));
         });
     };

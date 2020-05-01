@@ -1,5 +1,5 @@
 /**
- * @omiu/action-sheet v0.0.2 http://omijs.org
+ * @omiu/action-sheet v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -245,7 +245,7 @@ var ActionSheet = /** @class */ (function (_super) {
                 _a));
             return (h("div", __assign({ key: idx, onClick: function (_) {
                     _this.hide();
-                    _this.fire('itemClick', menu);
+                    _this.fire('ItemClick', menu);
                 } }, others, { class: cls }), label));
         });
     };
@@ -271,7 +271,7 @@ var ActionSheet = /** @class */ (function (_super) {
                 _a));
             return (h("div", __assign({ key: idx }, others, { onClick: function (_) {
                     _this.hide();
-                    _this.fire('itemClick', action);
+                    _this.fire('ItemClick', action);
                 }, className: cls }), label));
         });
     };
