@@ -45,12 +45,8 @@ Or use script tag to ref it.
 ### Events
 
 * BeforeEnter
-* beforeEnter
 * AfterEnter
-* afterEnter
 * enter
 * BeforeLeave
-* beforeLeave
 * AfterLeave
-* afterLeave
 * leave

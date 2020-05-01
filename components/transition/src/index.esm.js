@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.1 http://omijs.org
+ * @omiu/transition v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -44,6 +44,55 @@ function __decorate(decorators, target, key, desc) {
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
+// if the module has no dependencies, the above pattern can be simplified to
+(function (root, factory) {
+  {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  }
+}(commonjsGlobal, function () {
+
+  const readyCallbacks = [];
+  document.addEventListener('DOMContentLoaded', () => {
+    domReady.done = true;
+    readyCallbacks.forEach(callback => {
+      callback();
+    });
+  });
+
+  function domReady(callback) {
+    if (domReady.done) {
+      callback();
+      return
+    }
+    readyCallbacks.push(callback);
+  }
+
+  domReady.done = false;
+
+
+  // Just return a value to define the module export.
+  // This example returns an object, but the module
+  // can return a function as the exported value.
+  return domReady
+}));
+});
+
+var domReady = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': _dready_0_0_1_dready,
+    __moduleExports: _dready_0_0_1_dready
+});
+
 /**
  * o-transition element based on vue-transition
  * Tom Fales (@enlightenmentor)
@@ -60,17 +109,18 @@ var Transition = /** @class */ (function (_super) {
     }
     Transition.prototype.installed = function () {
         var _this = this;
-        this.transitionTarget = this.childNodes[0];
-        this.enter();
-        if (this.props.leavingTime) {
-            setTimeout(function () {
-                _this.leave();
-            }, this.props.leavingTime);
-        }
+        domReady(function () {
+            _this.transitionTarget = _this.children[0];
+            _this.enter();
+            if (_this.props.leavingTime) {
+                setTimeout(function () {
+                    _this.leave();
+                }, _this.props.leavingTime);
+            }
+        });
     };
     Transition.prototype.enter = function () {
         this.fire('BeforeEnter');
-        this.fire('beforeEnter');
         this.transitionTarget.classList.remove(this.props.name + '-leave-active');
         this.transitionTarget.classList.remove(this.props.name + '-leave-to');
         this.transitionTarget.classList.add(this.props.name + '-enter');
@@ -78,7 +128,6 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function () {
             this.transitionTarget.classList.remove(this.props.name + '-enter-active');
             this.fire('AfterEnter');
-            this.fire('afterEnter');
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -90,7 +139,6 @@ var Transition = /** @class */ (function (_super) {
     };
     Transition.prototype.leave = function () {
         this.fire('BeforeLeave');
-        this.fire('beforeLeave');
         this.transitionTarget.classList.remove(this.props.name + '-enter-active');
         this.transitionTarget.classList.remove(this.props.name + '-enter-to');
         this.transitionTarget.classList.add(this.props.name + '-leave');
@@ -98,7 +146,6 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function (e) {
             this.transitionTarget.classList.remove(this.props.name + '-leave-active');
             this.fire('AfterLeave');
-            this.fire('afterLeave');
             if (this.props.autoRemove && this.parentNode) {
                 this.parentNode.removeChild(this);
             }

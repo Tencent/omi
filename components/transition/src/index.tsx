@@ -11,6 +11,7 @@
 //todo duration and delay support
 
 import { tag, WeElement } from 'omi'
+import * as domReady from 'dready'
 
 interface Props {
   name: string
@@ -37,14 +38,19 @@ export default class Transition extends WeElement<Props>{
 
   installed() {
 
-    this.transitionTarget = this.childNodes[0]
-    this.enter()
+    domReady(() => {
 
-    if (this.props.leavingTime) {
-      setTimeout(() => {
-        this.leave()
-      }, this.props.leavingTime)
-    }
+      this.transitionTarget = this.children[0]
+
+      this.enter()
+
+      if (this.props.leavingTime) {
+        setTimeout(() => {
+          this.leave()
+        }, this.props.leavingTime)
+      }
+    })
+
   }
 
   callback: () => void
@@ -52,7 +58,6 @@ export default class Transition extends WeElement<Props>{
   enter() {
 
     this.fire('BeforeEnter')
-    this.fire('beforeEnter')
     this.transitionTarget.classList.remove(this.props.name + '-leave-active')
     this.transitionTarget.classList.remove(this.props.name + '-leave-to')
     this.transitionTarget.classList.add(this.props.name + '-enter')
@@ -61,7 +66,6 @@ export default class Transition extends WeElement<Props>{
     this.callback = function () {
       this.transitionTarget.classList.remove(this.props.name + '-enter-active')
       this.fire('AfterEnter')
-      this.fire('afterEnter')
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
@@ -75,7 +79,6 @@ export default class Transition extends WeElement<Props>{
 
   leave() {
     this.fire('BeforeLeave')
-    this.fire('beforeLeave')
     this.transitionTarget.classList.remove(this.props.name + '-enter-active')
     this.transitionTarget.classList.remove(this.props.name + '-enter-to')
     this.transitionTarget.classList.add(this.props.name + '-leave')
@@ -86,7 +89,6 @@ export default class Transition extends WeElement<Props>{
       this.transitionTarget.classList.remove(this.props.name + '-leave-active')
 
       this.fire('AfterLeave')
-      this.fire('afterLeave')
       if (this.props.autoRemove && this.parentNode) {
         this.parentNode.removeChild(this)
       }

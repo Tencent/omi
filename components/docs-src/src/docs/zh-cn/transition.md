@@ -47,12 +47,8 @@ import '@omiu/transition'
 ```
 ### 事件
 * BeforeEnter
-* beforeEnter
 * AfterEnter
-* afterEnter
 * enter
 * BeforeLeave
-* beforeLeave
 * AfterLeave
-* afterLeave
 * leave
