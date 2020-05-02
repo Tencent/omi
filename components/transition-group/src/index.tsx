@@ -199,8 +199,13 @@ export default class TransitionGroup extends WeElement<Props>{
 
   render(props) {
     console.error(props.list)
+    console.error(props.renderItem)
     return props.list.map(props.renderItem)
   }
+
+  // render(props) {
+  //   return props.list.map(props.renderItem)
+  // }
 }
 
 function insertChildAtIndex(parent, child, index) {
@@ -232,7 +237,7 @@ class TestTG extends WeElement {
   ]
 
   removeItem = (item, index) => {
-    this.list.splice(index, index)
+    this.list.splice(index, 1)
     //立即更新
     this.update()
   }
@@ -241,7 +246,6 @@ class TestTG extends WeElement {
 
   }
 
-  tg
 
   renderItem = (item, index) => {
     return <li key={item.name}>{item.name}<button onClick={_ => { this.removeItem(item, index) }}>☓</button></li>
@@ -251,7 +255,7 @@ class TestTG extends WeElement {
     return (
       <div>
         <ul>
-          <o-transition-group list={this.list} renderItem={this.renderItem} ref={_ => this.tg = _} name="fade" delay={300}></o-transition-group>
+          <o-transition-group list={this.list} renderItem={this.renderItem} name="fade" delay={300}></o-transition-group>
         </ul>
         <button onClick={this.addItem}>+</button>
       </div>

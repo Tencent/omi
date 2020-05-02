@@ -272,6 +272,7 @@ var TransitionGroup = /** @class */ (function (_super) {
     };
     TransitionGroup.prototype.render = function (props) {
         console.error(props.list);
+        console.error(props.renderItem);
         return props.list.map(props.renderItem);
     };
     TransitionGroup.propTypes = {
@@ -310,7 +311,7 @@ var TestTG = /** @class */ (function (_super) {
             { name: 'ItemC' }
         ];
         _this.removeItem = function (item, index) {
-            _this.list.splice(index, index);
+            _this.list.splice(index, 1);
             //立即更新
             _this.update();
         };
@@ -324,10 +325,9 @@ var TestTG = /** @class */ (function (_super) {
         return _this;
     }
     TestTG.prototype.render = function () {
-        var _this = this;
         return (omi_1.h("div", null,
             omi_1.h("ul", null,
-                omi_1.h("o-transition-group", { list: this.list, renderItem: this.renderItem, ref: function (_) { return _this.tg = _; }, name: "fade", delay: 300 })),
+                omi_1.h("o-transition-group", { list: this.list, renderItem: this.renderItem, name: "fade", delay: 300 })),
             omi_1.h("button", { onClick: this.addItem }, "+")));
     };
     TestTG.css = "\n  .fade-leave-to, .fade-enter {\n    opacity: 0;\n    transform: translateX(15px);\n  }\n\n  .fade-leave-active, .fade-enter-active {\n    transition: all 500ms ease-in;\n  }";
