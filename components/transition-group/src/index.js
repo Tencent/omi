@@ -124,6 +124,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var TransitionGroup = /** @class */ (function (_super) {
@@ -188,6 +189,92 @@ var TransitionGroup = /** @class */ (function (_super) {
         }.bind(el);
         el.addEventListener(name, wrapCall);
     };
+    TransitionGroup.prototype.update = function (list) {
+        //diff list with this.childNodes
+        console.log(list);
+        console.log(this.childNodes);
+        console.log(this.prevProps);
+        console.log(this.childNodes[0].getAttribute('key'));
+        this.leave();
+    };
+    TransitionGroup.prototype.receiveProps = function () {
+        var _this = this;
+        return false;
+        console.log(this.childNodes);
+        //find the leave item
+        var el;
+        var vel;
+        var insertIndex;
+        var arr = [];
+        this.childNodes.forEach(function (node) {
+            if (node['__omiattr_'] && node['__omiattr_'].hasOwnProperty('key')) {
+                arr.push(node);
+            }
+        });
+        var vnodes = this.render(this.props);
+        var len = vnodes.length;
+        //insert
+        if (len > arr.length) {
+            for (var i = 0; i < len; i++) {
+                if (i === len - 1) {
+                    vel = vnodes[i];
+                    insertIndex = i;
+                    break;
+                }
+                else if (vnodes[i].attributes.key !== arr[i]['__omiattr_'].key) {
+                    vel = vnodes[i];
+                    insertIndex = i;
+                    break;
+                }
+            }
+        }
+        else if (len < arr.length) { //delete
+            for (var i = 0; i < arr.length; i++) {
+                if (i === arr.length - 1) {
+                    el = arr[i];
+                }
+                else if (vnodes[i].attributes.key !== arr[i]['__omiattr_'].key) {
+                    el = arr[i];
+                    break;
+                }
+            }
+        }
+        if (el) {
+            // bind end event and trigger this.update()
+            this.callback = function () {
+                el.parentNode.removeChild(el);
+                this.update();
+            }.bind(this);
+            this.elOnce(el, 'transitionend', this.callback);
+            this.elOnce(el, 'animationend', this.callback);
+            // add leave class
+            el.classList.add(this.props.name + '-leave');
+            el.classList.add(this.props.name + '-leave-active');
+            window.setTimeout(function () {
+                el.classList.remove(_this.props.name + '-leave');
+                el.classList.add(_this.props.name + '-leave-to');
+            }, 0);
+        }
+        else if (vel) {
+            var iel_1 = render(vel, null);
+            // bind end event and trigger this.update()
+            this.callback = function () {
+                //@ts-ignore
+                this.removeChild(iel_1);
+                this.update();
+            }.bind(this);
+            this.elOnce(iel_1, 'transitionend', this.callback);
+            this.elOnce(iel_1, 'animationend', this.callback);
+            insertChildAtIndex(this, iel_1, insertIndex + 1);
+            iel_1.classList.add(this.props.name + '-enter');
+            iel_1.classList.add(this.props.name + '-enter-active');
+            window.setTimeout(function () {
+                iel_1.classList.remove(_this.props.name + '-enter');
+                iel_1.classList.add(_this.props.name + '-enter-to');
+            }, 0);
+        }
+        return false;
+    };
     TransitionGroup.prototype.render = function () {
         return;
     };
@@ -207,24 +294,50 @@ var TransitionGroup = /** @class */ (function (_super) {
     return TransitionGroup;
 }(omi_1.WeElement));
 exports.default = TransitionGroup;
-var TestTG = /** @class */ (function (_super) {
-    __extends(TestTG, _super);
-    function TestTG() {
-        return _super !== null && _super.apply(this, arguments) || this;
+function insertChildAtIndex(parent, child, index) {
+    if (!index)
+        index = 0;
+    if (index >= parent.children.length) {
+        parent.appendChild(child);
     }
-    TestTG.prototype.render = function () {
-        return (omi_1.h("ul", null,
-            omi_1.h("o-transition-group", { name: "fade", "leaving-time": 3000, delay: 300 },
-                omi_1.h("li", null, "aa"),
-                omi_1.h("li", null, "bb"),
-                omi_1.h("li", null, "cc"))));
-    };
-    TestTG.css = "\n  .fade-leave-to, .fade-enter {\n    opacity: 0;\n    transform: translateX(15px);\n  }\n\n  .fade-leave-active, .fade-enter-active {\n    transition: all 500ms ease-in;\n  }";
-    TestTG = __decorate([
-        omi_1.tag('o-test-tg')
-    ], TestTG);
-    return TestTG;
-}(omi_1.WeElement));
+    else {
+        parent.insertBefore(child, parent.children[index]);
+    }
+}
+omi_1.define('my-component', (_a = /** @class */ (function (_super) {
+        __extends(TestTG, _super);
+        function TestTG() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.list = [
+                { name: 'ItemA' },
+                { name: 'ItemB' },
+                { name: 'ItemC' }
+            ];
+            _this.removeItem = function (item, index) {
+                _this.list.splice(index, 1);
+                //过渡更新，这里就要求渲染以list为准，list里item不要写condition条件
+                //this.tg.update(this.list)
+                //立即更新
+                _this.update();
+                for (var i in _this.tg.childNodes[0]) {
+                    //console.log(i)
+                }
+                console.log(_this.tg.childNodes[0].hasOwnProperty('prevProps'));
+                console.log(_this.tg.childNodes[0].prevProps);
+                console.log(_this.shadowRoot.querySelector('button').prevProps);
+            };
+            _this.addItem = function () {
+            };
+            return _this;
+        }
+        TestTG.prototype.render = function () {
+            return (omi_1.h("div", null,
+                omi_1.h("button", { onClick: this.addItem }, "+")));
+        };
+        return TestTG;
+    }(omi_1.WeElement)),
+    _a.css = "\n  .fade-leave-to, .fade-enter {\n    opacity: 0;\n    transform: translateX(15px);\n  }\n\n  .fade-leave-active, .fade-enter-active {\n    transition: all 500ms ease-in;\n  }",
+    _a));
 
 
 /***/ }),
