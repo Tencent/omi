@@ -97,21 +97,14 @@ export default class TransitionGroup extends WeElement<Props>{
     el.addEventListener(name, wrapCall)
   }
 
-  update(list) {
 
-    //diff list with this.childNodes
-
-    console.log(list)
+  receiveProps2() {
+    //return false
+    return true
+    console.log(this.props.list)
     console.log(this.childNodes)
     console.log(this.prevProps)
-    console.log(this.childNodes[0].prevProps)
-    this.leave()
-
-  }
-
-  receiveProps() {
-    return false
-    console.log(this.childNodes)
+    console.log(this.childNodes[0])
     //find the leave item
     let el
     let vel
@@ -204,8 +197,9 @@ export default class TransitionGroup extends WeElement<Props>{
     return false
   }
 
-  render() {
-    return
+  render(props) {
+    console.error(props.list)
+    return props.list.map(props.renderItem)
   }
 }
 
@@ -238,12 +232,9 @@ class TestTG extends WeElement {
   ]
 
   removeItem = (item, index) => {
-    console.log(this.prevProps)
-    this.list.splice(index, 1)
-    //过渡更新，这里就要求渲染以list为准，list里item不要写condition条件
-    this.tg.update(this.list)
+    this.list.splice(index, index)
     //立即更新
-    //this.update()
+    this.update()
   }
 
   addItem = () => {
@@ -252,13 +243,15 @@ class TestTG extends WeElement {
 
   tg
 
+  renderItem = (item, index) => {
+    return <li key={item.name}>{item.name}<button onClick={_ => { this.removeItem(item, index) }}>☓</button></li>
+  }
+
   render() {
     return (
       <div>
         <ul>
-          <o-transition-group ref={_ => this.tg = _} name="fade" delay={300}>
-            {this.list.map((item, index) => <li key={item.name}>{item.name}<button onClick={_ => { this.removeItem(item, index) }}>☓</button></li>)}
-          </o-transition-group>
+          <o-transition-group list={this.list} renderItem={this.renderItem} ref={_ => this.tg = _} name="fade" delay={300}></o-transition-group>
         </ul>
         <button onClick={this.addItem}>+</button>
       </div>
