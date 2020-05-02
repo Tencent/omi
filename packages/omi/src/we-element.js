@@ -108,14 +108,14 @@ export default class WeElement extends HTMLElement {
 					shadowRoot.removeChild(fc)
 				}
 			}
+		}
 
-			if (this.constructor.css) {
-				shadowRoot.appendChild(cssToDom(this.constructor.css))
-			} else if (this.css) {
-				shadowRoot.appendChild(
-					cssToDom(typeof this.css === 'function' ? this.css() : this.css)
-				)
-			}
+		if (this.constructor.css) {
+			shadowRoot.appendChild(cssToDom(this.constructor.css))
+		} else if (this.css) {
+			shadowRoot.appendChild(
+				cssToDom(typeof this.css === 'function' ? this.css() : this.css)
+			)
 		}
 
 		this.beforeRender()
@@ -184,7 +184,7 @@ export default class WeElement extends HTMLElement {
 		this.rootNode = diff(
 			this.rootNode,
 			rendered,
-			this.shadowRoot,
+			this.constructor.isLightDom ? this : this.shadowRoot,
 			this,
 			updateSelf
 		)

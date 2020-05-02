@@ -17,6 +17,8 @@ define('my-app', class extends WeElement {
 		name: 'abc'
 	}, {
 		name: 'bcd'
+	}, {
+		name: 'EEE'
 	}]
 
 	clickHandler = () => {

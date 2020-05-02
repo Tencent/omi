@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.0  http://omijs.org
+ * Omi v6.19.1  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -915,12 +915,12 @@ var WeElement = function (_HTMLElement) {
 					shadowRoot.removeChild(fc);
 				}
 			}
+		}
 
-			if (this.constructor.css) {
-				shadowRoot.appendChild(cssToDom(this.constructor.css));
-			} else if (this.css) {
-				shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-			}
+		if (this.constructor.css) {
+			shadowRoot.appendChild(cssToDom(this.constructor.css));
+		} else if (this.css) {
+			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
 		}
 
 		this.beforeRender();
@@ -981,7 +981,7 @@ var WeElement = function (_HTMLElement) {
 		this.rendered();
 		this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-		this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
+		this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
 		this._willUpdate = false;
 		this.updated();
 	};
@@ -1847,7 +1847,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.0';
+options.root.Omi.version = '6.19.1';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.0  http://omijs.org
+ * Omi v6.19.1  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -918,12 +918,12 @@
   					shadowRoot.removeChild(fc);
   				}
   			}
+  		}
 
-  			if (this.constructor.css) {
-  				shadowRoot.appendChild(cssToDom(this.constructor.css));
-  			} else if (this.css) {
-  				shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-  			}
+  		if (this.constructor.css) {
+  			shadowRoot.appendChild(cssToDom(this.constructor.css));
+  		} else if (this.css) {
+  			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
   		}
 
   		this.beforeRender();
@@ -984,7 +984,7 @@
   		this.rendered();
   		this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-  		this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
+  		this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
   		this._willUpdate = false;
   		this.updated();
   	};
@@ -1850,7 +1850,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.0';
+  options.root.Omi.version = '6.19.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
