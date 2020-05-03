@@ -2,59 +2,10 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: black;
-  opacity: 0.4;
+  background-color: rgba(0, 0, 0, .4);
   z-index: 100;
   left: 0;
   top: 0;
-}
-
-.o-modal-enter {
-  -webkit-animation: o-modal-in .2s ease;
-  animation: o-modal-in .2s ease
-}
-
-.o-modal-leave {
-  -webkit-animation: o-modal-out .2s ease forwards;
-  animation: o-modal-out .2s ease forwards
-}
-
-@-webkit-keyframes o-modal-in {
-  0% {
-    opacity: 0
-  }
-}
-
-@keyframes o-modal-in {
-  0% {
-    opacity: 0
-  }
-}
-
-@-webkit-keyframes o-modal-out {
-  100% {
-    opacity: 0
-  }
-}
-
-@keyframes o-modal-out {
-  100% {
-    opacity: 0
-  }
-}
-
-.o-modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .5;
-  background: #000
-}
-
-.o-popup-parent--hidden {
-  overflow: hidden
 }
 
 .o-dialog {
@@ -207,6 +158,58 @@
   100% {
     -webkit-transform: translate3d(0, -20px, 0);
     transform: translate3d(0, -20px, 0);
+    opacity: 0
+  }
+}
+
+
+
+.mask-enter-active {
+  -webkit-animation: mask-in .3s;
+  animation: mask-in .3s
+}
+
+.mask-leave-active {
+  -webkit-animation: mask-out .3s;
+  animation: mask-out .3s
+}
+
+@-webkit-keyframes mask-in {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes mask-in {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+@-webkit-keyframes mask-out {
+  0% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 0
+  }
+}
+
+@keyframes mask-out {
+  0% {
+    opacity: 1
+  }
+
+  100% {
     opacity: 0
   }
 }

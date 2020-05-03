@@ -56,7 +56,7 @@ export default class Dialog extends WeElement<Props> {
     })
 
     this.rootNode.childNodes[0].enter()
-    //this.rootNode.childNodes[1].enter()
+    this.rootNode.childNodes[1].enter()
   }
 
   handleMaskClick = e => {
@@ -66,7 +66,7 @@ export default class Dialog extends WeElement<Props> {
 
   close = () => {
     this.rootNode.childNodes[0].leave()
-    //this.rootNode.childNodes[1].leave()
+    this.rootNode.childNodes[1].leave()
   }
 
   onAfterLeave = () => {
@@ -106,12 +106,9 @@ export default class Dialog extends WeElement<Props> {
           </div>
         </o-transition>
 
-        {/* <o-transition onafter-leave={this.onAfterLeave} appear name="dialog-fade"> */}
-        <div
-          class="mask"
-          style={{ display: props.visible ? 'block' : 'none' }}
-        />
-        {/* </o-transition> */}
+        <o-transition appear name="mask">
+          <div class="mask" />
+        </o-transition>
       </div>
 
 
