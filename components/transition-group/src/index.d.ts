@@ -23,7 +23,7 @@ export default class TransitionGroup extends WeElement<Props> {
     leave(node: any, index: any): void;
     once(name: any, callback: any): void;
     elOnce(el: any, name: any, callback: any): void;
-    receiveProps2(): boolean;
-    render(props: any): any;
+    update(parent: any): void;
+    render(): void;
 }
 export {};

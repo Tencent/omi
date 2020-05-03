@@ -38,6 +38,9 @@ export default class TransitionGroup extends WeElement<Props>{
         })
       }, this.props.leavingTime)
     }
+
+    this.prevChildNodes = Array.prototype.slice.call(this.childNodes, 0)
+
   }
 
   callback: () => void
@@ -97,28 +100,16 @@ export default class TransitionGroup extends WeElement<Props>{
     el.addEventListener(name, wrapCall)
   }
 
+  update(parent) {
 
-  receiveProps2() {
-    //return false
-    return true
-    console.log(this.props.list)
-    console.log(this.childNodes)
-    console.log(this.prevProps)
-    console.log(this.childNodes[0])
     //find the leave item
     let el
     let vel
     let insertIndex
 
+    const arr = this.prevChildNodes
 
-    const arr = []
-    this.childNodes.forEach(node => {
-      if (node['__omiattr_'] && node['__omiattr_'].hasOwnProperty('key')) {
-        arr.push(node)
-      }
-    })
-
-    const vnodes = this.render(this.props)
+    const vnodes = this.props.list.map(this.props.renderItem)
     const len = vnodes.length
 
     //insert
@@ -128,7 +119,7 @@ export default class TransitionGroup extends WeElement<Props>{
           vel = vnodes[i]
           insertIndex = i
           break
-        } else if (vnodes[i].attributes.key !== arr[i]['__omiattr_'].key) {
+        } else if (vnodes[i].attributes.key !== arr[i].prevProps.key) {
           vel = vnodes[i]
           insertIndex = i
           break
@@ -138,7 +129,7 @@ export default class TransitionGroup extends WeElement<Props>{
       for (let i = 0; i < arr.length; i++) {
         if (i === arr.length - 1) {
           el = arr[i]
-        } else if (vnodes[i].attributes.key !== arr[i]['__omiattr_'].key) {
+        } else if (vnodes[i].attributes.key !== arr[i].prevProps.key) {
           el = arr[i]
           break
         }
@@ -150,7 +141,9 @@ export default class TransitionGroup extends WeElement<Props>{
       // bind end event and trigger this.update()
       this.callback = function () {
         el.parentNode.removeChild(el)
-        this.update()
+        this.prevChildNodes = Array.prototype.slice.call(this.childNodes, 0)
+        //更新父亲，校正索引，不然 list.splice 的索引还是老的
+        parent.update()
       }.bind(this)
       this.elOnce(el, 'transitionend', this.callback)
       this.elOnce(el, 'animationend', this.callback)
@@ -191,21 +184,11 @@ export default class TransitionGroup extends WeElement<Props>{
 
     }
 
-
-
-
-    return false
+  }
+  render() {
   }
 
-  render(props) {
-    console.error(props.list)
-    console.error(props.renderItem)
-    return props.list.map(props.renderItem)
-  }
 
-  // render(props) {
-  //   return props.list.map(props.renderItem)
-  // }
 }
 
 function insertChildAtIndex(parent, child, index) {
@@ -239,7 +222,9 @@ class TestTG extends WeElement {
   removeItem = (item, index) => {
     this.list.splice(index, 1)
     //立即更新
-    this.update()
+    //this.update()
+    //过渡更新
+    this.tgRef.update(this)
   }
 
   addItem = () => {
@@ -255,7 +240,9 @@ class TestTG extends WeElement {
     return (
       <div>
         <ul>
-          <o-transition-group list={this.list} renderItem={this.renderItem} name="fade" delay={300}></o-transition-group>
+          <o-transition-group ref={_ => this.tgRef = _} list={this.list} renderItem={this.renderItem} name="fade" delay={300}>
+            {this.list.map(this.renderItem)}
+          </o-transition-group>
         </ul>
         <button onClick={this.addItem}>+</button>
       </div>
