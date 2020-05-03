@@ -1,26 +1,26 @@
-## ActionSheet
+## Dialog
 
-Mobile pop-up options list
+Pop anything you want in the middle of the page
 
-* [→ CodePen](https://codepen.io/omijs/pen/wvKdoNJ)
+* [→ CodePen](https://codepen.io/omijs/pen/dyYZvRP)
 
 ## Import
 
 ```js
-import '@omiu/action-sheet'
+import '@omiu/dialog'
 ```
 
 Or use script tag to ref it.
 
 
 ```html
-<script src="https://unpkg.com/@omiu/action-sheet"></script>
+<script src="https://unpkg.com/@omiu/dialog"></script>
 ```
 
 ## Usage
 
 ```html
-<o-action-sheet></o-action-sheet>
+<o-dialog></o-dialog>
 ```
 
 ## API
@@ -29,10 +29,9 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  type: string,
-  menus: any[],
-  actions: any[],
-  show: boolean
+  visible: boolean
+  title: String
+  width: String
 }
 ```
 
@@ -40,13 +39,12 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  type: '',
-  menus: [],
-  actions: [],
-  show: false
+  visible: false,
+  width: '50%'
 }
 ```
 ### Events
 
-* item-click
+* open
+* mask-click
 * close

@@ -17,14 +17,31 @@
   <script src="../../src/index.js"></script>
 
   <div>
+
     <o-button id="btnA" type="default">Open the Dialog</o-button>
 
-    <o-dialog></o-dialog>
+    <o-dialog title="提示">
+      <span>你还，omiu dialog</span>
+      <span slot="footer" class="dialog-footer">
+        <o-button id="cancelBtn">取 消</o-button>
+        <o-button id="okBtn" type="primary">确 定</o-button>
+      </span>
+    </o-dialog>
+
   </div>
+
   <script>
     var dialog = document.querySelector('o-dialog')
     document.querySelector("#btnA").addEventListener('click', function () {
       dialog.open()
+    })
+
+    document.querySelector("#cancelBtn").addEventListener('click', function () {
+      dialog.close()
+    })
+
+    document.querySelector("#okBtn").addEventListener('click', function () {
+      dialog.close()
     })
 
   </script>

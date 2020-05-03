@@ -331,7 +331,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ".mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.4);\n  z-index: 100;\n  left: 0;\n  top: 0; }\n\n.o-dialog {\n  position: relative;\n  margin: 0 auto 50px;\n  background: #FFF;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50%; }\n\n.o-dialog.is-fullscreen {\n  width: 100%;\n  margin-top: 0;\n  margin-bottom: 0;\n  height: 100%;\n  overflow: auto; }\n\n.o-dialog__wrapper {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: auto;\n  margin: 0; }\n\n.o-dialog__header {\n  padding: 20px 20px 10px; }\n\n.o-dialog__headerbtn {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  padding: 0;\n  background: 0 0;\n  border: none;\n  outline: 0;\n  cursor: pointer;\n  font-size: 16px; }\n\n.o-dialog__headerbtn .o-dialog__close {\n  color: #909399; }\n\n.o-dialog__headerbtn:focus .o-dialog__close,\n.o-dialog__headerbtn:hover .o-dialog__close {\n  color: #409EFF; }\n\n.o-dialog__title {\n  line-height: 24px;\n  font-size: 18px;\n  color: #303133; }\n\n.o-dialog__body {\n  padding: 30px 20px;\n  color: #606266;\n  font-size: 14px;\n  word-break: break-all; }\n\n.o-dialog__footer {\n  padding: 10px 20px 20px;\n  text-align: right;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-dialog--center {\n  text-align: center; }\n\n.o-dialog--center .o-dialog__body {\n  text-align: initial;\n  padding: 25px 25px 30px; }\n\n.o-dialog--center .o-dialog__footer {\n  text-align: inherit; }\n\n.dialog-fade-enter-active {\n  -webkit-animation: dialog-fade-in .3s;\n  animation: dialog-fade-in .3s; }\n\n.dialog-fade-leave-active {\n  -webkit-animation: dialog-fade-out .3s;\n  animation: dialog-fade-out .3s; }\n\n@-webkit-keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n.mask-enter-active {\n  -webkit-animation: mask-in .3s;\n  animation: mask-in .3s; }\n\n.mask-leave-active {\n  -webkit-animation: mask-out .3s;\n  animation: mask-out .3s; }\n\n@-webkit-keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@-webkit-keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n", ""]);
+exports.push([module.i, ".mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.4);\n  z-index: 100;\n  left: 0;\n  top: 0; }\n\n.o-dialog {\n  position: relative;\n  margin: 0 auto 50px;\n  background: #FFF;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50%; }\n\n.o-dialog.is-fullscreen {\n  width: 100%;\n  margin-top: 0;\n  margin-bottom: 0;\n  height: 100%;\n  overflow: auto; }\n\n.o-dialog__wrapper {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: auto;\n  margin: 0; }\n\n.o-dialog__header {\n  padding: 20px 20px 10px; }\n\n.o-dialog__headerbtn {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  padding: 0;\n  background: 0 0;\n  border: none;\n  outline: 0;\n  cursor: pointer;\n  font-size: 16px; }\n\n.o-dialog__headerbtn .o-dialog__close {\n  color: #909399; }\n\n.o-dialog__headerbtn:focus .o-dialog__close,\n.o-dialog__headerbtn:hover .o-dialog__close {\n  color: #409EFF; }\n\n.o-dialog__title {\n  line-height: 24px;\n  font-size: 18px;\n  color: #303133; }\n\n.o-dialog__body {\n  padding: 30px 20px;\n  color: #606266;\n  font-size: 14px;\n  word-break: break-all; }\n\n.o-dialog__footer {\n  padding: 10px 20px 20px;\n  text-align: right;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-dialog--center {\n  text-align: center; }\n\n.o-dialog--center .o-dialog__body {\n  text-align: initial;\n  padding: 25px 25px 30px; }\n\n.o-dialog--center .o-dialog__footer {\n  text-align: inherit; }\n\n.dialog-fade-enter-active {\n  -webkit-animation: dialog-fade-in .3s;\n  animation: dialog-fade-in .3s; }\n\n.dialog-fade-leave-active {\n  -webkit-animation: dialog-fade-out .3s;\n  animation: dialog-fade-out .3s; }\n\n@-webkit-keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n.mask-enter-active {\n  -webkit-animation: mask-in .3s;\n  animation: mask-in .3s; }\n\n.mask-leave-active {\n  -webkit-animation: mask-out .3s;\n  animation: mask-out .3s; }\n\n@-webkit-keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@-webkit-keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.content {\n  z-index: 101; }\n", ""]);
 
 // exports
 
@@ -497,33 +497,11 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
@@ -533,75 +511,53 @@ var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.handleMaskClick = function (e) {
-            _this.hide();
-            _this.fire('close');
+        _this.handleMaskClick = function () {
+            _this.fire('mask-click');
         };
         _this.close = function () {
             _this.rootNode.childNodes[0].leave();
             _this.rootNode.childNodes[1].leave();
+            _this.fire('close');
         };
         _this.onAfterLeave = function () {
             _this.updateProps({ visible: false });
         };
         return _this;
     }
-    Dialog.prototype.renderMenuItem = function () {
-        var _this = this;
-        return this.props.menus.map(function (menu, idx) {
-            var _a;
-            var label = menu.label, className = menu.className, others = __rest(menu, ["label", "className"]);
-            var cls = omi_1.classNames((_a = {
-                    'o-actionsheet__cell': true
-                },
-                _a[className] = className,
-                _a));
-            return (omi_1.h("div", __assign({ key: idx, onClick: function (_) {
-                    _this.hide();
-                    _this.fire('item-click', menu);
-                } }, others, { class: cls }), label));
-        });
-    };
     Dialog.prototype.open = function () {
         this.updateProps({
             visible: true
         });
         this.rootNode.childNodes[0].enter();
         this.rootNode.childNodes[1].enter();
+        this.fire('open');
     };
     Dialog.prototype.render = function (props) {
         return (props.visible && omi_1.h("div", { class: "o-dialog__wrapper" },
             omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" },
-                omi_1.h("div", { class: "o-dialog__wrapper", style: "z-index: 2040;" + (!props.visible ? 'display:none' : '') },
-                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: "margin-top: 15vh; width: 30%;" },
+                omi_1.h("div", { class: "o-dialog__wrapper content" },
+                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: { width: props.width, marginTop: "15vh" } },
                         omi_1.h("div", { class: "o-dialog__header" },
-                            omi_1.h("span", { class: "o-dialog__title" }, "\u63D0\u793A"),
+                            omi_1.h("span", { class: "o-dialog__title" }, props.title),
                             omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },
                                 omi_1.h("svg", { onClick: this.close, class: "o-dialog__close o-icon o-icon-close", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
                                     omi_1.h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })))),
                         omi_1.h("div", { class: "o-dialog__body" },
-                            omi_1.h("span", null, "\u8FD9\u662F\u4E00\u6BB5\u4FE1\u606F")),
+                            omi_1.h("slot", null)),
                         omi_1.h("div", { class: "o-dialog__footer" },
-                            omi_1.h("span", { class: "dialog-footer" },
-                                omi_1.h("button", { type: "button", class: "o-button o-button--default" },
-                                    omi_1.h("span", null, "\u53D6 \u6D88")),
-                                omi_1.h("button", { type: "button", class: "o-button o-button--primary" },
-                                    omi_1.h("span", null, "\u786E \u5B9A"))))))),
+                            omi_1.h("slot", { name: "footer" }))))),
             omi_1.h("o-transition", { appear: true, name: "mask" },
-                omi_1.h("div", { class: "mask" }))));
+                omi_1.h("div", { class: "mask", onClick: this.handleMaskClick }))));
     };
     Dialog.css = css;
     Dialog.defaultProps = {
-        type: '',
-        menus: [],
-        actions: [],
-        visible: false
+        visible: false,
+        width: '50%'
     };
     Dialog.propTypes = {
-        type: String,
-        menus: Array,
-        actions: Array,
-        visible: Boolean
+        visible: Boolean,
+        title: String,
+        width: String
     };
     Dialog = __decorate([
         omi_1.tag('o-dialog')
