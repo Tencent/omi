@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.5 http://omijs.org
+ * @omiu/transition v0.0.6 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -106,21 +106,30 @@ var domReady = _dready_0_0_1_dready || _domReady;
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);
     function Transition() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._show = true;
+        return _this;
     }
     Transition.prototype.installed = function () {
         var _this = this;
-        if (this.props.appear) {
-            domReady(function () {
-                _this.transitionTarget = _this.children[0];
+        domReady(function () {
+            _this.transitionTarget = _this.children[0];
+            if (_this.props.appear) {
                 _this.enter();
-                if (_this.props.leavingTime) {
-                    setTimeout(function () {
-                        _this.leave();
-                    }, _this.props.leavingTime);
-                }
-            });
-        }
+            }
+            if (_this.props.leavingTime) {
+                setTimeout(function () {
+                    _this.leave();
+                }, _this.props.leavingTime);
+            }
+        });
+    };
+    Transition.prototype.toggle = function () {
+        this._show = !this._show;
+        if (this._show)
+            this.enter();
+        else
+            this.leave();
     };
     Transition.prototype.enter = function () {
         this.fire('before-enter');
@@ -131,6 +140,7 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function () {
             this.transitionTarget.classList.remove(this.props.name + '-enter-active');
             this.fire('after-enter');
+            this._show = true;
         }.bind(this);
         this.once('transitionend', this.callback);
         this.once('animationend', this.callback);
@@ -149,6 +159,7 @@ var Transition = /** @class */ (function (_super) {
         this.callback = function (e) {
             this.transitionTarget.classList.remove(this.props.name + '-leave-active');
             this.fire('after-leave');
+            this._show = false;
             if (this.props.autoRemove && this.parentNode) {
                 this.parentNode.removeChild(this);
             }

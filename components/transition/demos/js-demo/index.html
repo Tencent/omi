@@ -30,9 +30,20 @@
     }
 
   </style>
-  <o-transition name="fade" appear leaving-time="3000">
+  <o-transition name="fade">
     <div>aaaa</div>
   </o-transition>
+  <br>
+  <button onclick="toggleTransition()">Toggle</button>
+  <script>
+    const oTransition = document.querySelector('o-transition');
+
+    function toggleTransition() {
+      oTransition.toggle();
+    }
+
+  </script>
+
 </body>
 
 </html>

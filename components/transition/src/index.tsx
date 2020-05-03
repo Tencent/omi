@@ -40,25 +40,31 @@ export default class Transition extends WeElement<Props>{
     name: 'o'
   }
 
+  _show = true
+
   transitionTarget
 
   installed() {
 
-    if (this.props.appear) {
-      domReady(() => {
-
-        this.transitionTarget = this.children[0]
-
+    domReady(() => {
+      this.transitionTarget = this.children[0]
+      if (this.props.appear) {
         this.enter()
+      }
+      if (this.props.leavingTime) {
+        setTimeout(() => {
+          this.leave()
+        }, this.props.leavingTime)
+      }
+    })
+  }
 
-        if (this.props.leavingTime) {
-          setTimeout(() => {
-            this.leave()
-          }, this.props.leavingTime)
-        }
-      })
-    }
-
+  toggle() {
+    this._show = !this._show
+    if (this._show)
+      this.enter()
+    else
+      this.leave()
   }
 
   callback: () => void
@@ -74,6 +80,8 @@ export default class Transition extends WeElement<Props>{
     this.callback = function () {
       this.transitionTarget.classList.remove(this.props.name + '-enter-active')
       this.fire('after-enter')
+
+      this._show = true
     }.bind(this)
     this.once('transitionend', this.callback)
     this.once('animationend', this.callback)
@@ -97,6 +105,8 @@ export default class Transition extends WeElement<Props>{
       this.transitionTarget.classList.remove(this.props.name + '-leave-active')
 
       this.fire('after-leave')
+
+      this._show = false
       if (this.props.autoRemove && this.parentNode) {
         this.parentNode.removeChild(this)
       }
