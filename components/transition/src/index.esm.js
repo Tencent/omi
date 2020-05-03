@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.6 http://omijs.org
+ * @omiu/transition v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -113,7 +113,6 @@ var Transition = /** @class */ (function (_super) {
     Transition.prototype.installed = function () {
         var _this = this;
         domReady(function () {
-            _this.transitionTarget = _this.children[0];
             if (_this.props.appear) {
                 _this.enter();
             }
@@ -132,45 +131,51 @@ var Transition = /** @class */ (function (_super) {
             this.leave();
     };
     Transition.prototype.enter = function () {
-        this.fire('before-enter');
-        this.transitionTarget.classList.remove(this.props.name + '-leave-active');
-        this.transitionTarget.classList.remove(this.props.name + '-leave-to');
-        this.transitionTarget.classList.add(this.props.name + '-enter');
-        this.transitionTarget.classList.add(this.props.name + '-enter-active');
-        this.callback = function () {
-            this.transitionTarget.classList.remove(this.props.name + '-enter-active');
-            this.fire('after-enter');
-            this._show = true;
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.transitionTarget.classList.remove(this.props.name + '-enter');
-            this.transitionTarget.classList.add(this.props.name + '-enter-to');
-            this.fire('enter');
-        }.bind(this), 0);
+        var el = this.children[0];
+        if (el) {
+            this.fire('before-enter');
+            el.classList.remove(this.props.name + '-leave-active');
+            el.classList.remove(this.props.name + '-leave-to');
+            el.classList.add(this.props.name + '-enter');
+            el.classList.add(this.props.name + '-enter-active');
+            this.callback = function () {
+                el.classList.remove(this.props.name + '-enter-active');
+                this.fire('after-enter');
+                this._show = true;
+            }.bind(this);
+            this.once('transitionend', this.callback);
+            this.once('animationend', this.callback);
+            window.setTimeout(function () {
+                el.classList.remove(this.props.name + '-enter');
+                el.classList.add(this.props.name + '-enter-to');
+                this.fire('enter');
+            }.bind(this), 0);
+        }
     };
     Transition.prototype.leave = function () {
-        this.fire('before-leave');
-        this.transitionTarget.classList.remove(this.props.name + '-enter-active');
-        this.transitionTarget.classList.remove(this.props.name + '-enter-to');
-        this.transitionTarget.classList.add(this.props.name + '-leave');
-        this.transitionTarget.classList.add(this.props.name + '-leave-active');
-        this.callback = function (e) {
-            this.transitionTarget.classList.remove(this.props.name + '-leave-active');
-            this.fire('after-leave');
-            this._show = false;
-            if (this.props.autoRemove && this.parentNode) {
-                this.parentNode.removeChild(this);
-            }
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.transitionTarget.classList.remove(this.props.name + '-leave');
-            this.transitionTarget.classList.add(this.props.name + '-leave-to');
-            this.fire('leave');
-        }.bind(this), 0);
+        var el = this.children[0];
+        if (el) {
+            this.fire('before-leave');
+            el.classList.remove(this.props.name + '-enter-active');
+            el.classList.remove(this.props.name + '-enter-to');
+            el.classList.add(this.props.name + '-leave');
+            el.classList.add(this.props.name + '-leave-active');
+            this.callback = function (e) {
+                el.classList.remove(this.props.name + '-leave-active');
+                this.fire('after-leave');
+                this._show = false;
+                if (this.props.autoRemove && this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            }.bind(this);
+            this.once('transitionend', this.callback);
+            this.once('animationend', this.callback);
+            window.setTimeout(function () {
+                el.classList.remove(this.props.name + '-leave');
+                el.classList.add(this.props.name + '-leave-to');
+                this.fire('leave');
+            }.bind(this), 0);
+        }
     };
     Transition.prototype.once = function (name, callback) {
         var wrapCall = function () {

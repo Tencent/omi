@@ -42,12 +42,10 @@ export default class Transition extends WeElement<Props>{
 
   _show = true
 
-  transitionTarget
-
   installed() {
 
     domReady(() => {
-      this.transitionTarget = this.children[0]
+
       if (this.props.appear) {
         this.enter()
       }
@@ -70,56 +68,63 @@ export default class Transition extends WeElement<Props>{
   callback: () => void
 
   enter() {
+    const el = this.children[0]
+    if (el) {
+      this.fire('before-enter')
+      el.classList.remove(this.props.name + '-leave-active')
+      el.classList.remove(this.props.name + '-leave-to')
+      el.classList.add(this.props.name + '-enter')
+      el.classList.add(this.props.name + '-enter-active')
 
-    this.fire('before-enter')
-    this.transitionTarget.classList.remove(this.props.name + '-leave-active')
-    this.transitionTarget.classList.remove(this.props.name + '-leave-to')
-    this.transitionTarget.classList.add(this.props.name + '-enter')
-    this.transitionTarget.classList.add(this.props.name + '-enter-active')
+      this.callback = function () {
+        el.classList.remove(this.props.name + '-enter-active')
+        this.fire('after-enter')
 
-    this.callback = function () {
-      this.transitionTarget.classList.remove(this.props.name + '-enter-active')
-      this.fire('after-enter')
+        this._show = true
+      }.bind(this)
+      this.once('transitionend', this.callback)
+      this.once('animationend', this.callback)
 
-      this._show = true
-    }.bind(this)
-    this.once('transitionend', this.callback)
-    this.once('animationend', this.callback)
+      window.setTimeout(function () {
+        el.classList.remove(this.props.name + '-enter')
+        el.classList.add(this.props.name + '-enter-to')
+        this.fire('enter')
+      }.bind(this), 0)
+    }
 
-    window.setTimeout(function () {
-      this.transitionTarget.classList.remove(this.props.name + '-enter')
-      this.transitionTarget.classList.add(this.props.name + '-enter-to')
-      this.fire('enter')
-    }.bind(this), 0)
   }
 
   leave() {
-    this.fire('before-leave')
-    this.transitionTarget.classList.remove(this.props.name + '-enter-active')
-    this.transitionTarget.classList.remove(this.props.name + '-enter-to')
-    this.transitionTarget.classList.add(this.props.name + '-leave')
-    this.transitionTarget.classList.add(this.props.name + '-leave-active')
+    const el = this.children[0]
+    if (el) {
+      this.fire('before-leave')
+      el.classList.remove(this.props.name + '-enter-active')
+      el.classList.remove(this.props.name + '-enter-to')
+      el.classList.add(this.props.name + '-leave')
+      el.classList.add(this.props.name + '-leave-active')
 
-    this.callback = function (e) {
+      this.callback = function (e) {
 
-      this.transitionTarget.classList.remove(this.props.name + '-leave-active')
+        el.classList.remove(this.props.name + '-leave-active')
 
-      this.fire('after-leave')
+        this.fire('after-leave')
 
-      this._show = false
-      if (this.props.autoRemove && this.parentNode) {
-        this.parentNode.removeChild(this)
-      }
+        this._show = false
+        if (this.props.autoRemove && this.parentNode) {
+          this.parentNode.removeChild(this)
+        }
 
-    }.bind(this)
-    this.once('transitionend', this.callback)
-    this.once('animationend', this.callback)
+      }.bind(this)
+      this.once('transitionend', this.callback)
+      this.once('animationend', this.callback)
 
-    window.setTimeout(function () {
-      this.transitionTarget.classList.remove(this.props.name + '-leave')
-      this.transitionTarget.classList.add(this.props.name + '-leave-to')
-      this.fire('leave')
-    }.bind(this), 0)
+      window.setTimeout(function () {
+        el.classList.remove(this.props.name + '-leave')
+        el.classList.add(this.props.name + '-leave-to')
+        this.fire('leave')
+      }.bind(this), 0)
+    }
+
   }
 
   once(name, callback) {

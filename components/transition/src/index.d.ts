@@ -26,7 +26,6 @@ export default class Transition extends WeElement<Props> {
         name: string;
     };
     _show: boolean;
-    transitionTarget: any;
     installed(): void;
     toggle(): void;
     callback: () => void;

@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/transition v0.0.6 http://omijs.org
+ * @omiu/transition v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -222,7 +222,6 @@ var Transition = /** @class */ (function (_super) {
     Transition.prototype.installed = function () {
         var _this = this;
         domReady(function () {
-            _this.transitionTarget = _this.children[0];
             if (_this.props.appear) {
                 _this.enter();
             }
@@ -241,45 +240,51 @@ var Transition = /** @class */ (function (_super) {
             this.leave();
     };
     Transition.prototype.enter = function () {
-        this.fire('before-enter');
-        this.transitionTarget.classList.remove(this.props.name + '-leave-active');
-        this.transitionTarget.classList.remove(this.props.name + '-leave-to');
-        this.transitionTarget.classList.add(this.props.name + '-enter');
-        this.transitionTarget.classList.add(this.props.name + '-enter-active');
-        this.callback = function () {
-            this.transitionTarget.classList.remove(this.props.name + '-enter-active');
-            this.fire('after-enter');
-            this._show = true;
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.transitionTarget.classList.remove(this.props.name + '-enter');
-            this.transitionTarget.classList.add(this.props.name + '-enter-to');
-            this.fire('enter');
-        }.bind(this), 0);
+        var el = this.children[0];
+        if (el) {
+            this.fire('before-enter');
+            el.classList.remove(this.props.name + '-leave-active');
+            el.classList.remove(this.props.name + '-leave-to');
+            el.classList.add(this.props.name + '-enter');
+            el.classList.add(this.props.name + '-enter-active');
+            this.callback = function () {
+                el.classList.remove(this.props.name + '-enter-active');
+                this.fire('after-enter');
+                this._show = true;
+            }.bind(this);
+            this.once('transitionend', this.callback);
+            this.once('animationend', this.callback);
+            window.setTimeout(function () {
+                el.classList.remove(this.props.name + '-enter');
+                el.classList.add(this.props.name + '-enter-to');
+                this.fire('enter');
+            }.bind(this), 0);
+        }
     };
     Transition.prototype.leave = function () {
-        this.fire('before-leave');
-        this.transitionTarget.classList.remove(this.props.name + '-enter-active');
-        this.transitionTarget.classList.remove(this.props.name + '-enter-to');
-        this.transitionTarget.classList.add(this.props.name + '-leave');
-        this.transitionTarget.classList.add(this.props.name + '-leave-active');
-        this.callback = function (e) {
-            this.transitionTarget.classList.remove(this.props.name + '-leave-active');
-            this.fire('after-leave');
-            this._show = false;
-            if (this.props.autoRemove && this.parentNode) {
-                this.parentNode.removeChild(this);
-            }
-        }.bind(this);
-        this.once('transitionend', this.callback);
-        this.once('animationend', this.callback);
-        window.setTimeout(function () {
-            this.transitionTarget.classList.remove(this.props.name + '-leave');
-            this.transitionTarget.classList.add(this.props.name + '-leave-to');
-            this.fire('leave');
-        }.bind(this), 0);
+        var el = this.children[0];
+        if (el) {
+            this.fire('before-leave');
+            el.classList.remove(this.props.name + '-enter-active');
+            el.classList.remove(this.props.name + '-enter-to');
+            el.classList.add(this.props.name + '-leave');
+            el.classList.add(this.props.name + '-leave-active');
+            this.callback = function (e) {
+                el.classList.remove(this.props.name + '-leave-active');
+                this.fire('after-leave');
+                this._show = false;
+                if (this.props.autoRemove && this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            }.bind(this);
+            this.once('transitionend', this.callback);
+            this.once('animationend', this.callback);
+            window.setTimeout(function () {
+                el.classList.remove(this.props.name + '-leave');
+                el.classList.add(this.props.name + '-leave-to');
+                this.fire('leave');
+            }.bind(this), 0);
+        }
     };
     Transition.prototype.once = function (name, callback) {
         var wrapCall = function () {
@@ -533,7 +538,6 @@ var Dialog = /** @class */ (function (_super) {
             _this.fire('close');
         };
         _this.close = function () {
-            console.log(_this);
             _this.rootNode.leave();
         };
         _this.onAfterLeave = function () {
@@ -564,22 +568,21 @@ var Dialog = /** @class */ (function (_super) {
         this.rootNode.enter();
     };
     Dialog.prototype.render = function (props) {
-        return (omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" },
-            omi_1.h("div", { class: "o-dialog__wrapper", style: "z-index: 2040;" + (!props.visible ? 'display:none' : '') },
-                omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: "margin-top: 15vh; width: 30%;" },
-                    omi_1.h("div", { class: "o-dialog__header" },
-                        omi_1.h("span", { class: "o-dialog__title" }, "\u63D0\u793A"),
-                        omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },
-                            omi_1.h("svg", { onClick: this.close, class: "o-dialog__close o-icon o-icon-close", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
-                                omi_1.h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })))),
-                    omi_1.h("div", { class: "o-dialog__body" },
-                        omi_1.h("span", null, "\u8FD9\u662F\u4E00\u6BB5\u4FE1\u606F")),
-                    omi_1.h("div", { class: "o-dialog__footer" },
-                        omi_1.h("span", { class: "dialog-footer" },
-                            omi_1.h("button", { type: "button", class: "o-button o-button--default" },
-                                omi_1.h("span", null, "\u53D6 \u6D88")),
-                            omi_1.h("button", { type: "button", class: "o-button o-button--primary" },
-                                omi_1.h("span", null, "\u786E \u5B9A"))))))));
+        return (omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" }, props.visible && omi_1.h("div", { class: "o-dialog__wrapper", style: "z-index: 2040;" + (!props.visible ? 'display:none' : '') },
+            omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: "margin-top: 15vh; width: 30%;" },
+                omi_1.h("div", { class: "o-dialog__header" },
+                    omi_1.h("span", { class: "o-dialog__title" }, "\u63D0\u793A"),
+                    omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },
+                        omi_1.h("svg", { onClick: this.close, class: "o-dialog__close o-icon o-icon-close", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
+                            omi_1.h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })))),
+                omi_1.h("div", { class: "o-dialog__body" },
+                    omi_1.h("span", null, "\u8FD9\u662F\u4E00\u6BB5\u4FE1\u606F")),
+                omi_1.h("div", { class: "o-dialog__footer" },
+                    omi_1.h("span", { class: "dialog-footer" },
+                        omi_1.h("button", { type: "button", class: "o-button o-button--default" },
+                            omi_1.h("span", null, "\u53D6 \u6D88")),
+                        omi_1.h("button", { type: "button", class: "o-button o-button--primary" },
+                            omi_1.h("span", null, "\u786E \u5B9A"))))))));
     };
     Dialog.css = css;
     Dialog.defaultProps = {
