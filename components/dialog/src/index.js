@@ -331,7 +331,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ".o-modal-enter {\n  -webkit-animation: o-modal-in .2s ease;\n  animation: o-modal-in .2s ease; }\n\n.o-modal-leave {\n  -webkit-animation: o-modal-out .2s ease forwards;\n  animation: o-modal-out .2s ease forwards; }\n\n@-webkit-keyframes o-modal-in {\n  0% {\n    opacity: 0; } }\n\n@keyframes o-modal-in {\n  0% {\n    opacity: 0; } }\n\n@-webkit-keyframes o-modal-out {\n  100% {\n    opacity: 0; } }\n\n@keyframes o-modal-out {\n  100% {\n    opacity: 0; } }\n\n.o-modal {\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  opacity: .5;\n  background: #000; }\n\n.o-popup-parent--hidden {\n  overflow: hidden; }\n\n.o-dialog {\n  position: relative;\n  margin: 0 auto 50px;\n  background: #FFF;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50%; }\n\n.o-dialog.is-fullscreen {\n  width: 100%;\n  margin-top: 0;\n  margin-bottom: 0;\n  height: 100%;\n  overflow: auto; }\n\n.o-dialog__wrapper {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: auto;\n  margin: 0; }\n\n.o-dialog__header {\n  padding: 20px 20px 10px; }\n\n.o-dialog__headerbtn {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  padding: 0;\n  background: 0 0;\n  border: none;\n  outline: 0;\n  cursor: pointer;\n  font-size: 16px; }\n\n.o-dialog__headerbtn .o-dialog__close {\n  color: #909399; }\n\n.o-dialog__headerbtn:focus .o-dialog__close,\n.o-dialog__headerbtn:hover .o-dialog__close {\n  color: #409EFF; }\n\n.o-dialog__title {\n  line-height: 24px;\n  font-size: 18px;\n  color: #303133; }\n\n.o-dialog__body {\n  padding: 30px 20px;\n  color: #606266;\n  font-size: 14px;\n  word-break: break-all; }\n\n.o-dialog__footer {\n  padding: 10px 20px 20px;\n  text-align: right;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-dialog--center {\n  text-align: center; }\n\n.o-dialog--center .o-dialog__body {\n  text-align: initial;\n  padding: 25px 25px 30px; }\n\n.o-dialog--center .o-dialog__footer {\n  text-align: inherit; }\n\n.dialog-fade-enter-active {\n  -webkit-animation: dialog-fade-in .3s;\n  animation: dialog-fade-in .3s; }\n\n.dialog-fade-leave-active {\n  -webkit-animation: dialog-fade-out .3s;\n  animation: dialog-fade-out .3s; }\n\n@-webkit-keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n", ""]);
+exports.push([module.i, ".mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: black;\n  opacity: 0.4;\n  z-index: 100;\n  left: 0;\n  top: 0; }\n\n.o-modal-enter {\n  -webkit-animation: o-modal-in .2s ease;\n  animation: o-modal-in .2s ease; }\n\n.o-modal-leave {\n  -webkit-animation: o-modal-out .2s ease forwards;\n  animation: o-modal-out .2s ease forwards; }\n\n@-webkit-keyframes o-modal-in {\n  0% {\n    opacity: 0; } }\n\n@keyframes o-modal-in {\n  0% {\n    opacity: 0; } }\n\n@-webkit-keyframes o-modal-out {\n  100% {\n    opacity: 0; } }\n\n@keyframes o-modal-out {\n  100% {\n    opacity: 0; } }\n\n.o-modal {\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  opacity: .5;\n  background: #000; }\n\n.o-popup-parent--hidden {\n  overflow: hidden; }\n\n.o-dialog {\n  position: relative;\n  margin: 0 auto 50px;\n  background: #FFF;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50%; }\n\n.o-dialog.is-fullscreen {\n  width: 100%;\n  margin-top: 0;\n  margin-bottom: 0;\n  height: 100%;\n  overflow: auto; }\n\n.o-dialog__wrapper {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: auto;\n  margin: 0; }\n\n.o-dialog__header {\n  padding: 20px 20px 10px; }\n\n.o-dialog__headerbtn {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  padding: 0;\n  background: 0 0;\n  border: none;\n  outline: 0;\n  cursor: pointer;\n  font-size: 16px; }\n\n.o-dialog__headerbtn .o-dialog__close {\n  color: #909399; }\n\n.o-dialog__headerbtn:focus .o-dialog__close,\n.o-dialog__headerbtn:hover .o-dialog__close {\n  color: #409EFF; }\n\n.o-dialog__title {\n  line-height: 24px;\n  font-size: 18px;\n  color: #303133; }\n\n.o-dialog__body {\n  padding: 30px 20px;\n  color: #606266;\n  font-size: 14px;\n  word-break: break-all; }\n\n.o-dialog__footer {\n  padding: 10px 20px 20px;\n  text-align: right;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-dialog--center {\n  text-align: center; }\n\n.o-dialog--center .o-dialog__body {\n  text-align: initial;\n  padding: 25px 25px 30px; }\n\n.o-dialog--center .o-dialog__footer {\n  text-align: inherit; }\n\n.dialog-fade-enter-active {\n  -webkit-animation: dialog-fade-in .3s;\n  animation: dialog-fade-in .3s; }\n\n.dialog-fade-leave-active {\n  -webkit-animation: dialog-fade-out .3s;\n  animation: dialog-fade-out .3s; }\n\n@-webkit-keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n", ""]);
 
 // exports
 
@@ -538,7 +538,8 @@ var Dialog = /** @class */ (function (_super) {
             _this.fire('close');
         };
         _this.close = function () {
-            _this.rootNode.leave();
+            _this.rootNode.childNodes[0].leave();
+            //this.rootNode.childNodes[1].leave()
         };
         _this.onAfterLeave = function () {
             _this.updateProps({ visible: false });
@@ -565,24 +566,28 @@ var Dialog = /** @class */ (function (_super) {
         this.updateProps({
             visible: true
         });
-        this.rootNode.enter();
+        this.rootNode.childNodes[0].enter();
+        //this.rootNode.childNodes[1].enter()
     };
     Dialog.prototype.render = function (props) {
-        return (omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" }, props.visible && omi_1.h("div", { class: "o-dialog__wrapper", style: "z-index: 2040;" + (!props.visible ? 'display:none' : '') },
-            omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: "margin-top: 15vh; width: 30%;" },
-                omi_1.h("div", { class: "o-dialog__header" },
-                    omi_1.h("span", { class: "o-dialog__title" }, "\u63D0\u793A"),
-                    omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },
-                        omi_1.h("svg", { onClick: this.close, class: "o-dialog__close o-icon o-icon-close", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
-                            omi_1.h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })))),
-                omi_1.h("div", { class: "o-dialog__body" },
-                    omi_1.h("span", null, "\u8FD9\u662F\u4E00\u6BB5\u4FE1\u606F")),
-                omi_1.h("div", { class: "o-dialog__footer" },
-                    omi_1.h("span", { class: "dialog-footer" },
-                        omi_1.h("button", { type: "button", class: "o-button o-button--default" },
-                            omi_1.h("span", null, "\u53D6 \u6D88")),
-                        omi_1.h("button", { type: "button", class: "o-button o-button--primary" },
-                            omi_1.h("span", null, "\u786E \u5B9A"))))))));
+        return (props.visible && omi_1.h("div", { class: "o-dialog__wrapper" },
+            omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" },
+                omi_1.h("div", { class: "o-dialog__wrapper", style: "z-index: 2040;" + (!props.visible ? 'display:none' : '') },
+                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: "margin-top: 15vh; width: 30%;" },
+                        omi_1.h("div", { class: "o-dialog__header" },
+                            omi_1.h("span", { class: "o-dialog__title" }, "\u63D0\u793A"),
+                            omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },
+                                omi_1.h("svg", { onClick: this.close, class: "o-dialog__close o-icon o-icon-close", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
+                                    omi_1.h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })))),
+                        omi_1.h("div", { class: "o-dialog__body" },
+                            omi_1.h("span", null, "\u8FD9\u662F\u4E00\u6BB5\u4FE1\u606F")),
+                        omi_1.h("div", { class: "o-dialog__footer" },
+                            omi_1.h("span", { class: "dialog-footer" },
+                                omi_1.h("button", { type: "button", class: "o-button o-button--default" },
+                                    omi_1.h("span", null, "\u53D6 \u6D88")),
+                                omi_1.h("button", { type: "button", class: "o-button o-button--primary" },
+                                    omi_1.h("span", null, "\u786E \u5B9A"))))))),
+            omi_1.h("div", { class: "mask", style: { display: props.visible ? 'block' : 'none' } })));
     };
     Dialog.css = css;
     Dialog.defaultProps = {
