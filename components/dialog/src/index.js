@@ -536,7 +536,7 @@ var Dialog = /** @class */ (function (_super) {
         return (props.visible && omi_1.h("div", { class: "o-dialog__wrapper" },
             omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" },
                 omi_1.h("div", { class: "o-dialog__wrapper content" },
-                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: { width: props.width, marginTop: "15vh" } },
+                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": props.title, class: "o-dialog", style: { width: props.width, marginTop: "15vh" } },
                         omi_1.h("div", { class: "o-dialog__header" },
                             omi_1.h("span", { class: "o-dialog__title" }, props.title),
                             omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },

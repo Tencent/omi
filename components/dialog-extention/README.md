@@ -1,0 +1,3 @@
+alert
+confirm
+prompt

@@ -1,5 +1,5 @@
 /**
- * @omiu/dialog v0.0.1 http://omijs.org
+ * @omiu/dialog v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -446,7 +446,7 @@ var Dialog = /** @class */ (function (_super) {
         return (props.visible && h("div", { class: "o-dialog__wrapper" },
             h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" },
                 h("div", { class: "o-dialog__wrapper content" },
-                    h("div", { role: "dialog", "aria-modal": "true", "aria-label": "\u63D0\u793A", class: "o-dialog", style: { width: props.width, marginTop: "15vh" } },
+                    h("div", { role: "dialog", "aria-modal": "true", "aria-label": props.title, class: "o-dialog", style: { width: props.width, marginTop: "15vh" } },
                         h("div", { class: "o-dialog__header" },
                             h("span", { class: "o-dialog__title" }, props.title),
                             h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },

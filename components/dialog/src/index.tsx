@@ -1,4 +1,4 @@
-import { tag, WeElement, classNames, h } from 'omi'
+import { tag, WeElement, h } from 'omi'
 import * as css from './index.scss'
 
 import '@omiu/transition'
@@ -59,7 +59,7 @@ export default class Dialog extends WeElement<Props> {
         <o-transition onafter-leave={this.onAfterLeave} appear name="dialog-fade">
           <div class="o-dialog__wrapper content">
 
-            <div role="dialog" aria-modal="true" aria-label="提示" class="o-dialog" style={{ width: props.width, marginTop: "15vh" }} >
+            <div role="dialog" aria-modal="true" aria-label={props.title} class="o-dialog" style={{ width: props.width, marginTop: "15vh" }} >
               <div class="o-dialog__header">
                 <span class="o-dialog__title">{props.title}</span>
 
