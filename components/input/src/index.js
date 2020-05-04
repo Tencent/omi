@@ -96,14 +96,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -115,10 +115,10 @@ exports.push([module.i, ":host {\n  display: inline-block; }\n\n:host([block]) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -290,8 +290,9 @@ var Input = /** @class */ (function (_super) {
             _this.fire('change', _this.props.value);
         };
         _this.handleInput = function (evt) {
+            evt.stopPropagation();
             _this.props.value = evt.target.value;
-            _this.fire('change', _this.props.value);
+            _this.fire('input', _this.props.value);
             if (_this.props.maxLength) {
                 _this.valueLength = evt.target.value.length;
                 _this.update();
@@ -304,6 +305,12 @@ var Input = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Input.prototype.focus = function () {
+        this.shadowRoot.querySelector('input').focus();
+    };
+    Input.prototype.blur = function () {
+        this.shadowRoot.querySelector('input').blur();
+    };
     Input.prototype.render = function (props) {
         var _a;
         var type = props.type, size = props.size, suffixIcon = props.suffixIcon, prefixIcon = props.prefixIcon, autoComplete = props.autoComplete, validating = props.validating, onMouseEnter = props.onMouseEnter, onMouseLeave = props.onMouseLeave, trim = props.trim, otherProps = __rest(props, ["type", "size", "suffixIcon", "prefixIcon", "autoComplete", "validating", "onMouseEnter", "onMouseLeave", "trim"]);

@@ -40,6 +40,8 @@ export default class Input extends WeElement<Props> {
     handleFocus: () => void;
     handleChange: (evt: any) => void;
     handleInput: (evt: any) => void;
+    focus(): void;
+    blur(): void;
     clearInput: () => void;
     render(props: any): JSX.Element;
 }

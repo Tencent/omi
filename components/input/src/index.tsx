@@ -60,13 +60,24 @@ export default class Input extends WeElement<Props>{
   }
 
   handleInput = (evt) => {
+    evt.stopPropagation()
     this.props.value = evt.target.value
-    this.fire('change', this.props.value)
+    this.fire('input', this.props.value)
     if (this.props.maxLength) {
       this.valueLength = evt.target.value.length
       this.update()
     }
   }
+
+  focus() {
+    this.shadowRoot.querySelector('input').focus()
+  }
+
+  blur() {
+    this.shadowRoot.querySelector('input').blur()
+  }
+
+
   clearInput = () => {
     this.updateProps({
       value: ''

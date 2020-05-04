@@ -23,9 +23,8 @@ Or use script tag to ref it.
 ## Usage
 
 ```html
-<o-input> </o-input>
+<o-input></o-input>
 ```
-
 
 ## API
 
@@ -47,7 +46,7 @@ Or use script tag to ref it.
 }
 ```
 
-### defaultProps
+### 默认属性
 
 ```tsx
 {
@@ -57,12 +56,11 @@ Or use script tag to ref it.
   trim: false,
   autoComplete: 'off',
   block: false
-)
+}
 ```
-
 ### Events
 
 * blur
 * focus
 * change
-
+* input

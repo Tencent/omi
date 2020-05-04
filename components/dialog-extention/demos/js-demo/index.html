@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu Dialog</title>
+</head>
+
+<body>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/index.js"></script>
+
+  <div>
+
+    <o-button id="alertBtn" type="default">Omiu.alert</o-button>
+    <o-button id="confirmBtn" type="default">Omiu.confirm</o-button>
+
+    <o-button id="promptBtn" type="default">Omiu.prompt</o-button>
+
+  </div>
+
+  <script>
+    document.querySelector("#alertBtn").addEventListener('click', function () {
+      Omiu.alert({
+        msg: 'Simple Message',
+        title: 'Msg',
+        confirmButtonText: 'OK',
+        onConfirm: function () {
+          console.log('ok')
+        }
+      })
+    })
+
+    document.querySelector("#confirmBtn").addEventListener('click', function () {
+      Omiu.confirm({
+        msg: 'Simple Message',
+        title: 'Msg',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'OK',
+        onCancel: function () {
+
+        },
+        onConfirm: function () {
+          console.log('ok')
+        }
+      })
+    })
+
+
+    document.querySelector("#promptBtn").addEventListener('click', function () {
+      document.querySelector("#promptBtn").blur()
+      Omiu.prompt({
+        msg: 'Simple Message',
+        title: 'Msg',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'OK',
+        onCancel: function () {
+
+        },
+        onConfirm: function (val) {
+          console.log(val)
+        }
+      })
+    })
+
+  </script>
+</body>
+
+</html>

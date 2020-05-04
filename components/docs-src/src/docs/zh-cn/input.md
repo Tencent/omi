@@ -23,7 +23,7 @@ import '@omiu/input'
 ## 使用
 
 ```html
-<o-input> </o-input>
+<o-input></o-input>
 ```
 
 
@@ -48,7 +48,6 @@ import '@omiu/input'
 ```
 
 ### 默认属性
-
 ```tsx
 {
   type: 'text',
@@ -57,12 +56,10 @@ import '@omiu/input'
   trim: false,
   autoComplete: 'off',
   block: false
-)
+}
 ```
-
 ### 事件
-
 * blur
 * focus
 * change
-
+* input

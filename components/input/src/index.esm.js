@@ -1,5 +1,5 @@
 /**
- * @omiu/input v0.0.3 http://omijs.org
+ * @omiu/input v0.0.6 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -491,8 +491,9 @@ var Input = /** @class */ (function (_super) {
             _this.fire('change', _this.props.value);
         };
         _this.handleInput = function (evt) {
+            evt.stopPropagation();
             _this.props.value = evt.target.value;
-            _this.fire('change', _this.props.value);
+            _this.fire('input', _this.props.value);
             if (_this.props.maxLength) {
                 _this.valueLength = evt.target.value.length;
                 _this.update();
@@ -505,6 +506,12 @@ var Input = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Input.prototype.focus = function () {
+        this.shadowRoot.querySelector('input').focus();
+    };
+    Input.prototype.blur = function () {
+        this.shadowRoot.querySelector('input').blur();
+    };
     Input.prototype.render = function (props) {
         var _a;
         var type = props.type, size = props.size, suffixIcon = props.suffixIcon, prefixIcon = props.prefixIcon, autoComplete = props.autoComplete, validating = props.validating, onMouseEnter = props.onMouseEnter, onMouseLeave = props.onMouseLeave, trim = props.trim, otherProps = __rest(props, ["type", "size", "suffixIcon", "prefixIcon", "autoComplete", "validating", "onMouseEnter", "onMouseLeave", "trim"]);
