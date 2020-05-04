@@ -1675,7 +1675,8 @@ function prompt(options) {
                     dialog.close();
                     options.onConfirm(temp);
                 }, type: "primary", size: "small" }, options.confirmButtonText))), document.body);
-    document.querySelector('o-input').focus();
+    var inputs = document.querySelectorAll('o-input');
+    inputs[inputs.length - 1].focus();
 }
 if (typeof window !== 'undefined') {
     if (typeof window.Omiu !== 'undefined') {

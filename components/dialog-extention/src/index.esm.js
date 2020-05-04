@@ -1,5 +1,5 @@
 /**
- * @omiu/dialog-extention v0.0.3 http://omijs.org
+ * @omiu/dialog-extention v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1361,7 +1361,8 @@ function prompt(options) {
                     dialog.close();
                     options.onConfirm(temp);
                 }, type: "primary", size: "small" }, options.confirmButtonText))), document.body);
-    document.querySelector('o-input').focus();
+    var inputs = document.querySelectorAll('o-input');
+    inputs[inputs.length - 1].focus();
 }
 if (typeof window !== 'undefined') {
     if (typeof window.Omiu !== 'undefined') {

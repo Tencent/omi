@@ -85,7 +85,8 @@ function prompt(options: PromptOptions) {
     </span>
   </ o-dialog>, document.body)
 
-  document.querySelector('o-input').focus()
+  const inputs = document.querySelectorAll('o-input')
+  inputs[inputs.length - 1].focus()
 
 }
 
