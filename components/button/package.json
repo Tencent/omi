@@ -1,11 +1,19 @@
 {
   "name": "@omiu/button",
-  "version": "0.0.7",
-  "description": "Omi UI Components.",
+  "version": "0.0.8",
+  "description": "Button",
+  "docsExtend": {
+    "cnName": "按钮",
+    "cnDescription": "按钮",
+    "codepen": "LYppwYG",
+    "codepenHeight": 351,
+    "codepenDefaultTab": "html,result"
+  },
   "main": "src/index.js",
   "module": "src/index.esm.js",
   "types": "src/index.d.ts",
   "scripts": {
+    "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
     "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
   },
@@ -80,12 +88,6 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omim.min.js",
-      "threshold": "4Kb"
-    }
-  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,

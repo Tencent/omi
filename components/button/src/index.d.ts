@@ -11,6 +11,7 @@ interface Props {
     autofocus?: boolean;
     nativeType?: 'button' | 'submit' | 'reset';
     block?: boolean;
+    text?: string;
 }
 export default class Button extends WeElement<Props> {
     static css: any;
@@ -36,6 +37,7 @@ export default class Button extends WeElement<Props> {
         autofocus: BooleanConstructor;
         nativeType: StringConstructor;
         block: BooleanConstructor;
+        text: StringConstructor;
     };
     render(props: any): JSX.Element;
 }
