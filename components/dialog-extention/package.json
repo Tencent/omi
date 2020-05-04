@@ -1,6 +1,6 @@
 {
   "name": "@omiu/dialog-extention",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Pop alert, confirm or prompt in the middle of the page",
   "docsExtend": {
     "cnName": "基础对话框",

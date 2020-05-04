@@ -96,9 +96,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@omiu_button@0.0.7@@omiu/button/src/index.esm.js":
+/***/ "./node_modules/_@omiu_button@0.0.8@@omiu/button/src/index.esm.js":
 /*!************************************************************************!*\
-  !*** ./node_modules/_@omiu_button@0.0.7@@omiu/button/src/index.esm.js ***!
+  !*** ./node_modules/_@omiu_button@0.0.8@@omiu/button/src/index.esm.js ***!
   \************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/button v0.0.7 http://omijs.org
+ * @omiu/button v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -338,6 +338,7 @@ var Button = /** @class */ (function (_super) {
             _a)), { type: props.nativeType }),
             props.loading && [Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("svg", { class: "loading", viewBox: "0 0 1024 1024", focusable: "false", "data-icon": "loading", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true" },
                     Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("path", { d: "M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z" })), ' '],
+            props.text,
             Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null));
     };
     Button.css = css;
@@ -362,7 +363,8 @@ var Button = /** @class */ (function (_super) {
         icon: String,
         autofocus: Boolean,
         nativeType: String,
-        block: Boolean
+        block: Boolean,
+        text: String
     };
     Button = __decorate([
         Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-button')
@@ -1625,7 +1627,7 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var alertCss = __webpack_require__(/*! ./alert.scss */ "./src/alert.scss");
 var promptCss = __webpack_require__(/*! ./alert.scss */ "./src/alert.scss");
 __webpack_require__(/*! @omiu/dialog */ "./node_modules/_@omiu_dialog@0.0.2@@omiu/dialog/src/index.esm.js");
-__webpack_require__(/*! @omiu/button */ "./node_modules/_@omiu_button@0.0.7@@omiu/button/src/index.esm.js");
+__webpack_require__(/*! @omiu/button */ "./node_modules/_@omiu_button@0.0.8@@omiu/button/src/index.esm.js");
 __webpack_require__(/*! @omiu/input */ "./node_modules/_@omiu_input@0.0.6@@omiu/input/src/index.esm.js");
 var dialog;
 function alert(options) {
