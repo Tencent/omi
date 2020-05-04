@@ -56,6 +56,7 @@ const config = {
         title: '通知',
         list: [
           { name: 'Dialog 对话框', md: 'dialog' },
+          { name: 'DialogExtention 基础对话框', md: 'dialog-extention' },
           { name: 'Loading 加载', md: 'loading' },
           { name: 'Toast 弹出式提示', md: 'toast' },
           { name: 'ActionSheet 弹出式菜单', md: 'action-sheet' }
@@ -130,6 +131,7 @@ const config = {
         title: 'Notice',
         list: [
           { name: 'Dialog', md: 'dialog' },
+          { name: 'DialogExtention', md: 'dialog-extention' },
           { name: 'Loading', md: 'loading' },
           { name: 'Toast', md: 'toast' },
           { name: 'ActionSheet', md: 'action-sheet' }

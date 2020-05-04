@@ -71,7 +71,6 @@ function prompt(options: PromptOptions) {
   dialog = render(<o-dialog css={promptCss} title={options.title} visible>
     <div style="margin: 10px 0;">{options.msg}</div>
     <o-input oninput={(evt) => {
-      console.log(evt.detail)
       temp = evt.detail
     }} block style="margin-bottom:10px;"></o-input>
     <span slot="footer" class="dialog-footer">

@@ -1,5 +1,5 @@
 /**
- * @omiu/dialog-extention v0.0.1 http://omijs.org
+ * @omiu/dialog-extention v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1348,7 +1348,6 @@ function prompt(options) {
     dialog = render(h("o-dialog", { css: promptCss, title: options.title, visible: true },
         h("div", { style: "margin: 10px 0;" }, options.msg),
         h("o-input", { oninput: function (evt) {
-                console.log(evt.detail);
                 temp = evt.detail;
             }, block: true, style: "margin-bottom:10px;" }),
         h("span", { slot: "footer", class: "dialog-footer" },

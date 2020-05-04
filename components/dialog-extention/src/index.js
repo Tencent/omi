@@ -1662,7 +1662,6 @@ function prompt(options) {
     dialog = omi_1.render(omi_1.h("o-dialog", { css: promptCss, title: options.title, visible: true },
         omi_1.h("div", { style: "margin: 10px 0;" }, options.msg),
         omi_1.h("o-input", { oninput: function (evt) {
-                console.log(evt.detail);
                 temp = evt.detail;
             }, block: true, style: "margin-bottom:10px;" }),
         omi_1.h("span", { slot: "footer", class: "dialog-footer" },

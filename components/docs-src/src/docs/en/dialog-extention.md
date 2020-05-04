@@ -22,16 +22,40 @@ Or use script tag to ref it.
 
 ## Usage
 
-```html
-<o-dialog-extention></o-dialog-extention>
+```js
+Omiu.alert({
+  msg: 'Simple Message',
+  title: 'Msg',
+  confirmButtonText: 'OK',
+  onConfirm: function () {
+    console.log('ok')
+  }
+})
+
+Omiu.confirm({
+  msg: 'Simple Message',
+  title: 'Msg',
+  cancelButtonText: 'Cancel',
+  confirmButtonText: 'OK',
+  onCancel: function () {
+
+  },
+  onConfirm: function () {
+    console.log('ok')
+  }
+})
+
+Omiu.prompt({
+  msg: 'Simple Message',
+  title: 'Msg',
+  cancelButtonText: 'Cancel',
+  confirmButtonText: 'OK',
+  onCancel: function () {
+
+  },
+  onConfirm: function (val) {
+    console.log(val)
+  }
+})
 ```
-
-## API
-
-### Props
-
-```tsx
-
-```
-
 
