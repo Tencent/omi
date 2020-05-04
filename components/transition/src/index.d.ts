@@ -13,6 +13,7 @@ interface Props {
     leavingTime?: number;
     autoRemove?: boolean;
     appear?: boolean;
+    delay?: number;
 }
 export default class Transition extends WeElement<Props> {
     static propTypes: {
@@ -20,10 +21,12 @@ export default class Transition extends WeElement<Props> {
         leavingTime: NumberConstructor;
         autoRemove: BooleanConstructor;
         appear: BooleanConstructor;
+        delay: NumberConstructor;
     };
     static isLightDom: boolean;
     static defaultProps: {
         name: string;
+        delay: number;
     };
     _show: boolean;
     installed(): void;

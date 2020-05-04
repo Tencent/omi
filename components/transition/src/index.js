@@ -232,7 +232,7 @@ var Transition = /** @class */ (function (_super) {
                 el.classList.remove(this.props.name + '-enter');
                 el.classList.add(this.props.name + '-enter-to');
                 this.fire('enter');
-            }.bind(this), 0);
+            }.bind(this), this.props.delay);
         }
     };
     Transition.prototype.leave = function () {
@@ -257,7 +257,7 @@ var Transition = /** @class */ (function (_super) {
                 el.classList.remove(this.props.name + '-leave');
                 el.classList.add(this.props.name + '-leave-to');
                 this.fire('leave');
-            }.bind(this), 0);
+            }.bind(this), this.props.delay);
         }
     };
     Transition.prototype.once = function (name, callback) {
@@ -274,11 +274,13 @@ var Transition = /** @class */ (function (_super) {
         name: String,
         leavingTime: Number,
         autoRemove: Boolean,
-        appear: Boolean
+        appear: Boolean,
+        delay: Number
     };
     Transition.isLightDom = true;
     Transition.defaultProps = {
-        name: 'o'
+        name: 'o',
+        delay: 0
     };
     Transition = __decorate([
         omi_1.tag('o-transition')

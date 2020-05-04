@@ -22,6 +22,7 @@ interface Props {
   leavingTime?: number
   autoRemove?: boolean
   appear?: boolean
+  delay?: number
 }
 
 @tag('o-transition')
@@ -31,13 +32,15 @@ export default class Transition extends WeElement<Props>{
     name: String,
     leavingTime: Number,
     autoRemove: Boolean,
-    appear: Boolean
+    appear: Boolean,
+    delay: Number
   }
 
   static isLightDom = true
 
   static defaultProps = {
-    name: 'o'
+    name: 'o',
+    delay: 0
   }
 
   _show = true
@@ -89,7 +92,7 @@ export default class Transition extends WeElement<Props>{
         el.classList.remove(this.props.name + '-enter')
         el.classList.add(this.props.name + '-enter-to')
         this.fire('enter')
-      }.bind(this), 0)
+      }.bind(this), this.props.delay)
     }
 
   }
@@ -122,7 +125,7 @@ export default class Transition extends WeElement<Props>{
         el.classList.remove(this.props.name + '-leave')
         el.classList.add(this.props.name + '-leave-to')
         this.fire('leave')
-      }.bind(this), 0)
+      }.bind(this), this.props.delay)
     }
 
   }

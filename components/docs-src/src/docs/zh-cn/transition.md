@@ -37,13 +37,15 @@ import '@omiu/transition'
   leavingTime?: number
   autoRemove?: boolean
   appear?: boolean
+  delay?: number
 }
 ```
 
 ### 默认属性
 ```tsx
 {
-  name: 'o'
+  name: 'o',
+  delay: 0
 }
 ```
 ### 事件

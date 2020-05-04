@@ -36,6 +36,7 @@ Or use script tag to ref it.
   leavingTime?: number
   autoRemove?: boolean
   appear?: boolean
+  delay?: number
 }
 ```
 
@@ -43,7 +44,8 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  name: 'o'
+  name: 'o',
+  delay: 0
 }
 ```
 ### Events

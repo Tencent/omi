@@ -30,9 +30,52 @@
     }
 
   </style>
-  <o-transition name="fade">
+  <o-transition appear name="fade">
     <div>aaaa</div>
   </o-transition>
+
+
+  <script>
+    const {
+      h,
+      WeElement,
+      define
+    } = Omi
+    class MyApp extends WeElement {
+
+      list = ['ItemA', 'ItemB', 'ItemC', 'ItemD', 'ItemE']
+
+      static css = `
+  .fade-leave-to,
+  .fade-enter {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+
+  .fade-leave-active,
+  .fade-enter-active {
+    transition: all 500ms ease-in;
+  }`
+      render() {
+        return (
+          h("ul", null, this.list.map(function (item, index) {
+            return h("o-transition", {
+                appear: true,
+                name: 'fade',
+                delay: index * 300
+              },
+              h("li", null, item));
+          }))
+        )
+
+      }
+    }
+
+    define('my-app', MyApp)
+
+  </script>
+
+  <my-app></my-app>
   <br>
   <button onclick="toggleTransition()">Toggle</button>
   <script>
