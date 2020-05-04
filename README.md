@@ -35,6 +35,7 @@ English | [简体中文](./README.CN.md)
 | [@omiu/bottom-nav][omiu-bottom-nav-github] | [![omiu-bottom-nav-status]][omiu-bottom-nav-package]|[CodePen][omiu-bottom-nav-codepen] | [BottomNav Docs][omiu-bottom-nav-docs]|
 | [@omiu/transition][omiu-transition-github] | [![omiu-transition-status]][omiu-transition-package]|[CodePen][omiu-transition-codepen] | [Transition Docs][omiu-transition-docs]|
 | [@omiu/dialog][omiu-dialog-github] | [![omiu-dialog-status]][omiu-dialog-package]|[CodePen][omiu-dialog-codepen] | [Dialog Docs][omiu-dialog-docs]|
+| [@omiu/dialog-extention][omiu-dialog-extention-github] | [![omiu-dialog-extention-status]][omiu-dialog-extention-package]|[CodePen][omiu-dialog-extention-codepen] | [DialogExtention Docs][omiu-dialog-extention-docs]|
 | Coming... | |  | |
 | Coming... | |  | |
 
@@ -186,6 +187,12 @@ English | [简体中文](./README.CN.md)
 [omiu-dialog-package]: https://www.npmjs.com/package/@omiu/dialog
 [omiu-dialog-docs]: https://tencent.github.io/omi/components/docs/index.html#/dialog
 [omiu-dialog-codepen]: https://codepen.io/omijs/pen/JjYyezQ
+
+[omiu-dialog-extention-github]: https://github.com/Tencent/omi/tree/master/components/dialog-extention
+[omiu-dialog-extention-status]: https://img.shields.io/npm/v/@omiu/dialog-extention.svg
+[omiu-dialog-extention-package]: https://www.npmjs.com/package/@omiu/dialog-extention
+[omiu-dialog-extention-docs]: https://tencent.github.io/omi/components/docs/index.html#/dialog-extention
+[omiu-dialog-extention-codepen]: https://codepen.io/omijs/pen/GRpOBmL
 
 ## Quick Preview
 
