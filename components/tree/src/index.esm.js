@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.3 http://omijs.org
+ * @omiu/tree v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -648,7 +648,7 @@ var Tree = /** @class */ (function (_super) {
             node.expanded && node.children && node.children.length > 0 && h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
                 return _this.renderNode(child, level + 1);
             })),
-            node.sign && h("span", { class: "sign" }, node.sign));
+            node.sign && h("span", { style: node.color && { color: node.color }, class: "sign" }, node.sign));
     };
     Tree.prototype.render = function (props) {
         var _this = this;
