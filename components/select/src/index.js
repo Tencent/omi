@@ -243,6 +243,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -255,43 +266,78 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Select = /** @class */ (function (_super) {
     __extends(Select, _super);
     function Select() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onInputClick = function () {
+            setTimeout(function () {
+                _this.updateProps({
+                    active: !_this.props.active
+                });
+            }, 10);
+        };
+        _this.onInputBlur = function () {
+            setTimeout(function () {
+                _this.updateProps({
+                    active: false
+                });
+            }, 10);
+        };
+        _this.onItemClick = function (item, index) {
+            _this._refInput.focus();
+            _this.fire('item-select', item);
+            _this.selectedIndex = index;
+            _this.updateProps({
+                active: false,
+                value: item.label
+            });
+        };
+        return _this;
     }
     Select.prototype.installed = function () {
-        var width = this.rootNode.getBoundingClientRect().width;
-        var dropdown = this.rootNode.querySelector('.o-select-dropdown');
-        dropdown.style.minWidth = width + 'px';
+        this._fixWidth();
     };
     Select.prototype.updated = function () {
+        this._fixWidth();
+    };
+    Select.prototype._fixWidth = function () {
         var width = this.rootNode.getBoundingClientRect().width;
         var dropdown = this.rootNode.querySelector('.o-select-dropdown');
-        dropdown.style.minWidth = width + 'px';
+        if (dropdown) {
+            dropdown.style.minWidth = width + 'px';
+        }
     };
     Select.prototype.render = function (props) {
+        var _this = this;
         return (omi_1.h("div", { class: "o-select" },
-            omi_1.h("div", { class: "o-input o-input--suffix is-focus" },
-                omi_1.h("input", { type: "text", readonly: "readonly", autocomplete: "off", placeholder: "\u8BF7\u9009\u62E9", class: "o-input__inner" }),
+            omi_1.h("div", __assign({}, omi_1.extractClass({}, 'o-input o-input--suffix', {
+                'is-focus': props.isFocus
+            })),
+                omi_1.h("input", { type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: "readonly", autocomplete: "off", value: props.value, placeholder: props.placeholder, class: "o-input__inner" }),
                 omi_1.h("span", { class: "o-input__suffix" },
                     omi_1.h("span", { class: "o-input__suffix-inner" },
                         omi_1.h("i", { class: "o-select__caret o-input__icon o-icon-arrow-up is-reverse" })))),
-            omi_1.h("div", { class: "o-select-dropdown o-popper", style: "min-width: 240px; transform-origin: center top; z-index: 2080; position: absolute; top: 35px; left: 0;", "x-placement": "bottom-start" },
-                omi_1.h("div", { class: "o-scrollbar", style: "" },
-                    omi_1.h("div", { class: "o-select-dropdown__wrap o-scrollbar__wrap o-scrollbar__wrap--hidden-default" },
-                        omi_1.h("ul", { class: "o-scrollbar__view o-select-dropdown__list" }, props.items.map(function (item) {
-                            //hover
-                            return omi_1.h("li", { class: "o-select-dropdown__item" },
-                                omi_1.h("span", null, item.label));
-                        }))),
-                    omi_1.h("div", { class: "o-scrollbar__bar is-horizontal" },
-                        omi_1.h("div", { class: "o-scrollbar__thumb", style: "transform: translateX(0%);" })),
-                    omi_1.h("div", { class: "o-scrollbar__bar is-vertical" },
-                        omi_1.h("div", { class: "o-scrollbar__thumb", style: "transform: translateY(0%);" }))),
-                omi_1.h("div", { "x-arrow": "", class: "popper__arrow", style: "left: 35px;" }))));
+            props.active && omi_1.h("o-transition", null,
+                omi_1.h("div", { class: "o-select-dropdown o-popper", style: "min-width: 240px; transform-origin: center top; z-index: 2080; position: absolute; top: 35px; left: 0;", "x-placement": "bottom-start" },
+                    omi_1.h("div", { class: "o-scrollbar", style: "" },
+                        omi_1.h("div", { class: "o-select-dropdown__wrap o-scrollbar__wrap o-scrollbar__wrap--hidden-default" },
+                            omi_1.h("ul", { class: "o-scrollbar__view o-select-dropdown__list" }, props.items.map(function (item, index) { return (omi_1.h("li", __assign({}, omi_1.extractClass({}, 'o-select-dropdown__item', {
+                                selected: index === _this.selectedIndex
+                            }), { onClick: function (_) { _this.onItemClick(item, index); } }),
+                                omi_1.h("span", null, item.label))); }))),
+                        omi_1.h("div", { class: "o-scrollbar__bar is-horizontal" },
+                            omi_1.h("div", { class: "o-scrollbar__thumb", style: "transform: translateX(0%);" })),
+                        omi_1.h("div", { class: "o-scrollbar__bar is-vertical" },
+                            omi_1.h("div", { class: "o-scrollbar__thumb", style: "transform: translateY(0%);" }))),
+                    omi_1.h("div", { "x-arrow": "", class: "popper__arrow", style: "left: 35px;" })))));
     };
     Select.css = css;
-    Select.defaultProps = {};
+    Select.defaultProps = {
+        value: ''
+    };
     Select.propTypes = {
-        items: Array
+        items: Array,
+        active: Boolean,
+        value: String,
+        placeholder: String
     };
     Select = __decorate([
         omi_1.tag('o-select')
