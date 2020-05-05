@@ -12,15 +12,16 @@ const config = {
         title: '基础概念',
         list: [
           { name: 'JSX', md: 'jsx' },
-          { name: 'Props', md: 'props' },
-          { name: '事件', md: 'event' },
+          { name: '属性 Props', md: 'props' },
+          { name: '事件 Event', md: 'event' },
+          { name: '插槽 Slot', md: 'slot' },
           { name: '生命周期', md: 'lifecycle' },
-          { name: 'Update', md: 'update' },
-          { name: 'Ref', md: 'ref' },
-          { name: 'Class', md: 'class' },
-          { name: 'Extend', md: 'extend' },
-          { name: 'Store', md: 'store' },
-          { name: 'CSS', md: 'css' }
+          { name: '更新 Update', md: 'update' },
+          { name: '引用 Ref', md: 'ref' },
+          { name: '类名 Class', md: 'class' },
+          { name: '扩展 Extend', md: 'extend' },
+          { name: '存储 Store', md: 'store' },
+          { name: '样式 CSS', md: 'css' }
         ]
       },
       {
@@ -48,6 +49,7 @@ const config = {
           { name: 'JSX', md: 'jsx' },
           { name: 'Props', md: 'props' },
           { name: 'Event', md: 'event' },
+          { name: 'Slot', md: 'slot' },
           { name: 'Lifecycle', md: 'lifecycle' },
           { name: 'Update', md: 'update' },
           { name: 'Ref', md: 'ref' },
