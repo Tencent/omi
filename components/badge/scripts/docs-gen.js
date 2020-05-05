@@ -14,7 +14,7 @@ const packageName = package.name
 const name = packageName.split('/')[1]
 
 const upperCaseName = name.split('-').map(item => {
-  return item.charAt(0).toUpperCase() + item.slice(1)
+	return item.charAt(0).toUpperCase() + item.slice(1)
 }).join('')
 const tagName = 'o-' + name
 
@@ -22,13 +22,13 @@ const tagName = 'o-' + name
 let events, eventMap
 if (eventContexts) {
 
-  events = eventContexts.map(event => {
-    return event.replace('this.fire(\'', '').replace('\',', '').replace('\')', '')
-  })
-  eventMap = {}
-  events.forEach(event => {
-    eventMap[event] = 1
-  })
+	events = eventContexts.map(event => {
+		return event.replace('this.fire(\'', '').replace('\',', '').replace('\')', '')
+	})
+	eventMap = {}
+	events.forEach(event => {
+		eventMap[event] = 1
+	})
 }
 
 const cnContent = `## ${upperCaseName} ${package.docsExtend.cnName}
@@ -70,7 +70,7 @@ ${props}
 
 ${defaultProps ? '### 默认属性\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### 事件\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
-  return `* ${event}\n`
+	return `* ${event}\n`
 }).join('') : ''}`
 
 fs.writeFileSync(`../docs-src/src/docs/zh-cn/${name}.md`, cnContent)
@@ -113,9 +113,9 @@ Or use script tag to ref it.
 ${props}
 \`\`\`
 
-${defaultProps ? '### 默认属性\n\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
+${defaultProps ? '### defaultProps\n\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### Events\n\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
-  return `* ${event}\n`
+	return `* ${event}\n`
 }).join('') : ''}`
 
 
@@ -130,24 +130,24 @@ fs.writeFileSync(`../${name}/README.md`, enContent.replace(/<iframe[\s\S]*?<\/if
 
 
 function extract(startWith, str) {
-  const start = str.indexOf(startWith)
-  if (start === -1) return ''
-  let end = start + startWith.length
-  let stackCount = 1
-  while (end < str.length) {
-    if (str[end] === '}') {
-      if (stackCount === 1) {
+	const start = str.indexOf(startWith)
+	if (start === -1) return ''
+	let end = start + startWith.length
+	let stackCount = 1
+	while (end < str.length) {
+		if (str[end] === '}') {
+			if (stackCount === 1) {
 
-        break
-      } else {
-        stackCount--
-      }
-    } else if (str[end] === '{') {
-      stackCount++
-    }
+				break
+			} else {
+				stackCount--
+			}
+		} else if (str[end] === '{') {
+			stackCount++
+		}
 
-    end++
-  }
+		end++
+	}
 
-  return str.substring(start, end + 1)
+	return str.substring(start, end + 1)
 }
