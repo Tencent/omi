@@ -37,8 +37,8 @@ declare namespace Omi {
    *     }
    * }
    */
-  interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes {}
-  interface Props extends ClassAttributes<any>, OmiDOMAttributes {}
+  interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes { }
+  interface Props extends ClassAttributes<any>, OmiDOMAttributes { }
   /**
    * Define the contract for a virtual node in omi.
    *
@@ -76,7 +76,7 @@ declare namespace Omi {
     afterUpdate?(): void;
     updated?(): void;
     beforeRender?(): void;
-    receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
+    receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
     attrsToProps(): void;
     setAttribute(name: string, value: any): void;
     use(): any[];
@@ -91,7 +91,7 @@ declare namespace Omi {
     afterUpdate?(): void;
     updated?(): void;
     beforeRender?(): void;
-    receiveProps?(props: RenderableProps<P>, oldProps:RenderableProps<P>): any;
+    receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
     attrsToProps(): void;
     setAttribute(name: string, value: any): void;
     use(): any[];
@@ -111,10 +111,10 @@ declare namespace Omi {
     normalizedNodeName?: string;
     elementId: number;
 
-    update?(ignoreAttrs?:boolean, updateSelf?:boolean): void;
+    update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
     forceUpdate?(): void;
     updateProps?(obj: any): void;
-    updateSelf?(ignoreAttrs?:boolean): void;
+    updateSelf?(ignoreAttrs?: boolean): void;
     fire?(name: string, data?: any): void;
     css?(): string;
     // Abstract methods don't infer argument types
@@ -142,10 +142,10 @@ declare namespace Omi {
     normalizedNodeName?: string;
     elementId: number;
 
-    update?(ignoreAttrs?:boolean, updateSelf?:boolean): void;
+    update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
     forceUpdate?(): void;
     updateProps?(obj: any): void;
-    updateSelf?(ignoreAttrs?:boolean): void;
+    updateSelf?(ignoreAttrs?: boolean): void;
     fire?(name: string, data?: any): void;
     css?(): string;
     // Abstract methods don't infer argument types
@@ -198,11 +198,11 @@ declare namespace Omi {
 type Defaultize<Props, Defaults> =
   // Distribute over unions
   Props extends any
-    ?   // Make any properties included in Default optional
-      & Partial<Pick<Props, Extract<keyof Props, keyof Defaults>>>
-      // Include the remaining properties from Props
-      & Pick<Props, Exclude<keyof Props, keyof Defaults>>
-    : never;
+  ?   // Make any properties included in Default optional
+  & Partial<Pick<Props, Extract<keyof Props, keyof Defaults>>>
+  // Include the remaining properties from Props
+  & Pick<Props, Exclude<keyof Props, keyof Defaults>>
+  : never;
 
 declare global {
   namespace JSX {
@@ -225,8 +225,8 @@ declare global {
 
     type LibraryManagedAttributes<Component, Props> =
       Component extends { defaultProps: infer Defaults }
-        ? Defaultize<Props, Defaults>
-        : Props;
+      ? Defaultize<Props, Defaults>
+      : Props;
 
     interface SVGAttributes extends HTMLAttributes {
       accentHeight?: number | string;
@@ -680,6 +680,8 @@ declare global {
     }
 
     interface HTMLAttributes extends Omi.ClassAttributes<any>, DOMAttributes {
+      //Avoid some lint errors, such as onclick, onblur
+      [key: string]: any;
       // Standard HTML Attributes
       accept?: string;
       acceptCharset?: string;

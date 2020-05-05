@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.1  http://omijs.org
+ * Omi v6.19.2  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -822,287 +822,287 @@
   var id = 0;
 
   var WeElement = function (_HTMLElement) {
-  	_inherits(WeElement, _HTMLElement);
+    _inherits(WeElement, _HTMLElement);
 
-  	function WeElement() {
-  		_classCallCheck(this, WeElement);
+    function WeElement() {
+      _classCallCheck(this, WeElement);
 
-  		var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+      var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-  		_this.props = Object.assign({}, _this.constructor.defaultProps);
-  		_this.elementId = id++;
-  		_this.computed = {};
-  		return _this;
-  	}
+      _this.props = Object.assign({}, _this.constructor.defaultProps);
+      _this.elementId = id++;
+      _this.computed = {};
+      return _this;
+    }
 
-  	WeElement.prototype.connectedCallback = function connectedCallback() {
-  		var p = this.parentNode;
-  		while (p && !this.store) {
-  			this.store = p.store;
-  			p = p.parentNode || p.host;
-  		}
+    WeElement.prototype.connectedCallback = function connectedCallback() {
+      var p = this.parentNode;
+      while (p && !this.store) {
+        this.store = p.store;
+        p = p.parentNode || p.host;
+      }
 
-  		this.attrsToProps();
+      this.attrsToProps();
 
-  		if (this.props.use) {
-  			this.use = this.props.use;
-  		}
+      if (this.props.use) {
+        this.use = this.props.use;
+      }
 
-  		if (this.props.useSelf) {
-  			this.use = this.props.useSelf;
-  		}
+      if (this.props.useSelf) {
+        this.use = this.props.useSelf;
+      }
 
-  		if (this.use) {
-  			var use = typeof this.use === 'function' ? this.use() : this.use;
+      if (this.use) {
+        var use = typeof this.use === 'function' ? this.use() : this.use;
 
-  			if (options.isMultiStore) {
-  				var _updatePath = {};
-  				var using = {};
-  				for (var storeName in use) {
-  					_updatePath[storeName] = {};
-  					using[storeName] = {};
-  					getPath(use[storeName], _updatePath, storeName);
-  					getUse(this.store[storeName].data, use[storeName], using, storeName);
-  					this.store[storeName].instances.push(this);
-  				}
-  				this.using = using;
-  				this._updatePath = _updatePath;
-  			} else {
-  				this._updatePath = getPath(use);
-  				this.using = getUse(this.store.data, use);
-  				this.store.instances.push(this);
-  			}
-  		}
-  		if (this.useSelf) {
-  			var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
-  			if (options.isMultiStore) {
-  				var _updatePath2 = {};
-  				var _using = {};
-  				for (var _storeName in _use) {
-  					getPath(_use[_storeName], _updatePath2, _storeName);
-  					getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
-  					this.store[_storeName].updateSelfInstances.push(this);
-  				}
-  				this.usingSelf = _using;
-  				this._updateSelfPath = _updatePath2;
-  			} else {
-  				this._updateSelfPath = getPath(_use);
-  				this.usingSelf = getUse(this.store.data, _use);
-  				this.store.updateSelfInstances.push(this);
-  			}
-  		}
+        if (options.isMultiStore) {
+          var _updatePath = {};
+          var using = {};
+          for (var storeName in use) {
+            _updatePath[storeName] = {};
+            using[storeName] = {};
+            getPath(use[storeName], _updatePath, storeName);
+            getUse(this.store[storeName].data, use[storeName], using, storeName);
+            this.store[storeName].instances.push(this);
+          }
+          this.using = using;
+          this._updatePath = _updatePath;
+        } else {
+          this._updatePath = getPath(use);
+          this.using = getUse(this.store.data, use);
+          this.store.instances.push(this);
+        }
+      }
+      if (this.useSelf) {
+        var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
+        if (options.isMultiStore) {
+          var _updatePath2 = {};
+          var _using = {};
+          for (var _storeName in _use) {
+            getPath(_use[_storeName], _updatePath2, _storeName);
+            getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
+            this.store[_storeName].updateSelfInstances.push(this);
+          }
+          this.usingSelf = _using;
+          this._updateSelfPath = _updatePath2;
+        } else {
+          this._updateSelfPath = getPath(_use);
+          this.usingSelf = getUse(this.store.data, _use);
+          this.store.updateSelfInstances.push(this);
+        }
+      }
 
-  		if (this.compute) {
-  			for (var key in this.compute) {
-  				this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
-  			}
-  		}
+      if (this.compute) {
+        for (var key in this.compute) {
+          this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
+        }
+      }
 
-  		this.beforeInstall();
-  		this.install();
-  		this.afterInstall();
+      this.beforeInstall();
+      this.install();
+      this.afterInstall();
 
-  		var shadowRoot;
-  		if (this.constructor.isLightDom) {
-  			shadowRoot = this;
-  		} else {
+      var shadowRoot;
+      if (this.constructor.isLightDom) {
+        shadowRoot = this;
+      } else {
 
-  			if (!this.shadowRoot) {
-  				shadowRoot = this.attachShadow({
-  					mode: 'open'
-  				});
-  			} else {
-  				shadowRoot = this.shadowRoot;
-  				var fc;
-  				while (fc = shadowRoot.firstChild) {
-  					shadowRoot.removeChild(fc);
-  				}
-  			}
-  		}
+        if (!this.shadowRoot) {
+          shadowRoot = this.attachShadow({
+            mode: 'open'
+          });
+        } else {
+          shadowRoot = this.shadowRoot;
+          var fc;
+          while (fc = shadowRoot.firstChild) {
+            shadowRoot.removeChild(fc);
+          }
+        }
+      }
 
-  		if (this.constructor.css) {
-  			shadowRoot.appendChild(cssToDom(this.constructor.css));
-  		} else if (this.css) {
-  			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-  		}
+      if (this.constructor.css) {
+        shadowRoot.appendChild(cssToDom(this.constructor.css));
+      } else if (this.css) {
+        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+      }
 
-  		this.beforeRender();
-  		options.afterInstall && options.afterInstall(this);
+      this.beforeRender();
+      options.afterInstall && options.afterInstall(this);
 
-  		var rendered = this.render(this.props, this.store);
-  		this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
+      var rendered = this.render(this.props, this.store);
+      this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-  		this.rootNode = diff(null, rendered, null, this);
-  		this.rendered();
+      this.rootNode = diff(null, rendered, null, this);
+      this.rendered();
 
-  		if (this.props.css) {
-  			this._customStyleElement = cssToDom(this.props.css);
-  			this._customStyleContent = this.props.css;
-  			shadowRoot.appendChild(this._customStyleElement);
-  		}
+      if (this.props.css) {
+        this._customStyleElement = cssToDom(this.props.css);
+        this._customStyleContent = this.props.css;
+        shadowRoot.appendChild(this._customStyleElement);
+      }
 
-  		if (isArray(this.rootNode)) {
-  			this.rootNode.forEach(function (item) {
-  				shadowRoot.appendChild(item);
-  			});
-  		} else {
-  			this.rootNode && shadowRoot.appendChild(this.rootNode);
-  		}
-  		this.installed();
-  		this._isInstalled = true;
-  	};
+      if (isArray(this.rootNode)) {
+        this.rootNode.forEach(function (item) {
+          shadowRoot.appendChild(item);
+        });
+      } else {
+        this.rootNode && shadowRoot.appendChild(this.rootNode);
+      }
+      this.installed();
+      this._isInstalled = true;
+    };
 
-  	WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-  		this.uninstall();
-  		this._isInstalled = false;
-  		if (this.store) {
-  			if (options.isMultiStore) {
-  				for (var key in this.store) {
-  					var current = this.store[key];
-  					removeItem(this, current.instances);
-  					removeItem(this, current.updateSelfInstances);
-  				}
-  			} else {
-  				removeItem(this, this.store.instances);
-  				removeItem(this, this.store.updateSelfInstances);
-  			}
-  		}
-  	};
+    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+      this.uninstall();
+      this._isInstalled = false;
+      if (this.store) {
+        if (options.isMultiStore) {
+          for (var key in this.store) {
+            var current = this.store[key];
+            removeItem(this, current.instances);
+            removeItem(this, current.updateSelfInstances);
+          }
+        } else {
+          removeItem(this, this.store.instances);
+          removeItem(this, this.store.updateSelfInstances);
+        }
+      }
+    };
 
-  	WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
-  		this._willUpdate = true;
-  		this.beforeUpdate();
-  		this.beforeRender();
-  		//fix null !== undefined
-  		if (this._customStyleContent != this.props.css) {
-  			this._customStyleContent = this.props.css;
-  			this._customStyleElement.textContent = this._customStyleContent;
-  		}
-  		this.attrsToProps(ignoreAttrs);
+    WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+      this._willUpdate = true;
+      this.beforeUpdate();
+      this.beforeRender();
+      //fix null !== undefined
+      if (this._customStyleContent != this.props.css) {
+        this._customStyleContent = this.props.css;
+        this._customStyleElement.textContent = this._customStyleContent;
+      }
+      this.attrsToProps(ignoreAttrs);
 
-  		var rendered = this.render(this.props, this.store);
-  		this.rendered();
-  		this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
+      var rendered = this.render(this.props, this.store);
+      this.rendered();
+      this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-  		this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
-  		this._willUpdate = false;
-  		this.updated();
-  	};
+      this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
+      this._willUpdate = false;
+      this.updated();
+    };
 
-  	WeElement.prototype.forceUpdate = function forceUpdate() {
-  		this.update(true);
-  	};
+    WeElement.prototype.forceUpdate = function forceUpdate() {
+      this.update(true);
+    };
 
-  	WeElement.prototype.updateProps = function updateProps(obj) {
-  		var _this2 = this;
+    WeElement.prototype.updateProps = function updateProps(obj) {
+      var _this2 = this;
 
-  		Object.keys(obj).forEach(function (key) {
-  			_this2.props[key] = obj[key];
-  			if (_this2.prevProps) {
-  				_this2.prevProps[key] = obj[key];
-  			}
-  		});
-  		this.forceUpdate();
-  	};
+      Object.keys(obj).forEach(function (key) {
+        _this2.props[key] = obj[key];
+        if (_this2.prevProps) {
+          _this2.prevProps[key] = obj[key];
+        }
+      });
+      this.forceUpdate();
+    };
 
-  	WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-  		this.update(ignoreAttrs, true);
-  	};
+    WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
+      this.update(ignoreAttrs, true);
+    };
 
-  	WeElement.prototype.removeAttribute = function removeAttribute(key) {
-  		_HTMLElement.prototype.removeAttribute.call(this, key);
-  		//Avoid executing removeAttribute methods before connectedCallback
-  		this._isInstalled && this.update();
-  	};
+    WeElement.prototype.removeAttribute = function removeAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+      //Avoid executing removeAttribute methods before connectedCallback
+      this._isInstalled && this.update();
+    };
 
-  	WeElement.prototype.setAttribute = function setAttribute(key, val) {
-  		if (val && typeof val === 'object') {
-  			_HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
-  		} else {
-  			_HTMLElement.prototype.setAttribute.call(this, key, val);
-  		}
-  		//Avoid executing setAttribute methods before connectedCallback
-  		this._isInstalled && this.update();
-  	};
+    WeElement.prototype.setAttribute = function setAttribute(key, val) {
+      if (val && typeof val === 'object') {
+        _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
+      } else {
+        _HTMLElement.prototype.setAttribute.call(this, key, val);
+      }
+      //Avoid executing setAttribute methods before connectedCallback
+      this._isInstalled && this.update();
+    };
 
-  	WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
-  		_HTMLElement.prototype.removeAttribute.call(this, key);
-  	};
+    WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+    };
 
-  	WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
-  		_HTMLElement.prototype.setAttribute.call(this, key, val);
-  	};
+    WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+      _HTMLElement.prototype.setAttribute.call(this, key, val);
+    };
 
-  	WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-  		if (options.ignoreAttrs || ignoreAttrs) return;
-  		var ele = this;
-  		ele.props['css'] = ele.getAttribute('css');
-  		var attrs = this.constructor.propTypes;
-  		if (!attrs) return;
-  		Object.keys(attrs).forEach(function (key) {
-  			var type = attrs[key];
-  			var val = ele.getAttribute(hyphenate(key));
-  			if (val !== null) {
-  				switch (type) {
-  					case String:
-  						ele.props[key] = val;
-  						break;
-  					case Number:
-  						ele.props[key] = Number(val);
-  						break;
-  					case Boolean:
-  						if (val === 'false' || val === '0') {
-  							ele.props[key] = false;
-  						} else {
-  							ele.props[key] = true;
-  						}
-  						break;
-  					case Array:
-  					case Object:
-  						if (val[0] === ':') {
-  							ele.props[key] = getValByPath(val.substr(1), Omi.$);
-  						} else {
-  							ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-  						}
-  						break;
-  				}
-  			} else {
-  				if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
-  					ele.props[key] = ele.constructor.defaultProps[key];
-  				} else {
-  					ele.props[key] = null;
-  				}
-  			}
-  		});
-  	};
+    WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+      if (options.ignoreAttrs || ignoreAttrs) return;
+      var ele = this;
+      ele.props['css'] = ele.getAttribute('css');
+      var attrs = this.constructor.propTypes;
+      if (!attrs) return;
+      Object.keys(attrs).forEach(function (key) {
+        var type = attrs[key];
+        var val = ele.getAttribute(hyphenate(key));
+        if (val !== null) {
+          switch (type) {
+            case String:
+              ele.props[key] = val;
+              break;
+            case Number:
+              ele.props[key] = Number(val);
+              break;
+            case Boolean:
+              if (val === 'false' || val === '0') {
+                ele.props[key] = false;
+              } else {
+                ele.props[key] = true;
+              }
+              break;
+            case Array:
+            case Object:
+              if (val[0] === ':') {
+                ele.props[key] = getValByPath(val.substr(1), Omi.$);
+              } else {
+                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+              }
+              break;
+          }
+        } else {
+          if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+            ele.props[key] = ele.constructor.defaultProps[key];
+          } else {
+            ele.props[key] = null;
+          }
+        }
+      });
+    };
 
-  	WeElement.prototype.fire = function fire(name, data) {
-  		this.dispatchEvent(new CustomEvent(name, {
-  			detail: data
-  		}));
-  	};
+    WeElement.prototype.fire = function fire(name, data) {
+      this.dispatchEvent(new CustomEvent(name, {
+        detail: data
+      }));
+    };
 
-  	WeElement.prototype.beforeInstall = function beforeInstall() {};
+    WeElement.prototype.beforeInstall = function beforeInstall() {};
 
-  	WeElement.prototype.install = function install() {};
+    WeElement.prototype.install = function install() {};
 
-  	WeElement.prototype.afterInstall = function afterInstall() {};
+    WeElement.prototype.afterInstall = function afterInstall() {};
 
-  	WeElement.prototype.installed = function installed() {};
+    WeElement.prototype.installed = function installed() {};
 
-  	WeElement.prototype.uninstall = function uninstall() {};
+    WeElement.prototype.uninstall = function uninstall() {};
 
-  	WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-  	WeElement.prototype.updated = function updated() {};
+    WeElement.prototype.updated = function updated() {};
 
-  	WeElement.prototype.beforeRender = function beforeRender() {};
+    WeElement.prototype.beforeRender = function beforeRender() {};
 
-  	WeElement.prototype.rendered = function rendered() {};
+    WeElement.prototype.rendered = function rendered() {};
 
-  	WeElement.prototype.receiveProps = function receiveProps() {};
+    WeElement.prototype.receiveProps = function receiveProps() {};
 
-  	return WeElement;
+    return WeElement;
   }(HTMLElement);
 
   WeElement.is = 'WeElement';
@@ -1850,7 +1850,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.1';
+  options.root.Omi.version = '6.19.2';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
