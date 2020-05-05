@@ -113,7 +113,7 @@ Or use script tag to ref it.
 ${props}
 \`\`\`
 
-${defaultProps ? '### 默认属性\n\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
+${defaultProps ? '### defaultProps\n\n' : ''}${defaultProps ? '\`\`\`tsx\n' : ''}${defaultProps ? defaultProps : ''}
 ${defaultProps ? '\`\`\`\n' : ''}${eventMap ? '### Events\n\n' : ''}${eventMap ? Object.keys(eventMap).map(event => {
   return `* ${event}\n`
 }).join('') : ''}`

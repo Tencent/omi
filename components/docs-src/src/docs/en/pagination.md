@@ -46,7 +46,7 @@ Or use script tag to ref it.
 }
 ```
 
-### 默认属性
+### defaultProps
 
 ```tsx
 {
