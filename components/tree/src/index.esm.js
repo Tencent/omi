@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.4 http://omijs.org
+ * @omiu/tree v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -608,7 +608,9 @@ var Tree = /** @class */ (function (_super) {
         _this.onNodeClick = function (evt, node) {
             evt.stopPropagation();
             node.expanded = !node.expanded;
-            _this.prevSelectedNode.selected = false;
+            if (_this.prevSelectedNode) {
+                _this.prevSelectedNode.selected = false;
+            }
             node.selected = true;
             _this.forceUpdate();
             _this.fire('node-click', node);

@@ -18,7 +18,9 @@ export default class Tree extends WeElement<Props>{
   onNodeClick = (evt, node) => {
     evt.stopPropagation()
     node.expanded = !node.expanded
-    this.prevSelectedNode.selected = false
+    if (this.prevSelectedNode) {
+      this.prevSelectedNode.selected = false
+    }
     node.selected = true
     this.forceUpdate()
     this.fire('node-click', node)

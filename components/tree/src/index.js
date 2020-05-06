@@ -270,7 +270,9 @@ var Tree = /** @class */ (function (_super) {
         _this.onNodeClick = function (evt, node) {
             evt.stopPropagation();
             node.expanded = !node.expanded;
-            _this.prevSelectedNode.selected = false;
+            if (_this.prevSelectedNode) {
+                _this.prevSelectedNode.selected = false;
+            }
             node.selected = true;
             _this.forceUpdate();
             _this.fire('node-click', node);
