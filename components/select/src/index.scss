@@ -1378,3 +1378,12 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box
 }
+
+
+.arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -0.5em;
+  color: #747679;
+}

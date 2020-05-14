@@ -4,6 +4,7 @@ interface Props {
     active: boolean;
     value: string;
     placeholder: string;
+    size: 'medium' | 'small' | 'mini';
 }
 export default class Select extends WeElement<Props> {
     static css: any;
@@ -15,6 +16,7 @@ export default class Select extends WeElement<Props> {
         active: BooleanConstructor;
         value: StringConstructor;
         placeholder: StringConstructor;
+        size: StringConstructor;
     };
     installed(): void;
     updated(): void;
