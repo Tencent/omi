@@ -88,28 +88,6 @@ or
 <my-element show="0"></my-element>
 ```
 
-## Using omiu in react
-
-```tsx
-/** @jsx nativeEvents */
-import nativeEvents from 'jsx-native-events'
-import { useState } from 'react'
-import '@omiu/icon-button'
-
-export default function SomeComponent(props) {
-    const [result, setSwitch] = useState(false)
-
-    return (
-      <div>
-        <p>The switch is {result ? 'on' : 'off'}</p>
-        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
-        </o-icon-button>
-      </div>
-    )
-}
-```
-
-Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme)。
 
 ## Using omiu in Vue
 
@@ -139,6 +117,50 @@ export default {
   </div>
 </template>
 ```
+
+## Using omiu in preact
+
+```tsx
+import { useState, h } from 'preact'
+import '@omiu/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onChange={e => setSwitch(e.detail.isOn)}>
+        </o-icon-button>
+      </div>
+    )
+}
+```
+
+
+## Using omiu in react
+
+```tsx
+/** @jsx nativeEvents */
+import nativeEvents from 'jsx-native-events'
+import { useState } from 'react'
+import '@omiu/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
+        </o-icon-button>
+      </div>
+    )
+}
+```
+
+Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme)。
+
 
 ## Event triggering and binding best practices
 
