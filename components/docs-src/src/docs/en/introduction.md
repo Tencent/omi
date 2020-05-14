@@ -142,7 +142,7 @@ export default {
 
 ## Event triggering and binding best practices
 
-Due to the need for cross framework, in order to unify component behavior in event binding, best practices for component development and use are given here. The event triggering of the omiu component is in the form of lowercase or lowercase + middle Dash:
+Due to the need for cross framework, in order to unify component behavior in event binding, best practices for component development and use are given here. The event triggering of the omiu component is in the form of lowercase or lowercase + middle dash:
 
 ```js
 this.fire('change')
