@@ -42,3 +42,4 @@ Or use script tag to ref it.
 * node-click
 * node-arrow-click
 * context-menu
+* action-icon-click

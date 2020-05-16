@@ -42,3 +42,4 @@ import '@omiu/tree'
 * node-click
 * node-arrow-click
 * context-menu
+* action-icon-click
