@@ -649,3 +649,18 @@
   top: 4px;
   right: 4px;
 }
+
+
+.action-icons {
+  position: absolute;
+  font-size: 10px;
+  top: 4px;
+  right: 4px;
+}
+
+.action-icon {
+  display: inline-block;
+  font-size: 15px;
+  margin-left: 15px;
+  cursor: pointer;
+}

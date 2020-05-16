@@ -43,6 +43,11 @@ export default class Tree extends WeElement<Props>{
     })
   }
 
+  onActionIcon = (evt, icon) => {
+    evt.stopPropagation()
+    this.fire('action-icon-click', icon)
+  }
+
   renderNode(node, level) {
     if (node.selected) {
       this.prevSelectedNode = node
@@ -66,6 +71,16 @@ export default class Tree extends WeElement<Props>{
           return this.renderNode(child, level + 1)
         })}
       </div>}
+      {
+        node.actionIcons &&
+        <div class="action-icons">
+          {node.actionIcons.map(actionIcon => {
+            this._tempTagName = 'o-icon-' + actionIcon
+            return <this._tempTagName onclick={_ => this.onActionIcon(_, actionIcon)} class="action-icon" />
+          })}
+        </div>
+
+      }
       {node.sign && <span style={node.color && { color: node.color }} class="sign">{node.sign}</span>}
     </div>
   }

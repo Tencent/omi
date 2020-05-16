@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.6 http://omijs.org
+ * @omiu/tree v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -598,6 +598,18 @@ var css = `:host {
   font-size: 10px;
   top: 4px;
   right: 4px; }
+
+.action-icons {
+  position: absolute;
+  font-size: 10px;
+  top: 4px;
+  right: 4px; }
+
+.action-icon {
+  display: inline-block;
+  font-size: 15px;
+  margin-left: 15px;
+  cursor: pointer; }
 `
 
 
@@ -627,6 +639,10 @@ var Tree = /** @class */ (function (_super) {
                 node: node
             });
         };
+        _this.onActionIcon = function (evt, icon) {
+            evt.stopPropagation();
+            _this.fire('action-icon-click', icon);
+        };
         return _this;
     }
     Tree.prototype.renderNode = function (node, level) {
@@ -650,6 +666,11 @@ var Tree = /** @class */ (function (_super) {
             node.expanded && node.children && node.children.length > 0 && h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
                 return _this.renderNode(child, level + 1);
             })),
+            node.actionIcons &&
+                h("div", { class: "action-icons" }, node.actionIcons.map(function (actionIcon) {
+                    _this._tempTagName = 'o-icon-' + actionIcon;
+                    return h(_this._tempTagName, { onclick: function (_) { return _this.onActionIcon(_, actionIcon); }, class: "action-icon" });
+                })),
             node.sign && h("span", { style: node.color && { color: node.color }, class: "sign" }, node.sign));
     };
     Tree.prototype.render = function (props) {
