@@ -1,6 +1,6 @@
 {
   "name": "@omiu/action-sheet",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Mobile pop-up options list",
   "docsExtend": {
     "cnName": "弹出式菜单",
@@ -15,7 +15,7 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+    "build": "rollup -c scripts/rollup.config.iife.js && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
@@ -96,6 +96,8 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
     "omi": "latest"
   }
 }
