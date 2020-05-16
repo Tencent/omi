@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.5 http://omijs.org
+ * @omiu/tree v0.0.6 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
