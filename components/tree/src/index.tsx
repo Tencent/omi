@@ -76,7 +76,6 @@ export default class Tree extends WeElement<Props>{
   onEditInputBlur = () => {
     //这个if防止 enter 和这失去焦点冲突
     if (this.prevSelectedNode.editing) {
-      console.log(123232)
       this.prevSelectedNode.editing = false
       this.forceUpdate()
     }
@@ -94,7 +93,6 @@ export default class Tree extends WeElement<Props>{
       //enter
       if (evt.keyCode === 13) {
         if (this.prevSelectedNode.editing) {
-          console.log(44)
           this.prevSelectedNode.editing = false
 
           this.prevSelectedNode.label = this.editInput.value
@@ -106,7 +104,6 @@ export default class Tree extends WeElement<Props>{
 
 
         } else {
-          console.log(55)
           this.prevSelectedNode.editing = true
           this.forceUpdate()
 
@@ -135,7 +132,9 @@ export default class Tree extends WeElement<Props>{
         })} data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
         </svg> : <span class="is-leaf o-tree-node__expand-icon"></span>}
-        <span style={node.color && { color: node.color }} class="o-tree-node__label">{node.icon && <this._tempTagName />}
+        <span style={node.color && { color: node.color }} {...extractClass({}, 'o-tree-node__label', {
+          'is-editing': node.editing
+        })} >{node.icon && <this._tempTagName />}
           {node.editing ? <input value={node.label} onChange={this.onEditInputChange} onBlur={this.onEditInputBlur} ref={_ => this.editInput = _} class="edit-input" onClick={evt => evt.stopPropagation()} /> : node.label}</span>
       </div>
       {node.expanded && node.children && node.children.length > 0 && <div role="group" class="o-tree-node__children" style="" aria-expanded="true" data-old-padding-top="" data-old-padding-bottom="" data-old-overflow="">

@@ -677,3 +677,7 @@
   text-overflow: ellipsis;
   padding-right: 32px;
 }
+
+.o-tree-node__label.is-editing {
+  text-overflow: unset;
+}

@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.8 http://omijs.org
+ * @omiu/tree v0.0.9 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -620,6 +620,9 @@ var css = `:host {
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 32px; }
+
+.o-tree-node__label.is-editing {
+  text-overflow: unset; }
 `
 
 
@@ -656,7 +659,6 @@ var Tree = /** @class */ (function (_super) {
         _this.onEditInputBlur = function () {
             //这个if防止 enter 和这失去焦点冲突
             if (_this.prevSelectedNode.editing) {
-                console.log(123232);
                 _this.prevSelectedNode.editing = false;
                 _this.forceUpdate();
             }
@@ -690,7 +692,6 @@ var Tree = /** @class */ (function (_super) {
             //enter
             if (evt.keyCode === 13) {
                 if (_this.prevSelectedNode.editing) {
-                    console.log(44);
                     _this.prevSelectedNode.editing = false;
                     _this.prevSelectedNode.label = _this.editInput.value;
                     //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
@@ -698,7 +699,6 @@ var Tree = /** @class */ (function (_super) {
                     _this.forceUpdate();
                 }
                 else {
-                    console.log(55);
                     _this.prevSelectedNode.editing = true;
                     _this.forceUpdate();
                     _this.editInput.focus();
@@ -721,7 +721,9 @@ var Tree = /** @class */ (function (_super) {
                     'expanded': node.expanded,
                 }), { "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" }),
                     h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" })) : h("span", { class: "is-leaf o-tree-node__expand-icon" }),
-                h("span", { style: node.color && { color: node.color }, class: "o-tree-node__label" },
+                h("span", __assign({ style: node.color && { color: node.color } }, extractClass({}, 'o-tree-node__label', {
+                    'is-editing': node.editing
+                })),
                     node.icon && h(this._tempTagName, null),
                     node.editing ? h("input", { value: node.label, onChange: this.onEditInputChange, onBlur: this.onEditInputBlur, ref: function (_) { return _this.editInput = _; }, class: "edit-input", onClick: function (evt) { return evt.stopPropagation(); } }) : node.label)),
             node.expanded && node.children && node.children.length > 0 && h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
