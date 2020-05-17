@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 
 interface Props {
-  data?: object
+  data?: any[]
 }
 
 
@@ -12,7 +12,7 @@ export default class Tree extends WeElement<Props>{
   static css = css
 
   static propTypes = {
-    data: Object
+    data: Array
   }
 
   onNodeClick = (evt, node) => {
@@ -47,6 +47,27 @@ export default class Tree extends WeElement<Props>{
     evt.stopPropagation()
     this.fire('action-icon-click', icon)
   }
+
+  fold() {
+    this.props.data.forEach(node => {
+      this._fold(node)
+    })
+
+    this.forceUpdate()
+
+    this.fire('fold')
+  }
+
+  _fold(node) {
+    node.expanded = false
+    if (node.children) {
+      node.children.forEach(child => {
+        this._fold(child)
+      })
+    }
+  }
+
+
 
   renderNode(node, level) {
     if (node.selected) {
