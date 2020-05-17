@@ -33,13 +33,20 @@ import '@omiu/tree'
 
 ```tsx
 {
-  data?: object
+  data?: any[]
+  padding: number
 }
 ```
 
-
+### 默认属性
+```tsx
+{
+  padding: 10
+}
+```
 ### 事件
 * node-click
 * node-arrow-click
 * context-menu
 * action-icon-click
+* fold

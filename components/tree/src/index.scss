@@ -664,3 +664,16 @@
   margin-left: 15px;
   cursor: pointer;
 }
+
+
+.edit-input {
+  width: 100%;
+}
+
+.o-tree-node__label {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 32px;
+}

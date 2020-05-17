@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.7 http://omijs.org
+ * @omiu/tree v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -610,6 +610,16 @@ var css = `:host {
   font-size: 15px;
   margin-left: 15px;
   cursor: pointer; }
+
+.edit-input {
+  width: 100%; }
+
+.o-tree-node__label {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 32px; }
 `
 
 
@@ -643,8 +653,59 @@ var Tree = /** @class */ (function (_super) {
             evt.stopPropagation();
             _this.fire('action-icon-click', icon);
         };
+        _this.onEditInputBlur = function () {
+            //这个if防止 enter 和这失去焦点冲突
+            if (_this.prevSelectedNode.editing) {
+                console.log(123232);
+                _this.prevSelectedNode.editing = false;
+                _this.forceUpdate();
+            }
+        };
+        _this.onEditInputChange = function (evt) {
+            _this.prevSelectedNode.label = evt.target.value;
+            _this.forceUpdate();
+        };
         return _this;
     }
+    Tree.prototype.fold = function () {
+        var _this = this;
+        this.props.data.forEach(function (node) {
+            _this._fold(node);
+        });
+        this.forceUpdate();
+        this.fire('fold');
+    };
+    Tree.prototype._fold = function (node) {
+        var _this = this;
+        node.expanded = false;
+        if (node.children) {
+            node.children.forEach(function (child) {
+                _this._fold(child);
+            });
+        }
+    };
+    Tree.prototype.installed = function () {
+        var _this = this;
+        window.addEventListener('keydown', function (evt) {
+            //enter
+            if (evt.keyCode === 13) {
+                if (_this.prevSelectedNode.editing) {
+                    console.log(44);
+                    _this.prevSelectedNode.editing = false;
+                    _this.prevSelectedNode.label = _this.editInput.value;
+                    //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+                    _this.editInput.blur();
+                    _this.forceUpdate();
+                }
+                else {
+                    console.log(55);
+                    _this.prevSelectedNode.editing = true;
+                    _this.forceUpdate();
+                    _this.editInput.focus();
+                }
+            }
+        });
+    };
     Tree.prototype.renderNode = function (node, level) {
         var _this = this;
         if (node.selected) {
@@ -655,23 +716,23 @@ var Tree = /** @class */ (function (_super) {
             'is-expanded': node.expanded,
             'is-current': node.selected
         })),
-            h("div", { class: "o-tree-node__content", style: "padding-left: " + level * 18 + "px;" },
+            h("div", { class: "o-tree-node__content", style: "padding-left: " + level * this.props.padding + "px;" },
                 (node.children && node.children.length > 0) ? h("svg", __assign({ onClick: function (_) { return _this.onNodeArrowClick(node); }, viewBox: "0 0 1024 1024" }, extractClass({}, 'o-tree-node__expand-icon', {
                     'expanded': node.expanded,
                 }), { "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" }),
                     h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" })) : h("span", { class: "is-leaf o-tree-node__expand-icon" }),
                 h("span", { style: node.color && { color: node.color }, class: "o-tree-node__label" },
                     node.icon && h(this._tempTagName, null),
-                    node.label)),
+                    node.editing ? h("input", { value: node.label, onChange: this.onEditInputChange, onBlur: this.onEditInputBlur, ref: function (_) { return _this.editInput = _; }, class: "edit-input", onClick: function (evt) { return evt.stopPropagation(); } }) : node.label)),
             node.expanded && node.children && node.children.length > 0 && h("div", { role: "group", class: "o-tree-node__children", style: "", "aria-expanded": "true", "data-old-padding-top": "", "data-old-padding-bottom": "", "data-old-overflow": "" }, node.children.map(function (child) {
                 return _this.renderNode(child, level + 1);
             })),
-            node.actionIcons &&
+            (!node.editing && node.actionIcons) &&
                 h("div", { class: "action-icons" }, node.actionIcons.map(function (actionIcon) {
                     _this._tempTagName = 'o-icon-' + actionIcon;
                     return h(_this._tempTagName, { onclick: function (_) { return _this.onActionIcon(_, actionIcon); }, class: "action-icon" });
                 })),
-            node.sign && h("span", { style: node.color && { color: node.color }, class: "sign" }, node.sign));
+            (!node.editing && node.sign) && h("span", { style: node.color && { color: node.color }, class: "sign" }, node.sign));
     };
     Tree.prototype.render = function (props) {
         var _this = this;
@@ -680,8 +741,12 @@ var Tree = /** @class */ (function (_super) {
         })));
     };
     Tree.css = css;
+    Tree.defaultProps = {
+        padding: 10
+    };
     Tree.propTypes = {
-        data: Object
+        data: Array,
+        padding: Number
     };
     Tree = __decorate([
         tag('o-tree')

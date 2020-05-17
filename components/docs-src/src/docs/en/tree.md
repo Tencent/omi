@@ -32,14 +32,22 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  data?: object
+  data?: any[]
+  padding: number
 }
 ```
 
+### defaultProps
 
+```tsx
+{
+  padding: 10
+}
+```
 ### Events
 
 * node-click
 * node-arrow-click
 * context-menu
 * action-icon-click
+* fold
