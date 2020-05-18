@@ -89,27 +89,35 @@ export default class Tree extends WeElement<Props>{
   editInput
 
   installed() {
+
+    window.addEventListener('click', (evt) => {
+      this.prevSelectedNode.selected = false
+      this.prevSelectedNode = null
+      this.forceUpdate()
+    })
+
     window.addEventListener('keydown', (evt) => {
       //enter
       if (evt.keyCode === 13) {
-        if (this.prevSelectedNode.editing) {
-          this.prevSelectedNode.editing = false
+        if (this.prevSelectedNode) {
+          if (this.prevSelectedNode.editing) {
+            this.prevSelectedNode.editing = false
 
-          this.prevSelectedNode.label = this.editInput.value
+            this.prevSelectedNode.label = this.editInput.value
 
-          //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
-          this.editInput.blur()
+            //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+            this.editInput.blur()
 
-          this.forceUpdate()
+            this.forceUpdate()
 
 
-        } else {
-          this.prevSelectedNode.editing = true
-          this.forceUpdate()
+          } else {
+            this.prevSelectedNode.editing = true
+            this.forceUpdate()
 
-          this.editInput.focus()
+            this.editInput.focus()
+          }
         }
-
       }
     })
   }

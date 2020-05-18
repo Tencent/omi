@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.9 http://omijs.org
+ * @omiu/tree v0.0.10 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -10,18 +10,18 @@
     'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -122,20 +122,27 @@ var css = ":host {\n  display: block; }\n\n.o-fade-in-enter,\n.o-fade-in-leave-a
         };
         Tree.prototype.installed = function () {
             var _this = this;
+            window.addEventListener('click', function (evt) {
+                _this.prevSelectedNode.selected = false;
+                _this.prevSelectedNode = null;
+                _this.forceUpdate();
+            });
             window.addEventListener('keydown', function (evt) {
                 //enter
                 if (evt.keyCode === 13) {
-                    if (_this.prevSelectedNode.editing) {
-                        _this.prevSelectedNode.editing = false;
-                        _this.prevSelectedNode.label = _this.editInput.value;
-                        //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
-                        _this.editInput.blur();
-                        _this.forceUpdate();
-                    }
-                    else {
-                        _this.prevSelectedNode.editing = true;
-                        _this.forceUpdate();
-                        _this.editInput.focus();
+                    if (_this.prevSelectedNode) {
+                        if (_this.prevSelectedNode.editing) {
+                            _this.prevSelectedNode.editing = false;
+                            _this.prevSelectedNode.label = _this.editInput.value;
+                            //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+                            _this.editInput.blur();
+                            _this.forceUpdate();
+                        }
+                        else {
+                            _this.prevSelectedNode.editing = true;
+                            _this.forceUpdate();
+                            _this.editInput.focus();
+                        }
                     }
                 }
             });
