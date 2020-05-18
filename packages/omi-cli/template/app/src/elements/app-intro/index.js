@@ -12,10 +12,15 @@ define('app-intro', class extends WeElement {
     )
   }
 
-  render() {
+  static propTypes = {
+    arr: Array
+  }
+
+  render(props) {
     return <>
       <p class="app-intro">
         To get started, edit <code>src/elements/*/*.*</code> and save to reload.
+        <div>{props.arr.join('-')}</div>
       </p>
     </>
   }
