@@ -122,9 +122,6 @@ export default class WeElement extends HTMLElement {
     options.afterInstall && options.afterInstall(this)
 
     const rendered = this.render(this.props, this.store)
-    this.__hasChildren =
-      Object.prototype.toString.call(rendered) === '[object Array]' &&
-      rendered.length > 0
 
     this.rootNode = diff(null, rendered, null, this)
     this.rendered()
@@ -176,10 +173,6 @@ export default class WeElement extends HTMLElement {
 
     const rendered = this.render(this.props, this.store)
     this.rendered()
-    this.__hasChildren =
-      this.__hasChildren ||
-      (Object.prototype.toString.call(rendered) === '[object Array]' &&
-        rendered.length > 0)
 
     this.rootNode = diff(
       this.rootNode,
