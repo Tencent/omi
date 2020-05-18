@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.10 http://omijs.org
+ * @omiu/tree v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -589,6 +589,9 @@ var css = `:host {
 .o-tree-node.is-expanded > .o-tree-node__children {
   display: block; }
 
+.o-tree-node.is-current-blur > .o-tree-node__content {
+  background-color: rgba(0, 0, 0, 0.1); }
+
 .o-tree-node.is-current > .o-tree-node__content {
   background-color: rgba(7, 193, 96, 0.241);
   background-color: var(--o-primary-fade-more, rgba(7, 193, 96, 0.241)); }
@@ -635,6 +638,9 @@ var Tree = /** @class */ (function (_super) {
             node.expanded = !node.expanded;
             if (_this.prevSelectedNode) {
                 _this.prevSelectedNode.selected = false;
+            }
+            if (_this.prevBlurSelectedNode) {
+                _this.prevBlurSelectedNode.selectedBlur = false;
             }
             node.selected = true;
             _this.forceUpdate();
@@ -690,6 +696,8 @@ var Tree = /** @class */ (function (_super) {
         var _this = this;
         window.addEventListener('click', function (evt) {
             _this.prevSelectedNode.selected = false;
+            _this.prevSelectedNode.selectedBlur = true;
+            _this.prevBlurSelectedNode = _this.prevSelectedNode;
             _this.prevSelectedNode = null;
             _this.forceUpdate();
         });
@@ -721,7 +729,8 @@ var Tree = /** @class */ (function (_super) {
         this._tempTagName = 'o-icon-' + node.icon;
         return h("div", __assign({ role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) { _this.onNodeClick(evt, node); } }, extractClass({}, 'o-tree-node', {
             'is-expanded': node.expanded,
-            'is-current': node.selected
+            'is-current': node.selected,
+            'is-current-blur': node.selectedBlur
         })),
             h("div", { class: "o-tree-node__content", style: "padding-left: " + level * this.props.padding + "px;" },
                 (node.children && node.children.length > 0) ? h("svg", __assign({ onClick: function (_) { return _this.onNodeArrowClick(node); }, viewBox: "0 0 1024 1024" }, extractClass({}, 'o-tree-node__expand-icon', {

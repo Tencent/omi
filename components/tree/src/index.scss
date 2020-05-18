@@ -637,11 +637,14 @@
   display: block
 }
 
+.o-tree-node.is-current-blur>.o-tree-node__content {
+  background-color: rgba(0, 0, 0, .1)
+}
+
 .o-tree-node.is-current>.o-tree-node__content {
   background-color: $o-primary-fade-more;
   background-color: var(--o-primary-fade-more, $o-primary-fade-more);
 }
-
 
 .sign {
   position: absolute;

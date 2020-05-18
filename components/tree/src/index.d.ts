@@ -23,6 +23,7 @@ export default class Tree extends WeElement<Props> {
     onEditInputBlur: () => void;
     onEditInputChange: (evt: any) => void;
     editInput: any;
+    prevBlurSelectedNode: any;
     installed(): void;
     renderNode(node: any, level: any): JSX.Element;
     render(props: any): JSX.Element;

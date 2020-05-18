@@ -531,6 +531,9 @@
 .o-tree-node.is-expanded > .o-tree-node__children {
   display: block; }
 
+.o-tree-node.is-current-blur > .o-tree-node__content {
+  background-color: rgba(0, 0, 0, 0.1); }
+
 .o-tree-node.is-current > .o-tree-node__content {
   background-color: rgba(7, 193, 96, 0.241);
   background-color: var(--o-primary-fade-more, rgba(7, 193, 96, 0.241)); }
