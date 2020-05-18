@@ -14,6 +14,7 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.3.1",
+    "@omiu/button": "latest",
     "autoprefixer": "7.1.6",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "7.2.3",
@@ -45,7 +46,6 @@
     "omi": "latest",
     "omi-router": "latest",
     "omio": "latest",
-    "omiu": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -137,7 +137,5 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "alias": {
-    "omi": "omio"
-  }
+  "alias": {}
 }

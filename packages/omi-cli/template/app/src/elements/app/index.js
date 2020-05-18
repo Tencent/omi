@@ -1,8 +1,7 @@
 import { define, WeElement } from 'omi'
 import logo from './logo.svg'
 import '../app-intro'
-import '../app-omil'
-import 'omiu/button'
+import '@omiu/button'
 
 define('my-app', class extends WeElement {
   static css = require('./_index.less')
@@ -10,7 +9,7 @@ define('my-app', class extends WeElement {
   name = 'Omi'
 
   clickHandler = () => {
-    this.name = 'Omio'
+    this.name = 'OMI'
     this.update()
   }
 
@@ -27,8 +26,7 @@ define('my-app', class extends WeElement {
           <h1 class="app-title">Welcome to {this.name}</h1>
         </header>
         <app-intro />
-        <o-button style='width:200px;'>I am omiu button.</o-button>
-        <app-omil />
+        <o-button>I am omiu button</o-button>
       </div>
     )
   }
