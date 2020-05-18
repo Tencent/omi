@@ -697,7 +697,6 @@
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             var rendered = this.render(this.props, this.store);
-            this.P = '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
             this.rootNode = diff(null, rendered, null, this);
             this.rendered();
             if (this.props.css) {
@@ -734,7 +733,6 @@
             this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.store);
             this.rendered();
-            this.P = this.P || '[object Array]' === Object.prototype.toString.call(rendered) && rendered.length > 0;
             this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
             this.J = !1;
             this.updated();
@@ -1072,7 +1070,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.2';
+    options.root.Omi.version = '6.19.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

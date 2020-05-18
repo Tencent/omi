@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.2  http://omijs.org
+ * Omi v6.19.3  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -927,7 +927,6 @@ var WeElement = function (_HTMLElement) {
     options.afterInstall && options.afterInstall(this);
 
     var rendered = this.render(this.props, this.store);
-    this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
     this.rootNode = diff(null, rendered, null, this);
     this.rendered();
@@ -979,7 +978,6 @@ var WeElement = function (_HTMLElement) {
 
     var rendered = this.render(this.props, this.store);
     this.rendered();
-    this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
     this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
     this._willUpdate = false;
@@ -1847,7 +1845,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.2';
+options.root.Omi.version = '6.19.3';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };
