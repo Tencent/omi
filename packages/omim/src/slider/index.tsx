@@ -42,6 +42,10 @@ export default class Slider extends WeElement<Props>{
     slider.listen('MDCSlider:change', () => {
       this.fire('change', { value: slider.value })
     });
+
+    slider.listen('MDCSlider:input', () => {
+      this.fire('input', { value: slider.value })
+    });
   }
 
   render(props) {

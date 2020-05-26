@@ -16,17 +16,17 @@ export default class Table extends WeElement<Props> {
     _changeHandlerTd: (e: any, item: any) => void;
     beforeRender(): void;
     _getCheckedState(): {
-        'indeterminate': boolean;
-        'unchecked'?: undefined;
-        'checked'?: undefined;
+        indeterminate: boolean;
+        unchecked?: undefined;
+        checked?: undefined;
     } | {
-        'unchecked': boolean;
-        'indeterminate'?: undefined;
-        'checked'?: undefined;
+        unchecked: boolean;
+        indeterminate?: undefined;
+        checked?: undefined;
     } | {
-        'checked': boolean;
-        'indeterminate'?: undefined;
-        'unchecked'?: undefined;
+        checked: boolean;
+        indeterminate?: undefined;
+        unchecked?: undefined;
     };
     render(props: any): JSX.Element;
 }
