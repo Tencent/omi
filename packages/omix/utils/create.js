@@ -174,7 +174,7 @@ create.Component = function (store, option) {
     }
 
     option.lifetimes.detached = option.detached = function (e) {
-      this.store.instances[this.is] = this.store.instances[this.is].filter(ins => ins !== this)
+      this.store.instances[this.is] = (this.store.instances[this.is] || []).filter(ins => ins !== this)
       detached && detached.call(this, e)
     }
 
