@@ -1,5 +1,5 @@
 /**
- * omiv v1.0.5  https://tencent.github.io/omi/
+ * omiv v1.0.6  https://tencent.github.io/omi/
  * 1kb store system for Vue apps.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -243,6 +243,99 @@
     return mpPath;
   }
 
+  function repeat(str, times) {
+    return new Array(times + 1).join(str);
+  }
+
+  function pad(num, maxLength) {
+    return repeat('0', maxLength - num.toString().length) + num;
+  }
+
+  function find(list, f) {
+    return list.filter(f)[0];
+  }
+
+  function deepCopy(obj) {
+    var cache = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+    // just return if obj is immutable value
+    if (obj === null || typeof obj !== 'object') {
+      return obj;
+    }
+
+    // if obj is hit, it is in circular structure
+    var hit = find(cache, function (c) {
+      return c.original === obj;
+    });
+    if (hit) {
+      return hit.copy;
+    }
+
+    var copy = Array.isArray(obj) ? [] : {};
+    // put the copy into cache at first
+    // because we want to refer it in recursive deepCopy
+    cache.push({
+      original: obj,
+      copy: copy
+    });
+
+    Object.keys(obj).forEach(function (key) {
+      // filter internal attrs
+      if (key.startsWith('__')) return;
+      copy[key] = deepCopy(obj[key], cache);
+    });
+
+    return copy;
+  }
+
+  function createLogger() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$collapsed = _ref.collapsed,
+        collapsed = _ref$collapsed === undefined ? true : _ref$collapsed,
+        _ref$logger = _ref.logger,
+        logger = _ref$logger === undefined ? console : _ref$logger;
+
+    return function (store) {
+      var prevState = deepCopy(store.data);
+
+      if (!store._subscribers) {
+        store._subscribers = [];
+      }
+
+      store._subscribers.push(function (mutation, state) {
+        if (typeof logger === 'undefined') {
+          return;
+        }
+        var nextState = deepCopy(state);
+
+        var time = new Date();
+        var formattedTime = ' @ ' + pad(time.getHours(), 2) + ':' + pad(time.getMinutes(), 2) + ':' + pad(time.getSeconds(), 2) + '.' + pad(time.getMilliseconds(), 3);
+        var message = 'mutation ' + mutation.type + formattedTime;
+        var startMessage = collapsed ? logger.groupCollapsed : logger.group;
+
+        // render
+        try {
+          startMessage.call(logger, message);
+        } catch (e) {
+          // eslint-disable-next-line
+          console.log(message);
+        }
+
+        logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', prevState);
+        logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', mutation.type, mutation.value);
+        logger.log('%c next state', 'color: #4CAF50; font-weight: bold', nextState);
+
+        try {
+          logger.groupEnd();
+        } catch (e) {
+          logger.log('—— log end ——');
+        }
+
+        prevState = nextState;
+      });
+    };
+  }
+
   var Vue;
   var store;
   var isMultiStore = false;
@@ -335,6 +428,21 @@
   function observe(store, storeName) {
     store.components = [];
     store.updateSelfComponents = [];
+    store._subscribers = [];
+
+    if (store.logPlugin) {
+      store.plugins = store.plugins ? [].concat(store.plugins, [createLogger()]) : [createLogger()];
+    }
+
+    // 启动插件
+    var _store$plugins = store.plugins,
+        plugins = _store$plugins === undefined ? [] : _store$plugins;
+
+    if (plugins.length) {
+      plugins.forEach(function (plugin) {
+        return plugin(store);
+      });
+    }
 
     // 非 window 环境下不需要观察数据
     if (typeof window === 'undefined') return;
@@ -343,6 +451,11 @@
       var patch = {};
 
       patch[fixPath(path + '-' + prop)] = true;
+
+      store._subscribers.forEach(function (sub) {
+        return sub({ type: path + '-' + prop, value: val }, store.data);
+      });
+
       store.components.forEach(function (component) {
         var p = component.__$updatePath_;
         if (storeName) {
@@ -504,16 +617,19 @@
     }
 
     function omivDestroyed() {
-      if (isMultiStore) {
-        for (var key in this.$store) {
-          if (key !== 'replaceState') {
-            removeItem(this, this.$store[key].components);
-            removeItem(this, this.$store[key].updateSelfComponents);
+      if (this.$store) {
+        //防止其他组件库 this.$store undefined 进入 omivDestroyed 报错
+        if (isMultiStore) {
+          for (var key in this.$store) {
+            if (key !== 'replaceState') {
+              removeItem(this, this.$store[key].components);
+              removeItem(this, this.$store[key].updateSelfComponents);
+            }
           }
+        } else {
+          removeItem(this, this.$store.updateSelfComponents);
+          removeItem(this, this.$store.components);
         }
-      } else {
-        removeItem(this, this.$store.updateSelfComponents);
-        removeItem(this, this.$store.components);
       }
     }
 
