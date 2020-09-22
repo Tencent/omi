@@ -219,10 +219,7 @@
                 }
             }
             (node.__l || (node.__l = {}))[name] = value;
-        } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
-            setProperty(node, name, null == value ? '' : value);
-            if (null == value || !1 === value) node.removeAttribute(name);
-        } else {
+        } else if ('list' !== name && 'tagName' !== name && 'form' !== name && 'type' !== name && 'size' !== name && 'download' !== name && 'href' !== name && !isSvg && name in node) setProperty(node, name, null == value ? '' : value); else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
             if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
         }
@@ -1256,7 +1253,7 @@
         obaa: obaa
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.8.2';
+    options.root.Omi.version = 'omio-2.8.3';
     var Omi = {
         h: h,
         createElement: h,

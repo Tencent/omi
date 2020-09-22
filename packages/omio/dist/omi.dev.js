@@ -1,5 +1,5 @@
 /**
- * omi v2.8.2  https://tencent.github.io/omi/
+ * omi v2.8.3  https://tencent.github.io/omi/
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -501,54 +501,54 @@
    *	@returns {Element} node
    */
   function createNode(nodeName, isSvg) {
-    var node = isSvg ? options.doc.createElementNS('http://www.w3.org/2000/svg', nodeName) : options.doc.createElement(nodeName);
-    node.normalizedNodeName = nodeName;
-    return node;
+  	var node = isSvg ? options.doc.createElementNS('http://www.w3.org/2000/svg', nodeName) : options.doc.createElement(nodeName);
+  	node.normalizedNodeName = nodeName;
+  	return node;
   }
 
   function parseCSSText(cssText) {
-    var cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ');
-    var style = {},
-        _ref = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [a, b, cssTxt],
-        a = _ref[0],
-        b = _ref[1],
-        rule = _ref[2];
+  	var cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ');
+  	var style = {},
+  	    _ref = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [a, b, cssTxt],
+  	    a = _ref[0],
+  	    b = _ref[1],
+  	    rule = _ref[2];
 
-    var cssToJs = function cssToJs(s) {
-      return s.replace(/\W+\w/g, function (match) {
-        return match.slice(-1).toUpperCase();
-      });
-    };
-    var properties = rule.split(';').map(function (o) {
-      return o.split(':').map(function (x) {
-        return x && x.trim();
-      });
-    });
-    for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator]();;) {
-      var _ref3;
+  	var cssToJs = function cssToJs(s) {
+  		return s.replace(/\W+\w/g, function (match) {
+  			return match.slice(-1).toUpperCase();
+  		});
+  	};
+  	var properties = rule.split(';').map(function (o) {
+  		return o.split(':').map(function (x) {
+  			return x && x.trim();
+  		});
+  	});
+  	for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator]();;) {
+  		var _ref3;
 
-      if (i) {
-        if (i >= i.length) break;
-        _ref3 = i[i++];
-      } else {
-        i = i.next();
-        if (i.done) break;
-        _ref3 = i.value;
-      }
+  		if (i) {
+  			if (i >= i.length) break;
+  			_ref3 = i[i++];
+  		} else {
+  			i = i.next();
+  			if (i.done) break;
+  			_ref3 = i.value;
+  		}
 
-      var _ref2 = _ref3;
-      var property = _ref2[0];
-      var value = _ref2[1];
-      style[cssToJs(property)] = value;
-    }return style;
+  		var _ref2 = _ref3;
+  		var property = _ref2[0];
+  		var value = _ref2[1];
+  		style[cssToJs(property)] = value;
+  	}return style;
   }
 
   /** Remove a child node from its parent if attached.
    *	@param {Element} node		The node to remove
    */
   function removeNode(node) {
-    var parentNode = node.parentNode;
-    if (parentNode) parentNode.removeChild(node);
+  	var parentNode = node.parentNode;
+  	if (parentNode) parentNode.removeChild(node);
   }
 
   /** Set a named attribute on the given Node, with special behavior for some names and event handlers.
@@ -561,126 +561,128 @@
    *	@private
    */
   function setAccessor(node, name, old, value, isSvg) {
-    if (name === 'className') name = 'class';
+  	if (name === 'className') name = 'class';
 
-    if (name === 'key') {
-      // ignore
-    } else if (name === 'ref') {
-      applyRef(old, null);
-      applyRef(value, node);
-    } else if (name === 'class' && !isSvg) {
-      node.className = value || '';
-    } else if (name === 'style') {
-      if (options.isWeb) {
-        if (!value || typeof value === 'string' || typeof old === 'string') {
-          node.style.cssText = value || '';
-        }
-        if (value && typeof value === 'object') {
-          if (typeof old !== 'string') {
-            for (var i in old) {
-              if (!(i in value)) node.style[i] = '';
-            }
-          }
-          for (var i in value) {
-            node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL$1.test(i) === false ? value[i] + 'px' : value[i];
-          }
-        }
-      } else {
-        var oldJson = old,
-            currentJson = value;
-        if (typeof old === 'string') {
-          oldJson = parseCSSText(old);
-        }
-        if (typeof value == 'string') {
-          currentJson = parseCSSText(value);
-        }
+  	if (name === 'key') {
+  		// ignore
+  	} else if (name === 'ref') {
+  		applyRef(old, null);
+  		applyRef(value, node);
+  	} else if (name === 'class' && !isSvg) {
+  		node.className = value || '';
+  	} else if (name === 'style') {
+  		if (options.isWeb) {
+  			if (!value || typeof value === 'string' || typeof old === 'string') {
+  				node.style.cssText = value || '';
+  			}
+  			if (value && typeof value === 'object') {
+  				if (typeof old !== 'string') {
+  					for (var i in old) {
+  						if (!(i in value)) node.style[i] = '';
+  					}
+  				}
+  				for (var i in value) {
+  					node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL$1.test(i) === false ? value[i] + 'px' : value[i];
+  				}
+  			}
+  		} else {
+  			var oldJson = old,
+  			    currentJson = value;
+  			if (typeof old === 'string') {
+  				oldJson = parseCSSText(old);
+  			}
+  			if (typeof value == 'string') {
+  				currentJson = parseCSSText(value);
+  			}
 
-        var result = {},
-            changed = false;
+  			var result = {},
+  			    changed = false;
 
-        if (oldJson) {
-          for (var key in oldJson) {
-            if (typeof currentJson == 'object' && !(key in currentJson)) {
-              result[key] = '';
-              changed = true;
-            }
-          }
+  			if (oldJson) {
+  				for (var key in oldJson) {
+  					if (typeof currentJson == 'object' && !(key in currentJson)) {
+  						result[key] = '';
+  						changed = true;
+  					}
+  				}
 
-          for (var ckey in currentJson) {
-            if (currentJson[ckey] !== oldJson[ckey]) {
-              result[ckey] = currentJson[ckey];
-              changed = true;
-            }
-          }
+  				for (var ckey in currentJson) {
+  					if (currentJson[ckey] !== oldJson[ckey]) {
+  						result[ckey] = currentJson[ckey];
+  						changed = true;
+  					}
+  				}
 
-          if (changed) {
-            node.setStyles(result);
-          }
-        } else {
-          node.setStyles(currentJson);
-        }
-      }
-    } else if (name === 'dangerouslySetInnerHTML') {
-      if (value) node.innerHTML = value.__html || '';
-    } else if (name[0] == 'o' && name[1] == 'n') {
-      var useCapture = name !== (name = name.replace(/Capture$/, ''));
-      var nameLower = name.toLowerCase();
-      name = (nameLower in node ? nameLower : name).slice(2);
-      if (value) {
-        if (!old) {
-          node.addEventListener(name, eventProxy, useCapture);
-          if (name == 'tap') {
-            node.addEventListener('touchstart', touchStart, useCapture);
-            node.addEventListener('touchend', touchEnd, useCapture);
-          }
-        }
-      } else {
-        node.removeEventListener(name, eventProxy, useCapture);
-        if (name == 'tap') {
-          node.removeEventListener('touchstart', touchStart, useCapture);
-          node.removeEventListener('touchend', touchEnd, useCapture);
-        }
-      }
+  				if (changed) {
+  					node.setStyles(result);
+  				}
+  			} else {
+  				node.setStyles(currentJson);
+  			}
+  		}
+  	} else if (name === 'dangerouslySetInnerHTML') {
+  		if (value) node.innerHTML = value.__html || '';
+  	} else if (name[0] == 'o' && name[1] == 'n') {
+  		var useCapture = name !== (name = name.replace(/Capture$/, ''));
+  		var nameLower = name.toLowerCase();
+  		name = (nameLower in node ? nameLower : name).slice(2);
+  		if (value) {
+  			if (!old) {
+  				node.addEventListener(name, eventProxy, useCapture);
+  				if (name == 'tap') {
+  					node.addEventListener('touchstart', touchStart, useCapture);
+  					node.addEventListener('touchend', touchEnd, useCapture);
+  				}
+  			}
+  		} else {
+  			node.removeEventListener(name, eventProxy, useCapture);
+  			if (name == 'tap') {
+  				node.removeEventListener('touchstart', touchStart, useCapture);
+  				node.removeEventListener('touchend', touchEnd, useCapture);
+  			}
+  		}
   (node._listeners || (node._listeners = {}))[name] = value;
-    } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
-      setProperty(node, name, value == null ? '' : value);
-      if (value == null || value === false) node.removeAttribute(name);
-    } else {
-      var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-      if (value == null || value === false) {
-        if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-      } else if (typeof value !== 'function') {
-        if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
-      }
-    }
+  	} else if (name !== 'list' && name !== 'tagName' &&
+  	// HTMLButtonElement.form and HTMLInputElement.form are read-only but can be set using
+  	// setAttribute
+  	name !== 'form' && name !== 'type' && name !== 'size' && name !== 'download' && name !== 'href' && !isSvg && name in node) {
+  		setProperty(node, name, value == null ? '' : value);
+  	} else {
+  		var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+  		if (value == null || value === false) {
+  			if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
+  		} else if (typeof value !== 'function') {
+  			if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
+  		}
+  	}
   }
 
   /** Attempt to set a DOM property to the given value.
    *	IE & FF throw for certain property-value combinations.
    */
   function setProperty(node, name, value) {
-    try {
-      node[name] = value;
-    } catch (e) {}
+  	try {
+  		node[name] = value;
+  	} catch (e) {}
   }
 
   /** Proxy an event to hooked event handlers
    *	@private
    */
   function eventProxy(e) {
-    return this._listeners[e.type](options.event && options.event(e) || e);
+  	return this._listeners[e.type](options.event && options.event(e) || e);
   }
 
   function touchStart(e) {
-    this.___touchX = e.touches[0].pageX;
-    this.___touchY = e.touches[0].pageY;
-    this.___scrollTop = document.body.scrollTop;
+  	this.___touchX = e.touches[0].pageX;
+  	this.___touchY = e.touches[0].pageY;
+  	this.___scrollTop = document.body.scrollTop;
   }
 
   function touchEnd(e) {
-    if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
-      this.dispatchEvent(new CustomEvent('tap', { detail: e }));
-    }
+  	if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+  		this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+  	}
   }
 
   var styleId = 0;
@@ -2283,53 +2285,53 @@
   var WeElement = Component;
   var defineElement = define;
   function createRef() {
-    return {};
+  	return {};
   }
 
   options.root.Omi = {
-    h: h,
-    createElement: h,
-    cloneElement: cloneElement,
-    createRef: createRef,
-    Component: Component,
-    render: render,
-    rerender: rerender,
-    options: options,
-    WeElement: WeElement,
-    define: define,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    getHost: getHost,
-    renderToString: renderToString,
-    tag: tag,
-    merge: merge,
-    obaa: obaa
+  	h: h,
+  	createElement: h,
+  	cloneElement: cloneElement,
+  	createRef: createRef,
+  	Component: Component,
+  	render: render,
+  	rerender: rerender,
+  	options: options,
+  	WeElement: WeElement,
+  	define: define,
+  	rpx: rpx,
+  	defineElement: defineElement,
+  	classNames: classNames,
+  	extractClass: extractClass,
+  	getHost: getHost,
+  	renderToString: renderToString,
+  	tag: tag,
+  	merge: merge,
+  	obaa: obaa
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.8.2';
+  options.root.Omi.version = 'omio-2.8.3';
 
   var Omi = {
-    h: h,
-    createElement: h,
-    cloneElement: cloneElement,
-    createRef: createRef,
-    Component: Component,
-    render: render,
-    rerender: rerender,
-    options: options,
-    WeElement: WeElement,
-    define: define,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    getHost: getHost,
-    renderToString: renderToString,
-    tag: tag,
-    merge: merge,
-    obaa: obaa
+  	h: h,
+  	createElement: h,
+  	cloneElement: cloneElement,
+  	createRef: createRef,
+  	Component: Component,
+  	render: render,
+  	rerender: rerender,
+  	options: options,
+  	WeElement: WeElement,
+  	define: define,
+  	rpx: rpx,
+  	defineElement: defineElement,
+  	classNames: classNames,
+  	extractClass: extractClass,
+  	getHost: getHost,
+  	renderToString: renderToString,
+  	tag: tag,
+  	merge: merge,
+  	obaa: obaa
   };
 
   if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
