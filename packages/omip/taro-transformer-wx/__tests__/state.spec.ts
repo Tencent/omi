@@ -1,7 +1,7 @@
 import transform from '../src'
 import { buildComponent, baseCode, baseOptions, evalClass } from './utils'
 
-function removeShadowData (obj: Object) {
+function removeShadowData(obj: Object) {
   if (obj['__data']) {
     delete obj['__data']
   }
@@ -37,7 +37,7 @@ describe('State', () => {
           ...baseOptions,
           code: buildComponent(
             `
-          const { state, fuck } = this
+          const { state } = this
           return (
             <View className={'icon-' + this.props.type}>测试 + {this.type}</View>
           )
