@@ -30,7 +30,6 @@
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
         if (callback) {
-
           if (isArray(arr) && isInArray(arr, prop)) {
             eventPropArr.push(prop)
             watch(target, prop, null, target)
@@ -47,15 +46,12 @@
     if (!target.__c_) {
       target.__c_ = []
     }
-
-
     var propChanged = callback ? callback : arr
     target.__c_.push({
       all: !callback,
       propChanged: propChanged,
       eventPropArr: eventPropArr
     })
-
   }
 
   var triggerStr = [
@@ -146,7 +142,6 @@
   }
 
   function watch(target, prop, path, root) {
-
     if (prop === '__o_') return
     if (isFunction(target[prop])) return
     if (!target.__o_) target.__o_ = {
@@ -159,17 +154,13 @@
     }
 
     var currentValue = (target.__o_[prop] = target[prop])
-
     Object.defineProperty(target, prop, {
       get: function () {
         return this.__o_[prop]
       },
       set: function (value) {
-
-
         var old = this.__o_[prop]
         this.__o_[prop] = value
-
         onPropertyChanged(
           prop,
           value,
@@ -206,7 +197,6 @@
   }
 
   function track(obj, prop, path) {
-
     if (obj.__o_) {
       return
     }
@@ -224,7 +214,6 @@
 
 
   function onPropertyChanged(prop, value, oldValue, target, path, root) {
-
     if (value !== oldValue && (!(nan(value) && nan(oldValue))) && root.__c_) {
       var rootName = getRootName(prop, path)
       for (
@@ -241,8 +230,7 @@
           if (value == "__deleted__") {
             delete target[prop];
             delete target.__o_[prop];
-          }
-
+          }          
           handler.propChanged.call(target, prop, value, oldValue, path)
         }
       }
@@ -298,7 +286,7 @@
   obaa.delete = function (obj, prop, value) {
     obj[prop] = "__deleted__";
     watch(obj, prop, obj.__o_, obj.__o_)
-  }
+  }  
 
   Array.prototype.size = function (length) {
     this.length = length
