@@ -34,6 +34,18 @@ arr[3] = 5;//3__5__4
 ### observe class instance
 
 ```js
+obaa(obj, function (name, value , old, parents) {
+    console.log("key:" + name + ", new value: " + value + ", old value: " + old + ", tree: " + parents);
+});
+var obj = [{"firstKey": "firstValue"}] ;
+obj.push({"secondKey": "secondValue"});
+obaa.set(obj[1], "changedKey", "changedValue");
+obaa.delete(obj[1], "changedKey");
+```
+
+### remove prop
+
+```js
 var User = function (name, age) {
     this.name = name;
     this.age = age;
