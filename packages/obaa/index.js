@@ -227,6 +227,10 @@
           isInArray(handler.eventPropArr, rootName) ||
           rootName.indexOf('Array-') === 0
         ) {
+          if (value == "__deleted__") {
+            delete target[prop];
+            delete target.__o_[prop];
+          }          
           handler.propChanged.call(target, prop, value, oldValue, path)
         }
       }
@@ -278,6 +282,11 @@
     }
     obj[prop] = value
   }
+
+  obaa.delete = function (obj, prop, value) {
+    obj[prop] = "__deleted__";
+    watch(obj, prop, obj.__o_, obj.__o_)
+  }  
 
   Array.prototype.size = function (length) {
     this.length = length

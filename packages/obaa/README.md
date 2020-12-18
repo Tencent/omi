@@ -47,6 +47,18 @@ user.name = "wangwu";//name__wangwu__lisi
 user.age = 20; //nothing output
 ```
 
+### remove prop
+
+```js
+obaa(obj, function (name, value , old, parents) {
+    console.log("key:" + name + ", new value: " + value + ", old value: " + old + ", tree: " + parents);
+});
+var obj = [{"firstKey": "firstValue"}] ;
+obj.push({"secondKey": "secondValue"});
+obaa.set(obj[1], "changedKey", "changedValue");
+obaa.delete(obj[1], "changedKey");
+```
+
 ## Other
 
 ```js
