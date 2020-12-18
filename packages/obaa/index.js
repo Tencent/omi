@@ -1,5 +1,5 @@
 /*
- * obaa 2.1.0
+ * obaa 2.1.1
  * By dntzhang
  * Github: https://github.com/Tencent/omi/tree/master/packages/obaa
  * MIT Licensed.
@@ -230,7 +230,7 @@
           if (value == "__deleted__") {
             delete target[prop];
             delete target.__o_[prop];
-          }          
+          }
           handler.propChanged.call(target, prop, value, oldValue, path)
         }
       }
@@ -286,7 +286,7 @@
   obaa.delete = function (obj, prop, value) {
     obj[prop] = "__deleted__";
     watch(obj, prop, obj.__o_, obj.__o_)
-  }  
+  }
 
   Array.prototype.size = function (length) {
     this.length = length

@@ -1,10 +1,9 @@
 {
   "name": "obaa",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Observe any object's any change.",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tencent/omi.git"
