@@ -125,6 +125,7 @@ export default function obaa(target, arr, callback) {
       var self = this
       var currentValue = (target.$observeProps[prop] = target[prop])
       Object.defineProperty(target, prop, {
+        configurable: true,
         get: function () {
           return this.$observeProps[prop]
         },
