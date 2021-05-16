@@ -770,7 +770,6 @@ define('my-app', class extends WeElement {
       div{
           color: green;
       }`
-  }
 
   render(props, data) {
     return (
