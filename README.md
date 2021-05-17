@@ -724,7 +724,7 @@ import { define, WeElement } from 'omi'
 define('hello-element', class extends WeElement {
   onClick = evt => {
     // trigger CustomEvent
-    this.fire('abc', { name: 'dntzhang', age: 12 })
+    this.fire('Abc', { name: 'dntzhang', age: 12 })
     evt.stopPropagation()
   }
 
@@ -771,10 +771,10 @@ define('my-app', class extends WeElement {
           color: green;
       }`
 
-  render(props, data) {
+  render(props) {
     return (
       <div>
-        Hello {data.abc}
+        Hello {this.data.abc}
         <hello-element
           onAbc={this.onAbc}
           msg="WeElement"

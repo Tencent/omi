@@ -23,7 +23,7 @@ export default class extends WeElement<HelloOmiProps> {
 
 	onClick = (evt: Event) => {
 		// trigger CustomEvent
-		this.fire('abc', { name: 'dntzhang & f & xcatliu', age: 12 })
+		this.fire('Abc', { name: 'dntzhang & f & xcatliu', age: 12 })
 		evt.stopPropagation()
 	}
 
