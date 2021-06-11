@@ -1,2 +1,7 @@
-* 使用新版 weui 样式
-* 优先兼容 omio，为了兼容小程序，web和PC
+## OMIU-NEXT
+
+* 使用 TS
+* 使用 Vite
+* 使用 tailwindcss
+* 单一组件隔离开发单独发布
+ 

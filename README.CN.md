@@ -5,6 +5,76 @@
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 <p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omi-kbone) 和 任意前端框架集成</b></p>
 
+
+## 使用 TypeScript 开发自定义组件
+
+```ts
+import { tag, WeElement, h, extractClass } from 'omi'
+import * as css from './index.scss'
+
+interface Props {
+  size?: 'medium' | 'small' | 'mini',
+  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
+  plain?: boolean,
+  round?: boolean,
+  circle?: boolean,
+  loading?: boolean,
+  disabled?: boolean,
+  icon?: string,
+  autofocus?: boolean,
+  nativeType?: 'button' | 'submit' | 'reset',
+  block?: boolean
+  text?: string
+}
+
+@tag('o-button')
+export default class Button extends WeElement<Props>{
+  static css = css
+
+  static defaultProps = {
+    plain: false,
+    round: false,
+    circle: false,
+    loading: false,
+    disabled: false,
+    autofocus: false,
+    nativeType: 'button',
+    block: false
+  }
+
+  static propTypes = {
+    size: String,
+    type: String,
+    plain: Boolean,
+    round: Boolean,
+    circle: Boolean,
+    loading: Boolean,
+    disabled: Boolean,
+    icon: String,
+    autofocus: Boolean,
+    nativeType: String,
+    block: Boolean,
+    text: String
+  }
+
+  render(props) {
+    return <button disabled={props.disabled} {...extractClass(props, 'o-button', {
+      ['o-button-' + props.type]: props.type,
+      ['o-button-' + props.size]: props.size,
+      'is-plain': props.plain,
+      'is-round': props.round,
+      'is-circle': props.circle,
+      'is-disabled': props.disabled,
+      'is-block': props.block
+    })} type={props.nativeType} >
+      {props.loading && <i class='icon-loading'></i>}
+      {props.text}
+      <slot></slot>
+    </button>
+  }
+}
+```
+
 ## Omiu
 
 > Omi 打造的跨框架、[跨主题](https://tencent.github.io/omi/components/docs/cn.html#/theme?index=0&subIndex=1) UI 组件库
