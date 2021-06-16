@@ -46,6 +46,18 @@ program
         }
         switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
     })
+
+program
+    .command('init-vite [projectName]')
+    .description('Initialize a new omi project with vite in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init-vite';
+        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    })    
+
     
 program
 .command('init-o [projectName]')
@@ -163,6 +175,7 @@ function help() {
     console.log(`     ${chalk.green('init-o  [project-name]')}         Initialize a new omio(IE8+) project in the current folder `)
     console.log(`     ${chalk.green('init-kbone  [project-name]')}     Initialize a new omi kbone project in the current folder `)
     console.log(`     ${chalk.green('init-ts  [project-name]')}        Initialize a new omi project with typescript in the current folder `)
+    console.log(`     ${chalk.green('init-vite  [project-name]')}      Initialize a new omi project with vite in the current folder `)
     console.log(`     ${chalk.green('init-weui  [project-name]')}      Initialize a mobile project with weui in the current folder `)  
 
     console.log(`     ${chalk.green('init-mp  [project-name]')}        Initialize a new omi-mp in the current folder `)
