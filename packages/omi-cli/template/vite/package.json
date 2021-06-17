@@ -2,7 +2,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --base=./",
     "serve": "vite preview"
   },
   "devDependencies": {
@@ -11,7 +11,6 @@
     "vite": "^2.3.7"
   },
   "dependencies": {
-    "omi": "latest",
-    "omim": "latest"
+    "omi": "latest"
   }
 }
