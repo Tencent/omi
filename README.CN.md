@@ -1,7 +1,6 @@
 [English](./README.md) | 简体中文 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
-<p align="center"><img src="https://tencent.github.io/omi/assets/omi-v6.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 <p align="center"><b>基于 Web Components 跨框架并支持小程序开发(omi-kbone)</b></p>
 

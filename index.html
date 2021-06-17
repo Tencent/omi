@@ -320,32 +320,70 @@
   </div>
   <pre style="position:absolute;left:40px;top:40px;transform:rotateZ(5deg);pointer-events: none;text-transform:none;">
       <code>
-import { define, render } from 'omi'
+import { tag, WeElement, h, extractClass } from 'omi'
+import * as css from './index.scss'
 
-class Store {
-  data = {
-    count: 1
-  }
-  sub = () => {
-    this.data.count--
-  }
-  add = () => {
-    this.data.count++
-  }
+interface Props {
+  size?: 'medium' | 'small' | 'mini',
+  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
+  plain?: boolean,
+  round?: boolean,
+  circle?: boolean,
+  loading?: boolean,
+  disabled?: boolean,
+  icon?: string,
+  autofocus?: boolean,
+  nativeType?: 'button' | 'submit' | 'reset',
+  block?: boolean
+  text?: string
 }
 
-define('my-counter', _ =>
-  &lt;&gt;
-    &lt;button onClick={_.store.sub}&gt;-&lt;/button&gt;
-    &lt;span&gt;{_.store.data.count}&lt;/span&gt;
-    &lt;button onClick={_.store.add}&gt;+&lt;/button&gt;
-  &lt;/&gt;, {
-    use: ['count']
-  }
-))
+@tag('o-button')
+export default class Button extends WeElement&lt;Props&gt;{
+  static css = css
 
-render(&lt;my-counter /&gt;, 'body', new Store)
-       </code>
+  static defaultProps = {
+    plain: false,
+    round: false,
+    circle: false,
+    loading: false,
+    disabled: false,
+    autofocus: false,
+    nativeType: 'button',
+    block: false
+  }
+
+  static propTypes = {
+    size: String,
+    type: String,
+    plain: Boolean,
+    round: Boolean,
+    circle: Boolean,
+    loading: Boolean,
+    disabled: Boolean,
+    icon: String,
+    autofocus: Boolean,
+    nativeType: String,
+    block: Boolean,
+    text: String
+  }
+
+  render(props) {
+    return &lt;button disabled={props.disabled} {...extractClass(props, 'o-button', {
+      ['o-button-' + props.type]: props.type,
+      ['o-button-' + props.size]: props.size,
+      'is-plain': props.plain,
+      'is-round': props.round,
+      'is-circle': props.circle,
+      'is-disabled': props.disabled,
+      'is-block': props.block
+    })} type={props.nativeType} &gt;
+      {props.loading && &lt;i class='icon-loading'&gt;&lt;/i&gt;}
+      {props.text}
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/button&gt;
+  }
+}</code>
   </pre>
 
 

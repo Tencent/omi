@@ -1,9 +1,7 @@
 English | [简体中文](./README.CN.md) 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
-<p align="center"><img src="https://tencent.github.io/omi/assets/omi-v6.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
-<p align="center">Merge Web Components, JSX, Virtual DOM, Functional style, observe or Proxy into one framework with tiny size and high performance. Write components once, using in everywhere, such as Omi, React, Preact, Vue or Angular.</p>
 
 ## With TypeScript
 
