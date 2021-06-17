@@ -7,6 +7,239 @@ Store is Omi's built-in centralized data warehouse, which solves and provides th
 
 ![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
 
+
+## Quick Preview
+
+Pass data through the component tree without having to pass props down manually at every level by store, auto update the view on demand.
+
+```jsx
+import { define, render } from 'omi'
+
+class Store {
+  data = {
+    count: 1
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+}
+
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+  </div>
+), {
+    use: ['count'], 
+    //or using useSelf, useSelf will update self only, exclude children components
+    //useSelf: ['count'], 
+    css: `span { color: red; }`,
+    installed() {
+      console.log('installed')
+    }
+  })
+
+render(<my-counter />, 'body', new Store)
+```
+
+* `<my-counter></my-counter>` can be used in any framework or no framework, such as `document.createElement('my-counter')`
+
+You can also use `useSelf`, `useSelf` only updates itself. When using `useSelf`, the corresponding attributes are accessed through `usingSelf` in JSX.
+
+You can also implement `computed` props through `compute`, such as:
+
+```jsx
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+    <div>Double: {_.computed.doubleCount}</div>
+  </div>
+), {
+    use: ['count'],
+    compute: {
+      doubleCount() {
+        return this.count * 2
+      }
+    }
+  })
+```
+
+Path is also supported:
+
+```js
+class Store {
+  data = {
+    list: [
+      { name: { first: 'dnt', last: 'zhang' } }
+    ]
+  }
+}
+
+...
+...
+
+define('my-counter', _ => (
+  ...
+  ...
+), {
+    use: [
+      'list[0].name', //Direct string path dep, accessible through this.using[0] 
+    ],
+    compute: {
+      fullName() {
+        return this.list[0].name.first + this.list[0].name.last
+      }
+    }
+  })
+```
+
+![](https://tencent.github.io/omi/assets/store.jpg)
+
+### Multi-store injection
+
+```jsx
+import { define, render } from 'omi'
+
+define('my-app', _ => {
+  const store = _.store.storeA
+  const { data, add, sub } = store
+  return (
+    <p>
+      Clicked: {data.count} times
+      <button onClick={add}>+</button>
+      <button onClick={sub}>-</button>
+
+      <div>
+        {_.store.storeB.data.msg}
+        <button  onClick={_.store.storeB.changeMsg}>
+          change storeB's msg
+        </button>
+      </div>
+    </p>
+  )
+}, {
+  useSelf: {
+    storeA: ['count', 'adding'],
+    storeB: ['msg']
+  }
+})
+
+const storeA = new class Store {
+  data = {
+    count: 0,
+    adding: false
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+}
+
+const storeB = new class Store {
+  data = {
+    msg: 'abc'
+  }
+  changeMsg = () => {
+    this.data.msg = 'bcd'
+  }
+}
+
+render( <my-app /> , 'body', {
+  storeA,
+  storeB
+})
+```
+
+How to Multi-store injection with `compute` and `computed`? Very simple:
+
+```jsx
+define('my-app', _ => {
+  const store = _.store.storeA
+  const { data, add, sub } = store
+  return (
+    <p>
+      Clicked: {data.count} times
+      <button onClick={add}>+</button>
+      <button onClick={sub}>-</button>
+
+      <div>
+        {_.store.storeB.data.msg}
+        <button onClick={_.store.storeB.changeMsg}>
+          change storeB's msg
+        </button>
+      </div>
+
+      <div>{_.computed.dobuleCount}</div>
+      <div>{_.computed.reverseMsg}</div>
+    </p>
+  )
+}, {
+    useSelf: {
+      storeA: ['count', 'adding'],
+      storeB: ['msg']
+    },
+    compute: {
+      dobuleCount() {
+        return this.storeA.data.count * 2
+      },
+      reverseMsg() {
+        return this.storeB.data.msg.split('').reverse().join('')
+      }
+    }
+  })
+```
+
+### API and Hooks
+
+```jsx
+define('my-component', _ => (
+  ...
+  ...
+), {
+    use: ['count', 'path.a', 'path[1].b'],
+    useSelf: ['path.c', 'path[1].d'],
+    compute: {
+      doubleCount() {
+        return this.count * 2
+      }
+    },
+    css: 'h1 { color: red; }',
+    propTypes: { },
+    defaultProps: { },
+    isLightDom: true, //default is false
+
+    //life cycle
+    install() { }, 
+    installed() { }, 
+    uninstall() { }, 
+    receiveProps() { },
+    beforeUpdate() { }, 
+    updated() { }, 
+    beforeRender() { }, 
+    rendered() { }, 
+
+    //custom methods
+    myMethodA() { },
+    myMethodB() { }
+
+  })
+```
+
+### Inject use or useSelf through prop
+
+```jsx
+<my-counter use={['count']} ></my-counter>
+```
+
+
 ## A piece of code is completely ready for Store
 
 ```jsx
@@ -229,3 +462,5 @@ render(<my-counter />, 'body', new Store)
 ```
 
 Very flexible!
+
+

@@ -7,6 +7,234 @@ Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题
 
 ![](https://github.com/Tencent/omi/raw/master/assets/store.cn.jpg)
 
+
+## 快速概览
+
+整个组件树共享数据，并且数据变更自动更新视图。
+
+```jsx
+import { define, render } from 'omi'
+
+class Store {
+  data = {
+    count: 1
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+}
+
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+  </div>
+), {
+    use: ['count'], 
+    //或者使用 useSelf, useSelf 只会更新自身，不更新子组件
+    //useSelf: ['count'], 
+    css: `span { color: red; }`,
+    installed() {
+      console.log('installed')
+    }
+  })
+
+render(<my-counter />, 'body', new Store)
+```
+
+* `<my-counter></my-counter>` 可以用于任意框架或者无框架，比如 `document.createElement('my-counter')`
+
+
+你也可以使用 `useSelf`, `useSelf` 只会更新自身，不更新子组件。使用 `useSelf` 的时候在 JSX 里通过 `usingSelf` 访问对应属性。
+
+你也可以通过 `compute` 去实现 `computed` 计算属性，比如:
+
+```jsx
+define('my-counter', _ => (
+  <div>
+    <button onClick={_.store.sub}>-</button>
+    <span>{_.store.data.count}</span>
+    <button onClick={_.store.add}>+</button>
+    <div>Double: {_.computed.doubleCount}</div>
+  </div>
+), {
+    use: ['count'],
+    compute: {
+      doubleCount() {
+        return this.count * 2
+      }
+    }
+  })
+```
+
+路径也是支持的，比如下面的例子:
+
+```js
+class Store {
+  data = {
+    list: [
+      { name: { first: 'dnt', last: 'zhang' } }
+    ]
+  }
+}
+
+...
+...
+
+define('my-counter', _ => (
+  ...
+  ...
+), {
+    use: [
+      'list[0].name', //可以通过 this.using[0] 访问
+    ],
+    compute: {
+      fullName() {
+        return this.list[0].name.first + this.list[0].name.last
+      }
+    }
+  })
+```
+
+![](https://tencent.github.io/omi/assets/store.cn.jpg)
+
+### 多个 store 注入
+
+```jsx
+import { define, render } from 'omi'
+
+define('my-app', _ => {
+  const store = _.store.storeA
+  const { data, add, sub } = store
+  return (
+    <p>
+      Clicked: {data.count} times
+      <button onClick={add}>+</button>
+      <button onClick={sub}>-</button>
+
+      <div>
+        {_.store.storeB.data.msg}
+        <button  onClick={_.store.storeB.changeMsg}>
+          change storeB's msg
+        </button>
+      </div>
+    </p>
+  )
+}, {
+  useSelf: {
+    storeA: ['count', 'adding'],
+    storeB: ['msg']
+  }
+})
+
+const storeA = new class Store {
+  data = {
+    count: 0,
+    adding: false
+  }
+  sub = () => {
+    this.data.count--
+  }
+  add = () => {
+    this.data.count++
+  }
+}
+
+const storeB = new class Store {
+  data = {
+    msg: 'abc'
+  }
+  changeMsg = () => {
+    this.data.msg = 'bcd'
+  }
+}
+
+render( <my-app /> , 'body', {
+  storeA,
+  storeB
+})
+```
+
+怎么在注入多 store 的时候使用 `compute` and `computed`? 非常简单：
+
+```jsx
+define('my-app', _ => {
+  const store = _.store.storeA
+  const { data, add, sub } = store
+  return (
+    <p>
+      Clicked: {data.count} times
+      <button onClick={add}>+</button>
+      <button onClick={sub}>-</button>
+
+      <div>
+        {_.store.storeB.data.msg}
+        <button onClick={_.store.storeB.changeMsg}>
+          change storeB's msg
+        </button>
+      </div>
+
+      <div>{_.computed.dobuleCount}</div>
+      <div>{_.computed.reverseMsg}</div>
+    </p>
+  )
+}, {
+    useSelf: {
+      storeA: ['count', 'adding'],
+      storeB: ['msg']
+    },
+    compute: {
+      dobuleCount() {
+        return this.storeA.data.count * 2
+      },
+      reverseMsg() {
+        return this.storeB.data.msg.split('').reverse().join('')
+      }
+    }
+  })
+```
+
+### API 和 钩子
+
+```jsx
+define('my-component', _ => (
+  ...
+  ...
+), {
+    use: ['path', 'path.a', 'path[1].b'],
+    useSelf: ['path.c', 'path[1].d'],
+    css: 'h1 { color: red; }',
+    propTypes: { },
+    defaultProps: { },
+    isLightDom: true, //default is false
+
+    //生命周期
+    install() { }, 
+    installed() { }, 
+    uninstall() { }, 
+    receiveProps() { },
+    beforeUpdate() { }, 
+    updated() { }, 
+    beforeRender() { }, 
+    rendered() { },
+    
+    //自定义方法
+    myMethodA() { },
+    myMethodB() { }
+
+  })
+```
+
+### 通过 prop 注入 use 或 useSelf
+
+```jsx
+<my-counter use={['count']} ></my-counter>
+```
+
 ## 一段代码完全上手 Store
 
 ```jsx
