@@ -1,5 +1,5 @@
 {
-  "name": "omio",
+  "name": "omii",
   "version": "1.3.4",
   "description": "Omi for old browsers(IE8+ and mobile browsers).",
   "main": "dist/omix.js",
