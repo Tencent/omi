@@ -431,6 +431,7 @@ export default class oButton extends WeElement<ButtonProps> {
 * [Web Components 的力量](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)
 * [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
 * [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
+* [Web Components中引入外部CSS的3种方法](https://www.zhangxinxu.com/wordpress/2021/02/web-components-import-css/)
 ---
 
 # 目录
