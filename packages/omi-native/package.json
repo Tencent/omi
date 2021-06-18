@@ -1,5 +1,5 @@
 {
-  "name": "omi",
+  "name": "omi-native",
   "version": "4.0.15",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
