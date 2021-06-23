@@ -164,6 +164,11 @@ declare namespace Omi {
     ...children: ComponentChildren[]
   ): VNode<any>;
 
+
+  interface ShadowRootPloyfill extends ShadowRoot {
+    adoptedStyleSheets : CSSStyleSheet;
+  }
+
   function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 
   function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
