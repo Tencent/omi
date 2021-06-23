@@ -112,9 +112,11 @@ export default class WeElement extends HTMLElement {
 
 		if (this.constructor.css) {
 			if (typeof this.constructor.css === 'string') {
+				console.log(1111)
 				this.styleSheet = new CSSStyleSheet()
 				this.styleSheet.replaceSync(this.constructor.css)
 			} else {
+				console.log(this.constructor.css)
 				this.styleSheet = this.constructor.css
 			}
 			shadowRoot.adoptedStyleSheets = [this.styleSheet]

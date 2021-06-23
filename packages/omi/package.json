@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.19.5",
+  "version": "6.19.6",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -123,6 +123,7 @@
     "sinon": "^4.4.2",
     "sinon-chai": "^3.0.0",
     "to2to": "^1.0.2",
+    "twind": "^0.16.16",
     "typescript": "^2.8.1",
     "uglify-js": "^2.7.5",
     "webpack": "^4.3.0"
@@ -149,5 +150,7 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "dependencies": {}
+  "dependencies": {
+    "construct-style-sheets-polyfill": "^3.0.0-0"
+  }
 }
