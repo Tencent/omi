@@ -271,6 +271,7 @@ export default class Button extends WeElement<Props>{
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ Other Templates](https://github.com/omijs) |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
+|[CEE](https://omijs.github.io/cee/out/)| Fork from custom-elements-everywhere |
 
 #### :snake:Snake MVP 
 
@@ -281,22 +282,6 @@ export default class Button extends WeElement<Props>{
 | [Preact-snake](https://github.com/Tencent/omi/tree/master/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| The Snake-Eating Game Based on MVP Architecture Written by Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/master/packages/preact-css) + Omis |
 | [[P]react-snake](https://github.com/Tencent/omi/tree/master/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| The Snake-Eating Game Based on MVP Architecture Written by React/Preact |
 | [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix-snake) | The Snake-Eating Game Based on MVP Architecture Written by Omix  |
-<!-- | [vue-snake](https://github.com/Tencent/omi/tree/master/packages/vue-snake) | The Snake-Eating Game Based on MVP Architecture Written by Vue + Omiv | -->
-#### :+1:Mini Program(小程序) 
-
-| **Project**                         | **Description**                           |
-| ------------------------------- | ----------------------------------- |
-| [omix![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix)| 小程序全局状态管理框架，数据触手可及，状态无处遁形 |
-| [react-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/react-kbone)| 直接使用 React 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone) |
-| [preact-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/preact-kbone)| 直接使用 Preact 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone) |
-| [omi-cloud](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)| 小程序•云开发|
-| [omip](https://github.com/Tencent/omi/tree/master/packages/omip)| 直接使用 Omi 开发小程序或 H5 SPA|
-| [mps](https://github.com/Tencent/omi/tree/master/packages/mps)| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS)，也支持 QQ 轻应用 |
-| [cax](https://github.com/Tencent/omi/tree/master/packages/cax)| 小程序 Canvas 和 SVG 渲染引擎 |
-| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
-| [westore](https://github.com/Tencent/westore/)| 小程序状态管理 |
-| [comi](https://github.com/Tencent/omi/tree/master/packages/comi)| 小程序代码高亮和 markdown 渲染组件 |
-| [wx-touch-event](https://github.com/qbright/wx-touch-event)| 基于 [AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) 改造的小程序手势解决方案 |
 
 #### :books:Other 
 
@@ -319,7 +304,7 @@ export default class Button extends WeElement<Props>{
 | [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
 | [omi-cv](https://github.com/Wscats/CV) |Create a front-end engineer curriculum vitae, [Get Started!](http://wscats.github.io/CV/omi/build/index.html)|
 | [Soo](https://github.com/tonis2/Soo)| Has same API as omi but is great alternative if you want to create custom elements without JSX, virtual DOM and store |
-|[CEE](https://omijs.github.io/cee/out/)| Fork from custom-elements-everywhere |
+
 
 ## Why Omi?
 
