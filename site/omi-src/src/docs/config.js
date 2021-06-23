@@ -20,7 +20,7 @@ const config = {
           { name: '引用 Ref', md: 'ref' },
           { name: '类名 Class', md: 'class' },
           { name: '扩展 Extend', md: 'extend' },
-          { name: '存储 Store', md: 'store' },
+          // { name: '存储 Store', md: 'store' },
           { name: '样式 CSS', md: 'css' }
         ]
       },
@@ -29,9 +29,9 @@ const config = {
         list: [
           { name: 'Kbone 多端开发', md: 'kbone' },
           { name: '路由', md: 'router' },
-          { name: '服务端渲染', md: 'ssr' },
+          // { name: '服务端渲染', md: 'ssr' },
           { name: '生态与例子', md: 'other' },
-          { name: 'Mps', md: 'mps' }
+          // { name: 'Mps', md: 'mps' }
         ]
       }
     ],
@@ -55,7 +55,7 @@ const config = {
           { name: 'Ref', md: 'ref' },
           { name: 'Class', md: 'class' },
           { name: 'Extend', md: 'extend' },
-          { name: 'Store', md: 'store' },
+          // { name: 'Store', md: 'store' },
           { name: 'CSS', md: 'css' }
         ]
       },
@@ -63,7 +63,7 @@ const config = {
         title: 'Other',
         list: [
           { name: 'Router', md: 'router' },
-          { name: 'Server-Side Rendering', md: 'ssr' },
+          // { name: 'Server-Side Rendering', md: 'ssr' },
           { name: 'Ecosystem and Examples', md: 'other' }
         ]
       }

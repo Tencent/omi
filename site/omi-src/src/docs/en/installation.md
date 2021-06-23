@@ -11,16 +11,6 @@ Install via npm:
 npm i omi
 ```
 
-If you need to be compatible with IE8+, you can choose omio, which has almost the same API as omi, and Omi will be registered as a global variable.
-
-* [Omio Development Version](https://unpkg.com/omio@latest/dist/omi.js)
-* [Omio Production Version](https://unpkg.com/omi@latest/dist/omi.min.js)
-
-Install via npm:
-
-```
-npm i omio
-```
 
 ## CLI
 
@@ -71,26 +61,15 @@ You can set up the PUBLIC_URL, such as：
 ...
 ```
 
-### Switch omi and omio
 
-Add or remove the alias config in package.json to switch omi and omio：
-
-```js
- ...
- "alias": {
-    "omi": "omio"
-  }
-  ...
-```
 
 ## Project Template
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
+|Vite Template(v3.5.1+)|`omi init-vite my-app`| Basic omi template with vite.|
 |Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
 |Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
-|小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
-|Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 

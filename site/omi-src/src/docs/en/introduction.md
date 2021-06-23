@@ -62,40 +62,73 @@ Looking at the highlighted part above, you can style the components. For example
 * Add **style** to the component, such as `static css` above
 * Rendering components to body, of course, can also render components to any other component
 
-## Stateless View & Store System
+## Define Button Element using TypeScript
 
-```jsx
-import { define, render } from 'omi'
+```ts
+import { tag, WeElement, h, extractClass } from 'omi'
+import * as css from './index.scss'
 
-class Store {
-  data = {
-    count: 1
-  }
-  sub = () => {
-    this.data.count--
-  }
-  add = () => {
-    this.data.count++
-  }
+interface Props {
+  size?: 'medium' | 'small' | 'mini',
+  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
+  plain?: boolean,
+  round?: boolean,
+  circle?: boolean,
+  loading?: boolean,
+  disabled?: boolean,
+  icon?: string,
+  autofocus?: boolean,
+  nativeType?: 'button' | 'submit' | 'reset',
+  block?: boolean
+  text?: string
 }
 
-define('my-counter', _ => (
-  <div>
-    <button onClick={_.store.sub}>-</button>
-    <span>{_.store.data.count}</span>
-    <button onClick={_.store.add}>+</button>
-  </div>
-), {
-    use: ['count'], 
-    //or using useSelf, useSelf will update self only, exclude children components
-    //useSelf: ['count'], 
-    css: `span { color: red; }`,
-    installed() {
-      console.log('installed')
-    }
-  })
+@tag('o-button')
+export default class Button extends WeElement<Props>{
+  static css = css
 
-render(<my-counter />, 'body', new Store)
+  static defaultProps = {
+    plain: false,
+    round: false,
+    circle: false,
+    loading: false,
+    disabled: false,
+    autofocus: false,
+    nativeType: 'button',
+    block: false
+  }
+
+  static propTypes = {
+    size: String,
+    type: String,
+    plain: Boolean,
+    round: Boolean,
+    circle: Boolean,
+    loading: Boolean,
+    disabled: Boolean,
+    icon: String,
+    autofocus: Boolean,
+    nativeType: String,
+    block: Boolean,
+    text: String
+  }
+
+  render(props) {
+    return <button disabled={props.disabled} {...extractClass(props, 'o-button', {
+      ['o-button-' + props.type]: props.type,
+      ['o-button-' + props.size]: props.size,
+      'is-plain': props.plain,
+      'is-round': props.round,
+      'is-circle': props.circle,
+      'is-disabled': props.disabled,
+      'is-block': props.block
+    })} type={props.nativeType} >
+      {props.loading && <i class='icon-loading'></i>}
+      {props.text}
+      <slot></slot>
+    </button>
+  }
+}
 ```
 
 Getting started, Congratulations!

@@ -44,13 +44,13 @@ You can set the default value by the `static defaultProps` property，use `stati
 ```jsx
 define('my-element', class extends WeElement {
   static defaultProps = {
-		name: 'Omi',
-		myAge: 18
-	}
+    name: 'Omi',
+    myAge: 18
+  }
 
   static propTypes = {
-		name: String,
-		myAge: Number
+    name: String,
+    myAge: Number
   }
   
   render(props) {
