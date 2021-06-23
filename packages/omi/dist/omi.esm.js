@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.4  http://omijs.org
+ * Omi v6.19.5  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -918,8 +918,12 @@ var WeElement = function (_HTMLElement) {
 		}
 
 		if (this.constructor.css) {
-			this.styleSheet = new CSSStyleSheet();
-			this.styleSheet.replaceSync(this.constructor.css);
+			if (typeof this.constructor.css === 'string') {
+				this.styleSheet = new CSSStyleSheet();
+				this.styleSheet.replaceSync(this.constructor.css);
+			} else {
+				this.styleSheet = this.constructor.css;
+			}
 			shadowRoot.adoptedStyleSheets = [this.styleSheet];
 		}
 
@@ -1806,235 +1810,235 @@ function o(obj) {
 var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p],h="number"==typeof s?u[s]:s,a=r[++p];1===a?e[0]=h:3===a?e[1]=Object.assign(e[1]||{},h):5===a?(e[1]=e[1]||{})[r[++p]]=h:6===a?e[1][r[++p]]+=h+"":e.push(a?t.apply(null,n(t,h,u,["",null])):h);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],h=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,5,e):u>=5&&((e||!n&&5===u)&&(s.push(e,u,r), u=6), n&&(s.push(n,u,r), u=6)), e="";},a=0;a<n.length;a++){a&&(1===u&&h(), h(a));for(var f=0;f<n[a].length;f++)t=n[a][f], 1===u?"<"===t?(h(), s=[s], u=3):e+=t:4===u?"--"===e&&">"===t?(u=1, e=""):e=t+e[0]:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(h(), u=1):u&&("="===t?(u=5, r=e, e=""):"/"===t&&(u<5||">"===n[a][f+1])?(h(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,2), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(h(), u=2):e+=t), 3===u&&"!--"===e&&(u=4, s=s[0]);}return h(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
 
 (function () {
-	try {
-		new window.CSSStyleSheet('a{}');
-		return;
-	} catch (e) {}
+  try {
+    new window.CSSStyleSheet('a{}');
+    return;
+  } catch (e) {}
 
-	// TODO: this could really just by a dunderprop to keep the polyfill light.
-	var INTERNAL = typeof Symbol !== 'undefined' ? Symbol('__s') : '__s';
+  // TODO: this could really just by a dunderprop to keep the polyfill light.
+  var INTERNAL = typeof Symbol !== 'undefined' ? Symbol('__s') : '__s';
 
-	/**
-  * Problem 1:
-  * CSSStyleSheet is nonconfigurable.
-  * This means we're stuck with a ponyfill and not a "perfect" polyfill.
-  */
-	// Object.defineProperty(window, 'CSSStyleSheet', {
-	// 	configurable: true,
-	// 	enumerable: true,
-	// 	get: () => CSSStyleSheet
-	// });
+  /**
+   * Problem 1:
+   * CSSStyleSheet is nonconfigurable.
+   * This means we're stuck with a ponyfill and not a "perfect" polyfill.
+   */
+  // Object.defineProperty(window, 'CSSStyleSheet', {
+  // 	configurable: true,
+  // 	enumerable: true,
+  // 	get: () => CSSStyleSheet
+  // });
 
-	var OriginalCSSStyleSheet = window.CSSStyleSheet;
+  var OriginalCSSStyleSheet = window.CSSStyleSheet;
 
-	window.CSSStyleSheet = CSSStyleSheet;
+  window.CSSStyleSheet = CSSStyleSheet;
 
-	var DOC;
+  var DOC;
 
-	var counter = 0;
+  var counter = 0;
 
-	/**
-  * Problem #2:
-  * CSSStyleSheet is not instantiable.
-  * We can inherit from the real CSSStyleSheet in order to
-  */
+  /**
+   * Problem #2:
+   * CSSStyleSheet is not instantiable.
+   * We can inherit from the real CSSStyleSheet in order to
+   */
 
-	function CSSStyleSheet(options) {
-		if (!DOC) {
-			var frame = document.createElement('iframe');
-			frame.style.cssText = 'position:absolute;left:0;top:-9999px;width:1px;height:1px;';
-			document.body.appendChild(frame);
-			DOC = frame.contentWindow.document;
-		}
-		var style = DOC.createElement('style');
-		style.$id = ++counter;
-		style.childSheets = [];
-		style.appendChild(DOC.createTextNode(''));
-		DOC.body.appendChild(style);
-		// console.log(style, sheet);
-		Object.assign(style.sheet, options || {});
-		this[INTERNAL] = style;
-	}
+  function CSSStyleSheet(options) {
+    if (!DOC) {
+      var frame = document.createElement('iframe');
+      frame.style.cssText = 'position:absolute;left:0;top:-9999px;width:1px;height:1px;';
+      document.body.appendChild(frame);
+      DOC = frame.contentWindow.document;
+    }
+    var style = DOC.createElement('style');
+    style.$id = ++counter;
+    style.childSheets = [];
+    style.appendChild(DOC.createTextNode(''));
+    DOC.body.appendChild(style);
+    // console.log(style, sheet);
+    Object.assign(style.sheet, options || {});
+    this[INTERNAL] = style;
+  }
 
-	// we can be nice and ensure that this holds:
-	// document.createElement('style').stylesheet instanceof CSSStyleSeetPolyfill
-	CSSStyleSheet.prototype = Object.create(OriginalCSSStyleSheet);
+  // we can be nice and ensure that this holds:
+  // document.createElement('style').stylesheet instanceof CSSStyleSeetPolyfill
+  CSSStyleSheet.prototype = Object.create(OriginalCSSStyleSheet);
 
-	Object.defineProperty(CSSStyleSheet.prototype, 'cssRules', {
-		get: function get() {
-			return this[INTERNAL].sheet.cssRules;
-		}
-	});
+  Object.defineProperty(CSSStyleSheet.prototype, 'cssRules', {
+    get: function get() {
+      return this[INTERNAL].sheet.cssRules;
+    }
+  });
 
-	CSSStyleSheet.prototype.replace = function (cssText) {
-		var style = this[INTERNAL];
-		return new Promise(function (resolve, reject) {
-			var l = DOC.createElement('link');
-			l.rel = 'preload';
-			l.as = 'style';
-			l.onload = function () {
-				// sheet.ownerNode.firstChild.textContent = cssText;
-				style.firstChild.data = cssText;
-				for (var i = 0; i < style.childSheets.length; i++) {
-					style.childSheets[i].firstChild.data = cssText;
-				}
-				// if (sheet.cssRules[0]) sheet.deleteRule(0);
-				// sheet.insertRule(cssText);
-				l.remove();
-				resolve();
-			};
-			l.onerror = reject;
-			l.href = 'data:text/css;base64,' + btoa(cssText);
-			DOC.head.appendChild(l);
-		});
-	};
+  CSSStyleSheet.prototype.replace = function (cssText) {
+    var style = this[INTERNAL];
+    return new Promise(function (resolve, reject) {
+      var l = DOC.createElement('link');
+      l.rel = 'preload';
+      l.as = 'style';
+      l.onload = function () {
+        // sheet.ownerNode.firstChild.textContent = cssText;
+        style.firstChild.data = cssText;
+        for (var i = 0; i < style.childSheets.length; i++) {
+          style.childSheets[i].firstChild.data = cssText;
+        }
+        // if (sheet.cssRules[0]) sheet.deleteRule(0);
+        // sheet.insertRule(cssText);
+        l.remove();
+        resolve();
+      };
+      l.onerror = reject;
+      l.href = 'data:text/css;base64,' + btoa(cssText);
+      DOC.head.appendChild(l);
+    });
+  };
 
-	CSSStyleSheet.prototype.replaceSync = function (cssText) {
-		var style = this[INTERNAL];
-		if (cssText.replace(/\/\*[\s\S]+?\*\//g, '').match(/@import\s*\(\s*(['"])[^\1]*?\1\s*\)/)) {
-			throw Error('no');
-		}
-		// if (sheet.cssRules[0]) sheet.deleteRule(0);
-		// sheet.insertRule(cssText);
-		// sheet.ownerNode.firstChild.textContent = cssText;
-		style.firstChild.data = cssText;
-		for (var i = 0; i < style.childSheets.length; i++) {
-			style.childSheets[i].firstChild.data = cssText;
-		}
-	};
+  CSSStyleSheet.prototype.replaceSync = function (cssText) {
+    var style = this[INTERNAL];
+    if (cssText.replace(/\/\*[\s\S]+?\*\//g, '').match(/@import\s*\(\s*(['"])[^\1]*?\1\s*\)/)) {
+      throw Error('no');
+    }
+    // if (sheet.cssRules[0]) sheet.deleteRule(0);
+    // sheet.insertRule(cssText);
+    // sheet.ownerNode.firstChild.textContent = cssText;
+    style.firstChild.data = cssText;
+    for (var i = 0; i < style.childSheets.length; i++) {
+      style.childSheets[i].firstChild.data = cssText;
+    }
+  };
 
-	var oldInnerHTML = Object.getOwnPropertyDescriptor(ShadowRoot.prototype, 'innerHTML');
-	var oldFirstChild = Object.getOwnPropertyDescriptor(Node.prototype, 'firstChild');
-	var oldLastChild = Object.getOwnPropertyDescriptor(Node.prototype, 'lastChild');
+  var oldInnerHTML = Object.getOwnPropertyDescriptor(ShadowRoot.prototype, 'innerHTML');
+  var oldFirstChild = Object.getOwnPropertyDescriptor(Node.prototype, 'firstChild');
+  var oldLastChild = Object.getOwnPropertyDescriptor(Node.prototype, 'lastChild');
 
-	function getState(obj) {
-		return obj[INTERNAL] || (obj[INTERNAL] = {
-			adoptedStyleSheets: [],
-			sheets: [],
-			id: ++counter
-		});
-	}
+  function getState(obj) {
+    return obj[INTERNAL] || (obj[INTERNAL] = {
+      adoptedStyleSheets: [],
+      sheets: [],
+      id: ++counter
+    });
+  }
 
-	Object.defineProperties(ShadowRoot.prototype, {
-		firstChild: {
-			get: function get() {
-				var child = oldFirstChild.get.call(this);
-				while (child) {
-					if (child[INTERNAL] == null) break;
-					child = child.nextSibling;
-				}
-				return child;
-			}
-		},
+  Object.defineProperties(ShadowRoot.prototype, {
+    firstChild: {
+      get: function get() {
+        var child = oldFirstChild.get.call(this);
+        while (child) {
+          if (child[INTERNAL] == null) break;
+          child = child.nextSibling;
+        }
+        return child;
+      }
+    },
 
-		lastChild: {
-			get: function get() {
-				var child = oldLastChild.get.call(this);
-				while (child) {
-					if (child[INTERNAL] == null) break;
-					child = child.previousSibling;
-				}
-				return child;
-			}
-		},
+    lastChild: {
+      get: function get() {
+        var child = oldLastChild.get.call(this);
+        while (child) {
+          if (child[INTERNAL] == null) break;
+          child = child.previousSibling;
+        }
+        return child;
+      }
+    },
 
-		// @TODO
-		// childNodes: {},
-		// children: {},
+    // @TODO
+    // childNodes: {},
+    // children: {},
 
-		innerHTML: {
-			get: function get() {
-				var html = '';
-				var child = oldFirstChild.get.call(this);
-				while (child) {
-					if (!child[INTERNAL]) {
-						if (child.nodeType === 3) html += child.data;
-						html += child.outerHTML;
-					}
-					child = child.nextSibling;
-				}
-				return html;
-				// return old.get.call(this).replace(/</);
-			},
-			set: function set(html) {
-				var child = oldFirstChild.get.call(this);
-				var sheets = [];
-				while (child) {
-					if (child[INTERNAL]) sheets.push(child);
-					child = child.nextSibling;
-				}
-				oldInnerHTML.set.call(this, html);
-				child = oldFirstChild.get.call(this);
-				for (var i = 0; i < sheets.length; i++) {
-					this.insertBefore(sheets[i], child);
-				}
-				// this.insertAdjacentHTML(html, 'beforeend');
-			}
-		},
+    innerHTML: {
+      get: function get() {
+        var html = '';
+        var child = oldFirstChild.get.call(this);
+        while (child) {
+          if (!child[INTERNAL]) {
+            if (child.nodeType === 3) html += child.data;
+            html += child.outerHTML;
+          }
+          child = child.nextSibling;
+        }
+        return html;
+        // return old.get.call(this).replace(/</);
+      },
+      set: function set(html) {
+        var child = oldFirstChild.get.call(this);
+        var sheets = [];
+        while (child) {
+          if (child[INTERNAL]) sheets.push(child);
+          child = child.nextSibling;
+        }
+        oldInnerHTML.set.call(this, html);
+        child = oldFirstChild.get.call(this);
+        for (var i = 0; i < sheets.length; i++) {
+          this.insertBefore(sheets[i], child);
+        }
+        // this.insertAdjacentHTML(html, 'beforeend');
+      }
+    },
 
-		adoptedStyleSheets: {
-			get: function get() {
-				var state = getState(this);
-				return state.adoptedStyleSheets;
-			},
+    adoptedStyleSheets: {
+      get: function get() {
+        var state = getState(this);
+        return state.adoptedStyleSheets;
+      },
 
 
-			// @TODO:
-			// Chrome's implementation doesn't do any diffing, so the polyfill needn't either.
-			// Also, we should always clone the passed Array and freeze it if available.
-			set: function set(value) {
-				var state = getState(this);
-				var previous = state.adoptedStyleSheets.slice();
-				var indices = [];
-				if (!Array.isArray(value)) {
-					value = [].concat(value || []);
-				}
-				// this[INTERNAL] = value;
-				state.adoptedStyleSheets = value;
-				for (var i = 0; i < value.length; i++) {
-					var v = value[i];
-					var index = previous.indexOf(v);
-					if (index === -1) {
-						var style = v[INTERNAL];
-						var clone = style.cloneNode(true);
-						// clone.setAttribute('data-is-constructed', state.id);
-						clone[INTERNAL] = {};
-						// clone.$parent = style;
-						style.childSheets.push(clone);
-						// clone.textContent = style.textContent;
-						// clone.$id = style.$id;
-						// state.sheets.push(clone);
-						this.appendChild(clone);
-						// console.log(this, clone, this.childNodes);
-						// console.log(`found new sheet, adding.`, clone);
-					} else {
-						indices[index] = true;
-						// const style = v[INTERNAL];
-					}
-				}
-				for (var i = 0; i < previous.length; i++) {
-					if (indices[i] !== true) {
-						var prev = previous[i][INTERNAL];
-						// const style = prev.$parent;
-						for (var j = 0; j < prev.childSheets.length; j++) {
-							var sheet = prev.childSheets[j];
-							if (sheet.parentNode === this) {
-								this.removeChild(sheet);
-								prev.childSheets.splice(j, 1);
-								break;
-							}
-						}
-						// for (let j = 0; j < state.sheets.length; j++) {
-						// 	if (state.sheets[j].$id === prev.$id) {
-						// 		state.sheets[j].remove();
-						// 		break;
-						// 	}
-						// }
-					}
-				}
-			}
-		}
-	});
+      // @TODO:
+      // Chrome's implementation doesn't do any diffing, so the polyfill needn't either.
+      // Also, we should always clone the passed Array and freeze it if available.
+      set: function set(value) {
+        var state = getState(this);
+        var previous = state.adoptedStyleSheets.slice();
+        var indices = [];
+        if (!Array.isArray(value)) {
+          value = [].concat(value || []);
+        }
+        // this[INTERNAL] = value;
+        state.adoptedStyleSheets = value;
+        for (var i = 0; i < value.length; i++) {
+          var v = value[i];
+          var index = previous.indexOf(v);
+          if (index === -1) {
+            var style = v[INTERNAL];
+            var clone = style.cloneNode(true);
+            // clone.setAttribute('data-is-constructed', state.id);
+            clone[INTERNAL] = {};
+            // clone.$parent = style;
+            style.childSheets.push(clone);
+            // clone.textContent = style.textContent;
+            // clone.$id = style.$id;
+            // state.sheets.push(clone);
+            this.appendChild(clone);
+            // console.log(this, clone, this.childNodes);
+            // console.log(`found new sheet, adding.`, clone);
+          } else {
+            indices[index] = true;
+            // const style = v[INTERNAL];
+          }
+        }
+        for (var i = 0; i < previous.length; i++) {
+          if (indices[i] !== true) {
+            var prev = previous[i][INTERNAL];
+            // const style = prev.$parent;
+            for (var j = 0; j < prev.childSheets.length; j++) {
+              var sheet = prev.childSheets[j];
+              if (sheet.parentNode === this) {
+                this.removeChild(sheet);
+                prev.childSheets.splice(j, 1);
+                break;
+              }
+            }
+            // for (let j = 0; j < state.sheets.length; j++) {
+            // 	if (state.sheets[j].$id === prev.$id) {
+            // 		state.sheets[j].remove();
+            // 		break;
+            // 	}
+            // }
+          }
+        }
+      }
+    }
+  });
 })();
 
 h.f = Fragment;
@@ -2042,7 +2046,7 @@ h.f = Fragment;
 var html = htm.bind(h);
 
 function createRef() {
-	return {};
+  return {};
 }
 
 var $ = {};
@@ -2051,32 +2055,32 @@ var defineElement = define;
 var elements = options.mapping;
 
 var omi = {
-	tag: tag,
-	WeElement: WeElement,
-	Component: Component,
-	render: render,
-	h: h,
-	createElement: h,
-	options: options,
-	define: define,
-	cloneElement: cloneElement,
-	getHost: getHost,
-	rpx: rpx,
-	defineElement: defineElement,
-	classNames: classNames,
-	extractClass: extractClass,
-	createRef: createRef,
-	html: html,
-	htm: htm,
-	o: o,
-	elements: elements,
-	$: $,
-	extend: extend$1,
-	get: get,
-	set: set,
-	bind: bind,
-	unbind: unbind,
-	JSONProxy: JSONPatcherProxy
+  tag: tag,
+  WeElement: WeElement,
+  Component: Component,
+  render: render,
+  h: h,
+  createElement: h,
+  options: options,
+  define: define,
+  cloneElement: cloneElement,
+  getHost: getHost,
+  rpx: rpx,
+  defineElement: defineElement,
+  classNames: classNames,
+  extractClass: extractClass,
+  createRef: createRef,
+  html: html,
+  htm: htm,
+  o: o,
+  elements: elements,
+  $: $,
+  extend: extend$1,
+  get: get,
+  set: set,
+  bind: bind,
+  unbind: unbind,
+  JSONProxy: JSONPatcherProxy
 };
 
 options.root.Omi = omi;

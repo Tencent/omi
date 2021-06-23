@@ -694,8 +694,10 @@
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
             if (this.constructor.css) {
-                this.styleSheet = new CSSStyleSheet();
-                this.styleSheet.replaceSync(this.constructor.css);
+                if ('string' == typeof this.constructor.css) {
+                    this.styleSheet = new CSSStyleSheet();
+                    this.styleSheet.replaceSync(this.constructor.css);
+                } else this.styleSheet = this.constructor.css;
                 shadowRoot.adoptedStyleSheets = [ this.styleSheet ];
             }
             if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
