@@ -13,6 +13,7 @@ import htm from 'htm'
 import { extend, get, set, bind, unbind } from './extend'
 import JSONProxy from './proxy'
 import { Fragment } from './util'
+import './constructable-stylesheets-polyfill'
 
 h.f = Fragment
 

@@ -693,7 +693,12 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            if (this.constructor.css) shadowRoot.appendChild(cssToDom(this.constructor.css)); else if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
+            if (this.constructor.css) {
+                this.styleSheet = new CSSStyleSheet();
+                this.styleSheet.replaceSync(this.constructor.css);
+                shadowRoot.adoptedStyleSheets = [ this.styleSheet ];
+            }
+            if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             var rendered = this.render(this.props, this.store);
@@ -1011,22 +1016,24 @@
     var hasOwn = {}.hasOwnProperty;
     var n = function(t, r, u, e) {
         for (var p = 1; p < r.length; p++) {
-            var s = r[p++], a = "number" == typeof s ? u[s] : s;
-            1 === r[p] ? e[0] = a : 2 === r[p] ? (e[1] = e[1] || {})[r[++p]] = a : 3 === r[p] ? e[1] = Object.assign(e[1] || {}, a) : e.push(r[p] ? t.apply(null, n(t, a, u, [ "", null ])) : a);
+            var s = r[p], h = "number" == typeof s ? u[s] : s, a = r[++p];
+            1 === a ? e[0] = h : 3 === a ? e[1] = Object.assign(e[1] || {}, h) : 5 === a ? (e[1] = e[1] || {})[r[++p]] = h : 6 === a ? e[1][r[++p]] += h + "" : e.push(a ? t.apply(null, n(t, h, u, [ "", null ])) : h);
         }
         return e;
     }, t = function(n) {
-        for (var t, r, u = 1, e = "", p = "", s = [ 0 ], a = function(n) {
+        for (var t, r, u = 1, e = "", p = "", s = [ 0 ], h = function(n) {
             1 === u && (n || (e = e.replace(/^\s*\n\s*|\s*\n\s*$/g, ""))) ? s.push(n || e, 0) : 3 === u && (n || e) ? (s.push(n || e, 1), 
-            u = 2) : 2 === u && "..." === e && n ? s.push(n, 3) : 2 === u && e && !n ? s.push(!0, 2, e) : 4 === u && r && (s.push(n || e, 2, r), 
-            r = ""), e = "";
-        }, f = 0; f < n.length; f++) {
-            f && (1 === u && a(), a(f));
-            for (var h = 0; h < n[f].length; h++) t = n[f][h], 1 === u ? "<" === t ? (a(), s = [ s ], u = 3) : e += t : p ? t === p ? p = "" : e += t : '"' === t || "'" === t ? p = t : ">" === t ? (a(), 
-            u = 1) : u && ("=" === t ? (u = 4, r = e, e = "") : "/" === t ? (a(), 3 === u && (s = s[0]), u = s, (s = s[0]).push(u, 4), 
-            u = 0) : " " === t || "\t" === t || "\n" === t || "\r" === t ? (a(), u = 2) : e += t);
+            u = 2) : 2 === u && "..." === e && n ? s.push(n, 3) : 2 === u && e && !n ? s.push(!0, 5, e) : u >= 5 && ((e || !n && 5 === u) && (s.push(e, u, r), 
+            u = 6), n && (s.push(n, u, r), u = 6)), e = "";
+        }, a = 0; a < n.length; a++) {
+            a && (1 === u && h(), h(a));
+            for (var f = 0; f < n[a].length; f++) t = n[a][f], 1 === u ? "<" === t ? (h(), s = [ s ], u = 3) : e += t : 4 === u ? "--" === e && ">" === t ? (u = 1, 
+            e = "") : e = t + e[0] : p ? t === p ? p = "" : e += t : '"' === t || "'" === t ? p = t : ">" === t ? (h(), u = 1) : u && ("=" === t ? (u = 5, 
+            r = e, e = "") : "/" === t && (u < 5 || ">" === n[a][f + 1]) ? (h(), 3 === u && (s = s[0]), u = s, (s = s[0]).push(u, 2), 
+            u = 0) : " " === t || "\t" === t || "\n" === t || "\r" === t ? (h(), u = 2) : e += t), 3 === u && "!--" === e && (u = 4, 
+            s = s[0]);
         }
-        return a(), s;
+        return h(), s;
     }, r = "function" == typeof Map, u = r ? new Map() : {}, e = r ? function(n) {
         var r = u.get(n);
         return r || u.set(n, r = t(n)), r;
@@ -1034,6 +1041,149 @@
         for (var r = "", e = 0; e < n.length; e++) r += n[e].length + "-" + n[e];
         return u[r] || (u[r] = t(n));
     };
+    !function() {
+        function CSSStyleSheet(options) {
+            if (!DOC) {
+                var frame = document.createElement('iframe');
+                frame.style.cssText = 'position:absolute;left:0;top:-9999px;width:1px;height:1px;';
+                document.body.appendChild(frame);
+                DOC = frame.contentWindow.document;
+            }
+            var style = DOC.createElement('style');
+            style.$id = ++counter;
+            style.childSheets = [];
+            style.appendChild(DOC.createTextNode(''));
+            DOC.body.appendChild(style);
+            Object.assign(style.sheet, options || {});
+            this[INTERNAL] = style;
+        }
+        function getState(obj) {
+            return obj[INTERNAL] || (obj[INTERNAL] = {
+                adoptedStyleSheets: [],
+                sheets: [],
+                id: ++counter
+            });
+        }
+        try {
+            new window.CSSStyleSheet('a{}');
+            return;
+        } catch (e) {}
+        var INTERNAL = 'undefined' != typeof Symbol ? Symbol('__s') : '__s';
+        var OriginalCSSStyleSheet = window.CSSStyleSheet;
+        window.CSSStyleSheet = CSSStyleSheet;
+        var DOC;
+        var counter = 0;
+        CSSStyleSheet.prototype = Object.create(OriginalCSSStyleSheet);
+        CSSStyleSheet.prototype;
+        CSSStyleSheet.prototype.replace = function(cssText) {
+            var style = this[INTERNAL];
+            return new Promise(function(resolve, reject) {
+                var l = DOC.createElement('link');
+                l.rel = 'preload';
+                l.as = 'style';
+                l.onload = function() {
+                    style.firstChild.data = cssText;
+                    for (var i = 0; i < style.childSheets.length; i++) style.childSheets[i].firstChild.data = cssText;
+                    l.remove();
+                    resolve();
+                };
+                l.onerror = reject;
+                l.href = 'data:text/css;base64,' + btoa(cssText);
+                DOC.head.appendChild(l);
+            });
+        };
+        CSSStyleSheet.prototype.replaceSync = function(cssText) {
+            var style = this[INTERNAL];
+            if (cssText.replace(/\/\*[\s\S]+?\*\//g, '').match(/@import\s*\(\s*(['"])[^\1]*?\1\s*\)/)) throw Error('no');
+            style.firstChild.data = cssText;
+            for (var i = 0; i < style.childSheets.length; i++) style.childSheets[i].firstChild.data = cssText;
+        };
+        var oldInnerHTML = Object.getOwnPropertyDescriptor(ShadowRoot.prototype, 'innerHTML');
+        var oldFirstChild = Object.getOwnPropertyDescriptor(Node.prototype, 'firstChild');
+        var oldLastChild = Object.getOwnPropertyDescriptor(Node.prototype, 'lastChild');
+        Object.defineProperties(ShadowRoot.prototype, {
+            firstChild: {
+                get: function() {
+                    var child = oldFirstChild.get.call(this);
+                    while (child) {
+                        if (null == child[INTERNAL]) break;
+                        child = child.nextSibling;
+                    }
+                    return child;
+                }
+            },
+            lastChild: {
+                get: function() {
+                    var child = oldLastChild.get.call(this);
+                    while (child) {
+                        if (null == child[INTERNAL]) break;
+                        child = child.previousSibling;
+                    }
+                    return child;
+                }
+            },
+            innerHTML: {
+                get: function() {
+                    var html = '';
+                    var child = oldFirstChild.get.call(this);
+                    while (child) {
+                        if (!child[INTERNAL]) {
+                            if (3 === child.nodeType) html += child.data;
+                            html += child.outerHTML;
+                        }
+                        child = child.nextSibling;
+                    }
+                    return html;
+                },
+                set: function(html) {
+                    var child = oldFirstChild.get.call(this);
+                    var sheets = [];
+                    while (child) {
+                        if (child[INTERNAL]) sheets.push(child);
+                        child = child.nextSibling;
+                    }
+                    oldInnerHTML.set.call(this, html);
+                    child = oldFirstChild.get.call(this);
+                    for (var i = 0; i < sheets.length; i++) this.insertBefore(sheets[i], child);
+                }
+            },
+            adoptedStyleSheets: {
+                get: function() {
+                    var state = getState(this);
+                    return state.adoptedStyleSheets;
+                },
+                set: function(value) {
+                    var state = getState(this);
+                    var previous = state.adoptedStyleSheets.slice();
+                    var indices = [];
+                    if (!Array.isArray(value)) value = [].concat(value || []);
+                    state.adoptedStyleSheets = value;
+                    for (var i = 0; i < value.length; i++) {
+                        var v = value[i];
+                        var index = previous.indexOf(v);
+                        if (-1 === index) {
+                            var style = v[INTERNAL];
+                            var clone = style.cloneNode(!0);
+                            clone[INTERNAL] = {};
+                            style.childSheets.push(clone);
+                            this.appendChild(clone);
+                        } else indices[index] = !0;
+                    }
+                    for (var i = 0; i < previous.length; i++) if (!0 !== indices[i]) {
+                        var prev = previous[i][INTERNAL];
+                        for (var j = 0; j < prev.childSheets.length; j++) {
+                            var sheet = prev.childSheets[j];
+                            if (sheet.parentNode === this) {
+                                this.removeChild(sheet);
+                                prev.childSheets.splice(j, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }();
     h.f = Fragment;
     var html = htm.bind(h);
     var $ = {};
