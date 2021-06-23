@@ -1,6 +1,0 @@
-<view>
-  <text>{{$.a.name}}</text>
-  <text>{{$.b.name}}-{{$.b.age}}</text>
-	<view >{{reverseName}}</view>
-  <view>{{value}}</view>
-</view>

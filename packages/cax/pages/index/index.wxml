@@ -1,4 +1,0 @@
-<!--index.wxml-->
-<view class="container">
-  <cax-element id="myCanvas"></cax-element>
-</view>

@@ -1,5 +1,0 @@
-<view class="ctn">
-	<view>Log Length: {{logs.length}}</view>
-	<view>Log Length by computed: {{logsLength}}</view>
-	<view>motto: {{motto}}</view>
-</view>

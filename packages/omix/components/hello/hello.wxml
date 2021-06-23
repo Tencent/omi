@@ -1,5 +1,0 @@
-<view class="ctn">
-  <view>
-    <text> Pure Component {{aa}}!</text>
-  </view>
-</view>
