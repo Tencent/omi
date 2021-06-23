@@ -103,7 +103,7 @@ declare namespace Omi {
 
     // Allow static members to reference class type parameters
     // https://github.com/Microsoft/TypeScript/issues/24018
-    static css: string;
+    static css: string | CSSStyleSheet ;
 
     props: RenderableProps<P>;
     prevProps: RenderableProps<P>;
@@ -165,6 +165,11 @@ declare namespace Omi {
     params: JSX.HTMLAttributes & JSX.SVGAttributes & Record<string, any> | null,
     ...children: ComponentChildren[]
   ): VNode<any>;
+
+
+  interface ShadowRootPloyfill extends ShadowRoot {
+    adoptedStyleSheets : CSSStyleSheet;
+  }
 
   function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 
