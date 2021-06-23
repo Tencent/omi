@@ -168,7 +168,7 @@ declare namespace Omi {
 
 
   interface ShadowRootPloyfill extends ShadowRoot {
-    adoptedStyleSheets : CSSStyleSheet;
+    adoptedStyleSheets : CSSStyleSheet[];
   }
 
   function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
