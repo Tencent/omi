@@ -3,7 +3,7 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
-## With TypeScript
+## Define Cross-Frameworks Button With TypeScript
 
 ```ts
 import { tag, WeElement, h, extractClass } from 'omi'
