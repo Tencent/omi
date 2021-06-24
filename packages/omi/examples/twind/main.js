@@ -11,7 +11,7 @@ define('twind-button', class extends WeElement {
 
 	render() {
 		return (
-			<button class={tw`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded`} >twind button</button>
+			<button class={tw`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`} >twind button</button>
 		)
 	}
 })

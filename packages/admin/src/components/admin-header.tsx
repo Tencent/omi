@@ -24,7 +24,7 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw` bg-gray-100 h-12 px-4 text-left border-b-1`}>
+      <div class={tw` bg-gray-100 h-12 text-left border-b-1`}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
             <div >
