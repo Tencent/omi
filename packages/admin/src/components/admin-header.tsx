@@ -5,7 +5,7 @@ const { tw } = create({ sheet })
 import logo from '../logo.svg'
 import '@omiu/avatar'
 
-interface HelloOmiProps {
+interface Props {
 
 }
 
@@ -13,13 +13,13 @@ const tagName = 'admin-header'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      [tagName]: Omi.Props & HelloOmiProps
+      [tagName]: Omi.Props & Props
     }
   }
 }
 
 @tag(tagName)
-export default class extends WeElement<HelloOmiProps> {
+export default class extends WeElement<Props> {
   static css = sheet.target
 
   render() {

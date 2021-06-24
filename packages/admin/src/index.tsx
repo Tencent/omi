@@ -1,11 +1,14 @@
-import { WeElement, render, h, define, tag } from 'omi'
+import { WeElement, render, h, options, tag } from 'omi'
+
+options.ignoreAttrs = true
+
 import './hello-omi'
 import './index.css'
 import * as css from './_index.less'
 
 import '@omiu/button'
 import './components/admin-header'
-
+import './components/admin-left-panel'
 interface MyAppProps {
   name: string
 }
@@ -27,9 +30,11 @@ export default class extends WeElement<MyAppProps> {
     return (
       <div class="app">
         <admin-header></admin-header>
-        {this.abc}
+
+        <admin-left-panel></admin-left-panel>
+        {/* {this.abc}
         <hello-omi onAbc={this.onAbc} msg="Omi"></hello-omi>
-        <o-button>button</o-button>
+        <o-button>button</o-button> */}
 
       </div>
     )
