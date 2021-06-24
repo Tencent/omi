@@ -74,8 +74,8 @@ export default class extends WeElement<Props> {
   render() {
     console.error(this.treeData)
     return (
-      <div class={tw``}>
-        <o-tree style="width:400px;" data={this.treeData}></o-tree>
+      <div style={`height:calc(100vh - 3rem)`} class={tw`text-left border-r-1 w-64`}>
+        <o-tree data={this.treeData}></o-tree>
       </div>
     )
   }
