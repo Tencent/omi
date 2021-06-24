@@ -9,7 +9,7 @@ function getGlobal() {
       self ||
       window ||
       global ||
-      (function () {
+      (function() {
         return this
       })()
     )
