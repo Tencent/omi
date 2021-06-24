@@ -695,13 +695,9 @@
             }
             if (this.constructor.css) {
                 if ('string' == typeof this.constructor.css) {
-                    console.log(1111);
                     this.styleSheet = new CSSStyleSheet();
                     this.styleSheet.replaceSync(this.constructor.css);
-                } else {
-                    console.log(this.constructor.css);
-                    this.styleSheet = this.constructor.css;
-                }
+                } else this.styleSheet = this.constructor.css;
                 shadowRoot.adoptedStyleSheets = [ this.styleSheet ];
             }
             if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));

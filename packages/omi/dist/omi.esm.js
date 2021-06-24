@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.8  http://omijs.org
+ * Omi v6.19.9  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -903,7 +903,6 @@ var WeElement = function (_HTMLElement) {
 		if (this.constructor.isLightDom) {
 			shadowRoot = this;
 		} else {
-
 			if (!this.shadowRoot) {
 				shadowRoot = this.attachShadow({
 					mode: 'open'
@@ -919,11 +918,9 @@ var WeElement = function (_HTMLElement) {
 
 		if (this.constructor.css) {
 			if (typeof this.constructor.css === 'string') {
-				console.log(1111);
 				this.styleSheet = new CSSStyleSheet();
 				this.styleSheet.replaceSync(this.constructor.css);
 			} else {
-				console.log(this.constructor.css);
 				this.styleSheet = this.constructor.css;
 			}
 			shadowRoot.adoptedStyleSheets = [this.styleSheet];
@@ -2149,7 +2146,7 @@ h.f = Fragment;
 var html = htm.bind(h);
 
 function createRef() {
-	return {};
+  return {};
 }
 
 var $ = {};
@@ -2158,32 +2155,32 @@ var defineElement = define;
 var elements = options.mapping;
 
 var omi = {
-	tag: tag,
-	WeElement: WeElement,
-	Component: Component,
-	render: render,
-	h: h,
-	createElement: h,
-	options: options,
-	define: define,
-	cloneElement: cloneElement,
-	getHost: getHost,
-	rpx: rpx,
-	defineElement: defineElement,
-	classNames: classNames,
-	extractClass: extractClass,
-	createRef: createRef,
-	html: html,
-	htm: htm,
-	o: o,
-	elements: elements,
-	$: $,
-	extend: extend$1,
-	get: get,
-	set: set,
-	bind: bind,
-	unbind: unbind,
-	JSONProxy: JSONPatcherProxy
+  tag: tag,
+  WeElement: WeElement,
+  Component: Component,
+  render: render,
+  h: h,
+  createElement: h,
+  options: options,
+  define: define,
+  cloneElement: cloneElement,
+  getHost: getHost,
+  rpx: rpx,
+  defineElement: defineElement,
+  classNames: classNames,
+  extractClass: extractClass,
+  createRef: createRef,
+  html: html,
+  htm: htm,
+  o: o,
+  elements: elements,
+  $: $,
+  extend: extend$1,
+  get: get,
+  set: set,
+  bind: bind,
+  unbind: unbind,
+  JSONProxy: JSONPatcherProxy
 };
 
 options.root.Omi = omi;
