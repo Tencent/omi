@@ -64,3 +64,31 @@
  a {
    text-decoration: none;
  }
+
+ .o-table-align-left {
+   text-align: left
+ }
+
+ .o-table-align-center {
+   text-align: center
+ }
+
+
+ .o-table-align-right {
+   text-align: right
+ }
+
+
+ a,
+ a:link,
+ a:visited,
+
+ a:active {
+   text-decoration: none;
+   color: inherit;
+ }
+
+ a:hover {
+   color: $o-primary;
+   color: var(--o-primary, $o-primary);
+ }

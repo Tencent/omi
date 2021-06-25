@@ -45,6 +45,7 @@ export default class Table extends WeElement {
     key: 'address',
   }, {
     title: '操作',
+    align: 'right',
     render: item => (
       <span>
         <a href="javascript:;">Delete</a>
