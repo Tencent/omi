@@ -1,5 +1,4 @@
 import { WeElement } from 'omi';
-import '../theme.ts';
 interface Props {
     dataSource: any[];
     columns: object;

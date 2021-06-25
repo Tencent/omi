@@ -1,8 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 // import '../checkbox/index.tsx'
-//@ts-ignore
-import '../theme.ts'
 
 interface Props {
   dataSource: any[],
