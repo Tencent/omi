@@ -14,10 +14,7 @@ import './components/admin-main-error'
 import './components/admin-main-warning'
 import './components/admin-main-table'
 
-import { create, cssomSheet } from 'twind'
-const sheet = cssomSheet({ target: new CSSStyleSheet() })
-const { tw } = create({ sheet })
-
+import { tw,sheet } from 'omi-twind'
 
 @tag('my-app')
 export default class extends WeElement {

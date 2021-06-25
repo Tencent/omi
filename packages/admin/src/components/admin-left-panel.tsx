@@ -1,9 +1,7 @@
 import { WeElement, h, tag } from 'omi'
-import { create, cssomSheet } from 'twind'
+import { tw, sheet } from 'omi-twind'
 import '@omiu/tree'
 
-const sheet = cssomSheet({ target: new CSSStyleSheet() })
-const { tw } = create({ sheet })
 
 interface Props {
 
