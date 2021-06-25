@@ -568,3 +568,11 @@
 
 .o-tree-node__label.is-editing {
   text-overflow: unset; }
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit; }

@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.11 http://omijs.org
+ * @omiu/tree v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -626,6 +626,14 @@ var css = `:host {
 
 .o-tree-node__label.is-editing {
   text-overflow: unset; }
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit; }
 `
 
 
@@ -727,7 +735,8 @@ var Tree = /** @class */ (function (_super) {
             this.prevSelectedNode = node;
         }
         this._tempTagName = 'o-icon-' + node.icon;
-        return h("div", __assign({ role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) { _this.onNodeClick(evt, node); } }, extractClass({}, 'o-tree-node', {
+        this._nodeTagName = node.href ? 'a' : 'div';
+        return (h(this._nodeTagName, __assign({ href: node.href, target: node.target, role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) { _this.onNodeClick(evt, node); } }, extractClass({}, 'o-tree-node', {
             'is-expanded': node.expanded,
             'is-current': node.selected,
             'is-current-blur': node.selectedBlur
@@ -750,7 +759,7 @@ var Tree = /** @class */ (function (_super) {
                     _this._tempTagName = 'o-icon-' + actionIcon;
                     return h(_this._tempTagName, { onclick: function (_) { return _this.onActionIcon(_, actionIcon); }, class: "action-icon" });
                 })),
-            (!node.editing && node.sign) && h("span", { style: node.color && { color: node.color }, class: "sign" }, node.sign));
+            (!node.editing && node.sign) && h("span", { style: node.color && { color: node.color }, class: "sign" }, node.sign)));
     };
     Tree.prototype.render = function (props) {
         var _this = this;
