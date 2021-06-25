@@ -12,7 +12,7 @@
    animation: float 5s infinite;
    border-spacing: 0;
    border-collapse: collapse;
-   color: rgba(0, 0, 0, 0.87);
+   color: #606266;
    font-weight: 400;
  }
 
@@ -91,4 +91,17 @@
  a:hover {
    color: $o-primary;
    color: var(--o-primary, $o-primary);
+ }
+
+
+ o-checkbox {
+   margin-right: 5px;
+ }
+
+ .o-table-tbody tr:nth-of-type(odd) {
+   background: white;
+ }
+
+ .o-table-tbody tr:nth-of-type(even) {
+   background: #fafafa;
  }

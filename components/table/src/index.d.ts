@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '@omiu/checkbox';
 interface Props {
     dataSource: any[];
     columns: object;

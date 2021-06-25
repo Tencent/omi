@@ -1,9 +1,9 @@
 import { tag, WeElement, h, extractClass, classNames, options } from 'omi'
+import '@omiu/checkbox'
 
 options.ignoreAttrs = true
 
 import * as css from './index.scss'
-// import '../checkbox/index.tsx'
 
 interface Props {
   dataSource: any[],
@@ -97,9 +97,11 @@ export default class Table extends WeElement<Props> {
             })}
           </tr>
         </thead>
-        <tbody class="table-hover">
+        <tbody class="o-table-tbody">
           {props.dataSource.map(item => (
-            <tr>
+            <tr key={item.id} style={{
+              background: item.$config && item.$config.bgColor
+            }}>
               {props.columns.map((column, subIndex) => {
                 const obj: any = {}
                 const { width } = column

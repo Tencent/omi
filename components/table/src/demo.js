@@ -86,6 +86,271 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@omiu/checkbox/src/index.esm.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@omiu/checkbox/src/index.esm.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+/**
+ * @omiu/checkbox v0.0.7 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
+
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+
+var css = `:host {
+  display: inline-block; }
+
+* {
+  box-sizing: border-box; }
+
+.o-checkbox {
+  position: relative;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+  white-space: nowrap; }
+  .o-checkbox:hover {
+    cursor: pointer; }
+
+.o-checkbox__native-control:enabled:checked ~ .o-checkbox__background,
+.o-checkbox__native-control:enabled:indeterminate ~ .o-checkbox__background {
+  border-color: #07c160;
+  border-color: var(--o-primary, #07c160);
+  background-color: #07c160;
+  background-color: var(--o-primary, #07c160);
+  opacity: 1; }
+
+.o-checkbox__indeterminate .o-checkbox__checkmark {
+  opacity: 0; }
+
+.o-checkbox__checkmark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
+  color: #ffffff; }
+
+.o-checkbox__checkmark-path {
+  transition: stroke-dashoffset 180ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
+  stroke: currentColor;
+  stroke-width: 3.12px;
+  stroke-dashoffset: 29.78334;
+  stroke-dasharray: 29.78334; }
+
+.o-checkbox__native-control:checked ~ .o-checkbox__background .o-checkbox__checkmark-path,
+.o-checkbox__native-control:indeterminate ~ .o-checkbox__background .o-checkbox__checkmark-path {
+  stroke-dashoffset: 0; }
+
+.o-checkbox__background {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 45%;
+  height: 45%;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  background-color: transparent;
+  pointer-events: none;
+  will-change: background-color, border-color;
+  transition: background-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1), border-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }
+
+.o-checkbox__background,
+.o-checkbox__label {
+  display: inline-block;
+  height: 18px;
+  vertical-align: middle; }
+
+.o-checkbox__background {
+  width: 18px; }
+
+.o-checkbox__label {
+  margin-left: 10px; }
+
+.o-checkbox__native-control:indeterminate ~ .o-checkbox__background .o-checkbox__mixedmark {
+  transform: scaleX(1) rotate(0deg);
+  opacity: 1; }
+
+.o-checkbox__mixedmark {
+  width: 100%;
+  height: 0;
+  transform: scaleX(0) rotate(0deg);
+  border: 1px solid white;
+  top: 50%;
+  position: relative;
+  margin-top: -1px;
+  opacity: 0;
+  transition: opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1), transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }
+
+.o-checkbox__native-control {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: inherit; }
+
+.o-checkbox__native-control:enabled:not(:checked):not(:indeterminate) ~ .o-checkbox__background {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.54);
+  color: white; }
+
+.o-checkbox__native-control:disabled:checked ~ .o-checkbox__background,
+.o-checkbox__native-control:disabled:indeterminate ~ .o-checkbox__background {
+  border-color: #07c160;
+  border-color: var(--o-primary, #07c160);
+  background-color: #07c160;
+  background-color: var(--o-primary, #07c160);
+  opacity: 0.5; }
+
+.o-checkbox__native-control:disabled:not(:checked):not(:indeterminate) ~ .o-checkbox__background {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.34);
+  color: white; }
+
+.o-checkbox__disabled .o-checkbox__label {
+  color: #888; }
+
+.o-checkbox__disabled:hover {
+  cursor: not-allowed; }
+`
+
+
+var Table = /** @class */ (function (_super) {
+    __extends(Table, _super);
+    function Table() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.changeHandler = function (e) {
+            if (_this.props.disabled) {
+                return;
+            }
+            _this.fire('change', e.currentTarget.checked);
+            if (_this.props.indeterminate) {
+                _this.props.checked = true;
+                _this.props.indeterminate = false;
+                if (_this.prevProps) {
+                    _this.prevProps.checked = true;
+                    _this.prevProps.indeterminate = false;
+                }
+                _this.update(true);
+            }
+        };
+        return _this;
+    }
+    Table.prototype.render = function (props) {
+        return (Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", __assign({}, Object(omi__WEBPACK_IMPORTED_MODULE_0__["extractClass"])(props, 'o-checkbox', {
+            'o-checkbox__disabled': props.disabled,
+            'o-checkbox__indeterminate': props.indeterminate
+        })),
+            Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("input", __assign({ type: "checkbox", disabled: props.disabled, onChange: this.changeHandler }, extract(props, ['checked', 'value', 'indeterminate']), { class: "o-checkbox__native-control", id: "checkbox" })),
+            Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "o-checkbox__background" },
+                Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("svg", { class: "o-checkbox__checkmark", viewBox: "0 0 24 24" },
+                    Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("path", { class: "o-checkbox__checkmark-path", fill: "none", d: "M1.73,12.91 8.1,19.28 22.79,4.59" })),
+                Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "o-checkbox__mixedmark" })),
+            props.label && Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("label", { class: "o-checkbox__label", for: "checkbox" }, props.label)));
+    };
+    Table.css = css;
+    Table.propTypes = {
+        label: String,
+        disabled: Boolean,
+        indeterminate: Boolean,
+        checked: Boolean,
+        value: String
+    };
+    Table = __decorate([
+        Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-checkbox')
+    ], Table);
+    return Table;
+}(omi__WEBPACK_IMPORTED_MODULE_0__["WeElement"]));
+function extract(props, prop) {
+    var _a;
+    if (typeof prop === 'string') {
+        if (props.hasOwnProperty(prop)) {
+            return _a = {}, _a[prop] = props[prop], _a;
+        }
+    }
+    else {
+        var res_1 = {};
+        prop.forEach(function (key) {
+            if (props.hasOwnProperty(key)) {
+                res_1[key] = props[key];
+            }
+        });
+        return res_1;
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Table);
+//# sourceMappingURL=index.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
 /*!*************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
@@ -98,7 +363,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: rgba(0, 0, 0, 0.87);\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 40px 2px 16px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 14px 40px 14px 16px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 14px 40px 14px 16px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 40px 2px 16px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 14px 40px 14px 16px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 14px 40px 14px 16px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-tbody tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-tbody tr:nth-of-type(even) {\n  background: #fafafa; }\n", ""]);
 
 // exports
 
@@ -2499,23 +2764,46 @@ var Table = /** @class */ (function (_super) {
                 id: 2,
                 name: 'dntzhang',
                 age: 12,
-                address: 'Tencent'
-            }, {
+                address: 'Tencent',
+                $config: {
+                    bgColor: 'rgb(247 176 176 / 32%)'
+                }
+            },
+            {
                 id: 3,
                 name: 'lucy',
                 age: 12,
-                address: 'Tencent'
+                address: 'Tencent',
             }, {
                 id: 4,
                 name: 'john',
                 age: 12,
-                address: 'Tencent'
+                address: 'Tencent',
+                $config: {
+                    bgColor: 'rgb(230 162 60 / 34%)'
+                }
             }, {
                 id: 5,
                 name: 'tim',
                 age: 12,
                 address: 'Tencent'
-            }];
+            }, {
+                id: 6,
+                name: 'tim',
+                age: 12,
+                address: 'Tencent'
+            }, {
+                id: 7,
+                name: 'tim',
+                age: 12,
+                address: 'Tencent'
+            }, {
+                id: 8,
+                name: 'tim',
+                age: 12,
+                address: 'Tencent'
+            }
+        ];
         _this.columns = [{
                 title: 'ID',
                 render: function (item) { return (omi_1.h("strong", null, item.id)); },
@@ -2531,13 +2819,25 @@ var Table = /** @class */ (function (_super) {
             }, {
                 title: '操作',
                 align: 'right',
-                render: function (item) { return (omi_1.h("span", null,
-                    omi_1.h("a", { href: "javascript:;" }, "Delete"))); }
+                render: function (item) { return (
+                //onclick 会绑定多次的问题
+                omi_1.h("o-icon-delete", { "data-item-id": item.id, onClick: _this.onClick, style: "cursor:pointer;font-size:20px;", title: "\u5220\u9664" })); }
             }];
+        _this.onClick = function (evt) {
+            console.log(Number(evt.currentTarget.dataset.itemId));
+            _this.deleteItemById(Number(evt.currentTarget.dataset.itemId));
+        };
         return _this;
     }
+    Table.prototype.deleteItemById = function (id) {
+        var index = this.dataSource.indexOf(this.dataSource.find(function (item) { return item.id === id; }));
+        if (index !== -1) {
+            this.dataSource.splice(index, 1);
+            this.update();
+        }
+    };
     Table.prototype.render = function (props) {
-        return omi_1.h("o-table", { columns: this.columns, dataSource: this.dataSource });
+        return omi_1.h("o-table", { checkbox: true, stripe: true, border: true, columns: this.columns, dataSource: this.dataSource });
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -2610,6 +2910,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+__webpack_require__(/*! @omiu/checkbox */ "./node_modules/@omiu/checkbox/src/index.esm.js");
 omi_1.options.ignoreAttrs = true;
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Table = /** @class */ (function (_super) {
@@ -2677,7 +2978,9 @@ var Table = /** @class */ (function (_super) {
                         index === 0 && props.checkbox && omi_1.h("o-checkbox", __assign({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                         column.title);
                 }))),
-            omi_1.h("tbody", { class: "table-hover" }, props.dataSource.map(function (item) { return (omi_1.h("tr", null, props.columns.map(function (column, subIndex) {
+            omi_1.h("tbody", { class: "o-table-tbody" }, props.dataSource.map(function (item) { return (omi_1.h("tr", { key: item.id, style: {
+                    background: item.$config && item.$config.bgColor
+                } }, props.columns.map(function (column, subIndex) {
                 var _a;
                 var obj = {};
                 var width = column.width;

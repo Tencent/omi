@@ -9,7 +9,7 @@
   animation: float 5s infinite;
   border-spacing: 0;
   border-collapse: collapse;
-  color: rgba(0, 0, 0, 0.87);
+  color: #606266;
   font-weight: 400; }
 
 .o-table-checkbox th:first-child,
@@ -51,3 +51,32 @@ td {
 
 a {
   text-decoration: none; }
+
+.o-table-align-left {
+  text-align: left; }
+
+.o-table-align-center {
+  text-align: center; }
+
+.o-table-align-right {
+  text-align: right; }
+
+a,
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: inherit; }
+
+a:hover {
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
+
+o-checkbox {
+  margin-right: 5px; }
+
+.o-table-tbody tr:nth-of-type(odd) {
+  background: white; }
+
+.o-table-tbody tr:nth-of-type(even) {
+  background: #fafafa; }
