@@ -363,7 +363,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 40px 2px 16px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 14px 40px 14px 16px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 14px 40px 14px 16px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-tbody tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-tbody tr:nth-of-type(even) {\n  background: #fafafa; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 40px 2px 16px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 14px 40px 14px 16px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 14px 40px 14px 16px; }\n\ntd.compact,\nth.compact {\n  padding: 4px 40px 4px 16px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-tbody tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-tbody tr:nth-of-type(even) {\n  background: #fafafa; }\n", ""]);
 
 // exports
 
@@ -2837,7 +2837,7 @@ var Table = /** @class */ (function (_super) {
         }
     };
     Table.prototype.render = function (props) {
-        return omi_1.h("o-table", { checkbox: true, stripe: true, border: true, columns: this.columns, dataSource: this.dataSource });
+        return omi_1.h("o-table", { checkbox: true, stripe: true, border: true, compact: true, columns: this.columns, dataSource: this.dataSource });
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -2954,7 +2954,6 @@ var Table = /** @class */ (function (_super) {
     };
     Table.prototype.render = function (props) {
         var _this = this;
-        console.error(props);
         if (!props.columns)
             return;
         if (!props.dataSource)
@@ -2974,6 +2973,7 @@ var Table = /** @class */ (function (_super) {
                     }
                     return omi_1.h("th", __assign({}, obj, { class: omi_1.classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
+                            _a['compact'] = props.compact,
                             _a)) }),
                         index === 0 && props.checkbox && omi_1.h("o-checkbox", __assign({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                         column.title);
@@ -2989,6 +2989,7 @@ var Table = /** @class */ (function (_super) {
                 }
                 return omi_1.h("td", __assign({}, obj, { class: omi_1.classNames((_a = {},
                         _a["o-table-align-" + column.align] = column.align,
+                        _a['compact'] = props.compact,
                         _a)) }),
                     subIndex === 0 && props.checkbox && omi_1.h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
                     column.render ? column.render(item) : item[column.key]);
@@ -3000,14 +3001,16 @@ var Table = /** @class */ (function (_super) {
         columns: [],
         checkbox: false,
         border: false,
-        stripe: false
+        stripe: false,
+        compact: false
     };
     Table.propTypes = {
         dataSource: Object,
         columns: Object,
         checkbox: Boolean,
         border: Boolean,
-        stripe: Boolean
+        stripe: Boolean,
+        compact: Boolean
     };
     Table = __decorate([
         omi_1.tag('o-table')

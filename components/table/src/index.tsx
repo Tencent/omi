@@ -10,7 +10,8 @@ interface Props {
   columns: object,
   checkbox: boolean,
   border: boolean,
-  stripe: boolean
+  stripe: boolean,
+  compact: boolean
 }
 
 @tag('o-table')
@@ -22,7 +23,8 @@ export default class Table extends WeElement<Props> {
     columns: [],
     checkbox: false,
     border: false,
-    stripe: false
+    stripe: false,
+    compact: false
   }
 
   static propTypes = {
@@ -30,7 +32,8 @@ export default class Table extends WeElement<Props> {
     columns: Object,
     checkbox: Boolean,
     border: Boolean,
-    stripe: Boolean
+    stripe: Boolean,
+    compact: Boolean
   }
 
   removeItem = (item) => {
@@ -73,8 +76,6 @@ export default class Table extends WeElement<Props> {
 
   render(props) {
 
-    console.error(props)
-
     if (!props.columns) return
     if (!props.dataSource) return
     return (
@@ -93,6 +94,7 @@ export default class Table extends WeElement<Props> {
               }
               return <th {...obj} class={classNames({
                 [`o-table-align-${column.align}`]: column.align,
+                'compact': props.compact,
               })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
             })}
           </tr>
@@ -110,6 +112,7 @@ export default class Table extends WeElement<Props> {
                 }
                 return <td {...obj} class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
+                  'compact': props.compact,
                 })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
               })}
             </tr>

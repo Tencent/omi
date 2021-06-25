@@ -6,6 +6,7 @@ interface Props {
     checkbox: boolean;
     border: boolean;
     stripe: boolean;
+    compact: boolean;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
@@ -15,6 +16,7 @@ export default class Table extends WeElement<Props> {
         checkbox: boolean;
         border: boolean;
         stripe: boolean;
+        compact: boolean;
     };
     static propTypes: {
         dataSource: ObjectConstructor;
@@ -22,6 +24,7 @@ export default class Table extends WeElement<Props> {
         checkbox: BooleanConstructor;
         border: BooleanConstructor;
         stripe: BooleanConstructor;
+        compact: BooleanConstructor;
     };
     removeItem: (item: any) => void;
     _changeHandlerTh: (e: any, item: any) => void;

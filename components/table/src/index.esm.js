@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.1 http://omijs.org
+ * @omiu/table v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -331,7 +331,8 @@ th {
   color: rgba(0, 0, 0, 0.54);
   font-size: 0.75rem;
   line-height: 1.3125rem;
-  font-weight: 500; }
+  font-weight: 500;
+  background: #fafafa; }
 
 .o-table-border td,
 .o-table-border th {
@@ -355,6 +356,10 @@ td {
   vertical-align: middle;
   font-size: 0.875rem;
   padding: 14px 40px 14px 16px; }
+
+td.compact,
+th.compact {
+  padding: 4px 40px 4px 16px; }
 
 a {
   text-decoration: none; }
@@ -432,7 +437,6 @@ var Table = /** @class */ (function (_super) {
     };
     Table.prototype.render = function (props) {
         var _this = this;
-        console.error(props);
         if (!props.columns)
             return;
         if (!props.dataSource)
@@ -452,6 +456,7 @@ var Table = /** @class */ (function (_super) {
                     }
                     return h("th", __assign$1({}, obj, { class: classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
+                            _a['compact'] = props.compact,
                             _a)) }),
                         index === 0 && props.checkbox && h("o-checkbox", __assign$1({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                         column.title);
@@ -467,6 +472,7 @@ var Table = /** @class */ (function (_super) {
                 }
                 return h("td", __assign$1({}, obj, { class: classNames((_a = {},
                         _a["o-table-align-" + column.align] = column.align,
+                        _a['compact'] = props.compact,
                         _a)) }),
                     subIndex === 0 && props.checkbox && h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
                     column.render ? column.render(item) : item[column.key]);
@@ -478,14 +484,16 @@ var Table = /** @class */ (function (_super) {
         columns: [],
         checkbox: false,
         border: false,
-        stripe: false
+        stripe: false,
+        compact: false
     };
     Table.propTypes = {
         dataSource: Object,
         columns: Object,
         checkbox: Boolean,
         border: Boolean,
-        stripe: Boolean
+        stripe: Boolean,
+        compact: Boolean
     };
     Table = __decorate$1([
         tag('o-table')
