@@ -110,16 +110,34 @@ export default class extends WeElement<Props> {
 
   render(props) {
     return <div>
-      <h4 class={tw`py-4`}>压缩高度</h4>
-
-      <o-table
-        checkbox={false}
-        stripe={true}
-        border={false}
-        compact={true}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
 
 
+      <div class={tw`flex flex-row`}>
+        <div class={tw`flex-1 px-4`}>
+          <h4 class={tw`py-4`}>带复选框</h4>
+
+          <o-table
+            checkbox={true}
+            stripe={true}
+            border={false}
+            compact={true}
+            columns={this.columns} dataSource={this.dataSource}></o-table>
+
+
+        </div>
+        <div class={tw`flex-1  px-4`}>
+
+          <h4 class={tw`py-4`}>带边框</h4>
+
+          <o-table
+            checkbox={true}
+            stripe={true}
+            border={true}
+            compact={true}
+            columns={this.columns} dataSource={this.dataSource}></o-table>
+
+        </div>
+      </div>
       <h4 class={tw`py-4`}>基础表格</h4>
       <o-table
         checkbox={false}
@@ -129,35 +147,33 @@ export default class extends WeElement<Props> {
         columns={this.columns} dataSource={this.dataSource}></o-table>
 
 
-      <h4 class={tw`py-4`}>带复选框</h4>
 
-      <o-table
-        checkbox={true}
-        stripe={true}
-        border={false}
-        compact={true}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
+      <div class={tw`flex flex-row`}>
+        <div class={tw`flex-1  px-4`}>
+          <h4 class={tw`py-4`}>压缩高度</h4>
+          <o-table
+            checkbox={false}
+            stripe={true}
+            border={false}
+            compact={true}
+            columns={this.columns} dataSource={this.dataSource}></o-table>
+        </div>
+        <div class={tw`flex-1  px-4`}>
+
+          <h4 class={tw`py-4`}>无隔行变色</h4>
+
+          <o-table
+            checkbox={true}
+            stripe={false}
+            border={true}
+            compact={true}
+            columns={this.columns} dataSource={this.dataSource}></o-table>
+        </div>
+      </div>
 
 
 
-      <h4 class={tw`py-4`}>带边框</h4>
 
-      <o-table
-        checkbox={true}
-        stripe={true}
-        border={true}
-        compact={true}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
-
-
-      <h4 class={tw`py-4`}>无隔行变色</h4>
-
-      <o-table
-        checkbox={true}
-        stripe={false}
-        border={true}
-        compact={true}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
 
     </div>
   }
