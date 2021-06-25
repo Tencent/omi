@@ -1,14 +1,13 @@
 import { WeElement, h, tag } from 'omi'
-import { create, cssomSheet } from 'twind'
-const sheet = cssomSheet({ target: new CSSStyleSheet() })
-const { tw } = create({ sheet })
+import { tw, sheet } from 'omi-twind'
+
 import '@omiu/table'
 
 interface Props {
 
 }
 
-const tagName = 'admin-main-table'
+const tagName = 'basic-table'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -75,7 +74,7 @@ export default class extends WeElement<Props> {
 
   columns = [{
     title: 'ID',
-    render: item => (<strong>{item.id}</strong>),
+    render: (item: { id: number }) => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
@@ -88,18 +87,18 @@ export default class extends WeElement<Props> {
   }, {
     title: '操作',
     align: 'right',
-    render: item => (
+    render: (item: { id: number }) => (
       //onclick 会绑定多次的问题
       <o-icon-delete data-item-id={item.id} onClick={this.onClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
     )
   }]
 
-  onClick = (evt) => {
+  onClick = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
     console.log(Number(evt.currentTarget.dataset.itemId))
     this.deleteItemById(Number(evt.currentTarget.dataset.itemId))
   }
 
-  deleteItemById(id) {
+  deleteItemById(id: number) {
     const index = this.dataSource.indexOf(this.dataSource.find(item => item.id === id))
     if (index !== -1) {
       this.dataSource.splice(index, 1)
@@ -140,13 +139,13 @@ export default class extends WeElement<Props> {
       </div>
 
       <div class={tw`px-2`}>
-      <h4 class={tw`py-2 text-sm`}>基础表格</h4>
-      <o-table
-        checkbox={false}
-        stripe={false}
-        border={false}
-        compact={false}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
+        <h4 class={tw`py-2 text-sm`}>基础表格</h4>
+        <o-table
+          checkbox={false}
+          stripe={false}
+          border={false}
+          compact={false}
+          columns={this.columns} dataSource={this.dataSource}></o-table>
 
       </div>
 

@@ -11,7 +11,8 @@ import './components/admin-main'
 import './components/admin-main-welcome'
 import './components/admin-main-error'
 import './components/admin-main-warning'
-import './components/admin-main-table'
+import './components/table/basic-table'
+import './components/table/pagination-table'
 
 import { tw, sheet } from 'omi-twind'
 
@@ -34,8 +35,14 @@ export default class extends WeElement {
       this.update()
     })
 
-    route('/table', () => {
-      this.data.tagName = 'admin-main-table'
+    route('/table/basic', () => {
+      this.data.tagName = 'basic-table'
+      this.update()
+    })
+
+
+    route('/table/pagination', () => {
+      this.data.tagName = 'pagination-table'
       this.update()
     })
 
