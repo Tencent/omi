@@ -462,7 +462,8 @@
 .o-tree-node {
   white-space: nowrap;
   outline: 0;
-  position: relative; }
+  position: relative;
+  display: block; }
 
 .o-tree-node:focus > .o-tree-node__content {
   background-color: #F5F7FA; }
@@ -576,3 +577,6 @@ a:hover,
 a:active {
   text-decoration: none;
   color: inherit; }
+
+a {
+  display: b; }

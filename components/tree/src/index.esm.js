@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.12 http://omijs.org
+ * @omiu/tree v0.0.13 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -520,7 +520,8 @@ var css = `:host {
 .o-tree-node {
   white-space: nowrap;
   outline: 0;
-  position: relative; }
+  position: relative;
+  display: block; }
 
 .o-tree-node:focus > .o-tree-node__content {
   background-color: #F5F7FA; }
@@ -634,6 +635,9 @@ a:hover,
 a:active {
   text-decoration: none;
   color: inherit; }
+
+a {
+  display: b; }
 `
 
 
