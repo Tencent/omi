@@ -28,19 +28,22 @@ export default class extends WeElement<Props> {
     expanded: true,
 
     icon: 'ac-unit-outlined',
+
     children: [{
-      sign: '1, M',
-      expanded: true,
-      label: '今日事项',
-      children: [{
-        sign: 'M',
-        label: '欢迎',
-        icon: 'ballot',
-        color: 'green',
-        selected: true,
-        href: '#/welcome'
-      }]
-    }]
+      sign: 'M',
+      label: '欢迎',
+      icon: 'ballot',
+      color: 'green',
+      selected: true,
+      href: '#/welcome'
+    },
+    {
+      label: '表格',
+      icon: 'ballot',
+      href: '#/table'
+    }
+    ]
+
   },
   {
     label: '其他',
