@@ -1,28 +1,40 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, classNames, options } from 'omi'
+import '@omiu/checkbox'
+
+options.ignoreAttrs = true
+
 import * as css from './index.scss'
-// import '../checkbox/index.tsx'
-//@ts-ignore
-import '../theme.ts'
 
 interface Props {
   dataSource: any[],
   columns: object,
   checkbox: boolean,
-  border: boolean
+  border: boolean,
+  stripe: boolean,
+  compact: boolean
 }
 
 @tag('o-table')
 export default class Table extends WeElement<Props> {
   static css = css
 
-  dataSource:any[]
-  columns:any[]
-  checkbox: boolean
-  border: boolean
-  // static propTypes = {
-  //   dataSource: Object,
-  //   columns: Object
-  // }
+  static defaultProps = {
+    dataSource: [],
+    columns: [],
+    checkbox: false,
+    border: false,
+    stripe: false,
+    compact: false
+  }
+
+  static propTypes = {
+    dataSource: Object,
+    columns: Object,
+    checkbox: Boolean,
+    border: Boolean,
+    stripe: Boolean,
+    compact: Boolean
+  }
 
   removeItem = (item) => {
     this.props.dataSource.splice(this.props.dataSource.indexOf(item), 1)
@@ -34,7 +46,6 @@ export default class Table extends WeElement<Props> {
     this.props.dataSource.forEach(item => {
       item.checked = e.detail
     })
-
     this.update()
   }
 
@@ -44,21 +55,6 @@ export default class Table extends WeElement<Props> {
     this.update()
   }
 
-  beforeRender(){
-    if(this.dataSource){
-      this.props.dataSource =  this.dataSource
-    }
-    if(this.columns){
-      this.props.columns =  this.columns
-    }
-    if(this.hasOwnProperty('checkbox')){
-      this.props.checkbox =  this.checkbox
-    }
-
-    if(this.hasOwnProperty('border')){
-      this.props.border =  this.border
-    }
-  }
 
   _getCheckedState() {
     let c = 0, uc = 0
@@ -79,35 +75,45 @@ export default class Table extends WeElement<Props> {
   }
 
   render(props) {
+
     if (!props.columns) return
     if (!props.dataSource) return
     return (
       <table {...extractClass(props, 'o-table', {
         'o-table-checkbox': props.checkbox,
-        'o-table-border': props.border
+        'o-table-border': props.border,
+        'o-table-stripe': props.stripe
       })}>
         <thead>
           <tr>
-            {props.columns.map((item, index) => {
+            {props.columns.map((column, index) => {
               const obj: any = {}
-              const { width } = item
+              const { width } = column
               if (width !== undefined) {
                 obj.style = { width: typeof width === 'number' ? width + 'px' : width }
               }
-              return <th {...obj} class="text-left">{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, item)} />}{item.title}</th>
+              return <th {...obj} class={classNames({
+                [`o-table-align-${column.align}`]: column.align,
+                'compact': props.compact,
+              })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
             })}
           </tr>
         </thead>
-        <tbody class="table-hover">
+        <tbody class="o-table-tbody">
           {props.dataSource.map(item => (
-            <tr>
-              {props.columns.map((subItem, subIndex) => {
+            <tr key={item.id} style={{
+              background: item.$config && item.$config.bgColor
+            }}>
+              {props.columns.map((column, subIndex) => {
                 const obj: any = {}
-                const { width } = subItem
+                const { width } = column
                 if (width !== undefined) {
                   obj.style = { width: typeof width === 'number' ? width + 'px' : width }
                 }
-                return <td {...obj} class="text-left">{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{subItem.render ? subItem.render(item) : item[subItem.key]}</td>
+                return <td {...obj} class={classNames({
+                  [`o-table-align-${column.align}`]: column.align,
+                  'compact': props.compact,
+                })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
               })}
             </tr>
           ))}
