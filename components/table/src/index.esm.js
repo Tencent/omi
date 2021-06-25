@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.2 http://omijs.org
+ * @omiu/table v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -387,10 +387,10 @@ a:hover {
 o-checkbox {
   margin-right: 5px; }
 
-.o-table-tbody tr:nth-of-type(odd) {
+.o-table-stripe tr:nth-of-type(odd) {
   background: white; }
 
-.o-table-tbody tr:nth-of-type(even) {
+.o-table-stripe tr:nth-of-type(even) {
   background: #fafafa; }
 `
 

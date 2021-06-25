@@ -93,7 +93,7 @@ export default class Table extends WeElement {
   render(props) {
     return <o-table
       checkbox={true}
-      stripe={true}
+      stripe={false}
       border={true}
       compact={true}
       columns={this.columns} dataSource={this.dataSource}></o-table>

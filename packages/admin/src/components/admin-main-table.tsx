@@ -137,6 +137,28 @@ export default class extends WeElement<Props> {
         border={false}
         compact={true}
         columns={this.columns} dataSource={this.dataSource}></o-table>
+
+
+
+      <h4 class={tw`py-4`}>带边框</h4>
+
+      <o-table
+        checkbox={true}
+        stripe={true}
+        border={true}
+        compact={true}
+        columns={this.columns} dataSource={this.dataSource}></o-table>
+
+
+      <h4 class={tw`py-4`}>无隔行变色</h4>
+
+      <o-table
+        checkbox={true}
+        stripe={false}
+        border={true}
+        compact={true}
+        columns={this.columns} dataSource={this.dataSource}></o-table>
+
     </div>
   }
 }

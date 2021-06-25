@@ -80,8 +80,8 @@ a:hover {
 o-checkbox {
   margin-right: 5px; }
 
-.o-table-tbody tr:nth-of-type(odd) {
+.o-table-stripe tr:nth-of-type(odd) {
   background: white; }
 
-.o-table-tbody tr:nth-of-type(even) {
+.o-table-stripe tr:nth-of-type(even) {
   background: #fafafa; }
