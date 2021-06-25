@@ -8,7 +8,7 @@ interface Props {
 
 }
 
-const tagName = 'admin-main-table'
+const tagName = 'admin-main-welcome'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -24,7 +24,7 @@ export default class extends WeElement<Props> {
   render() {
     return (
       <div class={tw``}>
-        Admin Table
+        Welcome Omi Admin
       </div >
     )
   }

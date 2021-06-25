@@ -10,26 +10,23 @@ import '@omiu/button'
 import './components/admin-header'
 import './components/admin-left-panel'
 import './components/admin-main'
-import './components/admin-main-table'
+import './components/admin-main-welcome'
 import './components/admin-main-error'
 import './components/admin-main-warning'
-
-interface MyAppProps {
-  name: string
-}
 
 
 import { create, cssomSheet } from 'twind'
 const sheet = cssomSheet({ target: new CSSStyleSheet() })
 const { tw } = create({ sheet })
 
+
 @tag('my-app')
-export default class extends WeElement<MyAppProps> {
+export default class extends WeElement {
 
   static css = sheet.target
 
   data = {
-    tagName: 'admin-main-table'
+    tagName: 'admin-main-welcome'
   }
 
   install() {
@@ -37,8 +34,8 @@ export default class extends WeElement<MyAppProps> {
       this.update()
     })
 
-    route('/table', () => {
-      this.data.tagName = 'admin-main-table'
+    route('/welcome', () => {
+      this.data.tagName = 'admin-main-welcome'
       this.update()
     })
 

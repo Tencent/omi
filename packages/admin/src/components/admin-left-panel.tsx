@@ -5,7 +5,6 @@ import '@omiu/tree'
 const sheet = cssomSheet({ target: new CSSStyleSheet() })
 const { tw } = create({ sheet })
 
-
 interface Props {
 
 }
@@ -35,11 +34,11 @@ export default class extends WeElement<Props> {
       label: '今日事项',
       children: [{
         sign: 'M',
-        label: '待处理表格',
+        label: '欢迎',
         icon: 'ballot',
         color: 'green',
         selected: true,
-        href: '#/table'
+        href: '#/welcome'
       }]
     }]
   },
@@ -50,17 +49,17 @@ export default class extends WeElement<Props> {
 
     icon: 'ac-unit-outlined',
     children: [{
-      sign: '1, M',
+      sign: '90020',
       label: '错误告警',
       icon: 'ballot',
-      color: 'red',
+      color: '#F56C6C',
       href: '#/error'
     },
     {
-      sign: '1, M',
+      sign: '993',
       label: '异常告警',
       icon: 'ballot',
-      color: 'red',
+      color: '#E6A23C',
       href: '#/warning'
     }]
   }]
