@@ -12,7 +12,7 @@ import './components/admin-main'
 import './components/admin-main-welcome'
 import './components/admin-main-error'
 import './components/admin-main-warning'
-
+import './components/admin-main-table'
 
 import { tw,sheet } from 'omi-twind'
 
@@ -32,6 +32,11 @@ export default class extends WeElement {
 
     route('/welcome', () => {
       this.data.tagName = 'admin-main-welcome'
+      this.update()
+    })
+
+    route('/table', () => {
+      this.data.tagName = 'admin-main-table'
       this.update()
     })
 

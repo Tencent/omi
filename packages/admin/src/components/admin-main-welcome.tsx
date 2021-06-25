@@ -22,7 +22,7 @@ export default class extends WeElement<Props> {
   render() {
     return (
       <div class={tw``}>
-        Welcome Omi Admin
+        Welcome To Omi Admin
       </div >
     )
   }

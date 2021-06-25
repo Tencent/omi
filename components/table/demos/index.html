@@ -2,82 +2,82 @@
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-	<meta charset="UTF-8" />
-	<title>Add Omi in One Minute</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body style="background-color: #fefefe;">
-	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-	<script src="../../o-checkbox/src/index.js"></script>
-	<script src="../src/index.js"></script>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 
-	<div>
-		<o-table id="myTable"></o-table>
-	</div>
+  <script src="../src/index.js"></script>
 
-	<script>
-		const table = document.querySelector('#myTable')
-		table.checkbox = true
-		table.border = true
-		table.dataSource = [{
-			id: 1,
-			name: 'xwang',
-			age: 18,
-			address: 'Tencent'
-		}, {
-			id: 2,
-			name: 'dntzhang',
-			age: 12,
-			address: 'Tencent'
-		}, {
-			id: 3,
-			name: 'lucy',
-			age: 12,
-			address: 'Tencent'
-		}, {
-			id: 4,
-			name: 'john',
-			age: 12,
-			address: 'Tencent'
-		}, {
-			id: 5,
-			name: 'tim',
-			age: 12,
-			address: 'Tencent'
-		}]
+  <div>
+    <o-table id="myTable"></o-table>
+  </div>
 
-		table.columns = [{
-			title: 'ID',
-			render: item => (
-				Omi.h('strong', null, Omi.h(
-					'i', null, item.id
-				))
-			),
-		}, {
-			title: 'Name',
-			key: 'name',
-		}, {
-			title: 'Age',
-			key: 'age',
-		}, {
-			title: 'Address',
-			key: 'address',
-		}, {
-			title: '操作',
-			render: item => (
-				Omi.html`<span>
+  <script>
+    const table = document.querySelector('#myTable')
+    table.props.checkbox = true
+    table.props.border = true
+    table.props.dataSource = [{
+      id: 1,
+      name: 'xwang',
+      age: 18,
+      address: 'Tencent'
+    }, {
+      id: 2,
+      name: 'dntzhang',
+      age: 12,
+      address: 'Tencent'
+    }, {
+      id: 3,
+      name: 'lucy',
+      age: 12,
+      address: 'Tencent'
+    }, {
+      id: 4,
+      name: 'john',
+      age: 12,
+      address: 'Tencent'
+    }, {
+      id: 5,
+      name: 'tim',
+      age: 12,
+      address: 'Tencent'
+    }]
+
+    table.props.columns = [{
+      title: 'ID',
+      render: item => (
+        Omi.h('strong', null, Omi.h(
+          'i', null, item.id
+        ))
+      ),
+    }, {
+      title: 'Name',
+      key: 'name',
+    }, {
+      title: 'Age',
+      key: 'age',
+    }, {
+      title: 'Address',
+      key: 'address',
+    }, {
+      title: '操作',
+      render: item => (
+        Omi.html`<span>
 					<a href="javascript:;" onClick=${e => {
-						table.props.dataSource.splice(table.props.dataSource.indexOf(item), 1)
-						table.update()
-					}}>Delete</a>
+            table.props.dataSource.splice(table.props.dataSource.indexOf(item), 1)
+            table.update()
+          }}>Delete</a>
 				</span>`
-			)
-		}]
+      )
+    }]
 
-		table.update()
-	</script>
+    table.update()
+  </script>
 
 </body>
 
