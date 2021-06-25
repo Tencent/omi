@@ -1,12 +1,19 @@
 const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const pkgName = require('../package.json')
+const componentName = pkgName.name.split('/')[1]
 
-const name = 'o-table'
-const library = 'OTable'
+const name = 'o-' + componentName
+const library = 'O' + componentName.split('-').map(name => name.charAt(0).toUpperCase() + name.slice(1)).join('')
+
 
 const config = {
   devtool: 'source-map',
+  plugins: [
+    new ProgressBarPlugin()
+  ],
   entry: {
     [name]: './src/index.tsx'
   },
@@ -75,6 +82,7 @@ const config = {
     }
     ]
   },
+  watch: process.argv[3] === 'demo',
   externals: {
     'omi': {
       commonjs: "omi",

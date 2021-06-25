@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@omiu/checkbox@latest":
+  "integrity" "sha512-IdwtFCM/3OHsz4zRcn2KjgsmkHsRdb84KkHBwmmFHRxpoZQcRl82T4UDhzyVZd4TyVEGNccvw6YK4FXo5l7tUw=="
+  "resolved" "https://registry.npmjs.org/@omiu/checkbox/-/checkbox-0.0.7.tgz"
+  "version" "0.0.7"
+  dependencies:
+    "@omiu/common" "latest"
+    "omi" "latest"
+
 "@omiu/common@latest":
   "integrity" "sha512-f3LSLWYtGRZNZu6cTVKwwS6AGwe8gj4OJlFCOBZZZaA3C7LrgJjvAZ9pZg6ktPwCPtyUy0lGD6ESGr6YsMl0Eg=="
   "resolved" "https://registry.npmjs.org/@omiu/common/-/common-0.0.5.tgz"
