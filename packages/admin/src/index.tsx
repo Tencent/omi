@@ -2,6 +2,7 @@ import { WeElement, render, h, options, tag } from 'omi'
 
 options.ignoreAttrs = true
 
+import { route } from 'omi-router'
 import './hello-omi'
 import './index.css'
 import * as css from './_index.less'
@@ -18,6 +19,21 @@ interface MyAppProps {
 export default class extends WeElement<MyAppProps> {
 
   static css = css.default
+
+
+  install() {
+    route('/', () => {
+      this.update()
+    })
+
+    route('/abc', () => {
+      this.update()
+    })
+
+    route('*', function () {
+      console.log('not found')
+    })
+  }
 
   abc: string
 

@@ -25,13 +25,10 @@ omi-router 是 [Omi](https://tencent.github.io/omi/) 专属的 router 插件，�
 npm install omi-router
 ```
 
-
-
 ## 开始
 
 ```js
-//你可以在全局访问到 route
-import 'omi-router'
+import { route } from 'omi-router'
 import { define, WeElement, render } from 'omi'
 import './about'
 import './home'

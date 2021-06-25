@@ -5,9 +5,9 @@
  *  MIT Licensed.
  */
 
-var p2r = require('path-to-regexp')
-var mapping = {}
-var root = getGlobal()
+import p2r from 'path-to-regexp'
+const mapping = {}
+const root = getGlobal()
 
 root.route = route
 root.route.params = null
@@ -26,26 +26,26 @@ root.route.to = function (path, data) {
 window.addEventListener('hashchange', change)
 
 function change(evt) {
-  var byNative = false
+  let byNative = false
   //need to fix a line by omi-link
-  if(window.history.length === root.historyLength && !root.route._routeByTo){
+  if (window.history.length === root.historyLength && !root.route._routeByTo) {
     //keep alive mode
     byNative = true
   }
   root.route._routeByTo = false
   root.historyLength = window.history.length
-  var prevent = false
+  let prevent = false
   if (evt.type === 'hashchange' && root.route.before) {
     prevent = root.route.before(evt) === false
   }
   if (prevent) return
-  var path = window.location.hash.replace('#', '')
-  if(path === '') path = '/'
-  var notFound = true
-  Object.keys(mapping).every(function(key){
-    var toArr = path.split('?')[0].match(mapping[key].reg)
+  let path = window.location.hash.replace('#', '')
+  if (path === '') path = '/'
+  let notFound = true
+  Object.keys(mapping).every(function (key) {
+    const toArr = path.split('?')[0].match(mapping[key].reg)
     if (toArr) {
-      var pathArr = key.match(mapping[key].reg)
+      let pathArr = key.match(mapping[key].reg)
       root.route.params = getParams(toArr, pathArr)
       root.route.query = getUrlParams(path)
       mapping[key].callback({
@@ -73,7 +73,7 @@ function change(evt) {
 document.addEventListener('DOMContentLoaded', change)
 
 function getParams(toArr, pathArr) {
-  var params = {}
+  const params = {}
   toArr.forEach(function (item, index) {
     if (index > 0) {
       params[pathArr[index].replace(':', '')] = item
@@ -83,12 +83,17 @@ function getParams(toArr, pathArr) {
 }
 
 
-export default function route(path, callback) {
+
+export function route(path, callback) {
   mapping[path] = {
     callback: callback,
     reg: p2r(path)
   }
 }
+
+
+const router = { route }
+export default router
 
 function getGlobal() {
   if (
@@ -111,13 +116,13 @@ function getGlobal() {
 
 function getUrlParams(url) {
   url = url.replace(/#.*$/, '')
-  var queryArray = url.split(/[?&]/).slice(1)
-  var i, args = {}
+  let queryArray = url.split(/[?&]/).slice(1)
+  let i, args = {}
   for (i = 0; i < queryArray.length; i++) {
-      var match = queryArray[i].match(/([^=]+)=([^=]+)/)
-      if (match !== null) {
-          args[match[1]] = decodeURIComponent(match[2])
-      }
+    let match = queryArray[i].match(/([^=]+)=([^=]+)/)
+    if (match !== null) {
+      args[match[1]] = decodeURIComponent(match[2])
+    }
   }
   return args
 }
