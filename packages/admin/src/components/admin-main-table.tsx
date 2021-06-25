@@ -114,7 +114,7 @@ export default class extends WeElement<Props> {
 
       <div class={tw`flex flex-row`}>
         <div class={tw`flex-1 px-2`}>
-          <h4 class={tw`py-4`}>带复选框</h4>
+          <h4 class={tw`py-2 text-sm`}>带复选框</h4>
 
           <o-table
             checkbox={true}
@@ -127,7 +127,7 @@ export default class extends WeElement<Props> {
         </div>
         <div class={tw`flex-1  px-2`}>
 
-          <h4 class={tw`py-4`}>带边框</h4>
+          <h4 class={tw`py-2 text-sm`}>带边框</h4>
 
           <o-table
             checkbox={true}
@@ -140,7 +140,7 @@ export default class extends WeElement<Props> {
       </div>
 
       <div class={tw`px-2`}>
-      <h4 class={tw`py-4`}>基础表格</h4>
+      <h4 class={tw`py-2 text-sm`}>基础表格</h4>
       <o-table
         checkbox={false}
         stripe={false}
@@ -154,7 +154,7 @@ export default class extends WeElement<Props> {
 
       <div class={tw`flex flex-row`}>
         <div class={tw`flex-1  px-2`}>
-          <h4 class={tw`py-4`}>压缩高度</h4>
+          <h4 class={tw`py-2 text-sm`}>压缩高度</h4>
           <o-table
             checkbox={false}
             stripe={true}
@@ -164,7 +164,7 @@ export default class extends WeElement<Props> {
         </div>
         <div class={tw`flex-1  px-2`}>
 
-          <h4 class={tw`py-4`}>无隔行变色</h4>
+          <h4 class={tw`py-2 text-sm`}>无隔行变色</h4>
 
           <o-table
             checkbox={true}
