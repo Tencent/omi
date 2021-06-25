@@ -188,6 +188,7 @@ declare namespace Omi {
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
+		ignoreAttrs: boolean;
 	};
 
 	//props data center
