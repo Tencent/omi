@@ -13,7 +13,7 @@
   "dependencies": {
     "@omiu/avatar": "^0.0.1",
     "@omiu/button": "^0.0.8",
-    "@omiu/tree": "^0.0.11",
+    "@omiu/tree": "^0.0.12",
     "omi": "latest",
     "omi-router": "^3.0.0",
     "twind": "^0.16.16"

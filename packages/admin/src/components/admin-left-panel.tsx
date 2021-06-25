@@ -22,51 +22,46 @@ declare global {
 @tag(tagName)
 export default class extends WeElement<Props> {
   static css = sheet.target
+
   treeData = [{
-    label: '一级 1',
+    label: '管理工作台',
     sign: '●',
     expanded: true,
-    selected: true,
+
     icon: 'ac-unit-outlined',
     children: [{
       sign: '1, M',
-      label: '二级 1-1',
+      expanded: true,
+      label: '今日事项',
       children: [{
         sign: 'M',
-        label: '三级 1-1-1',
-        icon: 'accessible-rounded',
-        color: 'red'
+        label: '待处理表格',
+        icon: 'ballot',
+        color: 'green',
+        selected: true,
+        href: '#/table'
       }]
     }]
-  }, {
-    label: '一级 2',
-    icon: 'accessible-rounded',
+  },
+  {
+    label: '其他',
+    sign: '●',
+    expanded: true,
+
+    icon: 'ac-unit-outlined',
     children: [{
-      label: '二级 2-1',
-      children: [{
-        label: '三级 2-1-1'
-      }]
-    }, {
-      label: '二级 2-2',
-      children: [{
-        label: '三级 2-2-1'
-      }]
-    }]
-  }, {
-    label: '一级 3',
-    icon: 'accessible-rounded',
-    children: [{
-      label: '二级 3-1',
-      icon: 'accessible-rounded',
-      children: [{
-        label: '三级 3-1-1',
-        icon: 'accessible-rounded'
-      }]
-    }, {
-      label: '二级 3-2',
-      children: [{
-        label: '三级 3-2-1'
-      }]
+      sign: '1, M',
+      label: '错误告警',
+      icon: 'ballot',
+      color: 'red',
+      href: '#/error'
+    },
+    {
+      sign: '1, M',
+      label: '异常告警',
+      icon: 'ballot',
+      color: 'red',
+      href: '#/warning'
     }]
   }]
 
@@ -74,7 +69,7 @@ export default class extends WeElement<Props> {
   render() {
     console.error(this.treeData)
     return (
-      <div style={`height:calc(100vh - 3rem)`} class={tw`text-left border-r-1 w-64`}>
+      <div style={`height:calc(100vh - 3rem)`} class={tw`text-left border-r-1`}>
         <o-tree data={this.treeData}></o-tree>
       </div>
     )

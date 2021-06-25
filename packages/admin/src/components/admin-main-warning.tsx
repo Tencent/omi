@@ -8,7 +8,7 @@ interface Props {
 
 }
 
-const tagName = 'admin-main'
+const tagName = 'admin-main-warning'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -23,8 +23,8 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`px-4 py-4`}>
-        <slot></slot>
+      <div class={tw``}>
+        Admin Warning Page
       </div >
     )
   }
