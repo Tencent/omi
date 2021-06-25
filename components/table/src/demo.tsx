@@ -95,7 +95,7 @@ export default class Table extends WeElement {
       checkbox={true}
       stripe={false}
       border={true}
-      compact={true}
+      compact={false}
       columns={this.columns} dataSource={this.dataSource}></o-table>
   }
 }

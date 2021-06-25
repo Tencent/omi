@@ -19,7 +19,7 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`px-4 py-4`}>
+      <div class={tw`px-2 py-2`}>
         <slot></slot>
       </div >
     )
