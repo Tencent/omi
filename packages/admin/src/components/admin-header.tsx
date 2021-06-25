@@ -2,7 +2,7 @@ import { WeElement, h, tag } from 'omi'
 import { create, cssomSheet } from 'twind'
 const sheet = cssomSheet({ target: new CSSStyleSheet() })
 const { tw } = create({ sheet })
-import logo from '../logo.svg'
+import logo from '../assets/logo.svg'
 import '@omiu/avatar'
 
 interface Props {
