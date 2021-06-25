@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.3 http://omijs.org
+ * @omiu/table v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,13 +27,11 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics$1 = function(d, b) {
     extendStatics$1 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return extendStatics$1(d, b);
 };
 
 function __extends$1(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics$1(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -321,13 +319,13 @@ var css = `:host {
 
 .o-table-checkbox th:first-child,
 .o-table-checkbox td:first-child {
-  padding: 2px 40px 2px 16px; }
+  padding: 2px 10px 2px; }
 
 th {
   border-bottom: 1px solid #E0E0E0;
   text-align: left;
   vertical-align: middle;
-  padding: 14px 40px 14px 16px;
+  padding: 10px 10px 10px;
   color: rgba(0, 0, 0, 0.54);
   font-size: 0.75rem;
   line-height: 1.3125rem;
@@ -355,11 +353,11 @@ td {
   text-align: left;
   vertical-align: middle;
   font-size: 0.875rem;
-  padding: 14px 40px 14px 16px; }
+  padding: 10px 10px 10px; }
 
 td.compact,
 th.compact {
-  padding: 4px 40px 4px 16px; }
+  padding: 4px 10px 4px; }
 
 a {
   text-decoration: none; }

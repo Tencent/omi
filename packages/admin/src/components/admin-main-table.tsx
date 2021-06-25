@@ -113,7 +113,7 @@ export default class extends WeElement<Props> {
 
 
       <div class={tw`flex flex-row`}>
-        <div class={tw`flex-1 px-4`}>
+        <div class={tw`flex-1 px-2`}>
           <h4 class={tw`py-4`}>带复选框</h4>
 
           <o-table
@@ -125,7 +125,7 @@ export default class extends WeElement<Props> {
 
 
         </div>
-        <div class={tw`flex-1  px-4`}>
+        <div class={tw`flex-1  px-2`}>
 
           <h4 class={tw`py-4`}>带边框</h4>
 
@@ -138,6 +138,8 @@ export default class extends WeElement<Props> {
 
         </div>
       </div>
+
+      <div class={tw`px-2`}>
       <h4 class={tw`py-4`}>基础表格</h4>
       <o-table
         checkbox={false}
@@ -146,10 +148,12 @@ export default class extends WeElement<Props> {
         compact={false}
         columns={this.columns} dataSource={this.dataSource}></o-table>
 
+      </div>
+
 
 
       <div class={tw`flex flex-row`}>
-        <div class={tw`flex-1  px-4`}>
+        <div class={tw`flex-1  px-2`}>
           <h4 class={tw`py-4`}>压缩高度</h4>
           <o-table
             checkbox={false}
@@ -158,7 +162,7 @@ export default class extends WeElement<Props> {
             compact={true}
             columns={this.columns} dataSource={this.dataSource}></o-table>
         </div>
-        <div class={tw`flex-1  px-4`}>
+        <div class={tw`flex-1  px-2`}>
 
           <h4 class={tw`py-4`}>无隔行变色</h4>
 
@@ -170,11 +174,6 @@ export default class extends WeElement<Props> {
             columns={this.columns} dataSource={this.dataSource}></o-table>
         </div>
       </div>
-
-
-
-
-
     </div>
   }
 }
