@@ -18,6 +18,7 @@ declare namespace Omi {
 	}
 
 	interface OmiDOMAttributes {
+		class?: string;
 		children?: ComponentChildren;
 		dangerouslySetInnerHTML?: {
 			__html: string;
