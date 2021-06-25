@@ -33,13 +33,25 @@ export default class extends WeElement<Props> {
       icon: 'ballot',
       color: 'green',
       selected: true,
-      href: '#/welcome'
+      href: '#/welcome',
     },
     {
-      label: '表格',
-      icon: 'ballot',
-      href: '#/table'
+      label: '表格展示',
+      sign: '●',
+      expanded: true,
+
+      icon: 'ac-unit-outlined',
+      children: [{
+        label: '基础表格',
+        icon: 'ballot',
+        href: '#/table/basic'
+      }, {
+        label: '分页表格',
+        icon: 'ballot',
+        href: '#/table/pagination'
+      }]
     }
+
     ]
 
   },
