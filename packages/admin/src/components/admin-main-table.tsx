@@ -110,14 +110,6 @@ export default class extends WeElement<Props> {
 
   render(props) {
     return <div>
-      <h4 class={tw`py-4`}>基础表格</h4>
-      <o-table
-        checkbox={false}
-        stripe={false}
-        border={false}
-        compact={false}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
-
       <h4 class={tw`py-4`}>压缩高度</h4>
 
       <o-table
@@ -126,6 +118,16 @@ export default class extends WeElement<Props> {
         border={false}
         compact={true}
         columns={this.columns} dataSource={this.dataSource}></o-table>
+
+
+      <h4 class={tw`py-4`}>基础表格</h4>
+      <o-table
+        checkbox={false}
+        stripe={false}
+        border={false}
+        compact={false}
+        columns={this.columns} dataSource={this.dataSource}></o-table>
+
 
       <h4 class={tw`py-4`}>带复选框</h4>
 
