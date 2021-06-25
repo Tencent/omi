@@ -5,16 +5,15 @@ options.ignoreAttrs = true
 import { route } from 'omi-router'
 import './index.css'
 
-import '@omiu/button'
-import './components/admin-header'
-import './components/admin-left-panel'
+import './layouts/basic-layout'
+
 import './components/admin-main'
 import './components/admin-main-welcome'
 import './components/admin-main-error'
 import './components/admin-main-warning'
 import './components/admin-main-table'
 
-import { tw,sheet } from 'omi-twind'
+import { tw, sheet } from 'omi-twind'
 
 @tag('my-app')
 export default class extends WeElement {
@@ -58,17 +57,7 @@ export default class extends WeElement {
 
   render(props) {
     return (
-      <div >
-        <admin-header class={tw`h-12 block`}></admin-header>
-
-        <div class={tw`flex flex-row`}>
-          <admin-left-panel class={tw`w-64`}></admin-left-panel>
-          <admin-main class={tw`flex-1`}>
-            <this.data.tagName></this.data.tagName>
-          </admin-main>
-        </div>
-
-      </div>
+      <basic-layout><this.data.tagName></this.data.tagName></basic-layout>
     )
   }
 }
