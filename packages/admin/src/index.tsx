@@ -3,7 +3,6 @@ import { WeElement, render, h, options, tag } from 'omi'
 options.ignoreAttrs = true
 
 import { route } from 'omi-router'
-import './hello-omi'
 import './index.css'
 
 import '@omiu/button'
@@ -55,13 +54,6 @@ export default class extends WeElement {
     })
   }
 
-  abc: string
-
-  onAbc = (evt: CustomEvent) => {
-    this.abc = ` by ${evt.detail.name}`
-    this.update()
-  }
-
   render(props) {
     return (
       <div >
@@ -73,8 +65,6 @@ export default class extends WeElement {
             <this.data.tagName></this.data.tagName>
           </admin-main>
         </div>
-
-
 
       </div>
     )
