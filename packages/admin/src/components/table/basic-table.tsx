@@ -3,6 +3,8 @@ import { tw, sheet } from 'omi-twind'
 
 import '@omiu/table'
 
+import '@omiu/tip'
+
 interface Props {
 
 }
@@ -87,9 +89,11 @@ export default class extends WeElement<Props> {
   }, {
     title: '操作',
     align: 'right',
-    render: (item: { id: number }) => (
+    render: (item: { name: string, id: number }) => (
       //onclick 会绑定多次的问题
-      <o-icon-delete data-item-id={item.id} onClick={this.onClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
+      <o-tip content={'删除' + item.name}>
+        <o-icon-delete data-item-id={item.id} onClick={this.onClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
+      </o-tip>
     )
   }]
 

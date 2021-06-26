@@ -15,6 +15,7 @@
     "@omiu/button": "^0.0.8",
     "@omiu/pagination": "^0.0.2",
     "@omiu/table": "^0.0.5",
+    "@omiu/tip": "0.0.2",
     "@omiu/tree": "^0.0.14",
     "omi": "latest",
     "omi-router": "^3.0.0",
