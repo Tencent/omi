@@ -1,7 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames, options } from 'omi'
 import '@omiu/checkbox'
 
-options.ignoreAttrs = true
 
 import * as css from './index.scss'
 

@@ -1,10 +1,10 @@
 {
-  "name": "@omiu/table",
-  "version": "0.0.5",
-  "description": "Components that show list data structures.",
+  "name": "@omiu/tip",
+  "version": "0.0.1",
+  "description": "Components that show tooptip or popover.",
   "docsExtend": {
-    "cnName": "表格控件",
-    "cnDescription": "表格控件",
+    "cnName": "提示",
+    "cnDescription": "提示",
     "codepen": "yLYMrdg",
     "codepenHeight": 391,
     "codepenDefaultTab": "html,result"
@@ -98,6 +98,7 @@
   "dependencies": {
     "@omiu/checkbox": "latest",
     "@omiu/common": "latest",
+    "@popperjs/core": "^2.9.2",
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",
     "omi": "latest"

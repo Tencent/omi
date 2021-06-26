@@ -1,12 +1,12 @@
 /**
- * @omiu/table v0.0.5 http://omijs.org
+ * @omiu/table v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-import { h, extractClass, tag, WeElement, classNames } from 'omi';
+import { h, extractClass, tag, WeElement, options, classNames } from 'omi';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -393,6 +393,7 @@ o-checkbox {
 `
 
 
+options.ignoreAttrs = true;
 var Table = /** @class */ (function (_super) {
     __extends$1(Table, _super);
     function Table() {

@@ -1,4 +1,6 @@
 import { tag, WeElement, h, render } from 'omi'
+options.ignoreAttrs = true
+
 import './index.tsx'
 
 @tag('table-demo')
