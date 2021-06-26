@@ -7,10 +7,10 @@ import './index.css'
 
 import './layouts/basic-layout'
 
-import './components/admin-main'
+import './layouts/components/layout-container'
 import './components/admin-main-welcome'
-import './components/admin-main-error'
-import './components/admin-main-warning'
+import './components/status/status-error'
+import './components/status/status-warning'
 import './components/table/basic-table'
 import './components/table/pagination-table'
 
@@ -47,12 +47,12 @@ export default class extends WeElement {
     })
 
     route('/error', () => {
-      this.data.tagName = 'admin-main-error'
+      this.data.tagName = 'status-error'
       this.update()
     })
 
     route('/warning', () => {
-      this.data.tagName = 'admin-main-warning'
+      this.data.tagName = 'status-warning'
       this.update()
     })
 

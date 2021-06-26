@@ -6,6 +6,7 @@ node_modules
 /coverage
 package-lock.json
 /test/ts/**/*.js
+yarn.lock
 
 # Editor and IDE configuration
 .vscode/

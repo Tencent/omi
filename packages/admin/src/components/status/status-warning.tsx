@@ -6,7 +6,7 @@ interface Props {
 
 }
 
-const tagName = 'admin-main-warning'
+const tagName = 'status-warning'
 declare global {
   namespace JSX {
     interface IntrinsicElements {

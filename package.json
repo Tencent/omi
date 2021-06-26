@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "2.3.1"
+  },
+  "scripts": {
+    "prettier:check": "prettier --check **/*.{js,jsx,ts,tsx} ",
+    "prettier:write": "prettier --write **/*.{js,jsx,ts,tsx}"
+  }
+}
