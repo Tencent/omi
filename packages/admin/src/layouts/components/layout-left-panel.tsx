@@ -7,7 +7,7 @@ interface Props {
 
 }
 
-const tagName = 'admin-left-panel'
+const tagName = 'layout-left-panel'
 declare global {
   namespace JSX {
     interface IntrinsicElements {

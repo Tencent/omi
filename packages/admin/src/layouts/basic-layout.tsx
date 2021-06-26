@@ -6,8 +6,8 @@ import '../index.css'
 
 import '@omiu/button'
 
-import '../components/admin-header'
-import '../components/admin-left-panel'
+import './components/layout-header'
+import './components/layout-left-panel'
 
 import { tw, sheet } from 'omi-twind'
 
@@ -34,13 +34,13 @@ export default class extends WeElement {
     render(props) {
         return (
             <div >
-                <admin-header class={tw`h-12 block`}></admin-header>
+                <layout-header class={tw`h-12 block`}></layout-header>
 
                 <div class={tw`flex flex-row`}>
-                    <admin-left-panel class={tw`w-64`}></admin-left-panel>
-                    <admin-main class={tw`flex-1`}>
+                    <layout-left-panel class={tw`w-64`}></layout-left-panel>
+                    <layout-container class={tw`flex-1`}>
                         <slot></slot>
-                    </admin-main>
+                    </layout-container>
                 </div>
 
             </div>
