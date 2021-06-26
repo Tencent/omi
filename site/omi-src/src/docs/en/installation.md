@@ -62,14 +62,3 @@ You can set up the PUBLIC_URL, such as：
 ```
 
 
-
-## Project Template
-
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|Vite Template(v3.5.1+)|`omi init-vite my-app`| Basic omi template with vite.|
-|Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
-|Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
-

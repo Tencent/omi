@@ -7,7 +7,7 @@ $ npm start            # develop
 $ npm run build        # release
 ```
 
-Directory description:
+<!-- Directory description:
 
 ```
 ├─ config
@@ -19,7 +19,7 @@ Directory description:
 │  ├─ store       //Store all this store of pages
 │  ├─ admin.js    //Entry js of compiler，will build to admin.html
 │  └─ index.js    //Entry js of compiler，will build to index.html
-```
+``` -->
 
 ## Project Template
 
