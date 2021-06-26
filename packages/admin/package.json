@@ -18,7 +18,7 @@
     "@omiu/tree": "^0.0.14",
     "omi": "latest",
     "omi-router": "^3.0.0",
-    "omi-twind": "^0.0.0",
+    "omi-twind": "^0.0.1",
     "twind": "^0.16.16"
   }
 }
