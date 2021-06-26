@@ -6,13 +6,10 @@ import { route } from 'omi-router'
 import './index.css'
 
 import './layouts/basic-layout'
-
 import './layouts/components/layout-container'
 import './components/admin-main-welcome'
-import './components/status/status-error'
-import './components/status/status-warning'
-import './components/table/basic-table'
-import './components/table/pagination-table'
+
+
 
 import { tw, sheet } from 'omi-twind'
 
@@ -36,22 +33,30 @@ export default class extends WeElement {
     })
 
     route('/table/basic', () => {
+      //lazy load
+      import('./components/table/basic-table')
       this.data.tagName = 'basic-table'
       this.update()
     })
 
 
     route('/table/pagination', () => {
+      //lazy load
+      import('./components/table/pagination-table')
       this.data.tagName = 'pagination-table'
       this.update()
     })
 
     route('/error', () => {
+      //lazy load
+      import('./components/status/status-error')
       this.data.tagName = 'status-error'
       this.update()
     })
 
     route('/warning', () => {
+      //lazy load
+      import('./components/status/status-warning')
       this.data.tagName = 'status-warning'
       this.update()
     })
