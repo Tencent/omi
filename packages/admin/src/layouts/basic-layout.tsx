@@ -1,6 +1,4 @@
-import { WeElement, render, h, options, tag } from 'omi'
-
-options.ignoreAttrs = true
+import { WeElement, h, tag } from 'omi'
 
 import '../index.css'
 
@@ -18,34 +16,34 @@ interface Props {
 
 const tagName = 'basic-layout'
 declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            [tagName]: Omi.Props & Props
-        }
+  namespace JSX {
+    interface IntrinsicElements {
+      [tagName]: Omi.Props & Props
     }
+  }
 }
 
 
 @tag(tagName)
 export default class extends WeElement {
 
-    static css = sheet.target
+  static css = sheet.target
 
-    render(props) {
-        return (
-            <div >
-                <admin-header class={tw`h-12 block`}></admin-header>
+  render(props) {
+    return (
+      <div >
+        <admin-header class={tw`h-12 block`}></admin-header>
 
-                <div class={tw`flex flex-row`}>
-                    <admin-left-panel class={tw`w-64`}></admin-left-panel>
-                    <admin-main class={tw`flex-1`}>
-                        <slot></slot>
-                    </admin-main>
-                </div>
+        <div class={tw`flex flex-row`}>
+          <admin-left-panel class={tw`w-64`}></admin-left-panel>
+          <admin-main class={tw`flex-1`}>
+            <slot></slot>
+          </admin-main>
+        </div>
 
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
 
 
