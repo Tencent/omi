@@ -1,11 +1,25 @@
 import { WeElement } from 'omi';
 interface Props {
+    content?: string;
+    effect?: string;
+    position?: string;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
-    static defaultProps: {};
-    static propTypes: {};
+    static defaultProps: {
+        content: string;
+        effect: string;
+        position: string;
+    };
+    static propTypes: {
+        content: StringConstructor;
+        effect: StringConstructor;
+        position: StringConstructor;
+    };
     installed(): void;
-    render(): JSX.Element;
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
+    isShow: boolean;
+    render(props: any): JSX.Element;
 }
 export {};

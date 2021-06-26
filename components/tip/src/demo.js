@@ -3195,7 +3195,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ":host {\n  display: inline-block; }\n", ""]);
+exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip.show {\n  display: block; }\n\n.tip {\n  border: 1px solid #888;\n  position: absolute;\n  border-radius: 4px;\n  padding: 10px;\n  z-index: 2000;\n  font-size: 12px;\n  line-height: 1.2;\n  min-width: 10px;\n  word-wrap: break-word;\n  display: none; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[x-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[x-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #303133;\n  border-bottom-width: 0; }\n\n.tip[x-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #303133;\n  border-bottom-width: 0; }\n\n.tip[x-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[x-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #303133; }\n\n.tip[x-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #303133; }\n\n.tip[x-placement^=right] {\n  margin-left: 12px; }\n\n.tip[x-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #303133;\n  border-left-width: 0; }\n\n.tip[x-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #303133;\n  border-left-width: 0; }\n\n.tip[x-placement^=left] {\n  margin-right: 12px; }\n\n.tip[x-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #303133; }\n\n.tip[x-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #303133; }\n\n.tip.is-dark {\n  background: #303133;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF;\n  border: 1px solid #303133; }\n\n.tip.is-light[x-placement^=top] .tip-arrow {\n  border-top-color: #303133; }\n\n.tip.is-light[x-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[x-placement^=bottom] .tip-arrow {\n  border-bottom-color: #303133; }\n\n.tip.is-light[x-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[x-placement^=left] .tip-arrow {\n  border-left-color: #303133; }\n\n.tip.is-light[x-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[x-placement^=right] .tip-arrow {\n  border-right-color: #303133; }\n\n.tip.is-light[x-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n", ""]);
 
 // exports
 
@@ -5589,8 +5589,9 @@ var Table = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Table.prototype.render = function (props) {
-        return omi_1.h("o-tip", null,
-            omi_1.h("div", null, " \u63D0\u793A\uFF01\uFF01"));
+        return omi_1.h("div", null,
+            omi_1.h("o-tip", { style: "margin-left:100px;margin-top:100px;", position: "bottom", effect: "dark", content: "tip 123" },
+                omi_1.h("div", null, " \u63D0\u793A\uFF01\uFF01")));
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -5657,23 +5658,48 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Table = /** @class */ (function (_super) {
     __extends(Table, _super);
     function Table() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onMouseEnter = function () {
+            _this.isShow = true;
+            _this.update();
+            var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
+            core_1.createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
+                placement: _this.props.position,
+            });
+        };
+        _this.onMouseLeave = function () {
+            _this.isShow = false;
+            _this.update();
+        };
+        _this.isShow = false;
+        return _this;
     }
     Table.prototype.installed = function () {
-        var tip = this.shadowRoot.querySelector('slot').assignedNodes()[0];
-        var tooltip = document.createElement('div');
-        tooltip.innerHTML = 'af';
-        this.shadowRoot.appendChild(tooltip);
-        core_1.createPopper(tip, tooltip, {
-            placement: 'bottom',
-        });
     };
-    Table.prototype.render = function () {
-        return omi_1.h("slot", null);
+    Table.prototype.render = function (props) {
+        var _a;
+        return omi_1.h("div", null,
+            omi_1.h("slot", { onMouseEnter: this.onMouseEnter, onMouseLeave: this.onMouseLeave }),
+            omi_1.h("div", { class: omi_1.classNames((_a = {
+                        tip: true,
+                        show: this.isShow
+                    },
+                    _a["is-" + props.effect] = props.effect,
+                    _a)), "x-placement": props.position },
+                props.content,
+                omi_1.h("i", { class: "tip-arrow" })));
     };
     Table.css = css;
-    Table.defaultProps = {};
-    Table.propTypes = {};
+    Table.defaultProps = {
+        content: '',
+        effect: 'light',
+        position: 'bottom'
+    };
+    Table.propTypes = {
+        content: String,
+        effect: String,
+        position: String
+    };
     Table = __decorate([
         omi_1.tag('o-tip')
     ], Table);

@@ -1,26 +1,26 @@
-## Table
+## Tip
 
-Components that show tree nested data structures.
+Components that show tooptip or popover.
 
 * [→ CodePen](https://codepen.io/omijs/pen/yLYMrdg)
 
 ## Import
 
 ```js
-import '@omiu/table'
+import '@omiu/tip'
 ```
 
 Or use script tag to ref it.
 
 
 ```html
-<script src="https://unpkg.com/@omiu/table"></script>
+<script src="https://unpkg.com/@omiu/tip"></script>
 ```
 
 ## Usage
 
 ```html
-<o-table></o-table>
+<o-tip></o-tip>
 ```
 
 ## API
@@ -29,15 +29,18 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  dataSource: any[],
-  columns: object,
-  checkbox: boolean,
-  border: boolean
+  content?: string,
+  effect?: string,
+  position?: string
 }
 ```
 
+### defaultProps
 
-### Events
-
-* changeall
-* change
+```tsx
+{
+  content: '',
+  effect: 'light',
+  position: 'bottom'
+}
+```
