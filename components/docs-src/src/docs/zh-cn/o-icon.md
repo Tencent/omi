@@ -23,7 +23,7 @@ import '@omiu/o-icon'
 ## 使用
 
 ```html
-<o-o-icon> </o-o-icon>
+<o-icon></o-icon>
 ```
 
 
