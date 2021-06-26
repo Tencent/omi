@@ -1,8 +1,6 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
-interface Props {
-
-}
+interface Props {}
 
 const tagName = 'layout-container'
 declare global {
@@ -21,10 +19,7 @@ export default class extends WeElement<Props> {
     return (
       <div class={tw`px-2 py-2`}>
         <slot></slot>
-      </div >
+      </div>
     )
   }
 }
-
-
-

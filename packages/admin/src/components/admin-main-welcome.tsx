@@ -2,9 +2,7 @@ import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import css from './admin-main-welcome.css'
 
-interface Props {
-
-}
+interface Props {}
 
 const tagName = 'admin-main-welcome'
 declare global {
@@ -25,16 +23,24 @@ export default class extends WeElement<Props> {
     return (
       <div class={tw``}>
         <div class={tw`w-96 m-auto pt-52`}>
-
-          <svg version="1.1" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-
+          <svg
+            version="1.1"
+            viewBox="0 0 800 600"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <symbol id="text">
-              <text x="2%" y="35%" class="text">Welcome to</text>
-              <text x="69%" y="35%" class="text">Admin</text>
+              <text x="2%" y="35%" class="text">
+                Welcome to
+              </text>
+              <text x="69%" y="35%" class="text">
+                Admin
+              </text>
             </symbol>
 
             <symbol id="omi">
-              <text x="49%" y="35%" class="text">Omi</text>
+              <text x="49%" y="35%" class="text">
+                Omi
+              </text>
             </symbol>
             <g>
               <use xlink:href="#omi" class="use-omi"></use>
@@ -50,14 +56,9 @@ export default class extends WeElement<Props> {
               <use xlink:href="#text" class="use-text"></use>
               <use xlink:href="#text" class="use-text"></use>
             </g>
-
           </svg>
         </div>
-
-      </div >
+      </div>
     )
   }
 }
-
-
-

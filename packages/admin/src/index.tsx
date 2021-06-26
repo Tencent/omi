@@ -9,13 +9,10 @@ import './layouts/basic-layout'
 import './layouts/components/layout-container'
 import './components/admin-main-welcome'
 
-
-
 import { tw, sheet } from 'omi-twind'
 
 @tag('my-app')
 export default class extends WeElement {
-
   static css = sheet.target
 
   data = {
@@ -39,7 +36,6 @@ export default class extends WeElement {
       this.update()
     })
 
-
     route('/table/pagination', () => {
       //lazy load
       import('./components/table/pagination-table')
@@ -61,7 +57,6 @@ export default class extends WeElement {
       this.update()
     })
 
-
     route('*', function () {
       console.log('not found')
     })
@@ -69,9 +64,11 @@ export default class extends WeElement {
 
   render(props) {
     return (
-      <basic-layout><this.data.tagName></this.data.tagName></basic-layout>
+      <basic-layout>
+        <this.data.tagName></this.data.tagName>
+      </basic-layout>
     )
   }
 }
 
-render(<my-app name='Omi'></my-app>, '#root')
+render(<my-app name="Omi"></my-app>, '#root')

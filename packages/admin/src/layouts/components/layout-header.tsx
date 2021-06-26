@@ -4,9 +4,7 @@ import { tw, sheet } from 'omi-twind'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 
-interface Props {
-
-}
+interface Props {}
 
 const tagName = 'layout-header'
 declare global {
@@ -26,19 +24,17 @@ export default class extends WeElement<Props> {
       <div class={tw` bg-gray-100 h-12 text-left border-b-1`}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
-            <img
-              class={tw`w-8 m-1 ml-3`}
-              src={logo}
-              alt="logo"
-            />
-            <div><h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1></div>
+            <img class={tw`w-8 m-1 ml-3`} src={logo} alt="logo" />
+            <div>
+              <h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1>
+            </div>
           </div>
-          <div class={tw`order-3 p-1 mr-3`}> <o-avatar src="https://material-ui.com/static/images/avatar/1.jpg"></o-avatar></div>
+          <div class={tw`order-3 p-1 mr-3`}>
+            {' '}
+            <o-avatar src="https://material-ui.com/static/images/avatar/1.jpg"></o-avatar>
+          </div>
         </div>
       </div>
     )
   }
 }
-
-
-
