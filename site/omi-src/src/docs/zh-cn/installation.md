@@ -26,43 +26,21 @@ $ npm run build        # release
 
 > `npx omi-cli init my-app` 也是支持的(npm v5.2.0+).
 
-<!-- 
-目录描述:
-
-```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-``` -->
-
 
 ### npm 脚本
 
 ```json
 "scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
+  "start": "vite",
+  "build": "tsc && vite build --base=./",
 }
 ```
 
 你也可以设置 PUBLIC_URL, 比如：
 
 ```json
-...
-"build": "PUBLIC_URL=https://your.url.com/sub node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://your.url.com/sub&& node scripts/build.js",
-...
+  "build": "tsc && vite build --base=https://your.url.com/sub ",
 ```
-
-
 
 ## 项目模板
 
