@@ -1,5 +1,5 @@
 /**
- * @omiu/tip v0.0.1 http://omijs.org
+ * @omiu/tip v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2064,6 +2064,14 @@ var Table = /** @class */ (function (_super) {
             var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
             createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                 placement: _this.props.position,
+                modifiers: [
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 8],
+                        },
+                    },
+                ],
             });
         };
         _this.onMouseLeave = function () {
@@ -2086,7 +2094,7 @@ var Table = /** @class */ (function (_super) {
                     _a["is-" + props.effect] = props.effect,
                     _a)), "x-placement": props.position },
                 props.content,
-                h("i", { class: "tip-arrow" })));
+                h("i", { class: "tip-arrow", "data-popper-arrow": true })));
     };
     Table.css = css;
     Table.defaultProps = {

@@ -35,6 +35,14 @@ export default class Table extends WeElement<Props> {
     const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
     createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 8],
+          },
+        },
+      ],
     });
   }
 
@@ -55,7 +63,7 @@ export default class Table extends WeElement<Props> {
           [`is-${props.effect}`]: props.effect
         })
       } x-placement={props.position}>{props.content}
-        <i class="tip-arrow"></i>
+        <i class="tip-arrow" data-popper-arrow></i>
       </div>
     </div>
   }

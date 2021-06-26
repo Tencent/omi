@@ -5590,7 +5590,7 @@ var Table = /** @class */ (function (_super) {
     }
     Table.prototype.render = function (props) {
         return omi_1.h("div", null,
-            omi_1.h("o-tip", { style: "margin-left:100px;margin-top:100px;", position: "bottom", effect: "dark", content: "tip 123" },
+            omi_1.h("o-tip", { style: "margin-left:100px;margin-top:100px;", position: "left", effect: "dark", content: "tip 123" },
                 omi_1.h("div", null, " \u63D0\u793A\uFF01\uFF01")));
     };
     Table = __decorate([
@@ -5665,6 +5665,14 @@ var Table = /** @class */ (function (_super) {
             var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
             core_1.createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                 placement: _this.props.position,
+                modifiers: [
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 8],
+                        },
+                    },
+                ],
             });
         };
         _this.onMouseLeave = function () {
@@ -5687,7 +5695,7 @@ var Table = /** @class */ (function (_super) {
                     _a["is-" + props.effect] = props.effect,
                     _a)), "x-placement": props.position },
                 props.content,
-                omi_1.h("i", { class: "tip-arrow" })));
+                omi_1.h("i", { class: "tip-arrow", "data-popper-arrow": true })));
     };
     Table.css = css;
     Table.defaultProps = {
