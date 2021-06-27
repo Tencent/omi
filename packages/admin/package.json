@@ -16,9 +16,9 @@
     "@omiu/icon": "^0.0.3",
     "@omiu/pagination": "^0.0.2",
     "@omiu/table": "^0.0.5",
-    "@omiu/tabs": "^0.0.14",
+    "@omiu/tabs": "^0.0.15",
     "@omiu/tip": "0.0.2",
-    "@omiu/tree": "^0.0.14",
+    "@omiu/tree": "^0.0.15",
     "omi": "^6.19.16",
     "omi-router": "^3.0.0",
     "omi-twind": "^0.0.1"

@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.14 http://omijs.org
+ * @omiu/tabs v0.0.15 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi

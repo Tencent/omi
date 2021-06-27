@@ -30,11 +30,12 @@ export default class extends WeElement {
   onChange = (evt) => {
     const tab = this.store.tabs.find(tab => tab.id === evt.detail.tab.id)
     this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+    this.store.selectTreeNodeById(evt.detail.tab.id)
     location.hash = evt.detail.tab.href
+    console.error(this.store.treeData)
   }
 
   onRemove = (evt) => {
-
     let index = evt.detail.index
     if (this.store.tabsActiveIndex === evt.detail.index) {
       index = index - 1
@@ -45,6 +46,9 @@ export default class extends WeElement {
     }
 
     const tab = this.store.tabs[this.store.tabsActiveIndex]
+
+    this.store.selectTreeNodeById(tab.id)
+
     location.hash = tab.href
   }
 

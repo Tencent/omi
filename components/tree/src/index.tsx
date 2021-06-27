@@ -27,9 +27,9 @@ export default class Tree extends WeElement<Props>{
     if (this.prevSelectedNode) {
       this.prevSelectedNode.selected = false
     }
-    if (this.prevBlurSelectedNode) {
-      this.prevBlurSelectedNode.selectedBlur = false
-    }
+    // if (this.prevBlurSelectedNode) {
+    //   this.prevBlurSelectedNode.selectedBlur = false
+    // }
     node.selected = true
     this.forceUpdate()
     this.fire('node-click', node)
@@ -94,14 +94,14 @@ export default class Tree extends WeElement<Props>{
 
   installed() {
 
-    window.addEventListener('click', (evt) => {
-      this.prevSelectedNode.selected = false
-      this.prevSelectedNode.selectedBlur = true
-      this.prevBlurSelectedNode = this.prevSelectedNode
+    // window.addEventListener('click', (evt) => {
+    //   this.prevSelectedNode.selected = false
+    //   this.prevSelectedNode.selectedBlur = true
+    //   this.prevBlurSelectedNode = this.prevSelectedNode
 
-      this.prevSelectedNode = null
-      this.forceUpdate()
-    })
+    //   this.prevSelectedNode = null
+    //   this.forceUpdate()
+    // })
 
     window.addEventListener('keydown', (evt) => {
       //enter
@@ -142,7 +142,7 @@ export default class Tree extends WeElement<Props>{
         {...extractClass({}, 'o-tree-node', {
           'is-expanded': node.expanded,
           'is-current': node.selected,
-          'is-current-blur': node.selectedBlur
+          //'is-current-blur': node.selectedBlur
         })}>
         <div class="o-tree-node__content" style={`padding-left: ${level * this.props.padding}px;`}>
           {(node.children && node.children.length > 0) ? <svg onClick={_ => this.onNodeArrowClick(node)} viewBox="0 0 1024 1024" {...extractClass({}, 'o-tree-node__expand-icon', {
