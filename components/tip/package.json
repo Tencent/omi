@@ -1,6 +1,6 @@
 {
   "name": "@omiu/tip",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Components that show tooptip or popover.",
   "docsExtend": {
     "cnName": "提示",

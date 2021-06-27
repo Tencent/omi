@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass, classNames, options } from 'omi'
+import { tag, WeElement, h, classNames } from 'omi'
 import { createPopper } from '@popperjs/core';
 
 import * as css from './index.scss'
@@ -62,7 +62,7 @@ export default class Table extends WeElement<Props> {
           show: this.isShow,
           [`is-${props.effect}`]: props.effect
         })
-      } x-placement={props.position}>{props.content}
+      }>{props.content}
         <i class="tip-arrow" data-popper-arrow></i>
       </div>
     </div>
