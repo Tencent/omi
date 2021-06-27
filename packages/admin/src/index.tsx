@@ -2,7 +2,6 @@ import { WeElement, render, h, tag } from 'omi'
 
 import { route } from 'omi-router'
 
-import '@omiu/icon/ballot'
 import '@omiu/icon/delete'
 import './index.css'
 

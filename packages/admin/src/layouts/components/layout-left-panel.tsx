@@ -17,6 +17,11 @@ declare global {
 export default class extends WeElement<Props> {
   static css = sheet.target
 
+  install() {
+    import('@omiu/icon/emoji-people')
+    import('@omiu/icon/ballot')
+  }
+
   treeData = [
     {
       label: '管理工作台',
@@ -29,7 +34,7 @@ export default class extends WeElement<Props> {
         {
           sign: 'M',
           label: '欢迎',
-          icon: 'ballot',
+          icon: 'emoji-people',
           color: 'green',
           selected: true,
           href: '#/welcome'

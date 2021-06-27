@@ -39,7 +39,10 @@ export default class extends WeElement {
               list={[{ label: 'User' }, { label: 'System' }, { label: 'Address' }]}
               active-index={0}>
             </o-tabs>
-            <slot></slot>
+
+            <div style={`height:calc(100vh - 6rem);`} class={tw`overflow-auto`}>
+              <slot></slot>
+            </div>
           </layout-container>
         </div>
       </h.f>
