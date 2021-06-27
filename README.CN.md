@@ -412,7 +412,6 @@ export default class oButton extends WeElement<ButtonProps> {
 
 - [Omi 生态](#omi-生态)
 - [必须收藏的资源](#必须收藏的资源)
-- [一个 HTML 完全上手](#一个-html-完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
   - [项目模板](#项目模板)
@@ -425,74 +424,6 @@ export default class oButton extends WeElement<ButtonProps> {
 - [维护者](#维护者)
 - [感谢](#感谢)
 - [License](#license)
-
-## 一个 HTML 完全上手
-
-下面这个页面不需要任何构建工具就可以执行
-
-- [→ Online Demo!](https://codepen.io/omijs/pen/PMZWNb)
-
-```html
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Omi demo without transpiler</title>
-</head>
-
-<body>
-  <script src="https://unpkg.com/omi"></script>
-  <script>
-    const { define, render, h } = Omi
-
-    class Store {
-      data = {
-        count: 1
-      }
-      sub = () => {
-        this.data.count--
-      }
-      add = () => {
-        this.data.count++
-      }
-    }
-
-    define('my-counter', _ => (
-      h(h.f, null,
-        h('button', {
-          onClick: _.store.sub
-        }, '-'),
-        h('span', null, _.store.data.count),
-        h('button', {
-          onClick: _.store.add
-        }, '+')
-      )
-    ), {
-      use: ['count'],
-      //or using useSelf, useSelf will update self only, exclude children components
-      //useSelf: ['count'],
-      css: `span { color: red; }`,
-      installed() {
-        console.log('installed')
-      }
-    })
-
-    render(h('my-counter'), 'body', new Store)
-
-  </script>
-</body>
-
-</html>
-```
-
-通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `<my-counter></my-counter>` 标签：
-
-```jsx
-<body>
-  <my-counter></my-counter>
-</body>
-```
-
 
 
 ## 快速入门
@@ -543,15 +474,6 @@ $ npm run build       # 编译发布
 ...
 ```
 
-#### 切换 omi, omio 和 reomi
-
-增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
-
-```js
-"alias": {
-  "omi": "omio"
-}
-```
 
 <!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
 
@@ -591,14 +513,7 @@ $ npm run build       # 编译发布
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
-|小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
-|基础模板(v3.3.9+)|`omi init-o my-app`| 支持 IE8 的基础模板，只是 build 的时候支持 IE8，开发调试请用 IE9|
 |Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
-|支持预渲染快照骨架的模板|`omi init-snap my-app`| 基础模板，支持 omi 和 omio(IE8+)，内置预渲染|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
-|Mobile Template|`omi init-weui my-app`| 使用了 weui 和 omi-router 的移动 web app 模板|
-
-
 
 ### Hello Element
 

@@ -371,7 +371,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
 - [Useful Resources](#useful-resources)
-- [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
   - [Install](#install)
   - [Project Template](#project-template)
@@ -384,76 +383,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 - [Maintainers](#maintainers)
 - [Thanks](#thanks)
 - [License](#license)
-
-## Add Omi in One Minute
-
-This page demonstrates using Omi **with no build tooling**,  directly run in the browser.
-
-- [→ Online Demo!](https://codepen.io/omijs/pen/PMZWNb)
-
-```html
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Omi demo without transpiler</title>
-</head>
-
-<body>
-  <script src="https://unpkg.com/omi"></script>
-  <script>
-    const { define, render, h } = Omi
-
-    class Store {
-      data = {
-        count: 1
-      }
-      sub = () => {
-        this.data.count--
-      }
-      add = () => {
-        this.data.count++
-      }
-    }
-
-    define('my-counter', _ => (
-      h(h.f, null,
-        h('button', {
-          onClick: _.store.sub
-        }, '-'),
-        h('span', null, _.store.data.count),
-        h('button', {
-          onClick: _.store.add
-        }, '+')
-      )
-    ), {
-      use: ['count'],
-      //or using useSelf, useSelf will update self only, exclude children components
-      //useSelf: ['count'],
-      css: `span { color: red; }`,
-      installed() {
-        console.log('installed')
-      }
-    })
-
-    render(h('my-counter'), 'body', new Store)
-
-  </script>
-</body>
-
-</html>
-```
-
-Omi Store provides a way to pass data through the component tree without having to pass props down manually at every level, injected from the root component and shared across all subcomponents. It's very simple to use:
-
-You can also use `my-counter` tag directly in HTML：
-
-```jsx
-<body>
-  <my-counter></my-counter>
-</body>
-```
-
 
 ## Getting Started
 
@@ -503,24 +432,12 @@ You can set up the PUBLIC_URL, such as：
 ...
 ```
 
-#### Switch omi, omio and reomi
 
-Add or remove the alias config in package.json to switch omi and omio：
-
-```js
-"alias": {
-  "omi": "omio"
-}
-```
-    
 ### Project Template
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
-|Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
+|Base Template|`omi init my-app`| Basic omi project template.|
 |Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
 
 ### Hello Element
@@ -799,7 +716,6 @@ For example, the below is about migration React button as weui Omi button:
 
 ## Browsers Support
 
-> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - Omi for old browsers(IE8+)
 
 Omi works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
@@ -849,32 +765,6 @@ npm run test
 Any form of contribution is welcome. The above contributors have been officially released by Tencent.
 
 We very much welcome developers to contribute to Tencent's open source, and we will also give them incentives to acknowledge and thank them. Here we provide an official description of Tencent's open source contribution. Specific contribution rules for each project are formulated by the project team. Developers can choose the appropriate project and participate according to the corresponding rules. The Tencent Project Management Committee will report regularly to qualified contributors and awards will be issued by the official contact.
-
-
-## Design philosophy
-
-The Omi design was driven by The Zen of Python, by Tim Peters philosophy:
-
-* Beautiful is better than ugly.
-* Explicit is better than implicit.
-* Simple is better than complex.
-* Complex is better than complicated.
-* Flat is better than nested.
-* Sparse is better than dense.
-* Readability counts.
-* Special cases aren't special enough to break the rules.
-* Although practicality beats purity.
-* Errors should never pass silently.
-* Unless explicitly silenced.
-* In the face of ambiguity, refuse the temptation to guess.
-* There should be one—and preferably only one—obvious way to do it.
-* Although that way may not be obvious at first unless you're Dutch.
-* Now is better than never.
-* Although never is often better than right now.
-* If the implementation is hard to explain, it's a bad idea.
-* If the implementation is easy to explain, it may be a good idea.
-* Namespaces are one honking great idea—let's do more of those!
-
 
 ## Core Maintainers
 
