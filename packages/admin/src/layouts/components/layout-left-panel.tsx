@@ -2,7 +2,7 @@ import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import '@omiu/tree'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'layout-left-panel'
 declare global {

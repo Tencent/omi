@@ -109,14 +109,27 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (this.constructor.css) {
-      if (typeof this.constructor.css === 'string') {
-        this.styleSheet = new CSSStyleSheet()
-        this.styleSheet.replaceSync(this.constructor.css)
+    const css = this.constructor.css
+    if (css) {
+      if (typeof css === 'string') {
+        const styleSheet = new CSSStyleSheet()
+        styleSheet.replaceSync(css)
+        shadowRoot.adoptedStyleSheets = [styleSheet]
+      } else if (Object.prototype.toString.call(css) === '[object Array]') {
+        const styleSheets = []
+        css.forEach((styleSheet) => {
+          if (typeof styleSheet === 'string') {
+            const adoptedStyleSheet = new CSSStyleSheet()
+            adoptedStyleSheet.replaceSync(styleSheet)
+            styleSheets.push(adoptedStyleSheet)
+          } else {
+            styleSheets.push(styleSheet)
+          }
+          shadowRoot.adoptedStyleSheets = styleSheets
+        })
       } else {
-        this.styleSheet = this.constructor.css
+        shadowRoot.adoptedStyleSheets = [css]
       }
-      shadowRoot.adoptedStyleSheets = [this.styleSheet]
     }
 
     if (this.css) {
@@ -140,7 +153,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function(item) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -293,23 +306,23 @@ export default class WeElement extends HTMLElement {
     )
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 }

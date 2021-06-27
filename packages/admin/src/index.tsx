@@ -1,8 +1,11 @@
-import { WeElement, render, h, options, tag } from 'omi'
+import { WeElement, render, h, tag } from 'omi'
 
-options.ignoreAttrs = true
+window.Omi.options.ignoreAttrs = true
 
 import { route } from 'omi-router'
+
+import '@omiu/icon/ballot'
+import '@omiu/icon/delete'
 import './index.css'
 
 import './layouts/basic-layout'

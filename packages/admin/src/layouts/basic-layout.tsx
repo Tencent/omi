@@ -9,7 +9,7 @@ import './components/layout-left-panel'
 
 import { tw, sheet } from 'omi-twind'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'basic-layout'
 declare global {
@@ -24,9 +24,9 @@ declare global {
 export default class extends WeElement {
   static css = sheet.target
 
-  render(props) {
+  render() {
     return (
-      <div>
+      <h.f>
         <layout-header class={tw`h-12 block`}></layout-header>
 
         <div class={tw`flex flex-row`}>
@@ -35,7 +35,7 @@ export default class extends WeElement {
             <slot></slot>
           </layout-container>
         </div>
-      </div>
+      </h.f>
     )
   }
 }
