@@ -782,7 +782,7 @@
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
         WeElement.prototype.attrsToProps = function(ignoreAttrs) {
-            if (!options.ignoreAttrs && !ignoreAttrs) {
+            if (!(options.ignoreAttrs || ignoreAttrs || this.store && this.store.ignoreAttrs)) {
                 var ele = this;
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
@@ -1357,7 +1357,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.3';
+    options.root.Omi.version = '6.19.14';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

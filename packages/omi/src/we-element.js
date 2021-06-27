@@ -248,7 +248,12 @@ export default class WeElement extends HTMLElement {
   }
 
   attrsToProps(ignoreAttrs) {
-    if (options.ignoreAttrs || ignoreAttrs) return
+    if (
+      options.ignoreAttrs ||
+      ignoreAttrs ||
+      (this.store && this.store.ignoreAttrs)
+    )
+      return
     const ele = this
     ele.props['css'] = ele.getAttribute('css')
     const attrs = this.constructor.propTypes
