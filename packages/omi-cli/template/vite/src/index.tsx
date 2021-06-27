@@ -1,7 +1,7 @@
 import { WeElement, render, h, options, tag } from 'omi'
 
 // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-options.ignoreAttrs = true
+window.Omi.options.ignoreAttrs = true
 
 import './hello-omi'
 import './index.css'
