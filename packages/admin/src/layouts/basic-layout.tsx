@@ -27,6 +27,27 @@ export default class extends WeElement {
 
   store
 
+  onChange = (evt) => {
+    const tab = this.store.tabs.find(tab => tab.id === evt.detail.tab.id)
+    this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+    location.hash = evt.detail.tab.href
+  }
+
+  onRemove = (evt) => {
+
+    let index = evt.detail.index
+    if (this.store.tabsActiveIndex === evt.detail.index) {
+      index = index - 1
+      if (index < 0) index = 0
+      this.store.tabsActiveIndex = index
+    } else if (this.store.tabsActiveIndex > index) {
+      this.store.tabsActiveIndex -= 1
+    }
+
+    const tab = this.store.tabs[this.store.tabsActiveIndex]
+    location.hash = tab.href
+  }
+
   render() {
     return (
       <h.f>
@@ -39,6 +60,8 @@ export default class extends WeElement {
               closable
               type="card"
               list={this.store.tabs}
+              onchange={this.onChange}
+              onremove={this.onRemove}
               active-index={this.store.tabsActiveIndex}>
             </o-tabs>
 
