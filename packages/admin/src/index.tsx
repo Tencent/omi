@@ -1,7 +1,5 @@
 import { WeElement, render, h, tag } from 'omi'
 
-window.Omi.options.ignoreAttrs = true
-
 import { route } from 'omi-router'
 
 import '@omiu/icon/ballot'
@@ -74,4 +72,6 @@ export default class extends WeElement {
   }
 }
 
-render(<my-app name="Omi"></my-app>, '#root')
+render(<my-app name="Omi"></my-app>, '#root', {
+  ignoreAttrs: true
+})

@@ -9,10 +9,12 @@ export function render(vnode, parent, store) {
     if (store.data) {
       observeStore(store)
     } else {
-      options.isMultiStore = true
       //Multi-store injection
       for (let key in store) {
-        observeStore(store[key], key)
+        if (key !== 'ignoreAttrs') {
+          options.isMultiStore = true
+          observeStore(store[key], key)
+        }
       }
     }
     parent.store = store
