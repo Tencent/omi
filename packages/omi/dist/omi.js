@@ -377,10 +377,7 @@
     function render(vnode, parent, store) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
         if (store) {
-            if (store.data) observeStore(store); else for (var key in store) if ('ignoreAttrs' !== key) {
-                options.isMultiStore = !0;
-                observeStore(store[key], key);
-            }
+            if (store.data) observeStore(store);
             parent.store = store;
         }
         return diff(null, vnode, parent, !1);
@@ -1357,7 +1354,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.15';
+    options.root.Omi.version = '6.19.16';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

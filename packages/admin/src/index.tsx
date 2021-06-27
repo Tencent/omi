@@ -10,6 +10,7 @@ import './layouts/components/layout-container'
 import './components/admin-main-welcome'
 
 import { tw, sheet } from 'omi-twind'
+import store from './store'
 
 @tag('my-app')
 export default class extends WeElement {
@@ -71,6 +72,4 @@ export default class extends WeElement {
   }
 }
 
-render(<my-app name="Omi"></my-app>, '#root', {
-  ignoreAttrs: true
-})
+render(<my-app name="Omi"></my-app>, '#root', store)

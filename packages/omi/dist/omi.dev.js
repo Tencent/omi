@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.15  http://omijs.org
+ * Omi v6.19.16  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1484,175 +1484,176 @@
   }();
 
   function render(vnode, parent, store) {
-    parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-    if (store) {
-      if (store.data) {
-        observeStore(store);
-      } else {
-        //Multi-store injection
-        for (var key in store) {
-          if (key !== 'ignoreAttrs') {
-            options.isMultiStore = true;
-            observeStore(store[key], key);
-          }
-        }
-      }
-      parent.store = store;
-    }
-    return diff(null, vnode, parent, false);
+  	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+  	if (store) {
+  		if (store.data) {
+  			observeStore(store);
+  		}
+  		// else {
+  		//   //Multi-store injection
+  		//   for (let key in store) {
+  		//     if (key !== 'ignoreAttrs') {
+  		//       options.isMultiStore = true
+  		//       observeStore(store[key], key)
+  		//     }
+  		//   }
+  		// }
+  		parent.store = store;
+  	}
+  	return diff(null, vnode, parent, false);
   }
 
   function observeStore(store, key) {
-    store.instances = [];
-    store.updateSelfInstances = [];
-    extendStoreUpdate(store, key);
+  	store.instances = [];
+  	store.updateSelfInstances = [];
+  	extendStoreUpdate(store, key);
 
-    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-      var patchs = {};
-      if (patch.op === 'remove') {
-        // fix arr splice
-        var kv = getArrayPatch(patch.path, store);
-        patchs[kv.k] = kv.v;
+  	store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
+  		var patchs = {};
+  		if (patch.op === 'remove') {
+  			// fix arr splice
+  			var kv = getArrayPatch(patch.path, store);
+  			patchs[kv.k] = kv.v;
 
-        update(patchs, store);
-      } else {
-        var key = fixPath(patch.path);
-        patchs[key] = patch.value;
+  			update(patchs, store);
+  		} else {
+  			var key = fixPath(patch.path);
+  			patchs[key] = patch.value;
 
-        update(patchs, store);
-      }
-    });
+  			update(patchs, store);
+  		}
+  	});
   }
 
   function update(patch, store) {
-    store.update(patch);
+  	store.update(patch);
   }
 
   function extendStoreUpdate(store, key) {
-    store.update = function (patch) {
-      if (Object.keys(patch).length > 0) {
-        this.instances.forEach(function (instance) {
-          compute(instance, key);
-          if (key) {
-            if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
-              if (instance.use) {
-                getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
-              }
+  	store.update = function (patch) {
+  		if (Object.keys(patch).length > 0) {
+  			this.instances.forEach(function (instance) {
+  				compute(instance, key);
+  				if (key) {
+  					if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
+  						if (instance.use) {
+  							getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
+  						}
 
-              instance.update();
-            }
-          } else {
-            if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
-              if (instance.use) {
-                instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
-              }
+  						instance.update();
+  					}
+  				} else {
+  					if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
+  						if (instance.use) {
+  							instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
+  						}
 
-              instance.update();
-            }
-          }
-        });
+  						instance.update();
+  					}
+  				}
+  			});
 
-        this.updateSelfInstances.forEach(function (instance) {
-          compute(instance, key);
-          if (key) {
-            if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
-              if (instance.useSelf) {
-                getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
-              }
+  			this.updateSelfInstances.forEach(function (instance) {
+  				compute(instance, key);
+  				if (key) {
+  					if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
+  						if (instance.useSelf) {
+  							getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
+  						}
 
-              instance.updateSelf();
-            }
-          } else {
-            if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-              instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
-              instance.updateSelf();
-            }
-          }
-        });
-        this.onChange && this.onChange(patch);
-      }
-    };
+  						instance.updateSelf();
+  					}
+  				} else {
+  					if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+  						instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
+  						instance.updateSelf();
+  					}
+  				}
+  			});
+  			this.onChange && this.onChange(patch);
+  		}
+  	};
   }
 
   function compute(instance, isMultiStore) {
-    if (instance.compute) {
-      for (var ck in instance.compute) {
-        instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
-      }
-    }
+  	if (instance.compute) {
+  		for (var ck in instance.compute) {
+  			instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
+  		}
+  	}
   }
 
   function needUpdate(diffResult, updatePath) {
-    for (var keyA in diffResult) {
-      if (updatePath[keyA]) {
-        return true;
-      }
-      for (var keyB in updatePath) {
-        if (includePath(keyA, keyB)) {
-          return true;
-        }
-      }
-    }
-    return false;
+  	for (var keyA in diffResult) {
+  		if (updatePath[keyA]) {
+  			return true;
+  		}
+  		for (var keyB in updatePath) {
+  			if (includePath(keyA, keyB)) {
+  				return true;
+  			}
+  		}
+  	}
+  	return false;
   }
 
   function includePath(pathA, pathB) {
-    if (pathA.indexOf(pathB) === 0) {
-      var next = pathA.substr(pathB.length, 1);
-      if (next === '[' || next === '.') {
-        return true;
-      }
-    }
-    return false;
+  	if (pathA.indexOf(pathB) === 0) {
+  		var next = pathA.substr(pathB.length, 1);
+  		if (next === '[' || next === '.') {
+  			return true;
+  		}
+  	}
+  	return false;
   }
 
   function fixPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    arr.forEach(function (item, index) {
-      if (index) {
-        if (isNaN(Number(item))) {
-          mpPath += '.' + item;
-        } else {
-          mpPath += '[' + item + ']';
-        }
-      } else {
-        mpPath += item;
-      }
-    });
-    return mpPath;
+  	var mpPath = '';
+  	var arr = path.replace('/', '').split('/');
+  	arr.forEach(function (item, index) {
+  		if (index) {
+  			if (isNaN(Number(item))) {
+  				mpPath += '.' + item;
+  			} else {
+  				mpPath += '[' + item + ']';
+  			}
+  		} else {
+  			mpPath += item;
+  		}
+  	});
+  	return mpPath;
   }
 
   function getArrayPatch(path, store) {
-    var arr = path.replace('/', '').split('/');
-    var current = store.data[arr[0]];
-    for (var i = 1, len = arr.length; i < len - 1; i++) {
-      current = current[arr[i]];
-    }
-    return {
-      k: fixArrPath(path),
-      v: current
-    };
+  	var arr = path.replace('/', '').split('/');
+  	var current = store.data[arr[0]];
+  	for (var i = 1, len = arr.length; i < len - 1; i++) {
+  		current = current[arr[i]];
+  	}
+  	return {
+  		k: fixArrPath(path),
+  		v: current
+  	};
   }
 
   function fixArrPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    var len = arr.length;
-    arr.forEach(function (item, index) {
-      if (index < len - 1) {
-        if (index) {
-          if (isNaN(Number(item))) {
-            mpPath += '.' + item;
-          } else {
-            mpPath += '[' + item + ']';
-          }
-        } else {
-          mpPath += item;
-        }
-      }
-    });
-    return mpPath;
+  	var mpPath = '';
+  	var arr = path.replace('/', '').split('/');
+  	var len = arr.length;
+  	arr.forEach(function (item, index) {
+  		if (index < len - 1) {
+  			if (index) {
+  				if (isNaN(Number(item))) {
+  					mpPath += '.' + item;
+  				} else {
+  					mpPath += '[' + item + ']';
+  				}
+  			} else {
+  				mpPath += item;
+  			}
+  		}
+  	});
+  	return mpPath;
   }
 
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2164,7 +2165,7 @@
   var html = htm.bind(h);
 
   function createRef() {
-    return {};
+  	return {};
   }
 
   var $ = {};
@@ -2173,37 +2174,37 @@
   var elements = options.mapping;
 
   var omi = {
-    tag: tag,
-    WeElement: WeElement,
-    Component: Component,
-    render: render,
-    h: h,
-    createElement: h,
-    options: options,
-    define: define,
-    cloneElement: cloneElement,
-    getHost: getHost,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    createRef: createRef,
-    html: html,
-    htm: htm,
-    o: o,
-    elements: elements,
-    $: $,
-    extend: extend$1,
-    get: get,
-    set: set,
-    bind: bind,
-    unbind: unbind,
-    JSONProxy: JSONPatcherProxy
+  	tag: tag,
+  	WeElement: WeElement,
+  	Component: Component,
+  	render: render,
+  	h: h,
+  	createElement: h,
+  	options: options,
+  	define: define,
+  	cloneElement: cloneElement,
+  	getHost: getHost,
+  	rpx: rpx,
+  	defineElement: defineElement,
+  	classNames: classNames,
+  	extractClass: extractClass,
+  	createRef: createRef,
+  	html: html,
+  	htm: htm,
+  	o: o,
+  	elements: elements,
+  	$: $,
+  	extend: extend$1,
+  	get: get,
+  	set: set,
+  	bind: bind,
+  	unbind: unbind,
+  	JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.15';
+  options.root.Omi.version = '6.19.16';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

@@ -8,15 +8,16 @@ export function render(vnode, parent, store) {
   if (store) {
     if (store.data) {
       observeStore(store)
-    } else {
-      //Multi-store injection
-      for (let key in store) {
-        if (key !== 'ignoreAttrs') {
-          options.isMultiStore = true
-          observeStore(store[key], key)
-        }
-      }
     }
+    // else {
+    //   //Multi-store injection
+    //   for (let key in store) {
+    //     if (key !== 'ignoreAttrs') {
+    //       options.isMultiStore = true
+    //       observeStore(store[key], key)
+    //     }
+    //   }
+    // }
     parent.store = store
   }
   return diff(null, vnode, parent, false)

@@ -25,6 +25,8 @@ declare global {
 export default class extends WeElement {
   static css = sheet.target
 
+  store
+
   render() {
     return (
       <h.f>
@@ -36,8 +38,8 @@ export default class extends WeElement {
             <o-tabs
               closable
               type="card"
-              list={[{ label: 'User' }, { label: 'System' }, { label: 'Address' }]}
-              active-index={0}>
+              list={this.store.tabs}
+              active-index={this.store.tabsActiveIndex}>
             </o-tabs>
 
             <div style={`height:calc(100vh - 6rem);`} class={tw`overflow-auto`}>

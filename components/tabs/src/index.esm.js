@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.11 http://omijs.org
+ * @omiu/tabs v0.0.13 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -757,6 +757,8 @@ var Tabs = /** @class */ (function (_super) {
         return _this;
     }
     Tabs.prototype.setActiveBar = function (ele, index) {
+        if (!ele)
+            return;
         var rect = ele.getBoundingClientRect();
         this._x = rect.left - this.baseRect.left;
         this._width = rect.width;
@@ -835,11 +837,11 @@ var Tabs = /** @class */ (function (_super) {
                                 return h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return props.activeIndex !== index && _this.onTabClick(evt, index); }, tabindex: props.active === index ? '0' : -1 }, extractClass(props, 'o-tabs__item', (_a = {},
                                     _a["is-" + props.position] = props.position,
                                     _a['is-active'] = props.activeIndex === index,
-                                    _a['is-closable'] = props.closable,
+                                    _a['is-closable'] = props.closable && tab.closable !== false,
                                     _a))),
                                     tab.icon && h(_this._tempTagName, null),
                                     tab.label,
-                                    props.closable && h("svg", { onClick: function (_) { _this.removeTab(index); }, class: "o-icon-close", style: props.activeIndex === index && "visibility: visible;", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
+                                    props.closable && tab.closable !== false && h("svg", { onClick: function (_) { _this.removeTab(index); }, class: "o-icon-close", style: props.activeIndex === index && "visibility: visible;", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
                                         h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })));
                             })),
                         props.addable && h("svg", { class: "o-icon-add", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true", onClick: this.onAddIconClick },
