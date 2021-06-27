@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.10 http://omijs.org
+ * @omiu/tabs v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -56,13 +56,19 @@ function __decorate(decorators, target, key, desc) {
 }
 
 
-var css = `:host {
+var css = `/**
+ * omiu tab css based on element ui css
+ * Licensed under the MIT License
+ * https://github.com/ElemeFE/element/blob/dev/LICENSE
+ *
+ * modified by dntzhang
+ */
+:host {
   display: block; }
 
 .o-tabs__header {
   padding: 0;
-  position: relative;
-  margin: 0 0 15px; }
+  position: relative; }
 
 .o-tabs__active-bar {
   position: absolute;

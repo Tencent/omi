@@ -3,6 +3,7 @@ import { WeElement, h, tag } from 'omi'
 import '../index.css'
 
 import '@omiu/button'
+import '@omiu/tabs'
 
 import './components/layout-header'
 import './components/layout-left-panel'
@@ -32,6 +33,12 @@ export default class extends WeElement {
         <div class={tw`flex flex-row`}>
           <layout-left-panel class={tw`w-64`}></layout-left-panel>
           <layout-container class={tw`flex-1`}>
+            <o-tabs
+              closable
+              type="card"
+              list={[{ label: 'User' }, { label: 'System' }, { label: 'Address' }]}
+              active-index={0}>
+            </o-tabs>
             <slot></slot>
           </layout-container>
         </div>
