@@ -44,4 +44,7 @@ export default class extends WeElement<MyAppProps> {
   }
 }
 
-render(<my-app name='Omi'></my-app>, '#root')
+render(<my-app></my-app>, '#root', {
+  // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
+  ignoreAttrs: true
+})

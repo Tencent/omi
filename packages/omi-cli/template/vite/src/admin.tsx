@@ -1,8 +1,5 @@
 import { WeElement, render, h, tag } from 'omi'
 
-// if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-window.Omi.options.ignoreAttrs = true
-
 @tag('my-admin')
 export default class extends WeElement {
 
@@ -15,4 +12,7 @@ export default class extends WeElement {
   }
 }
 
-render(<my-admin></my-admin>, '#root')
+render(<my-admin></my-admin>, '#root', {
+  // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
+  ignoreAttrs: true
+})
