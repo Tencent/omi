@@ -1,10 +1,10 @@
 {
-  "name": "@omiu/action-sheet",
-  "version": "0.0.4",
+  "name": "@omiu/select",
+  "version": "0.0.1",
   "description": "Mobile pop-up options list",
   "docsExtend": {
-    "cnName": "弹出式菜单",
-    "cnDescription": "移动端弹出式选项列表",
+    "cnName": "下拉菜单",
+    "cnDescription": "下拉菜单",
     "codepen": "wvKdoNJ",
     "codepenHeight": 351,
     "codepenDefaultTab": "html,result"
@@ -96,6 +96,7 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/popover": "^0.0.5",
     "omi": "latest"
   }
 }

@@ -36,11 +36,11 @@ export default class Popover extends WeElement<Props> {
   onEnter = (evt) => {
 
     clearTimeout(this.timeout)
-    this.isShow = true
+    this.isShow = !this.isShow
     this.update()
     //html 模式过滤文本
     const tip = this.shadowRoot.querySelector('slot').assignedNodes().find(node => node.nodeType !== 3)
-    console.error(tip, this.props.position)
+
     createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
       modifiers: [
@@ -83,7 +83,7 @@ export default class Popover extends WeElement<Props> {
   isShow = false
 
   render(props) {
-    console.error(props.position)
+
     const targetEvents: {
       onMouseEnter: () => void;
       onMouseLeave: () => void;
@@ -102,7 +102,7 @@ export default class Popover extends WeElement<Props> {
     }
 
 
-    return <div>
+    return <div style="position:relative">
       <slot {...targetEvents}></slot>
       <div class={
         classNames({

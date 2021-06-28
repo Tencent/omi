@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '@omiu/popover';
 interface Props {
     items: any[];
     active: boolean;
@@ -18,9 +19,6 @@ export default class Select extends WeElement<Props> {
         placeholder: StringConstructor;
         size: StringConstructor;
     };
-    installed(): void;
-    updated(): void;
-    _fixWidth(): void;
     onInputClick: () => void;
     onInputBlur: () => void;
     selectedIndex: number;

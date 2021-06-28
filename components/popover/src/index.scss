@@ -18,15 +18,19 @@
 
 
 .tip {
-  border: 1px solid #888;
   position: absolute;
+  background: #fff;
+  min-width: 150px;
   border-radius: 4px;
-  padding: 10px;
+  border: 1px solid #ebeef5;
   z-index: 2000;
-  font-size: 12px;
-  line-height: 1.2;
-  min-width: 10px;
-  word-wrap: break-word;
+  color: #606266;
+  line-height: 1.4;
+  text-align: justify;
+  font-size: 14px;
+  word-break: break-all;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
   display: none;
 }
 
@@ -57,14 +61,14 @@
 
 .tip[data-popper-placement^=top] .tip-arrow {
   bottom: -6px;
-  border-top-color: #303133;
+  border-top-color: #ebeef5;
   border-bottom-width: 0
 }
 
 .tip[data-popper-placement^=top] .tip-arrow::after {
   bottom: 1px;
   margin-left: -5px;
-  border-top-color: #303133;
+  border-top-color: #ebeef5;
   border-bottom-width: 0
 }
 
@@ -75,14 +79,14 @@
 .tip[data-popper-placement^=bottom] .tip-arrow {
   top: -6px;
   border-top-width: 0;
-  border-bottom-color: #303133
+  border-bottom-color: #ebeef5
 }
 
 .tip[data-popper-placement^=bottom] .tip-arrow::after {
   top: 1px;
   margin-left: -5px;
   border-top-width: 0;
-  border-bottom-color: #303133
+  border-bottom-color: #ebeef5
 }
 
 .tip[data-popper-placement^=right] {
@@ -91,14 +95,14 @@
 
 .tip[data-popper-placement^=right] .tip-arrow {
   left: -6px;
-  border-right-color: #303133;
+  border-right-color: #ebeef5;
   border-left-width: 0
 }
 
 .tip[data-popper-placement^=right] .tip-arrow::after {
   bottom: -5px;
   left: 1px;
-  border-right-color: #303133;
+  border-right-color: #ebeef5;
   border-left-width: 0
 }
 
@@ -109,7 +113,7 @@
 .tip[data-popper-placement^=left] .tip-arrow {
   right: -6px;
   border-right-width: 0;
-  border-left-color: #303133
+  border-left-color: #ebeef5
 }
 
 .tip[data-popper-placement^=left] .tip-arrow::after {
@@ -117,21 +121,20 @@
   bottom: -5px;
   margin-left: -5px;
   border-right-width: 0;
-  border-left-color: #303133
+  border-left-color: #ebeef5
 }
 
 .tip.is-dark {
-  background: #303133;
+  background: #ebeef5;
   color: #FFF
 }
 
 .tip.is-light {
   background: #FFF;
-  border: 1px solid #303133
 }
 
 .tip.is-light[data-popper-placement^=top] .tip-arrow {
-  border-top-color: #303133
+  border-top-color: #ebeef5
 }
 
 .tip.is-light[data-popper-placement^=top] .tip-arrow::after {
@@ -139,7 +142,7 @@
 }
 
 .tip.is-light[data-popper-placement^=bottom] .tip-arrow {
-  border-bottom-color: #303133
+  border-bottom-color: #ebeef5
 }
 
 .tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {
@@ -147,7 +150,7 @@
 }
 
 .tip.is-light[data-popper-placement^=left] .tip-arrow {
-  border-left-color: #303133
+  border-left-color: #ebeef5
 }
 
 .tip.is-light[data-popper-placement^=left] .tip-arrow::after {
@@ -155,7 +158,7 @@
 }
 
 .tip.is-light[data-popper-placement^=right] .tip-arrow {
-  border-right-color: #303133
+  border-right-color: #ebeef5
 }
 
 .tip.is-light[data-popper-placement^=right] .tip-arrow::after {
