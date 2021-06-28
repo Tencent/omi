@@ -9,7 +9,7 @@ interface Props {
   position?: string
 }
 
-@tag('o-tip')
+@tag('o-tooltip')
 export default class Table extends WeElement<Props> {
   static css = css
 
