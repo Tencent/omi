@@ -1,8 +1,7 @@
 import { define } from './define'
 
-export function tag(name, pure) {
+export function tag(name) {
   return function(target) {
-    target.pure = pure
     define(name, target)
   }
 }

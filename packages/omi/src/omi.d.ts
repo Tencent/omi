@@ -173,7 +173,7 @@ declare namespace Omi {
 
   function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
   function defineElement(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
-  function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
+  function tag(name: string): (ctor: WeElementConstructor) => void;
   function tick(callback: Callback, scope?: any): void;
   function nextTick(callback: Callback, scope?: any): void;
   function observe(target: WeElementConstructor): void;
