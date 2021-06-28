@@ -25,6 +25,7 @@ export default class Tree extends WeElement<Props> {
     editInput: any;
     prevBlurSelectedNode: any;
     installed(): void;
+    _nodeTagName: string;
     renderNode(node: any, level: any): JSX.Element;
     render(props: any): JSX.Element;
 }

@@ -22,25 +22,25 @@ export default class Switch extends WeElement<Props> {
   render(props) {
     if (props.checked) {
       return (
-        <label for={`x_${this.elementId}`} {...extractClass(props, 'weui-switch-cp')}>
+        <label for={`x_${this.elementId}`} {...extractClass(props, 'o-switch-cp')}>
           <input
             id={`x_${this.elementId}`}
             ref={e => {
               this._ele = e
             }}
-            class="weui-switch-cp__input"
+            class="o-switch-cp__input"
             type="checkbox"
             onChange={this.onChange}
             checked={true}
           />
-          <div class="weui-switch-cp__box" />
+          <div class="o-switch-cp__box" />
         </label>
       )
     }
 
     return (
       <input
-        {...extractClass(props, 'weui-switch')}
+        {...extractClass(props, 'o-switch')}
         type="checkbox"
         ref={e => {
           this._ele = e

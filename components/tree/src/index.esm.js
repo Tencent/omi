@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.15 http://omijs.org
+ * @omiu/tree v0.0.16 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -9,29 +9,31 @@
 import { h, extractClass, tag, WeElement } from 'omi';
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -709,29 +711,27 @@ var Tree = /** @class */ (function (_super) {
         //   this.prevSelectedNode.selected = false
         //   this.prevSelectedNode.selectedBlur = true
         //   this.prevBlurSelectedNode = this.prevSelectedNode
-        var _this = this;
         //   this.prevSelectedNode = null
         //   this.forceUpdate()
         // })
-        window.addEventListener('keydown', function (evt) {
-            //enter
-            if (evt.keyCode === 13) {
-                if (_this.prevSelectedNode) {
-                    if (_this.prevSelectedNode.editing) {
-                        _this.prevSelectedNode.editing = false;
-                        _this.prevSelectedNode.label = _this.editInput.value;
-                        //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
-                        _this.editInput.blur();
-                        _this.forceUpdate();
-                    }
-                    else {
-                        _this.prevSelectedNode.editing = true;
-                        _this.forceUpdate();
-                        _this.editInput.focus();
-                    }
-                }
-            }
-        });
+        // window.addEventListener('keydown', (evt) => {
+        //   //enter
+        //   if (evt.keyCode === 13) {
+        //     if (this.prevSelectedNode) {
+        //       if (this.prevSelectedNode.editing) {
+        //         this.prevSelectedNode.editing = false
+        //         this.prevSelectedNode.label = this.editInput.value
+        //         //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+        //         this.editInput.blur()
+        //         this.forceUpdate()
+        //       } else {
+        //         this.prevSelectedNode.editing = true
+        //         this.forceUpdate()
+        //         this.editInput.focus()
+        //       }
+        //     }
+        //   }
+        // })
     };
     Tree.prototype.renderNode = function (node, level) {
         var _this = this;

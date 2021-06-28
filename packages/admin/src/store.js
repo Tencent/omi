@@ -27,26 +27,27 @@ class Store {
             href: '#/welcome',
             id: 2
           },
+    
           {
-            label: '表格展示',
-            sign: '●',
+            label: '基础表格',
+            icon: 'ballot',
+            href: '#/table/basic',
+            id: 4,
+          },
+          {
+            label: '分页表格',
+            icon: 'ballot',
+            href: '#/table/pagination',
+            id: 5,
+          },
+              
+          {
+            label: '表单',
             expanded: true,
-            id: 3,
-            icon: 'ac-unit-outlined',
-            children: [
-              {
-                label: '基础表格',
-                icon: 'ballot',
-                href: '#/table/basic',
-                id: 4,
-              },
-              {
-                label: '分页表格',
-                icon: 'ballot',
-                href: '#/table/pagination',
-                id: 5,
-              }
-            ]
+            id: 9,
+            href: '#/form',
+            icon: 'ballot'
+
           }
         ]
       },

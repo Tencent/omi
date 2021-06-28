@@ -44,6 +44,14 @@ export default class extends WeElement {
       this.update()
     })
 
+    route('/form', () => {
+      //lazy load
+      import('./components/admin-form')
+      this.data.tagName = 'admin-form'
+      this.update()
+    })
+
+
     route('/error', () => {
       //lazy load
       import('./components/status/status-error')

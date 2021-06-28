@@ -2377,7 +2377,7 @@ var Select = /** @class */ (function (_super) {
                             omi_1.h("span", null, item.label));
                     }))))));
     };
-    Select.css = css;
+    Select.css = css.default ? css.default : css;
     Select.defaultProps = {
         value: ''
     };

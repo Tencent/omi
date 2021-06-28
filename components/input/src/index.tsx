@@ -91,6 +91,7 @@ export default class Input extends WeElement<Props>{
 
     this._tempTagName = 'o-icon-' + (suffixIcon || prefixIcon)
 
+    this._tempInputTagName  = type ==='textarea'?'textarea' :'input'
     return (
       <div {
         ...extractClass(props, 'o-input',
@@ -120,10 +121,10 @@ export default class Input extends WeElement<Props>{
         // onClick={this.handleIconClick.bind(this)}
         />}
 
-        <input {...otherProps}
+        <this._tempInputTagName  {...otherProps}
           // ref="input"
           type={type}
-          className="o-input__inner"
+          class={`o-${this._tempInputTagName}__inner`}
           autocomplete={autoComplete}
           maxLength={props.maxLength}
           onChange={this.handleChange}

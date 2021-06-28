@@ -22,7 +22,7 @@ const topMap = {
 
 @tag('o-select')
 export default class Select extends WeElement<Props> {
-  static css = css
+  static css = css.default ? css.default : css
 
   static defaultProps = {
     value: ''
