@@ -10,7 +10,7 @@ interface Props {
 }
 
 @tag('o-tooltip')
-export default class Table extends WeElement<Props> {
+export default class ToolTip extends WeElement<Props> {
   static css = css
 
   static defaultProps = {
