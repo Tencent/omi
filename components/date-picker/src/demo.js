@@ -86,18 +86,18 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@omiu_input@0.0.7@@omiu/input/src/index.esm.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/_@omiu_input@0.0.7@@omiu/input/src/index.esm.js ***!
-  \**********************************************************************/
+/***/ "./node_modules/@omiu/input/src/index.esm.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@omiu/input/src/index.esm.js ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.16@omi/dist/omi.esm.js");
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
 /**
- * @omiu/input v0.0.7 http://omijs.org
+ * @omiu/input v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -579,6 +579,14 @@ var Input = /** @class */ (function (_super) {
     __extends(Input, _super);
     function Input() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._onGetValue = function () {
+            return _this.__$value;
+        };
+        _this._onSetValue = function (value) {
+            _this.__$value = value;
+            _this.props.value = value;
+            _this.setAttribute('value', value);
+        };
         _this.valueLength = 0;
         _this.handleBlur = function () {
             _this.fire('blur', _this.props.value);
@@ -606,6 +614,13 @@ var Input = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Input.prototype.install = function () {
+        this.__$value = this.props.value;
+        Object.defineProperty(this, 'value', {
+            get: this._onGetValue,
+            set: this._onSetValue
+        });
+    };
     Input.prototype.focus = function () {
         this.shadowRoot.querySelector('input').focus();
     };
@@ -641,6 +656,7 @@ var Input = /** @class */ (function (_super) {
     };
     Input.css = css;
     Input.defaultProps = {
+        value: '',
         type: 'text',
         autosize: false,
         rows: 2,
@@ -658,7 +674,8 @@ var Input = /** @class */ (function (_super) {
         prefixIcon: String,
         maxLength: Number,
         autoComplete: String,
-        block: Boolean
+        block: Boolean,
+        value: String
     };
     Input = __decorate([
         Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-input')
@@ -672,22 +689,22 @@ var Input = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/index.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/index.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/index.js ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _types_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types/options */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/types/options.js");
-/* harmony import */ var _l10n_default__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./l10n/default */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/l10n/default.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/index.js");
-/* harmony import */ var _utils_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/dom */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/dom.js");
-/* harmony import */ var _utils_dates__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/dates */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/dates.js");
-/* harmony import */ var _utils_formatting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/formatting */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/formatting.js");
-/* harmony import */ var _utils_polyfills__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/polyfills */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/polyfills.js");
+/* harmony import */ var _types_options__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types/options */ "./node_modules/flatpickr/dist/esm/types/options.js");
+/* harmony import */ var _l10n_default__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./l10n/default */ "./node_modules/flatpickr/dist/esm/l10n/default.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./node_modules/flatpickr/dist/esm/utils/index.js");
+/* harmony import */ var _utils_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/dom */ "./node_modules/flatpickr/dist/esm/utils/dom.js");
+/* harmony import */ var _utils_dates__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/dates */ "./node_modules/flatpickr/dist/esm/utils/dates.js");
+/* harmony import */ var _utils_formatting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/formatting */ "./node_modules/flatpickr/dist/esm/utils/formatting.js");
+/* harmony import */ var _utils_polyfills__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/polyfills */ "./node_modules/flatpickr/dist/esm/utils/polyfills.js");
 /* harmony import */ var _utils_polyfills__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_utils_polyfills__WEBPACK_IMPORTED_MODULE_6__);
 
 
@@ -2669,10 +2686,10 @@ if (typeof window !== "undefined") {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/l10n/default.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/l10n/default.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/l10n/default.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/l10n/default.js ***!
+  \*********************************************************/
 /*! exports provided: english, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2755,10 +2772,79 @@ const english = {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/types/options.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/types/options.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/l10n/zh.js":
+/*!****************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/l10n/zh.js ***!
+  \****************************************************/
+/*! exports provided: Mandarin, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Mandarin", function() { return Mandarin; });
+const fp = typeof window !== "undefined" && window.flatpickr !== undefined
+    ? window.flatpickr
+    : {
+        l10ns: {},
+    };
+const Mandarin = {
+    weekdays: {
+        shorthand: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+        longhand: [
+            "星期日",
+            "星期一",
+            "星期二",
+            "星期三",
+            "星期四",
+            "星期五",
+            "星期六",
+        ],
+    },
+    months: {
+        shorthand: [
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月",
+        ],
+        longhand: [
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月",
+        ],
+    },
+    rangeSeparator: " 至 ",
+    weekAbbreviation: "周",
+    scrollTitle: "滚动切换",
+    toggleTitle: "点击切换 12/24 小时时制",
+};
+fp.l10ns.zh = Mandarin;
+/* harmony default export */ __webpack_exports__["default"] = (fp.l10ns);
+
+
+/***/ }),
+
+/***/ "./node_modules/flatpickr/dist/esm/types/options.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/types/options.js ***!
+  \**********************************************************/
 /*! exports provided: HOOKS, defaults */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2851,10 +2937,10 @@ const defaults = {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/dates.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/dates.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/utils/dates.js":
+/*!********************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/utils/dates.js ***!
+  \********************************************************/
 /*! exports provided: createDateFormatter, createDateParser, compareDates, compareTimes, isBetween, duration, getDefaultHours */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2867,9 +2953,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBetween", function() { return isBetween; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "duration", function() { return duration; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDefaultHours", function() { return getDefaultHours; });
-/* harmony import */ var _formatting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formatting */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/formatting.js");
-/* harmony import */ var _types_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/options */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/types/options.js");
-/* harmony import */ var _l10n_default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../l10n/default */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/l10n/default.js");
+/* harmony import */ var _formatting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formatting */ "./node_modules/flatpickr/dist/esm/utils/formatting.js");
+/* harmony import */ var _types_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/options */ "./node_modules/flatpickr/dist/esm/types/options.js");
+/* harmony import */ var _l10n_default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../l10n/default */ "./node_modules/flatpickr/dist/esm/l10n/default.js");
 
 
 
@@ -2996,10 +3082,10 @@ function getDefaultHours(config) {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/dom.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/dom.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/utils/dom.js":
+/*!******************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/utils/dom.js ***!
+  \******************************************************/
 /*! exports provided: toggleClass, createElement, clearNode, findParent, createNumberInput, getEventTarget */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3069,10 +3155,10 @@ function getEventTarget(event) {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/formatting.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/formatting.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/utils/formatting.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/utils/formatting.js ***!
+  \*************************************************************/
 /*! exports provided: monthToStr, revFormat, tokenRegex, formats */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3082,7 +3168,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "revFormat", function() { return revFormat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tokenRegex", function() { return tokenRegex; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formats", function() { return formats; });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./node_modules/flatpickr/dist/esm/utils/index.js");
 
 const doNothing = () => undefined;
 const monthToStr = (monthNumber, shorthand, locale) => locale.months[shorthand ? "shorthand" : "longhand"][monthNumber];
@@ -3219,10 +3305,10 @@ const formats = {
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/index.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/index.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/utils/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/utils/index.js ***!
+  \********************************************************/
 /*! exports provided: pad, int, debounce, arrayify */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3246,10 +3332,10 @@ const arrayify = (obj) => obj instanceof Array ? obj : [obj];
 
 /***/ }),
 
-/***/ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/polyfills.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/utils/polyfills.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/flatpickr/dist/esm/utils/polyfills.js":
+/*!************************************************************!*\
+  !*** ./node_modules/flatpickr/dist/esm/utils/polyfills.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3272,11 +3358,11 @@ if (typeof Object.assign !== "function") {
 
 /***/ }),
 
-/***/ "./node_modules/_omi@6.19.16@omi/dist/omi.esm.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/_omi@6.19.16@omi/dist/omi.esm.js ***!
-  \*******************************************************/
-/*! exports provided: default, tag, WeElement, Component, render, h, createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend, get, set, bind, unbind, JSONProxy */
+/***/ "./node_modules/omi/dist/omi.esm.js":
+/*!******************************************!*\
+  !*** ./node_modules/omi/dist/omi.esm.js ***!
+  \******************************************/
+/*! exports provided: default, tag, WeElement, Component, render, h, createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend, get, set, bind, unbind, JSONProxy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3296,8 +3382,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "classNames", function() { return classNames; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extractClass", function() { return extractClass; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRef", function() { return createRef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "html", function() { return html; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "htm", function() { return htm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return o; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "elements", function() { return elements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$", function() { return $; });
@@ -3308,7 +3392,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unbind", function() { return unbind; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JSONProxy", function() { return JSONPatcherProxy; });
 /**
- * Omi v6.19.16  http://omijs.org
+ * Omi v6.19.17  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -4790,176 +4874,176 @@ operation.op = 'replace', operation.value = null;
 }();
 
 function render(vnode, parent, store) {
-	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-	if (store) {
-		if (store.data) {
-			observeStore(store);
-		}
-		// else {
-		//   //Multi-store injection
-		//   for (let key in store) {
-		//     if (key !== 'ignoreAttrs') {
-		//       options.isMultiStore = true
-		//       observeStore(store[key], key)
-		//     }
-		//   }
-		// }
-		parent.store = store;
-	}
-	return diff(null, vnode, parent, false);
+  parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+  if (store) {
+    if (store.data) {
+      observeStore(store);
+    }
+    // else {
+    //   //Multi-store injection
+    //   for (let key in store) {
+    //     if (key !== 'ignoreAttrs') {
+    //       options.isMultiStore = true
+    //       observeStore(store[key], key)
+    //     }
+    //   }
+    // }
+    parent.store = store;
+  }
+  return diff(null, vnode, parent, false);
 }
 
 function observeStore(store, key) {
-	store.instances = [];
-	store.updateSelfInstances = [];
-	extendStoreUpdate(store, key);
+  store.instances = [];
+  store.updateSelfInstances = [];
+  extendStoreUpdate(store, key);
 
-	store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-		var patchs = {};
-		if (patch.op === 'remove') {
-			// fix arr splice
-			var kv = getArrayPatch(patch.path, store);
-			patchs[kv.k] = kv.v;
+  store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
+    var patchs = {};
+    if (patch.op === 'remove') {
+      // fix arr splice
+      var kv = getArrayPatch(patch.path, store);
+      patchs[kv.k] = kv.v;
 
-			update(patchs, store);
-		} else {
-			var key = fixPath(patch.path);
-			patchs[key] = patch.value;
+      update(patchs, store);
+    } else {
+      var key = fixPath(patch.path);
+      patchs[key] = patch.value;
 
-			update(patchs, store);
-		}
-	});
+      update(patchs, store);
+    }
+  });
 }
 
 function update(patch, store) {
-	store.update(patch);
+  store.update(patch);
 }
 
 function extendStoreUpdate(store, key) {
-	store.update = function (patch) {
-		if (Object.keys(patch).length > 0) {
-			this.instances.forEach(function (instance) {
-				compute(instance, key);
-				if (key) {
-					if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
-						if (instance.use) {
-							getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
-						}
+  store.update = function (patch) {
+    if (Object.keys(patch).length > 0) {
+      this.instances.forEach(function (instance) {
+        compute(instance, key);
+        if (key) {
+          if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
+            if (instance.use) {
+              getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
+            }
 
-						instance.update();
-					}
-				} else {
-					if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
-						if (instance.use) {
-							instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
-						}
+            instance.update();
+          }
+        } else {
+          if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
+            if (instance.use) {
+              instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
+            }
 
-						instance.update();
-					}
-				}
-			});
+            instance.update();
+          }
+        }
+      });
 
-			this.updateSelfInstances.forEach(function (instance) {
-				compute(instance, key);
-				if (key) {
-					if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
-						if (instance.useSelf) {
-							getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
-						}
+      this.updateSelfInstances.forEach(function (instance) {
+        compute(instance, key);
+        if (key) {
+          if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
+            if (instance.useSelf) {
+              getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
+            }
 
-						instance.updateSelf();
-					}
-				} else {
-					if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-						instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
-						instance.updateSelf();
-					}
-				}
-			});
-			this.onChange && this.onChange(patch);
-		}
-	};
+            instance.updateSelf();
+          }
+        } else {
+          if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
+            instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
+            instance.updateSelf();
+          }
+        }
+      });
+      this.onChange && this.onChange(patch);
+    }
+  };
 }
 
 function compute(instance, isMultiStore) {
-	if (instance.compute) {
-		for (var ck in instance.compute) {
-			instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
-		}
-	}
+  if (instance.compute) {
+    for (var ck in instance.compute) {
+      instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
+    }
+  }
 }
 
 function needUpdate(diffResult, updatePath) {
-	for (var keyA in diffResult) {
-		if (updatePath[keyA]) {
-			return true;
-		}
-		for (var keyB in updatePath) {
-			if (includePath(keyA, keyB)) {
-				return true;
-			}
-		}
-	}
-	return false;
+  for (var keyA in diffResult) {
+    if (updatePath[keyA]) {
+      return true;
+    }
+    for (var keyB in updatePath) {
+      if (includePath(keyA, keyB)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 function includePath(pathA, pathB) {
-	if (pathA.indexOf(pathB) === 0) {
-		var next = pathA.substr(pathB.length, 1);
-		if (next === '[' || next === '.') {
-			return true;
-		}
-	}
-	return false;
+  if (pathA.indexOf(pathB) === 0) {
+    var next = pathA.substr(pathB.length, 1);
+    if (next === '[' || next === '.') {
+      return true;
+    }
+  }
+  return false;
 }
 
 function fixPath(path) {
-	var mpPath = '';
-	var arr = path.replace('/', '').split('/');
-	arr.forEach(function (item, index) {
-		if (index) {
-			if (isNaN(Number(item))) {
-				mpPath += '.' + item;
-			} else {
-				mpPath += '[' + item + ']';
-			}
-		} else {
-			mpPath += item;
-		}
-	});
-	return mpPath;
+  var mpPath = '';
+  var arr = path.replace('/', '').split('/');
+  arr.forEach(function (item, index) {
+    if (index) {
+      if (isNaN(Number(item))) {
+        mpPath += '.' + item;
+      } else {
+        mpPath += '[' + item + ']';
+      }
+    } else {
+      mpPath += item;
+    }
+  });
+  return mpPath;
 }
 
 function getArrayPatch(path, store) {
-	var arr = path.replace('/', '').split('/');
-	var current = store.data[arr[0]];
-	for (var i = 1, len = arr.length; i < len - 1; i++) {
-		current = current[arr[i]];
-	}
-	return {
-		k: fixArrPath(path),
-		v: current
-	};
+  var arr = path.replace('/', '').split('/');
+  var current = store.data[arr[0]];
+  for (var i = 1, len = arr.length; i < len - 1; i++) {
+    current = current[arr[i]];
+  }
+  return {
+    k: fixArrPath(path),
+    v: current
+  };
 }
 
 function fixArrPath(path) {
-	var mpPath = '';
-	var arr = path.replace('/', '').split('/');
-	var len = arr.length;
-	arr.forEach(function (item, index) {
-		if (index < len - 1) {
-			if (index) {
-				if (isNaN(Number(item))) {
-					mpPath += '.' + item;
-				} else {
-					mpPath += '[' + item + ']';
-				}
-			} else {
-				mpPath += item;
-			}
-		}
-	});
-	return mpPath;
+  var mpPath = '';
+  var arr = path.replace('/', '').split('/');
+  var len = arr.length;
+  arr.forEach(function (item, index) {
+    if (index < len - 1) {
+      if (index) {
+        if (isNaN(Number(item))) {
+          mpPath += '.' + item;
+        } else {
+          mpPath += '[' + item + ']';
+        }
+      } else {
+        mpPath += item;
+      }
+    }
+  });
+  return mpPath;
 }
 
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5036,9 +5120,8 @@ function define(name, ctor, config) {
   }
 }
 
-function tag(name, pure) {
+function tag(name) {
   return function (target) {
-    target.pure = pure;
     define(name, target);
   };
 }
@@ -5130,8 +5213,6 @@ function extractClass() {
 function o(obj) {
   return JSON.stringify(obj);
 }
-
-var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a="number"==typeof s?u[s]:s;1===r[p]?e[0]=a:2===r[p]?(e[1]=e[1]||{})[r[++p]]=a:3===r[p]?e[1]=Object.assign(e[1]||{},a):e.push(r[p]?t.apply(null,n(t,a,u,["",null])):a);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],a=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,2,e):4===u&&r&&(s.push(n||e,2,r), r=""), e="";},f=0;f<n.length;f++){f&&(1===u&&a(), a(f));for(var h=0;h<n[f].length;h++)t=n[f][h], 1===u?"<"===t?(a(), s=[s], u=3):e+=t:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(a(), u=1):u&&("="===t?(u=4, r=e, e=""):"/"===t?(a(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,4), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(a(), u=2):e+=t);}return a(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
 
 (function () {
 
@@ -5468,10 +5549,8 @@ var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a="number"==typ
 
 h.f = Fragment;
 
-var html = htm.bind(h);
-
 function createRef() {
-	return {};
+  return {};
 }
 
 var $ = {};
@@ -5480,47 +5559,45 @@ var defineElement = define;
 var elements = options.mapping;
 
 var omi = {
-	tag: tag,
-	WeElement: WeElement,
-	Component: Component,
-	render: render,
-	h: h,
-	createElement: h,
-	options: options,
-	define: define,
-	cloneElement: cloneElement,
-	getHost: getHost,
-	rpx: rpx,
-	defineElement: defineElement,
-	classNames: classNames,
-	extractClass: extractClass,
-	createRef: createRef,
-	html: html,
-	htm: htm,
-	o: o,
-	elements: elements,
-	$: $,
-	extend: extend$1,
-	get: get,
-	set: set,
-	bind: bind,
-	unbind: unbind,
-	JSONProxy: JSONPatcherProxy
+  tag: tag,
+  WeElement: WeElement,
+  Component: Component,
+  render: render,
+  h: h,
+  createElement: h,
+  options: options,
+  define: define,
+  cloneElement: cloneElement,
+  getHost: getHost,
+  rpx: rpx,
+  defineElement: defineElement,
+  classNames: classNames,
+  extractClass: extractClass,
+  createRef: createRef,
+  o: o,
+  elements: elements,
+  $: $,
+  extend: extend$1,
+  get: get,
+  set: set,
+  bind: bind,
+  unbind: unbind,
+  JSONProxy: JSONPatcherProxy
 };
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.16';
+options.root.Omi.version = '6.19.17';
 
 /* harmony default export */ __webpack_exports__["default"] = (omi);
 
 //# sourceMappingURL=omi.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
+/***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -5580,7 +5657,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.16@omi/dist/omi.esm.js");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
 __webpack_require__(/*! ./index.tsx */ "./src/index.tsx");
 var Table = /** @class */ (function (_super) {
     __extends(Table, _super);
@@ -5589,7 +5666,7 @@ var Table = /** @class */ (function (_super) {
     }
     Table.prototype.render = function (props) {
         return omi_1.h("div", null,
-            omi_1.h("o-date-picker", { style: "margin-left:110px;margin-top:100px;", trigger: "hover", position: "left" }));
+            omi_1.h("o-date-picker", { locale: "zh" }));
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -5624,6 +5701,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5666,11 +5754,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.16@omi/dist/omi.esm.js");
-var flatpickr_1 = __webpack_require__(/*! flatpickr */ "./node_modules/_flatpickr@4.6.9@flatpickr/dist/esm/index.js");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+var flatpickr_1 = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/esm/index.js");
 var style_ts_1 = __webpack_require__(/*! ./style.ts */ "./src/style.ts");
-__webpack_require__(/*! @omiu/input */ "./node_modules/_@omiu_input@0.0.7@@omiu/input/src/index.esm.js");
+var zh_1 = __webpack_require__(/*! flatpickr/dist/esm/l10n/zh */ "./node_modules/flatpickr/dist/esm/l10n/zh.js");
+__webpack_require__(/*! @omiu/input */ "./node_modules/@omiu/input/src/index.esm.js");
 var Popover = /** @class */ (function (_super) {
     __extends(Popover, _super);
     function Popover() {
@@ -5704,15 +5804,16 @@ var Popover = /** @class */ (function (_super) {
     }
     Popover.prototype.installed = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var styleLoader;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var styleLoader, _a, locale, other;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         styleLoader = new style_ts_1.default(this.props.theme);
                         return [4 /*yield*/, styleLoader.initStyles()];
                     case 1:
-                        _a.sent();
-                        flatpickr_1.default(this.shadowRoot.querySelector('o-input'));
+                        _b.sent();
+                        _a = this.props, locale = _a.locale, other = __rest(_a, ["locale"]);
+                        flatpickr_1.default(this.shadowRoot.querySelector('o-input'), __assign({ locale: locale === 'zh' ? zh_1.Mandarin : null }, other));
                         return [2 /*return*/];
                 }
             });

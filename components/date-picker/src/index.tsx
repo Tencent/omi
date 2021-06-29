@@ -1,12 +1,17 @@
 import { tag, WeElement, h, classNames } from 'omi'
 import flatpickr from 'flatpickr'
 import { DateLimit, DateOption, Hook, Options, ParsedOptions } from 'flatpickr/dist/types/options'
+import { CustomLocale } from 'flatpickr/dist/types/locale'
 import StyleLoader, { FlatpickrTheme } from './style.ts';
 import { Locale } from 'flatpickr/dist/types/locale'
+
+
+import { Mandarin } from "flatpickr/dist/esm/l10n/zh"
 
 import '@omiu/input'
 
 interface Props {
+  locale?: string
   placeholder?: string
   altFormat?: string
   altInput?: boolean
@@ -65,8 +70,6 @@ export default class Popover extends WeElement<Props> {
     theme: String
   }
 
-
-
   onEnter = (evt) => {
 
     clearTimeout(this.timeout)
@@ -106,15 +109,17 @@ export default class Popover extends WeElement<Props> {
   async installed(): Promise<void> {
     const styleLoader = new StyleLoader(this.props.theme as FlatpickrTheme)
     await styleLoader.initStyles()
-    flatpickr(this.shadowRoot.querySelector('o-input'))
+    const { locale, ...other } = this.props
+
+    flatpickr(this.shadowRoot.querySelector('o-input'), {
+      locale: locale === 'zh' ? Mandarin : null,
+      ...other
+    })
   }
 
   isShow = false
 
   render(props) {
-
-
-
     return <div>
       <o-input size="small" type="text" />
     </div>

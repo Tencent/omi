@@ -3,6 +3,7 @@ import { Hook } from 'flatpickr/dist/types/options';
 import { Locale } from 'flatpickr/dist/types/locale';
 import '@omiu/input';
 interface Props {
+    locale?: string;
     placeholder?: string;
     altFormat?: string;
     altInput?: boolean;

@@ -6,7 +6,7 @@ export default class Table extends WeElement {
 
   render(props) {
     return <div>
-      <o-date-picker style="margin-left:110px;margin-top:100px;" trigger="hover" position="left" >
+      <o-date-picker locale="zh" >
 
       </o-date-picker>
 

@@ -1,10 +1,10 @@
 {
-  "name": "@omiu/popover",
-  "version": "0.0.5",
-  "description": "Components that show popover.",
+  "name": "@omiu/date-picker",
+  "version": "0.0.1",
+  "description": "Components that select date.",
   "docsExtend": {
-    "cnName": "弹出框",
-    "cnDescription": "弹出框",
+    "cnName": "日期选择器",
+    "cnDescription": "日期选择器",
     "codepen": "yLYMrdg",
     "codepenHeight": 391,
     "codepenDefaultTab": "html,result"
@@ -100,7 +100,7 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
-    "@omiu/input": "^0.0.7",
+    "@omiu/input": "^0.0.8",
     "@popperjs/core": "^2.9.2",
     "flatpickr": "^4.6.9",
     "omi": "latest"
