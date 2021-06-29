@@ -21,8 +21,21 @@ export default class extends WeElement<Props> {
 
   store
 
+  isShowColorPicker: boolean = false
+
   install() {
     import('@omiu/color-picker')
+
+    window.addEventListener('click', () => {
+      this.isShowColorPicker = false
+      this.update()
+    })
+  }
+
+  toggle = (evt) => {
+    this.isShowColorPicker = !this.isShowColorPicker
+    this.update()
+    evt.stopPropagation()
   }
 
   render() {
@@ -37,8 +50,13 @@ export default class extends WeElement<Props> {
           </div>
 
           <div class={tw`flex flex-row order-3 p-1 mr-3`}>
-            <div class={tw`mt-2 mr-5 cursor-pointer`} style={{ color: this.store.themeColor }}><o-icon-palette></o-icon-palette>主题</div>
-            <o-color-picker save={false} preview={false} button={false} clear={false} width="300px"></o-color-picker>
+            <div class={tw`relative mt-2 mr-5`}>
+              <div class={tw`cursor-pointer`} onClick={this.toggle} style={{ color: this.store.themeColor }}><o-icon-palette></o-icon-palette>主题</div>
+              {
+                this.isShowColorPicker && <o-color-picker onClick={evt => evt.stopPropagation()} class={tw`absolute right-0 z-50`} save={false} preview={false} button={false} clear={false} width="300px"></o-color-picker>
+              }
+            </div>
+
             <o-avatar src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"></o-avatar>
           </div>
         </div>
