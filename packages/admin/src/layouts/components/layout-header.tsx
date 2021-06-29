@@ -21,6 +21,10 @@ export default class extends WeElement<Props> {
 
   store
 
+  install() {
+    import('@omiu/color-picker')
+  }
+
   render() {
     return (
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
@@ -34,6 +38,7 @@ export default class extends WeElement<Props> {
 
           <div class={tw`flex flex-row order-3 p-1 mr-3`}>
             <div class={tw`mt-2 mr-5 cursor-pointer`} style={{ color: this.store.themeColor }}><o-icon-palette></o-icon-palette>主题</div>
+            <o-color-picker save={false} preview={false} button={false} clear={false} width="300px"></o-color-picker>
             <o-avatar src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"></o-avatar>
           </div>
         </div>

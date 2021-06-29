@@ -400,7 +400,9 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
           (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
-      if (isWeElement) {
+      //fix lazy load props missing
+      if (dom.nodeName.indexOf('-') !== -1) {
+        dom.props = dom.props || {}
         let ccName = camelCase(name)
         dom.props[ccName] = old[ccName] = attrs[name]
         //update = true

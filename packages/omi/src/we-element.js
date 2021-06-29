@@ -17,7 +17,8 @@ export default class WeElement extends HTMLElement {
 
   constructor() {
     super()
-    this.props = Object.assign({}, this.constructor.defaultProps)
+    // fix lazy load props missing
+    this.props = Object.assign({}, this.constructor.defaultProps, this.props)
     this.elementId = id++
     this.computed = {}
   }

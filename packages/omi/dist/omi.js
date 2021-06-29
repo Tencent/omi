@@ -348,7 +348,8 @@
             dom.props[ccName] = old[ccName] = attrs[name];
         } else if (!('children' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
             setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-            if (isWeElement) {
+            if (-1 !== dom.nodeName.indexOf('-')) {
+                dom.props = dom.props || {};
                 var _ccName = camelCase(name);
                 dom.props[_ccName] = old[_ccName] = attrs[name];
             } else old[name] = attrs[name];
@@ -620,7 +621,7 @@
         function WeElement() {
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
-            _this.props = Object.assign({}, _this.constructor.defaultProps);
+            _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
             _this.elementId = id++;
             _this.computed = {};
             return _this;
@@ -1321,7 +1322,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.17';
+    options.root.Omi.version = '6.19.18';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.17  http://omijs.org
+ * Omi v6.19.18  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -790,7 +790,9 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       //update = true
     } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-      if (isWeElement) {
+      //fix lazy load props missing
+      if (dom.nodeName.indexOf('-') !== -1) {
+        dom.props = dom.props || {};
         var _ccName = camelCase(name);
         dom.props[_ccName] = old[_ccName] = attrs[name];
         //update = true
@@ -824,9 +826,10 @@ var WeElement = function (_HTMLElement) {
   function WeElement() {
     _classCallCheck(this, WeElement);
 
+    // fix lazy load props missing
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-    _this.props = Object.assign({}, _this.constructor.defaultProps);
+    _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
     _this.elementId = id++;
     _this.computed = {};
     return _this;
@@ -2194,7 +2197,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.17';
+options.root.Omi.version = '6.19.18';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };
