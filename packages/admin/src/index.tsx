@@ -4,6 +4,11 @@ import { route } from 'omi-router'
 
 import '@omiu/icon/delete'
 import '@omiu/icon/insert-link'
+import '@omiu/icon/error'
+import '@omiu/icon/warning'
+import '@omiu/icon/sentiment-satisfied-alt'
+import '@omiu/icon/table-chart'
+
 import './index.css'
 
 import './layouts/basic-layout'
@@ -49,6 +54,14 @@ export default class extends WeElement {
       //lazy load
       import('./components/admin-form')
       this.data.tagName = 'admin-form'
+      this.update()
+    })
+
+
+    route('/icon', () => {
+      //lazy load
+      import('./components/admin-icon')
+      this.data.tagName = 'admin-icon'
       this.update()
     })
 

@@ -20,9 +20,9 @@ class Store {
         children: [
           {
             sign: 'M',
-            label: '欢迎',
+            label: '欢迎界面',
             icon: 'emoji-people',
-            color: 'green',
+            color: '#07c160',
             selected: true,
             href: '#/welcome',
             id: 2
@@ -30,24 +30,31 @@ class Store {
 
           {
             label: '基础表格',
-            icon: 'ballot',
+            icon: 'table-chart',
             href: '#/table/basic',
             id: 4,
           },
           {
             label: '分页表格',
-            icon: 'ballot',
+            icon: 'table-chart',
             href: '#/table/pagination',
             id: 5,
           },
 
           {
-            label: '表单',
+            label: '简单表单',
             expanded: true,
             id: 9,
             href: '#/form',
-            icon: 'ballot'
+            icon: 'table-chart'
 
+          },
+          {
+            label: '图标合集',
+            expanded: true,
+            id: 10,
+            href: '#/icon',
+            icon: 'sentiment-satisfied-alt'
           }
         ]
       },
@@ -61,7 +68,7 @@ class Store {
           {
             sign: '90020',
             label: '错误告警',
-            icon: 'ballot',
+            icon: 'error',
             color: '#F56C6C',
             href: '#/error',
             id: 7,
@@ -69,7 +76,7 @@ class Store {
           {
             sign: '993',
             label: '异常告警',
-            icon: 'ballot',
+            icon: 'warning',
             color: '#E6A23C',
             href: '#/warning',
             id: 8,

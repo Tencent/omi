@@ -69,7 +69,7 @@ export default class extends WeElement {
               active-index={this.store.tabsActiveIndex}>
             </o-tabs>
 
-            <div style={`height:calc(100vh - 6rem);`} class={tw`overflow-auto`}>
+            <div style={`height:calc(100vh - 90px);`} class={tw`overflow-auto`}>
               <slot></slot>
             </div>
           </layout-container>
