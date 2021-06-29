@@ -4,7 +4,7 @@ import { tw, sheet } from 'omi-twind'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'layout-header'
 declare global {
@@ -31,7 +31,7 @@ export default class extends WeElement<Props> {
           </div>
           <div class={tw`order-3 p-1 mr-3`}>
             {' '}
-            <o-avatar src="https://material-ui.com/static/images/avatar/1.jpg"></o-avatar>
+            <o-avatar src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"></o-avatar>
           </div>
         </div>
       </div>
