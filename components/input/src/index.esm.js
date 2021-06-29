@@ -1,5 +1,5 @@
 /**
- * @omiu/input v0.0.7 http://omijs.org
+ * @omiu/input v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -481,6 +481,14 @@ var Input = /** @class */ (function (_super) {
     __extends(Input, _super);
     function Input() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._onGetValue = function () {
+            return _this.__$value;
+        };
+        _this._onSetValue = function (value) {
+            _this.__$value = value;
+            _this.props.value = value;
+            _this.setAttribute('value', value);
+        };
         _this.valueLength = 0;
         _this.handleBlur = function () {
             _this.fire('blur', _this.props.value);
@@ -508,6 +516,13 @@ var Input = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Input.prototype.install = function () {
+        this.__$value = this.props.value;
+        Object.defineProperty(this, 'value', {
+            get: this._onGetValue,
+            set: this._onSetValue
+        });
+    };
     Input.prototype.focus = function () {
         this.shadowRoot.querySelector('input').focus();
     };
@@ -543,6 +558,7 @@ var Input = /** @class */ (function (_super) {
     };
     Input.css = css;
     Input.defaultProps = {
+        value: '',
         type: 'text',
         autosize: false,
         rows: 2,
@@ -560,7 +576,8 @@ var Input = /** @class */ (function (_super) {
         prefixIcon: String,
         maxLength: Number,
         autoComplete: String,
-        block: Boolean
+        block: Boolean,
+        value: String
     };
     Input = __decorate([
         tag('o-input')

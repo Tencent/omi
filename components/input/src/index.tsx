@@ -22,6 +22,7 @@ export default class Input extends WeElement<Props>{
   static css = css
 
   static defaultProps = {
+    value: '',
     type: 'text',
     autosize: false,
     rows: 2,
@@ -29,7 +30,6 @@ export default class Input extends WeElement<Props>{
     autoComplete: 'off',
     block: false
   }
-
 
   static propTypes = {
     disabled: Boolean,
@@ -41,20 +41,44 @@ export default class Input extends WeElement<Props>{
     prefixIcon: String,
     maxLength: Number,
     autoComplete: String,
-    block: Boolean
+    block: Boolean,
+    value: String
+  }
+
+  __$value: string
+
+  install() {
+
+    this.__$value = this.props.value
+    Object.defineProperty(this, 'value', {
+      get: this._onGetValue,
+      set: this._onSetValue
+    })
+  }
+
+  _onGetValue = () => {
+    return this.__$value
+  }
+
+  _onSetValue = (value) => {
+    this.__$value = value
+    this.props.value = value
+    this.setAttribute('value', value)
   }
 
   _tempTagName: string
+
   valueLength = 0
 
   handleBlur = () => {
     this.fire('blur', this.props.value)
   }
+
   handleFocus = () => {
     this.fire('focus', this.props.value)
   }
-  handleChange = (evt) => {
 
+  handleChange = (evt) => {
     this.props.value = evt.target.value
     this.fire('change', this.props.value)
   }
@@ -77,12 +101,13 @@ export default class Input extends WeElement<Props>{
     this.shadowRoot.querySelector('input').blur()
   }
 
-
   clearInput = () => {
     this.updateProps({
       value: ''
     })
   }
+
+  _tempInputTagName: string
 
   render(props) {
     const { type, size, suffixIcon, prefixIcon, autoComplete, validating, onMouseEnter, onMouseLeave, trim,
@@ -91,7 +116,7 @@ export default class Input extends WeElement<Props>{
 
     this._tempTagName = 'o-icon-' + (suffixIcon || prefixIcon)
 
-    this._tempInputTagName  = type ==='textarea'?'textarea' :'input'
+    this._tempInputTagName = type === 'textarea' ? 'textarea' : 'input'
     return (
       <div {
         ...extractClass(props, 'o-input',
