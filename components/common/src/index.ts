@@ -22,7 +22,7 @@ function theme() {
   }
 }
 
-function setTheme(key, value) {
+export function setTheme(key, value) {
   const style = document.body.style
 
   style.setProperty('--o-' + key, value)
@@ -49,6 +49,9 @@ function setTheme(key, value) {
   }
 }
 
+export default {
+  setTheme
+}
 
 if (typeof window !== undefined) {
   //@ts-ignore

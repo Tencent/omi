@@ -1,11 +1,11 @@
 {
   "name": "@omiu/common",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",
   "scripts": {
-    "build": "rollup -c scripts/rollup.config.js"
+    "build": "rollup -c scripts/rollup.config.js && rollup -c scripts/rollup.config.umd.js"
   },
   "keywords": [],
   "author": "dntzhang",
@@ -14,7 +14,8 @@
     "@rollup/plugin-commonjs": "^11.1.0",
     "rollup": "^2.7.1",
     "rollup-plugin-license": "^2.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript": "^1.0.1"
   },
   "dependencies": {
     "color-convert": "^2.0.1",

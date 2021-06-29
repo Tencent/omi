@@ -12,8 +12,8 @@ const licensePlugin = license({
 export default {
   input: "src/index.ts",
   output: {
-    format: "es",
-    file: "./src/index.esm.js",
+    format: "umd",
+    file: "./src/index.js",
     name: pkg.name,
     sourcemap: true,
     strict: true

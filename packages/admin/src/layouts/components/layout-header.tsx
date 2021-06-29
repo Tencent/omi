@@ -1,6 +1,6 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
-
+import { setTheme } from '@omiu/common'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
@@ -38,6 +38,11 @@ export default class extends WeElement<Props> {
     evt.stopPropagation()
   }
 
+  onColorChange = (evt) => {
+    this.store.themeColor = evt.detail.color
+    setTheme('primary', evt.detail.color)
+  }
+
   render() {
     return (
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
@@ -53,7 +58,7 @@ export default class extends WeElement<Props> {
             <div class={tw`relative mt-2 mr-5`}>
               <div class={tw`cursor-pointer`} onClick={this.toggle} style={{ color: this.store.themeColor }}><o-icon-palette></o-icon-palette>主题</div>
               {
-                this.isShowColorPicker && <o-color-picker onClick={evt => evt.stopPropagation()} class={tw`absolute right-0 z-50`} save={false} preview={false} button={false} clear={false} width="300px"></o-color-picker>
+                this.isShowColorPicker && <o-color-picker onchange={this.onColorChange} onClick={evt => evt.stopPropagation()} class={tw`absolute right-0 z-50`} save={false} preview={false} button={false} clear={false} width="300px"></o-color-picker>
               }
             </div>
 
