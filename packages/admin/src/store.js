@@ -1,5 +1,8 @@
 class Store {
   constructor() {
+
+    this.themeColor = '#07c160'
+
     this.tabs = [{
       label: '欢迎',
       href: "#/welcome",

@@ -3,7 +3,7 @@ import { tw, sheet } from 'omi-twind'
 
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
-
+import '@omiu/icon/palette'
 interface Props { }
 
 const tagName = 'layout-header'
@@ -19,9 +19,11 @@ declare global {
 export default class extends WeElement<Props> {
   static css = sheet.target
 
+  store
+
   render() {
     return (
-      <div class={tw` bg-gray-100 h-12 text-left border-b-1`}>
+      <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
             <img class={tw`w-8 m-1 ml-3`} src={logo} alt="logo" />
@@ -29,8 +31,9 @@ export default class extends WeElement<Props> {
               <h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1>
             </div>
           </div>
-          <div class={tw`order-3 p-1 mr-3`}>
-            {' '}
+
+          <div class={tw`flex flex-row order-3 p-1 mr-3`}>
+            <div class={tw`mt-2 mr-5 cursor-pointer`} style={{ color: this.store.themeColor }}><o-icon-palette></o-icon-palette>主题</div>
             <o-avatar src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"></o-avatar>
           </div>
         </div>
