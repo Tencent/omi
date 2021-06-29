@@ -27,7 +27,7 @@ class Store {
             href: '#/welcome',
             id: 2
           },
-    
+
           {
             label: '基础表格',
             icon: 'ballot',
@@ -40,7 +40,7 @@ class Store {
             href: '#/table/pagination',
             id: 5,
           },
-              
+
           {
             label: '表单',
             expanded: true,
@@ -73,6 +73,13 @@ class Store {
             color: '#E6A23C',
             href: '#/warning',
             id: 8,
+          },
+          {
+            label: '我是外链',
+            icon: 'insert-link',
+            href: 'https://github.com/Tencent/omi',
+            id: 9,
+            target: '_blank'
           }
         ]
       }

@@ -3,6 +3,7 @@ import { WeElement, render, h, tag } from 'omi'
 import { route } from 'omi-router'
 
 import '@omiu/icon/delete'
+import '@omiu/icon/insert-link'
 import './index.css'
 
 import './layouts/basic-layout'
