@@ -1,6 +1,6 @@
 {
   "name": "@omiu/date-picker",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Components that select date.",
   "docsExtend": {
     "cnName": "日期选择器",
@@ -100,6 +100,7 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/icon": "^0.0.3",
     "@omiu/input": "^0.0.8",
     "@popperjs/core": "^2.9.2",
     "flatpickr": "^4.6.9",

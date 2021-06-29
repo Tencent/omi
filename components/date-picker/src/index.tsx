@@ -5,12 +5,14 @@ import { CustomLocale } from 'flatpickr/dist/types/locale'
 import StyleLoader, { FlatpickrTheme } from './style.ts';
 import { Locale } from 'flatpickr/dist/types/locale'
 
+import '@omiu/icon/esm/date-range'
 
 import { Mandarin } from "flatpickr/dist/esm/l10n/zh"
 
 import '@omiu/input'
 
 interface Props {
+  size?: 'medium' | 'small' | 'mini'
   locale?: string
   placeholder?: string
   altFormat?: string
@@ -63,11 +65,12 @@ export default class Popover extends WeElement<Props> {
 
   static defaultProps = {
     theme: 'light',
-
+    size: 'small'
   }
 
   static propTypes = {
-    theme: String
+    theme: String,
+    size: String
   }
 
   onEnter = (evt) => {
@@ -121,7 +124,7 @@ export default class Popover extends WeElement<Props> {
 
   render(props) {
     return <div>
-      <o-input size="small" type="text" />
+      <o-input size={props.size} suffix-icon="date-range" type="text" />
     </div>
   }
 }

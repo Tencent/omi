@@ -86,6 +86,68 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@omiu/icon/esm/date-range.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@omiu/icon/esm/date-range.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+/* harmony import */ var _utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@omiu/icon/esm/utils/createSvgIcon.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("path", {
+  d: "M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"
+}), 'DateRange'));
+
+/***/ }),
+
+/***/ "./node_modules/@omiu/icon/esm/utils/createSvgIcon.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@omiu/icon/esm/utils/createSvgIcon.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createSvgIcon; });
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+
+
+const hyphenateRE = /\B([A-Z])/g
+const hyphenate = function (str) {
+  return str.replace(hyphenateRE, '-$1').toLowerCase()
+}
+
+function createSvgIcon(path, displayName) {
+
+  Object(omi__WEBPACK_IMPORTED_MODULE_0__["define"])(hyphenate('OIcon' + displayName), _ => {
+    return Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])('svg', {
+      viewBox: "0 0 24 24",
+      title: displayName,
+      ..._.props
+    }, path)
+  }, {
+      css: `:host {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  flex-shrink: 0;
+  user-select: none;
+}`
+    })
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@omiu/input/src/index.esm.js":
 /*!***************************************************!*\
   !*** ./node_modules/@omiu/input/src/index.esm.js ***!
@@ -5666,7 +5728,19 @@ var Table = /** @class */ (function (_super) {
     }
     Table.prototype.render = function (props) {
         return omi_1.h("div", null,
-            omi_1.h("o-date-picker", { locale: "zh" }));
+            omi_1.h("o-date-picker", { size: "medium", locale: "zh" }),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("o-date-picker", { size: "small", locale: "zh" }),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("o-date-picker", { size: "mini" }));
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -5769,6 +5843,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
 var flatpickr_1 = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/esm/index.js");
 var style_ts_1 = __webpack_require__(/*! ./style.ts */ "./src/style.ts");
+__webpack_require__(/*! @omiu/icon/esm/date-range */ "./node_modules/@omiu/icon/esm/date-range.js");
 var zh_1 = __webpack_require__(/*! flatpickr/dist/esm/l10n/zh */ "./node_modules/flatpickr/dist/esm/l10n/zh.js");
 __webpack_require__(/*! @omiu/input */ "./node_modules/@omiu/input/src/index.esm.js");
 var Popover = /** @class */ (function (_super) {
@@ -5821,13 +5896,15 @@ var Popover = /** @class */ (function (_super) {
     };
     Popover.prototype.render = function (props) {
         return omi_1.h("div", null,
-            omi_1.h("o-input", { size: "small", type: "text" }));
+            omi_1.h("o-input", { size: props.size, "suffix-icon": "date-range", type: "text" }));
     };
     Popover.defaultProps = {
         theme: 'light',
+        size: 'small'
     };
     Popover.propTypes = {
-        theme: String
+        theme: String,
+        size: String
     };
     Popover = __decorate([
         omi_1.tag('o-date-picker')

@@ -6,10 +6,18 @@ export default class Table extends WeElement {
 
   render(props) {
     return <div>
-      <o-date-picker locale="zh" >
+      <o-date-picker size="medium" locale="zh" >
 
       </o-date-picker>
 
+      <br></br><br></br><br></br><br></br><br></br>
+      <o-date-picker size="small" locale="zh" >
+
+      </o-date-picker>
+      <br></br><br></br><br></br><br></br><br></br>
+      <o-date-picker size="mini"  >
+
+      </o-date-picker>
     </div>
   }
 }

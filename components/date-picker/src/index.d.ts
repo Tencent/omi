@@ -1,8 +1,10 @@
 import { WeElement } from 'omi';
 import { Hook } from 'flatpickr/dist/types/options';
 import { Locale } from 'flatpickr/dist/types/locale';
+import '@omiu/icon/esm/date-range';
 import '@omiu/input';
 interface Props {
+    size?: 'medium' | 'small' | 'mini';
     locale?: string;
     placeholder?: string;
     altFormat?: string;
@@ -50,9 +52,11 @@ interface Props {
 export default class Popover extends WeElement<Props> {
     static defaultProps: {
         theme: string;
+        size: string;
     };
     static propTypes: {
         theme: StringConstructor;
+        size: StringConstructor;
     };
     onEnter: (evt: any) => void;
     timeout: any;

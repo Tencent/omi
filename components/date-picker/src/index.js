@@ -1,5 +1,5 @@
 /**
- * @omiu/date-picker v0.0.1 http://omijs.org
+ * @omiu/date-picker v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2636,6 +2636,37 @@
         return StyleLoader;
     }());
 
+    const hyphenateRE = /\B([A-Z])/g;
+    const hyphenate = function (str) {
+      return str.replace(hyphenateRE, '-$1').toLowerCase()
+    };
+
+    function createSvgIcon(path, displayName) {
+
+      omi.define(hyphenate('OIcon' + displayName), _ => {
+        return omi.h('svg', {
+          viewBox: "0 0 24 24",
+          title: displayName,
+          ..._.props
+        }, path)
+      }, {
+          css: `:host {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  flex-shrink: 0;
+  user-select: none;
+}`
+        });
+    }
+
+    createSvgIcon(omi.h("path", {
+      d: "M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"
+    }), 'DateRange');
+
     const fp = typeof window !== "undefined" && window.flatpickr !== undefined
         ? window.flatpickr
         : {
@@ -3327,13 +3358,15 @@
         };
         Popover.prototype.render = function (props) {
             return omi.h("div", null,
-                omi.h("o-input", { size: "small", type: "text" }));
+                omi.h("o-input", { size: props.size, "suffix-icon": "date-range", type: "text" }));
         };
         Popover.defaultProps = {
             theme: 'light',
+            size: 'small'
         };
         Popover.propTypes = {
-            theme: String
+            theme: String,
+            size: String
         };
         Popover = __decorate$1([
             omi.tag('o-date-picker')

@@ -52,7 +52,7 @@ export default class extends WeElement<Props> {
         <div class={formItemClass}>
           <label class={lableClass} >出生日期</label>
           <div class={tw`leading-8 ml-10`}>
-            <o-date-picker locale="zh"> </o-date-picker>
+            <o-date-picker size="small" locale="zh"> </o-date-picker>
           </div>
         </div>
 
@@ -73,6 +73,13 @@ export default class extends WeElement<Props> {
             <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
             <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
             <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
+          </div>
+        </div>
+
+        <div class={formItemClass}>
+          <label class={lableClass} >大学时光</label>
+          <div class={tw`leading-8 ml-10`}>
+            <o-date-picker mode="range" size="small" locale="zh"> </o-date-picker>
           </div>
         </div>
 
