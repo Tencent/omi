@@ -79,7 +79,7 @@ export default class extends WeElement<Props> {
         <div class={formItemClass}>
           <label class={lableClass} >大学时光</label>
           <div class={tw`leading-8 ml-10`}>
-            <o-date-picker mode="range" size="small" locale="zh"> </o-date-picker>
+            <o-date-picker width="256px" mode="range" size="small" locale="zh"> </o-date-picker>
           </div>
         </div>
 

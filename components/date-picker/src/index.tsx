@@ -13,6 +13,7 @@ import '@omiu/input'
 
 interface Props {
   size?: 'medium' | 'small' | 'mini'
+  width?: string
   locale?: string
   placeholder?: string
   altFormat?: string
@@ -65,12 +66,14 @@ export default class Popover extends WeElement<Props> {
 
   static defaultProps = {
     theme: 'light',
-    size: 'small'
+    size: 'small',
+    width: 'auto'
   }
 
   static propTypes = {
     theme: String,
-    size: String
+    size: String,
+    width: String
   }
 
   onEnter = (evt) => {
@@ -124,7 +127,9 @@ export default class Popover extends WeElement<Props> {
 
   render(props) {
     return <div>
-      <o-input size={props.size} suffix-icon="date-range" type="text" />
+      <o-input size={props.size} suffix-icon="date-range" css={`.o-input input {
+    width: ${props.width};
+}`} type="text" />
     </div>
   }
 }

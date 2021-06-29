@@ -5740,7 +5740,13 @@ var Table = /** @class */ (function (_super) {
             omi_1.h("br", null),
             omi_1.h("br", null),
             omi_1.h("br", null),
-            omi_1.h("o-date-picker", { size: "mini" }));
+            omi_1.h("o-date-picker", { size: "mini" }),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("br", null),
+            omi_1.h("o-date-picker", { width: "500px", size: "mini", mode: "range" }));
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -5896,15 +5902,17 @@ var Popover = /** @class */ (function (_super) {
     };
     Popover.prototype.render = function (props) {
         return omi_1.h("div", null,
-            omi_1.h("o-input", { size: props.size, "suffix-icon": "date-range", type: "text" }));
+            omi_1.h("o-input", { size: props.size, "suffix-icon": "date-range", css: ".o-input input {\n    width: " + props.width + ";\n}", type: "text" }));
     };
     Popover.defaultProps = {
         theme: 'light',
-        size: 'small'
+        size: 'small',
+        width: 'auto'
     };
     Popover.propTypes = {
         theme: String,
-        size: String
+        size: String,
+        width: String
     };
     Popover = __decorate([
         omi_1.tag('o-date-picker')

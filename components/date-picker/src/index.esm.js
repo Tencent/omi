@@ -1,5 +1,5 @@
 /**
- * @omiu/date-picker v0.0.3 http://omijs.org
+ * @omiu/date-picker v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -3357,15 +3357,17 @@ var Popover = /** @class */ (function (_super) {
     };
     Popover.prototype.render = function (props) {
         return h("div", null,
-            h("o-input", { size: props.size, "suffix-icon": "date-range", type: "text" }));
+            h("o-input", { size: props.size, "suffix-icon": "date-range", css: ".o-input input {\n    width: " + props.width + ";\n}", type: "text" }));
     };
     Popover.defaultProps = {
         theme: 'light',
-        size: 'small'
+        size: 'small',
+        width: 'auto'
     };
     Popover.propTypes = {
         theme: String,
-        size: String
+        size: String,
+        width: String
     };
     Popover = __decorate$1([
         tag('o-date-picker')

@@ -5,6 +5,7 @@ import '@omiu/icon/esm/date-range';
 import '@omiu/input';
 interface Props {
     size?: 'medium' | 'small' | 'mini';
+    width?: string;
     locale?: string;
     placeholder?: string;
     altFormat?: string;
@@ -53,10 +54,12 @@ export default class Popover extends WeElement<Props> {
     static defaultProps: {
         theme: string;
         size: string;
+        width: string;
     };
     static propTypes: {
         theme: StringConstructor;
         size: StringConstructor;
+        width: StringConstructor;
     };
     onEnter: (evt: any) => void;
     timeout: any;

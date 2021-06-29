@@ -18,6 +18,10 @@ export default class Table extends WeElement {
       <o-date-picker size="mini"  >
 
       </o-date-picker>
+
+      <br></br><br></br><br></br><br></br><br></br>
+      <o-date-picker width="500px" size="mini" mode="range"  >
+      </o-date-picker>
     </div>
   }
 }
