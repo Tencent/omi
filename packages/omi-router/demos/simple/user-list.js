@@ -1,4 +1,4 @@
-﻿import { WeElement, define } from 'omi'
+﻿import { WeElement, define, h } from 'omi'
 
 define('user-list', class extends WeElement {
   render() {

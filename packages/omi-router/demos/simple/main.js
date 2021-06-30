@@ -1,5 +1,5 @@
-﻿import '../../index'
-import { define, WeElement, render } from 'omi'
+﻿import { route } from '../../src/index.esm.js'
+import { define, WeElement, render, h } from 'omi'
 import './about'
 import './home'
 import './user'
@@ -8,7 +8,6 @@ import './user-list'
 define('my-app', class extends WeElement {
   data = { tag: 'my-home' }
   install() {
-
     route('/', () => {
       this.data.tag = 'my-home'
       this.update()

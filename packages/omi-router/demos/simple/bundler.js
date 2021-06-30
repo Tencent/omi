@@ -36,12 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -59,36 +79,342 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./demos/simple/main.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./demos/simple/about.js":
+/*!*******************************!*\
+  !*** ./demos/simple/about.js ***!
+  \*******************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.18@omi/dist/omi.esm.js");
+omi_1.define('my-about', /** @class */ (function (_super) {
+    __extends(class_1, _super);
+    function class_1() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    class_1.prototype.render = function () {
+        return omi_1.h("div", null, "About");
+    };
+    return class_1;
+}(omi_1.WeElement)));
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+/***/ }),
+
+/***/ "./demos/simple/home.js":
+/*!******************************!*\
+  !*** ./demos/simple/home.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.18@omi/dist/omi.esm.js");
+omi_1.define('my-home', /** @class */ (function (_super) {
+    __extends(class_1, _super);
+    function class_1() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    class_1.prototype.render = function () {
+        return omi_1.h("div", null, "Home");
+    };
+    return class_1;
+}(omi_1.WeElement)));
+
+
+/***/ }),
+
+/***/ "./demos/simple/main.js":
+/*!******************************!*\
+  !*** ./demos/simple/main.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_esm_js_1 = __webpack_require__(/*! ../../src/index.esm.js */ "./src/index.esm.js");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.18@omi/dist/omi.esm.js");
+__webpack_require__(/*! ./about */ "./demos/simple/about.js");
+__webpack_require__(/*! ./home */ "./demos/simple/home.js");
+__webpack_require__(/*! ./user */ "./demos/simple/user.js");
+__webpack_require__(/*! ./user-list */ "./demos/simple/user-list.js");
+omi_1.define('my-app', /** @class */ (function (_super) {
+    __extends(class_1, _super);
+    function class_1() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.data = { tag: 'my-home' };
+        _this.onClick = function () {
+            index_esm_js_1.route.to('/user/vorshen/category/html');
+        };
+        return _this;
+    }
+    class_1.prototype.install = function () {
+        var _this = this;
+        index_esm_js_1.route('/', function () {
+            _this.data.tag = 'my-home';
+            _this.update();
+        });
+        index_esm_js_1.route('/about', function (evt) {
+            console.log(evt.query);
+            _this.data.tag = 'my-about';
+            _this.update();
+        });
+        index_esm_js_1.route('/user-list', function () {
+            _this.data.tag = 'user-list';
+            _this.update();
+        });
+        index_esm_js_1.route('/user/:name/category/:category', function (evt) {
+            _this.data.tag = 'my-user';
+            _this.data.params = evt.params;
+            _this.update();
+        });
+        index_esm_js_1.route('*', function () {
+            console.log('not found');
+        });
+        index_esm_js_1.route.before = function (evt) {
+            console.log('before');
+            //prevent route when return false
+            //return false
+        };
+        index_esm_js_1.route.after = function (evt) {
+            console.log('after');
+        };
+    };
+    class_1.prototype.css = function () {
+        return "\n      ul{\n          border-bottom: 1px solid #ccc;\n          padding-bottom:5px;\n      }\n      li{\n          display:inline-block;\n          margin-left:4px;\n      }\n      #view li{\n          display:block;\n      }\n      #view ul{\n          border-width: 0px;\n      }\n      ";
+    };
+    class_1.prototype.render = function () {
+        var data = this.data;
+        return (omi_1.h("div", null,
+            omi_1.h("ul", null,
+                omi_1.h("li", null,
+                    omi_1.h("a", { href: "#/" }, "Home")),
+                omi_1.h("li", null,
+                    omi_1.h("a", { href: "#/about" }, "About")),
+                omi_1.h("li", null,
+                    omi_1.h("a", { href: "#/user-list" }, "UserList")),
+                omi_1.h("li", null,
+                    omi_1.h("a", { href: "#/about?name=dntzhang&age=18" }, "About Dntzhang"))),
+            omi_1.h("div", { id: "view" },
+                omi_1.h(data.tag, { params: data.params })),
+            omi_1.h("div", null,
+                omi_1.h("button", { onClick: this.onClick }, "Test route.to"))));
+    };
+    return class_1;
+}(omi_1.WeElement)));
+omi_1.render(omi_1.h("my-app", null), "#container");
+
+
+/***/ }),
+
+/***/ "./demos/simple/user-list.js":
+/*!***********************************!*\
+  !*** ./demos/simple/user-list.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.18@omi/dist/omi.esm.js");
+omi_1.define('user-list', /** @class */ (function (_super) {
+    __extends(class_1, _super);
+    function class_1() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    class_1.prototype.render = function () {
+        return (omi_1.h("ul", null,
+            omi_1.h("li", null,
+                omi_1.h("a", { href: "#/user/yanagao/category/js" }, "yanagao")),
+            omi_1.h("li", null,
+                omi_1.h("a", { href: "#/user/vorshen/category/html" }, "vorshen")),
+            omi_1.h("li", null,
+                omi_1.h("a", { href: "#/user/dntzhang/category/css" }, "dntzhang"))));
+    };
+    return class_1;
+}(omi_1.WeElement)));
+
+
+/***/ }),
+
+/***/ "./demos/simple/user.js":
+/*!******************************!*\
+  !*** ./demos/simple/user.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.18@omi/dist/omi.esm.js");
+omi_1.define('my-user', /** @class */ (function (_super) {
+    __extends(class_1, _super);
+    function class_1() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    class_1.prototype.beforeRender = function () {
+        var params = this.props.params;
+        this.name = params.name;
+        this.category = params.category;
+        this.info = this.queryInfo(this.name);
+        this.age = this.info.age;
+        this.sex = this.info.sex;
+    };
+    class_1.prototype.queryInfo = function (name) {
+        this.mockData = {
+            'yanagao': { age: 18, sex: 'female' },
+            'vorshen': { age: 20, sex: 'male' },
+            'dntzhang': { age: 22, sex: 'male' }
+        };
+        return this.mockData[name];
+    };
+    class_1.prototype.render = function () {
+        return (omi_1.h("div", null,
+            omi_1.h("button", { onclick: function () { history.back(); } }, "back"),
+            omi_1.h("ul", null,
+                omi_1.h("li", null,
+                    "name:",
+                    this.name),
+                omi_1.h("li", null,
+                    "age:",
+                    this.age),
+                omi_1.h("li", null,
+                    "sex:",
+                    this.sex),
+                omi_1.h("li", null,
+                    "category:",
+                    this.category))));
+    };
+    return class_1;
+}(omi_1.WeElement)));
+
+
+/***/ }),
+
+/***/ "./node_modules/_omi@6.19.18@omi/dist/omi.esm.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/_omi@6.19.18@omi/dist/omi.esm.js ***!
+  \*******************************************************/
+/*! exports provided: default, tag, WeElement, Component, render, h, createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend, get, set, bind, unbind, JSONProxy */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tag", function() { return tag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WeElement", function() { return WeElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Component", function() { return Component; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return h; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return h; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "options", function() { return options; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "define", function() { return define; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cloneElement", function() { return cloneElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHost", function() { return getHost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rpx", function() { return rpx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineElement", function() { return defineElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "classNames", function() { return classNames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extractClass", function() { return extractClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRef", function() { return createRef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return o; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "elements", function() { return elements; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$", function() { return $; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return extend$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bind", function() { return bind; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unbind", function() { return unbind; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JSONProxy", function() { return JSONPatcherProxy; });
 /**
- * omi v6.16.1  https://tencent.github.io/omi/
- * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
+ * Omi v6.19.18  http://omijs.org
+ * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-/** Virtual DOM Node */
-function VNode() {}
-
 function getGlobal() {
-  if ((typeof global === 'undefined' ? 'undefined' : _typeof(global)) !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+  if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
     return self || window || global || function () {
       return this;
     }();
@@ -97,66 +423,18 @@ function getGlobal() {
 }
 
 /** Global options
- *	@public
- *	@namespace options {Object}
+ *  @public
+ *  @namespace options {Object}
  */
 var options = {
   store: null,
   root: getGlobal(),
   mapping: {},
-  isMultiStore: false
+  isMultiStore: false,
+  //when set true, using props of hypescript, don't use getAttribute
+  //if you render all the node tree by omi self, set it
+  ignoreAttrs: false
 };
-
-var stack = [];
-
-function h(nodeName, attributes) {
-  var children = [],
-      lastSimple,
-      child,
-      simple,
-      i;
-  for (i = arguments.length; i-- > 2;) {
-    stack.push(arguments[i]);
-  }
-  if (attributes && attributes.children != null) {
-    if (!stack.length) stack.push(attributes.children);
-    delete attributes.children;
-  }
-  while (stack.length) {
-    if ((child = stack.pop()) && child.pop !== undefined) {
-      for (i = child.length; i--;) {
-        stack.push(child[i]);
-      }
-    } else {
-      if (typeof child === 'boolean') child = null;
-
-      if (simple = typeof nodeName !== 'function') {
-        if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-      }
-
-      if (simple && lastSimple) {
-        children[children.length - 1] += child;
-      } else if (children.length === 0) {
-        children = [child];
-      } else {
-        children.push(child);
-      }
-
-      lastSimple = simple;
-    }
-  }
-
-  var p = new VNode();
-  p.nodeName = nodeName;
-  p.children = children;
-  p.attributes = attributes == null ? undefined : attributes;
-  p.key = attributes == null ? undefined : attributes.key;
-
-  // if a "vnode hook" is defined, pass every created VNode to it
-  if (options.vnode !== undefined) options.vnode(p);
-
-  return p;
-}
 
 /**
  * @license
@@ -323,15 +601,70 @@ function removeItem(item, arr) {
   }
 }
 
+var stack = [];
+
+function h(nodeName, attributes) {
+  var children = [],
+      lastSimple,
+      child,
+      simple,
+      i;
+  for (i = arguments.length; i-- > 2;) {
+    stack.push(arguments[i]);
+  }
+  if (attributes && attributes.children != null) {
+    if (!stack.length) stack.push(attributes.children);
+    delete attributes.children;
+  }
+  while (stack.length) {
+    if ((child = stack.pop()) && child.pop !== undefined) {
+      for (i = child.length; i--;) {
+        stack.push(child[i]);
+      }
+    } else {
+      if (typeof child === 'boolean') child = null;
+
+      if (simple = typeof nodeName !== 'function') {
+        if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+      }
+
+      if (simple && lastSimple) {
+        children[children.length - 1] += child;
+      } else if (children.length === 0) {
+        children = [child];
+      } else {
+        children.push(child);
+      }
+
+      lastSimple = simple;
+    }
+  }
+
+  if (nodeName === Fragment) {
+    return children;
+  }
+
+  var p = {
+    nodeName: nodeName,
+    children: children,
+    attributes: attributes == null ? undefined : attributes,
+    key: attributes == null ? undefined : attributes.key
+
+    // if a "vnode hook" is defined, pass every created VNode to it
+  };if (options.vnode !== undefined) options.vnode(p);
+
+  return p;
+}
+
 // DOM properties that should NOT have "px" added when numeric
 var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
 /**
  * Check if two nodes are equivalent.
  *
- * @param {Node} node			DOM Node to compare
- * @param {VNode} vnode			Virtual DOM node to compare
- * @param {boolean} [hydrating=false]	If true, ignores component constructors when comparing.
+ * @param {Node} node      DOM Node to compare
+ * @param {VNode} vnode      Virtual DOM node to compare
+ * @param {boolean} [hydrating=false]  If true, ignores component constructors when comparing.
  * @private
  */
 function isSameNodeType(node, vnode, hydrating) {
@@ -349,8 +682,8 @@ function isSameNodeType(node, vnode, hydrating) {
 /**
  * Check if an Element has a given nodeName, case-insensitively.
  *
- * @param {Element} node	A DOM Element to inspect the name of.
- * @param {String} nodeName	Unnormalized name to compare against.
+ * @param {Element} node  A DOM Element to inspect the name of.
+ * @param {String} nodeName  Unnormalized name to compare against.
  */
 function isNamedNode(node, nodeName) {
   return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
@@ -451,7 +784,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
     if (!value || typeof value === 'string' || typeof old === 'string') {
       node.style.cssText = value || '';
     }
-    if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
+    if (value && typeof value === 'object') {
       if (typeof old !== 'string') {
         for (var i in old) {
           if (!(i in value)) node.style[i] = '';
@@ -482,7 +815,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
         node.removeEventListener('touchend', touchEnd, useCapture);
       }
     }
-    (node._listeners || (node._listeners = {}))[name] = value;
+(node._listeners || (node._listeners = {}))[name] = value;
   } else if (node.nodeName === 'INPUT' && name === 'value') {
     node[name] = value == null ? '' : value;
   } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') {
@@ -541,12 +874,14 @@ var isSvgMode = false;
 var hydrating = false;
 
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
- *	@param {Element} [dom=null]		A DOM node to mutate into the shape of the `vnode`
- *	@param {VNode} vnode			A VNode (with descendants forming a tree) representing the desired DOM structure
- *	@returns {Element} dom			The created/mutated element
- *	@private
+ *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
+ *  @param {VNode} vnode      A VNode (with descendants forming a tree) representing the desired DOM structure
+ *  @returns {Element} dom      The created/mutated element
+ *  @private
  */
 function diff(dom, vnode, parent, component, updateSelf) {
+  //first render return undefined
+  if (!dom && !vnode) return;
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   var ret;
   if (!diffLevel++) {
@@ -556,7 +891,7 @@ function diff(dom, vnode, parent, component, updateSelf) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !('prevProps' in dom);
   }
-  if (vnode.nodeName === Fragment) {
+  if (vnode && vnode.nodeName === Fragment) {
     vnode = vnode.children;
   }
   if (isArray(vnode)) {
@@ -702,9 +1037,9 @@ function idiff(dom, vnode, component, updateSelf) {
 }
 
 /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
- *	@param {Element} dom			Element whose children should be compared & mutated
- *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
- *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
+ *  @param {Element} dom      Element whose children should be compared & mutated
+ *  @param {Array} vchildren    Array of VNodes to compare to `dom.childNodes`
+ *  @param {Boolean} isHydrating  If `true`, consumes externally created elements similar to hydration
  */
 function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
   var originalChildren = dom.childNodes,
@@ -793,8 +1128,8 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
 }
 
 /** Recursively recycle (or just unmount) a node and its descendants.
- *	@param {Node} node						DOM node to start unmount/removal from
- *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
+ *  @param {Node} node            DOM node to start unmount/removal from
+ *  @param {Boolean} [unmountOnly=false]  If `true`, only triggers unmount lifecycle, skips removal
  */
 function recollectNodeTree(node, unmountOnly) {
   // If the node's VNode had a ref function, invoke it with null here.
@@ -815,8 +1150,8 @@ function recollectNodeTree(node, unmountOnly) {
 }
 
 /** Recollect/unmount all children.
- *	- we use .lastChild here because it causes less reflow than .firstChild
- *	- it's also cheaper than accessing the .childNodes Live NodeList
+ *  - we use .lastChild here because it causes less reflow than .firstChild
+ *  - it's also cheaper than accessing the .childNodes Live NodeList
  */
 function removeChildren(node) {
   node = node.lastChild;
@@ -828,9 +1163,9 @@ function removeChildren(node) {
 }
 
 /** Apply differences in attributes from a VNode to the given DOM Element.
- *	@param {Element} dom		Element with attributes to diff `attrs` against
- *	@param {Object} attrs		The desired end-state key-value attribute pairs
- *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
+ *  @param {Element} dom    Element with attributes to diff `attrs` against
+ *  @param {Object} attrs    The desired end-state key-value attribute pairs
+ *  @param {Object} old      Current/previous attributes (from previous VNode or element's prop cache)
  */
 function diffAttributes(dom, attrs, old, component, updateSelf) {
   var name;
@@ -853,7 +1188,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
 
   // add new & update changed attributes
   for (name in attrs) {
-    if (isWeElement && _typeof(attrs[name]) === 'object' && name !== 'ref') {
+    if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
         setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
       }
@@ -862,7 +1197,9 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       //update = true
     } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-      if (isWeElement) {
+      //fix lazy load props missing
+      if (dom.nodeName.indexOf('-') !== -1) {
+        dom.props = dom.props || {};
         var _ccName = camelCase(name);
         dom.props[_ccName] = old[_ccName] = attrs[name];
         //update = true
@@ -882,23 +1219,11 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   }
 }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var id = 0;
 
@@ -908,9 +1233,10 @@ var WeElement = function (_HTMLElement) {
   function WeElement() {
     _classCallCheck(this, WeElement);
 
+    // fix lazy load props missing
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-    _this.props = Object.assign({}, _this.constructor.defaultProps);
+    _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
     _this.elementId = id++;
     _this.computed = {};
     return _this;
@@ -921,6 +1247,16 @@ var WeElement = function (_HTMLElement) {
     while (p && !this.store) {
       this.store = p.store;
       p = p.parentNode || p.host;
+    }
+
+    this.attrsToProps();
+
+    if (this.props.use) {
+      this.use = this.props.use;
+    }
+
+    if (this.props.useSelf) {
+      this.use = this.props.useSelf;
     }
 
     if (this.use) {
@@ -969,34 +1305,58 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    this.attrsToProps();
     this.beforeInstall();
     this.install();
     this.afterInstall();
 
     var shadowRoot;
-    if (!this.shadowRoot) {
-      shadowRoot = this.attachShadow({
-        mode: 'open'
-      });
+    if (this.constructor.isLightDom) {
+      shadowRoot = this;
     } else {
-      shadowRoot = this.shadowRoot;
-      var fc;
-      while (fc = shadowRoot.firstChild) {
-        shadowRoot.removeChild(fc);
+      if (!this.shadowRoot) {
+        shadowRoot = this.attachShadow({
+          mode: 'open'
+        });
+      } else {
+        shadowRoot = this.shadowRoot;
+        var fc;
+        while (fc = shadowRoot.firstChild) {
+          shadowRoot.removeChild(fc);
+        }
       }
     }
 
-    if (this.constructor.css) {
-      shadowRoot.appendChild(cssToDom(this.constructor.css));
-    } else if (this.css) {
+    var css = this.constructor.css;
+    if (css) {
+      if (typeof css === 'string') {
+        var styleSheet = new CSSStyleSheet();
+        styleSheet.replaceSync(css);
+        shadowRoot.adoptedStyleSheets = [styleSheet];
+      } else if (Object.prototype.toString.call(css) === '[object Array]') {
+        var styleSheets = [];
+        css.forEach(function (styleSheet) {
+          if (typeof styleSheet === 'string') {
+            var adoptedStyleSheet = new CSSStyleSheet();
+            adoptedStyleSheet.replaceSync(styleSheet);
+            styleSheets.push(adoptedStyleSheet);
+          } else {
+            styleSheets.push(styleSheet);
+          }
+          shadowRoot.adoptedStyleSheets = styleSheets;
+        });
+      } else {
+        shadowRoot.adoptedStyleSheets = [css];
+      }
+    }
+
+    if (this.css) {
       shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
     }
+
     this.beforeRender();
     options.afterInstall && options.afterInstall(this);
 
     var rendered = this.render(this.props, this.store);
-    this.__hasChildren = Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
     this.rootNode = diff(null, rendered, null, this);
     this.rendered();
@@ -1012,7 +1372,7 @@ var WeElement = function (_HTMLElement) {
         shadowRoot.appendChild(item);
       });
     } else {
-      shadowRoot.appendChild(this.rootNode);
+      this.rootNode && shadowRoot.appendChild(this.rootNode);
     }
     this.installed();
     this._isInstalled = true;
@@ -1048,11 +1408,26 @@ var WeElement = function (_HTMLElement) {
 
     var rendered = this.render(this.props, this.store);
     this.rendered();
-    this.__hasChildren = this.__hasChildren || Object.prototype.toString.call(rendered) === '[object Array]' && rendered.length > 0;
 
-    this.rootNode = diff(this.rootNode, rendered, this.shadowRoot, this, updateSelf);
+    this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
     this._willUpdate = false;
     this.updated();
+  };
+
+  WeElement.prototype.forceUpdate = function forceUpdate() {
+    this.update(true);
+  };
+
+  WeElement.prototype.updateProps = function updateProps(obj) {
+    var _this2 = this;
+
+    Object.keys(obj).forEach(function (key) {
+      _this2.props[key] = obj[key];
+      if (_this2.prevProps) {
+        _this2.prevProps[key] = obj[key];
+      }
+    });
+    this.forceUpdate();
   };
 
   WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
@@ -1066,7 +1441,7 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.setAttribute = function setAttribute(key, val) {
-    if (val && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
+    if (val && typeof val === 'object') {
       _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
     } else {
       _HTMLElement.prototype.setAttribute.call(this, key, val);
@@ -1084,8 +1459,8 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+    if (options.ignoreAttrs || ignoreAttrs || this.store && this.store.ignoreAttrs) return;
     var ele = this;
-    if (ele.normalizedNodeName || ignoreAttrs) return;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
     if (!attrs) return;
@@ -1169,7 +1544,7 @@ var JSONPatcherProxy = function () {
    * Deep clones your object and returns a new object.
    */
   function deepClone(obj) {
-    switch (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) {
+    switch (typeof obj) {
       case 'object':
         return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
       case 'undefined':
@@ -1250,7 +1625,7 @@ var JSONPatcherProxy = function () {
     }
 
     // if the new value is an object, make sure to watch it
-    if (newValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
+    if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
       instance.parenthoodMap.set(newValue, {
         parent: target,
         path: key
@@ -1270,7 +1645,7 @@ var JSONPatcherProxy = function () {
       }
       // when array element is set to `undefined`, should generate replace to `null`
       if (Array.isArray(target)) {
-        operation.op = 'replace', operation.value = null;
+operation.op = 'replace', operation.value = null;
       }
       var oldValue = instance.proxifiedObjectsMap.get(target[key]);
       // was the deleted a proxified object?
@@ -1520,13 +1895,16 @@ function render(vnode, parent, store) {
   if (store) {
     if (store.data) {
       observeStore(store);
-    } else {
-      options.isMultiStore = true;
-      //Multi-store injection
-      for (var key in store) {
-        observeStore(store[key], key);
-      }
     }
+    // else {
+    //   //Multi-store injection
+    //   for (let key in store) {
+    //     if (key !== 'ignoreAttrs') {
+    //       options.isMultiStore = true
+    //       observeStore(store[key], key)
+    //     }
+    //   }
+    // }
     parent.store = store;
   }
   return diff(null, vnode, parent, false);
@@ -1535,7 +1913,7 @@ function render(vnode, parent, store) {
 function observeStore(store, key) {
   store.instances = [];
   store.updateSelfInstances = [];
-  extendStoreUpate(store, key);
+  extendStoreUpdate(store, key);
 
   store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
     var patchs = {};
@@ -1558,7 +1936,7 @@ function update(patch, store) {
   store.update(patch);
 }
 
-function extendStoreUpate(store, key) {
+function extendStoreUpdate(store, key) {
   store.update = function (patch) {
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(function (instance) {
@@ -1685,23 +2063,11 @@ function fixArrPath(path) {
   return mpPath;
 }
 
-function _classCallCheck$1(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn$1(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits$1(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var storeHelpers = ['use', 'useSelf'];
 
@@ -1713,7 +2079,6 @@ function define(name, ctor, config) {
     customElements.define(name, ctor);
     options.mapping[name] = ctor;
   } else {
-
     if (typeof config === 'string') {
       config = { css: config };
     } else {
@@ -1745,6 +2110,7 @@ function define(name, ctor, config) {
     Ele.css = config.css;
     Ele.propTypes = config.propTypes;
     Ele.defaultProps = config.defaultProps;
+    Ele.isLightDom = config.isLightDom;
 
     var _loop = function _loop(key) {
       if (typeof config[key] === 'function') {
@@ -1771,18 +2137,17 @@ function define(name, ctor, config) {
   }
 }
 
-function tag(name, pure) {
+function tag(name) {
   return function (target) {
-    target.pure = pure;
     define(name, target);
   };
 }
 
 /**
  * Clones the given VNode, optionally adding attributes/props and replacing its children.
- * @param {VNode} vnode		The virtual DOM element to clone
- * @param {Object} props	Attributes/props to add when cloning
- * @param {VNode} rest		Any additional arguments will be used as replacement children.
+ * @param {VNode} vnode    The virtual DOM element to clone
+ * @param {Object} props  Attributes/props to add when cloning
+ * @param {VNode} rest    Any additional arguments will be used as replacement children.
  */
 function cloneElement(vnode, props) {
   return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
@@ -1824,7 +2189,7 @@ function classNames() {
     var arg = arguments[i];
     if (!arg) continue;
 
-    var argType = typeof arg === 'undefined' ? 'undefined' : _typeof(arg);
+    var argType = typeof arg;
 
     if (argType === 'string' || argType === 'number') {
       classes.push(arg);
@@ -1866,36 +2231,340 @@ function o(obj) {
   return JSON.stringify(obj);
 }
 
-var n = function n(t, r, u, e) {
-  for (var p = 1; p < r.length; p++) {
-    var s = r[p++],
-        a = "number" == typeof s ? u[s] : s;1 === r[p] ? e[0] = a : 2 === r[p] ? (e[1] = e[1] || {})[r[++p]] = a : 3 === r[p] ? e[1] = Object.assign(e[1] || {}, a) : e.push(r[p] ? t.apply(null, n(t, a, u, ["", null])) : a);
-  }return e;
-},
-    t = function t(n) {
-  for (var t, r, u = 1, e = "", p = "", s = [0], a = function a(n) {
-    1 === u && (n || (e = e.replace(/^\s*\n\s*|\s*\n\s*$/g, ""))) ? s.push(n || e, 0) : 3 === u && (n || e) ? (s.push(n || e, 1), u = 2) : 2 === u && "..." === e && n ? s.push(n, 3) : 2 === u && e && !n ? s.push(!0, 2, e) : 4 === u && r && (s.push(n || e, 2, r), r = ""), e = "";
-  }, f = 0; f < n.length; f++) {
-    f && (1 === u && a(), a(f));for (var h = 0; h < n[f].length; h++) {
-      t = n[f][h], 1 === u ? "<" === t ? (a(), s = [s], u = 3) : e += t : p ? t === p ? p = "" : e += t : '"' === t || "'" === t ? p = t : ">" === t ? (a(), u = 1) : u && ("=" === t ? (u = 4, r = e, e = "") : "/" === t ? (a(), 3 === u && (s = s[0]), u = s, (s = s[0]).push(u, 4), u = 0) : " " === t || "\t" === t || "\n" === t || "\r" === t ? (a(), u = 2) : e += t);
+(function () {
+
+    if ('adoptedStyleSheets' in document) { return; }
+
+    var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
+    var bootstrapper = document.implementation.createHTMLDocument('boot');
+    var closedShadowRootRegistry = new WeakMap();
+    var _DOMException = typeof DOMException === 'object' ? Error : DOMException;
+
+    var defineProperty = Object.defineProperty;
+    var forEach = Array.prototype.forEach;
+    var importPattern = /@import.+?;?$/gm;
+    function rejectImports(contents) {
+        var _contents = contents.replace(importPattern, '');
+        if (_contents !== contents) {
+            console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
+        }
+        return _contents.trim();
     }
-  }return a(), s;
-},
-    r = "function" == typeof Map,
-    u = r ? new Map() : {},
-    e = r ? function (n) {
-  var r = u.get(n);return r || u.set(n, r = t(n)), r;
-} : function (n) {
-  for (var r = "", e = 0; e < n.length; e++) {
-    r += n[e].length + "-" + n[e];
-  }return u[r] || (u[r] = t(n));
-};function htm(t) {
-  var r = n(this, e(t), arguments, []);return r.length > 1 ? r : r[0];
-}
+    function clearRules(sheet) {
+        for (var i = 0; i < sheet.cssRules.length; i++) {
+            sheet.deleteRule(0);
+        }
+    }
+    function insertAllRules(from, to) {
+        forEach.call(from.cssRules, function (rule, i) {
+            to.insertRule(rule.cssText, i);
+        });
+    }
+    function isElementConnected(element) {
+        return 'isConnected' in element
+            ? element.isConnected
+            : document.contains(element);
+    }
+    function unique(arr) {
+        return arr.filter(function (value, index) { return arr.indexOf(value) === index; });
+    }
+    function diff(arr1, arr2) {
+        return arr1.filter(function (value) { return arr2.indexOf(value) === -1; });
+    }
+    function removeNode(node) {
+        node.parentNode.removeChild(node);
+    }
+    function getShadowRoot(element) {
+        return element.shadowRoot || closedShadowRootRegistry.get(element);
+    }
+
+    var cssStyleSheetMethods = [
+        'addImport',
+        'addPageRule',
+        'addRule',
+        'deleteRule',
+        'insertRule',
+        'removeImport',
+        'removeRule',
+    ];
+    var NonConstructedStyleSheet = CSSStyleSheet;
+    var nonConstructedProto = NonConstructedStyleSheet.prototype;
+    nonConstructedProto.replace = function () {
+        return Promise.reject(new _DOMException("Can't call replace on non-constructed CSSStyleSheets."));
+    };
+    nonConstructedProto.replaceSync = function () {
+        throw new _DOMException("Failed to execute 'replaceSync' on 'CSSStyleSheet': Can't call replaceSync on non-constructed CSSStyleSheets.");
+    };
+    function isCSSStyleSheetInstance(instance) {
+        return typeof instance === 'object'
+            ? proto$2.isPrototypeOf(instance) ||
+                nonConstructedProto.isPrototypeOf(instance)
+            : false;
+    }
+    function isNonConstructedStyleSheetInstance(instance) {
+        return typeof instance === 'object'
+            ? nonConstructedProto.isPrototypeOf(instance)
+            : false;
+    }
+    var $basicStyleSheet = new WeakMap();
+    var $locations = new WeakMap();
+    var $adoptersByLocation = new WeakMap();
+    function addAdopterLocation(sheet, location) {
+        var adopter = document.createElement('style');
+        $adoptersByLocation.get(sheet).set(location, adopter);
+        $locations.get(sheet).push(location);
+        return adopter;
+    }
+    function getAdopterByLocation(sheet, location) {
+        return $adoptersByLocation.get(sheet).get(location);
+    }
+    function removeAdopterLocation(sheet, location) {
+        $adoptersByLocation.get(sheet).delete(location);
+        $locations.set(sheet, $locations.get(sheet).filter(function (_location) { return _location !== location; }));
+    }
+    function restyleAdopter(sheet, adopter) {
+        requestAnimationFrame(function () {
+            clearRules(adopter.sheet);
+            insertAllRules($basicStyleSheet.get(sheet), adopter.sheet);
+        });
+    }
+    function checkInvocationCorrectness(self) {
+        if (!$basicStyleSheet.has(self)) {
+            throw new TypeError('Illegal invocation');
+        }
+    }
+    function ConstructedStyleSheet() {
+        var self = this;
+        var style = document.createElement('style');
+        bootstrapper.body.appendChild(style);
+        $basicStyleSheet.set(self, style.sheet);
+        $locations.set(self, []);
+        $adoptersByLocation.set(self, new WeakMap());
+    }
+    var proto$2 = ConstructedStyleSheet.prototype;
+    proto$2.replace = function replace(contents) {
+        try {
+            this.replaceSync(contents);
+            return Promise.resolve(this);
+        }
+        catch (e) {
+            return Promise.reject(e);
+        }
+    };
+    proto$2.replaceSync = function replaceSync(contents) {
+        checkInvocationCorrectness(this);
+        if (typeof contents === 'string') {
+            var self_1 = this;
+            var style = $basicStyleSheet.get(self_1).ownerNode;
+            style.textContent = rejectImports(contents);
+            $basicStyleSheet.set(self_1, style.sheet);
+            $locations.get(self_1).forEach(function (location) {
+                if (location.isConnected()) {
+                    restyleAdopter(self_1, getAdopterByLocation(self_1, location));
+                }
+            });
+        }
+    };
+    defineProperty(proto$2, 'cssRules', {
+        configurable: true,
+        enumerable: true,
+        get: function cssRules() {
+            checkInvocationCorrectness(this);
+            return $basicStyleSheet.get(this).cssRules;
+        },
+    });
+    cssStyleSheetMethods.forEach(function (method) {
+        proto$2[method] = function () {
+            var self = this;
+            checkInvocationCorrectness(self);
+            var args = arguments;
+            var basic = $basicStyleSheet.get(self);
+            var locations = $locations.get(self);
+            var result = basic[method].apply(basic, args);
+            locations.forEach(function (location) {
+                if (location.isConnected()) {
+                    var sheet = getAdopterByLocation(self, location).sheet;
+                    sheet[method].apply(sheet, args);
+                }
+            });
+            return result;
+        };
+    });
+    defineProperty(ConstructedStyleSheet, Symbol.hasInstance, {
+        configurable: true,
+        value: isCSSStyleSheetInstance,
+    });
+
+    var defaultObserverOptions = {
+        childList: true,
+        subtree: true,
+    };
+    var locations = new WeakMap();
+    function getAssociatedLocation(element) {
+        var location = locations.get(element);
+        if (!location) {
+            location = new Location(element);
+            locations.set(element, location);
+        }
+        return location;
+    }
+    function attachAdoptedStyleSheetProperty(constructor) {
+        defineProperty(constructor.prototype, 'adoptedStyleSheets', {
+            configurable: true,
+            enumerable: true,
+            get: function () {
+                return getAssociatedLocation(this).sheets;
+            },
+            set: function (sheets) {
+                getAssociatedLocation(this).update(sheets);
+            },
+        });
+    }
+    function traverseWebComponents(node, callback) {
+        var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function (foundNode) {
+            return getShadowRoot(foundNode)
+                ? NodeFilter.FILTER_ACCEPT
+                : NodeFilter.FILTER_REJECT;
+        },
+        null, false);
+        for (var next = void 0; (next = iter.nextNode());) {
+            callback(getShadowRoot(next));
+        }
+    }
+    var $element = new WeakMap();
+    var $uniqueSheets = new WeakMap();
+    var $observer = new WeakMap();
+    function isExistingAdopter(self, element) {
+        return (element instanceof HTMLStyleElement &&
+            $uniqueSheets.get(self).some(function (sheet) { return getAdopterByLocation(sheet, self); }));
+    }
+    function getAdopterContainer(self) {
+        var element = $element.get(self);
+        return element instanceof Document ? element.body : element;
+    }
+    function adopt(self) {
+        var styleList = document.createDocumentFragment();
+        var sheets = $uniqueSheets.get(self);
+        var observer = $observer.get(self);
+        var container = getAdopterContainer(self);
+        observer.disconnect();
+        sheets.forEach(function (sheet) {
+            styleList.appendChild(getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self));
+        });
+        container.insertBefore(styleList, null);
+        observer.observe(container, defaultObserverOptions);
+        sheets.forEach(function (sheet) {
+            restyleAdopter(sheet, getAdopterByLocation(sheet, self));
+        });
+    }
+    function Location(element) {
+        var self = this;
+        self.sheets = [];
+        $element.set(self, element);
+        $uniqueSheets.set(self, []);
+        $observer.set(self, new MutationObserver(function (mutations, observer) {
+            if (!document) {
+                observer.disconnect();
+                return;
+            }
+            mutations.forEach(function (mutation) {
+                if (!hasShadyCss) {
+                    forEach.call(mutation.addedNodes, function (node) {
+                        if (!(node instanceof Element)) {
+                            return;
+                        }
+                        traverseWebComponents(node, function (root) {
+                            getAssociatedLocation(root).connect();
+                        });
+                    });
+                }
+                forEach.call(mutation.removedNodes, function (node) {
+                    if (!(node instanceof Element)) {
+                        return;
+                    }
+                    if (isExistingAdopter(self, node)) {
+                        adopt(self);
+                    }
+                    if (!hasShadyCss) {
+                        traverseWebComponents(node, function (root) {
+                            getAssociatedLocation(root).disconnect();
+                        });
+                    }
+                });
+            });
+        }));
+    }
+    var proto$1 = Location.prototype;
+    proto$1.isConnected = function isConnected() {
+        var element = $element.get(this);
+        return element instanceof Document
+            ? element.readyState !== 'loading'
+            : isElementConnected(element.host);
+    };
+    proto$1.connect = function connect() {
+        var container = getAdopterContainer(this);
+        $observer.get(this).observe(container, defaultObserverOptions);
+        if ($uniqueSheets.get(this).length > 0) {
+            adopt(this);
+        }
+        traverseWebComponents(container, function (root) {
+            getAssociatedLocation(root).connect();
+        });
+    };
+    proto$1.disconnect = function disconnect() {
+        $observer.get(this).disconnect();
+    };
+    proto$1.update = function update(sheets) {
+        var self = this;
+        var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
+        if (!Array.isArray(sheets)) {
+            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
+        }
+        if (!sheets.every(isCSSStyleSheetInstance)) {
+            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
+        }
+        if (sheets.some(isNonConstructedStyleSheetInstance)) {
+            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
+        }
+        self.sheets = sheets;
+        var oldUniqueSheets = $uniqueSheets.get(self);
+        var uniqueSheets = unique(sheets);
+        var removedSheets = diff(oldUniqueSheets, uniqueSheets);
+        removedSheets.forEach(function (sheet) {
+            removeNode(getAdopterByLocation(sheet, self));
+            removeAdopterLocation(sheet, self);
+        });
+        $uniqueSheets.set(self, uniqueSheets);
+        if (self.isConnected() && uniqueSheets.length > 0) {
+            adopt(self);
+        }
+    };
+
+    window.CSSStyleSheet = ConstructedStyleSheet;
+    attachAdoptedStyleSheetProperty(Document);
+    if ('ShadowRoot' in window) {
+        attachAdoptedStyleSheetProperty(ShadowRoot);
+        var proto = Element.prototype;
+        var attach_1 = proto.attachShadow;
+        proto.attachShadow = function attachShadow(init) {
+            var root = attach_1.call(this, init);
+            if (init.mode === 'closed') {
+                closedShadowRootRegistry.set(this, root);
+            }
+            return root;
+        };
+    }
+    var documentLocation = getAssociatedLocation(document);
+    if (documentLocation.isConnected()) {
+        documentLocation.connect();
+    }
+    else {
+        document.addEventListener('DOMContentLoaded', documentLocation.connect.bind(documentLocation));
+    }
+
+}());
 
 h.f = Fragment;
-
-var html = htm.bind(h);
 
 function createRef() {
   return {};
@@ -1922,8 +2591,6 @@ var omi = {
   classNames: classNames,
   extractClass: extractClass,
   createRef: createRef,
-  html: html,
-  htm: htm,
   o: o,
   elements: elements,
   $: $,
@@ -1937,60 +2604,36 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.16.1';
+options.root.Omi.version = '6.19.18';
 
-exports.default = omi;
-exports.tag = tag;
-exports.WeElement = WeElement;
-exports.Component = Component;
-exports.render = render;
-exports.h = h;
-exports.createElement = h;
-exports.options = options;
-exports.define = define;
-exports.cloneElement = cloneElement;
-exports.getHost = getHost;
-exports.rpx = rpx;
-exports.defineElement = defineElement;
-exports.classNames = classNames;
-exports.extractClass = extractClass;
-exports.createRef = createRef;
-exports.html = html;
-exports.htm = htm;
-exports.o = o;
-exports.elements = elements;
-exports.$ = $;
-exports.extend = extend$1;
-exports.get = get;
-exports.set = set;
-exports.bind = bind;
-exports.unbind = unbind;
-exports.JSONProxy = JSONPatcherProxy;
+/* harmony default export */ __webpack_exports__["default"] = (omi);
+
 //# sourceMappingURL=omi.esm.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+/***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 var g;
 
 // This works in non-strict mode
-g = function () {
+g = (function() {
 	return this;
-}();
+})();
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
+	g = g || new Function("return this")();
 } catch (e) {
 	// This works if the window reference is available
-	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
+	if (typeof window === "object") g = window;
 }
 
 // g can still be undefined, but nothing to do about it...
@@ -1999,338 +2642,57 @@ try {
 
 module.exports = g;
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-__webpack_require__(3);
-
-var _omi = __webpack_require__(0);
-
-__webpack_require__(5);
-
-__webpack_require__(6);
-
-__webpack_require__(7);
-
-__webpack_require__(8);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('my-app', function (_WeElement) {
-  _inherits(_class2, _WeElement);
-
-  function _class2() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, _class2);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.data = { tag: 'my-home' }, _this.onClick = function () {
-      route.to('/user/vorshen/category/html');
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(_class2, [{
-    key: 'install',
-    value: function install() {
-      var _this2 = this;
-
-      route('/', function () {
-        _this2.data.tag = 'my-home';
-        _this2.update();
-      });
-
-      route('/about', function (evt) {
-        console.log(evt.query);
-        _this2.data.tag = 'my-about';
-        _this2.update();
-      });
-
-      route('/user-list', function () {
-        _this2.data.tag = 'user-list';
-        _this2.update();
-      });
-
-      route('/user/:name/category/:category', function (evt) {
-        _this2.data.tag = 'my-user';
-        _this2.data.params = evt.params;
-        _this2.update();
-      });
-
-      route('*', function () {
-        console.log('not found');
-      });
-
-      route.before = function (evt) {
-        console.log('before');
-        //prevent route when return false
-        //return false
-      };
-
-      route.after = function (evt) {
-        console.log('after');
-      };
-    }
-  }, {
-    key: 'css',
-    value: function css() {
-      return '\n      ul{\n          border-bottom: 1px solid #ccc;\n          padding-bottom:5px;\n      }\n      li{\n          display:inline-block;\n          margin-left:4px;\n      }\n      #view li{\n          display:block;\n      }\n      #view ul{\n          border-width: 0px;\n      }\n      ';
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var data = this.data;
-      return Omi.h(
-        'div',
-        null,
-        Omi.h(
-          'ul',
-          null,
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/' },
-              'Home'
-            )
-          ),
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/about' },
-              'About'
-            )
-          ),
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/user-list' },
-              'UserList'
-            )
-          ),
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/about?name=dntzhang&age=18' },
-              'About Dntzhang'
-            )
-          )
-        ),
-        Omi.h(
-          'div',
-          { id: 'view' },
-          Omi.h(data.tag, { params: data.params })
-        ),
-        Omi.h(
-          'div',
-          null,
-          Omi.h(
-            'button',
-            { onClick: this.onClick },
-            'Test route.to'
-          )
-        )
-      );
-    }
-  }]);
-
-  return _class2;
-}(_omi.WeElement));
-
-(0, _omi.render)(Omi.h('my-app', null), "#container");
 
 /***/ }),
-/* 3 */
+
+/***/ "./src/index.esm.js":
+/*!**************************!*\
+  !*** ./src/index.esm.js ***!
+  \**************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.default = route;
-/*!
- *  omi-router v2.1.0 by dntzhang
- *  Router for Omi.
- *  Github: https://github.com/Tencent/omi
- *  MIT Licensed.
+/**
+ * omi-router v3.0.0 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
  */
-
-var p2r = __webpack_require__(4);
-var mapping = {};
-var root = getGlobal();
-
-root.route = route;
-root.route.params = null;
-root.historyLength = 0;
-
-root.route.to = function (path, data) {
-  root.route._routeByTo = true;
-  root.route.data = data;
-  if (path[0] === '#') {
-    location.hash = path;
-  } else {
-    location.hash = '#' + path;
-  }
-};
-
-window.addEventListener('hashchange', change);
-
-function change(evt) {
-  var byNative = false;
-  //need to fix a line by omi-link
-  if (window.history.length === root.historyLength && !root.route._routeByTo) {
-    //keep alive mode
-    byNative = true;
-  }
-  root.route._routeByTo = false;
-  root.historyLength = window.history.length;
-  var prevent = false;
-  if (evt.type === 'hashchange' && root.route.before) {
-    prevent = root.route.before(evt) === false;
-  }
-  if (prevent) return;
-  var path = window.location.hash.replace('#', '');
-  if (path === '') path = '/';
-  var notFound = true;
-  Object.keys(mapping).every(function (key) {
-    var toArr = path.split('?')[0].match(mapping[key].reg);
-    if (toArr) {
-      var pathArr = key.match(mapping[key].reg);
-      root.route.params = getParams(toArr, pathArr);
-      root.route.query = getUrlParams(path);
-      mapping[key].callback({
-        params: root.route.params,
-        query: getUrlParams(path),
-        data: root.route.data,
-        byNative: byNative
-      });
-      root.route.data = null;
-      notFound = false;
-      return false;
-    }
-    return true;
-  });
-
-  if (notFound) {
-    mapping['*'] && mapping['*'].callback({ byNative: byNative });
-  }
-
-  if (evt.type === 'hashchange' && root.route.after) {
-    root.route.after(evt);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', change);
-
-function getParams(toArr, pathArr) {
-  var params = {};
-  toArr.forEach(function (item, index) {
-    if (index > 0) {
-      params[pathArr[index].replace(':', '')] = item;
-    }
-  });
-  return params;
-}
-
-function route(path, callback) {
-  mapping[path] = {
-    callback: callback,
-    reg: p2r(path)
-  };
-}
-
-function getGlobal() {
-  if ((typeof global === 'undefined' ? 'undefined' : _typeof(global)) !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-    return self || window || global || function () {
-      return this;
-    }();
-  }
-  return global;
-}
-
-function getUrlParams(url) {
-  url = url.replace(/#.*$/, '');
-  var queryArray = url.split(/[?&]/).slice(1);
-  var i,
-      args = {};
-  for (i = 0; i < queryArray.length; i++) {
-    var match = queryArray[i].match(/([^=]+)=([^=]+)/);
-    if (match !== null) {
-      args[match[1]] = decodeURIComponent(match[2]);
-    }
-  }
-  return args;
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.route = void 0;
 /**
  * Expose `pathToRegexp`.
  */
-module.exports = pathToRegexp;
-module.exports.match = match;
-module.exports.regexpToFunction = regexpToFunction;
-module.exports.parse = parse;
-module.exports.compile = compile;
-module.exports.tokensToFunction = tokensToFunction;
-module.exports.tokensToRegExp = tokensToRegExp;
-
+var pathToRegexp_1 = pathToRegexp;
+var match_1 = match;
+var regexpToFunction_1 = regexpToFunction;
+var parse_1 = parse;
+var compile_1 = compile;
+var tokensToFunction_1 = tokensToFunction;
+var tokensToRegExp_1 = tokensToRegExp;
 /**
  * Default configs.
  */
 var DEFAULT_DELIMITER = '/';
-
 /**
  * The main path matching regexp utility.
  *
  * @type {RegExp}
  */
 var PATH_REGEXP = new RegExp([
-// Match escaped characters that would otherwise appear in future matches.
-// This allows the user to escape special characters that won't transform.
-'(\\\\.)',
-// Match Express-style parameters and un-named parameters with a prefix
-// and optional suffixes. Matches appear as:
-//
-// ":test(\\d+)?" => ["test", "\d+", undefined, "?"]
-// "(\\d+)"  => [undefined, undefined, "\d+", undefined]
-'(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?'].join('|'), 'g');
-
+    // Match escaped characters that would otherwise appear in future matches.
+    // This allows the user to escape special characters that won't transform.
+    '(\\\\.)',
+    // Match Express-style parameters and un-named parameters with a prefix
+    // and optional suffixes. Matches appear as:
+    //
+    // ":test(\\d+)?" => ["test", "\d+", undefined, "?"]
+    // "(\\d+)"  => [undefined, undefined, "\d+", undefined]
+    '(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?'
+].join('|'), 'g');
 /**
  * Parse a string for the raw tokens.
  *
@@ -2339,76 +2701,67 @@ var PATH_REGEXP = new RegExp([
  * @return {!Array}
  */
 function parse(str, options) {
-  var tokens = [];
-  var key = 0;
-  var index = 0;
-  var path = '';
-  var defaultDelimiter = options && options.delimiter || DEFAULT_DELIMITER;
-  var whitelist = options && options.whitelist || undefined;
-  var pathEscaped = false;
-  var res;
-
-  while ((res = PATH_REGEXP.exec(str)) !== null) {
-    var m = res[0];
-    var escaped = res[1];
-    var offset = res.index;
-    path += str.slice(index, offset);
-    index = offset + m.length;
-
-    // Ignore already escaped sequences.
-    if (escaped) {
-      path += escaped[1];
-      pathEscaped = true;
-      continue;
+    var tokens = [];
+    var key = 0;
+    var index = 0;
+    var path = '';
+    var defaultDelimiter = (options && options.delimiter) || DEFAULT_DELIMITER;
+    var whitelist = (options && options.whitelist) || undefined;
+    var pathEscaped = false;
+    var res;
+    while ((res = PATH_REGEXP.exec(str)) !== null) {
+        var m = res[0];
+        var escaped = res[1];
+        var offset = res.index;
+        path += str.slice(index, offset);
+        index = offset + m.length;
+        // Ignore already escaped sequences.
+        if (escaped) {
+            path += escaped[1];
+            pathEscaped = true;
+            continue;
+        }
+        var prev = '';
+        var name = res[2];
+        var capture = res[3];
+        var group = res[4];
+        var modifier = res[5];
+        if (!pathEscaped && path.length) {
+            var k = path.length - 1;
+            var c = path[k];
+            var matches = whitelist ? whitelist.indexOf(c) > -1 : true;
+            if (matches) {
+                prev = c;
+                path = path.slice(0, k);
+            }
+        }
+        // Push the current path onto the tokens.
+        if (path) {
+            tokens.push(path);
+            path = '';
+            pathEscaped = false;
+        }
+        var repeat = modifier === '+' || modifier === '*';
+        var optional = modifier === '?' || modifier === '*';
+        var pattern = capture || group;
+        var delimiter = prev || defaultDelimiter;
+        tokens.push({
+            name: name || key++,
+            prefix: prev,
+            delimiter: delimiter,
+            optional: optional,
+            repeat: repeat,
+            pattern: pattern
+                ? escapeGroup(pattern)
+                : '[^' + escapeString(delimiter === defaultDelimiter ? delimiter : (delimiter + defaultDelimiter)) + ']+?'
+        });
     }
-
-    var prev = '';
-    var name = res[2];
-    var capture = res[3];
-    var group = res[4];
-    var modifier = res[5];
-
-    if (!pathEscaped && path.length) {
-      var k = path.length - 1;
-      var c = path[k];
-      var matches = whitelist ? whitelist.indexOf(c) > -1 : true;
-
-      if (matches) {
-        prev = c;
-        path = path.slice(0, k);
-      }
+    // Push any remaining characters.
+    if (path || index < str.length) {
+        tokens.push(path + str.substr(index));
     }
-
-    // Push the current path onto the tokens.
-    if (path) {
-      tokens.push(path);
-      path = '';
-      pathEscaped = false;
-    }
-
-    var repeat = modifier === '+' || modifier === '*';
-    var optional = modifier === '?' || modifier === '*';
-    var pattern = capture || group;
-    var delimiter = prev || defaultDelimiter;
-
-    tokens.push({
-      name: name || key++,
-      prefix: prev,
-      delimiter: delimiter,
-      optional: optional,
-      repeat: repeat,
-      pattern: pattern ? escapeGroup(pattern) : '[^' + escapeString(delimiter === defaultDelimiter ? delimiter : delimiter + defaultDelimiter) + ']+?'
-    });
-  }
-
-  // Push any remaining characters.
-  if (path || index < str.length) {
-    tokens.push(path + str.substr(index));
-  }
-
-  return tokens;
+    return tokens;
 }
-
 /**
  * Compile a string to a template function for the path.
  *
@@ -2417,123 +2770,101 @@ function parse(str, options) {
  * @return {!function(Object=, Object=)}
  */
 function compile(str, options) {
-  return tokensToFunction(parse(str, options), options);
+    return tokensToFunction(parse(str, options), options);
 }
-
 /**
  * Create path match function from `path-to-regexp` spec.
  */
 function match(str, options) {
-  var keys = [];
-  var re = pathToRegexp(str, keys, options);
-  return regexpToFunction(re, keys);
+    var keys = [];
+    var re = pathToRegexp(str, keys, options);
+    return regexpToFunction(re, keys);
 }
-
 /**
  * Create a path match function from `path-to-regexp` output.
  */
 function regexpToFunction(re, keys) {
-  return function (pathname, options) {
-    var m = re.exec(pathname);
-    if (!m) return false;
-
-    var path = m[0];
-    var index = m.index;
-    var params = {};
-    var decode = options && options.decode || decodeURIComponent;
-
-    for (var i = 1; i < m.length; i++) {
-      if (m[i] === undefined) continue;
-
-      var key = keys[i - 1];
-
-      if (key.repeat) {
-        params[key.name] = m[i].split(key.delimiter).map(function (value) {
-          return decode(value, key);
-        });
-      } else {
-        params[key.name] = decode(m[i], key);
-      }
-    }
-
-    return { path: path, index: index, params: params };
-  };
+    return function (pathname, options) {
+        var m = re.exec(pathname);
+        if (!m)
+            return false;
+        var path = m[0];
+        var index = m.index;
+        var params = {};
+        var decode = (options && options.decode) || decodeURIComponent;
+        for (var i = 1; i < m.length; i++) {
+            if (m[i] === undefined)
+                continue;
+            var key = keys[i - 1];
+            if (key.repeat) {
+                params[key.name] = m[i].split(key.delimiter).map(function (value) {
+                    return decode(value, key);
+                });
+            }
+            else {
+                params[key.name] = decode(m[i], key);
+            }
+        }
+        return { path: path, index: index, params: params };
+    };
 }
-
 /**
  * Expose a method for transforming tokens into the path function.
  */
 function tokensToFunction(tokens, options) {
-  // Compile all the tokens into regexps.
-  var matches = new Array(tokens.length);
-
-  // Compile all the patterns before compilation.
-  for (var i = 0; i < tokens.length; i++) {
-    if (_typeof(tokens[i]) === 'object') {
-      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$', flags(options));
-    }
-  }
-
-  return function (data, options) {
-    var path = '';
-    var encode = options && options.encode || encodeURIComponent;
-    var validate = options ? options.validate !== false : true;
-
+    // Compile all the tokens into regexps.
+    var matches = new Array(tokens.length);
+    // Compile all the patterns before compilation.
     for (var i = 0; i < tokens.length; i++) {
-      var token = tokens[i];
-
-      if (typeof token === 'string') {
-        path += token;
-        continue;
-      }
-
-      var value = data ? data[token.name] : undefined;
-      var segment;
-
-      if (Array.isArray(value)) {
-        if (!token.repeat) {
-          throw new TypeError('Expected "' + token.name + '" to not repeat, but got array');
+        if (typeof tokens[i] === 'object') {
+            matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$', flags(options));
         }
-
-        if (value.length === 0) {
-          if (token.optional) continue;
-
-          throw new TypeError('Expected "' + token.name + '" to not be empty');
-        }
-
-        for (var j = 0; j < value.length; j++) {
-          segment = encode(value[j], token);
-
-          if (validate && !matches[i].test(segment)) {
-            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '"');
-          }
-
-          path += (j === 0 ? token.prefix : token.delimiter) + segment;
-        }
-
-        continue;
-      }
-
-      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-        segment = encode(String(value), token);
-
-        if (validate && !matches[i].test(segment)) {
-          throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but got "' + segment + '"');
-        }
-
-        path += token.prefix + segment;
-        continue;
-      }
-
-      if (token.optional) continue;
-
-      throw new TypeError('Expected "' + token.name + '" to be ' + (token.repeat ? 'an array' : 'a string'));
     }
-
-    return path;
-  };
+    return function (data, options) {
+        var path = '';
+        var encode = (options && options.encode) || encodeURIComponent;
+        var validate = options ? options.validate !== false : true;
+        for (var i = 0; i < tokens.length; i++) {
+            var token = tokens[i];
+            if (typeof token === 'string') {
+                path += token;
+                continue;
+            }
+            var value = data ? data[token.name] : undefined;
+            var segment;
+            if (Array.isArray(value)) {
+                if (!token.repeat) {
+                    throw new TypeError('Expected "' + token.name + '" to not repeat, but got array');
+                }
+                if (value.length === 0) {
+                    if (token.optional)
+                        continue;
+                    throw new TypeError('Expected "' + token.name + '" to not be empty');
+                }
+                for (var j = 0; j < value.length; j++) {
+                    segment = encode(value[j], token);
+                    if (validate && !matches[i].test(segment)) {
+                        throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '"');
+                    }
+                    path += (j === 0 ? token.prefix : token.delimiter) + segment;
+                }
+                continue;
+            }
+            if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+                segment = encode(String(value), token);
+                if (validate && !matches[i].test(segment)) {
+                    throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but got "' + segment + '"');
+                }
+                path += token.prefix + segment;
+                continue;
+            }
+            if (token.optional)
+                continue;
+            throw new TypeError('Expected "' + token.name + '" to be ' + (token.repeat ? 'an array' : 'a string'));
+        }
+        return path;
+    };
 }
-
 /**
  * Escape a regular expression string.
  *
@@ -2541,9 +2872,8 @@ function tokensToFunction(tokens, options) {
  * @return {string}
  */
 function escapeString(str) {
-  return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
+    return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
 }
-
 /**
  * Escape the capturing group by escaping special characters and meaning.
  *
@@ -2551,9 +2881,8 @@ function escapeString(str) {
  * @return {string}
  */
 function escapeGroup(group) {
-  return group.replace(/([=!:$/()])/g, '\\$1');
+    return group.replace(/([=!:$/()])/g, '\\$1');
 }
-
 /**
  * Get the flags for a regexp from the options.
  *
@@ -2561,9 +2890,8 @@ function escapeGroup(group) {
  * @return {string}
  */
 function flags(options) {
-  return options && options.sensitive ? '' : 'i';
+    return options && options.sensitive ? '' : 'i';
 }
-
 /**
  * Pull out keys from a regexp.
  *
@@ -2572,27 +2900,24 @@ function flags(options) {
  * @return {!RegExp}
  */
 function regexpToRegexp(path, keys) {
-  if (!keys) return path;
-
-  // Use a negative lookahead to match only capturing groups.
-  var groups = path.source.match(/\((?!\?)/g);
-
-  if (groups) {
-    for (var i = 0; i < groups.length; i++) {
-      keys.push({
-        name: i,
-        prefix: null,
-        delimiter: null,
-        optional: false,
-        repeat: false,
-        pattern: null
-      });
+    if (!keys)
+        return path;
+    // Use a negative lookahead to match only capturing groups.
+    var groups = path.source.match(/\((?!\?)/g);
+    if (groups) {
+        for (var i = 0; i < groups.length; i++) {
+            keys.push({
+                name: i,
+                prefix: null,
+                delimiter: null,
+                optional: false,
+                repeat: false,
+                pattern: null
+            });
+        }
     }
-  }
-
-  return path;
+    return path;
 }
-
 /**
  * Transform an array into a regexp.
  *
@@ -2602,15 +2927,12 @@ function regexpToRegexp(path, keys) {
  * @return {!RegExp}
  */
 function arrayToRegexp(path, keys, options) {
-  var parts = [];
-
-  for (var i = 0; i < path.length; i++) {
-    parts.push(pathToRegexp(path[i], keys, options).source);
-  }
-
-  return new RegExp('(?:' + parts.join('|') + ')', flags(options));
+    var parts = [];
+    for (var i = 0; i < path.length; i++) {
+        parts.push(pathToRegexp(path[i], keys, options).source);
+    }
+    return new RegExp('(?:' + parts.join('|') + ')', flags(options));
 }
-
 /**
  * Create a path regexp from string input.
  *
@@ -2620,9 +2942,8 @@ function arrayToRegexp(path, keys, options) {
  * @return {!RegExp}
  */
 function stringToRegexp(path, keys, options) {
-  return tokensToRegExp(parse(path, options), keys, options);
+    return tokensToRegExp(parse(path, options), keys, options);
 }
-
 /**
  * Expose a function for taking tokens and returning a RegExp.
  *
@@ -2632,53 +2953,55 @@ function stringToRegexp(path, keys, options) {
  * @return {!RegExp}
  */
 function tokensToRegExp(tokens, keys, options) {
-  options = options || {};
-
-  var strict = options.strict;
-  var start = options.start !== false;
-  var end = options.end !== false;
-  var delimiter = options.delimiter || DEFAULT_DELIMITER;
-  var endsWith = [].concat(options.endsWith || []).map(escapeString).concat('$').join('|');
-  var route = start ? '^' : '';
-
-  // Iterate over the tokens and create our regexp string.
-  for (var i = 0; i < tokens.length; i++) {
-    var token = tokens[i];
-
-    if (typeof token === 'string') {
-      route += escapeString(token);
-    } else {
-      var capture = token.repeat ? '(?:' + token.pattern + ')(?:' + escapeString(token.delimiter) + '(?:' + token.pattern + '))*' : token.pattern;
-
-      if (keys) keys.push(token);
-
-      if (token.optional) {
-        if (!token.prefix) {
-          route += '(' + capture + ')?';
-        } else {
-          route += '(?:' + escapeString(token.prefix) + '(' + capture + '))?';
+    options = options || {};
+    var strict = options.strict;
+    var start = options.start !== false;
+    var end = options.end !== false;
+    var delimiter = options.delimiter || DEFAULT_DELIMITER;
+    var endsWith = [].concat(options.endsWith || []).map(escapeString).concat('$').join('|');
+    var route = start ? '^' : '';
+    // Iterate over the tokens and create our regexp string.
+    for (var i = 0; i < tokens.length; i++) {
+        var token = tokens[i];
+        if (typeof token === 'string') {
+            route += escapeString(token);
         }
-      } else {
-        route += escapeString(token.prefix) + '(' + capture + ')';
-      }
+        else {
+            var capture = token.repeat
+                ? '(?:' + token.pattern + ')(?:' + escapeString(token.delimiter) + '(?:' + token.pattern + '))*'
+                : token.pattern;
+            if (keys)
+                keys.push(token);
+            if (token.optional) {
+                if (!token.prefix) {
+                    route += '(' + capture + ')?';
+                }
+                else {
+                    route += '(?:' + escapeString(token.prefix) + '(' + capture + '))?';
+                }
+            }
+            else {
+                route += escapeString(token.prefix) + '(' + capture + ')';
+            }
+        }
     }
-  }
-
-  if (end) {
-    if (!strict) route += '(?:' + escapeString(delimiter) + ')?';
-
-    route += endsWith === '$' ? '$' : '(?=' + endsWith + ')';
-  } else {
-    var endToken = tokens[tokens.length - 1];
-    var isEndDelimited = typeof endToken === 'string' ? endToken[endToken.length - 1] === delimiter : endToken === undefined;
-
-    if (!strict) route += '(?:' + escapeString(delimiter) + '(?=' + endsWith + '))?';
-    if (!isEndDelimited) route += '(?=' + escapeString(delimiter) + '|' + endsWith + ')';
-  }
-
-  return new RegExp(route, flags(options));
+    if (end) {
+        if (!strict)
+            route += '(?:' + escapeString(delimiter) + ')?';
+        route += endsWith === '$' ? '$' : '(?=' + endsWith + ')';
+    }
+    else {
+        var endToken = tokens[tokens.length - 1];
+        var isEndDelimited = typeof endToken === 'string'
+            ? endToken[endToken.length - 1] === delimiter
+            : endToken === undefined;
+        if (!strict)
+            route += '(?:' + escapeString(delimiter) + '(?=' + endsWith + '))?';
+        if (!isEndDelimited)
+            route += '(?=' + escapeString(delimiter) + '|' + endsWith + ')';
+    }
+    return new RegExp(route, flags(options));
 }
-
 /**
  * Normalize the given path string, returning a regular expression.
  *
@@ -2692,257 +3015,136 @@ function tokensToRegExp(tokens, keys, options) {
  * @return {!RegExp}
  */
 function pathToRegexp(path, keys, options) {
-  if (path instanceof RegExp) {
-    return regexpToRegexp(path, keys);
-  }
-
-  if (Array.isArray(path)) {
-    return arrayToRegexp( /** @type {!Array} */path, keys, options);
-  }
-
-  return stringToRegexp( /** @type {string} */path, keys, options);
+    if (path instanceof RegExp) {
+        return regexpToRegexp(path, keys);
+    }
+    if (Array.isArray(path)) {
+        return arrayToRegexp(/** @type {!Array} */ (path), keys, options);
+    }
+    return stringToRegexp(/** @type {string} */ (path), keys, options);
 }
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('my-about', function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-  }
-
-  _createClass(_class, [{
-    key: 'render',
-    value: function render() {
-      return Omi.h(
-        'div',
-        null,
-        'About'
-      );
+pathToRegexp_1.match = match_1;
+pathToRegexp_1.regexpToFunction = regexpToFunction_1;
+pathToRegexp_1.parse = parse_1;
+pathToRegexp_1.compile = compile_1;
+pathToRegexp_1.tokensToFunction = tokensToFunction_1;
+pathToRegexp_1.tokensToRegExp = tokensToRegExp_1;
+/*!
+ *  omi-router v2.1.0 by dntzhang
+ *  Router for Omi.
+ *  Github: https://github.com/Tencent/omi
+ *  MIT Licensed.
+ */
+var mapping = {};
+var root = getGlobal();
+root.route = route;
+root.route.params = null;
+root.historyLength = 0;
+root.route.to = function (path, data) {
+    root.route._routeByTo = true;
+    root.route.data = data;
+    if (path[0] === '#') {
+        location.hash = path;
     }
-  }]);
-
-  return _class;
-}(_omi.WeElement));
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('my-home', function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-  }
-
-  _createClass(_class, [{
-    key: 'render',
-    value: function render() {
-      return Omi.h(
-        'div',
-        null,
-        'Home'
-      );
+    else {
+        location.hash = '#' + path;
     }
-  }]);
-
-  return _class;
-}(_omi.WeElement));
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('my-user', function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-  }
-
-  _createClass(_class, [{
-    key: 'beforeRender',
-    value: function beforeRender() {
-      var params = this.props.params;
-      this.name = params.name;
-
-      this.category = params.category;
-      this.info = this.queryInfo(this.name);
-      this.age = this.info.age;
-      this.sex = this.info.sex;
+};
+window.addEventListener('hashchange', change);
+function change(evt) {
+    var byNative = false;
+    //need to fix a line by omi-link
+    if (window.history.length === root.historyLength && !root.route._routeByTo) {
+        //keep alive mode
+        byNative = true;
     }
-  }, {
-    key: 'queryInfo',
-    value: function queryInfo(name) {
-      this.mockData = {
-        'yanagao': { age: 18, sex: 'female' },
-        'vorshen': { age: 20, sex: 'male' },
-        'dntzhang': { age: 22, sex: 'male' }
-      };
-      return this.mockData[name];
+    root.route._routeByTo = false;
+    root.historyLength = window.history.length;
+    var prevent = false;
+    if (evt.type === 'hashchange' && root.route.before) {
+        prevent = root.route.before(evt) === false;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      return Omi.h(
-        'div',
-        null,
-        Omi.h(
-          'button',
-          { onclick: function onclick() {
-              history.back();
-            } },
-          'back'
-        ),
-        Omi.h(
-          'ul',
-          null,
-          Omi.h(
-            'li',
-            null,
-            'name:',
-            this.name
-          ),
-          Omi.h(
-            'li',
-            null,
-            'age:',
-            this.age
-          ),
-          Omi.h(
-            'li',
-            null,
-            'sex:',
-            this.sex
-          ),
-          Omi.h(
-            'li',
-            null,
-            'category:',
-            this.category
-          )
-        )
-      );
+    if (prevent)
+        return;
+    var path = window.location.hash.replace('#', '');
+    if (path === '')
+        path = '/';
+    var notFound = true;
+    Object.keys(mapping).every(function (key) {
+        var toArr = path.split('?')[0].match(mapping[key].reg);
+        if (toArr) {
+            var pathArr = key.match(mapping[key].reg);
+            root.route.params = getParams(toArr, pathArr);
+            root.route.query = getUrlParams(path);
+            mapping[key].callback({
+                params: root.route.params,
+                query: getUrlParams(path),
+                data: root.route.data,
+                byNative: byNative
+            });
+            root.route.data = null;
+            notFound = false;
+            return false;
+        }
+        return true;
+    });
+    if (notFound) {
+        mapping['*'] && mapping['*'].callback({ byNative: byNative });
     }
-  }]);
-
-  return _class;
-}(_omi.WeElement));
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('user-list', function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-  }
-
-  _createClass(_class, [{
-    key: 'render',
-    value: function render() {
-      return Omi.h(
-        'ul',
-        null,
-        Omi.h(
-          'li',
-          null,
-          Omi.h(
-            'a',
-            { href: '#/user/yanagao/category/js' },
-            'yanagao'
-          )
-        ),
-        Omi.h(
-          'li',
-          null,
-          Omi.h(
-            'a',
-            { href: '#/user/vorshen/category/html' },
-            'vorshen'
-          )
-        ),
-        Omi.h(
-          'li',
-          null,
-          Omi.h(
-            'a',
-            { href: '#/user/dntzhang/category/css' },
-            'dntzhang'
-          )
-        )
-      );
+    if (evt.type === 'hashchange' && root.route.after) {
+        root.route.after(evt);
     }
-  }]);
+}
+document.addEventListener('DOMContentLoaded', change);
+function getParams(toArr, pathArr) {
+    var params = {};
+    toArr.forEach(function (item, index) {
+        if (index > 0) {
+            params[pathArr[index].replace(':', '')] = item;
+        }
+    });
+    return params;
+}
+function route(path, callback) {
+    mapping[path] = {
+        callback: callback,
+        reg: pathToRegexp_1(path)
+    };
+}
+exports.route = route;
+var router = { route: route };
+function getGlobal() {
+    if (typeof global !== 'object' ||
+        !global ||
+        global.Math !== Math ||
+        global.Array !== Array) {
+        return (self ||
+            window ||
+            global ||
+            (function () {
+                return this;
+            })());
+    }
+    return global;
+}
+function getUrlParams(url) {
+    url = url.replace(/#.*$/, '');
+    var queryArray = url.split(/[?&]/).slice(1);
+    var i, args = {};
+    for (i = 0; i < queryArray.length; i++) {
+        var match = queryArray[i].match(/([^=]+)=([^=]+)/);
+        if (match !== null) {
+            args[match[1]] = decodeURIComponent(match[2]);
+        }
+    }
+    return args;
+}
+exports.default = router;
+//# sourceMappingURL=index.esm.js.map
 
-  return _class;
-}(_omi.WeElement));
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
 /***/ })
-/******/ ]);
+
+/******/ });
+//# sourceMappingURL=bundler.js.map

@@ -1,4 +1,4 @@
-﻿import { WeElement, define } from 'omi'
+﻿import { WeElement, define, h } from 'omi'
 
 
 define('my-user', class extends WeElement {
