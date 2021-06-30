@@ -26,6 +26,7 @@
     "@omiu/table": "^0.0.5",
     "@omiu/tabs": "^0.0.15",
     "@omiu/tooltip": "0.0.1",
+    "@omiu/transition": "^0.0.8",
     "@omiu/tree": "^0.0.16",
     "omi": "^6.19.18",
     "omi-router": "^3.0.0",
