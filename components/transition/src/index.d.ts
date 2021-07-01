@@ -30,10 +30,10 @@ export default class Transition extends WeElement<Props> {
     };
     _show: boolean;
     installed(): void;
-    toggle(): void;
+    toggle(): Promise<unknown>;
     callback: () => void;
-    enter(): void;
-    leave(): void;
+    enter(): Promise<unknown>;
+    leave(): Promise<unknown>;
     once(name: any, callback: any): void;
     render(): void;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@omiu/transition",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Define transition animation for entering and leaving",
   "docsExtend": {
     "cnName": "过渡动画",

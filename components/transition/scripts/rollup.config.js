@@ -1,7 +1,6 @@
 import nodeResolve from "rollup-plugin-node-resolve";
 
 import typescript from 'rollup-plugin-typescript';
-import scss from 'rollup-plugin-scss'
 import commonjs from '@rollup/plugin-commonjs';
 const fs = require('fs')
 const license = require("rollup-plugin-license");
@@ -21,14 +20,14 @@ export default {
   },
   plugins: [
     nodeResolve({
-    	main: true
+      main: true
     }),
-    scss({
-      //output: false,
-      output: function (styles, styleNodes) {
-        fs.writeFileSync('./src/index.css', styles)
-      },
-    }),
+    // scss({
+    //   //output: false,
+    //   output: function (styles, styleNodes) {
+    //     fs.writeFileSync('./src/index.css', styles)
+    //   },
+    // }),
     typescript(),
     commonjs(),
 
