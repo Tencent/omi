@@ -42,14 +42,11 @@ export default class extends WeElement {
 
   transition
 
-  transitionTo(tagName) {
-    this.transition.leave()
-
-    setTimeout(() => {
-      this.data.tagName = tagName
-      this.update()
-      this.transition.enter()
-    }, 500)
+  async transitionTo(tagName) {
+    await this.transition.leave()
+    this.data.tagName = tagName
+    this.update()
+    this.transition.enter()
   }
 
   installed() {
