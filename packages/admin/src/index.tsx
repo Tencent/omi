@@ -29,7 +29,7 @@ const fadeCSS = `.fade-leave-to,
 
 .fade-leave-active,
 .fade-enter-active {
-  transition: all 500ms ease-in;
+  transition: all 300ms ease-in;
 }
 `
 
@@ -42,6 +42,21 @@ export default class extends WeElement {
   }
 
   transition
+
+  payload
+
+  getMdByName(name, children) {
+    const href = `#/docs/${name}`
+    const node = children.find(item => item.href === href)
+    if (node) return node.md
+
+    for (let i = 0, length = children.length; i < length; i++) {
+      if (children[i].children) {
+        const subNode = this.findNodeByHash(href, children[i].children)
+        if (subNode) return subNode.md
+      }
+    }
+  }
 
   async transitionTo(tagName) {
     await this.transition.leave()
@@ -67,10 +82,13 @@ export default class extends WeElement {
 
     })
 
-    route('/docs/:name', () => {
+    route('/docs/:name', (evt) => {
       //lazy load
-      import('./components/docs/admin-docs').then(() => this.transitionTo('admin-docs')
-      )
+      const md = this.getMdByName(evt.params.name, this.store.treeData)
+      md.then(e => {
+        this.payload = { mdContent: e.default }
+        import('./components/docs/admin-docs').then(() => this.transitionTo('admin-docs'))
+      })
     })
 
     route('/table/pagination', () => {
@@ -94,6 +112,11 @@ export default class extends WeElement {
     route('/error', () => {
       //lazy load
       import('./components/status/status-error').then(() => this.transitionTo('status-error'))
+    })
+
+    route('/loading-component', () => {
+      //lazy load
+      import('./components/components/loading-component').then(() => this.transitionTo('loading-component'))
     })
 
     route('/warning', () => {
@@ -150,7 +173,7 @@ export default class extends WeElement {
     return (
       <basic-layout>
         <o-transition ref={_ => this.transition = _} appear name="fade">
-          <this.data.tagName class={tw`block`}></this.data.tagName>
+          <this.data.tagName {...this.payload} class={tw`block`}></this.data.tagName>
         </o-transition>
       </basic-layout>
     )

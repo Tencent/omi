@@ -102,6 +102,18 @@ class Store {
         id: 6,
         icon: 'ac-unit-outlined',
         children: docsList
+      },
+      {
+        label: '组件',
+        expanded: true,
+        id: 11,
+        icon: 'ac-unit-outlined',
+        children: [{
+          label: 'Loading',
+          id: 12,
+          icon: 'ac-unit-outlined',
+          href: '#/loading-component',
+        }]
       }
     ]
     this.ignoreAttrs = true

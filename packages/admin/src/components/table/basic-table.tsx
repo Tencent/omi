@@ -111,7 +111,6 @@ export default class extends WeElement<Props> {
   ]
 
   onClick = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
-    console.log(Number(evt.currentTarget.dataset.itemId))
     this.deleteItemById(Number(evt.currentTarget.dataset.itemId))
   }
 

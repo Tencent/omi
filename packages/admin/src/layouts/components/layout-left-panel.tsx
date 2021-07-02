@@ -63,7 +63,6 @@ export default class extends WeElement<Props> {
     }
     evt.detail.md && evt.detail.md.then(e => {
       this.store.markdown = e.default
-      //this.store.ui.docs.update()
     })
   }
 
