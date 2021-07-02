@@ -8,6 +8,7 @@ import '@omiu/icon/error'
 import '@omiu/icon/warning'
 import '@omiu/icon/sentiment-satisfied-alt'
 import '@omiu/icon/table-chart'
+import '@omiu/icon/description'
 
 import '@omiu/transition'
 
@@ -64,6 +65,12 @@ export default class extends WeElement {
       import('./components/table/basic-table').then(() => this.transitionTo('basic-table')
       )
 
+    })
+
+    route('/docs', () => {
+      //lazy load
+      import('./components/docs/admin-docs').then(() => this.transitionTo('admin-docs')
+      )
     })
 
     route('/table/pagination', () => {

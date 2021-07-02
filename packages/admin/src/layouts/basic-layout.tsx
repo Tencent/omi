@@ -37,7 +37,6 @@ export default class extends WeElement {
     this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
     this.store.selectTreeNodeById(evt.detail.tab.id)
     location.hash = evt.detail.tab.href
-    console.error(this.store.treeData)
   }
 
   onRemove = (evt) => {

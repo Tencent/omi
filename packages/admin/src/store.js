@@ -1,3 +1,5 @@
+import { docsList } from './components/docs/config'
+
 class Store {
   constructor() {
 
@@ -93,11 +95,21 @@ class Store {
             target: '_blank'
           }
         ]
+      },
+      {
+        label: '文档',
+        expanded: true,
+        id: 6,
+        icon: 'ac-unit-outlined',
+        children: docsList
       }
     ]
     this.ignoreAttrs = true
 
     this.ui = {}
+
+    this.markdown = ''
+    this.html = ''
   }
 
   toggleLeftPanel() {
