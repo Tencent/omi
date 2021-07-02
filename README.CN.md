@@ -108,33 +108,33 @@ export default class Button extends WeElement<Props>{
 | Coming... | |  | |
 | Coming... | |  | |
 
-[omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
+[omiu-button-github]: https://github.com/Tencent/omi/tree/v6/components/button
 [omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
 [omiu-button-package]: https://www.npmjs.com/package/@omiu/button
 [omiu-button-docs]: https://tencent.github.io/omi/components/docs/cn.html#/button
 [omiu-button-codepen]: https://codepen.io/omijs/pen/LYppwYG
 
-[omiu-icon-github]: https://github.com/Tencent/omi/tree/master/components/icon
+[omiu-icon-github]: https://github.com/Tencent/omi/tree/v6/components/icon
 [omiu-icon-status]: https://img.shields.io/npm/v/@omiu/icon.svg
 [omiu-icon-package]: https://www.npmjs.com/package/@omiu/icon
 [omiu-icon-docs]: https://tencent.github.io/omi/components/docs/cn.html#/icon
 [omiu-icon-codepen]: https://tencent.github.io/omi/components/icon/demos/icon.html
 
-[omiu-tabs-github]: https://github.com/Tencent/omi/tree/master/components/tabs
+[omiu-tabs-github]: https://github.com/Tencent/omi/tree/v6/components/tabs
 [omiu-tabs-status]: https://img.shields.io/npm/v/@omiu/tabs.svg
 [omiu-tabs-package]: https://www.npmjs.com/package/@omiu/tabs
 [omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/cn.html#/tabs
 [omiu-tabs-codepen]: https://codepen.io/omijs/pen/XWmjyXK
 
 
-[omiu-radio-github]: https://github.com/Tencent/omi/tree/master/components/radio
+[omiu-radio-github]: https://github.com/Tencent/omi/tree/v6/components/radio
 [omiu-radio-status]: https://img.shields.io/npm/v/@omiu/radio.svg
 [omiu-radio-package]: https://www.npmjs.com/package/@omiu/radio
 [omiu-radio-docs]: https://tencent.github.io/omi/components/docs/cn.html#/radio
 [omiu-radio-codepen]: https://codepen.io/omijs/pen/GRpjapr
 
 
-[omiu-link-github]: https://github.com/Tencent/omi/tree/master/components/link
+[omiu-link-github]: https://github.com/Tencent/omi/tree/v6/components/link
 [omiu-link-status]: https://img.shields.io/npm/v/@omiu/link.svg
 [omiu-link-package]: https://www.npmjs.com/package/@omiu/link
 [omiu-link-docs]: https://tencent.github.io/omi/components/docs/cn.html#/link
@@ -142,122 +142,122 @@ export default class Button extends WeElement<Props>{
 
 
 
-[omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/master/components/hamburger-menu
+[omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/v6/components/hamburger-menu
 [omiu-hamburger-menu-status]: https://img.shields.io/npm/v/@omiu/hamburger-menu.svg
 [omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
 [omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/cn.html#/hamburger-menu
 [omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
 
-[omiu-input-github]: https://github.com/Tencent/omi/tree/master/components/input
+[omiu-input-github]: https://github.com/Tencent/omi/tree/v6/components/input
 [omiu-input-status]: https://img.shields.io/npm/v/@omiu/input.svg
 [omiu-input-package]: https://www.npmjs.com/package/@omiu/input
 [omiu-input-docs]: https://tencent.github.io/omi/components/docs/cn.html#/input
 [omiu-input-codepen]: https://codepen.io/omijs/pen/yLYMGqa
 
-[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
+[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/v6/components/checkbox
 [omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
 [omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
 [omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/cn.html#/checkbox
 [omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
 
-[omiu-switch-github]: https://github.com/Tencent/omi/tree/master/components/switch
+[omiu-switch-github]: https://github.com/Tencent/omi/tree/v6/components/switch
 [omiu-switch-status]: https://img.shields.io/npm/v/@omiu/switch.svg
 [omiu-switch-package]: https://www.npmjs.com/package/@omiu/switch
 [omiu-switch-docs]: https://tencent.github.io/omi/components/docs/index.html#/switch
 [omiu-switch-codepen]: https://codepen.io/omijs/pen/BaoRpLd
 
-[omiu-tree-github]: https://github.com/Tencent/omi/tree/master/components/tree
+[omiu-tree-github]: https://github.com/Tencent/omi/tree/v6/components/tree
 [omiu-tree-status]: https://img.shields.io/npm/v/@omiu/tree.svg
 [omiu-tree-package]: https://www.npmjs.com/package/@omiu/tree
 [omiu-tree-docs]: https://tencent.github.io/omi/components/docs/cn.html#/tree
 [omiu-tree-codepen]: https://codepen.io/omijs/pen/yLYMrdg
 
-[omiu-pagination-github]: https://github.com/Tencent/omi/tree/master/components/pagination
+[omiu-pagination-github]: https://github.com/Tencent/omi/tree/v6/components/pagination
 [omiu-pagination-status]: https://img.shields.io/npm/v/@omiu/pagination.svg
 [omiu-pagination-package]: https://www.npmjs.com/package/@omiu/pagination
 [omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/cn.html#/pagination
 [omiu-pagination-codepen]: https://codepen.io/omijs/pen/MWamyBQ
 
-[omiu-loading-github]: https://github.com/Tencent/omi/tree/master/components/loading
+[omiu-loading-github]: https://github.com/Tencent/omi/tree/v6/components/loading
 [omiu-loading-status]: https://img.shields.io/npm/v/@omiu/loading.svg
 [omiu-loading-package]: https://www.npmjs.com/package/@omiu/loading
 [omiu-loading-docs]: https://tencent.github.io/omi/components/docs/cn.html#/loading
 [omiu-loading-codepen]: https://codepen.io/omijs/pen/oNjZRwO
 
-[omiu-toast-github]: https://github.com/Tencent/omi/tree/master/components/toast
+[omiu-toast-github]: https://github.com/Tencent/omi/tree/v6/components/toast
 [omiu-toast-status]: https://img.shields.io/npm/v/@omiu/toast.svg
 [omiu-toast-package]: https://www.npmjs.com/package/@omiu/toast
 [omiu-toast-docs]: https://tencent.github.io/omi/components/docs/cn.html#/toast
 [omiu-toast-codepen]: https://codepen.io/omijs/pen/YzyVwOO
 
-[omiu-action-sheet-github]: https://github.com/Tencent/omi/tree/master/components/action-sheet
+[omiu-action-sheet-github]: https://github.com/Tencent/omi/tree/v6/components/action-sheet
 [omiu-action-sheet-status]: https://img.shields.io/npm/v/@omiu/action-sheet.svg
 [omiu-action-sheet-package]: https://www.npmjs.com/package/@omiu/action-sheet
 [omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/cn.html#/action-sheet
 [omiu-action-sheet-codepen]: https://codepen.io/omijs/pen/wvKdoNJ
 
-[omiu-color-picker-github]: https://github.com/Tencent/omi/tree/master/components/color-picker
+[omiu-color-picker-github]: https://github.com/Tencent/omi/tree/v6/components/color-picker
 [omiu-color-picker-status]: https://img.shields.io/npm/v/@omiu/color-picker.svg
 [omiu-color-picker-package]: https://www.npmjs.com/package/@omiu/color-picker
 [omiu-color-picker-docs]: https://tencent.github.io/omi/components/docs/cn.html#/color-picker
 [omiu-color-picker-codepen]: https://codepen.io/omijs/pen/gOaWmZE
 
-[omiu-chart-github]: https://github.com/Tencent/omi/tree/master/components/chart
+[omiu-chart-github]: https://github.com/Tencent/omi/tree/v6/components/chart
 [omiu-chart-status]: https://img.shields.io/npm/v/@omiu/chart.svg
 [omiu-chart-package]: https://www.npmjs.com/package/@omiu/chart
 [omiu-chart-docs]: https://tencent.github.io/omi/components/docs/cn.html#/chart
 [omiu-chart-codepen]: https://codepen.io/omijs/pen/pojPKLr
 
-[omiu-toggle-icon-github]: https://github.com/Tencent/omi/tree/master/components/toggle-icon
+[omiu-toggle-icon-github]: https://github.com/Tencent/omi/tree/v6/components/toggle-icon
 [omiu-toggle-icon-status]: https://img.shields.io/npm/v/@omiu/toggle-icon.svg
 [omiu-toggle-icon-package]: https://www.npmjs.com/package/@omiu/toggle-icon
 [omiu-toggle-icon-docs]: https://tencent.github.io/omi/components/docs/cn.html#/toggle-icon
 [omiu-toggle-icon-codepen]: https://codepen.io/omijs/pen/ZEbKwXX
 
-[omiu-o-icon-github]: https://github.com/Tencent/omi/tree/master/components/o-icon
+[omiu-o-icon-github]: https://github.com/Tencent/omi/tree/v6/components/o-icon
 [omiu-o-icon-status]: https://img.shields.io/npm/v/@omiu/o-icon.svg
 [omiu-o-icon-package]: https://www.npmjs.com/package/@omiu/o-icon
 [omiu-o-icon-docs]: https://tencent.github.io/omi/components/docs/cn.html#/o-icon
 [omiu-o-icon-codepen]: https://codepen.io/omijs/pen/QWjgapY
 
-[omiu-badge-github]: https://github.com/Tencent/omi/tree/master/components/badge
+[omiu-badge-github]: https://github.com/Tencent/omi/tree/v6/components/badge
 [omiu-badge-status]: https://img.shields.io/npm/v/@omiu/badge.svg
 [omiu-badge-package]: https://www.npmjs.com/package/@omiu/badge
 [omiu-badge-docs]: https://tencent.github.io/omi/components/docs/cn.html#/badge
 [omiu-badge-codepen]: https://codepen.io/omijs/pen/WNQOdaB
 
-[omiu-avatar-github]: https://github.com/Tencent/omi/tree/master/components/avatar
+[omiu-avatar-github]: https://github.com/Tencent/omi/tree/v6/components/avatar
 [omiu-avatar-status]: https://img.shields.io/npm/v/@omiu/avatar.svg
 [omiu-avatar-package]: https://www.npmjs.com/package/@omiu/avatar
 [omiu-avatar-docs]: https://tencent.github.io/omi/components/docs/cn.html#/avatar
 [omiu-avatar-codepen]: https://codepen.io/omijs/pen/QWjgaze
 
-[omiu-breadcrumb-github]: https://github.com/Tencent/omi/tree/master/components/breadcrumb
+[omiu-breadcrumb-github]: https://github.com/Tencent/omi/tree/v6/components/breadcrumb
 [omiu-breadcrumb-status]: https://img.shields.io/npm/v/@omiu/breadcrumb.svg
 [omiu-breadcrumb-package]: https://www.npmjs.com/package/@omiu/breadcrumb
 [omiu-breadcrumb-docs]: https://tencent.github.io/omi/components/docs/cn.html#/breadcrumb
 [omiu-breadcrumb-codepen]: https://codepen.io/omijs/pen/wvKqGxB
 
 
-[omiu-bottom-nav-github]: https://github.com/Tencent/omi/tree/master/components/bottom-nav
+[omiu-bottom-nav-github]: https://github.com/Tencent/omi/tree/v6/components/bottom-nav
 [omiu-bottom-nav-status]: https://img.shields.io/npm/v/@omiu/bottom-nav.svg
 [omiu-bottom-nav-package]: https://www.npmjs.com/package/@omiu/bottom-nav
 [omiu-bottom-nav-docs]: https://tencent.github.io/omi/components/docs/cn.html#/bottom-nav
 [omiu-bottom-nav-codepen]: https://codepen.io/omijs/pen/zYvdjEY
 
-[omiu-transition-github]: https://github.com/Tencent/omi/tree/master/components/transition
+[omiu-transition-github]: https://github.com/Tencent/omi/tree/v6/components/transition
 [omiu-transition-status]: https://img.shields.io/npm/v/@omiu/transition.svg
 [omiu-transition-package]: https://www.npmjs.com/package/@omiu/transition
 [omiu-transition-docs]: https://tencent.github.io/omi/components/docs/cn.html#/transition
 [omiu-transition-codepen]: https://codepen.io/omijs/pen/JjYyezQ
 
-[omiu-dialog-github]: https://github.com/Tencent/omi/tree/master/components/dialog
+[omiu-dialog-github]: https://github.com/Tencent/omi/tree/v6/components/dialog
 [omiu-dialog-status]: https://img.shields.io/npm/v/@omiu/dialog.svg
 [omiu-dialog-package]: https://www.npmjs.com/package/@omiu/dialog
 [omiu-dialog-docs]: https://tencent.github.io/omi/components/docs/cn.html#/dialog
 [omiu-dialog-codepen]: https://codepen.io/omijs/pen/JjYyezQ
 
-[omiu-dialog-extention-github]: https://github.com/Tencent/omi/tree/master/components/dialog-extention
+[omiu-dialog-extention-github]: https://github.com/Tencent/omi/tree/v6/components/dialog-extention
 [omiu-dialog-extention-status]: https://img.shields.io/npm/v/@omiu/dialog-extention.svg
 [omiu-dialog-extention-package]: https://www.npmjs.com/package/@omiu/dialog-extention
 [omiu-dialog-extention-docs]: https://tencent.github.io/omi/components/docs/cn.html#/dialog-extention
@@ -266,52 +266,52 @@ export default class Button extends WeElement<Props>{
 
 ## Omi 生态
 
-[→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
+[→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/v6/assets/rm.md)
 
 #### 基础生态
 
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://tencent.github.io/omi/site/docs/cn.html) 和 [例子](https://codepen.io/collection/DrMYgV/) 和 [webcomponents.dev](https://webcomponents.dev/)| Omi 官方文档 |
-| [omix![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix)| 小程序全局状态管理框架，数据触手可及，状态无处遁形 |
-| [omim![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omim)|  Omi 打造的跨框架 Material Design UI 组件库, 任意框架可以使用,([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/cn.html) && [加入我们](https://github.com/Tencent/omi/tree/master/packages/omim#contribution)!)|
-| [omi-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| 使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。|
-| [omio](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到 IE8+) |
-| [omis![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| Omis + React|
-| [omi-ssr](https://github.com/Tencent/omi/tree/master/packages/omi-ssr)| 服务端同构渲染解决方案(目前只能用 omio) |
+| [omix![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/v6/packages/omix)| 小程序全局状态管理框架，数据触手可及，状态无处遁形 |
+| [omim![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/v6/packages/omim)|  Omi 打造的跨框架 Material Design UI 组件库, 任意框架可以使用,([DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/cn.html) && [加入我们](https://github.com/Tencent/omi/tree/v6/packages/omim#contribution)!)|
+| [omi-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omi-kbone)| 使用 omi + [kbone](https://github.com/wechat-miniprogram/kbone) 多端开发(小程序和Web)的贪吃蛇游戏。|
+| [omio](https://github.com/Tencent/omi/tree/v6/packages/omio)| 兼容老浏览器的 Omi 版本(支持到 IE8+) |
+| [omis![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omis)| Omis + React|
+| [omi-ssr](https://github.com/Tencent/omi/tree/v6/packages/omi-ssr)| 服务端同构渲染解决方案(目前只能用 omio) |
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| 简单 Omi UI|
-| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
+| [omi-router ](https://github.com/Tencent/omi/tree/v6/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
+| [omi-cli](https://github.com/Tencent/omi/tree/v6/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/v6/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
 | [omil](https://github.com/Wscats/omil)| 基于 .omi 单文件组件的 webpack 模块加载器 |
 | [omi-snippets](https://github.com/Wscats/omi-snippets) | VSCode omi 文件扩展, [立即安装!](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets) |
-| [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) 或 [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy) | 监听或代理任意对象的任意变化 |
-<!-- | [omiv![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omiv)| 1kb 搞定 Vue 无状态视图状态管理，[也可以 SSR](https://github.com/Tencent/omi/tree/master/packages/vue-omiv-ssr-starter) | -->
+| [obaa](https://github.com/Tencent/omi/tree/v6/packages/obaa) 或 [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy) | 监听或代理任意对象的任意变化 |
+<!-- | [omiv![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omiv)| 1kb 搞定 Vue 无状态视图状态管理，[也可以 SSR](https://github.com/Tencent/omi/tree/v6/packages/vue-omiv-ssr-starter) | -->
 #### Snake MVP
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
-| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5  |
-| [Preact-snake](https://github.com/Tencent/omi/tree/master/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/master/packages/preact-css) + Omis 写的贪吃蛇 |
-| [[P]react-snake ](https://github.com/Tencent/omi/tree/master/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| react/preact 写的 MVP 架构的贪吃蛇游戏 |
-| [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix-snake) | Omix 写的 MVP 架构贪吃蛇  |
-<!-- | [vue-snake](https://github.com/Tencent/omi/tree/master/packages/vue-snake) | Vue + Omiv 写的 MVP 架构的贪吃蛇游戏 | -->
+| [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omi-snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
+| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5  |
+| [Preact-snake](https://github.com/Tencent/omi/tree/v6/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/v6/packages/preact-css) + Omis 写的贪吃蛇 |
+| [[P]react-snake ](https://github.com/Tencent/omi/tree/v6/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| react/preact 写的 MVP 架构的贪吃蛇游戏 |
+| [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/v6/packages/omix-snake) | Omix 写的 MVP 架构贪吃蛇  |
+<!-- | [vue-snake](https://github.com/Tencent/omi/tree/v6/packages/vue-snake) | Vue + Omiv 写的 MVP 架构的贪吃蛇游戏 | -->
 
 #### 小程序生态
 
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
-| [omix![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix)| 小程序全局状态管理框架，数据触手可及，状态无处遁形 |
-| [react-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/react-kbone)| 直接使用 React 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone) |
-| [preact-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/preact-kbone)| 直接使用 Preact 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone) |
-| [omi-cloud](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)| 小程序•云开发|
-| [omip](https://github.com/Tencent/omi/tree/master/packages/omip)| 直接使用 Omi 开发小程序或 H5 SPA|
-| [mps](https://github.com/Tencent/omi/tree/master/packages/mps)| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS)，也支持 QQ 轻应用  |
-| [cax](https://github.com/Tencent/omi/tree/master/packages/cax)| 小程序 Canvas 和 SVG 渲染引擎 |
-| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA) |
+| [omix![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/v6/packages/omix)| 小程序全局状态管理框架，数据触手可及，状态无处遁形 |
+| [react-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/react-kbone)| 直接使用 React 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone) |
+| [preact-kbone![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/preact-kbone)| 直接使用 Preact 开发小程序或 Web，基于 [kbone](https://github.com/wechat-miniprogram/kbone) |
+| [omi-cloud](https://github.com/Tencent/omi/tree/v6/packages/omi-cloud)| 小程序•云开发|
+| [omip](https://github.com/Tencent/omi/tree/v6/packages/omip)| 直接使用 Omi 开发小程序或 H5 SPA|
+| [mps](https://github.com/Tencent/omi/tree/v6/packages/mps)| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS)，也支持 QQ 轻应用  |
+| [cax](https://github.com/Tencent/omi/tree/v6/packages/cax)| 小程序 Canvas 和 SVG 渲染引擎 |
+| [omi-mp](https://github.com/Tencent/omi/tree/v6/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA) |
 | [westore](https://github.com/Tencent/westore/)| 小程序状态管理 |
-| [comi](https://github.com/Tencent/omi/tree/master/packages/comi)| 小程序代码高亮和 markdown 渲染组件 |
+| [comi](https://github.com/Tencent/omi/tree/v6/packages/comi)| 小程序代码高亮和 markdown 渲染组件 |
 | [wx-touch-event](https://github.com/qbright/wx-touch-event)| 基于 AlloyFinger/omi-finger 改造的小程序手势解决方案 |
 
 #### 其他
@@ -320,19 +320,19 @@ export default class Button extends WeElement<Props>{
 | ------------------------------- | ----------------------------------- |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Omi 钢琴, [开始演奏吧!](https://wscats.github.io/piano/build/)|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
-| [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
-| [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
+| [omi-chart](https://github.com/Tencent/omi/tree/v6/packages/omi-chart)| 一个 chart-x 标签搞定报表|
+| [omi-30-seconds](https://github.com/Tencent/omi/tree/v6/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
 | [omi-vscode](https://github.com/ZainChen/omi-vscode)| VSCode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
-| [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
-| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
-| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
-| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi 项目中变得超级简单.|
-| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
-| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
-| [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
+| [omi-sprite](https://github.com/Tencent/omi/tree/v6/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
+| [omi-canvas](https://github.com/Tencent/omi/tree/v6/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
+| [omi-ex](https://github.com/Tencent/omi/tree/v6/packages/omi-ex)| Omi.js 扩展(TypeScript) |
+| [omi-transform](https://github.com/Tencent/omi/tree/v6/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi 项目中变得超级简单.|
+| [omi-finger](https://github.com/Tencent/omi/tree/v6/packages/omi-finger)|Omi 官方手势库|
+| [omi-touch](https://github.com/Tencent/omi/tree/v6/packages/omi-touch)|丝般顺滑的触摸运动|
+| [omi-snap](https://github.com/Tencent/omi/blob/v6/tutorial/omi-snap.cn.md)|预渲染骨架屏|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
-| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
+| [omi-page](https://github.com/Tencent/omi/tree/v6/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 | [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
 | [Soo](https://github.com/tonis2/Soo)| 和 Omi 一样的 API，但是更小且没有 JSX, virtual DOM 和 store|
 | [CEE](https://omijs.github.io/cee/out/)| custom-elements-everywhere 评分 |
@@ -345,7 +345,7 @@ export default class Button extends WeElement<Props>{
 - 小巧的尺寸和[高性能](https://tencent.github.io/omi/packages/omi/examples/perfs/)
 - 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
-- 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
+- 使用 [omio](https://github.com/Tencent/omi/tree/v6/packages/omio) 可以兼容到 IE8
 - [很容易通过 extend api 实现双向绑定](https://codepen.io/omijs/pen/aeLYjx)
 - 支持 `TypeScript`
 - 响应式数据绑定
@@ -404,20 +404,20 @@ export default class oButton extends WeElement<ButtonProps> {
 
 ## 必须收藏的资源
 
-* [使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.cn.md)
+* [使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇](https://github.com/Tencent/omi/blob/v6/tutorial/omi-web-components-snake-game-mvp.cn.md)
 * [Web Components 规范](https://github.com/w3c/webcomponents)
-* [Comi 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md)
-* [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/omip-h5.md)
+* [Comi 原理揭秘](https://github.com/Tencent/omi/blob/v6/tutorial/comi-principle.md)
+* [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/v6/tutorial/omip-h5.md)
 * [如何通过小程序实现跨平台开发](https://developers.weixin.qq.com/community/develop/article/doc/00002cda45c930d87a380a74351813)
-* [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
-* [Omi snap 骨架屏与快照](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)
-* [Omio 兼容 IE8 踩坑之路](https://github.com/Tencent/omi/blob/master/tutorial/omio.cn.md)
-* [Omi 生态发布](https://github.com/Tencent/omi/blob/master/tutorial/ecosystem.cn.md)
-* [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)
-* [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
-* [MVVM 王者归来](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md)
-* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
-* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
+* [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/v6/tutorial/spread-operator.cn.md)
+* [Omi snap 骨架屏与快照](https://github.com/Tencent/omi/blob/v6/tutorial/omi-snap.cn.md)
+* [Omio 兼容 IE8 踩坑之路](https://github.com/Tencent/omi/blob/v6/tutorial/omio.cn.md)
+* [Omi 生态发布](https://github.com/Tencent/omi/blob/v6/tutorial/ecosystem.cn.md)
+* [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/v6/tutorial/shadow-dom-in-depth.cn.md)
+* [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/v6/tutorial/omi-html.cn.md)
+* [MVVM 王者归来](https://github.com/Tencent/omi/blob/v6/tutorial/omi-mvvm.cn.md)
+* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/v6/tutorial/omi-transform.cn.md)
+* [Render Web Components To Native](https://github.com/Tencent/omi/blob/v6/tutorial/render-web-components-to-native.cn.md)
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
@@ -428,7 +428,7 @@ export default class oButton extends WeElement<ButtonProps> {
 * [Platform HTML5](https://platform.html5.org/)
 * [使用 requestIdleCallback](https://div.io/topic/1370)
 * [A requestIdleCallback polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)
-* [Web Components 的力量](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)
+* [Web Components 的力量](https://github.com/Tencent/omi/blob/v6/tutorial/the-power-of-web-components.cn.md)
 * [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
 * [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
 * [Web Components中引入外部CSS的3种方法](https://www.zhangxinxu.com/wordpress/2021/02/web-components-import-css/)
@@ -436,21 +436,18 @@ export default class oButton extends WeElement<ButtonProps> {
 
 # 目录
 
-- [Omi 生态](#omi-生态)
-- [必须收藏的资源](#必须收藏的资源)
-- [一个 HTML 完全上手](#一个-html-完全上手)
-- [快速入门](#快速入门)
-  - [安装](#安装)
-  - [项目模板](#项目模板)
-  - [Hello Element](#hello-element)
-  - [生命周期](#生命周期)
-- [调试工具](#调试工具)
-- [浏览器兼容](#浏览器兼容)
-- [相关链接](#相关链接)
-- [贡献者们](#贡献者们)
-- [维护者](#维护者)
-- [感谢](#感谢)
-- [License](#license)
+- [目录](#目录)
+  - [一个 HTML 完全上手](#一个-html-完全上手)
+  - [快速入门](#快速入门)
+    - [安装](#安装)
+      - [Scripts](#scripts)
+      - [切换 omi, omio 和 reomi](#切换-omi-omio-和-reomi)
+  - [浏览器兼容](#浏览器兼容)
+  - [贡献](#贡献)
+  - [贡献者们](#贡献者们)
+  - [核心维护者](#核心维护者)
+  - [感谢](#感谢)
+  - [License](#license)
 
 ## 一个 HTML 完全上手
 
@@ -891,7 +888,7 @@ define('todo-app', class extends WeElement {
 render(<todo-app></todo-app>, 'body', store)
 ```
 
-[→ Store 完整的代码](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
+[→ Store 完整的代码](https://github.com/Tencent/omi/blob/v6/packages/omi/examples/store/main.js)
 
 总结一下:
 
@@ -904,7 +901,7 @@ render(<todo-app></todo-app>, 'body', store)
 
 如果不想使用 store 的 data 体系，也可以使用发布订阅模式。比如在 Omi 中使用 [mitt](https://github.com/developit/mitt) 跨组件通讯:
 
-* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
+* [cross-component-communication](https://github.com/Tencent/omi/blob/v6/packages/omi-30-seconds/README.md#cross-component-communication) -->
 
 <!-- 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
@@ -954,7 +951,7 @@ class MyApp extends WeElement {
 
 既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React 开发者工具一样强大。
 
-![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
+![Omi DevTools](https://github.com/f/omi-devtools/raw/v6/omi-devtools.gif)
 
 ### 查看所有注册的元素
 
@@ -976,7 +973,7 @@ console.log(Omi.elements)
 
 ## 浏览器兼容
 
-> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - 兼容老浏览器的 Omi 版本(支持到 IE8+)
+> [Omio](https://github.com/Tencent/omi/tree/v6/packages/omio) - 兼容老浏览器的 Omi 版本(支持到 IE8+)
 
 Omi works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
@@ -1039,7 +1036,7 @@ npm run test
 ## 感谢
 
 * [preact](https://github.com/developit/preact)
-* [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) 
+* [obaa](https://github.com/Tencent/omi/tree/v6/packages/obaa) 
 * [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
