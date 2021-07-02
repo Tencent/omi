@@ -5,7 +5,6 @@ import * as MarkdownIt from 'markdown-it'
 import * as anchor from "markdown-it-anchor"
 const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 
-console.error(MarkdownIt)
 interface Props { }
 
 const tagName = 'admin-docs'

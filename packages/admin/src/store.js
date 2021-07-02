@@ -97,7 +97,7 @@ class Store {
         ]
       },
       {
-        label: '文档',
+        label: 'Markdown文档',
         expanded: true,
         id: 6,
         icon: 'ac-unit-outlined',

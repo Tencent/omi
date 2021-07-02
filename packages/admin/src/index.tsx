@@ -47,7 +47,7 @@ export default class extends WeElement {
     await this.transition.leave()
     this.data.tagName = tagName
     this.update()
-    this.transition.enter()
+    await this.transition.enter()
   }
 
   installed() {
@@ -67,7 +67,7 @@ export default class extends WeElement {
 
     })
 
-    route('/docs', () => {
+    route('/docs/:name', () => {
       //lazy load
       import('./components/docs/admin-docs').then(() => this.transitionTo('admin-docs')
       )
@@ -103,6 +103,46 @@ export default class extends WeElement {
 
     route('*', function () {
       console.log('not found')
+    })
+
+
+    if (location.hash) {
+      this.routeTo(location.hash)
+    }
+  }
+
+  store
+
+  findNodeByHash(hash, children) {
+    const node = children.find(item => item.href === hash)
+    if (node) return node
+
+    for (let i = 0, length = children.length; i < length; i++) {
+      if (children[i].children) {
+        const subNode = this.findNodeByHash(hash, children[i].children)
+        if (subNode) return subNode
+      }
+    }
+  }
+
+
+  routeTo(hash) {
+    const node: { children: [], id: number, label: string, href: string } = this.findNodeByHash(hash, this.store.treeData)
+
+    this.store.selectTreeNodeById(node.id)
+
+    if (!node.children) {
+      const tab = this.store.tabs.find(tab => tab.id === node.id)
+      if (tab) {
+        this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+      } else {
+        this.store.tabs.push({ label: node.label, closeable: false, id: node.id, href: node.href })
+        this.store.tabsActiveIndex = this.store.tabs.length - 1
+      }
+    }
+    // @ts-ignore
+    node.md && node.md.then(e => {
+      this.store.markdown = e.default
     })
   }
 
