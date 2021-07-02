@@ -1,12 +1,71 @@
 /**
- * @omiu/toast v0.0.3 http://omijs.org
+ * @omiu/toast v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-import { h, extractClass, tag, WeElement } from 'omi';
+import { h, tag, WeElement, extractClass } from 'omi';
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics$1 = function(d, b) {
+    extendStatics$1 = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics$1(d, b);
+};
+
+function __extends$1(d, b) {
+    extendStatics$1(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __decorate$1(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+var css$1 = /*#__PURE__*/Object.freeze({
+    __proto__: null
+});
+
+/**
+ * @omiu/loading v0.0.2 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -37,17 +96,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
 function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,115 +105,77 @@ function __decorate(decorators, target, key, desc) {
 
 
 var css = `:host {
-  display: block; }
+  display: inline-block; }
 
-.o-toast {
-  position: fixed;
-  z-index: 5000;
-  width: 120px;
-  height: 120px;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #4c4c4c;
-  transition: opacity .4s; }
-
-body[data-o-theme='dark'] .o-toast {
-  background-color: #606060; }
-
-@media (prefers-color-scheme: dark) {
-  body:not([data-o-theme='light']) .o-toast {
-    background-color: #606060; } }
-
-.o-icon-toast {
-  display: block; }
-
-.o-icon-toast.o-icon-success-no-circle {
-  color: rgba(255, 255, 255, 0.9);
-  width: 55px;
-  height: 55px; }
-
-.o-icon-toast.o-loading {
-  margin: 8px 0;
-  width: 38px;
-  height: 38px;
-  vertical-align: baseline; }
-
-.o-toast-content {
-  font-size: 14px; }
-
-.o-mask {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6); }
-
-.o-mask-transparent {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0; }
-
-.o-loading {
-  margin: 8px 0;
-  width: 38px;
-  height: 38px;
-  vertical-align: baseline;
+.o-root {
   display: inline-block;
-  animation: loading 1s steps(12, end) infinite;
-  background: transparent url("data:image/svg+xml;charset=utf8, %3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Cpath fill='none' d='M0 0h100v100H0z'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23E9E9E9' rx='5' ry='5' transform='translate(0 -30)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23989697' rx='5' ry='5' transform='rotate(30 105.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%239B999A' rx='5' ry='5' transform='rotate(60 75.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23A3A1A2' rx='5' ry='5' transform='rotate(90 65 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23ABA9AA' rx='5' ry='5' transform='rotate(120 58.66 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23B2B2B2' rx='5' ry='5' transform='rotate(150 54.02 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23BAB8B9' rx='5' ry='5' transform='rotate(180 50 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23C2C0C1' rx='5' ry='5' transform='rotate(-150 45.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23CBCBCB' rx='5' ry='5' transform='rotate(-120 41.34 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23D2D2D2' rx='5' ry='5' transform='rotate(-90 35 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23DADADA' rx='5' ry='5' transform='rotate(-60 24.02 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23E2E2E2' rx='5' ry='5' transform='rotate(-30 -5.98 65)'/%3E%3C/svg%3E") no-repeat;
-  background-size: 100%; }
+  line-height: 1;
+  color: #07c160; }
 
-@-webkit-keyframes loading {
-  0% {
-    transform: rotate3d(0, 0, 1, 0deg); }
+.o-static {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
+
+.o-indeterminate {
+  animation: o-rotate 1.4s linear infinite; }
+
+.o-circle {
+  stroke: currentColor; }
+
+.o-circleStatic {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
+
+.o-circleIndeterminate {
+  animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+  animation-name: o-keyframes-mui-progress-circular-dash;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px; }
+
+@-webkit-keyframes o-rotate {
   100% {
-    transform: rotate3d(0, 0, 1, 360deg); } }
+    transform: rotate(360deg); } }
 
-@keyframes loading {
+@-webkit-keyframes o-keyframes-mui-progress-circular-dash {
   0% {
-    transform: rotate3d(0, 0, 1, 0deg); }
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px; }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px; }
   100% {
-    transform: rotate3d(0, 0, 1, 360deg); } }
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px; } }
 
-p {
-  margin: 0; }
+.o-circleDisableShrink {
+  animation: none; }
+`;
 
-.o-done {
-  -webkit-mask-position: 50% 50%;
-  mask-position: 50% 50%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100%;
-  mask-size: 100%;
-  background-color: currentColor;
-  color: rgba(255, 255, 255, 0.9);
-  width: 55px;
-  height: 55px;
-  display: block;
-  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);
-  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);
-  background-size: 100%; }
 
-.o-toast-fade-leave-active {
-  opacity: 0; }
-`
-
+/** @class */ ((function (_super) {
+    __extends(Loading, _super);
+    function Loading() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Loading.prototype.render = function (props) {
+        return (h("div", { class: "o-root o-colorPrimary o-indeterminate", role: "progressbar", style: "width: " + props.size + "px; height: " + props.size + "px;" + (props.color ? "color:" + props.color + ";" : '') },
+            h("svg", { class: "o-svg", viewBox: "22 22 44 44" },
+                h("circle", { class: "o-circle o-circleIndeterminate", cx: "44", cy: "44", r: "20.2", fill: "none", "stroke-width": "3.6" }))));
+    };
+    Loading.css = css;
+    Loading.defaultProps = {
+        size: 40
+    };
+    Loading.propTypes = {
+        size: Number,
+        color: String
+    };
+    Loading = __decorate([
+        tag('o-loading')
+    ], Loading);
+    return Loading;
+})(WeElement));
 
 var Button = /** @class */ (function (_super) {
-    __extends(Button, _super);
+    __extends$1(Button, _super);
     function Button() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -195,12 +205,12 @@ var Button = /** @class */ (function (_super) {
                 _a['o-toast-fade-leave-active'] = this.fadeEnter,
                 _a))),
                 h("slot", null),
-                props.loading && h("i", { class: "o-loading" }),
+                props.loading && h("o-loading", { size: 40, color: "white" }),
                 props.done && h("i", { class: "o-done" }),
                 h("p", { class: "o-toast-content" }, props.label))
         ];
     };
-    Button.css = css;
+    Button.css = css$1;
     Button.defaultProps = {
         duration: 2000,
         autoClose: false,
@@ -214,7 +224,7 @@ var Button = /** @class */ (function (_super) {
         autoClose: Boolean,
         show: Boolean
     };
-    Button = __decorate([
+    Button = __decorate$1([
         tag('o-toast')
     ], Button);
     return Button;

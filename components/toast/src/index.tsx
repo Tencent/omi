@@ -1,5 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
+import '@omiu/loading'
 
 interface Props {
   label?: string
@@ -63,7 +64,7 @@ export default class Button extends WeElement<Props>{
         'o-toast-fade-leave-active': this.fadeEnter
       })}>
         <slot />
-        {props.loading && <i class="o-loading"></i>}
+        {props.loading && <o-loading size={40} color="white"></o-loading>}
         {props.done && <i class="o-done"></i>}
         <p class="o-toast-content">{props.label}</p>
       </div>

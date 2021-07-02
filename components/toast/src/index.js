@@ -96,6 +96,140 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@omiu/loading/src/index.esm.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@omiu/loading/src/index.esm.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * @omiu/loading v0.0.2 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
+
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+
+var css = `:host {
+  display: inline-block; }
+
+.o-root {
+  display: inline-block;
+  line-height: 1;
+  color: #07c160; }
+
+.o-static {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
+
+.o-indeterminate {
+  animation: o-rotate 1.4s linear infinite; }
+
+.o-circle {
+  stroke: currentColor; }
+
+.o-circleStatic {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
+
+.o-circleIndeterminate {
+  animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+  animation-name: o-keyframes-mui-progress-circular-dash;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px; }
+
+@-webkit-keyframes o-rotate {
+  100% {
+    transform: rotate(360deg); } }
+
+@-webkit-keyframes o-keyframes-mui-progress-circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px; }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px; }
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px; } }
+
+.o-circleDisableShrink {
+  animation: none; }
+`
+
+
+var Loading = /** @class */ (function (_super) {
+    __extends(Loading, _super);
+    function Loading() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Loading.prototype.render = function (props) {
+        return (Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "o-root o-colorPrimary o-indeterminate", role: "progressbar", style: "width: " + props.size + "px; height: " + props.size + "px;" + (props.color ? "color:" + props.color + ";" : '') },
+            Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("svg", { class: "o-svg", viewBox: "22 22 44 44" },
+                Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("circle", { class: "o-circle o-circleIndeterminate", cx: "44", cy: "44", r: "20.2", fill: "none", "stroke-width": "3.6" }))));
+    };
+    Loading.css = css;
+    Loading.defaultProps = {
+        size: 40
+    };
+    Loading.propTypes = {
+        size: Number,
+        color: String
+    };
+    Loading = __decorate([
+        Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-loading')
+    ], Loading);
+    return Loading;
+}(omi__WEBPACK_IMPORTED_MODULE_0__["WeElement"]));
+
+/* harmony default export */ __webpack_exports__["default"] = (Loading);
+//# sourceMappingURL=index.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
 /*!*************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
@@ -108,7 +242,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-toast {\n  position: fixed;\n  z-index: 5000;\n  width: 120px;\n  height: 120px;\n  top: 40%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center;\n  border-radius: 5px;\n  color: rgba(255, 255, 255, 0.9);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  background-color: #4c4c4c;\n  transition: opacity .4s; }\n\nbody[data-o-theme='dark'] .o-toast {\n  background-color: #606060; }\n\n@media (prefers-color-scheme: dark) {\n  body:not([data-o-theme='light']) .o-toast {\n    background-color: #606060; } }\n\n.o-icon-toast {\n  display: block; }\n\n.o-icon-toast.o-icon-success-no-circle {\n  color: rgba(255, 255, 255, 0.9);\n  width: 55px;\n  height: 55px; }\n\n.o-icon-toast.o-loading {\n  margin: 8px 0;\n  width: 38px;\n  height: 38px;\n  vertical-align: baseline; }\n\n.o-toast-content {\n  font-size: 14px; }\n\n.o-mask {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.6); }\n\n.o-mask-transparent {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0; }\n\n.o-loading {\n  margin: 8px 0;\n  width: 38px;\n  height: 38px;\n  vertical-align: baseline;\n  display: inline-block;\n  animation: loading 1s steps(12, end) infinite;\n  background: transparent url(\"data:image/svg+xml;charset=utf8, %3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Cpath fill='none' d='M0 0h100v100H0z'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23E9E9E9' rx='5' ry='5' transform='translate(0 -30)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23989697' rx='5' ry='5' transform='rotate(30 105.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%239B999A' rx='5' ry='5' transform='rotate(60 75.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23A3A1A2' rx='5' ry='5' transform='rotate(90 65 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23ABA9AA' rx='5' ry='5' transform='rotate(120 58.66 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23B2B2B2' rx='5' ry='5' transform='rotate(150 54.02 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23BAB8B9' rx='5' ry='5' transform='rotate(180 50 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23C2C0C1' rx='5' ry='5' transform='rotate(-150 45.98 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23CBCBCB' rx='5' ry='5' transform='rotate(-120 41.34 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23D2D2D2' rx='5' ry='5' transform='rotate(-90 35 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23DADADA' rx='5' ry='5' transform='rotate(-60 24.02 65)'/%3E%3Crect width='7' height='20' x='46.5' y='40' fill='%23E2E2E2' rx='5' ry='5' transform='rotate(-30 -5.98 65)'/%3E%3C/svg%3E\") no-repeat;\n  background-size: 100%; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\np {\n  margin: 0; }\n\n.o-done {\n  -webkit-mask-position: 50% 50%;\n  mask-position: 50% 50%;\n  -webkit-mask-repeat: no-repeat;\n  mask-repeat: no-repeat;\n  -webkit-mask-size: 100%;\n  mask-size: 100%;\n  background-color: currentColor;\n  color: rgba(255, 255, 255, 0.9);\n  width: 55px;\n  height: 55px;\n  display: block;\n  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);\n  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);\n  background-size: 100%; }\n\n.o-toast-fade-leave-active {\n  opacity: 0; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-toast {\n  position: fixed;\n  z-index: 5000;\n  width: 120px;\n  height: 120px;\n  top: 40%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center;\n  border-radius: 5px;\n  color: rgba(255, 255, 255, 0.9);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  background-color: #4c4c4c;\n  transition: opacity .4s; }\n\nbody[data-o-theme='dark'] .o-toast {\n  background-color: #606060; }\n\n@media (prefers-color-scheme: dark) {\n  body:not([data-o-theme='light']) .o-toast {\n    background-color: #606060; } }\n\n.o-icon-toast {\n  display: block; }\n\n.o-icon-toast.o-icon-success-no-circle {\n  color: rgba(255, 255, 255, 0.9);\n  width: 55px;\n  height: 55px; }\n\n.o-toast-content {\n  font-size: 14px; }\n\n.o-mask {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.6); }\n\n.o-mask-transparent {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\np {\n  margin: 0; }\n\n.o-done {\n  -webkit-mask-position: 50% 50%;\n  mask-position: 50% 50%;\n  -webkit-mask-repeat: no-repeat;\n  mask-repeat: no-repeat;\n  -webkit-mask-size: 100%;\n  mask-size: 100%;\n  background-color: currentColor;\n  color: rgba(255, 255, 255, 0.9);\n  width: 55px;\n  height: 55px;\n  display: block;\n  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);\n  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);\n  background-size: 100%; }\n\n.o-toast-fade-leave-active {\n  opacity: 0; }\n", ""]);
 
 // exports
 
@@ -263,6 +397,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+__webpack_require__(/*! @omiu/loading */ "./node_modules/@omiu/loading/src/index.esm.js");
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button() {
@@ -294,7 +429,7 @@ var Button = /** @class */ (function (_super) {
                 _a['o-toast-fade-leave-active'] = this.fadeEnter,
                 _a))),
                 omi_1.h("slot", null),
-                props.loading && omi_1.h("i", { class: "o-loading" }),
+                props.loading && omi_1.h("o-loading", { size: 40, color: "white" }),
                 props.done && omi_1.h("i", { class: "o-done" }),
                 omi_1.h("p", { class: "o-toast-content" }, props.label))
         ];

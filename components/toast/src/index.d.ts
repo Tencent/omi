@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '@omiu/loading';
 interface Props {
     label?: string;
     loading?: boolean;
