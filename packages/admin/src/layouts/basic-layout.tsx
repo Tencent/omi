@@ -23,7 +23,12 @@ declare global {
 
 @tag(tagName)
 export default class extends WeElement {
-  static css = sheet.target
+  static css = [sheet.target, `
+.is-closed{
+  width: 0;
+  transform: translateX(-100%);
+}
+`]
 
   store
 
@@ -52,13 +57,18 @@ export default class extends WeElement {
     location.hash = tab.href
   }
 
+
+  installed() {
+    this.store.ui.baseLayout = this
+  }
+
   render() {
     return (
       <h.f>
         <layout-header class={tw`h-12 block`}></layout-header>
 
         <div class={tw`flex flex-row`}>
-          <layout-left-panel class={tw`w-64`}></layout-left-panel>
+          <layout-left-panel class={tw`w-64 transition-all duration-500 ease-in-out${this.store.isLeftPanelClosed ? ' is-closed' : ''}`}></layout-left-panel>
           <layout-container class={tw`flex-1`}>
             <o-tabs
               closable

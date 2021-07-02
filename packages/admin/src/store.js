@@ -11,6 +11,7 @@ class Store {
     }]
     this.tabsActiveIndex = 0
 
+    this.isLeftPanelClosed = false
 
     this.treeData = [
       {
@@ -95,6 +96,13 @@ class Store {
       }
     ]
     this.ignoreAttrs = true
+
+    this.ui = {}
+  }
+
+  toggleLeftPanel() {
+    this.isLeftPanelClosed = !this.isLeftPanelClosed
+    this.ui.baseLayout.update()
   }
 
 

@@ -63,9 +63,9 @@ export default class extends WeElement<Props> {
     }
   }
 
-  toggleSidePanel = () => { }
-
-  isClosed: boolean = false
+  installed() {
+    this.store.ui.leftPanel = this
+  }
 
   render() {
     return (
@@ -73,8 +73,8 @@ export default class extends WeElement<Props> {
         <o-tree onnode-click={this.onNodeClick} data={this.store.treeData}></o-tree>
 
         <div
-          class={classNames({ 'menu': true, closed: this.isClosed })}
-          onclick={this.toggleSidePanel}
+          class={classNames({ 'menu': true, closed: this.store.isLeftPanelClosed })}
+          onclick={e => { this.store.toggleLeftPanel() }}
           v-if="!state.leftPanelIconHided"
         >
           <svg
