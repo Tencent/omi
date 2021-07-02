@@ -497,7 +497,7 @@
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     function define(name, ctor, config) {
-        if (!options.mapping[name]) if ('WeElement' === ctor.is) {
+        if (!customElements.get(name)) if (!options.mapping[name]) if ('WeElement' === ctor.is) {
             customElements.define(name, ctor);
             options.mapping[name] = ctor;
         } else {
@@ -1322,7 +1322,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.18';
+    options.root.Omi.version = '6.19.19';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
