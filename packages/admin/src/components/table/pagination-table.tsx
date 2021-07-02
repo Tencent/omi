@@ -5,7 +5,7 @@ import '@omiu/table'
 import '@omiu/pagination'
 import '@omiu/tooltip'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'pagination-table'
 declare global {
@@ -253,9 +253,9 @@ export default class extends WeElement<Props> {
     console.log('object', this.data)
   }
 
-  render(props) {
+  render() {
     return (
-      <div>
+      <div class={tw`pl-0.5`}>
         <div class={tw`px-2`}>
           <h4 class={tw`py-2 text-sm`}>基础表格</h4>
           <o-table

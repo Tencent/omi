@@ -5,7 +5,7 @@ import '@omiu/table'
 
 import '@omiu/tooltip'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'basic-table'
 declare global {
@@ -125,9 +125,9 @@ export default class extends WeElement<Props> {
     }
   }
 
-  render(props) {
+  render() {
     return (
-      <div>
+      <div class={tw`pl-0.5`}>
         <div class={tw`flex flex-row`}>
           <div class={tw`flex-1 px-2`}>
             <h4 class={tw`py-2 text-sm`}>带复选框</h4>
