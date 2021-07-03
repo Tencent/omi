@@ -12,10 +12,6 @@
   display: inline-block;
 }
 
-.tip.show {
-  display: block;
-}
-
 
 .tip {
   position: absolute;
@@ -31,7 +27,6 @@
   word-break: break-all;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   width: 100%;
-  display: none;
 }
 
 .tip .tip-arrow,
@@ -163,4 +158,18 @@
 
 .tip.is-light[data-popper-placement^=right] .tip-arrow::after {
   border-right-color: #FFF
+}
+
+
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  padding-top: 10px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .3s cubic-bezier(.55, 0, .1, 1), padding-top .3s cubic-bezier(.55, 0, .1, 1);
+  transition: opacity .3s cubic-bezier(.55, 0, .1, 1), padding-top .3s cubic-bezier(.55, 0, .1, 1)
 }

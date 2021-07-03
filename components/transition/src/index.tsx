@@ -48,7 +48,6 @@ export default class Transition extends WeElement<Props>{
   installed() {
 
     domReady(() => {
-
       if (this.props.appear) {
         this.enter()
       }
@@ -58,6 +57,14 @@ export default class Transition extends WeElement<Props>{
         }, this.props.leavingTime)
       }
     })
+  }
+
+  receiveProps() {
+    if (this.props.appear) {
+      this.enter()
+    } else {
+      this.leave()
+    }
   }
 
   async toggle() {

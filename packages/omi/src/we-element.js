@@ -21,6 +21,7 @@ export default class WeElement extends HTMLElement {
     this.props = Object.assign({}, this.constructor.defaultProps, this.props)
     this.elementId = id++
     this.computed = {}
+    this.isInstalled = false
   }
 
   connectedCallback() {
@@ -154,19 +155,19 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function(item) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
       this.rootNode && shadowRoot.appendChild(this.rootNode)
     }
     this.installed()
-    this._isInstalled = true
+    this.isInstalled = true
   }
 
   disconnectedCallback() {
     this.uninstall()
-    this._isInstalled = false
+    this.isInstalled = false
     if (this.store) {
       if (options.isMultiStore) {
         for (let key in this.store) {
@@ -227,7 +228,7 @@ export default class WeElement extends HTMLElement {
   removeAttribute(key) {
     super.removeAttribute(key)
     //Avoid executing removeAttribute methods before connectedCallback
-    this._isInstalled && this.update()
+    this.isInstalled && this.update()
   }
 
   setAttribute(key, val) {
@@ -237,7 +238,7 @@ export default class WeElement extends HTMLElement {
       super.setAttribute(key, val)
     }
     //Avoid executing setAttribute methods before connectedCallback
-    this._isInstalled && this.update()
+    this.isInstalled && this.update()
   }
 
   pureRemoveAttribute(key) {
@@ -312,23 +313,23 @@ export default class WeElement extends HTMLElement {
     )
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 }

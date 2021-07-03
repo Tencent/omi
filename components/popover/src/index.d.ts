@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import '@omiu/transition';
 interface Props {
     effect?: string;
     position?: string;

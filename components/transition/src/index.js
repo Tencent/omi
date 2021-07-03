@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/dready/index.js":
-/*!**************************************!*\
-  !*** ./node_modules/dready/index.js ***!
-  \**************************************/
+/***/ "./node_modules/_dready@0.0.1@dready/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/_dready@0.0.1@dready/index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -218,9 +218,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //todo duration and delay support
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var _domReady = __webpack_require__(/*! dready */ "./node_modules/dready/index.js");
+var _domReady = __webpack_require__(/*! dready */ "./node_modules/_dready@0.0.1@dready/index.js");
 // tslint:disable-next-line:no-duplicate-imports
-var dready_1 = __webpack_require__(/*! dready */ "./node_modules/dready/index.js");
+var dready_1 = __webpack_require__(/*! dready */ "./node_modules/_dready@0.0.1@dready/index.js");
 var domReady = dready_1.default || _domReady;
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);
@@ -241,6 +241,14 @@ var Transition = /** @class */ (function (_super) {
                 }, _this.props.leavingTime);
             }
         });
+    };
+    Transition.prototype.receiveProps = function () {
+        if (this.props.appear) {
+            this.enter();
+        }
+        else {
+            this.leave();
+        }
     };
     Transition.prototype.toggle = function () {
         return __awaiter(this, void 0, void 0, function () {

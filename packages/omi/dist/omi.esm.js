@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.19  http://omijs.org
+ * Omi v6.19.20  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -832,6 +832,7 @@ var WeElement = function (_HTMLElement) {
     _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
     _this.elementId = id++;
     _this.computed = {};
+    _this.isInstalled = false;
     return _this;
   }
 
@@ -968,12 +969,12 @@ var WeElement = function (_HTMLElement) {
       this.rootNode && shadowRoot.appendChild(this.rootNode);
     }
     this.installed();
-    this._isInstalled = true;
+    this.isInstalled = true;
   };
 
   WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
     this.uninstall();
-    this._isInstalled = false;
+    this.isInstalled = false;
     if (this.store) {
       if (options.isMultiStore) {
         for (var key in this.store) {
@@ -1030,7 +1031,7 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
     _HTMLElement.prototype.removeAttribute.call(this, key);
     //Avoid executing removeAttribute methods before connectedCallback
-    this._isInstalled && this.update();
+    this.isInstalled && this.update();
   };
 
   WeElement.prototype.setAttribute = function setAttribute(key, val) {
@@ -1040,7 +1041,7 @@ var WeElement = function (_HTMLElement) {
       _HTMLElement.prototype.setAttribute.call(this, key, val);
     }
     //Avoid executing setAttribute methods before connectedCallback
-    this._isInstalled && this.update();
+    this.isInstalled && this.update();
   };
 
   WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
@@ -2200,7 +2201,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.19';
+options.root.Omi.version = '6.19.20';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

@@ -91,7 +91,7 @@ class Store {
             label: '我是外链',
             icon: 'insert-link',
             href: 'https://github.com/Tencent/omi',
-            id: 9,
+            id: 119,
             target: '_blank'
           }
         ]

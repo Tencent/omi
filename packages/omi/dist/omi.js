@@ -624,6 +624,7 @@
             _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
             _this.elementId = id++;
             _this.computed = {};
+            _this.isInstalled = !1;
             return _this;
         }
         _inherits(WeElement, _HTMLElement);
@@ -717,11 +718,11 @@
                 shadowRoot.appendChild(item);
             }); else this.rootNode && shadowRoot.appendChild(this.rootNode);
             this.installed();
-            this.B = !0;
+            this.isInstalled = !0;
         };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
-            this.B = !1;
+            this.isInstalled = !1;
             if (this.store) if (options.isMultiStore) for (var key in this.store) {
                 var current = this.store[key];
                 removeItem(this, current.instances);
@@ -762,11 +763,11 @@
         };
         WeElement.prototype.removeAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
-            this.B && this.update();
+            this.isInstalled && this.update();
         };
         WeElement.prototype.setAttribute = function(key, val) {
             if (val && 'object' == typeof val) _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val)); else _HTMLElement.prototype.setAttribute.call(this, key, val);
-            this.B && this.update();
+            this.isInstalled && this.update();
         };
         WeElement.prototype.pureRemoveAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -1322,7 +1323,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.19';
+    options.root.Omi.version = '6.19.20';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

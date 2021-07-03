@@ -1,6 +1,6 @@
 import { tag, WeElement, h, classNames } from 'omi'
 import { createPopper } from '@popperjs/core';
-
+import '@omiu/transition'
 import * as css from './index.scss'
 
 interface Props {
@@ -48,6 +48,12 @@ export default class Popover extends WeElement<Props> {
           name: 'offset',
           options: {
             offset: [0, 8],
+          },
+        },
+        {
+          name: 'computeStyles',
+          options: {
+            adaptive: false, // true by default
           },
         },
       ],
@@ -101,19 +107,21 @@ export default class Popover extends WeElement<Props> {
       targetEvents.onMouseLeave = this.onLeave
     }
 
-
     return <div style="position:relative">
       <slot {...targetEvents}></slot>
-      <div class={
-        classNames({
-          tip: true,
-          show: this.isShow,
-          [`is-${props.effect}`]: props.effect
-        })
-      }>
-        <slot onMouseEnter={this.onEnterPopover} onMouseLeave={this.onLeavePopover} name="popover"></slot>
-        <i class="tip-arrow" data-popper-arrow></i>
-      </div>
+
+      <o-transition appear={this.isShow} name="fade">
+        <div style={{ display: this.isInstalled ? 'block' : 'none' }} class={
+          classNames({
+            tip: true,
+            [`is-${props.effect}`]: props.effect
+          })
+        }>
+          <slot onMouseEnter={this.onEnterPopover} onMouseLeave={this.onLeavePopover} name="popover"></slot>
+          <i class="tip-arrow" data-popper-arrow></i>
+        </div>
+      </o-transition>
+
     </div>
   }
 }

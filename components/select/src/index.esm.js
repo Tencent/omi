@@ -1,12 +1,69 @@
 /**
- * @omiu/select v0.0.2 http://omijs.org
+ * @omiu/select v0.0.3 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-import { h, classNames, tag, WeElement, extractClass } from 'omi';
+import { tag, h, classNames, WeElement, extractClass } from 'omi';
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics$2 = function(d, b) {
+    extendStatics$2 = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics$2(d, b);
+};
+
+function __extends$2(d, b) {
+    extendStatics$2(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign$1 = function() {
+    __assign$1 = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign$1.apply(this, arguments);
+};
+
+function __decorate$2(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+var index$1 = ".o-select {\n  position: relative; }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\e6da\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px;\n  overflow: auto; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-textarea {\n  position: relative;\n  display: inline-block;\n  width: 100%;\n  vertical-align: bottom;\n  font-size: 14px; }\n\n.o-textarea__inner {\n  display: block;\n  resize: vertical;\n  padding: 5px 15px;\n  line-height: 1.5;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 100%;\n  font-size: inherit;\n  color: #606266;\n  background-color: #FFF;\n  background-image: none;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-textarea__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-textarea__inner:focus {\n  outline: 0;\n  border-color: #07c160; }\n\n.o-textarea .o-input__count {\n  color: #909399;\n  background: #FFF;\n  position: absolute;\n  font-size: 12px;\n  bottom: 5px;\n  right: 10px; }\n\n.o-textarea.is-disabled .o-textarea__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-textarea.is-disabled .o-textarea__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-exceed .o-textarea__inner {\n  border-color: #F56C6C; }\n\n.o-textarea.is-exceed .o-input__count {\n  color: #F56C6C; }\n\n.o-input {\n  position: relative;\n  font-size: 14px;\n  display: inline-block;\n  width: 100%; }\n\n.o-input::-webkit-scrollbar {\n  z-index: 11;\n  width: 6px; }\n\n.o-input::-webkit-scrollbar:horizontal {\n  height: 6px; }\n\n.o-input::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  width: 6px;\n  background: #b4bccc; }\n\n.o-input::-webkit-scrollbar-corner {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track-piece {\n  background: #fff;\n  width: 6px; }\n\n.o-input .o-input__clear {\n  color: #C0C4CC;\n  font-size: 14px;\n  cursor: pointer;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-input .o-input__clear:hover {\n  color: #909399; }\n\n.o-input .o-input__count {\n  height: 100%;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  color: #909399;\n  font-size: 12px; }\n\n.o-input .o-input__count .o-input__count-inner {\n  background: #FFF;\n  line-height: initial;\n  display: inline-block;\n  padding: 0 5px; }\n\n.o-input__inner {\n  -webkit-appearance: none;\n  background-color: #FFF;\n  background-image: none;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #606266;\n  display: inline-block;\n  font-size: inherit;\n  height: 40px;\n  line-height: 40px;\n  outline: 0;\n  padding: 0 15px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  width: 100%; }\n\n.o-select-dropdown__item,\n.o-tag {\n  white-space: nowrap;\n  -webkit-box-sizing: border-box; }\n\n.o-input__prefix,\n.o-input__suffix {\n  position: absolute;\n  top: 0;\n  -webkit-transition: all .3s;\n  height: 100%;\n  color: #C0C4CC;\n  text-align: center; }\n\n.o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-input.is-active .o-input__inner,\n.o-input__inner:focus {\n  border-color: #07c160;\n  outline: 0; }\n\n.o-input__suffix {\n  right: 5px;\n  transition: all .3s;\n  pointer-events: none; }\n\n.o-input__suffix-inner {\n  pointer-events: all; }\n\n.o-input__prefix {\n  left: 5px;\n  transition: all .3s; }\n\n.o-input__icon {\n  height: 100%;\n  width: 25px;\n  text-align: center;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n  line-height: 40px; }\n\n.o-input__icon:after {\n  content: '';\n  height: 100%;\n  width: 0;\n  display: inline-block;\n  vertical-align: middle; }\n\n.o-input__validateIcon {\n  pointer-events: none; }\n\n.o-input.is-disabled .o-input__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-input.is-disabled .o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__icon {\n  cursor: not-allowed; }\n\n.o-input.is-exceed .o-input__inner {\n  border-color: #F56C6C; }\n\n.o-input.is-exceed .o-input__suffix .o-input__count {\n  color: #F56C6C; }\n\n.o-input--suffix .o-input__inner {\n  padding-right: 30px; }\n\n.o-input--prefix .o-input__inner {\n  padding-left: 30px; }\n\n.o-input--medium {\n  font-size: 14px; }\n\n.o-input--medium .o-input__inner {\n  height: 36px;\n  line-height: 36px; }\n\n.o-input--medium .o-input__icon {\n  line-height: 36px; }\n\n.o-input--small {\n  font-size: 13px; }\n\n.o-input--small .o-input__inner {\n  height: 32px;\n  line-height: 32px; }\n\n.o-input--small .o-input__icon {\n  line-height: 32px; }\n\n.o-input--mini {\n  font-size: 12px; }\n\n.o-input--mini .o-input__inner {\n  height: 28px;\n  line-height: 28px; }\n\n.o-input--mini .o-input__icon {\n  line-height: 28px; }\n\n.o-input-group {\n  line-height: normal;\n  display: inline-table;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0; }\n\n.o-input-group > .o-input__inner {\n  vertical-align: middle;\n  display: table-cell; }\n\n.o-input-group__append,\n.o-input-group__prepend {\n  background-color: #F5F7FA;\n  color: #909399;\n  vertical-align: middle;\n  display: table-cell;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  padding: 0 20px;\n  width: 1px;\n  white-space: nowrap; }\n\n.o-input-group--prepend .o-input__inner,\n.o-input-group__append {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0; }\n\n.o-input-group--append .o-input__inner,\n.o-input-group__prepend {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0; }\n\n.o-input-group__append:focus,\n.o-input-group__prepend:focus {\n  outline: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-select,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-select {\n  display: inline-block;\n  margin: -10px -20px; }\n\n.o-input-group__append button.o-button,\n.o-input-group__append div.o-select .o-input__inner,\n.o-input-group__append div.o-select:hover .o-input__inner,\n.o-input-group__prepend button.o-button,\n.o-input-group__prepend div.o-select .o-input__inner,\n.o-input-group__prepend div.o-select:hover .o-input__inner {\n  border-color: transparent;\n  background-color: transparent;\n  color: inherit;\n  border-top: 0;\n  border-bottom: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-input,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-input {\n  font-size: inherit; }\n\n.o-input-group__prepend {\n  border-right: 0; }\n\n.o-input-group__append {\n  border-left: 0; }\n\n.o-input-group--append .o-select .o-input.is-focus .o-input__inner,\n.o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {\n  border-color: transparent; }\n\n.o-input__inner::-ms-clear {\n  display: none;\n  width: 0;\n  height: 0; }\n\n.o-tag {\n  background-color: #ecf5ff;\n  border-color: #d9ecff;\n  display: inline-block;\n  height: 32px;\n  padding: 0 10px;\n  line-height: 30px;\n  font-size: 12px;\n  color: #07c160;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 4px;\n  box-sizing: border-box; }\n\n.o-tag.is-hit {\n  border-color: #07c160; }\n\n.o-tag .o-tag__close {\n  color: #07c160; }\n\n.o-tag .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag.o-tag--info {\n  background-color: #f4f4f5;\n  border-color: #e9e9eb;\n  color: #909399; }\n\n.o-tag.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag.o-tag--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8;\n  color: #67c23a; }\n\n.o-tag.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag.o-tag--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8;\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag.o-tag--danger {\n  background-color: #fef0f0;\n  border-color: #fde2e2;\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag .o-icon-close {\n  border-radius: 50%;\n  text-align: center;\n  position: relative;\n  cursor: pointer;\n  font-size: 12px;\n  height: 16px;\n  width: 16px;\n  line-height: 16px;\n  vertical-align: middle;\n  top: -1px;\n  right: -5px; }\n\n.o-tag .o-icon-close::before {\n  display: block; }\n\n.o-tag--dark {\n  background-color: #07c160;\n  border-color: #07c160;\n  color: #fff; }\n\n.o-tag--dark.is-hit {\n  border-color: #07c160; }\n\n.o-tag--dark .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark .o-tag__close:hover {\n  color: #FFF;\n  background-color: #66b1ff; }\n\n.o-tag--dark.o-tag--info {\n  background-color: #909399;\n  border-color: #909399;\n  color: #fff; }\n\n.o-tag--dark.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--dark.o-tag--info .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #a6a9ad; }\n\n.o-tag--dark.o-tag--success {\n  background-color: #67c23a;\n  border-color: #67c23a;\n  color: #fff; }\n\n.o-tag--dark.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--dark.o-tag--success .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #85ce61; }\n\n.o-tag--dark.o-tag--warning {\n  background-color: #e6a23c;\n  border-color: #e6a23c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--dark.o-tag--warning .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #ebb563; }\n\n.o-tag--dark.o-tag--danger {\n  background-color: #f56c6c;\n  border-color: #f56c6c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--dark.o-tag--danger .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f78989; }\n\n.o-tag--plain {\n  background-color: #fff;\n  border-color: #b3d8ff;\n  color: #07c160; }\n\n.o-tag--plain.is-hit {\n  border-color: #07c160; }\n\n.o-tag--plain .o-tag__close {\n  color: #07c160; }\n\n.o-tag--plain .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag--plain.o-tag--info {\n  background-color: #fff;\n  border-color: #d3d4d6;\n  color: #909399; }\n\n.o-tag--plain.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag--plain.o-tag--success {\n  background-color: #fff;\n  border-color: #c2e7b0;\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--plain.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag--plain.o-tag--warning {\n  background-color: #fff;\n  border-color: #f5dab1;\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--plain.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag--plain.o-tag--danger {\n  background-color: #fff;\n  border-color: #fbc4c4;\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--plain.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag--medium {\n  height: 28px;\n  line-height: 26px; }\n\n.o-tag--medium .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.o-tag--small .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.o-tag--mini .o-icon-close {\n  margin-left: -3px;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.o-select-dropdown__item {\n  font-size: 14px;\n  padding: 0 20px;\n  position: relative;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  color: #606266;\n  height: 34px;\n  line-height: 34px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.o-select-dropdown__item.is-disabled {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-select-dropdown__item.is-disabled:hover {\n  background-color: #FFF; }\n\n.o-select-dropdown__item.hover,\n.o-select-dropdown__item:hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown__item.selected {\n  color: #07c160;\n  font-weight: 700; }\n\n.o-select-group {\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap {\n  position: relative;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap:not(:last-of-type) {\n  padding-bottom: 24px; }\n\n.o-select-group__wrap:not(:last-of-type)::after {\n  content: '';\n  position: absolute;\n  display: block;\n  left: 20px;\n  right: 20px;\n  bottom: 12px;\n  height: 1px;\n  background: #E4E7ED; }\n\n.o-select-group__title {\n  padding-left: 20px;\n  font-size: 12px;\n  color: #909399;\n  line-height: 30px; }\n\n.o-select-group .o-select-dropdown__item {\n  padding-left: 20px; }\n\n.o-scrollbar {\n  overflow: hidden;\n  position: relative; }\n\n.o-scrollbar:active > .o-scrollbar__bar,\n.o-scrollbar:focus > .o-scrollbar__bar,\n.o-scrollbar:hover > .o-scrollbar__bar {\n  opacity: 1;\n  -webkit-transition: opacity 340ms ease-out;\n  transition: opacity 340ms ease-out; }\n\n.o-scrollbar__wrap {\n  overflow: scroll;\n  height: 100%; }\n\n.o-scrollbar__wrap--hidden-default {\n  scrollbar-width: none; }\n\n.o-scrollbar__wrap--hidden-default::-webkit-scrollbar {\n  width: 0;\n  height: 0; }\n\n.o-scrollbar__thumb {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 0;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: rgba(144, 147, 153, 0.3);\n  -webkit-transition: .3s background-color;\n  transition: .3s background-color; }\n\n.o-scrollbar__thumb:hover {\n  background-color: rgba(144, 147, 153, 0.5); }\n\n.o-scrollbar__bar {\n  position: absolute;\n  right: 2px;\n  bottom: 2px;\n  z-index: 1;\n  border-radius: 4px;\n  opacity: 0;\n  -webkit-transition: opacity 120ms ease-out;\n  transition: opacity 120ms ease-out; }\n\n.o-scrollbar__bar.is-vertical {\n  width: 6px;\n  top: 2px; }\n\n.o-scrollbar__bar.is-vertical > div {\n  width: 100%; }\n\n.o-scrollbar__bar.is-horizontal {\n  height: 6px;\n  left: 2px; }\n\n.o-scrollbar__bar.is-horizontal > div {\n  height: 100%; }\n\n.o-select {\n  display: inline-block;\n  position: relative; }\n\n.o-select .o-select__tags > span {\n  display: contents; }\n\n.o-select:hover .o-input__inner {\n  border-color: #C0C4CC; }\n\n.o-select .o-input__inner {\n  cursor: pointer;\n  padding-right: 35px; }\n\n.o-select .o-input__inner:focus {\n  border-color: #07c160; }\n\n.o-select .o-input .o-select__caret {\n  color: #C0C4CC;\n  font-size: 14px;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  cursor: pointer; }\n\n.o-select .o-input .o-select__caret.is-reverse {\n  -webkit-transform: rotateZ(0);\n  transform: rotateZ(0); }\n\n.o-select .o-input .o-select__caret.is-show-close {\n  font-size: 14px;\n  text-align: center;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  border-radius: 100%;\n  color: #C0C4CC;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-select .o-input .o-select__caret.is-show-close:hover {\n  color: #909399; }\n\n.o-select .o-input.is-disabled .o-input__inner {\n  cursor: not-allowed; }\n\n.o-select .o-input.is-disabled .o-input__inner:hover {\n  border-color: #E4E7ED; }\n\n.o-select .o-input.is-focus .o-input__inner {\n  border-color: #07c160; }\n\n.o-select > .o-input {\n  display: block; }\n\n.o-select__input {\n  border: none;\n  outline: 0;\n  padding: 0;\n  margin-left: 15px;\n  color: #666;\n  font-size: 14px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  height: 28px;\n  background-color: transparent; }\n\n.o-select__input.is-mini {\n  height: 14px; }\n\n.o-select__close {\n  cursor: pointer;\n  position: absolute;\n  top: 8px;\n  z-index: 1000;\n  right: 25px;\n  color: #C0C4CC;\n  line-height: 18px;\n  font-size: 14px; }\n\n.o-select__close:hover {\n  color: #909399; }\n\n.o-select__tags {\n  position: absolute;\n  line-height: normal;\n  white-space: normal;\n  z-index: 1;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.o-select .o-tag__close {\n  margin-top: -2px; }\n\n.o-select .o-tag {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-color: transparent;\n  margin: 2px 0 2px 6px;\n  background-color: #f0f2f5; }\n\n.o-select .o-tag__close.o-icon-close {\n  background-color: #C0C4CC;\n  right: -7px;\n  top: 0;\n  color: #FFF; }\n\n.o-select .o-tag__close.o-icon-close:hover {\n  background-color: #909399; }\n\n.o-select .o-tag__close.o-icon-close::before {\n  display: block;\n  -webkit-transform: translate(0, 0.5px);\n  transform: translate(0, 0.5px); }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\e6da\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.arrow {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -0.5em;\n  color: #747679;\n  cursor: pointer; }\n\nul,\nli {\n  margin: 0;\n  padding: 0; }\n";
+
+/**
+ * @omiu/popover v0.0.7 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -37,65 +94,6 @@ function __extends$1(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign$1 = function() {
-    __assign$1 = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign$1.apply(this, arguments);
-};
-
-function __decorate$1(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-var index$1 = ".o-select {\n  position: relative; }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\e6da\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px;\n  overflow: auto; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-textarea {\n  position: relative;\n  display: inline-block;\n  width: 100%;\n  vertical-align: bottom;\n  font-size: 14px; }\n\n.o-textarea__inner {\n  display: block;\n  resize: vertical;\n  padding: 5px 15px;\n  line-height: 1.5;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 100%;\n  font-size: inherit;\n  color: #606266;\n  background-color: #FFF;\n  background-image: none;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-textarea__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-textarea__inner:focus {\n  outline: 0;\n  border-color: #07c160; }\n\n.o-textarea .o-input__count {\n  color: #909399;\n  background: #FFF;\n  position: absolute;\n  font-size: 12px;\n  bottom: 5px;\n  right: 10px; }\n\n.o-textarea.is-disabled .o-textarea__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-textarea.is-disabled .o-textarea__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-exceed .o-textarea__inner {\n  border-color: #F56C6C; }\n\n.o-textarea.is-exceed .o-input__count {\n  color: #F56C6C; }\n\n.o-input {\n  position: relative;\n  font-size: 14px;\n  display: inline-block;\n  width: 100%; }\n\n.o-input::-webkit-scrollbar {\n  z-index: 11;\n  width: 6px; }\n\n.o-input::-webkit-scrollbar:horizontal {\n  height: 6px; }\n\n.o-input::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  width: 6px;\n  background: #b4bccc; }\n\n.o-input::-webkit-scrollbar-corner {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track-piece {\n  background: #fff;\n  width: 6px; }\n\n.o-input .o-input__clear {\n  color: #C0C4CC;\n  font-size: 14px;\n  cursor: pointer;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-input .o-input__clear:hover {\n  color: #909399; }\n\n.o-input .o-input__count {\n  height: 100%;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  color: #909399;\n  font-size: 12px; }\n\n.o-input .o-input__count .o-input__count-inner {\n  background: #FFF;\n  line-height: initial;\n  display: inline-block;\n  padding: 0 5px; }\n\n.o-input__inner {\n  -webkit-appearance: none;\n  background-color: #FFF;\n  background-image: none;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #606266;\n  display: inline-block;\n  font-size: inherit;\n  height: 40px;\n  line-height: 40px;\n  outline: 0;\n  padding: 0 15px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  width: 100%; }\n\n.o-select-dropdown__item,\n.o-tag {\n  white-space: nowrap;\n  -webkit-box-sizing: border-box; }\n\n.o-input__prefix,\n.o-input__suffix {\n  position: absolute;\n  top: 0;\n  -webkit-transition: all .3s;\n  height: 100%;\n  color: #C0C4CC;\n  text-align: center; }\n\n.o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-input.is-active .o-input__inner,\n.o-input__inner:focus {\n  border-color: #07c160;\n  outline: 0; }\n\n.o-input__suffix {\n  right: 5px;\n  transition: all .3s;\n  pointer-events: none; }\n\n.o-input__suffix-inner {\n  pointer-events: all; }\n\n.o-input__prefix {\n  left: 5px;\n  transition: all .3s; }\n\n.o-input__icon {\n  height: 100%;\n  width: 25px;\n  text-align: center;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n  line-height: 40px; }\n\n.o-input__icon:after {\n  content: '';\n  height: 100%;\n  width: 0;\n  display: inline-block;\n  vertical-align: middle; }\n\n.o-input__validateIcon {\n  pointer-events: none; }\n\n.o-input.is-disabled .o-input__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-input.is-disabled .o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__icon {\n  cursor: not-allowed; }\n\n.o-input.is-exceed .o-input__inner {\n  border-color: #F56C6C; }\n\n.o-input.is-exceed .o-input__suffix .o-input__count {\n  color: #F56C6C; }\n\n.o-input--suffix .o-input__inner {\n  padding-right: 30px; }\n\n.o-input--prefix .o-input__inner {\n  padding-left: 30px; }\n\n.o-input--medium {\n  font-size: 14px; }\n\n.o-input--medium .o-input__inner {\n  height: 36px;\n  line-height: 36px; }\n\n.o-input--medium .o-input__icon {\n  line-height: 36px; }\n\n.o-input--small {\n  font-size: 13px; }\n\n.o-input--small .o-input__inner {\n  height: 32px;\n  line-height: 32px; }\n\n.o-input--small .o-input__icon {\n  line-height: 32px; }\n\n.o-input--mini {\n  font-size: 12px; }\n\n.o-input--mini .o-input__inner {\n  height: 28px;\n  line-height: 28px; }\n\n.o-input--mini .o-input__icon {\n  line-height: 28px; }\n\n.o-input-group {\n  line-height: normal;\n  display: inline-table;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0; }\n\n.o-input-group > .o-input__inner {\n  vertical-align: middle;\n  display: table-cell; }\n\n.o-input-group__append,\n.o-input-group__prepend {\n  background-color: #F5F7FA;\n  color: #909399;\n  vertical-align: middle;\n  display: table-cell;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  padding: 0 20px;\n  width: 1px;\n  white-space: nowrap; }\n\n.o-input-group--prepend .o-input__inner,\n.o-input-group__append {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0; }\n\n.o-input-group--append .o-input__inner,\n.o-input-group__prepend {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0; }\n\n.o-input-group__append:focus,\n.o-input-group__prepend:focus {\n  outline: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-select,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-select {\n  display: inline-block;\n  margin: -10px -20px; }\n\n.o-input-group__append button.o-button,\n.o-input-group__append div.o-select .o-input__inner,\n.o-input-group__append div.o-select:hover .o-input__inner,\n.o-input-group__prepend button.o-button,\n.o-input-group__prepend div.o-select .o-input__inner,\n.o-input-group__prepend div.o-select:hover .o-input__inner {\n  border-color: transparent;\n  background-color: transparent;\n  color: inherit;\n  border-top: 0;\n  border-bottom: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-input,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-input {\n  font-size: inherit; }\n\n.o-input-group__prepend {\n  border-right: 0; }\n\n.o-input-group__append {\n  border-left: 0; }\n\n.o-input-group--append .o-select .o-input.is-focus .o-input__inner,\n.o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {\n  border-color: transparent; }\n\n.o-input__inner::-ms-clear {\n  display: none;\n  width: 0;\n  height: 0; }\n\n.o-tag {\n  background-color: #ecf5ff;\n  border-color: #d9ecff;\n  display: inline-block;\n  height: 32px;\n  padding: 0 10px;\n  line-height: 30px;\n  font-size: 12px;\n  color: #07c160;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 4px;\n  box-sizing: border-box; }\n\n.o-tag.is-hit {\n  border-color: #07c160; }\n\n.o-tag .o-tag__close {\n  color: #07c160; }\n\n.o-tag .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag.o-tag--info {\n  background-color: #f4f4f5;\n  border-color: #e9e9eb;\n  color: #909399; }\n\n.o-tag.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag.o-tag--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8;\n  color: #67c23a; }\n\n.o-tag.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag.o-tag--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8;\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag.o-tag--danger {\n  background-color: #fef0f0;\n  border-color: #fde2e2;\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag .o-icon-close {\n  border-radius: 50%;\n  text-align: center;\n  position: relative;\n  cursor: pointer;\n  font-size: 12px;\n  height: 16px;\n  width: 16px;\n  line-height: 16px;\n  vertical-align: middle;\n  top: -1px;\n  right: -5px; }\n\n.o-tag .o-icon-close::before {\n  display: block; }\n\n.o-tag--dark {\n  background-color: #07c160;\n  border-color: #07c160;\n  color: #fff; }\n\n.o-tag--dark.is-hit {\n  border-color: #07c160; }\n\n.o-tag--dark .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark .o-tag__close:hover {\n  color: #FFF;\n  background-color: #66b1ff; }\n\n.o-tag--dark.o-tag--info {\n  background-color: #909399;\n  border-color: #909399;\n  color: #fff; }\n\n.o-tag--dark.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--dark.o-tag--info .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #a6a9ad; }\n\n.o-tag--dark.o-tag--success {\n  background-color: #67c23a;\n  border-color: #67c23a;\n  color: #fff; }\n\n.o-tag--dark.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--dark.o-tag--success .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #85ce61; }\n\n.o-tag--dark.o-tag--warning {\n  background-color: #e6a23c;\n  border-color: #e6a23c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--dark.o-tag--warning .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #ebb563; }\n\n.o-tag--dark.o-tag--danger {\n  background-color: #f56c6c;\n  border-color: #f56c6c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--dark.o-tag--danger .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f78989; }\n\n.o-tag--plain {\n  background-color: #fff;\n  border-color: #b3d8ff;\n  color: #07c160; }\n\n.o-tag--plain.is-hit {\n  border-color: #07c160; }\n\n.o-tag--plain .o-tag__close {\n  color: #07c160; }\n\n.o-tag--plain .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag--plain.o-tag--info {\n  background-color: #fff;\n  border-color: #d3d4d6;\n  color: #909399; }\n\n.o-tag--plain.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag--plain.o-tag--success {\n  background-color: #fff;\n  border-color: #c2e7b0;\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--plain.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag--plain.o-tag--warning {\n  background-color: #fff;\n  border-color: #f5dab1;\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--plain.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag--plain.o-tag--danger {\n  background-color: #fff;\n  border-color: #fbc4c4;\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--plain.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag--medium {\n  height: 28px;\n  line-height: 26px; }\n\n.o-tag--medium .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.o-tag--small .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.o-tag--mini .o-icon-close {\n  margin-left: -3px;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.o-select-dropdown__item {\n  font-size: 14px;\n  padding: 0 20px;\n  position: relative;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  color: #606266;\n  height: 34px;\n  line-height: 34px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.o-select-dropdown__item.is-disabled {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-select-dropdown__item.is-disabled:hover {\n  background-color: #FFF; }\n\n.o-select-dropdown__item.hover,\n.o-select-dropdown__item:hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown__item.selected {\n  color: #07c160;\n  font-weight: 700; }\n\n.o-select-group {\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap {\n  position: relative;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap:not(:last-of-type) {\n  padding-bottom: 24px; }\n\n.o-select-group__wrap:not(:last-of-type)::after {\n  content: '';\n  position: absolute;\n  display: block;\n  left: 20px;\n  right: 20px;\n  bottom: 12px;\n  height: 1px;\n  background: #E4E7ED; }\n\n.o-select-group__title {\n  padding-left: 20px;\n  font-size: 12px;\n  color: #909399;\n  line-height: 30px; }\n\n.o-select-group .o-select-dropdown__item {\n  padding-left: 20px; }\n\n.o-scrollbar {\n  overflow: hidden;\n  position: relative; }\n\n.o-scrollbar:active > .o-scrollbar__bar,\n.o-scrollbar:focus > .o-scrollbar__bar,\n.o-scrollbar:hover > .o-scrollbar__bar {\n  opacity: 1;\n  -webkit-transition: opacity 340ms ease-out;\n  transition: opacity 340ms ease-out; }\n\n.o-scrollbar__wrap {\n  overflow: scroll;\n  height: 100%; }\n\n.o-scrollbar__wrap--hidden-default {\n  scrollbar-width: none; }\n\n.o-scrollbar__wrap--hidden-default::-webkit-scrollbar {\n  width: 0;\n  height: 0; }\n\n.o-scrollbar__thumb {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 0;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: rgba(144, 147, 153, 0.3);\n  -webkit-transition: .3s background-color;\n  transition: .3s background-color; }\n\n.o-scrollbar__thumb:hover {\n  background-color: rgba(144, 147, 153, 0.5); }\n\n.o-scrollbar__bar {\n  position: absolute;\n  right: 2px;\n  bottom: 2px;\n  z-index: 1;\n  border-radius: 4px;\n  opacity: 0;\n  -webkit-transition: opacity 120ms ease-out;\n  transition: opacity 120ms ease-out; }\n\n.o-scrollbar__bar.is-vertical {\n  width: 6px;\n  top: 2px; }\n\n.o-scrollbar__bar.is-vertical > div {\n  width: 100%; }\n\n.o-scrollbar__bar.is-horizontal {\n  height: 6px;\n  left: 2px; }\n\n.o-scrollbar__bar.is-horizontal > div {\n  height: 100%; }\n\n.o-select {\n  display: inline-block;\n  position: relative; }\n\n.o-select .o-select__tags > span {\n  display: contents; }\n\n.o-select:hover .o-input__inner {\n  border-color: #C0C4CC; }\n\n.o-select .o-input__inner {\n  cursor: pointer;\n  padding-right: 35px; }\n\n.o-select .o-input__inner:focus {\n  border-color: #07c160; }\n\n.o-select .o-input .o-select__caret {\n  color: #C0C4CC;\n  font-size: 14px;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  cursor: pointer; }\n\n.o-select .o-input .o-select__caret.is-reverse {\n  -webkit-transform: rotateZ(0);\n  transform: rotateZ(0); }\n\n.o-select .o-input .o-select__caret.is-show-close {\n  font-size: 14px;\n  text-align: center;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  border-radius: 100%;\n  color: #C0C4CC;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-select .o-input .o-select__caret.is-show-close:hover {\n  color: #909399; }\n\n.o-select .o-input.is-disabled .o-input__inner {\n  cursor: not-allowed; }\n\n.o-select .o-input.is-disabled .o-input__inner:hover {\n  border-color: #E4E7ED; }\n\n.o-select .o-input.is-focus .o-input__inner {\n  border-color: #07c160; }\n\n.o-select > .o-input {\n  display: block; }\n\n.o-select__input {\n  border: none;\n  outline: 0;\n  padding: 0;\n  margin-left: 15px;\n  color: #666;\n  font-size: 14px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  height: 28px;\n  background-color: transparent; }\n\n.o-select__input.is-mini {\n  height: 14px; }\n\n.o-select__close {\n  cursor: pointer;\n  position: absolute;\n  top: 8px;\n  z-index: 1000;\n  right: 25px;\n  color: #C0C4CC;\n  line-height: 18px;\n  font-size: 14px; }\n\n.o-select__close:hover {\n  color: #909399; }\n\n.o-select__tags {\n  position: absolute;\n  line-height: normal;\n  white-space: normal;\n  z-index: 1;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.o-select .o-tag__close {\n  margin-top: -2px; }\n\n.o-select .o-tag {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-color: transparent;\n  margin: 2px 0 2px 6px;\n  background-color: #f0f2f5; }\n\n.o-select .o-tag__close.o-icon-close {\n  background-color: #C0C4CC;\n  right: -7px;\n  top: 0;\n  color: #FFF; }\n\n.o-select .o-tag__close.o-icon-close:hover {\n  background-color: #909399; }\n\n.o-select .o-tag__close.o-icon-close::before {\n  display: block;\n  -webkit-transform: translate(0, 0.5px);\n  transform: translate(0, 0.5px); }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\e6da\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.arrow {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -0.5em;\n  color: #747679;\n  cursor: pointer; }\n\nul,\nli {\n  margin: 0;\n  padding: 0; }\n";
-
-/**
- * @omiu/popover v0.0.5 http://omijs.org
- * Front End Cross-Frameworks Framework.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
 var __assign = function() {
     __assign = Object.assign || function __assign(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -107,7 +105,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-function __decorate(decorators, target, key, desc) {
+function __decorate$1(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -1991,7 +1989,294 @@ var createPopper = /*#__PURE__*/popperGenerator({
   defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-var index = "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip.show {\n  display: block; }\n\n.tip {\n  position: absolute;\n  background: #fff;\n  min-width: 150px;\n  border-radius: 4px;\n  border: 1px solid #ebeef5;\n  z-index: 2000;\n  color: #606266;\n  line-height: 1.4;\n  text-align: justify;\n  font-size: 14px;\n  word-break: break-all;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  width: 100%;\n  display: none; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip.is-dark {\n  background: #ebeef5;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n";
+/**
+ * @omiu/transition v0.0.11 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
+// if the module has no dependencies, the above pattern can be simplified to
+(function (root, factory) {
+  {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  }
+}(commonjsGlobal, function () {
+
+  const readyCallbacks = [];
+  document.addEventListener('DOMContentLoaded', () => {
+    domReady.done = true;
+    readyCallbacks.forEach(callback => {
+      callback();
+    });
+  });
+
+  function domReady(callback) {
+    if (domReady.done) {
+      callback();
+      return
+    }
+    readyCallbacks.push(callback);
+  }
+
+  domReady.done = false;
+
+
+  // Just return a value to define the module export.
+  // This example returns an object, but the module
+  // can return a function as the exported value.
+  return domReady
+}));
+});
+
+var _domReady = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': _dready_0_0_1_dready,
+    __moduleExports: _dready_0_0_1_dready
+});
+
+/**
+ * o-transition element based on vue-transition
+ * Tom Fales (@enlightenmentor)
+ * Licensed under the MIT License
+ * https://github.com/enlightenmentor/vue-transition/blob/master/LICENSE
+ *
+ * modified by dntzhang
+ *
+ */
+var domReady = _dready_0_0_1_dready || _domReady;
+/** @class */ ((function (_super) {
+    __extends(Transition, _super);
+    function Transition() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._show = true;
+        return _this;
+    }
+    Transition.prototype.installed = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                domReady(function () {
+                    if (_this.props.appear) {
+                        _this.enter();
+                    }
+                    else {
+                        _this.children[0].style['transition-duration'] = '0s';
+                        _this.leave();
+                        setTimeout(function () {
+                            _this.children[0].style['transition-duration'] = null;
+                        }, 300);
+                    }
+                    if (_this.props.leavingTime) {
+                        setTimeout(function () {
+                            _this.leave();
+                        }, _this.props.leavingTime);
+                    }
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    Transition.prototype.receiveProps = function () {
+        if (this.props.appear) {
+            this.enter();
+        }
+        else {
+            this.leave();
+        }
+    };
+    Transition.prototype.toggle = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this._show = !this._show;
+                        if (!this._show) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.enter()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2: return [4 /*yield*/, this.leave()];
+                    case 3: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Transition.prototype.enter = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var el = _this.children[0];
+                        if (el) {
+                            _this.fire('before-enter');
+                            el.classList.remove(_this.props.name + '-leave-active');
+                            el.classList.remove(_this.props.name + '-leave-to');
+                            el.classList.add(_this.props.name + '-enter');
+                            el.classList.add(_this.props.name + '-enter-active');
+                            _this.callback = function () {
+                                el.classList.remove(this.props.name + '-enter-active');
+                                this.fire('after-enter');
+                                this._show = true;
+                                resolve();
+                            }.bind(_this);
+                            _this.once('transitionend', _this.callback);
+                            _this.once('animationend', _this.callback);
+                            window.setTimeout(function () {
+                                el.classList.remove(this.props.name + '-enter');
+                                el.classList.add(this.props.name + '-enter-to');
+                                this.fire('enter');
+                            }.bind(_this), _this.props.delay);
+                        }
+                    })];
+            });
+        });
+    };
+    Transition.prototype.leave = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var el = _this.children[0];
+                        if (el) {
+                            _this.fire('before-leave');
+                            el.classList.remove(_this.props.name + '-enter-active');
+                            el.classList.remove(_this.props.name + '-enter-to');
+                            el.classList.add(_this.props.name + '-leave');
+                            el.classList.add(_this.props.name + '-leave-active');
+                            _this.callback = function (e) {
+                                el.classList.remove(this.props.name + '-leave-active');
+                                this.fire('after-leave');
+                                this._show = false;
+                                if (this.props.autoRemove && this.parentNode) {
+                                    this.parentNode.removeChild(this);
+                                }
+                                resolve();
+                            }.bind(_this);
+                            _this.once('transitionend', _this.callback);
+                            _this.once('animationend', _this.callback);
+                            window.setTimeout(function () {
+                                el.classList.remove(this.props.name + '-leave');
+                                el.classList.add(this.props.name + '-leave-to');
+                                this.fire('leave');
+                            }.bind(_this), _this.props.delay);
+                        }
+                    })];
+            });
+        });
+    };
+    Transition.prototype.once = function (name, callback) {
+        var wrapCall = function () {
+            this.removeEventListener(name, wrapCall);
+            callback();
+        }.bind(this);
+        this.addEventListener(name, wrapCall);
+    };
+    Transition.prototype.render = function () {
+        return;
+    };
+    Transition.propTypes = {
+        name: String,
+        leavingTime: Number,
+        autoRemove: Boolean,
+        appear: Boolean,
+        delay: Number
+    };
+    Transition.isLightDom = true;
+    Transition.defaultProps = {
+        name: 'o',
+        delay: 0
+    };
+    Transition = __decorate([
+        tag('o-transition')
+    ], Transition);
+    return Transition;
+})(WeElement));
+
+var index = "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip {\n  position: absolute;\n  background: #fff;\n  min-width: 150px;\n  border-radius: 4px;\n  border: 1px solid #ebeef5;\n  z-index: 2000;\n  color: #606266;\n  line-height: 1.4;\n  text-align: justify;\n  font-size: 14px;\n  word-break: break-all;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  width: 100%; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip.is-dark {\n  background: #ebeef5;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n  padding-top: 10px; }\n\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1), padding-top 0.3s cubic-bezier(0.55, 0, 0.1, 1);\n  transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1), padding-top 0.3s cubic-bezier(0.55, 0, 0.1, 1); }\n";
 
 var css = index;Object.freeze({
     __proto__: null,
@@ -1999,7 +2284,7 @@ var css = index;Object.freeze({
 });
 
 /** @class */ ((function (_super) {
-    __extends(Popover, _super);
+    __extends$1(Popover, _super);
     function Popover() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onEnter = function (evt) {
@@ -2015,6 +2300,12 @@ var css = index;Object.freeze({
                         name: 'offset',
                         options: {
                             offset: [0, 8],
+                        },
+                    },
+                    {
+                        name: 'computeStyles',
+                        options: {
+                            adaptive: false,
                         },
                     },
                 ],
@@ -2065,14 +2356,14 @@ var css = index;Object.freeze({
         }
         return h("div", { style: "position:relative" },
             h("slot", __assign({}, targetEvents)),
-            h("div", { class: classNames((_a = {
-                        tip: true,
-                        show: this.isShow
-                    },
-                    _a["is-" + props.effect] = props.effect,
-                    _a)) },
-                h("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
-                h("i", { class: "tip-arrow", "data-popper-arrow": true })));
+            h("o-transition", { appear: this.isShow, name: "fade" },
+                h("div", { style: { display: this.isInstalled ? 'block' : 'none' }, class: classNames((_a = {
+                            tip: true
+                        },
+                        _a["is-" + props.effect] = props.effect,
+                        _a)) },
+                    h("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
+                    h("i", { class: "tip-arrow", "data-popper-arrow": true }))));
     };
     Popover.css = css;
     Popover.defaultProps = {
@@ -2086,14 +2377,14 @@ var css = index;Object.freeze({
         position: String,
         trigger: String
     };
-    Popover = __decorate([
+    Popover = __decorate$1([
         tag('o-popover')
     ], Popover);
     return Popover;
 })(WeElement));
 
 var Select = /** @class */ (function (_super) {
-    __extends$1(Select, _super);
+    __extends$2(Select, _super);
     function Select() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onInputClick = function () {
@@ -2157,7 +2448,7 @@ var Select = /** @class */ (function (_super) {
         placeholder: String,
         size: String
     };
-    Select = __decorate$1([
+    Select = __decorate$2([
         tag('o-select')
     ], Select);
     return Select;

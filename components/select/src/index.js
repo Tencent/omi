@@ -96,19 +96,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@omiu/popover/src/index.esm.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@omiu/popover/src/index.esm.js ***!
-  \*****************************************************/
+/***/ "./node_modules/_@omiu_popover@0.0.7@@omiu/popover/src/index.esm.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/_@omiu_popover@0.0.7@@omiu/popover/src/index.esm.js ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/popover v0.0.5 http://omijs.org
+ * @omiu/popover v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -133,17 +133,15 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
+var extendStatics$1 = function(d, b) {
+    extendStatics$1 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-    return extendStatics(d, b);
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics$1(d, b);
 };
 
-function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    extendStatics(d, b);
+function __extends$1(d, b) {
+    extendStatics$1(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
@@ -159,7 +157,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-function __decorate(decorators, target, key, desc) {
+function __decorate$1(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -2043,7 +2041,294 @@ var createPopper = /*#__PURE__*/popperGenerator({
   defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-var index = "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip.show {\n  display: block; }\n\n.tip {\n  position: absolute;\n  background: #fff;\n  min-width: 150px;\n  border-radius: 4px;\n  border: 1px solid #ebeef5;\n  z-index: 2000;\n  color: #606266;\n  line-height: 1.4;\n  text-align: justify;\n  font-size: 14px;\n  word-break: break-all;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  width: 100%;\n  display: none; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip.is-dark {\n  background: #ebeef5;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n";
+/**
+ * @omiu/transition v0.0.11 http://omijs.org
+ * Front End Cross-Frameworks Framework.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
+// if the module has no dependencies, the above pattern can be simplified to
+(function (root, factory) {
+  {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  }
+}(commonjsGlobal, function () {
+
+  const readyCallbacks = [];
+  document.addEventListener('DOMContentLoaded', () => {
+    domReady.done = true;
+    readyCallbacks.forEach(callback => {
+      callback();
+    });
+  });
+
+  function domReady(callback) {
+    if (domReady.done) {
+      callback();
+      return
+    }
+    readyCallbacks.push(callback);
+  }
+
+  domReady.done = false;
+
+
+  // Just return a value to define the module export.
+  // This example returns an object, but the module
+  // can return a function as the exported value.
+  return domReady
+}));
+});
+
+var _domReady = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': _dready_0_0_1_dready,
+    __moduleExports: _dready_0_0_1_dready
+});
+
+/**
+ * o-transition element based on vue-transition
+ * Tom Fales (@enlightenmentor)
+ * Licensed under the MIT License
+ * https://github.com/enlightenmentor/vue-transition/blob/master/LICENSE
+ *
+ * modified by dntzhang
+ *
+ */
+var domReady = _dready_0_0_1_dready || _domReady;
+/** @class */ ((function (_super) {
+    __extends(Transition, _super);
+    function Transition() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._show = true;
+        return _this;
+    }
+    Transition.prototype.installed = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                domReady(function () {
+                    if (_this.props.appear) {
+                        _this.enter();
+                    }
+                    else {
+                        _this.children[0].style['transition-duration'] = '0s';
+                        _this.leave();
+                        setTimeout(function () {
+                            _this.children[0].style['transition-duration'] = null;
+                        }, 300);
+                    }
+                    if (_this.props.leavingTime) {
+                        setTimeout(function () {
+                            _this.leave();
+                        }, _this.props.leavingTime);
+                    }
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    Transition.prototype.receiveProps = function () {
+        if (this.props.appear) {
+            this.enter();
+        }
+        else {
+            this.leave();
+        }
+    };
+    Transition.prototype.toggle = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this._show = !this._show;
+                        if (!this._show) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.enter()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2: return [4 /*yield*/, this.leave()];
+                    case 3: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Transition.prototype.enter = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var el = _this.children[0];
+                        if (el) {
+                            _this.fire('before-enter');
+                            el.classList.remove(_this.props.name + '-leave-active');
+                            el.classList.remove(_this.props.name + '-leave-to');
+                            el.classList.add(_this.props.name + '-enter');
+                            el.classList.add(_this.props.name + '-enter-active');
+                            _this.callback = function () {
+                                el.classList.remove(this.props.name + '-enter-active');
+                                this.fire('after-enter');
+                                this._show = true;
+                                resolve();
+                            }.bind(_this);
+                            _this.once('transitionend', _this.callback);
+                            _this.once('animationend', _this.callback);
+                            window.setTimeout(function () {
+                                el.classList.remove(this.props.name + '-enter');
+                                el.classList.add(this.props.name + '-enter-to');
+                                this.fire('enter');
+                            }.bind(_this), _this.props.delay);
+                        }
+                    })];
+            });
+        });
+    };
+    Transition.prototype.leave = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var el = _this.children[0];
+                        if (el) {
+                            _this.fire('before-leave');
+                            el.classList.remove(_this.props.name + '-enter-active');
+                            el.classList.remove(_this.props.name + '-enter-to');
+                            el.classList.add(_this.props.name + '-leave');
+                            el.classList.add(_this.props.name + '-leave-active');
+                            _this.callback = function (e) {
+                                el.classList.remove(this.props.name + '-leave-active');
+                                this.fire('after-leave');
+                                this._show = false;
+                                if (this.props.autoRemove && this.parentNode) {
+                                    this.parentNode.removeChild(this);
+                                }
+                                resolve();
+                            }.bind(_this);
+                            _this.once('transitionend', _this.callback);
+                            _this.once('animationend', _this.callback);
+                            window.setTimeout(function () {
+                                el.classList.remove(this.props.name + '-leave');
+                                el.classList.add(this.props.name + '-leave-to');
+                                this.fire('leave');
+                            }.bind(_this), _this.props.delay);
+                        }
+                    })];
+            });
+        });
+    };
+    Transition.prototype.once = function (name, callback) {
+        var wrapCall = function () {
+            this.removeEventListener(name, wrapCall);
+            callback();
+        }.bind(this);
+        this.addEventListener(name, wrapCall);
+    };
+    Transition.prototype.render = function () {
+        return;
+    };
+    Transition.propTypes = {
+        name: String,
+        leavingTime: Number,
+        autoRemove: Boolean,
+        appear: Boolean,
+        delay: Number
+    };
+    Transition.isLightDom = true;
+    Transition.defaultProps = {
+        name: 'o',
+        delay: 0
+    };
+    Transition = __decorate([
+        Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-transition')
+    ], Transition);
+    return Transition;
+})(omi__WEBPACK_IMPORTED_MODULE_0__["WeElement"]));
+
+var index = "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip {\n  position: absolute;\n  background: #fff;\n  min-width: 150px;\n  border-radius: 4px;\n  border: 1px solid #ebeef5;\n  z-index: 2000;\n  color: #606266;\n  line-height: 1.4;\n  text-align: justify;\n  font-size: 14px;\n  word-break: break-all;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  width: 100%; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip.is-dark {\n  background: #ebeef5;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n  padding-top: 10px; }\n\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1), padding-top 0.3s cubic-bezier(0.55, 0, 0.1, 1);\n  transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1), padding-top 0.3s cubic-bezier(0.55, 0, 0.1, 1); }\n";
 
 var css = index;Object.freeze({
     __proto__: null,
@@ -2051,7 +2336,7 @@ var css = index;Object.freeze({
 });
 
 var Popover = /** @class */ (function (_super) {
-    __extends(Popover, _super);
+    __extends$1(Popover, _super);
     function Popover() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onEnter = function (evt) {
@@ -2067,6 +2352,12 @@ var Popover = /** @class */ (function (_super) {
                         name: 'offset',
                         options: {
                             offset: [0, 8],
+                        },
+                    },
+                    {
+                        name: 'computeStyles',
+                        options: {
+                            adaptive: false,
                         },
                     },
                 ],
@@ -2117,14 +2408,14 @@ var Popover = /** @class */ (function (_super) {
         }
         return Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { style: "position:relative" },
             Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", __assign({}, targetEvents)),
-            Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: Object(omi__WEBPACK_IMPORTED_MODULE_0__["classNames"])((_a = {
-                        tip: true,
-                        show: this.isShow
-                    },
-                    _a["is-" + props.effect] = props.effect,
-                    _a)) },
-                Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
-                Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("i", { class: "tip-arrow", "data-popper-arrow": true })));
+            Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("o-transition", { appear: this.isShow, name: "fade" },
+                Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { style: { display: this.isInstalled ? 'block' : 'none' }, class: Object(omi__WEBPACK_IMPORTED_MODULE_0__["classNames"])((_a = {
+                            tip: true
+                        },
+                        _a["is-" + props.effect] = props.effect,
+                        _a)) },
+                    Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
+                    Object(omi__WEBPACK_IMPORTED_MODULE_0__["h"])("i", { class: "tip-arrow", "data-popper-arrow": true }))));
     };
     Popover.css = css;
     Popover.defaultProps = {
@@ -2138,7 +2429,7 @@ var Popover = /** @class */ (function (_super) {
         position: String,
         trigger: String
     };
-    Popover = __decorate([
+    Popover = __decorate$1([
         Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-popover')
     ], Popover);
     return Popover;
@@ -2147,17 +2438,18 @@ var Popover = /** @class */ (function (_super) {
 /* harmony default export */ __webpack_exports__["default"] = (Popover);
 //# sourceMappingURL=index.esm.js.map
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -2169,10 +2461,10 @@ exports.push([module.i, ".o-select {\n  position: relative; }\n\n.o-select-dropd
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2256,6 +2548,37 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
 /***/ "./src/index.scss":
 /*!************************!*\
   !*** ./src/index.scss ***!
@@ -2264,7 +2587,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2317,7 +2640,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-__webpack_require__(/*! @omiu/popover */ "./node_modules/@omiu/popover/src/index.esm.js");
+__webpack_require__(/*! @omiu/popover */ "./node_modules/_@omiu_popover@0.0.7@@omiu/popover/src/index.esm.js");
 var topMap = {
     'medium': '31px',
     'small': '28px',

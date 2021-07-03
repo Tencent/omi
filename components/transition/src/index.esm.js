@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.9 http://omijs.org
+ * @omiu/transition v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,13 +27,11 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -90,7 +88,7 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var dready = createCommonjsModule(function (module, exports) {
+var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
 // if the module has no dependencies, the above pattern can be simplified to
 (function (root, factory) {
   {
@@ -129,8 +127,8 @@ var dready = createCommonjsModule(function (module, exports) {
 
 var _domReady = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    'default': dready,
-    __moduleExports: dready
+    'default': _dready_0_0_1_dready,
+    __moduleExports: _dready_0_0_1_dready
 });
 
 /**
@@ -142,7 +140,7 @@ var _domReady = /*#__PURE__*/Object.freeze({
  * modified by dntzhang
  *
  */
-var domReady = dready || _domReady;
+var domReady = _dready_0_0_1_dready || _domReady;
 var Transition = /** @class */ (function (_super) {
     __extends(Transition, _super);
     function Transition() {
@@ -162,6 +160,14 @@ var Transition = /** @class */ (function (_super) {
                 }, _this.props.leavingTime);
             }
         });
+    };
+    Transition.prototype.receiveProps = function () {
+        if (this.props.appear) {
+            this.enter();
+        }
+        else {
+            this.leave();
+        }
     };
     Transition.prototype.toggle = function () {
         return __awaiter(this, void 0, void 0, function () {

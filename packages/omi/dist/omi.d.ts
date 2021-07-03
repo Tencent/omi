@@ -111,6 +111,7 @@ declare namespace Omi {
     rootNode?: HTMLElement;
     normalizedNodeName?: string;
     elementId: number;
+    isInstalled: boolean;
 
     update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
     forceUpdate?(): void;
@@ -142,6 +143,7 @@ declare namespace Omi {
     rootNode?: HTMLElement;
     normalizedNodeName?: string;
     elementId: number;
+    isInstalled: boolean;
 
     update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
     forceUpdate?(): void;

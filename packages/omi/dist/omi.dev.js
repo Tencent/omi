@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.19  http://omijs.org
+ * Omi v6.19.20  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -835,6 +835,7 @@
       _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
       _this.elementId = id++;
       _this.computed = {};
+      _this.isInstalled = false;
       return _this;
     }
 
@@ -971,12 +972,12 @@
         this.rootNode && shadowRoot.appendChild(this.rootNode);
       }
       this.installed();
-      this._isInstalled = true;
+      this.isInstalled = true;
     };
 
     WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
       this.uninstall();
-      this._isInstalled = false;
+      this.isInstalled = false;
       if (this.store) {
         if (options.isMultiStore) {
           for (var key in this.store) {
@@ -1033,7 +1034,7 @@
     WeElement.prototype.removeAttribute = function removeAttribute(key) {
       _HTMLElement.prototype.removeAttribute.call(this, key);
       //Avoid executing removeAttribute methods before connectedCallback
-      this._isInstalled && this.update();
+      this.isInstalled && this.update();
     };
 
     WeElement.prototype.setAttribute = function setAttribute(key, val) {
@@ -1043,7 +1044,7 @@
         _HTMLElement.prototype.setAttribute.call(this, key, val);
       }
       //Avoid executing setAttribute methods before connectedCallback
-      this._isInstalled && this.update();
+      this.isInstalled && this.update();
     };
 
     WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
@@ -2203,7 +2204,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.19';
+  options.root.Omi.version = '6.19.20';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
