@@ -1,3 +1,12 @@
+/**
+ * synonyms.js 
+ * https://github.com/mui-org/material-ui/blob/master/docs/src/pages/components/material-icons/synonyms.js
+ * 
+ * Licensed under the MIT License
+ * https://github.com/mui-org/material-ui/blob/next/LICENSE
+ *
+ */
+
 var synonyms = {
   AccessAlarm: 'clock time',
   AccessAlarms: 'clock time',

@@ -1,5 +1,5 @@
 /**
- * @omiu/input v0.0.10 http://omijs.org
+ * @omiu/input v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -495,11 +495,13 @@ var Input = /** @class */ (function (_super) {
             _this.fire('focus', _this.props.value);
         };
         _this.handleChange = function (evt) {
+            _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
             _this.fire('change', _this.props.value);
         };
         _this.handleInput = function (evt) {
             evt.stopPropagation();
+            _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
             _this.fire('input', _this.props.value);
             if (_this.props.maxLength) {
@@ -511,6 +513,7 @@ var Input = /** @class */ (function (_super) {
             _this.updateProps({
                 value: ''
             });
+            _this.__$value = '';
         };
         return _this;
     }

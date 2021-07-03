@@ -79,12 +79,14 @@ export default class Input extends WeElement<Props>{
   }
 
   handleChange = (evt) => {
+    this.__$value = evt.target.value
     this.props.value = evt.target.value
     this.fire('change', this.props.value)
   }
 
   handleInput = (evt) => {
     evt.stopPropagation()
+    this.__$value = evt.target.value
     this.props.value = evt.target.value
     this.fire('input', this.props.value)
     if (this.props.maxLength) {
@@ -105,6 +107,7 @@ export default class Input extends WeElement<Props>{
     this.updateProps({
       value: ''
     })
+    this.__$value = ''
   }
 
   _tempInputTagName: string

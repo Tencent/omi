@@ -71,7 +71,7 @@ body{
 	<body>
     
     <div style="position: fixed;top:0px;padding-top: 3px;width: 100%;background: #f5f5f5;"> 
-      <o-input prefix-icon="search" size="small" placeholder="Enter User Name"></o-input>
+      <o-input prefix-icon="search" size="small" placeholder="Enter Related Words"></o-input>
     </div>
 		<div style="position: fixed;width:100%;top:35px;left:14px;background-color: #f5f5f5;">
 				<o-tabs list="[
@@ -131,8 +131,9 @@ body{
 
 			var panels = document.querySelectorAll('.panel')
 			var currentIndex = 0
+      var activeTab = 'Filled'
 			document.querySelector('o-tabs').addEventListener('change', function (evt) {
-				console.log(evt.detail)
+        activeTab = evt.detail.tab.label
 				panels[currentIndex].classList.remove('active')
 
 				currentIndex = evt.detail.index
@@ -243,6 +244,24 @@ body{
 				document.execCommand('copy')
 			}
 
+      var map={
+        'Filled':document.querySelector('#filledPanel').querySelectorAll('svg'),
+        'Outlined':document.querySelector('#outlinedPanel').querySelectorAll('svg'),
+        'Rounded':document.querySelector('#roundedPanel').querySelectorAll('svg'),
+        'Two Tone':document.querySelector('#twoTonePanel').querySelectorAll('svg'),
+        'Sharp':document.querySelector('#sharpPanel').querySelectorAll('svg')
+      }
+      var input = document.querySelector('o-input')
+      input.addEventListener('keyup',function(evt){
+        map[activeTab].forEach(function(item){
+          var title = item.getAttribute('title')
+          if( title.toLowerCase().indexOf(input.value.toLowerCase())!==-1|| synonyms[title]&&synonyms[title].indexOf(title)!==-1){
+            item.parentNode.style.display=""
+          }else{
+            item.parentNode.style.display="none"
+          }
+        })
+      })
 		</script>
 
 	</body></html>
