@@ -15,7 +15,8 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js",
+    "test": "web-test-runner \"test/*.test.js\" --node-resolve"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
@@ -46,7 +47,10 @@
   },
   "homepage": "http://omijs.org",
   "devDependencies": {
+    "@esm-bundle/chai": "^4.3.4",
+    "@open-wc/testing": "^2.5.33",
     "@rollup/plugin-commonjs": "^11.1.0",
+    "@web/test-runner": "^0.13.13",
     "css": "^2.2.4",
     "css-loader": "^1.0.1",
     "file": "^0.2.2",
