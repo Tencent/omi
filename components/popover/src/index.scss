@@ -166,6 +166,7 @@
 .fade-leave-to {
   opacity: 0;
   padding-top: 10px;
+  pointer-events: none;
 }
 
 .fade-enter-active,
