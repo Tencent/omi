@@ -139,6 +139,7 @@ body{
 				currentIndex = evt.detail.index
 				panels[currentIndex].classList.add('active')
 
+        search()
 			})
 
 			function handler(evt) {
@@ -253,6 +254,10 @@ body{
       }
       var input = document.querySelector('o-input')
       input.addEventListener('keyup',function(evt){
+        search()
+      })
+
+      function search(){
         map[activeTab].forEach(function(item){
           var title = item.getAttribute('title')
           if( title.toLowerCase().indexOf(input.value.toLowerCase())!==-1|| synonyms[title]&&synonyms[title].indexOf(title)!==-1){
@@ -261,7 +266,7 @@ body{
             item.parentNode.style.display="none"
           }
         })
-      })
+      }
 		</script>
 
 	</body></html>
