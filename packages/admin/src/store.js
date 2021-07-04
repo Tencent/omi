@@ -41,7 +41,7 @@ class Store {
             id: 4,
           },
           {
-            label: '分页表格',
+            label: '表格删除过渡动画',
             icon: 'table-chart',
             href: '#/table/pagination',
             id: 5,

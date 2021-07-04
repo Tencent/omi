@@ -86,18 +86,18 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@omiu/checkbox/src/index.esm.js":
-/*!******************************************************!*\
-  !*** ./node_modules/@omiu/checkbox/src/index.esm.js ***!
-  \******************************************************/
+/***/ "./node_modules/_@omiu_checkbox@0.0.9@@omiu/checkbox/src/index.esm.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/_@omiu_checkbox@0.0.9@@omiu/checkbox/src/index.esm.js ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js");
 /**
- * @omiu/checkbox v0.0.7 http://omijs.org
+ * @omiu/checkbox v0.0.9 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -107,18 +107,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
@@ -163,7 +163,7 @@ var css = `:host {
 .o-checkbox {
   position: relative;
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.87);
+  line-height: 18px;
   white-space: nowrap; }
   .o-checkbox:hover {
     cursor: pointer; }
@@ -351,29 +351,29 @@ function extract(props, prop) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -457,11 +457,11 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/omi/dist/omi.esm.js":
-/*!******************************************!*\
-  !*** ./node_modules/omi/dist/omi.esm.js ***!
-  \******************************************/
-/*! exports provided: default, tag, WeElement, Component, render, h, createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, html, htm, o, elements, $, extend, get, set, bind, unbind, JSONProxy */
+/***/ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/_omi@6.19.20@omi/dist/omi.esm.js ***!
+  \*******************************************************/
+/*! exports provided: default, tag, WeElement, Component, render, h, createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend, get, set, bind, unbind, JSONProxy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -481,8 +481,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "classNames", function() { return classNames; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extractClass", function() { return extractClass; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRef", function() { return createRef; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "html", function() { return html; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "htm", function() { return htm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return o; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "elements", function() { return elements; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$", function() { return $; });
@@ -493,7 +491,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unbind", function() { return unbind; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JSONProxy", function() { return JSONPatcherProxy; });
 /**
- * Omi v6.19.11  http://omijs.org
+ * Omi v6.19.20  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1284,7 +1282,9 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       //update = true
     } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-      if (isWeElement) {
+      //fix lazy load props missing
+      if (dom.nodeName.indexOf('-') !== -1) {
+        dom.props = dom.props || {};
         var _ccName = camelCase(name);
         dom.props[_ccName] = old[_ccName] = attrs[name];
         //update = true
@@ -1318,11 +1318,13 @@ var WeElement = function (_HTMLElement) {
   function WeElement() {
     _classCallCheck(this, WeElement);
 
+    // fix lazy load props missing
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-    _this.props = Object.assign({}, _this.constructor.defaultProps);
+    _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
     _this.elementId = id++;
     _this.computed = {};
+    _this.isInstalled = false;
     return _this;
   }
 
@@ -1410,14 +1412,27 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    if (this.constructor.css) {
-      if (typeof this.constructor.css === 'string') {
-        this.styleSheet = new CSSStyleSheet();
-        this.styleSheet.replaceSync(this.constructor.css);
+    var css = this.constructor.css;
+    if (css) {
+      if (typeof css === 'string') {
+        var styleSheet = new CSSStyleSheet();
+        styleSheet.replaceSync(css);
+        shadowRoot.adoptedStyleSheets = [styleSheet];
+      } else if (Object.prototype.toString.call(css) === '[object Array]') {
+        var styleSheets = [];
+        css.forEach(function (styleSheet) {
+          if (typeof styleSheet === 'string') {
+            var adoptedStyleSheet = new CSSStyleSheet();
+            adoptedStyleSheet.replaceSync(styleSheet);
+            styleSheets.push(adoptedStyleSheet);
+          } else {
+            styleSheets.push(styleSheet);
+          }
+          shadowRoot.adoptedStyleSheets = styleSheets;
+        });
       } else {
-        this.styleSheet = this.constructor.css;
+        shadowRoot.adoptedStyleSheets = [css];
       }
-      shadowRoot.adoptedStyleSheets = [this.styleSheet];
     }
 
     if (this.css) {
@@ -1446,12 +1461,12 @@ var WeElement = function (_HTMLElement) {
       this.rootNode && shadowRoot.appendChild(this.rootNode);
     }
     this.installed();
-    this._isInstalled = true;
+    this.isInstalled = true;
   };
 
   WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
     this.uninstall();
-    this._isInstalled = false;
+    this.isInstalled = false;
     if (this.store) {
       if (options.isMultiStore) {
         for (var key in this.store) {
@@ -1508,7 +1523,7 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
     _HTMLElement.prototype.removeAttribute.call(this, key);
     //Avoid executing removeAttribute methods before connectedCallback
-    this._isInstalled && this.update();
+    this.isInstalled && this.update();
   };
 
   WeElement.prototype.setAttribute = function setAttribute(key, val) {
@@ -1518,7 +1533,7 @@ var WeElement = function (_HTMLElement) {
       _HTMLElement.prototype.setAttribute.call(this, key, val);
     }
     //Avoid executing setAttribute methods before connectedCallback
-    this._isInstalled && this.update();
+    this.isInstalled && this.update();
   };
 
   WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
@@ -1530,7 +1545,7 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-    if (options.ignoreAttrs || ignoreAttrs) return;
+    if (options.ignoreAttrs || ignoreAttrs || this.store && this.store.ignoreAttrs) return;
     var ele = this;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
@@ -1966,13 +1981,16 @@ function render(vnode, parent, store) {
   if (store) {
     if (store.data) {
       observeStore(store);
-    } else {
-      options.isMultiStore = true;
-      //Multi-store injection
-      for (var key in store) {
-        observeStore(store[key], key);
-      }
     }
+    // else {
+    //   //Multi-store injection
+    //   for (let key in store) {
+    //     if (key !== 'ignoreAttrs') {
+    //       options.isMultiStore = true
+    //       observeStore(store[key], key)
+    //     }
+    //   }
+    // }
     parent.store = store;
   }
   return diff(null, vnode, parent, false);
@@ -2140,6 +2158,9 @@ function _inherits$1(subClass, superClass) { if (typeof superClass !== "function
 var storeHelpers = ['use', 'useSelf'];
 
 function define(name, ctor, config) {
+  if (customElements.get(name)) {
+    return;
+  }
   if (options.mapping[name]) {
     return;
   }
@@ -2205,9 +2226,8 @@ function define(name, ctor, config) {
   }
 }
 
-function tag(name, pure) {
+function tag(name) {
   return function (target) {
-    target.pure = pure;
     define(name, target);
   };
 }
@@ -2299,8 +2319,6 @@ function extractClass() {
 function o(obj) {
   return JSON.stringify(obj);
 }
-
-var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p],h="number"==typeof s?u[s]:s,a=r[++p];1===a?e[0]=h:3===a?e[1]=Object.assign(e[1]||{},h):5===a?(e[1]=e[1]||{})[r[++p]]=h:6===a?e[1][r[++p]]+=h+"":e.push(a?t.apply(null,n(t,h,u,["",null])):h);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],h=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,5,e):u>=5&&((e||!n&&5===u)&&(s.push(e,u,r), u=6), n&&(s.push(n,u,r), u=6)), e="";},a=0;a<n.length;a++){a&&(1===u&&h(), h(a));for(var f=0;f<n[a].length;f++)t=n[a][f], 1===u?"<"===t?(h(), s=[s], u=3):e+=t:4===u?"--"===e&&">"===t?(u=1, e=""):e=t+e[0]:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(h(), u=1):u&&("="===t?(u=5, r=e, e=""):"/"===t&&(u<5||">"===n[a][f+1])?(h(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,2), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(h(), u=2):e+=t), 3===u&&"!--"===e&&(u=4, s=s[0]);}return h(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
 
 (function () {
 
@@ -2637,8 +2655,6 @@ var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p],h="number"==typeo
 
 h.f = Fragment;
 
-var html = htm.bind(h);
-
 function createRef() {
   return {};
 }
@@ -2664,8 +2680,6 @@ var omi = {
   classNames: classNames,
   extractClass: extractClass,
   createRef: createRef,
-  html: html,
-  htm: htm,
   o: o,
   elements: elements,
   $: $,
@@ -2679,17 +2693,17 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.3';
+options.root.Omi.version = '6.19.20';
 
 /* harmony default export */ __webpack_exports__["default"] = (omi);
 
 //# sourceMappingURL=omi.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/global.js":
+/***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -2749,7 +2763,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js");
 __webpack_require__(/*! ./index.tsx */ "./src/index.tsx");
 var Table = /** @class */ (function (_super) {
     __extends(Table, _super);
@@ -2819,25 +2833,22 @@ var Table = /** @class */ (function (_super) {
             }, {
                 title: '操作',
                 align: 'right',
-                render: function (item) { return (
-                //onclick 会绑定多次的问题
-                omi_1.h("o-icon-delete", { "data-item-id": item.id, onClick: _this.onClick, style: "cursor:pointer;font-size:20px;", title: "\u5220\u9664" })); }
+                render: function (item) {
+                    console.error(item.id);
+                    //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
+                    return omi_1.h("o-icon-delete", { "data-item-id": item.id, onClick: _this.onDeleteClick, style: "cursor:pointer;font-size:20px;", title: "\u5220\u9664" });
+                }
             }];
-        _this.onClick = function (evt) {
-            console.log(Number(evt.currentTarget.dataset.itemId));
-            _this.deleteItemById(Number(evt.currentTarget.dataset.itemId));
+        _this.onDeleteClick = function (evt) {
+            if (evt.currentTarget.dataset.itemId) {
+                _this.table.deleteRowById(evt.currentTarget.dataset.itemId);
+            }
         };
         return _this;
     }
-    Table.prototype.deleteItemById = function (id) {
-        var index = this.dataSource.indexOf(this.dataSource.find(function (item) { return item.id === id; }));
-        if (index !== -1) {
-            this.dataSource.splice(index, 1);
-            this.update();
-        }
-    };
     Table.prototype.render = function (props) {
-        return omi_1.h("o-table", { checkbox: true, stripe: false, border: true, compact: false, columns: this.columns, dataSource: this.dataSource });
+        var _this = this;
+        return omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: false, columns: this.columns, dataSource: this.dataSource });
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -2845,7 +2856,9 @@ var Table = /** @class */ (function (_super) {
     return Table;
 }(omi_1.WeElement));
 exports.default = Table;
-omi_1.render(omi_1.h("table-demo", null), 'body');
+omi_1.render(omi_1.h("table-demo", null), 'body', {
+    ignoreAttrs: true
+});
 
 
 /***/ }),
@@ -2858,7 +2871,7 @@ omi_1.render(omi_1.h("table-demo", null), 'body');
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2908,21 +2921,57 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
-__webpack_require__(/*! @omiu/checkbox */ "./node_modules/@omiu/checkbox/src/index.esm.js");
-omi_1.options.ignoreAttrs = true;
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js");
+__webpack_require__(/*! @omiu/checkbox */ "./node_modules/_@omiu_checkbox@0.0.9@@omiu/checkbox/src/index.esm.js");
+var transition_ts_1 = __webpack_require__(/*! ./transition.ts */ "./src/transition.ts");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Table = /** @class */ (function (_super) {
     __extends(Table, _super);
     function Table() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.removeItem = function (item) {
+        _this.deleteRow = function (item) {
             _this.props.dataSource.splice(_this.props.dataSource.indexOf(item), 1);
             _this.update();
         };
         _this._changeHandlerTh = function (e, item) {
-            _this.fire('changeall', { item: item, checked: e.detail });
+            _this.fire('change-all', { item: item, checked: e.detail });
             _this.props.dataSource.forEach(function (item) {
                 item.checked = e.detail;
             });
@@ -2935,6 +2984,25 @@ var Table = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Table.prototype.deleteRowById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var dataSource;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        dataSource = this.props.dataSource;
+                        return [4 /*yield*/, transition_ts_1.leave(this['row' + id], 'slide-fade')
+                            //支持字符串和数字 id
+                        ];
+                    case 1:
+                        _a.sent();
+                        //支持字符串和数字 id
+                        this.deleteRow(dataSource.find(function (item) { return item.id + '' === id + ''; }));
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Table.prototype._getCheckedState = function () {
         var c = 0, uc = 0;
         for (var i = 0, len = this.props.dataSource.length; i < len; i++) {
@@ -2978,7 +3046,7 @@ var Table = /** @class */ (function (_super) {
                         index === 0 && props.checkbox && omi_1.h("o-checkbox", __assign({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                         column.title);
                 }))),
-            omi_1.h("tbody", { class: "o-table-tbody" }, props.dataSource.map(function (item) { return (omi_1.h("tr", { key: item.id, style: {
+            omi_1.h("tbody", { class: "o-table-tbody" }, props.dataSource.map(function (item) { return (omi_1.h("tr", { key: item.id, ref: function (e) { return _this['row' + item.id] = e; }, style: {
                     background: item.$config && item.$config.bgColor
                 } }, props.columns.map(function (column, subIndex) {
                 var _a;
@@ -3018,6 +3086,113 @@ var Table = /** @class */ (function (_super) {
     return Table;
 }(omi_1.WeElement));
 exports.default = Table;
+
+
+/***/ }),
+
+/***/ "./src/transition.ts":
+/*!***************************!*\
+  !*** ./src/transition.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.leave = exports.enter = void 0;
+function enter(el, effect, delay) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve) {
+                    el.classList.remove(effect + '-leave-active');
+                    el.classList.remove(effect + '-leave-to');
+                    el.classList.add(effect + '-enter');
+                    el.classList.add(effect + '-enter-active');
+                    var callback = function () {
+                        el.classList.remove(effect + '-enter-active');
+                        resolve(1);
+                    };
+                    once(el, 'transitionend', callback);
+                    once(el, 'animationend', callback);
+                    window.setTimeout(function () {
+                        el.classList.remove(effect + '-enter');
+                        el.classList.add(effect + '-enter-to');
+                    }, delay);
+                })];
+        });
+    });
+}
+exports.enter = enter;
+function leave(el, effect, delay) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve) {
+                    el.classList.remove(effect + '-enter-active');
+                    el.classList.remove(effect + '-enter-to');
+                    el.classList.add(effect + '-leave');
+                    el.classList.add(effect + '-leave-active');
+                    var callback = function (e) {
+                        el.classList.remove(effect + '-leave-active');
+                        // if (autoRemove && el.parentNode) {
+                        //   el.parentNode.removeChild(el)
+                        // }
+                        resolve(1);
+                    };
+                    once(el, 'transitionend', callback);
+                    once(el, 'animationend', callback);
+                    window.setTimeout(function () {
+                        el.classList.remove(effect + '-leave');
+                        el.classList.add(effect + '-leave-to');
+                    }, delay);
+                })];
+        });
+    });
+}
+exports.leave = leave;
+function once(el, name, callback) {
+    var wrapCall = function () {
+        this.removeEventListener(name, wrapCall);
+        callback();
+    }.bind(el);
+    el.addEventListener(name, wrapCall);
+}
 
 
 /***/ })

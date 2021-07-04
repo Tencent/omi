@@ -1,6 +1,6 @@
 {
   "name": "@omiu/table",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Components that show list data structures.",
   "docsExtend": {
     "cnName": "表格控件",

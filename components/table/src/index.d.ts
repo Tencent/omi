@@ -26,7 +26,8 @@ export default class Table extends WeElement<Props> {
         stripe: BooleanConstructor;
         compact: BooleanConstructor;
     };
-    removeItem: (item: any) => void;
+    deleteRow: (item: any) => void;
+    deleteRowById(id: any): Promise<void>;
     _changeHandlerTh: (e: any, item: any) => void;
     _changeHandlerTd: (e: any, item: any) => void;
     _getCheckedState(): {

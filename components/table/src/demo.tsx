@@ -1,5 +1,4 @@
 import { tag, WeElement, h, render } from 'omi'
-options.ignoreAttrs = true
 
 import './index.tsx'
 
@@ -72,28 +71,26 @@ export default class Table extends WeElement {
   }, {
     title: '操作',
     align: 'right',
-    render: item => (
-      //onclick 会绑定多次的问题
-      <o-icon-delete data-item-id={item.id} onClick={this.onClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
-    )
+    render: item => {
+      console.error(item.id)
+      //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
+      return <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
+    }
   }]
 
-  onClick = (evt) => {
-    console.log(Number(evt.currentTarget.dataset.itemId))
-    this.deleteItemById(Number(evt.currentTarget.dataset.itemId))
-  }
-
-  deleteItemById(id) {
-    const index = this.dataSource.indexOf(this.dataSource.find(item => item.id === id))
-    if (index !== -1) {
-      this.dataSource.splice(index, 1)
-      this.update()
+  onDeleteClick = (evt) => {
+    if (evt.currentTarget.dataset.itemId) {
+      this.table.deleteRowById(evt.currentTarget.dataset.itemId)
     }
 
   }
 
+
+  table
+
   render(props) {
     return <o-table
+      ref={e => this.table = e}
       checkbox={true}
       stripe={false}
       border={true}
@@ -103,4 +100,6 @@ export default class Table extends WeElement {
 }
 
 
-render(<table-demo></table-demo>, 'body')
+render(<table-demo></table-demo>, 'body', {
+  ignoreAttrs: true
+})

@@ -228,8 +228,10 @@ export default class extends WeElement<Props> {
     this.renderTable()
   }
 
+  table
+
   onClick = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
-    this.deleteItemById(Number(evt.currentTarget.dataset.itemId))
+    this.table.deleteRowById(evt.currentTarget.dataset.itemId)
   }
 
   deleteItemById(id: number) {
@@ -255,8 +257,9 @@ export default class extends WeElement<Props> {
     return (
       <div class={tw`pl-0.5`}>
         <div class={tw`px-2`}>
-          <h4 class={tw`py-2 text-sm`}>基础表格</h4>
+          {/* <h4 class={tw`py-2 text-sm`}>基础表格</h4> */}
           <o-table
+            ref={e => this.table = e}
             checkbox={false}
             stripe={false}
             border={false}
@@ -265,7 +268,7 @@ export default class extends WeElement<Props> {
             dataSource={this.data.filterData}
           ></o-table>
 
-          <div class={tw`mt-3`}>
+          {/* <div class={tw`mt-3`}>
             <div class={tw`mb-2`}>
               <span v-if="totalSize > 1">
                 显示第 {this.data.start} 条到第 {this.data.end} 条的数据，
@@ -278,7 +281,7 @@ export default class extends WeElement<Props> {
               page-size={this.pageSize}
               onChange={this.change}
             ></o-pagination>
-          </div>
+          </div> */}
         </div>
       </div>
     )

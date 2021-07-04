@@ -85,3 +85,14 @@ o-checkbox {
 
 .o-table-stripe tr:nth-of-type(even) {
   background: #fafafa; }
+
+.slide-fade-enter-active {
+  transition: all .3s ease; }
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(-40px);
+  opacity: 0; }

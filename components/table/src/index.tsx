@@ -1,6 +1,6 @@
-import { tag, WeElement, h, extractClass, classNames, options } from 'omi'
+import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import '@omiu/checkbox'
-
+import { leave } from './transition.ts'
 
 import * as css from './index.scss'
 
@@ -35,13 +35,20 @@ export default class Table extends WeElement<Props> {
     compact: Boolean
   }
 
-  removeItem = (item) => {
+  deleteRow = (item) => {
     this.props.dataSource.splice(this.props.dataSource.indexOf(item), 1)
     this.update()
   }
 
+  async deleteRowById(id) {
+    const { dataSource } = this.props
+    await leave(this['row' + id], 'slide-fade')
+    //支持字符串和数字 id
+    this.deleteRow(dataSource.find(item => item.id + '' === id + ''))
+  }
+
   _changeHandlerTh = (e, item) => {
-    this.fire('changeall', { item, checked: e.detail })
+    this.fire('change-all', { item, checked: e.detail })
     this.props.dataSource.forEach(item => {
       item.checked = e.detail
     })
@@ -100,7 +107,7 @@ export default class Table extends WeElement<Props> {
         </thead>
         <tbody class="o-table-tbody">
           {props.dataSource.map(item => (
-            <tr key={item.id} style={{
+            <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
               background: item.$config && item.$config.bgColor
             }}>
               {props.columns.map((column, subIndex) => {

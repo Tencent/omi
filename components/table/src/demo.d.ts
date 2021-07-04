@@ -32,7 +32,7 @@ export default class Table extends WeElement {
         render: (item: any) => JSX.Element;
         key?: undefined;
     })[];
-    onClick: (evt: any) => void;
-    deleteItemById(id: any): void;
+    onDeleteClick: (evt: any) => void;
+    table: any;
     render(props: any): JSX.Element;
 }
