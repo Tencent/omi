@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.19.20",
+  "version": "6.19.21",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -11,7 +11,7 @@
   "scripts": {
     "clean": "rimraf test/ts/**/*.js",
     "copy-typescript-definition": "copyfiles -f src/omi.d.ts dist",
-    "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
+    "build": "npm-run-all --silent transpile copy-typescript-definition strip optimize minify size",
     "start": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",

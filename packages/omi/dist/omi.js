@@ -167,27 +167,7 @@
             }
         } else if ('dangerouslySetInnerHTML' === name) {
             if (value) node.innerHTML = value.__html || '';
-        } else if ('o' == name[0] && 'n' == name[1]) {
-            var useCapture = name !== (name = name.replace(/Capture$/, ''));
-            var nameLower = name.toLowerCase();
-            name = (nameLower in node ? nameLower : name).slice(2);
-            if (value) {
-                if (!old) {
-                    node.addEventListener(name, eventProxy$1, useCapture);
-                    if ('tap' == name) {
-                        node.addEventListener('touchstart', touchStart, useCapture);
-                        node.addEventListener('touchend', touchEnd, useCapture);
-                    }
-                }
-            } else {
-                node.removeEventListener(name, eventProxy$1, useCapture);
-                if ('tap' == name) {
-                    node.removeEventListener('touchstart', touchStart, useCapture);
-                    node.removeEventListener('touchend', touchEnd, useCapture);
-                }
-            }
-            (node.__l || (node.__l = {}))[name] = value;
-        } else if ('INPUT' === node.nodeName && 'value' === name) node[name] = null == value ? '' : value; else if ('list' !== name && 'type' !== name && 'css' !== name && !isSvg && name in node && '' !== value) {
+        } else if ('_' == name[0] && 'o' == name[1] && 'n' == name[2] && 'WeElement' === node.constructor.is) bindEvent(node, name.replace('_', ''), value, old); else if ('o' == name[0] && 'n' == name[1]) bindEvent(node, name, value, old); else if ('INPUT' === node.nodeName && 'value' === name) node[name] = null == value ? '' : value; else if ('list' !== name && 'type' !== name && 'css' !== name && !isSvg && name in node && '' !== value) {
             try {
                 node[name] = null == value ? '' : value;
             } catch (e) {}
@@ -200,15 +180,14 @@
     function eventProxy$1(e) {
         return this.__l[e.type](options.event && options.event(e) || e);
     }
-    function touchStart(e) {
-        this.F = e.touches[0].pageX;
-        this.G = e.touches[0].pageY;
-        this.H = document.body.scrollTop;
-    }
-    function touchEnd(e) {
-        if (Math.abs(e.changedTouches[0].pageX - this.F) < 30 && Math.abs(e.changedTouches[0].pageY - this.G) < 30 && Math.abs(document.body.scrollTop - this.H) < 30) this.dispatchEvent(new CustomEvent('tap', {
-            detail: e
-        }));
+    function bindEvent(node, name, value, old) {
+        var useCapture = name !== (name = name.replace(/Capture$/, ''));
+        var nameLower = name.toLowerCase();
+        name = (nameLower in node ? nameLower : name).slice(2);
+        if (value) {
+            if (!old) node.addEventListener(name, eventProxy$1, useCapture);
+        } else node.removeEventListener(name, eventProxy$1, useCapture);
+        (node.__l || (node.__l = {}))[name] = value;
     }
     function diff(dom, vnode, parent, component, updateSelf) {
         if (dom || vnode) {
@@ -1323,7 +1302,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.20';
+    options.root.Omi.version = '6.19.21';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

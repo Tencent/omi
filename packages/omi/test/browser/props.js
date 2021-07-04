@@ -147,4 +147,61 @@ describe('props', () => {
     expect(valA === valB).to.equal(true)
   })
 
+
+  it('private event test, trigger once with _onclick', () => {
+    let a = 0
+    define('o-button', class extends WeElement {
+      render() {
+        return (
+          <button {...this.props}><slot></slot></button>
+        )
+      }
+    })
+
+    define('my-app33', class extends WeElement {
+      render() {
+        return (
+          <o-button _onclick={evt => {
+            //onclick trigger twice, _onclick trigger once
+            a++
+          }}>button</o-button>
+        )
+      }
+    })
+    render(<my-app33 />, scratch)
+    scratch.firstChild.shadowRoot.querySelector('o-button').shadowRoot.firstChild.click()
+
+    expect(a).to.equal(1)
+  })
+
+  it('private event test, trigger twice with onclick', () => {
+    let a = 0
+    define('o-button', class extends WeElement {
+      render() {
+        return (
+          <button {...this.props}><slot></slot></button>
+        )
+      }
+    })
+
+    define('my-app34', class extends WeElement {
+      render() {
+        return (
+          <o-button onclick={evt => {
+            //onclick trigger twice, _onclick trigger once
+            a++
+            console.log('sksksjfksfjsdf')
+          }}>button</o-button>
+        )
+      }
+    })
+    render(<my-app34 />, scratch)
+    scratch.firstChild.shadowRoot.querySelector('o-button').shadowRoot.firstChild.click()
+
+    expect(a).to.equal(2)
+  })
+
+
+
+
 })

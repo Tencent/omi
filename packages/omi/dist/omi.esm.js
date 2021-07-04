@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.20  http://omijs.org
+ * Omi v6.19.21  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -389,26 +389,10 @@ function setAccessor(node, name, old, value, isSvg, component) {
     }
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || '';
+  } else if (name[0] == '_' && name[1] == 'o' && name[2] == 'n' && node.constructor.is === 'WeElement') {
+    bindEvent(node, name.replace('_', ''), value, old);
   } else if (name[0] == 'o' && name[1] == 'n') {
-    var useCapture = name !== (name = name.replace(/Capture$/, ''));
-    var nameLower = name.toLowerCase();
-    name = (nameLower in node ? nameLower : name).slice(2);
-    if (value) {
-      if (!old) {
-        node.addEventListener(name, eventProxy$1, useCapture);
-        if (name == 'tap') {
-          node.addEventListener('touchstart', touchStart, useCapture);
-          node.addEventListener('touchend', touchEnd, useCapture);
-        }
-      }
-    } else {
-      node.removeEventListener(name, eventProxy$1, useCapture);
-      if (name == 'tap') {
-        node.removeEventListener('touchstart', touchStart, useCapture);
-        node.removeEventListener('touchend', touchEnd, useCapture);
-      }
-    }
-(node._listeners || (node._listeners = {}))[name] = value;
+    bindEvent(node, name, value, old);
   } else if (node.nodeName === 'INPUT' && name === 'value') {
     node[name] = value == null ? '' : value;
   } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') {
@@ -445,16 +429,18 @@ function eventProxy$1(e) {
   return this._listeners[e.type](options.event && options.event(e) || e);
 }
 
-function touchStart(e) {
-  this.___touchX = e.touches[0].pageX;
-  this.___touchY = e.touches[0].pageY;
-  this.___scrollTop = document.body.scrollTop;
-}
-
-function touchEnd(e) {
-  if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
-    this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+function bindEvent(node, name, value, old) {
+  var useCapture = name !== (name = name.replace(/Capture$/, ''));
+  var nameLower = name.toLowerCase();
+  name = (nameLower in node ? nameLower : name).slice(2);
+  if (value) {
+    if (!old) {
+      node.addEventListener(name, eventProxy$1, useCapture);
+    }
+  } else {
+    node.removeEventListener(name, eventProxy$1, useCapture);
   }
+(node._listeners || (node._listeners = {}))[name] = value;
 }
 
 /** Diff recursion count, used to track the end of the diff cycle. */
@@ -2201,7 +2187,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.20';
+options.root.Omi.version = '6.19.21';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };
