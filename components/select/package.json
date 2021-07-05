@@ -97,6 +97,7 @@
   "dependencies": {
     "@omiu/common": "latest",
     "@omiu/popover": "^0.0.8",
-    "omi": "latest"
+    "omi": "latest",
+    "resize-observer-polyfill": "^1.5.1"
   }
 }

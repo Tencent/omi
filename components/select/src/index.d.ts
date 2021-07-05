@@ -3,14 +3,15 @@ import '@omiu/popover';
 interface Props {
     items: any[];
     active: boolean;
-    value: string;
+    value: string | any[];
     placeholder: string;
-    size: 'medium' | 'small' | 'mini';
+    size: 'big' | 'medium' | 'small' | 'mini';
 }
 export default class Select extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         value: string;
+        size: string;
     };
     static propTypes: {
         items: ArrayConstructor;
@@ -24,6 +25,14 @@ export default class Select extends WeElement<Props> {
     selectedIndex: number;
     onItemClick: (item: any, index: any) => void;
     _refInput: any;
+    inputHeight: any;
+    resetInputHeight(): void;
+    inputWidth: number;
+    tags: any;
+    resetInputWidth(): void;
+    installed(): void;
+    handleResize: () => void;
+    uninstall(): void;
     render(props: any): JSX.Element;
 }
 export {};

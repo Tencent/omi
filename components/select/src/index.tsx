@@ -1,23 +1,24 @@
 import { tag, WeElement, extractClass, h } from 'omi'
 import * as css from './index.scss'
+import { removeResizeListener, addResizeListener } from './resize-event.ts'
 
 import '@omiu/popover'
-
 //debug
 //import '../../popover/src/index.tsx'
 
 interface Props {
   items: any[]
   active: boolean
-  value: string
+  value: string | any[]
   placeholder: string
-  size: 'medium' | 'small' | 'mini'
+  size: 'big' | 'medium' | 'small' | 'mini'
 }
 
-const topMap = {
-  'medium': '31px',
-  'small': '28px',
-  'mini': '24px',
+const heightMap = {
+  'big': 40,
+  'medium': 36,
+  'small': 32,
+  'mini': 28,
 }
 
 @tag('o-select')
@@ -25,7 +26,8 @@ export default class Select extends WeElement<Props> {
   static css = css.default ? css.default : css
 
   static defaultProps = {
-    value: ''
+    value: '',
+    size: 'big'
   }
 
   static propTypes = {
@@ -72,6 +74,36 @@ export default class Select extends WeElement<Props> {
 
   _refInput
 
+  inputHeight
+
+  resetInputHeight() {
+    this.inputHeight = Math.max(heightMap[this.props.size], Number(this.tags ? (this.tags.clientHeight + (this.tags.clientHeight > heightMap[this.props.size] ? 6 : 0)) : 0))
+  }
+
+  inputWidth: number = 0
+
+  tags
+
+  resetInputWidth() {
+    this.inputWidth = this.getBoundingClientRect().width;
+  }
+
+  installed() {
+    this.handleResize()
+
+    addResizeListener(this._refInput, this.handleResize)
+  }
+
+  handleResize = () => {
+    this.resetInputWidth()
+    this.resetInputHeight()
+    this.update()
+  }
+
+  uninstall() {
+    removeResizeListener(this._refInput, this.handleResize);
+  }
+
   render(props) {
 
     return (
@@ -79,23 +111,37 @@ export default class Select extends WeElement<Props> {
         ['o-select--' + props.size]: props.size
       })} >
         <o-popover position="bottom">
+          <div>
+            <div class="o-select__tags" ref={e => this.tags = e} style={{ width: '100%', maxWidth: (this.inputWidth - 32) + 'px' }}>
+              <span>
+                {/* <span class="o-tag o-tag--info o-tag--small o-tag--light">
+                  <span class="o-select__tags-text">omi</span><i class="o-tag__close o-icon-close"></i>
+                </span>
+                <span class="o-tag o-tag--info o-tag--small o-tag--light">
+                  <span class="o-select__tags-text">asfsdfdsafdsafdsfbc</span><i class="o-tag__close o-icon-close"></i>
+                </span> */}
 
-          <div {...extractClass({}, 'o-input o-input--suffix', {
-            ['o-input--' + props.size]: props.size,
-            'is-focus': props.isFocus
-          })} >
-            <input type="text" ref={e => this._refInput = e} onClick={this.onInputClick} onBlur={this.onInputBlur} readonly="readonly" autocomplete="off" value={props.value} placeholder={props.placeholder} class="o-input__inner" />
-            <span class="o-input__suffix">
-              <span class="o-input__suffix-inner">
-                <i class="o-select__caret o-input__icon o-icon-arrow-up is-reverse"></i>
               </span>
-            </span>
+              <input type="text" autocomplete="off" class="o-select__input" style={{ flexGrow: 1, width: '0.0961538%', maxWidth: (this.inputWidth - 32) + 'px' }} />
+            </div>
 
-            <svg viewBox="0 0 1024 1024" class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
-              <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z">
-              </path>
-            </svg>
+            <div {...extractClass({}, 'o-input o-input--suffix', {
+              ['o-input--' + props.size]: props.size,
+              'is-focus': props.isFocus
+            })} >
+              <input style={{ height: this.inputHeight + 'px' }} type="text" ref={e => this._refInput = e} onClick={this.onInputClick} onBlur={this.onInputBlur} readonly autocomplete="off" value={props.value} placeholder={props.placeholder} class="o-input__inner" />
+              <span class="o-input__suffix">
+                <span class="o-input__suffix-inner">
+                  <i class="o-select__caret o-input__icon o-icon-arrow-up is-reverse"></i>
+                </span>
+              </span>
 
+              <svg viewBox="0 0 24 24" class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z">
+                </path>
+              </svg>
+
+            </div>
           </div>
 
           <div slot="popover" class="o-select-dropdown__wrap">
