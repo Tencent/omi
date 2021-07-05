@@ -9,6 +9,8 @@ import '@omiu/icon/warning'
 import '@omiu/icon/sentiment-satisfied-alt'
 import '@omiu/icon/table-chart'
 import '@omiu/icon/description'
+import '@omiu/icon/list-alt'
+import '@omiu/icon/grid-on'
 
 import '@omiu/transition'
 

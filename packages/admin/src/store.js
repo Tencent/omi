@@ -36,13 +36,13 @@ class Store {
 
           {
             label: '基础表格',
-            icon: 'table-chart',
+            icon: 'grid-on',
             href: '#/table/basic',
             id: 4,
           },
           {
-            label: '表格删除过渡动画',
-            icon: 'table-chart',
+            label: '表格删除动画',
+            icon: 'grid-on',
             href: '#/table/pagination',
             id: 5,
           },
@@ -52,11 +52,11 @@ class Store {
             expanded: true,
             id: 9,
             href: '#/form',
-            icon: 'table-chart'
+            icon: 'list-alt'
 
           },
           {
-            label: '图标合集',
+            label: 'Material Icons',
             expanded: true,
             id: 10,
             href: '#/icon',
