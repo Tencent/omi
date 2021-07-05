@@ -157,9 +157,14 @@ export default class extends WeElement {
     }
   }
 
-  routeTo(hash) {
-    const node: { children: []; id: number; label: string; href: string } =
-      this.findNodeByHash(hash, this.store.treeData)
+  routeTo(hash: string) {
+    const node: {
+      children: []
+      id: number
+      label: string
+      href: string
+      md: any
+    } = this.findNodeByHash(hash, this.store.treeData)
 
     this.store.selectTreeNodeById(node.id)
 
