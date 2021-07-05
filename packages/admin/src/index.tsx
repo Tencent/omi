@@ -47,7 +47,7 @@ export default class extends WeElement {
 
   getMdByName(name, children) {
     const href = `#/docs/${name}`
-    const node = children.find(item => item.href === href)
+    const node = children.find((item) => item.href === href)
     if (node) return node.md
 
     for (let i = 0, length = children.length; i < length; i++) {
@@ -66,7 +66,6 @@ export default class extends WeElement {
   }
 
   installed() {
-
     route('/', () => {
       this.update()
     })
@@ -77,57 +76,67 @@ export default class extends WeElement {
 
     route('/table/basic', () => {
       //lazy load
-      import('./components/table/basic-table').then(() => this.transitionTo('basic-table')
+      import('./components/table/basic-table').then(() =>
+        this.transitionTo('basic-table')
       )
-
     })
 
     route('/docs/:name', (evt) => {
       //lazy load
       const md = this.getMdByName(evt.params.name, this.store.treeData)
-      md.then(e => {
+      md.then((e) => {
         this.payload = { mdContent: e.default }
-        import('./components/docs/admin-docs').then(() => this.transitionTo('admin-docs'))
+        import('./components/docs/admin-docs').then(() =>
+          this.transitionTo('admin-docs')
+        )
       })
     })
 
     route('/table/pagination', () => {
       //lazy load
-      import('./components/table/pagination-table').then(() => this.transitionTo('pagination-table')
+      import('./components/table/pagination-table').then(() =>
+        this.transitionTo('pagination-table')
       )
     })
 
     route('/form', () => {
       //lazy load
-      import('./components/admin-form').then(() => this.transitionTo('admin-form'))
+      import('./components/admin-form').then(() =>
+        this.transitionTo('admin-form')
+      )
     })
-
 
     route('/icon', () => {
       //lazy load
-      import('./components/admin-icon').then(() => this.transitionTo('admin-icon'))
+      import('./components/admin-icon').then(() =>
+        this.transitionTo('admin-icon')
+      )
     })
-
 
     route('/error', () => {
       //lazy load
-      import('./components/status/status-error').then(() => this.transitionTo('status-error'))
+      import('./components/status/status-error').then(() =>
+        this.transitionTo('status-error')
+      )
     })
 
     route('/loading-component', () => {
       //lazy load
-      import('./components/components/loading-component').then(() => this.transitionTo('loading-component'))
+      import('./components/components/loading-component').then(() =>
+        this.transitionTo('loading-component')
+      )
     })
 
     route('/warning', () => {
       //lazy load
-      import('./components/status/status-warning').then(() => this.transitionTo('status-warning'))
+      import('./components/status/status-warning').then(() =>
+        this.transitionTo('status-warning')
+      )
     })
 
     route('*', function () {
       console.log('not found')
     })
-
 
     if (location.hash) {
       this.routeTo(location.hash)
@@ -137,7 +146,7 @@ export default class extends WeElement {
   store
 
   findNodeByHash(hash, children) {
-    const node = children.find(item => item.href === hash)
+    const node = children.find((item) => item.href === hash)
     if (node) return node
 
     for (let i = 0, length = children.length; i < length; i++) {
@@ -148,32 +157,43 @@ export default class extends WeElement {
     }
   }
 
-
   routeTo(hash) {
-    const node: { children: [], id: number, label: string, href: string } = this.findNodeByHash(hash, this.store.treeData)
+    const node: { children: []; id: number; label: string; href: string } =
+      this.findNodeByHash(hash, this.store.treeData)
 
     this.store.selectTreeNodeById(node.id)
 
     if (!node.children) {
-      const tab = this.store.tabs.find(tab => tab.id === node.id)
+      const tab = this.store.tabs.find((tab) => tab.id === node.id)
       if (tab) {
         this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
       } else {
-        this.store.tabs.push({ label: node.label, closeable: false, id: node.id, href: node.href })
-        this.store.tabsActiveIndex = this.store.tabs.length - 1
+        if (node.id !== 9) {
+          this.store.tabs.push({
+            label: node.label,
+            closeable: false,
+            id: node.id,
+            href: node.href
+          })
+          this.store.tabsActiveIndex = this.store.tabs.length - 1
+        }
       }
     }
     // @ts-ignore
-    node.md && node.md.then(e => {
-      this.store.markdown = e.default
-    })
+    node.md &&
+      node.md.then((e) => {
+        this.store.markdown = e.default
+      })
   }
 
   render(props) {
     return (
       <basic-layout>
-        <o-transition ref={_ => this.transition = _} appear name="fade">
-          <this.data.tagName {...this.payload} class={tw`block`}></this.data.tagName>
+        <o-transition ref={(_) => (this.transition = _)} appear name="fade">
+          <this.data.tagName
+            {...this.payload}
+            class={tw`block`}
+          ></this.data.tagName>
         </o-transition>
       </basic-layout>
     )
