@@ -37,7 +37,7 @@ export default class extends WeElement<Props> {
             </symbol>
 
             <symbol id="omi">
-              <text x="49%" y="35%" class="text">
+              <text x="47%" y="35%" class="text">
                 Omi
               </text>
             </symbol>
