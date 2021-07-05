@@ -4,7 +4,7 @@ import { setTheme } from '@omiu/common'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
-interface Props { }
+interface Props {}
 
 const tagName = 'layout-header'
 declare global {
@@ -56,10 +56,25 @@ export default class extends WeElement<Props> {
 
           <div class={tw`flex flex-row order-3 p-1 mr-3`}>
             <div class={tw`relative mt-2 mr-5`}>
-              <div class={tw`cursor-pointer`} onClick={this.toggle} style={{ color: this.store.themeColor }}><o-icon-palette></o-icon-palette>主题</div>
-              {
-                this.isShowColorPicker && <o-color-picker onchange={this.onColorChange} onClick={evt => evt.stopPropagation()} class={tw`absolute right-0 z-50`} save={false} preview={false} button={false} clear={false} width="300px"></o-color-picker>
-              }
+              <div
+                class={tw`cursor-pointer`}
+                onClick={this.toggle}
+                style={{ color: this.store.themeColor }}
+              >
+                <o-icon-palette></o-icon-palette>主题
+              </div>
+              {this.isShowColorPicker && (
+                <o-color-picker
+                  onchange={this.onColorChange}
+                  onClick={(evt) => evt.stopPropagation()}
+                  class={tw`absolute right-0 z-50`}
+                  save={false}
+                  preview={false}
+                  button={false}
+                  clear={false}
+                  width="300px"
+                ></o-color-picker>
+              )}
             </div>
 
             <o-avatar src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"></o-avatar>
