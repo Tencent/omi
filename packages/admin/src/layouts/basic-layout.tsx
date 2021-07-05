@@ -10,7 +10,7 @@ import './components/layout-left-panel'
 
 import { tw, sheet } from 'omi-twind'
 
-interface Props { }
+interface Props {}
 
 const tagName = 'basic-layout'
 declare global {
@@ -23,17 +23,20 @@ declare global {
 
 @tag(tagName)
 export default class extends WeElement {
-  static css = [sheet.target, `
+  static css = [
+    sheet.target,
+    `
 .is-closed{
   width: 0;
   transform: translateX(-100%);
 }
-`]
+`
+  ]
 
   store
 
   onChange = (evt) => {
-    const tab = this.store.tabs.find(tab => tab.id === evt.detail.tab.id)
+    const tab = this.store.tabs.find((tab) => tab.id === evt.detail.tab.id)
     this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
     this.store.selectTreeNodeById(evt.detail.tab.id)
     location.hash = evt.detail.tab.href
@@ -56,7 +59,6 @@ export default class extends WeElement {
     location.hash = tab.href
   }
 
-
   installed() {
     this.store.ui.baseLayout = this
   }
@@ -67,7 +69,11 @@ export default class extends WeElement {
         <layout-header class={tw`h-12 block`}></layout-header>
 
         <div class={tw`flex flex-row`}>
-          <layout-left-panel class={tw`w-64 transition-all duration-500 ease-in-out${this.store.isLeftPanelClosed ? ' is-closed' : ''}`}></layout-left-panel>
+          <layout-left-panel
+            class={tw`w-64 transition-all duration-500 ease-in-out${
+              this.store.isLeftPanelClosed ? ' is-closed' : ''
+            }`}
+          ></layout-left-panel>
           <layout-container class={tw`flex-1`}>
             <o-tabs
               closable
@@ -75,8 +81,8 @@ export default class extends WeElement {
               list={this.store.tabs}
               onchange={this.onChange}
               onremove={this.onRemove}
-              active-index={this.store.tabsActiveIndex}>
-            </o-tabs>
+              active-index={this.store.tabsActiveIndex}
+            ></o-tabs>
 
             <div style={`height:calc(100vh - 90px);`} class={tw`overflow-auto`}>
               <slot></slot>

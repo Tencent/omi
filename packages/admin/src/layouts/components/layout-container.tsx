@@ -1,6 +1,6 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
-interface Props { }
+interface Props {}
 
 const tagName = 'layout-container'
 declare global {
