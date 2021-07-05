@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.16 http://omijs.org
+ * @omiu/tree v0.0.18 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -647,8 +647,7 @@ var Tree = /** @class */ (function (_super) {
     __extends(Tree, _super);
     function Tree() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onNodeClick = function (evt, node) {
-            evt.stopPropagation();
+        _this.onNodeClick = function (node) {
             node.expanded = !node.expanded;
             if (_this.prevSelectedNode) {
                 _this.prevSelectedNode.selected = false;
@@ -733,6 +732,9 @@ var Tree = /** @class */ (function (_super) {
         //   }
         // })
     };
+    Tree.prototype.isURL = function (str) {
+        return str.indexOf('http') === 0 || str.indexOf('//') === 0;
+    };
     Tree.prototype.renderNode = function (node, level) {
         var _this = this;
         if (node.selected) {
@@ -740,7 +742,12 @@ var Tree = /** @class */ (function (_super) {
         }
         this._tempTagName = 'o-icon-' + node.icon;
         this._nodeTagName = node.href ? 'a' : 'div';
-        return (h(this._nodeTagName, __assign({ href: node.href, target: node.target, role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) { _this.onNodeClick(evt, node); } }, extractClass({}, 'o-tree-node', {
+        return (h(this._nodeTagName, __assign({ href: node.href, target: node.target, role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) {
+                evt.stopPropagation();
+                if (!(node.href && _this.isURL(node.href))) {
+                    _this.onNodeClick(node);
+                }
+            } }, extractClass({}, 'o-tree-node', {
             'is-expanded': node.expanded,
             'is-current': node.selected,
         })),

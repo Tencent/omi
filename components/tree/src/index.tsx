@@ -21,8 +21,7 @@ export default class Tree extends WeElement<Props>{
     padding: Number
   }
 
-  onNodeClick = (evt, node) => {
-    evt.stopPropagation()
+  onNodeClick = (node) => {
     node.expanded = !node.expanded
     if (this.prevSelectedNode) {
       this.prevSelectedNode.selected = false
@@ -131,6 +130,10 @@ export default class Tree extends WeElement<Props>{
 
   _nodeTagName: string
 
+  isURL(str) {
+    return str.indexOf('http') === 0 || str.indexOf('//') === 0
+  }
+
   renderNode(node, level) {
     if (node.selected) {
       this.prevSelectedNode = node
@@ -138,7 +141,12 @@ export default class Tree extends WeElement<Props>{
     this._tempTagName = 'o-icon-' + node.icon
     this._nodeTagName = node.href ? 'a' : 'div'
     return (
-      <this._nodeTagName href={node.href} target={node.target} role="treeitem" onContextMenu={(evt) => { this.onContextMenu(evt, node) }} onClick={(evt) => { this.onNodeClick(evt, node) }}
+      <this._nodeTagName href={node.href} target={node.target} role="treeitem" onContextMenu={(evt) => { this.onContextMenu(evt, node) }} onClick={(evt) => {
+        evt.stopPropagation()
+        if (!(node.href && this.isURL(node.href))) {
+          this.onNodeClick(node)
+        }
+      }}
         {...extractClass({}, 'o-tree-node', {
           'is-expanded': node.expanded,
           'is-current': node.selected,

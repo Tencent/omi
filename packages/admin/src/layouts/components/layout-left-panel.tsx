@@ -59,15 +59,13 @@ export default class extends WeElement<Props> {
       if (tab) {
         this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
       } else {
-        if (evt.detail.id !== 9) {
-          this.store.tabs.push({
-            label: evt.detail.label,
-            closeable: false,
-            id: evt.detail.id,
-            href: evt.detail.href
-          })
-          this.store.tabsActiveIndex = this.store.tabs.length - 1
-        }
+        this.store.tabs.push({
+          label: evt.detail.label,
+          closeable: false,
+          id: evt.detail.id,
+          href: evt.detail.href
+        })
+        this.store.tabsActiveIndex = this.store.tabs.length - 1
       }
     }
     evt.detail.md &&
