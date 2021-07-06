@@ -1,5 +1,5 @@
 /**
- * @omiu/select v0.0.4 http://omijs.org
+ * @omiu/select v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics$2 = function(d, b) {
     extendStatics$2 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics$2(d, b);
 };
 
 function __extends$2(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics$2(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -55,10 +57,966 @@ function __decorate$2(decorators, target, key, desc) {
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
-var index$1 = ".o-select {\n  position: relative; }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\e6da\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px;\n  overflow: auto; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-textarea {\n  position: relative;\n  display: inline-block;\n  width: 100%;\n  vertical-align: bottom;\n  font-size: 14px; }\n\n.o-textarea__inner {\n  display: block;\n  resize: vertical;\n  padding: 5px 15px;\n  line-height: 1.5;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 100%;\n  font-size: inherit;\n  color: #606266;\n  background-color: #FFF;\n  background-image: none;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-textarea__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-textarea__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-textarea__inner:focus {\n  outline: 0;\n  border-color: #07c160; }\n\n.o-textarea .o-input__count {\n  color: #909399;\n  background: #FFF;\n  position: absolute;\n  font-size: 12px;\n  bottom: 5px;\n  right: 10px; }\n\n.o-textarea.is-disabled .o-textarea__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-textarea.is-disabled .o-textarea__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-disabled .o-textarea__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-textarea.is-exceed .o-textarea__inner {\n  border-color: #F56C6C; }\n\n.o-textarea.is-exceed .o-input__count {\n  color: #F56C6C; }\n\n.o-input {\n  position: relative;\n  font-size: 14px;\n  display: inline-block;\n  width: 100%; }\n\n.o-input::-webkit-scrollbar {\n  z-index: 11;\n  width: 6px; }\n\n.o-input::-webkit-scrollbar:horizontal {\n  height: 6px; }\n\n.o-input::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  width: 6px;\n  background: #b4bccc; }\n\n.o-input::-webkit-scrollbar-corner {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track-piece {\n  background: #fff;\n  width: 6px; }\n\n.o-input .o-input__clear {\n  color: #C0C4CC;\n  font-size: 14px;\n  cursor: pointer;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-input .o-input__clear:hover {\n  color: #909399; }\n\n.o-input .o-input__count {\n  height: 100%;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  color: #909399;\n  font-size: 12px; }\n\n.o-input .o-input__count .o-input__count-inner {\n  background: #FFF;\n  line-height: initial;\n  display: inline-block;\n  padding: 0 5px; }\n\n.o-input__inner {\n  -webkit-appearance: none;\n  background-color: #FFF;\n  background-image: none;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #606266;\n  display: inline-block;\n  font-size: inherit;\n  height: 40px;\n  line-height: 40px;\n  outline: 0;\n  padding: 0 15px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  width: 100%; }\n\n.o-select-dropdown__item,\n.o-tag {\n  white-space: nowrap;\n  -webkit-box-sizing: border-box; }\n\n.o-input__prefix,\n.o-input__suffix {\n  position: absolute;\n  top: 0;\n  -webkit-transition: all .3s;\n  height: 100%;\n  color: #C0C4CC;\n  text-align: center; }\n\n.o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-input.is-active .o-input__inner,\n.o-input__inner:focus {\n  border-color: #07c160;\n  outline: 0; }\n\n.o-input__suffix {\n  right: 5px;\n  transition: all .3s;\n  pointer-events: none; }\n\n.o-input__suffix-inner {\n  pointer-events: all; }\n\n.o-input__prefix {\n  left: 5px;\n  transition: all .3s; }\n\n.o-input__icon {\n  height: 100%;\n  width: 25px;\n  text-align: center;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n  line-height: 40px; }\n\n.o-input__icon:after {\n  content: '';\n  height: 100%;\n  width: 0;\n  display: inline-block;\n  vertical-align: middle; }\n\n.o-input__validateIcon {\n  pointer-events: none; }\n\n.o-input.is-disabled .o-input__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-input.is-disabled .o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__icon {\n  cursor: not-allowed; }\n\n.o-input.is-exceed .o-input__inner {\n  border-color: #F56C6C; }\n\n.o-input.is-exceed .o-input__suffix .o-input__count {\n  color: #F56C6C; }\n\n.o-input--suffix .o-input__inner {\n  padding-right: 30px; }\n\n.o-input--prefix .o-input__inner {\n  padding-left: 30px; }\n\n.o-input--medium {\n  font-size: 14px; }\n\n.o-input--medium .o-input__inner {\n  height: 36px;\n  line-height: 36px; }\n\n.o-input--medium .o-input__icon {\n  line-height: 36px; }\n\n.o-input--small {\n  font-size: 13px; }\n\n.o-input--small .o-input__inner {\n  height: 32px;\n  line-height: 32px; }\n\n.o-input--small .o-input__icon {\n  line-height: 32px; }\n\n.o-input--mini {\n  font-size: 12px; }\n\n.o-input--mini .o-input__inner {\n  height: 28px;\n  line-height: 28px; }\n\n.o-input--mini .o-input__icon {\n  line-height: 28px; }\n\n.o-input-group {\n  line-height: normal;\n  display: inline-table;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0; }\n\n.o-input-group > .o-input__inner {\n  vertical-align: middle;\n  display: table-cell; }\n\n.o-input-group__append,\n.o-input-group__prepend {\n  background-color: #F5F7FA;\n  color: #909399;\n  vertical-align: middle;\n  display: table-cell;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  padding: 0 20px;\n  width: 1px;\n  white-space: nowrap; }\n\n.o-input-group--prepend .o-input__inner,\n.o-input-group__append {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0; }\n\n.o-input-group--append .o-input__inner,\n.o-input-group__prepend {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0; }\n\n.o-input-group__append:focus,\n.o-input-group__prepend:focus {\n  outline: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-select,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-select {\n  display: inline-block;\n  margin: -10px -20px; }\n\n.o-input-group__append button.o-button,\n.o-input-group__append div.o-select .o-input__inner,\n.o-input-group__append div.o-select:hover .o-input__inner,\n.o-input-group__prepend button.o-button,\n.o-input-group__prepend div.o-select .o-input__inner,\n.o-input-group__prepend div.o-select:hover .o-input__inner {\n  border-color: transparent;\n  background-color: transparent;\n  color: inherit;\n  border-top: 0;\n  border-bottom: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-input,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-input {\n  font-size: inherit; }\n\n.o-input-group__prepend {\n  border-right: 0; }\n\n.o-input-group__append {\n  border-left: 0; }\n\n.o-input-group--append .o-select .o-input.is-focus .o-input__inner,\n.o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {\n  border-color: transparent; }\n\n.o-input__inner::-ms-clear {\n  display: none;\n  width: 0;\n  height: 0; }\n\n.o-tag {\n  background-color: #ecf5ff;\n  border-color: #d9ecff;\n  display: inline-block;\n  height: 32px;\n  padding: 0 10px;\n  line-height: 30px;\n  font-size: 12px;\n  color: #07c160;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 4px;\n  box-sizing: border-box; }\n\n.o-tag.is-hit {\n  border-color: #07c160; }\n\n.o-tag .o-tag__close {\n  color: #07c160; }\n\n.o-tag .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag.o-tag--info {\n  background-color: #f4f4f5;\n  border-color: #e9e9eb;\n  color: #909399; }\n\n.o-tag.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag.o-tag--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8;\n  color: #67c23a; }\n\n.o-tag.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag.o-tag--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8;\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag.o-tag--danger {\n  background-color: #fef0f0;\n  border-color: #fde2e2;\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag .o-icon-close {\n  border-radius: 50%;\n  text-align: center;\n  position: relative;\n  cursor: pointer;\n  font-size: 12px;\n  height: 16px;\n  width: 16px;\n  line-height: 16px;\n  vertical-align: middle;\n  top: -1px;\n  right: -5px; }\n\n.o-tag .o-icon-close::before {\n  display: block; }\n\n.o-tag--dark {\n  background-color: #07c160;\n  border-color: #07c160;\n  color: #fff; }\n\n.o-tag--dark.is-hit {\n  border-color: #07c160; }\n\n.o-tag--dark .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark .o-tag__close:hover {\n  color: #FFF;\n  background-color: #66b1ff; }\n\n.o-tag--dark.o-tag--info {\n  background-color: #909399;\n  border-color: #909399;\n  color: #fff; }\n\n.o-tag--dark.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--dark.o-tag--info .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #a6a9ad; }\n\n.o-tag--dark.o-tag--success {\n  background-color: #67c23a;\n  border-color: #67c23a;\n  color: #fff; }\n\n.o-tag--dark.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--dark.o-tag--success .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #85ce61; }\n\n.o-tag--dark.o-tag--warning {\n  background-color: #e6a23c;\n  border-color: #e6a23c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--dark.o-tag--warning .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #ebb563; }\n\n.o-tag--dark.o-tag--danger {\n  background-color: #f56c6c;\n  border-color: #f56c6c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--dark.o-tag--danger .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f78989; }\n\n.o-tag--plain {\n  background-color: #fff;\n  border-color: #b3d8ff;\n  color: #07c160; }\n\n.o-tag--plain.is-hit {\n  border-color: #07c160; }\n\n.o-tag--plain .o-tag__close {\n  color: #07c160; }\n\n.o-tag--plain .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag--plain.o-tag--info {\n  background-color: #fff;\n  border-color: #d3d4d6;\n  color: #909399; }\n\n.o-tag--plain.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag--plain.o-tag--success {\n  background-color: #fff;\n  border-color: #c2e7b0;\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--plain.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag--plain.o-tag--warning {\n  background-color: #fff;\n  border-color: #f5dab1;\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--plain.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag--plain.o-tag--danger {\n  background-color: #fff;\n  border-color: #fbc4c4;\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--plain.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag--medium {\n  height: 28px;\n  line-height: 26px; }\n\n.o-tag--medium .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.o-tag--small .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.o-tag--mini .o-icon-close {\n  margin-left: -3px;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.o-select-dropdown__item {\n  font-size: 14px;\n  padding: 0 20px;\n  position: relative;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  color: #606266;\n  height: 34px;\n  line-height: 34px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.o-select-dropdown__item.is-disabled {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-select-dropdown__item.is-disabled:hover {\n  background-color: #FFF; }\n\n.o-select-dropdown__item.hover,\n.o-select-dropdown__item:hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown__item.selected {\n  color: #07c160;\n  font-weight: 700; }\n\n.o-select-group {\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap {\n  position: relative;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap:not(:last-of-type) {\n  padding-bottom: 24px; }\n\n.o-select-group__wrap:not(:last-of-type)::after {\n  content: '';\n  position: absolute;\n  display: block;\n  left: 20px;\n  right: 20px;\n  bottom: 12px;\n  height: 1px;\n  background: #E4E7ED; }\n\n.o-select-group__title {\n  padding-left: 20px;\n  font-size: 12px;\n  color: #909399;\n  line-height: 30px; }\n\n.o-select-group .o-select-dropdown__item {\n  padding-left: 20px; }\n\n.o-scrollbar {\n  overflow: hidden;\n  position: relative; }\n\n.o-scrollbar:active > .o-scrollbar__bar,\n.o-scrollbar:focus > .o-scrollbar__bar,\n.o-scrollbar:hover > .o-scrollbar__bar {\n  opacity: 1;\n  -webkit-transition: opacity 340ms ease-out;\n  transition: opacity 340ms ease-out; }\n\n.o-scrollbar__wrap {\n  overflow: scroll;\n  height: 100%; }\n\n.o-scrollbar__wrap--hidden-default {\n  scrollbar-width: none; }\n\n.o-scrollbar__wrap--hidden-default::-webkit-scrollbar {\n  width: 0;\n  height: 0; }\n\n.o-scrollbar__thumb {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 0;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: rgba(144, 147, 153, 0.3);\n  -webkit-transition: .3s background-color;\n  transition: .3s background-color; }\n\n.o-scrollbar__thumb:hover {\n  background-color: rgba(144, 147, 153, 0.5); }\n\n.o-scrollbar__bar {\n  position: absolute;\n  right: 2px;\n  bottom: 2px;\n  z-index: 1;\n  border-radius: 4px;\n  opacity: 0;\n  -webkit-transition: opacity 120ms ease-out;\n  transition: opacity 120ms ease-out; }\n\n.o-scrollbar__bar.is-vertical {\n  width: 6px;\n  top: 2px; }\n\n.o-scrollbar__bar.is-vertical > div {\n  width: 100%; }\n\n.o-scrollbar__bar.is-horizontal {\n  height: 6px;\n  left: 2px; }\n\n.o-scrollbar__bar.is-horizontal > div {\n  height: 100%; }\n\n.o-select {\n  display: inline-block;\n  position: relative; }\n\n.o-select .o-select__tags > span {\n  display: contents; }\n\n.o-select:hover .o-input__inner {\n  border-color: #C0C4CC; }\n\n.o-select .o-input__inner {\n  cursor: pointer;\n  padding-right: 35px; }\n\n.o-select .o-input__inner:focus {\n  border-color: #07c160; }\n\n.o-select .o-input .o-select__caret {\n  color: #C0C4CC;\n  font-size: 14px;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  cursor: pointer; }\n\n.o-select .o-input .o-select__caret.is-reverse {\n  -webkit-transform: rotateZ(0);\n  transform: rotateZ(0); }\n\n.o-select .o-input .o-select__caret.is-show-close {\n  font-size: 14px;\n  text-align: center;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  border-radius: 100%;\n  color: #C0C4CC;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-select .o-input .o-select__caret.is-show-close:hover {\n  color: #909399; }\n\n.o-select .o-input.is-disabled .o-input__inner {\n  cursor: not-allowed; }\n\n.o-select .o-input.is-disabled .o-input__inner:hover {\n  border-color: #E4E7ED; }\n\n.o-select .o-input.is-focus .o-input__inner {\n  border-color: #07c160; }\n\n.o-select > .o-input {\n  display: block; }\n\n.o-select__input {\n  border: none;\n  outline: 0;\n  padding: 0;\n  margin-left: 15px;\n  color: #666;\n  font-size: 14px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  height: 28px;\n  background-color: transparent; }\n\n.o-select__input.is-mini {\n  height: 14px; }\n\n.o-select__close {\n  cursor: pointer;\n  position: absolute;\n  top: 8px;\n  z-index: 1000;\n  right: 25px;\n  color: #C0C4CC;\n  line-height: 18px;\n  font-size: 14px; }\n\n.o-select__close:hover {\n  color: #909399; }\n\n.o-select__tags {\n  position: absolute;\n  line-height: normal;\n  white-space: normal;\n  z-index: 1;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.o-select .o-tag__close {\n  margin-top: -2px; }\n\n.o-select .o-tag {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-color: transparent;\n  margin: 2px 0 2px 6px;\n  background-color: #f0f2f5; }\n\n.o-select .o-tag__close.o-icon-close {\n  background-color: #C0C4CC;\n  right: -7px;\n  top: 0;\n  color: #FFF; }\n\n.o-select .o-tag__close.o-icon-close:hover {\n  background-color: #909399; }\n\n.o-select .o-tag__close.o-icon-close::before {\n  display: block;\n  -webkit-transform: translate(0, 0.5px);\n  transform: translate(0, 0.5px); }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\e6da\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.arrow {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -0.5em;\n  color: #747679;\n  cursor: pointer; }\n\nul,\nli {\n  margin: 0;\n  padding: 0; }\n";
+var index$2 = "/**\n * omiu select css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n.o-select {\n  position: relative; }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px;\n  overflow: auto; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-input {\n  position: relative;\n  font-size: 14px;\n  display: inline-block;\n  width: 100%; }\n\n.o-input::-webkit-scrollbar {\n  z-index: 11;\n  width: 6px; }\n\n.o-input::-webkit-scrollbar:horizontal {\n  height: 6px; }\n\n.o-input::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  width: 6px;\n  background: #b4bccc; }\n\n.o-input::-webkit-scrollbar-corner {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track-piece {\n  background: #fff;\n  width: 6px; }\n\n.o-input .o-input__clear {\n  color: #C0C4CC;\n  font-size: 14px;\n  cursor: pointer;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-input .o-input__clear:hover {\n  color: #909399; }\n\n.o-input .o-input__count {\n  height: 100%;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  color: #909399;\n  font-size: 12px; }\n\n.o-input .o-input__count .o-input__count-inner {\n  background: #FFF;\n  line-height: initial;\n  display: inline-block;\n  padding: 0 5px; }\n\n.o-input__inner {\n  -webkit-appearance: none;\n  background-color: #FFF;\n  background-image: none;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #606266;\n  display: inline-block;\n  font-size: inherit;\n  height: 40px;\n  line-height: 40px;\n  outline: 0;\n  padding: 0 15px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  width: 100%; }\n\n.o-select-dropdown__item,\n.o-tag {\n  white-space: nowrap;\n  -webkit-box-sizing: border-box; }\n\n.o-input__prefix,\n.o-input__suffix {\n  position: absolute;\n  top: 0;\n  -webkit-transition: all .3s;\n  height: 100%;\n  color: #C0C4CC;\n  text-align: center; }\n\n.o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-input.is-active .o-input__inner,\n.o-input__inner:focus {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  outline: 0; }\n\n.o-input__suffix {\n  right: 5px;\n  transition: all .3s;\n  pointer-events: none; }\n\n.o-input__suffix-inner {\n  pointer-events: all; }\n\n.o-input__prefix {\n  left: 5px;\n  transition: all .3s; }\n\n.o-input__icon {\n  height: 100%;\n  width: 25px;\n  text-align: center;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n  line-height: 40px; }\n\n.o-input__icon:after {\n  content: '';\n  height: 100%;\n  width: 0;\n  display: inline-block;\n  vertical-align: middle; }\n\n.o-input__validateIcon {\n  pointer-events: none; }\n\n.o-input.is-disabled .o-input__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-input.is-disabled .o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__icon {\n  cursor: not-allowed; }\n\n.o-input.is-exceed .o-input__inner {\n  border-color: #F56C6C; }\n\n.o-input.is-exceed .o-input__suffix .o-input__count {\n  color: #F56C6C; }\n\n.o-input--suffix .o-input__inner {\n  padding-right: 30px; }\n\n.o-input--prefix .o-input__inner {\n  padding-left: 30px; }\n\n.o-input--medium {\n  font-size: 14px; }\n\n.o-input--medium .o-input__inner {\n  height: 36px;\n  line-height: 36px; }\n\n.o-input--medium .o-input__icon {\n  line-height: 36px; }\n\n.o-input--small {\n  font-size: 13px; }\n\n.o-input--small .o-input__inner {\n  height: 32px;\n  line-height: 32px; }\n\n.o-input--small .o-input__icon {\n  line-height: 32px; }\n\n.o-input--mini {\n  font-size: 12px; }\n\n.o-input--mini .o-input__inner {\n  height: 28px;\n  line-height: 28px; }\n\n.o-input--mini .o-input__icon {\n  line-height: 28px; }\n\n.o-input-group {\n  line-height: normal;\n  display: inline-table;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0; }\n\n.o-input-group > .o-input__inner {\n  vertical-align: middle;\n  display: table-cell; }\n\n.o-input-group__append,\n.o-input-group__prepend {\n  background-color: #F5F7FA;\n  color: #909399;\n  vertical-align: middle;\n  display: table-cell;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  padding: 0 20px;\n  width: 1px;\n  white-space: nowrap; }\n\n.o-input-group--prepend .o-input__inner,\n.o-input-group__append {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0; }\n\n.o-input-group--append .o-input__inner,\n.o-input-group__prepend {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0; }\n\n.o-input-group__append:focus,\n.o-input-group__prepend:focus {\n  outline: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-select,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-select {\n  display: inline-block;\n  margin: -10px -20px; }\n\n.o-input-group__append button.o-button,\n.o-input-group__append div.o-select .o-input__inner,\n.o-input-group__append div.o-select:hover .o-input__inner,\n.o-input-group__prepend button.o-button,\n.o-input-group__prepend div.o-select .o-input__inner,\n.o-input-group__prepend div.o-select:hover .o-input__inner {\n  border-color: transparent;\n  background-color: transparent;\n  color: inherit;\n  border-top: 0;\n  border-bottom: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-input,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-input {\n  font-size: inherit; }\n\n.o-input-group__prepend {\n  border-right: 0; }\n\n.o-input-group__append {\n  border-left: 0; }\n\n.o-input-group--append .o-select .o-input.is-focus .o-input__inner,\n.o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {\n  border-color: transparent; }\n\n.o-input__inner::-ms-clear {\n  display: none;\n  width: 0;\n  height: 0; }\n\n.o-tag {\n  background-color: #ecf5ff;\n  border-color: #d9ecff;\n  display: inline-block;\n  height: 32px;\n  padding: 0 10px;\n  line-height: 30px;\n  font-size: 12px;\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 4px;\n  box-sizing: border-box; }\n\n.o-tag.is-hit {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-tag .o-tag__close {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-tag .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.o-tag.o-tag--info {\n  background-color: #f4f4f5;\n  border-color: #e9e9eb;\n  color: #909399; }\n\n.o-tag.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag.o-tag--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8;\n  color: #67c23a; }\n\n.o-tag.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag.o-tag--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8;\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag.o-tag--danger {\n  background-color: #fef0f0;\n  border-color: #fde2e2;\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag .o-icon-close {\n  border-radius: 50%;\n  text-align: center;\n  position: relative;\n  cursor: pointer;\n  font-size: 12px;\n  height: 16px;\n  width: 16px;\n  line-height: 16px;\n  vertical-align: middle;\n  top: -1px;\n  right: -5px; }\n\n.o-tag .o-icon-close::before {\n  display: block; }\n\n.o-tag--dark {\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160);\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  color: #fff; }\n\n.o-tag--dark.is-hit {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-tag--dark .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark .o-tag__close:hover {\n  color: #FFF;\n  background-color: #66b1ff; }\n\n.o-tag--dark.o-tag--info {\n  background-color: #909399;\n  border-color: #909399;\n  color: #fff; }\n\n.o-tag--dark.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--dark.o-tag--info .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #a6a9ad; }\n\n.o-tag--dark.o-tag--success {\n  background-color: #67c23a;\n  border-color: #67c23a;\n  color: #fff; }\n\n.o-tag--dark.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--dark.o-tag--success .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #85ce61; }\n\n.o-tag--dark.o-tag--warning {\n  background-color: #e6a23c;\n  border-color: #e6a23c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--dark.o-tag--warning .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #ebb563; }\n\n.o-tag--dark.o-tag--danger {\n  background-color: #f56c6c;\n  border-color: #f56c6c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--dark.o-tag--danger .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f78989; }\n\n.o-tag--plain {\n  background-color: #fff;\n  border-color: #b3d8ff;\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-tag--plain.is-hit {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-tag--plain .o-tag__close {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-tag--plain .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.o-tag--plain.o-tag--info {\n  background-color: #fff;\n  border-color: #d3d4d6;\n  color: #909399; }\n\n.o-tag--plain.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag--plain.o-tag--success {\n  background-color: #fff;\n  border-color: #c2e7b0;\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--plain.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag--plain.o-tag--warning {\n  background-color: #fff;\n  border-color: #f5dab1;\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--plain.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag--plain.o-tag--danger {\n  background-color: #fff;\n  border-color: #fbc4c4;\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--plain.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag--medium {\n  height: 28px;\n  line-height: 26px; }\n\n.o-tag--medium .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.o-tag--small .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.o-tag--mini .o-icon-close {\n  margin-left: -3px;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.o-select-dropdown__item {\n  font-size: 14px;\n  padding: 0 20px;\n  position: relative;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  color: #606266;\n  height: 34px;\n  line-height: 34px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.o-select-dropdown__item.is-disabled {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-select-dropdown__item.is-disabled:hover {\n  background-color: #FFF; }\n\n.o-select-dropdown__item.hover,\n.o-select-dropdown__item:hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown__item.selected {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  font-weight: 700; }\n\n.o-select-group {\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap {\n  position: relative;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap:not(:last-of-type) {\n  padding-bottom: 24px; }\n\n.o-select-group__wrap:not(:last-of-type)::after {\n  content: '';\n  position: absolute;\n  display: block;\n  left: 20px;\n  right: 20px;\n  bottom: 12px;\n  height: 1px;\n  background: #E4E7ED; }\n\n.o-select-group__title {\n  padding-left: 20px;\n  font-size: 12px;\n  color: #909399;\n  line-height: 30px; }\n\n.o-select-group .o-select-dropdown__item {\n  padding-left: 20px; }\n\n.o-scrollbar {\n  overflow: hidden;\n  position: relative; }\n\n.o-scrollbar:active > .o-scrollbar__bar,\n.o-scrollbar:focus > .o-scrollbar__bar,\n.o-scrollbar:hover > .o-scrollbar__bar {\n  opacity: 1;\n  -webkit-transition: opacity 340ms ease-out;\n  transition: opacity 340ms ease-out; }\n\n.o-scrollbar__wrap {\n  overflow: scroll;\n  height: 100%; }\n\n.o-scrollbar__wrap--hidden-default {\n  scrollbar-width: none; }\n\n.o-scrollbar__wrap--hidden-default::-webkit-scrollbar {\n  width: 0;\n  height: 0; }\n\n.o-scrollbar__thumb {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 0;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: rgba(144, 147, 153, 0.3);\n  -webkit-transition: .3s background-color;\n  transition: .3s background-color; }\n\n.o-scrollbar__thumb:hover {\n  background-color: rgba(144, 147, 153, 0.5); }\n\n.o-scrollbar__bar {\n  position: absolute;\n  right: 2px;\n  bottom: 2px;\n  z-index: 1;\n  border-radius: 4px;\n  opacity: 0;\n  -webkit-transition: opacity 120ms ease-out;\n  transition: opacity 120ms ease-out; }\n\n.o-scrollbar__bar.is-vertical {\n  width: 6px;\n  top: 2px; }\n\n.o-scrollbar__bar.is-vertical > div {\n  width: 100%; }\n\n.o-scrollbar__bar.is-horizontal {\n  height: 6px;\n  left: 2px; }\n\n.o-scrollbar__bar.is-horizontal > div {\n  height: 100%; }\n\n.o-select {\n  display: inline-block;\n  position: relative; }\n\n.o-select .o-select__tags > span {\n  display: contents; }\n\n.o-select:hover .o-input__inner {\n  border-color: #C0C4CC; }\n\n.o-select .o-input__inner {\n  cursor: pointer;\n  padding-right: 35px; }\n\n.o-select .o-input__inner:focus {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-select .o-input .o-select__caret {\n  color: #C0C4CC;\n  font-size: 14px;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  cursor: pointer; }\n\n.o-select .o-input .o-select__caret.is-reverse {\n  -webkit-transform: rotateZ(0);\n  transform: rotateZ(0); }\n\n.o-select .o-input .o-select__caret.is-show-close {\n  font-size: 14px;\n  text-align: center;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  border-radius: 100%;\n  color: #C0C4CC;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-select .o-input .o-select__caret.is-show-close:hover {\n  color: #909399; }\n\n.o-select .o-input.is-disabled .o-input__inner {\n  cursor: not-allowed; }\n\n.o-select .o-input.is-disabled .o-input__inner:hover {\n  border-color: #E4E7ED; }\n\n.o-select .o-input.is-focus .o-input__inner {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-select > .o-input {\n  display: block; }\n\n.o-select__input {\n  border: none;\n  outline: 0;\n  padding: 0;\n  margin-left: 15px;\n  color: #666;\n  font-size: 14px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  height: 28px;\n  background-color: transparent; }\n\n.o-select__input.is-mini {\n  height: 14px; }\n\n.o-select__close {\n  cursor: pointer;\n  position: absolute;\n  top: 8px;\n  z-index: 1000;\n  right: 25px;\n  color: #C0C4CC;\n  line-height: 18px;\n  font-size: 14px; }\n\n.o-select__close:hover {\n  color: #909399; }\n\n.o-select__tags {\n  position: absolute;\n  line-height: normal;\n  white-space: normal;\n  z-index: 1;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.o-select .o-tag__close {\n  margin-top: -2px; }\n\n.o-select .o-tag {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-color: transparent;\n  margin: 2px 0 2px 6px;\n  background-color: #f0f2f5; }\n\n.o-select .o-tag__close.o-icon-close {\n  background-color: #C0C4CC;\n  right: -7px;\n  top: 0;\n  color: #FFF; }\n\n.o-select .o-tag__close.o-icon-close:hover {\n  background-color: #909399; }\n\n.o-select .o-tag__close.o-icon-close::before {\n  display: block;\n  -webkit-transform: translate(0, 0.5px);\n  transform: translate(0, 0.5px); }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.selected svg {\n  position: absolute;\n  right: 15px;\n  top: 10px;\n  font-size: 12px;\n  font-weight: 700;\n  width: 15px;\n  -webkit-font-smoothing: antialiased;\n  fill: currentColor; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.arrow {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -0.5em;\n  color: #747679;\n  cursor: pointer; }\n\nul,\nli {\n  margin: 0;\n  padding: 0; }\n";
 
 /**
- * @omiu/popover v0.0.8 http://omijs.org
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = (function () {
+    if (typeof Map !== 'undefined') {
+        return Map;
+    }
+    /**
+     * Returns index in provided array that matches the specified key.
+     *
+     * @param {Array<Array>} arr
+     * @param {*} key
+     * @returns {number}
+     */
+    function getIndex(arr, key) {
+        var result = -1;
+        arr.some(function (entry, index) {
+            if (entry[0] === key) {
+                result = index;
+                return true;
+            }
+            return false;
+        });
+        return result;
+    }
+    return /** @class */ (function () {
+        function class_1() {
+            this.__entries__ = [];
+        }
+        Object.defineProperty(class_1.prototype, "size", {
+            /**
+             * @returns {boolean}
+             */
+            get: function () {
+                return this.__entries__.length;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {*} key
+         * @returns {*}
+         */
+        class_1.prototype.get = function (key) {
+            var index = getIndex(this.__entries__, key);
+            var entry = this.__entries__[index];
+            return entry && entry[1];
+        };
+        /**
+         * @param {*} key
+         * @param {*} value
+         * @returns {void}
+         */
+        class_1.prototype.set = function (key, value) {
+            var index = getIndex(this.__entries__, key);
+            if (~index) {
+                this.__entries__[index][1] = value;
+            }
+            else {
+                this.__entries__.push([key, value]);
+            }
+        };
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        class_1.prototype.delete = function (key) {
+            var entries = this.__entries__;
+            var index = getIndex(entries, key);
+            if (~index) {
+                entries.splice(index, 1);
+            }
+        };
+        /**
+         * @param {*} key
+         * @returns {void}
+         */
+        class_1.prototype.has = function (key) {
+            return !!~getIndex(this.__entries__, key);
+        };
+        /**
+         * @returns {void}
+         */
+        class_1.prototype.clear = function () {
+            this.__entries__.splice(0);
+        };
+        /**
+         * @param {Function} callback
+         * @param {*} [ctx=null]
+         * @returns {void}
+         */
+        class_1.prototype.forEach = function (callback, ctx) {
+            if (ctx === void 0) { ctx = null; }
+            for (var _i = 0, _a = this.__entries__; _i < _a.length; _i++) {
+                var entry = _a[_i];
+                callback.call(ctx, entry[1], entry[0]);
+            }
+        };
+        return class_1;
+    }());
+})();
+
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document;
+
+// Returns global object of a current environment.
+var global$1 = (function () {
+    if (typeof global !== 'undefined' && global.Math === Math) {
+        return global;
+    }
+    if (typeof self !== 'undefined' && self.Math === Math) {
+        return self;
+    }
+    if (typeof window !== 'undefined' && window.Math === Math) {
+        return window;
+    }
+    // eslint-disable-next-line no-new-func
+    return Function('return this')();
+})();
+
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+var requestAnimationFrame$1 = (function () {
+    if (typeof requestAnimationFrame === 'function') {
+        // It's required to use a bounded function because IE sometimes throws
+        // an "Invalid calling object" error if rAF is invoked without the global
+        // object on the left hand side.
+        return requestAnimationFrame.bind(global$1);
+    }
+    return function (callback) { return setTimeout(function () { return callback(Date.now()); }, 1000 / 60); };
+})();
+
+// Defines minimum timeout before adding a trailing call.
+var trailingTimeout = 2;
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+function throttle (callback, delay) {
+    var leadingCall = false, trailingCall = false, lastCallTime = 0;
+    /**
+     * Invokes the original callback function and schedules new invocation if
+     * the "proxy" was called during current request.
+     *
+     * @returns {void}
+     */
+    function resolvePending() {
+        if (leadingCall) {
+            leadingCall = false;
+            callback();
+        }
+        if (trailingCall) {
+            proxy();
+        }
+    }
+    /**
+     * Callback invoked after the specified delay. It will further postpone
+     * invocation of the original function delegating it to the
+     * requestAnimationFrame.
+     *
+     * @returns {void}
+     */
+    function timeoutCallback() {
+        requestAnimationFrame$1(resolvePending);
+    }
+    /**
+     * Schedules invocation of the original function.
+     *
+     * @returns {void}
+     */
+    function proxy() {
+        var timeStamp = Date.now();
+        if (leadingCall) {
+            // Reject immediately following calls.
+            if (timeStamp - lastCallTime < trailingTimeout) {
+                return;
+            }
+            // Schedule new call to be in invoked when the pending one is resolved.
+            // This is important for "transitions" which never actually start
+            // immediately so there is a chance that we might miss one if change
+            // happens amids the pending invocation.
+            trailingCall = true;
+        }
+        else {
+            leadingCall = true;
+            trailingCall = false;
+            setTimeout(timeoutCallback, delay);
+        }
+        lastCallTime = timeStamp;
+    }
+    return proxy;
+}
+
+// Minimum delay before invoking the update of observers.
+var REFRESH_DELAY = 20;
+// A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight'];
+// Check if MutationObserver is available.
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+var ResizeObserverController = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserverController.
+     *
+     * @private
+     */
+    function ResizeObserverController() {
+        /**
+         * Indicates whether DOM listeners have been added.
+         *
+         * @private {boolean}
+         */
+        this.connected_ = false;
+        /**
+         * Tells that controller has subscribed for Mutation Events.
+         *
+         * @private {boolean}
+         */
+        this.mutationEventsAdded_ = false;
+        /**
+         * Keeps reference to the instance of MutationObserver.
+         *
+         * @private {MutationObserver}
+         */
+        this.mutationsObserver_ = null;
+        /**
+         * A list of connected observers.
+         *
+         * @private {Array<ResizeObserverSPI>}
+         */
+        this.observers_ = [];
+        this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+        this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+    }
+    /**
+     * Adds observer to observers list.
+     *
+     * @param {ResizeObserverSPI} observer - Observer to be added.
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.addObserver = function (observer) {
+        if (!~this.observers_.indexOf(observer)) {
+            this.observers_.push(observer);
+        }
+        // Add listeners if they haven't been added yet.
+        if (!this.connected_) {
+            this.connect_();
+        }
+    };
+    /**
+     * Removes observer from observers list.
+     *
+     * @param {ResizeObserverSPI} observer - Observer to be removed.
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.removeObserver = function (observer) {
+        var observers = this.observers_;
+        var index = observers.indexOf(observer);
+        // Remove observer if it's present in registry.
+        if (~index) {
+            observers.splice(index, 1);
+        }
+        // Remove listeners if controller has no connected observers.
+        if (!observers.length && this.connected_) {
+            this.disconnect_();
+        }
+    };
+    /**
+     * Invokes the update of observers. It will continue running updates insofar
+     * it detects changes.
+     *
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.refresh = function () {
+        var changesDetected = this.updateObservers_();
+        // Continue running updates if changes have been detected as there might
+        // be future ones caused by CSS transitions.
+        if (changesDetected) {
+            this.refresh();
+        }
+    };
+    /**
+     * Updates every observer from observers list and notifies them of queued
+     * entries.
+     *
+     * @private
+     * @returns {boolean} Returns "true" if any observer has detected changes in
+     *      dimensions of it's elements.
+     */
+    ResizeObserverController.prototype.updateObservers_ = function () {
+        // Collect observers that have active observations.
+        var activeObservers = this.observers_.filter(function (observer) {
+            return observer.gatherActive(), observer.hasActive();
+        });
+        // Deliver notifications in a separate cycle in order to avoid any
+        // collisions between observers, e.g. when multiple instances of
+        // ResizeObserver are tracking the same element and the callback of one
+        // of them changes content dimensions of the observed target. Sometimes
+        // this may result in notifications being blocked for the rest of observers.
+        activeObservers.forEach(function (observer) { return observer.broadcastActive(); });
+        return activeObservers.length > 0;
+    };
+    /**
+     * Initializes DOM listeners.
+     *
+     * @private
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.connect_ = function () {
+        // Do nothing if running in a non-browser environment or if listeners
+        // have been already added.
+        if (!isBrowser || this.connected_) {
+            return;
+        }
+        // Subscription to the "Transitionend" event is used as a workaround for
+        // delayed transitions. This way it's possible to capture at least the
+        // final state of an element.
+        document.addEventListener('transitionend', this.onTransitionEnd_);
+        window.addEventListener('resize', this.refresh);
+        if (mutationObserverSupported) {
+            this.mutationsObserver_ = new MutationObserver(this.refresh);
+            this.mutationsObserver_.observe(document, {
+                attributes: true,
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+        }
+        else {
+            document.addEventListener('DOMSubtreeModified', this.refresh);
+            this.mutationEventsAdded_ = true;
+        }
+        this.connected_ = true;
+    };
+    /**
+     * Removes DOM listeners.
+     *
+     * @private
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.disconnect_ = function () {
+        // Do nothing if running in a non-browser environment or if listeners
+        // have been already removed.
+        if (!isBrowser || !this.connected_) {
+            return;
+        }
+        document.removeEventListener('transitionend', this.onTransitionEnd_);
+        window.removeEventListener('resize', this.refresh);
+        if (this.mutationsObserver_) {
+            this.mutationsObserver_.disconnect();
+        }
+        if (this.mutationEventsAdded_) {
+            document.removeEventListener('DOMSubtreeModified', this.refresh);
+        }
+        this.mutationsObserver_ = null;
+        this.mutationEventsAdded_ = false;
+        this.connected_ = false;
+    };
+    /**
+     * "Transitionend" event handler.
+     *
+     * @private
+     * @param {TransitionEvent} event
+     * @returns {void}
+     */
+    ResizeObserverController.prototype.onTransitionEnd_ = function (_a) {
+        var _b = _a.propertyName, propertyName = _b === void 0 ? '' : _b;
+        // Detect whether transition may affect dimensions of an element.
+        var isReflowProperty = transitionKeys.some(function (key) {
+            return !!~propertyName.indexOf(key);
+        });
+        if (isReflowProperty) {
+            this.refresh();
+        }
+    };
+    /**
+     * Returns instance of the ResizeObserverController.
+     *
+     * @returns {ResizeObserverController}
+     */
+    ResizeObserverController.getInstance = function () {
+        if (!this.instance_) {
+            this.instance_ = new ResizeObserverController();
+        }
+        return this.instance_;
+    };
+    /**
+     * Holds reference to the controller's instance.
+     *
+     * @private {ResizeObserverController}
+     */
+    ResizeObserverController.instance_ = null;
+    return ResizeObserverController;
+}());
+
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+var defineConfigurable = (function (target, props) {
+    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+        var key = _a[_i];
+        Object.defineProperty(target, key, {
+            value: props[key],
+            enumerable: false,
+            writable: false,
+            configurable: true
+        });
+    }
+    return target;
+});
+
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+var getWindowOf = (function (target) {
+    // Assume that the element is an instance of Node, which means that it
+    // has the "ownerDocument" property from which we can retrieve a
+    // corresponding global object.
+    var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView;
+    // Return the local global object if it's not possible extract one from
+    // provided element.
+    return ownerGlobal || global$1;
+});
+
+// Placeholder of an empty content rectangle.
+var emptyRect = createRectInit(0, 0, 0, 0);
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+function getBordersSize(styles) {
+    var positions = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        positions[_i - 1] = arguments[_i];
+    }
+    return positions.reduce(function (size, position) {
+        var value = styles['border-' + position + '-width'];
+        return size + toFloat(value);
+    }, 0);
+}
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+function getPaddings(styles) {
+    var positions = ['top', 'right', 'bottom', 'left'];
+    var paddings = {};
+    for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+        var position = positions_1[_i];
+        var value = styles['padding-' + position];
+        paddings[position] = toFloat(value);
+    }
+    return paddings;
+}
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getSVGContentRect(target) {
+    var bbox = target.getBBox();
+    return createRectInit(0, 0, bbox.width, bbox.height);
+}
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+function getHTMLElementContentRect(target) {
+    // Client width & height properties can't be
+    // used exclusively as they provide rounded values.
+    var clientWidth = target.clientWidth, clientHeight = target.clientHeight;
+    // By this condition we can catch all non-replaced inline, hidden and
+    // detached elements. Though elements with width & height properties less
+    // than 0.5 will be discarded as well.
+    //
+    // Without it we would need to implement separate methods for each of
+    // those cases and it's not possible to perform a precise and performance
+    // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+    // gives wrong results for elements with width & height less than 0.5.
+    if (!clientWidth && !clientHeight) {
+        return emptyRect;
+    }
+    var styles = getWindowOf(target).getComputedStyle(target);
+    var paddings = getPaddings(styles);
+    var horizPad = paddings.left + paddings.right;
+    var vertPad = paddings.top + paddings.bottom;
+    // Computed styles of width & height are being used because they are the
+    // only dimensions available to JS that contain non-rounded values. It could
+    // be possible to utilize the getBoundingClientRect if only it's data wasn't
+    // affected by CSS transformations let alone paddings, borders and scroll bars.
+    var width = toFloat(styles.width), height = toFloat(styles.height);
+    // Width & height include paddings and borders when the 'border-box' box
+    // model is applied (except for IE).
+    if (styles.boxSizing === 'border-box') {
+        // Following conditions are required to handle Internet Explorer which
+        // doesn't include paddings and borders to computed CSS dimensions.
+        //
+        // We can say that if CSS dimensions + paddings are equal to the "client"
+        // properties then it's either IE, and thus we don't need to subtract
+        // anything, or an element merely doesn't have paddings/borders styles.
+        if (Math.round(width + horizPad) !== clientWidth) {
+            width -= getBordersSize(styles, 'left', 'right') + horizPad;
+        }
+        if (Math.round(height + vertPad) !== clientHeight) {
+            height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+        }
+    }
+    // Following steps can't be applied to the document's root element as its
+    // client[Width/Height] properties represent viewport area of the window.
+    // Besides, it's as well not necessary as the <html> itself neither has
+    // rendered scroll bars nor it can be clipped.
+    if (!isDocumentElement(target)) {
+        // In some browsers (only in Firefox, actually) CSS width & height
+        // include scroll bars size which can be removed at this step as scroll
+        // bars are the only difference between rounded dimensions + paddings
+        // and "client" properties, though that is not always true in Chrome.
+        var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+        var horizScrollbar = Math.round(height + vertPad) - clientHeight;
+        // Chrome has a rather weird rounding of "client" properties.
+        // E.g. for an element with content width of 314.2px it sometimes gives
+        // the client width of 315px and for the width of 314.7px it may give
+        // 314px. And it doesn't happen all the time. So just ignore this delta
+        // as a non-relevant.
+        if (Math.abs(vertScrollbar) !== 1) {
+            width -= vertScrollbar;
+        }
+        if (Math.abs(horizScrollbar) !== 1) {
+            height -= horizScrollbar;
+        }
+    }
+    return createRectInit(paddings.left, paddings.top, width, height);
+}
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+var isSVGGraphicsElement = (function () {
+    // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+    // interface.
+    if (typeof SVGGraphicsElement !== 'undefined') {
+        return function (target) { return target instanceof getWindowOf(target).SVGGraphicsElement; };
+    }
+    // If it's so, then check that element is at least an instance of the
+    // SVGElement and that it has the "getBBox" method.
+    // eslint-disable-next-line no-extra-parens
+    return function (target) { return (target instanceof getWindowOf(target).SVGElement &&
+        typeof target.getBBox === 'function'); };
+})();
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+function isDocumentElement(target) {
+    return target === getWindowOf(target).document.documentElement;
+}
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+function getContentRect(target) {
+    if (!isBrowser) {
+        return emptyRect;
+    }
+    if (isSVGGraphicsElement(target)) {
+        return getSVGContentRect(target);
+    }
+    return getHTMLElementContentRect(target);
+}
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+function createReadOnlyRect(_a) {
+    var x = _a.x, y = _a.y, width = _a.width, height = _a.height;
+    // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+    var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+    var rect = Object.create(Constr.prototype);
+    // Rectangle's properties are not writable and non-enumerable.
+    defineConfigurable(rect, {
+        x: x, y: y, width: width, height: height,
+        top: y,
+        right: x + width,
+        bottom: height + y,
+        left: x
+    });
+    return rect;
+}
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+function createRectInit(x, y, width, height) {
+    return { x: x, y: y, width: width, height: height };
+}
+
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+var ResizeObservation = /** @class */ (function () {
+    /**
+     * Creates an instance of ResizeObservation.
+     *
+     * @param {Element} target - Element to be observed.
+     */
+    function ResizeObservation(target) {
+        /**
+         * Broadcasted width of content rectangle.
+         *
+         * @type {number}
+         */
+        this.broadcastWidth = 0;
+        /**
+         * Broadcasted height of content rectangle.
+         *
+         * @type {number}
+         */
+        this.broadcastHeight = 0;
+        /**
+         * Reference to the last observed content rectangle.
+         *
+         * @private {DOMRectInit}
+         */
+        this.contentRect_ = createRectInit(0, 0, 0, 0);
+        this.target = target;
+    }
+    /**
+     * Updates content rectangle and tells whether it's width or height properties
+     * have changed since the last broadcast.
+     *
+     * @returns {boolean}
+     */
+    ResizeObservation.prototype.isActive = function () {
+        var rect = getContentRect(this.target);
+        this.contentRect_ = rect;
+        return (rect.width !== this.broadcastWidth ||
+            rect.height !== this.broadcastHeight);
+    };
+    /**
+     * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+     * from the corresponding properties of the last observed content rectangle.
+     *
+     * @returns {DOMRectInit} Last observed content rectangle.
+     */
+    ResizeObservation.prototype.broadcastRect = function () {
+        var rect = this.contentRect_;
+        this.broadcastWidth = rect.width;
+        this.broadcastHeight = rect.height;
+        return rect;
+    };
+    return ResizeObservation;
+}());
+
+var ResizeObserverEntry = /** @class */ (function () {
+    /**
+     * Creates an instance of ResizeObserverEntry.
+     *
+     * @param {Element} target - Element that is being observed.
+     * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
+     */
+    function ResizeObserverEntry(target, rectInit) {
+        var contentRect = createReadOnlyRect(rectInit);
+        // According to the specification following properties are not writable
+        // and are also not enumerable in the native implementation.
+        //
+        // Property accessors are not being used as they'd require to define a
+        // private WeakMap storage which may cause memory leaks in browsers that
+        // don't support this type of collections.
+        defineConfigurable(this, { target: target, contentRect: contentRect });
+    }
+    return ResizeObserverEntry;
+}());
+
+var ResizeObserverSPI = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserver.
+     *
+     * @param {ResizeObserverCallback} callback - Callback function that is invoked
+     *      when one of the observed elements changes it's content dimensions.
+     * @param {ResizeObserverController} controller - Controller instance which
+     *      is responsible for the updates of observer.
+     * @param {ResizeObserver} callbackCtx - Reference to the public
+     *      ResizeObserver instance which will be passed to callback function.
+     */
+    function ResizeObserverSPI(callback, controller, callbackCtx) {
+        /**
+         * Collection of resize observations that have detected changes in dimensions
+         * of elements.
+         *
+         * @private {Array<ResizeObservation>}
+         */
+        this.activeObservations_ = [];
+        /**
+         * Registry of the ResizeObservation instances.
+         *
+         * @private {Map<Element, ResizeObservation>}
+         */
+        this.observations_ = new MapShim();
+        if (typeof callback !== 'function') {
+            throw new TypeError('The callback provided as parameter 1 is not a function.');
+        }
+        this.callback_ = callback;
+        this.controller_ = controller;
+        this.callbackCtx_ = callbackCtx;
+    }
+    /**
+     * Starts observing provided element.
+     *
+     * @param {Element} target - Element to be observed.
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.observe = function (target) {
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        // Do nothing if current environment doesn't have the Element interface.
+        if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+            return;
+        }
+        if (!(target instanceof getWindowOf(target).Element)) {
+            throw new TypeError('parameter 1 is not of type "Element".');
+        }
+        var observations = this.observations_;
+        // Do nothing if element is already being observed.
+        if (observations.has(target)) {
+            return;
+        }
+        observations.set(target, new ResizeObservation(target));
+        this.controller_.addObserver(this);
+        // Force the update of observations.
+        this.controller_.refresh();
+    };
+    /**
+     * Stops observing provided element.
+     *
+     * @param {Element} target - Element to stop observing.
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.unobserve = function (target) {
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        // Do nothing if current environment doesn't have the Element interface.
+        if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+            return;
+        }
+        if (!(target instanceof getWindowOf(target).Element)) {
+            throw new TypeError('parameter 1 is not of type "Element".');
+        }
+        var observations = this.observations_;
+        // Do nothing if element is not being observed.
+        if (!observations.has(target)) {
+            return;
+        }
+        observations.delete(target);
+        if (!observations.size) {
+            this.controller_.removeObserver(this);
+        }
+    };
+    /**
+     * Stops observing all elements.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.disconnect = function () {
+        this.clearActive();
+        this.observations_.clear();
+        this.controller_.removeObserver(this);
+    };
+    /**
+     * Collects observation instances the associated element of which has changed
+     * it's content rectangle.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.gatherActive = function () {
+        var _this = this;
+        this.clearActive();
+        this.observations_.forEach(function (observation) {
+            if (observation.isActive()) {
+                _this.activeObservations_.push(observation);
+            }
+        });
+    };
+    /**
+     * Invokes initial callback function with a list of ResizeObserverEntry
+     * instances collected from active resize observations.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.broadcastActive = function () {
+        // Do nothing if observer doesn't have active observations.
+        if (!this.hasActive()) {
+            return;
+        }
+        var ctx = this.callbackCtx_;
+        // Create ResizeObserverEntry instance for every active observation.
+        var entries = this.activeObservations_.map(function (observation) {
+            return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+        });
+        this.callback_.call(ctx, entries, ctx);
+        this.clearActive();
+    };
+    /**
+     * Clears the collection of active observations.
+     *
+     * @returns {void}
+     */
+    ResizeObserverSPI.prototype.clearActive = function () {
+        this.activeObservations_.splice(0);
+    };
+    /**
+     * Tells whether observer has active observations.
+     *
+     * @returns {boolean}
+     */
+    ResizeObserverSPI.prototype.hasActive = function () {
+        return this.activeObservations_.length > 0;
+    };
+    return ResizeObserverSPI;
+}());
+
+// Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+var ResizeObserver = /** @class */ (function () {
+    /**
+     * Creates a new instance of ResizeObserver.
+     *
+     * @param {ResizeObserverCallback} callback - Callback that is invoked when
+     *      dimensions of the observed elements change.
+     */
+    function ResizeObserver(callback) {
+        if (!(this instanceof ResizeObserver)) {
+            throw new TypeError('Cannot call a class as a function.');
+        }
+        if (!arguments.length) {
+            throw new TypeError('1 argument required, but only 0 present.');
+        }
+        var controller = ResizeObserverController.getInstance();
+        var observer = new ResizeObserverSPI(callback, controller, this);
+        observers.set(this, observer);
+    }
+    return ResizeObserver;
+}());
+// Expose public methods of ResizeObserver.
+[
+    'observe',
+    'unobserve',
+    'disconnect'
+].forEach(function (method) {
+    ResizeObserver.prototype[method] = function () {
+        var _a;
+        return (_a = observers.get(this))[method].apply(_a, arguments);
+    };
+});
+
+var index$1 = (function () {
+    // Export existing implementation if available.
+    if (typeof global$1.ResizeObserver !== 'undefined') {
+        return global$1.ResizeObserver;
+    }
+    return ResizeObserver;
+})();
+
+var resizeHandler = function (entries) {
+    for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
+        var entry = entries_1[_i];
+        var listeners = entry.target.__resizeListeners__ || [];
+        if (listeners.length) {
+            listeners.forEach(function (fn) {
+                fn();
+            });
+        }
+    }
+};
+/* istanbul ignore next */
+var addResizeListener = function (element, fn) {
+    if (!element.__resizeListeners__) {
+        element.__resizeListeners__ = [];
+        element.__ro__ = new index$1(resizeHandler);
+        element.__ro__.observe(element);
+    }
+    element.__resizeListeners__.push(fn);
+};
+var removeResizeListener = function (element, fn) {
+    if (!element || !element.__resizeListeners__)
+        return;
+    element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
+    if (!element.__resizeListeners__.length) {
+        element.__ro__.disconnect();
+    }
+};
+
+/**
+ * @omiu/popover v0.0.10 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -84,11 +1042,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics$1 = function(d, b) {
     extendStatics$1 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics$1(d, b);
 };
 
 function __extends$1(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics$1(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -1990,7 +2950,7 @@ var createPopper = /*#__PURE__*/popperGenerator({
 }); // eslint-disable-next-line import/no-unused-modules
 
 /**
- * @omiu/transition v0.0.11 http://omijs.org
+ * @omiu/transition v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2138,28 +3098,16 @@ var domReady = _dready_0_0_1_dready || _domReady;
         return _this;
     }
     Transition.prototype.installed = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                domReady(function () {
-                    if (_this.props.appear) {
-                        _this.enter();
-                    }
-                    else {
-                        _this.children[0].style['transition-duration'] = '0s';
-                        _this.leave();
-                        setTimeout(function () {
-                            _this.children[0].style['transition-duration'] = null;
-                        }, 300);
-                    }
-                    if (_this.props.leavingTime) {
-                        setTimeout(function () {
-                            _this.leave();
-                        }, _this.props.leavingTime);
-                    }
-                });
-                return [2 /*return*/];
-            });
+        var _this = this;
+        domReady(function () {
+            if (_this.props.appear) {
+                _this.enter();
+            }
+            if (_this.props.leavingTime) {
+                setTimeout(function () {
+                    _this.leave();
+                }, _this.props.leavingTime);
+            }
         });
     };
     Transition.prototype.receiveProps = function () {
@@ -2293,7 +3241,7 @@ var css = index;Object.freeze({
             _this.update();
             //html 模式过滤文本
             var tip = _this.shadowRoot.querySelector('slot').assignedNodes().find(function (node) { return node.nodeType !== 3; });
-            createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
+            _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                 placement: _this.props.position,
                 modifiers: [
                     {
@@ -2340,6 +3288,9 @@ var css = index;Object.freeze({
             _this.update();
         });
     };
+    Popover.prototype.updatePosition = function () {
+        this.popper.update();
+    };
     Popover.prototype.render = function (props) {
         var _a;
         var targetEvents = {
@@ -2383,6 +3334,12 @@ var css = index;Object.freeze({
     return Popover;
 })(WeElement));
 
+var heightMap = {
+    'big': 40,
+    'medium': 36,
+    'small': 32,
+    'mini': 28,
+};
 var Select = /** @class */ (function (_super) {
     __extends$2(Select, _super);
     function Select() {
@@ -2401,52 +3358,106 @@ var Select = /** @class */ (function (_super) {
                 });
             }, 10);
         };
-        _this.onItemClick = function (item, index) {
-            _this._refInput.focus();
-            _this.fire('item-select', item);
-            _this.selectedIndex = index;
-            _this.updateProps({
-                active: false,
-                value: item.label
-            });
+        _this.selectedIndexMap = {};
+        _this.selectedItems = [];
+        _this.onItemClick = function (item, index, evt) {
+            if (_this.props.multiple) {
+                //不自动关闭
+                evt.stopPropagation();
+                if (_this.selectedIndexMap.hasOwnProperty(index)) {
+                    delete _this.selectedIndexMap[index];
+                    _this.selectedItems.splice(_this.selectedItems.indexOf(item), 1);
+                }
+                else {
+                    _this.selectedIndexMap[index] = true;
+                    _this.selectedItems.push(item);
+                }
+                _this.fire('item-select', _this.selectedItems);
+                _this.update();
+                _this.resetSize();
+                _this.popover.updatePosition();
+            }
+            else {
+                _this._refInput.focus();
+                _this.fire('item-select', item);
+                _this.selectedIndex = index;
+                _this.updateProps({
+                    active: false,
+                    value: item.label
+                });
+            }
+        };
+        _this.inputWidth = 0;
+        _this.resetSize = function () {
+            _this.resetInputWidth();
+            _this.resetInputHeight();
+            //不更新子组件，不然导致 popper 执行多次导致闪现下拉的问题
+            _this.updateSelf();
         };
         return _this;
     }
+    Select.prototype.resetInputHeight = function () {
+        this.inputHeight = Math.max(heightMap[this.props.size], Number(this.tags ? (this.tags.clientHeight + (this.tags.clientHeight > heightMap[this.props.size] ? 6 : 0)) : 0));
+    };
+    Select.prototype.resetInputWidth = function () {
+        this.inputWidth = this.getBoundingClientRect().width;
+    };
+    Select.prototype.installed = function () {
+        this.resetSize();
+        addResizeListener(this._refInput, this.resetSize);
+    };
+    Select.prototype.uninstall = function () {
+        removeResizeListener(this._refInput, this.resetSize);
+    };
     Select.prototype.render = function (props) {
         var _a, _b;
         var _this = this;
         return (h("div", __assign$1({}, extractClass({}, 'o-select', (_a = {},
             _a['o-select--' + props.size] = props.size,
             _a))),
-            h("o-popover", { position: "bottom" },
-                h("div", __assign$1({}, extractClass({}, 'o-input o-input--suffix', (_b = {},
-                    _b['o-input--' + props.size] = props.size,
-                    _b['is-focus'] = props.isFocus,
-                    _b))),
-                    h("input", { type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: "readonly", autocomplete: "off", value: props.value, placeholder: props.placeholder, class: "o-input__inner" }),
-                    h("span", { class: "o-input__suffix" },
-                        h("span", { class: "o-input__suffix-inner" },
-                            h("i", { class: "o-select__caret o-input__icon o-icon-arrow-up is-reverse" }))),
-                    h("svg", { viewBox: "0 0 1024 1024", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
-                        h("path", { d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z" }))),
+            h("o-popover", { ref: function (e) { return _this.popover = e; }, position: "bottom" },
+                h("div", null,
+                    h("div", { class: "o-select__tags", ref: function (e) { return _this.tags = e; }, style: { width: '100%', maxWidth: (this.inputWidth - 32) + 'px' } },
+                        h("span", null, this.selectedItems.map(function (item) {
+                            return h("span", { class: "o-tag o-tag--info o-tag--small o-tag--light" },
+                                h("span", { class: "o-select__tags-text" }, item.label),
+                                h("i", { class: "o-tag__close o-icon-close" }));
+                        })),
+                        h("input", { type: "text", autocomplete: "off", class: "o-select__input", style: { flexGrow: 1, width: '0.0961538%', maxWidth: (this.inputWidth - 32) + 'px' } })),
+                    h("div", __assign$1({}, extractClass({}, 'o-input o-input--suffix', (_b = {},
+                        _b['o-input--' + props.size] = props.size,
+                        _b['is-focus'] = props.isFocus,
+                        _b))),
+                        h("input", { style: { height: this.inputHeight + 'px' }, type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: true, autocomplete: "off", value: props.multiple ? '' : props.value, placeholder: Object.keys(this.selectedIndexMap).length > 0 ? '' : props.placeholder, class: "o-input__inner" }),
+                        h("span", { class: "o-input__suffix" },
+                            h("span", { class: "o-input__suffix-inner" },
+                                h("i", { class: "o-select__caret o-input__icon o-icon-arrow-up is-reverse" }))),
+                        h("svg", { viewBox: "0 0 24 24", class: "arrow", "data-icon": "caret-down", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true", focusable: "false" },
+                            h("path", { d: "M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" })))),
                 h("div", { slot: "popover", class: "o-select-dropdown__wrap" },
                     h("ul", null, props.items.map(function (item, index) {
+                        var selected = props.multiple ? _this.selectedIndexMap[index] : (index === _this.selectedIndex);
                         return h("li", __assign$1({}, extractClass({}, 'o-select-dropdown__item', {
-                            selected: index === _this.selectedIndex
-                        }), { onClick: function (_) { _this.onItemClick(item, index); } }),
-                            h("span", null, item.label));
+                            selected: selected
+                        }), { onClick: function (evt) { _this.onItemClick(item, index, evt); } }),
+                            h("span", null, item.label),
+                            selected && h("svg", { class: "a3 a2", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true", tabindex: "-1", title: "Check", curr: true },
+                                h("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" })));
                     }))))));
     };
-    Select.css = index$1 ;
+    Select.css = index$2 ;
     Select.defaultProps = {
-        value: ''
+        value: '',
+        size: 'big',
+        multiple: false
     };
     Select.propTypes = {
         items: Array,
         active: Boolean,
         value: String,
         placeholder: String,
-        size: String
+        size: String,
+        multiple: Boolean
     };
     Select = __decorate$2([
         tag('o-select')

@@ -23,6 +23,7 @@ export default class Popover extends WeElement<Props> {
     timeout: any;
     onLeave: () => void;
     onEnterPopover: (evt: any) => void;
+    updatePosition(): void;
     onLeavePopover: () => void;
     isShow: boolean;
     render(props: any): JSX.Element;

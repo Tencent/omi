@@ -28,8 +28,10 @@ export default class Popover extends WeElement<Props> {
 
   installed() {
     window.addEventListener('click', () => {
-      this.isShow = false
-      this.update()
+      if (this.isShow) {
+        this.isShow = false
+        this.update()
+      }
     })
   }
 
@@ -41,7 +43,7 @@ export default class Popover extends WeElement<Props> {
     //html 模式过滤文本
     const tip = this.shadowRoot.querySelector('slot').assignedNodes().find(node => node.nodeType !== 3)
 
-    createPopper(tip, this.shadowRoot.querySelector('.tip'), {
+    this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
       modifiers: [
         {
@@ -74,6 +76,10 @@ export default class Popover extends WeElement<Props> {
   onEnterPopover = (evt) => {
     clearTimeout(this.timeout)
     evt.stopPropagation()
+  }
+
+  updatePosition() {
+    this.popper.update()
   }
 
   onLeavePopover = () => {

@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@omiu_popover@0.0.8@@omiu/popover/src/index.esm.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/_@omiu_popover@0.0.8@@omiu/popover/src/index.esm.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/@omiu/popover/src/index.esm.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@omiu/popover/src/index.esm.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/popover v0.0.8 http://omijs.org
+ * @omiu/popover v0.0.10 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -136,11 +136,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics$1 = function(d, b) {
     extendStatics$1 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics$1(d, b);
 };
 
 function __extends$1(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics$1(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -2042,7 +2044,7 @@ var createPopper = /*#__PURE__*/popperGenerator({
 }); // eslint-disable-next-line import/no-unused-modules
 
 /**
- * @omiu/transition v0.0.11 http://omijs.org
+ * @omiu/transition v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2190,28 +2192,16 @@ var domReady = _dready_0_0_1_dready || _domReady;
         return _this;
     }
     Transition.prototype.installed = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                domReady(function () {
-                    if (_this.props.appear) {
-                        _this.enter();
-                    }
-                    else {
-                        _this.children[0].style['transition-duration'] = '0s';
-                        _this.leave();
-                        setTimeout(function () {
-                            _this.children[0].style['transition-duration'] = null;
-                        }, 300);
-                    }
-                    if (_this.props.leavingTime) {
-                        setTimeout(function () {
-                            _this.leave();
-                        }, _this.props.leavingTime);
-                    }
-                });
-                return [2 /*return*/];
-            });
+        var _this = this;
+        domReady(function () {
+            if (_this.props.appear) {
+                _this.enter();
+            }
+            if (_this.props.leavingTime) {
+                setTimeout(function () {
+                    _this.leave();
+                }, _this.props.leavingTime);
+            }
         });
     };
     Transition.prototype.receiveProps = function () {
@@ -2345,7 +2335,7 @@ var Popover = /** @class */ (function (_super) {
             _this.update();
             //html 模式过滤文本
             var tip = _this.shadowRoot.querySelector('slot').assignedNodes().find(function (node) { return node.nodeType !== 3; });
-            createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
+            _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                 placement: _this.props.position,
                 modifiers: [
                     {
@@ -2391,6 +2381,9 @@ var Popover = /** @class */ (function (_super) {
             _this.isShow = false;
             _this.update();
         });
+    };
+    Popover.prototype.updatePosition = function () {
+        this.popper.update();
     };
     Popover.prototype.render = function (props) {
         var _a;
@@ -2438,33 +2431,33 @@ var Popover = /** @class */ (function (_super) {
 /* harmony default export */ __webpack_exports__["default"] = (Popover);
 //# sourceMappingURL=index.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".o-select {\n  position: relative; }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\E6DA\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px;\n  overflow: auto; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-input {\n  position: relative;\n  font-size: 14px;\n  display: inline-block;\n  width: 100%; }\n\n.o-input::-webkit-scrollbar {\n  z-index: 11;\n  width: 6px; }\n\n.o-input::-webkit-scrollbar:horizontal {\n  height: 6px; }\n\n.o-input::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  width: 6px;\n  background: #b4bccc; }\n\n.o-input::-webkit-scrollbar-corner {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track-piece {\n  background: #fff;\n  width: 6px; }\n\n.o-input .o-input__clear {\n  color: #C0C4CC;\n  font-size: 14px;\n  cursor: pointer;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-input .o-input__clear:hover {\n  color: #909399; }\n\n.o-input .o-input__count {\n  height: 100%;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  color: #909399;\n  font-size: 12px; }\n\n.o-input .o-input__count .o-input__count-inner {\n  background: #FFF;\n  line-height: initial;\n  display: inline-block;\n  padding: 0 5px; }\n\n.o-input__inner {\n  -webkit-appearance: none;\n  background-color: #FFF;\n  background-image: none;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #606266;\n  display: inline-block;\n  font-size: inherit;\n  height: 40px;\n  line-height: 40px;\n  outline: 0;\n  padding: 0 15px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  width: 100%; }\n\n.o-select-dropdown__item,\n.o-tag {\n  white-space: nowrap;\n  -webkit-box-sizing: border-box; }\n\n.o-input__prefix,\n.o-input__suffix {\n  position: absolute;\n  top: 0;\n  -webkit-transition: all .3s;\n  height: 100%;\n  color: #C0C4CC;\n  text-align: center; }\n\n.o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-input.is-active .o-input__inner,\n.o-input__inner:focus {\n  border-color: #07c160;\n  outline: 0; }\n\n.o-input__suffix {\n  right: 5px;\n  transition: all .3s;\n  pointer-events: none; }\n\n.o-input__suffix-inner {\n  pointer-events: all; }\n\n.o-input__prefix {\n  left: 5px;\n  transition: all .3s; }\n\n.o-input__icon {\n  height: 100%;\n  width: 25px;\n  text-align: center;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n  line-height: 40px; }\n\n.o-input__icon:after {\n  content: '';\n  height: 100%;\n  width: 0;\n  display: inline-block;\n  vertical-align: middle; }\n\n.o-input__validateIcon {\n  pointer-events: none; }\n\n.o-input.is-disabled .o-input__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-input.is-disabled .o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__icon {\n  cursor: not-allowed; }\n\n.o-input.is-exceed .o-input__inner {\n  border-color: #F56C6C; }\n\n.o-input.is-exceed .o-input__suffix .o-input__count {\n  color: #F56C6C; }\n\n.o-input--suffix .o-input__inner {\n  padding-right: 30px; }\n\n.o-input--prefix .o-input__inner {\n  padding-left: 30px; }\n\n.o-input--medium {\n  font-size: 14px; }\n\n.o-input--medium .o-input__inner {\n  height: 36px;\n  line-height: 36px; }\n\n.o-input--medium .o-input__icon {\n  line-height: 36px; }\n\n.o-input--small {\n  font-size: 13px; }\n\n.o-input--small .o-input__inner {\n  height: 32px;\n  line-height: 32px; }\n\n.o-input--small .o-input__icon {\n  line-height: 32px; }\n\n.o-input--mini {\n  font-size: 12px; }\n\n.o-input--mini .o-input__inner {\n  height: 28px;\n  line-height: 28px; }\n\n.o-input--mini .o-input__icon {\n  line-height: 28px; }\n\n.o-input-group {\n  line-height: normal;\n  display: inline-table;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0; }\n\n.o-input-group > .o-input__inner {\n  vertical-align: middle;\n  display: table-cell; }\n\n.o-input-group__append,\n.o-input-group__prepend {\n  background-color: #F5F7FA;\n  color: #909399;\n  vertical-align: middle;\n  display: table-cell;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  padding: 0 20px;\n  width: 1px;\n  white-space: nowrap; }\n\n.o-input-group--prepend .o-input__inner,\n.o-input-group__append {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0; }\n\n.o-input-group--append .o-input__inner,\n.o-input-group__prepend {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0; }\n\n.o-input-group__append:focus,\n.o-input-group__prepend:focus {\n  outline: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-select,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-select {\n  display: inline-block;\n  margin: -10px -20px; }\n\n.o-input-group__append button.o-button,\n.o-input-group__append div.o-select .o-input__inner,\n.o-input-group__append div.o-select:hover .o-input__inner,\n.o-input-group__prepend button.o-button,\n.o-input-group__prepend div.o-select .o-input__inner,\n.o-input-group__prepend div.o-select:hover .o-input__inner {\n  border-color: transparent;\n  background-color: transparent;\n  color: inherit;\n  border-top: 0;\n  border-bottom: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-input,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-input {\n  font-size: inherit; }\n\n.o-input-group__prepend {\n  border-right: 0; }\n\n.o-input-group__append {\n  border-left: 0; }\n\n.o-input-group--append .o-select .o-input.is-focus .o-input__inner,\n.o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {\n  border-color: transparent; }\n\n.o-input__inner::-ms-clear {\n  display: none;\n  width: 0;\n  height: 0; }\n\n.o-tag {\n  background-color: #ecf5ff;\n  border-color: #d9ecff;\n  display: inline-block;\n  height: 32px;\n  padding: 0 10px;\n  line-height: 30px;\n  font-size: 12px;\n  color: #07c160;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 4px;\n  box-sizing: border-box; }\n\n.o-tag.is-hit {\n  border-color: #07c160; }\n\n.o-tag .o-tag__close {\n  color: #07c160; }\n\n.o-tag .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag.o-tag--info {\n  background-color: #f4f4f5;\n  border-color: #e9e9eb;\n  color: #909399; }\n\n.o-tag.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag.o-tag--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8;\n  color: #67c23a; }\n\n.o-tag.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag.o-tag--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8;\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag.o-tag--danger {\n  background-color: #fef0f0;\n  border-color: #fde2e2;\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag .o-icon-close {\n  border-radius: 50%;\n  text-align: center;\n  position: relative;\n  cursor: pointer;\n  font-size: 12px;\n  height: 16px;\n  width: 16px;\n  line-height: 16px;\n  vertical-align: middle;\n  top: -1px;\n  right: -5px; }\n\n.o-tag .o-icon-close::before {\n  display: block; }\n\n.o-tag--dark {\n  background-color: #07c160;\n  border-color: #07c160;\n  color: #fff; }\n\n.o-tag--dark.is-hit {\n  border-color: #07c160; }\n\n.o-tag--dark .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark .o-tag__close:hover {\n  color: #FFF;\n  background-color: #66b1ff; }\n\n.o-tag--dark.o-tag--info {\n  background-color: #909399;\n  border-color: #909399;\n  color: #fff; }\n\n.o-tag--dark.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--dark.o-tag--info .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #a6a9ad; }\n\n.o-tag--dark.o-tag--success {\n  background-color: #67c23a;\n  border-color: #67c23a;\n  color: #fff; }\n\n.o-tag--dark.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--dark.o-tag--success .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #85ce61; }\n\n.o-tag--dark.o-tag--warning {\n  background-color: #e6a23c;\n  border-color: #e6a23c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--dark.o-tag--warning .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #ebb563; }\n\n.o-tag--dark.o-tag--danger {\n  background-color: #f56c6c;\n  border-color: #f56c6c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--dark.o-tag--danger .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f78989; }\n\n.o-tag--plain {\n  background-color: #fff;\n  border-color: #b3d8ff;\n  color: #07c160; }\n\n.o-tag--plain.is-hit {\n  border-color: #07c160; }\n\n.o-tag--plain .o-tag__close {\n  color: #07c160; }\n\n.o-tag--plain .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160; }\n\n.o-tag--plain.o-tag--info {\n  background-color: #fff;\n  border-color: #d3d4d6;\n  color: #909399; }\n\n.o-tag--plain.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag--plain.o-tag--success {\n  background-color: #fff;\n  border-color: #c2e7b0;\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--plain.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag--plain.o-tag--warning {\n  background-color: #fff;\n  border-color: #f5dab1;\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--plain.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag--plain.o-tag--danger {\n  background-color: #fff;\n  border-color: #fbc4c4;\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--plain.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag--medium {\n  height: 28px;\n  line-height: 26px; }\n\n.o-tag--medium .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.o-tag--small .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.o-tag--mini .o-icon-close {\n  margin-left: -3px;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.o-select-dropdown__item {\n  font-size: 14px;\n  padding: 0 20px;\n  position: relative;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  color: #606266;\n  height: 34px;\n  line-height: 34px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.o-select-dropdown__item.is-disabled {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-select-dropdown__item.is-disabled:hover {\n  background-color: #FFF; }\n\n.o-select-dropdown__item.hover,\n.o-select-dropdown__item:hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown__item.selected {\n  color: #07c160;\n  font-weight: 700; }\n\n.o-select-group {\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap {\n  position: relative;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap:not(:last-of-type) {\n  padding-bottom: 24px; }\n\n.o-select-group__wrap:not(:last-of-type)::after {\n  content: '';\n  position: absolute;\n  display: block;\n  left: 20px;\n  right: 20px;\n  bottom: 12px;\n  height: 1px;\n  background: #E4E7ED; }\n\n.o-select-group__title {\n  padding-left: 20px;\n  font-size: 12px;\n  color: #909399;\n  line-height: 30px; }\n\n.o-select-group .o-select-dropdown__item {\n  padding-left: 20px; }\n\n.o-scrollbar {\n  overflow: hidden;\n  position: relative; }\n\n.o-scrollbar:active > .o-scrollbar__bar,\n.o-scrollbar:focus > .o-scrollbar__bar,\n.o-scrollbar:hover > .o-scrollbar__bar {\n  opacity: 1;\n  -webkit-transition: opacity 340ms ease-out;\n  transition: opacity 340ms ease-out; }\n\n.o-scrollbar__wrap {\n  overflow: scroll;\n  height: 100%; }\n\n.o-scrollbar__wrap--hidden-default {\n  scrollbar-width: none; }\n\n.o-scrollbar__wrap--hidden-default::-webkit-scrollbar {\n  width: 0;\n  height: 0; }\n\n.o-scrollbar__thumb {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 0;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: rgba(144, 147, 153, 0.3);\n  -webkit-transition: .3s background-color;\n  transition: .3s background-color; }\n\n.o-scrollbar__thumb:hover {\n  background-color: rgba(144, 147, 153, 0.5); }\n\n.o-scrollbar__bar {\n  position: absolute;\n  right: 2px;\n  bottom: 2px;\n  z-index: 1;\n  border-radius: 4px;\n  opacity: 0;\n  -webkit-transition: opacity 120ms ease-out;\n  transition: opacity 120ms ease-out; }\n\n.o-scrollbar__bar.is-vertical {\n  width: 6px;\n  top: 2px; }\n\n.o-scrollbar__bar.is-vertical > div {\n  width: 100%; }\n\n.o-scrollbar__bar.is-horizontal {\n  height: 6px;\n  left: 2px; }\n\n.o-scrollbar__bar.is-horizontal > div {\n  height: 100%; }\n\n.o-select {\n  display: inline-block;\n  position: relative; }\n\n.o-select .o-select__tags > span {\n  display: contents; }\n\n.o-select:hover .o-input__inner {\n  border-color: #C0C4CC; }\n\n.o-select .o-input__inner {\n  cursor: pointer;\n  padding-right: 35px; }\n\n.o-select .o-input__inner:focus {\n  border-color: #07c160; }\n\n.o-select .o-input .o-select__caret {\n  color: #C0C4CC;\n  font-size: 14px;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  cursor: pointer; }\n\n.o-select .o-input .o-select__caret.is-reverse {\n  -webkit-transform: rotateZ(0);\n  transform: rotateZ(0); }\n\n.o-select .o-input .o-select__caret.is-show-close {\n  font-size: 14px;\n  text-align: center;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  border-radius: 100%;\n  color: #C0C4CC;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-select .o-input .o-select__caret.is-show-close:hover {\n  color: #909399; }\n\n.o-select .o-input.is-disabled .o-input__inner {\n  cursor: not-allowed; }\n\n.o-select .o-input.is-disabled .o-input__inner:hover {\n  border-color: #E4E7ED; }\n\n.o-select .o-input.is-focus .o-input__inner {\n  border-color: #07c160; }\n\n.o-select > .o-input {\n  display: block; }\n\n.o-select__input {\n  border: none;\n  outline: 0;\n  padding: 0;\n  margin-left: 15px;\n  color: #666;\n  font-size: 14px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  height: 28px;\n  background-color: transparent; }\n\n.o-select__input.is-mini {\n  height: 14px; }\n\n.o-select__close {\n  cursor: pointer;\n  position: absolute;\n  top: 8px;\n  z-index: 1000;\n  right: 25px;\n  color: #C0C4CC;\n  line-height: 18px;\n  font-size: 14px; }\n\n.o-select__close:hover {\n  color: #909399; }\n\n.o-select__tags {\n  position: absolute;\n  line-height: normal;\n  white-space: normal;\n  z-index: 1;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.o-select .o-tag__close {\n  margin-top: -2px; }\n\n.o-select .o-tag {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-color: transparent;\n  margin: 2px 0 2px 6px;\n  background-color: #f0f2f5; }\n\n.o-select .o-tag__close.o-icon-close {\n  background-color: #C0C4CC;\n  right: -7px;\n  top: 0;\n  color: #FFF; }\n\n.o-select .o-tag__close.o-icon-close:hover {\n  background-color: #909399; }\n\n.o-select .o-tag__close.o-icon-close::before {\n  display: block;\n  -webkit-transform: translate(0, 0.5px);\n  transform: translate(0, 0.5px); }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {\n  position: absolute;\n  right: 20px;\n  font-family: element-icons;\n  content: \"\\E6DA\";\n  font-size: 12px;\n  font-weight: 700;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.arrow {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -0.5em;\n  color: #747679;\n  cursor: pointer; }\n\nul,\nli {\n  margin: 0;\n  padding: 0; }\n", ""]);
+exports.push([module.i, "/**\n * omiu select css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n.o-select {\n  position: relative; }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px;\n  overflow: auto; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-input {\n  position: relative;\n  font-size: 14px;\n  display: inline-block;\n  width: 100%; }\n\n.o-input::-webkit-scrollbar {\n  z-index: 11;\n  width: 6px; }\n\n.o-input::-webkit-scrollbar:horizontal {\n  height: 6px; }\n\n.o-input::-webkit-scrollbar-thumb {\n  border-radius: 5px;\n  width: 6px;\n  background: #b4bccc; }\n\n.o-input::-webkit-scrollbar-corner {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track {\n  background: #fff; }\n\n.o-input::-webkit-scrollbar-track-piece {\n  background: #fff;\n  width: 6px; }\n\n.o-input .o-input__clear {\n  color: #C0C4CC;\n  font-size: 14px;\n  cursor: pointer;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-input .o-input__clear:hover {\n  color: #909399; }\n\n.o-input .o-input__count {\n  height: 100%;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  color: #909399;\n  font-size: 12px; }\n\n.o-input .o-input__count .o-input__count-inner {\n  background: #FFF;\n  line-height: initial;\n  display: inline-block;\n  padding: 0 5px; }\n\n.o-input__inner {\n  -webkit-appearance: none;\n  background-color: #FFF;\n  background-image: none;\n  border-radius: 4px;\n  border: 1px solid #DCDFE6;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  color: #606266;\n  display: inline-block;\n  font-size: inherit;\n  height: 40px;\n  line-height: 40px;\n  outline: 0;\n  padding: 0 15px;\n  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  width: 100%; }\n\n.o-select-dropdown__item,\n.o-tag {\n  white-space: nowrap;\n  -webkit-box-sizing: border-box; }\n\n.o-input__prefix,\n.o-input__suffix {\n  position: absolute;\n  top: 0;\n  -webkit-transition: all .3s;\n  height: 100%;\n  color: #C0C4CC;\n  text-align: center; }\n\n.o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input__inner:hover {\n  border-color: #C0C4CC; }\n\n.o-input.is-active .o-input__inner,\n.o-input__inner:focus {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  outline: 0; }\n\n.o-input__suffix {\n  right: 5px;\n  transition: all .3s;\n  pointer-events: none; }\n\n.o-input__suffix-inner {\n  pointer-events: all; }\n\n.o-input__prefix {\n  left: 5px;\n  transition: all .3s; }\n\n.o-input__icon {\n  height: 100%;\n  width: 25px;\n  text-align: center;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n  line-height: 40px; }\n\n.o-input__icon:after {\n  content: '';\n  height: 100%;\n  width: 0;\n  display: inline-block;\n  vertical-align: middle; }\n\n.o-input__validateIcon {\n  pointer-events: none; }\n\n.o-input.is-disabled .o-input__inner {\n  background-color: #F5F7FA;\n  border-color: #E4E7ED;\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-input.is-disabled .o-input__inner::-webkit-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner:-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::-ms-input-placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__inner::placeholder {\n  color: #C0C4CC; }\n\n.o-input.is-disabled .o-input__icon {\n  cursor: not-allowed; }\n\n.o-input.is-exceed .o-input__inner {\n  border-color: #F56C6C; }\n\n.o-input.is-exceed .o-input__suffix .o-input__count {\n  color: #F56C6C; }\n\n.o-input--suffix .o-input__inner {\n  padding-right: 30px; }\n\n.o-input--prefix .o-input__inner {\n  padding-left: 30px; }\n\n.o-input--medium {\n  font-size: 14px; }\n\n.o-input--medium .o-input__inner {\n  height: 36px;\n  line-height: 36px; }\n\n.o-input--medium .o-input__icon {\n  line-height: 36px; }\n\n.o-input--small {\n  font-size: 13px; }\n\n.o-input--small .o-input__inner {\n  height: 32px;\n  line-height: 32px; }\n\n.o-input--small .o-input__icon {\n  line-height: 32px; }\n\n.o-input--mini {\n  font-size: 12px; }\n\n.o-input--mini .o-input__inner {\n  height: 28px;\n  line-height: 28px; }\n\n.o-input--mini .o-input__icon {\n  line-height: 28px; }\n\n.o-input-group {\n  line-height: normal;\n  display: inline-table;\n  width: 100%;\n  border-collapse: separate;\n  border-spacing: 0; }\n\n.o-input-group > .o-input__inner {\n  vertical-align: middle;\n  display: table-cell; }\n\n.o-input-group__append,\n.o-input-group__prepend {\n  background-color: #F5F7FA;\n  color: #909399;\n  vertical-align: middle;\n  display: table-cell;\n  position: relative;\n  border: 1px solid #DCDFE6;\n  border-radius: 4px;\n  padding: 0 20px;\n  width: 1px;\n  white-space: nowrap; }\n\n.o-input-group--prepend .o-input__inner,\n.o-input-group__append {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0; }\n\n.o-input-group--append .o-input__inner,\n.o-input-group__prepend {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0; }\n\n.o-input-group__append:focus,\n.o-input-group__prepend:focus {\n  outline: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-select,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-select {\n  display: inline-block;\n  margin: -10px -20px; }\n\n.o-input-group__append button.o-button,\n.o-input-group__append div.o-select .o-input__inner,\n.o-input-group__append div.o-select:hover .o-input__inner,\n.o-input-group__prepend button.o-button,\n.o-input-group__prepend div.o-select .o-input__inner,\n.o-input-group__prepend div.o-select:hover .o-input__inner {\n  border-color: transparent;\n  background-color: transparent;\n  color: inherit;\n  border-top: 0;\n  border-bottom: 0; }\n\n.o-input-group__append .o-button,\n.o-input-group__append .o-input,\n.o-input-group__prepend .o-button,\n.o-input-group__prepend .o-input {\n  font-size: inherit; }\n\n.o-input-group__prepend {\n  border-right: 0; }\n\n.o-input-group__append {\n  border-left: 0; }\n\n.o-input-group--append .o-select .o-input.is-focus .o-input__inner,\n.o-input-group--prepend .o-select .o-input.is-focus .o-input__inner {\n  border-color: transparent; }\n\n.o-input__inner::-ms-clear {\n  display: none;\n  width: 0;\n  height: 0; }\n\n.o-tag {\n  background-color: #ecf5ff;\n  border-color: #d9ecff;\n  display: inline-block;\n  height: 32px;\n  padding: 0 10px;\n  line-height: 30px;\n  font-size: 12px;\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 4px;\n  box-sizing: border-box; }\n\n.o-tag.is-hit {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-tag .o-tag__close {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-tag .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.o-tag.o-tag--info {\n  background-color: #f4f4f5;\n  border-color: #e9e9eb;\n  color: #909399; }\n\n.o-tag.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag.o-tag--success {\n  background-color: #f0f9eb;\n  border-color: #e1f3d8;\n  color: #67c23a; }\n\n.o-tag.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag.o-tag--warning {\n  background-color: #fdf6ec;\n  border-color: #faecd8;\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag.o-tag--danger {\n  background-color: #fef0f0;\n  border-color: #fde2e2;\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag .o-icon-close {\n  border-radius: 50%;\n  text-align: center;\n  position: relative;\n  cursor: pointer;\n  font-size: 12px;\n  height: 16px;\n  width: 16px;\n  line-height: 16px;\n  vertical-align: middle;\n  top: -1px;\n  right: -5px; }\n\n.o-tag .o-icon-close::before {\n  display: block; }\n\n.o-tag--dark {\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160);\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  color: #fff; }\n\n.o-tag--dark.is-hit {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-tag--dark .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark .o-tag__close:hover {\n  color: #FFF;\n  background-color: #66b1ff; }\n\n.o-tag--dark.o-tag--info {\n  background-color: #909399;\n  border-color: #909399;\n  color: #fff; }\n\n.o-tag--dark.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--dark.o-tag--info .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #a6a9ad; }\n\n.o-tag--dark.o-tag--success {\n  background-color: #67c23a;\n  border-color: #67c23a;\n  color: #fff; }\n\n.o-tag--dark.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--dark.o-tag--success .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #85ce61; }\n\n.o-tag--dark.o-tag--warning {\n  background-color: #e6a23c;\n  border-color: #e6a23c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--dark.o-tag--warning .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #ebb563; }\n\n.o-tag--dark.o-tag--danger {\n  background-color: #f56c6c;\n  border-color: #f56c6c;\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--dark.o-tag--danger .o-tag__close {\n  color: #fff; }\n\n.o-tag--dark.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f78989; }\n\n.o-tag--plain {\n  background-color: #fff;\n  border-color: #b3d8ff;\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-tag--plain.is-hit {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-tag--plain .o-tag__close {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\n.o-tag--plain .o-tag__close:hover {\n  color: #FFF;\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.o-tag--plain.o-tag--info {\n  background-color: #fff;\n  border-color: #d3d4d6;\n  color: #909399; }\n\n.o-tag--plain.o-tag--info.is-hit {\n  border-color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close {\n  color: #909399; }\n\n.o-tag--plain.o-tag--info .o-tag__close:hover {\n  color: #FFF;\n  background-color: #909399; }\n\n.o-tag--plain.o-tag--success {\n  background-color: #fff;\n  border-color: #c2e7b0;\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success.is-hit {\n  border-color: #67C23A; }\n\n.o-tag--plain.o-tag--success .o-tag__close {\n  color: #67c23a; }\n\n.o-tag--plain.o-tag--success .o-tag__close:hover {\n  color: #FFF;\n  background-color: #67c23a; }\n\n.o-tag--plain.o-tag--warning {\n  background-color: #fff;\n  border-color: #f5dab1;\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning.is-hit {\n  border-color: #E6A23C; }\n\n.o-tag--plain.o-tag--warning .o-tag__close {\n  color: #e6a23c; }\n\n.o-tag--plain.o-tag--warning .o-tag__close:hover {\n  color: #FFF;\n  background-color: #e6a23c; }\n\n.o-tag--plain.o-tag--danger {\n  background-color: #fff;\n  border-color: #fbc4c4;\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger.is-hit {\n  border-color: #F56C6C; }\n\n.o-tag--plain.o-tag--danger .o-tag__close {\n  color: #f56c6c; }\n\n.o-tag--plain.o-tag--danger .o-tag__close:hover {\n  color: #FFF;\n  background-color: #f56c6c; }\n\n.o-tag--medium {\n  height: 28px;\n  line-height: 26px; }\n\n.o-tag--medium .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--small {\n  height: 24px;\n  padding: 0 8px;\n  line-height: 22px; }\n\n.o-tag--small .o-icon-close {\n  -webkit-transform: scale(0.8);\n  transform: scale(0.8); }\n\n.o-tag--mini {\n  height: 20px;\n  padding: 0 5px;\n  line-height: 19px; }\n\n.o-tag--mini .o-icon-close {\n  margin-left: -3px;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.o-select-dropdown__item {\n  font-size: 14px;\n  padding: 0 20px;\n  position: relative;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  color: #606266;\n  height: 34px;\n  line-height: 34px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.o-select-dropdown__item.is-disabled {\n  color: #C0C4CC;\n  cursor: not-allowed; }\n\n.o-select-dropdown__item.is-disabled:hover {\n  background-color: #FFF; }\n\n.o-select-dropdown__item.hover,\n.o-select-dropdown__item:hover {\n  background-color: #F5F7FA; }\n\n.o-select-dropdown__item.selected {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  font-weight: 700; }\n\n.o-select-group {\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap {\n  position: relative;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.o-select-group__wrap:not(:last-of-type) {\n  padding-bottom: 24px; }\n\n.o-select-group__wrap:not(:last-of-type)::after {\n  content: '';\n  position: absolute;\n  display: block;\n  left: 20px;\n  right: 20px;\n  bottom: 12px;\n  height: 1px;\n  background: #E4E7ED; }\n\n.o-select-group__title {\n  padding-left: 20px;\n  font-size: 12px;\n  color: #909399;\n  line-height: 30px; }\n\n.o-select-group .o-select-dropdown__item {\n  padding-left: 20px; }\n\n.o-scrollbar {\n  overflow: hidden;\n  position: relative; }\n\n.o-scrollbar:active > .o-scrollbar__bar,\n.o-scrollbar:focus > .o-scrollbar__bar,\n.o-scrollbar:hover > .o-scrollbar__bar {\n  opacity: 1;\n  -webkit-transition: opacity 340ms ease-out;\n  transition: opacity 340ms ease-out; }\n\n.o-scrollbar__wrap {\n  overflow: scroll;\n  height: 100%; }\n\n.o-scrollbar__wrap--hidden-default {\n  scrollbar-width: none; }\n\n.o-scrollbar__wrap--hidden-default::-webkit-scrollbar {\n  width: 0;\n  height: 0; }\n\n.o-scrollbar__thumb {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 0;\n  cursor: pointer;\n  border-radius: inherit;\n  background-color: rgba(144, 147, 153, 0.3);\n  -webkit-transition: .3s background-color;\n  transition: .3s background-color; }\n\n.o-scrollbar__thumb:hover {\n  background-color: rgba(144, 147, 153, 0.5); }\n\n.o-scrollbar__bar {\n  position: absolute;\n  right: 2px;\n  bottom: 2px;\n  z-index: 1;\n  border-radius: 4px;\n  opacity: 0;\n  -webkit-transition: opacity 120ms ease-out;\n  transition: opacity 120ms ease-out; }\n\n.o-scrollbar__bar.is-vertical {\n  width: 6px;\n  top: 2px; }\n\n.o-scrollbar__bar.is-vertical > div {\n  width: 100%; }\n\n.o-scrollbar__bar.is-horizontal {\n  height: 6px;\n  left: 2px; }\n\n.o-scrollbar__bar.is-horizontal > div {\n  height: 100%; }\n\n.o-select {\n  display: inline-block;\n  position: relative; }\n\n.o-select .o-select__tags > span {\n  display: contents; }\n\n.o-select:hover .o-input__inner {\n  border-color: #C0C4CC; }\n\n.o-select .o-input__inner {\n  cursor: pointer;\n  padding-right: 35px; }\n\n.o-select .o-input__inner:focus {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-select .o-input .o-select__caret {\n  color: #C0C4CC;\n  font-size: 14px;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  cursor: pointer; }\n\n.o-select .o-input .o-select__caret.is-reverse {\n  -webkit-transform: rotateZ(0);\n  transform: rotateZ(0); }\n\n.o-select .o-input .o-select__caret.is-show-close {\n  font-size: 14px;\n  text-align: center;\n  -webkit-transform: rotateZ(180deg);\n  transform: rotateZ(180deg);\n  border-radius: 100%;\n  color: #C0C4CC;\n  -webkit-transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);\n  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }\n\n.o-select .o-input .o-select__caret.is-show-close:hover {\n  color: #909399; }\n\n.o-select .o-input.is-disabled .o-input__inner {\n  cursor: not-allowed; }\n\n.o-select .o-input.is-disabled .o-input__inner:hover {\n  border-color: #E4E7ED; }\n\n.o-select .o-input.is-focus .o-input__inner {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160); }\n\n.o-select > .o-input {\n  display: block; }\n\n.o-select__input {\n  border: none;\n  outline: 0;\n  padding: 0;\n  margin-left: 15px;\n  color: #666;\n  font-size: 14px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  height: 28px;\n  background-color: transparent; }\n\n.o-select__input.is-mini {\n  height: 14px; }\n\n.o-select__close {\n  cursor: pointer;\n  position: absolute;\n  top: 8px;\n  z-index: 1000;\n  right: 25px;\n  color: #C0C4CC;\n  line-height: 18px;\n  font-size: 14px; }\n\n.o-select__close:hover {\n  color: #909399; }\n\n.o-select__tags {\n  position: absolute;\n  line-height: normal;\n  white-space: normal;\n  z-index: 1;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.o-select .o-tag__close {\n  margin-top: -2px; }\n\n.o-select .o-tag {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-color: transparent;\n  margin: 2px 0 2px 6px;\n  background-color: #f0f2f5; }\n\n.o-select .o-tag__close.o-icon-close {\n  background-color: #C0C4CC;\n  right: -7px;\n  top: 0;\n  color: #FFF; }\n\n.o-select .o-tag__close.o-icon-close:hover {\n  background-color: #909399; }\n\n.o-select .o-tag__close.o-icon-close::before {\n  display: block;\n  -webkit-transform: translate(0, 0.5px);\n  transform: translate(0, 0.5px); }\n\n.o-select-dropdown {\n  position: absolute;\n  z-index: 1001;\n  border: 1px solid #E4E7ED;\n  border-radius: 4px;\n  background-color: #FFF;\n  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  margin: 5px 0; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {\n  color: #07c160;\n  color: var(--o-primary, #07c160);\n  background-color: #FFF; }\n\n.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {\n  background-color: #F5F7FA; }\n\n.selected svg {\n  position: absolute;\n  right: 15px;\n  top: 10px;\n  font-size: 12px;\n  font-weight: 700;\n  width: 15px;\n  -webkit-font-smoothing: antialiased;\n  fill: currentColor; }\n\n.o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {\n  padding: 0; }\n\n.o-select-dropdown__empty {\n  padding: 10px 0;\n  margin: 0;\n  text-align: center;\n  color: #999;\n  font-size: 14px; }\n\n.o-select-dropdown__wrap {\n  max-height: 274px; }\n\n.o-select-dropdown__list {\n  list-style: none;\n  padding: 6px 0;\n  margin: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.arrow {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -0.5em;\n  color: #747679;\n  cursor: pointer; }\n\nul,\nli {\n  margin: 0;\n  padding: 0; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2548,10 +2541,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_resize-observer-polyfill@1.5.1@resize-observer-polyfill/dist/ResizeObserver.es.js":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/_resize-observer-polyfill@1.5.1@resize-observer-polyfill/dist/ResizeObserver.es.js ***!
-  \*********************************************************************************************************/
+/***/ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3486,11 +3479,11 @@ var index = (function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (index);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
+/***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -3529,7 +3522,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3583,7 +3576,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var resize_event_ts_1 = __webpack_require__(/*! ./resize-event.ts */ "./src/resize-event.ts");
-__webpack_require__(/*! @omiu/popover */ "./node_modules/_@omiu_popover@0.0.8@@omiu/popover/src/index.esm.js");
+__webpack_require__(/*! @omiu/popover */ "./node_modules/@omiu/popover/src/index.esm.js");
 var heightMap = {
     'big': 40,
     'medium': 36,
@@ -3608,20 +3601,41 @@ var Select = /** @class */ (function (_super) {
                 });
             }, 10);
         };
-        _this.onItemClick = function (item, index) {
-            _this._refInput.focus();
-            _this.fire('item-select', item);
-            _this.selectedIndex = index;
-            _this.updateProps({
-                active: false,
-                value: item.label
-            });
+        _this.selectedIndexMap = {};
+        _this.selectedItems = [];
+        _this.onItemClick = function (item, index, evt) {
+            if (_this.props.multiple) {
+                //不自动关闭
+                evt.stopPropagation();
+                if (_this.selectedIndexMap.hasOwnProperty(index)) {
+                    delete _this.selectedIndexMap[index];
+                    _this.selectedItems.splice(_this.selectedItems.indexOf(item), 1);
+                }
+                else {
+                    _this.selectedIndexMap[index] = true;
+                    _this.selectedItems.push(item);
+                }
+                _this.fire('item-select', _this.selectedItems);
+                _this.update();
+                _this.resetSize();
+                _this.popover.updatePosition();
+            }
+            else {
+                _this._refInput.focus();
+                _this.fire('item-select', item);
+                _this.selectedIndex = index;
+                _this.updateProps({
+                    active: false,
+                    value: item.label
+                });
+            }
         };
         _this.inputWidth = 0;
-        _this.handleResize = function () {
+        _this.resetSize = function () {
             _this.resetInputWidth();
             _this.resetInputHeight();
-            _this.update();
+            //不更新子组件，不然导致 popper 执行多次导致闪现下拉的问题
+            _this.updateSelf();
         };
         return _this;
     }
@@ -3632,11 +3646,11 @@ var Select = /** @class */ (function (_super) {
         this.inputWidth = this.getBoundingClientRect().width;
     };
     Select.prototype.installed = function () {
-        this.handleResize();
-        resize_event_ts_1.addResizeListener(this._refInput, this.handleResize);
+        this.resetSize();
+        resize_event_ts_1.addResizeListener(this._refInput, this.resetSize);
     };
     Select.prototype.uninstall = function () {
-        resize_event_ts_1.removeResizeListener(this._refInput, this.handleResize);
+        resize_event_ts_1.removeResizeListener(this._refInput, this.resetSize);
     };
     Select.prototype.render = function (props) {
         var _a, _b;
@@ -3644,16 +3658,20 @@ var Select = /** @class */ (function (_super) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass({}, 'o-select', (_a = {},
             _a['o-select--' + props.size] = props.size,
             _a))),
-            omi_1.h("o-popover", { position: "bottom" },
+            omi_1.h("o-popover", { ref: function (e) { return _this.popover = e; }, position: "bottom" },
                 omi_1.h("div", null,
                     omi_1.h("div", { class: "o-select__tags", ref: function (e) { return _this.tags = e; }, style: { width: '100%', maxWidth: (this.inputWidth - 32) + 'px' } },
-                        omi_1.h("span", null),
+                        omi_1.h("span", null, this.selectedItems.map(function (item) {
+                            return omi_1.h("span", { class: "o-tag o-tag--info o-tag--small o-tag--light" },
+                                omi_1.h("span", { class: "o-select__tags-text" }, item.label),
+                                omi_1.h("i", { class: "o-tag__close o-icon-close" }));
+                        })),
                         omi_1.h("input", { type: "text", autocomplete: "off", class: "o-select__input", style: { flexGrow: 1, width: '0.0961538%', maxWidth: (this.inputWidth - 32) + 'px' } })),
                     omi_1.h("div", __assign({}, omi_1.extractClass({}, 'o-input o-input--suffix', (_b = {},
                         _b['o-input--' + props.size] = props.size,
                         _b['is-focus'] = props.isFocus,
                         _b))),
-                        omi_1.h("input", { style: { height: this.inputHeight + 'px' }, type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: true, autocomplete: "off", value: props.value, placeholder: props.placeholder, class: "o-input__inner" }),
+                        omi_1.h("input", { style: { height: this.inputHeight + 'px' }, type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: true, autocomplete: "off", value: props.multiple ? '' : props.value, placeholder: Object.keys(this.selectedIndexMap).length > 0 ? '' : props.placeholder, class: "o-input__inner" }),
                         omi_1.h("span", { class: "o-input__suffix" },
                             omi_1.h("span", { class: "o-input__suffix-inner" },
                                 omi_1.h("i", { class: "o-select__caret o-input__icon o-icon-arrow-up is-reverse" }))),
@@ -3661,23 +3679,28 @@ var Select = /** @class */ (function (_super) {
                             omi_1.h("path", { d: "M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" })))),
                 omi_1.h("div", { slot: "popover", class: "o-select-dropdown__wrap" },
                     omi_1.h("ul", null, props.items.map(function (item, index) {
+                        var selected = props.multiple ? _this.selectedIndexMap[index] : (index === _this.selectedIndex);
                         return omi_1.h("li", __assign({}, omi_1.extractClass({}, 'o-select-dropdown__item', {
-                            selected: index === _this.selectedIndex
-                        }), { onClick: function (_) { _this.onItemClick(item, index); } }),
-                            omi_1.h("span", null, item.label));
+                            selected: selected
+                        }), { onClick: function (evt) { _this.onItemClick(item, index, evt); } }),
+                            omi_1.h("span", null, item.label),
+                            selected && omi_1.h("svg", { class: "a3 a2", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true", tabindex: "-1", title: "Check", curr: true },
+                                omi_1.h("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" })));
                     }))))));
     };
     Select.css = css.default ? css.default : css;
     Select.defaultProps = {
         value: '',
-        size: 'big'
+        size: 'big',
+        multiple: false
     };
     Select.propTypes = {
         items: Array,
         active: Boolean,
         value: String,
         placeholder: String,
-        size: String
+        size: String,
+        multiple: Boolean
     };
     Select = __decorate([
         omi_1.tag('o-select')
@@ -3700,7 +3723,7 @@ exports.default = Select;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeResizeListener = exports.addResizeListener = void 0;
-var resize_observer_polyfill_1 = __webpack_require__(/*! resize-observer-polyfill */ "./node_modules/_resize-observer-polyfill@1.5.1@resize-observer-polyfill/dist/ResizeObserver.es.js");
+var resize_observer_polyfill_1 = __webpack_require__(/*! resize-observer-polyfill */ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js");
 var resizeHandler = function (entries) {
     for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
         var entry = entries_1[_i];

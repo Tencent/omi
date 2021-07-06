@@ -1,5 +1,5 @@
 /**
- * @omiu/popover v0.0.8 http://omijs.org
+ * @omiu/popover v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics$1 = function(d, b) {
     extendStatics$1 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics$1(d, b);
 };
 
 function __extends$1(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics$1(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -1933,7 +1935,7 @@ var createPopper = /*#__PURE__*/popperGenerator({
 }); // eslint-disable-next-line import/no-unused-modules
 
 /**
- * @omiu/transition v0.0.11 http://omijs.org
+ * @omiu/transition v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2081,28 +2083,16 @@ var domReady = _dready_0_0_1_dready || _domReady;
         return _this;
     }
     Transition.prototype.installed = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                domReady(function () {
-                    if (_this.props.appear) {
-                        _this.enter();
-                    }
-                    else {
-                        _this.children[0].style['transition-duration'] = '0s';
-                        _this.leave();
-                        setTimeout(function () {
-                            _this.children[0].style['transition-duration'] = null;
-                        }, 300);
-                    }
-                    if (_this.props.leavingTime) {
-                        setTimeout(function () {
-                            _this.leave();
-                        }, _this.props.leavingTime);
-                    }
-                });
-                return [2 /*return*/];
-            });
+        var _this = this;
+        domReady(function () {
+            if (_this.props.appear) {
+                _this.enter();
+            }
+            if (_this.props.leavingTime) {
+                setTimeout(function () {
+                    _this.leave();
+                }, _this.props.leavingTime);
+            }
         });
     };
     Transition.prototype.receiveProps = function () {
@@ -2236,7 +2226,7 @@ var Popover = /** @class */ (function (_super) {
             _this.update();
             //html 模式过滤文本
             var tip = _this.shadowRoot.querySelector('slot').assignedNodes().find(function (node) { return node.nodeType !== 3; });
-            createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
+            _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                 placement: _this.props.position,
                 modifiers: [
                     {
@@ -2279,9 +2269,14 @@ var Popover = /** @class */ (function (_super) {
     Popover.prototype.installed = function () {
         var _this = this;
         window.addEventListener('click', function () {
-            _this.isShow = false;
-            _this.update();
+            if (_this.isShow) {
+                _this.isShow = false;
+                _this.update();
+            }
         });
+    };
+    Popover.prototype.updatePosition = function () {
+        this.popper.update();
     };
     Popover.prototype.render = function (props) {
         var _a;

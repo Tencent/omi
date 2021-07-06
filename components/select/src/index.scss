@@ -1,3 +1,11 @@
+/**
+ * omiu select css based on element ui css
+ * Licensed under the MIT License
+ * https://github.com/ElemeFE/element/blob/dev/LICENSE
+ *
+ * modified by dntzhang
+ */
+
 @import "@omiu/common/theme.scss";
 
 .o-select {
@@ -18,23 +26,13 @@
 }
 
 .o-select-dropdown.is-multiple .o-select-dropdown__item.selected {
-  color: #07c160;
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
   background-color: #FFF
 }
 
 .o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {
   background-color: #F5F7FA
-}
-
-.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {
-  position: absolute;
-  right: 20px;
-  font-family: element-icons;
-  content: "\e6da";
-  font-size: 12px;
-  font-weight: 700;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale
 }
 
 .o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {
@@ -187,7 +185,8 @@
 
 .o-input.is-active .o-input__inner,
 .o-input__inner:focus {
-  border-color: #07c160;
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary);
   outline: 0
 }
 
@@ -408,7 +407,8 @@
   padding: 0 10px;
   line-height: 30px;
   font-size: 12px;
-  color: #07c160;
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
@@ -416,16 +416,19 @@
 }
 
 .o-tag.is-hit {
-  border-color: #07c160
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary)
 }
 
 .o-tag .o-tag__close {
-  color: #07c160
+  color: $o-primary;
+  color: var(--o-primary, $o-primary)
 }
 
 .o-tag .o-tag__close:hover {
   color: #FFF;
-  background-color: #07c160
+  background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary)
 }
 
 .o-tag.o-tag--info {
@@ -523,13 +526,16 @@
 }
 
 .o-tag--dark {
-  background-color: #07c160;
-  border-color: #07c160;
+  background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary);
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary);
   color: #fff
 }
 
 .o-tag--dark.is-hit {
-  border-color: #07c160
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary)
 }
 
 .o-tag--dark .o-tag__close {
@@ -620,20 +626,24 @@
 .o-tag--plain {
   background-color: #fff;
   border-color: #b3d8ff;
-  color: #07c160
+  color: $o-primary;
+  color: var(--o-primary, $o-primary)
 }
 
 .o-tag--plain.is-hit {
-  border-color: #07c160
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary)
 }
 
 .o-tag--plain .o-tag__close {
-  color: #07c160
+  color: $o-primary;
+  color: var(--o-primary, $o-primary)
 }
 
 .o-tag--plain .o-tag__close:hover {
   color: #FFF;
-  background-color: #07c160
+  background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary)
 }
 
 .o-tag--plain.o-tag--info {
@@ -773,7 +783,8 @@
 }
 
 .o-select-dropdown__item.selected {
-  color: #07c160;
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
   font-weight: 700
 }
 
@@ -906,7 +917,8 @@
 }
 
 .o-select .o-input__inner:focus {
-  border-color: #07c160
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary)
 }
 
 .o-select .o-input .o-select__caret {
@@ -950,7 +962,8 @@
 }
 
 .o-select .o-input.is-focus .o-input__inner {
-  border-color: #07c160
+  border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary)
 }
 
 .o-select>.o-input {
@@ -1054,7 +1067,8 @@
 }
 
 .o-select-dropdown.is-multiple .o-select-dropdown__item.selected {
-  color: #07c160;
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
   background-color: #FFF
 }
 
@@ -1062,15 +1076,15 @@
   background-color: #F5F7FA
 }
 
-.o-select-dropdown.is-multiple .o-select-dropdown__item.selected::after {
+.selected svg {
   position: absolute;
-  right: 20px;
-  font-family: element-icons;
-  content: "\e6da";
+  right: 15px;
+  top: 10px;
   font-size: 12px;
   font-weight: 700;
+  width: 15px;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale
+  fill: currentColor;
 }
 
 .o-select-dropdown .o-scrollbar.is-empty .o-select-dropdown__list {

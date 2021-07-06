@@ -12,6 +12,7 @@ interface Props {
   value: string | any[]
   placeholder: string
   size: 'big' | 'medium' | 'small' | 'mini'
+  multiple: boolean
 }
 
 const heightMap = {
@@ -27,7 +28,8 @@ export default class Select extends WeElement<Props> {
 
   static defaultProps = {
     value: '',
-    size: 'big'
+    size: 'big',
+    multiple: false
   }
 
   static propTypes = {
@@ -35,11 +37,9 @@ export default class Select extends WeElement<Props> {
     active: Boolean,
     value: String,
     placeholder: String,
-    size: String
+    size: String,
+    multiple: Boolean
   }
-
-
-
 
   onInputClick = () => {
     setTimeout(() => {
@@ -59,17 +59,42 @@ export default class Select extends WeElement<Props> {
   }
 
   selectedIndex: number
-  onItemClick = (item, index) => {
 
-    this._refInput.focus()
+  selectedIndexMap = {}
 
-    this.fire('item-select', item)
-    this.selectedIndex = index
+  selectedItems = []
 
-    this.updateProps({
-      active: false,
-      value: item.label
-    })
+  onItemClick = (item, index, evt) => {
+
+    if (this.props.multiple) {
+      //不自动关闭
+      evt.stopPropagation()
+      if (this.selectedIndexMap.hasOwnProperty(index)) {
+        delete this.selectedIndexMap[index]
+        this.selectedItems.splice(this.selectedItems.indexOf(item), 1)
+      } else {
+        this.selectedIndexMap[index] = true
+        this.selectedItems.push(item)
+      }
+
+      this.fire('item-select', this.selectedItems)
+      this.update()
+
+      this.resetSize()
+
+      this.popover.updatePosition()
+
+    } else {
+      this._refInput.focus()
+
+      this.fire('item-select', item)
+      this.selectedIndex = index
+
+      this.updateProps({
+        active: false,
+        value: item.label
+      })
+    }
   }
 
   _refInput
@@ -89,19 +114,20 @@ export default class Select extends WeElement<Props> {
   }
 
   installed() {
-    this.handleResize()
+    this.resetSize()
 
-    addResizeListener(this._refInput, this.handleResize)
+    addResizeListener(this._refInput, this.resetSize)
   }
 
-  handleResize = () => {
+  resetSize = () => {
     this.resetInputWidth()
     this.resetInputHeight()
-    this.update()
+    //不更新子组件，不然导致 popper 执行多次导致闪现下拉的问题
+    this.updateSelf()
   }
 
   uninstall() {
-    removeResizeListener(this._refInput, this.handleResize);
+    removeResizeListener(this._refInput, this.resetSize);
   }
 
   render(props) {
@@ -110,7 +136,7 @@ export default class Select extends WeElement<Props> {
       <div {...extractClass({}, 'o-select', {
         ['o-select--' + props.size]: props.size
       })} >
-        <o-popover position="bottom">
+        <o-popover ref={e => this.popover = e} position="bottom">
           <div>
             <div class="o-select__tags" ref={e => this.tags = e} style={{ width: '100%', maxWidth: (this.inputWidth - 32) + 'px' }}>
               <span>
@@ -121,6 +147,11 @@ export default class Select extends WeElement<Props> {
                   <span class="o-select__tags-text">asfsdfdsafdsafdsfbc</span><i class="o-tag__close o-icon-close"></i>
                 </span> */}
 
+                {this.selectedItems.map(item => {
+                  return <span class="o-tag o-tag--info o-tag--small o-tag--light">
+                    <span class="o-select__tags-text">{item.label}</span><i class="o-tag__close o-icon-close"></i>
+                  </span>
+                })}
               </span>
               <input type="text" autocomplete="off" class="o-select__input" style={{ flexGrow: 1, width: '0.0961538%', maxWidth: (this.inputWidth - 32) + 'px' }} />
             </div>
@@ -129,7 +160,7 @@ export default class Select extends WeElement<Props> {
               ['o-input--' + props.size]: props.size,
               'is-focus': props.isFocus
             })} >
-              <input style={{ height: this.inputHeight + 'px' }} type="text" ref={e => this._refInput = e} onClick={this.onInputClick} onBlur={this.onInputBlur} readonly autocomplete="off" value={props.value} placeholder={props.placeholder} class="o-input__inner" />
+              <input style={{ height: this.inputHeight + 'px' }} type="text" ref={e => this._refInput = e} onClick={this.onInputClick} onBlur={this.onInputBlur} readonly autocomplete="off" value={props.multiple ? '' : props.value} placeholder={Object.keys(this.selectedIndexMap).length > 0 ? '' : props.placeholder} class="o-input__inner" />
               <span class="o-input__suffix">
                 <span class="o-input__suffix-inner">
                   <i class="o-select__caret o-input__icon o-icon-arrow-up is-reverse"></i>
@@ -146,13 +177,15 @@ export default class Select extends WeElement<Props> {
 
           <div slot="popover" class="o-select-dropdown__wrap">
             <ul>
-              {props.items.map((item, index) =>
-                <li {...extractClass({}, 'o-select-dropdown__item', {
-                  selected: index === this.selectedIndex
-                })} onClick={_ => { this.onItemClick(item, index) }}>
+              {props.items.map((item, index) => {
+                const selected = props.multiple ? this.selectedIndexMap[index] : (index === this.selectedIndex)
+                return <li {...extractClass({}, 'o-select-dropdown__item', {
+                  selected
+                })} onClick={evt => { this.onItemClick(item, index, evt) }}>
                   <span>{item.label}</span>
+                  {selected && <svg class="a3 a2" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Check" curr><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>}
                 </li>
-              )}
+              })}
             </ul>
           </div>
 
