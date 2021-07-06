@@ -1,6 +1,6 @@
 import { tag, WeElement, extractClass, h } from 'omi'
 import * as css from './index.scss'
-import { removeResizeListener, addResizeListener } from './resize-event.ts'
+import { removeResizeListener, addResizeListener } from './resize-event'
 
 import '@omiu/popover'
 //debug

@@ -24,6 +24,8 @@ export default class extends WeElement<Props> {
 
   items = [{ label: '广东省-深圳市', value: 1 }, { label: '江西省-抚州市', value: 2 }, { label: '河北省-石家庄', value: 3 }]
 
+  fruits = [{ label: '苹果🍎', value: 1 }, { label: '草莓🍓', value: 2 }, { label: '葡萄🍇', value: 3 }, { label: '香蕉🍌', value: 4 }, { label: '梨子🍐', value: 5 }, { label: '橘子🍊', value: 6 },]
+
   render() {
     const formItemClass = tw`leading-8 mb-6`
     const lableClass = tw`w-16 float-left align-middle`
@@ -73,6 +75,18 @@ export default class extends WeElement<Props> {
             <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
             <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
             <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
+          </div>
+        </div>
+
+        <div class={formItemClass}>
+          <label class={lableClass} >喜爱水果</label>
+          <div class={tw`leading-8 ml-10`}>
+            <o-select css={`
+            .o-select .o-input__inner {
+              width: 257px;
+            `} size="small" multiple placeholder="选择多个水果"
+              items={this.fruits}
+            ></o-select>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 /**
- * @omiu/select v0.0.5 http://omijs.org
+ * @omiu/select v0.0.6 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1016,7 +1016,7 @@ var removeResizeListener = function (element, fn) {
 };
 
 /**
- * @omiu/popover v0.0.10 http://omijs.org
+ * @omiu/popover v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -3284,8 +3284,10 @@ var css = index;Object.freeze({
     Popover.prototype.installed = function () {
         var _this = this;
         window.addEventListener('click', function () {
-            _this.isShow = false;
-            _this.update();
+            if (_this.isShow) {
+                _this.isShow = false;
+                _this.update();
+            }
         });
     };
     Popover.prototype.updatePosition = function () {
