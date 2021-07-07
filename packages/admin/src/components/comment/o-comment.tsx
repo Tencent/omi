@@ -3,18 +3,21 @@ import { tw, sheet } from 'omi-twind'
 import * as css from './o-comment.scss'
 import '@omiu/input'
 import '@omiu/transition'
+import '@omiu/icon/comment'
+import '@omiu/icon/delete-outline'
+import '@omiu/icon/edit'
 
 interface Props {
   comments: ({
-    creator: string
-    createTime: string
-    replies: {
-      creator: string
-      replyTo: string
-      content: string
+    creator?: string
+    createTime?: string
+    replies?: {
+      creator?: string
+      replyTo?: string
+      content?: string
     }[]
   })[],
-  userName: ''
+  userName?: string
 }
 
 const tagName = 'o-comment'
@@ -38,12 +41,12 @@ export default class extends WeElement<Props> {
     * 点赞
     */
   likeClick(item) {
-    const index = item.likeStaffList.indexOf(this.userName)
+    const index = item.likeStaffList.indexOf(this.props.userName)
     if (index !== -1) {
       item.likeStaffList.splice(index, 1)
       this.fire('unlike', item)
     } else {
-      item.likeStaffList.push(this.userName)
+      item.likeStaffList.push(this.props.userName)
       this.fire('like', item)
     }
   }
@@ -64,15 +67,21 @@ export default class extends WeElement<Props> {
   /**
    * 点击取消按钮
    */
-  cancel() {
+  cancel = () => {
     this.showItemId = ''
+    this.update()
   }
 
+  showItemId
+
+  currentInputComment
+
+  inputComment
   /**
    * 回复评论
    */
   replyComment(id, subSystemId) {
-    this.fire('reply', id, this.inputComment.trim(), subSystemId)
+    //this.fire('reply', id, this.inputComment.trim(), subSystemId)
     this.showItemId = ''
   }
 
@@ -80,24 +89,26 @@ export default class extends WeElement<Props> {
    * 提交评论
    */
   commitComment() {
-    this.fire('reply', undefined, this.currentInputComment)
+    //this.fire('reply', undefined, this.currentInputComment)
     this.currentInputComment = ''
   }
 
+  replyTextarea
   /**
    * 点击评论按钮显示输入框
    * item: 当前大评论
    * reply: 当前回复的评论
    */
-  showCommentInput(item, reply, index) {
+  showCommentInput(item, reply) {
     if (reply) {
       this.inputComment = '@' + reply.creator + ' '
     } else {
       this.inputComment = ''
     }
     this.showItemId = item.id
+    this.update()
 
-    this.replyTextarea[index].focus()
+    this.replyTextarea.focus()
 
   }
 
@@ -139,28 +150,28 @@ export default class extends WeElement<Props> {
 
                 <span class="like-num" v-else>赞</span>
               </span>
-              <span onclick={e => this.showCommentInput(item, '', index)} class="comment-reply">
-                <i class="o-icon-chat-dot-round"></i>
+              <span onclick={e => this.showCommentInput(item, '')} class="comment-reply">
+                <o-icon-comment></o-icon-comment>
                 <span>回复</span>
               </span>
 
               <o-pop-confirm
-                onconfirm={this.deleteComment(item, comments)}
+                onconfirm={e => this.deleteComment(item, comments)}
                 cancel-button-text="取消"
                 confirm-button-text="删除"
                 icon="o-icon-info"
                 icon-color="red"
                 title="确认要删除吗？"
               >
-                <span
+                {userName === item.creator && <span
                   class="comment-reply"
                   slot="reference"
                   style="margin-left:17px;"
-                  v-if="userName === item.creator"
+
                 >
-                  <i class="o-icon-delete"></i>
+                  <o-icon-delete-outline></o-icon-delete-outline>
                   <span>删除</span>
-                </span>
+                </span>}
               </o-pop-confirm>
             </div>
             <div class="reply">
@@ -170,46 +181,47 @@ export default class extends WeElement<Props> {
                   <div class="reply-content">
                     <div>
                       <span class="from-name">{reply.creator}</span>
-                      <span>:</span>
-                      <span class="to-name" v-if="reply.replyTo">@{reply.replyTo}</span>
+                      <span class={tw`pr-1`}>:</span>
+                      {reply.replyTo && <span class="to-name">@{reply.replyTo}</span>}
                       {reply.content}
                     </div>
                   </div>
                   <div class="reply-bottom">
                     <span>{reply.createTime}</span>
-                    <span onclick={e => this.showCommentInput(item, reply, index)} class="reply-text">
-                      <i class="o-icon-chat-dot-round"></i>
+                    <span onclick={e => this.showCommentInput(item, reply)} class="reply-text">
+                      <o-icon-comment></o-icon-comment>
                       <span>回复</span>
                     </span>
 
                     <o-popconfirm
-                      onconfirm={this.deleteReply(reply, item.reply)}
+                      onconfirm={e => this.deleteReply(reply, item.reply)}
                       cancel-button-text="取消"
                       confirm-button-text="删除"
                       icon="o-icon-info"
                       icon-color="red"
                       title="确认要删除吗？"
                     >
-                      <span class="reply-text" slot="reference" v-if="userName === reply.creator">
-                        <i class="o-icon-delete"></i>
+                      {userName === reply.creator && <span class="reply-text" slot="reference" >
+                        <o-icon-delete-outline></o-icon-delete-outline>
                         <span>删除</span>
-                      </span>
+                      </span>}
                     </o-popconfirm>
                   </div>
                 </div>
               ))}
 
               {item.replies && item.replies.length > 0 && <div
-                onclick={e => this.showCommentInput(item, '', index)}
+                onclick={e => this.showCommentInput(item, '')}
                 class="write-reply"
               >
-                <i class="o-icon-edit"></i>
+                <o-icon-edit></o-icon-edit>
                 <span class="add-comment">添加新评论</span>
               </div>}
 
-              <o-transition appear={false} name="fade">
-                {this.showItemId === item.id && <div class="input-wrapper">
+              {this.showItemId && this.showItemId === item.id && <o-transition appear name="fade">
+                <div class="input-wrapper">
                   <o-input
+                    block
                     rows={3}
                     autofocus
                     class="gray-bg-input"
@@ -228,9 +240,9 @@ export default class extends WeElement<Props> {
                       type="success"
                     >发表</o-button>
                   </div>
-                </div>}
+                </div>
 
-              </o-transition>
+              </o-transition>}
             </div>
           </div>
         ))}

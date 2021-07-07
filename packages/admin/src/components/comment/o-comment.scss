@@ -86,7 +86,7 @@ $content-bg-color: #fff;
       }
 
       .comment-reply {
-        display: flex;
+        display: inline-block;
         align-items: center;
         cursor: pointer;
 
@@ -139,7 +139,8 @@ $content-bg-color: #fff;
           color: $text-minor;
 
           .reply-text {
-            display: flex;
+            //flex 导致omiu icon 不对齐
+            display: inline-block;
             align-items: center;
             margin-left: 10px;
             cursor: pointer;
@@ -156,7 +157,7 @@ $content-bg-color: #fff;
       }
 
       .write-reply {
-        display: flex;
+        display: inline-block;
         align-items: center;
         font-size: 14px;
         color: $text-minor;
