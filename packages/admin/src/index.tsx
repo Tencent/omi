@@ -11,6 +11,7 @@ import '@omiu/icon/table-chart'
 import '@omiu/icon/description'
 import '@omiu/icon/list-alt'
 import '@omiu/icon/grid-on'
+import '@omiu/icon/comment'
 
 import '@omiu/transition'
 
@@ -105,6 +106,13 @@ export default class extends WeElement {
       //lazy load
       import('./components/admin-form').then(() =>
         this.transitionTo('admin-form')
+      )
+    })
+
+    route('/comment', () => {
+      //lazy load
+      import('./components/comment/admin-comment').then(() =>
+        this.transitionTo('admin-comment')
       )
     })
 

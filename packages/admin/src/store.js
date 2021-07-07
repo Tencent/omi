@@ -88,6 +88,13 @@ class Store {
             id: 8,
           },
           {
+            sign: '993',
+            label: '评论模块',
+            icon: 'comment',
+            href: '#/comment',
+            id: 120,
+          },
+          {
             label: '我是外链',
             icon: 'insert-link',
             href: 'https://github.com/Tencent/omi',
