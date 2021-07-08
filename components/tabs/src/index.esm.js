@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.15 http://omijs.org
+ * @omiu/tabs v0.0.16 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -76,6 +78,7 @@ var css = `/**
   left: 0;
   height: 2px;
   background-color: #07c160;
+  background-color: var(--o-primary, #07c160);
   z-index: 1;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -103,7 +106,8 @@ var css = `/**
   transform: scale(0.8, 0.8); }
 
 .o-tabs__new-tab:hover {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 
 .o-tabs__nav-wrap {
   overflow: hidden;
@@ -187,7 +191,9 @@ var css = `/**
 
 .o-tabs__item:focus.is-active.is-focus:not(:active) {
   -webkit-box-shadow: 0 0 2px 2px #07c160 inset;
+  -webkit-box-shadow: 0 0 2px 2px var(--o-primary, #07c160) inset;
   box-shadow: 0 0 2px 2px #07c160 inset;
+  box-shadow: 0 0 2px 2px var(--o-primary, #07c160) inset;
   border-radius: 3px; }
 
 .o-tabs__item:hover .o-icon-close {
@@ -211,10 +217,12 @@ var css = `/**
   color: #FFF; }
 
 .o-tabs__item.is-active {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 
 .o-tabs__item:hover {
   color: #07c160;
+  color: var(--o-primary, #07c160);
   cursor: pointer; }
 
 .o-tabs__item.is-disabled {
@@ -304,12 +312,14 @@ var css = `/**
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item.is-active {
   color: #07c160;
+  color: var(--o-primary, #07c160);
   background-color: #FFF;
   border-right-color: #DCDFE6;
   border-left-color: #DCDFE6; }
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item:not(.is-disabled):hover {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item.is-disabled {
   color: #C0C4CC; }
@@ -724,7 +734,8 @@ var css = `/**
   cursor: pointer; }
 
 .o-icon-add:hover {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 `
 
 

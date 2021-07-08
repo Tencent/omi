@@ -1,6 +1,6 @@
 {
   "name": "@omiu/tabs",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",
@@ -81,10 +81,12 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [{
-    "path": "./dist/omim.min.js",
-    "threshold": "4Kb"
-  }],
+  "bundlesize": [
+    {
+      "path": "./dist/omim.min.js",
+      "threshold": "4Kb"
+    }
+  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,
