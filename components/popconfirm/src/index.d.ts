@@ -17,6 +17,8 @@ export default class ToolTip extends WeElement<Props> {
         effect: StringConstructor;
         position: StringConstructor;
     };
+    popEl: any;
+    refEl: any;
     install(): void;
     cancel: () => void;
     confirm: () => void;

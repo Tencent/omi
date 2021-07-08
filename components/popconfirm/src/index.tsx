@@ -25,8 +25,22 @@ export default class ToolTip extends WeElement<Props> {
     position: String
   }
 
+  popEl
+
+  refEl
+
   install() {
-    window.addEventListener('click', () => {
+    window.addEventListener('click', (evt) => {
+
+      const path = evt.path || (evt.composedPath && event.composedPath())
+      const isClickOutside = (path
+        ? path.indexOf(this.popEl) < 0
+        : !this.popEl.contains(evt.target)) && (path
+          ? path.indexOf(this.refEl) < 0
+          : !this.refEl.contains(evt.target))
+      if (!isClickOutside) {
+        return
+      }
       this.isShow = false
       this.update()
     })
@@ -45,7 +59,6 @@ export default class ToolTip extends WeElement<Props> {
   }
 
   showConfirm = (evt) => {
-    evt.stopPropagation()
     this.isShow = true
     this.update()
     const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
@@ -66,9 +79,9 @@ export default class ToolTip extends WeElement<Props> {
 
   render(props) {
     return <h.f>
-      <slot style="cursor:pointer" onclick={this.showConfirm}></slot>
+      <slot ref={e => this.refEl = e} style="cursor:pointer" onclick={this.showConfirm}></slot>
       <div
-        onClick={e => e.stopPropagation()}
+        ref={e => this.popEl = e}
         class={
           classNames({
             tip: true,

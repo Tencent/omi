@@ -6177,6 +6177,15 @@ var Table = /** @class */ (function (_super) {
                 omi_1.h("o-icon-info", { color: "#F56C6C", slot: "icon" }),
                 omi_1.h("span", { class: "reply-text" },
                     omi_1.h("o-icon-delete-outline", null),
+                    omi_1.h("span", null, "\u5220\u9664"))),
+            omi_1.h("o-popconfirm", { onconfirm: function (e) {
+                    console.log(11);
+                }, oncancel: function (e) {
+                    console.log(22);
+                }, "cancel-button-text": "\u53D6\u6D88", "confirm-button-text": "\u5220\u9664", content: "\u786E\u8BA4\u8981\u5220\u9664[\u8BB0\u5F55\u540D\u79F0]\u5417\uFF1F" },
+                omi_1.h("o-icon-info", { color: "#F56C6C", slot: "icon" }),
+                omi_1.h("span", { class: "reply-text" },
+                    omi_1.h("o-icon-delete-outline", null),
                     omi_1.h("span", null, "\u5220\u9664"))));
     };
     Table = __decorate([
@@ -6257,7 +6266,6 @@ var ToolTip = /** @class */ (function (_super) {
             _this.fire('confirm');
         };
         _this.showConfirm = function (evt) {
-            evt.stopPropagation();
             _this.isShow = true;
             _this.update();
             var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
@@ -6278,16 +6286,26 @@ var ToolTip = /** @class */ (function (_super) {
     }
     ToolTip.prototype.install = function () {
         var _this = this;
-        window.addEventListener('click', function () {
+        window.addEventListener('click', function (evt) {
+            var path = evt.path || (evt.composedPath && event.composedPath());
+            var isClickOutside = (path
+                ? path.indexOf(_this.popEl) < 0
+                : !_this.popEl.contains(evt.target)) && (path
+                ? path.indexOf(_this.refEl) < 0
+                : !_this.refEl.contains(evt.target));
+            if (!isClickOutside) {
+                return;
+            }
             _this.isShow = false;
             _this.update();
         });
     };
     ToolTip.prototype.render = function (props) {
         var _a;
+        var _this = this;
         return omi_1.h(omi_1.h.f, null,
-            omi_1.h("slot", { style: "cursor:pointer", onclick: this.showConfirm }),
-            omi_1.h("div", { onClick: function (e) { return e.stopPropagation(); }, class: omi_1.classNames((_a = {
+            omi_1.h("slot", { ref: function (e) { return _this.refEl = e; }, style: "cursor:pointer", onclick: this.showConfirm }),
+            omi_1.h("div", { ref: function (e) { return _this.popEl = e; }, class: omi_1.classNames((_a = {
                         tip: true,
                         show: this.isShow
                     },

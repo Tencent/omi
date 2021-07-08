@@ -1,6 +1,6 @@
 {
   "name": "@omiu/popconfirm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A bubble confirmation box will pop up near the click element.",
   "docsExtend": {
     "cnName": "弹出确认",

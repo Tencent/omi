@@ -1,5 +1,5 @@
 /**
- * @omiu/popconfirm v0.0.1 http://omijs.org
+ * @omiu/popconfirm v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2206,7 +2206,6 @@ var css = "/**\n * omiu tip css based on element ui css\n * Licensed under the M
                 _this.fire('confirm');
             };
             _this.showConfirm = function (evt) {
-                evt.stopPropagation();
                 _this.isShow = true;
                 _this.update();
                 var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
@@ -2227,16 +2226,26 @@ var css = "/**\n * omiu tip css based on element ui css\n * Licensed under the M
         }
         ToolTip.prototype.install = function () {
             var _this = this;
-            window.addEventListener('click', function () {
+            window.addEventListener('click', function (evt) {
+                var path = evt.path || (evt.composedPath && event.composedPath());
+                var isClickOutside = (path
+                    ? path.indexOf(_this.popEl) < 0
+                    : !_this.popEl.contains(evt.target)) && (path
+                    ? path.indexOf(_this.refEl) < 0
+                    : !_this.refEl.contains(evt.target));
+                if (!isClickOutside) {
+                    return;
+                }
                 _this.isShow = false;
                 _this.update();
             });
         };
         ToolTip.prototype.render = function (props) {
             var _a;
+            var _this = this;
             return omi.h(omi.h.f, null,
-                omi.h("slot", { style: "cursor:pointer", onclick: this.showConfirm }),
-                omi.h("div", { onClick: function (e) { return e.stopPropagation(); }, class: omi.classNames((_a = {
+                omi.h("slot", { ref: function (e) { return _this.refEl = e; }, style: "cursor:pointer", onclick: this.showConfirm }),
+                omi.h("div", { ref: function (e) { return _this.popEl = e; }, class: omi.classNames((_a = {
                             tip: true,
                             show: this.isShow
                         },
