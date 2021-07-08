@@ -7,6 +7,9 @@ import '@omiu/icon/comment'
 import '@omiu/icon/delete-outline'
 import '@omiu/icon/edit'
 
+import '@omiu/icon/info'
+import '@omiu/popconfirm'
+
 interface Props {
   comments: ({
     creator?: string
@@ -155,24 +158,19 @@ export default class extends WeElement<Props> {
                 <span>回复</span>
               </span>
 
-              <o-pop-confirm
+              <o-popconfirm
                 onconfirm={e => this.deleteComment(item, comments)}
                 cancel-button-text="取消"
-                confirm-button-text="删除"
-                icon="o-icon-info"
-                icon-color="red"
-                title="确认要删除吗？"
+                confirm-button-text="确认"
+                content="确认要删除这条评论吗？"
               >
-                {userName === item.creator && <span
-                  class="comment-reply"
-                  slot="reference"
-                  style="margin-left:17px;"
-
-                >
+                <o-icon-info color="#F56C6C" slot="icon"></o-icon-info>
+                <span class="comment-reply"
+                  style="margin-left:17px;">
                   <o-icon-delete-outline></o-icon-delete-outline>
                   <span>删除</span>
-                </span>}
-              </o-pop-confirm>
+                </span>
+              </o-popconfirm>
             </div>
             <div class="reply">
 
@@ -193,19 +191,18 @@ export default class extends WeElement<Props> {
                       <span>回复</span>
                     </span>
 
-                    <o-popconfirm
+                    {userName === reply.creator && <o-popconfirm
                       onconfirm={e => this.deleteReply(reply, item.reply)}
                       cancel-button-text="取消"
-                      confirm-button-text="删除"
-                      icon="o-icon-info"
-                      icon-color="red"
-                      title="确认要删除吗？"
+                      confirm-button-text="确认"
+                      content="确认要删除这条评论吗？"
                     >
-                      {userName === reply.creator && <span class="reply-text" slot="reference" >
+                      <o-icon-info color="#F56C6C" slot="icon"></o-icon-info>
+                      <span class="reply-text">
                         <o-icon-delete-outline></o-icon-delete-outline>
                         <span>删除</span>
-                      </span>}
-                    </o-popconfirm>
+                      </span>
+                    </o-popconfirm>}
                   </div>
                 </div>
               ))}
