@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.16 http://omijs.org
+ * @omiu/tabs v0.0.17 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -802,7 +802,14 @@ var Tabs = /** @class */ (function (_super) {
     };
     Tabs.prototype.removeTab = function (index) {
         var tab = this.props.list.splice(index, 1)[0];
+        if (index <= this.props.activeIndex) {
+            this.props.activeIndex -= 1;
+        }
+        if (this.props.activeIndex < 0) {
+            this.props.activeIndex = 0;
+        }
         this.forceUpdate();
+        this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
         this.fire('remove', {
             tab: tab,
             index: index
@@ -845,7 +852,7 @@ var Tabs = /** @class */ (function (_super) {
                             props.list.map(function (tab, index) {
                                 var _a;
                                 _this._tempTagName = 'o-icon-' + tab.icon;
-                                return h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return props.activeIndex !== index && _this.onTabClick(evt, index); }, tabindex: props.active === index ? '0' : -1 }, extractClass(props, 'o-tabs__item', (_a = {},
+                                return h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return props.activeIndex !== index && _this.onTabClick(evt, index); }, tabindex: props.activeIndex === index ? '0' : -1 }, extractClass(props, 'o-tabs__item', (_a = {},
                                     _a["is-" + props.position] = props.position,
                                     _a['is-active'] = props.activeIndex === index,
                                     _a['is-closable'] = props.closable && tab.closable !== false,

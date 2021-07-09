@@ -92,7 +92,15 @@ export default class Tabs extends WeElement<Props>{
 
   removeTab(index) {
     const tab = this.props.list.splice(index, 1)[0]
+    if (index <= this.props.activeIndex) {
+      this.props.activeIndex -= 1
+    }
+    if (this.props.activeIndex < 0) {
+      this.props.activeIndex = 0
+    }
     this.forceUpdate()
+
+    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
     this.fire('remove', {
       tab: tab,
       index: index
@@ -116,9 +124,9 @@ export default class Tabs extends WeElement<Props>{
       height: `40px`,
       transform: `translateY(${props.activeIndex * 40}px)`
     } : {
-      width: `${this._width}px`,
-      transform: `translateX(${this._x}px)`
-    }
+        width: `${this._width}px`,
+        transform: `translateX(${this._x}px)`
+      }
 
     return (
       <div {...extractClass(props, 'o-tabs', {
@@ -142,7 +150,7 @@ export default class Tabs extends WeElement<Props>{
 
                 {props.list.map((tab, index) => {
                   this._tempTagName = 'o-icon-' + tab.icon
-                  return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
+                  return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.activeIndex === index ? '0' : -1}
                     {...extractClass(props, 'o-tabs__item', {
                       [`is-${props.position}`]: props.position,
                       'is-active': props.activeIndex === index,

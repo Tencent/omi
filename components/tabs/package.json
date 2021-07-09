@@ -1,6 +1,6 @@
 {
   "name": "@omiu/tabs",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",
