@@ -45,7 +45,7 @@ export default class extends WeElement<Props> {
     return <div class={tw`px-4`}>
 
       <div>
-        <div class={tw`border-1 inline-block my-4 border-gray-300 rounded`} style="width:600px">
+        <div class={tw`border-1 my-4 border-gray-300 rounded`} style="width:600px">
           <div class={tw`px-5 py-5`}>
             <o-loading size="15"></o-loading>
             <o-loading size="25"></o-loading>
@@ -57,7 +57,7 @@ export default class extends WeElement<Props> {
           <admin-docs css={`.docs{padding:0 !important;}`} mdContent={this.baseMdContent}></admin-docs>
         </div>
 
-        <div class={tw`border-1 inline-block my-4 border-gray-300 rounded`} style="width:600px">
+        <div class={tw`border-1 my-4 border-gray-300 rounded`} style="width:600px">
           <div class={tw`px-5 py-5`}>
             <o-loading size="15" color="#8e2035"></o-loading>
             <o-loading size="25" color="#2d7418"></o-loading>

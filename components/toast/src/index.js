@@ -757,13 +757,14 @@ var Button = /** @class */ (function (_super) {
                     props.loading && omi_1.h("o-loading", { size: 40, color: "white" }),
                     props.success && omi_1.h("i", { class: "o-success" }),
                     props.warning && omi_1.h("i", { class: "o-warning" }),
-                    omi_1.h("p", { class: "o-toast-content" }, props.content))));
+                    omi_1.h("p", { class: "o-toast-content" }, props.content || (props.loading ? '加载中' : '')))));
     };
     Button.css = css;
     Button.defaultProps = {
         duration: 2000,
         autoHide: false,
-        show: true
+        show: true,
+        content: ''
     };
     Button.propTypes = {
         content: String,
@@ -786,7 +787,9 @@ function showLoading(content) {
     el = document.createElement('o-toast');
     el.setAttribute('show', '1');
     el.setAttribute('loading', '1');
-    el.setAttribute('content', content);
+    if (typeof content === 'string') {
+        el.setAttribute('content', content);
+    }
     document.body.appendChild(el);
     return el;
 }
@@ -800,7 +803,9 @@ function showSuccess(content) {
     el = document.createElement('o-toast');
     el.setAttribute('show', '1');
     el.setAttribute('success', '1');
-    el.setAttribute('content', content);
+    if (typeof content === 'string') {
+        el.setAttribute('content', content);
+    }
     document.body.appendChild(el);
     return el;
 }
@@ -814,7 +819,9 @@ function showWarning(content) {
     el = document.createElement('o-toast');
     el.setAttribute('show', '1');
     el.setAttribute('warning', '1');
-    el.setAttribute('content', content);
+    if (typeof content === 'string') {
+        el.setAttribute('content', content);
+    }
     document.body.appendChild(el);
     return el;
 }

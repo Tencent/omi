@@ -137,6 +137,15 @@ export default class extends WeElement {
       )
     })
 
+
+    route('/toast-component', () => {
+      //lazy load
+      import('./components/components/toast-component').then(() =>
+        this.transitionTo('toast-component')
+      )
+    })
+
+
     route('/warning', () => {
       //lazy load
       import('./components/status/status-warning').then(() =>

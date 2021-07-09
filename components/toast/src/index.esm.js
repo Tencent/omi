@@ -1,5 +1,5 @@
 /**
- * @omiu/toast v0.0.5 http://omijs.org
+ * @omiu/toast v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -581,13 +581,14 @@ var Button = /** @class */ (function (_super) {
                     props.loading && h("o-loading", { size: 40, color: "white" }),
                     props.success && h("i", { class: "o-success" }),
                     props.warning && h("i", { class: "o-warning" }),
-                    h("p", { class: "o-toast-content" }, props.content))));
+                    h("p", { class: "o-toast-content" }, props.content || (props.loading ? '加载中' : '')))));
     };
     Button.css = css;
     Button.defaultProps = {
         duration: 2000,
         autoHide: false,
-        show: true
+        show: true,
+        content: ''
     };
     Button.propTypes = {
         content: String,
@@ -609,7 +610,9 @@ function showLoading(content) {
     el = document.createElement('o-toast');
     el.setAttribute('show', '1');
     el.setAttribute('loading', '1');
-    el.setAttribute('content', content);
+    if (typeof content === 'string') {
+        el.setAttribute('content', content);
+    }
     document.body.appendChild(el);
     return el;
 }
@@ -621,7 +624,9 @@ function showSuccess(content) {
     el = document.createElement('o-toast');
     el.setAttribute('show', '1');
     el.setAttribute('success', '1');
-    el.setAttribute('content', content);
+    if (typeof content === 'string') {
+        el.setAttribute('content', content);
+    }
     document.body.appendChild(el);
     return el;
 }
@@ -633,7 +638,9 @@ function showWarning(content) {
     el = document.createElement('o-toast');
     el.setAttribute('show', '1');
     el.setAttribute('warning', '1');
-    el.setAttribute('content', content);
+    if (typeof content === 'string') {
+        el.setAttribute('content', content);
+    }
     document.body.appendChild(el);
     return el;
 }

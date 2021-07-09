@@ -116,10 +116,15 @@ class Store {
         id: 11,
         icon: 'ac-unit-outlined',
         children: [{
-          label: 'Loading',
+          label: 'Loading 加载中',
           id: 12,
           icon: 'ac-unit-outlined',
           href: '#/loading-component',
+        }, {
+          label: 'Toast 弹出式提示',
+          id: 13,
+          icon: 'ac-unit-outlined',
+          href: '#/toast-component',
         }]
       }
     ]

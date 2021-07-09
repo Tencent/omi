@@ -40,7 +40,7 @@ export default class extends WeElement<Props> {
 
 
   install() {
-    // @ts-ignore 
+    // @ts-ignore
     this.md = new MdIt().use(anchor.default, {
       level: 2,
       permalink: true

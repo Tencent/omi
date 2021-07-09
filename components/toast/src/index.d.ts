@@ -16,6 +16,7 @@ export default class Button extends WeElement<Props> {
         duration: number;
         autoHide: boolean;
         show: boolean;
+        content: string;
     };
     static propTypes: {
         content: StringConstructor;

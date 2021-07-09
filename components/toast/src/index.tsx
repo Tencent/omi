@@ -22,7 +22,8 @@ export default class Button extends WeElement<Props>{
   static defaultProps = {
     duration: 2000,
     autoHide: false,
-    show: true
+    show: true,
+    content: ''
   }
 
   static propTypes = {
@@ -67,7 +68,7 @@ export default class Button extends WeElement<Props>{
           {props.loading && <o-loading size={40} color="white"></o-loading>}
           {props.success && <i class="o-success"></i>}
           {props.warning && <i class="o-warning"></i>}
-          <p class="o-toast-content">{props.content}</p>
+          <p class="o-toast-content">{props.content || (props.loading ? '加载中' : '')}</p>
         </div>
       </div>
     </o-transition>
@@ -81,7 +82,9 @@ export function showLoading(content) {
   el = document.createElement('o-toast')
   el.setAttribute('show', '1')
   el.setAttribute('loading', '1')
-  el.setAttribute('content', content)
+  if(typeof content === 'string'){
+    el.setAttribute('content', content)
+  }
   document.body.appendChild(el)
 
   return el
@@ -97,7 +100,9 @@ export function showSuccess(content) {
   el = document.createElement('o-toast')
   el.setAttribute('show', '1')
   el.setAttribute('success', '1')
-  el.setAttribute('content', content)
+  if(typeof content === 'string'){
+    el.setAttribute('content', content)
+  }
   document.body.appendChild(el)
 
   return el
@@ -113,7 +118,9 @@ export function showWarning(content) {
   el = document.createElement('o-toast')
   el.setAttribute('show', '1')
   el.setAttribute('warning', '1')
-  el.setAttribute('content', content)
+  if(typeof content === 'string'){
+    el.setAttribute('content', content)
+  }
   document.body.appendChild(el)
 
   return el
