@@ -76,7 +76,7 @@ export default class Button extends WeElement<Props>{
 
 > Cross-Frameworks and [Cross-Themes](https://tencent.github.io/omi/components/docs/#/theme?index=0&subIndex=1) UI Components powered by Omi
 
-> [Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
+> [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
 
 | **Name**         | **Status**         | **Example**            | **Docs** |

@@ -77,7 +77,7 @@ export default class Button extends WeElement<Props>{
 
 > Omi 打造的跨框架、[跨主题](https://tencent.github.io/omi/components/docs/cn.html#/theme?index=0&subIndex=1) UI 组件库
 
-> [Omiu 打造的 Omi Admin](https://tencent.github.io/omi/packages/admin/dist/index.html)
+> [💯Omiu 打造的 Omi Admin](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
 | **Name**         | **Status**         | **Example**            | **Docs** |
 | -------------- | ----------|----------- | ----------------|
