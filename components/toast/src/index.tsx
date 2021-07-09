@@ -1,13 +1,15 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import '@omiu/loading'
+import '@omiu/transition'
 
 interface Props {
-  label?: string
+  content?: string
   loading?: boolean
-  done?: boolean
+  success?: boolean
+  warning?: boolean
   duration: number
-  autoClose: boolean
+  autoHide: boolean
   show: boolean
 }
 
@@ -19,55 +21,117 @@ export default class Button extends WeElement<Props>{
 
   static defaultProps = {
     duration: 2000,
-    autoClose: false,
+    autoHide: false,
     show: true
   }
 
   static propTypes = {
-    label: String,
+    content: String,
     loading: Boolean,
-    done: Boolean,
+    success: Boolean,
+    warning: Boolean,
     duration: Number,
-    autoClose: Boolean,
+    autoHide: Boolean,
     show: Boolean
   }
 
-  fadeEnter
 
   installed() {
 
-    if (this.props.autoClose) {
-      this.close()
+    if (this.props.autoHide) {
+      setTimeout(() => {
+        this.hide()
+      }, this.props.duration + 200)
+
+      setTimeout(() => {
+        this.parentNode.removeChild(this)
+      }, this.props.duration + 200 * 2)
     }
 
   }
 
-  close() {
-    setTimeout(() => {
-      this.fadeEnter = true
-      this.update()
-    }, this.props.duration + 400)
+  hide() {
 
-
+    this.setAttribute('show', false)
     setTimeout(() => {
       this.parentNode.removeChild(this)
-    }, this.props.duration + 400 + 400)
+    }, 200)
   }
 
   render(props) {
-
-    if (!props.show) return
-    return [
-      <div class="o-mask-transparent"></div>,
-      <div {...extractClass(props, 'o-toast', {
-        ['o-toast--' + props.type]: props.type,
-        'o-toast-fade-leave-active': this.fadeEnter
-      })}>
-        <slot />
-        {props.loading && <o-loading size={40} color="white"></o-loading>}
-        {props.done && <i class="o-done"></i>}
-        <p class="o-toast-content">{props.label}</p>
+    return <o-transition appear={props.show} name="fade">
+      <div>
+        <div class="o-mask-transparent"></div>
+        <div {...extractClass(props, 'o-toast')}>
+          <slot />
+          {props.loading && <o-loading size={40} color="white"></o-loading>}
+          {props.success && <i class="o-success"></i>}
+          {props.warning && <i class="o-warning"></i>}
+          <p class="o-toast-content">{props.content}</p>
+        </div>
       </div>
-    ]
+    </o-transition>
+  }
+}
+
+let el
+
+export function showLoading(content) {
+  remove()
+  el = document.createElement('o-toast')
+  el.setAttribute('show', '1')
+  el.setAttribute('loading', '1')
+  el.setAttribute('content', content)
+  document.body.appendChild(el)
+
+  return el
+}
+
+export function hideLoading() {
+  hide()
+}
+
+
+export function showSuccess(content) {
+  remove()
+  el = document.createElement('o-toast')
+  el.setAttribute('show', '1')
+  el.setAttribute('success', '1')
+  el.setAttribute('content', content)
+  document.body.appendChild(el)
+
+  return el
+}
+
+export function hideSuccess() {
+  hide()
+}
+
+
+export function showWarning(content) {
+  remove()
+  el = document.createElement('o-toast')
+  el.setAttribute('show', '1')
+  el.setAttribute('warning', '1')
+  el.setAttribute('content', content)
+  document.body.appendChild(el)
+
+  return el
+}
+
+export function hideWarning() {
+  hide()
+}
+
+function hide() {
+  if (el) {
+    el.hide()
+    el = null
+  }
+}
+
+function remove() {
+  if (el) {
+    el.parentNode.removeChild(el)
   }
 }

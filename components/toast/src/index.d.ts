@@ -1,31 +1,39 @@
 import { WeElement } from 'omi';
 import '@omiu/loading';
+import '@omiu/transition';
 interface Props {
-    label?: string;
+    content?: string;
     loading?: boolean;
-    done?: boolean;
+    success?: boolean;
+    warning?: boolean;
     duration: number;
-    autoClose: boolean;
+    autoHide: boolean;
     show: boolean;
 }
 export default class Button extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         duration: number;
-        autoClose: boolean;
+        autoHide: boolean;
         show: boolean;
     };
     static propTypes: {
-        label: StringConstructor;
+        content: StringConstructor;
         loading: BooleanConstructor;
-        done: BooleanConstructor;
+        success: BooleanConstructor;
+        warning: BooleanConstructor;
         duration: NumberConstructor;
-        autoClose: BooleanConstructor;
+        autoHide: BooleanConstructor;
         show: BooleanConstructor;
     };
-    fadeEnter: any;
     installed(): void;
-    close(): void;
-    render(props: any): JSX.Element[];
+    hide(): void;
+    render(props: any): JSX.Element;
 }
+export declare function showLoading(content: any): any;
+export declare function hideLoading(): void;
+export declare function showSuccess(content: any): any;
+export declare function hideSuccess(): void;
+export declare function showWarning(content: any): any;
+export declare function hideWarning(): void;
 export {};
