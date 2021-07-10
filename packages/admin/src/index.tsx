@@ -192,15 +192,13 @@ export default class extends WeElement {
       if (tab) {
         this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
       } else {
-        if (node.id !== 9) {
-          this.store.tabs.push({
-            label: node.label,
-            closeable: false,
-            id: node.id,
-            href: node.href
-          })
-          this.store.tabsActiveIndex = this.store.tabs.length - 1
-        }
+        this.store.tabs.push({
+          label: node.label,
+          closeable: false,
+          id: node.id,
+          href: node.href
+        })
+        this.store.tabsActiveIndex = this.store.tabs.length - 1
       }
     }
     // @ts-ignore
@@ -210,7 +208,7 @@ export default class extends WeElement {
       })
   }
 
-  render(props) {
+  render() {
     return (
       <basic-layout>
         <o-transition ref={(_) => (this.transition = _)} appear name="fade">
