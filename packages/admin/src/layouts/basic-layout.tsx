@@ -70,8 +70,8 @@ export default class extends WeElement {
 
         <div class={tw`flex flex-row`}>
           <layout-left-panel
-            class={tw`bg-white z-50 transition-all duration-500 ease-in-out w-3/4 fixed -translate-x-full sm:w-64 sm:relative sm:translate-x-0${this.store.isLeftPanelClosed ? '-translate-x-full w-0 sm:w-0' : ' w-3/4 sm:w-64 translate-x-0'
-              }`}
+            class={tw`${this.store.isLeftPanelClosed ? 'sm:w-0 -translate-x-full' : 'sm:w-64 w-3/4 translate-x-0'
+              } overflow-hidden bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
           <layout-container class={tw`flex-1`}>
             <o-tabs
