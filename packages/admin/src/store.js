@@ -13,7 +13,7 @@ class Store {
     }]
     this.tabsActiveIndex = 0
 
-    this.isLeftPanelClosed = false
+    this.isLeftPanelClosed = window.innerWidth < 640
 
     this.treeData = [
       {
@@ -138,6 +138,16 @@ class Store {
 
   toggleLeftPanel() {
     this.isLeftPanelClosed = !this.isLeftPanelClosed
+    this.ui.baseLayout.update()
+  }
+
+  openLeftPanel() {
+    this.isLeftPanelClosed = false
+    this.ui.baseLayout.update()
+  }
+
+  closeLeftPanel() {
+    this.isLeftPanelClosed = true
     this.ui.baseLayout.update()
   }
 

@@ -2,7 +2,7 @@ import { WeElement, h, tag, classNames } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import '@omiu/tree'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'layout-left-panel'
 declare global {
@@ -27,7 +27,7 @@ export default class extends WeElement<Props> {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   width: 8px;
-  top: 40%;
+  bottom: 0;
   margin-top: -25px;
   right: -8px;
   z-index: 999;
@@ -89,7 +89,7 @@ export default class extends WeElement<Props> {
           data={this.store.treeData}
         ></o-tree>
 
-        <div
+        {/* <div
           class={classNames({
             menu: true,
             closed: this.store.isLeftPanelClosed
@@ -97,7 +97,7 @@ export default class extends WeElement<Props> {
           onclick={(e) => {
             this.store.toggleLeftPanel()
           }}
-          v-if="!state.leftPanelIconHided"
+
         >
           <svg
             aria-hidden="true"
@@ -110,7 +110,7 @@ export default class extends WeElement<Props> {
           >
             <path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z" />
           </svg>
-        </div>
+        </div> */}
       </div>
     )
   }

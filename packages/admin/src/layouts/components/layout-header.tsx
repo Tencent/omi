@@ -4,7 +4,9 @@ import { setTheme } from '@omiu/common'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
-interface Props {}
+import '@omiu/hamburger-menu'
+
+interface Props { }
 
 const tagName = 'layout-header'
 declare global {
@@ -28,6 +30,7 @@ export default class extends WeElement<Props> {
 
     window.addEventListener('click', () => {
       this.isShowColorPicker = false
+      //这个导致 o-hamburger-menu 的 active 二次执行传入 undefined,所以 onMenuChange里要记得改写 isLeftPanelClosed
       this.update()
     })
   }
@@ -43,11 +46,22 @@ export default class extends WeElement<Props> {
     setTheme('primary', evt.detail.color)
   }
 
+
+  onMenuChange = (evt) => {
+    this.store.isLeftPanelClosed = evt.detail
+    if (this.store.isLeftPanelClosed) {
+      this.store.openLeftPanel()
+    } else {
+      this.store.closeLeftPanel()
+    }
+  }
+
   render() {
     return (
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
+            <o-hamburger-menu class={tw`mt-1.5 ml-1 `} color="#07C160" active={!this.store.isLeftPanelClosed} onchange={this.onMenuChange} ></o-hamburger-menu>
             <img class={tw`w-8 m-1 ml-3`} src={logo} alt="logo" />
             <div>
               <h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1>

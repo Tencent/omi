@@ -10,7 +10,7 @@ import './components/layout-left-panel'
 
 import { tw, sheet } from 'omi-twind'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'basic-layout'
 declare global {
@@ -70,9 +70,8 @@ export default class extends WeElement {
 
         <div class={tw`flex flex-row`}>
           <layout-left-panel
-            class={tw`w-64 transition-all duration-500 ease-in-out${
-              this.store.isLeftPanelClosed ? ' is-closed' : ''
-            }`}
+            class={tw`bg-white z-50 transition-all duration-500 ease-in-out w-3/4 fixed -translate-x-full sm:w-64 sm:relative sm:translate-x-0${this.store.isLeftPanelClosed ? '-translate-x-full w-0 sm:w-0' : ' w-3/4 sm:w-64 translate-x-0'
+              }`}
           ></layout-left-panel>
           <layout-container class={tw`flex-1`}>
             <o-tabs

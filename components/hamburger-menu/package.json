@@ -7,6 +7,7 @@
   "types": "src/index.d.ts",
   "scripts": {
     "start": "node ./scripts/webpack.build.js -- demo",
+    "demo": "node ./scripts/webpack.demo.js -- demo",
     "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
   },
   "typings": "./dist/index.d.ts",
