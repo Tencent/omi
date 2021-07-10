@@ -9,6 +9,7 @@
 * 基于 omi web components
 * vite + ts + twind + lazy load
 * 主题实时切换
+* 移动优先，响应式设计
 * 路由动画
 * 海量 ICON 
 * 内置文档系统
