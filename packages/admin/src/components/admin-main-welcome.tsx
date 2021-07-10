@@ -21,7 +21,7 @@ export default class extends WeElement<Props> {
   render() {
     return (
       <div class={tw``}>
-        <div class={tw`w-96 m-auto pt-52`}>
+        <div class={tw`w-4/5 sm:w-96 m-auto pt-52`}>
           <svg
             version="1.1"
             viewBox="0 0 800 600"
