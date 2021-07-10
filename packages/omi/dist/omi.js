@@ -197,14 +197,7 @@
                 hydrating = null != dom && !('prevProps' in dom);
             }
             if (vnode && vnode.nodeName === Fragment) vnode = vnode.children;
-            if (isArray(vnode)) if (parent) {
-                var styles = parent.querySelectorAll('style');
-                styles.forEach(function(s) {
-                    parent.removeChild(s);
-                });
-                innerDiffNode(parent, vnode, hydrating, component, updateSelf);
-                for (var i = styles.length - 1; i >= 0; i--) parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
-            } else {
+            if (isArray(vnode)) if (parent) innerDiffNode(parent, vnode, hydrating, component, updateSelf); else {
                 ret = [];
                 vnode.forEach(function(item, index) {
                     var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
@@ -682,12 +675,12 @@
                     shadowRoot.adoptedStyleSheets = styleSheets;
                 });
             } else shadowRoot.adoptedStyleSheets = [ css ];
-            if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             var rendered = this.render(this.props, this.store);
             this.rootNode = diff(null, rendered, null, this);
             this.rendered();
+            if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
             if (this.props.css) {
                 this.N = cssToDom(this.props.css);
                 this.O = this.props.css;
@@ -1302,7 +1295,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.21';
+    options.root.Omi.version = '6.19.22';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

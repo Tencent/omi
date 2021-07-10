@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.21  http://omijs.org
+ * Omi v6.19.22  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -478,15 +478,8 @@
     }
     if (isArray(vnode)) {
       if (parent) {
-        var styles = parent.querySelectorAll('style');
-        styles.forEach(function (s) {
-          parent.removeChild(s);
-        });
+        //don't use css and props.css when using h.f
         innerDiffNode(parent, vnode, hydrating, component, updateSelf);
-
-        for (var i = styles.length - 1; i >= 0; i--) {
-          parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
-        }
       } else {
         ret = [];
         vnode.forEach(function (item, index) {
@@ -932,10 +925,6 @@
         }
       }
 
-      if (this.css) {
-        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-      }
-
       this.beforeRender();
       options.afterInstall && options.afterInstall(this);
 
@@ -943,6 +932,10 @@
 
       this.rootNode = diff(null, rendered, null, this);
       this.rendered();
+
+      if (this.css) {
+        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+      }
 
       if (this.props.css) {
         this._customStyleElement = cssToDom(this.props.css);
@@ -2190,7 +2183,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.21';
+  options.root.Omi.version = '6.19.22';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

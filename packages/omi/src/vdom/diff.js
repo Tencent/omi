@@ -40,17 +40,8 @@ export function diff(dom, vnode, parent, component, updateSelf) {
   }
   if (isArray(vnode)) {
     if (parent) {
-      const styles = parent.querySelectorAll('style')
-      styles.forEach(s => {
-        parent.removeChild(s)
-      })
+      //don't use css and props.css when using h.f
       innerDiffNode(parent, vnode, hydrating, component, updateSelf)
-
-      for (let i = styles.length - 1; i >= 0; i--) {
-        parent.firstChild
-          ? parent.insertBefore(styles[i], parent.firstChild)
-          : parent.appendChild(style[i])
-      }
     } else {
       ret = []
       vnode.forEach((item, index) => {

@@ -134,12 +134,6 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (this.css) {
-      shadowRoot.appendChild(
-        cssToDom(typeof this.css === 'function' ? this.css() : this.css)
-      )
-    }
-
     this.beforeRender()
     options.afterInstall && options.afterInstall(this)
 
@@ -147,6 +141,12 @@ export default class WeElement extends HTMLElement {
 
     this.rootNode = diff(null, rendered, null, this)
     this.rendered()
+
+    if (this.css) {
+      shadowRoot.appendChild(
+        cssToDom(typeof this.css === 'function' ? this.css() : this.css)
+      )
+    }
 
     if (this.props.css) {
       this._customStyleElement = cssToDom(this.props.css)
