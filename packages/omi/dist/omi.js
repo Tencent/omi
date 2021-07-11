@@ -520,8 +520,8 @@
         var p = ele.parentNode;
         while (p) if (p.host) return p.host; else if (p.shadowRoot && p.shadowRoot.host) return p.shadowRoot.host; else p = p.parentNode;
     }
-    function rpx(str) {
-        return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
+    function rpx(css) {
+        return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
             return window.innerWidth * Number(b) / 750 + 'px';
         });
     }
@@ -1295,7 +1295,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.22';
+    options.root.Omi.version = '6.19.23';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

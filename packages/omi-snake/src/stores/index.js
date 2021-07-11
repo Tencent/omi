@@ -1,48 +1,65 @@
 import Game from '../models/game'
 
-const game = new Game
-const { snake, map } = game
 
-game.start()
 
 class Store {
-  data = {
-    map,
-    paused: false
+  constructor() {
+    const game = new Game({
+      onTick: () => {
+        this.ui.game.update()
+      }
+    })
+    const { snake, map } = game
+    this.snake = snake
+    this.map = map
+    this.game = game
+    game.start()
+
+    this.ui = {}
+
+    this.data = {
+      map,
+      paused: false
+
+    }
   }
 
-  turnUp() {
-    snake.turnUp()
-  }
-  
-  turnRight() {
-    snake.turnRight()
+
+
+  turnUp = () => {
+    this.snake.turnUp()
   }
 
-  turnDown() {
-    snake.turnDown()
+  turnRight = () => {
+    this.snake.turnRight()
   }
 
-  turnLeft() {
-    snake.turnLeft()
+  turnDown = () => {
+    this.snake.turnDown()
+  }
+
+  turnLeft = () => {
+    this.snake.turnLeft()
   }
 
   pauseOrPlay = () => {
-    if (game.paused) {
-      game.play()
+    if (this.game.paused) {
+      this.game.play()
       this.data.paused = false
     } else {
-      game.pause()
+      this.game.pause()
       this.data.paused = true
     }
-  }
-  
-  reset() {
-    game.reset()
+
+    this.ui.index.updateSelf()
   }
 
-  toggleSpeed() {
-    game.toggleSpeed()
+  reset = () => {
+    this.game.reset()
+  }
+
+  toggleSpeed = () => {
+    this.game.toggleSpeed()
   }
 }
 

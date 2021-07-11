@@ -1,7 +1,7 @@
 import Snake from './snake'
 
 class Game {
-  constructor() {
+  constructor(options) {
     this.map = []
     this.size = 16
     this.loop = null
@@ -9,6 +9,7 @@ class Game {
     this.paused = false
     this._preDate = Date.now()
     this.init()
+    this.onTick = options.onTick
   }
 
   init() {
@@ -30,7 +31,7 @@ class Game {
     const eating = this.eat()
     this.snake.move(eating)
     this.mark()
-
+    this.onTick()
   }
 
   mark() {
