@@ -61,7 +61,7 @@ export default class extends WeElement<Props> {
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
-            <o-hamburger-menu class={tw`mt-1.5 ml-1 `} color="#07C160" active={!this.store.isLeftPanelClosed} onchange={this.onMenuChange} ></o-hamburger-menu>
+            <o-hamburger-menu class={tw`mt-1.5 ml-1 `} color="rgb(107, 114, 128)" active={!this.store.isLeftPanelClosed} onchange={this.onMenuChange} ></o-hamburger-menu>
             <img class={tw`w-8 m-1 ml-3`} src={logo} alt="logo" />
             <div>
               <h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1>
