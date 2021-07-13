@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function theme() {
   if (document.body && !document.body.style.getPropertyValue('--o-primary')) {
     setTheme('primary', '#07c160')
-    setTheme('danger', '#f5222d')
+    setTheme('danger', '#fa5151')
     setTheme('surface', '#ffffff')
     setTheme('on-primary', '#ffffff')
     setTheme('on-danger', '#ffffff')
@@ -26,42 +26,33 @@ export function setTheme(key, value) {
   const style = document.body.style
 
   style.setProperty('--o-' + key, value)
-  switch (key) {
-    case 'primary':
-      style.setProperty('--o-primary-fade-little', Color(value).fade(0.382))
-      style.setProperty('--o-primary-fade-some', Color(value).fade(0.618))
-      style.setProperty('--o-primary-fade-more', Color(value).fade(0.759))
-      style.setProperty('--o-primary-fade-lot', Color(value).fade(0.9))
-      style.setProperty('--o-primary-active', Color(value).darken(0.1))
 
-      style.setProperty('--o-primary-hover-border', Color(value).fade(0.618))
-      style.setProperty('--o-primary-hover-bg', Color(value).fade(0.9))
+  if (key === 'primary' || key === 'danger') {
+    style.setProperty(`--o-${key}-fade-little`, Color(value).fade(0.382))
+    style.setProperty(`--o-${key}-fade-some`, Color(value).fade(0.618))
+    style.setProperty(`--o-${key}-fade-more`, Color(value).fade(0.759))
+    style.setProperty(`--o-${key}-fade-lot`, Color(value).fade(0.9))
+    style.setProperty(`--o-${key}-active`, Color(value).darken(0.1))
 
-      break
-    case 'danger':
-      style.setProperty('--o-danger-fade-little', Color(value).fade(0.382))
-      style.setProperty('--o-danger-fade-some', Color(value).fade(0.618))
-      style.setProperty('--o-danger-fade-more', Color(value).fade(0.759))
-      style.setProperty('--o-danger-fade-lot', Color(value).fade(0.9))
-      style.setProperty('--o-danger-active', Color(value).darken(0.1))
-      break
+    style.setProperty(`--o-${key}-hover-border`, Color(value).fade(0.618))
+    style.setProperty(`--o-${key}-hover-bg`, Color(value).fade(0.9))
 
   }
 }
 
+export function setThemePrimary(color) {
+  setTheme('primary', color)
+}
+
 export default {
-  setTheme
+  setTheme,
+  setThemePrimary
 }
 
 if (typeof window !== undefined) {
   //@ts-ignore
   window.Omiu = {
-    setTheme: setTheme,
-    setThemePrimary: function (color) {
-      setTheme('primary', color)
-    },
-    setThemeError: function (color) {
-      setTheme('error', color)
-    }
+    setTheme,
+    setThemePrimary
   }
 }

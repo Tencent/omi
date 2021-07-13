@@ -1,5 +1,5 @@
 /**
- * @omiu/common v0.0.6 http://omijs.org
+ * @omiu/common v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1946,7 +1946,7 @@
 	function theme() {
 	    if (document.body && !document.body.style.getPropertyValue('--o-primary')) {
 	        setTheme('primary', '#07c160');
-	        setTheme('danger', '#f5222d');
+	        setTheme('danger', '#fa5151');
 	        setTheme('surface', '#ffffff');
 	        setTheme('on-primary', '#ffffff');
 	        setTheme('on-danger', '#ffffff');
@@ -1961,43 +1961,34 @@
 	function setTheme(key, value) {
 	    var style = document.body.style;
 	    style.setProperty('--o-' + key, value);
-	    switch (key) {
-	        case 'primary':
-	            style.setProperty('--o-primary-fade-little', Color(value).fade(0.382));
-	            style.setProperty('--o-primary-fade-some', Color(value).fade(0.618));
-	            style.setProperty('--o-primary-fade-more', Color(value).fade(0.759));
-	            style.setProperty('--o-primary-fade-lot', Color(value).fade(0.9));
-	            style.setProperty('--o-primary-active', Color(value).darken(0.1));
-	            style.setProperty('--o-primary-hover-border', Color(value).fade(0.618));
-	            style.setProperty('--o-primary-hover-bg', Color(value).fade(0.9));
-	            break;
-	        case 'danger':
-	            style.setProperty('--o-danger-fade-little', Color(value).fade(0.382));
-	            style.setProperty('--o-danger-fade-some', Color(value).fade(0.618));
-	            style.setProperty('--o-danger-fade-more', Color(value).fade(0.759));
-	            style.setProperty('--o-danger-fade-lot', Color(value).fade(0.9));
-	            style.setProperty('--o-danger-active', Color(value).darken(0.1));
-	            break;
+	    if (key === 'primary' || key === 'danger') {
+	        style.setProperty("--o-" + key + "-fade-little", Color(value).fade(0.382));
+	        style.setProperty("--o-" + key + "-fade-some", Color(value).fade(0.618));
+	        style.setProperty("--o-" + key + "-fade-more", Color(value).fade(0.759));
+	        style.setProperty("--o-" + key + "-fade-lot", Color(value).fade(0.9));
+	        style.setProperty("--o-" + key + "-active", Color(value).darken(0.1));
+	        style.setProperty("--o-" + key + "-hover-border", Color(value).fade(0.618));
+	        style.setProperty("--o-" + key + "-hover-bg", Color(value).fade(0.9));
 	    }
 	}
+	function setThemePrimary(color) {
+	    setTheme('primary', color);
+	}
 	var index = {
-	    setTheme: setTheme
+	    setTheme: setTheme,
+	    setThemePrimary: setThemePrimary
 	};
 	if (typeof window !== undefined) {
 	    //@ts-ignore
 	    window.Omiu = {
 	        setTheme: setTheme,
-	        setThemePrimary: function (color) {
-	            setTheme('primary', color);
-	        },
-	        setThemeError: function (color) {
-	            setTheme('error', color);
-	        }
+	        setThemePrimary: setThemePrimary
 	    };
 	}
 
 	exports.default = index;
 	exports.setTheme = setTheme;
+	exports.setThemePrimary = setThemePrimary;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 
