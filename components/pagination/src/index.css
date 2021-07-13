@@ -1,5 +1,5 @@
 div {
-  color: rgba(0, 0, 0, 0.65); }
+  color: rgba(0, 0, 0, 0.87); }
 
 * {
   box-sizing: border-box; }
@@ -13,13 +13,13 @@ li {
   display: inline-block;
   min-width: 32px;
   height: 32px;
-  border: 1px solid #ccc;
   vertical-align: middle;
   line-height: 32px;
   text-align: center;
   margin: 0 3px 0 3px;
-  cursor: pointer;
-  border-radius: 3px; }
+  border-radius: 3px;
+  font-size: 12px;
+  margin-right: 2px; }
 
 .o-pager {
   display: inline-block; }
@@ -29,20 +29,33 @@ button {
   height: 32px;
   appearance: none;
   -webkit-appearance: none;
-  border: 1px solid #ccc;
+  border: none;
   background: none;
   border-radius: 3px;
   cursor: pointer;
-  outline: none; }
+  outline: none;
+  border-radius: 50%; }
 
-button.btn-next:not(disabled):active,
-button.btn-prev:not(disabled):active {
-  background-color: #eee; }
+button:hover {
+  background-color: rgba(7, 193, 96, 0.1); }
+
+button:not(disabled):active {
+  color: white;
+  background-color: #059048;
+  background-color: var(--o-primary-active, #059048); }
 
 button:disabled {
   pointer-events: none;
-  border-color: #eee;
-  cursor: default; }
+  border-color: #eee; }
+
+.active button:hover {
+  background-color: rgba(7, 193, 96, 0.7);
+  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.7)); }
+
+.active button {
+  color: white;
+  background-color: #07c160;
+  background-color: var(--o-primary, #07c160); }
 
 .more:after {
   content: '...'; }
@@ -50,10 +63,6 @@ button:disabled {
 .more {
   border: none;
   cursor: default; }
-
-.active {
-  border-color: #07C160;
-  color: #04a150; }
 
 svg {
   position: relative;

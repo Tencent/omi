@@ -1,5 +1,8 @@
+@import "@omiu/common/theme.scss";
+
+
 div {
-  color: rgba(0, 0, 0, .65);
+  color: rgba(0, 0, 0, .87);
 }
 
 * {
@@ -16,13 +19,14 @@ li {
   display: inline-block;
   min-width: 32px;
   height: 32px;
-  border: 1px solid #ccc;
   vertical-align: middle;
   line-height: 32px;
   text-align: center;
   margin: 0 3px 0 3px;
-  cursor: pointer;
+
   border-radius: 3px;
+  font-size: 12px;
+  margin-right: 2px;
 }
 
 .o-pager {
@@ -34,22 +38,41 @@ button {
   height: 32px;
   appearance: none;
   -webkit-appearance: none;
-  border: 1px solid #ccc;
+  border: none;
   background: none;
   border-radius: 3px;
   cursor: pointer;
   outline: none;
+
+  border-radius: 50%;
 }
 
-button.btn-next:not(disabled):active,
-button.btn-prev:not(disabled):active {
-  background-color: #eee;
+
+button:hover {
+  background-color: $o-primary-fade-lot;
+
+}
+
+button:not(disabled):active {
+  color: white;
+  background-color: $o-primary-active;
+  background-color: var(--o-primary-active, $o-primary-active);
 }
 
 button:disabled {
   pointer-events: none;
   border-color: #eee;
-  cursor: default;
+}
+
+.active button:hover {
+  background-color: fade-out($o-primary, 0.3);
+  background-color: var(--o-primary-hover-bg, fade-out($o-primary, 0.3));
+}
+
+.active button {
+  color: white;
+  background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary);
 }
 
 .more:after {
@@ -59,11 +82,6 @@ button:disabled {
 .more {
   border: none;
   cursor: default;
-}
-
-.active {
-  border-color: #07C160;
-  color: rgb(4, 161, 80);
 }
 
 svg {

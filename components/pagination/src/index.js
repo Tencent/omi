@@ -96,29 +96,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \*************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "div {\n  color: rgba(0, 0, 0, 0.65); }\n\n* {\n  box-sizing: border-box; }\n\nul,\nli {\n  padding: 0;\n  margin: 0; }\n\nli {\n  display: inline-block;\n  min-width: 32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px;\n  cursor: pointer;\n  border-radius: 3px; }\n\n.o-pager {\n  display: inline-block; }\n\nbutton {\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  border: 1px solid #ccc;\n  background: none;\n  border-radius: 3px;\n  cursor: pointer;\n  outline: none; }\n\nbutton.btn-next:not(disabled):active,\nbutton.btn-prev:not(disabled):active {\n  background-color: #eee; }\n\nbutton:disabled {\n  pointer-events: none;\n  border-color: #eee;\n  cursor: default; }\n\n.more:after {\n  content: '...'; }\n\n.more {\n  border: none;\n  cursor: default; }\n\n.active {\n  border-color: #07C160;\n  color: #04a150; }\n\nsvg {\n  position: relative;\n  top: 2px; }\n", ""]);
+exports.push([module.i, "div {\n  color: rgba(0, 0, 0, 0.87); }\n\n* {\n  box-sizing: border-box; }\n\nul,\nli {\n  padding: 0;\n  margin: 0; }\n\nli {\n  display: inline-block;\n  min-width: 32px;\n  height: 32px;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px;\n  border-radius: 3px;\n  font-size: 12px;\n  margin-right: 2px; }\n\n.o-pager {\n  display: inline-block; }\n\nbutton {\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  border: none;\n  background: none;\n  border-radius: 3px;\n  cursor: pointer;\n  outline: none;\n  border-radius: 50%; }\n\nbutton:hover {\n  background-color: rgba(7, 193, 96, 0.1); }\n\nbutton:not(disabled):active {\n  color: white;\n  background-color: #059048;\n  background-color: var(--o-primary-active, #059048); }\n\nbutton:disabled {\n  pointer-events: none;\n  border-color: #eee; }\n\n.active button:hover {\n  background-color: rgba(7, 193, 96, 0.7);\n  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.7)); }\n\n.active button {\n  color: white;\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.more:after {\n  content: '...'; }\n\n.more {\n  border: none;\n  cursor: default; }\n\nsvg {\n  position: relative;\n  top: 2px; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -272,8 +272,9 @@ var Pagination = /** @class */ (function (_super) {
         this.pageNum = Math.ceil(this.props.total / this.props.pageSize);
     };
     Pagination.prototype.goto = function (index) {
-        this.props.currentPage = index;
-        this.forceUpdate();
+        this.updateProps({
+            currentPage: index
+        });
         this.fire('change', index);
     };
     Pagination.prototype.render = function (props) {
@@ -300,13 +301,18 @@ var Pagination = /** @class */ (function (_super) {
             }
         }
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-pagination is-background')),
-            props.prevShow && this.getPrev(),
-            ' ',
-            omi_1.h("ul", { class: "o-pager" }, arr.map(function (p) {
-                return p;
-            })),
-            ' ',
-            props.nextShow && this.getNext()));
+            omi_1.h("ul", { class: "o-pager" },
+                omi_1.h("li", { key: "prev" },
+                    " ",
+                    props.prevShow && this.getPrev(),
+                    ' '),
+                arr.map(function (p) {
+                    return p;
+                }),
+                omi_1.h("li", { key: "next" },
+                    " ",
+                    props.nextShow && this.getNext())),
+            ' '));
     };
     Pagination.prototype.getInterval = function () {
         var ne_half = Math.ceil(this.props.numDisplay / 2);
@@ -348,11 +354,13 @@ var Pagination = /** @class */ (function (_super) {
     Pagination.prototype.getItem = function (pageIndex, text) {
         var _this = this;
         if (this.props.currentPage === pageIndex) {
-            return omi_1.h("li", { class: "number active" }, text);
+            return omi_1.h("li", { class: "number active" },
+                omi_1.h("button", null, text));
         }
         return (omi_1.h("li", { class: "number", onclick: function (e) {
                 _this.goto(pageIndex);
-            } }, text));
+            } },
+            omi_1.h("button", null, text)));
     };
     Pagination.css = css;
     Pagination.defaultProps = {
