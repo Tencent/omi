@@ -50,6 +50,7 @@ button {
 
 button:hover {
   background-color: $o-primary-fade-lot;
+  background-color: var(--o-primary-fade-lot, $o-primary-fade-lot);
 
 }
 

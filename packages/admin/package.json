@@ -22,7 +22,7 @@
     "@omiu/icon": "^0.0.3",
     "@omiu/input": "^0.0.8",
     "@omiu/loading": "0.0.2",
-    "@omiu/pagination": "^0.0.4",
+    "@omiu/pagination": "^0.0.5",
     "@omiu/popconfirm": "^0.0.2",
     "@omiu/radio": "^0.0.6",
     "@omiu/select": "^0.0.6",

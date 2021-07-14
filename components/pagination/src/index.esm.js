@@ -1,5 +1,5 @@
 /**
- * @omiu/pagination v0.0.4 http://omijs.org
+ * @omiu/pagination v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -97,7 +97,8 @@ button {
   border-radius: 50%; }
 
 button:hover {
-  background-color: rgba(7, 193, 96, 0.1); }
+  background-color: rgba(7, 193, 96, 0.1);
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1)); }
 
 button:not(disabled):active {
   color: white;

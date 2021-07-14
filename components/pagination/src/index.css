@@ -37,7 +37,8 @@ button {
   border-radius: 50%; }
 
 button:hover {
-  background-color: rgba(7, 193, 96, 0.1); }
+  background-color: rgba(7, 193, 96, 0.1);
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1)); }
 
 button:not(disabled):active {
   color: white;
