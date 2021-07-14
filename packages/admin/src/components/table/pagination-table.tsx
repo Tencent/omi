@@ -76,13 +76,13 @@ export default class extends WeElement<Props> {
       address: 'Tencent'
     },
     {
-      id: 1,
+      id: 9,
       name: 'xwang',
       age: 18,
       address: 'Tencent'
     },
     {
-      id: 2,
+      id: 10,
       name: 'dntzhang',
       age: 12,
       address: 'Tencent',
@@ -91,13 +91,13 @@ export default class extends WeElement<Props> {
       }
     },
     {
-      id: 3,
+      id: 11,
       name: 'lucy',
       age: 12,
       address: 'Tencent'
     },
     {
-      id: 4,
+      id: 12,
       name: 'john',
       age: 12,
       address: 'Tencent',
@@ -106,25 +106,25 @@ export default class extends WeElement<Props> {
       }
     },
     {
-      id: 5,
+      id: 13,
       name: 'tim',
       age: 12,
       address: 'Tencent'
     },
     {
-      id: 6,
+      id: 14,
       name: 'tim',
       age: 12,
       address: 'Tencent'
     },
     {
-      id: 7,
+      id: 15,
       name: 'tim',
       age: 12,
       address: 'Tencent'
     },
     {
-      id: 8,
+      id: 16,
       name: 'tim',
       age: 12,
       address: 'Tencent'
@@ -166,65 +166,25 @@ export default class extends WeElement<Props> {
 
   paging = true
   pageSize = 5
-  currentPage = 1
+  pageIndex = 0
 
-  data = {
-    allData: this.dataSource,
-    filterData: [],
-    start: 1,
-    end: 1,
-    totalSize: this.dataSource.length,
-    currPageSize: this.paging ? this.pageSize : Number.MAX_SAFE_INTEGER,
-    currentPage: this.currentPage
-  }
+  filterData = []
 
-  handleSizeChange(value) {
-    this.currentPage = 1
-    this.data.currPageSize = value
-    this.handleChange(false)
-  }
 
-  handleCurrentChange(value) {
-    this.currentPage = value
-    this.handleChange(false)
-  }
 
-  handleChange(reset) {
-    if (reset) {
-      this.currentPage = 1
-    }
-    this.renderTable()
-  }
 
   renderTable() {
-    if (this.data.totalSize > this.data.currPageSize) {
-      let startIndex = (this.currentPage - 1) * this.data.currPageSize,
-        endIndex = this.currentPage * this.data.currPageSize
-      this.data.start = startIndex + 1
-      this.data.end =
-        this.data.totalSize < endIndex ? this.data.totalSize : endIndex
-      this.data.filterData = this.data.allData.slice(startIndex, endIndex)
-    } else if (this.data.totalSize > 0) {
-      this.currentPage = 1
-      this.data.start = 1
-      this.data.end = this.data.totalSize
-      this.data.filterData = this.data.allData
-    } else {
-      this.currentPage = 1
-      this.data.start = 0
-      this.data.end = 0
-      this.data.filterData = []
-    }
+    this.filterData = this.dataSource.slice(this.pageIndex * this.pageSize, this.pageIndex * this.pageSize + this.pageSize)
+
     this.update()
   }
 
-  setData(value) {
-    this.data.allData = value
-    this.data.totalSize = value.length
+  installed() {
     this.renderTable()
   }
 
-  change() {
+  change = (evt) => {
+    this.pageIndex = evt.detail
     this.renderTable()
   }
 
@@ -244,14 +204,8 @@ export default class extends WeElement<Props> {
     this.update()
   }
 
-  install() {
-    this.setData(this.dataSource)
 
-  }
 
-  update() {
-
-  }
 
   render() {
     return (
@@ -265,23 +219,18 @@ export default class extends WeElement<Props> {
             border={false}
             compact={false}
             columns={this.columns}
-            dataSource={this.data.filterData}
+            dataSource={this.filterData}
           ></o-table>
 
-          {/* <div class={tw`mt-3`}>
-            <div class={tw`mb-2`}>
-              <span v-if="totalSize > 1">
-                显示第 {this.data.start} 条到第 {this.data.end} 条的数据，
-              </span>
-              共{this.data.totalSize} 条数据
-            </div>
+          <div class={tw`mt-3 text-right`}>
+
             <o-pagination
-              total={this.data.totalSize}
-              current-page={this.currentPage}
+              total={this.dataSource.length}
+              current-page={this.pageIndex}
               page-size={this.pageSize}
-              onChange={this.change}
+              onchange={this.change}
             ></o-pagination>
-          </div> */}
+          </div>
         </div>
       </div>
     )
