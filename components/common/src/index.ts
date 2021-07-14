@@ -34,9 +34,6 @@ export function setTheme(key, value) {
     style.setProperty(`--o-${key}-fade-lot`, Color(value).fade(0.9))
     style.setProperty(`--o-${key}-active`, Color(value).darken(0.1))
 
-    style.setProperty(`--o-${key}-hover-border`, Color(value).fade(0.618))
-    style.setProperty(`--o-${key}-hover-bg`, Color(value).fade(0.9))
-
   }
 }
 

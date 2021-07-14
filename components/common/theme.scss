@@ -5,17 +5,11 @@ $o-primary-fade-some: fade-out($o-primary, 0.618);
 $o-primary-fade-more: fade-out($o-primary, 0.759);
 $o-primary-fade-lot: fade-out($o-primary, 0.9);
 
-$o-primary-hover-border: fade-out($o-primary, 0.618);
-$o-primary-hover-bg: fade-out($o-primary, 0.9);
-
 $o-danger: #fa5151;
 $o-danger-active: darken($o-danger, 10%);
 $o-danger-fade-little : fade-out($o-danger, 0.382);
 $o-danger-fade-some: fade-out($o-danger, 0.618);
 $o-danger-fade-lot: fade-out($o-danger, 0.9);
-
-$o-danger-hover-border: fade-out($o-danger, 0.618);
-$o-danger-hover-bg: fade-out($o-danger, 0.9);
 
 $options: (primary: $o-primary,
   primary-active: $o-primary-active,
