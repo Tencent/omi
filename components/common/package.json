@@ -1,6 +1,6 @@
 {
   "name": "@omiu/common",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",
@@ -12,10 +12,10 @@
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
     "rollup": "^2.7.1",
-    "rollup-plugin-license": "^2.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-typescript": "^1.0.1"
+    "rollup-plugin-license": "^2.0.0"
   },
   "dependencies": {
     "color-convert": "^2.0.1",

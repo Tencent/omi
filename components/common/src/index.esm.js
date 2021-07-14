@@ -1,5 +1,5 @@
 /**
- * @omiu/common v0.0.8 http://omijs.org
+ * @omiu/common v0.0.9 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -274,7 +274,7 @@ cs.get.rgb = function (string) {
 		}
 
 		if (hexAlpha) {
-			rgb[3] = Math.round((parseInt(hexAlpha, 16) / 255) * 100) / 100;
+			rgb[3] = parseInt(hexAlpha, 16) / 255;
 		}
 	} else if (match = string.match(abbr)) {
 		match = match[1];
@@ -285,7 +285,7 @@ cs.get.rgb = function (string) {
 		}
 
 		if (hexAlpha) {
-			rgb[3] = Math.round((parseInt(hexAlpha + hexAlpha, 16) / 255) * 100) / 100;
+			rgb[3] = parseInt(hexAlpha + hexAlpha, 16) / 255;
 		}
 	} else if (match = string.match(rgba)) {
 		for (i = 0; i < 3; i++) {
@@ -334,7 +334,7 @@ cs.get.hsl = function (string) {
 		return null;
 	}
 
-	var hsl = /^hsla?\(\s*([+-]?(?:\d*\.)?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
+	var hsl = /^hsla?\(\s*([+-]?(?:\d{0,3}\.)?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
 	var match = string.match(hsl);
 
 	if (match) {
@@ -355,7 +355,7 @@ cs.get.hwb = function (string) {
 		return null;
 	}
 
-	var hwb = /^hwb\(\s*([+-]?\d*[\.]?\d+)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
+	var hwb = /^hwb\(\s*([+-]?\d{0,3}(?:\.\d+)?)(?:deg)?\s*,\s*([+-]?[\d\.]+)%\s*,\s*([+-]?[\d\.]+)%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
 	var match = string.match(hwb);
 
 	if (match) {
@@ -438,8 +438,8 @@ function hexDouble(num) {
 	return (str.length < 2) ? '0' + str : str;
 }
 });
-var colorString_1 = colorString.to;
-var colorString_2 = colorString.get;
+colorString.to;
+colorString.get;
 
 /* MIT license */
 /* eslint-disable no-mixed-operators */
@@ -454,7 +454,7 @@ for (const key of Object.keys(colorName)) {
 	reverseKeywords[colorName[key]] = key;
 }
 
-const convert = {
+const convert$1 = {
 	rgb: {channels: 3, labels: 'rgb'},
 	hsl: {channels: 3, labels: 'hsl'},
 	hsv: {channels: 3, labels: 'hsv'},
@@ -472,30 +472,30 @@ const convert = {
 	gray: {channels: 1, labels: ['gray']}
 };
 
-var conversions = convert;
+var conversions = convert$1;
 
 // Hide .channels and .labels properties
-for (const model of Object.keys(convert)) {
-	if (!('channels' in convert[model])) {
+for (const model of Object.keys(convert$1)) {
+	if (!('channels' in convert$1[model])) {
 		throw new Error('missing channels property: ' + model);
 	}
 
-	if (!('labels' in convert[model])) {
+	if (!('labels' in convert$1[model])) {
 		throw new Error('missing channel labels property: ' + model);
 	}
 
-	if (convert[model].labels.length !== convert[model].channels) {
+	if (convert$1[model].labels.length !== convert$1[model].channels) {
 		throw new Error('channel and label counts mismatch: ' + model);
 	}
 
-	const {channels, labels} = convert[model];
-	delete convert[model].channels;
-	delete convert[model].labels;
-	Object.defineProperty(convert[model], 'channels', {value: channels});
-	Object.defineProperty(convert[model], 'labels', {value: labels});
+	const {channels, labels} = convert$1[model];
+	delete convert$1[model].channels;
+	delete convert$1[model].labels;
+	Object.defineProperty(convert$1[model], 'channels', {value: channels});
+	Object.defineProperty(convert$1[model], 'labels', {value: labels});
 }
 
-convert.rgb.hsl = function (rgb) {
+convert$1.rgb.hsl = function (rgb) {
 	const r = rgb[0] / 255;
 	const g = rgb[1] / 255;
 	const b = rgb[2] / 255;
@@ -534,7 +534,7 @@ convert.rgb.hsl = function (rgb) {
 	return [h, s * 100, l * 100];
 };
 
-convert.rgb.hsv = function (rgb) {
+convert$1.rgb.hsv = function (rgb) {
 	let rdif;
 	let gdif;
 	let bdif;
@@ -581,11 +581,11 @@ convert.rgb.hsv = function (rgb) {
 	];
 };
 
-convert.rgb.hwb = function (rgb) {
+convert$1.rgb.hwb = function (rgb) {
 	const r = rgb[0];
 	const g = rgb[1];
 	let b = rgb[2];
-	const h = convert.rgb.hsl(rgb)[0];
+	const h = convert$1.rgb.hsl(rgb)[0];
 	const w = 1 / 255 * Math.min(r, Math.min(g, b));
 
 	b = 1 - 1 / 255 * Math.max(r, Math.max(g, b));
@@ -593,7 +593,7 @@ convert.rgb.hwb = function (rgb) {
 	return [h, w * 100, b * 100];
 };
 
-convert.rgb.cmyk = function (rgb) {
+convert$1.rgb.cmyk = function (rgb) {
 	const r = rgb[0] / 255;
 	const g = rgb[1] / 255;
 	const b = rgb[2] / 255;
@@ -617,7 +617,7 @@ function comparativeDistance(x, y) {
 	);
 }
 
-convert.rgb.keyword = function (rgb) {
+convert$1.rgb.keyword = function (rgb) {
 	const reversed = reverseKeywords[rgb];
 	if (reversed) {
 		return reversed;
@@ -642,11 +642,11 @@ convert.rgb.keyword = function (rgb) {
 	return currentClosestKeyword;
 };
 
-convert.keyword.rgb = function (keyword) {
+convert$1.keyword.rgb = function (keyword) {
 	return colorName[keyword];
 };
 
-convert.rgb.xyz = function (rgb) {
+convert$1.rgb.xyz = function (rgb) {
 	let r = rgb[0] / 255;
 	let g = rgb[1] / 255;
 	let b = rgb[2] / 255;
@@ -663,8 +663,8 @@ convert.rgb.xyz = function (rgb) {
 	return [x * 100, y * 100, z * 100];
 };
 
-convert.rgb.lab = function (rgb) {
-	const xyz = convert.rgb.xyz(rgb);
+convert$1.rgb.lab = function (rgb) {
+	const xyz = convert$1.rgb.xyz(rgb);
 	let x = xyz[0];
 	let y = xyz[1];
 	let z = xyz[2];
@@ -684,7 +684,7 @@ convert.rgb.lab = function (rgb) {
 	return [l, a, b];
 };
 
-convert.hsl.rgb = function (hsl) {
+convert$1.hsl.rgb = function (hsl) {
 	const h = hsl[0] / 360;
 	const s = hsl[1] / 100;
 	const l = hsl[2] / 100;
@@ -732,7 +732,7 @@ convert.hsl.rgb = function (hsl) {
 	return rgb;
 };
 
-convert.hsl.hsv = function (hsl) {
+convert$1.hsl.hsv = function (hsl) {
 	const h = hsl[0];
 	let s = hsl[1] / 100;
 	let l = hsl[2] / 100;
@@ -748,7 +748,7 @@ convert.hsl.hsv = function (hsl) {
 	return [h, sv * 100, v * 100];
 };
 
-convert.hsv.rgb = function (hsv) {
+convert$1.hsv.rgb = function (hsv) {
 	const h = hsv[0] / 60;
 	const s = hsv[1] / 100;
 	let v = hsv[2] / 100;
@@ -776,7 +776,7 @@ convert.hsv.rgb = function (hsv) {
 	}
 };
 
-convert.hsv.hsl = function (hsv) {
+convert$1.hsv.hsl = function (hsv) {
 	const h = hsv[0];
 	const s = hsv[1] / 100;
 	const v = hsv[2] / 100;
@@ -795,7 +795,7 @@ convert.hsv.hsl = function (hsv) {
 };
 
 // http://dev.w3.org/csswg/css-color/#hwb-to-rgb
-convert.hwb.rgb = function (hwb) {
+convert$1.hwb.rgb = function (hwb) {
 	const h = hwb[0] / 360;
 	let wh = hwb[1] / 100;
 	let bl = hwb[2] / 100;
@@ -837,7 +837,7 @@ convert.hwb.rgb = function (hwb) {
 	return [r * 255, g * 255, b * 255];
 };
 
-convert.cmyk.rgb = function (cmyk) {
+convert$1.cmyk.rgb = function (cmyk) {
 	const c = cmyk[0] / 100;
 	const m = cmyk[1] / 100;
 	const y = cmyk[2] / 100;
@@ -850,7 +850,7 @@ convert.cmyk.rgb = function (cmyk) {
 	return [r * 255, g * 255, b * 255];
 };
 
-convert.xyz.rgb = function (xyz) {
+convert$1.xyz.rgb = function (xyz) {
 	const x = xyz[0] / 100;
 	const y = xyz[1] / 100;
 	const z = xyz[2] / 100;
@@ -882,7 +882,7 @@ convert.xyz.rgb = function (xyz) {
 	return [r * 255, g * 255, b * 255];
 };
 
-convert.xyz.lab = function (xyz) {
+convert$1.xyz.lab = function (xyz) {
 	let x = xyz[0];
 	let y = xyz[1];
 	let z = xyz[2];
@@ -902,7 +902,7 @@ convert.xyz.lab = function (xyz) {
 	return [l, a, b];
 };
 
-convert.lab.xyz = function (lab) {
+convert$1.lab.xyz = function (lab) {
 	const l = lab[0];
 	const a = lab[1];
 	const b = lab[2];
@@ -928,7 +928,7 @@ convert.lab.xyz = function (lab) {
 	return [x, y, z];
 };
 
-convert.lab.lch = function (lab) {
+convert$1.lab.lch = function (lab) {
 	const l = lab[0];
 	const a = lab[1];
 	const b = lab[2];
@@ -946,7 +946,7 @@ convert.lab.lch = function (lab) {
 	return [l, c, h];
 };
 
-convert.lch.lab = function (lch) {
+convert$1.lch.lab = function (lch) {
 	const l = lch[0];
 	const c = lch[1];
 	const h = lch[2];
@@ -958,9 +958,9 @@ convert.lch.lab = function (lch) {
 	return [l, a, b];
 };
 
-convert.rgb.ansi16 = function (args, saturation = null) {
+convert$1.rgb.ansi16 = function (args, saturation = null) {
 	const [r, g, b] = args;
-	let value = saturation === null ? convert.rgb.hsv(args)[2] : saturation; // Hsv -> ansi16 optimization
+	let value = saturation === null ? convert$1.rgb.hsv(args)[2] : saturation; // Hsv -> ansi16 optimization
 
 	value = Math.round(value / 50);
 
@@ -980,13 +980,13 @@ convert.rgb.ansi16 = function (args, saturation = null) {
 	return ansi;
 };
 
-convert.hsv.ansi16 = function (args) {
+convert$1.hsv.ansi16 = function (args) {
 	// Optimization here; we already know the value and don't need to get
 	// it converted for us.
-	return convert.rgb.ansi16(convert.hsv.rgb(args), args[2]);
+	return convert$1.rgb.ansi16(convert$1.hsv.rgb(args), args[2]);
 };
 
-convert.rgb.ansi256 = function (args) {
+convert$1.rgb.ansi256 = function (args) {
 	const r = args[0];
 	const g = args[1];
 	const b = args[2];
@@ -1013,7 +1013,7 @@ convert.rgb.ansi256 = function (args) {
 	return ansi;
 };
 
-convert.ansi16.rgb = function (args) {
+convert$1.ansi16.rgb = function (args) {
 	let color = args % 10;
 
 	// Handle greyscale
@@ -1035,7 +1035,7 @@ convert.ansi16.rgb = function (args) {
 	return [r, g, b];
 };
 
-convert.ansi256.rgb = function (args) {
+convert$1.ansi256.rgb = function (args) {
 	// Handle greyscale
 	if (args >= 232) {
 		const c = (args - 232) * 10 + 8;
@@ -1052,7 +1052,7 @@ convert.ansi256.rgb = function (args) {
 	return [r, g, b];
 };
 
-convert.rgb.hex = function (args) {
+convert$1.rgb.hex = function (args) {
 	const integer = ((Math.round(args[0]) & 0xFF) << 16)
 		+ ((Math.round(args[1]) & 0xFF) << 8)
 		+ (Math.round(args[2]) & 0xFF);
@@ -1061,7 +1061,7 @@ convert.rgb.hex = function (args) {
 	return '000000'.substring(string.length) + string;
 };
 
-convert.hex.rgb = function (args) {
+convert$1.hex.rgb = function (args) {
 	const match = args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
 	if (!match) {
 		return [0, 0, 0];
@@ -1083,7 +1083,7 @@ convert.hex.rgb = function (args) {
 	return [r, g, b];
 };
 
-convert.rgb.hcg = function (rgb) {
+convert$1.rgb.hcg = function (rgb) {
 	const r = rgb[0] / 255;
 	const g = rgb[1] / 255;
 	const b = rgb[2] / 255;
@@ -1117,7 +1117,7 @@ convert.rgb.hcg = function (rgb) {
 	return [hue * 360, chroma * 100, grayscale * 100];
 };
 
-convert.hsl.hcg = function (hsl) {
+convert$1.hsl.hcg = function (hsl) {
 	const s = hsl[1] / 100;
 	const l = hsl[2] / 100;
 
@@ -1131,7 +1131,7 @@ convert.hsl.hcg = function (hsl) {
 	return [hsl[0], c * 100, f * 100];
 };
 
-convert.hsv.hcg = function (hsv) {
+convert$1.hsv.hcg = function (hsv) {
 	const s = hsv[1] / 100;
 	const v = hsv[2] / 100;
 
@@ -1145,7 +1145,7 @@ convert.hsv.hcg = function (hsv) {
 	return [hsv[0], c * 100, f * 100];
 };
 
-convert.hcg.rgb = function (hcg) {
+convert$1.hcg.rgb = function (hcg) {
 	const h = hcg[0] / 360;
 	const c = hcg[1] / 100;
 	const g = hcg[2] / 100;
@@ -1186,7 +1186,7 @@ convert.hcg.rgb = function (hcg) {
 	];
 };
 
-convert.hcg.hsv = function (hcg) {
+convert$1.hcg.hsv = function (hcg) {
 	const c = hcg[1] / 100;
 	const g = hcg[2] / 100;
 
@@ -1200,7 +1200,7 @@ convert.hcg.hsv = function (hcg) {
 	return [hcg[0], f * 100, v * 100];
 };
 
-convert.hcg.hsl = function (hcg) {
+convert$1.hcg.hsl = function (hcg) {
 	const c = hcg[1] / 100;
 	const g = hcg[2] / 100;
 
@@ -1217,14 +1217,14 @@ convert.hcg.hsl = function (hcg) {
 	return [hcg[0], s * 100, l * 100];
 };
 
-convert.hcg.hwb = function (hcg) {
+convert$1.hcg.hwb = function (hcg) {
 	const c = hcg[1] / 100;
 	const g = hcg[2] / 100;
 	const v = c + g * (1.0 - c);
 	return [hcg[0], (v - c) * 100, (1 - v) * 100];
 };
 
-convert.hwb.hcg = function (hwb) {
+convert$1.hwb.hcg = function (hwb) {
 	const w = hwb[1] / 100;
 	const b = hwb[2] / 100;
 	const v = 1 - b;
@@ -1238,37 +1238,37 @@ convert.hwb.hcg = function (hwb) {
 	return [hwb[0], c * 100, g * 100];
 };
 
-convert.apple.rgb = function (apple) {
+convert$1.apple.rgb = function (apple) {
 	return [(apple[0] / 65535) * 255, (apple[1] / 65535) * 255, (apple[2] / 65535) * 255];
 };
 
-convert.rgb.apple = function (rgb) {
+convert$1.rgb.apple = function (rgb) {
 	return [(rgb[0] / 255) * 65535, (rgb[1] / 255) * 65535, (rgb[2] / 255) * 65535];
 };
 
-convert.gray.rgb = function (args) {
+convert$1.gray.rgb = function (args) {
 	return [args[0] / 100 * 255, args[0] / 100 * 255, args[0] / 100 * 255];
 };
 
-convert.gray.hsl = function (args) {
+convert$1.gray.hsl = function (args) {
 	return [0, 0, args[0]];
 };
 
-convert.gray.hsv = convert.gray.hsl;
+convert$1.gray.hsv = convert$1.gray.hsl;
 
-convert.gray.hwb = function (gray) {
+convert$1.gray.hwb = function (gray) {
 	return [0, 100, gray[0]];
 };
 
-convert.gray.cmyk = function (gray) {
+convert$1.gray.cmyk = function (gray) {
 	return [0, 0, 0, gray[0]];
 };
 
-convert.gray.lab = function (gray) {
+convert$1.gray.lab = function (gray) {
 	return [gray[0], 0, 0];
 };
 
-convert.gray.hex = function (gray) {
+convert$1.gray.hex = function (gray) {
 	const val = Math.round(gray[0] / 100 * 255) & 0xFF;
 	const integer = (val << 16) + (val << 8) + val;
 
@@ -1276,7 +1276,7 @@ convert.gray.hex = function (gray) {
 	return '000000'.substring(string.length) + string;
 };
 
-convert.rgb.gray = function (rgb) {
+convert$1.rgb.gray = function (rgb) {
 	const val = (rgb[0] + rgb[1] + rgb[2]) / 3;
 	return [val / 255 * 100];
 };
@@ -1376,7 +1376,7 @@ var route = function (fromModel) {
 	return conversion;
 };
 
-const convert$1 = {};
+const convert = {};
 
 const models = Object.keys(conversions);
 
@@ -1437,10 +1437,10 @@ function wrapRounded(fn) {
 }
 
 models.forEach(fromModel => {
-	convert$1[fromModel] = {};
+	convert[fromModel] = {};
 
-	Object.defineProperty(convert$1[fromModel], 'channels', {value: conversions[fromModel].channels});
-	Object.defineProperty(convert$1[fromModel], 'labels', {value: conversions[fromModel].labels});
+	Object.defineProperty(convert[fromModel], 'channels', {value: conversions[fromModel].channels});
+	Object.defineProperty(convert[fromModel], 'labels', {value: conversions[fromModel].labels});
 
 	const routes = route(fromModel);
 	const routeModels = Object.keys(routes);
@@ -1448,12 +1448,12 @@ models.forEach(fromModel => {
 	routeModels.forEach(toModel => {
 		const fn = routes[toModel];
 
-		convert$1[fromModel][toModel] = wrapRounded(fn);
-		convert$1[fromModel][toModel].raw = wrapRaw(fn);
+		convert[fromModel][toModel] = wrapRounded(fn);
+		convert[fromModel][toModel].raw = wrapRaw(fn);
 	});
 });
 
-var colorConvert = convert$1;
+var colorConvert = convert;
 
 var _slice = [].slice;
 
@@ -1961,8 +1961,6 @@ function setTheme(key, value) {
         style.setProperty("--o-" + key + "-fade-more", Color(value).fade(0.759));
         style.setProperty("--o-" + key + "-fade-lot", Color(value).fade(0.9));
         style.setProperty("--o-" + key + "-active", Color(value).darken(0.1));
-        style.setProperty("--o-" + key + "-hover-border", Color(value).fade(0.618));
-        style.setProperty("--o-" + key + "-hover-bg", Color(value).fade(0.9));
     }
 }
 function setThemePrimary(color) {
