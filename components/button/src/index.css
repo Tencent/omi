@@ -28,11 +28,11 @@
 
 .o-button:hover {
   border-color: rgba(7, 193, 96, 0.382);
-  border-color: var(--o-primary-hover-border, rgba(7, 193, 96, 0.382));
+  border-color: var(--o-primary-fade-some, rgba(7, 193, 96, 0.382));
   color: #07c160;
   color: var(--o-primary, #07c160);
   background-color: rgba(7, 193, 96, 0.1);
-  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.1)); }
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1)); }
 
 .o-button:active {
   color: #07c160;
@@ -140,7 +140,9 @@
   border-radius: 20px;
   padding: 12px; }
 
-.o-button.is-disabled, .o-button.is-disabled:focus, .o-button.is-disabled:hover {
+.o-button.is-disabled,
+.o-button.is-disabled:focus,
+.o-button.is-disabled:hover {
   color: #c0c4cc;
   cursor: not-allowed;
   background-image: none;
