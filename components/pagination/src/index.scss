@@ -65,8 +65,8 @@ button:disabled {
 }
 
 .active button:hover {
-  background-color: fade-out($o-primary, 0.3);
-  background-color: var(--o-primary-hover-bg, fade-out($o-primary, 0.3));
+  background-color: $o-primary-fade-little;
+  background-color: var(--o-primary-fade-little, $o-primary-fade-little);
 }
 
 .active button {

@@ -21,7 +21,7 @@ export default {
   },
   plugins: [
     nodeResolve({
-    	main: true
+      main: true
     }),
     scss({
       //output: false,

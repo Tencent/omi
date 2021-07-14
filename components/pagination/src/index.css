@@ -49,8 +49,8 @@ button:disabled {
   border-color: #eee; }
 
 .active button:hover {
-  background-color: rgba(7, 193, 96, 0.7);
-  background-color: var(--o-primary-hover-bg, rgba(7, 193, 96, 0.7)); }
+  background-color: rgba(7, 193, 96, 0.618);
+  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618)); }
 
 .active button {
   color: white;
