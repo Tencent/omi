@@ -1,12 +1,12 @@
 import { viteMockServe } from 'vite-plugin-mock';
 import { UserConfigExport, ConfigEnv } from 'vite';
 
-export default ({ command }: ConfigEnv): UserConfigExport => {
+export default (conifg: ConfigEnv): UserConfigExport => {
   return {
     plugins: [
       viteMockServe({
         mockPath: 'mock',
-        localEnabled: command == "serve",
+        localEnabled: conifg.command == "serve",
       }),
     ],
     esbuild: {

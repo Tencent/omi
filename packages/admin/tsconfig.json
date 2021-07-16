@@ -4,12 +4,15 @@
     "experimentalDecorators": true,
     "jsx": "preserve",
     "jsxFactory": "h",
-    "target": "es6",
+    "target": "es5",
     "outDir": "dist",
     "moduleResolution": "node",
     //https://github.com/microsoft/TypeScript/issues/6945
     //https://basarat.gitbook.io/typescript/type-system/lib.d.ts#lib-option
-    "lib": ["dom", "es6"]
+    "lib": [
+      "dom",
+      "es6"
+    ]
   },
   "include": [
     "src/**/*"
