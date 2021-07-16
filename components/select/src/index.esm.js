@@ -1,5 +1,5 @@
 /**
- * @omiu/select v0.0.6 http://omijs.org
+ * @omiu/select v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,13 +27,11 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics$2 = function(d, b) {
     extendStatics$2 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return extendStatics$2(d, b);
 };
 
 function __extends$2(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics$2(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -3383,9 +3381,10 @@ var Select = /** @class */ (function (_super) {
                 _this._refInput.focus();
                 _this.fire('item-select', item);
                 _this.selectedIndex = index;
+                _this.label = item.label;
                 _this.updateProps({
                     active: false,
-                    value: item.label
+                    value: item.value
                 });
             }
         };
@@ -3407,6 +3406,25 @@ var Select = /** @class */ (function (_super) {
     Select.prototype.installed = function () {
         this.resetSize();
         addResizeListener(this._refInput, this.resetSize);
+    };
+    Select.prototype.install = function () {
+        if (this.props.multiple) {
+            for (var i = 0, len = this.props.items.length; i < len; i++) {
+                if (this.props.value.indexOf(this.props.items[i].value) !== -1) {
+                    this.selectedIndexMap[i] = 1;
+                }
+            }
+        }
+        else {
+            if (this.props.value) {
+                for (var i = 0, len = this.props.items.length; i < len; i++) {
+                    if (this.props.value + '' === this.props.items[i].value + '') {
+                        this.selectedIndex = i;
+                        this.label = this.props.items[i].label;
+                    }
+                }
+            }
+        }
     };
     Select.prototype.uninstall = function () {
         removeResizeListener(this._refInput, this.resetSize);
@@ -3430,7 +3448,7 @@ var Select = /** @class */ (function (_super) {
                         _b['o-input--' + props.size] = props.size,
                         _b['is-focus'] = props.isFocus,
                         _b))),
-                        h("input", { style: { height: this.inputHeight + 'px' }, type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: true, autocomplete: "off", value: props.multiple ? '' : props.value, placeholder: Object.keys(this.selectedIndexMap).length > 0 ? '' : props.placeholder, class: "o-input__inner" }),
+                        h("input", { style: { height: this.inputHeight + 'px' }, type: "text", ref: function (e) { return _this._refInput = e; }, onClick: this.onInputClick, onBlur: this.onInputBlur, readonly: true, autocomplete: "off", value: props.multiple ? '' : this.label, placeholder: Object.keys(this.selectedIndexMap).length > 0 ? '' : props.placeholder, class: "o-input__inner" }),
                         h("span", { class: "o-input__suffix" },
                             h("span", { class: "o-input__suffix-inner" },
                                 h("i", { class: "o-select__caret o-input__icon o-icon-arrow-up is-reverse" }))),

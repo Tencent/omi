@@ -78,16 +78,14 @@ export default class Tabs extends WeElement<Props>{
     })
   }
 
-  install() {
+  installed() {
+    this.baseRect = this.rootNode.getBoundingClientRect()
+    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
+
     domReady(() => {
       this.baseRect = this.rootNode.getBoundingClientRect()
       this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
     })
-  }
-
-  installed() {
-    this.baseRect = this.rootNode.getBoundingClientRect()
-    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
   }
 
   removeTab(index) {
@@ -124,9 +122,9 @@ export default class Tabs extends WeElement<Props>{
       height: `40px`,
       transform: `translateY(${props.activeIndex * 40}px)`
     } : {
-        width: `${this._width}px`,
-        transform: `translateX(${this._x}px)`
-      }
+      width: `${this._width}px`,
+      transform: `translateX(${this._x}px)`
+    }
 
     return (
       <div {...extractClass(props, 'o-tabs', {

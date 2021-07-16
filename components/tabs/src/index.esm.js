@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.17 http://omijs.org
+ * @omiu/tabs v0.0.18 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,13 +27,11 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -789,16 +787,14 @@ var Tabs = /** @class */ (function (_super) {
             activeIndex: index
         });
     };
-    Tabs.prototype.install = function () {
+    Tabs.prototype.installed = function () {
         var _this = this;
+        this.baseRect = this.rootNode.getBoundingClientRect();
+        this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
         domReady(function () {
             _this.baseRect = _this.rootNode.getBoundingClientRect();
             _this.setActiveBar(_this['$tab' + _this.props.activeIndex], _this.props.activeIndex);
         });
-    };
-    Tabs.prototype.installed = function () {
-        this.baseRect = this.rootNode.getBoundingClientRect();
-        this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
     };
     Tabs.prototype.removeTab = function (index) {
         var tab = this.props.list.splice(index, 1)[0];

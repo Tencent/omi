@@ -22,7 +22,7 @@ import './layouts/components/layout-container'
 import './components/admin-main-welcome'
 
 import { tw, sheet } from 'omi-twind'
-import store from './store'
+import Store from './store'
 
 const fadeCSS = `.fade-leave-to,
 .fade-enter {
@@ -69,6 +69,8 @@ export default class extends WeElement {
   }
 
   installed() {
+    this.store.ui.myApp = this
+
     route('/', () => {
       this.update()
     })
@@ -222,4 +224,10 @@ export default class extends WeElement {
   }
 }
 
-render(<my-app name="Omi"></my-app>, '#root', store)
+
+new Store({
+  locale: 'zh',
+  installed(store) {
+    render(<my-app name="Omi"></my-app>, '#root', store)
+  }
+})

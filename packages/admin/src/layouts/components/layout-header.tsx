@@ -5,6 +5,7 @@ import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
 import '@omiu/hamburger-menu'
+import '@omiu/select'
 
 interface Props { }
 
@@ -22,6 +23,8 @@ export default class extends WeElement<Props> {
   static css = sheet.target
 
   store
+
+  items = [{ label: '中文', value: 'zh' }, { label: 'English', value: 'en' }]
 
   isShowColorPicker: boolean = false
 
@@ -56,6 +59,10 @@ export default class extends WeElement<Props> {
     }
   }
 
+  onItemSelect = (evt) => {
+    this.store.setLocals(evt.detail.value)
+  }
+
   render() {
     return (
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
@@ -65,6 +72,17 @@ export default class extends WeElement<Props> {
             <img class={tw`w-8 m-1 ml-3`} src={logo} alt="logo" />
             <div>
               <h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1>
+
+            </div>
+            <div class={tw`inline-block mt-1.5 ml-3`}>
+              <o-select css={`
+            .o-select .o-input__inner {
+              width: 117px;
+            `} size="mini"
+                onitem-select={this.onItemSelect}
+                value={this.store.locale} items={this.items}>
+
+              </o-select>
             </div>
           </div>
 

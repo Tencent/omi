@@ -3,7 +3,7 @@ import '@omiu/popover';
 interface Props {
     items: any[];
     active: boolean;
-    value: string | any[];
+    value: string | number | any[];
     placeholder: string;
     size: 'big' | 'medium' | 'small' | 'mini';
     multiple: boolean;
@@ -37,6 +37,8 @@ export default class Select extends WeElement<Props> {
     resetInputWidth(): void;
     installed(): void;
     resetSize: () => void;
+    label: string;
+    install(): void;
     uninstall(): void;
     render(props: any): JSX.Element;
 }

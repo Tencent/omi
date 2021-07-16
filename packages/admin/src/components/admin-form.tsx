@@ -26,6 +26,8 @@ export default class extends WeElement<Props> {
 
   fruits = [{ label: '苹果🍎', value: 1 }, { label: '草莓🍓', value: 2 }, { label: '葡萄🍇', value: 3 }, { label: '香蕉🍌', value: 4 }, { label: '梨子🍐', value: 5 }, { label: '橘子🍊', value: 6 },]
 
+  store
+
   render() {
     const formItemClass = tw`leading-8 mb-6`
     const lableClass = tw`w-16 float-left align-middle`
@@ -54,7 +56,7 @@ export default class extends WeElement<Props> {
         <div class={formItemClass}>
           <label class={lableClass} >出生日期</label>
           <div class={tw`leading-8 ml-10`}>
-            <o-date-picker size="small" locale="zh"> </o-date-picker>
+            <o-date-picker size="small" locale={this.store.locale}> </o-date-picker>
           </div>
         </div>
 
@@ -93,7 +95,7 @@ export default class extends WeElement<Props> {
         <div class={formItemClass}>
           <label class={lableClass} >大学时光</label>
           <div class={tw`leading-8 ml-10`}>
-            <o-date-picker width="256px" mode="range" size="small" locale="zh"> </o-date-picker>
+            <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
           </div>
         </div>
 
