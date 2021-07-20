@@ -27,7 +27,7 @@ export default {
           file: resolve(__dirname, './dist/index.umd.js'),
           format: 'umd',
           globals: {
-            vue: 'omi'
+            omi: 'omi'
           }
         },
         {
