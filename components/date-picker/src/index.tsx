@@ -111,6 +111,13 @@ export default class Popover extends WeElement<Props> {
 
   }
 
+  updated() {
+    const { locale, ...other } = this.props
+    flatpickr(this.shadowRoot.querySelector('o-input'), {
+      locale: locale === 'zh' ? Mandarin : null,
+      ...other
+    })
+  }
 
   async installed(): Promise<void> {
     const styleLoader = new StyleLoader(this.props.theme as FlatpickrTheme)

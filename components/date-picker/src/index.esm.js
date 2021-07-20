@@ -1,5 +1,5 @@
 /**
- * @omiu/date-picker v0.0.4 http://omijs.org
+ * @omiu/date-picker v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -3338,6 +3338,10 @@ var Popover = /** @class */ (function (_super) {
         _this.isShow = false;
         return _this;
     }
+    Popover.prototype.updated = function () {
+        var _a = this.props, locale = _a.locale, other = __rest$1(_a, ["locale"]);
+        flatpickr(this.shadowRoot.querySelector('o-input'), __assign$1({ locale: locale === 'zh' ? Mandarin : null }, other));
+    };
     Popover.prototype.installed = function () {
         return __awaiter(this, void 0, Promise, function () {
             var styleLoader, _a, locale, other;

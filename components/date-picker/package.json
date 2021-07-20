@@ -1,6 +1,6 @@
 {
   "name": "@omiu/date-picker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Components that select date.",
   "docsExtend": {
     "cnName": "日期选择器",

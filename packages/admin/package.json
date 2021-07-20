@@ -19,7 +19,7 @@
     "@omiu/checkbox": "^0.0.9",
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.9",
-    "@omiu/date-picker": "^0.0.4",
+    "@omiu/date-picker": "^0.0.5",
     "@omiu/hamburger-menu": "^0.0.5",
     "@omiu/icon": "^0.0.3",
     "@omiu/input": "^0.0.8",
