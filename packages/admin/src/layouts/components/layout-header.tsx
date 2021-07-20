@@ -93,7 +93,7 @@ export default class extends WeElement<Props> {
                 onClick={this.toggle}
                 style={{ color: this.store.themeColor }}
               >
-                <o-icon-palette></o-icon-palette>主题
+                <o-icon-palette></o-icon-palette>{this.store.localeMap.base.Theme}
               </div>
               {this.isShowColorPicker && (
                 <o-color-picker

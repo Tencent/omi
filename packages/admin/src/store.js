@@ -1,4 +1,4 @@
-import { docsList } from './components/docs/config'
+import { getDocsList } from './components/docs/config'
 
 class Store {
   constructor(options) {
@@ -19,15 +19,19 @@ class Store {
     this.markdown = ''
     this.html = ''
 
+    this.localeMap = {}
+
     this.setLocals(this.locale)
     this.isInstalled = false
   }
 
   setLocals(locale) {
     this.locale = locale
-    import(`./l10n/${locale}/base.ts`).then(locale => {
+    import(`./l10n/${locale}/base.ts`).then(localeMap => {
+
+      this.localeMap = localeMap
       this.tabs = [{
-        label: locale.base.Welcome,
+        label: localeMap.base.Welcome,
         href: "#/welcome",
         closable: false,
         id: 2
@@ -36,7 +40,7 @@ class Store {
 
       this.treeData = [
         {
-          label: locale.base.ManagerWorkbench,
+          label: localeMap.base.ManagerWorkbench,
           sign: '●',
           expanded: true,
           id: 1,
@@ -45,7 +49,7 @@ class Store {
           children: [
             {
               sign: 'M',
-              label: '欢迎界面',
+              label: localeMap.base.WelcomePage,
               icon: 'emoji-people',
               color: '#07c160',
               selected: true,
@@ -54,20 +58,20 @@ class Store {
             },
 
             {
-              label: '基础表格',
+              label: localeMap.base.BasicTable,
               icon: 'grid-on',
               href: '#/table/basic',
               id: 4,
             },
             {
-              label: '表格删除动画',
+              label: localeMap.base.TableDeleteAnimation,
               icon: 'grid-on',
               href: '#/table/pagination',
               id: 5,
             },
 
             {
-              label: '简单表单',
+              label: localeMap.base.Form,
               expanded: true,
               id: 9,
               href: '#/form',
@@ -75,7 +79,7 @@ class Store {
 
             },
             {
-              label: 'Material Icons',
+              label: localeMap.base.MaterialIcons,
               expanded: true,
               id: 10,
               href: '#/icon',
@@ -84,7 +88,7 @@ class Store {
           ]
         },
         {
-          label: '其他',
+          label: localeMap.base.Others,
           sign: '●',
           expanded: true,
           id: 6,
@@ -92,7 +96,7 @@ class Store {
           children: [
             {
               sign: '90020',
-              label: '错误告警',
+              label: localeMap.base.Error,
               icon: 'error',
               color: '#F56C6C',
               href: '#/error',
@@ -100,7 +104,7 @@ class Store {
             },
             {
               sign: '993',
-              label: '异常告警',
+              label: localeMap.base.Warning,
               icon: 'warning',
               color: '#E6A23C',
               href: '#/warning',
@@ -108,13 +112,13 @@ class Store {
             },
             {
               sign: '993',
-              label: '评论模块',
+              label: localeMap.base.Comment,
               icon: 'comment',
               href: '#/comment',
               id: 120,
             },
             {
-              label: '我是外链',
+              label: localeMap.base.ExternalLink,
               icon: 'insert-link',
               href: 'https://github.com/Tencent/omi',
               id: 119,
@@ -123,24 +127,24 @@ class Store {
           ]
         },
         {
-          label: 'Markdown文档',
+          label: localeMap.base.MarkdownDocs,
           expanded: true,
           id: 6,
           icon: 'ac-unit-outlined',
-          children: docsList
+          children: getDocsList(localeMap)
         },
         {
-          label: '组件',
+          label: localeMap.base.Components,
           expanded: true,
           id: 11,
           icon: 'ac-unit-outlined',
           children: [{
-            label: 'Loading 加载中',
+            label: localeMap.base.Loading,
             id: 12,
             icon: 'ac-unit-outlined',
             href: '#/loading-component',
           }, {
-            label: 'Toast 弹出式提示',
+            label: localeMap.base.Toast,
             id: 13,
             icon: 'ac-unit-outlined',
             href: '#/toast-component',
