@@ -1,12 +1,29 @@
 import { getDocsList } from './components/docs/config'
+import { WeElement } from 'omi'
 
 class Store {
+  themeColor: string
+  installed: (store: Store) => void
+  locale: 'en' | 'zh'
+  isLeftPanelClosed: boolean
+  ignoreAttrs: boolean
+  ui: {
+    baseLayout?: WeElement
+    myApp?: WeElement
+  }
+  markdown: string
+  html: string
+  localeMap: {}
+  isInstalled: boolean
+  tabs: {}[]
+  tabsActiveIndex: number
+  treeData: {}[]
+
   constructor(options) {
 
     this.themeColor = '#07c160'
 
     this.installed = options.installed
-    //先支持 en 和 zh
     this.locale = options.locale
 
     this.isLeftPanelClosed = window.innerWidth < 640
