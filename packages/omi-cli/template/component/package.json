@@ -17,9 +17,6 @@
       "require": "./dist/index.umd.js"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "tsc && vite build --base=./",
     "docs": "node ./docs-gen.js",
