@@ -5,10 +5,10 @@
     "jsx": "react",
     "jsxFactory": "h",
     "target": "es5",
-    "outDir": "dist",
-    "lib": ["dom", "es6"],
     "allowJs": true,
     "declaration": true
   },
-  "include": ["src/**/*", "docs-gen.js", "global.d.ts"]
+  "include": [
+    "src/**/*"
+  ]
 }
