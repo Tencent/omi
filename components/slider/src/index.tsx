@@ -1,47 +1,62 @@
 import { WeElement, render, h, tag } from 'omi'
 
-import './hello-omi'
 import './index.css'
 import * as css from './_index.less'
-import logo from './logo.svg'
 
-interface MyAppProps {
-  name: string
+interface Props {
+  min?: number,
+  max?: number,
+  step?: number,
+  value?: string,
 }
 
+@tag('o-slider')
+export default class Slider extends WeElement<Props> {
+  
+  sliderVal
 
-@tag('my-app')
-export default class extends WeElement<MyAppProps> {
-
+  static defaultProps = {
+    min: 0,
+    max: 100,
+    step: 1,
+    value: "20"
+  }
+  
+  static propTypes = {
+    min: Number,
+    max: Number,
+    step: Number,
+    value: String,
+  }
+  
   static css = css.default
 
-  abc: string
+  handleSlide = evt => {
+    this.sliderVal = this.shadowRoot.querySelector("input").value
+    this.update() 
+  }
 
-  onAbc = (evt: CustomEvent) => {
-    this.abc = ` by ${evt.detail.name}`
-    this.update()
+  install() {
+    this.sliderVal = this.props.value
+  }
+
+  updated() {
+    console.log(this.shadowRoot.querySelector("input").value)
   }
 
   render(props) {
+    console.log(props.text)
     return (
-      <div class="app">
-        <header class="app-header">
-          <img
-            src={logo}
-            class="app-logo"
-            alt="logo"
-          />
-          <h1 class="app-title">Welcome to {props.name}</h1>
-        </header>
-        {this.abc}
-        <hello-omi onAbc={this.onAbc} msg="Omi"></hello-omi>
-
-      </div>
+      <div class="slidecontainer">
+          <input type="range" min={props.min} max={props.max} value={this.sliderVal} class="slider" onChange={this.handleSlide} id="myRange"/>
+          <p>Value: <span id="demo">{this.sliderVal}</span></p>
+          
+        </div>
     )
   }
 }
 
-render(<my-app></my-app>, '#root', {
-  // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-  ignoreAttrs: true
-})
+// render(<o-slider></o-slider>, '#root', {
+//   // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
+//   ignoreAttrs: true
+// })
