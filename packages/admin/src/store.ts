@@ -1,6 +1,19 @@
 import { getDocsList } from './components/docs/config'
 import { WeElement } from 'omi'
 
+interface treeNode {
+  id: number
+  label: string
+  sign?: string
+  expanded?: boolean
+  icon?: string
+  color?: string
+  selected?: boolean
+  href?: string
+  target?: string
+  children?: treeNode[]
+}
+
 class Store {
   themeColor: string
   installed: (store: Store) => void
@@ -13,11 +26,20 @@ class Store {
   }
   markdown: string
   html: string
-  localeMap: {}
+  localeMap: {
+    base?: {
+      Welcome: string
+    }
+  }
   isInstalled: boolean
-  tabs: {}[]
+  tabs: {
+    label?: string
+    href?: string
+    closable?: boolean
+    id: number
+  }[]
   tabsActiveIndex: number
-  treeData: {}[]
+  treeData: treeNode[]
 
   constructor(options) {
 
@@ -38,22 +60,29 @@ class Store {
 
     this.localeMap = {}
 
-    this.setLocals(this.locale)
-    this.isInstalled = false
-  }
-
-  setLocals(locale) {
-    this.locale = locale
-    import(`./l10n/${locale}/base.ts`).then(localeMap => {
-
-      this.localeMap = localeMap
+    this.setLocals(this.locale, () => {
       this.tabs = [{
-        label: localeMap.base.Welcome,
+        label: this.localeMap.base.Welcome,
         href: "#/welcome",
         closable: false,
         id: 2
       }]
+
       this.tabsActiveIndex = 0
+    })
+
+
+
+    this.isInstalled = false
+  }
+
+  setLocals(locale, callback?) {
+    this.locale = locale
+    import(`./l10n/${locale}/base.ts`).then(localeMap => {
+
+      this.localeMap = localeMap
+
+      callback && callback()
 
       this.treeData = [
         {
@@ -169,6 +198,10 @@ class Store {
         }
       ]
 
+      this.tabs.forEach(tab => {
+        tab.label = this.getTabLabelById(tab.id)
+      })
+
       if (!this.isInstalled) {
         this.installed(this)
         this.isInstalled = true
@@ -176,6 +209,21 @@ class Store {
         this.ui.myApp.update()
       }
     })
+  }
+
+  getTabLabelById(id) {
+    const node = this.treeData.find(node => node.id === id)
+    if (node) {
+      return node.label
+    } else {
+      for (let i = 0, len = this.treeData.length; i < len; i++) {
+
+        const childNode = this.treeData[i].children.find(childNode => childNode.id === id)
+        if (childNode) {
+          return childNode.label
+        }
+      }
+    }
   }
 
   toggleLeftPanel() {
