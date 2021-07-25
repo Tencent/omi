@@ -74,7 +74,7 @@
   box-sizing: border-box; }
 
 .o-tabs__nav-scroll {
-  overflow: hidden; }
+  overflow: auto; }
 
 .o-tabs__nav-next,
 .o-tabs__nav-prev {
