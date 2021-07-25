@@ -4,12 +4,15 @@
    display: block;
  }
 
- .o-table {
+ .o-table{
+  overflow: auto;
+ }
+
+ .o-table-table {
    background: white;
    margin: auto;
    padding: 5px;
    width: 100%;
-   animation: float 5s infinite;
    border-spacing: 0;
    border-collapse: collapse;
    color: #606266;
@@ -22,15 +25,21 @@
  }
 
  th {
-   border-bottom: 1px solid #E0E0E0;
-   text-align: left;
-   vertical-align: middle;
-   padding: 10px 10px 10px;
-   color: rgba(0, 0, 0, 0.54);
-   font-size: 0.75rem;
-   line-height: 1.3125rem;
-   font-weight: 500;
-   background: #fafafa;
+  border-bottom: 1px solid #E0E0E0;
+  text-align: left;
+  vertical-align: middle;
+  padding: 10px 10px 10px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.75rem;
+  line-height: 1.3125rem;
+  font-weight: 500;
+  background: #fafafa;
+ }
+
+ th.sticky{
+  position: sticky;
+  top: -1px; 
+  z-index: 1000;
  }
 
  .o-table-border td,

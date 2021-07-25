@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.7 http://omijs.org
+ * @omiu/table v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -380,11 +380,13 @@ var css = `:host {
   display: block; }
 
 .o-table {
+  overflow: auto; }
+
+.o-table-table {
   background: white;
   margin: auto;
   padding: 5px;
   width: 100%;
-  animation: float 5s infinite;
   border-spacing: 0;
   border-collapse: collapse;
   color: #606266;
@@ -404,6 +406,11 @@ th {
   line-height: 1.3125rem;
   font-weight: 500;
   background: #fafafa; }
+
+th.sticky {
+  position: sticky;
+  top: -1px;
+  z-index: 1000; }
 
 .o-table-border td,
 .o-table-border th {
@@ -545,42 +552,46 @@ var Table = /** @class */ (function (_super) {
             return;
         if (!props.dataSource)
             return;
-        return (h("table", __assign$1({}, extractClass(props, 'o-table', {
+        return (h("div", __assign$1({ style: {
+                height: props.height && props.height
+            } }, extractClass(props, 'o-table', {
             'o-table-checkbox': props.checkbox,
             'o-table-border': props.border,
             'o-table-stripe': props.stripe
         })),
-            h("thead", null,
-                h("tr", null, props.columns.map(function (column, index) {
+            h("table", __assign$1({}, extractClass(props, 'o-table-table')),
+                h("thead", null,
+                    h("tr", null, props.columns.map(function (column, index) {
+                        var _a;
+                        var obj = {};
+                        var width = column.width;
+                        if (width !== undefined) {
+                            obj.style = { width: typeof width === 'number' ? width + 'px' : width };
+                        }
+                        return h("th", __assign$1({}, obj, { class: classNames((_a = {},
+                                _a["o-table-align-" + column.align] = column.align,
+                                _a['compact'] = props.compact,
+                                _a['sticky'] = props.sticky,
+                                _a)) }),
+                            index === 0 && props.checkbox && h("o-checkbox", __assign$1({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
+                            column.title);
+                    }))),
+                h("tbody", { class: "o-table-tbody" }, props.dataSource.map(function (item) { return (h("tr", { key: item.id, ref: function (e) { return _this['row' + item.id] = e; }, style: {
+                        background: item.$config && item.$config.bgColor
+                    } }, props.columns.map(function (column, subIndex) {
                     var _a;
                     var obj = {};
                     var width = column.width;
                     if (width !== undefined) {
                         obj.style = { width: typeof width === 'number' ? width + 'px' : width };
                     }
-                    return h("th", __assign$1({}, obj, { class: classNames((_a = {},
+                    return h("td", __assign$1({}, obj, { class: classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
                             _a['compact'] = props.compact,
                             _a)) }),
-                        index === 0 && props.checkbox && h("o-checkbox", __assign$1({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
-                        column.title);
-                }))),
-            h("tbody", { class: "o-table-tbody" }, props.dataSource.map(function (item) { return (h("tr", { key: item.id, ref: function (e) { return _this['row' + item.id] = e; }, style: {
-                    background: item.$config && item.$config.bgColor
-                } }, props.columns.map(function (column, subIndex) {
-                var _a;
-                var obj = {};
-                var width = column.width;
-                if (width !== undefined) {
-                    obj.style = { width: typeof width === 'number' ? width + 'px' : width };
-                }
-                return h("td", __assign$1({}, obj, { class: classNames((_a = {},
-                        _a["o-table-align-" + column.align] = column.align,
-                        _a['compact'] = props.compact,
-                        _a)) }),
-                    subIndex === 0 && props.checkbox && h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
-                    column.render ? column.render(item) : item[column.key]);
-            }))); }))));
+                        subIndex === 0 && props.checkbox && h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
+                        column.render ? column.render(item) : item[column.key]);
+                }))); })))));
     };
     Table.css = css;
     Table.defaultProps = {
@@ -589,7 +600,8 @@ var Table = /** @class */ (function (_super) {
         checkbox: false,
         border: false,
         stripe: false,
-        compact: false
+        compact: false,
+        sticky: false
     };
     Table.propTypes = {
         dataSource: Object,
@@ -597,7 +609,9 @@ var Table = /** @class */ (function (_super) {
         checkbox: Boolean,
         border: Boolean,
         stripe: Boolean,
-        compact: Boolean
+        compact: Boolean,
+        height: String,
+        sticky: Boolean
     };
     Table = __decorate$1([
         tag('o-table')

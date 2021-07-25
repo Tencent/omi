@@ -7,6 +7,8 @@ interface Props {
     border: boolean;
     stripe: boolean;
     compact: boolean;
+    height: string;
+    sticky: boolean;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
@@ -17,6 +19,7 @@ export default class Table extends WeElement<Props> {
         border: boolean;
         stripe: boolean;
         compact: boolean;
+        sticky: boolean;
     };
     static propTypes: {
         dataSource: ObjectConstructor;
@@ -25,6 +28,8 @@ export default class Table extends WeElement<Props> {
         border: BooleanConstructor;
         stripe: BooleanConstructor;
         compact: BooleanConstructor;
+        height: StringConstructor;
+        sticky: BooleanConstructor;
     };
     deleteRow: (item: any) => void;
     deleteRowById(id: any): Promise<void>;

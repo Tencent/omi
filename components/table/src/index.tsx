@@ -10,7 +10,9 @@ interface Props {
   checkbox: boolean,
   border: boolean,
   stripe: boolean,
-  compact: boolean
+  compact: boolean,
+  height: string,
+  sticky: boolean
 }
 
 @tag('o-table')
@@ -23,7 +25,8 @@ export default class Table extends WeElement<Props> {
     checkbox: false,
     border: false,
     stripe: false,
-    compact: false
+    compact: false,
+    sticky: false
   }
 
   static propTypes = {
@@ -32,7 +35,9 @@ export default class Table extends WeElement<Props> {
     checkbox: Boolean,
     border: Boolean,
     stripe: Boolean,
-    compact: Boolean
+    compact: Boolean,
+    height: String,
+    sticky: Boolean
   }
 
   deleteRow = (item) => {
@@ -85,46 +90,51 @@ export default class Table extends WeElement<Props> {
     if (!props.columns) return
     if (!props.dataSource) return
     return (
-      <table {...extractClass(props, 'o-table', {
+      <div style={{
+        height: props.height && props.height
+      }} {...extractClass(props, 'o-table', {
         'o-table-checkbox': props.checkbox,
         'o-table-border': props.border,
         'o-table-stripe': props.stripe
       })}>
-        <thead>
-          <tr>
-            {props.columns.map((column, index) => {
-              const obj: any = {}
-              const { width } = column
-              if (width !== undefined) {
-                obj.style = { width: typeof width === 'number' ? width + 'px' : width }
-              }
-              return <th {...obj} class={classNames({
-                [`o-table-align-${column.align}`]: column.align,
-                'compact': props.compact,
-              })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
-            })}
-          </tr>
-        </thead>
-        <tbody class="o-table-tbody">
-          {props.dataSource.map(item => (
-            <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
-              background: item.$config && item.$config.bgColor
-            }}>
-              {props.columns.map((column, subIndex) => {
+        <table {...extractClass(props, 'o-table-table')}>
+          <thead>
+            <tr>
+              {props.columns.map((column, index) => {
                 const obj: any = {}
                 const { width } = column
                 if (width !== undefined) {
                   obj.style = { width: typeof width === 'number' ? width + 'px' : width }
                 }
-                return <td {...obj} class={classNames({
+                return <th {...obj} class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
                   'compact': props.compact,
-                })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
+                  'sticky': props.sticky
+                })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
               })}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody class="o-table-tbody">
+            {props.dataSource.map(item => (
+              <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
+                background: item.$config && item.$config.bgColor
+              }}>
+                {props.columns.map((column, subIndex) => {
+                  const obj: any = {}
+                  const { width } = column
+                  if (width !== undefined) {
+                    obj.style = { width: typeof width === 'number' ? width + 'px' : width }
+                  }
+                  return <td {...obj} class={classNames({
+                    [`o-table-align-${column.align}`]: column.align,
+                    'compact': props.compact,
+                  })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     )
   }
 }
