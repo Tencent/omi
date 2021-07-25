@@ -95,8 +95,10 @@ export default class Table extends WeElement {
       stripe={false}
       border={true}
       compact={false}
+      width="200px"
       height="200px"
-      sticky={true}
+      stickyLeftCount={2}
+      stickyTop={true}
       columns={this.columns} dataSource={this.dataSource}></o-table>
   }
 }

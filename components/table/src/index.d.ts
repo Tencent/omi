@@ -7,8 +7,10 @@ interface Props {
     border: boolean;
     stripe: boolean;
     compact: boolean;
+    width: string;
     height: string;
-    sticky: boolean;
+    stickyTop: boolean;
+    stickyLeftCount: number;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
@@ -19,7 +21,8 @@ export default class Table extends WeElement<Props> {
         border: boolean;
         stripe: boolean;
         compact: boolean;
-        sticky: boolean;
+        stickyTop: boolean;
+        stickyLeftCount: number;
     };
     static propTypes: {
         dataSource: ObjectConstructor;
@@ -28,8 +31,10 @@ export default class Table extends WeElement<Props> {
         border: BooleanConstructor;
         stripe: BooleanConstructor;
         compact: BooleanConstructor;
+        width: StringConstructor;
         height: StringConstructor;
-        sticky: BooleanConstructor;
+        stickyTop: BooleanConstructor;
+        stickyLeftCount: NumberConstructor;
     };
     deleteRow: (item: any) => void;
     deleteRowById(id: any): Promise<void>;
@@ -48,6 +53,7 @@ export default class Table extends WeElement<Props> {
         indeterminate?: undefined;
         unchecked?: undefined;
     };
+    installed(): void;
     render(props: any): JSX.Element;
 }
 export {};

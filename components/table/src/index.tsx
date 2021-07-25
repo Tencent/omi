@@ -11,8 +11,11 @@ interface Props {
   border: boolean,
   stripe: boolean,
   compact: boolean,
+  width: string,
   height: string,
-  sticky: boolean
+  stickyTop: boolean
+  stickyLeftCount: number
+
 }
 
 @tag('o-table')
@@ -26,7 +29,8 @@ export default class Table extends WeElement<Props> {
     border: false,
     stripe: false,
     compact: false,
-    sticky: false
+    stickyTop: false,
+    stickyLeftCount: 0
   }
 
   static propTypes = {
@@ -36,8 +40,10 @@ export default class Table extends WeElement<Props> {
     border: Boolean,
     stripe: Boolean,
     compact: Boolean,
+    width: String,
     height: String,
-    sticky: Boolean
+    stickyTop: Boolean,
+    stickyLeftCount: Number
   }
 
   deleteRow = (item) => {
@@ -85,12 +91,22 @@ export default class Table extends WeElement<Props> {
     return { 'checked': true }
   }
 
+  installed() {
+    const stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left')
+    const boxRect = this.rootNode.getBoundingClientRect()
+    stickyLeftEls.forEach((stickyLeftEl, index) => {
+      const rect = stickyLeftEl.getBoundingClientRect()
+      stickyLeftEl.style.left = (rect.left - boxRect.left - index) + 'px'
+    })
+  }
+
   render(props) {
 
     if (!props.columns) return
     if (!props.dataSource) return
     return (
       <div style={{
+        width: props.width && props.width,
         height: props.height && props.height
       }} {...extractClass(props, 'o-table', {
         'o-table-checkbox': props.checkbox,
@@ -109,7 +125,8 @@ export default class Table extends WeElement<Props> {
                 return <th {...obj} class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
                   'compact': props.compact,
-                  'sticky': props.sticky
+                  'sticky-top': props.stickyTop,
+                  'sticky-left': index < props.stickyLeftCount
                 })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
               })}
             </tr>
@@ -128,6 +145,7 @@ export default class Table extends WeElement<Props> {
                   return <td {...obj} class={classNames({
                     [`o-table-align-${column.align}`]: column.align,
                     'compact': props.compact,
+                    'sticky-left': subIndex < props.stickyLeftCount
                   })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
                 })}
               </tr>

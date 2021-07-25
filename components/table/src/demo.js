@@ -365,7 +365,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o-table-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa; }\n\nth.sticky {\n  position: sticky;\n  top: -1px;\n  z-index: 1000; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\no-checkbox {\n  height: 20px;\n  vertical-align: middle; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o-table-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa;\n  white-space: nowrap; }\n\nth.sticky-top {\n  position: sticky;\n  top: -1px;\n  z-index: 1000; }\n\ntable thead th.sticky-left {\n  position: sticky;\n  left: -1px;\n  z-index: 1001; }\n\ntable tbody td.sticky-left {\n  position: sticky;\n  left: -1px;\n  z-index: 999; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px;\n  background: white;\n  white-space: nowrap; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\no-checkbox {\n  height: 20px;\n  vertical-align: middle; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n", ""]);
 
 // exports
 
@@ -2829,7 +2829,7 @@ var Table = /** @class */ (function (_super) {
     }
     Table.prototype.render = function (props) {
         var _this = this;
-        return omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: false, height: "200px", sticky: true, columns: this.columns, dataSource: this.dataSource });
+        return omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: false, width: "200px", height: "200px", stickyLeftCount: 2, stickyTop: true, columns: this.columns, dataSource: this.dataSource });
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -3001,6 +3001,14 @@ var Table = /** @class */ (function (_super) {
             return { 'unchecked': true };
         return { 'checked': true };
     };
+    Table.prototype.installed = function () {
+        var stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left');
+        var boxRect = this.rootNode.getBoundingClientRect();
+        stickyLeftEls.forEach(function (stickyLeftEl, index) {
+            var rect = stickyLeftEl.getBoundingClientRect();
+            stickyLeftEl.style.left = (rect.left - boxRect.left - index) + 'px';
+        });
+    };
     Table.prototype.render = function (props) {
         var _this = this;
         if (!props.columns)
@@ -3008,6 +3016,7 @@ var Table = /** @class */ (function (_super) {
         if (!props.dataSource)
             return;
         return (omi_1.h("div", __assign({ style: {
+                width: props.width && props.width,
                 height: props.height && props.height
             } }, omi_1.extractClass(props, 'o-table', {
             'o-table-checkbox': props.checkbox,
@@ -3026,7 +3035,8 @@ var Table = /** @class */ (function (_super) {
                         return omi_1.h("th", __assign({}, obj, { class: omi_1.classNames((_a = {},
                                 _a["o-table-align-" + column.align] = column.align,
                                 _a['compact'] = props.compact,
-                                _a['sticky'] = props.sticky,
+                                _a['sticky-top'] = props.stickyTop,
+                                _a['sticky-left'] = index < props.stickyLeftCount,
                                 _a)) }),
                             index === 0 && props.checkbox && omi_1.h("o-checkbox", __assign({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                             column.title);
@@ -3043,6 +3053,7 @@ var Table = /** @class */ (function (_super) {
                     return omi_1.h("td", __assign({}, obj, { class: omi_1.classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
                             _a['compact'] = props.compact,
+                            _a['sticky-left'] = subIndex < props.stickyLeftCount,
                             _a)) }),
                         subIndex === 0 && props.checkbox && omi_1.h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
                         column.render ? column.render(item) : item[column.key]);
@@ -3056,7 +3067,8 @@ var Table = /** @class */ (function (_super) {
         border: false,
         stripe: false,
         compact: false,
-        sticky: false
+        stickyTop: false,
+        stickyLeftCount: 0
     };
     Table.propTypes = {
         dataSource: Object,
@@ -3065,8 +3077,10 @@ var Table = /** @class */ (function (_super) {
         border: Boolean,
         stripe: Boolean,
         compact: Boolean,
+        width: String,
         height: String,
-        sticky: Boolean
+        stickyTop: Boolean,
+        stickyLeftCount: Number
     };
     Table = __decorate([
         omi_1.tag('o-table')

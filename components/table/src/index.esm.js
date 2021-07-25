@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.8 http://omijs.org
+ * @omiu/table v0.0.10 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -405,12 +405,23 @@ th {
   font-size: 0.75rem;
   line-height: 1.3125rem;
   font-weight: 500;
-  background: #fafafa; }
+  background: #fafafa;
+  white-space: nowrap; }
 
-th.sticky {
+th.sticky-top {
   position: sticky;
   top: -1px;
   z-index: 1000; }
+
+table thead th.sticky-left {
+  position: sticky;
+  left: -1px;
+  z-index: 1001; }
+
+table tbody td.sticky-left {
+  position: sticky;
+  left: -1px;
+  z-index: 999; }
 
 .o-table-border td,
 .o-table-border th {
@@ -433,7 +444,9 @@ td {
   text-align: left;
   vertical-align: middle;
   font-size: 0.875rem;
-  padding: 10px 10px 10px; }
+  padding: 10px 10px 10px;
+  background: white;
+  white-space: nowrap; }
 
 td.compact,
 th.compact {
@@ -546,6 +559,14 @@ var Table = /** @class */ (function (_super) {
             return { 'unchecked': true };
         return { 'checked': true };
     };
+    Table.prototype.installed = function () {
+        var stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left');
+        var boxRect = this.rootNode.getBoundingClientRect();
+        stickyLeftEls.forEach(function (stickyLeftEl, index) {
+            var rect = stickyLeftEl.getBoundingClientRect();
+            stickyLeftEl.style.left = (rect.left - boxRect.left - index) + 'px';
+        });
+    };
     Table.prototype.render = function (props) {
         var _this = this;
         if (!props.columns)
@@ -553,6 +574,7 @@ var Table = /** @class */ (function (_super) {
         if (!props.dataSource)
             return;
         return (h("div", __assign$1({ style: {
+                width: props.width && props.width,
                 height: props.height && props.height
             } }, extractClass(props, 'o-table', {
             'o-table-checkbox': props.checkbox,
@@ -571,7 +593,8 @@ var Table = /** @class */ (function (_super) {
                         return h("th", __assign$1({}, obj, { class: classNames((_a = {},
                                 _a["o-table-align-" + column.align] = column.align,
                                 _a['compact'] = props.compact,
-                                _a['sticky'] = props.sticky,
+                                _a['sticky-top'] = props.stickyTop,
+                                _a['sticky-left'] = index < props.stickyLeftCount,
                                 _a)) }),
                             index === 0 && props.checkbox && h("o-checkbox", __assign$1({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                             column.title);
@@ -588,6 +611,7 @@ var Table = /** @class */ (function (_super) {
                     return h("td", __assign$1({}, obj, { class: classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
                             _a['compact'] = props.compact,
+                            _a['sticky-left'] = subIndex < props.stickyLeftCount,
                             _a)) }),
                         subIndex === 0 && props.checkbox && h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
                         column.render ? column.render(item) : item[column.key]);
@@ -601,7 +625,8 @@ var Table = /** @class */ (function (_super) {
         border: false,
         stripe: false,
         compact: false,
-        sticky: false
+        stickyTop: false,
+        stickyLeftCount: 0
     };
     Table.propTypes = {
         dataSource: Object,
@@ -610,8 +635,10 @@ var Table = /** @class */ (function (_super) {
         border: Boolean,
         stripe: Boolean,
         compact: Boolean,
+        width: String,
         height: String,
-        sticky: Boolean
+        stickyTop: Boolean,
+        stickyLeftCount: Number
     };
     Table = __decorate$1([
         tag('o-table')
