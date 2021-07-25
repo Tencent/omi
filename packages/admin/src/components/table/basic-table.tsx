@@ -108,11 +108,13 @@ export default class extends WeElement<Props> {
         </div>
 
         <div class={tw`px-2`}>
-          <h4 class={tw`py-2 text-sm`}>基础表格</h4>
+          <h4 class={tw`py-2 text-sm`}>表头锁定 + 设置高度</h4>
           <o-table
             checkbox={false}
             stripe={false}
             border={false}
+            sticky={true}
+            height="200px"
             compact={false}
             columns={this.columns}
             dataSource={this.dataSource}
