@@ -18,8 +18,8 @@ export default class Table extends WeElement {
     })[];
     columns: ({
         title: string;
+        key: string;
         render: (item: any) => JSX.Element;
-        key?: undefined;
         align?: undefined;
     } | {
         title: string;

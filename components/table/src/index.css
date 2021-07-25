@@ -63,6 +63,10 @@ a {
 .o-table-align-center {
   text-align: center; }
 
+o-checkbox {
+  height: 20px;
+  vertical-align: middle; }
+
 .o-table-align-right {
   text-align: right; }
 

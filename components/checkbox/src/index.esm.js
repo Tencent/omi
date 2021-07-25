@@ -1,5 +1,5 @@
 /**
- * @omiu/checkbox v0.0.9 http://omijs.org
+ * @omiu/checkbox v0.0.10 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -65,7 +65,9 @@ var css = `:host {
 .o-checkbox {
   position: relative;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 14px;
+  width: 14px;
+  height: 14px;
   white-space: nowrap; }
   .o-checkbox:hover {
     cursor: pointer; }
@@ -120,11 +122,11 @@ var css = `:host {
 .o-checkbox__background,
 .o-checkbox__label {
   display: inline-block;
-  height: 18px;
+  height: 14px;
   vertical-align: middle; }
 
 .o-checkbox__background {
-  width: 18px; }
+  width: 14px; }
 
 .o-checkbox__label {
   margin-left: 10px; }

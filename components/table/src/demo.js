@@ -86,18 +86,18 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@omiu_checkbox@0.0.9@@omiu/checkbox/src/index.esm.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/_@omiu_checkbox@0.0.9@@omiu/checkbox/src/index.esm.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/_@omiu_checkbox@0.0.10@@omiu/checkbox/src/index.esm.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/_@omiu_checkbox@0.0.10@@omiu/checkbox/src/index.esm.js ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js");
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.23@omi/dist/omi.esm.js");
 /**
- * @omiu/checkbox v0.0.9 http://omijs.org
+ * @omiu/checkbox v0.0.10 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -163,7 +163,9 @@ var css = `:host {
 .o-checkbox {
   position: relative;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 14px;
+  width: 14px;
+  height: 14px;
   white-space: nowrap; }
   .o-checkbox:hover {
     cursor: pointer; }
@@ -218,11 +220,11 @@ var css = `:host {
 .o-checkbox__background,
 .o-checkbox__label {
   display: inline-block;
-  height: 18px;
+  height: 14px;
   vertical-align: middle; }
 
 .o-checkbox__background {
-  width: 18px; }
+  width: 14px; }
 
 .o-checkbox__label {
   margin-left: 10px; }
@@ -363,7 +365,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  animation: float 5s infinite;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\no-checkbox {\n  height: 20px;\n  vertical-align: middle; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n", ""]);
 
 // exports
 
@@ -457,9 +459,9 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js":
+/***/ "./node_modules/_omi@6.19.23@omi/dist/omi.esm.js":
 /*!*******************************************************!*\
-  !*** ./node_modules/_omi@6.19.20@omi/dist/omi.esm.js ***!
+  !*** ./node_modules/_omi@6.19.23@omi/dist/omi.esm.js ***!
   \*******************************************************/
 /*! exports provided: default, tag, WeElement, Component, render, h, createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend, get, set, bind, unbind, JSONProxy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -491,7 +493,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unbind", function() { return unbind; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JSONProxy", function() { return JSONPatcherProxy; });
 /**
- * Omi v6.19.20  http://omijs.org
+ * Omi v6.19.23  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -881,26 +883,10 @@ function setAccessor(node, name, old, value, isSvg, component) {
     }
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || '';
+  } else if (name[0] == '_' && name[1] == 'o' && name[2] == 'n' && node.constructor.is === 'WeElement') {
+    bindEvent(node, name.replace('_', ''), value, old);
   } else if (name[0] == 'o' && name[1] == 'n') {
-    var useCapture = name !== (name = name.replace(/Capture$/, ''));
-    var nameLower = name.toLowerCase();
-    name = (nameLower in node ? nameLower : name).slice(2);
-    if (value) {
-      if (!old) {
-        node.addEventListener(name, eventProxy$1, useCapture);
-        if (name == 'tap') {
-          node.addEventListener('touchstart', touchStart, useCapture);
-          node.addEventListener('touchend', touchEnd, useCapture);
-        }
-      }
-    } else {
-      node.removeEventListener(name, eventProxy$1, useCapture);
-      if (name == 'tap') {
-        node.removeEventListener('touchstart', touchStart, useCapture);
-        node.removeEventListener('touchend', touchEnd, useCapture);
-      }
-    }
-(node._listeners || (node._listeners = {}))[name] = value;
+    bindEvent(node, name, value, old);
   } else if (node.nodeName === 'INPUT' && name === 'value') {
     node[name] = value == null ? '' : value;
   } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') {
@@ -937,16 +923,18 @@ function eventProxy$1(e) {
   return this._listeners[e.type](options.event && options.event(e) || e);
 }
 
-function touchStart(e) {
-  this.___touchX = e.touches[0].pageX;
-  this.___touchY = e.touches[0].pageY;
-  this.___scrollTop = document.body.scrollTop;
-}
-
-function touchEnd(e) {
-  if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
-    this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+function bindEvent(node, name, value, old) {
+  var useCapture = name !== (name = name.replace(/Capture$/, ''));
+  var nameLower = name.toLowerCase();
+  name = (nameLower in node ? nameLower : name).slice(2);
+  if (value) {
+    if (!old) {
+      node.addEventListener(name, eventProxy$1, useCapture);
+    }
+  } else {
+    node.removeEventListener(name, eventProxy$1, useCapture);
   }
+(node._listeners || (node._listeners = {}))[name] = value;
 }
 
 /** Diff recursion count, used to track the end of the diff cycle. */
@@ -981,15 +969,8 @@ function diff(dom, vnode, parent, component, updateSelf) {
   }
   if (isArray(vnode)) {
     if (parent) {
-      var styles = parent.querySelectorAll('style');
-      styles.forEach(function (s) {
-        parent.removeChild(s);
-      });
+      //don't use css and props.css when using h.f
       innerDiffNode(parent, vnode, hydrating, component, updateSelf);
-
-      for (var i = styles.length - 1; i >= 0; i--) {
-        parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
-      }
     } else {
       ret = [];
       vnode.forEach(function (item, index) {
@@ -1435,10 +1416,6 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    if (this.css) {
-      shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-    }
-
     this.beforeRender();
     options.afterInstall && options.afterInstall(this);
 
@@ -1446,6 +1423,10 @@ var WeElement = function (_HTMLElement) {
 
     this.rootNode = diff(null, rendered, null, this);
     this.rendered();
+
+    if (this.css) {
+      shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+    }
 
     if (this.props.css) {
       this._customStyleElement = cssToDom(this.props.css);
@@ -2255,8 +2236,8 @@ function getHost(ele) {
   }
 }
 
-function rpx(str) {
-  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+function rpx(css) {
+  return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
     return window.innerWidth * Number(b) / 750 + 'px';
   });
 }
@@ -2693,7 +2674,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.20';
+options.root.Omi.version = '6.19.23';
 
 /* harmony default export */ __webpack_exports__["default"] = (omi);
 
@@ -2763,7 +2744,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.23@omi/dist/omi.esm.js");
 __webpack_require__(/*! ./index.tsx */ "./src/index.tsx");
 var Table = /** @class */ (function (_super) {
     __extends(Table, _super);
@@ -2820,7 +2801,8 @@ var Table = /** @class */ (function (_super) {
         ];
         _this.columns = [{
                 title: 'ID',
-                render: function (item) { return (omi_1.h("strong", null, item.id)); },
+                key: 'id',
+                render: function (item) { return (omi_1.h("span", null, item.id)); },
             }, {
                 title: 'Name',
                 key: 'name',
@@ -2848,7 +2830,7 @@ var Table = /** @class */ (function (_super) {
     }
     Table.prototype.render = function (props) {
         var _this = this;
-        return omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: false, columns: this.columns, dataSource: this.dataSource });
+        return omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: true, columns: this.columns, dataSource: this.dataSource });
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -2958,8 +2940,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js");
-__webpack_require__(/*! @omiu/checkbox */ "./node_modules/_@omiu_checkbox@0.0.9@@omiu/checkbox/src/index.esm.js");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/_omi@6.19.23@omi/dist/omi.esm.js");
+__webpack_require__(/*! @omiu/checkbox */ "./node_modules/_@omiu_checkbox@0.0.10@@omiu/checkbox/src/index.esm.js");
 var transition_ts_1 = __webpack_require__(/*! ./transition.ts */ "./src/transition.ts");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Table = /** @class */ (function (_super) {
