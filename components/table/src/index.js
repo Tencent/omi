@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.11 http://omijs.org
+ * @omiu/table v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -95,7 +95,7 @@
     }
 
     /**
-     * @omiu/checkbox v0.0.10 http://omijs.org
+     * @omiu/checkbox v0.0.11 http://omijs.org
      * Front End Cross-Frameworks Framework.
      * By dntzhang https://github.com/dntzhang
      * Github: https://github.com/Tencent/omi
@@ -160,7 +160,6 @@
   position: relative;
   font-size: 14px;
   line-height: 14px;
-  width: 14px;
   height: 14px;
   white-space: nowrap; }
   .o-checkbox:hover {
