@@ -80,36 +80,6 @@ export default class extends WeElement<Props> {
   render() {
     return (
       <div class={tw`pl-0.5`}>
-        <div class={tw`flex flex-row`}>
-          <div class={tw`flex-1  px-2`}>
-            <h4 class={tw`py-2 text-sm`}>带边框</h4>
-
-            <o-table
-              checkbox={true}
-              stripe={true}
-              border={true}
-              compact={true}
-              columns={this.columns}
-              dataSource={this.dataSource}
-            ></o-table>
-          </div>
-
-          <div class={tw` px-2`}>
-            <h4 class={tw`py-2 text-sm`}>冻结行列</h4>
-            <o-table
-              checkbox={true}
-              stripe={true}
-              width="200px"
-              height="200px"
-              stickyTop={true}
-              stickyLeftCount={2}
-              border={false}
-              compact={true}
-              columns={this.columns}
-              dataSource={this.dataSource}
-            ></o-table>
-          </div>
-        </div>
 
         <div class={tw`px-2`}>
           <h4 class={tw`py-2 text-sm`}>基础表格</h4>
@@ -123,6 +93,41 @@ export default class extends WeElement<Props> {
             dataSource={this.dataSource}
           ></o-table>
         </div>
+
+        <div class={tw`flex flex-row`}>
+          <div class={tw` px-2`}>
+            <h4 class={tw`py-2 text-sm`}>冻结行列</h4>
+            <o-table
+              checkbox={true}
+              stripe={true}
+              width="200px"
+              height="250px"
+              stickyTop={true}
+              stickyLeftCount={2}
+              border={true}
+              compact={true}
+              columns={this.columns}
+              dataSource={this.dataSource}
+            ></o-table>
+          </div>
+
+          <div class={tw`flex-1  px-2`}>
+            <h4 class={tw`py-2 text-sm`}>带边框</h4>
+
+            <o-table
+              checkbox={true}
+              stripe={true}
+              border={true}
+              compact={true}
+              columns={this.columns}
+              dataSource={this.dataSource}
+            ></o-table>
+          </div>
+
+
+        </div>
+
+
 
         <div class={tw`flex flex-row`}>
           <div class={tw`flex-1  px-2`}>

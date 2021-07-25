@@ -92,11 +92,19 @@ export default class Table extends WeElement<Props> {
   }
 
   installed() {
+    this.setStickyLeft()
+  }
+
+  updated() {
+    this.setStickyLeft()
+  }
+
+  setStickyLeft() {
     const stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left')
     const boxRect = this.rootNode.getBoundingClientRect()
     stickyLeftEls.forEach((stickyLeftEl, index) => {
       const rect = stickyLeftEl.getBoundingClientRect()
-      stickyLeftEl.style.left = (rect.left - boxRect.left - index) + 'px'
+      stickyLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px'
     })
   }
 

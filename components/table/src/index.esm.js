@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.10 http://omijs.org
+ * @omiu/table v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -560,11 +560,17 @@ var Table = /** @class */ (function (_super) {
         return { 'checked': true };
     };
     Table.prototype.installed = function () {
+        this.setStickyLeft();
+    };
+    Table.prototype.updated = function () {
+        this.setStickyLeft();
+    };
+    Table.prototype.setStickyLeft = function () {
         var stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left');
         var boxRect = this.rootNode.getBoundingClientRect();
         stickyLeftEls.forEach(function (stickyLeftEl, index) {
             var rect = stickyLeftEl.getBoundingClientRect();
-            stickyLeftEl.style.left = (rect.left - boxRect.left - index) + 'px';
+            stickyLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px';
         });
     };
     Table.prototype.render = function (props) {
