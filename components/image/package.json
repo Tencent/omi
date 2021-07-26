@@ -90,7 +90,6 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
-    "@popperjs/core": "^2.9.2",
     "omi": "latest"
   }
 }

@@ -4,11 +4,27 @@ import './index.tsx'
 @tag('table-demo')
 export default class Table extends WeElement {
 
+  static css = `
+  o-image{
+    margin: 10px;
+  }`
   render(props) {
+    const src = 'https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1140680000/VCG211140680945.jpg/thumb'
     return <div>
-      <o-image src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png">
+      <o-image style="width:100px;height:100px;" fit="fill" src={src}>
       </o-image>
 
+      <o-image style="width:100px;height:100px;" fit="contain" src={src}>
+      </o-image>
+      <o-image style="width:100px;height:100px;" fit="cover" src={src}>
+      </o-image>
+
+
+      <o-image style="width:100px;height:100px;" fit="none" src={src}>
+      </o-image>
+
+      <o-image style="width:100px;height:100px;" fit="scale-down" src={src}>
+      </o-image>
 
     </div>
   }

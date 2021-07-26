@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip.show {\n  display: block; }\n\n.tip {\n  border: 1px solid #888;\n  position: absolute;\n  border-radius: 4px;\n  padding: 10px;\n  z-index: 2000;\n  font-size: 12px;\n  line-height: 1.2;\n  min-width: 10px;\n  word-wrap: break-word;\n  display: none; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #303133;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #303133;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #303133; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #303133; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #303133;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #303133;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #303133; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #303133; }\n\n.tip.is-dark {\n  background: #303133;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF;\n  border: 1px solid #303133; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #303133; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #303133; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #303133; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #303133; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n", ""]);
+exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n", ""]);
 
 // exports
 
@@ -2485,9 +2485,15 @@ var Table = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Table.prototype.render = function (props) {
+        var src = 'https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1140680000/VCG211140680945.jpg/thumb';
         return omi_1.h("div", null,
-            omi_1.h("o-image", { src: "https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png" }));
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "fill", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "contain", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "cover", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "none", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "scale-down", src: src }));
     };
+    Table.css = "\n  o-image{\n    margin: 10px;\n  }";
     Table = __decorate([
         omi_1.tag('table-demo')
     ], Table);
@@ -2557,8 +2563,8 @@ var Image = /** @class */ (function (_super) {
     Image.prototype.installed = function () {
     };
     Image.prototype.render = function (props) {
-        return omi_1.h("div", null,
-            omi_1.h("img", { src: props.src }),
+        return omi_1.h(omi_1.h.f, null,
+            omi_1.h("img", { src: props.src, style: { objectFit: props.fit } }),
             omi_1.h("div", null, props.errorMsg),
             omi_1.h("slot", { name: "error" }),
             omi_1.h("slot", { name: "placeholder" }));
@@ -2567,6 +2573,7 @@ var Image = /** @class */ (function (_super) {
     Image.defaultProps = {};
     Image.propTypes = {
         src: String,
+        fit: String,
     };
     Image = __decorate([
         omi_1.tag('o-image')

@@ -5,6 +5,7 @@ import * as css from './index.scss'
 
 interface Props {
   src?: string
+  fit?: string
 }
 
 @tag('o-image')
@@ -17,6 +18,7 @@ export default class Image extends WeElement<Props> {
 
   static propTypes = {
     src: String,
+    fit: String,
   }
 
   installed() {
@@ -24,11 +26,11 @@ export default class Image extends WeElement<Props> {
   }
 
   render(props) {
-    return <div>
-      <img src={props.src} ></img>
+    return <h.f>
+      <img src={props.src} style={{ objectFit: props.fit }}></img>
       <div>{props.errorMsg}</div>
       <slot name="error"></slot>
       <slot name="placeholder"></slot>
-    </div>
+    </h.f>
   }
 }
