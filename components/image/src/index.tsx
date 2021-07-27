@@ -1,5 +1,4 @@
 import { tag, WeElement, h, classNames } from 'omi'
-import { createPopper } from '@popperjs/core';
 
 import * as css from './index.scss'
 

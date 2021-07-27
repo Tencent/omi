@@ -1,6 +1,6 @@
 {
   "name": "@omiu/image",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The image container supports custom placeholder, loading failure, etc. while retaining the characteristics of the native img.",
   "docsExtend": {
     "cnName": "",
