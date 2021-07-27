@@ -6,6 +6,7 @@ import * as css from './index.scss'
 interface Props {
   src?: string
   fit?: string
+  errorMsg?: string
 }
 
 @tag('o-image')
@@ -13,12 +14,13 @@ export default class Image extends WeElement<Props> {
   static css = css
 
   static defaultProps = {
-
+    errorMsg: '加载失败'
   }
 
   static propTypes = {
     src: String,
     fit: String,
+    errorMsg: String
   }
 
   loaded: boolean = false
@@ -54,8 +56,7 @@ export default class Image extends WeElement<Props> {
     return <h.f>
       <img onload={this.onLoad}
         onerror={this.onError} src={props.src} style={{ objectFit: props.fit, display: this.loaded ? 'block' : 'none' }}></img>
-      <div>{props.errorMsg}</div>
-      {this.loadError && <slot ref={_ => this.error = _} class="error" name="error">加载失败</slot>}
+      {this.loadError && <slot ref={_ => this.error = _} class="error" name="error">{props.errorMsg}</slot>}
       {!this.loadError && <slot name="placeholder" style={{ display: this.loaded ? 'none' : 'block  ' }} ref={_ => this.placeholder = _} class="placeholder"></slot>}
     </h.f>
   }

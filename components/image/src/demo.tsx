@@ -28,12 +28,18 @@ export default class Table extends WeElement {
 
       <br />
 
+      <h3>  加载失败</h3>
       <o-image style="width:200px;height:200px;" fit="scale-down" src={'1' + src}>
-        <div slot="placeholder" class="image-slot">
+        <div slot="placeholder" >
           加载中<span class="dot">...</span>
         </div>
       </o-image>
 
+      <o-image style="width:200px;height:200px;" fit="scale-down" src={'1' + src}>
+        <div slot="error" >
+          <o-icon-broken-image style="font-size:30px"></o-icon-broken-image>
+        </div>
+      </o-image>
     </div>
   }
 }

@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.placeholder,\n.error {\n  width: 100%;\n  height: 100%;\n  display: block;\n  text-align: center;\n  font-size: 0.875em; }\n", ""]);
+exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.placeholder,\n.error {\n  width: 100%;\n  height: 100%;\n  display: block;\n  text-align: center;\n  font-size: 0.875em;\n  color: #bdc5d4;\n  background-color: #f5f7fa; }\n", ""]);
 
 // exports
 
@@ -226,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unbind", function() { return unbind; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JSONProxy", function() { return JSONPatcherProxy; });
 /**
- * Omi v6.19.23  http://omijs.org
+ * Omi v6.19.24  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -875,27 +875,29 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
       vchild = vchildren[i];
       child = null;
 
-      // attempt to find a node based on key matching
-      var key = vchild.key;
-      if (key != null) {
-        if (keyedLen && keyed[key] !== undefined) {
-          child = keyed[key];
-          keyed[key] = undefined;
-          keyedLen--;
-        }
-      }
-      // attempt to pluck a node of the same type from the existing children
-      else if (!child && min < childrenLen) {
-          for (j = min; j < childrenLen; j++) {
-            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-              child = c;
-              children[j] = undefined;
-              if (j === childrenLen - 1) childrenLen--;
-              if (j === min) min++;
-              break;
-            }
+      if (vchild) {
+        // attempt to find a node based on key matching
+        var key = vchild.key;
+        if (key != null) {
+          if (keyedLen && keyed[key] !== undefined) {
+            child = keyed[key];
+            keyed[key] = undefined;
+            keyedLen--;
           }
         }
+        // attempt to pluck a node of the same type from the existing children
+        else if (!child && min < childrenLen) {
+            for (j = min; j < childrenLen; j++) {
+              if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+                child = c;
+                children[j] = undefined;
+                if (j === childrenLen - 1) childrenLen--;
+                if (j === min) min++;
+                break;
+              }
+            }
+          }
+      }
 
       // morph the matched/found/created DOM child to match vchild (deep)
       child = idiff(child, vchild, component, updateSelf);
@@ -2407,7 +2409,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.23';
+options.root.Omi.version = '6.19.24';
 
 /* harmony default export */ __webpack_exports__["default"] = (omi);
 
@@ -2493,10 +2495,14 @@ var Table = /** @class */ (function (_super) {
             omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "none", src: src }),
             omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "scale-down", src: src }),
             omi_1.h("br", null),
+            omi_1.h("h3", null, "  \u52A0\u8F7D\u5931\u8D25"),
             omi_1.h("o-image", { style: "width:200px;height:200px;", fit: "scale-down", src: '1' + src },
-                omi_1.h("div", { slot: "placeholder", class: "image-slot" },
+                omi_1.h("div", { slot: "placeholder" },
                     "\u52A0\u8F7D\u4E2D",
-                    omi_1.h("span", { class: "dot" }, "..."))));
+                    omi_1.h("span", { class: "dot" }, "..."))),
+            omi_1.h("o-image", { style: "width:200px;height:200px;", fit: "scale-down", src: '1' + src },
+                omi_1.h("div", { slot: "error" },
+                    omi_1.h("o-icon-broken-image", { style: "font-size:30px" }))));
     };
     Table.css = "\n  o-image{\n    margin: 10px;\n  }";
     Table = __decorate([
@@ -2591,15 +2597,17 @@ var Image = /** @class */ (function (_super) {
         var _this = this;
         return omi_1.h(omi_1.h.f, null,
             omi_1.h("img", { onload: this.onLoad, onerror: this.onError, src: props.src, style: { objectFit: props.fit, display: this.loaded ? 'block' : 'none' } }),
-            omi_1.h("div", null, props.errorMsg),
-            this.loadError && omi_1.h("slot", { ref: function (_) { return _this.error = _; }, class: "error", name: "error" }, "\u52A0\u8F7D\u5931\u8D25"),
+            this.loadError && omi_1.h("slot", { ref: function (_) { return _this.error = _; }, class: "error", name: "error" }, props.errorMsg),
             !this.loadError && omi_1.h("slot", { name: "placeholder", style: { display: this.loaded ? 'none' : 'block  ' }, ref: function (_) { return _this.placeholder = _; }, class: "placeholder" }));
     };
     Image.css = css;
-    Image.defaultProps = {};
+    Image.defaultProps = {
+        errorMsg: '加载失败'
+    };
     Image.propTypes = {
         src: String,
         fit: String,
+        errorMsg: String
     };
     Image = __decorate([
         omi_1.tag('o-image')
