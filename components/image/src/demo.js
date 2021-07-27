@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n", ""]);
+exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.placeholder,\n.error {\n  width: 100%;\n  height: 100%;\n  display: block;\n  text-align: center;\n  font-size: 0.875em; }\n", ""]);
 
 // exports
 
@@ -2491,7 +2491,12 @@ var Table = /** @class */ (function (_super) {
             omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "contain", src: src }),
             omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "cover", src: src }),
             omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "none", src: src }),
-            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "scale-down", src: src }));
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "scale-down", src: src }),
+            omi_1.h("br", null),
+            omi_1.h("o-image", { style: "width:200px;height:200px;", fit: "scale-down", src: '1' + src },
+                omi_1.h("div", { slot: "placeholder", class: "image-slot" },
+                    "\u52A0\u8F7D\u4E2D",
+                    omi_1.h("span", { class: "dot" }, "..."))));
     };
     Table.css = "\n  o-image{\n    margin: 10px;\n  }";
     Table = __decorate([
@@ -2558,16 +2563,37 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Image = /** @class */ (function (_super) {
     __extends(Image, _super);
     function Image() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.loaded = false;
+        _this.loadError = false;
+        _this.onLoad = function () {
+            _this.loaded = true;
+            _this.update();
+        };
+        _this.onError = function () {
+            _this.loaded = false;
+            _this.loadError = true;
+            _this.update();
+        };
+        return _this;
     }
     Image.prototype.installed = function () {
+        var height = this.getBoundingClientRect().height + 'px';
+        this.error && (this.error.style.lineHeight = height);
+        this.placeholder && (this.placeholder.style.lineHeight = height);
+    };
+    Image.prototype.updated = function () {
+        var height = this.getBoundingClientRect().height + 'px';
+        this.error && (this.error.style.lineHeight = height);
+        this.placeholder && (this.placeholder.style.lineHeight = height);
     };
     Image.prototype.render = function (props) {
+        var _this = this;
         return omi_1.h(omi_1.h.f, null,
-            omi_1.h("img", { src: props.src, style: { objectFit: props.fit } }),
+            omi_1.h("img", { onload: this.onLoad, onerror: this.onError, src: props.src, style: { objectFit: props.fit, display: this.loaded ? 'block' : 'none' } }),
             omi_1.h("div", null, props.errorMsg),
-            omi_1.h("slot", { name: "error" }),
-            omi_1.h("slot", { name: "placeholder" }));
+            this.loadError && omi_1.h("slot", { ref: function (_) { return _this.error = _; }, class: "error", name: "error" }, "\u52A0\u8F7D\u5931\u8D25"),
+            !this.loadError && omi_1.h("slot", { name: "placeholder", style: { display: this.loaded ? 'none' : 'block  ' }, ref: function (_) { return _this.placeholder = _; }, class: "placeholder" }));
     };
     Image.css = css;
     Image.defaultProps = {};

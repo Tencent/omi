@@ -26,6 +26,14 @@ export default class Table extends WeElement {
       <o-image style="width:100px;height:100px;" fit="scale-down" src={src}>
       </o-image>
 
+      <br />
+
+      <o-image style="width:200px;height:200px;" fit="scale-down" src={'1' + src}>
+        <div slot="placeholder" class="image-slot">
+          加载中<span class="dot">...</span>
+        </div>
+      </o-image>
+
     </div>
   }
 }

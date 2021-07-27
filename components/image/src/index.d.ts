@@ -10,7 +10,14 @@ export default class Image extends WeElement<Props> {
         src: StringConstructor;
         fit: StringConstructor;
     };
+    loaded: boolean;
+    loadError: boolean;
+    onLoad: () => void;
+    onError: () => void;
+    placeholder: any;
+    error: any;
     installed(): void;
+    updated(): void;
     render(props: any): JSX.Element;
 }
 export {};
