@@ -248,27 +248,29 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
       vchild = vchildren[i]
       child = null
 
-      // attempt to find a node based on key matching
-      let key = vchild.key
-      if (key != null) {
-        if (keyedLen && keyed[key] !== undefined) {
-          child = keyed[key]
-          keyed[key] = undefined
-          keyedLen--
+      if (vchild) {
+        // attempt to find a node based on key matching
+        let key = vchild.key
+        if (key != null) {
+          if (keyedLen && keyed[key] !== undefined) {
+            child = keyed[key]
+            keyed[key] = undefined
+            keyedLen--
+          }
         }
-      }
-      // attempt to pluck a node of the same type from the existing children
-      else if (!child && min < childrenLen) {
-        for (j = min; j < childrenLen; j++) {
-          if (
-            children[j] !== undefined &&
-            isSameNodeType((c = children[j]), vchild, isHydrating)
-          ) {
-            child = c
-            children[j] = undefined
-            if (j === childrenLen - 1) childrenLen--
-            if (j === min) min++
-            break
+        // attempt to pluck a node of the same type from the existing children
+        else if (!child && min < childrenLen) {
+          for (j = min; j < childrenLen; j++) {
+            if (
+              children[j] !== undefined &&
+              isSameNodeType((c = children[j]), vchild, isHydrating)
+            ) {
+              child = c
+              children[j] = undefined
+              if (j === childrenLen - 1) childrenLen--
+              if (j === min) min++
+              break
+            }
           }
         }
       }

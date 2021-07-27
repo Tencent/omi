@@ -1,11 +1,3 @@
-/**
- * Omi v6.19.24  http://omijs.org
- * Front End Cross-Frameworks Framework.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
 
@@ -201,10 +193,10 @@
 
   function h(nodeName, attributes) {
     var children = [],
-        lastSimple,
-        child,
-        simple,
-        i;
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
     for (i = arguments.length; i-- > 2;) {
       stack.push(arguments[i]);
     }
@@ -251,6 +243,10 @@
 
     return p;
   }
+
+  // render modes
+
+  var ATTR_KEY = 'prevProps';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -386,8 +382,8 @@
             if (!(i in value)) node.style[i] = '';
           }
         }
-        for (var i in value) {
-          node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+        for (var _i in value) {
+          node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
         }
       }
     } else if (name === 'dangerouslySetInnerHTML') {
@@ -462,153 +458,153 @@
    *  @private
    */
   function diff(dom, vnode, parent, component, updateSelf) {
-    //first render return undefined
-    if (!dom && !vnode) return;
-    // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
-    var ret;
-    if (!diffLevel++) {
-      // when first starting the diff, check if we're diffing an SVG or within an SVG
-      isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
+  	//first render return undefined
+  	if (!dom && !vnode) return;
+  	// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
+  	var ret = void 0;
+  	if (!diffLevel++) {
+  		// when first starting the diff, check if we're diffing an SVG or within an SVG
+  		isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
-      // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('prevProps' in dom);
-    }
-    if (vnode && vnode.nodeName === Fragment) {
-      vnode = vnode.children;
-    }
-    if (isArray(vnode)) {
-      if (parent) {
-        //don't use css and props.css when using h.f
-        innerDiffNode(parent, vnode, hydrating, component, updateSelf);
-      } else {
-        ret = [];
-        vnode.forEach(function (item, index) {
-          var ele = idiff(index === 0 ? dom : null, item, component, updateSelf);
-          ret.push(ele);
-        });
-      }
-    } else {
-      if (isArray(dom)) {
-        dom.forEach(function (one, index) {
-          if (index === 0) {
-            ret = idiff(one, vnode, component, updateSelf);
-          } else {
-            recollectNodeTree(one, false);
-          }
-        });
-      } else {
-        ret = idiff(dom, vnode, component, updateSelf);
-      }
-      // append the element if its a new parent
-      if (parent && ret.parentNode !== parent) parent.appendChild(ret);
-    }
+  		// hydration is indicated by the existing element to be diffed not having a prop cache
+  		hydrating = dom != null && !(ATTR_KEY in dom);
+  	}
+  	if (vnode && vnode.nodeName === Fragment) {
+  		vnode = vnode.children;
+  	}
+  	if (isArray(vnode)) {
+  		if (parent) {
+  			//don't use css and props.css when using h.f
+  			innerDiffNode(parent, vnode, hydrating, component, updateSelf);
+  		} else {
+  			ret = [];
+  			vnode.forEach(function (item, index) {
+  				var ele = idiff(index === 0 ? dom : null, item, component, updateSelf);
+  				ret.push(ele);
+  			});
+  		}
+  	} else {
+  		if (isArray(dom)) {
+  			dom.forEach(function (one, index) {
+  				if (index === 0) {
+  					ret = idiff(one, vnode, component, updateSelf);
+  				} else {
+  					recollectNodeTree(one, false);
+  				}
+  			});
+  		} else {
+  			ret = idiff(dom, vnode, component, updateSelf);
+  		}
+  		// append the element if its a new parent
+  		if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+  	}
 
-    // diffLevel being reduced to 0 means we're exiting the diff
-    if (! --diffLevel) {
-      hydrating = false;
-      // invoke queued componentDidMount lifecycle methods
-    }
+  	// diffLevel being reduced to 0 means we're exiting the diff
+  	if (! --diffLevel) {
+  		hydrating = false;
+  		// invoke queued componentDidMount lifecycle methods
+  	}
 
-    return ret;
+  	return ret;
   }
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
   function idiff(dom, vnode, component, updateSelf) {
-    if (dom && vnode && dom.props) {
-      dom.props.children = vnode.children;
-    }
-    var out = dom,
-        prevSvgMode = isSvgMode;
+  	if (dom && vnode && dom.props) {
+  		dom.props.children = vnode.children;
+  	}
+  	var out = dom,
+  	    prevSvgMode = isSvgMode;
 
-    // empty values (null, undefined, booleans) render as empty Text nodes
-    if (vnode == null || typeof vnode === 'boolean') vnode = '';
+  	// empty values (null, undefined, booleans) render as empty Text nodes
+  	if (vnode == null || typeof vnode === 'boolean') vnode = '';
 
-    // Fast case: Strings & Numbers create/update Text nodes.
-    if (typeof vnode === 'string' || typeof vnode === 'number') {
-      // update if it's already a Text node:
-      if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || component)) {
-        /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
-        if (dom.nodeValue != vnode) {
-          dom.nodeValue = vnode;
-        }
-      } else {
-        // it wasn't a Text node: replace it with one and recycle the old Element
-        out = document.createTextNode(vnode);
-        if (dom) {
-          if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
-          recollectNodeTree(dom, true);
-        }
-      }
+  	// Fast case: Strings & Numbers create/update Text nodes.
+  	if (typeof vnode === 'string' || typeof vnode === 'number') {
+  		// update if it's already a Text node:
+  		if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || component)) {
+  			/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+  			if (dom.nodeValue != vnode) {
+  				dom.nodeValue = vnode;
+  			}
+  		} else {
+  			// it wasn't a Text node: replace it with one and recycle the old Element
+  			out = document.createTextNode(vnode);
+  			if (dom) {
+  				if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+  				recollectNodeTree(dom, true);
+  			}
+  		}
 
-      out['prevProps'] = true;
+  		out[ATTR_KEY] = true;
 
-      return out;
-    }
+  		return out;
+  	}
 
-    // If the VNode represents a Component, perform a component diff:
-    var vnodeName = vnode.nodeName;
-    if (typeof vnodeName === 'function') {
-      for (var key in options.mapping) {
-        if (options.mapping[key] === vnodeName) {
-          vnodeName = key;
-          vnode.nodeName = key;
-          break;
-        }
-      }
-    }
-    // Tracks entering and exiting SVG namespace when descending through the tree.
-    isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
+  	// If the VNode represents a Component, perform a component diff:
+  	var vnodeName = vnode.nodeName;
+  	if (typeof vnodeName === 'function') {
+  		for (var key in options.mapping) {
+  			if (options.mapping[key] === vnodeName) {
+  				vnodeName = key;
+  				vnode.nodeName = key;
+  				break;
+  			}
+  		}
+  	}
+  	// Tracks entering and exiting SVG namespace when descending through the tree.
+  	isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
 
-    // If there's no existing element or it's the wrong type, create a new one:
-    vnodeName = String(vnodeName);
-    if (!dom || !isNamedNode(dom, vnodeName)) {
-      out = createNode(vnodeName, isSvgMode);
+  	// If there's no existing element or it's the wrong type, create a new one:
+  	vnodeName = String(vnodeName);
+  	if (!dom || !isNamedNode(dom, vnodeName)) {
+  		out = createNode(vnodeName, isSvgMode);
 
-      if (dom) {
-        // move children into the replacement node
-        while (dom.firstChild) {
-          out.appendChild(dom.firstChild);
-        } // if the previous Element was mounted into the DOM, replace it inline
-        if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+  		if (dom) {
+  			// move children into the replacement node
+  			while (dom.firstChild) {
+  				out.appendChild(dom.firstChild);
+  			} // if the previous Element was mounted into the DOM, replace it inline
+  			if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
 
-        // recycle the old element (skips non-Element node types)
-        recollectNodeTree(dom, true);
-      }
-    }
+  			// recycle the old element (skips non-Element node types)
+  			recollectNodeTree(dom, true);
+  		}
+  	}
 
-    var fc = out.firstChild,
-        props = out['prevProps'],
-        vchildren = vnode.children;
+  	var fc = out.firstChild,
+  	    props = out[ATTR_KEY],
+  	    vchildren = vnode.children;
 
-    if (props == null) {
-      props = out['prevProps'] = {};
-      for (var a = out.attributes, i = a.length; i--;) {
-        props[a[i].name] = a[i].value;
-      }
-    }
+  	if (props == null) {
+  		props = out[ATTR_KEY] = {};
+  		for (var a = out.attributes, i = a.length; i--;) {
+  			props[a[i].name] = a[i].value;
+  		}
+  	}
 
-    // Optimization: fast-path for elements containing a single TextNode:
-    if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
-      if (fc.nodeValue != vchildren[0]) {
-        fc.nodeValue = vchildren[0];
-      }
-    }
-    // otherwise, if there are existing or new children, diff them:
-    else if (vchildren && vchildren.length || fc != null) {
-        if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
-          innerDiffNode(out, vchildren, hydrating || props.dangerouslySetInnerHTML != null, component, updateSelf);
-        }
-      }
+  	// Optimization: fast-path for elements containing a single TextNode:
+  	if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
+  		if (fc.nodeValue != vchildren[0]) {
+  			fc.nodeValue = vchildren[0];
+  		}
+  	}
+  	// otherwise, if there are existing or new children, diff them:
+  	else if (vchildren && vchildren.length || fc != null) {
+  			if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+  				innerDiffNode(out, vchildren, hydrating || props.dangerouslySetInnerHTML != null, component, updateSelf);
+  			}
+  		}
 
-    // Apply attributes/props from VNode to the DOM Element:
-    diffAttributes(out, vnode.attributes, props, component, updateSelf);
-    if (out.props) {
-      out.props.children = vnode.children;
-    }
-    // restore previous SVG mode: (in case we're exiting an SVG namespace)
-    isSvgMode = prevSvgMode;
+  	// Apply attributes/props from VNode to the DOM Element:
+  	diffAttributes(out, vnode.attributes, props, component, updateSelf);
+  	if (out.props) {
+  		out.props.children = vnode.children;
+  	}
+  	// restore previous SVG mode: (in case we're exiting an SVG namespace)
+  	isSvgMode = prevSvgMode;
 
-    return out;
+  	return out;
   }
 
   /** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
@@ -617,91 +613,91 @@
    *  @param {Boolean} isHydrating  If `true`, consumes externally created elements similar to hydration
    */
   function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
-    var originalChildren = dom.childNodes,
-        children = [],
-        keyed = {},
-        keyedLen = 0,
-        min = 0,
-        len = originalChildren.length,
-        childrenLen = 0,
-        vlen = vchildren ? vchildren.length : 0,
-        j,
-        c,
-        f,
-        vchild,
-        child;
+  	var originalChildren = dom.childNodes,
+  	    children = [],
+  	    keyed = {},
+  	    keyedLen = 0,
+  	    min = 0,
+  	    len = originalChildren.length,
+  	    childrenLen = 0,
+  	    vlen = vchildren ? vchildren.length : 0,
+  	    j = void 0,
+  	    c = void 0,
+  	    f = void 0,
+  	    vchild = void 0,
+  	    child = void 0;
 
-    // Build up a map of keyed children and an Array of unkeyed children:
-    if (len !== 0) {
-      for (var i = 0; i < len; i++) {
-        var _child = originalChildren[i],
-            props = _child['prevProps'],
-            key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
-        if (key != null) {
-          keyedLen++;
-          keyed[key] = _child;
-        } else if (props || (_child.splitText !== undefined ? isHydrating ? _child.nodeValue.trim() : true : isHydrating)) {
-          children[childrenLen++] = _child;
-        }
-      }
-    }
+  	// Build up a map of keyed children and an Array of unkeyed children:
+  	if (len !== 0) {
+  		for (var i = 0; i < len; i++) {
+  			var _child = originalChildren[i],
+  			    props = _child[ATTR_KEY],
+  			    key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
+  			if (key != null) {
+  				keyedLen++;
+  				keyed[key] = _child;
+  			} else if (props || (_child.splitText !== undefined ? isHydrating ? _child.nodeValue.trim() : true : isHydrating)) {
+  				children[childrenLen++] = _child;
+  			}
+  		}
+  	}
 
-    if (vlen !== 0) {
-      for (var i = 0; i < vlen; i++) {
-        vchild = vchildren[i];
-        child = null;
+  	if (vlen !== 0) {
+  		for (var _i = 0; _i < vlen; _i++) {
+  			vchild = vchildren[_i];
+  			child = null;
 
-        if (vchild) {
-          // attempt to find a node based on key matching
-          var key = vchild.key;
-          if (key != null) {
-            if (keyedLen && keyed[key] !== undefined) {
-              child = keyed[key];
-              keyed[key] = undefined;
-              keyedLen--;
-            }
-          }
-          // attempt to pluck a node of the same type from the existing children
-          else if (!child && min < childrenLen) {
-              for (j = min; j < childrenLen; j++) {
-                if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-                  child = c;
-                  children[j] = undefined;
-                  if (j === childrenLen - 1) childrenLen--;
-                  if (j === min) min++;
-                  break;
-                }
-              }
-            }
-        }
+  			if (vchild) {
+  				// attempt to find a node based on key matching
+  				var _key = vchild.key;
+  				if (_key != null) {
+  					if (keyedLen && keyed[_key] !== undefined) {
+  						child = keyed[_key];
+  						keyed[_key] = undefined;
+  						keyedLen--;
+  					}
+  				}
+  				// attempt to pluck a node of the same type from the existing children
+  				else if (!child && min < childrenLen) {
+  						for (j = min; j < childrenLen; j++) {
+  							if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+  								child = c;
+  								children[j] = undefined;
+  								if (j === childrenLen - 1) childrenLen--;
+  								if (j === min) min++;
+  								break;
+  							}
+  						}
+  					}
+  			}
 
-        // morph the matched/found/created DOM child to match vchild (deep)
-        child = idiff(child, vchild, component, updateSelf);
+  			// morph the matched/found/created DOM child to match vchild (deep)
+  			child = idiff(child, vchild, component, updateSelf);
 
-        f = originalChildren[i];
-        if (child && child !== dom && child !== f) {
-          if (f == null) {
-            dom.appendChild(child);
-          } else if (child === f.nextSibling) {
-            removeNode(f);
-          } else {
-            dom.insertBefore(child, f);
-          }
-        }
-      }
-    }
+  			f = originalChildren[_i];
+  			if (child && child !== dom && child !== f) {
+  				if (f == null) {
+  					dom.appendChild(child);
+  				} else if (child === f.nextSibling) {
+  					removeNode(f);
+  				} else {
+  					dom.insertBefore(child, f);
+  				}
+  			}
+  		}
+  	}
 
-    // remove unused keyed children:
-    if (keyedLen) {
-      for (var i in keyed) {
-        if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
-      }
-    }
+  	// remove unused keyed children:
+  	if (keyedLen) {
+  		for (var _i2 in keyed) {
+  			if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
+  		}
+  	}
 
-    // remove orphaned unkeyed children:
-    while (min <= childrenLen) {
-      if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
-    }
+  	// remove orphaned unkeyed children:
+  	while (min <= childrenLen) {
+  		if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
+  	}
   }
 
   /** Recursively recycle (or just unmount) a node and its descendants.
@@ -709,21 +705,21 @@
    *  @param {Boolean} [unmountOnly=false]  If `true`, only triggers unmount lifecycle, skips removal
    */
   function recollectNodeTree(node, unmountOnly) {
-    // If the node's VNode had a ref function, invoke it with null here.
-    // (this is part of the React spec, and smart for unsetting references)
-    if (node['prevProps'] != null && node['prevProps'].ref) {
-      if (typeof node['prevProps'].ref === 'function') {
-        node['prevProps'].ref(null);
-      } else if (node['prevProps'].ref.current) {
-        node['prevProps'].ref.current = null;
-      }
-    }
+  	// If the node's VNode had a ref function, invoke it with null here.
+  	// (this is part of the React spec, and smart for unsetting references)
+  	if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) {
+  		if (typeof node[ATTR_KEY].ref === 'function') {
+  			node[ATTR_KEY].ref(null);
+  		} else if (node[ATTR_KEY].ref.current) {
+  			node[ATTR_KEY].ref.current = null;
+  		}
+  	}
 
-    if (unmountOnly === false || node['prevProps'] == null) {
-      removeNode(node);
-    }
+  	if (unmountOnly === false || node[ATTR_KEY] == null) {
+  		removeNode(node);
+  	}
 
-    removeChildren(node);
+  	removeChildren(node);
   }
 
   /** Recollect/unmount all children.
@@ -731,12 +727,12 @@
    *  - it's also cheaper than accessing the .childNodes Live NodeList
    */
   function removeChildren(node) {
-    node = node.lastChild;
-    while (node) {
-      var next = node.previousSibling;
-      recollectNodeTree(node, true);
-      node = next;
-    }
+  	node = node.lastChild;
+  	while (node) {
+  		var next = node.previousSibling;
+  		recollectNodeTree(node, true);
+  		node = next;
+  	}
   }
 
   /** Apply differences in attributes from a VNode to the given DOM Element.
@@ -745,56 +741,58 @@
    *  @param {Object} old      Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old, component, updateSelf) {
-    var name;
-    //let update = false
-    var isWeElement = dom.update;
-    var oldClone;
-    if (dom.receiveProps) {
-      oldClone = Object.assign({}, old);
-    }
-    // remove attributes no longer present on the vnode by setting them to undefined
-    for (name in old) {
-      if (!(attrs && attrs[name] != null) && old[name] != null) {
-        setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, component);
-        if (isWeElement) {
-          delete dom.props[name];
-          //update = true
-        }
-      }
-    }
+  	var name = void 0;
+  	//let update = false
+  	var isWeElement = dom.update;
+  	var oldClone = void 0;
+  	if (dom.receiveProps) {
+  		oldClone = Object.assign({}, old);
+  	}
+  	// remove attributes no longer present on the vnode by setting them to undefined
+  	for (name in old) {
+  		if (!(attrs && attrs[name] != null) && old[name] != null) {
+  			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, component);
+  			if (isWeElement) {
+  				delete dom.props[name];
+  				//update = true
+  			}
+  		}
+  	}
 
-    // add new & update changed attributes
-    for (name in attrs) {
-      if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
-        if (name === 'style') {
-          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
-        }
-        var ccName = camelCase(name);
-        dom.props[ccName] = old[ccName] = attrs[name];
-        //update = true
-      } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-        setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-        //fix lazy load props missing
-        if (dom.nodeName.indexOf('-') !== -1) {
-          dom.props = dom.props || {};
-          var _ccName = camelCase(name);
-          dom.props[_ccName] = old[_ccName] = attrs[name];
-          //update = true
-        } else {
-          old[name] = attrs[name];
-        }
-      }
-    }
+  	// add new & update changed attributes
+  	for (name in attrs) {
+  		if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
+  			if (name === 'style') {
+  				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
+  			}
+  			var ccName = camelCase(name);
+  			dom.props[ccName] = old[ccName] = attrs[name];
+  			//update = true
+  		} else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+  			setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
+  			//fix lazy load props missing
+  			if (dom.nodeName.indexOf('-') !== -1) {
+  				dom.props = dom.props || {};
+  				var _ccName = camelCase(name);
+  				dom.props[_ccName] = old[_ccName] = attrs[name];
+  				//update = true
+  			} else {
+  				old[name] = attrs[name];
+  			}
+  		}
+  	}
 
-    if (isWeElement && !updateSelf && dom.parentNode) {
-      //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
-      //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
-      if (dom.receiveProps(dom.props, oldClone) !== false) {
-        dom.update();
-      }
-      //}
-    }
+  	if (isWeElement && !updateSelf && dom.parentNode) {
+  		//__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
+  		//if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
+  		if (dom.receiveProps(dom.props, oldClone) !== false) {
+  			dom.update();
+  		}
+  		//}
+  	}
   }
+
+  var _class, _temp;
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -804,7 +802,7 @@
 
   var id = 0;
 
-  var WeElement = function (_HTMLElement) {
+  var WeElement = (_temp = _class = function (_HTMLElement) {
     _inherits(WeElement, _HTMLElement);
 
     function WeElement() {
@@ -887,7 +885,7 @@
       this.install();
       this.afterInstall();
 
-      var shadowRoot;
+      var shadowRoot = void 0;
       if (this.constructor.isLightDom) {
         shadowRoot = this;
       } else {
@@ -897,7 +895,7 @@
           });
         } else {
           shadowRoot = this.shadowRoot;
-          var fc;
+          var fc = void 0;
           while (fc = shadowRoot.firstChild) {
             shadowRoot.removeChild(fc);
           }
@@ -1106,9 +1104,7 @@
     WeElement.prototype.receiveProps = function receiveProps() {};
 
     return WeElement;
-  }(HTMLElement);
-
-  WeElement.is = 'WeElement';
+  }(HTMLElement), _class.is = 'WeElement', _temp);
 
   /*!
    * https://github.com/Palindrom/JSONPatcherProxy
@@ -1502,8 +1498,8 @@
 
         update(patchs, store);
       } else {
-        var key = fixPath(patch.path);
-        patchs[key] = patch.value;
+        var _key = fixPath(patch.path);
+        patchs[_key] = patch.value;
 
         update(patchs, store);
       }
@@ -1660,13 +1656,15 @@
       customElements.define(name, ctor);
       options.mapping[name] = ctor;
     } else {
+      var _class, _temp2;
+
       if (typeof config === 'string') {
         config = { css: config };
       } else {
         config = config || {};
       }
 
-      var Ele = function (_WeElement) {
+      var Ele = (_temp2 = _class = function (_WeElement) {
         _inherits$1(Ele, _WeElement);
 
         function Ele() {
@@ -1674,8 +1672,8 @@
 
           _classCallCheck$1(this, Ele);
 
-          for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
-            args[key] = arguments[key];
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
           }
 
           return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
@@ -1686,12 +1684,7 @@
         };
 
         return Ele;
-      }(WeElement);
-
-      Ele.css = config.css;
-      Ele.propTypes = config.propTypes;
-      Ele.defaultProps = config.defaultProps;
-      Ele.isLightDom = config.isLightDom;
+      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _class.isLightDom = config.isLightDom, _temp2);
 
       var _loop = function _loop(key) {
         if (typeof config[key] === 'function') {
@@ -2148,7 +2141,7 @@
   h.f = Fragment;
 
   function createRef() {
-    return {};
+  	return {};
   }
 
   var $ = {};
@@ -2157,36 +2150,129 @@
   var elements = options.mapping;
 
   var omi = {
-    tag: tag,
-    WeElement: WeElement,
-    Component: Component,
-    render: render,
-    h: h,
-    createElement: h,
-    options: options,
-    define: define,
-    cloneElement: cloneElement,
-    getHost: getHost,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    createRef: createRef,
-    o: o,
-    elements: elements,
-    $: $,
-    extend: extend$1,
-    get: get,
-    set: set,
-    bind: bind,
-    unbind: unbind,
-    JSONProxy: JSONPatcherProxy
+  	tag: tag,
+  	WeElement: WeElement,
+  	Component: Component,
+  	render: render,
+  	h: h,
+  	createElement: h,
+  	options: options,
+  	define: define,
+  	cloneElement: cloneElement,
+  	getHost: getHost,
+  	rpx: rpx,
+  	defineElement: defineElement,
+  	classNames: classNames,
+  	extractClass: extractClass,
+  	createRef: createRef,
+  	o: o,
+  	elements: elements,
+  	$: $,
+  	extend: extend$1,
+  	get: get,
+  	set: set,
+  	bind: bind,
+  	unbind: unbind,
+  	JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
   options.root.Omi.version = '6.19.24';
 
-  if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('my-counter', function (_WeElement) {
+  	_inherits$2(_class2, _WeElement);
+
+  	function _class2() {
+  		var _temp, _this, _ret;
+
+  		_classCallCheck$2(this, _class2);
+
+  		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  			args[_key] = arguments[_key];
+  		}
+
+  		return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._count = 1, _this.sub = function () {
+  			_this.count--;
+  		}, _this.add = function () {
+  			_this.count++;
+  		}, _temp), _possibleConstructorReturn$2(_this, _ret);
+  	}
+
+  	_class2.prototype.render = function render$$1() {
+  		console.error(this.count);
+  		return Omi.h(
+  			'div',
+  			null,
+  			Omi.h(
+  				'button',
+  				{ onClick: this.sub },
+  				'-'
+  			),
+  			Omi.h(
+  				'span',
+  				null,
+  				this.count
+  			),
+  			Omi.h(
+  				'button',
+  				{ onClick: this.add },
+  				'+'
+  			)
+  		);
+  	};
+
+  	_createClass(_class2, [{
+  		key: 'count',
+  		set: function set$$1(value) {
+  			this._count = value;
+  			this.update();
+  		},
+  		get: function get$$1() {
+  			return this._count;
+  		}
+  	}]);
+
+  	return _class2;
+  }(WeElement));
+
+  // function observable(fnName) {  // 装饰器工厂函数
+  // 	return function (target, key) {  // 装饰器
+  // 		let prev = target[key];
+  // 		console.error(target, key)
+  // 		delete target[key]
+  // 		Object.defineProperty(target, key, {
+  // 			set(next) {
+  // 				target[fnName](prev, next);
+  // 				prev = next;
+  // 			}
+  // 		})
+  // 		target[key] = prev
+  // 	}
+  // }
+
+  // console.error(888)
+  // class Store {
+  // 	@observable('onCountChange')
+  // 	count = -1;
+
+  // 	onCountChange(prev, next) {
+  // 		console.log('>>> count has changed!')
+  // 		console.log('>>> prev: ', prev)
+  // 		console.log('>>> next: ', next)
+  // 	}
+  // }
+
+  // const store = new Store();
+  // store.count = 10
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

@@ -271,19 +271,21 @@
         if (0 !== vlen) for (var i = 0; i < vlen; i++) {
             vchild = vchildren[i];
             child = null;
-            var key = vchild.key;
-            if (null != key) {
-                if (keyedLen && void 0 !== keyed[key]) {
-                    child = keyed[key];
-                    keyed[key] = void 0;
-                    keyedLen--;
+            if (vchild) {
+                var key = vchild.key;
+                if (null != key) {
+                    if (keyedLen && void 0 !== keyed[key]) {
+                        child = keyed[key];
+                        keyed[key] = void 0;
+                        keyedLen--;
+                    }
+                } else if (!child && min < childrenLen) for (j = min; j < childrenLen; j++) if (void 0 !== children[j] && isSameNodeType(c = children[j], vchild, isHydrating)) {
+                    child = c;
+                    children[j] = void 0;
+                    if (j === childrenLen - 1) childrenLen--;
+                    if (j === min) min++;
+                    break;
                 }
-            } else if (!child && min < childrenLen) for (j = min; j < childrenLen; j++) if (void 0 !== children[j] && isSameNodeType(c = children[j], vchild, isHydrating)) {
-                child = c;
-                children[j] = void 0;
-                if (j === childrenLen - 1) childrenLen--;
-                if (j === min) min++;
-                break;
             }
             child = idiff(child, vchild, component, updateSelf);
             f = originalChildren[i];
@@ -1295,7 +1297,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.19.23';
+    options.root.Omi.version = '6.19.24';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
