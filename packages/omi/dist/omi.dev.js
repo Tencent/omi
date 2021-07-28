@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.24  http://omijs.org
+ * Omi v6.19.25  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2148,7 +2148,7 @@
   h.f = Fragment;
 
   function createRef() {
-    return {};
+  	return {};
   }
 
   var $ = {};
@@ -2157,35 +2157,35 @@
   var elements = options.mapping;
 
   var omi = {
-    tag: tag,
-    WeElement: WeElement,
-    Component: Component,
-    render: render,
-    h: h,
-    createElement: h,
-    options: options,
-    define: define,
-    cloneElement: cloneElement,
-    getHost: getHost,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    createRef: createRef,
-    o: o,
-    elements: elements,
-    $: $,
-    extend: extend$1,
-    get: get,
-    set: set,
-    bind: bind,
-    unbind: unbind,
-    JSONProxy: JSONPatcherProxy
+  	tag: tag,
+  	WeElement: WeElement,
+  	Component: Component,
+  	render: render,
+  	h: h,
+  	createElement: h,
+  	options: options,
+  	define: define,
+  	cloneElement: cloneElement,
+  	getHost: getHost,
+  	rpx: rpx,
+  	defineElement: defineElement,
+  	classNames: classNames,
+  	extractClass: extractClass,
+  	createRef: createRef,
+  	o: o,
+  	elements: elements,
+  	$: $,
+  	extend: extend$1,
+  	get: get,
+  	set: set,
+  	bind: bind,
+  	unbind: unbind,
+  	JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.24';
+  options.root.Omi.version = '6.19.25';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

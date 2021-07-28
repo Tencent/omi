@@ -17,7 +17,7 @@ import 'construct-style-sheets-polyfill'
 h.f = Fragment
 
 function createRef() {
-  return {}
+	return {}
 }
 
 const $ = {}
@@ -26,61 +26,61 @@ const defineElement = define
 const elements = options.mapping
 
 const omi = {
-  tag,
-  WeElement,
-  Component,
-  render,
-  h,
-  createElement,
-  options,
-  define,
-  cloneElement,
-  getHost,
-  rpx,
-  defineElement,
-  classNames,
-  extractClass,
-  createRef,
-  o,
-  elements,
-  $,
-  extend,
-  get,
-  set,
-  bind,
-  unbind,
-  JSONProxy
+	tag,
+	WeElement,
+	Component,
+	render,
+	h,
+	createElement,
+	options,
+	define,
+	cloneElement,
+	getHost,
+	rpx,
+	defineElement,
+	classNames,
+	extractClass,
+	createRef,
+	o,
+	elements,
+	$,
+	extend,
+	get,
+	set,
+	bind,
+	unbind,
+	JSONProxy
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.19.24'
+options.root.Omi.version = '6.19.25'
 
 export default omi
 
 export {
-  tag,
-  WeElement,
-  Component,
-  render,
-  h,
-  createElement,
-  options,
-  define,
-  cloneElement,
-  getHost,
-  rpx,
-  defineElement,
-  classNames,
-  extractClass,
-  createRef,
-  o,
-  elements,
-  $,
-  extend,
-  get,
-  set,
-  bind,
-  unbind,
-  JSONProxy
+	tag,
+	WeElement,
+	Component,
+	render,
+	h,
+	createElement,
+	options,
+	define,
+	cloneElement,
+	getHost,
+	rpx,
+	defineElement,
+	classNames,
+	extractClass,
+	createRef,
+	o,
+	elements,
+	$,
+	extend,
+	get,
+	set,
+	bind,
+	unbind,
+	JSONProxy
 }
