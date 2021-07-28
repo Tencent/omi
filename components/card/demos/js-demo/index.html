@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omi Card</title>
+</head>
+
+<body>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+
+  <script src="https://unpkg.com/@omiu/link"></script>
+
+  <script src="../../../common//src/index.js"></script>
+  <script src="../../src/index.js"></script>
+  <!-- 这里导入合适的OmiU-icon -->
+  <script src="https://unpkg.com/@omiu/icon@0.0.2/add-a-photo-rounded.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.2/add-comment-rounded.js"></script>
+  <script src="https://unpkg.com/@omiu/icon@0.0.2/add-ic-call-rounded.js"></script>
+
+  <div style="display: flex; flex-direction: column; justify-content: space-around;">
+
+    <o-card title="Default size card">
+      <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
+      <!-- <div slot="cover">
+        <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+      </div> -->
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+    </o-card>
+
+    <o-card title="Small size card" size="small">
+      <o-link underline='0' type="danger" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+    </o-card>
+
+    <!-- 若需实现底部栏按钮，id,actions为必选参数 -->
+    <o-card title="Action card" size="medium" id="myAction" actions="[{icon: 'add-a-photo-rounded'},{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]">
+      <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+    </o-card>
+
+    <o-card title="Action card" id="myAction" actions="[{icon: 'add-a-photo-rounded'},{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]">
+      <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+    </o-card>
+
+  </div>
+
+  <script>
+    document.querySelector('#myAction').addEventListener('change', function (evt) {
+      console.log(evt.detail.icon + ' is clicked')
+    })
+  </script>
+</body>
+
+</html>
