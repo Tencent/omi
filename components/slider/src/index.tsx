@@ -1,62 +1,93 @@
-import { WeElement, render, h, tag } from 'omi'
+import { WeElement, h, tag, extractClass } from 'omi'
+import Script from './script'
 
-import './index.css'
-import * as css from './_index.less'
+import * as css from './index.scss'
 
 interface Props {
-  min?: number,
-  max?: number,
-  step?: number,
-  value?: string,
+  min?: number
+  max?: number
+  step?: number
+  value?: number
+  double_range?: boolean
+  vertical?: boolean
 }
 
 @tag('o-slider')
-export default class Slider extends WeElement<Props> {
-  
-  sliderVal
+export default class OSlider extends WeElement<Props> {
+  static css = css.default
+
+  __$value: number
+
+  __$valueSecond: number
 
   static defaultProps = {
     min: 0,
     max: 100,
     step: 1,
-    value: "20"
+    value: 20,
+    //default single range slider
+    double_range: false,
+    vertical: false
   }
-  
+
   static propTypes = {
     min: Number,
     max: Number,
     step: Number,
-    value: String,
+    value: Number,
+    double_range: Boolean,
+    vertical: Boolean
   }
-  
-  static css = css.default
 
-  handleSlide = evt => {
-    this.sliderVal = this.shadowRoot.querySelector("input").value
-    this.update() 
+  handleInput = (evt) => {
+    const sliderList =
+      this.shadowRoot.getElementById('slider-container').children
+    this.__$value = sliderList[0].value
+
+    this.props.double_range && (this.__$valueSecond = sliderList[1].value)
+    console.log(this.__$value, this.__$valueSecond)
+
+    this.update()
   }
 
   install() {
-    this.sliderVal = this.props.value
+    this.__$value = this.props.value as any
   }
 
-  updated() {
-    console.log(this.shadowRoot.querySelector("input").value)
-  }
+  updated() {}
 
   render(props) {
-    console.log(props.text)
+    console.log(props)
+    const cls = extractClass(props, 'o-slider', {
+      'is-vertical': props.vertical
+    })
+    console.log(cls)
+
     return (
-      <div class="slidecontainer">
-          <input type="range" min={props.min} max={props.max} value={this.sliderVal} class="slider" onChange={this.handleSlide} id="myRange"/>
-          <p>Value: <span id="demo">{this.sliderVal}</span></p>
-          
-        </div>
+      <div class="slider-container" id="slider-container">
+        <input
+          {...cls}
+          type="range"
+          min={props.min}
+          max={props.max}
+          value={this.__$value}
+          onInput={this.handleInput}
+          id="inputA"
+        />
+        {props.double_range && (
+          <input
+            {...cls}
+            type="range"
+            min={props.min}
+            max={props.max}
+            value={this.__$valueSecond}
+            onInput={this.handleInput}
+            id="inputB"
+          />
+        )}
+
+        {/* <button oninput={console.log(this.sliderContainer.style)}></button> */}
+      </div>
     )
   }
 }
-
-// render(<o-slider></o-slider>, '#root', {
-//   // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-//   ignoreAttrs: true
-// })
