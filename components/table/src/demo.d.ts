@@ -20,10 +20,12 @@ export default class Table extends WeElement {
         title: string;
         render: (item: any) => JSX.Element;
         key?: undefined;
+        editable?: undefined;
         align?: undefined;
     } | {
         title: string;
         key: string;
+        editable: boolean;
         render?: undefined;
         align?: undefined;
     } | {
@@ -31,7 +33,9 @@ export default class Table extends WeElement {
         align: string;
         render: (item: any) => JSX.Element;
         key?: undefined;
+        editable?: undefined;
     })[];
+    onEditClick: (evt: any) => void;
     onDeleteClick: (evt: any) => void;
     table: any;
     render(props: any): JSX.Element;

@@ -62,44 +62,62 @@ export default class Table extends WeElement {
   }, {
     title: 'Name',
     key: 'name',
+    editable: true
   }, {
     title: 'Age',
     key: 'age',
+    editable: true
   }, {
     title: 'Address',
     key: 'address',
+    editable: true
   }, {
     title: '操作',
     align: 'right',
     render: item => {
-      console.error(item.id)
       //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
-      return <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
+      return <div>
+        <o-icon-edit data-item-id={item.id} onClick={this.onEditClick} style="cursor:pointer;font-size:20px;" title="编辑"></o-icon-edit>
+        <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} style="cursor:pointer;font-size:20px;" title="删除"></o-icon-delete>
+      </div>
     }
   }]
+
+  onEditClick = (evt) => {
+
+  }
 
   onDeleteClick = (evt) => {
     if (evt.currentTarget.dataset.itemId) {
       this.table.deleteRowById(evt.currentTarget.dataset.itemId)
     }
-
   }
-
 
   table
 
   render(props) {
-    return <o-table
-      ref={e => this.table = e}
-      checkbox={true}
-      stripe={false}
-      border={true}
-      compact={false}
-      width="200px"
-      height="200px"
-      stickyLeftCount={2}
-      stickyTop={true}
-      columns={this.columns} dataSource={this.dataSource}></o-table>
+    return <div>
+
+      <o-table
+        ref={e => this.table = e}
+        checkbox={true}
+        stripe={false}
+        border={true}
+        compact={false}
+        width="200px"
+        height="200px"
+        stickyLeftCount={2}
+        stickyTop={true}
+        columns={this.columns} dataSource={this.dataSource}></o-table>
+
+      <o-table
+        ref={e => this.table = e}
+        checkbox={true}
+        stripe={false}
+        border={true}
+        compact={true}
+        columns={this.columns} dataSource={this.dataSource}></o-table>
+    </div>
   }
 }
 

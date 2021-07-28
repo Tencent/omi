@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '@omiu/checkbox';
+import '@omiu/input';
 interface Props {
     dataSource: any[];
     columns: object;
@@ -54,6 +55,9 @@ export default class Table extends WeElement<Props> {
         unchecked?: undefined;
     };
     installed(): void;
+    updated(): void;
+    setStickyLeft(): void;
+    onTdClick: (item: any, column: any) => void;
     render(props: any): JSX.Element;
 }
 export {};

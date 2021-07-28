@@ -48,6 +48,8 @@
   "homepage": "http://omijs.org",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
     "css": "^2.2.4",
     "css-loader": "^1.0.1",
     "file": "^0.2.2",
@@ -98,8 +100,7 @@
   "dependencies": {
     "@omiu/checkbox": "latest",
     "@omiu/common": "latest",
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
+    "@omiu/input": "latest",
     "omi": "latest"
   }
 }

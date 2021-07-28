@@ -1,5 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import '@omiu/checkbox'
+import '@omiu/input'
 import { leave } from './transition.ts'
 
 import * as css from './index.scss'
@@ -108,6 +109,16 @@ export default class Table extends WeElement<Props> {
     })
   }
 
+  onTdClick = (item, column) => {
+    this.props.dataSource.forEach(dataItem => {
+      dataItem.editingKey = null
+    })
+
+    item.editingKey = column.key
+
+    this.update()
+  }
+
   render(props) {
 
     if (!props.columns) return
@@ -150,11 +161,11 @@ export default class Table extends WeElement<Props> {
                   if (width !== undefined) {
                     obj.style = { width: typeof width === 'number' ? width + 'px' : width }
                   }
-                  return <td {...obj} class={classNames({
+                  return <td onclick={_ => this.onTdClick(item, column)} {...obj} class={classNames({
                     [`o-table-align-${column.align}`]: column.align,
                     'compact': props.compact,
                     'sticky-left': subIndex < props.stickyLeftCount
-                  })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
+                  })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ? <o-input size="mini" value={item[column.key]} /> : (column.render ? column.render(item) : item[column.key])}</td>
                 })}
               </tr>
             ))}
