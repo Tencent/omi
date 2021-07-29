@@ -5,19 +5,14 @@
 
 // excess height to improve interactive area / accessibility
 $height: 30px;
-$thumb-height: 16px;
-$track-height: 16px;
+$thumb-height: 40px;
+$track-height: 30px;
 
 // colours
 $upper-color: $o-surface;
 $lower-color: $o-primary;
-$thumb-color: $o-primary-fade-little;
+$thumb-color: $o-primary;
 $track-color: $o-primary-active;
-
-$upper-background: linear-gradient(to bottom, $upper-color, $upper-color) 100%
-  50% / 100% $track-height no-repeat transparent;
-$lower-background: linear-gradient(to bottom, $lower-color, $lower-color) 100%
-  50% / 100% $track-height no-repeat transparent;
 
 $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
@@ -26,20 +21,27 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   height: $thumb-height;
   width: $thumb-height;
   background-color: $thumb-color;
-  //   border-radius: 100%;
   top: 50%;
   margin-top: math.div($thumb-height, -2);
-  // box-shadow: webkit-slider-thumb-shadow();
 
   // ? for round
   // border-radius: 8px;
 
   outline: 2px solid $o-surface;
-  outline-offset: -4px;
+  outline-offset: -12px;
 
   cursor: pointer;
   pointer-events: auto;
   z-index: 2;
+
+  transition: outline-offset 150ms;
+
+  &:hover,
+  &:focus {
+    outline-offset: -14px;
+  }
+
+  // transform: rotate(180deg);
 }
 
 @mixin track {
@@ -47,27 +49,17 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   position: relative;
   margin: 5px;
   height: $track-height;
-  background-color: $track-color;
+
+  background-color: $o-surface;
   box-shadow: $shadow;
   // ? for round
   // border-radius: 8px;
 
   border: 2px solid $o-primary;
-  transition: background-color 150ms;
+  transition: background-color 200ms;
+
   -webkit-appearance: none;
 }
-
-// Webkit cannot style progress so we fake it with a long shadow
-// on the thumb element
-// @function webkit-slider-thumb-shadow($i: 1) {
-//   $val: #{$i}px 0 0 -#{math.div($thumb-height - $track-height, 2)} #{$upper-color};
-//   @if $i == 1 {
-//     @for $k from 2 through 1000 {
-//       $val: #{$val}, webkit-slider-thumb-shadow($k);
-//     }
-//   }
-//   @return $val;
-// }
 
 :host {
   display: -ms-grid;
@@ -78,22 +70,19 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   position: relative;
   width: 100%;
   height: 50px;
-  border: 1px solid #000000;
 }
 
 .slider-track {
-  width: 100%;
-  height: 5px;
-  background-color: grey;
+  @include track; // width: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
   outline: none;
   margin: auto;
-  border-radius: 5x;
+  // border-radius: 5x;
 }
 
-.o-slider {
+.slider-container .o-slider {
   width: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -101,24 +90,27 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 0;
   bottom: 0;
-  // height: $height;
   pointer-events: none;
   background: transparent;
 
   //*--------------track-----------------
   &::-webkit-slider-runnable-track {
-    @include track;
     -webkit-appearance: none;
+    height: $track-height;
+    overflow: hidden;
   }
 
   &::-moz-range-track {
-    @include track;
     -moz-appearance: none;
+    height: $track-height;
+    overflow: hidden;
+    z-index: 1;
   }
 
   &::-ms-track {
-    @include track;
     appearance: none;
+    height: $track-height;
+    overflow: hidden;
   }
   //*--------------thumb-----------------
   &::-webkit-slider-thumb {
@@ -134,7 +126,6 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     appearance: none;
   }
 }
-
 .is-vertical {
   transform: rotate(-90deg);
 }
