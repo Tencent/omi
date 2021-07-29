@@ -4,7 +4,7 @@ export as namespace Omi;
 declare namespace Omi {
   type Callback = (...args: any[]) => void;
   type Key = string | number;
-  type Ref<T> = (instance: T) => void;
+  type Ref<T> = ((instance: T) => void) | Partial<Record<'current', T>>;
   type ComponentChild = VNode<any> | object | string | number | boolean | null;
   type ComponentChildren = ComponentChild[] | ComponentChild;
 
