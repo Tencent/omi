@@ -12,37 +12,16 @@
 <body>
   <div id="root">
     <script type="module" src="/src/index.tsx"></script>
-    <o-slider min="0" max="10" value="2 " id="single-range-demo"></o-slider>
+    <o-slider min="0" max="10" value="2"  id="single-range-demo" ></o-slider>
+    <o-slider min="0" max="10" value="2" round id="round-single-range-demo" ></o-slider>
+
+    <o-slider min="0" max="10" value="2" disabled id="disabled-single-range-demo" ></o-slider>
     <o-slider min="0" max="200" value="20" second_value="70" double_range id="double-range-demo"></o-slider>
+    <o-slider min="0" max="200" value="20" second_value="70" double_range disabled id="double-range-demo"></o-slider>
+    <!-- sometimes thumb drag is disabled(bug), will look into later -->
     <o-slider min="0" max="100" value="10" vertical id="vertical-demo" style="position: relative; margin-top: 200px; left:-150px; width: 400px"></o-slider>
-    
-    
-    
-    
-    
-    <!-- <div class="range-slider omi" style='--min:0; --max:100; --value:75; --text-value:"75"; --suffix:"%"'>
-      <input type="range" min="0" max="100" value="75" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))">
-      <output></output>
-      <div class='range-slider__progress'></div>
-    </div>
-    <div class="range-slider omi" data-ticks-position='top' style='--min:-500; --max:500; --value-a:-220; --value-b:400; --suffix:"%"; --text-value-a:"-220"; --text-value-b:"400";'>
-      <input type="range" min="-500" max="500" value="-220" oninput="this.parentNode.style.setProperty('--value-a',this.value); this.parentNode.style.setProperty('--text-value-a', JSON.stringify(this.value))">
-      <output></output>
-      <input type="range" min="-500" max="500" value="400" oninput="this.parentNode.style.setProperty('--value-b',this.value); this.parentNode.style.setProperty('--text-value-b', JSON.stringify(this.value))">
-      <output></output>
-      <div class='range-slider__progress'></div>
-    </div> -->
-    
-    
-    
-    <!-- Double range slider (flat design)  -->
-    <!-- <div class="range-slider flat" data-ticks-position='top' style='--min:-500; --max:500; --value-a:-220; --value-b:400; --suffix:"%"; --text-value-a:"-220"; --text-value-b:"400";'>
-      <input type="range" min="-500" max="500" value="-220" oninput="this.parentNode.style.setProperty('--value-a',this.value); this.parentNode.style.setProperty('--text-value-a', JSON.stringify(this.value))">
-      <output></output>
-      <input type="range" min="-500" max="500" value="400" oninput="this.parentNode.style.setProperty('--value-b',this.value); this.parentNode.style.setProperty('--text-value-b', JSON.stringify(this.value))">
-      <output></output>
-      <div class='range-slider__progress'></div>
-    </div> -->
+    <!--  -->
+    <o-slider min="0" max="100" double_range vertical value="20" second_value="70" id="vertical-double-demo" style="position: relative; margin-top:-50px; left:-50px; width: 400px"></o-slider>
   </div>
     
 

@@ -4,9 +4,8 @@
 @import '@yaireo/ui-range/ui-range.scss';
 
 // excess height to improve interactive area / accessibility
-$height: 30px;
-$thumb-height: 40px;
-$track-height: 30px;
+$thumb-height: 31.25px;
+$track-height: 12.5px;
 
 // colours
 $upper-color: $o-surface;
@@ -23,25 +22,36 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   background-color: $thumb-color;
   top: 50%;
   margin-top: math.div($thumb-height, -2);
-
-  // ? for round
-  // border-radius: 8px;
-
   outline: 2px solid $o-surface;
-  outline-offset: -12px;
-
-  cursor: pointer;
+  outline-offset: -8px;
+  box-shadow: $shadow;
   pointer-events: auto;
+
   z-index: 2;
 
   transition: outline-offset 150ms;
 
   &:hover,
   &:focus {
-    outline-offset: -14px;
+    outline-offset: -10px;
   }
+}
 
-  // transform: rotate(180deg);
+@mixin thumb-disabled {
+  @include thumb;
+  pointer-events: none;
+  cursor: none;
+  background-color: #c0c4cc;
+}
+
+@mixin thumb-round {
+  outline-offset: -10px;
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    outline-offset: -12px;
+  }
 }
 
 @mixin track {
@@ -49,16 +59,10 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   position: relative;
   margin: 5px;
   height: $track-height;
-
   background-color: $o-surface;
   box-shadow: $shadow;
-  // ? for round
-  // border-radius: 8px;
-
   border: 2px solid $o-primary;
   transition: background-color 200ms;
-
-  -webkit-appearance: none;
 }
 
 :host {
@@ -66,51 +70,52 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   display: grid;
 }
 
+//===============================base-slider=========================================
+
 .slider-container {
   position: relative;
   width: 100%;
   height: 50px;
 }
 
-.slider-track {
+.slider-container .slider-track {
   @include track; // width: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
   outline: none;
   margin: auto;
-  // border-radius: 5x;
+  z-index: -1;
 }
 
 .slider-container .o-slider {
   width: 100%;
+  height: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   position: absolute;
   top: 0;
   bottom: 0;
-  pointer-events: none;
   background: transparent;
+  z-index: 1;
+
+  pointer-events: none;
 
   //*--------------track-----------------
   &::-webkit-slider-runnable-track {
     -webkit-appearance: none;
     height: $track-height;
-    overflow: hidden;
   }
 
   &::-moz-range-track {
     -moz-appearance: none;
     height: $track-height;
-    overflow: hidden;
-    z-index: 1;
   }
 
   &::-ms-track {
     appearance: none;
     height: $track-height;
-    overflow: hidden;
   }
   //*--------------thumb-----------------
   &::-webkit-slider-thumb {
@@ -126,6 +131,51 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     appearance: none;
   }
 }
+
+//===============================round-slider=========================================
+
+.is-round .slider-track {
+  border-radius: 8px;
+}
+
+.is-round .o-slider {
+  &::-webkit-slider-thumb {
+    @include thumb-round;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb-round;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb-round;
+    appearance: none;
+  }
+}
+
+//===============================disabled-slider=========================================
+
+.is-disabled .slider-track {
+  border-color: #c0c4cc;
+}
+
+.is-disabled .o-slider {
+  &::-webkit-slider-thumb {
+    @include thumb-disabled;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb-disabled;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb-disabled;
+    appearance: none;
+  }
+}
+
 .is-vertical {
   transform: rotate(-90deg);
 }
