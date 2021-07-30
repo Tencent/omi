@@ -36,6 +36,7 @@
     "@omiu/transition": "^0.0.12",
     "@omiu/tree": "^0.0.18",
     "axios": "^0.21.1",
+    "bytemd": "^1.10.13",
     "markdown-it": "^12.1.0",
     "markdown-it-anchor": "^8.1.0",
     "mockjs": "^1.1.0",
