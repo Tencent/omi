@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '@omiu/checkbox';
+import '@omiu/input';
 interface Props {
     dataSource: any[];
     columns: object;
@@ -7,6 +8,10 @@ interface Props {
     border: boolean;
     stripe: boolean;
     compact: boolean;
+    width: string;
+    height: string;
+    stickyTop: boolean;
+    stickyLeftCount: number;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
@@ -17,6 +22,8 @@ export default class Table extends WeElement<Props> {
         border: boolean;
         stripe: boolean;
         compact: boolean;
+        stickyTop: boolean;
+        stickyLeftCount: number;
     };
     static propTypes: {
         dataSource: ObjectConstructor;
@@ -25,6 +32,10 @@ export default class Table extends WeElement<Props> {
         border: BooleanConstructor;
         stripe: BooleanConstructor;
         compact: BooleanConstructor;
+        width: StringConstructor;
+        height: StringConstructor;
+        stickyTop: BooleanConstructor;
+        stickyLeftCount: NumberConstructor;
     };
     deleteRow: (item: any) => void;
     deleteRowById(id: any): Promise<void>;
@@ -43,6 +54,11 @@ export default class Table extends WeElement<Props> {
         indeterminate?: undefined;
         unchecked?: undefined;
     };
+    installed(): void;
+    onChange: (evt: any, item: any, column: any) => void;
+    updated(): void;
+    setStickyLeft(): void;
+    onTdClick: (item: any, column: any, evt: any) => void;
     render(props: any): JSX.Element;
 }
 export {};

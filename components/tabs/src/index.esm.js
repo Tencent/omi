@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.18 http://omijs.org
+ * @omiu/tabs v0.0.19 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -132,7 +132,7 @@ var css = `/**
   box-sizing: border-box; }
 
 .o-tabs__nav-scroll {
-  overflow: hidden; }
+  overflow: auto; }
 
 .o-tabs__nav-next,
 .o-tabs__nav-prev {
