@@ -1,12 +1,18 @@
-.rate{
-  position:absolute;
+.rate {
+  position: absolute;
   left: 30px;
 }
 
+// .rating {
+//   text-align: center;
+//   margin-top: 120px;
+//   position: relative;
+//   width: 50%;
+//   float: left;
+// }
+
 .rating {
-  text-align: center;
-  margin-top: 120px;
-  position: relative;
-  width: 50%;
+  width: 16px;
+  overflow: hidden;
   float: left;
 }

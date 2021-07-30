@@ -8,7 +8,7 @@ interface Props {
     readonly: Boolean;
     icon?: String;
     color?: String;
-    path?: String;
+    view?: Number;
 }
 export default class Rate extends WeElement<Props> {
     static css: any;
@@ -20,7 +20,7 @@ export default class Rate extends WeElement<Props> {
         disabled: boolean;
         readonly: boolean;
         color: string;
-        path: string;
+        width: number;
     };
     static propTypes: {
         value: NumberConstructor;
@@ -30,7 +30,7 @@ export default class Rate extends WeElement<Props> {
         readonly: BooleanConstructor;
         icon: StringConstructor;
         color: StringConstructor;
-        path: StringConstructor;
+        width: NumberConstructor;
     };
     state: any;
     install(): void;
