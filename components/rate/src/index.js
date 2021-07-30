@@ -248,7 +248,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ".rate {\n  position: absolute;\n  left: 30px; }\n\n.rating {\n  text-align: center;\n  margin-top: 120px;\n  position: relative;\n  width: 50%;\n  float: left; }\n", ""]);
+exports.push([module.i, ".rate {\n  position: absolute;\n  left: 30px;\n  top: 10px; }\n\n.rating {\n  overflow: hidden;\n  float: left; }\n", ""]);
 
 // exports
 
@@ -389,6 +389,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 __webpack_require__(/*! @omiu/o-icon */ "./node_modules/@omiu/o-icon/src/index.esm.js");
@@ -400,19 +407,13 @@ var state = function (data, base) { return new Proxy(data, {
         return true;
     }
 }); };
-function getSvgPath(svgData) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(svgData, "image/svg+xml");
-    var path = doc.getElementsByTagName("path")[0].getAttribute("d");
-    return path;
-}
 var Rate = /** @class */ (function (_super) {
     __extends(Rate, _super);
     function Rate() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.handleMousemove = function (evt) {
             if (!_this.props.disabled && !_this.props.readonly) {
-                _this.state.value = Number(evt.target.dataset['rate']);
+                _this.state.value = evt.target.dataset['rate'];
             }
         };
         _this.handleMouseleave = function (evt) {
@@ -426,7 +427,6 @@ var Rate = /** @class */ (function (_super) {
         this.state = state({
             value: this.props.value
         }, this);
-        console.log(this.state.value);
     };
     Rate.prototype.submit = function (index) {
         if (!this.props.disabled) {
@@ -434,13 +434,12 @@ var Rate = /** @class */ (function (_super) {
                 value: index,
                 readonly: !this.props.readonly
             });
-            console.log(this.props.value);
         }
     };
     Rate.prototype.render = function (props) {
         var _this = this;
         var value = this.state.value;
-        var emptynum = Array.from({ length: Math.floor(props.max) }, function (v, k) { return k + 1; });
+        var arr = Array.from({ length: props.max * 2 - 1 }).reduce(function (pre, cur) { return __spreadArrays(pre, [pre[pre.length - 1] + 0.5]); }, [0.5]);
         var that = this;
         function getCls(value, max) {
             if (value <= max)
@@ -448,28 +447,30 @@ var Rate = /** @class */ (function (_super) {
             if (value > max)
                 return '#ccc';
         }
-        return (omi_1.h("div", { className: "rating" }, emptynum.map(function (rate, index) { return (omi_1.h("o-icon", { view: '24', color: getCls(rate, value), scale: '2', path: props.path, onMousemove: _this.handleMousemove, onMouseleave: _this.handleMouseleave, onClick: _this.submit.bind(_this, rate), "data-rate": rate })); })));
+        return (omi_1.h("div", { class: "rate" }, arr.map(function (rate, index) { return (omi_1.h("div", { class: "rating", style: { width: props.width / 2, paddingRight: (index % 2 == 0 ? 0 : props.width / 4) + "px" }, onMousemove: _this.handleMousemove, onMouseleave: _this.handleMouseleave, onClick: _this.submit.bind(_this, rate), "data-rate": rate },
+            omi_1.h("svg", { t: "1627617455331", class: "icon", viewBox: "0 0 1024 1024", version: "1.1", xmlns: "http://www.w3.org/2000/svg", "p-id": "1209", width: props.width, height: props.width, fill: getCls(rate, value), "data-rate": rate, style: { transform: "translateX(" + (index % 2 == 0 ? 0 : props.width / 2 * -1) + "px)" } },
+                omi_1.h("path", { d: "M964.685714 330.4l-290.171428-42.171429L544.8 25.257143c-3.542857-7.2-9.371429-13.028571-16.571429-16.571429-18.057143-8.914286-40-1.485714-49.028571 16.571429L349.485714 288.228571l-290.171428 42.171429c-8 1.142857-15.314286 4.914286-20.914286 10.628571a36.628571 36.628571 0 0 0 0.685714 51.771429l209.942857 204.685714-49.6 289.028572a36.514286 36.514286 0 0 0 53.028572 38.514285L512 788.571429l259.542857 136.457142c7.085714 3.771429 15.314286 5.028571 23.2 3.657143 19.885714-3.428571 33.257143-22.285714 29.828572-42.171428l-49.6-289.028572 209.942857-204.685714c5.714286-5.6 9.485714-12.914286 10.628571-20.914286 3.085714-20-10.857143-38.514286-30.857143-41.485714z", "p-id": "1210", "data-rate": rate })))); })));
     };
-    Rate.css = css.default;
+    Rate.css = css;
     Rate.defaultProps = {
         size: 10,
         value: 1,
         max: 10,
-        precision: 1,
+        half: true,
         disabled: false,
         readonly: false,
         color: '#f7e620',
-        path: 'M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'
+        width: 32
     };
     Rate.propTypes = {
         value: Number,
         max: Number,
-        precision: Number,
+        half: Boolean,
         disabled: Boolean,
         readonly: Boolean,
         icon: String,
         color: String,
-        path: String,
+        width: Number
     };
     Rate = __decorate([
         omi_1.tag('o-rate')
