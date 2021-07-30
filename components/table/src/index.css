@@ -30,6 +30,15 @@ th {
   background: #fafafa;
   white-space: nowrap; }
 
+th,
+td {
+  display: table-cell;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: auto;
+  max-width: 1px; }
+
 th.sticky-top {
   position: sticky;
   top: -1px;
@@ -67,8 +76,7 @@ td {
   vertical-align: middle;
   font-size: 0.875rem;
   padding: 10px 10px 10px;
-  background: white;
-  white-space: nowrap; }
+  background: white; }
 
 td.compact,
 th.compact {

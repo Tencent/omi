@@ -3442,7 +3442,7 @@ var Table = /** @class */ (function (_super) {
         var _this = this;
         return omi_1.h("div", null,
             omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: false, width: "200px", height: "200px", stickyLeftCount: 2, stickyTop: true, columns: this.columns, dataSource: this.dataSource }),
-            omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: true, columns: this.columns, dataSource: this.dataSource }));
+            omi_1.h("o-table", { ref: function (e) { return _this.table = e; }, checkbox: true, stripe: false, border: true, compact: true, columns: this.columns, dataSource: JSON.parse(JSON.stringify(this.dataSource)) }));
     };
     Table = __decorate([
         omi_1.tag('table-demo')
@@ -3577,12 +3577,25 @@ var Table = /** @class */ (function (_super) {
             item.checked = e.detail;
             _this.update();
         };
-        _this.onTdClick = function (item, column) {
+        _this.onChange = function (evt, item, column) {
+            var oldValue = item[column.key];
+            item[column.key] = evt.detail;
+            _this.update();
+            _this.fire('data-changed', {
+                value: item[column.key],
+                oldValue: oldValue,
+                item: item,
+                column: column
+            });
+        };
+        _this.onTdClick = function (item, column, evt) {
+            evt.stopPropagation();
             _this.props.dataSource.forEach(function (dataItem) {
                 dataItem.editingKey = null;
             });
             item.editingKey = column.key;
             _this.update();
+            _this.editingInput && _this.editingInput.focus();
         };
         return _this;
     }
@@ -3623,7 +3636,20 @@ var Table = /** @class */ (function (_super) {
         return { 'checked': true };
     };
     Table.prototype.installed = function () {
+        var _this = this;
         this.setStickyLeft();
+        window.addEventListener('click', function () {
+            var needUpdate = false;
+            _this.props.dataSource.forEach(function (dataItem) {
+                if (dataItem.editingKey) {
+                    needUpdate = true;
+                }
+                dataItem.editingKey = null;
+            });
+            if (needUpdate) {
+                _this.update();
+            }
+        });
     };
     Table.prototype.updated = function () {
         this.setStickyLeft();
@@ -3677,13 +3703,15 @@ var Table = /** @class */ (function (_super) {
                     if (width !== undefined) {
                         obj.style = { width: typeof width === 'number' ? width + 'px' : width };
                     }
-                    return omi_1.h("td", __assign({ onclick: function (_) { return _this.onTdClick(item, column); } }, obj, { class: omi_1.classNames((_a = {},
+                    return omi_1.h("td", __assign({ onclick: function (evt) { return _this.onTdClick(item, column, evt); } }, obj, { class: omi_1.classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
                             _a['compact'] = props.compact,
                             _a['sticky-left'] = subIndex < props.stickyLeftCount,
                             _a)) }),
                         subIndex === 0 && props.checkbox && omi_1.h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
-                        (column.editable && item.editingKey === column.key) ? omi_1.h("o-input", { size: "mini", value: item[column.key] }) : (column.render ? column.render(item) : item[column.key]));
+                        (column.editable && item.editingKey === column.key) ? omi_1.h("o-input", { ref: function (_) { return _this.editingInput = _; }, size: "mini", onChange: function (evt) {
+                                _this.onChange(evt, item, column);
+                            }, value: item[column.key] }) : (column.render ? column.render(item) : item[column.key]));
                 }))); })))));
     };
     Table.css = css;

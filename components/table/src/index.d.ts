@@ -55,9 +55,10 @@ export default class Table extends WeElement<Props> {
         unchecked?: undefined;
     };
     installed(): void;
+    onChange: (evt: any, item: any, column: any) => void;
     updated(): void;
     setStickyLeft(): void;
-    onTdClick: (item: any, column: any) => void;
+    onTdClick: (item: any, column: any, evt: any) => void;
     render(props: any): JSX.Element;
 }
 export {};

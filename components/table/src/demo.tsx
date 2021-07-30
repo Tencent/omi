@@ -116,7 +116,7 @@ export default class Table extends WeElement {
         stripe={false}
         border={true}
         compact={true}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
+        columns={this.columns} dataSource={JSON.parse(JSON.stringify(this.dataSource))}></o-table>
     </div>
   }
 }

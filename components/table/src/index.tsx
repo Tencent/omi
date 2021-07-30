@@ -94,6 +94,33 @@ export default class Table extends WeElement<Props> {
 
   installed() {
     this.setStickyLeft()
+
+    window.addEventListener('click', () => {
+      let needUpdate = false
+      this.props.dataSource.forEach(dataItem => {
+        if (dataItem.editingKey) {
+          needUpdate = true
+        }
+        dataItem.editingKey = null
+      })
+
+      if (needUpdate) {
+        this.update()
+      }
+    })
+  }
+
+  onChange = (evt, item, column) => {
+    const oldValue = item[column.key]
+    item[column.key] = evt.detail
+    this.update()
+
+    this.fire('data-changed', {
+      value: item[column.key],
+      oldValue,
+      item,
+      column
+    })
   }
 
   updated() {
@@ -109,7 +136,8 @@ export default class Table extends WeElement<Props> {
     })
   }
 
-  onTdClick = (item, column) => {
+  onTdClick = (item, column, evt) => {
+    evt.stopPropagation()
     this.props.dataSource.forEach(dataItem => {
       dataItem.editingKey = null
     })
@@ -117,6 +145,7 @@ export default class Table extends WeElement<Props> {
     item.editingKey = column.key
 
     this.update()
+    this.editingInput && this.editingInput.focus()
   }
 
   render(props) {
@@ -161,11 +190,14 @@ export default class Table extends WeElement<Props> {
                   if (width !== undefined) {
                     obj.style = { width: typeof width === 'number' ? width + 'px' : width }
                   }
-                  return <td onclick={_ => this.onTdClick(item, column)} {...obj} class={classNames({
+                  return <td onclick={evt => this.onTdClick(item, column, evt)} {...obj} class={classNames({
                     [`o-table-align-${column.align}`]: column.align,
                     'compact': props.compact,
                     'sticky-left': subIndex < props.stickyLeftCount
-                  })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ? <o-input size="mini" value={item[column.key]} /> : (column.render ? column.render(item) : item[column.key])}</td>
+                  })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ? <o-input ref={_ => this.editingInput = _} size="mini"
+                    onChange={evt => {
+                      this.onChange(evt, item, column)
+                    }} value={item[column.key]} /> : (column.render ? column.render(item) : item[column.key])}</td>
                 })}
               </tr>
             ))}
