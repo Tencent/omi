@@ -17,5 +17,6 @@ export const base = {
   Demo2: 'Demo2',
   Components: 'Components',
   Loading: 'Loading',
-  Toast: 'Toast'
+  Toast: 'Toast',
+  InlineEditing: 'Inline Editing Table'
 }

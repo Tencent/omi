@@ -17,5 +17,6 @@ export const base = {
   Demo2: '文档例子2',
   Components: '组件',
   Loading: 'Loading 加载中',
-  Toast: 'Toast 弹出式提示'
+  Toast: 'Toast 弹出式提示',
+  InlineEditing: '表格行内编辑'
 }

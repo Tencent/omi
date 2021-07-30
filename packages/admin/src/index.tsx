@@ -86,6 +86,13 @@ export default class extends WeElement {
       )
     })
 
+    route('/table/edit', () => {
+      //lazy load
+      import('./components/table/inline-editing').then(() =>
+        this.transitionTo('inline-editing')
+      )
+    })
+
     route('/docs/:name', (evt) => {
       //lazy load
       const md = this.getMdByName(evt.params.name, this.store.treeData)
