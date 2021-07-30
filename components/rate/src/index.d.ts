@@ -3,9 +3,9 @@ import '@omiu/o-icon';
 interface Props {
     value?: Number;
     max?: Number;
-    precision?: Number;
+    half?: Boolean;
     disabled?: Boolean;
-    readonly: Boolean;
+    readonly?: Boolean;
     icon?: String;
     color?: String;
     view?: Number;
@@ -16,7 +16,7 @@ export default class Rate extends WeElement<Props> {
         size: number;
         value: number;
         max: number;
-        precision: number;
+        half: boolean;
         disabled: boolean;
         readonly: boolean;
         color: string;
@@ -25,7 +25,7 @@ export default class Rate extends WeElement<Props> {
     static propTypes: {
         value: NumberConstructor;
         max: NumberConstructor;
-        precision: NumberConstructor;
+        half: BooleanConstructor;
         disabled: BooleanConstructor;
         readonly: BooleanConstructor;
         icon: StringConstructor;
