@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n.tip.show {\n  display: block; }\n\n.tip {\n  border: 1px solid #888;\n  position: absolute;\n  border-radius: 4px;\n  padding: 10px;\n  z-index: 2000;\n  font-size: 12px;\n  line-height: 1.2;\n  min-width: 10px;\n  word-wrap: break-word;\n  display: none; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #303133;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #303133;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #303133; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #303133; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #303133;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #303133;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #303133; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #303133; }\n\n.tip.is-dark {\n  background: #303133;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF;\n  border: 1px solid #303133; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #303133; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #303133; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #303133; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #303133; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n", ""]);
+exports.push([module.i, "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\nimg {\n  width: 100%;\n  height: 100%; }\n\n.placeholder,\n.error {\n  width: 100%;\n  height: 100%;\n  display: block;\n  text-align: center;\n  font-size: 0.875em;\n  color: #bdc5d4;\n  background-color: #f5f7fa; }\n", ""]);
 
 // exports
 
@@ -226,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unbind", function() { return unbind; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JSONProxy", function() { return JSONPatcherProxy; });
 /**
- * Omi v6.19.23  http://omijs.org
+ * Omi v6.19.24  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -875,27 +875,29 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
       vchild = vchildren[i];
       child = null;
 
-      // attempt to find a node based on key matching
-      var key = vchild.key;
-      if (key != null) {
-        if (keyedLen && keyed[key] !== undefined) {
-          child = keyed[key];
-          keyed[key] = undefined;
-          keyedLen--;
-        }
-      }
-      // attempt to pluck a node of the same type from the existing children
-      else if (!child && min < childrenLen) {
-          for (j = min; j < childrenLen; j++) {
-            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-              child = c;
-              children[j] = undefined;
-              if (j === childrenLen - 1) childrenLen--;
-              if (j === min) min++;
-              break;
-            }
+      if (vchild) {
+        // attempt to find a node based on key matching
+        var key = vchild.key;
+        if (key != null) {
+          if (keyedLen && keyed[key] !== undefined) {
+            child = keyed[key];
+            keyed[key] = undefined;
+            keyedLen--;
           }
         }
+        // attempt to pluck a node of the same type from the existing children
+        else if (!child && min < childrenLen) {
+            for (j = min; j < childrenLen; j++) {
+              if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+                child = c;
+                children[j] = undefined;
+                if (j === childrenLen - 1) childrenLen--;
+                if (j === min) min++;
+                break;
+              }
+            }
+          }
+      }
 
       // morph the matched/found/created DOM child to match vchild (deep)
       child = idiff(child, vchild, component, updateSelf);
@@ -2407,7 +2409,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.23';
+options.root.Omi.version = '6.19.24';
 
 /* harmony default export */ __webpack_exports__["default"] = (omi);
 
@@ -2485,9 +2487,24 @@ var Table = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Table.prototype.render = function (props) {
+        var src = 'https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1140680000/VCG211140680945.jpg/thumb';
         return omi_1.h("div", null,
-            omi_1.h("o-image", { src: "https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png" }));
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "fill", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "contain", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "cover", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "none", src: src }),
+            omi_1.h("o-image", { style: "width:100px;height:100px;", fit: "scale-down", src: src }),
+            omi_1.h("br", null),
+            omi_1.h("h3", null, "  \u52A0\u8F7D\u5931\u8D25"),
+            omi_1.h("o-image", { style: "width:200px;height:200px;", fit: "scale-down", src: '1' + src },
+                omi_1.h("div", { slot: "placeholder" },
+                    "\u52A0\u8F7D\u4E2D",
+                    omi_1.h("span", { class: "dot" }, "..."))),
+            omi_1.h("o-image", { style: "width:200px;height:200px;", fit: "scale-down", src: '1' + src },
+                omi_1.h("div", { slot: "error" },
+                    omi_1.h("o-icon-broken-image", { style: "font-size:30px" }))));
     };
+    Table.css = "\n  o-image{\n    margin: 10px;\n  }";
     Table = __decorate([
         omi_1.tag('table-demo')
     ], Table);
@@ -2552,21 +2569,45 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 var Image = /** @class */ (function (_super) {
     __extends(Image, _super);
     function Image() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.loaded = false;
+        _this.loadError = false;
+        _this.onLoad = function () {
+            _this.loaded = true;
+            _this.update();
+        };
+        _this.onError = function () {
+            _this.loaded = false;
+            _this.loadError = true;
+            _this.update();
+        };
+        return _this;
     }
     Image.prototype.installed = function () {
+        var height = this.getBoundingClientRect().height + 'px';
+        this.error && (this.error.style.lineHeight = height);
+        this.placeholder && (this.placeholder.style.lineHeight = height);
+    };
+    Image.prototype.updated = function () {
+        var height = this.getBoundingClientRect().height + 'px';
+        this.error && (this.error.style.lineHeight = height);
+        this.placeholder && (this.placeholder.style.lineHeight = height);
     };
     Image.prototype.render = function (props) {
-        return omi_1.h("div", null,
-            omi_1.h("img", { src: props.src }),
-            omi_1.h("div", null, props.errorMsg),
-            omi_1.h("slot", { name: "error" }),
-            omi_1.h("slot", { name: "placeholder" }));
+        var _this = this;
+        return omi_1.h(omi_1.h.f, null,
+            omi_1.h("img", { onload: this.onLoad, onerror: this.onError, src: props.src, style: { objectFit: props.fit, display: this.loaded ? 'block' : 'none' } }),
+            this.loadError && omi_1.h("slot", { ref: function (_) { return _this.error = _; }, class: "error", name: "error" }, props.errorMsg),
+            !this.loadError && omi_1.h("slot", { name: "placeholder", style: { display: this.loaded ? 'none' : 'block  ' }, ref: function (_) { return _this.placeholder = _; }, class: "placeholder" }));
     };
     Image.css = css;
-    Image.defaultProps = {};
+    Image.defaultProps = {
+        errorMsg: '加载失败'
+    };
     Image.propTypes = {
         src: String,
+        fit: String,
+        errorMsg: String
     };
     Image = __decorate([
         omi_1.tag('o-image')

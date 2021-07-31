@@ -115,7 +115,12 @@ class Store {
               href: '#/table/pagination',
               id: 5,
             },
-
+            {
+              label: localeMap.base.InlineEditing,
+              icon: 'grid-on',
+              href: '#/table/edit',
+              id: 25,
+            },
             {
               label: localeMap.base.Form,
               expanded: true,

@@ -1,6 +1,6 @@
 {
   "name": "@omiu/checkbox",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "Omi UI Components.",
   "main": "src/index.js",
   "module": "src/index.esm.js",

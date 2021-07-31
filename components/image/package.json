@@ -1,7 +1,7 @@
 {
-  "name": "@omiu/component",
-  "version": "0.0.0",
-  "description": "Description of component.",
+  "name": "@omiu/image",
+  "version": "0.0.2",
+  "description": "The image container supports custom placeholder, loading failure, etc. while retaining the characteristics of the native img.",
   "docsExtend": {
     "cnName": "",
     "cnDescription": "",
@@ -90,7 +90,6 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
-    "@popperjs/core": "^2.9.2",
     "omi": "latest"
   }
 }

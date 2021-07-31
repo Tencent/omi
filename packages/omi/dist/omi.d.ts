@@ -4,7 +4,7 @@ export as namespace Omi;
 declare namespace Omi {
   type Callback = (...args: any[]) => void;
   type Key = string | number;
-  type Ref<T> = (instance: T) => void;
+  type Ref<T> = ((instance: T) => void) | Partial<Record<'current', T>>;
   type ComponentChild = VNode<any> | object | string | number | boolean | null;
   type ComponentChildren = ComponentChild[] | ComponentChild;
 
@@ -176,9 +176,7 @@ declare namespace Omi {
   function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
   function defineElement(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
   function tag(name: string): (ctor: WeElementConstructor) => void;
-  function tick(callback: Callback, scope?: any): void;
-  function nextTick(callback: Callback, scope?: any): void;
-  function observe(target: WeElementConstructor): void;
+  function createRef<RefType = unknown>(): Partial<Record<'current', RefType>>;
   function getHost(element: WeElement): WeElement;
   function classNames(...args: any[]): string;
   function extractClass(...args: any[]): object;

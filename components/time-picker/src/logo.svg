@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2017 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1024px" height="1024px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 1024 1024"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil2 {fill:#FEFEFE}
+    .fil1 {fill:#07C160}
+   ]]>
+  </style>
+ </defs>
+ <g id="图层_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0" width="1024" height="1024"/>
+  <rect class="fil0" width="1024" height="1024"/>
+  <g id="_2225049615792">
+   <circle class="fil1" cx="512" cy="512" r="512"/>
+   <polygon class="fil2" points="159.97,807.8 338.71,532.42 509.9,829.62 519.41,829.62 678.85,536.47 864.03,807.8 739.83,194.38 729.2,194.38 517.73,581.23 293.54,194.38 283.33,194.38 "/>
+   <circle class="fil2" cx="839.36" cy="242.47" r="50"/>
+  </g>
+ </g>
+</svg>

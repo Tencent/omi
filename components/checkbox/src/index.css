@@ -7,7 +7,8 @@
 .o-checkbox {
   position: relative;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 14px;
+  height: 14px;
   white-space: nowrap; }
   .o-checkbox:hover {
     cursor: pointer; }
@@ -62,11 +63,11 @@
 .o-checkbox__background,
 .o-checkbox__label {
   display: inline-block;
-  height: 18px;
+  height: 14px;
   vertical-align: middle; }
 
 .o-checkbox__background {
-  width: 18px; }
+  width: 14px; }
 
 .o-checkbox__label {
   margin-left: 10px; }

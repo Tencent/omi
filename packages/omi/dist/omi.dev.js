@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.23  http://omijs.org
+ * Omi v6.19.26  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -651,27 +651,29 @@
         vchild = vchildren[i];
         child = null;
 
-        // attempt to find a node based on key matching
-        var key = vchild.key;
-        if (key != null) {
-          if (keyedLen && keyed[key] !== undefined) {
-            child = keyed[key];
-            keyed[key] = undefined;
-            keyedLen--;
-          }
-        }
-        // attempt to pluck a node of the same type from the existing children
-        else if (!child && min < childrenLen) {
-            for (j = min; j < childrenLen; j++) {
-              if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-                child = c;
-                children[j] = undefined;
-                if (j === childrenLen - 1) childrenLen--;
-                if (j === min) min++;
-                break;
-              }
+        if (vchild) {
+          // attempt to find a node based on key matching
+          var key = vchild.key;
+          if (key != null) {
+            if (keyedLen && keyed[key] !== undefined) {
+              child = keyed[key];
+              keyed[key] = undefined;
+              keyedLen--;
             }
           }
+          // attempt to pluck a node of the same type from the existing children
+          else if (!child && min < childrenLen) {
+              for (j = min; j < childrenLen; j++) {
+                if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+                  child = c;
+                  children[j] = undefined;
+                  if (j === childrenLen - 1) childrenLen--;
+                  if (j === min) min++;
+                  break;
+                }
+              }
+            }
+        }
 
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, component, updateSelf);
@@ -2146,7 +2148,7 @@
   h.f = Fragment;
 
   function createRef() {
-    return {};
+  	return {};
   }
 
   var $ = {};
@@ -2155,35 +2157,35 @@
   var elements = options.mapping;
 
   var omi = {
-    tag: tag,
-    WeElement: WeElement,
-    Component: Component,
-    render: render,
-    h: h,
-    createElement: h,
-    options: options,
-    define: define,
-    cloneElement: cloneElement,
-    getHost: getHost,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    createRef: createRef,
-    o: o,
-    elements: elements,
-    $: $,
-    extend: extend$1,
-    get: get,
-    set: set,
-    bind: bind,
-    unbind: unbind,
-    JSONProxy: JSONPatcherProxy
+  	tag: tag,
+  	WeElement: WeElement,
+  	Component: Component,
+  	render: render,
+  	h: h,
+  	createElement: h,
+  	options: options,
+  	define: define,
+  	cloneElement: cloneElement,
+  	getHost: getHost,
+  	rpx: rpx,
+  	defineElement: defineElement,
+  	classNames: classNames,
+  	extractClass: extractClass,
+  	createRef: createRef,
+  	o: o,
+  	elements: elements,
+  	$: $,
+  	extend: extend$1,
+  	get: get,
+  	set: set,
+  	bind: bind,
+  	unbind: unbind,
+  	JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.23';
+  options.root.Omi.version = '6.19.26';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

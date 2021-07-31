@@ -1,5 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import '@omiu/checkbox'
+import '@omiu/input'
 import { leave } from './transition.ts'
 
 import * as css from './index.scss'
@@ -10,7 +11,12 @@ interface Props {
   checkbox: boolean,
   border: boolean,
   stripe: boolean,
-  compact: boolean
+  compact: boolean,
+  width: string,
+  height: string,
+  stickyTop: boolean
+  stickyLeftCount: number
+
 }
 
 @tag('o-table')
@@ -23,7 +29,9 @@ export default class Table extends WeElement<Props> {
     checkbox: false,
     border: false,
     stripe: false,
-    compact: false
+    compact: false,
+    stickyTop: false,
+    stickyLeftCount: 0
   }
 
   static propTypes = {
@@ -32,7 +40,11 @@ export default class Table extends WeElement<Props> {
     checkbox: Boolean,
     border: Boolean,
     stripe: Boolean,
-    compact: Boolean
+    compact: Boolean,
+    width: String,
+    height: String,
+    stickyTop: Boolean,
+    stickyLeftCount: Number
   }
 
   deleteRow = (item) => {
@@ -80,51 +92,118 @@ export default class Table extends WeElement<Props> {
     return { 'checked': true }
   }
 
+  installed() {
+    this.setStickyLeft()
+
+    window.addEventListener('click', () => {
+      let needUpdate = false
+      this.props.dataSource.forEach(dataItem => {
+        if (dataItem.editingKey) {
+          needUpdate = true
+        }
+        dataItem.editingKey = null
+      })
+
+      if (needUpdate) {
+        this.update()
+      }
+    })
+  }
+
+  onChange = (evt, item, column) => {
+    const oldValue = item[column.key]
+    item[column.key] = evt.detail
+    this.update()
+
+    this.fire('data-changed', {
+      value: item[column.key],
+      oldValue,
+      item,
+      column
+    })
+  }
+
+  updated() {
+    this.setStickyLeft()
+  }
+
+  setStickyLeft() {
+    const stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left')
+    const boxRect = this.rootNode.getBoundingClientRect()
+    stickyLeftEls.forEach((stickyLeftEl, index) => {
+      const rect = stickyLeftEl.getBoundingClientRect()
+      stickyLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px'
+    })
+  }
+
+  onTdClick = (item, column, evt) => {
+    evt.stopPropagation()
+    this.props.dataSource.forEach(dataItem => {
+      dataItem.editingKey = null
+    })
+
+    item.editingKey = column.key
+
+    this.update()
+    this.editingInput && this.editingInput.focus()
+  }
+
   render(props) {
 
     if (!props.columns) return
     if (!props.dataSource) return
     return (
-      <table {...extractClass(props, 'o-table', {
+      <div style={{
+        width: props.width && props.width,
+        height: props.height && props.height
+      }} {...extractClass(props, 'o-table', {
         'o-table-checkbox': props.checkbox,
         'o-table-border': props.border,
         'o-table-stripe': props.stripe
       })}>
-        <thead>
-          <tr>
-            {props.columns.map((column, index) => {
-              const obj: any = {}
-              const { width } = column
-              if (width !== undefined) {
-                obj.style = { width: typeof width === 'number' ? width + 'px' : width }
-              }
-              return <th {...obj} class={classNames({
-                [`o-table-align-${column.align}`]: column.align,
-                'compact': props.compact,
-              })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
-            })}
-          </tr>
-        </thead>
-        <tbody class="o-table-tbody">
-          {props.dataSource.map(item => (
-            <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
-              background: item.$config && item.$config.bgColor
-            }}>
-              {props.columns.map((column, subIndex) => {
+        <table {...extractClass(props, 'o-table-table')}>
+          <thead>
+            <tr>
+              {props.columns.map((column, index) => {
                 const obj: any = {}
                 const { width } = column
                 if (width !== undefined) {
                   obj.style = { width: typeof width === 'number' ? width + 'px' : width }
                 }
-                return <td {...obj} class={classNames({
+                return <th {...obj} class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
                   'compact': props.compact,
-                })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{column.render ? column.render(item) : item[column.key]}</td>
+                  'sticky-top': props.stickyTop,
+                  'sticky-left': index < props.stickyLeftCount
+                })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
               })}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody class="o-table-tbody">
+            {props.dataSource.map(item => (
+              <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
+                background: item.$config && item.$config.bgColor
+              }}>
+                {props.columns.map((column, subIndex) => {
+                  const obj: any = {}
+                  const { width } = column
+                  if (width !== undefined) {
+                    obj.style = { width: typeof width === 'number' ? width + 'px' : width }
+                  }
+                  return <td onclick={evt => this.onTdClick(item, column, evt)} {...obj} class={classNames({
+                    [`o-table-align-${column.align}`]: column.align,
+                    'compact': props.compact,
+                    'sticky-left': subIndex < props.stickyLeftCount
+                  })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ? <o-input ref={_ => this.editingInput = _} size="mini"
+                    onChange={evt => {
+                      this.onChange(evt, item, column)
+                    }} value={item[column.key]} /> : (column.render ? column.render(item) : item[column.key])}</td>
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     )
   }
 }
