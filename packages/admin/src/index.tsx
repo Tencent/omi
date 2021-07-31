@@ -86,6 +86,13 @@ export default class extends WeElement {
       )
     })
 
+    route('/md-editor', () => {
+      //lazy load
+      import('./components/md-editor').then(() =>
+        this.transitionTo('md-editor')
+      )
+    })
+
     route('/table/edit', () => {
       //lazy load
       import('./components/table/inline-editing').then(() =>

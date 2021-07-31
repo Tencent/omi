@@ -1,12 +1,12 @@
 import { tag, WeElement, h, classNames } from 'omi'
-import { createPopper } from '@popperjs/core';
+import { createPopper } from '@popperjs/core'
 import '@omiu/transition'
 import * as css from './index.scss'
 
 interface Props {
-  effect?: string,
-  position?: string,
-  trigger?: string
+  effect?: string
+  position?: string
+  trigger?: 'click' | 'hover' | 'manual'
 }
 
 @tag('o-popover')
@@ -16,18 +16,23 @@ export default class Popover extends WeElement<Props> {
   static defaultProps = {
     effect: 'light',
     position: 'bottom',
-    trigger: 'click'
+    /**
+     * 触发方式
+     */
+    trigger: 'click',
   }
 
   static propTypes = {
     content: String,
     effect: String,
     position: String,
-    trigger: String
+    trigger: String,
   }
 
   installed() {
     window.addEventListener('click', () => {
+      // 手动模式
+      if (this.props.trigger === 'manual') return
       if (this.isShow) {
         this.isShow = false
         this.update()
@@ -36,12 +41,14 @@ export default class Popover extends WeElement<Props> {
   }
 
   onEnter = (evt) => {
-
     clearTimeout(this.timeout)
     this.isShow = !this.isShow
     this.update()
     //html 模式过滤文本
-    const tip = this.shadowRoot.querySelector('slot').assignedNodes().find(node => node.nodeType !== 3)
+    const tip = this.shadowRoot
+      .querySelector('slot')
+      .assignedNodes()
+      .find((node) => node.nodeType !== 3)
 
     this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
@@ -59,7 +66,7 @@ export default class Popover extends WeElement<Props> {
           },
         },
       ],
-    });
+    })
     evt.stopPropagation()
   }
 
@@ -70,7 +77,6 @@ export default class Popover extends WeElement<Props> {
       this.isShow = false
       this.update()
     }, 600)
-
   }
 
   onEnterPopover = (evt) => {
@@ -83,51 +89,54 @@ export default class Popover extends WeElement<Props> {
   }
 
   onLeavePopover = () => {
-    if (this.props.trigger !== 'click') {
+    if (this.props.trigger === 'hover') {
       this.timeout = setTimeout(() => {
         this.isShow = false
         this.update()
       }, 600)
     }
-
   }
 
   isShow = false
 
   render(props) {
-
     const targetEvents: {
-      onMouseEnter: () => void;
-      onMouseLeave: () => void;
-      onClick: () => void;
+      onMouseEnter: () => void
+      onMouseLeave: () => void
+      onClick: () => void
     } = {
       onMouseEnter: null,
       onMouseLeave: null,
-      onClick: null
+      onClick: null,
     }
     if (props.trigger === 'click') {
       targetEvents.onClick = this.onEnter
-
-    } else {
+    } else if (props.trigger === 'hover') {
       targetEvents.onMouseEnter = this.onEnter
       targetEvents.onMouseLeave = this.onLeave
     }
 
-    return <div style="position:relative">
-      <slot {...targetEvents}></slot>
+    return (
+      <div style="position:relative">
+        <slot {...targetEvents}></slot>
 
-      <o-transition appear={this.isShow} name="fade">
-        <div style={{ display: this.isInstalled ? 'block' : 'none' }} class={
-          classNames({
-            tip: true,
-            [`is-${props.effect}`]: props.effect
-          })
-        }>
-          <slot onMouseEnter={this.onEnterPopover} onMouseLeave={this.onLeavePopover} name="popover"></slot>
-          <i class="tip-arrow" data-popper-arrow></i>
-        </div>
-      </o-transition>
-
-    </div>
+        <o-transition appear={this.isShow} name="fade">
+          <div
+            style={{ display: this.isInstalled ? 'block' : 'none' }}
+            class={classNames({
+              tip: true,
+              [`is-${props.effect}`]: props.effect,
+            })}
+          >
+            <slot
+              onMouseEnter={this.onEnterPopover}
+              onMouseLeave={this.onLeavePopover}
+              name="popover"
+            ></slot>
+            <i class="tip-arrow" data-popper-arrow></i>
+          </div>
+        </o-transition>
+      </div>
+    )
   }
 }

@@ -130,6 +130,12 @@ class Store {
 
             },
             {
+              label: localeMap.base.MarkdownEditor,
+              icon: 'grid-on',
+              href: '#/md-editor',
+              id: 26,
+            },
+            {
               label: localeMap.base.MaterialIcons,
               expanded: true,
               id: 10,

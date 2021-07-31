@@ -1,0 +1,35 @@
+.o-cascader {
+  display: inline-block;
+  position: relative;
+  line-height: 40px;
+  outline: 0;
+}
+.o-cascader-dropdown__wrap {
+  position: relative;
+}
+.o-cascader-dropdown__menu {
+  height: 100%;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+.o-cascader-dropdown__item {
+  position: relative;
+  padding: 10px 20px;
+}
+.o-cascader-dropdown__item.selected, .o-cascader-dropdown__item:hover {
+  background: #f1fff8;
+}
+.o-cascader-dropdown__item-suffix {
+  position: absolute;
+  right: 10px;
+}
+.o-cascader-dropdown-right__wrap {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 190px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 12px 0;
+}
