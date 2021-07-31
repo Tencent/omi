@@ -43,33 +43,37 @@ export default class OSlider extends WeElement<Props> {
   }
 
   __$value: number
-
   __$second_value: number
 
   rootNode
   sliderOne
   sliderTwo
-
   sliderTrack
-
   sliderMax = this.props.max
 
-  handleSliderOne = () => {
+  handleSliderOne = (evt) => {
     const first_value = parseInt(this.rootNode.children[0].value)
-    if (this.__$second_value === null || first_value <= this.__$second_value) {
+    //! bad
+    if (first_value <= this.__$second_value || !this.props.double_range) {
       this.__$value = first_value
+      if (!this.props.double_range) {
+        this.fire('change', this.__$value)
+      } else {
+        this.fire('change', [this.__$value, this.__$second_value])
+      }
     }
 
     this.fillColor()
     this.update()
   }
 
-  handleSliderTwo = () => {
+  handleSliderTwo = (evt) => {
     const second_value = parseInt(this.rootNode.children[1].value)
-
     if (second_value >= this.__$value) {
       this.__$second_value = second_value
+      this.fire('change', [this.__$value, this.__$second_value])
     }
+
     this.fillColor()
     this.update()
   }
@@ -100,10 +104,6 @@ export default class OSlider extends WeElement<Props> {
     this.fillColor()
     this.update()
   }
-
-  // updated() {
-  //   console.log(this.__$value, this.__$second_value)
-  // }
 
   render(props) {
     const cls = extractClass(props, 'slider-container', {

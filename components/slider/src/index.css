@@ -52,12 +52,12 @@
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
+    transition: background-color 150ms;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     top: 50%;
     margin-top: -17.625px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     pointer-events: auto;
     z-index: 2;
-    transition: background-color 150ms;
     -webkit-appearance: none; }
     .slider-container .o-slider::-webkit-slider-thumb:hover, .slider-container .o-slider::-webkit-slider-thumb:focus {
       background-color: #059048; }
@@ -66,12 +66,12 @@
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
+    transition: background-color 150ms;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     top: 50%;
     margin-top: -17.625px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     pointer-events: auto;
     z-index: 2;
-    transition: background-color 150ms;
     -webkit-appearance: none; }
     .slider-container .o-slider::-moz-range-thumb:hover, .slider-container .o-slider::-moz-range-thumb:focus {
       background-color: #059048; }
@@ -80,12 +80,12 @@
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
+    transition: background-color 150ms;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     top: 50%;
     margin-top: -17.625px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     pointer-events: auto;
     z-index: 2;
-    transition: background-color 150ms;
     appearance: none; }
     .slider-container .o-slider::-ms-thumb:hover, .slider-container .o-slider::-ms-thumb:focus {
       background-color: #059048; }
@@ -122,12 +122,12 @@
   height: 31.25px;
   width: 31.25px;
   background-color: #07c160;
+  transition: background-color 150ms;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   top: 50%;
   margin-top: -17.625px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   z-index: 2;
-  transition: background-color 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
@@ -140,12 +140,12 @@
   height: 31.25px;
   width: 31.25px;
   background-color: #07c160;
+  transition: background-color 150ms;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   top: 50%;
   margin-top: -17.625px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   z-index: 2;
-  transition: background-color 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
@@ -158,12 +158,12 @@
   height: 31.25px;
   width: 31.25px;
   background-color: #07c160;
+  transition: background-color 150ms;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   top: 50%;
   margin-top: -17.625px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   z-index: 2;
-  transition: background-color 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
