@@ -20,7 +20,7 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   width: $thumb-height;
   background-color: $thumb-color;
   top: 50%;
-  margin-top: math.div($thumb-height, -2);
+  margin-top: $thumb-height / -2;
   outline: 2px solid $o-surface;
   outline-offset: -8px;
   box-shadow: $shadow;
@@ -100,6 +100,10 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   z-index: 1;
 
   pointer-events: none;
+
+  &:focus {
+    outline: none;
+  }
 
   //*--------------track-----------------
   &::-webkit-slider-runnable-track {

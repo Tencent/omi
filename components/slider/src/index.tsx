@@ -16,7 +16,7 @@ interface Props {
 
 @tag('o-slider')
 export default class OSlider extends WeElement<Props> {
-  static css = css.default
+  static css = css
 
   static defaultProps = {
     min: 0,
@@ -27,7 +27,7 @@ export default class OSlider extends WeElement<Props> {
     double_range: false,
     vertical: false,
     round: false,
-    disabled: false
+    disabled: false,
   }
 
   static propTypes = {
@@ -39,7 +39,7 @@ export default class OSlider extends WeElement<Props> {
     double_range: Boolean,
     vertical: Boolean,
     round: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
   }
 
   __$value: number
@@ -109,7 +109,7 @@ export default class OSlider extends WeElement<Props> {
     const cls = extractClass(props, 'slider-container', {
       'is-vertical': props.vertical,
       'is-round': props.round,
-      'is-disabled': props.disabled
+      'is-disabled': props.disabled,
     })
 
     return (
