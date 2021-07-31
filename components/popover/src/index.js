@@ -28,13 +28,11 @@
     var extendStatics$1 = function(d, b) {
         extendStatics$1 = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics$1(d, b);
     };
 
     function __extends$1(d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics$1(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -2226,7 +2224,10 @@
                 _this.isShow = !_this.isShow;
                 _this.update();
                 //html 模式过滤文本
-                var tip = _this.shadowRoot.querySelector('slot').assignedNodes().find(function (node) { return node.nodeType !== 3; });
+                var tip = _this.shadowRoot
+                    .querySelector('slot')
+                    .assignedNodes()
+                    .find(function (node) { return node.nodeType !== 3; });
                 _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                     placement: _this.props.position,
                     modifiers: [
@@ -2257,7 +2258,7 @@
                 evt.stopPropagation();
             };
             _this.onLeavePopover = function () {
-                if (_this.props.trigger !== 'click') {
+                if (_this.props.trigger === 'hover') {
                     _this.timeout = setTimeout(function () {
                         _this.isShow = false;
                         _this.update();
@@ -2270,6 +2271,9 @@
         Popover.prototype.installed = function () {
             var _this = this;
             window.addEventListener('click', function () {
+                // 手动模式
+                if (_this.props.trigger === 'manual')
+                    return;
                 if (_this.isShow) {
                     _this.isShow = false;
                     _this.update();
@@ -2284,16 +2288,16 @@
             var targetEvents = {
                 onMouseEnter: null,
                 onMouseLeave: null,
-                onClick: null
+                onClick: null,
             };
             if (props.trigger === 'click') {
                 targetEvents.onClick = this.onEnter;
             }
-            else {
+            else if (props.trigger === 'hover') {
                 targetEvents.onMouseEnter = this.onEnter;
                 targetEvents.onMouseLeave = this.onLeave;
             }
-            return omi.h("div", { style: "position:relative" },
+            return (omi.h("div", { style: "position:relative" },
                 omi.h("slot", __assign({}, targetEvents)),
                 omi.h("o-transition", { appear: this.isShow, name: "fade" },
                     omi.h("div", { style: { display: this.isInstalled ? 'block' : 'none' }, class: omi.classNames((_a = {
@@ -2302,19 +2306,22 @@
                             _a["is-" + props.effect] = props.effect,
                             _a)) },
                         omi.h("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
-                        omi.h("i", { class: "tip-arrow", "data-popper-arrow": true }))));
+                        omi.h("i", { class: "tip-arrow", "data-popper-arrow": true })))));
         };
         Popover.css = css;
         Popover.defaultProps = {
             effect: 'light',
             position: 'bottom',
-            trigger: 'click'
+            /**
+             * 触发方式
+             */
+            trigger: 'click',
         };
         Popover.propTypes = {
             content: String,
             effect: String,
             position: String,
-            trigger: String
+            trigger: String,
         };
         Popover = __decorate$1([
             omi.tag('o-popover')
