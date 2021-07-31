@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.13 http://omijs.org
+ * @omiu/table v0.0.14 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -995,12 +995,7 @@ th {
 
 th,
 td {
-  display: table-cell;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: auto;
-  max-width: 1px; }
+  white-space: nowrap; }
 
 th.sticky-top {
   position: sticky;
@@ -1280,5 +1275,5 @@ var Table = /** @class */ (function (_super) {
     return Table;
 }(WeElement));
 
-export { Table as default };
+export default Table;
 //# sourceMappingURL=index.esm.js.map

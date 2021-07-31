@@ -58,14 +58,17 @@ export default class Table extends WeElement {
 
   columns = [{
     title: 'ID',
+    width: '20px',
     render: item => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
+    width: '130px',
     editable: true
   }, {
     title: 'Age',
     key: 'age',
+    width: '70px',
     editable: true
   }, {
     title: 'Address',
