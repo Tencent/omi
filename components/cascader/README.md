@@ -28,6 +28,10 @@ Or use script tag to ref it.
 interface CascaderOption {
   value: string
   label: string
+  /**
+   * 是否禁用
+   */
+  disabled: boolean
   children?: CascaderOption[]
 }
 
@@ -43,11 +47,15 @@ export interface CascaderProps {
   /**
    * 尺寸 Todo
    */
-  size?: 'medium' | 'small' | 'mini'
+  size?: 'default' | 'medium' | 'small' | 'mini'
+  /**
+   * 是否禁用
+   */
+  disabled?: boolean
   /**
    * 选项被点击后的回调函数
    */
-  onOptionClick?: (item, index, evt) => void
+  onOptionClick?: (item: any, index: any, evt: any) => void
 }
 ```
 
@@ -68,7 +76,7 @@ cd components/cascader
 yarn
 # 开发预览
 yarn dev
-# 构建
+# 构建（目录位于 dist）
 yarn build
 # 构建 demo
 yarn build:demo

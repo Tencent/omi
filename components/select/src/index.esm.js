@@ -1,5 +1,5 @@
 /**
- * @omiu/select v0.0.7 http://omijs.org
+ * @omiu/select v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi

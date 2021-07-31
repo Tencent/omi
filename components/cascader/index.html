@@ -9,7 +9,7 @@
     <style>
       .demo-container {
         width: 100%;
-        height: 500px;
+        height: 666px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -24,11 +24,18 @@
     <div class="demo-container">
       <div class="label">Click 触发子菜单</div>
       <o-cascader options=""></o-cascader>
-      <o-cascader value="['components', 'cascader']" options=""></o-cascader>
-      <!-- <o-cascader disabled options=""></o-cascader> -->
-      <!-- <o-cascader size="medium"></o-cascader>
+      禁用
+      <o-cascader
+        disabled
+        value="['components', 'basic', 'card']"
+        options=""
+      ></o-cascader>
+      Size: medium
+      <o-cascader size="medium"></o-cascader>
+      Size: small
       <o-cascader size="small"></o-cascader>
-      <o-cascader size="mini"></o-cascader> -->
+      Size: mini
+      <o-cascader size="mini"></o-cascader>
     </div>
 
     <script>
@@ -94,6 +101,11 @@
               label: '云游君'
             }
           ]
+        },
+        {
+          value: 'disabled',
+          label: '禁用',
+          disabled: true
         }
       ]
 

@@ -30,9 +30,10 @@ Or use script tag to ref it.
 ```tsx
 {
   title?: string,
+  hoverable?: string,
   extra?: string,
   actions?: any[],
-  size?: 'medium' | 'small'
+  size?: 'large' | 'medium' | 'small'
 }
 ```
 
@@ -40,6 +41,6 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  size: '',
+  size: 'large',
 }
 ```

@@ -3,6 +3,7 @@ import * as css from './index.scss'
 
 interface Props {
   title?: string,
+  hoverable?: string,
   extra?: string,
   actions: any[],
   size?: 'medium' | 'small'
@@ -10,15 +11,17 @@ interface Props {
 
 @tag('o-card')
 export default class Card extends WeElement<Props> {
-  static css = css
+  css = css
 
   static defaultProps = {
     title: '',
+    hoverable: '',
     extra: ''
   }
 
   static propTypes = {
     title: String,
+    hoverable: String,
     extra: String,
     actions: Array,
     size: String
@@ -29,13 +32,25 @@ export default class Card extends WeElement<Props> {
     this.update(true)
   }
 
+  handleMousemove = (item) => {
+    item && (this.css = css + `.o-card:hover {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+      width: 300px;
+      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+      transition: all .3s;
+      z-index: 1;
+    }`)
+  }
+
   _iconTag
 
   render(props) {
     return (
       <div {...extractClass(props, 'o-card', {
         ['o-card-' + props.size]: props.size
-      })}>
+      })} onMousemove={this.handleMousemove(props.hoverable==="true")}>
         <slot name="cover">
           <div {...extractClass(props, 'o-card-header', {
             ['o-card-header-' + props.size]: props.size

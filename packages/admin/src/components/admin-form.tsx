@@ -6,6 +6,7 @@ import '@omiu/switch'
 import '@omiu/radio'
 import '@omiu/checkbox'
 import '@omiu/date-picker'
+import '@omiu/cascader'
 
 interface Props { }
 
@@ -77,6 +78,76 @@ export default class extends WeElement<Props> {
             <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
             <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
             <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
+          </div>
+        </div>
+
+        <div class={formItemClass}>
+          <label class={lableClass} >级联选择</label>
+          <div class={tw`leading-8 ml-10`}>
+            <o-cascader options={[
+              {
+                value: 'components',
+                label: '组件',
+                children: [
+                  {
+                    value: 'basic',
+                    label: '基础',
+                    children: [
+                      {
+                        value: 'input',
+                        label: '输入框'
+                      },
+                      {
+                        value: 'button',
+                        label: '按钮'
+                      },
+                      {
+                        value: 'card',
+                        label: '卡片'
+                      }
+                    ]
+                  },
+                  {
+                    value: 'form',
+                    label: '表单',
+                    children: [
+                      {
+                        value: 'select',
+                        label: '选择器'
+                      }
+                    ]
+                  },
+                  {
+                    value: 'advanced',
+                    label: '高级',
+                    children: [
+                      {
+                        value: 'tree',
+                        label: '树'
+                      },
+                      {
+                        value: 'cascader',
+                        label: '级联选择器'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                value: 'author',
+                label: '作者',
+                children: [
+                  {
+                    value: 'dntzhang',
+                    label: '当耐特'
+                  },
+                  {
+                    value: 'YunYouJun',
+                    label: '云游君'
+                  }
+                ]
+              }
+            ]}> </o-cascader>
           </div>
         </div>
 

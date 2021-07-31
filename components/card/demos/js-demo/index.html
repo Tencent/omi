@@ -18,14 +18,16 @@
 
   <script src="../../../common//src/index.js"></script>
   <script src="../../src/index.js"></script>
-  <!-- 这里导入合适的OmiU-icon -->
+  <!-- 这里导入需要的的OmiU-component -->
   <script src="https://unpkg.com/@omiu/icon@0.0.2/add-a-photo-rounded.js"></script>
   <script src="https://unpkg.com/@omiu/icon@0.0.2/add-comment-rounded.js"></script>
   <script src="https://unpkg.com/@omiu/icon@0.0.2/add-ic-call-rounded.js"></script>
+  <script src="https://unpkg.com/@omiu/avatar"></script>
+  <script src="https://unpkg.com/@omiu/image"></script>
 
-  <div style="display: flex; flex-direction: column; justify-content: space-around;">
+  <div style="display: flex; margin: 2% 10%; justify-content: space-around; flex-wrap: wrap">
 
-    <o-card title="Default size card">
+    <o-card title="Default size card" hoverable="true">
       <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
       <!-- <div slot="cover">
         <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
@@ -35,9 +37,11 @@
         <p>Card content</p>
     </o-card>
 
-    <o-card title="Small size card" size="small">
-      <o-link underline='0' type="danger" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
-        <p>Card content</p>
+    <o-card title="Simple Card" hoverable="true">
+      <!-- slot="cover" 若不填充内容，则header栏不显示。-简洁卡片 -->
+      <div slot="cover">
+      </div>
+        <p>Simple Card</p>
         <p>Card content</p>
         <p>Card content</p>
     </o-card>
@@ -50,11 +54,28 @@
         <p>Card content</p>
     </o-card>
 
-    <o-card title="Action card" id="myAction" actions="[{icon: 'add-a-photo-rounded'},{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]">
-      <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
+    <o-card title="DNT's card" id="myAction" actions="[{icon: 'add-ic-call-rounded'}]" hoverable="true">
+      <o-avatar slot="extra">DNT</o-avatar>
+        <p>Tel:</p>
+        <p>Company:</p>
+        <p>...</p>
+    </o-card>
+
+    <o-card title="Action card" size="medium" id="myAction" actions="[{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]">
+      <o-image slot="cover" src="https://tencent.github.io/omi/packages/admin/dist/assets/logo.a690a1ac.svg"></o-image>
+      <div style="float: left;">
+        <o-avatar src="https://material-ui.com/static/images/avatar/1.jpg"></o-avatar>
+      </div>
+      <div style="float: right;">
+        <p>Card title</p>
+        <p>This is the description</p>
+      </div>
+    </o-card>
+
+    <o-card hoverable="true">
+      <o-image slot="cover" src="https://tencent.github.io/omi/packages/admin/dist/assets/logo.a690a1ac.svg"></o-image>
+        <p>OMI Card</p>
+        <p><o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">Welcome to OMI</o-link></p>
     </o-card>
 
   </div>

@@ -32,12 +32,7 @@ th {
 
 th,
 td {
-  display: table-cell;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: auto;
-  max-width: 1px; }
+  white-space: nowrap; }
 
 th.sticky-top {
   position: sticky;

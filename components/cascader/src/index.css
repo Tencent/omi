@@ -1,7 +1,6 @@
 .o-cascader {
   display: inline-block;
   position: relative;
-  line-height: 40px;
   outline: 0;
 }
 .o-cascader-dropdown__wrap {
@@ -17,6 +16,7 @@
 .o-cascader-dropdown__item {
   position: relative;
   padding: 10px 20px;
+  cursor: pointer;
 }
 .o-cascader-dropdown__item.selected, .o-cascader-dropdown__item:hover {
   background: #f1fff8;
@@ -24,6 +24,10 @@
 .o-cascader-dropdown__item-suffix {
   position: absolute;
   right: 10px;
+}
+.o-cascader-dropdown__item.disabled {
+  color: #c0c4cc;
+  cursor: not-allowed;
 }
 .o-cascader-dropdown-right__wrap {
   position: absolute;

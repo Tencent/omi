@@ -267,9 +267,13 @@ var Card = /** @class */ (function (_super) {
     __extends(Card, _super);
     function Card() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.css = css;
         _this.clickHandler = function (item) {
             _this.fire('change', item);
             _this.update(true);
+        };
+        _this.handleMousemove = function (item) {
+            item && (_this.css = css + ".o-card:hover {\n      display: flex;\n      flex-direction: column;\n      margin: 10px;\n      width: 300px;\n      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n      transition: all .3s;\n      z-index: 1;\n    }");
         };
         return _this;
     }
@@ -278,7 +282,7 @@ var Card = /** @class */ (function (_super) {
         var _this = this;
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-card', (_a = {},
             _a['o-card-' + props.size] = props.size,
-            _a))),
+            _a)), { onMousemove: this.handleMousemove(props.hoverable === "true") }),
             omi_1.h("slot", { name: "cover" },
                 omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-card-header', (_b = {},
                     _b['o-card-header-' + props.size] = props.size,
@@ -300,13 +304,14 @@ var Card = /** @class */ (function (_super) {
                     omi_1.h(_this._iconTag, { class: "icon" }));
             }))) : null));
     };
-    Card.css = css;
     Card.defaultProps = {
         title: '',
+        hoverable: '',
         extra: ''
     };
     Card.propTypes = {
         title: String,
+        hoverable: String,
         extra: String,
         actions: Array,
         size: String

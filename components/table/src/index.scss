@@ -40,12 +40,13 @@
  //https://stackoverflow.com/questions/4654481/lock-table-cells-to-their-default-size-regardless-of-content
  th,
  td {
-   display: table-cell;
-   white-space: nowrap;
-   text-overflow: ellipsis;
-   overflow: hidden;
-   width: auto;
-   max-width: 1px;
+    // 下面这些样式会让冻结失效
+    // display: table-cell;
+    white-space: nowrap;
+    //  text-overflow: ellipsis;
+    //  overflow: hidden;
+    //  width: auto;
+    //  max-width: 1px;
  }
 
  th.sticky-top {

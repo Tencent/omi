@@ -13,8 +13,8 @@ interface Props {
   trailColor?: string;
   textColor?:String,
   style?: string;
-  size?: 'small';
   strokeWidth:number;
+  width:number;
 }
 
 const status2color = {
@@ -38,8 +38,8 @@ export default class extends WeElement<Props> {
     strokeColor: "#07c160",
     trailColor: "#f5f5f5",
     textColor:"black",
-    size: 'small',
-    strokeWidth:50
+    strokeWidth:8,
+    width:300,
   }
 
   percentage:any
@@ -47,28 +47,39 @@ export default class extends WeElement<Props> {
   static propTypes = {
     type: String,
     percent: Number,
-    status: String, // normal success error 
+    status: String,  
     strokeColor: String,
     trailColor: String,
     textColor:String,
-    size: String,
-    strokeWidth:Number
+    strokeWidth:Number,
+    width:Number,
   }
-  // install(){
-  //   this.percentage = state({
-  //     value: this.props.percent
-  //   }, this)
-  // }
 
   render(props) {
+    const {
+      type, 
+      percent,
+      status,
+      strokeColor,
+      trailColor,
+      textColor,
+      strokeWidth,
+      width,
+    }  = props
     return (
       <div >
-        <div className="o-progress__outer" style={{width:`${props.strokeWidth}%`}}>
-          <div className="o-progress__bar"style={{backgroundColor:props.trailColor}}>
-            <div className="o-progress__inner-bar" style={{width:`${props.percent}%`,backgroundColor:props.status?status2color[props.status]:props.strokeColor}}></div>
+        <div className="o-progress__outer" style={{width:width}}>
+          <div className="o-progress__bar"style={{backgroundColor:trailColor}}>
+            <div className="o-progress__inner-bar" style={{
+              width:`${percent}%`,
+              backgroundColor:status?status2color[status]:strokeColor,
+              height:strokeWidth
+              }}></div>
           </div>
         </div>
-        <span className="o-progress-text" style={{color:props.status?status2color[props.status]:props.textColor}}>{props.status?status2icon[props.status]:`${props.percent}%`}</span>
+        <span className="o-progress-text" style={{fontSize:strokeWidth*1.75,color:textColor}}>
+          {status?<span style={{color:status?status2color[status]:strokeColor}}>{status2icon[status]}</span>
+          :`${percent}%`}</span>
       </div>
     )
   }

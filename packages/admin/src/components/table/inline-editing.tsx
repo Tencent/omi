@@ -138,16 +138,19 @@ export default class extends WeElement<Props> {
     },
     {
       title: 'Name',
+      width: 120,
       key: 'name',
       editable: true
     },
     {
       title: 'Age',
+      width: 90,
       key: 'age',
       editable: true
     },
     {
       title: 'Address',
+      width: 290,
       key: 'address',
       editable: true
     },
