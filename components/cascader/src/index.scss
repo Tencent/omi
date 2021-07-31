@@ -1,7 +1,6 @@
 .o-cascader {
   display: inline-block;
   position: relative;
-  line-height: 40px;
   outline: 0;
 
   &-dropdown {
@@ -20,6 +19,7 @@
     &__item {
       position: relative;
       padding: 10px 20px;
+      cursor: pointer;
 
       &.selected,
       &:hover {
@@ -29,6 +29,11 @@
       &-suffix {
         position: absolute;
         right: 10px;
+      }
+
+      &.disabled {
+        color: #c0c4cc;
+        cursor: not-allowed;
       }
     }
 
