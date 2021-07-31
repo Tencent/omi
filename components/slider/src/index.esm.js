@@ -1,5 +1,5 @@
 /**
- * @omiu/slider v0.0.9 http://omijs.org
+ * @omiu/slider v0.0.1 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -110,49 +110,43 @@ var css = `@use 'sass:math';
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
-    top: 50%;
-    margin-top: -15.625px;
-    outline: 2px solid #ffffff;
-    outline-offset: -8px;
+    transition: background-color 150ms;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    top: 50%;
+    margin-top: -17.625px;
     pointer-events: auto;
     z-index: 2;
-    transition: outline-offset 150ms;
     -webkit-appearance: none; }
     .slider-container .o-slider::-webkit-slider-thumb:hover, .slider-container .o-slider::-webkit-slider-thumb:focus {
-      outline-offset: -10px; }
+      background-color: #059048; }
   .slider-container .o-slider::-moz-range-thumb {
     position: relative;
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
-    top: 50%;
-    margin-top: -15.625px;
-    outline: 2px solid #ffffff;
-    outline-offset: -8px;
+    transition: background-color 150ms;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    top: 50%;
+    margin-top: -17.625px;
     pointer-events: auto;
     z-index: 2;
-    transition: outline-offset 150ms;
     -webkit-appearance: none; }
     .slider-container .o-slider::-moz-range-thumb:hover, .slider-container .o-slider::-moz-range-thumb:focus {
-      outline-offset: -10px; }
+      background-color: #059048; }
   .slider-container .o-slider::-ms-thumb {
     position: relative;
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
-    top: 50%;
-    margin-top: -15.625px;
-    outline: 2px solid #ffffff;
-    outline-offset: -8px;
+    transition: background-color 150ms;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    top: 50%;
+    margin-top: -17.625px;
     pointer-events: auto;
     z-index: 2;
-    transition: outline-offset 150ms;
     appearance: none; }
     .slider-container .o-slider::-ms-thumb:hover, .slider-container .o-slider::-ms-thumb:focus {
-      outline-offset: -10px; }
+      background-color: #059048; }
 
 .is-round .slider-track {
   border-radius: 8px; }
@@ -186,60 +180,54 @@ var css = `@use 'sass:math';
   height: 31.25px;
   width: 31.25px;
   background-color: #07c160;
-  top: 50%;
-  margin-top: -15.625px;
-  outline: 2px solid #ffffff;
-  outline-offset: -8px;
+  transition: background-color 150ms;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  top: 50%;
+  margin-top: -17.625px;
   pointer-events: auto;
   z-index: 2;
-  transition: outline-offset 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
   -webkit-appearance: none; }
   .is-disabled .o-slider::-webkit-slider-thumb:hover, .is-disabled .o-slider::-webkit-slider-thumb:focus {
-    outline-offset: -10px; }
+    background-color: #059048; }
 
 .is-disabled .o-slider::-moz-range-thumb {
   position: relative;
   height: 31.25px;
   width: 31.25px;
   background-color: #07c160;
-  top: 50%;
-  margin-top: -15.625px;
-  outline: 2px solid #ffffff;
-  outline-offset: -8px;
+  transition: background-color 150ms;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  top: 50%;
+  margin-top: -17.625px;
   pointer-events: auto;
   z-index: 2;
-  transition: outline-offset 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
   -webkit-appearance: none; }
   .is-disabled .o-slider::-moz-range-thumb:hover, .is-disabled .o-slider::-moz-range-thumb:focus {
-    outline-offset: -10px; }
+    background-color: #059048; }
 
 .is-disabled .o-slider::-ms-thumb {
   position: relative;
   height: 31.25px;
   width: 31.25px;
   background-color: #07c160;
-  top: 50%;
-  margin-top: -15.625px;
-  outline: 2px solid #ffffff;
-  outline-offset: -8px;
+  transition: background-color 150ms;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  top: 50%;
+  margin-top: -17.625px;
   pointer-events: auto;
   z-index: 2;
-  transition: outline-offset 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
   appearance: none; }
   .is-disabled .o-slider::-ms-thumb:hover, .is-disabled .o-slider::-ms-thumb:focus {
-    outline-offset: -10px; }
+    background-color: #059048; }
 
 .is-vertical {
   transform: rotate(-90deg); }
@@ -251,18 +239,26 @@ var OSlider = /** @class */ (function (_super) {
     function OSlider() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.sliderMax = _this.props.max;
-        _this.handleSliderOne = function () {
+        _this.handleSliderOne = function (evt) {
             var first_value = parseInt(_this.rootNode.children[0].value);
-            if (_this.__$second_value === null || first_value <= _this.__$second_value) {
+            //! bad
+            if (first_value <= _this.__$second_value || !_this.props.double_range) {
                 _this.__$value = first_value;
+                if (!_this.props.double_range) {
+                    _this.fire('change', _this.__$value);
+                }
+                else {
+                    _this.fire('change', [_this.__$value, _this.__$second_value]);
+                }
             }
             _this.fillColor();
             _this.update();
         };
-        _this.handleSliderTwo = function () {
+        _this.handleSliderTwo = function (evt) {
             var second_value = parseInt(_this.rootNode.children[1].value);
             if (second_value >= _this.__$value) {
                 _this.__$second_value = second_value;
+                _this.fire('change', [_this.__$value, _this.__$second_value]);
             }
             _this.fillColor();
             _this.update();
@@ -293,9 +289,6 @@ var OSlider = /** @class */ (function (_super) {
         this.fillColor();
         this.update();
     };
-    // updated() {
-    //   console.log(this.__$value, this.__$second_value)
-    // }
     OSlider.prototype.render = function (props) {
         var _this = this;
         var cls = extractClass(props, 'slider-container', {

@@ -5,6 +5,10 @@
   "main": "src/index.js",
   "module": "src/index.esm.js",
   "types": "src/index.d.ts",
+  "docsExtend": {
+    "cnName": "滑块",
+    "cnDescription": "一般用于拖动页面内容"
+  },
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
