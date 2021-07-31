@@ -10,7 +10,6 @@ $track-height: 12.5px;
 $upper-color: $o-surface;
 $lower-color: $o-primary;
 $thumb-color: $o-primary;
-$track-color: $o-primary-active;
 
 $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
@@ -19,20 +18,16 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   height: $thumb-height;
   width: $thumb-height;
   background-color: $thumb-color;
-  top: 50%;
-  margin-top: $thumb-height / -2;
-  outline: 2px solid $o-surface;
-  outline-offset: -8px;
+  transition: background-color 150ms;
   box-shadow: $shadow;
+  top: 50%;
+  margin-top: ($thumb-height / -2) - 2;
   pointer-events: auto;
-
   z-index: 2;
-
-  transition: outline-offset 150ms;
 
   &:hover,
   &:focus {
-    outline-offset: -10px;
+    background-color: $o-primary-active;
   }
 }
 
@@ -98,7 +93,6 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   bottom: 0;
   background: transparent;
   z-index: 1;
-
   pointer-events: none;
 
   &:focus {

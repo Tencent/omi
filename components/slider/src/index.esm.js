@@ -1,5 +1,5 @@
 /**
- * @omiu/slider v0.0.9 http://omijs.org
+ * @omiu/slider v0.0.1 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -111,48 +111,42 @@ var css = `@use 'sass:math';
     width: 31.25px;
     background-color: #07c160;
     top: 50%;
-    margin-top: -15.625px;
-    outline: 2px solid #ffffff;
-    outline-offset: -8px;
+    margin-top: -17.625px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     pointer-events: auto;
     z-index: 2;
-    transition: outline-offset 150ms;
+    transition: background-color 150ms;
     -webkit-appearance: none; }
     .slider-container .o-slider::-webkit-slider-thumb:hover, .slider-container .o-slider::-webkit-slider-thumb:focus {
-      outline-offset: -10px; }
+      background-color: #059048; }
   .slider-container .o-slider::-moz-range-thumb {
     position: relative;
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
     top: 50%;
-    margin-top: -15.625px;
-    outline: 2px solid #ffffff;
-    outline-offset: -8px;
+    margin-top: -17.625px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     pointer-events: auto;
     z-index: 2;
-    transition: outline-offset 150ms;
+    transition: background-color 150ms;
     -webkit-appearance: none; }
     .slider-container .o-slider::-moz-range-thumb:hover, .slider-container .o-slider::-moz-range-thumb:focus {
-      outline-offset: -10px; }
+      background-color: #059048; }
   .slider-container .o-slider::-ms-thumb {
     position: relative;
     height: 31.25px;
     width: 31.25px;
     background-color: #07c160;
     top: 50%;
-    margin-top: -15.625px;
-    outline: 2px solid #ffffff;
-    outline-offset: -8px;
+    margin-top: -17.625px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     pointer-events: auto;
     z-index: 2;
-    transition: outline-offset 150ms;
+    transition: background-color 150ms;
     appearance: none; }
     .slider-container .o-slider::-ms-thumb:hover, .slider-container .o-slider::-ms-thumb:focus {
-      outline-offset: -10px; }
+      background-color: #059048; }
 
 .is-round .slider-track {
   border-radius: 8px; }
@@ -187,19 +181,17 @@ var css = `@use 'sass:math';
   width: 31.25px;
   background-color: #07c160;
   top: 50%;
-  margin-top: -15.625px;
-  outline: 2px solid #ffffff;
-  outline-offset: -8px;
+  margin-top: -17.625px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   z-index: 2;
-  transition: outline-offset 150ms;
+  transition: background-color 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
   -webkit-appearance: none; }
   .is-disabled .o-slider::-webkit-slider-thumb:hover, .is-disabled .o-slider::-webkit-slider-thumb:focus {
-    outline-offset: -10px; }
+    background-color: #059048; }
 
 .is-disabled .o-slider::-moz-range-thumb {
   position: relative;
@@ -207,19 +199,17 @@ var css = `@use 'sass:math';
   width: 31.25px;
   background-color: #07c160;
   top: 50%;
-  margin-top: -15.625px;
-  outline: 2px solid #ffffff;
-  outline-offset: -8px;
+  margin-top: -17.625px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   z-index: 2;
-  transition: outline-offset 150ms;
+  transition: background-color 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
   -webkit-appearance: none; }
   .is-disabled .o-slider::-moz-range-thumb:hover, .is-disabled .o-slider::-moz-range-thumb:focus {
-    outline-offset: -10px; }
+    background-color: #059048; }
 
 .is-disabled .o-slider::-ms-thumb {
   position: relative;
@@ -227,19 +217,17 @@ var css = `@use 'sass:math';
   width: 31.25px;
   background-color: #07c160;
   top: 50%;
-  margin-top: -15.625px;
-  outline: 2px solid #ffffff;
-  outline-offset: -8px;
+  margin-top: -17.625px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   z-index: 2;
-  transition: outline-offset 150ms;
+  transition: background-color 150ms;
   pointer-events: none;
   cursor: none;
   background-color: #c0c4cc;
   appearance: none; }
   .is-disabled .o-slider::-ms-thumb:hover, .is-disabled .o-slider::-ms-thumb:focus {
-    outline-offset: -10px; }
+    background-color: #059048; }
 
 .is-vertical {
   transform: rotate(-90deg); }
