@@ -1,5 +1,5 @@
 /**
- * @omiu/popover v0.0.11 http://omijs.org
+ * @omiu/popover v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1933,7 +1933,7 @@ var createPopper = /*#__PURE__*/popperGenerator({
 }); // eslint-disable-next-line import/no-unused-modules
 
 /**
- * @omiu/transition v0.0.12 http://omijs.org
+ * @omiu/transition v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2081,16 +2081,28 @@ var domReady = _dready_0_0_1_dready || _domReady;
         return _this;
     }
     Transition.prototype.installed = function () {
-        var _this = this;
-        domReady(function () {
-            if (_this.props.appear) {
-                _this.enter();
-            }
-            if (_this.props.leavingTime) {
-                setTimeout(function () {
-                    _this.leave();
-                }, _this.props.leavingTime);
-            }
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                domReady(function () {
+                    if (_this.props.appear) {
+                        _this.enter();
+                    }
+                    else {
+                        _this.children[0].style['transition-duration'] = '0s';
+                        _this.leave();
+                        setTimeout(function () {
+                            _this.children[0].style['transition-duration'] = null;
+                        }, 300);
+                    }
+                    if (_this.props.leavingTime) {
+                        setTimeout(function () {
+                            _this.leave();
+                        }, _this.props.leavingTime);
+                    }
+                });
+                return [2 /*return*/];
+            });
         });
     };
     Transition.prototype.receiveProps = function () {
@@ -2328,5 +2340,5 @@ var Popover = /** @class */ (function (_super) {
     return Popover;
 }(WeElement));
 
-export { Popover as default };
+export default Popover;
 //# sourceMappingURL=index.esm.js.map

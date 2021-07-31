@@ -47,7 +47,8 @@ export default class Cascader extends WeElement<CascaderProps> {
 
   installed() {
     window.addEventListener('click', (e) => {
-      if (e.target.localName === 'o-cascader') return
+      //admin 系统里 e.target.localName 直接输出 my-app 了
+      //if (e.target.localName === 'o-cascader') return
       if (this.popoverRef.isShow) {
         this.popoverRef.isShow = false
         this.popoverRef.update()
@@ -129,7 +130,7 @@ export default class Cascader extends WeElement<CascaderProps> {
     }
 
     return (
-      <div class={classes}>
+      <div class={classes} onclick={e => e.stopPropagation()}>
         <o-popover
           ref={(e) => (this.popoverRef = e)}
           trigger="manual"
@@ -145,7 +146,6 @@ export default class Cascader extends WeElement<CascaderProps> {
             style={{
               cursor: 'pointer',
               backgroundColor: 'white',
-              borderColor: 'transparent',
               color: '#606266'
             }}
           ></o-input>

@@ -16,6 +16,7 @@
   "dependencies": {
     "@omiu/avatar": "^0.0.1",
     "@omiu/button": "^0.0.9",
+    "@omiu/cascader": "^0.0.3",
     "@omiu/checkbox": "^0.0.11",
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.9",
@@ -26,8 +27,9 @@
     "@omiu/loading": "0.0.2",
     "@omiu/pagination": "^0.0.5",
     "@omiu/popconfirm": "^0.0.2",
+    "@omiu/popover": "^0.0.12",
     "@omiu/radio": "^0.0.6",
-    "@omiu/select": "^0.0.7",
+    "@omiu/select": "^0.0.8",
     "@omiu/switch": "^0.0.2",
     "@omiu/table": "^0.0.13",
     "@omiu/tabs": "^0.0.19",

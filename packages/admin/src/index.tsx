@@ -2,6 +2,8 @@ import { WeElement, render, h, tag } from 'omi'
 
 import { route } from 'omi-router'
 
+//提前使用最新版本注册组件
+import '@omiu/popover'
 import '@omiu/icon/delete'
 import '@omiu/icon/insert-link'
 import '@omiu/icon/error'
