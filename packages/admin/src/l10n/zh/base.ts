@@ -18,5 +18,6 @@ export const base = {
   Components: '组件',
   Loading: 'Loading 加载中',
   Toast: 'Toast 弹出式提示',
-  InlineEditing: '表格行内编辑'
+  InlineEditing: '表格行内编辑',
+  MarkdownEditor: 'Markdown 编辑器'
 }

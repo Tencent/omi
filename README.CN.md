@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
-<h2 align="center">Omi - 前端跨框架框架</h2>
+<h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 
 
 使用 TypeScript 开发跨框架的按钮组件:

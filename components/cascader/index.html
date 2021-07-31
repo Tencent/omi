@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu Cascader</title>
+    <script type="module" src="/src/index.tsx"></script>
+    <style>
+      .demo-container {
+        width: 100%;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .label {
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body style="background-color: #eee">
+    <div class="demo-container">
+      <div class="label">Click 触发子菜单</div>
+      <o-cascader options=""></o-cascader>
+      <o-cascader value="['components', 'cascader']" options=""></o-cascader>
+      <!-- <o-cascader disabled options=""></o-cascader> -->
+      <!-- <o-cascader size="medium"></o-cascader>
+      <o-cascader size="small"></o-cascader>
+      <o-cascader size="mini"></o-cascader> -->
+    </div>
+
+    <script>
+      const options = [
+        {
+          value: 'components',
+          label: '组件',
+          children: [
+            {
+              value: 'basic',
+              label: '基础',
+              children: [
+                {
+                  value: 'input',
+                  label: '输入框'
+                },
+                {
+                  value: 'button',
+                  label: '按钮'
+                },
+                {
+                  value: 'card',
+                  label: '卡片'
+                }
+              ]
+            },
+            {
+              value: 'form',
+              label: '表单',
+              children: [
+                {
+                  value: 'select',
+                  label: '选择器'
+                }
+              ]
+            },
+            {
+              value: 'advanced',
+              label: '高级',
+              children: [
+                {
+                  value: 'tree',
+                  label: '树'
+                },
+                {
+                  value: 'cascader',
+                  label: '级联选择器'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: 'author',
+          label: '作者',
+          children: [
+            {
+              value: 'dntzhang',
+              label: '当耐特'
+            },
+            {
+              value: 'YunYouJun',
+              label: '云游君'
+            }
+          ]
+        }
+      ]
+
+      // set default value
+      const elements = document.getElementsByTagName('o-cascader')
+      Array.from(elements).map((el) =>
+        el.setAttribute('options', JSON.stringify(options))
+      )
+    </script>
+  </body>
+</html>
