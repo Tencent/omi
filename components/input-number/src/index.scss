@@ -1,0 +1,59 @@
+@import "@omiu/common/theme.scss";
+// @import "@omiu/input/index.scss";
+.o-button-medium {
+    padding: 10px 12px;
+    padding-top: 0.01em;
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px
+  }
+  
+.o-button-small {
+    padding: 9px 10px;
+    padding-top: 0.01em;
+    font-size: 15px;
+    height: 32px;
+    line-height: 32px
+  }
+  
+.o-button-mini {
+    padding: 7px 8px;
+    padding-top: 0.01em;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px
+}
+.o-button {
+    display: inline-block;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    vertical-align: top;
+  }
+.o-button-right{
+  border-bottom-right-radius: 7px;
+  border-top-right-radius: 7px;
+  border-left: 0;
+}
+.o-button-left{
+  border-bottom-left-radius: 7px;
+  border-top-left-radius: 7px;
+  border-right: 0;
+}
+.o-button:hover {
+    border-color: $o-primary-fade-some;
+    border-color: var(--o-primary-fade-some, $o-primary-fade-some);
+    color: $o-primary;
+    color: var(--o-primary, $o-primary);
+    background-color: $o-primary-fade-lot;
+    background-color: var(--o-primary-fade-lot, $o-primary-fade-lot);
+  }
