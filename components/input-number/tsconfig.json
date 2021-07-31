@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "target": "es5",
+    "allowJs": true,
+    "declaration": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
