@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+      "baseUrl": ".",
+      "experimentalDecorators": true,
+      "jsx": "react",
+      "jsxFactory": "h",
+      "target": "es5",
+      "outDir": "dist",
+      //https://github.com/microsoft/TypeScript/issues/6945
+      //https://basarat.gitbook.io/typescript/type-system/lib.d.ts#lib-option
+      "lib": ["dom", "es6"]
+  },
+  "include": [
+      "src/**/*"
+  ]
+}
