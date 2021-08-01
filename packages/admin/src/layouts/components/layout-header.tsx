@@ -68,20 +68,21 @@ export default class extends WeElement<Props> {
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
-            <o-hamburger-menu class={tw`mt-1.5 ml-1 `} color="rgb(107, 114, 128)" active={!this.store.isLeftPanelClosed} onchange={this.onMenuChange} ></o-hamburger-menu>
-            <img class={tw`w-8 m-1 ml-3`} src={logo} alt="logo" />
-            <div>
-              <h1 class={tw`ml-3 leading-10 text-gray-500`}>OMI ADMIN</h1>
-
-            </div>
-            <div class={tw`inline-block mt-1.5 ml-3`}>
+            <o-hamburger-menu
+              class={tw`mt-1.5 ml-1 scale-75 flex-row`}
+              color="rgb(107, 114, 128)"
+              active={!this.store.isLeftPanelClosed}
+              onchange={this.onMenuChange} >
+            </o-hamburger-menu>
+            <img class={tw`w-8 m-1 ml-3 flex-row`} src={logo} alt="logo" />
+            <h1 class={tw`ml-3 leading-10 text-gray-500 flex-row`}>OMI ADMIN</h1>
+            <div class={tw`flex-row mt-1.5 ml-3`}>
               <o-select css={`
             .o-select .o-input__inner {
               width: 117px;
             `} size="mini"
                 onitem-select={this.onItemSelect}
                 value={this.store.locale} items={this.items}>
-
               </o-select>
             </div>
           </div>
