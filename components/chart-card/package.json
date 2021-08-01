@@ -18,7 +18,7 @@
     "watch": "sass --watch src/index.scss src/index.css --no-source-map"
   },
   "dependencies": {
-    "@omiu/chart": "^0.0.1"
+    "@omiu/chart": "^0.0.4"
   },
   "devDependencies": {
     "@types/node": "^16.4.7",

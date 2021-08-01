@@ -43,7 +43,7 @@
     "markdown-it": "^12.1.0",
     "markdown-it-anchor": "^8.1.0",
     "mockjs": "^1.1.0",
-    "omi": "^6.19.23",
+    "omi": "^6.19.27",
     "omi-router": "^3.0.0",
     "omi-twind": "^0.0.1",
     "prismjs": "^1.24.0",
