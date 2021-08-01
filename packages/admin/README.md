@@ -7,6 +7,7 @@
 **功能特性:**
 
 * 基于 omi web components
+* 开箱即用，大量内置模板和组件
 * vite + ts + twind + lazy load
 * 主题实时切换
 * 移动优先，响应式设计
