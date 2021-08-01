@@ -211,11 +211,19 @@ export default class extends WeElement<Props> {
   }
 
 
+  exportExcel = () => {
+    import('./export-excel').then(md => {
+      md.exportTableToExcel(this.table.rootNode.querySelector('table'))
+    })
+  }
 
 
   render() {
     return (
       <div class={tw`pl-0.5`}>
+        <div class={tw`relative h-10 text-right`}>
+          <o-button class={tw`relative top-2 right-2`} size="mini" onClick={this.exportExcel}>导出Excel</o-button>
+        </div>
         <div class={tw`px-2`}>
           {/* <h4 class={tw`py-2 text-sm`}>基础表格</h4> */}
           <o-table
