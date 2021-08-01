@@ -35,6 +35,7 @@ export default class ChartCard extends WeElement<Props> {
       segment: {
         borderColor: 'white',
       },
+      backgroundColor: [],
       borderColor: ['white', 'white', 'white', 'white', 'white', 'white'],
       borderWidth: 1
     }]
@@ -57,6 +58,10 @@ export default class ChartCard extends WeElement<Props> {
 
   render(props: Props) {
 
+
+    props.labels.forEach(_ => {
+      this.chartData.datasets[0].backgroundColor.push(props.color)
+    })
     this.chartData.labels = props.labels
     this.chartData.datasets[0].data = props.data
     return <div class="card text-white" style={{ backgroundColor: props.color }}>
