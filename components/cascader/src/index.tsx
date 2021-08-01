@@ -9,6 +9,10 @@ import * as css from './index.scss'
 interface CascaderOption {
   value: string
   label: string
+  /**
+   * 是否禁用
+   */
+  disabled?: boolean
   children?: CascaderOption[]
 }
 
@@ -24,7 +28,11 @@ export interface CascaderProps {
   /**
    * 尺寸 Todo
    */
-  size?: 'medium' | 'small' | 'mini'
+  size?: 'default' | 'medium' | 'small' | 'mini'
+  /**
+   * 是否禁用
+   */
+  disabled?: boolean
   /**
    * 选项被点击后的回调函数
    */
@@ -36,10 +44,14 @@ export default class Cascader extends WeElement<CascaderProps> {
   static css = css.default ? css.default : css
 
   static defaultProps = {
-    value: []
+    disabled: false,
+    value: [],
+    options: [],
+    size: 'default'
   }
 
   static propTypes = {
+    disabled: Boolean,
     value: Array,
     options: Array,
     size: String
@@ -47,8 +59,8 @@ export default class Cascader extends WeElement<CascaderProps> {
 
   installed() {
     window.addEventListener('click', (e) => {
-      //admin 系统里 e.target.localName 直接输出 my-app 了
-      //if (e.target.localName === 'o-cascader') return
+      // admin 系统里 e.target.localName 直接输出 my-app 了
+      // if (e.target.localName === 'o-cascader') return
       if (this.popoverRef.isShow) {
         this.popoverRef.isShow = false
         this.popoverRef.update()
@@ -75,12 +87,15 @@ export default class Cascader extends WeElement<CascaderProps> {
     return labels.join(' / ')
   }
 
-  popoverRef
+  // 引用的元素
+  popoverRef: HTMLElement | null = null
+  inputRef: HTMLElement | null = null
 
   render(props: CascaderProps) {
     const classes = [
       'o-cascader',
-      props.size ? 'o-cascader-' + props.size : ''
+      props.size ? 'o-cascader--' + props.size : '',
+      props.disabled ? 'disabled' : ''
     ].join(' ')
 
     /**
@@ -112,13 +127,15 @@ export default class Cascader extends WeElement<CascaderProps> {
         <li
           class={[
             'o-cascader-dropdown__item',
-            props.value[index] === item.value ? 'selected' : ''
+            props.value[index] === item.value ? 'selected' : '',
+            item.disabled ? 'disabled' : ''
           ].join(' ')}
           onClick={(evt) => {
+            if (item.disabled) return
             const temp = props.value.slice(0, index)
-            temp.push(item.value),
-              this.updateProps({ value: temp }),
-              props.onOptionClick && props.onOptionClick(item, index, evt)
+            temp.push(item.value)
+            this.updateProps({ value: temp })
+            props.onOptionClick && props.onOptionClick(item, index, evt)
           }}
         >
           <span>{item.label}</span>
@@ -130,31 +147,35 @@ export default class Cascader extends WeElement<CascaderProps> {
     }
 
     return (
-      <div class={classes} onclick={e => e.stopPropagation()}>
+      <div class={classes} onclick={(e) => e.stopPropagation()}>
         <o-popover
           ref={(e) => (this.popoverRef = e)}
           trigger="manual"
           position="bottom"
         >
           <o-input
+            class="o-cascader-input"
+            ref={(e) => (this.inputRef = e)}
             value={this.getLabelsByValue(props.value)}
             suffix-icon="keyboard-arrow-down"
             disabled
+            size={props.size}
             onClick={(e) => {
+              if (props.disabled) return
               this.popoverRef.onEnter(e)
             }}
             style={{
-              cursor: 'pointer',
-              backgroundColor: 'white',
-              color: '#606266'
+              cursor: props.disabled ? 'not-allowed' : 'pointer',
+              color: props.disabled ? '' : '#606266',
+              // border: 'transparent',
+              backgroundColor: props.disabled ? '' : 'white',
+              borderRadius: 5
             }}
           ></o-input>
 
           <div slot="popover" class="o-cascader-dropdown__wrap">
             <ul class="o-cascader-dropdown__menu">
-              {props.options.map((item) => {
-                return CascaderOptionItem(item, 0)
-              })}
+              {props.options.map((item) => CascaderOptionItem(item, 0))}
             </ul>
             {showRightPanel(props.options, 0)}
           </div>

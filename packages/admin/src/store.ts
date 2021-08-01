@@ -104,6 +104,14 @@ class Store {
             },
 
             {
+              label: localeMap.base.Dashboard,
+              icon: 'dashboard',
+              href: '#/dashboard',
+              id: 98
+            },
+
+
+            {
               label: localeMap.base.BasicTable,
               icon: 'grid-on',
               href: '#/table/basic',

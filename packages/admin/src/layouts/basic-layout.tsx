@@ -73,7 +73,7 @@ export default class extends WeElement {
             class={tw`${this.store.isLeftPanelClosed ? 'sm:w-0 -translate-x-full' : 'sm:w-64 w-3/4 translate-x-0'
               } flex-none overflow-hidden bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
-          <layout-container class={tw`flex-1`}>
+          <layout-container class={tw`flex-1 flex-grow`}>
             <div class={tw`overflow-auto`} style={{ width: (window.innerWidth - 256) + 'px' }}>
               <o-tabs
                 closable
@@ -85,7 +85,7 @@ export default class extends WeElement {
               ></o-tabs>
             </div>
 
-            <div style={`height:calc(100vh - 90px);`} class={tw`overflow-auto`}>
+            <div style={{ height: 'calc(100vh - 90px)' }} class={tw`overflow-auto`}>
               <slot></slot>
             </div>
           </layout-container>

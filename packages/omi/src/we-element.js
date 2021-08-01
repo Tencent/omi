@@ -253,7 +253,8 @@ export default class WeElement extends HTMLElement {
     if (
       options.ignoreAttrs ||
       ignoreAttrs ||
-      (this.store && this.store.ignoreAttrs)
+      (this.store && this.store.ignoreAttrs) ||
+      this.props.ignoreAttrs
     )
       return
     const ele = this

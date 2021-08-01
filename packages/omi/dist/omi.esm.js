@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.26  http://omijs.org
+ * Omi v6.19.27  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1034,7 +1034,7 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-    if (options.ignoreAttrs || ignoreAttrs || this.store && this.store.ignoreAttrs) return;
+    if (options.ignoreAttrs || ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
     var ele = this;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
@@ -2145,7 +2145,7 @@ function o(obj) {
 h.f = Fragment;
 
 function createRef() {
-	return {};
+  return {};
 }
 
 var $ = {};
@@ -2154,35 +2154,35 @@ var defineElement = define;
 var elements = options.mapping;
 
 var omi = {
-	tag: tag,
-	WeElement: WeElement,
-	Component: Component,
-	render: render,
-	h: h,
-	createElement: h,
-	options: options,
-	define: define,
-	cloneElement: cloneElement,
-	getHost: getHost,
-	rpx: rpx,
-	defineElement: defineElement,
-	classNames: classNames,
-	extractClass: extractClass,
-	createRef: createRef,
-	o: o,
-	elements: elements,
-	$: $,
-	extend: extend$1,
-	get: get,
-	set: set,
-	bind: bind,
-	unbind: unbind,
-	JSONProxy: JSONPatcherProxy
+  tag: tag,
+  WeElement: WeElement,
+  Component: Component,
+  render: render,
+  h: h,
+  createElement: h,
+  options: options,
+  define: define,
+  cloneElement: cloneElement,
+  getHost: getHost,
+  rpx: rpx,
+  defineElement: defineElement,
+  classNames: classNames,
+  extractClass: extractClass,
+  createRef: createRef,
+  o: o,
+  elements: elements,
+  $: $,
+  extend: extend$1,
+  get: get,
+  set: set,
+  bind: bind,
+  unbind: unbind,
+  JSONProxy: JSONPatcherProxy
 };
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.19.26';
+options.root.Omi.version = '6.19.27';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind, JSONPatcherProxy as JSONProxy };

@@ -14,6 +14,7 @@ import '@omiu/icon/description'
 import '@omiu/icon/list-alt'
 import '@omiu/icon/grid-on'
 import '@omiu/icon/comment'
+import '@omiu/icon/dashboard'
 
 import '@omiu/transition'
 
@@ -85,6 +86,13 @@ export default class extends WeElement {
       //lazy load
       import('./components/table/basic-table').then(() =>
         this.transitionTo('basic-table')
+      )
+    })
+
+    route('/dashboard', () => {
+      //lazy load
+      import('./components/admin-dashboard').then(() =>
+        this.transitionTo('admin-dashboard')
       )
     })
 

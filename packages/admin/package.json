@@ -16,7 +16,8 @@
   "dependencies": {
     "@omiu/avatar": "^0.0.1",
     "@omiu/button": "^0.0.9",
-    "@omiu/cascader": "^0.0.3",
+    "@omiu/cascader": "^0.0.5",
+    "@omiu/chart-card": "^0.0.6",
     "@omiu/checkbox": "^0.0.11",
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.9",
@@ -39,12 +40,14 @@
     "@omiu/tree": "^0.0.18",
     "axios": "^0.21.1",
     "bytemd": "^1.10.13",
+    "file-saver": "^2.0.5",
     "markdown-it": "^12.1.0",
     "markdown-it-anchor": "^8.1.0",
     "mockjs": "^1.1.0",
-    "omi": "^6.19.23",
+    "omi": "^6.19.27",
     "omi-router": "^3.0.0",
     "omi-twind": "^0.0.1",
-    "prismjs": "^1.24.0"
+    "prismjs": "^1.24.0",
+    "xlsx": "^0.17.0"
   }
 }
