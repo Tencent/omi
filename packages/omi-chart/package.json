@@ -1,0 +1,35 @@
+{
+  "name": "omi-chart",
+  "version": "1.0.1",
+  "description": "Simple HTML5 Charts using the <chart-x> tag powered by [omi](https://github.com/Tencent/omi) and [chart.js](https://www.chartjs.org/).",
+  "main": "index.es5.js",
+  "jsnext:main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chart.js",
+    "omi",
+    "omi-chart"
+  ],
+  "author": "dntzhang",
+  "license": "MIT",
+  "dependencies": {
+    "omi": "latest",
+    "chart.js": "latest"
+  },
+  "files": [
+    "index.js",
+    "index.es5.js",
+    "assets"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi/tree/master/packages/omi-chart"
+}
