@@ -167,7 +167,7 @@ export default class Cascader extends WeElement<CascaderProps> {
             style={{
               cursor: props.disabled ? 'not-allowed' : 'pointer',
               color: props.disabled ? '' : '#606266',
-              border: 'transparent',
+              // border: 'transparent',
               backgroundColor: props.disabled ? '' : 'white',
               borderRadius: 5
             }}

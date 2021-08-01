@@ -84,7 +84,7 @@ export default class extends WeElement<Props> {
         <div class={formItemClass}>
           <label class={lableClass} >级联选择</label>
           <div class={tw`leading-8 ml-10`}>
-            <o-cascader options={[
+            <o-cascader size="small" options={[
               {
                 value: 'components',
                 label: '组件',

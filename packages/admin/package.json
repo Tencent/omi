@@ -16,7 +16,7 @@
   "dependencies": {
     "@omiu/avatar": "^0.0.1",
     "@omiu/button": "^0.0.9",
-    "@omiu/cascader": "^0.0.3",
+    "@omiu/cascader": "^0.0.5",
     "@omiu/checkbox": "^0.0.11",
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.9",
