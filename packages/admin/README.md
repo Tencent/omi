@@ -1,6 +1,6 @@
 ## OMI ADMIN
 
-> 管理系统前端解决方案
+> 中台前端解决方案
 
 [→ 点我体验](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
