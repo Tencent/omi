@@ -8,7 +8,8 @@ export interface Props {
   content: string | number
   describe: string
   labels: string[]
-  data: number[]
+  data: number[],
+  chartType: 'line' | 'bar'
 }
 
 @tag('o-chart-card')
@@ -16,7 +17,8 @@ export default class ChartCard extends WeElement<Props> {
   static css = css.default ? css.default : css
 
   static defaultProps = {
-    color: 'black'
+    color: 'black',
+    chartType: 'line'
   }
 
   static propTypes = {
@@ -24,7 +26,8 @@ export default class ChartCard extends WeElement<Props> {
     labels: Array,
     data: Array,
     content: String,
-    describe: String
+    describe: String,
+    chartType: String
   }
 
   chartData = {
@@ -35,6 +38,13 @@ export default class ChartCard extends WeElement<Props> {
       segment: {
         borderColor: 'white',
       },
+
+
+      barPercentage: 0.5,
+      barThickness: 6,
+      maxBarThickness: 8,
+      minBarLength: 2,
+
       backgroundColor: [],
       borderColor: ['white', 'white', 'white', 'white', 'white', 'white'],
       borderWidth: 1
@@ -62,20 +72,21 @@ export default class ChartCard extends WeElement<Props> {
     props.labels.forEach(_ => {
       this.chartData.datasets[0].backgroundColor.push(props.color)
     })
+    this.chartTagName = 'o-' + props.chartType
     this.chartData.labels = props.labels
     this.chartData.datasets[0].data = props.data
     return <div class="card text-white" style={{ backgroundColor: props.color }}>
       <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
         <div>
           <div class="text-value-lg">{props.content}</div>
-          <div>{props.describe}</div>
+          <div class="nowrap">{props.describe}</div>
         </div>
         <div class="icon">
           <slot>ICON</slot>
         </div>
       </div>
-      <div class="c-chart-wrapper mt-3 mx-3" >
-        <o-line ignoreAttrs={true} height="70" data={this.chartData} options={this.chartOptions}></o-line>
+      <div class="mt-3 mx-3" >
+        <this.chartTagName css="canvas{width: 100% !important;}" ignoreAttrs={true} height="70" data={this.chartData} options={this.chartOptions}></this.chartTagName>
 
       </div>
     </div>

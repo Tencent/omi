@@ -61,31 +61,8 @@
   margin-top: 1rem!important;
 }
 
-.chartjs-size-monitor, .chartjs-size-monitor-expand, .chartjs-size-monitor-shrink {
-  position: absolute;
-  direction: ltr;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  pointer-events: none;
-  visibility: hidden;
-  z-index: -1;
-}
-
-.c-chart-wrapper canvas {
-  width: 100%;
-}
-
-.chartjs-render-monitor {
-  animation: chartjs-render-animation 0.001s;
-}
-canvas {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.nowrap{
+  white-space: nowrap;
 }
 
 .text-value-lg {

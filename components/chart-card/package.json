@@ -1,6 +1,6 @@
 {
   "name": "@omiu/chart-card",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
