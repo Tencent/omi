@@ -11,7 +11,7 @@
     "vite": "^2.3.7"
   },
   "dependencies": {
-    "@omiu/icon": "^0.0.3",
+    "@omiu/icon": "0.0.3",
     "omi": "latest"
   }
 }
