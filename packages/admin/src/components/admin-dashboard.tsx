@@ -2,6 +2,7 @@ import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import '@omiu/chart-card'
 import '@omiu/icon/people'
+import '@omiu/table'
 import '@omiu/pagination'
 
 interface Props { }
