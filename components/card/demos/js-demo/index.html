@@ -27,11 +27,8 @@
 
   <div style="display: flex; margin: 2% 10%; justify-content: space-around; flex-wrap: wrap">
 
-    <o-card title="Default size card" hoverable="true">
+    <o-card title="Default size card" hoverable="always">
       <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
-      <!-- <div slot="cover">
-        <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
-      </div> -->
         <p>Card content</p>
         <p>Card content</p>
         <p>Card content</p>
@@ -47,7 +44,7 @@
     </o-card>
 
     <!-- 若需实现底部栏按钮，id,actions为必选参数 -->
-    <o-card title="Action card" size="medium" id="myAction" actions="[{icon: 'add-a-photo-rounded'},{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]">
+    <o-card title="Action card" size="medium" id="myAction" actions="[{icon: 'add-a-photo-rounded'},{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]" >
       <o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">More</o-link>
         <p>Card content</p>
         <p>Card content</p>
@@ -61,12 +58,12 @@
         <p>...</p>
     </o-card>
 
-    <o-card title="Action card" size="medium" id="myAction" actions="[{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]">
+    <o-card title="Action card" size="small" id="myAction" actions="[{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]" hoverable="true">
       <o-image slot="cover" src="https://tencent.github.io/omi/packages/admin/dist/assets/logo.a690a1ac.svg"></o-image>
       <div style="float: left;">
         <o-avatar src="https://material-ui.com/static/images/avatar/1.jpg"></o-avatar>
       </div>
-      <div style="float: right; margin-right: 35px;">
+      <div style="float: right; margin-right: 20px;">
         <p>Card title</p>
         <p>This is the description</p>
       </div>
