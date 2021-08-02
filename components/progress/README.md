@@ -1,37 +1,66 @@
-import { WeElement, render, h, tag } from 'omi'
 
 
-import './progress'
-import logo from './logo.svg'
+## Import
 
-interface MyAppProps {
-  // percent: number
+```js
+to be continue....
+```
+
+## Usage
+
+```html
+<o-progress></o-progress>
+```
+
+## API
+```tsx
+  
+  type: 'line' | 'circle';
+  percent: number;
+  status: 'success' | 'error';
+  strokeColor: string;
+  trailColor: string;
+  textColor: string;
+  strokeWidth:number;
+  width:number;
+
+```
+
+### Props
+
+```tsx
+  {
+  type?: 'line' | 'circle';
+  percent?: number;
+  status?: 'success' | 'error';
+  strokeColor?: string;
+  trailColor?: string;
+  textColor?: string;
+  strokeWidth:number;
+  width:number;
 }
+```
 
-let percent = 0
-let timer;
-@tag('my-app')
-export default class extends WeElement<MyAppProps> {
+### defaultProps
 
+```tsx
+defaultProps = {
+    type: 'line',
+    percent: 30,
+    status: undefined,
+    strokeColor: undefined,
+    trailColor: undefined,
+    textColor: "black",
+    strokeWidth: 20,
+    width: 80,
+  }
 
-  render(props) {
-
-    
-    if (!timer) {
-      timer = setInterval(() => {
-        percent += 10
-        console.log(percent)
-        if (percent > 110) {
-          percent=0
-        }
-        this.update()
-      }, 1000)
-
-    }
-    return (
-      <div class="app">
-        <h1>Hello,here we will show you how to use "o-progress"!</h1><hr></hr>
-        <div>We can set up a timer to achieve dynamic effects.</div>
+```
+### Next,show the "o-progress"
+### The line progress:
+![MBDIHQ2@SJ0C NZA1 ZZZM](https://user-images.githubusercontent.com/51355841/127813099-3ac75acf-5d92-479e-a2f1-49f748b4226f.png)
+```html
+      <div>We can set up a timer to achieve dynamic effects.</div>
         <o-progress percent={percent} status="success"></o-progress><hr></hr>
         <div>We can change the percentage by changing the "percent",the default percent is "30". </div>
         <o-progress></o-progress>
@@ -56,6 +85,13 @@ export default class extends WeElement<MyAppProps> {
         <o-progress percent="80" status="error" strokeWidth={4}></o-progress>
         <o-progress percent="90" status="error" strokeWidth={16}></o-progress>
         <o-progress percent = "100" status="success"></o-progress><hr></hr>
+```
+### The line progress:
+
+![K93{ZM2`S~%X~DC9B1M%YWW](https://user-images.githubusercontent.com/51355841/127813557-00501644-297f-4977-80ca-3445320a6c55.png)
+
+
+```html
         <h2>If you want a "circle style" progress,just let the type is "circle". </h2>
         <o-progress type="circle"></o-progress>
         <div>You can cantorl your circle progress like "the line progress"!!!</div>
@@ -65,12 +101,4 @@ export default class extends WeElement<MyAppProps> {
         <o-progress type="circle" precent={70} status="error"></o-progress>
         <o-progress type="circle" status="success"></o-progress>
         <o-progress type="circle" percent={percent}></o-progress>
-      </div>
-    )
-  }
-}
-
-render(<my-app></my-app>, '#root', {
-  // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-  ignoreAttrs: true
-})
+```
