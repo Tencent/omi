@@ -3,8 +3,8 @@ import '@omiu/icon/check-circle-rounded'
 import '@omiu/icon/cancel-rounded'
 import '@omiu/icon/check-rounded'
 import '@omiu/icon/close-rounded'
-import './Line'
-import './Circle'
+import './line'
+import './circle'
 
 interface Props {
   type?: 'line' | 'circle';
