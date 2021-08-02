@@ -13,11 +13,22 @@ to be continue....
 ```
 
 ## API
+```tsx
+  
+  type: 'line' | 'circle';
+  percent: number;
+  status: 'success' | 'error';
+  strokeColor: string;
+  trailColor: string;
+  textColor: string;
+  strokeWidth:number;
+  width:number;
+
+```
 
 ### Props
 
 ```tsx
-{
   {
   type?: 'line' | 'circle';
   percent?: number;
@@ -27,7 +38,6 @@ to be continue....
   textColor?: string;
   strokeWidth:number;
   width:number;
-}
 }
 ```
 
@@ -46,8 +56,8 @@ defaultProps = {
   }
 
 ```
-###Next,show the "o-progress"
-The line progress:
+### Next,show the "o-progress"
+### The line progress:
 ![MBDIHQ2@SJ0C NZA1 ZZZM](https://user-images.githubusercontent.com/51355841/127813099-3ac75acf-5d92-479e-a2f1-49f748b4226f.png)
 ```html
       <div>We can set up a timer to achieve dynamic effects.</div>
@@ -76,7 +86,7 @@ The line progress:
         <o-progress percent="90" status="error" strokeWidth={16}></o-progress>
         <o-progress percent = "100" status="success"></o-progress><hr></hr>
 ```
-###The line progress:
+### The line progress:
 
 ![K93{ZM2`S~%X~DC9B1M%YWW](https://user-images.githubusercontent.com/51355841/127813557-00501644-297f-4977-80ca-3445320a6c55.png)
 
