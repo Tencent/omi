@@ -35,6 +35,7 @@
     "@omiu/table": "^0.0.14",
     "@omiu/tabs": "^0.0.19",
     "@omiu/toast": "^0.0.8",
+    "@omiu/card": "^0.0.1",
     "@omiu/tooltip": "0.0.1",
     "@omiu/transition": "^0.0.12",
     "@omiu/tree": "^0.0.18",
