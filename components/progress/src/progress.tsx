@@ -47,14 +47,17 @@ export default class extends WeElement<Props> {
       status,
       strokeColor,
       trailColor,
+      textColor,
       strokeWidth,
       width,
     }  = props
 
-    const obj ={percent,
+    const obj ={
+    percent,
     status,
     strokeColor,
     trailColor,
+    textColor,
     strokeWidth,
     width,}
     
