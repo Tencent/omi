@@ -1,0 +1,22 @@
+.o-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: #000000d9;
+    font-size: 1em;
+    line-height: 1;
+    white-space: normal;
+    text-align: center;
+    transform: translate(-50%,-50%);
+}
+.o-progress__inner{
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    position: relative;
+    line-height: 1;
+    background-color: transparent;
+}
