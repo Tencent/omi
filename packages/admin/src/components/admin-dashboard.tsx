@@ -22,7 +22,7 @@ export default class extends WeElement<Props> {
   render() {
     return (
       <div class={tw``}>
-        <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-x-2 px-2 py-2`} >
+        <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-x-4 px-2 py-2`} >
           <o-chart-card content="9987" class={tw`flex-1 md:w-5/12`} describe="PV" color="#07c160" data={[12, 19, 3, 5, 2, 3]} labels={['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']}>
             <o-icon-people width="2em" height="2em" fill="white"></o-icon-people>
           </o-chart-card>

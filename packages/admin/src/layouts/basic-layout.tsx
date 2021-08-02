@@ -61,6 +61,14 @@ export default class extends WeElement {
 
   installed() {
     this.store.ui.baseLayout = this
+
+    window.addEventListener('resize', () => {
+      this.update()
+    })
+  }
+
+  getMainContentWidth() {
+    return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
   }
 
   render() {
@@ -74,7 +82,7 @@ export default class extends WeElement {
               } flex-none overflow-hidden bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
           <layout-container class={tw`flex-1 flex-grow`}>
-            <div class={tw`overflow-auto`} style={{ width: (window.innerWidth - 256) + 'px' }}>
+            <div class={tw`overflow-auto`} style={{ width: this.getMainContentWidth() }}>
               <o-tabs
                 closable
                 type="card"
@@ -85,7 +93,7 @@ export default class extends WeElement {
               ></o-tabs>
             </div>
 
-            <div style={{ height: 'calc(100vh - 90px)' }} class={tw`overflow-auto`}>
+            <div style={{ height: 'calc(100vh - 90px)', width: this.getMainContentWidth() }} class={tw`overflow-auto`}>
               <slot></slot>
             </div>
           </layout-container>
