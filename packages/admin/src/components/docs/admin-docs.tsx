@@ -1,12 +1,12 @@
 import { WeElement, h, tag } from 'omi'
-import { tw, sheet } from 'omi-twind'
 import * as MarkdownIt from 'markdown-it'
 import * as priseCSS from './prism.css'
 import * as mdCSS from './md.css'
 import * as anchor from 'markdown-it-anchor'
 import * as prismjs from 'prismjs'
 
-console.error(prismjs)
+//不能注释掉，不然代码不染色
+console.log(prismjs)
 const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 
 interface Props {
