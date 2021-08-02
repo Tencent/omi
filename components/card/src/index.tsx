@@ -3,10 +3,10 @@ import * as css from './index.scss'
 
 interface Props {
   title?: string,
-  hoverable?: string,
+  hoverable?: 'always' | 'true' | 'false',
   extra?: string,
   actions: any[],
-  size?: 'medium' | 'small'
+  size?: 'large' | 'medium' | 'small'
 }
 
 @tag('o-card')
@@ -33,15 +33,66 @@ export default class Card extends WeElement<Props> {
   }
 
   handleMousemove = (item) => {
-    item && (this.css = css + `.o-card:hover {
-      display: flex;
-      flex-direction: column;
-      margin: 10px;
-      width: 300px;
-      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
-      transition: all .3s;
-      z-index: 1;
-    }`)
+    if (item==="always") {
+      (this.css = css + `.o-card {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        width: 300px;
+        box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+        transition: all .3s;
+        z-index: 1;
+      }`)
+      return;
+    }
+    const hovercss = () => {
+      switch(this.props.size){
+        case 'large':
+          (this.css = css + `.o-card:hover {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+            transition: all .3s;
+            z-index: 1;
+          }`)
+          break;
+        case 'medium':
+          (this.css = css + `.o-card-medium:hover {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            width: 265px;
+            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+            transition: all .3s;
+            z-index: 1;
+          }`)
+          break;
+        case 'small':
+          (this.css = css + `.o-card-small:hover {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            width: 230px;
+            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+            transition: all .3s;
+            z-index: 1;
+          }`)
+          break;
+        default:
+          (this.css = css + `.o-card:hover {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+            transition: all .3s;
+            z-index: 1;
+          }`)
+      }
+    } 
+    item && hovercss()
   }
 
   _iconTag
@@ -50,7 +101,7 @@ export default class Card extends WeElement<Props> {
     return (
       <div {...extractClass(props, 'o-card', {
         ['o-card-' + props.size]: props.size
-      })} onMousemove={this.handleMousemove(props.hoverable==="true")}>
+      })} onMousemove={this.handleMousemove(props.hoverable)}>
         <slot name="cover">
           <div {...extractClass(props, 'o-card-header', {
             ['o-card-header-' + props.size]: props.size

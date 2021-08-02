@@ -30,7 +30,7 @@ Or use script tag to ref it.
 ```tsx
 {
   title?: string,
-  hoverable?: string,
+  hoverable?: 'always' | 'true' | 'false',
   extra?: string,
   actions?: any[],
   size?: 'large' | 'medium' | 'small'

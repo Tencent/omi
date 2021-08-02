@@ -1,10 +1,10 @@
 import { WeElement } from 'omi';
 interface Props {
     title?: string;
-    hoverable?: string;
+    hoverable?: 'always' | 'true' | 'false';
     extra?: string;
     actions: any[];
-    size?: 'medium' | 'small';
+    size?: 'large' | 'medium' | 'small';
 }
 export default class Card extends WeElement<Props> {
     css: any;
