@@ -215,7 +215,7 @@ class Store {
             href: '#/toast-component',
           }, {
             label: localeMap.base.Card,
-            id: 13,
+            id: 14,
             icon: 'ac-unit-outlined',
             href: '#/card-component',
           }]
