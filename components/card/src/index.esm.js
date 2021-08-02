@@ -287,7 +287,7 @@ var Card = /** @class */ (function (_super) {
                 _e['o-card-body-' + props.size] = props.size,
                 _e))),
                 h("slot", null)),
-            props.actions ? (h("div", { class: "o-card-footer" }, Array.from(props.actions).map(function (item, index) {
+            props.actions ? (h("div", { class: "o-card-footer" }, props.actions.map(function (item, index) {
                 _this._iconTag = 'o-icon-' + item.icon;
                 return h("button", { onClick: function (_) { _this.clickHandler(item); }, className: "item" },
                     h(_this._iconTag, { class: "icon" }));

@@ -125,7 +125,7 @@ export default class Card extends WeElement<Props> {
         
         {props.actions ? (
           <div class="o-card-footer">
-              {Array.from(props.actions).map((item, index) => {
+              {props.actions.map((item, index) => {
                 this._iconTag = 'o-icon-' + item.icon
                 return <button onClick={_ => { this.clickHandler(item) }} className="item">
                   <this._iconTag class="icon" />
