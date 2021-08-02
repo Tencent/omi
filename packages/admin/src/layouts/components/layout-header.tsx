@@ -8,6 +8,7 @@ import '@omiu/hamburger-menu'
 import '@omiu/select'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
+import '@omiu/icon/git-hub'
 
 interface Props { }
 
@@ -115,6 +116,8 @@ export default class extends WeElement<Props> {
             <o-icon-notifications class={tw`flex-row cursor-pointer`}></o-icon-notifications>
 
             <o-icon-settings class={tw`flex-row cursor-pointer`}></o-icon-settings>
+
+            <a href="https://github.com/Tencent/omi" target="_blank" class={tw`flex-row`}><o-icon-git-hub ></o-icon-git-hub></a>
 
             <o-avatar
               class={tw`flex-row cursor-pointer`}
