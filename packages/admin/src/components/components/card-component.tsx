@@ -15,5 +15,6 @@ declare global {
 
 @tag(tagName)
 export default class extends WeElement<Props> {
-  
+
+  render() { }
 }
