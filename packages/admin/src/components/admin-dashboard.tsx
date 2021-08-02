@@ -300,7 +300,7 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw``}>
+      <div style={{ background: '#ebedef' }}>
         <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-x-4 mx-4 my-2`} >
           <o-chart-card content="9987" class={tw`flex-1 md:w-5/12`} describe="PV" color="#07c160" data={[12, 19, 3, 5, 2, 3]} labels={['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']}>
             <o-icon-people width="2em" height="2em" fill="white"></o-icon-people>

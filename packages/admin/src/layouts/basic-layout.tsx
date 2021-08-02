@@ -93,7 +93,7 @@ export default class extends WeElement {
               ></o-tabs>
             </div>
 
-            <div style={{ height: 'calc(100vh - 90px)', width: this.getMainContentWidth(), background: '#ebedef' }} class={tw`overflow-auto`}>
+            <div style={{ height: 'calc(100vh - 90px)', width: this.getMainContentWidth() }} class={tw`overflow-auto`}>
               <slot></slot>
             </div>
           </layout-container>
