@@ -14,6 +14,7 @@ interface Props {
   trailColor?: string;
   style?: string;
   strokeWidth: number;
+  textColorr?:string;
   width: number;
 }
 
@@ -41,6 +42,7 @@ export default class extends WeElement<Props> {
     status: undefined,
     strokeColor: undefined,
     trailColor: undefined,
+    textColor: "black",
     strokeWidth: 20,
     width: 80,
   }
@@ -52,6 +54,7 @@ export default class extends WeElement<Props> {
     status: String,
     strokeColor: String,
     trailColor: String,
+    textColor: String,
     strokeWidth: Number,
     width: Number,
   }
@@ -62,6 +65,7 @@ export default class extends WeElement<Props> {
       status,
       strokeColor,
       trailColor,
+      textColor,
       strokeWidth,
       width,
     } = props
@@ -87,7 +91,7 @@ export default class extends WeElement<Props> {
                 stroke-dashoffset: 0px;
                  transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s ease 0s, stroke-width 0.06s ease 0.3s, opacity ease 0s;`}></path>
           </svg>
-          <span className="o-progress-text" style={{fontSize:(width-strokeWidth*2)*1.75/6}}>
+          <span className="o-progress-text" style={{fontSize:(width-strokeWidth*2)*1.75/6,color:textColor}}>
           {status?<span style={{color:status2color[status]||strokeColor,fontSize:"2em"}}>{status2icon[status]}</span>
         :
         (isSuccess?<span style={{color:status2color["success"]||strokeColor,fontSize:"2em"}}>{status2icon["success"]}</span>:`${percent}%`)}</span>
