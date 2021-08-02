@@ -37,6 +37,7 @@ export default class extends WeElement<Props> {
     status: undefined,
     strokeColor: undefined,
     trailColor: undefined,
+    textColor:"black",
     strokeWidth:8,
     width:300,
   }
@@ -49,6 +50,7 @@ export default class extends WeElement<Props> {
     status: String,
     strokeColor: String,
     trailColor: String,
+    textColor: String,
     strokeWidth:Number,
     width:Number,
   }
@@ -61,6 +63,7 @@ export default class extends WeElement<Props> {
       strokeColor,
       trailColor,
       strokeWidth,
+      textColor,
       width,
     }  = props
     return (
@@ -74,7 +77,7 @@ export default class extends WeElement<Props> {
               }}></div>
           </div>
         </div>
-        <span className="o-progress-text" style={{fontSize:strokeWidth*1.75}}>
+        <span className="o-progress-text" style={{fontSize:strokeWidth*1.75,color:textColor}}>
           {status?<span style={{color:status?status2color[status]:strokeColor}}>{status2icon[status]}</span>
         :`${percent}%`}</span>
       </div>
