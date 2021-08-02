@@ -213,6 +213,11 @@ class Store {
             id: 13,
             icon: 'ac-unit-outlined',
             href: '#/toast-component',
+          }, {
+            label: localeMap.base.Card,
+            id: 14,
+            icon: 'ac-unit-outlined',
+            href: '#/card-component',
           }]
         }
       ]

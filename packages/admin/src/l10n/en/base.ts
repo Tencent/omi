@@ -18,6 +18,7 @@ export const base = {
   Components: 'Components',
   Loading: 'Loading',
   Toast: 'Toast',
+  Card: 'Card',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard'

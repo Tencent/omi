@@ -172,6 +172,14 @@ export default class extends WeElement {
     })
 
 
+    route('/card-component', () => {
+      //lazy load
+      import('./components/components/card-component').then(() =>
+        this.transitionTo('card-component')
+      )
+    })
+
+
     route('/warning', () => {
       //lazy load
       import('./components/status/status-warning').then(() =>
