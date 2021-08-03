@@ -9,7 +9,7 @@ import { Mandarin } from "flatpickr/dist/esm/l10n/zh"
 import '../../input'
 
 interface Props {
-  size?:'medium' | 'small' | 'mini'
+  size?: 'medium' | 'small' | 'mini'
   width?: string
   length?: string,
   locale?: string,
@@ -25,7 +25,7 @@ interface Props {
   disable?: any[],
   disableMobile?: boolean,
   enable?: any[],
-  enableTime?: boolean ,
+  enableTime?: boolean,
   enableSeconds?: boolean,
   hourIncrement?: number,
   minuteIncrement?: number,
@@ -43,7 +43,7 @@ interface Props {
   time_24hr?: boolean,
   wrap?: boolean,
   theme?: string,
-  trigger?:string
+  trigger?: string
 }
 
 @tag('o-time-picker')
@@ -53,9 +53,9 @@ export default class TimePicker extends WeElement<Props> {
     theme: 'light',
     size: 'small',
     width: 'auto',
-    noCalendar:true,
-    enableTime:true,
-    enableSeconds:true,
+    noCalendar: true,
+    enableTime: true,
+    enableSeconds: true,
   }
 
   static propTypes = {
@@ -100,38 +100,38 @@ export default class TimePicker extends WeElement<Props> {
   }
 
 
-async installed(): Promise<void> {
+  async installed(): Promise<void> {
     const styleLoader = new StyleLoader(this.props.theme as FlatpickrTheme)
     await styleLoader.initStyles()
     //const { locale, ...other } = this.props
-    console.log('-----pros------',this.props)
-    const {locale, position, ...other } = this.props
+    console.log('-----pros------', this.props)
+    const { locale, position, ...other } = this.props
 
 
     flatpickr(this.shadowRoot.querySelector('o-input'), {
-        locale: locale === 'zh' ? Mandarin : null,
-        // noCalendar:true,
-        // enableTime:true,
-        // enableSeconds:true,
-        ...other,
-        
-    })
-}
-    isShow = false
+      locale: locale === 'zh' ? Mandarin : null,
+      // noCalendar:true,
+      // enableTime:true,
+      // enableSeconds:true,
+      ...other,
 
-render(props) {
-    return <div> 
-        {console.log(props)}
-        <o-input size={props.size} css={`.o-input input {
+    })
+  }
+  isShow = false
+
+  render(props) {
+    return <div>
+      {console.log(props)}
+      <o-input size={props.size} css={`.o-input input {
             width: ${props.width};
         }`} type="text" />
-        </div>
-    }
+    </div>
+  }
 }
 
-render(<o-time-picker defaultHour = "1"></o-time-picker>, '#root', {
-    // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-    ignoreAttrs: true
+render(<o-time-picker defaultHour="1"></o-time-picker>, '#root', {
+  // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
+  ignoreAttrs: true
 })
 
 

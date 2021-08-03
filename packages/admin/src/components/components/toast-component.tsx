@@ -6,6 +6,8 @@ import toastMd1 from './toast1.md?raw'
 import toastMd2 from './toast2.md?raw'
 import toastMd3 from './toast3.md?raw'
 
+import Masonry from 'masonry-layout'
+
 interface Props { }
 
 const tagName = 'toast-component'
@@ -23,54 +25,62 @@ export default class extends WeElement<Props> {
 
 
 
+  installed() {
+    new Masonry(this.grid, {
+      // options...
+      //https://masonry.desandro.com/options.html
 
+    });
+  }
 
-
-
-
+  grid
 
   render() {
-    console.error(1)
+
+    const gridItem = tw`px-2 w-full md:w-6/12`
+
+
     return <div class={tw`px-4`}>
 
-      <div>
-        <div class={tw`border-1 my-4 border-gray-300 rounded`} style="width:600px">
-          <div class={tw`px-5 py-5`}>
-            <o-button size="mini" onclick={e => {
-              showLoading()
-              setTimeout(() => {
-                hideLoading()
-              }, 2000)
-            }}>显示 Loading 提示</o-button>
+      <div ref={_ => this.grid = _} >
 
-          </div>
-
-          <admin-docs css={`.docs{padding:0 !important;}`} mdContent={toastMd1}></admin-docs>
+        <div class={tw`${gridItem}`}>
+          <code-demo class={tw``} title="基本" describe="最简单的 Loading" code={toastMd1}>
+            <div slot="demo" class={tw`px-5 py-5`}>
+              <o-button size="mini" onclick={e => {
+                showLoading()
+                setTimeout(() => {
+                  hideLoading()
+                }, 2000)
+              }}>显示 Loading 提示</o-button>
+            </div>
+          </code-demo>
         </div>
 
-        <div class={tw`border-1  my-4 border-gray-300 rounded`} style="width:600px">
-          <div class={tw`px-5 py-5`}>
-            <o-button size="mini" onclick={e => {
-              showSuccess('支付成功')
-              setTimeout(() => {
-                hideSuccess()
-              }, 2000)
-            }}>显示 Success 提示</o-button>
-          </div>
-          <admin-docs css={`.docs{padding:0 !important;}`} mdContent={toastMd2}></admin-docs>
+        <div class={tw`${gridItem}`}>
+          <code-demo title="不同尺寸" describe="支持传入 size 控制大小" code={toastMd2}>
+            <div slot="demo" class={tw`px-5 py-5`}>
+              <o-button size="mini" onclick={e => {
+                showSuccess('支付成功')
+                setTimeout(() => {
+                  hideSuccess()
+                }, 2000)
+              }}>显示 Success 提示</o-button>
+            </div>
+          </code-demo>
         </div>
 
-
-        <div class={tw`border-1 my-4 border-gray-300 rounded`} style="width:600px">
-          <div class={tw`px-5 py-5`}>
-            <o-button size="mini" onclick={e => {
-              showWarning('支付失败')
-              setTimeout(() => {
-                hideWarning()
-              }, 2000)
-            }}>显示 Warning 提示</o-button>
-          </div>
-          <admin-docs css={`.docs{padding:0 !important;}`} mdContent={toastMd3}></admin-docs>
+        <div class={tw`${gridItem}`}>
+          <code-demo title="不同颜色" describe="支持传入 color 控制颜色" code={toastMd3}>
+            <div slot="demo" class={tw`px-5 py-5`}>
+              <o-button size="mini" onclick={e => {
+                showWarning('支付失败')
+                setTimeout(() => {
+                  hideWarning()
+                }, 2000)
+              }}>显示 Warning 提示</o-button>
+            </div>
+          </code-demo>
         </div>
 
       </div>
