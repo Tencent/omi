@@ -1,66 +1,27 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Omiu Loading</title>
+  <style>
+    o-progress {
+  display: inline-block;
+  vertical-align: middle; }
+  </style>
+</head>
 
-## Import
+<body>
 
-```js
-to be continue....
-```
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/index.js"></script>
 
-## Usage
-
-```html
-<o-progress></o-progress>
-```
-
-# API
-```tsx
-  
-  type: 'line' | 'circle';
-  percent: number;
-  status: 'success' | 'error';
-  strokeColor: string;
-  trailColor: string;
-  textColor: string;
-  strokeWidth:number;
-  width:number;
-
-```
-
-### Props
-
-```tsx
-  {
-  type?: 'line' | 'circle';
-  percent?: number;
-  status?: 'success' | 'error';
-  strokeColor?: string;
-  trailColor?: string;
-  textColor?: string;
-  strokeWidth:number;
-  width:number;
-}
-```
-
-### defaultProps
-
-```tsx
-     {
-    type: 'line',
-    percent: 0,
-    status: undefined,
-    strokeColor: undefined,
-    trailColor: undefined,
-    strokeWidth: undefined,
-    width: undefined,
-    textColor:undefined
-  }
-
-```
-###
-### Next,show the "o-progress"
-### The line progress:
-![MBDIHQ2@SJ0C NZA1 ZZZM](https://user-images.githubusercontent.com/51355841/127813099-3ac75acf-5d92-479e-a2f1-49f748b4226f.png)
-```html
+  <h1>Hello,here we will show you how to use "o-progress"!</h1><hr></hr>
+  <div>We can change the percentage by changing the "percent",the default percent is "0". </div>
   <o-progress></o-progress>
   <o-progress percent="40"></o-progress>
   <div>We can change the width by changing the "width",the default width is "300". </div>
@@ -86,20 +47,26 @@ to be continue....
   <o-progress percent="80" status="error" stroke-width="4"></o-progress>
   <o-progress percent="90" status="error" stroke-width="16"></o-progress>
   <o-progress percent = "100" status="success"></o-progress><hr></hr>
-```
-### The circle progress:
+  <h2>If you want a "circle style" progress,just let the type is "circle". </h2>
+  <o-progress type="circle"></o-progress>
+  <div>You can cantorl your circle progress like "the line progress"!!!</div>
+  <o-progress type="circle" percent="40" text-color="yellow"></o-progress>
+  <o-progress type="circle" percent="50" stroke-color="lightseagreen" width="150"></o-progress>
+  <o-progress type="circle" percent="60" stroke-color="lightseagreen"  trail-color="black" stroke-width="16"></o-progress>
+  <o-progress type="circle" precent="70" status="error"></o-progress>
+  <o-progress type="circle" status="success"></o-progress>
+  <o-progress type="circle" percent="percent"></o-progress>
+  <script>
+    const progresses = document.getElementsByTagName('o-progress')
+    let a = 0
+    setInterval(() => {
+      a += 10
+      if (a >100) a = 0
+      for(let i =5;i<progresses.length;i++){
+        progresses[i].setPercent(a)
+      }
+    }, 1000);
+  </script>
+</body>
 
-![K93{ZM2`S~%X~DC9B1M%YWW](https://user-images.githubusercontent.com/51355841/127813557-00501644-297f-4977-80ca-3445320a6c55.png)
-
-
-```html
-        <h2>If you want a "circle style" progress,just let the type is "circle". </h2>
-        <o-progress type="circle"></o-progress>
-        <div>You can cantorl your circle progress like "the line progress"!!!</div>
-        <o-progress type="circle" percent={40} textColor="yellow"></o-progress>
-        <o-progress type="circle" percent={50} strokeColor="lightseagreen" width={150}></o-progress>
-        <o-progress type="circle" percent={60} strokeColor="lightseagreen"  trailColor="black" strokeWidth={16}></o-progress>
-        <o-progress type="circle" precent={70} status="error"></o-progress>
-        <o-progress type="circle" status="success"></o-progress>
-        <o-progress type="circle" percent={percent}></o-progress>
-```
+</html>
