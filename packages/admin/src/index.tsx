@@ -16,6 +16,7 @@ import '@omiu/icon/grid-on'
 import '@omiu/icon/comment'
 import '@omiu/icon/dashboard'
 import '@omiu/icon/ac-unit'
+import '@omiu/icon/people-alt'
 
 import '@omiu/transition'
 

@@ -22,5 +22,6 @@ export const base = {
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
-  MindMap: '思维导图'
+  MindMap: '思维导图',
+  ManyThanksTo: '感谢有你'
 }

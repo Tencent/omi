@@ -22,5 +22,6 @@ export const base = {
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
-  MindMap: 'Mind Map'
+  MindMap: 'Mind Map',
+  ManyThanksTo: 'Many Thanks To'
 }

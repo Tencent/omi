@@ -227,7 +227,13 @@ class Store {
             href: '#/card-component',
           }
           ]
-        }
+        },
+        {
+          label: localeMap.base.ManyThanksTo,
+          id: 16,
+          href: '#/thanks',
+          icon: 'people-alt'
+        },
       ]
 
       this.tabs.forEach(tab => {
