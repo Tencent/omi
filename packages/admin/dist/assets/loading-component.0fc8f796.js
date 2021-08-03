@@ -1,4 +1,4 @@
-import{h as o,b as e,W as n,s as i,t as r}from"./vendor.59122d2d.js";import"./admin-docs.8118ca7a.js";import"./___vite-browser-external_commonjs-proxy.45057099.js";
+import{h as o,b as e,W as n,s as i,t as r}from"./vendor.50b03c4b.js";import"./admin-docs.7a50bb3f.js";
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
