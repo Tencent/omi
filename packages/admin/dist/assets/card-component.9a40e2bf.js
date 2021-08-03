@@ -1,1 +1,0 @@
-import{W as e,b as r}from"./vendor.50b03c4b.js";import"./admin-docs.7a50bb3f.js";var t=Object.defineProperty,o=Object.getOwnPropertyDescriptor;let a=class extends e{render(){}};a=((e,r,a,n)=>{for(var s,d=n>1?void 0:n?o(r,a):r,c=e.length-1;c>=0;c--)(s=e[c])&&(d=(n?s(r,a,d):s(d))||d);return n&&d&&t(r,a,d),d})([r("card-component")],a);export{a as default};
