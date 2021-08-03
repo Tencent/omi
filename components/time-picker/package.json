@@ -1,5 +1,15 @@
 {
-  "version": "0.0.0",
+  "name": "@omiu/time-picker",
+  "version": "0.0.1",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build --base=./",
