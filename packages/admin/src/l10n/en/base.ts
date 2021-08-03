@@ -21,5 +21,6 @@ export const base = {
   Card: 'Card',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
-  Dashboard: 'Dashboard'
+  Dashboard: 'Dashboard',
+  MindMap: 'Mind Map'
 }

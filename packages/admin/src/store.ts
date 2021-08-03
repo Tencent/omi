@@ -188,6 +188,12 @@ class Store {
               href: 'https://github.com/Tencent/omi',
               id: 119,
               target: '_blank'
+            },
+            {
+              label: localeMap.base.MindMap,
+              icon: 'ac-unit',
+              href: '#/mind-map',
+              id: 120
             }
           ]
         },
@@ -214,12 +220,12 @@ class Store {
             icon: 'ac-unit-outlined',
             href: '#/toast-component',
           },
-            {
-              label: localeMap.base.Card,
-              id: 14,
-              icon: 'ac-unit-outlined',
-              href: '#/card-component',
-            }
+          {
+            label: localeMap.base.Card,
+            id: 14,
+            icon: 'ac-unit-outlined',
+            href: '#/card-component',
+          }
           ]
         }
       ]
