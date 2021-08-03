@@ -1,14 +1,6 @@
-import {
-  cssToDom,
-  isArray,
-  getUse,
-  hyphenate,
-  getValByPath,
-  removeItem
-} from './util'
+import { cssToDom, isArray, hyphenate, getValByPath, removeItem } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
-import { getPath } from './util'
 
 let id = 0
 
@@ -32,63 +24,6 @@ export default class WeElement extends HTMLElement {
     }
 
     this.attrsToProps()
-
-    if (this.props.use) {
-      this.use = this.props.use
-    }
-
-    if (this.props.useSelf) {
-      this.use = this.props.useSelf
-    }
-
-    if (this.use) {
-      const use = typeof this.use === 'function' ? this.use() : this.use
-
-      if (options.isMultiStore) {
-        let _updatePath = {}
-        let using = {}
-        for (let storeName in use) {
-          _updatePath[storeName] = {}
-          using[storeName] = {}
-          getPath(use[storeName], _updatePath, storeName)
-          getUse(this.store[storeName].data, use[storeName], using, storeName)
-          this.store[storeName].instances.push(this)
-        }
-        this.using = using
-        this._updatePath = _updatePath
-      } else {
-        this._updatePath = getPath(use)
-        this.using = getUse(this.store.data, use)
-        this.store.instances.push(this)
-      }
-    }
-    if (this.useSelf) {
-      const use =
-        typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf
-      if (options.isMultiStore) {
-        let _updatePath = {}
-        let using = {}
-        for (let storeName in use) {
-          getPath(use[storeName], _updatePath, storeName)
-          getUse(this.store[storeName].data, use[storeName], using, storeName)
-          this.store[storeName].updateSelfInstances.push(this)
-        }
-        this.usingSelf = using
-        this._updateSelfPath = _updatePath
-      } else {
-        this._updateSelfPath = getPath(use)
-        this.usingSelf = getUse(this.store.data, use)
-        this.store.updateSelfInstances.push(this)
-      }
-    }
-
-    if (this.compute) {
-      for (let key in this.compute) {
-        this.computed[key] = this.compute[key].call(
-          options.isMultiStore ? this.store : this.store.data
-        )
-      }
-    }
 
     this.beforeInstall()
     this.install()
@@ -168,18 +103,6 @@ export default class WeElement extends HTMLElement {
   disconnectedCallback() {
     this.uninstall()
     this.isInstalled = false
-    if (this.store) {
-      if (options.isMultiStore) {
-        for (let key in this.store) {
-          const current = this.store[key]
-          removeItem(this, current.instances)
-          removeItem(this, current.updateSelfInstances)
-        }
-      } else {
-        removeItem(this, this.store.instances)
-        removeItem(this, this.store.updateSelfInstances)
-      }
-    }
   }
 
   update(ignoreAttrs, updateSelf) {
@@ -251,7 +174,6 @@ export default class WeElement extends HTMLElement {
 
   attrsToProps(ignoreAttrs) {
     if (
-      options.ignoreAttrs ||
       ignoreAttrs ||
       (this.store && this.store.ignoreAttrs) ||
       this.props.ignoreAttrs

@@ -10,7 +10,6 @@ import { rpx } from './rpx'
 import { classNames, extractClass } from './class'
 import { o } from './o'
 import { extend, get, set, bind, unbind } from './extend'
-import JSONProxy from './proxy'
 import { Fragment } from './util'
 import 'construct-style-sheets-polyfill'
 
@@ -48,13 +47,12 @@ const omi = {
   get,
   set,
   bind,
-  unbind,
-  JSONProxy
+  unbind
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.19.27'
+options.root.Omi.version = '6.20.0'
 
 export default omi
 
@@ -81,6 +79,5 @@ export {
   get,
   set,
   bind,
-  unbind,
-  JSONProxy
+  unbind
 }

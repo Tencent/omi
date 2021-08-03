@@ -36,4 +36,10 @@ define('my-element', class extends WeElement {
 <my-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-element>
 ```
 
+或者
+
+```js
+myElement.addEventListener('myevent', (evt) => {})
+```
+
 通过 `this.fire` 触发自定义事件，fire 第一个参数是事件名称，第二个参数是传递的数据。通过 `evt.detail` 可以获取到传递的数据。
