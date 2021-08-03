@@ -30,8 +30,8 @@ export default class extends WeElement<Props> {
   mdA = `
   \`\`\`html
   // hoverable设置阴影,always总是显示|true鼠标悬浮时|false从不显示
-  <o-card title="Simple Card" hoverable="true">
-    <!-- slot="cover" 若不填充内容，则header栏不显示。-简洁卡片 -->
+  <o-card hoverable="always">
+    <!-- slot="cover" 若不填充内容，则header栏不显示。-简单卡片 -->
     <div slot="cover">
     </div>
       <p>Simple Card</p>
@@ -60,10 +60,11 @@ export default class extends WeElement<Props> {
 
   mdC = `
   \`\`\`html
-  <o-card
-    title="Action card"
-    size="medium"
-    id="myActionA"
+  <o-card 
+    title="Action card" 
+    size="medium" 
+    id="myActionA" 
+    hoverable="always"
     actions={
       [{icon: 'add-a-photo-rounded'},
       {icon: 'add-ic-call-rounded'},
@@ -95,10 +96,9 @@ export default class extends WeElement<Props> {
   `
   mdD = `
   \`\`\`html
-  <o-card
-    title="Action card"
-    size="large"
-    id="myActionC"
+  <o-card 
+    size="large"  
+    id="myActionC" 
     actions={
       [{icon: 'add-ic-call-rounded'},
       {icon: 'add-comment-rounded'}]}
@@ -123,12 +123,12 @@ export default class extends WeElement<Props> {
       slot="cover"
       src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1199435000/VCG211199435578.jpg/thumb">
     </o-image>
-      <p>OMI Card</p>
-      <p><o-link
-        underline='0'
-        type="primary"
-        target="_blank"
-        href="https://tencent.github.io/omi/"
+      <p style="font-weight: 500>OMI Card</p>
+      <p><o-link 
+        underline='0' 
+        type="primary" 
+        target="_blank" 
+        href="https://tencent.github.io/omi/" 
         slot="extra">
         Welcome to OMI
       </o-link></p>
