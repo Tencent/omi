@@ -230,9 +230,6 @@ class Store {
               icon: 'ac-unit-outlined',
               href: '#/slider-component'
             }
-=======
-       
-
           ]
         },
         {

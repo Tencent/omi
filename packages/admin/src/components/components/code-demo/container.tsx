@@ -19,13 +19,28 @@ declare global {
 export default class extends WeElement<Props> {
   static css = null
 
+  columnCount = 2
+
+  installed() {
+    window.addEventListener('resize', this.onResize)
+  }
+
+  uninstall() {
+    window.removeEventListener('resize', this.onResize)
+  }
+
+  onResize = () => {
+    this.columnCount = window.innerWidth < 768 ? 1 : 2
+    this.updateSelf()
+  }
+
   render(props: Props) {
     return (
       <div
         class={props.class}
         style={Object.assign(
           {
-            columnCount: 2,
+            columnCount: this.columnCount,
             columnGap: '1rem',
             padding: '1rem'
           },
