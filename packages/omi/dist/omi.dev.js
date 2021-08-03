@@ -1,5 +1,5 @@
 /**
- * Omi v6.19.27  http://omijs.org
+ * Omi v6.20.0  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -10,12 +10,12 @@
   'use strict';
 
   function getGlobal() {
-    if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-      return self || window || global || function () {
-        return this;
-      }();
-    }
-    return global;
+      if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+          return self || window || global || function () {
+              return this;
+          }();
+      }
+      return global;
   }
 
   /** Global options
@@ -23,13 +23,9 @@
    *  @namespace options {Object}
    */
   var options = {
-    store: null,
-    root: getGlobal(),
-    mapping: {},
-    isMultiStore: false,
-    //when set true, using props of hypescript, don't use getAttribute
-    //if you render all the node tree by omi self, set it
-    ignoreAttrs: false
+      store: null,
+      root: getGlobal(),
+      mapping: {}
   };
 
   /**
@@ -42,44 +38,44 @@
    * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
    */
   (function () {
-    if (
-    // No Reflect, no classes, no need for shim because native custom elements
-    // require ES2015 classes or Reflect.
-    window.Reflect === undefined || window.customElements === undefined ||
-    // The webcomponentsjs custom elements polyfill doesn't require
-    // ES2015-compatible construction (`super()` or `Reflect.construct`).
-    window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
-      return;
-    }
-    var BuiltInHTMLElement = HTMLElement;
-    window.HTMLElement = function HTMLElement() {
-      return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-    };
-    HTMLElement.prototype = BuiltInHTMLElement.prototype;
-    HTMLElement.prototype.constructor = HTMLElement;
-    Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+      if (
+      // No Reflect, no classes, no need for shim because native custom elements
+      // require ES2015 classes or Reflect.
+      window.Reflect === undefined || window.customElements === undefined ||
+      // The webcomponentsjs custom elements polyfill doesn't require
+      // ES2015-compatible construction (`super()` or `Reflect.construct`).
+      window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+          return;
+      }
+      var BuiltInHTMLElement = HTMLElement;
+      window.HTMLElement = function HTMLElement() {
+          return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+      };
+      HTMLElement.prototype = BuiltInHTMLElement.prototype;
+      HTMLElement.prototype.constructor = HTMLElement;
+      Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
   })();
 
   function cssToDom(css) {
-    var node = document.createElement('style');
-    node.textContent = css;
-    return node;
+      var node = document.createElement('style');
+      node.textContent = css;
+      return node;
   }
 
   function camelCase(str) {
-    return str.replace(/-(\w)/g, function ($, $1) {
-      return $1.toUpperCase();
-    });
+      return str.replace(/-(\w)/g, function ($, $1) {
+          return $1.toUpperCase();
+      });
   }
 
   function Fragment(props) {
-    return props.children;
+      return props.children;
   }
 
   function extend(obj, props) {
-    for (var i in props) {
-      obj[i] = props[i];
-    }return obj;
+      for (var i in props) {
+          obj[i] = props[i];
+      }return obj;
   }
 
   /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -87,9 +83,9 @@
    *  @param {any} [value]
    */
   function applyRef(ref, value) {
-    if (ref != null) {
-      if (typeof ref == 'function') ref(value);else ref.current = value;
-    }
+      if (ref != null) {
+          if (typeof ref == 'function') ref(value);else ref.current = value;
+      }
   }
 
   /**
@@ -101,100 +97,26 @@
   var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
   function isArray(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]';
-  }
-
-  function getUse(data, paths, out, name) {
-    var obj = [];
-    paths.forEach(function (path, index) {
-      var isPath = typeof path === 'string';
-      if (isPath) {
-        obj[index] = getTargetByPath(data, path);
-      } else {
-        var key = Object.keys(path)[0];
-        var value = path[key];
-        if (typeof value === 'string') {
-          obj[index] = getTargetByPath(data, value);
-        } else {
-          var tempPath = value[0];
-          if (typeof tempPath === 'string') {
-            var tempVal = getTargetByPath(data, tempPath);
-            obj[index] = value[1] ? value[1](tempVal) : tempVal;
-          } else {
-            var args = [];
-            tempPath.forEach(function (path) {
-              args.push(getTargetByPath(data, path));
-            });
-            obj[index] = value[1].apply(null, args);
-          }
-        }
-        obj[key] = obj[index];
-      }
-    });
-    if (out) out[name] = obj;
-    return obj;
+      return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
   function pathToArr(path) {
-    if (typeof path !== 'string' || !path) return [];
-    // return path.split(/\.|\[|\]/).filter(name => !!name)
-    return path.replace(/]/g, '').replace(/\[/g, '.').split('.');
-  }
-
-  function getTargetByPath(origin, path) {
-    var arr = pathToArr(path);
-    var current = origin;
-    for (var i = 0, len = arr.length; i < len; i++) {
-      current = current[arr[i]];
-    }
-    return current;
+      if (typeof path !== 'string' || !path) return [];
+      // return path.split(/\.|\[|\]/).filter(name => !!name)
+      return path.replace(/]/g, '').replace(/\[/g, '.').split('.');
   }
 
   var hyphenateRE = /\B([A-Z])/g;
   function hyphenate(str) {
-    return str.replace(hyphenateRE, '-$1').toLowerCase();
+      return str.replace(hyphenateRE, '-$1').toLowerCase();
   }
 
   function getValByPath(path, current) {
-    var arr = pathToArr(path);
-    arr.forEach(function (prop) {
-      current = current[prop];
-    });
-    return current;
-  }
-
-  function getPath(obj, out, name) {
-    var result = {};
-    obj.forEach(function (item) {
-      if (typeof item === 'string') {
-        result[item] = true;
-      } else {
-        var tempPath = item[Object.keys(item)[0]];
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true;
-        } else {
-          if (typeof tempPath[0] === 'string') {
-            result[tempPath[0]] = true;
-          } else {
-            tempPath[0].forEach(function (path) {
-              return result[path] = true;
-            });
-          }
-        }
-      }
-    });
-    if (out) out[name] = result;
-    return result;
-  }
-
-  function removeItem(item, arr) {
-    if (!arr) return;
-    for (var i = 0, len = arr.length; i < len; i++) {
-      if (arr[i] === item) {
-        arr.splice(i, 1);
-        break;
-      }
-    }
+      var arr = pathToArr(path);
+      arr.forEach(function (prop) {
+          current = current[prop];
+      });
+      return current;
   }
 
   var stack = [];
@@ -805,840 +727,251 @@
   var id = 0;
 
   var WeElement = function (_HTMLElement) {
-    _inherits(WeElement, _HTMLElement);
+      _inherits(WeElement, _HTMLElement);
 
-    function WeElement() {
-      _classCallCheck(this, WeElement);
+      function WeElement() {
+          _classCallCheck(this, WeElement);
 
-      // fix lazy load props missing
-      var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+          // fix lazy load props missing
+          var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-      _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
-      _this.elementId = id++;
-      _this.computed = {};
-      _this.isInstalled = false;
-      return _this;
-    }
-
-    WeElement.prototype.connectedCallback = function connectedCallback() {
-      var p = this.parentNode;
-      while (p && !this.store) {
-        this.store = p.store;
-        p = p.parentNode || p.host;
+          _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
+          _this.elementId = id++;
+          _this.computed = {};
+          _this.isInstalled = false;
+          return _this;
       }
 
-      this.attrsToProps();
-
-      if (this.props.use) {
-        this.use = this.props.use;
-      }
-
-      if (this.props.useSelf) {
-        this.use = this.props.useSelf;
-      }
-
-      if (this.use) {
-        var use = typeof this.use === 'function' ? this.use() : this.use;
-
-        if (options.isMultiStore) {
-          var _updatePath = {};
-          var using = {};
-          for (var storeName in use) {
-            _updatePath[storeName] = {};
-            using[storeName] = {};
-            getPath(use[storeName], _updatePath, storeName);
-            getUse(this.store[storeName].data, use[storeName], using, storeName);
-            this.store[storeName].instances.push(this);
+      WeElement.prototype.connectedCallback = function connectedCallback() {
+          var p = this.parentNode;
+          while (p && !this.store) {
+              this.store = p.store;
+              p = p.parentNode || p.host;
           }
-          this.using = using;
-          this._updatePath = _updatePath;
-        } else {
-          this._updatePath = getPath(use);
-          this.using = getUse(this.store.data, use);
-          this.store.instances.push(this);
-        }
-      }
-      if (this.useSelf) {
-        var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
-        if (options.isMultiStore) {
-          var _updatePath2 = {};
-          var _using = {};
-          for (var _storeName in _use) {
-            getPath(_use[_storeName], _updatePath2, _storeName);
-            getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
-            this.store[_storeName].updateSelfInstances.push(this);
-          }
-          this.usingSelf = _using;
-          this._updateSelfPath = _updatePath2;
-        } else {
-          this._updateSelfPath = getPath(_use);
-          this.usingSelf = getUse(this.store.data, _use);
-          this.store.updateSelfInstances.push(this);
-        }
-      }
 
-      if (this.compute) {
-        for (var key in this.compute) {
-          this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
-        }
-      }
+          this.attrsToProps();
 
-      this.beforeInstall();
-      this.install();
-      this.afterInstall();
+          this.beforeInstall();
+          this.install();
+          this.afterInstall();
 
-      var shadowRoot;
-      if (this.constructor.isLightDom) {
-        shadowRoot = this;
-      } else {
-        if (!this.shadowRoot) {
-          shadowRoot = this.attachShadow({
-            mode: 'open'
-          });
-        } else {
-          shadowRoot = this.shadowRoot;
-          var fc;
-          while (fc = shadowRoot.firstChild) {
-            shadowRoot.removeChild(fc);
-          }
-        }
-      }
-
-      var css = this.constructor.css;
-      if (css) {
-        if (typeof css === 'string') {
-          var styleSheet = new CSSStyleSheet();
-          styleSheet.replaceSync(css);
-          shadowRoot.adoptedStyleSheets = [styleSheet];
-        } else if (Object.prototype.toString.call(css) === '[object Array]') {
-          var styleSheets = [];
-          css.forEach(function (styleSheet) {
-            if (typeof styleSheet === 'string') {
-              var adoptedStyleSheet = new CSSStyleSheet();
-              adoptedStyleSheet.replaceSync(styleSheet);
-              styleSheets.push(adoptedStyleSheet);
-            } else {
-              styleSheets.push(styleSheet);
-            }
-            shadowRoot.adoptedStyleSheets = styleSheets;
-          });
-        } else {
-          shadowRoot.adoptedStyleSheets = [css];
-        }
-      }
-
-      this.beforeRender();
-      options.afterInstall && options.afterInstall(this);
-
-      var rendered = this.render(this.props, this.store);
-
-      this.rootNode = diff(null, rendered, null, this);
-      this.rendered();
-
-      if (this.css) {
-        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-      }
-
-      if (this.props.css) {
-        this._customStyleElement = cssToDom(this.props.css);
-        this._customStyleContent = this.props.css;
-        shadowRoot.appendChild(this._customStyleElement);
-      }
-
-      if (isArray(this.rootNode)) {
-        this.rootNode.forEach(function (item) {
-          shadowRoot.appendChild(item);
-        });
-      } else {
-        this.rootNode && shadowRoot.appendChild(this.rootNode);
-      }
-      this.installed();
-      this.isInstalled = true;
-    };
-
-    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-      this.uninstall();
-      this.isInstalled = false;
-      if (this.store) {
-        if (options.isMultiStore) {
-          for (var key in this.store) {
-            var current = this.store[key];
-            removeItem(this, current.instances);
-            removeItem(this, current.updateSelfInstances);
-          }
-        } else {
-          removeItem(this, this.store.instances);
-          removeItem(this, this.store.updateSelfInstances);
-        }
-      }
-    };
-
-    WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
-      this._willUpdate = true;
-      this.beforeUpdate();
-      this.beforeRender();
-      //fix null !== undefined
-      if (this._customStyleContent != this.props.css) {
-        this._customStyleContent = this.props.css;
-        this._customStyleElement.textContent = this._customStyleContent;
-      }
-      this.attrsToProps(ignoreAttrs);
-
-      var rendered = this.render(this.props, this.store);
-      this.rendered();
-
-      this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
-      this._willUpdate = false;
-      this.updated();
-    };
-
-    WeElement.prototype.forceUpdate = function forceUpdate() {
-      this.update(true);
-    };
-
-    WeElement.prototype.updateProps = function updateProps(obj) {
-      var _this2 = this;
-
-      Object.keys(obj).forEach(function (key) {
-        _this2.props[key] = obj[key];
-        if (_this2.prevProps) {
-          _this2.prevProps[key] = obj[key];
-        }
-      });
-      this.forceUpdate();
-    };
-
-    WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-      this.update(ignoreAttrs, true);
-    };
-
-    WeElement.prototype.removeAttribute = function removeAttribute(key) {
-      _HTMLElement.prototype.removeAttribute.call(this, key);
-      //Avoid executing removeAttribute methods before connectedCallback
-      this.isInstalled && this.update();
-    };
-
-    WeElement.prototype.setAttribute = function setAttribute(key, val) {
-      if (val && typeof val === 'object') {
-        _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
-      } else {
-        _HTMLElement.prototype.setAttribute.call(this, key, val);
-      }
-      //Avoid executing setAttribute methods before connectedCallback
-      this.isInstalled && this.update();
-    };
-
-    WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
-      _HTMLElement.prototype.removeAttribute.call(this, key);
-    };
-
-    WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
-      _HTMLElement.prototype.setAttribute.call(this, key, val);
-    };
-
-    WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-      if (options.ignoreAttrs || ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
-      var ele = this;
-      ele.props['css'] = ele.getAttribute('css');
-      var attrs = this.constructor.propTypes;
-      if (!attrs) return;
-      Object.keys(attrs).forEach(function (key) {
-        var type = attrs[key];
-        var val = ele.getAttribute(hyphenate(key));
-        if (val !== null) {
-          switch (type) {
-            case String:
-              ele.props[key] = val;
-              break;
-            case Number:
-              ele.props[key] = Number(val);
-              break;
-            case Boolean:
-              if (val === 'false' || val === '0') {
-                ele.props[key] = false;
-              } else {
-                ele.props[key] = true;
-              }
-              break;
-            case Array:
-            case Object:
-              if (val[0] === ':') {
-                ele.props[key] = getValByPath(val.substr(1), Omi.$);
-              } else {
-                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-              }
-              break;
-          }
-        } else {
-          if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
-            ele.props[key] = ele.constructor.defaultProps[key];
+          var shadowRoot;
+          if (this.constructor.isLightDom) {
+              shadowRoot = this;
           } else {
-            ele.props[key] = null;
+              if (!this.shadowRoot) {
+                  shadowRoot = this.attachShadow({
+                      mode: 'open'
+                  });
+              } else {
+                  shadowRoot = this.shadowRoot;
+                  var fc;
+                  while (fc = shadowRoot.firstChild) {
+                      shadowRoot.removeChild(fc);
+                  }
+              }
           }
-        }
-      });
-    };
 
-    WeElement.prototype.fire = function fire(name, data) {
-      this.dispatchEvent(new CustomEvent(name, {
-        detail: data
-      }));
-    };
+          var css = this.constructor.css;
+          if (css) {
+              if (typeof css === 'string') {
+                  var styleSheet = new CSSStyleSheet();
+                  styleSheet.replaceSync(css);
+                  shadowRoot.adoptedStyleSheets = [styleSheet];
+              } else if (Object.prototype.toString.call(css) === '[object Array]') {
+                  var styleSheets = [];
+                  css.forEach(function (styleSheet) {
+                      if (typeof styleSheet === 'string') {
+                          var adoptedStyleSheet = new CSSStyleSheet();
+                          adoptedStyleSheet.replaceSync(styleSheet);
+                          styleSheets.push(adoptedStyleSheet);
+                      } else {
+                          styleSheets.push(styleSheet);
+                      }
+                      shadowRoot.adoptedStyleSheets = styleSheets;
+                  });
+              } else {
+                  shadowRoot.adoptedStyleSheets = [css];
+              }
+          }
 
-    WeElement.prototype.beforeInstall = function beforeInstall() {};
+          this.beforeRender();
+          options.afterInstall && options.afterInstall(this);
 
-    WeElement.prototype.install = function install() {};
+          var rendered = this.render(this.props, this.store);
 
-    WeElement.prototype.afterInstall = function afterInstall() {};
+          this.rootNode = diff(null, rendered, null, this);
+          this.rendered();
 
-    WeElement.prototype.installed = function installed() {};
+          if (this.css) {
+              shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+          }
 
-    WeElement.prototype.uninstall = function uninstall() {};
+          if (this.props.css) {
+              this._customStyleElement = cssToDom(this.props.css);
+              this._customStyleContent = this.props.css;
+              shadowRoot.appendChild(this._customStyleElement);
+          }
 
-    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+          if (isArray(this.rootNode)) {
+              this.rootNode.forEach(function (item) {
+                  shadowRoot.appendChild(item);
+              });
+          } else {
+              this.rootNode && shadowRoot.appendChild(this.rootNode);
+          }
+          this.installed();
+          this.isInstalled = true;
+      };
 
-    WeElement.prototype.updated = function updated() {};
+      WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+          this.uninstall();
+          this.isInstalled = false;
+      };
 
-    WeElement.prototype.beforeRender = function beforeRender() {};
+      WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+          this._willUpdate = true;
+          this.beforeUpdate();
+          this.beforeRender();
+          //fix null !== undefined
+          if (this._customStyleContent != this.props.css) {
+              this._customStyleContent = this.props.css;
+              this._customStyleElement.textContent = this._customStyleContent;
+          }
+          this.attrsToProps(ignoreAttrs);
 
-    WeElement.prototype.rendered = function rendered() {};
+          var rendered = this.render(this.props, this.store);
+          this.rendered();
 
-    WeElement.prototype.receiveProps = function receiveProps() {};
+          this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
+          this._willUpdate = false;
+          this.updated();
+      };
 
-    return WeElement;
+      WeElement.prototype.forceUpdate = function forceUpdate() {
+          this.update(true);
+      };
+
+      WeElement.prototype.updateProps = function updateProps(obj) {
+          var _this2 = this;
+
+          Object.keys(obj).forEach(function (key) {
+              _this2.props[key] = obj[key];
+              if (_this2.prevProps) {
+                  _this2.prevProps[key] = obj[key];
+              }
+          });
+          this.forceUpdate();
+      };
+
+      WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
+          this.update(ignoreAttrs, true);
+      };
+
+      WeElement.prototype.removeAttribute = function removeAttribute(key) {
+          _HTMLElement.prototype.removeAttribute.call(this, key);
+          //Avoid executing removeAttribute methods before connectedCallback
+          this.isInstalled && this.update();
+      };
+
+      WeElement.prototype.setAttribute = function setAttribute(key, val) {
+          if (val && typeof val === 'object') {
+              _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
+          } else {
+              _HTMLElement.prototype.setAttribute.call(this, key, val);
+          }
+          //Avoid executing setAttribute methods before connectedCallback
+          this.isInstalled && this.update();
+      };
+
+      WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+          _HTMLElement.prototype.removeAttribute.call(this, key);
+      };
+
+      WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+          _HTMLElement.prototype.setAttribute.call(this, key, val);
+      };
+
+      WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+          if (ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
+          var ele = this;
+          ele.props['css'] = ele.getAttribute('css');
+          var attrs = this.constructor.propTypes;
+          if (!attrs) return;
+          Object.keys(attrs).forEach(function (key) {
+              var type = attrs[key];
+              var val = ele.getAttribute(hyphenate(key));
+              if (val !== null) {
+                  switch (type) {
+                      case String:
+                          ele.props[key] = val;
+                          break;
+                      case Number:
+                          ele.props[key] = Number(val);
+                          break;
+                      case Boolean:
+                          if (val === 'false' || val === '0') {
+                              ele.props[key] = false;
+                          } else {
+                              ele.props[key] = true;
+                          }
+                          break;
+                      case Array:
+                      case Object:
+                          if (val[0] === ':') {
+                              ele.props[key] = getValByPath(val.substr(1), Omi.$);
+                          } else {
+                              ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                          }
+                          break;
+                  }
+              } else {
+                  if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+                      ele.props[key] = ele.constructor.defaultProps[key];
+                  } else {
+                      ele.props[key] = null;
+                  }
+              }
+          });
+      };
+
+      WeElement.prototype.fire = function fire(name, data) {
+          this.dispatchEvent(new CustomEvent(name, {
+              detail: data
+          }));
+      };
+
+      WeElement.prototype.beforeInstall = function beforeInstall() {};
+
+      WeElement.prototype.install = function install() {};
+
+      WeElement.prototype.afterInstall = function afterInstall() {};
+
+      WeElement.prototype.installed = function installed() {};
+
+      WeElement.prototype.uninstall = function uninstall() {};
+
+      WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+
+      WeElement.prototype.updated = function updated() {};
+
+      WeElement.prototype.beforeRender = function beforeRender() {};
+
+      WeElement.prototype.rendered = function rendered() {};
+
+      WeElement.prototype.receiveProps = function receiveProps() {};
+
+      return WeElement;
   }(HTMLElement);
 
   WeElement.is = 'WeElement';
 
-  /*!
-   * https://github.com/Palindrom/JSONPatcherProxy
-   * (c) 2017 Starcounter
-   * MIT license
-   */
-
-  /** Class representing a JS Object observer  */
-  var JSONPatcherProxy = function () {
-    /**
-     * Deep clones your object and returns a new object.
-     */
-    function deepClone(obj) {
-      switch (typeof obj) {
-        case 'object':
-          return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
-        case 'undefined':
-          return null; //this is how JSON.stringify behaves for array items
-        default:
-          return obj; //no need to clone primitives
-      }
-    }
-    JSONPatcherProxy.deepClone = deepClone;
-
-    function escapePathComponent(str) {
-      if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str;
-      return str.replace(/~/g, '~0').replace(/\//g, '~1');
-    }
-    JSONPatcherProxy.escapePathComponent = escapePathComponent;
-
-    /**
-     * Walk up the parenthood tree to get the path
-     * @param {JSONPatcherProxy} instance
-     * @param {Object} obj the object you need to find its path
-     */
-    function findObjectPath(instance, obj) {
-      var pathComponents = [];
-      var parentAndPath = instance.parenthoodMap.get(obj);
-      while (parentAndPath && parentAndPath.path) {
-        // because we're walking up-tree, we need to use the array as a stack
-        pathComponents.unshift(parentAndPath.path);
-        parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);
-      }
-      if (pathComponents.length) {
-        var path = pathComponents.join('/');
-        return '/' + path;
-      }
-      return '';
-    }
-    /**
-     * A callback to be used as th proxy set trap callback.
-     * It updates parenthood map if needed, proxifies nested newly-added objects, calls default callbacks with the changes occurred.
-     * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
-     * @param {Object} target the affected object
-     * @param {String} key the effect property's name
-     * @param {Any} newValue the value being set
-     */
-    function setTrap(instance, target, key, newValue) {
-      var parentPath = findObjectPath(instance, target);
-
-      var destinationPropKey = parentPath + '/' + escapePathComponent(key);
-
-      if (instance.proxifiedObjectsMap.has(newValue)) {
-        var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);
-
-        instance.parenthoodMap.set(newValueOriginalObject.originalObject, {
-          parent: target,
-          path: key
-        });
-      }
-      /*
-          mark already proxified values as inherited.
-          rationale: proxy.arr.shift()
-          will emit
-          {op: replace, path: '/arr/1', value: arr_2}
-          {op: remove, path: '/arr/2'}
-           by default, the second operation would revoke the proxy, and this renders arr revoked.
-          That's why we need to remember the proxies that are inherited.
-        */
-      var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
-      /*
-      Why do we need to check instance.isProxifyingTreeNow?
-       We need to make sure we mark revokables as inherited ONLY when we're observing,
-      because throughout the first proxification, a sub-object is proxified and then assigned to
-      its parent object. This assignment of a pre-proxified object can fool us into thinking
-      that it's a proxified object moved around, while in fact it's the first assignment ever.
-       Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
-      but in fact is is a proxified object moved around the tree
-      */
-      if (revokableInstance && !instance.isProxifyingTreeNow) {
-        revokableInstance.inherited = true;
-      }
-
-      // if the new value is an object, make sure to watch it
-      if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
-        instance.parenthoodMap.set(newValue, {
-          parent: target,
-          path: key
-        });
-        newValue = instance._proxifyObjectTreeRecursively(target, newValue, key);
-      }
-      // let's start with this operation, and may or may not update it later
-      var operation = {
-        op: 'remove',
-        path: destinationPropKey
-      };
-      if (typeof newValue == 'undefined') {
-        // applying De Morgan's laws would be a tad faster, but less readable
-        if (!Array.isArray(target) && !target.hasOwnProperty(key)) {
-          // `undefined` is being set to an already undefined value, keep silent
-          return Reflect.set(target, key, newValue);
-        }
-        // when array element is set to `undefined`, should generate replace to `null`
-        if (Array.isArray(target)) {
-  operation.op = 'replace', operation.value = null;
-        }
-        var oldValue = instance.proxifiedObjectsMap.get(target[key]);
-        // was the deleted a proxified object?
-        if (oldValue) {
-          instance.parenthoodMap.delete(target[key]);
-          instance.disableTrapsForProxy(oldValue);
-          instance.proxifiedObjectsMap.delete(oldValue);
-        }
-      } else {
-        if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
-          /* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */
-          if (key != 'length') {
-            console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');
-          }
-          return Reflect.set(target, key, newValue);
-        }
-        operation.op = 'add';
-        if (target.hasOwnProperty(key)) {
-          if (typeof target[key] !== 'undefined' || Array.isArray(target)) {
-            operation.op = 'replace'; // setting `undefined` array elements is a `replace` op
-          }
-        }
-        operation.value = newValue;
-      }
-      operation.oldValue = target[key];
-      var reflectionResult = Reflect.set(target, key, newValue);
-      instance.defaultCallback(operation);
-      return reflectionResult;
-    }
-    /**
-     * A callback to be used as th proxy delete trap callback.
-     * It updates parenthood map if needed, calls default callbacks with the changes occurred.
-     * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
-     * @param {Object} target the effected object
-     * @param {String} key the effected property's name
-     */
-    function deleteTrap(instance, target, key) {
-      if (typeof target[key] !== 'undefined') {
-        var parentPath = findObjectPath(instance, target);
-        var destinationPropKey = parentPath + '/' + escapePathComponent(key);
-
-        var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);
-
-        if (revokableProxyInstance) {
-          if (revokableProxyInstance.inherited) {
-            /*
-              this is an inherited proxy (an already proxified object that was moved around),
-              we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
-              And we know that because we mark moved proxies with `inherited` flag when we move them
-               it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
-              We DO want to revoke the proxy if it was removed again.
-            */
-            revokableProxyInstance.inherited = false;
-          } else {
-            instance.parenthoodMap.delete(revokableProxyInstance.originalObject);
-            instance.disableTrapsForProxy(revokableProxyInstance);
-            instance.proxifiedObjectsMap.delete(target[key]);
-          }
-        }
-        var reflectionResult = Reflect.deleteProperty(target, key);
-
-        instance.defaultCallback({
-          op: 'remove',
-          path: destinationPropKey
-        });
-
-        return reflectionResult;
-      }
-    }
-    /* pre-define resume and pause functions to enhance constructors performance */
-    function resume() {
-      var _this = this;
-
-      this.defaultCallback = function (operation) {
-        _this.isRecording && _this.patches.push(operation);
-        _this.userCallback && _this.userCallback(operation);
-      };
-      this.isObserving = true;
-    }
-    function pause() {
-      this.defaultCallback = function () {};
-      this.isObserving = false;
-    }
-    /**
-     * Creates an instance of JSONPatcherProxy around your object of interest `root`.
-     * @param {Object|Array} root - the object you want to wrap
-     * @param {Boolean} [showDetachedWarning = true] - whether to log a warning when a detached sub-object is modified @see {@link https://github.com/Palindrom/JSONPatcherProxy#detached-objects}
-     * @returns {JSONPatcherProxy}
-     * @constructor
-     */
-    function JSONPatcherProxy(root, showDetachedWarning) {
-      this.isProxifyingTreeNow = false;
-      this.isObserving = false;
-      this.proxifiedObjectsMap = new Map();
-      this.parenthoodMap = new Map();
-      // default to true
-      if (typeof showDetachedWarning !== 'boolean') {
-        showDetachedWarning = true;
-      }
-
-      this.showDetachedWarning = showDetachedWarning;
-      this.originalObject = root;
-      this.cachedProxy = null;
-      this.isRecording = false;
-      this.userCallback;
-      /**
-       * @memberof JSONPatcherProxy
-       * Restores callback back to the original one provided to `observe`.
-       */
-      this.resume = resume.bind(this);
-      /**
-       * @memberof JSONPatcherProxy
-       * Replaces your callback with a noop function.
-       */
-      this.pause = pause.bind(this);
-    }
-
-    JSONPatcherProxy.prototype.generateProxyAtPath = function (parent, obj, path) {
-      var _this2 = this;
-
-      if (!obj) {
-        return obj;
-      }
-      var traps = {
-        set: function set(target, key, value, receiver) {
-          return setTrap(_this2, target, key, value, receiver);
-        },
-        deleteProperty: function deleteProperty(target, key) {
-          return deleteTrap(_this2, target, key);
-        }
-      };
-      var revocableInstance = Proxy.revocable(obj, traps);
-      // cache traps object to disable them later.
-      revocableInstance.trapsInstance = traps;
-      revocableInstance.originalObject = obj;
-
-      /* keeping track of object's parent and path */
-
-      this.parenthoodMap.set(obj, { parent: parent, path: path });
-
-      /* keeping track of all the proxies to be able to revoke them later */
-      this.proxifiedObjectsMap.set(revocableInstance.proxy, revocableInstance);
-      return revocableInstance.proxy;
-    };
-    // grab tree's leaves one by one, encapsulate them into a proxy and return
-    JSONPatcherProxy.prototype._proxifyObjectTreeRecursively = function (parent, root, path) {
-      for (var key in root) {
-        if (root.hasOwnProperty(key)) {
-          if (root[key] instanceof Object) {
-            root[key] = this._proxifyObjectTreeRecursively(root, root[key], escapePathComponent(key));
-          }
-        }
-      }
-      return this.generateProxyAtPath(parent, root, path);
-    };
-    // this function is for aesthetic purposes
-    JSONPatcherProxy.prototype.proxifyObjectTree = function (root) {
-      /*
-      while proxyifying object tree,
-      the proxyifying operation itself is being
-      recorded, which in an unwanted behavior,
-      that's why we disable recording through this
-      initial process;
-      */
-      this.pause();
-      this.isProxifyingTreeNow = true;
-      var proxifiedObject = this._proxifyObjectTreeRecursively(undefined, root, '');
-      /* OK you can record now */
-      this.isProxifyingTreeNow = false;
-      this.resume();
-      return proxifiedObject;
-    };
-    /**
-     * Turns a proxified object into a forward-proxy object; doesn't emit any patches anymore, like a normal object
-     * @param {Proxy} proxy - The target proxy object
-     */
-    JSONPatcherProxy.prototype.disableTrapsForProxy = function (revokableProxyInstance) {
-      if (this.showDetachedWarning) {
-        var message = "You're accessing an object that is detached from the observedObject tree, see https://github.com/Palindrom/JSONPatcherProxy#detached-objects";
-
-        revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
-          console.warn(message);
-          return Reflect.set(targetObject, propKey, newValue);
-        };
-        revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
-          console.warn(message);
-          return Reflect.set(targetObject, propKey, newValue);
-        };
-        revokableProxyInstance.trapsInstance.deleteProperty = function (targetObject, propKey) {
-          return Reflect.deleteProperty(targetObject, propKey);
-        };
-      } else {
-        delete revokableProxyInstance.trapsInstance.set;
-        delete revokableProxyInstance.trapsInstance.get;
-        delete revokableProxyInstance.trapsInstance.deleteProperty;
-      }
-    };
-    /**
-     * Proxifies the object that was passed in the constructor and returns a proxified mirror of it. Even though both parameters are options. You need to pass at least one of them.
-     * @param {Boolean} [record] - whether to record object changes to a later-retrievable patches array.
-     * @param {Function} [callback] - this will be synchronously called with every object change with a single `patch` as the only parameter.
-     */
-    JSONPatcherProxy.prototype.observe = function (record, callback) {
-      if (!record && !callback) {
-        throw new Error('You need to either record changes or pass a callback');
-      }
-      this.isRecording = record;
-      this.userCallback = callback;
-      /*
-      I moved it here to remove it from `unobserve`,
-      this will also make the constructor faster, why initiate
-      the array before they decide to actually observe with recording?
-      They might need to use only a callback.
-      */
-      if (record) this.patches = [];
-      this.cachedProxy = this.proxifyObjectTree(this.originalObject);
-      return this.cachedProxy;
-    };
-    /**
-     * If the observed is set to record, it will synchronously return all the patches and empties patches array.
-     */
-    JSONPatcherProxy.prototype.generate = function () {
-      if (!this.isRecording) {
-        throw new Error('You should set record to true to get patches later');
-      }
-      return this.patches.splice(0, this.patches.length);
-    };
-    /**
-     * Revokes all proxies rendering the observed object useless and good for garbage collection @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable}
-     */
-    JSONPatcherProxy.prototype.revoke = function () {
-      this.proxifiedObjectsMap.forEach(function (el) {
-        el.revoke();
-      });
-    };
-    /**
-     * Disables all proxies' traps, turning the observed object into a forward-proxy object, like a normal object that you can modify silently.
-     */
-    JSONPatcherProxy.prototype.disableTraps = function () {
-      this.proxifiedObjectsMap.forEach(this.disableTrapsForProxy, this);
-    };
-    return JSONPatcherProxy;
-  }();
-
   function render(vnode, parent, store) {
-    parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-    if (store) {
-      if (store.data) {
-        observeStore(store);
+      parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+      if (store) {
+          parent.store = store;
       }
-      // else {
-      //   //Multi-store injection
-      //   for (let key in store) {
-      //     if (key !== 'ignoreAttrs') {
-      //       options.isMultiStore = true
-      //       observeStore(store[key], key)
-      //     }
-      //   }
-      // }
-      parent.store = store;
-    }
-    return diff(null, vnode, parent, false);
-  }
-
-  function observeStore(store, key) {
-    store.instances = [];
-    store.updateSelfInstances = [];
-    extendStoreUpdate(store, key);
-
-    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-      var patchs = {};
-      if (patch.op === 'remove') {
-        // fix arr splice
-        var kv = getArrayPatch(patch.path, store);
-        patchs[kv.k] = kv.v;
-
-        update(patchs, store);
-      } else {
-        var key = fixPath(patch.path);
-        patchs[key] = patch.value;
-
-        update(patchs, store);
-      }
-    });
-  }
-
-  function update(patch, store) {
-    store.update(patch);
-  }
-
-  function extendStoreUpdate(store, key) {
-    store.update = function (patch) {
-      if (Object.keys(patch).length > 0) {
-        this.instances.forEach(function (instance) {
-          compute(instance, key);
-          if (key) {
-            if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
-              if (instance.use) {
-                getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
-              }
-
-              instance.update();
-            }
-          } else {
-            if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
-              if (instance.use) {
-                instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
-              }
-
-              instance.update();
-            }
-          }
-        });
-
-        this.updateSelfInstances.forEach(function (instance) {
-          compute(instance, key);
-          if (key) {
-            if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
-              if (instance.useSelf) {
-                getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
-              }
-
-              instance.updateSelf();
-            }
-          } else {
-            if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-              instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
-              instance.updateSelf();
-            }
-          }
-        });
-        this.onChange && this.onChange(patch);
-      }
-    };
-  }
-
-  function compute(instance, isMultiStore) {
-    if (instance.compute) {
-      for (var ck in instance.compute) {
-        instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
-      }
-    }
-  }
-
-  function needUpdate(diffResult, updatePath) {
-    for (var keyA in diffResult) {
-      if (updatePath[keyA]) {
-        return true;
-      }
-      for (var keyB in updatePath) {
-        if (includePath(keyA, keyB)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function includePath(pathA, pathB) {
-    if (pathA.indexOf(pathB) === 0) {
-      var next = pathA.substr(pathB.length, 1);
-      if (next === '[' || next === '.') {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function fixPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    arr.forEach(function (item, index) {
-      if (index) {
-        if (isNaN(Number(item))) {
-          mpPath += '.' + item;
-        } else {
-          mpPath += '[' + item + ']';
-        }
-      } else {
-        mpPath += item;
-      }
-    });
-    return mpPath;
-  }
-
-  function getArrayPatch(path, store) {
-    var arr = path.replace('/', '').split('/');
-    var current = store.data[arr[0]];
-    for (var i = 1, len = arr.length; i < len - 1; i++) {
-      current = current[arr[i]];
-    }
-    return {
-      k: fixArrPath(path),
-      v: current
-    };
-  }
-
-  function fixArrPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    var len = arr.length;
-    arr.forEach(function (item, index) {
-      if (index < len - 1) {
-        if (index) {
-          if (isNaN(Number(item))) {
-            mpPath += '.' + item;
-          } else {
-            mpPath += '[' + item + ']';
-          }
-        } else {
-          mpPath += item;
-        }
-      }
-    });
-    return mpPath;
+      return diff(null, vnode, parent, false);
   }
 
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2148,7 +1481,7 @@
   h.f = Fragment;
 
   function createRef() {
-    return {};
+      return {};
   }
 
   var $ = {};
@@ -2157,35 +1490,34 @@
   var elements = options.mapping;
 
   var omi = {
-    tag: tag,
-    WeElement: WeElement,
-    Component: Component,
-    render: render,
-    h: h,
-    createElement: h,
-    options: options,
-    define: define,
-    cloneElement: cloneElement,
-    getHost: getHost,
-    rpx: rpx,
-    defineElement: defineElement,
-    classNames: classNames,
-    extractClass: extractClass,
-    createRef: createRef,
-    o: o,
-    elements: elements,
-    $: $,
-    extend: extend$1,
-    get: get,
-    set: set,
-    bind: bind,
-    unbind: unbind,
-    JSONProxy: JSONPatcherProxy
+      tag: tag,
+      WeElement: WeElement,
+      Component: Component,
+      render: render,
+      h: h,
+      createElement: h,
+      options: options,
+      define: define,
+      cloneElement: cloneElement,
+      getHost: getHost,
+      rpx: rpx,
+      defineElement: defineElement,
+      classNames: classNames,
+      extractClass: extractClass,
+      createRef: createRef,
+      o: o,
+      elements: elements,
+      $: $,
+      extend: extend$1,
+      get: get,
+      set: set,
+      bind: bind,
+      unbind: unbind
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.27';
+  options.root.Omi.version = '6.20.0';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

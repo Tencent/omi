@@ -14,46 +14,46 @@
  * this.constructor so that the native HTMLElement constructor can access the
  * current under-construction element's definition.
  */
-;(function() {
-  if (
-    // No Reflect, no classes, no need for shim because native custom elements
-    // require ES2015 classes or Reflect.
-    window.Reflect === undefined ||
-    window.customElements === undefined ||
-    // The webcomponentsjs custom elements polyfill doesn't require
-    // ES2015-compatible construction (`super()` or `Reflect.construct`).
-    window.customElements.hasOwnProperty('polyfillWrapFlushCallback')
-  ) {
-    return
-  }
-  const BuiltInHTMLElement = HTMLElement
-  window.HTMLElement = function HTMLElement() {
-    return Reflect.construct(BuiltInHTMLElement, [], this.constructor)
-  }
-  HTMLElement.prototype = BuiltInHTMLElement.prototype
-  HTMLElement.prototype.constructor = HTMLElement
-  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement)
+; (function () {
+	if (
+		// No Reflect, no classes, no need for shim because native custom elements
+		// require ES2015 classes or Reflect.
+		window.Reflect === undefined ||
+		window.customElements === undefined ||
+		// The webcomponentsjs custom elements polyfill doesn't require
+		// ES2015-compatible construction (`super()` or `Reflect.construct`).
+		window.customElements.hasOwnProperty('polyfillWrapFlushCallback')
+	) {
+		return
+	}
+	const BuiltInHTMLElement = HTMLElement
+	window.HTMLElement = function HTMLElement() {
+		return Reflect.construct(BuiltInHTMLElement, [], this.constructor)
+	}
+	HTMLElement.prototype = BuiltInHTMLElement.prototype
+	HTMLElement.prototype.constructor = HTMLElement
+	Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement)
 })()
 
 export function cssToDom(css) {
-  const node = document.createElement('style')
-  node.textContent = css
-  return node
+	const node = document.createElement('style')
+	node.textContent = css
+	return node
 }
 
 export function camelCase(str) {
-  return str.replace(/-(\w)/g, ($, $1) => {
-    return $1.toUpperCase()
-  })
+	return str.replace(/-(\w)/g, ($, $1) => {
+		return $1.toUpperCase()
+	})
 }
 
 export function Fragment(props) {
-  return props.children
+	return props.children
 }
 
 export function extend(obj, props) {
-  for (let i in props) obj[i] = props[i]
-  return obj
+	for (let i in props) obj[i] = props[i]
+	return obj
 }
 
 /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -61,10 +61,10 @@ export function extend(obj, props) {
  *  @param {any} [value]
  */
 export function applyRef(ref, value) {
-  if (ref != null) {
-    if (typeof ref == 'function') ref(value)
-    else ref.current = value
-  }
+	if (ref != null) {
+		if (typeof ref == 'function') ref(value)
+		else ref.current = value
+	}
 }
 
 /**
@@ -74,104 +74,44 @@ export function applyRef(ref, value) {
  * @type {(callback: function) => void}
  */
 export const defer =
-  typeof Promise == 'function'
-    ? Promise.resolve().then.bind(Promise.resolve())
-    : setTimeout
+	typeof Promise == 'function'
+		? Promise.resolve().then.bind(Promise.resolve())
+		: setTimeout
 
 export function isArray(obj) {
-  return Object.prototype.toString.call(obj) === '[object Array]'
+	return Object.prototype.toString.call(obj) === '[object Array]'
 }
 
-export function getUse(data, paths, out, name) {
-  const obj = []
-  paths.forEach((path, index) => {
-    const isPath = typeof path === 'string'
-    if (isPath) {
-      obj[index] = getTargetByPath(data, path)
-    } else {
-      const key = Object.keys(path)[0]
-      const value = path[key]
-      if (typeof value === 'string') {
-        obj[index] = getTargetByPath(data, value)
-      } else {
-        const tempPath = value[0]
-        if (typeof tempPath === 'string') {
-          const tempVal = getTargetByPath(data, tempPath)
-          obj[index] = value[1] ? value[1](tempVal) : tempVal
-        } else {
-          const args = []
-          tempPath.forEach(path => {
-            args.push(getTargetByPath(data, path))
-          })
-          obj[index] = value[1].apply(null, args)
-        }
-      }
-      obj[key] = obj[index]
-    }
-  })
-  if (out) out[name] = obj
-  return obj
-}
 
 export function pathToArr(path) {
-  if (typeof path !== 'string' || !path) return []
-  // return path.split(/\.|\[|\]/).filter(name => !!name)
-  return path
-    .replace(/]/g, '')
-    .replace(/\[/g, '.')
-    .split('.')
-}
-
-export function getTargetByPath(origin, path) {
-  const arr = pathToArr(path)
-  let current = origin
-  for (let i = 0, len = arr.length; i < len; i++) {
-    current = current[arr[i]]
-  }
-  return current
+	if (typeof path !== 'string' || !path) return []
+	// return path.split(/\.|\[|\]/).filter(name => !!name)
+	return path
+		.replace(/]/g, '')
+		.replace(/\[/g, '.')
+		.split('.')
 }
 
 const hyphenateRE = /\B([A-Z])/g
 export function hyphenate(str) {
-  return str.replace(hyphenateRE, '-$1').toLowerCase()
+	return str.replace(hyphenateRE, '-$1').toLowerCase()
 }
 
 export function getValByPath(path, current) {
-  const arr = pathToArr(path)
-  arr.forEach(prop => {
-    current = current[prop]
-  })
-  return current
+	const arr = pathToArr(path)
+	arr.forEach(prop => {
+		current = current[prop]
+	})
+	return current
 }
 
-export function getPath(obj, out, name) {
-  const result = {}
-  obj.forEach(item => {
-    if (typeof item === 'string') {
-      result[item] = true
-    } else {
-      const tempPath = item[Object.keys(item)[0]]
-      if (typeof tempPath === 'string') {
-        result[tempPath] = true
-      } else {
-        if (typeof tempPath[0] === 'string') {
-          result[tempPath[0]] = true
-        } else {
-          tempPath[0].forEach(path => (result[path] = true))
-        }
-      }
-    }
-  })
-  if (out) out[name] = result
-  return result
-}
 
 export function removeItem(item, arr) {
-  if (!arr) return
-  for (let i = 0, len = arr.length; i < len; i++) {
-    if (arr[i] === item) {
-      arr.splice(i, 1)
-      break
-    }
-  }
+	if (!arr) return
+	for (let i = 0, len = arr.length; i < len; i++) {
+		if (arr[i] === item) {
+			arr.splice(i, 1)
+			break
+		}
+	}
 }

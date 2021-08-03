@@ -5,7 +5,7 @@ import {
 	options
 } from '../../src/omi'
 
-describe('base', () => {
+describe('index', () => {
 	let scratch
 	//const Empty = () => null
 
@@ -60,11 +60,11 @@ describe('base', () => {
 		sinon.spy(C2.prototype, 'render')
 
 		define('c2-ele', C2)
-		options.ignoreAttrs = true
-		render(<c2-ele {...PROPS} />, scratch)
+
+		render(<c2-ele {...PROPS} />, scratch, { ignoreAttrs: true })
 
 		expect(constructorProps).to.deep.equal(PROPS)
-		options.ignoreAttrs = false
+
 		expect(C2.prototype.render)
 			.to.have.been.calledOnce.and.to.have.been.calledWithMatch(PROPS)
 			.and.to.have.returned(
