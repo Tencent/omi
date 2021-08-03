@@ -36,4 +36,10 @@ Then bind events on your custom elements:
 <my-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-element>
 ```
 
+or:
+
+```js
+myElement.addEventListener('myevent', (evt) => {})
+```
+
 Fire triggers a custom event by `this.fire`. The first parameter of fire is the name of the event, and the second parameter is the data passed. The transmitted data can be obtained by `evt.detail'.
