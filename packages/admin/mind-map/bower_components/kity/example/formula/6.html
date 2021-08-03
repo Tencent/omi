@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script src="../../dist/kitygraph.all.min.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                operand = new kity.Text( 'lim'),
+                bottom = new kity.Text( 'n→∞' ),
+                right = new kity.Text( 'x' ),
+                rightSub = new kity.Text( 'n' );
+
+
+
+            operand.setX( 97 ).setY( 100 );
+            operand.setStyle( "font-size", 30 );
+            bottom.setX( 91 ).setY( 119 );
+            bottom.setStyle( "font-size", 25 );
+            right.setStyle( "font-size", 30 );
+            right.setX( 153 ).setY( 100 );
+            rightSub.setX( 168 ).setY( 104 );
+
+            paper.addShape( rightSub );
+            paper.addShape( right );
+            paper.addShape( bottom );
+            paper.addShape( operand );
+
+        };
+
+    </script>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

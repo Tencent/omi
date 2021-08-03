@@ -1,0 +1,40 @@
+{
+    "name": "kity",
+    "title": "kity",
+    "description": "Kity Graphic Library",
+    "version": "2.0.5",
+    "homepage": "https://github.com/fex-team/kity",
+    "author": {
+        "name": "Baidu FEX",
+        "url": "https://github.com/fex-team/kity"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fex-team/kity.git"
+    },
+    "keywords": [
+        "kity",
+        "svg",
+        "graphic",
+        "javascript",
+        "library"
+    ],
+    "bugs": {
+        "url": "https://github.com/fex-team/kity/issues"
+    },
+    "licenses": [{
+        "type": "BSD",
+        "url": "https://github.com/fex-team/kity/blob/dev/LICENSE"
+    }],
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-module-dependence": "~0.2.0",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-uglify": "~0.2.6",
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt-contrib-jasmine": "~0.5.3",
+        "grunt-contrib-connect": "~0.4.0"
+    }
+
+}

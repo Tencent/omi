@@ -1,0 +1,44 @@
+{
+  "name": "angular colorpicker",
+  "version": "1.0.9",
+  "description": "a color picker like that in ms office 2013",
+  "main": "index.html",
+  "scripts": {
+    "init": "npm i -g wr && npm install -g less && npm install -g bower && bower install && npm install",
+    "dev": "npm run watch-less",
+    "watch-less": "wr --exec \"lessc --source-map less/color-picker.lnpmess dist/color-picker.css\" less"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangbobell/color-picker.git"
+  },
+  "keywords": [
+    "color-picker",
+    "color",
+    "picker",
+    "angular",
+    "office"
+  ],
+  "author": "zhangbobell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhangbobell/color-picker/issues"
+  },
+  "homepage": "https://github.com/zhangbobell/color-picker#readme",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-concat": "~0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-uglify": "^0.4.1",
+    "grunt-contrib-cssmin": "^0.12.0",
+    "grunt-module-dependence": "~0.2.0",
+    "grunt-replace": "~0.8.0",
+    "grunt-angular-templates": "~0.5.0",
+    "load-grunt-tasks": "^3.1.0",
+    "grunt-wiredep": "^2.0.0",
+    "jshint-stylish": "^1.0.0",
+    "grunt-ng-annotate": "^0.9.2"
+  }
+}

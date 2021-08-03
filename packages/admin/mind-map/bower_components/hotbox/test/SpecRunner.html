@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jasmine Spec Runner v2.1.3</title>
+
+    <link rel="stylesheet" href="lib/jasmine-2.1.3/jasmine.css">
+
+    <script src="lib/jasmine-2.1.3/jasmine.js"></script>
+    <script src="lib/jasmine-2.1.3/jasmine-html.js"></script>
+    <script src="lib/jasmine-2.1.3/boot.js"></script>
+
+    <script src="../bower_components/seajs/dist/sea-debug.js"></script>
+
+    <!-- hot box specs -->
+    <script>
+        seajs.config({ base: '.' });
+        /* global seajs */
+        seajs.use('./spec/hotbox.js');
+    </script>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        #hotbox-container {
+            width: 400px;
+            height: 400px;
+            float: left;
+            border: 1px solid #999;
+            background: #FEFEFF;
+            margin: 0 10px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hotbox-container"></div>
+</body>
+</html>

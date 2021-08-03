@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Kity Demo List</title>
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            background-color: rgb(67, 161, 254);
+            color: white;
+            text-shadow: 0 1px 3px black;
+            margin: 0;
+            height: 100px;
+            line-height: 100px;
+            padding-left: 30px;
+        }
+
+        ul {
+            position: absolute;
+            margin-left: 0;
+            list-style: none;
+            padding: 0;
+            top: 100px;
+            left: 30px;
+            width: 270px;
+            padding-right: 20px;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        a {
+            color: rgb(224, 115, 6);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            color: #333;
+            font-size: 12px;
+        }
+
+        .preview-container {
+            position: absolute;
+            left: 320px;
+            right: 0;
+            top: 100px;
+            bottom: 0;
+            border-left: solid 1px #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kity Example List</h1>
+    <ul>
+        <li>
+            <h2><a href="animate.html" target="demo-preview">动画示例</a></h2>
+            <p>如何使用自定义动画、fx动画等</p>
+        </li>
+        <li>
+            <h2><a href="bezier.html" target="demo-preview">贝塞尔曲线示例</a></h2>
+            <p>如何使用 Bezier 类绘制方便地绘制贝塞尔曲线</p>
+        </li>
+        <li>
+            <h2><a href="clip.html" target="demo-preview">Clip 示例</a></h2>
+            <p>如何使用 Clip 类来剪辑图形</p>
+        </li>
+        <li>
+            <h2><a href="curve.html" target="demo-preview">曲线示例</a></h2>
+            <p>如何使用 Curve 类来绘制经过指定点的曲线</p>
+        </li>
+        <li>
+            <h2><a href="easing.html" target="demo-preview">缓动函数示例</a></h2>
+            <p>枚举 Kity 支持的缓动函数</p>
+        </li>
+        <li>
+            <h2><a href="lineargradientbrush.html" target="demo-preview">线性渐变示例</a></h2>
+            <p>如何使用 LinearGradientBrush 来使用线性渐变填充图形</p>
+        </li>
+        <li>
+            <h2><a href="mask.html" target="demo-preview">Mask 示例</a></h2>
+            <p>如何使用 Mask 来创建蒙版</p>
+        </li>
+        <li>
+            <h2><a href="path.html" target="demo-preview">Path 示例</a></h2>
+            <p>如何使用 Path 来绘制自定义图形</p>
+        </li>
+        <li>
+            <h2><a href="patternbrush.html" target="demo-preview">图形画刷示例</a></h2>
+            <p>如何使用 PatternBrush 创建图形画刷填充图形</p>
+        </li>
+        <li>
+            <h2><a href="pen.html" target="demo-preview">Pen 示例</a></h2>
+            <p>如何使用 Pen 来创建复杂的描边</p>
+        </li>
+        <li>
+            <h2><a href="radialgradientbrush.html" target="demo-preview">径向渐变示例</a></h2>
+            <p>如何使用 RadialGradientBrush 来使用径向渐变填充图形</p>
+        </li>
+        <li>
+            <h2><a href="text.html" target="demo-preview">文本示例</a></h2>
+            <p>如何使用文本、路径文本</p>
+        </li>
+        <li>
+            <h2><a href="transform.html" target="demo-preview">如何使用 Transform</a></h2>
+            <p>如何对图形进行平移、旋转、缩放、斜切等</p>
+        </li>
+        <li>
+            <h2><a href="use.html" target="demo-preview">Use 示例</a></h2>
+            <p>如何引用图形</p>
+        </li>
+        <li>
+            <h2><a href="viewbox.html" target="demo-preview">Viewbox 示例</a></h2>
+            <p>如何使用 Viewbox 控制视野</p>
+        </li>
+        <li>
+            <h2><a href="filter/index.html" target="demo-preview">滤镜示例</a></h2>
+            <p>如何使用滤镜</p>
+        </li>
+    </ul>
+    <div class="preview-container">
+        <iframe name="demo-preview" frameborder="0" style="overflow:scroll; width: 100%; height: 100%;" src="animate.html"></iframe>
+    </div>
+</body>
+</html>

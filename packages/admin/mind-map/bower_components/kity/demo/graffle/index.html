@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="百度脑图的原型 Demo">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>Graffle</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../../src'} );
+    </script>
+    <!-- dev end -->
+
+    <!-- 生产使用中可以直接引用发布压缩的版本 -->
+    <!-- production start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <!-- <script src="../dist/kity.min.js"></script> -->
+    <!-- production end -->
+    <script>
+
+        define('demo', function (require) {
+            var Draggable = require('../demo/public/draggable');
+            var Paper = require('core/class').extendClass( require('graphic/paper'), Draggable.prototype );
+            var Rect = require('graphic/rect');
+            var BezierConnection = require('../demo/graffle/bezierconnection');
+            var PatternBrush = require('graphic/pattern');
+            var Group = require('graphic/group');
+            var Ellipse = require('graphic/ellipse');
+            var Color = require('graphic/color');
+            var Palette = require('graphic/palette');
+            var utils = require('core/utils');
+
+            var createClass = require('core/class').createClass;
+
+            var MindRect = createClass( { 
+                base: Rect, 
+                mixins: [Draggable],
+                getCenter: function() {
+                    return {
+                        x: this.getX(),
+                        y: this.getY()
+                    };
+                },
+                setCenterX: function(x) {
+                    return this.setPositionX( x - this.getWidth() / 2 );
+                },
+                setCenterY: function(y) {
+                    return this.setPositionY( y - this.getHeight() / 2 );
+                },
+                getCenterX: function() {
+                    return this.getPositionX() + this.getWidth() / 2;
+                },
+                getCenterY: function() {
+                    return this.getPositionY() + this.getHeight() / 2;
+                },
+                dragStart: function() {
+                    this.dragStartPos = this.getPosition();
+                },
+                dragMove: function( e ) {
+                    var pos = this.dragStartPos, delta = e.movement;
+                    this.setPosition(pos.x + delta.x, pos.y + delta.y);
+                }
+            } );
+
+            var MindContainer = createClass({
+                base: Group,
+                constructor: function( x, y, width, height ) {
+                    this.callBase();
+                    this.x = x || 0;
+                    this.y = y || 0;
+                    this.width = width || 1000;
+                    this.height = height || 1000;
+                    this.palette = new Palette().pipe(function() {
+                        var fill = Color.createHSL(0, 75, 60);
+                        this.add('level0-fill', fill);
+                        this.add('level0-stroke', fill.dec(Color.L, 30));
+                        this.add('level1-fill', fill.set(Color.H, 200));
+                        this.add('level1-stroke', fill.dec(Color.L, 30));
+                        this.add('fill', Color.createHSL(200, 50, 90));
+                        this.add('stroke', Color.createHSL(200, 0, 30));
+                        this.add('connection', Color.createHSL(60, 75, 75));
+                    });
+                    this.gaps = 50;
+                    this.mindTree = this.generateMindObject();
+                },
+                generateMindObject: function( prevLevelObject ) {
+                    var levelObject, connection;
+                    var level = prevLevelObject ? prevLevelObject.level + 1 : 0;
+
+                    levelObject = this.generateLevelObject( level );
+                    levelObject.drag();
+                    levelObject.level = level;
+                    levelObject.children = [];
+
+                    this.addShape( levelObject );
+
+                    if( prevLevelObject ) {
+                        this.addChildTo( levelObject, prevLevelObject );
+                        levelObject.parent = prevLevelObject;
+                        connection = new BezierConnection(levelObject, prevLevelObject);
+                        connection.stroke(this.palette.get('connection'));
+                        this.addShape( connection );
+                    }
+                    var me = this;
+                    levelObject.on('mousedown', function() {
+                        me.select(levelObject);
+                    });
+                    return levelObject;
+                },
+                addChildTo: function( levelObject, prevLevelObject ) {
+                    var yValues = [];
+                    var delta = levelObject.getHeight() + this.gaps;
+                    var me = this;
+
+                    levelObject.setCenterX( prevLevelObject.getCenterX() + levelObject.getWidth() + 200 );
+
+                    if(prevLevelObject.children.length == 0) {
+                        levelObject.setCenterY( prevLevelObject.getCenterY() );
+                        prevLevelObject.children.push(levelObject);
+                        return;
+                    }
+
+                    utils.each(prevLevelObject.children, function(child) {
+                        yValues.push(child.getCenterY());
+                    });
+
+                    var levelValue = Math.max.apply(Math, yValues) + delta;
+                    levelObject.setCenterY( levelValue );
+                    yValues.push(levelValue);
+
+                    prevLevelObject.children.push(levelObject);
+
+                    utils.each(prevLevelObject.children, function(child, index) {
+                        me.updateTreePosition( child, delta / 2 );
+                    });
+                },
+                updateTreePosition: function ( levelObject, dy ) {
+                    levelObject.setCenterY(levelObject.getCenterY() - dy);
+                    var me = this;
+                    utils.each( levelObject.children, function (child) {
+                        me.updateTreePosition( child, dy );
+                    } );
+                },
+                generateLevelObject: function(level) {
+                    switch(level) {
+                        case 0:
+                            return new MindRect(200, 200, 0, -100, 10)
+                                .fill(this.palette.get('level0-fill'));
+                        case 1:
+                            return new MindRect(200, 100, 0, 0, 5)
+                                .fill(this.palette.get('level1-fill'));
+                        default:
+                            return new MindRect(200, 80, 0, 0, 3)
+                                .fill(this.palette.get('fill'));
+                    }
+                },
+                select: function (levelObject) {
+                    if(this.selected) {
+                        this.selected.stroke('none');
+                    }
+                    this.selected = levelObject.stroke('yellow', 5);
+                },
+                nextObject: function () {
+                    if(this.selected && this.selected.parent) {
+                        var nextObject = this.generateMindObject(this.selected.parent);
+                        this.select(nextObject);
+                        return nextObject;
+                    }
+                },
+                nextLevel: function () {
+                    if(this.selected) {
+                        var nextLevel = this.generateMindObject(this.selected);
+                        this.select(nextLevel);
+                        return nextLevel;
+                    }
+                }
+            });
+
+            var paper = new Paper(document.body);
+            paper.setViewBox(-1000, -600, 2000, 1200);
+            paper.drag();
+
+            var mc = new MindContainer(-1000, -600, 2000, 1200);
+            paper.addShape(mc);
+
+            document.body.addEventListener('keydown', function(e) {
+                switch(e.keyCode) {
+                    case 13:
+                        e.preventDefault();
+                        return mc.nextObject();
+                    case 9:
+                        e.preventDefault();
+                        return mc.nextLevel();
+                }
+            });
+            document.body.addEventListener('mousewheel', function(e) {
+                var viewport = paper.getViewPort();
+                if(e.wheelDelta > 0) {
+                    viewport.zoom = viewport.zoom * 0.95;
+                } else {
+                    viewport.zoom = viewport.zoom / 0.95;
+                }
+                paper.setViewPort(viewport);
+            });
+        });
+    </script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #333;
+            height: 100%;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    seajs.use('demo');
+</script>
+</html>

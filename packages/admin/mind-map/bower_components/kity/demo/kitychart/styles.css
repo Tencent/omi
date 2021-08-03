@@ -1,0 +1,38 @@
+body { margin: 0; padding: 0;-webkit-user-select: none; -webkit-tap-highlight-color: transparent;}
+.chart-area-min{
+	float: left;
+	width: 540px;
+	margin: 2.5%;
+	border-radius: 5px;
+	box-shadow: 0 0 10px #ccc;
+	height: 420px;
+}
+
+.chart-area-large{
+	width: 972px;
+	height: 756px;
+	z-index: 1;
+	display: none;
+}
+
+.chart-area-large.active{
+	display: block
+}
+.chart-area-full{
+	z-index: 2
+}
+.quarter {
+    float: left;
+    width: 260px;
+    height: 200px;
+}
+.icon-large:before{
+	content:"+";
+	float:right;
+	font-size: 50px;
+	font-weight: bold;
+	padding: 5px;
+	text-shadow:0 0 5px #333;
+	color: white;
+	font-style: normal;
+}

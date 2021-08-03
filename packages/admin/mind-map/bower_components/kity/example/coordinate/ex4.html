@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title> 坐标系 </title>
+    <script src="../../dist/kity.min.js"></script>
+    <script src="coordinate.js"></script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<script>
+    var paper = new kity.Paper(document.body).pipe(function() {
+        var width = 500, height = 300;
+        this.setWidth(500).setHeight(300);
+        this.setViewBox(-80.5, -80.5, width, height)
+
+        this.addShape(new Coordinate('black', [-8, 39], [-8, 19])).pipe(function() {
+            this.addShape(new kity.Rect(30, 30, 0, 0)
+                .fill('rgba(0, 0, 0, 0.5)')
+                .stroke('black'));
+        });
+
+    });
+
+    var rect = new Coordinate('red', [-2, 10], [-2, 10]).pipe(function() {
+
+        this.addShape(new kity.Rect(30, 30, 0, 0)
+            .fill('rgba(255, 0, 0, 0.5)')
+            .stroke('red'));
+    });
+
+    paper.addShape(rect);
+    rect.setScale(2);
+
+    paper.addShape(new kity.Text('matrix(' + rect.getTransform().valueOf().join(', ') + ')')
+        .setY(10).setX(100).setVerticalAlign('top').fill('red'));
+</script>
+</html>

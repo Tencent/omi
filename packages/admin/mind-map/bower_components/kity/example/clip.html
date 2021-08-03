@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>剪切示例</title>
+    <meta charset="utf-8">
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                    circle = new kity.Circle( 100, 200, 200 ),
+                    clip = new kity.Clip(),
+                    rect = new kity.Rect( 200, 100, 100, 100 );
+
+            paper.addShape( circle );
+            circle.fill( "red" );
+            clip.addShape( rect );
+            paper.addResource( clip );
+            circle.clipWith( clip );
+
+        };
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

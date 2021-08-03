@@ -1,0 +1,19 @@
+{
+  "name": "seajs",
+  "version": "2.3.0",
+  "main": "./dist/sea.js",
+  "ignore": [
+    "**/.*",
+    "docs",
+    "lib",
+    "src",
+    "tests",
+    "CNAME",
+    "component.json",
+    "CONTRIBUTING.md",
+    "index.html",
+    "Makefile",
+    "package.json",
+    "README.md"
+  ]
+}
