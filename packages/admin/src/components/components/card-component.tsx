@@ -29,8 +29,8 @@ export default class extends WeElement<Props> {
   mdA = `
   \`\`\`html
   // hoverable设置阴影,always总是显示|true鼠标悬浮时|false从不显示
-  <o-card title="Simple Card" hoverable="true">
-    <!-- slot="cover" 若不填充内容，则header栏不显示。-简洁卡片 -->
+  <o-card hoverable="always">
+    <!-- slot="cover" 若不填充内容，则header栏不显示。-简单卡片 -->
     <div slot="cover">
     </div>
       <p>Simple Card</p>
@@ -63,6 +63,7 @@ export default class extends WeElement<Props> {
     title="Action card" 
     size="medium" 
     id="myActionA" 
+    hoverable="always"
     actions={
       [{icon: 'add-a-photo-rounded'},
       {icon: 'add-ic-call-rounded'},
@@ -95,7 +96,6 @@ export default class extends WeElement<Props> {
   mdD = `
   \`\`\`html
   <o-card 
-    title="Action card" 
     size="large"  
     id="myActionC" 
     actions={
@@ -122,7 +122,7 @@ export default class extends WeElement<Props> {
       slot="cover" 
       src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1199435000/VCG211199435578.jpg/thumb">
     </o-image>
-      <p>OMI Card</p>
+      <p style="font-weight: 500>OMI Card</p>
       <p><o-link 
         underline='0' 
         type="primary" 
@@ -142,7 +142,7 @@ export default class extends WeElement<Props> {
       <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-x-4`}>
         <code-demo class={tw`flex-1 md:w-3/6 md:break-all`} title="简单卡片" describe={"只包含内容区域"} code={this.mdA}>
           <div slot="demo" class={tw`px-5 py-5`}>
-          <o-card title="Simple Card" hoverable="always">
+          <o-card hoverable="always">
             <div slot="cover">
             </div>
               <p>Simple Card</p>
@@ -194,7 +194,7 @@ export default class extends WeElement<Props> {
           </o-card>
           <o-card hoverable="true">
             <o-image slot="cover" src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1199435000/VCG211199435578.jpg/thumb"></o-image>
-              <p>OMI Card</p>
+              <p style="font-weight: 500">OMI Card</p>
               <p><o-link underline='0' type="primary" target="_blank" href="https://tencent.github.io/omi/" slot="extra">Welcome to OMI</o-link></p>
           </o-card>
           </div>
