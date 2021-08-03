@@ -42,14 +42,12 @@ class Store {
   treeData: treeNode[]
 
   constructor(options) {
-
     this.themeColor = '#07c160'
 
     this.installed = options.installed
     this.locale = options.locale
 
     this.isLeftPanelClosed = window.innerWidth < 640
-
 
     this.ignoreAttrs = true
 
@@ -61,25 +59,24 @@ class Store {
     this.localeMap = {}
 
     this.setLocals(this.locale, () => {
-      this.tabs = [{
-        label: this.localeMap.base.Welcome,
-        href: "#/welcome",
-        closable: false,
-        id: 2
-      }]
+      this.tabs = [
+        {
+          label: this.localeMap.base.Welcome,
+          href: '#/welcome',
+          closable: false,
+          id: 2
+        }
+      ]
 
       this.tabsActiveIndex = 0
     })
-
-
 
     this.isInstalled = false
   }
 
   setLocals(locale, callback?) {
     this.locale = locale
-    import(`./l10n/${locale}/base.ts`).then(localeMap => {
-
+    import(`./l10n/${locale}/base.ts`).then((localeMap) => {
       this.localeMap = localeMap
 
       callback && callback()
@@ -110,24 +107,23 @@ class Store {
               id: 98
             },
 
-
             {
               label: localeMap.base.BasicTable,
               icon: 'grid-on',
               href: '#/table/basic',
-              id: 4,
+              id: 4
             },
             {
               label: localeMap.base.TableDeleteAnimation,
               icon: 'grid-on',
               href: '#/table/pagination',
-              id: 5,
+              id: 5
             },
             {
               label: localeMap.base.InlineEditing,
               icon: 'grid-on',
               href: '#/table/edit',
-              id: 25,
+              id: 25
             },
             {
               label: localeMap.base.Form,
@@ -135,13 +131,12 @@ class Store {
               id: 9,
               href: '#/form',
               icon: 'list-alt'
-
             },
             {
               label: localeMap.base.MarkdownEditor,
               icon: 'grid-on',
               href: '#/md-editor',
-              id: 26,
+              id: 26
             },
             {
               label: localeMap.base.MaterialIcons,
@@ -165,7 +160,7 @@ class Store {
               icon: 'error',
               color: '#F56C6C',
               href: '#/error',
-              id: 7,
+              id: 7
             },
             {
               sign: '993',
@@ -173,14 +168,14 @@ class Store {
               icon: 'warning',
               color: '#E6A23C',
               href: '#/warning',
-              id: 8,
+              id: 8
             },
             {
               sign: '993',
               label: localeMap.base.Comment,
               icon: 'comment',
               href: '#/comment',
-              id: 120,
+              id: 120
             },
             {
               label: localeMap.base.ExternalLink,
@@ -209,23 +204,35 @@ class Store {
           expanded: true,
           id: 11,
           icon: 'ac-unit-outlined',
-          children: [{
-            label: localeMap.base.Loading,
-            id: 12,
-            icon: 'ac-unit-outlined',
-            href: '#/loading-component',
-          }, {
-            label: localeMap.base.Toast,
-            id: 13,
-            icon: 'ac-unit-outlined',
-            href: '#/toast-component',
-          },
-          {
-            label: localeMap.base.Card,
-            id: 14,
-            icon: 'ac-unit-outlined',
-            href: '#/card-component',
-          }
+
+          children: [
+            {
+              label: localeMap.base.Loading,
+              id: 12,
+              icon: 'ac-unit-outlined',
+              href: '#/loading-component'
+            },
+            {
+              label: localeMap.base.Toast,
+              id: 13,
+              icon: 'ac-unit-outlined',
+              href: '#/toast-component'
+            },
+            {
+              label: localeMap.base.Card,
+              id: 14,
+              icon: 'ac-unit-outlined',
+              href: '#/card-component'
+            },
+            {
+              label: localeMap.base.Slider,
+              id: 15,
+              icon: 'ac-unit-outlined',
+              href: '#/slider-component'
+            }
+=======
+       
+
           ]
         },
         {
@@ -236,7 +243,7 @@ class Store {
         },
       ]
 
-      this.tabs.forEach(tab => {
+      this.tabs.forEach((tab) => {
         tab.label = this.getTabLabelById(tab.id)
       })
 
@@ -250,13 +257,14 @@ class Store {
   }
 
   getTabLabelById(id) {
-    const node = this.treeData.find(node => node.id === id)
+    const node = this.treeData.find((node) => node.id === id)
     if (node) {
       return node.label
     } else {
       for (let i = 0, len = this.treeData.length; i < len; i++) {
-
-        const childNode = this.treeData[i].children.find(childNode => childNode.id === id)
+        const childNode = this.treeData[i].children.find(
+          (childNode) => childNode.id === id
+        )
         if (childNode) {
           return childNode.label
         }
@@ -279,25 +287,24 @@ class Store {
     this.ui.baseLayout.update()
   }
 
-
   selectTreeNodeById(id) {
-    this.treeData.forEach(node => {
+    this.treeData.forEach((node) => {
       this.deselect(node, id)
     })
   }
 
   deselect(node, id) {
     node.selected = false
-    node.children && node.children.forEach(child => {
-      child.selected = false
-      this.deselect(child, id)
-    })
+    node.children &&
+      node.children.forEach((child) => {
+        child.selected = false
+        this.deselect(child, id)
+      })
 
     if (node.id === id) {
       node.selected = true
     }
   }
 }
-
 
 export default Store

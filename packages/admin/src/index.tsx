@@ -165,7 +165,6 @@ export default class extends WeElement {
       )
     })
 
-
     route('/toast-component', () => {
       //lazy load
       import('./components/components/toast-component').then(() =>
@@ -173,11 +172,17 @@ export default class extends WeElement {
       )
     })
 
-
     route('/card-component', () => {
       //lazy load
       import('./components/components/card-component').then(() =>
         this.transitionTo('card-component')
+      )
+    })
+
+    route('/slider-component', () => {
+      //lazy load
+      import('./components/components/slider-component').then(() =>
+        this.transitionTo('slider-component')
       )
     })
 
@@ -187,7 +192,6 @@ export default class extends WeElement {
         this.transitionTo('mind-map')
       )
     })
-
 
     route('/warning', () => {
       //lazy load
@@ -264,7 +268,6 @@ export default class extends WeElement {
     )
   }
 }
-
 
 new Store({
   locale: 'zh',

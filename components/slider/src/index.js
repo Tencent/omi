@@ -270,49 +270,51 @@ var OSlider = /** @class */ (function (_super) {
         _this.sliderMax = _this.props.max;
         _this.handleSliderOne = function (evt) {
             var first_value = parseInt(_this.rootNode.children[0].value);
-            //! bad
-            if (first_value <= _this.__$second_value || !_this.props.double_range) {
+            if (first_value <= _this.__$second_value || _this.__$second_value === null) {
+                //  if the slider 1 has not exceeded slider2 or it is a single range slider
+                //  assign value straight away
                 _this.__$value = first_value;
-                if (!_this.props.double_range) {
-                    _this.fire('change', _this.__$value);
-                }
-                else {
-                    _this.fire('change', [_this.__$value, _this.__$second_value]);
-                }
+            }
+            if (_this.__$second_value === null) {
+                _this.fire('change', _this.__$value);
+            }
+            else {
+                _this.fire('change', [_this.__$value, _this.__$second_value]);
             }
             _this.fillColor();
             _this.update();
         };
         _this.handleSliderTwo = function (evt) {
             var second_value = parseInt(_this.rootNode.children[1].value);
+            //we only have one case if slider two exists
             if (second_value >= _this.__$value) {
                 _this.__$second_value = second_value;
-                _this.fire('change', [_this.__$value, _this.__$second_value]);
             }
+            _this.fire('change', [_this.__$value, _this.__$second_value]);
             _this.fillColor();
             _this.update();
         };
         _this.fillColor = function () {
-            var percent1 = (_this.__$value / _this.props.max) * 100;
-            var percent2 = (_this.__$second_value / _this.props.max) * 100;
+            var percent1 = _this.__$second_value !== null ? (_this.__$value / _this.props.max) * 100 : 0;
+            var percent2 = _this.__$second_value !== null
+                ? (_this.__$second_value / _this.props.max) * 100
+                : (_this.__$value / _this.props.max) * 100;
             var lowerColor = '#07c160';
             var upperColor = '#ffffff';
             if (_this.props.disabled) {
                 lowerColor = '#c0c4cc';
             }
-            _this.props.double_range
+            _this.__$second_value !== null
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
         };
         return _this;
     }
-    OSlider_1 = OSlider;
     OSlider.prototype.install = function () {
-        this.props.value
-            ? (this.__$value = this.props.value)
-            : (this.__$value = OSlider_1.defaultProps.value);
-        this.props.second_value;
-        this.__$second_value = this.props.second_value;
+        this.__$value = this.props.value;
+        this.props.range === 'double'
+            ? (this.__$second_value = this.props.second_value)
+            : (this.__$second_value = null);
     };
     OSlider.prototype.installed = function () {
         this.fillColor();
@@ -321,8 +323,8 @@ var OSlider = /** @class */ (function (_super) {
     OSlider.prototype.render = function (props) {
         var _this = this;
         var cls = omi_1.extractClass(props, 'slider-container', {
-            'is-vertical': props.vertical,
-            'is-round': props.round,
+            'is-vertical': props.orient === 'vertical',
+            'is-round': props.shape === 'round',
             'is-disabled': props.disabled,
         });
         return (omi_1.h("div", __assign({}, cls, { ref: function (e) {
@@ -331,24 +333,24 @@ var OSlider = /** @class */ (function (_super) {
             omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
                     _this.sliderOne = e;
                 } }),
-            props.double_range && (omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+            this.__$second_value !== null && (omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
                     _this.sliderTwo = e;
                 } })),
             omi_1.h("div", { class: "slider-track", ref: function (e) {
                     _this.sliderTrack = e;
                 } })));
     };
-    var OSlider_1;
     OSlider.css = css;
     OSlider.defaultProps = {
+        //default a single square range slider
         min: 0,
         max: 100,
         step: 1,
         value: 0,
-        //default a single square range slider
-        double_range: false,
-        vertical: false,
-        round: false,
+        second_value: 100,
+        range: 'single',
+        orient: 'horizontal',
+        shape: 'square',
         disabled: false,
     };
     OSlider.propTypes = {
@@ -357,12 +359,12 @@ var OSlider = /** @class */ (function (_super) {
         step: Number,
         value: Number,
         second_value: Number,
-        double_range: Boolean,
-        vertical: Boolean,
-        round: Boolean,
+        range: String,
+        orient: String,
+        shape: String,
         disabled: Boolean,
     };
-    OSlider = OSlider_1 = __decorate([
+    OSlider = __decorate([
         omi_1.tag('o-slider')
     ], OSlider);
     return OSlider;

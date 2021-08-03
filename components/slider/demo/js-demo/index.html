@@ -1,31 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMI Slider Demo</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OMI Slider Demo</title>
+  <body>
+    <div id="root">
+      <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+      <script src="../../src/index.js"></script>
+      <input type="range" name="" id="" />
 
-</head>
+      <o-slider></o-slider>
+      <o-slider range="double"></o-slider>
 
-<body>
-
-
-  <div id="root">
-    <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-    <script src="../../src/index.js"></script>
-    <o-slider min="0" max="10" value="2" id="single-range-demo" ></o-slider>
-    <o-slider min="0" max="10" value="2" round id="round-single-range-demo" ></o-slider>
-    <o-slider min="0" max="10" value="2" disabled id="disabled-single-range-demo" ></o-slider>
-    <o-slider min="0" max="200" value="20" second_value="70" double_range id="double-range-demo"></o-slider>
-    <o-slider min="0" max="200" value="20" second_value="70" double_range disabled id="double-range-demo"></o-slider>
-    <!-- this slider is sometimes bugged (slider wont work), will look into later -->
-    <o-slider min="0" max="100" value="10" vertical id="vertical-demo" style="position: relative; margin-top: 200px; left:-150px; width: 400px"></o-slider>
-    <o-slider min="0" max="100" double_range vertical value="20" second_value="70" id="vertical-double-demo" style="position: relative; margin-top:-50px; left:-50px; width: 400px"></o-slider>
-  </div>
-    
-
-</body>
-
+      <o-slider min="0" max="10" value="2" id="single-range-demo"></o-slider>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        shape="round"
+        id="round-single-range-demo"
+      ></o-slider>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        disabled
+        id="disabled-single-range-demo"
+      ></o-slider>
+      <o-slider
+        min="0"
+        max="200"
+        value="20"
+        second_value="70"
+        range="double"
+        id="double-range-demo"
+      ></o-slider>
+      <o-slider
+        min="0"
+        max="200"
+        value="20"
+        second_value="70"
+        range="double"
+        disabled
+        id="double-range-demo"
+      ></o-slider>
+      <o-slider
+        min="0"
+        max="100"
+        value="10"
+        orient="vertical"
+        id="vertical-demo"
+        style="
+          position: relative;
+          margin-top: 200px;
+          left: -150px;
+          width: 400px;
+        "
+      ></o-slider>
+      <o-slider
+        min="0"
+        max="100"
+        range="double"
+        orient="vertical"
+        value="20"
+        second_value="70"
+        id="vertical-double-demo"
+        style="position: relative; margin-top: -50px; left: -50px; width: 400px"
+      ></o-slider>
+    </div>
+  </body>
 </html>

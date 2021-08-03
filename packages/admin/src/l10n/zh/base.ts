@@ -19,6 +19,7 @@ export const base = {
   Loading: 'Loading 加载中',
   Toast: 'Toast 弹出式提示',
   Card: 'Card 卡片',
+  Slider: 'Slider 滑块',
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
