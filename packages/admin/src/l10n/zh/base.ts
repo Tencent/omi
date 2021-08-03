@@ -22,5 +22,7 @@ export const base = {
   Slider: 'Slider 滑块',
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
-  Dashboard: '仪表盘'
+  Dashboard: '仪表盘',
+  MindMap: '思维导图',
+  ManyThanksTo: '感谢有你'
 }

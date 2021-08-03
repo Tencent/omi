@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boundary Box Example</title>
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            function bbox(shape) {
+                var box = shape.getBoundaryBox();
+                return new kity.Rect(box.width | 0, box.height | 0, (box.x | 0) + .5, (box.y | 0) + .5).stroke('red');
+            }
+
+            paper.setWidth(600).setHeight(400);
+
+            var rect = new kity.Rect(100, 50, 30, 30).fill('blue').setOpacity(0.5);
+            var triangle = new kity.RegularPolygon(3, 50, 200, 50).fill('blue').setOpacity(0.5);
+            var circle = new kity.Circle(40, 305, 60).fill('blue').setOpacity(0.5);
+            paper.addShapes([rect, triangle, circle]);
+            paper.addShapes([rect, triangle, circle].map(bbox));
+        };
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

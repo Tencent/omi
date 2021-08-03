@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RadialGradientBrush Example</title>
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            paper.setWidth(400).setHeight(300);
+
+            var rect = new kity.Rect(200, 100, 10, 10);
+            rect.fill(new kity.RadialGradientBrush().pipe( function() {
+                this.setCenter(0.5, 0.5);
+                this.setRadius(0.8);
+                this.setFocal(0.8, 0.2);
+                this.addStop(0, 'white');
+                this.addStop(1, 'gray');
+                paper.addResource(this);
+            }));
+            paper.addItem(rect);
+
+        };
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -183,6 +183,12 @@ class Store {
               href: 'https://github.com/Tencent/omi',
               id: 119,
               target: '_blank'
+            },
+            {
+              label: localeMap.base.MindMap,
+              icon: 'ac-unit',
+              href: '#/mind-map',
+              id: 120
             }
           ]
         },
@@ -198,6 +204,7 @@ class Store {
           expanded: true,
           id: 11,
           icon: 'ac-unit-outlined',
+
           children: [
             {
               label: localeMap.base.Loading,
@@ -223,8 +230,17 @@ class Store {
               icon: 'ac-unit-outlined',
               href: '#/slider-component'
             }
+=======
+       
+
           ]
-        }
+        },
+        {
+          label: localeMap.base.ManyThanksTo,
+          id: 16,
+          href: '#/thanks',
+          icon: 'people-alt'
+        },
       ]
 
       this.tabs.forEach((tab) => {

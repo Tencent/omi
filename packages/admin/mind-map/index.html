@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>脑图</title>
+
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+  <!-- bower:css -->
+  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="./bower_components/codemirror/lib/codemirror.css" />
+  <link rel="stylesheet" href="./bower_components/hotbox/hotbox.css" />
+  <link rel="stylesheet" href="./kityminder.core.css" />
+  <link rel="stylesheet" href="./bower_components/color-picker/dist/color-picker.min.css" />
+  <!-- endbower -->
+
+  <link rel="stylesheet" href="./kityminder.editor.min.css">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    h1.editor-title {
+      background: #393F4F;
+      color: white;
+      margin: 0;
+      height: 40px;
+      font-size: 14px;
+      line-height: 40px;
+      font-family: 'Hiragino Sans GB', 'Arial', 'Microsoft Yahei';
+      font-weight: normal;
+      padding: 0 20px;
+    }
+
+    div.minder-editor-container {
+      position: absolute;
+      top: 40px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  </style>
+</head>
+
+<body ng-app="kityminderDemo" ng-controller="MainController">
+  <h1 class="editor-title">脑图</h1>
+  <kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
+</body>
+
+<!-- bower:js -->
+<script src="./bower_components/jquery/dist/jquery.js"></script>
+<script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="./bower_components/angular/angular.js"></script>
+<script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="./bower_components/codemirror/lib/codemirror.js"></script>
+<script src="./bower_components/codemirror/mode/xml/xml.js"></script>
+<script src="./bower_components/codemirror/mode/javascript/javascript.js"></script>
+<script src="./bower_components/codemirror/mode/css/css.js"></script>
+<script src="./bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="./bower_components/codemirror/mode/markdown/markdown.js"></script>
+<script src="./bower_components/codemirror/addon/mode/overlay.js"></script>
+<script src="./bower_components/codemirror/mode/gfm/gfm.js"></script>
+<script src="./bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="./bower_components/marked/lib/marked.js"></script>
+<script src="./bower_components/kity/dist/kity.min.js"></script>
+<script src="./bower_components/hotbox/hotbox.js"></script>
+<script src="./bower_components/json-diff/json-diff.js"></script>
+<script src="./kityminder.core.min.js"></script>
+<script src="./bower_components/color-picker/dist/color-picker.min.js"></script>
+<!-- endbower -->
+
+<script src="./kityminder.editor.min.js"></script>
+
+
+<script>
+  angular.module('kityminderDemo', ['kityminderEditor'])
+    .config(function (configProvider) {
+      configProvider.set('imageUpload', '../server/imageUpload.php');
+    })
+    .controller('MainController', function ($scope) {
+      $scope.initEditor = function (editor, minder) {
+        window.editor = editor;
+        window.minder = minder;
+
+        minder.on('contentchange', function (evt) {
+          //当前数据
+          console.log(JSON.stringify(minder.exportJson()))
+        })
+
+        window.minder.importJson({ "root": { "data": { "id": "cd9t0szn83k0", "created": 1627986420730, "text": "OMI Admin 相关技术栈" }, "children": [{ "data": { "id": "cd9t0tsv72g0", "created": 1627986422497, "text": "kity minder", "priority": 5 }, "children": [] }, { "data": { "id": "cd9t0ump5e00", "created": 1627986424301, "text": "vite", "priority": 4 }, "children": [] }, { "data": { "id": "cd9t0va5ri80", "created": 1627986425719, "text": "omiu", "priority": 2 }, "children": [] }, { "data": { "id": "cd9t0wrmbnc0", "created": 1627986428952, "text": "omi", "priority": 1 }, "children": [] }, { "data": { "id": "cd9t0x7ggww0", "created": 1627986429910, "text": "twind", "priority": 3 }, "children": [] }, { "data": { "id": "cd9t0xo1uqg0", "created": 1627986430913, "text": "sass", "priority": 6 }, "children": [] }, { "data": { "id": "cd9t2ncaspk0", "created": 1627986565163, "text": "omi-router", "priority": 7 }, "children": [] }, { "data": { "id": "cd9t2s7zecg0", "created": 1627986575786, "text": "xlsx", "priority": 8 }, "children": [] }, { "data": { "id": "cd9t3cxjdqg0", "created": 1627986620867, "text": "byte md", "priority": 9 }, "children": [] }, { "data": { "id": "cd9tbhqvd400", "created": 1627987258261, "text": "TypeScript" }, "children": [] }, { "data": { "id": "cd9tbzyn1k00", "created": 1627987297913, "text": "web components" }, "children": [] }, { "data": { "id": "cd9tcdoskps0", "created": 1627987327792, "text": "css variables" }, "children": [] }] }, "template": "default", "theme": "fresh-blue", "version": "1.4.43" })
+      };
+    });
+
+  window._$ = {
+    importJson: function (data) {
+      //触发 contentchange 导致保存到 db
+      window.minder && window.minder.importJson(data)
+
+    },
+    //https://github.com/fex-team/kityminder-editor#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA
+    exportData(protocol, option) {
+      if (window.minder) {
+        return window.minder.exportData(protocol, option)
+      }
+    }
+  }
+
+</script>
+
+</html>

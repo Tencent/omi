@@ -1,0 +1,146 @@
+
+.hotbox {
+    font-family: Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: visible;
+    .state {
+        position: absolute;
+        overflow: visible;
+        display: none;
+        .center, .ring {
+            .button {
+                position: absolute;
+                width: 70px;
+                height: 70px;
+                margin-left: -35px;
+                margin-top: -35px;
+                border-radius: 100%;
+                box-shadow: 0 0 30px rgba(0, 0, 0, .3);
+            }
+            .label, .key {
+                display: block;
+                text-align: center;
+                line-height: 1.4em;
+                vertical-align: middle;
+            }
+            .label {
+                font-size: 16px;
+                margin-top: 17px;
+                color: black;
+                font-weight: normal;
+                line-height: 1em;
+            }
+            .key {
+                font-size: 12px;
+                color: #999;
+            }
+        }
+        .ring-shape {
+            position: absolute;
+            left: -25px;
+            top: -25px;
+            border: 25px solid rgba(0, 0, 0, .3);
+            border-radius: 100%;
+            box-sizing: content-box;
+        }
+        .top, .bottom {
+            position: absolute;
+            white-space: nowrap;
+            .button {
+                display: inline-block;
+                padding: 8px 15px;
+                margin: 0 10px;
+                border-radius: 15px;
+                box-shadow: 0 0 30px rgba(0, 0, 0, .3);
+                position: relative;
+
+                .label {
+                    font-size: 14px;
+                    line-height: 14px;
+                    vertical-align: middle;
+                    color: black;
+                    line-height: 1em;
+                }
+                .key {
+                    font-size: 12px;
+                    line-height: 12px;
+                    vertical-align: middle;
+                    color: #999;
+                    margin-left: 3px;
+                    &:before {
+                        content: '(';
+                    }
+                    &:after {
+                        content: ')';
+                    }
+                }
+            }
+        }
+        .button {
+            background: #F9F9F9;
+            overflow: hidden;
+            cursor: default;
+
+            .key, .label {
+                opacity: 0.3;
+            }
+        }
+        .button.enabled {
+            background: white;
+
+            .key, .label {
+                opacity: 1;
+            }
+
+            &:hover {
+                background: lighten(rgb(228, 93, 92), 5%);
+                .label {
+                    color: white;
+                }
+                .key {
+                    color: lighten(rgb(228, 93, 92), 30%);
+                }
+            }
+            &.selected {
+                -webkit-animation: selected .1s ease;
+                background: rgb(228, 93, 92);
+                .label {
+                    color: white;
+                }
+                .key {
+                    color: lighten(rgb(228, 93, 92), 30%);
+                }
+            }
+            &.pressed, &:active {
+                background: #FF974D;
+                .label {
+                    color: white;
+                }
+                .key {
+                    color: lighten(#FF974D, 30%);
+                }
+            }
+        }
+    }
+    .state.active {
+        display: block;
+    }
+}
+
+@-webkit-keyframes selected {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.hotbox-key-receiver {
+    position: absolute;
+    left: -999999px;
+    top: -999999px;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    margin: 0;
+}

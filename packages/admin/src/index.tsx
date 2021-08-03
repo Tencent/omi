@@ -15,6 +15,8 @@ import '@omiu/icon/list-alt'
 import '@omiu/icon/grid-on'
 import '@omiu/icon/comment'
 import '@omiu/icon/dashboard'
+import '@omiu/icon/ac-unit'
+import '@omiu/icon/people-alt'
 
 import '@omiu/transition'
 
@@ -181,6 +183,13 @@ export default class extends WeElement {
       //lazy load
       import('./components/components/slider-component').then(() =>
         this.transitionTo('slider-component')
+      )
+    })
+
+    route('/mind-map', () => {
+      //lazy load
+      import('./components/mind-map').then(() =>
+        this.transitionTo('mind-map')
       )
     })
 

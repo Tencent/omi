@@ -22,5 +22,7 @@ export const base = {
   Slider: 'Slider',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
-  Dashboard: 'Dashboard'
+  Dashboard: 'Dashboard',
+  MindMap: 'Mind Map',
+  ManyThanksTo: 'Many Thanks To'
 }

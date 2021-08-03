@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title> 坐标系 </title>
+    <script src="../../dist/kity.min.js"></script>
+    <script src="coordinate.js"></script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<script>
+    var paper = new kity.Paper(document.body).pipe(function() {
+        var width = 500, height = 300;
+        this.setWidth(500).setHeight(400);
+        this.setViewBox(-80.5, -80.5, width, height)
+
+        this.addShape(new Coordinate('black', [-8, 20], [-8, 23])).pipe(function() {
+            this.addShape(new kity.Rect(30, 30, 0, 0)
+                .fill('rgba(0, 0, 0, 0.3)')
+                .stroke('black'));
+        });
+
+    });
+
+    var a = new Coordinate('red', [-2, 10], [-2, 10]).pipe(function() {
+
+        this.addShape(new kity.Rect(30, 30, 0, 0)
+            .fill('rgba(255, 0, 0, 0.5)')
+            .stroke('red'));
+        
+        this.addShape(new kity.Text('a').fill('white').setVerticalAlign('top').setY(5).setX(5));
+    });
+
+    var b = new Coordinate('blue', [-2, 10], [-2, 10]).pipe(function() {
+
+        this.addShape(new kity.Rect(30, 30, 0, 0)
+            .fill('rgba(0, 0, 255, 0.5)')
+            .stroke('blue'));
+        this.addShape(new kity.Text('b').fill('white').setVerticalAlign('top').setY(5).setX(5));
+    });
+
+    paper.addShapes([a, b]);
+
+    a.setMatrix(new kity.Matrix().translate(50, 50).rotate(30));
+    b.setMatrix(new kity.Matrix().rotate(30).translate(50, 50));
+
+    var lineb = new kity.Path('M 50 50 L 150 50').stroke(new kity.Pen().setColor('blue').setWidth(1).setDashArray([3, 4]));
+    var linea = new kity.Path('M 50 50 L 0 0 L ' + kity.Matrix.transformPoint(0, 0, a.getTransform().getMatrix()))
+        .stroke(new kity.Pen().setColor('red').setWidth(1).setDashArray([3, 4]));
+    paper.addShapes([linea, lineb]);
+</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>矩阵卷积示例 - 边缘增强效果</title>
+    <meta charset="utf-8">
+    <style>
+        #container {
+            width: 350px;
+            height: 700px;
+        }
+    </style>
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../../../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../../../src'
+        });
+    </script>
+    <script src="../../../dev-lib/exports.js"></script>
+    <script src="../../../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../../../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( "container" ),
+                    effect = new kity.ConvolveMatrixEffect(),
+                    filter = new kity.Filter(),
+                    image = new kity.Image( "../1.jpg", 300, 500, 50, 50 );
+
+            // 边缘增强效果
+            effect.set( 'kernelMatrix', '-1 -1 -1 -1 8 -1 -1 -1 -1' );
+            effect.set( 'preserveAlpha', true );
+
+            filter.addEffect( effect );
+
+            paper.addResource( filter );
+            image.applyFilter( filter );
+
+            paper.addShape( image );
+
+
+        };
+
+    </script>
+</head>
+<body>
+
+边缘增强效果：
+<div id="container"></div>
+
+</body>
+</html>
