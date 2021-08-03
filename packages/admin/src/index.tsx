@@ -163,14 +163,12 @@ export default class extends WeElement {
       )
     })
 
-
     route('/toast-component', () => {
       //lazy load
       import('./components/components/toast-component').then(() =>
         this.transitionTo('toast-component')
       )
     })
-
 
     route('/card-component', () => {
       //lazy load
@@ -179,6 +177,12 @@ export default class extends WeElement {
       )
     })
 
+    route('/slider-component', () => {
+      //lazy load
+      import('./components/components/slider-component').then(() =>
+        this.transitionTo('slider-component')
+      )
+    })
 
     route('/warning', () => {
       //lazy load
@@ -255,7 +259,6 @@ export default class extends WeElement {
     )
   }
 }
-
 
 new Store({
   locale: 'zh',

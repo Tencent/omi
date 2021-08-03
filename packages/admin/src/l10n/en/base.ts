@@ -19,6 +19,7 @@ export const base = {
   Loading: 'Loading',
   Toast: 'Toast',
   Card: 'Card',
+  Slider: 'Slider',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard'
