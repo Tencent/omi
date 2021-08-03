@@ -167,6 +167,10 @@ declare namespace Omi {
 		var f: (props: Props) => VNode<any>;
 	}
 
+	var createElement: typeof h;
+	
+ 	function cloneElement<P>(vnode: VNode<Partial<P>>, props: Partial<P>, ...children: ComponentChildren[]): VNode<Partial<P>>;
+
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 
 	function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
