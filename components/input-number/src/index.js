@@ -59,33 +59,29 @@ var InputNumber = /** @class */ (function (_super) {
         };
         _this.handleInput = function (evt) {
             evt.stopPropagation();
-            _this.__$value = evt.target.value;
-            _this.props.value = evt.target.value;
-            _this.fire('input', _this.props.value);
-            _this.update();
-        };
-        _this.handleChange = function (evt) {
-            _this.__$value = evt.target.value;
-            _this.props.value = evt.target.value;
-            _this.fire('change', _this.props.value);
-        };
-        _this.handleBlur = function () {
-            _this.fire('blur', _this.props.value);
-        };
-        _this.handleFocus = function () {
-            _this.fire('focus', _this.props.value);
+            if (Number(evt.target.value) >= _this.props.min && Number(evt.target.value) <= _this.props.max) {
+                _this._onSetValue(Number(evt.target.value));
+            }
         };
         _this.add = function (evt) {
             var value = _this._onGetValue();
-            console.log(value);
-            value += 1;
-            console.log(value);
-            _this._onSetValue(value - 0);
+            value += _this.props.step;
+            if (value <= _this.props.max) {
+                _this._onSetValue(value - 0);
+            }
         };
         _this.subtraction = function (evt) {
             var value = _this._onGetValue();
-            value -= 1;
-            _this._onSetValue(value - 0);
+            value -= _this.props.step;
+            if (value >= _this.props.min) {
+                _this._onSetValue(value - 0);
+            }
+        };
+        _this.clearInput = function () {
+            _this.updateProps({
+                value: ''
+            });
+            // this.__$value = ''
         };
         return _this;
     }
@@ -96,46 +92,46 @@ var InputNumber = /** @class */ (function (_super) {
             set: this._onSetValue
         });
     };
-    InputNumber.prototype.focus = function () {
-        this.shadowRoot.querySelector('input').focus();
-    };
-    InputNumber.prototype.blur = function () {
-        this.shadowRoot.querySelector('input').blur();
-    };
     InputNumber.prototype.render = function (props) {
-        var _a, _b, _c;
-        var value = props.value, left = props.left, right = props.right, size = props.size, disabled = props.disabled, otherProps = __rest(props, ["value", "left", "right", "size", "disabled"]);
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-input-number', {
-            'is-disabled': this.props.disabled,
-        })),
-            omi_1.h("button", __assign({ onClick: this.subtraction }, omi_1.extractClass(props, 'o-button', (_a = {},
-                _a['o-button-' + props.size] = props.size,
-                _a['o-button-' + props.left] = props.left,
-                _a))), "-"),
-            omi_1.h("input", __assign({}, omi_1.extractClass(props, 'o-input', (_b = {},
-                _b['o-input-' + props.size] = props.size,
-                _b)), { value: props.value, size: props.size, onInput: this.handleInput, onChange: this.handleChange })),
-            omi_1.h("button", __assign({ onClick: this.add }, omi_1.extractClass(props, 'o-button', (_c = {},
-                _c['o-button-' + props.size] = props.size,
-                _c['o-button-' + props.right] = props.right,
-                _c))), "+")));
+        var _a, _b, _c, _d;
+        var value = props.value, left = props.left, right = props.right, size = props.size, disabled = props.disabled, max = props.max, min = props.min, onMouseEnter = props.onMouseEnter, onMouseLeave = props.onMouseLeave, otherProps = __rest(props, ["value", "left", "right", "size", "disabled", "max", "min", "onMouseEnter", "onMouseLeave"]);
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-input-number', (_a = {
+                'is-disabled': this.props.disabled
+            },
+            _a['o-input-number-' + props.size] = props.size,
+            _a)), { onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave }),
+            omi_1.h("button", __assign({}, omi_1.extractClass(props, 'o-button', (_b = {},
+                _b['o-button-' + props.size] = props.size,
+                _b['o-button-' + props.left] = props.left,
+                _b)), { onClick: this.subtraction }), "-"),
+            omi_1.h("input", __assign({}, omi_1.extractClass(props, 'o-input', (_c = {},
+                _c['o-input-' + props.size] = props.size,
+                _c)), { value: props.value, size: props.size, onInput: this.handleInput, onClick: this.clearInput })),
+            omi_1.h("button", __assign({}, omi_1.extractClass(props, 'o-button', (_d = {},
+                _d['o-button-' + props.size] = props.size,
+                _d['o-button-' + props.right] = props.right,
+                _d)), { onClick: this.add }), "+")));
     };
     InputNumber.css = css.default;
     InputNumber.defaultProps = {
         value: 1,
         size: 'medium',
-        width: 'auto',
         right: 'right',
         left: 'left',
         step: 1,
-        stepStrict: false
+        disabled: false,
+        max: 10,
+        min: 1
     };
     InputNumber.propTypes = {
         value: Number,
         size: String,
-        width: String,
         right: String,
-        left: String
+        left: String,
+        step: Number,
+        disabled: Boolean,
+        max: Number,
+        min: Number
     };
     InputNumber = __decorate([
         omi_1.tag('o-input-number')
@@ -143,7 +139,3 @@ var InputNumber = /** @class */ (function (_super) {
     return InputNumber;
 }(omi_1.WeElement));
 exports.default = InputNumber;
-omi_1.render(omi_1.h("o-input-number", null), '#root', {
-    // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-    ignoreAttrs: true
-});
