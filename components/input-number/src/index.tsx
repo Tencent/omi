@@ -78,7 +78,7 @@ export default class InputNumber extends WeElement<Props> {
     this.updateProps({
       value: ''
     })
-    this.__$value = ''
+    // this.__$value = ''
   }
   render(props) {
     const { value,left,right,size,disabled, max,min,onMouseEnter, onMouseLeave,...otherProps} = props;
