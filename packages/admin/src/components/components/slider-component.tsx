@@ -45,13 +45,10 @@ export default class extends WeElement<Props> {
   mdC = `
   \`\`\`
   <code-demo
-  title="带输入框的滑块"
-  describe="支持与o-input保持同步"
-  code={this.mdD}
   >
-    <div slot="demo" >
-      <o-slider value="50" onchange></o-slider>
-      <o-input value="20"></o-input>
+    <div>
+      <o-slider></o-slider>
+      <o-input onchange={this.handleChange}></o-input>
     </div>
   </code-demo>
   \`\`\`
@@ -68,13 +65,13 @@ export default class extends WeElement<Props> {
 
   sliderValue: number = 0
 
-  handleInputChange = (evt) => {
-    this.sliderValue = parseInt(evt.detail)
-    console.log(this.sliderValue)
-  }
+  // handleInputChange = (evt) => {
+  //   this.sliderValue = parseInt(evt.detail)
+  //   console.log(this.sliderValue)
+  //   this.updateSelf()
+  // }
 
   handleSliderChange = (evt) => {
-    console.log(evt.detail)
     this.sliderValue = evt.detail
     this.updateSelf()
   }
@@ -106,7 +103,7 @@ export default class extends WeElement<Props> {
               class={tw`p-5`}
             ></o-slider>
           </code-demo>
-          {/* <code-demo title="垂直" describe="使滑块垂直" code={this.mdB}>
+          <code-demo title="垂直" describe="支持使滑块垂直" code={this.mdB}>
             <div slot="demo">
               <o-slider
                 orient="vertical"
@@ -118,7 +115,7 @@ export default class extends WeElement<Props> {
                 style={{ height: '500px', position: 'relative', top: '230px' }}
               ></o-slider>
             </div>
-          </code-demo> */}
+          </code-demo>
           <code-demo
             title="带输入框的滑块"
             describe="支持与o-input保持同步"
@@ -133,7 +130,7 @@ export default class extends WeElement<Props> {
               <o-input
                 class={tw`pl-5`}
                 value={this.sliderValue}
-                oninput={this.handleInputChange}
+                // oninput={this.handleInputChange}
               ></o-input>
             </div>
           </code-demo>
@@ -142,7 +139,12 @@ export default class extends WeElement<Props> {
             describe="支持使滑块处于不可用状态"
             code={this.mdD}
           >
-            <o-slider disabled slot="demo" class={tw`p-5`}></o-slider>
+            <o-slider
+              disabled
+              value="20"
+              slot="demo"
+              class={tw`p-5`}
+            ></o-slider>
           </code-demo>
         </code-demo-container>
       </div>
