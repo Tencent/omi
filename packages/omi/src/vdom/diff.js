@@ -40,17 +40,8 @@ export function diff(dom, vnode, parent, component, updateSelf) {
   }
   if (isArray(vnode)) {
     if (parent) {
-      const styles = parent.querySelectorAll('style')
-      styles.forEach(s => {
-        parent.removeChild(s)
-      })
+      //don't use css and props.css when using h.f
       innerDiffNode(parent, vnode, hydrating, component, updateSelf)
-
-      for (let i = styles.length - 1; i >= 0; i--) {
-        parent.firstChild
-          ? parent.insertBefore(styles[i], parent.firstChild)
-          : parent.appendChild(style[i])
-      }
     } else {
       ret = []
       vnode.forEach((item, index) => {
@@ -257,27 +248,29 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
       vchild = vchildren[i]
       child = null
 
-      // attempt to find a node based on key matching
-      let key = vchild.key
-      if (key != null) {
-        if (keyedLen && keyed[key] !== undefined) {
-          child = keyed[key]
-          keyed[key] = undefined
-          keyedLen--
+      if (vchild) {
+        // attempt to find a node based on key matching
+        let key = vchild.key
+        if (key != null) {
+          if (keyedLen && keyed[key] !== undefined) {
+            child = keyed[key]
+            keyed[key] = undefined
+            keyedLen--
+          }
         }
-      }
-      // attempt to pluck a node of the same type from the existing children
-      else if (!child && min < childrenLen) {
-        for (j = min; j < childrenLen; j++) {
-          if (
-            children[j] !== undefined &&
-            isSameNodeType((c = children[j]), vchild, isHydrating)
-          ) {
-            child = c
-            children[j] = undefined
-            if (j === childrenLen - 1) childrenLen--
-            if (j === min) min++
-            break
+        // attempt to pluck a node of the same type from the existing children
+        else if (!child && min < childrenLen) {
+          for (j = min; j < childrenLen; j++) {
+            if (
+              children[j] !== undefined &&
+              isSameNodeType((c = children[j]), vchild, isHydrating)
+            ) {
+              child = c
+              children[j] = undefined
+              if (j === childrenLen - 1) childrenLen--
+              if (j === min) min++
+              break
+            }
           }
         }
       }
@@ -400,7 +393,9 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
           (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
-      if (isWeElement) {
+      //fix lazy load props missing
+      if (dom.nodeName.indexOf('-') !== -1) {
+        dom.props = dom.props || {}
         let ccName = camelCase(name)
         dom.props[ccName] = old[ccName] = attrs[name]
         //update = true

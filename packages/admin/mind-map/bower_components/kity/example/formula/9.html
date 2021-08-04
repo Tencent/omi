@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script src="../../dist/kitygraph.all.min.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                operand = new kity.Text( '∩'),
+                up = new kity.Text( 'n' ),
+                right = new kity.Text( 'p' ),
+                bottom = new kity.Text( '1' );
+
+
+            operand.setX( 107 ).setY( 100 );
+            operand.setStyle( "font-size", 40 );
+
+            right.setStyle( "font-size", 18 );
+            right.setX( 135 ).setY( 94 );
+
+            up.setStyle( "font-size", 18 );
+            up.setX( 117 ).setY( 76 );
+
+            bottom.setStyle( "font-size", 15 );
+            bottom.setX( 118 ).setY( 117 );
+
+            paper.addShape( operand );
+            paper.addShape( up );
+            paper.addShape( right );
+            paper.addShape( bottom );
+
+        };
+
+    </script>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="使用 kity 渲染中国地图">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>中国地图</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) { 
+            var kity = require('kity'); 
+            var ChinaMap = require('../demo/chinamap/chinamap');
+            var paper = new kity.Paper(document.body);
+            paper.addShape(new ChinaMap());
+        });
+    </script>
+    <!-- dev end -->
+
+    <!-- 生产使用中可以直接引用发布压缩的版本 -->
+    <!-- production start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <!-- <script src="../dist/kity.min.js"></script> -->
+    <!-- production end -->
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    // 启动 Demo 模块
+    seajs.use('demo');
+</script>
+</html>

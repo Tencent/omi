@@ -1,5 +1,5 @@
 /**
- * @omiu/pagination v0.0.2 http://omijs.org
+ * @omiu/pagination v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -9,29 +9,31 @@
 import { h, extractClass, tag, WeElement } from 'omi';
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -57,7 +59,7 @@ function __decorate(decorators, target, key, desc) {
 
 
 var css = `div {
-  color: rgba(0, 0, 0, 0.65); }
+  color: rgba(0, 0, 0, 0.87); }
 
 * {
   box-sizing: border-box; }
@@ -71,13 +73,13 @@ li {
   display: inline-block;
   min-width: 32px;
   height: 32px;
-  border: 1px solid #ccc;
   vertical-align: middle;
   line-height: 32px;
   text-align: center;
   margin: 0 3px 0 3px;
-  cursor: pointer;
-  border-radius: 3px; }
+  border-radius: 3px;
+  font-size: 12px;
+  margin-right: 2px; }
 
 .o-pager {
   display: inline-block; }
@@ -87,20 +89,34 @@ button {
   height: 32px;
   appearance: none;
   -webkit-appearance: none;
-  border: 1px solid #ccc;
+  border: none;
   background: none;
   border-radius: 3px;
   cursor: pointer;
-  outline: none; }
+  outline: none;
+  border-radius: 50%; }
 
-button.btn-next:not(disabled):active,
-button.btn-prev:not(disabled):active {
-  background-color: #eee; }
+button:hover {
+  background-color: rgba(7, 193, 96, 0.1);
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1)); }
+
+button:not(disabled):active {
+  color: white;
+  background-color: #059048;
+  background-color: var(--o-primary-active, #059048); }
 
 button:disabled {
   pointer-events: none;
-  border-color: #eee;
-  cursor: default; }
+  border-color: #eee; }
+
+.active button:hover {
+  background-color: rgba(7, 193, 96, 0.618);
+  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618)); }
+
+.active button {
+  color: white;
+  background-color: #07c160;
+  background-color: var(--o-primary, #07c160); }
 
 .more:after {
   content: '...'; }
@@ -108,10 +124,6 @@ button:disabled {
 .more {
   border: none;
   cursor: default; }
-
-.active {
-  border-color: #07C160;
-  color: #04a150; }
 
 svg {
   position: relative;
@@ -128,8 +140,9 @@ var Pagination = /** @class */ (function (_super) {
         this.pageNum = Math.ceil(this.props.total / this.props.pageSize);
     };
     Pagination.prototype.goto = function (index) {
-        this.props.currentPage = index;
-        this.forceUpdate();
+        this.updateProps({
+            currentPage: index
+        });
         this.fire('change', index);
     };
     Pagination.prototype.render = function (props) {
@@ -156,13 +169,18 @@ var Pagination = /** @class */ (function (_super) {
             }
         }
         return (h("div", __assign({}, extractClass(props, 'o-pagination is-background')),
-            props.prevShow && this.getPrev(),
-            ' ',
-            h("ul", { class: "o-pager" }, arr.map(function (p) {
-                return p;
-            })),
-            ' ',
-            props.nextShow && this.getNext()));
+            h("ul", { class: "o-pager" },
+                h("li", { key: "prev" },
+                    " ",
+                    props.prevShow && this.getPrev(),
+                    ' '),
+                arr.map(function (p) {
+                    return p;
+                }),
+                h("li", { key: "next" },
+                    " ",
+                    props.nextShow && this.getNext())),
+            ' '));
     };
     Pagination.prototype.getInterval = function () {
         var ne_half = Math.ceil(this.props.numDisplay / 2);
@@ -204,11 +222,13 @@ var Pagination = /** @class */ (function (_super) {
     Pagination.prototype.getItem = function (pageIndex, text) {
         var _this = this;
         if (this.props.currentPage === pageIndex) {
-            return h("li", { class: "number active" }, text);
+            return h("li", { class: "number active" },
+                h("button", null, text));
         }
         return (h("li", { class: "number", onclick: function (e) {
                 _this.goto(pageIndex);
-            } }, text));
+            } },
+            h("button", null, text)));
     };
     Pagination.css = css;
     Pagination.defaultProps = {

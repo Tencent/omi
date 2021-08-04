@@ -59,6 +59,7 @@ export default class Tabs extends WeElement<Props>{
   }
 
   setActiveBar(ele, index) {
+    if (!ele) return
     const rect = ele.getBoundingClientRect()
     this._x = rect.left - this.baseRect.left
     this._width = rect.width
@@ -77,21 +78,27 @@ export default class Tabs extends WeElement<Props>{
     })
   }
 
-  install() {
+  installed() {
+    this.baseRect = this.rootNode.getBoundingClientRect()
+    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
+
     domReady(() => {
       this.baseRect = this.rootNode.getBoundingClientRect()
       this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
     })
   }
 
-  installed() {
-    this.baseRect = this.rootNode.getBoundingClientRect()
-    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
-  }
-
   removeTab(index) {
     const tab = this.props.list.splice(index, 1)[0]
+    if (index <= this.props.activeIndex) {
+      this.props.activeIndex -= 1
+    }
+    if (this.props.activeIndex < 0) {
+      this.props.activeIndex = 0
+    }
     this.forceUpdate()
+
+    this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
     this.fire('remove', {
       tab: tab,
       index: index
@@ -115,9 +122,9 @@ export default class Tabs extends WeElement<Props>{
       height: `40px`,
       transform: `translateY(${props.activeIndex * 40}px)`
     } : {
-        width: `${this._width}px`,
-        transform: `translateX(${this._x}px)`
-      }
+      width: `${this._width}px`,
+      transform: `translateX(${this._x}px)`
+    }
 
     return (
       <div {...extractClass(props, 'o-tabs', {
@@ -141,13 +148,13 @@ export default class Tabs extends WeElement<Props>{
 
                 {props.list.map((tab, index) => {
                   this._tempTagName = 'o-icon-' + tab.icon
-                  return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.active === index ? '0' : -1}
+                  return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.activeIndex === index ? '0' : -1}
                     {...extractClass(props, 'o-tabs__item', {
                       [`is-${props.position}`]: props.position,
                       'is-active': props.activeIndex === index,
-                      'is-closable': props.closable
+                      'is-closable': props.closable && tab.closable !== false
                     })}
-                  >{tab.icon && <this._tempTagName />}{tab.label}{props.closable && <svg onClick={_ => { this.removeTab(index) }} class="o-icon-close" style={props.activeIndex === index && `visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
+                  >{tab.icon && <this._tempTagName />}{tab.label}{props.closable && tab.closable !== false && <svg onClick={evt => { evt.stopPropagation(); this.removeTab(index) }} class="o-icon-close" style={props.activeIndex === index && `visibility: visible;`} fill="currentColor" width="1em" height="1em" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>}</div>
                 })}
 
               </div>

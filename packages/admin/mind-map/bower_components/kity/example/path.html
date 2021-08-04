@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Path Example</title>
+    <script src="../dist/kity.js"></script>
+    <style>
+        .stroke-green {
+            stroke: green;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+
+var paper = new kity.Paper(document.body).pipe(function() {
+    this.setWidth(900);
+    this.setHeight(600);
+    this.setViewBox(0, 0, 400, 300);
+});
+
+var path = new kity.Path().pipe(function() {
+
+    this.getDrawer().pipe(function(d) {
+        d.moveTo(10, 10);
+        d.carcTo(60, 100, 100);
+        d.lineTo(200, 50);
+        d.close();
+    });
+    this.fill('none');
+    this.stroke('red');
+});
+
+paper.addShape(path);
+</script>
+</html>

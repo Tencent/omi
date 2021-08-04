@@ -1,14 +1,6 @@
-import {
-  cssToDom,
-  isArray,
-  getUse,
-  hyphenate,
-  getValByPath,
-  removeItem
-} from './util'
+import { cssToDom, isArray, hyphenate, getValByPath, removeItem } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
-import { getPath } from './util'
 
 let id = 0
 
@@ -17,9 +9,11 @@ export default class WeElement extends HTMLElement {
 
   constructor() {
     super()
-    this.props = Object.assign({}, this.constructor.defaultProps)
+    // fix lazy load props missing
+    this.props = Object.assign({}, this.constructor.defaultProps, this.props)
     this.elementId = id++
     this.computed = {}
+    this.isInstalled = false
   }
 
   connectedCallback() {
@@ -30,63 +24,6 @@ export default class WeElement extends HTMLElement {
     }
 
     this.attrsToProps()
-
-    if (this.props.use) {
-      this.use = this.props.use
-    }
-
-    if (this.props.useSelf) {
-      this.use = this.props.useSelf
-    }
-
-    if (this.use) {
-      const use = typeof this.use === 'function' ? this.use() : this.use
-
-      if (options.isMultiStore) {
-        let _updatePath = {}
-        let using = {}
-        for (let storeName in use) {
-          _updatePath[storeName] = {}
-          using[storeName] = {}
-          getPath(use[storeName], _updatePath, storeName)
-          getUse(this.store[storeName].data, use[storeName], using, storeName)
-          this.store[storeName].instances.push(this)
-        }
-        this.using = using
-        this._updatePath = _updatePath
-      } else {
-        this._updatePath = getPath(use)
-        this.using = getUse(this.store.data, use)
-        this.store.instances.push(this)
-      }
-    }
-    if (this.useSelf) {
-      const use =
-        typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf
-      if (options.isMultiStore) {
-        let _updatePath = {}
-        let using = {}
-        for (let storeName in use) {
-          getPath(use[storeName], _updatePath, storeName)
-          getUse(this.store[storeName].data, use[storeName], using, storeName)
-          this.store[storeName].updateSelfInstances.push(this)
-        }
-        this.usingSelf = using
-        this._updateSelfPath = _updatePath
-      } else {
-        this._updateSelfPath = getPath(use)
-        this.usingSelf = getUse(this.store.data, use)
-        this.store.updateSelfInstances.push(this)
-      }
-    }
-
-    if (this.compute) {
-      for (let key in this.compute) {
-        this.computed[key] = this.compute[key].call(
-          options.isMultiStore ? this.store : this.store.data
-        )
-      }
-    }
 
     this.beforeInstall()
     this.install()
@@ -109,20 +46,27 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (this.constructor.css) {
-      if (typeof this.constructor.css === 'string') {
-        this.styleSheet = new CSSStyleSheet()
-        this.styleSheet.replaceSync(this.constructor.css)
+    const css = this.constructor.css
+    if (css) {
+      if (typeof css === 'string') {
+        const styleSheet = new CSSStyleSheet()
+        styleSheet.replaceSync(css)
+        shadowRoot.adoptedStyleSheets = [styleSheet]
+      } else if (Object.prototype.toString.call(css) === '[object Array]') {
+        const styleSheets = []
+        css.forEach(styleSheet => {
+          if (typeof styleSheet === 'string') {
+            const adoptedStyleSheet = new CSSStyleSheet()
+            adoptedStyleSheet.replaceSync(styleSheet)
+            styleSheets.push(adoptedStyleSheet)
+          } else {
+            styleSheets.push(styleSheet)
+          }
+          shadowRoot.adoptedStyleSheets = styleSheets
+        })
       } else {
-        this.styleSheet = this.constructor.css
+        shadowRoot.adoptedStyleSheets = [css]
       }
-      shadowRoot.adoptedStyleSheets = [this.styleSheet]
-    }
-
-    if (this.css) {
-      shadowRoot.appendChild(
-        cssToDom(typeof this.css === 'function' ? this.css() : this.css)
-      )
     }
 
     this.beforeRender()
@@ -132,6 +76,12 @@ export default class WeElement extends HTMLElement {
 
     this.rootNode = diff(null, rendered, null, this)
     this.rendered()
+
+    if (this.css) {
+      shadowRoot.appendChild(
+        cssToDom(typeof this.css === 'function' ? this.css() : this.css)
+      )
+    }
 
     if (this.props.css) {
       this._customStyleElement = cssToDom(this.props.css)
@@ -147,24 +97,12 @@ export default class WeElement extends HTMLElement {
       this.rootNode && shadowRoot.appendChild(this.rootNode)
     }
     this.installed()
-    this._isInstalled = true
+    this.isInstalled = true
   }
 
   disconnectedCallback() {
     this.uninstall()
-    this._isInstalled = false
-    if (this.store) {
-      if (options.isMultiStore) {
-        for (let key in this.store) {
-          const current = this.store[key]
-          removeItem(this, current.instances)
-          removeItem(this, current.updateSelfInstances)
-        }
-      } else {
-        removeItem(this, this.store.instances)
-        removeItem(this, this.store.updateSelfInstances)
-      }
-    }
+    this.isInstalled = false
   }
 
   update(ignoreAttrs, updateSelf) {
@@ -213,7 +151,7 @@ export default class WeElement extends HTMLElement {
   removeAttribute(key) {
     super.removeAttribute(key)
     //Avoid executing removeAttribute methods before connectedCallback
-    this._isInstalled && this.update()
+    this.isInstalled && this.update()
   }
 
   setAttribute(key, val) {
@@ -223,7 +161,7 @@ export default class WeElement extends HTMLElement {
       super.setAttribute(key, val)
     }
     //Avoid executing setAttribute methods before connectedCallback
-    this._isInstalled && this.update()
+    this.isInstalled && this.update()
   }
 
   pureRemoveAttribute(key) {
@@ -235,7 +173,12 @@ export default class WeElement extends HTMLElement {
   }
 
   attrsToProps(ignoreAttrs) {
-    if (options.ignoreAttrs || ignoreAttrs) return
+    if (
+      ignoreAttrs ||
+      (this.store && this.store.ignoreAttrs) ||
+      this.props.ignoreAttrs
+    )
+      return
     const ele = this
     ele.props['css'] = ele.getAttribute('css')
     const attrs = this.constructor.propTypes

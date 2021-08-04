@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
-<h2 align="center">Omi - 前端跨框架框架</h2>
+<h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 
 
 使用 TypeScript 开发跨框架的按钮组件:
@@ -76,6 +76,8 @@ export default class Button extends WeElement<Props>{
 ## Omiu
 
 > Omi 打造的跨框架、[跨主题](https://tencent.github.io/omi/components/docs/cn.html#/theme?index=0&subIndex=1) UI 组件库
+
+> [💯Omiu 打造的 Omi Admin](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
 | **Name**         | **Status**         | **Example**            | **Docs** |
 | -------------- | ----------|----------- | ----------------|
@@ -273,8 +275,7 @@ export default class Button extends WeElement<Props>{
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://tencent.github.io/omi/site/docs/cn.html) 和 [例子](https://codepen.io/collection/DrMYgV/) 和 [webcomponents.dev](https://webcomponents.dev/)| Omi 官方文档 |
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
-| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) |
 | [CEE](https://omijs.github.io/cee/out/)| custom-elements-everywhere 评分 |
 
 #### Snake MVP
@@ -294,6 +295,7 @@ export default class Button extends WeElement<Props>{
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Omi 钢琴, [开始演奏吧!](https://wscats.github.io/piano/build/)|
+| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
 | [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
 | [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
@@ -307,7 +309,6 @@ export default class Button extends WeElement<Props>{
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
 | [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
-| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 | [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
 | [Soo](https://github.com/tonis2/Soo)| 和 Omi 一样的 API，但是更小且没有 JSX, virtual DOM 和 store|
 
@@ -321,10 +322,7 @@ export default class Button extends WeElement<Props>{
 - 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
 - [很容易通过 extend api 实现双向绑定](https://codepen.io/omijs/pen/aeLYjx)
-- 支持 `TypeScript`
-- 响应式数据绑定
 - 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
-- [原生支持 tap 事件](https://github.com/Tencent/omi/releases/tag/v4.0.24)
 - [基于 Shadow/Light Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
 - 利用 [Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及 API 设计理念
@@ -334,7 +332,6 @@ export default class Button extends WeElement<Props>{
 - 看看 [Facebook React 和 Web Components 对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - `Shadow/Light DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
 - 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用 js 或 json 写样式，如:`Radium`，`jsxstyle`，`react-style`；与 webpack 绑定使用生成独特的 className `文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
-- 独创的 `Path Updating`的 `store` 系统，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`，自动化按需更新局部视图
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow/Light DOM 隔离样式和语义化结构:
 
@@ -412,7 +409,6 @@ export default class oButton extends WeElement<ButtonProps> {
 
 - [Omi 生态](#omi-生态)
 - [必须收藏的资源](#必须收藏的资源)
-- [一个 HTML 完全上手](#一个-html-完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
   - [项目模板](#项目模板)
@@ -425,74 +421,6 @@ export default class oButton extends WeElement<ButtonProps> {
 - [维护者](#维护者)
 - [感谢](#感谢)
 - [License](#license)
-
-## 一个 HTML 完全上手
-
-下面这个页面不需要任何构建工具就可以执行
-
-- [→ Online Demo!](https://codepen.io/omijs/pen/PMZWNb)
-
-```html
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Omi demo without transpiler</title>
-</head>
-
-<body>
-  <script src="https://unpkg.com/omi"></script>
-  <script>
-    const { define, render, h } = Omi
-
-    class Store {
-      data = {
-        count: 1
-      }
-      sub = () => {
-        this.data.count--
-      }
-      add = () => {
-        this.data.count++
-      }
-    }
-
-    define('my-counter', _ => (
-      h(h.f, null,
-        h('button', {
-          onClick: _.store.sub
-        }, '-'),
-        h('span', null, _.store.data.count),
-        h('button', {
-          onClick: _.store.add
-        }, '+')
-      )
-    ), {
-      use: ['count'],
-      //or using useSelf, useSelf will update self only, exclude children components
-      //useSelf: ['count'],
-      css: `span { color: red; }`,
-      installed() {
-        console.log('installed')
-      }
-    })
-
-    render(h('my-counter'), 'body', new Store)
-
-  </script>
-</body>
-
-</html>
-```
-
-通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `<my-counter></my-counter>` 标签：
-
-```jsx
-<body>
-  <my-counter></my-counter>
-</body>
-```
-
 
 
 ## 快速入门
@@ -543,15 +471,6 @@ $ npm run build       # 编译发布
 ...
 ```
 
-#### 切换 omi, omio 和 reomi
-
-增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
-
-```js
-"alias": {
-  "omi": "omio"
-}
-```
 
 <!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
 
@@ -591,14 +510,7 @@ $ npm run build       # 编译发布
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
-|小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
-|基础模板(v3.3.9+)|`omi init-o my-app`| 支持 IE8 的基础模板，只是 build 的时候支持 IE8，开发调试请用 IE9|
 |Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
-|支持预渲染快照骨架的模板|`omi init-snap my-app`| 基础模板，支持 omi 和 omio(IE8+)，内置预渲染|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
-|Mobile Template|`omi init-weui my-app`| 使用了 weui 和 omi-router 的移动 web app 模板|
-
-
 
 ### Hello Element
 

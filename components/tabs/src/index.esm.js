@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.10 http://omijs.org
+ * @omiu/tabs v0.0.19 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -9,18 +9,18 @@
 import { h, extractClass, classNames, tag, WeElement } from 'omi';
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
@@ -56,13 +56,19 @@ function __decorate(decorators, target, key, desc) {
 }
 
 
-var css = `:host {
+var css = `/**
+ * omiu tab css based on element ui css
+ * Licensed under the MIT License
+ * https://github.com/ElemeFE/element/blob/dev/LICENSE
+ *
+ * modified by dntzhang
+ */
+:host {
   display: block; }
 
 .o-tabs__header {
   padding: 0;
-  position: relative;
-  margin: 0 0 15px; }
+  position: relative; }
 
 .o-tabs__active-bar {
   position: absolute;
@@ -70,6 +76,7 @@ var css = `:host {
   left: 0;
   height: 2px;
   background-color: #07c160;
+  background-color: var(--o-primary, #07c160);
   z-index: 1;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -97,7 +104,8 @@ var css = `:host {
   transform: scale(0.8, 0.8); }
 
 .o-tabs__new-tab:hover {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 
 .o-tabs__nav-wrap {
   overflow: hidden;
@@ -124,7 +132,7 @@ var css = `:host {
   box-sizing: border-box; }
 
 .o-tabs__nav-scroll {
-  overflow: hidden; }
+  overflow: auto; }
 
 .o-tabs__nav-next,
 .o-tabs__nav-prev {
@@ -181,7 +189,9 @@ var css = `:host {
 
 .o-tabs__item:focus.is-active.is-focus:not(:active) {
   -webkit-box-shadow: 0 0 2px 2px #07c160 inset;
+  -webkit-box-shadow: 0 0 2px 2px var(--o-primary, #07c160) inset;
   box-shadow: 0 0 2px 2px #07c160 inset;
+  box-shadow: 0 0 2px 2px var(--o-primary, #07c160) inset;
   border-radius: 3px; }
 
 .o-tabs__item:hover .o-icon-close {
@@ -205,10 +215,12 @@ var css = `:host {
   color: #FFF; }
 
 .o-tabs__item.is-active {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 
 .o-tabs__item:hover {
   color: #07c160;
+  color: var(--o-primary, #07c160);
   cursor: pointer; }
 
 .o-tabs__item.is-disabled {
@@ -298,12 +310,14 @@ var css = `:host {
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item.is-active {
   color: #07c160;
+  color: var(--o-primary, #07c160);
   background-color: #FFF;
   border-right-color: #DCDFE6;
   border-left-color: #DCDFE6; }
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item:not(.is-disabled):hover {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item.is-disabled {
   color: #C0C4CC; }
@@ -718,7 +732,8 @@ var css = `:host {
   cursor: pointer; }
 
 .o-icon-add:hover {
-  color: #07c160; }
+  color: #07c160;
+  color: var(--o-primary, #07c160); }
 `
 
 
@@ -751,6 +766,8 @@ var Tabs = /** @class */ (function (_super) {
         return _this;
     }
     Tabs.prototype.setActiveBar = function (ele, index) {
+        if (!ele)
+            return;
         var rect = ele.getBoundingClientRect();
         this._x = rect.left - this.baseRect.left;
         this._width = rect.width;
@@ -770,20 +787,25 @@ var Tabs = /** @class */ (function (_super) {
             activeIndex: index
         });
     };
-    Tabs.prototype.install = function () {
+    Tabs.prototype.installed = function () {
         var _this = this;
+        this.baseRect = this.rootNode.getBoundingClientRect();
+        this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
         domReady(function () {
             _this.baseRect = _this.rootNode.getBoundingClientRect();
             _this.setActiveBar(_this['$tab' + _this.props.activeIndex], _this.props.activeIndex);
         });
     };
-    Tabs.prototype.installed = function () {
-        this.baseRect = this.rootNode.getBoundingClientRect();
-        this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
-    };
     Tabs.prototype.removeTab = function (index) {
         var tab = this.props.list.splice(index, 1)[0];
+        if (index <= this.props.activeIndex) {
+            this.props.activeIndex -= 1;
+        }
+        if (this.props.activeIndex < 0) {
+            this.props.activeIndex = 0;
+        }
         this.forceUpdate();
+        this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
         this.fire('remove', {
             tab: tab,
             index: index
@@ -826,14 +848,14 @@ var Tabs = /** @class */ (function (_super) {
                             props.list.map(function (tab, index) {
                                 var _a;
                                 _this._tempTagName = 'o-icon-' + tab.icon;
-                                return h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return props.activeIndex !== index && _this.onTabClick(evt, index); }, tabindex: props.active === index ? '0' : -1 }, extractClass(props, 'o-tabs__item', (_a = {},
+                                return h("div", __assign({ ref: function (e) { _this['$tab' + index] = e; }, role: "tab", onClick: function (evt) { return props.activeIndex !== index && _this.onTabClick(evt, index); }, tabindex: props.activeIndex === index ? '0' : -1 }, extractClass(props, 'o-tabs__item', (_a = {},
                                     _a["is-" + props.position] = props.position,
                                     _a['is-active'] = props.activeIndex === index,
-                                    _a['is-closable'] = props.closable,
+                                    _a['is-closable'] = props.closable && tab.closable !== false,
                                     _a))),
                                     tab.icon && h(_this._tempTagName, null),
                                     tab.label,
-                                    props.closable && h("svg", { onClick: function (_) { _this.removeTab(index); }, class: "o-icon-close", style: props.activeIndex === index && "visibility: visible;", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
+                                    props.closable && tab.closable !== false && h("svg", { onClick: function (evt) { evt.stopPropagation(); _this.removeTab(index); }, class: "o-icon-close", style: props.activeIndex === index && "visibility: visible;", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
                                         h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })));
                             })),
                         props.addable && h("svg", { class: "o-icon-add", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true", onClick: this.onAddIconClick },

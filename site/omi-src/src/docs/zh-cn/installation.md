@@ -26,49 +26,25 @@ $ npm run build        # release
 
 > `npx omi-cli init my-app` 也是支持的(npm v5.2.0+).
 
-目录描述:
-
-```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-```
-
 
 ### npm 脚本
 
 ```json
 "scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
+  "start": "vite",
+  "build": "tsc && vite build --base=./",
 }
 ```
 
 你也可以设置 PUBLIC_URL, 比如：
 
 ```json
-...
-"build": "PUBLIC_URL=https://your.url.com/sub node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://your.url.com/sub&& node scripts/build.js",
-...
+  "build": "tsc && vite build --base=https://your.url.com/sub ",
 ```
-
-
 
 ## 项目模板
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Vite 模板(v3.5.1+)|`omi init-vite my-app`| Vite 基础模板|
 |基础模板(v3.3.0+)|`omi init my-app`| 基础模板|
 |Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
-|TypeScript 模板(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
-|Mobile 模板|`omi init-weui my-app`| 使用 weui 和 omi-router 的模板|

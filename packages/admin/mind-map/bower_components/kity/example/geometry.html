@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animate</title>
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+        define('start', function(require) {
+            var Paper = require('graphic/paper');
+            var Path = require('graphic/path');
+            require('animate/pathanimator');
+            var g = require('graphic/geometry');
+            var Matrix = require('graphic/matrix');
+            var pathData = g.transformPath('M283.962,257.412 L229.347,253.275 194.977,295.919 182.036,242.699 130.857,223.189 177.473,194.435 180.213,139.733 221.965,175.182 274.837,160.884 254.025,211.547 Z', new Matrix().scale(0.3).translate(400, 0));
+            var Group = require('graphic/group');
+
+            require('animate/motionanimator');
+
+            var path1 = new Path().stroke('blue').translate(-300, 0);
+            var path2 = new Path().stroke('red', 5).translate(-300, 0);
+
+            var paper = new Paper(document.body).setHeight(800);
+            paper.addShapes([path1, path2]);
+
+            var pathData2 = 'M615.992,227.397c0,48.272-43.234,87.405-96.565,87.405  s-96.565-39.132-96.565-87.405c0-22.737,9.631-33.72,25.351-49.267c5.705-5.642-7.917-57.699-0.763-61.832  c5.962-3.445,36.82,36.75,43.511,34.351c40.458-14.504,51.562-2.07,61.069,0.763c11.853,3.532,43.345-29.261,52.672-22.137c7.952,6.074-8.23,44.582-2.784,52.659C610.847,195.18,615.992,210.745,615.992,227.397z';
+
+            var aligned = g.alignCurve(pathData, pathData2);
+
+            path1.setPathData(aligned[0]);
+
+            path1.fxPath(pathData2, 3000, 'easeInOutElastic');
+
+            var t = 0.1;
+            function update() {
+                t += 0.003;
+                var sub = g.subPath(pathData2, t, t - 0.05).concat(g.subPath(pathData2, t + 0.55, t + 0.5));
+                path2.setPathData(sub);
+                requestAnimationFrame(update);
+            }
+            update();
+
+            var triangle = new Path().setPathData('M0,-15L15,0,0,15Z').fill('green');
+
+            triangle.motion(path1, 4000, 'linear').timeline().repeat(10000);
+
+            paper.addShape(new Group().addShape(triangle).translate(-300, 0));
+
+            window.g = g;
+        });
+        seajs.use('start');
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

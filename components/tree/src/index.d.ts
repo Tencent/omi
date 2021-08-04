@@ -12,7 +12,7 @@ export default class Tree extends WeElement<Props> {
         data: ArrayConstructor;
         padding: NumberConstructor;
     };
-    onNodeClick: (evt: any, node: any) => void;
+    onNodeClick: (node: any) => void;
     _tempTagName: string;
     prevSelectedNode: any;
     onNodeArrowClick: (node: any) => void;
@@ -25,6 +25,8 @@ export default class Tree extends WeElement<Props> {
     editInput: any;
     prevBlurSelectedNode: any;
     installed(): void;
+    _nodeTagName: string;
+    isURL(str: any): boolean;
     renderNode(node: any, level: any): JSX.Element;
     render(props: any): JSX.Element;
 }

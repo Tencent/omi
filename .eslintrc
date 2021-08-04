@@ -7,8 +7,10 @@
       "jsx": true
     }
   },
+  "plugins": ["prettier"],
   "rules": {
     "semi": [1, "never"],
-    "indent": ["error", 2]
+    "indent": ["error", 2], 
+    "prettier/prettier": "error"
   }
 }

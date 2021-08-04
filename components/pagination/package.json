@@ -1,6 +1,6 @@
 {
   "name": "@omiu/pagination",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Used to display a large number of list data in multiple pages.",
   "docsExtend": {
     "cnName": "分页",

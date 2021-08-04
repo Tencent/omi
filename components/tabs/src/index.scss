@@ -1,13 +1,20 @@
+/**
+ * omiu tab css based on element ui css
+ * Licensed under the MIT License
+ * https://github.com/ElemeFE/element/blob/dev/LICENSE
+ *
+ * modified by dntzhang
+ */
+
 @import "@omiu/common/theme.scss";
 
 :host {
-	display: block;
+  display: block;
 }
 
 .o-tabs__header {
   padding: 0;
   position: relative;
-  margin: 0 0 15px
 }
 
 .o-tabs__active-bar {
@@ -16,6 +23,7 @@
   left: 0;
   height: 2px;
   background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary);
   z-index: 1;
   -webkit-transition: -webkit-transform .3s cubic-bezier(.645, .045, .355, 1);
   transition: -webkit-transform .3s cubic-bezier(.645, .045, .355, 1);
@@ -46,7 +54,8 @@
 }
 
 .o-tabs__new-tab:hover {
-  color: $o-primary
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
 }
 
 .o-tabs__nav-wrap {
@@ -78,7 +87,7 @@
 }
 
 .o-tabs__nav-scroll {
-  overflow: hidden
+  overflow: auto
 }
 
 .o-tabs__nav-next,
@@ -144,7 +153,9 @@
 
 .o-tabs__item:focus.is-active.is-focus:not(:active) {
   -webkit-box-shadow: 0 0 2px 2px $o-primary inset;
+  -webkit-box-shadow: 0 0 2px 2px var(--o-primary, $o-primary) inset;
   box-shadow: 0 0 2px 2px $o-primary inset;
+  box-shadow: 0 0 2px 2px var(--o-primary, $o-primary) inset;
   border-radius: 3px
 }
 
@@ -153,7 +164,7 @@
 }
 
 .o-tabs__item .o-icon-close {
-	visibility: hidden;
+  visibility: hidden;
   border-radius: 50%;
   text-align: center;
   -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
@@ -173,11 +184,13 @@
 }
 
 .o-tabs__item.is-active {
-  color: $o-primary
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
 }
 
 .o-tabs__item:hover {
   color: $o-primary;
+  color: var(--o-primary, $o-primary);
   cursor: pointer
 }
 
@@ -253,14 +266,14 @@
 
 .o-tabs--border-card {
   background: #FFF;
-	border: 1px solid #DCDFE6;
-	border-bottom: none;
+  border: 1px solid #DCDFE6;
+  border-bottom: none;
   // -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
   // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04)
 }
 
 .o-tabs--border-card.o-tabs--bottom {
-	border: 1px solid #DCDFE6;
+  border: 1px solid #DCDFE6;
 }
 
 .o-tabs--border-card>.o-tabs__content {
@@ -288,13 +301,15 @@
 
 .o-tabs--border-card>.o-tabs__header .o-tabs__item.is-active {
   color: $o-primary;
+  color: var(--o-primary, $o-primary);
   background-color: #FFF;
   border-right-color: #DCDFE6;
   border-left-color: #DCDFE6
 }
 
 .o-tabs--border-card>.o-tabs__header .o-tabs__item:not(.is-disabled):hover {
-  color: $o-primary
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
 }
 
 .o-tabs--border-card>.o-tabs__header .o-tabs__item.is-disabled {
@@ -347,7 +362,7 @@
 // }
 
 .o-tabs--bottom.o-tabs--border-card {
-	border-top: none;
+  border-top: none;
 }
 
 .o-tabs--bottom.o-tabs--border-card .o-tabs__header.is-bottom {
@@ -792,18 +807,19 @@
 }
 
 .o-icon-close {
- display: inline-block;
- vertical-align: -0.125em;
+  display: inline-block;
+  vertical-align: -0.125em;
 }
 
 .o-icon-add {
-	position: absolute;
-	top: 50%;
-	margin-top: -0.5em;
-	margin-left: 0.5em;
-	cursor: pointer;
- }
+  position: absolute;
+  top: 50%;
+  margin-top: -0.5em;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
 
- .o-icon-add:hover {
-	color: $o-primary;
- }
+.o-icon-add:hover {
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
+}

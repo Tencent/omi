@@ -1,5 +1,5 @@
 /**
- * @omiu/tree v0.0.14 http://omijs.org
+ * @omiu/tree v0.0.18 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -647,15 +647,14 @@ var Tree = /** @class */ (function (_super) {
     __extends(Tree, _super);
     function Tree() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onNodeClick = function (evt, node) {
-            evt.stopPropagation();
+        _this.onNodeClick = function (node) {
             node.expanded = !node.expanded;
             if (_this.prevSelectedNode) {
                 _this.prevSelectedNode.selected = false;
             }
-            if (_this.prevBlurSelectedNode) {
-                _this.prevBlurSelectedNode.selectedBlur = false;
-            }
+            // if (this.prevBlurSelectedNode) {
+            //   this.prevBlurSelectedNode.selectedBlur = false
+            // }
             node.selected = true;
             _this.forceUpdate();
             _this.fire('node-click', node);
@@ -707,33 +706,34 @@ var Tree = /** @class */ (function (_super) {
         }
     };
     Tree.prototype.installed = function () {
-        var _this = this;
-        window.addEventListener('click', function (evt) {
-            _this.prevSelectedNode.selected = false;
-            _this.prevSelectedNode.selectedBlur = true;
-            _this.prevBlurSelectedNode = _this.prevSelectedNode;
-            _this.prevSelectedNode = null;
-            _this.forceUpdate();
-        });
-        window.addEventListener('keydown', function (evt) {
-            //enter
-            if (evt.keyCode === 13) {
-                if (_this.prevSelectedNode) {
-                    if (_this.prevSelectedNode.editing) {
-                        _this.prevSelectedNode.editing = false;
-                        _this.prevSelectedNode.label = _this.editInput.value;
-                        //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
-                        _this.editInput.blur();
-                        _this.forceUpdate();
-                    }
-                    else {
-                        _this.prevSelectedNode.editing = true;
-                        _this.forceUpdate();
-                        _this.editInput.focus();
-                    }
-                }
-            }
-        });
+        // window.addEventListener('click', (evt) => {
+        //   this.prevSelectedNode.selected = false
+        //   this.prevSelectedNode.selectedBlur = true
+        //   this.prevBlurSelectedNode = this.prevSelectedNode
+        //   this.prevSelectedNode = null
+        //   this.forceUpdate()
+        // })
+        // window.addEventListener('keydown', (evt) => {
+        //   //enter
+        //   if (evt.keyCode === 13) {
+        //     if (this.prevSelectedNode) {
+        //       if (this.prevSelectedNode.editing) {
+        //         this.prevSelectedNode.editing = false
+        //         this.prevSelectedNode.label = this.editInput.value
+        //         //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+        //         this.editInput.blur()
+        //         this.forceUpdate()
+        //       } else {
+        //         this.prevSelectedNode.editing = true
+        //         this.forceUpdate()
+        //         this.editInput.focus()
+        //       }
+        //     }
+        //   }
+        // })
+    };
+    Tree.prototype.isURL = function (str) {
+        return str.indexOf('http') === 0 || str.indexOf('//') === 0;
     };
     Tree.prototype.renderNode = function (node, level) {
         var _this = this;
@@ -742,10 +742,14 @@ var Tree = /** @class */ (function (_super) {
         }
         this._tempTagName = 'o-icon-' + node.icon;
         this._nodeTagName = node.href ? 'a' : 'div';
-        return (h(this._nodeTagName, __assign({ href: node.href, target: node.target, role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) { _this.onNodeClick(evt, node); } }, extractClass({}, 'o-tree-node', {
+        return (h(this._nodeTagName, __assign({ href: node.href, target: node.target, role: "treeitem", onContextMenu: function (evt) { _this.onContextMenu(evt, node); }, onClick: function (evt) {
+                evt.stopPropagation();
+                if (!(node.href && _this.isURL(node.href))) {
+                    _this.onNodeClick(node);
+                }
+            } }, extractClass({}, 'o-tree-node', {
             'is-expanded': node.expanded,
             'is-current': node.selected,
-            'is-current-blur': node.selectedBlur
         })),
             h("div", { class: "o-tree-node__content", style: "padding-left: " + level * this.props.padding + "px;" },
                 (node.children && node.children.length > 0) ? h("svg", __assign({ onClick: function (_) { return _this.onNodeArrowClick(node); }, viewBox: "0 0 1024 1024" }, extractClass({}, 'o-tree-node__expand-icon', {

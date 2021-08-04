@@ -96,29 +96,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ":host {\n  display: inline-block; }\n\n* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box; }\n\n.weui-switch {\n  -webkit-appearance: none;\n  appearance: none;\n  display: inline-block; }\n\n.weui-switch-cp {\n  display: inline-block; }\n\n.weui-switch,\n.weui-switch-cp__box {\n  position: relative;\n  width: 52px;\n  height: 32px;\n  border: 1px solid #DFDFDF;\n  outline: 0;\n  border-radius: 16px;\n  box-sizing: border-box;\n  background-color: #DFDFDF;\n  -webkit-transition: background-color 0.1s, border 0.1s;\n  transition: background-color 0.1s, border 0.1s; }\n\n.weui-switch:before,\n.weui-switch-cp__box:before {\n  content: \" \";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 50px;\n  height: 30px;\n  border-radius: 15px;\n  background-color: #FDFDFD;\n  -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1), -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1); }\n\n.weui-switch:after,\n.weui-switch-cp__box:after {\n  content: \" \";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  background-color: #FFFFFF;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35), -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35); }\n\n.weui-switch:checked,\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.weui-switch:checked:before,\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box:before {\n  -webkit-transform: scale(0);\n  transform: scale(0); }\n\n.weui-switch:checked:after,\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box:after {\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px); }\n\n.weui-switch-cp__input {\n  position: absolute;\n  left: -9999px; }\n\n.weui-switch-cp__box {\n  display: block; }\n", ""]);
+exports.push([module.i, ":host {\n  display: inline-block; }\n\n* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box; }\n\n.o-switch {\n  -webkit-appearance: none;\n  appearance: none;\n  display: inline-block; }\n\n.o-switch-cp {\n  display: inline-block; }\n\n.o-switch,\n.o-switch-cp__box {\n  position: relative;\n  width: 40px;\n  height: 20px;\n  border: 1px solid #DFDFDF;\n  outline: 0;\n  border-radius: 16px;\n  box-sizing: border-box;\n  background-color: #DFDFDF;\n  -webkit-transition: background-color 0.1s, border 0.1s;\n  transition: background-color 0.1s, border 0.1s; }\n\n.o-switch:before,\n.o-switch-cp__box:before {\n  content: \" \";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 38px;\n  height: 18px;\n  border-radius: 15px;\n  background-color: #FDFDFD;\n  -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1), -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1); }\n\n.o-switch:after,\n.o-switch-cp__box:after {\n  content: \" \";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 18px;\n  height: 18px;\n  border-radius: 15px;\n  background-color: #FFFFFF;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35), -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35); }\n\n.o-switch:checked,\n.o-switch-cp__input:checked ~ .o-switch-cp__box {\n  border-color: #07c160;\n  border-color: var(--o-primary, #07c160);\n  background-color: #07c160;\n  background-color: var(--o-primary, #07c160); }\n\n.o-switch:checked:before,\n.o-switch-cp__input:checked ~ .o-switch-cp__box:before {\n  -webkit-transform: scale(0);\n  transform: scale(0); }\n\n.o-switch:checked:after,\n.o-switch-cp__input:checked ~ .o-switch-cp__box:after {\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px); }\n\n.o-switch-cp__input {\n  position: absolute;\n  left: -9999px; }\n\n.o-switch-cp__box {\n  display: block; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -275,13 +275,13 @@ var Switch = /** @class */ (function (_super) {
     Switch.prototype.render = function (props) {
         var _this = this;
         if (props.checked) {
-            return (omi_1.h("label", __assign({ for: "x_" + this.elementId }, omi_1.extractClass(props, 'weui-switch-cp')),
+            return (omi_1.h("label", __assign({ for: "x_" + this.elementId }, omi_1.extractClass(props, 'o-switch-cp')),
                 omi_1.h("input", { id: "x_" + this.elementId, ref: function (e) {
                         _this._ele = e;
-                    }, class: "weui-switch-cp__input", type: "checkbox", onChange: this.onChange, checked: true }),
-                omi_1.h("div", { class: "weui-switch-cp__box" })));
+                    }, class: "o-switch-cp__input", type: "checkbox", onChange: this.onChange, checked: true }),
+                omi_1.h("div", { class: "o-switch-cp__box" })));
         }
-        return (omi_1.h("input", __assign({}, omi_1.extractClass(props, 'weui-switch'), { type: "checkbox", ref: function (e) {
+        return (omi_1.h("input", __assign({}, omi_1.extractClass(props, 'o-switch'), { type: "checkbox", ref: function (e) {
                 _this._ele = e;
             }, onChange: this.onChange })));
     };

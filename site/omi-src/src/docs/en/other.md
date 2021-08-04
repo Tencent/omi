@@ -12,7 +12,6 @@
 | [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| Develop and generate Web HTML5 Single-Page Applications by wechat mini program. The output source is base on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router)|
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
 | [omi-vscode](https://github.com/ZainChen/omi-vscode)| Vscode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
 | [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js extension(TypeScript) |
@@ -22,7 +21,7 @@
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
-| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
+
 
 ## Examples
 

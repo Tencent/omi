@@ -1,15 +1,19 @@
 import { WeElement } from 'omi';
+import '@omiu/popover';
 interface Props {
     items: any[];
     active: boolean;
-    value: string;
+    value: string | number | any[];
     placeholder: string;
-    size: 'medium' | 'small' | 'mini';
+    size: 'big' | 'medium' | 'small' | 'mini';
+    multiple: boolean;
 }
 export default class Select extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         value: string;
+        size: string;
+        multiple: boolean;
     };
     static propTypes: {
         items: ArrayConstructor;
@@ -17,15 +21,25 @@ export default class Select extends WeElement<Props> {
         value: StringConstructor;
         placeholder: StringConstructor;
         size: StringConstructor;
+        multiple: BooleanConstructor;
     };
-    installed(): void;
-    updated(): void;
-    _fixWidth(): void;
     onInputClick: () => void;
     onInputBlur: () => void;
     selectedIndex: number;
-    onItemClick: (item: any, index: any) => void;
+    selectedIndexMap: {};
+    selectedItems: any[];
+    onItemClick: (item: any, index: any, evt: any) => void;
     _refInput: any;
+    inputHeight: any;
+    resetInputHeight(): void;
+    inputWidth: number;
+    tags: any;
+    resetInputWidth(): void;
+    installed(): void;
+    resetSize: () => void;
+    label: string;
+    install(): void;
+    uninstall(): void;
     render(props: any): JSX.Element;
 }
 export {};

@@ -1,0 +1,23 @@
+/**
+ * omiu tip css based on element ui css
+ * Licensed under the MIT License
+ * https://github.com/ElemeFE/element/blob/dev/LICENSE
+ *
+ * modified by dntzhang
+ */
+:host {
+  display: inline-block; }
+
+img {
+  width: 100%;
+  height: 100%; }
+
+.placeholder,
+.error {
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-align: center;
+  font-size: 0.875em;
+  color: #bdc5d4;
+  background-color: #f5f7fa; }

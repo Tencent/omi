@@ -6,7 +6,11 @@
     "jsxFactory": "h",
     "target": "es5",
     "allowJs": true,
-    "declaration": true
+    "declaration": true,
+    "lib": [
+      "dom",
+      "es6"
+    ]
   },
   "include": [
     "src/**/*"

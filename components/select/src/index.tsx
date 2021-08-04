@@ -1,27 +1,35 @@
 import { tag, WeElement, extractClass, h } from 'omi'
 import * as css from './index.scss'
+import { removeResizeListener, addResizeListener } from './resize-event.ts'
 
+import '@omiu/popover'
+//debug
+//import '../../popover/src/index.tsx'
 
 interface Props {
   items: any[]
   active: boolean
-  value: string
+  value: string | number | any[]
   placeholder: string
-  size: 'medium' | 'small' | 'mini'
+  size: 'big' | 'medium' | 'small' | 'mini'
+  multiple: boolean
 }
 
-const topMap = {
-  'medium': '31px',
-  'small': '28px',
-  'mini': '24px',
+const heightMap = {
+  'big': 40,
+  'medium': 36,
+  'small': 32,
+  'mini': 28,
 }
 
 @tag('o-select')
 export default class Select extends WeElement<Props> {
-  static css = css
+  static css = css.default ? css.default : css
 
   static defaultProps = {
-    value: ''
+    value: '',
+    size: 'big',
+    multiple: false
   }
 
   static propTypes = {
@@ -29,27 +37,9 @@ export default class Select extends WeElement<Props> {
     active: Boolean,
     value: String,
     placeholder: String,
-    size: String
+    size: String,
+    multiple: Boolean
   }
-
-  installed() {
-    this._fixWidth()
-  }
-
-  updated() {
-    this._fixWidth()
-  }
-
-  _fixWidth() {
-    const width = this.rootNode.getBoundingClientRect().width
-
-    const dropdown = this.rootNode.querySelector('.o-select-dropdown')
-
-    if (dropdown) {
-      dropdown.style.minWidth = width + 'px'
-    }
-  }
-
 
   onInputClick = () => {
     setTimeout(() => {
@@ -69,20 +59,98 @@ export default class Select extends WeElement<Props> {
   }
 
   selectedIndex: number
-  onItemClick = (item, index) => {
 
-    this._refInput.focus()
+  selectedIndexMap = {}
 
-    this.fire('item-select', item)
-    this.selectedIndex = index
+  selectedItems = []
 
-    this.updateProps({
-      active: false,
-      value: item.label
-    })
+  onItemClick = (item, index, evt) => {
+
+    if (this.props.multiple) {
+      //不自动关闭
+      evt.stopPropagation()
+      if (this.selectedIndexMap.hasOwnProperty(index)) {
+        delete this.selectedIndexMap[index]
+        this.selectedItems.splice(this.selectedItems.indexOf(item), 1)
+      } else {
+        this.selectedIndexMap[index] = true
+        this.selectedItems.push(item)
+      }
+
+      this.fire('item-select', this.selectedItems)
+      this.update()
+
+      this.resetSize()
+
+      this.popover.updatePosition()
+
+    } else {
+      this._refInput.focus()
+
+      this.fire('item-select', item)
+      this.selectedIndex = index
+      this.label = item.label
+      this.updateProps({
+        active: false,
+        value: item.value
+      })
+    }
   }
 
   _refInput
+
+  inputHeight
+
+  resetInputHeight() {
+    this.inputHeight = Math.max(heightMap[this.props.size], Number(this.tags ? (this.tags.clientHeight + (this.tags.clientHeight > heightMap[this.props.size] ? 6 : 0)) : 0))
+  }
+
+  inputWidth: number = 0
+
+  tags
+
+  resetInputWidth() {
+    this.inputWidth = this.getBoundingClientRect().width;
+  }
+
+  installed() {
+    this.resetSize()
+
+    addResizeListener(this._refInput, this.resetSize)
+  }
+
+  resetSize = () => {
+    this.resetInputWidth()
+    this.resetInputHeight()
+    //不更新子组件，不然导致 popper 执行多次导致闪现下拉的问题
+    this.updateSelf()
+  }
+
+  label: string
+
+  install() {
+    if (this.props.multiple) {
+      for (let i = 0, len = this.props.items.length; i < len; i++) {
+        if (this.props.value.indexOf(this.props.items[i].value) !== -1) {
+          this.selectedIndexMap[i] = 1
+        }
+      }
+    } else {
+      if (this.props.value) {
+        for (let i = 0, len = this.props.items.length; i < len; i++) {
+          if (this.props.value + '' === this.props.items[i].value + '') {
+            this.selectedIndex = i
+            this.label = this.props.items[i].label
+          }
+        }
+      }
+    }
+
+  }
+
+  uninstall() {
+    removeResizeListener(this._refInput, this.resetSize);
+  }
 
   render(props) {
 
@@ -90,53 +158,67 @@ export default class Select extends WeElement<Props> {
       <div {...extractClass({}, 'o-select', {
         ['o-select--' + props.size]: props.size
       })} >
-        <div {...extractClass({}, 'o-input o-input--suffix', {
-          ['o-input--' + props.size]: props.size,
-          'is-focus': props.isFocus
-        })} >
-          <input type="text" ref={e => this._refInput = e} onClick={this.onInputClick} onBlur={this.onInputBlur} readonly="readonly" autocomplete="off" value={props.value} placeholder={props.placeholder} class="o-input__inner" />
-          <span class="o-input__suffix">
-            <span class="o-input__suffix-inner">
-              <i class="o-select__caret o-input__icon o-icon-arrow-up is-reverse"></i>
-            </span>
-          </span>
+        <o-popover ref={e => this.popover = e} position="bottom">
+          <div>
+            <div class="o-select__tags" ref={e => this.tags = e} style={{ width: '100%', maxWidth: (this.inputWidth - 32) + 'px' }}>
+              <span>
+                {/* <span class="o-tag o-tag--info o-tag--small o-tag--light">
+                  <span class="o-select__tags-text">omi</span><i class="o-tag__close o-icon-close"></i>
+                </span>
+                <span class="o-tag o-tag--info o-tag--small o-tag--light">
+                  <span class="o-select__tags-text">asfsdfdsafdsafdsfbc</span><i class="o-tag__close o-icon-close"></i>
+                </span> */}
 
-          <svg viewBox="0 0 1024 1024" class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
-            <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z">
-            </path>
-          </svg>
-
-        </div>
-
-        {props.active && <o-transition>
-          <div class="o-select-dropdown o-popper" style={`min-width: 240px; transform-origin: center top; z-index: 2080; position: absolute; top: ${topMap[props.size] || '35px'}; left: 0;`} x-placement="bottom-start">
-            <div class="o-scrollbar" style="">
-              <div class="o-select-dropdown__wrap o-scrollbar__wrap o-scrollbar__wrap--hidden-default">
-                <ul class="o-scrollbar__view o-select-dropdown__list">
-                  {props.items.map((item, index) => (
-                    <li {...extractClass({}, 'o-select-dropdown__item', {
-                      selected: index === this.selectedIndex
-                    })} onClick={_ => { this.onItemClick(item, index) }}>
-                      <span>{item.label}</span>
-                    </li>
-                  )}
-                </ul>
-              </div>
-              <div class="o-scrollbar__bar is-horizontal">
-                <div class="o-scrollbar__thumb" style="transform: translateX(0%);">
-                </div>
-              </div><div class="o-scrollbar__bar is-vertical">
-                <div class="o-scrollbar__thumb" style="transform: translateY(0%);">
-                </div>
-              </div>
+                {this.selectedItems.map(item => {
+                  return <span class="o-tag o-tag--info o-tag--small o-tag--light">
+                    <span class="o-select__tags-text">{item.label}</span><i class="o-tag__close o-icon-close"></i>
+                  </span>
+                })}
+              </span>
+              <input type="text" autocomplete="off" class="o-select__input" style={{ flexGrow: 1, width: '0.0961538%', maxWidth: (this.inputWidth - 32) + 'px' }} />
             </div>
-            <div x-arrow="" class="popper__arrow" style="left: 35px;">
+
+            <div {...extractClass({}, 'o-input o-input--suffix', {
+              ['o-input--' + props.size]: props.size,
+              'is-focus': props.isFocus
+            })} >
+              <input style={{ height: this.inputHeight + 'px' }} type="text" ref={e => this._refInput = e} onClick={this.onInputClick} onBlur={this.onInputBlur} readonly autocomplete="off" value={props.multiple ? '' : this.label} placeholder={Object.keys(this.selectedIndexMap).length > 0 ? '' : props.placeholder} class="o-input__inner" />
+              <span class="o-input__suffix">
+                <span class="o-input__suffix-inner">
+                  <i class="o-select__caret o-input__icon o-icon-arrow-up is-reverse"></i>
+                </span>
+              </span>
+
+              <svg viewBox="0 0 24 24" class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z">
+                </path>
+              </svg>
 
             </div>
           </div>
-        </o-transition>}
+
+          <div slot="popover" class="o-select-dropdown__wrap">
+            <ul>
+              {props.items.map((item, index) => {
+                const selected = props.multiple ? this.selectedIndexMap[index] : (index === this.selectedIndex)
+                return <li {...extractClass({}, 'o-select-dropdown__item', {
+                  selected
+                })} onClick={evt => { this.onItemClick(item, index, evt) }}>
+                  <span>{item.label}</span>
+                  {selected && <svg class="a3 a2" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Check" curr><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>}
+                </li>
+              })}
+            </ul>
+          </div>
+
+
+
+        </o-popover>
 
       </div>
+
+
+
     )
   }
 }

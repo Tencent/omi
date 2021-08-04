@@ -9,6 +9,7 @@ const status2color = {
   'success': "#09BB07",
   'error': "#F43530",
   'active':"#1890ff",
+  'trailColorDefault':"#f5f5f5"
 }
 
 const type_status2icon = {
@@ -71,6 +72,7 @@ export default class extends WeElement<Props> {
     strokeWidth: Number,
     width: Number,
     showInfo:Boolean
+
   }
 
   _state: any
@@ -90,11 +92,13 @@ export default class extends WeElement<Props> {
       type,
       status,
       strokeColor,
+
       trailColor=props.trailColor?props.trailColor:"#f5f5f5",
       textColor=props.textColor?props.textColor:"black",
       strokeWidth=props.strokeWidth?props.strokeWidth:(props.type==="line"?8:6),
       width=props.width?props.width:(props.type==="line"?160:120),
       showInfo
+
     } = props
     
     const percent = this._state.percent
@@ -114,15 +118,19 @@ export default class extends WeElement<Props> {
             <path d={`M ${width / 2},${width / 2} m 0,${width / 2 - strokeWidth}
    a ${width / 2 - strokeWidth},${width / 2 - strokeWidth} 0 1 1 0,-${(width / 2 - strokeWidth) * 2}
    a ${width / 2 - strokeWidth},${width / 2 - strokeWidth} 0 1 1 0,${(width / 2 - strokeWidth) * 2}`} stroke-linecap="round" 
+
    stroke={strokeColor||status2color[status]||(isSuccess?status2color["success"]:undefined)||status2color["active"]} stroke-width={strokeWidth} opacity="1" fill-opacity="0"
+
               style={`
                stroke-dasharray: ${(percent / 100) * (len)}px ${len}px;
                 stroke-dashoffset: 0px;
                  transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s ease 0s, stroke-width 0.06s ease 0.3s, opacity ease 0s;`}></path>
           </svg>
+
           {showInfo && (<span className="o-progress-circle-text" style={{fontSize:(width-strokeWidth*2)*1.75/6}}>
           {(!status&&!isSuccess)||(status==="active")?<span style={{color:textColor}}>{percent}%</span>:<span style={{color:status2color[status||(isSuccess?"success":"active")],fontSize:"2em"}}>{type_status2icon["circle"][status||(isSuccess?"success":"active")]}</span>}
           </span>)}
+
         </div>
       </div>
     )
@@ -134,15 +142,19 @@ export default class extends WeElement<Props> {
           <div className="o-progress-line__bar" style={{backgroundColor:trailColor}}>
             <div className="o-progress-line__inner-bar" style={{
               width:`${percent}%`,
+
               backgroundColor:strokeColor||status2color[status]||(isSuccess?status2color["success"]:undefined)||status2color["active"],
+
               height:strokeWidth
               }}></div>
           </div>
         </div>
+
         {showInfo && (<span className="o-progress-line-text" style={{fontSize:strokeWidth*1.75}}>
           {(!status&&!isSuccess)||(status==="active")?<span style={{color:textColor}}>{percent}%</span>:
           <span style={{color:status2color[status||(isSuccess?"success":"active")]}}>{type_status2icon["line"][status||(isSuccess?"success":"active")]}</span>}
         </span>)}
+
       </div>
     )
     }

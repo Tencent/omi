@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>坐标系</title>
+    <script src="../../dist/kity.min.js"></script>
+    <script src="coordinate.js"></script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<script>
+    var paper = new kity.Paper(document.body);
+
+    var coordinate = new Coordinate('black', [-2, 10], [-2, 10]).setTranslate(200.5, 200.5);
+
+    coordinate.addShape(new kity.Pie(60, 60).fill('rgba(255,0,0,0.3)').stroke('red'));
+    coordinate.addShape(new kity.Text('60°').setX(30).setY(20));
+
+    paper.addShape(coordinate);
+
+    var coordinate2 = new Coordinate('black', [-2, 10], [-2, 10]).setTranslate(330.5, 280.5).setScale(1, -1);
+    coordinate2.addShape(new kity.Text('60°').setX(30).setY(-10).setScale(1, -1));
+
+    coordinate2.addShape(new kity.Pie(60, 60).fill('rgba(255,0,0,0.3)').stroke('red'));
+
+    paper.addShape(coordinate2);
+
+</script>
+</html>

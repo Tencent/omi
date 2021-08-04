@@ -15,6 +15,7 @@ interface Props {
 export default class Input extends WeElement<Props> {
     static css: any;
     static defaultProps: {
+        value: string;
         type: string;
         autosize: boolean;
         rows: number;
@@ -33,7 +34,12 @@ export default class Input extends WeElement<Props> {
         maxLength: NumberConstructor;
         autoComplete: StringConstructor;
         block: BooleanConstructor;
+        value: StringConstructor;
     };
+    __$value: string;
+    install(): void;
+    _onGetValue: () => string;
+    _onSetValue: (value: any) => void;
     _tempTagName: string;
     valueLength: number;
     handleBlur: () => void;
@@ -43,6 +49,7 @@ export default class Input extends WeElement<Props> {
     focus(): void;
     blur(): void;
     clearInput: () => void;
+    _tempInputTagName: string;
     render(props: any): JSX.Element;
 }
 export {};

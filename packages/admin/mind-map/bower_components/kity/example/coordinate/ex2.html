@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title> 坐标系 </title>
+    <script src="../../dist/kity.min.js"></script>
+    <script src="coordinate.js"></script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<script>
+    function boxString (box) {
+        return [box.x, box.y, box.width, box.height].join(', ');
+    }
+
+    var paper = new kity.Paper(document.body).pipe(function() {
+        var width = 800, height = 800;
+        this.setWidth(width).setHeight(height);
+        this.setViewBox(-140.5, -140.5, width, height)
+
+        this.addShape(new Coordinate('black', [-13, 49], [-13, 49]).pipe(function() {
+            this.addShape(new kity.Text('参照坐标系')
+                .setVerticalAlign('bottom')
+                .setX(5).setY(-5));
+        }));
+    });
+
+
+    var rect = new Coordinate('red', [-2, 10], [-2, 10]).pipe(function() {
+        this.addShape(new kity.Text('自身坐标系')
+            .fill('red')
+            .setVerticalAlign('bottom')
+            .setX(5).setY(-5));
+
+        this.addShape(this.body = new kity.Rect(50, 50, 0, 0)
+            .fill('rgba(255, 0, 0, 0.5)')
+            .stroke('red')
+            .setStyle('cursor', 'move'));
+    });
+
+    paper.addShape(rect);
+    rect.setTranslate(30, 40);
+
+    rect.addShape(rect.text = new kity.Text()
+        .setContent("getBoundaryBox: " + boxString(rect.body.getBoundaryBox()))
+        .fill('red')
+        .setVerticalAlign('top')
+        .setX(150).setY(20));
+
+    paper.addShape(paper.text = new kity.Text()
+        .setContent("getRenderBox: " + boxString(rect.body.getRenderBox(paper)))
+        .setVerticalAlign('bottom')
+        .setX(150).setY(-5));
+
+
+    var downposition = null;
+    rect.on('mousedown', function (e) {
+        downposition = e.getPosition(rect);
+    });
+    paper.on('mousemove', function (e) {
+        if(!downposition) return;
+        rect.setTranslate(e.getPosition().offset(-downposition.x, -downposition.y));
+        rect.text.setContent("getBoundaryBox: " + boxString(rect.body.getBoundaryBox()));
+        paper.text.setContent("getRenderBox: " + boxString(rect.body.getRenderBox(paper)));
+    });
+    paper.on('mouseup', function() {
+        downposition = null;
+    });
+</script>
+</html>

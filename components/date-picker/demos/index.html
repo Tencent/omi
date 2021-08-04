@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body style="background-color: #fefefe;">
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script>
+    window.process = {
+      env: ''
+    }</script>
+  <script src="../src/index.js"></script>
+
+
+  <o-popover style="margin-left:110px;margin-top:100px;" trigger="hover" position="left">
+    <div> 提示！！</div>
+    <div slot="popover" tip="popover">
+      <ul>
+        <li>abc</li>
+        <li>efg</li>
+      </ul>
+
+    </div>
+  </o-popover>
+</body>
+
+</html>

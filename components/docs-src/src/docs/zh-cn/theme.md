@@ -42,7 +42,6 @@ setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
 
 ```js
 Omiu.setThemePrimary('green')
-Omiu.setThemeError('red')
 ```
 
 

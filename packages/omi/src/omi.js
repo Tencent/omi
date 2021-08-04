@@ -9,15 +9,11 @@ import { getHost } from './get-host'
 import { rpx } from './rpx'
 import { classNames, extractClass } from './class'
 import { o } from './o'
-import htm from 'htm'
 import { extend, get, set, bind, unbind } from './extend'
-import JSONProxy from './proxy'
 import { Fragment } from './util'
 import 'construct-style-sheets-polyfill'
 
 h.f = Fragment
-
-const html = htm.bind(h)
 
 function createRef() {
   return {}
@@ -44,8 +40,6 @@ const omi = {
   classNames,
   extractClass,
   createRef,
-  html,
-  htm,
   o,
   elements,
   $,
@@ -53,13 +47,12 @@ const omi = {
   get,
   set,
   bind,
-  unbind,
-  JSONProxy
+  unbind
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.19.3'
+options.root.Omi.version = '6.20.1'
 
 export default omi
 
@@ -79,8 +72,6 @@ export {
   classNames,
   extractClass,
   createRef,
-  html,
-  htm,
   o,
   elements,
   $,
@@ -88,6 +79,5 @@ export {
   get,
   set,
   bind,
-  unbind,
-  JSONProxy
+  unbind
 }

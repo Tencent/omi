@@ -26,50 +26,20 @@ $ npm run build        # release
 
 > `npx omi-cli init my-app` is also supported(npm v5.2.0+).
 
-Directory description:
-
-```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-```
-
 
 ### Scripts
 
 ```json
 "scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
+  "start": "vite",
+  "build": "tsc && vite build --base=./",
 }
 ```
 
 You can set up the PUBLIC_URL, such as：
 
 ```json
-...
-"build": "PUBLIC_URL=https://your.url.com/sub node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://your.url.com/sub&& node scripts/build.js",
-...
+  "build": "tsc && vite build --base=https://your.url.com/sub ",
 ```
 
-
-
-## Project Template
-
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|Vite Template(v3.5.1+)|`omi init-vite my-app`| Basic omi template with vite.|
-|Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
-|Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 

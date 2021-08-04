@@ -1,0 +1,82 @@
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid;
+  border-radius: .25rem;
+  background-color: #fff;
+  border-color: #d8dbe0;
+}
+
+.card[class^=bg-],
+.card[class*=" bg-"] {
+  border-color: rgba(0, 0, 0, .125);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.text-white {
+  color: #fff;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.card-body {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.pb-0,
+.py-0 {
+  padding-bottom: 0 !important;
+}
+
+.ml-3,
+.mx-3,
+html:not([dir=rtl]) .mfs-3 {
+  margin-left: 1rem !important;
+}
+
+.mr-3,
+.mx-3 {
+  margin-right: 1rem !important;
+}
+
+.mt-3,
+.my-3 {
+  margin-top: 1rem !important;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.text-value-lg {
+  font-size: 1.3125rem;
+}
+
+[class^=text-value] {
+  font-weight: 600;
+}

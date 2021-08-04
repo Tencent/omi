@@ -1,0 +1,24 @@
+{
+  "name": "hotbox",
+  "version": "1.0.15",
+  "main": [
+    "hotbox.js",
+    "hotbox.css"
+  ],
+  "keywords": [
+    "hotbox",
+    "html5",
+    "javascript",
+    "ui"
+  ],
+  "ignore": [
+    ".gitignore",
+    ".jscsrc",
+    ".jshintrc",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "seajs": "~2.3.0"
+  }
+}

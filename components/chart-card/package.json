@@ -1,0 +1,37 @@
+{
+  "name": "@omiu/chart-card",
+  "version": "0.0.7",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "start": "yarn watch & vite",
+    "build": "vite build && yarn build:scss",
+    "build:demo": "vite build",
+    "build:scss": "sass src/index.scss src/index.css",
+    "watch": "sass --watch src/index.scss src/index.css --no-source-map"
+  },
+  "dependencies": {
+    "@omiu/chart": "^0.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.7",
+    "node-watch": "^0.7.1",
+    "omi": "^6.19.23",
+    "sass": "^1.36.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.3"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "omiu",
+    "cascader"
+  ]
+}

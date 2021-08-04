@@ -1,6 +1,6 @@
 {
   "name": "@omiu/toast",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "description": "Pop up prompt box.",
   "docsExtend": {
     "cnName": "弹出式提示",
@@ -96,6 +96,8 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/loading": "0.0.2",
+    "@omiu/transition": "^0.0.12",
     "omi": "latest"
   }
 }

@@ -1,0 +1,120 @@
+@import "@omiu/common/theme.scss";
+
+.o-input-number{
+  display: inline-block;
+  height: auto;
+  width: auto; 
+}
+
+// 禁用状态
+.o-input-number.is-disabled .o-input,
+.o-input-number.is-disabled:hover .o-input
+{
+  background-color: #F5F7FA;
+  border-color: #E4E7ED;
+  color: #C0C4CC;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.o-input-number.is-disabled .o-button,
+.o-input-number.is-disabled:hover .o-button{
+  background-color: #F5F7FA;
+  border-color: #E4E7ED;
+  color: #C0C4CC;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.o-input-number.is-disabled{
+  cursor: not-allowed;
+}
+.o-button ,.o-input{
+  // display: inline-block;
+  float: left;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  vertical-align: top;
+}
+.o-button{
+  background-color:#f3faf1;
+}
+.o-button-medium {
+    padding: 10px 12px;
+    padding-top: 0.01em;
+    font-size: 22px;
+    height: 38px;
+    line-height: 38px;
+    width: 42px;
+}
+.o-button-small {
+    padding: 9px 10px;
+    padding-top: 0.01em;
+    font-size: 20px;
+    height: 32px;
+    line-height: 32px;
+    width: 35px;
+  }
+.o-button-mini {
+    padding: 7px 8px;
+    padding-top: 0.01em;
+    font-size: 17px;
+    height: 28px;
+    line-height: 28px;
+    width:30px;
+}
+.o-button-right{
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border-left: 0;
+}
+.o-button-left{
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  border-right: 0;
+}
+.o-input-number:hover .o-input{
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
+  border-top-color: $o-primary;
+  border-top-color: var(--o-primary, $o-primary);
+  border-bottom-color: $o-primary;
+  border-bottom-color: var(--o-primary, $o-primary);
+}
+.o-input-number:hover .o-button{
+    background-color: $o-primary-fade-lot;
+    background-color: var(--o-primary-fade-lot, $o-primary-fade-lot);
+    color: $o-primary;
+    color: var(--o-primary, $o-primary);
+    border-color: $o-primary;
+    border-color: var(--o-primary, $o-primary);
+}
+.o-input-medium {
+    padding: 10px 12px;
+    font-size: 18px;
+    height: 38px;
+    line-height: 38px;
+    width: 86px;
+  }
+.o-input-small {
+    padding: 9px 10px;
+    font-size: 16px;
+    height: 32px;
+    line-height: 32px;
+    width: 73px;
+  }
+.o-input-mini {
+    padding: 7px 8px;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    width: 64px;
+}

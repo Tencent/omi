@@ -20,7 +20,7 @@ import '../toptip-panel'
 import '../selection-panel'
 import '../switch-panel'
 import '../slider-panel'
-import route from 'omi-router'
+import { route } from 'omi-router'
 
 define('my-app', class extends WeElement {
 
@@ -162,7 +162,7 @@ define('my-app', class extends WeElement {
                 </div>
               </li>
               <li class={data.visible.layout && 'js_show'}>
-                <div class="weui-flex js_category"  onClick={this.clickLayout}>
+                <div class="weui-flex js_category" onClick={this.clickLayout}>
                   <p class="weui-flex__item">基础组件</p>
                   <img src={iconNavLayout} alt="" />
                 </div>

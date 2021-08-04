@@ -4,6 +4,9 @@ import options from './options'
 const storeHelpers = ['use', 'useSelf']
 
 export function define(name, ctor, config) {
+  if (customElements.get(name)) {
+    return
+  }
   if (options.mapping[name]) {
     return
   }

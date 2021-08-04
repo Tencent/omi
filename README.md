@@ -76,6 +76,9 @@ export default class Button extends WeElement<Props>{
 
 > Cross-Frameworks and [Cross-Themes](https://tencent.github.io/omi/components/docs/#/theme?index=0&subIndex=1) UI Components powered by Omi
 
+> [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
+
+
 | **Name**         | **Status**         | **Example**            | **Docs** |
 | -------------- | ----------|----------- | ----------------|
 | [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
@@ -267,40 +270,39 @@ export default class Button extends WeElement<Props>{
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-docs](https://tencent.github.io/omi/site/docs/index.html) and [codepen](https://codepen.io/collection/DrMYgV/) and [webcomponents.dev](https://webcomponents.dev/)| Omi official documents |
+| [omi-docs](https://tencent.github.io/omi/site/docs/index.html) and [codepen](https://codepen.io/collection/DrMYgV/) | Omi official documents |
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ Other Templates](https://github.com/omijs) |
-| [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template)|
 |[CEE](https://omijs.github.io/cee/out/)| Fork from custom-elements-everywhere |
 
 #### :snake:Snake MVP 
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/omi-snake/build/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
-| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5 |
-| [Preact-snake](https://github.com/Tencent/omi/tree/master/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| The Snake-Eating Game Based on MVP Architecture Written by Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/master/packages/preact-css) + Omis |
-| [[P]react-snake](https://github.com/Tencent/omi/tree/master/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| The Snake-Eating Game Based on MVP Architecture Written by React/Preact |
-| [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix-snake) | The Snake-Eating Game Based on MVP Architecture Written by Omix  |
+| [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/omi-snake/dist/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
+| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5 |
+| [Preact-snake](https://github.com/Tencent/omi/tree/v6/packages/preact-css/examples/snake) | The Snake-Eating Game Based on MVP Architecture Written by Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/v6/packages/preact-css) + Omis |
+| [[P]react-snake](https://github.com/Tencent/omi/tree/v6/packages/react-snake) | The Snake-Eating Game Based on MVP Architecture Written by React/Preact |
+| [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/v6/packages/omix-snake) | 小程序贪吃蛇  |
 
 #### :books:Other 
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
-| [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
+| [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
+| [omi-chart](https://github.com/Tencent/omi/tree/v6/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| Static Site Generator with markdown powered by Omio.|
-| [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Useful Omi snippets that you can understand in 30 seconds.|
-| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Perfect fusion of web components, jsx and canvas.|
+| [omi-30-seconds](https://github.com/Tencent/omi/tree/v6/packages/omi-30-seconds)| Useful Omi snippets that you can understand in 30 seconds.|
+| [omi-canvas](https://github.com/Tencent/omi/tree/v6/packages/omi-canvas)| Perfect fusion of web components, jsx and canvas.|
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
 | [omi-vscode](https://github.com/ZainChen/omi-vscode)| VSCode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
-| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js extension(TypeScript) |
-| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
-| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
-| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
-| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
+| [omi-ex](https://github.com/Tencent/omi/tree/v6/packages/omi-ex)| Omi.js extension(TypeScript) |
+| [omi-transform](https://github.com/Tencent/omi/tree/v6/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
+| [omi-finger](https://github.com/Tencent/omi/tree/v6/packages/omi-finger)|Support touch and gesture events in your Omi project.|
+| [omi-touch](https://github.com/Tencent/omi/tree/v6/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
+| [omi-native](https://github.com/Tencent/omi/tree/v6/packages/omi-native)|Render web components to native|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
-| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 | [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
 | [omi-cv](https://github.com/Wscats/CV) |Create a front-end engineer curriculum vitae, [Get Started!](http://wscats.github.io/CV/omi/build/index.html)|
 | [Soo](https://github.com/tonis2/Soo)| Has same API as omi but is great alternative if you want to create custom elements without JSX, virtual DOM and store |
@@ -314,11 +316,6 @@ export default class Button extends WeElement<Props>{
 - Stateless View Architecture Design
 - Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'false'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - [Easy two way binding by extend api](https://codepen.io/omijs/pen/aeLYjx)
-- Supports TypeScript
-- Reactive data-binding
-- [Native tap event support](https://github.com/Tencent/omi/releases/tag/v4.0.24)
-- Having Cross-frameworks UI components - [omim](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-- Excellent compatibility(IE8+) with [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) base on **750** screen width
 - Compliance with browser trend and API design
 - Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/), [**JSX**](https://reactjs.org/docs/introducing-jsx.html) into one framework
@@ -327,7 +324,6 @@ export default class Button extends WeElement<Props>{
 - Look at [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi **combines their advantages** and gives developers the **freedom to choose the way they like**
 - **Shadow DOM or Light DOM merges with Virtual DOM**, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster
 - **Scoped CSS**'s best solution is [**Shadow DOM**](https://developers.google.com/web/fundamentals/web-components/shadowdom), the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique `className` `filename-classname-hash`, such as CSS Modules, Vue), are hack technologies; _and Shadow DOM Style is the perfect solution_.
-- The original **Path Updating** **store system**. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`,It will automatically update UI partially when data is changed
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
@@ -371,7 +367,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
 - [Useful Resources](#useful-resources)
-- [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
   - [Install](#install)
   - [Project Template](#project-template)
@@ -384,76 +379,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 - [Maintainers](#maintainers)
 - [Thanks](#thanks)
 - [License](#license)
-
-## Add Omi in One Minute
-
-This page demonstrates using Omi **with no build tooling**,  directly run in the browser.
-
-- [→ Online Demo!](https://codepen.io/omijs/pen/PMZWNb)
-
-```html
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Omi demo without transpiler</title>
-</head>
-
-<body>
-  <script src="https://unpkg.com/omi"></script>
-  <script>
-    const { define, render, h } = Omi
-
-    class Store {
-      data = {
-        count: 1
-      }
-      sub = () => {
-        this.data.count--
-      }
-      add = () => {
-        this.data.count++
-      }
-    }
-
-    define('my-counter', _ => (
-      h(h.f, null,
-        h('button', {
-          onClick: _.store.sub
-        }, '-'),
-        h('span', null, _.store.data.count),
-        h('button', {
-          onClick: _.store.add
-        }, '+')
-      )
-    ), {
-      use: ['count'],
-      //or using useSelf, useSelf will update self only, exclude children components
-      //useSelf: ['count'],
-      css: `span { color: red; }`,
-      installed() {
-        console.log('installed')
-      }
-    })
-
-    render(h('my-counter'), 'body', new Store)
-
-  </script>
-</body>
-
-</html>
-```
-
-Omi Store provides a way to pass data through the component tree without having to pass props down manually at every level, injected from the root component and shared across all subcomponents. It's very simple to use:
-
-You can also use `my-counter` tag directly in HTML：
-
-```jsx
-<body>
-  <my-counter></my-counter>
-</body>
-```
-
 
 ## Getting Started
 
@@ -503,24 +428,12 @@ You can set up the PUBLIC_URL, such as：
 ...
 ```
 
-#### Switch omi, omio and reomi
 
-Add or remove the alias config in package.json to switch omi and omio：
-
-```js
-"alias": {
-  "omi": "omio"
-}
-```
-    
 ### Project Template
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
-|Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
+|Base Template|`omi init my-app`| Basic omi project template.|
 |Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
 
 ### Hello Element
@@ -799,7 +712,6 @@ For example, the below is about migration React button as weui Omi button:
 
 ## Browsers Support
 
-> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - Omi for old browsers(IE8+)
 
 Omi works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
@@ -849,32 +761,6 @@ npm run test
 Any form of contribution is welcome. The above contributors have been officially released by Tencent.
 
 We very much welcome developers to contribute to Tencent's open source, and we will also give them incentives to acknowledge and thank them. Here we provide an official description of Tencent's open source contribution. Specific contribution rules for each project are formulated by the project team. Developers can choose the appropriate project and participate according to the corresponding rules. The Tencent Project Management Committee will report regularly to qualified contributors and awards will be issued by the official contact.
-
-
-## Design philosophy
-
-The Omi design was driven by The Zen of Python, by Tim Peters philosophy:
-
-* Beautiful is better than ugly.
-* Explicit is better than implicit.
-* Simple is better than complex.
-* Complex is better than complicated.
-* Flat is better than nested.
-* Sparse is better than dense.
-* Readability counts.
-* Special cases aren't special enough to break the rules.
-* Although practicality beats purity.
-* Errors should never pass silently.
-* Unless explicitly silenced.
-* In the face of ambiguity, refuse the temptation to guess.
-* There should be one—and preferably only one—obvious way to do it.
-* Although that way may not be obvious at first unless you're Dutch.
-* Now is better than never.
-* Although never is often better than right now.
-* If the implementation is hard to explain, it's a bad idea.
-* If the implementation is easy to explain, it may be a good idea.
-* Namespaces are one honking great idea—let's do more of those!
-
 
 ## Core Maintainers
 

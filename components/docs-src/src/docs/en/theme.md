@@ -42,6 +42,5 @@ or
 
 ```js
 Omiu.setThemePrimary('green')
-Omiu.setThemeError('red')
 ```
 

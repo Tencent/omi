@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import '@omiu/checkbox';
+import '@omiu/input';
 interface Props {
     dataSource: any[];
     columns: object;
@@ -7,6 +8,11 @@ interface Props {
     border: boolean;
     stripe: boolean;
     compact: boolean;
+    width: string;
+    height: string;
+    fixedTop: boolean;
+    fixedRight: boolean;
+    fixedLeftCount: number;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
@@ -17,6 +23,9 @@ export default class Table extends WeElement<Props> {
         border: boolean;
         stripe: boolean;
         compact: boolean;
+        fixedTop: boolean;
+        fixedRight: boolean;
+        fixedLeftCount: number;
     };
     static propTypes: {
         dataSource: ObjectConstructor;
@@ -25,8 +34,14 @@ export default class Table extends WeElement<Props> {
         border: BooleanConstructor;
         stripe: BooleanConstructor;
         compact: BooleanConstructor;
+        width: StringConstructor;
+        height: StringConstructor;
+        fixedTop: BooleanConstructor;
+        fixedRight: BooleanConstructor;
+        fixedLeftCount: NumberConstructor;
     };
-    removeItem: (item: any) => void;
+    deleteRow: (item: any) => void;
+    deleteRowById(id: any): Promise<void>;
     _changeHandlerTh: (e: any, item: any) => void;
     _changeHandlerTd: (e: any, item: any) => void;
     _getCheckedState(): {
@@ -42,6 +57,12 @@ export default class Table extends WeElement<Props> {
         indeterminate?: undefined;
         unchecked?: undefined;
     };
+    installed(): void;
+    onChange: (evt: any, item: any, column: any) => void;
+    updated(): void;
+    setFixedLeft(): void;
+    setFixedRight(): void;
+    onTdClick: (item: any, column: any, evt: any) => void;
     render(props: any): JSX.Element;
 }
 export {};

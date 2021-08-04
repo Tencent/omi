@@ -7,7 +7,7 @@ $ npm start            # develop
 $ npm run build        # release
 ```
 
-Directory description:
+<!-- Directory description:
 
 ```
 ├─ config
@@ -19,16 +19,17 @@ Directory description:
 │  ├─ store       //Store all this store of pages
 │  ├─ admin.js    //Entry js of compiler，will build to admin.html
 │  └─ index.js    //Entry js of compiler，will build to index.html
-```
+``` -->
 
 ## Project Template
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Vite Template(v3.5.1+)|`omi init-vite my-app`| Basic omi template with vite.|
-|Base Template(v3.3.0+)|`omi init my-app`| Basic omi project template.|
+|Base Template(v3.6.0+)|`omi init my-app`| Basic omi template with vite|
+
+<!-- |Base Template(v3.3.0+)|`omi init my-app`| Basic omi project template.|
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic omi template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
+|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.| -->
 
 
 # License

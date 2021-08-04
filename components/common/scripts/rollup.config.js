@@ -1,7 +1,8 @@
-import nodeResolve from "rollup-plugin-node-resolve";
+import nodeResolve from "@rollup/plugin-node-resolve";
+
+import typescript from '@rollup/plugin-typescript';
 
 import commonjs from '@rollup/plugin-commonjs';
-
 const license = require("rollup-plugin-license");
 const pkg = require("../package.json");
 const licensePlugin = license({
@@ -9,18 +10,19 @@ const licensePlugin = license({
 });
 
 export default {
-  input: "./src/index.esm.js",
+  input: "src/index.ts",
   output: {
-    format: "umd",
-    file: "./src/index.js",
+    format: "es",
+    file: "./src/index.esm.js",
     name: pkg.name,
     sourcemap: true,
     strict: true
   },
   plugins: [
     nodeResolve({
-    	main: true
+      main: true
     }),
+    typescript(),
     commonjs(),
 
     licensePlugin

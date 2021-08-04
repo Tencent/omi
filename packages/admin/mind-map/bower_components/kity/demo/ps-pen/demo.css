@@ -1,0 +1,40 @@
+/*
+ * PS钢笔工具
+ **/
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #eee;
+}
+
+.box {
+    width: 960px;
+    height: 450px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -450px;
+    border: 1px solid #c2c2c2;
+}
+
+.sidebar {
+    width: 60px;
+    height: 100%;
+    float: left;
+    background: #2d2d2d;
+}
+
+.canvas-area {
+    width: 900px;
+    height: 100%;
+    margin-left: 60px;
+}
+
+.kity-container {
+    width: 900px;
+    height: 450px;
+    background: #fff;
+}

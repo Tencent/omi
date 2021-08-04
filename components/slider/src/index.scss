@@ -1,0 +1,178 @@
+@use 'sass:math';
+
+@import '@omiu/common/theme.scss';
+
+// excess height to improve interactive area / accessibility
+$thumb-height: 31.25px;
+$track-height: 12.5px;
+
+// colours
+$upper-color: $o-surface;
+$lower-color: $o-primary;
+$thumb-color: $o-primary;
+
+$shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+@mixin thumb {
+  position: relative;
+  height: $thumb-height;
+  width: $thumb-height;
+  background-color: $thumb-color;
+  transition: background-color 150ms;
+  box-shadow: $shadow;
+  top: 50%;
+  margin-top: ($thumb-height / -2) - 2;
+  pointer-events: auto;
+  z-index: 2;
+
+  &:hover,
+  &:focus {
+    background-color: $o-primary-active;
+  }
+}
+
+@mixin thumb-disabled {
+  @include thumb;
+  pointer-events: none;
+  cursor: none;
+  background-color: #c0c4cc;
+}
+
+@mixin thumb-round {
+  outline-offset: -10px;
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    outline-offset: -12px;
+  }
+}
+
+@mixin track {
+  width: 100%;
+  position: relative;
+  margin: 5px;
+  height: $track-height;
+  background-color: $o-surface;
+  box-shadow: $shadow;
+  border: 2px solid $o-primary;
+  transition: background-color 200ms;
+}
+
+:host {
+  display: -ms-grid;
+  display: grid;
+}
+
+//===============================base-slider=========================================
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 50px;
+}
+
+.slider-container .slider-track {
+  @include track; // width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  outline: none;
+  margin: auto;
+  z-index: -1;
+}
+
+.slider-container .o-slider {
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1;
+  pointer-events: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  //*--------------track-----------------
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: $track-height;
+  }
+
+  &::-moz-range-track {
+    -moz-appearance: none;
+    height: $track-height;
+  }
+
+  &::-ms-track {
+    appearance: none;
+    height: $track-height;
+  }
+  //*--------------thumb-----------------
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+  }
+  &::-moz-range-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb;
+    appearance: none;
+  }
+}
+
+//===============================round-slider=========================================
+
+.is-round .slider-track {
+  border-radius: 8px;
+}
+
+.is-round .o-slider {
+  &::-webkit-slider-thumb {
+    @include thumb-round;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb-round;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb-round;
+    appearance: none;
+  }
+}
+
+//===============================disabled-slider=========================================
+
+.is-disabled .slider-track {
+  border-color: #c0c4cc;
+}
+
+.is-disabled .o-slider {
+  &::-webkit-slider-thumb {
+    @include thumb-disabled;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb-disabled;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb-disabled;
+    appearance: none;
+  }
+}
+
+.is-vertical {
+  transform: rotate(-90deg);
+}

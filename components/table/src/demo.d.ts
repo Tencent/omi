@@ -18,21 +18,35 @@ export default class Table extends WeElement {
     })[];
     columns: ({
         title: string;
+        width: string;
         render: (item: any) => JSX.Element;
         key?: undefined;
+        editable?: undefined;
         align?: undefined;
     } | {
         title: string;
         key: string;
+        width: string;
+        editable: boolean;
+        render?: undefined;
+        align?: undefined;
+    } | {
+        title: string;
+        key: string;
+        editable: boolean;
+        width?: undefined;
         render?: undefined;
         align?: undefined;
     } | {
         title: string;
         align: string;
         render: (item: any) => JSX.Element;
+        width?: undefined;
         key?: undefined;
+        editable?: undefined;
     })[];
-    onClick: (evt: any) => void;
-    deleteItemById(id: any): void;
+    onEditClick: (evt: any) => void;
+    onDeleteClick: (evt: any) => void;
+    table: any;
     render(props: any): JSX.Element;
 }

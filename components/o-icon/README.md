@@ -20,7 +20,7 @@ Or use script tag to ref it.
 ## Usage
 
 ```html
-<o-o-icon></o-o-icon>
+<o-icon></o-icon>
 ```
 
 ## API

@@ -1,51 +1,104 @@
-import { WeElement, render, h, options, tag } from 'omi'
-
-options.ignoreAttrs = true
+import { WeElement, h, tag } from 'omi'
 
 import '../index.css'
 
 import '@omiu/button'
+import '@omiu/tabs'
 
-import '../components/admin-header'
-import '../components/admin-left-panel'
+import './components/layout-header'
+import './components/layout-left-panel'
 
 import { tw, sheet } from 'omi-twind'
 
-interface Props {
-
-}
-
+interface Props { }
 
 const tagName = 'basic-layout'
 declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            [tagName]: Omi.Props & Props
-        }
+  namespace JSX {
+    interface IntrinsicElements {
+      [tagName]: Omi.Props & Props
     }
+  }
 }
-
 
 @tag(tagName)
 export default class extends WeElement {
-
-    static css = sheet.target
-
-    render(props) {
-        return (
-            <div >
-                <admin-header class={tw`h-12 block`}></admin-header>
-
-                <div class={tw`flex flex-row`}>
-                    <admin-left-panel class={tw`w-64`}></admin-left-panel>
-                    <admin-main class={tw`flex-1`}>
-                        <slot></slot>
-                    </admin-main>
-                </div>
-
-            </div>
-        )
-    }
+  static css = [
+    sheet.target,
+    `
+.is-closed{
+  width: 0;
+  transform: translateX(-100%);
 }
+`
+  ]
 
+  store
 
+  onChange = (evt) => {
+    const tab = this.store.tabs.find((tab) => tab.id === evt.detail.tab.id)
+    this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+    this.store.selectTreeNodeById(evt.detail.tab.id)
+    location.hash = evt.detail.tab.href
+  }
+
+  onRemove = (evt) => {
+    let index = evt.detail.index
+    if (this.store.tabsActiveIndex === evt.detail.index) {
+      index = index - 1
+      if (index < 0) index = 0
+      this.store.tabsActiveIndex = index
+    } else if (this.store.tabsActiveIndex > index) {
+      this.store.tabsActiveIndex -= 1
+    }
+
+    const tab = this.store.tabs[this.store.tabsActiveIndex]
+
+    this.store.selectTreeNodeById(tab.id)
+
+    location.hash = tab.href
+  }
+
+  installed() {
+    this.store.ui.baseLayout = this
+
+    window.addEventListener('resize', () => {
+      this.update()
+    })
+  }
+
+  getMainContentWidth() {
+    return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
+  }
+
+  render() {
+    return (
+      <h.f>
+        <layout-header class={tw`h-12 block`}></layout-header>
+
+        <div class={tw`flex flex-row`}>
+          <layout-left-panel
+            class={tw`${this.store.isLeftPanelClosed ? 'sm:w-0 -translate-x-full' : 'sm:w-64 w-3/4 translate-x-0'
+              } flex-none overflow-x-hidden overflow-y-auto bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
+          ></layout-left-panel>
+          <layout-container class={tw`flex-1 flex-grow`}>
+            <div class={tw`overflow-auto`} style={{ width: this.getMainContentWidth() }}>
+              <o-tabs
+                closable
+                type="card"
+                list={this.store.tabs}
+                onchange={this.onChange}
+                onremove={this.onRemove}
+                active-index={this.store.tabsActiveIndex}
+              ></o-tabs>
+            </div>
+
+            <div style={{ height: 'calc(100vh - 90px)', width: this.getMainContentWidth() }} class={tw`overflow-auto`}>
+              <slot></slot>
+            </div>
+          </layout-container>
+        </div>
+      </h.f>
+    )
+  }
+}

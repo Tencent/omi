@@ -6,6 +6,7 @@ import '@omiu/icon/close-rounded';
 interface Props {
     type?: 'line' | 'circle';
     percent?: number;
+
     status?: 'success' | 'error' | 'active';
     strokeColor?: string;
     trailColor?: string;
@@ -13,6 +14,7 @@ interface Props {
     strokeWidth?: number;
     width?: number;
     showInfo?: boolean;
+
 }
 export default class extends WeElement<Props> {
     static css: any;
@@ -22,10 +24,12 @@ export default class extends WeElement<Props> {
         status: any;
         strokeColor: any;
         trailColor: any;
+
         textColor: any;
         strokeWidth: any;
         width: any;
         showInfo: boolean;
+
     };
     static propTypes: {
         type: StringConstructor;
@@ -33,10 +37,12 @@ export default class extends WeElement<Props> {
         status: StringConstructor;
         strokeColor: StringConstructor;
         trailColor: StringConstructor;
+
         textColor: StringConstructor;
         strokeWidth: NumberConstructor;
         width: NumberConstructor;
         showInfo: BooleanConstructor;
+
     };
     _state: any;
     setPercent: object;

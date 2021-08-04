@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="使用 Kity 模拟三体运动">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="techird@qq.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>三体运动</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) {
+            var kity = require('kity');
+
+            var Draggable = require('../demo/public/draggable');
+
+            kity.extendClass( kity.Paper, Draggable );
+        });
+    </script>
+    <script>
+        // 启动 Demo 模块
+        seajs.use('demo');
+    </script>
+    <!-- dev end -->
+
+    <!-- 生产使用中可以直接引用发布压缩的版本 -->
+    <!-- production start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <!-- <script src="../dist/kity.min.js"></script> -->
+    <!-- production end -->
+
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock" style="width: 100%; height: 100%; position: absolute;"></div>
+</body>
+<script>
+
+var G = 6.67e-11;
+var SUN_MASS = 1.99e30; // KG
+var EARTH_MASS = 5.97e24; // KG
+var R_SUN_EARTH = 1.52e11; // meter
+
+// 绘图画布
+var paper = new kity.Paper('clock').pipe(function() {
+    this.setWidth('100%').setHeight('100%');
+    this.setViewBox(-500, -500, 1000, 1000);
+    this.setStyle('background', 'black');
+}).drag();
+
+var Body = kity.createClass('Body', {
+    base: kity.Group,
+
+    constructor: function() {
+        this.callBase();
+        this.shift = new kity.Vector();
+        this.velocity = new kity.Vector();
+        this.force = new kity.Vector();
+        this.mass = 1;
+        this.size = 5;
+        this.draw();
+    },
+
+    draw: function() {
+        return this.addShape(new kity.Circle(this.size).fill('white'));
+    }
+});
+
+var ZERO = 1e-3;
+
+var bodies;
+
+function randomVector(min, max) {
+    return new kity.Vector(min + Math.random() * (max - min), min + Math.random() * (max - min));
+}
+
+function randomize() {
+    bodies.forEach(function(body) {
+        body.shift = randomVector(-300, 300);
+        body.velocity = randomVector(-100, 100);
+        body.mass = 10 * Math.random();
+        body.size = 2 + body.mass;
+    });
+}
+
+function collision(a, b) {
+
+    if (a.velocity.length() <= ZERO && b.velocity.length() <= ZERO) return false;
+
+    // a connect from a to b
+    var connect = kity.Vector.fromPoints(a.shift, b.shift);
+
+    // v projection on the connect
+    var avc = a.velocity.project(connect),
+        bvc = b.velocity.project(connect);
+
+    // v delta on the connect
+    var dvc = avc.minus(bvc);
+
+    // should check the dcv same direction with the connect
+    // and the two ball is close enougth
+    if (dvc.dot(connect) > 0 && connect.length() - a.size - b.size <= ZERO) {
+
+        var normal = connect.vertical();
+
+        var avn = a.velocity.project(normal),
+            bvn = b.velocity.project(normal);
+
+        // 连线方向速度交换，垂直方向速度不变
+        var factor = 1;
+        a.velocity = avn.add(bvc).multipy(factor);
+        b.velocity = bvn.add(avc).multipy(factor);
+
+        return true;
+    }
+    return false;
+}
+
+G = 30000;
+
+function simulate(frame) {
+    var tick = 100;
+    while (tick--) {
+        bodies.forEach(function(body) {
+            body.force = new kity.Vector();
+            bodies.forEach(function(body2) {
+                if (body2 != body) {
+                    collision(body, body2);
+                    var r = kity.Vector.fromPoints(body.shift, body2.shift);
+                    var f = G * body.mass * body2.mass / (r.square());
+                    body.force = body.force.add(r.normalize(f));
+                }
+            });
+            body.acceleration = body.force.multipy(1 / body.mass);
+            body.velocity = body.velocity.add(body.acceleration.multipy(0.0005));
+            body.shift = body.shift.add(body.velocity.multipy(0.0005));
+        });
+    }
+    bodies.forEach(function(body) {
+        body.setTranslate(body.shift);
+        body.getShape(0).setRadius(body.size);
+    });
+    frame.next();
+}
+
+function init() {
+    bodies = [new Body(), new Body(), new Body(), new Body(), new Body(), new Body(), new Body()];
+    paper.addShapes(bodies);
+    paper.on('dblclick', randomize);
+    randomize();
+    kity.requestFrame(simulate);
+}
+
+function triple() {
+
+    var a = bodies[0],
+        b = bodies[1],
+        c = bodies[2];
+    a.mass = b.mass = 500;
+    a.size = b.size = 5;
+    a.shift = new kity.Vector(0, 200);
+    b.shift = new kity.Vector(0, -200);
+    a.velocity = new kity.Vector(100, 0);
+    b.velocity = new kity.Vector(-100, 0);
+
+    c.mass = 0;
+    c.shift = new kity.Vector(10000, 100000);
+}
+
+function triangle() {
+    var a = bodies[0],
+        b = bodies[1],
+        c = bodies[2];
+    a.mass = b.mass = c.mass = 1050;
+    a.size = b.size = c.size = 5;
+    a.shift = kity.Vector.fromPolar(200, 0);
+    b.shift = kity.Vector.fromPolar(200, 120);
+    c.shift = kity.Vector.fromPolar(200, 240);
+    a.velocity = kity.Vector.fromPolar(300, 60);
+    b.velocity = kity.Vector.fromPolar(300, 180);
+    c.velocity = kity.Vector.fromPolar(300, 300);
+}
+
+init();
+
+</script>
+</html>

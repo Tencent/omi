@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="Kity 数据可视化 Demo">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>数据可视化</title>
+
+    <script src="../../dist/kity.min.js"></script>
+
+    <script src="lib/quo.js"></script>
+    <script src="charts/pie.js"></script>
+    <script src="charts/view.js"></script>
+    <script src="charts/scatter-diagram.js"></script>
+    <script src="charts/line-chart.js"></script>
+    <script src="charts/chinamap.js"></script>
+    <script src="charts/ubp-map.js"></script>
+    <script src="charts/poly-chart.js"></script>
+    <script src="charts/gender-chart.js"></script>
+    <script src="test/data.test.js"></script>
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <!--允许全屏-->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!--禁止电话号码和邮箱识别-->
+    <meta content="telephone=no,email=no" name="format-detection"/>
+ 
+    <!--TODO:添加一个ios用的icon-->
+    <link rel="apple-touch-icon-precomposed" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="Shortcut Icon" href="favicon-precomposed.png" type="image/x-icon"/>
+</head>
+<body>
+    <div class="chart-area-min" id="c1">
+        
+    </div>
+    <div class="chart-area-min" id="c2">
+        
+    </div>
+    <div class="chart-area-min" id="c3">
+        
+    </div>
+    <div class="chart-area-min">
+        <div id="c4" class="quarter"></div>
+        <div id="c5" class="quarter"></div>
+        <div id="c6" class="quarter"></div>
+        <div id="c7" class="quarter"></div>
+    </div>
+</body>
+<script>
+    var scatter = new KCScatterDiagram(dScatter,"c1");
+    var line = new KCLineChart(dLine,"c2");
+    var ubpmap = new KCUbpMap(dMap,"c3");
+    var genderchart = new KCGenderChart(genderData,"c4");
+    var genderchart = new KCGenderChart(genderData2,"c5");
+    var poly = new KCPolyChart(dPoly, "c6", "haier");
+    var poly2 = new KCPolyChart(dPoly, "c7", "siemens");
+</script>
+</html>

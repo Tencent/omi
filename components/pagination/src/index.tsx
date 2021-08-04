@@ -56,8 +56,9 @@ export default class Pagination extends WeElement<Props> {
   }
 
   goto(index) {
-    this.props.currentPage = index
-    this.forceUpdate()
+    this.updateProps({
+      currentPage: index
+    })
     this.fire('change', index)
 
   }
@@ -93,13 +94,15 @@ export default class Pagination extends WeElement<Props> {
 
     return (
       <div {...extractClass(props, 'o-pagination is-background')}>
-        {props.prevShow && this.getPrev()}{' '}
+
         <ul class="o-pager">
+          <li key="prev"> {props.prevShow && this.getPrev()}{' '}</li>
           {arr.map(p => {
             return p
           })}
+          <li key="next"> {props.nextShow && this.getNext()}</li>
         </ul>{' '}
-        {props.nextShow && this.getNext()}
+
       </div>
     )
   }
@@ -204,7 +207,7 @@ export default class Pagination extends WeElement<Props> {
 
   getItem(pageIndex, text) {
     if (this.props.currentPage === pageIndex) {
-      return <li class="number active">{text}</li>
+      return <li class="number active"><button>{text}</button></li>
     }
     return (
       <li
@@ -213,7 +216,7 @@ export default class Pagination extends WeElement<Props> {
           this.goto(pageIndex)
         }}
       >
-        {text}
+        <button  >{text}</button>
       </li>
     )
   }

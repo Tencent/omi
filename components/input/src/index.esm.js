@@ -1,5 +1,5 @@
 /**
- * @omiu/input v0.0.6 http://omijs.org
+ * @omiu/input v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -9,18 +9,18 @@
 import { h, extractClass, tag, WeElement } from 'omi';
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
@@ -479,6 +479,14 @@ var Input = /** @class */ (function (_super) {
     __extends(Input, _super);
     function Input() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._onGetValue = function () {
+            return _this.__$value;
+        };
+        _this._onSetValue = function (value) {
+            _this.__$value = value;
+            _this.props.value = value;
+            _this.setAttribute('value', value);
+        };
         _this.valueLength = 0;
         _this.handleBlur = function () {
             _this.fire('blur', _this.props.value);
@@ -487,11 +495,13 @@ var Input = /** @class */ (function (_super) {
             _this.fire('focus', _this.props.value);
         };
         _this.handleChange = function (evt) {
+            _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
             _this.fire('change', _this.props.value);
         };
         _this.handleInput = function (evt) {
             evt.stopPropagation();
+            _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
             _this.fire('input', _this.props.value);
             if (_this.props.maxLength) {
@@ -503,9 +513,17 @@ var Input = /** @class */ (function (_super) {
             _this.updateProps({
                 value: ''
             });
+            _this.__$value = '';
         };
         return _this;
     }
+    Input.prototype.install = function () {
+        this.__$value = this.props.value;
+        Object.defineProperty(this, 'value', {
+            get: this._onGetValue,
+            set: this._onSetValue
+        });
+    };
     Input.prototype.focus = function () {
         this.shadowRoot.querySelector('input').focus();
     };
@@ -514,8 +532,9 @@ var Input = /** @class */ (function (_super) {
     };
     Input.prototype.render = function (props) {
         var _a;
-        var type = props.type, size = props.size, suffixIcon = props.suffixIcon, prefixIcon = props.prefixIcon, autoComplete = props.autoComplete, validating = props.validating, onMouseEnter = props.onMouseEnter, onMouseLeave = props.onMouseLeave, trim = props.trim, otherProps = __rest(props, ["type", "size", "suffixIcon", "prefixIcon", "autoComplete", "validating", "onMouseEnter", "onMouseLeave", "trim"]);
+        var type = props.type, size = props.size, suffixIcon = props.suffixIcon, prefixIcon = props.prefixIcon, autoComplete = props.autoComplete; props.validating; var onMouseEnter = props.onMouseEnter, onMouseLeave = props.onMouseLeave; props.trim; var otherProps = __rest(props, ["type", "size", "suffixIcon", "prefixIcon", "autoComplete", "validating", "onMouseEnter", "onMouseLeave", "trim"]);
         this._tempTagName = 'o-icon-' + (suffixIcon || prefixIcon);
+        this._tempInputTagName = type === 'textarea' ? 'textarea' : 'input';
         return (h("div", __assign({}, extractClass(props, 'o-input', (_a = {},
             _a["o-input--" + size] = props.size,
             _a['is-disabled'] = this.props.disabled,
@@ -527,9 +546,9 @@ var Input = /** @class */ (function (_super) {
                 'is-prefix': prefixIcon,
                 'is-suffix': suffixIcon
             }))),
-            h("input", __assign({}, otherProps, { 
+            h(this._tempInputTagName, __assign({}, otherProps, { 
                 // ref="input"
-                type: type, className: "o-input__inner", autocomplete: autoComplete, maxLength: props.maxLength, onChange: this.handleChange, onFocus: this.handleFocus, onBlur: this.handleBlur, onInput: this.handleInput })),
+                type: type, class: "o-" + this._tempInputTagName + "__inner", autocomplete: autoComplete, maxLength: props.maxLength, onChange: this.handleChange, onFocus: this.handleFocus, onBlur: this.handleBlur, onInput: this.handleInput })),
             props.clearable && h("svg", { onClick: this.clearInput, class: "o-icon-clear", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
                 h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })),
             props.maxLength && h("span", { class: "o-input__count" },
@@ -540,6 +559,7 @@ var Input = /** @class */ (function (_super) {
     };
     Input.css = css;
     Input.defaultProps = {
+        value: '',
         type: 'text',
         autosize: false,
         rows: 2,
@@ -557,7 +577,8 @@ var Input = /** @class */ (function (_super) {
         prefixIcon: String,
         maxLength: Number,
         autoComplete: String,
-        block: Boolean
+        block: Boolean,
+        value: String
     };
     Input = __decorate([
         tag('o-input')

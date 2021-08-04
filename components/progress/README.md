@@ -19,6 +19,7 @@ Or use script tag to ref it.
 
 ## API
 
+
 ### Props
 
 ```tsx
@@ -45,10 +46,12 @@ static defaultProps = {
     status: undefined,
     strokeColor: undefined,
     trailColor: undefined,
+
     textColor:undefined,
     strokeWidth: undefined,
     width: undefined,
     showInfo:true
+
   }
   
   const {
@@ -69,27 +72,34 @@ static defaultProps = {
 ![o-progress line display](https://user-images.githubusercontent.com/51355841/128215498-f3648d79-ff60-41c0-a3c0-ee99905908f8.png)
 
 ```html
+
   <div>We can change the percentage by changing the "percent",the default percent is "0". </div>
+
   <o-progress></o-progress>
   <o-progress percent="40"></o-progress>
   <div>We can change the width by changing the "width",the default width is "300". </div>
   <o-progress percent="40"></o-progress><br>
   <o-progress percent="40" width="600"></o-progress>
+
   <div>We can set up a timer and use <code>element.setPercent(percent)</code>method to achieve dynamic effects.</div>
+
 
   <div>We can change the height by changing the "stroke-width",the default width is "8". </div>
   <o-progress percent="50" stroke-width="8"></o-progress>
   <o-progress percent="50" stroke-width="4"></o-progress>
   <o-progress percent="50" stroke-width="16"></o-progress>
   <div>As you can see, instead of providing a fixed size, we choose to provide a custom width and height,
+
     and leave the decision to the user to achieve the desired effect.</div>
   <hr>
   </hr>
+
   <div>We can change the progress color by changing the "stroke-color". </div>
   <o-progress percent="60" stroke-color="lightseagreen"></o-progress>
   <div>We can change the progress trail color by changing the "trail-color". </div>
   <o-progress percent="60" trail-color="black"></o-progress>
   <div>We can change the progress text color by changing the "text-color". </div>
+
   <o-progress percent="60" text-color="red"></o-progress>
   <hr>
   </hr>
@@ -103,6 +113,7 @@ static defaultProps = {
   <div>We use <code>showInfo</code> attr to show icon/text or not.</div>
   <o-progress percent="80" status="error" stroke-width="4" show-info="false"></o-progress>
   <o-progress percent="80" status="success" stroke-width="8" show-info="false"></o-progress>
+
 ```
 ### The circle progress:
 

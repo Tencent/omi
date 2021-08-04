@@ -4,7 +4,7 @@ export as namespace Omi;
 declare namespace Omi {
 	type Callback = (...args: any[]) => void;
 	type Key = string | number;
-	type Ref<T> = (instance: T) => void;
+	type Ref<T> = ((instance: T) => void) | Partial<Record<'current', T>>;
 	type ComponentChild = VNode<any> | object | string | number | boolean | null;
 	type ComponentChildren = ComponentChild[] | ComponentChild;
 
@@ -80,8 +80,6 @@ declare namespace Omi {
 		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
-		use(): any[];
-		useSelf(): any[];
 	}
 
 	interface Component<P> extends HTMLElement {
@@ -95,8 +93,6 @@ declare namespace Omi {
 		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
-		use(): any[];
-		useSelf(): any[];
 	}
 
 	abstract class WeElement<P = {}> {
@@ -104,14 +100,14 @@ declare namespace Omi {
 
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
-		static css: string | CSSStyleSheet;
+		static css: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
 		props: RenderableProps<P>;
 		prevProps: RenderableProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
-		styleSheet: CSSStyleSheet;
+		isInstalled: boolean;
 
 		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
 		forceUpdate?(): void;
@@ -136,14 +132,14 @@ declare namespace Omi {
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
 
-		static css: string | CSSStyleSheet;
+		static css: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
 		props: RenderableProps<P>;
 		prevProps: RenderableProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
-		styleSheet: CSSStyleSheet;
+		isInstalled: boolean;
 
 		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
 		forceUpdate?(): void;
@@ -167,14 +163,20 @@ declare namespace Omi {
 		...children: ComponentChildren[]
 	): VNode<any>;
 
+	namespace h {
+		var f: (props: Props) => VNode<any>;
+	}
+
+	var createElement: typeof h;
+	
+ 	function cloneElement<P>(vnode: VNode<Partial<P>>, props: Partial<P>, ...children: ComponentChildren[]): VNode<Partial<P>>;
+
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 
 	function define(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
 	function defineElement(name: string, ctor: WeElementConstructor, cssStringOrOptions?: string | object): void;
-	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
-	function tick(callback: Callback, scope?: any): void;
-	function nextTick(callback: Callback, scope?: any): void;
-	function observe(target: WeElementConstructor): void;
+	function tag(name: string): (ctor: WeElementConstructor) => void;
+	function createRef<RefType = unknown>(): Partial<Record<'current', RefType>>;
 	function getHost(element: WeElement): WeElement;
 	function classNames(...args: any[]): string;
 	function extractClass(...args: any[]): object;
@@ -186,10 +188,11 @@ declare namespace Omi {
 	function bind(el: HTMLElement, type: string, handler: (event: Event) => any): void;
 	function unbind(el: HTMLElement, type: string): void;
 
+	function rpx(css: string): string;
+
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
-		ignoreAttrs: boolean;
 	};
 
 	//props data center

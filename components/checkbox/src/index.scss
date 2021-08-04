@@ -11,7 +11,8 @@
 .o-checkbox {
   position: relative;
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.87);
+  line-height: 14px;
+  height: 14px;
   white-space: nowrap;
 
   &:hover {
@@ -78,12 +79,12 @@
 .o-checkbox__background,
 .o-checkbox__label {
   display: inline-block;
-  height: 18px;
+  height: 14px;
   vertical-align: middle;
 }
 
 .o-checkbox__background {
-  width: 18px;
+  width: 14px;
 }
 
 .o-checkbox__label {

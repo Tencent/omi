@@ -1,0 +1,12 @@
+.rate {
+  position: absolute;
+  left: 10; 
+}
+
+.rating {
+  text-align: center;
+  margin-top: 120px;
+  position: relative;
+  width: 50%;
+  float: left; 
+}

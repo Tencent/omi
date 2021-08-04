@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="使用 Kity 模仿的 Photoshop 钢笔工具">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>钢笔工具</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) { require('../demo/ps-pen/demo.start'); });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="demo.css">
+    <script src="../../dev-lib/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <div class="box">
+        <div class="sidebar">
+            <button id="penBtn" type="button">笔</button>
+            <button id="modifyBtn" type="button">选</button>
+        </div>
+        <div class="canvas-area">
+            <div id="kityContainer" class="kity-container"></div>
+        </div>
+    </div>
+</body>
+<script>
+    // 启动 Demo 模块
+    seajs.use('demo');
+</script>
+</html>

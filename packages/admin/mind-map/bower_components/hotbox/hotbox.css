@@ -1,0 +1,163 @@
+.hotbox {
+  font-family: Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+.hotbox .state {
+  position: absolute;
+  overflow: visible;
+  display: none;
+}
+.hotbox .state .center .button,
+.hotbox .state .ring .button {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  margin-left: -35px;
+  margin-top: -35px;
+  border-radius: 100%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.hotbox .state .center .label,
+.hotbox .state .ring .label,
+.hotbox .state .center .key,
+.hotbox .state .ring .key {
+  display: block;
+  text-align: center;
+  line-height: 1.4em;
+  vertical-align: middle;
+}
+.hotbox .state .center .label,
+.hotbox .state .ring .label {
+  font-size: 16px;
+  margin-top: 17px;
+  color: black;
+  font-weight: normal;
+  line-height: 1em;
+}
+.hotbox .state .center .key,
+.hotbox .state .ring .key {
+  font-size: 12px;
+  color: #999;
+}
+.hotbox .state .ring-shape {
+  position: absolute;
+  left: -25px;
+  top: -25px;
+  border: 25px solid rgba(0, 0, 0, 0.3);
+  border-radius: 100%;
+  box-sizing: content-box;
+}
+.hotbox .state .top,
+.hotbox .state .bottom {
+  position: absolute;
+  white-space: nowrap;
+}
+.hotbox .state .top .button,
+.hotbox .state .bottom .button {
+  display: inline-block;
+  padding: 8px 15px;
+  margin: 0 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+.hotbox .state .top .button .label,
+.hotbox .state .bottom .button .label {
+  font-size: 14px;
+  line-height: 14px;
+  vertical-align: middle;
+  color: black;
+  line-height: 1em;
+}
+.hotbox .state .top .button .key,
+.hotbox .state .bottom .button .key {
+  font-size: 12px;
+  line-height: 12px;
+  vertical-align: middle;
+  color: #999;
+  margin-left: 3px;
+}
+.hotbox .state .top .button .key:before,
+.hotbox .state .bottom .button .key:before {
+  content: '(';
+}
+.hotbox .state .top .button .key:after,
+.hotbox .state .bottom .button .key:after {
+  content: ')';
+}
+.hotbox .state .button {
+  background: #F9F9F9;
+  overflow: hidden;
+  cursor: default;
+}
+.hotbox .state .button .key,
+.hotbox .state .button .label {
+  opacity: 0.3;
+}
+.hotbox .state .button.enabled {
+  background: white;
+}
+.hotbox .state .button.enabled .key,
+.hotbox .state .button.enabled .label {
+  opacity: 1;
+}
+.hotbox .state .button.enabled:hover {
+  background: #e87372;
+}
+.hotbox .state .button.enabled:hover .label {
+  color: white;
+}
+.hotbox .state .button.enabled:hover .key {
+  color: #fadfdf;
+}
+.hotbox .state .button.enabled.selected {
+  -webkit-animation: selected .1s ease;
+  background: #e45d5c;
+}
+.hotbox .state .button.enabled.selected .label {
+  color: white;
+}
+.hotbox .state .button.enabled.selected .key {
+  color: #fadfdf;
+}
+.hotbox .state .button.enabled.pressed,
+.hotbox .state .button.enabled:active {
+  background: #FF974D;
+}
+.hotbox .state .button.enabled.pressed .label,
+.hotbox .state .button.enabled:active .label {
+  color: white;
+}
+.hotbox .state .button.enabled.pressed .key,
+.hotbox .state .button.enabled:active .key {
+  color: #fff0e6;
+}
+.hotbox .state.active {
+  display: block;
+}
+@-webkit-keyframes selected {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+.hotbox-key-receiver {
+  position: absolute;
+  left: -999999px;
+  top: -999999px;
+  width: 20px;
+  height: 20px;
+  outline: none;
+  margin: 0;
+}
