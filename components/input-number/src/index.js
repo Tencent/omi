@@ -45,7 +45,6 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = require("omi");
 var css = require("./index.scss");
-require("@omiu/input");
 var InputNumber = /** @class */ (function (_super) {
     __extends(InputNumber, _super);
     function InputNumber() {
@@ -64,6 +63,17 @@ var InputNumber = /** @class */ (function (_super) {
             _this.props.value = evt.target.value;
             _this.fire('input', _this.props.value);
             _this.update();
+        };
+        _this.handleChange = function (evt) {
+            _this.__$value = evt.target.value;
+            _this.props.value = evt.target.value;
+            _this.fire('change', _this.props.value);
+        };
+        _this.handleBlur = function () {
+            _this.fire('blur', _this.props.value);
+        };
+        _this.handleFocus = function () {
+            _this.fire('focus', _this.props.value);
         };
         _this.add = function (evt) {
             var value = _this._onGetValue();
@@ -86,19 +96,29 @@ var InputNumber = /** @class */ (function (_super) {
             set: this._onSetValue
         });
     };
+    InputNumber.prototype.focus = function () {
+        this.shadowRoot.querySelector('input').focus();
+    };
+    InputNumber.prototype.blur = function () {
+        this.shadowRoot.querySelector('input').blur();
+    };
     InputNumber.prototype.render = function (props) {
-        var _a, _b;
-        var value = props.value, left = props.left, right = props.right, size = props.size, onMouseEnter = props.onMouseEnter, onMouseLeave = props.onMouseLeave, otherProps = __rest(props, ["value", "left", "right", "size", "onMouseEnter", "onMouseLeave"]);
-        return (omi_1.h("div", { css: "div {\n        font-size:0;\n      }", onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave },
+        var _a, _b, _c;
+        var value = props.value, left = props.left, right = props.right, size = props.size, disabled = props.disabled, otherProps = __rest(props, ["value", "left", "right", "size", "disabled"]);
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'o-input-number', {
+            'is-disabled': this.props.disabled,
+        })),
             omi_1.h("button", __assign({ onClick: this.subtraction }, omi_1.extractClass(props, 'o-button', (_a = {},
                 _a['o-button-' + props.size] = props.size,
                 _a['o-button-' + props.left] = props.left,
                 _a))), "-"),
-            omi_1.h("o-input", { "o-model": "__$value", value: props.value, size: props.size, css: ".o-input input {\n              width: " + props.width + ";\n              text-align:center;\n              border-radius: 0;\n              width:80px;\n            }\n            .o-input__inner {\n              padding-right:5px;\n            }", onInput: this.handleInput }),
-            omi_1.h("button", __assign({ onClick: this.add }, omi_1.extractClass(props, 'o-button', (_b = {},
-                _b['o-button-' + props.size] = props.size,
-                _b['o-button-' + props.right] = props.right,
-                _b))), "+")));
+            omi_1.h("input", __assign({}, omi_1.extractClass(props, 'o-input', (_b = {},
+                _b['o-input-' + props.size] = props.size,
+                _b)), { value: props.value, size: props.size, onInput: this.handleInput, onChange: this.handleChange })),
+            omi_1.h("button", __assign({ onClick: this.add }, omi_1.extractClass(props, 'o-button', (_c = {},
+                _c['o-button-' + props.size] = props.size,
+                _c['o-button-' + props.right] = props.right,
+                _c))), "+")));
     };
     InputNumber.css = css.default;
     InputNumber.defaultProps = {
@@ -106,7 +126,9 @@ var InputNumber = /** @class */ (function (_super) {
         size: 'medium',
         width: 'auto',
         right: 'right',
-        left: 'left'
+        left: 'left',
+        step: 1,
+        stepStrict: false
     };
     InputNumber.propTypes = {
         value: Number,
