@@ -1,5 +1,5 @@
 /**
- * @omiu/slider v0.0.1 http://omijs.org
+ * @omiu/slider v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -241,52 +241,48 @@ var OSlider = /** @class */ (function (_super) {
         _this.sliderMax = _this.props.max;
         _this.handleSliderOne = function (evt) {
             var first_value = parseInt(_this.rootNode.children[0].value);
-            if (first_value <= _this.__$second_value || _this.__$second_value === null) {
+            if (first_value <= _this.props.second_value ||
+                _this.props.range === 'single') {
                 //  if the slider 1 has not exceeded slider2 or it is a single range slider
                 //  assign value straight away
-                _this.__$value = first_value;
+                _this.props.value = first_value;
             }
-            if (_this.__$second_value === null) {
-                _this.fire('change', _this.__$value);
+            if (_this.props.second_value === null) {
+                _this.props.range === 'single';
             }
             else {
-                _this.fire('change', [_this.__$value, _this.__$second_value]);
+                _this.fire('change', [_this.props.value, _this.props.second_value]);
             }
             _this.fillColor();
-            _this.update();
         };
         _this.handleSliderTwo = function (evt) {
             var second_value = parseInt(_this.rootNode.children[1].value);
             //we only have one case if slider two exists
-            if (second_value >= _this.__$value) {
-                _this.__$second_value = second_value;
+            if (second_value >= _this.props.value) {
+                _this.props.second_value = second_value;
             }
-            _this.fire('change', [_this.__$value, _this.__$second_value]);
+            _this.fire('change', [_this.props.value, _this.props.second_value]);
             _this.fillColor();
-            _this.update();
         };
         _this.fillColor = function () {
-            var percent1 = _this.__$second_value !== null ? (_this.__$value / _this.props.max) * 100 : 0;
-            var percent2 = _this.__$second_value !== null
-                ? (_this.__$second_value / _this.props.max) * 100
-                : (_this.__$value / _this.props.max) * 100;
+            var percent1 = _this.props.range === 'double'
+                ? (_this.props.value / _this.props.max) * 100
+                : 0;
+            var percent2 = _this.props.range === 'double'
+                ? (_this.props.second_value / _this.props.max) * 100
+                : (_this.props.value / _this.props.max) * 100;
             var lowerColor = '#07c160';
             var upperColor = '#ffffff';
             if (_this.props.disabled) {
                 lowerColor = '#c0c4cc';
             }
-            _this.__$second_value !== null
+            _this.props.range === 'double'
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
         };
         return _this;
     }
-    OSlider.prototype.install = function () {
-        this.__$value = this.props.value;
-        this.props.range === 'double'
-            ? (this.__$second_value = this.props.second_value)
-            : (this.__$second_value = null);
-    };
+    OSlider.prototype.install = function () { };
     OSlider.prototype.installed = function () {
         this.fillColor();
         this.update();
@@ -301,10 +297,10 @@ var OSlider = /** @class */ (function (_super) {
         return (h("div", __assign({}, cls, { ref: function (e) {
                 _this.rootNode = e;
             } }),
-            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
+            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.props.value, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
                     _this.sliderOne = e;
                 } }),
-            this.__$second_value !== null && (h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+            this.props.range === 'double' && (h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.props.second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
                     _this.sliderTwo = e;
                 } })),
             h("div", { class: "slider-track", ref: function (e) {
