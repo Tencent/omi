@@ -43,9 +43,6 @@ export default class OSlider extends WeElement<Props> {
     disabled: Boolean,
   }
 
-  __$value: number
-  __$second_value: number
-
   rootNode
   sliderOne
   sliderTwo
@@ -54,55 +51,53 @@ export default class OSlider extends WeElement<Props> {
 
   handleSliderOne = (evt) => {
     const first_value = parseInt(this.rootNode.children[0].value)
-    if (first_value <= this.__$second_value || this.__$second_value === null) {
+    if (
+      first_value <= this.props.second_value ||
+      this.props.range === 'single'
+    ) {
       //  if the slider 1 has not exceeded slider2 or it is a single range slider
       //  assign value straight away
-      this.__$value = first_value
+      this.props.value = first_value
     }
-    if (this.__$second_value === null) {
-      this.fire('change', this.__$value)
+    if (this.props.second_value === null) {
+      this.props.range === 'single'
     } else {
-      this.fire('change', [this.__$value, this.__$second_value])
+      this.fire('change', [this.props.value, this.props.second_value])
     }
     this.fillColor()
-    this.update()
   }
 
   handleSliderTwo = (evt) => {
     const second_value = parseInt(this.rootNode.children[1].value)
     //we only have one case if slider two exists
-    if (second_value >= this.__$value) {
-      this.__$second_value = second_value
+    if (second_value >= this.props.value) {
+      this.props.second_value = second_value
     }
-    this.fire('change', [this.__$value, this.__$second_value])
+    this.fire('change', [this.props.value, this.props.second_value])
     this.fillColor()
-    this.update()
   }
 
   fillColor = () => {
     let percent1 =
-      this.__$second_value !== null ? (this.__$value / this.props.max) * 100 : 0
+      this.props.range === 'double'
+        ? (this.props.value / this.props.max) * 100
+        : 0
     let percent2 =
-      this.__$second_value !== null
-        ? (this.__$second_value / this.props.max) * 100
-        : (this.__$value / this.props.max) * 100
+      this.props.range === 'double'
+        ? (this.props.second_value / this.props.max) * 100
+        : (this.props.value / this.props.max) * 100
     let lowerColor = '#07c160'
     let upperColor = '#ffffff'
     if (this.props.disabled) {
       lowerColor = '#c0c4cc'
     }
 
-    this.__$second_value !== null
+    this.props.range === 'double'
       ? (this.sliderTrack.style.background = `linear-gradient(to right, ${upperColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
       : (this.sliderTrack.style.background = `linear-gradient(to right, ${lowerColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
   }
 
-  install() {
-    this.__$value = this.props.value
-    this.props.range === 'double'
-      ? (this.__$second_value = this.props.second_value)
-      : (this.__$second_value = null)
-  }
+  install() {}
 
   installed() {
     this.fillColor()
@@ -128,20 +123,20 @@ export default class OSlider extends WeElement<Props> {
           type="range"
           min={props.min}
           max={props.max}
-          value={this.__$value}
+          value={this.props.value}
           onInput={this.handleSliderOne}
           id="slider-1"
           ref={(e) => {
             this.sliderOne = e
           }}
         />
-        {this.__$second_value !== null && (
+        {this.props.range === 'double' && (
           <input
             class="o-slider"
             type="range"
             min={props.min}
             max={props.max}
-            value={this.__$second_value}
+            value={this.props.second_value}
             onInput={this.handleSliderTwo}
             id="slider-2"
             ref={(e) => {
