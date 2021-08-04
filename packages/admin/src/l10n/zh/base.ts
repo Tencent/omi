@@ -24,5 +24,12 @@ export const base = {
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
   MindMap: '思维导图',
-  ManyThanksTo: '感谢有你'
+  ManyThanksTo: '感谢有你',
+  Results: '结果页',
+
+  BrowserIncompatible: '浏览器不兼容',
+  NetworkError: '网络异常',
+  NotFound: '访问页面不存在',
+  PermissionDenied: '无权限',
+  ServerError: '服务端错误'
 }

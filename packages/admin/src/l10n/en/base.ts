@@ -24,5 +24,12 @@ export const base = {
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
   MindMap: 'Mind Map',
-  ManyThanksTo: 'Many Thanks To'
+  ManyThanksTo: 'Many Thanks To',
+  Results: 'Results Pages',
+
+  BrowserIncompatible: 'Browser Incompatible',
+  NetworkError: 'Network Error',
+  NotFound: 'Not Found',
+  PermissionDenied: 'Permission Denied',
+  ServerError: 'Server Error'
 }

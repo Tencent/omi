@@ -200,6 +200,41 @@ export default class extends WeElement {
       )
     })
 
+    route('/results/browser-incompatible', () => {
+      //lazy load
+      import('./components/results/browser-incompatible').then(() =>
+        this.transitionTo('browser-incompatible')
+      )
+    })
+
+    route('/results/network-error', () => {
+      //lazy load
+      import('./components/results/network-error').then(() =>
+        this.transitionTo('network-error')
+      )
+    })
+
+    route('/results/not-found', () => {
+      //lazy load
+      import('./components/results/not-found').then(() =>
+        this.transitionTo('not-found')
+      )
+    })
+
+    route('/results/permission-denied', () => {
+      //lazy load
+      import('./components/results/permission-denied').then(() =>
+        this.transitionTo('permission-denied')
+      )
+    })
+
+    route('/results/server-error', () => {
+      //lazy load
+      import('./components/results/server-error').then(() =>
+        this.transitionTo('server-error')
+      )
+    })
+
     route('*', function () {
       console.log('not found')
     })

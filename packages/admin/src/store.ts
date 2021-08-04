@@ -233,6 +233,45 @@ class Store {
           ]
         },
         {
+          label: localeMap.base.Results,
+          expanded: true,
+          id: 61,
+          icon: 'ac-unit-outlined',
+
+          children: [
+            {
+              label: localeMap.base.BrowserIncompatible,
+              id: 62,
+              icon: 'ac-unit-outlined',
+              href: '#/results/browser-incompatible'
+            },
+            {
+              label: localeMap.base.NetworkError,
+              id: 63,
+              icon: 'ac-unit-outlined',
+              href: '#/results/network-error'
+            },
+            {
+              label: localeMap.base.NotFound,
+              id: 64,
+              icon: 'ac-unit-outlined',
+              href: '#/results/not-found'
+            },
+            {
+              label: localeMap.base.PermissionDenied,
+              id: 65,
+              icon: 'ac-unit-outlined',
+              href: '#/results/permission-denied'
+            },
+            {
+              label: localeMap.base.ServerError,
+              id: 66,
+              icon: 'ac-unit-outlined',
+              href: '#/results/server-error'
+            }
+          ]
+        },
+        {
           label: localeMap.base.ManyThanksTo,
           id: 16,
           href: '#/thanks',
