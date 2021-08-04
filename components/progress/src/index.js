@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@omiu/icon/cancel-rounded.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@omiu/icon/cancel-rounded.js ***!
-  \***************************************************/
+/***/ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/cancel-rounded.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/_@omiu_icon@0.0.3@@omiu/icon/cancel-rounded.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -236,10 +236,10 @@ eval("module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;\n\n//# sourceURL=webpack
 
 /***/ }),
 
-/***/ "./node_modules/@omiu/icon/check-circle-rounded.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@omiu/icon/check-circle-rounded.js ***!
-  \*********************************************************/
+/***/ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/check-circle-rounded.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/_@omiu_icon@0.0.3@@omiu/icon/check-circle-rounded.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -376,10 +376,10 @@ eval("module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;\n\n//# sourceURL=webpack
 
 /***/ }),
 
-/***/ "./node_modules/@omiu/icon/check-rounded.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@omiu/icon/check-rounded.js ***!
-  \**************************************************/
+/***/ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/check-rounded.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/_@omiu_icon@0.0.3@@omiu/icon/check-rounded.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -516,10 +516,10 @@ eval("module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;\n\n//# sourceURL=webpack
 
 /***/ }),
 
-/***/ "./node_modules/@omiu/icon/close-rounded.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@omiu/icon/close-rounded.js ***!
-  \**************************************************/
+/***/ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/close-rounded.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/_@omiu_icon@0.0.3@@omiu/icon/close-rounded.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -656,14 +656,14 @@ eval("module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;\n\n//# sourceURL=webpack
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./src/index.css":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./src/index.css ***!
-  \***********************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./src/index.css":
+/*!*******************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./src/index.css ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -675,10 +675,10 @@ exports.push([module.i, ".o-progress-line__bar {\n  position: relative;\n  displ
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -770,7 +770,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!./index.css */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./src/index.css");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./index.css */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./src/index.css");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -812,16 +812,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.css */ "./src/index.css");
-__webpack_require__(/*! @omiu/icon/check-circle-rounded */ "./node_modules/@omiu/icon/check-circle-rounded.js");
-__webpack_require__(/*! @omiu/icon/cancel-rounded */ "./node_modules/@omiu/icon/cancel-rounded.js");
-__webpack_require__(/*! @omiu/icon/check-rounded */ "./node_modules/@omiu/icon/check-rounded.js");
-__webpack_require__(/*! @omiu/icon/close-rounded */ "./node_modules/@omiu/icon/close-rounded.js");
+__webpack_require__(/*! @omiu/icon/check-circle-rounded */ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/check-circle-rounded.js");
+__webpack_require__(/*! @omiu/icon/cancel-rounded */ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/cancel-rounded.js");
+__webpack_require__(/*! @omiu/icon/check-rounded */ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/check-rounded.js");
+__webpack_require__(/*! @omiu/icon/close-rounded */ "./node_modules/_@omiu_icon@0.0.3@@omiu/icon/close-rounded.js");
 var status2color = {
     'success': "#09BB07",
     'error': "#F43530",
-
     'active': "#1890ff",
-
+    'trailColorDefault': "#f5f5f5"
 };
 var type_status2icon = {
     'circle': {
@@ -854,9 +853,7 @@ var default_1 = /** @class */ (function (_super) {
         };
     };
     default_1.prototype.render = function (props) {
-
         var type = props.type, status = props.status, strokeColor = props.strokeColor, _a = props.trailColor, trailColor = _a === void 0 ? props.trailColor ? props.trailColor : "#f5f5f5" : _a, _b = props.textColor, textColor = _b === void 0 ? props.textColor ? props.textColor : "black" : _b, _c = props.strokeWidth, strokeWidth = _c === void 0 ? props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6) : _c, _d = props.width, width = _d === void 0 ? props.width ? props.width : (props.type === "line" ? 160 : 120) : _d, showInfo = props.showInfo;
-
         var percent = this._state.percent;
         var isSuccess = percent >= 100 ? true : false;
         if (type === "circle") {
@@ -866,12 +863,10 @@ var default_1 = /** @class */ (function (_super) {
                 omi_1.h("div", { className: "o-progress-circle__inner" },
                     omi_1.h("svg", { width: width, heigth: width, class: "o-progress-circle-trail", viewBox: "0 0 " + width + " " + width },
                         omi_1.h("circle", { cx: width / 2, cy: width / 2, r: radius, stroke: trailColor, "stroke-width": strokeWidth, "fill-opacity": "0" }),
-
                         omi_1.h("path", { d: "M " + width / 2 + "," + width / 2 + " m 0," + (width / 2 - strokeWidth) + "\n   a " + (width / 2 - strokeWidth) + "," + (width / 2 - strokeWidth) + " 0 1 1 0,-" + (width / 2 - strokeWidth) * 2 + "\n   a " + (width / 2 - strokeWidth) + "," + (width / 2 - strokeWidth) + " 0 1 1 0," + (width / 2 - strokeWidth) * 2, "stroke-linecap": "round", stroke: strokeColor || status2color[status] || (isSuccess ? status2color["success"] : undefined) || status2color["active"], "stroke-width": strokeWidth, opacity: "1", "fill-opacity": "0", style: "\n               stroke-dasharray: " + (percent / 100) * (len) + "px " + len + "px;\n                stroke-dashoffset: 0px;\n                 transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s ease 0s, stroke-width 0.06s ease 0.3s, opacity ease 0s;" })),
                     showInfo && (omi_1.h("span", { className: "o-progress-circle-text", style: { fontSize: (width - strokeWidth * 2) * 1.75 / 6 } }, (!status && !isSuccess) || (status === "active") ? omi_1.h("span", { style: { color: textColor } },
                         percent,
                         "%") : omi_1.h("span", { style: { color: status2color[status || (isSuccess ? "success" : "active")], fontSize: "2em" } }, type_status2icon["circle"][status || (isSuccess ? "success" : "active")]))))));
-
         }
         else {
             return (omi_1.h("div", null,
@@ -879,7 +874,6 @@ var default_1 = /** @class */ (function (_super) {
                     omi_1.h("div", { className: "o-progress-line__bar", style: { backgroundColor: trailColor } },
                         omi_1.h("div", { className: "o-progress-line__inner-bar", style: {
                                 width: percent + "%",
-
                                 backgroundColor: strokeColor || status2color[status] || (isSuccess ? status2color["success"] : undefined) || status2color["active"],
                                 height: strokeWidth
                             } }))),
@@ -887,7 +881,6 @@ var default_1 = /** @class */ (function (_super) {
                     percent,
                     "%") :
                     omi_1.h("span", { style: { color: status2color[status || (isSuccess ? "success" : "active")] } }, type_status2icon["line"][status || (isSuccess ? "success" : "active")])))));
-
         }
     };
     default_1.css = css;
@@ -897,12 +890,10 @@ var default_1 = /** @class */ (function (_super) {
         status: undefined,
         strokeColor: undefined,
         trailColor: undefined,
-
         textColor: undefined,
         strokeWidth: undefined,
         width: undefined,
         showInfo: true
-
     };
     default_1.propTypes = {
         type: String,
@@ -910,12 +901,10 @@ var default_1 = /** @class */ (function (_super) {
         status: String,
         strokeColor: String,
         trailColor: String,
-
         textColor: String,
         strokeWidth: Number,
         width: Number,
         showInfo: Boolean
-
     };
     default_1 = __decorate([
         omi_1.tag("o-progress")
