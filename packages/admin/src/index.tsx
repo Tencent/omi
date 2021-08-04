@@ -17,7 +17,7 @@ import '@omiu/icon/comment'
 import '@omiu/icon/dashboard'
 import '@omiu/icon/ac-unit'
 import '@omiu/icon/people-alt'
-
+import '@omiu/icon/pie-chart'
 import '@omiu/transition'
 
 import './index.css'
@@ -232,6 +232,13 @@ export default class extends WeElement {
       //lazy load
       import('./components/results/server-error').then(() =>
         this.transitionTo('server-error')
+      )
+    })
+
+    route('/masonry-list', () => {
+      //lazy load
+      import('./components/masonry-list').then(() =>
+        this.transitionTo('masonry-list')
       )
     })
 

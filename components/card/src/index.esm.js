@@ -1,5 +1,5 @@
 /**
- * @omiu/card v0.0.5 http://omijs.org
+ * @omiu/card v0.0.6 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -65,22 +67,16 @@ var css = `:host {
 .o-card {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 300px;
   border: 1px solid #EFEFEF; }
 
 .o-card-medium {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 265px;
   border: 1px solid #EFEFEF; }
 
 .o-card-small {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 230px;
   border: 1px solid #EFEFEF; }
 
 .o-card-header {
@@ -244,22 +240,22 @@ var Card = /** @class */ (function (_super) {
         };
         _this.handleMousemove = function (item) {
             if (item === "always") {
-                (_this.css = css + ".o-card {\n        display: flex;\n        flex-direction: column;\n        margin: 10px;\n        width: 300px;\n        box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n        transition: all .3s;\n        z-index: 1;\n      }");
+                (_this.css = css + ".o-card {\n        display: flex;\n        flex-direction: column;\n     \n        box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n        transition: all .3s;\n        z-index: 1;\n      }");
                 return;
             }
             var hovercss = function () {
                 switch (_this.props.size) {
                     case 'large':
-                        (_this.css = css + ".o-card:hover {\n            display: flex;\n            flex-direction: column;\n            margin: 10px;\n            width: 300px;\n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        (_this.css = css + ".o-card:hover {\n            display: flex;\n            flex-direction: column;\n           \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
                         break;
                     case 'medium':
-                        (_this.css = css + ".o-card-medium:hover {\n            display: flex;\n            flex-direction: column;\n            margin: 10px;\n            width: 265px;\n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        (_this.css = css + ".o-card-medium:hover {\n            display: flex;\n            flex-direction: column;\n        \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
                         break;
                     case 'small':
-                        (_this.css = css + ".o-card-small:hover {\n            display: flex;\n            flex-direction: column;\n            margin: 10px;\n            width: 230px;\n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        (_this.css = css + ".o-card-small:hover {\n            display: flex;\n            flex-direction: column;\n        \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
                         break;
                     default:
-                        (_this.css = css + ".o-card:hover {\n            display: flex;\n            flex-direction: column;\n            margin: 10px;\n            width: 300px;\n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        (_this.css = css + ".o-card:hover {\n            display: flex;\n            flex-direction: column;\n          \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
                 }
             };
             item && hovercss();
@@ -311,5 +307,5 @@ var Card = /** @class */ (function (_super) {
     return Card;
 }(WeElement));
 
-export default Card;
+export { Card as default };
 //# sourceMappingURL=index.esm.js.map

@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.14 http://omijs.org
+ * @omiu/table v0.0.15 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -997,20 +997,28 @@ th,
 td {
   white-space: nowrap; }
 
-th.sticky-top {
+th.fixed-top {
   position: sticky;
   top: -1px;
   z-index: 1000; }
 
-table thead th.sticky-left {
+table thead th.fixed-left {
   position: sticky;
   left: -1px;
   z-index: 1001; }
 
-table tbody td.sticky-left {
+table tbody td.fixed-left {
   position: sticky;
   left: -1px;
   z-index: 999; }
+
+table thead th.fixed-right {
+  position: sticky;
+  z-index: 1001; }
+
+table tbody td.fixed-right {
+  position: sticky;
+  z-index: 1000; }
 
 .o-table-border td,
 .o-table-border th {
@@ -1169,7 +1177,8 @@ var Table = /** @class */ (function (_super) {
     };
     Table.prototype.installed = function () {
         var _this = this;
-        this.setStickyLeft();
+        this.setFixedLeft();
+        this.setFixedRight();
         window.addEventListener('click', function () {
             var needUpdate = false;
             _this.props.dataSource.forEach(function (dataItem) {
@@ -1184,14 +1193,21 @@ var Table = /** @class */ (function (_super) {
         });
     };
     Table.prototype.updated = function () {
-        this.setStickyLeft();
+        this.setFixedLeft();
+        this.setFixedRight();
     };
-    Table.prototype.setStickyLeft = function () {
-        var stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left');
+    Table.prototype.setFixedLeft = function () {
+        var fixedLeftEls = this.rootNode.querySelectorAll('.fixed-left');
         var boxRect = this.rootNode.getBoundingClientRect();
-        stickyLeftEls.forEach(function (stickyLeftEl, index) {
-            var rect = stickyLeftEl.getBoundingClientRect();
-            stickyLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px';
+        fixedLeftEls.forEach(function (fixedLeftEl, index) {
+            var rect = fixedLeftEl.getBoundingClientRect();
+            fixedLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px';
+        });
+    };
+    Table.prototype.setFixedRight = function () {
+        var fixedRightEls = this.rootNode.querySelectorAll('.fixed-right');
+        fixedRightEls.forEach(function (fixedRightEl, index) {
+            fixedRightEl.style.right = '0px';
         });
     };
     Table.prototype.render = function (props) {
@@ -1200,6 +1216,9 @@ var Table = /** @class */ (function (_super) {
             return;
         if (!props.dataSource)
             return;
+        if (props.fixedRight) {
+            props.columns[props.columns.length - 1].fixed = true;
+        }
         return (h("div", __assign$2({ style: {
                 width: props.width && props.width,
                 height: props.height && props.height
@@ -1220,8 +1239,9 @@ var Table = /** @class */ (function (_super) {
                         return h("th", __assign$2({}, obj, { class: classNames((_a = {},
                                 _a["o-table-align-" + column.align] = column.align,
                                 _a['compact'] = props.compact,
-                                _a['sticky-top'] = props.stickyTop,
-                                _a['sticky-left'] = index < props.stickyLeftCount,
+                                _a['fixed-top'] = props.fixedTop,
+                                _a['fixed-left'] = index < props.fixedLeftCount,
+                                _a['fixed-right'] = column.fixed,
                                 _a)) }),
                             index === 0 && props.checkbox && h("o-checkbox", __assign$2({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                             column.title);
@@ -1238,7 +1258,8 @@ var Table = /** @class */ (function (_super) {
                     return h("td", __assign$2({ onclick: function (evt) { return _this.onTdClick(item, column, evt); } }, obj, { class: classNames((_a = {},
                             _a["o-table-align-" + column.align] = column.align,
                             _a['compact'] = props.compact,
-                            _a['sticky-left'] = subIndex < props.stickyLeftCount,
+                            _a['fixed-left'] = subIndex < props.fixedLeftCount,
+                            _a['fixed-right'] = column.fixed,
                             _a)) }),
                         subIndex === 0 && props.checkbox && h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
                         (column.editable && item.editingKey === column.key) ? h("o-input", { ref: function (_) { return _this.editingInput = _; }, size: "mini", onChange: function (evt) {
@@ -1254,8 +1275,9 @@ var Table = /** @class */ (function (_super) {
         border: false,
         stripe: false,
         compact: false,
-        stickyTop: false,
-        stickyLeftCount: 0
+        fixedTop: false,
+        fixedRight: false,
+        fixedLeftCount: 0
     };
     Table.propTypes = {
         dataSource: Object,
@@ -1266,8 +1288,9 @@ var Table = /** @class */ (function (_super) {
         compact: Boolean,
         width: String,
         height: String,
-        stickyTop: Boolean,
-        stickyLeftCount: Number
+        fixedTop: Boolean,
+        fixedRight: Boolean,
+        fixedLeftCount: Number
     };
     Table = __decorate$2([
         tag('o-table')
@@ -1275,5 +1298,5 @@ var Table = /** @class */ (function (_super) {
     return Table;
 }(WeElement));
 
-export default Table;
+export { Table as default };
 //# sourceMappingURL=index.esm.js.map

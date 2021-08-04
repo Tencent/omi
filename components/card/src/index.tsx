@@ -37,8 +37,7 @@ export default class Card extends WeElement<Props> {
       (this.css = css + `.o-card {
         display: flex;
         flex-direction: column;
-        margin: 10px;
-        width: 300px;
+     
         box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
         transition: all .3s;
         z-index: 1;
@@ -51,8 +50,7 @@ export default class Card extends WeElement<Props> {
           (this.css = css + `.o-card:hover {
             display: flex;
             flex-direction: column;
-            margin: 10px;
-            width: 300px;
+           
             box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
             transition: all .3s;
             z-index: 1;
@@ -62,8 +60,7 @@ export default class Card extends WeElement<Props> {
           (this.css = css + `.o-card-medium:hover {
             display: flex;
             flex-direction: column;
-            margin: 10px;
-            width: 265px;
+        
             box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
             transition: all .3s;
             z-index: 1;
@@ -73,8 +70,7 @@ export default class Card extends WeElement<Props> {
           (this.css = css + `.o-card-small:hover {
             display: flex;
             flex-direction: column;
-            margin: 10px;
-            width: 230px;
+        
             box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
             transition: all .3s;
             z-index: 1;
@@ -84,8 +80,7 @@ export default class Card extends WeElement<Props> {
           (this.css = css + `.o-card:hover {
             display: flex;
             flex-direction: column;
-            margin: 10px;
-            width: 300px;
+          
             box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
             transition: all .3s;
             z-index: 1;

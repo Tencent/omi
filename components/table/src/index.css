@@ -34,20 +34,28 @@ th,
 td {
   white-space: nowrap; }
 
-th.sticky-top {
+th.fixed-top {
   position: sticky;
   top: -1px;
   z-index: 1000; }
 
-table thead th.sticky-left {
+table thead th.fixed-left {
   position: sticky;
   left: -1px;
   z-index: 1001; }
 
-table tbody td.sticky-left {
+table tbody td.fixed-left {
   position: sticky;
   left: -1px;
   z-index: 999; }
+
+table thead th.fixed-right {
+  position: sticky;
+  z-index: 1001; }
+
+table tbody td.fixed-right {
+  position: sticky;
+  z-index: 1000; }
 
 .o-table-border td,
 .o-table-border th {

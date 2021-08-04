@@ -21,7 +21,7 @@ export default class extends WeElement<Props> {
     return (
       <div class={tw`text-center relative`} style={{ top: 'calc(50vh - 16em)' }}>
         <div >
-          <img class={tw`w-72 inline-block`} src="https://tdesign.gtimg.com/pro-template/result-page/500.png"></img>
+          <img class={tw`w-72 inline-block`} src="https://tdesign.gtimg.com/pro-template/result-page/404.png"></img>
 
         </div>
         <p class={tw`text-gray-500`}>抱歉，您访问的页面不存在</p>

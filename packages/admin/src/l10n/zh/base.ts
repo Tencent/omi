@@ -31,5 +31,6 @@ export const base = {
   NetworkError: '网络异常',
   NotFound: '访问页面不存在',
   PermissionDenied: '无权限',
-  ServerError: '服务端错误'
+  ServerError: '服务端错误',
+  MasonryList: '瀑布流列表'
 }
