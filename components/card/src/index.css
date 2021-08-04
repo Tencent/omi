@@ -7,22 +7,16 @@
 .o-card {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 300px;
   border: 1px solid #EFEFEF; }
 
 .o-card-medium {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 265px;
   border: 1px solid #EFEFEF; }
 
 .o-card-small {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 230px;
   border: 1px solid #EFEFEF; }
 
 .o-card-header {

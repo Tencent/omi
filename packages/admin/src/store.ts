@@ -102,7 +102,7 @@ class Store {
 
             {
               label: localeMap.base.Dashboard,
-              icon: 'dashboard',
+              icon: 'pie-chart',
               href: '#/dashboard',
               id: 98
             },
@@ -144,6 +144,13 @@ class Store {
               id: 10,
               href: '#/icon',
               icon: 'sentiment-satisfied-alt'
+            },
+            {
+              label: localeMap.base.MasonryList,
+              expanded: true,
+              id: 53,
+              href: '#/masonry-list',
+              icon: 'dashboard'
             }
           ]
         },

@@ -31,5 +31,6 @@ export const base = {
   NetworkError: 'Network Error',
   NotFound: 'Not Found',
   PermissionDenied: 'Permission Denied',
-  ServerError: 'Server Error'
+  ServerError: 'Server Error',
+  MasonryList: 'Masonry List'
 }
