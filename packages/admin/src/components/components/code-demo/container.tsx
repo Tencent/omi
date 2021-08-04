@@ -34,7 +34,7 @@ export default class extends WeElement<Props> {
     this.updateSelf()
   }
 
-  render(props: Props) {
+  render(props) {
     return (
       <div
         class={props.class}

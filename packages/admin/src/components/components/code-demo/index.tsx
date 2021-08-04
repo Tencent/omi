@@ -23,7 +23,7 @@ declare global {
 export default class extends WeElement<Props> {
   static css = [sheet.target]
 
-  render(props: Props) {
+  render(props) {
     return (
       <div
         class={tw`w-full border-1 mb-4 border-gray-300 rounded overflow-hidden ${props.class}`}
