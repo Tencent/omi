@@ -1,21 +1,13 @@
-import { tag, h, WeElement, OmiProps, render } from 'omi'
+import { tag, h, WeElement, render } from 'omi'
 
 import './index.tsx'
 
-export interface Attrs {
-  count?: number
+export type Props = {
+
 }
 
 const tagName = 'my-demo'
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [tagName]: Omi.Props & Attrs
-    }
-  }
-}
 
-export type Props = OmiProps<Omit<Attrs, 'count'> & { count: number }>
 
 
 @tag(tagName)

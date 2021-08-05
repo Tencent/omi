@@ -56,6 +56,10 @@ declare namespace Omi {
 
 	export type OmiProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
 
+  type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
+
+  export type OverwriteProps<Attrs, Props> = OmiProps<Overwrite<Attrs, Props>>
+
 	class JSONProxy<T> {
 
     /**
