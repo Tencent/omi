@@ -17,7 +17,7 @@
     "build:demo": "vite build",
     "build:scss": "sass src/index.scss src/index.css",
     "watch": "sass --watch src/index.scss src/index.css --no-source-map",
-    "test": "web-test-runner \"test/*.js\" --node-resolve"
+    "test": "npm run build && web-test-runner \"test/*.js\" --node-resolve"
   },
   "dependencies": {
     "omi": "latest"
