@@ -108,6 +108,9 @@ declare namespace Omi {
 		normalizedNodeName?: string;
 		elementId: number;
 		isInstalled: boolean;
+		provide?: { [key: string]: any };
+		inject?: string[];
+		injection?: { [key: string]: any };
 
 		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
 		forceUpdate?(): void;
@@ -140,6 +143,9 @@ declare namespace Omi {
 		normalizedNodeName?: string;
 		elementId: number;
 		isInstalled: boolean;
+		provide?: { [key: string]: any };
+		inject?: string[];
+		injection?: { [key: string]: any };
 
 		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
 		forceUpdate?(): void;
@@ -168,8 +174,8 @@ declare namespace Omi {
 	}
 
 	var createElement: typeof h;
-	
- 	function cloneElement<P>(vnode: VNode<Partial<P>>, props: Partial<P>, ...children: ComponentChildren[]): VNode<Partial<P>>;
+
+	function cloneElement<P>(vnode: VNode<Partial<P>>, props: Partial<P>, ...children: ComponentChildren[]): VNode<Partial<P>>;
 
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 

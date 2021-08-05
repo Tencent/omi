@@ -23,6 +23,23 @@ export default class WeElement extends HTMLElement {
       p = p.parentNode || p.host
     }
 
+    if (this.inject) {
+      this.injection = {}
+      p = this.parentNode
+      let provide
+      while (p && !provide) {
+        provide = p.provide
+        p = p.parentNode || p.host
+      }
+      if (provide) {
+        this.inject.forEach(injectKey => {
+          this.injection[injectKey] = provide[injectKey]
+        })
+      } else {
+        throw 'The provide prop was not found on the parent node or the provide type is incorrect.'
+      }
+    }
+
     this.attrsToProps()
 
     this.beforeInstall()
