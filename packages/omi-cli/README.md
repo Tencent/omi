@@ -1,11 +1,30 @@
 ## omi-cli
 
+### New Project by Omi
+
 ```bash
-$ npx omi-cli init my-app     
+$ npm i omi-cli -g    # install cli
+$ omi init my-app     # init project
 $ cd my-app           
-$ npm start            # develop
-$ npm run build        # release
+$ npm start           # develop
+$ npm run build       # release
 ```
+
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
+
+
+### New Component by Omi
+
+```bash
+$ npm i omi-cli -g    # install cli
+$ omi init-component my-component     # init project
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
+> `npx omi-cli init-component my-component` is also supported(npm v5.2.0+).
+
 
 <!-- Directory description:
 
