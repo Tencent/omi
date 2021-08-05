@@ -1,70 +1,57 @@
-import { tag, WeElement, h, classNames } from 'omi'
-import { createPopper } from '@popperjs/core';
+import { tag, h, WeElement } from 'omi'
 
 import * as css from './index.scss'
 
-interface Props {
-  content?: string,
-  effect?: string,
-  position?: string
+export interface Props {
+  count: number
 }
 
-@tag('o-tooltip')
-export default class ToolTip extends WeElement<Props> {
-  static css = css
+const tagName = 'o-counter'
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [tagName]: Omi.Props & Props
+    }
+  }
+}
+
+@tag(tagName)
+export default class Counter extends WeElement<Props> {
+
+  static css = css.default ? css.default : css
 
   static defaultProps = {
-    content: '',
-    effect: 'light',
-    position: 'bottom'
+    count: 0
   }
 
   static propTypes = {
-    content: String,
-    effect: String,
-    position: String
+    count: Number
   }
 
-  installed() {
+  count: number = 0
 
+  install() {
+    this.count = this.props.count
   }
 
-  onMouseEnter = () => {
-    this.isShow = true
-    this.update()
-    const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
-    createPopper(tip, this.shadowRoot.querySelector('.tip'), {
-      placement: this.props.position,
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 8],
-          },
-        },
-      ],
-    });
-  }
-
-  onMouseLeave = () => {
-    this.isShow = false
+  sub = () => {
+    this.count--
     this.update()
   }
 
-  isShow = false
+  add = () => {
+    this.count++
+    this.update()
+  }
 
-  render(props) {
-    return <div>
-      <slot onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}></slot>
-      <div class={
-        classNames({
-          tip: true,
-          show: this.isShow,
-          [`is-${props.effect}`]: props.effect
-        })
-      }>{props.content}
-        <i class="tip-arrow" data-popper-arrow></i>
-      </div>
-    </div>
+  render() {
+    return (
+      <h.f>
+        <button onClick={this.sub}>-</button>
+        <span>{this.count}</span>
+        <button onClick={this.add}>+</button>
+      </h.f>
+    )
   }
 }
+

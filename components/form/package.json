@@ -1,5 +1,5 @@
 {
-  "name": "@omiu/cascader",
+  "name": "@omiu/form",
   "version": "0.0.5",
   "main": "dist/index.es.js",
   "exports": {
@@ -32,6 +32,6 @@
   "keywords": [
     "omi",
     "omiu",
-    "cascader"
+    "form"
   ]
 }
