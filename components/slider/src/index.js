@@ -276,8 +276,8 @@ var OSlider = /** @class */ (function (_super) {
                 //  assign value straight away
                 _this.props.value = first_value;
             }
-            if (_this.props.second_value === null) {
-                _this.props.range === 'single';
+            if (_this.props.range === 'single') {
+                _this.fire('change', _this.props.value);
             }
             else {
                 _this.fire('change', [_this.props.value, _this.props.second_value]);
@@ -316,6 +316,10 @@ var OSlider = /** @class */ (function (_super) {
         this.fillColor();
         this.update();
     };
+    OSlider.prototype.receiveProps = function () {
+        this.fillColor();
+        this.update();
+    };
     OSlider.prototype.render = function (props) {
         var _this = this;
         var cls = omi_1.extractClass(props, 'slider-container', {
@@ -338,7 +342,7 @@ var OSlider = /** @class */ (function (_super) {
     };
     OSlider.css = css;
     OSlider.defaultProps = {
-        //default a single square range slider
+        //default a single round range slider
         min: 0,
         max: 100,
         step: 1,
@@ -346,7 +350,7 @@ var OSlider = /** @class */ (function (_super) {
         second_value: 100,
         range: 'single',
         orient: 'horizontal',
-        shape: 'square',
+        shape: 'round',
         disabled: false,
     };
     OSlider.propTypes = {
