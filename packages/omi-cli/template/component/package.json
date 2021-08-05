@@ -6,10 +6,6 @@
     ".": "./dist/index.es.js"
   },
   "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "types"
-  ],
   "scripts": {
     "start": "yarn watch & vite",
     "dev": "yarn watch & vite",
