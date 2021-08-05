@@ -13,6 +13,11 @@
 <body>
   <h1>HTML Mode</h1>
   <o-counter count="2"></o-counter>
+  <script>
+    document.querySelector('o-counter').addEventListener('CountChanged', function (evt) {
+      console.log(evt.detail)
+    })
+  </script>
 </body>
 
 </html>
