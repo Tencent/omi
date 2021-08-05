@@ -1,19 +1,21 @@
-import { tag, h, WeElement } from 'omi'
+import { tag, h, WeElement, OmiProps } from 'omi'
 
 import * as css from './index.scss'
 
-export interface Props {
-  count: number
+export interface Attrs {
+  count?: number
 }
 
 const tagName = 'o-counter'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      [tagName]: Omi.Props & Props
+      [tagName]: Omi.Props & Attrs
     }
   }
 }
+
+export type Props = OmiProps<Omit<Attrs, 'count'> & { count: number }>
 
 @tag(tagName)
 export default class Counter extends WeElement<Props> {
@@ -28,28 +30,22 @@ export default class Counter extends WeElement<Props> {
     count: Number
   }
 
-  count: number = 0
-
-  install() {
-    this.count = this.props.count
-  }
-
-  sub = () => {
-    this.count--
+  minus = () => {
+    this.props.count--
     this.update()
   }
 
-  add = () => {
-    this.count++
+  plus = () => {
+    this.props.count++
     this.update()
   }
 
-  render() {
+  render(props: Props) {
     return (
       <h.f>
-        <button onClick={this.sub}>-</button>
-        <span>{this.count}</span>
-        <button onClick={this.add}>+</button>
+        <button onClick={this.minus}>-</button>
+        <span>{props.count}</span>
+        <button onClick={this.plus}>+</button>
       </h.f>
     )
   }

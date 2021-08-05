@@ -54,7 +54,7 @@ declare namespace Omi {
 		key?: Key | null;
 	}
 
-	type RenderableProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
+	export type OmiProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
 
 	class JSONProxy<T> {
 
@@ -77,7 +77,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
+		receiveProps?(props: OmiProps<P>, oldProps: OmiProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 		css?: (() => string) | string;
@@ -91,7 +91,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
+		receiveProps?(props: OmiProps<P>, oldProps: OmiProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 		css?: (() => string) | string;
@@ -104,8 +104,8 @@ declare namespace Omi {
 		// https://github.com/Microsoft/TypeScript/issues/24018
 		static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
-		props: RenderableProps<P>;
-		prevProps: RenderableProps<P>;
+		props: OmiProps<P>;
+		prevProps: OmiProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
@@ -122,7 +122,7 @@ declare namespace Omi {
 
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
-		abstract render(props: RenderableProps<P>, store: any): void;
+		abstract render(props: OmiProps<P>, store: any): void;
 	}
 
 	// The class type (not instance of class)
@@ -139,8 +139,8 @@ declare namespace Omi {
 
 		static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
-		props: RenderableProps<P>;
-		prevProps: RenderableProps<P>;
+		props: OmiProps<P>;
+		prevProps: OmiProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
@@ -157,7 +157,7 @@ declare namespace Omi {
 
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
-		abstract render(props: RenderableProps<P>, store: any): void;
+		abstract render(props: OmiProps<P>, store: any): void;
 	}
 
 	function h<P>(
