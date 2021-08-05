@@ -19,7 +19,7 @@ export default class OSlider extends WeElement<Props> {
   static css = css
 
   static defaultProps = {
-    //default a single square range slider
+    //default a single round range slider
     min: 0,
     max: 100,
     step: 1,
@@ -27,7 +27,7 @@ export default class OSlider extends WeElement<Props> {
     second_value: 100,
     range: 'single',
     orient: 'horizontal',
-    shape: 'square',
+    shape: 'round',
     disabled: false,
   }
 
@@ -59,8 +59,8 @@ export default class OSlider extends WeElement<Props> {
       //  assign value straight away
       this.props.value = first_value
     }
-    if (this.props.second_value === null) {
-      this.props.range === 'single'
+    if (this.props.range === 'single') {
+      this.fire('change', this.props.value)
     } else {
       this.fire('change', [this.props.value, this.props.second_value])
     }
@@ -100,6 +100,11 @@ export default class OSlider extends WeElement<Props> {
   install() {}
 
   installed() {
+    this.fillColor()
+    this.update()
+  }
+
+  receiveProps() {
     this.fillColor()
     this.update()
   }
