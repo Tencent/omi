@@ -80,6 +80,7 @@ declare namespace Omi {
 		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
+		css?: (() => string) | string;
 	}
 
 	interface Component<P> extends HTMLElement {
@@ -93,6 +94,7 @@ declare namespace Omi {
 		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
+		css?: (() => string) | string;
 	}
 
 	abstract class WeElement<P = {}> {
@@ -100,7 +102,7 @@ declare namespace Omi {
 
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
-		static css: string | CSSStyleSheet | (string | CSSStyleSheet)[];
+		static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
 		props: RenderableProps<P>;
 		prevProps: RenderableProps<P>;
@@ -112,12 +114,12 @@ declare namespace Omi {
 		inject?: string[];
 		injection?: { [key: string]: any };
 
-		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
-		forceUpdate?(): void;
-		updateProps?(obj: any): void;
-		updateSelf?(ignoreAttrs?: boolean): void;
-		fire?(name: string, data?: any): void;
-		css?(): string;
+		update(ignoreAttrs?: boolean, updateSelf?: boolean): void;
+		forceUpdate(): void;
+		updateProps(obj: any): void;
+		updateSelf(ignoreAttrs?: boolean): void;
+		fire(name: string, data?: any): void;
+
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, store: any): void;
@@ -135,7 +137,7 @@ declare namespace Omi {
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
 
-		static css: string | CSSStyleSheet | (string | CSSStyleSheet)[];
+		static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
 		props: RenderableProps<P>;
 		prevProps: RenderableProps<P>;
@@ -147,12 +149,12 @@ declare namespace Omi {
 		inject?: string[];
 		injection?: { [key: string]: any };
 
-		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
-		forceUpdate?(): void;
-		updateProps?(obj: any): void;
-		updateSelf?(ignoreAttrs?: boolean): void;
-		fire?(name: string, data?: any): void;
-		css?(): string;
+		update(ignoreAttrs?: boolean, updateSelf?: boolean): void;
+		forceUpdate(): void;
+		updateProps(obj: any): void;
+		updateSelf(ignoreAttrs?: boolean): void;
+		fire(name: string, data?: any): void;
+
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, store: any): void;
