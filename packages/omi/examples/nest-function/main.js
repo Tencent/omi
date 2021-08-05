@@ -6,18 +6,16 @@ define('my-form', class extends WeElement {
 
 	render(props) {
 
-		const errors = props.validate(props.initialValues)
 		console.error(errors)
 		return (
 			<div>
 				{this.props.children[0]({
 					values: props.initialValues,
-					errors,
+					errors: this.isInstalled ? props.validate(props.initialValues) : {},
 					handleSubmit: (evt) => {
 						console.log(evt)
 						evt.preventDefault()
 						this.update()
-
 					},
 					handleChange: (evt) => {
 

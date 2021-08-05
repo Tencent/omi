@@ -11,13 +11,13 @@
     "types"
   ],
   "scripts": {
+    "start": "yarn watch & vite",
     "dev": "yarn watch & vite",
     "build": "vite build && yarn build:scss",
     "build:demo": "vite build",
     "build:scss": "sass src/index.scss src/index.css",
     "watch": "sass --watch src/index.scss src/index.css --no-source-map"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^16.4.7",
     "node-watch": "^0.7.1",

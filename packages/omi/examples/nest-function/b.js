@@ -1549,14 +1549,13 @@
   	_class.prototype.render = function render$$1(props) {
   		var _this2 = this;
 
-  		var errors = props.validate(props.initialValues);
-  		console.error(errors);
+  		var errors = console.error(errors);
   		return Omi.h(
   			'div',
   			null,
   			this.props.children[0]({
   				values: props.initialValues,
-  				errors: errors,
+  				errors: this.isInstalled ? props.validate(props.initialValues) : {},
   				handleSubmit: function handleSubmit(evt) {
   					console.log(evt);
   					evt.preventDefault();

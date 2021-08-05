@@ -1,17 +1,23 @@
-import path from 'path'
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.tsx'),
+      entry: resolve(__dirname, 'src/index.tsx'),
       name: 'index',
       formats: ['es'],
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: /^omi/
+      external: /^omi/,
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, "index.html"),
+          admin: resolve(__dirname, "demo.html")
+        }
+      }
     }
   },
   esbuild: {
