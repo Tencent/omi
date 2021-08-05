@@ -3,7 +3,8 @@ import { tag, h, WeElement, OmiProps } from 'omi'
 import * as css from './index.scss'
 
 export interface Attrs {
-  count?: number
+  count?: number,
+  onCountChanged?: (evt: CustomEvent) => void
 }
 
 const tagName = 'o-counter'
@@ -23,7 +24,7 @@ export default class Counter extends WeElement<Props> {
   static css = css.default ? css.default : css
 
   static defaultProps = {
-    count: 0
+    count: 1
   }
 
   static propTypes = {
@@ -31,13 +32,17 @@ export default class Counter extends WeElement<Props> {
   }
 
   minus = () => {
-    this.props.count--
-    this.update()
+    this.updateProps({
+      count: this.props.count - 1
+    })
+    this.fire('CountChanged', this.props.count)
   }
 
   plus = () => {
-    this.props.count++
-    this.update()
+    this.updateProps({
+      count: this.props.count + 1
+    })
+    this.fire('CountChanged', this.props.count)
   }
 
   render(props: Props) {
