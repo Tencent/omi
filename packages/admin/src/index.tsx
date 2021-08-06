@@ -17,7 +17,7 @@ import '@omiu/icon/comment'
 import '@omiu/icon/dashboard'
 import '@omiu/icon/ac-unit'
 import '@omiu/icon/people-alt'
-import '@omiu/icon/pie-chart'
+
 import '@omiu/transition'
 
 import './index.css'
@@ -165,12 +165,14 @@ export default class extends WeElement {
       )
     })
 
+
     route('/toast-component', () => {
       //lazy load
       import('./components/components/toast-component').then(() =>
         this.transitionTo('toast-component')
       )
     })
+
 
     route('/card-component', () => {
       //lazy load
@@ -179,10 +181,10 @@ export default class extends WeElement {
       )
     })
 
-    route('/slider-component', () => {
+    route('/progress-component', () => {
       //lazy load
-      import('./components/components/slider-component').then(() =>
-        this.transitionTo('slider-component')
+      import('./components/components/progress-component').then(() =>
+        this.transitionTo('progress-component')
       )
     })
 
@@ -193,52 +195,11 @@ export default class extends WeElement {
       )
     })
 
+
     route('/warning', () => {
       //lazy load
       import('./components/status/status-warning').then(() =>
         this.transitionTo('status-warning')
-      )
-    })
-
-    route('/results/browser-incompatible', () => {
-      //lazy load
-      import('./components/results/browser-incompatible').then(() =>
-        this.transitionTo('browser-incompatible')
-      )
-    })
-
-    route('/results/network-error', () => {
-      //lazy load
-      import('./components/results/network-error').then(() =>
-        this.transitionTo('network-error')
-      )
-    })
-
-    route('/results/not-found', () => {
-      //lazy load
-      import('./components/results/not-found').then(() =>
-        this.transitionTo('not-found')
-      )
-    })
-
-    route('/results/permission-denied', () => {
-      //lazy load
-      import('./components/results/permission-denied').then(() =>
-        this.transitionTo('permission-denied')
-      )
-    })
-
-    route('/results/server-error', () => {
-      //lazy load
-      import('./components/results/server-error').then(() =>
-        this.transitionTo('server-error')
-      )
-    })
-
-    route('/masonry-list', () => {
-      //lazy load
-      import('./components/masonry-list').then(() =>
-        this.transitionTo('masonry-list')
       )
     })
 
@@ -310,6 +271,7 @@ export default class extends WeElement {
     )
   }
 }
+
 
 new Store({
   locale: 'zh',

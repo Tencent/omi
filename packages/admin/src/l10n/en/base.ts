@@ -19,18 +19,10 @@ export const base = {
   Loading: 'Loading',
   Toast: 'Toast',
   Card: 'Card',
-  Slider: 'Slider',
+  Progress:'Progress',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
   MindMap: 'Mind Map',
-  ManyThanksTo: 'Many Thanks To',
-  Results: 'Results Pages',
-
-  BrowserIncompatible: 'Browser Incompatible',
-  NetworkError: 'Network Error',
-  NotFound: 'Not Found',
-  PermissionDenied: 'Permission Denied',
-  ServerError: 'Server Error',
-  MasonryList: 'Masonry List'
+  ManyThanksTo: 'Many Thanks To'
 }
