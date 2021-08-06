@@ -95,9 +95,10 @@ function init(args) {
   }
 
   function replaceSync(file, map) {
-    const contents = fs.readFileSync(file);
+    let contents = fs.readFileSync(file).toString();
     Object.keys(map).forEach(fromKey => {
-      fs.writeFileSync(file, contents.replace(fromKey, map[fromKey]));
+      contents = contents.replace(fromKey, map[fromKey]);
+      fs.writeFileSync(file, contents);
     })
   }
 

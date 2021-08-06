@@ -3,53 +3,27 @@
 ### New Project by Omi
 
 ```bash
-$ npm i omi-cli -g    # install cli
-$ omi init my-app     # init project
+$ npx omi-cli init my-app
 $ cd my-app           
 $ npm start           # develop
 $ npm run build       # release
 ```
-
-> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
 
 
 ### New Component by Omi
 
 ```bash
-$ npm i omi-cli -g    # install cli
-$ omi init-component my-component     # init project
+$ npx omi-cli init-component my-component
 $ cd my-app           
 $ npm start           # develop
 $ npm run build       # release
 ```
 
-> `npx omi-cli init-component my-component` is also supported(npm v5.2.0+).
+### Update to the latest version
 
-
-<!-- Directory description:
-
+```bash
+$ npm i omi-cli -g 
 ```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-``` -->
-
-## Project Template
-
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|Base Template(v3.6.0+)|`omi init my-app`| Basic omi template with vite|
-
-<!-- |Base Template(v3.3.0+)|`omi init my-app`| Basic omi project template.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic omi template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.| -->
-
 
 # License
 
