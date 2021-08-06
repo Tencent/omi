@@ -24,7 +24,7 @@
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.9",
     "@omiu/date-picker": "^0.0.5",
-    "@omiu/form": "^0.0.2",
+    "@omiu/form": "^0.0.5",
     "@omiu/hamburger-menu": "^0.0.5",
     "@omiu/icon": "^0.0.3",
     "@omiu/image": "^0.0.2",
@@ -56,6 +56,7 @@
     "omi-router": "^3.0.0",
     "omi-twind": "^0.0.1",
     "prismjs": "^1.24.0",
-    "xlsx": "^0.17.0"
+    "xlsx": "^0.17.0",
+    "yup": "^0.32.9"
   }
 }

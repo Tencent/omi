@@ -55,6 +55,7 @@ export default class extends WeElement<Props> {
         {({
           values,
           errors,
+          touched,
           onChange,
           onSubmit,
           onBlur
@@ -72,7 +73,7 @@ export default class extends WeElement<Props> {
                     value={values.name}
                     name="name"
                     block></o-input>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.name}</div>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.name && touched.name && errors.name}</div>
                 </div>
               </div>
 
@@ -88,7 +89,7 @@ export default class extends WeElement<Props> {
                     size="small" block
                   >
                   </o-input>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.email}</div>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.email && touched.email && errors.email}</div>
                 </div>
 
               </div>
@@ -248,9 +249,8 @@ export default class extends WeElement<Props> {
               <div class={formItemClass}>
                 <label class={lableClass} ></label>
                 <div class={tw`leading-8 ml-16`}>
-                  <o-button size="small" type="primary">创建</o-button>
+                  <o-button size="small" type="primary" onclick={onSubmit} >创建</o-button>
                   <o-button size="small" class={tw`ml-6`}>重置</o-button>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
                 </div>
               </div>
 
