@@ -94,6 +94,8 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/input": "0.0.12",
+    "@omiu/tooltip": "0.0.1",
     "omi": "latest"
   }
 }
