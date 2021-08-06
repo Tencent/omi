@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["es2017", "dom", "dom.iterable"],
+    "lib": [
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./types",
@@ -17,6 +21,9 @@
     "jsx": "react",
     "jsxFactory": "h",
   },
-  "include": ["src/**/*.ts", "src/index.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": []
 }
