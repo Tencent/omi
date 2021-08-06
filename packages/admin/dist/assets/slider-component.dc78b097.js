@@ -1,4 +1,4 @@
-import{e as n,h as e,b as o,W as r,t as i,s as t}from"./vendor.97211ee9.js";import"./index.esm.2a7f07e8.js";import"./admin-docs.e07f425e.js";import"./container.e56529f6.js";import"./___vite-browser-external_commonjs-proxy.80177ef5.js";
+import{e as n,h as e,b as o,W as r,t as i,s as t}from"./vendor.97211ee9.js";import"./index.esm.6be211d5.js";import"./admin-docs.e07f425e.js";import"./container.e56529f6.js";import"./___vite-browser-external_commonjs-proxy.80177ef5.js";
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 

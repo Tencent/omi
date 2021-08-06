@@ -42,8 +42,8 @@ export default class Input extends WeElement<Props> {
     _onSetValue: (value: any) => void;
     _tempTagName: string;
     valueLength: number;
-    handleBlur: () => void;
-    handleFocus: () => void;
+    handleBlur: (evt: any) => void;
+    handleFocus: (evt: any) => void;
     handleChange: (evt: any) => void;
     handleInput: (evt: any) => void;
     focus(): void;

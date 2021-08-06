@@ -28,7 +28,7 @@
     "@omiu/hamburger-menu": "^0.0.5",
     "@omiu/icon": "^0.0.3",
     "@omiu/image": "^0.0.2",
-    "@omiu/input": "^0.0.8",
+    "@omiu/input": "^0.0.12",
     "@omiu/link": "^0.0.4",
     "@omiu/loading": "0.0.2",
     "@omiu/pagination": "^0.0.5",
