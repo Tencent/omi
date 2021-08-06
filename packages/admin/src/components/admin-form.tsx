@@ -8,6 +8,8 @@ import '@omiu/checkbox'
 import '@omiu/date-picker'
 import '@omiu/cascader'
 
+import '@omiu/form'
+
 interface Props { }
 
 const tagName = 'admin-form'
@@ -30,170 +32,231 @@ export default class extends WeElement<Props> {
   store
 
   render() {
-    const formItemClass = tw`leading-8 mb-6`
+    const formItemClass = tw`leading-8 mb-2`
     const lableClass = tw`w-16 float-left align-middle`
 
     return (
-      <div style={{ width: '480px' }} class={tw`text-sm px-10 py-10 text-gray-500`}>
-        <div class={formItemClass}>
-          <label class={lableClass} >用户姓名</label>
-          <div class={tw`leading-8 ml-16`}>
-            <o-input size="small" block></o-input>
-          </div>
-        </div>
+      <o-form
+        initialValues={{ name: '', email: '' }}
+        validate={values => {
+          const errors: { name?: string, email?: string } = {};
+          if (!values.name) {
+            errors.name = 'Required';
+          }
+          if (!values.email) {
+            errors.email = 'Required';
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address';
+          }
+          return errors;
+        }}>
+        {({
+          values,
+          errors,
+          touched,
+          onChange,
+          onSubmit,
+          onBlur
+        }) => (
+            <div style={{ width: '480px' }} class={tw`text-sm px-10 py-10 text-gray-500`}>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >出生地址</label>
-          <div class={tw`leading-8 ml-16`}>
-            <o-select css={`
-            .o-select .o-input__inner {
-              width: 337px;
-            `} size="small" placeholder="选择一个出生地"
-              items={this.items}
-            ></o-select>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >用户姓名</label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-input
+                    size="small"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    placeholder="我是带校验的"
+                    value={values.name}
+                    name="name"
+                    block></o-input>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.name && touched.name && errors.name}</div>
+                </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >出生日期</label>
-          <div class={tw`leading-8 ml-10`}>
-            <o-date-picker size="small" locale={this.store.locale}> </o-date-picker>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >Email</label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-input
+                    name="email"
+                    value={values.email}
+                    onChange={onChange}
+                    placeholder="我是带校验的"
+                    onBlur={onBlur}
+                    size="small" block
+                  >
+                  </o-input>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.email && touched.email && errors.email}</div>
+                </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >是否结婚</label>
-          <div class={tw`leading-8 ml-16 pt-1`}>
-            <o-switch id="switchA" checked="0">
-            </o-switch>
-          </div>
-        </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >喜爱水果</label>
-          <div class={tw`leading-8 ml-10`}>
-            <o-checkbox class={tw``} label='苹果🍎'> </o-checkbox>
-            <o-checkbox class={tw` ml-6`} label='草莓🍓'> </o-checkbox>
-            <o-checkbox class={tw` ml-6`} label='葡萄🍇'> </o-checkbox>
-            <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
-            <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
-            <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >出生地址</label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-select css={`
+              .o-select .o-input__inner {
+                width: 337px;
+              `} size="small" placeholder="选择一个出生地"
+                    items={this.items}
+                  ></o-select>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >级联选择</label>
-          <div class={tw`leading-8 ml-10`}>
-            <o-cascader size="small" options={[
-              {
-                value: 'components',
-                label: '组件',
-                children: [
-                  {
-                    value: 'basic',
-                    label: '基础',
-                    children: [
-                      {
-                        value: 'input',
-                        label: '输入框'
-                      },
-                      {
-                        value: 'button',
-                        label: '按钮'
-                      },
-                      {
-                        value: 'card',
-                        label: '卡片'
-                      }
-                    ]
-                  },
-                  {
-                    value: 'form',
-                    label: '表单',
-                    children: [
-                      {
-                        value: 'select',
-                        label: '选择器'
-                      }
-                    ]
-                  },
-                  {
-                    value: 'advanced',
-                    label: '高级',
-                    children: [
-                      {
-                        value: 'tree',
-                        label: '树'
-                      },
-                      {
-                        value: 'cascader',
-                        label: '级联选择器'
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                value: 'author',
-                label: '作者',
-                children: [
-                  {
-                    value: 'dntzhang',
-                    label: '当耐特'
-                  },
-                  {
-                    value: 'YunYouJun',
-                    label: '云游君'
-                  }
-                ]
-              }
-            ]}> </o-cascader>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >出生日期</label>
+                <div class={tw`leading-8 ml-10`}>
+                  <o-date-picker size="small" locale={this.store.locale}> </o-date-picker>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >喜爱水果</label>
-          <div class={tw`leading-8 ml-10`}>
-            <o-select css={`
-            .o-select .o-input__inner {
-              width: 257px;
-            `} size="small" multiple placeholder="选择多个水果"
-              items={this.fruits}
-            ></o-select>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >是否结婚</label>
+                <div class={tw`leading-8 ml-16 pt-1`}>
+                  <o-switch id="switchA" checked="0">
+                  </o-switch>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >大学时光</label>
-          <div class={tw`leading-8 ml-10`}>
-            <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >喜爱水果</label>
+                <div class={tw`leading-8 ml-10`}>
+                  <o-checkbox class={tw``} label='苹果🍎'> </o-checkbox>
+                  <o-checkbox class={tw` ml-6`} label='草莓🍓'> </o-checkbox>
+                  <o-checkbox class={tw` ml-6`} label='葡萄🍇'> </o-checkbox>
+                  <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
+                  <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
+                  <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >用户性别</label>
-          <div class={tw`leading-8 ml-16`}>
-            <o-radio name="sex" checked value="0">男</o-radio>
-            <o-radio name="sex" value="1" class={tw`ml-2`}>女</o-radio>
-          </div>
-        </div>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} >个性签名</label>
-          <div class={tw`leading-8 ml-16`}>
-            <o-input type="textarea" block></o-input>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >级联选择</label>
+                <div class={tw`leading-8 ml-10`}>
+                  <o-cascader size="small" options={[
+                    {
+                      value: 'components',
+                      label: '组件',
+                      children: [
+                        {
+                          value: 'basic',
+                          label: '基础',
+                          children: [
+                            {
+                              value: 'input',
+                              label: '输入框'
+                            },
+                            {
+                              value: 'button',
+                              label: '按钮'
+                            },
+                            {
+                              value: 'card',
+                              label: '卡片'
+                            }
+                          ]
+                        },
+                        {
+                          value: 'form',
+                          label: '表单',
+                          children: [
+                            {
+                              value: 'select',
+                              label: '选择器'
+                            }
+                          ]
+                        },
+                        {
+                          value: 'advanced',
+                          label: '高级',
+                          children: [
+                            {
+                              value: 'tree',
+                              label: '树'
+                            },
+                            {
+                              value: 'cascader',
+                              label: '级联选择器'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      value: 'author',
+                      label: '作者',
+                      children: [
+                        {
+                          value: 'dntzhang',
+                          label: '当耐特'
+                        },
+                        {
+                          value: 'YunYouJun',
+                          label: '云游君'
+                        }
+                      ]
+                    }
+                  ]}> </o-cascader>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
 
-        <div class={formItemClass}>
-          <label class={lableClass} ></label>
-          <div class={tw`leading-8 ml-16`}>
-            <o-button size="small" type="primary">创建</o-button>
-            <o-button size="small" class={tw`ml-6`}>重置</o-button>
-          </div>
-        </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >喜爱水果</label>
+                <div class={tw`leading-8 ml-10`}>
+                  <o-select css={`
+              .o-select .o-input__inner {
+                width: 257px;
+              `} size="small" multiple placeholder="选择多个水果"
+                    items={this.fruits}
+                  ></o-select>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
 
-      </div>
+              <div class={formItemClass}>
+                <label class={lableClass} >大学时光</label>
+                <div class={tw`leading-8 ml-10`}>
+                  <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
+                </div>
+              </div>
+
+              <div class={formItemClass}>
+                <label class={lableClass} >用户性别</label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-radio name="sex" checked value="0">男</o-radio>
+                  <o-radio name="sex" value="1" class={tw`ml-2`}>女</o-radio>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
+
+              <div class={formItemClass}>
+                <label class={lableClass} >个性签名</label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-input type="textarea" block></o-input>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                </div>
+              </div>
+
+              <div class={formItemClass}>
+                <label class={lableClass} ></label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-button size="small" type="primary" onclick={onSubmit} >创建</o-button>
+                  <o-button size="small" class={tw`ml-6`}>重置</o-button>
+                </div>
+              </div>
+
+            </div>
+          )}
+      </o-form>
     )
   }
 }

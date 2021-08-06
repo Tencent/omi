@@ -21,17 +21,17 @@ function init(args) {
   var customPrjName = args.project || "";
   var tpl = join(__dirname, "../template/component");
   var dest = join(process.cwd(), customPrjName);
-  var projectName = basename(dest);
+  var componentName = basename(dest);
   var mirror = args.mirror;
 
   console.log();
   console.log(omiCli + (!isCn ? " is booting... " : " 正在启动..."));
   console.log(
     omiCli +
-      (!isCn ? " will execute init command... " : " 即将执行 init 命令...")
+    (!isCn ? " will execute init command... " : " 即将执行 init 命令...")
   );
   if (existsSync(dest) && !emptyDir.sync(dest)) {
-    if (!isSafeToCreateProjectIn(dest, projectName)) {
+    if (!isSafeToCreateProjectIn(dest, componentName)) {
       process.exit(1);
     }
   }
@@ -42,10 +42,10 @@ function init(args) {
     console.log();
     console.log(
       chalk.bold.cyan("Omi-Cli") +
-        (!isCn
-          ? " will creating a new omi app in "
-          : " 即将创建一个新的应用在 ") +
-        dest
+      (!isCn
+        ? " will creating a new omi app in "
+        : " 即将创建一个新的应用在 ") +
+      dest
     );
 
     vfs
@@ -64,6 +64,16 @@ function init(args) {
             info("Rename", "gitignore -> .gitignore");
             renameSync(join(dest, "gitignore"), join(dest, ".gitignore"));
           }
+
+          if (existsSync(join(dest, "package.json"))) {
+
+            replaceSync(join(dest, "package.json"), {
+              counter_to_be_replace: componentName,
+              //写成 file npm publish omi-cli 会丢失文件
+              files_to_be_replace: "files"
+            });
+          }
+
           if (customPrjName) {
             try {
               process.chdir(customPrjName);
@@ -84,17 +94,29 @@ function init(args) {
       .resume();
   }
 
+  function replaceSync(file, map) {
+    let contents = fs.readFileSync(file).toString();
+    Object.keys(map).forEach(fromKey => {
+      contents = contents.replace(fromKey, map[fromKey]);
+      fs.writeFileSync(file, contents);
+    })
+  }
+
   function done() {
-    success(`Congratulation! "${projectName}" has been created successfully! `);
+    success(`Congratulation! "${componentName}" has been created successfully! `);
     console.log();
     console.log();
 
     console.log("Change directory command:");
-    success(`cd ${projectName}`);
+    success(`cd ${componentName}`);
     console.log();
     console.log();
     console.log("Development command:");
     success("npm start");
+    console.log();
+    console.log();
+    console.log("Test command:");
+    success("npm run test");
     console.log();
     console.log();
     console.log("Release command:");

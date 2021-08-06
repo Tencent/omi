@@ -1,70 +1,60 @@
-import { tag, WeElement, h, classNames } from 'omi'
-import { createPopper } from '@popperjs/core';
+import { tag, h, WeElement, OverwriteProps } from 'omi'
 
 import * as css from './index.scss'
 
-interface Props {
-  content?: string,
-  effect?: string,
-  position?: string
+export type Attrs = {
+  count?: number,
+  onCountChanged?: (evt: CustomEvent) => void
 }
 
-@tag('o-tooltip')
-export default class ToolTip extends WeElement<Props> {
-  static css = css
+const tagName = 'o-counter'
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [tagName]: Omi.Props & Attrs
+    }
+  }
+}
+
+
+export type Props = OverwriteProps<Attrs, { count: number }>
+
+@tag(tagName)
+export default class Counter extends WeElement<Props> {
+
+  static css = css.default ? css.default : css
 
   static defaultProps = {
-    content: '',
-    effect: 'light',
-    position: 'bottom'
+    count: 1
   }
 
   static propTypes = {
-    content: String,
-    effect: String,
-    position: String
+    count: Number
   }
 
-  installed() {
-
+  minus = () => {
+    this.updateProps({
+      count: this.props.count - 1
+    })
+    this.fire('CountChanged', this.props.count)
   }
 
-  onMouseEnter = () => {
-    this.isShow = true
-    this.update()
-    const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
-    createPopper(tip, this.shadowRoot.querySelector('.tip'), {
-      placement: this.props.position,
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 8],
-          },
-        },
-      ],
-    });
+  plus = () => {
+    this.updateProps({
+      count: this.props.count + 1
+    })
+    this.fire('CountChanged', this.props.count)
   }
 
-  onMouseLeave = () => {
-    this.isShow = false
-    this.update()
-  }
-
-  isShow = false
-
-  render(props) {
-    return <div>
-      <slot onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}></slot>
-      <div class={
-        classNames({
-          tip: true,
-          show: this.isShow,
-          [`is-${props.effect}`]: props.effect
-        })
-      }>{props.content}
-        <i class="tip-arrow" data-popper-arrow></i>
-      </div>
-    </div>
+  render(props: Props) {
+    return (
+      // <h.f></h.f> or <></> are supported
+      <h.f>
+        <button onClick={this.minus}>-</button>
+        <span>{props.count}</span>
+        <button onClick={this.plus}>+</button>
+      </h.f>
+    )
   }
 }
+

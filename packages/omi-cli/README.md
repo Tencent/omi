@@ -1,36 +1,29 @@
 ## omi-cli
 
+### New Project by Omi
+
 ```bash
-$ npx omi-cli init my-app     
+$ npx omi-cli init my-app
 $ cd my-app           
-$ npm start            # develop
-$ npm run build        # release
+$ npm start           # develop
+$ npm run build       # release
 ```
 
-<!-- Directory description:
 
+### New Component by Omi
+
+```bash
+$ npx omi-cli init-component my-component
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
 ```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-``` -->
 
-## Project Template
+### Update to the latest version
 
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|Base Template(v3.6.0+)|`omi init my-app`| Basic omi template with vite|
-
-<!-- |Base Template(v3.3.0+)|`omi init my-app`| Basic omi project template.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic omi template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.| -->
-
+```bash
+$ npm i omi-cli -g 
+```
 
 # License
 

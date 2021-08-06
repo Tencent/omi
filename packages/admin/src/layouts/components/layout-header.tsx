@@ -78,7 +78,7 @@ export default class extends WeElement<Props> {
               onchange={this.onMenuChange} >
             </o-hamburger-menu>
             <img class={tw`w-8 m-1 ml-3 flex-row`} src={logo} alt="logo" />
-            <h1 class={tw`ml-3 leading-10 text-gray-500 flex-row`}>OMI ADMIN</h1>
+            <h1 class={tw`ml-3 leading-10 text-gray-500 flex-row whitespace-nowrap`}>OMI ADMIN</h1>
             <div class={tw`flex-row mt-1.5 ml-3`}>
               <o-select css={`
             .o-select .o-input__inner {
@@ -91,7 +91,7 @@ export default class extends WeElement<Props> {
           </div>
 
           <div class={tw`flex flex-row text-gray-500 gap-x-4 items-center order-3 p-1 mr-3`}>
-            <div class={tw`flex-row `}>
+            <div class={tw`flex-row hidden md:block`}>
               <div
                 class={tw`cursor-pointer`}
                 onClick={this.toggle}
@@ -113,9 +113,9 @@ export default class extends WeElement<Props> {
               )}
             </div>
 
-            <o-icon-notifications class={tw`flex-row cursor-pointer`}></o-icon-notifications>
+            <o-icon-notifications class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-notifications>
 
-            <o-icon-settings class={tw`flex-row cursor-pointer`}></o-icon-settings>
+            <o-icon-settings class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-settings>
 
             <a href="https://github.com/Tencent/omi" target="_blank" class={tw`flex-row`}><o-icon-git-hub ></o-icon-git-hub></a>
 
