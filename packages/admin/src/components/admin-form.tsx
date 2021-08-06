@@ -37,9 +37,9 @@ export default class extends WeElement<Props> {
 
     return (
       <o-form
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ name: '', email: '' }}
         validate={values => {
-          const errors = {};
+          const errors: { name?: string, email?: string } = {};
           if (!values.name) {
             errors.name = 'Required';
           }
@@ -70,6 +70,7 @@ export default class extends WeElement<Props> {
                     onBlur={onBlur}
                     placeholder="我是带校验的"
                     value={values.name}
+                    name="name"
                     block></o-input>
                   <div class={tw`text-red-500 h-6 text-sm`}>{errors.name}</div>
                 </div>
