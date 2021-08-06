@@ -48,7 +48,7 @@ export default class Counter extends WeElement<Props> {
 
   render(props: Props) {
     return (
-      //<h.f><>/h.f> or  <></>  are supported
+      // <h.f></h.f> or <></> are supported
       <h.f>
         <button onClick={this.minus}>-</button>
         <span>{props.count}</span>
