@@ -11,7 +11,7 @@ const config = {
       {
         title: '基础概念',
         list: [
-          { name: 'JSX', md: 'jsx' },
+          { name: 'H / H.F / JSX', md: 'jsx' },
           { name: '属性 Props', md: 'props' },
           { name: '事件 Event', md: 'event' },
           { name: '插槽 Slot', md: 'slot' },
@@ -47,7 +47,7 @@ const config = {
       {
         title: 'Base',
         list: [
-          { name: 'JSX', md: 'jsx' },
+          { name: 'H / H.F / JSX', md: 'jsx' },
           { name: 'Props', md: 'props' },
           { name: 'Event', md: 'event' },
           { name: 'Slot', md: 'slot' },
