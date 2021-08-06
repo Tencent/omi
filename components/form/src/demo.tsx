@@ -13,12 +13,6 @@ const tagName = 'my-demo'
 @tag(tagName)
 export default class MyDemo extends WeElement<Props> {
 
-  count = 2
-
-  onChanged = (evt: CustomEvent) => {
-    //同步内部状态到外部，这样防止父刷新覆盖子的 count
-    this.count = evt.detail
-  }
 
   render(props: Props) {
     return (
@@ -38,32 +32,34 @@ export default class MyDemo extends WeElement<Props> {
       >{({
         values,
         errors,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
+        onChange,
+        onSubmit,
+        onBlur
         /* and other goodies */
       }) =>
         <form >
-          <input
+          <div><input
             type="email"
             name="email"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={onChange}
+            onBlur={onBlur}
             value={values.email}
-          />
-          {errors.email}
-          <input
+          /></div>
+          <div> {errors.email}</div>
+          <div> <input
             type="password"
             name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            onChange={onChange}
+            onBlur={onBlur}
             value={values.password}
-          />
-          {errors.password}
-          <button type="button" onClick={handleSubmit} disabled={isSubmitting}>
-            Submit
+          /></div>
+          <div> {errors.password}</div>
+          <div>
+            <button type="button" onClick={onSubmit} >
+              Submit
           </button>
+          </div>
+
         </form>}</o-form>
     )
   }
