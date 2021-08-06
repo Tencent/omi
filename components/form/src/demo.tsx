@@ -22,12 +22,49 @@ export default class MyDemo extends WeElement<Props> {
 
   render(props: Props) {
     return (
-      <div>
-        <h1 onclick={() => {
-          this.update()
-        }}>JSX Mode</h1>
-        <o-counter count={this.count} onCountChanged={this.onChanged}></o-counter>
-      </div>
+      <o-form
+        initialValues={{ email: '', password: '' }}
+        validate={values => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = 'Required';
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address';
+          }
+          return errors;
+        }}
+      >{({
+        values,
+        errors,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        /* and other goodies */
+      }) =>
+        <form >
+          <input
+            type="email"
+            name="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.email}
+          />
+          {errors.email}
+          <input
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+          />
+          {errors.password}
+          <button type="button" onClick={handleSubmit} disabled={isSubmitting}>
+            Submit
+          </button>
+        </form>}</o-form>
     )
   }
 }

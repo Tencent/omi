@@ -3,11 +3,11 @@ import { tag, h, WeElement, OverwriteProps } from 'omi'
 import * as css from './index.scss'
 
 export type Attrs = {
-  count?: number,
+  initialValues: any,
   onCountChanged?: (evt: CustomEvent) => void
 }
 
-const tagName = 'o-counter'
+const tagName = 'o-form'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -48,12 +48,25 @@ export default class Counter extends WeElement<Props> {
 
   render(props: Props) {
     return (
-      //<h.f><>/h.f> or  <></>  are supported
-      <h.f>
-        <button onClick={this.minus}>-</button>
-        <span>{props.count}</span>
-        <button onClick={this.plus}>+</button>
-      </h.f>
+
+      <div>
+        {this.props.children[0]({
+          values: props.initialValues,
+          errors: this.isInstalled ? props.validate(props.initialValues) : {},
+          handleSubmit: (evt) => {
+            console.log(evt)
+            evt.preventDefault()
+            this.update()
+          },
+          handleChange: (evt) => {
+
+            console.error(evt)
+            props.initialValues[evt.currentTarget.getAttribute('name')] = evt.currentTarget.value
+
+          }
+        })}
+      </div>
+
     )
   }
 }
