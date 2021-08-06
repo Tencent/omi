@@ -6,7 +6,6 @@ import '../dist/index.es.js'
 describe('o-form ', () => {
   it('default prop', async () => {
     const el = await fixture(html`<o-form initial-values="{ email: '', password: '' }"></o-form>`)
-    expect(el.shadowRoot.innerHTML).to.equal(`<div></div>`)
+    expect(el.innerHTML).to.equal(`<div></div>`)
   })
-
 })
