@@ -1,5 +1,5 @@
 {
-  "name": "@omiu/counter",
+  "name": "@omiu/counter_to_be_replace",
   "version": "0.0.0",
   "main": "dist/index.es.js",
   "exports": {
@@ -15,6 +15,10 @@
     "watch": "sass --watch src/index.scss src/index.css --no-source-map",
     "test": "npm run build && web-test-runner \"test/*.js\" --node-resolve"
   },
+  "files_to_be_replace": [
+    "dist",
+    "types"
+  ],
   "dependencies": {
     "omi": "latest"
   },
