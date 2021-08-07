@@ -1,13 +1,17 @@
 import { WeElement, h, tag } from 'omi'
 import * as MarkdownIt from 'markdown-it'
-import * as priseCSS from './prism.css'
+import * as prismCSS from './prism.css'
 import * as mdCSS from './md.css'
 import * as anchor from 'markdown-it-anchor'
 import * as prismjs from 'prismjs'
+import 'prismjs/components/prism-jsx'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-tsx'
 
 //不能注释掉，不然代码不染色
 console.log(prismjs)
 const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
+
 
 interface Props {
   mdContent: string
@@ -34,7 +38,7 @@ export default class extends WeElement<Props> {
     mdContent: ''
   }
 
-  static css = [mdCSS.default, priseCSS.default]
+  static css = [mdCSS.default, prismCSS.default]
 
   md
 
@@ -49,6 +53,10 @@ export default class extends WeElement<Props> {
   }
 
   installed() {
+    this.initCodeStyle()
+  }
+
+  updated() {
     this.initCodeStyle()
   }
 
@@ -69,9 +77,10 @@ export default class extends WeElement<Props> {
         pre.className = code.className
 
         const temp = code.className.match(/language-\w*/g)[0]
-        if (temp) {
-
-          code.innerHTML = Prism.highlight(code.innerText, Prism.languages[temp.split('-')[1]], temp.split('-')[1])
+        const lan = temp.split('-')[1]
+        const pl = Prism.languages[lan]
+        if (temp && pl) {
+          code.innerHTML = Prism.highlight(code.innerText, pl, lan)
         }
       } else {
         pre = code.parentNode
@@ -86,7 +95,7 @@ export default class extends WeElement<Props> {
   }
 
   render() {
-    return <div class="docs" style="padding:20px;">
+    return <div class="result-html" >
       <div dangerouslySetInnerHTML={{ __html: this.md.render(this.props.mdContent) }
       } ></div >
     </div >
