@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Picker Demo</title>
+    <link rel="stylesheet" href="color-picker.min.css">
+    <style>
+        .font-color {
+            width: 20px;
+            height: 20px;
+            margin-top: 30px;
+            margin-left: 50px;
+            border-color: #efefef;
+            background-color: #d4d4d4;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body ng-app="colorpickerDemo">
+<h1>Color picker DEMO</h1>
+<p>
+    Below are two usage: one is directive and the other the controller
+</p>
+<font-color></font-color>
+
+<div ng-controller="demoCtrl">
+    <div color-picker set-color="dynamicSetColor()" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
+</div>
+
+
+<script src="../bower_components/angular/angular.js"></script>
+<script src="color-picker.min.js"></script>
+<script>
+    angular.module('colorpickerDemo', ['ui.colorpicker'])
+            .directive('fontColor', function() {
+                return {
+                    restrict: 'E',
+                    scope:{},
+                    replace: false,
+                    template: '<div color-picker default-color="#ff0000" class="font-color" ng-style="{\'background-color\': selectedFontColor}"></div>',
+                    link: function(scope) {
+                        scope.selectedFontColor = '#f00';
+
+                        scope.$on('colorPicked', function(event, color) {
+                            scope.selectedFontColor = color;
+                        });
+                    }
+                }
+            })
+            .controller('demoCtrl', function($scope) {
+                $scope.selectedForeColor = dynamicSetColor();
+
+                $scope.$on('colorPicked', function(event, color) {
+                    $scope.selectedForeColor = color;
+                });
+
+                // 动态设置默认颜色
+                $scope.dynamicSetColor = dynamicSetColor;
+
+                function dynamicSetColor() {
+                    return '#0f0';
+                }
+
+            });
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="Kity 实现的环形取色器">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>取色器</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) {
+            var Paper = require('graphic/paper');
+            var RingPalette = require('../demo/ringpalette/ringpalette');
+
+            var paper = new Paper(document.body);
+
+            paper.setViewBox(-750, -500, 1500, 1000);
+            paper.addShape(new RingPalette());
+        });
+    </script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    seajs.use('demo');
+</script>
+</html>

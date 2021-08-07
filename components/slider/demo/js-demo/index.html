@@ -1,31 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMI Slider Demo</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OMI Slider Demo</title>
+  <body>
+    <div id="root">
+      <a
+        href="https://github.com/Tencent/omi"
+        target="_blank"
+        style="position: fixed; right: 0; top: 0; z-index: 3"
+      >
+        <img src="//alloyteam.github.io/github.png" alt="" />
+      </a>
+      <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+      <script src="../../src/index.js"></script>
+      <div style="text-align: center">basic slider</div>
+      <o-slider min="0" max="10" value="2" id="single-range-demo"></o-slider>
+      <div style="text-align: center">single slider with tool-tip</div>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        tooltip
+        step="2"
+        id="single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">double slider with tool-tip</div>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        second_value="10"
+        range="double"
+        tooltip
+        id="double-range-demo"
+      ></o-slider>
+      <div style="text-align: center">square slider</div>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        shape="square"
+        id="square-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">disabled slider</div>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        disabled
+        id="disabled-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">double slider</div>
+      <o-slider
+        min="0"
+        max="200"
+        value="20"
+        second_value="70"
+        range="double"
+        id="double-range-demo"
+      ></o-slider>
+      <div style="text-align: center">disabled double slider</div>
+      <o-slider
+        min="0"
+        max="200"
+        value="20"
+        second_value="70"
+        range="double"
+        disabled
+        id="disable-double-range-demo"
+      ></o-slider>
+      <div style="position: absolute">vertical single slider</div>
+      <div style="position: absolute; left: 175px">vertical double slider</div>
 
-</head>
-
-<body>
-
-
-  <div id="root">
-    <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-    <script src="../../src/index.js"></script>
-    <o-slider min="0" max="10" value="2" id="single-range-demo" ></o-slider>
-    <o-slider min="0" max="10" value="2" round id="round-single-range-demo" ></o-slider>
-    <o-slider min="0" max="10" value="2" disabled id="disabled-single-range-demo" ></o-slider>
-    <o-slider min="0" max="200" value="20" second_value="70" double_range id="double-range-demo"></o-slider>
-    <o-slider min="0" max="200" value="20" second_value="70" double_range disabled id="double-range-demo"></o-slider>
-    <!-- this slider is sometimes bugged (slider wont work), will look into later -->
-    <o-slider min="0" max="100" value="10" vertical id="vertical-demo" style="position: relative; margin-top: 200px; left:-150px; width: 400px"></o-slider>
-    <o-slider min="0" max="100" double_range vertical value="20" second_value="70" id="vertical-double-demo" style="position: relative; margin-top:-50px; left:-50px; width: 400px"></o-slider>
-  </div>
-    
-
-</body>
-
+      <o-slider
+        min="0"
+        max="100"
+        value="10"
+        orient="vertical"
+        id="vertical-demo"
+        style="
+          position: relative;
+          margin-top: 200px;
+          left: -150px;
+          width: 400px;
+        "
+      ></o-slider>
+      <o-slider
+        min="0"
+        max="100"
+        range="double"
+        orient="vertical"
+        value="20"
+        second_value="70"
+        id="vertical-double-demo"
+        style="position: relative; margin-top: -50px; width: 400px"
+      ></o-slider>
+    </div>
+  </body>
 </html>

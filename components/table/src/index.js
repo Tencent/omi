@@ -1,5 +1,5 @@
 /**
- * @omiu/table v0.0.14 http://omijs.org
+ * @omiu/table v0.0.15 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -963,7 +963,7 @@
 
     "use strict";
 
-var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o-table-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa;\n  white-space: nowrap; }\n\nth,\ntd {\n  white-space: nowrap; }\n\nth.sticky-top {\n  position: sticky;\n  top: -1px;\n  z-index: 1000; }\n\ntable thead th.sticky-left {\n  position: sticky;\n  left: -1px;\n  z-index: 1001; }\n\ntable tbody td.sticky-left {\n  position: sticky;\n  left: -1px;\n  z-index: 999; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px;\n  background: white; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\no-checkbox {\n  height: 20px;\n  vertical-align: middle; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n";
+var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o-table-table {\n  background: white;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  border-spacing: 0;\n  border-collapse: collapse;\n  color: #606266;\n  font-weight: 400; }\n\n.o-table-checkbox th:first-child,\n.o-table-checkbox td:first-child {\n  padding: 2px 10px 2px; }\n\nth {\n  border-bottom: 1px solid #E0E0E0;\n  text-align: left;\n  vertical-align: middle;\n  padding: 10px 10px 10px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 0.75rem;\n  line-height: 1.3125rem;\n  font-weight: 500;\n  background: #fafafa;\n  white-space: nowrap; }\n\nth,\ntd {\n  white-space: nowrap; }\n\nth.fixed-top {\n  position: sticky;\n  top: -1px;\n  z-index: 1000; }\n\ntable thead th.fixed-left {\n  position: sticky;\n  left: -1px;\n  z-index: 1001; }\n\ntable tbody td.fixed-left {\n  position: sticky;\n  left: -1px;\n  z-index: 999; }\n\ntable thead th.fixed-right {\n  position: sticky;\n  z-index: 1001; }\n\ntable tbody td.fixed-right {\n  position: sticky;\n  z-index: 1000; }\n\n.o-table-border td,\n.o-table-border th {\n  border-right: 1px solid #ebeef5; }\n\n.o-table-border td:first-child,\n.o-table-border th:first-child {\n  border-left: 1px solid #ebeef5; }\n\n.o-table-border th {\n  border-top: 1px solid #ebeef5; }\n\ntr {\n  border-bottom: 1px solid #E0E0E0; }\n\ntr:hover td {\n  background: #f5f5f5; }\n\ntd {\n  text-align: left;\n  vertical-align: middle;\n  font-size: 0.875rem;\n  padding: 10px 10px 10px;\n  background: white; }\n\ntd.compact,\nth.compact {\n  padding: 4px 10px 4px; }\n\na {\n  text-decoration: none; }\n\n.o-table-align-left {\n  text-align: left; }\n\n.o-table-align-center {\n  text-align: center; }\n\no-checkbox {\n  height: 20px;\n  vertical-align: middle; }\n\n.o-table-align-right {\n  text-align: right; }\n\na,\na:link,\na:visited,\na:active {\n  text-decoration: none;\n  color: inherit; }\n\na:hover {\n  color: #07c160;\n  color: var(--o-primary, #07c160); }\n\no-checkbox {\n  margin-right: 5px; }\n\n.o-table-stripe tr:nth-of-type(odd) {\n  background: white; }\n\n.o-table-stripe tr:nth-of-type(even) {\n  background: #fafafa; }\n\n.slide-fade-enter-active {\n  transition: all .3s ease; }\n\n.slide-fade-leave-active {\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1); }\n\n.slide-fade-enter,\n.slide-fade-leave-to {\n  transform: translateX(-40px);\n  opacity: 0; }\n";
 
     var Table = /** @class */ (function (_super) {
         __extends$2(Table, _super);
@@ -1045,7 +1045,8 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
         };
         Table.prototype.installed = function () {
             var _this = this;
-            this.setStickyLeft();
+            this.setFixedLeft();
+            this.setFixedRight();
             window.addEventListener('click', function () {
                 var needUpdate = false;
                 _this.props.dataSource.forEach(function (dataItem) {
@@ -1060,14 +1061,21 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
             });
         };
         Table.prototype.updated = function () {
-            this.setStickyLeft();
+            this.setFixedLeft();
+            this.setFixedRight();
         };
-        Table.prototype.setStickyLeft = function () {
-            var stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left');
+        Table.prototype.setFixedLeft = function () {
+            var fixedLeftEls = this.rootNode.querySelectorAll('.fixed-left');
             var boxRect = this.rootNode.getBoundingClientRect();
-            stickyLeftEls.forEach(function (stickyLeftEl, index) {
-                var rect = stickyLeftEl.getBoundingClientRect();
-                stickyLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px';
+            fixedLeftEls.forEach(function (fixedLeftEl, index) {
+                var rect = fixedLeftEl.getBoundingClientRect();
+                fixedLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px';
+            });
+        };
+        Table.prototype.setFixedRight = function () {
+            var fixedRightEls = this.rootNode.querySelectorAll('.fixed-right');
+            fixedRightEls.forEach(function (fixedRightEl, index) {
+                fixedRightEl.style.right = '0px';
             });
         };
         Table.prototype.render = function (props) {
@@ -1076,6 +1084,9 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
                 return;
             if (!props.dataSource)
                 return;
+            if (props.fixedRight) {
+                props.columns[props.columns.length - 1].fixed = true;
+            }
             return (omi.h("div", __assign$2({ style: {
                     width: props.width && props.width,
                     height: props.height && props.height
@@ -1096,8 +1107,9 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
                             return omi.h("th", __assign$2({}, obj, { class: omi.classNames((_a = {},
                                     _a["o-table-align-" + column.align] = column.align,
                                     _a['compact'] = props.compact,
-                                    _a['sticky-top'] = props.stickyTop,
-                                    _a['sticky-left'] = index < props.stickyLeftCount,
+                                    _a['fixed-top'] = props.fixedTop,
+                                    _a['fixed-left'] = index < props.fixedLeftCount,
+                                    _a['fixed-right'] = column.fixed,
                                     _a)) }),
                                 index === 0 && props.checkbox && omi.h("o-checkbox", __assign$2({}, _this._getCheckedState(), { onChange: function (_) { return _this._changeHandlerTh(_, column); } })),
                                 column.title);
@@ -1114,7 +1126,8 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
                         return omi.h("td", __assign$2({ onclick: function (evt) { return _this.onTdClick(item, column, evt); } }, obj, { class: omi.classNames((_a = {},
                                 _a["o-table-align-" + column.align] = column.align,
                                 _a['compact'] = props.compact,
-                                _a['sticky-left'] = subIndex < props.stickyLeftCount,
+                                _a['fixed-left'] = subIndex < props.fixedLeftCount,
+                                _a['fixed-right'] = column.fixed,
                                 _a)) }),
                             subIndex === 0 && props.checkbox && omi.h("o-checkbox", { checked: item.checked, onChange: function (_) { return _this._changeHandlerTd(_, item); } }),
                             (column.editable && item.editingKey === column.key) ? omi.h("o-input", { ref: function (_) { return _this.editingInput = _; }, size: "mini", onChange: function (evt) {
@@ -1130,8 +1143,9 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
             border: false,
             stripe: false,
             compact: false,
-            stickyTop: false,
-            stickyLeftCount: 0
+            fixedTop: false,
+            fixedRight: false,
+            fixedLeftCount: 0
         };
         Table.propTypes = {
             dataSource: Object,
@@ -1142,8 +1156,9 @@ var css = ":host {\n  display: block; }\n\n.o-table {\n  overflow: auto; }\n\n.o
             compact: Boolean,
             width: String,
             height: String,
-            stickyTop: Boolean,
-            stickyLeftCount: Number
+            fixedTop: Boolean,
+            fixedRight: Boolean,
+            fixedLeftCount: Number
         };
         Table = __decorate$2([
             omi.tag('o-table')

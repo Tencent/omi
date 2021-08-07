@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="Demo 的描述，必须要有">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>Demo 标题</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) { require('kity'); });
+    </script>
+    <script>
+        // 启动 Demo 模块
+        seajs.use('demo');
+    </script>
+    <!-- dev end -->
+
+    <!-- 生产使用中可以直接引用发布压缩的版本 -->
+    <!-- production start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <!-- <script src="../dist/kity.min.js"></script> -->
+    <!-- production end -->
+
+    <!-- 可以引入样式表（针对目录形式的Demo） -->
+    <!-- <link rel="stylesheet" href="mystyle.css"> -->
+    
+    <!-- 可以引入其他脚本 -->
+    <!-- <script src="demoscript.js"></script> -->
+</head>
+<body>
+    <!--Body 内容-->
+</body>
+
+<!-- 针对单页面的 Demo，可以直接在页面最后写 Script，作为 Demo 的源代码 -->
+<script>
+    var html = [];
+    for (var p in kity) {
+        html.push('<p>kity.' + p + '</p>');
+    }
+    html.sort();
+    document.body.innerHTML = html.join('');
+</script>
+</html>

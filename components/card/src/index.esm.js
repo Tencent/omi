@@ -1,5 +1,5 @@
 /**
- * @omiu/card v0.0.1 http://omijs.org
+ * @omiu/card v0.0.6 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -65,22 +67,16 @@ var css = `:host {
 .o-card {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 300px;
   border: 1px solid #EFEFEF; }
 
 .o-card-medium {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 265px;
   border: 1px solid #EFEFEF; }
 
 .o-card-small {
   display: flex;
   flex-direction: column;
-  margin: 10px;
-  width: 230px;
   border: 1px solid #EFEFEF; }
 
 .o-card-header {
@@ -144,19 +140,19 @@ var css = `:host {
   cursor: pointer; }
 
 .o-card-body {
-  margin: 0 24px;
+  margin: 12px 24px;
   font-weight: 200;
   font-size: 14px;
-  line-height: 1.5; }
+  line-height: 1.6; }
 
 .o-card-body-medium {
-  margin: 0 22px;
+  margin: 11px 22px;
   font-weight: 200;
   font-size: 13px;
-  line-height: 1.2; }
+  line-height: 1.4; }
 
 .o-card-body-small {
-  margin: 0 20px;
+  margin: 10px 20px;
   font-weight: 200;
   font-size: 12px;
   line-height: 1.2; }
@@ -243,7 +239,26 @@ var Card = /** @class */ (function (_super) {
             _this.update(true);
         };
         _this.handleMousemove = function (item) {
-            item && (_this.css = css + ".o-card:hover {\n      display: flex;\n      flex-direction: column;\n      margin: 10px;\n      width: 300px;\n      box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n      transition: all .3s;\n      z-index: 1;\n    }");
+            if (item === "always") {
+                (_this.css = css + ".o-card {\n        display: flex;\n        flex-direction: column;\n     \n        box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n        transition: all .3s;\n        z-index: 1;\n      }");
+                return;
+            }
+            var hovercss = function () {
+                switch (_this.props.size) {
+                    case 'large':
+                        (_this.css = css + ".o-card:hover {\n            display: flex;\n            flex-direction: column;\n           \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        break;
+                    case 'medium':
+                        (_this.css = css + ".o-card-medium:hover {\n            display: flex;\n            flex-direction: column;\n        \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        break;
+                    case 'small':
+                        (_this.css = css + ".o-card-small:hover {\n            display: flex;\n            flex-direction: column;\n        \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                        break;
+                    default:
+                        (_this.css = css + ".o-card:hover {\n            display: flex;\n            flex-direction: column;\n          \n            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;\n            transition: all .3s;\n            z-index: 1;\n          }");
+                }
+            };
+            item && hovercss();
         };
         return _this;
     }
@@ -252,7 +267,7 @@ var Card = /** @class */ (function (_super) {
         var _this = this;
         return (h("div", __assign({}, extractClass(props, 'o-card', (_a = {},
             _a['o-card-' + props.size] = props.size,
-            _a)), { onMousemove: this.handleMousemove(props.hoverable === "true") }),
+            _a)), { onMousemove: this.handleMousemove(props.hoverable) }),
             h("slot", { name: "cover" },
                 h("div", __assign({}, extractClass(props, 'o-card-header', (_b = {},
                     _b['o-card-header-' + props.size] = props.size,
@@ -292,5 +307,5 @@ var Card = /** @class */ (function (_super) {
     return Card;
 }(WeElement));
 
-export default Card;
+export { Card as default };
 //# sourceMappingURL=index.esm.js.map

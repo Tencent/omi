@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pen Example</title>
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            paper.setWidth(400).setHeight(300);
+
+            var path = new kity.Path();
+            path.getDrawer().pipe(function(){
+                this.moveTo(10, 10);
+                this.lineTo(100, 10);
+                this.carcTo(100, 200, 40);
+                this.lineTo(10, 200);
+                this.close();
+            });
+            path.stroke(new kity.Pen().pipe(function() {
+                this.setWidth(5);
+                this.setDashArray([10, 5]);
+                this.setLineCap('butt');
+                this.setLineJoin('round');
+                this.setColor('green');
+            }));
+            path.fill('none');
+            paper.addShape(path);
+
+        };
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

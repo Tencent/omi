@@ -1,8 +1,6 @@
 ## Slider
 
-Slider
-
-* [→ CodePen](https://codepen.io/omijs/pen/undefined)
+Used for scrolling through page content
 
 ## Import
 
@@ -11,7 +9,6 @@ import '@omiu/slider'
 ```
 
 Or use script tag to ref it.
-
 
 ```html
 <script src="https://unpkg.com/@omiu/slider"></script>
@@ -34,9 +31,9 @@ Or use script tag to ref it.
   step?: number
   value?: number
   second_value?: number
-  double_range?: boolean
-  vertical?: boolean
-  round: boolean
+  range: 'single' | 'double'
+  orient?: 'vetical' | 'horizontal'
+  shape: 'square' | 'round'
   disabled?: boolean
 }
 ```
@@ -45,17 +42,19 @@ Or use script tag to ref it.
 
 ```tsx
 {
+  //default a single square range slider
   min: 0,
   max: 100,
   step: 1,
   value: 0,
-  //default a single square range slider
-  double_range: false,
-  vertical: false,
-  round: false,
+  second_value: 100,
+  range: 'single',
+  orient: 'horizontal',
+  shape: 'square',
   disabled: false,
 }
 ```
+
 ### Events
 
 * change

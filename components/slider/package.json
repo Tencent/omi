@@ -1,6 +1,6 @@
 {
   "name": "@omiu/slider",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Slider",
   "main": "src/index.js",
   "module": "src/index.esm.js",
@@ -16,6 +16,28 @@
     "test": "web-test-runner \"test/*.test.js\" --node-resolve",
     "test:watch": "web-test-runner \"test/*.test.js\" --node-resolve --watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "omiu",
+    "omi",
+    "omio",
+    "preact",
+    "react",
+    "virtual dom",
+    "vdom",
+    "components",
+    "virtual",
+    "dom"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "http://omijs.org",
   "devDependencies": {
     "sass": "^1.37.0",
     "@esm-bundle/chai": "^4.3.4",
@@ -72,6 +94,8 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/input": "0.0.12",
+    "@omiu/tooltip": "0.0.1",
     "omi": "latest"
   }
 }

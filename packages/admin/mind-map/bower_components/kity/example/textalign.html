@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Example</title>
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            paper.setWidth(800).setHeight(400);
+
+            paper.addShape(new kity.Line(0, 200.5, 600, 200.5).stroke('#CCC'));
+            paper.addShape(text1 = new kity.Text('English 中文字').setY(200).setVerticalAlign('middle'));
+            paper.addShape(new kity.HyperLink().pipe(function() {
+                this.addShape(new kity.Text('English 中文字').setY(200).setX(150).setSize(20));
+                this.setHref('http://www.baidu.com')
+            }));
+        };
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

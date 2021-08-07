@@ -10,8 +10,9 @@ interface Props {
     compact: boolean;
     width: string;
     height: string;
-    stickyTop: boolean;
-    stickyLeftCount: number;
+    fixedTop: boolean;
+    fixedRight: boolean;
+    fixedLeftCount: number;
 }
 export default class Table extends WeElement<Props> {
     static css: any;
@@ -22,8 +23,9 @@ export default class Table extends WeElement<Props> {
         border: boolean;
         stripe: boolean;
         compact: boolean;
-        stickyTop: boolean;
-        stickyLeftCount: number;
+        fixedTop: boolean;
+        fixedRight: boolean;
+        fixedLeftCount: number;
     };
     static propTypes: {
         dataSource: ObjectConstructor;
@@ -34,8 +36,9 @@ export default class Table extends WeElement<Props> {
         compact: BooleanConstructor;
         width: StringConstructor;
         height: StringConstructor;
-        stickyTop: BooleanConstructor;
-        stickyLeftCount: NumberConstructor;
+        fixedTop: BooleanConstructor;
+        fixedRight: BooleanConstructor;
+        fixedLeftCount: NumberConstructor;
     };
     deleteRow: (item: any) => void;
     deleteRowById(id: any): Promise<void>;
@@ -57,7 +60,8 @@ export default class Table extends WeElement<Props> {
     installed(): void;
     onChange: (evt: any, item: any, column: any) => void;
     updated(): void;
-    setStickyLeft(): void;
+    setFixedLeft(): void;
+    setFixedRight(): void;
     onTdClick: (item: any, column: any, evt: any) => void;
     render(props: any): JSX.Element;
 }

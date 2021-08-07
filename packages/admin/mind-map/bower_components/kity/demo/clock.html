@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="使用 Kity 绘制的仿真时钟">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>Kity Clock</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) { require('kity'); });
+    </script>
+    <script>
+        // 启动 Demo 模块
+        seajs.use('demo');
+    </script>
+    <!-- dev end -->
+
+    <!-- 生产使用中可以直接引用发布压缩的版本 -->
+    <!-- production start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <!-- <script src="../dist/kity.min.js"></script> -->
+    <!-- production end -->
+
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock" style="width: 100%; height: 100%; position: absolute;"></div>
+</body>
+<script>
+
+    // 绘图画布
+    var paper = new kity.Paper('clock').pipe(function() {
+        this.setWidth('100%').setHeight('100%');
+        this.setViewBox(-600, -600, 1200, 1200);
+    });
+
+    // 调色板
+    var palette = new kity.Palette().pipe(function() {
+        var gray = new kity.Color('gray');
+        this.add('outside', gray.dec('l', 20));
+        this.add('inside', gray.inc('l', 20));
+        this.add('big-ruler', gray.dec('l', 40));
+        this.add('small-ruler', gray.dec('l', 20));
+        this.add('h-pointer', gray.dec('l', 50));
+        this.add('m-pointer', gray.dec('l', 20));
+        this.add('s-pointer', new kity.Color('hsl(0, 75, 50)'));
+        this.add('frame-light', new kity.Color('white').dec('l', 5));
+        this.add('frame-dark', gray.dec('l', 10));
+    });
+
+    // 框架
+    paper.addShape(new kity.Circle(500).pipe(function(){
+        this.fill(new kity.LinearGradientBrush().pipe(function() {
+            this.addStop(0, palette.get('frame-dark'));
+            this.addStop(0.4, palette.get('frame-light'));
+            this.addStop(0.6, palette.get('frame-light'));
+            this.addStop(1, palette.get('frame-dark'));
+            paper.addResource(this);
+        }));
+        this.stroke( palette.get('outside') );
+        this.rotate(30);
+    }));
+
+    // 背景
+    paper.addShape(new kity.Circle(465).pipe(function(){
+        this.fill(new kity.LinearGradientBrush().pipe(function() {
+            this.addStop(0, palette.get('frame-light'));
+            this.addStop(0.4, palette.get('frame-dark'));
+            this.addStop(0.6, palette.get('frame-dark'));
+            this.addStop(1, palette.get('frame-light'));
+            paper.addResource(this);
+        }));
+        this.rotate(30);
+    }));
+
+    // 表盘
+    paper.addShape(new kity.Circle(450).pipe(function() {
+        this.stroke(palette.get('inside'), 8);
+        this.fill(new kity.RadialGradientBrush().pipe(function(brush){
+            paper.addResource(brush);
+            brush.setFocal(0.8, 0.2);
+            brush.setRadius(0.6);
+            brush.addStop(0, new kity.Color('white'));
+            brush.addStop(1, new kity.Color('hsl(0, 0, 80)'));
+        }));
+    }));
+
+    // 刻度
+    paper.addShape(new kity.Group().pipe(function() {
+        var minutes = 60, stepDeg = 360 / minutes;
+        var deg = 90, distance = 390, step = 0;
+        while(step < minutes) {
+            var rect;
+            if(!(step % 5)) {
+                rect = new kity.Rect(50, 10, 390, -5).fill(palette.get('big-ruler'));
+            } else {
+                rect = new kity.Rect(25, 6, 410, -3).fill(palette.get('small-ruler'));
+            }
+            this.addShape(rect.rotate(deg));
+            deg += stepDeg;
+            step ++;
+        }
+    }));
+
+    // hello kity
+    paper.addShape(new kity.Text().pipe(function() {
+        this.addSpan(new kity.TextSpan('Hello ').fill(new kity.Color('blue').set('s', 40)));
+        this.addSpan(new kity.TextSpan(' Kity').fill(new kity.Color('red').set('s', 40)));
+        this.setPath(new kity.Path().pipe(function() {
+            var radius = 280;
+            var start = kity.Point.fromPolar(radius, -120), end = kity.Point.fromPolar(radius, -60);
+            var d = this.getDrawer();
+            d.moveTo(start.x, start.y).carcTo(radius, 0, 1, end.x, end.y);
+            paper.addResource(this);
+        }));
+        this.setSize(50);
+        this.setStartOffset(50);
+    }));
+
+    // 指针类
+    var Pointer = kity.createClass('Pointer', {
+        base: kity.Path,
+        constructor: function( headWidth, tailWidth, length, offset, color ) {
+            this.callBase();
+            this.draw( headWidth, tailWidth, length, offset );
+            this.fill( color );
+        },
+        draw: function( headWidth, tailWidth, length, offset ) {                    
+            var d = this.getDrawer(),
+                x1 = -offset,         y1 = -headWidth / 2, 
+                x2 = length - offset, y2 = -tailWidth / 2;
+            d.moveTo( x1,  y1 );
+            d.lineTo( x2,  y2 );
+            d.lineTo( x2, -y2 );
+            d.lineTo( x1, -y1 );
+            d.close();
+        }
+    })
+
+    var hPointer, mPointer, sPointer, pointers;
+
+    hPointer = new Pointer( 30, 15, 300, 50, palette.get('h-pointer') );
+    mPointer = new Pointer( 20, 10, 400, 80, palette.get('m-pointer') );
+    sPointer = new Pointer( 10, 5, 450, 90, palette.get('s-pointer') );
+
+    pointers = new kity.Group().pipe(function(){
+        this.rotate(-90);
+        this.addShape(hPointer);
+        this.addShape(mPointer);
+        this.addShape(sPointer); 
+    });
+
+    var msPointer = new Pointer( 10, 2, 80, 0, new kity.Color('gray'));
+    var msMeter = new kity.Group().pipe(function() {
+        this.addShape(new kity.Circle(90).pipe(function() {
+            this.stroke(palette.get('inside'), 5);
+        }));
+        this.addShape(msPointer);
+        this.addShape(new kity.Circle(8).fill(new kity.Color('gray')));
+        this.rotate(-90);
+        this.translate(0, 250);
+    });
+
+    var mmPointer = new Pointer( 4, 1, 40, 0, new kity.Color('gray'));
+    var mmMeter = new kity.Group().pipe(function() {
+        this.addShape(new kity.Circle(50).pipe(function() {
+            this.stroke(palette.get('inside'), 3);
+        }));
+        this.addShape(mmPointer);
+        this.addShape(new kity.Circle(6).fill(new kity.Color('gray')));
+        this.rotate(90);
+        var pos = kity.Point.fromPolar(250, 50);
+        this.translate(pos.x, pos.y);
+    });
+
+    paper.addShape(msMeter);
+    paper.addShape(mmMeter);
+    paper.addShape(pointers);
+
+    function updatePointers(frame) {
+        var time = new Date(), 
+            h = time.getHours(), 
+            m = time.getMinutes(), 
+            s = time.getSeconds(),
+            ms = time % 1000,
+            mm = time % 500;
+        m += s / 60;
+        h += m / 60;
+        sPointer.setRotate(s * 6);
+        mPointer.setRotate(m * 6);
+        hPointer.setRotate(h * 30);
+        msPointer.setRotate(ms * 360 / 1000);
+        mmPointer.setRotate(mm * 360 / 500);
+        frame.next();
+    }
+    kity.requestFrame(updatePointers);
+</script>
+</html>

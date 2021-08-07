@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Easings</title>
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+        define('start', function (require) {
+            var Paper = require('graphic/paper');
+            var Group = require('graphic/group');
+            var Path = require('graphic/path');
+            var Color = require('graphic/color');
+            var Text = require('graphic/text');
+            var Matrix = require('graphic/matrix');
+            var Animator = require('animate/animator');
+            var easingTable = require('animate/easing');
+
+            var YMarker = require('core/class').createClass({
+                base: Path,
+                constructor: function( x, w, h ) {
+                    this.callBase();
+                    this.draw( x, w, h );
+                },
+                draw: function( x, w, h ) {
+                    var drawer = this.getDrawer();
+                    var hh = h / 2;
+                    drawer.moveTo( x, 0 );
+                    drawer.lineTo( x + hh, hh );
+                    drawer.lineTo( x + w, hh );
+                    drawer.lineTo( x + w, -hh );
+                    drawer.lineTo( x + hh, -hh );
+                    drawer.close();
+                },
+                mark: function( y ) {
+                    this.setTransform(new Matrix().translate(0, y));
+                }
+            });
+
+            var MarkerAnimator = require('core/class').createClass({
+                base: Animator,
+                constructor: function( beginValue, finishValue ) {
+                    this.callBase( beginValue, finishValue, function( marker, value ) {
+                        marker.mark( value );
+                    } );
+                }
+            });
+
+            var EasingGraph = require('core/class').createClass({
+                base: Paper,
+                constructor: function( container, easing ) {
+                    this.callBase(container);
+                    this.setViewBox(0, 0, 200, 120);
+
+                    var x = [0, 150], y = [30, 90];
+                    this.draw( easing, x, y );
+                    this.bind( easing, x, y );
+                },
+                draw: function( easing, x, y ) {
+                    this.coordinate = new Group().setAnchor(0, 60).scale(1, -1); // flip over y-alix
+                    this.coordinate.addShape(new Path().pipe(function() {
+                        var d = this.getDrawer();
+                        d.moveTo(x[0], y[0]).lineTo(x[1], y[0]);
+                        d.moveTo(x[0], y[1]).lineTo(x[1], y[1]);
+                        this.fill('none')
+                        this.stroke('#CCC')
+                    }));
+                    this.coordinate.addShape(new Path().pipe(function() {
+                        var d = this.getDrawer();
+                        d.moveTo(x[0], y[0]);
+                        for(var t = x[0]; t <= x[1]; t += 1) {
+                            d.lineTo(t, easing(t, y[0], y[1] - y[0], x[1] - x[0]));
+                        }
+                        this.fill('none');
+                        this.stroke('red');
+                    }));
+                    this.addShape(this.coordinate);
+                },
+                bind: function( easing, x, y ) {
+                    var marker = new YMarker( x[1] + 5, 25, 10 );
+                    marker.mark( y[0] );
+                    this.coordinate.addShape( marker );
+                    marker.fill('none');
+
+                    var animator = new MarkerAnimator( y[0], y[1] );
+                    var timeline = animator.create( marker, 1000, easing );
+                    var animateTimeout;
+
+                    this.on('mouseover', function() {
+                        marker.fill('red');
+                        timeline.play();
+                    });
+
+                    this.on('mouseout', function() {
+                        marker.fill('none');
+                        timeline.stop();
+                        timeline.reset();
+                    });
+                }
+            });
+            
+            for(var name in easingTable) {
+                var div = document.createElement('div');
+                var graph = new EasingGraph( div, easingTable[name] );
+                graph.setWidth(200);
+                graph.setHeight(120);
+                document.body.appendChild(div);
+                div.appendChild(document.createTextNode(name));
+            }
+            
+        });
+        seajs.use('start');
+    </script>
+    <style>
+        div {
+            width: 200px;
+            height: 150px;
+            float: left;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>

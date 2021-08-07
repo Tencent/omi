@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bezier Example</title>
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            paper.setWidth(600).setHeight(400);
+
+            var flower = new kity.Group().pipe(function() {
+                for(var i = 0; i < 12; i++) {
+                    var color = new kity.Color();
+                    color.set('h', 30 * i);
+                    color.set('s', 80);
+                    color.set('l', 50);
+                    color.set('a', .5);
+                    this.addShape(new kity.Ellipse(50, 0, 80, 15).rotate( 30 * i ).fill(color));
+                }
+                this.scale(1.5).translate(300, 200);
+            });
+            paper.addShape(flower);
+        };
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

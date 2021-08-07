@@ -82,37 +82,6 @@ export function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]'
 }
 
-export function getUse(data, paths, out, name) {
-  const obj = []
-  paths.forEach((path, index) => {
-    const isPath = typeof path === 'string'
-    if (isPath) {
-      obj[index] = getTargetByPath(data, path)
-    } else {
-      const key = Object.keys(path)[0]
-      const value = path[key]
-      if (typeof value === 'string') {
-        obj[index] = getTargetByPath(data, value)
-      } else {
-        const tempPath = value[0]
-        if (typeof tempPath === 'string') {
-          const tempVal = getTargetByPath(data, tempPath)
-          obj[index] = value[1] ? value[1](tempVal) : tempVal
-        } else {
-          const args = []
-          tempPath.forEach(path => {
-            args.push(getTargetByPath(data, path))
-          })
-          obj[index] = value[1].apply(null, args)
-        }
-      }
-      obj[key] = obj[index]
-    }
-  })
-  if (out) out[name] = obj
-  return obj
-}
-
 export function pathToArr(path) {
   if (typeof path !== 'string' || !path) return []
   // return path.split(/\.|\[|\]/).filter(name => !!name)
@@ -120,15 +89,6 @@ export function pathToArr(path) {
     .replace(/]/g, '')
     .replace(/\[/g, '.')
     .split('.')
-}
-
-export function getTargetByPath(origin, path) {
-  const arr = pathToArr(path)
-  let current = origin
-  for (let i = 0, len = arr.length; i < len; i++) {
-    current = current[arr[i]]
-  }
-  return current
 }
 
 const hyphenateRE = /\B([A-Z])/g
@@ -142,28 +102,6 @@ export function getValByPath(path, current) {
     current = current[prop]
   })
   return current
-}
-
-export function getPath(obj, out, name) {
-  const result = {}
-  obj.forEach(item => {
-    if (typeof item === 'string') {
-      result[item] = true
-    } else {
-      const tempPath = item[Object.keys(item)[0]]
-      if (typeof tempPath === 'string') {
-        result[tempPath] = true
-      } else {
-        if (typeof tempPath[0] === 'string') {
-          result[tempPath[0]] = true
-        } else {
-          tempPath[0].forEach(path => (result[path] = true))
-        }
-      }
-    }
-  })
-  if (out) out[name] = result
-  return result
 }
 
 export function removeItem(item, arr) {

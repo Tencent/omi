@@ -4,13 +4,13 @@ English | [简体中文](./README.CN.md)
 
 >  Front-end solution for admin interfaces
 
-[→ DEMO](https://tencent.github.io/omi/packages/admin/dist/index.html)
+[→ Preview](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
 ## Features 
 
 * Web components base
 * Out of the box, a large number of built-in templates, components and icons
-* Vite + ts + twind + lazy load
+* Vite + twind + lazy load
 * Theme real-time switching
 * Mobile first, responsive design
 * Routing animation

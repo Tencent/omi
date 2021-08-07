@@ -1,9 +1,23 @@
-## JSX
+## H / H.F / JSX
 
 JSX 是目前为止开发体验最棒、语法噪音最少、表达能力最强且图灵完备的 UI 表达式，模板引擎不完备，模板字符串图灵完备但是语法噪音太大。即：
 
-```js
-JSX > JS
+
+```jsx
+import { WeElement, h } from 'omi'
+
+class Test extends WeElement {
+
+  render() {
+    return (
+      //<h.f></h.f> 或 <></>  都支持
+      <h.f>
+        <h1>Test</h1>
+        <p>Test</p>
+      </h.f>
+    )
+  }
+}
 ```
 
 ## Hello JSX

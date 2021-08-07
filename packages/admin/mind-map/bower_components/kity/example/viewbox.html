@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ViewBox Example</title>
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+    <script>
+
+        window.onload = function () {
+
+            var paper1 = new kity.Paper(document.body);
+            var paper2 = new kity.Paper(document.body);
+
+            paper1.setWidth(400).setHeight(300);
+            paper2.setWidth(400).setHeight(300);
+
+            var rect1 = new kity.Rect(60, 40, 10, 10);
+            rect1.fill('blue');
+            paper1.addShape(rect1);
+
+            var rect2 = new kity.Rect(60, 40, 10, 10);
+            rect2.fill('red');
+            paper2.addShape(rect2);
+
+            paper1.setViewBox(0, 0, 400, 300);
+            paper2.setViewBox(-100, -75, 200, 150);
+
+            paper1.addShape(new kity.Text('viewbox = (0, 0, 400, 300)').setX(10).setY('50%'));
+            paper2.addShape(new kity.Text('viewbox = (-100, -75, 200, 150)').setX(-95).setY(0).setStyle({
+                'font-size': '6pt'
+            }));
+
+        };
+
+    </script>
+    <style>
+        svg {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script src="../../dist/kitygraph.all.min.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                operand = new kity.Text( '∫'),
+                osup = new kity.Text( 'N' ),
+                osub = new kity.Text( '-N' ),
+                right = new kity.Text( 'e' ),
+                right2 = new kity.Text( 'dx' ),
+                rightSub = new kity.Text( 'x' );
+
+
+            operand.setX( 97 ).setY( 100 );
+            operand.setStyle( "font-size", 40 );
+            right.setStyle( "font-size", 20 );
+            right.setX( 133 ).setY( 96 );
+            rightSub.setStyle( "font-size", 12 );
+            rightSub.setX( 143 ).setY( 90 );
+
+            right2.setStyle( "font-size", 20 );
+            right2.setX( 153 ).setY( 96 );
+
+            osup.setStyle( 'font-size', 13 );
+            osup.setX( 112 ).setY( 76 );
+
+            osub.setStyle( 'font-size', 13 );
+            osub.setX( 104 ).setY( 113 );
+
+            paper.addShape( right2 );
+            paper.addShape( osup );
+            paper.addShape( osub );
+            paper.addShape( rightSub );
+            paper.addShape( right );
+            paper.addShape( operand );
+
+        };
+
+    </script>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

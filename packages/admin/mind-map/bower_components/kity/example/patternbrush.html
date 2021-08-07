@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PatternBrush Example</title>
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            paper.setWidth(400).setHeight(300);
+
+            var rect = new kity.Rect(200, 100, 40, 40);
+            rect.fill(new kity.PatternBrush().pipe( function() {
+                var colors = ['red', 'blue', 'yellow', 'green'];
+                this.setWidth(40);
+                this.setHeight(40);
+                this.addShapes([
+                    new kity.Circle(5, 10, 10).fill(colors.shift()),
+                    new kity.Circle(5, 30, 10).fill(colors.shift()),
+                    new kity.Circle(5, 10, 30).fill(colors.shift()),
+                    new kity.Circle(5, 30, 30).fill(colors.shift())
+                ]);
+                paper.addResource(this);
+            }));
+            paper.addShape(rect);
+
+        };
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

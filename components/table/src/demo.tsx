@@ -107,10 +107,11 @@ export default class Table extends WeElement {
         stripe={false}
         border={true}
         compact={false}
-        width="200px"
+        width="250px"
         height="200px"
-        stickyLeftCount={2}
-        stickyTop={true}
+        fixedLeftCount={2}
+        fixedRight={true}
+        fixedTop={true}
         columns={this.columns} dataSource={this.dataSource}></o-table>
 
       <o-table

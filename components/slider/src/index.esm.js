@@ -1,5 +1,5 @@
 /**
- * @omiu/slider v0.0.1 http://omijs.org
+ * @omiu/slider v0.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -241,50 +241,48 @@ var OSlider = /** @class */ (function (_super) {
         _this.sliderMax = _this.props.max;
         _this.handleSliderOne = function (evt) {
             var first_value = parseInt(_this.rootNode.children[0].value);
-            //! bad
-            if (first_value <= _this.__$second_value || !_this.props.double_range) {
-                _this.__$value = first_value;
-                if (!_this.props.double_range) {
-                    _this.fire('change', _this.__$value);
-                }
-                else {
-                    _this.fire('change', [_this.__$value, _this.__$second_value]);
-                }
+            if (first_value <= _this.props.second_value ||
+                _this.props.range === 'single') {
+                //  if the slider 1 has not exceeded slider2 or it is a single range slider
+                //  assign value straight away
+                _this.props.value = first_value;
+            }
+            if (_this.props.second_value === null) {
+                _this.props.range === 'single';
+            }
+            else {
+                _this.fire('change', [_this.props.value, _this.props.second_value]);
             }
             _this.fillColor();
-            _this.update();
         };
         _this.handleSliderTwo = function (evt) {
             var second_value = parseInt(_this.rootNode.children[1].value);
-            if (second_value >= _this.__$value) {
-                _this.__$second_value = second_value;
-                _this.fire('change', [_this.__$value, _this.__$second_value]);
+            //we only have one case if slider two exists
+            if (second_value >= _this.props.value) {
+                _this.props.second_value = second_value;
             }
+            _this.fire('change', [_this.props.value, _this.props.second_value]);
             _this.fillColor();
-            _this.update();
         };
         _this.fillColor = function () {
-            var percent1 = (_this.__$value / _this.props.max) * 100;
-            var percent2 = (_this.__$second_value / _this.props.max) * 100;
+            var percent1 = _this.props.range === 'double'
+                ? (_this.props.value / _this.props.max) * 100
+                : 0;
+            var percent2 = _this.props.range === 'double'
+                ? (_this.props.second_value / _this.props.max) * 100
+                : (_this.props.value / _this.props.max) * 100;
             var lowerColor = '#07c160';
             var upperColor = '#ffffff';
             if (_this.props.disabled) {
                 lowerColor = '#c0c4cc';
             }
-            _this.props.double_range
+            _this.props.range === 'double'
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
         };
         return _this;
     }
-    OSlider_1 = OSlider;
-    OSlider.prototype.install = function () {
-        this.props.value
-            ? (this.__$value = this.props.value)
-            : (this.__$value = OSlider_1.defaultProps.value);
-        this.props.second_value;
-        this.__$second_value = this.props.second_value;
-    };
+    OSlider.prototype.install = function () { };
     OSlider.prototype.installed = function () {
         this.fillColor();
         this.update();
@@ -292,34 +290,34 @@ var OSlider = /** @class */ (function (_super) {
     OSlider.prototype.render = function (props) {
         var _this = this;
         var cls = extractClass(props, 'slider-container', {
-            'is-vertical': props.vertical,
-            'is-round': props.round,
+            'is-vertical': props.orient === 'vertical',
+            'is-round': props.shape === 'round',
             'is-disabled': props.disabled,
         });
         return (h("div", __assign({}, cls, { ref: function (e) {
                 _this.rootNode = e;
             } }),
-            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
+            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.props.value, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
                     _this.sliderOne = e;
                 } }),
-            props.double_range && (h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+            this.props.range === 'double' && (h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.props.second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
                     _this.sliderTwo = e;
                 } })),
             h("div", { class: "slider-track", ref: function (e) {
                     _this.sliderTrack = e;
                 } })));
     };
-    var OSlider_1;
     OSlider.css = css;
     OSlider.defaultProps = {
+        //default a single square range slider
         min: 0,
         max: 100,
         step: 1,
         value: 0,
-        //default a single square range slider
-        double_range: false,
-        vertical: false,
-        round: false,
+        second_value: 100,
+        range: 'single',
+        orient: 'horizontal',
+        shape: 'square',
         disabled: false,
     };
     OSlider.propTypes = {
@@ -328,12 +326,12 @@ var OSlider = /** @class */ (function (_super) {
         step: Number,
         value: Number,
         second_value: Number,
-        double_range: Boolean,
-        vertical: Boolean,
-        round: Boolean,
+        range: String,
+        orient: String,
+        shape: String,
         disabled: Boolean,
     };
-    OSlider = OSlider_1 = __decorate([
+    OSlider = __decorate([
         tag('o-slider')
     ], OSlider);
     return OSlider;

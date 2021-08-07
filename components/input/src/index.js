@@ -96,14 +96,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -115,10 +115,10 @@ exports.push([module.i, ":host {\n  display: inline-block; }\n\n:host([block]) {
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -210,7 +210,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -287,22 +287,42 @@ var Input = /** @class */ (function (_super) {
             _this.setAttribute('value', value);
         };
         _this.valueLength = 0;
-        _this.handleBlur = function () {
-            _this.fire('blur', _this.props.value);
+        _this.handleBlur = function (evt) {
+            if (_this.props.onBlur) {
+                _this.props.onBlur(evt);
+            }
+            else {
+                _this.fire('blur', _this.props.value);
+            }
         };
-        _this.handleFocus = function () {
-            _this.fire('focus', _this.props.value);
+        _this.handleFocus = function (evt) {
+            if (_this.props.onFocus) {
+                _this.props.onFocus(evt);
+            }
+            else {
+                _this.fire('focus', _this.props.value);
+            }
         };
         _this.handleChange = function (evt) {
             _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
-            _this.fire('change', _this.props.value);
+            if (_this.props.onChange) {
+                _this.props.onChange(evt);
+            }
+            else {
+                _this.fire('change', _this.props.value);
+            }
         };
         _this.handleInput = function (evt) {
             evt.stopPropagation();
             _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
-            _this.fire('input', _this.props.value);
+            if (_this.props.onInput) {
+                _this.props.onInput(evt);
+            }
+            else {
+                _this.fire('input', _this.props.value);
+            }
             if (_this.props.maxLength) {
                 _this.valueLength = evt.target.value.length;
                 _this.update();

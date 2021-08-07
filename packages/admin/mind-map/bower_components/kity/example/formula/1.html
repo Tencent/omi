@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script src="../../dist/kitygraph.all.min.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                operand = new kity.Text( 'a'),
+                sub = new kity.Text( '2' );
+
+            operand.setX( 100 ).setY( 100 );
+            operand.setStyle( "font-size", 32 );
+            sub.setX( 115 ).setY( 90 );
+
+            paper.addShape( operand );
+            paper.addShape( sub );
+
+        };
+
+    </script>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>

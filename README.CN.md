@@ -73,6 +73,32 @@ export default class Button extends WeElement<Props>{
 }
 ```
 
+
+## 快速开始开发项目
+
+```bash
+$ npm i omi-cli -g    # install cli
+$ omi init my-app     # 初始化项目，也可以在空目录里执行 'omi init'
+$ cd my-app           # 如果在空目录里执行 'omi init' 忽略这条命令
+$ npm start           # 开发
+$ npm run build       # 编译发布
+```
+
+> `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
+
+## 快速开始开发跨框架组件
+
+```bash
+$ npm i omi-cli -g    # install cli
+$ omi init-component my-component     # 初始化项目，也可以在空目录里执行 'omi init'
+$ cd my-app           # 如果在空目录里执行 'omi init' 忽略这条命令
+$ npm start           # 开发
+$ npm run build       # 编译发布
+```
+
+> `npx omi-cli init-component my-component` 也支持(要求 npm v5.2.0+)
+
+
 ## Omiu
 
 > Omi 打造的跨框架、[跨主题](https://tencent.github.io/omi/components/docs/cn.html#/theme?index=0&subIndex=1) UI 组件库
@@ -410,7 +436,6 @@ export default class oButton extends WeElement<ButtonProps> {
 - [Omi 生态](#omi-生态)
 - [必须收藏的资源](#必须收藏的资源)
 - [快速入门](#快速入门)
-  - [安装](#安装)
   - [项目模板](#项目模板)
   - [Hello Element](#hello-element)
   - [生命周期](#生命周期)
@@ -424,53 +449,6 @@ export default class oButton extends WeElement<ButtonProps> {
 
 
 ## 快速入门
-
-### 安装
-
-```bash
-$ npm i omi-cli -g    # install cli
-$ omi init my-app     # 初始化项目，也可以在空目录里执行 'omi init'
-$ cd my-app           # 如果在空目录里执行 'omi init' 忽略这条命令
-$ npm start           # 开发
-$ npm run build       # 编译发布
-```
-
-> `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
-
-目录说明:
-
-```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //存放所有 custom elements
-│  ├─ store       //存放所有页面的 store
-│  ├─ admin.js    //入口文件，会 build 成  admin.html
-│  └─ index.js    //入口文件，会 build 成  index.html
-```
-
-#### Scripts
-
-```json
-"scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
-}
-```
-
-你也可以设置 PUBLIC_URL, 比如：
-
-```json
-...
-"build": "PUBLIC_URL=https://fe.wxpay.oa.com/dv node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& node scripts/build.js",
-...
-```
-
 
 <!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
 

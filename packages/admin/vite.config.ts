@@ -11,7 +11,7 @@ export default (conifg: ConfigEnv): UserConfigExport => {
     ],
     esbuild: {
       jsxFactory: 'h',
-      jsxFragment: 'Fragment'
+      jsxFragment: 'h.f'
     }
   }
 }

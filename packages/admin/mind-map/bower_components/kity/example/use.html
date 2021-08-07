@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>USE示例</title>
+    <meta charset="utf-8">
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+    <script>
+
+        window.onload = function () {
+
+            var rect = new kity.Rect( 100, 100, 200, 50 ),
+                use1 = new kity.Use( rect ),
+                use2 = new kity.Use( rect )
+                paper = new kity.Paper( document.body );
+
+            paper.addResource( rect );
+
+            use1.fill('blue');
+            use2.fill('red').translate(500, 0);
+            paper.addShapes( [use1, use2] );
+
+        };
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

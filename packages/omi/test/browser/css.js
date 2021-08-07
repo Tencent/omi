@@ -36,7 +36,7 @@ describe('css', () => {
 		}
 	})
 
-	it('base ', () => {
+	it(' css props with !important', () => {
 
 		define('my-app', class extends WeElement {
 
@@ -60,7 +60,7 @@ describe('css', () => {
 	})
 
 
-	it('base2 ', () => {
+	it('modify css props ', () => {
 
 		var a
 		define('my-appx', class extends WeElement {

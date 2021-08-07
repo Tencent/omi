@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script src="../../dist/kitygraph.all.min.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                operand = new kity.Text( '∑'),
+                bottom = new kity.Text( 'k=1' ),
+                right = new kity.Text( 'k' ),
+                rightSup = new kity.Text( '2' ),
+                up = new kity.Text( 'N' );
+
+
+            operand.setX( 100 ).setY( 100 );
+            operand.setStyle( "font-size", 40 );
+            up.setX( 108 ).setY( 70 );
+            bottom.setX( 104 ).setY( 125 );
+            right.setStyle( "font-size", 30 );
+            right.setX( 130 ).setY( 102 );
+            rightSup.setX( 140 ).setY( 85 );
+
+            paper.addShape( up );
+            paper.addShape( rightSup );
+            paper.addShape( right );
+            paper.addShape( bottom );
+            paper.addShape( operand );
+
+        };
+
+    </script>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>
