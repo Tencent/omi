@@ -1,0 +1,79 @@
+.is-success {
+  color: #07C160;
+}
+.is-wait {
+  color: #c0c4cc;
+}
+.is-process {
+  color: #303133;
+}
+.line-success {
+  background-color: #07C160;
+}
+.line-wait {
+  background-color: #c0c4cc;
+}
+.line-process {
+  background-color: #c0c4cc;
+}
+.o-step {
+  display: inline-block;
+  position: relative;
+  flex-shrink: 1;
+}
+.o-step__head {
+  position: relative;
+  width: 100%;
+}
+.o-step__line {
+  height: 2px;
+  top: 11px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  border-color: inherit;
+}
+.o-step__line-inner {
+  display: block;
+  border: 1px solid;
+  border-color: inherit;
+  transition: .15s ease-out;
+  box-sizing: border-box;
+  width: 0;
+  height: 0;
+}
+.o-step__icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+  box-sizing: border-box;
+  background: #fff;
+  transition: .15s ease-out;
+  padding: 0;
+}
+.is-text {
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: inherit;
+}
+.o-step__main {
+  white-space: normal;
+  text-align: left;
+
+}
+.o-step__title {
+  font-size: 16px;
+  line-height: 38px;
+}
+.o-step__description {
+  padding-right: 10%;
+  margin-top: -5px;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+}
