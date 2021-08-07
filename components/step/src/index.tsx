@@ -39,16 +39,11 @@ export default class Step extends WeElement {
             <div class="_item-icon">
               <span class="icon">
                 {item.state === state.DONE && <i class="anticon anticon-check finish-icon">
-
                   <o-icon-done ></o-icon-done>
-
-
                 </i>}
 
                 {item.state === state.ERROR && <i class="anticon anticon-close error-icon">
-
                   <o-icon-clear></o-icon-clear>
-
                 </i>}
 
                 {(item.state === state.DOING || item.state === state.TODO) && <span class="icon">{index + 1}</span>}

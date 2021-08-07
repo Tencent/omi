@@ -7,8 +7,19 @@
 
 .o-step {
 	width: 100%;
-	display: inline-block;
+	display: flex;
 	white-space: nowrap;
+}
+
+.o-step.vertical{
+  flex-direction: column;
+}
+
+.vertical ._item {
+  display: block;
+  flex: 1 0 auto;
+  padding-left: 0;
+  overflow: visible;
 }
 
 o-icon-done{
@@ -104,6 +115,7 @@ o-icon-clear{
 ._item {
   position: relative;
   display: inline-block;
+  flex:1;
 	overflow: hidden;
 	vertical-align: top;
 	height: 60px;

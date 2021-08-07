@@ -33,9 +33,10 @@ export default class extends WeElement<Props> {
   static css = sheet.target
 
   itemsA = [
-    { name: 'Finished', description: 'This is a description.', state: state.DOING },
-    { name: 'In Progress', description: 'This is a description.', state: state.TODO },
-    { name: 'Waiting', description: 'This is a description.', state: state.TODO }
+    { name: '提交开票申请', description: '开票申请需要本人填写', state: state.DOING },
+    { name: '填写发票信息', description: '发票信息请开公司抬头', state: state.TODO },
+    { name: '确认邮寄地址', description: '请写你加里的邮寄地址', state: state.TODO },
+    { name: '完成', description: '', state: state.TODO }
   ]
 
   itemsB = [
@@ -64,8 +65,10 @@ export default class extends WeElement<Props> {
     return (
 
       <div class={tw`py-4 px-4`}>
+        <div>
+          <o-step class={tw`py-4 px-4 border-b-1`} items={this.itemsA} />
+        </div>
 
-        <o-step items={this.itemsA} />
         {/* <o-step items={this.itemsB} />
         <o-step items={this.itemsC} />
 
@@ -97,7 +100,7 @@ export default class extends WeElement<Props> {
             onSubmit,
             onBlur
           }) => (
-            <div style={{ width: '480px' }} class={tw`text-sm px-10 py-10 text-gray-500`}>
+            <div style={{ width: '480px' }} class={tw`text-sm px-10 py-5 text-gray-500`}>
 
               <div class={formItemClass}>
                 <label class={lableClass} >用户姓名</label>
@@ -181,6 +184,7 @@ export default class extends WeElement<Props> {
                 <label class={lableClass} >大学时光</label>
                 <div class={tw`leading-8 ml-10`}>
                   <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
                 </div>
               </div>
 
