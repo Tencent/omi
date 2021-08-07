@@ -747,22 +747,18 @@ We very much welcome developers to contribute to Tencent's open source, and we w
 
 ## Core Maintainers
 
-- [AlloyTeam](http://alloyteam.com/)
-- [@Wscats](https://github.com/Wscats)
-- [@f](https://github.com/f)
-- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
+- [@Wscats](https://github.com/Wscats)
+- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@xcatliu](https://github.com/xcatliu)
+- [AlloyTeam](http://alloyteam.com/)
 
 Please contact us for any questions. 
 
 ## Thanks
 
 * [preact](https://github.com/developit/preact)
-* [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) 
-* [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
-* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
 ## License
 

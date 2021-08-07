@@ -891,22 +891,18 @@ npm run test
 
 ## 核心维护者
 
-- [AlloyTeam](http://alloyteam.com/)
-- [@Wscats](https://github.com/Wscats)
-- [@f](https://github.com/f)
-- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
+- [@Wscats](https://github.com/Wscats)
+- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@xcatliu](https://github.com/xcatliu)
+- [AlloyTeam](http://alloyteam.com/)
 
 任何 Omi 相关问题欢迎联系我们。也可以[加入 Omi QQ 群](https://github.com/Tencent/omi/issues/169)进行讨论交流。
 
 ## 感谢
 
 * [preact](https://github.com/developit/preact)
-* [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) 
-* [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
-* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
 ## License
 
