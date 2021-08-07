@@ -1,9 +1,22 @@
-## JSX
+## H / H.F / JSX
 
 JSX is the best UI expression with the least grammatical noise, the strongest expressive ability and Turing complete. The template engine is not complete, the template string is Turing complete, but the grammatical noise is too big. 
 
-```js
-JSX > JS
+```jsx
+import { WeElement, h } from 'omi'
+
+class Test extends WeElement {
+
+  render() {
+    return (
+      //<h.f></h.f> or <></>  are supported
+      <h.f>
+        <h1>Test</h1>
+        <p>Test</p>
+      </h.f>
+    )
+  }
+}
 ```
 
 ## Hello JSX

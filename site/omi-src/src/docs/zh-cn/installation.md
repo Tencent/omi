@@ -16,35 +16,34 @@ npm i omi
 
 Omi 提供了官方的 CLI，你不需要去学习怎么配置 webpack、babel 或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
 
+### 创建项目
+
 ```bash
-$ npm i omi-cli -g     # install cli
-$ omi init my-app      # init project
-$ cd my-app            
-$ npm start            # develop
-$ npm run build        # release
+$ npx omi-cli init my-app
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
 ```
 
-> `npx omi-cli init my-app` 也是支持的(npm v5.2.0+).
 
+### 创建组件
 
-### npm 脚本
-
-```json
-"scripts": {
-  "start": "vite",
-  "build": "tsc && vite build --base=./",
-}
+```bash
+$ npx omi-cli init-component my-component
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
 ```
 
-你也可以设置 PUBLIC_URL, 比如：
+### 创建 Kbone 项目
 
-```json
-  "build": "tsc && vite build --base=https://your.url.com/sub ",
+```bash
+$ npx omi-cli init-kbone my-app
 ```
 
-## 项目模板
 
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|基础模板(v3.3.0+)|`omi init my-app`| 基础模板|
-|Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
+### 更新 cli 最新版本
+
+```bash
+$ npm i omi-cli -g 
+```

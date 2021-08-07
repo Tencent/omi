@@ -1,6 +1,6 @@
 {
   "name": "@omiu/slider",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Slider",
   "main": "src/index.js",
   "module": "src/index.esm.js",
@@ -94,6 +94,8 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/input": "0.0.12",
+    "@omiu/tooltip": "0.0.1",
     "omi": "latest"
   }
 }

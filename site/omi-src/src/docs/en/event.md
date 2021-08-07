@@ -19,7 +19,7 @@ define('my-element', class extends WeElement {
 ```jsx
 define('my-element', class extends WeElement {
   onClick = (evt) => {
-    this.fire('myevent', { name: 'abc' })
+    this.fire('MyEvent', { name: 'abc' })
   }
 
   render(props) {
@@ -39,7 +39,7 @@ Then bind events on your custom elements:
 or:
 
 ```js
-myElement.addEventListener('myevent', (evt) => {})
+myElement.addEventListener('MyEvent', (evt) => {})
 ```
 
 Fire triggers a custom event by `this.fire`. The first parameter of fire is the name of the event, and the second parameter is the data passed. The transmitted data can be obtained by `evt.detail'.

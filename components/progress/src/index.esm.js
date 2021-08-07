@@ -632,6 +632,7 @@ var status2color = {
     'success': "#09BB07",
     'error': "#F43530",
     'active': "#1890ff",
+
 };
 var type_status2icon = {
     'circle': {
@@ -667,12 +668,14 @@ var default_1 = /** @class */ (function (_super) {
         };
     };
     default_1.prototype.render = function (props) {
+
         var trailColor = props.trailColor ? props.trailColor : "#f5f5f5";
         var textColor = props.textColor ? props.textColor : "black";
         var strokeWidth = props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6);
         var width = props.width ? props.width : (props.type === "line" ? 160 : 120);
         var type = props.type, status = props.status, strokeColor = props.strokeColor, showInfo = props.showInfo;
         var percent = this._state ? this._state.percent : props.percent;
+
         var isSuccess = percent >= 100 ? true : false;
         if (type === "circle") {
             var radius = width / 2 - strokeWidth;

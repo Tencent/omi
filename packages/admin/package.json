@@ -24,10 +24,11 @@
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.9",
     "@omiu/date-picker": "^0.0.5",
+    "@omiu/form": "^0.0.6",
     "@omiu/hamburger-menu": "^0.0.5",
     "@omiu/icon": "^0.0.3",
     "@omiu/image": "^0.0.2",
-    "@omiu/input": "^0.0.8",
+    "@omiu/input": "^0.0.12",
     "@omiu/link": "^0.0.4",
     "@omiu/loading": "0.0.2",
     "@omiu/pagination": "^0.0.5",
@@ -35,6 +36,7 @@
     "@omiu/popover": "^0.0.12",
     "@omiu/radio": "^0.0.6",
     "@omiu/select": "^0.0.8",
+    "@omiu/slider": "^0.0.2",
     "@omiu/switch": "^0.0.2",
     "@omiu/table": "^0.0.15",
     "@omiu/tabs": "^0.0.19",
@@ -42,7 +44,6 @@
     "@omiu/tooltip": "0.0.1",
     "@omiu/transition": "^0.0.12",
     "@omiu/tree": "^0.0.18",
-    "@omiu/slider": "^0.0.2",
     "axios": "^0.21.1",
     "bytemd": "^1.10.13",
     "file-saver": "^2.0.5",
@@ -51,10 +52,11 @@
     "markdown-it-anchor": "^8.1.0",
     "masonry-layout": "^4.2.2",
     "mockjs": "^1.1.0",
-    "omi": "^6.20.0",
-    "omi-router": "^3.0.0",
+    "omi": "^6.21.3",
+    "omi-router": "^3.0.1",
     "omi-twind": "^0.0.1",
     "prismjs": "^1.24.0",
-    "xlsx": "^0.17.0"
+    "xlsx": "^0.17.0",
+    "yup": "^0.32.9"
   }
 }

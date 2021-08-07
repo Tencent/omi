@@ -9,16 +9,45 @@
 
   <body>
     <div id="root">
+      <a
+        href="https://github.com/Tencent/omi"
+        target="_blank"
+        style="position: fixed; right: 0; top: 0; z-index: 3"
+      >
+        <img src="//alloyteam.github.io/github.png" alt="" />
+      </a>
       <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
       <script src="../../src/index.js"></script>
+      <div style="text-align: center">basic slider</div>
       <o-slider min="0" max="10" value="2" id="single-range-demo"></o-slider>
+      <div style="text-align: center">single slider with tool-tip</div>
       <o-slider
         min="0"
         max="10"
         value="2"
-        shape="round"
-        id="round-single-range-demo"
+        tooltip
+        step="2"
+        id="single-range-demo"
       ></o-slider>
+      <div style="text-align: center">double slider with tool-tip</div>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        second_value="10"
+        range="double"
+        tooltip
+        id="double-range-demo"
+      ></o-slider>
+      <div style="text-align: center">square slider</div>
+      <o-slider
+        min="0"
+        max="10"
+        value="2"
+        shape="square"
+        id="square-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">disabled slider</div>
       <o-slider
         min="0"
         max="10"
@@ -26,6 +55,7 @@
         disabled
         id="disabled-single-range-demo"
       ></o-slider>
+      <div style="text-align: center">double slider</div>
       <o-slider
         min="0"
         max="200"
@@ -34,6 +64,7 @@
         range="double"
         id="double-range-demo"
       ></o-slider>
+      <div style="text-align: center">disabled double slider</div>
       <o-slider
         min="0"
         max="200"
@@ -41,8 +72,11 @@
         second_value="70"
         range="double"
         disabled
-        id="double-range-demo"
+        id="disable-double-range-demo"
       ></o-slider>
+      <div style="position: absolute">vertical single slider</div>
+      <div style="position: absolute; left: 175px">vertical double slider</div>
+
       <o-slider
         min="0"
         max="100"
@@ -64,7 +98,7 @@
         value="20"
         second_value="70"
         id="vertical-double-demo"
-        style="position: relative; margin-top: -50px; left: -50px; width: 400px"
+        style="position: relative; margin-top: -50px; width: 400px"
       ></o-slider>
     </div>
   </body>
