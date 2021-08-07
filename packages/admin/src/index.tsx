@@ -1,6 +1,6 @@
 import { WeElement, render, h, tag } from 'omi'
 
-import { route } from 'omi-router'
+import { route, hashChange } from 'omi-router'
 
 //提前使用最新版本注册组件
 import '@omiu/popover'
@@ -185,6 +185,14 @@ export default class extends WeElement {
         this.transitionTo('slider-component')
       )
     })
+	
+	route('/progress-component', () => {
+      //lazy load
+      import('./components/components/progress-component').then(() =>
+        this.transitionTo('progress-component')
+      )
+    })
+
 
     route('/mind-map', () => {
       //lazy load
@@ -295,6 +303,9 @@ export default class extends WeElement {
       node.md.then((e) => {
         this.store.markdown = e.default
       })
+
+    // 重新读取 hash 值  
+    hashChange()
   }
 
   render() {

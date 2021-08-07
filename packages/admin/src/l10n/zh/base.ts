@@ -15,11 +15,12 @@ export const base = {
   MarkdownDocs: 'Markdown 文档',
   Demo1: '文档例子1',
   Demo2: '文档例子2',
-  Components: '组件',
+  Components: 'OMIU 组件',
   Loading: 'Loading 加载中',
   Toast: 'Toast 弹出式提示',
   Card: 'Card 卡片',
   Slider: 'Slider 滑块',
+  Progress:'Progress 进度条',
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
@@ -33,4 +34,7 @@ export const base = {
   PermissionDenied: '无权限',
   ServerError: '服务端错误',
   MasonryList: '瀑布流列表'
+  
+  Introduction: '简介',
+  CustomTheme: '自定义主题'
 }
