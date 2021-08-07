@@ -192,6 +192,14 @@ export default class extends WeElement {
         this.transitionTo('slider-component')
       )
     })
+	
+	route('/progress-component', () => {
+      //lazy load
+      import('./components/components/progress-component').then(() =>
+        this.transitionTo('progress-component')
+      )
+    })
+
 
     route('/mind-map', () => {
       //lazy load

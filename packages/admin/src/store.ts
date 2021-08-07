@@ -234,7 +234,13 @@ class Store {
               id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/slider-component'
-            }
+            },
+			{
+			  label: localeMap.base.Progress,
+			  id: 15,
+			  icon: 'ac-unit-outlined',
+			  href: '#/progress-component',
+			}
           ]
         },
         {
