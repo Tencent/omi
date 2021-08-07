@@ -12,7 +12,7 @@ const state = {
 }
 
 
-@tag('m-step')
+@tag('o-step')
 export default class Step extends WeElement {
   static css = css.default
 
@@ -23,7 +23,7 @@ export default class Step extends WeElement {
 
   render(props) {
     return (
-      <div {...extractClass(props, 'm-step', {
+      <div {...extractClass(props, 'o-step', {
         'vertical': props.vertical
       })}>
         {props.items.map((item, index) => {

@@ -1,6 +1,7 @@
 import { getDocsList } from './components/docs/config'
 import { WeElement } from 'omi'
 import { getIntroductionNode, getThemeNode } from './components/components/docs/config'
+import { genId } from './id'
 
 interface treeNode {
   id: number
@@ -87,7 +88,7 @@ class Store {
           label: localeMap.base.ManagerWorkbench,
           sign: '●',
           expanded: true,
-          id: 1,
+          id: genId(),
           icon: 'ac-unit-outlined',
 
           children: [
@@ -98,51 +99,58 @@ class Store {
               color: '#07c160',
               selected: true,
               href: '#/welcome',
-              id: 2
+              id: genId()
             },
 
             {
               label: localeMap.base.Dashboard,
               icon: 'pie-chart',
               href: '#/dashboard',
-              id: 3
+              id: genId()
             },
 
             {
               label: localeMap.base.BasicTable,
               icon: 'grid-on',
               href: '#/table/basic',
-              id: 4
+              id: genId()
             },
             {
               label: localeMap.base.TableDeleteAnimation,
               icon: 'grid-on',
               href: '#/table/pagination',
-              id: 5
+              id: genId()
             },
             {
               label: localeMap.base.InlineEditing,
               icon: 'grid-on',
               href: '#/table/edit',
-              id: 6
+              id: genId()
             },
             {
               label: localeMap.base.Form,
               expanded: true,
-              id: 7,
+              id: genId(),
               href: '#/form',
+              icon: 'list-alt'
+            },
+            {
+              label: localeMap.base.StepForm,
+              expanded: true,
+              id: genId(),
+              href: '#/step-form',
               icon: 'list-alt'
             },
             {
               label: localeMap.base.MarkdownEditor,
               icon: 'grid-on',
               href: '#/md-editor',
-              id: 8
+              id: genId()
             },
             {
               label: localeMap.base.MasonryList,
               expanded: true,
-              id: 9,
+              id: genId(),
               href: '#/masonry-list',
               icon: 'dashboard'
             }
@@ -151,37 +159,37 @@ class Store {
         {
           label: localeMap.base.Results,
           expanded: true,
-          id: 10,
+          id: genId(),
           icon: 'ac-unit-outlined',
 
           children: [
             {
               label: localeMap.base.BrowserIncompatible,
-              id: 11,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/results/browser-incompatible'
             },
             {
               label: localeMap.base.NetworkError,
-              id: 12,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/results/network-error'
             },
             {
               label: localeMap.base.NotFound,
-              id: 13,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/results/not-found'
             },
             {
               label: localeMap.base.PermissionDenied,
-              id: 14,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/results/permission-denied'
             },
             {
               label: localeMap.base.ServerError,
-              id: 15,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/results/server-error'
             }
@@ -190,40 +198,40 @@ class Store {
         {
           label: localeMap.base.Components,
           expanded: true,
-          id: 16,
+          id: genId(),
           icon: 'ac-unit-outlined',
 
           children: [
             getIntroductionNode(locale, localeMap),
-            getThemeNode(locale,localeMap),
+            getThemeNode(locale, localeMap),
             {
               label: localeMap.base.MaterialIcons,
               expanded: true,
-              id: 17,
+              id: genId(),
               href: '#/icon',
               // icon: 'sentiment-satisfied-alt'
             },
             {
               label: localeMap.base.Loading,
-              id: 18,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/loading-component'
             },
             {
               label: localeMap.base.Toast,
-              id: 19,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/toast-component'
             },
             {
               label: localeMap.base.Card,
-              id: 20,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/card-component'
             },
             {
               label: localeMap.base.Slider,
-              id: 21,
+              id: genId(),
               icon: 'ac-unit-outlined',
               href: '#/slider-component'
             }
@@ -233,7 +241,7 @@ class Store {
           label: localeMap.base.Others,
           sign: '●',
           expanded: true,
-          id: 22,
+          id: genId(),
           icon: 'ac-unit-outlined',
           children: [
             {
@@ -242,7 +250,7 @@ class Store {
               icon: 'error',
               color: '#F56C6C',
               href: '#/error',
-              id: 23
+              id: genId()
             },
             {
               sign: '993',
@@ -250,42 +258,42 @@ class Store {
               icon: 'warning',
               color: '#E6A23C',
               href: '#/warning',
-              id: 24
+              id: genId()
             },
             {
               sign: '993',
               label: localeMap.base.Comment,
               icon: 'comment',
               href: '#/comment',
-              id: 25
+              id: genId()
             },
             {
               label: localeMap.base.ExternalLink,
               icon: 'insert-link',
               href: 'https://github.com/Tencent/omi',
-              id: 26,
+              id: genId(),
               target: '_blank'
             },
             {
               label: localeMap.base.MindMap,
               icon: 'ac-unit',
               href: '#/mind-map',
-              id: 27
+              id: genId()
             }
           ]
         },
         {
           label: localeMap.base.MarkdownDocs,
           expanded: true,
-          id: 6,
+          id: genId(),
           icon: 'ac-unit-outlined',
           children: getDocsList(localeMap)
         },
-       
-        
+
+
         {
           label: localeMap.base.ManyThanksTo,
-          id: 28,
+          id: genId(),
           href: '#/thanks',
           icon: 'people-alt'
         },

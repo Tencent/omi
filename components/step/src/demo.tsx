@@ -32,13 +32,13 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <div>
-        <m-step items={this.itemsA} />
-        <m-step items={this.itemsB} />
-        <m-step items={this.itemsC} />
+        <o-step items={this.itemsA} />
+        <o-step items={this.itemsB} />
+        <o-step items={this.itemsC} />
 
-        <m-step items={this.itemsA} vertical />
-        <m-step items={this.itemsB} vertical />
-        <m-step items={this.itemsC} vertical />
+        <o-step items={this.itemsA} vertical />
+        <o-step items={this.itemsB} vertical />
+        <o-step items={this.itemsC} vertical />
 
       </div>
 

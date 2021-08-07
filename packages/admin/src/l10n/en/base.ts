@@ -35,6 +35,8 @@ export const base = {
   MasonryList: 'Masonry List',
 
   Introduction: 'Introduction',
-  CustomTheme: 'Custom Theme'
+  CustomTheme: 'Custom Theme',
+
+  StepForm: 'Step Form'
 
 }
