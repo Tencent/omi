@@ -10,6 +10,8 @@ import '@omiu/cascader'
 import '@omiu/step'
 import '@omiu/form'
 
+import '@omiu/icon/close'
+
 interface Props { }
 
 const tagName = 'step-form'
@@ -59,8 +61,8 @@ export default class extends WeElement<Props> {
 
 
   render() {
-    const formItemClass = tw`leading-8 mb-2`
-    const lableClass = tw`w-16 float-left align-middle`
+    const formItemClass = tw`mb-2`
+    const lableClass = tw` leading-8 w-16 float-left align-middle text-sm text-gray-500`
 
     return (
 
@@ -100,108 +102,98 @@ export default class extends WeElement<Props> {
             onSubmit,
             onBlur
           }) => (
-            <div style={{ width: '480px' }} class={tw`text-sm px-10 py-5 text-gray-500`}>
+            <div class={tw`my-4`}>
+              <div class={tw`bg-green-50 relative text-sm flex p-2`}>
 
-              <div class={formItemClass}>
-                <label class={lableClass} >用户姓名</label>
-                <div class={tw`leading-8 ml-16`}>
-                  <o-input
-                    size="small"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    placeholder="我是带校验的"
-                    value={values.name}
-                    name="name"
-                    block></o-input>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.name && touched.name && errors.name}</div>
+                <div class={tw`w-6 inline-block text-green-600`}>
+                  <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" >
+                    <path
+                      fill="currentColor"
+                      fill-opacity=".9"
+                      fill-rule="evenodd"
+                      d="M512 96C741.7504576 96 928 282.24954432 928 512 928 741.7504576 741.7504576 928 512 928 282.24954432 928 96 741.7504576 96 512 96 282.24954432 282.24954432 96 512 96ZM544 416L416 416 416 480 480 480 480 736 608 736 608 672 544 672 544 416ZM544 288L480 288 480 352 544 352 544 288Z"></path>
+                  </svg>
                 </div>
-              </div>
+                <div class={tw`px-1`}>
+                  <div class={tw`pb-2 font-medium`}> 发票开具规则：</div>
 
-              <div class={formItemClass}>
-                <label class={lableClass} >Email</label>
-                <div class={tw`leading-8 ml-16`}>
-                  <o-input
-                    name="email"
-                    value={values.email}
-                    onChange={onChange}
-                    placeholder="我是带校验的"
-                    onBlur={onBlur}
-                    size="small" block
-                  >
-                  </o-input>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.email && touched.email && errors.email}</div>
+                  <div class={tw`font-light`}>
+                    <p>
+                      1、申请开票后，电子发票在1～3个工作日内开具；增值税专用发票（纸质）如资质审核通过，将在电子发票开具后10个工作日内为您寄出；
+                    </p>
+                    <p>2、开票金额为您实际支付金额；</p>
+                    <p>3、如有疑问请直接联系：13300001111。</p>
+                  </div>
                 </div>
 
-              </div>
-
-              <div class={formItemClass}>
-                <label class={lableClass} >出生地址</label>
-                <div class={tw`leading-8 ml-16`}>
-                  <o-select css={`
-              .o-select .o-input__inner {
-                width: 337px;
-              `} size="small" placeholder="选择一个出生地"
-                    items={this.items}
-                  ></o-select>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
-                </div>
-              </div>
-
-              <div class={formItemClass}>
-                <label class={lableClass} >出生日期</label>
-                <div class={tw`leading-8 ml-10`}>
-                  <o-date-picker size="small" locale={this.store.locale}> </o-date-picker>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
-                </div>
-              </div>
-
-              <div class={formItemClass}>
-                <label class={lableClass} >是否结婚</label>
-                <div class={tw`leading-8 ml-16 pt-1`}>
-                  <o-switch id="switchA" checked="0">
-                  </o-switch>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
-                </div>
-              </div>
-
-              <div class={formItemClass}>
-                <label class={lableClass} >喜爱水果</label>
-                <div class={tw`leading-8 ml-10`}>
-                  <o-checkbox class={tw``} label='苹果🍎'> </o-checkbox>
-                  <o-checkbox class={tw` ml-6`} label='草莓🍓'> </o-checkbox>
-                  <o-checkbox class={tw` ml-6`} label='葡萄🍇'> </o-checkbox>
-                  <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
-                  <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
-                  <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
-
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                <div>
+                  <o-icon-close class={tw` cursor-pointer`} ></o-icon-close>
                 </div>
               </div>
 
 
 
-              <div class={formItemClass}>
-                <label class={lableClass} >大学时光</label>
-                <div class={tw`leading-8 ml-10`}>
-                  <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
-                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+              <div class={tw`pt-6`}>
+                <div class={formItemClass}>
+                  <label class={lableClass} >合同名称</label>
+                  <div class={tw`leading-8 ml-16`}>
+                    <o-select css={`
+.o-select .o-input__inner {
+width: 337px;
+`} size="small" placeholder="选择合同名称"
+                      items={this.items}
+                    ></o-select>
+                    <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                  </div>
                 </div>
-              </div>
 
-
-              <div class={formItemClass}>
-                <label class={lableClass} ></label>
-                <div class={tw`leading-8 ml-16`}>
-                  <o-button size="small" type="primary" onclick={onSubmit} >下一步</o-button>
-                  <o-button size="small" class={tw`ml-6`}>重置</o-button>
+                <div class={formItemClass}>
+                  <label class={lableClass} >发票类型</label>
+                  <div class={tw`leading-8 ml-16`}>
+                    <o-select css={`
+.o-select .o-input__inner {
+width: 337px;
+`} size="small" placeholder="选择发票类型"
+                      items={this.items}
+                    ></o-select>
+                    <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+                  </div>
                 </div>
-              </div>
 
+                <div class={formItemClass}>
+                  <label class={lableClass} > 金额(元)</label>
+                  <div class={tw`leading-8 ml-16`}>
+                    <o-input
+                      css={`
+                    .o-input .o-input__inner {
+                    width: 337px;
+                    `}
+                      size="small"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      placeholder=""
+                      value={values.name}
+                      name="name"
+                      block></o-input>
+                    <div class={tw`text-red-500 h-6 text-sm`}>{errors.name && touched.name && errors.name}</div>
+                  </div>
+                </div>
+
+                <div class={formItemClass}>
+                  <label class={lableClass} ></label>
+                  <div class={tw`leading-8 ml-16`}>
+                    <o-button size="small" type="primary" onclick={onSubmit} >下一步</o-button>
+
+                  </div>
+                </div>
+
+              </div>
             </div>
+
           )}
         </o-form>
 
-      </div>
+      </div >
 
     )
   }

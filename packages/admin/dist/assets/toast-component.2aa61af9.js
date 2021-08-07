@@ -1,4 +1,4 @@
-import{h as e,e as t,b as n,W as o,t as r,s as i}from"./vendor.21e08bc2.js";import"./admin-docs.cb29b7d5.js";import"./container.a8f081a8.js";
+import{h as e,e as t,b as n,W as o,t as r,s as i}from"./vendor.21e08bc2.js";import"./admin-docs.cb29b7d5.js";import"./index.51dab9ff.js";import"./container.741d8af9.js";
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
