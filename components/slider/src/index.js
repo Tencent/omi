@@ -3031,18 +3031,34 @@ var OSlider = /** @class */ (function (_super) {
     function OSlider() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.sliderMax = _this.props.max;
+        _this._onGetValue = function () {
+            return _this.__$value1;
+        };
+        _this._onSetValue = function (value) {
+            _this.__$value1 = value;
+            _this.props.value = value;
+            _this.setAttribute('value', value);
+        };
+        _this._onGetValue2 = function () {
+            return _this.__$value2;
+        };
+        _this._onSetValue2 = function (value) {
+            _this.__$value2 = value;
+            _this.props.second_value = value;
+            _this.setAttribute('second_value', value);
+        };
         _this.handleSliderOne = function () {
             var first_value = parseInt(_this.slider1.value);
-            if (first_value <= _this.value2 || _this.props.range === 'single') {
+            if (first_value <= _this.__$value2 || _this.props.range === 'single') {
                 //  if the slider 1 has not exceeded slider2 or it is a single range slider
                 //  assign value straight away
-                _this.value1 = first_value;
+                _this.__$value1 = first_value;
             }
             if (_this.props.range === 'single') {
-                _this.fire('change', _this.value1);
+                _this.fire('input', _this.__$value1);
             }
             else {
-                _this.fire('change', [_this.value1, _this.value2]);
+                _this.fire('input', [_this.__$value1, _this.__$value2]);
             }
             _this.fillColor();
             _this.update();
@@ -3050,18 +3066,20 @@ var OSlider = /** @class */ (function (_super) {
         _this.handleSliderTwo = function () {
             var second_value = parseInt(_this.slider2.value);
             //we only have one case if slider two exists
-            if (second_value >= _this.value1) {
-                _this.value2 = second_value;
+            if (second_value >= _this.__$value1) {
+                _this.__$value2 = second_value;
             }
-            _this.fire('change', [_this.value1, _this.value2]);
+            _this.fire('input', [_this.__$value1, _this.__$value2]);
             _this.fillColor();
             _this.update();
         };
         _this.fillColor = function () {
-            var percent1 = _this.props.range === 'double' ? (_this.value1 / _this.props.max) * 100 : 0;
+            var percent1 = _this.props.range === 'double'
+                ? (_this.__$value1 / _this.props.max) * 100
+                : 0;
             var percent2 = _this.props.range === 'double'
-                ? (_this.value2 / _this.props.max) * 100
-                : (_this.value1 / _this.props.max) * 100;
+                ? (_this.__$value2 / _this.props.max) * 100
+                : (_this.__$value1 / _this.props.max) * 100;
             var lowerColor = '#07c160';
             var upperColor = '#ffffff';
             if (_this.props.disabled) {
@@ -3074,10 +3092,18 @@ var OSlider = /** @class */ (function (_super) {
         return _this;
     }
     OSlider.prototype.install = function () {
-        this.value1 = this.props.value;
+        this.__$value1 = this.props.value;
         this.props.range === 'double'
-            ? (this.value2 = this.props.second_value)
-            : (this.value2 = null);
+            ? (this.__$value2 = this.props.second_value)
+            : (this.__$value2 = null);
+        Object.defineProperty(this, 'value', {
+            get: this._onGetValue,
+            set: this._onSetValue,
+        });
+        Object.defineProperty(this, 'second_value', {
+            get: this._onGetValue2,
+            set: this._onSetValue2,
+        });
     };
     OSlider.prototype.installed = function () {
         this.fillColor();
@@ -3085,15 +3111,6 @@ var OSlider = /** @class */ (function (_super) {
         var host = this.shadowRoot.host;
         this.props.orient === 'vertical' &&
             (host.style.transform = 'rotate(-90deg)');
-    };
-    OSlider.prototype.receiveProps = function () {
-        this.handleSliderOne();
-        this.handleSliderTwo();
-        this.update();
-    };
-    OSlider.prototype.handleInput = function (evt) {
-        this.value1 = evt.detail;
-        console.log(this.value1);
     };
     OSlider.prototype.render = function (props) {
         var _this = this;
@@ -3107,24 +3124,24 @@ var OSlider = /** @class */ (function (_super) {
                 _this.rootNode = e;
             } }),
             this.props.tooltip ? (omi_1.h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
-                    ? this.value1 + " , " + this.value2
-                    : this.value1 },
-                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, step: props.step, value: this.value1, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
+                    ? this.__$value1 + " , " + this.__$value2
+                    : this.__$value1 },
+                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
                         _this.slider1 = e;
                     } }))) : (
             /* ========================SINGLE-NO-TOOLTIP================================ */
-            omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.value1, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
+            omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
                     _this.slider1 = e;
                 } })),
             this.props.range === 'double' &&
                 (this.props.tooltip ? (omi_1.h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
-                        ? this.value1 + " , " + this.value2
-                        : this.value1 },
-                    omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.value2, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+                        ? this.__$value1 + " , " + this.__$value2
+                        : this.__$value1 },
+                    omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
                             _this.slider2 = e;
                         } }))) : (
                 /* ========================DOUBLE-NO-TOOLTIP============================== */
-                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.value2, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
                         _this.slider2 = e;
                     } }))),
             omi_1.h("div", { class: "slider-track", ref: function (e) {
@@ -3144,7 +3161,6 @@ var OSlider = /** @class */ (function (_super) {
         shape: 'round',
         tooltip: false,
         disabled: false,
-        reversed: false,
     };
     OSlider.propTypes = {
         min: Number,
@@ -3157,7 +3173,6 @@ var OSlider = /** @class */ (function (_super) {
         shape: String,
         tooltip: Boolean,
         disabled: Boolean,
-        reversed: Boolean,
     };
     OSlider = __decorate([
         omi_1.tag('o-slider')

@@ -2,6 +2,11 @@
 
 一般用于拖动页面内容
 
+<iframe height="undefined" style="width: 100%;" scrolling="no" title="OMIU Slider" src="https://codepen.io/omijs/embed/undefined?height=undefined&theme-id=default&default-tab=undefined" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
+  See the Pen <a href='https://codepen.io/omijs/pen/undefined'>OMIU Checkbox</a> by OMI
+  (<a href='https://codepen.io/omijs'>@omijs</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
 ## 导入
 
 ```js
@@ -9,6 +14,7 @@ import '@omiu/slider'
 ```
 
 或者直接 script 标签引入。
+
 
 ```html
 <script src="https://unpkg.com/@omiu/slider"></script>
@@ -19,6 +25,7 @@ import '@omiu/slider'
 ```html
 <o-slider></o-slider>
 ```
+
 
 ## API
 
@@ -32,29 +39,28 @@ import '@omiu/slider'
   value?: number
   second_value?: number
   range: 'single' | 'double'
-  orient?: 'vetical' | 'horizontal'
+  orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
+  tooltip?: boolean
   disabled?: boolean
 }
 ```
 
 ### 默认属性
-
 ```tsx
 {
-  //default a single square range slider
-  min: 0,
-  max: 100,
+  //default a single round range slider
+  min: undefined,
+  max: undefined,
   step: 1,
-  value: 0,
-  second_value: 100,
+  value: undefined,
+  second_value: undefined,
   range: 'single',
   orient: 'horizontal',
-  shape: 'square',
+  shape: 'round',
+  tooltip: false,
   disabled: false,
 }
 ```
-
 ### 事件
-
-- change
+* input
