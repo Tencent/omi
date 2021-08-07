@@ -1,109 +1,64 @@
-import { tag, h, WeElement, OverwriteProps } from 'omi'
-import '../../icon/esm/cancel'
-import '../../icon/esm/check-circle-outline'
-import '../../icon/esm/check'
+import { tag, WeElement, extractClass, classNames, h } from 'omi'
 import * as css from './index.scss'
 
-export type Attrs = {
-  title?: string,
-  description?: string,
-  active?: number,
-  isFinish?: boolean,
-  isProcess?: boolean,
-  lineIsFinsh?: boolean,
-}
+import '@omiu/icon/done'
+import '@omiu/icon/clear'
 
-const tagName = 'o-step'
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [tagName]: Omi.Props & Attrs
-    }
-  }
+const state = {
+  DONE: 0,
+  ERROR: 1,
+  DOING: 2,
+  TODO: 3
 }
 
 
-export type Props = OverwriteProps<Attrs, { title: string, active?: number, description?: string, isFinish?: boolean, isProcess?: boolean, lineIsFinsh?: boolean, }>
-
-@tag(tagName)
-export default class Step extends WeElement<Props> {
-
-  static css = css.default ? css.default : css
-
-  static defaultProps = {
-    title: '',
-    description: '',
-    isFinish: false,
-    isProcess: false,
-    lineIsFinsh: false,
-  }
+@tag('o-step')
+export default class Step extends WeElement {
+  static css = css.default
 
   static propTypes = {
-    title: String,
-    description: String,
-    isFinish: Boolean,
-    isProcess: Boolean,
-    lineIsFinsh: Boolean,
+    items: Object,
+    vertical: Boolean
   }
 
-  inject = ['active']
-
-  beforeRender = () => {
-    let  findSibling = ( tag: any ) => {
-      let  parentEl = tag.parentNode ;
-      let  childs = parentEl.children ;
-      for( let i = 0; i <= childs.length - 1 ; i++ ){
-          if( childs[i] === tag  ){
-              return i
-          }
-       }
-    };
-    if((findSibling(this) - 1) === this.injection.active) {
-      this.props.lineIsFinsh = true
-    }
-
-    if(findSibling(this) < this.injection.active) {
-      this.props.isFinish = true
-    } else if (findSibling(this) === this.injection.active) {
-      this.props.isProcess = true
-    }
-  }
-
-  // 当前状态下标
-  currentStatus = () => {
-    if (this.props.isFinish) return ['is-success'].join(' ')
-    if (this.props.isProcess) return ['is-process'].join(' ')
-    return ['is-wait'].join(' ')
-  }
-
-  lineStatus = () => {
-    if (this.props.lineIsFinsh) return ['line-success'].join(' ')
-    if (this.props.isFinish) return ['line-process'].join(' ')
-    return ['line-wait'].join(' ')
-  }
-
-  render(props: Props) {
+  render(props) {
     return (
-      <h.f>
-        <div class={'o-step ' + this.currentStatus()}>
-          <div class={"o-step__head " + this.currentStatus()}>
-            <div class={'o-step__line ' + this.lineStatus()}>
-              <i className='o-step__line-inner'></i>
+      <div {...extractClass(props, 'o-step', {
+        'vertical': props.vertical
+      })}>
+        {props.items.map((item, index) => {
+          return <div class={classNames('_item', {
+            '_item-finish': item.state === state.DONE,
+            '_item-block': item.state === state.ERROR,
+            '_item-process': item.state === state.DOING,
+            '_item-wait': item.state === state.TODO,
+            'next-error': props.items[index + 1] && props.items[index + 1].state === state.ERROR
+          })}>
+            <div class="_item-tail">
             </div>
-            <div class='o-step__icon is-text'>
-              <o-icon-check></o-icon-check>
+            <div class="_item-icon">
+              <span class="icon">
+                {item.state === state.DONE && <i class="anticon anticon-check finish-icon">
+                  <o-icon-done ></o-icon-done>
+                </i>}
+
+                {item.state === state.ERROR && <i class="anticon anticon-close error-icon">
+                  <o-icon-clear></o-icon-clear>
+                </i>}
+
+                {(item.state === state.DOING || item.state === state.TODO) && <span class="icon">{index + 1}</span>}
+              </span>
+            </div>
+            <div class="_item-content">
+              <div class="_item-title">{item.name}</div>
+              <div class="_item-description">{item.description}</div>
             </div>
           </div>
-          <div class="o-step__main">
-            <div class="o-step__title">
-              {props.title}
-            </div>
-            <div class="o-step__description">
-              {props.description}
-            </div>
-          </div>
-        </div>
-      </h.f>
+
+        })}
+
+      </div>
+
     )
   }
 }

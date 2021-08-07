@@ -36,5 +36,7 @@ export const base = {
   NotificationList: '通知中心',
 
   Introduction: '简介',
-  CustomTheme: '自定义主题'
+  CustomTheme: '自定义主题',
+
+  StepForm: '分步表单'
 }
