@@ -1,5 +1,6 @@
 import { getDocsList } from './components/docs/config'
 import { WeElement } from 'omi'
+import { getIntroductionNode, getThemeNode } from './components/components/docs/config'
 
 interface treeNode {
   id: number
@@ -104,7 +105,7 @@ class Store {
               label: localeMap.base.Dashboard,
               icon: 'pie-chart',
               href: '#/dashboard',
-              id: 98
+              id: 3
             },
 
             {
@@ -123,12 +124,12 @@ class Store {
               label: localeMap.base.InlineEditing,
               icon: 'grid-on',
               href: '#/table/edit',
-              id: 25
+              id: 6
             },
             {
               label: localeMap.base.Form,
               expanded: true,
-              id: 9,
+              id: 7,
               href: '#/form',
               icon: 'list-alt'
             },
@@ -136,21 +137,95 @@ class Store {
               label: localeMap.base.MarkdownEditor,
               icon: 'grid-on',
               href: '#/md-editor',
-              id: 26
-            },
-            {
-              label: localeMap.base.MaterialIcons,
-              expanded: true,
-              id: 10,
-              href: '#/icon',
-              icon: 'sentiment-satisfied-alt'
+              id: 8
             },
             {
               label: localeMap.base.MasonryList,
               expanded: true,
-              id: 53,
+              id: 9,
               href: '#/masonry-list',
               icon: 'dashboard'
+            }
+          ]
+        },
+        {
+          label: localeMap.base.Results,
+          expanded: true,
+          id: 10,
+          icon: 'ac-unit-outlined',
+
+          children: [
+            {
+              label: localeMap.base.BrowserIncompatible,
+              id: 11,
+              icon: 'ac-unit-outlined',
+              href: '#/results/browser-incompatible'
+            },
+            {
+              label: localeMap.base.NetworkError,
+              id: 12,
+              icon: 'ac-unit-outlined',
+              href: '#/results/network-error'
+            },
+            {
+              label: localeMap.base.NotFound,
+              id: 13,
+              icon: 'ac-unit-outlined',
+              href: '#/results/not-found'
+            },
+            {
+              label: localeMap.base.PermissionDenied,
+              id: 14,
+              icon: 'ac-unit-outlined',
+              href: '#/results/permission-denied'
+            },
+            {
+              label: localeMap.base.ServerError,
+              id: 15,
+              icon: 'ac-unit-outlined',
+              href: '#/results/server-error'
+            }
+          ]
+        },
+        {
+          label: localeMap.base.Components,
+          expanded: true,
+          id: 16,
+          icon: 'ac-unit-outlined',
+
+          children: [
+            getIntroductionNode(locale, localeMap),
+            getThemeNode(locale,localeMap),
+            {
+              label: localeMap.base.MaterialIcons,
+              expanded: true,
+              id: 17,
+              href: '#/icon',
+              // icon: 'sentiment-satisfied-alt'
+            },
+            {
+              label: localeMap.base.Loading,
+              id: 18,
+              icon: 'ac-unit-outlined',
+              href: '#/loading-component'
+            },
+            {
+              label: localeMap.base.Toast,
+              id: 19,
+              icon: 'ac-unit-outlined',
+              href: '#/toast-component'
+            },
+            {
+              label: localeMap.base.Card,
+              id: 20,
+              icon: 'ac-unit-outlined',
+              href: '#/card-component'
+            },
+            {
+              label: localeMap.base.Slider,
+              id: 21,
+              icon: 'ac-unit-outlined',
+              href: '#/slider-component'
             }
           ]
         },
@@ -158,7 +233,7 @@ class Store {
           label: localeMap.base.Others,
           sign: '●',
           expanded: true,
-          id: 6,
+          id: 22,
           icon: 'ac-unit-outlined',
           children: [
             {
@@ -167,7 +242,7 @@ class Store {
               icon: 'error',
               color: '#F56C6C',
               href: '#/error',
-              id: 7
+              id: 23
             },
             {
               sign: '993',
@@ -175,27 +250,27 @@ class Store {
               icon: 'warning',
               color: '#E6A23C',
               href: '#/warning',
-              id: 8
+              id: 24
             },
             {
               sign: '993',
               label: localeMap.base.Comment,
               icon: 'comment',
               href: '#/comment',
-              id: 120
+              id: 25
             },
             {
               label: localeMap.base.ExternalLink,
               icon: 'insert-link',
               href: 'https://github.com/Tencent/omi',
-              id: 119,
+              id: 26,
               target: '_blank'
             },
             {
               label: localeMap.base.MindMap,
               icon: 'ac-unit',
               href: '#/mind-map',
-              id: 120
+              id: 27
             }
           ]
         },
@@ -206,81 +281,11 @@ class Store {
           icon: 'ac-unit-outlined',
           children: getDocsList(localeMap)
         },
-        {
-          label: localeMap.base.Components,
-          expanded: true,
-          id: 11,
-          icon: 'ac-unit-outlined',
-
-          children: [
-            {
-              label: localeMap.base.Loading,
-              id: 12,
-              icon: 'ac-unit-outlined',
-              href: '#/loading-component'
-            },
-            {
-              label: localeMap.base.Toast,
-              id: 13,
-              icon: 'ac-unit-outlined',
-              href: '#/toast-component'
-            },
-            {
-              label: localeMap.base.Card,
-              id: 14,
-              icon: 'ac-unit-outlined',
-              href: '#/card-component'
-            },
-            {
-              label: localeMap.base.Slider,
-              id: 15,
-              icon: 'ac-unit-outlined',
-              href: '#/slider-component'
-            }
-          ]
-        },
-        {
-          label: localeMap.base.Results,
-          expanded: true,
-          id: 61,
-          icon: 'ac-unit-outlined',
-
-          children: [
-            {
-              label: localeMap.base.BrowserIncompatible,
-              id: 62,
-              icon: 'ac-unit-outlined',
-              href: '#/results/browser-incompatible'
-            },
-            {
-              label: localeMap.base.NetworkError,
-              id: 63,
-              icon: 'ac-unit-outlined',
-              href: '#/results/network-error'
-            },
-            {
-              label: localeMap.base.NotFound,
-              id: 64,
-              icon: 'ac-unit-outlined',
-              href: '#/results/not-found'
-            },
-            {
-              label: localeMap.base.PermissionDenied,
-              id: 65,
-              icon: 'ac-unit-outlined',
-              href: '#/results/permission-denied'
-            },
-            {
-              label: localeMap.base.ServerError,
-              id: 66,
-              icon: 'ac-unit-outlined',
-              href: '#/results/server-error'
-            }
-          ]
-        },
+       
+        
         {
           label: localeMap.base.ManyThanksTo,
-          id: 16,
+          id: 28,
           href: '#/thanks',
           icon: 'people-alt'
         },
