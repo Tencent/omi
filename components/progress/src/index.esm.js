@@ -631,9 +631,7 @@ unwrapExports(closeRounded);
 var status2color = {
     'success': "#09BB07",
     'error': "#F43530",
-
     'active': "#1890ff",
-
 };
 var type_status2icon = {
     'circle': {
@@ -645,31 +643,36 @@ var type_status2icon = {
         'error': h("o-icon-cancel-rounded", null)
     }
 };
-var state = function (data, base) { return new Proxy(data, {
-    set: function (target, propKey, value, receiver) {
-        Reflect.set(target, propKey, value, receiver);
-        base.update();
-        return true;
-    }
-}); };
 var default_1 = /** @class */ (function (_super) {
     __extends(default_1, _super);
     function default_1() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     default_1.prototype.install = function () {
-        this._state = state({
-            percent: this.props.percent
-        }, this);
+        var _this = this;
+        var that = this;
         this.setPercent = function (percent) {
-            this._state.percent = percent;
+            if (!_this._state) {
+                _this._state = new Proxy({
+                    percent: percent
+                }, {
+                    set: function (target, propKey, value, receiver) {
+                        Reflect.set(target, propKey, value, receiver);
+                        that.update();
+                        return true;
+                    }
+                });
+            }
+            _this._state.percent = percent;
         };
     };
     default_1.prototype.render = function (props) {
-
-        var type = props.type, status = props.status, strokeColor = props.strokeColor, _a = props.trailColor, trailColor = _a === void 0 ? props.trailColor ? props.trailColor : "#f5f5f5" : _a, _b = props.textColor, textColor = _b === void 0 ? props.textColor ? props.textColor : "black" : _b, _c = props.strokeWidth, strokeWidth = _c === void 0 ? props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6) : _c, _d = props.width, width = _d === void 0 ? props.width ? props.width : (props.type === "line" ? 160 : 120) : _d, showInfo = props.showInfo;
-
-        var percent = this._state.percent;
+        var trailColor = props.trailColor ? props.trailColor : "#f5f5f5";
+        var textColor = props.textColor ? props.textColor : "black";
+        var strokeWidth = props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6);
+        var width = props.width ? props.width : (props.type === "line" ? 160 : 120);
+        var type = props.type, status = props.status, strokeColor = props.strokeColor, showInfo = props.showInfo;
+        var percent = this._state ? this._state.percent : props.percent;
         var isSuccess = percent >= 100 ? true : false;
         if (type === "circle") {
             var radius = width / 2 - strokeWidth;
@@ -678,12 +681,10 @@ var default_1 = /** @class */ (function (_super) {
                 h("div", { className: "o-progress-circle__inner" },
                     h("svg", { width: width, heigth: width, class: "o-progress-circle-trail", viewBox: "0 0 " + width + " " + width },
                         h("circle", { cx: width / 2, cy: width / 2, r: radius, stroke: trailColor, "stroke-width": strokeWidth, "fill-opacity": "0" }),
-
                         h("path", { d: "M " + width / 2 + "," + width / 2 + " m 0," + (width / 2 - strokeWidth) + "\n   a " + (width / 2 - strokeWidth) + "," + (width / 2 - strokeWidth) + " 0 1 1 0,-" + (width / 2 - strokeWidth) * 2 + "\n   a " + (width / 2 - strokeWidth) + "," + (width / 2 - strokeWidth) + " 0 1 1 0," + (width / 2 - strokeWidth) * 2, "stroke-linecap": "round", stroke: strokeColor || status2color[status] || (isSuccess ? status2color["success"] : undefined) || status2color["active"], "stroke-width": strokeWidth, opacity: "1", "fill-opacity": "0", style: "\n               stroke-dasharray: " + (percent / 100) * (len) + "px " + len + "px;\n                stroke-dashoffset: 0px;\n                 transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s ease 0s, stroke-width 0.06s ease 0.3s, opacity ease 0s;" })),
                     showInfo && (h("span", { className: "o-progress-circle-text", style: { fontSize: (width - strokeWidth * 2) * 1.75 / 6 } }, (!status && !isSuccess) || (status === "active") ? h("span", { style: { color: textColor } },
                         percent,
                         "%") : h("span", { style: { color: status2color[status || (isSuccess ? "success" : "active")], fontSize: "2em" } }, type_status2icon["circle"][status || (isSuccess ? "success" : "active")]))))));
-
         }
         else {
             return (h("div", null,
@@ -691,7 +692,6 @@ var default_1 = /** @class */ (function (_super) {
                     h("div", { className: "o-progress-line__bar", style: { backgroundColor: trailColor } },
                         h("div", { className: "o-progress-line__inner-bar", style: {
                                 width: percent + "%",
-
                                 backgroundColor: strokeColor || status2color[status] || (isSuccess ? status2color["success"] : undefined) || status2color["active"],
                                 height: strokeWidth
                             } }))),
@@ -699,7 +699,6 @@ var default_1 = /** @class */ (function (_super) {
                     percent,
                     "%") :
                     h("span", { style: { color: status2color[status || (isSuccess ? "success" : "active")] } }, type_status2icon["line"][status || (isSuccess ? "success" : "active")])))));
-
         }
     };
     default_1.css = css;
@@ -709,12 +708,10 @@ var default_1 = /** @class */ (function (_super) {
         status: undefined,
         strokeColor: undefined,
         trailColor: undefined,
-
         textColor: undefined,
         strokeWidth: undefined,
         width: undefined,
         showInfo: true
-
     };
     default_1.propTypes = {
         type: String,
@@ -722,12 +719,10 @@ var default_1 = /** @class */ (function (_super) {
         status: String,
         strokeColor: String,
         trailColor: String,
-
         textColor: String,
         strokeWidth: Number,
         width: Number,
         showInfo: Boolean
-
     };
     default_1 = __decorate([
         tag("o-progress")
