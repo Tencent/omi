@@ -9,6 +9,7 @@ import '@omiu/select'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
 import '@omiu/icon/git-hub'
+import '@omiu/badge'
 
 interface Props { }
 
@@ -113,7 +114,9 @@ export default class extends WeElement<Props> {
               )}
             </div>
 
-            <o-icon-notifications class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-notifications>
+            <o-badge content="99" class={tw`flex-row cursor-pointer hidden md:block`}>
+              <o-icon-notifications ></o-icon-notifications>
+            </o-badge>
 
             <o-icon-settings class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-settings>
 
