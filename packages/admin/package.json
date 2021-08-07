@@ -35,7 +35,7 @@
     "@omiu/pagination": "^0.0.5",
     "@omiu/popconfirm": "^0.0.2",
     "@omiu/popover": "^0.0.12",
-	"@omiu/progress": "^0.0.3",
+	  "@omiu/progress": "^0.0.3",
     "@omiu/radio": "^0.0.6",
     "@omiu/select": "^0.0.8",
     "@omiu/slider": "^0.0.2",
