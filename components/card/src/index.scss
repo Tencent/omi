@@ -1,5 +1,3 @@
-@import "@omiu/common/theme";
-
 :host {
   display: inline-block;
 }
@@ -127,7 +125,7 @@
 }
 
 .item.selected {
-  color: $o-primary;
+  color: #07C160;
 }
 
 .item {

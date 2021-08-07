@@ -33,8 +33,12 @@ export const base = {
   NotFound: '访问页面不存在',
   PermissionDenied: '无权限',
   ServerError: '服务端错误',
-  MasonryList: '瀑布流列表'
-  
+
+  MasonryList: '瀑布流列表',
+
   Introduction: '简介',
-  CustomTheme: '自定义主题'
+  CustomTheme: '自定义主题',
+
+  StepForm: '分步表单'
+
 }

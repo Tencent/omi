@@ -1,5 +1,5 @@
 /**
- * Omi v6.20.1  http://omijs.org
+ * Omi v6.21.3  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -740,10 +740,29 @@ var WeElement = function (_HTMLElement) {
   }
 
   WeElement.prototype.connectedCallback = function connectedCallback() {
+    var _this2 = this;
+
     var p = this.parentNode;
     while (p && !this.store) {
       this.store = p.store;
       p = p.parentNode || p.host;
+    }
+
+    if (this.inject) {
+      this.injection = {};
+      p = this.parentNode;
+      var provide;
+      while (p && !provide) {
+        provide = p.provide;
+        p = p.parentNode || p.host;
+      }
+      if (provide) {
+        this.inject.forEach(function (injectKey) {
+          _this2.injection[injectKey] = provide[injectKey];
+        });
+      } else {
+        throw 'The provide prop was not found on the parent node or the provide type is incorrect.';
+      }
     }
 
     this.attrsToProps();
@@ -850,12 +869,12 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.updateProps = function updateProps(obj) {
-    var _this2 = this;
+    var _this3 = this;
 
     Object.keys(obj).forEach(function (key) {
-      _this2.props[key] = obj[key];
-      if (_this2.prevProps) {
-        _this2.prevProps[key] = obj[key];
+      _this3.props[key] = obj[key];
+      if (_this3.prevProps) {
+        _this3.prevProps[key] = obj[key];
       }
     });
     this.forceUpdate();
@@ -1514,7 +1533,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.20.1';
+options.root.Omi.version = '6.21.3';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

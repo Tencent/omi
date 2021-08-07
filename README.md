@@ -72,6 +72,36 @@ export default class Button extends WeElement<Props>{
 }
 ```
 
+
+### New Project by Omi
+
+```bash
+$ npm i omi-cli -g    # install cli
+$ omi init my-app     # init project
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
+
+
+### New Component by Omi
+
+```bash
+$ npm i omi-cli -g    # install cli
+$ omi init-component my-component     # init project
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
+> `npx omi-cli init-component my-component` is also supported(npm v5.2.0+).
+
+
+
+
+
 ## Omiu
 
 > Cross-Frameworks and [Cross-Themes](https://tencent.github.io/omi/components/docs/#/theme?index=0&subIndex=1) UI Components powered by Omi
@@ -368,7 +398,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 - [Ecosystem of Omi](#ecosystem-of-omi)
 - [Useful Resources](#useful-resources)
 - [Getting Started](#getting-started)
-  - [Install](#install)
   - [Project Template](#project-template)
   - [Hello Element](#hello-element)
   - [TypeScript Auto Complete](#typescript-auto-complete)
@@ -381,52 +410,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 - [License](#license)
 
 ## Getting Started
-
-### Install
-
-```bash
-$ npm i omi-cli -g    # install cli
-$ omi init my-app     # init project
-$ cd my-app           
-$ npm start           # develop
-$ npm run build       # release
-```
-
-> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
-
-Directory description:
-
-```
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-```
-
-#### Scripts
-
-```json
-"scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
-}
-```
-
-You can set up the PUBLIC_URL, such as：
-
-```json
-...
-"build": "PUBLIC_URL=https://fe.wxpay.oa.com/dv node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv && node scripts/build.js",
-...
-```
 
 
 ### Project Template
@@ -764,22 +747,18 @@ We very much welcome developers to contribute to Tencent's open source, and we w
 
 ## Core Maintainers
 
-- [AlloyTeam](http://alloyteam.com/)
-- [@Wscats](https://github.com/Wscats)
-- [@f](https://github.com/f)
-- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
+- [@Wscats](https://github.com/Wscats)
+- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@xcatliu](https://github.com/xcatliu)
+- [AlloyTeam](http://alloyteam.com/)
 
 Please contact us for any questions. 
 
 ## Thanks
 
 * [preact](https://github.com/developit/preact)
-* [obaa](https://github.com/Tencent/omi/tree/master/packages/obaa) 
-* [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
-* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
 ## License
 

@@ -63,18 +63,12 @@ export default class extends WeElement<Props> {
   \`\`\`
   `
 
-  sliderValue: number = 0
+  value: number = 5
 
-  // handleInputChange = (evt) => {
-  //   this.sliderValue = parseInt(evt.detail)
-  //   console.log(this.sliderValue)
-  //   this.updateSelf()
+  // handleChange = (evt) => {
+  //   this.value = evt.detail[0]
+  //   this.update()
   // }
-
-  handleSliderChange = (evt) => {
-    this.sliderValue = evt.detail
-    this.updateSelf()
-  }
 
   render() {
     return (
@@ -116,24 +110,24 @@ export default class extends WeElement<Props> {
               ></o-slider>
             </div>
           </code-demo>
-          <code-demo
+          {/* <code-demo
             title="带输入框的滑块"
             describe="支持与o-input保持同步"
             code={this.mdC}
           >
             <div slot="demo" class={tw`flex p-5`}>
               <o-slider
-                value={this.sliderValue}
+                value={this.value}
                 class={tw`w-4/5`}
-                onchange={this.handleSliderChange}
+                onchange={this.handleChange}
               ></o-slider>
               <o-input
                 class={tw`pl-5`}
-                value={this.sliderValue}
-                // oninput={this.handleInputChange}
+                value={this.value}
+                oninput={this.handleChange}
               ></o-input>
             </div>
-          </code-demo>
+          </code-demo> */}
           <code-demo
             title="不可用"
             describe="支持使滑块处于不可用状态"

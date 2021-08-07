@@ -137,6 +137,13 @@ export default class extends WeElement {
       )
     })
 
+    route('/step-form', () => {
+      //lazy load
+      import('./components/step-form').then(() =>
+        this.transitionTo('step-form')
+      )
+    })
+
     route('/comment', () => {
       //lazy load
       import('./components/comment/admin-comment').then(() =>

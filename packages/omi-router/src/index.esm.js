@@ -1,5 +1,5 @@
 /**
- * omi-router v3.0.0 http://omijs.org
+ * omi-router v3.0.1 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -9,7 +9,7 @@
 /**
  * Expose `pathToRegexp`.
  */
-var pathToRegexp_1 = pathToRegexp;
+var _pathToRegexp_3_2_0_pathToRegexp = pathToRegexp;
 var match_1 = match;
 var regexpToFunction_1 = regexpToFunction;
 var parse_1 = parse;
@@ -416,15 +416,15 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), keys, options)
 }
-pathToRegexp_1.match = match_1;
-pathToRegexp_1.regexpToFunction = regexpToFunction_1;
-pathToRegexp_1.parse = parse_1;
-pathToRegexp_1.compile = compile_1;
-pathToRegexp_1.tokensToFunction = tokensToFunction_1;
-pathToRegexp_1.tokensToRegExp = tokensToRegExp_1;
+_pathToRegexp_3_2_0_pathToRegexp.match = match_1;
+_pathToRegexp_3_2_0_pathToRegexp.regexpToFunction = regexpToFunction_1;
+_pathToRegexp_3_2_0_pathToRegexp.parse = parse_1;
+_pathToRegexp_3_2_0_pathToRegexp.compile = compile_1;
+_pathToRegexp_3_2_0_pathToRegexp.tokensToFunction = tokensToFunction_1;
+_pathToRegexp_3_2_0_pathToRegexp.tokensToRegExp = tokensToRegExp_1;
 
 /*!
- *  omi-router v2.1.0 by dntzhang
+ *  omi-router v3.0.1 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -444,8 +444,8 @@ root.route.to = function (path, data) {
         location.hash = '#' + path;
     }
 };
-window.addEventListener('hashchange', change);
-function change(evt) {
+window.addEventListener('hashchange', hashChange);
+function hashChange(evt) {
     var byNative = false;
     //need to fix a line by omi-link
     if (window.history.length === root.historyLength && !root.route._routeByTo) {
@@ -455,7 +455,7 @@ function change(evt) {
     root.route._routeByTo = false;
     root.historyLength = window.history.length;
     var prevent = false;
-    if (evt.type === 'hashchange' && root.route.before) {
+    if (evt && evt.type === 'hashchange' && root.route.before) {
         prevent = root.route.before(evt) === false;
     }
     if (prevent)
@@ -485,11 +485,11 @@ function change(evt) {
     if (notFound) {
         mapping['*'] && mapping['*'].callback({ byNative: byNative });
     }
-    if (evt.type === 'hashchange' && root.route.after) {
+    if (evt && evt.type === 'hashchange' && root.route.after) {
         root.route.after(evt);
     }
 }
-document.addEventListener('DOMContentLoaded', change);
+document.addEventListener('DOMContentLoaded', hashChange);
 function getParams(toArr, pathArr) {
     var params = {};
     toArr.forEach(function (item, index) {
@@ -502,10 +502,10 @@ function getParams(toArr, pathArr) {
 function route(path, callback) {
     mapping[path] = {
         callback: callback,
-        reg: pathToRegexp_1(path)
+        reg: _pathToRegexp_3_2_0_pathToRegexp(path)
     };
 }
-var router = { route: route };
+var router = { route: route, hashChange: hashChange };
 function getGlobal() {
     if (typeof global !== 'object' ||
         !global ||
@@ -533,6 +533,5 @@ function getUrlParams(url) {
     return args;
 }
 
-export default router;
-export { route };
+export { router as default, hashChange, route };
 //# sourceMappingURL=index.esm.js.map

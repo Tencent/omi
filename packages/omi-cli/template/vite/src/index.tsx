@@ -1,6 +1,6 @@
 import { WeElement, render, h, tag } from 'omi'
 
-import './hello-omi'
+import './o-counter'
 import './index.css'
 import * as css from './_index.less'
 import logo from './logo.svg'
@@ -17,9 +17,8 @@ export default class extends WeElement<MyAppProps> {
 
   abc: string
 
-  onAbc = (evt: CustomEvent) => {
-    this.abc = ` by ${evt.detail.name}`
-    this.update()
+  onCountChanged = (evt: CustomEvent) => {
+    console.log(evt.detail)
   }
 
   render(props) {
@@ -34,7 +33,7 @@ export default class extends WeElement<MyAppProps> {
           <h1 class="app-title">Welcome to {props.name}</h1>
         </header>
         {this.abc}
-        <hello-omi onAbc={this.onAbc} msg="Omi"></hello-omi>
+        <o-counter onCountChanged={this.onCountChanged}></o-counter>
 
       </div>
     )

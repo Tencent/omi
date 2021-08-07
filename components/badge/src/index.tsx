@@ -11,7 +11,7 @@ interface Props {
 
 @tag('o-badge')
 export default class Badge extends WeElement<Props>{
-  static css = css
+  static css = css.default
 
   static defaultProps = {
     x: 0,

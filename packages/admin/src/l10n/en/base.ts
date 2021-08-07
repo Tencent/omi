@@ -33,5 +33,11 @@ export const base = {
   NotFound: 'Not Found',
   PermissionDenied: 'Permission Denied',
   ServerError: 'Server Error',
-  MasonryList: 'Masonry List'
+  MasonryList: 'Masonry List',
+
+  Introduction: 'Introduction',
+  CustomTheme: 'Custom Theme',
+
+  StepForm: 'Step Form'
+
 }

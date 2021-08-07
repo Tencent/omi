@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/path-to-regexp/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/path-to-regexp/index.js ***!
-  \**********************************************/
+/***/ "./node_modules/_path-to-regexp@3.2.0@path-to-regexp/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/_path-to-regexp@3.2.0@path-to-regexp/index.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -517,7 +517,7 @@ function pathToRegexp (path, keys, options) {
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/global.js":
+/***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -558,14 +558,14 @@ module.exports = g;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 /*!
- *  omi-router v2.1.0 by dntzhang
+ *  omi-router v3.0.1 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.route = void 0;
-var path_to_regexp_1 = __webpack_require__(/*! path-to-regexp */ "./node_modules/path-to-regexp/index.js");
+exports.route = exports.hashChange = void 0;
+var path_to_regexp_1 = __webpack_require__(/*! path-to-regexp */ "./node_modules/_path-to-regexp@3.2.0@path-to-regexp/index.js");
 var mapping = {};
 var root = getGlobal();
 root.route = route;
@@ -581,8 +581,8 @@ root.route.to = function (path, data) {
         location.hash = '#' + path;
     }
 };
-window.addEventListener('hashchange', change);
-function change(evt) {
+window.addEventListener('hashchange', hashChange);
+function hashChange(evt) {
     var byNative = false;
     //need to fix a line by omi-link
     if (window.history.length === root.historyLength && !root.route._routeByTo) {
@@ -592,7 +592,7 @@ function change(evt) {
     root.route._routeByTo = false;
     root.historyLength = window.history.length;
     var prevent = false;
-    if (evt.type === 'hashchange' && root.route.before) {
+    if (evt && evt.type === 'hashchange' && root.route.before) {
         prevent = root.route.before(evt) === false;
     }
     if (prevent)
@@ -622,11 +622,12 @@ function change(evt) {
     if (notFound) {
         mapping['*'] && mapping['*'].callback({ byNative: byNative });
     }
-    if (evt.type === 'hashchange' && root.route.after) {
+    if (evt && evt.type === 'hashchange' && root.route.after) {
         root.route.after(evt);
     }
 }
-document.addEventListener('DOMContentLoaded', change);
+exports.hashChange = hashChange;
+document.addEventListener('DOMContentLoaded', hashChange);
 function getParams(toArr, pathArr) {
     var params = {};
     toArr.forEach(function (item, index) {
@@ -643,7 +644,7 @@ function route(path, callback) {
     };
 }
 exports.route = route;
-var router = { route: route };
+var router = { route: route, hashChange: hashChange };
 exports.default = router;
 function getGlobal() {
     if (typeof global !== 'object' ||
@@ -672,7 +673,7 @@ function getUrlParams(url) {
     return args;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
 /***/ })
 
