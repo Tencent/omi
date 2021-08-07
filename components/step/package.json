@@ -16,6 +16,8 @@
     "test": "npm run build && web-test-runner \"test/*.js\" --node-resolve"
   },
   "dependencies": {
+    "@omiu/common": "^0.0.9",
+    "@omiu/icon": "^0.0.3",
     "omi": "latest"
   },
   "devDependencies": {

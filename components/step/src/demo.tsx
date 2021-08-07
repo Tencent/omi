@@ -1,37 +1,50 @@
-import { tag, h, WeElement, render } from 'omi'
 
+import { define, render, h, WeElement } from 'omi'
 import './index.tsx'
 
-export type Props = {
-
+const state = {
+  DONE: 0,
+  ERROR: 1,
+  DOING: 2,
+  TODO: 3
 }
 
-const tagName = 'my-demo'
+define('my-app', class extends WeElement {
 
+  itemsA = [
+    { name: 'Finished', description: 'This is a description.', state: state.DONE },
+    { name: 'In Progress', description: 'This is a description.', state: state.DOING },
+    { name: 'Waiting', description: 'This is a description.', state: state.TODO }
+  ]
 
+  itemsB = [
+    { name: 'Finished', description: 'This is a description.', state: state.DONE },
+    { name: 'Error', description: 'This is a description.', state: state.ERROR },
+    { name: 'Waiting', description: 'This is a description.', state: state.TODO }
+  ]
 
-@tag(tagName)
-export default class MyDemo extends WeElement<Props> {
+  itemsC = [
+    { name: 'Finished', description: 'This is a description.', state: state.DONE },
+    { name: 'Finished', description: 'This is a description.', state: state.DONE },
+    { name: 'Finished', description: 'This is a description.', state: state.DONE }
+  ]
 
-  count = 2
-
-  onChanged = (evt: CustomEvent) => {
-    //同步内部状态到外部，这样防止父刷新覆盖子的 count
-    this.count = evt.detail
-  }
-
-  render(props: Props) {
+  render() {
     return (
       <div>
-        <h1 onclick={() => {
-          this.update()
-        }}>JSX Mode</h1>
-        <o-counter count={this.count} onCountChanged={this.onChanged}></o-counter>
+        <m-step items={this.itemsA} />
+        <m-step items={this.itemsB} />
+        <m-step items={this.itemsC} />
+
+        <m-step items={this.itemsA} vertical />
+        <m-step items={this.itemsB} vertical />
+        <m-step items={this.itemsC} vertical />
+
       </div>
+
     )
   }
-}
-
-render(<my-demo></my-demo>, 'body', {
-  ignoreAttrs: true
 })
+
+
+render(<my-app />, 'body')
