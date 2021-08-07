@@ -820,7 +820,7 @@ var status2color = {
     'success': "#09BB07",
     'error': "#F43530",
     'active': "#1890ff",
-    'trailColorDefault': "#f5f5f5"
+
 };
 var type_status2icon = {
     'circle': {
@@ -832,29 +832,38 @@ var type_status2icon = {
         'error': omi_1.h("o-icon-cancel-rounded", null)
     }
 };
-var state = function (data, base) { return new Proxy(data, {
-    set: function (target, propKey, value, receiver) {
-        Reflect.set(target, propKey, value, receiver);
-        base.update();
-        return true;
-    }
-}); };
 var default_1 = /** @class */ (function (_super) {
     __extends(default_1, _super);
     function default_1() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     default_1.prototype.install = function () {
-        this._state = state({
-            percent: this.props.percent
-        }, this);
+        var _this = this;
+        var that = this;
         this.setPercent = function (percent) {
-            this._state.percent = percent;
+            if (!_this._state) {
+                _this._state = new Proxy({
+                    percent: percent
+                }, {
+                    set: function (target, propKey, value, receiver) {
+                        Reflect.set(target, propKey, value, receiver);
+                        that.update();
+                        return true;
+                    }
+                });
+            }
+            _this._state.percent = percent;
         };
     };
     default_1.prototype.render = function (props) {
-        var type = props.type, status = props.status, strokeColor = props.strokeColor, _a = props.trailColor, trailColor = _a === void 0 ? props.trailColor ? props.trailColor : "#f5f5f5" : _a, _b = props.textColor, textColor = _b === void 0 ? props.textColor ? props.textColor : "black" : _b, _c = props.strokeWidth, strokeWidth = _c === void 0 ? props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6) : _c, _d = props.width, width = _d === void 0 ? props.width ? props.width : (props.type === "line" ? 160 : 120) : _d, showInfo = props.showInfo;
-        var percent = this._state.percent;
+
+        var trailColor = props.trailColor ? props.trailColor : "#f5f5f5";
+        var textColor = props.textColor ? props.textColor : "black";
+        var strokeWidth = props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6);
+        var width = props.width ? props.width : (props.type === "line" ? 160 : 120);
+        var type = props.type, status = props.status, strokeColor = props.strokeColor, showInfo = props.showInfo;
+        var percent = this._state ? this._state.percent : props.percent;
+
         var isSuccess = percent >= 100 ? true : false;
         if (type === "circle") {
             var radius = width / 2 - strokeWidth;

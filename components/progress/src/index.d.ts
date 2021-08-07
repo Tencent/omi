@@ -38,8 +38,10 @@ export default class extends WeElement<Props> {
         width: NumberConstructor;
         showInfo: BooleanConstructor;
     };
-    _state: any;
-    setPercent: object;
+    _state: {
+        percent: number;
+    };
+    setPercent: (percent: number) => void;
     install(): void;
     render(props: any): JSX.Element;
 }
