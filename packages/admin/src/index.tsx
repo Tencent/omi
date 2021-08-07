@@ -105,6 +105,13 @@ export default class extends WeElement {
       )
     })
 
+    route('/notification-list', () => {
+      //lazy load
+      import('./components/notification/notification-list').then(() =>
+        this.transitionTo('notification-list')
+      )
+    })
+
     route('/table/edit', () => {
       //lazy load
       import('./components/table/inline-editing').then(() =>

@@ -145,6 +145,13 @@ class Store {
               id: 9,
               href: '#/masonry-list',
               icon: 'dashboard'
+            },
+            {
+              label: localeMap.base.NotificationList,
+              expanded: true,
+              href: '#/notification-list',
+              icon: 'grid-on',
+              id: 29
             }
           ]
         },

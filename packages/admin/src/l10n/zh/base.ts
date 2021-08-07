@@ -33,6 +33,7 @@ export const base = {
   PermissionDenied: '无权限',
   ServerError: '服务端错误',
   MasonryList: '瀑布流列表',
+  NotificationList: '通知中心',
 
   Introduction: '简介',
   CustomTheme: '自定义主题'
