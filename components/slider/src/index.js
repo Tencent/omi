@@ -3161,7 +3161,6 @@ var OSlider = /** @class */ (function (_super) {
         shape: 'round',
         tooltip: false,
         disabled: false,
-        reversed: false,
     };
     OSlider.propTypes = {
         min: Number,
@@ -3174,7 +3173,6 @@ var OSlider = /** @class */ (function (_super) {
         shape: String,
         tooltip: Boolean,
         disabled: Boolean,
-        reversed: Boolean,
     };
     OSlider = __decorate([
         omi_1.tag('o-slider')

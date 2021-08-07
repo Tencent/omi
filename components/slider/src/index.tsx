@@ -14,7 +14,6 @@ interface Props {
   shape: 'square' | 'round'
   tooltip?: boolean
   disabled?: boolean
-  reversed?: boolean
 }
 
 @tag('o-slider')
@@ -33,7 +32,6 @@ export default class OSlider extends WeElement<Props> {
     shape: 'round',
     tooltip: false,
     disabled: false,
-    reversed: false,
   }
 
   static propTypes = {
@@ -47,7 +45,6 @@ export default class OSlider extends WeElement<Props> {
     shape: String,
     tooltip: Boolean,
     disabled: Boolean,
-    reversed: Boolean,
   }
 
   __$value1: number
