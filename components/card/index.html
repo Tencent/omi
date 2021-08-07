@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8" />
-  <title>Omi Card</title>
+  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>omiu Card</title>
+  <script type="module" src="/src/index.tsx"></script>
+
 </head>
 
 <body>
-
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
     <img src="//alloyteam.github.io/github.png" alt="">
   </a>
@@ -16,8 +18,6 @@
 
   <script src="https://unpkg.com/@omiu/link"></script>
 
-  <script src="../../../common//src/index.js"></script>
-  <script src="../../src/index.js"></script>
   <!-- 这里导入需要的OmiU-component -->
   <script src="https://unpkg.com/@omiu/icon@0.0.2/add-a-photo-rounded.js"></script>
   <script src="https://unpkg.com/@omiu/icon@0.0.2/add-comment-rounded.js"></script>
@@ -90,13 +90,13 @@
   </div>
 
   <script>
-    document.querySelector('#myActionA').addEventListener('change', function (evt) {
+    document.querySelector('#myActionA').addEventListener('EvtChange', function (evt) {
       console.log(evt.detail.icon + ' is clicked')
     })
-    document.querySelector('#myActionB').addEventListener('change', function (evt) {
+    document.querySelector('#myActionB').addEventListener('EvtChange', function (evt) {
       console.log(evt.detail.icon + ' is clicked')
     })
-    document.querySelector('#myActionC').addEventListener('change', function (evt) {
+    document.querySelector('#myActionC').addEventListener('EvtChange', function (evt) {
       console.log(evt.detail.icon + ' is clicked')
     })
   </script>
