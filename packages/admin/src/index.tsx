@@ -191,6 +191,9 @@ export default class extends WeElement {
       //lazy load
       import('./components/components/time-picker-component').then(() =>
         this.transitionTo('time-picker-component')
+      )
+    })
+
 
     route('/slider-component', () => {
       //lazy load
@@ -198,8 +201,8 @@ export default class extends WeElement {
         this.transitionTo('slider-component')
       )
     })
-	
-	route('/progress-component', () => {
+
+    route('/progress-component', () => {
       //lazy load
       import('./components/components/progress-component').then(() =>
         this.transitionTo('progress-component')
