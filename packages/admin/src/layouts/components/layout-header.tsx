@@ -123,8 +123,10 @@ export default class extends WeElement<Props> {
               )}
             </div>
 
-            <o-badge content="99" class={tw`flex-row cursor-pointer hidden md:block`}>
-              <a onClick={(e) => this.goNotification()}><o-icon-notifications ></o-icon-notifications></a>
+            <o-badge onClick={(e) => this.goNotification()}
+              content="99"
+              class={tw`flex-row cursor-pointer hidden md:block`}>
+              <a ><o-icon-notifications ></o-icon-notifications></a>
             </o-badge>
 
             <o-icon-settings class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-settings>
