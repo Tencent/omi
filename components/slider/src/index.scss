@@ -3,49 +3,48 @@
 @import '@omiu/common/theme.scss';
 
 // excess height to improve interactive area / accessibility
-$thumb-height: 31.25px;
-$track-height: 12.5px;
+$thumb-height: 14px;
+$track-height: 4px;
 
 // colours
 $upper-color: $o-surface;
 $lower-color: $o-primary;
-$thumb-color: $o-primary;
-
-$shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+$thumb-color: $o-surface;
+$hover-thumb-color: $o-primary-fade-lot;
 
 @mixin thumb {
-  position: relative;
-  height: $thumb-height;
-  width: $thumb-height;
-  background-color: $thumb-color;
-  transition: background-color 150ms;
-  box-shadow: $shadow;
   top: 50%;
-  margin-top: ($thumb-height / -2) - 2;
-  pointer-events: auto;
+  width: $thumb-height;
+  height: $thumb-height;
+  position: relative;
   z-index: 2;
+  margin-top: ($thumb-height / -2) - 2;
+  border: 2px solid $o-primary;
+  background-color: $thumb-color;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s,
+    transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
-  &:hover,
-  &:focus {
-    background-color: $o-primary-active;
+  &:active {
+    box-shadow: 0 0 0 5px $hover-thumb-color;
+  }
+
+  &:hover {
+    border-color: $o-primary-active;
   }
 }
 
 @mixin thumb-disabled {
   @include thumb;
   pointer-events: none;
-  cursor: none;
-  background-color: #c0c4cc;
+  border-color: #c0c4cc;
 }
 
 @mixin thumb-round {
-  outline-offset: -10px;
+  @include thumb;
   border-radius: 50%;
-
-  &:hover,
-  &:focus {
-    outline-offset: -12px;
-  }
 }
 
 @mixin track {
@@ -53,10 +52,6 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   position: relative;
   margin: 5px;
   height: $track-height;
-  background-color: $o-surface;
-  box-shadow: $shadow;
-  border: 2px solid $o-primary;
-  transition: background-color 200ms;
 }
 
 :host {
@@ -83,16 +78,16 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .slider-container .o-slider {
-  width: 100%;
-  height: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  position: absolute;
   top: 0;
   bottom: 0;
-  background: transparent;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   z-index: 1;
+  background: transparent;
   pointer-events: none;
 
   &:focus {

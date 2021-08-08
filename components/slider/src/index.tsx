@@ -56,6 +56,9 @@ export default class OSlider extends WeElement<Props> {
   sliderTrack: HTMLElement
   sliderMax: number = this.props.max
 
+  lowerColor = '#059048'
+  upperColor = '#d9d9d9'
+
   install() {
     this.__$value1 = this.props.value
     this.props.range === 'double'
@@ -70,6 +73,14 @@ export default class OSlider extends WeElement<Props> {
       get: this._onGetValue2,
       set: this._onSetValue2,
     })
+  }
+
+  installed() {
+    this.fillColor('#07c160', '#f0f0f0')
+    this.update()
+    let host = this.shadowRoot.host as HTMLElement
+    this.props.orient === 'vertical' &&
+      (host.style.transform = 'rotate(-90deg)')
   }
 
   _onGetValue = () => {
@@ -92,15 +103,12 @@ export default class OSlider extends WeElement<Props> {
     this.setAttribute('second_value', value)
   }
 
-  installed() {
-    this.fillColor()
+  receiveProps() {
+    this.fillColor(this.lowerColor, this.upperColor)
     this.update()
-    let host = this.shadowRoot.host as HTMLElement
-    this.props.orient === 'vertical' &&
-      (host.style.transform = 'rotate(-90deg)')
   }
 
-  handleSliderOne = () => {
+  handleSliderOne = (evt) => {
     const first_value = parseInt(this.slider1.value)
     if (first_value <= this.__$value2 || this.props.range === 'single') {
       //  if the slider 1 has not exceeded slider2 or it is a single range slider
@@ -112,22 +120,22 @@ export default class OSlider extends WeElement<Props> {
     } else {
       this.fire('input', [this.__$value1, this.__$value2])
     }
-    this.fillColor()
+    this.fillColor(this.lowerColor, this.upperColor)
     this.update()
   }
 
-  handleSliderTwo = () => {
+  handleSliderTwo = (evt) => {
     const second_value = parseInt(this.slider2.value)
     //we only have one case if slider two exists
     if (second_value >= this.__$value1) {
       this.__$value2 = second_value
     }
     this.fire('input', [this.__$value1, this.__$value2])
-    this.fillColor()
+    this.fillColor(this.lowerColor, this.upperColor)
     this.update()
   }
 
-  fillColor = () => {
+  fillColor = (lowerColor, upperColor) => {
     let percent1 =
       this.props.range === 'double'
         ? (this.__$value1 / this.props.max) * 100
@@ -136,8 +144,7 @@ export default class OSlider extends WeElement<Props> {
       this.props.range === 'double'
         ? (this.__$value2 / this.props.max) * 100
         : (this.__$value1 / this.props.max) * 100
-    let lowerColor = '#07c160'
-    let upperColor = '#ffffff'
+
     if (this.props.disabled) {
       lowerColor = '#c0c4cc'
     }
@@ -145,6 +152,11 @@ export default class OSlider extends WeElement<Props> {
     this.props.range === 'double'
       ? (this.sliderTrack.style.background = `linear-gradient(to right, ${upperColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
       : (this.sliderTrack.style.background = `linear-gradient(to right, ${lowerColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
+  }
+
+  handleChange = () => {
+    this.fillColor('#07c160', '#f0f0f0')
+    console.log('after change')
   }
 
   render(props) {
@@ -176,13 +188,14 @@ export default class OSlider extends WeElement<Props> {
           >
             <input
               class="o-slider"
+              id="slider-1"
               type="range"
               min={props.min}
               max={props.max}
               step={props.step}
               value={this.__$value1}
               onInput={this.handleSliderOne}
-              id="slider-1"
+              onMouseUp={this.handleChange}
               ref={(e) => {
                 this.slider1 = e
               }}
@@ -197,6 +210,7 @@ export default class OSlider extends WeElement<Props> {
             max={props.max}
             value={this.__$value1}
             onInput={this.handleSliderOne}
+            onMouseUp={this.handleChange}
             id="slider-1"
             ref={(e) => {
               this.slider1 = e
@@ -225,6 +239,7 @@ export default class OSlider extends WeElement<Props> {
                 max={props.max}
                 value={this.__$value2}
                 onInput={this.handleSliderTwo}
+                onMouseUp={this.handleChange}
                 id="slider-2"
                 ref={(e) => {
                   this.slider2 = e
@@ -240,6 +255,7 @@ export default class OSlider extends WeElement<Props> {
               max={props.max}
               value={this.__$value2}
               onInput={this.handleSliderTwo}
+              onMouseUp={this.handleChange}
               id="slider-2"
               ref={(e) => {
                 this.slider2 = e

@@ -96,6 +96,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@omiu/common/theme.scss":
+/*!**********************************************!*\
+  !*** ./node_modules/@omiu/common/theme.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(/*! !../../css-loader!../../resolve-url-loader!../../sass-loader/dist/cjs.js??ref--4-3!./theme.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./node_modules/@omiu/common/theme.scss");
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+
 /***/ "./node_modules/@omiu/input/src/index.esm.js":
 /*!***************************************************!*\
   !*** ./node_modules/@omiu/input/src/index.esm.js ***!
@@ -2857,6 +2876,25 @@ var Table = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./node_modules/@omiu/common/theme.scss":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./node_modules/@omiu/common/theme.scss ***!
+  \***********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
 /*!*************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
@@ -2869,7 +2907,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "@use 'sass:math';\n:host {\n  display: -ms-grid;\n  display: grid; }\n\n.slider-container {\n  position: relative;\n  width: 100%;\n  height: 50px; }\n\n.slider-container .slider-track {\n  width: 100%;\n  position: relative;\n  margin: 5px;\n  height: 12.5px;\n  background-color: #ffffff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  border: 2px solid #07c160;\n  transition: background-color 200ms;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  outline: none;\n  margin: auto;\n  z-index: -1; }\n\n.slider-container .o-slider {\n  width: 100%;\n  height: 100%;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  background: transparent;\n  z-index: 1;\n  pointer-events: none; }\n  .slider-container .o-slider:focus {\n    outline: none; }\n  .slider-container .o-slider::-webkit-slider-runnable-track {\n    -webkit-appearance: none;\n    height: 12.5px; }\n  .slider-container .o-slider::-moz-range-track {\n    -moz-appearance: none;\n    height: 12.5px; }\n  .slider-container .o-slider::-ms-track {\n    appearance: none;\n    height: 12.5px; }\n  .slider-container .o-slider::-webkit-slider-thumb {\n    position: relative;\n    height: 31.25px;\n    width: 31.25px;\n    background-color: #07c160;\n    transition: background-color 150ms;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n    top: 50%;\n    margin-top: -17.625px;\n    pointer-events: auto;\n    z-index: 2;\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-webkit-slider-thumb:hover, .slider-container .o-slider::-webkit-slider-thumb:focus {\n      background-color: #059048; }\n  .slider-container .o-slider::-moz-range-thumb {\n    position: relative;\n    height: 31.25px;\n    width: 31.25px;\n    background-color: #07c160;\n    transition: background-color 150ms;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n    top: 50%;\n    margin-top: -17.625px;\n    pointer-events: auto;\n    z-index: 2;\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-moz-range-thumb:hover, .slider-container .o-slider::-moz-range-thumb:focus {\n      background-color: #059048; }\n  .slider-container .o-slider::-ms-thumb {\n    position: relative;\n    height: 31.25px;\n    width: 31.25px;\n    background-color: #07c160;\n    transition: background-color 150ms;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n    top: 50%;\n    margin-top: -17.625px;\n    pointer-events: auto;\n    z-index: 2;\n    appearance: none; }\n    .slider-container .o-slider::-ms-thumb:hover, .slider-container .o-slider::-ms-thumb:focus {\n      background-color: #059048; }\n\n.is-round .slider-track {\n  border-radius: 8px; }\n\n.is-round .o-slider::-webkit-slider-thumb {\n  outline-offset: -10px;\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-webkit-slider-thumb:hover, .is-round .o-slider::-webkit-slider-thumb:focus {\n    outline-offset: -12px; }\n\n.is-round .o-slider::-moz-range-thumb {\n  outline-offset: -10px;\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-moz-range-thumb:hover, .is-round .o-slider::-moz-range-thumb:focus {\n    outline-offset: -12px; }\n\n.is-round .o-slider::-ms-thumb {\n  outline-offset: -10px;\n  border-radius: 50%;\n  appearance: none; }\n  .is-round .o-slider::-ms-thumb:hover, .is-round .o-slider::-ms-thumb:focus {\n    outline-offset: -12px; }\n\n.is-disabled .slider-track {\n  border-color: #c0c4cc; }\n\n.is-disabled .o-slider::-webkit-slider-thumb {\n  position: relative;\n  height: 31.25px;\n  width: 31.25px;\n  background-color: #07c160;\n  transition: background-color 150ms;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  top: 50%;\n  margin-top: -17.625px;\n  pointer-events: auto;\n  z-index: 2;\n  pointer-events: none;\n  cursor: none;\n  background-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-webkit-slider-thumb:hover, .is-disabled .o-slider::-webkit-slider-thumb:focus {\n    background-color: #059048; }\n\n.is-disabled .o-slider::-moz-range-thumb {\n  position: relative;\n  height: 31.25px;\n  width: 31.25px;\n  background-color: #07c160;\n  transition: background-color 150ms;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  top: 50%;\n  margin-top: -17.625px;\n  pointer-events: auto;\n  z-index: 2;\n  pointer-events: none;\n  cursor: none;\n  background-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-moz-range-thumb:hover, .is-disabled .o-slider::-moz-range-thumb:focus {\n    background-color: #059048; }\n\n.is-disabled .o-slider::-ms-thumb {\n  position: relative;\n  height: 31.25px;\n  width: 31.25px;\n  background-color: #07c160;\n  transition: background-color 150ms;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  top: 50%;\n  margin-top: -17.625px;\n  pointer-events: auto;\n  z-index: 2;\n  pointer-events: none;\n  cursor: none;\n  background-color: #c0c4cc;\n  appearance: none; }\n  .is-disabled .o-slider::-ms-thumb:hover, .is-disabled .o-slider::-ms-thumb:focus {\n    background-color: #059048; }\n", ""]);
+exports.push([module.i, "@use 'sass:math';\n:host {\n  display: -ms-grid;\n  display: grid; }\n\n.slider-container {\n  position: relative;\n  width: 100%;\n  height: 50px; }\n\n.slider-container .slider-track {\n  width: 100%;\n  position: relative;\n  margin: 5px;\n  height: 4px;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  outline: none;\n  margin: auto;\n  z-index: -1; }\n\n.slider-container .o-slider {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  z-index: 1;\n  background: transparent;\n  pointer-events: none; }\n  .slider-container .o-slider:focus {\n    outline: none; }\n  .slider-container .o-slider::-webkit-slider-runnable-track {\n    -webkit-appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-moz-range-track {\n    -moz-appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-ms-track {\n    appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-webkit-slider-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-webkit-slider-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-webkit-slider-thumb:hover {\n      border-color: #059048; }\n  .slider-container .o-slider::-moz-range-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-moz-range-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-moz-range-thumb:hover {\n      border-color: #059048; }\n  .slider-container .o-slider::-ms-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    appearance: none; }\n    .slider-container .o-slider::-ms-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-ms-thumb:hover {\n      border-color: #059048; }\n\n.is-round .slider-track {\n  border-radius: 8px; }\n\n.is-round .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-round .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-round .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  appearance: none; }\n  .is-round .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .slider-track {\n  border-color: #c0c4cc; }\n\n.is-disabled .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  appearance: none; }\n  .is-disabled .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n", ""]);
 
 // exports
 
@@ -3026,11 +3064,14 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 __webpack_require__(/*! @omiu/tooltip */ "./node_modules/@omiu/tooltip/src/index.esm.js");
 __webpack_require__(/*! @omiu/input */ "./node_modules/@omiu/input/src/index.esm.js");
+__webpack_require__(/*! @omiu/common/theme.scss */ "./node_modules/@omiu/common/theme.scss");
 var OSlider = /** @class */ (function (_super) {
     __extends(OSlider, _super);
     function OSlider() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.sliderMax = _this.props.max;
+        _this.lowerColor = '#059048';
+        _this.upperColor = '#d9d9d9';
         _this._onGetValue = function () {
             return _this.__$value1;
         };
@@ -3047,7 +3088,7 @@ var OSlider = /** @class */ (function (_super) {
             _this.props.second_value = value;
             _this.setAttribute('second_value', value);
         };
-        _this.handleSliderOne = function () {
+        _this.handleSliderOne = function (evt) {
             var first_value = parseInt(_this.slider1.value);
             if (first_value <= _this.__$value2 || _this.props.range === 'single') {
                 //  if the slider 1 has not exceeded slider2 or it is a single range slider
@@ -3060,34 +3101,36 @@ var OSlider = /** @class */ (function (_super) {
             else {
                 _this.fire('input', [_this.__$value1, _this.__$value2]);
             }
-            _this.fillColor();
+            _this.fillColor(_this.lowerColor, _this.upperColor);
             _this.update();
         };
-        _this.handleSliderTwo = function () {
+        _this.handleSliderTwo = function (evt) {
             var second_value = parseInt(_this.slider2.value);
             //we only have one case if slider two exists
             if (second_value >= _this.__$value1) {
                 _this.__$value2 = second_value;
             }
             _this.fire('input', [_this.__$value1, _this.__$value2]);
-            _this.fillColor();
+            _this.fillColor(_this.lowerColor, _this.upperColor);
             _this.update();
         };
-        _this.fillColor = function () {
+        _this.fillColor = function (lowerColor, upperColor) {
             var percent1 = _this.props.range === 'double'
                 ? (_this.__$value1 / _this.props.max) * 100
                 : 0;
             var percent2 = _this.props.range === 'double'
                 ? (_this.__$value2 / _this.props.max) * 100
                 : (_this.__$value1 / _this.props.max) * 100;
-            var lowerColor = '#07c160';
-            var upperColor = '#ffffff';
             if (_this.props.disabled) {
                 lowerColor = '#c0c4cc';
             }
             _this.props.range === 'double'
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
+        };
+        _this.handleChange = function () {
+            _this.fillColor('#07c160', '#f0f0f0');
+            console.log('after change');
         };
         return _this;
     }
@@ -3106,11 +3149,15 @@ var OSlider = /** @class */ (function (_super) {
         });
     };
     OSlider.prototype.installed = function () {
-        this.fillColor();
+        this.fillColor('#07c160', '#f0f0f0');
         this.update();
         var host = this.shadowRoot.host;
         this.props.orient === 'vertical' &&
             (host.style.transform = 'rotate(-90deg)');
+    };
+    OSlider.prototype.receiveProps = function () {
+        this.fillColor(this.lowerColor, this.upperColor);
+        this.update();
     };
     OSlider.prototype.render = function (props) {
         var _this = this;
@@ -3126,22 +3173,22 @@ var OSlider = /** @class */ (function (_super) {
             this.props.tooltip ? (omi_1.h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
                     ? this.__$value1 + " , " + this.__$value2
                     : this.__$value1 },
-                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
+                omi_1.h("input", { class: "o-slider", id: "slider-1", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, ref: function (e) {
                         _this.slider1 = e;
                     } }))) : (
             /* ========================SINGLE-NO-TOOLTIP================================ */
-            omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
+            omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, id: "slider-1", ref: function (e) {
                     _this.slider1 = e;
                 } })),
             this.props.range === 'double' &&
                 (this.props.tooltip ? (omi_1.h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
                         ? this.__$value1 + " , " + this.__$value2
                         : this.__$value1 },
-                    omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+                    omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
                             _this.slider2 = e;
                         } }))) : (
                 /* ========================DOUBLE-NO-TOOLTIP============================== */
-                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
+                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
                         _this.slider2 = e;
                     } }))),
             omi_1.h("div", { class: "slider-track", ref: function (e) {
