@@ -30,6 +30,6 @@ Modern browsers and Internet Explorer 10+.
 
 ## Refs
 
-* https://tailwindcss.com/docs/container
-
+* [tailwindcss](https://tailwindcss.com/docs/container)
+* [VSCode Twind Intellisense](https://marketplace.visualstudio.com/items?itemName=sastan.twind-intellisense)
 

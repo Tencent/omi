@@ -127,7 +127,7 @@ export default class extends WeElement<Props> {
                 </div>
 
                 <div>
-                  <o-icon-close class={tw` cursor-pointer`} ></o-icon-close>
+                  <o-icon-close class={tw`absolute cursor-pointer top-2.5 right-2.5`} ></o-icon-close>
                 </div>
               </div>
 

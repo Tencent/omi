@@ -33,7 +33,8 @@
 
 ## 相关链接
 
-* https://tailwindcss.com/docs/container
+* [tailwindcss](https://tailwindcss.com/docs/container)
+* [VSCode Twind Intellisense](https://marketplace.visualstudio.com/items?itemName=sastan.twind-intellisense)
 
 
 
