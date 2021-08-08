@@ -1,4 +1,36 @@
-@import "@omiu/common/theme.scss";
+@use "sass:map";
+
+@import '../../common/theme.scss';
+
+$--button-padding: () !default;
+$--button-padding: map.merge(
+  (
+    'medium': 10px 20px,
+    'small': 9px 15px,
+    'mini': 7px 15px,
+  ),
+  $--button-padding
+);
+
+$--button-font-size: () !default;
+$--button-font-size: map.merge(
+  (
+    'medium': 14px,
+    'small': 12px,
+    'mini': 12px,
+  ),
+  $--button-font-size
+);
+
+$--button-border-radius: () !default;
+$--button-border-radius: map.merge(
+  (
+    'medium': 4px,
+    'small': 3px,
+    'mini': 3px,
+  ),
+  $--button-border-radius
+);
 
 :host {
   display: inline-block;
@@ -7,7 +39,6 @@
 :host([block]) {
   display: block;
 }
-
 
 .o-button {
   display: inline-block;
@@ -22,7 +53,7 @@
   box-sizing: border-box;
   outline: none;
   margin: 0;
-  transition: .1s;
+  transition: 0.1s;
   font-weight: 500;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -30,64 +61,108 @@
   padding: 12px 20px;
   font-size: 14px;
   border-radius: 4px;
-}
 
-
-.o-button:hover {
-  border-color: $o-primary-fade-some;
-  border-color: var(--o-primary-fade-some, $o-primary-fade-some);
-  color: $o-primary;
-  color: var(--o-primary, $o-primary);
-  background-color: $o-primary-fade-lot;
-  background-color: var(--o-primary-fade-lot, $o-primary-fade-lot);
-}
-
-.o-button:active {
-  color: $o-primary;
-  color: var(--o-primary, $o-primary);
-  border-color: $o-primary;
-  border-color: var(--o-primary, $o-primary);
-  outline: none
-}
-
-$type-list: primary danger;
-
-@each $type in $type-list {
-  .o-button-#{$type} {
-    color: #fff;
-    background-color: map-get($options, $type);
-    border-color: map-get($options, $type);
-    background-color: var(--o-#{$type}, map-get($options, $type));
-    border-color: var(--o-#{$type}, map-get($options, $type));
+  &:hover {
+    border-color: $o-primary-fade-some;
+    border-color: var(--o-primary-fade-some, $o-primary-fade-some);
+    color: $o-primary;
+    color: var(--o-primary, $o-primary);
+    background-color: $o-primary-fade-lot;
+    background-color: var(--o-primary-fade-lot, $o-primary-fade-lot);
   }
 
-
-  .o-button-#{$type}.is-plain {
-    color: map-get($options, $type);
-    color: var(--o-#{$type}, map-get($options, $type));
-    background-color: map-get($options, $type#{-fade-lot});
-    background-color: var(--o-#{$type}-fade-lot, map-get($options, $type#{-fade-lot}));
-    border-color: map-get($options, $type#{-fade-some});
-    border-color: var(--o-#{$type}-fade-some, map-get($options, $type#{-fade-some}));
+  &:active {
+    color: $o-primary;
+    color: var(--o-primary, $o-primary);
+    border-color: $o-primary;
+    border-color: var(--o-primary, $o-primary);
+    outline: none;
   }
 
-  .o-button-#{$type}:hover {
-    background-color: map-get($options, $type#{-fade-little});
-    border-color: map-get($options, $type#{-fade-little});
-    background-color: var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
-    border-color: var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
-    color: #fff;
+  @each $size in $--sizes {
+    &-#{$size} {
+      padding: map.get($--button-padding, $size);
+      font-size: map.get($--button-font-size, $size);
+      border-radius: map.get($--button-border-radius, $size);
+    }
   }
 
-  .o-button-#{$type}:active {
-    background-color: map-get($options, $type#{-active});
-    border-color: map-get($options, $type#{-active});
-    background-color: var(--o-#{$type}-active, map-get($options, $type#{-active}));
-    border-color: var(--o-#{$type}-active, map-get($options, $type#{-active}));
-    color: #fff
+  &.is-round {
+    border-radius: 20px;
+  }
+
+  &.is-circle {
+    border-radius: 20px;
+    padding: 12px;
+  }
+
+  &.is-disabled,
+  &.is-disabled:focus,
+  &.is-disabled:hover {
+    color: #c0c4cc;
+    cursor: not-allowed;
+    background-image: none;
+    background-color: #fff;
+    border-color: #ebeef5;
+  }
+
+  &.is-block {
+    display: block;
+    width: 100%;
+  }
+
+  @each $type in $--types {
+    &-#{$type} {
+      color: #fff;
+      background-color: var(--o-#{$type}, map.get($--colors, $type, 'base'));
+      border-color: var(--o-#{$type}, map.get($--colors, $type, 'base'));
+
+      &:disabled,
+      &:disabled:hover {
+        background-color: var(
+          --o-#{$type}-fade-lot,
+          map.get($--colors, $type, 'fade-lot')
+        );
+      }
+    }
+
+    &-#{$type}.is-plain {
+      color: var(--o-#{$type}, map.get($--colors, $type, 'base'));
+      background-color: var(
+        --o-#{$type}-fade-lot,
+        map.get($--colors, $type, 'fade-lot')
+      );
+      border-color: var(
+        --o-#{$type}-fade-some,
+        map.get($--colors, $type, 'fade-some')
+      );
+    }
+
+    &-#{$type}:hover {
+      background-color: var(
+        --o-#{$type}-fade-little,
+        map.get($--colors, $type, 'fade-little')
+      );
+      border-color: var(
+        --o-#{$type}-fade-little,
+        map.get($--colors, $type, 'fade-little')
+      );
+      color: #fff;
+    }
+
+    &-#{$type}:active {
+      background-color: var(
+        --o-#{$type}-active,
+        map.get($--colors, $type, 'active')
+      );
+      border-color: var(
+        --o-#{$type}-active,
+        map.get($--colors, $type, 'active')
+      );
+      color: #fff;
+    }
   }
 }
-
 
 .loading {
   width: 1em;
@@ -96,7 +171,6 @@ $type-list: primary danger;
   animation: loading 1s steps(12, end) infinite;
   vertical-align: -0.125em;
 }
-
 
 @-webkit-keyframes loading {
   0% {
@@ -116,46 +190,4 @@ $type-list: primary danger;
   100% {
     transform: rotate3d(0, 0, 1, 360deg);
   }
-}
-
-.o-button-medium {
-  padding: 10px 20px;
-  font-size: 14px;
-  border-radius: 4px;
-}
-
-.o-button-small {
-  padding: 9px 15px;
-  font-size: 12px;
-  border-radius: 3px;
-}
-
-.o-button-mini {
-  padding: 7px 15px;
-  font-size: 12px;
-  border-radius: 3px;
-}
-
-.o-button.is-round {
-  border-radius: 20px;
-}
-
-.o-button.is-circle {
-  border-radius: 20px;
-  padding: 12px;
-}
-
-.o-button.is-disabled,
-.o-button.is-disabled:focus,
-.o-button.is-disabled:hover {
-  color: #c0c4cc;
-  cursor: not-allowed;
-  background-image: none;
-  background-color: #fff;
-  border-color: #ebeef5;
-}
-
-.o-button.is-block {
-  display: block;
-  width: 100%;
 }

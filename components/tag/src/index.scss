@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 
-@import '../../theme/var.scss';
+@import '../../common/theme.scss';
 
 $--tag-height: () !default;
 $--tag-height: map.merge(

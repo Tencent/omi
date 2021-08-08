@@ -1,0 +1,39 @@
+$--colors: (
+  'primary': (
+    'base': #07c160
+  ),
+  'success': (
+    'base': #07c160
+  ),
+  'warning': (
+    'base': #f2711c
+  ),
+  'danger': (
+    'base': #fa5151
+  ),
+  'info': (
+    'base': #42b8dd
+  )
+);
+
+$--types: primary, success, warning, danger, info;
+
+$--sizes: medium, small, mini;
+
+@mixin set-color-type-fade($type) {
+  $--colors: map.deep-merge(
+    (
+      $type: (
+        'active': darken(map.get($--colors, $type, 'base'), 10%),
+        'fade-little': fade-out(map.get($--colors, $type, 'base'), 0.382),
+        'fade-some': fade-out(map.get($--colors, $type, 'base'), 0.618),
+        'fade-lot': fade-out(map.get($--colors, $type, 'base'), 0.9)
+      )
+    ),
+    $--colors
+  ) !global;
+}
+
+@each $type in $--types {
+  @include set-color-type-fade($type);
+}

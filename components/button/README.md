@@ -1,6 +1,6 @@
-## Button
+# Button
 
-Button
+Click or touch it to trigger an operation. The encapsulated logic is triggered in response to user clicks.
 
 * [→ CodePen](https://codepen.io/omijs/pen/LYppwYG)
 
@@ -44,7 +44,7 @@ Or use script tag to ref it.
 }
 ```
 
-### 默认属性
+### Default Props
 
 ```tsx
 {
