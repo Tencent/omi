@@ -1,5 +1,5 @@
 /**
- * @omiu/slider v0.0.2 http://omijs.org
+ * @omiu/slider v0.0.7 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -7,6 +7,8 @@
  */
 
 import { extractClass, h, tag, WeElement } from 'omi';
+import '@omiu/tooltip';
+import '@omiu/input';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -70,11 +72,7 @@ var css = `@use 'sass:math';
   width: 100%;
   position: relative;
   margin: 5px;
-  height: 12.5px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  border: 2px solid #07c160;
-  transition: background-color 200ms;
+  height: 4px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -83,154 +81,211 @@ var css = `@use 'sass:math';
   z-index: -1; }
 
 .slider-container .o-slider {
-  width: 100%;
-  height: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  position: absolute;
   top: 0;
   bottom: 0;
-  background: transparent;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   z-index: 1;
+  background: transparent;
   pointer-events: none; }
   .slider-container .o-slider:focus {
     outline: none; }
   .slider-container .o-slider::-webkit-slider-runnable-track {
     -webkit-appearance: none;
-    height: 12.5px; }
+    height: 4px; }
   .slider-container .o-slider::-moz-range-track {
     -moz-appearance: none;
-    height: 12.5px; }
+    height: 4px; }
   .slider-container .o-slider::-ms-track {
     appearance: none;
-    height: 12.5px; }
+    height: 4px; }
   .slider-container .o-slider::-webkit-slider-thumb {
-    position: relative;
-    height: 31.25px;
-    width: 31.25px;
-    background-color: #07c160;
-    transition: background-color 150ms;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     top: 50%;
-    margin-top: -17.625px;
-    pointer-events: auto;
+    width: 14px;
+    height: 14px;
+    position: relative;
     z-index: 2;
+    margin-top: -9px;
+    border: 2px solid #07c160;
+    background-color: #ffffff;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0;
+    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     -webkit-appearance: none; }
-    .slider-container .o-slider::-webkit-slider-thumb:hover, .slider-container .o-slider::-webkit-slider-thumb:focus {
-      background-color: #059048; }
+    .slider-container .o-slider::-webkit-slider-thumb:active {
+      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+    .slider-container .o-slider::-webkit-slider-thumb:hover {
+      border-color: #059048; }
   .slider-container .o-slider::-moz-range-thumb {
-    position: relative;
-    height: 31.25px;
-    width: 31.25px;
-    background-color: #07c160;
-    transition: background-color 150ms;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     top: 50%;
-    margin-top: -17.625px;
-    pointer-events: auto;
+    width: 14px;
+    height: 14px;
+    position: relative;
     z-index: 2;
+    margin-top: -9px;
+    border: 2px solid #07c160;
+    background-color: #ffffff;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0;
+    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     -webkit-appearance: none; }
-    .slider-container .o-slider::-moz-range-thumb:hover, .slider-container .o-slider::-moz-range-thumb:focus {
-      background-color: #059048; }
+    .slider-container .o-slider::-moz-range-thumb:active {
+      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+    .slider-container .o-slider::-moz-range-thumb:hover {
+      border-color: #059048; }
   .slider-container .o-slider::-ms-thumb {
-    position: relative;
-    height: 31.25px;
-    width: 31.25px;
-    background-color: #07c160;
-    transition: background-color 150ms;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     top: 50%;
-    margin-top: -17.625px;
-    pointer-events: auto;
+    width: 14px;
+    height: 14px;
+    position: relative;
     z-index: 2;
+    margin-top: -9px;
+    border: 2px solid #07c160;
+    background-color: #ffffff;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0;
+    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     appearance: none; }
-    .slider-container .o-slider::-ms-thumb:hover, .slider-container .o-slider::-ms-thumb:focus {
-      background-color: #059048; }
+    .slider-container .o-slider::-ms-thumb:active {
+      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+    .slider-container .o-slider::-ms-thumb:hover {
+      border-color: #059048; }
 
 .is-round .slider-track {
   border-radius: 8px; }
 
 .is-round .o-slider::-webkit-slider-thumb {
-  outline-offset: -10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   border-radius: 50%;
   -webkit-appearance: none; }
-  .is-round .o-slider::-webkit-slider-thumb:hover, .is-round .o-slider::-webkit-slider-thumb:focus {
-    outline-offset: -12px; }
+  .is-round .o-slider::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-round .o-slider::-webkit-slider-thumb:hover {
+    border-color: #059048; }
 
 .is-round .o-slider::-moz-range-thumb {
-  outline-offset: -10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   border-radius: 50%;
   -webkit-appearance: none; }
-  .is-round .o-slider::-moz-range-thumb:hover, .is-round .o-slider::-moz-range-thumb:focus {
-    outline-offset: -12px; }
+  .is-round .o-slider::-moz-range-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-round .o-slider::-moz-range-thumb:hover {
+    border-color: #059048; }
 
 .is-round .o-slider::-ms-thumb {
-  outline-offset: -10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   border-radius: 50%;
   appearance: none; }
-  .is-round .o-slider::-ms-thumb:hover, .is-round .o-slider::-ms-thumb:focus {
-    outline-offset: -12px; }
+  .is-round .o-slider::-ms-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-round .o-slider::-ms-thumb:hover {
+    border-color: #059048; }
 
 .is-disabled .slider-track {
   border-color: #c0c4cc; }
 
 .is-disabled .o-slider::-webkit-slider-thumb {
-  position: relative;
-  height: 31.25px;
-  width: 31.25px;
-  background-color: #07c160;
-  transition: background-color 150ms;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   top: 50%;
-  margin-top: -17.625px;
-  pointer-events: auto;
+  width: 14px;
+  height: 14px;
+  position: relative;
   z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   pointer-events: none;
-  cursor: none;
-  background-color: #c0c4cc;
+  border-color: #c0c4cc;
   -webkit-appearance: none; }
-  .is-disabled .o-slider::-webkit-slider-thumb:hover, .is-disabled .o-slider::-webkit-slider-thumb:focus {
-    background-color: #059048; }
+  .is-disabled .o-slider::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-disabled .o-slider::-webkit-slider-thumb:hover {
+    border-color: #059048; }
 
 .is-disabled .o-slider::-moz-range-thumb {
-  position: relative;
-  height: 31.25px;
-  width: 31.25px;
-  background-color: #07c160;
-  transition: background-color 150ms;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   top: 50%;
-  margin-top: -17.625px;
-  pointer-events: auto;
+  width: 14px;
+  height: 14px;
+  position: relative;
   z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   pointer-events: none;
-  cursor: none;
-  background-color: #c0c4cc;
+  border-color: #c0c4cc;
   -webkit-appearance: none; }
-  .is-disabled .o-slider::-moz-range-thumb:hover, .is-disabled .o-slider::-moz-range-thumb:focus {
-    background-color: #059048; }
+  .is-disabled .o-slider::-moz-range-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-disabled .o-slider::-moz-range-thumb:hover {
+    border-color: #059048; }
 
 .is-disabled .o-slider::-ms-thumb {
-  position: relative;
-  height: 31.25px;
-  width: 31.25px;
-  background-color: #07c160;
-  transition: background-color 150ms;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   top: 50%;
-  margin-top: -17.625px;
-  pointer-events: auto;
+  width: 14px;
+  height: 14px;
+  position: relative;
   z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   pointer-events: none;
-  cursor: none;
-  background-color: #c0c4cc;
+  border-color: #c0c4cc;
   appearance: none; }
-  .is-disabled .o-slider::-ms-thumb:hover, .is-disabled .o-slider::-ms-thumb:focus {
-    background-color: #059048; }
-
-.is-vertical {
-  transform: rotate(-90deg); }
+  .is-disabled .o-slider::-ms-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-disabled .o-slider::-ms-thumb:hover {
+    border-color: #059048; }
 `
 
 
@@ -239,40 +294,57 @@ var OSlider = /** @class */ (function (_super) {
     function OSlider() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.sliderMax = _this.props.max;
+        _this.lowerColor = '#059048';
+        _this.upperColor = '#d9d9d9';
+        _this._onGetValue = function () {
+            return _this.__$value1;
+        };
+        _this._onSetValue = function (value) {
+            _this.__$value1 = value;
+            _this.props.value = value;
+            _this.setAttribute('value', value);
+        };
+        _this._onGetValue2 = function () {
+            return _this.__$value2;
+        };
+        _this._onSetValue2 = function (value) {
+            _this.__$value2 = value;
+            _this.props.second_value = value;
+            _this.setAttribute('second_value', value);
+        };
         _this.handleSliderOne = function (evt) {
-            var first_value = parseInt(_this.rootNode.children[0].value);
-            if (first_value <= _this.props.second_value ||
-                _this.props.range === 'single') {
+            var first_value = parseInt(_this.slider1.value);
+            if (first_value <= _this.__$value2 || _this.props.range === 'single') {
                 //  if the slider 1 has not exceeded slider2 or it is a single range slider
                 //  assign value straight away
-                _this.props.value = first_value;
+                _this.__$value1 = first_value;
             }
-            if (_this.props.second_value === null) {
-                _this.props.range === 'single';
+            if (_this.props.range === 'single') {
+                _this.fire('input', _this.__$value1);
             }
             else {
-                _this.fire('change', [_this.props.value, _this.props.second_value]);
+                _this.fire('input', [_this.__$value1, _this.__$value2]);
             }
-            _this.fillColor();
+            _this.fillColor(_this.lowerColor, _this.upperColor);
+            _this.update();
         };
         _this.handleSliderTwo = function (evt) {
-            var second_value = parseInt(_this.rootNode.children[1].value);
+            var second_value = parseInt(_this.slider2.value);
             //we only have one case if slider two exists
-            if (second_value >= _this.props.value) {
-                _this.props.second_value = second_value;
+            if (second_value >= _this.__$value1) {
+                _this.__$value2 = second_value;
             }
-            _this.fire('change', [_this.props.value, _this.props.second_value]);
-            _this.fillColor();
+            _this.fire('input', [_this.__$value1, _this.__$value2]);
+            _this.fillColor(_this.lowerColor, _this.upperColor);
+            _this.update();
         };
-        _this.fillColor = function () {
+        _this.fillColor = function (lowerColor, upperColor) {
             var percent1 = _this.props.range === 'double'
-                ? (_this.props.value / _this.props.max) * 100
+                ? (_this.__$value1 / _this.props.max) * 100
                 : 0;
             var percent2 = _this.props.range === 'double'
-                ? (_this.props.second_value / _this.props.max) * 100
-                : (_this.props.value / _this.props.max) * 100;
-            var lowerColor = '#07c160';
-            var upperColor = '#ffffff';
+                ? (_this.__$value2 / _this.props.max) * 100
+                : (_this.__$value1 / _this.props.max) * 100;
             if (_this.props.disabled) {
                 lowerColor = '#c0c4cc';
             }
@@ -280,11 +352,34 @@ var OSlider = /** @class */ (function (_super) {
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
         };
+        _this.handleChange = function () {
+            _this.fillColor('#07c160', '#f0f0f0');
+        };
         return _this;
     }
-    OSlider.prototype.install = function () { };
+    OSlider.prototype.install = function () {
+        this.__$value1 = this.props.value;
+        this.props.range === 'double'
+            ? (this.__$value2 = this.props.second_value)
+            : (this.__$value2 = null);
+        Object.defineProperty(this, 'value', {
+            get: this._onGetValue,
+            set: this._onSetValue,
+        });
+        Object.defineProperty(this, 'second_value', {
+            get: this._onGetValue2,
+            set: this._onSetValue2,
+        });
+    };
     OSlider.prototype.installed = function () {
-        this.fillColor();
+        this.fillColor('#07c160', '#f0f0f0');
+        this.update();
+        var host = this.shadowRoot.host;
+        this.props.orient === 'vertical' &&
+            (host.style.transform = 'rotate(-90deg)');
+    };
+    OSlider.prototype.receiveProps = function () {
+        this.fillColor(this.lowerColor, this.upperColor);
         this.update();
     };
     OSlider.prototype.render = function (props) {
@@ -293,31 +388,48 @@ var OSlider = /** @class */ (function (_super) {
             'is-vertical': props.orient === 'vertical',
             'is-round': props.shape === 'round',
             'is-disabled': props.disabled,
+            'is-reversed': props.reversed,
         });
         return (h("div", __assign({}, cls, { ref: function (e) {
                 _this.rootNode = e;
             } }),
-            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.props.value, onInput: this.handleSliderOne, id: "slider-1", ref: function (e) {
-                    _this.sliderOne = e;
-                } }),
-            this.props.range === 'double' && (h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.props.second_value, onInput: this.handleSliderTwo, id: "slider-2", ref: function (e) {
-                    _this.sliderTwo = e;
+            this.props.tooltip ? (h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
+                    ? this.__$value1 + " , " + this.__$value2
+                    : this.__$value1 },
+                h("input", { class: "o-slider", id: "slider-1", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, ref: function (e) {
+                        _this.slider1 = e;
+                    } }))) : (
+            /* ========================SINGLE-NO-TOOLTIP================================ */
+            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, id: "slider-1", ref: function (e) {
+                    _this.slider1 = e;
                 } })),
+            this.props.range === 'double' &&
+                (this.props.tooltip ? (h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
+                        ? this.__$value1 + " , " + this.__$value2
+                        : this.__$value1 },
+                    h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
+                            _this.slider2 = e;
+                        } }))) : (
+                /* ========================DOUBLE-NO-TOOLTIP============================== */
+                h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
+                        _this.slider2 = e;
+                    } }))),
             h("div", { class: "slider-track", ref: function (e) {
                     _this.sliderTrack = e;
                 } })));
     };
     OSlider.css = css;
     OSlider.defaultProps = {
-        //default a single square range slider
-        min: 0,
-        max: 100,
+        //default a single round range slider
+        min: undefined,
+        max: undefined,
         step: 1,
-        value: 0,
-        second_value: 100,
+        value: undefined,
+        second_value: undefined,
         range: 'single',
         orient: 'horizontal',
-        shape: 'square',
+        shape: 'round',
+        tooltip: false,
         disabled: false,
     };
     OSlider.propTypes = {
@@ -329,6 +441,7 @@ var OSlider = /** @class */ (function (_super) {
         range: String,
         orient: String,
         shape: String,
+        tooltip: Boolean,
         disabled: Boolean,
     };
     OSlider = __decorate([
