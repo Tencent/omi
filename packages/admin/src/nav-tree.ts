@@ -62,7 +62,7 @@ export function genNavTree(localeMap, locale) {
         },
         {
           label: localeMap.base.MarkdownEditor,
-          icon: 'grid-on',
+          icon: 'edit',
           href: '#/md-editor',
           id: genId()
         },
@@ -78,7 +78,7 @@ export function genNavTree(localeMap, locale) {
           expanded: true,
           id: genId(),
           href: '#/notification-list',
-          icon: 'dashboard'
+          icon: 'notifications'
         }
       ]
     },
