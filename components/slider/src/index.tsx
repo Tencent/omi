@@ -156,7 +156,6 @@ export default class OSlider extends WeElement<Props> {
 
   handleChange = () => {
     this.fillColor('#07c160', '#f0f0f0')
-    console.log('after change')
   }
 
   render(props) {
