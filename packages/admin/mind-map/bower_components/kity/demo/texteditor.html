@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="Kity 实现模拟光标输入">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>模拟光标</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../src'} );
+        // 定义 Demo 模块
+        define('demo', function(require) { require('kity'); });
+    </script>
+    <script>
+        // 启动 Demo 模块
+        seajs.use('demo');
+    </script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <script src="public/jquery.js"></script>
+    <style>
+        .editor-container{
+
+        }
+        .receiver{
+            position:absolute;
+            padding:0;
+            margin:0;
+            word-wrap:break-word;
+            clip:rect(1em 1em 1em 1em);
+
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var Cursor = kity.createClass('Cursor',{
+            base: kity.Line,
+            constructor: function(height, color, width) {
+                this.callBase();
+                this.height = height || 20;
+                this.stroke(color || 'blue',  width || 1);
+                this.setHide();
+                this.timer = null;
+            },
+            setPosition: function(offset) {
+                try{
+                    this.setPoint1(offset.x,offset.y);
+                    this.setPoint2(offset.x,offset.y + this.height);
+                }catch(e){
+                    debugger
+                }
+
+                return this;
+            },
+            setHeight:function(height){
+                this.height = height;
+            },
+            setHide:function(){
+                clearInterval(this.timer);
+                this.setStyle('display','none');
+                return this;
+            },
+            setShowHold : function(){
+                clearInterval(this.timer);
+                this.setStyle('display','');
+                return this;
+            },
+            setShow:function(){
+                clearInterval(this.timer);
+                var me = this,
+                        state = '';
+                this.timer = setInterval(function(){
+                    me.setStyle('display',state);
+                    state = state ? '' : 'none';
+                },300);
+                return this;
+            },
+            setTextShape:function(text){
+                if(!text){
+                    this.text = new kity.Text();
+                }else{
+                    this.text = text;
+                }
+                return this
+            },
+            getTextShape:function(){
+                return this.text
+            },
+            setTxtContent : function(text){
+                this.text.setContent(text)
+            },
+            updatePosition:function(index){
+
+            }
+        });
+        var Receiver = kity.createClass('Receiver',{
+            clear : function(){
+                this.$container.html('');
+                this.index = 0;
+                return this;
+            },
+            constructor : function(){
+                this.$container = $('<div contenteditable="true" class="receiver"></div>');
+                this.$container.appendTo(document.body);
+                this.$container.on('keydown keypress keyup', $.proxy(this.keyboardEvents,this));
+                this.timer = null;
+                this.index = 0;
+            },
+            setPosition : function(textShapeOffset){
+                this.$container.css({
+                    top:textShapeOffset.x,
+                    left:textShapeOffset.y
+                });
+                this.textShape.setPosition(textShapeOffset.x, textShapeOffset.y);
+                return this;
+            },
+            setRange : function(range,index){
+
+                this.index = index || this.index;
+
+                var text = this.$container[0].firstChild;
+                console.log(text)
+                console.log(this.index)
+                range.setStart(text || this.$container[0], this.index).collapse(true);
+                setTimeout(function(){
+                    range.select()
+                });
+                return this;
+            },
+            setTextShape:function(textShape){
+                if(!textShape){
+                    textShape = new kity.Text();
+                }
+                this.textShape = textShape;
+                return this;
+            },
+            setTextShapeSize:function(size){
+                this.textShape.setSize(size);
+                return this;
+            },
+            getTextShapeHeight:function(){
+                return this.textShape.getRenderBox().height;
+            },
+            appendTextShapeToPaper:function(paper){
+                paper.addShape(this.textShape);
+                return this;
+            },
+            keyboardEvents : function(e){
+                clearTimeout(this.timer);
+                var me = this;
+                switch(e.type){
+                    case 'keyup':
+                        this.textShape.setContent(this.$container.text().replace(/\u200b/g,''));
+                        this.updateTextData();
+                        this.updateCursor();
+                        this.timer = setTimeout(function(){
+                            me.cursor.setShow()
+                        },500);
+                        break;
+                    case 'keypress':
+                    case 'keyup':
+                }
+            },
+            updateTextData : function(){
+                this.textShape.textData =  this.getTextOffsetData();
+                this.index = this.index + 1;
+            },
+            setCursor : function(cursor){
+                this.cursor = cursor;
+                return this;
+            },
+            updateCursor : function(){
+                this.cursor.setShowHold();
+                if(this.index == this.textData.length){
+
+                    this.cursor.setPosition({
+                        x : this.textData[this.index-1].x + this.textData[this.index-1].width,
+                        y : this.textData[this.index-1].y
+                    })
+                }else if(this.index == 0){
+                    this.cursor.setPosition({
+                        x : this.textShape.getX(),
+                        y : this.textData.getY()
+                    })
+                }else{
+                    if(this.index + 1 == this.textData.length){
+                        var lastChar = this.textData[this.index];
+                        this.cursor.setPosition({
+                            x : lastChar.x + lastChar.width,
+                            y : lastChar.y
+                        })
+                    }else{
+                        this.cursor.setPosition(this.textData[this.index])
+                    }
+
+                }
+                return this;
+            },
+            getTextOffsetData:function(){
+                var text = this.textShape.getContent();
+                this.textData = [];
+//                this.textShape.clearContent();
+
+                for(var i= 0,l = text.length;i<l;i++){
+                    var box = this.textShape.getExtentOfChar(i);
+                    this.textData.push({
+                        x:box.x,
+                        y:box.y,
+                        width:box.width,
+                        height:box.height
+                    })
+                }
+
+
+                return this;
+            },
+            setCurrentIndex:function(offset){
+                var me = this;
+                this.getTextOffsetData();
+                var hadChanged = false;
+                $.each(this.textData,function(i,v){
+                    if(offset.x >= v.x && offset.x <= v.x + v.width){
+                        if(offset.x  - v.x > v.width/2){
+                            me.index = i + 1;
+
+                        }else {
+                            me.index = i
+
+                        }
+                        hadChanged = true;
+                        return false;
+                    }
+                })
+                return this;
+
+            },
+            setCursorHeight:function(){
+                this.cursor.setHeight(this.getTextShapeHeight())
+                return this;
+            }
+        });
+
+        var Range = kity.createClass('Range',{
+            constructor : function(){
+                this.nativeRange = document.createRange();
+                this.nativeSel = window.getSelection();
+            },
+            select:function(){
+                var start = this.nativeRange.startContainer;
+                if(start.nodeType == 1 && start.childNodes.length == 0){
+                    var char = document.createTextNode('\u200b');
+                    start.appendChild(char);
+                    this.nativeRange.setStart(char,1);
+                    this.nativeRange.collapse(true);
+                }
+                this.nativeSel.removeAllRanges();
+                this.nativeSel.addRange(this.nativeRange);
+                return this;
+            },
+            setStart:function(node,index){
+                this.nativeRange.setStart(node,index);
+                return this;
+            },
+            setEnd:function(node,index){
+                this.nativeRange.setEnd(node,index);
+                return this;
+            },
+            collapse:function(toStart){
+                this.nativeRange.collapse(toStart === true);
+                return this;
+            },
+            insertNode:function(node){
+                this.nativeRange.insertNode(node);
+                return this;
+            }
+        });
+
+        var cursor = new Cursor();
+        var receiver = new Receiver();
+        var range = new Range();
+
+        var paper = new kity.Paper(document.body).setHeight(500);
+        paper.addShape(cursor)
+            .setStyle('border','1px solid #ccc')
+                .setStyle('cursor','text')
+            .on('click',function(e){
+                var originEvent = e.originEvent;
+                var position = e.getPosition('top');
+                if(e.targetShape.getType() != 'Text'){
+                    var offset = e.getPosition('top');
+                    cursor.setShow().setPosition(offset);
+                    receiver.clear()
+                            .setTextShape()
+                            .setTextShapeSize(cursor.height)
+                            .appendTextShapeToPaper(paper)
+                            .setPosition(position)
+                            .setRange(range,0)
+                            .setCursor(cursor)
+                }else{
+                    receiver.setCursor(cursor)
+                            .setTextShape(e.targetShape)
+                            .setCursorHeight()
+                            .setCurrentIndex(position)
+                            .updateCursor()
+                            .setRange(range)
+
+                }
+
+
+            })
+
+    </script>
+</body>
+</html>

@@ -6,11 +6,15 @@
 
 [→ 点我体验](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
+
+![](../../assets/admin.png)
+
+
 **功能特性:**
 
 * 基于 omi web components
 * 开箱即用，大量内置模板和组件
-* vite + ts + twind + lazy load
+* vite + twind + lazy load
 * 主题实时切换
 * 仪表盘
 * 移动优先，响应式设计
@@ -33,7 +37,8 @@
 
 ## 相关链接
 
-* https://tailwindcss.com/docs/container
+* [tailwindcss](https://tailwindcss.com/docs/container)
+* [VSCode Twind Intellisense](https://marketplace.visualstudio.com/items?itemName=sastan.twind-intellisense)
 
-
+![](https://raw.githubusercontent.com/tw-in-js/vscode-twind-intellisense/main/assets/demo.gif)
 

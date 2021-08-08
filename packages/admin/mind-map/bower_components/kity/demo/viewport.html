@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 必须强制指定页面编码为 UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="演示如何使用拖动，如何改变视野">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>拖动和视野控制</title>
+    
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../src'} );
+
+        // 定义 Demo 模块
+        define('demo', function(require) { 
+            var Class = require('core/class');
+            var Paper = require('graphic/paper');
+            var Shape = require('graphic/shape');
+            var Path = require('graphic/path');
+            var Grid = require('../demo/public/grid');
+            var Draggable = require('../demo/public/draggable');
+
+            Class.extendClass( Paper, Draggable );
+            Class.extendClass( Shape, Draggable );
+
+            var Rect = require('graphic/rect');
+
+            var paper = new Paper(document.body);
+            paper.setViewBox(-50, -50, 100, 100).drag();
+
+            paper.on('dragstart', function() {
+                this.setStyle('cursor', '-webkit-grabbing');
+            }).on('dragend', function() {
+                this.setStyle('cursor', '-webkit-grab');
+            }).trigger('dragend');
+
+            paper.addShape(new Grid(-1000, -1000, 2000, 2000, 10));
+            paper.addShape(new Rect(30, 30, 15, 15).pipe(function() {
+                this.fill('red');
+                this.scale(0.5);
+                this.drag();
+                this.setStyle('cursor', 'move');
+            }));
+            paper.addShape(new Path().pipe(function() {
+                var d = this.getDrawer();
+                d.moveTo(0, -10000).lineTo(0, 10000);
+                d.moveTo(-10000, 0).lineTo(10000, 0);
+                this.stroke('black', 1);
+            }));
+
+            window.addEventListener('mousewheel', function(e) {
+                //console.log("wheel", e);
+                e.preventDefault();
+            });
+            paper.on('click', function(e) {
+                console.log("down", e.getPosition().x, e.getPosition().y);
+                e.preventDefault();
+            });
+            document.body.addEventListener('mousewheel', function(e) {
+                var viewport = paper.getViewPort();
+                if(e.wheelDelta > 0) {
+                    viewport.zoom = viewport.zoom * 0.95;
+                } else {
+                    viewport.zoom = viewport.zoom / 0.95;
+                }
+                console.log(viewport);
+                paper.setViewPort(viewport);
+            });
+        });
+    </script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    // 启动 Demo 模块
+    seajs.use('demo');
+</script>
+</html>

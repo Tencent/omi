@@ -12,6 +12,9 @@
   display: inline-block;
 }
 
+:host([block]) {
+  display: block;
+}
 
 .tip {
   position: absolute;

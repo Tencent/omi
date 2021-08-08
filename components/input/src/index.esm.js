@@ -1,5 +1,5 @@
 /**
- * @omiu/input v0.0.11 http://omijs.org
+ * @omiu/input v0.0.12 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -488,22 +490,42 @@ var Input = /** @class */ (function (_super) {
             _this.setAttribute('value', value);
         };
         _this.valueLength = 0;
-        _this.handleBlur = function () {
-            _this.fire('blur', _this.props.value);
+        _this.handleBlur = function (evt) {
+            if (_this.props.onBlur) {
+                _this.props.onBlur(evt);
+            }
+            else {
+                _this.fire('blur', _this.props.value);
+            }
         };
-        _this.handleFocus = function () {
-            _this.fire('focus', _this.props.value);
+        _this.handleFocus = function (evt) {
+            if (_this.props.onFocus) {
+                _this.props.onFocus(evt);
+            }
+            else {
+                _this.fire('focus', _this.props.value);
+            }
         };
         _this.handleChange = function (evt) {
             _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
-            _this.fire('change', _this.props.value);
+            if (_this.props.onChange) {
+                _this.props.onChange(evt);
+            }
+            else {
+                _this.fire('change', _this.props.value);
+            }
         };
         _this.handleInput = function (evt) {
             evt.stopPropagation();
             _this.__$value = evt.target.value;
             _this.props.value = evt.target.value;
-            _this.fire('input', _this.props.value);
+            if (_this.props.onInput) {
+                _this.props.onInput(evt);
+            }
+            else {
+                _this.fire('input', _this.props.value);
+            }
             if (_this.props.maxLength) {
                 _this.valueLength = evt.target.value.length;
                 _this.update();

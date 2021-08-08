@@ -1,6 +1,7 @@
 .o-badge {
   position: relative;
-  display: inline-block; }
+  display: inline-block;
+}
 
 .badge {
   background-color: #F95050;
@@ -26,11 +27,15 @@
   border-radius: 10px;
   flex-direction: row;
   justify-content: center;
-  transform-origin: 100% 0%; }
+  transform-origin: 100% 0%;
+}
 
 .circle {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   min-width: 8px;
-  padding: 0; }
+  padding: 0;
+}
+
+/*# sourceMappingURL=index.css.map */

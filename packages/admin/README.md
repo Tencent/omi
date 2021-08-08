@@ -6,11 +6,13 @@ English | [简体中文](./README.CN.md)
 
 [→ Preview](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
+![](../../assets/admin.png)
+
 ## Features 
 
 * Web components base
 * Out of the box, a large number of built-in templates, components and icons
-* Vite + ts + twind + lazy load
+* Vite + twind + lazy load
 * Theme real-time switching
 * Mobile first, responsive design
 * Routing animation
@@ -30,6 +32,7 @@ Modern browsers and Internet Explorer 10+.
 
 ## Refs
 
-* https://tailwindcss.com/docs/container
+* [tailwindcss](https://tailwindcss.com/docs/container)
+* [VSCode Twind Intellisense](https://marketplace.visualstudio.com/items?itemName=sastan.twind-intellisense)
 
-
+![](https://raw.githubusercontent.com/tw-in-js/vscode-twind-intellisense/main/assets/demo.gif)

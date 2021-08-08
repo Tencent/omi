@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Coordinate Example</title>
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src=".. / dist / kitygraph.all.min.js "></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+</head>
+<body>
+    
+</body>
+<script>
+    var paper = new kity.Paper(document.body);
+    paper.setViewBox(-100.5, -75.5, 280, 150);
+
+    paper.setWidth(280).setHeight(150);
+
+    paper.addShape(new kity.Path().pipe(function() {
+        var d = this.getDrawer();
+        d.moveTo(-10000, 0).lineTo(20000, 0);
+        d.moveTo(0, -10000).lineTo(0, 20000);
+        this.stroke('gray');
+    }));
+</script>
+</html>

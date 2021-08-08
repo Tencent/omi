@@ -1,0 +1,27 @@
+{
+  "name": "kity",
+  "version": "2.0.5",
+  "homepage": "http://kity.baidu.com",
+  "authors": [
+    "techird <techird@qq.com>"
+  ],
+  "description": "Kity Graphic Library",
+  "main": "dist/kity.min.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "kity",
+    "svg",
+    "graphic",
+    "javascript"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "dev-lib"
+  ]
+}

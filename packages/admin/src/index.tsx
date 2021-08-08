@@ -1,6 +1,6 @@
 import { WeElement, render, h, tag } from 'omi'
 
-import { route } from 'omi-router'
+import { route, hashChange } from 'omi-router'
 
 //提前使用最新版本注册组件
 import '@omiu/popover'
@@ -15,7 +15,9 @@ import '@omiu/icon/list-alt'
 import '@omiu/icon/grid-on'
 import '@omiu/icon/comment'
 import '@omiu/icon/dashboard'
-
+import '@omiu/icon/ac-unit'
+import '@omiu/icon/people-alt'
+import '@omiu/icon/pie-chart'
 import '@omiu/transition'
 
 import './index.css'
@@ -135,6 +137,13 @@ export default class extends WeElement {
       )
     })
 
+    route('/step-form', () => {
+      //lazy load
+      import('./components/step-form').then(() =>
+        this.transitionTo('step-form')
+      )
+    })
+
     route('/comment', () => {
       //lazy load
       import('./components/comment/admin-comment').then(() =>
@@ -163,14 +172,12 @@ export default class extends WeElement {
       )
     })
 
-
     route('/toast-component', () => {
       //lazy load
       import('./components/components/toast-component').then(() =>
         this.transitionTo('toast-component')
       )
     })
-
 
     route('/card-component', () => {
       //lazy load
@@ -179,10 +186,32 @@ export default class extends WeElement {
       )
     })
 
+
     route('/time-picker-component', () => {
       //lazy load
       import('./components/components/time-picker-component').then(() =>
         this.transitionTo('time-picker-component')
+
+    route('/slider-component', () => {
+      //lazy load
+      import('./components/components/slider-component').then(() =>
+        this.transitionTo('slider-component')
+      )
+    })
+	
+	route('/progress-component', () => {
+      //lazy load
+      import('./components/components/progress-component').then(() =>
+        this.transitionTo('progress-component')
+      )
+    })
+
+
+    route('/mind-map', () => {
+      //lazy load
+      import('./components/mind-map').then(() =>
+        this.transitionTo('mind-map')
+
       )
     })
 
@@ -190,6 +219,48 @@ export default class extends WeElement {
       //lazy load
       import('./components/status/status-warning').then(() =>
         this.transitionTo('status-warning')
+      )
+    })
+
+    route('/results/browser-incompatible', () => {
+      //lazy load
+      import('./components/results/browser-incompatible').then(() =>
+        this.transitionTo('browser-incompatible')
+      )
+    })
+
+    route('/results/network-error', () => {
+      //lazy load
+      import('./components/results/network-error').then(() =>
+        this.transitionTo('network-error')
+      )
+    })
+
+    route('/results/not-found', () => {
+      //lazy load
+      import('./components/results/not-found').then(() =>
+        this.transitionTo('not-found')
+      )
+    })
+
+    route('/results/permission-denied', () => {
+      //lazy load
+      import('./components/results/permission-denied').then(() =>
+        this.transitionTo('permission-denied')
+      )
+    })
+
+    route('/results/server-error', () => {
+      //lazy load
+      import('./components/results/server-error').then(() =>
+        this.transitionTo('server-error')
+      )
+    })
+
+    route('/masonry-list', () => {
+      //lazy load
+      import('./components/masonry-list').then(() =>
+        this.transitionTo('masonry-list')
       )
     })
 
@@ -246,6 +317,9 @@ export default class extends WeElement {
       node.md.then((e) => {
         this.store.markdown = e.default
       })
+
+    // 重新读取 hash 值  
+    hashChange()
   }
 
   render() {
@@ -261,7 +335,6 @@ export default class extends WeElement {
     )
   }
 }
-
 
 new Store({
   locale: 'zh',

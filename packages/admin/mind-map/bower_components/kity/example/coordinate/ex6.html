@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+<title>坐标系</title>
+    <script src="../../dist/kity.min.js"></script>
+    <script src="coordinate.js"></script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        fieldset {
+            width: 80%;
+            margin: 1%;
+            float: left;
+        }
+        label {
+            display: inline-block;
+            width: 80px;
+        }
+        input {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+</body>
+<script>
+    function boxString (box) {
+        return [box.x, box.y, box.width, box.height].join(', ');
+    }
+
+    var paper = new kity.Paper(document.body).pipe(function() {
+        var width = 800, height = 500;
+        var paper = this;
+
+        this.setWidth(width).setHeight(height);
+        this.setViewBox(-40.5, -40.5, width, height)
+    });
+
+    paper.addShape(paper = new Coordinate('black', [-3, 69], [-3, 39]).pipe(function() {
+        this.addShape(this.text = new kity.Text('Paper')
+            .setVerticalAlign('bottom')
+            .setX(5).setY(-5));
+    }));
+
+    group = new Coordinate('green', [-3, 30], [-3, 30]).pipe(function() {
+        this.addShape(this.text = new kity.Text('Group')
+            .fill('green')
+            .setVerticalAlign('bottom')
+            .setX(5).setY(-5));
+    });
+
+    rect = new Coordinate('red', [-2, 10], [-2, 10]).pipe(function() {
+        this.addShape(this.text = new kity.Text('Rect')
+            .fill('red')
+            .setVerticalAlign('bottom')
+            .setX(5).setY(-5));
+
+        this.addShape(this.body = new kity.Rect(50, 50, 0, 0)
+            .fill('rgba(255, 0, 0, 0.5)')
+            .stroke('red'));
+    });
+
+    paper.addShape(group);
+    group.addShape(rect);
+
+    rect.setTranslate(40, 30);
+    group.setTranslate(30, 40);
+
+    function updateText() {
+        paper.text.setContent("Paper: " + rect.body.getRenderBox(paper).toString());
+        group.text.setContent("Group: " + rect.body.getRenderBox(group).toString());
+        rect.text.setContent("Rect: " + rect.body.getBoundaryBox().toString());
+    }
+
+    updateText();
+</script>
+</html>

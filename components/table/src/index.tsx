@@ -6,16 +6,17 @@ import { leave } from './transition.ts'
 import * as css from './index.scss'
 
 interface Props {
-  dataSource: any[],
-  columns: object,
-  checkbox: boolean,
-  border: boolean,
-  stripe: boolean,
-  compact: boolean,
-  width: string,
-  height: string,
-  stickyTop: boolean
-  stickyLeftCount: number
+  dataSource: any[]
+  columns: object
+  checkbox: boolean
+  border: boolean
+  stripe: boolean
+  compact: boolean
+  width: string
+  height: string
+  fixedTop: boolean
+  fixedRight: boolean
+  fixedLeftCount: number
 
 }
 
@@ -30,8 +31,9 @@ export default class Table extends WeElement<Props> {
     border: false,
     stripe: false,
     compact: false,
-    stickyTop: false,
-    stickyLeftCount: 0
+    fixedTop: false,
+    fixedRight: false,
+    fixedLeftCount: 0
   }
 
   static propTypes = {
@@ -43,8 +45,9 @@ export default class Table extends WeElement<Props> {
     compact: Boolean,
     width: String,
     height: String,
-    stickyTop: Boolean,
-    stickyLeftCount: Number
+    fixedTop: Boolean,
+    fixedRight: Boolean,
+    fixedLeftCount: Number
   }
 
   deleteRow = (item) => {
@@ -93,8 +96,8 @@ export default class Table extends WeElement<Props> {
   }
 
   installed() {
-    this.setStickyLeft()
-
+    this.setFixedLeft()
+    this.setFixedRight()
     window.addEventListener('click', () => {
       let needUpdate = false
       this.props.dataSource.forEach(dataItem => {
@@ -124,15 +127,23 @@ export default class Table extends WeElement<Props> {
   }
 
   updated() {
-    this.setStickyLeft()
+    this.setFixedLeft()
+    this.setFixedRight()
   }
 
-  setStickyLeft() {
-    const stickyLeftEls = this.rootNode.querySelectorAll('.sticky-left')
+  setFixedLeft() {
+    const fixedLeftEls = this.rootNode.querySelectorAll('.fixed-left')
     const boxRect = this.rootNode.getBoundingClientRect()
-    stickyLeftEls.forEach((stickyLeftEl, index) => {
-      const rect = stickyLeftEl.getBoundingClientRect()
-      stickyLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px'
+    fixedLeftEls.forEach((fixedLeftEl, index) => {
+      const rect = fixedLeftEl.getBoundingClientRect()
+      fixedLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px'
+    })
+  }
+
+  setFixedRight() {
+    const fixedRightEls = this.rootNode.querySelectorAll('.fixed-right')
+    fixedRightEls.forEach((fixedRightEl, index) => {
+      fixedRightEl.style.right = '0px'
     })
   }
 
@@ -152,6 +163,10 @@ export default class Table extends WeElement<Props> {
 
     if (!props.columns) return
     if (!props.dataSource) return
+
+    if (props.fixedRight) {
+      props.columns[props.columns.length - 1].fixed = true
+    }
     return (
       <div style={{
         width: props.width && props.width,
@@ -173,8 +188,9 @@ export default class Table extends WeElement<Props> {
                 return <th {...obj} class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
                   'compact': props.compact,
-                  'sticky-top': props.stickyTop,
-                  'sticky-left': index < props.stickyLeftCount
+                  'fixed-top': props.fixedTop,
+                  'fixed-left': index < props.fixedLeftCount,
+                  'fixed-right': column.fixed
                 })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
               })}
             </tr>
@@ -193,7 +209,8 @@ export default class Table extends WeElement<Props> {
                   return <td onclick={evt => this.onTdClick(item, column, evt)} {...obj} class={classNames({
                     [`o-table-align-${column.align}`]: column.align,
                     'compact': props.compact,
-                    'sticky-left': subIndex < props.stickyLeftCount
+                    'fixed-left': subIndex < props.fixedLeftCount,
+                    'fixed-right': column.fixed
                   })}>{subIndex === 0 && props.checkbox && <o-checkbox checked={item.checked} onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ? <o-input ref={_ => this.editingInput = _} size="mini"
                     onChange={evt => {
                       this.onChange(evt, item, column)

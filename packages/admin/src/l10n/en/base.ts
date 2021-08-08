@@ -15,12 +15,33 @@ export const base = {
   MarkdownDocs: 'Markdown Docs',
   Demo1: 'Demo1',
   Demo2: 'Demo2',
-  Components: 'Components',
+  Components: 'OMIU Components',
   Loading: 'Loading',
   Toast: 'Toast',
   Card: 'Card',
+  Slider: 'Slider',
+  Progress:'Progress',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
+
   Timepicker:'Time-picker',
+
+  MindMap: 'Mind Map',
+  ManyThanksTo: 'Many Thanks To',
+  Results: 'Results Pages',
+
+  BrowserIncompatible: 'Browser Incompatible',
+  NetworkError: 'Network Error',
+  NotFound: 'Not Found',
+  PermissionDenied: 'Permission Denied',
+  ServerError: 'Server Error',
+  MasonryList: 'Masonry List',
+
+  Introduction: 'Introduction',
+  CustomTheme: 'Custom Theme',
+
+  StepForm: 'Step Form'
+
+
 }

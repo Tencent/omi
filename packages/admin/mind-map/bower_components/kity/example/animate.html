@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animate</title>
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+        define('start', function (require) {
+            var Paper = require('graphic/paper');
+            var Group = require('graphic/group');
+            var Path = require('graphic/path');
+            var Color = require('graphic/color');
+            var Text = require('graphic/text');
+            var Draggable = require('../demo/public/draggable');
+            var Animator = require('animate/animator');
+            var Matrix = require('graphic/matrix');
+            var Circle = require('graphic/circle');
+            var Rect = require('graphic/rect');
+            var Use = require('graphic/use');
+            require('animate/translateanimator');
+            require('animate/rotateanimator');
+            require('animate/scaleanimator');
+            require('animate/opacityanimator');
+
+            require('core/class').extendClass(Paper, Draggable);
+
+            var paper = new Paper(document.body);
+            paper.setViewBox(0, 0, 1200, 600).drag();
+
+            var bounce = new Animator(0, 400, function(target, y, timeline) {
+                target.translate(0, timeline.getDelta());
+            });
+            var colorChanger = new Animator({
+                beginValue: function(target) {
+                    return target.color;
+                }, 
+                finishValue: function(target) {
+                    return target.color.inc('h', 90)
+                }, 
+                setter: function(target, color) {
+                    target.fill(color);
+                }
+            });
+            
+            function atternuate(e) {
+                //e.target.scale(0.6 + Math.random() * 0.6, e.target.getCenterX(), e.target.getCenterY());
+            }
+            //paper.addResource(rect);
+            for(var i = 0; i < 200; i++) {
+                var color = Color.createHSL(i * 30 % 360, 80, 50);
+                var copy = new Rect(5, 20, 0, 10).translate( i * 5, 0 );
+                copy.color = color;
+                copy.fill(color);
+
+                paper.addShape(copy);
+
+                bounce.start(copy, 500, 'easeInQuad', Math.random() * 5000).repeat(true, true).on('rollback', atternuate);
+                colorChanger.start(copy, 500, 'linear').repeat(true, true);
+
+                copy.fxTranslate(0, 300, '1s', 'easeInQuad', Math.random() * 5000);
+                copy.fxTranslate(100, -100, '0.1s', 'easeOutQuad');
+                copy.fxRotate(1080, '2s', 'linear', 500);
+                copy.fxScale(.5, .5, '0.8s', 'easeInElastic');
+                copy.fxTranslate(100, -200, '0.8s', 'easeOutElastic');
+                copy.fadeOut(300).fadeIn(1000).fadeTo(.5, 100);
+            }
+        });
+        seajs.use('start');
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

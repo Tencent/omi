@@ -85,6 +85,7 @@ export default class extends WeElement<Props> {
         class={tw`text-left border-r-1 relative`}
       >
         <o-tree
+          class={tw`pb-40`}
           onnode-click={this.onNodeClick}
           data={this.store.treeData}
         ></o-tree>

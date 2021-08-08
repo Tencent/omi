@@ -1,0 +1,40 @@
+{
+  "name": "@omiu/form",
+  "version": "0.0.6",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "scripts": {
+    "start": "yarn watch & vite",
+    "dev": "yarn watch & vite",
+    "build": "vite build && yarn build:scss",
+    "build:demo": "vite build",
+    "build:scss": "sass src/index.scss src/index.css",
+    "watch": "sass --watch src/index.scss src/index.css --no-source-map",
+    "test": "npm run build && web-test-runner \"test/*.js\" --node-resolve"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "dependencies": {
+    "omi": "latest"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.5.33",
+    "@types/node": "^16.4.7",
+    "@web/test-runner": "^0.13.13",
+    "node-watch": "^0.7.1",
+    "sass": "^1.36.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.3"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "omiu",
+    "form"
+  ]
+}

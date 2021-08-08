@@ -164,34 +164,29 @@ Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwil
 
 ## Event triggering and binding best practices
 
-Due to the need for cross framework, in order to unify component behavior in event binding, best practices for component development and use are given here. The event triggering of the omiu component is in the form of lowercase or lowercase + middle dash:
+Due to the need for cross framework, in order to unify component behavior in event binding, best practices for component development and use are given here. The event triggering of the omiu component is in the form of uppercase dash:
 
 ```js
-this.fire('change')
-this.fire('my-event')
+this.fire('Change')
+this.fire('MyEvent')
 ```
 
 In Omi or Preact :
 
 ```jsx
-<my-ele onchange={this.changeHandler} onmy-event={this.myEventHandler}></my-ele>
+<my-ele onchange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
 ```
 
 In Vue:
 
 ```html
-<my-ele @change="changeHandler" @my-event="myEventHandler"></my-ele>
+<my-ele @change="changeHandler" @MyEvent="myEventHandler"></my-ele>
 ```
 
-In React:
+In React or JS:
 
 ```jsx
-/** @jsx nativeEvents */
-import nativeEvents from 'jsx-native-events'
-
-...
-...
-<my-ele onEventChange={this.changeHandler} onEventMyEvent={this.myEventHandler}></my-ele>
+myEl.addEventListener('MyEvent', (evt) => {})
 ```
 
 ## Contribution

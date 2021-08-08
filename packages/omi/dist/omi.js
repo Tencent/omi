@@ -453,10 +453,23 @@
         }
         _inherits(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
+            var _this2 = this;
             var p = this.parentNode;
             while (p && !this.store) {
                 this.store = p.store;
                 p = p.parentNode || p.host;
+            }
+            if (this.inject) {
+                this.injection = {};
+                p = this.parentNode;
+                var provide;
+                while (p && !provide) {
+                    provide = p.provide;
+                    p = p.parentNode || p.host;
+                }
+                if (provide) this.inject.forEach(function(injectKey) {
+                    _this2.injection[injectKey] = provide[injectKey];
+                }); else throw 'The provide prop was not found on the parent node or the provide type is incorrect.';
             }
             this.attrsToProps();
             this.beforeInstall();
@@ -526,10 +539,10 @@
             this.update(!0);
         };
         WeElement.prototype.updateProps = function(obj) {
-            var _this2 = this;
+            var _this3 = this;
             Object.keys(obj).forEach(function(key) {
-                _this2.props[key] = obj[key];
-                if (_this2.prevProps) _this2.prevProps[key] = obj[key];
+                _this3.props[key] = obj[key];
+                if (_this3.prevProps) _this3.prevProps[key] = obj[key];
             });
             this.forceUpdate();
         };
@@ -901,7 +914,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.20.0';
+    options.root.Omi.version = '6.21.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

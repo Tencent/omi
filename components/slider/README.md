@@ -34,9 +34,10 @@ Or use script tag to ref it.
   step?: number
   value?: number
   second_value?: number
-  double_range?: boolean
-  vertical?: boolean
-  round: boolean
+  range: 'single' | 'double'
+  orient?: 'vertical' | 'horizontal'
+  shape: 'square' | 'round'
+  tooltip?: boolean
   disabled?: boolean
 }
 ```
@@ -45,17 +46,19 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  min: 0,
-  max: 100,
+  //default a single round range slider
+  min: undefined,
+  max: undefined,
   step: 1,
-  value: 0,
-  //default a single square range slider
-  double_range: false,
-  vertical: false,
-  round: false,
+  value: undefined,
+  second_value: undefined,
+  range: 'single',
+  orient: 'horizontal',
+  shape: 'round',
+  tooltip: false,
   disabled: false,
 }
 ```
 ### Events
 
-* change
+* input

@@ -1,5 +1,7 @@
 import { getDocsList } from './components/docs/config'
 import { WeElement } from 'omi'
+import { getIntroductionNode, getThemeNode } from './components/components/docs/config'
+import { genId } from './id'
 
 interface treeNode {
   id: number
@@ -42,14 +44,12 @@ class Store {
   treeData: treeNode[]
 
   constructor(options) {
-
     this.themeColor = '#07c160'
 
     this.installed = options.installed
     this.locale = options.locale
 
     this.isLeftPanelClosed = window.innerWidth < 640
-
 
     this.ignoreAttrs = true
 
@@ -61,25 +61,24 @@ class Store {
     this.localeMap = {}
 
     this.setLocals(this.locale, () => {
-      this.tabs = [{
-        label: this.localeMap.base.Welcome,
-        href: "#/welcome",
-        closable: false,
-        id: 2
-      }]
+      this.tabs = [
+        {
+          label: this.localeMap.base.Welcome,
+          href: '#/welcome',
+          closable: false,
+          id: 2
+        }
+      ]
 
       this.tabsActiveIndex = 0
     })
-
-
 
     this.isInstalled = false
   }
 
   setLocals(locale, callback?) {
     this.locale = locale
-    import(`./l10n/${locale}/base.ts`).then(localeMap => {
-
+    import(`./l10n/${locale}/base.ts`).then((localeMap) => {
       this.localeMap = localeMap
 
       callback && callback()
@@ -89,7 +88,7 @@ class Store {
           label: localeMap.base.ManagerWorkbench,
           sign: '●',
           expanded: true,
-          id: 1,
+          id: genId(),
           icon: 'ac-unit-outlined',
 
           children: [
@@ -100,63 +99,155 @@ class Store {
               color: '#07c160',
               selected: true,
               href: '#/welcome',
-              id: 2
+              id: genId()
             },
 
             {
               label: localeMap.base.Dashboard,
-              icon: 'dashboard',
+              icon: 'pie-chart',
               href: '#/dashboard',
-              id: 98
+              id: genId()
             },
-
 
             {
               label: localeMap.base.BasicTable,
               icon: 'grid-on',
               href: '#/table/basic',
-              id: 4,
+              id: genId()
             },
             {
               label: localeMap.base.TableDeleteAnimation,
               icon: 'grid-on',
               href: '#/table/pagination',
-              id: 5,
+              id: genId()
             },
             {
               label: localeMap.base.InlineEditing,
               icon: 'grid-on',
               href: '#/table/edit',
-              id: 25,
+              id: genId()
             },
             {
               label: localeMap.base.Form,
               expanded: true,
-              id: 9,
+              id: genId(),
               href: '#/form',
               icon: 'list-alt'
-
+            },
+            {
+              label: localeMap.base.StepForm,
+              expanded: true,
+              id: genId(),
+              href: '#/step-form',
+              icon: 'list-alt'
             },
             {
               label: localeMap.base.MarkdownEditor,
               icon: 'grid-on',
               href: '#/md-editor',
-              id: 26,
+              id: genId()
             },
+            {
+              label: localeMap.base.MasonryList,
+              expanded: true,
+              id: genId(),
+              href: '#/masonry-list',
+              icon: 'dashboard'
+            }
+          ]
+        },
+        {
+          label: localeMap.base.Results,
+          expanded: true,
+          id: genId(),
+          icon: 'ac-unit-outlined',
+
+          children: [
+            {
+              label: localeMap.base.BrowserIncompatible,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/results/browser-incompatible'
+            },
+            {
+              label: localeMap.base.NetworkError,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/results/network-error'
+            },
+            {
+              label: localeMap.base.NotFound,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/results/not-found'
+            },
+            {
+              label: localeMap.base.PermissionDenied,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/results/permission-denied'
+            },
+            {
+              label: localeMap.base.ServerError,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/results/server-error'
+            }
+          ]
+        },
+        {
+          label: localeMap.base.Components,
+          expanded: true,
+          id: genId(),
+          icon: 'ac-unit-outlined',
+
+          children: [
+            getIntroductionNode(locale, localeMap),
+            getThemeNode(locale, localeMap),
             {
               label: localeMap.base.MaterialIcons,
               expanded: true,
-              id: 10,
+              id: genId(),
               href: '#/icon',
-              icon: 'sentiment-satisfied-alt'
-            }
+              // icon: 'sentiment-satisfied-alt'
+            },
+            {
+              label: localeMap.base.Loading,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/loading-component'
+            },
+            {
+              label: localeMap.base.Toast,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/toast-component'
+            },
+            {
+              label: localeMap.base.Card,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/card-component'
+            },
+            {
+              label: localeMap.base.Slider,
+              id: genId(),
+              icon: 'ac-unit-outlined',
+              href: '#/slider-component'
+            },
+			{
+			  label: localeMap.base.Progress,
+			  id: 15,
+			  icon: 'ac-unit-outlined',
+			  href: '#/progress-component',
+			}
           ]
         },
         {
           label: localeMap.base.Others,
           sign: '●',
           expanded: true,
-          id: 6,
+          id: genId(),
           icon: 'ac-unit-outlined',
           children: [
             {
@@ -165,7 +256,7 @@ class Store {
               icon: 'error',
               color: '#F56C6C',
               href: '#/error',
-              id: 7,
+              id: genId()
             },
             {
               sign: '993',
@@ -173,32 +264,41 @@ class Store {
               icon: 'warning',
               color: '#E6A23C',
               href: '#/warning',
-              id: 8,
+              id: genId()
             },
             {
               sign: '993',
               label: localeMap.base.Comment,
               icon: 'comment',
               href: '#/comment',
-              id: 120,
+              id: genId()
             },
             {
               label: localeMap.base.ExternalLink,
               icon: 'insert-link',
               href: 'https://github.com/Tencent/omi',
-              id: 119,
+              id: genId(),
               target: '_blank'
+            },
+            {
+              label: localeMap.base.MindMap,
+              icon: 'ac-unit',
+              href: '#/mind-map',
+              id: genId()
             }
           ]
         },
         {
           label: localeMap.base.MarkdownDocs,
           expanded: true,
-          id: 6,
+          id: genId(),
           icon: 'ac-unit-outlined',
           children: getDocsList(localeMap)
         },
+
+
         {
+
           label: localeMap.base.Components,
           expanded: true,
           id: 11,
@@ -228,9 +328,16 @@ class Store {
             }
           ]
         }
+
+          label: localeMap.base.ManyThanksTo,
+          id: genId(),
+          href: '#/thanks',
+          icon: 'people-alt'
+        },
+
       ]
 
-      this.tabs.forEach(tab => {
+      this.tabs.forEach((tab) => {
         tab.label = this.getTabLabelById(tab.id)
       })
 
@@ -244,13 +351,14 @@ class Store {
   }
 
   getTabLabelById(id) {
-    const node = this.treeData.find(node => node.id === id)
+    const node = this.treeData.find((node) => node.id === id)
     if (node) {
       return node.label
     } else {
       for (let i = 0, len = this.treeData.length; i < len; i++) {
-
-        const childNode = this.treeData[i].children.find(childNode => childNode.id === id)
+        const childNode = this.treeData[i].children.find(
+          (childNode) => childNode.id === id
+        )
         if (childNode) {
           return childNode.label
         }
@@ -273,25 +381,24 @@ class Store {
     this.ui.baseLayout.update()
   }
 
-
   selectTreeNodeById(id) {
-    this.treeData.forEach(node => {
+    this.treeData.forEach((node) => {
       this.deselect(node, id)
     })
   }
 
   deselect(node, id) {
     node.selected = false
-    node.children && node.children.forEach(child => {
-      child.selected = false
-      this.deselect(child, id)
-    })
+    node.children &&
+      node.children.forEach((child) => {
+        child.selected = false
+        this.deselect(child, id)
+      })
 
     if (node.id === id) {
       node.selected = true
     }
   }
 }
-
 
 export default Store

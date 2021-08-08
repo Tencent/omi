@@ -68,15 +68,19 @@ import { Locale } from 'flatpickr/dist/types/locale'
 import { Mandarin } from "flatpickr/dist/esm/l10n/zh"
 import '../../input'
 
+
 export type Attrs = {
   size?:'medium' | 'small' | 'mini',
   width?: string,
+
   locale?: string,
   placeholder?: string
   defaultHour?: number,
   defaultMinute?: number,
   defaultSeconds?: number,
+
   enableTime?: boolean ,
+
   enableSeconds?: boolean,
   hourIncrement?: number,
   minuteIncrement?: number,
@@ -92,9 +96,11 @@ export type Attrs = {
   time_24hr?: boolean,
   wrap?: boolean,
   theme?: string,
+
   trigger?:string,
   backgroundColor?:string,
   color?:string,
+
 }
 
 const tagName = 'o-counter'
@@ -115,10 +121,12 @@ export default class TimePicker extends WeElement<Props> {
     theme: 'light',
     size: 'small',
     width: 'auto',
+
     noCalendar:true,
     enableTime:true,
     enableSeconds:true,
     minuteIncrement: 1,
+
   }
 
   static propTypes = {
@@ -164,9 +172,10 @@ export default class TimePicker extends WeElement<Props> {
   }
 
 
-async installed(): Promise<void> {
+  async installed(): Promise<void> {
     const styleLoader = new StyleLoader(this.props.theme as FlatpickrTheme)
     await styleLoader.initStyles()
+
     const {locale, position,size, ...other } = this.props
     console.log(this)
     flatpickr(this.shadowRoot.querySelector('o-input'), {
@@ -188,5 +197,6 @@ render(props:Props) {
 //     // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
 //     ignoreAttrs: true
 // })
+
 
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text</title>
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+
+        seajs.config({
+            base: '../src'
+        });
+        define('start', function (require) {
+            var Paper = require('graphic/paper');
+            var Rect = require('graphic/rect');
+            var Group = require('graphic/group');
+            var Color = require('graphic/color');
+            var Text = require('graphic/text');
+            var Circle = require('graphic/circle');
+            var utils = require('core/utils');
+
+            var paper = new Paper(document.body);
+
+            window.t = new Text();
+
+            paper.addShape(t);
+            var rb = new Rect().stroke('red');
+            paper.addShape(rb);
+            window.p = new Circle(1).fill('#00ff00');
+            paper.addShape(p);
+
+            setInterval(function() {
+                var box = t.getRenderBox('top');
+                rb.setPosition(box.x, box.y).setSize(box.width, box.height);
+            }, 15);
+
+            t.setContent('this is a test').translate(100, 100);
+            p.translate(100, 100);
+
+        });
+        seajs.use('start');
+    </script>
+    <style>
+        body, div, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

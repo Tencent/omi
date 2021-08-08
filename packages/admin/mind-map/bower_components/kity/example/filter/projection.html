@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>投影滤镜</title>
+    <meta charset="utf-8">
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../../src'
+        });
+    </script>
+    <script src="../../dev-lib/exports.js"></script>
+    <script src="../../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                filter = new kity.ProjectionFilter( 5, 10, 10 ),
+                image = new kity.Image( "1.jpg", 300, 500, 50, 50 );
+
+            filter.setColor( "rgba( 255, 0, 0, 0.3 )" );
+
+            paper.addResource( filter );
+            image.applyFilter( filter );
+
+            paper.addShape( image );
+
+        };
+
+    </script>
+</head>
+<body style="height : 600px;">
+
+
+</body>
+</html>

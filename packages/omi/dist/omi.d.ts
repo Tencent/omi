@@ -54,7 +54,11 @@ declare namespace Omi {
 		key?: Key | null;
 	}
 
-	type RenderableProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
+	export type OmiProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
+
+  type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
+
+  export type OverwriteProps<Attrs, Props> = OmiProps<Overwrite<Attrs, Props>>
 
 	class JSONProxy<T> {
 
@@ -77,9 +81,10 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
+		receiveProps?(props: OmiProps<P>, oldProps: OmiProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
+		css?: (() => string) | string;
 	}
 
 	interface Component<P> extends HTMLElement {
@@ -90,9 +95,10 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(props: RenderableProps<P>, oldProps: RenderableProps<P>): any;
+		receiveProps?(props: OmiProps<P>, oldProps: OmiProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
+		css?: (() => string) | string;
 	}
 
 	abstract class WeElement<P = {}> {
@@ -100,24 +106,27 @@ declare namespace Omi {
 
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
-		static css: string | CSSStyleSheet | (string | CSSStyleSheet)[];
+		static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
-		props: RenderableProps<P>;
-		prevProps: RenderableProps<P>;
+		props: OmiProps<P>;
+		prevProps: OmiProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
 		isInstalled: boolean;
+		provide?: { [key: string]: any };
+		inject?: string[];
+		injection?: { [key: string]: any };
 
-		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
-		forceUpdate?(): void;
-		updateProps?(obj: any): void;
-		updateSelf?(ignoreAttrs?: boolean): void;
-		fire?(name: string, data?: any): void;
-		css?(): string;
+		update(ignoreAttrs?: boolean, updateSelf?: boolean): void;
+		forceUpdate(): void;
+		updateProps(obj: any): void;
+		updateSelf(ignoreAttrs?: boolean): void;
+		fire(name: string, data?: any): void;
+
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
-		abstract render(props: RenderableProps<P>, store: any): void;
+		abstract render(props: OmiProps<P>, store: any): void;
 	}
 
 	// The class type (not instance of class)
@@ -132,24 +141,27 @@ declare namespace Omi {
 		// Allow static members to reference class type parameters
 		// https://github.com/Microsoft/TypeScript/issues/24018
 
-		static css: string | CSSStyleSheet | (string | CSSStyleSheet)[];
+		static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[];
 
-		props: RenderableProps<P>;
-		prevProps: RenderableProps<P>;
+		props: OmiProps<P>;
+		prevProps: OmiProps<P>;
 		rootNode?: HTMLElement;
 		normalizedNodeName?: string;
 		elementId: number;
 		isInstalled: boolean;
+		provide?: { [key: string]: any };
+		inject?: string[];
+		injection?: { [key: string]: any };
 
-		update?(ignoreAttrs?: boolean, updateSelf?: boolean): void;
-		forceUpdate?(): void;
-		updateProps?(obj: any): void;
-		updateSelf?(ignoreAttrs?: boolean): void;
-		fire?(name: string, data?: any): void;
-		css?(): string;
+		update(ignoreAttrs?: boolean, updateSelf?: boolean): void;
+		forceUpdate(): void;
+		updateProps(obj: any): void;
+		updateSelf(ignoreAttrs?: boolean): void;
+		fire(name: string, data?: any): void;
+
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
-		abstract render(props: RenderableProps<P>, store: any): void;
+		abstract render(props: OmiProps<P>, store: any): void;
 	}
 
 	function h<P>(
@@ -166,6 +178,10 @@ declare namespace Omi {
 	namespace h {
 		var f: (props: Props) => VNode<any>;
 	}
+
+	var createElement: typeof h;
+
+	function cloneElement<P>(vnode: VNode<Partial<P>>, props: Partial<P>, ...children: ComponentChildren[]): VNode<Partial<P>>;
 
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): any;
 

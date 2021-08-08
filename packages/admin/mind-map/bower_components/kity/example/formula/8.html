@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script src="../../dist/kitygraph.all.min.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper( document.body ),
+                operand = new kity.Text( '∮'),
+                osub = new kity.Text( 'C' ),
+                right = new kity.Text( 'x' ),
+                right2 = new kity.Text( 'dx' ),
+                rightSup = new kity.Text( '3' ),
+                right3 = new kity.Text( '4y' ),
+                right4 = new kity.Text( 'dy' ),
+                rightSup2 = new kity.Text( '2' ),
+                op = new kity.Text( '+' );
+
+
+            operand.setX( 107 ).setY( 100 );
+            operand.setStyle( "font-size", 40 );
+            right.setStyle( "font-size", 20 );
+            right.setX( 133 ).setY( 96 );
+            rightSup.setStyle( "font-size", 12 );
+            rightSup.setX( 143 ).setY( 90 );
+
+            right2.setStyle( "font-size", 20 );
+            right2.setX( 153 ).setY( 96 );
+
+            osub.setStyle( 'font-size', 13 );
+            osub.setX( 120 ).setY( 113 );
+
+            op.setX( 180 ).setY( 96 );
+            right3.setX( 195 ).setY( 96 );
+            right4.setX( 222 ).setY( 96 );
+            rightSup2.setStyle( 'font-size', 12 );
+            rightSup2.setX( 211 ).setY( 92 );
+
+            paper.addShape( op );
+            paper.addShape( right3 );
+            paper.addShape( right4 );
+            paper.addShape( rightSup2 );
+            paper.addShape( right2 );
+            paper.addShape( osub );
+            paper.addShape( rightSup );
+            paper.addShape( right );
+            paper.addShape( operand );
+
+        };
+
+    </script>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

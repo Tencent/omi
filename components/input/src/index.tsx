@@ -70,25 +70,45 @@ export default class Input extends WeElement<Props>{
 
   valueLength = 0
 
-  handleBlur = () => {
-    this.fire('blur', this.props.value)
+  handleBlur = (evt) => {
+
+    if (this.props.onBlur) {
+      this.props.onBlur(evt)
+    } else {
+      this.fire('blur', this.props.value)
+    }
   }
 
-  handleFocus = () => {
-    this.fire('focus', this.props.value)
+  handleFocus = (evt) => {
+    if (this.props.onFocus) {
+      this.props.onFocus(evt)
+    } else {
+      this.fire('focus', this.props.value)
+    }
   }
 
   handleChange = (evt) => {
     this.__$value = evt.target.value
     this.props.value = evt.target.value
-    this.fire('change', this.props.value)
+
+    if (this.props.onChange) {
+      this.props.onChange(evt)
+    } else {
+      this.fire('change', this.props.value)
+    }
   }
 
   handleInput = (evt) => {
     evt.stopPropagation()
     this.__$value = evt.target.value
     this.props.value = evt.target.value
-    this.fire('input', this.props.value)
+
+    if (this.props.onInput) {
+      this.props.onInput(evt)
+    } else {
+      this.fire('input', this.props.value)
+    }
+
     if (this.props.maxLength) {
       this.valueLength = evt.target.value.length
       this.update()

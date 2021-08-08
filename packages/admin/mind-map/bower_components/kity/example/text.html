@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Example</title>
+
+    <!-- 正式发布的时候， 只需替换掉相应的脚本文件即可 -->
+
+    <!-- dev 版本 示例所需脚本文件 start -->
+    <script src="../dev-lib/sea.js"></script>
+    <script>
+        seajs.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <!-- dev 版本 示例所需脚本文件 end -->
+
+    <!-- 正式版本 示例所需脚本文件 start -->
+    <!--<script src="../dist/kitygraph.all.min.js"></script>-->
+    <!-- 正式版本 示例所需脚本文件 end -->
+
+    <script>
+
+        window.onload = function () {
+
+            var paper = new kity.Paper(document.body);
+
+            paper.setWidth(600).setHeight(400);
+
+            paper.addShape(new kity.Text().pipe(function() {
+                this.addSpan(new kity.TextSpan('hello ').fill('red'));
+                this.addSpan(new kity.TextSpan(' kity').fill('blue'));
+                this.setAnchor('middle');
+                this.setSize(36);
+
+                this.setPath(new kity.Path().pipe(function(){
+                    var d = this.getDrawer();
+                    d.moveTo(150, 200);
+                    d.carcTo(200, 450, 200);
+                    this.fill('none');
+                    this.stroke('green');
+                    paper.addShape(this);
+                }));
+            }));
+        };
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

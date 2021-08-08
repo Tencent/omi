@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+
+    <!-- Demo 的简要说明，必须要填写 -->
+    <meta name="description" content="可视化展示用户的搜索行为">
+    
+    <!-- Demo 的作者，建议填写 -->
+    <meta name="author" content="kity@baidu.com">
+    
+    <!-- Demo 的标题，必须填写 -->
+    <title>搜索路径图</title>
+
+    <!-- Demo 开发过程中使用 CMD 引入 Kity 源码，方便调试 -->
+    <!-- dev start -->
+    <!-- 目录型的 Demo 注意修正源码引用路径 -->
+    <script src="../../dev-lib/sea.js"></script>
+    <script>
+        // 设置好 kity 源代码目录
+        seajs.config( { base: '../../src'} );
+        define('demo', function(require) { require('../demo/pathdiagram/pathdiagram.app'); });
+    </script>
+    <!-- dev end -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    // 启动 Demo 模块
+    seajs.use('demo');
+</script>
+</html>

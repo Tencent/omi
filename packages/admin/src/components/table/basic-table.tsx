@@ -100,10 +100,11 @@ export default class extends WeElement<Props> {
             <o-table
               checkbox={true}
               stripe={true}
-              width="200px"
+              width="240px"
               height="250px"
-              stickyTop={true}
-              stickyLeftCount={2}
+              fixedTop={true}
+              fixedRight={true}
+              fixedLeftCount={2}
               border={true}
               compact={true}
               columns={this.columns}

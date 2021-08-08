@@ -1,0 +1,30 @@
+{
+  "name": "color-picker",
+  "version": "1.0.9",
+  "homepage": "https://github.com/zhangbobell/color-picker",
+  "authors": [
+    "zhangbobell <zhangbobell@163.com>"
+  ],
+  "description": "color-picker like that in ms word 2013",
+  "main": "color-picker.min.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "color",
+    "picker",
+    "color-picker",
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7"
+  }
+}

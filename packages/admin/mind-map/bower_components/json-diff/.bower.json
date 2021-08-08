@@ -1,0 +1,13 @@
+{
+  "name": "json-diff",
+  "homepage": "https://github.com/andreas-gruenbacher/json-diff",
+  "_release": "8552715681",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8552715681f0852533e7d9076d1850c4fd36c452"
+  },
+  "_source": "https://github.com/andreas-gruenbacher/json-diff.git",
+  "_target": "*",
+  "_originalSource": "json-diff"
+}
