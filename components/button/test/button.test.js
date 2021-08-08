@@ -1,6 +1,6 @@
 import { html, fixture, expect } from '@open-wc/testing'
 
-import '../dist/index.esm.js'
+import '../dist/index.es.js'
 
 const defaultProps = {
   plain: false,
