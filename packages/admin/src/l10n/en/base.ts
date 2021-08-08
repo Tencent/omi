@@ -33,6 +33,7 @@ export const base = {
   PermissionDenied: 'Permission Denied',
   ServerError: 'Server Error',
   MasonryList: 'Masonry List',
+  NotificationList: 'NotificationList',
 
   Introduction: 'Introduction',
   CustomTheme: 'Custom Theme',
