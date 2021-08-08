@@ -128,6 +128,13 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/button', () => {
+    //lazy load
+    import('./components/components/button-component').then(() =>
+      rootEl.transitionTo('button-component')
+    )
+  })
+
   route('/progress-component', () => {
     //lazy load
     import('./components/components/progress-component').then(() =>

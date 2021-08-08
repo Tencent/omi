@@ -131,8 +131,13 @@ export function genNavTree(localeMap, locale) {
         getIntroductionNode(locale, localeMap),
         getThemeNode(locale, localeMap),
         {
+          label: localeMap.base.Button,
+          id: genId(),
+          href: '#/button',
+          // icon: 'sentiment-satisfied-alt'
+        },
+        {
           label: localeMap.base.MaterialIcons,
-          expanded: true,
           id: genId(),
           href: '#/icon',
           // icon: 'sentiment-satisfied-alt'

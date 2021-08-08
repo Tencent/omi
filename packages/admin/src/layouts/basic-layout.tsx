@@ -91,7 +91,7 @@ export default class extends WeElement {
               } flex-none overflow-x-hidden overflow-y-auto bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
           <layout-container class={tw`flex-1 flex-grow`}>
-            <div class={tw`overflow-auto flex`} style={{ width: this.getMainContentWidth() }}>
+            <div class={tw`overflow-auto flex pt-0.5`} style={{ width: this.getMainContentWidth() }}>
               {this.store.isLeftPanelClosed && <o-hamburger-menu
                 class={tw`mt-1.5 ml-1 scale-75 flex-row`}
                 color="rgb(107, 114, 128)"
@@ -99,6 +99,7 @@ export default class extends WeElement {
                 onchange={this.onMenuChange} >
               </o-hamburger-menu>}
               <o-tabs
+                class={tw`w-full `}
                 closable
                 type="card"
                 list={this.store.tabs}
