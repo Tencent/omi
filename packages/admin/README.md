@@ -8,7 +8,7 @@ English | [简体中文](./README.CN.md)
 
 ![](../../assets/admin-pc.png)
 
-![](../../assets/admin-mb.png)
+<img src="../../assets/admin-mb.png" width="200">
 
 ## Features 
 
