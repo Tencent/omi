@@ -29,7 +29,7 @@ export default class extends WeElement<Props> {
   columns = [
     {
       title: '通知内容',
-      render: (item: { content: string }) => <strong>{item.content}</strong>
+      render: (item: { content: string, id: number }) => <strong style={this.changeColor(item.id)}>{item.content}</strong>
     },
     {
       title: '通知类型',
@@ -74,7 +74,7 @@ export default class extends WeElement<Props> {
   ]
 
   paging = true
-  pageSize = 5
+  pageSize = 10
   pageIndex = 0
 
   filterData = []
@@ -88,6 +88,10 @@ export default class extends WeElement<Props> {
   installed() {
     this.currentSource = this.store.notifications
     this.renderTable()
+  }
+
+  changeColor = (id: number) => {
+    return this.store.notifications.find((item) => item.id === id).status === 1 ? 'color: #606266' : 'color: #0052D9'
   }
 
   // tabs改变更新列表内容
@@ -118,16 +122,19 @@ export default class extends WeElement<Props> {
   onRead = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
     const id = Number(evt.currentTarget.dataset.itemId)
     this.store.notifications.find((tab) => tab.id === id).status = 1
-    this.table.deleteRowById(evt.currentTarget.dataset.itemId)
+    this.changeColor(id)
+    this.renderTable()
   }
 
   // 更新未读状态
   onUnRead = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
     const id = Number(evt.currentTarget.dataset.itemId)
     this.store.notifications.find((tab) => tab.id === id).status = 0
-    this.table.deleteRowById(evt.currentTarget.dataset.itemId)
+    this.changeColor(id)
+    this.renderTable()
   }
 
+  // 软删除选中的通知
   onClick = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
     this.table.deleteRowById(evt.currentTarget.dataset.itemId)
   }
