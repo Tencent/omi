@@ -23,10 +23,11 @@ export default class MyDemo extends WeElement<Props> {
   render(props: Props) {
     return (
       <div>
-        <h1 onclick={() => {
-          this.update()
-        }}>JSX Mode</h1>
+
         <o-counter count={this.count} onCountChanged={this.onChanged}></o-counter>
+        <button onclick={() => {
+          this.update()
+        }}>parent.update()</button>
       </div>
     )
   }

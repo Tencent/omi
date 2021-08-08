@@ -1,6 +1,12 @@
 import { WeElement, render, h, tag } from 'omi'
 
-import { route, hashChange } from 'omi-router'
+import { hashChange } from 'omi-router'
+import { registerRouting } from './router'
+
+import {
+  showLoading,
+  hideLoading
+} from '@omiu/toast'
 
 //提前使用最新版本注册组件
 import '@omiu/popover'
@@ -67,198 +73,18 @@ export default class extends WeElement {
   }
 
   async transitionTo(tagName) {
+    showLoading()
     await this.transition.leave()
     this.data.tagName = tagName
     this.update()
     await this.transition.enter()
+    hideLoading()
   }
 
   installed() {
     this.store.ui.myApp = this
 
-    route('/', () => {
-      this.update()
-    })
-
-    route('/welcome', () => {
-      this.transitionTo('admin-main-welcome')
-    })
-
-    route('/table/basic', () => {
-      //lazy load
-      import('./components/table/basic-table').then(() =>
-        this.transitionTo('basic-table')
-      )
-    })
-
-    route('/dashboard', () => {
-      //lazy load
-      import('./components/admin-dashboard').then(() =>
-        this.transitionTo('admin-dashboard')
-      )
-    })
-
-    route('/md-editor', () => {
-      //lazy load
-      import('./components/md-editor').then(() =>
-        this.transitionTo('md-editor')
-      )
-    })
-
-    route('/notification-list', () => {
-      //lazy load
-      import('./components/notification/notification-list').then(() =>
-        this.transitionTo('notification-list')
-      )
-    })
-
-    route('/table/edit', () => {
-      //lazy load
-      import('./components/table/inline-editing').then(() =>
-        this.transitionTo('inline-editing')
-      )
-    })
-
-    route('/docs/:name', (evt) => {
-      //lazy load
-      const md = this.getMdByName(evt.params.name, this.store.treeData)
-      md.then((e) => {
-        this.payload = { mdContent: e.default }
-        import('./components/docs/admin-docs').then(() =>
-          this.transitionTo('admin-docs')
-        )
-      })
-    })
-
-    route('/table/pagination', () => {
-      //lazy load
-      import('./components/table/pagination-table').then(() =>
-        this.transitionTo('pagination-table')
-      )
-    })
-
-    route('/form', () => {
-      //lazy load
-      import('./components/admin-form').then(() =>
-        this.transitionTo('admin-form')
-      )
-    })
-
-    route('/step-form', () => {
-      //lazy load
-      import('./components/step-form').then(() =>
-        this.transitionTo('step-form')
-      )
-    })
-
-    route('/comment', () => {
-      //lazy load
-      import('./components/comment/admin-comment').then(() =>
-        this.transitionTo('admin-comment')
-      )
-    })
-
-    route('/icon', () => {
-      //lazy load
-      import('./components/admin-icon').then(() =>
-        this.transitionTo('admin-icon')
-      )
-    })
-
-    route('/error', () => {
-      //lazy load
-      import('./components/status/status-error').then(() =>
-        this.transitionTo('status-error')
-      )
-    })
-
-    route('/loading-component', () => {
-      //lazy load
-      import('./components/components/loading-component').then(() =>
-        this.transitionTo('loading-component')
-      )
-    })
-
-    route('/toast-component', () => {
-      //lazy load
-      import('./components/components/toast-component').then(() =>
-        this.transitionTo('toast-component')
-      )
-    })
-
-    route('/card-component', () => {
-      //lazy load
-      import('./components/components/card-component').then(() =>
-        this.transitionTo('card-component')
-      )
-    })
-
-    route('/slider-component', () => {
-      //lazy load
-      import('./components/components/slider-component').then(() =>
-        this.transitionTo('slider-component')
-      )
-    })
-
-    route('/mind-map', () => {
-      //lazy load
-      import('./components/mind-map').then(() =>
-        this.transitionTo('mind-map')
-      )
-    })
-
-    route('/warning', () => {
-      //lazy load
-      import('./components/status/status-warning').then(() =>
-        this.transitionTo('status-warning')
-      )
-    })
-
-    route('/results/browser-incompatible', () => {
-      //lazy load
-      import('./components/results/browser-incompatible').then(() =>
-        this.transitionTo('browser-incompatible')
-      )
-    })
-
-    route('/results/network-error', () => {
-      //lazy load
-      import('./components/results/network-error').then(() =>
-        this.transitionTo('network-error')
-      )
-    })
-
-    route('/results/not-found', () => {
-      //lazy load
-      import('./components/results/not-found').then(() =>
-        this.transitionTo('not-found')
-      )
-    })
-
-    route('/results/permission-denied', () => {
-      //lazy load
-      import('./components/results/permission-denied').then(() =>
-        this.transitionTo('permission-denied')
-      )
-    })
-
-    route('/results/server-error', () => {
-      //lazy load
-      import('./components/results/server-error').then(() =>
-        this.transitionTo('server-error')
-      )
-    })
-
-    route('/masonry-list', () => {
-      //lazy load
-      import('./components/masonry-list').then(() =>
-        this.transitionTo('masonry-list')
-      )
-    })
-
-    route('*', function () {
-      console.log('not found')
-    })
+    registerRouting(this)
 
     if (location.hash) {
       this.routeTo(location.hash)

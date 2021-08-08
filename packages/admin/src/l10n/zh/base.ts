@@ -20,9 +20,13 @@ export const base = {
   Toast: 'Toast 弹出式提示',
   Card: 'Card 卡片',
   Slider: 'Slider 滑块',
+  Progress:'Progress 进度条',
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
+
+  Timepicker:'Time-picker时间选择器',
+
   MindMap: '思维导图',
   ManyThanksTo: '感谢有你',
   Results: '结果页',
@@ -32,6 +36,7 @@ export const base = {
   NotFound: '访问页面不存在',
   PermissionDenied: '无权限',
   ServerError: '服务端错误',
+
   MasonryList: '瀑布流列表',
   NotificationList: '通知中心',
 
@@ -39,4 +44,6 @@ export const base = {
   CustomTheme: '自定义主题',
 
   StepForm: '分步表单'
+
+
 }

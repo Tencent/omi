@@ -6,7 +6,15 @@
  * modified by dntzhang
  */
 
-@import "@omiu/common/theme.scss";
+@import "../node_modules/@omiu/common/theme.scss";
+
+:host {
+  display: inline-block;
+}
+
+:host([block]) {
+  display: block;
+}
 
 .o-select {
   position: relative;
@@ -61,6 +69,12 @@
 }
 
 
+
+.block .o-input {
+  display: block;
+}
+
+
 .o-input {
   position: relative;
   font-size: 14px;
@@ -108,24 +122,7 @@
   color: #909399
 }
 
-.o-input .o-input__count {
-  height: 100%;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #909399;
-  font-size: 12px
-}
 
-.o-input .o-input__count .o-input__count-inner {
-  background: #FFF;
-  line-height: initial;
-  display: inline-block;
-  padding: 0 5px
-}
 
 .o-input__inner {
   -webkit-appearance: none;
@@ -257,9 +254,7 @@
   border-color: #F56C6C
 }
 
-.o-input.is-exceed .o-input__suffix .o-input__count {
-  color: #F56C6C
-}
+
 
 .o-input--suffix .o-input__inner {
   padding-right: 30px
@@ -902,6 +897,12 @@
   display: inline-block;
   position: relative
 }
+
+.o-select.block {
+  display: block;
+  position: relative
+}
+
 
 .o-select .o-select__tags>span {
   display: contents

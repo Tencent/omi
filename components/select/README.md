@@ -1,52 +1,33 @@
-## ActionSheet
+## Select
 
-Mobile pop-up options list
+> Select
 
-* [→ CodePen](https://codepen.io/omijs/pen/wvKdoNJ)
+## Install
 
-## Import
-
-```js
-import '@omiu/action-sheet'
+```bash
+npm i
 ```
 
-Or use script tag to ref it.
+## Dev
 
-
-```html
-<script src="https://unpkg.com/@omiu/action-sheet"></script>
+```bash
+npm start
 ```
 
-## Usage
+## Preview
 
-```html
-<o-action-sheet></o-action-sheet>
+```
+//html mode demo
+http://localhost:3000
+
+//jsx mode demo
+http://localhost:3000/demo.html
 ```
 
-## API
+## Release
 
-### Props
-
-```tsx
-{
-  type: string,
-  menus: any[],
-  actions: any[],
-  show: boolean
-}
+```
+npm run build
 ```
 
-### 默认属性
 
-```tsx
-{
-  type: '',
-  menus: [],
-  actions: [],
-  show: false
-}
-```
-### Events
-
-* item-click
-* close

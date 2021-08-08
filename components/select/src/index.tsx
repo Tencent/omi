@@ -13,6 +13,7 @@ interface Props {
   placeholder: string
   size: 'big' | 'medium' | 'small' | 'mini'
   multiple: boolean
+  block: boolean
 }
 
 const heightMap = {
@@ -29,7 +30,9 @@ export default class Select extends WeElement<Props> {
   static defaultProps = {
     value: '',
     size: 'big',
-    multiple: false
+    multiple: false,
+    block: false
+
   }
 
   static propTypes = {
@@ -38,7 +41,8 @@ export default class Select extends WeElement<Props> {
     value: String,
     placeholder: String,
     size: String,
-    multiple: Boolean
+    multiple: Boolean,
+    block: Boolean
   }
 
   onInputClick = () => {
@@ -156,9 +160,13 @@ export default class Select extends WeElement<Props> {
 
     return (
       <div {...extractClass({}, 'o-select', {
-        ['o-select--' + props.size]: props.size
+        ['o-select--' + props.size]: props.size,
+        'block': props.block
       })} >
-        <o-popover ref={e => this.popover = e} position="bottom">
+        <o-popover
+          block={props.block}
+          ref={e => this.popover = e}
+          position="bottom">
           <div>
             <div class="o-select__tags" ref={e => this.tags = e} style={{ width: '100%', maxWidth: (this.inputWidth - 32) + 'px' }}>
               <span>
