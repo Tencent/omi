@@ -179,6 +179,12 @@ export default class extends WeElement {
       )
     })
 
+    route('/time-picker-component', () => {
+      //lazy load
+      import('./components/components/time-picker-component').then(() =>
+        this.transitionTo('time-picker-component')
+      )
+    })
 
     route('/warning', () => {
       //lazy load

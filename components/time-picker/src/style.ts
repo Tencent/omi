@@ -7,6 +7,8 @@
 
 const styleRepository = 'https://npmcdn.com/flatpickr@4.6.9/dist/themes/';
 
+
+
 export enum FlatpickrTheme {
   light = 'light',
   dark = 'dark',
@@ -36,6 +38,7 @@ export default class StyleLoader {
     const themeUrl = getStyleRepository(this.theme);
     const themeIsLoaded: boolean = this.isThemeLoaded();
     if (!themeIsLoaded) {
+      //console.log('load')
       this.appendThemeStyles(themeUrl);
       await this.waitForStyleToLoad(() => this.isThemeLoaded());
     }

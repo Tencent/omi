@@ -4,6 +4,7 @@ import '@omiu/loading'
 import '../docs/admin-docs'
 import './code-demo'
 
+
 interface Props { }
 
 const tagName = 'loading-component'

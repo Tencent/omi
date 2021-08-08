@@ -219,6 +219,12 @@ class Store {
               id: 14,
               icon: 'ac-unit-outlined',
               href: '#/card-component',
+            },
+            {
+              label: localeMap.base.Timepicker,
+              id: 15,
+              icon: 'ac-unit-outlined',
+              href: '#/time-picker-component',
             }
           ]
         }
