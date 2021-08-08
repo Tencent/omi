@@ -8,7 +8,7 @@
 
 ![](../../assets/admin-pc.png)
 
-<img src="../../assets/admin-mb.png" width="200">
+<img src="../../assets/admin-mb.png" width="320">
 
 **功能特性:**
 
