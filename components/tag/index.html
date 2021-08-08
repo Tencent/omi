@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu Tag</title>
+    <script type="module" src="/src/index.tsx"></script>
+    <style>
+      .demo-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body style="background-color: #eee">
+    <div class="demo-container">
+      <o-tag>默认</o-tag>
+      <o-tag type="success">成功</o-tag>
+      <o-tag type="info">信息</o-tag>
+      <o-tag type="warning">警告</o-tag>
+      <o-tag type="danger">危险</o-tag>
+    </div>
+
+    <div class="demo-container">
+      <o-tag disabled>禁用</o-tag>
+      <o-tag disabled type="success">成功</o-tag>
+      <o-tag disabled type="info">信息</o-tag>
+      <o-tag disabled type="warning">警告</o-tag>
+      <o-tag disabled type="danger">危险</o-tag>
+    </div>
+
+    <div class="demo-container">
+      <o-tag>默认标签</o-tag>
+      <o-tag size="medium">中等标签</o-tag>
+      <o-tag size="small">小型标签</o-tag>
+      <o-tag size="mini">超小标签</o-tag>
+    </div>
+
+    <div class="demo-container">
+      <o-tag closable>关闭标签</o-tag>
+      <o-tag size="medium" closable>中等标签</o-tag>
+      <o-tag size="small" closable>小型标签</o-tag>
+      <o-tag size="mini" closable>超小标签</o-tag>
+    </div>
+
+    <script>
+      // set default value
+      // const elements = document.getElementsByTagName('o-tag')
+      // Array.from(elements).map((el) =>
+      //   el.setAttribute('options', JSON.stringify(options))
+      // )
+    </script>
+  </body>
+</html>
