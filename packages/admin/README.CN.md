@@ -36,5 +36,5 @@
 * [tailwindcss](https://tailwindcss.com/docs/container)
 * [VSCode Twind Intellisense](https://marketplace.visualstudio.com/items?itemName=sastan.twind-intellisense)
 
-
+![](https://raw.githubusercontent.com/tw-in-js/vscode-twind-intellisense/main/assets/demo.gif)
 
