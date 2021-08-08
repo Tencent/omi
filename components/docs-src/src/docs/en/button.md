@@ -1,4 +1,4 @@
-## Button
+# Button
 
 Click or touch it to trigger an operation. The encapsulated logic is triggered in response to user clicks.
 
@@ -47,7 +47,7 @@ Or use script tag to ref it.
 }
 ```
 
-### defaultProps
+### Default Props
 
 ```tsx
 {
