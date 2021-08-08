@@ -1,7 +1,7 @@
 import { getDocsList } from './components/docs/config'
 import { WeElement } from 'omi'
 import { getIntroductionNode, getThemeNode } from './components/components/docs/config'
-import { genId } from './id'
+import { genId } from './util/id'
 
 interface treeNode {
   id: number

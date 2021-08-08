@@ -1,4 +1,4 @@
-import { genId } from '../../../id'
+import { genId } from '../../../util/id'
 
 export const getIntroductionNode = (lacale, localeMap) => {
   return {
