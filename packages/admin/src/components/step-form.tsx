@@ -131,16 +131,11 @@ export default class extends WeElement<Props> {
                 </div>
               </div>
 
-
-
-              <div class={tw`pt-6`}>
+              <div class={tw`pt-6 max-w-lg`}>
                 <div class={formItemClass}>
                   <label class={lableClass} >合同名称</label>
                   <div class={tw`leading-8 ml-16`}>
-                    <o-select css={`
-.o-select .o-input__inner {
-width: 337px;
-`} size="small" placeholder="选择合同名称"
+                    <o-select block size="small" placeholder="选择合同名称"
                       items={this.items}
                     ></o-select>
                     <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
@@ -150,10 +145,7 @@ width: 337px;
                 <div class={formItemClass}>
                   <label class={lableClass} >发票类型</label>
                   <div class={tw`leading-8 ml-16`}>
-                    <o-select css={`
-.o-select .o-input__inner {
-width: 337px;
-`} size="small" placeholder="选择发票类型"
+                    <o-select block size="small" placeholder="选择发票类型"
                       items={this.items}
                     ></o-select>
                     <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
@@ -164,10 +156,6 @@ width: 337px;
                   <label class={lableClass} > 金额(元)</label>
                   <div class={tw`leading-8 ml-16`}>
                     <o-input
-                      css={`
-                    .o-input .o-input__inner {
-                    width: 337px;
-                    `}
                       size="small"
                       onChange={onChange}
                       onBlur={onBlur}
