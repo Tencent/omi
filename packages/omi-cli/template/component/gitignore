@@ -1,5 +1,6 @@
-node_modules
 .DS_Store
 dist
-types
+node_modules
 *.local
+*.lock
+*.log
