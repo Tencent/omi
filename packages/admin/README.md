@@ -6,7 +6,7 @@ English | [简体中文](./README.CN.md)
 
 [→ Preview](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
-![](https://wx.gtimg.com/resource/feuploader/202108/2f3c189cea290c6851f537d65688d1ea_2734x1586.png)
+![](../../assets/admin.png)
 
 ## Features 
 
