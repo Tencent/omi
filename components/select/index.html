@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omiu</title>
+  <script type="module" src="/src/index.tsx"></script>
+
+</head>
+
+<body>
+  <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
+  
+  <o-select multiple size="mini" block="1" placeholder="Select A Item"
+  items="[{label:'Item A', value: 1},{ label:'Item B', value: 2},{ label:'Item C', value: 3},{ label:'Item B', value: 4},{ label:'Item C', value: 5}]">
+</o-select>
+
+  <o-select placeholder="Select A Item" value="1"
+    items="[{label:'Item A', value: 1},{ label:'Item B', value: 2},{ label:'Item C', value: 3}]"></o-select>
+
+
+  <o-select size="medium" placeholder="Select A Item"
+    items="[{label:'Item A', value: 1},{ label:'Item B', value: 2},{ label:'Item C', value: 2}]"></o-select>
+
+
+  <o-select size="small" placeholder="Select A Item"
+    items="[{label:'Item A', value: 1},{ label:'Item B', value: 2},{ label:'Item B', value: 2},{ label:'Item B', value: 2},{ label:'Item B', value: 2},{ label:'Item B', value: 2},{ label:'Item B', value: 2},{ label:'Item B', value: 2},{ label:'Item C', value: 2}]">
+  </o-select>
+
+  <o-select size="mini" placeholder="Select A Item"
+    items="[{label:'Item A', value: 1},{ label:'Item B', value: 2},{ label:'Item C', value: 2}]"></o-select>
+
+
+  <o-select multiple size="mini" placeholder="Select A Item"
+    items="[{label:'Item A', value: 1},{ label:'Item B', value: 2},{ label:'Item C', value: 3},{ label:'Item B', value: 4},{ label:'Item C', value: 5}]">
+  </o-select>
+
+
+ 
+
+
+  <script>
+    document.querySelector('o-counter').addEventListener('CountChanged', function (evt) {
+      console.log(evt.detail)
+    })
+  </script>
+</body>
+
+</html>

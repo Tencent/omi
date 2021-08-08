@@ -6,6 +6,10 @@
 
 [→ 点我体验](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
+![](../../assets/admin-pc.png)
+
+<img src="../../assets/admin-mb.png" width="320">
+
 **功能特性:**
 
 * 基于 omi web components
@@ -33,7 +37,8 @@
 
 ## 相关链接
 
-* https://tailwindcss.com/docs/container
+* [tailwindcss](https://tailwindcss.com/docs/container)
+* [VSCode Twind Intellisense](https://marketplace.visualstudio.com/items?itemName=sastan.twind-intellisense)
 
-
+![](https://raw.githubusercontent.com/tw-in-js/vscode-twind-intellisense/main/assets/demo.gif)
 

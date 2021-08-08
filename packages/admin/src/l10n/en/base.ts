@@ -20,9 +20,13 @@ export const base = {
   Toast: 'Toast',
   Card: 'Card',
   Slider: 'Slider',
+  Progress:'Progress',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
+
+  Timepicker:'Time-picker',
+
   MindMap: 'Mind Map',
   ManyThanksTo: 'Many Thanks To',
   Results: 'Results Pages',
@@ -35,6 +39,9 @@ export const base = {
   MasonryList: 'Masonry List',
 
   Introduction: 'Introduction',
-  CustomTheme: 'Custom Theme'
+  CustomTheme: 'Custom Theme',
+
+  StepForm: 'Step Form'
+
 
 }

@@ -1,3 +1,5 @@
+import { genId } from '../../util/id'
+
 export const getDocsList = (localeMap) => {
   return [
     {
@@ -6,14 +8,14 @@ export const getDocsList = (localeMap) => {
       icon: 'description',
       href: '#/docs/demo1',
       md: import('./demo.md?raw'),
-      id: 29,
+      id: genId(),
     },
     {
       label: localeMap.base.Demo2,
       icon: 'description',
       href: '#/docs/demo2',
       md: import('./demo2.md?raw'),
-      id: 30,
+      id: genId(),
     }
   ]
 }

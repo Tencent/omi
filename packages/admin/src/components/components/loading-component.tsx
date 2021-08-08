@@ -5,7 +5,9 @@ import '../docs/admin-docs'
 import './code-demo'
 import './code-demo/container'
 
-interface Props {}
+
+interface Props { }
+
 
 const tagName = 'loading-component'
 declare global {

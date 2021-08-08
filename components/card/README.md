@@ -1,46 +1,33 @@
 ## Card
 
-Card
+> Card
 
-* [→ CodePen]()
+## Install
 
-## Import
-
-```js
-import '@omiu/card'
+```bash
+npm i
 ```
 
-Or use script tag to ref it.
+## Dev
 
-
-```html
-<script src="https://unpkg.com/@omiu/card"></script>
+```bash
+npm start
 ```
 
-## Usage
+## Preview
 
-```html
-<o-card></o-card>
+```
+//html mode demo
+http://localhost:3000
+
+//jsx mode demo
+http://localhost:3000/demo.html
 ```
 
-## API
+## Release
 
-### Props
-
-```tsx
-{
-  title?: string,
-  hoverable?: 'always' | 'true' | 'false',
-  extra?: string,
-  actions?: any[],
-  size?: 'large' | 'medium' | 'small'
-}
+```
+npm run build
 ```
 
-### defaultProps
 
-```tsx
-{
-  size: 'large',
-}
-```
