@@ -4,7 +4,7 @@ import '../index.css'
 
 import '@omiu/button'
 import '@omiu/tabs'
-
+import '@omiu/hamburger-menu'
 import './components/layout-header'
 import './components/layout-left-panel'
 
@@ -71,6 +71,15 @@ export default class extends WeElement {
     return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
   }
 
+  onMenuChange = (evt) => {
+    this.store.isLeftPanelClosed = evt.detail
+    if (this.store.isLeftPanelClosed) {
+      this.store.openLeftPanel()
+    } else {
+      this.store.closeLeftPanel()
+    }
+  }
+
   render() {
     return (
       <h.f>
@@ -82,7 +91,13 @@ export default class extends WeElement {
               } flex-none overflow-x-hidden overflow-y-auto bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
           <layout-container class={tw`flex-1 flex-grow`}>
-            <div class={tw`overflow-auto`} style={{ width: this.getMainContentWidth() }}>
+            <div class={tw`overflow-auto flex`} style={{ width: this.getMainContentWidth() }}>
+              {this.store.isLeftPanelClosed && <o-hamburger-menu
+                class={tw`mt-1.5 ml-1 scale-75 flex-row`}
+                color="rgb(107, 114, 128)"
+                active={!this.store.isLeftPanelClosed}
+                onchange={this.onMenuChange} >
+              </o-hamburger-menu>}
               <o-tabs
                 closable
                 type="card"

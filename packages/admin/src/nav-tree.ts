@@ -6,14 +6,13 @@ export function genNavTree(localeMap, locale) {
   return [
     {
       label: localeMap.base.ManagerWorkbench,
-      sign: '●',
       expanded: true,
       id: genId(),
       icon: 'ac-unit-outlined',
 
       children: [
         {
-          sign: 'M',
+          sign: '💗',
           label: localeMap.base.WelcomePage,
           icon: 'emoji-people',
           color: '#07c160',
