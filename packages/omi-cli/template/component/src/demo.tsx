@@ -2,17 +2,12 @@ import { tag, h, WeElement, render } from 'omi'
 
 import './index.tsx'
 
-export type Props = {
-
-}
+export type Props = {}
 
 const tagName = 'my-demo'
 
-
-
 @tag(tagName)
 export default class MyDemo extends WeElement<Props> {
-
   count = 2
 
   onChanged = (evt: CustomEvent) => {
@@ -23,11 +18,17 @@ export default class MyDemo extends WeElement<Props> {
   render(props: Props) {
     return (
       <div>
-
-        <o-counter count={this.count} onCountChanged={this.onChanged}></o-counter>
-        <button onclick={() => {
-          this.update()
-        }}>parent.update()</button>
+        <o-counter
+          count={this.count}
+          onCountChanged={this.onChanged}
+        ></o-counter>
+        <button
+          onclick={() => {
+            this.update()
+          }}
+        >
+          parent.update()
+        </button>
       </div>
     )
   }

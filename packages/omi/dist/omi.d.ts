@@ -99,6 +99,7 @@ declare namespace Omi {
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 		css?: (() => string) | string;
+		render?: (props: P) => JSX.Element
 	}
 
 	abstract class WeElement<P = {}> {
