@@ -1,5 +1,5 @@
 /*!
- *  omi-router v2.1.0 by dntzhang
+ *  omi-router v3.0.1 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -23,9 +23,9 @@ root.route.to = function (path, data) {
   }
 }
 
-window.addEventListener('hashchange', change)
+window.addEventListener('hashchange', hashChange)
 
-function change(evt) {
+export function hashChange(evt) {
   let byNative = false
   //need to fix a line by omi-link
   if (window.history.length === root.historyLength && !root.route._routeByTo) {
@@ -35,7 +35,7 @@ function change(evt) {
   root.route._routeByTo = false
   root.historyLength = window.history.length
   let prevent = false
-  if (evt.type === 'hashchange' && root.route.before) {
+  if (evt && evt.type === 'hashchange' && root.route.before) {
     prevent = root.route.before(evt) === false
   }
   if (prevent) return
@@ -65,12 +65,12 @@ function change(evt) {
     mapping['*'] && mapping['*'].callback({ byNative: byNative })
   }
 
-  if (evt.type === 'hashchange' && root.route.after) {
+  if (evt && evt.type === 'hashchange' && root.route.after) {
     root.route.after(evt)
   }
 }
 
-document.addEventListener('DOMContentLoaded', change)
+document.addEventListener('DOMContentLoaded', hashChange)
 
 function getParams(toArr, pathArr) {
   const params = {}
@@ -91,8 +91,7 @@ export function route(path, callback) {
   }
 }
 
-
-const router = { route }
+const router = { route, hashChange }
 export default router
 
 function getGlobal() {

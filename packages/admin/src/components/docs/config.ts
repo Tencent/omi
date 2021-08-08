@@ -6,14 +6,14 @@ export const getDocsList = (localeMap) => {
       icon: 'description',
       href: '#/docs/demo1',
       md: import('./demo.md?raw'),
-      id: 27,
+      id: 29,
     },
     {
       label: localeMap.base.Demo2,
       icon: 'description',
       href: '#/docs/demo2',
       md: import('./demo2.md?raw'),
-      id: 17,
+      id: 30,
     }
   ]
 }

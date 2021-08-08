@@ -10,7 +10,7 @@ English | [简体中文](./README.CN.md)
 
 * Web components base
 * Out of the box, a large number of built-in templates, components and icons
-* Vite + ts + twind + lazy load
+* Vite + twind + lazy load
 * Theme real-time switching
 * Mobile first, responsive design
 * Routing animation

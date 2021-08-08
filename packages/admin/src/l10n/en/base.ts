@@ -15,7 +15,7 @@ export const base = {
   MarkdownDocs: 'Markdown Docs',
   Demo1: 'Demo1',
   Demo2: 'Demo2',
-  Components: 'Components',
+  Components: 'OMIU Components',
   Loading: 'Loading',
   Toast: 'Toast',
   Card: 'Card',
@@ -32,5 +32,9 @@ export const base = {
   NotFound: 'Not Found',
   PermissionDenied: 'Permission Denied',
   ServerError: 'Server Error',
-  MasonryList: 'Masonry List'
+  MasonryList: 'Masonry List',
+
+  Introduction: 'Introduction',
+  CustomTheme: 'Custom Theme'
+
 }
