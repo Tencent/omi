@@ -9,7 +9,9 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./types",
-    "strict": true,
+
+    "strict": false,
+
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -23,7 +25,9 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/index.tsx"
+
+    "src/**/*.tsx"
+
   ],
   "exclude": []
 }

@@ -186,6 +186,12 @@ export default class extends WeElement {
       )
     })
 
+
+    route('/time-picker-component', () => {
+      //lazy load
+      import('./components/components/time-picker-component').then(() =>
+        this.transitionTo('time-picker-component')
+
     route('/slider-component', () => {
       //lazy load
       import('./components/components/slider-component').then(() =>
@@ -205,6 +211,7 @@ export default class extends WeElement {
       //lazy load
       import('./components/mind-map').then(() =>
         this.transitionTo('mind-map')
+
       )
     })
 

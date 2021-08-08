@@ -1,4 +1,64 @@
-import { tag, WeElement, h, render, classNames } from 'omi'
+// import { tag, h, WeElement, OverwriteProps } from 'omi'
+
+// import * as css from './index.scss'
+
+// export type Attrs = {
+//   count?: number,
+//   onCountChanged?: (evt: CustomEvent) => void
+// }
+
+// const tagName = 'o-counter'
+// declare global {
+//   namespace JSX {
+//     interface IntrinsicElements {
+//       [tagName]: Omi.Props & Attrs
+//     }
+//   }
+// }
+
+
+// export type Props = OverwriteProps<Attrs, { count: number }>
+
+// @tag(tagName)
+// export default class Counter extends WeElement<Props> {
+
+//   static css = css.default ? css.default : css
+
+//   static defaultProps = {
+//     count: 1
+//   }
+
+//   static propTypes = {
+//     count: Number
+//   }
+
+//   minus = () => {
+//     this.updateProps({
+//       count: this.props.count - 1
+//     })
+//     this.fire('CountChanged', this.props.count)
+//   }
+
+//   plus = () => {
+//     this.updateProps({
+//       count: this.props.count + 1
+//     })
+//     this.fire('CountChanged', this.props.count)
+//   }
+
+//   render(props: Props) {
+//     return (
+//       // <h.f></h.f> or <></> are supported
+//       <h.f>
+//         <button onClick={this.minus}>-</button>
+//         <span>{props.count}</span>
+//         <button onClick={this.plus}>+</button>
+//       </h.f>
+//     )
+//   }
+// }
+
+import { tag, WeElement, h, render, OverwriteProps } from 'omi'
 import flatpickr from 'flatpickr'
 import { DateLimit, DateOption, Hook, Options, ParsedOptions } from 'flatpickr/dist/types/options'
 import { CustomLocale } from 'flatpickr/dist/types/locale'
@@ -8,30 +68,23 @@ import { Locale } from 'flatpickr/dist/types/locale'
 import { Mandarin } from "flatpickr/dist/esm/l10n/zh"
 import '../../input'
 
-interface Props {
-  size?: 'medium' | 'small' | 'mini'
-  width?: string
-  length?: string,
+
+export type Attrs = {
+  size?:'medium' | 'small' | 'mini',
+  width?: string,
+
   locale?: string,
   placeholder?: string
-  altFormat?: string
-  altInput?: boolean
-  altInputClass?: string
-  allowInput?: boolean
-  clickOpens?: boolean,
   defaultHour?: number,
   defaultMinute?: number,
   defaultSeconds?: number,
-  disable?: any[],
-  disableMobile?: boolean,
-  enable?: any[],
-  enableTime?: boolean,
+
+  enableTime?: boolean ,
+
   enableSeconds?: boolean,
   hourIncrement?: number,
   minuteIncrement?: number,
   inline?: boolean,
-  nextArrow?: string,
-  prevArrow?: string,
   noCalendar?: boolean,
   onChange?: Hook,
   onClose?: Hook,
@@ -43,8 +96,23 @@ interface Props {
   time_24hr?: boolean,
   wrap?: boolean,
   theme?: string,
-  trigger?: string
+
+  trigger?:string,
+  backgroundColor?:string,
+  color?:string,
+
 }
+
+const tagName = 'o-counter'
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [tagName]: Omi.Props & Attrs
+    }
+  }
+}
+
+export type Props = OverwriteProps<Attrs, { count: number }>
 
 @tag('o-time-picker')
 export default class TimePicker extends WeElement<Props> {
@@ -53,9 +121,12 @@ export default class TimePicker extends WeElement<Props> {
     theme: 'light',
     size: 'small',
     width: 'auto',
-    noCalendar: true,
-    enableTime: true,
-    enableSeconds: true,
+
+    noCalendar:true,
+    enableTime:true,
+    enableSeconds:true,
+    minuteIncrement: 1,
+
   }
 
   static propTypes = {
@@ -65,6 +136,7 @@ export default class TimePicker extends WeElement<Props> {
     noCalendar: Boolean,
     enableTime: Boolean,
     enableSeconds: Boolean,
+    minuteIncrement: Number,
   }
 
   onEnter = (evt) => {
@@ -103,35 +175,28 @@ export default class TimePicker extends WeElement<Props> {
   async installed(): Promise<void> {
     const styleLoader = new StyleLoader(this.props.theme as FlatpickrTheme)
     await styleLoader.initStyles()
-    //const { locale, ...other } = this.props
-    console.log('-----pros------', this.props)
-    const { locale, position, ...other } = this.props
 
-
+    const {locale, position,size, ...other } = this.props
+    console.log(this)
     flatpickr(this.shadowRoot.querySelector('o-input'), {
       locale: locale === 'zh' ? Mandarin : null,
-      // noCalendar:true,
-      // enableTime:true,
-      // enableSeconds:true,
-      ...other,
+        ...other,
+  })
+    console.log(this)
+}
+    isShow = false
 
-    })
-  }
-  isShow = false
-
-  render(props) {
+render(props:Props) {
     return <div>
-      {console.log(props)}
-      <o-input size={props.size} css={`.o-input input {
-            width: ${props.width};
-        }`} type="text" />
-    </div>
-  }
+    <o-input id="myinput" size={props.size} css={`.o-input input {width: ${props.width};background-color:${props.backgroundColor};color:${props.color};}`} type="text" placeholder={props.placeholder} ></o-input>
+      </div>
+    }
 }
 
-render(<o-time-picker defaultHour="1"></o-time-picker>, '#root', {
-  // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
-  ignoreAttrs: true
-})
+// render(<o-time-picker defaultHour = "1"></o-time-picker>, '#root', {
+//     // if using OMI to build the whole application, ignore the attributs of DOM and use props of virtual dom
+//     ignoreAttrs: true
+// })
+
 
 

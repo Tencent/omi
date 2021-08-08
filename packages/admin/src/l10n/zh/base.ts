@@ -24,6 +24,9 @@ export const base = {
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
+
+  Timepicker:'Time-picker时间选择器',
+
   MindMap: '思维导图',
   ManyThanksTo: '感谢有你',
   Results: '结果页',
@@ -40,5 +43,6 @@ export const base = {
   CustomTheme: '自定义主题',
 
   StepForm: '分步表单'
+
 
 }

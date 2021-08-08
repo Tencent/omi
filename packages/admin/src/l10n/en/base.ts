@@ -24,6 +24,9 @@ export const base = {
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
+
+  Timepicker:'Time-picker',
+
   MindMap: 'Mind Map',
   ManyThanksTo: 'Many Thanks To',
   Results: 'Results Pages',
@@ -39,5 +42,6 @@ export const base = {
   CustomTheme: 'Custom Theme',
 
   StepForm: 'Step Form'
+
 
 }

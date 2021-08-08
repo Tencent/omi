@@ -298,11 +298,43 @@ class Store {
 
 
         {
+
+          label: localeMap.base.Components,
+          expanded: true,
+          id: 11,
+          icon: 'ac-unit-outlined',
+          children: [{
+            label: localeMap.base.Loading,
+            id: 12,
+            icon: 'ac-unit-outlined',
+            href: '#/loading-component',
+          }, {
+            label: localeMap.base.Toast,
+            id: 13,
+            icon: 'ac-unit-outlined',
+            href: '#/toast-component',
+          },
+            {
+              label: localeMap.base.Card,
+              id: 14,
+              icon: 'ac-unit-outlined',
+              href: '#/card-component',
+            },
+            {
+              label: localeMap.base.Timepicker,
+              id: 15,
+              icon: 'ac-unit-outlined',
+              href: '#/time-picker-component',
+            }
+          ]
+        }
+
           label: localeMap.base.ManyThanksTo,
           id: genId(),
           href: '#/thanks',
           icon: 'people-alt'
         },
+
       ]
 
       this.tabs.forEach((tab) => {
