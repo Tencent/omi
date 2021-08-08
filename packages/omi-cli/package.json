@@ -15,6 +15,11 @@
     "type": "git",
     "url": "git+https://github.com/Tencent/omi.git"
   },
+  "files": [
+    "bin",
+    "lib",
+    "template"
+  ],
   "keywords": [
     "omi",
     "cli",
