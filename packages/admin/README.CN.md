@@ -6,9 +6,9 @@
 
 [→ 点我体验](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
+![](../../assets/admin-pc.png)
 
-![](../../assets/admin.png)
-
+![](../../assets/admin-mb.png)
 
 **功能特性:**
 
