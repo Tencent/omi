@@ -7,6 +7,7 @@ interface Props {
   effect?: string
   position?: string
   trigger?: 'click' | 'hover' | 'manual'
+  block?: boolean
 }
 
 @tag('o-popover')
@@ -20,6 +21,7 @@ export default class Popover extends WeElement<Props> {
      * 触发方式
      */
     trigger: 'click',
+    block: false
   }
 
   static propTypes = {
@@ -27,6 +29,7 @@ export default class Popover extends WeElement<Props> {
     effect: String,
     position: String,
     trigger: String,
+    block: Boolean
   }
 
   installed() {
