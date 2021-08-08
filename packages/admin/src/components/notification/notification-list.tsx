@@ -23,7 +23,7 @@ declare global {
 @tag(tagName)
 export default class extends WeElement<Props> {
   static css = sheet.target
-  
+
   store
 
   columns = [
@@ -53,13 +53,13 @@ export default class extends WeElement<Props> {
                 style="cursor:pointer;font-size:15px;"
               ></o-icon-done-outline-outlined>
             </o-tooltip>) : (
-            <o-tooltip content={'设为未读'} style="padding-right:30px">
-              <o-icon-chat-outlined
-                data-item-id={item.id}
-                _onclick={this.onUnRead}
-                style="cursor:pointer;font-size:15px;"
-              ></o-icon-chat-outlined>
-            </o-tooltip>)
+              <o-tooltip content={'设为未读'} style="padding-right:30px">
+                <o-icon-chat-outlined
+                  data-item-id={item.id}
+                  _onclick={this.onUnRead}
+                  style="cursor:pointer;font-size:15px;"
+                ></o-icon-chat-outlined>
+              </o-tooltip>)
           }
           <o-tooltip content={'删除通知'}>
             <o-icon-delete-outline
@@ -100,6 +100,8 @@ export default class extends WeElement<Props> {
     } else {
       this.currentSource = this.store.notifications
     }
+
+    this.activeIndex = evt.detail.index
     this.renderTable()
   }
 
@@ -109,6 +111,8 @@ export default class extends WeElement<Props> {
   }
 
   table
+
+  activeIndex: number = 0
 
   // 更新已读状态
   onRead = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
@@ -144,9 +148,9 @@ export default class extends WeElement<Props> {
       <div class={tw`pl-0.5`}>
         <div class={tw`px-2`}>
           <o-tabs
-            list={[{label:'全部通知'},{label:'未读通知'},{label:'已读通知'}]}
+            list={[{ label: '全部通知' }, { label: '未读通知' }, { label: '已读通知' }]}
             onchange={this.onChange}
-            active-index="0"
+            activeIndex={this.activeIndex}
           ></o-tabs>
           <o-table
             ref={e => this.table = e}
