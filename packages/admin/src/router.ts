@@ -193,6 +193,13 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/notification-list', () => {
+    //lazy load
+    import('./components/notification/notification-list').then(() =>
+      rootEl.transitionTo('notification-list')
+    )
+  })
+
   route('*', function () {
     console.log('not found')
   })

@@ -37,7 +37,7 @@ export default class extends WeElement<Props> {
   itemsA = [
     { name: '提交开票申请', description: '开票申请需要本人填写', state: state.DOING },
     { name: '填写发票信息', description: '发票信息请开公司抬头', state: state.TODO },
-    { name: '确认邮寄地址', description: '请写你加里的邮寄地址', state: state.TODO },
+    { name: '确认邮寄地址', description: '请写你家里的邮寄地址', state: state.TODO },
     { name: '完成', description: '', state: state.TODO }
   ]
 

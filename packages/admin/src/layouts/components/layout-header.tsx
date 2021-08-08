@@ -56,6 +56,32 @@ export default class extends WeElement<Props> {
     this.store.setLocals(evt.detail.value)
   }
 
+  goNotification = () => {
+    const notificationTab = {
+      "label": "通知中心",
+      "closeable": false,
+      "id": 29,
+      "href": "#/notification-list"
+    }
+    const tab = this.store.tabs.find((tab) => tab.id === notificationTab.id)
+
+    // 如果tab栏无通知中心，则store push
+    if (tab) {
+      this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+    } else {
+      this.store.tabs.push({
+        "label": "通知中心",
+        "closeable": false,
+        "id": 29,
+        "href": "#/notification-list"
+      })
+      this.store.tabsActiveIndex = this.store.tabs.length - 1
+    }
+
+    this.store.selectTreeNodeById(notificationTab.id)
+    location.hash = notificationTab.href
+  }
+
   render() {
     return (
       <div class={tw`bg-gray-100 h-12 text-left border-b-1`}>
@@ -98,7 +124,7 @@ export default class extends WeElement<Props> {
             </div>
 
             <o-badge content="99" class={tw`flex-row cursor-pointer hidden md:block`}>
-              <o-icon-notifications ></o-icon-notifications>
+              <a onClick={(e) => this.goNotification()}><o-icon-notifications ></o-icon-notifications></a>
             </o-badge>
 
             <o-icon-settings class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-settings>

@@ -72,6 +72,13 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           href: '#/masonry-list',
           icon: 'dashboard'
+        },
+        {
+          label: localeMap.base.NotificationList,
+          expanded: true,
+          id: genId(),
+          href: '#/notification-list',
+          icon: 'dashboard'
         }
       ]
     },
