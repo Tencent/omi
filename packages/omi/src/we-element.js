@@ -1,4 +1,4 @@
-import { cssToDom, isArray, hyphenate, getValByPath, removeItem } from './util'
+import { cssToDom, isArray, hyphenate, getValByPath, capitalize } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 
@@ -246,11 +246,21 @@ export default class WeElement extends HTMLElement {
   }
 
   fire(name, data) {
-    this.dispatchEvent(
-      new CustomEvent(name, {
-        detail: data
-      })
-    )
+    const handler = this.props[`on${capitalize(name)}`]
+    if (handler) {
+      handler.call(
+        this,
+        new CustomEvent(name, {
+          detail: data
+        })
+      )
+    } else {
+      this.dispatchEvent(
+        new CustomEvent(name, {
+          detail: data
+        })
+      )
+    }
   }
 
   beforeInstall() {}
