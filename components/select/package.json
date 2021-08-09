@@ -1,6 +1,6 @@
 {
   "name": "@omiu/select",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "description": "Mobile pop-up options list",
   "docsExtend": {
     "cnName": "下拉菜单",

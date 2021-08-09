@@ -15,6 +15,7 @@ const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 
 interface Props {
   mdContent: string
+  padding?: number
 }
 
 const tagName = 'admin-docs'
@@ -35,7 +36,9 @@ declare global {
 export default class extends WeElement<Props> {
 
   static defaultProps = {
-    mdContent: ''
+    mdContent: '',
+    padding: 0
+
   }
 
   static css = [mdCSS.default, prismCSS.default]
@@ -95,7 +98,7 @@ export default class extends WeElement<Props> {
   }
 
   render() {
-    return <div class="result-html" >
+    return <div class="result-html" style={{ padding: this.props.padding }}>
       <div dangerouslySetInnerHTML={{ __html: this.md.render(this.props.mdContent) }
       } ></div >
     </div >

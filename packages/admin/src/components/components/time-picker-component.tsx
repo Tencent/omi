@@ -1,7 +1,8 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
-// import  '@omiu/time-picker'
-import '../../../../../components/time-picker/src/index'
+
+import  '@omiu/time-picker'
+
 import '../docs/admin-docs'
 import './code-demo'
 import './code-demo/container'

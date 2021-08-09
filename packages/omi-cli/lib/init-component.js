@@ -68,6 +68,7 @@ function init(args) {
           if (existsSync(join(dest, "package.json"))) {
 
             replaceSync(join(dest, "package.json"), {
+              files_to_be_replace: 'files',
               counter_to_be_replace: componentName,
             });
           }

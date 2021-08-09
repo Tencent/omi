@@ -1,5 +1,5 @@
 /**
- * Omi v6.21.3  http://omijs.org
+ * Omi v6.22.1  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -109,6 +109,14 @@
   var hyphenateRE = /\B([A-Z])/g;
   function hyphenate(str) {
     return str.replace(hyphenateRE, '-$1').toLowerCase();
+  }
+
+  function capitalize(name) {
+    return name.replace(/\-(\w)/g, function (all, letter) {
+      return letter.toUpperCase();
+    }).replace(/^\S/, function (s) {
+      return s.toUpperCase();
+    });
   }
 
   function getValByPath(path, current) {
@@ -955,9 +963,16 @@
     };
 
     WeElement.prototype.fire = function fire(name, data) {
-      this.dispatchEvent(new CustomEvent(name, {
-        detail: data
-      }));
+      var handler = this.props['on' + capitalize(name)];
+      if (handler) {
+        handler(new CustomEvent(name, {
+          detail: data
+        }));
+      } else {
+        this.dispatchEvent(new CustomEvent(name, {
+          detail: data
+        }));
+      }
     };
 
     WeElement.prototype.beforeInstall = function beforeInstall() {};
@@ -1536,7 +1551,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.21.3';
+  options.root.Omi.version = '6.22.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

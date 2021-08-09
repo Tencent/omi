@@ -29,6 +29,13 @@
     function hyphenate(str) {
         return str.replace(hyphenateRE, '-$1').toLowerCase();
     }
+    function capitalize(name) {
+        return name.replace(/\-(\w)/g, function(all, letter) {
+            return letter.toUpperCase();
+        }).replace(/^\S/, function(s) {
+            return s.toUpperCase();
+        });
+    }
     function getValByPath(path, current) {
         var arr = pathToArr(path);
         arr.forEach(function(prop) {
@@ -592,7 +599,10 @@
             }
         };
         WeElement.prototype.fire = function(name, data) {
-            this.dispatchEvent(new CustomEvent(name, {
+            var handler = this.props['on' + capitalize(name)];
+            if (handler) handler(new CustomEvent(name, {
+                detail: data
+            })); else this.dispatchEvent(new CustomEvent(name, {
                 detail: data
             }));
         };
@@ -914,7 +924,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.21.3';
+    options.root.Omi.version = '6.22.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

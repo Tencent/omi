@@ -103,8 +103,8 @@ export default class extends WeElement {
                 closable
                 type="card"
                 list={this.store.tabs}
-                onchange={this.onChange}
-                onremove={this.onRemove}
+                onChange={this.onChange}
+                onRemove={this.onRemove}
                 active-index={this.store.tabsActiveIndex}
               ></o-tabs>
             </div>

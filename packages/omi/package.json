@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.21.3",
+  "version": "6.22.1",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",

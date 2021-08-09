@@ -1,5 +1,8 @@
 import { getDocsList } from './components/docs/config'
-import { getIntroductionNode, getThemeNode } from './components/components/docs/config'
+import {
+  getIntroductionNode,
+  getThemeNode
+} from './components/components/docs/config'
 import { genId } from './util/id'
 
 export function genNavTree(localeMap, locale) {
@@ -52,10 +55,10 @@ export function genNavTree(localeMap, locale) {
           icon: 'list-alt'
         },
         {
-          label: localeMap.base.StepForm,
+          label: localeMap.base.StepsForm,
           expanded: true,
           id: genId(),
-          href: '#/step-form',
+          href: '#/steps-form',
           icon: 'list-alt'
         },
         {
@@ -130,7 +133,7 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.MaterialIcons,
           id: genId(),
-          href: '#/icon',
+          href: '#/icon'
           // icon: 'sentiment-satisfied-alt'
         },
         {
@@ -148,18 +151,20 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           href: '#/card-component'
         },
-        //待完善再显示
-        // {
-        //   label: localeMap.base.Slider,
-        //   id: genId(),
-        //   href: '#/slider-component'
-        // },
+        // 待完善再显示
+        {
+          label: localeMap.base.Slider,
+          id: genId(),
+          icon: 'ac-unit-outlined',
+          href: '#/slider-component'
+        },
 
         {
           label: localeMap.base.Progress,
-          id: 15,
-          href: '#/progress-component',
-        },
+          id: genId(),
+          icon: 'ac-unit-outlined',
+          href: '#/progress-component'
+        }
         // 待优化
         {
           label: localeMap.base.Timepicker,
@@ -219,13 +224,11 @@ export function genNavTree(localeMap, locale) {
       children: getDocsList(localeMap)
     },
 
-
-
     {
       label: localeMap.base.ManyThanksTo,
       id: genId(),
       href: '#/thanks',
       icon: 'people-alt'
-    },
+    }
   ]
 }

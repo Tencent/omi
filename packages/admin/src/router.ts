@@ -1,7 +1,6 @@
 import { route } from 'omi-router'
 
 export function registerRouting(rootEl) {
-
   route('/', () => {
     rootEl.update()
   })
@@ -42,7 +41,7 @@ export function registerRouting(rootEl) {
     //lazy load
     const md = rootEl.getMdByName(evt.params.name, rootEl.store.treeData)
     md.then((e) => {
-      rootEl.payload = { mdContent: e.default }
+      rootEl.payload = { mdContent: e.default, padding: 20 }
       import('./components/docs/admin-docs').then(() =>
         rootEl.transitionTo('admin-docs')
       )
@@ -63,10 +62,10 @@ export function registerRouting(rootEl) {
     )
   })
 
-  route('/step-form', () => {
+  route('/steps-form', () => {
     //lazy load
-    import('./components/step-form').then(() =>
-      rootEl.transitionTo('step-form')
+    import('./components/steps-form').then(() =>
+      rootEl.transitionTo('steps-form')
     )
   })
 
@@ -112,14 +111,12 @@ export function registerRouting(rootEl) {
     )
   })
 
-
   route('/time-picker-component', () => {
     //lazy load
     import('./components/components/time-picker-component').then(() =>
       rootEl.transitionTo('time-picker-component')
     )
   })
-
 
   route('/slider-component', () => {
     //lazy load
@@ -135,6 +132,13 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/tabs', () => {
+    //lazy load
+    import('./components/components/tabs-component').then(() =>
+      rootEl.transitionTo('tabs-component')
+    )
+  })
+
   route('/progress-component', () => {
     //lazy load
     import('./components/components/progress-component').then(() =>
@@ -142,13 +146,16 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/slider-component', () => {
+    //lazy load
+    import('./components/components/slider-component').then(() =>
+      rootEl.transitionTo('slider-component')
+    )
+  })
 
   route('/mind-map', () => {
     //lazy load
-    import('./components/mind-map').then(() =>
-      rootEl.transitionTo('mind-map')
-
-    )
+    import('./components/mind-map').then(() => rootEl.transitionTo('mind-map'))
   })
 
   route('/warning', () => {
