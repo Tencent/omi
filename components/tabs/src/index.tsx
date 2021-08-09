@@ -30,7 +30,7 @@ domReady.done = false
 
 @tag('o-tabs')
 export default class Tabs extends WeElement<Props>{
-  static css = css
+  static css = css.default
 
   static defaultProps = {
     position: 'top',
@@ -52,10 +52,6 @@ export default class Tabs extends WeElement<Props>{
   baseRect
   onTabClick = (evt, index) => {
     this.setActiveBar(evt.currentTarget, index)
-    this.fire('Change', {
-      tab: this.props.list[index],
-      index: index
-    })
     this.fire('change', {
       tab: this.props.list[index],
       index: index
@@ -103,10 +99,7 @@ export default class Tabs extends WeElement<Props>{
     this.forceUpdate()
 
     this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
-    this.fire('Remove', {
-      tab: tab,
-      index: index
-    })
+
     this.fire('remove', {
       tab: tab,
       index: index
@@ -119,7 +112,6 @@ export default class Tabs extends WeElement<Props>{
   }
 
   onAddIconClick() {
-    this.fire('AddIconClick')
     this.fire('add-icon-click')
   }
 
