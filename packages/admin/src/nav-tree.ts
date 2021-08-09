@@ -164,7 +164,7 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           icon: 'ac-unit-outlined',
           href: '#/progress-component'
-        }
+        },
         // 待优化
         {
           label: localeMap.base.Timepicker,
