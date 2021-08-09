@@ -161,7 +161,7 @@ export function genNavTree(localeMap, locale) {
 
         {
           label: localeMap.base.Progress,
-          id: 15,
+          id: genId(),
           icon: 'ac-unit-outlined',
           href: '#/progress-component'
         }
