@@ -63,10 +63,10 @@ export function registerRouting(rootEl) {
     )
   })
 
-  route('/step-form', () => {
+  route('/steps-form', () => {
     //lazy load
-    import('./components/step-form').then(() =>
-      rootEl.transitionTo('step-form')
+    import('./components/steps-form').then(() =>
+      rootEl.transitionTo('steps-form')
     )
   })
 

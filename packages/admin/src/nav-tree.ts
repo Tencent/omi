@@ -55,7 +55,7 @@ export function genNavTree(localeMap, locale) {
           label: localeMap.base.StepForm,
           expanded: true,
           id: genId(),
-          href: '#/step-form',
+          href: '#/steps-form',
           icon: 'list-alt'
         },
         {

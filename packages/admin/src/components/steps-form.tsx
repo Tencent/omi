@@ -7,14 +7,14 @@ import '@omiu/radio'
 import '@omiu/checkbox'
 import '@omiu/date-picker'
 import '@omiu/cascader'
-import '@omiu/step'
+import '@omiu/steps'
 import '@omiu/form'
 
 import '@omiu/icon/close'
 
 interface Props { }
 
-const tagName = 'step-form'
+const tagName = 'steps-form'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -68,15 +68,15 @@ export default class extends WeElement<Props> {
 
       <div class={tw`py-4 px-4`}>
         <div>
-          <o-step class={tw`py-4 px-4 border-b-1`} items={this.itemsA} />
+          <o-steps class={tw`py-4 px-4 border-b-1`} items={this.itemsA} />
         </div>
 
-        {/* <o-step items={this.itemsB} />
-        <o-step items={this.itemsC} />
+        {/* <o-steps items={this.itemsB} />
+        <o-steps items={this.itemsC} />
 
-        <o-step items={this.itemsA} vertical />
-        <o-step items={this.itemsB} vertical />
-        <o-step items={this.itemsC} vertical /> */}
+        <o-steps items={this.itemsA} vertical />
+        <o-steps items={this.itemsB} vertical />
+        <o-steps items={this.itemsC} vertical /> */}
 
         <o-form
           initialValues={{ name: '', email: '' }}
