@@ -157,8 +157,13 @@ export function genNavTree(localeMap, locale) {
 
         {
           label: localeMap.base.Progress,
-          id: 15,
+          id: genId(),
           href: '#/progress-component',
+        },
+        {
+          label: localeMap.base.Tabs,
+          id: genId(),
+          href: '#/tabs',
         },
         // 待优化
         // {

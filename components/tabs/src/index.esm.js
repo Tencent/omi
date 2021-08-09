@@ -1,5 +1,5 @@
 /**
- * @omiu/tabs v0.0.19 http://omijs.org
+ * @omiu/tabs v0.0.20 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,11 +27,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -758,7 +760,7 @@ var Tabs = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onTabClick = function (evt, index) {
             _this.setActiveBar(evt.currentTarget, index);
-            _this.fire('change', {
+            _this.fire('Change', {
                 tab: _this.props.list[index],
                 index: index
             });
@@ -806,7 +808,7 @@ var Tabs = /** @class */ (function (_super) {
         }
         this.forceUpdate();
         this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex);
-        this.fire('remove', {
+        this.fire('Remove', {
             tab: tab,
             index: index
         });
@@ -816,7 +818,7 @@ var Tabs = /** @class */ (function (_super) {
         this.forceUpdate();
     };
     Tabs.prototype.onAddIconClick = function () {
-        this.fire('add-icon-click');
+        this.fire('AddIconClick');
     };
     Tabs.prototype.render = function (props) {
         var _a, _b, _c, _d, _e;

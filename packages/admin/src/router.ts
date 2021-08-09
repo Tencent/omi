@@ -135,6 +135,13 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/tabs', () => {
+    //lazy load
+    import('./components/components/tabs-component').then(() =>
+      rootEl.transitionTo('tabs-component')
+    )
+  })
+
   route('/progress-component', () => {
     //lazy load
     import('./components/components/progress-component').then(() =>

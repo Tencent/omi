@@ -52,7 +52,7 @@ export default class Tabs extends WeElement<Props>{
   baseRect
   onTabClick = (evt, index) => {
     this.setActiveBar(evt.currentTarget, index)
-    this.fire('change', {
+    this.fire('Change', {
       tab: this.props.list[index],
       index: index
     })
@@ -99,7 +99,7 @@ export default class Tabs extends WeElement<Props>{
     this.forceUpdate()
 
     this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
-    this.fire('remove', {
+    this.fire('Remove', {
       tab: tab,
       index: index
     })
@@ -111,7 +111,7 @@ export default class Tabs extends WeElement<Props>{
   }
 
   onAddIconClick() {
-    this.fire('add-icon-click')
+    this.fire('AddIconClick')
   }
 
   _tempTagName: string
@@ -122,9 +122,9 @@ export default class Tabs extends WeElement<Props>{
       height: `40px`,
       transform: `translateY(${props.activeIndex * 40}px)`
     } : {
-      width: `${this._width}px`,
-      transform: `translateX(${this._x}px)`
-    }
+        width: `${this._width}px`,
+        transform: `translateX(${this._x}px)`
+      }
 
     return (
       <div {...extractClass(props, 'o-tabs', {
