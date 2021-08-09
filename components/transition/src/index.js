@@ -246,7 +246,7 @@ var Transition = /** @class */ (function (_super) {
         if (this.props.appear) {
             this.enter();
         }
-        else {
+        if (this.props.disappear) {
             this.leave();
         }
     };
@@ -343,6 +343,7 @@ var Transition = /** @class */ (function (_super) {
         leavingTime: Number,
         autoRemove: Boolean,
         appear: Boolean,
+        disappear: Boolean,
         delay: Number
     };
     Transition.isLightDom = true;

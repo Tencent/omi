@@ -22,6 +22,7 @@ interface Props {
   leavingTime?: number
   autoRemove?: boolean
   appear?: boolean
+  disappear?: boolean
   delay?: number
 }
 
@@ -33,6 +34,7 @@ export default class Transition extends WeElement<Props>{
     leavingTime: Number,
     autoRemove: Boolean,
     appear: Boolean,
+    disappear: Boolean,
     delay: Number
   }
 
@@ -62,9 +64,12 @@ export default class Transition extends WeElement<Props>{
   receiveProps() {
     if (this.props.appear) {
       this.enter()
-    } else {
+    }
+
+    if (this.props.disappear) {
       this.leave()
     }
+
   }
 
   async toggle() {
