@@ -43,7 +43,7 @@
     "@omiu/steps": "^0.0.3",
     "@omiu/switch": "^0.0.2",
     "@omiu/table": "^0.0.15",
-    "@omiu/tabs": "^0.0.20",
+    "@omiu/tabs": "^0.0.21",
     "@omiu/toast": "^0.0.8",
     "@omiu/tooltip": "0.0.1",
     "@omiu/transition": "^0.0.12",

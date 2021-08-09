@@ -56,6 +56,10 @@ export default class Tabs extends WeElement<Props>{
       tab: this.props.list[index],
       index: index
     })
+    this.fire('change', {
+      tab: this.props.list[index],
+      index: index
+    })
   }
 
   setActiveBar(ele, index) {
@@ -103,6 +107,10 @@ export default class Tabs extends WeElement<Props>{
       tab: tab,
       index: index
     })
+    this.fire('remove', {
+      tab: tab,
+      index: index
+    })
   }
 
   addTab(tab) {
@@ -112,6 +120,7 @@ export default class Tabs extends WeElement<Props>{
 
   onAddIconClick() {
     this.fire('AddIconClick')
+    this.fire('add-icon-click')
   }
 
   _tempTagName: string
