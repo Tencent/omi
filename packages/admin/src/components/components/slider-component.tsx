@@ -1,7 +1,7 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
-import '@omiu/slider'
 import '@omiu/input'
+import '@omiu/slider'
 import '../docs/admin-docs'
 import './code-demo'
 import './code-demo/container'
@@ -23,8 +23,8 @@ export default class extends WeElement<Props> {
 
   mdA = `
   \`\`\`html
-  <o-slider min="0" max="200" value="20"></o-slider>
-  <o-slider min="0" max="200" value="20" second_value="80" range="double"></o-slider>
+  <o-slider min="0" max="100" value="20"></o-slider>
+  <o-slider min="0" max="100" value="20" second_value="80" range="double"></o-slider>
   \`\`\`
   `
 
@@ -44,11 +44,12 @@ export default class extends WeElement<Props> {
 
   mdC = `
   \`\`\`
+  //!有bug，先disable掉, v0.08会修复
   <code-demo
   >
     <div>
-      <o-slider></o-slider>
-      <o-input onchange={this.handleChange}></o-input>
+      <o-slider onchange={handleChangeFunction}></o-slider>
+      <o-input onchange={handleChangeFunction}></o-input>
     </div>
   </code-demo>
   \`\`\`
@@ -63,12 +64,23 @@ export default class extends WeElement<Props> {
   \`\`\`
   `
 
+  mdE = `
+  \`\`\`html
+  <o-slider
+  tooltip
+  ...
+></o-slider>
+  \`\`\`
+  `
+
   value: number = 5
 
-  // handleChange = (evt) => {
-  //   this.value = evt.detail[0]
-  //   this.update()
-  // }
+  handleChange = (evt) => {
+    console.log(evt.detail)
+
+    this.value = evt.detail
+    this.updateSelf()
+  }
 
   render() {
     return (
@@ -82,14 +94,14 @@ export default class extends WeElement<Props> {
           >
             <o-slider
               min="0"
-              max="200"
+              max="100"
               value="20"
               slot="demo"
               class={tw`p-5`}
             ></o-slider>
             <o-slider
               min="0"
-              max="200"
+              max="100"
               value="20"
               second_value="80"
               range="double"
@@ -98,46 +110,84 @@ export default class extends WeElement<Props> {
             ></o-slider>
           </code-demo>
           <code-demo title="垂直" describe="支持使滑块垂直" code={this.mdB}>
-            <div slot="demo">
+            <div
+              slot="demo"
+              style={{
+                height: '600px'
+              }}
+            >
               <o-slider
+                min="0"
+                max="100"
+                value="20"
                 orient="vertical"
-                style={{ height: '500px', position: 'relative', top: '230px' }}
+                style={{ position: 'relative', right: '30%', top: '45%' }}
               ></o-slider>
               <o-slider
-                orient="vertical"
+                min="0"
+                max="100"
+                value="20"
+                second_value="100"
                 range="double"
-                style={{ height: '500px', position: 'relative', top: '230px' }}
+                orient="vertical"
+                style={{ position: 'relative', left: '30%', top: '37%' }}
               ></o-slider>
             </div>
           </code-demo>
-          {/* <code-demo
+          <code-demo
             title="带输入框的滑块"
             describe="支持与o-input保持同步"
             code={this.mdC}
           >
             <div slot="demo" class={tw`flex p-5`}>
               <o-slider
+                min="0"
+                max="100"
                 value={this.value}
                 class={tw`w-4/5`}
-                onchange={this.handleChange}
+                oninput={this.handleChange}
+                disabled
               ></o-slider>
               <o-input
                 class={tw`pl-5`}
                 value={this.value}
                 oninput={this.handleChange}
+                disabled
               ></o-input>
             </div>
-          </code-demo> */}
+          </code-demo>
           <code-demo
             title="不可用"
             describe="支持使滑块处于不可用状态"
             code={this.mdD}
           >
             <o-slider
+              min="0"
+              max="100"
               disabled
               value="20"
               slot="demo"
               class={tw`p-5`}
+            ></o-slider>
+          </code-demo>
+          <code-demo title="ToolTip" describe="支持ToolTip" code={this.mdE}>
+            <o-slider
+              min="0"
+              max="100"
+              value="20"
+              tooltip
+              slot="demo"
+              class={tw`mt-5 p-5`}
+            ></o-slider>
+            <o-slider
+              min="0"
+              max="100"
+              value="20"
+              second_value="100"
+              range="double"
+              tooltip
+              slot="demo"
+              class={tw`mt-5 p-5`}
             ></o-slider>
           </code-demo>
         </code-demo-container>

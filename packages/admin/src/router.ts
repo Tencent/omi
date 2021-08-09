@@ -1,7 +1,6 @@
 import { route } from 'omi-router'
 
 export function registerRouting(rootEl) {
-
   route('/', () => {
     rootEl.update()
   })
@@ -112,14 +111,12 @@ export function registerRouting(rootEl) {
     )
   })
 
-
   route('/time-picker-component', () => {
     //lazy load
     import('./components/components/time-picker-component').then(() =>
       rootEl.transitionTo('time-picker-component')
     )
   })
-
 
   route('/slider-component', () => {
     //lazy load
@@ -149,13 +146,16 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/slider-component', () => {
+    //lazy load
+    import('./components/components/slider-component').then(() =>
+      rootEl.transitionTo('slider-component')
+    )
+  })
 
   route('/mind-map', () => {
     //lazy load
-    import('./components/mind-map').then(() =>
-      rootEl.transitionTo('mind-map')
-
-    )
+    import('./components/mind-map').then(() => rootEl.transitionTo('mind-map'))
   })
 
   route('/warning', () => {
