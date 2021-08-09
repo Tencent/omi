@@ -57,29 +57,21 @@ export default class extends WeElement<Props> {
   }
 
   goNotification = () => {
-    const notificationTab = {
-      "label": "通知中心",
-      "closeable": false,
-      "id": 29,
-      "href": "#/notification-list"
-    }
-    const tab = this.store.tabs.find((tab) => tab.id === notificationTab.id)
+    // header-tabs是否存在‘通知中心’，存在则tab为Object
+    const tab = this.store.tabs.find((tab) => tab.label === '通知中心')
 
     // 如果tab栏无通知中心，则store push
     if (tab) {
       this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+      this.store.selectTreeNodeById(tab.id)
+      location.hash = tab.href
     } else {
-      this.store.tabs.push({
-        "label": "通知中心",
-        "closeable": false,
-        "id": 29,
-        "href": "#/notification-list"
-      })
+      const notificationTab = this.store.treeData.find((item) => item.label === '管理者工作台').children.find((item) => item.label === '通知中心')
+      this.store.tabs.push(notificationTab)
       this.store.tabsActiveIndex = this.store.tabs.length - 1
+      this.store.selectTreeNodeById(notificationTab.id)
+      location.hash = notificationTab.href
     }
-
-    this.store.selectTreeNodeById(notificationTab.id)
-    location.hash = notificationTab.href
   }
 
   render() {
