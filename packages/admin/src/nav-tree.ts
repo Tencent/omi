@@ -155,14 +155,12 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Slider,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/slider-component'
         },
 
         {
           label: localeMap.base.Progress,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/progress-component'
         },
         // 待优化
