@@ -117,17 +117,6 @@ export default class extends WeElement<Props> {
           </div>
         </code-demo>
 
-        <code-demo class={tw``} title="不同主题" describe="size可以设置为'medium'，'small'，'mini'" code={this.mdB}>
-          <div slot="demo" class={tw`px-5 py-5`}>
-            <o-time-picker id="dark" theme="dark" ></o-time-picker>
-            <o-time-picker id="light" theme="light" ></o-time-picker>
-          </div>
-        </code-demo>
-        {/* <code-demo class={tw``} title="不同主题" describe="size可以设置为'medium'，'small'，'mini'" code={this.mdB}>
-          <div slot="demo" class={tw`px-5 py-5`}>
-            <o-time-picker theme="light" ></o-time-picker>
-          </div>
-        </code-demo> */}
       </code-demo-container>
     )
   }
