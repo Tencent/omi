@@ -65,7 +65,6 @@ export default class StyleLoader {
   isThemeLoaded(): boolean {
     // special theme value to prevent any loading of styles
     if (this.theme === FlatpickrTheme.none) return true;
-
     const styleSheetSources: Array<string | null> = Array.from(document.styleSheets).map(ss => ss.href);
     return styleSheetSources.some(sss => sss != null && new RegExp(themeUrlPrefix).test(sss));
   }
@@ -75,6 +74,8 @@ export default class StyleLoader {
     styleElem.rel = 'stylesheet';
     styleElem.type = 'text/css';
     styleElem.href = themeUrl;
+    //console.log(this.theme)
+    //console.log(styleElem)
     document.head.append(styleElem);
   }
 }

@@ -161,11 +161,11 @@ export function genNavTree(localeMap, locale) {
           href: '#/progress-component',
         },
         // 待优化
-        // {
-        //   label: localeMap.base.Timepicker,
-        //   id: genId(),
-        //   href: '#/time-picker-component',
-        // }
+        {
+          label: localeMap.base.Timepicker,
+          id: genId(),
+          href: '#/time-picker-component',
+        }
       ]
     },
     {
