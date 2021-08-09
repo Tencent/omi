@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OMI InputNumber</title>
+</head>
+
+  <body>
+    <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+      <img src="//alloyteam.github.io/github.png" alt="">
+    </a>
+    <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+    <script src="../../../common//src/index.js"></script>
+    <script src="../../src/index.js"></script>
+    <style>
+      o-input-number {
+        margin-top: 10px;
+      }
+      body{
+        margin: 0 0 50px 50px;
+      }
+      h3{
+        font-weight: 400;
+      }
+    </style>
+    <h2>InputNumber计数器</h2>
+    <h3>基础用法：max=10 min=1</h3>
+    <div>
+      <o-input-number min=1 max=10></o-input-number>
+    </div>
+    <h3>禁用状态</h3>
+    <div>
+      <o-input-number disabled='true'></o-input-number>
+    </div>
+    <h3>步数：step=2</h3>
+    <div>
+      <o-input-number step=2></o-input-number>
+    </div>
+    <h3>严格步数：strictly='true' step=2</h3>
+    <div>
+      <o-input-number step=2 strictly='true' ></o-input-number>
+    </div>
+    <h3>精度：precision=2 step=0.01</h3>
+    <div>
+      <o-input-number precision=2 step=0.01></o-input-number>
+    </div>
+    <h3>尺寸：medium | small | mini</h3>
+    <div>
+      <o-input-number size='medium'></o-input-number>
+      <o-input-number size='small' step=2></o-input-number>
+      <o-input-number size='mini'></o-input-number>
+    </div>
+    <h3>样式2：style='right'</h3>
+    <div>
+      <o-input-number style='right'></o-input-number>
+      <o-input-number style='right' size='small'></o-input-number>
+      <o-input-number style='right' size='mini'></o-input-number>
+    </div>
+    <h3>样式3：style='left'</h3>
+    <div>
+      <o-input-number style='left'></o-input-number>
+      <o-input-number style='left' size='small'></o-input-number>
+      <o-input-number style='left' size='mini'></o-input-number>
+    </div>
+  </body>
+
+</html>
