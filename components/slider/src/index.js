@@ -3114,6 +3114,7 @@ var OSlider = /** @class */ (function (_super) {
         var host = this.shadowRoot.host;
         this.props.orient === 'vertical' &&
             (host.style.transform = 'rotate(-90deg)');
+        this.props.reversed && (host.style.transform = 'rotate(180deg)');
     };
     OSlider.prototype.beforeUpdate = function () {
         if (this.__$value1 > this.__$value2 && this.props.range === 'double') {
@@ -3131,7 +3132,6 @@ var OSlider = /** @class */ (function (_super) {
             'is-vertical': props.orient === 'vertical',
             'is-round': props.shape === 'round',
             'is-disabled': props.disabled,
-            'is-reversed': props.reversed,
         });
         return (omi_1.h("div", __assign({}, cls, { ref: function (e) {
                 _this.rootNode = e;
@@ -3173,6 +3173,7 @@ var OSlider = /** @class */ (function (_super) {
         shape: 'round',
         tooltip: false,
         disabled: false,
+        reversed: false,
     };
     OSlider.propTypes = {
         min: Number,
@@ -3185,6 +3186,7 @@ var OSlider = /** @class */ (function (_super) {
         shape: String,
         tooltip: Boolean,
         disabled: Boolean,
+        reversed: Boolean,
     };
     OSlider.css = css;
     OSlider = __decorate([

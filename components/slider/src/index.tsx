@@ -14,6 +14,7 @@ interface Props {
   shape: 'square' | 'round'
   tooltip?: boolean
   disabled?: boolean
+  reversed?: boolean
 }
 
 @tag('o-slider')
@@ -30,6 +31,7 @@ export default class OSlider extends WeElement<Props> {
     shape: 'round',
     tooltip: false,
     disabled: false,
+    reversed: false,
   }
 
   static propTypes = {
@@ -43,6 +45,7 @@ export default class OSlider extends WeElement<Props> {
     shape: String,
     tooltip: Boolean,
     disabled: Boolean,
+    reversed: Boolean,
   }
 
   static css = css
@@ -80,6 +83,7 @@ export default class OSlider extends WeElement<Props> {
     let host = this.shadowRoot.host as HTMLElement
     this.props.orient === 'vertical' &&
       (host.style.transform = 'rotate(-90deg)')
+    this.props.reversed && (host.style.transform = 'rotate(180deg)')
   }
 
   _onGetValue = () => {
@@ -128,7 +132,6 @@ export default class OSlider extends WeElement<Props> {
       this.fire('input', [this.__$value1, this.__$value2])
     }
     this.fillColor(this.lowerColor, this.upperColor)
-
     this.update()
   }
 
@@ -171,7 +174,6 @@ export default class OSlider extends WeElement<Props> {
       'is-vertical': props.orient === 'vertical',
       'is-round': props.shape === 'round',
       'is-disabled': props.disabled,
-      'is-reversed': props.reversed,
     })
 
     return (
