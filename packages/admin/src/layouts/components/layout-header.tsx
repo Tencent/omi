@@ -58,7 +58,7 @@ export default class extends WeElement<Props> {
 
   goNotification = () => {
     // header-tabs是否存在‘通知中心’，存在则tab为Object
-    const tab = this.store.tabs.find((tab) => tab.label === '通知中心')
+    const tab = this.store.tabs.find((tab) => tab.label === this.store.localeMap.base.NotificationList)
 
     // 如果tab栏无通知中心，则store push
     if (tab) {
@@ -66,12 +66,30 @@ export default class extends WeElement<Props> {
       this.store.selectTreeNodeById(tab.id)
       location.hash = tab.href
     } else {
-      const notificationTab = this.store.treeData.find((item) => item.label === '管理者工作台').children.find((item) => item.label === '通知中心')
+      const notificationTab = this.store.treeData.find((item) => item.label === this.store.localeMap.base.ManagerWorkbench).children.find((item) => item.label === this.store.localeMap.base.NotificationList)
       this.store.tabs.push(notificationTab)
       this.store.tabsActiveIndex = this.store.tabs.length - 1
       this.store.selectTreeNodeById(notificationTab.id)
       location.hash = notificationTab.href
     }
+  }
+
+  goPersonalCenter = () => {
+    // 待页面搭建完成后开放
+    // const tab = this.store.tabs.find((tab) => tab.label === this.store.localeMap.base.PersonalCenter)
+
+    // if (tab) {
+    //   this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+    //   this.store.selectTreeNodeById(tab.id)
+    //   location.hash = tab.href
+    // } else {
+    //   const PersonalCenterTab = this.store.treeData.find((item) => item.label === this.store.localeMap.base.ManagerWorkbench).children.find((item) => item.label === this.store.localeMap.base.PersonalCenter)
+    //   this.store.tabs.push(PersonalCenterTab)
+    //   this.store.tabsActiveIndex = this.store.tabs.length - 1
+    //   this.store.selectTreeNodeById(PersonalCenterTab.id)
+    //   location.hash = PersonalCenterTab.href
+    //   console.log(this.store)
+    // }
   }
 
   render() {
@@ -118,14 +136,14 @@ export default class extends WeElement<Props> {
             <o-badge onClick={(e) => this.goNotification()}
               content="99"
               class={tw`flex-row cursor-pointer hidden md:block`}>
-              <a ><o-icon-notifications ></o-icon-notifications></a>
+              <o-icon-notifications ></o-icon-notifications>
             </o-badge>
 
             <o-icon-settings class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-settings>
 
             <a href="https://github.com/Tencent/omi" target="_blank" class={tw`flex-row`}><o-icon-git-hub ></o-icon-git-hub></a>
 
-            <o-avatar
+            <o-avatar onClick={(e) => this.goPersonalCenter()}
               class={tw`flex-row cursor-pointer`}
               src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png">
             </o-avatar>
