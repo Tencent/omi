@@ -68,9 +68,8 @@ function init(args) {
           if (existsSync(join(dest, "package.json"))) {
 
             replaceSync(join(dest, "package.json"), {
+              files_to_be_replace: 'files',
               counter_to_be_replace: componentName,
-              //写成 file npm publish omi-cli 会丢失文件
-              files_to_be_replace: "files"
             });
           }
 

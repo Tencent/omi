@@ -20,12 +20,12 @@ export const base = {
   Toast: 'Toast',
   Card: 'Card',
   Slider: 'Slider',
-  Progress:'Progress',
+  Progress: 'Progress',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
 
-  Timepicker:'Time-picker',
+  Timepicker: 'Time Picker',
 
   MindMap: 'Mind Map',
   ManyThanksTo: 'Many Thanks To',
@@ -37,11 +37,15 @@ export const base = {
   PermissionDenied: 'Permission Denied',
   ServerError: 'Server Error',
   MasonryList: 'Masonry List',
+  NotificationList: 'NotificationList',
 
   Introduction: 'Introduction',
   CustomTheme: 'Custom Theme',
 
-  StepForm: 'Step Form'
+  StepsForm: 'Steps Form',
+
+  Button: 'Button',
+  Tabs: 'Tabs'
 
 
 }

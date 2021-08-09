@@ -1,5 +1,7 @@
 import { WeElement } from 'omi'
 import { genNavTree } from './nav-tree'
+import { getNotifications } from './notifications'
+import { resetId } from './util/id'
 
 interface treeNode {
   id: number
@@ -40,6 +42,13 @@ class Store {
   }[]
   tabsActiveIndex: number
   treeData: treeNode[]
+  notifications: {
+    id: number
+    content?: string
+    category?: string
+    time?: string
+    status: number
+  }[]
 
   constructor(options) {
     this.themeColor = '#07c160'
@@ -69,12 +78,15 @@ class Store {
       ]
 
       this.tabsActiveIndex = 0
+
+      this.notifications = getNotifications()
     })
 
     this.isInstalled = false
   }
 
   setLocals(locale, callback?) {
+    resetId()
     this.locale = locale
     import(`./l10n/${locale}/base.ts`).then((localeMap) => {
       this.localeMap = localeMap

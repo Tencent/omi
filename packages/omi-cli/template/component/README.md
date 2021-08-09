@@ -1,4 +1,4 @@
-## Counter
+# Counter
 
 > Counter
 
@@ -16,7 +16,7 @@ npm start
 
 ## Preview
 
-```
+```bash
 //html mode demo
 http://localhost:3000
 
@@ -26,8 +26,6 @@ http://localhost:3000/demo.html
 
 ## Release
 
-```
+```bash
 npm run build
 ```
-
-

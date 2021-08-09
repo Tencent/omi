@@ -9,14 +9,11 @@ export function genNavTree(localeMap, locale) {
   return [
     {
       label: localeMap.base.ManagerWorkbench,
-      sign: '●',
       expanded: true,
       id: genId(),
-      icon: 'ac-unit-outlined',
-
       children: [
         {
-          sign: 'M',
+          sign: '💗',
           label: localeMap.base.WelcomePage,
           icon: 'emoji-people',
           color: '#07c160',
@@ -58,15 +55,15 @@ export function genNavTree(localeMap, locale) {
           icon: 'list-alt'
         },
         {
-          label: localeMap.base.StepForm,
+          label: localeMap.base.StepsForm,
           expanded: true,
           id: genId(),
-          href: '#/step-form',
+          href: '#/steps-form',
           icon: 'list-alt'
         },
         {
           label: localeMap.base.MarkdownEditor,
-          icon: 'grid-on',
+          icon: 'edit',
           href: '#/md-editor',
           id: genId()
         },
@@ -76,6 +73,13 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           href: '#/masonry-list',
           icon: 'dashboard'
+        },
+        {
+          label: localeMap.base.NotificationList,
+          expanded: true,
+          id: genId(),
+          href: '#/notification-list',
+          icon: 'notifications'
         }
       ]
     },
@@ -83,37 +87,31 @@ export function genNavTree(localeMap, locale) {
       label: localeMap.base.Results,
       expanded: true,
       id: genId(),
-      icon: 'ac-unit-outlined',
 
       children: [
         {
           label: localeMap.base.BrowserIncompatible,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/results/browser-incompatible'
         },
         {
           label: localeMap.base.NetworkError,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/results/network-error'
         },
         {
           label: localeMap.base.NotFound,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/results/not-found'
         },
         {
           label: localeMap.base.PermissionDenied,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/results/permission-denied'
         },
         {
           label: localeMap.base.ServerError,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/results/server-error'
         }
       ]
@@ -122,14 +120,18 @@ export function genNavTree(localeMap, locale) {
       label: localeMap.base.Components,
       expanded: true,
       id: genId(),
-      icon: 'ac-unit-outlined',
 
       children: [
         getIntroductionNode(locale, localeMap),
         getThemeNode(locale, localeMap),
         {
+          label: localeMap.base.Button,
+          id: genId(),
+          href: '#/button',
+          // icon: 'sentiment-satisfied-alt'
+        },
+        {
           label: localeMap.base.MaterialIcons,
-          expanded: true,
           id: genId(),
           href: '#/icon'
           // icon: 'sentiment-satisfied-alt'
@@ -137,19 +139,16 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Loading,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/loading-component'
         },
         {
           label: localeMap.base.Toast,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/toast-component'
         },
         {
           label: localeMap.base.Card,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/card-component'
         },
         // 待完善再显示
@@ -170,7 +169,6 @@ export function genNavTree(localeMap, locale) {
         // {
         //   label: localeMap.base.Timepicker,
         //   id: genId(),
-        //   icon: 'ac-unit-outlined',
         //   href: '#/time-picker-component',
         // }
       ]
@@ -180,7 +178,6 @@ export function genNavTree(localeMap, locale) {
       sign: '●',
       expanded: true,
       id: genId(),
-      icon: 'ac-unit-outlined',
       children: [
         {
           sign: '90020',
@@ -224,7 +221,6 @@ export function genNavTree(localeMap, locale) {
       label: localeMap.base.MarkdownDocs,
       expanded: true,
       id: genId(),
-      icon: 'ac-unit-outlined',
       children: getDocsList(localeMap)
     },
 

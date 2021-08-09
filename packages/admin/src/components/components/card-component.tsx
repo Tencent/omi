@@ -11,7 +11,7 @@ import '../docs/admin-docs'
 import './code-demo'
 import './code-demo/container'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'card-component'
 declare global {
@@ -135,11 +135,11 @@ export default class extends WeElement<Props> {
   \`\`\`
   `
 
-  installed() {}
+  installed() { }
 
   render() {
     // const gridItem = tw`px-2 w-full md:w-6/12`
-    const gridStyle = { breakInside: 'avoid', padding: '0 0 1rem 0' }
+    const gridStyle = { breakInside: 'avoid', padding: '0 0 0 0' }
 
     return (
       <code-demo-container>

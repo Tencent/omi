@@ -25,6 +25,7 @@ import '@omiu/icon/ac-unit'
 import '@omiu/icon/people-alt'
 import '@omiu/icon/pie-chart'
 import '@omiu/transition'
+import '@omiu/icon/edit'
 
 import './index.css'
 

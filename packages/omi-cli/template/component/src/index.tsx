@@ -3,7 +3,7 @@ import { tag, h, WeElement, OverwriteProps } from 'omi'
 import * as css from './index.scss'
 
 export type Attrs = {
-  count?: number,
+  count?: number
   onCountChanged?: (evt: CustomEvent) => void
 }
 
@@ -16,12 +16,10 @@ declare global {
   }
 }
 
-
 export type Props = OverwriteProps<Attrs, { count: number }>
 
 @tag(tagName)
 export default class Counter extends WeElement<Props> {
-
   static css = css.default ? css.default : css
 
   static defaultProps = {
@@ -57,4 +55,3 @@ export default class Counter extends WeElement<Props> {
     )
   }
 }
-

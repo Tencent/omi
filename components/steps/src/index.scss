@@ -1,0 +1,189 @@
+@import "../node_modules/@omiu/common/theme.scss";
+
+
+:host {
+  display: block;
+}
+
+.o-steps {
+	width: 100%;
+	display: flex;
+	white-space: nowrap;
+}
+
+.o-steps.vertical{
+  flex-direction: column;
+}
+
+.vertical ._item {
+  display: block;
+  flex: 1 0 auto;
+  padding-left: 0;
+  overflow: visible;
+}
+
+o-icon-done{
+  color: $o-primary
+}
+
+o-icon-clear{
+  color: $o-danger
+}
+
+*, *::before, *::after {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+._item-icon {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 32px;
+  font-size: 16px;
+  margin-right: 8px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+._item-content {
+  display: inline-block;
+  position: relative;
+	top: 5px;
+	vertical-align: top;
+}
+
+._item-finish ._item-icon {
+  border-color: $o-primary;
+  background-color: #fff;
+}
+
+
+._item-process ._item-icon {
+  color: white;
+  border-color: $o-primary;
+  background-color: $o-primary;
+}
+
+
+._item-wait  {
+  color:rgba(0, 0, 0, 0.45);
+}
+
+
+._item-block ._item-icon {
+  border-color: $o-danger;
+  background-color: #fff;
+}
+
+
+._item-block  {
+  color:$o-danger;
+}
+
+._item-block ._item-description {
+  color: $o-danger;
+}
+
+._item-description {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 13px;
+}
+
+
+._item-finish>._item-content>._item-title:after {
+  background-color: $o-primary;
+}
+
+._item.next-error ._item-title:after {
+  background: $o-danger;
+}
+
+._item-title:after {
+  content: '';
+  height: 1px;
+  width: 9999px;
+  background: #e8e8e8;
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 100%;
+}
+
+._item {
+  position: relative;
+  display: inline-block;
+  flex:1;
+	overflow: hidden;
+	vertical-align: top;
+	height: 60px;
+	margin-right: 16px;
+	white-space: nowrap;
+}
+
+._item:last-child ._item-title:after {
+  display: none;
+}
+
+._item-title {
+  position: relative;
+  display: inline-block;
+  padding-right: 16px;
+}
+
+.vertical ._item {
+	display: block;
+	overflow: visible;
+}
+
+.vertical ._item-tail::after {
+	display: inline-block;
+	background: #e8e8e8;
+	border-radius: 1px;
+	-webkit-transition: background .3s;
+	transition: background .3s;
+	content: '';
+	width: 1px;
+	height: 100%;
+}
+
+.vertical ._item-finish ._item-tail::after {
+	background: $o-primary;
+}
+
+
+.vertical .next-error ._item-tail::after {
+	background: $o-danger;
+}
+
+.vertical ._item-title:after{
+	display: none;
+}
+
+.vertical>._item:not(:last-child)>._item-tail {
+	display: block;
+}
+
+.vertical>._item>._item-tail {
+	position: absolute;
+	top: 0px;
+	left: 16px;
+	width: 1px;
+	height: 100%;
+	padding: 38px 0 6px;
+}
+
+._item-tail {
+	position: absolute;
+	top: 12px;
+	left: 0;
+	width: 100%;
+	padding: 0 10px;
+	display: none;
+}
+
+.vertical>_item:not(:last-child)>._item-tail {
+	display: block;
+}

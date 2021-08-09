@@ -8,12 +8,13 @@
   "types": "types/index.d.ts",
   "scripts": {
     "start": "yarn watch & vite",
-    "dev": "yarn watch & vite",
+    "dev": "yarn start",
     "build": "vite build && yarn build:scss",
     "build:demo": "vite build",
     "build:scss": "sass src/index.scss src/index.css",
     "watch": "sass --watch src/index.scss src/index.css --no-source-map",
-    "test": "npm run build && web-test-runner \"test/*.js\" --node-resolve"
+    "pretest": "yarn build",
+    "test": "web-test-runner \"test/*.js\" --node-resolve"
   },
   "files_to_be_replace": [
     "dist",
@@ -25,12 +26,11 @@
   },
   "devDependencies": {
     "@open-wc/testing": "^2.5.33",
-    "@types/node": "^16.4.7",
-    "@web/test-runner": "^0.13.13",
-    "node-watch": "^0.7.1",
-    "sass": "^1.36.0",
-    "typescript": "^4.3.2",
-    "vite": "^2.4.3"
+    "@types/node": "^16.4.13",
+    "@web/test-runner": "^0.13.15",
+    "sass": "^1.37.5",
+    "typescript": "^4.3.5",
+    "vite": "^2.4.4"
   },
   "license": "MIT",
   "keywords": [

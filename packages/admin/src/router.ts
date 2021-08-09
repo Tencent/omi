@@ -41,7 +41,7 @@ export function registerRouting(rootEl) {
     //lazy load
     const md = rootEl.getMdByName(evt.params.name, rootEl.store.treeData)
     md.then((e) => {
-      rootEl.payload = { mdContent: e.default }
+      rootEl.payload = { mdContent: e.default, padding: 20 }
       import('./components/docs/admin-docs').then(() =>
         rootEl.transitionTo('admin-docs')
       )
@@ -62,10 +62,10 @@ export function registerRouting(rootEl) {
     )
   })
 
-  route('/step-form', () => {
+  route('/steps-form', () => {
     //lazy load
-    import('./components/step-form').then(() =>
-      rootEl.transitionTo('step-form')
+    import('./components/steps-form').then(() =>
+      rootEl.transitionTo('steps-form')
     )
   })
 
@@ -122,6 +122,20 @@ export function registerRouting(rootEl) {
     //lazy load
     import('./components/components/slider-component').then(() =>
       rootEl.transitionTo('slider-component')
+    )
+  })
+
+  route('/button', () => {
+    //lazy load
+    import('./components/components/button-component').then(() =>
+      rootEl.transitionTo('button-component')
+    )
+  })
+
+  route('/tabs', () => {
+    //lazy load
+    import('./components/components/tabs-component').then(() =>
+      rootEl.transitionTo('tabs-component')
     )
   })
 
@@ -190,6 +204,13 @@ export function registerRouting(rootEl) {
     //lazy load
     import('./components/masonry-list').then(() =>
       rootEl.transitionTo('masonry-list')
+    )
+  })
+
+  route('/notification-list', () => {
+    //lazy load
+    import('./components/notification/notification-list').then(() =>
+      rootEl.transitionTo('notification-list')
     )
   })
 

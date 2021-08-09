@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omiu</title>
+  <script type="module" src="/src/index.tsx"></script>
+</head>
+
+<body>
+  <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
+
+  <o-tabs list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <o-tabs type="card" list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <o-tabs addable list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <o-tabs addable type="card" list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <o-tabs type="border-card" list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <br>
+  <o-tabs position="right" list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+
+  <br>
+  <o-tabs position="left" list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <br>
+  <o-tabs type="border-card" position="bottom" list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <br>
+  <o-tabs
+    list="[{label:'用户管理', icon:'accessible-rounded'},{label:'系统设置', icon:'ac-unit-outlined'},{label:'权限管理中心', icon:'accessible-rounded'}]"
+    active-index="0">
+  </o-tabs>
+
+
+  <br>
+  <o-tabs closable
+    list="[{label:'用户管理', icon:'accessible-rounded'},{label:'系统设置', icon:'ac-unit-outlined'},{label:'权限管理中心', icon:'accessible-rounded'}]"
+    active-index="0">
+  </o-tabs>
+  <br>
+  <o-tabs closable list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" active-index="0">
+  </o-tabs>
+
+  <!--
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../../common//src/index.js"></script>
+  <script src="../../src/index.js"></script>
+  <script src="../../../icon/ac-unit-outlined.js"></script>
+  <script src="../../../icon/accessible-rounded.js"></script> -->
+
+
+</body>
+
+</html>
