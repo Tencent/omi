@@ -32,7 +32,7 @@ export default class extends WeElement<Props> {
   store
 
   render() {
-    const formItemClass = tw`leading-8 mb-2`
+    const formItemClass = tw`leading-8 mb-0`
     const lableClass = tw`w-16 float-left align-middle`
 
     return (
@@ -106,9 +106,25 @@ export default class extends WeElement<Props> {
               </div>
             </div>
 
+
+            <div class={formItemClass}>
+              <label class={lableClass} >喜爱水果</label>
+              <div class={tw`leading-8 ml-16`}>
+                <o-select
+                  block
+                  size="small"
+                  multiple
+                  placeholder="选择多个水果"
+                  items={this.fruits}
+                ></o-select>
+                <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+              </div>
+            </div>
+
+
             <div class={formItemClass}>
               <label class={lableClass} >出生日期</label>
-              <div class={tw`leading-8 ml-10`}>
+              <div class={tw`leading-8 ml-16`}>
                 <o-date-picker
                   size="small"
                   locale={this.store.locale}>
@@ -116,6 +132,15 @@ export default class extends WeElement<Props> {
                 <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
               </div>
             </div>
+
+            <div class={formItemClass}>
+              <label class={lableClass} >大学时光</label>
+              <div class={tw`leading-8 ml-16`}>
+                <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
+                <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
+              </div>
+            </div>
+
 
             <div class={formItemClass}>
               <label class={lableClass} >是否结婚</label>
@@ -128,7 +153,7 @@ export default class extends WeElement<Props> {
 
             <div class={formItemClass}>
               <label class={lableClass} >喜爱水果</label>
-              <div class={tw`leading-8 ml-10`}>
+              <div class={tw`leading-8 ml-16`}>
                 <o-checkbox class={tw``} label='苹果🍎'> </o-checkbox>
                 <o-checkbox class={tw` ml-6`} label='草莓🍓'> </o-checkbox>
                 <o-checkbox class={tw` ml-6`} label='葡萄🍇'> </o-checkbox>
@@ -142,7 +167,7 @@ export default class extends WeElement<Props> {
 
             <div class={formItemClass}>
               <label class={lableClass} >级联选择</label>
-              <div class={tw`leading-8 ml-10`}>
+              <div class={tw`leading-8 ml-16`}>
                 <o-cascader size="small" options={[
                   {
                     value: 'components',
@@ -208,30 +233,6 @@ export default class extends WeElement<Props> {
                   }
                 ]}> </o-cascader>
                 <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
-              </div>
-            </div>
-
-            <div class={formItemClass}>
-              <label class={lableClass} >喜爱水果</label>
-              <div class={tw`leading-8 ml-10`}>
-                <o-select
-                  css={`
-                .o-select .o-input__inner {
-                  width: 257px;
-                `}
-                  size="small"
-                  multiple
-                  placeholder="选择多个水果"
-                  items={this.fruits}
-                ></o-select>
-                <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
-              </div>
-            </div>
-
-            <div class={formItemClass}>
-              <label class={lableClass} >大学时光</label>
-              <div class={tw`leading-8 ml-10`}>
-                <o-date-picker width="256px" mode="range" size="small" locale={this.store.locale}> </o-date-picker>
               </div>
             </div>
 
