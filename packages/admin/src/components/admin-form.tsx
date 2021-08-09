@@ -60,7 +60,7 @@ export default class extends WeElement<Props> {
           onSubmit,
           onBlur
         }) => (
-          <div style={{ width: '660px' }} class={tw`text-sm px-10 py-10 text-gray-500`}>
+          <div style={{ maxWidth: '660px' }} class={tw`text-sm px-10 py-10 text-gray-500 w-full`}>
 
             <div class={formItemClass}>
               <label class={lableClass} >用户姓名</label>
@@ -154,12 +154,12 @@ export default class extends WeElement<Props> {
             <div class={formItemClass}>
               <label class={lableClass} >喜爱水果</label>
               <div class={tw`leading-8 ml-16`}>
-                <o-checkbox class={tw``} label='苹果🍎'> </o-checkbox>
-                <o-checkbox class={tw` ml-6`} label='草莓🍓'> </o-checkbox>
-                <o-checkbox class={tw` ml-6`} label='葡萄🍇'> </o-checkbox>
-                <o-checkbox class={tw` ml-6`} label='香蕉🍌'> </o-checkbox>
-                <o-checkbox class={tw` ml-6`} label='梨子🍐'> </o-checkbox>
-                <o-checkbox class={tw` ml-6`} label='橘子🍊'> </o-checkbox>
+                <o-checkbox class={tw`pr-4`} label='苹果🍎'> </o-checkbox>
+                <o-checkbox class={tw`pr-4`} label='草莓🍓'> </o-checkbox>
+                <o-checkbox class={tw`pr-4`} label='葡萄🍇'> </o-checkbox>
+                <o-checkbox class={tw`pr-4`} label='香蕉🍌'> </o-checkbox>
+                <o-checkbox class={tw`pr-4`} label='梨子🍐'> </o-checkbox>
+                <o-checkbox class={tw`pr-4`} label='橘子🍊'> </o-checkbox>
 
                 <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
               </div>
