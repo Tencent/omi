@@ -60,7 +60,7 @@ export default class extends WeElement<Props> {
           onSubmit,
           onBlur
         }) => (
-          <div style={{ width: '480px' }} class={tw`text-sm px-10 py-10 text-gray-500`}>
+          <div style={{ width: '660px' }} class={tw`text-sm px-10 py-10 text-gray-500`}>
 
             <div class={formItemClass}>
               <label class={lableClass} >用户姓名</label>
