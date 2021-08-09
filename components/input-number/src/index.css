@@ -1,4 +1,162 @@
-html,body{
-    padding: 0;
-    margin: 0;    
-}
+.o-input-number {
+  position: relative;
+  display: inline-block; }
+
+.o-input-number-medium {
+  height: 40px;
+  width: 172px; }
+
+.o-input-number-small {
+  height: 34px;
+  width: 146px; }
+
+.o-input-number-mini {
+  height: 30px;
+  width: 130px; }
+
+.o-button,
+.o-input {
+  position: absolute;
+  height: 100%;
+  line-height: 100%;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  font-weight: 500;
+  transition: .1s;
+  vertical-align: top; }
+
+.o-button {
+  width: 25%;
+  line-height: 15%;
+  background-color: #f3faf1; }
+
+.o-input {
+  left: 25%;
+  width: 50%; }
+
+.o-button-add {
+  right: 0;
+  border-bottom-right-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+  border-left: none; }
+
+.o-button-sub {
+  left: 0;
+  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  border-right: none; }
+
+.o-input-number.is-disabled .o-input,
+.o-input-number.is-disabled:hover .o-input,
+.o-input-number.is-disabled .o-button,
+.o-input-number.is-disabled:hover .o-button {
+  background-color: #F5F7FA;
+  border-color: #E4E7ED;
+  color: #E4E7ED;
+  pointer-events: none; }
+
+.o-input-number.is-disabled {
+  cursor: not-allowed; }
+
+.o-input-number:hover .o-input {
+  color: #07c160;
+  color: var(--o-primary, #07c160);
+  border-top-color: #07c160;
+  border-top-color: var(--o-primary, #07c160);
+  border-bottom-color: #07c160;
+  border-bottom-color: var(--o-primary, #07c160); }
+
+.o-input-number:hover .o-button {
+  background-color: rgba(7, 193, 96, 0.1);
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));
+  color: #07c160;
+  color: var(--o-primary, #07c160);
+  border-color: #07c160;
+  border-color: var(--o-primary, #07c160); }
+
+.o-input-medium,
+.o-button-medium {
+  font-size: 20px; }
+
+.o-input-small,
+.o-button-small {
+  font-size: 18px; }
+
+.o-input-mini,
+.o-button-mini {
+  font-size: 16px; }
+
+.o-input-right {
+  left: 0;
+  width: 75%;
+  border-radius: 0.3em 0 0 0.3em; }
+
+.o-button-add-right {
+  right: 0;
+  top: 0;
+  height: 50%;
+  border-radius: 0 0.3em 0 0; }
+
+.o-button-sub-right {
+  margin-left: 75%;
+  bottom: 0;
+  height: 50%;
+  border-width: 0 1px 1px 0;
+  border-right: 1px solid #dcdfe6;
+  border-radius: 0 0 0.3em 0; }
+
+.o-input-number:hover .o-input-right {
+  border-left-color: #07c160;
+  border-left-color: var(--o-primary, #07c160); }
+
+.o-input-number:hover .o-button-sub-right {
+  border-right-color: #07c160;
+  border-right-color: var(--o-primary, #07c160);
+  border-top-color: #dcdfe6; }
+
+.o-input-number:hover .o-button-add-right {
+  border-bottom-color: #dcdfe6; }
+
+.o-input-left {
+  right: 0;
+  width: 75%;
+  border-radius: 0 0.3em 0.3em 0; }
+
+.o-button-add-left {
+  left: 0;
+  top: 0;
+  height: 50%;
+  border-left: 1px solid #dcdfe6;
+  border-radius: 0.3em 0 0 0;
+  border-width: 1px 0 1px 1px; }
+
+.o-button-sub-left {
+  margin-right: 75%;
+  bottom: 0;
+  height: 50%;
+  border-width: 0 1px 1px 1px;
+  border-radius: 0 0 0 0.3em; }
+
+.o-input-number:hover .o-input-left {
+  border-right-color: #07c160;
+  border-right-color: var(--o-primary, #07c160); }
+
+.o-input-number:hover .o-button-sub-left {
+  border-left-color: #07c160;
+  border-left-color: var(--o-primary, #07c160);
+  border-top-color: #dcdfe6; }
+
+.o-input-number:hover .o-button-sub-disabled,
+.o-button-sub-disabled,
+.o-input-number:hover .o-button-add-disabled,
+.o-button-add-disabled {
+  color: #E4E7ED;
+  cursor: not-allowed; }
