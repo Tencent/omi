@@ -95,7 +95,7 @@ export default class extends WeElement<Props> {
   }
 
   render() {
-    return <div class="result-html" >
+    return <div class="result-html">
       <div dangerouslySetInnerHTML={{ __html: this.md.render(this.props.mdContent) }
       } ></div >
     </div >

@@ -19,7 +19,7 @@ define('my-element', class extends WeElement {
 ```jsx
 define('my-element', class extends WeElement {
   onClick = (evt) => {
-    this.fire('MyEvent', { name: 'abc' })
+    this.fire('my-event', { name: 'abc' })
   }
 
   render(props) {
