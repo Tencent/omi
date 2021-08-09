@@ -82,6 +82,7 @@ export default class Select extends WeElement<Props> {
       }
 
       this.fire('item-select', this.selectedItems)
+      this.fire('ItemSelect', this.selectedItems)
       this.update()
 
       this.resetSize()
@@ -92,6 +93,7 @@ export default class Select extends WeElement<Props> {
       this._refInput.focus()
 
       this.fire('item-select', item)
+      this.fire('ItemSelect', item)
       this.selectedIndex = index
       this.label = item.label
       this.updateProps({

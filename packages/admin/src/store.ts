@@ -1,6 +1,7 @@
 import { WeElement } from 'omi'
 import { genNavTree } from './nav-tree'
 import { getNotifications } from './notifications'
+import { resetId } from './util/id'
 
 interface treeNode {
   id: number
@@ -85,6 +86,7 @@ class Store {
   }
 
   setLocals(locale, callback?) {
+    resetId()
     this.locale = locale
     import(`./l10n/${locale}/base.ts`).then((localeMap) => {
       this.localeMap = localeMap
