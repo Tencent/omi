@@ -248,8 +248,7 @@ export default class WeElement extends HTMLElement {
   fire(name, data) {
     const handler = this.props[`on${capitalize(name)}`]
     if (handler) {
-      handler.call(
-        this,
+      handler(
         new CustomEvent(name, {
           detail: data
         })

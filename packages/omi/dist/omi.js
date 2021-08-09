@@ -600,7 +600,7 @@
         };
         WeElement.prototype.fire = function(name, data) {
             var handler = this.props['on' + capitalize(name)];
-            if (handler) handler.call(this, new CustomEvent(name, {
+            if (handler) handler(new CustomEvent(name, {
                 detail: data
             })); else this.dispatchEvent(new CustomEvent(name, {
                 detail: data
@@ -924,7 +924,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.22.0';
+    options.root.Omi.version = '6.22.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

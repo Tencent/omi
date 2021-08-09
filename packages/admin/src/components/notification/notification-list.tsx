@@ -156,7 +156,7 @@ export default class extends WeElement<Props> {
         <div class={tw`px-2`}>
           <o-tabs
             list={[{ label: '全部通知' }, { label: '未读通知' }, { label: '已读通知' }]}
-            onchange={this.onChange}
+            onChange={this.onChange}
             activeIndex={this.activeIndex}
           ></o-tabs>
           <o-table
