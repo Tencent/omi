@@ -42,9 +42,10 @@ export const base = {
   Introduction: 'Introduction',
   CustomTheme: 'Custom Theme',
 
-  StepForm: 'Steps Form',
+  StepsForm: 'Steps Form',
 
-  Button: 'Button'
+  Button: 'Button',
+  Tabs: 'Tabs'
 
 
 }

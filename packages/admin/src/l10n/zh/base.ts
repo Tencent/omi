@@ -43,9 +43,8 @@ export const base = {
   Introduction: '简介',
   CustomTheme: '自定义主题',
 
-  StepForm: '分步表单',
+  StepsForm: '分步表单',
 
-  Button: 'Button 按钮'
-
-
+  Button: 'Button 按钮',
+  Tabs: 'Tabs 选项卡'
 }
