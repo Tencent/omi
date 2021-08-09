@@ -12,8 +12,8 @@ const state = {
 }
 
 
-@tag('o-step')
-export default class Step extends WeElement {
+@tag('o-steps')
+export default class Steps extends WeElement {
   static css = css.default
 
   static propTypes = {
@@ -23,7 +23,7 @@ export default class Step extends WeElement {
 
   render(props) {
     return (
-      <div {...extractClass(props, 'o-step', {
+      <div {...extractClass(props, 'o-steps', {
         'vertical': props.vertical
       })}>
         {props.items.map((item, index) => {

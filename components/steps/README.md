@@ -1,6 +1,6 @@
-## Step
+## Steps
 
-> Step
+> Steps
 
 ## Install
 

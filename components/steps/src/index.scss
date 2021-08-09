@@ -5,13 +5,13 @@
   display: block;
 }
 
-.o-step {
+.o-steps {
 	width: 100%;
 	display: flex;
 	white-space: nowrap;
 }
 
-.o-step.vertical{
+.o-steps.vertical{
   flex-direction: column;
 }
 
