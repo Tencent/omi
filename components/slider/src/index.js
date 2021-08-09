@@ -96,25 +96,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@omiu/common/theme.scss":
-/*!**********************************************!*\
-  !*** ./node_modules/@omiu/common/theme.scss ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(/*! !../../css-loader!../../resolve-url-loader!../../sass-loader/dist/cjs.js??ref--4-3!./theme.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./node_modules/@omiu/common/theme.scss");
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-
 /***/ "./node_modules/@omiu/input/src/index.esm.js":
 /*!***************************************************!*\
   !*** ./node_modules/@omiu/input/src/index.esm.js ***!
@@ -2876,25 +2857,6 @@ var Table = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./node_modules/@omiu/common/theme.scss":
-/*!***********************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./node_modules/@omiu/common/theme.scss ***!
-  \***********************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
 /*!*************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
@@ -3064,7 +3026,6 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 __webpack_require__(/*! @omiu/tooltip */ "./node_modules/@omiu/tooltip/src/index.esm.js");
 __webpack_require__(/*! @omiu/input */ "./node_modules/@omiu/input/src/index.esm.js");
-__webpack_require__(/*! @omiu/common/theme.scss */ "./node_modules/@omiu/common/theme.scss");
 var OSlider = /** @class */ (function (_super) {
     __extends(OSlider, _super);
     function OSlider() {
@@ -3089,6 +3050,7 @@ var OSlider = /** @class */ (function (_super) {
             _this.setAttribute('second_value', value);
         };
         _this.handleSliderOne = function (evt) {
+            evt.stopPropagation();
             var first_value = parseInt(_this.slider1.value);
             if (first_value <= _this.__$value2 || _this.props.range === 'single') {
                 //  if the slider 1 has not exceeded slider2 or it is a single range slider
@@ -3105,13 +3067,13 @@ var OSlider = /** @class */ (function (_super) {
             _this.update();
         };
         _this.handleSliderTwo = function (evt) {
+            evt.stopPropagation();
             var second_value = parseInt(_this.slider2.value);
             //we only have one case if slider two exists
             if (second_value >= _this.__$value1) {
                 _this.__$value2 = second_value;
             }
             _this.fire('input', [_this.__$value1, _this.__$value2]);
-            _this.fillColor(_this.lowerColor, _this.upperColor);
             _this.update();
         };
         _this.fillColor = function (lowerColor, upperColor) {
@@ -3130,7 +3092,6 @@ var OSlider = /** @class */ (function (_super) {
         };
         _this.handleChange = function () {
             _this.fillColor('#07c160', '#f0f0f0');
-            console.log('after change');
         };
         return _this;
     }
@@ -3150,14 +3111,19 @@ var OSlider = /** @class */ (function (_super) {
     };
     OSlider.prototype.installed = function () {
         this.fillColor('#07c160', '#f0f0f0');
-        this.update();
         var host = this.shadowRoot.host;
         this.props.orient === 'vertical' &&
             (host.style.transform = 'rotate(-90deg)');
     };
-    OSlider.prototype.receiveProps = function () {
+    OSlider.prototype.beforeUpdate = function () {
+        if (this.__$value1 > this.__$value2 && this.props.range === 'double') {
+            var temp = this.__$value1;
+            this.__$value1 = this.__$value2;
+            this.__$value2 = temp;
+        }
+    };
+    OSlider.prototype.updated = function () {
         this.fillColor(this.lowerColor, this.upperColor);
-        this.update();
     };
     OSlider.prototype.render = function (props) {
         var _this = this;
@@ -3195,7 +3161,6 @@ var OSlider = /** @class */ (function (_super) {
                     _this.sliderTrack = e;
                 } })));
     };
-    OSlider.css = css;
     OSlider.defaultProps = {
         //default a single round range slider
         min: undefined,
@@ -3221,6 +3186,7 @@ var OSlider = /** @class */ (function (_super) {
         tooltip: Boolean,
         disabled: Boolean,
     };
+    OSlider.css = css;
     OSlider = __decorate([
         omi_1.tag('o-slider')
     ], OSlider);

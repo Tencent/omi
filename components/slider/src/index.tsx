@@ -18,8 +18,6 @@ interface Props {
 
 @tag('o-slider')
 export default class OSlider extends WeElement<Props> {
-  static css = css
-
   static defaultProps = {
     //default a single round range slider
     min: undefined,
@@ -46,6 +44,8 @@ export default class OSlider extends WeElement<Props> {
     tooltip: Boolean,
     disabled: Boolean,
   }
+
+  static css = css
 
   __$value1: number
   __$value2: number
@@ -77,7 +77,6 @@ export default class OSlider extends WeElement<Props> {
 
   installed() {
     this.fillColor('#07c160', '#f0f0f0')
-    this.update()
     let host = this.shadowRoot.host as HTMLElement
     this.props.orient === 'vertical' &&
       (host.style.transform = 'rotate(-90deg)')
@@ -103,12 +102,20 @@ export default class OSlider extends WeElement<Props> {
     this.setAttribute('second_value', value)
   }
 
-  receiveProps() {
+  beforeUpdate() {
+    if (this.__$value1 > this.__$value2 && this.props.range === 'double') {
+      const temp = this.__$value1
+      this.__$value1 = this.__$value2
+      this.__$value2 = temp
+    }
+  }
+
+  updated() {
     this.fillColor(this.lowerColor, this.upperColor)
-    this.update()
   }
 
   handleSliderOne = (evt) => {
+    evt.stopPropagation()
     const first_value = parseInt(this.slider1.value)
     if (first_value <= this.__$value2 || this.props.range === 'single') {
       //  if the slider 1 has not exceeded slider2 or it is a single range slider
@@ -121,17 +128,18 @@ export default class OSlider extends WeElement<Props> {
       this.fire('input', [this.__$value1, this.__$value2])
     }
     this.fillColor(this.lowerColor, this.upperColor)
+
     this.update()
   }
 
   handleSliderTwo = (evt) => {
+    evt.stopPropagation()
     const second_value = parseInt(this.slider2.value)
     //we only have one case if slider two exists
     if (second_value >= this.__$value1) {
       this.__$value2 = second_value
     }
     this.fire('input', [this.__$value1, this.__$value2])
-    this.fillColor(this.lowerColor, this.upperColor)
     this.update()
   }
 
