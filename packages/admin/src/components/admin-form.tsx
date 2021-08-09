@@ -97,11 +97,10 @@ export default class extends WeElement<Props> {
             <div class={formItemClass}>
               <label class={lableClass} >出生地址</label>
               <div class={tw`leading-8 ml-16`}>
-                <o-select css={`
-              .o-select .o-input__inner {
-                width: 337px;
-              `} size="small" placeholder="选择一个出生地"
+                <o-select size="small"
+                  placeholder="选择一个出生地"
                   items={this.items}
+                  block
                 ></o-select>
                 <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
               </div>
@@ -110,7 +109,10 @@ export default class extends WeElement<Props> {
             <div class={formItemClass}>
               <label class={lableClass} >出生日期</label>
               <div class={tw`leading-8 ml-10`}>
-                <o-date-picker size="small" locale={this.store.locale}> </o-date-picker>
+                <o-date-picker
+                  size="small"
+                  locale={this.store.locale}>
+                </o-date-picker>
                 <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
               </div>
             </div>
@@ -212,10 +214,14 @@ export default class extends WeElement<Props> {
             <div class={formItemClass}>
               <label class={lableClass} >喜爱水果</label>
               <div class={tw`leading-8 ml-10`}>
-                <o-select css={`
-              .o-select .o-input__inner {
-                width: 257px;
-              `} size="small" multiple placeholder="选择多个水果"
+                <o-select
+                  css={`
+                .o-select .o-input__inner {
+                  width: 257px;
+                `}
+                  size="small"
+                  multiple
+                  placeholder="选择多个水果"
                   items={this.fruits}
                 ></o-select>
                 <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
