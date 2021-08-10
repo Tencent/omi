@@ -3,8 +3,9 @@ import { tw, sheet } from 'omi-twind'
 
 import '@omiu/table'
 import '@omiu/tooltip'
+import '@omiu/pagination'
 import '@omiu/icon/remove-red-eye'
-
+import '@omiu/icon/search'
 import { getTotalCount, getListData } from '../service/list'
 
 interface Props { }
@@ -26,11 +27,12 @@ export default class extends WeElement<Props> {
 
   pageIndex = 0
   pageSize = 10
-
+  totalCount = 0
   store
 
   async install() {
     this.dataSource = await getListData(this.pageIndex, this.pageSize)
+    this.totalCount = await getTotalCount()
     this.update()
   }
 
@@ -66,14 +68,14 @@ export default class extends WeElement<Props> {
       render: (item: { name: string; id: number }) => (
         //onclick 会绑定多次的问题
         <div>
-          <o-tooltip content={'详情' + item.name}>
+          <o-tooltip content={'查看 [' + item.name + ']'}>
             <o-icon-remove-red-eye data-item-id={item.id}
               onClick={this.onClick}
               style="cursor:pointer;font-size:20px;">
             </o-icon-remove-red-eye>
           </o-tooltip>
 
-          <o-tooltip content={'删除' + item.name}>
+          <o-tooltip content={'删除 [' + item.name + ']'}>
             <o-icon-delete
               data-item-id={item.id}
               onClick={this.onClick}
@@ -102,18 +104,18 @@ export default class extends WeElement<Props> {
   selectedCount = 0
   render() {
     return (
-      <div class={tw`pl-0.5`}>
-        <div class={tw`px-2 flex`}>
-          <div class={tw`px-2 flex`} >
-            <o-button>新建合同</o-button>
-            <o-button>导出合同</o-button>
-            <p>已选{this.selectedCount}项</p>
+      <div class={tw`p-4`}>
+        <div class={tw`flex justify-between pb-2`}>
+          <div class={tw` flex gap-3`} >
+            <o-button size="small">新建合同</o-button>
+            <o-button size="small" >导出合同</o-button>
+            <p class={tw`text-gray-500 text-sm leading-8`}>已选{this.selectedCount}项</p>
           </div>
 
-          <o-input></o-input>
+          <o-input size="small" block class={tw`w-80`} suffix-icon="search" placeholder="请输入你需要搜索的内容"></o-input>
         </div>
 
-        <div class={tw`px-2`}>
+        <div class={tw`border-1`}>
           <o-table
             checkbox={true}
             stripe={false}
@@ -123,13 +125,14 @@ export default class extends WeElement<Props> {
             columns={this.columns}
             dataSource={this.dataSource}
           ></o-table>
-        </div>
 
-        <div>
-          <div class={tw`mt-3 text-right`}>
 
+
+          <div class={tw`flex justify-between pt-2 pb-2 pl-3`}>
+            <p class={tw`text-gray-600  text-sm leading-8 `}>共{this.totalCount}条</p>
             <o-pagination
-              total={this.dataSource.length}
+              class={tw` `}
+              total={this.totalCount}
               current-page={this.pageIndex}
               page-size={this.pageSize}
               onChange={this.onPaginationChange}

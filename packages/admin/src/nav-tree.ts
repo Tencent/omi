@@ -35,24 +35,6 @@ export function genNavTree(localeMap, locale) {
           id: genId()
         },
         {
-          label: localeMap.base.BasicTable,
-          icon: 'grid-on',
-          href: '#/table/basic',
-          id: genId()
-        },
-        {
-          label: localeMap.base.TableDeleteAnimation,
-          icon: 'grid-on',
-          href: '#/table/pagination',
-          id: genId()
-        },
-        {
-          label: localeMap.base.InlineEditing,
-          icon: 'grid-on',
-          href: '#/table/edit',
-          id: genId()
-        },
-        {
           label: localeMap.base.Form,
           expanded: true,
           id: genId(),
@@ -173,7 +155,25 @@ export function genNavTree(localeMap, locale) {
           label: localeMap.base.Timepicker,
           id: genId(),
           href: '#/time-picker-component',
-        }
+        },
+        {
+          label: localeMap.base.BasicTable,
+          icon: 'grid-on',
+          href: '#/table/basic',
+          id: genId()
+        },
+        {
+          label: localeMap.base.TableDeleteAnimation,
+          icon: 'grid-on',
+          href: '#/table/pagination',
+          id: genId()
+        },
+        {
+          label: localeMap.base.InlineEditing,
+          icon: 'grid-on',
+          href: '#/table/edit',
+          id: genId()
+        },
       ]
     },
     {
