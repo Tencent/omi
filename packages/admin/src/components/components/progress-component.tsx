@@ -53,8 +53,8 @@ export default class extends WeElement<Props> {
   `
     mdE = `
   \`\`\`html
-  <o-progress percent="50" status="error" stroke-width="8" show-info="false"></o-progress>
-  <o-progress percent="50" status="success" stroke-width="8" show-info="false"></o-progress>
+  <o-progress percent="50" status="error" show-info="false"></o-progress>
+  <o-progress percent="50" status="success" show-info="false"></o-progress>
 
   \`\`\`
   `
@@ -100,7 +100,7 @@ export default class extends WeElement<Props> {
     mdJ = `
   \`\`\`html
   <o-progress type="circle" percent="70" status="error" show-info="false"></o-progress>
-  <o-progress type="circle" percent="90" status="success" show-info="false"></o-progress>
+  <o-progress type="circle" percent="70" status="success" show-info="false"></o-progress>
 
   \`\`\`
   `
