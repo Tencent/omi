@@ -8,10 +8,13 @@ export type Attrs = {
    */
   title?: string,
   /**
+   * 是否有边框
+   */
+  bordered?: boolean,
+  /**
    * 当前浮动状态
    */
   hoverable?: 'always' | 'true' | 'false',
-  extra?: string,
   /**
    * 选项列表
    */
@@ -34,7 +37,7 @@ declare global {
 
 export type Props = OverwriteProps<Attrs, { title?: string,
   hoverable?: 'always' | 'true' | 'false',
-  extra?: string,
+  bordered?: boolean,
   actions?: any[],
   onChange?: (evt: any, index: any) => void }>
 
@@ -46,19 +49,15 @@ export default class Card extends WeElement<Props> {
   static defaultProps = {
     title: '',
     hoverable: 'true',
-    extra: ''
+    bordered: true
   }
 
   static propTypes = {
     title: String,
     hoverable: String,
-    extra: String,
-    actions: Array
+    actions: Array,
+    bordered: Boolean
   }
-
-  // clickHandler = (item: any) => {
-  //   this.fire('EvtChange', item)
-  // }
 
   onIconClick = (evt, index) => {
     this.fire('change', {
@@ -68,22 +67,40 @@ export default class Card extends WeElement<Props> {
     })
   }
 
-  handleMousemove = (item: string) => {
-    if (item==="always") {
+  beforeRender() {
+    this.handleBorder()
+    this.handleMousemove()
+  }
+
+  handleBorder = () => {
+    if (this.props.bordered) {
+      this.css = this.css + `.o-card {
+        display: flex;
+        flex-direction: column;
+        background: #FFF;
+        border: 1px solid #EFEFEF;
+      }`
+    }
+  }
+
+  handleMousemove = () => {
+    const hover = this.props.hoverable
+    if (!hover) return
+    if (hover==="always") {
       (this.css = this.css + `.o-card {
         display: flex;
         flex-direction: column;
         box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
         transition: all .3s;
-        z-index: 1;
+        background: #FFF;
       }`)
-    } else if (item==="true") {
+    } else if (hover==="true") {
       (this.css = this.css + `.o-card:hover {
         display: flex;
         flex-direction: column;
         box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
         transition: all .3s;
-        z-index: 1;
+        background: #FFF;
       }`)
     }
   }
@@ -93,7 +110,7 @@ export default class Card extends WeElement<Props> {
   render(props: Props) {
     return (
       <h.f>
-        <div class="o-card" onMousemove={this.handleMousemove(props.hoverable)}>
+        <div class="o-card" onMousemove={this.handleMousemove}>
           <slot name="cover">
             <div class="o-card-header">
               <div class="o-card-title">{props.title}</div>
@@ -111,7 +128,7 @@ export default class Card extends WeElement<Props> {
             <div class="o-card-footer">
                 {props.actions.map((item, index) => {
                   this._iconTag = 'o-icon-' + item.icon
-                  return <button onClick={evt => { this.onIconClick(evt, index) }} className="item">
+                  return <button onClick={evt => { this.onIconClick(evt, index) }} class="o-card-btn">
                     <this._iconTag class="icon" />
                   </button>
                 })}

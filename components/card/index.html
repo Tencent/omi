@@ -25,7 +25,7 @@
   <script src="https://unpkg.com/@omiu/avatar"></script>
   <script src="https://unpkg.com/@omiu/image"></script>
 
-  <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+  <div style="height: 100vh; display: flex; justify-content: space-around; flex-wrap: wrap; background: #F0F2F5;">
 
     <div style="margin: 5%; height: 200px; width: 300px;">
       <o-card title="Default size card" hoverable="always" block="1">
@@ -70,7 +70,7 @@
     </div>
     
     <div style="margin: 2% 5%; height: 200px; width: 300px;">
-      <o-card hoverable="true" title="Action card" id="myActionC" actions="[{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]" block="1">
+      <o-card bordered=false hoverable="false" title="Action card" id="myActionC" actions="[{icon: 'add-ic-call-rounded'},{icon: 'add-comment-rounded'}]" block="1">
         <o-image slot="cover"
           src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1190188000/VCG41N1127233809.jpg/thumb">
         </o-image>
