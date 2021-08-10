@@ -16,6 +16,13 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/basic-list', () => {
+    //lazy load
+    import('./components/basic-list').then(() =>
+      rootEl.transitionTo('basic-list')
+    )
+  })
+
   route('/dashboard', () => {
     //lazy load
     import('./components/admin-dashboard').then(() =>

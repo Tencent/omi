@@ -28,7 +28,12 @@ export function genNavTree(localeMap, locale) {
           href: '#/dashboard',
           id: genId()
         },
-
+        {
+          label: localeMap.base.BasicList,
+          icon: 'grid-on',
+          href: '#/basic-list',
+          id: genId()
+        },
         {
           label: localeMap.base.BasicTable,
           icon: 'grid-on',

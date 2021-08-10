@@ -46,5 +46,6 @@ export const base = {
   StepsForm: '分步表单',
 
   Button: 'Button 按钮',
-  Tabs: 'Tabs 选项卡'
+  Tabs: 'Tabs 选项卡',
+  BasicList: '基础列表'
 }
