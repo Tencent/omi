@@ -1,4 +1,4 @@
-import { define, h } from 'omi'
+import { define, WeElement, h } from 'omi'
 
 const hyphenateRE = /\B([A-Z])/g
 const hyphenate = function (str) {
@@ -7,14 +7,9 @@ const hyphenate = function (str) {
 
 export default function createSvgIcon(path, displayName) {
 
-  define(hyphenate('OIcon' + displayName), _ => {
-    return h('svg', {
-      viewBox: "0 0 24 24",
-      title: displayName,
-      ..._.props
-    }, path)
-  }, {
-      css: `:host {
+  define(hyphenate('OIcon' + displayName), class extends WeElement {
+
+    static css = `:host {
   fill: currentColor;
   width: 1em;
   height: 1em;
@@ -24,5 +19,11 @@ export default function createSvgIcon(path, displayName) {
   flex-shrink: 0;
   user-select: none;
 }`
-    })
+
+    render() {
+      return h('svg', {
+        viewBox: '0 0 24 24',
+      }, path)
+    }
+  })
 }

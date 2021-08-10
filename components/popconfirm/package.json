@@ -47,7 +47,7 @@
   },
   "homepage": "http://omijs.org",
   "devDependencies": {
-    "@omiu/icon": "^0.0.3",
+    "@omiu/icon": "^0.0.4",
     "@rollup/plugin-commonjs": "^11.1.0",
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",

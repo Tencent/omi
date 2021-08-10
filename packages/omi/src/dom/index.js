@@ -71,13 +71,6 @@ export function setAccessor(node, name, old, value, isSvg, component) {
     }
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || ''
-  } else if (
-    name[0] == '_' &&
-    name[1] == 'o' &&
-    name[2] == 'n' &&
-    node.constructor.is === 'WeElement'
-  ) {
-    bindEvent(node, name.replace('_', ''), value, old)
   } else if (name[0] == 'o' && name[1] == 'n') {
     bindEvent(node, name, value, old)
   } else if (node.nodeName === 'INPUT' && name === 'value') {

@@ -1,5 +1,5 @@
 /**
- * Omi v6.21.3  http://omijs.org
+ * Omi v6.22.2  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -106,6 +106,14 @@ function pathToArr(path) {
 var hyphenateRE = /\B([A-Z])/g;
 function hyphenate(str) {
   return str.replace(hyphenateRE, '-$1').toLowerCase();
+}
+
+function capitalize(name) {
+  return name.replace(/\-(\w)/g, function (all, letter) {
+    return letter.toUpperCase();
+  }).replace(/^\S/, function (s) {
+    return s.toUpperCase();
+  });
 }
 
 function getValByPath(path, current) {
@@ -311,8 +319,6 @@ function setAccessor(node, name, old, value, isSvg, component) {
     }
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || '';
-  } else if (name[0] == '_' && name[1] == 'o' && name[2] == 'n' && node.constructor.is === 'WeElement') {
-    bindEvent(node, name.replace('_', ''), value, old);
   } else if (name[0] == 'o' && name[1] == 'n') {
     bindEvent(node, name, value, old);
   } else if (node.nodeName === 'INPUT' && name === 'value') {
@@ -952,9 +958,16 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.fire = function fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name, {
-      detail: data
-    }));
+    var handler = this.props['on' + capitalize(name)];
+    if (handler) {
+      handler(new CustomEvent(name, {
+        detail: data
+      }));
+    } else {
+      this.dispatchEvent(new CustomEvent(name, {
+        detail: data
+      }));
+    }
   };
 
   WeElement.prototype.beforeInstall = function beforeInstall() {};
@@ -1533,7 +1546,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.21.3';
+options.root.Omi.version = '6.22.2';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

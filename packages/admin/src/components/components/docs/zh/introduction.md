@@ -139,29 +139,35 @@ export default {
 
 ## 事件触发和绑定最佳实践
 
-由于需要跨框架，在事件绑定上为了统一组件行为这里给除了组件开发和使用的最佳实践。Omiu 组件的事件触发统一使用大写的形式：
+由于需要跨框架，在事件绑定上为了统一组件行为这里给除了组件开发和使用的最佳实践。Omiu 组件的事件触发统一使用小写的形式：
 
 ```js
-this.fire('Change')
-this.fire('MyEvent')
+this.fire('change')
+this.fire('my-event')
 ```
 
-在 Omi 或者 Preact 中进行对应的事件绑定:
+在 Omi 中进行对应的事件绑定:
 
 ```jsx
-<my-ele onchange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
+<my-ele onChange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
+```
+
+在 Preact 中进行对应的事件绑定:
+
+```jsx
+<my-ele onchange={this.changeHandler} onmy-event={this.myEventHandler}></my-ele>
 ```
 
 在 Vue 中进行对应的事件绑定:
 
 ```html
-<my-ele @change="changeHandler" @MyEvent="myEventHandler"></my-ele>
+<my-ele @change="changeHandler" @my-event="myEventHandler"></my-ele>
 ```
 
 在 React 和 JS 中进行对应的事件绑定:
 
 ```jsx
-myEl.addEventListener('MyEvent', (evt) => {})
+myEl.addEventListener('my-event', (evt) => {})
 ```
 
 ## 贡献

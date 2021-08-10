@@ -1,6 +1,6 @@
 {
   "name": "@omiu/popover",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Components that show popover.",
   "docsExtend": {
     "cnName": "弹出框",
@@ -100,7 +100,7 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
-    "@omiu/transition": "^0.0.12",
+    "@omiu/transition": "^0.0.14",
     "@popperjs/core": "^2.9.2",
     "omi": "latest"
   }
