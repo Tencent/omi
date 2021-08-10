@@ -27,6 +27,8 @@ export default class Table extends WeElement<Props> {
     if (this.props.disabled) {
       return
     }
+    this.props.checked = !this.props.checked
+    this.update()
     this.fire('change', e.currentTarget.checked)
 
 

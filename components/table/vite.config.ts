@@ -11,7 +11,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: /^omi/,
+      external: ['omi', '@omiu/checkbox', '@omiu/input'],
       input: {
         main: resolve(__dirname, 'index.html'),
         admin: resolve(__dirname, 'demo.html')

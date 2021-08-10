@@ -1,6 +1,6 @@
 {
   "name": "@omiu/table",
-  "version": "0.0.0",
+  "version": "0.0.16",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
@@ -21,7 +21,7 @@
     "types"
   ],
   "dependencies": {
-    "@omiu/checkbox": "^0.0.12",
+    "@omiu/checkbox": "^0.0.13",
     "@omiu/common": "latest",
     "@omiu/input": "^0.0.12",
     "omi": "latest"
