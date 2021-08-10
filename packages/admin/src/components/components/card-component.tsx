@@ -10,6 +10,14 @@ import '@omiu/icon/add-ic-call-rounded'
 import '../docs/admin-docs'
 import './code-demo'
 import './code-demo/container'
+import {
+  showLoading,
+  hideLoading,
+  showSuccess,
+  hideSuccess,
+  showWarning,
+  hideWarning
+} from '@omiu/toast'
 
 interface Props { }
 
@@ -29,11 +37,20 @@ export default class extends WeElement<Props> {
   pickAction = (evt) => {
     const btn = evt.detail.action
     if(btn.icon === 'add-comment-rounded') {
-      alert(btn.icon)
+      showLoading('发送短信息...')
+      setTimeout(() => {
+        hideLoading()
+      }, 1000)
     } else if (btn.icon === 'add-a-photo-rounded') {
-      alert(btn.icon)
+      showLoading('正在打开相机...')
+      setTimeout(() => {
+        hideLoading()
+      }, 1000)
     } else if (btn.icon === 'add-ic-call-rounded') {
-      alert(btn.icon)
+      showLoading('正在呼叫...')
+      setTimeout(() => {
+        hideLoading()
+      }, 1000)
     }
   }
 
@@ -105,14 +122,24 @@ export default class extends WeElement<Props> {
   <!-- 通过onChange设置回调事件,例如onChange={this.pickAction}触发回调 -->
   
   JSX:
+  // 结合 o-toast 展示
   pickAction = (evt) => {
     const btn = evt.detail.action
     if(btn.icon === 'add-comment-rounded') {
-      alert(btn.icon)
+      showLoading('发送短信息...')
+      setTimeout(() => {
+        hideLoading()
+      }, 1000)
     } else if (btn.icon === 'add-a-photo-rounded') {
-      alert(btn.icon)
+      showLoading('正在打开相机...')
+      setTimeout(() => {
+        hideLoading()
+      }, 1000)
     } else if (btn.icon === 'add-ic-call-rounded') {
-      alert(btn.icon)
+      showLoading('正在呼叫...')
+      setTimeout(() => {
+        hideLoading()
+      }, 1000)
     }
   }
 
@@ -332,6 +359,7 @@ export default class extends WeElement<Props> {
             <div class={tw`mt-2 mb-10 mx-5 h-80 w-72`}>
               <o-card
                 block="1"
+                onChange={this.pickAction}
                 title="Action card"
                 actions={[
                   { icon: 'add-ic-call-rounded' },
