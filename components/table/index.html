@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8" />
-  <title>Add Omi in One Minute</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omiu</title>
+  <script type="module" src="/src/index.tsx"></script>
 </head>
 
-<body style="background-color: #fefefe;">
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-
-  <script src="../src/index.js"></script>
-
+<body>
+  <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
   <div>
     <o-table id="myTable"></o-table>
   </div>
@@ -68,17 +66,16 @@
       title: '操作',
       render: item => (
         Omi.html`<span>
-					<a href="javascript:;" onClick=${e => {
+              <a href="javascript:;" onClick=${e => {
             table.props.dataSource.splice(table.props.dataSource.indexOf(item), 1)
             table.update()
           }}>Delete</a>
-				</span>`
+            </span>`
       )
     }]
 
     table.update()
   </script>
-
 </body>
 
 </html>
