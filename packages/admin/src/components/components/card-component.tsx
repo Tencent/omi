@@ -43,11 +43,11 @@ export default class extends WeElement<Props> {
 
   // bordered?:  Boolean, 设置边框,默认开启 bordered=true,关闭 bordered=false
 
-  // title?: string,      设置顶部标题,默认为''
+  // title?: String,      设置顶部标题,默认为''
 
-  // actions?: any[],     设置底部按钮,例如：actions={[{ icon: 'add-ic-call-rounded' }]},
+  // actions?: any[],     设置底部按钮,例如：actions={ [{ icon: 'add-ic-call-rounded' }] },
   
-  // onChange?: (evt: any, index: any) => void    设置回调事件,例如onChange={this.pickAction}触发回调
+  // onChange?: (evt: any, index: number) => void    设置回调事件,例如onChange={this.pickAction}触发回调
 
   //***特别注意：Card组件没有预设宽高，需在外部为容器设置宽高以达到理想效果。
 
@@ -115,7 +115,7 @@ export default class extends WeElement<Props> {
       alert(btn.icon)
     }
   }
-  
+
   <o-card
     title="Action card"
     hoverable="always"
