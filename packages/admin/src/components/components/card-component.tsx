@@ -182,11 +182,12 @@ export default class extends WeElement<Props> {
   \`\`\`html
   <!-- slot="cover" 填充内容，将覆盖header栏。填充<o-image><o-image/>以完成相册卡片效果。  -slot="cover" 具名插槽 -->
   <o-card
-    block="1"
+    onChange={this.pickAction}
     actions={
       [{icon: 'add-ic-call-rounded'},
       {icon: 'add-comment-rounded'}]}
-      hoverable="always">
+      hoverable="always"
+      block="1">
     <o-image
       slot="cover"
       src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1190188000/VCG41N1127233809.jpg/thumb">
