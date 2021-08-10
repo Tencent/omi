@@ -21,13 +21,17 @@
 
 o-icon-done {
   color: #07c160;
+  color: var(--o-primary, #07c160);
 }
 
 o-icon-clear {
   color: #fa5151;
+  color: var(--o-danger, #fa5151);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -54,13 +58,16 @@ o-icon-clear {
 
 ._item-finish ._item-icon {
   border-color: #07c160;
+  border-color: var(--o-primary, #07c160);
   background-color: #fff;
 }
 
 ._item-process ._item-icon {
   color: white;
   border-color: #07c160;
+  border-color: var(--o-primary, #07c160);
   background-color: #07c160;
+  background-color: var(--o-primary, #07c160);
 }
 
 ._item-wait {
@@ -69,15 +76,18 @@ o-icon-clear {
 
 ._item-block ._item-icon {
   border-color: #fa5151;
+  border-color: var(--o-danger, #fa5151);
   background-color: #fff;
 }
 
 ._item-block {
   color: #fa5151;
+  color: var(--o-danger, #fa5151);
 }
 
 ._item-block ._item-description {
   color: #fa5151;
+  color: var(--o-danger, #fa5151);
 }
 
 ._item-description {
@@ -87,10 +97,12 @@ o-icon-clear {
 
 ._item-finish > ._item-content > ._item-title:after {
   background-color: #07c160;
+  background-color: var(--o-primary, #07c160);
 }
 
 ._item.next-error ._item-title:after {
   background: #fa5151;
+  background: var(--o-danger, #fa5151);
 }
 
 ._item-title:after {
@@ -143,10 +155,12 @@ o-icon-clear {
 
 .vertical ._item-finish ._item-tail::after {
   background: #07c160;
+  background: var(--o-primary, #07c160);
 }
 
 .vertical .next-error ._item-tail::after {
   background: #fa5151;
+  background: var(--o-danger, #fa5151);
 }
 
 .vertical ._item-title:after {

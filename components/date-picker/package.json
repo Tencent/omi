@@ -100,7 +100,7 @@
   },
   "dependencies": {
     "@omiu/common": "latest",
-    "@omiu/icon": "^0.0.3",
+    "@omiu/icon": "^0.0.4",
     "@omiu/input": "^0.0.8",
     "@popperjs/core": "^2.9.2",
     "flatpickr": "^4.6.9",
