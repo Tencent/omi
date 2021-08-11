@@ -68,7 +68,11 @@ export default class extends WeElement {
   }
 
   getMainContentWidth() {
-    return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
+    if (window.innerWidth > 640) {
+      return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
+    } else {
+      return window.innerWidth
+    }
   }
 
   onMenuChange = (evt) => {
