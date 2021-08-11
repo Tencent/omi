@@ -100,7 +100,7 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`h-screen flex bg-gray-200 pb-2`}>
+      <div class={tw`h-screen flex bg-gray-100 pb-2`}>
         <div class={tw`flex flex-col`}>
           <div class={tw`h-2/5 w-96 mt-6 ml-6`}>
             <o-card block="1" hoverable="false">
