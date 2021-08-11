@@ -4,7 +4,8 @@ English | [简体中文](./README.CN.md)
 
 >  Front-end solution for admin interfaces
 
-[→ Preview](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [→ Preview](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [→ 国内加速访问 DEMO](https://omi.cdn-go.cn/admin/latest/index.html)
 
 ![](../../assets/admin-pc-v2.png)
 
