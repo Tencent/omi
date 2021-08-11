@@ -221,6 +221,13 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/personal-center', () => {
+    //lazy load
+    import('./components/account/personal-center').then(() =>
+      rootEl.transitionTo('personal-center')
+    )
+  })
+
   route('*', function () {
     console.log('not found')
   })

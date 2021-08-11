@@ -39,6 +39,7 @@ export const base = {
 
   MasonryList: '瀑布流列表',
   NotificationList: '通知中心',
+  PersonalCenter: '个人中心',
 
   Introduction: '简介',
   CustomTheme: '自定义主题',

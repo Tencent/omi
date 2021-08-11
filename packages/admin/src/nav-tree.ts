@@ -67,6 +67,13 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           href: '#/notification-list',
           icon: 'notifications'
+        },
+        {
+          label: localeMap.base.PersonalCenter,
+          expanded: true,
+          id: genId(),
+          href: '#/personal-center',
+          icon: 'account-box'
         }
       ]
     },
