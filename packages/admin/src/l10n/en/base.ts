@@ -38,6 +38,7 @@ export const base = {
   ServerError: 'Server Error',
   MasonryList: 'Masonry List',
   NotificationList: 'NotificationList',
+  PersonalCenter: 'PersonalCenter',
 
   Introduction: 'Introduction',
   CustomTheme: 'Custom Theme',
