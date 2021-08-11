@@ -1,178 +1,178 @@
- @import "@omiu/common/theme.scss";
+@import "../../common/theme.scss";
 
- :host {
-   display: block;
- }
+:host {
+  display: block;
+}
 
- .o-table {
-   overflow: auto;
- }
+.o-table {
+  overflow: auto;
+}
 
- .o-table-table {
-   background: white;
-   margin: auto;
-   padding: 5px;
-   width: 100%;
-   border-spacing: 0;
-   border-collapse: collapse;
-   color: #606266;
-   font-weight: 400;
- }
+.o-table-table {
+  background: white;
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  color: #606266;
+  font-weight: 400;
+}
 
- .o-table-checkbox th:first-child,
- .o-table-checkbox td:first-child {
-   padding: 2px 10px 2px;
- }
+.o-table-checkbox th:first-child,
+.o-table-checkbox td:first-child {
+  padding: 2px 10px 2px;
+}
 
- th {
-   border-bottom: 1px solid #E0E0E0;
-   text-align: left;
-   vertical-align: middle;
-   padding: 10px 10px 10px;
-   color: rgba(0, 0, 0, 0.54);
-   font-size: 0.75rem;
-   line-height: 1.3125rem;
-   font-weight: 500;
-   background: #fafafa;
-   white-space: nowrap;
- }
+th {
+  border-bottom: 1px solid #E0E0E0;
+  text-align: left;
+  vertical-align: middle;
+  padding: 10px 10px 10px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.75rem;
+  line-height: 1.3125rem;
+  font-weight: 500;
+  background: #fafafa;
+  white-space: nowrap;
+}
 
- //https://stackoverflow.com/questions/4654481/lock-table-cells-to-their-default-size-regardless-of-content
- th,
- td {
-   // 下面这些样式会让冻结失效
-   // display: table-cell;
-   white-space: nowrap;
-   //  text-overflow: ellipsis;
-   //  overflow: hidden;
-   //  width: auto;
-   //  max-width: 1px;
- }
+//https://stackoverflow.com/questions/4654481/lock-table-cells-to-their-default-size-regardless-of-content
+th,
+td {
+  // 下面这些样式会让冻结失效
+  // display: table-cell;
+  white-space: nowrap;
+  //  text-overflow: ellipsis;
+  //  overflow: hidden;
+  //  width: auto;
+  //  max-width: 1px;
+}
 
- th.fixed-top {
-   position: sticky;
-   top: -1px;
-   z-index: 1000;
- }
+th.fixed-top {
+  position: sticky;
+  top: -1px;
+  z-index: 1000;
+}
 
- table thead th.fixed-left {
-   position: sticky;
-   left: -1px;
-   z-index: 1001;
- }
+table thead th.fixed-left {
+  position: sticky;
+  left: -1px;
+  z-index: 1001;
+}
 
- table tbody td.fixed-left {
-   position: sticky;
-   left: -1px;
-   z-index: 999;
- }
-
-
- table thead th.fixed-right {
-   position: sticky;
-   z-index: 1001;
- }
-
- table tbody td.fixed-right {
-   position: sticky;
-   z-index: 1000;
- }
-
- .o-table-border td,
- .o-table-border th {
-   border-right: 1px solid #ebeef5;
- }
-
- .o-table-border td:first-child,
- .o-table-border th:first-child {
-   border-left: 1px solid #ebeef5;
- }
-
- .o-table-border th {
-   border-top: 1px solid #ebeef5;
- }
-
- tr {
-   border-bottom: 1px solid #E0E0E0;
- }
-
- tr:hover td {
-   background: #f5f5f5;
- }
-
- td {
-   text-align: left;
-   vertical-align: middle;
-   font-size: 0.875rem;
-   padding: 10px 10px 10px;
-   background: white;
- }
-
- td.compact,
- th.compact {
-   padding: 4px 10px 4px;
- }
-
- a {
-   text-decoration: none;
- }
-
- .o-table-align-left {
-   text-align: left
- }
-
- .o-table-align-center {
-   text-align: center
- }
-
- o-checkbox {
-   height: 20px;
-   vertical-align: middle;
- }
-
- .o-table-align-right {
-   text-align: right
- }
+table tbody td.fixed-left {
+  position: sticky;
+  left: -1px;
+  z-index: 999;
+}
 
 
- a,
- a:link,
- a:visited,
+table thead th.fixed-right {
+  position: sticky;
+  z-index: 1001;
+}
 
- a:active {
-   text-decoration: none;
-   color: inherit;
- }
+table tbody td.fixed-right {
+  position: sticky;
+  z-index: 1000;
+}
 
- a:hover {
-   color: $o-primary;
-   color: var(--o-primary, $o-primary);
- }
+.o-table-border td,
+.o-table-border th {
+  border-right: 1px solid #ebeef5;
+}
+
+.o-table-border td:first-child,
+.o-table-border th:first-child {
+  border-left: 1px solid #ebeef5;
+}
+
+.o-table-border th {
+  border-top: 1px solid #ebeef5;
+}
+
+tr {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+tr:hover td {
+  background: #f5f5f5;
+}
+
+td {
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  padding: 10px 10px 10px;
+  background: white;
+}
+
+td.compact,
+th.compact {
+  padding: 4px 10px 4px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.o-table-align-left {
+  text-align: left
+}
+
+.o-table-align-center {
+  text-align: center
+}
+
+o-checkbox {
+  height: 20px;
+  vertical-align: middle;
+}
+
+.o-table-align-right {
+  text-align: right
+}
 
 
- o-checkbox {
-   margin-right: 5px;
- }
+a,
+a:link,
+a:visited,
 
- .o-table-stripe tr:nth-of-type(odd) {
-   background: white;
- }
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
 
- .o-table-stripe tr:nth-of-type(even) {
-   background: #fafafa;
- }
+a:hover {
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
+}
 
 
- .slide-fade-enter-active {
-   transition: all .3s ease;
- }
+o-checkbox {
+  margin-right: 5px;
+}
 
- .slide-fade-leave-active {
-   transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
- }
+.o-table-stripe tr:nth-of-type(odd) {
+  background: white;
+}
 
- .slide-fade-enter,
- .slide-fade-leave-to {
-   transform: translateX(-40px);
-   opacity: 0;
- }
+.o-table-stripe tr:nth-of-type(even) {
+  background: #fafafa;
+}
+
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(-40px);
+  opacity: 0;
+}

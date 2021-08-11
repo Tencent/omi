@@ -32,7 +32,7 @@
     "omi": "latest"
   },
   "devDependencies": {
-    "@omiu/icon": "^0.0.3",
+    "@omiu/icon": "^0.0.4",
     "@open-wc/testing": "^2.5.33",
     "@types/node": "^16.4.7",
     "@web/test-runner": "^0.13.13",

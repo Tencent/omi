@@ -1,13 +1,28 @@
-import { tag, h, WeElement, OverwriteProps, extractClass } from 'omi'
+import { tag, h, WeElement, OverwriteProps } from 'omi'
 
 import * as css from './index.scss'
 
 export type Attrs = {
+  /**
+   * 标题内容
+   */
   title?: string,
+  /**
+   * 是否有边框
+   */
+  bordered?: boolean,
+  /**
+   * 当前浮动状态
+   */
   hoverable?: 'always' | 'true' | 'false',
-  extra?: string,
+  /**
+   * 选项列表
+   */
   actions?: any[],
-  size?: 'large' | 'medium' | 'small',
+  /**
+   * 选项被点击后的回调函数
+   */
+   onChange?: (evt: any, index: any) => void
 }
 
 const tagName = 'o-card'
@@ -22,9 +37,9 @@ declare global {
 
 export type Props = OverwriteProps<Attrs, { title?: string,
   hoverable?: 'always' | 'true' | 'false',
-  extra?: string,
+  bordered?: boolean,
   actions?: any[],
-  size?: 'large' | 'medium' | 'small', }>
+  onChange?: (evt: any, index: any) => void }>
 
 @tag(tagName)
 export default class Card extends WeElement<Props> {
@@ -33,74 +48,61 @@ export default class Card extends WeElement<Props> {
 
   static defaultProps = {
     title: '',
-    hoverable: '',
-    extra: ''
+    hoverable: 'true',
+    bordered: true
   }
 
   static propTypes = {
     title: String,
     hoverable: String,
-    extra: String,
     actions: Array,
-    size: String
+    bordered: Boolean
   }
 
-  clickHandler = (item: any) => {
-    this.fire('EvtChange', item)
-    this.update(true)
+  onIconClick = (evt, index) => {
+    this.fire('change', {
+      action: this.props.actions[index],
+      index: index,
+      evt: evt.currentTarget
+    })
   }
 
-  handleMousemove = (item: string) => {
-    if (item==="always") {
+  beforeRender() {
+    this.handleBorder()
+    this.handleMousemove()
+  }
+
+  handleBorder = () => {
+    if (this.props.bordered) {
+      this.css = this.css + `.o-card {
+        display: flex;
+        flex-direction: column;
+        background: #FFF;
+        border: 1px solid #EFEFEF;
+      }`
+    }
+  }
+
+  handleMousemove = () => {
+    const hover = this.props.hoverable
+    if (!hover) return
+    if (hover==="always") {
       (this.css = this.css + `.o-card {
         display: flex;
         flex-direction: column;
         box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
         transition: all .3s;
-        z-index: 1;
+        background: #FFF;
       }`)
-      return;
+    } else if (hover==="true") {
+      (this.css = this.css + `.o-card:hover {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+        transition: all .3s;
+        background: #FFF;
+      }`)
     }
-    const hovercss = () => {
-      switch(this.props.size){
-        case 'large':
-          (this.css = this.css + `.o-card:hover {
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
-            transition: all .3s;
-            z-index: 1;
-          }`)
-          break;
-        case 'medium':
-          (this.css = this.css + `.o-card-medium:hover {
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
-            transition: all .3s;
-            z-index: 1;
-          }`)
-          break;
-        case 'small':
-          (this.css = this.css + `.o-card-small:hover {
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
-            transition: all .3s;
-            z-index: 1;
-          }`)
-          break;
-        default:
-          (this.css = this.css + `.o-card:hover {
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
-            transition: all .3s;
-            z-index: 1;
-          }`)
-      }
-    } 
-    item && hovercss()
   }
 
   _iconTag: any
@@ -108,35 +110,25 @@ export default class Card extends WeElement<Props> {
   render(props: Props) {
     return (
       <h.f>
-        <div {...extractClass(props, 'o-card', {
-          ['o-card-' + props.size]: props.size
-        })} onMousemove={this.handleMousemove(props.hoverable)}>
+        <div class="o-card" onMousemove={this.handleMousemove}>
           <slot name="cover">
-            <div {...extractClass(props, 'o-card-header', {
-              ['o-card-header-' + props.size]: props.size
-            })}>
-              <div {...extractClass(props, 'o-card-title', {
-                ['o-card-title-' + props.size]: props.size
-              })}>{props.title}</div>
-                <div {...extractClass(props, 'o-card-extra', {
-                  ['o-card-extra-' + props.size]: props.size
-                })}>
-                  <slot name="extra"></slot>
-                </div>
+            <div class="o-card-header">
+              <div class="o-card-title">{props.title}</div>
+              <div class="o-card-extra">
+                <slot name="extra"></slot>
+              </div>
             </div>
           </slot>
           
-          <div {...extractClass(props, 'o-card-body', {
-            ['o-card-body-' + props.size]: props.size
-          })}>
+          <div class="o-card-body">
             <slot></slot>
           </div>
           
           {props.actions ? (
             <div class="o-card-footer">
-                {props.actions.map((item) => {
+                {props.actions.map((item, index) => {
                   this._iconTag = 'o-icon-' + item.icon
-                  return <button onClick={_ => { this.clickHandler(item) }} className="item">
+                  return <button onClick={evt => { this.onIconClick(evt, index) }} class="o-card-btn">
                     <this._iconTag class="icon" />
                   </button>
                 })}

@@ -1,5 +1,5 @@
 /**
- * @omiu/transition v0.0.12 http://omijs.org
+ * @omiu/transition v0.0.14 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -165,7 +165,7 @@ var Transition = /** @class */ (function (_super) {
         if (this.props.appear) {
             this.enter();
         }
-        else {
+        if (this.props.disappear) {
             this.leave();
         }
     };
@@ -262,6 +262,7 @@ var Transition = /** @class */ (function (_super) {
         leavingTime: Number,
         autoRemove: Boolean,
         appear: Boolean,
+        disappear: Boolean,
         delay: Number
     };
     Transition.isLightDom = true;
@@ -275,5 +276,5 @@ var Transition = /** @class */ (function (_super) {
     return Transition;
 }(WeElement));
 
-export default Transition;
+export { Transition as default };
 //# sourceMappingURL=index.esm.js.map

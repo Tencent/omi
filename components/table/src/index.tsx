@@ -22,7 +22,7 @@ interface Props {
 
 @tag('o-table')
 export default class Table extends WeElement<Props> {
-  static css = css
+  static css = css.default
 
   static defaultProps = {
     dataSource: [],

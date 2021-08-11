@@ -1,6 +1,6 @@
 {
   "name": "@omiu/select",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Mobile pop-up options list",
   "docsExtend": {
     "cnName": "下拉菜单",
@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "@omiu/common": "latest",
-    "@omiu/popover": "^0.0.13",
+    "@omiu/popover": "^0.0.14",
     "omi": "latest",
     "resize-observer-polyfill": "^1.5.1"
   },

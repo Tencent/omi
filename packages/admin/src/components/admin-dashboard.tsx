@@ -176,11 +176,10 @@ export default class extends WeElement<Props> {
       title: '操作',
       align: 'right',
       render: (item: { name: string; id: number }) => (
-        //onclick 会绑定多次,需要使用_onclick
         <o-tooltip content={'删除' + item.name}>
           <o-icon-delete
             data-item-id={item.id}
-            _onclick={this.onClick}
+            onClick={this.onClick}
             style="cursor:pointer;font-size:20px;"
           ></o-icon-delete>
         </o-tooltip>

@@ -28,23 +28,10 @@ export function genNavTree(localeMap, locale) {
           href: '#/dashboard',
           id: genId()
         },
-
         {
-          label: localeMap.base.BasicTable,
+          label: localeMap.base.BasicList,
           icon: 'grid-on',
-          href: '#/table/basic',
-          id: genId()
-        },
-        {
-          label: localeMap.base.TableDeleteAnimation,
-          icon: 'grid-on',
-          href: '#/table/pagination',
-          id: genId()
-        },
-        {
-          label: localeMap.base.InlineEditing,
-          icon: 'grid-on',
-          href: '#/table/edit',
+          href: '#/basic-list',
           id: genId()
         },
         {
@@ -155,22 +142,38 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Slider,
           id: genId(),
-          icon: 'ac-unit-outlined',
           href: '#/slider-component'
         },
 
         {
           label: localeMap.base.Progress,
-          id: 15,
-          icon: 'ac-unit-outlined',
+          id: genId(),
           href: '#/progress-component'
-        }
+        },
         // 待优化
-        // {
-        //   label: localeMap.base.Timepicker,
-        //   id: genId(),
-        //   href: '#/time-picker-component',
-        // }
+        {
+          label: localeMap.base.Timepicker,
+          id: genId(),
+          href: '#/time-picker-component',
+        },
+        {
+          label: localeMap.base.BasicTable,
+          icon: 'grid-on',
+          href: '#/table/basic',
+          id: genId()
+        },
+        {
+          label: localeMap.base.TableDeleteAnimation,
+          icon: 'grid-on',
+          href: '#/table/pagination',
+          id: genId()
+        },
+        {
+          label: localeMap.base.InlineEditing,
+          icon: 'grid-on',
+          href: '#/table/edit',
+          id: genId()
+        },
       ]
     },
     {
