@@ -36,7 +36,7 @@ export default class extends WeElement<Props> {
 
   pickAction = (evt) => {
     const btn = evt.detail.action
-    if(btn.icon === 'add-comment-rounded') {
+    if (btn.icon === 'add-comment-rounded') {
       showLoading('发送短信息...')
       setTimeout(() => {
         hideLoading()
@@ -229,13 +229,12 @@ export default class extends WeElement<Props> {
 
     return (
       <code-demo-container>
-        
+
         <code-demo
           title="简单卡片"
           describe={'只包含内容区域'}
           code={this.mdA}
           style={gridStyle}
-          class={tw`bg-green-50`}
         >
           <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-2 h-36 w-60`}>
@@ -312,40 +311,39 @@ export default class extends WeElement<Props> {
           describe="包含标题、内容、操作区域(extra)"
           code={this.mdB}
           style={gridStyle}
-          class={tw`bg-green-50`}
         >
           <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-5 h-36 w-72`}>
               <o-card title="Default size card" hoverable="true" block="1" >
-                  <o-link
-                    underline={false}
-                    type="primary"
-                    target="_blank"
-                    href="https://tencent.github.io/omi/"
-                    slot="extra"
-                  >
-                    More
-                  </o-link>
-                  <p>Card content</p>
-                  <p>Card content</p>
-                  <p>Card content</p>
-                </o-card>
+                <o-link
+                  underline={false}
+                  type="primary"
+                  target="_blank"
+                  href="https://tencent.github.io/omi/"
+                  slot="extra"
+                >
+                  More
+                </o-link>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+              </o-card>
             </div>
             <div class={tw`mt-2 mb-10 mx-5 h-36 w-72`}>
               <o-card title="no border card" hoverable="true" bordered={false} block="1">
-                  <o-link
-                    underline={false}
-                    type="primary"
-                    target="_blank"
-                    href="https://tencent.github.io/omi/"
-                    slot="extra"
-                  >
-                    More
-                  </o-link>
-                  <p>Card content</p>
-                  <p>Card content</p>
-                  <p>Card content</p>
-                </o-card>
+                <o-link
+                  underline={false}
+                  type="primary"
+                  target="_blank"
+                  href="https://tencent.github.io/omi/"
+                  slot="extra"
+                >
+                  More
+                </o-link>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+              </o-card>
             </div>
           </div>
         </code-demo>
@@ -383,31 +381,31 @@ export default class extends WeElement<Props> {
                   </div>
                 </div>
               </o-card>
-              </div>
-              <div class={tw`mt-2 mb-10 mx-5 h-80 w-72`}>
-                <o-card block="1" hoverable="true">
-                  <o-image
-                    slot="cover"
-                    src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1199435000/VCG211199435578.jpg/thumb"
-                  ></o-image>
-                  <p>OMI Card</p>
-                  <p>
-                    <o-link
-                      underline={false}
-                      type="primary"
-                      target="_blank"
-                      href="https://tencent.github.io/omi/"
-                      slot="extra"
-                    >
-                      Welcome to OMI
-                    </o-link>
-                  </p>
-                </o-card>
-              </div>
+            </div>
+            <div class={tw`mt-2 mb-10 mx-5 h-80 w-72`}>
+              <o-card block="1" hoverable="true">
+                <o-image
+                  slot="cover"
+                  src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1199435000/VCG211199435578.jpg/thumb"
+                ></o-image>
+                <p>OMI Card</p>
+                <p>
+                  <o-link
+                    underline={false}
+                    type="primary"
+                    target="_blank"
+                    href="https://tencent.github.io/omi/"
+                    slot="extra"
+                  >
+                    Welcome to OMI
+                  </o-link>
+                </p>
+              </o-card>
+            </div>
           </div>
         </code-demo>
 
-        
+
       </code-demo-container>
     )
   }

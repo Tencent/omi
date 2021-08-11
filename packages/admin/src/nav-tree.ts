@@ -83,6 +83,19 @@ export function genNavTree(localeMap, locale) {
       id: genId(),
 
       children: [
+
+        {
+          label: localeMap.base.Success,
+          // icon: 'error',
+          href: '#/success',
+          id: genId()
+        },
+        {
+          label: localeMap.base.Failure,
+          // icon: 'warning',
+          href: '#/failure',
+          id: genId()
+        },
         {
           label: localeMap.base.BrowserIncompatible,
           id: genId(),
