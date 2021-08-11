@@ -44,14 +44,15 @@ export default class extends WeElement<Props> {
 
   mdC = `
   \`\`\`
-  //!有bug，先disable掉, v0.08会修复
-  <code-demo
-  >
+    //貌似还是有bug（update会触发其他code-demo里的slider的更新），继续改进。。。
     <div>
-      <o-slider onchange={handleChangeFunction}></o-slider>
-      <o-input onchange={handleChangeFunction}></o-input>
+      <o-slider value={someValue} oninput={handleInputFunction}></o-slider>
+      <o-input value={someValue} onchange={handleInputFunction}></o-input>
     </div>
-  </code-demo>
+    <div>
+      <o-slider value={someValue} onchange={handleChangeFunction}></o-slider>
+      <o-input value={someValue} onchange={handleChangeFunction}></o-input>
+  </div>
   \`\`\`
   `
 
@@ -73,12 +74,31 @@ export default class extends WeElement<Props> {
   \`\`\`
   `
 
-  value: number = 5
+  mdF = `
+  \`\`\`html
+  <o-slider
+  \\default a normal sized slider
+  size="slim"
+></o-slider>
+<o-slider
+  size="normal"
+></o-slider>
+<o-slider
+  size="large"
+></o-slider>
+  \`\`\`
+  `
+
+  valueInput: number = 5
+  valueChange: number = 5
+
+  handleInput = (evt) => {
+    this.valueInput = evt.detail
+    this.updateSelf()
+  }
 
   handleChange = (evt) => {
-    console.log(evt.detail)
-
-    this.value = evt.detail
+    this.valueChange = evt.detail
     this.updateSelf()
   }
 
@@ -113,7 +133,7 @@ export default class extends WeElement<Props> {
             <div
               slot="demo"
               style={{
-                height: '600px'
+                height: '800px'
               }}
             >
               <o-slider
@@ -139,21 +159,35 @@ export default class extends WeElement<Props> {
             describe="支持与o-input保持同步"
             code={this.mdC}
           >
-            <div slot="demo" class={tw`flex p-5`}>
-              <o-slider
-                min="0"
-                max="100"
-                value={this.value}
-                class={tw`w-4/5`}
-                oninput={this.handleChange}
-                disabled
-              ></o-slider>
-              <o-input
-                class={tw`pl-5`}
-                value={this.value}
-                oninput={this.handleChange}
-                disabled
-              ></o-input>
+            <div slot="demo" class={tw`flex justify-evenly p-5 `}>
+              <div>
+                <o-slider
+                  min="0"
+                  max="100"
+                  value={this.valueInput}
+                  class={tw`w-4/5`}
+                  oninput={this.handleInput}
+                ></o-slider>
+                <o-input
+                  class={tw` w-1/2`}
+                  value={this.valueInput}
+                  oninput={this.handleInput}
+                ></o-input>
+              </div>
+              <div>
+                <o-slider
+                  min="0"
+                  max="100"
+                  value={this.valueChange}
+                  class={tw`w-4/5`}
+                  onchange={this.handleChange}
+                ></o-slider>
+                <o-input
+                  class={tw`w-1/2`}
+                  value={this.valueChange}
+                  oninput={this.handleChange}
+                ></o-input>
+              </div>
             </div>
           </code-demo>
           <code-demo
@@ -188,6 +222,37 @@ export default class extends WeElement<Props> {
               tooltip
               slot="demo"
               class={tw`mt-5 p-5`}
+            ></o-slider>
+          </code-demo>
+          <code-demo
+            title={'不同大小'}
+            describe={'支持三种预设样式，slim， normal， large'}
+            code={this.mdF}
+          >
+            <o-slider
+              min="0"
+              max="100"
+              value="20"
+              size="slim"
+              slot="demo"
+              class={tw`p-5`}
+            ></o-slider>
+            <o-slider
+              min="0"
+              max="100"
+              value="20"
+              size="normal"
+              slot="demo"
+              class={tw`p-5`}
+            ></o-slider>
+            <o-slider
+              min="0"
+              max="100"
+              value="20"
+              second_value="100"
+              size="large"
+              slot="demo"
+              class={tw`p-5`}
             ></o-slider>
           </code-demo>
         </code-demo-container>
