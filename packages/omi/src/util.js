@@ -96,6 +96,14 @@ export function hyphenate(str) {
   return str.replace(hyphenateRE, '-$1').toLowerCase()
 }
 
+export function capitalize(name) {
+  return name
+    .replace(/\-(\w)/g, function(all, letter) {
+      return letter.toUpperCase()
+    })
+    .replace(/^\S/, s => s.toUpperCase())
+}
+
 export function getValByPath(path, current) {
   const arr = pathToArr(path)
   arr.forEach(prop => {

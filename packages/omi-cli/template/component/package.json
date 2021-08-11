@@ -16,7 +16,7 @@
     "pretest": "yarn build",
     "test": "web-test-runner \"test/*.js\" --node-resolve"
   },
-  "files": [
+  "files_to_be_replace": [
     "dist",
     "types"
   ],

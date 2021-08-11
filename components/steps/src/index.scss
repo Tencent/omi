@@ -6,12 +6,12 @@
 }
 
 .o-steps {
-	width: 100%;
-	display: flex;
-	white-space: nowrap;
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
 }
 
-.o-steps.vertical{
+.o-steps.vertical {
   flex-direction: column;
 }
 
@@ -22,17 +22,21 @@
   overflow: visible;
 }
 
-o-icon-done{
-  color: $o-primary
+o-icon-done {
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
 }
 
-o-icon-clear{
-  color: $o-danger
+o-icon-clear {
+  color: $o-danger;
+  color: var(--o-danger, $o-danger);
 }
 
-*, *::before, *::after {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 ._item-icon {
@@ -44,19 +48,20 @@ o-icon-clear{
   border-radius: 32px;
   font-size: 16px;
   margin-right: 8px;
-	display: inline-block;
-	vertical-align: top;
+  display: inline-block;
+  vertical-align: top;
 }
 
 ._item-content {
   display: inline-block;
   position: relative;
-	top: 5px;
-	vertical-align: top;
+  top: 5px;
+  vertical-align: top;
 }
 
 ._item-finish ._item-icon {
   border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary);
   background-color: #fff;
 }
 
@@ -64,27 +69,32 @@ o-icon-clear{
 ._item-process ._item-icon {
   color: white;
   border-color: $o-primary;
+  border-color: var(--o-primary, $o-primary);
   background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary);
 }
 
 
-._item-wait  {
-  color:rgba(0, 0, 0, 0.45);
+._item-wait {
+  color: rgba(0, 0, 0, 0.45);
 }
 
 
 ._item-block ._item-icon {
   border-color: $o-danger;
+  border-color: var(--o-danger, $o-danger);
   background-color: #fff;
 }
 
 
-._item-block  {
-  color:$o-danger;
+._item-block {
+  color: $o-danger;
+  color: var(--o-danger, $o-danger);
 }
 
 ._item-block ._item-description {
   color: $o-danger;
+  color: var(--o-danger, $o-danger);
 }
 
 ._item-description {
@@ -95,10 +105,12 @@ o-icon-clear{
 
 ._item-finish>._item-content>._item-title:after {
   background-color: $o-primary;
+  background-color: var(--o-primary, $o-primary);
 }
 
 ._item.next-error ._item-title:after {
   background: $o-danger;
+  background: var(--o-danger, $o-danger);
 }
 
 ._item-title:after {
@@ -115,12 +127,12 @@ o-icon-clear{
 ._item {
   position: relative;
   display: inline-block;
-  flex:1;
-	overflow: hidden;
-	vertical-align: top;
-	height: 60px;
-	margin-right: 16px;
-	white-space: nowrap;
+  flex: 1;
+  overflow: hidden;
+  vertical-align: top;
+  height: 60px;
+  margin-right: 16px;
+  white-space: nowrap;
 }
 
 ._item:last-child ._item-title:after {
@@ -134,56 +146,58 @@ o-icon-clear{
 }
 
 .vertical ._item {
-	display: block;
-	overflow: visible;
+  display: block;
+  overflow: visible;
 }
 
 .vertical ._item-tail::after {
-	display: inline-block;
-	background: #e8e8e8;
-	border-radius: 1px;
-	-webkit-transition: background .3s;
-	transition: background .3s;
-	content: '';
-	width: 1px;
-	height: 100%;
+  display: inline-block;
+  background: #e8e8e8;
+  border-radius: 1px;
+  -webkit-transition: background .3s;
+  transition: background .3s;
+  content: '';
+  width: 1px;
+  height: 100%;
 }
 
 .vertical ._item-finish ._item-tail::after {
-	background: $o-primary;
+  background: $o-primary;
+  background: var(--o-primary, $o-primary);
 }
 
 
 .vertical .next-error ._item-tail::after {
-	background: $o-danger;
+  background: $o-danger;
+  background: var(--o-danger, $o-danger);
 }
 
-.vertical ._item-title:after{
-	display: none;
+.vertical ._item-title:after {
+  display: none;
 }
 
 .vertical>._item:not(:last-child)>._item-tail {
-	display: block;
+  display: block;
 }
 
 .vertical>._item>._item-tail {
-	position: absolute;
-	top: 0px;
-	left: 16px;
-	width: 1px;
-	height: 100%;
-	padding: 38px 0 6px;
+  position: absolute;
+  top: 0px;
+  left: 16px;
+  width: 1px;
+  height: 100%;
+  padding: 38px 0 6px;
 }
 
 ._item-tail {
-	position: absolute;
-	top: 12px;
-	left: 0;
-	width: 100%;
-	padding: 0 10px;
-	display: none;
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 100%;
+  padding: 0 10px;
+  display: none;
 }
 
 .vertical>_item:not(:last-child)>._item-tail {
-	display: block;
+  display: block;
 }

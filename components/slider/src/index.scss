@@ -2,7 +2,6 @@
 
 @import '@omiu/common/theme.scss';
 
-// excess height to improve interactive area / accessibility
 $thumb-height: 14px;
 $track-height: 4px;
 
@@ -47,6 +46,20 @@ $hover-thumb-color: $o-primary-fade-lot;
   border-radius: 50%;
 }
 
+@mixin thumb-large {
+  @include thumb;
+  width: 25px;
+  height: 25px;
+  margin-top: (25px / -2) - 2;
+}
+
+@mixin thumb-slim {
+  @include thumb;
+  width: 20px;
+  height: 12px;
+  margin-top: (12px / -2) - 2;
+  border-radius: 0%;
+}
 @mixin track {
   width: 100%;
   position: relative;
@@ -164,6 +177,47 @@ $hover-thumb-color: $o-primary-fade-lot;
   }
   &::-ms-thumb {
     @include thumb-disabled;
+    appearance: none;
+  }
+}
+
+//===============================large-slider=========================================
+.is-large .slider-track {
+  height: 6px;
+}
+.is-large .o-slider {
+  &::-webkit-slider-thumb {
+    @include thumb-large;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb-large;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb-large;
+    appearance: none;
+  }
+}
+
+//===============================Slim-slider=========================================
+.is-slim .slider-track {
+  height: 2px;
+  border-radius: 0%;
+}
+.is-slim .o-slider {
+  &::-webkit-slider-thumb {
+    @include thumb-slim;
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb-slim;
+    -webkit-appearance: none;
+  }
+  &::-ms-thumb {
+    @include thumb-slim;
     appearance: none;
   }
 }

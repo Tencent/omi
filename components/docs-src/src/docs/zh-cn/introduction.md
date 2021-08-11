@@ -88,28 +88,6 @@ or
 <my-element show="0"></my-element>
 ```
 
-## React 中使用 omiu
-
-```tsx
-/** @jsx nativeEvents */
-import nativeEvents from 'jsx-native-events'
-import { useState } from 'react'
-import '@omiu/icon-button'
-
-export default function SomeComponent(props) {
-    const [result, setSwitch] = useState(false)
-
-    return (
-      <div>
-        <p>The switch is {result ? 'on' : 'off'}</p>
-        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onEventChange={e => setSwitch(e.detail.isOn)}>
-        </o-icon-button>
-      </div>
-    )
-}
-```
-
-非常感谢 calebdwilliams 的 [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme)。
 
 ## Vue 中使用 Omiu
 
@@ -140,16 +118,41 @@ export default {
 </template>
 ```
 
-## 事件触发和绑定最佳实践
+## 在 preact 中使用 Omiu
 
-由于需要跨框架，在事件绑定上为了统一组件行为这里给除了组件开发和使用的最佳实践。Omiu 组件的事件触发统一使用大写的形式：
+```tsx
+import { useState, h } from 'preact'
+import '@omiu/icon-button'
 
-```js
-this.fire('Change')
-this.fire('MyEvent')
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onchange={e => setSwitch(e.detail.isOn)}>
+        </o-icon-button>
+      </div>
+    )
+}
 ```
 
-在 Omi 或者 Preact 中进行对应的事件绑定:
+## 事件触发和绑定最佳实践
+
+由于需要跨框架，在事件绑定上为了统一组件行为这里给除了组件开发和使用的最佳实践。Omiu 组件的事件触发统一使用小写中划线的形式：
+
+```js
+this.fire('change')
+this.fire('my-event')
+```
+
+在 Omi 中：
+
+```jsx
+<my-ele onChange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
+```
+
+Preact 中进行对应的事件绑定:
 
 ```jsx
 <my-ele onchange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
@@ -158,14 +161,15 @@ this.fire('MyEvent')
 在 Vue 中进行对应的事件绑定:
 
 ```html
-<my-ele @change="changeHandler" @MyEvent="myEventHandler"></my-ele>
+<my-ele @change="changeHandler" @my-event="myEventHandler"></my-ele>
 ```
 
 在 React 和 JS 中进行对应的事件绑定:
 
 ```jsx
-myEl.addEventListener('MyEvent', (evt) => {})
+myEl.addEventListener('my-event', (evt) => {})
 ```
+
 
 ## 贡献
 

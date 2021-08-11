@@ -130,7 +130,7 @@ export default function SomeComponent(props) {
     return (
       <div>
         <p>The switch is {result ? 'on' : 'off'}</p>
-        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onChange={e => setSwitch(e.detail.isOn)}>
+        <o-icon-button color="red" icons="['favorite', 'favorite_border']" onchange={e => setSwitch(e.detail.isOn)}>
         </o-icon-button>
       </div>
     )
@@ -138,7 +138,7 @@ export default function SomeComponent(props) {
 ```
 
 
-## Using omiu in react
+<!-- ## Using omiu in react
 
 ```tsx
 /** @jsx nativeEvents */
@@ -160,27 +160,33 @@ export default function SomeComponent(props) {
 ```
 
 Many thanks to calebdwilliams's [jsx-native-events](https://github.com/calebdwilliams/jsx-native-events#readme)。
-
+ -->
 
 ## Event triggering and binding best practices
 
-Due to the need for cross framework, in order to unify component behavior in event binding, best practices for component development and use are given here. The event triggering of the omiu component is in the form of uppercase dash:
+Due to the need for cross framework, in order to unify component behavior in event binding, best practices for component development and use are given here. The event triggering of the omiu component is in the form of lowercase or lowercase + middle dash:
 
 ```js
-this.fire('Change')
-this.fire('MyEvent')
+this.fire('change')
+this.fire('my-event')
 ```
 
-In Omi or Preact :
+In Omi:
 
 ```jsx
-<my-ele onchange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
+<my-ele onChange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
+```
+
+In Preact :
+
+```jsx
+<my-ele onchange={this.changeHandler} onmy-event={this.myEventHandler}></my-ele>
 ```
 
 In Vue:
 
 ```html
-<my-ele @change="changeHandler" @MyEvent="myEventHandler"></my-ele>
+<my-ele @change="changeHandler" @my-event="myEventHandler"></my-ele>
 ```
 
 In React or JS:

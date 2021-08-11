@@ -46,7 +46,8 @@ export const base = {
   StepsForm: 'Steps Form',
 
   Button: 'Button',
-  Tabs: 'Tabs'
+  Tabs: 'Tabs',
+  BasicList: 'Basic List'
 
 
 }

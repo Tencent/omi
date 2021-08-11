@@ -103,7 +103,7 @@ export default class extends WeElement<Props> {
             .o-select .o-input__inner {
               width: 117px;
             `} size="mini"
-                onitem-select={this.onItemSelect}
+                onItemSelect={this.onItemSelect}
                 value={this.store.locale} items={this.items}>
               </o-select>
             </div>

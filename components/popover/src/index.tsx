@@ -37,7 +37,7 @@ export default class Popover extends WeElement<Props> {
       // 手动模式
       if (this.props.trigger === 'manual') return
       if (this.isShow) {
-        this.isShow = false
+        this.leave()
         this.update()
       }
     })
@@ -46,6 +46,14 @@ export default class Popover extends WeElement<Props> {
   onEnter = (evt) => {
     clearTimeout(this.timeout)
     this.isShow = !this.isShow
+    if (this.isShow) {
+      this.appear = true
+      this.disappear = false
+    } else {
+      this.appear = false
+      this.disappear = true
+    }
+
     this.update()
     //html 模式过滤文本
     const tip = this.shadowRoot
@@ -77,7 +85,7 @@ export default class Popover extends WeElement<Props> {
 
   onLeave = () => {
     this.timeout = setTimeout(() => {
-      this.isShow = false
+      this.leave()
       this.update()
     }, 600)
   }
@@ -91,10 +99,18 @@ export default class Popover extends WeElement<Props> {
     this.popper.update()
   }
 
+  leave() {
+    this.appear = false
+    this.disappear = true
+    setTimeout(() => {
+      this.isShow = false
+    }, 600)
+  }
+
   onLeavePopover = () => {
     if (this.props.trigger === 'hover') {
       this.timeout = setTimeout(() => {
-        this.isShow = false
+        this.leave()
         this.update()
       }, 600)
     }
@@ -123,9 +139,9 @@ export default class Popover extends WeElement<Props> {
       <div style="position:relative">
         <slot {...targetEvents}></slot>
 
-        <o-transition appear={this.isShow} name="fade">
+        <o-transition appear={this.appear} disappear={this.disappear} name="fade">
           <div
-            style={{ display: this.isInstalled ? 'block' : 'none' }}
+            style={{ display: this.isShow ? 'block' : 'none' }}
             class={classNames({
               tip: true,
               [`is-${props.effect}`]: props.effect,

@@ -43,20 +43,19 @@ export default class extends WeElement<Props> {
       title: '',
       align: 'right',
       render: (item: { id: number }) => (
-        //onclick 会绑定多次,需要使用_onclick
         <div>
           {this.store.notifications.find((current) => current.id === item.id).status === 0 ?
             (<o-tooltip content={'设为已读'} style="padding-right:30px">
               <o-icon-done-outline-outlined
                 data-item-id={item.id}
-                _onclick={this.onRead}
+                onClick={this.onRead}
                 style="cursor:pointer;font-size:15px;"
               ></o-icon-done-outline-outlined>
             </o-tooltip>) : (
               <o-tooltip content={'设为未读'} style="padding-right:30px">
                 <o-icon-chat-outlined
                   data-item-id={item.id}
-                  _onclick={this.onUnRead}
+                  onClick={this.onUnRead}
                   style="cursor:pointer;font-size:15px;"
                 ></o-icon-chat-outlined>
               </o-tooltip>)
@@ -64,7 +63,7 @@ export default class extends WeElement<Props> {
           <o-tooltip content={'删除通知'}>
             <o-icon-delete-outline
               data-item-id={item.id}
-              _onclick={this.onClick}
+              onClick={this.onClick}
               style="cursor:pointer;font-size:20px"
             ></o-icon-delete-outline>
           </o-tooltip>
@@ -156,7 +155,7 @@ export default class extends WeElement<Props> {
         <div class={tw`pr-5`}>
           <o-tabs
             list={[{ label: '全部通知' }, { label: '未读通知' }, { label: '已读通知' }]}
-            onchange={this.onChange}
+            onChange={this.onChange}
             activeIndex={this.activeIndex}
           ></o-tabs>
           <o-table

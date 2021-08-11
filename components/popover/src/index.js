@@ -1,5 +1,5 @@
 /**
- * @omiu/popover v0.0.13 http://omijs.org
+ * @omiu/popover v0.0.14 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1934,7 +1934,7 @@
     }); // eslint-disable-next-line import/no-unused-modules
 
     /**
-     * @omiu/transition v0.0.11 http://omijs.org
+     * @omiu/transition v0.0.14 http://omijs.org
      * Front End Cross-Frameworks Framework.
      * By dntzhang https://github.com/dntzhang
      * Github: https://github.com/Tencent/omi
@@ -2082,35 +2082,23 @@
             return _this;
         }
         Transition.prototype.installed = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var _this = this;
-                return __generator(this, function (_a) {
-                    domReady(function () {
-                        if (_this.props.appear) {
-                            _this.enter();
-                        }
-                        else {
-                            _this.children[0].style['transition-duration'] = '0s';
-                            _this.leave();
-                            setTimeout(function () {
-                                _this.children[0].style['transition-duration'] = null;
-                            }, 300);
-                        }
-                        if (_this.props.leavingTime) {
-                            setTimeout(function () {
-                                _this.leave();
-                            }, _this.props.leavingTime);
-                        }
-                    });
-                    return [2 /*return*/];
-                });
+            var _this = this;
+            domReady(function () {
+                if (_this.props.appear) {
+                    _this.enter();
+                }
+                if (_this.props.leavingTime) {
+                    setTimeout(function () {
+                        _this.leave();
+                    }, _this.props.leavingTime);
+                }
             });
         };
         Transition.prototype.receiveProps = function () {
             if (this.props.appear) {
                 this.enter();
             }
-            else {
+            if (this.props.disappear) {
                 this.leave();
             }
         };
@@ -2207,6 +2195,7 @@
             leavingTime: Number,
             autoRemove: Boolean,
             appear: Boolean,
+            disappear: Boolean,
             delay: Number
         };
         Transition.isLightDom = true;
@@ -2234,6 +2223,14 @@
             _this.onEnter = function (evt) {
                 clearTimeout(_this.timeout);
                 _this.isShow = !_this.isShow;
+                if (_this.isShow) {
+                    _this.appear = true;
+                    _this.disappear = false;
+                }
+                else {
+                    _this.appear = false;
+                    _this.disappear = true;
+                }
                 _this.update();
                 //html 模式过滤文本
                 var tip = _this.shadowRoot
@@ -2261,7 +2258,7 @@
             };
             _this.onLeave = function () {
                 _this.timeout = setTimeout(function () {
-                    _this.isShow = false;
+                    _this.leave();
                     _this.update();
                 }, 600);
             };
@@ -2272,7 +2269,7 @@
             _this.onLeavePopover = function () {
                 if (_this.props.trigger === 'hover') {
                     _this.timeout = setTimeout(function () {
-                        _this.isShow = false;
+                        _this.leave();
                         _this.update();
                     }, 600);
                 }
@@ -2287,13 +2284,21 @@
                 if (_this.props.trigger === 'manual')
                     return;
                 if (_this.isShow) {
-                    _this.isShow = false;
+                    _this.leave();
                     _this.update();
                 }
             });
         };
         Popover.prototype.updatePosition = function () {
             this.popper.update();
+        };
+        Popover.prototype.leave = function () {
+            var _this = this;
+            this.appear = false;
+            this.disappear = true;
+            setTimeout(function () {
+                _this.isShow = false;
+            }, 600);
         };
         Popover.prototype.render = function (props) {
             var _a;
@@ -2311,8 +2316,8 @@
             }
             return (omi.h("div", { style: "position:relative" },
                 omi.h("slot", __assign({}, targetEvents)),
-                omi.h("o-transition", { appear: this.isShow, name: "fade" },
-                    omi.h("div", { style: { display: this.isInstalled ? 'block' : 'none' }, class: omi.classNames((_a = {
+                omi.h("o-transition", { appear: this.appear, disappear: this.disappear, name: "fade" },
+                    omi.h("div", { style: { display: this.isShow ? 'block' : 'none' }, class: omi.classNames((_a = {
                                 tip: true
                             },
                             _a["is-" + props.effect] = props.effect,

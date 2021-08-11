@@ -68,7 +68,11 @@ export default class extends WeElement {
   }
 
   getMainContentWidth() {
-    return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
+    if (window.innerWidth > 640) {
+      return (window.innerWidth - (this.store.isLeftPanelClosed ? 0 : 256)) + 'px'
+    } else {
+      return window.innerWidth
+    }
   }
 
   onMenuChange = (evt) => {
@@ -103,8 +107,8 @@ export default class extends WeElement {
                 closable
                 type="card"
                 list={this.store.tabs}
-                onchange={this.onChange}
-                onremove={this.onRemove}
+                onChange={this.onChange}
+                onRemove={this.onRemove}
                 active-index={this.store.tabsActiveIndex}
               ></o-tabs>
             </div>
