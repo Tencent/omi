@@ -47,7 +47,10 @@ export const base = {
 
   Button: 'Button',
   Tabs: 'Tabs',
-  BasicList: 'Basic List'
+  BasicList: 'Basic List',
+
+  Success: 'Success',
+  Failure: 'Failure'
 
 
 }
