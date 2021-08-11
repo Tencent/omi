@@ -2869,17 +2869,17 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "@use 'sass:math';\n:host {\n  display: -ms-grid;\n  display: grid; }\n\n.slider-container {\n  position: relative;\n  width: 100%;\n  height: 50px; }\n\n.slider-container .slider-track {\n  width: 100%;\n  position: relative;\n  margin: 5px;\n  height: 4px;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  outline: none;\n  margin: auto;\n  z-index: -1; }\n\n.slider-container .o-slider {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  z-index: 1;\n  background: transparent;\n  pointer-events: none; }\n  .slider-container .o-slider:focus {\n    outline: none; }\n  .slider-container .o-slider::-webkit-slider-runnable-track {\n    -webkit-appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-moz-range-track {\n    -moz-appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-ms-track {\n    appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-webkit-slider-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-webkit-slider-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-webkit-slider-thumb:hover {\n      border-color: #059048; }\n  .slider-container .o-slider::-moz-range-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-moz-range-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-moz-range-thumb:hover {\n      border-color: #059048; }\n  .slider-container .o-slider::-ms-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    appearance: none; }\n    .slider-container .o-slider::-ms-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-ms-thumb:hover {\n      border-color: #059048; }\n\n.is-round .slider-track {\n  border-radius: 8px; }\n\n.is-round .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-round .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-round .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  appearance: none; }\n  .is-round .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .slider-track {\n  border-color: #c0c4cc; }\n\n.is-disabled .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  appearance: none; }\n  .is-disabled .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n", ""]);
+exports.push([module.i, "@use 'sass:math';\n:host {\n  display: -ms-grid;\n  display: grid; }\n\n.slider-container {\n  position: relative;\n  width: 100%;\n  height: 50px; }\n\n.slider-container .slider-track {\n  width: 100%;\n  position: relative;\n  margin: 5px;\n  height: 4px;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  outline: none;\n  margin: auto;\n  z-index: -1; }\n\n.slider-container .o-slider {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  z-index: 1;\n  background: transparent;\n  pointer-events: none; }\n  .slider-container .o-slider:focus {\n    outline: none; }\n  .slider-container .o-slider::-webkit-slider-runnable-track {\n    -webkit-appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-moz-range-track {\n    -moz-appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-ms-track {\n    appearance: none;\n    height: 4px; }\n  .slider-container .o-slider::-webkit-slider-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-webkit-slider-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-webkit-slider-thumb:hover {\n      border-color: #059048; }\n  .slider-container .o-slider::-moz-range-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    -webkit-appearance: none; }\n    .slider-container .o-slider::-moz-range-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-moz-range-thumb:hover {\n      border-color: #059048; }\n  .slider-container .o-slider::-ms-thumb {\n    top: 50%;\n    width: 14px;\n    height: 14px;\n    position: relative;\n    z-index: 2;\n    margin-top: -9px;\n    border: 2px solid #07c160;\n    background-color: #ffffff;\n    cursor: pointer;\n    pointer-events: auto;\n    box-shadow: 0;\n    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n    appearance: none; }\n    .slider-container .o-slider::-ms-thumb:active {\n      box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n    .slider-container .o-slider::-ms-thumb:hover {\n      border-color: #059048; }\n\n.is-round .slider-track {\n  border-radius: 8px; }\n\n.is-round .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-round .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  -webkit-appearance: none; }\n  .is-round .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-round .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  border-radius: 50%;\n  appearance: none; }\n  .is-round .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-round .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .slider-track {\n  border-color: #c0c4cc; }\n\n.is-disabled .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  -webkit-appearance: none; }\n  .is-disabled .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-disabled .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  pointer-events: none;\n  border-color: #c0c4cc;\n  appearance: none; }\n  .is-disabled .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-disabled .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n\n.is-large .slider-track {\n  height: 6px; }\n\n.is-large .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  width: 25px;\n  height: 25px;\n  margin-top: -14.5px;\n  -webkit-appearance: none; }\n  .is-large .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-large .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-large .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  width: 25px;\n  height: 25px;\n  margin-top: -14.5px;\n  -webkit-appearance: none; }\n  .is-large .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-large .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-large .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  width: 25px;\n  height: 25px;\n  margin-top: -14.5px;\n  appearance: none; }\n  .is-large .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-large .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n\n.is-slim .slider-track {\n  height: 2px;\n  border-radius: 0%; }\n\n.is-slim .o-slider::-webkit-slider-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  width: 20px;\n  height: 12px;\n  margin-top: -8px;\n  border-radius: 0%;\n  -webkit-appearance: none; }\n  .is-slim .o-slider::-webkit-slider-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-slim .o-slider::-webkit-slider-thumb:hover {\n    border-color: #059048; }\n\n.is-slim .o-slider::-moz-range-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  width: 20px;\n  height: 12px;\n  margin-top: -8px;\n  border-radius: 0%;\n  -webkit-appearance: none; }\n  .is-slim .o-slider::-moz-range-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-slim .o-slider::-moz-range-thumb:hover {\n    border-color: #059048; }\n\n.is-slim .o-slider::-ms-thumb {\n  top: 50%;\n  width: 14px;\n  height: 14px;\n  position: relative;\n  z-index: 2;\n  margin-top: -9px;\n  border: 2px solid #07c160;\n  background-color: #ffffff;\n  cursor: pointer;\n  pointer-events: auto;\n  box-shadow: 0;\n  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);\n  width: 20px;\n  height: 12px;\n  margin-top: -8px;\n  border-radius: 0%;\n  appearance: none; }\n  .is-slim .o-slider::-ms-thumb:active {\n    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }\n  .is-slim .o-slider::-ms-thumb:hover {\n    border-color: #059048; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2971,7 +2971,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3031,8 +3031,8 @@ var OSlider = /** @class */ (function (_super) {
     function OSlider() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.sliderMax = _this.props.max;
-        _this.lowerColor = '#059048';
-        _this.upperColor = '#d9d9d9';
+        _this.lowerColor = '#07c160';
+        _this.upperColor = '#f0f0f0';
         _this._onGetValue = function () {
             return _this.__$value1;
         };
@@ -3049,7 +3049,7 @@ var OSlider = /** @class */ (function (_super) {
             _this.props.second_value = value;
             _this.setAttribute('second_value', value);
         };
-        _this.handleSliderOne = function (evt) {
+        _this.handleS1Input = function (evt) {
             evt.stopPropagation();
             var first_value = parseInt(_this.slider1.value);
             if (first_value <= _this.__$value2 || _this.props.range === 'single') {
@@ -3063,10 +3063,9 @@ var OSlider = /** @class */ (function (_super) {
             else {
                 _this.fire('input', [_this.__$value1, _this.__$value2]);
             }
-            _this.fillColor(_this.lowerColor, _this.upperColor);
             _this.update();
         };
-        _this.handleSliderTwo = function (evt) {
+        _this.handleS2Input = function (evt) {
             evt.stopPropagation();
             var second_value = parseInt(_this.slider2.value);
             //we only have one case if slider two exists
@@ -3075,6 +3074,17 @@ var OSlider = /** @class */ (function (_super) {
             }
             _this.fire('input', [_this.__$value1, _this.__$value2]);
             _this.update();
+        };
+        _this.handleS1Change = function (evt) {
+            if (_this.props.range === 'single') {
+                _this.fire('change', _this.__$value1);
+            }
+            else {
+                _this.fire('change', [_this.__$value1, _this.__$value2]);
+            }
+        };
+        _this.handleS2Change = function (evt) {
+            _this.fire('change', [_this.__$value1, _this.__$value2]);
         };
         _this.fillColor = function (lowerColor, upperColor) {
             var percent1 = _this.props.range === 'double'
@@ -3090,8 +3100,8 @@ var OSlider = /** @class */ (function (_super) {
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
         };
-        _this.handleChange = function () {
-            _this.fillColor('#07c160', '#f0f0f0');
+        _this.handleMouseUp = function () {
+            _this.fillColor(_this.lowerColor, _this.upperColor);
         };
         return _this;
     }
@@ -3110,7 +3120,7 @@ var OSlider = /** @class */ (function (_super) {
         });
     };
     OSlider.prototype.installed = function () {
-        this.fillColor('#07c160', '#f0f0f0');
+        this.fillColor(this.lowerColor, this.upperColor);
         var host = this.shadowRoot.host;
         this.props.orient === 'vertical' &&
             (host.style.transform = 'rotate(-90deg)');
@@ -3124,13 +3134,15 @@ var OSlider = /** @class */ (function (_super) {
         }
     };
     OSlider.prototype.updated = function () {
-        this.fillColor(this.lowerColor, this.upperColor);
+        this.fillColor('#059048', '#d9d9d9');
     };
     OSlider.prototype.render = function (props) {
         var _this = this;
         var cls = omi_1.extractClass(props, 'slider-container', {
             'is-vertical': props.orient === 'vertical',
             'is-round': props.shape === 'round',
+            'is-large': props.size === 'large',
+            'is-slim': props.size === 'slim',
             'is-disabled': props.disabled,
         });
         return (omi_1.h("div", __assign({}, cls, { ref: function (e) {
@@ -3139,22 +3151,22 @@ var OSlider = /** @class */ (function (_super) {
             this.props.tooltip ? (omi_1.h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
                     ? this.__$value1 + " , " + this.__$value2
                     : this.__$value1 },
-                omi_1.h("input", { class: "o-slider", id: "slider-1", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, ref: function (e) {
+                omi_1.h("input", { class: "o-slider", id: "slider-1", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleS1Input, onChange: this.handleS1Change, onMouseUp: this.handleMouseUp, ref: function (e) {
                         _this.slider1 = e;
                     } }))) : (
             /* ========================SINGLE-NO-TOOLTIP================================ */
-            omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, id: "slider-1", ref: function (e) {
+            omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleS1Input, onChange: this.handleS1Change, onMouseUp: this.handleMouseUp, id: "slider-1", ref: function (e) {
                     _this.slider1 = e;
                 } })),
             this.props.range === 'double' &&
                 (this.props.tooltip ? (omi_1.h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
                         ? this.__$value1 + " , " + this.__$value2
                         : this.__$value1 },
-                    omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
+                    omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleS2Input, onChange: this.handleS2Change, onMouseUp: this.handleMouseUp, id: "slider-2", ref: function (e) {
                             _this.slider2 = e;
                         } }))) : (
                 /* ========================DOUBLE-NO-TOOLTIP============================== */
-                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
+                omi_1.h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleS2Input, onChange: this.handleS2Change, onMouseUp: this.handleMouseUp, id: "slider-2", ref: function (e) {
                         _this.slider2 = e;
                     } }))),
             omi_1.h("div", { class: "slider-track", ref: function (e) {
@@ -3169,6 +3181,7 @@ var OSlider = /** @class */ (function (_super) {
         value: undefined,
         second_value: undefined,
         range: 'single',
+        size: 'normal',
         orient: 'horizontal',
         shape: 'round',
         tooltip: false,
@@ -3182,6 +3195,7 @@ var OSlider = /** @class */ (function (_super) {
         value: Number,
         second_value: Number,
         range: String,
+        size: String,
         orient: String,
         shape: String,
         tooltip: Boolean,

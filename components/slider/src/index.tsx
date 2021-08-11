@@ -9,6 +9,7 @@ interface Props {
   step?: number
   value?: number
   second_value?: number
+  size: 'slim' | 'normal' | 'large'
   range: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
@@ -27,6 +28,7 @@ export default class OSlider extends WeElement<Props> {
     value: undefined,
     second_value: undefined,
     range: 'single',
+    size: 'normal',
     orient: 'horizontal',
     shape: 'round',
     tooltip: false,
@@ -41,6 +43,7 @@ export default class OSlider extends WeElement<Props> {
     value: Number,
     second_value: Number,
     range: String,
+    size: String,
     orient: String,
     shape: String,
     tooltip: Boolean,
@@ -59,8 +62,8 @@ export default class OSlider extends WeElement<Props> {
   sliderTrack: HTMLElement
   sliderMax: number = this.props.max
 
-  lowerColor = '#059048'
-  upperColor = '#d9d9d9'
+  lowerColor = '#07c160'
+  upperColor = '#f0f0f0'
 
   install() {
     this.__$value1 = this.props.value
@@ -79,7 +82,7 @@ export default class OSlider extends WeElement<Props> {
   }
 
   installed() {
-    this.fillColor('#07c160', '#f0f0f0')
+    this.fillColor(this.lowerColor, this.upperColor)
     let host = this.shadowRoot.host as HTMLElement
     this.props.orient === 'vertical' &&
       (host.style.transform = 'rotate(-90deg)')
@@ -115,10 +118,10 @@ export default class OSlider extends WeElement<Props> {
   }
 
   updated() {
-    this.fillColor(this.lowerColor, this.upperColor)
+    this.fillColor('#059048', '#d9d9d9')
   }
 
-  handleSliderOne = (evt) => {
+  handleS1Input = (evt) => {
     evt.stopPropagation()
     const first_value = parseInt(this.slider1.value)
     if (first_value <= this.__$value2 || this.props.range === 'single') {
@@ -131,11 +134,10 @@ export default class OSlider extends WeElement<Props> {
     } else {
       this.fire('input', [this.__$value1, this.__$value2])
     }
-    this.fillColor(this.lowerColor, this.upperColor)
     this.update()
   }
 
-  handleSliderTwo = (evt) => {
+  handleS2Input = (evt) => {
     evt.stopPropagation()
     const second_value = parseInt(this.slider2.value)
     //we only have one case if slider two exists
@@ -144,6 +146,18 @@ export default class OSlider extends WeElement<Props> {
     }
     this.fire('input', [this.__$value1, this.__$value2])
     this.update()
+  }
+
+  handleS1Change = (evt) => {
+    if (this.props.range === 'single') {
+      this.fire('change', this.__$value1)
+    } else {
+      this.fire('change', [this.__$value1, this.__$value2])
+    }
+  }
+
+  handleS2Change = (evt) => {
+    this.fire('change', [this.__$value1, this.__$value2])
   }
 
   fillColor = (lowerColor, upperColor) => {
@@ -165,14 +179,16 @@ export default class OSlider extends WeElement<Props> {
       : (this.sliderTrack.style.background = `linear-gradient(to right, ${lowerColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
   }
 
-  handleChange = () => {
-    this.fillColor('#07c160', '#f0f0f0')
+  handleMouseUp = () => {
+    this.fillColor(this.lowerColor, this.upperColor)
   }
 
   render(props) {
     const cls = extractClass(props, 'slider-container', {
       'is-vertical': props.orient === 'vertical',
       'is-round': props.shape === 'round',
+      'is-large': props.size === 'large',
+      'is-slim': props.size === 'slim',
       'is-disabled': props.disabled,
     })
 
@@ -203,8 +219,9 @@ export default class OSlider extends WeElement<Props> {
               max={props.max}
               step={props.step}
               value={this.__$value1}
-              onInput={this.handleSliderOne}
-              onMouseUp={this.handleChange}
+              onInput={this.handleS1Input}
+              onChange={this.handleS1Change}
+              onMouseUp={this.handleMouseUp}
               ref={(e) => {
                 this.slider1 = e
               }}
@@ -218,8 +235,9 @@ export default class OSlider extends WeElement<Props> {
             min={props.min}
             max={props.max}
             value={this.__$value1}
-            onInput={this.handleSliderOne}
-            onMouseUp={this.handleChange}
+            onInput={this.handleS1Input}
+            onChange={this.handleS1Change}
+            onMouseUp={this.handleMouseUp}
             id="slider-1"
             ref={(e) => {
               this.slider1 = e
@@ -247,8 +265,9 @@ export default class OSlider extends WeElement<Props> {
                 min={props.min}
                 max={props.max}
                 value={this.__$value2}
-                onInput={this.handleSliderTwo}
-                onMouseUp={this.handleChange}
+                onInput={this.handleS2Input}
+                onChange={this.handleS2Change}
+                onMouseUp={this.handleMouseUp}
                 id="slider-2"
                 ref={(e) => {
                   this.slider2 = e
@@ -263,8 +282,9 @@ export default class OSlider extends WeElement<Props> {
               min={props.min}
               max={props.max}
               value={this.__$value2}
-              onInput={this.handleSliderTwo}
-              onMouseUp={this.handleChange}
+              onInput={this.handleS2Input}
+              onChange={this.handleS2Change}
+              onMouseUp={this.handleMouseUp}
               id="slider-2"
               ref={(e) => {
                 this.slider2 = e
