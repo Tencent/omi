@@ -19,13 +19,13 @@ declare global {
 
 
 const chartColors = [
-  'rgb(55, 199, 132)',
-  'rgb(155, 59, 64)',
+  'rgba(7, 193, 96,.8)',
+  'rgba(245, 108, 108,.8)',
 ]
 
 const chartBgColors = [
-  'rgba(55, 199, 132,.1)',
-  'rgba(155, 59, 64,.1)',
+  'rgba(7, 193, 96,0)',
+  'rgba(245, 108, 108,0)',
 ]
 
 
@@ -237,7 +237,7 @@ export default class extends WeElement<Props> {
       //yAxisID: 'y-axis-1',
       backgroundColor: chartBgColors[0],
       borderColor: chartColors[0],
-      borderWidth: 1,
+      borderWidth: 2,
       fill: true
     }, {
       label: '# 2022半年收入流水',
@@ -245,14 +245,13 @@ export default class extends WeElement<Props> {
       //yAxisID: 'y-axis-2',
       backgroundColor: chartBgColors[1],
       borderColor: chartColors[1],
-      borderWidth: 1,
+      borderWidth: 2,
       fill: true
     }
     ]
   }
 
   chartOptions = {
-
     maintainAspectRatio: false,
     elements: {
       line: {
@@ -270,7 +269,7 @@ export default class extends WeElement<Props> {
     plugins: {
       title: {
         display: true,
-        text: (ctx) => {
+        text: () => {
           //const { intersect, mode } = ctx.chart.options.interaction;
           return '收入统计(单位: 万)'
         }
@@ -318,10 +317,10 @@ export default class extends WeElement<Props> {
       data: [12222, 3119, 3223, 5223],
       //yAxisID: 'y-axis-1',
       backgroundColor: [
-        '#07c160',
-        '#3b5998',
-        '#f56c6c',
-        '#39f'
+        'rgba(7, 193, 96,.7)',
+        'rgba(59, 89, 152,.7)',
+        'rgba(245, 108, 108,.7)',
+        'rgba(51, 153, 255,.7)'
       ],
       borderColor: 'white',
       borderWidth: 1,
@@ -330,7 +329,7 @@ export default class extends WeElement<Props> {
   }
 
   doughnutChartOptions = {
-
+    cutout: 100,
     maintainAspectRatio: false,
     elements: {
       line: {
@@ -356,7 +355,6 @@ export default class extends WeElement<Props> {
       tooltip: {
         callbacks: {
           label: function (context) {
-            console.error(context)
             return context.dataset.label + ': ' + context.parsed + '万'
           }
         }
@@ -386,9 +384,9 @@ export default class extends WeElement<Props> {
           </o-chart-card>
         </div>
 
-        <div class={tw`border-1 mx-4 flex flex-col gap-x-4 gap-y-4 md:flex-row`}>
-          <o-line class={tw`bg-white flex-1 shadow-sm rounded`} height="350" data={this.chartData} options={this.chartOptions} />
-          <o-doughnut class={tw`bg-white flex-1 shadow-sm rounded`} height="350" data={this.doughnutChartData} options={this.doughnutChartOptions} />
+        <div class={tw` mx-4 flex flex-col gap-x-4 gap-y-4 md:flex-row`}>
+          <o-line class={tw`block bg-white flex-1 md:w-5/12 shadow-sm rounded`} height="350" data={this.chartData} options={this.chartOptions} />
+          <o-doughnut class={tw`block bg-white flex-1 md:w-5/12 shadow-sm rounded`} height="350" data={this.doughnutChartData} options={this.doughnutChartOptions} />
         </div>
 
         <div class={tw`px-5 py-4 flex flex-col gap-x-4 gap-y-2  md:flex-row`}>
@@ -410,14 +408,6 @@ export default class extends WeElement<Props> {
           >
           </o-icon-card>
 
-          <o-icon-card
-            class={tw`flex-1`}
-            color='#39f'
-            info='98'
-            caption='转发'
-            path='M928 254.3c-30.6 13.2-63.9 22.7-98.2 26.4a170.1 170.1 0 0 0 75-94 336.64 336.64 0 0 1-108.2 41.2A170.1 170.1 0 0 0 672 174c-94.5 0-170.5 76.6-170.5 170.6 0 13.2 1.6 26.4 4.2 39.1-141.5-7.4-267.7-75-351.6-178.5a169.32 169.32 0 0 0-23.2 86.1c0 59.2 30.1 111.4 76 142.1a172 172 0 0 1-77.1-21.7v2.1c0 82.9 58.6 151.6 136.7 167.4a180.6 180.6 0 0 1-44.9 5.8c-11.1 0-21.6-1.1-32.2-2.6C211 652 273.9 701.1 348.8 702.7c-58.6 45.9-132 72.9-211.7 72.9-14.3 0-27.5-.5-41.2-2.1C171.5 822 261.2 850 357.8 850 671.4 850 843 590.2 843 364.7c0-7.4 0-14.8-.5-22.2 33.2-24.3 62.3-54.4 85.5-88.2z'
-          >
-          </o-icon-card>
 
           <o-icon-card
             class={tw`flex-1`}
@@ -436,6 +426,15 @@ export default class extends WeElement<Props> {
             caption='FEEDS'
             viewBox="0 0 32 32"
             path='M27.26 27.271h-4.733v-7.427c0-1.771-0.037-4.047-2.475-4.047-2.468 0-2.844 1.921-2.844 3.916v7.557h-4.739v-15.271h4.552v2.083h0.061c0.636-1.203 2.183-2.468 4.491-2.468 4.801 0 5.692 3.161 5.692 7.271v8.385zM7.115 9.912c-1.527 0-2.751-1.235-2.751-2.756 0-1.516 1.229-2.749 2.751-2.749s2.755 1.233 2.755 2.749c0 1.521-1.233 2.756-2.755 2.756zM9.489 27.271h-4.749v-15.271h4.749zM29.636 0h-27.276c-1.303 0-2.36 1.031-2.36 2.307v27.387c0 1.276 1.057 2.307 2.36 2.307h27.271c1.301 0 2.369-1.031 2.369-2.307v-27.387c0-1.276-1.068-2.307-2.369-2.307z'
+          >
+          </o-icon-card>
+
+          <o-icon-card
+            class={tw`flex-1`}
+            color='#39f'
+            info='98'
+            caption='转发'
+            path='M928 254.3c-30.6 13.2-63.9 22.7-98.2 26.4a170.1 170.1 0 0 0 75-94 336.64 336.64 0 0 1-108.2 41.2A170.1 170.1 0 0 0 672 174c-94.5 0-170.5 76.6-170.5 170.6 0 13.2 1.6 26.4 4.2 39.1-141.5-7.4-267.7-75-351.6-178.5a169.32 169.32 0 0 0-23.2 86.1c0 59.2 30.1 111.4 76 142.1a172 172 0 0 1-77.1-21.7v2.1c0 82.9 58.6 151.6 136.7 167.4a180.6 180.6 0 0 1-44.9 5.8c-11.1 0-21.6-1.1-32.2-2.6C211 652 273.9 701.1 348.8 702.7c-58.6 45.9-132 72.9-211.7 72.9-14.3 0-27.5-.5-41.2-2.1C171.5 822 261.2 850 357.8 850 671.4 850 843 590.2 843 364.7c0-7.4 0-14.8-.5-22.2 33.2-24.3 62.3-54.4 85.5-88.2z'
           >
           </o-icon-card>
         </div>
