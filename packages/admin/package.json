@@ -42,7 +42,7 @@
     "@omiu/slider": "^0.0.7",
     "@omiu/steps": "^0.0.5",
     "@omiu/switch": "^0.0.2",
-    "@omiu/table": "^0.0.16",
+    "@omiu/table": "^0.0.17",
     "@omiu/tabs": "^0.0.22",
     "@omiu/time-picker": "^0.0.3",
     "@omiu/toast": "^0.0.8",

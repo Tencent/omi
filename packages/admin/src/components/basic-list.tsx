@@ -19,6 +19,29 @@ declare global {
   }
 }
 
+const Status = [
+  {
+    WORDING: '已完成',
+    COLOR: '#00a870'
+  }, {
+    WORDING: '待审核',
+    COLOR: '#ed7b2f'
+  }, {
+    WORDING: '待履行',
+    COLOR: '#ed7b2f'
+  }, {
+    WORDING: '审核失败',
+    COLOR: '#e34d59'
+  }, {
+    WORDING: '已完成',
+    COLOR: '#00a870'
+  }
+]
+
+const ContractType = ['商业合同', '内部合同', '私人合同']
+const PaymentType = ['收款', '付款']
+
+
 @tag(tagName)
 export default class extends WeElement<Props> {
   static css = sheet.target
@@ -48,7 +71,9 @@ export default class extends WeElement<Props> {
     },
     {
       title: '合同状态',
-      key: 'status'
+      render: (item) => {
+        return <span style={{ color: Status[item.status].COLOR }}>● {Status[item.status].WORDING}</span>
+      }
     },
     {
       title: '合同编号',
@@ -56,11 +81,17 @@ export default class extends WeElement<Props> {
     },
     {
       title: '合同类型',
-      key: 'contractType'
+
+      render: (item) => {
+        return <span > {ContractType[item.contractType]}</span>
+      }
+
     },
     {
       title: '合同收付类型',
-      key: 'paymentType'
+      render: (item) => {
+        return <span > {PaymentType[item.paymentType]}</span>
+      }
     },
     {
       title: '操作',
@@ -68,7 +99,7 @@ export default class extends WeElement<Props> {
       render: (item: { name: string; id: number }) => (
         //onclick 会绑定多次的问题
         <div>
-          <o-tooltip content={'查看 [' + item.name + ']'}>
+          <o-tooltip style={{ marginRight: 5 }} content={'查看 [' + item.name + ']'}>
             <o-icon-remove-red-eye data-item-id={item.id}
               onClick={this.onClick}
               style="cursor:pointer;font-size:20px;">
@@ -125,8 +156,6 @@ export default class extends WeElement<Props> {
             columns={this.columns}
             dataSource={this.dataSource}
           ></o-table>
-
-
 
           <div class={tw`flex justify-between pt-2 pb-2 pl-3`}>
             <p class={tw`text-gray-600  text-sm leading-8 `}>共{this.totalCount}条</p>
