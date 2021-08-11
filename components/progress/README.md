@@ -46,7 +46,6 @@ static defaultProps = {
     status: undefined,
     strokeColor: undefined,
     trailColor: undefined,
-
     textColor:undefined,
     strokeWidth: undefined,
     width: undefined,
@@ -54,14 +53,14 @@ static defaultProps = {
 
   }
   
-  const {
+    const trailColor = props.trailColor ? props.trailColor : "#f5f5f5"
+    const textColor = props.textColor ? props.textColor : "black"
+    const strokeWidth = props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6)
+    const width = props.width ? props.width : (props.type === "line" ? 160 : 120)
+    const {
       type,
       status,
       strokeColor,
-      trailColor=props.trailColor?props.trailColor:"#f5f5f5",
-      textColor=props.textColor?props.textColor:"black",
-      strokeWidth=props.strokeWidth?props.strokeWidth:(props.type==="line"?8:6),
-      width=props.width?props.width:(props.type==="line"?160:120),
       showInfo
     } = props
 
