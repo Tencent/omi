@@ -106,7 +106,8 @@ $ npm run build       # release
 
 > Cross-Frameworks and [Cross-Themes](https://tencent.github.io/omi/components/docs/#/theme?index=0&subIndex=1) UI Components powered by Omi
 
-> [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
 
 
 | **Name**         | **Status**         | **Example**            | **Docs** |
