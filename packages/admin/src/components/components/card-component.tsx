@@ -235,7 +235,6 @@ export default class extends WeElement<Props> {
           describe={'只包含内容区域'}
           code={this.mdA}
           style={gridStyle}
-          class={tw`bg-green-50`}
         >
           <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-2 h-36 w-60`}>
@@ -312,7 +311,6 @@ export default class extends WeElement<Props> {
           describe="包含标题、内容、操作区域(extra)"
           code={this.mdB}
           style={gridStyle}
-          class={tw`bg-green-50`}
         >
           <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-5 h-36 w-72`}>

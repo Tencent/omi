@@ -100,9 +100,9 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`h-screen flex bg-gray-100 pb-2`}>
+      <div class={tw`h-full bg-gray-100 flex pb-96`}>
         <div class={tw`flex flex-col`}>
-          <div class={tw`h-2/5 w-96 mt-6 ml-6`}>
+          <div class={tw`h-96 w-96 mt-6 ml-6`}>
             <o-card block="1" hoverable="false">
               <div slot="cover">
                 <div class={tw`mt-10 mb-2 text-center flex flex-col`}>
@@ -127,7 +127,7 @@ export default class extends WeElement<Props> {
               </div>
             </o-card>
           </div>
-          <div class={tw`h-2/5 w-96 mt-20 mb-12 ml-6`}>
+          <div class={tw`h-96 w-96 mt-20 mb-12 ml-6`}>
             <o-card block="1" hoverable="false">
               <div class={tw`py-1`}>
                 <div class={tw`h-10`}>
@@ -194,7 +194,7 @@ export default class extends WeElement<Props> {
         <div class={tw`flex-1 pr-10 mt-6 ml-6`}>
           <div class={tw`h-16`}>
             <o-card block="1" hoverable="false">
-              <div class={tw`h-10`}>
+              <div class={tw`h-10 truncate`}>
                 <strong class={tw`text-2xl font-medium`}>Hi,</strong>
                 <span class={tw`text-base font-thin pl-3`}>Admin~下午好，今天是你加入OMIU的第</span>
                 <span class={tw`text-green-500 text-lg font-semibold`}>&nbsp;100&nbsp;</span>
@@ -252,7 +252,7 @@ export default class extends WeElement<Props> {
               </div>
             </o-card>
           </div>
-          <div class={tw`h-2/5 mt-8 mb-10`}>
+          <div class={tw`h-96 mt-11 mb-10`}>
             <o-card block="1" hoverable="false">
               <div class={tw`py-1`}>
                 <div class={tw`h-10`}>
@@ -267,14 +267,14 @@ export default class extends WeElement<Props> {
                 <div class={tw`h-auto flex flex-wrap content-around justify-around mt-2`}>
                   {this.myContracts.map((item, index) => {
                     return (
-                      (index < 6) && <div class={tw`flex h-20 w-96 my-3 `}>
+                      (index < 6) && <div class={tw`flex h-16 w-80 my-5`}>
                         <o-card block="1" bordered={false} hoverable="true">
                           <div class={tw`float-left`}>
                             <o-avatar square size="50" backgroundColor="#FFF" src={item.contractCover}/>
                           </div>
                           <div class={tw`ml-20 flex flex-col justify-around py-1`}>
                             <div>
-                              <span class={tw`text-base font-semibold tracking-wider truncate`}>{item.content}</span>
+                              <span class={tw`text-base font-semibold truncate`}>{item.content}</span>
                             </div>
                             <div>
                               <span class={tw`text-sm font-thin text-gray-400 truncate`}>{item.time}</span>
