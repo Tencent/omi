@@ -179,6 +179,22 @@ export function registerRouting(rootEl) {
     )
   })
 
+  route('/success', () => {
+    //lazy load
+    import('./components/results/admin-success').then(() =>
+      rootEl.transitionTo('admin-success')
+    )
+  })
+
+  route('/failure', () => {
+    //lazy load
+    import('./components/results/admin-failure').then(() =>
+      rootEl.transitionTo('admin-failure')
+    )
+  })
+
+
+
   route('/results/network-error', () => {
     //lazy load
     import('./components/results/network-error').then(() =>
@@ -218,6 +234,13 @@ export function registerRouting(rootEl) {
     //lazy load
     import('./components/notification/notification-list').then(() =>
       rootEl.transitionTo('notification-list')
+    )
+  })
+
+  route('/personal-center', () => {
+    //lazy load
+    import('./components/account/personal-center').then(() =>
+      rootEl.transitionTo('personal-center')
     )
   })
 

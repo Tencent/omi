@@ -1,6 +1,6 @@
 {
   "name": "@omiu/slider",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "Slider",
   "main": "src/index.js",
   "module": "src/index.esm.js",

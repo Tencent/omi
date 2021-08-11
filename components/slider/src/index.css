@@ -226,3 +226,145 @@
     box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
   .is-disabled .o-slider::-ms-thumb:hover {
     border-color: #059048; }
+
+.is-large .slider-track {
+  height: 6px; }
+
+.is-large .o-slider::-webkit-slider-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 25px;
+  height: 25px;
+  margin-top: -14.5px;
+  -webkit-appearance: none; }
+  .is-large .o-slider::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-large .o-slider::-webkit-slider-thumb:hover {
+    border-color: #059048; }
+
+.is-large .o-slider::-moz-range-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 25px;
+  height: 25px;
+  margin-top: -14.5px;
+  -webkit-appearance: none; }
+  .is-large .o-slider::-moz-range-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-large .o-slider::-moz-range-thumb:hover {
+    border-color: #059048; }
+
+.is-large .o-slider::-ms-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 25px;
+  height: 25px;
+  margin-top: -14.5px;
+  appearance: none; }
+  .is-large .o-slider::-ms-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-large .o-slider::-ms-thumb:hover {
+    border-color: #059048; }
+
+.is-slim .slider-track {
+  height: 2px;
+  border-radius: 0%; }
+
+.is-slim .o-slider::-webkit-slider-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 20px;
+  height: 12px;
+  margin-top: -8px;
+  border-radius: 0%;
+  -webkit-appearance: none; }
+  .is-slim .o-slider::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-slim .o-slider::-webkit-slider-thumb:hover {
+    border-color: #059048; }
+
+.is-slim .o-slider::-moz-range-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 20px;
+  height: 12px;
+  margin-top: -8px;
+  border-radius: 0%;
+  -webkit-appearance: none; }
+  .is-slim .o-slider::-moz-range-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-slim .o-slider::-moz-range-thumb:hover {
+    border-color: #059048; }
+
+.is-slim .o-slider::-ms-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 20px;
+  height: 12px;
+  margin-top: -8px;
+  border-radius: 0%;
+  appearance: none; }
+  .is-slim .o-slider::-ms-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-slim .o-slider::-ms-thumb:hover {
+    border-color: #059048; }

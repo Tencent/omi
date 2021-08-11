@@ -76,20 +76,19 @@ export default class extends WeElement<Props> {
 
   goPersonalCenter = () => {
     // 待页面搭建完成后开放
-    // const tab = this.store.tabs.find((tab) => tab.label === this.store.localeMap.base.PersonalCenter)
+    const tab = this.store.tabs.find((tab) => tab.label === this.store.localeMap.base.PersonalCenter)
 
-    // if (tab) {
-    //   this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
-    //   this.store.selectTreeNodeById(tab.id)
-    //   location.hash = tab.href
-    // } else {
-    //   const PersonalCenterTab = this.store.treeData.find((item) => item.label === this.store.localeMap.base.ManagerWorkbench).children.find((item) => item.label === this.store.localeMap.base.PersonalCenter)
-    //   this.store.tabs.push(PersonalCenterTab)
-    //   this.store.tabsActiveIndex = this.store.tabs.length - 1
-    //   this.store.selectTreeNodeById(PersonalCenterTab.id)
-    //   location.hash = PersonalCenterTab.href
-    //   console.log(this.store)
-    // }
+    if (tab) {
+      this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+      this.store.selectTreeNodeById(tab.id)
+      location.hash = tab.href
+    } else {
+      const PersonalCenterTab = this.store.treeData.find((item) => item.label === this.store.localeMap.base.ManagerWorkbench).children.find((item) => item.label === this.store.localeMap.base.PersonalCenter)
+      this.store.tabs.push(PersonalCenterTab)
+      this.store.tabsActiveIndex = this.store.tabs.length - 1
+      this.store.selectTreeNodeById(PersonalCenterTab.id)
+      location.hash = PersonalCenterTab.href
+    }
   }
 
   render() {

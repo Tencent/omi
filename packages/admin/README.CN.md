@@ -4,9 +4,10 @@
 
 > 管理中台前端解决方案
 
-[→ 点我体验](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [→ 国内加速访问 DEMO](https://omi.cdn-go.cn/admin/latest/index.html)
+* [→ github.io DEMO](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
-![](../../assets/admin-pc.png)
+![](../../assets/admin-pc-v2.png)
 
 <img src="../../assets/admin-mb.png" width="320">
 
