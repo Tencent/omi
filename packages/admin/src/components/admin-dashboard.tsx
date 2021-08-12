@@ -329,7 +329,7 @@ export default class extends WeElement<Props> {
   }
 
   doughnutChartOptions = {
-    cutout: 100,
+    cutout: 90,
     maintainAspectRatio: false,
     elements: {
       line: {
@@ -384,9 +384,13 @@ export default class extends WeElement<Props> {
           </o-chart-card>
         </div>
 
-        <div class={tw` mx-4 flex flex-col gap-x-4 gap-y-4 md:flex-row`}>
-          <o-line class={tw`block bg-white flex-1 md:w-5/12 shadow-sm rounded`} height="350" data={this.chartData} options={this.chartOptions} />
-          <o-doughnut class={tw`block bg-white flex-1 md:w-5/12 shadow-sm rounded`} height="350" data={this.doughnutChartData} options={this.doughnutChartOptions} />
+        <div class={tw`mx-4 flex flex-col gap-x-4 gap-y-4 lg:flex-row`}>
+          <div class={tw`flex-grow lg:w-96  bg-white  shadow-sm rounded`}>
+            <o-line height="350" data={this.chartData} options={this.chartOptions} />
+          </div>
+          <div class={tw`flex-shrink lg:w-96 bg-white  shadow-sm rounded`}>
+            <o-doughnut height="350" data={this.doughnutChartData} options={this.doughnutChartOptions} />
+          </div>
         </div>
 
         <div class={tw`px-5 py-4 flex flex-col gap-x-4 gap-y-2  md:flex-row`}>
