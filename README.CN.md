@@ -101,7 +101,7 @@ $ npm run build       # 编译发布
 
 ## Omiu
 
-> Omi 打造的跨框架、[跨主题](https://tencent.github.io/omi/components/docs/cn.html#/theme?index=0&subIndex=1) UI 组件库
+> Omi 打造的跨框架、[跨主题](https://omi.cdn-go.cn/admin/latest/index.html#/docs/theme) UI 组件库
 
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
 * [💯Omiu 打造的 Omi Admin](https://tencent.github.io/omi/packages/admin/dist/index.html)
