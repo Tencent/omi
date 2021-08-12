@@ -5,6 +5,11 @@ import '@omiu/icon/people'
 import '@omiu/table'
 import '@omiu/pagination'
 import '@omiu/icon-card'
+import './simple-card'
+import '@omiu/icon/trending-up'
+import '@omiu/icon/trending-down'
+import '@omiu/icon/payment'
+import '@omiu/icon/perm-phone-msg'
 
 interface Props { }
 
@@ -367,6 +372,52 @@ export default class extends WeElement<Props> {
     return (
       <div style={{ background: '#ebedef' }} class={tw`pb-44`}>
         <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-y-4 gap-x-4 mx-4 py-4`} >
+
+          <simple-card class={tw`flex-1`} number={4000} unit="万" describe="今日新增人数">
+            <o-icon-people slot="right-top" class={tw`w-6`} fill="white"></o-icon-people>
+
+            <div slot="right-bottom" class={tw`text-sm text-gray-700 h-10 leading-10 whitespace-nowrap`}>
+              同比<span class={tw`text-green-700`} > <o-icon-trending-up></o-icon-trending-up> 15.5%</span>
+            </div>
+          </simple-card >
+
+          <simple-card class={tw`flex-1`} number={83293} unit="次" describe="故障反馈总数">
+            <o-icon-perm-phone-msg slot="right-top" class={tw`w-6`} fill="white"></o-icon-perm-phone-msg>
+
+            <div slot="right-bottom" class={tw`text-sm text-gray-700 h-10 leading-10 whitespace-nowrap`}>
+              同比<span class={tw`text-red-700`} > <o-icon-trending-up></o-icon-trending-up> 15.5%</span>
+            </div>
+          </simple-card >
+
+          <simple-card class={tw`flex-1`} number={98990} unit="元" describe="在线支付总额">
+            <o-icon-payment slot="right-top" class={tw`w-6`} fill="white"></o-icon-payment>
+
+            <div slot="right-bottom" class={tw`text-sm text-gray-700 h-10 leading-10 whitespace-nowrap`}>
+              同比<span class={tw`text-green-700`} > <o-icon-trending-up></o-icon-trending-up> 15.5%</span>
+            </div>
+          </simple-card >
+
+
+          <simple-card class={tw`flex-1`} number={23802} unit="万" describe="最高同时在线人数">
+            <o-icon-people slot="right-top" class={tw`w-6`} fill="white"></o-icon-people>
+
+            <div slot="right-bottom" class={tw`text-sm text-gray-700 h-10 leading-10 whitespace-nowrap`}>
+              同比<span class={tw`text-red-700`} > <o-icon-trending-down></o-icon-trending-down> 15.5%</span>
+            </div>
+          </simple-card >
+        </div>
+
+
+        <div class={tw`mx-4 flex flex-col gap-x-4 gap-y-4 lg:flex-row`}>
+          <div class={tw`flex-grow lg:w-96  bg-white  shadow rounded`}>
+            <o-line height="350" data={this.chartData} options={this.chartOptions} />
+          </div>
+          <div class={tw`flex-shrink lg:w-96 bg-white  shadow rounded`}>
+            <o-doughnut height="350" data={this.doughnutChartData} options={this.doughnutChartOptions} />
+          </div>
+        </div>
+
+        <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-y-4 gap-x-4 mx-4 py-4`} >
           <o-chart-card content="9987" class={tw`flex-1 md:w-5/12`} describe="PV" color="#07c160" data={[12, 19, 3, 5, 2, 3]} labels={['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']}>
             <o-icon-people width="2em" height="2em" fill="white"></o-icon-people>
           </o-chart-card>
@@ -382,15 +433,6 @@ export default class extends WeElement<Props> {
           <o-chart-card content="9987" class={tw`flex-1 md:w-5/12`} describe="Members online" color="#39f" chartType="bar" data={[12, 19, 3, 5, 2, 3]} labels={['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']}>
             <o-icon-people width="2em" height="2em" fill="white"></o-icon-people>
           </o-chart-card>
-        </div>
-
-        <div class={tw`mx-4 flex flex-col gap-x-4 gap-y-4 lg:flex-row`}>
-          <div class={tw`flex-grow lg:w-96  bg-white  shadow-sm rounded`}>
-            <o-line height="350" data={this.chartData} options={this.chartOptions} />
-          </div>
-          <div class={tw`flex-shrink lg:w-96 bg-white  shadow-sm rounded`}>
-            <o-doughnut height="350" data={this.doughnutChartData} options={this.doughnutChartOptions} />
-          </div>
         </div>
 
         <div class={tw`px-5 py-4 flex flex-col gap-x-4 gap-y-2  md:flex-row`}>
@@ -443,7 +485,7 @@ export default class extends WeElement<Props> {
           </o-icon-card>
         </div>
 
-        <div class={tw`pb-1 border-2 bg-white mx-4 shadow-sm rounded`}>
+        <div class={tw`pb-1 border-2 bg-white mx-4 shadow-sm overflow-hidden rounded`}>
           {/* <h4 class={tw`py-2 text-sm`}>基础表格</h4> */}
           <o-table
             ref={e => this.table = e}
