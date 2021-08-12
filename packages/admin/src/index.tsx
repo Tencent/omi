@@ -89,6 +89,8 @@ export default class extends WeElement {
     registerRouting(this)
 
     if (location.hash) {
+      //safari 带hash刷新相当于会先执行 hashChange 导致报错
+      //hashChange()
       this.routeTo(location.hash)
     }
   }
@@ -138,7 +140,7 @@ export default class extends WeElement {
         this.store.markdown = e.default
       })
 
-    // 重新读取 hash 值  
+    // 重新读取 hash 值
     hashChange()
   }
 
