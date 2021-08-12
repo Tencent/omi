@@ -89,8 +89,8 @@ export default class extends WeElement {
     registerRouting(this)
 
     if (location.hash) {
-      //safari 带hash刷新相当于会先执行 hashChange 导致报错
-      //hashChange()
+      // safari 带hash刷新相当于会先执行 hashChange 导致报错
+      // hashChange()
       this.routeTo(location.hash)
     }
   }
@@ -149,6 +149,8 @@ export default class extends WeElement {
       <basic-layout>
         <o-transition ref={(_) => (this.transition = _)} appear name="fade">
           <this.data.tagName
+            // 加key 解决 safari diff 的 bug
+            key={Math.random() + Date.now()}
             {...this.payload}
             class={tw`block`}
           ></this.data.tagName>
