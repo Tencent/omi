@@ -1,7 +1,7 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'status-error'
 declare global {
@@ -17,6 +17,6 @@ export default class extends WeElement<Props> {
   static css = sheet.target
 
   render() {
-    return <div class={tw``}>Admin Error Page</div>
+    return <div class={tw`p-4`}>Admin Error Page</div>
   }
 }

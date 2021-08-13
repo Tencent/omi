@@ -20,7 +20,7 @@ export default class extends WeElement<Props> {
 
     return (
       <div class={tw``}>
-        <iframe height={window.innerHeight - 90} style="width: 100%;" scrolling="yes" title="OMIU Link" src="../mind-map/index.html" frameborder="no" loading="lazy">
+        <iframe height={window.innerHeight - 90} style="width: 100%;" scrolling="yes" title="OMIU Link" src="https://omi.cdn-go.cn/admin/latest/mind-map/index.html" frameborder="no" loading="lazy">
         </iframe>
       </div>
     )

@@ -2,6 +2,7 @@ import { WeElement } from 'omi'
 import { genNavTree } from './nav-tree'
 import { getNotifications } from './notifications'
 import { resetId } from './util/id'
+import { route } from 'omi-router'
 
 interface treeNode {
   id: number
@@ -83,6 +84,13 @@ class Store {
     })
 
     this.isInstalled = false
+
+
+    route.before = (evt) => {
+      if (window.innerWidth <= 640) {
+        this.closeLeftPanel()
+      }
+    }
   }
 
   setLocals(locale, callback?) {
