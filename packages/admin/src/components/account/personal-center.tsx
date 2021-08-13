@@ -100,10 +100,10 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div style={{ background: '#ebedef' }} class={tw`pb-44`}>
-        <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-y-4 gap-x-10 mx-5 py-5`}>
+      <div style={{ background: '#ebedef' }} class={tw`pb-36`}>
+        <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-y-2 gap-x-10 mx-5 py-5`}>
           
-          <div class={tw`w-full md:w-2/5`}>
+          <div class={tw`w-full md:w-1/4`}>
             <o-card block="1" hoverable="false">
               <div slot="cover">
                 <div class={tw`mt-10 mb-2 text-center flex flex-col`}>
@@ -129,7 +129,7 @@ export default class extends WeElement<Props> {
             </o-card>
           </div>
 
-          <div class={tw`w-full md:w-1/2`}>
+          <div class={tw`w-full md:w-2/3`}>
             <div class={tw`h-16`}>
               <o-card block="1" hoverable="false">
                 <div class={tw`h-10 truncate`}>
@@ -194,7 +194,7 @@ export default class extends WeElement<Props> {
             </div>
           </div>
 
-          <div class={tw`w-full pt-10 md:w-2/5`}>
+          <div class={tw`w-full h-1/2 pt-10 md:w-1/4`}>
             <o-card block="1" hoverable="false">
               <div class={tw`py-1`}>
                 <div class={tw`h-10`}>
@@ -217,7 +217,7 @@ export default class extends WeElement<Props> {
                             <span class={tw`pl-2 text-xs font-thin`}>{item.title}</span>
                           </div>
                           <div class={tw`float-right py-2`}>
-                            <span class={tw`pr-5`} >
+                            <span class={tw`pr-2`} >
                             <o-tooltip content={item.email} position="top">
                               <o-icon-mail-outline
                                 onclick={(e) => {
@@ -230,7 +230,7 @@ export default class extends WeElement<Props> {
                               />
                             </o-tooltip>
                             </span>
-                            <span class={tw`pr-1`}>
+                            <span class={tw``}>
                             <o-tooltip content={item.tel} position="top">
                               <o-icon-call-outlined 
                                 onclick={(e) => {
@@ -256,7 +256,7 @@ export default class extends WeElement<Props> {
             </o-card>
           </div>
 
-          <div class={tw`w-full md:w-1/2 pt-10`}>
+          <div class={tw`w-full h-1/2 md:w-2/3 pt-10`}>
             <o-card block="1" hoverable="false">
               <div class={tw`py-1`}>
                 <div class={tw`h-10`}>
@@ -268,20 +268,20 @@ export default class extends WeElement<Props> {
                     </o-link>
                   </span>
                 </div>
-                <div class={tw`h-auto flex flex-wrap justify-between mt-2`}>
+                <div class={tw`my-1 flex flex-wrap justify-around`}>
                   {this.myContracts.map((item, index) => {
                     return (
-                      (index < 6) && <div class={tw`flex h-16 md:w-1/2 my-5 `}>
+                      (index < 6) && <div class={tw`h-16 md:w-80 my-5 mx-3`}>
                         <o-card block="1" bordered={false} hoverable="true">
                           <div class={tw`float-left`}>
                             <o-avatar square size="40" backgroundColor="#FFF" src={item.contractCover}/>
                           </div>
-                          <div class={tw`ml-16 flex flex-col justify-around py-1 truncate`}>
+                          <div class={tw`clear-none ml-16 flex flex-col justify-around py-1 truncate`}>
                             <div>
-                              <span class={tw`text-sm font-semibold`}>{item.content}</span>
+                              <span class={tw`text-base tracking-wider font-semibold`}>{item.content}</span>
                             </div>
                             <div>
-                              <span class={tw`text-xs font-thin text-gray-400`}>{item.time}</span>
+                              <span class={tw`text-sm font-thin text-gray-400`}>{item.time}</span>
                             </div>
                           </div>
                           <div slot="cover">
