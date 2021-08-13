@@ -1,6 +1,6 @@
-## Slider
+# Slider
 
-Slider
+used for dragging through content on page
 
 <iframe height="undefined" style="width: 100%;" scrolling="no" title="OMIU Slider" src="https://codepen.io/omijs/embed/undefined?height=undefined&theme-id=default&default-tab=undefined" frameborder="no" allowtransparency="true" allowfullscreen="true" loading="lazy">
   See the Pen <a href='https://codepen.io/omijs/pen/undefined'>OMIU Checkbox</a> by OMI
@@ -37,15 +37,17 @@ Or use script tag to ref it.
   step?: number
   value?: number
   second_value?: number
+  size: 'slim' | 'normal' | 'large'
   range: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
   tooltip?: boolean
   disabled?: boolean
+  reversed?: boolean
 }
 ```
 
-### defaultProps
+### Default Props
 
 ```tsx
 {
@@ -56,12 +58,15 @@ Or use script tag to ref it.
   value: undefined,
   second_value: undefined,
   range: 'single',
+  size: 'normal',
   orient: 'horizontal',
   shape: 'round',
   tooltip: false,
   disabled: false,
+  reversed: false,
 }
 ```
 ### Events
 
 * input
+* change

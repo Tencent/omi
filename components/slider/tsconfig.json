@@ -1,16 +1,29 @@
 {
   "compilerOptions": {
-      "baseUrl": ".",
-      "experimentalDecorators": true,
-      "jsx": "react",
-      "jsxFactory": "h",
-      "target": "es5",
-      "outDir": "dist",
-      //https://github.com/microsoft/TypeScript/issues/6945
-      //https://basarat.gitbook.io/typescript/type-system/lib.d.ts#lib-option
-      "lib": ["dom", "es6"]
+    "module": "esnext",
+    "lib": [
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./types",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "jsxFactory": "h",
   },
   "include": [
-      "src/**/*"
-  ]
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": []
 }

@@ -1,25 +1,36 @@
 {
   "name": "@omiu/slider",
-  "version": "0.0.9",
-  "description": "Slider",
-  "main": "src/index.js",
-  "module": "src/index.esm.js",
-  "types": "src/index.d.ts",
+  "version": "0.0.11",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "description": "used for dragging through content on page",
   "docsExtend": {
     "cnName": "滑块",
     "cnDescription": "一般用于拖动页面内容"
   },
   "scripts": {
+    "start": "yarn watch & vite",
+    "dev": "yarn watch & vite",
+    "build": "vite build && yarn build:scss",
+    "build:demo": "vite build",
+    "build:scss": "sass src/index.scss src/index.css",
+    "watch": "sass --watch src/index.scss src/index.css --no-source-map",
+    "pretest": "yarn build",
+    "test": "web-test-runner \"test/*.js\" --node-resolve",
     "docs": "node ./scripts/docs-gen.js",
-    "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js",
-    "test": "web-test-runner \"test/*.test.js\" --node-resolve",
     "test:watch": "web-test-runner \"test/*.test.js\" --node-resolve --watch"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Tencent/omi.git"
   },
+  "files": [
+    "dist",
+    "types"
+  ],
   "keywords": [
     "omiu",
     "omi",
@@ -38,64 +49,25 @@
     "url": "https://github.com/Tencent/omi/issues"
   },
   "homepage": "http://omijs.org",
-  "devDependencies": {
-    "sass": "^1.37.0",
-    "@esm-bundle/chai": "^4.3.4",
-    "@open-wc/testing": "^2.5.33",
-    "@rollup/plugin-commonjs": "^11.1.0",
-    "@web/test-runner": "^0.13.13",
-    "css": "^2.2.4",
-    "css-loader": "^1.0.1",
-    "file": "^0.2.2",
-    "file-loader": "^2.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "less": "^3.9.0",
-    "less-loader": "^4.1.0",
-    "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.12.0",
+  "dependencies": {
+    "@omiu/common": "latest",
     "omi": "latest",
-    "omio": "latest",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "progress-bar-webpack-plugin": "^2.1.0",
-    "resolve-url-loader": "^3.1.0",
-    "rollup": "^2.7.1",
-    "rollup-plugin-license": "^2.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-scss": "^2.4.0",
-    "rollup-plugin-typescript": "^1.0.1",
-    "sass-loader": "^7.1.0",
-    "sinon": "^11.1.1",
-    "style-loader": "^0.23.1",
-    "to-string-loader": "^1.1.5",
-    "ts-loader": "^5.4.4",
-    "typescript": "^3.2.1",
-    "url": "^0.11.0",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.1",
-    "webpack-dev-server": "^3.1.10",
-    "webpack-merge": "^4.1.4"
+    "@omiu/tooltip": "0.0.1",
+    "@omiu/input": "0.0.12"
   },
-  "greenkeeper": {
-    "ignore": [
-      "babel-cli",
-      "babel-core",
-      "babel-eslint",
-      "babel-loader",
-      "jscodeshift",
-      "rollup-plugin-babel"
-    ]
+  "devDependencies": {
+    "@open-wc/testing": "^2.5.33",
+    "@types/node": "^16.4.7",
+    "@web/test-runner": "^0.13.13",
+    "node-watch": "^0.7.1",
+    "sass": "^1.36.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.3"
   },
   "prettier": {
     "singleQuote": true,
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
-  },
-  "dependencies": {
-    "@omiu/common": "latest",
-    "@omiu/input": "0.0.12",
-    "@omiu/tooltip": "0.0.1",
-    "omi": "latest"
   }
 }

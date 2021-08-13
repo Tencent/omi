@@ -51,7 +51,7 @@ export default class OSlider extends WeElement<Props> {
     reversed: Boolean,
   }
 
-  static css = css
+  static css = css.default ? css.default : css
 
   __$value1: number
   __$value2: number

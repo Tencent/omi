@@ -1,6 +1,6 @@
-## Slider
+# Slider
 
-Slider
+used for dragging through content on page
 
 * [→ CodePen](https://codepen.io/omijs/pen/undefined)
 
@@ -34,15 +34,17 @@ Or use script tag to ref it.
   step?: number
   value?: number
   second_value?: number
+  size: 'slim' | 'normal' | 'large'
   range: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
   tooltip?: boolean
   disabled?: boolean
+  reversed?: boolean
 }
 ```
 
-### defaultProps
+### Default Props
 
 ```tsx
 {
@@ -53,12 +55,15 @@ Or use script tag to ref it.
   value: undefined,
   second_value: undefined,
   range: 'single',
+  size: 'normal',
   orient: 'horizontal',
   shape: 'round',
   tooltip: false,
   disabled: false,
+  reversed: false,
 }
 ```
 ### Events
 
 * input
+* change

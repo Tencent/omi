@@ -1,4 +1,4 @@
-## Slider 滑块
+# Slider 滑块
 
 一般用于拖动页面内容
 
@@ -38,11 +38,13 @@ import '@omiu/slider'
   step?: number
   value?: number
   second_value?: number
+  size: 'slim' | 'normal' | 'large'
   range: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
   tooltip?: boolean
   disabled?: boolean
+  reversed?: boolean
 }
 ```
 
@@ -56,11 +58,14 @@ import '@omiu/slider'
   value: undefined,
   second_value: undefined,
   range: 'single',
+  size: 'normal',
   orient: 'horizontal',
   shape: 'round',
   tooltip: false,
   disabled: false,
+  reversed: false,
 }
 ```
 ### 事件
 * input
+* change
