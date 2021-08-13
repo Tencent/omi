@@ -47,10 +47,9 @@ export const base = {
 
   Button: 'Button',
   Tabs: 'Tabs',
+  Tag: 'Tag',
   BasicList: 'Basic List',
 
   Success: 'Success',
   Failure: 'Failure'
-
-
 }
