@@ -232,7 +232,7 @@ export default class extends WeElement<Props> {
           code={this.mdA}
           style={gridStyle}
         >
-          <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
+          <div slot="demo" class={tw`flex flex-wrap justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-2 h-36 w-60`}>
               <o-card title="Simple Card" hoverable="always" block="1">
                 <div slot="cover"></div>
@@ -258,7 +258,7 @@ export default class extends WeElement<Props> {
           code={this.mdC}
           style={gridStyle}
         >
-          <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
+          <div slot="demo" class={tw`flex flex-wrap justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-5 h-56 w-72`}>
               <o-card
                 block="1"
@@ -308,7 +308,7 @@ export default class extends WeElement<Props> {
           code={this.mdB}
           style={gridStyle}
         >
-          <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
+          <div slot="demo" class={tw`flex flex-wrap justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-2 h-36 w-60`}>
               <o-card title="Default size card" hoverable="true" block="1" >
                 <o-link
@@ -350,7 +350,7 @@ export default class extends WeElement<Props> {
           code={this.mdD}
           style={gridStyle}
         >
-          <div slot="demo" class={tw`flex justify-around px-5 py-5`}>
+          <div slot="demo" class={tw`flex flex-wrap justify-around px-5 py-5`}>
             <div class={tw`mt-2 mb-10 mx-5 h-80 w-72`}>
               <o-card
                 block="1"
