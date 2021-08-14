@@ -48,6 +48,7 @@ export const base = {
 
   Button: 'Button 按钮',
   Tabs: 'Tabs 选项卡',
+  Tag: 'Tag 标签',
   BasicList: '基础列表',
 
   Success: '成功页',

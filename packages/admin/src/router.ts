@@ -1,5 +1,20 @@
 import { route } from 'omi-router'
 
+/**
+ * demo components
+ */
+const components = [
+  'button',
+  'tabs',
+  'slider',
+  'loading',
+  'toast',
+  'card',
+  'progress',
+  'time-picker',
+  'tag'
+]
+
 export function registerRouting(rootEl) {
   route('/', () => {
     rootEl.update()
@@ -97,68 +112,14 @@ export function registerRouting(rootEl) {
     )
   })
 
-  route('/loading-component', () => {
-    //lazy load
-    import('./components/components/loading-component').then(() =>
-      rootEl.transitionTo('loading-component')
-    )
-  })
-
-  route('/toast-component', () => {
-    //lazy load
-    import('./components/components/toast-component').then(() =>
-      rootEl.transitionTo('toast-component')
-    )
-  })
-
-  route('/card-component', () => {
-    //lazy load
-    import('./components/components/card-component').then(() =>
-      rootEl.transitionTo('card-component')
-    )
-  })
-
-  route('/time-picker-component', () => {
-    //lazy load
-    import('./components/components/time-picker-component').then(() =>
-      rootEl.transitionTo('time-picker-component')
-    )
-  })
-
-  route('/slider-component', () => {
-    //lazy load
-    import('./components/components/slider-component').then(() =>
-      rootEl.transitionTo('slider-component')
-    )
-  })
-
-  route('/button', () => {
-    //lazy load
-    import('./components/components/button-component').then(() =>
-      rootEl.transitionTo('button-component')
-    )
-  })
-
-  route('/tabs', () => {
-    //lazy load
-    import('./components/components/tabs-component').then(() =>
-      rootEl.transitionTo('tabs-component')
-    )
-  })
-
-  route('/progress-component', () => {
-    //lazy load
-    import('./components/components/progress-component').then(() =>
-      rootEl.transitionTo('progress-component')
-    )
-  })
-
-  route('/slider-component', () => {
-    //lazy load
-    import('./components/components/slider-component').then(() =>
-      rootEl.transitionTo('slider-component')
-    )
-  })
+  components.map((componentName: string) =>
+    route(`/${componentName}-component`, () => {
+      //lazy load
+      import(`./components/components/${componentName}-component.tsx`).then(
+        () => rootEl.transitionTo(`${componentName}-component`)
+      )
+    })
+  )
 
   route('/mind-map', () => {
     //lazy load
@@ -192,8 +153,6 @@ export function registerRouting(rootEl) {
       rootEl.transitionTo('admin-failure')
     )
   })
-
-
 
   route('/results/network-error', () => {
     //lazy load

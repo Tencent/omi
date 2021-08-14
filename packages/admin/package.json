@@ -44,6 +44,7 @@
     "@omiu/switch": "^0.0.2",
     "@omiu/table": "^0.0.17",
     "@omiu/tabs": "^0.0.22",
+    "@omiu/tag": "^0.0.5",
     "@omiu/time-picker": "^0.0.3",
     "@omiu/toast": "^0.0.8",
     "@omiu/tooltip": "0.0.1",

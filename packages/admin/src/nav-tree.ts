@@ -83,7 +83,6 @@ export function genNavTree(localeMap, locale) {
       id: genId(),
 
       children: [
-
         {
           label: localeMap.base.Success,
           // icon: 'error',
@@ -134,7 +133,7 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Button,
           id: genId(),
-          href: '#/button',
+          href: '#/button-component'
           // icon: 'sentiment-satisfied-alt'
         },
         {
@@ -174,7 +173,12 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Timepicker,
           id: genId(),
-          href: '#/time-picker-component',
+          href: '#/time-picker-component'
+        },
+        {
+          label: localeMap.base.Tag,
+          id: genId(),
+          href: '#/tag-component'
         },
         {
           label: localeMap.base.BasicTable,
@@ -193,7 +197,7 @@ export function genNavTree(localeMap, locale) {
           icon: 'grid-on',
           href: '#/table/edit',
           id: genId()
-        },
+        }
       ]
     },
     {
