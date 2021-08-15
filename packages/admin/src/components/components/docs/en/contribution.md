@@ -78,6 +78,26 @@ Name:"例子"
 
 ## Add component display page to Admin route (supports automatic join)
 
+Modify the Components object and add your component name
+
+```js
+const components = [
+  'button',
+  'tabs',
+  'slider',
+  'loading',
+  'toast',
+  'card',
+  'progress',
+  'time-picker',
+  'tag',
+  'rate',
+   //TODO
+  'name'
+]
+```
+
+
 ```js
   components.map((componentName: string) =>
     route(`/${componentName}-component`, () => {

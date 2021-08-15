@@ -78,6 +78,25 @@ Name:"例子"
 
 ## 将组件展示页加入 Admin 路由 (支持自动加入了)
 
+修改 components 对象 , 添加你的组件名
+
+```js
+const components = [
+  'button',
+  'tabs',
+  'slider',
+  'loading',
+  'toast',
+  'card',
+  'progress',
+  'time-picker',
+  'tag',
+  'rate',
+   //TODO
+  'name'
+]
+```
+
 ```js
   components.map((componentName: string) =>
     route(`/${componentName}-component`, () => {
