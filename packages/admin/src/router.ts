@@ -12,7 +12,8 @@ const components = [
   'card',
   'progress',
   'time-picker',
-  'tag'
+  'tag',
+  'rate'
 ]
 
 export function registerRouting(rootEl) {
