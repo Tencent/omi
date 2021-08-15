@@ -1,6 +1,6 @@
 {
   "name": "omi-router",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Router for Omi",
   "main": "src/index.js",
   "module": "src/index.esm.js",

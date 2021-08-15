@@ -1,5 +1,5 @@
 /**
- * @omiu/slider v0.0.7 http://omijs.org
+ * @omiu/slider v0.0.11 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -286,6 +286,148 @@ var css = `@use 'sass:math';
     box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
   .is-disabled .o-slider::-ms-thumb:hover {
     border-color: #059048; }
+
+.is-large .slider-track {
+  height: 6px; }
+
+.is-large .o-slider::-webkit-slider-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 25px;
+  height: 25px;
+  margin-top: -14.5px;
+  -webkit-appearance: none; }
+  .is-large .o-slider::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-large .o-slider::-webkit-slider-thumb:hover {
+    border-color: #059048; }
+
+.is-large .o-slider::-moz-range-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 25px;
+  height: 25px;
+  margin-top: -14.5px;
+  -webkit-appearance: none; }
+  .is-large .o-slider::-moz-range-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-large .o-slider::-moz-range-thumb:hover {
+    border-color: #059048; }
+
+.is-large .o-slider::-ms-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 25px;
+  height: 25px;
+  margin-top: -14.5px;
+  appearance: none; }
+  .is-large .o-slider::-ms-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-large .o-slider::-ms-thumb:hover {
+    border-color: #059048; }
+
+.is-slim .slider-track {
+  height: 2px;
+  border-radius: 0%; }
+
+.is-slim .o-slider::-webkit-slider-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 20px;
+  height: 12px;
+  margin-top: -8px;
+  border-radius: 0%;
+  -webkit-appearance: none; }
+  .is-slim .o-slider::-webkit-slider-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-slim .o-slider::-webkit-slider-thumb:hover {
+    border-color: #059048; }
+
+.is-slim .o-slider::-moz-range-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 20px;
+  height: 12px;
+  margin-top: -8px;
+  border-radius: 0%;
+  -webkit-appearance: none; }
+  .is-slim .o-slider::-moz-range-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-slim .o-slider::-moz-range-thumb:hover {
+    border-color: #059048; }
+
+.is-slim .o-slider::-ms-thumb {
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 2;
+  margin-top: -9px;
+  border: 2px solid #07c160;
+  background-color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0;
+  transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  width: 20px;
+  height: 12px;
+  margin-top: -8px;
+  border-radius: 0%;
+  appearance: none; }
+  .is-slim .o-slider::-ms-thumb:active {
+    box-shadow: 0 0 0 5px rgba(7, 193, 96, 0.1); }
+  .is-slim .o-slider::-ms-thumb:hover {
+    border-color: #059048; }
 `
 
 
@@ -294,8 +436,8 @@ var OSlider = /** @class */ (function (_super) {
     function OSlider() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.sliderMax = _this.props.max;
-        _this.lowerColor = '#059048';
-        _this.upperColor = '#d9d9d9';
+        _this.lowerColor = '#07c160';
+        _this.upperColor = '#f0f0f0';
         _this._onGetValue = function () {
             return _this.__$value1;
         };
@@ -312,7 +454,8 @@ var OSlider = /** @class */ (function (_super) {
             _this.props.second_value = value;
             _this.setAttribute('second_value', value);
         };
-        _this.handleSliderOne = function (evt) {
+        _this.handleS1Input = function (evt) {
+            evt.stopPropagation();
             var first_value = parseInt(_this.slider1.value);
             if (first_value <= _this.__$value2 || _this.props.range === 'single') {
                 //  if the slider 1 has not exceeded slider2 or it is a single range slider
@@ -325,18 +468,28 @@ var OSlider = /** @class */ (function (_super) {
             else {
                 _this.fire('input', [_this.__$value1, _this.__$value2]);
             }
-            _this.fillColor(_this.lowerColor, _this.upperColor);
             _this.update();
         };
-        _this.handleSliderTwo = function (evt) {
+        _this.handleS2Input = function (evt) {
+            evt.stopPropagation();
             var second_value = parseInt(_this.slider2.value);
             //we only have one case if slider two exists
             if (second_value >= _this.__$value1) {
                 _this.__$value2 = second_value;
             }
             _this.fire('input', [_this.__$value1, _this.__$value2]);
-            _this.fillColor(_this.lowerColor, _this.upperColor);
             _this.update();
+        };
+        _this.handleS1Change = function (evt) {
+            if (_this.props.range === 'single') {
+                _this.fire('change', _this.__$value1);
+            }
+            else {
+                _this.fire('change', [_this.__$value1, _this.__$value2]);
+            }
+        };
+        _this.handleS2Change = function (evt) {
+            _this.fire('change', [_this.__$value1, _this.__$value2]);
         };
         _this.fillColor = function (lowerColor, upperColor) {
             var percent1 = _this.props.range === 'double'
@@ -352,8 +505,8 @@ var OSlider = /** @class */ (function (_super) {
                 ? (_this.sliderTrack.style.background = "linear-gradient(to right, " + upperColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)")
                 : (_this.sliderTrack.style.background = "linear-gradient(to right, " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent1 + "% , " + lowerColor + " " + percent2 + "%, " + upperColor + " " + percent2 + "%)");
         };
-        _this.handleChange = function () {
-            _this.fillColor('#07c160', '#f0f0f0');
+        _this.handleMouseUp = function () {
+            _this.fillColor(_this.lowerColor, _this.upperColor);
         };
         return _this;
     }
@@ -372,23 +525,30 @@ var OSlider = /** @class */ (function (_super) {
         });
     };
     OSlider.prototype.installed = function () {
-        this.fillColor('#07c160', '#f0f0f0');
-        this.update();
+        this.fillColor(this.lowerColor, this.upperColor);
         var host = this.shadowRoot.host;
         this.props.orient === 'vertical' &&
             (host.style.transform = 'rotate(-90deg)');
+        this.props.reversed && (host.style.transform = 'rotate(180deg)');
     };
-    OSlider.prototype.receiveProps = function () {
-        this.fillColor(this.lowerColor, this.upperColor);
-        this.update();
+    OSlider.prototype.beforeUpdate = function () {
+        if (this.__$value1 > this.__$value2 && this.props.range === 'double') {
+            var temp = this.__$value1;
+            this.__$value1 = this.__$value2;
+            this.__$value2 = temp;
+        }
+    };
+    OSlider.prototype.updated = function () {
+        this.fillColor('#059048', '#d9d9d9');
     };
     OSlider.prototype.render = function (props) {
         var _this = this;
         var cls = extractClass(props, 'slider-container', {
             'is-vertical': props.orient === 'vertical',
             'is-round': props.shape === 'round',
+            'is-large': props.size === 'large',
+            'is-slim': props.size === 'slim',
             'is-disabled': props.disabled,
-            'is-reversed': props.reversed,
         });
         return (h("div", __assign({}, cls, { ref: function (e) {
                 _this.rootNode = e;
@@ -396,29 +556,28 @@ var OSlider = /** @class */ (function (_super) {
             this.props.tooltip ? (h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
                     ? this.__$value1 + " , " + this.__$value2
                     : this.__$value1 },
-                h("input", { class: "o-slider", id: "slider-1", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, ref: function (e) {
+                h("input", { class: "o-slider", id: "slider-1", type: "range", min: props.min, max: props.max, step: props.step, value: this.__$value1, onInput: this.handleS1Input, onChange: this.handleS1Change, onMouseUp: this.handleMouseUp, ref: function (e) {
                         _this.slider1 = e;
                     } }))) : (
             /* ========================SINGLE-NO-TOOLTIP================================ */
-            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleSliderOne, onMouseUp: this.handleChange, id: "slider-1", ref: function (e) {
+            h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value1, onInput: this.handleS1Input, onChange: this.handleS1Change, onMouseUp: this.handleMouseUp, id: "slider-1", ref: function (e) {
                     _this.slider1 = e;
                 } })),
             this.props.range === 'double' &&
                 (this.props.tooltip ? (h("o-tooltip", { class: "tooltip", position: "top", effect: "dark", content: this.props.range === 'double'
                         ? this.__$value1 + " , " + this.__$value2
                         : this.__$value1 },
-                    h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
+                    h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleS2Input, onChange: this.handleS2Change, onMouseUp: this.handleMouseUp, id: "slider-2", ref: function (e) {
                             _this.slider2 = e;
                         } }))) : (
                 /* ========================DOUBLE-NO-TOOLTIP============================== */
-                h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleSliderTwo, onMouseUp: this.handleChange, id: "slider-2", ref: function (e) {
+                h("input", { class: "o-slider", type: "range", min: props.min, max: props.max, value: this.__$value2, onInput: this.handleS2Input, onChange: this.handleS2Change, onMouseUp: this.handleMouseUp, id: "slider-2", ref: function (e) {
                         _this.slider2 = e;
                     } }))),
             h("div", { class: "slider-track", ref: function (e) {
                     _this.sliderTrack = e;
                 } })));
     };
-    OSlider.css = css;
     OSlider.defaultProps = {
         //default a single round range slider
         min: undefined,
@@ -427,10 +586,12 @@ var OSlider = /** @class */ (function (_super) {
         value: undefined,
         second_value: undefined,
         range: 'single',
+        size: 'normal',
         orient: 'horizontal',
         shape: 'round',
         tooltip: false,
         disabled: false,
+        reversed: false,
     };
     OSlider.propTypes = {
         min: Number,
@@ -439,11 +600,14 @@ var OSlider = /** @class */ (function (_super) {
         value: Number,
         second_value: Number,
         range: String,
+        size: String,
         orient: String,
         shape: String,
         tooltip: Boolean,
         disabled: Boolean,
+        reversed: Boolean,
     };
+    OSlider.css = css;
     OSlider = __decorate([
         tag('o-slider')
     ], OSlider);

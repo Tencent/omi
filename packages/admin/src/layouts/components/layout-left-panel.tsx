@@ -94,7 +94,7 @@ export default class extends WeElement<Props> {
     return (
       <div
         style={`height:calc(100vh - 3rem)`}
-        class={tw`text-left border-r-1 relative`}
+        class={tw`text-left relative`}
       >
         <o-hamburger-menu
           title="隐藏导航树"

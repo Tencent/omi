@@ -26,6 +26,7 @@ import '@omiu/icon/people-alt'
 import '@omiu/icon/pie-chart'
 import '@omiu/transition'
 import '@omiu/icon/edit'
+import '@omiu/icon/account-box'
 
 import './index.css'
 
@@ -88,6 +89,8 @@ export default class extends WeElement {
     registerRouting(this)
 
     if (location.hash) {
+      // safari 带hash刷新相当于会先执行 hashChange 导致报错
+      // hashChange()
       this.routeTo(location.hash)
     }
   }
@@ -137,7 +140,7 @@ export default class extends WeElement {
         this.store.markdown = e.default
       })
 
-    // 重新读取 hash 值  
+    // 重新读取 hash 值
     hashChange()
   }
 
@@ -146,6 +149,8 @@ export default class extends WeElement {
       <basic-layout>
         <o-transition ref={(_) => (this.transition = _)} appear name="fade">
           <this.data.tagName
+            // 加key 解决 safari diff 的 bug
+            key={Math.random() + Date.now()}
             {...this.payload}
             class={tw`block`}
           ></this.data.tagName>

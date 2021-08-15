@@ -28,7 +28,6 @@ th {
   vertical-align: middle;
   padding: 10px 10px 10px;
   color: rgba(0, 0, 0, 0.54);
-  font-size: 0.75rem;
   line-height: 1.3125rem;
   font-weight: 500;
   background: #fafafa;
@@ -38,6 +37,7 @@ th {
 th,
 td {
   white-space: nowrap;
+  font-size: 0.875rem;
 }
 
 th.fixed-top {
@@ -93,7 +93,6 @@ tr:hover td {
 td {
   text-align: left;
   vertical-align: middle;
-  font-size: 0.875rem;
   padding: 10px 10px 10px;
   background: white;
 }

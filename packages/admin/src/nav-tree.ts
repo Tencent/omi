@@ -67,6 +67,13 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           href: '#/notification-list',
           icon: 'notifications'
+        },
+        {
+          label: localeMap.base.PersonalCenter,
+          expanded: true,
+          id: genId(),
+          href: '#/personal-center',
+          icon: 'account-box'
         }
       ]
     },
@@ -76,6 +83,18 @@ export function genNavTree(localeMap, locale) {
       id: genId(),
 
       children: [
+        {
+          label: localeMap.base.Success,
+          // icon: 'error',
+          href: '#/success',
+          id: genId()
+        },
+        {
+          label: localeMap.base.Failure,
+          // icon: 'warning',
+          href: '#/failure',
+          id: genId()
+        },
         {
           label: localeMap.base.BrowserIncompatible,
           id: genId(),
@@ -114,7 +133,7 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Button,
           id: genId(),
-          href: '#/button',
+          href: '#/button-component'
           // icon: 'sentiment-satisfied-alt'
         },
         {
@@ -154,7 +173,12 @@ export function genNavTree(localeMap, locale) {
         {
           label: localeMap.base.Timepicker,
           id: genId(),
-          href: '#/time-picker-component',
+          href: '#/time-picker-component'
+        },
+        {
+          label: localeMap.base.Tag,
+          id: genId(),
+          href: '#/tag-component'
         },
         {
           label: localeMap.base.BasicTable,
@@ -173,7 +197,7 @@ export function genNavTree(localeMap, locale) {
           icon: 'grid-on',
           href: '#/table/edit',
           id: genId()
-        },
+        }
       ]
     },
     {

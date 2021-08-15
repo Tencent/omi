@@ -39,6 +39,7 @@ export const base = {
 
   MasonryList: '瀑布流列表',
   NotificationList: '通知中心',
+  PersonalCenter: '个人中心',
 
   Introduction: '简介',
   CustomTheme: '自定义主题',
@@ -47,5 +48,9 @@ export const base = {
 
   Button: 'Button 按钮',
   Tabs: 'Tabs 选项卡',
-  BasicList: '基础列表'
+  Tag: 'Tag 标签',
+  BasicList: '基础列表',
+
+  Success: '成功页',
+  Failure: '失败页'
 }
