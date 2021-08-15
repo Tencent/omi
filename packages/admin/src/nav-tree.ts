@@ -182,11 +182,11 @@ export function genNavTree(localeMap, locale) {
           id: genId(),
           href: '#/tag-component'
         },
-        {
-          label: localeMap.base.Rate,
-          id: genId(),
-          href: '#/rate-component'
-        },
+        // {
+        //   label: localeMap.base.Rate,
+        //   id: genId(),
+        //   href: '#/rate-component'
+        // },
         {
           label: localeMap.base.BasicTable,
           icon: 'grid-on',
