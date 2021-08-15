@@ -5,15 +5,17 @@ import { route } from 'omi-router'
  */
 const components = [
   'button',
+  'cascader',
   'tabs',
   'slider',
   'loading',
   'toast',
   'card',
   'progress',
-  'time-picker',
+  'timepicker',
   'tag',
-  'rate'
+  'rate',
+  'cascader'
 ]
 
 export function registerRouting(rootEl) {
