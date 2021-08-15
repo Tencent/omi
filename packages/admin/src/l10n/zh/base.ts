@@ -43,11 +43,13 @@ export const base = {
 
   Introduction: '简介',
   CustomTheme: '自定义主题',
+  Contribution:'加入新组件',
 
   StepsForm: '分步表单',
 
   Button: 'Button 按钮',
   Tabs: 'Tabs 选项卡',
+  Rate: 'Rate 评分',
   Tag: 'Tag 标签',
   BasicList: '基础列表',
 

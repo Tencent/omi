@@ -1,10 +1,10 @@
-## 如何将组件添加至 Omi-Admin
+## How to add components to Omi-Admin
 
-## 创建组件
+## Create your component
 
-在 omi/package/admin/src/components 目录下创建 name-component.tsx 
+create name-component.tsx in omi/package/admin/src/components 
 
-使用目录下的 `example-component.tsx` 进行修改，添加你的组件展示页面
+use `example-component.tsx` to modify ，and add your component presentation page
 
 ``` js
 import { WeElement, h, tag } from 'omi'
@@ -13,7 +13,7 @@ import '../docs/admin-docs'
 import './code-demo'
 import './code-demo/container'
 
-// 引入你的组件
+// import your components
 // TODO 
 // import '@omiu/name'
 
@@ -48,8 +48,8 @@ export default class extends WeElement<Props> {
     return (
       <code-demo-container>
         <code-demo
-          title="例子"
-          describe={'不同类型的标签'}
+          title="example"
+          describe={'example'}
           // TODO
           code={this.mdA}
         >
@@ -65,9 +65,9 @@ export default class extends WeElement<Props> {
 
 ```
 
-## 国际化中添加组件
+## Add components in internationalization (i10n)
 
-在 `omi/package/admin/src/l10n/zh` 及 `omi/package/admin/src/l10n/en` 中加入
+add them in `omi/package/admin/src/l10n/zh` and `omi/package/admin/src/l10n/en` 
 
 ```js
 // omi/package/admin/src/l10n/en
@@ -76,7 +76,7 @@ Name:"example"
 Name:"例子"
 ```
 
-## 将组件展示页加入 Admin 路由 (支持自动加入了)
+## Add component display page to Admin route (supports automatic join)
 
 ```js
   components.map((componentName: string) =>

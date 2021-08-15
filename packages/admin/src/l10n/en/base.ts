@@ -42,12 +42,14 @@ export const base = {
 
   Introduction: 'Introduction',
   CustomTheme: 'Custom Theme',
+  Contribution:'Add new component',
 
   StepsForm: 'Steps Form',
 
   Button: 'Button',
   Tabs: 'Tabs',
   Tag: 'Tag',
+  Rate:'Rate',
   BasicList: 'Basic List',
 
   Success: 'Success',
