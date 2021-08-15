@@ -7,9 +7,9 @@ import {
 import { genId } from './util/id'
 
 interface NavTree {
-  label: string
-  expanded: boolean
-  id: number
+  label?: string
+  expanded?: boolean
+  id?: number
   children?: NavTree[]
   [key: string]: any
 }
