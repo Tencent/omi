@@ -88,3 +88,14 @@ Name:"例子"
     })
   )
 ```
+## 向侧边栏中添加导航
+
+在 /omi/packages/admin/src/nav-tree.ts 中加入
+
+```js
+{
+    label: localeMap.base.Name,
+    id: genId(),
+    href: '#/name-component'
+},
+```

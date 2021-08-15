@@ -88,3 +88,15 @@ Name:"例子"
     })
   )
 ```
+
+## Add navigation to the sidebar
+
+add them in /omi/packages/admin/src/nav-tree.ts 
+
+```js
+{
+    label: localeMap.base.Name,
+    id: genId(),
+    href: '#/name-component'
+},
+```
