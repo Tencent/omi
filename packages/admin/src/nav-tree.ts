@@ -1,7 +1,8 @@
 import { getDocsList } from './components/docs/config'
 import {
   getIntroductionNode,
-  getThemeNode
+  getThemeNode,
+  getContribution
 } from './components/components/docs/config'
 import { genId } from './util/id'
 
@@ -130,6 +131,7 @@ export function genNavTree(localeMap, locale) {
       children: [
         getIntroductionNode(locale, localeMap),
         getThemeNode(locale, localeMap),
+        getContribution(locale, localeMap),
         {
           label: localeMap.base.Button,
           id: genId(),
@@ -179,6 +181,11 @@ export function genNavTree(localeMap, locale) {
           label: localeMap.base.Tag,
           id: genId(),
           href: '#/tag-component'
+        },
+        {
+          label: localeMap.base.Rate,
+          id: genId(),
+          href: '#/rate-component'
         },
         {
           label: localeMap.base.BasicTable,
