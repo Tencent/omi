@@ -25,7 +25,7 @@ export const base = {
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
 
-  Timepicker: 'Time Picker 时间选择器',
+  TimePicker: 'Time Picker 时间选择器',
 
   MindMap: '思维导图',
   ManyThanksTo: '感谢有你',

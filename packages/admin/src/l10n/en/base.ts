@@ -25,7 +25,7 @@ export const base = {
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
 
-  Timepicker: 'Time Picker',
+  TimePicker: 'Time Picker',
 
   MindMap: 'Mind Map',
   ManyThanksTo: 'Many Thanks To',

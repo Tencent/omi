@@ -12,7 +12,7 @@ const components = [
   'toast',
   'card',
   'progress',
-  'timepicker',
+  'time-picker',
   'tag',
   'rate',
   'cascader'

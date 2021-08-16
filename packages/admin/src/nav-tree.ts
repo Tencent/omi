@@ -6,10 +6,16 @@ import {
 } from './components/components/docs/config'
 import { genId } from './util/id'
 
-interface NavTree {
-  label?: string
-  expanded?: boolean
+export interface NavTree {
   id?: number
+  label?: string
+  sign?: string
+  expanded?: boolean
+  icon?: string
+  color?: string
+  selected?: boolean
+  href?: string
+  target?: string
   children?: NavTree[]
   [key: string]: any
 }
@@ -224,13 +230,15 @@ export function genNavTree(localeMap, locale) {
     'tag',
     'progress',
     'cascader',
-    'timepicker'
-    // 'rate'
+    'time-picker',
+    'rate'
   ]
 
   omiuComponents.forEach((component) => {
     navTree[2].children.push({
-      label: localeMap.base[component[0].toUpperCase() + component.slice(1)],
+      label: localeMap.base[component.split('-').map(str => {
+        return str[0].toUpperCase() + str.slice(1)
+      }).join('')],
       id: genId(),
       href: `#/${component}-component`
     })
