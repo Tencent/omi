@@ -43,7 +43,7 @@ export const base = {
 
   Introduction: '简介',
   CustomTheme: '自定义主题',
-  Contribution:'加入新组件',
+  Contribution: '加入新组件',
 
   StepsForm: '分步表单',
 
@@ -52,6 +52,7 @@ export const base = {
   Rate: 'Rate 评分',
   Tag: 'Tag 标签',
   BasicList: '基础列表',
+  Cascader: 'Cascader 级联选择器',
 
   Success: '成功页',
   Failure: '失败页'
