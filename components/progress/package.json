@@ -15,9 +15,9 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
-	"test:watch": "web-test-runner \"test/*.test.js\" --node-resolve --watch",
-	"test": "web-test-runner \"test/*.js\" --node-resolve"
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js",
+	  "test:watch": "web-test-runner \"test/*.test.js\" --node-resolve --watch",
+	  "test": "web-test-runner \"test/*.js\" --node-resolve"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
