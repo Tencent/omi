@@ -9,14 +9,16 @@
 
 .o-dialog {
   position: relative;
-  margin: 0 auto 50px;
   background: #FFF;
   border-radius: 2px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 50%; }
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .o-dialog.is-fullscreen {
   width: 100%;
@@ -82,52 +84,52 @@
 .o-dialog--center .o-dialog__footer {
   text-align: inherit; }
 
-.dialog-fade-enter-active {
-  -webkit-animation: dialog-fade-in .3s;
-  animation: dialog-fade-in .3s; }
+.dialog-zoom-enter-active {
+  -webkit-animation: dialog-zoom-in .3s;
+  animation: dialog-zoom-in .3s; }
 
-.dialog-fade-leave-active {
-  -webkit-animation: dialog-fade-out .3s;
-  animation: dialog-fade-out .3s; }
+.dialog-zoom-leave-active {
+  -webkit-animation: dialog-zoom-out .3s;
+  animation: dialog-zoom-out .3s; }
 
-@-webkit-keyframes dialog-fade-in {
+@-webkit-keyframes dialog-zoom-in {
   0% {
-    -webkit-transform: translate3d(0, -20px, 0);
-    transform: translate3d(0, -20px, 0);
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
     opacity: 0; }
   100% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
     opacity: 1; } }
 
-@keyframes dialog-fade-in {
+@keyframes dialog-zoom-in {
   0% {
-    -webkit-transform: translate3d(0, -20px, 0);
-    transform: translate3d(0, -20px, 0);
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
     opacity: 0; }
   100% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
     opacity: 1; } }
 
-@-webkit-keyframes dialog-fade-out {
+@-webkit-keyframes dialog-zoom-out {
   0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
     opacity: 1; }
   100% {
-    -webkit-transform: translate3d(0, -20px, 0);
-    transform: translate3d(0, -20px, 0);
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
     opacity: 0; } }
 
-@keyframes dialog-fade-out {
+@keyframes dialog-zoom-out {
   0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
     opacity: 1; }
   100% {
-    -webkit-transform: translate3d(0, -20px, 0);
-    transform: translate3d(0, -20px, 0);
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
     opacity: 0; } }
 
 .mask-enter-active {

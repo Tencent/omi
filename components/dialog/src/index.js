@@ -96,19 +96,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_@omiu_transition@0.0.6@@omiu/transition/src/index.esm.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/_@omiu_transition@0.0.6@@omiu/transition/src/index.esm.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/@omiu/transition/src/index.esm.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@omiu/transition/src/index.esm.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Transition; });
+/* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/transition v0.0.7 http://omijs.org
+ * @omiu/transition v0.0.14 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -118,18 +119,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
@@ -151,6 +152,44 @@ function __decorate(decorators, target, key, desc) {
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
 }
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -232,59 +271,91 @@ var Transition = /** @class */ (function (_super) {
             }
         });
     };
-    Transition.prototype.toggle = function () {
-        this._show = !this._show;
-        if (this._show)
+    Transition.prototype.receiveProps = function () {
+        if (this.props.appear) {
             this.enter();
-        else
+        }
+        if (this.props.disappear) {
             this.leave();
+        }
+    };
+    Transition.prototype.toggle = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this._show = !this._show;
+                        if (!this._show) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.enter()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2: return [4 /*yield*/, this.leave()];
+                    case 3: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
     };
     Transition.prototype.enter = function () {
-        var el = this.children[0];
-        if (el) {
-            this.fire('before-enter');
-            el.classList.remove(this.props.name + '-leave-active');
-            el.classList.remove(this.props.name + '-leave-to');
-            el.classList.add(this.props.name + '-enter');
-            el.classList.add(this.props.name + '-enter-active');
-            this.callback = function () {
-                el.classList.remove(this.props.name + '-enter-active');
-                this.fire('after-enter');
-                this._show = true;
-            }.bind(this);
-            this.once('transitionend', this.callback);
-            this.once('animationend', this.callback);
-            window.setTimeout(function () {
-                el.classList.remove(this.props.name + '-enter');
-                el.classList.add(this.props.name + '-enter-to');
-                this.fire('enter');
-            }.bind(this), 0);
-        }
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var el = _this.children[0];
+                        if (el) {
+                            _this.fire('before-enter');
+                            el.classList.remove(_this.props.name + '-leave-active');
+                            el.classList.remove(_this.props.name + '-leave-to');
+                            el.classList.add(_this.props.name + '-enter');
+                            el.classList.add(_this.props.name + '-enter-active');
+                            _this.callback = function () {
+                                el.classList.remove(this.props.name + '-enter-active');
+                                this.fire('after-enter');
+                                this._show = true;
+                                resolve();
+                            }.bind(_this);
+                            _this.once('transitionend', _this.callback);
+                            _this.once('animationend', _this.callback);
+                            window.setTimeout(function () {
+                                el.classList.remove(this.props.name + '-enter');
+                                el.classList.add(this.props.name + '-enter-to');
+                                this.fire('enter');
+                            }.bind(_this), _this.props.delay);
+                        }
+                    })];
+            });
+        });
     };
     Transition.prototype.leave = function () {
-        var el = this.children[0];
-        if (el) {
-            this.fire('before-leave');
-            el.classList.remove(this.props.name + '-enter-active');
-            el.classList.remove(this.props.name + '-enter-to');
-            el.classList.add(this.props.name + '-leave');
-            el.classList.add(this.props.name + '-leave-active');
-            this.callback = function (e) {
-                el.classList.remove(this.props.name + '-leave-active');
-                this.fire('after-leave');
-                this._show = false;
-                if (this.props.autoRemove && this.parentNode) {
-                    this.parentNode.removeChild(this);
-                }
-            }.bind(this);
-            this.once('transitionend', this.callback);
-            this.once('animationend', this.callback);
-            window.setTimeout(function () {
-                el.classList.remove(this.props.name + '-leave');
-                el.classList.add(this.props.name + '-leave-to');
-                this.fire('leave');
-            }.bind(this), 0);
-        }
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var el = _this.children[0];
+                        if (el) {
+                            _this.fire('before-leave');
+                            el.classList.remove(_this.props.name + '-enter-active');
+                            el.classList.remove(_this.props.name + '-enter-to');
+                            el.classList.add(_this.props.name + '-leave');
+                            el.classList.add(_this.props.name + '-leave-active');
+                            _this.callback = function (e) {
+                                el.classList.remove(this.props.name + '-leave-active');
+                                this.fire('after-leave');
+                                this._show = false;
+                                if (this.props.autoRemove && this.parentNode) {
+                                    this.parentNode.removeChild(this);
+                                }
+                                resolve();
+                            }.bind(_this);
+                            _this.once('transitionend', _this.callback);
+                            _this.once('animationend', _this.callback);
+                            window.setTimeout(function () {
+                                el.classList.remove(this.props.name + '-leave');
+                                el.classList.add(this.props.name + '-leave-to');
+                                this.fire('leave');
+                            }.bind(_this), _this.props.delay);
+                        }
+                    })];
+            });
+        });
     };
     Transition.prototype.once = function (name, callback) {
         var wrapCall = function () {
@@ -300,11 +371,14 @@ var Transition = /** @class */ (function (_super) {
         name: String,
         leavingTime: Number,
         autoRemove: Boolean,
-        appear: Boolean
+        appear: Boolean,
+        disappear: Boolean,
+        delay: Number
     };
     Transition.isLightDom = true;
     Transition.defaultProps = {
-        name: 'o'
+        name: 'o',
+        delay: 0
     };
     Transition = __decorate([
         Object(omi__WEBPACK_IMPORTED_MODULE_0__["tag"])('o-transition')
@@ -312,36 +386,36 @@ var Transition = /** @class */ (function (_super) {
     return Transition;
 }(omi__WEBPACK_IMPORTED_MODULE_0__["WeElement"]));
 
-/* harmony default export */ __webpack_exports__["default"] = (Transition);
+
 //# sourceMappingURL=index.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../_webpack@4.43.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.43.0@webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.4);\n  z-index: 100;\n  left: 0;\n  top: 0; }\n\n.o-dialog {\n  position: relative;\n  margin: 0 auto 50px;\n  background: #FFF;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50%; }\n\n.o-dialog.is-fullscreen {\n  width: 100%;\n  margin-top: 0;\n  margin-bottom: 0;\n  height: 100%;\n  overflow: auto; }\n\n.o-dialog__wrapper {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: auto;\n  margin: 0; }\n\n.o-dialog__header {\n  padding: 20px 20px 10px; }\n\n.o-dialog__headerbtn {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  padding: 0;\n  background: 0 0;\n  border: none;\n  outline: 0;\n  cursor: pointer;\n  font-size: 16px; }\n\n.o-dialog__headerbtn .o-dialog__close {\n  color: #909399; }\n\n.o-dialog__headerbtn:focus .o-dialog__close,\n.o-dialog__headerbtn:hover .o-dialog__close {\n  color: #409EFF; }\n\n.o-dialog__title {\n  line-height: 24px;\n  font-size: 18px;\n  color: #303133; }\n\n.o-dialog__body {\n  padding: 30px 20px;\n  color: #606266;\n  font-size: 14px;\n  word-break: break-all; }\n\n.o-dialog__footer {\n  padding: 10px 20px 20px;\n  text-align: right;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-dialog--center {\n  text-align: center; }\n\n.o-dialog--center .o-dialog__body {\n  text-align: initial;\n  padding: 25px 25px 30px; }\n\n.o-dialog--center .o-dialog__footer {\n  text-align: inherit; }\n\n.dialog-fade-enter-active {\n  -webkit-animation: dialog-fade-in .3s;\n  animation: dialog-fade-in .3s; }\n\n.dialog-fade-leave-active {\n  -webkit-animation: dialog-fade-out .3s;\n  animation: dialog-fade-out .3s; }\n\n@-webkit-keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@keyframes dialog-fade-in {\n  0% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; } }\n\n@-webkit-keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n@keyframes dialog-fade-out {\n  0% {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n    opacity: 0; } }\n\n.mask-enter-active {\n  -webkit-animation: mask-in .3s;\n  animation: mask-in .3s; }\n\n.mask-leave-active {\n  -webkit-animation: mask-out .3s;\n  animation: mask-out .3s; }\n\n@-webkit-keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@-webkit-keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.content {\n  z-index: 101; }\n", ""]);
+exports.push([module.i, ".mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.4);\n  z-index: 100;\n  left: 0;\n  top: 0; }\n\n.o-dialog {\n  position: relative;\n  background: #FFF;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50%;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%); }\n\n.o-dialog.is-fullscreen {\n  width: 100%;\n  margin-top: 0;\n  margin-bottom: 0;\n  height: 100%;\n  overflow: auto; }\n\n.o-dialog__wrapper {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: auto;\n  margin: 0; }\n\n.o-dialog__header {\n  padding: 20px 20px 10px; }\n\n.o-dialog__headerbtn {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  padding: 0;\n  background: 0 0;\n  border: none;\n  outline: 0;\n  cursor: pointer;\n  font-size: 16px; }\n\n.o-dialog__headerbtn .o-dialog__close {\n  color: #909399; }\n\n.o-dialog__headerbtn:focus .o-dialog__close,\n.o-dialog__headerbtn:hover .o-dialog__close {\n  color: #409EFF; }\n\n.o-dialog__title {\n  line-height: 24px;\n  font-size: 18px;\n  color: #303133; }\n\n.o-dialog__body {\n  padding: 30px 20px;\n  color: #606266;\n  font-size: 14px;\n  word-break: break-all; }\n\n.o-dialog__footer {\n  padding: 10px 20px 20px;\n  text-align: right;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.o-dialog--center {\n  text-align: center; }\n\n.o-dialog--center .o-dialog__body {\n  text-align: initial;\n  padding: 25px 25px 30px; }\n\n.o-dialog--center .o-dialog__footer {\n  text-align: inherit; }\n\n.dialog-zoom-enter-active {\n  -webkit-animation: dialog-zoom-in .3s;\n  animation: dialog-zoom-in .3s; }\n\n.dialog-zoom-leave-active {\n  -webkit-animation: dialog-zoom-out .3s;\n  animation: dialog-zoom-out .3s; }\n\n@-webkit-keyframes dialog-zoom-in {\n  0% {\n    -webkit-transform: scale(0, 0);\n    transform: scale(0, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: scale(1, 1);\n    transform: scale(1, 1);\n    opacity: 1; } }\n\n@keyframes dialog-zoom-in {\n  0% {\n    -webkit-transform: scale(0, 0);\n    transform: scale(0, 0);\n    opacity: 0; }\n  100% {\n    -webkit-transform: scale(1, 1);\n    transform: scale(1, 1);\n    opacity: 1; } }\n\n@-webkit-keyframes dialog-zoom-out {\n  0% {\n    -webkit-transform: scale(1, 1);\n    transform: scale(1, 1);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(0, 0);\n    transform: scale(0, 0);\n    opacity: 0; } }\n\n@keyframes dialog-zoom-out {\n  0% {\n    -webkit-transform: scale(1, 1);\n    transform: scale(1, 1);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(0, 0);\n    transform: scale(0, 0);\n    opacity: 0; } }\n\n.mask-enter-active {\n  -webkit-animation: mask-in .3s;\n  animation: mask-in .3s; }\n\n.mask-leave-active {\n  -webkit-animation: mask-out .3s;\n  animation: mask-out .3s; }\n\n@-webkit-keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes mask-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@-webkit-keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes mask-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.content {\n  z-index: 101; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -425,7 +499,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/_webpack@4.43.0@webpack/buildin/global.js":
+/***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -464,7 +538,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -506,7 +580,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-__webpack_require__(/*! @omiu/transition */ "./node_modules/_@omiu_transition@0.0.6@@omiu/transition/src/index.esm.js");
+__webpack_require__(/*! @omiu/transition */ "./node_modules/@omiu/transition/src/index.esm.js");
 var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
@@ -534,9 +608,9 @@ var Dialog = /** @class */ (function (_super) {
     };
     Dialog.prototype.render = function (props) {
         return (props.visible && omi_1.h("div", { class: "o-dialog__wrapper" },
-            omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-fade" },
+            omi_1.h("o-transition", { "onafter-leave": this.onAfterLeave, appear: true, name: "dialog-zoom" },
                 omi_1.h("div", { class: "o-dialog__wrapper content" },
-                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": props.title, class: "o-dialog", style: { width: props.width, marginTop: "15vh" } },
+                    omi_1.h("div", { role: "dialog", "aria-modal": "true", "aria-label": props.title, class: "o-dialog", style: { width: props.width } },
                         omi_1.h("div", { class: "o-dialog__header" },
                             omi_1.h("span", { class: "o-dialog__title" }, props.title),
                             omi_1.h("button", { type: "button", "aria-label": "Close", class: "o-dialog__headerbtn" },
