@@ -55,5 +55,6 @@ export const base = {
   Cascader: 'Cascader 级联选择器',
 
   Success: '成功页',
-  Failure: '失败页'
+  Failure: '失败页',
+  Dialog: 'Dialog 弹窗层'
 }

@@ -15,7 +15,7 @@ const components = [
   'time-picker',
   'tag',
   'rate',
-  'cascader'
+  'dialog'
 ]
 
 export function registerRouting(rootEl) {

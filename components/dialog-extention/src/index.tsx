@@ -1,6 +1,4 @@
 import { h, render } from 'omi'
-import * as alertCss from './alert.scss'
-import * as promptCss from './alert.scss'
 
 import '@omiu/dialog'
 import '@omiu/button'
@@ -13,12 +11,21 @@ interface AlertOptions {
   onConfirm: () => void
 }
 
+const css = `.o-dialog__body {
+  padding: 5px 20px !important;
+}
+
+.o-dialog {
+  width: 400px !important;
+  max-width: 80%;
+}`
+
 let dialog
 
 
-function alert(options: AlertOptions) {
+export function alert(options: AlertOptions) {
   if (dialog && dialog.parentNode) dialog.parentNode.removeChild(dialog)
-  dialog = render(<o-dialog css={alertCss} title={options.title} visible>
+  dialog = render(<o-dialog css={css} title={options.title} visible>
     <span>{options.msg}</span>
     <span slot="footer" class="dialog-footer">
       <o-button onclick={_ => {
@@ -38,9 +45,9 @@ interface ConfirmOptions {
   onConfirm: () => void
 }
 
-function confirm(options: ConfirmOptions) {
+export function confirm(options: ConfirmOptions) {
   if (dialog && dialog.parentNode) dialog.parentNode.removeChild(dialog)
-  dialog = render(<o-dialog css={alertCss} title={options.title} visible>
+  dialog = render(<o-dialog css={css} title={options.title} visible>
     <span>{options.msg}</span>
     <span slot="footer" class="dialog-footer">
       <o-button style="margin-right:10px;" onclick={_ => {
@@ -65,10 +72,10 @@ interface PromptOptions {
 }
 
 let temp
-function prompt(options: PromptOptions) {
+export function prompt(options: PromptOptions) {
   temp = ''
   if (dialog && dialog.parentNode) dialog.parentNode.removeChild(dialog)
-  dialog = render(<o-dialog css={promptCss} title={options.title} visible>
+  dialog = render(<o-dialog css={css} title={options.title} visible>
     <div style="margin: 10px 0;">{options.msg}</div>
     <o-input oninput={(evt) => {
       temp = evt.detail

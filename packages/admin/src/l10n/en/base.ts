@@ -54,5 +54,6 @@ export const base = {
   Cascader: 'Cascader',
 
   Success: 'Success',
-  Failure: 'Failure'
+  Failure: 'Failure',
+  Dialog: 'Dialog'
 }

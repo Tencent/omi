@@ -126,7 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! omi */ "omi");
 /* harmony import */ var omi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(omi__WEBPACK_IMPORTED_MODULE_0__);
 /**
- * @omiu/dialog v0.0.3 http://omijs.org
+ * @omiu/dialog v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -174,7 +174,11 @@ function __decorate$1(decorators, target, key, desc) {
 }
 
 
-var css = `.mask {
+var css = `:host {
+  position: fixed;
+  z-index: 100000; }
+
+.mask {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -1313,112 +1317,6 @@ var Input = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/alert.scss":
-/*!*************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/resolve-url-loader!./node_modules/sass-loader/dist/cjs.js??ref--4-3!./src/alert.scss ***!
-  \*************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".o-dialog__body {\n  padding: 5px 20px !important; }\n\n.o-dialog {\n  width: 400px !important;\n  max-width: 80%; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -1450,25 +1348,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/alert.scss":
-/*!************************!*\
-  !*** ./src/alert.scss ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./alert.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/alert.scss");
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-
 /***/ "./src/index.tsx":
 /*!***********************!*\
   !*** ./src/index.tsx ***!
@@ -1479,17 +1358,17 @@ module.exports = g;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.prompt = exports.confirm = exports.alert = void 0;
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var alertCss = __webpack_require__(/*! ./alert.scss */ "./src/alert.scss");
-var promptCss = __webpack_require__(/*! ./alert.scss */ "./src/alert.scss");
 __webpack_require__(/*! @omiu/dialog */ "./node_modules/@omiu/dialog/src/index.esm.js");
 __webpack_require__(/*! @omiu/button */ "./node_modules/@omiu/button/dist/index.es.js");
 __webpack_require__(/*! @omiu/input */ "./node_modules/@omiu/input/src/index.esm.js");
+var css = ".o-dialog__body {\n  padding: 5px 20px !important;\n}\n\n.o-dialog {\n  width: 400px !important;\n  max-width: 80%;\n}";
 var dialog;
 function alert(options) {
     if (dialog && dialog.parentNode)
         dialog.parentNode.removeChild(dialog);
-    dialog = omi_1.render(omi_1.h("o-dialog", { css: alertCss, title: options.title, visible: true },
+    dialog = omi_1.render(omi_1.h("o-dialog", { css: css, title: options.title, visible: true },
         omi_1.h("span", null, options.msg),
         omi_1.h("span", { slot: "footer", class: "dialog-footer" },
             omi_1.h("o-button", { onclick: function (_) {
@@ -1497,10 +1376,11 @@ function alert(options) {
                     options.onConfirm();
                 }, type: "primary", size: "small" }, options.confirmButtonText))), document.body);
 }
+exports.alert = alert;
 function confirm(options) {
     if (dialog && dialog.parentNode)
         dialog.parentNode.removeChild(dialog);
-    dialog = omi_1.render(omi_1.h("o-dialog", { css: alertCss, title: options.title, visible: true },
+    dialog = omi_1.render(omi_1.h("o-dialog", { css: css, title: options.title, visible: true },
         omi_1.h("span", null, options.msg),
         omi_1.h("span", { slot: "footer", class: "dialog-footer" },
             omi_1.h("o-button", { style: "margin-right:10px;", onclick: function (_) {
@@ -1512,12 +1392,13 @@ function confirm(options) {
                     options.onConfirm();
                 }, type: "primary", size: "small" }, options.confirmButtonText))), document.body);
 }
+exports.confirm = confirm;
 var temp;
 function prompt(options) {
     temp = '';
     if (dialog && dialog.parentNode)
         dialog.parentNode.removeChild(dialog);
-    dialog = omi_1.render(omi_1.h("o-dialog", { css: promptCss, title: options.title, visible: true },
+    dialog = omi_1.render(omi_1.h("o-dialog", { css: css, title: options.title, visible: true },
         omi_1.h("div", { style: "margin: 10px 0;" }, options.msg),
         omi_1.h("o-input", { oninput: function (evt) {
                 temp = evt.detail;
@@ -1534,6 +1415,7 @@ function prompt(options) {
     var inputs = document.querySelectorAll('o-input');
     inputs[inputs.length - 1].focus();
 }
+exports.prompt = prompt;
 if (typeof window !== 'undefined') {
     if (typeof window.Omiu !== 'undefined') {
         window.Omiu.alert = alert;

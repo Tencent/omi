@@ -1,5 +1,5 @@
 /**
- * @omiu/dialog v0.0.3 http://omijs.org
+ * @omiu/dialog v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -47,7 +47,11 @@ function __decorate$1(decorators, target, key, desc) {
 }
 
 
-var css = `.mask {
+var css = `:host {
+  position: fixed;
+  z-index: 100000; }
+
+.mask {
   position: fixed;
   width: 100%;
   height: 100%;

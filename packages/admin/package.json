@@ -25,6 +25,8 @@
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.11",
     "@omiu/date-picker": "^0.0.9",
+    "@omiu/dialog": "^0.0.4",
+    "@omiu/dialog-extention": "^0.0.8",
     "@omiu/form": "^0.0.6",
     "@omiu/hamburger-menu": "^0.0.5",
     "@omiu/icon": "^0.0.4",

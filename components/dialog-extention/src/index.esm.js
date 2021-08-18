@@ -1,5 +1,5 @@
 /**
- * @omiu/dialog-extention v0.0.5 http://omijs.org
+ * @omiu/dialog-extention v0.0.8 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -8,12 +8,8 @@
 
 import { tag, h, WeElement, extractClass, render } from 'omi';
 
-var promptCss = /*#__PURE__*/Object.freeze({
-  __proto__: null
-});
-
 /**
- * @omiu/dialog v0.0.3 http://omijs.org
+ * @omiu/dialog v0.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -59,7 +55,11 @@ function __decorate$1(decorators, target, key, desc) {
 }
 
 
-var css$1 = `.mask {
+var css$2 = `:host {
+  position: fixed;
+  z-index: 100000; }
+
+.mask {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -548,7 +548,7 @@ var domReady = _dready_0_0_1_dready || _domReady;
             h("o-transition", { appear: true, name: "mask" },
                 h("div", { class: "mask", onClick: this.handleMaskClick }))));
     };
-    Dialog.css = css$1;
+    Dialog.css = css$2;
     Dialog.defaultProps = {
         visible: false,
         width: '50%'
@@ -636,7 +636,7 @@ function __decorate(decorators, target, key, desc) {
 }
 
 
-var css = `:host {
+var css$1 = `:host {
   display: inline-block; }
 
 :host([block]) {
@@ -1145,7 +1145,7 @@ var css = `:host {
                     "/",
                     props.maxLength))));
     };
-    Input.css = css;
+    Input.css = css$1;
     Input.defaultProps = {
         value: '',
         type: 'text',
@@ -1174,11 +1174,12 @@ var css = `:host {
     return Input;
 })(WeElement));
 
+var css = ".o-dialog__body {\n  padding: 5px 20px !important;\n}\n\n.o-dialog {\n  width: 400px !important;\n  max-width: 80%;\n}";
 var dialog;
 function alert(options) {
     if (dialog && dialog.parentNode)
         dialog.parentNode.removeChild(dialog);
-    dialog = render(h("o-dialog", { css: promptCss, title: options.title, visible: true },
+    dialog = render(h("o-dialog", { css: css, title: options.title, visible: true },
         h("span", null, options.msg),
         h("span", { slot: "footer", class: "dialog-footer" },
             h("o-button", { onclick: function (_) {
@@ -1189,7 +1190,7 @@ function alert(options) {
 function confirm(options) {
     if (dialog && dialog.parentNode)
         dialog.parentNode.removeChild(dialog);
-    dialog = render(h("o-dialog", { css: promptCss, title: options.title, visible: true },
+    dialog = render(h("o-dialog", { css: css, title: options.title, visible: true },
         h("span", null, options.msg),
         h("span", { slot: "footer", class: "dialog-footer" },
             h("o-button", { style: "margin-right:10px;", onclick: function (_) {
@@ -1206,7 +1207,7 @@ function prompt(options) {
     temp = '';
     if (dialog && dialog.parentNode)
         dialog.parentNode.removeChild(dialog);
-    dialog = render(h("o-dialog", { css: promptCss, title: options.title, visible: true },
+    dialog = render(h("o-dialog", { css: css, title: options.title, visible: true },
         h("div", { style: "margin: 10px 0;" }, options.msg),
         h("o-input", { oninput: function (evt) {
                 temp = evt.detail;
@@ -1237,4 +1238,6 @@ if (typeof window !== 'undefined') {
         };
     }
 }
+
+export { alert, confirm, prompt };
 //# sourceMappingURL=index.esm.js.map

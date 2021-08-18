@@ -231,7 +231,8 @@ export function genNavTree(localeMap, locale) {
     'progress',
     'cascader',
     'time-picker',
-    'rate'
+    'rate',
+    'dialog'
   ]
 
   omiuComponents.forEach((component) => {

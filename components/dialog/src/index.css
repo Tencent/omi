@@ -1,3 +1,7 @@
+:host {
+  position: fixed;
+  z-index: 100000; }
+
 .mask {
   position: fixed;
   width: 100%;
