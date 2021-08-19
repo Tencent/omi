@@ -6,6 +6,7 @@ import '@omiu/tooltip'
 import '@omiu/pagination'
 import '@omiu/icon/remove-red-eye'
 import '@omiu/icon/search'
+import { confirm } from '@omiu/dialog-extention'
 import { getTotalCount, getListData } from '../service/list'
 
 interface Props { }
@@ -101,7 +102,7 @@ export default class extends WeElement<Props> {
         <div>
           <o-tooltip style={{ marginRight: 5 }} content={'查看 [' + item.name + ']'}>
             <o-icon-remove-red-eye data-item-id={item.id}
-              onClick={this.onClick}
+              onClick={this.onDetailClick}
               style="cursor:pointer;font-size:20px;">
             </o-icon-remove-red-eye>
           </o-tooltip>
@@ -109,7 +110,7 @@ export default class extends WeElement<Props> {
           <o-tooltip content={'删除 [' + item.name + ']'}>
             <o-icon-delete
               data-item-id={item.id}
-              onClick={this.onClick}
+              onClick={this.onDeleteClick}
               style="cursor:pointer;font-size:20px;"
             ></o-icon-delete>
           </o-tooltip>
@@ -118,8 +119,27 @@ export default class extends WeElement<Props> {
     }
   ]
 
-  onClick = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
-    this.deleteItemById(Number(evt.currentTarget.dataset.itemId))
+  onDetailClick = () => {
+
+  }
+
+  onDeleteClick = (evt: { currentTarget: { dataset: { itemId: number } } }) => {
+    const itemId = Number(evt.currentTarget.dataset.itemId)
+    const item = this.dataSource.find((item) => item.id === itemId)
+    confirm({
+      msg: `确认删除【${item.name}】吗？`,
+      title: '删除',
+      cancelButtonText: '取消',
+      confirmButtonText: '确认',
+      onCancel: function () {
+
+      },
+      onConfirm: () => {
+        this.deleteItemById(itemId)
+      }
+    })
+
+
   }
 
   deleteItemById(id: number) {
