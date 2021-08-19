@@ -1,12 +1,34 @@
 import { getDocsList } from './components/docs/config'
 import {
   getIntroductionNode,
-  getThemeNode
+  getThemeNode,
+  getContribution
 } from './components/components/docs/config'
 import { genId } from './util/id'
 
+export interface NavTree {
+  id?: number
+  label?: string
+  sign?: string
+  expanded?: boolean
+  icon?: string
+  color?: string
+  selected?: boolean
+  href?: string
+  target?: string
+  children?: NavTree[]
+  [key: string]: any
+}
+
+interface ComponentChild {
+  label: string
+  icon?: string
+  id: number
+  href: string
+}
+
 export function genNavTree(localeMap, locale) {
-  return [
+  const navTree: NavTree = [
     {
       label: localeMap.base.ManagerWorkbench,
       expanded: true,
@@ -83,7 +105,6 @@ export function genNavTree(localeMap, locale) {
       id: genId(),
 
       children: [
-
         {
           label: localeMap.base.Success,
           // icon: 'error',
@@ -131,69 +152,14 @@ export function genNavTree(localeMap, locale) {
       children: [
         getIntroductionNode(locale, localeMap),
         getThemeNode(locale, localeMap),
-        {
-          label: localeMap.base.Button,
-          id: genId(),
-          href: '#/button',
-          // icon: 'sentiment-satisfied-alt'
-        },
+        getContribution(locale, localeMap),
+
         {
           label: localeMap.base.MaterialIcons,
           id: genId(),
           href: '#/icon'
           // icon: 'sentiment-satisfied-alt'
-        },
-        {
-          label: localeMap.base.Loading,
-          id: genId(),
-          href: '#/loading-component'
-        },
-        {
-          label: localeMap.base.Toast,
-          id: genId(),
-          href: '#/toast-component'
-        },
-        {
-          label: localeMap.base.Card,
-          id: genId(),
-          href: '#/card-component'
-        },
-        // 待完善再显示
-        {
-          label: localeMap.base.Slider,
-          id: genId(),
-          href: '#/slider-component'
-        },
-
-        {
-          label: localeMap.base.Progress,
-          id: genId(),
-          href: '#/progress-component'
-        },
-        // 待优化
-        {
-          label: localeMap.base.Timepicker,
-          id: genId(),
-          href: '#/time-picker-component',
-        },
-        {
-          label: localeMap.base.BasicTable,
-          icon: 'grid-on',
-          href: '#/table/basic',
-          id: genId()
-        },
-        {
-          label: localeMap.base.TableDeleteAnimation,
-          icon: 'grid-on',
-          href: '#/table/pagination',
-          id: genId()
-        },
-        {
-          label: localeMap.base.InlineEditing,
-          icon: 'grid-on',
-          href: '#/table/edit',
-          id: genId()
-        },
+        }
       ]
     },
     {
@@ -254,4 +220,51 @@ export function genNavTree(localeMap, locale) {
       icon: 'people-alt'
     }
   ]
+
+  const omiuComponents = [
+    'button',
+    'card',
+    'slider',
+    'loading',
+    'toast',
+    'tag',
+    'progress',
+    'cascader',
+    'time-picker',
+    'rate',
+    'dialog'
+  ]
+
+  omiuComponents.forEach((component) => {
+    navTree[2].children.push({
+      label: localeMap.base[component.split('-').map(str => {
+        return str[0].toUpperCase() + str.slice(1)
+      }).join('')],
+      id: genId(),
+      href: `#/${component}-component`
+    })
+  })
+
+  navTree[2].children = navTree[2].children.concat([
+    {
+      label: localeMap.base.BasicTable,
+      icon: 'grid-on',
+      href: '#/table/basic',
+      id: genId()
+    },
+    {
+      label: localeMap.base.TableDeleteAnimation,
+      icon: 'grid-on',
+      href: '#/table/pagination',
+      id: genId()
+    },
+    {
+      label: localeMap.base.InlineEditing,
+      icon: 'grid-on',
+      href: '#/table/edit',
+      id: genId()
+    }
+  ])
+
+  return navTree
 }

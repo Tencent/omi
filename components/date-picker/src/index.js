@@ -1,5 +1,5 @@
 /**
- * @omiu/date-picker v0.0.5 http://omijs.org
+ * @omiu/date-picker v0.0.9 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -28,13 +28,11 @@
     var extendStatics$1 = function(d, b) {
         extendStatics$1 = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics$1(d, b);
     };
 
     function __extends$1(d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics$1(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -3341,7 +3339,7 @@
         }
         Popover.prototype.updated = function () {
             var _a = this.props, locale = _a.locale, other = __rest$1(_a, ["locale"]);
-            flatpickr(this.shadowRoot.querySelector('o-input'), __assign$1({ locale: locale === 'zh' ? Mandarin : null }, other));
+            flatpickr(this.shadowRoot.querySelector('o-input'), __assign$1({ disableMobile: true, locale: locale === 'zh' ? Mandarin : null }, other));
         };
         Popover.prototype.installed = function () {
             return __awaiter(this, void 0, Promise, function () {
@@ -3354,7 +3352,7 @@
                         case 1:
                             _b.sent();
                             _a = this.props, locale = _a.locale, other = __rest$1(_a, ["locale"]);
-                            flatpickr(this.shadowRoot.querySelector('o-input'), __assign$1({ locale: locale === 'zh' ? Mandarin : null }, other));
+                            flatpickr(this.shadowRoot.querySelector('o-input'), __assign$1({ disableMobile: true, locale: locale === 'zh' ? Mandarin : null }, other));
                             return [2 /*return*/];
                     }
                 });

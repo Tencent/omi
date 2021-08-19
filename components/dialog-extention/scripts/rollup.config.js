@@ -21,14 +21,14 @@ export default {
   },
   plugins: [
     nodeResolve({
-    	main: true
+      main: true
     }),
-    scss({
-      //output: false,
-      output: function (styles, styleNodes) {
-        fs.writeFileSync('./src/index.css', styles)
-      },
-    }),
+    // scss({
+    //   //output: false,
+    //   output: function (styles, styleNodes) {
+    //     fs.writeFileSync('./src/index.css', styles)
+    //   },
+    // }),
     typescript(),
     commonjs(),
 

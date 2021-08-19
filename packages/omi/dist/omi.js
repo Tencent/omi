@@ -490,22 +490,27 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            var css = this.constructor.css;
-            if (css) if ('string' == typeof css) {
-                var styleSheet = new CSSStyleSheet();
-                styleSheet.replaceSync(css);
-                shadowRoot.adoptedStyleSheets = [ styleSheet ];
-            } else if ('[object Array]' === Object.prototype.toString.call(css)) {
-                var styleSheets = [];
-                css.forEach(function(styleSheet) {
-                    if ('string' == typeof styleSheet) {
-                        var adoptedStyleSheet = new CSSStyleSheet();
-                        adoptedStyleSheet.replaceSync(styleSheet);
-                        styleSheets.push(adoptedStyleSheet);
-                    } else styleSheets.push(styleSheet);
-                    shadowRoot.adoptedStyleSheets = styleSheets;
-                });
-            } else shadowRoot.adoptedStyleSheets = [ css ];
+            if (this.constructor.elementStyles) shadowRoot.adoptedStyleSheets = this.constructor.elementStyles; else {
+                var css = this.constructor.css;
+                if (css) {
+                    if ('string' == typeof css) {
+                        var styleSheet = new CSSStyleSheet();
+                        styleSheet.replaceSync(css);
+                        shadowRoot.adoptedStyleSheets = [ styleSheet ];
+                    } else if ('[object Array]' === Object.prototype.toString.call(css)) {
+                        var styleSheets = [];
+                        css.forEach(function(styleSheet) {
+                            if ('string' == typeof styleSheet) {
+                                var adoptedStyleSheet = new CSSStyleSheet();
+                                adoptedStyleSheet.replaceSync(styleSheet);
+                                styleSheets.push(adoptedStyleSheet);
+                            } else styleSheets.push(styleSheet);
+                            shadowRoot.adoptedStyleSheets = styleSheets;
+                        });
+                    } else shadowRoot.adoptedStyleSheets = [ css ];
+                    this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
+                }
+            }
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             var rendered = this.render(this.props, this.store);
@@ -924,7 +929,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.22.2';
+    options.root.Omi.version = '6.23.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

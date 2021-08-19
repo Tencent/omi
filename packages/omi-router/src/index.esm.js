@@ -1,5 +1,5 @@
 /**
- * omi-router v3.0.1 http://omijs.org
+ * omi-router v3.0.2 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -455,7 +455,7 @@ function hashChange(evt) {
     root.route._routeByTo = false;
     root.historyLength = window.history.length;
     var prevent = false;
-    if (evt && evt.type === 'hashchange' && root.route.before) {
+    if (root.route.before) {
         prevent = root.route.before(evt) === false;
     }
     if (prevent)
@@ -485,7 +485,7 @@ function hashChange(evt) {
     if (notFound) {
         mapping['*'] && mapping['*'].callback({ byNative: byNative });
     }
-    if (evt && evt.type === 'hashchange' && root.route.after) {
+    if (root.route.after) {
         root.route.after(evt);
     }
 }

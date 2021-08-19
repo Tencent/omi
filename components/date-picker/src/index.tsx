@@ -114,6 +114,7 @@ export default class Popover extends WeElement<Props> {
   updated() {
     const { locale, ...other } = this.props
     flatpickr(this.shadowRoot.querySelector('o-input'), {
+      disableMobile: true,
       locale: locale === 'zh' ? Mandarin : null,
       ...other
     })
@@ -125,6 +126,7 @@ export default class Popover extends WeElement<Props> {
     const { locale, ...other } = this.props
 
     flatpickr(this.shadowRoot.querySelector('o-input'), {
+      disableMobile: true,
       locale: locale === 'zh' ? Mandarin : null,
       ...other
     })

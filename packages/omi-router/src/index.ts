@@ -35,7 +35,7 @@ export function hashChange(evt) {
   root.route._routeByTo = false
   root.historyLength = window.history.length
   let prevent = false
-  if (evt && evt.type === 'hashchange' && root.route.before) {
+  if (root.route.before) {
     prevent = root.route.before(evt) === false
   }
   if (prevent) return
@@ -65,7 +65,7 @@ export function hashChange(evt) {
     mapping['*'] && mapping['*'].callback({ byNative: byNative })
   }
 
-  if (evt && evt.type === 'hashchange' && root.route.after) {
+  if (root.route.after) {
     root.route.after(evt)
   }
 }

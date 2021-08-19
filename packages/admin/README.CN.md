@@ -7,7 +7,7 @@
 * [→ 国内加速访问 DEMO](https://omi.cdn-go.cn/admin/latest/index.html)
 * [→ github.io DEMO](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
-![](../../assets/admin-pc-v2.png)
+![](../../assets/admin-pc-v3.png)
 
 <img src="../../assets/admin-mb.png" width="320">
 

@@ -25,7 +25,7 @@ export const base = {
   MarkdownEditor: 'Markdown Editor',
   Dashboard: 'Dashboard',
 
-  Timepicker: 'Time Picker',
+  TimePicker: 'Time Picker',
 
   MindMap: 'Mind Map',
   ManyThanksTo: 'Many Thanks To',
@@ -42,15 +42,18 @@ export const base = {
 
   Introduction: 'Introduction',
   CustomTheme: 'Custom Theme',
+  Contribution: 'Add new component',
 
   StepsForm: 'Steps Form',
 
   Button: 'Button',
   Tabs: 'Tabs',
+  Tag: 'Tag',
+  Rate: 'Rate',
   BasicList: 'Basic List',
+  Cascader: 'Cascader',
 
   Success: 'Success',
-  Failure: 'Failure'
-
-
+  Failure: 'Failure',
+  Dialog: 'Dialog'
 }

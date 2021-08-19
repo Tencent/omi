@@ -1,21 +1,8 @@
 import { WeElement } from 'omi'
-import { genNavTree } from './nav-tree'
+import { genNavTree, NavTree } from './nav-tree'
 import { getNotifications } from './notifications'
 import { resetId } from './util/id'
 import { route } from 'omi-router'
-
-interface treeNode {
-  id: number
-  label: string
-  sign?: string
-  expanded?: boolean
-  icon?: string
-  color?: string
-  selected?: boolean
-  href?: string
-  target?: string
-  children?: treeNode[]
-}
 
 class Store {
   themeColor: string
@@ -42,7 +29,7 @@ class Store {
     id: number
   }[]
   tabsActiveIndex: number
-  treeData: treeNode[]
+  treeData: NavTree
   notifications: {
     id: number
     content?: string
