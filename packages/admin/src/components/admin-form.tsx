@@ -32,7 +32,7 @@ export default class extends WeElement<Props> {
   store
 
   render() {
-    const formItemClass = tw`leading-8 mb-0`
+    const formItemClass = tw`leading-8 mb-0 max-w-2xl`
     const lableClass = tw`w-16 float-left align-middle`
 
     return (
