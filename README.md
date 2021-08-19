@@ -169,9 +169,9 @@ $ npm run build       # release
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
-| **Omi**                         | **React**                           | **Omio**                           |
-| ------------------------------- | ----------------------------------- |----------------------------------- |
-| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) | ![Omio](https://tencent.github.io/omi/assets/omio.png) |
+| **Omi**                         | **React**                           | 
+| ------------------------------- | ----------------------------------- |
+| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) | 
 
 Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 

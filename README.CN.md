@@ -159,7 +159,6 @@ $ npm run build       # 编译发布
 - 小巧的尺寸和[高性能](https://tencent.github.io/omi/packages/omi/examples/perfs/)
 - 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
-- 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
 - [很容易通过 extend api 实现双向绑定](https://codepen.io/omijs/pen/aeLYjx)
 - 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
 - [基于 Shadow/Light Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
@@ -174,9 +173,9 @@ $ npm run build       # 编译发布
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow/Light DOM 隔离样式和语义化结构:
 
-| **Omi**                         | **React**                           | **Omio**                           |
-| ------------------------------- | ----------------------------------- |----------------------------------- |
-| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) | ![Omio](https://tencent.github.io/omi/assets/omio.png) |
+| **Omi**                         | **React**                           | 
+| ------------------------------- | ----------------------------------- |
+| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg)  |
 
 
 ### TypeScript 智能提示
