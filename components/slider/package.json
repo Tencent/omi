@@ -1,6 +1,6 @@
 {
   "name": "@omiu/slider",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
@@ -19,9 +19,9 @@
     "build:scss": "sass src/index.scss src/index.css",
     "watch": "sass --watch src/index.scss src/index.css --no-source-map",
     "pretest": "yarn build",
-    "test": "web-test-runner \"test/*.js\" --node-resolve",
+    "test": "web-test-runner \"test/*.js\" --node-resolve --puppeteer",
     "docs": "node ./scripts/docs-gen.js",
-    "test:watch": "web-test-runner \"test/*.test.js\" --node-resolve --watch"
+    "test:watch": "web-test-runner \"test/*.test.js\" --node-resolve --watch --puppeteer"
   },
   "repository": {
     "type": "git",
@@ -51,9 +51,10 @@
   "homepage": "http://omijs.org",
   "dependencies": {
     "@omiu/common": "latest",
-    "omi": "latest",
+    "@omiu/input": "0.0.12",
     "@omiu/tooltip": "0.0.1",
-    "@omiu/input": "0.0.12"
+    "@web/test-runner-puppeteer": "^0.10.1",
+    "omi": "latest"
   },
   "devDependencies": {
     "@open-wc/testing": "^2.5.33",
