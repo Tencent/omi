@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import '@omiu/common/theme.scss';
+@import '../../common/theme.scss';
 
 $thumb-height: 14px;
 $track-height: 4px;
@@ -19,6 +19,7 @@ $hover-thumb-color: $o-primary-fade-lot;
   z-index: 2;
   margin-top: ($thumb-height / -2) - 2;
   border: 2px solid $o-primary;
+  border-radius: 50%;
   background-color: $thumb-color;
   cursor: pointer;
   pointer-events: auto;
@@ -41,25 +42,26 @@ $hover-thumb-color: $o-primary-fade-lot;
   border-color: #c0c4cc;
 }
 
-@mixin thumb-round {
+@mixin thumb-square {
   @include thumb;
-  border-radius: 50%;
+  border-radius: 0%;
 }
 
 @mixin thumb-large {
   @include thumb;
   width: 25px;
   height: 25px;
-  margin-top: (25px / -2) - 2;
+  margin-top: math.div(25px, -2)- 2;
 }
 
 @mixin thumb-slim {
   @include thumb;
   width: 20px;
   height: 12px;
-  margin-top: (12px / -2) - 2;
+  margin-top: math.div(12px, -2) - 2;
   border-radius: 0%;
 }
+
 @mixin track {
   width: 100%;
   position: relative;
@@ -88,6 +90,7 @@ $hover-thumb-color: $o-primary-fade-lot;
   outline: none;
   margin: auto;
   z-index: -1;
+  border-radius: 8px;
 }
 
 .slider-container .o-slider {
@@ -137,24 +140,25 @@ $hover-thumb-color: $o-primary-fade-lot;
   }
 }
 
-//===============================round-slider=========================================
+//===============================square-slider=========================================
 
-.is-round .slider-track {
-  border-radius: 8px;
+.is-square .slider-track {
+  border-radius: 0px;
 }
 
-.is-round .o-slider {
+.is-square .o-slider {
   &::-webkit-slider-thumb {
-    @include thumb-round;
+    @include thumb-square;
     -webkit-appearance: none;
   }
 
   &::-moz-range-thumb {
-    @include thumb-round;
+    @include thumb-square;
     -webkit-appearance: none;
   }
+
   &::-ms-thumb {
-    @include thumb-round;
+    @include thumb-square;
     appearance: none;
   }
 }
