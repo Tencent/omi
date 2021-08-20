@@ -9,7 +9,7 @@ interface Props {
   step?: number
   value?: number
   second_value?: number
-  size: 'slim' | 'normal' | 'large'
+  size: 'small' | 'normal' | 'large'
   range: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
@@ -189,7 +189,7 @@ export default class OSlider extends WeElement<Props> {
       'is-vertical': props.orient === 'vertical',
       'is-square': props.shape === 'square',
       'is-large': props.size === 'large',
-      'is-slim': props.size === 'slim',
+      'is-small': props.size === 'small',
       'is-disabled': props.disabled,
     })
 

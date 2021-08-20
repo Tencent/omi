@@ -5,6 +5,12 @@
 $thumb-height: 14px;
 $track-height: 4px;
 
+$thumb-small-height: 10px;
+$track-small-height: 2px;
+
+$thumb-large-height: 25px;
+$track-large-height: 6px;
+
 // colours
 $upper-color: $o-surface;
 $lower-color: $o-primary;
@@ -12,12 +18,11 @@ $thumb-color: $o-surface;
 $hover-thumb-color: $o-primary-fade-lot;
 
 @mixin thumb {
-  top: 50%;
+  position: relative;
   width: $thumb-height;
   height: $thumb-height;
-  position: relative;
   z-index: 2;
-  margin-top: ($thumb-height / -2) - 2;
+  margin-top: $thumb-height / -2;
   border: 2px solid $o-primary;
   border-radius: 50%;
   background-color: $thumb-color;
@@ -49,17 +54,17 @@ $hover-thumb-color: $o-primary-fade-lot;
 
 @mixin thumb-large {
   @include thumb;
-  width: 25px;
-  height: 25px;
-  margin-top: math.div(25px, -2)- 2;
+  border: 4px solid $o-primary;
+  width: $thumb-large-height;
+  height: $thumb-large-height;
+  margin-top: math.div($thumb-large-height, -2);
 }
 
-@mixin thumb-slim {
+@mixin thumb-small {
   @include thumb;
-  width: 20px;
-  height: 12px;
-  margin-top: math.div(12px, -2) - 2;
-  border-radius: 0%;
+  width: $thumb-small-height;
+  height: $thumb-small-height;
+  margin-top: math.div($thumb-small-height, -2);
 }
 
 @mixin track {
@@ -91,6 +96,11 @@ $hover-thumb-color: $o-primary-fade-lot;
   margin: auto;
   z-index: -1;
   border-radius: 8px;
+  @supports (-moz-appearance: none) {
+    & {
+      top: 4px;
+    }
+  }
 }
 
 .slider-container .o-slider {
@@ -205,23 +215,23 @@ $hover-thumb-color: $o-primary-fade-lot;
   }
 }
 
-//===============================Slim-slider=========================================
-.is-slim .slider-track {
+//===============================small-slider=========================================
+.is-small .slider-track {
   height: 2px;
   border-radius: 0%;
 }
-.is-slim .o-slider {
+.is-small .o-slider {
   &::-webkit-slider-thumb {
-    @include thumb-slim;
+    @include thumb-small;
     -webkit-appearance: none;
   }
 
   &::-moz-range-thumb {
-    @include thumb-slim;
+    @include thumb-small;
     -webkit-appearance: none;
   }
   &::-ms-thumb {
-    @include thumb-slim;
+    @include thumb-small;
     appearance: none;
   }
 }
