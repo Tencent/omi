@@ -66,6 +66,28 @@ export default class OSlider extends WeElement<Props> {
   upperColor = '#f0f0f0'
 
   install() {
+    try {
+      if (this.props.value === undefined) {
+        throw new ReferenceError('empty value')
+      }
+
+      if (this.props.max === undefined) {
+        throw new ReferenceError('empty max value')
+      }
+
+      if (this.props.min === undefined) {
+        throw new ReferenceError('empty min value')
+      }
+
+      if (
+        this.props.range === 'double' &&
+        this.props.second_value === undefined
+      ) {
+        throw new ReferenceError('empty second value')
+      }
+    } catch (e: any) {
+      console.log(e.stack)
+    }
     this.__$value1 = this.props.value
     this.sliderMax = this.props.max
     this.props.range === 'double'
@@ -150,6 +172,7 @@ export default class OSlider extends WeElement<Props> {
   }
 
   handleS1Change = (evt: any) => {
+    evt.stopPropagation()
     if (this.props.range === 'single') {
       this.fire('change', this.__$value1)
     } else {
@@ -158,6 +181,7 @@ export default class OSlider extends WeElement<Props> {
   }
 
   handleS2Change = (evt: any) => {
+    evt.stopPropagation()
     this.fire('change', [this.__$value1, this.__$value2])
   }
 
@@ -214,6 +238,7 @@ export default class OSlider extends WeElement<Props> {
     const sliderTwo = (
       <input
         class="o-slider"
+        id="slider-2"
         type="range"
         min={props.min}
         max={props.max}
@@ -221,11 +246,23 @@ export default class OSlider extends WeElement<Props> {
         onInput={this.handleS2Input}
         onChange={this.handleS2Change}
         onMouseUp={this.handleMouseUp}
-        id="slider-2"
         ref={(e) => {
           this.sliderTwoRef = e
         }}
       />
+    )
+
+    const tooltip = (
+      <o-tooltip
+        class="tooltip"
+        position="top"
+        effect="dark"
+        content={
+          this.props.range === 'double'
+            ? `${this.__$value1} , ${this.__$value2}`
+            : this.__$value1
+        }
+      ></o-tooltip>
     )
 
     return (
