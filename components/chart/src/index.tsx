@@ -135,6 +135,7 @@ class Radar extends ChartBase {
 class Scatter extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
+      type: 'scatter',
       data: this.props.data,
       options: this.props.options
     })
@@ -167,6 +168,7 @@ class Pie extends ChartBase {
 class PolarArea extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
+      type: 'polarArea',
       data: this.props.data,
       options: this.props.options
     })
