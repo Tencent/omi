@@ -67,7 +67,7 @@ export default class extends WeElement<Props> {
   mdA =
     `
   \`\`\`html
-<o-line id="myLine" width="600" height="300"
+<o-line id="myLine" width="560" height="300"
   data="{
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     datasets: [{
@@ -121,12 +121,12 @@ export default class extends WeElement<Props> {
     return (
       <code-demo-container>
         <code-demo
-          title="柱状图"
-          describe={'柱状图显示'}
+          title="线状图"
+          describe={'线状图显示'}
           code={this.mdA}
         >
           <div slot="demo" class={tw`px-3 py-5`}>
-            <o-line id="myBar" width="560" height="300" data={this.data}
+            <o-line id="myLine" width="560" height="300" data={this.data}
               options={this.options}>
             </o-line>
           </div>
