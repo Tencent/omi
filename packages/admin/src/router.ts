@@ -27,7 +27,7 @@ const charts = [
   'radar',
   'polar-area',
   'bubble',
-  'barLine'
+  'barline'
 ]
 
 export function registerRouting(rootEl) {

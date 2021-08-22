@@ -284,7 +284,7 @@ export function genNavTree(localeMap, locale) {
     'radar',
     'polar-area',
     'bubble',
-    'barLine'
+    'barline'
   ]
 
   omiuChart.forEach((chart) => {
