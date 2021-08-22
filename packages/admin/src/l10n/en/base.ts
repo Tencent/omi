@@ -60,5 +60,6 @@ export const base = {
 
   Success: 'Success',
   Failure: 'Failure',
-  Dialog: 'Dialog'
+  Dialog: 'Dialog',
+  Avatar: 'Avatar'
 }

@@ -57,9 +57,10 @@ export const base = {
   Chart: 'OMIU 图表',
   Bar: '柱状图',
   Line: '线状图',
-  Scatter:'散点图',
+  Scatter: '散点图',
 
   Success: '成功页',
   Failure: '失败页',
-  Dialog: 'Dialog 弹窗层'
+  Dialog: 'Dialog 弹窗层',
+  Avatar: 'Avatar 头像'
 }
