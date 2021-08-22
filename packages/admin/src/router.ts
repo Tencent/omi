@@ -15,7 +15,8 @@ const components = [
   'time-picker',
   'tag',
   'rate',
-  'dialog'
+  'dialog',
+  'avatar'
 ]
 
 const charts = [
