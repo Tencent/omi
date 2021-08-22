@@ -1,4 +1,4 @@
-## PolarArea
+## Bubble
 
 气泡图。
 
