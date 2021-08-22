@@ -278,7 +278,13 @@ export function genNavTree(localeMap, locale) {
   const omiuChart = [
     'bar',
     'line',
-    'scatter'
+    'scatter',
+    'pie',
+    'doughnut',
+    'radar',
+    'polar-area',
+    'bubble',
+    'barLine'
   ]
 
   omiuChart.forEach((chart) => {
