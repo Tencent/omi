@@ -134,7 +134,7 @@ class Radar extends ChartBase {
 @tag('o-scatter')
 class Scatter extends ChartBase {
   installed() {
-    this.chart = new Chart.Scatter(this.canvas.getContext('2d'), {
+    this.chart = new Chart(this.canvas.getContext('2d'), {
       data: this.props.data,
       options: this.props.options
     })
@@ -166,7 +166,7 @@ class Pie extends ChartBase {
 @tag('o-polar-area')
 class PolarArea extends ChartBase {
   installed() {
-    this.chart = new Chart.PolarArea(this.canvas.getContext('2d'), {
+    this.chart = new Chart(this.canvas.getContext('2d'), {
       data: this.props.data,
       options: this.props.options
     })
