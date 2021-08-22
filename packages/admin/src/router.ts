@@ -18,6 +18,12 @@ const components = [
   'dialog'
 ]
 
+const charts = [
+  'bar',
+  'line',
+  'scatter'
+]
+
 export function registerRouting(rootEl) {
   route('/', () => {
     rootEl.update()
@@ -73,6 +79,7 @@ export function registerRouting(rootEl) {
     })
   })
 
+
   route('/table/pagination', () => {
     //lazy load
     import('./components/table/pagination-table').then(() =>
@@ -120,6 +127,15 @@ export function registerRouting(rootEl) {
       //lazy load
       import(`./components/components/${componentName}-component.tsx`).then(
         () => rootEl.transitionTo(`${componentName}-component`)
+      )
+    })
+  )
+
+  charts.map((chartName: string) =>
+    route(`/${chartName}-chart`, () => {
+      //lazy load
+      import(`./components/charts/${chartName}-chart.tsx`).then(
+        () => rootEl.transitionTo(`${chartName}-chart`)
       )
     })
   )

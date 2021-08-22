@@ -162,6 +162,15 @@ export function genNavTree(localeMap, locale) {
         }
       ]
     },
+
+    {
+      label: localeMap.base.Chart,
+      expanded: true,
+      id: genId(),
+
+      children: [
+      ]
+    },
     {
       label: localeMap.base.Others,
       sign: '●',
@@ -265,6 +274,22 @@ export function genNavTree(localeMap, locale) {
       id: genId()
     }
   ])
+
+  const omiuChart = [
+    'bar',
+    'line',
+    'scatter'
+  ]
+
+  omiuChart.forEach((chart) => {
+    navTree[3].children.push({
+      label: localeMap.base[chart.split('-').map(str => {
+        return str[0].toUpperCase() + str.slice(1)
+      }).join('')],
+      id: genId(),
+      href: `#/${chart}-chart`
+    })
+  })
 
   return navTree
 }

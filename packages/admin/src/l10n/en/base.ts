@@ -53,6 +53,11 @@ export const base = {
   BasicList: 'Basic List',
   Cascader: 'Cascader',
 
+  Chart: 'OMIU Charts',
+  Bar: 'Bar',
+  Line: 'Line',
+  Scatter: 'Scatter',
+
   Success: 'Success',
   Failure: 'Failure',
   Dialog: 'Dialog'

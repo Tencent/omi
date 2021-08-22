@@ -54,6 +54,11 @@ export const base = {
   BasicList: '基础列表',
   Cascader: 'Cascader 级联选择器',
 
+  Chart: 'OMIU 图表',
+  Bar: '柱状图',
+  Line: '线状图',
+  Scatter:'散点图',
+
   Success: '成功页',
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层'
