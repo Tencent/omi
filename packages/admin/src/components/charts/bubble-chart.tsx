@@ -144,7 +144,7 @@ export default class extends WeElement<Props> {
                     code={this.mdA}
                 >
                     <div slot="demo" class={tw`px-3 py-5`}>
-                        <o-bubble id="myChart" width="300" height="350" height="350" data={this.data}
+                        <o-bubble id="myChart" width="300" height="350" data={this.data}
                             options={this.options}>
                         </o-bubble>
                     </div>
