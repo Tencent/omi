@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_chart.js@3.5.0@chart.js/dist/chart.esm.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/_chart.js@3.5.0@chart.js/dist/chart.esm.js ***!
-  \*****************************************************************/
+/***/ "./node_modules/chart.js/dist/chart.esm.js":
+/*!*************************************************!*\
+  !*** ./node_modules/chart.js/dist/chart.esm.js ***!
+  \*************************************************/
 /*! exports provided: defaults, Animation, Animations, ArcElement, BarController, BarElement, BasePlatform, BasicPlatform, BubbleController, CategoryScale, Chart, DatasetController, Decimation, DomPlatform, DoughnutController, Element, Filler, Interaction, Legend, LineController, LineElement, LinearScale, LogarithmicScale, PieController, PointElement, PolarAreaController, RadarController, RadialLinearScale, Scale, ScatterController, SubTitle, Ticks, TimeScale, TimeSeriesScale, Title, Tooltip, _adapters, _detectPlatform, animator, controllers, elements, layouts, plugins, registerables, registry, scales */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -150,11 +150,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerables", function() { return registerables; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registry", function() { return registry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scales", function() { return scales; });
-/* harmony import */ var _chunks_helpers_segment_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chunks/helpers.segment.js */ "./node_modules/_chart.js@3.5.0@chart.js/dist/chunks/helpers.segment.js");
+/* harmony import */ var _chunks_helpers_segment_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chunks/helpers.segment.js */ "./node_modules/chart.js/dist/chunks/helpers.segment.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaults", function() { return _chunks_helpers_segment_js__WEBPACK_IMPORTED_MODULE_0__["d"]; });
 
 /*!
- * Chart.js v3.5.0
+ * Chart.js v3.5.1
  * https://www.chartjs.org
  * (c) 2021 Chart.js Contributors
  * Released under the MIT License
@@ -1283,22 +1283,30 @@ class DatasetController {
     }
     meta.data.splice(start, count);
   }
+  _sync(args) {
+    if (this._parsing) {
+      this._syncList.push(args);
+    } else {
+      const [method, arg1, arg2] = args;
+      this[method](arg1, arg2);
+    }
+  }
   _onDataPush() {
     const count = arguments.length;
-    this._syncList.push(['_insertElements', this.getDataset().data.length - count, count]);
+    this._sync(['_insertElements', this.getDataset().data.length - count, count]);
   }
   _onDataPop() {
-    this._syncList.push(['_removeElements', this._cachedMeta.data.length - 1, 1]);
+    this._sync(['_removeElements', this._cachedMeta.data.length - 1, 1]);
   }
   _onDataShift() {
-    this._syncList.push(['_removeElements', 0, 1]);
+    this._sync(['_removeElements', 0, 1]);
   }
   _onDataSplice(start, count) {
-    this._syncList.push(['_removeElements', start, count]);
-    this._syncList.push(['_insertElements', start, arguments.length - 2]);
+    this._sync(['_removeElements', start, count]);
+    this._sync(['_insertElements', start, arguments.length - 2]);
   }
   _onDataUnshift() {
-    this._syncList.push(['_insertElements', 0, arguments.length]);
+    this._sync(['_insertElements', 0, arguments.length]);
   }
 }
 DatasetController.defaults = {};
@@ -1752,9 +1760,6 @@ BarController.defaults = {
   }
 };
 BarController.overrides = {
-  interaction: {
-    mode: 'index'
-  },
   scales: {
     _index_: {
       type: 'category',
@@ -4618,8 +4623,16 @@ class Scale extends Element {
     let x;
     if (position === 'left') {
       if (mirror) {
-        textAlign = 'left';
         x = me.right + padding;
+        if (crossAlign === 'near') {
+          textAlign = 'left';
+        } else if (crossAlign === 'center') {
+          textAlign = 'center';
+          x += (widest / 2);
+        } else {
+          textAlign = 'right';
+          x += widest;
+        }
       } else {
         x = me.right - tickAndPadding;
         if (crossAlign === 'near') {
@@ -4634,8 +4647,16 @@ class Scale extends Element {
       }
     } else if (position === 'right') {
       if (mirror) {
-        textAlign = 'right';
         x = me.left + padding;
+        if (crossAlign === 'near') {
+          textAlign = 'right';
+        } else if (crossAlign === 'center') {
+          textAlign = 'center';
+          x -= (widest / 2);
+        } else {
+          textAlign = 'left';
+          x -= widest;
+        }
       } else {
         x = me.left + tickAndPadding;
         if (crossAlign === 'near') {
@@ -5433,7 +5454,7 @@ function needContext(proxy, names) {
   return false;
 }
 
-var version = "3.5.0";
+var version = "3.5.1";
 
 const KNOWN_POSITIONS = ['top', 'bottom', 'left', 'right', 'chartArea'];
 function positionIsHorizontal(position, axis) {
@@ -5510,7 +5531,6 @@ class Chart {
     this._responsiveListeners = undefined;
     this._sortedMetasets = [];
     this.scales = {};
-    this.scale = undefined;
     this._plugins = new PluginService();
     this.$proxies = {};
     this._hiddenIndices = {};
@@ -10747,10 +10767,10 @@ const registerables = [
 
 /***/ }),
 
-/***/ "./node_modules/_chart.js@3.5.0@chart.js/dist/chunks/helpers.segment.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/_chart.js@3.5.0@chart.js/dist/chunks/helpers.segment.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/chart.js/dist/chunks/helpers.segment.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/chart.js/dist/chunks/helpers.segment.js ***!
+  \**************************************************************/
 /*! exports provided: $, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, _, a, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, aA, aB, aC, aD, aE, aF, aG, aH, aI, aJ, aK, aL, aM, aN, aO, aP, aQ, aR, aS, aT, aU, aV, aW, aX, aY, aa, ab, ac, ad, ae, af, ag, ah, ai, aj, ak, al, am, an, ao, ap, aq, ar, as, at, au, av, aw, ax, ay, az, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10872,7 +10892,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return _isPointInArea; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return _rlookupByKey; });
 /*!
- * Chart.js v3.5.0
+ * Chart.js v3.5.1
  * https://www.chartjs.org
  * (c) 2021 Chart.js Contributors
  * Released under the MIT License
@@ -12153,8 +12173,8 @@ function drawPoint(ctx, options, x, y) {
 }
 function _isPointInArea(point, area, margin) {
   margin = margin || 0.5;
-  return point && area && point.x > area.left - margin && point.x < area.right + margin &&
-		point.y > area.top - margin && point.y < area.bottom + margin;
+  return !area || (point && point.x > area.left - margin && point.x < area.right + margin &&
+		point.y > area.top - margin && point.y < area.bottom + margin);
 }
 function clipArea(ctx, area) {
   ctx.save();
@@ -13382,7 +13402,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 //https://www.chartjs.org/docs/next/getting-started/integration.html
-var chart_js_1 = __webpack_require__(/*! chart.js */ "./node_modules/_chart.js@3.5.0@chart.js/dist/chart.esm.js");
+var chart_js_1 = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/chart.esm.js");
 chart_js_1.Chart.register(chart_js_1.ArcElement, chart_js_1.LineElement, chart_js_1.BarElement, chart_js_1.PointElement, chart_js_1.BarController, chart_js_1.BubbleController, chart_js_1.DoughnutController, chart_js_1.LineController, chart_js_1.PieController, chart_js_1.PolarAreaController, chart_js_1.RadarController, chart_js_1.ScatterController, chart_js_1.CategoryScale, chart_js_1.LinearScale, chart_js_1.LogarithmicScale, chart_js_1.RadialLinearScale, chart_js_1.TimeScale, chart_js_1.TimeSeriesScale, chart_js_1.Decimation, chart_js_1.Filler, chart_js_1.Legend, chart_js_1.Title, chart_js_1.Tooltip);
 var ChartBase = /** @class */ (function (_super) {
     __extends(ChartBase, _super);
@@ -13469,7 +13489,8 @@ var Scatter = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Scatter.prototype.installed = function () {
-        this.chart = new chart_js_1.Chart.Scatter(this.canvas.getContext('2d'), {
+        this.chart = new chart_js_1.Chart(this.canvas.getContext('2d'), {
+            type: 'scatter',
             data: this.props.data,
             options: this.props.options
         });
@@ -13519,7 +13540,8 @@ var PolarArea = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PolarArea.prototype.installed = function () {
-        this.chart = new chart_js_1.Chart.PolarArea(this.canvas.getContext('2d'), {
+        this.chart = new chart_js_1.Chart(this.canvas.getContext('2d'), {
+            type: 'polarArea',
             data: this.props.data,
             options: this.props.options
         });
