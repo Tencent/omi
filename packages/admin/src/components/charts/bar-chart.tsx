@@ -8,7 +8,6 @@ import '@omiu/chart'
 
 interface Props { }
 
-// TODO  
 const tagName = 'bar-chart'
 declare global {
   namespace JSX {
