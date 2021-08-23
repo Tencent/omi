@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu</title>
+    <script type="module" src="/src/index.tsx"></script>
+  </head>
+
+  <body>
+    <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
+    <o-counter count="2"></o-counter>
+    <script>
+      document
+        .querySelector('o-counter')
+        .addEventListener('CountChanged', function (evt) {
+          console.log(evt.detail)
+        })
+    </script>
+  </body>
+</html>

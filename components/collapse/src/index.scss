@@ -1,0 +1,12 @@
+ :host {
+   display: block;
+   overflow: visible;
+ }
+
+ :host(.o-collapse-closed) {
+   display: none;
+ }
+
+ :host(:not(.o-collapse-opened)) {
+   overflow: hidden;
+ }

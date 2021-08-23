@@ -58,10 +58,17 @@ export const base = {
   Bar: 'Bar',
   Line: 'Line',
   Scatter: 'Scatter',
+  Pie: 'Pie',
+  Doughnut: 'Doughnut',
+  Radar: 'radar',
+  PolarArea: 'polarArea',
+  Bubble: 'Bubble',
+  Barline: 'Barline',
 
   Success: 'Success',
   Failure: 'Failure',
   Dialog: 'Dialog',
   Avatar: 'Avatar',
   ActionSheet: 'ActionSheet'
+  Collapse: 'Collapse'
 }
