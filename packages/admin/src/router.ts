@@ -23,7 +23,13 @@ const components = [
 const charts = [
   'bar',
   'line',
-  'scatter'
+  'scatter',
+  'pie',
+  'doughnut',
+  'radar',
+  'polar-area',
+  'bubble',
+  'barline'
 ]
 
 export function registerRouting(rootEl) {
