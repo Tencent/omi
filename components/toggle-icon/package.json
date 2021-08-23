@@ -1,6 +1,6 @@
 {
   "name": "@omiu/toggle-icon",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Icon with two state switches",
   "docsExtend": {
     "cnName": "可切换图标",
