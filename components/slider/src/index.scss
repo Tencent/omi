@@ -1,77 +1,52 @@
 @use 'sass:math';
+@use "sass:map";
 
 @import '../../common/theme.scss';
 
-$thumb-height: 14px;
-$track-height: 4px;
+$shapes: 'round' 'square' 'progress';
+$sizes: 'small' 'normal' 'large';
+$browser-thumbs: '-webkit-slider-thumb' '-moz-range-thumb' '-ms-thumb';
+$browser-tracks: '-webkit-slider-runnable-track' '-moz-range-track' '-ms-track';
 
-$thumb-small-height: 10px;
-$track-small-height: 2px;
+$thumb-sizes: (
+  'small': 10px,
+  'normal': 14px,
+  'large': 25px,
+);
 
-$thumb-large-height: 25px;
-$track-large-height: 6px;
-
-// colours
-$upper-color: $o-surface;
-$lower-color: $o-primary;
-$thumb-color: $o-surface;
-$hover-thumb-color: $o-primary-fade-lot;
+$track-sizes: (
+  'small': 2px,
+  'normal': 4px,
+  'large': 6px,
+);
 
 @mixin thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
-  width: $thumb-height;
-  height: $thumb-height;
   z-index: 2;
-  margin-top: $thumb-height / -2;
   border: 2px solid $o-primary;
   border-radius: 50%;
-  background-color: $thumb-color;
+  background-color: $o-surface;
   cursor: pointer;
   pointer-events: auto;
   box-shadow: 0;
   transition: border-color 0.3s, box-shadow 0.6s,
     transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-
   &:active {
-    box-shadow: 0 0 0 5px $hover-thumb-color;
+    box-shadow: 0 0 0 5px $o-primary-fade-lot;
   }
-
   &:hover {
     border-color: $o-primary-active;
   }
 }
 
-@mixin thumb-disabled {
-  @include thumb;
-  pointer-events: none;
-  border-color: #c0c4cc;
-}
-
-@mixin thumb-square {
-  @include thumb;
-  border-radius: 0%;
-}
-
-@mixin thumb-large {
-  @include thumb;
-  border: 4px solid $o-primary;
-  width: $thumb-large-height;
-  height: $thumb-large-height;
-  margin-top: math.div($thumb-large-height, -2);
-}
-
-@mixin thumb-small {
-  @include thumb;
-  width: $thumb-small-height;
-  height: $thumb-small-height;
-  margin-top: math.div($thumb-small-height, -2);
-}
-
 @mixin track {
-  width: 100%;
-  position: relative;
-  margin: 5px;
-  height: $track-height;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 4px;
 }
 
 :host {
@@ -79,159 +54,111 @@ $hover-thumb-color: $o-primary-fade-lot;
   display: grid;
 }
 
-//===============================base-slider=========================================
-
 .slider-container {
   position: relative;
   width: 100%;
-  height: 50px;
-}
 
-.slider-container .slider-track {
-  @include track; // width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  outline: none;
-  margin: auto;
-  z-index: -1;
-  border-radius: 8px;
-  @supports (-moz-appearance: none) {
-    & {
-      top: 4px;
+  & .o-slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    background: transparent;
+    // pointer-events: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & .slider-track {
+    width: 100%;
+    position: relative;
+    margin: 5px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    outline: none;
+    margin: auto;
+    z-index: -1;
+    border-radius: 8px;
+    @supports (-moz-appearance: none) {
+      & {
+        top: 4px;
+      }
     }
   }
 }
 
-.slider-container .o-slider {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 1;
-  background: transparent;
-  pointer-events: none;
-
-  &:focus {
-    outline: none;
+@each $size in $sizes {
+  .slider-container.is-#{$size} {
+    height: map.get($thumb-sizes, $size);
   }
 
-  //*--------------track-----------------
-  &::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    height: $track-height;
+  .is-#{$size} .slider-track {
+    height: map.get($track-sizes, $size);
   }
 
-  &::-moz-range-track {
-    -moz-appearance: none;
-    height: $track-height;
+  .is-#{$size} .o-slider {
+    @each $thumb in $browser-thumbs {
+      &::#{$thumb} {
+        @include thumb;
+        width: map.get($thumb-sizes, $size);
+        height: map.get($thumb-sizes, $size);
+        margin-top: math.div(map.get($thumb-sizes, $size), -2);
+      }
+      @each $track in $browser-tracks {
+        &::#{$track} {
+          @include track;
+        }
+      }
+    }
   }
 
-  &::-ms-track {
-    appearance: none;
-    height: $track-height;
-  }
-  //*--------------thumb-----------------
-  &::-webkit-slider-thumb {
-    @include thumb;
-    -webkit-appearance: none;
-  }
-  &::-moz-range-thumb {
-    @include thumb;
-    -webkit-appearance: none;
-  }
-  &::-ms-thumb {
-    @include thumb;
-    appearance: none;
+  @each $shape in $shapes {
+    .is-#{$size}.is-#{$shape} {
+      & .slider-track {
+        @if $shape == 'square' {
+          border-radius: 0;
+        }
+        height: map.get($track-sizes, $size);
+      }
+      & .o-slider {
+        @each $thumb in $browser-thumbs {
+          &::#{$thumb} {
+            @if $shape == 'square' {
+              border-radius: 0;
+            }
+            @if $shape == 'progress' {
+              border-color: transparent;
+              background-color: transparent;
+              &:active {
+                box-shadow: 0 0;
+              }
+              &:hover {
+                border-color: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
-//===============================square-slider=========================================
-
-.is-square .slider-track {
-  border-radius: 0px;
-}
-
-.is-square .o-slider {
-  &::-webkit-slider-thumb {
-    @include thumb-square;
-    -webkit-appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    @include thumb-square;
-    -webkit-appearance: none;
-  }
-
-  &::-ms-thumb {
-    @include thumb-square;
-    appearance: none;
-  }
-}
-
-//===============================disabled-slider=========================================
-
-.is-disabled .slider-track {
-  border-color: #c0c4cc;
-}
-
-.is-disabled .o-slider {
-  &::-webkit-slider-thumb {
-    @include thumb-disabled;
-    -webkit-appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    @include thumb-disabled;
-    -webkit-appearance: none;
-  }
-  &::-ms-thumb {
-    @include thumb-disabled;
-    appearance: none;
-  }
-}
-
-//===============================large-slider=========================================
-.is-large .slider-track {
-  height: 6px;
-}
-.is-large .o-slider {
-  &::-webkit-slider-thumb {
-    @include thumb-large;
-    -webkit-appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    @include thumb-large;
-    -webkit-appearance: none;
-  }
-  &::-ms-thumb {
-    @include thumb-large;
-    appearance: none;
-  }
-}
-
-//===============================small-slider=========================================
-.is-small .slider-track {
-  height: 2px;
-  border-radius: 0%;
-}
-.is-small .o-slider {
-  &::-webkit-slider-thumb {
-    @include thumb-small;
-    -webkit-appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    @include thumb-small;
-    -webkit-appearance: none;
-  }
-  &::-ms-thumb {
-    @include thumb-small;
-    appearance: none;
+.is-disabled {
+  @each $thumb in $browser-thumbs {
+    & .o-slider {
+      pointer-events: none;
+    }
+    & .o-slider::#{$thumb} {
+      pointer-events: none;
+      border-color: #c0c4cc;
+    }
   }
 }

@@ -18,6 +18,14 @@
         <img src="//alloyteam.github.io/github.png" alt="" />
       </a>
       <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+      <script>
+        window.onload = function () {
+          const sliders = document.querySelectorAll('o-slider')
+          sliders.forEach((slider) => {
+            slider.style.padding = '20px'
+          })
+        }
+      </script>
       <div style="text-align: center">basic slider</div>
       <o-slider min="0" max="100" value="20" id="single-range-demo"></o-slider>
       <div style="text-align: center">reversed slider</div>
@@ -68,6 +76,24 @@
         max="100"
         value="20"
         shape="square"
+        id="square-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">square slider</div>
+      <o-slider
+        min="0"
+        max="100"
+        value="20"
+        shape="square"
+        size="large"
+        id="square-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">square slider</div>
+      <o-slider
+        min="0"
+        max="100"
+        value="20"
+        shape="square"
+        size="small"
         id="square-single-range-demo"
       ></o-slider>
       <div style="text-align: center">disabled slider</div>
