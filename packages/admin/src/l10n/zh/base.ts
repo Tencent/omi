@@ -70,6 +70,6 @@ export const base = {
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层',
   Avatar: 'Avatar 头像',
-  ActionSheet: 'ActionSheet 弹出式菜单'
+  ActionSheet: 'ActionSheet 弹出式菜单',
   Collapse: 'Collapse 折叠'
 }
