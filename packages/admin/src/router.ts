@@ -16,7 +16,8 @@ const components = [
   'tag',
   'rate',
   'dialog',
-  'avatar'
+  'avatar',
+  'collapse'
 ]
 
 const charts = [
