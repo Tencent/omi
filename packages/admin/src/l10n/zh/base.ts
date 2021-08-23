@@ -18,6 +18,7 @@ export const base = {
   Components: 'OMIU 组件',
   Loading: 'Loading 加载中',
   Toast: 'Toast 弹出式提示',
+  ToggleIcon: 'ToggleIcon 可切换图标',
   Card: 'Card 卡片',
   Slider: 'Slider 滑块',
   Switch: 'Switch 开关按钮',

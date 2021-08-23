@@ -18,6 +18,7 @@ export const base = {
   Components: 'OMIU Components',
   Loading: 'Loading',
   Toast: 'Toast',
+  ToggleIcon: 'ToggleIcon',
   Card: 'Card',
   Slider: 'Slider',
   Switch: 'Switch',

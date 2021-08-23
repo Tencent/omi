@@ -11,6 +11,7 @@ const components = [
   'slider',
   'loading',
   'toast',
+  'toggle-icon',
   'card',
   'progress',
   'time-picker',
