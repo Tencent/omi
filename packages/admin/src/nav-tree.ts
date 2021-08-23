@@ -236,6 +236,7 @@ export function genNavTree(localeMap, locale) {
     'card',
     'slider',
     'loading',
+    'link',
     'toast',
     'toggle-icon',
     'tag',

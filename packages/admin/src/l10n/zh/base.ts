@@ -50,6 +50,7 @@ export const base = {
   StepsForm: '分步表单',
 
   Button: 'Button 按钮',
+  Link: 'Link 文字链接',
   Tabs: 'Tabs 选项卡',
   Rate: 'Rate 评分',
   Tag: 'Tag 标签',

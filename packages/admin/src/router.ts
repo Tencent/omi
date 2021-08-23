@@ -10,6 +10,7 @@ const components = [
   'tabs',
   'slider',
   'loading',
+  'link',
   'toast',
   'toggle-icon',
   'card',
