@@ -19,7 +19,7 @@ declare global {
 @tag(tagName)
 export default class extends WeElement<Props> {
 
-  static css = [sheet.target, `o-button{margin-left:10px;}`]
+  static css = [sheet.target, `o-switch{margin-left:10px;}`]
 
   install() { }
 
