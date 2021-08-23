@@ -1,5 +1,3 @@
-@import "@omiu/common/theme";
-
 :host {
   display: inline-block;
 }
@@ -12,6 +10,7 @@ button {
   outline: none;
   margin: 0;
   padding: 0;
+  background-color: transparent;
 }
 
 .is-disabled {

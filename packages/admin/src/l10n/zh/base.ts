@@ -53,6 +53,8 @@ export const base = {
   HamburgerMenu: 'HamburgerMenu 汉堡包菜单',
   Link: 'Link 文字链接',
   Tabs: 'Tabs 选项卡',
+  Breadcrumb: 'Breadcrumb 面包屑',
+  BottomNav: 'BottomNav 底部导航',
   Rate: 'Rate 评分',
   Tag: 'Tag 标签',
   BasicList: '基础列表',

@@ -52,6 +52,8 @@ export const base = {
   HamburgerMenu: 'HamburgerMenu',
   Link: 'Link',
   Tabs: 'Tabs',
+  Breadcrumb: 'Breadcrumb',
+  BottomNav: 'BottomNav',
   Tag: 'Tag',
   Rate: 'Rate',
   BasicList: 'Basic List',
