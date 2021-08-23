@@ -8,7 +8,8 @@ button {
   cursor: pointer;
   outline: none;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background-color: transparent; }
 
 .is-disabled {
   cursor: not-allowed; }
