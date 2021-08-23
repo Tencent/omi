@@ -1,6 +1,6 @@
 {
   "name": "@omiu/chart",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Mobile pop-up options list",
   "docsExtend": {
     "cnName": "图表",
@@ -15,7 +15,7 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
