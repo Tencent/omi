@@ -231,6 +231,9 @@ export function genNavTree(localeMap, locale) {
   ]
 
   const omiuComponents = [
+    'tabs',
+    'breadcrumb',
+    'bottom-nav',
     'button',
     'badge',
     'card',

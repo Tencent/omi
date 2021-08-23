@@ -19,6 +19,8 @@
     "@omiu/avatar": "^0.0.1",
     "@omiu/badge": "^0.0.2",
     "@omiu/button": "^0.0.10",
+    "@omiu/bottom-nav": "^0.0.2",
+    "@omiu/breadcrumb": "^0.0.3",
     "@omiu/card": "0.0.8",
     "@omiu/cascader": "^0.0.5",
     "@omiu/chart": "^0.0.5",

@@ -4,6 +4,8 @@ import { route } from 'omi-router'
  * demo components
  */
 const components = [
+  'breadcrumb',
+  'bottom-nav',
   'button',
   'badge',
   'cascader',
