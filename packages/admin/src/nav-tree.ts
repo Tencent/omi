@@ -243,6 +243,8 @@ export function genNavTree(localeMap, locale) {
     'rate',
     'dialog',
     'avatar',
+    'action-sheet',
+    'switch',
     'collapse'
   ]
 

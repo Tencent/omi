@@ -20,6 +20,7 @@ export const base = {
   Toast: 'Toast 弹出式提示',
   Card: 'Card 卡片',
   Slider: 'Slider 滑块',
+  Switch: 'Switch 开关按钮',
   Progress: 'Progress 进度条',
   InlineEditing: '表格行内编辑',
   MarkdownEditor: 'Markdown 编辑器',
@@ -69,5 +70,6 @@ export const base = {
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层',
   Avatar: 'Avatar 头像',
+  ActionSheet: 'ActionSheet 弹出式菜单'
   Collapse: 'Collapse 折叠'
 }

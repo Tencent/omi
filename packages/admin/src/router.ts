@@ -17,6 +17,8 @@ const components = [
   'rate',
   'dialog',
   'avatar',
+  'action-sheet',
+  'switch',
   'collapse'
 ]
 

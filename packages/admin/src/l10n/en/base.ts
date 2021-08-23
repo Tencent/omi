@@ -20,6 +20,7 @@ export const base = {
   Toast: 'Toast',
   Card: 'Card',
   Slider: 'Slider',
+  Switch: 'Switch',
   Progress: 'Progress',
   InlineEditing: 'Inline Editing Table',
   MarkdownEditor: 'Markdown Editor',
@@ -68,5 +69,6 @@ export const base = {
   Failure: 'Failure',
   Dialog: 'Dialog',
   Avatar: 'Avatar',
+  ActionSheet: 'ActionSheet'
   Collapse: 'Collapse'
 }
