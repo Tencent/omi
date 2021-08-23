@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@omiu/avatar": "^0.0.1",
+    "@omiu/action-sheet": "^0.0.5",
     "@omiu/badge": "^0.0.2",
     "@omiu/button": "^0.0.10",
     "@omiu/card": "0.0.8",

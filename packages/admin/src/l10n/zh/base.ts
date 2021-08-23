@@ -62,5 +62,6 @@ export const base = {
   Success: '成功页',
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层',
-  Avatar: 'Avatar 头像'
+  Avatar: 'Avatar 头像',
+  ActionSheet: 'ActionSheet 弹出式菜单'
 }

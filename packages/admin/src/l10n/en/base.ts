@@ -61,5 +61,6 @@ export const base = {
   Success: 'Success',
   Failure: 'Failure',
   Dialog: 'Dialog',
-  Avatar: 'Avatar'
+  Avatar: 'Avatar',
+  ActionSheet: 'ActionSheet'
 }
