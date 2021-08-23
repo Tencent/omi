@@ -131,7 +131,8 @@ var ChartBase = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Scatter.prototype.installed = function () {
-        this.chart = new Chart.Scatter(this.canvas.getContext('2d'), {
+        this.chart = new Chart(this.canvas.getContext('2d'), {
+            type: 'scatter',
             data: this.props.data,
             options: this.props.options
         });
@@ -181,7 +182,8 @@ var ChartBase = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PolarArea.prototype.installed = function () {
-        this.chart = new Chart.PolarArea(this.canvas.getContext('2d'), {
+        this.chart = new Chart(this.canvas.getContext('2d'), {
+            type: 'polarArea',
             data: this.props.data,
             options: this.props.options
         });
