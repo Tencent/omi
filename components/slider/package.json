@@ -1,6 +1,6 @@
 {
   "name": "@omiu/slider",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
