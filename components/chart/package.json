@@ -1,6 +1,6 @@
 {
   "name": "@omiu/chart",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Mobile pop-up options list",
   "docsExtend": {
     "cnName": "图表",
@@ -15,7 +15,7 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
@@ -55,7 +55,6 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.12.0",
     "omi": "latest",
     "omio": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -66,6 +65,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-scss": "^2.4.0",
     "rollup-plugin-typescript": "^1.0.1",
+    "sass": "^1.38.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "to-string-loader": "^1.1.5",
