@@ -234,6 +234,7 @@ export function genNavTree(localeMap, locale) {
     'button',
     'badge',
     'card',
+    'hamburger-menu',
     'slider',
     'loading',
     'link',

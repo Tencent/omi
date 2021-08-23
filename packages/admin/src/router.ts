@@ -7,6 +7,7 @@ const components = [
   'button',
   'badge',
   'cascader',
+  'hamburger-menu',
   'tabs',
   'slider',
   'loading',

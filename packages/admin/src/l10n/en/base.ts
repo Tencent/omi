@@ -49,6 +49,7 @@ export const base = {
   StepsForm: 'Steps Form',
 
   Button: 'Button',
+  HamburgerMenu: 'HamburgerMenu',
   Link: 'Link',
   Tabs: 'Tabs',
   Tag: 'Tag',
