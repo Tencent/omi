@@ -3,6 +3,12 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
+> Omiu - Cross-Frameworks and [Cross-Themes](https://omi.cdn-go.cn/admin/latest/index.html#/docs/theme) UI Components powered by Omi
+
+* [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
+
+
 Define cross-frameworks button element with typescript:
 
 ```ts
@@ -100,201 +106,6 @@ $ npm run build       # release
 
 
 
-
-
-## Omiu
-
-> Cross-Frameworks and [Cross-Themes](https://tencent.github.io/omi/components/docs/#/theme?index=0&subIndex=1) UI Components powered by Omi
-
-* [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
-* [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
-
-
-| **Name**         | **Status**         | **Example**            | **Docs** |
-| -------------- | ----------|----------- | ----------------|
-| [@omiu/button][omiu-button-github] | [![omiu-button-status]][omiu-button-package]|[CodePen][omiu-button-codepen] | [Button Docs][omiu-button-docs]|
-| [@omiu/icon][omiu-icon-github] | [![omiu-icon-status]][omiu-icon-package]|[Icon Online][omiu-icon-codepen] | [Icon Docs][omiu-icon-docs]|
-| [@omiu/tabs][omiu-tabs-github] | [![omiu-tabs-status]][omiu-tabs-package]|[CodePen][omiu-tabs-codepen] | [Tabs Docs][omiu-tabs-docs]|
-| [@omiu/radio][omiu-radio-github] | [![omiu-radio-status]][omiu-radio-package]|[CodePen][omiu-radio-codepen] | [Radio Docs][omiu-radio-docs]|
-| [@omiu/link][omiu-link-github] | [![omiu-link-status]][omiu-link-package]|[CodePen][omiu-link-codepen] | [Link Docs][omiu-link-docs]|
-| [@omiu/checkbox][omiu-checkbox-github] | [![omiu-checkbox-status]][omiu-checkbox-package]|[CodePen][omiu-checkbox-codepen] | [Checkbox Docs][omiu-checkbox-docs]|
-| [@omiu/hamburger-menu][omiu-hamburger-menu-github] | [![omiu-hamburger-menu-status]][omiu-hamburger-menu-package]|[CodePen][omiu-hamburger-menu-codepen] | [HamburgerMenu Docs][omiu-hamburger-menu-docs]|
-| [@omiu/input][omiu-input-github] | [![omiu-input-status]][omiu-input-package]|[CodePen][omiu-input-codepen] | [Input Docs][omiu-input-docs]|
-| [@omiu/tree][omiu-tree-github] | [![omiu-tree-status]][omiu-tree-package]|[CodePen][omiu-tree-codepen] | [Tree Docs][omiu-tree-docs]|
-| [@omiu/pagination][omiu-pagination-github] | [![omiu-pagination-status]][omiu-pagination-package]|[CodePen][omiu-pagination-codepen] | [Pagination Docs][omiu-pagination-docs]|
-| [@omiu/loading][omiu-loading-github] | [![omiu-loading-status]][omiu-loading-package]|[CodePen][omiu-loading-codepen] | [Loading Docs][omiu-loading-docs]|
-| [@omiu/toast][omiu-toast-github] | [![omiu-toast-status]][omiu-toast-package]|[CodePen][omiu-toast-codepen] | [Toast Docs][omiu-toast-docs]|
-| [@omiu/action-sheet][omiu-action-sheet-github] | [![omiu-action-sheet-status]][omiu-action-sheet-package]|[CodePen][omiu-action-sheet-codepen] | [ActionSheet Docs][omiu-action-sheet-docs]|
-| [@omiu/switch][omiu-switch-github] | [![omiu-switch-status]][omiu-switch-package]|[CodePen][omiu-switch-codepen] | [Switch Docs][omiu-switch-docs]|
-| [@omiu/color-picker][omiu-color-picker-github] | [![omiu-color-picker-status]][omiu-color-picker-package]|[CodePen][omiu-color-picker-codepen] | [ColorPicker Docs][omiu-color-picker-docs]|
-| [@omiu/chart][omiu-chart-github] | [![omiu-chart-status]][omiu-chart-package]|[CodePen][omiu-chart-codepen] | [Chart Docs][omiu-chart-docs]|
-| [@omiu/toggle-icon][omiu-toggle-icon-github] | [![omiu-toggle-icon-status]][omiu-toggle-icon-package]|[CodePen][omiu-toggle-icon-codepen] | [ToggleIcon Docs][omiu-toggle-icon-docs]|
-| [@omiu/o-icon][omiu-o-icon-github] | [![omiu-o-icon-status]][omiu-o-icon-package]|[CodePen][omiu-o-icon-codepen] | [OIcon Docs][omiu-o-icon-docs]|
-| [@omiu/badge][omiu-badge-github] | [![omiu-badge-status]][omiu-badge-package]|[CodePen][omiu-badge-codepen] | [Badge Docs][omiu-badge-docs]|
-| [@omiu/avatar][omiu-avatar-github] | [![omiu-avatar-status]][omiu-avatar-package]|[CodePen][omiu-avatar-codepen] | [Avatar Docs][omiu-avatar-docs]|
-| [@omiu/breadcrumb][omiu-breadcrumb-github] | [![omiu-breadcrumb-status]][omiu-breadcrumb-package]|[CodePen][omiu-breadcrumb-codepen] | [Breadcrumb Docs][omiu-breadcrumb-docs]|
-| [@omiu/bottom-nav][omiu-bottom-nav-github] | [![omiu-bottom-nav-status]][omiu-bottom-nav-package]|[CodePen][omiu-bottom-nav-codepen] | [BottomNav Docs][omiu-bottom-nav-docs]|
-| [@omiu/transition][omiu-transition-github] | [![omiu-transition-status]][omiu-transition-package]|[CodePen][omiu-transition-codepen] | [Transition Docs][omiu-transition-docs]|
-| [@omiu/dialog][omiu-dialog-github] | [![omiu-dialog-status]][omiu-dialog-package]|[CodePen][omiu-dialog-codepen] | [Dialog Docs][omiu-dialog-docs]|
-| [@omiu/dialog-extention][omiu-dialog-extention-github] | [![omiu-dialog-extention-status]][omiu-dialog-extention-package]|[CodePen][omiu-dialog-extention-codepen] | [DialogExtention Docs][omiu-dialog-extention-docs]|
-| Coming... | |  | |
-| Coming... | |  | |
-
-[omiu-button-github]: https://github.com/Tencent/omi/tree/master/components/button
-[omiu-button-status]: https://img.shields.io/npm/v/@omiu/button.svg
-[omiu-button-package]: https://www.npmjs.com/package/@omiu/button
-[omiu-button-docs]: https://tencent.github.io/omi/components/docs/index.html#/button
-[omiu-button-codepen]: https://codepen.io/omijs/pen/LYppwYG
-
-[omiu-icon-github]: https://github.com/Tencent/omi/tree/master/components/icon
-[omiu-icon-status]: https://img.shields.io/npm/v/@omiu/icon.svg
-[omiu-icon-package]: https://www.npmjs.com/package/@omiu/icon
-[omiu-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/icon
-[omiu-icon-codepen]: https://tencent.github.io/omi/components/icon/demos/icon.html
-
-[omiu-tabs-github]: https://github.com/Tencent/omi/tree/master/components/tabs
-[omiu-tabs-status]: https://img.shields.io/npm/v/@omiu/tabs.svg
-[omiu-tabs-package]: https://www.npmjs.com/package/@omiu/tabs
-[omiu-tabs-docs]: https://tencent.github.io/omi/components/docs/index.html#/tabs
-[omiu-tabs-codepen]: https://codepen.io/omijs/pen/XWmjyXK
-
-
-[omiu-radio-github]: https://github.com/Tencent/omi/tree/master/components/radio
-[omiu-radio-status]: https://img.shields.io/npm/v/@omiu/radio.svg
-[omiu-radio-package]: https://www.npmjs.com/package/@omiu/radio
-[omiu-radio-docs]: https://tencent.github.io/omi/components/docs/index.html#/radio
-[omiu-radio-codepen]: https://codepen.io/omijs/pen/GRpjapr
-
-
-[omiu-link-github]: https://github.com/Tencent/omi/tree/master/components/link
-[omiu-link-status]: https://img.shields.io/npm/v/@omiu/link.svg
-[omiu-link-package]: https://www.npmjs.com/package/@omiu/link
-[omiu-link-docs]: https://tencent.github.io/omi/components/docs/index.html#/link
-[omiu-link-codepen]: https://codepen.io/omijs/pen/KKdNBaO
-
-
-[omiu-hamburger-menu-github]: https://github.com/Tencent/omi/tree/master/components/hamburger-menu
-[omiu-hamburger-menu-status]: https://img.shields.io/npm/v/@omiu/hamburger-menu.svg
-[omiu-hamburger-menu-package]: https://www.npmjs.com/package/@omiu/hamburger-menu
-[omiu-hamburger-menu-docs]: https://tencent.github.io/omi/components/docs/index.html#/hamburger-menu
-[omiu-hamburger-menu-codepen]: https://codepen.io/omijs/pen/MWapaJd
-
-
-[omiu-input-github]: https://github.com/Tencent/omi/tree/master/components/input
-[omiu-input-status]: https://img.shields.io/npm/v/@omiu/input.svg
-[omiu-input-package]: https://www.npmjs.com/package/@omiu/input
-[omiu-input-docs]: https://tencent.github.io/omi/components/docs/index.html#/input
-[omiu-input-codepen]: https://codepen.io/omijs/pen/yLYMGqa
-
-[omiu-checkbox-github]: https://github.com/Tencent/omi/tree/master/components/checkbox
-[omiu-checkbox-status]: https://img.shields.io/npm/v/@omiu/checkbox.svg
-[omiu-checkbox-package]: https://www.npmjs.com/package/@omiu/checkbox
-[omiu-checkbox-docs]: https://tencent.github.io/omi/components/docs/index.html#/checkbox
-[omiu-checkbox-codepen]: https://codepen.io/omijs/pen/MWapwNZ
-
-[omiu-switch-github]: https://github.com/Tencent/omi/tree/master/components/switch
-[omiu-switch-status]: https://img.shields.io/npm/v/@omiu/switch.svg
-[omiu-switch-package]: https://www.npmjs.com/package/@omiu/switch
-[omiu-switch-docs]: https://tencent.github.io/omi/components/docs/index.html#/switch
-[omiu-switch-codepen]: https://codepen.io/omijs/pen/BaoRpLd
-
-[omiu-tree-github]: https://github.com/Tencent/omi/tree/master/components/tree
-[omiu-tree-status]: https://img.shields.io/npm/v/@omiu/tree.svg
-[omiu-tree-package]: https://www.npmjs.com/package/@omiu/tree
-[omiu-tree-docs]: https://tencent.github.io/omi/components/docs/index.html#/tree
-[omiu-tree-codepen]: https://codepen.io/omijs/pen/yLYMrdg
-
-[omiu-pagination-github]: https://github.com/Tencent/omi/tree/master/components/pagination
-[omiu-pagination-status]: https://img.shields.io/npm/v/@omiu/pagination.svg
-[omiu-pagination-package]: https://www.npmjs.com/package/@omiu/pagination
-[omiu-pagination-docs]: https://tencent.github.io/omi/components/docs/index.html#/pagination
-[omiu-pagination-codepen]: https://codepen.io/omijs/pen/MWamyBQ
-
-[omiu-loading-github]: https://github.com/Tencent/omi/tree/master/components/loading
-[omiu-loading-status]: https://img.shields.io/npm/v/@omiu/loading.svg
-[omiu-loading-package]: https://www.npmjs.com/package/@omiu/loading
-[omiu-loading-docs]: https://tencent.github.io/omi/components/docs/index.html#/loading
-[omiu-loading-codepen]: https://codepen.io/omijs/pen/oNjZRwO
-
-[omiu-toast-github]: https://github.com/Tencent/omi/tree/master/components/toast
-[omiu-toast-status]: https://img.shields.io/npm/v/@omiu/toast.svg
-[omiu-toast-package]: https://www.npmjs.com/package/@omiu/toast
-[omiu-toast-docs]: https://tencent.github.io/omi/components/docs/index.html#/toast
-[omiu-toast-codepen]: https://codepen.io/omijs/pen/YzyVwOO
-
-[omiu-action-sheet-github]: https://github.com/Tencent/omi/tree/master/components/action-sheet
-[omiu-action-sheet-status]: https://img.shields.io/npm/v/@omiu/action-sheet.svg
-[omiu-action-sheet-package]: https://www.npmjs.com/package/@omiu/action-sheet
-[omiu-action-sheet-docs]: https://tencent.github.io/omi/components/docs/index.html#/action-sheet
-[omiu-action-sheet-codepen]: https://codepen.io/omijs/pen/wvKdoNJ
-
-[omiu-color-picker-github]: https://github.com/Tencent/omi/tree/master/components/color-picker
-[omiu-color-picker-status]: https://img.shields.io/npm/v/@omiu/color-picker.svg
-[omiu-color-picker-package]: https://www.npmjs.com/package/@omiu/color-picker
-[omiu-color-picker-docs]: https://tencent.github.io/omi/components/docs/index.html#/color-picker
-[omiu-color-picker-codepen]: https://codepen.io/omijs/pen/gOaWmZE
-
-[omiu-chart-github]: https://github.com/Tencent/omi/tree/master/components/chart
-[omiu-chart-status]: https://img.shields.io/npm/v/@omiu/chart.svg
-[omiu-chart-package]: https://www.npmjs.com/package/@omiu/chart
-[omiu-chart-docs]: https://tencent.github.io/omi/components/docs/index.html#/chart
-[omiu-chart-codepen]: https://codepen.io/omijs/pen/pojPKLr
-
-[omiu-toggle-icon-github]: https://github.com/Tencent/omi/tree/master/components/toggle-icon
-[omiu-toggle-icon-status]: https://img.shields.io/npm/v/@omiu/toggle-icon.svg
-[omiu-toggle-icon-package]: https://www.npmjs.com/package/@omiu/toggle-icon
-[omiu-toggle-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/toggle-icon
-[omiu-toggle-icon-codepen]: https://codepen.io/omijs/pen/ZEbKwXX
-
-[omiu-o-icon-github]: https://github.com/Tencent/omi/tree/master/components/o-icon
-[omiu-o-icon-status]: https://img.shields.io/npm/v/@omiu/o-icon.svg
-[omiu-o-icon-package]: https://www.npmjs.com/package/@omiu/o-icon
-[omiu-o-icon-docs]: https://tencent.github.io/omi/components/docs/index.html#/o-icon
-[omiu-o-icon-codepen]: https://codepen.io/omijs/pen/QWjgapY
-
-[omiu-badge-github]: https://github.com/Tencent/omi/tree/master/components/badge
-[omiu-badge-status]: https://img.shields.io/npm/v/@omiu/badge.svg
-[omiu-badge-package]: https://www.npmjs.com/package/@omiu/badge
-[omiu-badge-docs]: https://tencent.github.io/omi/components/docs/index.html#/badge
-[omiu-badge-codepen]: https://codepen.io/omijs/pen/WNQOdaB
-
-[omiu-avatar-github]: https://github.com/Tencent/omi/tree/master/components/avatar
-[omiu-avatar-status]: https://img.shields.io/npm/v/@omiu/avatar.svg
-[omiu-avatar-package]: https://www.npmjs.com/package/@omiu/avatar
-[omiu-avatar-docs]: https://tencent.github.io/omi/components/docs/index.html#/avatar
-[omiu-avatar-codepen]: https://codepen.io/omijs/pen/QWjgaze
-
-[omiu-breadcrumb-github]: https://github.com/Tencent/omi/tree/master/components/breadcrumb
-[omiu-breadcrumb-status]: https://img.shields.io/npm/v/@omiu/breadcrumb.svg
-[omiu-breadcrumb-package]: https://www.npmjs.com/package/@omiu/breadcrumb
-[omiu-breadcrumb-docs]: https://tencent.github.io/omi/components/docs/index.html#/breadcrumb
-[omiu-breadcrumb-codepen]: https://codepen.io/omijs/pen/wvKqGxB
-
-
-[omiu-bottom-nav-github]: https://github.com/Tencent/omi/tree/master/components/bottom-nav
-[omiu-bottom-nav-status]: https://img.shields.io/npm/v/@omiu/bottom-nav.svg
-[omiu-bottom-nav-package]: https://www.npmjs.com/package/@omiu/bottom-nav
-[omiu-bottom-nav-docs]: https://tencent.github.io/omi/components/docs/index.html#/bottom-nav
-[omiu-bottom-nav-codepen]: https://codepen.io/omijs/pen/zYvdjEY
-
-[omiu-transition-github]: https://github.com/Tencent/omi/tree/master/components/transition
-[omiu-transition-status]: https://img.shields.io/npm/v/@omiu/transition.svg
-[omiu-transition-package]: https://www.npmjs.com/package/@omiu/transition
-[omiu-transition-docs]: https://tencent.github.io/omi/components/docs/index.html#/transition
-[omiu-transition-codepen]: https://codepen.io/omijs/pen/JjYyezQ
-
-[omiu-dialog-github]: https://github.com/Tencent/omi/tree/master/components/dialog
-[omiu-dialog-status]: https://img.shields.io/npm/v/@omiu/dialog.svg
-[omiu-dialog-package]: https://www.npmjs.com/package/@omiu/dialog
-[omiu-dialog-docs]: https://tencent.github.io/omi/components/docs/index.html#/dialog
-[omiu-dialog-codepen]: https://codepen.io/omijs/pen/JjYyezQ
-
-[omiu-dialog-extention-github]: https://github.com/Tencent/omi/tree/master/components/dialog-extention
-[omiu-dialog-extention-status]: https://img.shields.io/npm/v/@omiu/dialog-extention.svg
-[omiu-dialog-extention-package]: https://www.npmjs.com/package/@omiu/dialog-extention
-[omiu-dialog-extention-docs]: https://tencent.github.io/omi/components/docs/index.html#/dialog-extention
-[omiu-dialog-extention-codepen]: https://codepen.io/omijs/pen/GRpOBmL
-
 ## Ecosystem of Omi
 
 #### :100:Base 
@@ -358,9 +169,9 @@ $ npm run build       # release
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
-| **Omi**                         | **React**                           | **Omio**                           |
-| ------------------------------- | ----------------------------------- |----------------------------------- |
-| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) | ![Omio](https://tencent.github.io/omi/assets/omio.png) |
+| **Omi**                         | **React**                           | 
+| ------------------------------- | ----------------------------------- |
+| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg) | 
 
 Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 
@@ -729,18 +540,9 @@ npm run test
 
 ## Contributors
 
-<table><tbody>
-      <tr><td><a target="_blank" href="https://github.com/dntzhang"><img width="60px" src="https://avatars2.githubusercontent.com/u/7917954?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/LeeHyungGeun"><img width="60px" src="https://avatars2.githubusercontent.com/u/2471651?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/xcatliu"><img width="60px" src="https://avatars1.githubusercontent.com/u/5453359?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/1921622004"><img width="60px" src="https://avatars1.githubusercontent.com/u/19359217?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/yanceyou"><img width="60px" src="https://avatars2.githubusercontent.com/u/16320418?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/f"><img width="60px" src="https://avatars0.githubusercontent.com/u/196477?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/pasturn"><img width="60px" src="https://avatars0.githubusercontent.com/u/6126885?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/Wscats"><img width="60px" src="https://avatars3.githubusercontent.com/u/17243165?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/akira-cn"><img width="60px" src="https://avatars0.githubusercontent.com/u/316498?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ZainChen"><img width="60px" src="https://avatars3.githubusercontent.com/u/15615524?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/dangxuandev"><img width="60px" src="https://avatars1.githubusercontent.com/u/5436704?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/daizhan"><img width="60px" src="https://avatars0.githubusercontent.com/u/5318547?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/132yse"><img width="60px" src="https://avatars1.githubusercontent.com/u/12951461?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/elfman"><img width="60px" src="https://avatars3.githubusercontent.com/u/948001?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/NoBey"><img width="60px" src="https://avatars3.githubusercontent.com/u/10740524?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/hilkbahar"><img width="60px" src="https://avatars2.githubusercontent.com/u/12161006?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/eyea"><img width="60px" src="https://avatars0.githubusercontent.com/u/17020223?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/guisturdy"><img width="60px" src="https://avatars1.githubusercontent.com/u/7098619?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/KidneyFlower"><img width="60px" src="https://avatars1.githubusercontent.com/u/16027183?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/zhangsanshi"><img width="60px" src="https://avatars1.githubusercontent.com/u/3771933?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/xland"><img width="60px" src="https://avatars0.githubusercontent.com/u/2980915?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/winstonxie"><img width="60px" src="https://avatars3.githubusercontent.com/u/16422642?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ghostzhang"><img width="60px" src="https://avatars3.githubusercontent.com/u/194242?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/jayZOU"><img width="60px" src="https://avatars3.githubusercontent.com/u/8576977?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/zhengbao"><img width="60px" src="https://avatars3.githubusercontent.com/u/1736166?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/vorshen"><img width="60px" src="https://avatars3.githubusercontent.com/u/10334783?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/akira-cn"><img width="60px" src="https://avatars3.githubusercontent.com/u/316498?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/loo41"><img width="60px" src="https://avatars3.githubusercontent.com/u/28095677?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/rainmanhhh"><img width="60px" src="https://avatars3.githubusercontent.com/u/13862623?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/nbompetsis"><img width="60px" src="https://avatars3.githubusercontent.com/u/11991105?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/CodeFalling"><img width="60px" src="https://avatars1.githubusercontent.com/u/5436704?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/daizhan"><img width="60px" src="https://avatars0.githubusercontent.com/u/5318547?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ritschwumm"><img width="60px" src="https://avatars2.githubusercontent.com/u/547138?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/kahwee"><img width="60px" src="https://avatars3.githubusercontent.com/u/262105?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/alanyinjs"><img width="60px" src="https://avatars3.githubusercontent.com/u/25688258?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/electerious"><img width="60px" src="https://avatars2.githubusercontent.com/u/499088?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/nanhupatar"><img width="60px" src="https://avatars1.githubusercontent.com/u/27266016?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ilker0"><img width="60px" src="https://avatars1.githubusercontent.com/u/23511412?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/MrGrabazu"><img width="60px" src="https://avatars2.githubusercontent.com/u/6928672?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/Tagir-A"><img width="60px" src="https://avatars2.githubusercontent.com/u/23556586?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/mahmut-gundogdu"><img width="60px" src="https://avatars2.githubusercontent.com/u/2217899?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/howel52"><img width="60px" src="https://avatars3.githubusercontent.com/u/9854818?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/yolio2003"><img width="60px" src="https://avatars1.githubusercontent.com/u/352931?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/loo41"><img width="60px" src="https://avatars3.githubusercontent.com/u/28095677?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/nbompetsis"><img width="60px" src="https://avatars1.githubusercontent.com/u/11991105?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/WozHuang"><img width="60px" src="https://avatars2.githubusercontent.com/u/22727100?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/web-padawan"><img width="60px" src="https://avatars2.githubusercontent.com/u/10589913?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/SuperHuangXu"><img width="60px" src="https://avatars1.githubusercontent.com/u/14816052?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/LastHeaven"><img width="60px" src="https://avatars1.githubusercontent.com/u/10590077?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/validalias"><img width="60px" src="https://avatars3.githubusercontent.com/u/44221844?s=60&amp;v=4"></a></td></tr><tr>
-      <td><a target="_blank" href="https://github.com/FAKER-A"><img width="60px" src="https://avatars2.githubusercontent.com/u/25676164?s=60&amp;v=4"></a></td>
-       <td><a target="_blank" href="https://github.com/liulinboyi"><img width="60px" src="https://avatars2.githubusercontent.com/u/41336612?s=60&amp;v=4"></a></td>
-        <td><a target="_blank" href="https://github.com/hulei"><img width="60px" src="https://avatars2.githubusercontent.com/u/6905072?s=60&amp;v=4"></a></td> <td><a target="_blank" href="https://github.com/mtonhuang"><img width="60px" src="https://avatars2.githubusercontent.com/u/30364922?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/Juliiii"><img width="60px" src="https://avatars2.githubusercontent.com/u/23744602?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/mingkang1993"><img width="60px" src="https://avatars2.githubusercontent.com/u/9126292?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/liufushihai"><img width="60px" src="https://avatars2.githubusercontent.com/u/28208916?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/supermp"><img width="60px" src="https://avatars2.githubusercontent.com/u/892475?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/LeachZhou"><img width="60px" src="https://avatars2.githubusercontent.com/u/18715564?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/yiliang114"><img width="60px" src="https://avatars2.githubusercontent.com/u/11473889?s=60&amp;v=4"></a></td>
-        </tr><tr><td><a target="_blank" href="https://github.com/liubailing"><img width="60px" src="https://avatars2.githubusercontent.com/u/3907493?s=60&amp;v=4"></a></td>
-        <td><a target="_blank" href="https://github.com/fyuan1992"><img width="60px" src="https://avatars2.githubusercontent.com/u/19830858?s=60&amp;v=4"></a></td>
-         <td><a target="_blank" href="https://github.com/xinshangshangxin"><img width="60px" src="https://avatars2.githubusercontent.com/u/8779091?s=60&amp;v=4"></a></td>
-        <td><a target="_blank" href="https://github.com/aolu11"><img width="60px" src="https://avatars2.githubusercontent.com/u/1127488?s=60&amp;v=4"></a></td>
-        </tr></tbody></table>
+<a href="https://github.com/Tencent/omi/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Tencent/omi" />
+</a>
 
 Any form of contribution is welcome. The above contributors have been officially released by Tencent.
 

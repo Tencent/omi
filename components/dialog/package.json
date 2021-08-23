@@ -1,6 +1,6 @@
 {
   "name": "@omiu/dialog",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Pop anything you want in the middle of the page",
   "docsExtend": {
     "cnName": "对话框",

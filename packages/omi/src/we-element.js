@@ -63,26 +63,31 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    const css = this.constructor.css
-    if (css) {
-      if (typeof css === 'string') {
-        const styleSheet = new CSSStyleSheet()
-        styleSheet.replaceSync(css)
-        shadowRoot.adoptedStyleSheets = [styleSheet]
-      } else if (Object.prototype.toString.call(css) === '[object Array]') {
-        const styleSheets = []
-        css.forEach(styleSheet => {
-          if (typeof styleSheet === 'string') {
-            const adoptedStyleSheet = new CSSStyleSheet()
-            adoptedStyleSheet.replaceSync(styleSheet)
-            styleSheets.push(adoptedStyleSheet)
-          } else {
-            styleSheets.push(styleSheet)
-          }
-          shadowRoot.adoptedStyleSheets = styleSheets
-        })
-      } else {
-        shadowRoot.adoptedStyleSheets = [css]
+    if (this.constructor.elementStyles) {
+      shadowRoot.adoptedStyleSheets = this.constructor.elementStyles
+    } else {
+      const css = this.constructor.css
+      if (css) {
+        if (typeof css === 'string') {
+          const styleSheet = new CSSStyleSheet()
+          styleSheet.replaceSync(css)
+          shadowRoot.adoptedStyleSheets = [styleSheet]
+        } else if (Object.prototype.toString.call(css) === '[object Array]') {
+          const styleSheets = []
+          css.forEach(styleSheet => {
+            if (typeof styleSheet === 'string') {
+              const adoptedStyleSheet = new CSSStyleSheet()
+              adoptedStyleSheet.replaceSync(styleSheet)
+              styleSheets.push(adoptedStyleSheet)
+            } else {
+              styleSheets.push(styleSheet)
+            }
+            shadowRoot.adoptedStyleSheets = styleSheets
+          })
+        } else {
+          shadowRoot.adoptedStyleSheets = [css]
+        }
+        this.constructor.elementStyles = shadowRoot.adoptedStyleSheets
       }
     }
 

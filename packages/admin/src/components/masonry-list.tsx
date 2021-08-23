@@ -9,7 +9,7 @@ import '@omiu/icon/add-comment-rounded'
 import '@omiu/icon/add-ic-call-rounded'
 
 import Masonry from 'masonry-layout'
-import imagesLoaded from  'imagesloaded'
+import imagesLoaded from 'imagesloaded'
 
 interface Props { }
 
@@ -24,7 +24,7 @@ declare global {
 
 @tag(tagName)
 export default class extends WeElement<Props> {
-  static css = [sheet.target,`
+  static css = [sheet.target, `
   o-card {
     margin-bottom: 10px;
   }`]
@@ -33,12 +33,15 @@ export default class extends WeElement<Props> {
 
   installed() {
 
-   const mas =  new Masonry(this.grid, {
+    const mas = new Masonry(this.grid, {
       // options...
       //https://masonry.desandro.com/options.html
-      gutter:10
+      // gutter: 10,
+      // items will not transition their position on resize.
+      // percentPosition: true
+
     });
-    imagesLoaded( this.rootNode, ()=>{
+    imagesLoaded(this.rootNode, () => {
       setTimeout(() => {
         mas.layout()
       }, 0);
@@ -51,11 +54,9 @@ export default class extends WeElement<Props> {
 
 
   render() {
-    const gridItem = tw`px-2 w-full md:w-6/12 lg:w-2/12`
+    const gridItem = tw`px-2 w-full md:w-6/12 lg:w-4/12 xl:w-3/12`
 
     return <div class={tw`px-4 py-4`}>
-
-
       <div ref={_ => this.grid = _}>
         <o-card class={tw`${gridItem}`} title="Action card" size="large" id="myActionC" actions={[{ icon: 'add-ic-call-rounded' }, { icon: 'add-comment-rounded' }]} hoverable="true">
           <o-image slot="cover" src="https://cdc-old-dcloud-migrate-1258344706.cos.ap-guangzhou.myqcloud.com/data2/material/thumb/1/1190188000/VCG41N1127233809.jpg/thumb"></o-image>

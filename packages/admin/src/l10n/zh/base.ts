@@ -25,7 +25,7 @@ export const base = {
   MarkdownEditor: 'Markdown 编辑器',
   Dashboard: '仪表盘',
 
-  Timepicker: 'Time Picker 时间选择器',
+  TimePicker: 'Time Picker 时间选择器',
 
   MindMap: '思维导图',
   ManyThanksTo: '感谢有你',
@@ -43,13 +43,18 @@ export const base = {
 
   Introduction: '简介',
   CustomTheme: '自定义主题',
+  Contribution: '加入新组件',
 
   StepsForm: '分步表单',
 
   Button: 'Button 按钮',
   Tabs: 'Tabs 选项卡',
+  Rate: 'Rate 评分',
+  Tag: 'Tag 标签',
   BasicList: '基础列表',
+  Cascader: 'Cascader 级联选择器',
 
   Success: '成功页',
-  Failure: '失败页'
+  Failure: '失败页',
+  Dialog: 'Dialog 弹窗层'
 }

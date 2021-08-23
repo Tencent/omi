@@ -11,6 +11,16 @@
   flex-direction: column;
   background: #FFF;
 }
+.o-card.is-border {
+  border: 1px solid #EFEFEF;
+}
+.o-card.is-shadow-always {
+  box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+}
+.o-card.is-shadow-true:hover {
+  box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+  transition: all 0.3s;
+}
 
 .o-card-header {
   min-height: 48px;
@@ -49,26 +59,6 @@
   background: #FFF;
 }
 
-.o-card-btn.selected {
-  color: #07C160;
-}
-
-.o-card-btn:last-child {
-  flex: 1;
-  appearance: none;
-  -webkit-appearance: none;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  border-top: 1px solid #EFEFEF;
-  border-right: none;
-  border-left: none;
-  border-bottom: none;
-  background: #FFF;
-  color: rgba(0, 0, 0, 0.54);
-  padding: 6px 12px 8px;
-}
-
 .o-card-btn {
   flex: 1;
   appearance: none;
@@ -84,37 +74,12 @@
   color: rgba(0, 0, 0, 0.54);
   padding: 6px 12px 8px;
 }
-
-.o-card-btn:last-child:hover {
-  flex: 1;
-  appearance: none;
-  -webkit-appearance: none;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  border-top: 1px solid #EFEFEF;
+.o-card-btn:last-child {
   border-right: none;
-  border-left: none;
-  border-bottom: none;
-  background: #EFEFEF;
-  color: rgba(0, 0, 0, 0.54);
-  padding: 6px 12px 8px;
 }
-
 .o-card-btn:hover {
-  flex: 1;
-  appearance: none;
-  -webkit-appearance: none;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  border-top: 1px solid #EFEFEF;
-  border-right: 1px solid #EFEFEF;
-  border-left: none;
-  border-bottom: none;
   background: #EFEFEF;
-  color: rgba(0, 0, 0, 0.54);
-  padding: 6px 12px 8px;
+  color: #07C160;
 }
 
 .icon {
@@ -133,19 +98,4 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.icon:hover {
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: block;
-  margin: 0 auto;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  color: #07C160;
-  -webkit-font-feature-settings: "liga";
-  -webkit-font-smoothing: antialiased;
-}
+/*# sourceMappingURL=index.css.map */

@@ -1,5 +1,5 @@
 /**
- * Omi v6.22.2  http://omijs.org
+ * Omi v6.23.0  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -794,26 +794,31 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    var css = this.constructor.css;
-    if (css) {
-      if (typeof css === 'string') {
-        var styleSheet = new CSSStyleSheet();
-        styleSheet.replaceSync(css);
-        shadowRoot.adoptedStyleSheets = [styleSheet];
-      } else if (Object.prototype.toString.call(css) === '[object Array]') {
-        var styleSheets = [];
-        css.forEach(function (styleSheet) {
-          if (typeof styleSheet === 'string') {
-            var adoptedStyleSheet = new CSSStyleSheet();
-            adoptedStyleSheet.replaceSync(styleSheet);
-            styleSheets.push(adoptedStyleSheet);
-          } else {
-            styleSheets.push(styleSheet);
-          }
-          shadowRoot.adoptedStyleSheets = styleSheets;
-        });
-      } else {
-        shadowRoot.adoptedStyleSheets = [css];
+    if (this.constructor.elementStyles) {
+      shadowRoot.adoptedStyleSheets = this.constructor.elementStyles;
+    } else {
+      var css = this.constructor.css;
+      if (css) {
+        if (typeof css === 'string') {
+          var styleSheet = new CSSStyleSheet();
+          styleSheet.replaceSync(css);
+          shadowRoot.adoptedStyleSheets = [styleSheet];
+        } else if (Object.prototype.toString.call(css) === '[object Array]') {
+          var styleSheets = [];
+          css.forEach(function (styleSheet) {
+            if (typeof styleSheet === 'string') {
+              var adoptedStyleSheet = new CSSStyleSheet();
+              adoptedStyleSheet.replaceSync(styleSheet);
+              styleSheets.push(adoptedStyleSheet);
+            } else {
+              styleSheets.push(styleSheet);
+            }
+            shadowRoot.adoptedStyleSheets = styleSheets;
+          });
+        } else {
+          shadowRoot.adoptedStyleSheets = [css];
+        }
+        this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
       }
     }
 
@@ -1546,7 +1551,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.22.2';
+options.root.Omi.version = '6.23.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

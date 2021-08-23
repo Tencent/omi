@@ -56,10 +56,10 @@ export default class Dialog extends WeElement<Props> {
 
 
       props.visible && <div class="o-dialog__wrapper">
-        <o-transition onafter-leave={this.onAfterLeave} appear name="dialog-fade">
+        <o-transition onafter-leave={this.onAfterLeave} appear name="dialog-zoom">
           <div class="o-dialog__wrapper content">
 
-            <div role="dialog" aria-modal="true" aria-label={props.title} class="o-dialog" style={{ width: props.width, marginTop: "15vh" }} >
+            <div role="dialog" aria-modal="true" aria-label={props.title} class="o-dialog" style={{ width: props.width }} >
               <div class="o-dialog__header">
                 <span class="o-dialog__title">{props.title}</span>
 

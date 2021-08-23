@@ -83,7 +83,7 @@ export default class extends WeElement<Props> {
     },
     {
       contractCover: 'https://tdesign.gtimg.com/pro-template/personal/contract4.png',
-      content: '深圳燃气云平台搭建项目二期',
+      content: '深圳燃气云项目二期',
       time: '2021-10-10 08:00:00'
     },
     {
@@ -100,9 +100,10 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`h-full bg-gray-100 flex pb-96`}>
-        <div class={tw`flex flex-col`}>
-          <div class={tw`h-96 w-96 mt-6 ml-6`}>
+      <div style={{ background: '#ebedef' }} class={tw`pb-36`}>
+        <div class={tw`flex flex-col sm:flex-row md:flex-row flex-wrap gap-y-2 gap-x-10 mx-5 py-5`}>
+          
+          <div class={tw`w-full md:w-1/4`}>
             <o-card block="1" hoverable="false">
               <div slot="cover">
                 <div class={tw`mt-10 mb-2 text-center flex flex-col`}>
@@ -127,7 +128,73 @@ export default class extends WeElement<Props> {
               </div>
             </o-card>
           </div>
-          <div class={tw`h-96 w-96 mt-20 mb-12 ml-6`}>
+
+          <div class={tw`w-full md:w-2/3`}>
+            <div class={tw`h-16`}>
+              <o-card block="1" hoverable="false">
+                <div class={tw`h-10 truncate`}>
+                  <strong class={tw`text-2xl font-medium`}>Hi,</strong>
+                  <span class={tw`text-base font-thin pl-3`}>Admin~下午好，今天是你加入OMIU的第</span>
+                  <span class={tw`text-green-500 text-lg font-semibold`}>&nbsp;100&nbsp;</span>
+                  <span class={tw`text-base font-thin`}>天~</span>
+                </div>
+                <div slot="cover">
+                </div>
+              </o-card>
+            </div>
+
+            <div class={tw`h-48 pt-3`}>
+              <o-card block="1" hoverable="false">
+                <div class={tw`h-auto`}>
+                  <div class={tw`h-10`}>
+                    <span class={tw`float-left text-lg font-semibold`}>最近动态</span>
+                    <span class={tw`float-right text-lg font-semibold text-black `}>
+                      <o-link type="primary" underline={false} target='_blank' href="https://tencent.github.io/omi">
+                        更多
+                        <o-icon-arrow-forward-ios/>
+                      </o-link>
+                    </span>
+                  </div>
+                  <div class={tw`py-1 w-auto`}>
+                    <div class={tw`my-1 truncate`}>
+                      <o-icon-insert-drive-file-outlined class={tw`text-lg`}/>
+                      <span class={tw`pl-3`}>新建合同【腾讯大楼一楼改造施工项目】</span>
+                      <span class={tw`float-right text-sm font-thin text-gray-400`}>1小时前</span>
+                    </div>
+                    <div class={tw`my-2 mr-1 truncate`}>
+                      <o-icon-add-box-outlined class={tw`text-lg`}/>
+                      <span class={tw`pl-3`}>添加客户【福来】</span>
+                      <span class={tw`float-right text-sm font-thin text-gray-400`}>2021-10-10 08:00:00</span>
+                    </div>
+                    <div class={tw`mt-1 mr-1 truncate`}>
+                      <o-icon-delete-outlined class={tw`text-lg`}/>
+                      <span class={tw`pl-3`}>删除产品【云服务器CVM】</span>
+                      <span class={tw`float-right text-sm font-thin text-gray-400`}>2021-10-11 10:00:00</span>
+                    </div>
+                  </div>
+                </div>
+                <div slot="cover">
+                </div>
+              </o-card>
+            </div>
+
+            <div class={tw`h-44 pt-10 md:pt-2`}>
+              <o-card block="1" hoverable="false">
+                <div class={tw`h-36 py-1`}>
+                  <div class={tw`h-10`}>
+                    <span class={tw`float-left text-lg font-semibold`}>待办事项</span>
+                  </div>
+                  <div>
+                    <span>清空待办的快乐~</span>
+                  </div>
+                </div>
+                <div slot="cover">
+                </div>
+              </o-card>
+            </div>
+          </div>
+
+          <div class={tw`w-full h-1/2 pt-10 md:w-1/4`}>
             <o-card block="1" hoverable="false">
               <div class={tw`py-1`}>
                 <div class={tw`h-10`}>
@@ -143,14 +210,14 @@ export default class extends WeElement<Props> {
                   return (
                     (index < 4) && <div class={tw`h-20`}>
                       <o-card block="1" >
-                        <div class={tw`w-72`}>
+                        <div class={tw`w-60 md:w-full`}>
                           <div class={tw`float-left py-1`}>
                             <o-avatar size="30" src={item.avatar}></o-avatar>
                             <span class={tw`pl-2 text-sm font-semibold`}>{item.name}</span>
                             <span class={tw`pl-2 text-xs font-thin`}>{item.title}</span>
                           </div>
                           <div class={tw`float-right py-2`}>
-                            <span class={tw`pr-5`} >
+                            <span class={tw`pr-2`} >
                             <o-tooltip content={item.email} position="top">
                               <o-icon-mail-outline
                                 onclick={(e) => {
@@ -163,7 +230,7 @@ export default class extends WeElement<Props> {
                               />
                             </o-tooltip>
                             </span>
-                            <span class={tw`pr-1`}>
+                            <span class={tw``}>
                             <o-tooltip content={item.tel} position="top">
                               <o-icon-call-outlined 
                                 onclick={(e) => {
@@ -189,70 +256,7 @@ export default class extends WeElement<Props> {
             </o-card>
           </div>
 
-        </div>
-        
-        <div class={tw`flex-1 pr-10 mt-6 ml-6`}>
-          <div class={tw`h-16`}>
-            <o-card block="1" hoverable="false">
-              <div class={tw`h-10 truncate`}>
-                <strong class={tw`text-2xl font-medium`}>Hi,</strong>
-                <span class={tw`text-base font-thin pl-3`}>Admin~下午好，今天是你加入OMIU的第</span>
-                <span class={tw`text-green-500 text-lg font-semibold`}>&nbsp;100&nbsp;</span>
-                <span class={tw`text-base font-thin`}>天~</span>
-              </div>
-              <div slot="cover">
-              </div>
-            </o-card>
-          </div>
-          <div class={tw`h-44 mt-3`}>
-            <o-card block="1" hoverable="false">
-              <div class={tw`h-auto`}>
-                <div class={tw`h-10`}>
-                  <span class={tw`float-left text-lg font-semibold`}>最近动态</span>
-                  <span class={tw`float-right text-lg font-semibold text-black `}>
-                    <o-link type="primary" underline={false} target='_blank' href="https://tencent.github.io/omi">
-                      更多
-                      <o-icon-arrow-forward-ios/>
-                    </o-link>
-                  </span>
-                </div>
-                <div class={tw`py-1`}>
-                  <div class={tw`my-1`}>
-                    <o-icon-insert-drive-file-outlined class={tw`text-lg`}/>
-                    <span class={tw`pl-3`}>新建合同【腾讯大楼一楼改造施工项目】</span>
-                    <span class={tw`float-right text-sm font-thin text-gray-400`}>1小时前</span>
-                  </div>
-                  <div class={tw`my-2 mr-1`}>
-                    <o-icon-add-box-outlined class={tw`text-lg`}/>
-                    <span class={tw`pl-3`}>添加客户【福来】</span>
-                    <span class={tw`float-right text-sm font-thin text-gray-400`}>2021-10-10 08:00:00</span>
-                  </div>
-                  <div class={tw`mt-1 mr-1`}>
-                    <o-icon-delete-outlined class={tw`text-lg`}/>
-                    <span class={tw`pl-3`}>删除产品【云服务器CVM】</span>
-                    <span class={tw`float-right text-sm font-thin text-gray-400`}>2021-10-11 10:00:00</span>
-                  </div>
-                </div>
-              </div>
-              <div slot="cover">
-              </div>
-            </o-card>
-          </div>
-          <div class={tw`h-40 mt-2`}>
-            <o-card block="1" hoverable="false">
-              <div class={tw`h-36 py-1`}>
-                <div class={tw`h-10`}>
-                  <span class={tw`float-left text-lg font-semibold`}>待办事项</span>
-                </div>
-                <div>
-                  <span>清空待办的快乐~</span>
-                </div>
-              </div>
-              <div slot="cover">
-              </div>
-            </o-card>
-          </div>
-          <div class={tw`h-96 mt-11 mb-10`}>
+          <div class={tw`w-full h-1/2 md:w-2/3 pt-10`}>
             <o-card block="1" hoverable="false">
               <div class={tw`py-1`}>
                 <div class={tw`h-10`}>
@@ -264,20 +268,20 @@ export default class extends WeElement<Props> {
                     </o-link>
                   </span>
                 </div>
-                <div class={tw`h-auto flex flex-wrap content-around justify-around mt-2`}>
+                <div class={tw`my-1 flex flex-wrap justify-around`}>
                   {this.myContracts.map((item, index) => {
                     return (
-                      (index < 6) && <div class={tw`flex h-16 w-80 my-5`}>
+                      (index < 6) && <div class={tw`h-16 md:w-80 my-5 mx-3`}>
                         <o-card block="1" bordered={false} hoverable="true">
                           <div class={tw`float-left`}>
-                            <o-avatar square size="50" backgroundColor="#FFF" src={item.contractCover}/>
+                            <o-avatar square size="40" backgroundColor="#FFF" src={item.contractCover}/>
                           </div>
-                          <div class={tw`ml-20 flex flex-col justify-around py-1`}>
+                          <div class={tw`clear-none ml-16 flex flex-col justify-around py-1 truncate`}>
                             <div>
-                              <span class={tw`text-base font-semibold truncate`}>{item.content}</span>
+                              <span class={tw`text-base tracking-wider font-semibold`}>{item.content}</span>
                             </div>
                             <div>
-                              <span class={tw`text-sm font-thin text-gray-400 truncate`}>{item.time}</span>
+                              <span class={tw`text-sm font-thin text-gray-400`}>{item.time}</span>
                             </div>
                           </div>
                           <div slot="cover">
