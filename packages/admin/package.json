@@ -55,7 +55,7 @@
     "@omiu/tag": "^0.0.5",
     "@omiu/time-picker": "^0.0.3",
     "@omiu/toast": "^0.0.8",
-    "@omiu/toggle-icon": "^0.0.1",
+    "@omiu/toggle-icon": "^0.0.2",
     "@omiu/tooltip": "0.0.1",
     "@omiu/transition": "^0.0.14",
     "@omiu/tree": "^0.0.18",
