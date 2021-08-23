@@ -18,6 +18,7 @@ export const base = {
   Components: 'OMIU 组件',
   Loading: 'Loading 加载中',
   Toast: 'Toast 弹出式提示',
+  ToggleIcon: 'ToggleIcon 可切换图标',
   Card: 'Card 卡片',
   Slider: 'Slider 滑块',
   Switch: 'Switch 开关按钮',
@@ -49,6 +50,8 @@ export const base = {
   StepsForm: '分步表单',
 
   Button: 'Button 按钮',
+  HamburgerMenu: 'HamburgerMenu 汉堡包菜单',
+  Link: 'Link 文字链接',
   Tabs: 'Tabs 选项卡',
   Rate: 'Rate 评分',
   Tag: 'Tag 标签',
@@ -70,6 +73,7 @@ export const base = {
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层',
   Avatar: 'Avatar 头像',
+  Badge: 'Badge 徽章',
   ActionSheet: 'ActionSheet 弹出式菜单',
   Collapse: 'Collapse 折叠'
 }

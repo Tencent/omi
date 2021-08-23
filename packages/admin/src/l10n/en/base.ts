@@ -18,6 +18,7 @@ export const base = {
   Components: 'OMIU Components',
   Loading: 'Loading',
   Toast: 'Toast',
+  ToggleIcon: 'ToggleIcon',
   Card: 'Card',
   Slider: 'Slider',
   Switch: 'Switch',
@@ -48,6 +49,8 @@ export const base = {
   StepsForm: 'Steps Form',
 
   Button: 'Button',
+  HamburgerMenu: 'HamburgerMenu',
+  Link: 'Link',
   Tabs: 'Tabs',
   Tag: 'Tag',
   Rate: 'Rate',
@@ -69,6 +72,7 @@ export const base = {
   Failure: 'Failure',
   Dialog: 'Dialog',
   Avatar: 'Avatar',
+  Badge: 'Badge',
   ActionSheet: 'ActionSheet',
   Collapse: 'Collapse'
 }

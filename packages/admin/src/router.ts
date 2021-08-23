@@ -5,11 +5,15 @@ import { route } from 'omi-router'
  */
 const components = [
   'button',
+  'badge',
   'cascader',
+  'hamburger-menu',
   'tabs',
   'slider',
   'loading',
+  'link',
   'toast',
+  'toggle-icon',
   'card',
   'progress',
   'time-picker',
