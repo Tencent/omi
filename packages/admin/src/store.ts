@@ -3,6 +3,8 @@ import { genNavTree, NavTree } from './nav-tree'
 import { getNotifications } from './notifications'
 import { resetId } from './util/id'
 import { route } from 'omi-router'
+import { localeMap } from './modules/i18n'
+import type { Language } from './modules/i18n'
 
 class Store {
   themeColor: string
@@ -72,7 +74,6 @@ class Store {
 
     this.isInstalled = false
 
-
     route.before = (evt) => {
       if (window.innerWidth <= 640) {
         this.closeLeftPanel()
@@ -80,27 +81,24 @@ class Store {
     }
   }
 
-  setLocals(locale, callback?) {
+  setLocals(locale: Language, callback?) {
     resetId()
     this.locale = locale
-    import(`./l10n/${locale}/base.ts`).then((localeMap) => {
-      this.localeMap = localeMap
 
-      callback && callback()
+    this.localeMap = localeMap[locale]
+    callback && callback()
+    this.treeData = genNavTree(localeMap[locale], locale)
 
-      this.treeData = genNavTree(localeMap, locale)
-
-      this.tabs.forEach((tab) => {
-        tab.label = this.getTabLabelById(tab.id)
-      })
-
-      if (!this.isInstalled) {
-        this.installed(this)
-        this.isInstalled = true
-      } else {
-        this.ui.myApp.update()
-      }
+    this.tabs.forEach((tab) => {
+      tab.label = this.getTabLabelById(tab.id)
     })
+
+    if (!this.isInstalled) {
+      this.installed(this)
+      this.isInstalled = true
+    } else {
+      this.ui.myApp.update()
+    }
   }
 
   getTabLabelById(id) {

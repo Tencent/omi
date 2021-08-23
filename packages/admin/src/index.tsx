@@ -3,10 +3,7 @@ import { WeElement, render, h, tag } from 'omi'
 import { hashChange } from 'omi-router'
 import { registerRouting } from './router'
 
-import {
-  showLoading,
-  hideLoading
-} from '@omiu/toast'
+import { showLoading, hideLoading } from '@omiu/toast'
 
 //提前使用最新版本注册组件
 import '@omiu/popover'
@@ -36,6 +33,9 @@ import './components/admin-main-welcome'
 
 import { tw, sheet } from 'omi-twind'
 import Store from './store'
+
+// install all modules
+Object.values(import.meta.globEager('./modules/*.ts')).map((i) => i.install?.())
 
 const fadeCSS = `.fade-leave-to,
 .fade-enter {
