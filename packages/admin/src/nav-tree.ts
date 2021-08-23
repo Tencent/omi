@@ -243,7 +243,8 @@ export function genNavTree(localeMap, locale) {
     'rate',
     'dialog',
     'avatar',
-    'action-sheet'
+    'action-sheet',
+    'switch'
   ]
 
   omiuComponents.forEach((component) => {

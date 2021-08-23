@@ -17,7 +17,8 @@ const components = [
   'rate',
   'dialog',
   'avatar',
-  'action-sheet'
+  'action-sheet',
+  'switch'
 ]
 
 const charts = [
