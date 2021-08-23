@@ -69,6 +69,7 @@ export const base = {
   Failure: 'Failure',
   Dialog: 'Dialog',
   Avatar: 'Avatar',
+  Badge: 'Badge',
   ActionSheet: 'ActionSheet',
   Collapse: 'Collapse'
 }

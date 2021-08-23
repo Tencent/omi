@@ -70,6 +70,7 @@ export const base = {
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层',
   Avatar: 'Avatar 头像',
+  Badge: 'Badge 徽章',
   ActionSheet: 'ActionSheet 弹出式菜单',
   Collapse: 'Collapse 折叠'
 }

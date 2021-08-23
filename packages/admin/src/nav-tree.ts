@@ -232,6 +232,7 @@ export function genNavTree(localeMap, locale) {
 
   const omiuComponents = [
     'button',
+    'badge',
     'card',
     'slider',
     'loading',
