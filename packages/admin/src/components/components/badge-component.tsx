@@ -24,7 +24,7 @@ declare global {
 
 @tag(tagName)
 export default class extends WeElement<Props> {
-  static css = [sheet.target, `o-badge{margin-left:0px;}`]
+  static css = sheet.target
 
   install() { }
 
