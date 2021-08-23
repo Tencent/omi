@@ -1,5 +1,5 @@
 /**
- * @omiu/chart v0.0.4 http://omijs.org
+ * @omiu/chart v0.0.5 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -10,18 +10,18 @@ import { h, tag, WeElement } from 'omi';
 import { Chart, ArcElement, LineElement, BarElement, PointElement, BarController, BubbleController, DoughnutController, LineController, PieController, PolarAreaController, RadarController, ScatterController, CategoryScale, LinearScale, LogarithmicScale, RadialLinearScale, TimeScale, TimeSeriesScale, Decimation, Filler, Legend, Title, Tooltip } from 'chart.js';
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
 
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
@@ -73,7 +73,7 @@ var ChartBase = /** @class */ (function (_super) {
     };
     return ChartBase;
 }(WeElement));
-/** @class */ ((function (_super) {
+var Bar = /** @class */ (function (_super) {
     __extends(Bar, _super);
     function Bar() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -90,8 +90,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-bar')
     ], Bar);
     return Bar;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var Line = /** @class */ (function (_super) {
     __extends(Line, _super);
     function Line() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -107,8 +107,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-line')
     ], Line);
     return Line;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var Radar = /** @class */ (function (_super) {
     __extends(Radar, _super);
     function Radar() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -124,8 +124,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-radar')
     ], Radar);
     return Radar;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var Scatter = /** @class */ (function (_super) {
     __extends(Scatter, _super);
     function Scatter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -141,8 +141,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-scatter')
     ], Scatter);
     return Scatter;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var Doughnut = /** @class */ (function (_super) {
     __extends(Doughnut, _super);
     function Doughnut() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -158,8 +158,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-doughnut')
     ], Doughnut);
     return Doughnut;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var Pie = /** @class */ (function (_super) {
     __extends(Pie, _super);
     function Pie() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -175,8 +175,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-pie')
     ], Pie);
     return Pie;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var PolarArea = /** @class */ (function (_super) {
     __extends(PolarArea, _super);
     function PolarArea() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -192,8 +192,8 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-polar-area')
     ], PolarArea);
     return PolarArea;
-})(ChartBase));
-/** @class */ ((function (_super) {
+}(ChartBase));
+var Bubble = /** @class */ (function (_super) {
     __extends(Bubble, _super);
     function Bubble() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -217,5 +217,5 @@ var ChartBase = /** @class */ (function (_super) {
         tag('o-bubble')
     ], Bubble);
     return Bubble;
-})(ChartBase));
+}(ChartBase));
 //# sourceMappingURL=index.esm.js.map
