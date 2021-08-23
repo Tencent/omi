@@ -32,7 +32,6 @@ export default class extends WeElement<Props> {
     this.visibleA = false
     this.visibleB = false
     this.update()
-    // console.log(e)
   }
 
   render() {
@@ -43,22 +42,37 @@ export default class extends WeElement<Props> {
           describe={'基础演示'}
           code={`
 \`\`\`jsx
-<o-action-sheet onClick={e => this.ItemClick()} menus={[{
-  label: 'Option 1'
-}, {
-  label: 'Option 2'
-}]} actions={[{
-  label: 'Cancel'
-}]} show={this.visibleA} type="ios">
+  visibleA = false
+  visibleB = false
+
+  ItemClick = () => {
+    this.visibleA = false
+    this.visibleB = false
+    this.update()
+  }
+
+<o-action-sheet 
+  onItemClick={e => {this.ItemClick()}} 
+  onClose={e => {this.ItemClick()}} 
+  menus={[{
+    label: 'Option 1'
+  }, {
+    label: 'Option 2'
+  }]} actions={[{
+    label: 'Cancel'
+  }]} show={this.visibleA} type="ios">
 </o-action-sheet>
 
-<o-action-sheet onClick={e => this.ItemClick()} menus={[{
-  label: 'Option 1'
-}, {
-  label: 'Option 2'
-}]} actions={[{
-  label: 'Cancel'
-}]} show={this.visibleB} type="android">
+<o-action-sheet 
+  onItemClick={e => {this.ItemClick()}} 
+  onClose={e => {this.ItemClick()}} 
+  menus={[{
+    label: 'Option 1'
+  }, {
+    label: 'Option 2'
+  }]} actions={[{
+    label: 'Cancel'
+  }]} show={this.visibleB} type="android">
 </o-action-sheet>
 \`\`\`
           `}
@@ -70,7 +84,10 @@ export default class extends WeElement<Props> {
                       this.update()
                     }}
                     block type="default" text="IOS ActionSheet"></o-button>
-          <o-action-sheet onClick={e => this.ItemClick()} menus={[{
+          <o-action-sheet 
+            onItemClick={e => {this.ItemClick()}} 
+            onClose={e => {this.ItemClick()}} 
+            menus={[{
               label: 'Option 1'
             }, {
               label: 'Option 2'
@@ -84,14 +101,17 @@ export default class extends WeElement<Props> {
                   this.update()
                   }}
                    block type="default" style="margin-top: 15px;" text="Android ActionSheet"></o-button>
-          <o-action-sheet onClick={e => this.ItemClick()} menus={[{
+          <o-action-sheet 
+            onItemClick={e => {this.ItemClick()}} 
+            onClose={e => {this.ItemClick()}} 
+            menus={[{
               label: 'Option 1'
             }, {
               label: 'Option 2'
             }]} actions={[{
               label: 'Cancel'
             }]} show={this.visibleB} type="android">
-            </o-action-sheet>
+          </o-action-sheet>
           </div>
         </code-demo>
 
