@@ -244,7 +244,8 @@ export function genNavTree(localeMap, locale) {
     'dialog',
     'avatar',
     'action-sheet',
-    'switch'
+    'switch',
+    'collapse'
   ]
 
   omiuComponents.forEach((component) => {
@@ -281,7 +282,13 @@ export function genNavTree(localeMap, locale) {
   const omiuChart = [
     'bar',
     'line',
-    'scatter'
+    'scatter',
+    'pie',
+    'doughnut',
+    'radar',
+    'polar-area',
+    'bubble',
+    'barline'
   ]
 
   omiuChart.forEach((chart) => {

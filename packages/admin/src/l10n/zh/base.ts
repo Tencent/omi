@@ -59,10 +59,17 @@ export const base = {
   Bar: '柱状图',
   Line: '线状图',
   Scatter: '散点图',
+  Pie: '饼图',
+  Doughnut: '环状图',
+  Radar: '雷达图',
+  PolarArea: '极区图',
+  Bubble: '气泡图',
+  Barline: '合成图',
 
   Success: '成功页',
   Failure: '失败页',
   Dialog: 'Dialog 弹窗层',
   Avatar: 'Avatar 头像',
-  ActionSheet: 'ActionSheet 弹出式菜单'
+  ActionSheet: 'ActionSheet 弹出式菜单',
+  Collapse: 'Collapse 折叠'
 }

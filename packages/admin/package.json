@@ -15,8 +15,8 @@
     "vite-plugin-mock": "^2.9.1"
   },
   "dependencies": {
-    "@omiu/avatar": "^0.0.1",
     "@omiu/action-sheet": "^0.0.5",
+    "@omiu/avatar": "^0.0.1",
     "@omiu/badge": "^0.0.2",
     "@omiu/button": "^0.0.10",
     "@omiu/card": "0.0.8",
@@ -24,6 +24,7 @@
     "@omiu/chart": "^0.0.5",
     "@omiu/chart-card": "^0.0.7",
     "@omiu/checkbox": "^0.0.13",
+    "@omiu/collapse": "^0.0.1",
     "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "^0.0.11",
     "@omiu/date-picker": "^0.0.9",
