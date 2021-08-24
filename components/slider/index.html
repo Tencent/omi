@@ -18,46 +18,54 @@
         <img src="//alloyteam.github.io/github.png" alt="" />
       </a>
       <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+      <script>
+        window.onload = function () {
+          const sliders = document.querySelectorAll('o-slider')
+          sliders.forEach((slider) => {
+            slider.style.padding = '20px'
+          })
+        }
+      </script>
       <div style="text-align: center">basic slider</div>
-      <o-slider min="0" max="10" value="2" id="single-range-demo"></o-slider>
+      <o-slider min="0" max="100" value="20" id="single-range-demo"></o-slider>
       <div style="text-align: center">reversed slider</div>
       <o-slider
         min="0"
-        max="10"
-        value="5"
+        max="100"
+        value="50"
         reversed
         id="single-reversed-range-demo"
       ></o-slider>
       <div style="text-align: center">large slider</div>
       <o-slider
         min="0"
-        max="10"
-        value="5"
+        max="100"
+        value="50"
         size="large"
         id="large-single-range-demo"
       ></o-slider>
-      <div style="text-align: center">slim slider</div>
+      <div style="text-align: center">small slider</div>
       <o-slider
         min="0"
-        max="10"
+        max="100"
         value="5"
-        size="slim"
-        id="slim-single-range-demo"
+        size="small"
+        id="small-single-range-demo"
       ></o-slider>
       <div style="text-align: center">single slider with tool-tip</div>
       <o-slider
         min="0"
-        max="10"
-        value="2"
+        max="100"
+        value="20"
         tooltip
         id="single-range-demo"
       ></o-slider>
       <div style="text-align: center">double slider with tool-tip</div>
       <o-slider
         min="0"
-        max="10"
-        value="2"
-        second_value="10"
+        max="100"
+        value="20"
+        second_value="100"
         range="double"
         tooltip
         id="double-range-demo"
@@ -65,23 +73,41 @@
       <div style="text-align: center">square slider</div>
       <o-slider
         min="0"
-        max="10"
-        value="2"
+        max="100"
+        value="20"
         shape="square"
+        id="square-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">square slider</div>
+      <o-slider
+        min="0"
+        max="100"
+        value="20"
+        shape="square"
+        size="large"
+        id="square-single-range-demo"
+      ></o-slider>
+      <div style="text-align: center">square slider</div>
+      <o-slider
+        min="0"
+        max="100"
+        value="20"
+        shape="square"
+        size="small"
         id="square-single-range-demo"
       ></o-slider>
       <div style="text-align: center">disabled slider</div>
       <o-slider
         min="0"
-        max="10"
-        value="2"
+        max="100"
+        value="20"
         disabled
         id="disabled-single-range-demo"
       ></o-slider>
       <div style="text-align: center">double slider</div>
       <o-slider
         min="0"
-        max="200"
+        max="100"
         value="20"
         second_value="70"
         range="double"
@@ -90,7 +116,7 @@
       <div style="text-align: center">disabled double slider</div>
       <o-slider
         min="0"
-        max="200"
+        max="100"
         value="20"
         second_value="70"
         range="double"
@@ -99,11 +125,10 @@
       ></o-slider>
       <div style="position: absolute">vertical single slider</div>
       <div style="position: absolute; left: 175px">vertical double slider</div>
-
       <o-slider
         min="0"
         max="100"
-        value="10"
+        value="100"
         orient="vertical"
         id="vertical-demo"
         style="
