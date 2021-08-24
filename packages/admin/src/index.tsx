@@ -81,6 +81,8 @@ export default class extends WeElement {
     this.update()
     await this.transition.enter()
     hideLoading()
+
+    this.store.containerEl.scrollTop = 0
   }
 
   installed() {

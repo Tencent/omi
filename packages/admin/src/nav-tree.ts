@@ -162,6 +162,15 @@ export function genNavTree(localeMap, locale) {
         }
       ]
     },
+
+    {
+      label: localeMap.base.Chart,
+      expanded: true,
+      id: genId(),
+
+      children: [
+      ]
+    },
     {
       label: localeMap.base.Others,
       sign: '●',
@@ -222,17 +231,28 @@ export function genNavTree(localeMap, locale) {
   ]
 
   const omiuComponents = [
+    'tabs',
+    'breadcrumb',
+    'bottom-nav',
     'button',
+    'badge',
     'card',
+    'hamburger-menu',
     'slider',
     'loading',
+    'link',
     'toast',
+    'toggle-icon',
     'tag',
     'progress',
     'cascader',
     'time-picker',
     'rate',
-    'dialog'
+    'dialog',
+    'avatar',
+    'action-sheet',
+    'switch',
+    'collapse'
   ]
 
   omiuComponents.forEach((component) => {
@@ -265,6 +285,28 @@ export function genNavTree(localeMap, locale) {
       id: genId()
     }
   ])
+
+  const omiuChart = [
+    'bar',
+    'line',
+    'scatter',
+    'pie',
+    'doughnut',
+    'radar',
+    'polar-area',
+    'bubble',
+    'barline'
+  ]
+
+  omiuChart.forEach((chart) => {
+    navTree[3].children.push({
+      label: localeMap.base[chart.split('-').map(str => {
+        return str[0].toUpperCase() + str.slice(1)
+      }).join('')],
+      id: genId(),
+      href: `#/${chart}-chart`
+    })
+  })
 
   return navTree
 }

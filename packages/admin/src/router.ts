@@ -4,18 +4,40 @@ import { route } from 'omi-router'
  * demo components
  */
 const components = [
+  'breadcrumb',
+  'bottom-nav',
   'button',
+  'badge',
   'cascader',
+  'hamburger-menu',
   'tabs',
   'slider',
   'loading',
+  'link',
   'toast',
+  'toggle-icon',
   'card',
   'progress',
   'time-picker',
   'tag',
   'rate',
-  'dialog'
+  'dialog',
+  'avatar',
+  'action-sheet',
+  'switch',
+  'collapse'
+]
+
+const charts = [
+  'bar',
+  'line',
+  'scatter',
+  'pie',
+  'doughnut',
+  'radar',
+  'polar-area',
+  'bubble',
+  'barline'
 ]
 
 export function registerRouting(rootEl) {
@@ -73,6 +95,7 @@ export function registerRouting(rootEl) {
     })
   })
 
+
   route('/table/pagination', () => {
     //lazy load
     import('./components/table/pagination-table').then(() =>
@@ -120,6 +143,15 @@ export function registerRouting(rootEl) {
       //lazy load
       import(`./components/components/${componentName}-component.tsx`).then(
         () => rootEl.transitionTo(`${componentName}-component`)
+      )
+    })
+  )
+
+  charts.map((chartName: string) =>
+    route(`/${chartName}-chart`, () => {
+      //lazy load
+      import(`./components/charts/${chartName}-chart.tsx`).then(
+        () => rootEl.transitionTo(`${chartName}-chart`)
       )
     })
   )
