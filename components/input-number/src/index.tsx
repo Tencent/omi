@@ -188,5 +188,3 @@ export interface InputNumberProps {
       'o-input-number': InputNumber
     }
   }
-  
-  
