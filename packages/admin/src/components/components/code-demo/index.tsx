@@ -29,6 +29,7 @@ declare global {
 export default class extends WeElement<Props> {
   static css = [sheet.target]
   openedA = false
+  isOn = false
 
   render(props) {
     return (
@@ -71,11 +72,12 @@ export default class extends WeElement<Props> {
             {props.code ? (<><o-icon-file-copy class={tw`w-6 h-6 mr-2`} onClick={() => {
               copy(props.code)
             }} />
-              <o-toggle-icon icons={['keyboard-arrow-down', 'keyboard-arrow-up']} class={tw`w-6 h-6 mr-2`}
-              onChange={() => {
-                this.openedA = !this.openedA
-                this.update()
-              }}
+              <o-toggle-icon is-on={this.isOn} icons={['keyboard-arrow-down', 'keyboard-arrow-up']} class={tw`w-6 h-6 mr-2`}
+                onChange={() => {
+                  this.openedA = !this.openedA
+                  this.isOn = !this.isOn
+                  this.update()
+                }}
               ></o-toggle-icon>
             </>) : null}
           </span>
