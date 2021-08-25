@@ -1,10 +1,11 @@
-@import "@omiu/common/theme.scss";
+@import "../node_modules/@omiu/common/theme.scss";
 
 .o-input-number{
   position: relative;
   display: inline-block;
 }
-.o-input-number-medium{
+.o-input-number-medium
+{
   height: 40px;
   width: 172px;
 }
@@ -12,11 +13,10 @@
   height: 34px;
   width: 146px;
 }
-.o-input-number-mini{
+.o-input-number-mini{ 
   height: 30px;
   width: 130px;
 }
-
 .o-button,
 .o-input{
   position: absolute;
@@ -39,7 +39,6 @@
 .o-button{
   width: 25%;
   line-height: 15%;
-  background-color:#f3faf1;
 }
 .o-input{
   left: 25%;
@@ -57,7 +56,6 @@
   border-top-left-radius: 0.3em;
   border-right: none;
 }
-
 // is-disabled:ture 
 .o-input-number.is-disabled .o-input,
 .o-input-number.is-disabled:hover .o-input,
@@ -81,25 +79,23 @@
   border-bottom-color: var(--o-primary, $o-primary);
 }
 .o-input-number:hover .o-button{
-    background-color: $o-primary-fade-lot;
-    background-color: var(--o-primary-fade-lot, $o-primary-fade-lot);
     color: $o-primary;
     color: var(--o-primary, $o-primary);
     border-color: $o-primary;
     border-color: var(--o-primary, $o-primary);
 }
-.o-input-medium,
-.o-button-medium
+.o-input-number-medium .o-button,
+.o-input-number-medium .o-input
 {
     font-size: 20px;
 }
-.o-input-small,
-.o-button-small{
-    font-size: 18px;
+.o-input-number-small .o-button,
+.o-input-number-small .o-input{
+    font-size: 17px;
   }
-.o-input-mini,
-.o-button-mini{
-    font-size: 16px;
+.o-input-number-mini .o-button,
+.o-input-number-mini .o-input{
+    font-size: 14px;
 }
 
 // style:right, buttons are on the right
@@ -129,7 +125,6 @@
 .o-input-number:hover .o-button-sub-right{
   border-right-color: $o-primary;
   border-right-color: var(--o-primary, $o-primary);
-  border-top-color:#dcdfe6 ;
 }
 .o-input-number:hover .o-button-add-right{
   border-bottom-color:#dcdfe6;
@@ -163,14 +158,14 @@
 .o-input-number:hover .o-button-sub-left{
   border-left-color: $o-primary;
   border-left-color: var(--o-primary, $o-primary);
-  border-top-color:#dcdfe6 ;
 }
-
+.o-input-number:hover .o-button-add-left{
+  border-bottom-color:#dcdfe6;
+}
 .o-input-number:hover .o-button-sub-disabled,
 .o-button-sub-disabled,
 .o-input-number:hover .o-button-add-disabled,
 .o-button-add-disabled{
   color: #E4E7ED;
   cursor: not-allowed;
-  // pointer-events: none;
 }
