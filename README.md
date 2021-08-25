@@ -214,7 +214,6 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
   - [Hello Element](#hello-element)
   - [TypeScript Auto Complete](#typescript-auto-complete)
   - [Lifecycle](#lifecycle)
-- [Debugging](#debugging)
 - [Browsers Support](#browsers-support)
 - [Contributors](#contributors)
 - [Maintainers](#maintainers)
@@ -478,14 +477,6 @@ export default class oButton extends WeElement<ButtonProps> {
 | `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 | `receiveProps`   | parent element re-render will trigger it, `return false` will prevent update action|
-
-## Debugging
-
-Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)], using Omi DevTools you can simply debug and manage your UI **without any configuration**. Just install and debug.
-
-Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React DevTools.
-
-![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
 
 ### View registered elements
 
