@@ -67,9 +67,8 @@ export default class extends WeElement<Props> {
             </div>
           </o-collapse>
           <span class={tw`float-right mt-3 mb-2`}>
-            {props.url ? <o-icon-code class={tw`w-6 h-6 mr-2`}  >
-              <a href={props.url}></a>
-            </o-icon-code> : null}
+            {props.url ? <a href={props.url}><o-icon-code class={tw`w-6 h-6 mr-2`}  >
+            </o-icon-code></a> : null}
             {props.code ? (<><o-icon-file-copy class={tw`w-6 h-6 mr-2`} onClick={() => {
               copy(props.code)
             }} />
