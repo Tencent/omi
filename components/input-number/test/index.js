@@ -1,7 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing'
-
 import '../dist/index.es.js'
-
 
 describe('Testing size', () => {
   it('Testing size', async () => {
