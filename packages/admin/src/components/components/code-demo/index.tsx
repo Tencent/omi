@@ -12,6 +12,7 @@ interface Props {
   title: string
   describe: string
   code: string
+  url?: string
   class?: string
   style?: string | object
 }
