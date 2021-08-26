@@ -1,11 +1,18 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import '../../docs/admin-docs'
-
+import '@omiu/collapse'
+import '@omiu/icon/keyboard-arrow-down'
+import '@omiu/icon/keyboard-arrow-up'
+import '@omiu/icon/code'
+import '@omiu/icon/file-copy'
+import '@omiu/toggle-icon'
+import * as copy from 'copy-to-clipboard';
 interface Props {
   title: string
   describe: string
   code: string
+  url?: string
   class?: string
   style?: string | object
 }
@@ -22,6 +29,8 @@ declare global {
 @tag(tagName)
 export default class extends WeElement<Props> {
   static css = [sheet.target]
+  openedA = false
+  isOn = false
 
   render(props) {
     return (
@@ -42,19 +51,40 @@ export default class extends WeElement<Props> {
             {props.title}
           </h3>
           <p>{props.describe}</p>
-        </div>
-
-        <div>
-          <admin-docs
-            css={`
+          <o-collapse
+            opened={this.openedA}
+            class={tw`m-3 mb-0`}
+          >
+            <div>
+              <admin-docs
+                css={`
               .docs {
                 padding: 0 !important;
               }
             `}
-            mdContent={props.code}
-          ></admin-docs>
+                mdContent={props.code}
+              ></admin-docs>
+            </div>
+          </o-collapse>
+          <span class={tw`float-right mt-3 mb-2`}>
+            {props.url ? <a href={props.url}><o-icon-code class={tw`w-6 h-6 mr-2`}  >
+            </o-icon-code></a> : null}
+            {props.code ? (<><o-icon-file-copy class={tw`w-6 h-6 mr-2`} onClick={() => {
+              copy(props.code)
+            }} />
+              <o-toggle-icon is-on={this.isOn} icons={['keyboard-arrow-down', 'keyboard-arrow-up']} class={tw`w-6 h-6 mr-2`}
+                onChange={() => {
+                  this.openedA = !this.openedA
+                  this.isOn = !this.isOn
+                  this.update()
+                }}
+              ></o-toggle-icon>
+            </>) : null}
+          </span>
         </div>
-      </div>
+      </div >
     )
   }
 }
+
+
