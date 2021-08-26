@@ -1,3 +1,6 @@
+test:
+  a: "我是A"
+
 ManagerWorkbench: "管理者工作台"
 Welcome: "欢迎"
 Theme: "主题"

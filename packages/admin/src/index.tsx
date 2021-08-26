@@ -33,9 +33,12 @@ import './components/admin-main-welcome'
 
 import { tw, sheet } from 'omi-twind'
 import Store from './store'
+import { install as i18nInstall } from './modules/i18n'
 
 // install all modules
-Object.values(import.meta.globEager('./modules/*.ts')).map((i) => i.install?.())
+// Object.values(import.meta.globEager('./modules/*.ts')).map((i) => i.install?.())
+
+export const i18n = i18nInstall()
 
 const fadeCSS = `.fade-leave-to,
 .fade-enter {

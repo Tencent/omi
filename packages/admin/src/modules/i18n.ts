@@ -1,59 +1,52 @@
-import enBase from '~/locales/en/base.yml'
-import zhBase from '~/locales/zh/base.yml'
-
 export type Language = 'zh' | 'en'
 export const languages: Language[] = ['en', 'zh']
 
-export const localeMap = {
-  en: {
-    base: enBase
-  },
-  zh: {
-    base: zhBase
+export const t = (key: string, messages: Object) => {
+  if (!key) return ''
+
+  const keyArr = key.split('.')
+  const name = keyArr.shift()
+  if (!keyArr.length) {
+    return messages[name]
+  } else {
+    return t(keyArr.join('.'), messages[name])
   }
 }
 
-// todo split .
-export const t = (language: Language, key: string) => localeMap[language][key]
+export const createI18n = (options: { locale: Language; messages: Object }) => {
+  let locale = options.locale || 'zh'
 
-export const createI18n = () => {
-  let locale: Language = 'zh'
   return {
     locale,
-    t: (key: string) => {
-      return t(locale, key)
-    }
+    t: (key: string) => t(key, messages[locale]),
+    messages: messages[locale]
   }
 }
-
-// to do, dynamic
 
 // import i18n resources
 // https://vitejs.dev/guide/features.html#glob-import
-// ['en', 'zh', ...]
-// const locales = ['en', 'zh']
-// const types = ['base']
+const relativePath = '../locales/'
 
-// locales.map((locale) => {
-//   types.map((type) => {
-//     import(`../../locales/${locale}/${type}.yml`).then(
-//       (value) => (messages[locale] = value.default)
-//     )
-//   })
-// })
+export const messages = Object.fromEntries(
+  // globEager can not use variable
+  Object.entries(import.meta.globEager('../locales/*.y(a)?ml')).map(
+    ([key, value]) => {
+      const yaml = key.endsWith('.yaml')
+      return [key.slice(relativePath.length, yaml ? -5 : -4), value.default]
+    }
+  )
+)
 
-// const messages = Object.fromEntries(
-//   Object.entries(import.meta.globEager('../../locales/*.y(a)?ml')).map(
-//     ([key, value]) => {
-//       console.log(value)
-
-//       const yaml = key.endsWith('.yaml')
-//       return [key.slice(14, yaml ? -5 : -4), value.default]
-//     }
-//   )
-// )
+export const useI18n = () => {
+  return {
+    t
+  }
+}
 
 export const install = () => {
-  const i18n = createI18n()
+  const i18n = createI18n({
+    locale: 'zh',
+    messages
+  })
   return i18n
 }

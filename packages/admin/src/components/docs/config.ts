@@ -1,21 +1,21 @@
+import { i18n } from '~/index'
 import { genId } from '../../util/id'
 
-export const getDocsList = (localeMap) => {
+export const getDocsList = () => {
   return [
     {
-
-      label: localeMap.base.Demo1,
+      label: i18n.t('Demo1'),
       icon: 'description',
       href: '#/docs/demo1',
       md: import('./demo.md?raw'),
-      id: genId(),
+      id: genId()
     },
     {
-      label: localeMap.base.Demo2,
+      label: i18n.t('Demo2'),
       icon: 'description',
       href: '#/docs/demo2',
       md: import('./demo2.md?raw'),
-      id: genId(),
+      id: genId()
     }
   ]
 }
