@@ -44,7 +44,6 @@ export default class extends WeElement<Props> {
 
   mdC = `
   \`\`\`
-    //貌似还是有bug（update会触发其他code-demo里的slider的更新），继续改进。。。
     <div>
       <o-slider value={someValue} oninput={handleInputFunction}></o-slider>
       <o-input value={someValue} onchange={handleInputFunction}></o-input>
@@ -76,9 +75,10 @@ export default class extends WeElement<Props> {
 
   mdF = `
   \`\`\`html
-  <o-slider
   \\default a normal sized slider
-  size="slim"
+
+  <o-slider
+  size="small"
 ></o-slider>
 <o-slider
   size="normal"
@@ -132,25 +132,21 @@ export default class extends WeElement<Props> {
           <code-demo title="垂直" describe="支持使滑块垂直" code={this.mdB}>
             <div
               slot="demo"
-              style={{
-                height: '800px'
-              }}
+              class={tw`h-96 grid grid-cols-2 grid-rows-1 justify-evenly items-center`}
             >
               <o-slider
                 min="0"
                 max="100"
                 value="20"
                 orient="vertical"
-                style={{ position: 'relative', right: '30%', top: '45%' }}
               ></o-slider>
               <o-slider
                 min="0"
                 max="100"
                 value="20"
-                second_value="100"
+                second_value="80"
                 range="double"
                 orient="vertical"
-                style={{ position: 'relative', left: '30%', top: '37%' }}
               ></o-slider>
             </div>
           </code-demo>
@@ -159,19 +155,22 @@ export default class extends WeElement<Props> {
             describe="支持与o-input保持同步"
             code={this.mdC}
           >
-            <div slot="demo" class={tw`flex justify-evenly p-5 `}>
+            <div
+              slot="demo"
+              class={tw`grid flex-col justify-center items-center m-5 `}
+            >
               <div>
                 <o-slider
                   min="0"
                   max="100"
                   value={this.valueInput}
-                  class={tw`w-4/5`}
                   oninput={this.handleInput}
+                  class={tw`m-5 `}
                 ></o-slider>
                 <o-input
-                  class={tw` w-1/2`}
                   value={this.valueInput}
                   oninput={this.handleInput}
+                  class={tw`m-5 relative`}
                 ></o-input>
               </div>
               <div>
@@ -179,13 +178,13 @@ export default class extends WeElement<Props> {
                   min="0"
                   max="100"
                   value={this.valueChange}
-                  class={tw`w-4/5`}
                   onchange={this.handleChange}
+                  class={tw`m-5 `}
                 ></o-slider>
                 <o-input
-                  class={tw`w-1/2`}
                   value={this.valueChange}
                   oninput={this.handleChange}
+                  class={tw`m-5 `}
                 ></o-input>
               </div>
             </div>
@@ -226,14 +225,14 @@ export default class extends WeElement<Props> {
           </code-demo>
           <code-demo
             title={'不同大小'}
-            describe={'支持三种预设样式，slim， normal， large'}
+            describe={'支持三种预设样式，small， normal， large'}
             code={this.mdF}
           >
             <o-slider
               min="0"
               max="100"
               value="20"
-              size="slim"
+              size="small"
               slot="demo"
               class={tw`p-5`}
             ></o-slider>

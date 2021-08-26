@@ -113,6 +113,9 @@ export default class OSlider extends WeElement<Props> {
     this.props.orient === 'vertical' &&
       (host.style.transform = 'rotate(-90deg)')
     this.props.reversed && (host.style.transform = 'rotate(180deg)')
+    this.props.reversed &&
+      this.props.orient === 'vertical' &&
+      (host.style.transform = 'rotate(-270deg)')
   }
 
   _onGetValue = () => {
