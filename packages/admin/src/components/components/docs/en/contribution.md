@@ -114,7 +114,7 @@ add them in /omi/packages/admin/src/nav-tree.ts
 
 ```js
 {
-    label: localeMap.base.Name,
+    label: i18n.t('Name'),
     id: genId(),
     href: '#/name-component'
 },

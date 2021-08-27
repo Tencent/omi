@@ -15,12 +15,16 @@ export const t = (key: string, messages: Object) => {
 
 export const createI18n = (options: { locale: Language; messages: Object }) => {
   let locale = options.locale || 'zh'
-
-  return {
+  const i18n = {
     locale,
+    setLocale: (locale: Language) => {
+      i18n.locale = locale
+      i18n.t = (key: string) => t(key, messages[locale])
+    },
     t: (key: string) => t(key, messages[locale]),
-    messages: messages[locale]
+    messages
   }
+  return i18n
 }
 
 // import i18n resources

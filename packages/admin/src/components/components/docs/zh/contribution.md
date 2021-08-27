@@ -114,7 +114,7 @@ components.map((componentName: string) =>
 
 ```js
 {
-    label: localeMap.base.Name,
+    label: i18n.t('Name'),
     id: genId(),
     href: '#/name-component'
 },

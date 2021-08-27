@@ -1,3 +1,6 @@
+test:
+  a: "I am A"
+
 ManagerWorkbench: "Manager Workbench"
 Welcome: "Welcome"
 Theme: "Theme"

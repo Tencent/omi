@@ -4,7 +4,8 @@ import { setTheme } from '@omiu/common'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
-import '@omiu/select'
+// import '@omiu/select'
+import '../../../../../components/select/src/index'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
 import '@omiu/icon/git-hub'
@@ -57,16 +58,13 @@ export default class extends WeElement<Props> {
   }
 
   onItemSelect = (evt) => {
-    console.log(evt)
-
     this.store.setLocals(evt.detail.value)
-    console.log('setlocals', evt.detail.value)
   }
 
   goNotification = () => {
     // header-tabs是否存在‘通知中心’，存在则tab为Object
     const tab = this.store.tabs.find(
-      (tab) => tab.label === this.store.localeMap.base.NotificationList
+      (tab) => tab.label === i18n.t('NotificationList')
     )
 
     // 如果tab栏无通知中心，则store push
@@ -76,12 +74,8 @@ export default class extends WeElement<Props> {
       location.hash = tab.href
     } else {
       const notificationTab = this.store.treeData
-        .find(
-          (item) => item.label === this.store.localeMap.base.ManagerWorkbench
-        )
-        .children.find(
-          (item) => item.label === this.store.localeMap.base.NotificationList
-        )
+        .find((item) => item.label === i18n.t('ManagerWorkbench'))
+        .children.find((item) => item.label === i18n.t('NotificationList'))
       this.store.tabs.push(notificationTab)
       this.store.tabsActiveIndex = this.store.tabs.length - 1
       this.store.selectTreeNodeById(notificationTab.id)
@@ -92,7 +86,7 @@ export default class extends WeElement<Props> {
   goPersonalCenter = () => {
     // 待页面搭建完成后开放
     const tab = this.store.tabs.find(
-      (tab) => tab.label === this.store.localeMap.base.PersonalCenter
+      (tab) => tab.label === i18n.t('PersonalCenter')
     )
 
     if (tab) {
@@ -101,12 +95,8 @@ export default class extends WeElement<Props> {
       location.hash = tab.href
     } else {
       const PersonalCenterTab = this.store.treeData
-        .find(
-          (item) => item.label === this.store.localeMap.base.ManagerWorkbench
-        )
-        .children.find(
-          (item) => item.label === this.store.localeMap.base.PersonalCenter
-        )
+        .find((item) => item.label === i18n.t('ManagerWorkbench'))
+        .children.find((item) => item.label === i18n.t('PersonalCenter'))
       this.store.tabs.push(PersonalCenterTab)
       this.store.tabsActiveIndex = this.store.tabs.length - 1
       this.store.selectTreeNodeById(PersonalCenterTab.id)
