@@ -59,6 +59,9 @@ export default class extends WeElement<Props> {
 
   onItemSelect = (evt) => {
     this.store.setLocals(evt.detail.value)
+    // dispatch event to update basic-layout
+    // any better solution?
+    window.dispatchEvent(new Event('resize'))
   }
 
   goNotification = () => {

@@ -14,7 +14,6 @@ export default defineConfig({
       external: /^omi/,
       input: {
         main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'demo.html'),
       },
     },
   },

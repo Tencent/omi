@@ -60,6 +60,8 @@ export default class extends WeElement {
     tagName: 'admin-main-welcome'
   }
 
+  i18n
+
   transition
 
   payload

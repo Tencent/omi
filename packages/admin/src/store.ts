@@ -77,9 +77,11 @@ class Store {
   setLocals(locale: Language, callback?) {
     resetId()
 
+    this.locale = locale
     i18n.setLocale(locale)
 
     callback && callback()
+
     this.treeData = genNavTree()
 
     this.tabs.forEach((tab) => {
