@@ -18,6 +18,7 @@
   position: absolute;
   z-index: 1;
   background: transparent;
+  cursor: pointer;
 }
 .slider-container .o-slider:focus {
   outline: none;
@@ -610,5 +611,3 @@
   pointer-events: none;
   border-color: #c0c4cc;
 }
-
-/*# sourceMappingURL=index.css.map */
