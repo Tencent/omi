@@ -1,6 +1,6 @@
 {
   "name": "@omiu/tree",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Components that show tree nested data structures.",
   "docsExtend": {
     "cnName": "树形控件",

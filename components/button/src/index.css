@@ -82,21 +82,21 @@
   border-color: var(--o-primary, #07c160);
 }
 .o-button-primary:disabled, .o-button-primary:disabled:hover {
-  background-color: var(--o-primary-fade-lot, );
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));
 }
 .o-button-primary.is-plain {
   color: var(--o-primary, #07c160);
-  background-color: var(--o-primary-fade-lot, );
-  border-color: var(--o-primary-fade-some, );
+  background-color: var(--o-primary-fade-lot, rgba(7, 193, 96, 0.1));
+  border-color: var(--o-primary-fade-some, rgba(7, 193, 96, 0.382));
 }
 .o-button-primary:hover {
-  background-color: var(--o-primary-fade-little, );
-  border-color: var(--o-primary-fade-little, );
+  background-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));
+  border-color: var(--o-primary-fade-little, rgba(7, 193, 96, 0.618));
   color: #fff;
 }
 .o-button-primary:active {
-  background-color: var(--o-primary-active, );
-  border-color: var(--o-primary-active, );
+  background-color: var(--o-primary-active, #059048);
+  border-color: var(--o-primary-active, #059048);
   color: #fff;
 }
 .o-button-success {
@@ -105,21 +105,21 @@
   border-color: var(--o-success, #07c160);
 }
 .o-button-success:disabled, .o-button-success:disabled:hover {
-  background-color: var(--o-success-fade-lot, );
+  background-color: var(--o-success-fade-lot, rgba(7, 193, 96, 0.1));
 }
 .o-button-success.is-plain {
   color: var(--o-success, #07c160);
-  background-color: var(--o-success-fade-lot, );
-  border-color: var(--o-success-fade-some, );
+  background-color: var(--o-success-fade-lot, rgba(7, 193, 96, 0.1));
+  border-color: var(--o-success-fade-some, rgba(7, 193, 96, 0.382));
 }
 .o-button-success:hover {
-  background-color: var(--o-success-fade-little, );
-  border-color: var(--o-success-fade-little, );
+  background-color: var(--o-success-fade-little, rgba(7, 193, 96, 0.618));
+  border-color: var(--o-success-fade-little, rgba(7, 193, 96, 0.618));
   color: #fff;
 }
 .o-button-success:active {
-  background-color: var(--o-success-active, );
-  border-color: var(--o-success-active, );
+  background-color: var(--o-success-active, #059048);
+  border-color: var(--o-success-active, #059048);
   color: #fff;
 }
 .o-button-warning {
@@ -128,21 +128,21 @@
   border-color: var(--o-warning, #f2711c);
 }
 .o-button-warning:disabled, .o-button-warning:disabled:hover {
-  background-color: var(--o-warning-fade-lot, );
+  background-color: var(--o-warning-fade-lot, rgba(242, 113, 28, 0.1));
 }
 .o-button-warning.is-plain {
   color: var(--o-warning, #f2711c);
-  background-color: var(--o-warning-fade-lot, );
-  border-color: var(--o-warning-fade-some, );
+  background-color: var(--o-warning-fade-lot, rgba(242, 113, 28, 0.1));
+  border-color: var(--o-warning-fade-some, rgba(242, 113, 28, 0.382));
 }
 .o-button-warning:hover {
-  background-color: var(--o-warning-fade-little, );
-  border-color: var(--o-warning-fade-little, );
+  background-color: var(--o-warning-fade-little, rgba(242, 113, 28, 0.618));
+  border-color: var(--o-warning-fade-little, rgba(242, 113, 28, 0.618));
   color: #fff;
 }
 .o-button-warning:active {
-  background-color: var(--o-warning-active, );
-  border-color: var(--o-warning-active, );
+  background-color: var(--o-warning-active, #cf590c);
+  border-color: var(--o-warning-active, #cf590c);
   color: #fff;
 }
 .o-button-danger {
@@ -151,21 +151,21 @@
   border-color: var(--o-danger, #fa5151);
 }
 .o-button-danger:disabled, .o-button-danger:disabled:hover {
-  background-color: var(--o-danger-fade-lot, );
+  background-color: var(--o-danger-fade-lot, rgba(250, 81, 81, 0.1));
 }
 .o-button-danger.is-plain {
   color: var(--o-danger, #fa5151);
-  background-color: var(--o-danger-fade-lot, );
-  border-color: var(--o-danger-fade-some, );
+  background-color: var(--o-danger-fade-lot, rgba(250, 81, 81, 0.1));
+  border-color: var(--o-danger-fade-some, rgba(250, 81, 81, 0.382));
 }
 .o-button-danger:hover {
-  background-color: var(--o-danger-fade-little, );
-  border-color: var(--o-danger-fade-little, );
+  background-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));
+  border-color: var(--o-danger-fade-little, rgba(250, 81, 81, 0.618));
   color: #fff;
 }
 .o-button-danger:active {
-  background-color: var(--o-danger-active, );
-  border-color: var(--o-danger-active, );
+  background-color: var(--o-danger-active, #f91f1f);
+  border-color: var(--o-danger-active, #f91f1f);
   color: #fff;
 }
 .o-button-info {
@@ -174,21 +174,21 @@
   border-color: var(--o-info, #42b8dd);
 }
 .o-button-info:disabled, .o-button-info:disabled:hover {
-  background-color: var(--o-info-fade-lot, );
+  background-color: var(--o-info-fade-lot, rgba(66, 184, 221, 0.1));
 }
 .o-button-info.is-plain {
   color: var(--o-info, #42b8dd);
-  background-color: var(--o-info-fade-lot, );
-  border-color: var(--o-info-fade-some, );
+  background-color: var(--o-info-fade-lot, rgba(66, 184, 221, 0.1));
+  border-color: var(--o-info-fade-some, rgba(66, 184, 221, 0.382));
 }
 .o-button-info:hover {
-  background-color: var(--o-info-fade-little, );
-  border-color: var(--o-info-fade-little, );
+  background-color: var(--o-info-fade-little, rgba(66, 184, 221, 0.618));
+  border-color: var(--o-info-fade-little, rgba(66, 184, 221, 0.618));
   color: #fff;
 }
 .o-button-info:active {
-  background-color: var(--o-info-active, );
-  border-color: var(--o-info-active, );
+  background-color: var(--o-info-active, #24a1c8);
+  border-color: var(--o-info-active, #24a1c8);
   color: #fff;
 }
 
@@ -216,3 +216,5 @@
     transform: rotate3d(0, 0, 1, 360deg);
   }
 }
+
+/*# sourceMappingURL=index.css.map */

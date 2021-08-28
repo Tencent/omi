@@ -48,7 +48,7 @@
     "@omiu/radio": "^0.0.6",
     "@omiu/rate": "^0.0.9",
     "@omiu/select": "^0.0.13",
-    "@omiu/slider": "0.0.11",
+    "@omiu/slider": "0.0.13",
     "@omiu/steps": "^0.0.5",
     "@omiu/switch": "^0.0.2",
     "@omiu/table": "^0.0.17",

@@ -1,6 +1,6 @@
 import { WeElement } from 'omi'
 import { genNavTree, NavTree } from './nav-tree'
-import { getNotifications } from './notifications'
+import { getNotifications } from './service/notifications'
 import { resetId } from './util/id'
 import { route } from 'omi-router'
 import type { Language } from './modules/i18n'

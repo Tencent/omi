@@ -38,7 +38,7 @@ import '@omiu/slider'
   step?: number
   value?: number
   second_value?: number
-  size: 'slim' | 'normal' | 'large'
+  size: 'small' | 'normal' | 'large'
   range: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
