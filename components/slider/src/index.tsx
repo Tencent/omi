@@ -4,13 +4,13 @@ import '@omiu/tooltip'
 import '@omiu/input'
 
 interface Props {
-  min?: number
-  max?: number
+  min: number
+  max: number
   step?: number
-  value?: number
+  value: number
   second_value?: number
-  size: 'small' | 'normal' | 'large'
-  range: 'single' | 'double'
+  size?: 'small' | 'normal' | 'large'
+  range?: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
   shape: 'square' | 'round'
   tooltip?: boolean
@@ -53,49 +53,26 @@ export default class OSlider extends WeElement<Props> {
 
   static css = css.default ? css.default : css
 
-  __$value1: any
-  __$value2: any
-  Max: any
-  Min: any
-
+  __$v1: any
+  __$v2: any
+  max: any
+  min: any
   rootNode: HTMLElement
   sliderOneRef: HTMLInputElement
   sliderTwoRef: HTMLInputElement
   sliderTrack: HTMLElement
-
   lowerColor = '#07c160'
   upperColor = '#f0f0f0'
 
   install() {
-    // const propsTest = ["value", "max", "min", ""]
-    try {
-      if (this.props.value === undefined) {
-        throw new ReferenceError('empty value')
-      }
+    this.checkInvalidInputs()
 
-      if (this.props.max === undefined) {
-        throw new ReferenceError('empty max value')
-      }
-
-      if (this.props.min === undefined) {
-        throw new ReferenceError('empty min value')
-      }
-
-      if (
-        this.props.range === 'double' &&
-        this.props.second_value === undefined
-      ) {
-        throw new ReferenceError('empty second value')
-      }
-    } catch (e: any) {
-      console.log(e.stack)
-    }
-    this.__$value1 = this.props.value
-    this.Max = this.props.max
-    this.Min = this.props.min
+    this.__$v1 = this.props.value
+    this.max = this.props.max
+    this.min = this.props.min
     this.props.range === 'double'
-      ? (this.__$value2 = this.props.second_value)
-      : (this.__$value2 = null)
+      ? (this.__$v2 = this.props.second_value)
+      : (this.__$v2 = null)
 
     Object.defineProperty(this, 'value', {
       get: this._onGetValue,
@@ -108,7 +85,43 @@ export default class OSlider extends WeElement<Props> {
   }
 
   installed() {
+    this.applyTransform()
     this.fillColor(this.lowerColor, this.upperColor)
+  }
+
+  beforeUpdate() {
+    if (this.__$v1 > this.__$v2 && this.props.range === 'double') {
+      const temp = this.__$v1
+      this.__$v1 = this.__$v2
+      this.__$v2 = temp
+    }
+  }
+
+  updated() {
+    this.fillColor('#059048', '#d9d9d9')
+  }
+
+  _onGetValue = () => {
+    return this.__$v1
+  }
+
+  _onSetValue = (value: any) => {
+    this.__$v1 = value
+    this.props.value = value
+    this.setAttribute('value', value)
+  }
+
+  _onGetValue2 = () => {
+    return this.__$v2
+  }
+
+  _onSetValue2 = (value: any) => {
+    this.__$v2 = value
+    this.props.second_value = value
+    this.setAttribute('second_value', value)
+  }
+
+  applyTransform() {
     let host = this.shadowRoot?.host as HTMLElement
     this.props.orient === 'vertical' &&
       (host.style.transform = 'rotate(-90deg)')
@@ -118,50 +131,49 @@ export default class OSlider extends WeElement<Props> {
       (host.style.transform = 'rotate(-270deg)')
   }
 
-  _onGetValue = () => {
-    return this.__$value1
-  }
+  checkInvalidInputs() {
+    console.assert(this.props.value !== undefined, 'empty value')
+    console.assert(this.props.min !== undefined, 'empty min')
+    console.assert(this.props.max !== undefined, 'empty max')
 
-  _onSetValue = (value: any) => {
-    this.__$value1 = value
-    this.props.value = value
-    this.setAttribute('value', value)
-  }
+    console.assert(
+      this.props.size === 'small' ||
+        this.props.size === 'normal' ||
+        this.props.size === 'large',
+      'invalid size option'
+    )
+    console.assert(
+      this.props.range === 'single' || this.props.range === 'double',
+      'invalid range option'
+    )
+    console.assert(
+      this.props.orient === 'vertical' || this.props.orient === 'horizontal',
+      'invalid orient option'
+    )
+    console.assert(
+      this.props.shape === 'round' || this.props.shape === 'square',
+      'invalid shape option'
+    )
 
-  _onGetValue2 = () => {
-    return this.__$value2
-  }
-
-  _onSetValue2 = (value: any) => {
-    this.__$value2 = value
-    this.props.second_value = value
-    this.setAttribute('second_value', value)
-  }
-
-  beforeUpdate() {
-    if (this.__$value1 > this.__$value2 && this.props.range === 'double') {
-      const temp = this.__$value1
-      this.__$value1 = this.__$value2
-      this.__$value2 = temp
-    }
-  }
-
-  updated() {
-    this.fillColor('#059048', '#d9d9d9')
+    this.props.range === 'double' &&
+      console.assert(
+        this.props.second_value !== undefined,
+        'empty second value'
+      )
   }
 
   handleS1Input = (evt: any) => {
     evt.stopPropagation()
     const first_value = parseInt(this.sliderOneRef.value)
-    if (first_value <= this.__$value2 || this.props.range === 'single') {
+    if (first_value <= this.__$v2 || this.props.range === 'single') {
       //  if the slider 1 has not exceeded slider2 or it is a single range slider
       //  assign value straight away
-      this.__$value1 = first_value
+      this.__$v1 = first_value
     }
     if (this.props.range === 'single') {
-      this.fire('input', this.__$value1)
+      this.fire('input', this.__$v1)
     } else {
-      this.fire('input', [this.__$value1, this.__$value2])
+      this.fire('input', [this.__$v1, this.__$v2])
     }
     this.update()
   }
@@ -170,34 +182,29 @@ export default class OSlider extends WeElement<Props> {
     evt.stopPropagation()
     const second_value = parseInt(this.sliderTwoRef.value)
     //we only have one case if slider two exists
-    if (second_value >= this.__$value1) {
-      this.__$value2 = second_value
+    if (second_value >= this.__$v1) {
+      this.__$v2 = second_value
     }
-    this.fire('input', [this.__$value1, this.__$value2])
+    this.fire('input', [this.__$v1, this.__$v2])
     this.update()
   }
 
   handleS1Change = (evt: any) => {
     evt.stopPropagation()
     if (this.props.range === 'single') {
-      this.fire('change', this.__$value1)
+      this.fire('change', this.__$v1)
     } else {
-      this.fire('change', [this.__$value1, this.__$value2])
+      this.fire('change', [this.__$v1, this.__$v2])
     }
   }
 
   handleS2Change = (evt: any) => {
     evt.stopPropagation()
-    this.fire('change', [this.__$value1, this.__$value2])
+    this.fire('change', [this.__$v1, this.__$v2])
   }
 
   fillColor = (lowerColor: string, upperColor: string) => {
-    const range = this.Max - this.Min
-    const v1 = range - this.Max + this.__$value1
-    const v2 = this.__$value2 && range - this.Max + this.__$value2
-    let percent1 = this.props.range === 'double' ? (v1 / range) * 100 : 0
-    let percent2 =
-      this.props.range === 'double' ? (v2 / range) * 100 : (v1 / range) * 100
+    const [percent1, percent2] = this.calcPercent()
 
     if (this.props.disabled) {
       lowerColor = '#c0c4cc'
@@ -205,6 +212,16 @@ export default class OSlider extends WeElement<Props> {
     this.props.range === 'double'
       ? (this.sliderTrack.style.background = `linear-gradient(to right, ${upperColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
       : (this.sliderTrack.style.background = `linear-gradient(to right, ${lowerColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
+  }
+
+  calcPercent() {
+    const range = this.max - this.min,
+      v1 = range - this.max + this.__$v1,
+      v2 = this.__$v2 && range - this.max + this.__$v2,
+      percent1 = this.props.range === 'double' ? (v1 / range) * 100 : 0,
+      percent2 =
+        this.props.range === 'double' ? (v2 / range) * 100 : (v1 / range) * 100
+    return [percent1, percent2]
   }
 
   handleMouseUp = () => {
@@ -220,12 +237,12 @@ export default class OSlider extends WeElement<Props> {
   }
 
   MouseMove = (evt: any) => {
-    const range = this.Max - this.Min,
+    const range = this.max - this.min,
       clickPoint = evt.offsetX / this.sliderOneRef.offsetWidth,
-      clickPointVal = range * clickPoint + this.Min
+      clickPointVal = range * clickPoint + this.min
     /* absolute distance from respective slider values */
-    const da = Math.abs(this.__$value1 - clickPointVal),
-      db = Math.abs(this.__$value2 - clickPointVal)
+    const da = Math.abs(this.__$v1 - clickPointVal),
+      db = Math.abs(this.__$v2 - clickPointVal)
     // Making the two sliders appear above one another only when no mouse button is pressed, this condition may be removed at will
     if (this.props.range === 'double') {
       if (!evt.buttons) {
@@ -256,7 +273,7 @@ export default class OSlider extends WeElement<Props> {
         min={props.min}
         max={props.max}
         step={props.step}
-        value={this.__$value1}
+        value={this.__$v1}
         onInput={this.handleS1Input}
         onChange={this.handleS1Change}
         onMouseUp={this.handleMouseUp}
@@ -274,7 +291,7 @@ export default class OSlider extends WeElement<Props> {
         type="range"
         min={props.min}
         max={props.max}
-        value={this.__$value2}
+        value={this.__$v2}
         onInput={this.handleS2Input}
         onChange={this.handleS2Change}
         onMouseUp={this.handleMouseUp}
@@ -299,8 +316,8 @@ export default class OSlider extends WeElement<Props> {
             effect="dark"
             content={
               this.props.range === 'double'
-                ? `${this.__$value1} , ${this.__$value2}`
-                : this.__$value1
+                ? `${this.__$v1} , ${this.__$v2}`
+                : this.__$v1
             }
           >
             {sliderOne}
@@ -317,8 +334,8 @@ export default class OSlider extends WeElement<Props> {
               effect="dark"
               content={
                 this.props.range === 'double'
-                  ? `${this.__$value1} , ${this.__$value2}`
-                  : this.__$value1
+                  ? `${this.__$v1} , ${this.__$v2}`
+                  : this.__$v1
               }
             >
               {sliderTwo}
