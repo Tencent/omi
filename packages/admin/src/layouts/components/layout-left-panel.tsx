@@ -55,7 +55,11 @@ export default class extends WeElement<Props> {
 
   store
 
-  onNodeClick = (evt) => {
+  /**
+   * 节点被点击
+   * @param evt
+   */
+  onNodeClick = (evt: CustomEvent) => {
     if (!evt.detail.children) {
       const tab = this.store.tabs.find((tab) => tab.id === evt.detail.id)
       if (tab) {

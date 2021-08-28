@@ -1,6 +1,9 @@
 export type Language = 'zh' | 'en'
 export const languages: Language[] = ['en', 'zh']
 
+import en from '~/locales/en.yml'
+import zh from '~/locales/zh.yml'
+
 export const t = (key: string, messages: Object) => {
   if (!key) return ''
 
@@ -31,20 +34,19 @@ export const createI18n = (options: { locale: Language; messages: Object }) => {
 // https://vitejs.dev/guide/features.html#glob-import
 const relativePath = '../locales/'
 
-export const messages = Object.fromEntries(
-  // globEager can not use variable
-  Object.entries(import.meta.globEager('../locales/*.y(a)?ml')).map(
-    ([key, value]) => {
-      const yaml = key.endsWith('.yaml')
-      return [key.slice(relativePath.length, yaml ? -5 : -4), value.default]
-    }
-  )
-)
+// export const messages = Object.fromEntries(
+//   // globEager can not use variable
+//   Object.entries(import.meta.globEager('../locales/*.y(a)?ml')).map(
+//     ([key, value]) => {
+//       const yaml = key.endsWith('.yaml')
+//       return [key.slice(relativePath.length, yaml ? -5 : -4), value.default]
+//     }
+//   )
+// )
 
-export const useI18n = () => {
-  return {
-    t
-  }
+export const messages = {
+  en,
+  zh
 }
 
 export const install = () => {
@@ -54,3 +56,12 @@ export const install = () => {
   })
   return i18n
 }
+
+export const i18n = createI18n({
+  locale: 'zh',
+  messages
+})
+
+export type I18nType = ReturnType<typeof createI18n>
+
+export default i18n

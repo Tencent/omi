@@ -10,7 +10,7 @@ import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
 import '@omiu/icon/git-hub'
 import '@omiu/badge'
-import { i18n } from '~/index'
+import { i18n } from '~/modules/i18n'
 
 interface Props {}
 
@@ -58,7 +58,8 @@ export default class extends WeElement<Props> {
   }
 
   onItemSelect = (evt) => {
-    this.store.setLocals(evt.detail.value)
+    const locale = evt.detail.value
+    this.store.setLocale(locale)
     // dispatch event to update basic-layout
     // any better solution?
     window.dispatchEvent(new Event('resize'))
@@ -126,7 +127,7 @@ export default class extends WeElement<Props> {
             `}
                 size="mini"
                 onItemSelect={this.onItemSelect}
-                value={this.store.locale}
+                value={this.store.i18n.locale}
                 items={this.items}
               ></o-select>
             </div>

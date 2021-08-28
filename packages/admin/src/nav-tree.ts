@@ -5,7 +5,7 @@ import {
   getContribution
 } from './components/components/docs/config'
 import { genId } from './util/id'
-import { i18n } from '.'
+import type { I18nType } from '~/modules/i18n'
 
 export interface NavTree {
   id?: number
@@ -28,8 +28,8 @@ interface ComponentChild {
   href: string
 }
 
-export function genNavTree() {
-  const navTree: NavTree = [
+export function genNavTree(i18n: I18nType) {
+  const navTree: NavTree[] = [
     {
       label: i18n.t('ManagerWorkbench'),
       expanded: true,

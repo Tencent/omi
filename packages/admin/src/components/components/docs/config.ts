@@ -1,4 +1,4 @@
-import { i18n } from '~/index'
+import { i18n } from '~/modules/i18n'
 import { genId } from '../../../util/id'
 
 export const getIntroductionNode = () => {
