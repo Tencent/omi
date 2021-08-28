@@ -18,7 +18,6 @@ class Store {
   }
   markdown: string
   html: string
-  _isInstalled: boolean
   tabs: {
     label?: string
     href?: string
@@ -65,8 +64,6 @@ class Store {
 
       this.notifications = getNotifications()
     })
-
-    this._isInstalled = false
 
     route.before = (evt) => {
       if (window.innerWidth <= 640) {
