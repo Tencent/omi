@@ -1,24 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu Tree</title>
+    <script type="module" src="/src/index.tsx"></script>
+  </head>
 
-<head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <meta charset="UTF-8" />
-  <title>Omiu Tree</title>
-</head>
+  <body>
+    <a
+      href="https://github.com/Tencent/omi"
+      target="_blank"
+      style="position: fixed; right: 0; top: 0; z-index: 3"
+    >
+      <img src="//alloyteam.github.io/github.png" alt="" />
+    </a>
+    <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+    <script src="../../src/index.js"></script>
+    <script src="../../../icon/ac-unit-outlined.js"></script>
+    <script src="../../../icon/accessible-rounded.js"></script>
 
-<body>
-
-  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
-    <img src="//alloyteam.github.io/github.png" alt="">
-  </a>
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-  <script src="../../src/index.js"></script>
-  <script src="../../../icon/ac-unit-outlined.js"></script>
-  <script src="../../../icon/accessible-rounded.js"></script>
-
-  <div>
-    <o-tree style="width:400px;" data="[{
+    <div>
+      <o-tree
+        style="width: 400px"
+        data="[{
       label: '一级 1',
 
       expanded: true,
@@ -76,30 +82,28 @@
         }]
       }]
 
-    }]">
-    </o-tree>
-  </div>
+    }]"
+      >
+      </o-tree>
+    </div>
 
-  <script>
-    const treeEle = document.querySelector('o-tree')
-    treeEle.addEventListener('node-click', function (evt) {
-      console.log(evt.detail)
-    })
+    <script>
+      const treeEle = document.querySelector('o-tree')
+      treeEle.addEventListener('node-click', function (evt) {
+        console.log(evt.detail)
+      })
 
-    treeEle.addEventListener('context-menu', function (evt) {
-      console.log(evt.detail)
-    })
+      treeEle.addEventListener('context-menu', function (evt) {
+        console.log(evt.detail)
+      })
 
-    treeEle.addEventListener('action-icon-click', function (evt) {
-      console.log(evt.detail)
-    })
+      treeEle.addEventListener('action-icon-click', function (evt) {
+        console.log(evt.detail)
+      })
 
-
-    setTimeout(function () {
-      treeEle.fold()
-    }, 1000)
-
-  </script>
-</body>
-
+      setTimeout(function () {
+        treeEle.fold()
+      }, 1000)
+    </script>
+  </body>
 </html>
