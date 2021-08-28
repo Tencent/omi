@@ -7,7 +7,7 @@ export const t = (key: string, messages: Object) => {
   const keyArr = key.split('.')
   const name = keyArr.shift()
   if (!keyArr.length) {
-    return messages[name]
+    return messages[name] || name
   } else {
     return t(keyArr.join('.'), messages[name])
   }
