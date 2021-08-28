@@ -4,13 +4,15 @@ import { setTheme } from '@omiu/common'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
-import '@omiu/select'
+// import '@omiu/select'
+import '../../../../../components/select/src/index'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
 import '@omiu/icon/git-hub'
 import '@omiu/badge'
+import { i18n } from '~/modules/i18n'
 
-interface Props { }
+interface Props {}
 
 const tagName = 'layout-header'
 declare global {
@@ -27,7 +29,10 @@ export default class extends WeElement<Props> {
 
   store
 
-  items = [{ label: '中文', value: 'zh' }, { label: 'English', value: 'en' }]
+  items = [
+    { label: '中文', value: 'zh' },
+    { label: 'English', value: 'en' }
+  ]
 
   isShowColorPicker: boolean = false
 
@@ -53,12 +58,18 @@ export default class extends WeElement<Props> {
   }
 
   onItemSelect = (evt) => {
-    this.store.setLocals(evt.detail.value)
+    const locale = evt.detail.value
+    this.store.setLocale(locale)
+    // dispatch event to update basic-layout
+    // any better solution?
+    window.dispatchEvent(new Event('resize'))
   }
 
   goNotification = () => {
     // header-tabs是否存在‘通知中心’，存在则tab为Object
-    const tab = this.store.tabs.find((tab) => tab.label === this.store.localeMap.base.NotificationList)
+    const tab = this.store.tabs.find(
+      (tab) => tab.label === i18n.t('NotificationList')
+    )
 
     // 如果tab栏无通知中心，则store push
     if (tab) {
@@ -66,7 +77,9 @@ export default class extends WeElement<Props> {
       this.store.selectTreeNodeById(tab.id)
       location.hash = tab.href
     } else {
-      const notificationTab = this.store.treeData.find((item) => item.label === this.store.localeMap.base.ManagerWorkbench).children.find((item) => item.label === this.store.localeMap.base.NotificationList)
+      const notificationTab = this.store.treeData
+        .find((item) => item.label === i18n.t('ManagerWorkbench'))
+        .children.find((item) => item.label === i18n.t('NotificationList'))
       this.store.tabs.push(notificationTab)
       this.store.tabsActiveIndex = this.store.tabs.length - 1
       this.store.selectTreeNodeById(notificationTab.id)
@@ -76,14 +89,18 @@ export default class extends WeElement<Props> {
 
   goPersonalCenter = () => {
     // 待页面搭建完成后开放
-    const tab = this.store.tabs.find((tab) => tab.label === this.store.localeMap.base.PersonalCenter)
+    const tab = this.store.tabs.find(
+      (tab) => tab.label === i18n.t('PersonalCenter')
+    )
 
     if (tab) {
       this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
       this.store.selectTreeNodeById(tab.id)
       location.hash = tab.href
     } else {
-      const PersonalCenterTab = this.store.treeData.find((item) => item.label === this.store.localeMap.base.ManagerWorkbench).children.find((item) => item.label === this.store.localeMap.base.PersonalCenter)
+      const PersonalCenterTab = this.store.treeData
+        .find((item) => item.label === i18n.t('ManagerWorkbench'))
+        .children.find((item) => item.label === i18n.t('PersonalCenter'))
       this.store.tabs.push(PersonalCenterTab)
       this.store.tabsActiveIndex = this.store.tabs.length - 1
       this.store.selectTreeNodeById(PersonalCenterTab.id)
@@ -97,26 +114,36 @@ export default class extends WeElement<Props> {
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
             <img class={tw`w-8 m-1 ml-3 flex-row`} src={logo} alt="logo" />
-            <h1 class={tw`ml-3 leading-10 text-gray-500 flex-row whitespace-nowrap`}>OMI ADMIN</h1>
+            <h1
+              class={tw`ml-3 leading-10 text-gray-500 flex-row whitespace-nowrap`}
+            >
+              OMI ADMIN
+            </h1>
             <div class={tw`flex-row mt-1.5 ml-3`}>
-              <o-select css={`
+              <o-select
+                css={`
             .o-select .o-input__inner {
               width: 117px;
-            `} size="mini"
+            `}
+                size="mini"
                 onItemSelect={this.onItemSelect}
-                value={this.store.locale} items={this.items}>
-              </o-select>
+                value={this.store.i18n.locale}
+                items={this.items}
+              ></o-select>
             </div>
           </div>
 
-          <div class={tw`flex flex-row text-gray-500 gap-x-4 items-center order-3 p-1 mr-3`}>
+          <div
+            class={tw`flex flex-row text-gray-500 gap-x-4 items-center order-3 p-1 mr-3`}
+          >
             <div class={tw`flex-row hidden md:block`}>
               <div
                 class={tw`cursor-pointer`}
                 onClick={this.toggle}
                 style={{ color: this.store.themeColor }}
               >
-                <o-icon-palette></o-icon-palette>{this.store.localeMap.base.Theme}
+                <o-icon-palette></o-icon-palette>
+                {i18n.t('Theme')}
               </div>
               {this.isShowColorPicker && (
                 <o-color-picker
@@ -132,20 +159,31 @@ export default class extends WeElement<Props> {
               )}
             </div>
 
-            <o-badge onClick={(e) => this.goNotification()}
+            <o-badge
+              onClick={(e) => this.goNotification()}
               content="99"
-              class={tw`flex-row cursor-pointer hidden md:block`}>
-              <o-icon-notifications ></o-icon-notifications>
+              class={tw`flex-row cursor-pointer hidden md:block`}
+            >
+              <o-icon-notifications></o-icon-notifications>
             </o-badge>
 
-            <o-icon-settings class={tw`flex-row cursor-pointer hidden md:block`}></o-icon-settings>
+            <o-icon-settings
+              class={tw`flex-row cursor-pointer hidden md:block`}
+            ></o-icon-settings>
 
-            <a href="https://github.com/Tencent/omi" target="_blank" class={tw`flex-row`}><o-icon-git-hub ></o-icon-git-hub></a>
+            <a
+              href="https://github.com/Tencent/omi"
+              target="_blank"
+              class={tw`flex-row`}
+            >
+              <o-icon-git-hub></o-icon-git-hub>
+            </a>
 
-            <o-avatar onClick={(e) => this.goPersonalCenter()}
+            <o-avatar
+              onClick={(e) => this.goPersonalCenter()}
               class={tw`flex-row cursor-pointer`}
-              src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png">
-            </o-avatar>
+              src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"
+            ></o-avatar>
           </div>
         </div>
       </div>

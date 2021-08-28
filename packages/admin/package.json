@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@rollup/plugin-yaml": "^3.1.0",
     "cross-env": "^7.0.3",
     "less": "^4.1.1",
     "sass": "^1.35.1",
@@ -18,9 +19,9 @@
     "@omiu/action-sheet": "^0.0.5",
     "@omiu/avatar": "^0.0.1",
     "@omiu/badge": "^0.0.2",
-    "@omiu/button": "^0.0.10",
     "@omiu/bottom-nav": "^0.0.2",
     "@omiu/breadcrumb": "^0.0.3",
+    "@omiu/button": "^0.0.10",
     "@omiu/card": "0.0.8",
     "@omiu/cascader": "^0.0.5",
     "@omiu/chart": "^0.0.5",

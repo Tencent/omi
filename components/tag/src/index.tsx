@@ -57,7 +57,6 @@ export default class Tag extends WeElement<TagProps> {
   closed = false
 
   render(props: TagProps) {
-    console.log(props)
     const extractedClass = extractClass(props, 'o-tag', {
       ['o-tag--' + props.size]: props.size,
       ['o-tag--' + props.type]: props.type,

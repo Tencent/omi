@@ -3,10 +3,7 @@ import { WeElement, render, h, tag } from 'omi'
 import { hashChange } from 'omi-router'
 import { registerRouting } from './router'
 
-import {
-  showLoading,
-  hideLoading
-} from '@omiu/toast'
+import { showLoading, hideLoading } from '@omiu/toast'
 
 //提前使用最新版本注册组件
 import '@omiu/popover'
@@ -36,6 +33,7 @@ import './components/admin-main-welcome'
 
 import { tw, sheet } from 'omi-twind'
 import Store from './store'
+import { i18n } from './modules/i18n'
 
 const fadeCSS = `.fade-leave-to,
 .fade-enter {
@@ -57,6 +55,8 @@ export default class extends WeElement {
     tagName: 'admin-main-welcome'
   }
 
+  i18n = i18n
+
   transition
 
   payload
@@ -77,6 +77,7 @@ export default class extends WeElement {
   async transitionTo(tagName) {
     showLoading()
     await this.transition.leave()
+
     this.data.tagName = tagName
     this.update()
     await this.transition.enter()
@@ -162,9 +163,11 @@ export default class extends WeElement {
   }
 }
 
-new Store({
-  locale: 'zh',
-  installed(store) {
-    render(<my-app name="Omi"></my-app>, '#root', store)
-  }
-})
+// config i18n default language in ~/modules/i18n
+render(
+  <my-app name="Omi"></my-app>,
+  '#root',
+  new Store({
+    i18n
+  })
+)
