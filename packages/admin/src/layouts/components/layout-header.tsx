@@ -11,7 +11,7 @@ import '@omiu/icon/git-hub'
 import '@omiu/badge'
 import { i18n } from '~/modules/i18n'
 
-interface Props { }
+interface Props {}
 
 const tagName = 'layout-header'
 declare global {
