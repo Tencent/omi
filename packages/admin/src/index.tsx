@@ -5,6 +5,8 @@ import { registerRouting } from './router'
 
 import { showLoading, hideLoading } from '@omiu/toast'
 
+import * as css from './index.scss'
+
 //提前使用最新版本注册组件
 import '@omiu/popover'
 import '@omiu/icon/delete'
@@ -24,8 +26,6 @@ import '@omiu/icon/pie-chart'
 import '@omiu/transition'
 import '@omiu/icon/edit'
 import '@omiu/icon/account-box'
-
-import './index.css'
 
 import './layouts/basic-layout'
 import './layouts/components/layout-container'
@@ -49,7 +49,7 @@ const fadeCSS = `.fade-leave-to,
 
 @tag('my-app')
 export default class extends WeElement {
-  static css = [sheet.target, fadeCSS]
+  static css = [sheet.target, fadeCSS, css.default ? css.default : css]
 
   data = {
     tagName: 'admin-main-welcome'
