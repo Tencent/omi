@@ -1,10 +1,10 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
-import '../../../../../components/tree/src/index'
+import '@omiu/tree'
 import '@omiu/hamburger-menu'
 import '@omiu/tooltip'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'layout-left-panel'
 declare global {

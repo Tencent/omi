@@ -4,15 +4,14 @@ import { setTheme } from '@omiu/common'
 import logo from '../../assets/logo.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
-// import '@omiu/select'
-import '../../../../../components/select/src/index'
+import '@omiu/select'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
 import '@omiu/icon/git-hub'
 import '@omiu/badge'
 import { i18n } from '~/modules/i18n'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'layout-header'
 declare global {
