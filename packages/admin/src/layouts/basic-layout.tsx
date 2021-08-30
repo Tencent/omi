@@ -1,12 +1,12 @@
 import { WeElement, h, tag } from 'omi'
 
-import '../index.css'
-
 import '@omiu/button'
 import '@omiu/tabs'
 import '@omiu/hamburger-menu'
 import './components/layout-header'
 import './components/layout-left-panel'
+
+import * as css from '../index.scss'
 
 import { tw, sheet } from 'omi-twind'
 
@@ -30,7 +30,8 @@ export default class extends WeElement {
   width: 0;
   transform: translateX(-100%);
 }
-`
+`,
+    css.default
   ]
 
   store
