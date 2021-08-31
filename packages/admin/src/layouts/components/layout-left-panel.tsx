@@ -55,7 +55,11 @@ export default class extends WeElement<Props> {
 
   store
 
-  onNodeClick = (evt) => {
+  /**
+   * 节点被点击
+   * @param evt
+   */
+  onNodeClick = (evt: CustomEvent) => {
     if (!evt.detail.children) {
       const tab = this.store.tabs.find((tab) => tab.id === evt.detail.id)
       if (tab) {
@@ -80,7 +84,6 @@ export default class extends WeElement<Props> {
     this.store.ui.leftPanel = this
   }
 
-
   onMenuChange = (evt) => {
     this.store.isLeftPanelClosed = evt.detail
     if (this.store.isLeftPanelClosed) {
@@ -92,18 +95,15 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div
-        style={`height:calc(100vh - 3rem)`}
-        class={tw`text-left relative`}
-      >
+      <div style={`height:calc(100vh - 3rem)`} class={tw`text-left relative`}>
         <o-hamburger-menu
           title="隐藏导航树"
           style="right:-2.5px"
           class={tw`absolute scale-50 z-10 top-0`}
           color="rgb(107, 114, 128)"
           active={!this.store.isLeftPanelClosed}
-          onchange={this.onMenuChange} >
-        </o-hamburger-menu>
+          onchange={this.onMenuChange}
+        ></o-hamburger-menu>
 
         <o-tree
           class={tw`pb-40`}

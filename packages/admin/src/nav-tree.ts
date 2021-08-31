@@ -27,16 +27,16 @@ interface ComponentChild {
   href: string
 }
 
-export function genNavTree(localeMap, locale) {
-  const navTree: NavTree = [
+export function genNavTree(i18n) {
+  const navTree: NavTree[] = [
     {
-      label: localeMap.base.ManagerWorkbench,
+      label: i18n.t('ManagerWorkbench'),
       expanded: true,
       id: genId(),
       children: [
         {
           sign: '💗',
-          label: localeMap.base.WelcomePage,
+          label: i18n.t('WelcomePage'),
           icon: 'emoji-people',
           color: '#07c160',
           selected: true,
@@ -45,53 +45,53 @@ export function genNavTree(localeMap, locale) {
         },
 
         {
-          label: localeMap.base.Dashboard,
+          label: i18n.t('Dashboard'),
           icon: 'pie-chart',
           href: '#/dashboard',
           id: genId()
         },
         {
-          label: localeMap.base.BasicList,
+          label: i18n.t('BasicList'),
           icon: 'grid-on',
           href: '#/basic-list',
           id: genId()
         },
         {
-          label: localeMap.base.Form,
+          label: i18n.t('Form'),
           expanded: true,
           id: genId(),
           href: '#/form',
           icon: 'list-alt'
         },
         {
-          label: localeMap.base.StepsForm,
+          label: i18n.t('StepsForm'),
           expanded: true,
           id: genId(),
           href: '#/steps-form',
           icon: 'list-alt'
         },
         {
-          label: localeMap.base.MarkdownEditor,
+          label: i18n.t('MarkdownEditor'),
           icon: 'edit',
           href: '#/md-editor',
           id: genId()
         },
         {
-          label: localeMap.base.MasonryList,
+          label: i18n.t('MasonryList'),
           expanded: true,
           id: genId(),
           href: '#/masonry-list',
           icon: 'dashboard'
         },
         {
-          label: localeMap.base.NotificationList,
+          label: i18n.t('NotificationList'),
           expanded: true,
           id: genId(),
           href: '#/notification-list',
           icon: 'notifications'
         },
         {
-          label: localeMap.base.PersonalCenter,
+          label: i18n.t('PersonalCenter'),
           expanded: true,
           id: genId(),
           href: '#/personal-center',
@@ -100,62 +100,62 @@ export function genNavTree(localeMap, locale) {
       ]
     },
     {
-      label: localeMap.base.Results,
+      label: i18n.t('Results'),
       expanded: true,
       id: genId(),
 
       children: [
         {
-          label: localeMap.base.Success,
+          label: i18n.t('Success'),
           // icon: 'error',
           href: '#/success',
           id: genId()
         },
         {
-          label: localeMap.base.Failure,
+          label: i18n.t('Failure'),
           // icon: 'warning',
           href: '#/failure',
           id: genId()
         },
         {
-          label: localeMap.base.BrowserIncompatible,
+          label: i18n.t('BrowserIncompatible'),
           id: genId(),
           href: '#/results/browser-incompatible'
         },
         {
-          label: localeMap.base.NetworkError,
+          label: i18n.t('NetworkError'),
           id: genId(),
           href: '#/results/network-error'
         },
         {
-          label: localeMap.base.NotFound,
+          label: i18n.t('NotFound'),
           id: genId(),
           href: '#/results/not-found'
         },
         {
-          label: localeMap.base.PermissionDenied,
+          label: i18n.t('PermissionDenied'),
           id: genId(),
           href: '#/results/permission-denied'
         },
         {
-          label: localeMap.base.ServerError,
+          label: i18n.t('ServerError'),
           id: genId(),
           href: '#/results/server-error'
         }
       ]
     },
     {
-      label: localeMap.base.Components,
+      label: i18n.t('Components'),
       expanded: true,
       id: genId(),
 
       children: [
-        getIntroductionNode(locale, localeMap),
-        getThemeNode(locale, localeMap),
-        getContribution(locale, localeMap),
+        getIntroductionNode(),
+        getThemeNode(),
+        getContribution(),
 
         {
-          label: localeMap.base.MaterialIcons,
+          label: i18n.t('MaterialIcons'),
           id: genId(),
           href: '#/icon'
           // icon: 'sentiment-satisfied-alt'
@@ -164,22 +164,21 @@ export function genNavTree(localeMap, locale) {
     },
 
     {
-      label: localeMap.base.Chart,
+      label: i18n.t('Chart'),
       expanded: true,
       id: genId(),
 
-      children: [
-      ]
+      children: []
     },
     {
-      label: localeMap.base.Others,
+      label: i18n.t('Others'),
       sign: '●',
       expanded: true,
       id: genId(),
       children: [
         {
           sign: '90020',
-          label: localeMap.base.Error,
+          label: i18n.t('Error'),
           icon: 'error',
           color: '#F56C6C',
           href: '#/error',
@@ -187,7 +186,7 @@ export function genNavTree(localeMap, locale) {
         },
         {
           sign: '993',
-          label: localeMap.base.Warning,
+          label: i18n.t('Warning'),
           icon: 'warning',
           color: '#E6A23C',
           href: '#/warning',
@@ -195,20 +194,20 @@ export function genNavTree(localeMap, locale) {
         },
         {
           sign: '993',
-          label: localeMap.base.Comment,
+          label: i18n.t('Comment'),
           icon: 'comment',
           href: '#/comment',
           id: genId()
         },
         {
-          label: localeMap.base.ExternalLink,
+          label: i18n.t('ExternalLink'),
           icon: 'insert-link',
           href: 'https://github.com/Tencent/omi',
           id: genId(),
           target: '_blank'
         },
         {
-          label: localeMap.base.MindMap,
+          label: i18n.t('MindMap'),
           icon: 'ac-unit',
           href: '#/mind-map',
           id: genId()
@@ -216,14 +215,14 @@ export function genNavTree(localeMap, locale) {
       ]
     },
     {
-      label: localeMap.base.MarkdownDocs,
+      label: i18n.t('MarkdownDocs'),
       expanded: true,
       id: genId(),
-      children: getDocsList(localeMap)
+      children: getDocsList()
     },
 
     {
-      label: localeMap.base.ManyThanksTo,
+      label: i18n.t('ManyThanksTo'),
       id: genId(),
       href: '#/thanks',
       icon: 'people-alt'
@@ -257,9 +256,14 @@ export function genNavTree(localeMap, locale) {
 
   omiuComponents.forEach((component) => {
     navTree[2].children.push({
-      label: localeMap.base[component.split('-').map(str => {
-        return str[0].toUpperCase() + str.slice(1)
-      }).join('')],
+      label: i18n.t(
+        component
+          .split('-')
+          .map((str) => {
+            return str[0].toUpperCase() + str.slice(1)
+          })
+          .join('')
+      ),
       id: genId(),
       href: `#/${component}-component`
     })
@@ -267,19 +271,19 @@ export function genNavTree(localeMap, locale) {
 
   navTree[2].children = navTree[2].children.concat([
     {
-      label: localeMap.base.BasicTable,
+      label: i18n.t('BasicTable'),
       icon: 'grid-on',
       href: '#/table/basic',
       id: genId()
     },
     {
-      label: localeMap.base.TableDeleteAnimation,
+      label: i18n.t('TableDeleteAnimation'),
       icon: 'grid-on',
       href: '#/table/pagination',
       id: genId()
     },
     {
-      label: localeMap.base.InlineEditing,
+      label: i18n.t('InlineEditing'),
       icon: 'grid-on',
       href: '#/table/edit',
       id: genId()
@@ -300,9 +304,14 @@ export function genNavTree(localeMap, locale) {
 
   omiuChart.forEach((chart) => {
     navTree[3].children.push({
-      label: localeMap.base[chart.split('-').map(str => {
-        return str[0].toUpperCase() + str.slice(1)
-      }).join('')],
+      label: i18n.t(
+        chart
+          .split('-')
+          .map((str) => {
+            return str[0].toUpperCase() + str.slice(1)
+          })
+          .join('')
+      ),
       id: genId(),
       href: `#/${chart}-chart`
     })

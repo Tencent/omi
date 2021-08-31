@@ -87,12 +87,14 @@ export function registerRouting(rootEl) {
   route('/docs/:name', (evt) => {
     //lazy load
     const md = rootEl.getMdByName(evt.params.name, rootEl.store.treeData)
-    md.then((e) => {
-      rootEl.payload = { mdContent: e.default, padding: 20 }
-      import('./components/docs/admin-docs').then(() =>
-        rootEl.transitionTo('admin-docs')
-      )
-    })
+    if (md) {
+      md.then((e) => {
+        rootEl.payload = { mdContent: e.default, padding: 20 }
+        import('./components/docs/admin-docs').then(() =>
+          rootEl.transitionTo('admin-docs')
+        )
+      })
+    }
   })
 
 
