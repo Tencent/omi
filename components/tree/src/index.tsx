@@ -6,11 +6,9 @@ interface Props {
   padding: number
 }
 
-
-
 @tag('o-tree')
-export default class Tree extends WeElement<Props>{
-  static css = css
+export default class Tree extends WeElement<Props> {
+  static css = css.default ? css.default : css
 
   static defaultProps = {
     padding: 10
@@ -57,7 +55,7 @@ export default class Tree extends WeElement<Props>{
   }
 
   fold() {
-    this.props.data.forEach(node => {
+    this.props.data.forEach((node) => {
       this._fold(node)
     })
 
@@ -69,7 +67,7 @@ export default class Tree extends WeElement<Props>{
   _fold(node) {
     node.expanded = false
     if (node.children) {
-      node.children.forEach(child => {
+      node.children.forEach((child) => {
         this._fold(child)
       })
     }
@@ -92,35 +90,26 @@ export default class Tree extends WeElement<Props>{
   prevBlurSelectedNode
 
   installed() {
-
     // window.addEventListener('click', (evt) => {
     //   this.prevSelectedNode.selected = false
     //   this.prevSelectedNode.selectedBlur = true
     //   this.prevBlurSelectedNode = this.prevSelectedNode
-
     //   this.prevSelectedNode = null
     //   this.forceUpdate()
     // })
-
     // window.addEventListener('keydown', (evt) => {
     //   //enter
     //   if (evt.keyCode === 13) {
     //     if (this.prevSelectedNode) {
     //       if (this.prevSelectedNode.editing) {
     //         this.prevSelectedNode.editing = false
-
     //         this.prevSelectedNode.label = this.editInput.value
-
     //         //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
     //         this.editInput.blur()
-
     //         this.forceUpdate()
-
-
     //       } else {
     //         this.prevSelectedNode.editing = true
     //         this.forceUpdate()
-
     //         this.editInput.focus()
     //       }
     //     }
@@ -141,52 +130,110 @@ export default class Tree extends WeElement<Props>{
     this._tempTagName = 'o-icon-' + node.icon
     this._nodeTagName = node.href ? 'a' : 'div'
     return (
-      <this._nodeTagName href={node.href} target={node.target} role="treeitem" onContextMenu={(evt) => { this.onContextMenu(evt, node) }} onClick={(evt) => {
-        evt.stopPropagation()
-        if (!(node.href && this.isURL(node.href))) {
-          this.onNodeClick(node)
-        }
-      }}
+      <this._nodeTagName
+        href={node.href}
+        target={node.target}
+        role="treeitem"
+        onContextMenu={(evt) => {
+          this.onContextMenu(evt, node)
+        }}
+        onClick={(evt) => {
+          evt.stopPropagation()
+          if (!(node.href && this.isURL(node.href))) {
+            this.onNodeClick(node)
+          }
+        }}
         {...extractClass({}, 'o-tree-node', {
           'is-expanded': node.expanded,
-          'is-current': node.selected,
+          'is-current': node.selected
           //'is-current-blur': node.selectedBlur
-        })}>
-        <div class="o-tree-node__content" style={`padding-left: ${level * this.props.padding}px;`}>
-          {(node.children && node.children.length > 0) ? <svg onClick={_ => this.onNodeArrowClick(node)} viewBox="0 0 1024 1024" {...extractClass({}, 'o-tree-node__expand-icon', {
-            'expanded': node.expanded,
-          })} data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
-            <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
-          </svg> : <span class="is-leaf o-tree-node__expand-icon"></span>}
-          <span style={node.color && { color: node.color }} {...extractClass({}, 'o-tree-node__label', {
-            'is-editing': node.editing
-          })} >{node.icon && <this._tempTagName />}
-            {node.editing ? <input value={node.label} onChange={this.onEditInputChange} onBlur={this.onEditInputBlur} ref={_ => this.editInput = _} class="edit-input" onClick={evt => evt.stopPropagation()} /> : node.label}</span>
+        })}
+      >
+        <div
+          class="o-tree-node__content"
+          style={`padding-left: ${level * this.props.padding}px;`}
+        >
+          {node.children && node.children.length > 0 ? (
+            <svg
+              onClick={(_) => this.onNodeArrowClick(node)}
+              viewBox="0 0 1024 1024"
+              {...extractClass({}, 'o-tree-node__expand-icon', {
+                expanded: node.expanded
+              })}
+              data-icon="caret-down"
+              width="1em"
+              height="1em"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
+            </svg>
+          ) : (
+            <span class="is-leaf o-tree-node__expand-icon"></span>
+          )}
+          <span
+            style={node.color && { color: node.color }}
+            {...extractClass({}, 'o-tree-node__label', {
+              'is-editing': node.editing
+            })}
+          >
+            {node.icon && <this._tempTagName />}
+            {node.editing ? (
+              <input
+                value={node.label}
+                onChange={this.onEditInputChange}
+                onBlur={this.onEditInputBlur}
+                ref={(_) => (this.editInput = _)}
+                class="edit-input"
+                onClick={(evt) => evt.stopPropagation()}
+              />
+            ) : (
+              node.label
+            )}
+          </span>
         </div>
-        {node.expanded && node.children && node.children.length > 0 && <div role="group" class="o-tree-node__children" style="" aria-expanded="true" data-old-padding-top="" data-old-padding-bottom="" data-old-overflow="">
-          {node.children.map(child => {
-            return this.renderNode(child, level + 1)
-          })}
-        </div>}
-        {
-          (!node.editing && node.actionIcons) &&
-          <div class="action-icons">
-            {node.actionIcons.map(actionIcon => {
-              this._tempTagName = 'o-icon-' + actionIcon
-              return <this._tempTagName onclick={_ => this.onActionIcon(_, actionIcon)} class="action-icon" />
+        {node.expanded && node.children && node.children.length > 0 && (
+          <div
+            role="group"
+            class="o-tree-node__children"
+            style=""
+            aria-expanded="true"
+            data-old-padding-top=""
+            data-old-padding-bottom=""
+            data-old-overflow=""
+          >
+            {node.children.map((child) => {
+              return this.renderNode(child, level + 1)
             })}
           </div>
-        }
-        {(!node.editing && node.sign) && <span style={node.color && { color: node.color }} class="sign">{node.sign}</span>}
+        )}
+        {!node.editing && node.actionIcons && (
+          <div class="action-icons">
+            {node.actionIcons.map((actionIcon) => {
+              this._tempTagName = 'o-icon-' + actionIcon
+              return (
+                <this._tempTagName
+                  onclick={(_) => this.onActionIcon(_, actionIcon)}
+                  class="action-icon"
+                />
+              )
+            })}
+          </div>
+        )}
+        {!node.editing && node.sign && (
+          <span style={node.color && { color: node.color }} class="sign">
+            {node.sign}
+          </span>
+        )}
       </this._nodeTagName>
     )
   }
 
   render(props) {
-
     return (
       <div role="tree" class="o-tree">
-        {props.data.map(node => {
+        {props.data.map((node) => {
           return this.renderNode(node, 0)
         })}
       </div>
