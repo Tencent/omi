@@ -20,13 +20,22 @@ $track-sizes: (
   'large': 6px,
 );
 
+:host {
+  display: -ms-grid;
+  display: grid;
+  --percent1: 0%;
+  --percent2: 0%;
+  --lower-color: var(--o-primary);
+  --upper-color: #f0f0f0;
+}
+
 @mixin thumb {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   position: relative;
   z-index: 2;
-  border: 2px solid $o-primary;
+  border: 2px solid var(--o-primary, map.get($--colors, 'primary', 'base'));
   border-radius: 50%;
   background-color: $o-surface;
   cursor: pointer;
@@ -35,10 +44,10 @@ $track-sizes: (
   transition: border-color 0.3s, box-shadow 0.6s,
     transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   &:active {
-    box-shadow: 0 0 0 5px $o-primary-fade-lot;
+    box-shadow: 0 0 0 5px var(--o-primary-fade-more, $o-primary-fade-more);
   }
   &:hover {
-    border-color: $o-primary-active;
+    border-color: var(--o-primary-active, $o-primary-active);
   }
 }
 
@@ -49,14 +58,20 @@ $track-sizes: (
   height: 4px;
 }
 
-:host {
-  display: -ms-grid;
-  display: grid;
-}
-
 .slider-container {
   position: relative;
   width: 100%;
+  &:active {
+    & .slider-track {
+      background: linear-gradient(
+        to right,
+        var(--upper-color) var(--percent1),
+        var(--o-primary-active, $o-primary-active) var(--percent1),
+        var(--o-primary-active, $o-primary-active) var(--percent2),
+        var(--upper-color) var(--percent2)
+      );
+    }
+  }
 
   & .o-slider {
     -webkit-appearance: none;
@@ -70,7 +85,6 @@ $track-sizes: (
     z-index: 1;
     background: transparent;
     cursor: pointer;
-    // pointer-events: none;
 
     &:focus {
       outline: none;
@@ -88,6 +102,15 @@ $track-sizes: (
     margin: auto;
     z-index: -1;
     border-radius: 8px;
+
+    background: linear-gradient(
+      to right,
+      var(--upper-color) var(--percent1),
+      var(--lower-color, map.get($--colors, 'primary', 'base')) var(--percent1),
+      var(--lower-color, map.get($--colors, 'primary', 'base')) var(--percent2),
+      var(--upper-color) var(--percent2)
+    );
+
     @supports (-moz-appearance: none) {
       & {
         top: 4px;
@@ -161,5 +184,8 @@ $track-sizes: (
       pointer-events: none;
       border-color: #c0c4cc;
     }
+  }
+  & .slider-track {
+    --lower-color: #c0c4cc;
   }
 }

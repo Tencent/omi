@@ -1,6 +1,8 @@
 import { WeElement, h, tag, extractClass } from 'omi'
 import * as css from './index.scss'
 import '@omiu/tooltip'
+// import Omiu from '@omiu/common'
+
 import '@omiu/input'
 
 interface Props {
@@ -61,8 +63,6 @@ export default class OSlider extends WeElement<Props> {
   sliderOneRef: HTMLInputElement
   sliderTwoRef: HTMLInputElement
   sliderTrack: HTMLElement
-  lowerColor = '#07c160'
-  upperColor = '#f0f0f0'
 
   install() {
     this.checkInvalidInputs()
@@ -75,18 +75,23 @@ export default class OSlider extends WeElement<Props> {
       : (this.__$v2 = null)
 
     Object.defineProperty(this, 'value', {
-      get: this._onGetValue,
-      set: this._onSetValue,
+      get: this._onGetV1,
+      set: this._onSetV1,
     })
     Object.defineProperty(this, 'second_value', {
-      get: this._onGetValue2,
-      set: this._onSetValue2,
+      get: this._onGetV2,
+      set: this._onSetV2,
     })
   }
 
   installed() {
     this.applyTransform()
-    this.fillColor(this.lowerColor, this.upperColor)
+    this.fillTrackColor()
+    // var picker = document.querySelector('#picker') as any
+    // picker.addEventListener('change', (evt: any) => {
+    //   console.log(evt.detail.color)
+    //   Omiu.setTheme('primary', evt.detail.color)
+    // })
   }
 
   beforeUpdate() {
@@ -98,24 +103,24 @@ export default class OSlider extends WeElement<Props> {
   }
 
   updated() {
-    this.fillColor('#059048', '#d9d9d9')
+    this.fillTrackColor()
   }
 
-  _onGetValue = () => {
+  _onGetV1 = () => {
     return this.__$v1
   }
 
-  _onSetValue = (value: any) => {
+  _onSetV1 = (value: any) => {
     this.__$v1 = value
     this.props.value = value
     this.setAttribute('value', value)
   }
 
-  _onGetValue2 = () => {
+  _onGetV2 = () => {
     return this.__$v2
   }
 
-  _onSetValue2 = (value: any) => {
+  _onSetV2 = (value: any) => {
     this.__$v2 = value
     this.props.second_value = value
     this.setAttribute('second_value', value)
@@ -203,15 +208,10 @@ export default class OSlider extends WeElement<Props> {
     this.fire('change', [this.__$v1, this.__$v2])
   }
 
-  fillColor = (lowerColor: string, upperColor: string) => {
+  fillTrackColor = () => {
     const [percent1, percent2] = this.calcPercent()
-
-    if (this.props.disabled) {
-      lowerColor = '#c0c4cc'
-    }
-    this.props.range === 'double'
-      ? (this.sliderTrack.style.background = `linear-gradient(to right, ${upperColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
-      : (this.sliderTrack.style.background = `linear-gradient(to right, ${lowerColor} ${percent1}% , ${lowerColor} ${percent1}% , ${lowerColor} ${percent2}%, ${upperColor} ${percent2}%)`)
+    this.style.setProperty('--percent1', `${percent1}%`)
+    this.style.setProperty('--percent2', `${percent2}%`)
   }
 
   calcPercent() {
@@ -222,10 +222,6 @@ export default class OSlider extends WeElement<Props> {
       percent2 =
         this.props.range === 'double' ? (v2 / range) * 100 : (v1 / range) * 100
     return [percent1, percent2]
-  }
-
-  handleMouseUp = () => {
-    this.fillColor(this.lowerColor, this.upperColor)
   }
 
   sliderOneMove = (evt: any) => {
@@ -243,7 +239,7 @@ export default class OSlider extends WeElement<Props> {
     /* absolute distance from respective slider values */
     const da = Math.abs(this.__$v1 - clickPointVal),
       db = Math.abs(this.__$v2 - clickPointVal)
-    // Making the two sliders appear above one another only when no mouse button is pressed, this condition may be removed at will
+    // Making the two sliders appear above one another only when no mouse button is pressed
     if (this.props.range === 'double') {
       if (!evt.buttons) {
         if (da < db) {
@@ -257,7 +253,7 @@ export default class OSlider extends WeElement<Props> {
     }
   }
 
-  render(props) {
+  render(props: any) {
     const cls = extractClass(props, 'slider-container', {
       'is-vertical': props.orient === 'vertical',
       'is-disabled': props.disabled,
@@ -276,7 +272,6 @@ export default class OSlider extends WeElement<Props> {
         value={this.__$v1}
         onInput={this.handleS1Input}
         onChange={this.handleS1Change}
-        onMouseUp={this.handleMouseUp}
         onMouseMove={this.sliderOneMove}
         ref={(e) => {
           this.sliderOneRef = e
@@ -294,7 +289,6 @@ export default class OSlider extends WeElement<Props> {
         value={this.__$v2}
         onInput={this.handleS2Input}
         onChange={this.handleS2Change}
-        onMouseUp={this.handleMouseUp}
         onMouseMove={this.sliderTwoMove}
         ref={(e) => {
           this.sliderTwoRef = e
