@@ -18,6 +18,7 @@
         <img src="//alloyteam.github.io/github.png" alt="" />
       </a>
       <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+      <script src="https://unpkg.com/@omiu/color-picker"></script>
       <script>
         window.onload = function () {
           const sliders = document.querySelectorAll('o-slider')
@@ -26,6 +27,15 @@
           })
         }
       </script>
+      <!-- <o-color-picker
+        id="picker"
+        save="0"
+        preview="0"
+        button="0"
+        clear="0"
+        width="300px"
+      >
+      </o-color-picker> -->
       <div style="text-align: center">basic slider</div>
       <o-slider min="0" max="100" value="20" id="single-range-demo"></o-slider>
       <div style="text-align: center">reversed slider</div>

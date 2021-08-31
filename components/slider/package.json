@@ -1,6 +1,6 @@
 {
-  "name": "@omiu/slider",
-  "version": "0.0.16",
+  "name": "@perry-c/slider",
+  "version": "0.0.20",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
@@ -50,6 +50,7 @@
   },
   "homepage": "http://omijs.org",
   "dependencies": {
+    "@omiu/color-picker": "^0.0.4",
     "@omiu/common": "latest",
     "@omiu/input": "0.0.12",
     "@omiu/tooltip": "0.0.1",
