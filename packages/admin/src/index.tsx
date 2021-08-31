@@ -33,7 +33,6 @@ import './components/admin-main-welcome'
 
 import { tw, sheet } from 'omi-twind'
 import Store from './store'
-import { i18n } from './modules/i18n'
 
 const fadeCSS = `.fade-leave-to,
 .fade-enter {
@@ -55,7 +54,6 @@ export default class extends WeElement {
     tagName: 'admin-main-welcome'
   }
 
-  i18n = i18n
 
   transition
 
@@ -96,6 +94,8 @@ export default class extends WeElement {
       // hashChange()
       this.routeTo(location.hash)
     }
+
+    this.store.routeTo = this.routeTo.bind(this)
   }
 
   store
@@ -121,30 +121,32 @@ export default class extends WeElement {
       md: any
     } = this.findNodeByHash(hash, this.store.treeData)
 
-    this.store.selectTreeNodeById(node.id)
+    if (node) {
+      this.store.selectTreeNodeById(node.id)
 
-    if (!node.children) {
-      const tab = this.store.tabs.find((tab) => tab.id === node.id)
-      if (tab) {
-        this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
-      } else {
-        this.store.tabs.push({
-          label: node.label,
-          closeable: false,
-          id: node.id,
-          href: node.href
-        })
-        this.store.tabsActiveIndex = this.store.tabs.length - 1
+      if (!node.children) {
+        const tab = this.store.tabs.find((tab) => tab.id === node.id)
+        if (tab) {
+          this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+        } else {
+          this.store.tabs.push({
+            label: node.label,
+            closeable: false,
+            id: node.id,
+            href: node.href
+          })
+          this.store.tabsActiveIndex = this.store.tabs.length - 1
+        }
       }
-    }
-    // @ts-ignore
-    node.md &&
-      node.md.then((e) => {
-        this.store.markdown = e.default
-      })
+      // @ts-ignore
+      node.md &&
+        node.md.then((e) => {
+          this.store.markdown = e.default
+        })
 
-    // 重新读取 hash 值
-    hashChange()
+      // 重新读取 hash 值
+      hashChange()
+    }
   }
 
   render() {
@@ -163,11 +165,8 @@ export default class extends WeElement {
   }
 }
 
-// config i18n default language in ~/modules/i18n
 render(
   <my-app name="Omi"></my-app>,
   '#root',
-  new Store({
-    i18n
-  })
+  new Store({})
 )

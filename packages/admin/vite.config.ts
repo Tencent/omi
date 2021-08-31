@@ -2,8 +2,6 @@ import path from 'path'
 import { viteMockServe } from 'vite-plugin-mock'
 import { defineConfig } from 'vite'
 
-import yaml from '@rollup/plugin-yaml'
-
 export default defineConfig(({ command }) => {
   return {
     resolve: {
@@ -15,8 +13,7 @@ export default defineConfig(({ command }) => {
       viteMockServe({
         mockPath: 'mock',
         localEnabled: command == 'serve'
-      }),
-      yaml()
+      })
     ],
     esbuild: {
       jsxFactory: 'h',

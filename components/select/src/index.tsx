@@ -109,7 +109,7 @@ export default class Select extends WeElement<Props> {
       Number(
         this.tags
           ? this.tags.clientHeight +
-              (this.tags.clientHeight > heightMap[this.props.size] ? 6 : 0)
+          (this.tags.clientHeight > heightMap[this.props.size] ? 6 : 0)
           : 0
       )
     )
@@ -138,7 +138,7 @@ export default class Select extends WeElement<Props> {
 
   label: string
 
-  install() {
+  beforeRender() {
     if (this.props.multiple) {
       for (let i = 0, len = this.props.items.length; i < len; i++) {
         if (this.props.value.indexOf(this.props.items[i].value) !== -1) {

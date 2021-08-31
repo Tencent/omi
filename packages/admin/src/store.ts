@@ -3,13 +3,15 @@ import { genNavTree, NavTree } from './nav-tree'
 import { getNotifications } from './service/notifications'
 import { resetId } from './util/id'
 import { route } from 'omi-router'
-import type { I18nType, Language } from './modules/i18n'
+
+import i18next from 'i18next'
+import resourcesToBackend from 'i18next-resources-to-backend'
+
 
 class Store {
-  i18n: I18nType
+
   themeColor: string
   installed: (store: Store) => void
-  locale: Language
   isLeftPanelClosed: boolean
   ignoreAttrs: boolean
   ui: {
@@ -35,7 +37,6 @@ class Store {
   }[]
 
   constructor(options) {
-    this.i18n = options.i18n
 
     this.themeColor = '#07c160'
 
@@ -46,14 +47,15 @@ class Store {
     this.ignoreAttrs = true
 
     this.ui = {}
-
+    this.treeData = []
+    this.tabs = []
     this.markdown = ''
     this.html = ''
 
-    this.setLocale(this.i18n.locale, () => {
+    this.setLocale('zh', () => {
       this.tabs = [
         {
-          label: this.i18n.t('Welcome'),
+          label: i18next.t('Welcome'),
           href: '#/welcome',
           closable: false,
           id: 2
@@ -72,16 +74,43 @@ class Store {
     }
   }
 
-  setLocale(locale: Language, callback?: () => void) {
+  async setLocale(locale, callback?: () => void) {
     resetId()
-    this.i18n.setLocale(locale)
+
+    await i18next
+      .use(resourcesToBackend((language, namespace, callback) => {
+        import(`./i18n/${locale}/base.ts`)
+          .then((resources) => {
+            callback(null, resources.base.translation)
+          })
+          .catch((error) => {
+            callback(error, null)
+          })
+      }))
+      .init({
+        lng: locale
+      })
+    // .then(() => {
+    //   console.log(i18next.t('ManagerWorkbench'))
+    // })
+
     callback && callback()
-    this.treeData = genNavTree(this.i18n)
+    this.treeData = genNavTree(i18next)
 
     this.tabs &&
       this.tabs.forEach((tab) => {
         tab.label = this.getTabLabelById(tab.id)
       })
+
+    this.ui.myApp.update()
+
+    if (location.hash) {
+      this.routeTo(location.hash)
+    }
+  }
+
+  routeTo(hash) {
+
   }
 
   getTabLabelById(id) {
