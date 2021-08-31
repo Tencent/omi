@@ -1,5 +1,5 @@
 {
-  "name": "@perry-c/slider",
+  "name": "@omiu/slider",
   "version": "0.0.20",
   "main": "dist/index.es.js",
   "exports": {
