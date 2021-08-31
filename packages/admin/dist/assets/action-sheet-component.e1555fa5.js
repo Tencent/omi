@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:packages/admin/dist/assets/action-sheet-component.a022a9a1.js
 import{j as n,h as t,b as e,W as o,t as i,s}from"./vendor.cff7a2c5.js";import"./index.esm.aca77b66.js";import"./admin-docs.d04bcd77.js";import"./index.b502f1bc.js";import"./container.b1933bec.js";import"./___vite-browser-external_commonjs-proxy.e2cda3d0.js";
 =======
 import{l as n,h as t,b as e,W as o,t as i,s}from"./vendor.3f489542.js";import"./index.esm.aae8e342.js";import"./admin-docs.bfe65179.js";import"./index.039482e5.js";import"./container.db7f9588.js";import"./___vite-browser-external_commonjs-proxy.755037e0.js";
 >>>>>>> 0604c68311e9e2a566617123b30f055211daa112:packages/admin/dist/assets/action-sheet-component.e1555fa5.js
+=======
+import{l as n,h as t,b as e,W as o,t as i,s}from"./vendor.3f489542.js";import"./index.esm.aae8e342.js";import"./admin-docs.bfe65179.js";import"./index.039482e5.js";import"./container.db7f9588.js";import"./___vite-browser-external_commonjs-proxy.755037e0.js";
+>>>>>>> 8979b0bd91c8638aca5f571f6f6ebb9b60e083de
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
