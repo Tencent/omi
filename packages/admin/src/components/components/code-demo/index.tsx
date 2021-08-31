@@ -7,7 +7,7 @@ import '@omiu/icon/keyboard-arrow-up'
 import '@omiu/icon/code'
 import '@omiu/icon/file-copy'
 import '@omiu/toggle-icon'
-import * as copy from 'copy-to-clipboard';
+import copy from 'copy-to-clipboard'
 interface Props {
   title: string
   describe: string
