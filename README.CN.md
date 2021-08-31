@@ -251,7 +251,6 @@ export default class oButton extends WeElement<ButtonProps> {
   - [项目模板](#项目模板)
   - [Hello Element](#hello-element)
   - [生命周期](#生命周期)
-- [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
 - [相关链接](#相关链接)
 - [贡献者们](#贡献者们)
@@ -623,14 +622,6 @@ class MyApp extends WeElement {
 | `updated`    |  update 之后                          |
 | `beforeRender`   |  `render()` 之前                         |
 | `receiveProps`   | 父组件更新时候触发, 返回 false 可以阻止更新      |
-
-## 调试工具
-
-使用 [Omi 开发工具](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd) 可以非常简单地调试和管理你的 UI。不需要任何配置，你只要安装然后就能调试。
-
-既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React 开发者工具一样强大。
-
-![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
 
 ### 查看所有注册的元素
 
