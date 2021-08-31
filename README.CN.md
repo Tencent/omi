@@ -623,10 +623,6 @@ class MyApp extends WeElement {
 | `beforeRender`   |  `render()` 之前                         |
 | `receiveProps`   | 父组件更新时候触发, 返回 false 可以阻止更新      |
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0604c68311e9e2a566617123b30f055211daa112
 ### 查看所有注册的元素
 
 ```js
