@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-<<<<<<< HEAD:packages/admin/dist/assets/mind-map.cebf2bb6.js
-import{W as e,h as t,t as r,s as n,b as s}from"./vendor.cff7a2c5.js";var a=Object.defineProperty,i=Object.getOwnPropertyDescriptor;let d=class extends e{render(){return t("div",{class:r``},t("iframe",{height:window.innerHeight-90,style:"width: 100%;",scrolling:"yes",title:"OMIU Link",src:"https://omi.cdn-go.cn/admin/latest/mind-map/index.html",frameborder:"no",loading:"lazy"}))}};d.css=n.target,d=((e,t,r,n)=>{for(var s,d=n>1?void 0:n?i(t,r):t,o=e.length-1;o>=0;o--)(s=e[o])&&(d=(n?s(t,r,d):s(d))||d);return n&&d&&a(t,r,d),d})([s("mind-map")],d);export{d as default};
-=======
-import{W as e,h as t,t as r,s as n,b as s}from"./vendor.3f489542.js";var i=Object.defineProperty,a=Object.getOwnPropertyDescriptor;let d=class extends e{render(){return t("div",{class:r``},t("iframe",{height:window.innerHeight-90,style:"width: 100%;",scrolling:"yes",title:"OMIU Link",src:"https://omi.cdn-go.cn/admin/latest/mind-map/index.html",frameborder:"no",loading:"lazy"}))}};d.css=n.target,d=((e,t,r,n)=>{for(var s,d=n>1?void 0:n?a(t,r):t,o=e.length-1;o>=0;o--)(s=e[o])&&(d=(n?s(t,r,d):s(d))||d);return n&&d&&i(t,r,d),d})([s("mind-map")],d);export{d as default};
->>>>>>> 0604c68311e9e2a566617123b30f055211daa112:packages/admin/dist/assets/mind-map.dbd21909.js
-=======
-import{W as e,h as t,t as r,s as n,b as s}from"./vendor.3f489542.js";var i=Object.defineProperty,a=Object.getOwnPropertyDescriptor;let d=class extends e{render(){return t("div",{class:r``},t("iframe",{height:window.innerHeight-90,style:"width: 100%;",scrolling:"yes",title:"OMIU Link",src:"https://omi.cdn-go.cn/admin/latest/mind-map/index.html",frameborder:"no",loading:"lazy"}))}};d.css=n.target,d=((e,t,r,n)=>{for(var s,d=n>1?void 0:n?a(t,r):t,o=e.length-1;o>=0;o--)(s=e[o])&&(d=(n?s(t,r,d):s(d))||d);return n&&d&&i(t,r,d),d})([s("mind-map")],d);export{d as default};
->>>>>>> 8979b0bd91c8638aca5f571f6f6ebb9b60e083de
