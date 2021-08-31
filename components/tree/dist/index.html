@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu Tree</title>
+    
+    <script type="module" crossorigin src="/index.es.js"></script>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <a
+      href="https://github.com/Tencent/omi"
+      target="_blank"
+      style="position: fixed; right: 0; top: 0; z-index: 3"
+    >
+      <img src="//alloyteam.github.io/github.png" alt="" />
+    </a>
+    <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+    <script src="../../src/index.js"></script>
+    <script src="../../../icon/ac-unit-outlined.js"></script>
+    <script src="../../../icon/accessible-rounded.js"></script>
+
+    <div>
+      <o-tree
+        style="width: 400px"
+        data="[{
+      label: '一级 1',
+
+      expanded: true,
+
+      actionIcons: ['ac-unit-outlined', 'accessible-rounded', 'ac-unit-outlined'],
+      children: [{
+        label: '一级 1',
+        sign: '●',
+
+        expanded: true,
+        selected: true,
+        icon: 'ac-unit-outlined',
+        children: [{
+          sign: '1, M',
+          label: '二级 1-1',
+          children: [{
+            sign: 'M',
+            label: '三级 1-1-1(hash改变)',
+            icon: 'accessible-rounded',
+            color: 'red',
+            href: '#abc',
+          }]
+        }]
+      }, {
+        label: '一级 2',
+        icon: 'accessible-rounded',
+        children: [{
+          label: '二级 2-1',
+          children: [{
+            label: '三级 2-1-1'
+          }]
+        }, {
+          label: '二级 2-2',
+          children: [{
+            label: '三级 2-2-1'
+          }]
+        }]
+      }, {
+        label: '一级 3',
+        icon: 'accessible-rounded',
+        children: [{
+          label: '二级 3-1',
+          icon: 'accessible-rounded',
+          children: [{
+            label: '三级 3-1-1(链接跳转)',
+            icon: 'accessible-rounded',
+            href: 'https://tencent.github.io/omi/',
+            target: '_blank',
+          }]
+        }, {
+          label: '二级 3-2',
+          children: [{
+            label: '三级 3-2-1'
+          }]
+        }]
+      }]
+
+    }]"
+      >
+      </o-tree>
+    </div>
+
+    <script>
+      const treeEle = document.querySelector('o-tree')
+      treeEle.addEventListener('node-click', function (evt) {
+        console.log(evt.detail)
+      })
+
+      treeEle.addEventListener('context-menu', function (evt) {
+        console.log(evt.detail)
+      })
+
+      treeEle.addEventListener('action-icon-click', function (evt) {
+        console.log(evt.detail)
+      })
+
+      setTimeout(function () {
+        treeEle.fold()
+      }, 1000)
+    </script>
+  </body>
+</html>

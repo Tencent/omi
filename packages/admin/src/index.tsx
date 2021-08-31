@@ -3,10 +3,9 @@ import { WeElement, render, h, tag } from 'omi'
 import { hashChange } from 'omi-router'
 import { registerRouting } from './router'
 
-import {
-  showLoading,
-  hideLoading
-} from '@omiu/toast'
+import { showLoading, hideLoading } from '@omiu/toast'
+
+import * as css from './index.scss'
 
 //提前使用最新版本注册组件
 import '@omiu/popover'
@@ -27,8 +26,6 @@ import '@omiu/icon/pie-chart'
 import '@omiu/transition'
 import '@omiu/icon/edit'
 import '@omiu/icon/account-box'
-
-import './index.css'
 
 import './layouts/basic-layout'
 import './layouts/components/layout-container'
@@ -51,11 +48,12 @@ const fadeCSS = `.fade-leave-to,
 
 @tag('my-app')
 export default class extends WeElement {
-  static css = [sheet.target, fadeCSS]
+  static css = [sheet.target, fadeCSS, css.default ? css.default : css]
 
   data = {
     tagName: 'admin-main-welcome'
   }
+
 
   transition
 
@@ -77,6 +75,7 @@ export default class extends WeElement {
   async transitionTo(tagName) {
     showLoading()
     await this.transition.leave()
+
     this.data.tagName = tagName
     this.update()
     await this.transition.enter()
@@ -95,6 +94,8 @@ export default class extends WeElement {
       // hashChange()
       this.routeTo(location.hash)
     }
+
+    this.store.routeTo = this.routeTo.bind(this)
   }
 
   store
@@ -120,30 +121,32 @@ export default class extends WeElement {
       md: any
     } = this.findNodeByHash(hash, this.store.treeData)
 
-    this.store.selectTreeNodeById(node.id)
+    if (node) {
+      this.store.selectTreeNodeById(node.id)
 
-    if (!node.children) {
-      const tab = this.store.tabs.find((tab) => tab.id === node.id)
-      if (tab) {
-        this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
-      } else {
-        this.store.tabs.push({
-          label: node.label,
-          closeable: false,
-          id: node.id,
-          href: node.href
-        })
-        this.store.tabsActiveIndex = this.store.tabs.length - 1
+      if (!node.children) {
+        const tab = this.store.tabs.find((tab) => tab.id === node.id)
+        if (tab) {
+          this.store.tabsActiveIndex = this.store.tabs.indexOf(tab)
+        } else {
+          this.store.tabs.push({
+            label: node.label,
+            closeable: false,
+            id: node.id,
+            href: node.href
+          })
+          this.store.tabsActiveIndex = this.store.tabs.length - 1
+        }
       }
-    }
-    // @ts-ignore
-    node.md &&
-      node.md.then((e) => {
-        this.store.markdown = e.default
-      })
+      // @ts-ignore
+      node.md &&
+        node.md.then((e) => {
+          this.store.markdown = e.default
+        })
 
-    // 重新读取 hash 值
-    hashChange()
+      // 重新读取 hash 值
+      hashChange()
+    }
   }
 
   render() {
@@ -162,9 +165,8 @@ export default class extends WeElement {
   }
 }
 
-new Store({
-  locale: 'zh',
-  installed(store) {
-    render(<my-app name="Omi"></my-app>, '#root', store)
-  }
-})
+render(
+  <my-app name="Omi"></my-app>,
+  '#root',
+  new Store({})
+)
