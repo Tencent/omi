@@ -2,11 +2,11 @@
 
 ## Create your component
 
-create name-component.tsx in omi/package/admin/src/components 
+create name-component.tsx in omi/package/admin/src/components
 
 use `example-component.tsx` to modify ，and add your component presentation page
 
-``` js
+```js
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import '../docs/admin-docs'
@@ -14,12 +14,12 @@ import './code-demo'
 import './code-demo/container'
 
 // import your components
-// TODO 
+// TODO
 // import '@omiu/name'
 
 interface Props {}
 
-// TODO  
+// TODO
 const tagName = 'name-component'
 declare global {
   namespace JSX {
@@ -32,15 +32,15 @@ declare global {
 @tag(tagName)
 export default class extends WeElement<Props> {
   static css = [sheet.target]
-  
-  // TODO   
-  mdA = 
+
+  // TODO
+  mdA =
   `
   \`\`\`html
   <div>example</div>
   \`\`\`
   `
-  
+
   installed() {}
 
   render() {
@@ -67,13 +67,13 @@ export default class extends WeElement<Props> {
 
 ## Add components in internationalization (i10n)
 
-add them in `omi/package/admin/src/l10n/zh` and `omi/package/admin/src/l10n/en` 
+add them in `omi/package/admin/locales/zh.yml` and `omi/package/admin/locales/en.yml`
 
 ```js
-// omi/package/admin/src/l10n/en
-Name:"example"
-// omi/package/admin/src/l10n/zh
-Name:"例子"
+// omi/package/admin/locales/en.yml
+Name: 'example'
+// omi/package/admin/locales/zh.yml
+Name: '例子'
 ```
 
 ## Add component display page to Admin route (supports automatic join)
@@ -92,30 +92,29 @@ const components = [
   'time-picker',
   'tag',
   'rate',
-   //TODO
+  //TODO
   'name'
 ]
 ```
 
-
 ```js
-  components.map((componentName: string) =>
-    route(`/${componentName}-component`, () => {
-      //lazy load
-      import(`./components/components/${componentName}-component.tsx`).then(
-        () => rootEl.transitionTo(`${componentName}-component`)
-      )
-    })
-  )
+components.map((componentName: string) =>
+  route(`/${componentName}-component`, () => {
+    //lazy load
+    import(`./components/components/${componentName}-component.tsx`).then(() =>
+      rootEl.transitionTo(`${componentName}-component`)
+    )
+  })
+)
 ```
 
 ## Add navigation to the sidebar
 
-add them in /omi/packages/admin/src/nav-tree.ts 
+add them in /omi/packages/admin/src/nav-tree.ts
 
 ```js
 {
-    label: localeMap.base.Name,
+    label: i18n.t('Name'),
     id: genId(),
     href: '#/name-component'
 },
