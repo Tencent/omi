@@ -1,13 +1,17 @@
 import { WeElement } from 'omi'
 import { genNavTree, NavTree } from './nav-tree'
-import { getNotifications } from './notifications'
+import { getNotifications } from './service/notifications'
 import { resetId } from './util/id'
 import { route } from 'omi-router'
 
+import i18next from 'i18next'
+import resourcesToBackend from 'i18next-resources-to-backend'
+
+
 class Store {
+
   themeColor: string
   installed: (store: Store) => void
-  locale: 'en' | 'zh'
   isLeftPanelClosed: boolean
   ignoreAttrs: boolean
   ui: {
@@ -16,12 +20,6 @@ class Store {
   }
   markdown: string
   html: string
-  localeMap: {
-    base?: {
-      Welcome: string
-    }
-  }
-  isInstalled: boolean
   tabs: {
     label?: string
     href?: string
@@ -29,7 +27,7 @@ class Store {
     id: number
   }[]
   tabsActiveIndex: number
-  treeData: NavTree
+  treeData: NavTree[]
   notifications: {
     id: number
     content?: string
@@ -39,26 +37,25 @@ class Store {
   }[]
 
   constructor(options) {
+
     this.themeColor = '#07c160'
 
     this.installed = options.installed
-    this.locale = options.locale
 
     this.isLeftPanelClosed = window.innerWidth < 640
 
     this.ignoreAttrs = true
 
     this.ui = {}
-
+    this.treeData = []
+    this.tabs = []
     this.markdown = ''
     this.html = ''
 
-    this.localeMap = {}
-
-    this.setLocals(this.locale, () => {
+    this.setLocale('zh', () => {
       this.tabs = [
         {
-          label: this.localeMap.base.Welcome,
+          label: i18next.t('Welcome'),
           href: '#/welcome',
           closable: false,
           id: 2
@@ -70,9 +67,6 @@ class Store {
       this.notifications = getNotifications()
     })
 
-    this.isInstalled = false
-
-
     route.before = (evt) => {
       if (window.innerWidth <= 640) {
         this.closeLeftPanel()
@@ -80,27 +74,43 @@ class Store {
     }
   }
 
-  setLocals(locale, callback?) {
+  async setLocale(locale, callback?: () => void) {
     resetId()
-    this.locale = locale
-    import(`./l10n/${locale}/base.ts`).then((localeMap) => {
-      this.localeMap = localeMap
 
-      callback && callback()
+    await i18next
+      .use(resourcesToBackend((language, namespace, callback) => {
+        import(`./i18n/${locale}/base.ts`)
+          .then((resources) => {
+            callback(null, resources.base.translation)
+          })
+          .catch((error) => {
+            callback(error, null)
+          })
+      }))
+      .init({
+        lng: locale
+      })
+    // .then(() => {
+    //   console.log(i18next.t('ManagerWorkbench'))
+    // })
 
-      this.treeData = genNavTree(localeMap, locale)
+    callback && callback()
+    this.treeData = genNavTree(i18next)
 
+    this.tabs &&
       this.tabs.forEach((tab) => {
         tab.label = this.getTabLabelById(tab.id)
       })
 
-      if (!this.isInstalled) {
-        this.installed(this)
-        this.isInstalled = true
-      } else {
-        this.ui.myApp.update()
-      }
-    })
+    this.ui.myApp.update()
+
+    if (location.hash) {
+      this.routeTo(location.hash)
+    }
+  }
+
+  routeTo(hash) {
+
   }
 
   getTabLabelById(id) {
@@ -109,8 +119,9 @@ class Store {
       return node.label
     } else {
       for (let i = 0, len = this.treeData.length; i < len; i++) {
-        if (this.treeData[i].children) {
-          const childNode = this.treeData[i].children.find(
+        const tree = this.treeData[i]
+        if (tree.children) {
+          const childNode = tree.children.find(
             (childNode) => childNode.id === id
           )
           if (childNode) {
