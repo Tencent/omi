@@ -1,7 +1,7 @@
 @use 'sass:math';
 @use "sass:map";
 
-@import '../../common/theme.scss';
+@import '@omiu/common/theme.scss';
 
 $shapes: 'round' 'square' 'progress';
 $sizes: 'small' 'normal' 'large';
@@ -26,7 +26,9 @@ $track-sizes: (
   --percent1: 0%;
   --percent2: 0%;
   --lower-color: var(--o-primary);
+  --lower-color-active: var(--o-primary-active);
   --upper-color: #f0f0f0;
+  --upper-color-active: #d9d9d9;
 }
 
 @mixin thumb {
@@ -46,9 +48,6 @@ $track-sizes: (
   &:active {
     box-shadow: 0 0 0 5px var(--o-primary-fade-more, $o-primary-fade-more);
   }
-  &:hover {
-    border-color: var(--o-primary-active, $o-primary-active);
-  }
 }
 
 @mixin track {
@@ -61,17 +60,6 @@ $track-sizes: (
 .slider-container {
   position: relative;
   width: 100%;
-  &:active {
-    & .slider-track {
-      background: linear-gradient(
-        to right,
-        var(--upper-color) var(--percent1),
-        var(--o-primary-active, $o-primary-active) var(--percent1),
-        var(--o-primary-active, $o-primary-active) var(--percent2),
-        var(--upper-color) var(--percent2)
-      );
-    }
-  }
 
   & .o-slider {
     -webkit-appearance: none;
@@ -114,6 +102,24 @@ $track-sizes: (
     @supports (-moz-appearance: none) {
       & {
         top: 4px;
+      }
+    }
+  }
+
+  &:hover,
+  &:active {
+    & .slider-track {
+      background: linear-gradient(
+        to right,
+        var(--upper-color-active, $o-primary) var(--percent1),
+        var(--lower-color-active, $o-primary-active) var(--percent1),
+        var(--lower-color-active, $o-primary-active) var(--percent2),
+        var(--upper-color-active, $o-primary) var(--percent2)
+      );
+    }
+    @each $thumb in $browser-thumbs {
+      & .o-slider::#{$thumb} {
+        border-color: var(--o-primary-active, $o-primary-active);
       }
     }
   }
@@ -176,16 +182,19 @@ $track-sizes: (
 }
 
 .is-disabled {
+  --lower-color: #bfbfbf;
+  --lower-color-active: #8c8c8c;
+  --upper-color-active: #d9d9d9;
+  --o-primary-active: #bfbfbf;
+
+  cursor: not-allowed;
+  & .o-slider {
+    pointer-events: none;
+  }
   @each $thumb in $browser-thumbs {
-    & .o-slider {
-      pointer-events: none;
-    }
     & .o-slider::#{$thumb} {
       pointer-events: none;
       border-color: #c0c4cc;
     }
-  }
-  & .slider-track {
-    --lower-color: #c0c4cc;
   }
 }

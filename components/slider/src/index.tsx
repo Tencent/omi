@@ -3,8 +3,6 @@ import * as css from './index.scss'
 import '@omiu/tooltip'
 // import Omiu from '@omiu/common'
 
-import '@omiu/input'
-
 interface Props {
   min: number
   max: number
@@ -14,7 +12,7 @@ interface Props {
   size?: 'small' | 'normal' | 'large'
   range?: 'single' | 'double'
   orient?: 'vertical' | 'horizontal'
-  shape: 'square' | 'round'
+  shape?: 'square' | 'round'
   tooltip?: boolean
   disabled?: boolean
   reversed?: boolean
