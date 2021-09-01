@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu InputNumber</title>
+    <script type="module" src="/src/index.tsx"></script>
+  </head>
+  <body>
+     <style>
+      o-input-number {
+        margin-top: 10px;
+      }
+      body{
+        margin: 0 0 50px 50px;
+      }
+      h3{
+        font-weight: 400;
+      }
+    </style>
+    <h2>InputNumber计数器</h2>
+    <h3>基础用法：max=10 min=1</h3>
+    <div>
+      <o-input-number min=1 max=10></o-input-number>
+    </div>
+    <h3>禁用状态</h3>
+    <div>
+      <o-input-number disabled='true'></o-input-number>
+    </div>
+    <h3>步数：step=2</h3>
+    <div>
+      <o-input-number step=2></o-input-number>
+    </div>
+    <h3>严格步数：strictly='true' step=2</h3>
+    <div>
+      <o-input-number step=2 strictly='true' ></o-input-number>
+    </div>
+    <h3>精度：precision=2 step=0.01</h3>
+    <div>
+      <o-input-number precision=2 step=0.01></o-input-number>
+    </div>
+    <h3>尺寸：medium | small | mini</h3>
+    <div>
+      <o-input-number size='medium'></o-input-number>
+      <o-input-number size='small' step=2></o-input-number>
+      <o-input-number size='mini'></o-input-number>
+    </div>
+    <h3>样式2：style='right'</h3>
+    <div>
+      <o-input-number style='right'></o-input-number>
+      <o-input-number style='right' size='small'></o-input-number>
+      <o-input-number style='right' size='mini'></o-input-number>
+    </div>
+    <h3>样式3：style='left'</h3>
+    <div>
+      <o-input-number style='left'></o-input-number>
+      <o-input-number style='left' size='small'></o-input-number>
+      <o-input-number style='left' size='mini'></o-input-number>
+    </div>
+  </body>
+</html>

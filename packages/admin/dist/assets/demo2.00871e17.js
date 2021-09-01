@@ -1,1 +1,1 @@
-var l="Hello, **world**!";export{l as default};
+export default"Hello, **world**!";

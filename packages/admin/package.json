@@ -61,6 +61,7 @@
     "@omiu/tree": "^0.0.18",
     "axios": "^0.21.1",
     "bytemd": "^1.10.13",
+    "copy-to-clipboard": "^3.3.1",
     "file-saver": "^2.0.5",
     "i18next": "^20.4.0",
     "i18next-resources-to-backend": "^1.0.0",
