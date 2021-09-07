@@ -33,7 +33,6 @@ export function setTheme(key, value) {
     style.setProperty(`--o-${key}-fade-more`, Color(value).fade(0.759))
     style.setProperty(`--o-${key}-fade-lot`, Color(value).fade(0.9))
     style.setProperty(`--o-${key}-active`, Color(value).darken(0.1))
-
   }
 }
 

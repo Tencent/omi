@@ -36,10 +36,9 @@
     "@open-wc/testing": "^2.5.33",
     "@types/node": "^16.4.7",
     "@web/test-runner": "^0.13.13",
-    "node-watch": "^0.7.1",
-    "sass": "^1.36.0",
+    "sass": "^1.39.0",
     "typescript": "^4.3.2",
-    "vite": "^2.4.3"
+    "vite": "^2.5.4"
   },
   "license": "MIT",
   "keywords": [
