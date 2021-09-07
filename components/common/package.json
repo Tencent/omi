@@ -18,6 +18,7 @@
     "rollup-plugin-license": "^2.0.0"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^3.4.0",
     "color-convert": "^2.0.1",
     "color-name": "^1.1.4",
     "color-string": "^1.5.3"

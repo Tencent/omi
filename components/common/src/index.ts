@@ -1,4 +1,4 @@
-import { Color } from './color'
+import { TinyColor } from '@ctrl/tinycolor'
 
 theme()
 
@@ -6,38 +6,73 @@ document.addEventListener('DOMContentLoaded', () => {
   theme()
 })
 
+const cssVarMap = {
+  primary: '#07c160',
+  danger: '#fa5151',
+
+  surface: '#ffffff',
+  'on-primary': '#ffffff',
+  'on-danger': '#ffffff',
+  'on-surface': '#000000',
+  background: '#ffffff',
+  'small-radius': '4px',
+  'medium-radius': '4px',
+  'large-radius': '0px',
+  'font-family': '-apple-system-font,"Helvetica Neue",sans-serif'
+}
+
 function theme() {
   if (document.body && !document.body.style.getPropertyValue('--o-primary')) {
-    setTheme('primary', '#07c160')
-    setTheme('danger', '#fa5151')
-    setTheme('surface', '#ffffff')
-    setTheme('on-primary', '#ffffff')
-    setTheme('on-danger', '#ffffff')
-    setTheme('on-surface', '#000000')
-    setTheme('background', '#ffffff')
-    setTheme('small-radius', '4px')
-    setTheme('medium-radius', '4px')
-    setTheme('large-radius', '0px')
-    setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
+    for (const key in cssVarMap) {
+      setCssVar(key, cssVarMap[key])
+    }
+
+    setTheme('primary', cssVarMap['primary'])
+    setTheme('danger', cssVarMap['danger'])
   }
 }
 
-export function setTheme(key, value) {
+function getFadedColor(color: TinyColor, fade: number) {
+  const alpha = color.getAlpha()
+  color.setAlpha(alpha * (1 - fade))
+  return color.toString()
+}
+
+function setCssVar(key: string, value: string) {
+  const style = document.body.style
+  style.setProperty('--o-' + key, value)
+}
+
+/**
+ * 设置主题色相关
+ * @param key
+ * @param value
+ */
+export function setTheme(key: string, value: string) {
   const style = document.body.style
 
-  style.setProperty('--o-' + key, value)
-
-  if (key === 'primary' || key === 'danger') {
-    style.setProperty(`--o-${key}-fade-little`, Color(value).fade(0.382))
-    style.setProperty(`--o-${key}-fade-some`, Color(value).fade(0.618))
-    style.setProperty(`--o-${key}-fade-more`, Color(value).fade(0.759))
-    style.setProperty(`--o-${key}-fade-lot`, Color(value).fade(0.9))
-    style.setProperty(`--o-${key}-active`, Color(value).darken(0.1))
-
+  const fadeMap = {
+    little: 0.382,
+    some: 0.618,
+    more: 0.759,
+    lot: 0.9
   }
+
+  const color = new TinyColor(value)
+  for (const type in fadeMap) {
+    style.setProperty(
+      `--o-${key}-fade-${type}`,
+      getFadedColor(color, fadeMap[type])
+    )
+  }
+  style.setProperty(`--o-${key}-active`, color.darken(10).toString())
 }
 
-export function setThemePrimary(color) {
+/**
+ * 设置主色调
+ * @param color
+ */
+export function setThemePrimary(color: string) {
   setTheme('primary', color)
 }
 
