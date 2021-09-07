@@ -1,60 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omiu</title>
+    <script type="module" src="/src/index.tsx"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omiu</title>
-  <script type="module" src="/src/index.tsx"></script>
+  <body>
+    <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
 
-</head>
+    <script src="https://unpkg.com/omi@6.21.3/dist/omi.min.js"></script>
 
-<body>
-  <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
- 
-  
-  <script src="https://unpkg.com/omi@6.21.3/dist/omi.min.js"></script>
+    <script src="https://unpkg.com/@omiu/icon@0.0.3/wifi.js"></script>
+    <script src="https://unpkg.com/@omiu/icon@0.0.3/favorite.js"></script>
 
-  <script src="https://unpkg.com/@omiu/icon@0.0.3/wifi.js"></script>
-  <script src="https://unpkg.com/@omiu/icon@0.0.3/favorite.js"></script>
+    <div>
+      <o-badge dot x="2" y="10">
+        <o-icon-wifi style="font-size: 30px"></o-icon-wifi>
+      </o-badge>
 
-  <div>
+      <br /><br /><br />
+      <o-badge content="99" x="5" y="10">
+        <o-icon-favorite style="font-size: 30px"></o-icon-favorite>
+      </o-badge>
+      <br /><br /><br />
 
-    <o-badge dot x="2" y="10">
-      <o-icon-wifi style="font-size: 30px;"></o-icon-wifi>
-    </o-badge>
+      <o-badge content="8">
+        <o-icon-favorite style="font-size: 30px"></o-icon-favorite>
+      </o-badge>
 
-    <br><br><br>
-    <o-badge content="99" x="5" y="10">
-      <o-icon-favorite style="font-size: 30px;"></o-icon-favorite>
-    </o-badge>
-    <br /><br /><br />
+      <br /><br /><br />
+      <o-badge content="99">
+        <o-icon-favorite style="font-size: 30px"></o-icon-favorite>
+      </o-badge>
 
-    <o-badge content="8">
-      <o-icon-favorite style="font-size: 30px;"></o-icon-favorite>
-    </o-badge>
+      <br /><br /><br />
 
-    <br /><br /><br />
-    <o-badge content="99">
-      <o-icon-favorite style="font-size: 30px;"></o-icon-favorite>
-    </o-badge>
+      <o-badge content="new">
+        <o-icon-favorite style="font-size: 30px"></o-icon-favorite>
+      </o-badge>
 
-    <br /><br /><br />
-
-    <o-badge content="new">
-      <o-icon-favorite style="font-size: 30px;"></o-icon-favorite>
-    </o-badge>
-
-
-    <br /><br /><br />
-    <o-badge dot>
-      <o-icon-favorite style="font-size: 30px;"></o-icon-favorite>
-    </o-badge>
-
-
-  </div>
-
-</body>
-
+      <br /><br /><br />
+      <o-badge dot>
+        <o-icon-favorite style="font-size: 30px"></o-icon-favorite>
+      </o-badge>
+    </div>
+  </body>
 </html>
