@@ -6,7 +6,7 @@
  * modified by dntzhang
  */
 
-@import "@omiu/common/theme.scss";
+@import '@omiu/common/scss/theme.scss';
 
 :host {
   display: inline-block;
@@ -15,7 +15,6 @@
 .tip.show {
   display: block;
 }
-
 
 .tip {
   border: 1px solid #888;
@@ -37,127 +36,125 @@
   width: 0;
   height: 0;
   border-color: transparent;
-  border-style: solid
+  border-style: solid;
 }
 
 .tip .tip-arrow {
-  border-width: 6px
+  border-width: 6px;
 }
 
 .tip .tip-arrow::after {
-  content: " ";
-  border-width: 5px
+  content: ' ';
+  border-width: 5px;
 }
 
-
-
-.tip[data-popper-placement^=top] {
-  margin-bottom: 12px
+.tip[data-popper-placement^='top'] {
+  margin-bottom: 12px;
 }
 
-.tip[data-popper-placement^=top] .tip-arrow {
+.tip[data-popper-placement^='top'] .tip-arrow {
   bottom: -6px;
   border-top-color: #303133;
-  border-bottom-width: 0
+  border-bottom-width: 0;
 }
 
-.tip[data-popper-placement^=top] .tip-arrow::after {
+.tip[data-popper-placement^='top'] .tip-arrow::after {
   bottom: 1px;
   margin-left: -5px;
   border-top-color: #303133;
-  border-bottom-width: 0
+  border-bottom-width: 0;
 }
 
-.tip[data-popper-placement^=bottom] {
-  margin-top: 12px
+.tip[data-popper-placement^='bottom'] {
+  margin-top: 12px;
 }
 
-.tip[data-popper-placement^=bottom] .tip-arrow {
+.tip[data-popper-placement^='bottom'] .tip-arrow {
   top: -6px;
   border-top-width: 0;
-  border-bottom-color: #303133
+  border-bottom-color: #303133;
 }
 
-.tip[data-popper-placement^=bottom] .tip-arrow::after {
+.tip[data-popper-placement^='bottom'] .tip-arrow::after {
   top: 1px;
   margin-left: -5px;
   border-top-width: 0;
-  border-bottom-color: #303133
+  border-bottom-color: #303133;
 }
 
-.tip[data-popper-placement^=right] {
-  margin-left: 12px
+.tip[data-popper-placement^='right'] {
+  margin-left: 12px;
 }
 
-.tip[data-popper-placement^=right] .tip-arrow {
+.tip[data-popper-placement^='right'] .tip-arrow {
   left: -6px;
   border-right-color: #303133;
-  border-left-width: 0
+  border-left-width: 0;
 }
 
-.tip[data-popper-placement^=right] .tip-arrow::after {
+.tip[data-popper-placement^='right'] .tip-arrow::after {
   bottom: -5px;
   left: 1px;
   border-right-color: #303133;
-  border-left-width: 0
+  border-left-width: 0;
 }
 
-.tip[data-popper-placement^=left] {
-  margin-right: 12px
+.tip[data-popper-placement^='left'] {
+  margin-right: 12px;
 }
 
-.tip[data-popper-placement^=left] .tip-arrow {
+.tip[data-popper-placement^='left'] .tip-arrow {
   right: -6px;
   border-right-width: 0;
-  border-left-color: #303133
+  border-left-color: #303133;
 }
 
-.tip[data-popper-placement^=left] .tip-arrow::after {
+.tip[data-popper-placement^='left'] .tip-arrow::after {
   right: 1px;
   bottom: -5px;
   margin-left: -5px;
   border-right-width: 0;
-  border-left-color: #303133
+  border-left-color: #303133;
 }
 
 .tip.is-dark {
   background: #303133;
-  color: #FFF
+  color: #fff;
 }
 
 .tip.is-light {
-  background: #FFF;
-  border: 1px solid #303133
+  background: #fff;
+  border: 1px solid #303133;
 }
 
-.tip.is-light[data-popper-placement^=top] .tip-arrow {
-  border-top-color: #303133
+.tip.is-light[data-popper-placement^='top'] .tip-arrow {
+  border-top-color: #303133;
 }
 
-.tip.is-light[data-popper-placement^=top] .tip-arrow::after {
-  border-top-color: #FFF
+.tip.is-light[data-popper-placement^='top'] .tip-arrow::after {
+  border-top-color: #fff;
 }
 
-.tip.is-light[data-popper-placement^=bottom] .tip-arrow {
-  border-bottom-color: #303133
+.tip.is-light[data-popper-placement^='bottom'] .tip-arrow {
+  border-bottom-color: #303133;
 }
 
-.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {
-  border-bottom-color: #FFF
+.tip.is-light[data-popper-placement^='bottom'] .tip-arrow::after {
+  border-bottom-color: #fff;
 }
 
-.tip.is-light[data-popper-placement^=left] .tip-arrow {
-  border-left-color: #303133
+.tip.is-light[data-popper-placement^='left'] .tip-arrow {
+  border-left-color: #303133;
 }
 
-.tip.is-light[data-popper-placement^=left] .tip-arrow::after {
-  border-left-color: #FFF
+.tip.is-light[data-popper-placement^='left'] .tip-arrow::after {
+  border-left-color: #fff;
 }
 
-.tip.is-light[data-popper-placement^=right] .tip-arrow {
-  border-right-color: #303133
+.tip.is-light[data-popper-placement^='right'] .tip-arrow {
+  border-right-color: #303133;
 }
 
-.tip.is-light[data-popper-placement^=right] .tip-arrow::after {
-  border-right-color: #FFF
+.tip.is-light[data-popper-placement^='right'] .tip-arrow::after {
+  border-right-color: #fff;
 }

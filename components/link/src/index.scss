@@ -1,75 +1,79 @@
-@import "@omiu/common/theme.scss";
+@import '@omiu/common/scss/theme.scss';
 
 :host {
-	display: inline-block;
+  display: inline-block;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .o-link {
-	display: inline-flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	vertical-align: middle;
-	position: relative;
-	text-decoration: none;
-	outline: none;
-	cursor: pointer;
-	padding: 0;
-	font-size: 14px;
-	font-weight: 500;
-	// 防止抖动
-	border-bottom: 1px solid transparent;
-
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  position: relative;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  // 防止抖动
+  border-bottom: 1px solid transparent;
 }
 
 .o-link:hover {
-	color: $o-primary;
-	color: var(--o-primary, $o-primary);
+  color: $o-primary;
+  color: var(--o-primary, $o-primary);
 }
 
 .o-link.is-underline:hover {
-	border-bottom: 1px solid $o-primary;
-	border-bottom: 1px solid var(--o-primary, $o-primary);
+  border-bottom: 1px solid $o-primary;
+  border-bottom: 1px solid var(--o-primary, $o-primary);
 }
 
 .o-link:active {
-	color: map-get($options, primary#{-active});
-	color: var(--o-primary-active, map-get($options, primary#{-active}));
+  color: map-get($options, primary#{-active});
+  color: var(--o-primary-active, map-get($options, primary#{-active}));
 }
 
 $type-list: primary danger;
 
 @each $type in $type-list {
-	.o-link-#{$type} {
-		color: map-get($options, $type);
-		color: var(--o-#{$type}, map-get($options, $type));
-	}
+  .o-link-#{$type} {
+    color: map-get($options, $type);
+    color: var(--o-#{$type}, map-get($options, $type));
+  }
 
-	.o-link-#{$type}:hover {
-		color: map-get($options, $type#{-fade-little});
-		color: var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
-	}
+  .o-link-#{$type}:hover {
+    color: map-get($options, $type#{-fade-little});
+    color: var(
+      --o-#{$type}-fade-little,
+      map-get($options, $type#{-fade-little})
+    );
+  }
 
-	.o-link-#{$type}:active {
-		color: map-get($options, $type#{-active});
-		color: var(--o-#{$type}-active, map-get($options, $type#{-active}));
-	}
+  .o-link-#{$type}:active {
+    color: map-get($options, $type#{-active});
+    color: var(--o-#{$type}-active, map-get($options, $type#{-active}));
+  }
 
-	.o-link-#{$type}.is-underline:hover {
-		border-bottom: 1px solid map-get($options, $type#{-fade-little});
-		border-bottom: 1px solid var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
-	}
+  .o-link-#{$type}.is-underline:hover {
+    border-bottom: 1px solid map-get($options, $type#{-fade-little});
+    border-bottom: 1px
+      solid
+      var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
+  }
 }
 
 .o-link.is-disabled,
 .o-link.is-disabled:focus,
 .o-link.is-disabled:hover {
-	color: #c0c4cc;
-	cursor: not-allowed;
-	text-decoration: none;
-	border-bottom: 1px solid transparent;
+  color: #c0c4cc;
+  cursor: not-allowed;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
 }
