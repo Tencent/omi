@@ -21,16 +21,16 @@
     "types"
   ],
   "dependencies": {
-    "@omiu/common": "latest",
-    "omi": "latest"
+    "@omiu/common": "0.0.11",
+    "omi": "6.23.0"
   },
   "devDependencies": {
     "@open-wc/testing": "^2.5.33",
-    "@types/node": "^16.4.13",
-    "@web/test-runner": "^0.13.15",
-    "sass": "^1.37.5",
-    "typescript": "^4.3.5",
-    "vite": "^2.4.4"
+    "@types/node": "^16.7.13",
+    "@web/test-runner": "^0.13.17",
+    "sass": "^1.39.0",
+    "typescript": "^4.4.2",
+    "vite": "^2.5.4"
   },
   "license": "MIT",
   "keywords": [

@@ -1,6 +1,4 @@
-@import "../node_modules/@omiu/common/theme.scss";
-
-
+@import '../node_modules/@omiu/common/theme.scss';
 
 .o-badge {
   position: relative;
@@ -8,9 +6,8 @@
 }
 
 .badge {
-
-  background-color: #F95050;
-  color: #FFFFFF;
+  background-color: #f95050;
+  color: #ffffff;
   line-height: 1.2;
 
   top: 0;
@@ -27,17 +24,18 @@
   box-sizing: border-box;
   transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   align-items: center;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-weight: 500;
   align-content: center;
   border-radius: 10px;
   flex-direction: row;
   justify-content: center;
   transform-origin: 100% 0%;
+
+  cursor: pointer;
 }
 
 .circle {
-
   width: 8px;
   height: 8px;
   border-radius: 50%;

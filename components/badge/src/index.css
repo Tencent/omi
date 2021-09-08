@@ -4,8 +4,8 @@
 }
 
 .badge {
-  background-color: #F95050;
-  color: #FFFFFF;
+  background-color: #f95050;
+  color: #ffffff;
   line-height: 1.2;
   top: 0;
   right: 0;
@@ -28,6 +28,7 @@
   flex-direction: row;
   justify-content: center;
   transform-origin: 100% 0%;
+  cursor: pointer;
 }
 
 .circle {
@@ -37,5 +38,3 @@
   min-width: 8px;
   padding: 0;
 }
-
-/*# sourceMappingURL=index.css.map */
