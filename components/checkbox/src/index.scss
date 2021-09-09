@@ -1,5 +1,4 @@
-@import "../node_modules/@omiu/common/theme.scss";
-
+@import '../node_modules/@omiu/common/scss/theme.scss';
 
 :host {
   display: inline-block;
@@ -21,9 +20,8 @@
   }
 }
 
-
-.o-checkbox__native-control:enabled:checked~.o-checkbox__background,
-.o-checkbox__native-control:enabled:indeterminate~.o-checkbox__background {
+.o-checkbox__native-control:enabled:checked ~ .o-checkbox__background,
+.o-checkbox__native-control:enabled:indeterminate ~ .o-checkbox__background {
   border-color: $o-primary;
   border-color: var(--o-primary, $o-primary);
   background-color: $o-primary;
@@ -57,8 +55,12 @@
   stroke-dasharray: 29.78334;
 }
 
-.o-checkbox__native-control:checked~.o-checkbox__background .o-checkbox__checkmark-path,
-.o-checkbox__native-control:indeterminate~.o-checkbox__background .o-checkbox__checkmark-path {
+.o-checkbox__native-control:checked
+  ~ .o-checkbox__background
+  .o-checkbox__checkmark-path,
+.o-checkbox__native-control:indeterminate
+  ~ .o-checkbox__background
+  .o-checkbox__checkmark-path {
   stroke-dashoffset: 0;
 }
 
@@ -74,7 +76,8 @@
   background-color: transparent;
   pointer-events: none;
   will-change: background-color, border-color;
-  transition: background-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1), border-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
+  transition: background-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),
+    border-color 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 .o-checkbox__background,
@@ -92,7 +95,9 @@
   margin-left: 10px;
 }
 
-.o-checkbox__native-control:indeterminate~.o-checkbox__background .o-checkbox__mixedmark {
+.o-checkbox__native-control:indeterminate
+  ~ .o-checkbox__background
+  .o-checkbox__mixedmark {
   transform: scaleX(1) rotate(0deg);
   opacity: 1;
 }
@@ -106,7 +111,8 @@
   position: relative;
   margin-top: -1px;
   opacity: 0;
-  transition: opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1), transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
+  transition: opacity 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1),
+    transform 90ms 0ms cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 .o-checkbox__native-control {
@@ -123,15 +129,15 @@
   cursor: inherit;
 }
 
-.o-checkbox__native-control:enabled:not(:checked):not(:indeterminate)~.o-checkbox__background {
+.o-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
+  ~ .o-checkbox__background {
   background-color: transparent;
-  border: 1px solid rgba(0, 0, 0, .54);
+  border: 1px solid rgba(0, 0, 0, 0.54);
   color: white;
 }
 
-
-.o-checkbox__native-control:disabled:checked~.o-checkbox__background,
-.o-checkbox__native-control:disabled:indeterminate~.o-checkbox__background {
+.o-checkbox__native-control:disabled:checked ~ .o-checkbox__background,
+.o-checkbox__native-control:disabled:indeterminate ~ .o-checkbox__background {
   border-color: $o-primary;
   border-color: var(--o-primary, $o-primary);
   background-color: $o-primary;
@@ -140,12 +146,12 @@
   opacity: 0.5;
 }
 
-.o-checkbox__native-control:disabled:not(:checked):not(:indeterminate)~.o-checkbox__background {
+.o-checkbox__native-control:disabled:not(:checked):not(:indeterminate)
+  ~ .o-checkbox__background {
   background-color: transparent;
-  border: 1px solid rgba(0, 0, 0, .34);
+  border: 1px solid rgba(0, 0, 0, 0.34);
   color: white;
 }
-
 
 .o-checkbox__disabled {
   .o-checkbox__label {

@@ -1,4 +1,4 @@
-@import "@omiu/common/theme.scss";
+@import '@omiu/common/scss/theme.scss';
 
 :host {
   display: inline-block;
@@ -25,50 +25,52 @@
   position: relative;
   width: 40px;
   height: 20px;
-  border: 1px solid #DFDFDF;
+  border: 1px solid #dfdfdf;
   outline: 0;
   border-radius: 16px;
   box-sizing: border-box;
-  background-color: #DFDFDF;
+  background-color: #dfdfdf;
   -webkit-transition: background-color 0.1s, border 0.1s;
   transition: background-color 0.1s, border 0.1s;
 }
 
 .o-switch:before,
 .o-switch-cp__box:before {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 0;
   left: 0;
   width: 38px;
   height: 18px;
   border-radius: 15px;
-  background-color: #FDFDFD;
+  background-color: #fdfdfd;
   -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
   transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
   transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
-  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1), -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1),
+    -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
 }
 
 .o-switch:after,
 .o-switch-cp__box:after {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 0;
   left: 0;
   width: 18px;
   height: 18px;
   border-radius: 15px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
   transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
   transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
-  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35), -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35),
+    -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
 }
 
 .o-switch:checked,
-.o-switch-cp__input:checked~.o-switch-cp__box {
+.o-switch-cp__input:checked ~ .o-switch-cp__box {
   border-color: $o-primary;
   border-color: var(--o-primary, $o-primary);
   background-color: $o-primary;
@@ -76,13 +78,13 @@
 }
 
 .o-switch:checked:before,
-.o-switch-cp__input:checked~.o-switch-cp__box:before {
+.o-switch-cp__input:checked ~ .o-switch-cp__box:before {
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
 .o-switch:checked:after,
-.o-switch-cp__input:checked~.o-switch-cp__box:after {
+.o-switch-cp__input:checked ~ .o-switch-cp__box:after {
   -webkit-transform: translateX(20px);
   transform: translateX(20px);
 }

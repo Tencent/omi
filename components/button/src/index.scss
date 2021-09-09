@@ -1,6 +1,6 @@
 @use "sass:map";
 
-@import '../../common/theme.scss';
+@import '../../common/scss/theme.scss';
 
 $--button-padding: () !default;
 $--button-padding: map.merge(

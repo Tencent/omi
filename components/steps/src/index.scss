@@ -1,5 +1,4 @@
-@import "../node_modules/@omiu/common/theme.scss";
-
+@import '../node_modules/@omiu/common/scss/theme.scss';
 
 :host {
   display: block;
@@ -65,7 +64,6 @@ o-icon-clear {
   background-color: #fff;
 }
 
-
 ._item-process ._item-icon {
   color: white;
   border-color: $o-primary;
@@ -74,18 +72,15 @@ o-icon-clear {
   background-color: var(--o-primary, $o-primary);
 }
 
-
 ._item-wait {
   color: rgba(0, 0, 0, 0.45);
 }
-
 
 ._item-block ._item-icon {
   border-color: $o-danger;
   border-color: var(--o-danger, $o-danger);
   background-color: #fff;
 }
-
 
 ._item-block {
   color: $o-danger;
@@ -102,8 +97,7 @@ o-icon-clear {
   font-size: 13px;
 }
 
-
-._item-finish>._item-content>._item-title:after {
+._item-finish > ._item-content > ._item-title:after {
   background-color: $o-primary;
   background-color: var(--o-primary, $o-primary);
 }
@@ -154,8 +148,8 @@ o-icon-clear {
   display: inline-block;
   background: #e8e8e8;
   border-radius: 1px;
-  -webkit-transition: background .3s;
-  transition: background .3s;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
   content: '';
   width: 1px;
   height: 100%;
@@ -166,7 +160,6 @@ o-icon-clear {
   background: var(--o-primary, $o-primary);
 }
 
-
 .vertical .next-error ._item-tail::after {
   background: $o-danger;
   background: var(--o-danger, $o-danger);
@@ -176,11 +169,11 @@ o-icon-clear {
   display: none;
 }
 
-.vertical>._item:not(:last-child)>._item-tail {
+.vertical > ._item:not(:last-child) > ._item-tail {
   display: block;
 }
 
-.vertical>._item>._item-tail {
+.vertical > ._item > ._item-tail {
   position: absolute;
   top: 0px;
   left: 16px;
@@ -198,6 +191,6 @@ o-icon-clear {
   display: none;
 }
 
-.vertical>_item:not(:last-child)>._item-tail {
+.vertical > _item:not(:last-child) > ._item-tail {
   display: block;
 }
