@@ -21,7 +21,7 @@
     "types"
   ],
   "dependencies": {
-    "@omiu/common": "0.0.11",
+    "@omiu/common": "0.0.12",
     "omi": "6.23.0"
   },
   "devDependencies": {
