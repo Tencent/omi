@@ -1,31 +1,46 @@
-# Counter
+# Counter_to_be_replace
 
-> Counter
+Description for component.
 
-## Install
+- [→ CodePen](https://codepen.io/omijs/pen/)
 
-```bash
-npm i
+## Import
+
+```js
+import '@omiu/counter_to_be_replace'
 ```
 
-## Dev
+Or use script tag to ref it.
 
-```bash
-npm start
+```html
+<script src="https://unpkg.com/@omiu/counter_to_be_replace"></script>
 ```
 
-## Preview
+## Usage
 
-```bash
-//html mode demo
-http://localhost:3000
-
-//jsx mode demo
-http://localhost:3000/demo.html
+```html
+<o-counter_to_be_replace></o-counter_to_be_replace>
 ```
 
-## Release
+## API
 
-```bash
-npm run build
+### Props
+
+```tsx
+{
+  count?: number
+  onCountChanged?: (evt: CustomEvent) => void
+}
 ```
+
+### Default Props
+
+```tsx
+{
+  count: 1
+}
+```
+
+### Events
+
+- CountChanged
