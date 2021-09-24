@@ -5,6 +5,7 @@ export const base = {
     ColorPicker: 'ColorPicker',
     Theme: 'Theme',
     WelcomePage: 'Welcome Page',
+    MobileShow: 'Mobile Show',
     BasicTable: 'Basic Table',
     TableDeleteAnimation: 'Table Delete Animation',
     Form: 'Form',

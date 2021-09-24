@@ -55,6 +55,12 @@ export function registerRouting(rootEl) {
     rootEl.transitionTo('admin-main-welcome')
   })
 
+  route('/mobile', () => {
+    import('./components/mobile/mobile-show').then(() =>
+      rootEl.transitionTo('mobile-show')
+    )
+  })
+
   route('/table/basic', () => {
     //lazy load
     import('./components/table/basic-table').then(() =>

@@ -43,7 +43,11 @@ export function genNavTree(i18n) {
           href: '#/welcome',
           id: genId()
         },
-
+        {
+          label: i18n.t('MobileShow'),
+          href: '#/mobile',
+          id: genId()
+        },
         {
           label: i18n.t('Dashboard'),
           icon: 'pie-chart',

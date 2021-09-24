@@ -5,6 +5,7 @@ export const base = {
     Theme: '主题',
     ColorPicker: 'ColorPicker 颜色选择器',
     WelcomePage: '欢迎界面',
+    MobileShow:'移动端预览',
     BasicTable: '基础表格',
     TableDeleteAnimation: '表格删除动画',
     Form: '表单',
