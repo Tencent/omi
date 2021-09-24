@@ -4,7 +4,7 @@ export const base = {
     Welcome: 'Welcome',
     ColorPicker: 'ColorPicker',
     Theme: 'Theme',
-    WelcomePage: 'Welcome age',
+    WelcomePage: 'Welcome Page',
     BasicTable: 'Basic Table',
     TableDeleteAnimation: 'Table Delete Animation',
     Form: 'Form',
