@@ -1,29 +1,37 @@
-## omi-cli
+# OMi CLi 2.0 - Modern Omi command-line interface
 
-### New Project by Omi
+## Quick Start
 
-```bash
-$ npx omi-cli init my-app
-$ cd my-app           
-$ npm start           # develop
-$ npm run build       # release
+### install
+
+```shell
+npm install -g @yuqing521/omi-cli
+
 ```
 
+### use
+```json
+"bin": {
+    "omi-test": "./index.js",
+    "omi-create-test": "./index.js"
+  },
+```
+**no option**
 
-### New Component by Omi
-
-```bash
-$ npx omi-cli init-component my-component
-$ cd my-app           
-$ npm start           # develop
-$ npm run build       # release
+```shell
+omi-test
 ```
 
-### Update to the latest version
+**with option**
 
-```bash
-$ npm i omi-cli -g 
+```shell
+omi-create-test [project name] -t vite
 ```
+
+## configure option
+
+workdir: [project name]
+Template: -template / -t
 
 # License
 
