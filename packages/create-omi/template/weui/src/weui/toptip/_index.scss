@@ -1,0 +1,21 @@
+$primary-color: #1aad19;
+$warn-color: #e64340;
+
+.ow-toptip{
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  color: #fff;
+  padding: 10px 0;
+  transition: .5s ease;
+}
+
+.weui-toptip-primary{
+  background: $primary-color
+}
+
+.weui-toptip-warn{
+  background: $warn-color
+}

@@ -1,0 +1,18 @@
+.ow-loading {
+  display: inline-block;
+  -webkit-animation: e 1s steps(12) infinite;
+  animation: e 1s steps(12) infinite;
+  background: url(./loading.svg);
+  background-size: 100%;
+}
+
+@keyframes e {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
+}
