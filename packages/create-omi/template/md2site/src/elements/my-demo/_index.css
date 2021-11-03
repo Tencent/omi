@@ -1,0 +1,41 @@
+iframe{
+  width: 750px;
+  height: 100%;
+  top: 60px;
+  right: 0;
+  position: fixed;
+  border: none;
+  z-index: 9999;
+  border-left: 2px solid #24292E; 
+  min-width: 320px;
+}
+
+@media only screen and (max-width: 768px) {
+  iframe{
+      width: 100%;
+      min-width: 100%;
+  }
+}
+
+.icon{
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  cursor: pointer;
+  width:50px;
+  height:50px;
+  background-color: rgb(96, 101, 114);
+  text-align: center;
+  height: 50px;
+  line-height: 56px;
+  border-radius: 50%;
+  z-index: 10000;
+  
+}
+
+svg{
+  transition: left .5s ease;
+  left:0;
+  color: white;
+  position: relative;
+}

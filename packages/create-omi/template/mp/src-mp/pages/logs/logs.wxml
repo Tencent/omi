@@ -1,0 +1,9 @@
+<!--logs.wxml-->
+<view class="container log-list">
+  <block wx:for="{{logs}}" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+    <text class="log-item">by omi-mp</text>
+  </block>
+  <my-ele bindmyevent="myEventHandler" name="dntzhang" />
+	<image src="../../images/wechat.png" />
+</view>
