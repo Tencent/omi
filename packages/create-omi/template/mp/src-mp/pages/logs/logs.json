@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "查看启动日志",
-  "usingComponents": {
-    "my-ele":"../../components/my-ele/my-ele"
-  }
-}
