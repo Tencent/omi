@@ -1,6 +1,6 @@
 {
   "name": "create-omi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Omi command-line interface",
   "bin": {
     "create-omi": "index.js",
