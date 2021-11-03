@@ -1,0 +1,63 @@
+blockquote,body,button,code,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,pre,td,textarea,th,ul {
+	margin: 0;
+	padding: 0
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-weight: 400;
+	font-size: 100%
+}
+
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+	font-weight: 400
+}
+
+a {
+	color: #666;
+	text-decoration: none
+}
+
+a:hover {
+	text-decoration: none
+}
+
+img {
+	border: none
+}
+
+li,ol,ul {
+	list-style: none
+}
+
+button,input,select,textarea {
+	font: 100% Verdana,Helvetica,Arial,sans-serif;
+	outline: 0;
+    	border: 1px solid #dbdbdb;
+    	width: 100%;
+}
+
+input {
+	font: 100% Verdana,Helvetica,Arial,sans-serif;
+	outline: 0;
+  border: none;
+  width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+
+textarea {
+	padding: 5px
+}
+
+button[disabled],input[disabled] {
+	cursor: not-allowed
+}
+
+b {
+	font-weight: 400
+}
+
+table {
+	border-collapse: collapse
+}

@@ -1,0 +1,12 @@
+
+
+.weui-check__label{
+  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+}
+.weui-check__label:active{
+  background-color:#ECECEC;
+}
+.weui-check{
+  position:absolute;
+  left:-9999em;
+}
