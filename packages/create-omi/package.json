@@ -1,21 +1,21 @@
 {
   "name": "create-omi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Omi command-line interface",
   "bin": {
-    "create-omi": "./index.js"
+    "create-omi": "index.js",
+    "coa": "index.js"
   },
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "enquirer": "^2.3.6",
-    "execa": "^5.1.1",
     "kolorist": "^1.5.0",
     "minimist": "^1.2.5",
     "shelljs": "^0.8.4"
   },
-  "author": "",
-  "license": "MIT"
+  "author": ""
 }
