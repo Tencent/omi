@@ -9,27 +9,27 @@ var statSync = fs.statSync;
 var validateProjectName = require('validate-npm-package-name');
 
 function isCnFuc(language) {
-	return language === "cn" ? true : false;
+  return language === "cn" ? true : false;
 }
 
 function emptyFs(path) {
-	var files = [];
-	var dir = [];
-	if (existsSync(path)) {
-		files = readdirSync(path);
-		files.forEach(function(file, index) {
-			var curPath = path + "/" + file;
-			if (statSync(curPath).isDirectory()) {
-				emptyFs(curPath);
-			} else {
-				unlinkSync(curPath);
-			}
-		});
-		dir = readdirSync(path);
-		dir.forEach(function(dirName, index) {
-			rmdirSync(path + "/" + dirName);
-		});
-	}
+  var files = [];
+  var dir = [];
+  if (existsSync(path)) {
+    files = readdirSync(path);
+    files.forEach(function (file, index) {
+      var curPath = path + "/" + file;
+      if (statSync(curPath).isDirectory()) {
+        emptyFs(curPath);
+      } else {
+        unlinkSync(curPath);
+      }
+    });
+    dir = readdirSync(path);
+    dir.forEach(function (dirName, index) {
+      rmdirSync(path + "/" + dirName);
+    });
+  }
 }
 
 /**
@@ -37,13 +37,13 @@ function emptyFs(path) {
  * which is on create-react-app/packages/create-react-app/createReactApp.js line 740 of version 2.0.4
  */
 function isSafeToCreateProjectIn(root, name) {
-	// These files should be allowed to remain on a failed install,
-	// but then silently removed during the next create.
-	const errorLogFilePatterns = [
-		'npm-debug.log',
-		'yarn-error.log',
-		'yarn-debug.log',
-	];
+  // These files should be allowed to remain on a failed install,
+  // but then silently removed during the next create.
+  const errorLogFilePatterns = [
+    'npm-debug.log',
+    'yarn-error.log',
+    'yarn-debug.log',
+  ];
 
   const validFiles = [
     '.DS_Store',
@@ -129,8 +129,8 @@ function checkAppName(appName) {
 }
 
 module.exports = {
-	isCnFuc: isCnFuc,
-	emptyFs: emptyFs,
+  isCnFuc: isCnFuc,
+  emptyFs: emptyFs,
   isSafeToCreateProjectIn: isSafeToCreateProjectIn,
   checkAppName: checkAppName
 };

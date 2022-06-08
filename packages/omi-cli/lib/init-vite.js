@@ -8,12 +8,12 @@ var existsSync = fs.existsSync;
 var chalk = require("chalk");
 var through = require("through2");
 var emptyDir = require("empty-dir");
-var info = require("./logger").info;
-var error = require("./logger").error;
-var success = require("./logger").success;
-var isCnFun = require("./utils").isCnFuc;
-var emptyFs = require("./utils").emptyFs;
-var isSafeToCreateProjectIn = require("./utils").isSafeToCreateProjectIn;
+var info = require("../utils/logger").info;
+var error = require("../utils/logger").error;
+var success = require("../utils/logger").success;
+var isCnFun = require("../utils/utils").isCnFuc;
+var emptyFs = require("../utils/utils").emptyFs;
+var isSafeToCreateProjectIn = require("../utils/utils").isSafeToCreateProjectIn;
 
 function init(args) {
   var omiCli = chalk.bold.cyan("Omi-Cli");
@@ -24,11 +24,12 @@ function init(args) {
   var projectName = basename(dest);
   var mirror = args.mirror;
 
+
   console.log();
   console.log(omiCli + (!isCn ? " is booting... " : " 正在启动..."));
   console.log(
     omiCli +
-      (!isCn ? " will execute init command... " : " 即将执行 init 命令...")
+    (!isCn ? " will execute init command... " : " 即将执行 init 命令...")
   );
   if (existsSync(dest) && !emptyDir.sync(dest)) {
     if (!isSafeToCreateProjectIn(dest, projectName)) {
@@ -42,10 +43,10 @@ function init(args) {
     console.log();
     console.log(
       chalk.bold.cyan("Omi-Cli") +
-        (!isCn
-          ? " will creating a new omi app in "
-          : " 即将创建一个新的应用在 ") +
-        dest
+      (!isCn
+        ? " will creating a new omi app in "
+        : " 即将创建一个新的应用在 ") +
+      dest
     );
 
     vfs
@@ -75,8 +76,7 @@ function init(args) {
             "Install",
             "We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>"
           );
-          console.log();
-          require("./install")(mirror, done);
+          require("../utils/install")(mirror, done);
         } catch (e) {
           console.log(error(e));
         }

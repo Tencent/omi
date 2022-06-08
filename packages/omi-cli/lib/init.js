@@ -8,13 +8,13 @@ var existsSync = fs.existsSync;
 var chalk = require("chalk");
 var through = require("through2");
 var emptyDir = require("empty-dir");
-var info = require("./logger").info;
-var error = require("./logger").error;
-var success = require("./logger").success;
-var isCnFun = require("./utils").isCnFuc;
-var emptyFs = require("./utils").emptyFs;
-var checkAppName = require("./utils").checkAppName;
-var isSafeToCreateProjectIn = require("./utils").isSafeToCreateProjectIn;
+var info = require("../utils/logger").info;
+var error = require("../utils/logger").error;
+var success = require("../utils/logger").success;
+var isCnFun = require("../utils/utils").isCnFuc;
+var emptyFs = require("../utils/utils").emptyFs;
+var checkAppName = require("../utils/utils").checkAppName;
+var isSafeToCreateProjectIn = require("../utils/utils").isSafeToCreateProjectIn;
 
 function init(args) {
 	var omiCli = chalk.bold.cyan("Omi-Cli");
@@ -79,7 +79,7 @@ function init(args) {
 						"We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>"
 					);
 					console.log();
-					require("./install")(mirror, done);
+					require("../utils/install")(mirror, done);
 				} catch (e) {
 					console.log(error(e));
 				}

@@ -5,12 +5,12 @@ var fs = require('fs');
 var existsSync = fs.existsSync;
 var chalk = require('chalk');
 var emptyDir = require('empty-dir');
-var info = require('./logger').info;
-var error = require('./logger').error;
-var success = require('./logger').success;
-var isCnFun = require('./utils').isCnFuc;
-var checkAppName = require('./utils').checkAppName;
-var isSafeToCreateProjectIn = require('./utils').isSafeToCreateProjectIn;
+var info = require('../utils/logger').info;
+var error = require('../utils/logger').error;
+var success = require('../utils/logger').success;
+var isCnFun = require('../utils/utils').isCnFuc;
+var checkAppName = require('../utils/utils').checkAppName;
+var isSafeToCreateProjectIn = require('../utils/utils').isSafeToCreateProjectIn;
 var spawn = require('cross-spawn');
 
 function init(args) {
@@ -84,7 +84,7 @@ function init(args) {
                 'We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>'
               );
               console.log();
-              require('./install')(mirror, done); // npm install
+              require('../utils/install')(mirror, done); // npm install
             } else {
               done();
             }
