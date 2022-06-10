@@ -24,7 +24,8 @@ program
 
 
 program
-  .command('init [projectName]')
+  .command('init')
+  .arguments('<projectName>')
   .description('Initialize a new Omi application in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-vite';
@@ -37,7 +38,8 @@ program
 
 
 program
-  .command('init-ts [projectName]')
+  .command('init-ts')
+  .arguments('<projectName>')
   .description('Initialize a new omi project with typescript in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-ts';
@@ -48,7 +50,8 @@ program
   })
 
 program
-  .command('init-vite [projectName]')
+  .command('init-vite')
+  .arguments('<projectName>')
   .description('Initialize a new omi project with vite in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-vite';
@@ -60,18 +63,20 @@ program
 
 
 program
-.command('init-component [ComponentName]')
-.description('Initialize a new omi component in the current folder')
-.action(function (projectName, option) {
-  var cmd = 'init-component';
-  if (option.parent.mirror && typeof option.parent.mirror === 'string') {
-    options.mirror = option.parent.mirror;
-  }
-  switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
-})
+  .command('init-component')
+  .arguments('<componentName>')
+  .description('Initialize a new omi component in the current folder')
+  .action(function (projectName, option) {
+    var cmd = 'init-component';
+    if (option.parent.mirror && typeof option.parent.mirror === 'string') {
+      options.mirror = option.parent.mirror;
+    }
+    switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+  })
 
 program
-  .command('init-o [projectName]')
+  .command('init-o')
+  .arguments('<projectName>')
   .description('Initialize a new omio(IE8+) project in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-o';
@@ -83,7 +88,8 @@ program
 
 
 program
-  .command('init-weui [projectName]')
+  .command('init-weui')
+  .arguments('<projectName>')
   .description('Initialize a mobile project with weui in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-weui';
@@ -95,7 +101,8 @@ program
 
 
 program
-  .command('init-mp [projectName]')
+  .command('init-mp')
+  .arguments('<projectName>')
   .description('Initialize a new omi-mp project in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-mp';
@@ -106,7 +113,8 @@ program
   });
 
 program
-  .command('init-md2site [projectName]')
+  .command('init-md2site')
+  .arguments('<projectName>')
   .description('Initialize a new omi-md2site project in the current folder')
   .action(function (projectName, option) {
     var cmd = 'init-md2site';
