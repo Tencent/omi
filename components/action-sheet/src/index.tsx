@@ -12,7 +12,7 @@ interface Props {
 
 @tag('o-action-sheet')
 export default class ActionSheet extends WeElement<Props> {
-  static css = css.stylesheet;
+  static css = css.default ? css.default : css;
 
   static defaultProps = {
     type: '',
