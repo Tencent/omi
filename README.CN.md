@@ -115,7 +115,7 @@ $ npm run build       # 编译发布
 | [omi-docs](https://tencent.github.io/omi/site/docs/cn.html) 和 [例子](https://codepen.io/collection/DrMYgV/) 和 [webcomponents.dev](https://webcomponents.dev/)| Omi 官方文档 |
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) |
-| [CEE](https://omijs.github.io/cee/out/)| custom-elements-everywhere 评分 |
+|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| 框架和自定义元素无缝工作 |
 
 #### Snake MVP
 
