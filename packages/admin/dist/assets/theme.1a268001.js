@@ -1,1 +1,44 @@
-var e="## 自定义主题 \n\nOmiu 支持运行时动态主题切换。\n\n\n## 安装\n\n```js\nimport '@omiu/common'\n```\n\n或者直接 script 标签引入。\n\n\n```html\n<script src=\"https://unpkg.com/@omiu/common\"><\/script>\n```\n\n## 更改主题\n\n```js\nconst setTheme = Omiu.setTheme\n\nsetTheme('primary', '#07c160')\nsetTheme('danger', '#f5222d')\nsetTheme('surface', '#ffffff')\nsetTheme('on-primary', '#ffffff')\nsetTheme('on-danger', '#ffffff')\nsetTheme('on-surface', '#000000')\nsetTheme('background', '#ffffff')\nsetTheme('small-radius', '4px')\nsetTheme('medium-radius', '4px')\nsetTheme('large-radius', '0px')\nsetTheme('font-family', '-apple-system-font,\"Helvetica Neue\",sans-serif')\n```\n\n或者\n\n```js\nOmiu.setThemePrimary('green')\n```\n\n\n";export{e as default};
+var e=`## \u81EA\u5B9A\u4E49\u4E3B\u9898 
+
+Omiu \u652F\u6301\u8FD0\u884C\u65F6\u52A8\u6001\u4E3B\u9898\u5207\u6362\u3002
+
+
+## \u5B89\u88C5
+
+\`\`\`js
+import '@omiu/common'
+\`\`\`
+
+\u6216\u8005\u76F4\u63A5 script \u6807\u7B7E\u5F15\u5165\u3002
+
+
+\`\`\`html
+<script src="https://unpkg.com/@omiu/common"><\/script>
+\`\`\`
+
+## \u66F4\u6539\u4E3B\u9898
+
+\`\`\`js
+const setTheme = Omiu.setTheme
+
+setTheme('primary', '#07c160')
+setTheme('danger', '#f5222d')
+setTheme('surface', '#ffffff')
+setTheme('on-primary', '#ffffff')
+setTheme('on-danger', '#ffffff')
+setTheme('on-surface', '#000000')
+setTheme('background', '#ffffff')
+setTheme('small-radius', '4px')
+setTheme('medium-radius', '4px')
+setTheme('large-radius', '0px')
+setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
+\`\`\`
+
+\u6216\u8005
+
+\`\`\`js
+Omiu.setThemePrimary('green')
+\`\`\`
+
+
+`;export{e as default};

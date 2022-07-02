@@ -115,7 +115,7 @@ $ npm run build       # release
 | [omi-docs](https://tencent.github.io/omi/site/docs/index.html) and [codepen](https://codepen.io/collection/DrMYgV/) | Omi official documents |
 | [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template)|
-|[CEE](https://omijs.github.io/cee/out/)| Fork from custom-elements-everywhere |
+|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| Making sure frameworks and custom elements can be BFFs 🍻 |
 
 #### :snake:Snake MVP 
 

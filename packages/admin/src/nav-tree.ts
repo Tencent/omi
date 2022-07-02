@@ -243,7 +243,7 @@ export function genNavTree(i18n) {
     'card',
     'hamburger-menu',
     'slider',
-    'Input',
+    'input',
     'loading',
     'link',
     'toast',

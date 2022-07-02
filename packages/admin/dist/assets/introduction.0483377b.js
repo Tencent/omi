@@ -1,1 +1,200 @@
-var n="## Omiu 是什么？\n\nOmiu 是基于 [Omi](https://github.com/Tencent/omi) 开发的跨框架 UI 组件库，输出标准 Web Components 的 Custom Elements，任意组件可以同时在 React、Vue、Preact、Omi 或者原生 JS 等任意框架或无框架中使用，非常方便。总体来看，Omiu 有这些特性:\n\n> [Omiu Codepen 合集](https://codepen.io/collection/XBJjke)\n\n* 跨框架使用\n* 集成 MUI [海量 ICON](https://tencent.github.io/omi/components/icon/demos/icon.html)\n* 移动端和 PC 共用一套组件\n* 运行时的主题切换支持(颜色、字体和圆角)\n* 组件直接解耦，独立打磨，独立发布，独立引用\n* 扩展了 HTML 能力，你可以通过字符串 `'0'` 或者字符串 `'false'` 传递 false 给元素\n\n## 使用指南\n\n### 通过 script\n\n```html\n<script src=\"https://unpkg.com/omi\"><\/script>\n<script src=\"https://unpkg.com/@omiu/button\"><\/script>\n\n<o-button>I am button</o-button>\n```\n\n### 通过 npm\n\n``` bash\nnpm install @omiu/button\n```\n\n然后导入（自动全局注册）:\n\n```js\nimport '@omiu/button'\n```\n\n然后在任意框架中使用，比如 Omi, React, Vue or Angular:\n\n``` html\n<o-button>I am button</o-button>\n```\n\n也可以原生 JS 使用：\n\n```js\nvar button = document.createElement('o-button')\nbutton.innerHTML = 'I am omiu button'\ndocument.body.append(button)\nbutton.addEventListener('click', function () {\n  console.log('Clicked!')\n})\n\n//or\n//document.body.innerHTML = '<o-button>I am omiu button</o-button>'\n```\n\n## HTML 扩展 \n\n当默认值为 true，需要传递 false 给 element 的时候，以前是历史难题，Omi 完美解决了这一点，你可以通过字符串 `'0'` 或者 字符串 `'false'` 来设置。\n\n```js\ndefine('my-element', class extends WeElement {\n  static defaultProps = {\n    show: true\n  }\n\n static propTypes = {\n    show: Boolean\n  }\n\n  render(props) {\n    ...\n    ...\n  }\n})\n```\n\nUse:\n\n```html\n<my-element show=\"false\"></my-element>\n```\n\nor\n\n```html\n<my-element show=\"0\"></my-element>\n```\n\n## React 中使用 omiu\n\n```tsx\nimport { useState } from 'react'\nimport '@omiu/icon-button'\n\nexport default function SomeComponent(props) {\n    const [result, setSwitch] = useState(false)\n\n    return (\n      <div>\n        <p>The switch is {result ? 'on' : 'off'}</p>\n        {//使用 addEventListener 绑定自定义事件}\n        <o-icon-button color=\"red\" icons=\"['favorite', 'favorite_border']\">\n        </o-icon-button>\n      </div>\n    )\n}\n```\n\n\n## Vue 中使用 Omiu\n\n```html\n<script>\nimport '@omiu/icon-button'\n\nexport default {\n  name: 'HelloWorld',\n  data: function() {\n    return {\n      result: false\n    }\n  },\n  methods: {\n    myEvent: function(evt) {\n      this.result = evt.detail.isOn\n    }\n  }\n}\n<\/script>\n\n<template>\n  <div class=\"component\">\n    <p>The switch is {{result? 'on' : 'off'}}</p>\n    <o-icon-button color=\"red\" icons=\"['favorite', 'favorite_border']\" @change=\"myEvent\"></o-icon-button>\n  </div>\n</template>\n```\n\n## 事件触发和绑定最佳实践\n\n由于需要跨框架，在事件绑定上为了统一组件行为这里给除了组件开发和使用的最佳实践。Omiu 组件的事件触发统一使用小写的形式：\n\n```js\nthis.fire('change')\nthis.fire('my-event')\n```\n\n在 Omi 中进行对应的事件绑定:\n\n```jsx\n<my-ele onChange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>\n```\n\n在 Preact 中进行对应的事件绑定:\n\n```jsx\n<my-ele onchange={this.changeHandler} onmy-event={this.myEventHandler}></my-ele>\n```\n\n在 Vue 中进行对应的事件绑定:\n\n```html\n<my-ele @change=\"changeHandler\" @my-event=\"myEventHandler\"></my-ele>\n```\n\n在 React 和 JS 中进行对应的事件绑定:\n\n```jsx\nmyEl.addEventListener('my-event', (evt) => {})\n```\n\n## 贡献\n\n### 一些命令\n\nBuild 组件:\n\n```bash\nnpm run build \n```\n\nBuild 例子:\n\n```bash\nnpm start\n```\n\n生成文档:\n\n```bash\nnpm run docs\n```\n\n发布:\n\n```bash\nnpm publish --access public\n```\n";export{n as default};
+var n=`## Omiu \u662F\u4EC0\u4E48\uFF1F
+
+Omiu \u662F\u57FA\u4E8E [Omi](https://github.com/Tencent/omi) \u5F00\u53D1\u7684\u8DE8\u6846\u67B6 UI \u7EC4\u4EF6\u5E93\uFF0C\u8F93\u51FA\u6807\u51C6 Web Components \u7684 Custom Elements\uFF0C\u4EFB\u610F\u7EC4\u4EF6\u53EF\u4EE5\u540C\u65F6\u5728 React\u3001Vue\u3001Preact\u3001Omi \u6216\u8005\u539F\u751F JS \u7B49\u4EFB\u610F\u6846\u67B6\u6216\u65E0\u6846\u67B6\u4E2D\u4F7F\u7528\uFF0C\u975E\u5E38\u65B9\u4FBF\u3002\u603B\u4F53\u6765\u770B\uFF0COmiu \u6709\u8FD9\u4E9B\u7279\u6027:
+
+> [Omiu Codepen \u5408\u96C6](https://codepen.io/collection/XBJjke)
+
+* \u8DE8\u6846\u67B6\u4F7F\u7528
+* \u96C6\u6210 MUI [\u6D77\u91CF ICON](https://tencent.github.io/omi/components/icon/demos/icon.html)
+* \u79FB\u52A8\u7AEF\u548C PC \u5171\u7528\u4E00\u5957\u7EC4\u4EF6
+* \u8FD0\u884C\u65F6\u7684\u4E3B\u9898\u5207\u6362\u652F\u6301(\u989C\u8272\u3001\u5B57\u4F53\u548C\u5706\u89D2)
+* \u7EC4\u4EF6\u76F4\u63A5\u89E3\u8026\uFF0C\u72EC\u7ACB\u6253\u78E8\uFF0C\u72EC\u7ACB\u53D1\u5E03\uFF0C\u72EC\u7ACB\u5F15\u7528
+* \u6269\u5C55\u4E86 HTML \u80FD\u529B\uFF0C\u4F60\u53EF\u4EE5\u901A\u8FC7\u5B57\u7B26\u4E32 \`'0'\` \u6216\u8005\u5B57\u7B26\u4E32 \`'false'\` \u4F20\u9012 false \u7ED9\u5143\u7D20
+
+## \u4F7F\u7528\u6307\u5357
+
+### \u901A\u8FC7 script
+
+\`\`\`html
+<script src="https://unpkg.com/omi"><\/script>
+<script src="https://unpkg.com/@omiu/button"><\/script>
+
+<o-button>I am button</o-button>
+\`\`\`
+
+### \u901A\u8FC7 npm
+
+\`\`\` bash
+npm install @omiu/button
+\`\`\`
+
+\u7136\u540E\u5BFC\u5165\uFF08\u81EA\u52A8\u5168\u5C40\u6CE8\u518C\uFF09:
+
+\`\`\`js
+import '@omiu/button'
+\`\`\`
+
+\u7136\u540E\u5728\u4EFB\u610F\u6846\u67B6\u4E2D\u4F7F\u7528\uFF0C\u6BD4\u5982 Omi, React, Vue or Angular:
+
+\`\`\` html
+<o-button>I am button</o-button>
+\`\`\`
+
+\u4E5F\u53EF\u4EE5\u539F\u751F JS \u4F7F\u7528\uFF1A
+
+\`\`\`js
+var button = document.createElement('o-button')
+button.innerHTML = 'I am omiu button'
+document.body.append(button)
+button.addEventListener('click', function () {
+  console.log('Clicked!')
+})
+
+//or
+//document.body.innerHTML = '<o-button>I am omiu button</o-button>'
+\`\`\`
+
+## HTML \u6269\u5C55 
+
+\u5F53\u9ED8\u8BA4\u503C\u4E3A true\uFF0C\u9700\u8981\u4F20\u9012 false \u7ED9 element \u7684\u65F6\u5019\uFF0C\u4EE5\u524D\u662F\u5386\u53F2\u96BE\u9898\uFF0COmi \u5B8C\u7F8E\u89E3\u51B3\u4E86\u8FD9\u4E00\u70B9\uFF0C\u4F60\u53EF\u4EE5\u901A\u8FC7\u5B57\u7B26\u4E32 \`'0'\` \u6216\u8005 \u5B57\u7B26\u4E32 \`'false'\` \u6765\u8BBE\u7F6E\u3002
+
+\`\`\`js
+define('my-element', class extends WeElement {
+  static defaultProps = {
+    show: true
+  }
+
+ static propTypes = {
+    show: Boolean
+  }
+
+  render(props) {
+    ...
+    ...
+  }
+})
+\`\`\`
+
+Use:
+
+\`\`\`html
+<my-element show="false"></my-element>
+\`\`\`
+
+or
+
+\`\`\`html
+<my-element show="0"></my-element>
+\`\`\`
+
+## React \u4E2D\u4F7F\u7528 omiu
+
+\`\`\`tsx
+import { useState } from 'react'
+import '@omiu/icon-button'
+
+export default function SomeComponent(props) {
+    const [result, setSwitch] = useState(false)
+
+    return (
+      <div>
+        <p>The switch is {result ? 'on' : 'off'}</p>
+        {//\u4F7F\u7528 addEventListener \u7ED1\u5B9A\u81EA\u5B9A\u4E49\u4E8B\u4EF6}
+        <o-icon-button color="red" icons="['favorite', 'favorite_border']">
+        </o-icon-button>
+      </div>
+    )
+}
+\`\`\`
+
+
+## Vue \u4E2D\u4F7F\u7528 Omiu
+
+\`\`\`html
+<script>
+import '@omiu/icon-button'
+
+export default {
+  name: 'HelloWorld',
+  data: function() {
+    return {
+      result: false
+    }
+  },
+  methods: {
+    myEvent: function(evt) {
+      this.result = evt.detail.isOn
+    }
+  }
+}
+<\/script>
+
+<template>
+  <div class="component">
+    <p>The switch is {{result? 'on' : 'off'}}</p>
+    <o-icon-button color="red" icons="['favorite', 'favorite_border']" @change="myEvent"></o-icon-button>
+  </div>
+</template>
+\`\`\`
+
+## \u4E8B\u4EF6\u89E6\u53D1\u548C\u7ED1\u5B9A\u6700\u4F73\u5B9E\u8DF5
+
+\u7531\u4E8E\u9700\u8981\u8DE8\u6846\u67B6\uFF0C\u5728\u4E8B\u4EF6\u7ED1\u5B9A\u4E0A\u4E3A\u4E86\u7EDF\u4E00\u7EC4\u4EF6\u884C\u4E3A\u8FD9\u91CC\u7ED9\u9664\u4E86\u7EC4\u4EF6\u5F00\u53D1\u548C\u4F7F\u7528\u7684\u6700\u4F73\u5B9E\u8DF5\u3002Omiu \u7EC4\u4EF6\u7684\u4E8B\u4EF6\u89E6\u53D1\u7EDF\u4E00\u4F7F\u7528\u5C0F\u5199\u7684\u5F62\u5F0F\uFF1A
+
+\`\`\`js
+this.fire('change')
+this.fire('my-event')
+\`\`\`
+
+\u5728 Omi \u4E2D\u8FDB\u884C\u5BF9\u5E94\u7684\u4E8B\u4EF6\u7ED1\u5B9A:
+
+\`\`\`jsx
+<my-ele onChange={this.changeHandler} onMyEvent={this.myEventHandler}></my-ele>
+\`\`\`
+
+\u5728 Preact \u4E2D\u8FDB\u884C\u5BF9\u5E94\u7684\u4E8B\u4EF6\u7ED1\u5B9A:
+
+\`\`\`jsx
+<my-ele onchange={this.changeHandler} onmy-event={this.myEventHandler}></my-ele>
+\`\`\`
+
+\u5728 Vue \u4E2D\u8FDB\u884C\u5BF9\u5E94\u7684\u4E8B\u4EF6\u7ED1\u5B9A:
+
+\`\`\`html
+<my-ele @change="changeHandler" @my-event="myEventHandler"></my-ele>
+\`\`\`
+
+\u5728 React \u548C JS \u4E2D\u8FDB\u884C\u5BF9\u5E94\u7684\u4E8B\u4EF6\u7ED1\u5B9A:
+
+\`\`\`jsx
+myEl.addEventListener('my-event', (evt) => {})
+\`\`\`
+
+## \u8D21\u732E
+
+### \u4E00\u4E9B\u547D\u4EE4
+
+Build \u7EC4\u4EF6:
+
+\`\`\`bash
+npm run build 
+\`\`\`
+
+Build \u4F8B\u5B50:
+
+\`\`\`bash
+npm start
+\`\`\`
+
+\u751F\u6210\u6587\u6863:
+
+\`\`\`bash
+npm run docs
+\`\`\`
+
+\u53D1\u5E03:
+
+\`\`\`bash
+npm publish --access public
+\`\`\`
+`;export{n as default};
