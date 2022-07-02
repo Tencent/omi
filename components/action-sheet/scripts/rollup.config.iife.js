@@ -11,20 +11,6 @@ const licensePlugin = license({
   banner: `${pkg.name} v${pkg.version} http://omijs.org\r\nFront End Cross-Frameworks Framework.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed.`
 });
 
-const processSass = function(context, payload) {
-  return new Promise(( resolve, reject ) => {
-    sass.render({
-      file: context
-    }, function(err, result) {
-      if( !err ) {
-        resolve(result);
-      } else {
-        reject(err)
-      }
-    });
-  })
-}
-
 export default {
   input: "src/index.tsx",
   output: {
@@ -39,9 +25,7 @@ export default {
       main: true
     }),
     postcss({
-      extract: true,
-      extensions: ['css', 'scss'],
-      process: processSass,
+      inject: false,
     }),
     typescript(),
     commonjs(),
