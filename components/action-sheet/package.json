@@ -15,7 +15,7 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "rollup -c scripts/rollup.config.iife.js && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+    "build": "rollup -c scripts/rollup.config.iife.js && rollup -c scripts/rollup.config.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
