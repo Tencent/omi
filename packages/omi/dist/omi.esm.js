@@ -387,7 +387,7 @@ var hydrating = false;
  *  @private
  */
 function diff(dom, vnode, parent, component, updateSelf) {
-  //first render return undefined
+  // first render return undefined
   if (!dom && !vnode) return;
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   var ret;
@@ -403,12 +403,16 @@ function diff(dom, vnode, parent, component, updateSelf) {
   }
   if (isArray(vnode)) {
     if (parent) {
-      //don't use css and props.css when using h.f
+      // don't use css and props.css when using h.f
+      // diff node list and vnode list
       innerDiffNode(parent, vnode, hydrating, component, updateSelf);
     } else {
+      // connectedCallback 的时候 parent 为 null
       ret = [];
       vnode.forEach(function (item, index) {
         var ele = idiff(index === 0 ? dom : null, item, component, updateSelf);
+        // 返回数组的情况下，在 WeElement 中进行了 shadowRoot.appendChild
+        // 所有不会出现 vnode index 大于 0 丢失的情况
         ret.push(ele);
       });
     }
@@ -815,6 +819,12 @@ var WeElement = function (_HTMLElement) {
             }
             shadowRoot.adoptedStyleSheets = styleSheets;
           });
+        } else if (Object.prototype.toString.call(css) === '[object Object]') {
+          if (css.default) {
+            var _styleSheet = new CSSStyleSheet();
+            _styleSheet.replaceSync(css.default);
+            shadowRoot.adoptedStyleSheets = [_styleSheet];
+          }
         } else {
           shadowRoot.adoptedStyleSheets = [css];
         }
@@ -1181,15 +1191,15 @@ function o(obj) {
 
 (function () {
 
-    if ('adoptedStyleSheets' in document) { return; }
+    if (typeof document === 'undefined' || 'adoptedStyleSheets' in document) { return; }
 
     var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
-    var bootstrapper = document.implementation.createHTMLDocument('boot');
+    var bootstrapper = document.implementation.createHTMLDocument('');
     var closedShadowRootRegistry = new WeakMap();
     var _DOMException = typeof DOMException === 'object' ? Error : DOMException;
-
     var defineProperty = Object.defineProperty;
     var forEach = Array.prototype.forEach;
+
     var importPattern = /@import.+?;?$/gm;
     function rejectImports(contents) {
         var _contents = contents.replace(importPattern, '');
@@ -1197,16 +1207,6 @@ function o(obj) {
             console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
         }
         return _contents.trim();
-    }
-    function clearRules(sheet) {
-        for (var i = 0; i < sheet.cssRules.length; i++) {
-            sheet.deleteRule(0);
-        }
-    }
-    function insertAllRules(from, to) {
-        forEach.call(from.cssRules, function (rule, i) {
-            to.insertRule(rule.cssText, i);
-        });
     }
     function isElementConnected(element) {
         return 'isConnected' in element
@@ -1227,12 +1227,9 @@ function o(obj) {
     }
 
     var cssStyleSheetMethods = [
-        'addImport',
-        'addPageRule',
         'addRule',
         'deleteRule',
         'insertRule',
-        'removeImport',
         'removeRule',
     ];
     var NonConstructedStyleSheet = CSSStyleSheet;
@@ -1245,7 +1242,7 @@ function o(obj) {
     };
     function isCSSStyleSheetInstance(instance) {
         return typeof instance === 'object'
-            ? proto$2.isPrototypeOf(instance) ||
+            ? proto$1.isPrototypeOf(instance) ||
                 nonConstructedProto.isPrototypeOf(instance)
             : false;
     }
@@ -1254,9 +1251,10 @@ function o(obj) {
             ? nonConstructedProto.isPrototypeOf(instance)
             : false;
     }
-    var $basicStyleSheet = new WeakMap();
+    var $basicStyleElement = new WeakMap();
     var $locations = new WeakMap();
     var $adoptersByLocation = new WeakMap();
+    var $appliedMethods = new WeakMap();
     function addAdopterLocation(sheet, location) {
         var adopter = document.createElement('style');
         $adoptersByLocation.get(sheet).set(location, adopter);
@@ -1272,12 +1270,16 @@ function o(obj) {
     }
     function restyleAdopter(sheet, adopter) {
         requestAnimationFrame(function () {
-            clearRules(adopter.sheet);
-            insertAllRules($basicStyleSheet.get(sheet), adopter.sheet);
+            adopter.textContent = $basicStyleElement.get(sheet).textContent;
+            $appliedMethods
+                .get(sheet)
+                .forEach(function (command) {
+                return adopter.sheet[command.method].apply(adopter.sheet, command.args);
+            });
         });
     }
     function checkInvocationCorrectness(self) {
-        if (!$basicStyleSheet.has(self)) {
+        if (!$basicStyleElement.has(self)) {
             throw new TypeError('Illegal invocation');
         }
     }
@@ -1285,12 +1287,13 @@ function o(obj) {
         var self = this;
         var style = document.createElement('style');
         bootstrapper.body.appendChild(style);
-        $basicStyleSheet.set(self, style.sheet);
+        $basicStyleElement.set(self, style);
         $locations.set(self, []);
         $adoptersByLocation.set(self, new WeakMap());
+        $appliedMethods.set(self, []);
     }
-    var proto$2 = ConstructedStyleSheet.prototype;
-    proto$2.replace = function replace(contents) {
+    var proto$1 = ConstructedStyleSheet.prototype;
+    proto$1.replace = function replace(contents) {
         try {
             this.replaceSync(contents);
             return Promise.resolve(this);
@@ -1299,13 +1302,12 @@ function o(obj) {
             return Promise.reject(e);
         }
     };
-    proto$2.replaceSync = function replaceSync(contents) {
+    proto$1.replaceSync = function replaceSync(contents) {
         checkInvocationCorrectness(this);
         if (typeof contents === 'string') {
             var self_1 = this;
-            var style = $basicStyleSheet.get(self_1).ownerNode;
-            style.textContent = rejectImports(contents);
-            $basicStyleSheet.set(self_1, style.sheet);
+            $basicStyleElement.get(self_1).textContent = rejectImports(contents);
+            $appliedMethods.set(self_1, []);
             $locations.get(self_1).forEach(function (location) {
                 if (location.isConnected()) {
                     restyleAdopter(self_1, getAdopterByLocation(self_1, location));
@@ -1313,29 +1315,36 @@ function o(obj) {
             });
         }
     };
-    defineProperty(proto$2, 'cssRules', {
+    defineProperty(proto$1, 'cssRules', {
         configurable: true,
         enumerable: true,
         get: function cssRules() {
             checkInvocationCorrectness(this);
-            return $basicStyleSheet.get(this).cssRules;
+            return $basicStyleElement.get(this).sheet.cssRules;
+        },
+    });
+    defineProperty(proto$1, 'media', {
+        configurable: true,
+        enumerable: true,
+        get: function media() {
+            checkInvocationCorrectness(this);
+            return $basicStyleElement.get(this).sheet.media;
         },
     });
     cssStyleSheetMethods.forEach(function (method) {
-        proto$2[method] = function () {
+        proto$1[method] = function () {
             var self = this;
             checkInvocationCorrectness(self);
             var args = arguments;
-            var basic = $basicStyleSheet.get(self);
-            var locations = $locations.get(self);
-            var result = basic[method].apply(basic, args);
-            locations.forEach(function (location) {
+            $appliedMethods.get(self).push({ method: method, args: args });
+            $locations.get(self).forEach(function (location) {
                 if (location.isConnected()) {
                     var sheet = getAdopterByLocation(self, location).sheet;
                     sheet[method].apply(sheet, args);
                 }
             });
-            return result;
+            var basicSheet = $basicStyleElement.get(self).sheet;
+            return basicSheet[method].apply(basicSheet, args);
         };
     });
     defineProperty(ConstructedStyleSheet, Symbol.hasInstance, {
@@ -1442,50 +1451,51 @@ function o(obj) {
             });
         }));
     }
-    var proto$1 = Location.prototype;
-    proto$1.isConnected = function isConnected() {
-        var element = $element.get(this);
-        return element instanceof Document
-            ? element.readyState !== 'loading'
-            : isElementConnected(element.host);
-    };
-    proto$1.connect = function connect() {
-        var container = getAdopterContainer(this);
-        $observer.get(this).observe(container, defaultObserverOptions);
-        if ($uniqueSheets.get(this).length > 0) {
-            adopt(this);
-        }
-        traverseWebComponents(container, function (root) {
-            getAssociatedLocation(root).connect();
-        });
-    };
-    proto$1.disconnect = function disconnect() {
-        $observer.get(this).disconnect();
-    };
-    proto$1.update = function update(sheets) {
-        var self = this;
-        var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
-        if (!Array.isArray(sheets)) {
-            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
-        }
-        if (!sheets.every(isCSSStyleSheetInstance)) {
-            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
-        }
-        if (sheets.some(isNonConstructedStyleSheetInstance)) {
-            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
-        }
-        self.sheets = sheets;
-        var oldUniqueSheets = $uniqueSheets.get(self);
-        var uniqueSheets = unique(sheets);
-        var removedSheets = diff(oldUniqueSheets, uniqueSheets);
-        removedSheets.forEach(function (sheet) {
-            removeNode(getAdopterByLocation(sheet, self));
-            removeAdopterLocation(sheet, self);
-        });
-        $uniqueSheets.set(self, uniqueSheets);
-        if (self.isConnected() && uniqueSheets.length > 0) {
-            adopt(self);
-        }
+    Location.prototype = {
+        isConnected: function () {
+            var element = $element.get(this);
+            return element instanceof Document
+                ? element.readyState !== 'loading'
+                : isElementConnected(element.host);
+        },
+        connect: function () {
+            var container = getAdopterContainer(this);
+            $observer.get(this).observe(container, defaultObserverOptions);
+            if ($uniqueSheets.get(this).length > 0) {
+                adopt(this);
+            }
+            traverseWebComponents(container, function (root) {
+                getAssociatedLocation(root).connect();
+            });
+        },
+        disconnect: function () {
+            $observer.get(this).disconnect();
+        },
+        update: function (sheets) {
+            var self = this;
+            var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
+            if (!Array.isArray(sheets)) {
+                throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
+            }
+            if (!sheets.every(isCSSStyleSheetInstance)) {
+                throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
+            }
+            if (sheets.some(isNonConstructedStyleSheetInstance)) {
+                throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
+            }
+            self.sheets = sheets;
+            var oldUniqueSheets = $uniqueSheets.get(self);
+            var uniqueSheets = unique(sheets);
+            var removedSheets = diff(oldUniqueSheets, uniqueSheets);
+            removedSheets.forEach(function (sheet) {
+                removeNode(getAdopterByLocation(sheet, self));
+                removeAdopterLocation(sheet, self);
+            });
+            $uniqueSheets.set(self, uniqueSheets);
+            if (self.isConnected() && uniqueSheets.length > 0) {
+                adopt(self);
+            }
+        },
     };
 
     window.CSSStyleSheet = ConstructedStyleSheet;

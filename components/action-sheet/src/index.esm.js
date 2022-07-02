@@ -67,161 +67,14 @@ function __decorate(decorators, target, key, desc) {
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
+var css_248z = ".o-actionsheet {\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  -webkit-transform: translate(0, 100%);\n  transform: translate(0, 100%);\n  -webkit-backface-visibility: hidden;\n  backface-visibility: hidden;\n  z-index: 5000;\n  width: 100%;\n  background-color: #EFEFF4;\n  -webkit-transition: -webkit-transform 0.3s;\n  transition: -webkit-transform 0.3s;\n  transition: transform 0.3s;\n  transition: transform 0.3s, -webkit-transform 0.3s;\n}\n\n.o-actionsheet__title {\n  position: relative;\n  height: 65px;\n  padding: 0 20px;\n  line-height: 1.4;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  text-align: center;\n  font-size: 14px;\n  color: #808080;\n  background: #FCFCFD;\n}\n\n.o-actionsheet__title:before {\n  content: \" \";\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  height: 1px;\n  border-bottom: 1px solid #e5e5e5;\n  color: #e5e5e5;\n  -webkit-transform-origin: 0 100%;\n  transform-origin: 0 100%;\n  -webkit-transform: scaleY(0.5);\n  transform: scaleY(0.5);\n}\n\n.o-actionsheet__title .o-actionsheet__title-text {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n}\n\n.o-actionsheet__menu {\n  background-color: #FCFCFD;\n}\n\n.o-actionsheet__action {\n  margin-top: 6px;\n  background-color: #FCFCFD;\n}\n\n.o-actionsheet__cell {\n  position: relative;\n  padding: 10px 0;\n  text-align: center;\n  font-size: 18px;\n}\n\n.o-actionsheet__cell:before {\n  content: \" \";\n  position: absolute;\n  left: 0;\n  top: 0;\n  right: 0;\n  height: 1px;\n  border-top: 1px solid #e5e5e5;\n  color: #e5e5e5;\n  -webkit-transform-origin: 0 0;\n  transform-origin: 0 0;\n  -webkit-transform: scaleY(0.5);\n  transform: scaleY(0.5);\n}\n\n.o-actionsheet__cell:active {\n  background-color: #ECECEC;\n}\n\n.o-actionsheet__cell:first-child:before {\n  display: none;\n}\n\n.o-skin_android .o-actionsheet {\n  position: fixed;\n  left: 50%;\n  top: 50%;\n  bottom: auto;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  width: 274px;\n  box-sizing: border-box;\n  -webkit-backface-visibility: hidden;\n  backface-visibility: hidden;\n  background: transparent;\n  -webkit-transition: -webkit-transform 0.3s;\n  transition: -webkit-transform 0.3s;\n  transition: transform 0.3s;\n  transition: transform 0.3s, -webkit-transform 0.3s;\n}\n\n.o-skin_android .o-actionsheet__action {\n  display: none;\n}\n\n.o-skin_android .o-actionsheet__menu {\n  border-radius: 2px;\n  box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.1);\n}\n\n.o-skin_android .o-actionsheet__cell {\n  padding: 13px 24px;\n  font-size: 16px;\n  line-height: 1.4;\n  text-align: left;\n}\n\n.o-skin_android .o-actionsheet__cell:first-child {\n  border-top-left-radius: 2px;\n  border-top-right-radius: 2px;\n}\n\n.o-skin_android .o-actionsheet__cell:last-child {\n  border-bottom-left-radius: 2px;\n  border-bottom-right-radius: 2px;\n}\n\n.o-actionsheet_toggle {\n  -webkit-transform: translate(0, 0);\n  transform: translate(0, 0);\n}\n\n.mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: black;\n  opacity: 0.4;\n  z-index: 100;\n  left: 0;\n  top: 0;\n}\n\n.o-skin_android .o-actionsheet_toggle {\n  opacity: 1 !important;\n  top: 50% !important;\n  bottom: auto !important;\n}\n\n.o-skin_android .o-actionsheet {\n  opacity: 0;\n  transition: opacity 0.3s;\n  top: 150%;\n  bottom: 0;\n}";
+var stylesheet=".o-actionsheet {\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  -webkit-transform: translate(0, 100%);\n  transform: translate(0, 100%);\n  -webkit-backface-visibility: hidden;\n  backface-visibility: hidden;\n  z-index: 5000;\n  width: 100%;\n  background-color: #EFEFF4;\n  -webkit-transition: -webkit-transform 0.3s;\n  transition: -webkit-transform 0.3s;\n  transition: transform 0.3s;\n  transition: transform 0.3s, -webkit-transform 0.3s;\n}\n\n.o-actionsheet__title {\n  position: relative;\n  height: 65px;\n  padding: 0 20px;\n  line-height: 1.4;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  text-align: center;\n  font-size: 14px;\n  color: #808080;\n  background: #FCFCFD;\n}\n\n.o-actionsheet__title:before {\n  content: \" \";\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  height: 1px;\n  border-bottom: 1px solid #e5e5e5;\n  color: #e5e5e5;\n  -webkit-transform-origin: 0 100%;\n  transform-origin: 0 100%;\n  -webkit-transform: scaleY(0.5);\n  transform: scaleY(0.5);\n}\n\n.o-actionsheet__title .o-actionsheet__title-text {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n}\n\n.o-actionsheet__menu {\n  background-color: #FCFCFD;\n}\n\n.o-actionsheet__action {\n  margin-top: 6px;\n  background-color: #FCFCFD;\n}\n\n.o-actionsheet__cell {\n  position: relative;\n  padding: 10px 0;\n  text-align: center;\n  font-size: 18px;\n}\n\n.o-actionsheet__cell:before {\n  content: \" \";\n  position: absolute;\n  left: 0;\n  top: 0;\n  right: 0;\n  height: 1px;\n  border-top: 1px solid #e5e5e5;\n  color: #e5e5e5;\n  -webkit-transform-origin: 0 0;\n  transform-origin: 0 0;\n  -webkit-transform: scaleY(0.5);\n  transform: scaleY(0.5);\n}\n\n.o-actionsheet__cell:active {\n  background-color: #ECECEC;\n}\n\n.o-actionsheet__cell:first-child:before {\n  display: none;\n}\n\n.o-skin_android .o-actionsheet {\n  position: fixed;\n  left: 50%;\n  top: 50%;\n  bottom: auto;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  width: 274px;\n  box-sizing: border-box;\n  -webkit-backface-visibility: hidden;\n  backface-visibility: hidden;\n  background: transparent;\n  -webkit-transition: -webkit-transform 0.3s;\n  transition: -webkit-transform 0.3s;\n  transition: transform 0.3s;\n  transition: transform 0.3s, -webkit-transform 0.3s;\n}\n\n.o-skin_android .o-actionsheet__action {\n  display: none;\n}\n\n.o-skin_android .o-actionsheet__menu {\n  border-radius: 2px;\n  box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.1);\n}\n\n.o-skin_android .o-actionsheet__cell {\n  padding: 13px 24px;\n  font-size: 16px;\n  line-height: 1.4;\n  text-align: left;\n}\n\n.o-skin_android .o-actionsheet__cell:first-child {\n  border-top-left-radius: 2px;\n  border-top-right-radius: 2px;\n}\n\n.o-skin_android .o-actionsheet__cell:last-child {\n  border-bottom-left-radius: 2px;\n  border-bottom-right-radius: 2px;\n}\n\n.o-actionsheet_toggle {\n  -webkit-transform: translate(0, 0);\n  transform: translate(0, 0);\n}\n\n.mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: black;\n  opacity: 0.4;\n  z-index: 100;\n  left: 0;\n  top: 0;\n}\n\n.o-skin_android .o-actionsheet_toggle {\n  opacity: 1 !important;\n  top: 50% !important;\n  bottom: auto !important;\n}\n\n.o-skin_android .o-actionsheet {\n  opacity: 0;\n  transition: opacity 0.3s;\n  top: 150%;\n  bottom: 0;\n}";
 
-var css = `.o-actionsheet {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  -webkit-transform: translate(0, 100%);
-  transform: translate(0, 100%);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  z-index: 5000;
-  width: 100%;
-  background-color: #EFEFF4;
-  -webkit-transition: -webkit-transform .3s;
-  transition: -webkit-transform .3s;
-  transition: transform .3s;
-  transition: transform .3s, -webkit-transform .3s; }
-
-.o-actionsheet__title {
-  position: relative;
-  height: 65px;
-  padding: 0 20px;
-  line-height: 1.4;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  text-align: center;
-  font-size: 14px;
-  color: #808080;
-  background: #FCFCFD; }
-
-.o-actionsheet__title:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 1px;
-  border-bottom: 1px solid #e5e5e5;
-  color: #e5e5e5;
-  -webkit-transform-origin: 0 100%;
-  transform-origin: 0 100%;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5); }
-
-.o-actionsheet__title .o-actionsheet__title-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; }
-
-.o-actionsheet__menu {
-  background-color: #FCFCFD; }
-
-.o-actionsheet__action {
-  margin-top: 6px;
-  background-color: #FCFCFD; }
-
-.o-actionsheet__cell {
-  position: relative;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 18px; }
-
-.o-actionsheet__cell:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 1px;
-  border-top: 1px solid #e5e5e5;
-  color: #e5e5e5;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5); }
-
-.o-actionsheet__cell:active {
-  background-color: #ECECEC; }
-
-.o-actionsheet__cell:first-child:before {
-  display: none; }
-
-.o-skin_android .o-actionsheet {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  bottom: auto;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 274px;
-  box-sizing: border-box;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  background: transparent;
-  -webkit-transition: -webkit-transform .3s;
-  transition: -webkit-transform .3s;
-  transition: transform .3s;
-  transition: transform .3s, -webkit-transform .3s; }
-
-.o-skin_android .o-actionsheet__action {
-  display: none; }
-
-.o-skin_android .o-actionsheet__menu {
-  border-radius: 2px;
-  box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.1); }
-
-.o-skin_android .o-actionsheet__cell {
-  padding: 13px 24px;
-  font-size: 16px;
-  line-height: 1.4;
-  text-align: left; }
-
-.o-skin_android .o-actionsheet__cell:first-child {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px; }
-
-.o-skin_android .o-actionsheet__cell:last-child {
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px; }
-
-.o-actionsheet_toggle {
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0); }
-
-.mask {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0.4;
-  z-index: 100;
-  left: 0;
-  top: 0; }
-
-.o-skin_android .o-actionsheet_toggle {
-  opacity: 1 !important;
-  top: 50% !important;
-  bottom: auto !important; }
-
-.o-skin_android .o-actionsheet {
-  opacity: 0;
-  transition: opacity .3s;
-  top: 150%;
-  bottom: 0; }
-`
-
+var css = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    'default': css_248z,
+    stylesheet: stylesheet
+});
 
 var ActionSheet = /** @class */ (function (_super) {
     __extends(ActionSheet, _super);
@@ -276,7 +129,7 @@ var ActionSheet = /** @class */ (function (_super) {
         });
     };
     ActionSheet.prototype.render = function () {
-        var _a = this.props, show = _a.show, type = _a.type, menus = _a.menus, actions = _a.actions, others = __rest(_a, ["show", "type", "menus", "actions"]);
+        var _a = this.props, show = _a.show, type = _a.type; _a.menus; _a.actions; var others = __rest(_a, ["show", "type", "menus", "actions"]);
         var cls = classNames({
             'o-actionsheet': true,
             'o-actionsheet_toggle': show
@@ -307,5 +160,5 @@ var ActionSheet = /** @class */ (function (_super) {
     return ActionSheet;
 }(WeElement));
 
-export default ActionSheet;
+export { ActionSheet as default };
 //# sourceMappingURL=index.esm.js.map

@@ -84,6 +84,12 @@ export default class WeElement extends HTMLElement {
             }
             shadowRoot.adoptedStyleSheets = styleSheets
           })
+        } else if (Object.prototype.toString.call(css) === '[object Object]') {
+          if (css.default) {
+            const styleSheet = new CSSStyleSheet()
+            styleSheet.replaceSync(css.default)
+            shadowRoot.adoptedStyleSheets = [styleSheet]
+          }
         } else {
           shadowRoot.adoptedStyleSheets = [css]
         }
