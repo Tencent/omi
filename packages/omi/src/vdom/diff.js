@@ -24,7 +24,7 @@ let hydrating = false
  *  @private
  */
 export function diff(dom, vnode, parent, component, updateSelf) {
-  //first render return undefined
+  // first render return undefined
   if (!dom && !vnode) return
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   let ret
@@ -40,12 +40,15 @@ export function diff(dom, vnode, parent, component, updateSelf) {
   }
   if (isArray(vnode)) {
     if (parent) {
-      //don't use css and props.css when using h.f
+      // don't use css and props.css when using h.f
+      // diff node list and vnode list
       innerDiffNode(parent, vnode, hydrating, component, updateSelf)
-    } else {
+    } else { // connectedCallback 的时候 parent 为 null
       ret = []
       vnode.forEach((item, index) => {
         let ele = idiff(index === 0 ? dom : null, item, component, updateSelf)
+        // 返回数组的情况下，在 WeElement 中进行了 shadowRoot.appendChild
+        // 所有不会出现 vnode index 大于 0 丢失的情况
         ret.push(ele)
       })
     }
@@ -128,8 +131,8 @@ function idiff(dom, vnode, component, updateSelf) {
     vnodeName === 'svg'
       ? true
       : vnodeName === 'foreignObject'
-      ? false
-      : isSvgMode
+        ? false
+        : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
@@ -154,7 +157,7 @@ function idiff(dom, vnode, component, updateSelf) {
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--; )
+    for (let a = out.attributes, i = a.length; i--;)
       props[a[i].name] = a[i].value
   }
 
@@ -390,7 +393,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       name !== 'children' &&
       (!(name in old) ||
         attrs[name] !==
-          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
       //fix lazy load props missing
