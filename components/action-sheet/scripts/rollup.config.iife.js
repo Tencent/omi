@@ -1,14 +1,29 @@
 import nodeResolve from "rollup-plugin-node-resolve";
 
 import typescript from 'rollup-plugin-typescript';
-import scss from 'rollup-plugin-scss'
+import postcss from 'rollup-plugin-postcss'
 import commonjs from '@rollup/plugin-commonjs';
 const fs = require('fs')
 const license = require("rollup-plugin-license");
 const pkg = require("../package.json");
+const sass = require("sass")
 const licensePlugin = license({
   banner: `${pkg.name} v${pkg.version} http://omijs.org\r\nFront End Cross-Frameworks Framework.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omi\r\n MIT Licensed.`
 });
+
+const processSass = function(context, payload) {
+  return new Promise(( resolve, reject ) => {
+    sass.render({
+      file: context
+    }, function(err, result) {
+      if( !err ) {
+        resolve(result);
+      } else {
+        reject(err)
+      }
+    });
+  })
+}
 
 export default {
   input: "src/index.tsx",
@@ -23,11 +38,10 @@ export default {
     nodeResolve({
       main: true
     }),
-    scss({
-      //output: false,
-      output: function (styles, styleNodes) {
-        fs.writeFileSync('./src/index.css', styles)
-      },
+    postcss({
+      extract: true,
+      extensions: ['css', 'scss'],
+      process: processSass,
     }),
     typescript(),
     commonjs(),
