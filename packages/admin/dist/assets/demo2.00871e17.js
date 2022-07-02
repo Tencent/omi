@@ -1,1 +1,1 @@
-var l="Hello, **world**!";export{l as default};
+var e="Hello, **world**!";export{e as default};

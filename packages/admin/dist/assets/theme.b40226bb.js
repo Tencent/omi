@@ -1,1 +1,44 @@
-var e="## Custom Theme \n\nOmiu supports dynamic theme switching at runtime.\n\n\n\n## Import\n\n```js\nimport '@omiu/common'\n```\n\nOr use script tag to ref it.\n\n\n```html\n<script src=\"https://unpkg.com/@omiu/common\"><\/script>\n```\n\n## Change Theme\n\n```js\nconst setTheme = Omiu.setTheme\n\nsetTheme('primary', '#07c160')\nsetTheme('danger', '#f5222d')\nsetTheme('surface', '#ffffff')\nsetTheme('on-primary', '#ffffff')\nsetTheme('on-danger', '#ffffff')\nsetTheme('on-surface', '#000000')\nsetTheme('background', '#ffffff')\nsetTheme('small-radius', '4px')\nsetTheme('medium-radius', '4px')\nsetTheme('large-radius', '0px')\nsetTheme('font-family', '-apple-system-font,\"Helvetica Neue\",sans-serif')\n```\n\nor\n\n```js\nOmiu.setThemePrimary('green')\n```\n\n";export{e as default};
+var e=`## Custom Theme 
+
+Omiu supports dynamic theme switching at runtime.
+
+
+
+## Import
+
+\`\`\`js
+import '@omiu/common'
+\`\`\`
+
+Or use script tag to ref it.
+
+
+\`\`\`html
+<script src="https://unpkg.com/@omiu/common"><\/script>
+\`\`\`
+
+## Change Theme
+
+\`\`\`js
+const setTheme = Omiu.setTheme
+
+setTheme('primary', '#07c160')
+setTheme('danger', '#f5222d')
+setTheme('surface', '#ffffff')
+setTheme('on-primary', '#ffffff')
+setTheme('on-danger', '#ffffff')
+setTheme('on-surface', '#000000')
+setTheme('background', '#ffffff')
+setTheme('small-radius', '4px')
+setTheme('medium-radius', '4px')
+setTheme('large-radius', '0px')
+setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
+\`\`\`
+
+or
+
+\`\`\`js
+Omiu.setThemePrimary('green')
+\`\`\`
+
+`;export{e as default};

@@ -14,7 +14,7 @@ const components = [
   'hamburger-menu',
   'tabs',
   'slider',
-  'Input',
+  'input',
   'loading',
   'link',
   'toast',

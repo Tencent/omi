@@ -1,1 +1,122 @@
-var n="## 如何将组件添加至 Omi-Admin\n\n## 创建组件\n\n在 omi/package/admin/src/components 目录下创建 name-component.tsx\n\n使用目录下的 `example-component.tsx` 进行修改，添加你的组件展示页面\n\n```js\nimport { WeElement, h, tag } from 'omi'\nimport { tw, sheet } from 'omi-twind'\nimport '../docs/admin-docs'\nimport './code-demo'\nimport './code-demo/container'\n\n// 引入你的组件\n// TODO\n// import '@omiu/name'\n\ninterface Props {}\n\n// TODO\nconst tagName = 'name-component'\ndeclare global {\n  namespace JSX {\n    interface IntrinsicElements {\n      [tagName]: Omi.Props & Props\n    }\n  }\n}\n\n@tag(tagName)\nexport default class extends WeElement<Props> {\n  static css = [sheet.target]\n\n  // TODO\n  mdA =\n  `\n  \\`\\`\\`html\n  <div>example</div>\n  \\`\\`\\`\n  `\n\n  installed() {}\n\n  render() {\n\n    return (\n      <code-demo-container>\n        <code-demo\n          title=\"例子\"\n          describe={'不同类型的标签'}\n          // TODO\n          code={this.mdA}\n        >\n          <div slot=\"demo\" class={tw`px-5 py-5`}>\n              {/* TODO */}\n            <div>example</div>\n          </div>\n        </code-demo>\n      </code-demo-container>\n    )\n  }\n}\n\n```\n\n## 国际化中添加组件\n\n在 `omi/package/admin/locales/zh.yml` 及 `omi/package/admin/locales/en.yml` 中加入\n\n```js\n// omi/package/admin/locales/en.yml\nName: 'example'\n// omi/package/admin/locales/zh.yml\nName: '例子'\n```\n\n## 将组件展示页加入 Admin 路由 (支持自动加入了)\n\n修改 components 对象 , 添加你的组件名\n\n```js\nconst components = [\n  'button',\n  'tabs',\n  'slider',\n  'loading',\n  'toast',\n  'card',\n  'progress',\n  'time-picker',\n  'tag',\n  'rate',\n  //TODO\n  'name'\n]\n```\n\n```js\ncomponents.map((componentName: string) =>\n  route(`/${componentName}-component`, () => {\n    //lazy load\n    import(`./components/components/${componentName}-component.tsx`).then(() =>\n      rootEl.transitionTo(`${componentName}-component`)\n    )\n  })\n)\n```\n\n## 向侧边栏中添加导航\n\n在 /omi/packages/admin/src/nav-tree.ts 中加入\n\n```js\n{\n    label: i18n.t('Name'),\n    id: genId(),\n    href: '#/name-component'\n},\n```\n";export{n as default};
+var n=`## \u5982\u4F55\u5C06\u7EC4\u4EF6\u6DFB\u52A0\u81F3 Omi-Admin
+
+## \u521B\u5EFA\u7EC4\u4EF6
+
+\u5728 omi/package/admin/src/components \u76EE\u5F55\u4E0B\u521B\u5EFA name-component.tsx
+
+\u4F7F\u7528\u76EE\u5F55\u4E0B\u7684 \`example-component.tsx\` \u8FDB\u884C\u4FEE\u6539\uFF0C\u6DFB\u52A0\u4F60\u7684\u7EC4\u4EF6\u5C55\u793A\u9875\u9762
+
+\`\`\`js
+import { WeElement, h, tag } from 'omi'
+import { tw, sheet } from 'omi-twind'
+import '../docs/admin-docs'
+import './code-demo'
+import './code-demo/container'
+
+// \u5F15\u5165\u4F60\u7684\u7EC4\u4EF6
+// TODO
+// import '@omiu/name'
+
+interface Props {}
+
+// TODO
+const tagName = 'name-component'
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [tagName]: Omi.Props & Props
+    }
+  }
+}
+
+@tag(tagName)
+export default class extends WeElement<Props> {
+  static css = [sheet.target]
+
+  // TODO
+  mdA =
+  \`
+  \\\`\\\`\\\`html
+  <div>example</div>
+  \\\`\\\`\\\`
+  \`
+
+  installed() {}
+
+  render() {
+
+    return (
+      <code-demo-container>
+        <code-demo
+          title="\u4F8B\u5B50"
+          describe={'\u4E0D\u540C\u7C7B\u578B\u7684\u6807\u7B7E'}
+          // TODO
+          code={this.mdA}
+        >
+          <div slot="demo" class={tw\`px-5 py-5\`}>
+              {/* TODO */}
+            <div>example</div>
+          </div>
+        </code-demo>
+      </code-demo-container>
+    )
+  }
+}
+
+\`\`\`
+
+## \u56FD\u9645\u5316\u4E2D\u6DFB\u52A0\u7EC4\u4EF6
+
+\u5728 \`omi/package/admin/locales/zh.yml\` \u53CA \`omi/package/admin/locales/en.yml\` \u4E2D\u52A0\u5165
+
+\`\`\`js
+// omi/package/admin/locales/en.yml
+Name: 'example'
+// omi/package/admin/locales/zh.yml
+Name: '\u4F8B\u5B50'
+\`\`\`
+
+## \u5C06\u7EC4\u4EF6\u5C55\u793A\u9875\u52A0\u5165 Admin \u8DEF\u7531 (\u652F\u6301\u81EA\u52A8\u52A0\u5165\u4E86)
+
+\u4FEE\u6539 components \u5BF9\u8C61 , \u6DFB\u52A0\u4F60\u7684\u7EC4\u4EF6\u540D
+
+\`\`\`js
+const components = [
+  'button',
+  'tabs',
+  'slider',
+  'loading',
+  'toast',
+  'card',
+  'progress',
+  'time-picker',
+  'tag',
+  'rate',
+  //TODO
+  'name'
+]
+\`\`\`
+
+\`\`\`js
+components.map((componentName: string) =>
+  route(\`/\${componentName}-component\`, () => {
+    //lazy load
+    import(\`./components/components/\${componentName}-component.tsx\`).then(() =>
+      rootEl.transitionTo(\`\${componentName}-component\`)
+    )
+  })
+)
+\`\`\`
+
+## \u5411\u4FA7\u8FB9\u680F\u4E2D\u6DFB\u52A0\u5BFC\u822A
+
+\u5728 /omi/packages/admin/src/nav-tree.ts \u4E2D\u52A0\u5165
+
+\`\`\`js
+{
+    label: i18n.t('Name'),
+    id: genId(),
+    href: '#/name-component'
+},
+\`\`\`
+`;export{n as default};
