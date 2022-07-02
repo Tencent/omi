@@ -72,10 +72,27 @@ export default class extends WeElement {
     }
   }
 
+  transitionEnd: boolean
+  transitionTimeout: number
+
   async transitionTo(tagName) {
     showLoading()
+    this.transitionEnd = false
+    // 偶现，防止 o-transition 的 transitionEnd 事件不触发导致  await this.transition.leave() 执行完不执行下去
+    this.transitionTimeout = setTimeout(async () => {
+      if (!this.transitionEnd) {
+        this.data.tagName = tagName
+        this.update()
+        await this.transition.enter()
+        hideLoading()
+        this.store.containerEl.scrollTop = 0
+      }
+    }, 500) // 500 大于 300 就可以，因为 transition: all 300ms ease-in;
+
     await this.transition.leave()
 
+    this.transitionEnd = true
+    clearTimeout(this.transitionTimeout)
     this.data.tagName = tagName
     this.update()
     await this.transition.enter()
