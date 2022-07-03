@@ -34,14 +34,14 @@ export default class Counter extends WeElement<Props> {
     this.updateProps({
       count: this.props.count - 1
     })
-    this.fire('CountChanged', this.props.count)
+    this.fire('count-changed', this.props.count)
   }
 
   plus = () => {
     this.updateProps({
       count: this.props.count + 1
     })
-    this.fire('CountChanged', this.props.count)
+    this.fire('count-changed', this.props.count)
   }
 
   render(props: Props) {

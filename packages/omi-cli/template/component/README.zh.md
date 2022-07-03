@@ -46,4 +46,4 @@ import '@omiu/counter_to_be_replace'
 
 ### Events
 
-- CountChanged
+- count-changed
