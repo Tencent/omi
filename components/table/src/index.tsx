@@ -1,12 +1,12 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import '@omiu/checkbox'
 import '@omiu/input'
-import { leave } from './transition.ts'
+import { leave } from './transition'
 
 import * as css from './index.scss'
 
-interface Props {
-  dataSource: any[]
+interface Props<DataType> {
+  dataSource: DataType[]
   columns: object
   checkbox: boolean
   border: boolean
@@ -21,7 +21,7 @@ interface Props {
 }
 
 @tag('o-table')
-export default class Table extends WeElement<Props> {
+export default class Table<DataType> extends WeElement<Props<DataType>> {
   static css = css.default
 
   static defaultProps = {
@@ -50,19 +50,20 @@ export default class Table extends WeElement<Props> {
     fixedLeftCount: Number
   }
 
-  deleteRow = (item) => {
+  deleteRow = (item: DataType) => {
     this.props.dataSource.splice(this.props.dataSource.indexOf(item), 1)
     this.update()
   }
 
-  async deleteRowById(id) {
-    const { dataSource } = this.props
+  async deleteRowById(id: string | number) {
+    const dataSource: DataType[] = this.props.dataSource
     await leave(this['row' + id], 'slide-fade')
-    //支持字符串和数字 id
-    this.deleteRow(dataSource.find(item => item.id + '' === id + ''))
+    // 支持字符串和数字 id
+    const dataItem = dataSource.find(item => item.id + '' === id + '')
+    dataItem && this.deleteRow(dataItem)
   }
 
-  _changeHandlerTh = (e, item) => {
+  _changeHandlerTh = (e, item: DataType) => {
     this.fire('change-all', { item, checked: e.detail })
     this.props.dataSource.forEach(item => {
       item.checked = e.detail
@@ -70,7 +71,7 @@ export default class Table extends WeElement<Props> {
     this.update()
   }
 
-  _changeHandlerTd = (e, item) => {
+  _changeHandlerTd = (e, item: DataType) => {
     this.fire('change', { item, checked: e.detail })
     item.checked = e.detail
     this.update()
@@ -113,7 +114,7 @@ export default class Table extends WeElement<Props> {
     })
   }
 
-  onChange = (evt, item, column) => {
+  onChange = (evt: CustomEvent, item: DataType, column) => {
     const oldValue = item[column.key]
     item[column.key] = evt.detail
     this.update()
@@ -134,7 +135,7 @@ export default class Table extends WeElement<Props> {
   setFixedLeft() {
     const fixedLeftEls = this.rootNode.querySelectorAll('.fixed-left')
     const boxRect = this.rootNode.getBoundingClientRect()
-    fixedLeftEls.forEach((fixedLeftEl, index) => {
+    fixedLeftEls.forEach((fixedLeftEl) => {
       const rect = fixedLeftEl.getBoundingClientRect()
       fixedLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px'
     })
@@ -142,7 +143,7 @@ export default class Table extends WeElement<Props> {
 
   setFixedRight() {
     const fixedRightEls = this.rootNode.querySelectorAll('.fixed-right')
-    fixedRightEls.forEach((fixedRightEl, index) => {
+    fixedRightEls.forEach((fixedRightEl) => {
       fixedRightEl.style.right = '0px'
     })
   }
