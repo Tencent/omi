@@ -1,5 +1,6 @@
 import { tag, WeElement, h, render } from 'omi'
-
+import '@omiu/icon/delete'
+import '@omiu/icon/edit'
 import './index.tsx'
 
 @tag('table-demo')
