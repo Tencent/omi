@@ -111,7 +111,7 @@ export default class TableDemo extends WeElement {
     }
   }
 
-  table: Table<Props<DataType>>
+  table: Table<Props<DataType>> = new Table
 
   render() {
     return <div>
