@@ -5,7 +5,7 @@ import { leave } from './transition'
 
 import * as css from './index.scss'
 
-interface Props<DataType> {
+export interface Props<DataType> {
   dataSource: DataType[]
   columns: object
   checkbox: boolean

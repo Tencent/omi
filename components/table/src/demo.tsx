@@ -2,11 +2,24 @@ import { tag, WeElement, h, render } from 'omi'
 import '@omiu/icon/delete'
 import '@omiu/icon/edit'
 import './index.tsx'
+import Table from '.';
+import { Props } from '.';
+
+interface DataType {
+  id: number;
+  name: string;
+  age: number;
+  address: string;
+  $config?: {
+    bgColor: string
+  }
+}
+
 
 @tag('table-demo')
-export default class Table extends WeElement {
+export default class TableDemo extends WeElement {
 
-  dataSource = [{
+  dataSource: DataType[] = [{
     id: 1,
     name: 'xwang',
     age: 18,
@@ -60,7 +73,7 @@ export default class Table extends WeElement {
   columns = [{
     title: 'ID',
     width: '20px',
-    render: item => (<strong>{item.id}</strong>),
+    render: (item: DataType) => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
@@ -78,7 +91,7 @@ export default class Table extends WeElement {
   }, {
     title: '操作',
     align: 'right',
-    render: item => {
+    render: (item: DataType) => {
       //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
       return <div>
         <o-icon-edit data-item-id={item.id} onClick={this.onEditClick} style="cursor:pointer;font-size:20px;" title="编辑"></o-icon-edit>
@@ -87,23 +100,24 @@ export default class Table extends WeElement {
     }
   }]
 
-  onEditClick = (evt) => {
+  onEditClick = (evt: Event) => {
 
   }
 
-  onDeleteClick = (evt) => {
-    if (evt.currentTarget.dataset.itemId) {
-      this.table.deleteRowById(evt.currentTarget.dataset.itemId)
+  onDeleteClick = (evt: Event) => {
+    const id = (evt?.currentTarget as HTMLElement)?.dataset?.itemId
+    if (id !== undefined) {
+      this.table.deleteRowById(id)
     }
   }
 
-  table
+  table: Table<Props<DataType>>
 
-  render(props) {
+  render() {
     return <div>
 
       <o-table
-        ref={e => this.table = e}
+        ref={(el: Table<Props<DataType>>) => this.table = el}
         checkbox={true}
         stripe={false}
         border={true}
@@ -116,7 +130,7 @@ export default class Table extends WeElement {
         columns={this.columns} dataSource={this.dataSource}></o-table>
 
       <o-table
-        ref={e => this.table = e}
+        ref={(el: Table<Props<DataType>>) => this.table = el}
         checkbox={true}
         stripe={false}
         border={true}
