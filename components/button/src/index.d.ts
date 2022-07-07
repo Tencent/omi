@@ -1,4 +1,4 @@
-import { WeElement } from 'omi';
+import { WeElement, OmiProps } from 'omi';
 interface Props {
     size?: 'medium' | 'small' | 'mini';
     type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
@@ -39,6 +39,6 @@ export default class Button extends WeElement<Props> {
         block: BooleanConstructor;
         text: StringConstructor;
     };
-    render(props: any): JSX.Element;
+    render(props: OmiProps<Props>): JSX.Element;
 }
-export {};
+export { };

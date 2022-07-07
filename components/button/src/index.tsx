@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, OmiProps } from 'omi'
 import * as css from './index.scss'
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 
 @tag('o-button')
 export default class Button extends WeElement<Props> {
-  static css = css.default ? css.default : css
+  static css = css
 
   static defaultProps = {
     plain: false,
@@ -46,7 +46,7 @@ export default class Button extends WeElement<Props> {
     text: String,
   }
 
-  render(props) {
+  render(props: OmiProps<Props>) {
     return (
       <button
         disabled={props.disabled}

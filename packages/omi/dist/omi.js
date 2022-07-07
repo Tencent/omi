@@ -507,12 +507,10 @@
                             } else styleSheets.push(styleSheet);
                             shadowRoot.adoptedStyleSheets = styleSheets;
                         });
-                    } else if ('[object Object]' === Object.prototype.toString.call(css)) {
-                        if (css.default) {
-                            var _styleSheet = new CSSStyleSheet();
-                            _styleSheet.replaceSync(css.default);
-                            shadowRoot.adoptedStyleSheets = [ _styleSheet ];
-                        }
+                    } else if (css.default && 'string' == typeof css.default) {
+                        var _styleSheet = new CSSStyleSheet();
+                        _styleSheet.replaceSync(css.default);
+                        shadowRoot.adoptedStyleSheets = [ _styleSheet ];
                     } else shadowRoot.adoptedStyleSheets = [ css ];
                     this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
                 }
