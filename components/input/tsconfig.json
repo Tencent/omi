@@ -1,14 +1,30 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "module": "esnext",
+    "lib": [
+      "es2017",
+      "dom",
+      "dom.iterable"
+    ],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./types",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "jsxFactory": "h",
     "target": "es5",
-    "allowJs": true,
-    "declaration": true
   },
   "include": [
-    "src/**/*"
-  ]
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": []
 }

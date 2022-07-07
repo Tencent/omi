@@ -1,4 +1,6 @@
-@import '@omiu/common/scss/theme.scss';
+@use "sass:map";
+
+@import '../../common/scss/theme.scss';
 
 :host {
   display: inline-block;
@@ -373,7 +375,7 @@
   border-spacing: 0;
 }
 
-.o-input-group > .o-input__inner {
+.o-input-group>.o-input__inner {
   vertical-align: middle;
   display: table-cell;
 }
