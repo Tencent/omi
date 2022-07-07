@@ -1,7 +1,7 @@
 import { tag, WeElement, h, extractClass, OmiProps } from 'omi'
 import * as css from './index.scss'
 
-interface Props {
+export interface Props {
   size?: 'medium' | 'small' | 'mini'
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
   plain?: boolean
