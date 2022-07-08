@@ -23,6 +23,8 @@
 
 .result-html {
   /* padding: 2px 10px; */
+  max-width: 950px;
+  margin: 0 auto;
   background-color: #fff;
 
 }

@@ -6,6 +6,7 @@ import '@omiu/icon/keyboard-arrow-down'
 import '@omiu/icon/keyboard-arrow-up'
 import '@omiu/icon/code'
 import '@omiu/icon/file-copy'
+import '@omiu/message'
 import '@omiu/toggle-icon'
 import copy from 'copy-to-clipboard'
 interface Props {
@@ -31,6 +32,19 @@ export default class extends WeElement<Props> {
   static css = [sheet.target]
   openedA = false
   isOn = false
+
+  message(message: string) {
+    const msgEl = document.createElement('o-message')
+    msgEl.setAttribute('type', 'success')
+    msgEl.setAttribute('center', 'center')
+    msgEl.setAttribute('message', message)
+    document.body.appendChild(msgEl)
+  }
+
+  copy(code: string) {
+    copy(code)
+    this.message('Copied!')
+  }
 
   render(props) {
     return (
@@ -69,8 +83,8 @@ export default class extends WeElement<Props> {
           <span class={tw`float-right mt-3 mb-2`}>
             {props.url ? <a href={props.url}><o-icon-code class={tw`w-6 h-6 mr-2`}  >
             </o-icon-code></a> : null}
-            {props.code ? (<><o-icon-file-copy class={tw`w-6 h-6 mr-2`} onClick={() => {
-              copy(props.code)
+            {props.code ? (<><o-icon-file-copy class={tw`w-3 h-3 mr-2 relative -top-1 cursor-pointer`} onClick={() => {
+              this.copy(props.code.replace('```jsx', '').replace('```', '').trim())
             }} />
               <o-toggle-icon is-on={this.isOn} icons={['keyboard-arrow-down', 'keyboard-arrow-up']} class={tw`w-6 h-6 mr-2`}
                 onChange={() => {
