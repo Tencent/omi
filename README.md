@@ -143,11 +143,9 @@ $ npm run build       # release
 | [omi-transform](https://github.com/Tencent/omi/tree/v6/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
 | [omi-finger](https://github.com/Tencent/omi/tree/v6/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-touch](https://github.com/Tencent/omi/tree/v6/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
-| [omi-native](https://github.com/Tencent/omi/tree/v6/packages/omi-native)|Render web components to native|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
 | [omi-cv](https://github.com/Wscats/CV) |Create a front-end engineer curriculum vitae, [Get Started!](http://wscats.github.io/CV/omi/build/index.html)|
-| [Soo](https://github.com/tonis2/Soo)| Has same API as omi but is great alternative if you want to create custom elements without JSX, virtual DOM and store |
 
 
 ## Why Omi?
@@ -549,10 +547,6 @@ We very much welcome developers to contribute to Tencent's open source, and we w
 
 Please contact us for any questions. 
 
-## Thanks
-
-* [preact](https://github.com/developit/preact)
-* [JSX](https://github.com/facebook/jsx)
 
 ## License
 

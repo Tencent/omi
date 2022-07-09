@@ -149,7 +149,6 @@ $ npm run build       # 编译发布
 | [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
-| [Soo](https://github.com/tonis2/Soo)| 和 Omi 一样的 API，但是更小且没有 JSX, virtual DOM 和 store|
 
 ### 特性
 
@@ -581,35 +580,6 @@ render(<todo-app></todo-app>, 'body', store)
 
 * [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
 
-<!-- 
-如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
-
-### Omi Mobx
-
-```js
-import { tag, WeElement } from "omi"
-import { observe } from "omi-mobx"
-
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-}
-​``` -->
 
 ### 生命周期
 
@@ -629,17 +599,6 @@ class MyApp extends WeElement {
 console.log(Omi.elements)
 ```
 
-<!-- 
-## React 组件转成 Omi
-
-举个例子，下面是吧 weui react 的 button 转成 weui omi 的 button 的例子 :
-
-![react to omi](./assets/react-to-omi.png)
-
-* [Diff Split](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=split)
-* [Diff Unified](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=unified)
-* [Before](https://github.com/Tencent/omi/blob/c8af654f1d5865dc557c0b4b8ad524f702a69be5/packages/omi-weui/src/omi-weui/elements/button/button.js)
-* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js) -->
 
 ## 浏览器兼容
 
@@ -692,11 +651,6 @@ npm run test
 - [AlloyTeam](http://alloyteam.com/)
 
 任何 Omi 相关问题欢迎联系我们。也可以[加入 Omi QQ 群](https://github.com/Tencent/omi/issues/169)进行讨论交流。
-
-## 感谢
-
-* [preact](https://github.com/developit/preact)
-* [JSX](https://github.com/facebook/jsx)
 
 ## License
 
