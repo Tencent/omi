@@ -1,4 +1,5 @@
 import { route } from 'omi-router'
+import { showLoading } from '@omiu/toast'
 
 /**
  * demo components
@@ -56,52 +57,53 @@ export function registerRouting(rootEl) {
   })
 
   route('/mobile', () => {
+    showLoading()
     import('./components/mobile/mobile-show').then(() =>
       rootEl.transitionTo('mobile-show')
     )
   })
 
   route('/table/basic', () => {
-    //lazy load
+    showLoading()
     import('./components/table/basic-table').then(() =>
       rootEl.transitionTo('basic-table')
     )
   })
 
   route('/basic-list', () => {
-    //lazy load
+    showLoading()
     import('./components/basic-list').then(() =>
       rootEl.transitionTo('basic-list')
     )
   })
 
   route('/dashboard', () => {
-    //lazy load
+    showLoading()
     import('./components/admin-dashboard').then(() =>
       rootEl.transitionTo('admin-dashboard')
     )
   })
 
   route('/md-editor', () => {
-    //lazy load
+    showLoading()
     import('./components/md-editor').then(() =>
       rootEl.transitionTo('md-editor')
     )
   })
 
   route('/table/edit', () => {
-    //lazy load
+    showLoading()
     import('./components/table/inline-editing').then(() =>
       rootEl.transitionTo('inline-editing')
     )
   })
 
   route('/docs/:name', (evt) => {
-    //lazy load
     const md = rootEl.getMdByName(evt.params.name, rootEl.store.treeData)
     if (md) {
       md.then((e) => {
         rootEl.payload = { mdContent: e.default, padding: 20 }
+        showLoading()
         import('./components/docs/admin-docs').then(() =>
           rootEl.transitionTo('admin-docs')
         )
@@ -111,42 +113,42 @@ export function registerRouting(rootEl) {
 
 
   route('/table/pagination', () => {
-    //lazy load
+    showLoading()
     import('./components/table/pagination-table').then(() =>
       rootEl.transitionTo('pagination-table')
     )
   })
 
   route('/form', () => {
-    //lazy load
+    showLoading()
     import('./components/admin-form').then(() =>
       rootEl.transitionTo('admin-form')
     )
   })
 
   route('/steps-form', () => {
-    //lazy load
+    showLoading()
     import('./components/steps-form').then(() =>
       rootEl.transitionTo('steps-form')
     )
   })
 
   route('/comment', () => {
-    //lazy load
+    showLoading()
     import('./components/comment/admin-comment').then(() =>
       rootEl.transitionTo('admin-comment')
     )
   })
 
   route('/icon', () => {
-    //lazy load
+    showLoading()
     import('./components/admin-icon').then(() =>
       rootEl.transitionTo('admin-icon')
     )
   })
 
   route('/error', () => {
-    //lazy load
+    showLoading()
     import('./components/status/status-error').then(() =>
       rootEl.transitionTo('status-error')
     )
@@ -154,7 +156,7 @@ export function registerRouting(rootEl) {
 
   components.map((componentName: string) =>
     route(`/${componentName}-component`, () => {
-      //lazy load
+      showLoading()
       import(`./components/components/${componentName}-component.tsx`).then(
         () => rootEl.transitionTo(`${componentName}-component`)
       )
@@ -163,7 +165,7 @@ export function registerRouting(rootEl) {
 
   charts.map((chartName: string) =>
     route(`/${chartName}-chart`, () => {
-      //lazy load
+      showLoading()
       import(`./components/charts/${chartName}-chart.tsx`).then(
         () => rootEl.transitionTo(`${chartName}-chart`)
       )
@@ -171,82 +173,82 @@ export function registerRouting(rootEl) {
   )
 
   route('/mind-map', () => {
-    //lazy load
+    showLoading()
     import('./components/mind-map').then(() => rootEl.transitionTo('mind-map'))
   })
 
   route('/warning', () => {
-    //lazy load
+    showLoading()
     import('./components/status/status-warning').then(() =>
       rootEl.transitionTo('status-warning')
     )
   })
 
   route('/results/browser-incompatible', () => {
-    //lazy load
+    showLoading()
     import('./components/results/browser-incompatible').then(() =>
       rootEl.transitionTo('browser-incompatible')
     )
   })
 
   route('/success', () => {
-    //lazy load
+    showLoading()
     import('./components/results/admin-success').then(() =>
       rootEl.transitionTo('admin-success')
     )
   })
 
   route('/failure', () => {
-    //lazy load
+    showLoading()
     import('./components/results/admin-failure').then(() =>
       rootEl.transitionTo('admin-failure')
     )
   })
 
   route('/results/network-error', () => {
-    //lazy load
+    showLoading()
     import('./components/results/network-error').then(() =>
       rootEl.transitionTo('network-error')
     )
   })
 
   route('/results/not-found', () => {
-    //lazy load
+    showLoading()
     import('./components/results/not-found').then(() =>
       rootEl.transitionTo('not-found')
     )
   })
 
   route('/results/permission-denied', () => {
-    //lazy load
+    showLoading()
     import('./components/results/permission-denied').then(() =>
       rootEl.transitionTo('permission-denied')
     )
   })
 
   route('/results/server-error', () => {
-    //lazy load
+    showLoading()
     import('./components/results/server-error').then(() =>
       rootEl.transitionTo('server-error')
     )
   })
 
   route('/masonry-list', () => {
-    //lazy load
+    showLoading()
     import('./components/masonry-list').then(() =>
       rootEl.transitionTo('masonry-list')
     )
   })
 
   route('/notification-list', () => {
-    //lazy load
+    showLoading()
     import('./components/notification/notification-list').then(() =>
       rootEl.transitionTo('notification-list')
     )
   })
 
   route('/personal-center', () => {
-    //lazy load
+    showLoading()
     import('./components/account/personal-center').then(() =>
       rootEl.transitionTo('personal-center')
     )

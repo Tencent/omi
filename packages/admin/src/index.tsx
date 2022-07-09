@@ -76,7 +76,6 @@ export default class extends WeElement {
   transitionTimeout: number
 
   async transitionTo(tagName) {
-    showLoading()
     this.transitionEnd = false
     // 偶现，防止 o-transition 的 transitionEnd 事件不触发导致  await this.transition.leave() 执行完不执行下去
     this.transitionTimeout = setTimeout(async () => {
