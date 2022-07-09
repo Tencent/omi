@@ -1,5 +1,5 @@
 /**
- * @omiu/popover v0.0.14 http://omijs.org
+ * @omiu/popover v0.0.15 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -9,7 +9,7 @@
 (function (omi) {
     'use strict';
 
-    /*! *****************************************************************************
+    /******************************************************************************
     Copyright (c) Microsoft Corporation.
 
     Permission to use, copy, modify, and/or distribute this software for any
@@ -28,11 +28,13 @@
     var extendStatics$1 = function(d, b) {
         extendStatics$1 = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics$1(d, b);
     };
 
     function __extends$1(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics$1(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -212,17 +214,42 @@
       return placement.split('-')[0];
     }
 
-    function getBoundingClientRect(element) {
+    var max = Math.max;
+    var min = Math.min;
+    var round = Math.round;
+
+    function getBoundingClientRect(element, includeScale) {
+      if (includeScale === void 0) {
+        includeScale = false;
+      }
+
       var rect = element.getBoundingClientRect();
+      var scaleX = 1;
+      var scaleY = 1;
+
+      if (isHTMLElement(element) && includeScale) {
+        var offsetHeight = element.offsetHeight;
+        var offsetWidth = element.offsetWidth; // Do not attempt to divide by 0, otherwise we get `Infinity` as scale
+        // Fallback to 1 in case both values are `0`
+
+        if (offsetWidth > 0) {
+          scaleX = round(rect.width) / offsetWidth || 1;
+        }
+
+        if (offsetHeight > 0) {
+          scaleY = round(rect.height) / offsetHeight || 1;
+        }
+      }
+
       return {
-        width: rect.width,
-        height: rect.height,
-        top: rect.top,
-        right: rect.right,
-        bottom: rect.bottom,
-        left: rect.left,
-        x: rect.left,
-        y: rect.top
+        width: rect.width / scaleX,
+        height: rect.height / scaleY,
+        top: rect.top / scaleY,
+        right: rect.right / scaleX,
+        bottom: rect.bottom / scaleY,
+        left: rect.left / scaleX,
+        x: rect.left / scaleX,
+        y: rect.top / scaleY
       };
     }
 
@@ -331,6 +358,10 @@
 
       var currentNode = getParentNode(element);
 
+      if (isShadowRoot(currentNode)) {
+        currentNode = currentNode.host;
+      }
+
       while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
         var css = getComputedStyle(currentNode); // This is non-exhaustive but covers the most common CSS properties that
         // create a containing block.
@@ -367,12 +398,12 @@
       return ['top', 'bottom'].indexOf(placement) >= 0 ? 'x' : 'y';
     }
 
-    var max = Math.max;
-    var min = Math.min;
-    var round = Math.round;
-
     function within(min$1, value, max$1) {
       return max(min$1, min(value, max$1));
+    }
+    function withinMaxClamp(min, value, max) {
+      var v = within(min, value, max);
+      return v > max ? max : v;
     }
 
     function getFreshSideObject() {
@@ -486,6 +517,10 @@
       requiresIfExists: ['preventOverflow']
     };
 
+    function getVariation(placement) {
+      return placement.split('-')[1];
+    }
+
     var unsetSides = {
       top: 'auto',
       right: 'auto',
@@ -501,8 +536,8 @@
       var win = window;
       var dpr = win.devicePixelRatio || 1;
       return {
-        x: round(round(x * dpr) / dpr) || 0,
-        y: round(round(y * dpr) / dpr) || 0
+        x: round(x * dpr) / dpr || 0,
+        y: round(y * dpr) / dpr || 0
       };
     }
 
@@ -512,18 +547,28 @@
       var popper = _ref2.popper,
           popperRect = _ref2.popperRect,
           placement = _ref2.placement,
+          variation = _ref2.variation,
           offsets = _ref2.offsets,
           position = _ref2.position,
           gpuAcceleration = _ref2.gpuAcceleration,
           adaptive = _ref2.adaptive,
-          roundOffsets = _ref2.roundOffsets;
+          roundOffsets = _ref2.roundOffsets,
+          isFixed = _ref2.isFixed;
+      var _offsets$x = offsets.x,
+          x = _offsets$x === void 0 ? 0 : _offsets$x,
+          _offsets$y = offsets.y,
+          y = _offsets$y === void 0 ? 0 : _offsets$y;
 
-      var _ref3 = roundOffsets === true ? roundOffsetsByDPR(offsets) : typeof roundOffsets === 'function' ? roundOffsets(offsets) : offsets,
-          _ref3$x = _ref3.x,
-          x = _ref3$x === void 0 ? 0 : _ref3$x,
-          _ref3$y = _ref3.y,
-          y = _ref3$y === void 0 ? 0 : _ref3$y;
+      var _ref3 = typeof roundOffsets === 'function' ? roundOffsets({
+        x: x,
+        y: y
+      }) : {
+        x: x,
+        y: y
+      };
 
+      x = _ref3.x;
+      y = _ref3.y;
       var hasX = offsets.hasOwnProperty('x');
       var hasY = offsets.hasOwnProperty('y');
       var sideX = left;
@@ -538,7 +583,7 @@
         if (offsetParent === getWindow(popper)) {
           offsetParent = getDocumentElement(popper);
 
-          if (getComputedStyle(offsetParent).position !== 'static') {
+          if (getComputedStyle(offsetParent).position !== 'static' && position === 'absolute') {
             heightProp = 'scrollHeight';
             widthProp = 'scrollWidth';
           }
@@ -547,17 +592,19 @@
 
         offsetParent = offsetParent;
 
-        if (placement === top) {
-          sideY = bottom; // $FlowFixMe[prop-missing]
-
-          y -= offsetParent[heightProp] - popperRect.height;
+        if (placement === top || (placement === left || placement === right) && variation === end) {
+          sideY = bottom;
+          var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
+          offsetParent[heightProp];
+          y -= offsetY - popperRect.height;
           y *= gpuAcceleration ? 1 : -1;
         }
 
-        if (placement === left) {
-          sideX = right; // $FlowFixMe[prop-missing]
-
-          x -= offsetParent[widthProp] - popperRect.width;
+        if (placement === left || (placement === top || placement === bottom) && variation === end) {
+          sideX = right;
+          var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
+          offsetParent[widthProp];
+          x -= offsetX - popperRect.width;
           x *= gpuAcceleration ? 1 : -1;
         }
       }
@@ -566,18 +613,29 @@
         position: position
       }, adaptive && unsetSides);
 
+      var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
+        x: x,
+        y: y
+      }) : {
+        x: x,
+        y: y
+      };
+
+      x = _ref4.x;
+      y = _ref4.y;
+
       if (gpuAcceleration) {
         var _Object$assign;
 
-        return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) < 2 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+        return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
       }
 
       return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
     }
 
-    function computeStyles(_ref4) {
-      var state = _ref4.state,
-          options = _ref4.options;
+    function computeStyles(_ref5) {
+      var state = _ref5.state,
+          options = _ref5.options;
       var _options$gpuAccelerat = options.gpuAcceleration,
           gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
           _options$adaptive = options.adaptive,
@@ -597,9 +655,11 @@
 
       var commonStyles = {
         placement: getBasePlacement(state.placement),
+        variation: getVariation(state.placement),
         popper: state.elements.popper,
         popperRect: state.rects.popper,
-        gpuAcceleration: gpuAcceleration
+        gpuAcceleration: gpuAcceleration,
+        isFixed: state.options.strategy === 'fixed'
       };
 
       if (state.modifiersData.popperOffsets != null) {
@@ -857,7 +917,7 @@
     }
 
     function getClientRectFromMixedType(element, clippingParent) {
-      return clippingParent === viewport ? rectToClientRect(getViewportRect(element)) : isHTMLElement(clippingParent) ? getInnerBoundingClientRect(clippingParent) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
+      return clippingParent === viewport ? rectToClientRect(getViewportRect(element)) : isElement(clippingParent) ? getInnerBoundingClientRect(clippingParent) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
     } // A "clipping parent" is an overflowable container with the characteristic of
     // clipping (or hiding) overflowing elements with a position different from
     // `initial`
@@ -897,10 +957,6 @@
       clippingRect.x = clippingRect.left;
       clippingRect.y = clippingRect.top;
       return clippingRect;
-    }
-
-    function getVariation(placement) {
-      return placement.split('-')[1];
     }
 
     function computeOffsets(_ref) {
@@ -988,11 +1044,10 @@
           padding = _options$padding === void 0 ? 0 : _options$padding;
       var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
       var altContext = elementContext === popper ? reference : popper;
-      var referenceElement = state.elements.reference;
       var popperRect = state.rects.popper;
       var element = state.elements[altBoundary ? altContext : elementContext];
       var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
-      var referenceClientRect = getBoundingClientRect(referenceElement);
+      var referenceClientRect = getBoundingClientRect(state.elements.reference);
       var popperOffsets = computeOffsets({
         reference: referenceClientRect,
         element: popperRect,
@@ -1379,6 +1434,14 @@
       var tetherOffsetValue = typeof tetherOffset === 'function' ? tetherOffset(Object.assign({}, state.rects, {
         placement: state.placement
       })) : tetherOffset;
+      var normalizedTetherOffsetValue = typeof tetherOffsetValue === 'number' ? {
+        mainAxis: tetherOffsetValue,
+        altAxis: tetherOffsetValue
+      } : Object.assign({
+        mainAxis: 0,
+        altAxis: 0
+      }, tetherOffsetValue);
+      var offsetModifierState = state.modifiersData.offset ? state.modifiersData.offset[state.placement] : null;
       var data = {
         x: 0,
         y: 0
@@ -1388,13 +1451,15 @@
         return;
       }
 
-      if (checkMainAxis || checkAltAxis) {
+      if (checkMainAxis) {
+        var _offsetModifierState$;
+
         var mainSide = mainAxis === 'y' ? top : left;
         var altSide = mainAxis === 'y' ? bottom : right;
         var len = mainAxis === 'y' ? 'height' : 'width';
         var offset = popperOffsets[mainAxis];
-        var min$1 = popperOffsets[mainAxis] + overflow[mainSide];
-        var max$1 = popperOffsets[mainAxis] - overflow[altSide];
+        var min$1 = offset + overflow[mainSide];
+        var max$1 = offset - overflow[altSide];
         var additive = tether ? -popperRect[len] / 2 : 0;
         var minLen = variation === start ? referenceRect[len] : popperRect[len];
         var maxLen = variation === start ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
@@ -1414,36 +1479,45 @@
         // width or height)
 
         var arrowLen = within(0, referenceRect[len], arrowRect[len]);
-        var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - tetherOffsetValue : minLen - arrowLen - arrowPaddingMin - tetherOffsetValue;
-        var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + tetherOffsetValue : maxLen + arrowLen + arrowPaddingMax + tetherOffsetValue;
+        var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
+        var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis : maxLen + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis;
         var arrowOffsetParent = state.elements.arrow && getOffsetParent(state.elements.arrow);
         var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
-        var offsetModifierValue = state.modifiersData.offset ? state.modifiersData.offset[state.placement][mainAxis] : 0;
-        var tetherMin = popperOffsets[mainAxis] + minOffset - offsetModifierValue - clientOffset;
-        var tetherMax = popperOffsets[mainAxis] + maxOffset - offsetModifierValue;
+        var offsetModifierValue = (_offsetModifierState$ = offsetModifierState == null ? void 0 : offsetModifierState[mainAxis]) != null ? _offsetModifierState$ : 0;
+        var tetherMin = offset + minOffset - offsetModifierValue - clientOffset;
+        var tetherMax = offset + maxOffset - offsetModifierValue;
+        var preventedOffset = within(tether ? min(min$1, tetherMin) : min$1, offset, tether ? max(max$1, tetherMax) : max$1);
+        popperOffsets[mainAxis] = preventedOffset;
+        data[mainAxis] = preventedOffset - offset;
+      }
 
-        if (checkMainAxis) {
-          var preventedOffset = within(tether ? min(min$1, tetherMin) : min$1, offset, tether ? max(max$1, tetherMax) : max$1);
-          popperOffsets[mainAxis] = preventedOffset;
-          data[mainAxis] = preventedOffset - offset;
-        }
+      if (checkAltAxis) {
+        var _offsetModifierState$2;
 
-        if (checkAltAxis) {
-          var _mainSide = mainAxis === 'x' ? top : left;
+        var _mainSide = mainAxis === 'x' ? top : left;
 
-          var _altSide = mainAxis === 'x' ? bottom : right;
+        var _altSide = mainAxis === 'x' ? bottom : right;
 
-          var _offset = popperOffsets[altAxis];
+        var _offset = popperOffsets[altAxis];
 
-          var _min = _offset + overflow[_mainSide];
+        var _len = altAxis === 'y' ? 'height' : 'width';
 
-          var _max = _offset - overflow[_altSide];
+        var _min = _offset + overflow[_mainSide];
 
-          var _preventedOffset = within(tether ? min(_min, tetherMin) : _min, _offset, tether ? max(_max, tetherMax) : _max);
+        var _max = _offset - overflow[_altSide];
 
-          popperOffsets[altAxis] = _preventedOffset;
-          data[altAxis] = _preventedOffset - _offset;
-        }
+        var isOriginSide = [top, left].indexOf(basePlacement) !== -1;
+
+        var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
+
+        var _tetherMin = isOriginSide ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
+
+        var _tetherMax = isOriginSide ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
+
+        var _preventedOffset = tether && isOriginSide ? withinMaxClamp(_tetherMin, _offset, _tetherMax) : within(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
+
+        popperOffsets[altAxis] = _preventedOffset;
+        data[altAxis] = _preventedOffset - _offset;
       }
 
       state.modifiersData[name] = data;
@@ -1473,16 +1547,24 @@
       }
     }
 
+    function isElementScaled(element) {
+      var rect = element.getBoundingClientRect();
+      var scaleX = round(rect.width) / element.offsetWidth || 1;
+      var scaleY = round(rect.height) / element.offsetHeight || 1;
+      return scaleX !== 1 || scaleY !== 1;
+    } // Returns the composite rect of an element relative to its offsetParent.
     // Composite means it takes into account transforms as well as layout.
+
 
     function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
       if (isFixed === void 0) {
         isFixed = false;
       }
 
-      var documentElement = getDocumentElement(offsetParent);
-      var rect = getBoundingClientRect(elementOrVirtualElement);
       var isOffsetParentAnElement = isHTMLElement(offsetParent);
+      var offsetParentIsScaled = isHTMLElement(offsetParent) && isElementScaled(offsetParent);
+      var documentElement = getDocumentElement(offsetParent);
+      var rect = getBoundingClientRect(elementOrVirtualElement, offsetParentIsScaled);
       var scroll = {
         scrollLeft: 0,
         scrollTop: 0
@@ -1499,7 +1581,7 @@
         }
 
         if (isHTMLElement(offsetParent)) {
-          offsets = getBoundingClientRect(offsetParent);
+          offsets = getBoundingClientRect(offsetParent, true);
           offsets.x += offsetParent.clientLeft;
           offsets.y += offsetParent.clientTop;
         } else if (documentElement) {
@@ -1589,7 +1671,10 @@
     var VALID_PROPERTIES = ['name', 'enabled', 'phase', 'fn', 'effect', 'requires', 'options'];
     function validateModifiers(modifiers) {
       modifiers.forEach(function (modifier) {
-        Object.keys(modifier).forEach(function (key) {
+        [].concat(Object.keys(modifier), VALID_PROPERTIES) // IE11-compatible replacement for `new Set(iterable)`
+        .filter(function (value, index, self) {
+          return self.indexOf(value) === index;
+        }).forEach(function (key) {
           switch (key) {
             case 'name':
               if (typeof modifier.name !== 'string') {
@@ -1602,6 +1687,8 @@
               if (typeof modifier.enabled !== 'boolean') {
                 console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"enabled"', '"boolean"', "\"" + String(modifier.enabled) + "\""));
               }
+
+              break;
 
             case 'phase':
               if (modifierPhases.indexOf(modifier.phase) < 0) {
@@ -1618,14 +1705,14 @@
               break;
 
             case 'effect':
-              if (typeof modifier.effect !== 'function') {
+              if (modifier.effect != null && typeof modifier.effect !== 'function') {
                 console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"effect"', '"function"', "\"" + String(modifier.fn) + "\""));
               }
 
               break;
 
             case 'requires':
-              if (!Array.isArray(modifier.requires)) {
+              if (modifier.requires != null && !Array.isArray(modifier.requires)) {
                 console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requires"', '"array"', "\"" + String(modifier.requires) + "\""));
               }
 
@@ -1735,7 +1822,8 @@
         var isDestroyed = false;
         var instance = {
           state: state,
-          setOptions: function setOptions(options) {
+          setOptions: function setOptions(setOptionsAction) {
+            var options = typeof setOptionsAction === 'function' ? setOptionsAction(state.options) : setOptionsAction;
             cleanupModifierEffects();
             state.options = Object.assign({}, defaultOptions, state.options, options);
             state.scrollParents = {
@@ -2237,6 +2325,7 @@
                     .querySelector('slot')
                     .assignedNodes()
                     .find(function (node) { return node.nodeType !== 3; });
+                _this.popper && _this.popper.destroy();
                 _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
                     placement: _this.props.position,
                     modifiers: [
@@ -2288,6 +2377,22 @@
                     _this.update();
                 }
             });
+            this._onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
+            // 只保留一个 popper，其他隐藏
+            document.addEventListener('mousedown', this._onDocumentMouseDown);
+        };
+        Popover.prototype.onDocumentMouseDown = function (e) {
+            var isShowEl = false;
+            for (var i = 0, len = e.path.length; i < len; i++) {
+                if (e.path[i] === this.rootNode) {
+                    isShowEl = true;
+                    break;
+                }
+            }
+            if (!isShowEl) {
+                this.isShow = false;
+            }
+            this.update();
         };
         Popover.prototype.updatePosition = function () {
             this.popper.update();
@@ -2350,5 +2455,5 @@
 
     return Popover;
 
-}(omi));
+})(omi);
 //# sourceMappingURL=index.js.map

@@ -23,10 +23,46 @@ export default class MyDemo extends WeElement<Props> {
   render(props: Props) {
     return (
       <div>
-        <h1 onclick={() => {
-          this.update()
-        }}>JSX Mode</h1>
-        <o-counter count={this.count} onCountChanged={this.onChanged}></o-counter>
+
+        <o-select
+          multiple
+          size="mini"
+          block
+          placeholder="Select A Item"
+          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 3 }, { label: 'Item B', value: 4 }, { label: 'Item C', value: 5 }]}>
+        </o-select>
+
+        <o-select
+          placeholder="Select A Item"
+          value="1"
+          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 3 }]}></o-select>
+
+
+        <o-select
+          size="medium"
+          placeholder="Select A Item"
+          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 2 }]}></o-select>
+
+
+        <o-select
+          size="small"
+          placeholder="Select A Item"
+          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 2 }]}>
+        </o-select>
+
+        <o-select
+          size="mini"
+          placeholder="Select A Item"
+          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 2 }]}></o-select>
+
+
+        <o-select
+          multiple
+          size="mini"
+          placeholder="Select A Item"
+          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 3 }, { label: 'Item B', value: 4 }, { label: 'Item C', value: 5 }]}>
+        </o-select>
+
       </div>
     )
   }

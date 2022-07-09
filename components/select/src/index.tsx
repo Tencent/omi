@@ -1,10 +1,10 @@
 import { tag, WeElement, extractClass, h } from 'omi'
 import * as css from './index.scss'
-import { removeResizeListener, addResizeListener } from './resize-event.ts'
+import { removeResizeListener, addResizeListener } from './resize-event'
 
 import '@omiu/popover'
-//debug
-//import '../../popover/src/index.tsx'
+// debug
+// import '../../popover/src/index.tsx'
 
 interface Props {
   items: any[]
@@ -25,7 +25,7 @@ const heightMap = {
 
 @tag('o-select')
 export default class Select extends WeElement<Props> {
-  static css = css.default ? css.default : css
+  static css = css
 
   static defaultProps = {
     value: '',
@@ -52,6 +52,11 @@ export default class Select extends WeElement<Props> {
     }, 10)
   }
 
+  onInputInput(e) {
+    e.target.value = ''
+    e.preventDefault()
+  }
+
   onInputBlur = () => {
     setTimeout(() => {
       this.updateProps({
@@ -60,7 +65,7 @@ export default class Select extends WeElement<Props> {
     }, 10)
   }
 
-  selectedIndex: number
+  selectedIndex: number = -1
 
   selectedIndexMap = {}
 
@@ -175,7 +180,7 @@ export default class Select extends WeElement<Props> {
           position="bottom"
         >
           <div>
-            <div
+            {props.multiple && <div
               class="o-select__tags"
               ref={(e) => (this.tags = e)}
               style={{ width: '100%', maxWidth: this.inputWidth - 32 + 'px' }}
@@ -198,6 +203,7 @@ export default class Select extends WeElement<Props> {
                 })}
               </span>
               <input
+                onInput={this.onInputInput}
                 type="text"
                 autocomplete="off"
                 class="o-select__input"
@@ -207,7 +213,7 @@ export default class Select extends WeElement<Props> {
                   maxWidth: this.inputWidth - 32 + 'px'
                 }}
               />
-            </div>
+            </div>}
 
             <div
               {...extractClass({}, 'o-input o-input--suffix', {

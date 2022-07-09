@@ -41,6 +41,26 @@ export default class Popover extends WeElement<Props> {
         this.update()
       }
     })
+
+    this._onDocumentMouseDown = this.onDocumentMouseDown.bind(this)
+    // 只保留一个 popper，其他隐藏
+    document.addEventListener('mousedown', this._onDocumentMouseDown)
+  }
+
+  onDocumentMouseDown(e) {
+    let isShowEl = false
+    for (let i = 0, len = e.path.length; i < len; i++) {
+      if (e.path[i] === this.rootNode) {
+        isShowEl = true
+        break
+      }
+    }
+    if (!isShowEl) {
+      this.isShow = false
+    }
+
+    this.update()
+
   }
 
   onEnter = (evt) => {
@@ -61,6 +81,7 @@ export default class Popover extends WeElement<Props> {
       .assignedNodes()
       .find((node) => node.nodeType !== 3)
 
+    this.popper && this.popper.destroy()
     this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
       modifiers: [
