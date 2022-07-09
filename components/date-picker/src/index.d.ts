@@ -50,7 +50,7 @@ interface Props {
     wrap?: boolean;
     theme?: string;
 }
-export default class Popover extends WeElement<Props> {
+export default class DatePicker extends WeElement<Props> {
     static defaultProps: {
         theme: string;
         size: string;
@@ -66,6 +66,7 @@ export default class Popover extends WeElement<Props> {
     onLeave: () => void;
     onEnterPopover: (evt: any) => void;
     onLeavePopover: () => void;
+    updated(): void;
     installed(): Promise<void>;
     isShow: boolean;
     render(props: any): JSX.Element;

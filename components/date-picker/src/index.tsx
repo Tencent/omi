@@ -62,7 +62,7 @@ interface Props {
 }
 
 @tag('o-date-picker')
-export default class Popover extends WeElement<Props> {
+export default class DatePicker extends WeElement<Props> {
 
   static defaultProps = {
     theme: 'light',

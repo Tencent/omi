@@ -5,8 +5,8 @@
  *
  */
 
-const styleRepository = 'https://npmcdn.com/flatpickr@4.6.9/dist/themes/';
-
+// const styleRepository = 'https://npmcdn.com/flatpickr@4.6.9/dist/themes/';
+const styleRepository = 'https://omi.cdn-go.cn/admin/latest/flatpickr/themes/';
 export enum FlatpickrTheme {
   light = 'light',
   dark = 'dark',
@@ -25,7 +25,8 @@ export function getStyleRepository(theme: FlatpickrTheme): string {
 
 
 
-const themeUrlPrefix = 'https://npmcdn.com/flatpickr@4.6.9/dist/themes';
+// const themeUrlPrefix = 'https://npmcdn.com/flatpickr@4.6.9/dist/themes';
+const themeUrlPrefix = 'https://omi.cdn-go.cn/admin/latest/flatpickr/themes';
 
 export default class StyleLoader {
   constructor(public theme: FlatpickrTheme) {
