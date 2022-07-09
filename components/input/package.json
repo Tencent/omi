@@ -52,6 +52,7 @@
   "homepage": "http://omijs.org",
   "dependencies": {
     "@omiu/common": "latest",
+    "@omiu/icon": "^0.0.4",
     "omi": "latest"
   },
   "devDependencies": {
