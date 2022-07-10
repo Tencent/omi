@@ -50,7 +50,7 @@ export default class extends WeElement<Props> {
   dataSource = []
 
   pageIndex = 0
-  pageSize = 10
+  pageSize = 20
   totalCount = 0
   store
 
@@ -174,7 +174,7 @@ export default class extends WeElement<Props> {
             checkbox={true}
             stripe={false}
             border={false}
-
+            height={window.innerHeight - 210}
             compact={false}
             columns={this.columns}
             dataSource={this.dataSource}
