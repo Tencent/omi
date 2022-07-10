@@ -44,10 +44,8 @@ td {
   // display: table-cell;
   white-space: nowrap;
   font-size: 0.875rem;
-  //  text-overflow: ellipsis;
-  //  overflow: hidden;
-  //  width: auto;
-  //  max-width: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 th.fixed-top {

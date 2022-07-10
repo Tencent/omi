@@ -43,7 +43,7 @@ export default class TableDemo extends WeElement {
     id: 4,
     name: 'john',
     age: 12,
-    address: 'Tencent',
+    address: 'Tencent测试超出宽度',
     $config: {
       bgColor: 'rgb(230 162 60 / 34%)'
     }
@@ -72,21 +72,22 @@ export default class TableDemo extends WeElement {
 
   columns = [{
     title: 'ID',
-    width: '20px',
+
     render: (item: DataType) => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
-    width: '130px',
+
     editable: true
   }, {
     title: 'Age',
     key: 'age',
-    width: '70px',
+
     editable: true
   }, {
     title: 'Address',
     key: 'address',
+    maxWidth: 50,
     editable: true
   }, {
     title: '操作',
@@ -122,7 +123,7 @@ export default class TableDemo extends WeElement {
         stripe={false}
         border={true}
         compact={false}
-        width="250px"
+        width="350px"
         height="200px"
         fixedLeftCount={2}
         fixedRight={true}

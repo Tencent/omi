@@ -39,6 +39,8 @@ th,
 td {
   white-space: nowrap;
   font-size: 0.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 th.fixed-top {
@@ -166,3 +168,5 @@ o-checkbox {
   transform: translateX(-40px);
   opacity: 0;
 }
+
+/*# sourceMappingURL=index.css.map */
