@@ -8,15 +8,16 @@
   overflow: auto;
 }
 
+.o-table-border {
+  border: 1px solid #ebeef5;
+}
+
 .o-table-table {
   background: white;
-  margin: auto;
-  padding: 5px;
   width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
   color: #606266;
-  font-weight: 400;
 }
 
 .o-table-checkbox th:first-child,
@@ -51,19 +52,19 @@ td {
 
 th.fixed-top {
   position: sticky;
-  top: -1px;
+  top: 0;
   z-index: 1000;
 }
 
 table thead th.fixed-left {
   position: sticky;
-  left: -1px;
+  left: 0;
   z-index: 1001;
 }
 
 table tbody td.fixed-left {
   position: sticky;
-  left: -1px;
+  left: 0;
   z-index: 999;
 }
 
@@ -77,22 +78,29 @@ table tbody td.fixed-right {
   z-index: 1000;
 }
 
+// 已知问题，当fixedLeftCount>1时候，border打开滚动时候有间隙
+// 暂时没有好的办法
 .o-table-border td,
 .o-table-border th {
   border-right: 1px solid #ebeef5;
 }
 
-.o-table-border td:first-child,
-.o-table-border th:first-child {
-  border-left: 1px solid #ebeef5;
+.o-table-border td:last-child,
+.o-table-border th:last-child {
+  border-right: none;
 }
 
+
 .o-table-border th {
-  border-top: 1px solid #ebeef5;
+  border-bottom: 1px solid #ebeef5;
 }
 
 tr {
   border-bottom: 1px solid #e0e0e0;
+}
+
+tr:last-child {
+  border-bottom: none;
 }
 
 tr:hover td {

@@ -128,7 +128,7 @@ export default class TableDemo extends WeElement {
         fixedRight={true}
         fixedTop={true}
         columns={this.columns} dataSource={this.dataSource}></o-table>
-
+      <br></br>
       <o-table
         ref={(el: Table<Props<DataType>>) => this.table = el}
         checkbox={true}
