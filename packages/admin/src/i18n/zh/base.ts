@@ -1,11 +1,11 @@
 export const base = {
   translation: {
-    ManagerWorkbench: '管理者工作台',
+    ManagerWorkbench: '管理工作台',
     Welcome: '欢迎',
     Theme: '主题',
     ColorPicker: 'ColorPicker 颜色选择器',
     WelcomePage: '欢迎界面',
-    MobileShow:'移动端预览',
+    MobileShow: '移动端预览',
     BasicTable: '基础表格',
     TableDeleteAnimation: '表格删除动画',
     Form: '表单',

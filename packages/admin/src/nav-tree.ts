@@ -6,6 +6,8 @@ import {
 } from './components/components/docs/config'
 import { genId } from './util/id'
 
+import '@omiu/icon/smartphone'
+
 export interface NavTree {
   id?: number
   label?: string
@@ -41,11 +43,6 @@ export function genNavTree(i18n) {
           // color: '#07c160',
           selected: true,
           href: '#/welcome',
-          id: genId()
-        },
-        {
-          label: i18n.t('MobileShow'),
-          href: '#/mobile',
           id: genId()
         },
         {
@@ -100,7 +97,34 @@ export function genNavTree(i18n) {
           id: genId(),
           href: '#/personal-center',
           icon: 'account-box'
-        }
+        },
+        {
+          sign: '993',
+          label: i18n.t('Comment'),
+          icon: 'comment',
+          href: '#/comment',
+          id: genId()
+        },
+
+        {
+          label: i18n.t('MindMap'),
+          icon: 'ac-unit',
+          href: '#/mind-map',
+          id: genId()
+        },
+        {
+          label: i18n.t('ExternalLink'),
+          icon: 'insert-link',
+          href: 'https://github.com/Tencent/omi',
+          id: genId(),
+          target: '_blank'
+        },
+        {
+          label: i18n.t('MobileShow'),
+          icon: 'smartphone',
+          href: '#/mobile',
+          id: genId()
+        },
       ]
     },
     {
@@ -196,41 +220,23 @@ export function genNavTree(i18n) {
           href: '#/warning',
           id: genId()
         },
-        {
-          sign: '993',
-          label: i18n.t('Comment'),
-          icon: 'comment',
-          href: '#/comment',
-          id: genId()
-        },
-        {
-          label: i18n.t('ExternalLink'),
-          icon: 'insert-link',
-          href: 'https://github.com/Tencent/omi',
-          id: genId(),
-          target: '_blank'
-        },
-        {
-          label: i18n.t('MindMap'),
-          icon: 'ac-unit',
-          href: '#/mind-map',
-          id: genId()
-        }
+        ...getDocsList()
+
       ]
     },
-    {
-      label: i18n.t('MarkdownDocs'),
-      expanded: true,
-      id: genId(),
-      children: getDocsList()
-    },
+    // {
+    //   label: i18n.t('MarkdownDocs'),
+    //   expanded: true,
+    //   id: genId(),
+    //   children: getDocsList()
+    // },
 
-    {
-      label: i18n.t('ManyThanksTo'),
-      id: genId(),
-      href: '#/thanks',
-      icon: 'people-alt'
-    }
+    // {
+    //   label: i18n.t('ManyThanksTo'),
+    //   id: genId(),
+    //   href: '#/thanks',
+    //   icon: 'people-alt'
+    // }
   ]
 
   const omiuComponents = [
