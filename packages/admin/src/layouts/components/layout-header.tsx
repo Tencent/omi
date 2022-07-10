@@ -114,7 +114,7 @@ export default class extends WeElement<Props> {
       <div class={tw`h-12 text-left text-white`} style={{ background: this.store.themeColor }}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
-            <img class={tw`w-8 m-1 ml-2 flex-row`} src={logo} alt="logo" />
+            <img class={tw`w-8 m-1 ml-2 flex-row`} style={{ width: '32px', height: '32px' }} src={logo} alt="logo" />
             <h1
               class={tw`text-xl ml-2 leading-10 text-white flex-row whitespace-nowrap`}
             >
