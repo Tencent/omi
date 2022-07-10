@@ -89,6 +89,10 @@ export default class extends WeElement<Props> {
 
     },
     {
+      title: '合同金额',
+      key: 'amount',
+    },
+    {
       title: '合同收付类型',
       render: (item) => {
         return <span > {PaymentType[item.paymentType]}</span>
@@ -175,6 +179,10 @@ export default class extends WeElement<Props> {
             compact={false}
             columns={this.columns}
             dataSource={this.dataSource}
+
+            fixedLeftCount={1}
+            fixedRight={true}
+            fixedTop={true}
           ></o-table>
 
           <div class={tw`flex justify-between pt-2 pb-2 pl-3`}>
