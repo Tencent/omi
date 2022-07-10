@@ -1,5 +1,5 @@
 /**
- * @omiu/popover v0.0.15 http://omijs.org
+ * @omiu/popover v0.0.16 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -2383,8 +2383,10 @@
         };
         Popover.prototype.onDocumentMouseDown = function (e) {
             var isShowEl = false;
-            for (var i = 0, len = e.path.length; i < len; i++) {
-                if (e.path[i] === this.rootNode) {
+            // safari版本14.1.2 不支持 e.path
+            var path = e.path || (event.composedPath && event.composedPath());
+            for (var i = 0, len = path.length; i < len; i++) {
+                if (path[i] === this.rootNode) {
                     isShowEl = true;
                     break;
                 }

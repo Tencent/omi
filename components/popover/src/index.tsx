@@ -49,8 +49,10 @@ export default class Popover extends WeElement<Props> {
 
   onDocumentMouseDown(e) {
     let isShowEl = false
-    for (let i = 0, len = e.path.length; i < len; i++) {
-      if (e.path[i] === this.rootNode) {
+    // safari版本14.1.2 不支持 e.path
+    const path = e.path || (event.composedPath && event.composedPath());
+    for (let i = 0, len = path.length; i < len; i++) {
+      if (path[i] === this.rootNode) {
         isShowEl = true
         break
       }
