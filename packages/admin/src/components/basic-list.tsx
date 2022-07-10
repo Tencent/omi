@@ -68,7 +68,8 @@ export default class extends WeElement<Props> {
   columns = [
     {
       title: '合同名称',
-      key: 'name'
+      key: 'name',
+      maxWidth: 140
     },
     {
       title: '合同状态',
@@ -82,11 +83,9 @@ export default class extends WeElement<Props> {
     },
     {
       title: '合同类型',
-
       render: (item) => {
         return <span > {ContractType[item.contractType]}</span>
       }
-
     },
     {
       title: '合同金额',

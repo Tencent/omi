@@ -14,7 +14,7 @@ export default defineConfig({
       external: ['omi', '@omiu/checkbox', '@omiu/input'],
       input: {
         main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'demo.html')
+        ...process.argv[2] !== 'build' && { demo: resolve(__dirname, 'demo.html') }
       }
     }
   },

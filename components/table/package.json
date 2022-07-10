@@ -1,6 +1,6 @@
 {
   "name": "@omiu/table",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
