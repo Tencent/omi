@@ -3,6 +3,7 @@ import { genNavTree, NavTree } from './nav-tree'
 import { getNotifications } from './service/notifications'
 import { resetId } from './util/id'
 import { route } from 'omi-router'
+import { setTheme } from '@omiu/common'
 
 import i18next from 'i18next'
 import resourcesToBackend from 'i18next-resources-to-backend'
@@ -38,8 +39,10 @@ class Store {
 
   constructor(options) {
 
-    this.themeColor = '#07c160'
+    // this.themeColor = '#07c160'
+    this.themeColor = '#13C395'
 
+    setTheme('primary', this.themeColor)
     this.installed = options.installed
 
     this.isLeftPanelClosed = window.innerWidth < 640

@@ -38,7 +38,7 @@ export function genNavTree(i18n) {
           sign: '💗',
           label: i18n.t('WelcomePage'),
           icon: 'emoji-people',
-          color: '#07c160',
+          // color: '#07c160',
           selected: true,
           href: '#/welcome',
           id: genId()

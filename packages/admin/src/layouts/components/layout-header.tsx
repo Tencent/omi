@@ -1,7 +1,7 @@
 import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import { setTheme } from '@omiu/common'
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/logo-reverse-color.svg'
 import '@omiu/avatar'
 import '@omiu/icon/palette'
 import '@omiu/select'
@@ -54,6 +54,8 @@ export default class extends WeElement<Props> {
   onColorChange = (evt) => {
     this.store.themeColor = evt.detail.color
     setTheme('primary', evt.detail.color)
+    // 更新header背景色
+    this.updateSelf()
   }
 
   onItemSelect = (evt) => {
@@ -109,12 +111,12 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`h-12 text-left border-b-1`}>
+      <div class={tw`h-12 text-left text-white`} style={{ background: this.store.themeColor }}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
-            <img class={tw`w-8 m-1 ml-3 flex-row`} src={logo} alt="logo" />
+            <img class={tw`w-8 m-1 ml-2 flex-row`} src={logo} alt="logo" />
             <h1
-              class={tw`ml-3 leading-10 text-gray-500 flex-row whitespace-nowrap`}
+              class={tw`text-xl ml-2 leading-10 text-white flex-row whitespace-nowrap`}
             >
               OMI ADMIN
             </h1>
@@ -133,13 +135,13 @@ export default class extends WeElement<Props> {
           </div>
 
           <div
-            class={tw`flex flex-row text-gray-500 gap-x-4 items-center order-3 p-1 mr-3`}
+            class={tw`flex flex-row text-white gap-x-4 items-center order-3 p-1 mr-3`}
           >
             <div class={tw`flex-row hidden md:block`}>
               <div
                 class={tw`cursor-pointer`}
                 onClick={this.toggle}
-                style={{ color: this.store.themeColor }}
+              // style={{ color: this.store.themeColor }}
               >
                 <o-icon-palette></o-icon-palette>
                 {i18next.t('Theme')}

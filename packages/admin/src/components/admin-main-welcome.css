@@ -65,35 +65,40 @@ svg {
 }
 
 .use-omi:nth-child(1) {
-  stroke: #07c160;
+  stroke: #13C395;
+  stroke: var(--o-primary);
   animation: animation1 8s infinite ease-in-out forwards;
 
 }
 
 /* line 38, ../../src/css/source/_chat.scss */
 .use-omi:nth-child(2) {
-  stroke: #07c160;
+  stroke: #13C395;
+  stroke: var(--o-primary);
   animation: animation2 8s infinite ease-in-out forwards;
 
 }
 
 /* line 38, ../../src/css/source/_chat.scss */
 .use-omi:nth-child(3) {
-  stroke: #07c160;
+  stroke: #13C395;
+  stroke: var(--o-primary);
   animation: animation3 8s infinite ease-in-out forwards;
 
 }
 
 /* line 38, ../../src/css/source/_chat.scss */
 .use-omi:nth-child(4) {
-  stroke: #07c160;
+  stroke: #13C395;
+  stroke: var(--o-primary);
   animation: animation4 8s infinite ease-in-out forwards;
 
 }
 
 /* line 38, ../../src/css/source/_chat.scss */
 .use-omi:nth-child(5) {
-  stroke: #07c160;
+  stroke: #13C395;
+  stroke: var(--o-primary);
   animation: animation5 8s infinite ease-in-out forwards;
 
 }
