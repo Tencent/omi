@@ -818,14 +818,6 @@
                     return $basicStyleElement.get(this).sheet.cssRules;
                 }
             });
-            defineProperty(proto$1, 'media', {
-                configurable: !0,
-                enumerable: !0,
-                get: function() {
-                    checkInvocationCorrectness(this);
-                    return $basicStyleElement.get(this).sheet.media;
-                }
-            });
             cssStyleSheetMethods.forEach(function(method) {
                 proto$1[method] = function() {
                     var self = this;

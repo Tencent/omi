@@ -1,5 +1,5 @@
 /**
- * Omi v6.23.2  http://omijs.org
+ * Omi v6.24.0  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1320,14 +1320,6 @@ function o(obj) {
         get: function cssRules() {
             checkInvocationCorrectness(this);
             return $basicStyleElement.get(this).sheet.cssRules;
-        },
-    });
-    defineProperty(proto$1, 'media', {
-        configurable: true,
-        enumerable: true,
-        get: function media() {
-            checkInvocationCorrectness(this);
-            return $basicStyleElement.get(this).sheet.media;
         },
     });
     cssStyleSheetMethods.forEach(function (method) {
