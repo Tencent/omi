@@ -99,7 +99,7 @@ export default class extends WeElement<Props> {
         <o-hamburger-menu
           title="隐藏导航树"
           style="right:-2.5px"
-          class={tw`absolute scale-50 z-10 top-0`}
+          class={tw`absolute scale-50 z-10 top-2`}
           color="rgb(107, 114, 128)"
           active={!this.store.isLeftPanelClosed}
           onchange={this.onMenuChange}
