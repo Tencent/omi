@@ -1,5 +1,5 @@
 /**
- * Omi v6.24.0  http://omijs.org
+ * Omi v6.25.0  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1193,12 +1193,12 @@ function o(obj) {
     if (typeof document === 'undefined' || 'adoptedStyleSheets' in document) { return; }
 
     var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
-    var bootstrapper = document.implementation.createHTMLDocument('');
+    var bootstrapper = document.implementation.createHTMLDocument('boot');
     var closedShadowRootRegistry = new WeakMap();
     var _DOMException = typeof DOMException === 'object' ? Error : DOMException;
+
     var defineProperty = Object.defineProperty;
     var forEach = Array.prototype.forEach;
-
     var importPattern = /@import.+?;?$/gm;
     function rejectImports(contents) {
         var _contents = contents.replace(importPattern, '');
@@ -1206,6 +1206,16 @@ function o(obj) {
             console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
         }
         return _contents.trim();
+    }
+    function clearRules(sheet) {
+        for (var i = 0; i < sheet.cssRules.length; i++) {
+            sheet.deleteRule(0);
+        }
+    }
+    function insertAllRules(from, to) {
+        forEach.call(from.cssRules, function (rule, i) {
+            to.insertRule(rule.cssText, i);
+        });
     }
     function isElementConnected(element) {
         return 'isConnected' in element
@@ -1226,9 +1236,12 @@ function o(obj) {
     }
 
     var cssStyleSheetMethods = [
+        'addImport',
+        'addPageRule',
         'addRule',
         'deleteRule',
         'insertRule',
+        'removeImport',
         'removeRule',
     ];
     var NonConstructedStyleSheet = CSSStyleSheet;
@@ -1241,7 +1254,7 @@ function o(obj) {
     };
     function isCSSStyleSheetInstance(instance) {
         return typeof instance === 'object'
-            ? proto$1.isPrototypeOf(instance) ||
+            ? proto$2.isPrototypeOf(instance) ||
                 nonConstructedProto.isPrototypeOf(instance)
             : false;
     }
@@ -1250,10 +1263,9 @@ function o(obj) {
             ? nonConstructedProto.isPrototypeOf(instance)
             : false;
     }
-    var $basicStyleElement = new WeakMap();
+    var $basicStyleSheet = new WeakMap();
     var $locations = new WeakMap();
     var $adoptersByLocation = new WeakMap();
-    var $appliedMethods = new WeakMap();
     function addAdopterLocation(sheet, location) {
         var adopter = document.createElement('style');
         $adoptersByLocation.get(sheet).set(location, adopter);
@@ -1269,16 +1281,12 @@ function o(obj) {
     }
     function restyleAdopter(sheet, adopter) {
         requestAnimationFrame(function () {
-            adopter.textContent = $basicStyleElement.get(sheet).textContent;
-            $appliedMethods
-                .get(sheet)
-                .forEach(function (command) {
-                return adopter.sheet[command.method].apply(adopter.sheet, command.args);
-            });
+            clearRules(adopter.sheet);
+            insertAllRules($basicStyleSheet.get(sheet), adopter.sheet);
         });
     }
     function checkInvocationCorrectness(self) {
-        if (!$basicStyleElement.has(self)) {
+        if (!$basicStyleSheet.has(self)) {
             throw new TypeError('Illegal invocation');
         }
     }
@@ -1286,13 +1294,12 @@ function o(obj) {
         var self = this;
         var style = document.createElement('style');
         bootstrapper.body.appendChild(style);
-        $basicStyleElement.set(self, style);
+        $basicStyleSheet.set(self, style.sheet);
         $locations.set(self, []);
         $adoptersByLocation.set(self, new WeakMap());
-        $appliedMethods.set(self, []);
     }
-    var proto$1 = ConstructedStyleSheet.prototype;
-    proto$1.replace = function replace(contents) {
+    var proto$2 = ConstructedStyleSheet.prototype;
+    proto$2.replace = function replace(contents) {
         try {
             this.replaceSync(contents);
             return Promise.resolve(this);
@@ -1301,12 +1308,13 @@ function o(obj) {
             return Promise.reject(e);
         }
     };
-    proto$1.replaceSync = function replaceSync(contents) {
+    proto$2.replaceSync = function replaceSync(contents) {
         checkInvocationCorrectness(this);
         if (typeof contents === 'string') {
             var self_1 = this;
-            $basicStyleElement.get(self_1).textContent = rejectImports(contents);
-            $appliedMethods.set(self_1, []);
+            var style = $basicStyleSheet.get(self_1).ownerNode;
+            style.textContent = rejectImports(contents);
+            $basicStyleSheet.set(self_1, style.sheet);
             $locations.get(self_1).forEach(function (location) {
                 if (location.isConnected()) {
                     restyleAdopter(self_1, getAdopterByLocation(self_1, location));
@@ -1314,28 +1322,29 @@ function o(obj) {
             });
         }
     };
-    defineProperty(proto$1, 'cssRules', {
+    defineProperty(proto$2, 'cssRules', {
         configurable: true,
         enumerable: true,
         get: function cssRules() {
             checkInvocationCorrectness(this);
-            return $basicStyleElement.get(this).sheet.cssRules;
+            return $basicStyleSheet.get(this).cssRules;
         },
     });
     cssStyleSheetMethods.forEach(function (method) {
-        proto$1[method] = function () {
+        proto$2[method] = function () {
             var self = this;
             checkInvocationCorrectness(self);
             var args = arguments;
-            $appliedMethods.get(self).push({ method: method, args: args });
-            $locations.get(self).forEach(function (location) {
+            var basic = $basicStyleSheet.get(self);
+            var locations = $locations.get(self);
+            var result = basic[method].apply(basic, args);
+            locations.forEach(function (location) {
                 if (location.isConnected()) {
                     var sheet = getAdopterByLocation(self, location).sheet;
                     sheet[method].apply(sheet, args);
                 }
             });
-            var basicSheet = $basicStyleElement.get(self).sheet;
-            return basicSheet[method].apply(basicSheet, args);
+            return result;
         };
     });
     defineProperty(ConstructedStyleSheet, Symbol.hasInstance, {
@@ -1442,51 +1451,50 @@ function o(obj) {
             });
         }));
     }
-    Location.prototype = {
-        isConnected: function () {
-            var element = $element.get(this);
-            return element instanceof Document
-                ? element.readyState !== 'loading'
-                : isElementConnected(element.host);
-        },
-        connect: function () {
-            var container = getAdopterContainer(this);
-            $observer.get(this).observe(container, defaultObserverOptions);
-            if ($uniqueSheets.get(this).length > 0) {
-                adopt(this);
-            }
-            traverseWebComponents(container, function (root) {
-                getAssociatedLocation(root).connect();
-            });
-        },
-        disconnect: function () {
-            $observer.get(this).disconnect();
-        },
-        update: function (sheets) {
-            var self = this;
-            var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
-            if (!Array.isArray(sheets)) {
-                throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
-            }
-            if (!sheets.every(isCSSStyleSheetInstance)) {
-                throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
-            }
-            if (sheets.some(isNonConstructedStyleSheetInstance)) {
-                throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
-            }
-            self.sheets = sheets;
-            var oldUniqueSheets = $uniqueSheets.get(self);
-            var uniqueSheets = unique(sheets);
-            var removedSheets = diff(oldUniqueSheets, uniqueSheets);
-            removedSheets.forEach(function (sheet) {
-                removeNode(getAdopterByLocation(sheet, self));
-                removeAdopterLocation(sheet, self);
-            });
-            $uniqueSheets.set(self, uniqueSheets);
-            if (self.isConnected() && uniqueSheets.length > 0) {
-                adopt(self);
-            }
-        },
+    var proto$1 = Location.prototype;
+    proto$1.isConnected = function isConnected() {
+        var element = $element.get(this);
+        return element instanceof Document
+            ? element.readyState !== 'loading'
+            : isElementConnected(element.host);
+    };
+    proto$1.connect = function connect() {
+        var container = getAdopterContainer(this);
+        $observer.get(this).observe(container, defaultObserverOptions);
+        if ($uniqueSheets.get(this).length > 0) {
+            adopt(this);
+        }
+        traverseWebComponents(container, function (root) {
+            getAssociatedLocation(root).connect();
+        });
+    };
+    proto$1.disconnect = function disconnect() {
+        $observer.get(this).disconnect();
+    };
+    proto$1.update = function update(sheets) {
+        var self = this;
+        var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
+        if (!Array.isArray(sheets)) {
+            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
+        }
+        if (!sheets.every(isCSSStyleSheetInstance)) {
+            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
+        }
+        if (sheets.some(isNonConstructedStyleSheetInstance)) {
+            throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
+        }
+        self.sheets = sheets;
+        var oldUniqueSheets = $uniqueSheets.get(self);
+        var uniqueSheets = unique(sheets);
+        var removedSheets = diff(oldUniqueSheets, uniqueSheets);
+        removedSheets.forEach(function (sheet) {
+            removeNode(getAdopterByLocation(sheet, self));
+            removeAdopterLocation(sheet, self);
+        });
+        $uniqueSheets.set(self, uniqueSheets);
+        if (self.isConnected() && uniqueSheets.length > 0) {
+            adopt(self);
+        }
     };
 
     window.CSSStyleSheet = ConstructedStyleSheet;
