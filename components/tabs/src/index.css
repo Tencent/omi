@@ -57,7 +57,6 @@
 
 .o-tabs__nav-wrap {
   overflow: hidden;
-  margin-bottom: -1px;
   position: relative;
 }
 
@@ -68,7 +67,7 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  background-color: #E4E7ED;
+  background-color: #e4e7ed;
   z-index: 1;
 }
 
@@ -176,8 +175,8 @@
 }
 
 .o-tabs__item .o-icon-close:hover {
-  background-color: #C0C4CC;
-  color: #FFF;
+  background-color: #c0c4cc;
+  color: #fff;
 }
 
 .o-tabs__item.is-active {
@@ -192,7 +191,7 @@
 }
 
 .o-tabs__item.is-disabled {
-  color: #C0C4CC;
+  color: #c0c4cc;
   cursor: default;
 }
 
@@ -202,11 +201,11 @@
 }
 
 .o-tabs--card > .o-tabs__header {
-  border-bottom: 1px solid #E4E7ED;
+  border-bottom: 1px solid #e4e7ed;
 }
 
 .o-tabs--card > .o-tabs__header .o-tabs__nav {
-  border: 1px solid #E4E7ED;
+  border: 1px solid #e4e7ed;
   border-bottom: none;
   border-radius: 4px 4px 0 0;
   -webkit-box-sizing: border-box;
@@ -238,7 +237,7 @@
 
 .o-tabs--card > .o-tabs__header .o-tabs__item {
   border-bottom: 1px solid transparent;
-  border-left: 1px solid #E4E7ED;
+  border-left: 1px solid #e4e7ed;
   -webkit-transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
@@ -253,7 +252,7 @@
 }
 
 .o-tabs--card > .o-tabs__header .o-tabs__item.is-active {
-  border-bottom-color: #FFF;
+  border-bottom: 1px solid;
 }
 
 .o-tabs--card > .o-tabs__header .o-tabs__item.is-active.is-closable {
@@ -262,13 +261,13 @@
 }
 
 .o-tabs--border-card {
-  background: #FFF;
-  border: 1px solid #DCDFE6;
+  background: #fff;
+  border: 1px solid #dcdfe6;
   border-bottom: none;
 }
 
 .o-tabs--border-card.o-tabs--bottom {
-  border: 1px solid #DCDFE6;
+  border: 1px solid #dcdfe6;
 }
 
 .o-tabs--border-card > .o-tabs__content {
@@ -276,8 +275,8 @@
 }
 
 .o-tabs--border-card > .o-tabs__header {
-  background-color: #F5F7FA;
-  border-bottom: 1px solid #E4E7ED;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #e4e7ed;
   margin: 0;
 }
 
@@ -297,9 +296,9 @@
 .o-tabs--border-card > .o-tabs__header .o-tabs__item.is-active {
   color: #07c160;
   color: var(--o-primary, #07c160);
-  background-color: #FFF;
-  border-right-color: #DCDFE6;
-  border-left-color: #DCDFE6;
+  background-color: #fff;
+  border-right-color: #dcdfe6;
+  border-left-color: #dcdfe6;
 }
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item:not(.is-disabled):hover {
@@ -308,7 +307,7 @@
 }
 
 .o-tabs--border-card > .o-tabs__header .o-tabs__item.is-disabled {
-  color: #C0C4CC;
+  color: #c0c4cc;
 }
 
 .o-tabs--border-card > .o-tabs__header .is-scrollable .o-tabs__item:first-child {
@@ -357,7 +356,7 @@
 
 .o-tabs--bottom.o-tabs--border-card .o-tabs__header.is-bottom {
   border-bottom: 0;
-  border-top: 1px solid #DCDFE6;
+  border-top: 1px solid #dcdfe6;
 }
 
 .o-tabs--bottom.o-tabs--border-card .o-tabs__nav-wrap.is-bottom {
@@ -509,19 +508,19 @@
 
 .o-tabs--left.o-tabs--card .o-tabs__item.is-left {
   border-left: none;
-  border-right: 1px solid #E4E7ED;
+  border-right: 1px solid #e4e7ed;
   border-bottom: none;
-  border-top: 1px solid #E4E7ED;
+  border-top: 1px solid #e4e7ed;
   text-align: left;
 }
 
 .o-tabs--left.o-tabs--card .o-tabs__item.is-left:first-child {
-  border-right: 1px solid #E4E7ED;
+  border-right: 1px solid #e4e7ed;
   border-top: none;
 }
 
 .o-tabs--left.o-tabs--card .o-tabs__item.is-left.is-active {
-  border: 1px solid #E4E7ED;
+  border: 1px solid #e4e7ed;
   border-right-color: #fff;
   border-left: none;
   border-bottom: none;
@@ -537,7 +536,7 @@
 
 .o-tabs--left.o-tabs--card .o-tabs__nav {
   border-radius: 4px 0 0 4px;
-  border-bottom: 1px solid #E4E7ED;
+  border-bottom: 1px solid #e4e7ed;
   border-right: none;
 }
 
@@ -579,16 +578,16 @@
 
 .o-tabs--right.o-tabs--card .o-tabs__item.is-right {
   border-bottom: none;
-  border-top: 1px solid #E4E7ED;
+  border-top: 1px solid #e4e7ed;
 }
 
 .o-tabs--right.o-tabs--card .o-tabs__item.is-right:first-child {
-  border-left: 1px solid #E4E7ED;
+  border-left: 1px solid #e4e7ed;
   border-top: none;
 }
 
 .o-tabs--right.o-tabs--card .o-tabs__item.is-right.is-active {
-  border: 1px solid #E4E7ED;
+  border: 1px solid #e4e7ed;
   border-left-color: #fff;
   border-right: none;
   border-bottom: none;
@@ -604,7 +603,7 @@
 
 .o-tabs--right.o-tabs--card .o-tabs__nav {
   border-radius: 0 4px 4px 0;
-  border-bottom: 1px solid #E4E7ED;
+  border-bottom: 1px solid #e4e7ed;
   border-left: none;
 }
 

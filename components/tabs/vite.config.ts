@@ -8,18 +8,17 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.tsx'),
       name: 'index',
       formats: ['es'],
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: /^omi/,
       input: {
         main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'demo.html')
-      }
-    }
+      },
+    },
   },
   esbuild: {
     jsxFactory: 'h',
-    jsxFragment: 'h.f'
-  }
+    jsxFragment: 'h.f',
+  },
 })

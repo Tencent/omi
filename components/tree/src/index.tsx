@@ -3,20 +3,23 @@ import * as css from './index.scss'
 
 interface Props {
   data?: any[]
-  padding: number
+  padding: number,
+  nodeHeight: number
 }
 
 @tag('o-tree')
 export default class Tree extends WeElement<Props> {
-  static css = css.default ? css.default : css
+  static css = css
 
   static defaultProps = {
-    padding: 10
+    padding: 10,
+    nodeHeight: 26
   }
 
   static propTypes = {
     data: Array,
-    padding: Number
+    padding: Number,
+    nodeHeight: Number
   }
 
   onNodeClick = (node) => {
@@ -151,7 +154,10 @@ export default class Tree extends WeElement<Props> {
       >
         <div
           class="o-tree-node__content"
-          style={`padding-left: ${level * this.props.padding}px;`}
+          style={{
+            paddingLeft: `${level * this.props.padding}px`,
+            height: `${this.props.nodeHeight}px`
+          }}
         >
           {node.children && node.children.length > 0 ? (
             <svg
@@ -222,7 +228,7 @@ export default class Tree extends WeElement<Props> {
           </div>
         )}
         {!node.editing && node.sign && (
-          <span style={node.color && { color: node.color }} class="sign">
+          <span style={{ color: node.color, top: (this.props.nodeHeight - 26) / 2 + 5 }} class="sign">
             {node.sign}
           </span>
         )}

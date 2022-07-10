@@ -191,7 +191,7 @@
   cursor: not-allowed;
 }
 
-.o-checkbox.is-bordered + .o-checkbox.is-bordered {
+.o-checkbox.is-bordered+.o-checkbox.is-bordered {
   margin-left: 10px;
 }
 
@@ -276,7 +276,7 @@
   border-color: #c0c4cc;
 }
 
-.o-checkbox__input.is-disabled .o-checkbox__inner + .o-checkbox__label {
+.o-checkbox__input.is-disabled .o-checkbox__inner+.o-checkbox__label {
   cursor: not-allowed;
 }
 
@@ -305,7 +305,7 @@
   border-color: #409eff;
 }
 
-.o-checkbox__input.is-disabled + span.o-checkbox__label {
+.o-checkbox__input.is-disabled+span.o-checkbox__label {
   color: #c0c4cc;
   cursor: not-allowed;
 }
@@ -315,7 +315,7 @@
   transform: rotate(45deg) scaleY(1);
 }
 
-.o-checkbox__input.is-checked + .o-checkbox__label {
+.o-checkbox__input.is-checked+.o-checkbox__label {
   color: #409eff;
 }
 
@@ -445,7 +445,7 @@
   line-height: 0.9;
 }
 
-.o-checkbox-button__inner [class*='el-icon-'] + span {
+.o-checkbox-button__inner [class*='el-icon-']+span {
   margin-left: 5px;
 }
 
@@ -572,11 +572,11 @@
   display: block;
 }
 
-.o-tree-node:focus > .o-tree-node__content {
+.o-tree-node:focus>.o-tree-node__content {
   background-color: #f5f7fa;
 }
 
-.o-tree-node.is-drop-inner > .o-tree-node__content .o-tree-node__label {
+.o-tree-node.is-drop-inner>.o-tree-node__content .o-tree-node__label {
   background-color: #409eff;
   color: #fff;
 }
@@ -592,11 +592,11 @@
   cursor: pointer;
 }
 
-.o-tree-node__content > .o-tree-node__expand-icon {
+.o-tree-node__content>.o-tree-node__expand-icon {
   padding: 6px;
 }
 
-.o-tree-node__content > label.o-checkbox {
+.o-tree-node__content>label.o-checkbox {
   margin-right: 8px;
 }
 
@@ -650,20 +650,20 @@
   color: #c0c4cc;
 }
 
-.o-tree-node > .o-tree-node__children {
+.o-tree-node>.o-tree-node__children {
   overflow: hidden;
   background-color: transparent;
 }
 
-.o-tree-node.is-expanded > .o-tree-node__children {
+.o-tree-node.is-expanded>.o-tree-node__children {
   display: block;
 }
 
-.o-tree-node.is-current-blur > .o-tree-node__content {
+.o-tree-node.is-current-blur>.o-tree-node__content {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.o-tree-node.is-current > .o-tree-node__content {
+.o-tree-node.is-current>.o-tree-node__content {
   background-color: $o-primary-fade-more;
   background-color: var(--o-primary-fade-more, $o-primary-fade-more);
 }
@@ -671,14 +671,14 @@
 .sign {
   position: absolute;
   font-size: 10px;
-  top: 4px;
+  top: 5px;
   right: 4px;
 }
 
 .action-icons {
   position: absolute;
   font-size: 10px;
-  top: 4px;
+  top: 5px;
   right: 4px;
 }
 

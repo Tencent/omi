@@ -30,7 +30,7 @@ domReady.done = false
 
 @tag('o-tabs')
 export default class Tabs extends WeElement<Props>{
-  static css = css.default
+  static css = css
 
   static defaultProps = {
     position: 'top',
@@ -123,9 +123,9 @@ export default class Tabs extends WeElement<Props>{
       height: `40px`,
       transform: `translateY(${props.activeIndex * 40}px)`
     } : {
-        width: `${this._width}px`,
-        transform: `translateX(${this._x}px)`
-      }
+      width: `${this._width}px`,
+      transform: `translateX(${this._x}px)`
+    }
 
     return (
       <div {...extractClass(props, 'o-tabs', {

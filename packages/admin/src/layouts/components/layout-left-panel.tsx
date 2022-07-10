@@ -107,7 +107,8 @@ export default class extends WeElement<Props> {
 
         <o-tree
           class={tw`pb-40`}
-          onnode-click={this.onNodeClick}
+          onNodeClick={this.onNodeClick}
+          nodeHeight={42}
           data={this.store.treeData}
         ></o-tree>
 
