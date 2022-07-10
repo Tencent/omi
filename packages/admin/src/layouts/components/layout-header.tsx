@@ -124,7 +124,7 @@ export default class extends WeElement<Props> {
               <o-select
                 css={`
             .o-select .o-input__inner {
-              width: 117px;
+              width: 91px;
             `}
                 size="mini"
                 onItemSelect={this.onItemSelect}
