@@ -53,12 +53,12 @@
   color: rgba(242, 113, 28, 0.7);
 }
 .o-tag--danger {
-  border: 1px solid #db2828;
-  background-color: rgba(219, 40, 40, 0.1);
-  color: #db2828;
+  border: 1px solid #fa5151;
+  background-color: rgba(250, 81, 81, 0.1);
+  color: #fa5151;
 }
 .o-tag--danger.is-disabled {
-  color: rgba(219, 40, 40, 0.7);
+  color: rgba(250, 81, 81, 0.7);
 }
 .o-tag--info {
   border: 1px solid #42b8dd;
