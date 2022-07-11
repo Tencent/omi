@@ -28,6 +28,8 @@
     "omi": "latest"
   },
   "devDependencies": {
+    "@omiu/tag": "^0.0.5",
+    "@omiu/tooltip": "^0.0.1",
     "@open-wc/testing": "^2.5.33",
     "@types/node": "^16.4.13",
     "@web/test-runner": "^0.13.15",

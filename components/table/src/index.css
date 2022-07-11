@@ -135,7 +135,7 @@ a:link,
 a:visited,
 a:active {
   text-decoration: none;
-  color: inherit;
+  color: #07c160;
 }
 
 a:hover {
@@ -168,5 +168,3 @@ o-checkbox {
   transform: translateX(-40px);
   opacity: 0;
 }
-
-/*# sourceMappingURL=index.css.map */

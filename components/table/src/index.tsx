@@ -210,9 +210,10 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                     obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
                   }
                   const columnVal = column.render ? column.render(item) : item[column.key]
+                  const title = typeof columnVal === 'string' ? columnVal : null
                   return <td
-                    title={columnVal}
-                    onclick={evt => this.onTdClick(item, column, evt)} {...obj}
+                    title={title}
+                    onClick={evt => this.onTdClick(item, column, evt)} {...obj}
                     class={classNames({
                       [`o-table-align-${column.align}`]: column.align,
                       'compact': props.compact,
