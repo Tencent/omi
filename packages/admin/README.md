@@ -7,9 +7,8 @@ English | [简体中文](./README.CN.md)
 * [→ Preview](https://tencent.github.io/omi/packages/admin/dist/index.html)
 * [→ 国内加速访问 DEMO](https://omi.cdn-go.cn/admin/latest/index.html)
 
-![](../../assets/admin-pc-v3.png)
 
-<img src="../../assets/admin-mb.png" width="320">
+<img src="https://gtimg.wechatpay.cn/resource/xres/img/202207/2f4937a640f2c35e68d6ede7992f0ddf_2920x1956.png" width="640">
 
 ## Features 
 
