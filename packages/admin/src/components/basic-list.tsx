@@ -180,7 +180,8 @@ export default class extends WeElement<Props> {
             dataSource={this.dataSource}
 
             fixedLeftCount={1}
-            fixedRight={true}
+            // tooltip bug 修复了再开启
+            fixedRight={false}
             fixedTop={true}
           ></o-table>
 

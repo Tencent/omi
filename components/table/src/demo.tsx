@@ -3,6 +3,8 @@ import '@omiu/icon/delete'
 import '@omiu/icon/edit'
 import '@omiu/tag'
 import '@omiu/tooltip'
+// debug
+// import '../../tooltip/src/index.tsx'
 import './index.tsx'
 import Table from '.';
 import { Props } from '.';
