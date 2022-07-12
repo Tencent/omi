@@ -8,7 +8,7 @@
 * [→ github.io DEMO](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
 
-<img src="https://gtimg.wechatpay.cn/resource/xres/img/202207/2f4937a640f2c35e68d6ede7992f0ddf_2920x1956.png" width="640">
+<img src="https://gtimg.wechatpay.cn/resource/xres/img/202207/c83f9621c27fbf7773f39ba814c50928_2910x1948.png" width="840">
 
 **功能特性:**
 
