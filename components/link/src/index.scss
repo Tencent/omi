@@ -1,4 +1,4 @@
-@import '@omiu/common/scss/theme.scss';
+@import '../../common/scss/theme.scss';
 
 :host {
   display: inline-block;
@@ -50,10 +50,8 @@ $type-list: primary danger;
 
   .o-link-#{$type}:hover {
     color: map-get($options, $type#{-fade-little});
-    color: var(
-      --o-#{$type}-fade-little,
-      map-get($options, $type#{-fade-little})
-    );
+    color: var(--o-#{$type}-fade-little,
+      map-get($options, $type#{-fade-little}));
   }
 
   .o-link-#{$type}:active {
@@ -63,9 +61,7 @@ $type-list: primary danger;
 
   .o-link-#{$type}.is-underline:hover {
     border-bottom: 1px solid map-get($options, $type#{-fade-little});
-    border-bottom: 1px
-      solid
-      var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
+    border-bottom: 1px solid var(--o-#{$type}-fade-little, map-get($options, $type#{-fade-little}));
   }
 }
 
