@@ -6,6 +6,7 @@ import '@omiu/tooltip'
 import '@omiu/pagination'
 import '@omiu/icon/remove-red-eye'
 import '@omiu/icon/search'
+import '@omiu/link'
 import { confirm } from '@omiu/dialog-extention'
 import { getTotalCount, getListData } from '../service/list'
 
@@ -103,20 +104,12 @@ export default class extends WeElement<Props> {
       render: (item: { name: string; id: number }) => (
         //onclick 会绑定多次的问题
         <div>
-          <o-tooltip style={{ marginRight: 5 }} content={'查看 [' + item.name + ']'}>
-            <o-icon-remove-red-eye data-item-id={item.id}
-              onClick={this.onDetailClick}
-              style="cursor:pointer;font-size:20px;">
-            </o-icon-remove-red-eye>
-          </o-tooltip>
-
-          <o-tooltip content={'删除 [' + item.name + ']'}>
-            <o-icon-delete
-              data-item-id={item.id}
-              onClick={this.onDeleteClick}
-              style="cursor:pointer;font-size:20px;"
-            ></o-icon-delete>
-          </o-tooltip>
+          <o-link>
+            <o-icon-edit data-item-id={item.id} onClick={this.onDetailClick} title="编辑"></o-icon-edit>编辑
+          </o-link>
+          <o-link style="margin-left:10px">
+            <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} title="删除"></o-icon-delete>删除
+          </o-link>
         </div>
       )
     }
@@ -181,7 +174,7 @@ export default class extends WeElement<Props> {
 
             fixedLeftCount={1}
             // tooltip bug 修复了再开启
-            fixedRight={false}
+            fixedRight={true}
             fixedTop={true}
           ></o-table>
 
