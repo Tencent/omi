@@ -33,7 +33,10 @@ export default class ToolTip extends WeElement<Props> {
     this.isShow = true
     this.update()
     const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
-    createPopper(tip, this.shadowRoot.querySelector('.tip'), {
+    if (this.popper) {
+      this.popper.destroy();
+    }
+    this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
       modifiers: [
         {

@@ -3,6 +3,7 @@ import '@omiu/icon/delete'
 import '@omiu/icon/edit'
 import '@omiu/tag'
 import '@omiu/tooltip'
+import '@omiu/link'
 // debug
 // import '../../tooltip/src/index.tsx'
 import './index.tsx'
@@ -114,13 +115,8 @@ export default class TableDemo extends WeElement {
       //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
 
       return <div>
-        <o-tooltip style={{ marginRight: 5 }} content={'查看 [' + item.name + ']'}>
-          <o-icon-edit data-item-id={item.id} onClick={this.onEditClick} style="cursor:pointer;font-size:16px;" title="编辑"></o-icon-edit>
-        </o-tooltip>
-
-        <o-tooltip content={'删除 [' + item.name + ']'}>
-          <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} style="margin-left: 5px;cursor:pointer;font-size:16px;" title="删除"></o-icon-delete>
-        </o-tooltip>
+        <o-link><o-icon-edit data-item-id={item.id} onClick={this.onEditClick} title="编辑"></o-icon-edit>编辑</o-link>
+        <o-link style="margin-left:10px">  <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} title="删除"></o-icon-delete>删除</o-link>
       </div>
     }
   }]
@@ -156,7 +152,7 @@ export default class TableDemo extends WeElement {
         stripe={false}
         border={true}
         compact={false}
-        width={250}
+        width={300}
         height={200}
         fixedLeftCount={2}
         fixedRight={true}
