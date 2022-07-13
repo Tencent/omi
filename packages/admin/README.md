@@ -8,7 +8,7 @@ English | [简体中文](./README.CN.md)
 * [→ 国内加速访问 DEMO](https://omi.cdn-go.cn/admin/latest/index.html)
 
 
-<img src="https://gtimg.wechatpay.cn/resource/xres/img/202207/c83f9621c27fbf7773f39ba814c50928_2910x1948.png" width="840">
+<img src="./admin.png" width="840">
 
 ## Features 
 
