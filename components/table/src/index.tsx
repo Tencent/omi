@@ -160,6 +160,75 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     this.editingInput && this.editingInput.focus()
   }
 
+  renderHead() {
+    const props = this.props
+    return (
+      <thead>
+        <tr>
+          {props.columns.map((column, index) => {
+            const obj: any = {}
+            const { maxWidth } = column
+            if (maxWidth !== undefined) {
+              obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
+            }
+            return <th {...obj}
+              title={column.title}
+              class={classNames({
+                [`o-table-align-${column.align}`]: column.align,
+                'compact': props.compact,
+                'fixed-top': props.fixedTop,
+                'fixed-left': index < props.fixedLeftCount,
+                'fixed-right': column.fixed
+              })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
+          })}
+        </tr>
+      </thead>
+    )
+  }
+
+  renderBody() {
+    const props = this.props
+    return (
+      <tbody class="o-table-tbody">
+        {props.dataSource.map(item => (
+          <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
+            background: item.$config && item.$config.bgColor
+          }}>
+            {props.columns.map((column, subIndex) => {
+              const obj: any = {}
+              const { maxWidth } = column
+              if (maxWidth !== undefined) {
+                obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
+              }
+              const columnVal = column.render ? column.render(item) : item[column.key]
+              const title = typeof columnVal === 'string' ? columnVal : null
+              return <td
+                title={title}
+                onClick={evt => this.onTdClick(item, column, evt)} {...obj}
+                class={classNames({
+                  [`o-table-align-${column.align}`]: column.align,
+                  'compact': props.compact,
+                  'fixed-left': subIndex < props.fixedLeftCount,
+                  'fixed-right': column.fixed
+                })}>{subIndex === 0 && props.checkbox && <o-checkbox
+                  checked={item.checked}
+                  onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ?
+                    <o-input
+                      ref={_ => this.editingInput = _}
+                      size="mini"
+                      onChange={evt => {
+                        this.onChange(evt, item, column)
+                      }}
+                      value={item[column.key]} /> :
+                    (columnVal)}
+              </td>
+            })}
+          </tr>
+        ))}
+      </tbody>
+    )
+  }
+
   render(props) {
 
     if (!props.columns) return
@@ -168,6 +237,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     if (props.fixedRight) {
       props.columns[props.columns.length - 1].fixed = true
     }
+
     return (
       <div style={{
         width: props.width && props.width,
@@ -178,63 +248,8 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         'o-table-stripe': props.stripe
       })}>
         <table {...extractClass(props, 'o-table-table')}>
-          <thead>
-            <tr>
-              {props.columns.map((column, index) => {
-                const obj: any = {}
-                const { maxWidth } = column
-                if (maxWidth !== undefined) {
-                  obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
-                }
-                return <th {...obj}
-                  title={column.title}
-                  class={classNames({
-                    [`o-table-align-${column.align}`]: column.align,
-                    'compact': props.compact,
-                    'fixed-top': props.fixedTop,
-                    'fixed-left': index < props.fixedLeftCount,
-                    'fixed-right': column.fixed
-                  })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
-              })}
-            </tr>
-          </thead>
-          <tbody class="o-table-tbody">
-            {props.dataSource.map(item => (
-              <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
-                background: item.$config && item.$config.bgColor
-              }}>
-                {props.columns.map((column, subIndex) => {
-                  const obj: any = {}
-                  const { maxWidth } = column
-                  if (maxWidth !== undefined) {
-                    obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
-                  }
-                  const columnVal = column.render ? column.render(item) : item[column.key]
-                  const title = typeof columnVal === 'string' ? columnVal : null
-                  return <td
-                    title={title}
-                    onClick={evt => this.onTdClick(item, column, evt)} {...obj}
-                    class={classNames({
-                      [`o-table-align-${column.align}`]: column.align,
-                      'compact': props.compact,
-                      'fixed-left': subIndex < props.fixedLeftCount,
-                      'fixed-right': column.fixed
-                    })}>{subIndex === 0 && props.checkbox && <o-checkbox
-                      checked={item.checked}
-                      onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ?
-                        <o-input
-                          ref={_ => this.editingInput = _}
-                          size="mini"
-                          onChange={evt => {
-                            this.onChange(evt, item, column)
-                          }}
-                          value={item[column.key]} /> :
-                        (columnVal)}
-                  </td>
-                })}
-              </tr>
-            ))}
-          </tbody>
+          {this.renderHead()}
+          {this.renderBody()}
         </table>
       </div>
     )
