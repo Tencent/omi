@@ -114,9 +114,9 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     })
   }
 
-  onChange = (evt: CustomEvent, item: DataType, column) => {
+  onChange = (evt: Event, item: DataType, column) => {
     const oldValue = item[column.key]
-    item[column.key] = evt.detail
+    item[column.key] = evt.currentTarget.value
     this.update()
 
     this.fire('data-changed', {
@@ -228,7 +228,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                           onChange={evt => {
                             this.onChange(evt, item, column)
                           }}
-                          value={columnVal} /> :
+                          value={item[column.key]} /> :
                         (columnVal)}
                   </td>
                 })}
