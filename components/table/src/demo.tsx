@@ -146,13 +146,34 @@ export default class TableDemo extends WeElement {
 
   table: Table<Props<DataType>> = new Table
 
+  onFixedTopChange = (evt) => {
+    this.fixedTop = evt.detail
+    this.update()
+  }
+
+  onFixedRightChange = (evt) => {
+    this.fixedRight = evt.detail
+    this.update()
+  }
+
+  onFixedLeftChange = (evt) => {
+    this.fixedLeft = evt.detail
+    this.update()
+  }
+
+  onIsSmallChange = (evt) => {
+    this.isSmall = evt.detail
+    this.update()
+  }
+
   render() {
     return <div>
       <div style="margin-bottom:20px;">
-        <div class="switch-wp"><span class="switch-lb">冻结表头</span><o-switch ></o-switch></div>
-        <div class="switch-wp"><span class="switch-lb">冻结最左列</span><o-switch ></o-switch></div>
-        <div class="switch-wp"><span class="switch-lb">冻结最右列</span><o-switch ></o-switch></div>
-        <div class="switch-wp"><span class="switch-lb">宽度变小</span><o-switch ></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">固定表头</span><o-switch onChange={this.onFixedTopChange}></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">宽度变小</span><o-switch onChange={this.onIsSmallChange}></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">固定最左列</span><o-switch onChange={this.onFixedLeftChange}></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">固定最右列</span><o-switch onChange={this.onFixedRightChange}></o-switch></div>
+
       </div>
       <o-table
         ref={(el: Table<Props<DataType>>) => this.table = el}
@@ -160,24 +181,12 @@ export default class TableDemo extends WeElement {
         stripe={false}
         border={true}
         compact={true}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
-
-      {/* <h4>冻结</h4>
-      <o-table
-        ref={(el: Table<Props<DataType>>) => this.table = el}
-        checkbox={true}
-        stripe={false}
-        border={true}
-        compact={false}
-        width={300}
         height={200}
-        fixedLeftCount={2}
-        fixedRight={true}
-        fixedTop={true}
+        width={this.isSmall ? 300 : '100%'}
+        fixedLeftCount={this.fixedLeft ? 1 : 0}
+        fixedRight={this.fixedRight}
+        fixedTop={this.fixedTop}
         columns={this.columns} dataSource={this.dataSource}></o-table>
-      <br /> */}
-
-
     </div>
   }
 }
