@@ -4,6 +4,7 @@ import '@omiu/icon/edit'
 import '@omiu/tag'
 import '@omiu/tooltip'
 import '@omiu/link'
+import '@omiu/switch'
 // debug
 // import '../../tooltip/src/index.tsx'
 import './index.tsx'
@@ -25,6 +26,17 @@ interface DataType {
 @tag('table-demo')
 export default class TableDemo extends WeElement {
 
+  static css = `
+  .switch-wp{
+    display:inline-flex;height:20px;line-height:21px;
+    margin-right: 20px;
+  }
+
+  .switch-lb{
+    display:inline-block;height:20px;font-size:14px;
+    margin-right: 5px;
+  }
+  `
   dataSource: DataType[] = [{
     id: 1,
     name: 'xwang',
@@ -115,8 +127,8 @@ export default class TableDemo extends WeElement {
       //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
 
       return <div>
-        <o-link><o-icon-edit data-item-id={item.id} onClick={this.onEditClick} title="编辑"></o-icon-edit>编辑</o-link>
-        <o-link style="margin-left:10px">  <o-icon-delete data-item-id={item.id} onClick={this.onDeleteClick} title="删除"></o-icon-delete>删除</o-link>
+        <o-link data-item-id={item.id} onClick={this.onEditClick}><o-icon-edit title="编辑"></o-icon-edit>编辑</o-link>
+        <o-link data-item-id={item.id} style="margin-left:10px" onClick={this.onDeleteClick}>  <o-icon-delete title="删除"></o-icon-delete>删除</o-link>
       </div>
     }
   }]
@@ -136,16 +148,21 @@ export default class TableDemo extends WeElement {
 
   render() {
     return <div>
-      <h4>自定义render列</h4>
+      <div style="margin-bottom:20px;">
+        <div class="switch-wp"><span class="switch-lb">冻结表头</span><o-switch ></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">冻结最左列</span><o-switch ></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">冻结最右列</span><o-switch ></o-switch></div>
+        <div class="switch-wp"><span class="switch-lb">宽度变小</span><o-switch ></o-switch></div>
+      </div>
       <o-table
         ref={(el: Table<Props<DataType>>) => this.table = el}
         checkbox={true}
         stripe={false}
         border={true}
         compact={true}
-        columns={this.columns} dataSource={JSON.parse(JSON.stringify(this.dataSource))}></o-table>
+        columns={this.columns} dataSource={this.dataSource}></o-table>
 
-      <h4>冻结</h4>
+      {/* <h4>冻结</h4>
       <o-table
         ref={(el: Table<Props<DataType>>) => this.table = el}
         checkbox={true}
@@ -158,7 +175,7 @@ export default class TableDemo extends WeElement {
         fixedRight={true}
         fixedTop={true}
         columns={this.columns} dataSource={this.dataSource}></o-table>
-      <br />
+      <br /> */}
 
 
     </div>
