@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {
+  build: process.argv[2] === 'build' ? {
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),
       name: 'index',
@@ -11,10 +11,19 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
+      external: ['omi', '@omiu/checkbox', '@omiu/input']
+    }
+  } : {
+    lib: {
+      entry: resolve(__dirname, 'src/demo.tsx'),
+      name: 'demo',
+      formats: ['es'],
+      fileName: (format) => `index.${format}.js`
+    },
+    rollupOptions: {
       external: ['omi', '@omiu/checkbox', '@omiu/input'],
       input: {
-        main: resolve(__dirname, 'index.html'),
-        ...process.argv[2] !== 'build' && { demo: resolve(__dirname, 'demo.html') }
+        demo: resolve(__dirname, 'demo.html')
       }
     }
   },
