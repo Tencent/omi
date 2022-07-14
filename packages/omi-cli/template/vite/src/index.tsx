@@ -2,7 +2,7 @@ import { WeElement, render, h, tag } from 'omi'
 
 import './o-counter'
 import './index.css'
-import * as css from './_index.less'
+import * as css from './index.less'
 import logo from './logo.svg'
 
 interface MyAppProps {

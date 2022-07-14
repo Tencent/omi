@@ -6,7 +6,7 @@ export default class extends WeElement {
   render() {
     return (
       <div>
-        Amin Page
+        Admin Page
       </div>
     )
   }
