@@ -2,7 +2,7 @@
 
 Omi 有内置的两个 class 方法 `classNames` 和 `extractClass`：
 
-```js
+```jsx
 import { classNames, extractClass } from 'omi'
 
 define('my-element', class extends WeElement {

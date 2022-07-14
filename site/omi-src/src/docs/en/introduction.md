@@ -10,36 +10,35 @@ Omi (pronounced /ˈomɪ/) is cross-frameworks framework base on WebComponents an
 
 ## Add Omi in One Minute
 
-```jsx {8-11}
-import { render, WeElement, define } from 'omi'
+```jsx {4-7}
+import { render, WeElement, define, h } from 'omi'
 
 define('my-counter', class extends WeElement {
-  data = {
-    count: 1
-  }
-
   static css = `
     span{
         color: red;
     }`
 
+  count = 1
+
   sub = () => {
-    this.data.count--
+    this.count--
     this.update()
   }
 
   add = () => {
-    this.data.count++
+    this.count++
     this.update()
   }
 
   render() {
     return (
-      <div>
+      // <></> and <h.f></h.f> are equal.
+      <>
         <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
+        <span>{this.count}</span>
         <button onClick={this.add}>+</button>
-      </div>
+      </>
     )
   }
 })

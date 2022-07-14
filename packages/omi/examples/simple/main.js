@@ -1,4 +1,4 @@
-import { define, WeElement } from '../../src/omi'
+import { define, WeElement, h } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
 
@@ -27,11 +27,11 @@ define('my-counter', class extends WeElement {
 
 	render() {
 		return (
-			<div>
+			<h.f>
 				<button onClick={this.sub}>-</button>
 				<span>{this.count}</span>
 				<button onClick={this.add}>+</button>
-			</div>
+			</h.f>
 		)
 	}
 })

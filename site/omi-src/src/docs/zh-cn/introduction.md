@@ -16,36 +16,35 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是跨框架框架，基于 Web Compone
 
 ## 快速上手
 
-```jsx {8-11}
-import { render, WeElement, define } from 'omi'
+```jsx {4-7}
+import { render, WeElement, define, h } from 'omi'
 
 define('my-counter', class extends WeElement {
-  data = {
-    count: 1
-  }
-
   static css = `
     span{
         color: red;
     }`
 
+  count = 1
+
   sub = () => {
-    this.data.count--
+    this.count--
     this.update()
   }
 
   add = () => {
-    this.data.count++
+    this.count++
     this.update()
   }
 
   render() {
     return (
-      <div>
+      // <></> 和 <h.f></h.f> 是相等的
+      <>
         <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
+        <span>{this.count}</span>
         <button onClick={this.add}>+</button>
-      </div>
+      </>
     )
   }
 })

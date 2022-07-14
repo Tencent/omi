@@ -17,11 +17,7 @@
   var options = {
     store: null,
     root: getGlobal(),
-    mapping: {},
-    isMultiStore: false,
-    //when set true, using props of hypescript, don't use getAttribute
-    //if you render all the node tree by omi self, set it
-    ignoreAttrs: false
+    mapping: {}
   };
 
   /**
@@ -96,55 +92,23 @@
     return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
-  function getUse(data, paths, out, name) {
-    var obj = [];
-    paths.forEach(function (path, index) {
-      var isPath = typeof path === 'string';
-      if (isPath) {
-        obj[index] = getTargetByPath(data, path);
-      } else {
-        var key = Object.keys(path)[0];
-        var value = path[key];
-        if (typeof value === 'string') {
-          obj[index] = getTargetByPath(data, value);
-        } else {
-          var tempPath = value[0];
-          if (typeof tempPath === 'string') {
-            var tempVal = getTargetByPath(data, tempPath);
-            obj[index] = value[1] ? value[1](tempVal) : tempVal;
-          } else {
-            var args = [];
-            tempPath.forEach(function (path) {
-              args.push(getTargetByPath(data, path));
-            });
-            obj[index] = value[1].apply(null, args);
-          }
-        }
-        obj[key] = obj[index];
-      }
-    });
-    if (out) out[name] = obj;
-    return obj;
-  }
-
   function pathToArr(path) {
     if (typeof path !== 'string' || !path) return [];
     // return path.split(/\.|\[|\]/).filter(name => !!name)
     return path.replace(/]/g, '').replace(/\[/g, '.').split('.');
   }
 
-  function getTargetByPath(origin, path) {
-    var arr = pathToArr(path);
-    var current = origin;
-    for (var i = 0, len = arr.length; i < len; i++) {
-      current = current[arr[i]];
-    }
-    return current;
-  }
-
   var hyphenateRE = /\B([A-Z])/g;
   function hyphenate(str) {
     return str.replace(hyphenateRE, '-$1').toLowerCase();
+  }
+
+  function capitalize(name) {
+    return name.replace(/\-(\w)/g, function (all, letter) {
+      return letter.toUpperCase();
+    }).replace(/^\S/, function (s) {
+      return s.toUpperCase();
+    });
   }
 
   function getValByPath(path, current) {
@@ -153,40 +117,6 @@
       current = current[prop];
     });
     return current;
-  }
-
-  function getPath(obj, out, name) {
-    var result = {};
-    obj.forEach(function (item) {
-      if (typeof item === 'string') {
-        result[item] = true;
-      } else {
-        var tempPath = item[Object.keys(item)[0]];
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true;
-        } else {
-          if (typeof tempPath[0] === 'string') {
-            result[tempPath[0]] = true;
-          } else {
-            tempPath[0].forEach(function (path) {
-              return result[path] = true;
-            });
-          }
-        }
-      }
-    });
-    if (out) out[name] = result;
-    return result;
-  }
-
-  function removeItem(item, arr) {
-    if (!arr) return;
-    for (var i = 0, len = arr.length; i < len; i++) {
-      if (arr[i] === item) {
-        arr.splice(i, 1);
-        break;
-      }
-    }
   }
 
   var stack = [];
@@ -389,25 +319,7 @@
     } else if (name === 'dangerouslySetInnerHTML') {
       if (value) node.innerHTML = value.__html || '';
     } else if (name[0] == 'o' && name[1] == 'n') {
-      var useCapture = name !== (name = name.replace(/Capture$/, ''));
-      var nameLower = name.toLowerCase();
-      name = (nameLower in node ? nameLower : name).slice(2);
-      if (value) {
-        if (!old) {
-          node.addEventListener(name, eventProxy$1, useCapture);
-          if (name == 'tap') {
-            node.addEventListener('touchstart', touchStart, useCapture);
-            node.addEventListener('touchend', touchEnd, useCapture);
-          }
-        }
-      } else {
-        node.removeEventListener(name, eventProxy$1, useCapture);
-        if (name == 'tap') {
-          node.removeEventListener('touchstart', touchStart, useCapture);
-          node.removeEventListener('touchend', touchEnd, useCapture);
-        }
-      }
-  (node._listeners || (node._listeners = {}))[name] = value;
+      bindEvent(node, name, value, old);
     } else if (node.nodeName === 'INPUT' && name === 'value') {
       node[name] = value == null ? '' : value;
     } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') {
@@ -444,16 +356,18 @@
     return this._listeners[e.type](options.event && options.event(e) || e);
   }
 
-  function touchStart(e) {
-    this.___touchX = e.touches[0].pageX;
-    this.___touchY = e.touches[0].pageY;
-    this.___scrollTop = document.body.scrollTop;
-  }
-
-  function touchEnd(e) {
-    if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
-      this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+  function bindEvent(node, name, value, old) {
+    var useCapture = name !== (name = name.replace(/Capture$/, ''));
+    var nameLower = name.toLowerCase();
+    name = (nameLower in node ? nameLower : name).slice(2);
+    if (value) {
+      if (!old) {
+        node.addEventListener(name, eventProxy$1, useCapture);
+      }
+    } else {
+      node.removeEventListener(name, eventProxy$1, useCapture);
     }
+  (node._listeners || (node._listeners = {}))[name] = value;
   }
 
   /** Diff recursion count, used to track the end of the diff cycle. */
@@ -472,7 +386,7 @@
    *  @private
    */
   function diff(dom, vnode, parent, component, updateSelf) {
-    //first render return undefined
+    // first render return undefined
     if (!dom && !vnode) return;
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     var ret = void 0;
@@ -488,19 +402,16 @@
     }
     if (isArray(vnode)) {
       if (parent) {
-        var styles = parent.querySelectorAll('style');
-        styles.forEach(function (s) {
-          parent.removeChild(s);
-        });
+        // don't use css and props.css when using h.f
+        // diff node list and vnode list
         innerDiffNode(parent, vnode, hydrating, component, updateSelf);
-
-        for (var i = styles.length - 1; i >= 0; i--) {
-          parent.firstChild ? parent.insertBefore(styles[i], parent.firstChild) : parent.appendChild(style[i]);
-        }
       } else {
+        // connectedCallback 的时候 parent 为 null
         ret = [];
         vnode.forEach(function (item, index) {
           var ele = idiff(index === 0 ? dom : null, item, component, updateSelf);
+          // 返回数组的情况下，在 WeElement 中进行了 shadowRoot.appendChild
+          // 所有不会出现 vnode index 大于 0 丢失的情况
           ret.push(ele);
         });
       }
@@ -668,27 +579,29 @@
         vchild = vchildren[_i];
         child = null;
 
-        // attempt to find a node based on key matching
-        var _key = vchild.key;
-        if (_key != null) {
-          if (keyedLen && keyed[_key] !== undefined) {
-            child = keyed[_key];
-            keyed[_key] = undefined;
-            keyedLen--;
-          }
-        }
-        // attempt to pluck a node of the same type from the existing children
-        else if (!child && min < childrenLen) {
-            for (j = min; j < childrenLen; j++) {
-              if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-                child = c;
-                children[j] = undefined;
-                if (j === childrenLen - 1) childrenLen--;
-                if (j === min) min++;
-                break;
-              }
+        if (vchild) {
+          // attempt to find a node based on key matching
+          var _key = vchild.key;
+          if (_key != null) {
+            if (keyedLen && keyed[_key] !== undefined) {
+              child = keyed[_key];
+              keyed[_key] = undefined;
+              keyedLen--;
             }
           }
+          // attempt to pluck a node of the same type from the existing children
+          else if (!child && min < childrenLen) {
+              for (j = min; j < childrenLen; j++) {
+                if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+                  child = c;
+                  children[j] = undefined;
+                  if (j === childrenLen - 1) childrenLen--;
+                  if (j === min) min++;
+                  break;
+                }
+              }
+            }
+        }
 
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, component, updateSelf);
@@ -789,7 +702,9 @@
         //update = true
       } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
         setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-        if (isWeElement) {
+        //fix lazy load props missing
+        if (dom.nodeName.indexOf('-') !== -1) {
+          dom.props = dom.props || {};
           var _ccName = camelCase(name);
           dom.props[_ccName] = old[_ccName] = attrs[name];
           //update = true
@@ -820,817 +735,285 @@
   var id = 0;
 
   var WeElement = (_temp = _class = function (_HTMLElement) {
-  	_inherits(WeElement, _HTMLElement);
+    _inherits(WeElement, _HTMLElement);
 
-  	function WeElement() {
-  		_classCallCheck(this, WeElement);
+    function WeElement() {
+      _classCallCheck(this, WeElement);
 
-  		var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+      // fix lazy load props missing
+      var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-  		_this.props = Object.assign({}, _this.constructor.defaultProps);
-  		_this.elementId = id++;
-  		_this.computed = {};
-  		return _this;
-  	}
-
-  	WeElement.prototype.connectedCallback = function connectedCallback() {
-  		var p = this.parentNode;
-  		while (p && !this.store) {
-  			this.store = p.store;
-  			p = p.parentNode || p.host;
-  		}
-
-  		this.attrsToProps();
-
-  		if (this.props.use) {
-  			this.use = this.props.use;
-  		}
-
-  		if (this.props.useSelf) {
-  			this.use = this.props.useSelf;
-  		}
-
-  		if (this.use) {
-  			var use = typeof this.use === 'function' ? this.use() : this.use;
-
-  			if (options.isMultiStore) {
-  				var _updatePath = {};
-  				var using = {};
-  				for (var storeName in use) {
-  					_updatePath[storeName] = {};
-  					using[storeName] = {};
-  					getPath(use[storeName], _updatePath, storeName);
-  					getUse(this.store[storeName].data, use[storeName], using, storeName);
-  					this.store[storeName].instances.push(this);
-  				}
-  				this.using = using;
-  				this._updatePath = _updatePath;
-  			} else {
-  				this._updatePath = getPath(use);
-  				this.using = getUse(this.store.data, use);
-  				this.store.instances.push(this);
-  			}
-  		}
-  		if (this.useSelf) {
-  			var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
-  			if (options.isMultiStore) {
-  				var _updatePath2 = {};
-  				var _using = {};
-  				for (var _storeName in _use) {
-  					getPath(_use[_storeName], _updatePath2, _storeName);
-  					getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
-  					this.store[_storeName].updateSelfInstances.push(this);
-  				}
-  				this.usingSelf = _using;
-  				this._updateSelfPath = _updatePath2;
-  			} else {
-  				this._updateSelfPath = getPath(_use);
-  				this.usingSelf = getUse(this.store.data, _use);
-  				this.store.updateSelfInstances.push(this);
-  			}
-  		}
-
-  		if (this.compute) {
-  			for (var key in this.compute) {
-  				this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
-  			}
-  		}
-
-  		this.beforeInstall();
-  		this.install();
-  		this.afterInstall();
-
-  		var shadowRoot = void 0;
-  		if (this.constructor.isLightDom) {
-  			shadowRoot = this;
-  		} else {
-
-  			if (!this.shadowRoot) {
-  				shadowRoot = this.attachShadow({
-  					mode: 'open'
-  				});
-  			} else {
-  				shadowRoot = this.shadowRoot;
-  				var fc = void 0;
-  				while (fc = shadowRoot.firstChild) {
-  					shadowRoot.removeChild(fc);
-  				}
-  			}
-  		}
-
-  		if (this.constructor.css) {
-  			this.styleSheet = new CSSStyleSheet();
-  			this.styleSheet.replaceSync(this.constructor.css);
-  			shadowRoot.adoptedStyleSheets = [this.styleSheet];
-  		}
-
-  		if (this.css) {
-  			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-  		}
-
-  		this.beforeRender();
-  		options.afterInstall && options.afterInstall(this);
-
-  		var rendered = this.render(this.props, this.store);
-
-  		this.rootNode = diff(null, rendered, null, this);
-  		this.rendered();
-
-  		if (this.props.css) {
-  			this._customStyleElement = cssToDom(this.props.css);
-  			this._customStyleContent = this.props.css;
-  			shadowRoot.appendChild(this._customStyleElement);
-  		}
-
-  		if (isArray(this.rootNode)) {
-  			this.rootNode.forEach(function (item) {
-  				shadowRoot.appendChild(item);
-  			});
-  		} else {
-  			this.rootNode && shadowRoot.appendChild(this.rootNode);
-  		}
-  		this.installed();
-  		this._isInstalled = true;
-  	};
-
-  	WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-  		this.uninstall();
-  		this._isInstalled = false;
-  		if (this.store) {
-  			if (options.isMultiStore) {
-  				for (var key in this.store) {
-  					var current = this.store[key];
-  					removeItem(this, current.instances);
-  					removeItem(this, current.updateSelfInstances);
-  				}
-  			} else {
-  				removeItem(this, this.store.instances);
-  				removeItem(this, this.store.updateSelfInstances);
-  			}
-  		}
-  	};
-
-  	WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
-  		this._willUpdate = true;
-  		this.beforeUpdate();
-  		this.beforeRender();
-  		//fix null !== undefined
-  		if (this._customStyleContent != this.props.css) {
-  			this._customStyleContent = this.props.css;
-  			this._customStyleElement.textContent = this._customStyleContent;
-  		}
-  		this.attrsToProps(ignoreAttrs);
-
-  		var rendered = this.render(this.props, this.store);
-  		this.rendered();
-
-  		this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
-  		this._willUpdate = false;
-  		this.updated();
-  	};
-
-  	WeElement.prototype.forceUpdate = function forceUpdate() {
-  		this.update(true);
-  	};
-
-  	WeElement.prototype.updateProps = function updateProps(obj) {
-  		var _this2 = this;
-
-  		Object.keys(obj).forEach(function (key) {
-  			_this2.props[key] = obj[key];
-  			if (_this2.prevProps) {
-  				_this2.prevProps[key] = obj[key];
-  			}
-  		});
-  		this.forceUpdate();
-  	};
-
-  	WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-  		this.update(ignoreAttrs, true);
-  	};
-
-  	WeElement.prototype.removeAttribute = function removeAttribute(key) {
-  		_HTMLElement.prototype.removeAttribute.call(this, key);
-  		//Avoid executing removeAttribute methods before connectedCallback
-  		this._isInstalled && this.update();
-  	};
-
-  	WeElement.prototype.setAttribute = function setAttribute(key, val) {
-  		if (val && typeof val === 'object') {
-  			_HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
-  		} else {
-  			_HTMLElement.prototype.setAttribute.call(this, key, val);
-  		}
-  		//Avoid executing setAttribute methods before connectedCallback
-  		this._isInstalled && this.update();
-  	};
-
-  	WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
-  		_HTMLElement.prototype.removeAttribute.call(this, key);
-  	};
-
-  	WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
-  		_HTMLElement.prototype.setAttribute.call(this, key, val);
-  	};
-
-  	WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-  		if (options.ignoreAttrs || ignoreAttrs) return;
-  		var ele = this;
-  		ele.props['css'] = ele.getAttribute('css');
-  		var attrs = this.constructor.propTypes;
-  		if (!attrs) return;
-  		Object.keys(attrs).forEach(function (key) {
-  			var type = attrs[key];
-  			var val = ele.getAttribute(hyphenate(key));
-  			if (val !== null) {
-  				switch (type) {
-  					case String:
-  						ele.props[key] = val;
-  						break;
-  					case Number:
-  						ele.props[key] = Number(val);
-  						break;
-  					case Boolean:
-  						if (val === 'false' || val === '0') {
-  							ele.props[key] = false;
-  						} else {
-  							ele.props[key] = true;
-  						}
-  						break;
-  					case Array:
-  					case Object:
-  						if (val[0] === ':') {
-  							ele.props[key] = getValByPath(val.substr(1), Omi.$);
-  						} else {
-  							ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-  						}
-  						break;
-  				}
-  			} else {
-  				if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
-  					ele.props[key] = ele.constructor.defaultProps[key];
-  				} else {
-  					ele.props[key] = null;
-  				}
-  			}
-  		});
-  	};
-
-  	WeElement.prototype.fire = function fire(name, data) {
-  		this.dispatchEvent(new CustomEvent(name, {
-  			detail: data
-  		}));
-  	};
-
-  	WeElement.prototype.beforeInstall = function beforeInstall() {};
-
-  	WeElement.prototype.install = function install() {};
-
-  	WeElement.prototype.afterInstall = function afterInstall() {};
-
-  	WeElement.prototype.installed = function installed() {};
-
-  	WeElement.prototype.uninstall = function uninstall() {};
-
-  	WeElement.prototype.beforeUpdate = function beforeUpdate() {};
-
-  	WeElement.prototype.updated = function updated() {};
-
-  	WeElement.prototype.beforeRender = function beforeRender() {};
-
-  	WeElement.prototype.rendered = function rendered() {};
-
-  	WeElement.prototype.receiveProps = function receiveProps() {};
-
-  	return WeElement;
-  }(HTMLElement), _class.is = 'WeElement', _temp);
-
-  /*!
-   * https://github.com/Palindrom/JSONPatcherProxy
-   * (c) 2017 Starcounter
-   * MIT license
-   */
-
-  /** Class representing a JS Object observer  */
-  var JSONPatcherProxy = function () {
-    /**
-     * Deep clones your object and returns a new object.
-     */
-    function deepClone(obj) {
-      switch (typeof obj) {
-        case 'object':
-          return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
-        case 'undefined':
-          return null; //this is how JSON.stringify behaves for array items
-        default:
-          return obj; //no need to clone primitives
-      }
-    }
-    JSONPatcherProxy.deepClone = deepClone;
-
-    function escapePathComponent(str) {
-      if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str;
-      return str.replace(/~/g, '~0').replace(/\//g, '~1');
-    }
-    JSONPatcherProxy.escapePathComponent = escapePathComponent;
-
-    /**
-     * Walk up the parenthood tree to get the path
-     * @param {JSONPatcherProxy} instance
-     * @param {Object} obj the object you need to find its path
-     */
-    function findObjectPath(instance, obj) {
-      var pathComponents = [];
-      var parentAndPath = instance.parenthoodMap.get(obj);
-      while (parentAndPath && parentAndPath.path) {
-        // because we're walking up-tree, we need to use the array as a stack
-        pathComponents.unshift(parentAndPath.path);
-        parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);
-      }
-      if (pathComponents.length) {
-        var path = pathComponents.join('/');
-        return '/' + path;
-      }
-      return '';
-    }
-    /**
-     * A callback to be used as th proxy set trap callback.
-     * It updates parenthood map if needed, proxifies nested newly-added objects, calls default callbacks with the changes occurred.
-     * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
-     * @param {Object} target the affected object
-     * @param {String} key the effect property's name
-     * @param {Any} newValue the value being set
-     */
-    function setTrap(instance, target, key, newValue) {
-      var parentPath = findObjectPath(instance, target);
-
-      var destinationPropKey = parentPath + '/' + escapePathComponent(key);
-
-      if (instance.proxifiedObjectsMap.has(newValue)) {
-        var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);
-
-        instance.parenthoodMap.set(newValueOriginalObject.originalObject, {
-          parent: target,
-          path: key
-        });
-      }
-      /*
-          mark already proxified values as inherited.
-          rationale: proxy.arr.shift()
-          will emit
-          {op: replace, path: '/arr/1', value: arr_2}
-          {op: remove, path: '/arr/2'}
-           by default, the second operation would revoke the proxy, and this renders arr revoked.
-          That's why we need to remember the proxies that are inherited.
-        */
-      var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
-      /*
-      Why do we need to check instance.isProxifyingTreeNow?
-       We need to make sure we mark revokables as inherited ONLY when we're observing,
-      because throughout the first proxification, a sub-object is proxified and then assigned to
-      its parent object. This assignment of a pre-proxified object can fool us into thinking
-      that it's a proxified object moved around, while in fact it's the first assignment ever.
-       Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
-      but in fact is is a proxified object moved around the tree
-      */
-      if (revokableInstance && !instance.isProxifyingTreeNow) {
-        revokableInstance.inherited = true;
-      }
-
-      // if the new value is an object, make sure to watch it
-      if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
-        instance.parenthoodMap.set(newValue, {
-          parent: target,
-          path: key
-        });
-        newValue = instance._proxifyObjectTreeRecursively(target, newValue, key);
-      }
-      // let's start with this operation, and may or may not update it later
-      var operation = {
-        op: 'remove',
-        path: destinationPropKey
-      };
-      if (typeof newValue == 'undefined') {
-        // applying De Morgan's laws would be a tad faster, but less readable
-        if (!Array.isArray(target) && !target.hasOwnProperty(key)) {
-          // `undefined` is being set to an already undefined value, keep silent
-          return Reflect.set(target, key, newValue);
-        }
-        // when array element is set to `undefined`, should generate replace to `null`
-        if (Array.isArray(target)) {
-  operation.op = 'replace', operation.value = null;
-        }
-        var oldValue = instance.proxifiedObjectsMap.get(target[key]);
-        // was the deleted a proxified object?
-        if (oldValue) {
-          instance.parenthoodMap.delete(target[key]);
-          instance.disableTrapsForProxy(oldValue);
-          instance.proxifiedObjectsMap.delete(oldValue);
-        }
-      } else {
-        if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
-          /* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */
-          if (key != 'length') {
-            console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');
-          }
-          return Reflect.set(target, key, newValue);
-        }
-        operation.op = 'add';
-        if (target.hasOwnProperty(key)) {
-          if (typeof target[key] !== 'undefined' || Array.isArray(target)) {
-            operation.op = 'replace'; // setting `undefined` array elements is a `replace` op
-          }
-        }
-        operation.value = newValue;
-      }
-      operation.oldValue = target[key];
-      var reflectionResult = Reflect.set(target, key, newValue);
-      instance.defaultCallback(operation);
-      return reflectionResult;
-    }
-    /**
-     * A callback to be used as th proxy delete trap callback.
-     * It updates parenthood map if needed, calls default callbacks with the changes occurred.
-     * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
-     * @param {Object} target the effected object
-     * @param {String} key the effected property's name
-     */
-    function deleteTrap(instance, target, key) {
-      if (typeof target[key] !== 'undefined') {
-        var parentPath = findObjectPath(instance, target);
-        var destinationPropKey = parentPath + '/' + escapePathComponent(key);
-
-        var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);
-
-        if (revokableProxyInstance) {
-          if (revokableProxyInstance.inherited) {
-            /*
-              this is an inherited proxy (an already proxified object that was moved around),
-              we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
-              And we know that because we mark moved proxies with `inherited` flag when we move them
-               it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
-              We DO want to revoke the proxy if it was removed again.
-            */
-            revokableProxyInstance.inherited = false;
-          } else {
-            instance.parenthoodMap.delete(revokableProxyInstance.originalObject);
-            instance.disableTrapsForProxy(revokableProxyInstance);
-            instance.proxifiedObjectsMap.delete(target[key]);
-          }
-        }
-        var reflectionResult = Reflect.deleteProperty(target, key);
-
-        instance.defaultCallback({
-          op: 'remove',
-          path: destinationPropKey
-        });
-
-        return reflectionResult;
-      }
-    }
-    /* pre-define resume and pause functions to enhance constructors performance */
-    function resume() {
-      var _this = this;
-
-      this.defaultCallback = function (operation) {
-        _this.isRecording && _this.patches.push(operation);
-        _this.userCallback && _this.userCallback(operation);
-      };
-      this.isObserving = true;
-    }
-    function pause() {
-      this.defaultCallback = function () {};
-      this.isObserving = false;
-    }
-    /**
-     * Creates an instance of JSONPatcherProxy around your object of interest `root`.
-     * @param {Object|Array} root - the object you want to wrap
-     * @param {Boolean} [showDetachedWarning = true] - whether to log a warning when a detached sub-object is modified @see {@link https://github.com/Palindrom/JSONPatcherProxy#detached-objects}
-     * @returns {JSONPatcherProxy}
-     * @constructor
-     */
-    function JSONPatcherProxy(root, showDetachedWarning) {
-      this.isProxifyingTreeNow = false;
-      this.isObserving = false;
-      this.proxifiedObjectsMap = new Map();
-      this.parenthoodMap = new Map();
-      // default to true
-      if (typeof showDetachedWarning !== 'boolean') {
-        showDetachedWarning = true;
-      }
-
-      this.showDetachedWarning = showDetachedWarning;
-      this.originalObject = root;
-      this.cachedProxy = null;
-      this.isRecording = false;
-      this.userCallback;
-      /**
-       * @memberof JSONPatcherProxy
-       * Restores callback back to the original one provided to `observe`.
-       */
-      this.resume = resume.bind(this);
-      /**
-       * @memberof JSONPatcherProxy
-       * Replaces your callback with a noop function.
-       */
-      this.pause = pause.bind(this);
+      _this.props = Object.assign({}, _this.constructor.defaultProps, _this.props);
+      _this.elementId = id++;
+      _this.computed = {};
+      _this.isInstalled = false;
+      return _this;
     }
 
-    JSONPatcherProxy.prototype.generateProxyAtPath = function (parent, obj, path) {
+    WeElement.prototype.connectedCallback = function connectedCallback() {
       var _this2 = this;
 
-      if (!obj) {
-        return obj;
+      var p = this.parentNode;
+      while (p && !this.store) {
+        this.store = p.store;
+        p = p.parentNode || p.host;
       }
-      var traps = {
-        set: function set(target, key, value, receiver) {
-          return setTrap(_this2, target, key, value, receiver);
-        },
-        deleteProperty: function deleteProperty(target, key) {
-          return deleteTrap(_this2, target, key);
+
+      if (this.inject) {
+        this.injection = {};
+        p = this.parentNode;
+        var provide = void 0;
+        while (p && !provide) {
+          provide = p.provide;
+          p = p.parentNode || p.host;
         }
-      };
-      var revocableInstance = Proxy.revocable(obj, traps);
-      // cache traps object to disable them later.
-      revocableInstance.trapsInstance = traps;
-      revocableInstance.originalObject = obj;
+        if (provide) {
+          this.inject.forEach(function (injectKey) {
+            _this2.injection[injectKey] = provide[injectKey];
+          });
+        } else {
+          throw 'The provide prop was not found on the parent node or the provide type is incorrect.';
+        }
+      }
 
-      /* keeping track of object's parent and path */
+      this.attrsToProps();
 
-      this.parenthoodMap.set(obj, { parent: parent, path: path });
+      this.beforeInstall();
+      this.install();
+      this.afterInstall();
 
-      /* keeping track of all the proxies to be able to revoke them later */
-      this.proxifiedObjectsMap.set(revocableInstance.proxy, revocableInstance);
-      return revocableInstance.proxy;
-    };
-    // grab tree's leaves one by one, encapsulate them into a proxy and return
-    JSONPatcherProxy.prototype._proxifyObjectTreeRecursively = function (parent, root, path) {
-      for (var key in root) {
-        if (root.hasOwnProperty(key)) {
-          if (root[key] instanceof Object) {
-            root[key] = this._proxifyObjectTreeRecursively(root, root[key], escapePathComponent(key));
+      var shadowRoot = void 0;
+      if (this.constructor.isLightDom) {
+        shadowRoot = this;
+      } else {
+        if (!this.shadowRoot) {
+          shadowRoot = this.attachShadow({
+            mode: 'open'
+          });
+        } else {
+          shadowRoot = this.shadowRoot;
+          var fc = void 0;
+          while (fc = shadowRoot.firstChild) {
+            shadowRoot.removeChild(fc);
           }
         }
       }
-      return this.generateProxyAtPath(parent, root, path);
-    };
-    // this function is for aesthetic purposes
-    JSONPatcherProxy.prototype.proxifyObjectTree = function (root) {
-      /*
-      while proxyifying object tree,
-      the proxyifying operation itself is being
-      recorded, which in an unwanted behavior,
-      that's why we disable recording through this
-      initial process;
-      */
-      this.pause();
-      this.isProxifyingTreeNow = true;
-      var proxifiedObject = this._proxifyObjectTreeRecursively(undefined, root, '');
-      /* OK you can record now */
-      this.isProxifyingTreeNow = false;
-      this.resume();
-      return proxifiedObject;
-    };
-    /**
-     * Turns a proxified object into a forward-proxy object; doesn't emit any patches anymore, like a normal object
-     * @param {Proxy} proxy - The target proxy object
-     */
-    JSONPatcherProxy.prototype.disableTrapsForProxy = function (revokableProxyInstance) {
-      if (this.showDetachedWarning) {
-        var message = "You're accessing an object that is detached from the observedObject tree, see https://github.com/Palindrom/JSONPatcherProxy#detached-objects";
 
-        revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
-          console.warn(message);
-          return Reflect.set(targetObject, propKey, newValue);
-        };
-        revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
-          console.warn(message);
-          return Reflect.set(targetObject, propKey, newValue);
-        };
-        revokableProxyInstance.trapsInstance.deleteProperty = function (targetObject, propKey) {
-          return Reflect.deleteProperty(targetObject, propKey);
-        };
+      if (this.constructor.elementStyles) {
+        shadowRoot.adoptedStyleSheets = this.constructor.elementStyles;
       } else {
-        delete revokableProxyInstance.trapsInstance.set;
-        delete revokableProxyInstance.trapsInstance.get;
-        delete revokableProxyInstance.trapsInstance.deleteProperty;
+        var css = this.constructor.css;
+        if (css) {
+          if (typeof css === 'string') {
+            var styleSheet = new CSSStyleSheet();
+            styleSheet.replaceSync(css);
+            shadowRoot.adoptedStyleSheets = [styleSheet];
+          } else if (Object.prototype.toString.call(css) === '[object Array]') {
+            var styleSheets = [];
+            css.forEach(function (styleSheet) {
+              if (typeof styleSheet === 'string') {
+                var adoptedStyleSheet = new CSSStyleSheet();
+                adoptedStyleSheet.replaceSync(styleSheet);
+                styleSheets.push(adoptedStyleSheet);
+              } else {
+                styleSheets.push(styleSheet);
+              }
+              shadowRoot.adoptedStyleSheets = styleSheets;
+            });
+          } else if (css.default && typeof css.default === 'string') {
+            // [object Module]
+            var _styleSheet = new CSSStyleSheet();
+            _styleSheet.replaceSync(css.default);
+            shadowRoot.adoptedStyleSheets = [_styleSheet];
+          } else {
+            shadowRoot.adoptedStyleSheets = [css];
+          }
+          this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
+        }
       }
-    };
-    /**
-     * Proxifies the object that was passed in the constructor and returns a proxified mirror of it. Even though both parameters are options. You need to pass at least one of them.
-     * @param {Boolean} [record] - whether to record object changes to a later-retrievable patches array.
-     * @param {Function} [callback] - this will be synchronously called with every object change with a single `patch` as the only parameter.
-     */
-    JSONPatcherProxy.prototype.observe = function (record, callback) {
-      if (!record && !callback) {
-        throw new Error('You need to either record changes or pass a callback');
+
+      this.beforeRender();
+      options.afterInstall && options.afterInstall(this);
+
+      var rendered = this.render(this.props, this.store);
+
+      this.rootNode = diff(null, rendered, null, this);
+      this.rendered();
+
+      if (this.css) {
+        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
       }
-      this.isRecording = record;
-      this.userCallback = callback;
-      /*
-      I moved it here to remove it from `unobserve`,
-      this will also make the constructor faster, why initiate
-      the array before they decide to actually observe with recording?
-      They might need to use only a callback.
-      */
-      if (record) this.patches = [];
-      this.cachedProxy = this.proxifyObjectTree(this.originalObject);
-      return this.cachedProxy;
-    };
-    /**
-     * If the observed is set to record, it will synchronously return all the patches and empties patches array.
-     */
-    JSONPatcherProxy.prototype.generate = function () {
-      if (!this.isRecording) {
-        throw new Error('You should set record to true to get patches later');
+
+      if (this.props.css) {
+        this._customStyleElement = cssToDom(this.props.css);
+        this._customStyleContent = this.props.css;
+        shadowRoot.appendChild(this._customStyleElement);
       }
-      return this.patches.splice(0, this.patches.length);
+
+      if (isArray(this.rootNode)) {
+        this.rootNode.forEach(function (item) {
+          shadowRoot.appendChild(item);
+        });
+      } else {
+        this.rootNode && shadowRoot.appendChild(this.rootNode);
+      }
+      this.installed();
+      this.isInstalled = true;
     };
-    /**
-     * Revokes all proxies rendering the observed object useless and good for garbage collection @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable}
-     */
-    JSONPatcherProxy.prototype.revoke = function () {
-      this.proxifiedObjectsMap.forEach(function (el) {
-        el.revoke();
+
+    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+      this.uninstall();
+      this.isInstalled = false;
+    };
+
+    WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+      this._willUpdate = true;
+      this.beforeUpdate();
+      this.beforeRender();
+      //fix null !== undefined
+      if (this._customStyleContent != this.props.css) {
+        this._customStyleContent = this.props.css;
+        this._customStyleElement.textContent = this._customStyleContent;
+      }
+      this.attrsToProps(ignoreAttrs);
+
+      var rendered = this.render(this.props, this.store);
+      this.rendered();
+
+      this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
+      this._willUpdate = false;
+      this.updated();
+    };
+
+    WeElement.prototype.forceUpdate = function forceUpdate() {
+      this.update(true);
+    };
+
+    WeElement.prototype.updateProps = function updateProps(obj) {
+      var _this3 = this;
+
+      Object.keys(obj).forEach(function (key) {
+        _this3.props[key] = obj[key];
+        if (_this3.prevProps) {
+          _this3.prevProps[key] = obj[key];
+        }
+      });
+      this.forceUpdate();
+    };
+
+    WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
+      this.update(ignoreAttrs, true);
+    };
+
+    WeElement.prototype.removeAttribute = function removeAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+      //Avoid executing removeAttribute methods before connectedCallback
+      this.isInstalled && this.update();
+    };
+
+    WeElement.prototype.setAttribute = function setAttribute(key, val) {
+      if (val && typeof val === 'object') {
+        _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
+      } else {
+        _HTMLElement.prototype.setAttribute.call(this, key, val);
+      }
+      //Avoid executing setAttribute methods before connectedCallback
+      this.isInstalled && this.update();
+    };
+
+    WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+    };
+
+    WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+      _HTMLElement.prototype.setAttribute.call(this, key, val);
+    };
+
+    WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+      if (ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
+      var ele = this;
+      ele.props['css'] = ele.getAttribute('css');
+      var attrs = this.constructor.propTypes;
+      if (!attrs) return;
+      Object.keys(attrs).forEach(function (key) {
+        var type = attrs[key];
+        var val = ele.getAttribute(hyphenate(key));
+        if (val !== null) {
+          switch (type) {
+            case String:
+              ele.props[key] = val;
+              break;
+            case Number:
+              ele.props[key] = Number(val);
+              break;
+            case Boolean:
+              if (val === 'false' || val === '0') {
+                ele.props[key] = false;
+              } else {
+                ele.props[key] = true;
+              }
+              break;
+            case Array:
+            case Object:
+              if (val[0] === ':') {
+                ele.props[key] = getValByPath(val.substr(1), Omi.$);
+              } else {
+                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+              }
+              break;
+          }
+        } else {
+          if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+            ele.props[key] = ele.constructor.defaultProps[key];
+          } else {
+            ele.props[key] = null;
+          }
+        }
       });
     };
-    /**
-     * Disables all proxies' traps, turning the observed object into a forward-proxy object, like a normal object that you can modify silently.
-     */
-    JSONPatcherProxy.prototype.disableTraps = function () {
-      this.proxifiedObjectsMap.forEach(this.disableTrapsForProxy, this);
+
+    WeElement.prototype.fire = function fire(name, data) {
+      var handler = this.props['on' + capitalize(name)];
+      if (handler) {
+        handler(new CustomEvent(name, {
+          detail: data
+        }));
+      } else {
+        this.dispatchEvent(new CustomEvent(name, {
+          detail: data
+        }));
+      }
     };
-    return JSONPatcherProxy;
-  }();
+
+    WeElement.prototype.beforeInstall = function beforeInstall() {};
+
+    WeElement.prototype.install = function install() {};
+
+    WeElement.prototype.afterInstall = function afterInstall() {};
+
+    WeElement.prototype.installed = function installed() {};
+
+    WeElement.prototype.uninstall = function uninstall() {};
+
+    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+
+    WeElement.prototype.updated = function updated() {};
+
+    WeElement.prototype.beforeRender = function beforeRender() {};
+
+    WeElement.prototype.rendered = function rendered() {};
+
+    WeElement.prototype.receiveProps = function receiveProps() {};
+
+    return WeElement;
+  }(HTMLElement), _class.is = 'WeElement', _temp);
 
   function render(vnode, parent, store) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
     if (store) {
-      if (store.data) {
-        observeStore(store);
-      } else {
-        options.isMultiStore = true;
-        //Multi-store injection
-        for (var key in store) {
-          observeStore(store[key], key);
-        }
-      }
       parent.store = store;
     }
     return diff(null, vnode, parent, false);
-  }
-
-  function observeStore(store, key) {
-    store.instances = [];
-    store.updateSelfInstances = [];
-    extendStoreUpdate(store, key);
-
-    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-      var patchs = {};
-      if (patch.op === 'remove') {
-        // fix arr splice
-        var kv = getArrayPatch(patch.path, store);
-        patchs[kv.k] = kv.v;
-
-        update(patchs, store);
-      } else {
-        var _key = fixPath(patch.path);
-        patchs[_key] = patch.value;
-
-        update(patchs, store);
-      }
-    });
-  }
-
-  function update(patch, store) {
-    store.update(patch);
-  }
-
-  function extendStoreUpdate(store, key) {
-    store.update = function (patch) {
-      if (Object.keys(patch).length > 0) {
-        this.instances.forEach(function (instance) {
-          compute(instance, key);
-          if (key) {
-            if (instance._updatePath && instance._updatePath[key] && needUpdate(patch, instance._updatePath[key])) {
-              if (instance.use) {
-                getUse(store.data, (typeof instance.use === 'function' ? instance.use() : instance.use)[key], instance.using, key);
-              }
-
-              instance.update();
-            }
-          } else {
-            if (instance._updatePath && needUpdate(patch, instance._updatePath)) {
-              if (instance.use) {
-                instance.using = getUse(store.data, typeof instance.use === 'function' ? instance.use() : instance.use);
-              }
-
-              instance.update();
-            }
-          }
-        });
-
-        this.updateSelfInstances.forEach(function (instance) {
-          compute(instance, key);
-          if (key) {
-            if (instance._updateSelfPath && instance._updateSelfPath[key] && needUpdate(patch, instance._updateSelfPath[key])) {
-              if (instance.useSelf) {
-                getUse(store.data, (typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf)[key], instance.usingSelf, key);
-              }
-
-              instance.updateSelf();
-            }
-          } else {
-            if (instance._updateSelfPath && needUpdate(patch, instance._updateSelfPath)) {
-              instance.usingSelf = getUse(store.data, typeof instance.useSelf === 'function' ? instance.useSelf() : instance.useSelf);
-              instance.updateSelf();
-            }
-          }
-        });
-        this.onChange && this.onChange(patch);
-      }
-    };
-  }
-
-  function compute(instance, isMultiStore) {
-    if (instance.compute) {
-      for (var ck in instance.compute) {
-        instance.computed[ck] = instance.compute[ck].call(isMultiStore ? instance.store : instance.store.data);
-      }
-    }
-  }
-
-  function needUpdate(diffResult, updatePath) {
-    for (var keyA in diffResult) {
-      if (updatePath[keyA]) {
-        return true;
-      }
-      for (var keyB in updatePath) {
-        if (includePath(keyA, keyB)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function includePath(pathA, pathB) {
-    if (pathA.indexOf(pathB) === 0) {
-      var next = pathA.substr(pathB.length, 1);
-      if (next === '[' || next === '.') {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function fixPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    arr.forEach(function (item, index) {
-      if (index) {
-        if (isNaN(Number(item))) {
-          mpPath += '.' + item;
-        } else {
-          mpPath += '[' + item + ']';
-        }
-      } else {
-        mpPath += item;
-      }
-    });
-    return mpPath;
-  }
-
-  function getArrayPatch(path, store) {
-    var arr = path.replace('/', '').split('/');
-    var current = store.data[arr[0]];
-    for (var i = 1, len = arr.length; i < len - 1; i++) {
-      current = current[arr[i]];
-    }
-    return {
-      k: fixArrPath(path),
-      v: current
-    };
-  }
-
-  function fixArrPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    var len = arr.length;
-    arr.forEach(function (item, index) {
-      if (index < len - 1) {
-        if (index) {
-          if (isNaN(Number(item))) {
-            mpPath += '.' + item;
-          } else {
-            mpPath += '[' + item + ']';
-          }
-        } else {
-          mpPath += item;
-        }
-      }
-    });
-    return mpPath;
   }
 
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1642,6 +1025,9 @@
   var storeHelpers = ['use', 'useSelf'];
 
   function define(name, ctor, config) {
+    if (customElements.get(name)) {
+      return;
+    }
     if (options.mapping[name]) {
       return;
     }
@@ -1704,9 +1090,8 @@
     }
   }
 
-  function tag(name, pure) {
+  function tag(name) {
     return function (target) {
-      target.pure = pure;
       define(name, target);
     };
   }
@@ -1734,8 +1119,8 @@
     }
   }
 
-  function rpx(str) {
-    return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+  function rpx(css) {
+    return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
       return window.innerWidth * Number(b) / 750 + 'px';
     });
   }
@@ -1799,246 +1184,343 @@
     return JSON.stringify(obj);
   }
 
-  var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p],h="number"==typeof s?u[s]:s,a=r[++p];1===a?e[0]=h:3===a?e[1]=Object.assign(e[1]||{},h):5===a?(e[1]=e[1]||{})[r[++p]]=h:6===a?e[1][r[++p]]+=h+"":e.push(a?t.apply(null,n(t,h,u,["",null])):h);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],h=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,5,e):u>=5&&((e||!n&&5===u)&&(s.push(e,u,r), u=6), n&&(s.push(n,u,r), u=6)), e="";},a=0;a<n.length;a++){a&&(1===u&&h(), h(a));for(var f=0;f<n[a].length;f++)t=n[a][f], 1===u?"<"===t?(h(), s=[s], u=3):e+=t:4===u?"--"===e&&">"===t?(u=1, e=""):e=t+e[0]:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(h(), u=1):u&&("="===t?(u=5, r=e, e=""):"/"===t&&(u<5||">"===n[a][f+1])?(h(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,2), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(h(), u=2):e+=t), 3===u&&"!--"===e&&(u=4, s=s[0]);}return h(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
-
   (function () {
-  	try {
-  		new window.CSSStyleSheet('a{}');
-  		return;
-  	} catch (e) {}
 
-  	// TODO: this could really just by a dunderprop to keep the polyfill light.
-  	var INTERNAL = typeof Symbol !== 'undefined' ? Symbol('__s') : '__s';
+      if (typeof document === 'undefined' || 'adoptedStyleSheets' in document) { return; }
 
-  	/**
-    * Problem 1:
-    * CSSStyleSheet is nonconfigurable.
-    * This means we're stuck with a ponyfill and not a "perfect" polyfill.
-    */
-  	// Object.defineProperty(window, 'CSSStyleSheet', {
-  	// 	configurable: true,
-  	// 	enumerable: true,
-  	// 	get: () => CSSStyleSheet
-  	// });
+      var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
+      var bootstrapper = document.implementation.createHTMLDocument('');
+      var closedShadowRootRegistry = new WeakMap();
+      var _DOMException = typeof DOMException === 'object' ? Error : DOMException;
+      var defineProperty = Object.defineProperty;
+      var forEach = Array.prototype.forEach;
 
-  	var OriginalCSSStyleSheet = window.CSSStyleSheet;
+      var importPattern = /@import.+?;?$/gm;
+      function rejectImports(contents) {
+          var _contents = contents.replace(importPattern, '');
+          if (_contents !== contents) {
+              console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
+          }
+          return _contents.trim();
+      }
+      function isElementConnected(element) {
+          return 'isConnected' in element
+              ? element.isConnected
+              : document.contains(element);
+      }
+      function unique(arr) {
+          return arr.filter(function (value, index) { return arr.indexOf(value) === index; });
+      }
+      function diff(arr1, arr2) {
+          return arr1.filter(function (value) { return arr2.indexOf(value) === -1; });
+      }
+      function removeNode(node) {
+          node.parentNode.removeChild(node);
+      }
+      function getShadowRoot(element) {
+          return element.shadowRoot || closedShadowRootRegistry.get(element);
+      }
 
-  	window.CSSStyleSheet = CSSStyleSheet;
+      var cssStyleSheetMethods = [
+          'addRule',
+          'deleteRule',
+          'insertRule',
+          'removeRule',
+      ];
+      var NonConstructedStyleSheet = CSSStyleSheet;
+      var nonConstructedProto = NonConstructedStyleSheet.prototype;
+      nonConstructedProto.replace = function () {
+          return Promise.reject(new _DOMException("Can't call replace on non-constructed CSSStyleSheets."));
+      };
+      nonConstructedProto.replaceSync = function () {
+          throw new _DOMException("Failed to execute 'replaceSync' on 'CSSStyleSheet': Can't call replaceSync on non-constructed CSSStyleSheets.");
+      };
+      function isCSSStyleSheetInstance(instance) {
+          return typeof instance === 'object'
+              ? proto$1.isPrototypeOf(instance) ||
+                  nonConstructedProto.isPrototypeOf(instance)
+              : false;
+      }
+      function isNonConstructedStyleSheetInstance(instance) {
+          return typeof instance === 'object'
+              ? nonConstructedProto.isPrototypeOf(instance)
+              : false;
+      }
+      var $basicStyleElement = new WeakMap();
+      var $locations = new WeakMap();
+      var $adoptersByLocation = new WeakMap();
+      var $appliedMethods = new WeakMap();
+      function addAdopterLocation(sheet, location) {
+          var adopter = document.createElement('style');
+          $adoptersByLocation.get(sheet).set(location, adopter);
+          $locations.get(sheet).push(location);
+          return adopter;
+      }
+      function getAdopterByLocation(sheet, location) {
+          return $adoptersByLocation.get(sheet).get(location);
+      }
+      function removeAdopterLocation(sheet, location) {
+          $adoptersByLocation.get(sheet).delete(location);
+          $locations.set(sheet, $locations.get(sheet).filter(function (_location) { return _location !== location; }));
+      }
+      function restyleAdopter(sheet, adopter) {
+          requestAnimationFrame(function () {
+              adopter.textContent = $basicStyleElement.get(sheet).textContent;
+              $appliedMethods
+                  .get(sheet)
+                  .forEach(function (command) {
+                  return adopter.sheet[command.method].apply(adopter.sheet, command.args);
+              });
+          });
+      }
+      function checkInvocationCorrectness(self) {
+          if (!$basicStyleElement.has(self)) {
+              throw new TypeError('Illegal invocation');
+          }
+      }
+      function ConstructedStyleSheet() {
+          var self = this;
+          var style = document.createElement('style');
+          bootstrapper.body.appendChild(style);
+          $basicStyleElement.set(self, style);
+          $locations.set(self, []);
+          $adoptersByLocation.set(self, new WeakMap());
+          $appliedMethods.set(self, []);
+      }
+      var proto$1 = ConstructedStyleSheet.prototype;
+      proto$1.replace = function replace(contents) {
+          try {
+              this.replaceSync(contents);
+              return Promise.resolve(this);
+          }
+          catch (e) {
+              return Promise.reject(e);
+          }
+      };
+      proto$1.replaceSync = function replaceSync(contents) {
+          checkInvocationCorrectness(this);
+          if (typeof contents === 'string') {
+              var self_1 = this;
+              $basicStyleElement.get(self_1).textContent = rejectImports(contents);
+              $appliedMethods.set(self_1, []);
+              $locations.get(self_1).forEach(function (location) {
+                  if (location.isConnected()) {
+                      restyleAdopter(self_1, getAdopterByLocation(self_1, location));
+                  }
+              });
+          }
+      };
+      defineProperty(proto$1, 'cssRules', {
+          configurable: true,
+          enumerable: true,
+          get: function cssRules() {
+              checkInvocationCorrectness(this);
+              return $basicStyleElement.get(this).sheet.cssRules;
+          },
+      });
+      defineProperty(proto$1, 'media', {
+          configurable: true,
+          enumerable: true,
+          get: function media() {
+              checkInvocationCorrectness(this);
+              return $basicStyleElement.get(this).sheet.media;
+          },
+      });
+      cssStyleSheetMethods.forEach(function (method) {
+          proto$1[method] = function () {
+              var self = this;
+              checkInvocationCorrectness(self);
+              var args = arguments;
+              $appliedMethods.get(self).push({ method: method, args: args });
+              $locations.get(self).forEach(function (location) {
+                  if (location.isConnected()) {
+                      var sheet = getAdopterByLocation(self, location).sheet;
+                      sheet[method].apply(sheet, args);
+                  }
+              });
+              var basicSheet = $basicStyleElement.get(self).sheet;
+              return basicSheet[method].apply(basicSheet, args);
+          };
+      });
+      defineProperty(ConstructedStyleSheet, Symbol.hasInstance, {
+          configurable: true,
+          value: isCSSStyleSheetInstance,
+      });
 
-  	var DOC = void 0;
+      var defaultObserverOptions = {
+          childList: true,
+          subtree: true,
+      };
+      var locations = new WeakMap();
+      function getAssociatedLocation(element) {
+          var location = locations.get(element);
+          if (!location) {
+              location = new Location(element);
+              locations.set(element, location);
+          }
+          return location;
+      }
+      function attachAdoptedStyleSheetProperty(constructor) {
+          defineProperty(constructor.prototype, 'adoptedStyleSheets', {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                  return getAssociatedLocation(this).sheets;
+              },
+              set: function (sheets) {
+                  getAssociatedLocation(this).update(sheets);
+              },
+          });
+      }
+      function traverseWebComponents(node, callback) {
+          var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function (foundNode) {
+              return getShadowRoot(foundNode)
+                  ? NodeFilter.FILTER_ACCEPT
+                  : NodeFilter.FILTER_REJECT;
+          },
+          null, false);
+          for (var next = void 0; (next = iter.nextNode());) {
+              callback(getShadowRoot(next));
+          }
+      }
+      var $element = new WeakMap();
+      var $uniqueSheets = new WeakMap();
+      var $observer = new WeakMap();
+      function isExistingAdopter(self, element) {
+          return (element instanceof HTMLStyleElement &&
+              $uniqueSheets.get(self).some(function (sheet) { return getAdopterByLocation(sheet, self); }));
+      }
+      function getAdopterContainer(self) {
+          var element = $element.get(self);
+          return element instanceof Document ? element.body : element;
+      }
+      function adopt(self) {
+          var styleList = document.createDocumentFragment();
+          var sheets = $uniqueSheets.get(self);
+          var observer = $observer.get(self);
+          var container = getAdopterContainer(self);
+          observer.disconnect();
+          sheets.forEach(function (sheet) {
+              styleList.appendChild(getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self));
+          });
+          container.insertBefore(styleList, null);
+          observer.observe(container, defaultObserverOptions);
+          sheets.forEach(function (sheet) {
+              restyleAdopter(sheet, getAdopterByLocation(sheet, self));
+          });
+      }
+      function Location(element) {
+          var self = this;
+          self.sheets = [];
+          $element.set(self, element);
+          $uniqueSheets.set(self, []);
+          $observer.set(self, new MutationObserver(function (mutations, observer) {
+              if (!document) {
+                  observer.disconnect();
+                  return;
+              }
+              mutations.forEach(function (mutation) {
+                  if (!hasShadyCss) {
+                      forEach.call(mutation.addedNodes, function (node) {
+                          if (!(node instanceof Element)) {
+                              return;
+                          }
+                          traverseWebComponents(node, function (root) {
+                              getAssociatedLocation(root).connect();
+                          });
+                      });
+                  }
+                  forEach.call(mutation.removedNodes, function (node) {
+                      if (!(node instanceof Element)) {
+                          return;
+                      }
+                      if (isExistingAdopter(self, node)) {
+                          adopt(self);
+                      }
+                      if (!hasShadyCss) {
+                          traverseWebComponents(node, function (root) {
+                              getAssociatedLocation(root).disconnect();
+                          });
+                      }
+                  });
+              });
+          }));
+      }
+      Location.prototype = {
+          isConnected: function () {
+              var element = $element.get(this);
+              return element instanceof Document
+                  ? element.readyState !== 'loading'
+                  : isElementConnected(element.host);
+          },
+          connect: function () {
+              var container = getAdopterContainer(this);
+              $observer.get(this).observe(container, defaultObserverOptions);
+              if ($uniqueSheets.get(this).length > 0) {
+                  adopt(this);
+              }
+              traverseWebComponents(container, function (root) {
+                  getAssociatedLocation(root).connect();
+              });
+          },
+          disconnect: function () {
+              $observer.get(this).disconnect();
+          },
+          update: function (sheets) {
+              var self = this;
+              var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
+              if (!Array.isArray(sheets)) {
+                  throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
+              }
+              if (!sheets.every(isCSSStyleSheetInstance)) {
+                  throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
+              }
+              if (sheets.some(isNonConstructedStyleSheetInstance)) {
+                  throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
+              }
+              self.sheets = sheets;
+              var oldUniqueSheets = $uniqueSheets.get(self);
+              var uniqueSheets = unique(sheets);
+              var removedSheets = diff(oldUniqueSheets, uniqueSheets);
+              removedSheets.forEach(function (sheet) {
+                  removeNode(getAdopterByLocation(sheet, self));
+                  removeAdopterLocation(sheet, self);
+              });
+              $uniqueSheets.set(self, uniqueSheets);
+              if (self.isConnected() && uniqueSheets.length > 0) {
+                  adopt(self);
+              }
+          },
+      };
 
-  	var counter = 0;
+      window.CSSStyleSheet = ConstructedStyleSheet;
+      attachAdoptedStyleSheetProperty(Document);
+      if ('ShadowRoot' in window) {
+          attachAdoptedStyleSheetProperty(ShadowRoot);
+          var proto = Element.prototype;
+          var attach_1 = proto.attachShadow;
+          proto.attachShadow = function attachShadow(init) {
+              var root = attach_1.call(this, init);
+              if (init.mode === 'closed') {
+                  closedShadowRootRegistry.set(this, root);
+              }
+              return root;
+          };
+      }
+      var documentLocation = getAssociatedLocation(document);
+      if (documentLocation.isConnected()) {
+          documentLocation.connect();
+      }
+      else {
+          document.addEventListener('DOMContentLoaded', documentLocation.connect.bind(documentLocation));
+      }
 
-  	/**
-    * Problem #2:
-    * CSSStyleSheet is not instantiable.
-    * We can inherit from the real CSSStyleSheet in order to
-    */
-
-  	function CSSStyleSheet(options) {
-  		if (!DOC) {
-  			var frame = document.createElement('iframe');
-  			frame.style.cssText = 'position:absolute;left:0;top:-9999px;width:1px;height:1px;';
-  			document.body.appendChild(frame);
-  			DOC = frame.contentWindow.document;
-  		}
-  		var style = DOC.createElement('style');
-  		style.$id = ++counter;
-  		style.childSheets = [];
-  		style.appendChild(DOC.createTextNode(''));
-  		DOC.body.appendChild(style);
-  		// console.log(style, sheet);
-  		Object.assign(style.sheet, options || {});
-  		this[INTERNAL] = style;
-  	}
-
-  	// we can be nice and ensure that this holds:
-  	// document.createElement('style').stylesheet instanceof CSSStyleSeetPolyfill
-  	CSSStyleSheet.prototype = Object.create(OriginalCSSStyleSheet);
-
-  	Object.defineProperty(CSSStyleSheet.prototype, 'cssRules', {
-  		get: function get() {
-  			return this[INTERNAL].sheet.cssRules;
-  		}
-  	});
-
-  	CSSStyleSheet.prototype.replace = function (cssText) {
-  		var style = this[INTERNAL];
-  		return new Promise(function (resolve, reject) {
-  			var l = DOC.createElement('link');
-  			l.rel = 'preload';
-  			l.as = 'style';
-  			l.onload = function () {
-  				// sheet.ownerNode.firstChild.textContent = cssText;
-  				style.firstChild.data = cssText;
-  				for (var i = 0; i < style.childSheets.length; i++) {
-  					style.childSheets[i].firstChild.data = cssText;
-  				}
-  				// if (sheet.cssRules[0]) sheet.deleteRule(0);
-  				// sheet.insertRule(cssText);
-  				l.remove();
-  				resolve();
-  			};
-  			l.onerror = reject;
-  			l.href = 'data:text/css;base64,' + btoa(cssText);
-  			DOC.head.appendChild(l);
-  		});
-  	};
-
-  	CSSStyleSheet.prototype.replaceSync = function (cssText) {
-  		var style = this[INTERNAL];
-  		if (cssText.replace(/\/\*[\s\S]+?\*\//g, '').match(/@import\s*\(\s*(['"])[^\1]*?\1\s*\)/)) {
-  			throw Error('no');
-  		}
-  		// if (sheet.cssRules[0]) sheet.deleteRule(0);
-  		// sheet.insertRule(cssText);
-  		// sheet.ownerNode.firstChild.textContent = cssText;
-  		style.firstChild.data = cssText;
-  		for (var i = 0; i < style.childSheets.length; i++) {
-  			style.childSheets[i].firstChild.data = cssText;
-  		}
-  	};
-
-  	var oldInnerHTML = Object.getOwnPropertyDescriptor(ShadowRoot.prototype, 'innerHTML');
-  	var oldFirstChild = Object.getOwnPropertyDescriptor(Node.prototype, 'firstChild');
-  	var oldLastChild = Object.getOwnPropertyDescriptor(Node.prototype, 'lastChild');
-
-  	function getState(obj) {
-  		return obj[INTERNAL] || (obj[INTERNAL] = {
-  			adoptedStyleSheets: [],
-  			sheets: [],
-  			id: ++counter
-  		});
-  	}
-
-  	Object.defineProperties(ShadowRoot.prototype, {
-  		firstChild: {
-  			get: function get() {
-  				var child = oldFirstChild.get.call(this);
-  				while (child) {
-  					if (child[INTERNAL] == null) break;
-  					child = child.nextSibling;
-  				}
-  				return child;
-  			}
-  		},
-
-  		lastChild: {
-  			get: function get() {
-  				var child = oldLastChild.get.call(this);
-  				while (child) {
-  					if (child[INTERNAL] == null) break;
-  					child = child.previousSibling;
-  				}
-  				return child;
-  			}
-  		},
-
-  		// @TODO
-  		// childNodes: {},
-  		// children: {},
-
-  		innerHTML: {
-  			get: function get() {
-  				var html = '';
-  				var child = oldFirstChild.get.call(this);
-  				while (child) {
-  					if (!child[INTERNAL]) {
-  						if (child.nodeType === 3) html += child.data;
-  						html += child.outerHTML;
-  					}
-  					child = child.nextSibling;
-  				}
-  				return html;
-  				// return old.get.call(this).replace(/</);
-  			},
-  			set: function set(html) {
-  				var child = oldFirstChild.get.call(this);
-  				var sheets = [];
-  				while (child) {
-  					if (child[INTERNAL]) sheets.push(child);
-  					child = child.nextSibling;
-  				}
-  				oldInnerHTML.set.call(this, html);
-  				child = oldFirstChild.get.call(this);
-  				for (var i = 0; i < sheets.length; i++) {
-  					this.insertBefore(sheets[i], child);
-  				}
-  				// this.insertAdjacentHTML(html, 'beforeend');
-  			}
-  		},
-
-  		adoptedStyleSheets: {
-  			get: function get() {
-  				var state = getState(this);
-  				return state.adoptedStyleSheets;
-  			},
-
-
-  			// @TODO:
-  			// Chrome's implementation doesn't do any diffing, so the polyfill needn't either.
-  			// Also, we should always clone the passed Array and freeze it if available.
-  			set: function set(value) {
-  				var state = getState(this);
-  				var previous = state.adoptedStyleSheets.slice();
-  				var indices = [];
-  				if (!Array.isArray(value)) {
-  					value = [].concat(value || []);
-  				}
-  				// this[INTERNAL] = value;
-  				state.adoptedStyleSheets = value;
-  				for (var i = 0; i < value.length; i++) {
-  					var v = value[i];
-  					var index = previous.indexOf(v);
-  					if (index === -1) {
-  						var style = v[INTERNAL];
-  						var clone = style.cloneNode(true);
-  						// clone.setAttribute('data-is-constructed', state.id);
-  						clone[INTERNAL] = {};
-  						// clone.$parent = style;
-  						style.childSheets.push(clone);
-  						// clone.textContent = style.textContent;
-  						// clone.$id = style.$id;
-  						// state.sheets.push(clone);
-  						this.appendChild(clone);
-  						// console.log(this, clone, this.childNodes);
-  						// console.log(`found new sheet, adding.`, clone);
-  					} else {
-  						indices[index] = true;
-  						// const style = v[INTERNAL];
-  					}
-  				}
-  				for (var _i = 0; _i < previous.length; _i++) {
-  					if (indices[_i] !== true) {
-  						var prev = previous[_i][INTERNAL];
-  						// const style = prev.$parent;
-  						for (var j = 0; j < prev.childSheets.length; j++) {
-  							var sheet = prev.childSheets[j];
-  							if (sheet.parentNode === this) {
-  								this.removeChild(sheet);
-  								prev.childSheets.splice(j, 1);
-  								break;
-  							}
-  						}
-  						// for (let j = 0; j < state.sheets.length; j++) {
-  						// 	if (state.sheets[j].$id === prev.$id) {
-  						// 		state.sheets[j].remove();
-  						// 		break;
-  						// 	}
-  						// }
-  					}
-  				}
-  			}
-  		}
-  	});
-  })();
+  }());
 
   h.f = Fragment;
 
-  var html = htm.bind(h);
-
   function createRef() {
-  	return {};
+    return {};
   }
 
   var $ = {};
@@ -2047,37 +1529,34 @@
   var elements = options.mapping;
 
   var omi = {
-  	tag: tag,
-  	WeElement: WeElement,
-  	Component: Component,
-  	render: render,
-  	h: h,
-  	createElement: h,
-  	options: options,
-  	define: define,
-  	cloneElement: cloneElement,
-  	getHost: getHost,
-  	rpx: rpx,
-  	defineElement: defineElement,
-  	classNames: classNames,
-  	extractClass: extractClass,
-  	createRef: createRef,
-  	html: html,
-  	htm: htm,
-  	o: o,
-  	elements: elements,
-  	$: $,
-  	extend: extend$1,
-  	get: get,
-  	set: set,
-  	bind: bind,
-  	unbind: unbind,
-  	JSONProxy: JSONPatcherProxy
+    tag: tag,
+    WeElement: WeElement,
+    Component: Component,
+    render: render,
+    h: h,
+    createElement: h,
+    options: options,
+    define: define,
+    cloneElement: cloneElement,
+    getHost: getHost,
+    rpx: rpx,
+    defineElement: defineElement,
+    classNames: classNames,
+    extractClass: extractClass,
+    createRef: createRef,
+    o: o,
+    elements: elements,
+    $: $,
+    extend: extend$1,
+    get: get,
+    set: set,
+    bind: bind,
+    unbind: unbind
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.19.3';
+  options.root.Omi.version = '6.25.1';
 
   var _class$1, _temp2;
 
@@ -2114,7 +1593,7 @@
 
   	_class.prototype.render = function render$$1() {
   		return Omi.h(
-  			'div',
+  			h.f,
   			null,
   			Omi.h(
   				'button',

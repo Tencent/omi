@@ -35,13 +35,6 @@ $ npm start           # develop
 $ npm run build       # release
 ```
 
-### 创建 Kbone 项目
-
-```bash
-$ npx omi-cli init-kbone my-app
-```
-
-
 ### 更新 cli 最新版本
 
 ```bash
