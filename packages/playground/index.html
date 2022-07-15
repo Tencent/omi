@@ -43,7 +43,8 @@
 
       extraLibs: params.has("lib") ? params.get("lib").split(",") : [],
 
-      baseUrl: location.protocol + "//" + location.host + location.pathname,
+      baseUrl: 'https://tencent.github.io/omi/packages/playground/',
+      //baseUrl: location.protocol + "//" + location.host + location.pathname,
 
       getLatestVersion() {
         return Object.keys(this.availableTSVersions).sort().pop();
