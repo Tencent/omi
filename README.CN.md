@@ -7,7 +7,7 @@
 
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
 * [💯Omiu 打造的 Omi Admin](https://tencent.github.io/omi/packages/admin/dist/index.html)
-
+* [💯Omi 游乐场](https://tencent.github.io/omi/packages/playground/index.html)
 
 使用 TypeScript 开发跨框架的按钮组件:
 

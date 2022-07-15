@@ -7,7 +7,7 @@ English | [简体中文](./README.CN.md)
 
 * [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
-
+* [💯Omi Playground](https://tencent.github.io/omi/packages/playground/index.html)
 
 Define cross-frameworks button element with typescript:
 
