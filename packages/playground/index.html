@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>OMI Playground</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="https://tencent.github.io/omi/packages/admin/favicon.ico" />
+</head>
+
+<body>
+  <script src="https://unpkg.com/url-search-params@1.1.0/build/url-search-params.js"></script>
+  <script src="https://unpkg.com/clipboard-polyfill@2.4.7/build/clipboard-polyfill.js"></script>
+  <script src="https://unpkg.com/monaco-editor@0.15.6/min/vs/loader.js"></script>
+  <script>
+    /**
+     * omi playground based on ts playground
+     * 
+     * https://github.com/agentcooper/typescript-play
+     *
+     * modified by dntzhang
+     */
+
+    const params = new URLSearchParams(location.search);
+
+    window.CONFIG = {
+      availableTSVersions: Object.assign(
+        {},
+        window.localTSVersion || {},
+        {
+          // https://unpkg.com/monaco-editor/
+          '4.7.4': { monaco: "0.33.0" },
+          "3.3.3": { monaco: "0.16.1" },
+          "3.1.6": { monaco: "0.15.6" },
+          "3.0.1": { monaco: "0.14.3" },
+          "2.8.1": { monaco: "0.13.1" },
+          "2.7.2": { monaco: "0.11.1" },
+          "2.4.1": { monaco: "0.10.0" },
+        },
+        {}
+      ),
+
+      extraLibs: params.has("lib") ? params.get("lib").split(",") : [],
+
+      baseUrl: location.protocol + "//" + location.host + location.pathname,
+
+      getLatestVersion() {
+        return Object.keys(this.availableTSVersions).sort().pop();
+      },
+
+      useTSVersion(version) {
+        if (this.availableTSVersions[version]) {
+          this.TSVersion = version;
+        } else {
+          alert(
+            `Version '${version}' is not available, using ${this.TSVersion}`
+          );
+        }
+      },
+
+      getMonacoVersion() {
+        return this.availableTSVersions[this.TSVersion].monaco;
+      },
+
+      getAdditionalPaths() {
+        const lib = this.availableTSVersions[this.TSVersion].lib;
+
+        return lib
+          ? {
+            "vs/language/typescript": `${this.baseUrl}${lib}`,
+          }
+          : {};
+      },
+    };
+
+    window.CONFIG.TSVersion = window.CONFIG.getLatestVersion();
+    console.log("window.CONFIG", window.CONFIG);
+
+    if (params.has("ts")) {
+      window.CONFIG.useTSVersion(params.get("ts"));
+    }
+
+    require.config({
+      paths: Object.assign(
+        {
+          vs: `https://unpkg.com/monaco-editor@${window.CONFIG.getMonacoVersion()}/min/vs`,
+        },
+        window.CONFIG.getAdditionalPaths()
+      ),
+      ignoreDuplicateModules: ["vs/editor/editor.main"],
+    });
+  </script>
+  <div id="app">
+    <div class="flash flash--hidden">
+      <span class="flash__message"></span>
+    </div>
+
+    <header>
+      <div class="header-item" style="display: flex; flex-direction: row; align-items: center">
+        <div class="spinner" style="margin-left: -0.5em; margin-right: 0.5em"></div>
+        <p>OMI PlayGround</p>
+      </div>
+
+      <!-- <div style="opacity: 0" id="version">
+        <p class="popup-header" id="version-current">?</p>
+        <div class="popup" id="version-popup" style="font-size: 100%">
+          Loading...
+        </div>
+      </div> -->
+
+      <div style="margin-left: 1em" class="header-item header-item--extra-padding popup-on-hover" id="examples">
+        <p class="popup-header">💯 Examples</p>
+        <div class="popup" style="min-width: 20em">
+          <ul>
+            <li class="button" data-example="hello-omi">Hello OMI</li>
+            <li class="button" data-example="fragment">Fragment</li>
+            <!--
+                <li class="button" data-example="async-generators">
+                	Async generators
+                </li>
+              -->
+          </ul>
+        </div>
+      </div>
+      <script>
+        document
+          .querySelector("#examples")
+          .addEventListener("click", (event) => {
+            if (event.target.matches("[data-example]")) {
+              const exampleName = event.target.dataset.example;
+              UI.selectExample(exampleName);
+            }
+          });
+      </script>
+
+      <div class="header-item header-item--extra-padding popup-on-hover" style="display:none;" id="settings">
+        <p class="popup-header">Options</p>
+        <div class="popup" id="settings-popup" style="min-width: 20em">
+          Loading...
+        </div>
+      </div>
+
+      <div class="header-item header-item--extra-padding popup-on-hover" id="run">
+        <p class="popup-header">Shortcut key</p>
+        <div class="popup" id="run-popup" style="min-width: 20em">
+          <script>
+            const isMac = navigator.userAgent.indexOf("Mac OS X") != -1;
+            const CMDCtrl = isMac ? "⌘" : "Ctrl";
+            const OptionAlt = isMac ? "⌥" : "Alt";
+
+            document.write(`
+                                                                                                                                            							<div><kbd>Use ${CMDCtrl} + Enter</kbd> to run compiled JavaScript in the browser console.</div>
+                                                                                                                                            						`);
+
+            document.write(`
+                                                                                                                                            							<div style="margin-top: 2em;"><kbd>Use ${CMDCtrl} + S</kbd> to copy code url to the clipboard.</div>
+                                                                                                                                            						`);
+
+            document.write(`
+                                                                                                                                            							<div style="margin-top: 2em;"><kbd>Use ${OptionAlt} + Shift + F</kbd> to run Prettier.</div>
+                                                                                                                                            						`);
+          </script>
+        </div>
+      </div>
+
+
+
+      <p style="margin-left: auto; margin-right: 1em">
+        <a style="border: none" target="_blank" href="https://tencent.github.io/omi/site/docs/index.html">OMI DOCS</a>
+      </p>
+      <p style="margin-right: 2em">
+        <a style="border: none" target="_blank" href="https://github.com/Tencent/omi">OMI Github</a>
+      </p>
+    </header>
+    <main id="playground">
+      <section id="input"></section>
+      <section style="display: none" id="output"></section>
+      <iframe style="flex: 1" src="./preview.html" class="frame" id="frame"></iframe>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/lz-string@1.4.4/libs/lz-string.min.js"></script>
+  <script src="main.js"></script>
+  <script>
+    require(["vs/editor/editor.main"], main);
+  </script>
+
+  <script>
+    var style,
+      lastTimer,
+      lastCode,
+      lastScript,
+      queryString = getQueryString(),
+      sourceFromQueryString = queryString.code,
+      backgroundColor = queryString.bgColor,
+      editorTheme = queryString.theme || "dark",
+      notification = document.getElementById("notification"),
+      notificationContent = document.getElementById("notification-content"),
+      frame = document.getElementById("frame"),
+      storageKey = "alloyrender_playground_source",
+      myTextarea = document.getElementById("editor"),
+      lastStorageSource = localStorage.getItem(storageKey);
+
+    function getQueryString() {
+      for (
+        var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g;
+        (d = c.exec(b));
+
+      )
+        a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]);
+      return a;
+    }
+    function hideNotify() {
+      notification.classList.add("hide");
+    }
+    function showNotify(a, b) {
+      (notificationContent.innerHTML = a),
+        notification.classList.remove("hide"),
+        lastTimer && clearTimeout(lastTimer),
+        b && (lastTimer = setTimeout(hideNotify, b));
+    }
+    function runCompiled(a) {
+      var c,
+        b = frame.contentDocument.body;
+      lastScript && b.removeChild(lastScript);
+      c = document.createElement("script");
+      c.innerHTML = a;
+      window._sourceCode = a;
+      lastScript = c;
+      b.appendChild(c);
+    }
+
+    function run(code) {
+      window._sourceCode = code;
+      frame.contentWindow.location.reload(true);
+    }
+
+  </script>
+</body>
+
+</html>

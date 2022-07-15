@@ -1,0 +1,181 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font: normal 16px/1.4em -apple-system, system-ui, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+header {
+  display: flex;
+  background-color: rgb(19, 195, 149);
+  color: white;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#playground {
+  display: flex;
+  flex: 1;
+}
+
+#input {
+  flex: 1;
+}
+
+#output {
+  flex: 1;
+}
+
+#version {
+  transition: opacity 0.3s;
+  margin-left: 0.3em;
+  width: 3em;
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  left: -1em;
+  padding: 0 1em 1em;
+
+  z-index: 100;
+  background-color: rgb(19, 195, 149);
+  color: white;
+  font-size: 80%;
+}
+
+.popup ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.popup li {
+  padding: 0.5em 0;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.button:hover {
+  color: #ffa700;
+}
+
+.popup-on-hover {
+  position: relative;
+}
+
+.popup-on-hover:hover .popup {
+  display: inline-block;
+}
+
+.popup-on-hover:hover .popup-header {
+  color: #ffa700;
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.header-item {
+  margin-left: 1em;
+}
+
+.header-item--extra-padding {
+  margin-left: 0;
+  padding-right: 1em;
+}
+
+.compact-list li {
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+.spinner {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0.25rem solid white;
+  border-bottom: 0.25rem solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+
+  opacity: 1;
+  transition: 0.3s opacity;
+}
+
+.spinner--hidden {
+  opacity: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.select-label {
+  display: inline-block;
+  width: 3em;
+}
+
+.select select {
+  display: inline-block;
+  width: 7em;
+  margin-left: 1em;
+}
+
+.flash {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 42;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.flash__message {
+  border-radius: 1.5em;
+  padding: 1em 2em;
+  background-color: black;
+  color: white;
+  opacity: 0.7;
+  transition: opacity 0.1s ease-in-out;
+
+  /* help Safari with blurred text */
+  transform: translateZ(0);
+}
+
+.flash--hidden .flash__message {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#settings-popup {
+  overflow-y: auto;
+  max-height: calc(100vh - 5rem);
+}
