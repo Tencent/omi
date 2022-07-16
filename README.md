@@ -150,10 +150,9 @@ $ npm run build       # release
 
 ## Why Omi?
 
-- Tiny size and [High performance](https://tencent.github.io/omi/packages/omi/examples/perfs/)
 - Cross frameworks(react, preact, vue, angular), components of omi are pure custom elements
+- Tiny size and [High performance](https://tencent.github.io/omi/packages/omi/examples/perfs/)
 - One framework. Mobile & desktop & mini program
-- Stateless View Architecture Design
 - Be friendly to custom elements, you can pass `false` attributes to elements through string `'0'` or string `'false'`, you can [pass `object` attributes to elements through `:` prefix and `Omi.$`](https://github.com/Tencent/omi/releases/tag/v6.8.0)
 - [Easy two way binding by extend api](https://codepen.io/omijs/pen/aeLYjx)
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) base on **750** screen width
@@ -188,20 +187,19 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 |[Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)||
 |[Develop W3C Web Components with WebAssembly](https://medium.com/coinmonks/develop-w3c-web-components-with-webassembly-d65938284255)||
 | [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
-| [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.kr.md)|
 | [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)|  [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)|
 |  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
 |  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
 |  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
 |  [Web Components Org](https://www.webcomponents.org/introduction)|
 |  [Web Components: the Right Way](https://github.com/mateusortiz/webcomponents-the-right-way)|
-|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
 |  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
 |  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
 |  [Platform HTML5](https://platform.html5.org/)|
-| [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
 | [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)|
 |[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
+|[slotted](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::slotted)||
+
 
 # Overview of the Readme
 
