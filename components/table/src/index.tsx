@@ -179,11 +179,59 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                 'fixed-top': props.fixedTop,
                 'fixed-left': index < props.fixedLeftCount,
                 'fixed-right': column.fixed
-              })}>{index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}{column.title}</th>
+              })}>
+
+              <div class="o-cell">
+                {index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}
+                <span class="o-cell--title"><span>{column.title}</span></span>
+
+                {column.sortable && <span class="o-cell--sort">
+                  <i title="升序：最低到最高" class="o-sort--asc-btn o-icon--caret-top"></i>
+                  <i title="降序：最高到最低" class="o-sort--desc-btn o-icon--caret-bottom"></i>
+                </span>}
+
+
+                {column.filters && <span class="o-cell--filter">
+                  <i title="对所选的列启用筛选" class="o-cell--filter-icon"></i>
+                </span>}
+              </div>
+
+            </th>
           })}
         </tr>
       </thead>
     )
+  }
+
+  renderFilter() {
+    return <div class="o-table--filter-wrapper filter--prevent-default is--animat is--multiple is--active" style="top: 36px; left: 264px;">
+      <div class="o-table--filter-template">
+        <div class="my-filter-content">
+          <div class="my-fc-search">
+            <div class="my-fc-search-top">
+              <div class="el-input el-input--mini el-input--suffix">
+                <input type="text" autocomplete="off" placeholder="搜索" class="el-input__inner" />
+                <span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-input__icon fa fa-search"></i>
+                </span>
+                </span>
+              </div>
+            </div>
+            <div class="my-fc-search-content">
+              <ul class="my-fc-search-list my-fc-search-list-head">
+                <li class="my-fc-search-item"><label class="o-checkbox size--small"><input type="checkbox" class="o-checkbox--input" /><span class="o-checkbox--icon"></span><span class="o-checkbox--label">全选</span></label></li>
+              </ul>
+              <ul class="my-fc-search-list my-fc-search-list-body">
+                <li class="my-fc-search-item"><label class="o-checkbox size--small"><input type="checkbox" class="o-checkbox--input" /><span class="o-checkbox--icon"></span><span class="o-checkbox--label">18</span></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="my-fc-footer">
+            <button type="button" disabled class="o-button type--text size--small is--disabled"><span class="o-button--content">筛选</span></button>
+            <button type="button" class="o-button type--text size--small"><span class="o-button--content">重置</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
   }
 
   renderBody() {

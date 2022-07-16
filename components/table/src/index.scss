@@ -1,4 +1,6 @@
 @import '../../common/scss/theme.scss';
+@import './header.scss';
+@import './filter.scss';
 
 :host {
   display: block;

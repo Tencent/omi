@@ -1,3 +1,98 @@
+.o-cell--title {
+  display: inline-block;
+}
+
+.o-cell--sort {
+  position: relative;
+  display: inline-block;
+  height: 9px;
+  margin-left: 10px;
+  cursor: pointer;
+  width: 9px;
+}
+
+.o-sort--asc-btn,
+.o-sort--desc-btn {
+  border: 5px solid transparent;
+  content: "";
+  height: 0;
+  top: 50%;
+  position: absolute;
+  width: 0;
+}
+
+.o-sort--asc-btn {
+  border-bottom-color: #c0c4cc;
+  margin-top: -12px;
+}
+
+.o-sort--asc-btn:hover {
+  border-bottom-color: #666;
+}
+
+.o-sort--asc-btn.active {
+  border-bottom-color: #07c160;
+}
+
+.o-sort--desc-btn.active {
+  border-top-color: #07c160;
+}
+
+.o-sort--desc-btn {
+  border-top-color: #c0c4cc;
+  margin-top: 1px;
+}
+
+.o-sort--desc-btn:hover {
+  border-top-color: #666;
+}
+
+.o-cell--filter-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.o-cell--filter-icon::before {
+  border: 7px solid transparent;
+  content: "";
+  height: 0;
+  display: inline-block;
+  width: 0;
+}
+
+.o-cell--filter {
+  display: inline-block;
+  width: 100px;
+  position: relative;
+  top: 3px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.o-cell--filter-icon::after {
+  width: 4px;
+  height: 8px;
+  content: "";
+  background: #c0c4cc;
+  display: inline-block;
+  position: relative;
+  left: -9px;
+  top: -2px;
+}
+
+.o-cell--filter-icon:hover::after {
+  background: #666;
+}
+
+.o-cell--filter-icon:hover::before {
+  border-top-color: #666;
+}
+
+.o-cell--filter-icon::before {
+  border-top-color: #c0c4cc;
+  margin-top: -9px;
+}
+
 :host {
   display: block;
 }
@@ -168,5 +263,3 @@ o-checkbox {
   transform: translateX(-40px);
   opacity: 0;
 }
-
-/*# sourceMappingURL=index.css.map */

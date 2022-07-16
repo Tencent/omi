@@ -97,15 +97,19 @@ export default class TableDemo extends WeElement {
 
   columns = [{
     title: 'ID',
+    sortable: true,
+    filters: [],
     render: (item: DataType) => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
+    filters: [],
     render: (item: DataType) => (<a href="#">{item.name}</a>),
     editable: true
   }, {
     title: 'Age',
     key: 'age',
+    sortable: true,
 
     editable: true
   }, {
