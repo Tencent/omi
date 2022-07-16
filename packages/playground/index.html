@@ -10,9 +10,9 @@
 </head>
 
 <body>
-  <script src="https://unpkg.com/url-search-params@1.1.0/build/url-search-params.js"></script>
-  <script src="https://unpkg.com/clipboard-polyfill@2.4.7/build/clipboard-polyfill.js"></script>
-  <script src="https://unpkg.com/monaco-editor@0.15.6/min/vs/loader.js"></script>
+  <script src="./js/url-search-params.js"></script>
+  <script src="./js/clipboard-polyfill.js"></script>
+  <script src="./monaco-editor/min/vs/loader.js"></script>
   <script>
     /**
      * omi playground based on ts playground
@@ -85,7 +85,7 @@
     require.config({
       paths: Object.assign(
         {
-          vs: `https://unpkg.com/monaco-editor@${window.CONFIG.getMonacoVersion()}/min/vs`,
+          vs: `./monaco-editor/min/vs`,
         },
         window.CONFIG.getAdditionalPaths()
       ),
@@ -181,7 +181,7 @@
     </main>
   </div>
 
-  <script src="https://unpkg.com/lz-string@1.4.4/libs/lz-string.min.js"></script>
+  <script src="./js/lz-string.min.js"></script>
   <script src="main.js"></script>
   <script>
     require(["vs/editor/editor.main"], main);
