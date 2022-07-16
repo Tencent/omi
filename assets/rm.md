@@ -1,1 +1,1 @@
-![→ Omi 生态学习路线图](./rm-2020.png)
+![→ Omi 生态学习路线图](./omi-road-map.png)

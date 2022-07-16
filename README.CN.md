@@ -103,6 +103,9 @@ $ npm run build       # 编译发布
 
 > `npx omi-cli init-component my-component` 也支持(要求 npm v5.2.0+)
 
+
+[→ Omi 学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
+
 #### 基础生态
 
 | **项目**                         | **描述**                           |
