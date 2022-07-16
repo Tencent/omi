@@ -160,6 +160,41 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     this.editingInput && this.editingInput.focus()
   }
 
+  onCellClick = (column) => {
+    if (column.sort === 'asc') {
+      column.sort = 'desc'
+    } else if (column.sort === 'desc') {
+      column.sort = ''
+    } else {
+      column.sort = 'asc'
+    }
+    this.update()
+    this.fire('sort-change', column)
+  }
+
+  onAscSort = (evt, column) => {
+    evt.stopPropagation()
+    if (column.sort === 'asc') {
+      column.sort = null
+    } else {
+      column.sort = 'asc'
+    }
+    this.update()
+    this.fire('sort-change', column)
+
+  }
+
+  onDescSort = (evt, column) => {
+    evt.stopPropagation()
+    if (column.sort === 'desc') {
+      column.sort = null
+    } else {
+      column.sort = 'desc'
+    }
+    this.update()
+    this.fire('sort-change', column)
+  }
+
   renderHead() {
     const props = this.props
     return (
@@ -178,20 +213,37 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                 'compact': props.compact,
                 'fixed-top': props.fixedTop,
                 'fixed-left': index < props.fixedLeftCount,
-                'fixed-right': column.fixed
+                'fixed-right': column.fixed,
+                'cursor-pointer': column.sortable
               })}>
 
-              <div class="o-cell">
-                {index === 0 && props.checkbox && <o-checkbox {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}
+              <div class="o-cell" onClick={() => { this.onCellClick(column) }}>
+                {index === 0 && props.checkbox && <o-checkbox onClick={evt => evt.stopPropagation()} {...this._getCheckedState()} onChange={_ => this._changeHandlerTh(_, column)} />}
                 <span class="o-cell--title"><span>{column.title}</span></span>
 
                 {column.sortable && <span class="o-cell--sort">
-                  <i title="升序：最低到最高" class="o-sort--asc-btn o-icon--caret-top"></i>
-                  <i title="降序：最高到最低" class="o-sort--desc-btn o-icon--caret-bottom"></i>
+                  <i title="升序：最低到最高"
+                    onClick={(evt) => this.onAscSort(evt, column)}
+                    class={classNames({
+                      'o-sort--asc-btn': true,
+                      'active': column.sort === 'asc'
+                    })}
+                  >
+                  </i>
+                  <i
+                    title="降序：最高到最低"
+                    onClick={(evt) => this.onDescSort(evt, column)}
+                    class={classNames({
+                      'o-sort--desc-btn': true,
+                      'active': column.sort === 'desc'
+                    })}
+                  >
+
+                  </i>
                 </span>}
 
 
-                {column.filters && <span class="o-cell--filter">
+                {column.filters && <span class="o-cell--filter" onClick={evt => evt.stopPropagation()}>
                   <i title="对所选的列启用筛选" class="o-cell--filter-icon"></i>
                 </span>}
               </div>

@@ -99,11 +99,13 @@ export default class TableDemo extends WeElement {
     title: 'ID',
     sortable: true,
     filters: [],
+    filterMethod() { },
     render: (item: DataType) => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
     filters: [],
+    filterMethod() { },
     render: (item: DataType) => (<a href="#">{item.name}</a>),
     editable: true
   }, {
@@ -170,6 +172,10 @@ export default class TableDemo extends WeElement {
     this.update()
   }
 
+  onSortChange = (evt) => {
+    console.log(evt.detail)
+  }
+
   render() {
     return <div>
       <div style="margin-bottom:20px;">
@@ -182,6 +188,7 @@ export default class TableDemo extends WeElement {
       <o-table
         ref={(el: Table<Props<DataType>>) => this.table = el}
         checkbox={true}
+        onSortChange={this.onSortChange}
         stripe={false}
         border={true}
         compact={true}

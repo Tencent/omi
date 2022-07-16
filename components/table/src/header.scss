@@ -30,12 +30,24 @@
   border-bottom-color: #666;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.o-sort--asc-btn:active {
+  border-bottom-color: $o-primary !important;
+}
+
+.o-sort--desc-btn:active {
+  border-top-color: $o-primary !important;
+}
+
 .o-sort--asc-btn.active {
-  border-bottom-color: $o-primary;
+  border-bottom-color: $o-primary !important;
 }
 
 .o-sort--desc-btn.active {
-  border-top-color: $o-primary;
+  border-top-color: $o-primary !important;
 }
 
 
@@ -64,7 +76,6 @@
 
 .o-cell--filter {
   display: inline-block;
-  width: 100px;
   position: relative;
   top: 3px;
   margin-left: 10px;
