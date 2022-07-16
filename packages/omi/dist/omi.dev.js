@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.2  http://omijs.org
+ * Omi v6.25.3  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -320,7 +320,9 @@
           node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
         }
       }
-    } else if (name === 'unsafeHTML' || name === 'dangerouslySetInnerHTML') {
+    } else if (name === 'unsafeHTML') {
+      if (value) node.innerHTML = value || '';
+    } else if (name === 'dangerouslySetInnerHTML') {
       if (value) node.innerHTML = value.__html || '';
     } else if (name[0] == 'o' && name[1] == 'n') {
       bindEvent(node, name, value, old);
@@ -1563,7 +1565,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.25.2';
+  options.root.Omi.version = '6.25.3';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

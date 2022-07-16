@@ -121,7 +121,9 @@
                 if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
                 for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
             }
-        } else if ('unsafeHTML' === name || 'dangerouslySetInnerHTML' === name) {
+        } else if ('unsafeHTML' === name) {
+            if (value) node.innerHTML = value || '';
+        } else if ('dangerouslySetInnerHTML' === name) {
             if (value) node.innerHTML = value.__html || '';
         } else if ('o' == name[0] && 'n' == name[1]) bindEvent(node, name, value, old); else if ('INPUT' === node.nodeName && 'value' === name) node[name] = null == value ? '' : value; else if ('list' !== name && 'type' !== name && 'css' !== name && !isSvg && name in node && '' !== value) {
             try {
@@ -933,7 +935,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.2';
+    options.root.Omi.version = '6.25.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

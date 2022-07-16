@@ -69,7 +69,9 @@ export function setAccessor(node, name, old, value, isSvg, component) {
             : value[i]
       }
     }
-  } else if (name === 'unsafeHTML' || name === 'dangerouslySetInnerHTML') {
+  } else if (name === 'unsafeHTML') {
+    if (value) node.innerHTML = value || ''
+  } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || ''
   } else if (name[0] == 'o' && name[1] == 'n') {
     bindEvent(node, name, value, old)
