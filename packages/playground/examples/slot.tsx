@@ -15,4 +15,4 @@ class extends WeElement {
   }
 }
 
-render(<my-element><p>One With</p><p>Two</p></my-element>, 'body')
+render(<my-element><p>One</p><p>Two</p></my-element>, 'body')
