@@ -1,9 +1,9 @@
 @tag('hello-omi')
 class extends WeElement {
-  static css = `p { color: #07c160 } `
+  static css = `span { color: #07c160 } `
   render() {
     return (
-      <p>Hello, {this.props.msg}</p>
+      <p>Hello, <span>{this.props.msg}</span>!</p>
     )
   }
 }
