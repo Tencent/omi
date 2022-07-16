@@ -188,49 +188,7 @@
   </script>
 
   <script>
-    var style,
-      lastTimer,
-      lastCode,
-      lastScript,
-      queryString = getQueryString(),
-      sourceFromQueryString = queryString.code,
-      backgroundColor = queryString.bgColor,
-      editorTheme = queryString.theme || "dark",
-      notification = document.getElementById("notification"),
-      notificationContent = document.getElementById("notification-content"),
-      frame = document.getElementById("frame"),
-      storageKey = "alloyrender_playground_source",
-      myTextarea = document.getElementById("editor"),
-      lastStorageSource = localStorage.getItem(storageKey);
-
-    function getQueryString() {
-      for (
-        var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g;
-        (d = c.exec(b));
-
-      )
-        a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]);
-      return a;
-    }
-    function hideNotify() {
-      notification.classList.add("hide");
-    }
-    function showNotify(a, b) {
-      (notificationContent.innerHTML = a),
-        notification.classList.remove("hide"),
-        lastTimer && clearTimeout(lastTimer),
-        b && (lastTimer = setTimeout(hideNotify, b));
-    }
-    function runCompiled(a) {
-      var c,
-        b = frame.contentDocument.body;
-      lastScript && b.removeChild(lastScript);
-      c = document.createElement("script");
-      c.innerHTML = a;
-      window._sourceCode = a;
-      lastScript = c;
-      b.appendChild(c);
-    }
+    var frame = document.getElementById("frame");
 
     function run(code) {
       window._sourceCode = code;

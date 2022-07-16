@@ -338,6 +338,7 @@ async function main() {
     },
 
     selectExample: async function (exampleName) {
+      this.toggleSpinner(true);
       try {
         const res = await fetch(
           `${window.CONFIG.baseUrl}examples/${exampleName}.tsx`,
@@ -350,6 +351,7 @@ async function main() {
       } catch (e) {
         console.log(e);
       }
+      this.toggleSpinner(false);
     },
 
     setCodeFromHash: async function () {
