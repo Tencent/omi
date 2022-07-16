@@ -164,12 +164,12 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     if (column.sort === 'asc') {
       column.sort = 'desc'
     } else if (column.sort === 'desc') {
-      column.sort = ''
+      column.sort = null
     } else {
       column.sort = 'asc'
     }
     this.update()
-    this.fire('sort-change', column)
+    this.fire('sort-change', this.props.columns.filter(column => column.sortable && column.sort).sort((columnA, columnB) => columnB.sortMultiple - columnA.sortMultiple))
   }
 
   onAscSort = (evt, column) => {
@@ -180,7 +180,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
       column.sort = 'asc'
     }
     this.update()
-    this.fire('sort-change', column)
+    this.fire('sort-change', this.props.columns.filter(column => column.sortable && column.sort).sort((columnA, columnB) => columnB.sortMultiple - columnA.sortMultiple))
 
   }
 
@@ -192,7 +192,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
       column.sort = 'desc'
     }
     this.update()
-    this.fire('sort-change', column)
+    this.fire('sort-change', this.props.columns.filter(column => column.sortable && column.sort).sort((columnA, columnB) => columnB.sortMultiple - columnA.sortMultiple))
   }
 
   renderHead() {

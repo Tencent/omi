@@ -38,7 +38,7 @@ export default class TableDemo extends WeElement {
   }
   `
   dataSource: DataType[] = [{
-    id: 1,
+    id: 3,
     name: 'xwang',
     age: 18,
     address: 'Tencent',
@@ -54,13 +54,13 @@ export default class TableDemo extends WeElement {
     }
   },
   {
-    id: 3,
+    id: 2,
     name: 'lucy',
-    age: 12,
+    age: 13,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts'],
   }, {
-    id: 4,
+    id: 1,
     name: 'john',
     age: 12,
     address: 'Tencent测试超出宽度',
@@ -92,12 +92,68 @@ export default class TableDemo extends WeElement {
     age: 12,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 8,
+    name: 'bob¸¸',
+    age: 12,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 8,
+    name: 'cuck',
+    age: 5,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 8,
+    name: 'titi',
+    age: 1,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 7,
+    name: 'lucy',
+    age: 2,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 8,
+    name: 'water',
+    age: 3,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 8,
+    name: 'ddd',
+    age: 4,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 18,
+    name: 'tim',
+    age: 12,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 28,
+    name: 'tim',
+    age: 12,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
+  }, {
+    id: 23,
+    name: 'tim',
+    age: 12,
+    address: 'Tencent',
+    tags: ['omi', 'web components', 'ts']
   }
   ]
 
   columns = [{
     title: 'ID',
+    key: 'id',
     sortable: true,
+    sortMultiple: 2,
     filters: [],
     filterMethod() { },
     render: (item: DataType) => (<strong>{item.id}</strong>),
@@ -112,7 +168,7 @@ export default class TableDemo extends WeElement {
     title: 'Age',
     key: 'age',
     sortable: true,
-
+    sortMultiple: 1,
     editable: true
   }, {
     title: 'Address',
@@ -141,6 +197,10 @@ export default class TableDemo extends WeElement {
 
   onEditClick = (evt: Event) => {
 
+  }
+
+  install() {
+    this.dataSourceBeforeSort = [...this.dataSource]
   }
 
   onDeleteClick = (evt: Event) => {
@@ -173,7 +233,24 @@ export default class TableDemo extends WeElement {
   }
 
   onSortChange = (evt) => {
-    console.log(evt.detail)
+    const columns = evt.detail
+    console.log(columns)
+    if (!columns.length) {
+      this.dataSource = [...this.dataSourceBeforeSort]
+    } else {
+      this.dataSource.sort((a, b) => {
+        for (let i = 0, len = columns.length; i < len; i++) {
+          const column = columns[i]
+          if (a[column.key] !== b[column.key]) {
+            return column.sort === 'asc' ?
+              a[column.key] - b[column.key] :
+              b[column.key] - a[column.key]
+          }
+        }
+      })
+    }
+
+    this.update()
   }
 
   render() {
@@ -192,12 +269,15 @@ export default class TableDemo extends WeElement {
         stripe={false}
         border={true}
         compact={true}
-        height={200}
+        height={400}
         width={this.isSmall ? 300 : '100%'}
         fixedLeftCount={this.fixedLeft ? 1 : 0}
         fixedRight={this.fixedRight}
         fixedTop={this.fixedTop}
-        columns={this.columns} dataSource={this.dataSource}></o-table>
+        columns={this.columns}
+        dataSource={this.dataSource}
+      >
+      </o-table>
     </div>
   }
 }
