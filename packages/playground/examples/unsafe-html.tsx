@@ -3,7 +3,7 @@ const markup = '<h3>Some HTML to render.</h3>'
 @tag('my-element')
 class extends WeElement {
   render() {
-    return <div unsafeHTML={markup}></div >
+    return <div unsafeHTML={markup}></div>
   }
 }
 
