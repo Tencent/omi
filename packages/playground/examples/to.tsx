@@ -46,7 +46,6 @@ class MyApp extends WeElement {
         </o-to>
 
         <h3>Group</h3>
-
         {this.outs.map((item, index) =>
           <div style={{ marginTop: '5px', width: this.outs[index].width + 'px', background: 'red', height: '5px' }}></div>
         )}
