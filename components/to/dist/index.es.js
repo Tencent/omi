@@ -1389,4 +1389,3 @@ function npn(str) {
     return $1.toUpperCase();
   });
 }
-export { To as default };

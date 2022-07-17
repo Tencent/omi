@@ -13,8 +13,9 @@ interface Props {
   start: boolean
 }
 
+// 加上 export default build umd 会报 export is not defined 所以去掉
 @tag('o-to')
-export default class To extends WeElement<Props>{
+class To extends WeElement<Props>{
 
   to = null
 
