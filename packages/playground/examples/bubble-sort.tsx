@@ -29,18 +29,35 @@ function swap(arr, indexA, indexB) {
 }
 
 class Store {
-  data = {
-    arr: [2, 7, 12, 9, 16, 19, 8, 13, 11, 5, 15, 17, 14, 18, 6, 3, 10, 1, 4],
-    indexA: -1,
-    indexB: -1,
-    sorting: false
+  constructor() {
+    this.init()
   }
+
+  init() {
+    this.data = {
+      arr: Array.from({ length: 30 }, () => this.randomInt()),
+      indexA: -1,
+      indexB: -1,
+      sorting: false
+    }
+  }
+
+  randomInt() {
+    return Math.floor(Math.random() * 25)
+  }
+
+  reset = () => {
+    this.init()
+    this.ui.update()
+  }
+
   sort = () => {
     this.data.sorting = true
     bubbleSort(this.data.arr, {
       done: () => {
         this.data.indexA = -1
         this.data.indexB = -1
+        this.data.sorting = false
         this.ui.update()
       },
       check: (indexA, indexB) => {
@@ -82,6 +99,7 @@ class extends WeElement {
         </div>
 
         <button disabled={store.data.sorting} onClick={store.sort}>Start Bubble Sort</button>
+        <button style="margin-left: 5px" disabled={store.data.sorting} onClick={store.reset}>Reset</button>
       </div>
     )
   }
