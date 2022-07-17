@@ -20,8 +20,14 @@ class MyApp extends WeElement {
     this.update()
   }
 
-  onClick = () => {
+  play = () => {
     this.start = true
+    this.update()
+  }
+
+  reset = () => {
+    this.start = false
+    this.outs = [{ width: 10 }, { width: 10 }, { width: 10 }, { width: 10 }, { width: 10 }]
     this.update()
   }
 
@@ -45,7 +51,7 @@ class MyApp extends WeElement {
         {this.outs.map((item, index) =>
           <div style={{ marginTop: '5px', width: this.outs[index].width + 'px', background: 'red', height: '5px' }}></div>
         )}
-        <button onClick={this.onClick}>Play</button>
+        <button onClick={this.play}>Play</button> <button onClick={this.reset}>Reset</button>
         {this.outs.map((item, index) =>
           <o-to from={{ width: 10 }} start={this.start} easing="bounce-out" delay={100 * index} onProgress={this.onProgress} to={{ width: 200 }} out={this.outs[index]} duration={600}>
           </o-to>
