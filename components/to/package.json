@@ -1,6 +1,6 @@
 {
   "name": "@omiu/to",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Motion tag",
   "docsExtend": {
     "cnName": "运动标签",

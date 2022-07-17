@@ -1372,6 +1372,9 @@ let To = class extends WeElement {
       }).start();
     }
   }
+  stop() {
+    this.to.stop();
+  }
   installed() {
     if (this.props.start) {
       this.receiveProps(this.props, { from: {}, to: {} });
