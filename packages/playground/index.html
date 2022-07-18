@@ -156,9 +156,9 @@
             const CMDCtrl = isMac ? "⌘" : "Ctrl";
             const OptionAlt = isMac ? "⌥" : "Alt";
 
-            document.write(`
-                                                                                                                                            							<div><kbd>Use ${CMDCtrl} + Enter</kbd> to run compiled JavaScript in the browser console.</div>
-                                                                                                                                            						`);
+            // document.write(`
+            //                                                                                                                                 							<div><kbd>Use ${CMDCtrl} + Enter</kbd> to run compiled JavaScript in the browser console.</div>
+            //                                                                                                                                 						`);
 
             document.write(`
                                                                                                                                             							<div style="margin-top: 2em;"><kbd>Use ${CMDCtrl} + S</kbd> to copy code url to the clipboard.</div>
@@ -174,7 +174,7 @@
 
 
       <p style="margin-left: auto; margin-right: 1em">
-        <a style="border: none" target="_blank" href="https://tencent.github.io/omi/site/docs/index.html">OMI DOCS</a>
+        <a style="border: none" id="share" href="javascript:">Copy Code Url</a>
       </p>
       <p style="margin-right: 2em">
         <a style="border: none" target="_blank" href="https://github.com/Tencent/omi">OMI Github</a>
@@ -201,6 +201,15 @@
       frame.contentWindow.location.reload(true);
     }
 
+
+    document.querySelector('#share').addEventListener('click', function share() {
+      window.clipboard.writeText(location.href.toString()).then(
+        () => UI.showFlashMessage("URL is copied to the clipboard!"),
+        e => {
+          alert(e);
+        },
+      )
+    })
   </script>
 </body>
 
