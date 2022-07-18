@@ -135,8 +135,8 @@ route.to('/about', { a: 1 })
 
 ### 地址
 
-* [在线演示地址](https://tencent.github.io/omi/packages/omi-router/examples/simple/)
-* [源码地址](https://github.com/Tencent/omi/tree/master/packages/omi-router/examples/simple)
+* [在线演示地址](https://tencent.github.io/omi/packages/omi-router/demos/simple/)
+* [源码地址](https://github.com/Tencent/omi/tree/master/packages/omi-router/demos/simple)
 
 ## License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
