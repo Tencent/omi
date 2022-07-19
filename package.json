@@ -1,10 +1,14 @@
 {
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",
-    "prettier": "2.3.1"
+    "prettier": "2.3.1",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.2",
+    "ora": "^5.4.1"
   },
   "scripts": {
     "prettier:check": "prettier --check **/*.{js,jsx,ts,tsx} ",
-    "prettier:write": "prettier --write **/*.{js,jsx,ts,tsx}"
+    "prettier:write": "prettier --write **/*.{js,jsx,ts,tsx}",
+    "comp": "node ./scripts/components.js"
   }
 }
