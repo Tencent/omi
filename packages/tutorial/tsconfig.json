@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "jsxFactory": "h",
+    // vite3 不支持 "target": "es5",
     "target": "es5",
     "outDir": "dist",
     //https://github.com/microsoft/TypeScript/issues/6945
