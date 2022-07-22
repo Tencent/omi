@@ -12,6 +12,10 @@
     "vite": "^2.9.14"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.0.2",
+    "@omiu/icon": "^0.0.4",
+    "@omiu/link": "^0.0.4",
+    "codemirror": "^6.0.1",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.4",
     "omi": "latest",
