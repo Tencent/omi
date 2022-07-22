@@ -8,6 +8,7 @@ import '@omiu/link'
 import '@omiu/icon/navigate-before'
 import '@omiu/icon/navigate-next'
 import mdContent from './sections/zh/section-1/description.md?raw'
+import logo from './assets/logo.svg'
 
 interface MyAppProps {
   name: string
@@ -44,7 +45,7 @@ export default class extends WeElement<MyAppProps> {
     return (
       <div>
         <header class={tw`border-b h-9 leading-9 text-black pl-8`}>
-          <h1>OMI TUTORIAL</h1>
+          <h1 style={{ color: '#07C160' }}>  <img class={tw`w-5 inline-block mr-1 relative -top-0.5`} src={logo} />OMI TUTORIAL</h1>
         </header>
         <div class={tw`flex`}>
           <div class={tw`w-1/2 overflow-auto pl-8 pr-8`} style={{ height: 'calc(100vh - 36px)' }}>
