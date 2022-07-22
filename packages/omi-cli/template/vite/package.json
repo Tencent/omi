@@ -9,7 +9,7 @@
     "less": "^4.1.1",
     "sass": "^1.37.5",
     "typescript": "^4.3.2",
-    "vite": "^2.3.7"
+    "vite": "^2.9.14"
   },
   "dependencies": {
     "omi": "latest"
