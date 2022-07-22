@@ -43,7 +43,7 @@ export default class extends WeElement<MyAppProps> {
   render(props) {
     return (
       <div>
-        <header class={tw`bg-emerald-400 h-9 leading-9 text-white pl-8`}>
+        <header class={tw`border-b h-9 leading-9 text-black pl-8`}>
           <h1>OMI TUTORIAL</h1>
         </header>
         <div class={tw`flex`}>
