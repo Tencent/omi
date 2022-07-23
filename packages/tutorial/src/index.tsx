@@ -131,6 +131,9 @@ export default class extends WeElement {
     }, {
       id: 'scoped-css',
       label: 'Scoped CSS',
+    }, {
+      id: 'slot',
+      label: 'Slot',
     }]
   }]
   lan = 'zh'
