@@ -24,7 +24,7 @@ import '@omiu/tabs'
 
 ```html
   <o-tabs 
-    list="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" 
+    tabs="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" 
     active-index="0">
 	</o-tabs>
 ```

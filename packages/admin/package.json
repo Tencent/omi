@@ -52,7 +52,7 @@
     "@omiu/steps": "^0.0.6",
     "@omiu/switch": "^0.0.2",
     "@omiu/table": "^0.0.21",
-    "@omiu/tabs": "^0.0.25",
+    "@omiu/tabs": "^0.0.26",
     "@omiu/tag": "^0.0.6",
     "@omiu/time-picker": "^0.0.3",
     "@omiu/toast": "^0.0.8",

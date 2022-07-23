@@ -10,7 +10,7 @@ import * as css from '../index.scss'
 
 import { tw, sheet } from 'omi-twind'
 
-interface Props {}
+interface Props { }
 
 const tagName = 'basic-layout'
 declare global {
@@ -92,11 +92,10 @@ export default class extends WeElement {
 
         <div class={tw`flex flex-row`}>
           <layout-left-panel
-            class={tw`${
-              this.store.isLeftPanelClosed
+            class={tw`${this.store.isLeftPanelClosed
                 ? 'sm:w-0 -translate-x-full'
                 : 'sm:w-64 w-3/4 translate-x-0'
-            } flex-none border-r-1 overflow-x-hidden overflow-y-auto bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
+              } flex-none border-r-1 overflow-x-hidden overflow-y-auto bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
           <layout-container class={tw`flex-1 flex-grow`}>
             <div
@@ -115,7 +114,7 @@ export default class extends WeElement {
                 class={tw`w-full `}
                 closable
                 type="card"
-                list={this.store.tabs}
+                tabs={this.store.tabs}
                 onChange={this.onChange}
                 onRemove={this.onRemove}
                 active-index={this.store.tabsActiveIndex}

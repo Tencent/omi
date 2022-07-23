@@ -60,7 +60,7 @@ export default class extends WeElement<MyAppProps> {
           <div class={tw`w-1/2 bg-gray-100`} style={{ height: 'calc(100vh - 36px)' }}>
             <div class={tw`bg-gray-100 flex flex-col`} style="height:58%" >
               <div class={tw`bg-gray-100`}  >
-                <o-tabs type="card" activeIndex={0} list={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
+                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
               </div>
               <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
               </div>

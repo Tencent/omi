@@ -24,7 +24,7 @@ Or use script tag to ref it.
 
 ```html
   <o-tabs 
-    list="[{label:'User'},{label:'System'},{label:'Address'}]" 
+    tabs="[{label:'User'},{label:'System'},{label:'Address'}]" 
     active-index="0">
 	</o-tabs>
 ```
