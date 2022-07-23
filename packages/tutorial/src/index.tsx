@@ -51,7 +51,7 @@ export default class extends WeElement<MyAppProps> {
         <div class={tw`flex`}>
           <div class={tw`w-1/2 overflow-auto pl-8 pr-8`} style={{ height: 'calc(100vh - 36px)' }}>
             <admin-docs mdContent={mdContent}></admin-docs>
-            <div class={tw`flex justify-between border-t pt-2`}>
+            <div class={tw`flex justify-between border-t pt-2 pb-8`}>
               <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
               <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link>
             </div>
