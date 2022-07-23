@@ -38,7 +38,7 @@ class HelloWorld extends WeElement {
 
 渲染自定义元素到 body:
 ```tsx
-render(<hello-world></hello-world>, 'body')
+render(<hello-world />, 'body')
 ```
 
 因为是标准的自定义元素，你可以直接使用 dom api 进行操作达到上面同样的效果:
