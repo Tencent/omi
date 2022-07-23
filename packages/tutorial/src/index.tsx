@@ -9,6 +9,7 @@ import '@omiu/icon/navigate-before'
 import '@omiu/icon/navigate-next'
 import mdContent from './sections/zh/section-1/description.md?raw'
 import logo from './assets/logo.svg'
+import '@omiu/tabs'
 
 interface MyAppProps {
   name: string
@@ -57,7 +58,12 @@ export default class extends WeElement<MyAppProps> {
 
           </div>
           <div class={tw`w-1/2 bg-gray-100`} style={{ height: 'calc(100vh - 36px)' }}>
-            <div class={tw`bg-gray-100 overflow-auto`} ref={e => this.editorEl = e} style="height:58%" >
+            <div class={tw`bg-gray-100 flex flex-col`} style="height:58%" >
+              <div class={tw`bg-gray-100`}  >
+                <o-tabs type="card" activeIndex={0} list={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
+              </div>
+              <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
+              </div>
             </div>
             <div class={tw`bg-red-100`} style="height:42%">
             </div>

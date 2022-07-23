@@ -15,6 +15,7 @@
     "@codemirror/lang-javascript": "^6.0.2",
     "@omiu/icon": "^0.0.4",
     "@omiu/link": "^0.0.4",
+    "@omiu/tabs": "^0.0.25",
     "codemirror": "^6.0.1",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.4",
