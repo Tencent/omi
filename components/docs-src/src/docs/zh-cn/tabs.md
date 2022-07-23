@@ -1,4 +1,4 @@
-## Tabs 选项卡 
+## Tabs 选项卡
 
 用于同一个区域切换多个显示面板，充分利用空间。
 
@@ -15,7 +15,6 @@ import '@omiu/tabs'
 
 或者直接 script 标签引入。
 
-
 ```html
 <script src="https://unpkg.com/@omiu/tabs"></script>
 ```
@@ -23,12 +22,12 @@ import '@omiu/tabs'
 ## 使用
 
 ```html
-  <o-tabs 
-    tabs="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]" 
-    active-index="0">
-	</o-tabs>
+<o-tabs
+  tabs="[{label:'用户管理'},{label:'系统设置'},{label:'权限管理中心'}]"
+  active-index="0"
+>
+</o-tabs>
 ```
-
 
 ## API
 
@@ -36,7 +35,7 @@ import '@omiu/tabs'
 
 ```tsx
 {
-  list?: any[];
+  tabs?: any[];
   activeIndex: number;
   type?: 'card' | 'border-card';
   position?: 'left' | 'right' | 'top' | 'bottom';
@@ -57,6 +56,6 @@ import '@omiu/tabs'
 
 ### 事件
 
-* change
-* remove
-* add-icon-click
+- change
+- remove
+- add-icon-click

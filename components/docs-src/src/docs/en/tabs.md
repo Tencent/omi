@@ -36,7 +36,7 @@ Or use script tag to ref it.
 
 ```tsx
 {
-  list?: any[];
+  tabs?: any[];
   activeIndex: number;
   type?: 'card' | 'border-card';
   position?: 'left' | 'right' | 'top' | 'bottom';
