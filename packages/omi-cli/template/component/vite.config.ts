@@ -13,8 +13,7 @@ export default defineConfig({
     rollupOptions: {
       external: /^omi/,
       input: {
-        main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'demo.html')
+        main: resolve(__dirname, 'index.html')
       }
     }
   },
