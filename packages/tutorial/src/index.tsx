@@ -65,8 +65,8 @@ export default class extends WeElement<MyAppProps> {
             <div class={tw`overflow-hidden`} style="height:42%">
               <div class={tw`flex flex-col h-full`} >
                 <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
-                <div class={tw`overflow-auto flex-1 border pl-4 pr-4`}   >
-                  Hello World!
+                <div class={tw`overflow-auto flex-1 border`}   >
+                  <iframe class={tw`w-full h-full`} src="./preview.html" id="preview"></iframe>
                 </div>
               </div>
             </div>

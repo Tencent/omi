@@ -10,6 +10,7 @@ import 'prismjs/components/prism-tsx'
 
 //不能注释掉，不然代码不染色
 console.log(prismjs)
+// @ts-ignore
 const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 
 
