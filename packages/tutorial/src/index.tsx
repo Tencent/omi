@@ -134,6 +134,9 @@ export default class extends WeElement {
     }, {
       id: 'slot',
       label: 'Slot',
+    }, {
+      id: 'fragment',
+      label: 'Fragment',
     }]
   }]
   lan = 'zh'
