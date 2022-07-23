@@ -17,7 +17,7 @@ export default class Steps extends WeElement {
   static css = css.default
 
   static propTypes = {
-    items: Object,
+    steps: Object,
     vertical: Boolean
   }
 
@@ -26,13 +26,13 @@ export default class Steps extends WeElement {
       <div {...extractClass(props, 'o-steps', {
         'vertical': props.vertical
       })}>
-        {props.items.map((item, index) => {
+        {props.steps.map((item, index) => {
           return <div class={classNames('_item', {
             '_item-finish': item.state === state.DONE,
             '_item-block': item.state === state.ERROR,
             '_item-process': item.state === state.DOING,
             '_item-wait': item.state === state.TODO,
-            'next-error': props.items[index + 1] && props.items[index + 1].state === state.ERROR
+            'next-error': props.steps[index + 1] && props.steps[index + 1].state === state.ERROR
           })}>
             <div class="_item-tail">
             </div>

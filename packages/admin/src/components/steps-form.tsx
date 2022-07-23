@@ -68,15 +68,15 @@ export default class extends WeElement<Props> {
 
       <div class={tw`py-4 px-4`}>
         <div>
-          <o-steps class={tw`py-4 px-4 border-b-1`} items={this.itemsA} />
+          <o-steps class={tw`py-4 px-4 border-b-1`} steps={this.itemsA} />
         </div>
 
-        {/* <o-steps items={this.itemsB} />
-        <o-steps items={this.itemsC} />
+        {/* <o-steps steps={this.itemsB} />
+        <o-steps steps={this.itemsC} />
 
-        <o-steps items={this.itemsA} vertical />
-        <o-steps items={this.itemsB} vertical />
-        <o-steps items={this.itemsC} vertical /> */}
+        <o-steps steps={this.itemsA} vertical />
+        <o-steps steps={this.itemsB} vertical />
+        <o-steps steps={this.itemsC} vertical /> */}
 
         <o-form
           initialValues={{ name: '', email: '' }}
