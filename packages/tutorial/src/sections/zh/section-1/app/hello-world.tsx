@@ -11,4 +11,4 @@ class HelloWorld extends WeElement {
   }
 }
 
-render(<hello-world></hello-world>, 'body')
+render(<hello-world />, 'body')
