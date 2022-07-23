@@ -19,17 +19,17 @@ import { tag, render, h, WeElement } from 'omi'
 声明自定义元素标签名称:
 
 ```tsx
-@tag('hello-world')
+@tag('hello-omi')
 ```
 
 定义自定义元素:
 
 ```tsx
-class HelloWorld extends WeElement {
-  render() {
+class HelloOmi extends WeElement {
+  render(props) {
     return (
       <div id="app">
-        <h1>Hello World!</h1>
+        <h1>Hello {props.msg}!</h1>
       </div>
     )
   }
@@ -38,13 +38,13 @@ class HelloWorld extends WeElement {
 
 渲染自定义元素到 body:
 ```tsx
-render(<hello-world />, 'body')
+render(<hello-omi msg='Omi' />, 'body')
 ```
 
 因为是标准的自定义元素，你可以直接使用 dom api 进行操作达到上面同样的效果:
 
 ```tsx
-document.body.appendChild(document.creatElement('hello-world'))
+document.body.appendChild(document.creatElement('hello-omi'))
 ```
 
 恭喜你入门了！

@@ -126,8 +126,11 @@ export default class extends WeElement {
     selected: true,
     icon: 'ac-unit-outlined',
     children: [{
-      id: 'hello-world',
-      label: 'Hello World',
+      id: 'hello-omi',
+      label: 'Hello Omi',
+    }, {
+      id: 'scoped-css',
+      label: 'Scoped CSS',
     }]
   }]
   lan = 'zh'
@@ -185,14 +188,14 @@ export default class extends WeElement {
     route('*', (evt) => {
       showLoading()
       let loadedCount = 0
-      import(`./sections/${this.lan}/hello-world/description.md?raw`).then((md) => {
+      import(`./sections/${this.lan}/hello-omi/description.md?raw`).then((md) => {
         loadedCount++
         this.mdContent = md.default
         this.update()
         loadedCount > 1 && hideLoading()
       })
 
-      import(`./sections/${this.lan}/hello-world/app/index.tsx?raw`).then((md) => {
+      import(`./sections/${this.lan}/hello-omi/app/index.tsx?raw`).then((md) => {
         loadedCount++
         //https://codemirror.net/docs/migration/ setValue
         this.editor.dispatch({
@@ -202,7 +205,7 @@ export default class extends WeElement {
         build((code) => {
           this.reloadPreview(code)
         });
-        this.selectTreeNodeById('hello-world')
+        this.selectTreeNodeById('hello-omi')
         this.update()
         loadedCount > 1 && hideLoading()
       })
@@ -227,6 +230,10 @@ export default class extends WeElement {
     this.registerRoute()
   }
 
+  onNodeClick = (evt) => {
+    evt.detail.id && route.to(`/${evt.detail.id}`)
+  }
+
   render() {
     return (
       <div>
@@ -237,21 +244,21 @@ export default class extends WeElement {
             </header>
             <o-tree
               style="width:180px"
+              onNodeClick={this.onNodeClick}
               data={this.treeData}>
             </o-tree>
           </div>
           <div class={tw`w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
             {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
             <div class={tw`flex justify-between border-t pt-2 pb-8`}>
-              <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
-              <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link>
+              {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
+              <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link> */}
             </div>
 
           </div>
           <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
             <div class={tw`flex flex-col`} style="height:58%" >
-
-              <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
+              <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-omi.tsx' }]}></o-tabs>
               <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
               </div>
             </div>
