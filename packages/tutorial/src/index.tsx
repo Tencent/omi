@@ -10,6 +10,7 @@ import '@omiu/icon/navigate-next'
 import mdContent from './sections/zh/section-1/description.md?raw'
 import logo from './assets/logo.svg'
 import '@omiu/tabs'
+import tsx from './sections/zh/section-1/app/hello-world.tsx?raw'
 
 interface MyAppProps {
   name: string
@@ -25,18 +26,15 @@ export default class extends WeElement<MyAppProps> {
     console.log(evt.detail)
   }
 
-
-
-
   editorEl: HTMLElement
 
   editor: EditorView
 
   installed(): void {
     this.editor = new EditorView({
-      extensions: [basicSetup, javascript()],
+      extensions: [basicSetup, javascript({ jsx: true, typescript: true })],
       parent: this.editorEl,
-      doc: 'console.log("hello")',
+      doc: tsx,
     })
 
 
@@ -57,15 +55,20 @@ export default class extends WeElement<MyAppProps> {
             </div>
 
           </div>
-          <div class={tw`w-1/2 bg-gray-100`} style={{ height: 'calc(100vh - 36px)' }}>
-            <div class={tw`bg-gray-100 flex flex-col`} style="height:58%" >
-              <div class={tw`bg-gray-100`}  >
-                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
-              </div>
+          <div class={tw`w-1/2`} style={{ height: 'calc(100vh - 36px)' }}>
+            <div class={tw`flex flex-col`} style="height:58%" >
+
+              <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
               <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
               </div>
             </div>
-            <div class={tw`bg-red-100`} style="height:42%">
+            <div class={tw`overflow-hidden`} style="height:42%">
+              <div class={tw`flex flex-col h-full`} >
+                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
+                <div class={tw`overflow-auto flex-1 border pl-4 pr-4`}   >
+                  Hello World!
+                </div>
+              </div>
             </div>
           </div>
         </div>
