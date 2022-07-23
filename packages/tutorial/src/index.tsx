@@ -7,16 +7,18 @@ import { javascript } from "@codemirror/lang-javascript"
 import '@omiu/link'
 import '@omiu/icon/navigate-before'
 import '@omiu/icon/navigate-next'
-import mdContent from './sections/zh/section-1/description.md?raw'
 import logo from './assets/logo.svg'
 import '@omiu/tabs'
-import source from './sections/zh/section-1/app/hello-world.tsx?raw'
+import '@omiu/tree'
+
+import { hashChange, route } from 'omi-router'
+import { showLoading, hideLoading } from '@omiu/toast'
+
 import { vfilePlugin } from './rollup-plugin'
 
 import * as ts from "typescript";
 import { rollup } from 'rollup';
 
-const result = tsBuild(source)
 
 
 function tsBuild(code) {
@@ -33,8 +35,8 @@ function tsBuild(code) {
 }
 
 const files = {
-  './main.js': result,
-  './answer.js': 'export default class XXX{  AA(){}};'
+  './main.js': '',
+  './answer.js': ''
 }
 
 
@@ -55,6 +57,9 @@ const outputOptionsList = [{
 
 
 async function build(callback) {
+  if (!files['./main.js']) {
+    return
+  }
   let bundle;
   let buildFailed = false;
   try {
@@ -82,20 +87,17 @@ async function generateOutputs(bundle, callback) {
       if (chunkOrAsset.type === 'asset') {
         console.log('Asset', chunkOrAsset);
       } else {
-        console.error(output[0].code)
+        // console.error(output[0].code)
         callback(output[0].code)
-        console.log('Chunk', chunkOrAsset.modules);
+        // console.log('Chunk', chunkOrAsset.modules);
       }
     }
   }
 }
 
-interface MyAppProps {
-  name: string
-}
 
 @tag('my-app')
-export default class extends WeElement<MyAppProps> {
+export default class extends WeElement {
   static css = sheet.target
 
   abc: string
@@ -117,6 +119,96 @@ export default class extends WeElement<MyAppProps> {
     this.$iframe.contentWindow.location.reload(true);
   }
 
+  treeData = [{
+    label: 'Base',
+    // sign: '●',
+    expanded: true,
+    selected: true,
+    icon: 'ac-unit-outlined',
+    children: [{
+      id: 'hello-world',
+      label: 'Hello World',
+    }]
+  }]
+  lan = 'zh'
+
+  mdContent: string
+
+  selectTreeNodeById(id) {
+    this.treeData.forEach((node) => {
+      this.deselect(node, id)
+    })
+  }
+
+  deselect(node, id) {
+    node.selected = false
+    node.children &&
+      node.children.forEach((child) => {
+        child.selected = false
+        this.deselect(child, id)
+      })
+
+    if (node.id === id) {
+      node.selected = true
+    }
+  }
+
+  registerRoute() {
+    route('/:section', (evt) => {
+      showLoading()
+      let loadedCount = 0
+      import(`./sections/${this.lan}/${evt.params.section}/description.md?raw`).then((md) => {
+        loadedCount++
+        this.mdContent = md.default
+        this.update()
+        loadedCount > 1 && hideLoading()
+      })
+
+      import(`./sections/${this.lan}/${evt.params.section}/app/index.tsx?raw`).then((md) => {
+        //https://codemirror.net/docs/migration/ setValue
+        loadedCount++
+        this.editor.dispatch({
+          changes: { from: 0, to: this.editor.state.doc.length, insert: md.default }
+        })
+        files['./main.js'] = tsBuild(md.default)
+        build((code) => {
+          this.reloadPreview(code)
+        });
+        this.selectTreeNodeById(evt.params.section)
+        this.update()
+        loadedCount > 1 && hideLoading()
+      })
+    })
+
+
+
+    route('*', (evt) => {
+      showLoading()
+      let loadedCount = 0
+      import(`./sections/${this.lan}/hello-world/description.md?raw`).then((md) => {
+        loadedCount++
+        this.mdContent = md.default
+        this.update()
+        loadedCount > 1 && hideLoading()
+      })
+
+      import(`./sections/${this.lan}/hello-world/app/index.tsx?raw`).then((md) => {
+        loadedCount++
+        //https://codemirror.net/docs/migration/ setValue
+        this.editor.dispatch({
+          changes: { from: 0, to: this.editor.state.doc.length, insert: md.default }
+        })
+        files['./main.js'] = tsBuild(md.default)
+        build((code) => {
+          this.reloadPreview(code)
+        });
+        this.selectTreeNodeById('hello-world')
+        this.update()
+        loadedCount > 1 && hideLoading()
+      })
+    })
+  }
+
   installed(): void {
     this.editor = new EditorView({
       extensions: [
@@ -129,31 +221,34 @@ export default class extends WeElement<MyAppProps> {
           });
         })],
       parent: this.editorEl,
-      doc: source
+      doc: ''
     })
 
-
-    build((code) => {
-      this.reloadPreview(code)
-    });
+    this.registerRoute()
   }
 
   render() {
     return (
       <div>
-        <header class={tw`border-b h-9 leading-9 text-black pl-8`}>
-          <h1 style={{ color: '#07C160' }}>  <img class={tw`w-5 inline-block mr-1 relative -top-0.5`} src={logo} />OMI TUTORIAL</h1>
-        </header>
         <div class={tw`flex`}>
-          <div class={tw`w-1/2 overflow-auto pl-8 pr-8`} style={{ height: 'calc(100vh - 36px)' }}>
-            <admin-docs mdContent={mdContent}></admin-docs>
+          <div class={tw`flex flex-col`}>
+            <header class={tw`border-b h-9 leading-9 text-black pl-2`}>
+              <h1 style={{ color: '#07C160' }}>  <img class={tw`w-5 inline-block mr-1 relative -top-0.5`} src={logo} />OMI TUTORIAL</h1>
+            </header>
+            <o-tree
+              style="width:180px"
+              data={this.treeData}>
+            </o-tree>
+          </div>
+          <div class={tw`w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
+            {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
             <div class={tw`flex justify-between border-t pt-2 pb-8`}>
               <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
               <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link>
             </div>
 
           </div>
-          <div class={tw`w-1/2`} style={{ height: 'calc(100vh - 36px)' }}>
+          <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
             <div class={tw`flex flex-col`} style="height:58%" >
 
               <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-world.tsx' }, { label: 'xx.tsx' }, { label: 'xxx.tsx' }]}></o-tabs>
