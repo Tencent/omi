@@ -10,7 +10,85 @@ import '@omiu/icon/navigate-next'
 import mdContent from './sections/zh/section-1/description.md?raw'
 import logo from './assets/logo.svg'
 import '@omiu/tabs'
-import tsx from './sections/zh/section-1/app/hello-world.tsx?raw'
+import source from './sections/zh/section-1/app/hello-world.tsx?raw'
+import { vfilePlugin } from './rollup-plugin'
+
+import * as ts from "typescript";
+import { rollup } from 'rollup';
+
+const result = tsBuild(source)
+
+
+function tsBuild(code) {
+  return ts.transpileModule(code, {
+    compilerOptions: {
+      module: ts.ModuleKind.ESNext,
+      target: ts.ScriptTarget.ESNext,
+      // @ts-ignore
+      jsx: 'react',
+      jsxFactory: 'h',
+      jsxFragmentFactory: 'h.f',
+    }
+  }).outputText;
+}
+
+const files = {
+  './main.js': result,
+  './answer.js': 'export default class XXX{  AA(){}};'
+}
+
+
+// see below for details on these options
+const inputOptions = {
+  input: './main.js', // resolved by our plugin
+  plugins: [vfilePlugin(files)],
+  // 不需要 tree shaking
+  treeshake: false
+};
+
+// you can create multiple outputs from the same input to generate e.g.
+// different formats like CommonJS and ESM
+const outputOptionsList = [{
+  file: 'bundle.js',
+  format: 'umd' //es
+}];
+
+
+async function build(callback) {
+  let bundle;
+  let buildFailed = false;
+  try {
+    // create a bundle
+    bundle = await rollup(inputOptions);
+
+    // an array of file names this bundle depends on
+    await generateOutputs(bundle, callback);
+  } catch (error) {
+    buildFailed = true;
+    // do some error reporting
+    console.error(error);
+  }
+  if (bundle) {
+    // closes the bundle
+    await bundle.close();
+  }
+  // process.exit(buildFailed ? 1 : 0);
+}
+
+async function generateOutputs(bundle, callback) {
+  for (const outputOptions of outputOptionsList) {
+    const { output } = await bundle.generate(outputOptions);
+    for (const chunkOrAsset of output) {
+      if (chunkOrAsset.type === 'asset') {
+        console.log('Asset', chunkOrAsset);
+      } else {
+        console.error(output[0].code)
+        callback(output[0].code)
+        console.log('Chunk', chunkOrAsset.modules);
+      }
+    }
+  }
+}
 
 interface MyAppProps {
   name: string
@@ -30,17 +108,37 @@ export default class extends WeElement<MyAppProps> {
 
   editor: EditorView
 
+  $iframe: HTMLElement
+
+  reloadPreview(code) {
+    // @ts-ignore
+    window._sourceCode = code;
+    // @ts-ignore
+    this.$iframe.contentWindow.location.reload(true);
+  }
+
   installed(): void {
     this.editor = new EditorView({
-      extensions: [basicSetup, javascript({ jsx: true, typescript: true })],
+      extensions: [
+        basicSetup,
+        javascript({ jsx: true, typescript: true }),
+        EditorView.updateListener.of((e) => {
+          files['./main.js'] = tsBuild(e.state.doc.toString())
+          build((code) => {
+            this.reloadPreview(code)
+          });
+        })],
       parent: this.editorEl,
-      doc: tsx,
+      doc: source
     })
 
 
+    build((code) => {
+      this.reloadPreview(code)
+    });
   }
 
-  render(props) {
+  render() {
     return (
       <div>
         <header class={tw`border-b h-9 leading-9 text-black pl-8`}>
@@ -66,7 +164,7 @@ export default class extends WeElement<MyAppProps> {
               <div class={tw`flex flex-col h-full`} >
                 <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
                 <div class={tw`overflow-auto flex-1 border`}   >
-                  <iframe class={tw`w-full h-full`} src="./preview.html" id="preview"></iframe>
+                  <iframe class={tw`w-full h-full`} src="./preview.html" ref={e => this.$iframe = e}></iframe>
                 </div>
               </div>
             </div>
