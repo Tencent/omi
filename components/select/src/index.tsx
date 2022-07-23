@@ -7,7 +7,7 @@ import '@omiu/popover'
 // import '../../popover/src/index.tsx'
 
 interface Props {
-  items: any[]
+  options: any[]
   active: boolean
   value: string | number | any[]
   placeholder: string
@@ -35,7 +35,7 @@ export default class Select extends WeElement<Props> {
   }
 
   static propTypes = {
-    items: Array,
+    options: Array,
     active: Boolean,
     value: String,
     placeholder: String,
@@ -69,21 +69,21 @@ export default class Select extends WeElement<Props> {
 
   selectedIndexMap = {}
 
-  selectedItems = []
+  selectedOptions = []
 
-  onItemClick = (item, index, evt) => {
+  onOptionClick = (option, index, evt) => {
     if (this.props.multiple) {
       //不自动关闭
       evt.stopPropagation()
       if (this.selectedIndexMap.hasOwnProperty(index)) {
         delete this.selectedIndexMap[index]
-        this.selectedItems.splice(this.selectedItems.indexOf(item), 1)
+        this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1)
       } else {
         this.selectedIndexMap[index] = true
-        this.selectedItems.push(item)
+        this.selectedOptions.push(option)
       }
 
-      this.fire('item-select', this.selectedItems)
+      this.fire('option-select', this.selectedOptions)
 
       this.update()
 
@@ -93,13 +93,13 @@ export default class Select extends WeElement<Props> {
     } else {
       this._refInput.focus()
 
-      this.fire('item-select', item)
+      this.fire('option-select', option)
 
       this.selectedIndex = index
-      this.label = item.label
+      this.label = option.label
       this.updateProps({
         active: false,
-        value: item.value
+        value: option.value
       })
     }
   }
@@ -145,17 +145,17 @@ export default class Select extends WeElement<Props> {
 
   beforeRender() {
     if (this.props.multiple) {
-      for (let i = 0, len = this.props.items.length; i < len; i++) {
-        if (this.props.value.indexOf(this.props.items[i].value) !== -1) {
+      for (let i = 0, len = this.props.options.length; i < len; i++) {
+        if (this.props.value.indexOf(this.props.options[i].value) !== -1) {
           this.selectedIndexMap[i] = 1
         }
       }
     } else {
       if (this.props.value) {
-        for (let i = 0, len = this.props.items.length; i < len; i++) {
-          if (this.props.value + '' === this.props.items[i].value + '') {
+        for (let i = 0, len = this.props.options.length; i < len; i++) {
+          if (this.props.value + '' === this.props.options[i].value + '') {
             this.selectedIndex = i
-            this.label = this.props.items[i].label
+            this.label = this.props.options[i].label
           }
         }
       }
@@ -193,10 +193,10 @@ export default class Select extends WeElement<Props> {
                   <span class="o-select__tags-text">asfsdfdsafdsafdsfbc</span><i class="o-tag__close o-icon-close"></i>
                 </span> */}
 
-                {this.selectedItems.map((item) => {
+                {this.selectedOptions.map((option) => {
                   return (
                     <span class="o-tag o-tag--info o-tag--small o-tag--light">
-                      <span class="o-select__tags-text">{item.label}</span>
+                      <span class="o-select__tags-text">{option.label}</span>
                       <i class="o-tag__close o-icon-close"></i>
                     </span>
                   )
@@ -260,20 +260,20 @@ export default class Select extends WeElement<Props> {
 
           <div slot="popover" class="o-select-dropdown__wrap">
             <ul>
-              {props.items.map((item, index) => {
+              {props.options.map((option, index) => {
                 const selected = props.multiple
                   ? this.selectedIndexMap[index]
                   : index === this.selectedIndex
                 return (
                   <li
-                    {...extractClass({}, 'o-select-dropdown__item', {
+                    {...extractClass({}, 'o-select-dropdown__option', {
                       selected
                     })}
                     onClick={(evt) => {
-                      this.onItemClick(item, index, evt)
+                      this.onOptionClick(option, index, evt)
                     }}
                   >
-                    <span>{item.label}</span>
+                    <span>{option.label}</span>
                     {selected && (
                       <svg
                         class="a3 a2"

@@ -129,7 +129,7 @@ export default class extends WeElement<Props> {
                 size="mini"
                 onItemSelect={this.onItemSelect}
                 value={i18next.language}
-                items={this.items}
+                options={this.items}
               ></o-select>
             </div>
           </div>

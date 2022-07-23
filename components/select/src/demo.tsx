@@ -28,39 +28,39 @@ export default class MyDemo extends WeElement<Props> {
           multiple
           size="mini"
           block
-          placeholder="Select A Item"
-          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 3 }, { label: 'Item B', value: 4 }, { label: 'Item C', value: 5 }]}>
+          placeholder="Select A Option"
+          options={[{ label: 'Option A', value: 1 }, { label: 'Option B', value: 2 }, { label: 'Option C', value: 3 }, { label: 'Option B', value: 4 }, { label: 'Option C', value: 5 }]}>
         </o-select>
 
         <o-select
-          placeholder="Select A Item"
+          placeholder="Select A Option"
           value="1"
-          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 3 }]}></o-select>
+          options={[{ label: 'Option A', value: 1 }, { label: 'Option B', value: 2 }, { label: 'Option C', value: 3 }]}></o-select>
 
 
         <o-select
           size="medium"
-          placeholder="Select A Item"
-          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 2 }]}></o-select>
+          placeholder="Select A Option"
+          options={[{ label: 'Option A', value: 1 }, { label: 'Option B', value: 2 }, { label: 'Option C', value: 2 }]}></o-select>
 
 
         <o-select
           size="small"
-          placeholder="Select A Item"
-          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 2 }]}>
+          placeholder="Select A Option"
+          options={[{ label: 'Option A', value: 1 }, { label: 'Option B', value: 2 }, { label: 'Option B', value: 2 }, { label: 'Option B', value: 2 }, { label: 'Option B', value: 2 }, { label: 'Option B', value: 2 }, { label: 'Option B', value: 2 }, { label: 'Option B', value: 2 }, { label: 'Option C', value: 2 }]}>
         </o-select>
 
         <o-select
           size="mini"
-          placeholder="Select A Item"
-          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 2 }]}></o-select>
+          placeholder="Select A Option"
+          options={[{ label: 'Option A', value: 1 }, { label: 'Option B', value: 2 }, { label: 'Option C', value: 2 }]}></o-select>
 
 
         <o-select
           multiple
           size="mini"
-          placeholder="Select A Item"
-          items={[{ label: 'Item A', value: 1 }, { label: 'Item B', value: 2 }, { label: 'Item C', value: 3 }, { label: 'Item B', value: 4 }, { label: 'Item C', value: 5 }]}>
+          placeholder="Select A Option"
+          options={[{ label: 'Option A', value: 1 }, { label: 'Option B', value: 2 }, { label: 'Option C', value: 3 }, { label: 'Option B', value: 4 }, { label: 'Option C', value: 5 }]}>
         </o-select>
 
       </div>

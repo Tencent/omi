@@ -100,7 +100,7 @@ export default class extends WeElement<Props> {
                 <div class={tw`leading-8 ml-16`}>
                   <o-select size="small"
                     placeholder="选择一个出生地"
-                    items={this.items}
+                    options={this.items}
                     block
                   ></o-select>
                   <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
@@ -116,7 +116,7 @@ export default class extends WeElement<Props> {
                     size="small"
                     multiple
                     placeholder="选择多个水果"
-                    items={this.fruits}
+                    options={this.fruits}
                   ></o-select>
                   <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
                 </div>

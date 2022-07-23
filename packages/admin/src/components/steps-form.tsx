@@ -136,7 +136,7 @@ export default class extends WeElement<Props> {
                   <label class={lableClass} >合同名称</label>
                   <div class={tw`leading-8 ml-16`}>
                     <o-select block size="small" placeholder="选择合同名称"
-                      items={this.items}
+                      options={this.items}
                     ></o-select>
                     <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
                   </div>
@@ -146,7 +146,7 @@ export default class extends WeElement<Props> {
                   <label class={lableClass} >发票类型</label>
                   <div class={tw`leading-8 ml-16`}>
                     <o-select block size="small" placeholder="选择发票类型"
-                      items={this.items}
+                      options={this.items}
                     ></o-select>
                     <div class={tw`text-red-500 h-6 text-sm`}>{errors.address}</div>
                   </div>

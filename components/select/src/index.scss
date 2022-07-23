@@ -33,13 +33,13 @@
   margin: 5px 0;
 }
 
-.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {
+.o-select-dropdown.is-multiple .o-select-dropdown__option.selected {
   color: $o-primary;
   color: var(--o-primary, $o-primary);
   background-color: #fff;
 }
 
-.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {
+.o-select-dropdown.is-multiple .o-select-dropdown__option.selected.hover {
   background-color: #f5f7fa;
 }
 
@@ -139,7 +139,7 @@
   width: 100%;
 }
 
-.o-select-dropdown__item,
+.o-select-dropdown__option,
 .o-tag {
   white-space: nowrap;
   -webkit-box-sizing: border-box;
@@ -743,7 +743,7 @@
   transform: scale(0.7);
 }
 
-.o-select-dropdown__item {
+.o-select-dropdown__option {
   font-size: 14px;
   padding: 0 20px;
   position: relative;
@@ -756,21 +756,21 @@
   cursor: pointer;
 }
 
-.o-select-dropdown__item.is-disabled {
+.o-select-dropdown__option.is-disabled {
   color: #c0c4cc;
   cursor: not-allowed;
 }
 
-.o-select-dropdown__item.is-disabled:hover {
+.o-select-dropdown__option.is-disabled:hover {
   background-color: #fff;
 }
 
-.o-select-dropdown__item.hover,
-.o-select-dropdown__item:hover {
+.o-select-dropdown__option.hover,
+.o-select-dropdown__option:hover {
   background-color: #f5f7fa;
 }
 
-.o-select-dropdown__item.selected {
+.o-select-dropdown__option.selected {
   color: $o-primary;
   color: var(--o-primary, $o-primary);
   font-weight: 700;
@@ -810,7 +810,7 @@
   line-height: 30px;
 }
 
-.o-select-group .o-select-dropdown__item {
+.o-select-group .o-select-dropdown__option {
   padding-left: 20px;
 }
 
@@ -1056,13 +1056,13 @@
   margin: 5px 0;
 }
 
-.o-select-dropdown.is-multiple .o-select-dropdown__item.selected {
+.o-select-dropdown.is-multiple .o-select-dropdown__option.selected {
   color: $o-primary;
   color: var(--o-primary, $o-primary);
   background-color: #fff;
 }
 
-.o-select-dropdown.is-multiple .o-select-dropdown__item.selected.hover {
+.o-select-dropdown.is-multiple .o-select-dropdown__option.selected.hover {
   background-color: #f5f7fa;
 }
 
