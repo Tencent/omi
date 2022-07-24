@@ -6,7 +6,25 @@
 
 ## 原理解析
 
-下面的 `fade` 为用户自定义的名称，你可以取任何名字。
+```tsx
+static css = `
+  .fade-leave-to,
+  .fade-enter {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+
+  .fade-leave-active,
+  .fade-enter-active {
+    transition: all 500ms ease-in;
+  }`
+```
+
+其中 `fade` 为用户自定义的名称，你可以取任何名字，对应 `o-transition` 的 name:
+
+```tsx
+<o-transition  name="fade"></o-transition>
+```
 
 * fade-enter：定义进入过渡的开始状态
 * fade-enter-active：定义进入过渡生效时的状态，在过渡动画完成之后移除
