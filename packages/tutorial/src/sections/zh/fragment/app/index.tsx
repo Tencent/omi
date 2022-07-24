@@ -2,7 +2,6 @@ import { tag, WeElement, render, h } from 'omi'
 
 @tag('my-counter')
 class MyCounter extends WeElement {
-
   static css = `
     span {
       color: red;
