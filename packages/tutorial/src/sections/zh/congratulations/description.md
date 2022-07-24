@@ -22,7 +22,7 @@ npm i omi
 
 ## 命令行工具
 
-Omi 提供了官方的 CLI，你不需要去学习怎么配置 webpack、babel 或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
+Omi 提供了官方的 CLI，你不需要去学习怎么配置 Vite、Rollup 或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
 
 ### 创建项目
 
