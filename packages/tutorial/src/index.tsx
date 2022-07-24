@@ -182,58 +182,47 @@ export default class extends WeElement {
   }
 
   registerRoute() {
+    // https://github.com/vitejs/vite/issues/4945
+    // https://vitejs.dev/guide/features.html#glob-import
+    // @ts-ignore
+    const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
+
     route('/:section', (evt) => {
       showLoading()
-      let loadedCount = 0
-      import(`./sections/${this.lan}/${evt.params.section}/description.md?raw`).then((md) => {
-        loadedCount++
-        this.mdContent = md.default
-        this.update()
-        loadedCount > 1 && hideLoading()
-      })
 
-      import(`./sections/${this.lan}/${evt.params.section}/app/index.tsx?raw`).then((md) => {
-        //https://codemirror.net/docs/migration/ setValue
-        loadedCount++
-        this.editor.dispatch({
-          changes: { from: 0, to: this.editor.state.doc.length, insert: md.default }
-        })
-        files['./main.js'] = tsBuild(md.default)
-        build((code) => {
-          this.reloadPreview(code)
-        });
-        this.selectTreeNodeById(evt.params.section)
-        this.update()
-        loadedCount > 1 && hideLoading()
+      const match = mds[`./sections/${this.lan}/${evt.params.section}/description.md`] + ''
+      this.mdContent = match
+
+      const tsxMatch = mds[`./sections/${this.lan}/${evt.params.section}/app/index.tsx`] + ''
+      this.editor.dispatch({
+        changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
       })
+      files['./main.js'] = tsBuild(tsxMatch)
+      build((code) => {
+        this.reloadPreview(code)
+      });
+      this.selectTreeNodeById(evt.params.section)
+      this.update()
+      hideLoading()
     })
 
-
-
-    route('*', (evt) => {
+    route('*', async () => {
       showLoading()
-      let loadedCount = 0
-      import(`./sections/${this.lan}/hello-omi/description.md?raw`).then((md) => {
-        loadedCount++
-        this.mdContent = md.default
-        this.update()
-        loadedCount > 1 && hideLoading()
-      })
 
-      import(`./sections/${this.lan}/hello-omi/app/index.tsx?raw`).then((md) => {
-        loadedCount++
-        //https://codemirror.net/docs/migration/ setValue
-        this.editor.dispatch({
-          changes: { from: 0, to: this.editor.state.doc.length, insert: md.default }
-        })
-        files['./main.js'] = tsBuild(md.default)
-        build((code) => {
-          this.reloadPreview(code)
-        });
-        this.selectTreeNodeById('hello-omi')
-        this.update()
-        loadedCount > 1 && hideLoading()
+      const match = mds[`./sections/${this.lan}/hello-omi/description.md`] + ''
+      this.mdContent = match
+
+      const tsxMatch = mds[`./sections/${this.lan}/hello-omi/app/index.tsx`] + ''
+      this.editor.dispatch({
+        changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
       })
+      files['./main.js'] = tsBuild(tsxMatch)
+      build((code) => {
+        this.reloadPreview(code)
+      });
+      this.selectTreeNodeById('hello-omi')
+      this.update()
+      hideLoading()
     })
   }
 
