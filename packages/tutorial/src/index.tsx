@@ -272,7 +272,7 @@ export default class extends WeElement {
           </div>
           <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
             <div class={tw`flex flex-col`} style="height:58%" >
-              <o-tabs type="card" activeIndex={0} tabs={[{ label: 'hello-omi.tsx' }]}></o-tabs>
+              <o-tabs type="card" activeIndex={0} tabs={[{ label: 'demo.tsx' }]}></o-tabs>
               <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
               </div>
             </div>
