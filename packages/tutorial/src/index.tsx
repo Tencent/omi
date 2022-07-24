@@ -123,7 +123,7 @@ export default class extends WeElement {
     label: 'Base',
     // sign: '●',
     expanded: true,
-    selected: true,
+    // selected: true,
     icon: 'ac-unit-outlined',
     children: [{
       id: 'hello-omi',
@@ -137,6 +137,25 @@ export default class extends WeElement {
     }, {
       id: 'fragment',
       label: 'Fragment',
+    }, {
+      id: 'unsafe-html',
+      label: 'Unsafe HTML',
+    }]
+  }, {
+    label: 'Complex',
+    expanded: true,
+    children: [{
+      id: 'transition',
+      label: 'Transition',
+    }, {
+      id: 'bubble-sort',
+      label: 'Bubble Sort',
+    }, {
+      id: 'clock',
+      label: 'Clock',
+    }, {
+      id: 'to-motion',
+      label: 'To Motion',
     }]
   }]
   lan = 'zh'
