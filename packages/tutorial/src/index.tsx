@@ -12,7 +12,7 @@ import '@omiu/tabs'
 import '@omiu/tree'
 
 import { hashChange, route } from 'omi-router'
-import { showLoading, hideLoading } from '@omiu/toast'
+// import { showLoading, hideLoading } from '@omiu/toast'
 
 import { vfilePlugin } from './rollup-plugin'
 
@@ -188,8 +188,6 @@ export default class extends WeElement {
     const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
 
     route('/:section', (evt) => {
-      showLoading()
-
       const match = mds[`./sections/${this.lan}/${evt.params.section}/description.md`] + ''
       this.mdContent = match
 
@@ -203,11 +201,12 @@ export default class extends WeElement {
       });
       this.selectTreeNodeById(evt.params.section)
       this.update()
-      hideLoading()
+      // @ts-ignore
+      OToast.hideLoading()
     })
 
     route('*', async () => {
-      showLoading()
+
 
       const match = mds[`./sections/${this.lan}/hello-omi/description.md`] + ''
       this.mdContent = match
@@ -222,7 +221,8 @@ export default class extends WeElement {
       });
       this.selectTreeNodeById('hello-omi')
       this.update()
-      hideLoading()
+      // @ts-ignore
+      OToast.hideLoading()
     })
   }
 

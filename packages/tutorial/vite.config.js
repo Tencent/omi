@@ -7,6 +7,7 @@ export default {
   },
   build: {
     rollupOptions: {
+      // external: [/^omi/, '@omiu/toast'],
       input: {
         main: resolve(__dirname, "index.html"),
         preview: resolve(__dirname, "preview.html")

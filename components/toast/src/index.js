@@ -537,7 +537,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ":host {\n  display: block; }\n\n.o-toast {\n  position: fixed;\n  z-index: 5000;\n  width: 120px;\n  height: 120px;\n  top: 40%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center;\n  border-radius: 5px;\n  color: rgba(255, 255, 255, 0.9);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  background-color: #4c4c4c; }\n\nbody[data-o-theme='dark'] .o-toast {\n  background-color: #606060; }\n\n@media (prefers-color-scheme: dark) {\n  body:not([data-o-theme='light']) .o-toast {\n    background-color: #606060; } }\n\n.o-icon-toast {\n  display: block; }\n\n.o-icon-toast.o-icon-success-no-circle {\n  color: rgba(255, 255, 255, 0.9);\n  width: 55px;\n  height: 55px; }\n\n.o-toast-content {\n  font-size: 14px;\n  margin-top: 10px; }\n\n.o-mask {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.6); }\n\n.o-mask-transparent {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\np {\n  margin: 0; }\n\n.o-success {\n  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);\n  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E); }\n\n.o-warning {\n  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E);\n  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E); }\n\ni {\n  -webkit-mask-position: 50% 50%;\n  mask-position: 50% 50%;\n  -webkit-mask-repeat: no-repeat;\n  mask-repeat: no-repeat;\n  -webkit-mask-size: 100%;\n  mask-size: 100%;\n  background-color: currentColor;\n  color: rgba(255, 255, 255, 0.9);\n  width: 40px;\n  height: 40px;\n  display: block;\n  background-size: 100%; }\n\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity .2s; }\n\n.fade-enter,\n.fade-leave-to {\n  opacity: 0; }\n", ""]);
+exports.push([module.i, ":host {\n  display: block; }\n\n.o-toast {\n  position: fixed;\n  z-index: 5000;\n  width: 120px;\n  height: 120px;\n  top: 40%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center;\n  border-radius: 5px;\n  color: rgba(255, 255, 255, 0.9);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  background-color: #4c4c4c; }\n\nbody[data-o-theme='dark'] .o-toast {\n  background-color: #606060; }\n\n@media (prefers-color-scheme: dark) {\n  body:not([data-o-theme='light']) .o-toast {\n    background-color: #606060; } }\n\n.o-icon-toast {\n  display: block; }\n\n.o-icon-toast.o-icon-success-no-circle {\n  color: rgba(255, 255, 255, 0.9);\n  width: 55px;\n  height: 55px; }\n\n.o-toast-content {\n  font-size: 14px;\n  margin-top: 10px; }\n\n.o-mask {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.6); }\n\n.o-mask-transparent {\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0; }\n\n@-webkit-keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\n@keyframes loading {\n  0% {\n    transform: rotate3d(0, 0, 1, 0deg); }\n  100% {\n    transform: rotate3d(0, 0, 1, 360deg); } }\n\np {\n  margin: 0; }\n\n.o-success {\n  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);\n  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E); }\n\n.o-warning {\n  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E);\n  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E); }\n\ni {\n  -webkit-mask-position: 50% 50%;\n  mask-position: 50% 50%;\n  -webkit-mask-repeat: no-repeat;\n  mask-repeat: no-repeat;\n  -webkit-mask-size: 100%;\n  mask-size: 100%;\n  background-color: currentColor;\n  color: rgba(255, 255, 255, 0.9);\n  width: 40px;\n  height: 40px;\n  display: block;\n  background-size: 100%; }\n\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity 0.2s; }\n\n.fade-enter,\n.fade-leave-to {\n  opacity: 0; }\n", ""]);
 
 // exports
 
@@ -672,6 +672,10 @@ module.exports = g;
 
         var result = __webpack_require__(/*! !../node_modules/css-loader!../node_modules/resolve-url-loader!../node_modules/sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss");
 
+        if (result && result.__esModule) {
+            result = result.default;
+        }
+
         if (typeof result === "string") {
             module.exports = result;
         } else {
@@ -721,16 +725,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.hideWarning = exports.showWarning = exports.hideSuccess = exports.showSuccess = exports.hideLoading = exports.showLoading = void 0;
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 __webpack_require__(/*! @omiu/loading */ "./node_modules/@omiu/loading/src/index.esm.js");
 __webpack_require__(/*! @omiu/transition */ "./node_modules/@omiu/transition/src/index.esm.js");
-var Button = /** @class */ (function (_super) {
-    __extends(Button, _super);
-    function Button() {
+var Toast = /** @class */ (function (_super) {
+    __extends(Toast, _super);
+    function Toast() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Button.prototype.installed = function () {
+    Toast.prototype.installed = function () {
         var _this = this;
         if (this.props.autoHide) {
             setTimeout(function () {
@@ -741,14 +746,14 @@ var Button = /** @class */ (function (_super) {
             }, this.props.duration + 200 * 2);
         }
     };
-    Button.prototype.hide = function () {
+    Toast.prototype.hide = function () {
         var _this = this;
         this.setAttribute('show', false);
         setTimeout(function () {
             _this.parentNode.removeChild(_this);
         }, 200);
     };
-    Button.prototype.render = function (props) {
+    Toast.prototype.render = function (props) {
         return omi_1.h("o-transition", { appear: props.show, name: "fade" },
             omi_1.h("div", null,
                 omi_1.h("div", { class: "o-mask-transparent" }),
@@ -759,14 +764,14 @@ var Button = /** @class */ (function (_super) {
                     props.warning && omi_1.h("i", { class: "o-warning" }),
                     omi_1.h("p", { class: "o-toast-content" }, props.content || (props.loading ? '加载中' : '')))));
     };
-    Button.css = css;
-    Button.defaultProps = {
+    Toast.css = css;
+    Toast.defaultProps = {
         duration: 2000,
         autoHide: false,
         show: true,
         content: ''
     };
-    Button.propTypes = {
+    Toast.propTypes = {
         content: String,
         loading: Boolean,
         success: Boolean,
@@ -775,12 +780,14 @@ var Button = /** @class */ (function (_super) {
         autoHide: Boolean,
         show: Boolean
     };
-    Button = __decorate([
+    Toast = __decorate([
         omi_1.tag('o-toast')
-    ], Button);
-    return Button;
+    ], Toast);
+    return Toast;
 }(omi_1.WeElement));
-exports.default = Button;
+exports.default = Toast;
+Toast.showLoading = showLoading;
+Toast.hideLoading = hideLoading;
 var el;
 function showLoading(content) {
     remove();

@@ -1,5 +1,5 @@
 /**
- * @omiu/toast v0.0.8 http://omijs.org
+ * @omiu/toast v0.0.9 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -8,31 +8,33 @@
 
 import { h, tag, WeElement, extractClass } from 'omi';
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
+var extendStatics$2 = function(d, b) {
+    extendStatics$2 = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics$2(d, b);
 };
 
-function __extends(d, b) {
-    extendStatics(d, b);
+function __extends$2(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics$2(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
@@ -48,116 +50,16 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-function __decorate(decorators, target, key, desc) {
+function __decorate$2(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
-
-var css = `:host {
-  display: block; }
-
-.o-toast {
-  position: fixed;
-  z-index: 5000;
-  width: 120px;
-  height: 120px;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #4c4c4c; }
-
-body[data-o-theme='dark'] .o-toast {
-  background-color: #606060; }
-
-@media (prefers-color-scheme: dark) {
-  body:not([data-o-theme='light']) .o-toast {
-    background-color: #606060; } }
-
-.o-icon-toast {
-  display: block; }
-
-.o-icon-toast.o-icon-success-no-circle {
-  color: rgba(255, 255, 255, 0.9);
-  width: 55px;
-  height: 55px; }
-
-.o-toast-content {
-  font-size: 14px;
-  margin-top: 10px; }
-
-.o-mask {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6); }
-
-.o-mask-transparent {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0; }
-
-@-webkit-keyframes loading {
-  0% {
-    transform: rotate3d(0, 0, 1, 0deg); }
-  100% {
-    transform: rotate3d(0, 0, 1, 360deg); } }
-
-@keyframes loading {
-  0% {
-    transform: rotate3d(0, 0, 1, 0deg); }
-  100% {
-    transform: rotate3d(0, 0, 1, 360deg); } }
-
-p {
-  margin: 0; }
-
-.o-success {
-  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);
-  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E); }
-
-.o-warning {
-  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E);
-  -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E); }
-
-i {
-  -webkit-mask-position: 50% 50%;
-  mask-position: 50% 50%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100%;
-  mask-size: 100%;
-  background-color: currentColor;
-  color: rgba(255, 255, 255, 0.9);
-  width: 40px;
-  height: 40px;
-  display: block;
-  background-size: 100%; }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .2s; }
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0; }
-`
-
+var css$1 = /*#__PURE__*/Object.freeze({
+    __proto__: null
+});
 
 /**
  * @omiu/loading v0.0.2 http://omijs.org
@@ -204,7 +106,7 @@ function __decorate$1(decorators, target, key, desc) {
 }
 
 
-var css$1 = `:host {
+var css = `:host {
   display: inline-block; }
 
 .o-root {
@@ -250,7 +152,7 @@ var css$1 = `:host {
 `;
 
 
-var Loading = /** @class */ (function (_super) {
+/** @class */ ((function (_super) {
     __extends$1(Loading, _super);
     function Loading() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -260,7 +162,7 @@ var Loading = /** @class */ (function (_super) {
             h("svg", { class: "o-svg", viewBox: "22 22 44 44" },
                 h("circle", { class: "o-circle o-circleIndeterminate", cx: "44", cy: "44", r: "20.2", fill: "none", "stroke-width": "3.6" }))));
     };
-    Loading.css = css$1;
+    Loading.css = css;
     Loading.defaultProps = {
         size: 40
     };
@@ -272,7 +174,7 @@ var Loading = /** @class */ (function (_super) {
         tag('o-loading')
     ], Loading);
     return Loading;
-}(WeElement));
+})(WeElement));
 
 /**
  * @omiu/transition v0.0.12 http://omijs.org
@@ -298,20 +200,20 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics$2 = function(d, b) {
-    extendStatics$2 = Object.setPrototypeOf ||
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics$2(d, b);
+    return extendStatics(d, b);
 };
 
-function __extends$2(d, b) {
-    extendStatics$2(d, b);
+function __extends(d, b) {
+    extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-function __decorate$2(decorators, target, key, desc) {
+function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -415,8 +317,8 @@ var _domReady = /*#__PURE__*/Object.freeze({
  *
  */
 var domReady = _dready_0_0_1_dready || _domReady;
-var Transition = /** @class */ (function (_super) {
-    __extends$2(Transition, _super);
+/** @class */ ((function (_super) {
+    __extends(Transition, _super);
     function Transition() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._show = true;
@@ -543,18 +445,18 @@ var Transition = /** @class */ (function (_super) {
         name: 'o',
         delay: 0
     };
-    Transition = __decorate$2([
+    Transition = __decorate([
         tag('o-transition')
     ], Transition);
     return Transition;
-}(WeElement));
+})(WeElement));
 
-var Button = /** @class */ (function (_super) {
-    __extends(Button, _super);
-    function Button() {
+var Toast = /** @class */ (function (_super) {
+    __extends$2(Toast, _super);
+    function Toast() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Button.prototype.installed = function () {
+    Toast.prototype.installed = function () {
         var _this = this;
         if (this.props.autoHide) {
             setTimeout(function () {
@@ -565,14 +467,14 @@ var Button = /** @class */ (function (_super) {
             }, this.props.duration + 200 * 2);
         }
     };
-    Button.prototype.hide = function () {
+    Toast.prototype.hide = function () {
         var _this = this;
         this.setAttribute('show', false);
         setTimeout(function () {
             _this.parentNode.removeChild(_this);
         }, 200);
     };
-    Button.prototype.render = function (props) {
+    Toast.prototype.render = function (props) {
         return h("o-transition", { appear: props.show, name: "fade" },
             h("div", null,
                 h("div", { class: "o-mask-transparent" }),
@@ -583,14 +485,14 @@ var Button = /** @class */ (function (_super) {
                     props.warning && h("i", { class: "o-warning" }),
                     h("p", { class: "o-toast-content" }, props.content || (props.loading ? '加载中' : '')))));
     };
-    Button.css = css;
-    Button.defaultProps = {
+    Toast.css = css$1;
+    Toast.defaultProps = {
         duration: 2000,
         autoHide: false,
         show: true,
         content: ''
     };
-    Button.propTypes = {
+    Toast.propTypes = {
         content: String,
         loading: Boolean,
         success: Boolean,
@@ -599,11 +501,13 @@ var Button = /** @class */ (function (_super) {
         autoHide: Boolean,
         show: Boolean
     };
-    Button = __decorate([
+    Toast = __decorate$2([
         tag('o-toast')
-    ], Button);
-    return Button;
+    ], Toast);
+    return Toast;
 }(WeElement));
+Toast.showLoading = showLoading;
+Toast.hideLoading = hideLoading;
 var el;
 function showLoading(content) {
     remove();
@@ -659,6 +563,5 @@ function remove() {
     }
 }
 
-export default Button;
-export { hideLoading, hideSuccess, hideWarning, showLoading, showSuccess, showWarning };
+export { Toast as default, hideLoading, hideSuccess, hideWarning, showLoading, showSuccess, showWarning };
 //# sourceMappingURL=index.esm.js.map
