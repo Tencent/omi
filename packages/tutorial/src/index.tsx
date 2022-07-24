@@ -202,7 +202,7 @@ export default class extends WeElement {
       this.selectTreeNodeById(evt.params.section)
       this.update()
       // @ts-ignore
-      OToast.hideLoading()
+      // OToast.hideLoading()
     })
 
     route('*', async () => {
@@ -222,7 +222,7 @@ export default class extends WeElement {
       this.selectTreeNodeById('hello-omi')
       this.update()
       // @ts-ignore
-      OToast.hideLoading()
+      // OToast.hideLoading()
     })
   }
 
