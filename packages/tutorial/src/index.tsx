@@ -10,6 +10,7 @@ import '@omiu/icon/navigate-next'
 import logo from './assets/logo.svg'
 import '@omiu/tabs'
 import '@omiu/tree'
+import '@omiu/icon/git-hub'
 
 import { hashChange, route } from 'omi-router'
 // import { showLoading, hideLoading } from '@omiu/toast'
@@ -267,8 +268,17 @@ export default class extends WeElement {
       <div>
         <div class={tw`flex`}>
           <div class={tw`flex flex-col`}>
-            <header class={tw`border-b h-9 leading-9 text-black pl-2`}>
+            <header class={tw`border-b h-9 leading-9 text-black pl-2 relative`}>
               <h1 style={{ color: '#07C160' }}>  <img class={tw`w-5 inline-block mr-1 relative -top-0.5`} src={logo} />OMI TUTORIAL</h1>
+              <a
+                href="https://github.com/Tencent/omi"
+                target="_blank"
+                style="    position: absolute;
+                right: 3px;
+                top: 0px;"
+              >
+                <o-icon-git-hub></o-icon-git-hub>
+              </a>
             </header>
             <o-tree
               style="width:180px"
