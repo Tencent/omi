@@ -134,7 +134,12 @@ export default class extends WeElement {
     }, {
       id: 'event',
       label: 'Event',
-    }, {
+    },
+    {
+      id: 'lifecycle-and-ref',
+      label: 'Lifecycle and Ref',
+    },
+    {
       id: 'scoped-css',
       label: 'Scoped CSS',
     }, {
