@@ -168,6 +168,9 @@ export default class extends WeElement {
       id: 'to-motion',
       label: 'To Motion',
     }]
+  }, {
+    id: 'congratulations',
+    label: '🎉 Congratulations!',
   }]
   lan = 'zh'
 
@@ -291,7 +294,7 @@ export default class extends WeElement {
               <div class={tw`overflow-hidden`} style="height:42%">
                 <div class={tw`flex flex-col h-full`} >
                   <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
-                  <div class={tw`overflow-auto flex-1 border`}   >
+                  <div class={tw`overflow-auto flex-1 border pl-2 pr-2`}   >
                     <iframe class={tw`w-full h-full`} src="./preview.html" ref={e => this.$iframe = e}></iframe>
                   </div>
                 </div>
