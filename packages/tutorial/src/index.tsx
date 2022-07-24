@@ -129,6 +129,9 @@ export default class extends WeElement {
       id: 'hello-omi',
       label: 'Hello Omi',
     }, {
+      id: 'render',
+      label: 'Render',
+    }, {
       id: 'scoped-css',
       label: 'Scoped CSS',
     }, {
