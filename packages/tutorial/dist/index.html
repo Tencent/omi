@@ -18,8 +18,8 @@
     .o-toast {
       position: fixed;
       z-index: 5000;
-      width: 120px;
-      height: 120px;
+      width: 90px;
+      height: 90px;
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -54,7 +54,7 @@
     }
     
     .o-toast-content {
-      font-size: 14px;
+      font-size: 12px;
       margin-top: 10px;
     }
     
@@ -137,8 +137,68 @@
     .fade-enter,
     .fade-leave-to {
       opacity: 0;
-    }</style>
-    <div class="fade-enter-to"><div class="o-mask-transparent"></div><div class="o-toast"><slot></slot><o-loading size="40" color="white"></o-loading><p class="o-toast-content">加载中</p></div></div>
+    }
+    
+
+.o-root {
+  display: inline-block;
+  line-height: 1;
+}
+
+.o-static {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.o-indeterminate {
+  animation: o-rotate 1.4s linear infinite;
+}
+
+.o-circle {
+  stroke: currentColor;
+}
+
+.o-circleStatic {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.o-circleIndeterminate {
+  animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+  animation-name: o-keyframes-mui-progress-circular-dash;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+}
+
+@-webkit-keyframes o-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes o-keyframes-mui-progress-circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px;
+  }
+}
+
+.o-circleDisableShrink {
+  animation: none;
+}
+
+    </style>
+    <div class="fade-enter-to"><div class="o-mask-transparent"></div><div class="o-toast"><slot></slot>
+      <div class="o-root o-colorPrimary o-indeterminate" role="progressbar" style="width: 30px; height: 30px;"><svg class="o-svg" viewBox="22 22 44 44"><circle class="o-circle o-circleIndeterminate" cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"></circle></svg></div>
+      <p class="o-toast-content">Loading</p></div></div>
  
   </div>
   
