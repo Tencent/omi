@@ -5,9 +5,9 @@ English | [简体中文](./README.CN.md)
 
 > Omiu - Cross-Frameworks and [Cross-Themes](https://omi.cdn-go.cn/admin/latest/index.html#/docs/theme) UI Components powered by Omi
 
+* [💯Omi Tutorial and Playground](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
 * [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
-* [💯Omi Playground](https://tencent.github.io/omi/packages/playground/index.html)
 
 Define cross-frameworks button element with typescript:
 
