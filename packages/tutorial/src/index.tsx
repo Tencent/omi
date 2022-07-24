@@ -132,6 +132,9 @@ export default class extends WeElement {
       id: 'render',
       label: 'Render',
     }, {
+      id: 'event',
+      label: 'Event',
+    }, {
       id: 'scoped-css',
       label: 'Scoped CSS',
     }, {
