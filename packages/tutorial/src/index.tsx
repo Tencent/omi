@@ -262,29 +262,32 @@ export default class extends WeElement {
               data={this.treeData}>
             </o-tree>
           </div>
-          <div class={tw`w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
-            {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
-            <div class={tw`flex justify-between border-t pt-2 pb-8`}>
-              {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
+          <div class={tw`flex flex-1 overflow-hidden`}>
+            <div class={tw`w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
+              {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
+              <div class={tw`flex justify-between border-t pt-2 pb-8`}>
+                {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
               <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link> */}
-            </div>
-
-          </div>
-          <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
-            <div class={tw`flex flex-col`} style="height:58%" >
-              <o-tabs type="card" activeIndex={0} tabs={[{ label: 'demo.tsx' }]}></o-tabs>
-              <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
               </div>
+
             </div>
-            <div class={tw`overflow-hidden`} style="height:42%">
-              <div class={tw`flex flex-col h-full`} >
-                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
-                <div class={tw`overflow-auto flex-1 border`}   >
-                  <iframe class={tw`w-full h-full`} src="./preview.html" ref={e => this.$iframe = e}></iframe>
+            <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
+              <div class={tw`flex flex-col`} style="height:58%" >
+                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'demo.tsx' }]}></o-tabs>
+                <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
+                </div>
+              </div>
+              <div class={tw`overflow-hidden`} style="height:42%">
+                <div class={tw`flex flex-col h-full`} >
+                  <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
+                  <div class={tw`overflow-auto flex-1 border`}   >
+                    <iframe class={tw`w-full h-full`} src="./preview.html" ref={e => this.$iframe = e}></iframe>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     )
