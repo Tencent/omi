@@ -27,7 +27,6 @@ class MyElement extends WeElement {
   installed() {
     this.ctx = this.canvas.getContext('2d')
     this.rect = this.h1.getBoundingClientRect()
-    console.log(this.rect)
     setInterval(this.tick, 16)
   }
 
