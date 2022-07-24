@@ -16,3 +16,7 @@
 * fade-leave-to:  定义离开过渡的结束状态，在过渡动画完成之后移除
 
 ![](https://gtimg.wechatpay.cn/resource/xres/img/202207/888dbf519cb293f6bdb98e3445ef63b8_1200x600.png)
+
+## 源代码
+
+[→ @omiu/transition](https://github.com/Tencent/omi/blob/master/components/transition/src/index.tsx)
