@@ -18,6 +18,7 @@
     "@omiu/tabs": "^0.0.26",
     "@omiu/toast": "^0.0.8",
     "@omiu/tree": "^0.0.20",
+    "@popperjs/core": "^2.11.5",
     "codemirror": "^6.0.1",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.4",
