@@ -1,6 +1,6 @@
 @tag('hello-omi')
 class extends WeElement {
-  static css = `span { color: #07c160 } `
+  static css = `span { color: #07c160 }`
 
   render() {
     return (
