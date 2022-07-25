@@ -42,9 +42,3 @@ $ cd my-app
 $ npm start           # develop
 $ npm run build       # release
 ```
-
-### 更新 cli 最新版本
-
-```bash
-$ npm i omi-cli -g 
-```

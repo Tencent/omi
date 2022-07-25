@@ -1,8 +1,8 @@
-# 插槽 (slot)
+# Slot
 
-HTML <slot> 元素 ，作为 Web Components 技术套件的一部分，是 Web 组件内的一个占位符。该占位符可以在后期使用自己的标记语言填充，这样您就可以创建单独的 DOM 树，并将它与其它的组件组合在一起。
+The HTML <slot> element, as part of the web components technology suite, is a placeholder within a web component. This placeholder can be populated later with your own markup language, so that you can create a separate DOM tree and combine it with other components.
 
-## 使用 
+## Usage 
 
 ```tsx
 import { tag, WeElement, render, h } from 'omi'
@@ -26,7 +26,7 @@ render((
 ), 'body')
 ```
 
-为插槽内元素定义样式:
+Define styles for elements in slots:
 
 ```tsx
 static css = `
@@ -38,9 +38,9 @@ static css = `
 ```
 
 
-## slot name 属性
+## slot name 
 
-拥有 name 属性的插槽叫具名插槽。可以通过 `::slotted()` 选择器选中特定目标元素:
+The slot with the name attribute is called a named slot. You can select a specific target element through the `::slotted()` selector:
 
 ```css
 /* Selects any element placed inside a slot */
@@ -54,7 +54,7 @@ static css = `
 }
 ```
 
-比如试试改造一下本文的例子为下面的代码：
+For example, try to transform the example of this article into the following code:
 
 ```tsx
 import { tag, WeElement, render, h } from 'omi'
@@ -85,4 +85,4 @@ render((
 ), 'body')
 ```
 
-恭喜你学会了使用插槽！
+Congratulations on learning to use slots!
