@@ -36,14 +36,14 @@ function tsBuild(code) {
 }
 
 const files = {
-  './main.js': '',
+  './index.js': '',
   './answer.js': ''
 }
 
 
 // see below for details on these options
 const inputOptions = {
-  input: './main.js', // resolved by our plugin
+  input: './index.js', // resolved by our plugin
   plugins: [vfilePlugin(files)],
   // 不需要 tree shaking
   treeshake: false
@@ -58,7 +58,7 @@ const outputOptionsList = [{
 
 
 async function build(callback) {
-  if (!files['./main.js']) {
+  if (!files['./index.js']) {
     return
   }
   let bundle;
@@ -88,7 +88,6 @@ async function generateOutputs(bundle, callback) {
       if (chunkOrAsset.type === 'asset') {
         console.log('Asset', chunkOrAsset);
       } else {
-        // console.error(output[0].code)
         callback(output[0].code)
         // console.log('Chunk', chunkOrAsset.modules);
       }
@@ -180,6 +179,8 @@ export default class extends WeElement {
 
   mdContent: string
 
+  filesContent: { [fileName: string]: string } = {}
+
   selectTreeNodeById(id) {
     this.treeData.forEach((node) => {
       this.deselect(node, id)
@@ -250,7 +251,11 @@ export default class extends WeElement {
       this.editor.dispatch({
         changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
       })
-      files['./main.js'] = tsBuild(tsxMatch)
+      this.files.forEach((file, index) => {
+        this.filesContent[file] = texts[index + 1]
+        files[`./${file.replace('.tsx', '.js')}`] = tsBuild(texts[index + 1].replace(/.tsx/g, '.js'))
+      })
+
       build((code) => {
         this.reloadPreview(code)
       });
@@ -275,7 +280,7 @@ export default class extends WeElement {
       this.editor.dispatch({
         changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
       })
-      files['./main.js'] = tsBuild(tsxMatch)
+      files['./index.js'] = tsBuild(tsxMatch)
       build((code) => {
         this.reloadPreview(code)
       });
@@ -291,7 +296,8 @@ export default class extends WeElement {
         basicSetup,
         javascript({ jsx: true, typescript: true }),
         EditorView.updateListener.of((e) => {
-          files['./main.js'] = tsBuild(e.state.doc.toString())
+          this.filesContent[this.tabName] = e.state.doc.toString()
+          files['./' + this.tabName.replace('.tsx', '.js')] = tsBuild(e.state.doc.toString().replace(/.tsx/g, '.js'))
           build((code) => {
             this.reloadPreview(code)
           });
@@ -307,6 +313,19 @@ export default class extends WeElement {
 
   onNodeClick = (evt) => {
     evt.detail.id && route.to(`/${evt.detail.id}`)
+  }
+
+  tabName = 'index.tsx'
+
+  onChange = (evt) => {
+    this.tabName = evt.detail.tab.label
+    this.editor.dispatch({
+      changes: {
+        from: 0,
+        to: this.editor.state.doc.length,
+        insert: this.filesContent[evt.detail.tab.label]
+      }
+    })
   }
 
   render() {
@@ -343,7 +362,9 @@ export default class extends WeElement {
             </div>
             <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
               <div class={tw`flex flex-col`} style="height:58%" >
-                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'demo.tsx' }]}></o-tabs>
+                <o-tabs type="card" activeIndex={0} onChange={this.onChange} tabs={this.files.map(file => {
+                  return { label: file }
+                })}></o-tabs>
                 <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
                 </div>
               </div>
