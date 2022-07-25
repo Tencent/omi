@@ -88,6 +88,8 @@ class MyCounter extends WeElement {
 
 通过 `onCountChanged` 监听:
 
+```tsx
 <my-counter onCountChanged={this.onCountChanged} count={10}/>
+```
 
 恭喜你学习组件定义和使用了！
