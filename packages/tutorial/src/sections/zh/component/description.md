@@ -28,7 +28,6 @@ class MyCounter extends WeElement {
 
   render() {
     return (
-      // <></> and <h.f></h.f> are equal.
       <>
         <button onClick={this.sub}>-</button>
         <span>{this.count}</span>
