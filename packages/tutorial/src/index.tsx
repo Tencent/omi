@@ -13,7 +13,7 @@ import '@omiu/tree'
 import '@omiu/icon/git-hub'
 
 import { hashChange, route } from 'omi-router'
-// import { showLoading, hideLoading } from '@omiu/toast'
+import { showLoading, hideLoading } from '@omiu/toast'
 
 import { vfilePlugin } from './rollup-plugin'
 
@@ -133,10 +133,13 @@ export default class extends WeElement {
       id: 'render',
       label: 'Render',
     }, {
+      id: 'component',
+      label: 'Component',
+      files: ['index.tsx', 'my-counter.tsx'],
+    }, {
       id: 'event',
       label: 'Event',
-    },
-    {
+    }, {
       id: 'lifecycle-and-ref',
       label: 'Lifecycle and Ref',
     },
@@ -196,17 +199,54 @@ export default class extends WeElement {
     }
   }
 
+  setFiles(id) {
+    for (let i = 0, len = this.treeData.length; i < len; i++) {
+      if (this.treeData[i].id === id) {
+        // @ts-ignore
+        this.files = this.treeData[i].files || ['index.tsx']
+        break
+      } else {
+        if (this.treeData[i].children) {
+          this.recSetFiles(this.treeData[i].children, id)
+        }
+      }
+    }
+  }
+
+  recSetFiles(children, id) {
+    for (let i = 0, len = children.length; i < len; i++) {
+      if (children[i].id === id) {
+        this.files = children[i].files || ['index.tsx']
+        break
+      } else {
+        children[i].children && this.recSetFiles(children[i].children, id)
+      }
+    }
+  }
+
   registerRoute() {
     // https://github.com/vitejs/vite/issues/4945
     // https://vitejs.dev/guide/features.html#glob-import
     // @ts-ignore
-    const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
+    // const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
+    const url = '//tencent.github.io/omi/packages/tutorial/'
 
-    route('/:section', (evt) => {
-      const match = mds[`./sections/${this.lan}/${evt.params.section}/description.md`] + ''
-      this.mdContent = match
+    route('/:section', async (evt) => {
+      this.setFiles(evt.params.section)
+      showLoading()
+      const urls = [
+        `${url}/src/sections/${this.lan}/${evt.params.section}/description.md`
+      ]
+      this.files.forEach((file) => {
+        urls.push(`${url}/src/sections/${this.lan}/${evt.params.section}/app/${file}`)
+      })
+      const texts = await Promise.all(urls.map(async url => {
+        const resp = await fetch(url);
+        return resp.text();
+      }));
 
-      const tsxMatch = mds[`./sections/${this.lan}/${evt.params.section}/app/index.tsx`] + ''
+      this.mdContent = texts[0]
+      const tsxMatch = texts[1]
       this.editor.dispatch({
         changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
       })
@@ -216,17 +256,22 @@ export default class extends WeElement {
       });
       this.selectTreeNodeById(evt.params.section)
       this.update()
-      // @ts-ignore
-      // OToast.hideLoading()
+      hideLoading()
     })
 
     route('*', async () => {
+      showLoading()
+      const urls = [
+        `${url}/src/sections/${this.lan}/hello-omi/description.md`,
+        `${url}/src/sections/${this.lan}/hello-omi/app/${this.files[0]}`
+      ]
+      const texts = await Promise.all(urls.map(async url => {
+        const resp = await fetch(url);
+        return resp.text();
+      }));
 
-
-      const match = mds[`./sections/${this.lan}/hello-omi/description.md`] + ''
-      this.mdContent = match
-
-      const tsxMatch = mds[`./sections/${this.lan}/hello-omi/app/index.tsx`] + ''
+      this.mdContent = texts[0]
+      const tsxMatch = texts[1]
       this.editor.dispatch({
         changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
       })
@@ -236,8 +281,7 @@ export default class extends WeElement {
       });
       this.selectTreeNodeById('hello-omi')
       this.update()
-      // @ts-ignore
-      // OToast.hideLoading()
+      hideLoading()
     })
   }
 
@@ -258,6 +302,8 @@ export default class extends WeElement {
 
     this.registerRoute()
   }
+
+  files: string[] = ['index.tsx']
 
   onNodeClick = (evt) => {
     evt.detail.id && route.to(`/${evt.detail.id}`)
