@@ -4,11 +4,7 @@
 <head lang="en">
   <meta charset="UTF-8" />
   <title></title>
-  <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
-  <script>
-    // VConsole will be exported to `window.VConsole` by default.
-    var vConsole = new window.VConsole();
-  </script>
+
   <script src="./js/omi.js"></script>
   <script src="./js/omiu.to.js"></script>
   <script src="./js/omiu.transition.js"></script>
@@ -27,10 +23,8 @@
 <body style="margin: 0;">
   <script>
     var script = document.createElement("script");
-    console.log(parent._sourceCode)
     script.innerHTML = parent._sourceCode;
     document.body.appendChild(script);
-    console.error(111)
   </script>
 </body>
 
