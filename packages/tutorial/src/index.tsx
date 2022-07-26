@@ -237,7 +237,7 @@ export default class extends WeElement {
 
   async loadSection(section) {
     this.section = section
-    const url = '//tencent.github.io/omi/packages/tutorial/'
+    const url = '//tencent.github.io/omi/packages/tutorial'
     showLoading()
     const urls = [
       `${url}/src/sections/${this.lan}/${section}/description.md`
