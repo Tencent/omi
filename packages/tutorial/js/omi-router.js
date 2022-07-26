@@ -577,7 +577,7 @@
            */
           Object.defineProperty(exports, "__esModule", { value: true });
           exports.route = exports.hashChange = void 0;
-          var path_to_regexp_1 = __webpack_require__(/*! path-to-regexp */ "./node_modules/_path-to-regexp@3.2.0@path-to-regexp/index.js");
+          var p2r = __webpack_require__(/*! path-to-regexp */ "./node_modules/_path-to-regexp@3.2.0@path-to-regexp/index.js");
           var mapping = {};
           var root = getGlobal();
           root.route = route;
@@ -652,7 +652,7 @@
           function route(path, callback) {
             mapping[path] = {
               callback: callback,
-              reg: path_to_regexp_1.default(path)
+              reg: p2r(path)
             };
           }
           exports.route = route;

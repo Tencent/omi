@@ -1,5 +1,5 @@
 /**
- * omi-router v3.0.2 http://omijs.org
+ * omi-router v3.0.4 http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -423,6 +423,18 @@ _pathToRegexp_3_2_0_pathToRegexp.compile = compile_1;
 _pathToRegexp_3_2_0_pathToRegexp.tokensToFunction = tokensToFunction_1;
 _pathToRegexp_3_2_0_pathToRegexp.tokensToRegExp = tokensToRegExp_1;
 
+var p2r = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': _pathToRegexp_3_2_0_pathToRegexp,
+  __moduleExports: _pathToRegexp_3_2_0_pathToRegexp,
+  match: match_1,
+  regexpToFunction: regexpToFunction_1,
+  parse: parse_1,
+  compile: compile_1,
+  tokensToFunction: tokensToFunction_1,
+  tokensToRegExp: tokensToRegExp_1
+});
+
 /*!
  *  omi-router v3.0.1 by dntzhang
  *  Router for Omi.
@@ -502,7 +514,7 @@ function getParams(toArr, pathArr) {
 function route(path, callback) {
     mapping[path] = {
         callback: callback,
-        reg: _pathToRegexp_3_2_0_pathToRegexp(path)
+        reg: _pathToRegexp_3_2_0_pathToRegexp ? _pathToRegexp_3_2_0_pathToRegexp(path) : p2r(path)
     };
 }
 var router = { route: route, hashChange: hashChange };

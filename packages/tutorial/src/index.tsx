@@ -160,6 +160,9 @@ export default class extends WeElement {
     label: 'Complex',
     expanded: true,
     children: [{
+      id: 'router',
+      label: 'Router',
+    }, {
       id: 'transition',
       label: 'Transition',
     }, {
