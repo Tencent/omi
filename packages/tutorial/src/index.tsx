@@ -38,14 +38,13 @@ function tsBuild(code) {
 }
 
 const files = {
-  './index.js': '',
-  './answer.js': ''
+  './index': ''
 }
 
 
 // see below for details on these options
 const inputOptions = {
-  input: './index.js', // resolved by our plugin
+  input: './index', // resolved by our plugin
   plugins: [vfilePlugin(files)],
   // 不需要 tree shaking
   treeshake: false
@@ -60,7 +59,7 @@ const outputOptionsList = [{
 
 
 async function build(callback) {
-  if (!files['./index.js']) {
+  if (!files['./index']) {
     return
   }
   let bundle;
@@ -166,6 +165,7 @@ export default class extends WeElement {
     }, {
       id: 'bubble-sort',
       label: 'Bubble Sort',
+      files: ['index.tsx', 'store.ts'],
     }, {
       id: 'clock',
       label: 'Clock',
@@ -257,7 +257,7 @@ export default class extends WeElement {
     })
     this.files.forEach((file, index) => {
       this.filesContent[file] = texts[index + 1]
-      files[`./${file.replace('.tsx', '.js')}`] = tsBuild(texts[index + 1].replace(/.tsx/g, '.js'))
+      files[`./${file.replace('.tsx', '').replace('.ts', '')}`] = tsBuild(texts[index + 1])
     })
 
     build((code) => {
@@ -292,7 +292,7 @@ export default class extends WeElement {
         javascript({ jsx: true, typescript: true }),
         EditorView.updateListener.of((e) => {
           this.filesContent[this.tabName] = e.state.doc.toString()
-          files['./' + this.tabName.replace('.tsx', '.js')] = tsBuild(e.state.doc.toString().replace(/.tsx/g, '.js'))
+          files['./' + this.tabName.replace('.tsx', '').replace('.ts', '')] = tsBuild(e.state.doc.toString())
           build((code) => {
             this.reloadPreview(code)
           });

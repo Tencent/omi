@@ -4,7 +4,7 @@ import { tag, WeElement, h } from 'omi'
 class MyCounter extends WeElement {
   static css = `
     span{
-        color: red;
+      color: red;
     }`
 
   count = 1

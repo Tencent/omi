@@ -1,5 +1,5 @@
 import { render, h } from 'omi'
-import './my-counter.tsx'
+import './my-counter'
 
 render((
   <div>
