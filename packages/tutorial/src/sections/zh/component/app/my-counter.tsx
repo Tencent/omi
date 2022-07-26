@@ -1,6 +1,6 @@
 import { tag, WeElement, h } from 'omi'
 
-tag('my-counter')
+@tag('my-counter')
 class MyCounter extends WeElement {
   static css = `
     span{
@@ -21,7 +21,6 @@ class MyCounter extends WeElement {
 
   render() {
     return (
-      // <></> and <h.f></h.f> are equal.
       <>
         <button onClick={this.sub}>-</button>
         <span>{this.count}</span>

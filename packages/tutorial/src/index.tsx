@@ -11,9 +11,11 @@ import logo from './assets/logo.svg'
 import '@omiu/tabs'
 import '@omiu/tree'
 import '@omiu/icon/git-hub'
+import '@omiu/icon/translate'
+import { createPopper } from '@popperjs/core'
 
 import { hashChange, route } from 'omi-router'
-// import { showLoading, hideLoading } from '@omiu/toast'
+import { showLoading, hideLoading } from '@omiu/toast'
 
 import { vfilePlugin } from './rollup-plugin'
 
@@ -36,14 +38,14 @@ function tsBuild(code) {
 }
 
 const files = {
-  './main.js': '',
+  './index.js': '',
   './answer.js': ''
 }
 
 
 // see below for details on these options
 const inputOptions = {
-  input: './main.js', // resolved by our plugin
+  input: './index.js', // resolved by our plugin
   plugins: [vfilePlugin(files)],
   // 不需要 tree shaking
   treeshake: false
@@ -58,7 +60,7 @@ const outputOptionsList = [{
 
 
 async function build(callback) {
-  if (!files['./main.js']) {
+  if (!files['./index.js']) {
     return
   }
   let bundle;
@@ -88,7 +90,6 @@ async function generateOutputs(bundle, callback) {
       if (chunkOrAsset.type === 'asset') {
         console.log('Asset', chunkOrAsset);
       } else {
-        // console.error(output[0].code)
         callback(output[0].code)
         // console.log('Chunk', chunkOrAsset.modules);
       }
@@ -133,10 +134,13 @@ export default class extends WeElement {
       id: 'render',
       label: 'Render',
     }, {
+      id: 'component',
+      label: 'Component',
+      files: ['index.tsx', 'my-counter.tsx'],
+    }, {
       id: 'event',
       label: 'Event',
-    },
-    {
+    }, {
       id: 'lifecycle-and-ref',
       label: 'Lifecycle and Ref',
     },
@@ -173,9 +177,17 @@ export default class extends WeElement {
     id: 'congratulations',
     label: '🎉 Congratulations!',
   }]
-  lan = 'zh'
+
+  lan = 'en'
+
+  setLan(lan) {
+    this.lan = lan
+    this.loadSection(this.section)
+  }
 
   mdContent: string
+
+  filesContent: { [fileName: string]: string } = {}
 
   selectTreeNodeById(id) {
     this.treeData.forEach((node) => {
@@ -196,48 +208,80 @@ export default class extends WeElement {
     }
   }
 
+  setFiles(id) {
+    for (let i = 0, len = this.treeData.length; i < len; i++) {
+      if (this.treeData[i].id === id) {
+        // @ts-ignore
+        this.files = this.treeData[i].files || ['index.tsx']
+        break
+      } else {
+        if (this.treeData[i].children) {
+          this.recSetFiles(this.treeData[i].children, id)
+        }
+      }
+    }
+  }
+
+  recSetFiles(children, id) {
+    for (let i = 0, len = children.length; i < len; i++) {
+      if (children[i].id === id) {
+        this.files = children[i].files || ['index.tsx']
+        break
+      } else {
+        children[i].children && this.recSetFiles(children[i].children, id)
+      }
+    }
+  }
+
+  section: string
+
+  async loadSection(section) {
+    this.section = section
+    const url = '//tencent.github.io/omi/packages/tutorial/'
+    showLoading()
+    const urls = [
+      `${url}/src/sections/${this.lan}/${section}/description.md`
+    ]
+    this.files.forEach((file) => {
+      urls.push(`${url}/src/sections/${this.lan}/${section}/app/${file}`)
+    })
+    const texts = await Promise.all(urls.map(async url => {
+      const resp = await fetch(url);
+      return resp.text();
+    }));
+
+    this.mdContent = texts[0]
+    const tsxMatch = texts[1]
+    this.editor.dispatch({
+      changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
+    })
+    this.files.forEach((file, index) => {
+      this.filesContent[file] = texts[index + 1]
+      files[`./${file.replace('.tsx', '.js')}`] = tsBuild(texts[index + 1].replace(/.tsx/g, '.js'))
+    })
+
+    build((code) => {
+      this.reloadPreview(code)
+    });
+    this.selectTreeNodeById(section)
+    this.update()
+    hideLoading()
+  }
+
   registerRoute() {
     // https://github.com/vitejs/vite/issues/4945
     // https://vitejs.dev/guide/features.html#glob-import
     // @ts-ignore
-    const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
+    // const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
 
-    route('/:section', (evt) => {
-      const match = mds[`./sections/${this.lan}/${evt.params.section}/description.md`] + ''
-      this.mdContent = match
+    route('/:section', async (evt) => {
+      this.setFiles(evt.params.section)
+      this.loadSection(evt.params.section)
 
-      const tsxMatch = mds[`./sections/${this.lan}/${evt.params.section}/app/index.tsx`] + ''
-      this.editor.dispatch({
-        changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
-      })
-      files['./main.js'] = tsBuild(tsxMatch)
-      build((code) => {
-        this.reloadPreview(code)
-      });
-      this.selectTreeNodeById(evt.params.section)
-      this.update()
-      // @ts-ignore
-      // OToast.hideLoading()
     })
 
     route('*', async () => {
-
-
-      const match = mds[`./sections/${this.lan}/hello-omi/description.md`] + ''
-      this.mdContent = match
-
-      const tsxMatch = mds[`./sections/${this.lan}/hello-omi/app/index.tsx`] + ''
-      this.editor.dispatch({
-        changes: { from: 0, to: this.editor.state.doc.length, insert: tsxMatch }
-      })
-      files['./main.js'] = tsBuild(tsxMatch)
-      build((code) => {
-        this.reloadPreview(code)
-      });
-      this.selectTreeNodeById('hello-omi')
-      this.update()
-      // @ts-ignore
-      // OToast.hideLoading()
+      this.loadSection('hello-omi')
     })
   }
 
@@ -247,7 +291,8 @@ export default class extends WeElement {
         basicSetup,
         javascript({ jsx: true, typescript: true }),
         EditorView.updateListener.of((e) => {
-          files['./main.js'] = tsBuild(e.state.doc.toString())
+          this.filesContent[this.tabName] = e.state.doc.toString()
+          files['./' + this.tabName.replace('.tsx', '.js')] = tsBuild(e.state.doc.toString().replace(/.tsx/g, '.js'))
           build((code) => {
             this.reloadPreview(code)
           });
@@ -259,8 +304,60 @@ export default class extends WeElement {
     this.registerRoute()
   }
 
+  files: string[] = ['index.tsx']
+
   onNodeClick = (evt) => {
     evt.detail.id && route.to(`/${evt.detail.id}`)
+  }
+
+  tabName = 'index.tsx'
+
+  onChange = (evt) => {
+    this.tabName = evt.detail.tab.label
+    this.editor.dispatch({
+      changes: {
+        from: 0,
+        to: this.editor.state.doc.length,
+        insert: this.filesContent[evt.detail.tab.label]
+      }
+    })
+  }
+
+  onEnterPopover = () => {
+    this.showPopover = true
+    this.update()
+    // @ts-ignore
+    this.popper && this.popper.destroy()
+    // @ts-ignore
+    this.popper = createPopper(this.$translate, this.$tip, {
+      placement: 'bottom',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 8],
+          },
+        },
+        {
+          name: 'computeStyles',
+          options: {
+            adaptive: false, // true by default
+          },
+        },
+      ],
+    })
+  }
+
+  showPopover: boolean
+
+  $translate: WeElement
+  $tip: WeElement
+
+  onLeavePopover = () => {
+    this.showPopover = false
+    this.update()
+    // @ts-ignore
+    this.popper && this.popper.destroy()
   }
 
   render() {
@@ -279,9 +376,22 @@ export default class extends WeElement {
               >
                 <o-icon-git-hub></o-icon-git-hub>
               </a>
+
+              <div onMouseEnter={this.onEnterPopover}
+                onMouseLeave={this.onLeavePopover}>
+                <o-icon-translate ref={e => this.$translate = e}
+                  class={tw`absolute cursor-pointer`}
+                  style="right: 25px;top: 2px;"></o-icon-translate>
+
+                {this.showPopover && <ul class={tw`absolute border rounded bg-white text-center text-slate-600 z-50 cursor-pointer`} ref={e => this.$tip = e} style="right: 27px;width:100px;top: 3px;">
+                  <li class={tw`border-b-1`}> <o-link onClick={e => this.setLan('zh')} underline={false}>简体中文</o-link></li>
+                  <li><o-link onClick={e => this.setLan('en')} underline={false}>English</o-link></li>
+                </ul>}
+              </div>
+
             </header>
             <o-tree
-              style="width:180px"
+              style="width:200px"
               onNodeClick={this.onNodeClick}
               data={this.treeData}>
             </o-tree>
@@ -297,7 +407,9 @@ export default class extends WeElement {
             </div>
             <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
               <div class={tw`flex flex-col`} style="height:58%" >
-                <o-tabs type="card" activeIndex={0} tabs={[{ label: 'demo.tsx' }]}></o-tabs>
+                <o-tabs type="card" activeIndex={0} onChange={this.onChange} tabs={this.files.map(file => {
+                  return { label: file }
+                })}></o-tabs>
                 <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
                 </div>
               </div>

@@ -2,7 +2,7 @@
 
 HTML <slot> 元素 ，作为 Web Components 技术套件的一部分，是 Web 组件内的一个占位符。该占位符可以在后期使用自己的标记语言填充，这样您就可以创建单独的 DOM 树，并将它与其它的组件组合在一起。
 
-## 定义样式 
+## 使用 
 
 ```tsx
 import { tag, WeElement, render, h } from 'omi'
