@@ -3,9 +3,28 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
+```tsx
+import { tag, render, h, WeElement } from 'omi'
+
+@tag('hello-world')
+class HelloWorld extends WeElement {
+  static css = 'p { color: red }'
+  
+  render(props) {
+    return (
+      <>
+        <h1>Omi</h1>
+        <p>Hello {props.msg}</p>
+      </>
+    )
+  }
+}
+
+render(<hello-world msg='World' />, 'body')
+```
 
 * [💯Omi Tutorial and Playground](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
-* [💯Omi Admin by Omiu(Cross-Frameworks and Cross-Themes UI Components)](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
 
 ### New Project 
@@ -110,9 +129,9 @@ $ npm run build       # release
 - [Thanks](#thanks)
 - [License](#license) -->
 
-### Usage
+### Usage with TypeScript
 
-Define cross-frameworks button element with typescript:
+Define cross-frameworks button element with TypeScript:
 
 ```ts
 import { tag, WeElement, h, extractClass } from 'omi'

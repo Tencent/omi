@@ -3,7 +3,25 @@
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 
-> Omiu - 使用 Omi 打造的跨框架、跨主题 UI 组件库
+```tsx
+import { tag, render, h, WeElement } from 'omi'
+
+@tag('hello-world')
+class HelloWorld extends WeElement {
+  static css = 'p { color: red }'
+  
+  render(props) {
+    return (
+      <>
+        <h1>Omi</h1>
+        <p>Hello {props.msg}</p>
+      </>
+    )
+  }
+}
+
+render(<hello-world msg='World' />, 'body')
+```
 
 * [💯Omi 教程和游乐场](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
@@ -79,7 +97,7 @@ $ npm run build       # 编译发布
 - 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
 
 
-### 用法
+### TypeScript 里用法
 
 使用 TypeScript 开发跨框架的按钮组件:
 
