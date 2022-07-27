@@ -91,4 +91,10 @@ Listen it through `onCountChanged`:
 <my-counter onCountChanged={this.onCountChanged} count={10}/>
 ```
 
+## View all registered custom elements
+
+```js
+console.log(Omi.elements)
+```
+
 Congratulations on learning component definition and use!

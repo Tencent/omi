@@ -91,4 +91,10 @@ class MyCounter extends WeElement {
 <my-counter onCountChanged={this.onCountChanged} count={10}/>
 ```
 
+## 查看所有注册的自定义元素
+
+```js
+console.log(Omi.elements)
+```
+
 恭喜你学习组件定义和使用了！
