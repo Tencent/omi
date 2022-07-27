@@ -29,8 +29,8 @@ export default class extends WeElement<Props> {
   store
 
   items = [
+    { label: 'English', value: 'en' },
     { label: '中文', value: 'zh' },
-    { label: 'English', value: 'en' }
   ]
 
   isShowColorPicker: boolean = false
@@ -58,7 +58,7 @@ export default class extends WeElement<Props> {
     this.updateSelf()
   }
 
-  onItemSelect = (evt) => {
+  onOptionSelect = (evt) => {
     const locale = evt.detail.value
     this.store.setLocale(locale)
     // dispatch event to update basic-layout
@@ -127,7 +127,7 @@ export default class extends WeElement<Props> {
               width: 91px;
             `}
                 size="mini"
-                onItemSelect={this.onItemSelect}
+                onOptionSelect={this.onOptionSelect}
                 value={i18next.language}
                 options={this.items}
               ></o-select>
