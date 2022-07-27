@@ -8,7 +8,7 @@ export default class extends WeElement {
     border: 1px solid #000;
     padding: 10px 0 5px 0;
     width: 362px;
-    margin: 5px auto;
+    margin: 0 auto;
     background-color: #9ead86;
     text-align: center;
   }

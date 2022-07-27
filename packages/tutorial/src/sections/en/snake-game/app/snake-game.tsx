@@ -29,14 +29,20 @@ export default class extends WeElement {
   }
   
   h1{
-    text-align: center;
+    text-align: center
   }
   
   .ctrl {
-    width: 290px;
-    height: 165px;
-    margin: 10px auto 0;
-    position: relative
+    width: 362px;
+    height: 175px;
+    padding-top: 10px;
+    margin: 0 auto;
+    background: #efcc19
+  }
+
+  .ctrl-wrap {
+    position: relative;
+    left: 35px
   }
   
   .btn {
@@ -226,13 +232,15 @@ export default class extends WeElement {
         <game-screen></game-screen>
 
         <div class="ctrl">
-          <div class="btn cm-btn cm-btn-dir up" onClick={store.turnUp}><i></i><em></em><span>Up</span></div>
-          <div class="btn cm-btn cm-btn-dir down" onClick={store.turnDown}><i></i><em></em><span>Down</span></div>
-          <div class="btn cm-btn cm-btn-dir left" onClick={store.turnLeft}><i></i><em></em><span >Left</span></div>
-          <div class="btn cm-btn cm-btn-dir right" onClick={store.turnRight}><i></i><em></em><span >Right</span></div>
-          <div class="btn cm-btn space" onClick={store.toggleSpeed}><i></i><span >加速/减速</span></div>
-          <div class="btn reset small" onClick={store.reset}><i ></i><span >Reset</span></div>
-          <div class="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{store.data.paused ? 'Play' : 'Pause'}</span></div>
+          <div class="ctrl-wrap">
+            <div class="btn cm-btn cm-btn-dir up" onClick={store.turnUp}><i></i><em></em><span>Up</span></div>
+            <div class="btn cm-btn cm-btn-dir down" onClick={store.turnDown}><i></i><em></em><span>Down</span></div>
+            <div class="btn cm-btn cm-btn-dir left" onClick={store.turnLeft}><i></i><em></em><span >Left</span></div>
+            <div class="btn cm-btn cm-btn-dir right" onClick={store.turnRight}><i></i><em></em><span >Right</span></div>
+            <div class="btn cm-btn space" onClick={store.toggleSpeed}><i></i><span >加速/减速</span></div>
+            <div class="btn reset small" onClick={store.reset}><i ></i><span >Reset</span></div>
+            <div class="btn pp small" onClick={store.pauseOrPlay}><i></i><span >{store.data.paused ? 'Play' : 'Pause'}</span></div>
+          </div>
         </div>
       </div>
     )
