@@ -8,76 +8,6 @@ English | [简体中文](./README.CN.md)
 * [💯Omi Admin by Omiu(Cross-Frameworks and Cross-Themes UI Components)](https://tencent.github.io/omi/packages/admin/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
 
-Define cross-frameworks button element with typescript:
-
-```ts
-import { tag, WeElement, h, extractClass } from 'omi'
-import * as css from './index.scss'
-
-interface Props {
-  size?: 'medium' | 'small' | 'mini',
-  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
-  plain?: boolean,
-  round?: boolean,
-  circle?: boolean,
-  loading?: boolean,
-  disabled?: boolean,
-  icon?: string,
-  autofocus?: boolean,
-  nativeType?: 'button' | 'submit' | 'reset',
-  block?: boolean
-  text?: string
-}
-
-@tag('o-button')
-export default class Button extends WeElement<Props>{
-  static css = css
-
-  static defaultProps = {
-    plain: false,
-    round: false,
-    circle: false,
-    loading: false,
-    disabled: false,
-    autofocus: false,
-    nativeType: 'button',
-    block: false
-  }
-
-  static propTypes = {
-    size: String,
-    type: String,
-    plain: Boolean,
-    round: Boolean,
-    circle: Boolean,
-    loading: Boolean,
-    disabled: Boolean,
-    icon: String,
-    autofocus: Boolean,
-    nativeType: String,
-    block: Boolean,
-    text: String
-  }
-
-  render(props) {
-    return <button disabled={props.disabled} {...extractClass(props, 'o-button', {
-      ['o-button-' + props.type]: props.type,
-      ['o-button-' + props.size]: props.size,
-      'is-plain': props.plain,
-      'is-round': props.round,
-      'is-circle': props.circle,
-      'is-disabled': props.disabled,
-      'is-block': props.block
-    })} type={props.nativeType} >
-      {props.loading && <i class='icon-loading'></i>}
-      {props.text}
-      <slot></slot>
-    </button>
-  }
-}
-```
-
-
 ### New Project 
 
 ```bash
@@ -180,8 +110,76 @@ $ npm run build       # release
 - [Thanks](#thanks)
 - [License](#license) -->
 
+### Usage
 
+Define cross-frameworks button element with typescript:
 
+```ts
+import { tag, WeElement, h, extractClass } from 'omi'
+import * as css from './index.scss'
+
+interface Props {
+  size?: 'medium' | 'small' | 'mini',
+  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
+  plain?: boolean,
+  round?: boolean,
+  circle?: boolean,
+  loading?: boolean,
+  disabled?: boolean,
+  icon?: string,
+  autofocus?: boolean,
+  nativeType?: 'button' | 'submit' | 'reset',
+  block?: boolean
+  text?: string
+}
+
+@tag('o-button')
+export default class Button extends WeElement<Props>{
+  static css = css
+
+  static defaultProps = {
+    plain: false,
+    round: false,
+    circle: false,
+    loading: false,
+    disabled: false,
+    autofocus: false,
+    nativeType: 'button',
+    block: false
+  }
+
+  static propTypes = {
+    size: String,
+    type: String,
+    plain: Boolean,
+    round: Boolean,
+    circle: Boolean,
+    loading: Boolean,
+    disabled: Boolean,
+    icon: String,
+    autofocus: Boolean,
+    nativeType: String,
+    block: Boolean,
+    text: String
+  }
+
+  render(props) {
+    return <button disabled={props.disabled} {...extractClass(props, 'o-button', {
+      ['o-button-' + props.type]: props.type,
+      ['o-button-' + props.size]: props.size,
+      'is-plain': props.plain,
+      'is-round': props.round,
+      'is-circle': props.circle,
+      'is-disabled': props.disabled,
+      'is-block': props.block
+    })} type={props.nativeType} >
+      {props.loading && <i class='icon-loading'></i>}
+      {props.text}
+      <slot></slot>
+    </button>
+  }
+}
+```
 
 ### TypeScript Auto Complete
 
