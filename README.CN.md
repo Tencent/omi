@@ -28,6 +28,23 @@ render(<hello-world msg='World' />, 'body')
 * [💯Omiu 打造的 Omi Admin](https://tencent.github.io/omi/packages/admin/dist/index.html)
 
 
+[→ Omi 学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
+
+### 特性
+
+- 跨框架，任何框架可以使用 Omi 自定义元素
+- 提供桌面、移动和小程序整体解决方案
+- 小巧的尺寸和[高性能](https://tencent.github.io/omi/packages/omi/examples/perfs/)
+- [基于 Shadow/Light Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
+- 符合浏览器的发展趋势以及 API 设计理念
+- [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX/TSX**](https://reactjs.org/docs/introducing-jsx.html) 融合为一个框架 Omi
+- JSX/TSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)、图灵完备的 UI 表达式，模板引擎不完备，模板字符串完备但是语法噪音太大
+- 看看 [Facebook React 和 Web Components 对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
+- `Shadow/Light DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
+- 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用 js 或 json 写样式，如:`Radium`，`jsxstyle`，`react-style`；与 webpack 绑定使用生成独特的 className `文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
+- 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
+- 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
+
 ## 快速开始开发项目
 
 ```bash
@@ -53,11 +70,7 @@ $ npm run build       # 编译发布
 > `npx omi-cli init-component my-component` 也支持(要求 npm v5.2.0+)
 
 
-[→ Omi 学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
-
 ### 一些例子
-
-
 
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
@@ -80,21 +93,6 @@ $ npm run build       # 编译发布
 | [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
-
-### 特性
-
-- 跨框架，任何框架可以使用 Omi 自定义元素
-- 提供桌面、移动和小程序整体解决方案
-- 小巧的尺寸和[高性能](https://tencent.github.io/omi/packages/omi/examples/perfs/)
-- [基于 Shadow/Light Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
-- 符合浏览器的发展趋势以及 API 设计理念
-- [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX/TSX**](https://reactjs.org/docs/introducing-jsx.html) 融合为一个框架 Omi
-- JSX/TSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)、图灵完备的 UI 表达式，模板引擎不完备，模板字符串完备但是语法噪音太大
-- 看看 [Facebook React 和 Web Components 对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
-- `Shadow/Light DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
-- 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用 js 或 json 写样式，如:`Radium`，`jsxstyle`，`react-style`；与 webpack 绑定使用生成独特的 className `文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
-- 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
-- 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
 
 
 ### TypeScript 里用法
