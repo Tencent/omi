@@ -137,25 +137,15 @@ $ npm run build       # 编译发布
 - 跨框架，任何框架可以使用 Omi 自定义元素
 - 提供桌面、移动和小程序整体解决方案
 - 小巧的尺寸和[高性能](https://tencent.github.io/omi/packages/omi/examples/perfs/)
-- 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
-- 拥有官方跨框架 UI 组件库 - [omim](https://tencent.github.io/omi/packages/omim/docs/build/cn.html)
-- [很容易通过 extend api 实现双向绑定](https://codepen.io/omijs/pen/aeLYjx)
-- 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
 - [基于 Shadow/Light Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
-- 利用 [Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及 API 设计理念
-- [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 融合为一个框架 Omi
-- Web Components 也可以数据驱动视图, `UI = fn(data)`
-- JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)、图灵完备的 UI 表达式，模板引擎不完备，模板字符串完备但是语法噪音太大
+- [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX/TSX**](https://reactjs.org/docs/introducing-jsx.html) 融合为一个框架 Omi
+- JSX/TSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)、图灵完备的 UI 表达式，模板引擎不完备，模板字符串完备但是语法噪音太大
 - 看看 [Facebook React 和 Web Components 对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - `Shadow/Light DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
 - 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用 js 或 json 写样式，如:`Radium`，`jsxstyle`，`react-style`；与 webpack 绑定使用生成独特的 className `文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
-
-对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow/Light DOM 隔离样式和语义化结构:
-
-| **Omi**                         | **React**                           | 
-| ------------------------------- | ----------------------------------- |
-| ![Omi](https://tencent.github.io/omi/assets/omi-render.jpg) | ![React](https://tencent.github.io/omi/assets/react-render.jpg)  |
+- 对 custom elements 友好, 通过字符串 `'0'`或者`'false'`传递 `false`，[通过`:`和`Omi.$`传递任意复杂类型](https://github.com/Tencent/omi/releases/tag/v6.8.0)
+- 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
 
 
 ### TypeScript 智能提示
