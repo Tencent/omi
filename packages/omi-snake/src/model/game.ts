@@ -1,6 +1,15 @@
 import Snake from './snake'
 
 class Game {
+  snake: Snake
+  size: number
+  map: number[][]
+  loop: number
+  interval: number
+  paused: boolean
+  _preDate: number
+  food: [number, number]
+
   constructor(options) {
     this.map = []
     this.size = 16
@@ -12,6 +21,7 @@ class Game {
     this.onTick = options.onTick
   }
 
+  onTick: () => void
   init() {
 
     this.snake = new Snake

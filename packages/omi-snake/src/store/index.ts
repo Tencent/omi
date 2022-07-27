@@ -1,8 +1,19 @@
-import Game from '../models/game'
-
+import Game from '../model/game'
+import { WeElement } from 'omi'
+import Snake from '../model/snake'
 
 
 class Store {
+  snake: Snake
+  map: number[][]
+  game: Game
+  data: { map: number[][], paused: boolean }
+  ui: {
+    game?: WeElement
+    index?: WeElement
+  }
+  ignoreAttrs: boolean
+
   constructor() {
     const game = new Game({
       onTick: () => {
@@ -23,7 +34,6 @@ class Store {
 
     }
   }
-
 
 
   turnUp = () => {

@@ -1,4 +1,7 @@
 class Snake {
+  body: number[]
+  dir: 'up' | 'right' | 'down' | 'left'
+
   constructor() {
     this.body = [3, 1, 2, 1, 1, 1]
     this.dir = 'right'
