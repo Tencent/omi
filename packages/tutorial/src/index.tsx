@@ -96,6 +96,15 @@ async function generateOutputs(bundle, callback) {
   }
 }
 
+interface TreeItem {
+  id?: string
+  label: string
+  expanded?: boolean
+  files?: string[]
+  codePanelHeight?: string,
+  previewPanelHeight?: string
+  children?: TreeItem[]
+}
 
 @tag('my-app')
 export default class extends WeElement {
@@ -120,12 +129,12 @@ export default class extends WeElement {
     this.$iframe.contentWindow.location.reload(true);
   }
 
-  treeData = [{
+  treeData: TreeItem[] = [{
     label: 'Base',
     // sign: '●',
     expanded: true,
     // selected: true,
-    icon: 'ac-unit-outlined',
+    // icon: 'ac-unit-outlined',
     children: [{
       id: 'hello-omi',
       label: 'Hello Omi',
@@ -179,6 +188,8 @@ export default class extends WeElement {
       id: 'snake-game',
       label: 'Snake Game',
       files: ['index.tsx', 'snake-game.tsx', 'game-screen.tsx', 'store.ts', 'game.ts', 'snake.ts'],
+      codePanelHeight: '41%',
+      previewPanelHeight: '59%'
     }]
   }, {
     id: 'congratulations',
@@ -191,6 +202,9 @@ export default class extends WeElement {
     this.lan = lan
     this.loadSection(this.section)
   }
+
+  codePanelHeight = '58%'
+  previewPanelHeight = '42%'
 
   mdContent: string
 
@@ -218,8 +232,9 @@ export default class extends WeElement {
   setFiles(id) {
     for (let i = 0, len = this.treeData.length; i < len; i++) {
       if (this.treeData[i].id === id) {
-        // @ts-ignore
         this.files = this.treeData[i].files || ['index.tsx']
+        this.codePanelHeight = this.treeData[i].codePanelHeight || '58%'
+        this.previewPanelHeight = this.treeData[i].previewPanelHeight || '42%'
         break
       } else {
         if (this.treeData[i].children) {
@@ -233,6 +248,8 @@ export default class extends WeElement {
     for (let i = 0, len = children.length; i < len; i++) {
       if (children[i].id === id) {
         this.files = children[i].files || ['index.tsx']
+        this.codePanelHeight = children[i].codePanelHeight || '58%'
+        this.previewPanelHeight = children[i].previewPanelHeight || '42%'
         break
       } else {
         children[i].children && this.recSetFiles(children[i].children, id)
@@ -413,14 +430,14 @@ export default class extends WeElement {
 
             </div>
             <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
-              <div class={tw`flex flex-col`} style="height:58%" >
+              <div class={tw`flex flex-col`} style={{ height: this.codePanelHeight }} >
                 <o-tabs type="card" activeIndex={0} onChange={this.onChange} tabs={this.files.map(file => {
                   return { label: file }
                 })}></o-tabs>
                 <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
                 </div>
               </div>
-              <div class={tw`overflow-hidden`} style="height:42%">
+              <div class={tw`overflow-hidden`} style={{ height: this.previewPanelHeight }}>
                 <div class={tw`flex flex-col h-full`} >
                   <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
                   <div class={tw`overflow-auto flex-1 border pl-2 pr-2`}   >
