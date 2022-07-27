@@ -6,8 +6,12 @@ export const getIntroductionNode = () => {
     label: i18next.t('Introduction'),
     //icon: 'description',
     href: '#/docs/introduction',
-    // vite3 支持
-    md: import(`./${i18next.language}/introduction.md?raw`),
+    md:
+      i18next.language === 'zh'
+        ? import(`./zh/introduction.md?raw`)
+        : import(`./en/introduction.md?raw`),
+    // vite 目前不支持
+    //md: import(`./${locale}/introduction.md?raw`),
     id: genId()
   }
 }
@@ -17,8 +21,12 @@ export const getThemeNode = () => {
     label: i18next.t('CustomTheme'),
     //icon: 'description',
     href: '#/docs/theme',
-    // vite3 支持
-    md: import(`./${i18next.language}/theme.md?raw`),
+    md:
+      i18next.language === 'zh'
+        ? import(`./zh/theme.md?raw`)
+        : import(`./en/theme.md?raw`),
+    // vite 目前不支持
+    // md: import(`./${locale}/theme.md?raw`),
     id: genId()
   }
 }
@@ -28,8 +36,12 @@ export const getContribution = () => {
     label: i18next.t('Contribution'),
     //icon: 'description',
     href: '#/docs/contribution',
-    // vite3 支持
-    md: import(`./${i18next.language}/theme.md?raw`),
+    md:
+      i18next.language === 'zh'
+        ? import(`./zh/Contribution.md?raw`)
+        : import(`./en/Contribution.md?raw`),
+    // vite 目前不支持
+    // md: import(`./${locale}/theme.md?raw`),
     id: genId()
   }
 }
