@@ -3,7 +3,7 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
-> Omiu - Cross-Frameworks and [Cross-Themes](https://omi.cdn-go.cn/admin/latest/index.html#/docs/theme) UI Components powered by Omi
+> Omiu - Cross-Frameworks and Cross-Themes UI Components powered by Omi
 
 * [💯Omi Tutorial and Playground](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
 * [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
@@ -106,31 +106,13 @@ $ npm run build       # release
 
 
 
-## Ecosystem of Omi
+## Examples
 
-#### :100:Base 
-
-| **Project**                         | **Description**                           |
-| ------------------------------- | ----------------------------------- |
-| [omi-docs](https://tencent.github.io/omi/site/docs/index.html) and [codepen](https://codepen.io/collection/DrMYgV/) | Omi official documents |
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template)|
-|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| Making sure frameworks and custom elements can be BFFs 🍻 |
-
-#### :snake:Snake MVP 
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/omi-snake/dist/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
-| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/v6/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5 |
-| [Preact-snake](https://github.com/Tencent/omi/tree/v6/packages/preact-css/examples/snake) | The Snake-Eating Game Based on MVP Architecture Written by Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/v6/packages/preact-css) + Omis |
-| [[P]react-snake](https://github.com/Tencent/omi/tree/v6/packages/react-snake) | The Snake-Eating Game Based on MVP Architecture Written by React/Preact |
-| [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/v6/packages/omix-snake) | 小程序贪吃蛇  |
-
-#### :books:Other 
-
-| **Project**                         | **Description**                           |
-| ------------------------------- | ----------------------------------- |
+|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| Making sure frameworks and custom elements can be BFFs 🍻 |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omi-chart](https://github.com/Tencent/omi/tree/v6/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
@@ -363,71 +345,7 @@ define('my-app', class extends WeElement {
 ```
 
 You can also forget the tedious configuration and use omi-cli directly, no need to configure anything.
-<!-- 
-### TodoApp
 
-Here is a relatively complete example of TodoApp:
-
-```js
-import { define, render, WeElement } from 'omi'
-
-define('todo-list', class extends WeElement {
-  static propTypes = {
-    items: Array
-  }
-
-  render(props) {
-    return (
-      <ul>
-        {props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-    )
-  }
-})
-
-define('todo-app', class extends WeElement {
-  items = []
-  text = ''
-
-  render() {
-    return (
-      <div>
-        <h3>TODO</h3>
-        <todo-list items={this.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.text}
-          />
-          <button>Add #{this.items.length + 1}</button>
-        </form>
-      </div>
-    )
-  }
-
-  handleChange = e => {
-    this.text = e.target.value
-  }
-
-  handleSubmit = e => {
-    e.preventDefault()
-    if (!this.text.trim().length) {
-      return
-    }
-    this.items.push({
-      text: this.text,
-      id: Date.now()
-    })
-    this.text = ''
-    this.update()
-  }
-})
-
-render(<todo-app />, 'body')
-``` -->
 
 ### TypeScript Auto Complete
 
@@ -479,18 +397,6 @@ export default class oButton extends WeElement<ButtonProps> {
 ```js
 console.log(Omi.elements)
 ```
-
-<!-- 
-## React to Omi
-
-For example, the below is about migration React button as weui Omi button:
-
-![react to omi](./assets/react-to-omi.png)
-
-* [Diff Split](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=split)
-* [Diff Unified](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=unified)
-* [Before](https://github.com/Tencent/omi/blob/c8af654f1d5865dc557c0b4b8ad524f702a69be5/packages/omi-weui/src/omi-weui/elements/button/button.js)
-* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js) -->
 
 ## Browsers Support
 

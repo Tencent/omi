@@ -3,7 +3,7 @@
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 
-> Omiu - 使用 Omi 打造的跨框架、[跨主题](https://omi.cdn-go.cn/admin/latest/index.html#/docs/theme) UI 组件库
+> Omiu - 使用 Omi 打造的跨框架、跨主题 UI 组件库
 
 * [💯Omi 教程和游乐场](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
@@ -106,31 +106,15 @@ $ npm run build       # 编译发布
 
 [→ Omi 学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
 
-#### 基础生态
+### 一些例子
+
+
 
 | **项目**                         | **描述**                           |
-| ------------------------------- | ----------------------------------- |
-| [omi-docs](https://tencent.github.io/omi/site/docs/cn.html) 和 [例子](https://codepen.io/collection/DrMYgV/) 和 [webcomponents.dev](https://webcomponents.dev/)| Omi 官方文档 |
-| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) |
-|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| 框架和自定义元素无缝工作 |
-
-#### Snake MVP
-
-| **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
 | [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5  |
-| [Preact-snake](https://github.com/Tencent/omi/tree/master/packages/preact-css/examples/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/preact-css/examples/snake/build/)| Preact + [Preact-CSS](https://github.com/Tencent/omi/tree/master/packages/preact-css) + Omis 写的贪吃蛇 |
-| [[P]react-snake ](https://github.com/Tencent/omi/tree/master/packages/react-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/react-snake/build/index.html)| react/preact 写的 MVP 架构的贪吃蛇游戏 |
-| [omix-snake![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Tencent/omi/tree/master/packages/omix-snake) | Omix 写的 MVP 架构贪吃蛇  |
-<!-- | [vue-snake](https://github.com/Tencent/omi/tree/master/packages/vue-snake) | Vue + Omiv 写的 MVP 架构的贪吃蛇游戏 | -->
-
-
-#### 其他
-
-| **项目**                         | **描述**                           |
-| ------------------------------- | ----------------------------------- |
+|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| 框架和自定义元素无缝工作 |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Omi 钢琴, [开始演奏吧!](https://wscats.github.io/piano/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
@@ -289,7 +273,7 @@ export default class oButton extends WeElement<ButtonProps> {
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
+|基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi |
 |Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
 
 ### Hello Element
@@ -428,150 +412,6 @@ define('my-app', class extends WeElement {
 ```
 
 你也可以忘掉这一对繁琐的配置直接使用 omi-cli，不需要你配置任何东西。
-
-<!-- ### TodoApp
-
-下面列举一个相对完整的 TodoApp 的例子:
-
-```js
-import { define, render, WeElement } from 'omi'
-
-define('todo-list', class extends WeElement {
-  static propTypes = {
-    items: Array
-  }
-
-  render(props) {
-    return (
-      <ul>
-        {props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-    )
-  }
-})
-
-define('todo-app', class extends WeElement {
-  items = []
-  text = ''
-
-  render() {
-    return (
-      <div>
-        <h3>TODO</h3>
-        <todo-list items={this.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.text}
-          />
-          <button>Add #{this.items.length + 1}</button>
-        </form>
-      </div>
-    )
-  }
-
-  handleChange = e => {
-    this.text = e.target.value
-  }
-
-  handleSubmit = e => {
-    e.preventDefault()
-    if (!this.text.trim().length) {
-      return
-    }
-    this.items.push({
-      text: this.text,
-      id: Date.now()
-    })
-    this.text = ''
-    this.update()
-  }
-})
-
-render(<todo-app />, 'body')
-``` -->
-
-<!-- 
-使用 Store 体系可以告别 update 方法，基于 Proxy 的全自动属性追踪和更新机制。强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上,
-
-```js
-export default {
-  data: {
-    items: [],
-    text: '',
-    firstName: 'dnt',
-    lastName: 'zhang',
-    fullName: function () {
-      return this.firstName + this.lastName
-    },
-    globalPropTest: 'abc', //更改我会刷新所有页面,不需要再组件和页面声明data依赖
-    ccc: { ddd: 1 } //更改我会刷新所有页面,不需要再组件和页面声明data依赖
-  },
-  globalData: ['globalPropTest', 'ccc.ddd'],
-  add: function () {
-    if (!this.data.text.trim().length) {
-        return;
-    }
-    this.data.items.push({
-      text: this.data.text,
-      id: Date.now()
-    })
-    this.data.text = ''
-  }
-  //默认 false，为 true 会无脑更新所有实例
-  //updateAll: true
-}
-```
-
-自定义 Element 需要声明依赖的 data，这样 Omi store 根据自定义组件上声明的 data 计算依赖 path 并会按需局部更新。如:
-
-```js
-define('todo-app', class extends WeElement {
-    static get data() {
-        //如果你用了 store，这个只是用来声明依赖，按需 Path Updating
-        return { items: [], text: '' }
-    }
-    ...
-    ...
-    ...
-    handleChange = (e) => {
-        this.store.data.text = e.target.value
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault()
-        this.store.add()
-    }
-})
-```
-
-* 数据的逻辑都封装在了 store 定义的方法里 (如 store.add)
-* 视图只负责传递数据给 store （如上面调用 store.add 或设置 store.data.text）
-
-需要在 render 的时候从根节点注入 store 才能在所有自定义 Element 里使用 this.store:
-
-```js
-render(<todo-app></todo-app>, 'body', store)
-```
-
-[→ Store 完整的代码](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
-
-总结一下:
-
-* store.data 用来列出所有属性和默认值(除去 props 决定的视图的组件)
-* 组件和页面的 data 用来列出依赖的 store.data 的属性 (omi 会记录 path)，按需更新
-* 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
-* globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path -->
-<!-- 
-## Mitt
-
-如果不想使用 store 的 data 体系，也可以使用发布订阅模式。比如在 Omi 中使用 [mitt](https://github.com/developit/mitt) 跨组件通讯:
-
-* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
-
 
 ### 生命周期
 
