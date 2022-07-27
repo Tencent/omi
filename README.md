@@ -3,10 +3,9 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
-> Omiu - Cross-Frameworks and Cross-Themes UI Components powered by Omi
 
 * [💯Omi Tutorial and Playground](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
-* [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
+* [💯Omi Admin by Omiu(Cross-Frameworks and Cross-Themes UI Components)](https://tencent.github.io/omi/packages/admin/dist/index.html)
 * [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
 
 Define cross-frameworks button element with typescript:
@@ -79,31 +78,23 @@ export default class Button extends WeElement<Props>{
 ```
 
 
-### New Project by Omi
+### New Project 
 
 ```bash
-$ npm i omi-cli -g    # install cli
-$ omi init my-app     # init project
+$ npx omi-cli init my-app     # init project
 $ cd my-app           
 $ npm start           # develop
 $ npm run build       # release
 ```
 
-> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
-
-
-### New Component by Omi
+### New Component
 
 ```bash
-$ npm i omi-cli -g    # install cli
-$ omi init-component my-component     # init project
+$ npx omi-cli init-component my-component     # init project
 $ cd my-app           
 $ npm start           # develop
 $ npm run build       # release
 ```
-
-> `npx omi-cli init-component my-component` is also supported(npm v5.2.0+).
-
 
 
 ## Examples
@@ -182,7 +173,7 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 |[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
 |[slotted](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::slotted)||
 
-
+<!-- 
 # Overview of the Readme
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
@@ -196,17 +187,9 @@ Omi uses Shadow DOM or Light DOM based style isolation and semantic structure.
 - [Contributors](#contributors)
 - [Maintainers](#maintainers)
 - [Thanks](#thanks)
-- [License](#license)
+- [License](#license) -->
 
 ## Getting Started
-
-
-### Project Template
-
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|Base Template|`omi init my-app`| Basic omi project template.|
-|Kbone Template|`omi init-kbone my-app`  |Developing mini program or web using omi.|
 
 ### Hello Element
 
@@ -441,13 +424,6 @@ Any form of contribution is welcome. The above contributors have been officially
 
 We very much welcome developers to contribute to Tencent's open source, and we will also give them incentives to acknowledge and thank them. Here we provide an official description of Tencent's open source contribution. Specific contribution rules for each project are formulated by the project team. Developers can choose the appropriate project and participate according to the corresponding rules. The Tencent Project Management Committee will report regularly to qualified contributors and awards will be issued by the official contact.
 
-## Core Maintainers
-
-- [@dntzhang](https://github.com/dntzhang)
-- [@Wscats](https://github.com/Wscats)
-- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
-- [@xcatliu](https://github.com/xcatliu)
-- [AlloyTeam](http://alloyteam.com/)
 
 Please contact us for any questions. 
 

@@ -195,13 +195,8 @@ export default class oButton extends WeElement<ButtonProps> {
 
 * [使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.cn.md)
 * [Web Components 规范](https://github.com/w3c/webcomponents)
-* [Comi 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md)
-* [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/omip-h5.md)
 * [如何通过小程序实现跨平台开发](https://developers.weixin.qq.com/community/develop/article/doc/00002cda45c930d87a380a74351813)
 * [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
-* [Omi snap 骨架屏与快照](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)
-* [Omio 兼容 IE8 踩坑之路](https://github.com/Tencent/omi/blob/master/tutorial/omio.cn.md)
-* [Omi 生态发布](https://github.com/Tencent/omi/blob/master/tutorial/ecosystem.cn.md)
 * [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)
 * [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
 * [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
@@ -218,6 +213,7 @@ export default class oButton extends WeElement<ButtonProps> {
 * [Web Components中引入外部CSS的3种方法](https://www.zhangxinxu.com/wordpress/2021/02/web-components-import-css/)
 ---
 
+<!-- 
 # 目录
 
 - [Omi 生态](#omi-生态)
@@ -231,50 +227,10 @@ export default class oButton extends WeElement<ButtonProps> {
 - [贡献者们](#贡献者们)
 - [维护者](#维护者)
 - [感谢](#感谢)
-- [License](#license)
+- [License](#license) -->
 
 
 ## 快速入门
-
-<!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
-
-* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
-* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
-
-比如在 windows 下:
-
-```json
-"scripts": {
-  "start": "node scripts/start.js",
-  "_build": "node scripts/build.js",
-  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
-}
-```
-
-在 mac os 中:
-
-```json
-"scripts": {
-    "start": "node scripts/start.js",
-    "_build": "node scripts/build.js",
-    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
-    "fix": "eslint src --fix"
-  },
-```
-
-如果你只想使用相对地址:
-
-```
-"build":"set PUBLIC_URL=.&& npm run _build"  //windows
-"build":"PUBLIC_URL=. npm run _build",       //mac os
-​``` -->
-
-### 项目模板
-
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi |
-|Kbone Template|`omi init-kbone my-app`  | 使用 omi 开发小程序或者 Web|
 
 ### Hello Element
 
@@ -434,8 +390,6 @@ console.log(Omi.elements)
 
 ## 浏览器兼容
 
-> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - 兼容老浏览器的 Omi 版本(支持到 IE8+)
-
 Omi works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
 ![→ Browsers Support](./assets/browsers-support.png)
@@ -474,15 +428,6 @@ npm run test
 
 感谢所有贡献者，欢迎更多人加入一起贡献。
 
-## 核心维护者
-
-- [@dntzhang](https://github.com/dntzhang)
-- [@Wscats](https://github.com/Wscats)
-- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
-- [@xcatliu](https://github.com/xcatliu)
-- [AlloyTeam](http://alloyteam.com/)
-
-任何 Omi 相关问题欢迎联系我们。也可以[加入 Omi QQ 群](https://github.com/Tencent/omi/issues/169)进行讨论交流。
 
 ## License
 
