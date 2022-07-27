@@ -33,9 +33,9 @@ export default class extends WeElement {
   }
   
   .ctrl {
-    width: 580px;
-    height: 330px;
-    margin: 20px auto 0;
+    width: 290px;
+    height: 165px;
+    margin: 10px auto 0;
     position: relative
   }
   
@@ -48,7 +48,7 @@ export default class extends WeElement {
   }
   
   .btn.small {
-    font-size: 16px
+    font-size: 8px
   }
   
   
@@ -102,8 +102,8 @@ export default class extends WeElement {
   }
   
   .btn.space i {
-    width: 160px;
-    height: 160px
+    width: 80px;
+    height: 80px
   }
   
   
@@ -113,13 +113,13 @@ export default class extends WeElement {
   
   
   .btn.cm-btn-dir i {
-    width: 100px;
-    height: 100px
+    width: 50px;
+    height: 50px
   }
   
   .btn.small i {
-    width: 52px;
-    height: 52px;
+    width: 26px;
+    height: 26px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, .2)
   }
   
@@ -144,70 +144,70 @@ export default class extends WeElement {
     display: block;
     width: 0;
     height: 0;
-    border: 8px solid;
+    border: 4px solid;
     border-color: transparent transparent #111;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -18px 0 0 -8px
+    margin: -9px 0 0 -4px
   }
   
   
   .up {
     top: 0px; 
-    left: 374px;
+    left: 187px;
   }
   
   .up em{
-    transform: translate(0px, 70px) scale(1, 2);
+    transform: translate(0px, 35px) scale(1, 2);
   }
   
   
   .up span {
     position: absolute;
-    top: 5px;
-    left: 102px
+    top: 2.5px;
+    left: 51px
   }
   
   .down{
-    top: 180px; 
-    left: 374px;
+    top: 90px; 
+    left: 187px;
   }
   
   .down em{
-    transform: translate(0px, -71px) rotate(180deg) scale(1, 2);
+    transform: translate(0px, -35px) rotate(180deg) scale(1, 2);
   }
   
   .left{
-    top: 90px; 
-    left: 284px;
+    top: 45px; 
+    left: 142px;
   }
   
   .left em{
-    transform: translate(60px, -12px) rotate(270deg) scale(1, 2);
+    transform: translate(30px, -6px) rotate(270deg) scale(1, 2);
   }
   
   .right{
-    top: 90px; left: 464px;
+    top: 45px; left: 232px;
   }
   
   .right em{
-    transform: translate(-60px, -12px) rotate(90deg) scale(1, 2);
+    transform: translate(-30px, -6px) rotate(90deg) scale(1, 2);
   }
   
   .space{
-    top: 100px; 
-    left: 52px;
+    top: 50px; 
+    left: 26px;
   }
   
   .reset{
     top: 0px; 
-    left: 156px;
+    left: 78px;
   }
   
   .pp{
     top: 0px; 
-    left: 60px;
+    left: 30px;
   }
   
   `
