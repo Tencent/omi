@@ -175,6 +175,9 @@ export default class extends WeElement {
     }, {
       id: 'to-motion',
       label: 'To Motion',
+    }, {
+      id: 'snake-game',
+      label: 'Snake Game',
     }]
   }, {
     id: 'congratulations',
