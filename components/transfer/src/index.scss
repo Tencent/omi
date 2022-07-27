@@ -29,6 +29,10 @@
   float: left;
   // border: solid 0.5px #bdc3c7;
   position: relative;
+  display: flex;
+}
+o-button{
+  margin:2px
 }
 .transferButtonBody {
   position: absolute;
@@ -46,12 +50,30 @@ li {
 .transferBoxHeader {
   width: calc(100% - 10px);
   padding-left: 10px;
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  padding-bottom: 10px;
+  // line-height: 40px;
   background: #ecf0f1;
   font-size: 15px;
+  display: flex;
+  align-items: flex-end;
 }
 button {
   width: 50px;
   height: 40px;
+}
+.headerLeft{
+  width: 150px;
+  overflow: hidden;
+}
+.numberIdea {
+  // line-height: 30px;
+  height: 30px;
+  font-size: 10px;
+  color: #7f8c8d;
+  margin-top: 7px;
+  margin-right: 5px;
+  display: flex;
+  align-items: flex-end;
+  transform: scale(0.9)
 }

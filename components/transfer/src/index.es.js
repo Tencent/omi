@@ -41,7 +41,7 @@ const p$2 = function polyfill() {
   }
 };
 p$2();
-var index$1 = ":root{--bg1: #ecf0f1;--border1: #bdc3c7}.transferBox{width:200px;height:300px;float:left;border:solid .5px #bdc3c7;border-radius:5px;text-align:left;overflow:hidden}.transferBox ul li{width:calc(100% - 10px);padding-left:10px}.transferBox ul{padding-inline-start:0;overflow:auto;height:calc(100% - 40px);margin:0}.transferButton{width:200px;height:300px;float:left;position:relative}.transferButtonBody{position:absolute;height:40px;left:50%;top:50%;width:fit-content;width:-webkit-fit-content;width:-moz-fit-content;transform:translate(-50%) translateY(-50%)}li{list-style:none}.transferBoxHeader{width:calc(100% - 10px);padding-left:10px;height:40px;line-height:40px;background:#ecf0f1;font-size:15px}button{width:50px;height:40px}\n";
+var index$1 = ":root{--bg1: #ecf0f1;--border1: #bdc3c7}.transferBox{width:200px;height:300px;float:left;border:solid .5px #bdc3c7;border-radius:5px;text-align:left;overflow:hidden}.transferBox ul li{width:calc(100% - 10px);padding-left:10px}.transferBox ul{padding-inline-start:0;overflow:auto;height:calc(100% - 40px);margin:0}.transferButton{width:200px;height:300px;float:left;position:relative;display:flex}o-button{margin:2px}.transferButtonBody{position:absolute;height:40px;left:50%;top:50%;width:fit-content;width:-webkit-fit-content;width:-moz-fit-content;transform:translate(-50%) translateY(-50%)}li{list-style:none}.transferBoxHeader{width:calc(100% - 10px);padding-left:10px;height:30px;padding-bottom:10px;background:#ecf0f1;font-size:15px;display:flex;align-items:flex-end}button{width:50px;height:40px}.headerLeft{width:150px;overflow:hidden}.numberIdea{height:30px;font-size:10px;color:#7f8c8d;margin-top:7px;margin-right:5px;display:flex;align-items:flex-end;transform:scale(.9)}\n";
 var e = Object.defineProperty, o = Object.defineProperties, n = Object.getOwnPropertyDescriptors, c = Object.getOwnPropertySymbols, r = Object.prototype.hasOwnProperty, t = Object.prototype.propertyIsEnumerable, i = (o2, n2, c2) => n2 in o2 ? e(o2, n2, { enumerable: true, configurable: true, writable: true, value: c2 }) : o2[n2] = c2, a = (e2, o2) => {
   for (var n2 in o2 || (o2 = {}))
     r.call(o2, n2) && i(e2, n2, o2[n2]);
@@ -208,6 +208,10 @@ const tagName = "o-transfer";
 let Transfer = class extends WeElement {
   constructor() {
     super(...arguments);
+    this.numberUpdata = () => {
+      this.props.dataNumber = this.props.data.length - this.props.theValue.length;
+      this.props.valueNumber = this.props.theValue.length;
+    };
     this.findIndex = (key, arr) => {
       let ans = -1;
       arr.forEach((item, index2) => {
@@ -236,96 +240,103 @@ let Transfer = class extends WeElement {
       return this.props.theValue.length - number;
     };
     this.labelClick = (key) => {
-      if (this.props.bechlick1.indexOf(key) == -1) {
-        this.props.bechlick1.push(key);
+      if (this.props.beClick1.indexOf(key) == -1) {
+        this.props.beClick1.push(key);
       } else {
-        this.props.bechlick1.splice(this.props.bechlick1.indexOf(key), 1);
+        this.props.beClick1.splice(this.props.beClick1.indexOf(key), 1);
       }
-      this.update();
+      this.forceUpdate();
     };
-    this.theValueLableChilck = (key) => {
-      if (this.props.bechlick2.indexOf(key) == -1) {
-        this.props.bechlick2.push(key);
+    this.theValueLableClick = (key) => {
+      if (this.props.beClick2.indexOf(key) == -1) {
+        this.props.beClick2.push(key);
       } else {
-        this.props.bechlick2.splice(this.props.bechlick2.indexOf(key), 1);
+        this.props.beClick2.splice(this.props.beClick2.indexOf(key), 1);
       }
-      this.update();
+      this.forceUpdate();
     };
-    this.arrowChick = () => {
-      while (this.props.bechlick2.length) {
-        this.props.bechlick2.pop();
+    this.arrowClick = () => {
+      while (this.props.beClick2.length) {
+        this.props.beClick2.pop();
         this.props.theValue.pop();
       }
-      this.update();
+      this.numberUpdata();
+      this.forceUpdate();
     };
-    this.forwardChick = () => {
-      while (this.props.bechlick1.length) {
-        this.props.theValue.push(this.props.bechlick1[this.props.bechlick1.length - 1]);
-        this.props.bechlick1.pop();
+    this.forwardClick = () => {
+      while (this.props.beClick1.length) {
+        this.props.theValue.push(this.props.beClick1[this.props.beClick1.length - 1]);
+        this.props.beClick1.pop();
       }
-      this.update();
+      this.numberUpdata();
+      this.forceUpdate();
     };
     this.SelectAll = () => {
-      if (this.props.bechlick1.length < this.getDataNumber()) {
+      if (this.props.beClick1.length < this.getDataNumber()) {
         this.props.data.map((item, index2) => {
-          if (this.props.theValue.indexOf(item.key) == -1 && this.props.bechlick1.indexOf(item.key) == -1 && (!("disable" in this.props.data[index2]) || this.props.data[index2].disable != true)) {
-            this.props.bechlick1.push(item.key);
+          if (this.props.theValue.indexOf(item.key) == -1 && this.props.beClick1.indexOf(item.key) == -1 && (!("disable" in this.props.data[index2]) || this.props.data[index2].disable != true)) {
+            this.props.beClick1.push(item.key);
           }
         });
       } else {
-        while (this.props.bechlick1.length) {
-          this.props.bechlick1.pop();
+        while (this.props.beClick1.length) {
+          this.props.beClick1.pop();
         }
       }
-      this.update();
+      this.forceUpdate();
     };
     this.SelecttheValueAll = () => {
-      if (this.props.bechlick2.length < this.gettheValueNumber()) {
+      if (this.props.beClick2.length < this.gettheValueNumber()) {
         this.props.theValue.map((item) => {
-          if (this.props.bechlick2.indexOf(item) == -1 && (!("disable" in this.props.data[this.findIndex(item, this.props.data)]) || this.props.data[this.findIndex(item, this.props.data)].disable != true)) {
-            this.props.bechlick2.push(item);
+          if (this.props.beClick2.indexOf(item) == -1 && (!("disable" in this.props.data[this.findIndex(item, this.props.data)]) || this.props.data[this.findIndex(item, this.props.data)].disable != true)) {
+            this.props.beClick2.push(item);
           }
         });
       } else {
-        while (this.props.bechlick2.length) {
-          this.props.bechlick2.pop();
+        while (this.props.beClick2.length) {
+          this.props.beClick2.pop();
         }
       }
-      this.update();
+      this.forceUpdate();
     };
     this.judgeDataChecked = () => {
-      return this.getDataNumber() != 0 && this.getDataNumber() == this.props.bechlick1.length;
+      return this.getDataNumber() != 0 && this.getDataNumber() == this.props.beClick1.length;
     };
     this.judgeDataindeterminate = () => {
-      return this.props.bechlick1.length > 0 && this.getDataNumber() > this.props.bechlick1.length;
+      return this.props.beClick1.length > 0 && this.getDataNumber() > this.props.beClick1.length;
     };
     this.judgetheValueChecked = () => {
-      return this.gettheValueNumber() != 0 && this.gettheValueNumber() == this.props.bechlick2.length;
+      return this.gettheValueNumber() != 0 && this.gettheValueNumber() == this.props.beClick2.length;
     };
     this.judgetheValueindeterminate = () => {
-      return this.props.bechlick2.length > 0 && this.gettheValueNumber() > this.props.bechlick2.length;
+      return this.props.beClick2.length > 0 && this.gettheValueNumber() > this.props.beClick2.length;
     };
   }
   install() {
     this.props.value.map((item) => {
       this.props.theValue.push(item);
     });
+    this.numberUpdata();
   }
   render(props) {
     return /* @__PURE__ */ h(h.f, null, /* @__PURE__ */ h("div", {
       class: "transferBox"
     }, /* @__PURE__ */ h("div", {
       class: "transferBoxHeader"
+    }, /* @__PURE__ */ h("div", {
+      class: "headerLeft"
     }, /* @__PURE__ */ h("o-checkbox", {
       label: props.titles[0],
       checked: this.judgeDataChecked(),
       indeterminate: this.judgeDataindeterminate(),
       onchange: this.SelectAll
-    })), /* @__PURE__ */ h("ul", null, props.data.map((item) => {
+    })), /* @__PURE__ */ h("div", {
+      class: "numberIdea"
+    }, props.beClick1.length, "/", props.dataNumber)), /* @__PURE__ */ h("ul", null, props.data.map((item) => {
       return props.theValue.indexOf(item.key) === -1 && /* @__PURE__ */ h("li", null, /* @__PURE__ */ h("o-checkbox", {
         label: item.table,
         disabled: item.disable,
-        checked: props.bechlick1.indexOf(item.key) != -1,
+        checked: props.beClick1.indexOf(item.key) != -1,
         onChange: () => this.labelClick(item.key)
       }));
     }))), /* @__PURE__ */ h("div", {
@@ -334,26 +345,30 @@ let Transfer = class extends WeElement {
       class: "transferButtonBody"
     }, /* @__PURE__ */ h("o-button", {
       type: "primary",
-      onClick: this.arrowChick
+      onClick: this.arrowClick
     }, "<"), /* @__PURE__ */ h("o-button", {
       type: "primary",
-      onClick: this.forwardChick
+      onClick: this.forwardClick
     }, ">"))), /* @__PURE__ */ h("div", {
       class: "transferBox"
     }, /* @__PURE__ */ h("div", {
       class: "transferBoxHeader"
+    }, /* @__PURE__ */ h("div", {
+      class: "headerLeft"
     }, /* @__PURE__ */ h("o-checkbox", {
       label: props.titles[1],
       checked: this.judgetheValueChecked(),
       indeterminate: this.judgetheValueindeterminate(),
       onchange: this.SelecttheValueAll
-    })), /* @__PURE__ */ h("ul", null, props.data.map(
+    })), /* @__PURE__ */ h("div", {
+      class: "numberIdea"
+    }, props.beClick2.length, " / ", props.valueNumber)), /* @__PURE__ */ h("ul", null, props.data.map(
       (item) => {
         return props.theValue.indexOf(item.key) !== -1 && /* @__PURE__ */ h("li", null, /* @__PURE__ */ h("o-checkbox", {
           label: item.table,
           disabled: item.disable,
-          onChange: () => this.theValueLableChilck(item.key),
-          checked: props.bechlick2.indexOf(item.key) != -1
+          onChange: () => this.theValueLableClick(item.key),
+          checked: props.beClick2.indexOf(item.key) != -1
         }));
       }
     ))));
@@ -365,16 +380,20 @@ Transfer.defaultProps = {
   theValue: [],
   value: [],
   titles: ["\u5217\u88681", "\u5217\u88682"],
-  bechlick1: [],
-  bechlick2: []
+  beClick1: [],
+  beClick2: [],
+  dataNumber: 0,
+  valueNumber: 0
 };
 Transfer.propTypes = {
   data: Array,
   theValue: Array,
   value: Array,
   titles: Array,
-  bechlick1: Array,
-  bechlick2: Array
+  beClick1: Array,
+  beClick2: Array,
+  dataNumber: Number,
+  valueNumber: Number
 };
 Transfer = __decorateClass([
   tag(tagName)
