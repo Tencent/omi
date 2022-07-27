@@ -4,7 +4,7 @@ English | [简体中文](./README.CN.md)
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
 ```tsx
-import { tag, render, h, WeElement } from 'omi'
+import { tag, WeElement, h, render } from 'omi'
 
 @tag('hello-world')
 class HelloWorld extends WeElement {

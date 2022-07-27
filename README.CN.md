@@ -4,7 +4,7 @@
 <h2 align="center">Omi - 前端跨框架跨平台框架</h2>
 
 ```tsx
-import { tag, render, h, WeElement } from 'omi'
+import { tag, WeElement, h, render } from 'omi'
 
 @tag('hello-world')
 class HelloWorld extends WeElement {

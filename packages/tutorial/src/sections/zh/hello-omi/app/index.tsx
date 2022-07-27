@@ -1,4 +1,4 @@
-import { tag, render, h, WeElement } from 'omi'
+import { tag, WeElement, h, render } from 'omi'
 
 @tag('hello-omi')
 class HelloOmi extends WeElement {
