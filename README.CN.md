@@ -250,25 +250,7 @@ Omi适用于所有主要浏览器的最新两个版本:
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
 ```
 
-## 贡献
 
-Build a example:
-
-```bash
-npm start example_name
-```
-
-Build omi:
-
-```bash
-npm run build
-```
-
-Unit testing
-
-```
-npm run test
-```
 
 ## 贡献者们
 

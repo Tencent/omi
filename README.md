@@ -248,26 +248,6 @@ Omi works in the latest two versions of all major browsers: Safari 10+, IE 11+, 
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
 ```
 
-## Contribution
-
-Build a example:
-
-```bash
-npm start example_name
-```
-
-Build omi:
-
-```bash
-npm run build
-```
-
-Unit testing
-
-```
-npm run test
-```
-
 ## Contributors
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">
