@@ -1,0 +1,64 @@
+:root {
+  --bg1: #ecf0f1;
+  --border1: #bdc3c7;
+}
+
+.transferBox {
+  width: 200px;
+  height: 300px;
+  float: left;
+  border: solid 0.5px #bdc3c7;
+  border-radius: 5px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.transferBox ul li {
+  width: calc(100% - 10px);
+  padding-left: 10px;
+}
+
+.transferBox ul {
+  padding-inline-start: 0;
+  overflow: auto;
+  height: calc(100% - 40px);
+  margin: 0;
+}
+
+.transferButton {
+  width: 200px;
+  height: 300px;
+  float: left;
+  position: relative;
+}
+
+.transferButtonBody {
+  position: absolute;
+  height: 40px;
+  left: 50%;
+  top: 50%;
+  width: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+li {
+  list-style: none;
+}
+
+.transferBoxHeader {
+  width: calc(100% - 10px);
+  padding-left: 10px;
+  height: 40px;
+  line-height: 40px;
+  background: #ecf0f1;
+  font-size: 15px;
+}
+
+button {
+  width: 50px;
+  height: 40px;
+}
+
+/*# sourceMappingURL=index.css.map */

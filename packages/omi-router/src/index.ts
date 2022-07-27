@@ -5,7 +5,7 @@
  *  MIT Licensed.
  */
 
-import p2r from 'path-to-regexp'
+import * as p2r from 'path-to-regexp'
 const mapping = {}
 const root = getGlobal()
 
@@ -87,7 +87,7 @@ function getParams(toArr, pathArr) {
 export function route(path, callback) {
   mapping[path] = {
     callback: callback,
-    reg: p2r(path)
+    reg: p2r.default ? p2r.default(path) : p2r(path)
   }
 }
 

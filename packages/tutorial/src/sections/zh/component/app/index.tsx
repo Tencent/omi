@@ -1,9 +1,9 @@
 import { render, h } from 'omi'
-import './my-counter.tsx'
+import './my-counter'
 
 render((
   <div>
-    <div>Component Demo</div>
+    <div>组件 Demo</div>
     <my-counter />
   </div>
 ), 'body')
