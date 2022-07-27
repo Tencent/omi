@@ -4,4 +4,4 @@ import store from './store'
 // import './assets/index.css'
 
 store.ignoreAttrs = true
-render(<snake-game />, '#root', store)
+render(<snake-game />, 'body', store)

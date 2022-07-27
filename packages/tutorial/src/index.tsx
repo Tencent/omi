@@ -178,6 +178,7 @@ export default class extends WeElement {
     }, {
       id: 'snake-game',
       label: 'Snake Game',
+      files: ['index.tsx', 'snake-game.tsx', 'game-screen.tsx', 'store.ts', 'game.ts', 'snake.ts'],
     }]
   }, {
     id: 'congratulations',
