@@ -167,7 +167,7 @@ export default class extends WeElement<Props> {
             checkbox={true}
             stripe={false}
             border={false}
-            height={window.innerHeight - 210}
+            height={window.innerHeight - 215}
             compact={false}
             columns={this.columns}
             dataSource={this.dataSource}
