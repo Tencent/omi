@@ -292,6 +292,9 @@ export default class extends WeElement {
     this.selectTreeNodeById(section)
     this.update()
     hideLoading()
+
+    this.mainPanel.scrollTop = 0
+    this.mdPanel.scrollTop = 0
   }
 
   registerRoute() {
@@ -375,7 +378,8 @@ export default class extends WeElement {
   }
 
   showPopover: boolean
-
+  mainPanel: HTMLElement
+  mdPanel: HTMLElement
   $translate: WeElement
   $tip: WeElement
 
@@ -448,8 +452,12 @@ export default class extends WeElement {
               data={this.treeData}>
             </o-tree>
           </div>
-          <div class={tw`flex md:flex-row flex-col flex-1 overflow-hidden`}>
-            <div class={tw`md:w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
+          <div ref={e => this.mainPanel = e} class={tw`md:flex md:flex-row flex-col flex-1 overflow-scroll md:overflow-hidden`} style={{
+            height: window.innerWidth < 768 ? 'calc(100vh)' : 'auto'
+          }}>
+            <div ref={e => this.mdPanel = e} class={tw`md:w-1/2 overflow-auto  pl-2 pr-2 md:pl-8 md:pr-8 border-l`} style={{
+              height: window.innerWidth > 768 ? 'calc(100vh)' : 'auto'
+            }}>
               {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
               <div class={tw`flex justify-between border-t pt-2 pb-8`}>
                 {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
@@ -457,7 +465,9 @@ export default class extends WeElement {
               </div>
 
             </div>
-            <div class={tw`md:w-1/2`} style={{ height: 'calc(100vh)' }}>
+            <div class={tw`md:w-1/2`} style={{
+              height: window.innerWidth > 768 ? 'calc(100vh)' : 'auto'
+            }}>
               <div class={tw`flex flex-col`} style={{ height: this.codePanelHeight }} >
                 <o-tabs type="card" activeIndex={0} onChange={this.onChange} tabs={this.files.map(file => {
                   return { label: file }
