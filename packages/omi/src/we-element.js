@@ -139,7 +139,13 @@ export default class WeElement extends HTMLElement {
     //fix null !== undefined
     if (this._customStyleContent != this.props.css) {
       this._customStyleContent = this.props.css
-      this._customStyleElement.textContent = this._customStyleContent
+      if (this._customStyleElement) {
+        this._customStyleElement.textContent = this._customStyleContent
+      } else {
+        // 当 prop css 开始没有值，后来有值
+        this._customStyleElement = cssToDom(this.props.css)
+        this.shadowRoot.appendChild(this._customStyleElement)
+      }
     }
     this.attrsToProps(ignoreAttrs)
 

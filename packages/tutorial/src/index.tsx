@@ -101,9 +101,10 @@ interface TreeItem {
   label: string
   expanded?: boolean
   files?: string[]
-  codePanelHeight?: string,
+  codePanelHeight?: string
   previewPanelHeight?: string
   children?: TreeItem[]
+  sign?: string
 }
 
 @tag('my-app')
@@ -131,7 +132,7 @@ export default class extends WeElement {
 
   treeData: TreeItem[] = [{
     label: 'Base',
-    // sign: '●',
+    sign: '❤️',
     expanded: true,
     // selected: true,
     // icon: 'ac-unit-outlined',
@@ -168,6 +169,7 @@ export default class extends WeElement {
   }, {
     label: 'Complex',
     expanded: true,
+    sign: '💯',
     children: [{
       id: 'router',
       label: 'Router',
@@ -388,9 +390,11 @@ export default class extends WeElement {
     return (
       <div>
         <div class={tw`flex`}>
-          <div class={tw`flex flex-col`}>
+          <div class={tw`md:flex md:flex-col`}>
             <header class={tw`border-b h-9 leading-9 text-black pl-2 relative`}>
-              <h1 style={{ color: '#07C160' }}>  <img class={tw`w-5 inline-block mr-1 relative -top-0.5`} src={logo} />OMI TUTORIAL</h1>
+              <h1 style={{ color: '#07C160' }}>  <img class={tw`w-5 inline-block mr-1 relative -top-0.5`} src={logo} />
+                <span>OMI</span>
+              </h1>
               <a
                 href="https://github.com/Tencent/omi"
                 target="_blank"
@@ -402,6 +406,7 @@ export default class extends WeElement {
               </a>
 
               <div onMouseEnter={this.onEnterPopover}
+                onClick={this.onEnterPopover}
                 onMouseLeave={this.onLeavePopover}>
                 <o-icon-translate ref={e => this.$translate = e}
                   class={tw`absolute cursor-pointer`}
@@ -415,13 +420,36 @@ export default class extends WeElement {
 
             </header>
             <o-tree
-              style="width:200px"
+              css={window.innerWidth < 768 && `
+                .o-tree-node__label {
+                  font-size: 10px !important
+                }
+                
+                .o-tree-node__content {
+                  padding-left: 5px !important
+                }
+                
+                .o-tree-node__expand-icon.is-leaf {
+                  width: 0px !important;
+                }
+                
+                .o-tree-node__label {
+                  padding-right: 12px !important;
+                }
+                
+                .o-tree-node__content>.o-tree-node__expand-icon {
+                  padding: 2px !important;
+                }
+              `}
+              style={{
+                width: window.innerWidth > 768 ? '200px' : '120px'
+              }}
               onNodeClick={this.onNodeClick}
               data={this.treeData}>
             </o-tree>
           </div>
-          <div class={tw`flex flex-1 overflow-hidden`}>
-            <div class={tw`w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
+          <div class={tw`flex md:flex-row flex-col flex-1 overflow-hidden`}>
+            <div class={tw`md:w-1/2 overflow-auto pl-8 pr-8 border-l`} style={{ height: 'calc(100vh)' }}>
               {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
               <div class={tw`flex justify-between border-t pt-2 pb-8`}>
                 {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
@@ -429,7 +457,7 @@ export default class extends WeElement {
               </div>
 
             </div>
-            <div class={tw`w-1/2`} style={{ height: 'calc(100vh)' }}>
+            <div class={tw`md:w-1/2`} style={{ height: 'calc(100vh)' }}>
               <div class={tw`flex flex-col`} style={{ height: this.codePanelHeight }} >
                 <o-tabs type="card" activeIndex={0} onChange={this.onChange} tabs={this.files.map(file => {
                   return { label: file }

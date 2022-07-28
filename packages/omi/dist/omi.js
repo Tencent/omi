@@ -544,7 +544,10 @@
             this.beforeRender();
             if (this.O != this.props.css) {
                 this.O = this.props.css;
-                this.N.textContent = this.O;
+                if (this.N) this.N.textContent = this.O; else {
+                    this.N = cssToDom(this.props.css);
+                    this.shadowRoot.appendChild(this.N);
+                }
             }
             this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.store);
@@ -776,7 +779,7 @@
                 }); else observer.disconnect();
             }));
         }
-        if (!('undefined' == typeof document || 'adoptedStyleSheets' in document)) {
+        if (!('adoptedStyleSheets' in document)) {
             var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
             var bootstrapper = document.implementation.createHTMLDocument('boot');
             var closedShadowRootRegistry = new WeakMap();
@@ -935,7 +938,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.4';
+    options.root.Omi.version = '6.25.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
