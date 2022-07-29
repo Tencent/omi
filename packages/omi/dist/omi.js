@@ -779,7 +779,7 @@
                 }); else observer.disconnect();
             }));
         }
-        if (!('adoptedStyleSheets' in document)) {
+        if (!('undefined' == typeof document || 'adoptedStyleSheets' in document)) {
             var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
             var bootstrapper = document.implementation.createHTMLDocument('boot');
             var closedShadowRootRegistry = new WeakMap();
@@ -938,7 +938,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.5';
+    options.root.Omi.version = '6.25.6';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
