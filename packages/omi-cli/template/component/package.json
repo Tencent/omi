@@ -32,8 +32,8 @@
     "types"
   ],
   "dependencies": {
-    "@omiu/common": "0.0.12",
-    "omi": "6.23.0"
+    "@omiu/common": "latest",
+    "omi": "latest"
   },
   "devDependencies": {
     "@open-wc/testing": "^2.5.33",
