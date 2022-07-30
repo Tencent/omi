@@ -66,7 +66,7 @@ export default class ColorPicker extends WeElement<Props> {
         width: StringConstructor;
     };
     installed(): void;
-    setColor(color: any): any;
+    setColor(color: any): boolean;
     render(props: any): JSX.Element;
 }
 export {};
