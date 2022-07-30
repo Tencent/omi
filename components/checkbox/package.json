@@ -1,6 +1,6 @@
 {
   "name": "@omiu/checkbox",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"

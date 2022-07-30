@@ -23,29 +23,28 @@ export default class Table extends WeElement<Props> {
   }
 
 
-  changeHandler = (e) => {
+  onChange = (e) => {
     if (this.props.disabled) {
       return
     }
-    this.props.checked = !this.props.checked
-    this.update()
-    this.fire('change', e.currentTarget.checked)
-
 
     if (this.props.indeterminate) {
       this.props.checked = true
       this.props.indeterminate = false
-
-      if (this.prevProps) {
-        this.prevProps.checked = true
-        this.prevProps.indeterminate = false
-      }
-
-      this.update(true)
+      this.updateProps({
+        checked: true,
+        indeterminate: false
+      })
+    } else {
+      this.updateProps({
+        checked: !this.props.checked
+      })
     }
+
+    this.fire('change', e.currentTarget.checked)
   }
 
-  render(props) {
+  render(props: Props) {
 
     return (
       <div {...extractClass(props, 'o-checkbox', {
@@ -53,7 +52,7 @@ export default class Table extends WeElement<Props> {
         'o-checkbox__indeterminate': props.indeterminate
       })}>
 
-        <input type="checkbox" disabled={props.disabled} onChange={this.changeHandler} {...extract(props, ['checked', 'value', 'indeterminate'])}
+        <input type="checkbox" disabled={props.disabled} onChange={this.onChange} {...extract(props, ['checked', 'value', 'indeterminate'])}
           class="o-checkbox__native-control" id="checkbox" />
 
         <div class="o-checkbox__background">
