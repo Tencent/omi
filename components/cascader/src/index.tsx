@@ -4,6 +4,7 @@ import '../../popover'
 import '../../icon/esm/check'
 import '../../icon/esm/keyboard-arrow-right'
 import '../../icon/esm/keyboard-arrow-down'
+// @ts-ignore
 import * as css from './index.scss'
 
 interface CascaderOption {
@@ -17,6 +18,10 @@ interface CascaderOption {
 }
 
 export interface CascaderProps {
+  /**
+   * 展开触发方式
+   */
+  expandTrigger: 'click' | 'hover'
   /**
    * 当前值（从父到子应当是一个数组）
    */
@@ -34,16 +39,17 @@ export interface CascaderProps {
    */
   disabled?: boolean
   /**
-   * 选项被点击后的回调函数
+   * 选中选项发生改变回调函数
    */
-  onOptionClick?: (item: any, index: any, evt: any) => void
+  onChange?: (evt: CustomEvent) => void
 }
 
 @tag('o-cascader')
 export default class Cascader extends WeElement<CascaderProps> {
-  static css = css.default ? css.default : css
+  static css = css
 
   static defaultProps = {
+    expandTrigger: 'click',
     disabled: false,
     value: [],
     options: [],
@@ -51,6 +57,7 @@ export default class Cascader extends WeElement<CascaderProps> {
   }
 
   static propTypes = {
+    expandTrigger: String,
     disabled: Boolean,
     value: Array,
     options: Array,
@@ -123,6 +130,27 @@ export default class Cascader extends WeElement<CascaderProps> {
     }
 
     const CascaderOptionItem = (item: CascaderOption, index: number) => {
+      const eventMap = {
+        [(props.expandTrigger === 'click' || !item.children) ? 'onClick' : 'onMouseEnter']: (evt) => {
+          if (item.disabled) return
+          const temp = props.value.slice(0, index)
+          temp.push(item.value)
+          if (!item.children) {
+            this.popoverRef.isShow = false
+          }
+          this.updateProps({ value: temp })
+          if ((!item.children) && this.prevItem !== item) {
+            this.fire('change', {
+              value: item.value,
+              option: item,
+              index,
+              nativeEvent: evt
+            })
+            this.prevItem = item
+          }
+        }
+      }
+
       return (
         <li
           class={[
@@ -130,13 +158,7 @@ export default class Cascader extends WeElement<CascaderProps> {
             props.value[index] === item.value ? 'selected' : '',
             item.disabled ? 'disabled' : ''
           ].join(' ')}
-          onClick={(evt) => {
-            if (item.disabled) return
-            const temp = props.value.slice(0, index)
-            temp.push(item.value)
-            this.updateProps({ value: temp })
-            props.onOptionClick && props.onOptionClick(item, index, evt)
-          }}
+          {...eventMap}
         >
           <span>{item.label}</span>
           <span class="o-cascader-dropdown__item-suffix">
@@ -147,20 +169,21 @@ export default class Cascader extends WeElement<CascaderProps> {
     }
 
     return (
-      <div class={classes} onclick={(e) => e.stopPropagation()}>
+      <div class={classes} onclick={(e: Event) => e.stopPropagation()}>
         <o-popover
-          ref={(e) => (this.popoverRef = e)}
+          ref={(e: WeElement) => (this.popoverRef = e)}
           trigger="manual"
           position="bottom"
         >
           <o-input
             class="o-cascader-input"
-            ref={(e) => (this.inputRef = e)}
+            ref={(e: HTMLElement) => (this.inputRef = e)}
             value={this.getLabelsByValue(props.value)}
             suffix-icon="keyboard-arrow-down"
-            disabled
+            disabled={props.disabled}
+            readonly
             size={props.size}
-            onClick={(e) => {
+            onClick={(e: Event) => {
               if (props.disabled) return
               this.popoverRef.onEnter(e)
             }}

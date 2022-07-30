@@ -37,6 +37,10 @@ interface CascaderOption {
 
 export interface CascaderProps {
   /**
+   * 展开触发方式
+   */
+  expandTrigger: 'click' | 'hover'
+  /**
    * 当前值（从父到子应当是一个数组）
    */
   value: string[]
@@ -53,9 +57,9 @@ export interface CascaderProps {
    */
   disabled?: boolean
   /**
-   * 选项被点击后的回调函数
+   * 选中选项发生改变回调函数
    */
-  onOptionClick?: (item: any, index: any, evt: any) => void
+  onChange?: (evt: CustomEvent) => void
 }
 ```
 
