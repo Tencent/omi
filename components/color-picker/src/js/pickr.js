@@ -27,7 +27,6 @@ class Pickr {
 
   // Evenlistener name: [callbacks]
   _eventListener = {
-    'button-click': [],
     'swatch-select': [],
     'change': [],
     'save': [],
@@ -301,10 +300,6 @@ class Pickr {
     const { _root, options } = this;
 
     const eventBindings = [
-
-      _.on(_root.button, 'click', () => {
-        this._emit('button-click', this._color);
-      }),
 
       // Clear color
       _.on(_root.interaction.clear, 'click', () => this._clearColor()),
