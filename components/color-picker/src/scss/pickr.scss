@@ -14,8 +14,8 @@
 .pickr .pcr-button {
   @include transparency-background;
   position: relative;
-  height: 2em;
-  width: 2em;
+  height: 1.5em;
+  width: 1.5em;
   padding: 0.5em;
   cursor: pointer;
   font-family: $font-family;

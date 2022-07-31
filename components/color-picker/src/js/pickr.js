@@ -27,7 +27,8 @@ class Pickr {
 
   // Evenlistener name: [callbacks]
   _eventListener = {
-    'swatchselect': [],
+    'button-click': [],
+    'swatch-select': [],
     'change': [],
     'save': [],
     'init': []
@@ -301,6 +302,10 @@ class Pickr {
 
     const eventBindings = [
 
+      _.on(_root.button, 'click', () => {
+        this._emit('button-click', this._color);
+      }),
+
       // Clear color
       _.on(_root.interaction.clear, 'click', () => this._clearColor()),
 
@@ -487,7 +492,7 @@ class Pickr {
       this._eventBindings.push(
         _.on(element, 'click', () => {
           this.setHSVA(...hsvaColorObject.toHSVA(), true);
-          this._emit('swatchselect', hsvaColorObject);
+          this._emit('swatch-select', hsvaColorObject);
         })
       );
 
@@ -579,8 +584,18 @@ class Pickr {
    * Hides the color-picker ui.
    */
   hide() {
+    this.visible = false
     this._root.app.classList.remove('visible');
     return this;
+  }
+
+  toggle() {
+    this.visible = !this.visible
+    if (this.visible) {
+      this.show()
+    } else {
+      this.hide()
+    }
   }
 
   /**
@@ -588,6 +603,7 @@ class Pickr {
    */
   show() {
     if (this.options.disabled) return;
+    this.visible = true
     this._root.app.classList.add('visible');
     this._rePositioningPicker();
     return this;
