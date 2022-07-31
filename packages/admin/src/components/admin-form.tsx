@@ -7,7 +7,7 @@ import '@omiu/radio'
 import '@omiu/checkbox'
 import '@omiu/date-picker'
 import '@omiu/cascader'
-
+import '@omiu/color-picker'
 import '@omiu/form'
 
 interface Props { }
@@ -142,6 +142,13 @@ export default class extends WeElement<Props> {
                 </div>
               </div>
 
+              <div class={formItemClass}>
+                <label class={lableClass} >喜爱颜色</label>
+                <div class={tw`leading-8 ml-16`}>
+                  <o-color-picker style="position: relative;top: -5px;" hex save preview button clear width="300px" > </o-color-picker>
+                  <div class={tw`text-red-500 h-6 text-sm`}>{errors.color}</div>
+                </div>
+              </div>
 
               <div class={formItemClass}>
                 <label class={lableClass} >是否结婚</label>
