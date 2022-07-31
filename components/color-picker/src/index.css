@@ -216,10 +216,10 @@
   background: #4285f4;
 }
 .pcr-app .pcr-interaction .pcr-clear {
-  background: #f44250;
+  background: #aaa;
 }
 .pcr-app .pcr-interaction .pcr-clear:focus {
-  box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(244, 66, 80, 0.75);
+  box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(170, 170, 170, 0.75);
 }
 
 .pcr-app .pcr-selection {
@@ -331,4 +331,8 @@
 .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {
   background: linear-gradient(to bottom, transparent, black), url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
   background-size: 100%, 50%;
+}
+
+.o-color-picker {
+  position: relative;
 }

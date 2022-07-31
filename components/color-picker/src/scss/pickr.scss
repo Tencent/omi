@@ -217,10 +217,12 @@
   }
 
   .pcr-clear {
-    background: $palette-soft-red;
+    //background: $palette-soft-red;
+    background: #aaa;
 
     &:focus {
-      @include focus(rgba($palette-soft-red, 0.75));
+      //@include focus(rgba($palette-soft-red, 0.75));
+      @include focus(rgba(#aaa, 0.75));
     }
   }
 }
