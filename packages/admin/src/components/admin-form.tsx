@@ -145,7 +145,7 @@ export default class extends WeElement<Props> {
               <div class={formItemClass}>
                 <label class={lableClass} >喜爱颜色</label>
                 <div class={tw`leading-8 ml-16`}>
-                  <o-color-picker style="position: relative;top: -5px;" hex save preview button clear width="300px" > </o-color-picker>
+                  <o-color-picker default={this.store.themeColor} style="position: relative;top: -5px;" hex save preview button clear width="300px" > </o-color-picker>
                   <div class={tw`text-red-500 h-6 text-sm`}>{errors.color}</div>
                 </div>
               </div>

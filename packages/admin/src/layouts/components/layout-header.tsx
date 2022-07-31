@@ -151,6 +151,7 @@ export default class extends WeElement<Props> {
                   onchange={this.onColorChange}
                   onClick={(evt) => evt.stopPropagation()}
                   class={tw`absolute right-0 z-50`}
+                  default={this.store.themeColor}
                   save={false}
                   preview={false}
                   button={false}
