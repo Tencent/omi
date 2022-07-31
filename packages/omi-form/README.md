@@ -28,7 +28,9 @@ class HelloOmi extends WeElement {
         type: TYPE.datePicker,
         field: 'modifiedAt',
         title: '修改时间',
-        validate: [{ type: 'string', required: true, message: '请输入名称' }]
+        validate: [
+          { type: 'string', required: true, message: '请输入名称' }
+        ]
       },
       {
         type: TYPE.datePicker,
@@ -99,3 +101,7 @@ class HelloOmi extends WeElement {
 
 render(<hello-omi-form />, 'body')
 ```
+
+## dependency
+
+https://github.com/yiminghe/async-validator
