@@ -1,27 +1,24 @@
 import { WeElement, render, h, tag } from 'omi'
 import './index.css'
 import { tw, sheet } from 'omi-twind'
-import './docs/admin-docs'
+import './components/admin-docs'
 import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
+import logo from './assets/logo.svg'
+import { createPopper } from '@popperjs/core'
+import {  route } from 'omi-router'
+import { showLoading, hideLoading } from '@omiu/toast'
+import { vfilePlugin } from './rollup-plugin'
+import * as ts from "typescript";
+import { rollup } from 'rollup';
+
 import '@omiu/link'
 import '@omiu/icon/navigate-before'
 import '@omiu/icon/navigate-next'
-import logo from './assets/logo.svg'
 import '@omiu/tabs'
 import '@omiu/tree'
 import '@omiu/icon/git-hub'
 import '@omiu/icon/translate'
-import { createPopper } from '@popperjs/core'
-
-import { hashChange, route } from 'omi-router'
-import { showLoading, hideLoading } from '@omiu/toast'
-
-import { vfilePlugin } from './rollup-plugin'
-
-import * as ts from "typescript";
-import { rollup } from 'rollup';
-
 
 
 function tsBuild(code) {
