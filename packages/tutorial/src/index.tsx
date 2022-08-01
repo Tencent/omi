@@ -2,7 +2,7 @@ import { WeElement, render, h, tag } from 'omi'
 import './assets/index.css'
 import logo from './assets/logo.svg'
 import { tw, sheet } from 'omi-twind'
-import './components/admin-docs'
+import './components/markdown-docs'
 import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
 import { createPopper } from '@popperjs/core'
@@ -455,7 +455,7 @@ export default class extends WeElement {
             <div ref={e => this.mdPanel = e} class={tw`md:w-1/2 overflow-auto  pl-2 pr-2 md:pl-8 md:pr-8 border-l`} style={{
               height: window.innerWidth > 768 ? 'calc(100vh)' : 'auto'
             }}>
-              {this.mdContent && <admin-docs mdContent={this.mdContent}></admin-docs>}
+              {this.mdContent && <markdown-docs mdContent={this.mdContent}></markdown-docs>}
               <div class={tw`flex justify-between border-t pt-2 pb-8`}>
                 {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
               <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link> */}
