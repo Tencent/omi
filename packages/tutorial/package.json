@@ -2,8 +2,9 @@
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build --base=./",
-    "serve": "vite preview"
+    "build": "tsc && vite build --base=./ && npm run cp",
+    "serve": "vite preview",
+    "cp" : "cp -r ./libs  ./dist/libs"
   },
   "devDependencies": {
     "less": "^4.1.1",
