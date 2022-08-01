@@ -1,12 +1,12 @@
 import { WeElement, render, h, tag } from 'omi'
-import './index.css'
+import './assets/index.css'
+import logo from './assets/logo.svg'
 import { tw, sheet } from 'omi-twind'
 import './components/admin-docs'
 import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
-import logo from './assets/logo.svg'
 import { createPopper } from '@popperjs/core'
-import {  route } from 'omi-router'
+import { route } from 'omi-router'
 import { showLoading, hideLoading } from '@omiu/toast'
 import { vfilePlugin } from './rollup-plugin'
 import * as ts from "typescript";
