@@ -8,9 +8,9 @@ import { javascript } from "@codemirror/lang-javascript"
 import { createPopper } from '@popperjs/core'
 import { route } from 'omi-router'
 import { showLoading, hideLoading } from '@omiu/toast'
-import { vfilePlugin } from './rollup-plugin'
-import * as ts from "typescript";
-import { rollup } from 'rollup';
+import { files } from './files'
+import { tsBuild } from './ts-build'
+import { rollupBuild } from './rollup-build'
 
 import '@omiu/link'
 import '@omiu/icon/navigate-before'
@@ -19,79 +19,6 @@ import '@omiu/tabs'
 import '@omiu/tree'
 import '@omiu/icon/git-hub'
 import '@omiu/icon/translate'
-
-
-function tsBuild(code) {
-  return ts.transpileModule(code, {
-    compilerOptions: {
-      module: ts.ModuleKind.ESNext,
-      target: ts.ScriptTarget.ESNext,
-      // @ts-ignore
-      jsx: 'react',
-      jsxFactory: 'h',
-      jsxFragmentFactory: 'h.f',
-    }
-  }).outputText;
-}
-
-const files = {
-  './index': ''
-}
-
-
-// see below for details on these options
-const inputOptions = {
-  input: './index', // resolved by our plugin
-  plugins: [vfilePlugin(files)],
-  // 不需要 tree shaking
-  treeshake: false
-};
-
-// you can create multiple outputs from the same input to generate e.g.
-// different formats like CommonJS and ESM
-const outputOptionsList = [{
-  file: 'bundle.js',
-  format: 'umd' //es
-}];
-
-
-async function build(callback) {
-  if (!files['./index']) {
-    return
-  }
-  let bundle;
-  let buildFailed = false;
-  try {
-    // create a bundle
-    bundle = await rollup(inputOptions);
-
-    // an array of file names this bundle depends on
-    await generateOutputs(bundle, callback);
-  } catch (error) {
-    buildFailed = true;
-    // do some error reporting
-    console.error(error);
-  }
-  if (bundle) {
-    // closes the bundle
-    await bundle.close();
-  }
-  // process.exit(buildFailed ? 1 : 0);
-}
-
-async function generateOutputs(bundle, callback) {
-  for (const outputOptions of outputOptionsList) {
-    const { output } = await bundle.generate(outputOptions);
-    for (const chunkOrAsset of output) {
-      if (chunkOrAsset.type === 'asset') {
-        console.log('Asset', chunkOrAsset);
-      } else {
-        callback(output[0].code)
-        // console.log('Chunk', chunkOrAsset.modules);
-      }
-    }
-  }
-}
 
 interface TreeItem {
   id?: string
@@ -283,7 +210,7 @@ export default class extends WeElement {
       files[`./${file.replace('.tsx', '').replace('.ts', '')}`] = tsBuild(texts[index + 1])
     })
 
-    build((code) => {
+    rollupBuild((code) => {
       this.reloadPreview(code)
     });
     this.selectTreeNodeById(section)
@@ -319,7 +246,7 @@ export default class extends WeElement {
         EditorView.updateListener.of((e) => {
           this.filesContent[this.tabName] = e.state.doc.toString()
           files['./' + this.tabName.replace('.tsx', '').replace('.ts', '')] = tsBuild(e.state.doc.toString())
-          build((code) => {
+          rollupBuild((code) => {
             this.reloadPreview(code)
           });
         })],

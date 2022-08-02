@@ -13,7 +13,6 @@ console.log(prismjs)
 // @ts-ignore
 const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 
-
 interface Props {
   mdContent: string
   padding?: number
@@ -51,7 +50,6 @@ export default class extends WeElement<Props> {
       level: 2,
       permalink: true
     })
-
   }
 
   installed() {
@@ -62,22 +60,17 @@ export default class extends WeElement<Props> {
     this.initCodeStyle()
   }
 
-
   initCodeStyle() {
-    const codes = this.shadowRoot.querySelectorAll('code')
+    const codes = Array.prototype.slice.call(this.shadowRoot.querySelectorAll('code'))
 
-    const codesArr = Array.prototype.slice.call(codes)
-    //const codeHlNumArr = []
-
-    codesArr.forEach((code) => {
+    codes.forEach((code) => {
       const arr = code.className.match(/{([\S\s]*)}/)
       let pre = code.parentNode
-      //bug!
+      // bug!
       arr && pre.setAttribute('data-line', arr[1])
 
       if (code.className) {
         pre.className = code.className
-
         const temp = code.className.match(/language-\w*/g)[0]
         const lan = temp.split('-')[1]
         const pl = Prism.languages[lan]
@@ -92,7 +85,7 @@ export default class extends WeElement<Props> {
       }
     })
 
-    // fix line-highlight
+    // fix line-highlight invalid
     window.dispatchEvent(new Event('resize'))
   }
 
