@@ -23,10 +23,8 @@ class HelloWorld extends WeElement {
 render(<hello-world msg='World' />, 'body')
 ```
 
-* [💯Omi Tutorial and Playground](https://tencent.github.io/omi/packages/tutorial/dist/index.html)
-* [💯Omi Admin by Omiu](https://tencent.github.io/omi/packages/admin/dist/index.html)
-* [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
-
+* [💯Omi Tutorial and Playground](https://omi.cdn-go.cn/play/latest/index.html)
+* [💯Omi Admin by Omiu](https://omi.cdn-go.cn/admin/latest/index.html)
 
 
 ## Why Omi?
