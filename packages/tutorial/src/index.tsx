@@ -5,7 +5,7 @@ import { tw, sheet } from 'omi-twind'
 import './components/markdown-docs'
 import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
-import { createPopper } from '@popperjs/core'
+import { createPopper, Instance } from '@popperjs/core'
 import { route } from 'omi-router'
 import { showLoading, hideLoading } from '@omiu/toast'
 import { files } from './files'
@@ -31,27 +31,27 @@ interface TreeItem {
   sign?: string
 }
 
+declare global {
+  interface Window {
+    PreviewIframeDynamicSourceCode: string
+  }
+}
+
 @tag('my-app')
 export default class extends WeElement {
   static css = sheet.target
-
-  abc: string
 
   onCountChanged = (evt: CustomEvent) => {
     console.log(evt.detail)
   }
 
   editorEl: HTMLElement
-
   editor: EditorView
-
-  $iframe: HTMLElement
+  $iframe: HTMLIFrameElement
 
   reloadPreview(code) {
-    // @ts-ignore
-    window._sourceCode = code;
-    // @ts-ignore
-    this.$iframe.contentWindow.location.reload(true);
+    window.PreviewIframeDynamicSourceCode = code
+    this.$iframe.contentWindow.location.reload()
   }
 
   treeData: TreeItem[] = [{
@@ -131,9 +131,7 @@ export default class extends WeElement {
 
   codePanelHeight = '58%'
   previewPanelHeight = '42%'
-
   mdContent: string
-
   filesContent: { [fileName: string]: string } = {}
 
   selectTreeNodeById(id) {
@@ -196,9 +194,9 @@ export default class extends WeElement {
       urls.push(`${url}/src/sections/${this.lan}/${section}/app/${file}`)
     })
     const texts = await Promise.all(urls.map(async url => {
-      const resp = await fetch(url);
-      return resp.text();
-    }));
+      const resp = await fetch(url)
+      return resp.text()
+    }))
 
     this.mdContent = texts[0]
     const tsxMatch = texts[1]
@@ -212,7 +210,7 @@ export default class extends WeElement {
 
     rollupBuild((code) => {
       this.reloadPreview(code)
-    });
+    })
     this.selectTreeNodeById(section)
     this.update()
     hideLoading()
@@ -224,7 +222,6 @@ export default class extends WeElement {
   registerRoute() {
     // https://github.com/vitejs/vite/issues/4945
     // https://vitejs.dev/guide/features.html#glob-import
-    // @ts-ignore
     // const mds = import.meta.glob(`./sections/**/**/*.*`, { as: 'raw' })
 
     route('/:section', async (evt) => {
@@ -248,7 +245,7 @@ export default class extends WeElement {
           files['./' + this.tabName.replace('.tsx', '').replace('.ts', '')] = tsBuild(e.state.doc.toString())
           rollupBuild((code) => {
             this.reloadPreview(code)
-          });
+          })
         })],
       parent: this.editorEl,
       doc: ''
@@ -276,12 +273,12 @@ export default class extends WeElement {
     })
   }
 
+  popper: Instance
+
   onEnterPopover = () => {
     this.showPopover = true
     this.update()
-    // @ts-ignore
     this.popper && this.popper.destroy()
-    // @ts-ignore
     this.popper = createPopper(this.$translate, this.$tip, {
       placement: 'bottom',
       modifiers: [
@@ -310,7 +307,6 @@ export default class extends WeElement {
   onLeavePopover = () => {
     this.showPopover = false
     this.update()
-    // @ts-ignore
     this.popper && this.popper.destroy()
   }
 
@@ -387,7 +383,6 @@ export default class extends WeElement {
                 {/* <o-link type="primary"><o-icon-navigate-before></o-icon-navigate-before> Prev</o-link>
               <o-link icon="navigate-next" type="primary">Next<o-icon-navigate-next></o-icon-navigate-next></o-link> */}
               </div>
-
             </div>
             <div class={tw`md:w-1/2`} style={{
               height: window.innerWidth > 768 ? 'calc(100vh)' : 'auto'

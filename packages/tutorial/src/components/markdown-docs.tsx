@@ -26,9 +26,8 @@ declare global {
     }
   }
   class Prism {
-    static highlight(code: string, la: string, lan: string): string;
+    static highlight(code: string, la: string, lan: string): string
     static languages
-
   }
 }
 
