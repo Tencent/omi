@@ -185,13 +185,13 @@ export default class extends WeElement {
 
   async loadSection(section) {
     this.section = section
-    const url = '//tencent.github.io/omi/packages/tutorial'
+    const url = './sections/'
     showLoading()
     const urls = [
-      `${url}/src/sections/${this.lan}/${section}/description.md`
+      `${url}${this.lan}/${section}/description.md`
     ]
     this.files.forEach((file) => {
-      urls.push(`${url}/src/sections/${this.lan}/${section}/app/${file}`)
+      urls.push(`${url}${this.lan}/${section}/app/${file}`)
     })
     const texts = await Promise.all(urls.map(async url => {
       const resp = await fetch(url)
