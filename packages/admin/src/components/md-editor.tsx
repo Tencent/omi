@@ -4,8 +4,10 @@ import { WeElement, h, tag } from 'omi'
 import { tw, sheet } from 'omi-twind'
 import css from 'bytemd/dist/index.min.css'
 
-//import { Editor, Viewer } from 'bytemd'
-// import gfm from '@bytemd/plugin-gfm'
+import { Editor } from 'bytemd'
+import highlight from '@bytemd/plugin-highlight'
+import highlightCSS from 'highlight.js/styles/vs.css?raw'
+import gfm from '@bytemd/plugin-gfm'
 import demoContent from './md-editor.md?raw'
 
 interface Props { }
@@ -21,7 +23,7 @@ declare global {
 
 @tag(tagName)
 export default class extends WeElement<Props> {
-  static css = [sheet.target, css, `
+  static css = [sheet.target, highlightCSS, css, `
   .bytemd {
     height: calc(100vh - 88px);
   }
@@ -35,12 +37,13 @@ export default class extends WeElement<Props> {
 
   installed() {
     const plugins = [
-      //gfm(),
+      gfm(),
       // Add more plugins here
+      highlight()
     ]
 
     // @ts-ignore
-    const editor = new bytemd.Editor({
+    const editor = new Editor({
       target: this.shadowRoot.querySelector('#md'), // DOM to render
       props: {
         value: demoContent,

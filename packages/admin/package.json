@@ -15,6 +15,8 @@
     "vite-plugin-mock": "^2.9.1"
   },
   "dependencies": {
+    "@bytemd/plugin-gfm": "^1.17.2",
+    "@bytemd/plugin-highlight": "^1.17.2",
     "@omiu/action-sheet": "^0.0.5",
     "@omiu/avatar": "^0.0.1",
     "@omiu/badge": "^0.0.2",
@@ -61,7 +63,7 @@
     "@omiu/transition": "^0.0.14",
     "@omiu/tree": "^0.0.20",
     "axios": "^0.21.1",
-    "bytemd": "^1.10.13",
+    "bytemd": "^1.17.2",
     "copy-to-clipboard": "^3.3.1",
     "file-saver": "^2.0.5",
     "i18next": "^20.4.0",
