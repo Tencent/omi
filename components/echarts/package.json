@@ -1,0 +1,48 @@
+{
+  "name": "@omiu/echarts",
+  "description": "OMI version of ECharts",
+  "version": "0.0.1",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "docsExtend": {
+    "cnName": "ECharts 的 OMI 版本",
+    "cnDescription": "ECharts 的 OMI 版本"
+  },
+  "scripts": {
+    "dev": "yarn start",
+    "start": "yarn watch & vite",
+    "build": "vite build",
+    "build:demo": "vite build",
+    "build:scss": "sass src/index.scss src/index.css",
+    "watch": "sass --watch src/index.scss src/index.css --no-source-map",
+    "pretest": "yarn build",
+    "test": "web-test-runner \"test/test.js\" --node-resolve --watch",
+    "docs": "node ./scripts/docs-gen.js"
+  },
+  "dependencies": {
+    "@types/echarts": "^4.9.16",
+    "echarts": "^5.3.3"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.5.33",
+    "@types/node": "^16.4.7",
+    "@web/test-runner": "^0.13.15",
+    "omi": "^6.19.23",
+    "sass": "^1.36.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.3"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "omiu",
+    "tag"
+  ]
+}
