@@ -44,7 +44,7 @@ export default class TableDemo extends WeElement {
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts'],
   }, {
-    id: 2,
+    id: 112,
     name: 'dntzhang',
     age: 12,
     address: 'Tencent',
@@ -87,37 +87,37 @@ export default class TableDemo extends WeElement {
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 8,
+    id: 813,
     name: 'tim',
     age: 12,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 8,
+    id: 9,
     name: 'bob¸¸',
     age: 12,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 8,
+    id: 18,
     name: 'cuck',
     age: 5,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 8,
+    id: 338,
     name: 'titi',
     age: 1,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 7,
+    id: 117,
     name: 'lucy',
     age: 2,
-    address: 'Tencent',
+    address: 'Tencent xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 8,
+    id: 228,
     name: 'water',
     age: 3,
     address: 'Tencent',
@@ -129,19 +129,19 @@ export default class TableDemo extends WeElement {
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 18,
+    id: 13238,
     name: 'tim',
     age: 12,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 28,
+    id: 218,
     name: 'tim',
     age: 12,
     address: 'Tencent',
     tags: ['omi', 'web components', 'ts']
   }, {
-    id: 23,
+    id: 2113,
     name: 'tim',
     age: 12,
     address: 'Tencent',
@@ -155,29 +155,42 @@ export default class TableDemo extends WeElement {
     sortable: true,
     sortMultiple: 2,
     filters: [],
+    width: 120,
     filterMethod() { },
     render: (item: DataType) => (<strong>{item.id}</strong>),
   }, {
     title: 'Name',
     key: 'name',
     filters: [],
+    width: 100,
     filterMethod() { },
     render: (item: DataType) => (<a href="#">{item.name}</a>),
     editable: true
   }, {
     title: 'Age',
     key: 'age',
+    width: 100,
     sortable: true,
     sortMultiple: 1,
     editable: true
   }, {
     title: 'Address',
     key: 'address',
-    maxWidth: 50,
-    editable: true
+    editable: true,
+    width: 200,
+    render: (item: DataType) => (
+      <o-tooltip style="display:block" content={item.address}>
+        <div style="
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      ">{item.address}</div>
+      </o-tooltip>
+    ),
   }, {
     title: 'Tags',
     key: 'tags',
+    width: 300,
     render: (item: DataType) => {
       return item.tags.map((tag, index) => <o-tag size="mini" type={['success', 'info', 'danger'][index]}>{tag}</o-tag>)
     },
@@ -185,6 +198,7 @@ export default class TableDemo extends WeElement {
   }, {
     title: '操作',
     align: 'right',
+    width: 150,
     render: (item: DataType) => {
       //onclick 会绑定多次的问题(o-icon-delete一次，o-icon-delete内部的svg一次)
 
@@ -234,7 +248,6 @@ export default class TableDemo extends WeElement {
 
   onSortChange = (evt) => {
     const columns = evt.detail
-    console.log(columns)
     if (!columns.length) {
       this.dataSource = [...this.dataSourceBeforeSort]
     } else {
@@ -270,7 +283,7 @@ export default class TableDemo extends WeElement {
         border={true}
         compact={true}
         height={400}
-        width={this.isSmall ? 300 : '100%'}
+        width={this.isSmall ? 500 : '100%'}
         fixedLeftCount={this.fixedLeft ? 1 : 0}
         fixedRight={this.fixedRight}
         fixedTop={this.fixedTop}

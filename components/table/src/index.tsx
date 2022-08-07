@@ -202,10 +202,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         <tr>
           {props.columns.map((column, index) => {
             const obj: any = {}
-            const { maxWidth } = column
-            if (maxWidth !== undefined) {
-              obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
-            }
+
             return <th {...obj}
               title={column.title}
               class={classNames({
@@ -294,12 +291,8 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
           <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
             background: item.$config && item.$config.bgColor
           }}>
-            {props.columns.map((column, subIndex) => {
+            {props.columns.map((column, index) => {
               const obj: any = {}
-              const { maxWidth } = column
-              if (maxWidth !== undefined) {
-                obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
-              }
               const columnVal = column.render ? column.render(item) : item[column.key]
               const title = typeof columnVal === 'string' ? columnVal : null
               return <td
@@ -308,9 +301,11 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                 class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
                   'compact': props.compact,
-                  'fixed-left': subIndex < props.fixedLeftCount,
+                  'fixed-left': index < props.fixedLeftCount,
                   'fixed-right': column.fixed
-                })}>{subIndex === 0 && props.checkbox && <o-checkbox
+                })}>
+                {/* <div class="cell"> */}
+                {index === 0 && props.checkbox && <o-checkbox
                   checked={item.checked}
                   onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ?
                     <o-input
@@ -321,6 +316,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                       }}
                       value={item[column.key]} /> :
                     (columnVal)}
+                {/* </div> */}
               </td>
             })}
           </tr>
@@ -329,7 +325,21 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     )
   }
 
+  renderColGroup() {
+    return (
+      <colgroup>
+        {this.props.columns.map((column) => {
+          return <col width={column.width || 100} />
+        })}
+      </colgroup>
+    )
+  }
+
   render(props) {
+
+    const width = props.columns.map(column => column.width).reduce((wa, wb) => {
+      return (wa || 100) + (wb || 100)
+    })
 
     if (!props.columns) return
     if (!props.dataSource) return
@@ -347,7 +357,12 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         'o-table-border': props.border,
         'o-table-stripe': props.stripe
       })}>
-        <table {...extractClass(props, 'o-table-table')}>
+        <table {...extractClass(props, 'o-table-table')}
+          style={{
+            width: width + 'px'
+          }}
+        >
+          {this.renderColGroup()}
           {this.renderHead()}
           {this.renderBody()}
         </table>

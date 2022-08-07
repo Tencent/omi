@@ -112,16 +112,20 @@
   overflow: auto;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .o-table-border {
   border: 1px solid #ebeef5;
 }
 
 .o-table-table {
   background: white;
-  width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
   color: #606266;
+  table-layout: fixed;
 }
 
 .o-table-checkbox th:first-child,
@@ -138,12 +142,10 @@ th {
   line-height: 1.3125rem;
   font-weight: 500;
   background: #fafafa;
-  white-space: nowrap;
 }
 
 th,
 td {
-  white-space: nowrap;
   font-size: 0.875rem;
   overflow: hidden;
   text-overflow: ellipsis;
