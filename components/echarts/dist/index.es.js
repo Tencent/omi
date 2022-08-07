@@ -1,36 +1,4 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-import { define, WeElement, h, tag } from "omi";
-const hyphenateRE = /\B([A-Z])/g;
-const hyphenate = function(str) {
-  return str.replace(hyphenateRE, "-$1").toLowerCase();
-};
-function createSvgIcon(path, displayName) {
-  var _a2;
-  define(hyphenate("OIcon" + displayName), (_a2 = class extends WeElement {
-    render() {
-      return h("svg", {
-        viewBox: "0 0 24 24"
-      }, path);
-    }
-  }, __publicField(_a2, "css", `:host {
-  fill: currentColor;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  vertical-align: -0.125em;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  flex-shrink: 0;
-  user-select: none;
-}`), _a2));
-}
-createSvgIcon(h("path", {
-  d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-}), "Close");
+import { tag, WeElement, h } from "omi";
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -16796,16 +16764,16 @@ function normalizeTooltipFormatResult(result) {
     frag: markupFragment
   };
 }
-function createTask(define2) {
-  return new Task(define2);
+function createTask(define) {
+  return new Task(define);
 }
 var Task = function() {
-  function Task2(define2) {
-    define2 = define2 || {};
-    this._reset = define2.reset;
-    this._plan = define2.plan;
-    this._count = define2.count;
-    this._onDirty = define2.onDirty;
+  function Task2(define) {
+    define = define || {};
+    this._reset = define.reset;
+    this._plan = define.plan;
+    this._count = define.count;
+    this._onDirty = define.onDirty;
     this._dirty = true;
   }
   Task2.prototype.perform = function(performArgs) {
@@ -69747,7 +69715,7 @@ use(install$1);
 use(install);
 use(installUniversalTransition);
 use(installLabelLayout);
-var __defProp2 = Object.defineProperty;
+var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __decorateClass = (decorators, target, key, kind) => {
   var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
@@ -69755,7 +69723,7 @@ var __decorateClass = (decorators, target, key, kind) => {
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp2(target, key, result);
+    __defProp(target, key, result);
   return result;
 };
 let Chart = class extends WeElement {
@@ -69777,6 +69745,12 @@ let Chart = class extends WeElement {
       style: { height: `${props.height}px`, width: `${props.height}px` }
     });
   }
+};
+Chart.defaultProps = {
+  options: {},
+  resizeAble: false,
+  width: 300,
+  height: 300
 };
 Chart.propTypes = {
   options: Object,

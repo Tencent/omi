@@ -1,5 +1,4 @@
 import { tag, h, WeElement, OmiProps } from 'omi'
-import '../../icon/esm/close'
 import * as echarts from 'echarts'
 
 export interface ChartProps {
