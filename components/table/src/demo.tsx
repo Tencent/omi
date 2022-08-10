@@ -177,7 +177,7 @@ export default class TableDemo extends WeElement {
     title: 'Address',
     key: 'address',
     editable: true,
-    width: 200,
+    // 不设宽度自动分配剩余空间宽度
     render: (item: DataType) => (
       <o-tooltip style="display:block" content={item.address}>
         <div style="
@@ -285,7 +285,7 @@ export default class TableDemo extends WeElement {
         height={400}
         width={this.isSmall ? 500 : '100%'}
         fixedLeftCount={this.fixedLeft ? 1 : 0}
-        fixedRight={this.fixedRight}
+        fixedRightCount={this.fixedRight ? 1 : 0}
         fixedTop={this.fixedTop}
         columns={this.columns}
         dataSource={this.dataSource}
