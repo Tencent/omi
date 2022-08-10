@@ -73,7 +73,7 @@ $ npm run build       # 编译发布
 
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
+| [snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
 | [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5  |
 |[custom-elements-everywhere](https://custom-elements-everywhere.com/)| 框架和自定义元素无缝工作 |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Omi 钢琴, [开始演奏吧!](https://wscats.github.io/piano/build/)|

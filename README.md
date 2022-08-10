@@ -65,7 +65,7 @@ $ npm run build       # release
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
-| [omi-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/omi-snake/dist/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
+| [snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/snake/dist/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
 |[custom-elements-everywhere](https://custom-elements-everywhere.com/)| Making sure frameworks and custom elements can be BFFs 🍻 |
 | [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
