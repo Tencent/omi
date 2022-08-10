@@ -53,7 +53,7 @@
     "@omiu/slider": "0.0.15",
     "@omiu/steps": "^0.0.6",
     "@omiu/switch": "^0.0.2",
-    "@omiu/table": "^0.0.21",
+    "@omiu/table": "^0.0.24",
     "@omiu/tabs": "^0.0.26",
     "@omiu/tag": "^0.0.6",
     "@omiu/time-picker": "^0.0.3",

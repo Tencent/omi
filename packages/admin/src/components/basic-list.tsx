@@ -68,38 +68,43 @@ export default class extends WeElement<Props> {
 
   columns = [
     {
+      width: 140,
+      title: '合同编号',
+      key: 'no'
+    },
+    {
       title: '合同名称',
       key: 'name',
-      maxWidth: 140
     },
     {
       title: '合同状态',
+      width: 140,
       render: (item) => {
         return <span style={{ color: Status[item.status].COLOR }}>● {Status[item.status].WORDING}</span>
       }
     },
     {
-      title: '合同编号',
-      key: 'no'
-    },
-    {
       title: '合同类型',
+      width: 140,
       render: (item) => {
         return <span > {ContractType[item.contractType]}</span>
       }
     },
     {
+      width: 140,
       title: '合同金额',
       key: 'amount',
     },
     {
       title: '合同收付类型',
+      width: 140,
       render: (item) => {
         return <span > {PaymentType[item.paymentType]}</span>
       }
     },
     {
       title: '操作',
+      width: 140,
       align: 'right',
       render: (item: { name: string; id: number }) => (
         //onclick 会绑定多次的问题
@@ -174,7 +179,7 @@ export default class extends WeElement<Props> {
 
             fixedLeftCount={1}
             // tooltip bug 修复了再开启
-            fixedRight={true}
+            fixedRightCount={1}
             fixedTop={true}
           ></o-table>
 
