@@ -106,8 +106,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     return { 'checked': true }
   }
 
-  installed() {
-
+  layout() {
     const width = this.rootNode?.getBoundingClientRect().width
     if (width) {
       let totalWidth = 0
@@ -123,11 +122,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         if (!column.hasOwnProperty('width')) {
           // 平分剩余空间
           const dy = (width - totalWidth)
-          if (dy > 0) {
-            column.width = Math.floor(dy / noWidthColumnCount - 2)
-          } else {
-            column.width = 100
-          }
+          column.computedWidth = Math.max(Math.floor(dy / noWidthColumnCount - 2), 50)
         }
       })
     }
@@ -137,13 +132,16 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     for (let i = 0, len = this.props.columns.length; i < len; i++) {
       const leftColumn = this.props.columns[i]
       leftColumn.left = left
-      left += leftColumn.width
+      left += leftColumn.width || leftColumn.computedWidth
 
       const rightColumn = this.props.columns[len - i - 1]
       rightColumn.right = right
-      right += rightColumn.width
+      right += rightColumn.width || rightColumn.computedWidth
     }
+  }
 
+  installed() {
+    this.layout()
     window.addEventListener('click', () => {
       let needUpdate = false
       this.props.dataSource.forEach(dataItem => {
@@ -156,6 +154,11 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
       if (needUpdate) {
         this.update()
       }
+    })
+
+    window.addEventListener('resize', () => {
+      this.layout()
+      this.update()
     })
 
     this.update()
@@ -367,7 +370,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     return (
       <colgroup>
         {this.props.columns.map((column) => {
-          return <col width={column.width || 100} />
+          return <col width={column.width || column.computedWidth} />
         })}
       </colgroup>
     )
@@ -375,8 +378,8 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
 
   render(props) {
 
-    const width = props.columns.map(column => column.width).reduce((wa, wb) => {
-      return (wa || 100) + (wb || 100)
+    const width = props.columns.map(column => column.width || column.computedWidth).reduce((wa, wb) => {
+      return wa + wb
     })
 
     if (!props.columns) return
