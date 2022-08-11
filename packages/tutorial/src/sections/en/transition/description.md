@@ -9,7 +9,7 @@ When inserting, updating, or removing DOM, it provides application transition ef
 ```tsx
 static css = `
   .fade-leave-to,
-  .fade-enter {
+  .fade-enter-from {
     opacity: 0;
     transform: translateX(15px);
   }
@@ -27,10 +27,10 @@ Where `fade` is a user-defined name, you can take any name, corresponding to the
 <o-transition  name="fade"></o-transition>
 ```
 
-* fade-enter: defines the start state of entering the transition
+* fade-enter-from: defines the start state of entering the transition
 * fade-enter-active: defines the state when the transition takes effect and is removed after the transition animation is completed
 * fade-enter-to: define the end state of entering the transition, and remove it after the transition animation is completed
-* fade-leave: define the start state of leaving the transition
+* fade-leave-from: define the start state of leaving the transition
 * fade-leave-active: defines the state when leaving the transition takes effect
 * fade-leave-to: define the end state of leaving the transition, and remove it after the transition animation is completed
 

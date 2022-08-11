@@ -5,7 +5,7 @@ import Transition from '@omiu/transition'
 class MyApp extends WeElement {
   static css = `
     .fade-leave-to,
-    .fade-enter {
+    .fade-enter-from {
       opacity: 0;
       transform: translateX(15px);
     }
