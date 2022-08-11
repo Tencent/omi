@@ -35,7 +35,7 @@ import { tw, sheet } from 'omi-twind'
 import Store from './store'
 
 const fadeCSS = `.fade-leave-to,
-.fade-enter {
+.fade-enter-from {
   opacity: 0;
   transform: translateX(15px);
 }
