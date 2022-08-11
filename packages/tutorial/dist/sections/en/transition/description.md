@@ -34,7 +34,7 @@ Where `fade` is a user-defined name, you can take any name, corresponding to the
 * fade-leave-active: defines the state when leaving the transition takes effect
 * fade-leave-to: define the end state of leaving the transition, and remove it after the transition animation is completed
 
-![](https://gtimg.wechatpay.cn/resource/xres/img/202207/888dbf519cb293f6bdb98e3445ef63b8_1200x600.png)
+![](https://gtimg.wechatpay.cn/resource/xres/img/202208/2494dd9ecc01582e53a0d22d085fd932_1468x346.png)
 
 ## Source code
 

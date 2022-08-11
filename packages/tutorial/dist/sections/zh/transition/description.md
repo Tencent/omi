@@ -33,7 +33,7 @@ static css = `
 * fade-leave-active：定义离开过渡生效时的状态
 * fade-leave-to:  定义离开过渡的结束状态，在过渡动画完成之后移除
 
-![](https://gtimg.wechatpay.cn/resource/xres/img/202207/888dbf519cb293f6bdb98e3445ef63b8_1200x600.png)
+![](https://gtimg.wechatpay.cn/resource/xres/img/202208/2494dd9ecc01582e53a0d22d085fd932_1468x346.png)
 
 ## 源代码
 
