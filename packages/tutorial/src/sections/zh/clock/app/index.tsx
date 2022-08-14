@@ -1,44 +1,10 @@
 import { tag, render, h, WeElement } from 'omi'
+import css from './index.css'
 
 @tag('my-clock')
 class MyClock extends WeElement {
-  static css = `
-    svg {
-      width: 200px;
-    }
+  static css = css
 
-    .clock-face {
-      stroke: #333;
-      fill: white;
-    }
-
-    .minor {
-      stroke: #999;
-      stroke-width: 0.5;
-    }
-
-    .major {
-      stroke: #333;
-      stroke-width: 1;
-    }
-
-    .hour {
-      stroke: #333;
-    }
-
-    .minute {
-      stroke: #666;
-    }
-
-    .second,
-    .second-counterweight {
-      stroke: rgb(180, 0, 0);
-    }
-
-    .second-counterweight {
-      stroke-width: 3;
-    }
-  `
   install() {
     this.updateTime()
   }

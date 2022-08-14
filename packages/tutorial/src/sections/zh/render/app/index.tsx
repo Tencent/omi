@@ -1,12 +1,9 @@
 import { tag, render, WeElement } from 'omi'
+import css from './index.css'
 
 @tag('my-app')
 class MyApp extends WeElement {
-  static css = `
-  span {
-    display: inline-block;
-    width: 68px;
-  }`
+  static css = css
 
   render(props) {
     return (

@@ -3,8 +3,10 @@ import './assets/index.css'
 import logo from './assets/logo.svg'
 import { tw, sheet } from 'omi-twind'
 import './components/markdown-docs'
+// import { EditorState, EditorStateConfig, Compartment, Extension, StateEffect } from '@codemirror/state'
 import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
+// import { css } from "@codemirror/lang-css"
 import { createPopper, Instance } from '@popperjs/core'
 import { route } from 'omi-router'
 import { showLoading, hideLoading } from '@omiu/toast'
@@ -66,6 +68,7 @@ export default class extends WeElement {
     }, {
       id: 'render',
       label: 'Render',
+      files: ['index.tsx', 'index.css'],
     }, {
       id: 'component',
       label: 'Component',
@@ -107,6 +110,7 @@ export default class extends WeElement {
     }, {
       id: 'clock',
       label: 'Clock',
+      files: ['index.tsx', 'index.css'],
     }, {
       id: 'to-motion',
       label: 'To Motion',
@@ -205,7 +209,7 @@ export default class extends WeElement {
     })
     this.files.forEach((file, index) => {
       this.filesContent[file] = texts[index + 1]
-      files[`./${file.replace('.tsx', '').replace('.ts', '')}`] = tsBuild(texts[index + 1])
+      files[`./${file.replace('.tsx', '').replace('.ts', '')}`] = file.endsWith('.css') ? texts[index + 1] : tsBuild(texts[index + 1])
     })
 
     rollupBuild((code) => {
@@ -240,9 +244,11 @@ export default class extends WeElement {
       extensions: [
         basicSetup,
         javascript({ jsx: true, typescript: true }),
+        // 无效？ https://github.com/surmon-china/vue-codemirror/blob/1910d83a6ac0005b6969f78b7554ee5c3da8698e/src/codemirror.ts#L46
+        // css(),
         EditorView.updateListener.of((e) => {
           this.filesContent[this.tabName] = e.state.doc.toString()
-          files['./' + this.tabName.replace('.tsx', '').replace('.ts', '')] = tsBuild(e.state.doc.toString())
+          files['./' + this.tabName.replace('.tsx', '').replace('.ts', '')] = this.tabName.endsWith('.css') ? e.state.doc.toString() : tsBuild(e.state.doc.toString())
           rollupBuild((code) => {
             this.reloadPreview(code)
           })
