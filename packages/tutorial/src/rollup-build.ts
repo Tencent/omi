@@ -27,6 +27,7 @@ export async function rollupBuild(callback) {
 
   try {
     // create a bundle
+    // @ts-ignore
     bundle = await rollup(inputOptions);
 
     // an array of file names this bundle depends on

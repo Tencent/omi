@@ -1,19 +1,10 @@
 import { tag, render, h, WeElement, classNames } from 'omi'
 import Store from './store'
+import css from './index.css'
 
 @tag('my-element')
 class MyElement extends WeElement {
-  static css = `
-    .bar {
-      display: inline-block;
-      margin-left: 1px;
-      background: #777;
-      width: 10px; 
-    }
-    
-    .active{
-      background: red;
-    }`
+  static css = css
 
   store: Store
 

@@ -103,7 +103,7 @@ export default class extends WeElement {
     }, {
       id: 'bubble-sort',
       label: 'Bubble Sort',
-      files: ['index.tsx', 'store.ts'],
+      files: ['index.tsx', 'store.ts', 'index.css'],
     }, {
       id: 'clock',
       label: 'Clock',
