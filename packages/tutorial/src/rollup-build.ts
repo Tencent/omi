@@ -1,11 +1,12 @@
-import { vfilePlugin } from './rollup-plugin'
+import { vfilePlugin } from './rollup-plugin-vfile'
 import { rollup } from 'rollup';
 import { files } from './files'
+import { cssStringPlugin } from './rollup-plugin-css'
 
 // see below for details on these options
 const inputOptions = {
   input: './index', // resolved by our plugin
-  plugins: [vfilePlugin(files)],
+  plugins: [vfilePlugin(files), cssStringPlugin()],
   // 不需要 tree shaking
   treeshake: false
 }
