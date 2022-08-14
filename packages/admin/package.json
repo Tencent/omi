@@ -60,7 +60,7 @@
     "@omiu/toast": "^0.0.11",
     "@omiu/toggle-icon": "^0.0.2",
     "@omiu/tooltip": "0.0.1",
-    "@omiu/transition": "^0.0.15",
+    "@omiu/transition": "^0.0.16",
     "@omiu/tree": "^0.0.20",
     "axios": "^0.21.1",
     "bytemd": "^1.17.2",

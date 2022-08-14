@@ -86,7 +86,6 @@ export default class Transition extends WeElement<Props>{
         el.classList.remove(this.props.name + '-leave-active')
         el.classList.remove(this.props.name + '-leave-to')
         el.classList.add(this.props.name + '-enter-from')
-        el.classList.add(this.props.name + '-enter-active')
 
         this.callback = function () {
           el.classList.remove(this.props.name + '-enter-active')
@@ -94,10 +93,12 @@ export default class Transition extends WeElement<Props>{
           this._show = true
           resolve()
         }.bind(this)
+
         this.once('transitionend', this.callback)
         this.once('animationend', this.callback)
 
         window.setTimeout(function () {
+          el.classList.add(this.props.name + '-enter-active')
           el.classList.remove(this.props.name + '-enter-from')
           el.classList.add(this.props.name + '-enter-to')
           this.fire('enter')
@@ -114,25 +115,22 @@ export default class Transition extends WeElement<Props>{
         el.classList.remove(this.props.name + '-enter-active')
         el.classList.remove(this.props.name + '-enter-to')
         el.classList.add(this.props.name + '-leave-from')
-        el.classList.add(this.props.name + '-leave-active')
 
         this.callback = function (e) {
-
           el.classList.remove(this.props.name + '-leave-active')
-
           this.fire('after-leave')
-
           this._show = false
           if (this.props.autoRemove && this.parentNode) {
             this.parentNode.removeChild(this)
           }
-
           resolve()
         }.bind(this)
+
         this.once('transitionend', this.callback)
         this.once('animationend', this.callback)
 
         window.setTimeout(function () {
+          el.classList.add(this.props.name + '-leave-active')
           el.classList.remove(this.props.name + '-leave-from')
           el.classList.add(this.props.name + '-leave-to')
           this.fire('leave')

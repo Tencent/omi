@@ -1,6 +1,6 @@
 {
   "name": "@omiu/transition",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Define transition animation for entering and leaving",
   "docsExtend": {
     "cnName": "过渡动画",
@@ -17,7 +17,7 @@
   "scripts": {
     "start": "yarn watch & vite",
     "dev": "yarn start",
-    "build": "vite build && yarn build:scss",
+    "build": "vite build",
     "build:demo": "vite build",
     "build:scss": "sass src/index.scss src/index.css",
     "watch": "sass --watch src/index.scss src/index.css --no-source-map",
