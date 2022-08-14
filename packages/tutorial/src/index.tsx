@@ -47,7 +47,7 @@ export default class extends WeElement {
     console.log(evt.detail)
   }
 
-  editorEl: HTMLElement
+  $editor: HTMLElement
   editor: EditorView
   $iframe: HTMLIFrameElement
 
@@ -219,8 +219,8 @@ export default class extends WeElement {
     this.update()
     hideLoading()
 
-    this.mainPanel.scrollTop = 0
-    this.mdPanel.scrollTop = 0
+    this.$mainPanel.scrollTop = 0
+    this.$mdPanel.scrollTop = 0
   }
 
   registerRoute() {
@@ -253,11 +253,19 @@ export default class extends WeElement {
             this.reloadPreview(code)
           })
         })],
-      parent: this.editorEl,
+      parent: this.$editor,
       doc: ''
     })
 
     this.registerRoute()
+  }
+
+  onIframeLoad = () => {
+    const html = this.$iframe.contentWindow.document.body.innerHTML
+    if (!html) {
+      // 防止 safari 加载失败
+      this.$iframe.src = `./preview.html?rd=${Math.random()}`
+    }
   }
 
   files: string[] = ['index.tsx']
@@ -305,8 +313,8 @@ export default class extends WeElement {
   }
 
   showPopover: boolean
-  mainPanel: HTMLElement
-  mdPanel: HTMLElement
+  $mainPanel: HTMLElement
+  $mdPanel: HTMLElement
   $translate: WeElement
   $tip: WeElement
 
@@ -378,10 +386,10 @@ export default class extends WeElement {
               data={this.treeData}>
             </o-tree>
           </div>
-          <div ref={e => this.mainPanel = e} class={tw`md:flex md:flex-row flex-col flex-1 overflow-scroll md:overflow-hidden`} style={{
+          <div ref={e => this.$mainPanel = e} class={tw`md:flex md:flex-row flex-col flex-1 overflow-scroll md:overflow-hidden`} style={{
             height: window.innerWidth < 768 ? 'calc(100vh)' : 'auto'
           }}>
-            <div ref={e => this.mdPanel = e} class={tw`md:w-1/2 overflow-auto  pl-2 pr-2 md:pl-8 md:pr-8 border-l`} style={{
+            <div ref={e => this.$mdPanel = e} class={tw`md:w-1/2 overflow-auto  pl-2 pr-2 md:pl-8 md:pr-8 border-l`} style={{
               height: window.innerWidth > 768 ? 'calc(100vh)' : 'auto'
             }}>
               {this.mdContent && <markdown-docs mdContent={this.mdContent}></markdown-docs>}
@@ -397,14 +405,14 @@ export default class extends WeElement {
                 <o-tabs type="card" activeIndex={0} onChange={this.onChange} tabs={this.files.map(file => {
                   return { label: file }
                 })}></o-tabs>
-                <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.editorEl = e}  >
+                <div class={tw`bg-gray-100 overflow-auto flex-1`} ref={e => this.$editor = e}  >
                 </div>
               </div>
               <div class={tw`overflow-hidden`} style={{ height: this.previewPanelHeight }}>
                 <div class={tw`flex flex-col h-full`} >
                   <o-tabs type="card" activeIndex={0} tabs={[{ label: 'PREVIEW' }]}></o-tabs>
                   <div class={tw`overflow-auto flex-1 border pl-2 pr-2`}   >
-                    <iframe class={tw`w-full h-full`} src={`./preview.html?rd=${Math.random()}`} ref={e => this.$iframe = e}></iframe>
+                    <iframe onLoad={this.onIframeLoad} class={tw`w-full h-full`} src={`./preview.html?rd=${Math.random()}`} ref={e => this.$iframe = e}></iframe>
                   </div>
                 </div>
               </div>
