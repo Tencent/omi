@@ -120,18 +120,7 @@ export default class extends WeElement<Props> {
             >
               OMI ADMIN
             </h1>
-            <div class={tw`flex-row mt-1.5 ml-3`}>
-              <o-select
-                css={`
-            .o-select .o-input__inner {
-              width: 91px;
-            `}
-                size="mini"
-                onOptionSelect={this.onOptionSelect}
-                value={i18next.language}
-                options={this.items}
-              ></o-select>
-            </div>
+
           </div>
 
           <div
@@ -180,6 +169,17 @@ export default class extends WeElement<Props> {
             >
               <o-icon-git-hub></o-icon-git-hub>
             </a>
+
+            <o-select
+              css={`
+            .o-select .o-input__inner {
+              width: 91px;
+            `}
+              size="mini"
+              onOptionSelect={this.onOptionSelect}
+              value={i18next.language}
+              options={this.items}
+            ></o-select>
 
             <o-avatar
               onClick={(e) => this.goPersonalCenter()}
