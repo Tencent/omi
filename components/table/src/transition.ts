@@ -5,7 +5,7 @@ export async function enter(el, effect, delay?: number) {
 
     el.classList.remove(effect + '-leave-active')
     el.classList.remove(effect + '-leave-to')
-    el.classList.add(effect + '-enter')
+    el.classList.add(effect + '-enter-from')
     el.classList.add(effect + '-enter-active')
 
     const callback = function () {
@@ -16,7 +16,7 @@ export async function enter(el, effect, delay?: number) {
     once(el, 'animationend', callback)
 
     window.setTimeout(function () {
-      el.classList.remove(effect + '-enter')
+      el.classList.remove(effect + '-enter-from')
       el.classList.add(effect + '-enter-to')
     }, delay)
 
@@ -28,7 +28,7 @@ export async function leave(el, effect, delay?: number) {
 
     el.classList.remove(effect + '-enter-active')
     el.classList.remove(effect + '-enter-to')
-    el.classList.add(effect + '-leave')
+    el.classList.add(effect + '-leave-from')
     el.classList.add(effect + '-leave-active')
 
     const callback = function (e) {
@@ -46,7 +46,7 @@ export async function leave(el, effect, delay?: number) {
     once(el, 'animationend', callback)
 
     window.setTimeout(function () {
-      el.classList.remove(effect + '-leave')
+      el.classList.remove(effect + '-leave-from')
       el.classList.add(effect + '-leave-to')
     }, delay)
 
