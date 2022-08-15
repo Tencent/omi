@@ -109,7 +109,7 @@ render((
       <o-button type="danger" plain circle>
         <o-icon-ac-unit-outlined></o-icon-ac-unit-outlined>
       </o-button>
-      <o-button type="info" plain circle>aa
+      <o-button type="info" plain circle>
         <o-icon-ac-unit-outlined></o-icon-ac-unit-outlined>
       </o-button>
     </div>
