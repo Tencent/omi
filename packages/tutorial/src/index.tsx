@@ -74,6 +74,10 @@ export default class extends WeElement {
       label: 'Component',
       files: ['index.tsx', 'my-counter.tsx'],
     }, {
+      id: 'props',
+      label: 'Props',
+      files: ['index.tsx', 'button.tsx', 'button.css'],
+    }, {
       id: 'event',
       label: 'Event',
     }, {
