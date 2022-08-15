@@ -1,4 +1,3 @@
-// rollup-plugin-my-example.js
 export function vfilePlugin(files) {
   return {
     name: 'vfile', // this name will show up in warnings and errors
