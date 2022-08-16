@@ -15,7 +15,7 @@
   "scripts": {
     "docs": "node ./scripts/docs-gen.js",
     "start": "node ./scripts/webpack.build.js -- demo",
-    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js && node ./scripts/rollup.end.js"
+    "build": "node ./scripts/webpack.build.js -- build && rollup -c scripts/rollup.config.js"
   },
   "typings": "./dist/index.d.ts",
   "repository": {
@@ -97,6 +97,8 @@
   "dependencies": {
     "@omiu/common": "latest",
     "@omiu/transition": "latest",
-    "omi": "latest"
+    "omi": "latest",
+    "postcss": "^8.4.16",
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }
