@@ -340,27 +340,26 @@ export default class extends WeElement {
               <a
                 href="https://github.com/Tencent/omi"
                 target="_blank"
-                style="    position: absolute;
-                right: 3px;
-                top: 0px;"
+                class={tw`absolute top-0 right-0.5`}
               >
                 <o-icon-git-hub></o-icon-git-hub>
               </a>
-
               <div onMouseEnter={this.onEnterPopover}
                 onClick={this.onEnterPopover}
                 onMouseLeave={this.onLeavePopover}>
-                <o-icon-translate ref={e => this.$translate = e}
-                  class={tw`absolute cursor-pointer`}
-                  style="right: 25px;top: 2px;"></o-icon-translate>
-
-                {this.showPopover && <ul class={tw`absolute border rounded bg-white text-center text-slate-600 z-50 cursor-pointer`} ref={e => this.$tip = e} style="right: 27px;width:100px;top: 3px;">
+                <o-icon-translate
+                  ref={e => this.$translate = e}
+                  class={tw`absolute cursor-pointer right-6 top-0.5`}
+                ></o-icon-translate>
+                {this.showPopover && <ul
+                  class={tw`absolute border rounded bg-white text-center text-slate-600 z-50 cursor-pointer right-7 top-0.5 w-24`}
+                  ref={e => this.$tip = e} >
                   <li class={tw`border-b-1`}> <o-link onClick={e => this.setLan('zh')} underline={false}>简体中文</o-link></li>
                   <li><o-link onClick={e => this.setLan('en')} underline={false}>English</o-link></li>
                 </ul>}
               </div>
-
             </header>
+
             <o-tree
               css={window.innerWidth < 768 && `
                 .o-tree-node__label {
@@ -390,6 +389,7 @@ export default class extends WeElement {
               data={this.treeData}>
             </o-tree>
           </div>
+
           <div ref={e => this.$mainPanel = e} class={tw`md:flex md:flex-row flex-col flex-1 overflow-scroll md:overflow-hidden`} style={{
             height: window.innerWidth < 768 ? 'calc(100vh)' : 'auto'
           }}>
