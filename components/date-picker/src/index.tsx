@@ -58,6 +58,7 @@ interface Props {
   weekNumbers?: boolean
   wrap?: boolean
   theme?: string,
+  value?: string
 
 }
 
@@ -67,14 +68,37 @@ export default class DatePicker extends WeElement<Props> {
   static defaultProps = {
     theme: 'light',
     size: 'small',
-    width: 'auto'
+    width: 'auto',
+    value: ''
   }
 
   static propTypes = {
     theme: String,
     size: String,
-    width: String
+    width: String,
+    value: String
   }
+
+  __$value: any
+
+  install() {
+
+    this.__$value = this.props.value
+    Object.defineProperty(this, 'value', {
+      get: this._onGetValue,
+      set: this._onSetValue
+    })
+  }
+  _onGetValue = () => {
+    return this.__$value
+  }
+
+  _onSetValue = (value: any) => {
+    this.__$value = value
+    this.props.value = value
+    this.setAttribute('value', value)
+  }
+
 
   onEnter = (evt) => {
 
@@ -111,6 +135,17 @@ export default class DatePicker extends WeElement<Props> {
 
   }
 
+  handleChange = (evt) => {
+    this.__$value = evt.target.value
+    this.props.value = evt.target.value
+
+    if (this.props.onChange) {
+      this.props.onChange(evt);
+    } else {
+      this.fire('change', this.props.value)
+    }
+  }
+
   updated() {
     const { locale, ...other } = this.props
     flatpickr(this.shadowRoot.querySelector('o-input'), {
@@ -138,7 +173,7 @@ export default class DatePicker extends WeElement<Props> {
     return <div>
       <o-input size={props.size} suffix-icon="date-range" css={`.o-input input {
     width: ${props.width};
-}`} type="text" />
+}`} type="text" onChange={this.handleChange} />
     </div>
   }
 }
