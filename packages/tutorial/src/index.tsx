@@ -7,13 +7,13 @@ import './components/markdown-docs'
 import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
 // import { css } from "@codemirror/lang-css"
-import { createPopper, Instance } from '@popperjs/core'
 import { route } from 'omi-router'
 import { showLoading, hideLoading } from '@omiu/toast'
 import { files } from './files'
 import { tsBuild } from './ts-build'
 import { rollupBuild } from './rollup-build'
 
+import './components/popover'
 import '@omiu/link'
 import '@omiu/icon/navigate-before'
 import '@omiu/icon/navigate-next'
@@ -291,42 +291,13 @@ export default class extends WeElement {
     })
   }
 
-  popper: Instance
 
-  onEnterPopover = () => {
-    this.showPopover = true
-    this.update()
-    this.popper && this.popper.destroy()
-    this.popper = createPopper(this.$translate, this.$tip, {
-      placement: 'bottom',
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 8],
-          },
-        },
-        {
-          name: 'computeStyles',
-          options: {
-            adaptive: false, // true by default
-          },
-        },
-      ],
-    })
-  }
 
-  showPopover: boolean
   $mainPanel: HTMLElement
   $mdPanel: HTMLElement
   $translate: WeElement
   $tip: WeElement
 
-  onLeavePopover = () => {
-    this.showPopover = false
-    this.update()
-    this.popper && this.popper.destroy()
-  }
 
   render() {
     return (
@@ -344,20 +315,23 @@ export default class extends WeElement {
               >
                 <o-icon-git-hub></o-icon-git-hub>
               </a>
-              <div onMouseEnter={this.onEnterPopover}
-                onClick={this.onEnterPopover}
-                onMouseLeave={this.onLeavePopover}>
+
+              <o-popover class={tw`absolute cursor-pointer right-6 top-0.5`} trigger="all"  >
                 <o-icon-translate
                   ref={e => this.$translate = e}
-                  class={tw`absolute cursor-pointer right-6 top-0.5`}
+                  class={tw``}
                 ></o-icon-translate>
-                {this.showPopover && <ul
-                  class={tw`absolute border rounded bg-white text-center text-slate-600 z-50 cursor-pointer right-7 top-0.5 w-24`}
-                  ref={e => this.$tip = e} >
-                  <li class={tw`border-b-1`}> <o-link onClick={e => this.setLan('zh')} underline={false}>简体中文</o-link></li>
-                  <li><o-link onClick={e => this.setLan('en')} underline={false}>English</o-link></li>
-                </ul>}
-              </div>
+                <div slot="popover" tip="popover">
+                  <ul
+                    class={tw`absolute border rounded bg-white text-center text-slate-600 z-50 cursor-pointer right-7 top-0.5 w-24`}
+                    ref={e => this.$tip = e} >
+                    <li class={tw`border-b-1`}> <o-link onClick={e => this.setLan('zh')} underline={false}>简体中文</o-link></li>
+                    <li><o-link onClick={e => this.setLan('en')} underline={false}>English</o-link></li>
+                  </ul>
+
+                </div>
+              </o-popover>
+
             </header>
 
             <o-tree

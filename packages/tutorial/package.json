@@ -19,7 +19,7 @@
     "@omiu/icon": "^0.0.4",
     "@omiu/link": "^0.0.4",
     "@omiu/tabs": "^0.0.26",
-    "@omiu/toast": "^0.0.8",
+    "@omiu/toast": "^0.0.11",
     "@omiu/tree": "^0.0.20",
     "@popperjs/core": "^2.11.5",
     "codemirror": "^6.0.1",
