@@ -1,4 +1,4 @@
-import { tag, WeElement, h, classNames } from 'omi'
+import { tag, WeElement, h } from 'omi'
 import flatpickr from 'flatpickr'
 import { DateLimit, DateOption, Hook, Options, ParsedOptions } from 'flatpickr/dist/types/options'
 import { CustomLocale } from 'flatpickr/dist/types/locale'
@@ -31,7 +31,7 @@ interface Props {
   enable?: any[]
   enableTime?: boolean
   enableSeconds?: boolean
-  formatDateFn?: (date: Date, format: string, locale: Locale) => string;
+  formatDateFn?: (date: Date, format: string, locale: Locale) => string
   hourIncrement?: number
   minuteIncrement?: number
   inline?: boolean
@@ -49,7 +49,7 @@ interface Props {
   onMonthChange?: Hook
   onYearChange?: Hook
   onValueUpdate?: Hook
-  parseDateFn?: (date: string, format: string) => Date;
+  parseDateFn?: (date: string, format: string) => Date
   position?: string
   shorthandCurrentMonth?: boolean
   showMonths?: number
@@ -57,7 +57,7 @@ interface Props {
   time_24hr?: boolean
   weekNumbers?: boolean
   wrap?: boolean
-  theme?: string,
+  theme?: string
   value?: string
 
 }
@@ -82,7 +82,6 @@ export default class DatePicker extends WeElement<Props> {
   __$value: any
 
   install() {
-
     this.__$value = this.props.value
     Object.defineProperty(this, 'value', {
       get: this._onGetValue,
@@ -99,49 +98,12 @@ export default class DatePicker extends WeElement<Props> {
     this.setAttribute('value', value)
   }
 
-
-  onEnter = (evt) => {
-
-    clearTimeout(this.timeout)
-    this.isShow = !this.isShow
-    this.update()
-
-
-    evt.stopPropagation()
-  }
-
-  timeout
-
-  onLeave = () => {
-    this.timeout = setTimeout(() => {
-      this.isShow = false
-      this.update()
-    }, 600)
-
-  }
-
-  onEnterPopover = (evt) => {
-    clearTimeout(this.timeout)
-    evt.stopPropagation()
-  }
-
-  onLeavePopover = () => {
-    if (this.props.trigger !== 'click') {
-      this.timeout = setTimeout(() => {
-        this.isShow = false
-        this.update()
-      }, 600)
-    }
-
-  }
-
-  handleChange = (evt) => {
+  onChange = (evt) => {
     this.__$value = evt.target.value
     this.props.value = evt.target.value
 
-    if (this.props.onChange) {
-      this.props.onChange(evt);
-    } else {
+    // 兼容 html 模式的事件绑定
+    if (!this.props.onChange) {
       this.fire('change', this.props.value)
     }
   }
@@ -151,6 +113,7 @@ export default class DatePicker extends WeElement<Props> {
     flatpickr(this.shadowRoot.querySelector('o-input'), {
       disableMobile: true,
       locale: locale === 'zh' ? Mandarin : null,
+      // onChange prop 在这里已经绑上
       ...other
     })
   }
@@ -167,13 +130,17 @@ export default class DatePicker extends WeElement<Props> {
     })
   }
 
-  isShow = false
-
   render(props) {
-    return <div>
-      <o-input size={props.size} suffix-icon="date-range" css={`.o-input input {
-    width: ${props.width};
-}`} type="text" onChange={this.handleChange} />
-    </div>
+    return (
+      <div>
+        <o-input
+          size={props.size}
+          suffix-icon="date-range"
+          css={`
+            .o-input input {
+              width: ${props.width};
+            }`}
+          type="text" onChange={this.onChange} />
+      </div>)
   }
 }
