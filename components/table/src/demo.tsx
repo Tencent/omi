@@ -211,7 +211,7 @@ export default class TableDemo extends WeElement {
 
   cellSpanOption = {
     bodyCellSpan: function({row, column}) {
-      if (row.id === 2) {
+      if (row.id === 8) {
         if (column.title === 'Name') {
           return {
             colspan: 2,
@@ -224,7 +224,22 @@ export default class TableDemo extends WeElement {
           }
         }
       } 
-    } 
+
+      if (column.title === 'Name') {
+        if (row.id === 13238) {
+          return {
+            colspan: 1,
+            rowspan: 3
+          }
+        } else if (row.id === 218|| row.id === 2113) {
+          return {
+            colspan: 0,
+            rowspan: 0
+          }
+        }
+      }
+    }
+    
   }
 
   onEditClick = (evt: Event) => {
