@@ -209,6 +209,39 @@ export default class TableDemo extends WeElement {
     }
   }]
 
+  cellSpanOption = {
+    bodyCellSpan: function({row, column}) {
+      if (row.id === 8) {
+        if (column.title === 'Name') {
+          return {
+            colspan: 2,
+            rowspan: 1,
+          }
+        } else if (column.title === 'Age'){
+          return {
+            colspan: 0,
+            rowspan: 0,
+          }
+        }
+      } 
+
+      if (column.title === 'Name') {
+        if (row.id === 13238) {
+          return {
+            colspan: 1,
+            rowspan: 3
+          }
+        } else if (row.id === 218|| row.id === 2113) {
+          return {
+            colspan: 0,
+            rowspan: 0
+          }
+        }
+      }
+    }
+    
+  }
+
   onEditClick = (evt: Event) => {
 
   }
@@ -289,6 +322,7 @@ export default class TableDemo extends WeElement {
         fixedTop={this.fixedTop}
         columns={this.columns}
         dataSource={this.dataSource}
+        cellSpanOption={this.cellSpanOption}
       >
       </o-table>
     </div>

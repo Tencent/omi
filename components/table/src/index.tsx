@@ -27,7 +27,7 @@ export interface Props<DataType> {
   fixedTop: boolean
   fixedLeftCount: number
   fixedRightCount: number
-
+  cellSpanOption: object
 }
 
 @tag('o-table')
@@ -44,6 +44,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     fixedTop: false,
     fixedLeftCount: 0,
     fixedRightCount: 0,
+    cellSpanOption: () => null,
   }
 
   static propTypes = {
@@ -104,6 +105,29 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
 
     if (c === 0) return { 'unchecked': true }
     return { 'checked': true }
+  }
+
+  _getCellSpan(cellSpanOption, rowData, column) {
+    let rowspan = 1
+    let colspan = 1
+
+    if (cellSpanOption) {
+      const { bodyCellSpan } = cellSpanOption
+
+      if (typeof bodyCellSpan === 'function') {
+          const result = bodyCellSpan({
+            row: rowData,
+            column
+          })
+
+          if (typeof result === 'object') {
+            rowspan = result.rowspan
+            colspan = result.colspan    
+          }
+      } 
+    }
+    
+    return {rowspan, colspan}
   }
 
   layout() {
@@ -332,6 +356,10 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
               const title = typeof columnVal === 'string' ? columnVal : null
               const fixedLeft = index < props.fixedLeftCount
               const fixedRight = props.columns.length - 1 - index < props.fixedRightCount
+              const { rowspan, colspan } = this._getCellSpan(props.cellSpanOption, item, column)
+              if (!rowspan || !colspan) {
+                return null;
+              }
               return <td
                 title={title}
                 onClick={evt => this.onTdClick(item, column, evt)} {...obj}
@@ -344,7 +372,10 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                   'compact': props.compact,
                   'fixed-left': fixedLeft,
                   'fixed-right': fixedRight
-                })}>
+                })}
+                colSpan={colspan}
+                rowSpan={rowspan}
+                >
                 {/* <div class="cell"> */}
                 {index === 0 && props.checkbox && <o-checkbox
                   checked={item.checked}
