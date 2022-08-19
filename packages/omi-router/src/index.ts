@@ -1,5 +1,5 @@
 /*!
- *  omi-router v3.0.1 by dntzhang
+ *  omi-router v3.0.5 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
