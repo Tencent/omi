@@ -1,10 +1,8 @@
 import { WeElement, render, h, tag } from 'omi'
 
-import './o-counter'
 import './omi-form'
 import './index.css'
 import * as css from './index.less'
-import logo from './logo.svg'
 import { TYPE } from "./omi-form"
 interface MyAppProps {
   name: string
@@ -15,7 +13,6 @@ interface MyAppProps {
 export default class extends WeElement<MyAppProps> {
 
   static css = css.default
-
 
   data = {
     items: [
