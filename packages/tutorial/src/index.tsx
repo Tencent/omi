@@ -13,7 +13,7 @@ import { files } from './files'
 import { tsBuild } from './ts-build'
 import { rollupBuild } from './rollup-build'
 
-import './components/popover'
+import '@omiu/popover'
 import '@omiu/link'
 import '@omiu/icon/navigate-before'
 import '@omiu/icon/navigate-next'
