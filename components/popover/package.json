@@ -1,6 +1,6 @@
 {
   "name": "@omiu/popover",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Components that show popover.",
   "docsExtend": {
     "cnName": "弹出框",

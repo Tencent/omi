@@ -1,3 +1,11 @@
+/**
+ * omiu tip css based on element ui css
+ * Licensed under the MIT License
+ * https://github.com/ElemeFE/element/blob/dev/LICENSE
+ *
+ * modified by dntzhang
+ */
+
 :host {
   display: inline-block;
 }
@@ -9,16 +17,16 @@
 .tip {
   position: absolute;
   background: #fff;
-  min-width: 150px;
-
+  min-width: 100px;
+  border-radius: 4px;
+  border: 1px solid #ebeef5;
   z-index: 2000;
   color: #606266;
   line-height: 1.4;
   text-align: justify;
   font-size: 14px;
   word-break: break-all;
-
-  width: 100%;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .tip .tip-arrow,

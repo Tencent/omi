@@ -323,10 +323,10 @@ export default class extends WeElement {
                 ></o-icon-translate>
                 <div slot="popover" tip="popover">
                   <ul
-                    class={tw`absolute border rounded bg-white text-center text-slate-600 z-50 cursor-pointer right-7 top-0.5 w-24`}
+                    class={tw`bg-white text-center text-slate-600 z-50 cursor-pointer`}
                     ref={e => this.$tip = e} >
-                    <li class={tw`border-b-1`}> <o-link onClick={e => this.setLan('zh')} underline={false}>简体中文</o-link></li>
-                    <li><o-link onClick={e => this.setLan('en')} underline={false}>English</o-link></li>
+                    <li class={tw`border-b-1 pt-0.5 pb-0.5`}> <o-link onClick={e => this.setLan('zh')} underline={false}>简体中文</o-link></li>
+                    <li class={tw`pt-0.5 pb-0.5`}><o-link onClick={e => this.setLan('en')} underline={false}>English</o-link></li>
                   </ul>
 
                 </div>

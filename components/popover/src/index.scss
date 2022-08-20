@@ -17,7 +17,7 @@
 .tip {
   position: absolute;
   background: #fff;
-  min-width: 150px;
+  min-width: 100px;
   border-radius: 4px;
   border: 1px solid #ebeef5;
   z-index: 2000;
@@ -26,7 +26,7 @@
   text-align: justify;
   font-size: 14px;
   word-break: break-all;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .tip .tip-arrow,

@@ -16,7 +16,7 @@
 .tip {
   position: absolute;
   background: #fff;
-  min-width: 150px;
+  min-width: 100px;
   border-radius: 4px;
   border: 1px solid #ebeef5;
   z-index: 2000;
