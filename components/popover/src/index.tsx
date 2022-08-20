@@ -1,11 +1,12 @@
 import { tag, WeElement, h, classNames } from 'omi'
 import { createPopper } from '@popperjs/core'
+import type { Placement } from '@popperjs/core'
 import '@omiu/transition'
 import * as css from './index.scss'
 
 interface Props {
   effect?: string
-  position?: string
+  position?: Placement
   trigger?: 'click' | 'hover' | 'manual'
   block?: boolean
 }
@@ -32,13 +33,18 @@ export default class Popover extends WeElement<Props> {
     block: Boolean
   }
 
+  content = null
+  popper = null
+  isShow = false
+
   installed() {
     window.addEventListener('click', () => {
       // 手动模式
       if (this.props.trigger === 'manual') return
       if (this.isShow) {
-        this.leave()
-        this.update()
+        this.onDocumentMouseDown.bind(this)
+        // this.leave()
+        // this.update()
       }
     })
 
@@ -59,32 +65,29 @@ export default class Popover extends WeElement<Props> {
     }
     if (!isShowEl) {
       this.isShow = false
+      this.obscurePopper()
     }
-
-    this.update()
-
   }
 
-  onEnter = (evt) => {
-    clearTimeout(this.timeout)
-    this.isShow = !this.isShow
-    if (this.isShow) {
-      this.appear = true
-      this.disappear = false
-    } else {
-      this.appear = false
-      this.disappear = true
-    }
-
+  createPooper = async ()=> {
     this.update()
     //html 模式过滤文本
     const tip = this.shadowRoot
-      .querySelector('slot')
-      .assignedNodes()
-      .find((node) => node.nodeType !== 3)
+    .querySelector('slot')
+    .assignedNodes()
+    .find((node) => node.nodeType !== 3)
 
-    this.popper && this.popper.destroy()
-    this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
+    const content = this.shadowRoot.querySelector('.tip')
+    const slot = this.shadowRoot?.querySelector("slot[name='popover']");
+    const slotContent = slot?.assignedNodes()[0]?.innerHTML
+    const div = document.createElement('div')
+    div.className = 'slot-content'
+    div.innerHTML = slotContent
+    content?.append(div)
+    document.body.appendChild(content);
+    this.content = content
+
+    this.popper = await createPopper(tip, content, {
       placement: this.props.position,
       modifiers: [
         {
@@ -96,11 +99,47 @@ export default class Popover extends WeElement<Props> {
         {
           name: 'computeStyles',
           options: {
-            adaptive: false, // true by default
+            adaptive: true, // true by default
           },
         },
       ],
     })
+  }
+
+  showPopper = async () => {
+    const popper = this.popper;
+    if (!popper) {
+      await this.createPooper();
+    } 
+    this.popper.update()
+    this.content.style.display = 'block';
+  }
+
+  updatePopper() {
+    this.popper&& this.popper.update()
+  }
+
+  //隐藏popper，但不销毁
+  obscurePopper = () => {
+    this.content && (this.content.style.display = 'none');
+  }
+
+  destoryPopper = () => {
+    this.popper && this.popper.destroy()
+    this.popper = null
+  }
+
+  onEnter = (evt) => {
+    this.isShow = !this.isShow
+    if (this.isShow) {
+      this.appear = true
+      this.disappear = false
+    } else {
+      this.appear = false
+      this.disappear = true
+    }
+
+    this.showPopper()
     evt.stopPropagation()
   }
 
@@ -109,7 +148,6 @@ export default class Popover extends WeElement<Props> {
   onLeave = () => {
     this.timeout = setTimeout(() => {
       this.leave()
-      this.update()
     }, 600)
   }
 
@@ -118,13 +156,11 @@ export default class Popover extends WeElement<Props> {
     evt.stopPropagation()
   }
 
-  updatePosition() {
-    this.popper.update()
-  }
-
   leave() {
     this.appear = false
     this.disappear = true
+    
+    this.obscurePopper()
     setTimeout(() => {
       this.isShow = false
     }, 600)
@@ -139,7 +175,16 @@ export default class Popover extends WeElement<Props> {
     }
   }
 
-  isShow = false
+  // 需要更新slot内容
+  updated = () => {
+    if(!this.popper) return
+    const slot = this.shadowRoot?.querySelector("slot[name='popover']");
+    const slotContent = slot?.assignedNodes()[0]?.innerHTML
+    this.shadowRoot.querySelector('.tip')?.remove()
+    const content = this.content.querySelector(".slot-content");
+    content.innerHTML = slotContent ;
+    this.updatePopper()
+  }
 
   render(props) {
     const targetEvents: {
