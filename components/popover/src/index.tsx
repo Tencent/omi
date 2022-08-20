@@ -7,7 +7,8 @@ import * as css from './index.scss'
 interface Props {
   effect?: string
   position?: Placement
-  trigger?: 'click' | 'hover' | 'manual'
+  // all 是同时绑定 click 和 hover，这样移动端也支持
+  trigger?: 'click' | 'hover' | 'manual' | 'all'
   block?: boolean
 }
 
@@ -35,9 +36,7 @@ export default class Popover extends WeElement<Props> {
 
   appear?: boolean
   disappear?: boolean
-  content?: HTMLElement
   popper?: Instance | null
-  isShow = false
   _onDocumentMouseDown?: (evt: MouseEvent) => void
 
   installed() {
@@ -45,9 +44,8 @@ export default class Popover extends WeElement<Props> {
       // 手动模式
       if (this.props.trigger === 'manual') return
       if (this.isShow) {
-        this.onDocumentMouseDown.bind(this)
-        // this.leave()
-        // this.update()
+        this.leave()
+        this.update()
       }
     })
 
@@ -69,87 +67,46 @@ export default class Popover extends WeElement<Props> {
     }
     if (!isShowEl) {
       this.isShow = false
-      this.obscurePopper()
     }
-  }
 
-  createPooper = async () => {
-    this.update()
-    //html 模式过滤文本
-    if (this.shadowRoot) {
-      const tip = this.shadowRoot
-        .querySelector('slot')
-        .assignedNodes()
-        .find((node) => node.nodeType !== 3)
-
-      const content = this.shadowRoot.querySelector('.tip')
-      const slot = this.shadowRoot?.querySelector("slot[name='popover']")
-      const slotContent = slot?.assignedNodes()[0]?.innerHTML
-      const div = document.createElement('div')
-      div.className = 'slot-content'
-      div.innerHTML = slotContent
-      content?.append(div)
-      if (content) {
-        document.body.appendChild(content)
-        this.content = content as HTMLElement
-      }
-
-      this.popper = await createPopper(tip, content, {
-        placement: this.props.position,
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offset: [0, 8],
-            },
-          },
-          {
-            name: 'computeStyles',
-            options: {
-              adaptive: true, // true by default
-            },
-          },
-        ],
-      })
-    }
-  }
-
-  showPopper = async () => {
-    const popper = this.popper
-    if (!popper) {
-      await this.createPooper()
-    }
-    this.popper?.update()
-    if (this.content) {
-      this.content.style.display = 'block'
-    }
-  }
-
-  updatePopper() {
-    this.popper && this.popper.update()
-  }
-
-  //隐藏popper，但不销毁
-  obscurePopper = () => {
-    this.content && (this.content.style.display = 'none')
-  }
-
-  destoryPopper = () => {
-    this.popper && this.popper.destroy()
-    this.popper = null
+    // 防止立刻消失导致移动端弹出的面板 click 事件不触发
+    setTimeout(() => {
+      this.update()
+    })
   }
 
   onEnter = (evt: Event) => {
-    this.isShow = !this.isShow
-    if (this.isShow) {
-      this.appear = true
-      this.disappear = false
-    } else {
-      this.appear = false
-      this.disappear = true
-    }
+    clearTimeout(this.timeout)
+    this.isShow = true
+    this.appear = true
+    this.disappear = false
 
-    this.showPopper()
+    this.update()
+    //html 模式过滤文本
+    const tip = this.shadowRoot
+      .querySelector('slot')
+      .assignedNodes()
+      .find((node) => node.nodeType !== 3)
+
+    this.popper && this.popper.destroy()
+    // @ts-ignore
+    this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
+      placement: this.props.position,
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 8],
+          },
+        },
+        {
+          name: 'computeStyles',
+          options: {
+            adaptive: false, // true by default
+          },
+        },
+      ],
+    })
     evt.stopPropagation()
   }
 
@@ -158,6 +115,7 @@ export default class Popover extends WeElement<Props> {
   onLeave = () => {
     this.timeout = setTimeout(() => {
       this.leave()
+      this.update()
     }, 600)
   }
 
@@ -166,11 +124,13 @@ export default class Popover extends WeElement<Props> {
     evt.stopPropagation()
   }
 
+  updatePosition() {
+    this.popper.update()
+  }
+
   leave() {
     this.appear = false
     this.disappear = true
-
-    this.obscurePopper()
     setTimeout(() => {
       this.isShow = false
     }, 600)
@@ -185,19 +145,7 @@ export default class Popover extends WeElement<Props> {
     }
   }
 
-  // 需要更新slot内容
-  updated = () => {
-    if (!this.popper) return
-    const slot = this.shadowRoot?.querySelector("slot[name='popover']")
-    // @ts-ignore
-    const slotContent = slot?.assignedNodes()[0]?.innerHTML
-    this.shadowRoot && this.shadowRoot.querySelector('.tip')?.remove()
-    if (this.content) {
-      const content = this.content.querySelector(".slot-content")
-      content && (content.innerHTML = slotContent)
-    }
-    this.updatePopper()
-  }
+  isShow = false
 
   render(props: Props) {
     const targetEvents: {
@@ -209,7 +157,11 @@ export default class Popover extends WeElement<Props> {
       onMouseLeave: undefined,
       onClick: undefined,
     }
-    if (props.trigger === 'click') {
+    if (props.trigger === 'all') {
+      targetEvents.onClick = this.onEnter
+      targetEvents.onMouseEnter = this.onEnter
+      targetEvents.onMouseLeave = this.onLeave
+    } else if (props.trigger === 'click') {
       targetEvents.onClick = this.onEnter
     } else if (props.trigger === 'hover') {
       targetEvents.onMouseEnter = this.onEnter
