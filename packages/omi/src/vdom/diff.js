@@ -17,7 +17,7 @@ let isSvgMode = false
 /** Global flag indicating if the diff is performing hydration */
 let hydrating = false
 
-/** convert function vnode to object */
+/** convert  vnode  function to object */
 const purgeVNode = (vnode, args) => {
   if (typeof vnode === "function") {
     let func = vnode
