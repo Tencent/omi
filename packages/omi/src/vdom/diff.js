@@ -44,7 +44,7 @@ const purgeVNode = (vnode, args) => {
     vnode.setDom = dom => {
       args.dom = dom
       if (!dom.update) {
-        dom.update - args.update
+        dom.update = args.update
       }
     }
   }
