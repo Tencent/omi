@@ -20,7 +20,7 @@ let hydrating = false
 const purgeVNode = (vnode, args) => {
   if (typeof vnode === "function") {
     args.vnode = vnode
-    args.refresh = (updateSelf) => {
+    args.update = (updateSelf) => {
       return diff(args.dom, args.vnode, args.dom?.parentNode, args.component, updateSelf)
     }
     vnode = args.vnode(args)
@@ -42,7 +42,7 @@ const purgeVNode = (vnode, args) => {
 
     vnode.setDom = dom => {
       args.dom = dom
-      dom.refresh = args.refresh
+      if (!dom.update) dom.update = args.update
     }
   }
   return vnode
@@ -462,7 +462,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
     }
   }
 
-  if (isWeElement && !updateSelf && dom.parentNode) {
+  if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
     if (dom.receiveProps(dom.props, oldClone) !== false) {
