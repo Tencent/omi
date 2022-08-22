@@ -1,8 +1,7 @@
 import { ATTR_KEY } from '../constants'
 import { isSameNodeType, isNamedNode } from './index'
-import { createNode, setAccessor } from '../dom/index'
+import { createNode, setAccessor, removeNode } from '../dom/index'
 import { camelCase, isArray, Fragment } from '../util'
-import { removeNode } from '../dom/index'
 import options from '../options'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -20,11 +19,12 @@ let hydrating = false
 /** convert  vnode  function to object */
 const purgeVNode = (vnode, args) => {
   if (typeof vnode === "function") {
-    let func = vnode
-    args.update = (updateSelf) => {
-      return diff(args.dom, func, args.dom?.parentNode, args.component, updateSelf)
+    args.vnode = vnode
+    args.refresh = (updateSelf) => {
+      return diff(args.dom, args.vnode, args.dom?.parentNode, args.component, updateSelf)
     }
-    vnode = func(args)
+    vnode = args.vnode(args)
+
     if (vnode instanceof Array) {
       //wrap
       vnode = {
@@ -33,24 +33,22 @@ const purgeVNode = (vnode, args) => {
       }
     }
 
-    if (typeof vnode !== "object") {
+    if (!vnode || typeof vnode == "string" || typeof vnode == "number" || typeof vnode == "boolean" || typeof vnode == "bigint") {
       vnode = {
         nodeName: "output",
         children: [vnode],
       }
     }
 
-
     vnode.setDom = dom => {
       args.dom = dom
-      if (!dom.update) {
-        dom.update = args.update
-      }
+      dom.refresh = args.refresh
     }
   }
   return vnode
 
 }
+
 
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
  *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
@@ -118,16 +116,19 @@ export function diff(dom, vnode, parent, component, updateSelf) {
     // invoke queued componentDidMount lifecycle methods
   }
 
+
   return ret
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, component, updateSelf) {
+
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
   let out = dom,
     prevSvgMode = isSvgMode
+
 
   // empty values (null, undefined, booleans) render as empty Text nodes
   if (vnode == null || typeof vnode === 'boolean') vnode = ''
@@ -301,6 +302,7 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
   if (vlen !== 0) {
     for (let i = 0; i < vlen; i++) {
       vchild = vchildren[i]
+
       child = null
 
       if (vchild) {
