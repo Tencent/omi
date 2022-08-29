@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "highlight.js": "^11.6.0",
     "less": "^4.1.1",
     "sass": "^1.35.1",
     "typescript": "^4.3.2",
@@ -43,6 +44,7 @@
     "@omiu/link": "^0.0.4",
     "@omiu/loading": "0.0.2",
     "@omiu/message": "^0.0.5",
+    "@omiu/o-icon": "^0.0.1",
     "@omiu/pagination": "^0.0.5",
     "@omiu/popconfirm": "^0.0.2",
     "@omiu/popover": "^0.0.17",
