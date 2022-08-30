@@ -39,10 +39,21 @@ const purgeVNode = (vnode, args) => {
         children: [vnode],
       }
     }
-
     vnode.setDom = dom => {
-      args.dom = dom
-      if (!dom.update) dom.update = args.update
+      if (dom) {
+        args.dom = dom
+        Promise.resolve().then(() => {
+          dom.dispatchEvent(
+            new CustomEvent("updated", {
+              detail: args,
+              cancelable: true,
+              bubbles: true
+            })
+          )
+        })
+        if (!dom.update) dom.update = args.update
+      }
+
     }
   }
   return vnode
