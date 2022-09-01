@@ -154,13 +154,23 @@
                 isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
                 hydrating = null != dom && !('prevProps' in dom);
             }
+            vnode = purgeVNode(vnode, {
+                component: component
+            });
             if (vnode && vnode.nodeName === Fragment) vnode = vnode.children;
-            if (isArray(vnode)) if (parent) innerDiffNode(parent, vnode, hydrating, component, updateSelf); else {
-                ret = [];
-                vnode.forEach(function(item, index) {
-                    var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
-                    ret.push(ele);
+            if (isArray(vnode)) {
+                vnode = vnode.map(function(child) {
+                    return purgeVNode(child, {
+                        component: component
+                    });
                 });
+                if (parent) innerDiffNode(parent, vnode, hydrating, component, updateSelf); else {
+                    ret = [];
+                    vnode.forEach(function(item, index) {
+                        var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
+                        ret.push(ele);
+                    });
+                }
             } else {
                 if (isArray(dom)) dom.forEach(function(one, index) {
                     if (0 === index) ret = idiff(one, vnode, component, updateSelf); else recollectNodeTree(one, !1);
@@ -186,6 +196,7 @@
                 }
             }
             out.prevProps = !0;
+            vnode.setDom && vnode.setDom(out);
             return out;
         }
         var vnodeName = vnode.nodeName;
@@ -205,6 +216,11 @@
             }
         }
         var fc = out.firstChild, props = out.prevProps, vchildren = vnode.children;
+        vchildren = vnode.children.map(function(child) {
+            return purgeVNode(child, {
+                component: component
+            });
+        });
         if (null == props) {
             props = out.prevProps = {};
             for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
@@ -215,6 +231,7 @@
         diffAttributes(out, vnode.attributes, props, component, updateSelf);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
+        vnode.setDom && vnode.setDom(out);
         return out;
     }
     function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
@@ -286,7 +303,7 @@
                 dom.props[_ccName] = old[_ccName] = attrs[name];
             } else old[name] = attrs[name];
         }
-        if (isWeElement && !updateSelf && dom.parentNode) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
+        if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -449,6 +466,37 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
+    var purgeVNode = function(vnode, args) {
+        if ("function" == typeof vnode) {
+            args.vnode = vnode;
+            args.update = function(updateSelf) {
+                return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
+            };
+            vnode = args.vnode(args);
+            if (vnode instanceof Array) vnode = {
+                nodeName: "output",
+                children: vnode
+            };
+            if (!vnode || "string" == typeof vnode || "number" == typeof vnode || "boolean" == typeof vnode || "bigint" == typeof vnode) vnode = {
+                nodeName: "output",
+                children: [ vnode ]
+            };
+            vnode.setDom = function(dom) {
+                if (dom) {
+                    args.dom = dom;
+                    Promise.resolve().then(function() {
+                        dom.dispatchEvent(new CustomEvent("updated", {
+                            detail: args,
+                            cancelable: !0,
+                            bubbles: !0
+                        }));
+                    });
+                    if (!dom.update) dom.update = args.update;
+                }
+            };
+        }
+        return vnode;
+    };
     var id = 0;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
@@ -938,7 +986,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.6';
+    options.root.Omi.version = '6.25.7';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -21,7 +21,7 @@ const purgeVNode = (vnode, args) => {
   if (typeof vnode === "function") {
     args.vnode = vnode
     args.update = (updateSelf) => {
-      return diff(args.dom, args.vnode, args.dom?.parentNode, args.component, updateSelf)
+      return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf)
     }
     vnode = args.vnode(args)
 

@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.6  http://omijs.org
+ * Omi v6.25.7  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -385,6 +385,46 @@
   /** Global flag indicating if the diff is performing hydration */
   var hydrating = false;
 
+  /** convert  vnode  function to object */
+  var purgeVNode = function purgeVNode(vnode, args) {
+    if (typeof vnode === "function") {
+      args.vnode = vnode;
+      args.update = function (updateSelf) {
+        return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
+      };
+      vnode = args.vnode(args);
+
+      if (vnode instanceof Array) {
+        //wrap
+        vnode = {
+          nodeName: "output",
+          children: vnode
+        };
+      }
+
+      if (!vnode || typeof vnode == "string" || typeof vnode == "number" || typeof vnode == "boolean" || typeof vnode == "bigint") {
+        vnode = {
+          nodeName: "output",
+          children: [vnode]
+        };
+      }
+      vnode.setDom = function (dom) {
+        if (dom) {
+          args.dom = dom;
+          Promise.resolve().then(function () {
+            dom.dispatchEvent(new CustomEvent("updated", {
+              detail: args,
+              cancelable: true,
+              bubbles: true
+            }));
+          });
+          if (!dom.update) dom.update = args.update;
+        }
+      };
+    }
+    return vnode;
+  };
+
   /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
    *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
    *  @param {VNode} vnode      A VNode (with descendants forming a tree) representing the desired DOM structure
@@ -403,10 +443,20 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !('prevProps' in dom);
     }
+    //dynamic vnode
+    vnode = purgeVNode(vnode, { component: component });
+    //////////////////////////////////////////////////////////////////////
+
     if (vnode && vnode.nodeName === Fragment) {
       vnode = vnode.children;
     }
     if (isArray(vnode)) {
+      //dynamic vnode
+      vnode = vnode.map(function (child) {
+        return purgeVNode(child, { component: component });
+      });
+      //////////////////////////////////////////////////////////////////////
+
       if (parent) {
         // don't use css and props.css when using h.f
         // diff node list and vnode list
@@ -448,6 +498,7 @@
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
   function idiff(dom, vnode, component, updateSelf) {
+
     if (dom && vnode && dom.props) {
       dom.props.children = vnode.children;
     }
@@ -475,7 +526,9 @@
       }
 
       out['prevProps'] = true;
-
+      //dynamic vnode
+      vnode.setDom && vnode.setDom(out);
+      /////////////////////////////////////////////////////////
       return out;
     }
 
@@ -514,6 +567,12 @@
         props = out['prevProps'],
         vchildren = vnode.children;
 
+    //dynamic vnode 
+    vchildren = vnode.children.map(function (child) {
+      return purgeVNode(child, { component: component });
+    });
+    /////////////////////////////////////////////////////////
+
     if (props == null) {
       props = out['prevProps'] = {};
       for (var a = out.attributes, i = a.length; i--;) {
@@ -541,7 +600,9 @@
     }
     // restore previous SVG mode: (in case we're exiting an SVG namespace)
     isSvgMode = prevSvgMode;
-
+    //dynamic vnode
+    vnode.setDom && vnode.setDom(out);
+    /////////////////////////////////////////////////////////
     return out;
   }
 
@@ -583,6 +644,7 @@
     if (vlen !== 0) {
       for (var i = 0; i < vlen; i++) {
         vchild = vchildren[i];
+
         child = null;
 
         if (vchild) {
@@ -720,7 +782,7 @@
       }
     }
 
-    if (isWeElement && !updateSelf && dom.parentNode) {
+    if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) {
       //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
       //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
       if (dom.receiveProps(dom.props, oldClone) !== false) {
@@ -1571,7 +1633,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.25.6';
+  options.root.Omi.version = '6.25.7';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
