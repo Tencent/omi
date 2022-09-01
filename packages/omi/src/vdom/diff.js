@@ -1,8 +1,7 @@
 import { ATTR_KEY } from '../constants'
 import { isSameNodeType, isNamedNode } from './index'
-import { createNode, setAccessor } from '../dom/index'
+import { createNode, setAccessor, removeNode } from '../dom/index'
 import { camelCase, isArray, Fragment } from '../util'
-import { removeNode } from '../dom/index'
 import options from '../options'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -16,6 +15,51 @@ let isSvgMode = false
 
 /** Global flag indicating if the diff is performing hydration */
 let hydrating = false
+
+/** convert  vnode  function to object */
+const purgeVNode = (vnode, args) => {
+  if (typeof vnode === "function") {
+    args.vnode = vnode
+    args.update = (updateSelf) => {
+      return diff(args.dom, args.vnode, args.dom?.parentNode, args.component, updateSelf)
+    }
+    vnode = args.vnode(args)
+
+    if (vnode instanceof Array) {
+      //wrap
+      vnode = {
+        nodeName: "output",
+        children: vnode,
+      }
+    }
+
+    if (!vnode || typeof vnode == "string" || typeof vnode == "number" || typeof vnode == "boolean" || typeof vnode == "bigint") {
+      vnode = {
+        nodeName: "output",
+        children: [vnode],
+      }
+    }
+    vnode.setDom = dom => {
+      if (dom) {
+        args.dom = dom
+        Promise.resolve().then(() => {
+          dom.dispatchEvent(
+            new CustomEvent("updated", {
+              detail: args,
+              cancelable: true,
+              bubbles: true
+            })
+          )
+        })
+        if (!dom.update) dom.update = args.update
+      }
+
+    }
+  }
+  return vnode
+
+}
+
 
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
  *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
@@ -35,10 +79,18 @@ export function diff(dom, vnode, parent, component, updateSelf) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
+  //dynamic vnode
+  vnode = purgeVNode(vnode, { component })
+  //////////////////////////////////////////////////////////////////////
+
   if (vnode && vnode.nodeName === Fragment) {
     vnode = vnode.children
   }
   if (isArray(vnode)) {
+    //dynamic vnode
+    vnode = vnode.map(child => purgeVNode(child, { component }))
+    //////////////////////////////////////////////////////////////////////
+
     if (parent) {
       // don't use css and props.css when using h.f
       // diff node list and vnode list
@@ -75,16 +127,19 @@ export function diff(dom, vnode, parent, component, updateSelf) {
     // invoke queued componentDidMount lifecycle methods
   }
 
+
   return ret
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, component, updateSelf) {
+
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
   let out = dom,
     prevSvgMode = isSvgMode
+
 
   // empty values (null, undefined, booleans) render as empty Text nodes
   if (vnode == null || typeof vnode === 'boolean') vnode = ''
@@ -112,7 +167,9 @@ function idiff(dom, vnode, component, updateSelf) {
     }
 
     out[ATTR_KEY] = true
-
+    //dynamic vnode
+    vnode.setDom && vnode.setDom(out)
+    /////////////////////////////////////////////////////////
     return out
   }
 
@@ -132,8 +189,8 @@ function idiff(dom, vnode, component, updateSelf) {
     vnodeName === 'svg'
       ? true
       : vnodeName === 'foreignObject'
-      ? false
-      : isSvgMode
+        ? false
+        : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
@@ -156,9 +213,13 @@ function idiff(dom, vnode, component, updateSelf) {
     props = out[ATTR_KEY],
     vchildren = vnode.children
 
+  //dynamic vnode 
+  vchildren = vnode.children.map(child => purgeVNode(child, { component }))
+  /////////////////////////////////////////////////////////
+
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--; )
+    for (let a = out.attributes, i = a.length; i--;)
       props[a[i].name] = a[i].value
   }
 
@@ -196,7 +257,9 @@ function idiff(dom, vnode, component, updateSelf) {
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
-
+  //dynamic vnode
+  vnode.setDom && vnode.setDom(out)
+  /////////////////////////////////////////////////////////
   return out
 }
 
@@ -250,6 +313,7 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
   if (vlen !== 0) {
     for (let i = 0; i < vlen; i++) {
       vchild = vchildren[i]
+
       child = null
 
       if (vchild) {
@@ -394,7 +458,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       name !== 'children' &&
       (!(name in old) ||
         attrs[name] !==
-          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
       //fix lazy load props missing
@@ -409,7 +473,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
     }
   }
 
-  if (isWeElement && !updateSelf && dom.parentNode) {
+  if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
     if (dom.receiveProps(dom.props, oldClone) !== false) {
