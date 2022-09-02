@@ -10,11 +10,11 @@ import { extension } from '../extend'
  *  namespace.
  * @returns {Element} The created DOM node
  */
-export function createNode(nodeName, isSvg) {
+export function createNode(nodeName, isSvg, options) {
   /** @type {Element} */
   let node = isSvg
     ? document.createElementNS('http://www.w3.org/2000/svg', nodeName)
-    : document.createElement(nodeName)
+    : document.createElement(nodeName, options)
   node.normalizedNodeName = nodeName
   return node
 }
@@ -90,7 +90,7 @@ export function setAccessor(node, name, old, value, isSvg, component) {
     // IE & FF throw for certain property-value combinations.
     try {
       node[name] = value == null ? '' : value
-    } catch (e) {}
+    } catch (e) { }
     if ((value == null || value === false) && name != 'spellcheck')
       node.pureRemoveAttribute
         ? node.pureRemoveAttribute(name)
@@ -146,5 +146,5 @@ function bindEvent(node, name, value, old) {
   } else {
     node.removeEventListener(name, eventProxy, useCapture)
   }
-  ;(node._listeners || (node._listeners = {}))[name] = value
+  ; (node._listeners || (node._listeners = {}))[name] = value
 }
