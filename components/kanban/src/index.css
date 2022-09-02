@@ -1,0 +1,34 @@
+span {
+  color: red;
+}
+
+.o-kanban {
+  display: flex;
+}
+
+.o-kanban-column {
+  background-color: #f4f5f7;
+  display: flex;
+  flex-direction: column;
+  min-width: 15rem;
+  border-radius: 6px;
+  padding: 0 0.7rem 1rem;
+  margin-right: 1.5rem;
+  cursor: grab;
+}
+
+.tasksContainer {
+  flex: 1;
+}
+
+.o-kanban-column-pop {
+  position: absolute;
+  z-index: 22;
+  display: none;
+}
+
+.o-kanban-column-svg:hover .o-kanban-column-pop {
+  display: block;
+}
+
+/*# sourceMappingURL=index.css.map */
