@@ -4,6 +4,7 @@ import options from './options'
 
 let id = 0
 
+const adoptedStyleSheetsMap = new Map()
 export default class WeElement extends HTMLElement {
   static is = 'WeElement'
 
@@ -63,8 +64,8 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (this.constructor.elementStyles) {
-      shadowRoot.adoptedStyleSheets = this.constructor.elementStyles
+    if (adoptedStyleSheetsMap.has(this.constructor.css)) {
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor.css)
     } else {
       const css = this.constructor.css
       if (css) {
@@ -92,7 +93,7 @@ export default class WeElement extends HTMLElement {
         } else {
           shadowRoot.adoptedStyleSheets = [css]
         }
-        this.constructor.elementStyles = shadowRoot.adoptedStyleSheets
+        adoptedStyleSheetsMap.set(this.constructor.css, shadowRoot.adoptedStyleSheets)
       }
     }
 
@@ -117,7 +118,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function(item) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -278,23 +279,23 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 }
