@@ -65,7 +65,9 @@ export default class WeElement extends HTMLElement {
     }
 
     if (adoptedStyleSheetsMap.has(this.constructor.css)) {
-      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor.css)
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(
+        this.constructor.css
+      )
     } else {
       const css = this.constructor.css
       if (css) {
@@ -93,7 +95,10 @@ export default class WeElement extends HTMLElement {
         } else {
           shadowRoot.adoptedStyleSheets = [css]
         }
-        adoptedStyleSheetsMap.set(this.constructor.css, shadowRoot.adoptedStyleSheets)
+        adoptedStyleSheetsMap.set(
+          this.constructor.css,
+          shadowRoot.adoptedStyleSheets
+        )
       }
     }
 
@@ -118,7 +123,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function (item) {
+      this.rootNode.forEach(function(item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -279,23 +284,23 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  beforeInstall() { }
+  beforeInstall() {}
 
-  install() { }
+  install() {}
 
-  afterInstall() { }
+  afterInstall() {}
 
-  installed() { }
+  installed() {}
 
-  uninstall() { }
+  uninstall() {}
 
-  beforeUpdate() { }
+  beforeUpdate() {}
 
-  updated() { }
+  updated() {}
 
-  beforeRender() { }
+  beforeRender() {}
 
-  rendered() { }
+  rendered() {}
 
-  receiveProps() { }
+  receiveProps() {}
 }

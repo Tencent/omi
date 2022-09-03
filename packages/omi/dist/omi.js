@@ -99,8 +99,8 @@
     function unbind(el, type) {
         el.removeEventListener(type, eventProxy);
     }
-    function createNode(nodeName, isSvg) {
-        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+    function createNode(nodeName, isSvg, options$$1) {
+        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName, options$$1);
         node.normalizedNodeName = nodeName;
         return node;
     }
@@ -208,7 +208,9 @@
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
-            out = createNode(vnodeName, isSvgMode);
+            out = createNode(vnodeName, isSvgMode, vnode.attributes && vnode.attributes.is && {
+                is: vnode.attributes.is
+            });
             if (dom) {
                 while (dom.firstChild) out.appendChild(dom.firstChild);
                 if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
@@ -397,8 +399,8 @@
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
     function getHost(ele) {
-        var p = ele.parentNode;
-        while (p) if (p.host) return p.host; else if (p.shadowRoot && p.shadowRoot.host) return p.shadowRoot.host; else p = p.parentNode;
+        var root = ele.getRootNode();
+        return root && root.host;
     }
     function rpx(css) {
         return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
@@ -467,25 +469,25 @@
     var isSvgMode = !1;
     var hydrating = !1;
     var purgeVNode = function(vnode, args) {
-        if ("function" == typeof vnode) {
+        if ('function' == typeof vnode) {
             args.vnode = vnode;
             args.update = function(updateSelf) {
                 return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
             };
             vnode = args.vnode(args);
             if (vnode instanceof Array) vnode = {
-                nodeName: "output",
+                nodeName: 'output',
                 children: vnode
             };
-            if (!vnode || "string" == typeof vnode || "number" == typeof vnode || "boolean" == typeof vnode || "bigint" == typeof vnode) vnode = {
-                nodeName: "output",
+            if (!vnode || 'string' == typeof vnode || 'number' == typeof vnode || 'boolean' == typeof vnode || 'bigint' == typeof vnode) vnode = {
+                nodeName: 'output',
                 children: [ vnode ]
             };
             vnode.setDom = function(dom) {
                 if (dom) {
                     args.dom = dom;
                     Promise.resolve().then(function() {
-                        dom.dispatchEvent(new CustomEvent("updated", {
+                        dom.dispatchEvent(new CustomEvent('updated', {
                             detail: args,
                             cancelable: !0,
                             bubbles: !0
@@ -498,6 +500,7 @@
         return vnode;
     };
     var id = 0;
+    var adoptedStyleSheetsMap = new Map();
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -540,7 +543,7 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            if (this.constructor.elementStyles) shadowRoot.adoptedStyleSheets = this.constructor.elementStyles; else {
+            if (adoptedStyleSheetsMap.has(this.constructor.css)) shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor.css); else {
                 var css = this.constructor.css;
                 if (css) {
                     if ('string' == typeof css) {
@@ -562,7 +565,7 @@
                         _styleSheet.replaceSync(css.default);
                         shadowRoot.adoptedStyleSheets = [ _styleSheet ];
                     } else shadowRoot.adoptedStyleSheets = [ css ];
-                    this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
+                    adoptedStyleSheetsMap.set(this.constructor.css, shadowRoot.adoptedStyleSheets);
                 }
             }
             this.beforeRender();
@@ -827,7 +830,7 @@
                 }); else observer.disconnect();
             }));
         }
-        if (!('undefined' == typeof document || 'adoptedStyleSheets' in document)) {
+        if (!('adoptedStyleSheets' in document)) {
             var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
             var bootstrapper = document.implementation.createHTMLDocument('boot');
             var closedShadowRootRegistry = new WeakMap();
@@ -986,7 +989,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.7';
+    options.root.Omi.version = '6.25.8';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

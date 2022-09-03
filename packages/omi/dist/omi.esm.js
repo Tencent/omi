@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.7  http://omijs.org
+ * Omi v6.25.8  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -261,9 +261,9 @@ function unbind(el, type) {
  *  namespace.
  * @returns {Element} The created DOM node
  */
-function createNode(nodeName, isSvg) {
+function createNode(nodeName, isSvg, options$$1) {
   /** @type {Element} */
-  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName, options$$1);
   node.normalizedNodeName = nodeName;
   return node;
 }
@@ -384,7 +384,7 @@ var hydrating = false;
 
 /** convert  vnode  function to object */
 var purgeVNode = function purgeVNode(vnode, args) {
-  if (typeof vnode === "function") {
+  if (typeof vnode === 'function') {
     args.vnode = vnode;
     args.update = function (updateSelf) {
       return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
@@ -394,14 +394,14 @@ var purgeVNode = function purgeVNode(vnode, args) {
     if (vnode instanceof Array) {
       //wrap
       vnode = {
-        nodeName: "output",
+        nodeName: 'output',
         children: vnode
       };
     }
 
-    if (!vnode || typeof vnode == "string" || typeof vnode == "number" || typeof vnode == "boolean" || typeof vnode == "bigint") {
+    if (!vnode || typeof vnode == 'string' || typeof vnode == 'number' || typeof vnode == 'boolean' || typeof vnode == 'bigint') {
       vnode = {
-        nodeName: "output",
+        nodeName: 'output',
         children: [vnode]
       };
     }
@@ -409,7 +409,7 @@ var purgeVNode = function purgeVNode(vnode, args) {
       if (dom) {
         args.dom = dom;
         Promise.resolve().then(function () {
-          dom.dispatchEvent(new CustomEvent("updated", {
+          dom.dispatchEvent(new CustomEvent('updated', {
             detail: args,
             cancelable: true,
             bubbles: true
@@ -495,7 +495,6 @@ function diff(dom, vnode, parent, component, updateSelf) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, component, updateSelf) {
-
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children;
   }
@@ -546,7 +545,7 @@ function idiff(dom, vnode, component, updateSelf) {
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName);
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode);
+    out = createNode(vnodeName, isSvgMode, vnode.attributes && vnode.attributes.is && { is: vnode.attributes.is });
 
     if (dom) {
       // move children into the replacement node
@@ -564,7 +563,7 @@ function idiff(dom, vnode, component, updateSelf) {
       props = out['prevProps'],
       vchildren = vnode.children;
 
-  //dynamic vnode 
+  //dynamic vnode
   vchildren = vnode.children.map(function (child) {
     return purgeVNode(child, { component: component });
   });
@@ -797,6 +796,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var id = 0;
 
+var adoptedStyleSheetsMap = new Map();
+
 var WeElement = function (_HTMLElement) {
   _inherits(WeElement, _HTMLElement);
 
@@ -862,8 +863,8 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    if (this.constructor.elementStyles) {
-      shadowRoot.adoptedStyleSheets = this.constructor.elementStyles;
+    if (adoptedStyleSheetsMap.has(this.constructor.css)) {
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor.css);
     } else {
       var css = this.constructor.css;
       if (css) {
@@ -891,7 +892,7 @@ var WeElement = function (_HTMLElement) {
         } else {
           shadowRoot.adoptedStyleSheets = [css];
         }
-        this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
+        adoptedStyleSheetsMap.set(this.constructor.css, shadowRoot.adoptedStyleSheets);
       }
     }
 
@@ -1181,16 +1182,8 @@ function cloneElement(vnode, props) {
 }
 
 function getHost(ele) {
-  var p = ele.parentNode;
-  while (p) {
-    if (p.host) {
-      return p.host;
-    } else if (p.shadowRoot && p.shadowRoot.host) {
-      return p.shadowRoot.host;
-    } else {
-      p = p.parentNode;
-    }
-  }
+  var root = ele.getRootNode();
+  return root && root.host;
 }
 
 function rpx(css) {
@@ -1260,7 +1253,7 @@ function o(obj) {
 
 (function () {
 
-    if (typeof document === 'undefined' || 'adoptedStyleSheets' in document) { return; }
+    if ('adoptedStyleSheets' in document) { return; }
 
     var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
     var bootstrapper = document.implementation.createHTMLDocument('boot');
@@ -1630,7 +1623,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.7';
+options.root.Omi.version = '6.25.8';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
