@@ -195,7 +195,7 @@ function idiff(dom, vnode, component, updateSelf) {
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode)
+    out = createNode(vnodeName, isSvgMode, vnode.attributes && vnode.attributes.is && { is: vnode.attributes.is })
 
     if (dom) {
       // move children into the replacement node
