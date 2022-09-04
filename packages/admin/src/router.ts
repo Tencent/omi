@@ -205,51 +205,53 @@ export function registerRouting(rootEl) {
     )
   })
 
-  const routes = [
-    {
-      path: '/results/network-error',
-      component: './components/results/network-error',
-      name: 'network-error'
-    },
-    {
-      path: '/results/not-found',
-      component: './components/results/not-found',
-      name: 'not-found'
-    },
-    {
-      path: '/results/permission-denied',
-      component: './components/results/permission-denied',
-      name: 'permission-denied'
-    },
-    {
-      path: '/results/server-error',
-      component: './components/results/server-error',
-      name: 'server-error'
-    },
-    {
-      path: '/masonry-list',
-      component: './components/masonry-list',
-      name: 'masonry-list'
-    },
-    {
-      path: '/notification-list',
-      component: './components/notification/notification-list',
-      name: 'notification-list'
-    },
-    {
-      path: '/personal-center',
-      component: './components/account/personal-center',
-      name: 'personal-center'
-    }
-  ]
+  route('/results/network-error', () => {
+    showLoading()
+    import('./components/results/network-error').then(() =>
+      rootEl.transitionTo('network-error')
+    )
+  })
 
-  routes.forEach((r) => {
-    route(r.path, () => {
-      showLoading()
-      import(/* @vite-ignore */ r.component).then(() =>
-        rootEl.transitionTo(r.name)
-      )
-    })
+  route('/results/not-found', () => {
+    showLoading()
+    import('./components/results/not-found').then(() =>
+      rootEl.transitionTo('not-found')
+    )
+  })
+
+  route('/results/permission-denied', () => {
+    showLoading()
+    import('./components/results/permission-denied').then(() =>
+      rootEl.transitionTo('permission-denied')
+    )
+  })
+
+  route('/results/server-error', () => {
+    showLoading()
+    import('./components/results/server-error').then(() =>
+      rootEl.transitionTo('server-error')
+    )
+  })
+
+  route('/masonry-list', () => {
+    showLoading()
+    import('./components/masonry-list').then(() =>
+      rootEl.transitionTo('masonry-list')
+    )
+  })
+
+  route('/notification-list', () => {
+    showLoading()
+    import('./components/notification/notification-list').then(() =>
+      rootEl.transitionTo('notification-list')
+    )
+  })
+
+  route('/personal-center', () => {
+    showLoading()
+    import('./components/account/personal-center').then(() =>
+      rootEl.transitionTo('personal-center')
+    )
   })
 
   route('*', function () {
