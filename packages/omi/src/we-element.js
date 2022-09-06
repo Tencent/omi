@@ -118,7 +118,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function (item) {
+      this.rootNode.forEach(function(item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -279,23 +279,23 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  beforeInstall() { }
+  beforeInstall() {}
 
-  install() { }
+  install() {}
 
-  afterInstall() { }
+  afterInstall() {}
 
-  installed() { }
+  installed() {}
 
-  uninstall() { }
+  uninstall() {}
 
-  beforeUpdate() { }
+  beforeUpdate() {}
 
-  updated() { }
+  updated() {}
 
-  beforeRender() { }
+  beforeRender() {}
 
-  rendered() { }
+  rendered() {}
 
-  receiveProps() { }
+  receiveProps() {}
 }
