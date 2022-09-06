@@ -4,7 +4,7 @@ import options from './options'
 
 let id = 0
 
-const adoptedStyleSheetsMap = new Map()
+const adoptedStyleSheetsMap = new WeakMap()
 export default class WeElement extends HTMLElement {
   static is = 'WeElement'
 
@@ -64,8 +64,8 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (adoptedStyleSheetsMap.has(this.constructor.css)) {
-      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor.css)
+    if (adoptedStyleSheetsMap.has(this.constructor)) {
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor)
     } else {
       const css = this.constructor.css
       if (css) {
@@ -93,7 +93,7 @@ export default class WeElement extends HTMLElement {
         } else {
           shadowRoot.adoptedStyleSheets = [css]
         }
-        adoptedStyleSheetsMap.set(this.constructor.css, shadowRoot.adoptedStyleSheets)
+        adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets)
       }
     }
 
