@@ -18,8 +18,8 @@ let hydrating = false
 
 /** convert  vnode  function to object */
 const purgeVNode = (vnode, args) => {
-  let vnodeName = vnode.nodeName
-  if (typeof vnode !== "function" && typeof vnodeName !== "function") return vnode
+  if (vnode === null || vnode === undefined || (typeof vnode !== "function" && typeof vnode.nodeName !== "function")) return vnode
+  const vnodeName = vnode.nodeName
 
   if (typeof vnodeName === 'function') {
     for (let key in options.mapping) {
@@ -52,8 +52,7 @@ const purgeVNode = (vnode, args) => {
       children: vnode,
     }
   }
-
-  if (!vnode || typeof vnode == "string" || typeof vnode == "number" || typeof vnode == "boolean" || typeof vnode == "bigint") {
+  if (vnode === null || vnode === undefined || !vnode.hasOwnProperty("nodeName")) {
     vnode = {
       nodeName: "output",
       children: [vnode],
