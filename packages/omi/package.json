@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.25.8",
+  "version": "6.25.9",
   "description": "Front End Cross-Frameworks Framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -149,6 +149,7 @@
     "useTabs": false
   },
   "dependencies": {
-    "construct-style-sheets-polyfill": "3.0.1"
+    "construct-style-sheets-polyfill": "3.0.1",
+    "weakmap-polyfill": "2.0.4"
   }
 }

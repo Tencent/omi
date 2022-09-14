@@ -200,11 +200,6 @@
             return out;
         }
         var vnodeName = vnode.nodeName;
-        if ('function' == typeof vnodeName) for (var key in options.mapping) if (options.mapping[key] === vnodeName) {
-            vnodeName = key;
-            vnode.nodeName = key;
-            break;
-        }
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
@@ -469,38 +464,116 @@
     var isSvgMode = !1;
     var hydrating = !1;
     var purgeVNode = function(vnode, args) {
-        if ('function' == typeof vnode) {
-            args.vnode = vnode;
-            args.update = function(updateSelf) {
-                return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
-            };
-            vnode = args.vnode(args);
-            if (vnode instanceof Array) vnode = {
-                nodeName: 'output',
-                children: vnode
-            };
-            if (!vnode || 'string' == typeof vnode || 'number' == typeof vnode || 'boolean' == typeof vnode || 'bigint' == typeof vnode) vnode = {
-                nodeName: 'output',
-                children: [ vnode ]
-            };
-            vnode.setDom = function(dom) {
-                if (dom) {
-                    args.dom = dom;
-                    Promise.resolve().then(function() {
-                        dom.dispatchEvent(new CustomEvent('updated', {
-                            detail: args,
-                            cancelable: !0,
-                            bubbles: !0
-                        }));
-                    });
-                    if (!dom.update) dom.update = args.update;
-                }
-            };
+        if (null === vnode || void 0 === vnode || 'function' != typeof vnode && 'function' != typeof vnode.nodeName) return vnode;
+        var vnodeName = vnode.nodeName;
+        if ('function' == typeof vnodeName) for (var key in options.mapping) if (options.mapping[key] === vnodeName) {
+            vnode.nodeName = key;
+            return vnode;
         }
+        args.vnode = vnode;
+        args.update = function(updateSelf) {
+            return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
+        };
+        if ('function' == typeof vnodeName) {
+            var _vnode = vnode, children = _vnode.children, attributes = _vnode.attributes;
+            args.children = children;
+            vnode = vnodeName(attributes, args);
+        } else vnode = vnode(args);
+        if (vnode instanceof Array) vnode = {
+            nodeName: 'output',
+            children: vnode
+        };
+        if (null === vnode || void 0 === vnode || !vnode.hasOwnProperty('nodeName')) vnode = {
+            nodeName: 'output',
+            children: [ vnode ]
+        };
+        vnode.setDom = function(dom) {
+            if (dom) {
+                args.dom = dom;
+                Promise.resolve().then(function() {
+                    dom.dispatchEvent(new CustomEvent('updated', {
+                        detail: args,
+                        cancelable: !0,
+                        bubbles: !0
+                    }));
+                });
+                if (!dom.update) dom.update = args.update;
+            }
+        };
         return vnode;
     };
+    !function(self) {
+        function isObject(x) {
+            return Object(x) === x;
+        }
+        if (!self.WeakMap) {
+            var hasOwnProperty = Object.prototype.hasOwnProperty;
+            var hasDefine = Object.defineProperty && function() {
+                try {
+                    return 1 === Object.defineProperty({}, 'x', {
+                        value: 1
+                    }).x;
+                } catch (e) {}
+            }();
+            var defineProperty = function(object, name, value) {
+                if (hasDefine) ; else object[name] = value;
+            };
+            self.WeakMap = function() {
+                function WeakMap() {
+                    if (void 0 === this) throw new TypeError("Constructor WeakMap requires 'new'");
+                    defineProperty(this, '_id', genId('_WeakMap'));
+                    if (arguments.length > 0) throw new TypeError('WeakMap iterable is not supported');
+                }
+                function checkInstance(x, methodName) {
+                    if (!isObject(x) || !hasOwnProperty.call(x, '_id')) throw new TypeError(methodName + ' method called on incompatible receiver ' + typeof x);
+                }
+                function genId(prefix) {
+                    return prefix + '_' + rand() + '.' + rand();
+                }
+                function rand() {
+                    return Math.random().toString().substring(2);
+                }
+                defineProperty(WeakMap.prototype, 'delete', function(key) {
+                    checkInstance(this, 'delete');
+                    if (!isObject(key)) return !1;
+                    var entry = key[this.s];
+                    if (entry && entry[0] === key) {
+                        delete key[this.s];
+                        return !0;
+                    }
+                    return !1;
+                });
+                defineProperty(WeakMap.prototype, 'get', function(key) {
+                    checkInstance(this, 'get');
+                    if (isObject(key)) {
+                        var entry = key[this.s];
+                        if (entry && entry[0] === key) return entry[1]; else return;
+                    }
+                });
+                defineProperty(WeakMap.prototype, 'has', function(key) {
+                    checkInstance(this, 'has');
+                    if (!isObject(key)) return !1;
+                    var entry = key[this.s];
+                    if (entry && entry[0] === key) return !0; else return !1;
+                });
+                defineProperty(WeakMap.prototype, 'set', function(key, value) {
+                    checkInstance(this, 'set');
+                    if (!isObject(key)) throw new TypeError('Invalid value used as weak map key');
+                    var entry = key[this.s];
+                    if (entry && entry[0] === key) {
+                        entry[1] = value;
+                        return this;
+                    }
+                    defineProperty(key, this.s, [ key, value ]);
+                    return this;
+                });
+                defineProperty(WeakMap, '_polyfill', !0);
+                return WeakMap;
+            }();
+        }
+    }('undefined' != typeof globalThis ? globalThis : 'undefined' != typeof self ? self : 'undefined' != typeof window ? window : 'undefined' != typeof global ? global : void 0);
     var id = 0;
-    var adoptedStyleSheetsMap = new Map();
+    var adoptedStyleSheetsMap = new WeakMap();
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -543,7 +616,7 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            if (adoptedStyleSheetsMap.has(this.constructor.css)) shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor.css); else {
+            if (adoptedStyleSheetsMap.has(this.constructor)) shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor); else {
                 var css = this.constructor.css;
                 if (css) {
                     if ('string' == typeof css) {
@@ -565,7 +638,7 @@
                         _styleSheet.replaceSync(css.default);
                         shadowRoot.adoptedStyleSheets = [ _styleSheet ];
                     } else shadowRoot.adoptedStyleSheets = [ css ];
-                    adoptedStyleSheetsMap.set(this.constructor.css, shadowRoot.adoptedStyleSheets);
+                    adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets);
                 }
             }
             this.beforeRender();
@@ -830,7 +903,7 @@
                 }); else observer.disconnect();
             }));
         }
-        if (!('adoptedStyleSheets' in document)) {
+        if (!('undefined' == typeof document || 'adoptedStyleSheets' in document)) {
             var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
             var bootstrapper = document.implementation.createHTMLDocument('boot');
             var closedShadowRootRegistry = new WeakMap();
@@ -989,7 +1062,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.8';
+    options.root.Omi.version = '6.25.9';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

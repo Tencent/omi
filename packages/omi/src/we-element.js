@@ -1,6 +1,7 @@
 import { cssToDom, isArray, hyphenate, getValByPath, capitalize } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
+import 'weakmap-polyfill'
 
 let id = 0
 
@@ -284,23 +285,23 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 }
