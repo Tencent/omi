@@ -18,7 +18,12 @@ let hydrating = false
 
 /** convert  vnode  function to object */
 const purgeVNode = (vnode, args) => {
-  if (vnode === null || vnode === undefined || (typeof vnode !== "function" && typeof vnode.nodeName !== "function")) return vnode
+  if (
+    vnode === null ||
+    vnode === undefined ||
+    (typeof vnode !== 'function' && typeof vnode.nodeName !== 'function')
+  )
+    return vnode
   const vnodeName = vnode.nodeName
 
   if (typeof vnodeName === 'function') {
@@ -32,7 +37,13 @@ const purgeVNode = (vnode, args) => {
 
   args.vnode = vnode
   args.update = (updateSelf) => {
-    return diff(args.dom, args.vnode, args.dom?.parentNode, args.component, updateSelf)
+    return diff(
+      args.dom,
+      args.vnode,
+      args.dom && args.dom.parentNode,
+      args.component,
+      updateSelf
+    )
   }
 
   //not found component
@@ -40,33 +51,36 @@ const purgeVNode = (vnode, args) => {
     const { children, attributes } = vnode
     args.children = children
     vnode = vnodeName(attributes, args)
-  }
-  else {
+  } else {
     vnode = vnode(args)
   }
 
   if (vnode instanceof Array) {
     //wrap
     vnode = {
-      nodeName: "output",
+      nodeName: 'output',
       children: vnode,
     }
   }
-  if (vnode === null || vnode === undefined || !vnode.hasOwnProperty("nodeName")) {
+  if (
+    vnode === null ||
+    vnode === undefined ||
+    !vnode.hasOwnProperty('nodeName')
+  ) {
     vnode = {
-      nodeName: "output",
+      nodeName: 'output',
       children: [vnode],
     }
   }
-  vnode.setDom = dom => {
+  vnode.setDom = (dom) => {
     if (dom) {
       args.dom = dom
       Promise.resolve().then(() => {
         dom.dispatchEvent(
-          new CustomEvent("updated", {
+          new CustomEvent('updated', {
             detail: args,
             cancelable: true,
-            bubbles: true
+            bubbles: true,
           })
         )
       })
@@ -75,7 +89,6 @@ const purgeVNode = (vnode, args) => {
   }
   return vnode
 }
-
 
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
  *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
@@ -104,7 +117,7 @@ export function diff(dom, vnode, parent, component, updateSelf) {
   }
   if (isArray(vnode)) {
     //dynamic vnode
-    vnode = vnode.map(child => purgeVNode(child, { component }))
+    vnode = vnode.map((child) => purgeVNode(child, { component }))
     //////////////////////////////////////////////////////////////////////
 
     if (parent) {
@@ -143,19 +156,16 @@ export function diff(dom, vnode, parent, component, updateSelf) {
     // invoke queued componentDidMount lifecycle methods
   }
 
-
   return ret
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, component, updateSelf) {
-
   if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
   let out = dom,
     prevSvgMode = isSvgMode
-
 
   // empty values (null, undefined, booleans) render as empty Text nodes
   if (vnode == null || typeof vnode === 'boolean') vnode = ''
@@ -197,13 +207,17 @@ function idiff(dom, vnode, component, updateSelf) {
     vnodeName === 'svg'
       ? true
       : vnodeName === 'foreignObject'
-        ? false
-        : isSvgMode
+      ? false
+      : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode, vnode.attributes?.is && { is: vnode.attributes.is })
+    out = createNode(
+      vnodeName,
+      isSvgMode,
+      vnode.attributes && vnode.attributes.is && { is: vnode.attributes.is }
+    )
 
     if (dom) {
       // move children into the replacement node
@@ -221,13 +235,13 @@ function idiff(dom, vnode, component, updateSelf) {
     props = out[ATTR_KEY],
     vchildren = vnode.children
 
-  //dynamic vnode 
-  vchildren = vnode.children.map(child => purgeVNode(child, { component }))
+  //dynamic vnode
+  vchildren = vnode.children.map((child) => purgeVNode(child, { component }))
   /////////////////////////////////////////////////////////
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--;)
+    for (let a = out.attributes, i = a.length; i--; )
       props[a[i].name] = a[i].value
   }
 
@@ -466,7 +480,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       name !== 'children' &&
       (!(name in old) ||
         attrs[name] !==
-        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
       //fix lazy load props missing

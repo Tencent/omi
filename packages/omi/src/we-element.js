@@ -33,7 +33,7 @@ export default class WeElement extends HTMLElement {
         p = p.parentNode || p.host
       }
       if (provide) {
-        this.inject.forEach(injectKey => {
+        this.inject.forEach((injectKey) => {
           this.injection[injectKey] = provide[injectKey]
         })
       } else {
@@ -53,7 +53,7 @@ export default class WeElement extends HTMLElement {
     } else {
       if (!this.shadowRoot) {
         shadowRoot = this.attachShadow({
-          mode: 'open'
+          mode: 'open',
         })
       } else {
         shadowRoot = this.shadowRoot
@@ -65,7 +65,9 @@ export default class WeElement extends HTMLElement {
     }
 
     if (adoptedStyleSheetsMap.has(this.constructor)) {
-      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor)
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(
+        this.constructor
+      )
     } else {
       const css = this.constructor.css
       if (css) {
@@ -75,7 +77,7 @@ export default class WeElement extends HTMLElement {
           shadowRoot.adoptedStyleSheets = [styleSheet]
         } else if (Object.prototype.toString.call(css) === '[object Array]') {
           const styleSheets = []
-          css.forEach(styleSheet => {
+          css.forEach((styleSheet) => {
             if (typeof styleSheet === 'string') {
               const adoptedStyleSheet = new CSSStyleSheet()
               adoptedStyleSheet.replaceSync(styleSheet)
@@ -93,7 +95,10 @@ export default class WeElement extends HTMLElement {
         } else {
           shadowRoot.adoptedStyleSheets = [css]
         }
-        adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets)
+        adoptedStyleSheetsMap.set(
+          this.constructor,
+          shadowRoot.adoptedStyleSheets
+        )
       }
     }
 
@@ -118,7 +123,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function(item) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -169,7 +174,7 @@ export default class WeElement extends HTMLElement {
   }
 
   updateProps(obj) {
-    Object.keys(obj).forEach(key => {
+    Object.keys(obj).forEach((key) => {
       this.props[key] = obj[key]
       if (this.prevProps) {
         this.prevProps[key] = obj[key]
@@ -217,7 +222,7 @@ export default class WeElement extends HTMLElement {
     ele.props['css'] = ele.getAttribute('css')
     const attrs = this.constructor.propTypes
     if (!attrs) return
-    Object.keys(attrs).forEach(key => {
+    Object.keys(attrs).forEach((key) => {
       const type = attrs[key]
       const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
@@ -267,13 +272,13 @@ export default class WeElement extends HTMLElement {
     if (handler) {
       handler(
         new CustomEvent(name, {
-          detail: data
+          detail: data,
         })
       )
     } else {
       this.dispatchEvent(
         new CustomEvent(name, {
-          detail: data
+          detail: data,
         })
       )
     }

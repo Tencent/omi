@@ -9,7 +9,7 @@ function getGlobal() {
       self ||
       window ||
       global ||
-      (function() {
+      (function () {
         return this
       })()
     )
@@ -24,5 +24,5 @@ function getGlobal() {
 export default {
   store: null,
   root: getGlobal(),
-  mapping: {}
+  mapping: {},
 }
