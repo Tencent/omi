@@ -47,12 +47,12 @@ const omi = {
   get,
   set,
   bind,
-  unbind
+  unbind,
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.25.6'
+options.root.Omi.version = '6.25.9'
 
 export default omi
 
@@ -79,5 +79,5 @@ export {
   get,
   set,
   bind,
-  unbind
+  unbind,
 }

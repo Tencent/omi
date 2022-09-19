@@ -14,7 +14,7 @@
  * this.constructor so that the native HTMLElement constructor can access the
  * current under-construction element's definition.
  */
-;(function() {
+;(function () {
   if (
     // No Reflect, no classes, no need for shim because native custom elements
     // require ES2015 classes or Reflect.
@@ -85,10 +85,7 @@ export function isArray(obj) {
 export function pathToArr(path) {
   if (typeof path !== 'string' || !path) return []
   // return path.split(/\.|\[|\]/).filter(name => !!name)
-  return path
-    .replace(/]/g, '')
-    .replace(/\[/g, '.')
-    .split('.')
+  return path.replace(/]/g, '').replace(/\[/g, '.').split('.')
 }
 
 const hyphenateRE = /\B([A-Z])/g
@@ -98,15 +95,15 @@ export function hyphenate(str) {
 
 export function capitalize(name) {
   return name
-    .replace(/\-(\w)/g, function(all, letter) {
+    .replace(/\-(\w)/g, function (all, letter) {
       return letter.toUpperCase()
     })
-    .replace(/^\S/, s => s.toUpperCase())
+    .replace(/^\S/, (s) => s.toUpperCase())
 }
 
 export function getValByPath(path, current) {
   const arr = pathToArr(path)
-  arr.forEach(prop => {
+  arr.forEach((prop) => {
     current = current[prop]
   })
   return current

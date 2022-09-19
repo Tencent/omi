@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.6  http://omijs.org
+ * Omi v6.25.9  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -261,9 +261,9 @@ function unbind(el, type) {
  *  namespace.
  * @returns {Element} The created DOM node
  */
-function createNode(nodeName, isSvg) {
+function createNode(nodeName, isSvg, options$$1) {
   /** @type {Element} */
-  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName, options$$1);
   node.normalizedNodeName = nodeName;
   return node;
 }
@@ -382,6 +382,66 @@ var isSvgMode = false;
 /** Global flag indicating if the diff is performing hydration */
 var hydrating = false;
 
+/** convert  vnode  function to object */
+var purgeVNode = function purgeVNode(vnode, args) {
+  if (vnode === null || vnode === undefined || typeof vnode !== 'function' && typeof vnode.nodeName !== 'function') return vnode;
+  var vnodeName = vnode.nodeName;
+
+  if (typeof vnodeName === 'function') {
+    for (var key in options.mapping) {
+      if (options.mapping[key] === vnodeName) {
+        vnode.nodeName = key;
+        return vnode;
+      }
+    }
+  }
+
+  args.vnode = vnode;
+  args.update = function (updateSelf) {
+    return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
+  };
+
+  //not found component
+  if (typeof vnodeName === 'function') {
+    var _vnode = vnode,
+        children = _vnode.children,
+        attributes = _vnode.attributes;
+
+    args.children = children;
+    vnode = vnodeName(attributes, args);
+  } else {
+    vnode = vnode(args);
+  }
+
+  if (vnode instanceof Array) {
+    //wrap
+    vnode = {
+      nodeName: 'output',
+      children: vnode
+    };
+  }
+  if (vnode === null || vnode === undefined || !vnode.hasOwnProperty('nodeName')) {
+    vnode = {
+      nodeName: 'output',
+      children: [vnode]
+    };
+  }
+  vnode.setDom = function (dom) {
+    if (dom) {
+      args.dom = dom;
+      Promise.resolve().then(function () {
+        dom.dispatchEvent(new CustomEvent('updated', {
+          detail: args,
+          cancelable: true,
+          bubbles: true
+        }));
+      });
+      if (!dom.update) dom.update = args.update;
+    }
+  };
+  return vnode;
+};
+
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
  *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
  *  @param {VNode} vnode      A VNode (with descendants forming a tree) representing the desired DOM structure
@@ -400,10 +460,20 @@ function diff(dom, vnode, parent, component, updateSelf) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !('prevProps' in dom);
   }
+  //dynamic vnode
+  vnode = purgeVNode(vnode, { component: component });
+  //////////////////////////////////////////////////////////////////////
+
   if (vnode && vnode.nodeName === Fragment) {
     vnode = vnode.children;
   }
   if (isArray(vnode)) {
+    //dynamic vnode
+    vnode = vnode.map(function (child) {
+      return purgeVNode(child, { component: component });
+    });
+    //////////////////////////////////////////////////////////////////////
+
     if (parent) {
       // don't use css and props.css when using h.f
       // diff node list and vnode list
@@ -472,28 +542,22 @@ function idiff(dom, vnode, component, updateSelf) {
     }
 
     out['prevProps'] = true;
-
+    //dynamic vnode
+    vnode.setDom && vnode.setDom(out);
+    /////////////////////////////////////////////////////////
     return out;
   }
 
   // If the VNode represents a Component, perform a component diff:
   var vnodeName = vnode.nodeName;
-  if (typeof vnodeName === 'function') {
-    for (var key in options.mapping) {
-      if (options.mapping[key] === vnodeName) {
-        vnodeName = key;
-        vnode.nodeName = key;
-        break;
-      }
-    }
-  }
+
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName);
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode);
+    out = createNode(vnodeName, isSvgMode, vnode.attributes && vnode.attributes.is && { is: vnode.attributes.is });
 
     if (dom) {
       // move children into the replacement node
@@ -510,6 +574,12 @@ function idiff(dom, vnode, component, updateSelf) {
   var fc = out.firstChild,
       props = out['prevProps'],
       vchildren = vnode.children;
+
+  //dynamic vnode
+  vchildren = vnode.children.map(function (child) {
+    return purgeVNode(child, { component: component });
+  });
+  /////////////////////////////////////////////////////////
 
   if (props == null) {
     props = out['prevProps'] = {};
@@ -538,7 +608,9 @@ function idiff(dom, vnode, component, updateSelf) {
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode;
-
+  //dynamic vnode
+  vnode.setDom && vnode.setDom(out);
+  /////////////////////////////////////////////////////////
   return out;
 }
 
@@ -580,6 +652,7 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
   if (vlen !== 0) {
     for (var i = 0; i < vlen; i++) {
       vchild = vchildren[i];
+
       child = null;
 
       if (vchild) {
@@ -717,7 +790,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
     }
   }
 
-  if (isWeElement && !updateSelf && dom.parentNode) {
+  if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
     if (dom.receiveProps(dom.props, oldClone) !== false) {
@@ -727,6 +800,155 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   }
 }
 
+/*!
+ * weakmap-polyfill v2.0.4 - ECMAScript6 WeakMap polyfill
+ * https://github.com/polygonplanet/weakmap-polyfill
+ * Copyright (c) 2015-2021 polygonplanet <polygon.planet.aqua@gmail.com>
+ * @license MIT
+ */
+
+(function(self) {
+
+  if (self.WeakMap) {
+    return;
+  }
+
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var hasDefine = Object.defineProperty && (function() {
+    try {
+      // Avoid IE8's broken Object.defineProperty
+      return Object.defineProperty({}, 'x', { value: 1 }).x === 1;
+    } catch (e) {}
+  })();
+
+  var defineProperty = function(object, name, value) {
+    if (hasDefine) {
+      Object.defineProperty(object, name, {
+        configurable: true,
+        writable: true,
+        value: value
+      });
+    } else {
+      object[name] = value;
+    }
+  };
+
+  self.WeakMap = (function() {
+
+    // ECMA-262 23.3 WeakMap Objects
+    function WeakMap() {
+      if (this === void 0) {
+        throw new TypeError("Constructor WeakMap requires 'new'");
+      }
+
+      defineProperty(this, '_id', genId('_WeakMap'));
+
+      // ECMA-262 23.3.1.1 WeakMap([iterable])
+      if (arguments.length > 0) {
+        // Currently, WeakMap `iterable` argument is not supported
+        throw new TypeError('WeakMap iterable is not supported');
+      }
+    }
+
+    // ECMA-262 23.3.3.2 WeakMap.prototype.delete(key)
+    defineProperty(WeakMap.prototype, 'delete', function(key) {
+      checkInstance(this, 'delete');
+
+      if (!isObject(key)) {
+        return false;
+      }
+
+      var entry = key[this._id];
+      if (entry && entry[0] === key) {
+        delete key[this._id];
+        return true;
+      }
+
+      return false;
+    });
+
+    // ECMA-262 23.3.3.3 WeakMap.prototype.get(key)
+    defineProperty(WeakMap.prototype, 'get', function(key) {
+      checkInstance(this, 'get');
+
+      if (!isObject(key)) {
+        return void 0;
+      }
+
+      var entry = key[this._id];
+      if (entry && entry[0] === key) {
+        return entry[1];
+      }
+
+      return void 0;
+    });
+
+    // ECMA-262 23.3.3.4 WeakMap.prototype.has(key)
+    defineProperty(WeakMap.prototype, 'has', function(key) {
+      checkInstance(this, 'has');
+
+      if (!isObject(key)) {
+        return false;
+      }
+
+      var entry = key[this._id];
+      if (entry && entry[0] === key) {
+        return true;
+      }
+
+      return false;
+    });
+
+    // ECMA-262 23.3.3.5 WeakMap.prototype.set(key, value)
+    defineProperty(WeakMap.prototype, 'set', function(key, value) {
+      checkInstance(this, 'set');
+
+      if (!isObject(key)) {
+        throw new TypeError('Invalid value used as weak map key');
+      }
+
+      var entry = key[this._id];
+      if (entry && entry[0] === key) {
+        entry[1] = value;
+        return this;
+      }
+
+      defineProperty(key, this._id, [key, value]);
+      return this;
+    });
+
+    function checkInstance(x, methodName) {
+      if (!isObject(x) || !hasOwnProperty.call(x, '_id')) {
+        throw new TypeError(
+          methodName + ' method called on incompatible receiver ' +
+          typeof x
+        );
+      }
+    }
+
+    function genId(prefix) {
+      return prefix + '_' + rand() + '.' + rand();
+    }
+
+    function rand() {
+      return Math.random().toString().substring(2);
+    }
+
+    defineProperty(WeakMap, '_polyfill', true);
+    return WeakMap;
+  })();
+
+  function isObject(x) {
+    return Object(x) === x;
+  }
+
+})(
+  typeof globalThis !== 'undefined' ? globalThis :
+  typeof self !== 'undefined' ? self :
+  typeof window !== 'undefined' ? window :
+  typeof global !== 'undefined' ? global : undefined
+);
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -734,6 +956,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var id = 0;
+
+var adoptedStyleSheetsMap = new WeakMap();
 
 var WeElement = function (_HTMLElement) {
   _inherits(WeElement, _HTMLElement);
@@ -800,8 +1024,8 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    if (this.constructor.elementStyles) {
-      shadowRoot.adoptedStyleSheets = this.constructor.elementStyles;
+    if (adoptedStyleSheetsMap.has(this.constructor)) {
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor);
     } else {
       var css = this.constructor.css;
       if (css) {
@@ -829,7 +1053,7 @@ var WeElement = function (_HTMLElement) {
         } else {
           shadowRoot.adoptedStyleSheets = [css];
         }
-        this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
+        adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets);
       }
     }
 
@@ -1119,16 +1343,8 @@ function cloneElement(vnode, props) {
 }
 
 function getHost(ele) {
-  var p = ele.parentNode;
-  while (p) {
-    if (p.host) {
-      return p.host;
-    } else if (p.shadowRoot && p.shadowRoot.host) {
-      return p.shadowRoot.host;
-    } else {
-      p = p.parentNode;
-    }
-  }
+  var root = ele.getRootNode();
+  return root && root.host;
 }
 
 function rpx(css) {
@@ -1568,7 +1784,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.6';
+options.root.Omi.version = '6.25.9';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

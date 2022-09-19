@@ -10,11 +10,11 @@ import { extension } from '../extend'
  *  namespace.
  * @returns {Element} The created DOM node
  */
-export function createNode(nodeName, isSvg) {
+export function createNode(nodeName, isSvg, options) {
   /** @type {Element} */
   let node = isSvg
     ? document.createElementNS('http://www.w3.org/2000/svg', nodeName)
-    : document.createElement(nodeName)
+    : document.createElement(nodeName, options)
   node.normalizedNodeName = nodeName
   return node
 }

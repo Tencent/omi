@@ -1,8 +1,7 @@
 import { ATTR_KEY } from '../constants'
 import { isSameNodeType, isNamedNode } from './index'
-import { createNode, setAccessor } from '../dom/index'
+import { createNode, setAccessor, removeNode } from '../dom/index'
 import { camelCase, isArray, Fragment } from '../util'
-import { removeNode } from '../dom/index'
 import options from '../options'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -16,6 +15,80 @@ let isSvgMode = false
 
 /** Global flag indicating if the diff is performing hydration */
 let hydrating = false
+
+/** convert  vnode  function to object */
+const purgeVNode = (vnode, args) => {
+  if (
+    vnode === null ||
+    vnode === undefined ||
+    (typeof vnode !== 'function' && typeof vnode.nodeName !== 'function')
+  )
+    return vnode
+  const vnodeName = vnode.nodeName
+
+  if (typeof vnodeName === 'function') {
+    for (let key in options.mapping) {
+      if (options.mapping[key] === vnodeName) {
+        vnode.nodeName = key
+        return vnode
+      }
+    }
+  }
+
+  args.vnode = vnode
+  args.update = (updateSelf) => {
+    return diff(
+      args.dom,
+      args.vnode,
+      args.dom && args.dom.parentNode,
+      args.component,
+      updateSelf
+    )
+  }
+
+  //not found component
+  if (typeof vnodeName === 'function') {
+    const { children, attributes } = vnode
+    args.children = children
+    vnode = vnodeName(attributes, args)
+  } else {
+    vnode = vnode(args)
+  }
+
+  if (vnode instanceof Array) {
+    //wrap
+    vnode = {
+      nodeName: 'output',
+      children: vnode,
+    }
+  }
+  if (
+    vnode === null ||
+    vnode === undefined ||
+    !vnode.hasOwnProperty('nodeName')
+  ) {
+    vnode = {
+      nodeName: 'output',
+      children: [vnode],
+    }
+  }
+  vnode.setDom = (dom) => {
+    if (dom) {
+      args.dom = dom
+      Promise.resolve().then(() => {
+        dom.dispatchEvent(
+          new CustomEvent('updated', {
+            detail: args,
+            cancelable: true,
+            bubbles: true,
+          })
+        )
+      })
+      if (!dom.update) dom.update = args.update
+    }
+  }
+  return vnode
+}
 
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
  *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
@@ -35,10 +108,18 @@ export function diff(dom, vnode, parent, component, updateSelf) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
+  //dynamic vnode
+  vnode = purgeVNode(vnode, { component })
+  //////////////////////////////////////////////////////////////////////
+
   if (vnode && vnode.nodeName === Fragment) {
     vnode = vnode.children
   }
   if (isArray(vnode)) {
+    //dynamic vnode
+    vnode = vnode.map((child) => purgeVNode(child, { component }))
+    //////////////////////////////////////////////////////////////////////
+
     if (parent) {
       // don't use css and props.css when using h.f
       // diff node list and vnode list
@@ -112,21 +193,15 @@ function idiff(dom, vnode, component, updateSelf) {
     }
 
     out[ATTR_KEY] = true
-
+    //dynamic vnode
+    vnode.setDom && vnode.setDom(out)
+    /////////////////////////////////////////////////////////
     return out
   }
 
   // If the VNode represents a Component, perform a component diff:
   let vnodeName = vnode.nodeName
-  if (typeof vnodeName === 'function') {
-    for (let key in options.mapping) {
-      if (options.mapping[key] === vnodeName) {
-        vnodeName = key
-        vnode.nodeName = key
-        break
-      }
-    }
-  }
+
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isSvgMode =
     vnodeName === 'svg'
@@ -138,7 +213,11 @@ function idiff(dom, vnode, component, updateSelf) {
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode)
+    out = createNode(
+      vnodeName,
+      isSvgMode,
+      vnode.attributes && vnode.attributes.is && { is: vnode.attributes.is }
+    )
 
     if (dom) {
       // move children into the replacement node
@@ -155,6 +234,10 @@ function idiff(dom, vnode, component, updateSelf) {
   let fc = out.firstChild,
     props = out[ATTR_KEY],
     vchildren = vnode.children
+
+  //dynamic vnode
+  vchildren = vnode.children.map((child) => purgeVNode(child, { component }))
+  /////////////////////////////////////////////////////////
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
@@ -196,7 +279,9 @@ function idiff(dom, vnode, component, updateSelf) {
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
-
+  //dynamic vnode
+  vnode.setDom && vnode.setDom(out)
+  /////////////////////////////////////////////////////////
   return out
 }
 
@@ -250,6 +335,7 @@ function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
   if (vlen !== 0) {
     for (let i = 0; i < vlen; i++) {
       vchild = vchildren[i]
+
       child = null
 
       if (vchild) {
@@ -409,7 +495,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
     }
   }
 
-  if (isWeElement && !updateSelf && dom.parentNode) {
+  if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) {
     //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
     if (dom.receiveProps(dom.props, oldClone) !== false) {
