@@ -1,7 +1,7 @@
 import { tag, h, WeElement, render } from 'omi'
 import '@omiu/card'
 import './index.tsx'
-import {CardType, DataType, KanbanProps, renderItemType} from "./index";
+import { DataType, renderItemType} from "./index";
 
 export type Props = {}
 
@@ -54,7 +54,9 @@ const data: DataType[] = [
 export default class MyDemo extends WeElement<Props> {
   dataSource=data;
   isVisible=false;
-  columnIndex=0;cardIndex=0;cardTitle='';
+  columnIndex : number|undefined = 0;
+  cardIndex: number|undefined = 0;
+  cardTitle: string|undefined='';
   onChanged = (data:DataType[]) => {
     //同步内部状态到外部
     this.dataSource = data;
@@ -66,11 +68,11 @@ export default class MyDemo extends WeElement<Props> {
     <div>
       <o-card className="o-kanban-column-card" hoverable="always" block="1"
               style={{cursor: "pointer",marginTop:"1rem"}}
-              onclick={()=>{this.isVisible=true;this.columnIndex=columnIndex;this.cardIndex=cardIndex;this.cardTitle=card.title;this.update()}}
+              onclick={()=>{this.isVisible=true;this.columnIndex=columnIndex;this.cardIndex=cardIndex;this.cardTitle=card?.title;this.update()}}
       >
         <div slot="cover">
         </div>
-        <p>{card.title}</p>
+        <p>{card?.title}</p>
         <p>Simple Card</p>
         <p>{'['+columnIndex+','+cardIndex+']'}</p>
       </o-card>
