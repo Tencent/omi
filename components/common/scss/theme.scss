@@ -1,6 +1,8 @@
 @use "sass:map";
 
 @import './var.scss';
+@import 'light';
+@import "dark";
 
 $o-primary: #07c160;
 $o-primary-active: darken($o-primary, 10%);
@@ -41,3 +43,17 @@ $o-small-radius: 4px;
 $o-medium-radius: 4px;
 $o-large-radius: 0px;
 $o-font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
+
+// 文本颜色
+$o-text-color-primary: var(--omi-text-color-primary); // 色彩-文字-主要
+$o-text-color-secondary: var(--omi-text-color-secondary); // 色彩-文字-次要
+$o-icon-color-primary: var(--omi-icon-color-primary);
+
+// 背景色
+$o-bg-color-page: var(--omi-bg-color-page); // 色彩 - page
+$o-bg-color-container: var(--omi-bg-color-container); // 色彩 - 容器
+$o-bg-color-container-hover: var(--omi-bg-color-container-hover);
+
+//边框
+$o-border-level-1-color:var(--omi-border-level-1-color);
+$o-border-level-2-color:var(--omi-border-level-2-color);
