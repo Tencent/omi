@@ -1,0 +1,59 @@
+@use "sass:map";
+
+@import './var.scss';
+@import 'light';
+@import "dark";
+
+$o-primary: #07c160;
+$o-primary-active: darken($o-primary, 10%);
+$o-primary-fade-little: fade-out($o-primary, 0.382);
+$o-primary-fade-some: fade-out($o-primary, 0.618);
+$o-primary-fade-more: fade-out($o-primary, 0.759);
+$o-primary-fade-lot: fade-out($o-primary, 0.9);
+
+$o-danger: #fa5151;
+$o-danger-active: darken($o-danger, 10%);
+$o-danger-fade-little: fade-out($o-danger, 0.382);
+$o-danger-fade-some: fade-out($o-danger, 0.618);
+$o-danger-fade-lot: fade-out($o-danger, 0.9);
+
+$options: (
+  primary: $o-primary,
+  primary-active: $o-primary-active,
+  primary-fade-little: $o-primary-fade-little,
+  primary-fade-some: $o-primary-fade-some,
+  primary-fade-more: $o-primary-fade-more,
+  primary-fade-lot: $o-primary-fade-lot,
+  danger: $o-danger,
+  danger-active: $o-danger-active,
+  danger-fade-little: $o-danger-fade-little,
+  danger-fade-some: $o-danger-fade-some,
+  danger-fade-lot: $o-danger-fade-lot
+);
+
+$o-surface: #ffffff;
+
+$o-on-primary: #ffffff;
+$o-on-secondary: #ffffff;
+$o-on-danger: #ffffff;
+$o-on-surface: #000000;
+$o-background: #ffffff;
+
+$o-small-radius: 4px;
+$o-medium-radius: 4px;
+$o-large-radius: 0px;
+$o-font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
+
+// 文本颜色
+$o-text-color-primary: var(--omi-text-color-primary); // 色彩-文字-主要
+$o-text-color-secondary: var(--omi-text-color-secondary); // 色彩-文字-次要
+$o-icon-color-primary: var(--omi-icon-color-primary);
+
+// 背景色
+$o-bg-color-page: var(--omi-bg-color-page); // 色彩 - page
+$o-bg-color-container: var(--omi-bg-color-container); // 色彩 - 容器
+$o-bg-color-container-hover: var(--omi-bg-color-container-hover);
+
+//边框
+$o-border-level-1-color:var(--omi-border-level-1-color);
+$o-border-level-2-color:var(--omi-border-level-2-color);

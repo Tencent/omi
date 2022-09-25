@@ -7,6 +7,8 @@ import '@omiu/icon/palette'
 import '@omiu/select'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
+import '@omiu/icon/brightness2'
+import '@omiu/icon/brightness5'
 import '@omiu/icon/git-hub'
 import '@omiu/badge'
 import i18next from 'i18next'
@@ -34,6 +36,7 @@ export default class extends WeElement<Props> {
   ]
 
   isShowColorPicker: boolean = false
+  isDarkMode=document.documentElement.getAttribute('theme-mode') === 'dark';
 
   install() {
     import('@omiu/color-picker')
@@ -130,7 +133,7 @@ export default class extends WeElement<Props> {
               <div
                 class={tw`cursor-pointer`}
                 onClick={this.toggle}
-              // style={{ color: this.store.themeColor }}
+                // style={{ color: this.store.themeColor }}
               >
                 <o-icon-palette></o-icon-palette>
                 {i18next.t('Theme')}
@@ -162,6 +165,13 @@ export default class extends WeElement<Props> {
               class={tw`flex-row cursor-pointer hidden md:block`}
             ></o-icon-settings>
 
+            <div style={{cursor:"pointer"}}>
+              {this.isDarkMode ? (
+                <o-icon-brightness5 onClick={()=>{this.isDarkMode=false;document.documentElement.setAttribute('theme-mode', 'light');this.update();}}></o-icon-brightness5>
+              ) : (
+                <o-icon-brightness2 onClick={()=>{this.isDarkMode=true;document.documentElement.setAttribute('theme-mode', 'dark');this.update();}}></o-icon-brightness2>
+              )}
+            </div>
             <a
               href="https://github.com/Tencent/omi"
               target="_blank"
