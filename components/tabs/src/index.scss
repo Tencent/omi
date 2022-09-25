@@ -15,6 +15,8 @@
 .o-tabs__header {
   padding: 0;
   position: relative;
+  color:$o-text-color-primary;
+  background-color: $o-bg-color-container;
 }
 
 .o-tabs__active-bar {
@@ -29,7 +31,7 @@
   transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-    -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   list-style: none;
 }
 
@@ -145,6 +147,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #303133;
+  color:$o-text-color-primary;
   position: relative;
 }
 
@@ -211,7 +214,7 @@
 }
 
 .o-tabs--card>.o-tabs__header .o-tabs__nav {
-  border: 1px solid #e4e7ed;
+  border: 1px solid $o-border-level-2-color;
   border-bottom: none;
   border-radius: 4px 4px 0 0;
   -webkit-box-sizing: border-box;
@@ -243,11 +246,11 @@
 
 .o-tabs--card>.o-tabs__header .o-tabs__item {
   border-bottom: 1px solid transparent;
-  border-left: 1px solid #e4e7ed;
+  border-left: 1px solid $o-border-level-2-color;
   -webkit-transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-    padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-    padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .o-tabs--card>.o-tabs__header .o-tabs__item:first-child {
