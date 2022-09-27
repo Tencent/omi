@@ -7,6 +7,7 @@ import './components/layout-header'
 import './components/layout-left-panel'
 
 import * as css from '../index.scss'
+import * as basicLayoutCss from './basic-layout.scss'
 
 import { tw, sheet } from 'omi-twind'
 
@@ -30,8 +31,9 @@ export default class extends WeElement {
   width: 0;
   transform: translateX(-100%);
 }
+
 `,
-    css.default
+    css.default,basicLayoutCss
   ]
 
   store
@@ -93,9 +95,9 @@ export default class extends WeElement {
         <div class={tw`flex flex-row`}>
           <layout-left-panel
             class={tw`${this.store.isLeftPanelClosed
-                ? 'sm:w-0 -translate-x-full'
-                : 'sm:w-52 w-3/4 translate-x-0'
-              } flex-none border-r-1 overflow-x-hidden overflow-y-auto bg-white z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
+              ? 'sm:w-0 -translate-x-full'
+              : 'sm:w-52 w-3/4 translate-x-0'
+            } flex-none border-r-1 dark:(border-gray-600) overflow-x-hidden overflow-y-auto z-50 transition-all duration-500 ease-in-out  sm:relative fixed `}
           ></layout-left-panel>
           <layout-container class={tw`flex-1 flex-grow`}>
             <div
