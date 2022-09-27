@@ -1,7 +1,7 @@
 import { tag, h, WeElement, render } from 'omi'
 import '@omiu/card'
 import './index.tsx'
-import { DataType, renderItemType} from "./index";
+import { DataType,  renderItemType} from "./index";
 
 export type Props = {}
 
@@ -59,8 +59,7 @@ export default class MyDemo extends WeElement<Props> {
   cardTitle: string|undefined='';
   onChanged = (data:DataType[]) => {
     //同步内部状态到外部
-    this.dataSource = data;
-    //console.log(this.dataSource)
+    this.dataSource = data; //Vue和React等框架可以在onChange回调函数中将dataSource同步到state或者data之中
     this.update();
   }
 
@@ -96,10 +95,7 @@ export default class MyDemo extends WeElement<Props> {
             onEnd={this.onChanged}
             renderItem={this.renderItem}
           >
-
           </o-kanban>
-
-
       </div>
     )
   }
