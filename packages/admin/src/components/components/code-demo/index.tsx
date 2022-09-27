@@ -49,7 +49,7 @@ export default class extends WeElement<Props> {
   render(props) {
     return (
       <div
-        class={tw`w-full border-1 mb-4 border-gray-300 rounded overflow-hidden ${props.class}`}
+        class={tw`w-full border-1 mb-4 border-gray-300 dark:(border-gray-600) rounded overflow-hidden ${props.class}`}
         style={Object.assign({ breakInside: 'avoid' }, props.style)}
       >
         <div>
@@ -57,7 +57,7 @@ export default class extends WeElement<Props> {
         </div>
 
         <div
-          class={tw`border-t-1 border-gray-200 border-solid px-2 text-sm mb-3`}
+          class={tw`border-t-1 border-gray-200 dark:(border-gray-600) border-solid px-2 text-sm mb-3`}
         >
           <h3
             class={tw`font-bold relative -top-2.5 inline-block px-2`}

@@ -47,21 +47,32 @@ $o-font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
 // 文本颜色
 $o-text-color-primary: var(--omi-text-color-primary); // 色彩-文字-主要
 $o-text-color-secondary: var(--omi-text-color-secondary); // 色彩-文字-次要
+$o-text-color-gray: var(--omi-text-color-gray);
 $o-icon-color-primary: var(--omi-icon-color-primary);
 
 // 背景色
-$o-bg-color-page: var(--omi-bg-color-page); // 色彩 - page
-$o-bg-color-container: var(--omi-bg-color-container); // 色彩 - 容器
+$o-bg-color-page: var(--omi-bg-color-page); // 色彩 - page dark:#181818
+$o-bg-color-container: var(--omi-bg-color-container); // 色彩 - 容器 dark:#242424
 $o-bg-color-container-hover: var(--omi-bg-color-container-hover);
 $o-bg-color-secondarycontainer: var(
     --omi-bg-color-secondarycontainer
-); // 色彩 - 次级容器
+); // 色彩 - 次级容器 dark:#2c2c2c
 $o-bg-color-secondarycontainer-hover: var(
     --omi-bg-color-secondarycontainer-hover
 ); // 色彩 - 次级容器 - hover
 $o-bg-color-secondarycontainer-active: var(
     --omi-bg-color-secondarycontainer-active
 ); // 色彩 - 次级容器 - active
+$o-bg-color-component: var(--omi-bg-color-component); // 色彩  - 组件
+$o-bg-color-component-hover: var(
+--omi-bg-color-component-hover
+); // 色彩 - 组件 - hover
+$o-bg-color-component-active: var(
+--omi-bg-color-component-active
+); // 色彩 - 组件 - active
+$o-bg-color-component-disabled: var(
+--omi-bg-color-component-disabled
+); // 色彩 - 组件 - disabled
 
 //边框
 $o-border-level-1-color:var(--omi-border-level-1-color);
