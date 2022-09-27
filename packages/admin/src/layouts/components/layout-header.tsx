@@ -167,9 +167,9 @@ export default class extends WeElement<Props> {
 
             <div style={{cursor:"pointer"}}>
               {this.isDarkMode ? (
-                <o-icon-brightness5 onClick={()=>{this.isDarkMode=false;document.documentElement.setAttribute('theme-mode', 'light');this.update();}}></o-icon-brightness5>
+                <o-icon-brightness5 onClick={()=>{this.isDarkMode=false;document.documentElement.setAttribute('theme-mode', 'light');this.update();document.documentElement.className='';}}></o-icon-brightness5>
               ) : (
-                <o-icon-brightness2 onClick={()=>{this.isDarkMode=true;document.documentElement.setAttribute('theme-mode', 'dark');this.update();}}></o-icon-brightness2>
+                <o-icon-brightness2 onClick={()=>{this.isDarkMode=true;document.documentElement.setAttribute('theme-mode', 'dark');this.update();document.documentElement.className='dark-mode';}}></o-icon-brightness2>
               )}
             </div>
             <a
