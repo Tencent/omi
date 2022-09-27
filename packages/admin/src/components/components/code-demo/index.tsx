@@ -60,7 +60,7 @@ export default class extends WeElement<Props> {
           class={tw`border-t-1 border-gray-200 border-solid px-2 text-sm mb-3`}
         >
           <h3
-            class={tw`font-bold bg-white relative -top-2.5 inline-block px-2`}
+            class={tw`font-bold relative -top-2.5 inline-block px-2`}
           >
             {props.title}
           </h3>
