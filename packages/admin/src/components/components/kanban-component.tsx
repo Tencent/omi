@@ -68,6 +68,17 @@ export default class extends WeElement<Props> {
   mdA =
     `
   \`\`\`tsx
+  export default class MyDemo extends WeElement<Props> {
+  dataSource=data;
+  isVisible=false;
+  columnIndex : number|undefined = 0;
+  cardIndex: number|undefined = 0;
+  cardTitle: string|undefined='';
+  onChanged = (data:DataType[]) => {
+    //同步内部状态到外部
+    this.dataSource = data; //Vue和React等框架可以在onChange回调函数中将dataSource同步到state或者data之中
+    this.update();
+  }
   renderItem:renderItemType=(card,cardIndex,columnIndex)=>(
     <div>
       <o-card className="o-kanban-column-card" hoverable="always" block="1"
@@ -103,7 +114,7 @@ export default class extends WeElement<Props> {
           </o-kanban>
       </div>
     )
-  }
+  }}
   \`\`\`
   `
   dataSource=data;
@@ -138,7 +149,7 @@ export default class extends WeElement<Props> {
   render() {
 
     return (
-      <code-demo-container>
+      <code-demo-container style={{columnCount:"1",marginBottom:"1rem"}}>
         <code-demo
           title="看板"
           describe={'用于归纳任务，可用renderItem函数自定义card，数据格式为[{title:"",cards:[{title:""},{},...]},{title,cards},...]'}
