@@ -53,6 +53,15 @@ $o-icon-color-primary: var(--omi-icon-color-primary);
 $o-bg-color-page: var(--omi-bg-color-page); // 色彩 - page
 $o-bg-color-container: var(--omi-bg-color-container); // 色彩 - 容器
 $o-bg-color-container-hover: var(--omi-bg-color-container-hover);
+$o-bg-color-secondarycontainer: var(
+    --omi-bg-color-secondarycontainer
+); // 色彩 - 次级容器
+$o-bg-color-secondarycontainer-hover: var(
+    --omi-bg-color-secondarycontainer-hover
+); // 色彩 - 次级容器 - hover
+$o-bg-color-secondarycontainer-active: var(
+    --omi-bg-color-secondarycontainer-active
+); // 色彩 - 次级容器 - active
 
 //边框
 $o-border-level-1-color:var(--omi-border-level-1-color);
