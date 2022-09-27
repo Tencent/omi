@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.9  http://omijs.org
+ * Omi v6.25.10  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -385,66 +385,6 @@
   /** Global flag indicating if the diff is performing hydration */
   var hydrating = false;
 
-  /** convert  vnode  function to object */
-  var purgeVNode = function purgeVNode(vnode, args) {
-    if (vnode === null || vnode === undefined || typeof vnode !== 'function' && typeof vnode.nodeName !== 'function') return vnode;
-    var vnodeName = vnode.nodeName;
-
-    if (typeof vnodeName === 'function') {
-      for (var key in options.mapping) {
-        if (options.mapping[key] === vnodeName) {
-          vnode.nodeName = key;
-          return vnode;
-        }
-      }
-    }
-
-    args.vnode = vnode;
-    args.update = function (updateSelf) {
-      return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
-    };
-
-    //not found component
-    if (typeof vnodeName === 'function') {
-      var _vnode = vnode,
-          children = _vnode.children,
-          attributes = _vnode.attributes;
-
-      args.children = children;
-      vnode = vnodeName(attributes, args);
-    } else {
-      vnode = vnode(args);
-    }
-
-    if (vnode instanceof Array) {
-      //wrap
-      vnode = {
-        nodeName: 'output',
-        children: vnode
-      };
-    }
-    if (vnode === null || vnode === undefined || !vnode.hasOwnProperty('nodeName')) {
-      vnode = {
-        nodeName: 'output',
-        children: [vnode]
-      };
-    }
-    vnode.setDom = function (dom) {
-      if (dom) {
-        args.dom = dom;
-        Promise.resolve().then(function () {
-          dom.dispatchEvent(new CustomEvent('updated', {
-            detail: args,
-            cancelable: true,
-            bubbles: true
-          }));
-        });
-        if (!dom.update) dom.update = args.update;
-      }
-    };
-    return vnode;
-  };
-
   /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
    *  @param {Element} [dom=null]    A DOM node to mutate into the shape of the `vnode`
    *  @param {VNode} vnode      A VNode (with descendants forming a tree) representing the desired DOM structure
@@ -463,20 +403,10 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !('prevProps' in dom);
     }
-    //dynamic vnode
-    vnode = purgeVNode(vnode, { component: component });
-    //////////////////////////////////////////////////////////////////////
-
     if (vnode && vnode.nodeName === Fragment) {
       vnode = vnode.children;
     }
     if (isArray(vnode)) {
-      //dynamic vnode
-      vnode = vnode.map(function (child) {
-        return purgeVNode(child, { component: component });
-      });
-      //////////////////////////////////////////////////////////////////////
-
       if (parent) {
         // don't use css and props.css when using h.f
         // diff node list and vnode list
@@ -545,22 +475,28 @@
       }
 
       out['prevProps'] = true;
-      //dynamic vnode
-      vnode.setDom && vnode.setDom(out);
-      /////////////////////////////////////////////////////////
+
       return out;
     }
 
     // If the VNode represents a Component, perform a component diff:
     var vnodeName = vnode.nodeName;
-
+    if (typeof vnodeName === 'function') {
+      for (var key in options.mapping) {
+        if (options.mapping[key] === vnodeName) {
+          vnodeName = key;
+          vnode.nodeName = key;
+          break;
+        }
+      }
+    }
     // Tracks entering and exiting SVG namespace when descending through the tree.
     isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
 
     // If there's no existing element or it's the wrong type, create a new one:
     vnodeName = String(vnodeName);
     if (!dom || !isNamedNode(dom, vnodeName)) {
-      out = createNode(vnodeName, isSvgMode, vnode.attributes && vnode.attributes.is && { is: vnode.attributes.is });
+      out = createNode(vnodeName, isSvgMode);
 
       if (dom) {
         // move children into the replacement node
@@ -577,12 +513,6 @@
     var fc = out.firstChild,
         props = out['prevProps'],
         vchildren = vnode.children;
-
-    //dynamic vnode
-    vchildren = vnode.children.map(function (child) {
-      return purgeVNode(child, { component: component });
-    });
-    /////////////////////////////////////////////////////////
 
     if (props == null) {
       props = out['prevProps'] = {};
@@ -611,9 +541,7 @@
     }
     // restore previous SVG mode: (in case we're exiting an SVG namespace)
     isSvgMode = prevSvgMode;
-    //dynamic vnode
-    vnode.setDom && vnode.setDom(out);
-    /////////////////////////////////////////////////////////
+
     return out;
   }
 
@@ -655,7 +583,6 @@
     if (vlen !== 0) {
       for (var i = 0; i < vlen; i++) {
         vchild = vchildren[i];
-
         child = null;
 
         if (vchild) {
@@ -793,7 +720,7 @@
       }
     }
 
-    if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) {
+    if (isWeElement && !updateSelf && dom.parentNode) {
       //__hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
       //if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
       if (dom.receiveProps(dom.props, oldClone) !== false) {
@@ -1787,7 +1714,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.25.9';
+  options.root.Omi.version = '6.25.10';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

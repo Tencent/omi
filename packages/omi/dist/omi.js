@@ -154,23 +154,13 @@
                 isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
                 hydrating = null != dom && !('prevProps' in dom);
             }
-            vnode = purgeVNode(vnode, {
-                component: component
-            });
             if (vnode && vnode.nodeName === Fragment) vnode = vnode.children;
-            if (isArray(vnode)) {
-                vnode = vnode.map(function(child) {
-                    return purgeVNode(child, {
-                        component: component
-                    });
+            if (isArray(vnode)) if (parent) innerDiffNode(parent, vnode, hydrating, component, updateSelf); else {
+                ret = [];
+                vnode.forEach(function(item, index) {
+                    var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
+                    ret.push(ele);
                 });
-                if (parent) innerDiffNode(parent, vnode, hydrating, component, updateSelf); else {
-                    ret = [];
-                    vnode.forEach(function(item, index) {
-                        var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
-                        ret.push(ele);
-                    });
-                }
             } else {
                 if (isArray(dom)) dom.forEach(function(one, index) {
                     if (0 === index) ret = idiff(one, vnode, component, updateSelf); else recollectNodeTree(one, !1);
@@ -196,16 +186,18 @@
                 }
             }
             out.prevProps = !0;
-            vnode.setDom && vnode.setDom(out);
             return out;
         }
         var vnodeName = vnode.nodeName;
+        if ('function' == typeof vnodeName) for (var key in options.mapping) if (options.mapping[key] === vnodeName) {
+            vnodeName = key;
+            vnode.nodeName = key;
+            break;
+        }
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
-            out = createNode(vnodeName, isSvgMode, vnode.attributes && vnode.attributes.is && {
-                is: vnode.attributes.is
-            });
+            out = createNode(vnodeName, isSvgMode);
             if (dom) {
                 while (dom.firstChild) out.appendChild(dom.firstChild);
                 if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
@@ -213,11 +205,6 @@
             }
         }
         var fc = out.firstChild, props = out.prevProps, vchildren = vnode.children;
-        vchildren = vnode.children.map(function(child) {
-            return purgeVNode(child, {
-                component: component
-            });
-        });
         if (null == props) {
             props = out.prevProps = {};
             for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
@@ -228,7 +215,6 @@
         diffAttributes(out, vnode.attributes, props, component, updateSelf);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
-        vnode.setDom && vnode.setDom(out);
         return out;
     }
     function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
@@ -300,7 +286,7 @@
                 dom.props[_ccName] = old[_ccName] = attrs[name];
             } else old[name] = attrs[name];
         }
-        if (isWeElement && !updateSelf && dom.parentNode && dom.receiveProps) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
+        if (isWeElement && !updateSelf && dom.parentNode) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -463,45 +449,6 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
-    var purgeVNode = function(vnode, args) {
-        if (null === vnode || void 0 === vnode || 'function' != typeof vnode && 'function' != typeof vnode.nodeName) return vnode;
-        var vnodeName = vnode.nodeName;
-        if ('function' == typeof vnodeName) for (var key in options.mapping) if (options.mapping[key] === vnodeName) {
-            vnode.nodeName = key;
-            return vnode;
-        }
-        args.vnode = vnode;
-        args.update = function(updateSelf) {
-            return diff(args.dom, args.vnode, args.dom && args.dom.parentNode, args.component, updateSelf);
-        };
-        if ('function' == typeof vnodeName) {
-            var _vnode = vnode, children = _vnode.children, attributes = _vnode.attributes;
-            args.children = children;
-            vnode = vnodeName(attributes, args);
-        } else vnode = vnode(args);
-        if (vnode instanceof Array) vnode = {
-            nodeName: 'output',
-            children: vnode
-        };
-        if (null === vnode || void 0 === vnode || !vnode.hasOwnProperty('nodeName')) vnode = {
-            nodeName: 'output',
-            children: [ vnode ]
-        };
-        vnode.setDom = function(dom) {
-            if (dom) {
-                args.dom = dom;
-                Promise.resolve().then(function() {
-                    dom.dispatchEvent(new CustomEvent('updated', {
-                        detail: args,
-                        cancelable: !0,
-                        bubbles: !0
-                    }));
-                });
-                if (!dom.update) dom.update = args.update;
-            }
-        };
-        return vnode;
-    };
     !function(self) {
         function isObject(x) {
             return Object(x) === x;
@@ -1062,7 +1009,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.9';
+    options.root.Omi.version = '6.25.10';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
