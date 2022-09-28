@@ -20,6 +20,7 @@ export const base = {
     Demo2: '文档例子2',
     Components: 'OMIU 组件',
     Input: 'Input 输入框',
+    Kanban: 'Kanban 看板',
     Loading: 'Loading 加载中',
     Toast: 'Toast 弹出式提示',
     Tree: 'Tree 树形控件',

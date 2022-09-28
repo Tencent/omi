@@ -4,32 +4,32 @@
 
 $--button-padding: () !default;
 $--button-padding: map.merge(
-  (
-    'medium': 10px 20px,
-    'small': 9px 15px,
-    'mini': 7px 15px,
-  ),
-  $--button-padding
+    (
+      'medium': 10px 20px,
+      'small': 9px 15px,
+      'mini': 7px 15px,
+    ),
+    $--button-padding
 );
 
 $--button-font-size: () !default;
 $--button-font-size: map.merge(
-  (
-    'medium': 14px,
-    'small': 12px,
-    'mini': 12px,
-  ),
-  $--button-font-size
+    (
+      'medium': 14px,
+      'small': 12px,
+      'mini': 12px,
+    ),
+    $--button-font-size
 );
 
 $--button-border-radius: () !default;
 $--button-border-radius: map.merge(
-  (
-    'medium': 4px,
-    'small': 3px,
-    'mini': 3px,
-  ),
-  $--button-border-radius
+    (
+      'medium': 4px,
+      'small': 3px,
+      'mini': 3px,
+    ),
+    $--button-border-radius
 );
 
 :host {
@@ -45,9 +45,9 @@ $--button-border-radius: map.merge(
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  background: #fff;
+  background:$o-bg-color-container;
   border: 1px solid #dcdfe6;
-  color: #606266;
+  color: $o-icon-color-primary;
   -webkit-appearance: none;
   text-align: center;
   box-sizing: border-box;
@@ -120,8 +120,8 @@ $--button-border-radius: map.merge(
       &:disabled,
       &:disabled:hover {
         background-color: var(
-          --o-#{$type}-fade-lot,
-          map.get($--colors, $type, 'fade-lot')
+            --o-#{$type}-fade-lot,
+            map.get($--colors, $type, 'fade-lot')
         );
       }
     }
@@ -129,35 +129,35 @@ $--button-border-radius: map.merge(
     &-#{$type}.is-plain {
       color: var(--o-#{$type}, map.get($--colors, $type, 'base'));
       background-color: var(
-        --o-#{$type}-fade-lot,
-        map.get($--colors, $type, 'fade-lot')
+          --o-#{$type}-fade-lot,
+          map.get($--colors, $type, 'fade-lot')
       );
       border-color: var(
-        --o-#{$type}-fade-some,
-        map.get($--colors, $type, 'fade-some')
+          --o-#{$type}-fade-some,
+          map.get($--colors, $type, 'fade-some')
       );
     }
 
     &-#{$type}:hover {
       background-color: var(
-        --o-#{$type}-fade-little,
-        map.get($--colors, $type, 'fade-little')
+          --o-#{$type}-fade-little,
+          map.get($--colors, $type, 'fade-little')
       );
       border-color: var(
-        --o-#{$type}-fade-little,
-        map.get($--colors, $type, 'fade-little')
+          --o-#{$type}-fade-little,
+          map.get($--colors, $type, 'fade-little')
       );
       color: #fff;
     }
 
     &-#{$type}:active {
       background-color: var(
-        --o-#{$type}-active,
-        map.get($--colors, $type, 'active')
+          --o-#{$type}-active,
+          map.get($--colors, $type, 'active')
       );
       border-color: var(
-        --o-#{$type}-active,
-        map.get($--colors, $type, 'active')
+          --o-#{$type}-active,
+          map.get($--colors, $type, 'active')
       );
       color: #fff;
     }

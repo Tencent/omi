@@ -535,8 +535,8 @@
 .o-tree {
   position: relative;
   cursor: default;
-  background: #fff;
-  color: #606266;
+  background:$o-bg-color-container;
+  color: $o-text-color-gray;
 }
 
 .o-tree__empty-block {
@@ -601,7 +601,7 @@
 }
 
 .o-tree-node__content:hover {
-  background-color: #f5f7fa;
+  background-color: $o-bg-color-component;
 }
 
 .o-tree.is-dragging .o-tree-node__content {

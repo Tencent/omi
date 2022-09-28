@@ -107,7 +107,6 @@ define('o-kanban-column',class KanbanColumn extends WeElement<KanbanColumnProps<
   }
 
   render(props:KanbanColumnProps<DataType>) {
-
     return (
       <h.f>
         <div>
@@ -149,7 +148,7 @@ define('o-kanban-column',class KanbanColumn extends WeElement<KanbanColumnProps<
                   </div>
                 </div>
               ) :
-              (<div style={{display:"flex"}}>
+              (<div style={{display:"flex"}} className="o-kanban-column-header">
                 <h3 style={{
                   textOverflow:"ellipsis",
                   overflow:"hidden",
@@ -159,7 +158,7 @@ define('o-kanban-column',class KanbanColumn extends WeElement<KanbanColumnProps<
                   }}>{props.title || "title"}</h3>
                 <span style={{
                   fontSize: "0.5rem",
-                  color: "#7c7c7c",
+
                   lineHeight: "3.8rem"
                 }}>&nbsp;&nbsp;{'- ' + props.cards?.length + ' items'}
                 </span>
@@ -308,7 +307,7 @@ export default class Kanban extends WeElement<KanbanProps<DataType>> {
                              renderItem={props.renderItem}></o-kanban-column>
           )}
           {/* + */}
-          <div style={{width:"15rem",backgroundColor:"#f4f5f7",height:"4.2rem",borderRadius: "6px",padding:"0 0.7rem 1rem"}}>
+          <div className="o-kanban-column-last">
             <div className="o-kanban-column-input">
               <o-input clearable placeholder="请输入标题" value={this.newColumn} onChange={(e: { target: { value: string; }; })=>{this.newColumn=e.target.value;this.update()}}
                 style={{width:"11rem"}}

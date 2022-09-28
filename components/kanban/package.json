@@ -1,10 +1,10 @@
 {
   "name": "@omiu/kanban",
   "description": "Description for component.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "docsExtend": {
-    "cnName": "计数器",
-    "cnDescription": "计数器描述，待替换。",
+    "cnName": "看板",
+    "cnDescription": "用于拖拽任务",
     "codepen": "",
     "codepenHeight": 351,
     "codepenDefaultTab": "html,result"
@@ -32,12 +32,12 @@
     "types"
   ],
   "dependencies": {
-    "@omiu/button": "^0.0.11",
-    "@omiu/card": "^0.0.8",
+    "@omiu/button": "latest",
+    "@omiu/card": "^0.0.9",
     "@omiu/common": "latest",
-    "@omiu/dialog": "^0.0.4",
+    "@omiu/dialog": "latest",
     "@omiu/icon": "^0.0.4",
-    "@omiu/input": "^0.0.12",
+    "@omiu/input": "latest",
     "omi": "latest",
     "sortablejs": "^1.15.0"
   },

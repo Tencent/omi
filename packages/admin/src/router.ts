@@ -16,6 +16,7 @@ const components = [
   'tabs',
   'slider',
   'input',
+  'kanban',
   'loading',
   'link',
   'toast',

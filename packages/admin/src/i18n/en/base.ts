@@ -20,6 +20,7 @@ export const base = {
     Demo2: 'Demo2',
     Components: 'OMIU Components',
     Input: 'Input',
+    Kanban: 'Kanban',
     Loading: 'Loading',
     Toast: 'Toast',
     Tree: 'Tree',

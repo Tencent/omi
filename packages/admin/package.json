@@ -41,6 +41,7 @@
     "@omiu/icon-card": "^0.0.3",
     "@omiu/image": "^0.0.2",
     "@omiu/input": "^0.0.12",
+    "@omiu/kanban": "^0.0.0",
     "@omiu/link": "^0.0.4",
     "@omiu/loading": "0.0.2",
     "@omiu/message": "^0.0.5",

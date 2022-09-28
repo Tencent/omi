@@ -4,7 +4,8 @@ import * as colors from 'twind/colors'
 const sheet = cssomSheet({ target: new CSSStyleSheet() })
 const { tw } = create({
   sheet,
-  theme: { extend: { colors } }
+  theme: { extend: { colors } },
+  darkMode: 'class'
 })
 
 export {

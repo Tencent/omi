@@ -1,3 +1,4 @@
+@import "../../common/scss/theme";
 :host {
   position: fixed;
   z-index: 100000;
@@ -15,7 +16,7 @@
 
 .o-dialog {
   position: relative;
-  background: #FFF;
+  background: $o-bg-color-container;
   border-radius: 2px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
@@ -46,7 +47,7 @@
 }
 
 .o-dialog__header {
-  padding: 20px 20px 10px
+  padding: 20px 20px 10px;
 }
 
 .o-dialog__headerbtn {
@@ -73,12 +74,12 @@
 .o-dialog__title {
   line-height: 24px;
   font-size: 18px;
-  color: #303133
+  color:$o-text-color-primary;
 }
 
 .o-dialog__body {
   padding: 30px 20px;
-  color: #606266;
+  color:$o-text-color-primary;
   font-size: 14px;
   word-break: break-all
 }

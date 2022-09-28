@@ -250,6 +250,7 @@ export function genNavTree(i18n) {
     'hamburger-menu',
     'slider',
     'input',
+    'kanban',
     'loading',
     'link',
     'toast',
