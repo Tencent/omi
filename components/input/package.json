@@ -1,6 +1,6 @@
 {
   "name": "@omiu/input",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "Generally used to input information and submit it to the server.",
   "docsExtend": {
     "cnName": "输入框",
@@ -9,9 +9,11 @@
     "codepenHeight": 391,
     "codepenDefaultTab": "html,result"
   },
-  "main": "src/index.js",
-  "module": "src/index.esm.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "yarn watch & vite",
     "dev": "yarn watch & vite",
