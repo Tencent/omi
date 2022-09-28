@@ -1,3 +1,4 @@
+@import "../../common/scss/theme";
 .o-progress-line__bar {
   position: relative;
   display: inline-block;
@@ -24,7 +25,7 @@
   display: inline-block;
   width: 2em;
   margin-left: 8px;
-  color: #000000d9;
+  color: $o-text-color-primary;
   font-size: 1em;
   line-height: 1;
   white-space: nowrap;
@@ -39,7 +40,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  color: #000000d9;
+  color: $o-text-color-primary;
   font-size: 1em;
   line-height: 1;
   white-space: normal;

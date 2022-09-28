@@ -1,4 +1,4 @@
-@import '../node_modules/@omiu/common/scss/theme.scss';
+@import '../../common/scss/theme.scss';
 
 :host {
   display: inline-block;
@@ -149,7 +149,7 @@
 .o-checkbox__native-control:disabled:not(:checked):not(:indeterminate)
   ~ .o-checkbox__background {
   background-color: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.34);
+  border: 1px solid $o-border-level-2-color;
   color: white;
 }
 

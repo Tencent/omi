@@ -48,55 +48,62 @@ export default class extends WeElement<Props> {
 
   render(props) {
     return (
-      <div
-        class={tw`w-full border-1 mb-4 border-gray-300 dark:(border-gray-600) rounded overflow-hidden ${props.class}`}
-        style={Object.assign({ breakInside: 'avoid' }, props.style)}
-      >
-        <div>
-          <slot name="demo"></slot>
-        </div>
-
+      <div>
         <div
-          class={tw`border-t-1 border-gray-200 dark:(border-gray-600) border-solid px-2 text-sm mb-3`}
+          class={tw`w-full border-1 mb-4 border-gray-300 dark:(border-gray-600) rounded overflow-hidden ${props.class}`}
+          style={Object.assign({breakInside: 'avoid'}, props.style)}
         >
-          <h3
-            class={tw`font-bold relative -top-2.5 inline-block px-2`}
+          <div>
+            <slot name="demo"></slot>
+          </div>
+
+          <div
+            class={tw`border-t-1 border-gray-200 dark:(border-gray-600) border-solid px-2 text-sm mb-3`}
           >
-            {props.title}
-          </h3>
-          <p>{props.describe}</p>
-          <o-collapse
-            opened={this.openedA}
-            class={tw`m-3 mb-0`}
-          >
-            <div>
-              <admin-docs
-                css={`
+            <h3
+              class={tw`font-bold relative -top-2.5 inline-block px-2`}
+            >
+              {props.title}
+            </h3>
+            <p>{props.describe}</p>
+            <o-collapse
+              opened={this.openedA}
+              className={tw`m-3 mb-0`}
+            >
+              <div>
+                <admin-docs
+                  css={`
               .docs {
                 padding: 0 !important;
               }
             `}
-                mdContent={props.code}
-              ></admin-docs>
-            </div>
-          </o-collapse>
-          <span class={tw`float-right mt-3 mb-2`}>
-            {props.url ? <a href={props.url}><o-icon-code class={tw`w-6 h-6 mr-2`}  >
-            </o-icon-code></a> : null}
-            {props.code ? (<><o-icon-file-copy class={tw`w-3 h-3 mr-2 relative -top-1 cursor-pointer`} onClick={() => {
-              this.copy(props.code.replace('```jsx', '').replace('```', '').trim())
-            }} />
-              <o-toggle-icon is-on={this.isOn} icons={['keyboard-arrow-down', 'keyboard-arrow-up']} class={tw`w-6 h-6 mr-2`}
-                onChange={() => {
-                  this.openedA = !this.openedA
-                  this.isOn = !this.isOn
-                  this.update()
-                }}
-              ></o-toggle-icon>
-            </>) : null}
+                  mdContent={props.code}
+                ></admin-docs>
+              </div>
+            </o-collapse>
+            <span class={tw`float-right mt-3 mb-2`}>
+            {props.url ? <a href={props.url}>
+              <o-icon-code className={tw`w-6 h-6 mr-2`}>
+              </o-icon-code>
+            </a> : null}
+              {props.code ? (<>
+                <o-icon-file-copy className={tw`w-3 h-3 mr-2 relative -top-1 cursor-pointer`} onClick={() => {
+                  this.copy(props.code.replace('```jsx', '').replace('```', '').trim())
+                }}/>
+                <o-toggle-icon is-on={this.isOn} icons={['keyboard-arrow-down', 'keyboard-arrow-up']}
+                               className={tw`w-6 h-6 mr-2`}
+                               onChange={() => {
+                                 this.openedA = !this.openedA
+                                 this.isOn = !this.isOn
+                                 this.update()
+                               }}
+                ></o-toggle-icon>
+              </>) : null}
           </span>
+          </div>
         </div>
-      </div >
+      </div>
+
     )
   }
 }

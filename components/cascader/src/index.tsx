@@ -1,6 +1,6 @@
 import { tag, h, WeElement } from 'omi'
-import '../../input'
-import '../../popover'
+import '@omiu/input'
+import '@omiu/popover'
 import '../../icon/esm/check'
 import '../../icon/esm/keyboard-arrow-right'
 import '../../icon/esm/keyboard-arrow-down'
@@ -176,7 +176,7 @@ export default class Cascader extends WeElement<CascaderProps> {
           position="bottom"
         >
           <o-input
-            class="o-cascader-input"
+            class={"o-cascader-input "+props.disabled ? 'o-cascader-input-disabled-style' : 'o-cascader-input-style'}
             ref={(e: HTMLElement) => (this.inputRef = e)}
             value={this.getLabelsByValue(props.value)}
             suffix-icon="keyboard-arrow-down"
@@ -189,9 +189,7 @@ export default class Cascader extends WeElement<CascaderProps> {
             }}
             style={{
               cursor: props.disabled ? 'not-allowed' : 'pointer',
-              color: props.disabled ? '' : '#606266',
               // border: 'transparent',
-              backgroundColor: props.disabled ? '' : 'white',
               borderRadius: 5
             }}
           ></o-input>
