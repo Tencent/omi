@@ -2198,7 +2198,8 @@ var colors = /*#__PURE__*/Object.freeze({
 const sheet = cssomSheet({ target: new CSSStyleSheet() });
 const { tw } = create({
   sheet,
-  theme: { extend: { colors } }
+  theme: { extend: { colors } },
+  darkMode: 'class'
 });
 
 export { sheet, tw };
