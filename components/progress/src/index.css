@@ -1,0 +1,176 @@
+:root,
+:root[theme-mode=light] {
+  --omi-gray-color-1: #f3f3f3;
+  --omi-gray-color-2: #eee;
+  --omi-gray-color-3: #e7e7e7;
+  --omi-gray-color-4: #dcdcdc;
+  --omi-gray-color-5: #c5c5c5;
+  --omi-gray-color-6: #a6a6a6;
+  --omi-gray-color-7: #8b8b8b;
+  --omi-gray-color-8: #777;
+  --omi-gray-color-9: #5e5e5e;
+  --omi-gray-color-10: #4b4b4b;
+  --omi-gray-color-11: #383838;
+  --omi-gray-color-12: #2c2c2c;
+  --omi-gray-color-13: #242424;
+  --omi-gray-color-14: #181818;
+  --omi-font-white-1: rgba(255, 255, 255, 100%);
+  --omi-font-white-2: rgba(255, 255, 255, 55%);
+  --omi-font-white-3: rgba(255, 255, 255, 35%);
+  --omi-font-white-4: rgba(255, 255, 255, 22%);
+  --omi-font-gray-1: rgba(0, 0, 0, 90%);
+  --omi-font-gray-2: rgba(0, 0, 0, 60%);
+  --omi-font-gray-3: rgba(0, 0, 0, 40%);
+  --omi-font-gray-4: rgba(0, 0, 0, 26%);
+  --omi-font-gray-5: rgba(0, 0, 0, 0.45);
+  --omi-font-gray-6: rgba(0, 0, 0, .7);
+  --omi-icon-gray-3:rgba(0, 0, 0, 0.54);
+  --omi-mask-active: rgba(0, 0, 0, 60%);
+  --omi-mask-disabled: rgba(255, 255, 255, 60%);
+  --omi-bg-color-page: var(--omi-gray-color-2);
+  --omi-bg-color-page-dark: #fff;
+  --omi-bg-color-container: #fff;
+  --omi-bg-color-container-hover: var(--omi-gray-color-1);
+  --omi-bg-color-container-active: var(--omi-gray-color-3);
+  --omi-bg-color-container-select: #fff;
+  --omi-bg-color-secondarycontainer: var(--omi-gray-color-1);
+  --omi-bg-color-secondarycontainer-hover: var(--omi-gray-color-2);
+  --omi-bg-color-secondarycontainer-active: var(--omi-gray-color-4);
+  --omi-bg-color-component: var(--omi-gray-color-3);
+  --omi-bg-color-component-hover: var(--omi-gray-color-4);
+  --omi-bg-color-component-active: var(--omi-gray-color-6);
+  --omi-bg-color-component-disabled: var(--omi-gray-color-2);
+  --omi-bg-cascader-hover:#f1fff8;
+  --omi-bg-color-specialcomponent: #fff;
+  --omi-text-color-primary: var(--omi-font-gray-1);
+  --omi-text-color-secondary: var(--omi-font-gray-2);
+  --omi-text-color-placeholder: var(--omi-font-gray-3);
+  --omi-text-color-disabled: var(--omi-font-gray-4);
+  --omi-text-color-anti: #fff;
+  --omi-text-color-brand: var(--omi-brand-color-8);
+  --omi-text-color-link: var(--omi-brand-color-8);
+  --omi-text-color-gray:#606266;
+  --omi-text-color-gray-5:var(--omi-font-gray-5);
+  --omi-text-color-gray-6:var(--omi-font-gray-6);
+  --omi-icon-color-primary: var(--omi-icon-gray-3);
+  --omi-border-level-1-color: var(--omi-gray-color-3);
+  --omi-component-stroke: var(--omi-gray-color-3);
+  --omi-border-level-2-color: var(--omi-gray-color-4);
+  --omi-component-border: var(--omi-gray-color-4);
+}
+
+:root[theme-mode=dark] {
+  --omi-gray-color-1: #f3f3f3;
+  --omi-gray-color-2: #eee;
+  --omi-gray-color-3: #e7e7e7;
+  --omi-gray-color-4: #dcdcdc;
+  --omi-gray-color-5: #c5c5c5;
+  --omi-gray-color-6: #a6a6a6;
+  --omi-gray-color-7: #8b8b8b;
+  --omi-gray-color-8: #777;
+  --omi-gray-color-9: #5e5e5e;
+  --omi-gray-color-10: #4b4b4b;
+  --omi-gray-color-11: #383838;
+  --omi-gray-color-12: #2c2c2c;
+  --omi-gray-color-13: #242424;
+  --omi-gray-color-14: #181818;
+  --omi-font-white-1: rgba(255, 255, 255, 90%);
+  --omi-font-white-2: rgba(255, 255, 255, 55%);
+  --omi-font-white-3: rgba(255, 255, 255, 35%);
+  --omi-font-white-4: rgba(255, 255, 255, 22%);
+  --omi-font-gray-1: rgba(0, 0, 0, 90%);
+  --omi-font-gray-2: rgba(0, 0, 0, 60%);
+  --omi-font-gray-3: rgba(0, 0, 0, 40%);
+  --omi-font-gray-4: rgba(0, 0, 0, 26%);
+  --omi-bg-color-page: var(--omi-gray-color-14);
+  --omi-bg-color-page-dark: var(--omi-gray-color-14);
+  --omi-bg-color-container: var(--omi-gray-color-13);
+  --omi-bg-color-container-hover: var(--omi-gray-color-12);
+  --omi-bg-color-container-active: var(--omi-gray-color-10);
+  --omi-bg-color-container-select: var(--omi-gray-color-9);
+  --omi-bg-color-secondarycontainer: var(--omi-gray-color-12);
+  --omi-bg-color-secondarycontainer-hover: var(--omi-gray-color-11);
+  --omi-bg-color-secondarycontainer-active: var(--omi-gray-color-9);
+  --omi-bg-color-component: var(--omi-gray-color-11);
+  --omi-bg-color-component-hover: var(--omi-gray-color-10);
+  --omi-bg-color-component-active: var(--omi-gray-color-9);
+  --omi-bg-color-component-disabled: var(--omi-gray-color-12);
+  --omi-bg-cascader-hover:var(--omi-gray-color-11);
+  --omi-bg-color-specialcomponent: transparent;
+  --omi-text-color-primary: var(--omi-font-white-1);
+  --omi-text-color-secondary: var(--omi-font-white-2);
+  --omi-text-color-placeholder: var(--omi-font-white-3);
+  --omi-text-color-disabled: var(--omi-font-white-4);
+  --omi-text-color-anti: #fff;
+  --omi-text-color-gray:--omi-gray-color-7;
+  --omi-text-color-gray-5:var(--omi-font-white-3);
+  --omi-text-color-gray-6:var(--omi-font-white-2);
+  --omi-icon-color-primary: var(--omi-font-white-1);
+  --omi-border-level-1-color: var(--omi-gray-color-11);
+  --omi-component-stroke: var(--omi-gray-color-11);
+  --omi-border-level-2-color: var(--omi-gray-color-9);
+  --omi-component-border: var(--omi-gray-color-9);
+}
+
+.o-progress-line__bar {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  vertical-align: middle;
+  background-color: #f5f5f5;
+  border-radius: 100px;
+}
+
+.o-progress-line__outer {
+  display: inline-block;
+  width: 100%;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.o-progress-line__inner-bar {
+  position: relative;
+  height: 8px;
+  background-color: #1890ff;
+  border-radius: 100px;
+  transition: all 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
+}
+
+.o-progress-line-text {
+  display: inline-block;
+  width: 2em;
+  margin-left: 8px;
+  color: var(--omi-text-color-primary);
+  font-size: 1em;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: middle;
+  word-break: normal;
+}
+
+.o-progress-circle-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--omi-text-color-primary);
+  font-size: 1em;
+  line-height: 1;
+  white-space: normal;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.o-progress-circle__inner {
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+  line-height: 1;
+  background-color: transparent;
+}
+
+/*# sourceMappingURL=index.css.map */
