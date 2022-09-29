@@ -24,6 +24,8 @@
   --omi-font-gray-2: rgba(0, 0, 0, 60%);
   --omi-font-gray-3: rgba(0, 0, 0, 40%);
   --omi-font-gray-4: rgba(0, 0, 0, 26%);
+  --omi-font-gray-5: rgba(0, 0, 0, 0.45);
+  --omi-font-gray-6: rgba(0, 0, 0, .7);
 
   --omi-icon-gray-3:rgba(0, 0, 0, 0.54);
 
@@ -33,6 +35,7 @@
 
   // 背景色
   --omi-bg-color-page: var(--omi-gray-color-2);                        // 色彩 - page
+  --omi-bg-color-page-dark: #fff;
   --omi-bg-color-container: #fff;                                // 色彩 - 容器
   --omi-bg-color-container-hover: var(--omi-gray-color-1);             // 色彩 - 容器 - hover
   --omi-bg-color-container-active: var(--omi-gray-color-3);            // 色彩 - 容器 - active
@@ -56,6 +59,9 @@
   --omi-text-color-anti: #fff;                      // 色彩-文字-反色
   --omi-text-color-brand: var(--omi-brand-color-8);           // 色彩-文字-品牌
   --omi-text-color-link: var(--omi-brand-color-8);            // 色彩-文字-链接
+  --omi-text-color-gray:#606266;
+  --omi-text-color-gray-5:var(--omi-font-gray-5);
+  --omi-text-color-gray-6:var(--omi-font-gray-6);
 
   --omi-icon-color-primary: var(--omi-icon-gray-3);
   // 分割线

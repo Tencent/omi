@@ -1,3 +1,4 @@
+@import "../../common/scss/theme";
 :host {
   display: inline-block;
 }
@@ -11,10 +12,12 @@ button {
   margin: 0;
   padding: 0;
   background-color: transparent;
+  color: $o-text-color-primary;
 }
 
 .is-disabled {
   cursor: not-allowed;
+  color: $o-bg-color-secondarycontainer;
 }
 
 .o-toggle-icon {

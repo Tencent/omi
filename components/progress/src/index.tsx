@@ -1,5 +1,5 @@
 import { WeElement, h, tag, define } from 'omi'
-import * as css from './index.css'
+import * as css from './index.scss'
 import '@omiu/icon/check-circle-rounded'
 import '@omiu/icon/cancel-rounded'
 import '@omiu/icon/check-rounded'

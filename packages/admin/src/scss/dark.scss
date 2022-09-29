@@ -28,6 +28,7 @@
 
   // 背景色
   --omi-bg-color-page: var(--omi-gray-color-14);                        // 色彩 - page
+  --omi-bg-color-page-dark: var(--omi-gray-color-14);
   --omi-bg-color-container: var(--omi-gray-color-13);                   // 色彩 - 容器
   --omi-bg-color-container-hover: var(--omi-gray-color-12);             // 色彩 - 容器 - hover
   --omi-bg-color-container-active: var(--omi-gray-color-10);            // 色彩 - 容器 - active
@@ -49,6 +50,9 @@
   --omi-text-color-placeholder: var(--omi-font-white-3);  // 色彩-文字-占位符/说明
   --omi-text-color-disabled: var(--omi-font-white-4);    // 色彩-文字-禁用
   --omi-text-color-anti: #fff;                      // 色彩-文字-反色
+  --omi-text-color-gray:--omi-gray-color-7;
+  --omi-text-color-gray-5:var(--omi-font-white-3);
+  --omi-text-color-gray-6:var(--omi-font-white-2);
 
   --omi-icon-color-primary: var(--omi-font-white-1);
   // 分割线

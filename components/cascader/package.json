@@ -19,6 +19,8 @@
     "watch": "sass --watch src/index.scss src/index.css --no-source-map"
   },
   "dependencies": {
+    "@omiu/input": "^0.0.14",
+    "@omiu/popover": "^0.0.20",
     "omi": "latest"
   },
   "devDependencies": {

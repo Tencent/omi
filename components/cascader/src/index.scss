@@ -1,3 +1,4 @@
+@import "../../common/scss/theme";
 .o-cascader {
   display: inline-block;
   position: relative;
@@ -14,6 +15,8 @@
       padding: 6px 0;
       list-style: none;
       box-sizing: border-box;
+      background-color: $o-bg-color-container;
+      color: $o-text-color-secondary;
     }
 
     &__item {
@@ -23,7 +26,7 @@
 
       &.selected,
       &:hover {
-        background: #f1fff8;
+        background:$o-bg-cascader-hover;
       }
 
       &-suffix {
@@ -42,8 +45,17 @@
       left: 100%;
       top: 0;
       width: 190px;
-      background-color: #fff;
+      background-color: $o-bg-color-container;
       box-shadow: rgba(0, 0, 0, 0.1) 0 2px 12px 0;
     }
   }
+}
+.o-cascader-input-style{
+  background-color: $o-bg-color-container;
+  color:$o-text-color-secondary;
+}
+.o-cascader-input-disabled-style{
+  background-color: $o-bg-color-secondarycontainer;
+  color:$o-text-color-secondary;
+
 }
