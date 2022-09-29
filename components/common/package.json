@@ -1,6 +1,6 @@
 {
   "name": "@omiu/common",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Omi UI Components.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
