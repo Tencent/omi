@@ -69,15 +69,17 @@ $o-bg-color-secondarycontainer-active: var(
 ); // 色彩 - 次级容器 - active
 $o-bg-color-component: var(--omi-bg-color-component); // 色彩  - 组件
 $o-bg-color-component-hover: var(
-    --omi-bg-color-component-hover
+--omi-bg-color-component-hover
 ); // 色彩 - 组件 - hover
 $o-bg-color-component-active: var(
-    --omi-bg-color-component-active
+--omi-bg-color-component-active
 ); // 色彩 - 组件 - active
 $o-bg-color-component-disabled: var(
-    --omi-bg-color-component-disabled
+--omi-bg-color-component-disabled
 ); // 色彩 - 组件 - disabled
 
+$o-bg-cascader-hover:var(--omi-bg-cascader-hover);
+$o-bg-table-th:var(--omi-bg-table-th);
 //边框
 $o-border-level-1-color:var(--omi-border-level-1-color);
 $o-border-level-2-color:var(--omi-border-level-2-color);
