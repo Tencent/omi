@@ -132,7 +132,7 @@
 .o-checkbox__native-control:enabled:not(:checked):not(:indeterminate)
   ~ .o-checkbox__background {
   background-color: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.54);
+  border: 1px solid $o-border-level-2-color;
   color: white;
 }
 

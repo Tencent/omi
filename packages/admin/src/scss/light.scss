@@ -48,6 +48,9 @@
   --omi-bg-color-component-active: var(--omi-gray-color-6);            // 色彩 - 组件 - active
   --omi-bg-color-component-disabled: var(--omi-gray-color-2);          // 色彩 - 组件 - disabled
 
+  --omi-bg-cascader-hover:#f1fff8;
+  --omi-treenode-focus:#f5f7fa;
+  --omi-bg-table-th:#fafafa;
   // 特殊组件背景色，目前只用于 button、input 组件多主题场景，浅色主题下固定为白色，深色主题下为 transparent 适配背景颜色
   --omi-bg-color-specialcomponent: #fff;
 

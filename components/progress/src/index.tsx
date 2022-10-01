@@ -90,7 +90,7 @@ export default class extends WeElement<Props> {
 
   render(props) {
     const trailColor = props.trailColor ? props.trailColor : "#f5f5f5"
-    const textColor = props.textColor ? props.textColor : "black"
+    const textColor = props.textColor
     const strokeWidth = props.strokeWidth ? props.strokeWidth : (props.type === "line" ? 8 : 6)
     const width = props.width ? props.width : (props.type === "line" ? 160 : 120)
     const {
@@ -125,7 +125,7 @@ export default class extends WeElement<Props> {
                  transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s ease 0s, stroke-width 0.06s ease 0.3s, opacity ease 0s;`}></path>
             </svg>
             {showInfo && (<span className="o-progress-circle-text" style={{ fontSize: (width - strokeWidth * 2) * 1.75 / 6 }}>
-              {(!status && !isSuccess) || (status === "active") ? <span style={{ color: textColor }}>{percent}%</span> : <span style={{ color: status2color[status || (isSuccess ? "success" : "active")], fontSize: "2em" }}>{type_status2icon["circle"][status || (isSuccess ? "success" : "active")]}</span>}
+              {(!status && !isSuccess) || (status === "active") ? <span style={textColor?{ color: textColor }:{}}>{percent}%</span> : <span style={{ color: status2color[status || (isSuccess ? "success" : "active")], fontSize: "2em" }}>{type_status2icon["circle"][status || (isSuccess ? "success" : "active")]}</span>}
             </span>)}
           </div>
         </div>
@@ -144,7 +144,7 @@ export default class extends WeElement<Props> {
             </div>
           </div>
           {showInfo && (<span className="o-progress-line-text" style={{ fontSize: strokeWidth * 1.75 }}>
-            {(!status && !isSuccess) || (status === "active") ? <span style={{ color: textColor }}>{percent}%</span> :
+            {(!status && !isSuccess) || (status === "active") ? <span style={textColor?{ color: textColor }:{}}>{percent}%</span> :
               <span style={{ color: status2color[status || (isSuccess ? "success" : "active")] }}>{type_status2icon["line"][status || (isSuccess ? "success" : "active")]}</span>}
           </span>)}
         </div>

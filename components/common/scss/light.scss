@@ -49,6 +49,8 @@
   --omi-bg-color-component-disabled: var(--omi-gray-color-2);          // 色彩 - 组件 - disabled
 
   --omi-bg-cascader-hover:#f1fff8;
+  --omi-treenode-focus:#f5f7fa;
+  --omi-bg-table-th:#fafafa;
   // 特殊组件背景色，目前只用于 button、input 组件多主题场景，浅色主题下固定为白色，深色主题下为 transparent 适配背景颜色
   --omi-bg-color-specialcomponent: #fff;
 
@@ -58,8 +60,6 @@
   --omi-text-color-placeholder: var(--omi-font-gray-3);  // 色彩-文字-占位符/说明
   --omi-text-color-disabled: var(--omi-font-gray-4);    // 色彩-文字-禁用
   --omi-text-color-anti: #fff;                      // 色彩-文字-反色
-  --omi-text-color-brand: var(--omi-brand-color-8);           // 色彩-文字-品牌
-  --omi-text-color-link: var(--omi-brand-color-8);            // 色彩-文字-链接
   --omi-text-color-gray:#606266;
   --omi-text-color-gray-5:var(--omi-font-gray-5);
   --omi-text-color-gray-6:var(--omi-font-gray-6);
