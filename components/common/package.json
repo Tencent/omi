@@ -7,8 +7,9 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.esm.js",
-    "theme": "./scss/theme.scss",
-    "var": "./scss/var.scss"
+    "./theme": "./scss/theme.scss",
+    "./var": "./scss/var.scss",
+    "./style": "./style.css"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",

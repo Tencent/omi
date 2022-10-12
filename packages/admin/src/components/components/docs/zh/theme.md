@@ -40,4 +40,16 @@ setTheme('font-family', '-apple-system-font,"Helvetica Neue",sans-serif')
 Omiu.setThemePrimary('green')
 ```
 
+## 黑夜模式
 
+### 引入css变量
+```js
+import "@omiu/common/style"
+```
+### 设置黑夜模式
+```js
+// 设置黑夜模式
+document.documentElement.setAttribute('theme-mode', 'dark');
+// 重置为白天模式
+document.documentElement.removeAttribute('theme-mode');
+```
