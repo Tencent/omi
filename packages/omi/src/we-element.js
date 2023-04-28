@@ -285,23 +285,23 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  beforeInstall() { }
+  beforeInstall() {}
 
-  install() { }
+  install() {}
 
-  afterInstall() { }
+  afterInstall() {}
 
-  installed() { }
+  installed() {}
 
-  uninstall() { }
+  uninstall() {}
 
-  beforeUpdate() { }
+  beforeUpdate() {}
 
-  updated() { }
+  updated() {}
 
-  beforeRender() { }
+  beforeRender() {}
 
-  rendered() { }
+  rendered() {}
 
-  receiveProps() { }
+  receiveProps() {}
 }

@@ -131,8 +131,8 @@ function idiff(dom, vnode, component, updateSelf) {
     vnodeName === 'svg'
       ? true
       : vnodeName === 'foreignObject'
-        ? false
-        : isSvgMode
+      ? false
+      : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
@@ -157,7 +157,7 @@ function idiff(dom, vnode, component, updateSelf) {
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--;)
+    for (let a = out.attributes, i = a.length; i--; )
       props[a[i].name] = a[i].value
   }
 
@@ -393,7 +393,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
       name !== 'children' &&
       (!(name in old) ||
         attrs[name] !==
-        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
       //fix lazy load props missing
