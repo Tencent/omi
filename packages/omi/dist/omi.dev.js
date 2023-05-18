@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.10  http://omijs.org
+ * Omi v6.25.11  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1119,7 +1119,11 @@
               if (val[0] === ':') {
                 ele.props[key] = getValByPath(val.substr(1), Omi.$);
               } else {
-                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                try {
+                  ele.props[key] = JSON.parse(val);
+                } catch (e) {
+                  console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                }
               }
               break;
           }

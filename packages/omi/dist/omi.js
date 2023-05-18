@@ -678,7 +678,11 @@
 
                       case Array:
                       case Object:
-                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else try {
+                            ele.props[key] = JSON.parse(val);
+                        } catch (e) {
+                            console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                        }
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
                 });
             }
