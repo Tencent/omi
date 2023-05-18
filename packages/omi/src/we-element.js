@@ -246,11 +246,13 @@ export default class WeElement extends HTMLElement {
             if (val[0] === ':') {
               ele.props[key] = getValByPath(val.substr(1), Omi.$)
             } else {
-							try {
-								ele.props[key] = JSON.parse(val)
-							} catch(e) {
-								console.warn(`The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`)
-							}
+              try {
+                ele.props[key] = JSON.parse(val)
+              } catch (e) {
+                console.warn(
+                  `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`
+                )
+              }
             }
             break
         }
