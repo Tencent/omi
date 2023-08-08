@@ -1,0 +1,14 @@
+node_modules
+package-lock.json
+pnpm-lock.yaml
+tsconfig.json
+
+# Editor and IDE configuration
+.vscode/
+.idea/
+
+
+npm-debug.log
+/packages/*/todo.md
+bak.js
+
