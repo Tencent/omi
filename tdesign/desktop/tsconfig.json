@@ -1,24 +1,64 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "experimentalDecorators": true,
-    /* Visit https://aka.ms/tsconfig to read more about this file */
-    /* Language and Environment */
-    "target": "ES5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "jsx": "react",
-    "jsxFactory": "h" /* Specify what JSX code is generated. */,
 
+    /* Language and Environment */
+    "target": "ESNext",
+    "lib": [],
+    "jsx": "react",
+    "jsxFactory": "h",
+    "experimentalDecorators": true,
     /* Modules */
-    "module": "commonjs" /* Specify what module code is generated. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/"],
+      "@common/*": [
+        "src/_common/*"
+      ],
+    },
+    "resolveJsonModule": true,
+    /* Emit */
+    "declaration": true,
+    "outDir": "lib",
+    "removeComments": true,
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
 
     /* Type Checking */
-    "strict": true /* Enable all strict type-checking options. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+
+    /* Completeness */
+    "skipLibCheck": true
   },
-  "include": ["src/index.ts", "src/index.d.ts"]
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+  ],
+  "exclude": [
+    "node_modules",
+    "src/_common",
+    "dist",
+    "lib",
+    "esm",
+    "es",
+    "global.d.ts"
+  ],
+  "compileOnSave": false
+
 }
