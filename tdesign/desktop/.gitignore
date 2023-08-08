@@ -1,7 +1,7 @@
 node_modules
 package-lock.json
 pnpm-lock.yaml
-tsconfig.json
+# tsconfig.json
 
 # Editor and IDE configuration
 .vscode/
@@ -14,3 +14,5 @@ tsconfig.json
 npm-debug.log
 /packages/*/todo.md
 bak.js
+
+dist
