@@ -40,7 +40,8 @@
     "prettier-plugin-packagejson": "^2.2.18",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "stylelint": "^14.9.1"
+    "stylelint": "^14.9.1",
+    "vite": "^4.4.9"
   },
   "peerDependencies": {
     "react": ">=16.9.0",
@@ -51,4 +52,3 @@
   },
   "authors": []
 }
-
