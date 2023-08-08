@@ -47,7 +47,7 @@ const omi = {
   get,
   set,
   bind,
-  unbind,
+  unbind
 }
 
 options.root.Omi = omi
@@ -79,5 +79,5 @@ export {
   get,
   set,
   bind,
-  unbind,
+  unbind
 }
