@@ -1,15 +1,16 @@
 node_modules
 package-lock.json
 pnpm-lock.yaml
-tsconfig.json
+
+/dist
+.dumi/tmp
+.dumi/tmp-test
+.dumi/tmp-production
+.DS_Store
 
 # Editor and IDE configuration
 .vscode/
 .idea/
-
-# vitepress
-.vitepress/cache
-.vitepress/dist
 
 npm-debug.log
 /packages/*/todo.md

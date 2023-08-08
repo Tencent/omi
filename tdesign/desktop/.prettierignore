@@ -1,14 +1,14 @@
+/dist
 node_modules
 package-lock.json
-pnpm-lock.yaml
-tsconfig.json
+*.yaml
 
-# Editor and IDE configuration
-.vscode/
-.idea/
-
+/dist
+.dumi/tmp
+.dumi/tmp-test
+.dumi/tmp-production
+.DS_Store
 
 npm-debug.log
 /packages/*/todo.md
 bak.js
-

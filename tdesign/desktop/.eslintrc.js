@@ -1,11 +1,13 @@
 module.exports = {
-  extends: ['standard-with-typescript', 'prettier'],
+  extends: [require.resolve('@umijs/lint/dist/config/eslint'), 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
-  rules: {}
-}
+  rules: {
+    'prettier/prettier': 'off',
+  },
+};
