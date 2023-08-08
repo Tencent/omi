@@ -1,4 +1,5 @@
 import { h, OmiProps, tag, WeElement } from 'omi'
+
 import css from './style'
 
 export type ButtonProps = {} & HTMLButtonElement
