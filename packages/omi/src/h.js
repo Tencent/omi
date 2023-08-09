@@ -48,7 +48,7 @@ export function h(nodeName, attributes) {
     nodeName,
     children,
     attributes: attributes == null ? undefined : attributes,
-    key: attributes == null ? undefined : attributes.key,
+    key: attributes == null ? undefined : attributes.key
   }
 
   // if a "vnode hook" is defined, pass every created VNode to it

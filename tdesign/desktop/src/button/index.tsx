@@ -73,5 +73,4 @@ export default class Button extends WeElement<ButtonProps>{
       </button>
     )
   }
-
 }
