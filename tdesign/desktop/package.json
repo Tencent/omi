@@ -20,10 +20,6 @@
     "prepublishOnly": "father doctor && npm run build",
     "start": "npm run dev"
   },
-  "dependencies": {
-    "less": "^4.2.0",
-    "omi": "^6.25.11"
-  },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
@@ -47,6 +43,14 @@
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   },
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "less": "^4.2.0",
+    "omi": "^6.25.11",
+    "style-loader": "^3.3.3",
+    "tdesign-icons-svg": "^0.1.8",
+    "vite": "4.3.2"
+  }
   "publishConfig": {
     "access": "public"
   },
