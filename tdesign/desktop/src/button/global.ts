@@ -1,0 +1,1 @@
+import '../_common/style/web/theme/_index.less'
