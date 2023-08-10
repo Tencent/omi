@@ -5,7 +5,7 @@ module.exports = {
   tabWidth: 2,
   // 不使用缩进符，而使用空格
   useTabs: false,
-  // 行尾不需要有分号
+  // 行尾不加分号
   semi: false,
   // 使用单引号
   singleQuote: true,
