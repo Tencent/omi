@@ -21,5 +21,5 @@ export default class LinkTheme extends WeElement<Props> {
 }
 
 render(<link-theme></link-theme>, 'body', {
-  ignoreAttrs: true
+  ignoreAttrs: true,
 })
