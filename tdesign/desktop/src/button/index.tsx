@@ -1,7 +1,6 @@
-import { h, OmiProps, tag, WeElement, render } from 'omi'
+import { h, OmiProps, tag, WeElement, render, classNames } from 'omi'
 import css from './style'
 import { ButtonProps } from './types'
-import clsx from 'clsx';
 import { TdClassNamePefix } from '../utils'
 
 @tag("t-button")
@@ -26,7 +25,7 @@ export default class Button extends WeElement<ButtonProps>{
     return (
       <button
         className={
-          clsx(
+          classNames(
             TdClassNamePefix('button'),
             TdClassNamePefix('button--theme-primary'),
             TdClassNamePefix('button--variant-base'),
