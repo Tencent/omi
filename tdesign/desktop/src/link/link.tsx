@@ -34,14 +34,17 @@ export default class Link extends WeElement<LinkProps> {
 
   render(props: OmiProps<LinkProps>) {
     const classPrefix = 't'
+
+    const childNode = props.content || props.children
     /*
         TODO: remain size and status
         remain prefixContent and suffixContent
     **/
     const linkClass = extractClass(props, `${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
-      // [commonSizeClassName[props.size]]: props.size !== 'medium',
-      // [commonStatusClassName.disabled]: props.disabled,
-      [`${classPrefix}-is-underline`]: props.underline,
+      [`${classPrefix}-size-s`]: props.size === 'small',
+      [`${classPrefix}-size-s`]: props.size === 'large',
+      [`${classPrefix}-is-disabled`]: !!props.disabled,
+      [`${classPrefix}-is-underline`]: !!props.underline,
       [`${classPrefix}-link--hover-${props.hover}`]: !props.disabled,
     })
 
