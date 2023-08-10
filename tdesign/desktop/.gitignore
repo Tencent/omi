@@ -1,22 +1,36 @@
 node_modules
-package-lock.json
-pnpm-lock.yaml
-
-
-/dist
-.dumi/tmp
-.dumi/tmp-test
-.dumi/tmp-production
 .DS_Store
 
+# build files
+es/
+esm/
+cjs/
+lib/
+dist/
 
-
-# Editor and IDE configuration
-.vscode/
+_site
+_static_site
+package
+tmp*
+temp*
+coverage
+test-report.html
 .idea/
 
-npm-debug.log
-/packages/*/todo.md
-bak.js
+# lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-dist
+*.zip
+.history
+script/test/cypress/screenshots
+script/test/cypress/videos
+script/test/cypress/results
+script/test/cypress/support
+results/
+yarn-error.log
+Dockerfile
+robotMsg.json
+.gitlogmap
+.eslintcache

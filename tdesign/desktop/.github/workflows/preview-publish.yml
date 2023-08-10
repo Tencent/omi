@@ -1,0 +1,16 @@
+# 文件名建议统一为 preview-publish
+# 应用 preview.yml 的 demo
+
+name: PREVIEW_PUBLISH
+
+on:
+  workflow_run:
+    workflows: ["MAIN_PULL_REQUEST"]
+    types:
+      - completed
+
+jobs:
+  call-preview:
+    uses: Tencent/tdesign/.github/workflows/preview.yml@main
+    secrets:
+      TDESIGN_SURGE_TOKEN: ${{ secrets.TDESIGN_SURGE_TOKEN }}

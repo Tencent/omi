@@ -1,0 +1,14 @@
+# 文件名建议统一为 tag-push.yml
+# 应用 publish.yml 的 demo
+
+name: TAG_PUSH
+
+on: create
+
+jobs:
+  call-publish:
+    uses: Tencent/tdesign/.github/workflows/publish.yml@main
+    secrets:
+      TDESIGN_SURGE_TOKEN: ${{ secrets.TDESIGN_SURGE_TOKEN }}
+      TDESIGN_NPM_TOKEN: ${{ secrets.TDESIGN_NPM_TOKEN }}
+      PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}

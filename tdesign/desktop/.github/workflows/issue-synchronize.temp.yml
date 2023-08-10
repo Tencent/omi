@@ -1,0 +1,17 @@
+# force copy from tencent/tdesign
+name: Issue Synchronize
+
+on:
+  issues:
+    types: [opened, reopened]
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    steps:
+      # https://docs.github.com/cn/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#issues
+      - uses: 94dreamer/create-report@main
+        with:
+          wxhook: ${{ secrets.WX_HOOK_URL }}
+          token: ${{ secrets.GITHUB_TOKEN  }}
+          type: 'issue'

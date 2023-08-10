@@ -1,64 +1,50 @@
 {
   "compilerOptions": {
-
-    /* Language and Environment */
-    "target": "ESNext",
-    "lib": [],
-    "jsx": "react",
-    "jsxFactory": "h",
-    "experimentalDecorators": true,
-    /* Modules */
-    "module": "ESNext",
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "target": "esnext",
+    "outDir": "lib",
+    "declaration": true,
+    "module": "esnext",
     "moduleResolution": "node",
+    "isolatedModules": false,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": false,
+    "removeComments": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["src/"],
-      "@common/*": [
-        "src/_common/*"
-      ],
-    },
-    "resolveJsonModule": true,
-    /* Emit */
-    "declaration": true,
-    "outDir": "lib",
-    "removeComments": true,
-    /* Interop Constraints */
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-
-    /* Type Checking */
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowUnusedLabels": false,
-    "allowUnreachableCode": false,
-
-    /* Completeness */
-    "skipLibCheck": true
+      "@src/*": ["src/*"],
+      "@common/*": ["src/_common/*"],
+      "@test/utils": ["test/utils"]
+    }
   },
   "include": [
     "./**/*.ts",
     "./**/*.tsx",
+    "scripts/rollup.config.js"
   ],
+  
   "exclude": [
     "node_modules",
     "src/_common",
     "dist",
     "lib",
+    "cjs",
     "esm",
     "es",
     "global.d.ts"
   ],
   "compileOnSave": false
-
 }

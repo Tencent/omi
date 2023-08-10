@@ -1,0 +1,22 @@
+# force copy from tencent/tdesign
+name: Issue Help wanted
+on:
+  issues:
+    types:
+      - labeled
+jobs:
+  add-comment:
+    if: github.event.label.name == 'help wanted'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Add comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            任何人都可以处理此问题。
+            **请务必在您的 `pull request` 中引用此问题。** :sparkles: 
+            感谢你的贡献! :sparkles:
+          reactions: heart

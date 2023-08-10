@@ -1,0 +1,13 @@
+snapshot*
+node_modules
+src/_common
+script/test/cypress
+temp*
+
+_site
+esm
+es
+lib
+dist
+cjs
+usage
