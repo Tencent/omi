@@ -122,7 +122,7 @@ define('my-element', class extends WeElement {
     break
 ```
 
-这里可以看到，omi 内部还会对 josn 格式进行处理，防止 `JSON.parse` 出错。当然 eval 和 new Function 可以转化错误格式的 json 字符串，但是考虑到安全性，还是使用`JSON.parse` 。
+这里可以看到，omi 内部还会对 json 格式进行处理，防止 `JSON.parse` 出错。当然 eval 和 new Function 可以转化错误格式的 json 字符串，但是考虑到安全性，还是使用`JSON.parse` 。
 
 ## 实战
 
