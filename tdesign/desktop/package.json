@@ -77,7 +77,7 @@
     "test:e2e": "cypress run --config-file test/cypress/cypress.config.js --component",
     "test:e2e-gui": "cypress open --config-file test/cypress/cypress.config.js",
     "robot": "publish-cli robot-msg",
-    "prepare": "husky install"
+    "prepare-disabled": "husky install"
   },
   "author": "tdesign",
   "license": "MIT",
