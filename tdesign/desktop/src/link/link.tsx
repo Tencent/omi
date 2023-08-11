@@ -5,7 +5,7 @@ import './style/index.js'
 import css from './style/index'
 
 @tag('t-link')
-export default class Link extends WeElement<OmiProps<LinkProps>> {
+export default class Link extends WeElement<LinkProps> {
   static css = css as string
 
   static defaultProps = {
@@ -27,8 +27,6 @@ export default class Link extends WeElement<OmiProps<LinkProps>> {
     theme: String,
     underline: Boolean,
     onClick: Function, // need to test
-    children: Object,
-    ref: Object,
   }
 
   handleClick = (e: MouseEvent) => {
@@ -43,7 +41,7 @@ export default class Link extends WeElement<OmiProps<LinkProps>> {
     const childNode = props.content || props.children
     const linkClass = extractClass(props, `${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
       [`${classPrefix}-size-s`]: props.size === 'small',
-      [`${classPrefix}-size-s`]: props.size === 'large',
+      [`${classPrefix}-size-l`]: props.size === 'large',
       [`${classPrefix}-is-disabled`]: !!props.disabled,
       [`${classPrefix}-is-underline`]: !!props.underline,
       [`${classPrefix}-link--hover-${props.hover}`]: !props.disabled,

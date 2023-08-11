@@ -4,6 +4,9 @@ import '../index'
 
 @tag('link-theme')
 export default class LinkTheme extends WeElement {
+  static css = `t-link {
+    margin: 5px 5px;
+  }`
   render() {
     return (
       <div>

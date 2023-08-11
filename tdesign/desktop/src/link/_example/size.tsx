@@ -4,6 +4,9 @@ import '../index'
 
 @tag('link-size')
 export default class LinkSize extends WeElement {
+  static css = `t-link {
+    margin: 5px 5px;
+  }`
   clickLink = () => {
     console.log('不触发')
   }

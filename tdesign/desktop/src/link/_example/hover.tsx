@@ -4,6 +4,9 @@ import '../index'
 
 @tag('link-hover')
 export default class LinkHover extends WeElement {
+  static css = `t-link {
+    margin: 5px 5px;
+  }`
   render() {
     return (
       <div direction="vertical">

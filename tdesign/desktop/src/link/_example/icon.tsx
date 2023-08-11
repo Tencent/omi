@@ -4,6 +4,9 @@ import '../index'
 
 @tag('link-icon')
 export default class LinkIcon extends WeElement {
+  static css = `t-link {
+    margin: 5px 5px;
+  }`
   render() {
     return (
       // TODO: stuck by icon, need to add prefixIcon
