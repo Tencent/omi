@@ -3,9 +3,6 @@ import css from './style'
 import { ButtonProps } from './types'
 import { TdClassNamePefix } from '../utils'
 
-@tag("t-button")
-export default class Button extends WeElement<ButtonProps>{
-
 @tag('t-button')
 export default class Button extends WeElement<ButtonProps> {
   static propTypes = {
@@ -13,37 +10,35 @@ export default class Button extends WeElement<ButtonProps> {
     loading: Boolean,
     block: Boolean,
     ghost: Boolean,
-  };
-  static css = css as string;
+  }
+  static css = css as string
 
   render(props: OmiProps<ButtonProps>) {
-    const { disabled, loading, block, ghost } = props;
+    const { disabled, loading, block, ghost } = props
 
-    const { href, icon } = props;
-    const { size, suffix, shape, tag, type, validity } = props;
-    const { onClick } = props;
+    const { href, icon } = props
+    const { size, suffix, shape, tag, type, validity } = props
+    const { onClick } = props
 
     return (
       <button
-        className={
-          classNames(
-            TdClassNamePefix('button'),
-            TdClassNamePefix('button--theme-primary'),
-            TdClassNamePefix('button--variant-base'),
-            {
-              [TdClassNamePefix('size-full-width')]: block
-            },
-            {
-              [TdClassNamePefix('is-loading')]: loading
-            },
-            {
-              [TdClassNamePefix('is-disabled')]: disabled
-            },
-            {
-              [TdClassNamePefix('button--ghost')]: ghost
-            }
-          )
-        }
+        className={classNames(
+          TdClassNamePefix('button'),
+          TdClassNamePefix('button--theme-primary'),
+          TdClassNamePefix('button--variant-base'),
+          {
+            [TdClassNamePefix('size-full-width')]: block,
+          },
+          {
+            [TdClassNamePefix('is-loading')]: loading,
+          },
+          {
+            [TdClassNamePefix('is-disabled')]: disabled,
+          },
+          {
+            [TdClassNamePefix('button--ghost')]: ghost,
+          },
+        )}
       >
         {loading && (
           <div
@@ -75,6 +70,6 @@ export default class Button extends WeElement<ButtonProps> {
           <slot></slot>
         </span>
       </button>
-    );
+    )
   }
 }
