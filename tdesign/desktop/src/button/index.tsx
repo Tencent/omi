@@ -43,7 +43,7 @@ export default class Button extends WeElement<ButtonProps> {
         {loading && (
           <div
             style="display:flex;"
-            class={clsx(
+            class={classNames(
               TdClassNamePefix('loading'),
               TdClassNamePefix('loading--center'),
               TdClassNamePefix('size-m'),
@@ -51,7 +51,7 @@ export default class Button extends WeElement<ButtonProps> {
             )}
           >
             <svg
-              className={clsx(TdClassNamePefix('loading__gradient'), TdClassNamePefix('icon-loading'))}
+              className={classNames(TdClassNamePefix('loading__gradient'), TdClassNamePefix('icon-loading'))}
               width="16"
               height="16"
               viewBox="0 0 16 16"
