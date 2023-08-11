@@ -92,6 +92,7 @@
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
     "omi": "^6.25.11",
+    "omi-router": "^3.0.5",
     "sortablejs": "^1.15.0",
     "tinycolor2": "^1.6.0",
     "validator": "^13.9.0"
