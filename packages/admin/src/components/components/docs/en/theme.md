@@ -40,4 +40,17 @@ or
 ```js
 Omiu.setThemePrimary('green')
 ```
+## Dark Mode
+
+### Import
+```js
+import "@omiu/common/style"
+```
+### Control light/dark display
+```js
+// dark mode
+document.documentElement.setAttribute('theme-mode', 'dark');
+// reset to light mode
+document.documentElement.removeAttribute('theme-mode');
+```
 

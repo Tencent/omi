@@ -99,8 +99,8 @@
     function unbind(el, type) {
         el.removeEventListener(type, eventProxy);
     }
-    function createNode(nodeName, isSvg) {
-        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+    function createNode(nodeName, isSvg, options$$1) {
+        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName, options$$1);
         node.normalizedNodeName = nodeName;
         return node;
     }
@@ -380,8 +380,8 @@
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
     function getHost(ele) {
-        var p = ele.parentNode;
-        while (p) if (p.host) return p.host; else if (p.shadowRoot && p.shadowRoot.host) return p.shadowRoot.host; else p = p.parentNode;
+        var root = ele.getRootNode();
+        return root && root.host;
     }
     function rpx(css) {
         return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
@@ -449,7 +449,78 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
+    !function(self) {
+        function isObject(x) {
+            return Object(x) === x;
+        }
+        if (!self.WeakMap) {
+            var hasOwnProperty = Object.prototype.hasOwnProperty;
+            var hasDefine = Object.defineProperty && function() {
+                try {
+                    return 1 === Object.defineProperty({}, 'x', {
+                        value: 1
+                    }).x;
+                } catch (e) {}
+            }();
+            var defineProperty = function(object, name, value) {
+                if (hasDefine) ; else object[name] = value;
+            };
+            self.WeakMap = function() {
+                function WeakMap() {
+                    if (void 0 === this) throw new TypeError("Constructor WeakMap requires 'new'");
+                    defineProperty(this, '_id', genId('_WeakMap'));
+                    if (arguments.length > 0) throw new TypeError('WeakMap iterable is not supported');
+                }
+                function checkInstance(x, methodName) {
+                    if (!isObject(x) || !hasOwnProperty.call(x, '_id')) throw new TypeError(methodName + ' method called on incompatible receiver ' + typeof x);
+                }
+                function genId(prefix) {
+                    return prefix + '_' + rand() + '.' + rand();
+                }
+                function rand() {
+                    return Math.random().toString().substring(2);
+                }
+                defineProperty(WeakMap.prototype, 'delete', function(key) {
+                    checkInstance(this, 'delete');
+                    if (!isObject(key)) return !1;
+                    var entry = key[this.s];
+                    if (entry && entry[0] === key) {
+                        delete key[this.s];
+                        return !0;
+                    }
+                    return !1;
+                });
+                defineProperty(WeakMap.prototype, 'get', function(key) {
+                    checkInstance(this, 'get');
+                    if (isObject(key)) {
+                        var entry = key[this.s];
+                        if (entry && entry[0] === key) return entry[1]; else return;
+                    }
+                });
+                defineProperty(WeakMap.prototype, 'has', function(key) {
+                    checkInstance(this, 'has');
+                    if (!isObject(key)) return !1;
+                    var entry = key[this.s];
+                    if (entry && entry[0] === key) return !0; else return !1;
+                });
+                defineProperty(WeakMap.prototype, 'set', function(key, value) {
+                    checkInstance(this, 'set');
+                    if (!isObject(key)) throw new TypeError('Invalid value used as weak map key');
+                    var entry = key[this.s];
+                    if (entry && entry[0] === key) {
+                        entry[1] = value;
+                        return this;
+                    }
+                    defineProperty(key, this.s, [ key, value ]);
+                    return this;
+                });
+                defineProperty(WeakMap, '_polyfill', !0);
+                return WeakMap;
+            }();
+        }
+    }('undefined' != typeof globalThis ? globalThis : 'undefined' != typeof self ? self : 'undefined' != typeof window ? window : 'undefined' != typeof global ? global : void 0);
     var id = 0;
+    var adoptedStyleSheetsMap = new WeakMap();
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -492,7 +563,7 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            if (this.constructor.elementStyles) shadowRoot.adoptedStyleSheets = this.constructor.elementStyles; else {
+            if (adoptedStyleSheetsMap.has(this.constructor)) shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor); else {
                 var css = this.constructor.css;
                 if (css) {
                     if ('string' == typeof css) {
@@ -514,7 +585,7 @@
                         _styleSheet.replaceSync(css.default);
                         shadowRoot.adoptedStyleSheets = [ _styleSheet ];
                     } else shadowRoot.adoptedStyleSheets = [ css ];
-                    this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
+                    adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets);
                 }
             }
             this.beforeRender();
@@ -544,7 +615,10 @@
             this.beforeRender();
             if (this.O != this.props.css) {
                 this.O = this.props.css;
-                this.N.textContent = this.O;
+                if (this.N) this.N.textContent = this.O; else {
+                    this.N = cssToDom(this.props.css);
+                    this.shadowRoot.appendChild(this.N);
+                }
             }
             this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.store);
@@ -604,7 +678,11 @@
 
                       case Array:
                       case Object:
-                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else try {
+                            ele.props[key] = JSON.parse(val);
+                        } catch (e) {
+                            console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                        }
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
                 });
             }
@@ -776,7 +854,7 @@
                 }); else observer.disconnect();
             }));
         }
-        if (!('adoptedStyleSheets' in document)) {
+        if (!('undefined' == typeof document || 'adoptedStyleSheets' in document)) {
             var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
             var bootstrapper = document.implementation.createHTMLDocument('boot');
             var closedShadowRootRegistry = new WeakMap();
@@ -935,7 +1013,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.3';
+    options.root.Omi.version = '6.25.10';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

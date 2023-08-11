@@ -1,0 +1,24 @@
+{
+  "name": "omi-form",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build --base=./",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "less": "^4.1.1",
+    "sass": "^1.37.5",
+    "typescript": "^4.3.2",
+    "vite": "^2.9.14"
+  },
+  "dependencies": {
+    "@omiu/button": "^0.0.11",
+    "@omiu/checkbox": "^0.0.14",
+    "@omiu/date-picker": "^0.0.10",
+    "@omiu/input": "^0.0.12",
+    "omi": "latest"
+  },
+  "author": "qianyan",
+  "license": "MIT"
+}

@@ -122,13 +122,11 @@ async function main() {
     experimentalDecorators: false,
     emitDecoratorMetadata: false,
 
-    target: monaco.languages.typescript.ScriptTarget.ES2020,
+    target: monaco.languages.typescript.ScriptTarget.ES5,
     jsx: monaco.languages.typescript.JsxEmit.React,
 
-    jsxFactory: 'Omi.h',
-    // 不生效
-    // jsxFragment: 'h.f',
-    // jsxFragmentFactory: 'h.f',
+    jsxFactory: 'h',
+    jsxFragmentFactory: 'h.f',
   };
 
   // https://stackoverflow.com/questions/56954280/monaco-editor-how-to-disable-errors-typescript

@@ -2979,19 +2979,40 @@ var css = `:host {
     var otherProps = __rest(props, ["type", "size", "suffixIcon", "prefixIcon", "autoComplete", "validating", "onMouseEnter", "onMouseLeave", "trim"]);
     this._tempTagName = "o-icon-" + (suffixIcon || prefixIcon);
     this._tempInputTagName = type === "textarea" ? "textarea" : "input";
-    return h("div", __assign({}, extractClass(props, "o-input", (_a = {}, _a["o-input--" + size] = props.size, _a["is-disabled"] = this.props.disabled, _a["o-input-suffix"] = suffixIcon, _a["o-input-prefix"] = prefixIcon, _a["is-block"] = props.block, _a)), { onMouseEnter, onMouseLeave }), (prefixIcon || suffixIcon) && h(this._tempTagName, __assign({ css: "svg{\n            width: 1em;\n          }" }, extractClass(props, "o-input__icon", {
-      "is-prefix": prefixIcon,
-      "is-suffix": suffixIcon
-    }))), h(this._tempInputTagName, __assign({}, otherProps, {
-      type,
-      class: "o-" + this._tempInputTagName + "__inner",
-      autocomplete: autoComplete,
-      maxLength: props.maxLength,
-      onChange: this.handleChange,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      onInput: this.handleInput
-    })), props.clearable && h("svg", { onClick: this.clearInput, class: "o-icon-clear", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" }, h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })), props.maxLength && h("span", { class: "o-input__count" }, h("span", { class: "o-input__count-inner" }, this.valueLength, "/", props.maxLength)));
+    return h(
+      "div",
+      __assign({}, extractClass(props, "o-input", (_a = {}, _a["o-input--" + size] = props.size, _a["is-disabled"] = this.props.disabled, _a["o-input-suffix"] = suffixIcon, _a["o-input-prefix"] = prefixIcon, _a["is-block"] = props.block, _a)), { onMouseEnter, onMouseLeave }),
+      (prefixIcon || suffixIcon) && h(this._tempTagName, __assign({ css: "svg{\n            width: 1em;\n          }" }, extractClass(props, "o-input__icon", {
+        "is-prefix": prefixIcon,
+        "is-suffix": suffixIcon
+      }))),
+      h(this._tempInputTagName, __assign({}, otherProps, {
+        type,
+        class: "o-" + this._tempInputTagName + "__inner",
+        autocomplete: autoComplete,
+        maxLength: props.maxLength,
+        onChange: this.handleChange,
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur,
+        onInput: this.handleInput
+      })),
+      props.clearable && h(
+        "svg",
+        { onClick: this.clearInput, class: "o-icon-clear", fill: "currentColor", width: "1em", height: "1em", focusable: "false", viewBox: "0 0 24 24", "aria-hidden": "true" },
+        h("path", { d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" })
+      ),
+      props.maxLength && h(
+        "span",
+        { class: "o-input__count" },
+        h(
+          "span",
+          { class: "o-input__count-inner" },
+          this.valueLength,
+          "/",
+          props.maxLength
+        )
+      )
+    );
   };
   Input.css = css;
   Input.defaultProps = {
@@ -3035,31 +3056,28 @@ var __decorateClass = (decorators, target, key, kind) => {
 let DatePicker = class extends WeElement {
   constructor() {
     super(...arguments);
-    this.onEnter = (evt) => {
-      clearTimeout(this.timeout);
-      this.isShow = !this.isShow;
-      this.update();
-      evt.stopPropagation();
+    this._onGetValue = () => {
+      return this.__$value;
     };
-    this.onLeave = () => {
-      this.timeout = setTimeout(() => {
-        this.isShow = false;
-        this.update();
-      }, 600);
+    this._onSetValue = (value) => {
+      this.__$value = value;
+      this.props.value = value;
+      this.setAttribute("value", value);
     };
-    this.onEnterPopover = (evt) => {
-      clearTimeout(this.timeout);
-      evt.stopPropagation();
-    };
-    this.onLeavePopover = () => {
-      if (this.props.trigger !== "click") {
-        this.timeout = setTimeout(() => {
-          this.isShow = false;
-          this.update();
-        }, 600);
+    this.onChange = (evt) => {
+      this.__$value = evt.target.value;
+      this.props.value = evt.target.value;
+      if (!this.props.onChange) {
+        this.fire("change", this.props.value);
       }
     };
-    this.isShow = false;
+  }
+  install() {
+    this.__$value = this.props.value;
+    Object.defineProperty(this, "value", {
+      get: this._onGetValue,
+      set: this._onSetValue
+    });
   }
   updated() {
     const { locale, ...other } = this.props;
@@ -3083,22 +3101,26 @@ let DatePicker = class extends WeElement {
     return /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("o-input", {
       size: props.size,
       "suffix-icon": "date-range",
-      css: `.o-input input {
-    width: ${props.width};
-}`,
-      type: "text"
+      css: `
+            .o-input input {
+              width: ${props.width};
+            }`,
+      type: "text",
+      onChange: this.onChange
     }));
   }
 };
 DatePicker.defaultProps = {
   theme: "light",
   size: "small",
-  width: "auto"
+  width: "auto",
+  value: ""
 };
 DatePicker.propTypes = {
   theme: String,
   size: String,
-  width: String
+  width: String,
+  value: String
 };
 DatePicker = __decorateClass([
   tag("o-date-picker")

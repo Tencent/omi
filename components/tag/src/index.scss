@@ -4,24 +4,16 @@
 @import '../../common/scss/theme.scss';
 
 $--tag-height: () !default;
-$--tag-height: map.merge(
-  (
-    'medium': 28px,
+$--tag-height: map.merge(('medium': 28px,
     'small': 24px,
-    'mini': 20px
-  ),
-  $--tag-height
-);
+    'mini': 20px),
+  $--tag-height);
 
 $--tag-padding: () !default;
-$--tag-padding: map.merge(
-  (
-    'medium': 0 10px,
+$--tag-padding: map.merge(('medium': 0 10px,
     'small': 0 8px,
-    'mini': 0 5px
-  ),
-  $--tag-padding
-);
+    'mini': 0 5px),
+  $--tag-padding);
 
 .o-tag {
   display: inline-flex;
@@ -42,7 +34,7 @@ $--tag-padding: map.merge(
 
   background-color: #fcfcfc;
 
-  animation: tag-fade 0.2s ease-in;
+  // animation: tag-fade 0.2s ease-in;
 
   &.is-disabled {
     color: #999;
@@ -87,12 +79,12 @@ $--tag-padding: map.merge(
   }
 }
 
-@keyframes tag-fade {
-  from {
-    transform: scale(0.1);
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+// @keyframes tag-fade {
+//   from {
+//     transform: scale(0.1);
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }

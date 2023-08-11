@@ -17,7 +17,7 @@
 .tip {
   position: absolute;
   background: #fff;
-  min-width: 150px;
+  min-width: 100px;
   border-radius: 4px;
   border: 1px solid #ebeef5;
   z-index: 2000;
@@ -27,7 +27,6 @@
   font-size: 14px;
   word-break: break-all;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  width: 100%;
 }
 
 .tip .tip-arrow,
@@ -163,7 +162,7 @@
 
 
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
   padding-top: 10px;

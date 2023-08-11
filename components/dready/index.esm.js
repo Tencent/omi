@@ -14,5 +14,6 @@ export default function domReady(callback) {
   readyCallbacks.push(callback)
 }
 
+export { domReady }
 domReady.done = false
 

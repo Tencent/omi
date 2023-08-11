@@ -1,0 +1,39 @@
+span {
+  font-size: 10px;
+}
+
+.form-item {
+  height: 40px;
+  line-height: 40px;
+
+  ul,
+  li {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    float: left;
+  }
+
+  li {
+    padding-left: 5px;
+  }
+}
+
+.title-box {
+  width: 80px;
+  float: left;
+  height: 40px;
+  font-size: 12px;
+}
+
+o-input {
+  width: 250px;
+}
+
+.from-button {
+  width: 250px;
+
+  o-button {
+    margin-right: 10px;
+  }
+}

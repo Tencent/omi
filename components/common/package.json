@@ -1,14 +1,15 @@
 {
   "name": "@omiu/common",
-  "version": "0.0.12",
+  "version": "0.0.17",
   "description": "Omi UI Components.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.esm.js",
-    "theme": "./scss/theme.scss",
-    "var": "./scss/var.scss"
+    "./theme": "./scss/theme.scss",
+    "./var": "./scss/var.scss",
+    "./style": "./style.css"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",

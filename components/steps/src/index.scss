@@ -1,4 +1,4 @@
-@import '../node_modules/@omiu/common/scss/theme.scss';
+@import '../../common/scss/theme.scss';
 
 :host {
   display: block;
@@ -93,11 +93,11 @@ o-icon-clear {
 }
 
 ._item-description {
-  color: rgba(0, 0, 0, 0.45);
+  color: $o-text-color-gray-5;
   font-size: 13px;
 }
 
-._item-finish > ._item-content > ._item-title:after {
+._item-finish>._item-content>._item-title:after {
   background-color: $o-primary;
   background-color: var(--o-primary, $o-primary);
 }
@@ -169,11 +169,11 @@ o-icon-clear {
   display: none;
 }
 
-.vertical > ._item:not(:last-child) > ._item-tail {
+.vertical>._item:not(:last-child)>._item-tail {
   display: block;
 }
 
-.vertical > ._item > ._item-tail {
+.vertical>._item>._item-tail {
   position: absolute;
   top: 0px;
   left: 16px;
@@ -191,6 +191,6 @@ o-icon-clear {
   display: none;
 }
 
-.vertical > _item:not(:last-child) > ._item-tail {
+.vertical>_item:not(:last-child)>._item-tail {
   display: block;
 }

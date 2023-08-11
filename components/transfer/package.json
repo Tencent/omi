@@ -1,0 +1,55 @@
+{
+  "name": "@omiu/o-transfer",
+  "description": "Description for component.",
+  "version": "0.0.0",
+  "docsExtend": {
+    "cnName": "计数器",
+    "cnDescription": "计数器描述，待替换。",
+    "codepen": "",
+    "codepenHeight": 351,
+    "codepenDefaultTab": "html,result"
+  },
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "scripts": {
+    "start": "npm run watch & vite",
+    "clean": "rm -rf dist",
+    "dev": "npm run start",
+    "build": "vite build && npm run build:scss",
+    "build:demo": "vite build",
+    "build:scss": "sass src/index.scss src/index.css",
+    "docs": "esno ./scripts/docs-gen.ts",
+    "watch": "sass --watch src/index.scss src/index.css --no-source-map",
+    "pretest": "npm run build",
+    "test": "web-test-runner \"test/*.js\" --node-resolve",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "dependencies": {
+    "@omiu/button": "0.0.11",
+    "@omiu/checkbox": "0.0.13",
+    "@omiu/common": "0.0.12",
+    "omi": "6.23.0"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.5.33",
+    "@types/node": "^16.9.1",
+    "@web/test-runner": "^0.13.17",
+    "esno": "^0.9.1",
+    "sass": "^1.41.0",
+    "typescript": "^4.4.3",
+    "vite": "^2.5.7"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "omiu",
+    "form"
+  ]
+}

@@ -1,11 +1,5 @@
 import { TinyColor } from '@ctrl/tinycolor'
 
-theme()
-
-document.addEventListener('DOMContentLoaded', () => {
-  theme()
-})
-
 const cssVarMap = {
   primary: '#07c160',
   danger: '#fa5151',
@@ -20,6 +14,12 @@ const cssVarMap = {
   'large-radius': '0px',
   'font-family': '-apple-system-font,"Helvetica Neue",sans-serif'
 }
+
+theme()
+
+document.addEventListener('DOMContentLoaded', () => {
+  theme()
+})
 
 function theme() {
   if (document.body && !document.body.style.getPropertyValue('--o-primary')) {

@@ -2,9 +2,9 @@
 
 <img src="../assets/omi-snake.png" width="300px" />
 
-Actually, I used react, preact, vue and [omi framework](https://github.com/Tencent/omi) to develop this game, and I found that the development experience of Omi is the best, and [the sourece code](https://github.com/Tencent/omi/tree/master/packages/omi-snake) is really neat. Let me take you step by step to develop this simple game.
+Actually, I used react, preact, vue and [omi framework](https://github.com/Tencent/omi) to develop this game, and I found that the development experience of Omi is the best, and [the sourece code](https://github.com/Tencent/omi/tree/master/packages/snake) is really neat. Let me take you step by step to develop this simple game.
 
-* [Touch Online Demo(Mobile)](https://tencent.github.io/omi/packages/omi-snake/build/)
+* [Touch Online Demo(Mobile)](https://tencent.github.io/omi/packages/snake/build/)
 
 Read this article and you can learn:
 
@@ -504,6 +504,6 @@ HTML structure screenshot by omio:
 
 ### Links
 
-* [Game Source Code](https://github.com/Tencent/omi/tree/master/packages/omi-snake)
+* [Game Source Code](https://github.com/Tencent/omi/tree/master/packages/snake)
 * [Omi Github](https://github.com/Tencent/omi)
 * [Omi Store System](https://tencent.github.io/omi/site/docs/index.html#/store?index=1&subIndex=8)

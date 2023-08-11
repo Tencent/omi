@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    // vite3 不支持 "target": "es5",
+    "target": "es6",
+    "module": "esnext",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    //https://github.com/microsoft/TypeScript/issues/6945
+    //https://basarat.gitbook.io/typescript/type-system/lib.d.ts#lib-option
+    "lib": [
+      "dom",
+      "ESNext"
+    ],
+    "types": ["vite/client"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": ["dist", "node_modules"]
+}

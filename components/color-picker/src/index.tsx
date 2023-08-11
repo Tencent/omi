@@ -122,16 +122,20 @@ export default class ColorPicker extends WeElement<Props>{
       //this.picker.show()
       this.fire('init', args[0])
     }).on('save', (...args) => {
-      this.fire('save', {
-        color: args[0].toHEXA().toString(),
-        colorObject: args[0]
-      })
+      if (!args[0]) {
+        this.fire('clear')
+      } else {
+        this.fire('save', {
+          color: args[0].toHEXA().toString(),
+          colorObject: args[0]
+        })
+      }
     }).on('change', (...args) => {
       this.fire('change', {
         color: args[0].toHEXA().toString(),
         colorObject: args[0]
       })
-    }).on('swatchselect', (...args) => {
+    }).on('swatch-select', (...args) => {
       this.fire('swatch-select', {
         color: args[0].toHEXA().toString(),
         colorObject: args[0]

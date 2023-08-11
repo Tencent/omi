@@ -1,4 +1,4 @@
-@import '@omiu/common/scss/theme.scss';
+@import '../../common/scss/theme.scss';
 
 .o-message__closeBtn:focus,
 .o-message__content:focus {
@@ -121,7 +121,7 @@
   color: #e6a23c;
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-active,
 .fade-leave-to {
   opacity: 0;

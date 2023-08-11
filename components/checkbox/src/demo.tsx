@@ -8,11 +8,8 @@ const tagName = 'my-demo'
 
 @tag(tagName)
 export default class MyDemo extends WeElement<Props> {
-  count = 2
-
-  onChanged = (evt: CustomEvent) => {
-    //同步内部状态到外部，这样防止父刷新覆盖子的 count
-    this.count = evt.detail
+  onChange = (evt: CustomEvent) => {
+    console.log(evt.detail)
   }
 
   render(props: Props) {
@@ -25,7 +22,7 @@ export default class MyDemo extends WeElement<Props> {
           <o-checkbox checked label="checked"></o-checkbox>
           <br />
 
-          <o-checkbox indeterminate label="indeterminate"></o-checkbox>
+          <o-checkbox onChange={this.onChange} indeterminate label="indeterminate"></o-checkbox>
           <br />
 
           <o-checkbox disabled label="disabled"></o-checkbox>

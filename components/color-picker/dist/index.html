@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omiu Button</title>
+  
+  <script type="module" crossorigin src="/index.umd.js"></script>
+</head>
+
+<body>
+  <div>
+    <o-color-picker id='picker' button="0" hex="1" rgba="0" hsla="0" save="1" preview="0"  clear='1' width="300px">
+    </o-color-picker>
+    <div>abc</div>   
+    <o-color-picker id='picker' inline="0" hex="1" rgba="1" hsla="0" save="1" preview="0"  clear='1' width="300px">
+    </o-color-picker>
+    <div>abc</div>   
+
+  </div>
+
+  <script>
+    var picker = document.querySelector('#picker')
+    picker.addEventListener('change', function (evt) {
+      console.log(evt.detail.color)
+    })
+
+  </script>
+</body>
+
+</html>

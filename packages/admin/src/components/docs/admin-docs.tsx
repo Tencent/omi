@@ -1,7 +1,7 @@
 import { WeElement, h, tag } from 'omi'
 import * as MarkdownIt from 'markdown-it'
 import * as prismCSS from './prism.css'
-import * as mdCSS from './md.css'
+import * as mdCSS from './md.scss'
 import * as anchor from 'markdown-it-anchor'
 import * as prismjs from 'prismjs'
 import 'prismjs/components/prism-jsx'

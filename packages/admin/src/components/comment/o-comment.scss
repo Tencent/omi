@@ -1,3 +1,4 @@
+@import "../../scss/theme";
 $color-main: #07C160;
 $color-success: #07C160;
 $color-warning: #E6A23C;
@@ -42,7 +43,7 @@ $content-bg-color: #fff;
 
         .name {
           font-size: 16px;
-          color: $text-main;
+          color: $o-text-color-primary;
           margin-bottom: 5px;
           font-weight: 500;
         }

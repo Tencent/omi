@@ -10,7 +10,7 @@ interface Props {
     autoHide: boolean;
     show: boolean;
 }
-export default class Button extends WeElement<Props> {
+export default class Toast extends WeElement<Props> {
     static css: any;
     static defaultProps: {
         duration: number;

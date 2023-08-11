@@ -20,7 +20,7 @@ class extends WeElement {
     this.show = true
     this.appear = !this.appear
     this.update()
-    this.transition.toggle();
+    this.transition.toggle()
   }
 
   onAfterLeave = () => {

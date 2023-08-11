@@ -43,7 +43,7 @@ class Store {
   }
 
   randomInt() {
-    return Math.floor(Math.random() * 25)
+    return Math.ceil(Math.random() * 25)
   }
 
   reset = () => {

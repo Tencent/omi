@@ -1,13 +1,23 @@
-import { tag, WeElement, h, extractClass, classNames } from 'omi'
+import { tag, WeElement, h, extractClass, classNames, VNode } from 'omi'
 import '@omiu/checkbox'
 import '@omiu/input'
 import { leave } from './transition'
 
 import * as css from './index.scss'
 
+export interface Column<DataType> {
+  title: string,
+  key: string,
+  sortable?: boolean,
+  sortMultiple?: null,
+  filters?: [],
+  width?: number,
+  render?: (item: DataType) => VNode,
+}
+
 export interface Props<DataType> {
   dataSource: DataType[]
-  columns: object
+  columns: Column<DataType>[]
   checkbox: boolean
   border: boolean
   stripe: boolean
@@ -15,9 +25,9 @@ export interface Props<DataType> {
   width: string
   height: string
   fixedTop: boolean
-  fixedRight: boolean
   fixedLeftCount: number
-
+  fixedRightCount: number
+  cellSpanOption: object
 }
 
 @tag('o-table')
@@ -32,13 +42,14 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     stripe: false,
     compact: false,
     fixedTop: false,
-    fixedRight: false,
-    fixedLeftCount: 0
+    fixedLeftCount: 0,
+    fixedRightCount: 0,
+    cellSpanOption: () => null,
   }
 
   static propTypes = {
     dataSource: Object,
-    columns: Object,
+    columns: Array,
     checkbox: Boolean,
     border: Boolean,
     stripe: Boolean,
@@ -46,8 +57,8 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     width: String,
     height: String,
     fixedTop: Boolean,
-    fixedRight: Boolean,
-    fixedLeftCount: Number
+    fixedLeftCount: Number,
+    fixedRightCount: Number,
   }
 
   deleteRow = (item: DataType) => {
@@ -96,9 +107,65 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     return { 'checked': true }
   }
 
+  _getCellSpan(cellSpanOption, rowData, column) {
+    let rowspan = 1
+    let colspan = 1
+
+    if (cellSpanOption) {
+      const { bodyCellSpan } = cellSpanOption
+
+      if (typeof bodyCellSpan === 'function') {
+          const result = bodyCellSpan({
+            row: rowData,
+            column
+          })
+
+          if (typeof result === 'object') {
+            rowspan = result.rowspan
+            colspan = result.colspan    
+          }
+      } 
+    }
+    
+    return {rowspan, colspan}
+  }
+
+  layout() {
+    const width = this.rootNode?.getBoundingClientRect().width
+    if (width) {
+      let totalWidth = 0
+      let noWidthColumnCount = 0
+      this.props.columns.forEach(column => {
+        if (column.hasOwnProperty('width')) {
+          totalWidth += column.width
+        } else {
+          noWidthColumnCount++
+        }
+      })
+      this.props.columns.forEach(column => {
+        if (!column.hasOwnProperty('width')) {
+          // 平分剩余空间
+          const dy = (width - totalWidth)
+          column.computedWidth = Math.max(Math.floor(dy / noWidthColumnCount - 2), 50)
+        }
+      })
+    }
+
+    let left = 0
+    let right = 0
+    for (let i = 0, len = this.props.columns.length; i < len; i++) {
+      const leftColumn = this.props.columns[i]
+      leftColumn.left = left
+      left += leftColumn.width || leftColumn.computedWidth
+
+      const rightColumn = this.props.columns[len - i - 1]
+      rightColumn.right = right
+      right += rightColumn.width || rightColumn.computedWidth
+    }
+  }
+
   installed() {
-    this.setFixedLeft()
-    this.setFixedRight()
+    this.layout()
     window.addEventListener('click', () => {
       let needUpdate = false
       this.props.dataSource.forEach(dataItem => {
@@ -112,6 +179,13 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         this.update()
       }
     })
+
+    window.addEventListener('resize', () => {
+      this.layout()
+      this.update()
+    })
+
+    this.update()
   }
 
   onChange = (evt: Event, item: DataType, column) => {
@@ -127,26 +201,6 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     })
   }
 
-  updated() {
-    this.setFixedLeft()
-    this.setFixedRight()
-  }
-
-  setFixedLeft() {
-    const fixedLeftEls = this.rootNode.querySelectorAll('.fixed-left')
-    const boxRect = this.rootNode.getBoundingClientRect()
-    fixedLeftEls.forEach((fixedLeftEl) => {
-      const rect = fixedLeftEl.getBoundingClientRect()
-      fixedLeftEl.style.left = (rect.left - boxRect.left - 1) + 'px'
-    })
-  }
-
-  setFixedRight() {
-    const fixedRightEls = this.rootNode.querySelectorAll('.fixed-right')
-    fixedRightEls.forEach((fixedRightEl) => {
-      fixedRightEl.style.right = '0px'
-    })
-  }
 
   onTdClick = (item, column, evt) => {
     evt.stopPropagation()
@@ -202,18 +256,20 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         <tr>
           {props.columns.map((column, index) => {
             const obj: any = {}
-            const { maxWidth } = column
-            if (maxWidth !== undefined) {
-              obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
-            }
+            const fixedLeft = index < props.fixedLeftCount
+            const fixedRight = props.columns.length - 1 - index < props.fixedRightCount
             return <th {...obj}
               title={column.title}
+              style={{
+                left: fixedLeft ? column.left + 'px' : null,
+                right: fixedRight ? column.right + 'px' : null
+              }}
               class={classNames({
                 [`o-table-align-${column.align}`]: column.align,
                 'compact': props.compact,
                 'fixed-top': props.fixedTop,
-                'fixed-left': index < props.fixedLeftCount,
-                'fixed-right': column.fixed,
+                'fixed-left': fixedLeft,
+                'fixed-right': fixedRight,
                 'cursor-pointer': column.sortable
               })}>
 
@@ -294,23 +350,34 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
           <tr key={item.id} ref={e => this['row' + item.id] = e} style={{
             background: item.$config && item.$config.bgColor
           }}>
-            {props.columns.map((column, subIndex) => {
+            {props.columns.map((column, index) => {
               const obj: any = {}
-              const { maxWidth } = column
-              if (maxWidth !== undefined) {
-                obj.style = { maxWidth: typeof maxWidth === 'number' ? maxWidth + 'px' : maxWidth }
-              }
               const columnVal = column.render ? column.render(item) : item[column.key]
               const title = typeof columnVal === 'string' ? columnVal : null
+              const fixedLeft = index < props.fixedLeftCount
+              const fixedRight = props.columns.length - 1 - index < props.fixedRightCount
+              const { rowspan, colspan } = this._getCellSpan(props.cellSpanOption, item, column)
+              if (!rowspan || !colspan) {
+                return null;
+              }
               return <td
                 title={title}
                 onClick={evt => this.onTdClick(item, column, evt)} {...obj}
+                style={{
+                  left: fixedLeft ? column.left + 'px' : null,
+                  right: fixedRight ? column.right + 'px' : null
+                }}
                 class={classNames({
                   [`o-table-align-${column.align}`]: column.align,
                   'compact': props.compact,
-                  'fixed-left': subIndex < props.fixedLeftCount,
-                  'fixed-right': column.fixed
-                })}>{subIndex === 0 && props.checkbox && <o-checkbox
+                  'fixed-left': fixedLeft,
+                  'fixed-right': fixedRight
+                })}
+                colSpan={colspan}
+                rowSpan={rowspan}
+                >
+                {/* <div class="cell"> */}
+                {index === 0 && props.checkbox && <o-checkbox
                   checked={item.checked}
                   onChange={_ => this._changeHandlerTd(_, item)} />}{(column.editable && item.editingKey === column.key) ?
                     <o-input
@@ -321,6 +388,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                       }}
                       value={item[column.key]} /> :
                     (columnVal)}
+                {/* </div> */}
               </td>
             })}
           </tr>
@@ -329,14 +397,26 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
     )
   }
 
+  renderColGroup() {
+    return (
+      <colgroup>
+        {this.props.columns.map((column) => {
+          return <col width={column.width || column.computedWidth} />
+        })}
+      </colgroup>
+    )
+  }
+
   render(props) {
+
+    const width = props.columns.map(column => column.width || column.computedWidth).reduce((wa, wb) => {
+      return wa + wb
+    })
 
     if (!props.columns) return
     if (!props.dataSource) return
 
-    if (props.fixedRight) {
-      props.columns[props.columns.length - 1].fixed = true
-    }
+
 
     return (
       <div style={{
@@ -347,7 +427,12 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
         'o-table-border': props.border,
         'o-table-stripe': props.stripe
       })}>
-        <table {...extractClass(props, 'o-table-table')}>
+        <table {...extractClass(props, 'o-table-table')}
+          style={{
+            width: width + 'px'
+          }}
+        >
+          {this.renderColGroup()}
           {this.renderHead()}
           {this.renderBody()}
         </table>

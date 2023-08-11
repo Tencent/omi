@@ -1,4 +1,4 @@
-@import "@omiu/common/theme";
+@import '../../common/scss/theme.scss';
 
 :host {
   display: block;
@@ -14,12 +14,12 @@ ol {
 li {
   list-style: none;
   display: inline-block;
-  color: rgba(0, 0, 0, 0.45);
+  color: $o-text-color-gray-5;
   vertical-align: middle;
 }
 
 .breadcrumb-li a {
-  color: rgba(0, 0, 0, 0.45);
+  color: $o-text-color-gray-5;
 }
 
 a {
@@ -35,7 +35,7 @@ a {
 }
 
 .current {
-  color: rgba(0, 0, 0, .7);
+  color: $o-text-color-gray-6;
   vertical-align: middle;
   line-height: 20px;
   height: 20px;

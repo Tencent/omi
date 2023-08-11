@@ -2,9 +2,9 @@
 
 <img src="../assets/omi-snake.png" width="300px" />
 
-事实上, 我使用了 react、preact、vue 和 [omi 框架](https://github.com/Tencent/omi) 分别开发贪吃蛇游戏，我发现 omi 的开发体验最棒，并且其最后的[源代码非常地简洁]((https://github.com/Tencent/omi/tree/master/packages/omi-snake))，让我一步一步带着你们开发这款简单的游戏。
+事实上, 我使用了 react、preact、vue 和 [omi 框架](https://github.com/Tencent/omi) 分别开发贪吃蛇游戏，我发现 omi 的开发体验最棒，并且其最后的[源代码非常地简洁]((https://github.com/Tencent/omi/tree/master/packages/snake))，让我一步一步带着你们开发这款简单的游戏。
 
-* [在线示例(手机移动端)](https://tencent.github.io/omi/packages/omi-snake/build/)
+* [在线示例(手机移动端)](https://tencent.github.io/omi/packages/snake/build/)
 
 阅读本文大概花费 10 分钟，你可以从中学会:
 
@@ -506,6 +506,6 @@ export function rpx(css) {
 
 ### Links
 
-* [游戏源码](https://github.com/Tencent/omi/tree/master/packages/omi-snake)
+* [游戏源码](https://github.com/Tencent/omi/tree/master/packages/snake)
 * [Omi源码](https://github.com/Tencent/omi)
 * [Omi Store 体系文档](https://tencent.github.io/omi/site/docs/cn.html#/store?index=1&subIndex=8)

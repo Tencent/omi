@@ -1,0 +1,13 @@
+# 文件名建议统一为 pull-request.yml 
+# 应用 test-build.yml 的 demo
+
+name: MAIN_PULL_REQUEST
+
+on:
+  pull_request:
+    branches: [develop, main, compositionAPI]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  call-test-build:
+    uses: Tencent/tdesign/.github/workflows/test-build.yml@main

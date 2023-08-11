@@ -1,0 +1,10 @@
+.bar {
+  display: inline-block;
+  margin-left: 1px;
+  background: #777;
+  width: 10px;
+}
+
+.active {
+  background: red;
+}

@@ -1,9 +1,9 @@
 {
   "name": "dready",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Dom Ready.",
-  "main": "src/index.js",
-  "module": "src/index.esm.js",
+  "main": "index.js",
+  "module": "index.esm.js",
   "scripts": {},
   "keywords": [],
   "author": "dntzhang",

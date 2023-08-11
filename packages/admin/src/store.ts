@@ -55,7 +55,7 @@ class Store {
     this.markdown = ''
     this.html = ''
 
-    this.setLocale('zh', () => {
+    this.setLocale('en', () => {
       this.tabs = [
         {
           label: i18next.t('Welcome'),

@@ -1,0 +1,36 @@
+node_modules
+.DS_Store
+
+# build files
+es/
+esm/
+cjs/
+lib/
+dist/
+
+_site
+_static_site
+package
+tmp*
+temp*
+coverage
+test-report.html
+.idea/
+
+# lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+*.zip
+.history
+script/test/cypress/screenshots
+script/test/cypress/videos
+script/test/cypress/results
+script/test/cypress/support
+results/
+yarn-error.log
+Dockerfile
+robotMsg.json
+.gitlogmap
+.eslintcache

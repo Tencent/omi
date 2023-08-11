@@ -1,10 +1,11 @@
-import { define, render, WeElement, extend, set, get, getHost } from '../../src/omi'
+import { define, render, WeElement, extend, set, get, bind, unbind, getHost } from '../../src/omi'
 
 
 
 extend('model', (el, path, scope) => {
 	el.value = get(scope, path)
-	el.addEventListener('input', () => {
+	unbind(el, 'input')
+	bind(el, 'input', () => {
 		set(scope, path, el.value)
 		scope.update()
 	})
@@ -25,21 +26,20 @@ define('my-input', class extends WeElement {
 	render(props) {
 		return (
 			<div>
-				<input value={props.msg} oninput={this.inputHandle}></input>
-
+				<input value={props[props.oModel]} oninput={this.inputHandle}></input>
 			</div>
 		)
 	}
 })
 
 define('my-component', class extends WeElement {
-	msg = 'a'
+	data = { msg: 'a' }
 
 	render() {
 		return (
 			<div>
-				<my-input o-model="msg" ></my-input>
-				<div>{this.msg}</div>
+				<my-input o-model="data.msg" ></my-input>
+				<div>{this.data.msg}</div>
 			</div>
 		)
 	}

@@ -1,0 +1,75 @@
+:root,
+:root[theme-mode="light"] {
+  --omi-gray-color-1: #f3f3f3;
+  --omi-gray-color-2: #eee;
+  --omi-gray-color-3: #e7e7e7;
+  --omi-gray-color-4: #dcdcdc;
+  --omi-gray-color-5: #c5c5c5;
+  --omi-gray-color-6: #a6a6a6;
+  --omi-gray-color-7: #8b8b8b;
+  --omi-gray-color-8: #777;
+  --omi-gray-color-9: #5e5e5e;
+  --omi-gray-color-10: #4b4b4b;
+  --omi-gray-color-11: #383838;
+  --omi-gray-color-12: #2c2c2c;
+  --omi-gray-color-13: #242424;
+  --omi-gray-color-14: #181818;
+
+  // 文字 & 图标 颜色
+  --omi-font-white-1: rgba(255, 255, 255, 100%);
+  --omi-font-white-2: rgba(255, 255, 255, 55%);
+  --omi-font-white-3: rgba(255, 255, 255, 35%);
+  --omi-font-white-4: rgba(255, 255, 255, 22%);
+  --omi-font-gray-1: rgba(0, 0, 0, 90%);
+  --omi-font-gray-2: rgba(0, 0, 0, 60%);
+  --omi-font-gray-3: rgba(0, 0, 0, 40%);
+  --omi-font-gray-4: rgba(0, 0, 0, 26%);
+  --omi-font-gray-5: rgba(0, 0, 0, 0.45);
+  --omi-font-gray-6: rgba(0, 0, 0, .7);
+
+  --omi-icon-gray-3:rgba(0, 0, 0, 0.54);
+
+  // 遮罩
+  --omi-mask-active: rgba(0, 0, 0, 60%); // 遮罩-弹出
+  --omi-mask-disabled: rgba(255, 255, 255, 60%); // 遮罩-禁用
+
+  // 背景色
+  --omi-bg-color-page: var(--omi-gray-color-2);                        // 色彩 - page
+  --omi-bg-color-page-dark: #fff;
+  --omi-bg-color-container: #fff;                                // 色彩 - 容器
+  --omi-bg-color-container-hover: var(--omi-gray-color-1);             // 色彩 - 容器 - hover
+  --omi-bg-color-container-active: var(--omi-gray-color-3);            // 色彩 - 容器 - active
+  --omi-bg-color-container-select: #fff;                         // 色彩 - 容器 - select
+  --omi-bg-color-secondarycontainer: var(--omi-gray-color-1);          // 色彩 - 次级容器
+  --omi-bg-color-secondarycontainer-hover: var(--omi-gray-color-2);    // 色彩 - 次级容器 - hover
+  --omi-bg-color-secondarycontainer-active: var(--omi-gray-color-4);   // 色彩 - 次级容器 - active
+  --omi-bg-color-component: var(--omi-gray-color-3);                   // 色彩 - 组件
+  --omi-bg-color-component-hover: var(--omi-gray-color-4);             // 色彩 - 组件 - hover
+  --omi-bg-color-component-active: var(--omi-gray-color-6);            // 色彩 - 组件 - active
+  --omi-bg-color-component-disabled: var(--omi-gray-color-2);          // 色彩 - 组件 - disabled
+
+  --omi-bg-cascader-hover:#f1fff8;
+  --omi-treenode-focus:#f5f7fa;
+  --omi-bg-table-th:#fafafa;
+  // 特殊组件背景色，目前只用于 button、input 组件多主题场景，浅色主题下固定为白色，深色主题下为 transparent 适配背景颜色
+  --omi-bg-color-specialcomponent: #fff;
+
+  // 文本颜色
+  --omi-text-color-primary: var(--omi-font-gray-1);      // 色彩-文字-主要
+  --omi-text-color-secondary: var(--omi-font-gray-2);    // 色彩-文字-次要
+  --omi-text-color-placeholder: var(--omi-font-gray-3);  // 色彩-文字-占位符/说明
+  --omi-text-color-disabled: var(--omi-font-gray-4);    // 色彩-文字-禁用
+  --omi-text-color-anti: #fff;                      // 色彩-文字-反色
+  --omi-text-color-gray:#606266;
+  --omi-text-color-gray-5:var(--omi-font-gray-5);
+  --omi-text-color-gray-6:var(--omi-font-gray-6);
+
+  --omi-icon-color-primary: var(--omi-icon-gray-3);
+  // 分割线
+  --omi-border-level-1-color: var(--omi-gray-color-3);
+  --omi-component-stroke: var(--omi-gray-color-3);
+  // 边框
+  --omi-border-level-2-color: var(--omi-gray-color-4);
+  --omi-component-border: var(--omi-gray-color-4);
+
+}

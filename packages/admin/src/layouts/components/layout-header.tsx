@@ -7,6 +7,8 @@ import '@omiu/icon/palette'
 import '@omiu/select'
 import '@omiu/icon/notifications'
 import '@omiu/icon/settings'
+import '@omiu/icon/brightness2'
+import '@omiu/icon/brightness5'
 import '@omiu/icon/git-hub'
 import '@omiu/badge'
 import i18next from 'i18next'
@@ -29,11 +31,12 @@ export default class extends WeElement<Props> {
   store
 
   items = [
+    { label: 'English', value: 'en' },
     { label: '中文', value: 'zh' },
-    { label: 'English', value: 'en' }
   ]
 
   isShowColorPicker: boolean = false
+  isDarkMode=document.documentElement.getAttribute('theme-mode') === 'dark';
 
   install() {
     import('@omiu/color-picker')
@@ -58,7 +61,7 @@ export default class extends WeElement<Props> {
     this.updateSelf()
   }
 
-  onItemSelect = (evt) => {
+  onOptionSelect = (evt) => {
     const locale = evt.detail.value
     this.store.setLocale(locale)
     // dispatch event to update basic-layout
@@ -111,7 +114,7 @@ export default class extends WeElement<Props> {
 
   render() {
     return (
-      <div class={tw`h-12 text-left text-white`} style={{ background: this.store.themeColor }}>
+      <div class={tw`h-12 text-left text-white`} style={this.isDarkMode?{background:"#242424",border:"1px solid #5e5e5e" }:{ background: this.store.themeColor }}>
         <div class={tw`flex justify-between`}>
           <div class={tw`flex flex-row p-1 order-1`}>
             <img class={tw`w-8 m-1 ml-2 flex-row`} style={{ width: '32px', height: '32px' }} src={logo} alt="logo" />
@@ -120,18 +123,7 @@ export default class extends WeElement<Props> {
             >
               OMI ADMIN
             </h1>
-            <div class={tw`flex-row mt-1.5 ml-3`}>
-              <o-select
-                css={`
-            .o-select .o-input__inner {
-              width: 91px;
-            `}
-                size="mini"
-                onItemSelect={this.onItemSelect}
-                value={i18next.language}
-                items={this.items}
-              ></o-select>
-            </div>
+
           </div>
 
           <div
@@ -141,7 +133,7 @@ export default class extends WeElement<Props> {
               <div
                 class={tw`cursor-pointer`}
                 onClick={this.toggle}
-              // style={{ color: this.store.themeColor }}
+                // style={{ color: this.store.themeColor }}
               >
                 <o-icon-palette></o-icon-palette>
                 {i18next.t('Theme')}
@@ -151,6 +143,7 @@ export default class extends WeElement<Props> {
                   onchange={this.onColorChange}
                   onClick={(evt) => evt.stopPropagation()}
                   class={tw`absolute right-0 z-50`}
+                  default={this.store.themeColor}
                   save={false}
                   preview={false}
                   button={false}
@@ -172,6 +165,13 @@ export default class extends WeElement<Props> {
               class={tw`flex-row cursor-pointer hidden md:block`}
             ></o-icon-settings>
 
+            <div style={{cursor:"pointer"}}>
+              {this.isDarkMode ? (
+                <o-icon-brightness5 onClick={()=>{this.isDarkMode=false;document.documentElement.setAttribute('theme-mode', 'light');this.update();document.documentElement.classList.remove('dark');}}></o-icon-brightness5>
+              ) : (
+                <o-icon-brightness2 onClick={()=>{this.isDarkMode=true;document.documentElement.setAttribute('theme-mode', 'dark');this.update();document.documentElement.classList.add('dark');}}></o-icon-brightness2>
+              )}
+            </div>
             <a
               href="https://github.com/Tencent/omi"
               target="_blank"
@@ -179,6 +179,17 @@ export default class extends WeElement<Props> {
             >
               <o-icon-git-hub></o-icon-git-hub>
             </a>
+
+            <o-select
+              css={`
+            .o-select .o-input__inner {
+              width: 91px;
+            `}
+              size="mini"
+              onOptionSelect={this.onOptionSelect}
+              value={i18next.language}
+              options={this.items}
+            ></o-select>
 
             <o-avatar
               onClick={(e) => this.goPersonalCenter()}

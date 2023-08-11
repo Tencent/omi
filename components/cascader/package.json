@@ -1,6 +1,6 @@
 {
   "name": "@omiu/cascader",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
@@ -19,6 +19,8 @@
     "watch": "sass --watch src/index.scss src/index.css --no-source-map"
   },
   "dependencies": {
+    "@omiu/input": "^0.0.14",
+    "@omiu/popover": "^0.0.20",
     "omi": "latest"
   },
   "devDependencies": {

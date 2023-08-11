@@ -7,82 +7,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OMIU</title>
   
-  <script type="module" crossorigin src="/index.es.js"></script>
-  <link rel="stylesheet" href="/style.css">
+  <script type="module" crossorigin src="/index.umd.js"></script>
 </head>
 
 <body>
   <h1>HTML Mode <a href="./demo.html">JSX Mode</a></h1>
+
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/index.js"></script>
+  <script src="../../../icon/ac-unit-outlined.js"></script>
+  <script src="../../../icon/accessible-rounded.js"></script>
+
+  <style>
+    o-input {
+      margin-top: 10px;
+    }
+  </style>
+
   <div>
-    <o-table id="myTable"></o-table>
+    <o-input placeholder="Enter User Name"></o-input>
   </div>
 
-  <script>
-    window.onload = function () {
-      const table = document.querySelector('#myTable')
-      table.props.checkbox = true
-      table.props.border = true
-      table.props.dataSource = [{
-        id: 1,
-        name: 'xwang',
-        age: 18,
-        address: 'Tencent'
-      }, {
-        id: 2,
-        name: 'dntzhang',
-        age: 12,
-        address: 'Tencent'
-      }, {
-        id: 3,
-        name: 'lucy',
-        age: 12,
-        address: 'Tencent'
-      }, {
-        id: 4,
-        name: 'john',
-        age: 12,
-        address: 'Tencent'
-      }, {
-        id: 5,
-        name: 'tim',
-        age: 12,
-        address: 'Tencent'
-      }]
+  <div>
+    <o-input disabled placeholder="Enter User Name"></o-input>
+  </div>
 
-      table.props.columns = [{
-        title: 'ID',
-        render: item => (
-          Omi.h('strong', null, Omi.h(
-            'i', null, item.id
-          ))
-        ),
-      }, {
-        title: 'Name',
-        key: 'name',
-      }, {
-        title: 'Age',
-        key: 'age',
-      }, {
-        title: 'Address',
-        key: 'address',
-      }, {
-        title: '操作',
-        // render: item => (
-        //   Omi.html`<span>
-        //       <a href="javascript:;" onClick=${e => {
-        //       table.props.dataSource.splice(table.props.dataSource.indexOf(item), 1)
-        //       table.update()
-        //     }}>Delete</a>
-        //     </span>`
-        // )
-      }]
+  <div>
+    <o-input clearable placeholder="Enter User Name"></o-input>
+  </div>
+
+  <div>
+    <o-input max-length="10" placeholder="Enter User Name"></o-input>
+  </div>
+
+  <div>
+    <o-input suffix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+  </div>
+
+  <div>
+    <o-input suffix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+    <o-input size="medium" suffix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+    <o-input size="small" suffix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+    <o-input size="mini" suffix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+  </div>
+
+  <div>
+    <o-input prefix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+    <o-input size="medium" prefix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+    <o-input size="small" prefix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+    <o-input size="mini" prefix-icon="ac-unit-outlined" placeholder="Enter User Name"></o-input>
+  </div>
+
+  <o-input block placeholder="Enter User Name"></o-input>
 
 
-      table.forceUpdate()
-
-    }
-
-  </script>
+  <o-input type="textarea" placeholder="Enter User Name"></o-input>
 </body>
 
 </html>

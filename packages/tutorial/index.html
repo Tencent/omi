@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" href="./favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OMI</title>
+
+</head>
+
+<body>
+
+  <div id="root">
+    <style>
+      .o-toast {
+        position: fixed;
+        z-index: 5000;
+        width: 90px;
+        height: 90px;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        border-radius: 5px;
+        color: #07c160;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      body[data-o-theme='dark'] .o-toast {
+        background-color: #606060;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body:not([data-o-theme='light']) .o-toast {
+          background-color: #606060;
+        }
+      }
+
+      .o-icon-toast {
+        display: block;
+      }
+
+      .o-icon-toast.o-icon-success-no-circle {
+        color: rgba(255, 255, 255, 0.9);
+        width: 55px;
+        height: 55px;
+      }
+
+      .o-toast-content {
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      .o-mask {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      .o-mask-transparent {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+      }
+
+      @-webkit-keyframes loading {
+        0% {
+          transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        100% {
+          transform: rotate3d(0, 0, 1, 360deg);
+        }
+      }
+
+      @keyframes loading {
+        0% {
+          transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        100% {
+          transform: rotate3d(0, 0, 1, 360deg);
+        }
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .o-success {
+        mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);
+
+        -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.864%2016.617l-5.303-5.303-1.061%201.06%205.657%205.657a1%201%200%20001.414%200L21.238%206.364l-1.06-1.06L8.864%2016.616z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);
+      }
+
+      .o-warning {
+        mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E);
+
+        -webkit-mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-.763-15.864l.11%207.596h1.305l.11-7.596h-1.525zm.759%2010.967c.512%200%20.902-.383.902-.882%200-.5-.39-.882-.902-.882a.878.878%200%2000-.896.882c0%20.499.396.882.896.882z%22%2F%3E%3C%2Fsvg%3E);
+      }
+
+      i {
+        -webkit-mask-position: 50% 50%;
+        mask-position: 50% 50%;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100%;
+        mask-size: 100%;
+        background-color: currentColor;
+
+        color: #07c160;
+        width: 40px;
+        height: 40px;
+        display: block;
+        background-size: 100%;
+      }
+
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: opacity 0.2s;
+      }
+
+      .fade-enter,
+      .fade-leave-to {
+        opacity: 0;
+      }
+
+
+      .o-root {
+        display: inline-block;
+        line-height: 1;
+      }
+
+      .o-static {
+        transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      }
+
+      .o-indeterminate {
+        animation: o-rotate 1.4s linear infinite;
+      }
+
+      .o-circle {
+        stroke: currentColor;
+      }
+
+      .o-circleStatic {
+        transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      }
+
+      .o-circleIndeterminate {
+        animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+        animation-name: o-keyframes-mui-progress-circular-dash;
+        stroke-dasharray: 80px, 200px;
+        stroke-dashoffset: 0px;
+      }
+
+      @-webkit-keyframes o-rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @-webkit-keyframes o-keyframes-mui-progress-circular-dash {
+        0% {
+          stroke-dasharray: 1px, 200px;
+          stroke-dashoffset: 0px;
+        }
+
+        50% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -15px;
+        }
+
+        100% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -125px;
+        }
+      }
+
+      .o-circleDisableShrink {
+        animation: none;
+      }
+    </style>
+    <div class="fade-enter-to">
+      <div class="o-mask-transparent"></div>
+      <div class="o-toast">
+        <slot></slot>
+        <div class="o-root o-colorPrimary o-indeterminate" role="progressbar" style="width: 30px; height: 30px;"><svg
+            class="o-svg" viewBox="22 22 44 44">
+            <circle class="o-circle o-circleIndeterminate" cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6">
+            </circle>
+          </svg></div>
+        <p class="o-toast-content">Loading</p>
+      </div>
+    </div>
+
+  </div>
+  <script type="module" src="/src/index.tsx"></script>
+</body>
+
+</html>

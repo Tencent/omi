@@ -16,7 +16,7 @@ interface Props {
 
 
 @tag('o-toast')
-export default class Button extends WeElement<Props>{
+export default class Toast extends WeElement<Props>{
   static css = css
 
   static defaultProps = {
@@ -75,6 +75,9 @@ export default class Button extends WeElement<Props>{
   }
 }
 
+Toast.showLoading = showLoading
+Toast.hideLoading = hideLoading
+
 let el
 
 export function showLoading(content) {
@@ -82,7 +85,7 @@ export function showLoading(content) {
   el = document.createElement('o-toast')
   el.setAttribute('show', '1')
   el.setAttribute('loading', '1')
-  if(typeof content === 'string'){
+  if (typeof content === 'string') {
     el.setAttribute('content', content)
   }
   document.body.appendChild(el)
@@ -100,7 +103,7 @@ export function showSuccess(content) {
   el = document.createElement('o-toast')
   el.setAttribute('show', '1')
   el.setAttribute('success', '1')
-  if(typeof content === 'string'){
+  if (typeof content === 'string') {
     el.setAttribute('content', content)
   }
   document.body.appendChild(el)
@@ -118,7 +121,7 @@ export function showWarning(content) {
   el = document.createElement('o-toast')
   el.setAttribute('show', '1')
   el.setAttribute('warning', '1')
-  if(typeof content === 'string'){
+  if (typeof content === 'string') {
     el.setAttribute('content', content)
   }
   document.body.appendChild(el)

@@ -32,13 +32,13 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <div>
-        <o-steps items={this.itemsA} />
-        <o-steps items={this.itemsB} />
-        <o-steps items={this.itemsC} />
+        <o-steps steps={this.itemsA} />
+        <o-steps steps={this.itemsB} />
+        <o-steps steps={this.itemsC} />
 
-        <o-steps items={this.itemsA} vertical />
-        <o-steps items={this.itemsB} vertical />
-        <o-steps items={this.itemsC} vertical />
+        <o-steps steps={this.itemsA} vertical />
+        <o-steps steps={this.itemsB} vertical />
+        <o-steps steps={this.itemsC} vertical />
 
       </div>
 
@@ -47,4 +47,6 @@ define('my-app', class extends WeElement {
 })
 
 
-render(<my-app />, 'body')
+render(<my-app />, 'body', {
+  ignoreAttrs: true
+})

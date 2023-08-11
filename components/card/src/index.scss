@@ -1,3 +1,5 @@
+@import "../../common/scss/theme";
+
 :host {
   display: inline-block;
 }
@@ -7,12 +9,15 @@
 }
 
 .o-card {
+  color:$o-text-color-primary;
   display: flex;
   flex-direction: column;
-  background: #FFF;
+  background: $o-bg-color-container;
+
+  //background: #FFF;
 
   &.is-border {
-    border: 1px solid #EFEFEF;
+    border: 1px solid $o-border-level-2-color;
   }
 
   &.is-shadow {
@@ -31,7 +36,7 @@
 .o-card-header {
   min-height: 48px;
   padding: 0 24px;
-  border-bottom: 1px solid #EFEFEF;
+  border-bottom: 1px solid $o-border-level-2-color;
   border-radius: 2px 2px 0 0;
 }
 
@@ -61,7 +66,7 @@
   height: 56px;
   display: flex;
   justify-content: center;
-  background: #FFF;
+  background: $o-bg-color-container;
 }
 
 .o-card-btn {
@@ -71,12 +76,12 @@
   position: relative;
   cursor: pointer;
   outline: none;
-  border-top: 1px solid #EFEFEF;
-  border-right: 1px solid #EFEFEF;
+  border-top: 1px solid $o-border-level-2-color;
+  border-right: 1px solid $o-border-level-2-color;
   border-left: none;
   border-bottom: none;
-  background: #FFF;
-  color: rgba(0, 0, 0, 0.54);
+  background: $o-bg-color-container;
+  color: $o-icon-color-primary;
   padding: 6px 12px 8px;
 
   &:last-child {
@@ -84,7 +89,7 @@
   }
 
   &:hover {
-    background: #EFEFEF;
+    background: $o-bg-color-container-hover;
     color: #07C160;
   }
 }

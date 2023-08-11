@@ -1,5 +1,6 @@
 import { WeElement, render, h, tag } from 'omi'
-
+// 提前使用最新版本注册组件
+import '@omiu/transition'
 import { hashChange } from 'omi-router'
 import { registerRouting } from './router'
 
@@ -7,7 +8,7 @@ import { showLoading, hideLoading } from '@omiu/toast'
 
 import * as css from './index.scss'
 
-//提前使用最新版本注册组件
+// 提前使用最新版本注册组件
 import '@omiu/popover'
 import '@omiu/icon/delete'
 import '@omiu/icon/insert-link'
@@ -23,7 +24,6 @@ import '@omiu/icon/dashboard'
 import '@omiu/icon/ac-unit'
 import '@omiu/icon/people-alt'
 import '@omiu/icon/pie-chart'
-import '@omiu/transition'
 import '@omiu/icon/edit'
 import '@omiu/icon/account-box'
 
@@ -35,7 +35,7 @@ import { tw, sheet } from 'omi-twind'
 import Store from './store'
 
 const fadeCSS = `.fade-leave-to,
-.fade-enter {
+.fade-enter-from {
   opacity: 0;
   transform: translateX(15px);
 }
@@ -94,7 +94,8 @@ export default class extends WeElement {
     clearTimeout(this.transitionTimeout)
     this.data.tagName = tagName
     this.update()
-    await this.transition.enter()
+    // update 会执行 enter 动画所以手动enter没有必要
+    // await this.transition.enter()
     hideLoading()
 
     this.store.containerEl.scrollTop = 0

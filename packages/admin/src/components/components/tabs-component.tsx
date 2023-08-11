@@ -38,7 +38,7 @@ export default class extends WeElement<Props> {
           code={`
 \`\`\`jsx
 <o-tabs
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -47,7 +47,7 @@ export default class extends WeElement<Props> {
         >
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
           </div>
@@ -60,7 +60,7 @@ export default class extends WeElement<Props> {
 \`\`\`jsx
 <o-tabs
   type="card"
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -68,7 +68,7 @@ export default class extends WeElement<Props> {
           style={gridStyle}
         >
           <div slot="demo" class={tw`px-5 py-5`}>
-            <o-tabs type="card" list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]} activeIndex={0}>
+            <o-tabs type="card" tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]} activeIndex={0}>
             </o-tabs>
           </div>
         </code-demo>
@@ -81,7 +81,7 @@ export default class extends WeElement<Props> {
 <o-tabs
   addable
   onAddIconClick={this.onAddIconClick}
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -91,7 +91,7 @@ export default class extends WeElement<Props> {
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
               addable
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
 
@@ -107,7 +107,7 @@ export default class extends WeElement<Props> {
   addable
   onAddIconClick={this.onAddIconClick}
   type="card"
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -119,7 +119,7 @@ export default class extends WeElement<Props> {
             <o-tabs
               addable
               type="card"
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
 
@@ -135,7 +135,7 @@ export default class extends WeElement<Props> {
 \`\`\`jsx
 <o-tabs
   type="border-card"
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -145,7 +145,7 @@ export default class extends WeElement<Props> {
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
               type="border-card"
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
 
@@ -162,7 +162,7 @@ export default class extends WeElement<Props> {
 \`\`\`jsx
 <o-tabs
   position="right"
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -172,7 +172,7 @@ export default class extends WeElement<Props> {
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
               position="right"
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
 
@@ -190,7 +190,7 @@ export default class extends WeElement<Props> {
 \`\`\`jsx
 <o-tabs
   position="left"
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -200,7 +200,7 @@ export default class extends WeElement<Props> {
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
               position="left"
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
           </div>
@@ -215,7 +215,7 @@ export default class extends WeElement<Props> {
 <o-tabs
   type="border-card"
   position="bottom"
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -226,7 +226,7 @@ export default class extends WeElement<Props> {
             <o-tabs
               type="border-card"
               position="bottom"
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
 
@@ -238,11 +238,11 @@ export default class extends WeElement<Props> {
 
         <code-demo
           title="带 icon"
-          describe={'通过在 list 的 item 里加入 icon 属性来设置 icon'}
+          describe={'通过在 tabs 的 item 里加入 icon 属性来设置 icon'}
           code={`
 \`\`\`jsx
 <o-tabs
-  list={[
+  tabs={[
     { label: '用户管理', icon: 'accessible-rounded' },
     { label: '系统设置', icon: 'ac-unit-outlined' },
     { label: '权限管理中心', icon: 'accessible-rounded' }
@@ -255,7 +255,7 @@ export default class extends WeElement<Props> {
         >
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
-              list={[
+              tabs={[
                 { label: '用户管理', icon: 'accessible-rounded' },
                 { label: '系统设置', icon: 'ac-unit-outlined' },
                 { label: '权限管理中心', icon: 'accessible-rounded' }
@@ -272,7 +272,7 @@ export default class extends WeElement<Props> {
 \`\`\`jsx
 <o-tabs
   closable
-  list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+  tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
   activeIndex={0}>
 </o-tabs>
 \`\`\`
@@ -282,7 +282,7 @@ export default class extends WeElement<Props> {
           <div slot="demo" class={tw`px-5 py-5`}>
             <o-tabs
               closable
-              list={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
+              tabs={[{ label: '用户管理' }, { label: '系统设置' }, { label: '权限管理中心' }]}
               activeIndex={0}>
             </o-tabs>
           </div>
@@ -294,7 +294,7 @@ export default class extends WeElement<Props> {
           code={`
 \`\`\`jsx
 <o-tabs closable
-  list={[
+  tabs={[
     { label: '用户管理', icon: 'accessible-rounded' },
     { label: '系统设置', icon: 'ac-unit-outlined' },
     { label: '权限管理中心', icon: 'accessible-rounded' }
@@ -308,7 +308,7 @@ export default class extends WeElement<Props> {
           <div slot="demo" class={tw`px-5 py-5`}>
 
             <o-tabs closable
-              list={[
+              tabs={[
                 { label: '用户管理', icon: 'accessible-rounded' },
                 { label: '系统设置', icon: 'ac-unit-outlined' },
                 { label: '权限管理中心', icon: 'accessible-rounded' }

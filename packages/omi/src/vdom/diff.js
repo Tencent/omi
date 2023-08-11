@@ -1,8 +1,7 @@
 import { ATTR_KEY } from '../constants'
 import { isSameNodeType, isNamedNode } from './index'
-import { createNode, setAccessor } from '../dom/index'
+import { createNode, setAccessor, removeNode } from '../dom/index'
 import { camelCase, isArray, Fragment } from '../util'
-import { removeNode } from '../dom/index'
 import options from '../options'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */

@@ -22,6 +22,8 @@
   </head>
   <body style="background-color: #eee">
     <div class="demo-container">
+      <div class="label">Hover 触发子菜单</div>
+      <o-cascader expand-trigger="hover"  options=""></o-cascader>
       <div class="label">Click 触发子菜单</div>
       <o-cascader options=""></o-cascader>
       禁用
@@ -111,9 +113,12 @@
 
       // set default value
       const elements = document.getElementsByTagName('o-cascader')
-      Array.from(elements).map((el) =>
+      Array.from(elements).map((el) => {
+        el.addEventListener('change', e => {
+          console.log(e.detail)
+        })
         el.setAttribute('options', JSON.stringify(options))
-      )
+      })
     </script>
   </body>
 </html>

@@ -10,16 +10,20 @@
   overflow: auto;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .o-table-border {
   border: 1px solid #ebeef5;
 }
 
 .o-table-table {
   background: white;
-  width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
-  color: #606266;
+  color:$o-text-color-secondary;
+  table-layout: fixed;
 }
 
 .o-table-checkbox th:first-child,
@@ -32,11 +36,10 @@ th {
   text-align: left;
   vertical-align: middle;
   padding: 10px 10px 10px;
-  color: rgba(0, 0, 0, 0.54);
+  color: $o-text-color-primary;
   line-height: 1.3125rem;
   font-weight: 500;
-  background: #fafafa;
-  white-space: nowrap;
+  background: $o-bg-table-th;
 }
 
 //https://stackoverflow.com/questions/4654481/lock-table-cells-to-their-default-size-regardless-of-content
@@ -44,10 +47,10 @@ th,
 td {
   // 下面这些样式会让冻结失效
   // display: table-cell;
-  white-space: nowrap;
   font-size: 0.875rem;
   overflow: hidden;
   text-overflow: ellipsis;
+  // overflow-wrap: anywhere;
 }
 
 th.fixed-top {
@@ -104,14 +107,14 @@ tr:last-child {
 }
 
 tr:hover td {
-  background: #f5f5f5;
+  background: $o-bg-table-th;
 }
 
 td {
   text-align: left;
   vertical-align: middle;
   padding: 10px 10px 10px;
-  background: white;
+  background: $o-bg-color-container;
 }
 
 td.compact,
@@ -173,7 +176,7 @@ o-checkbox {
   transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.slide-fade-enter,
+.slide-fade-enter-from,
 .slide-fade-leave-to {
   transform: translateX(-40px);
   opacity: 0;

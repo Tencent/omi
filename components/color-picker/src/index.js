@@ -96,128 +96,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
-  \****************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".pickr {\n  position: relative;\n  overflow: visible;\n  transform: translateY(0); }\n  .pickr * {\n    box-sizing: border-box; }\n\n.pickr .pcr-button {\n  position: relative;\n  height: 2em;\n  width: 2em;\n  padding: 0.5em;\n  cursor: pointer;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  border-radius: 0.15em;\n  background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\" stroke=\"%2342445A\" stroke-width=\"5px\" stroke-linecap=\"round\"><path d=\"M45,45L5,5\"></path><path d=\"M45,5L5,45\"></path></svg>') no-repeat center;\n  background-size: 0;\n  transition: all 0.3s; }\n  .pickr .pcr-button::before {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 0.5em;\n    border-radius: 0.15em;\n    z-index: -1; }\n  .pickr .pcr-button::before {\n    z-index: initial; }\n  .pickr .pcr-button::after {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n    transition: background 0.3s;\n    background: currentColor;\n    border-radius: 0.15em; }\n  .pickr .pcr-button.clear {\n    background-size: 70%; }\n    .pickr .pcr-button.clear::before {\n      opacity: 0; }\n    .pickr .pcr-button.clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n  .pickr .pcr-button.disabled {\n    cursor: not-allowed; }\n\n.pickr input,\n.pickr button,\n.pcr-app input,\n.pcr-app button {\n  outline: none;\n  border: none;\n  -webkit-appearance: none; }\n  .pickr input:focus,\n  .pickr button:focus,\n  .pcr-app input:focus,\n  .pcr-app button:focus {\n    box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n\n.pcr-app {\n  position: fixed;\n  display: flex;\n  flex-direction: column;\n  z-index: 10000;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  box-shadow: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03);\n  width: 22.5em;\n  max-width: 95vw;\n  padding: 0.8em;\n  border-radius: 0.1em;\n  background: #fff;\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.3s;\n  left: 0;\n  top: 0; }\n  .pcr-app.visible {\n    visibility: visible;\n    opacity: 1; }\n\n.pcr-app .pcr-swatches {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 0.75em; }\n  .pcr-app .pcr-swatches.pcr-last {\n    margin: 0; }\n  @supports (display: grid) {\n    .pcr-app .pcr-swatches {\n      display: grid;\n      align-items: center;\n      justify-content: space-around;\n      grid-template-columns: repeat(auto-fit, 1.75em); } }\n  .pcr-app .pcr-swatches > button {\n    position: relative;\n    width: 1.75em;\n    height: 1.75em;\n    border-radius: 0.15em;\n    cursor: pointer;\n    margin: 2.5px;\n    flex-shrink: 0;\n    justify-self: center;\n    transition: all 0.15s;\n    overflow: hidden;\n    background: transparent;\n    z-index: 1; }\n    .pcr-app .pcr-swatches > button::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 6px;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-swatches > button::after {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: currentColor;\n      border: 1px solid rgba(0, 0, 0, 0.05);\n      border-radius: 0.15em;\n      box-sizing: border-box; }\n    .pcr-app .pcr-swatches > button:hover {\n      filter: brightness(1.05); }\n\n.pcr-app .pcr-interaction {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  margin: 0 -0.2em 0 -0.2em; }\n  .pcr-app .pcr-interaction > * {\n    margin: 0 0.2em; }\n  .pcr-app .pcr-interaction input {\n    letter-spacing: 0.07em;\n    font-size: 0.75em;\n    text-align: center;\n    cursor: pointer;\n    color: #75797e;\n    background: #f1f3f4;\n    border-radius: 0.15em;\n    transition: all 0.15s;\n    padding: 0.45em 0.5em;\n    margin-top: 0.75em; }\n    .pcr-app .pcr-interaction input:hover {\n      filter: brightness(0.975); }\n    .pcr-app .pcr-interaction input:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(66, 133, 244, 0.75); }\n  .pcr-app .pcr-interaction .pcr-result {\n    color: #75797e;\n    text-align: left;\n    flex: 1 1 8em;\n    min-width: 8em;\n    transition: all 0.2s;\n    border-radius: 0.15em;\n    background: #f1f3f4;\n    cursor: text; }\n    .pcr-app .pcr-interaction .pcr-result::selection {\n      background: #4285f4;\n      color: #fff; }\n  .pcr-app .pcr-interaction .pcr-type.active {\n    color: #fff;\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear,\n  .pcr-app .pcr-interaction .pcr-save {\n    color: #fff;\n    width: auto; }\n  .pcr-app .pcr-interaction .pcr-save,\n  .pcr-app .pcr-interaction .pcr-clear {\n    color: #fff; }\n    .pcr-app .pcr-interaction .pcr-save:hover,\n    .pcr-app .pcr-interaction .pcr-clear:hover {\n      filter: brightness(0.925); }\n  .pcr-app .pcr-interaction .pcr-save {\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear {\n    background: #f44250; }\n    .pcr-app .pcr-interaction .pcr-clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(244, 66, 80, 0.75); }\n\n.pcr-app .pcr-selection {\n  display: flex;\n  justify-content: space-between;\n  flex-grow: 1; }\n  .pcr-app .pcr-selection .pcr-picker {\n    position: absolute;\n    height: 18px;\n    width: 18px;\n    border: 2px solid #fff;\n    border-radius: 100%;\n    user-select: none; }\n  .pcr-app .pcr-selection .pcr-color-preview {\n    position: relative;\n    z-index: 1;\n    width: 2em;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    margin-right: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-preview::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 0.5em;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color {\n      cursor: pointer;\n      transition: background-color 0.3s, box-shadow 0.3s;\n      border-radius: 0.15em 0.15em 0 0;\n      z-index: 2; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      border-radius: 0 0 0.15em 0.15em; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color,\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      background: currentColor;\n      width: 100%;\n      height: 50%; }\n  .pcr-app .pcr-selection .pcr-color-palette,\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    position: relative;\n    user-select: none;\n    display: flex;\n    flex-direction: column;\n    cursor: grab;\n    cursor: -moz-grab;\n    cursor: -webkit-grab; }\n    .pcr-app .pcr-selection .pcr-color-palette:active,\n    .pcr-app .pcr-selection .pcr-color-chooser:active,\n    .pcr-app .pcr-selection .pcr-color-opacity:active {\n      cursor: grabbing;\n      cursor: -moz-grabbing;\n      cursor: -webkit-grabbing; }\n  .pcr-app .pcr-selection .pcr-color-palette {\n    width: 100%;\n    height: 8em;\n    z-index: 1; }\n    .pcr-app .pcr-selection .pcr-color-palette .pcr-palette {\n      flex-grow: 1;\n      border-radius: 0.15em; }\n      .pcr-app .pcr-selection .pcr-color-palette .pcr-palette::before {\n        position: absolute;\n        content: '';\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n        background-size: 0.5em;\n        border-radius: 0.15em;\n        z-index: -1; }\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    margin-left: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-picker,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-picker {\n      left: 50%;\n      transform: translateX(-50%); }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n      width: 8px;\n      flex-grow: 1;\n      border-radius: 50em; }\n  .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider {\n    background: linear-gradient(to bottom, red, yellow, lime, cyan, blue, magenta, red); }\n  .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n    background: linear-gradient(to bottom, transparent, black), url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 100%, 50%; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/scss/pickr.scss":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/scss/pickr.scss ***!
-  \*********************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".pickr {\n  position: relative;\n  overflow: visible;\n  transform: translateY(0); }\n  .pickr * {\n    box-sizing: border-box; }\n\n.pickr .pcr-button {\n  position: relative;\n  height: 2em;\n  width: 2em;\n  padding: 0.5em;\n  cursor: pointer;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  border-radius: 0.15em;\n  background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 50 50\" stroke=\"%2342445A\" stroke-width=\"5px\" stroke-linecap=\"round\"><path d=\"M45,45L5,5\"></path><path d=\"M45,5L5,45\"></path></svg>') no-repeat center;\n  background-size: 0;\n  transition: all 0.3s; }\n  .pickr .pcr-button::before {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 0.5em;\n    border-radius: 0.15em;\n    z-index: -1; }\n  .pickr .pcr-button::before {\n    z-index: initial; }\n  .pickr .pcr-button::after {\n    position: absolute;\n    content: '';\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n    transition: background 0.3s;\n    background: currentColor;\n    border-radius: 0.15em; }\n  .pickr .pcr-button.clear {\n    background-size: 70%; }\n    .pickr .pcr-button.clear::before {\n      opacity: 0; }\n    .pickr .pcr-button.clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n  .pickr .pcr-button.disabled {\n    cursor: not-allowed; }\n\n.pickr input,\n.pickr button,\n.pcr-app input,\n.pcr-app button {\n  outline: none;\n  border: none;\n  -webkit-appearance: none; }\n  .pickr input:focus,\n  .pickr button:focus,\n  .pcr-app input:focus,\n  .pcr-app button:focus {\n    box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px currentColor; }\n\n.pcr-app {\n  position: fixed;\n  display: flex;\n  flex-direction: column;\n  z-index: 10000;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  box-shadow: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03);\n  width: 22.5em;\n  max-width: 95vw;\n  padding: 0.8em;\n  border-radius: 0.1em;\n  background: #fff;\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.3s;\n  left: 0;\n  top: 0; }\n  .pcr-app.visible {\n    visibility: visible;\n    opacity: 1; }\n\n.pcr-app .pcr-swatches {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 0.75em; }\n  .pcr-app .pcr-swatches.pcr-last {\n    margin: 0; }\n  @supports (display: grid) {\n    .pcr-app .pcr-swatches {\n      display: grid;\n      align-items: center;\n      justify-content: space-around;\n      grid-template-columns: repeat(auto-fit, 1.75em); } }\n  .pcr-app .pcr-swatches > button {\n    position: relative;\n    width: 1.75em;\n    height: 1.75em;\n    border-radius: 0.15em;\n    cursor: pointer;\n    margin: 2.5px;\n    flex-shrink: 0;\n    justify-self: center;\n    transition: all 0.15s;\n    overflow: hidden;\n    background: transparent;\n    z-index: 1; }\n    .pcr-app .pcr-swatches > button::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 6px;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-swatches > button::after {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: currentColor;\n      border: 1px solid rgba(0, 0, 0, 0.05);\n      border-radius: 0.15em;\n      box-sizing: border-box; }\n    .pcr-app .pcr-swatches > button:hover {\n      filter: brightness(1.05); }\n\n.pcr-app .pcr-interaction {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  margin: 0 -0.2em 0 -0.2em; }\n  .pcr-app .pcr-interaction > * {\n    margin: 0 0.2em; }\n  .pcr-app .pcr-interaction input {\n    letter-spacing: 0.07em;\n    font-size: 0.75em;\n    text-align: center;\n    cursor: pointer;\n    color: #75797e;\n    background: #f1f3f4;\n    border-radius: 0.15em;\n    transition: all 0.15s;\n    padding: 0.45em 0.5em;\n    margin-top: 0.75em; }\n    .pcr-app .pcr-interaction input:hover {\n      filter: brightness(0.975); }\n    .pcr-app .pcr-interaction input:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(66, 133, 244, 0.75); }\n  .pcr-app .pcr-interaction .pcr-result {\n    color: #75797e;\n    text-align: left;\n    flex: 1 1 8em;\n    min-width: 8em;\n    transition: all 0.2s;\n    border-radius: 0.15em;\n    background: #f1f3f4;\n    cursor: text; }\n    .pcr-app .pcr-interaction .pcr-result::selection {\n      background: #4285f4;\n      color: #fff; }\n  .pcr-app .pcr-interaction .pcr-type.active {\n    color: #fff;\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear,\n  .pcr-app .pcr-interaction .pcr-save {\n    color: #fff;\n    width: auto; }\n  .pcr-app .pcr-interaction .pcr-save,\n  .pcr-app .pcr-interaction .pcr-clear {\n    color: #fff; }\n    .pcr-app .pcr-interaction .pcr-save:hover,\n    .pcr-app .pcr-interaction .pcr-clear:hover {\n      filter: brightness(0.925); }\n  .pcr-app .pcr-interaction .pcr-save {\n    background: #4285f4; }\n  .pcr-app .pcr-interaction .pcr-clear {\n    background: #f44250; }\n    .pcr-app .pcr-interaction .pcr-clear:focus {\n      box-shadow: 0 0 0 1px #f1f3f4, 0 0 0 3px rgba(244, 66, 80, 0.75); }\n\n.pcr-app .pcr-selection {\n  display: flex;\n  justify-content: space-between;\n  flex-grow: 1; }\n  .pcr-app .pcr-selection .pcr-picker {\n    position: absolute;\n    height: 18px;\n    width: 18px;\n    border: 2px solid #fff;\n    border-radius: 100%;\n    user-select: none; }\n  .pcr-app .pcr-selection .pcr-color-preview {\n    position: relative;\n    z-index: 1;\n    width: 2em;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    margin-right: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-preview::before {\n      position: absolute;\n      content: '';\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n      background-size: 0.5em;\n      border-radius: 0.15em;\n      z-index: -1; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color {\n      cursor: pointer;\n      transition: background-color 0.3s, box-shadow 0.3s;\n      border-radius: 0.15em 0.15em 0 0;\n      z-index: 2; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      border-radius: 0 0 0.15em 0.15em; }\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-last-color,\n    .pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {\n      background: currentColor;\n      width: 100%;\n      height: 50%; }\n  .pcr-app .pcr-selection .pcr-color-palette,\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    position: relative;\n    user-select: none;\n    display: flex;\n    flex-direction: column;\n    cursor: grab;\n    cursor: -moz-grab;\n    cursor: -webkit-grab; }\n    .pcr-app .pcr-selection .pcr-color-palette:active,\n    .pcr-app .pcr-selection .pcr-color-chooser:active,\n    .pcr-app .pcr-selection .pcr-color-opacity:active {\n      cursor: grabbing;\n      cursor: -moz-grabbing;\n      cursor: -webkit-grabbing; }\n  .pcr-app .pcr-selection .pcr-color-palette {\n    width: 100%;\n    height: 8em;\n    z-index: 1; }\n    .pcr-app .pcr-selection .pcr-color-palette .pcr-palette {\n      flex-grow: 1;\n      border-radius: 0.15em; }\n      .pcr-app .pcr-selection .pcr-color-palette .pcr-palette::before {\n        position: absolute;\n        content: '';\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background: url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n        background-size: 0.5em;\n        border-radius: 0.15em;\n        z-index: -1; }\n  .pcr-app .pcr-selection .pcr-color-chooser,\n  .pcr-app .pcr-selection .pcr-color-opacity {\n    margin-left: 0.75em; }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-picker,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-picker {\n      left: 50%;\n      transform: translateX(-50%); }\n    .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider,\n    .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n      width: 8px;\n      flex-grow: 1;\n      border-radius: 50em; }\n  .pcr-app .pcr-selection .pcr-color-chooser .pcr-slider {\n    background: linear-gradient(to bottom, red, yellow, lime, cyan, blue, magenta, red); }\n  .pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {\n    background: linear-gradient(to bottom, transparent, black), url('data:image/svg+xml;utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2 2\"><path fill=\"white\" d=\"M1,0H2V1H1V0ZM0,1H1V2H0V1Z\"/><path fill=\"gray\" d=\"M0,0H1V1H0V0ZM1,1H2V2H1V1Z\"/></svg>');\n    background-size: 100%, 50%; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/index.scss ***!
+  \*****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
+throw new Error("Module build failed (from ./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js):\nValidationError: Invalid options object. Sass Loader has been initialized using an options object that does not match the API schema.\n - options has an unknown property 'includePaths'. These properties are valid:\n   object { implementation?, sassOptions?, additionalData?, sourceMap?, webpackImporter? }\n    at validate (/Users/dntzhang/Documents/github/omi/components/color-picker/node_modules/_schema-utils@3.1.1@schema-utils/dist/validate.js:105:11)\n    at Object.loader (/Users/dntzhang/Documents/github/omi/components/color-picker/node_modules/_sass-loader@10.3.1@sass-loader/dist/index.js:30:29)");
 
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
+/***/ }),
 
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js?!./src/scss/pickr.scss":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js??ref--4-3!./src/scss/pickr.scss ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
+throw new Error("Module build failed (from ./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js):\nValidationError: Invalid options object. Sass Loader has been initialized using an options object that does not match the API schema.\n - options has an unknown property 'includePaths'. These properties are valid:\n   object { implementation?, sassOptions?, additionalData?, sourceMap?, webpackImporter? }\n    at validate (/Users/dntzhang/Documents/github/omi/components/color-picker/node_modules/_schema-utils@3.1.1@schema-utils/dist/validate.js:105:11)\n    at Object.loader (/Users/dntzhang/Documents/github/omi/components/color-picker/node_modules/_sass-loader@10.3.1@sass-loader/dist/index.js:30:29)");
 
 /***/ }),
 
@@ -229,7 +126,11 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+        var result = __webpack_require__(/*! !../node_modules/_css-loader@1.0.1@css-loader!../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js??ref--4-3!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js?!./src/index.scss");
+
+        if (result && result.__esModule) {
+            result = result.default;
+        }
 
         if (typeof result === "string") {
             module.exports = result;
@@ -1292,6 +1193,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseToHSV = exports.hsvToHsl = exports.hsvToCmyk = exports.hsvToHex = exports.hsvToRgb = void 0;
 // Shorthands
 var min = Math.min, max = Math.max, floor = Math.floor, round = Math.round;
 /**
@@ -1574,6 +1476,7 @@ exports.parseToHSV = parseToHSV;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HSVaColor = void 0;
 var color_1 = __webpack_require__(/*! ./color */ "./src/js/utils/color.js");
 /**
  * Simple class which holds the properties
@@ -1658,6 +1561,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.adjustableInputNumbers = exports.eventPath = exports.createFromTemplate = exports.removeAttribute = exports.createElementFromString = exports.off = exports.on = void 0;
 /**
  * Add event(s) to element(s).
  * @param elements DOM-Elements
@@ -1841,7 +1745,11 @@ exports.adjustableInputNumbers = adjustableInputNumbers;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.1@resolve-url-loader!../../node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js??ref--4-3!./pickr.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.1@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/scss/pickr.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_resolve-url-loader@3.1.4@resolve-url-loader!../../node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js??ref--4-3!./pickr.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@10.3.1@sass-loader/dist/cjs.js?!./src/scss/pickr.scss");
+
+        if (result && result.__esModule) {
+            result = result.default;
+        }
 
         if (typeof result === "string") {
             module.exports = result;

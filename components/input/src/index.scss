@@ -27,8 +27,8 @@
   box-sizing: border-box;
   width: 100%;
   font-size: inherit;
-  color: #606266;
-  background-color: #fff;
+  color: $o-icon-color-primary;
+  background-color: $o-bg-color-container;
   background-image: none;
   border: 1px solid #dcdfe6;
   border-radius: 4px;
@@ -162,7 +162,7 @@
 }
 
 .o-input .o-input__count .o-input__count-inner {
-  background: #fff;
+  background: $o-bg-color-container;
   line-height: initial;
   display: inline-block;
   padding: 0 5px;
@@ -170,13 +170,13 @@
 
 .o-input__inner {
   -webkit-appearance: none;
-  background-color: #fff;
+  background-color: $o-bg-color-container;
   background-image: none;
   border-radius: 4px;
   border: 1px solid #dcdfe6;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: #606266;
+  color: $o-icon-color-primary;
   display: inline-block;
   font-size: inherit;
   height: 40px;
@@ -286,7 +286,7 @@
 }
 
 .o-input.is-disabled .o-input__inner {
-  background-color: #f5f7fa;
+  background-color: $o-bg-color-secondarycontainer;
   border-color: #e4e7ed;
   color: #c0c4cc;
   cursor: not-allowed;

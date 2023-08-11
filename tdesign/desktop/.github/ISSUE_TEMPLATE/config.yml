@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 使用 issue-helper 新建
+    url: https://Tencent.github.io/tdesign/issue-helper/?lang=zh-CN&repo=Tencent/tdesign-omi
+    about: 使用 https://Tencent.github.io/tdesign/issue-helper/ 创建 issue，其中包含 bug 和 feature，表单提交更加严格。

@@ -1,0 +1,6 @@
+[submodule "tdesign/desktop/src/_common"]
+	path = tdesign/desktop/src/_common
+	url = https://github.com/Tencent/tdesign-common.git
+[submodule "tdesign/desktop/src/_commom"]
+	path = tdesign/desktop/src/_commom
+	url = https://github.com/Tencent/tdesign-common.git

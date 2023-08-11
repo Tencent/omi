@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 
 interface Props {
-  list?: any[]
+  tabs?: any[]
   activeIndex: number
   type?: 'card' | 'border-card'
   position?: 'left' | 'right' | 'top' | 'bottom'
@@ -39,7 +39,7 @@ export default class Tabs extends WeElement<Props>{
   }
 
   static propTypes = {
-    list: Array,
+    tabs: Array,
     activeIndex: Number,
     type: String,
     position: String,
@@ -53,7 +53,7 @@ export default class Tabs extends WeElement<Props>{
   onTabClick = (evt, index) => {
     this.setActiveBar(evt.currentTarget, index)
     this.fire('change', {
-      tab: this.props.list[index],
+      tab: this.props.tabs[index],
       index: index
     })
   }
@@ -66,7 +66,7 @@ export default class Tabs extends WeElement<Props>{
     if (index === 0) {
       this._x = 0
       this._width -= 20
-    } else if (index === this.props.list.length - 1) {
+    } else if (index === this.props.tabs.length - 1) {
       this._x += 20
       this._width -= 20
     } else {
@@ -89,7 +89,7 @@ export default class Tabs extends WeElement<Props>{
   }
 
   removeTab(index) {
-    const tab = this.props.list.splice(index, 1)[0]
+    const tab = this.props.tabs.splice(index, 1)[0]
     if (index <= this.props.activeIndex) {
       this.props.activeIndex -= 1
     }
@@ -107,7 +107,7 @@ export default class Tabs extends WeElement<Props>{
   }
 
   addTab(tab) {
-    this.props.list.push(tab)
+    this.props.tabs.push(tab)
     this.forceUpdate()
   }
 
@@ -147,7 +147,7 @@ export default class Tabs extends WeElement<Props>{
                     [`is-${props.position}`]: props.position
                   })} style={activeBarStyle}></div>}
 
-                {props.list.map((tab, index) => {
+                {props.tabs.map((tab, index) => {
                   this._tempTagName = 'o-icon-' + tab.icon
                   return <div ref={e => { this['$tab' + index] = e }} role="tab" onClick={evt => props.activeIndex !== index && this.onTabClick(evt, index)} tabindex={props.activeIndex === index ? '0' : -1}
                     {...extractClass(props, 'o-tabs__item', {

@@ -1,9 +1,11 @@
 import { cssToDom, isArray, hyphenate, getValByPath, capitalize } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
+import 'weakmap-polyfill'
 
 let id = 0
 
+const adoptedStyleSheetsMap = new WeakMap()
 export default class WeElement extends HTMLElement {
   static is = 'WeElement'
 
@@ -63,8 +65,10 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (this.constructor.elementStyles) {
-      shadowRoot.adoptedStyleSheets = this.constructor.elementStyles
+    if (adoptedStyleSheetsMap.has(this.constructor)) {
+      shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(
+        this.constructor
+      )
     } else {
       const css = this.constructor.css
       if (css) {
@@ -92,7 +96,10 @@ export default class WeElement extends HTMLElement {
         } else {
           shadowRoot.adoptedStyleSheets = [css]
         }
-        this.constructor.elementStyles = shadowRoot.adoptedStyleSheets
+        adoptedStyleSheetsMap.set(
+          this.constructor,
+          shadowRoot.adoptedStyleSheets
+        )
       }
     }
 
@@ -139,7 +146,13 @@ export default class WeElement extends HTMLElement {
     //fix null !== undefined
     if (this._customStyleContent != this.props.css) {
       this._customStyleContent = this.props.css
-      this._customStyleElement.textContent = this._customStyleContent
+      if (this._customStyleElement) {
+        this._customStyleElement.textContent = this._customStyleContent
+      } else {
+        // 当 prop css 开始没有值，后来有值
+        this._customStyleElement = cssToDom(this.props.css)
+        this.shadowRoot.appendChild(this._customStyleElement)
+      }
     }
     this.attrsToProps(ignoreAttrs)
 
@@ -233,12 +246,13 @@ export default class WeElement extends HTMLElement {
             if (val[0] === ':') {
               ele.props[key] = getValByPath(val.substr(1), Omi.$)
             } else {
-              ele.props[key] = JSON.parse(
-                val
-                  .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
-                  .replace(/'([\s\S]*?)'/g, '"$1"')
-                  .replace(/,(\s*})/g, '$1')
-              )
+              try {
+                ele.props[key] = JSON.parse(val)
+              } catch (e) {
+                console.warn(
+                  `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`
+                )
+              }
             }
             break
         }

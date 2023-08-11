@@ -1,6 +1,6 @@
 {
   "name": "@omiu/table",
-  "version": "0.0.22",
+  "version": "0.0.25",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@omiu/link": "^0.0.4",
     "@omiu/switch": "^0.0.2",
-    "@omiu/tag": "^0.0.6",
+    "@omiu/tag": "^0.0.7",
     "@omiu/tooltip": "^0.0.1",
     "@open-wc/testing": "^2.5.33",
     "@types/node": "^16.4.13",

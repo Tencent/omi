@@ -1,12 +1,14 @@
 import { tag, WeElement, h, classNames } from 'omi'
-import { createPopper } from '@popperjs/core'
+import { createPopper, Instance } from '@popperjs/core'
+import type { Placement } from '@popperjs/core'
 import '@omiu/transition'
 import * as css from './index.scss'
 
 interface Props {
   effect?: string
-  position?: string
-  trigger?: 'click' | 'hover' | 'manual'
+  position?: Placement
+  // all 是同时绑定 click 和 hover，这样移动端也支持
+  trigger?: 'click' | 'hover' | 'manual' | 'all'
   block?: boolean
 }
 
@@ -32,6 +34,11 @@ export default class Popover extends WeElement<Props> {
     block: Boolean
   }
 
+  appear?: boolean
+  disappear?: boolean
+  popper?: Instance | null
+  _onDocumentMouseDown?: (evt: MouseEvent) => void
+
   installed() {
     window.addEventListener('click', () => {
       // 手动模式
@@ -47,10 +54,11 @@ export default class Popover extends WeElement<Props> {
     document.addEventListener('mousedown', this._onDocumentMouseDown)
   }
 
-  onDocumentMouseDown(e) {
+  onDocumentMouseDown(evt: MouseEvent) {
     let isShowEl = false
-    // safari版本14.1.2 不支持 e.path
-    const path = e.path || (event.composedPath && event.composedPath());
+    // safari版本14.1.2 不支持 evt.path
+    // @ts-ignore
+    const path = evt.path || (evt.composedPath && evt.composedPath())
     for (let i = 0, len = path.length; i < len; i++) {
       if (path[i] === this.rootNode) {
         isShowEl = true
@@ -61,20 +69,17 @@ export default class Popover extends WeElement<Props> {
       this.isShow = false
     }
 
-    this.update()
-
+    // 防止立刻消失导致移动端弹出的面板 click 事件不触发
+    setTimeout(() => {
+      this.update()
+    })
   }
 
-  onEnter = (evt) => {
+  onEnter = (evt: Event) => {
     clearTimeout(this.timeout)
-    this.isShow = !this.isShow
-    if (this.isShow) {
-      this.appear = true
-      this.disappear = false
-    } else {
-      this.appear = false
-      this.disappear = true
-    }
+    this.isShow = true
+    this.appear = true
+    this.disappear = false
 
     this.update()
     //html 模式过滤文本
@@ -84,6 +89,7 @@ export default class Popover extends WeElement<Props> {
       .find((node) => node.nodeType !== 3)
 
     this.popper && this.popper.destroy()
+    // @ts-ignore
     this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.position,
       modifiers: [
@@ -104,7 +110,7 @@ export default class Popover extends WeElement<Props> {
     evt.stopPropagation()
   }
 
-  timeout
+  timeout?: ReturnType<typeof setTimeout>
 
   onLeave = () => {
     this.timeout = setTimeout(() => {
@@ -113,7 +119,7 @@ export default class Popover extends WeElement<Props> {
     }, 600)
   }
 
-  onEnterPopover = (evt) => {
+  onEnterPopover = (evt: Event) => {
     clearTimeout(this.timeout)
     evt.stopPropagation()
   }
@@ -141,17 +147,21 @@ export default class Popover extends WeElement<Props> {
 
   isShow = false
 
-  render(props) {
+  render(props: Props) {
     const targetEvents: {
-      onMouseEnter: () => void
-      onMouseLeave: () => void
-      onClick: () => void
+      onMouseEnter?: (evt: Event) => void
+      onMouseLeave?: (evt: Event) => void
+      onClick?: (evt: Event) => void
     } = {
-      onMouseEnter: null,
-      onMouseLeave: null,
-      onClick: null,
+      onMouseEnter: undefined,
+      onMouseLeave: undefined,
+      onClick: undefined,
     }
-    if (props.trigger === 'click') {
+    if (props.trigger === 'all') {
+      targetEvents.onClick = this.onEnter
+      targetEvents.onMouseEnter = this.onEnter
+      targetEvents.onMouseLeave = this.onLeave
+    } else if (props.trigger === 'click') {
       targetEvents.onClick = this.onEnter
     } else if (props.trigger === 'hover') {
       targetEvents.onMouseEnter = this.onEnter

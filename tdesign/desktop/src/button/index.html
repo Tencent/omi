@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html theme-mode="light">
+
+<head>
+  <meta charset="UTF-8" lang="zh" />
+  <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tdesign Button</title>
+  <script type="module" src="./global.ts"></script>
+  <script type="module" src="./index.tsx"></script>
+</head>
+
+<body>
+
+
+  <div>
+    <t-button id="tButton" block>Test</t-button>
+  </div>
+
+  <label>
+    <input id="block" type="checkbox" />block
+  </label>
+  <label>
+    <input id="loading" type="checkbox" />loading
+  </label>
+
+</body>
+
+<script>
+
+  const getElementById = (id) => {
+    return document.getElementById(id);
+  }
+
+  const setElementAttribute = (id) => {
+    return (attr, value) => {
+      getElementById(id).setAttribute(attr, value)
+    }
+  }
+
+  const tButton = setElementAttribute('tButton')
+
+
+  document.getElementById('block').onchange = (e) => {
+    const checked = e.target.checked;
+    tButton('block', checked)
+  }
+
+  document.getElementById('loading').onchange = (e) => {
+    const checked = e.target.checked;
+    tButton('loading', checked)
+  }
+</script>
+
+</html>

@@ -1,7 +1,7 @@
-@import '@omiu/common/scss/theme.scss';
+@import '../../common/scss/theme';
 
 div {
-  color: rgba(0, 0, 0, 0.87);
+  color: $o-text-color-primary;
 }
 
 * {
@@ -42,7 +42,7 @@ button {
   border-radius: 3px;
   cursor: pointer;
   outline: none;
-
+  color:$o-text-color-primary;
   border-radius: 50%;
 }
 
@@ -85,4 +85,5 @@ button:disabled {
 svg {
   position: relative;
   top: 2px;
+  color:$o-text-color-primary;
 }

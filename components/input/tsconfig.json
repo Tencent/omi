@@ -20,7 +20,6 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "target": "es5",
   },
   "include": [
     "src/**/*.ts",

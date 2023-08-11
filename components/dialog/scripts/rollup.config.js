@@ -1,5 +1,5 @@
 import nodeResolve from "rollup-plugin-node-resolve";
-
+import postcss from "rollup-plugin-postcss"
 import typescript from 'rollup-plugin-typescript';
 import scss from 'rollup-plugin-scss'
 import commonjs from '@rollup/plugin-commonjs';
@@ -12,6 +12,7 @@ const licensePlugin = license({
 
 export default {
   input: "src/index.tsx",
+  target: "es2020",
   output: {
     format: "es",
     file: "./src/index.esm.js",
@@ -23,11 +24,8 @@ export default {
     nodeResolve({
     	main: true
     }),
-    scss({
-      //output: false,
-      output: function (styles, styleNodes) {
-        fs.writeFileSync('./src/index.css', styles)
-      },
+    postcss({
+      inject:false
     }),
     typescript(),
     commonjs(),

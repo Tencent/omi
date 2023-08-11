@@ -1,0 +1,60 @@
+{
+  "name": "@omiu/kanban",
+  "description": "Description for component.",
+  "version": "0.0.1",
+  "docsExtend": {
+    "cnName": "看板",
+    "cnDescription": "用于拖拽任务",
+    "codepen": "",
+    "codepenHeight": 351,
+    "codepenDefaultTab": "html,result"
+  },
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "scripts": {
+    "start": "npm run watch & vite",
+    "clean": "rm -rf dist",
+    "dev": "npm run start",
+    "build": "vite build && npm run build:scss",
+    "build:demo": "vite build",
+    "build:scss": "sass src/index.scss src/index.css",
+    "docs": "esno ./scripts/docs-gen.ts",
+    "watch": "sass --watch src/index.scss src/index.css --no-source-map",
+    "pretest": "npm run build",
+    "test": "web-test-runner \"test/*.js\" --node-resolve",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "dependencies": {
+    "@omiu/button": "latest",
+    "@omiu/card": "^0.0.9",
+    "@omiu/common": "latest",
+    "@omiu/dialog": "latest",
+    "@omiu/icon": "^0.0.4",
+    "@omiu/input": "latest",
+    "omi": "latest",
+    "sortablejs": "^1.15.0"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.5.33",
+    "@types/node": "^16.9.1",
+    "@types/sortablejs": "^1.13.0",
+    "@web/test-runner": "^0.13.17",
+    "esno": "^0.9.1",
+    "sass": "^1.41.0",
+    "typescript": "^4.4.3",
+    "vite": "^2.9.14"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "omiu",
+    "form"
+  ]
+}

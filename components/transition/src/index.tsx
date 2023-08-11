@@ -11,11 +11,7 @@
 //todo duration and delay support
 
 import { tag, WeElement } from 'omi'
-import * as _domReady from 'dready'
-// tslint:disable-next-line:no-duplicate-imports
-import { default as _rollupDomReady } from 'dready'
-
-const domReady = _rollupDomReady || _domReady
+import { domReady } from 'dready'
 
 interface Props {
   name: string
@@ -89,21 +85,21 @@ export default class Transition extends WeElement<Props>{
         this.fire('before-enter')
         el.classList.remove(this.props.name + '-leave-active')
         el.classList.remove(this.props.name + '-leave-to')
-        el.classList.add(this.props.name + '-enter')
-        el.classList.add(this.props.name + '-enter-active')
+        el.classList.add(this.props.name + '-enter-from')
 
         this.callback = function () {
           el.classList.remove(this.props.name + '-enter-active')
           this.fire('after-enter')
-
           this._show = true
           resolve()
         }.bind(this)
+
         this.once('transitionend', this.callback)
         this.once('animationend', this.callback)
 
         window.setTimeout(function () {
-          el.classList.remove(this.props.name + '-enter')
+          el.classList.add(this.props.name + '-enter-active')
+          el.classList.remove(this.props.name + '-enter-from')
           el.classList.add(this.props.name + '-enter-to')
           this.fire('enter')
         }.bind(this), this.props.delay)
@@ -118,27 +114,24 @@ export default class Transition extends WeElement<Props>{
         this.fire('before-leave')
         el.classList.remove(this.props.name + '-enter-active')
         el.classList.remove(this.props.name + '-enter-to')
-        el.classList.add(this.props.name + '-leave')
-        el.classList.add(this.props.name + '-leave-active')
+        el.classList.add(this.props.name + '-leave-from')
 
         this.callback = function (e) {
-
           el.classList.remove(this.props.name + '-leave-active')
-
           this.fire('after-leave')
-
           this._show = false
           if (this.props.autoRemove && this.parentNode) {
             this.parentNode.removeChild(this)
           }
-
           resolve()
         }.bind(this)
+
         this.once('transitionend', this.callback)
         this.once('animationend', this.callback)
 
         window.setTimeout(function () {
-          el.classList.remove(this.props.name + '-leave')
+          el.classList.add(this.props.name + '-leave-active')
+          el.classList.remove(this.props.name + '-leave-from')
           el.classList.add(this.props.name + '-leave-to')
           this.fire('leave')
         }.bind(this), this.props.delay)

@@ -1,10 +1,11 @@
 {
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",
-    "prettier": "2.3.1",
     "chalk": "^4.1.2",
     "inquirer": "^8.2.2",
     "ora": "^5.4.1"
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.7.1"
   },
   "scripts": {
     "prettier:check": "prettier --check **/*.{js,jsx,ts,tsx} ",
