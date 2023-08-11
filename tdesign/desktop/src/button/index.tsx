@@ -1,8 +1,10 @@
-import { h, OmiProps, tag, WeElement, render } from 'omi';
-import css from './style';
-import { ButtonProps } from './types';
-import clsx from 'clsx';
-import { TdClassNamePefix } from '../utils';
+import { h, OmiProps, tag, WeElement, render, classNames } from 'omi'
+import css from './style'
+import { ButtonProps } from './types'
+import { TdClassNamePefix } from '../utils'
+
+@tag("t-button")
+export default class Button extends WeElement<ButtonProps>{
 
 @tag('t-button')
 export default class Button extends WeElement<ButtonProps> {
@@ -23,23 +25,25 @@ export default class Button extends WeElement<ButtonProps> {
 
     return (
       <button
-        className={clsx(
-          TdClassNamePefix('button'),
-          TdClassNamePefix('button--theme-primary'),
-          TdClassNamePefix('button--variant-base'),
-          {
-            [TdClassNamePefix('size-full-width')]: block,
-          },
-          {
-            [TdClassNamePefix('is-loading')]: loading,
-          },
-          {
-            [TdClassNamePefix('is-disabled')]: disabled,
-          },
-          {
-            [TdClassNamePefix('button--ghost')]: ghost,
-          },
-        )}
+        className={
+          classNames(
+            TdClassNamePefix('button'),
+            TdClassNamePefix('button--theme-primary'),
+            TdClassNamePefix('button--variant-base'),
+            {
+              [TdClassNamePefix('size-full-width')]: block
+            },
+            {
+              [TdClassNamePefix('is-loading')]: loading
+            },
+            {
+              [TdClassNamePefix('is-disabled')]: disabled
+            },
+            {
+              [TdClassNamePefix('button--ghost')]: ghost
+            }
+          )
+        }
       >
         {loading && (
           <div
