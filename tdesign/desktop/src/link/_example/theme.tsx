@@ -1,13 +1,10 @@
-import { h, tag, render, WeElement } from 'omi'
+import { h, tag, WeElement } from 'omi'
 
-import './link'
+import '../index'
 
 @tag('link-theme')
-export default class LinkTheme extends WeElement<Props> {
-  static css = `
-    t-link{ margin: 0 5px }
-  `
-  render(props) {
+export default class LinkTheme extends WeElement {
+  render() {
     return (
       <div>
         <t-link theme="default">跳转链接</t-link>
@@ -19,7 +16,3 @@ export default class LinkTheme extends WeElement<Props> {
     )
   }
 }
-
-render(<link-theme></link-theme>, 'body', {
-  ignoreAttrs: true,
-})

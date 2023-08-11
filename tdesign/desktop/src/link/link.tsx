@@ -1,11 +1,13 @@
 import { h, tag, extractClass, WeElement, OmiProps } from 'omi'
 import { LinkProps } from './type'
+import parseTNode from '../utils/parseTNode'
 import './style/index.js'
 import css from './style/index'
 
 @tag('t-link')
-export default class Link extends WeElement<LinkProps> {
+export default class Link extends WeElement<OmiProps<LinkProps>> {
   static css = css as string
+
   static defaultProps = {
     underline: false,
     disabled: false,
@@ -18,16 +20,18 @@ export default class Link extends WeElement<LinkProps> {
     disabled: Boolean,
     hover: String,
     href: String,
-    prefixIcon: WeElement,
+    prefixIcon: Object,
     size: String,
-    suffixIcon: WeElement,
+    suffixIcon: Object,
     target: String,
     theme: String,
     underline: Boolean,
     onClick: Function, // need to test
+    children: Object,
+    ref: Object,
   }
 
-  handleClick(e: MouseEvent): void {
+  handleClick = (e: MouseEvent) => {
     if (this.props.disabled) return
     this.props.onClick?.(e)
   }
@@ -35,11 +39,8 @@ export default class Link extends WeElement<LinkProps> {
   render(props: OmiProps<LinkProps>) {
     const classPrefix = 't'
 
+    // TODO: children is null
     const childNode = props.content || props.children
-    /*
-        TODO: remain size and status
-        remain prefixContent and suffixContent
-    **/
     const linkClass = extractClass(props, `${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
       [`${classPrefix}-size-s`]: props.size === 'small',
       [`${classPrefix}-size-s`]: props.size === 'large',
@@ -49,19 +50,18 @@ export default class Link extends WeElement<LinkProps> {
     })
 
     return (
-      <h.f>
+      <h>
         <a
           {...linkClass}
           href={props.disabled || !props.href ? undefined : props.href}
           target={props.target}
           onClick={this.handleClick}
         >
-          <span>
-            <slot></slot>
-          </span>
+          {props.prefixIcon && <span class={`${classPrefix}-link__prefix-icon`}>{parseTNode(props.prefixIcon)}</span>}
+          <slot></slot>
+          {props.suffixIcon && <span class={`${classPrefix}-link__suffix-icon`}>{parseTNode(props.suffixIcon)}</span>}
         </a>
-      </h.f>
+      </h>
     )
   }
 }
-export {}
