@@ -117,3 +117,5 @@ export interface ScrollToElementParams {
   time?: number
   behavior?: 'auto' | 'smooth'
 }
+
+export type ThemeCommon = 'default' | 'primary' | 'danger' | 'warning' | 'success'

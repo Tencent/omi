@@ -54,6 +54,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/alert', () => {
+    import('./components/web/alert/index').then(() => {
+      rootEl.data.tagName = 'page-alert'
+      rootEl.update()
+    })
+  })
+
   route('*', function () {
     console.log('not found')
   })
