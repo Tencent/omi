@@ -61,6 +61,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/slider', () => {
+    import('./components/web/slider/index').then(() => {
+      rootEl.data.tagName = 'page-slider'
+      rootEl.update()
+    })
+  })
+
   route('*', function () {
     console.log('not found')
   })
