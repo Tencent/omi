@@ -12,15 +12,13 @@ import 'tdesign-icons-view';
 import 'tdesign-theme-generator';
 
 import { registerLocaleChange } from 'tdesign-site-components';
-import packageJson from '@/package.json';
 
 import { WeElement, render, h, tag } from 'omi'
 import Store from './store'
-console.log(Store)
 
 registerLocaleChange();
 
-import '../../src/button/index.tsx'
+import {registerRouting} from './router'
 
 
 @tag('my-app')
@@ -31,9 +29,9 @@ export default class extends WeElement {
     tagName: 'admin-main-welcome'
   }
 
-  version = packageJson.version
-
-  store
+  getAttach: any;
+  changeVersion: any;
+  options: any;
 
 
   render() {
@@ -47,15 +45,20 @@ export default class extends WeElement {
           <t-select
             id="historyVersion"
             slot="extra"
-            value={this.version.replace(/\./g, '_')}
+            // value={this.version.replace(/\./g, '_')}
             popupProps={{ zIndex: 500, attach: this.getAttach }}
             onChange={this.changeVersion}
             options={this.options}
           />
+
+          <a href='#/'>Button 组件</a>
+
         </td-doc-aside>
         <div>
           <h1>Hello OMI!</h1>
-          <t-button>你好，OMI！</t-button>
+
+          <this.data.tagName></this.data.tagName>
+
         </div>
         <td-theme-generator />
       </td-doc-layout>
@@ -64,7 +67,10 @@ export default class extends WeElement {
 }
 
 render(
-  <my-app></my-app>,
+  <my-app id="my-app"></my-app>,
   '#app',
   new Store({})
 )
+
+const app = document.getElementById('my-app')
+registerRouting(app);

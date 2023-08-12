@@ -2,6 +2,7 @@ import { h, OmiProps, tag, WeElement, render, classNames } from 'omi'
 import css from './style'
 import { ButtonProps } from './types'
 import { TdClassNamePefix } from '../utils'
+import clsx from 'clsx'
 
 @tag('t-button')
 export default class Button extends WeElement<ButtonProps> {
