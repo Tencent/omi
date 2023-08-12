@@ -1,6 +1,6 @@
 ---
 title: Omi for Web
-description: TDesign Omi is a UI component library for Omi and desktop application.
+description: TDesign Omi is a UI component library for desktop application.
 ---
 
 ## Installation
