@@ -48,8 +48,22 @@ export function registerRouting(rootEl: any) {
   })
 
   route('/button', () => {
-    import('./components/web/button').then(() => {
+    import('./components/web/button/button').then(() => {
       rootEl.data.tagName = 'page-button'
+      rootEl.update()
+    })
+  })
+
+  route('/alert', () => {
+    import('./components/web/alert/index').then(() => {
+      rootEl.data.tagName = 'page-alert'
+      rootEl.update()
+    })
+  })
+
+  route('/slider', () => {
+    import('./components/web/slider/index').then(() => {
+      rootEl.data.tagName = 'page-slider'
       rootEl.update()
     })
   })

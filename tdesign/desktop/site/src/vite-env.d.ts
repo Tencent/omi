@@ -9,3 +9,8 @@ declare module 'omi-router' {
   const route: any
   export { route }
 }
+
+declare module '*.md' {
+  const s: string
+  export default s
+}
