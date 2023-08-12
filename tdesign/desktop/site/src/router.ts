@@ -48,7 +48,7 @@ export function registerRouting(rootEl: any) {
   })
 
   route('/button', () => {
-    import('./components/web/button').then(() => {
+    import('./components/web/button/button').then(() => {
       rootEl.data.tagName = 'page-button'
       rootEl.update()
     })
