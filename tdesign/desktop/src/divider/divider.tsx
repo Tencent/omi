@@ -15,7 +15,6 @@ export default class Link extends WeElement<DividerProps> {
 
   static propTypes = {
     algin: String,
-    children: Object,
     content: Object,
     dashed: Boolean,
     layout: String,
@@ -25,7 +24,6 @@ export default class Link extends WeElement<DividerProps> {
 
   render(props: OmiProps<DividerProps>) {
     const classPrefix = 't'
-    // TODO: children is null
     const childNode = props.content || props.children
 
     const showText = props.layout !== 'vertical' && !!childNode
@@ -35,11 +33,13 @@ export default class Link extends WeElement<DividerProps> {
       [`${classPrefix}-divider--with-text`]: showText,
       [`${classPrefix}-divider--with-text-${props.align}`]: showText,
     })
-    console.log('props.style', props.style)
+    console.log('props.children', props.children)
     return (
-      <div class={dividerClassNames} style={props.style}>
-        {showText ? <span class={`${classPrefix}-divider__inner-text`}>{childNode}</span> : null}
-      </div>
+      <>
+        <div class={dividerClassNames} style={props.style}>
+          {showText ? <span class={`${classPrefix}-divider__inner-text`}>{childNode}</span> : null}
+        </div>
+      </>
     )
   }
 }

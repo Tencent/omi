@@ -68,6 +68,20 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/link', () => {
+    import('./components/web/link/index').then(() => {
+      rootEl.data.tagName = 'page-link'
+      rootEl.update()
+    })
+  })
+
+  route('/divider', () => {
+    import('./components/web/divider/index').then(() => {
+      rootEl.data.tagName = 'page-divider'
+      rootEl.update()
+    })
+  })
+
   route('*', function () {
     console.log('not found')
   })

@@ -26,7 +26,7 @@
     "paths": {
       "@src/*": ["src/*"],
       "@common/*": ["src/_common/*"],
-      "@test/utils": ["test/utils"]
+      "@test/utils": ["test/utils"],
     }
   },
   "include": [

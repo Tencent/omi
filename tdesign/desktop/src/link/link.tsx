@@ -37,7 +37,6 @@ export default class Link extends WeElement<LinkProps> {
   render(props: OmiProps<LinkProps>) {
     const classPrefix = 't'
 
-    // TODO: children is null
     const childNode = props.content || props.children
     const linkClass = extractClass(props, `${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
       [`${classPrefix}-size-s`]: props.size === 'small',
@@ -48,7 +47,7 @@ export default class Link extends WeElement<LinkProps> {
     })
 
     return (
-      <h>
+      <>
         <a
           {...linkClass}
           href={props.disabled || !props.href ? undefined : props.href}
@@ -56,10 +55,10 @@ export default class Link extends WeElement<LinkProps> {
           onClick={this.handleClick}
         >
           {props.prefixIcon && <span class={`${classPrefix}-link__prefix-icon`}>{parseTNode(props.prefixIcon)}</span>}
-          <slot></slot>
+          {childNode}
           {props.suffixIcon && <span class={`${classPrefix}-link__suffix-icon`}>{parseTNode(props.suffixIcon)}</span>}
         </a>
-      </h>
+      </>
     )
   }
 }
