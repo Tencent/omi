@@ -1719,7 +1719,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.25.10';
+  options.root.Omi.version = '6.25.13';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

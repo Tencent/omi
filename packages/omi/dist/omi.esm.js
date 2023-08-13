@@ -1716,7 +1716,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.10';
+options.root.Omi.version = '6.25.13';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
