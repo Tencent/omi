@@ -1,0 +1,6 @@
+.demo-wrapper{
+    margin: 20px auto; padding: 40px; 
+    border: 1px solid rgb(231, 231, 231); 
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px; 
+}

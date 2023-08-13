@@ -2,7 +2,7 @@ import { h, tag, WeElement } from 'omi'
 
 import '../index'
 
-@tag('t-link-underline')
+@tag('link-underline')
 export default class LinkUnderline extends WeElement {
   static css = `t-link {
     margin: 5px 5px;
@@ -10,7 +10,6 @@ export default class LinkUnderline extends WeElement {
   render() {
     return (
       <div>
-        <space>
           <t-link theme="default" underline>
             跳转链接
           </t-link>
@@ -26,7 +25,6 @@ export default class LinkUnderline extends WeElement {
           <t-link theme="success" underline>
             跳转链接
           </t-link>
-        </space>
       </div>
     )
   }
