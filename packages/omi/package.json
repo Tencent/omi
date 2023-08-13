@@ -73,7 +73,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
-    "bundlesize": "^0.17.0",
     "chai": "^4.1.2",
     "copyfiles": "^2.0.0",
     "core-js": "^2.4.1",
@@ -136,12 +135,6 @@
       "rollup-plugin-babel"
     ]
   },
-  "bundlesize": [
-    {
-      "path": "./dist/omi.min.js",
-      "threshold": "4Kb"
-    }
-  ],
   "prettier": {
     "singleQuote": true,
     "semi": false,
