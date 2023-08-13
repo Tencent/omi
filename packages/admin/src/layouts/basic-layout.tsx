@@ -64,7 +64,6 @@ export default class extends WeElement {
   }
 
   installed() {
-    console.log('binddddddd')
     this.store.ui.baseLayout = this
 
     window.addEventListener('resize', () => {
@@ -90,7 +89,6 @@ export default class extends WeElement {
   }
 
   render() {
-    console.log(111111);
     return (
       <h.f>
         <layout-header class={tw`h-12 block`}></layout-header>
