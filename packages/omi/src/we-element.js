@@ -1,4 +1,11 @@
-import { cssToDom, isArray, hyphenate, getValByPath, capitalize } from './util'
+import {
+  cssToDom,
+  isArray,
+  hyphenate,
+  getValByPath,
+  capitalize,
+  createStyleSheet
+} from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import 'weakmap-polyfill'
@@ -65,42 +72,37 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    if (adoptedStyleSheetsMap.has(this.constructor)) {
+    if (!adoptedStyleSheetsMap.has(this.constructor)) {
+      const css = this.constructor.css
+      if (css) {
+        let styleSheets = []
+        if (typeof css === 'string') {
+          styleSheets = [createStyleSheet(css)]
+        } else if (Object.prototype.toString.call(css) === '[object Array]') {
+          styleSheets = css.map(styleSheet => {
+            if (typeof styleSheet === 'string') {
+              return createStyleSheet(styleSheet)
+            } else if (
+              styleSheet.default &&
+              typeof styleSheet.default === 'string'
+            ) {
+              return createStyleSheet(styleSheet.default)
+            } else {
+              return styleSheet
+            }
+          })
+        } else if (css.default && typeof css.default === 'string') {
+          styleSheets = [createStyleSheet(css.default)]
+        } else {
+          styleSheets = [css]
+        }
+        shadowRoot.adoptedStyleSheets = styleSheets
+        adoptedStyleSheetsMap.set(this.constructor, styleSheets)
+      }
+    } else {
       shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(
         this.constructor
       )
-    } else {
-      const css = this.constructor.css
-      if (css) {
-        if (typeof css === 'string') {
-          const styleSheet = new CSSStyleSheet()
-          styleSheet.replaceSync(css)
-          shadowRoot.adoptedStyleSheets = [styleSheet]
-        } else if (Object.prototype.toString.call(css) === '[object Array]') {
-          const styleSheets = []
-          css.forEach(styleSheet => {
-            if (typeof styleSheet === 'string') {
-              const adoptedStyleSheet = new CSSStyleSheet()
-              adoptedStyleSheet.replaceSync(styleSheet)
-              styleSheets.push(adoptedStyleSheet)
-            } else {
-              styleSheets.push(styleSheet)
-            }
-            shadowRoot.adoptedStyleSheets = styleSheets
-          })
-        } else if (css.default && typeof css.default === 'string') {
-          // [object Module]
-          const styleSheet = new CSSStyleSheet()
-          styleSheet.replaceSync(css.default)
-          shadowRoot.adoptedStyleSheets = [styleSheet]
-        } else {
-          shadowRoot.adoptedStyleSheets = [css]
-        }
-        adoptedStyleSheetsMap.set(
-          this.constructor,
-          shadowRoot.adoptedStyleSheets
-        )
-      }
     }
 
     this.beforeRender()

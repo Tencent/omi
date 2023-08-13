@@ -43,6 +43,11 @@
         });
         return current;
     }
+    function createStyleSheet(style) {
+        var styleSheet = new CSSStyleSheet();
+        styleSheet.replaceSync(style);
+        return styleSheet;
+    }
     function h(nodeName, attributes) {
         var lastSimple, child, simple, i, children = [];
         for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
@@ -563,31 +568,17 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            if (adoptedStyleSheetsMap.has(this.constructor)) shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor); else {
+            if (!adoptedStyleSheetsMap.has(this.constructor)) {
                 var css = this.constructor.css;
                 if (css) {
-                    if ('string' == typeof css) {
-                        var styleSheet = new CSSStyleSheet();
-                        styleSheet.replaceSync(css);
-                        shadowRoot.adoptedStyleSheets = [ styleSheet ];
-                    } else if ('[object Array]' === Object.prototype.toString.call(css)) {
-                        var styleSheets = [];
-                        css.forEach(function(styleSheet) {
-                            if ('string' == typeof styleSheet) {
-                                var adoptedStyleSheet = new CSSStyleSheet();
-                                adoptedStyleSheet.replaceSync(styleSheet);
-                                styleSheets.push(adoptedStyleSheet);
-                            } else styleSheets.push(styleSheet);
-                            shadowRoot.adoptedStyleSheets = styleSheets;
-                        });
-                    } else if (css.default && 'string' == typeof css.default) {
-                        var _styleSheet = new CSSStyleSheet();
-                        _styleSheet.replaceSync(css.default);
-                        shadowRoot.adoptedStyleSheets = [ _styleSheet ];
-                    } else shadowRoot.adoptedStyleSheets = [ css ];
-                    adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets);
+                    var styleSheets = [];
+                    if ('string' == typeof css) styleSheets = [ createStyleSheet(css) ]; else if ('[object Array]' === Object.prototype.toString.call(css)) styleSheets = css.map(function(styleSheet) {
+                        if ('string' == typeof styleSheet) return createStyleSheet(styleSheet); else if (styleSheet.default && 'string' == typeof styleSheet.default) return createStyleSheet(styleSheet.default); else return styleSheet;
+                    }); else if (css.default && 'string' == typeof css.default) styleSheets = [ createStyleSheet(css.default) ]; else styleSheets = [ css ];
+                    shadowRoot.adoptedStyleSheets = styleSheets;
+                    adoptedStyleSheetsMap.set(this.constructor, styleSheets);
                 }
-            }
+            } else shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor);
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             var rendered = this.render(this.props, this.store);

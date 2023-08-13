@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.11  http://omijs.org
+ * Omi v6.25.12  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -125,6 +125,12 @@
       current = current[prop];
     });
     return current;
+  }
+
+  function createStyleSheet(style) {
+    var styleSheet = new CSSStyleSheet();
+    styleSheet.replaceSync(style);
+    return styleSheet;
   }
 
   var stack = [];
@@ -954,37 +960,32 @@
         }
       }
 
-      if (adoptedStyleSheetsMap.has(this.constructor)) {
-        shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor);
-      } else {
+      if (!adoptedStyleSheetsMap.has(this.constructor)) {
         var css = this.constructor.css;
         if (css) {
+          var styleSheets = [];
           if (typeof css === 'string') {
-            var styleSheet = new CSSStyleSheet();
-            styleSheet.replaceSync(css);
-            shadowRoot.adoptedStyleSheets = [styleSheet];
+            styleSheets = [createStyleSheet(css)];
           } else if (Object.prototype.toString.call(css) === '[object Array]') {
-            var styleSheets = [];
-            css.forEach(function (styleSheet) {
+            styleSheets = css.map(function (styleSheet) {
               if (typeof styleSheet === 'string') {
-                var adoptedStyleSheet = new CSSStyleSheet();
-                adoptedStyleSheet.replaceSync(styleSheet);
-                styleSheets.push(adoptedStyleSheet);
+                return createStyleSheet(styleSheet);
+              } else if (styleSheet.default && typeof styleSheet.default === 'string') {
+                return createStyleSheet(styleSheet.default);
               } else {
-                styleSheets.push(styleSheet);
+                return styleSheet;
               }
-              shadowRoot.adoptedStyleSheets = styleSheets;
             });
           } else if (css.default && typeof css.default === 'string') {
-            // [object Module]
-            var _styleSheet = new CSSStyleSheet();
-            _styleSheet.replaceSync(css.default);
-            shadowRoot.adoptedStyleSheets = [_styleSheet];
+            styleSheets = [createStyleSheet(css.default)];
           } else {
-            shadowRoot.adoptedStyleSheets = [css];
+            styleSheets = [css];
           }
-          adoptedStyleSheetsMap.set(this.constructor, shadowRoot.adoptedStyleSheets);
+          shadowRoot.adoptedStyleSheets = styleSheets;
+          adoptedStyleSheetsMap.set(this.constructor, styleSheets);
         }
+      } else {
+        shadowRoot.adoptedStyleSheets = adoptedStyleSheetsMap.get(this.constructor);
       }
 
       this.beforeRender();
