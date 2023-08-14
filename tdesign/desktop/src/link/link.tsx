@@ -1,7 +1,6 @@
 import { h, tag, extractClass, WeElement, OmiProps } from 'omi'
 import { LinkProps } from './type'
 import parseTNode from '../utils/parseTNode'
-import './style/index.js'
 import css from './style/index'
 
 @tag('t-link')
@@ -38,7 +37,7 @@ export default class Link extends WeElement<LinkProps> {
     const classPrefix = 't'
 
     const childNode = props.content || props.children
-    const linkClass = extractClass(props, `${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
+    const linkClass = extractClass(`${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
       [`${classPrefix}-size-s`]: props.size === 'small',
       [`${classPrefix}-size-l`]: props.size === 'large',
       [`${classPrefix}-is-disabled`]: !!props.disabled,

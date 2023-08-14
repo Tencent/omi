@@ -1,6 +1,5 @@
 import { h, tag, WeElement, OmiProps, classNames } from 'omi'
 import { DividerProps } from './type'
-import './style/index.js'
 import css from './style/index'
 
 @tag('t-divider')
