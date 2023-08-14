@@ -15,6 +15,7 @@ export default ({ mode }) => {
     base: publicPathMap[mode],
     resolve: resolveConfig,
     server: {
+      hmr: { overlay: false },
       host: '0.0.0.0',
       port: 17000,
       open: '/',

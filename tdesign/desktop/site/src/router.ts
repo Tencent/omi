@@ -29,6 +29,7 @@ const components = [
   'tag',
   'tree',
   'rate',
+  'message',
   'dialog',
   'avatar',
   'action-sheet',
@@ -71,6 +72,13 @@ export function registerRouting(rootEl: any) {
   route('/link', () => {
     import('./components/web/link/index').then(() => {
       rootEl.data.tagName = 'page-link'
+      rootEl.update()
+    })
+  })
+
+  route('/message', () => {
+    import('./components/web/message/index').then(() => {
+      rootEl.data.tagName = 'page-message'
       rootEl.update()
     })
   })
