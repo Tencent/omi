@@ -12,10 +12,10 @@ export default class Message extends WeElement<MessageProps>{
   static css = style
 
   static defaultProps = {
+    closeBtn: true,
     duration: 3000,
     content: 'my message',
     icon: true,
-    closeBtn: false,
     theme: 'info'
   }
 
@@ -32,26 +32,15 @@ export default class Message extends WeElement<MessageProps>{
     onDurationEnd: Function
   }
 
+
   getMessageTheme(theme: MessageThemeList) {
     return TdClassNamePefix(`is-${theme || 'success'}`)
   }
 
-  onAfterLeave = () => {
+  onCloseBtnClick = () => {
     this.parentElement.removeChild(this)
   }
-
-
-  handleClose() {
-    const { onClose, onCloseBtnClick } = this.props as MessageProps;
-    this.remove();
-    onClose();
-
-    setTimeout(() => {
-      onCloseBtnClick();
-    }, 10);
-
-  }
-
+  
 
   render(props: OmiProps<MessageProps, any>, store: any)  {
     const { theme, className, style,  icon, content ,closeBtn } = props;
@@ -65,6 +54,7 @@ export default class Message extends WeElement<MessageProps>{
             classNames(
               TdClassNamePefix('reset'),
               TdClassNamePefix('message'),
+              TdClassNamePefix('is-closable'),
               this.getMessageTheme(theme),
               className
             )
@@ -90,19 +80,16 @@ export default class Message extends WeElement<MessageProps>{
 
           {/* 关闭按钮 */}
           {
-            close && (
-              <div
-                onClick={this.handleClose.bind(this)}
-                class={MessageClassNamePefix('close')}>
-                <svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class={
-                  classNames(
-                    TdClassNamePefix('icon'),
-                    TdClassNamePefix('icon-close')
-                  )
-                }>
-                  <path fill="currentColor" d="M7.05 5.64L12 10.59l4.95-4.95 1.41 1.41L13.41 12l4.95 4.95-1.41 1.41L12 13.41l-4.95 4.95-1.41-1.41L10.59 12 5.64 7.05l1.41-1.41z"></path>
-                </svg>
-              </div>
+            closeBtn && (
+              <svg onClick={this.onCloseBtnClick} fill="none" viewBox="0 0 24 24" width="1em" height="1em" class={
+                classNames(
+                  TdClassNamePefix('icon'),
+                  TdClassNamePefix('icon-close'),
+                  TdClassNamePefix('message__close')
+                )
+              }>
+                <path fill="currentColor" d="M7.05 5.64L12 10.59l4.95-4.95 1.41 1.41L13.41 12l4.95 4.95-1.41 1.41L12 13.41l-4.95 4.95-1.41-1.41L10.59 12 5.64 7.05l1.41-1.41z"></path>
+              </svg>
             )
           }
 

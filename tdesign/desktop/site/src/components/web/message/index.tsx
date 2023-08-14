@@ -35,10 +35,10 @@ define('page-message', class extends WeElement {
         <div style="padding:24px">
           <div style="display:flex;">
             <div direction="vertical" style="width:100%">
-              <t-message style="margin:12px;border: 1px solid #eee;" duration={0} theme="info" content="This is my info" />
-              <t-message style="margin:12px;border: 1px solid #eee;" duration={0} theme="success" content="This is my success" />
-              <t-message style="margin:12px;border: 1px solid #eee;" duration={0} theme="warning" content="This is my warning" />
-              <t-message style="margin:12px;border: 1px solid #eee;" duration={0} theme="error" content="This is my error" />
+              <t-message style="margin:12px;" duration={0} theme="info" content="This is my info" />
+              <t-message style="margin:12px;" duration={0} theme="success" content="This is my success" />
+              <t-message style="margin:12px;" duration={0} theme="warning" content="This is my warning" />
+              <t-message style="margin:12px;" duration={0} theme="error" content="This is my error" />
             </div>
           </div>
           <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
