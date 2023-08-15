@@ -90,6 +90,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/space', () => {
+    import('./components/web/space/index').then(() => {
+      rootEl.data.tagName = 'page-space'
+      rootEl.update()
+    })
+  })
+
   route('*', function () {
     console.log('not found')
   })

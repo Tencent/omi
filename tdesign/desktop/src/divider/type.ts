@@ -24,9 +24,4 @@ export interface DividerProps {
    * @default horizontal
    */
   layout?: 'horizontal' | 'vertical'
-  /**
-   * 样式
-   */
-  style?: string
-  class?: string
 }

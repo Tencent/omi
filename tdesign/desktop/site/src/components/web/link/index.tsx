@@ -7,7 +7,7 @@ import '../../../../../src/link/_example/icon'
 import '../../../../../src/link/_example/size'
 import '../../../../../src/link/_example/theme'
 import '../../../../../src/link/_example/underline'
-import * as marked from "marked"
+import * as marked from 'marked'
 
 const docsHTML = marked.parse(`
 
@@ -16,8 +16,8 @@ const docsHTML = marked.parse(`
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-content | TNode | - | 链接内容。TS 类型：\`string \| TNode\`。[通用类型定义](https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/common.ts) | N
-default | TNode | - | 链接内容，同 content。TS 类型：\`string \| TNode\`。[通用类型定义](https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/common.ts) | N
+content | TNode | - | 链接内容。TS 类型：\`string \\|  TNode\`。[通用类型定义](https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/common.ts) | N
+default | TNode | - | 链接内容，同 content。TS 类型：\`string \\|  TNode\`。[通用类型定义](https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/common.ts) | N
 disabled | Boolean | - | 禁用链接 | N
 hover | String | underline | 链接悬浮态样式，有 文本颜色变化、添加下划线等 2 种方法。可选项：color/underline | N
 href | String | - | 跳转链接 | N
@@ -94,9 +94,7 @@ define(
               带图标的文字链接 <a class="header-anchor" href="#带图标的文字链接"></a>
             </h4>
             <p>文字链接与图标搭配使用，通过图标快速了解链接所代表的含义。</p>
-            <demo-wrapper>
-              icon待完善
-            </demo-wrapper>
+            <demo-wrapper>icon待完善</demo-wrapper>
             <h3 id="链接悬浮态样式的链接">
               链接悬浮态样式的链接 <a class="header-anchor" href="#链接悬浮态样式的链接"></a>
             </h3>
@@ -126,8 +124,15 @@ define(
             <demo-wrapper>
               <link-disabled></link-disabled>
             </demo-wrapper>
-            <h3 id="不同尺寸的链接">不同尺寸的链接 <a class="header-anchor" href="#不同尺寸的链接"></a></h3>
-            <p>提供大、中（默认）、小三种尺寸。<h3 id="不同尺寸的链接">不同尺寸的链接 <a class="header-anchor" href="#不同尺寸的链接"></a></h3></p>
+            <h3 id="不同尺寸的链接">
+              不同尺寸的链接 <a class="header-anchor" href="#不同尺寸的链接"></a>
+            </h3>
+            <p>
+              提供大、中（默认）、小三种尺寸。
+              <h3 id="不同尺寸的链接">
+                不同尺寸的链接 <a class="header-anchor" href="#不同尺寸的链接"></a>
+              </h3>
+            </p>
             <demo-wrapper>
               <link-size></link-size>
             </demo-wrapper>
@@ -136,12 +141,11 @@ define(
             <div
               style="margin-bottom:76px"
               dangerouslySetInnerHTML={{
-                __html: docsHTML
-              }}>
-            </div>
+                __html: docsHTML,
+              }}
+            ></div>
           </div>
-          <div style={this.isShow('design')} name="DESIGN">
-          </div>
+          <div style={this.isShow('design')} name="DESIGN"></div>
         </>
       )
     }

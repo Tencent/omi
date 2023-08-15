@@ -10,18 +10,16 @@ export default class Link extends WeElement<SpaceProps> {
   static defaultProps = { breakLine: false, direction: 'horizontal', size: 'medium' }
   static propTypes = {
     algin: String,
-    breakLine: Boolean,
+    // breakLine: Boolean,
     direction: String,
-    separator: Object,
+    // separator: Object,
     size: Object,
-    style: String,
-    class: String,
   }
 
   renderGap = ''
   renderStyle = {
     gap: this.renderGap,
-    ...(this.props.breakLine ? { flewWrap: 'wrap' } : {}),
+    ...(this.props.breakLine ? { flexWrap: 'wrap' } : {}),
     ...this.props.style,
   }
 
@@ -42,11 +40,9 @@ export default class Link extends WeElement<SpaceProps> {
 
     this.renderStyle = {
       gap: this.renderGap,
-      ...(this.props.breakLine ? { flewWrap: 'wrap' } : {}),
+      ...(this.props.breakLine ? { flexWrap: 'wrap' } : {}),
       ...this.props.style,
     }
-
-    console.log('this.renderStyle: ', this.renderStyle)
   }
 
   render(props: OmiProps<SpaceProps>) {
@@ -68,7 +64,6 @@ export default class Link extends WeElement<SpaceProps> {
         )
       })
     }
-    console.log('props.children', props.children)
     return (
       <>
         <div
