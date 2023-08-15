@@ -3,7 +3,7 @@ import { DividerProps } from './type'
 import css from './style/index'
 
 @tag('t-divider')
-export default class Link extends WeElement<DividerProps> {
+export default class Divider extends WeElement<DividerProps> {
   static css = css as string
 
   static defaultProps = {
@@ -17,8 +17,6 @@ export default class Link extends WeElement<DividerProps> {
     content: Object,
     dashed: Boolean,
     layout: String,
-    style: String,
-    class: String,
   }
 
   render(props: OmiProps<DividerProps>) {

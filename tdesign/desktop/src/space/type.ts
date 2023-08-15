@@ -24,8 +24,6 @@ export interface SpaceProps {
    * @default 'medium'
    */
   size?: SpaceSize | SpaceSize[]
-  style: String
-  class: String
 }
 
 export type SpaceSize = number | string | SizeEnum
