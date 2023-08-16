@@ -69,7 +69,9 @@ export default class extends WeElement {
 render(
   <my-app id="my-app"></my-app>,
   '#app',
-  new Store({})
+  new Store({
+    ignoreAttrs: true
+  })
 )
 
 const app = document.getElementById('my-app')

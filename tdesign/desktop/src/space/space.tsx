@@ -10,9 +10,9 @@ export default class Link extends WeElement<SpaceProps> {
   static defaultProps = { breakLine: false, direction: 'horizontal', size: 'medium' }
   static propTypes = {
     algin: String,
-    // breakLine: Boolean,
+    breakLine: Boolean,
     direction: String,
-    // separator: Object,
+    separator: Object,
     size: Object,
   }
 
