@@ -1,12 +1,6 @@
 import { define, OmiProps, h, render, WeElement } from 'omi'
 import "../../../../../src/message/index"
 
-
-// import * as css from './index.scss'
-// import '@omiu/transition'
-
-
-
 import * as marked from 'marked'
 
 const docsHtml = marked.parse(`
