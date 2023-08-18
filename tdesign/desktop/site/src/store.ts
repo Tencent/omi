@@ -1,5 +1,5 @@
 export default class Store {
-  constructor(parameters) {
-
+  constructor(options) {
+    this.ignoreAttrs = options.ignoreAttrs
   }
 }
