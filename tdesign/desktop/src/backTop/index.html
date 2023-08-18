@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>back-top</title>
+  <script type="module" src="./index.tsx"></script>
+  <style>
+    .textList {
+      height: 300px;
+      overflow: auto;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div id="scroll_container" class="scroll-container">
+    
+  </div> -->
+  <ul id="list" class="textList">
+  </ul>
+  <t-back-top container="textList" visible-height="200px" :offset="['24px', '80px']">
+  </t-back-top>
+  <script>
+    let list = document.getElementById("list")
+    
+    for (let i = 0; i < 60; i++) {
+      let liElement = document.createElement('li');
+      liElement.innerHTML = `列表内容` + i
+      list.appendChild(liElement);
+    }
+
+
+  </script>
+</body>
+
+</html>
