@@ -95,7 +95,7 @@ export function registerRouting(rootEl: any) {
       rootEl.update()
     })
   })
-  
+
   route('/notification', () => {
     import('./components/web/notification/index').then(() => {
       rootEl.data.tagName = 'page-notification'
@@ -116,6 +116,14 @@ export function registerRouting(rootEl: any) {
       rootEl.update()
     })
   })
+
+  route('/comment', () => {
+    import('./components/web/comment/index').then(() => {
+      rootEl.data.tagName = 'page-comment'
+      rootEl.update()
+    })
+  })
+
 
   route('*', function () {
     console.log('not found')
