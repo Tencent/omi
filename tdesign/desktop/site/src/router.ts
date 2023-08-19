@@ -122,6 +122,13 @@ export function registerRouting(rootEl: any) {
       rootEl.data.tagName = 'page-rate'
       rootEl.update()
     })
+  }) 
+
+  route('/comment', () => {
+    import('./components/web/comment/index').then(() => {
+      rootEl.data.tagName = 'page-comment'
+      rootEl.update()
+    })
   })
 
   route('*', function () {
