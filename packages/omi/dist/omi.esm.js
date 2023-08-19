@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.13  http://omijs.org
+ * Omi v6.25.14  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
