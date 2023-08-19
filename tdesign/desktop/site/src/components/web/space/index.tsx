@@ -20,8 +20,8 @@ style | Object | - | 样式，TS 类型：\`React.CSSProperties\` | N
 align | String | - | 对齐方式。可选项：start/end/center/baseline | N
 breakLine | Boolean | false | 是否自动换行，仅在 horizontal 时有效	 | N
 direction | String | horizontal | 间距方向。可选项：vertical/horizontal | N
-separator | TNode | - | 分隔符。TS 类型：\`string \\| TNode\`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts) | N
-size | String / Number / Array | 'medium' | 间距大小。TS 类型：\`SpaceSize \\| SpaceSize[]\` \`type SpaceSize = number \\| string \\| SizeEnum\`。[通用类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/common.ts)。[详细类型定义](https://github.com/Tencent/tdesign-react/blob/develop/src/space/type.ts) | N
+separator | TNode | - | 分隔符。TS 类型：\`string \\| TNode\`。[通用类型定义](https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/common.ts) | N
+size | String / Number / Array | 'medium' | 间距大小。TS 类型：\`SpaceSize \\| SpaceSize[]\` \`type SpaceSize = number \\| string \\| SizeEnum\`。[通用类型定义](https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/common.ts)。[详细类型定义]((https://github.com/Tencent/omi/blob/master/tdesign/desktop/src/space/type.ts) | N
 
 `)
 interface Props {
@@ -31,9 +31,6 @@ interface Props {
 define(
   'page-space',
   class extends WeElement<Props> {
-    static css = `td-doc-tabs {
-      margin-top: -140px;
-    }`
     static defaultProps = {
       tab: 'demo',
     }

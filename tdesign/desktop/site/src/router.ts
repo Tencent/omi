@@ -117,13 +117,19 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/rate', () => {
+    import('./components/web/rate/index').then(() => {
+      rootEl.data.tagName = 'page-rate'
+      rootEl.update()
+    })
+  }) 
+
   route('/comment', () => {
     import('./components/web/comment/index').then(() => {
       rootEl.data.tagName = 'page-comment'
       rootEl.update()
     })
   })
-
 
   route('*', function () {
     console.log('not found')

@@ -48,7 +48,7 @@ export default class Rate extends WeElement<RateProps> {
 
   static propTypes = {
     allowHalf: Boolean,
-    // color: Array,
+    color: [String, Array],
     count: Number,
     disabled: Boolean,
     gap: Number,
