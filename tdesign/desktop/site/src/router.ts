@@ -41,11 +41,17 @@ const charts = ['bar', 'line', 'scatter', 'pie', 'doughnut', 'radar', 'polar-are
 
 export function registerRouting(rootEl: any) {
   route('/', () => {
-    rootEl.update()
+    import('../docs/overview.tsx').then(() => {
+      rootEl.data.tagName = 'page-overview'
+      rootEl.update()
+    })
   })
 
   route('/welcome', () => {
-    rootEl.update()
+    import('../docs/overview.tsx').then(() => {
+      rootEl.data.tagName = 'page-overview'
+      rootEl.update()
+    })
   })
 
   route('/button', () => {
