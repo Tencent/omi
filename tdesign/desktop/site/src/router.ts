@@ -88,7 +88,7 @@ export function registerRouting(rootEl: any) {
       rootEl.update()
     })
   })
-  
+
   route('/notification', () => {
     import('./components/web/notification/index').then(() => {
       rootEl.data.tagName = 'page-notification'
@@ -106,6 +106,13 @@ export function registerRouting(rootEl: any) {
   route('/space', () => {
     import('./components/web/space/index').then(() => {
       rootEl.data.tagName = 'page-space'
+      rootEl.update()
+    })
+  })
+
+  route('/rate', () => {
+    import('./components/web/rate/index').then(() => {
+      rootEl.data.tagName = 'page-rate'
       rootEl.update()
     })
   })

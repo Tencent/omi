@@ -28,9 +28,6 @@ interface Props {
 define(
   'page-divider',
   class extends WeElement<Props> {
-    static css = `td-doc-tabs {
-      margin-top: -140px;
-    }`
     static defaultProps = {
       tab: 'demo',
     }
