@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.13  http://omijs.org
+ * Omi v6.25.14  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -966,7 +966,7 @@
           var styleSheets = [];
           if (typeof css === 'string') {
             styleSheets = [createStyleSheet(css)];
-          } else if (Object.prototype.toString.call(css) === '[object Array]') {
+          } else if (isArray(css)) {
             styleSheets = css.map(function (styleSheet) {
               if (typeof styleSheet === 'string') {
                 return createStyleSheet(styleSheet);
@@ -1098,35 +1098,44 @@
       var attrs = this.constructor.propTypes;
       if (!attrs) return;
       Object.keys(attrs).forEach(function (key) {
-        var type = attrs[key];
+        var types = isArray(attrs[key]) ? attrs[key] : [attrs[key]];
         var val = ele.getAttribute(hyphenate(key));
         if (val !== null) {
-          switch (type) {
-            case String:
-              ele.props[key] = val;
-              break;
-            case Number:
-              ele.props[key] = Number(val);
-              break;
-            case Boolean:
-              if (val === 'false' || val === '0') {
-                ele.props[key] = false;
-              } else {
-                ele.props[key] = true;
-              }
-              break;
-            case Array:
-            case Object:
-              if (val[0] === ':') {
-                ele.props[key] = getValByPath(val.substr(1), Omi.$);
-              } else {
-                try {
-                  ele.props[key] = JSON.parse(val);
-                } catch (e) {
-                  console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+          for (var i = 0; i < types.length; i++) {
+            var type = types[i];
+            var matched = false;
+            switch (type) {
+              case String:
+                ele.props[key] = val;
+                matched = true;
+                break;
+              case Number:
+                ele.props[key] = Number(val);
+                matched = true;
+                break;
+              case Boolean:
+                if (val === 'false' || val === '0') {
+                  ele.props[key] = false;
+                } else {
+                  ele.props[key] = true;
                 }
-              }
-              break;
+                matched = true;
+                break;
+              case Array:
+              case Object:
+                if (val[0] === ':') {
+                  ele.props[key] = getValByPath(val.substr(1), Omi.$);
+                } else {
+                  try {
+                    ele.props[key] = JSON.parse(val);
+                  } catch (e) {
+                    console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                  }
+                }
+                matched = true;
+                break;
+            }
+            if (matched) break;
           }
         } else {
           if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
@@ -1719,7 +1728,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.25.13';
+  options.root.Omi.version = '6.25.14';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

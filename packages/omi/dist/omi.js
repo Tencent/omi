@@ -1,10 +1,5 @@
 !function() {
     'use strict';
-    function getGlobal() {
-        if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
-            return this;
-        }(); else return global;
-    }
     function cssToDom(css) {
         var node = document.createElement('style');
         node.textContent = css;
@@ -129,7 +124,7 @@
             if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
             if (value && 'object' == typeof value) {
                 if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
-                for (var i in value) node.style[i] = 'number' == typeof value[i] && IS_NON_DIMENSIONAL.test(i) === !1 ? value[i] + 'px' : value[i];
+                for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
             }
         } else if ('unsafeHTML' === name) {
             if (value) node.innerHTML = value || '';
@@ -139,10 +134,10 @@
             try {
                 node[name] = null == value ? '' : value;
             } catch (e) {}
-            if ((null == value || value === !1) && 'spellcheck' != name) node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
+            if ((null == value || !1 === value) && 'spellcheck' != name) node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-            if (null == value || value === !1) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
         }
     }
     function eventProxy$1(e) {
@@ -264,7 +259,7 @@
     }
     function recollectNodeTree(node, unmountOnly) {
         if (null != node.prevProps && node.prevProps.ref) if ('function' == typeof node.prevProps.ref) node.prevProps.ref(null); else if (node.prevProps.ref.current) node.prevProps.ref.current = null;
-        if (unmountOnly === !1 || null == node.prevProps) removeNode(node);
+        if (!1 === unmountOnly || null == node.prevProps) removeNode(node);
         removeChildren(node);
     }
     function removeChildren(node) {
@@ -290,13 +285,13 @@
             dom.props[ccName] = old[ccName] = attrs[name];
         } else if (!('children' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
             setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-            if (dom.nodeName.indexOf('-') !== -1) {
+            if (-1 !== dom.nodeName.indexOf('-')) {
                 dom.props = dom.props || {};
                 var _ccName = camelCase(name);
                 dom.props[_ccName] = old[_ccName] = attrs[name];
             } else old[name] = attrs[name];
         }
-        if (isWeElement && !updateSelf && dom.parentNode) if (dom.receiveProps(dom.props, oldClone) !== !1) dom.update();
+        if (isWeElement && !updateSelf && dom.parentNode) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -367,12 +362,11 @@
             Ele.propTypes = config.propTypes;
             Ele.defaultProps = config.defaultProps;
             Ele.isLightDom = config.isLightDom;
-            var _loop = function(key) {
+            for (var key in config) !function(key) {
                 if ('function' == typeof config[key]) Ele.prototype[key] = function() {
                     return config[key].apply(this, arguments);
                 };
-            };
-            for (var key in config) _loop(key);
+            }(key);
             storeHelpers.forEach(function(func) {
                 if (config[func] && 'function' !== config[func]) Ele.prototype[func] = function() {
                     return config[func];
@@ -409,7 +403,7 @@
                     var inner = classNames.apply(null, arg);
                     if (inner) classes.push(inner);
                 } else if ('object' === argType) for (var key in arg) if (hasOwn.call(arg, key) && arg[key]) classes.push(key);
-            } else ;
+            }
         }
         return classes.join(' ');
     }
@@ -434,7 +428,11 @@
     }
     var options = {
         store: null,
-        root: getGlobal(),
+        root: function() {
+            if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
+                return this;
+            }(); else return global;
+        }(),
         mapping: {}
     };
     !function() {
@@ -574,7 +572,7 @@
                 var css = this.constructor.css;
                 if (css) {
                     var styleSheets = [];
-                    if ('string' == typeof css) styleSheets = [ createStyleSheet(css) ]; else if ('[object Array]' === Object.prototype.toString.call(css)) styleSheets = css.map(function(styleSheet) {
+                    if ('string' == typeof css) styleSheets = [ createStyleSheet(css) ]; else if (isArray(css)) styleSheets = css.map(function(styleSheet) {
                         if ('string' == typeof styleSheet) return createStyleSheet(styleSheet); else if (styleSheet.default && 'string' == typeof styleSheet.default) return createStyleSheet(styleSheet.default); else return styleSheet;
                     }); else if (css.default && 'string' == typeof css.default) styleSheets = [ createStyleSheet(css.default) ]; else styleSheets = [ css ];
                     shadowRoot.adoptedStyleSheets = styleSheets;
@@ -654,28 +652,37 @@
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
                 if (attrs) Object.keys(attrs).forEach(function(key) {
-                    var type = attrs[key];
+                    var types = isArray(attrs[key]) ? attrs[key] : [ attrs[key] ];
                     var val = ele.getAttribute(hyphenate(key));
-                    if (null !== val) switch (type) {
-                      case String:
-                        ele.props[key] = val;
-                        break;
+                    if (null !== val) for (var i = 0; i < types.length; i++) {
+                        var type = types[i];
+                        var matched = !1;
+                        switch (type) {
+                          case String:
+                            ele.props[key] = val;
+                            matched = !0;
+                            break;
 
-                      case Number:
-                        ele.props[key] = Number(val);
-                        break;
+                          case Number:
+                            ele.props[key] = Number(val);
+                            matched = !0;
+                            break;
 
-                      case Boolean:
-                        if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
-                        break;
+                          case Boolean:
+                            if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
+                            matched = !0;
+                            break;
 
-                      case Array:
-                      case Object:
-                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else try {
-                            ele.props[key] = JSON.parse(val);
-                        } catch (e) {
-                            console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                          case Array:
+                          case Object:
+                            if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else try {
+                                ele.props[key] = JSON.parse(val);
+                            } catch (e) {
+                                console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                            }
+                            matched = !0;
                         }
+                        if (matched) break;
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
                 });
             }
@@ -727,7 +734,7 @@
         }
         function diff(arr1, arr2) {
             return arr1.filter(function(value) {
-                return arr2.indexOf(value) === -1;
+                return -1 === arr2.indexOf(value);
             });
         }
         function removeNode(node) {
@@ -1006,7 +1013,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.13';
+    options.root.Omi.version = '6.25.14';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

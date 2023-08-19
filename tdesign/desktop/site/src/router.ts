@@ -41,14 +41,14 @@ const charts = ['bar', 'line', 'scatter', 'pie', 'doughnut', 'radar', 'polar-are
 
 export function registerRouting(rootEl: any) {
   route('/', () => {
-    import('../docs/overview.tsx').then(() => {
+    import('../docs/overview').then(() => {
       rootEl.data.tagName = 'page-overview'
       rootEl.update()
     })
   })
 
   route('/welcome', () => {
-    import('../docs/overview.tsx').then(() => {
+    import('../docs/overview').then(() => {
       rootEl.data.tagName = 'page-overview'
       rootEl.update()
     })
@@ -71,6 +71,13 @@ export function registerRouting(rootEl: any) {
   route('/slider', () => {
     import('./components/web/slider/index').then(() => {
       rootEl.data.tagName = 'page-slider'
+      rootEl.update()
+    })
+  })
+
+  route('/input', () => {
+    import('./components/web/input').then(() => {
+      rootEl.data.tagName = 'page-input'
       rootEl.update()
     })
   })

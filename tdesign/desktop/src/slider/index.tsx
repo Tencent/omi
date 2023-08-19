@@ -4,6 +4,8 @@ import { TdClassNamePefix } from '../utils'
 import { SliderProps } from './types'
 import { ceil, clamp } from 'lodash'
 
+import '../input-number'
+
 const SliderClassNamePefix = (className: string) => TdClassNamePefix('slider__') + className;
 
 @tag('t-slider')
@@ -18,7 +20,7 @@ export default class Slider extends WeElement<SliderProps> {
   track: [number, number] = [0, 0];
 
   static defaultProps = {
-    range: true
+    range: false
   };
 
 
@@ -55,9 +57,19 @@ export default class Slider extends WeElement<SliderProps> {
     window.addEventListener('pointerup', pointerUp);
   }
 
+  handleChangeValue(val: any) {
+    if (this.props.range) {
+
+    } else {
+      this.curLeft[1] = Math.min(100, val);
+      this.track = [this.curLeft[0], this.curLeft[1] - this.curLeft[0]]
+      this.update();
+    }
+  }
+
   render(props: OmiProps<SliderProps>) {
 
-    const { range } = props;
+    const { range, inputNumberProps } = props;
 
     return (
       <>
@@ -101,26 +113,13 @@ export default class Slider extends WeElement<SliderProps> {
             </div>
           </div>
 
-          {/* <div class="t-slider__input-container">
-            <div class="t-input-number t-size-m t-is-controls-right t-input-number--column t-slider-input">
-              <button type="button" class="t-input-number__decrease t-button t-button--theme-default t-button--variant-outline t-button--shape-square">
-                <svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-down t-size-m">
-                  <path fill="currentColor" d="M17.5 8.09l-5.5 5.5-5.5-5.5L5.09 9.5 12 16.41l6.91-6.91-1.41-1.41z"></path>
-                </svg>
-              </button>
-              <div class="t-input__wrap" value="35">
-                <div class="t-input t-align-left">
-                  <input placeholder="请输入" type="text" class="t-input__inner" autocomplete="off" value={this.curLeft[0]} />
-                </div>
+          {
+            inputNumberProps && (
+              <div class='t-slider__input-container'>
+                <t-input-number value={this.curLeft[1] - this.curLeft[0]} onChangeValue={this.handleChangeValue.bind(this)} />
               </div>
-              <button type="button" class="t-input-number__increase t-button t-button--theme-default t-button--variant-outline t-button--shape-square">
-                <svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-chevron-up t-size-m">
-                  <path fill="currentColor" d="M17.5 15.91l-5.5-5.5-5.5 5.5-1.41-1.41L12 7.59l6.91 6.91-1.41 1.41z">
-                  </path>
-                </svg>
-              </button>
-            </div>
-          </div> */}
+            )
+          }
         </div>
 
       </>
