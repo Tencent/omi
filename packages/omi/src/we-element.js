@@ -78,7 +78,7 @@ export default class WeElement extends HTMLElement {
         let styleSheets = []
         if (typeof css === 'string') {
           styleSheets = [createStyleSheet(css)]
-        } else if (Object.prototype.toString.call(css) === '[object Array]') {
+        } else if (isArray(css)) {
           styleSheets = css.map(styleSheet => {
             if (typeof styleSheet === 'string') {
               return createStyleSheet(styleSheet)
@@ -226,37 +226,46 @@ export default class WeElement extends HTMLElement {
     const attrs = this.constructor.propTypes
     if (!attrs) return
     Object.keys(attrs).forEach(key => {
-      const type = attrs[key]
+      const types = isArray(attrs[key]) ? attrs[key] : [attrs[key]]
       const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
-        switch (type) {
-          case String:
-            ele.props[key] = val
-            break
-          case Number:
-            ele.props[key] = Number(val)
-            break
-          case Boolean:
-            if (val === 'false' || val === '0') {
-              ele.props[key] = false
-            } else {
-              ele.props[key] = true
-            }
-            break
-          case Array:
-          case Object:
-            if (val[0] === ':') {
-              ele.props[key] = getValByPath(val.substr(1), Omi.$)
-            } else {
-              try {
-                ele.props[key] = JSON.parse(val)
-              } catch (e) {
-                console.warn(
-                  `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`
-                )
+        for (let i = 0; i < types.length; i++) {
+          const type = types[i]
+          let matched = false
+          switch (type) {
+            case String:
+              ele.props[key] = val
+              matched = true
+              break
+            case Number:
+              ele.props[key] = Number(val)
+              matched = true
+              break
+            case Boolean:
+              if (val === 'false' || val === '0') {
+                ele.props[key] = false
+              } else {
+                ele.props[key] = true
               }
-            }
-            break
+              matched = true
+              break
+            case Array:
+            case Object:
+              if (val[0] === ':') {
+                ele.props[key] = getValByPath(val.substr(1), Omi.$)
+              } else {
+                try {
+                  ele.props[key] = JSON.parse(val)
+                } catch (e) {
+                  console.warn(
+                    `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`
+                  )
+                }
+              }
+              matched = true
+              break
+          }
+          if (matched) break
         }
       } else {
         if (
