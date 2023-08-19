@@ -1,28 +1,21 @@
 import { WeElement } from 'omi'
 
 // TElement 表示 API 只接受传入组件
-export type TElement<T = undefined> = T extends undefined
-  ? WeElement
-  : (props: T) => WeElement
+export type TElement<T = undefined> = T extends undefined ? WeElement : (props: T) => WeElement
 // 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
-export type TNode<T = undefined> = T extends undefined
-  ? WeElement
-  : WeElement | ((props: T) => WeElement)
+export type TNode<T = undefined> = T extends undefined ? WeElement : WeElement | ((props: T) => WeElement)
 
 export type AttachNodeReturnValue = HTMLElement | Element | Document
-export type AttachNode =
-  | CSSSelector
-  | ((triggerNode?: HTMLElement) => AttachNodeReturnValue)
+export type AttachNode = CSSSelector | ((triggerNode?: HTMLElement) => AttachNodeReturnValue)
 
 // 与滚动相关的容器类型，因为 document 上没有 scroll 相关属性, 因此排除 document
 export type ScrollContainerElement = Window | HTMLElement
 export type ScrollContainer = (() => ScrollContainerElement) | CSSSelector
 
-
 // 组件 TS 类型，暂定 any，可能调整为 () => JSX.Element
 export type ComponentType = any
 
-export type Styles = JSX.SVGAttributes;
+export type Styles = JSX.SVGAttributes
 
 export interface StyledProps {
   className?: string
@@ -119,3 +112,4 @@ export interface ScrollToElementParams {
 }
 
 export type ThemeCommon = 'default' | 'primary' | 'danger' | 'warning' | 'success'
+export type StatusEnum = 'default' | 'error' | 'warning' | 'success'
