@@ -20,7 +20,7 @@ define('page-slider', class extends WeElement {
   render(props: {} | OmiProps<{}, any>, store: any) {
     return (
       <div style="padding:24px">
-        <t-slider />
+        <t-slider inputNumberProps />
       </div>
 
 
