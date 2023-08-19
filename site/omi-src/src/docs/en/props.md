@@ -50,7 +50,9 @@ define('my-element', class extends WeElement {
 
   static propTypes = {
     name: String,
-    myAge: Number
+    myAge: Number,
+    // Also supports multiple types of attributes
+    color: [String, Array]
   }
   
   render(props) {
