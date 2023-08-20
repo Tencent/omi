@@ -70,7 +70,7 @@ export function setAccessor(node, name, old, value, isSvg, component) {
       }
     }
   } else if (name === 'unsafeHTML') {
-    if (value) node.innerHTML = value || ''
+    if (value) node.innerHTML = value || value.html || ''
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || ''
   } else if (name[0] == 'o' && name[1] == 'n') {
