@@ -19,7 +19,7 @@ import Store from './store'
 registerLocaleChange()
 
 import { registerRouting } from './router'
-
+import { watchHtmlMode } from './utils'
 
 import siteConfig from '../site.config'
 
@@ -54,6 +54,11 @@ export default class extends WeElement {
   }
 
   installed() {
+    // 监听根 html 主题变化更新相关 omi 组件
+    const observer = watchHtmlMode((themeMode) => {
+      this.store.themeMode = themeMode
+      this.store.ui.overview.update()
+    });
 
     this.tdHeader.framework = 'omi'
     this.tdDocAside.routerList = docsMap[this.lang]
@@ -131,7 +136,8 @@ render(
   <my-app id="my-app"></my-app>,
   '#app',
   new Store({
-    ignoreAttrs: true
+    ignoreAttrs: true,
+    themeMode: 'light'
   })
 )
 
