@@ -216,7 +216,7 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, hydrating || null != props.dangerouslySetInnerHTML, component, updateSelf);
+        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, hydrating || null != props.unsafeHTML || null != props.dangerouslySetInnerHTML, component, updateSelf);
         diffAttributes(out, vnode.attributes, props, component, updateSelf);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
@@ -1013,7 +1013,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.14';
+    options.root.Omi.version = '6.25.15';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
