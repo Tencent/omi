@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.16  http://omijs.org
+ * Omi v6.25.17  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -324,7 +324,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
       }
     }
   } else if (name === 'unsafeHTML') {
-    if (value) node.innerHTML = value || value.html || '';
+    if (value) node.innerHTML = value.html || value || '';
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || '';
   } else if (name[0] == 'o' && name[1] == 'n') {
@@ -1725,7 +1725,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.16';
+options.root.Omi.version = '6.25.17';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
