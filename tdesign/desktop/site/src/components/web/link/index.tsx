@@ -9,6 +9,10 @@ import '../../../../../src/link/_example/theme'
 import '../../../../../src/link/_example/underline'
 import * as marked from 'marked'
 
+import '../../../../code-box/index.tsx'
+
+import { tw, sheet } from 'omi-twind'
+
 const docsHTML = marked.parse(`
 
 ## API
@@ -41,6 +45,8 @@ define(
       tab: 'demo',
     }
 
+    static css = `t-link { margin: 5px }`
+
     tab = ['demo', 'api', 'design']
     tdDocHeader = createRef()
     tdDocTabs = createRef()
@@ -70,6 +76,31 @@ define(
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
+
+            <code-box
+              title="下划线文字链接"
+              describe="在文字下加横线，表明此处为链接。"
+              code={`
+\`\`\`html
+<div>
+  <t-link theme="default" underline> 跳转链接 </t-link>
+  <t-link theme="primary" underline> 跳转链接 </t-link>
+  <t-link theme="danger" underline> 跳转链接 </t-link>
+  <t-link theme="warning" underline> 跳转链接 </t-link>
+  <t-link theme="success" underline> 跳转链接 </t-link>
+</div>
+\`\`\`
+          `}
+            >
+              <div slot="demo" class={tw`px-5 py-5`}>
+                <t-link theme="default" underline> 跳转链接 </t-link>
+                <t-link theme="primary" underline> 跳转链接 </t-link>
+                <t-link theme="danger" underline> 跳转链接 </t-link>
+                <t-link theme="warning" underline> 跳转链接 </t-link>
+                <t-link theme="success" underline> 跳转链接 </t-link>
+              </div>
+            </code-box>
+
             <h3 id="文字链接">
               文字链接 <a class="header-anchor" href="#文字链接"></a>
             </h3>
