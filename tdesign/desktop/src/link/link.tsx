@@ -1,4 +1,4 @@
-import { h, tag, extractClass, WeElement, OmiProps } from 'omi'
+import { h, tag, classNames, WeElement, OmiProps } from 'omi'
 import { LinkProps } from './type'
 import parseTNode from '../utils/parseTNode'
 import css from './style/index'
@@ -37,7 +37,7 @@ export default class Link extends WeElement<LinkProps> {
     const classPrefix = 't'
 
     const childNode = props.content || props.children
-    const linkClass = extractClass(`${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
+    const linkClass = classNames(`${classPrefix}-link`, `${classPrefix}-link--theme-${props.theme}`, {
       [`${classPrefix}-size-s`]: props.size === 'small',
       [`${classPrefix}-size-l`]: props.size === 'large',
       [`${classPrefix}-is-disabled`]: !!props.disabled,
@@ -48,7 +48,7 @@ export default class Link extends WeElement<LinkProps> {
     return (
       <>
         <a
-          {...linkClass}
+          class={linkClass}
           href={props.disabled || !props.href ? undefined : props.href}
           target={props.target}
           onClick={this.handleClick}
