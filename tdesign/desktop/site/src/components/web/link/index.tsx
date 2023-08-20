@@ -168,8 +168,8 @@ define(
           <div style={this.isShow('api')} name="API">
             <div
               style="margin-bottom:76px"
-              dangerouslySetInnerHTML={{
-                __html: docsHTML,
+              unsafeHTML={{
+                html: docsHTML,
               }}
             ></div>
           </div>

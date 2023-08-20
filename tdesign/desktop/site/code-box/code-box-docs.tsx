@@ -98,9 +98,8 @@ export default class extends WeElement<Props> {
   }
 
   render() {
-    // unsafeHTML 切 tab 之后数据丢失
     return <div class="result-html" style={{ padding: this.props.padding }}>
-      <div dangerouslySetInnerHTML={{ __html: this.md.render(this.props.mdContent) }
+      <div unsafeHTML={{ html: this.md.render(this.props.mdContent) }
       } ></div >
     </div >
   }
