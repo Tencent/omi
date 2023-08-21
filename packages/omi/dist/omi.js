@@ -1,10 +1,5 @@
 !function() {
     'use strict';
-    function getGlobal() {
-        if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
-            return this;
-        }(); else return global;
-    }
     function cssToDom(css) {
         var node = document.createElement('style');
         node.textContent = css;
@@ -55,8 +50,11 @@
     }
     function h(nodeName, attributes) {
         var lastSimple, child, simple, i, children = [];
+        if (attributes) attributes.ignoreAttrs = !0; else attributes = {
+            ignoreAttrs: !0
+        };
         for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
-        if (attributes && null != attributes.children) {
+        if (null != attributes.children) {
             if (!stack.length) stack.push(attributes.children);
             delete attributes.children;
         }
@@ -70,8 +68,8 @@
         var p = {
             nodeName: nodeName,
             children: children,
-            attributes: null == attributes ? void 0 : attributes,
-            key: null == attributes ? void 0 : attributes.key
+            attributes: attributes,
+            key: attributes.key
         };
         if (void 0 !== options.vnode) options.vnode(p);
         return p;
@@ -122,27 +120,27 @@
         if ('className' === name) name = 'class';
         if ('o' == name[0] && '-' == name[1]) {
             if (extension[name]) extension[name](node, value, component);
-        } else if ('key' === name) ; else if ('ref' === name) {
+        } else if ('key' === name || 'ignoreAttrs' === name) ; else if ('ref' === name) {
             applyRef(old, null);
             applyRef(value, node);
         } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
             if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
             if (value && 'object' == typeof value) {
                 if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
-                for (var i in value) node.style[i] = 'number' == typeof value[i] && IS_NON_DIMENSIONAL.test(i) === !1 ? value[i] + 'px' : value[i];
+                for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
             }
         } else if ('unsafeHTML' === name) {
-            if (value) node.innerHTML = value || '';
+            if (value) node.innerHTML = value.html || value || '';
         } else if ('dangerouslySetInnerHTML' === name) {
             if (value) node.innerHTML = value.__html || '';
         } else if ('o' == name[0] && 'n' == name[1]) bindEvent(node, name, value, old); else if ('INPUT' === node.nodeName && 'value' === name) node[name] = null == value ? '' : value; else if ('list' !== name && 'type' !== name && 'css' !== name && !isSvg && name in node && '' !== value) {
             try {
                 node[name] = null == value ? '' : value;
             } catch (e) {}
-            if ((null == value || value === !1) && 'spellcheck' != name) node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
+            if ((null == value || !1 === value) && 'spellcheck' != name) node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-            if (null == value || value === !1) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
         }
     }
     function eventProxy$1(e) {
@@ -221,7 +219,7 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, hydrating || null != props.dangerouslySetInnerHTML, component, updateSelf);
+        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, hydrating || null != props.unsafeHTML || null != props.dangerouslySetInnerHTML, component, updateSelf);
         diffAttributes(out, vnode.attributes, props, component, updateSelf);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
@@ -264,7 +262,7 @@
     }
     function recollectNodeTree(node, unmountOnly) {
         if (null != node.prevProps && node.prevProps.ref) if ('function' == typeof node.prevProps.ref) node.prevProps.ref(null); else if (node.prevProps.ref.current) node.prevProps.ref.current = null;
-        if (unmountOnly === !1 || null == node.prevProps) removeNode(node);
+        if (!1 === unmountOnly || null == node.prevProps) removeNode(node);
         removeChildren(node);
     }
     function removeChildren(node) {
@@ -290,13 +288,13 @@
             dom.props[ccName] = old[ccName] = attrs[name];
         } else if (!('children' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
             setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
-            if (dom.nodeName.indexOf('-') !== -1) {
+            if (-1 !== dom.nodeName.indexOf('-')) {
                 dom.props = dom.props || {};
                 var _ccName = camelCase(name);
                 dom.props[_ccName] = old[_ccName] = attrs[name];
             } else old[name] = attrs[name];
         }
-        if (isWeElement && !updateSelf && dom.parentNode) if (dom.receiveProps(dom.props, oldClone) !== !1) dom.update();
+        if (isWeElement && !updateSelf && dom.parentNode) if (!1 !== dom.receiveProps(dom.props, oldClone)) dom.update();
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -367,12 +365,11 @@
             Ele.propTypes = config.propTypes;
             Ele.defaultProps = config.defaultProps;
             Ele.isLightDom = config.isLightDom;
-            var _loop = function(key) {
+            for (var key in config) !function(key) {
                 if ('function' == typeof config[key]) Ele.prototype[key] = function() {
                     return config[key].apply(this, arguments);
                 };
-            };
-            for (var key in config) _loop(key);
+            }(key);
             storeHelpers.forEach(function(func) {
                 if (config[func] && 'function' !== config[func]) Ele.prototype[func] = function() {
                     return config[func];
@@ -409,7 +406,7 @@
                     var inner = classNames.apply(null, arg);
                     if (inner) classes.push(inner);
                 } else if ('object' === argType) for (var key in arg) if (hasOwn.call(arg, key) && arg[key]) classes.push(key);
-            } else ;
+            }
         }
         return classes.join(' ');
     }
@@ -434,7 +431,11 @@
     }
     var options = {
         store: null,
-        root: getGlobal(),
+        root: function() {
+            if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
+                return this;
+            }(); else return global;
+        }(),
         mapping: {}
     };
     !function() {
@@ -574,7 +575,7 @@
                 var css = this.constructor.css;
                 if (css) {
                     var styleSheets = [];
-                    if ('string' == typeof css) styleSheets = [ createStyleSheet(css) ]; else if ('[object Array]' === Object.prototype.toString.call(css)) styleSheets = css.map(function(styleSheet) {
+                    if ('string' == typeof css) styleSheets = [ createStyleSheet(css) ]; else if (isArray(css)) styleSheets = css.map(function(styleSheet) {
                         if ('string' == typeof styleSheet) return createStyleSheet(styleSheet); else if (styleSheet.default && 'string' == typeof styleSheet.default) return createStyleSheet(styleSheet.default); else return styleSheet;
                     }); else if (css.default && 'string' == typeof css.default) styleSheets = [ createStyleSheet(css.default) ]; else styleSheets = [ css ];
                     shadowRoot.adoptedStyleSheets = styleSheets;
@@ -602,7 +603,7 @@
             this.uninstall();
             this.isInstalled = !1;
         };
-        WeElement.prototype.update = function(ignoreAttrs, updateSelf) {
+        WeElement.prototype.update = function(updateSelf) {
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
@@ -613,15 +614,12 @@
                     this.shadowRoot.appendChild(this.N);
                 }
             }
-            this.attrsToProps(ignoreAttrs);
+            this.attrsToProps();
             var rendered = this.render(this.props, this.store);
             this.rendered();
             this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
             this.J = !1;
             this.updated();
-        };
-        WeElement.prototype.forceUpdate = function() {
-            this.update(!0);
         };
         WeElement.prototype.updateProps = function(obj) {
             var _this3 = this;
@@ -629,10 +627,10 @@
                 _this3.props[key] = obj[key];
                 if (_this3.prevProps) _this3.prevProps[key] = obj[key];
             });
-            this.forceUpdate();
+            this.update();
         };
-        WeElement.prototype.updateSelf = function(ignoreAttrs) {
-            this.update(ignoreAttrs, !0);
+        WeElement.prototype.updateSelf = function() {
+            this.update(!0);
         };
         WeElement.prototype.removeAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -648,34 +646,43 @@
         WeElement.prototype.pureSetAttribute = function(key, val) {
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
-        WeElement.prototype.attrsToProps = function(ignoreAttrs) {
-            if (!(ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs)) {
+        WeElement.prototype.attrsToProps = function() {
+            if (!this.props.ignoreAttrs) {
                 var ele = this;
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
                 if (attrs) Object.keys(attrs).forEach(function(key) {
-                    var type = attrs[key];
+                    var types = isArray(attrs[key]) ? attrs[key] : [ attrs[key] ];
                     var val = ele.getAttribute(hyphenate(key));
-                    if (null !== val) switch (type) {
-                      case String:
-                        ele.props[key] = val;
-                        break;
+                    if (null !== val) for (var i = 0; i < types.length; i++) {
+                        var type = types[i];
+                        var matched = !1;
+                        switch (type) {
+                          case String:
+                            ele.props[key] = val;
+                            matched = !0;
+                            break;
 
-                      case Number:
-                        ele.props[key] = Number(val);
-                        break;
+                          case Number:
+                            ele.props[key] = Number(val);
+                            matched = !0;
+                            break;
 
-                      case Boolean:
-                        if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
-                        break;
+                          case Boolean:
+                            if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
+                            matched = !0;
+                            break;
 
-                      case Array:
-                      case Object:
-                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else try {
-                            ele.props[key] = JSON.parse(val);
-                        } catch (e) {
-                            console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                          case Array:
+                          case Object:
+                            if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else try {
+                                ele.props[key] = JSON.parse(val);
+                            } catch (e) {
+                                console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                            }
+                            matched = !0;
                         }
+                        if (matched) break;
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
                 });
             }
@@ -727,7 +734,7 @@
         }
         function diff(arr1, arr2) {
             return arr1.filter(function(value) {
-                return arr2.indexOf(value) === -1;
+                return -1 === arr2.indexOf(value);
             });
         }
         function removeNode(node) {
@@ -1006,7 +1013,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.13';
+    options.root.Omi.version = '6.25.19';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

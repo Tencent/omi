@@ -4,22 +4,30 @@ import * as css from './overview.less';
 define('page-overview', class extends WeElement {
   static css = [
     css.default,
-    // 临时加上，里面的样式没生效
     `
-.__dark__ {
- display: none;
+.light .__dark__ {
+  display: none;
+}
+
+.dark .__light__ {
+  display: none;
 }
 
 p {
   padding: 0;
   margin: 0;
 }
-`  
+`
   ]
 
-  render() {
+  installed() {
+    this.store.ui.overview = this
+  }
+
+
+  render(props, store) {
     return (
-      <div name="DOC">
+      <div name="DOC" class={this.store.themeMode}>
         <h3>基础<em class="tag">3</em></h3>
         <section class="image-group">
           <div class="image-wrapper">

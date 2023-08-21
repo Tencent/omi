@@ -9,10 +9,17 @@ export function h(nodeName, attributes) {
     child,
     simple,
     i
+
+  // jsx 嵌套的元素自动忽略  attrs
+  if(attributes) {
+    attributes.ignoreAttrs = true
+  } else {
+    attributes = { ignoreAttrs: true }
+  }
   for (i = arguments.length; i-- > 2; ) {
     stack.push(arguments[i])
   }
-  if (attributes && attributes.children != null) {
+  if (attributes.children != null) {
     if (!stack.length) stack.push(attributes.children)
     delete attributes.children
   }
@@ -47,8 +54,8 @@ export function h(nodeName, attributes) {
   const p = {
     nodeName,
     children,
-    attributes: attributes == null ? undefined : attributes,
-    key: attributes == null ? undefined : attributes.key
+    attributes,
+    key: attributes.key
   }
 
   // if a "vnode hook" is defined, pass every created VNode to it

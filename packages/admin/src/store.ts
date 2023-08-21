@@ -47,8 +47,6 @@ class Store {
 
     this.isLeftPanelClosed = window.innerWidth < 640
 
-    this.ignoreAttrs = true
-
     this.ui = {}
     this.treeData = []
     this.tabs = []

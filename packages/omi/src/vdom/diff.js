@@ -181,7 +181,7 @@ function idiff(dom, vnode, component, updateSelf) {
       innerDiffNode(
         out,
         vchildren,
-        hydrating || props.dangerouslySetInnerHTML != null,
+        hydrating || props.unsafeHTML != null || props.dangerouslySetInnerHTML != null,
         component,
         updateSelf
       )

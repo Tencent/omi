@@ -41,14 +41,14 @@ const charts = ['bar', 'line', 'scatter', 'pie', 'doughnut', 'radar', 'polar-are
 
 export function registerRouting(rootEl: any) {
   route('/', () => {
-    import('../docs/overview.tsx').then(() => {
+    import('../docs/overview').then(() => {
       rootEl.data.tagName = 'page-overview'
       rootEl.update()
     })
   })
 
   route('/welcome', () => {
-    import('../docs/overview.tsx').then(() => {
+    import('../docs/overview').then(() => {
       rootEl.data.tagName = 'page-overview'
       rootEl.update()
     })
@@ -75,6 +75,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/input', () => {
+    import('./components/web/input').then(() => {
+      rootEl.data.tagName = 'page-input'
+      rootEl.update()
+    })
+  })
+
   route('/link', () => {
     import('./components/web/link/index').then(() => {
       rootEl.data.tagName = 'page-link'
@@ -88,7 +95,7 @@ export function registerRouting(rootEl: any) {
       rootEl.update()
     })
   })
-  
+
   route('/notification', () => {
     import('./components/web/notification/index').then(() => {
       rootEl.data.tagName = 'page-notification'
@@ -106,6 +113,20 @@ export function registerRouting(rootEl: any) {
   route('/space', () => {
     import('./components/web/space/index').then(() => {
       rootEl.data.tagName = 'page-space'
+      rootEl.update()
+    })
+  })
+
+  route('/rate', () => {
+    import('./components/web/rate/index').then(() => {
+      rootEl.data.tagName = 'page-rate'
+      rootEl.update()
+    })
+  }) 
+
+  route('/comment', () => {
+    import('./components/web/comment/index').then(() => {
+      rootEl.data.tagName = 'page-comment'
       rootEl.update()
     })
   })

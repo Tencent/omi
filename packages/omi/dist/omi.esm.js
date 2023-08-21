@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.13  http://omijs.org
+ * Omi v6.25.19  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -138,10 +138,17 @@ function h(nodeName, attributes) {
       child,
       simple,
       i;
+
+  // jsx 嵌套的元素自动忽略  attrs
+  if (attributes) {
+    attributes.ignoreAttrs = true;
+  } else {
+    attributes = { ignoreAttrs: true };
+  }
   for (i = arguments.length; i-- > 2;) {
     stack.push(arguments[i]);
   }
-  if (attributes && attributes.children != null) {
+  if (attributes.children != null) {
     if (!stack.length) stack.push(attributes.children);
     delete attributes.children;
   }
@@ -176,8 +183,8 @@ function h(nodeName, attributes) {
   var p = {
     nodeName: nodeName,
     children: children,
-    attributes: attributes == null ? undefined : attributes,
-    key: attributes == null ? undefined : attributes.key
+    attributes: attributes,
+    key: attributes.key
 
     // if a "vnode hook" is defined, pass every created VNode to it
   };if (options.vnode !== undefined) options.vnode(p);
@@ -302,7 +309,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
     if (extension[name]) {
       extension[name](node, value, component);
     }
-  } else if (name === 'key') {
+  } else if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null);
@@ -324,7 +331,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
       }
     }
   } else if (name === 'unsafeHTML') {
-    if (value) node.innerHTML = value || '';
+    if (value) node.innerHTML = value.html || value || '';
   } else if (name === 'dangerouslySetInnerHTML') {
     if (value) node.innerHTML = value.__html || '';
   } else if (name[0] == 'o' && name[1] == 'n') {
@@ -533,7 +540,7 @@ function idiff(dom, vnode, component, updateSelf) {
   // otherwise, if there are existing or new children, diff them:
   else if (vchildren && vchildren.length || fc != null) {
       if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
-        innerDiffNode(out, vchildren, hydrating || props.dangerouslySetInnerHTML != null, component, updateSelf);
+        innerDiffNode(out, vchildren, hydrating || props.unsafeHTML != null || props.dangerouslySetInnerHTML != null, component, updateSelf);
       }
     }
 
@@ -963,7 +970,7 @@ var WeElement = function (_HTMLElement) {
         var styleSheets = [];
         if (typeof css === 'string') {
           styleSheets = [createStyleSheet(css)];
-        } else if (Object.prototype.toString.call(css) === '[object Array]') {
+        } else if (isArray(css)) {
           styleSheets = css.map(function (styleSheet) {
             if (typeof styleSheet === 'string') {
               return createStyleSheet(styleSheet);
@@ -1019,7 +1026,7 @@ var WeElement = function (_HTMLElement) {
     this.isInstalled = false;
   };
 
-  WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+  WeElement.prototype.update = function update(updateSelf) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
@@ -1034,7 +1041,7 @@ var WeElement = function (_HTMLElement) {
         this.shadowRoot.appendChild(this._customStyleElement);
       }
     }
-    this.attrsToProps(ignoreAttrs);
+    this.attrsToProps();
 
     var rendered = this.render(this.props, this.store);
     this.rendered();
@@ -1042,10 +1049,6 @@ var WeElement = function (_HTMLElement) {
     this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
     this._willUpdate = false;
     this.updated();
-  };
-
-  WeElement.prototype.forceUpdate = function forceUpdate() {
-    this.update(true);
   };
 
   WeElement.prototype.updateProps = function updateProps(obj) {
@@ -1057,11 +1060,11 @@ var WeElement = function (_HTMLElement) {
         _this3.prevProps[key] = obj[key];
       }
     });
-    this.forceUpdate();
+    this.update();
   };
 
-  WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-    this.update(ignoreAttrs, true);
+  WeElement.prototype.updateSelf = function updateSelf() {
+    this.update(true);
   };
 
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1088,42 +1091,51 @@ var WeElement = function (_HTMLElement) {
     _HTMLElement.prototype.setAttribute.call(this, key, val);
   };
 
-  WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-    if (ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
+  WeElement.prototype.attrsToProps = function attrsToProps() {
+    if (this.props.ignoreAttrs) return;
     var ele = this;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
     if (!attrs) return;
     Object.keys(attrs).forEach(function (key) {
-      var type = attrs[key];
+      var types = isArray(attrs[key]) ? attrs[key] : [attrs[key]];
       var val = ele.getAttribute(hyphenate(key));
       if (val !== null) {
-        switch (type) {
-          case String:
-            ele.props[key] = val;
-            break;
-          case Number:
-            ele.props[key] = Number(val);
-            break;
-          case Boolean:
-            if (val === 'false' || val === '0') {
-              ele.props[key] = false;
-            } else {
-              ele.props[key] = true;
-            }
-            break;
-          case Array:
-          case Object:
-            if (val[0] === ':') {
-              ele.props[key] = getValByPath(val.substr(1), Omi.$);
-            } else {
-              try {
-                ele.props[key] = JSON.parse(val);
-              } catch (e) {
-                console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+        for (var i = 0; i < types.length; i++) {
+          var type = types[i];
+          var matched = false;
+          switch (type) {
+            case String:
+              ele.props[key] = val;
+              matched = true;
+              break;
+            case Number:
+              ele.props[key] = Number(val);
+              matched = true;
+              break;
+            case Boolean:
+              if (val === 'false' || val === '0') {
+                ele.props[key] = false;
+              } else {
+                ele.props[key] = true;
               }
-            }
-            break;
+              matched = true;
+              break;
+            case Array:
+            case Object:
+              if (val[0] === ':') {
+                ele.props[key] = getValByPath(val.substr(1), Omi.$);
+              } else {
+                try {
+                  ele.props[key] = JSON.parse(val);
+                } catch (e) {
+                  console.warn('The ' + key + ' object prop does not comply with the JSON specification, the incorrect string is [' + val + '].');
+                }
+              }
+              matched = true;
+              break;
+          }
+          if (matched) break;
         }
       } else {
         if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
@@ -1716,7 +1728,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.13';
+options.root.Omi.version = '6.25.19';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
