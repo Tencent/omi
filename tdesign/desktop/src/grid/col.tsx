@@ -94,7 +94,6 @@ export default class Col extends WeElement<ColProps> {
         } else if (isObject(sizeProp)) {
           sizeObj = sizeProp || {};
         }
-    
         return {
           ...acc,
           [`${classPrefix}-col-${currSize}-${sizeObj.span}`]: sizeObj.span !== undefined,
@@ -122,8 +121,9 @@ export default class Col extends WeElement<ColProps> {
         ...style
       };
       flex && (colStyle.flex = parseFlex(flex));
+      this.className = colClassNames
     return (
-        <props.tag class={colClassNames} style={colStyle} {...otherColProps}>
+        <props.tag  style={colStyle} {...otherColProps}>
             {children}
         </props.tag>
     )
