@@ -50,8 +50,11 @@
     }
     function h(nodeName, attributes) {
         var lastSimple, child, simple, i, children = [];
+        if (attributes) attributes.ignoreAttrs = !0; else attributes = {
+            ignoreAttrs: !0
+        };
         for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
-        if (attributes && null != attributes.children) {
+        if (null != attributes.children) {
             if (!stack.length) stack.push(attributes.children);
             delete attributes.children;
         }
@@ -65,8 +68,8 @@
         var p = {
             nodeName: nodeName,
             children: children,
-            attributes: null == attributes ? void 0 : attributes,
-            key: null == attributes ? void 0 : attributes.key
+            attributes: attributes,
+            key: attributes.key
         };
         if (void 0 !== options.vnode) options.vnode(p);
         return p;
@@ -117,7 +120,7 @@
         if ('className' === name) name = 'class';
         if ('o' == name[0] && '-' == name[1]) {
             if (extension[name]) extension[name](node, value, component);
-        } else if ('key' === name) ; else if ('ref' === name) {
+        } else if ('key' === name || 'ignoreAttrs' === name) ; else if ('ref' === name) {
             applyRef(old, null);
             applyRef(value, node);
         } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
@@ -1013,7 +1016,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.17';
+    options.root.Omi.version = '6.25.18';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

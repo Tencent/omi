@@ -47,7 +47,7 @@ export function setAccessor(node, name, old, value, isSvg, component) {
     if (extension[name]) {
       extension[name](node, value, component)
     }
-  } else if (name === 'key') {
+  } else if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null)

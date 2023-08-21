@@ -1,11 +1,3 @@
-/**
- * Omi v6.25.18  http://omijs.org
- * Front End Cross-Frameworks Framework.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
 
@@ -137,10 +129,10 @@
 
   function h(nodeName, attributes) {
     var children = [],
-        lastSimple,
-        child,
-        simple,
-        i;
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
 
     // jsx 嵌套的元素自动忽略  attrs
     if (attributes) {
@@ -194,6 +186,10 @@
 
     return p;
   }
+
+  // render modes
+
+  var ATTR_KEY = 'prevProps';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -329,8 +325,8 @@
             if (!(i in value)) node.style[i] = '';
           }
         }
-        for (var i in value) {
-          node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+        for (var _i in value) {
+          node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
         }
       }
     } else if (name === 'unsafeHTML') {
@@ -408,13 +404,13 @@
     // first render return undefined
     if (!dom && !vnode) return;
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
-    var ret;
+    var ret = void 0;
     if (!diffLevel++) {
       // when first starting the diff, check if we're diffing an SVG or within an SVG
       isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
       // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('prevProps' in dom);
+      hydrating = dom != null && !(ATTR_KEY in dom);
     }
     if (vnode && vnode.nodeName === Fragment) {
       vnode = vnode.children;
@@ -487,7 +483,7 @@
         }
       }
 
-      out['prevProps'] = true;
+      out[ATTR_KEY] = true;
 
       return out;
     }
@@ -524,11 +520,11 @@
     }
 
     var fc = out.firstChild,
-        props = out['prevProps'],
+        props = out[ATTR_KEY],
         vchildren = vnode.children;
 
     if (props == null) {
-      props = out['prevProps'] = {};
+      props = out[ATTR_KEY] = {};
       for (var a = out.attributes, i = a.length; i--;) {
         props[a[i].name] = a[i].value;
       }
@@ -572,17 +568,17 @@
         len = originalChildren.length,
         childrenLen = 0,
         vlen = vchildren ? vchildren.length : 0,
-        j,
-        c,
-        f,
-        vchild,
-        child;
+        j = void 0,
+        c = void 0,
+        f = void 0,
+        vchild = void 0,
+        child = void 0;
 
     // Build up a map of keyed children and an Array of unkeyed children:
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child['prevProps'],
+            props = _child[ATTR_KEY],
             key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
@@ -594,17 +590,17 @@
     }
 
     if (vlen !== 0) {
-      for (var i = 0; i < vlen; i++) {
-        vchild = vchildren[i];
+      for (var _i = 0; _i < vlen; _i++) {
+        vchild = vchildren[_i];
         child = null;
 
         if (vchild) {
           // attempt to find a node based on key matching
-          var key = vchild.key;
-          if (key != null) {
-            if (keyedLen && keyed[key] !== undefined) {
-              child = keyed[key];
-              keyed[key] = undefined;
+          var _key = vchild.key;
+          if (_key != null) {
+            if (keyedLen && keyed[_key] !== undefined) {
+              child = keyed[_key];
+              keyed[_key] = undefined;
               keyedLen--;
             }
           }
@@ -625,7 +621,7 @@
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, component, updateSelf);
 
-        f = originalChildren[i];
+        f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
             dom.appendChild(child);
@@ -640,8 +636,8 @@
 
     // remove unused keyed children:
     if (keyedLen) {
-      for (var i in keyed) {
-        if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+      for (var _i2 in keyed) {
+        if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
       }
     }
 
@@ -658,15 +654,15 @@
   function recollectNodeTree(node, unmountOnly) {
     // If the node's VNode had a ref function, invoke it with null here.
     // (this is part of the React spec, and smart for unsetting references)
-    if (node['prevProps'] != null && node['prevProps'].ref) {
-      if (typeof node['prevProps'].ref === 'function') {
-        node['prevProps'].ref(null);
-      } else if (node['prevProps'].ref.current) {
-        node['prevProps'].ref.current = null;
+    if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) {
+      if (typeof node[ATTR_KEY].ref === 'function') {
+        node[ATTR_KEY].ref(null);
+      } else if (node[ATTR_KEY].ref.current) {
+        node[ATTR_KEY].ref.current = null;
       }
     }
 
-    if (unmountOnly === false || node['prevProps'] == null) {
+    if (unmountOnly === false || node[ATTR_KEY] == null) {
       removeNode(node);
     }
 
@@ -692,10 +688,10 @@
    *  @param {Object} old      Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old, component, updateSelf) {
-    var name;
+    var name = void 0;
     //let update = false
     var isWeElement = dom.update;
-    var oldClone;
+    var oldClone = void 0;
     if (dom.receiveProps) {
       oldClone = Object.assign({}, old);
     }
@@ -742,6 +738,8 @@
       //}
     }
   }
+
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
   /*!
    * weakmap-polyfill v2.0.4 - ECMAScript6 WeakMap polyfill
@@ -889,8 +887,10 @@
     typeof globalThis !== 'undefined' ? globalThis :
     typeof self !== 'undefined' ? self :
     typeof window !== 'undefined' ? window :
-    typeof global !== 'undefined' ? global : undefined
+    typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : commonjsGlobal
   );
+
+  var _class, _temp;
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -901,8 +901,7 @@
   var id = 0;
 
   var adoptedStyleSheetsMap = new WeakMap();
-
-  var WeElement = function (_HTMLElement) {
+  var WeElement = (_temp = _class = function (_HTMLElement) {
     _inherits(WeElement, _HTMLElement);
 
     function WeElement() {
@@ -930,7 +929,7 @@
       if (this.inject) {
         this.injection = {};
         p = this.parentNode;
-        var provide;
+        var provide = void 0;
         while (p && !provide) {
           provide = p.provide;
           p = p.parentNode || p.host;
@@ -950,7 +949,7 @@
       this.install();
       this.afterInstall();
 
-      var shadowRoot;
+      var shadowRoot = void 0;
       if (this.constructor.isLightDom) {
         shadowRoot = this;
       } else {
@@ -960,7 +959,7 @@
           });
         } else {
           shadowRoot = this.shadowRoot;
-          var fc;
+          var fc = void 0;
           while (fc = shadowRoot.firstChild) {
             shadowRoot.removeChild(fc);
           }
@@ -1188,9 +1187,7 @@
     WeElement.prototype.receiveProps = function receiveProps() {};
 
     return WeElement;
-  }(HTMLElement);
-
-  WeElement.is = 'WeElement';
+  }(HTMLElement), _class.is = 'WeElement', _temp);
 
   function render(vnode, parent, store) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
@@ -1219,13 +1216,15 @@
       customElements.define(name, ctor);
       options.mapping[name] = ctor;
     } else {
+      var _class, _temp2;
+
       if (typeof config === 'string') {
         config = { css: config };
       } else {
         config = config || {};
       }
 
-      var Ele = function (_WeElement) {
+      var Ele = (_temp2 = _class = function (_WeElement) {
         _inherits$1(Ele, _WeElement);
 
         function Ele() {
@@ -1233,8 +1232,8 @@
 
           _classCallCheck$1(this, Ele);
 
-          for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
-            args[key] = arguments[key];
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
           }
 
           return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
@@ -1245,12 +1244,7 @@
         };
 
         return Ele;
-      }(WeElement);
-
-      Ele.css = config.css;
-      Ele.propTypes = config.propTypes;
-      Ele.defaultProps = config.defaultProps;
-      Ele.isLightDom = config.isLightDom;
+      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _class.isLightDom = config.isLightDom, _temp2);
 
       var _loop = function _loop(key) {
         if (typeof config[key] === 'function') {
@@ -1737,6 +1731,88 @@
   options.root.omi = omi;
   options.root.Omi.version = '6.25.18';
 
-  if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
+  var _class$1, _temp2, _class2, _temp3;
+
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('my-counter', (_temp2 = _class$1 = function (_WeElement) {
+  	_inherits$2(_class, _WeElement);
+
+  	function _class() {
+  		var _temp, _this, _ret;
+
+  		_classCallCheck$2(this, _class);
+
+  		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  			args[_key] = arguments[_key];
+  		}
+
+  		return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.sub = function () {
+  			_this.count--;
+  			_this.update();
+  		}, _this.add = function () {
+  			_this.count++;
+  			_this.update();
+  		}, _temp), _possibleConstructorReturn$2(_this, _ret);
+  	}
+
+  	_class.prototype.install = function install() {
+  		this.count = this.props.count;
+  	};
+
+  	_class.prototype.render = function render$$1() {
+  		return Omi.h(
+  			h.f,
+  			null,
+  			Omi.h(
+  				'button',
+  				{ onClick: this.sub },
+  				'-'
+  			),
+  			Omi.h(
+  				'span',
+  				null,
+  				this.count
+  			),
+  			Omi.h('my-child', { obj: { name: '1111' } })
+  		);
+  	};
+
+  	return _class;
+  }(WeElement), _class$1.css = '\n    span {\n      color: red;\n    }', _class$1.propTypes = {
+  	count: Number
+  }, _temp2));
+
+  define('my-child', (_temp3 = _class2 = function (_WeElement2) {
+  	_inherits$2(_class2, _WeElement2);
+
+  	function _class2() {
+  		_classCallCheck$2(this, _class2);
+
+  		return _possibleConstructorReturn$2(this, _WeElement2.apply(this, arguments));
+  	}
+
+  	_class2.prototype.render = function render$$1(props) {
+  		return Omi.h(
+  			h.f,
+  			null,
+  			Omi.h(
+  				'span',
+  				null,
+  				'name:',
+  				this.props.obj.name
+  			)
+  		);
+  	};
+
+  	return _class2;
+  }(WeElement), _class2.propTypes = {
+  	obj: Object
+  }, _temp3));
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

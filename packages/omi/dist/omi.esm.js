@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.17  http://omijs.org
+ * Omi v6.25.18  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -138,10 +138,17 @@ function h(nodeName, attributes) {
       child,
       simple,
       i;
+
+  // jsx 嵌套的元素自动忽略  attrs
+  if (attributes) {
+    attributes.ignoreAttrs = true;
+  } else {
+    attributes = { ignoreAttrs: true };
+  }
   for (i = arguments.length; i-- > 2;) {
     stack.push(arguments[i]);
   }
-  if (attributes && attributes.children != null) {
+  if (attributes.children != null) {
     if (!stack.length) stack.push(attributes.children);
     delete attributes.children;
   }
@@ -176,8 +183,8 @@ function h(nodeName, attributes) {
   var p = {
     nodeName: nodeName,
     children: children,
-    attributes: attributes == null ? undefined : attributes,
-    key: attributes == null ? undefined : attributes.key
+    attributes: attributes,
+    key: attributes.key
 
     // if a "vnode hook" is defined, pass every created VNode to it
   };if (options.vnode !== undefined) options.vnode(p);
@@ -302,7 +309,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
     if (extension[name]) {
       extension[name](node, value, component);
     }
-  } else if (name === 'key') {
+  } else if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null);
@@ -1725,7 +1732,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.17';
+options.root.Omi.version = '6.25.18';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
