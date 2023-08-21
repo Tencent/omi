@@ -76,7 +76,7 @@ export default class extends WeElement<Props> {
               </a> : null}
               {props.code ? (<>
                 <o-icon-file-copy className={tw`w-3 h-3 mr-2 relative -top-1 cursor-pointer`} onClick={() => {
-                  this.copy(props.code.replace('```jsx', '').replace('```', '').trim())
+                  this.copy(props.code.replace('```jsx', '').replace('```html', '').replace('```', '').trim())
                 }} />
                 <o-toggle-icon is-on={this.isOn} icons={['keyboard-arrow-down', 'keyboard-arrow-up']}
                   className={tw`w-6 h-6 mr-2`}
