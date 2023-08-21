@@ -603,7 +603,7 @@
             this.uninstall();
             this.isInstalled = !1;
         };
-        WeElement.prototype.update = function(ignoreAttrs, updateSelf) {
+        WeElement.prototype.update = function(updateSelf) {
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
@@ -614,15 +614,12 @@
                     this.shadowRoot.appendChild(this.N);
                 }
             }
-            this.attrsToProps(ignoreAttrs);
+            this.attrsToProps();
             var rendered = this.render(this.props, this.store);
             this.rendered();
             this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
             this.J = !1;
             this.updated();
-        };
-        WeElement.prototype.forceUpdate = function() {
-            this.update(!0);
         };
         WeElement.prototype.updateProps = function(obj) {
             var _this3 = this;
@@ -630,10 +627,10 @@
                 _this3.props[key] = obj[key];
                 if (_this3.prevProps) _this3.prevProps[key] = obj[key];
             });
-            this.forceUpdate();
+            this.update();
         };
-        WeElement.prototype.updateSelf = function(ignoreAttrs) {
-            this.update(ignoreAttrs, !0);
+        WeElement.prototype.updateSelf = function() {
+            this.update(!0);
         };
         WeElement.prototype.removeAttribute = function(key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -649,8 +646,8 @@
         WeElement.prototype.pureSetAttribute = function(key, val) {
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
-        WeElement.prototype.attrsToProps = function(ignoreAttrs) {
-            if (!(ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs)) {
+        WeElement.prototype.attrsToProps = function() {
+            if (!this.props.ignoreAttrs) {
                 var ele = this;
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
@@ -1016,7 +1013,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.18';
+    options.root.Omi.version = '6.25.19';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
