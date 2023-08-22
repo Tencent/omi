@@ -7,32 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>back-top</title>
   <script type="module" src="./index.tsx"></script>
+  <script type="module" src="./_example/base.tsx"></script>
   <style>
-    .textList {
-      height: 300px;
-      overflow: auto;
-      border: 1px solid #ccc;
-    }
   </style>
 </head>
 
 <body>
-  <!-- <div id="scroll_container" class="scroll-container">
-    
-  </div> -->
-  <ul id="list" class="textList">
-  </ul>
-  <t-back-top container="textList" visible-height="200px" :offset="['24px', '80px']">
-  </t-back-top>
+  <div class="tdesign-demo-item__body">
+    <div style="position: relative; height: 280px;" class="baseList_wrapper">
+      <div class="baseList-container t-list t-size-m" style="position: relative; height: 100%; overflow-y: scroll;">
+        <ul id="list" class="textList">
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <script>
     let list = document.getElementById("list")
     
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 100; i++) {
       let liElement = document.createElement('li');
       liElement.innerHTML = `列表内容` + i
       list.appendChild(liElement);
     }
-
 
   </script>
 </body>

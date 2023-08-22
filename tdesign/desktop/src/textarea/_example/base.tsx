@@ -6,7 +6,7 @@ import "../index"
 @tag("textarea-base")
 export default class TextareaBase extends WeElement{
   static css = `t-textarea {
-    margin : 5px;
+    margin : 10px;
   }`
 
   render(){
@@ -20,4 +20,4 @@ export default class TextareaBase extends WeElement{
   }
 }
 
-render(<textarea-base></textarea-base>, 'body', {ignoreAttrs:true})
+render(<textarea-base></textarea-base>, '.testContainer', {})
