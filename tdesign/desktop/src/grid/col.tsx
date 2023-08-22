@@ -1,7 +1,8 @@
-import { h, tag, WeElement, OmiProps, classNames } from 'omi'
+import { h, tag, WeElement, OmiProps, classNames, createRef } from 'omi'
 import { ColProps, RowProps } from './type'
-import css from './style/index'
+import gridStyle from './style/index'
 import isObject from 'lodash/isObject';
+import { create } from 'lodash';
 type FlexType = number | 'none' | 'auto' | string;
 
 const calcColPadding = (gutter: RowProps['gutter'], currentSize: string) => {
@@ -48,7 +49,12 @@ const parseFlex = (flex: FlexType) => {
 
 @tag('t-col')
 export default class Col extends WeElement<ColProps> {
-  static css = css as string
+  static css = gridStyle
+  
+  // install() {
+  //   this.css = getHost(this).constructor.css + this.css
+  //   // console.log(getHost(this));
+  // }
 
   static defaultProps = { offset: 0, order: 0, pull: 0, push: 0, tag: 'div' };
 
@@ -70,6 +76,8 @@ export default class Col extends WeElement<ColProps> {
   inject = [
     'gutter', 'size'
   ]
+
+  tagRef = createRef()
   render(props: OmiProps<ColProps>) {
     const {
         flex,
@@ -121,10 +129,14 @@ export default class Col extends WeElement<ColProps> {
         ...style
       };
       flex && (colStyle.flex = parseFlex(flex));
-      this.className = colClassNames
+      // this.className = colClassNames
+      // this.style = colStyle
+      // this.rootNode = this.tagRef.current
     return (
-        <props.tag  style={colStyle} {...otherColProps}>
-            {children}
+        <props.tag ref={this.tagRef} class={colClassNames} style={colStyle} {...otherColProps}>
+           {/* <> */}
+          {children}
+          {/* </> */}
         </props.tag>
     )
   }

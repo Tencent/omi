@@ -1,7 +1,7 @@
-import { h, tag, WeElement, OmiProps, classNames } from 'omi'
+import { h, tag, WeElement, OmiProps, classNames, getHost } from 'omi'
 import {  RowProps } from './type'
 import isObject from 'lodash/isObject';
-import css from './style/index'
+import gridStyle from './style/index'
 import { canUseDocument, getCssVarsValue } from '../utils/dom';
 
 
@@ -75,8 +75,7 @@ const calcRowStyle = (gutter: RowProps['gutter'], currentSize: string): object =
 
 @tag('t-row')
 export default class Row extends WeElement<RowProps> {
-  static css = css as string
-
+  static css = gridStyle
   static defaultProps = { align: 'top', gutter: 0, justify: 'start', tag: 'div' };
 
   static propTypes = {
@@ -99,12 +98,13 @@ export default class Row extends WeElement<RowProps> {
 
   install() {
     window.addEventListener('resize', this.updateSize)
+    // this.css = getHost(this).constructor.css + this.css
   }
 
   unintall() {
     window.removeEventListener('resize', this.updateSize)
   }
-  
+
   provide = {
     gutter: this.props.gutter,
     size: this.size
