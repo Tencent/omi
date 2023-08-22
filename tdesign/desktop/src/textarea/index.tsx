@@ -1,10 +1,10 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { TextareaProps } from './types'
-import { TdClassNamePefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils/clsx'
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight'
 import { valueToNode } from '@babel/types'
-const TextareaClassNamePefix = (className: string) => TdClassNamePefix('textarea__') + className
+const TextareaClassNamePrefix = (className: string) => TdClassNamePrefix('textarea__') + className
 
 @tag('t-textarea')
 export default class Textarea extends WeElement<TextareaProps> {
@@ -48,15 +48,15 @@ export default class Textarea extends WeElement<TextareaProps> {
   }
 
   getTextareaStatus(status: string) {
-    return TdClassNamePefix(`is-${status || ''}`)
+    return TdClassNamePrefix(`is-${status || ''}`)
   }
 
   getTipsStyle(status: string) {
-    return TextareaClassNamePefix(`tips--${status}`)
+    return TextareaClassNamePrefix(`tips--${status}`)
   }
 
-  getTextareaIsDisabled(disabled: boolean){
-    return TdClassNamePefix(`is-${disabled ? 'disabled' : ''}`)
+  getTextareaIsDisabled(disabled: boolean) {
+    return TdClassNamePrefix(`is-${disabled ? 'disabled' : ''}`)
   }
 
   onBlur = (event: any) => {
@@ -88,11 +88,12 @@ export default class Textarea extends WeElement<TextareaProps> {
 
     return (
       <>
-        <div class={classNames(TdClassNamePefix('textarea'))}>
+        <div class={classNames(TdClassNamePrefix('textarea'))}>
           <textarea
-            class={classNames(TextareaClassNamePefix('inner'), 
-            this.getTextareaStatus(status),
-            this.getTextareaIsDisabled(disabled)
+            class={classNames(
+              TextareaClassNamePrefix('inner'),
+              this.getTextareaStatus(status),
+              this.getTextareaIsDisabled(disabled),
             )}
             placeholder={placeholder}
             readonly={readonly}
@@ -106,7 +107,7 @@ export default class Textarea extends WeElement<TextareaProps> {
               this.textarea = e
             }}
           ></textarea>
-          {tips && <div class={classNames(TextareaClassNamePefix('tips'), this.getTipsStyle(status))}>{tips}</div>}
+          {tips && <div class={classNames(TextareaClassNamePrefix('tips'), this.getTipsStyle(status))}>{tips}</div>}
         </div>
       </>
     )

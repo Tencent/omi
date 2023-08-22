@@ -1,7 +1,7 @@
 import { h, OmiProps, tag, WeElement, render, classNames } from 'omi'
 import css from './style'
 import { ButtonProps, ButtonShape, ButtonTheme, ButtonVariant } from './types'
-import { TdClassNamePefix } from '../utils'
+import { TdClassNamePrefix } from '../utils'
 import { SizeEnum } from '@src/common'
 
 @tag('t-button')
@@ -19,20 +19,20 @@ export default class Button extends WeElement<ButtonProps> {
   static css = css as string
 
   getButtonTheme(theme: ButtonTheme) {
-    return TdClassNamePefix(`button--theme-${theme || 'default'}`)
+    return TdClassNamePrefix(`button--theme-${theme || 'default'}`)
   }
 
   getButtonValidity(validity: ButtonVariant) {
-    return TdClassNamePefix(`button--variant-${validity || 'base'}`)
+    return TdClassNamePrefix(`button--variant-${validity || 'base'}`)
   }
 
-  getLoadingFill(theme: ButtonTheme, validity: ButtonVariant, disabled: boolean, ghost: boolean,) {
+  getLoadingFill(theme: ButtonTheme, validity: ButtonVariant, disabled: boolean, ghost: boolean) {
     const target = theme || 'default'
     const val = validity || 'base'
 
-    if (disabled && ghost || ghost && theme === 'default') return '';
+    if ((disabled && ghost) || (ghost && theme === 'default')) return ''
 
-    if (val === 'base' && target !== 'default' && !ghost) return 'rgb(255,255,255)';
+    if (val === 'base' && target !== 'default' && !ghost) return 'rgb(255,255,255)'
 
     const activeMap: { [x: string]: string } = {
       primary: '--td-brand-color-active',
@@ -40,7 +40,7 @@ export default class Button extends WeElement<ButtonProps> {
       danger: '--td-error-color-active',
       warning: '--td-warning-color-active',
       success: '--td-success-color-active',
-    };
+    }
 
     const disabledMap = {
       primary: '--td-brand-color-disabled',
@@ -55,15 +55,15 @@ export default class Button extends WeElement<ButtonProps> {
 
   getButtonSize(size: SizeEnum) {
     const sizeMap = {
-      small: "s",
+      small: 's',
       medium: 'm',
-      large: 'l'
+      large: 'l',
     }
-    return TdClassNamePefix(`size-${sizeMap[size]}`)
+    return TdClassNamePrefix(`size-${sizeMap[size]}`)
   }
 
   getButtonShap(shape: ButtonShape) {
-    return TdClassNamePefix(`button--shape-${shape}`)
+    return TdClassNamePrefix(`button--shape-${shape}`)
   }
 
   render(props: OmiProps<ButtonProps>) {
@@ -73,57 +73,46 @@ export default class Button extends WeElement<ButtonProps> {
     const { size, suffix, shape, tag, type, theme, variant } = props
     const { onClick } = props
 
-    const tagName = tag || 'button';
+    const tagName = tag || 'button'
 
     return (
       <tagName
         type={type}
         className={classNames(
-          TdClassNamePefix('button'),
+          TdClassNamePrefix('button'),
           this.getButtonValidity(variant),
           this.getButtonTheme(theme),
           this.getButtonSize(size),
           this.getButtonShap(shape),
-          TdClassNamePefix('base'),
+          TdClassNamePrefix('base'),
           {
-            [TdClassNamePefix('size-full-width')]: block,
+            [TdClassNamePrefix('size-full-width')]: block,
           },
           {
-            [TdClassNamePefix('is-loading')]: loading,
+            [TdClassNamePrefix('is-loading')]: loading,
           },
           {
-            [TdClassNamePefix('is-disabled')]: disabled,
+            [TdClassNamePrefix('is-disabled')]: disabled,
           },
           {
-            [TdClassNamePefix('button--ghost')]: ghost,
+            [TdClassNamePrefix('button--ghost')]: ghost,
           },
         )}
       >
-
-        {
-          icon && (
-            <span className={
-              classNames(
-                TdClassNamePefix('icon')
-              )
-            }>
-              {icon}
-            </span>
-          )
-        }
+        {icon && <span className={classNames(TdClassNamePrefix('icon'))}>{icon}</span>}
 
         {loading && (
           <div
             style="display:flex;"
             class={classNames(
-              TdClassNamePefix('loading'),
-              TdClassNamePefix('loading--center'),
-              TdClassNamePefix('size-m'),
-              TdClassNamePefix('loading--inherit-color'),
+              TdClassNamePrefix('loading'),
+              TdClassNamePrefix('loading--center'),
+              TdClassNamePrefix('size-m'),
+              TdClassNamePrefix('loading--inherit-color'),
             )}
           >
             <svg
-              className={classNames(TdClassNamePefix('loading__gradient'), TdClassNamePefix('icon-loading'))}
+              className={classNames(TdClassNamePrefix('loading__gradient'), TdClassNamePrefix('icon-loading'))}
               width="16"
               height="16"
               viewBox="0 0 16 16"

@@ -1,10 +1,10 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { ListItemMetaProps } from './types'
-import { TdClassNamePefix } from '../utils/clsx'
-import { StyledProps , TElement,TNode } from '../common';
+import { TdClassNamePrefix } from '../utils/clsx'
+import { StyledProps, TElement, TNode } from '../common'
 
-const ListItenMetaClassNamePefix = (className: string) => TdClassNamePefix('list-item__meta-') + className
+const ListItenMetaClassNamePrefix = (className: string) => TdClassNamePrefix('list-item__meta-') + className
 
 @tag('t-list-item-meta')
 export default class ListItemMeta extends WeElement<ListItemMetaProps> {
@@ -18,25 +18,28 @@ export default class ListItemMeta extends WeElement<ListItemMetaProps> {
     title: String,
   }
 
-
-  renderImage = (image : any) => {
+  renderImage = (image: any) => {
     return (
-      <div class={classNames(ListItenMetaClassNamePefix('avatar'))}>
+      <div class={classNames(ListItenMetaClassNamePrefix('avatar'))}>
         <img src={image} alt="" />
       </div>
-    );
-  };
+    )
+  }
 
   render(props: OmiProps<ListItemMetaProps, any>, store: any) {
     const { description, image, title } = props
 
     return (
       <>
-        <div class={classNames(TdClassNamePefix('list-item__meta'))}>
+        <div class={classNames(TdClassNamePrefix('list-item__meta'))}>
           {image && this.renderImage(image)}
           <div>
-            <h3 class={classNames(ListItenMetaClassNamePefix('title'))}>{title}</h3>
-            {typeof description === 'string' ? <p class={classNames(ListItenMetaClassNamePefix('description'))}>{description}</p> : description}
+            <h3 class={classNames(ListItenMetaClassNamePrefix('title'))}>{title}</h3>
+            {typeof description === 'string' ? (
+              <p class={classNames(ListItenMetaClassNamePrefix('description'))}>{description}</p>
+            ) : (
+              description
+            )}
           </div>
         </div>
       </>

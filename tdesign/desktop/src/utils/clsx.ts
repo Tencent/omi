@@ -1,7 +1,7 @@
-export function ClassNamePefix(prefix: string) {
+export function ClassNamePrefix(prefix: string) {
   return (classname: string) => {
     return `${prefix}${classname}`
   }
 }
 
-export const TdClassNamePefix = ClassNamePefix('t-')
+export const TdClassNamePrefix = ClassNamePrefix('t-')

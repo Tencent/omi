@@ -1,35 +1,11 @@
 import { h, tag, WeElement, OmiProps, define, classNames, createRef } from 'omi'
 import { RateProps } from './type'
-
+import '../icon/t-icon-star-filled'
 import css from './style/index'
 type IconProps = {
   size: string
   color: string
 }
-define(
-  'rate-icon',
-  class extends WeElement<IconProps> {
-    static css = css
-
-    render(props: OmiProps<IconProps>) {
-      return (
-        <svg
-          fill="none"
-          viewBox={`0 0 24 24`}
-          width="1em"
-          height="1em"
-          color="var(--td-bg-color-component)"
-          style={`font-size: ${props.size};`}
-        >
-          <path
-            fill={props.color}
-            d="M12 .63l2.9 8.35 8.84.18-7.04 5.34 2.56 8.46L12 17.91l-7.26 5.05L7.3 14.5.26 9.16l8.84-.18L12 .63z"
-          ></path>
-        </svg>
-      )
-    }
-  },
-)
 
 @tag('t-rate')
 export default class Rate extends WeElement<RateProps> {
@@ -119,10 +95,10 @@ export default class Rate extends WeElement<RateProps> {
             >
               <>
                 <div className={`${classPrefix}-rate__star-top`}>
-                  <rate-icon size={props.size} color={activeColor} />
+                  <t-icon-star-filled size={props.size} style={{ color: activeColor }} />
                 </div>
                 <div className={`${classPrefix}-rate__star-bottom`}>
-                  <rate-icon size={props.size} color={defaultColor} />
+                  <t-icon-star-filled size={props.size} style={{ color: defaultColor }} />
                 </div>
               </>
             </li>
