@@ -1,6 +1,9 @@
 import { h, tag, WeElement } from 'omi'
+import '../../button'
+import '../../notification'
 
 import '../index'
+import { log } from 'console'
 
 @tag('comment-reply-form')
 
@@ -9,21 +12,19 @@ export default class BasicComment extends WeElement {
     static css = 't-comment{}'
 
     submitReply() {
-        // NotificationPlugin.info({
-        //     title: '回复内容',
-        //     content: replyData,
-        //     duration: 3000,
-        // });
+        alert('发送回复的功能待完善！');
     }
 
     replyForm = (
         <div direction="vertical" align="end" style={{ width: '100%' }}>
-            <div placeholder="请输入内容" />
-            <div style={{ float: 'right' }} onClick={this.submitReply}>回复</div>
+            <textarea placeholder="请输入内容" style={{ width: 540, height: 50 }} id='test-textarea' />
+            <t-button style={{ float: 'right' }} onClick={this.submitReply}>回复</t-button>
+            <t-notification style="margin:12px;" duration={0} theme="warning" title="warning" content="发送回复的功能待完善！" />
         </div>
     );
-    render() {
 
+    render() {
         return <t-comment avatar="https://tdesign.gtimg.com/site/avatar.jpg" content={this.replyForm} />;
+
     }
 }
