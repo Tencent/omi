@@ -7,7 +7,7 @@ export type TextareaProps = {
 
   allowInputOverMax?:boolean
   autofocus?:boolean
-  autosize?:boolean
+  autosize?:boolean | Object
   disabled?: boolean
   readonly?:boolean
 
@@ -22,7 +22,7 @@ export type TextareaProps = {
   name?:string
   placeholder?:string
 
-  value?:string | Number
+  value?:string
   defaultValue?:string | Number
 
   onBlur?: Function

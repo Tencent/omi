@@ -1,4 +1,4 @@
-import { OmiProps, WeElement, h, tag, classNames } from 'omi'
+import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { BackTopProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
@@ -38,10 +38,15 @@ export default class BackTop extends WeElement<BackTopProps> {
   }
 
   installed() {
-    let containerNode = document.getElementsByClassName(this.props.container)[0]
-    let buttonNode = this.button
-    buttonNode.style.right = this.props.offset[0]
-    buttonNode.style.bottom = this.props.offset[1]
+
+    console.log(this.props.container)
+    let containerNode = document.querySelector(this.props.container).children[0]
+    let buttonNode = this.button.current
+    if(this.props.offset){
+      buttonNode.style.right = this.props.offset[0]
+      buttonNode.style.bottom = this.props.offset[1]
+    }
+    
 
     buttonNode.addEventListener('click', () => {
       containerNode.scrollTop = 0
@@ -66,17 +71,44 @@ export default class BackTop extends WeElement<BackTopProps> {
     })
   }
 
+  
+  getSizeClass(size : string){
+    if(size == 'medium'){
+      return TdClassNamePefix(`size-m`)
+    }
+    else if(size == 'small'){
+      return TdClassNamePefix(`size-s`)
+    }
+  }
+
+  getThemeClass(theme : string){
+    return TdClassNamePefix(`back-top--theme-${theme}`)
+  }
+
+  getShapeClass(shpae : string){
+    return TdClassNamePefix(`back-top--${shpae}`)
+  }
+
+  //textarea ref
+  button = createRef()
+
   render(props: OmiProps<BackTopProps, any>, store: any) {
-    const { container, visibleHeight, offset } = props
+    const { container, visibleHeight, offset, size, theme, shape } = props
+
+    
 
     return (
       <>
         <button
           type="button"
-          class={classNames(TdClassNamePrefix('back-top'))}
-          ref={(e) => {
-            this.button = e
-          }}
+
+          class={classNames(TdClassNamePefix('back-top'),
+                  this.getSizeClass(size),
+                  this.getThemeClass(theme),
+                  this.getShapeClass(shape)
+                  )}
+          ref={this.button}
+
         >
           <span class={classNames(BackTopClassNamePrefix('text'))}>返回顶部</span>
           <svg

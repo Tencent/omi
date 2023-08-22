@@ -25,7 +25,7 @@ export default class ListComment extends WeElement {
             datetime: '今天16:38',
             content:
                 'A评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。',
-            // this.actions,
+            action: this.actions,
         },
         {
             id: 'B',
@@ -34,7 +34,7 @@ export default class ListComment extends WeElement {
             datetime: '今天16:38',
             content:
                 'B评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。',
-            // this.actions,
+            action: this.actions,
         },
         {
             id: 'C',
@@ -43,7 +43,7 @@ export default class ListComment extends WeElement {
             datetime: '今天16:38',
             content:
                 'C评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容。',
-            // this.actions,
+            action: this.actions,
         },
     ];
     render() {

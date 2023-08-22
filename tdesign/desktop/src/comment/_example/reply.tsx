@@ -29,6 +29,7 @@ export default class replyComment extends WeElement {
         <>
             <span>评论作者名B</span>
             {/* <CaretRightSmallIcon size="small" /> */}
+            <span>-&gt;</span>
             <span>评论作者名A</span>
         </>
     );
