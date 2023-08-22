@@ -136,7 +136,6 @@ render(
   <my-app id="my-app"></my-app>,
   '#app',
   new Store({
-    ignoreAttrs: true,
     themeMode: 'light'
   })
 )

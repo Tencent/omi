@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.18  http://omijs.org
+ * Omi v6.25.19  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1026,7 +1026,7 @@ var WeElement = function (_HTMLElement) {
     this.isInstalled = false;
   };
 
-  WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+  WeElement.prototype.update = function update(updateSelf) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
@@ -1041,7 +1041,7 @@ var WeElement = function (_HTMLElement) {
         this.shadowRoot.appendChild(this._customStyleElement);
       }
     }
-    this.attrsToProps(ignoreAttrs);
+    this.attrsToProps();
 
     var rendered = this.render(this.props, this.store);
     this.rendered();
@@ -1049,10 +1049,6 @@ var WeElement = function (_HTMLElement) {
     this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
     this._willUpdate = false;
     this.updated();
-  };
-
-  WeElement.prototype.forceUpdate = function forceUpdate() {
-    this.update(true);
   };
 
   WeElement.prototype.updateProps = function updateProps(obj) {
@@ -1064,11 +1060,11 @@ var WeElement = function (_HTMLElement) {
         _this3.prevProps[key] = obj[key];
       }
     });
-    this.forceUpdate();
+    this.update();
   };
 
-  WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-    this.update(ignoreAttrs, true);
+  WeElement.prototype.updateSelf = function updateSelf() {
+    this.update(true);
   };
 
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1095,8 +1091,8 @@ var WeElement = function (_HTMLElement) {
     _HTMLElement.prototype.setAttribute.call(this, key, val);
   };
 
-  WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-    if (ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
+  WeElement.prototype.attrsToProps = function attrsToProps() {
+    if (this.props.ignoreAttrs) return;
     var ele = this;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
@@ -1732,7 +1728,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.18';
+options.root.Omi.version = '6.25.19';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

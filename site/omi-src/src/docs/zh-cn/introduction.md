@@ -49,10 +49,7 @@ define('my-counter', class extends WeElement {
   }
 })
 
-render(<my-counter />, 'body', {
-  // 这里可以在 jsx/tsx 下忽略 html 模式的 propTypes
-  ignoreAttrs: true
-})
+render(<my-counter />, 'body')
 ```
 
 通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `my-counter` 标签：
