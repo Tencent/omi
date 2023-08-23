@@ -122,11 +122,18 @@ export function registerRouting(rootEl: any) {
       rootEl.data.tagName = 'page-rate'
       rootEl.update()
     })
-  }) 
+  })
 
   route('/comment', () => {
     import('./components/web/comment/index').then(() => {
       rootEl.data.tagName = 'page-comment'
+      rootEl.update()
+    })
+  })
+
+  route('/icon', () => {
+    import('./components/web/icon/index').then(() => {
+      rootEl.data.tagName = 'page-icon'
       rootEl.update()
     })
   })

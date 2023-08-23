@@ -1,6 +1,5 @@
 import { h, tag, WeElement } from 'omi'
 
-// import '../t-icon-star-filled'
 import '../index'
 import '../../space/index'
 @tag('icon-base')
