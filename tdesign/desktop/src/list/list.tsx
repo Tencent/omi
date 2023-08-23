@@ -32,14 +32,12 @@ export default class BackTop extends WeElement<ListProps> {
     onLoadMore: Function,
     onScroll: Function,
   }
+
   install() {
-    console.log(this)
-    console.log(this.children[0])
-    console.log(this.children[0].children)
   }
-  getClasses(split: Boolean, stripe: Boolean) {
-    let cls: string[] = []
-    if (split) {
+  getClasses(split:Boolean, stripe:Boolean) {
+    let cls:string[] = []
+    if(split){
       cls.push(TdClassNamePrefix('list--split'))
     }
     if (stripe) {
@@ -48,21 +46,44 @@ export default class BackTop extends WeElement<ListProps> {
     return cls
   }
 
+  renderLoadElement(asyncLoading : string){
+    console.log(asyncLoading)
+    if(typeof asyncLoading == 'string' && asyncLoading){
+      return (
+        <div
+      className={classNames(ListClassNamePrefix(`load`), {
+        [ListClassNamePrefix(`load--loading`)]: asyncLoading === 'loading',
+        [ListClassNamePrefix(`load--load-more`)]: asyncLoading === 'load-more',
+      })}
+      onClick={this.handleClickLoad}
+    >
+      {asyncLoading === 'loading' && (
+        <div>
+          {/* <Loading loading={true} /> */}
+          <span>正在加载中，请稍后</span>
+        </div>
+      )}
+      {asyncLoading === 'load-more' && <span>点击加载更多</span>}
+    </div>
+      )
+    }
+  }
+
   render(props: OmiProps<ListProps, any>, store: any) {
-    const { header, footer, split, stripe } = props
+    const { header, footer , split, stripe, children, asyncLoading} = props
 
     return (
       <>
         <div class={classNames(TdClassNamePrefix('list'), ...this.getClasses(split, stripe))}>
-          <slot name="header"></slot>
           {header && <div>{header}</div>}
           <ul class={classNames(ListClassNamePrefix('inner'))}>
-            <slot></slot>
+            {this.children && <div>{children}</div>}
           </ul>
+          {asyncLoading && this.renderLoadElement(asyncLoading)}
           {footer && <div>{footer}</div>}
-          <slot name="footer"></slot>
         </div>
       </>
     )
   }
 }
+// ...this.getClasses(split,stripe)

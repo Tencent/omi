@@ -4,36 +4,42 @@ import { ListItemProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
 import './list-item-meta'
 
-const ListItemClassNamePrefix = (className: string) => TdClassNamePrefix('list-item__') + className
+
+const ListItemClassNamePefix = (className: string) => TdClassNamePrefix('list-item__') + className
+
 
 @tag('t-list-item')
 export default class ListItem extends WeElement<ListItemProps> {
   static css = style
 
-  static defaultProps = {}
+  static defaultProps = {
+  }
 
   static propTypes = {
     action: String,
-    children: String,
-    content: String,
+    children:String,
+    content:String,
     onClick: Function,
   }
 
   installed() {
-    console.log(this.props)
   }
-  onClick = () => {
-    console.log(111)
+
+  handleClick(e: MouseEvent){
+    console.log(e)
   }
+
   render(props: OmiProps<ListItemProps, any>, store: any) {
     const { action, children, content } = props
+    
+    const actionElement = action && <ul class={classNames(ListItemClassNamePefix(`action`))} >{action}</ul>;
 
     return (
       <>
-        <li class={classNames(TdClassNamePrefix('list-item'))} onClick={this.onClick()}>
+        <li class={classNames(TdClassNamePrefix('list-item'))} onClick={this.handleCilck} >
           <div class={classNames(TdClassNamePrefix('list-item-main'))}>
-            <slot></slot>
-            <slot name="action" class={classNames(ListItemClassNamePrefix('action'))}></slot>
+            {children}
+            {action && actionElement}
           </div>
         </li>
       </>
