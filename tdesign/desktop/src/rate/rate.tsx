@@ -1,6 +1,6 @@
 import { h, tag, WeElement, OmiProps, define, classNames, createRef } from 'omi'
 import { RateProps } from './type'
-import '../icon/t-icon-star-filled'
+import '../icon/star-filled'
 import css from './style/index'
 type IconProps = {
   size: string
