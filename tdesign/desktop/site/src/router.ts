@@ -131,6 +131,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/icon', () => {
+    import('./components/web/icon/index').then(() => {
+      rootEl.data.tagName = 'page-icon'
+      rootEl.update()
+    })
+  })
+
   route('/input-adornment', () => {
     import('./components/web/input-adornment/index').then(() => {
       rootEl.data.tagName = 'page-input-adornment'
