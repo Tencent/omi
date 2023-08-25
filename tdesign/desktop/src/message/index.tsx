@@ -12,7 +12,6 @@ export default class Message extends WeElement<MessageProps>{
   static css = style
 
   static defaultProps = {
-    closeBtn: true,
     duration: 3000,
     content: 'my message',
     icon: true,

@@ -29,16 +29,20 @@ define('page-notification', class extends WeElement {
     render(props: {} | OmiProps<{}, any>, store: any) {
       return (
         <div style="padding:24px">
+          <h2>基础的消息通知</h2>
+          <p>消息通知点击即会消失</p>
+          <t-notification style="margin:12px;" duration={0} theme="info" title="info" content="This is my info" />
+          <h2>带图标的消息通知</h2>
+          <p>带图标的消息通知提供两种情况：普通消息通知和重要消息通知（如：系统错误等）。</p>
           <div style="display:flex;">
             <div direction="vertical" style="width:100%">
-              <t-notification style="margin:12px;" duration={0} theme="info" title="info" content="This is my info" />
+              <t-notification style="margin:12px;" duration={0} theme="info" title="info" content="This is my info.This is my info.This is my info.This is my info.This is my info.This is my info.This is my info." />
               <t-notification style="margin:12px;" duration={0} theme="success" title="success" content="This is my success" />
               <t-notification style="margin:12px;" duration={0} theme="warning" title="warning" content="This is my warning" />
               <t-notification style="margin:12px;" duration={0} theme="error" title="error" content="This is my error" />
             </div>
           </div>
           <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
-  
         </div>
       );
     }
