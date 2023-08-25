@@ -118,10 +118,10 @@ declare namespace Omi {
     inject?: string[];
     injection?: { [key: string]: any };
 
-    update(ignoreAttrs?: boolean, updateSelf?: boolean): void;
+    update(updateSelf?: boolean): void;
     forceUpdate(): void;
     updateProps(obj: any): void;
-    updateSelf(ignoreAttrs?: boolean): void;
+    updateSelf(): void;
     fire(name: string, data?: any): void;
 
     // Abstract methods don't infer argument types
@@ -153,10 +153,10 @@ declare namespace Omi {
     inject?: string[];
     injection?: { [key: string]: any };
 
-    update(ignoreAttrs?: boolean, updateSelf?: boolean): void;
+    update(updateSelf?: boolean): void;
     forceUpdate(): void;
     updateProps(obj: any): void;
-    updateSelf(ignoreAttrs?: boolean): void;
+    updateSelf(): void;
     fire(name: string, data?: any): void;
 
     // Abstract methods don't infer argument types

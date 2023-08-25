@@ -3,6 +3,8 @@ import '../common/index'
 import '../../../../../src/rate/_example/base'
 import '../../../../../src/rate/_example/custom'
 import '../../../../../src/rate/_example/status'
+import '../../../../../src/rate/_example/size'
+import '../../../../../src/rate/_example/icon'
 import * as marked from 'marked'
 
 const docsHTML = marked.parse(`
@@ -95,14 +97,18 @@ define(
             <p>
               可以通过 <td-code text="size"></td-code> 属性调整图标尺寸。
             </p>
-            <demo-wrapper>待完善</demo-wrapper>
+            <demo-wrapper>
+              <rate-size></rate-size>
+            </demo-wrapper>
             <h3 id="自定义评分图标">
               自定义评分图标 <a class="header-anchor" href="#自定义评分图标"></a>
             </h3>
             <p>
               可以通过 <td-code text="icon"></td-code> 属性自定义高亮图标。
             </p>
-            <demo-wrapper>待完善</demo-wrapper>
+            <demo-wrapper>
+              <rate-icon />
+            </demo-wrapper>
           </div>
           <div style={this.isShow('api')} name="API">
             <div

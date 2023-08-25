@@ -30,7 +30,6 @@ export default class Divider extends WeElement<DividerProps> {
       [`${classPrefix}-divider--with-text`]: showText,
       [`${classPrefix}-divider--with-text-${props.align}`]: showText,
     })
-    console.log('props.children', props.children)
     return (
       <>
         <div class={dividerClassNames} style={props.style}>

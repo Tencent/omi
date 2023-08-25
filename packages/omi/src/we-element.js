@@ -141,7 +141,7 @@ export default class WeElement extends HTMLElement {
     this.isInstalled = false
   }
 
-  update(ignoreAttrs, updateSelf) {
+  update(updateSelf) {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
@@ -156,7 +156,7 @@ export default class WeElement extends HTMLElement {
         this.shadowRoot.appendChild(this._customStyleElement)
       }
     }
-    this.attrsToProps(ignoreAttrs)
+    this.attrsToProps()
 
     const rendered = this.render(this.props, this.store)
     this.rendered()
@@ -172,10 +172,6 @@ export default class WeElement extends HTMLElement {
     this.updated()
   }
 
-  forceUpdate() {
-    this.update(true)
-  }
-
   updateProps(obj) {
     Object.keys(obj).forEach(key => {
       this.props[key] = obj[key]
@@ -183,11 +179,11 @@ export default class WeElement extends HTMLElement {
         this.prevProps[key] = obj[key]
       }
     })
-    this.forceUpdate()
+    this.update()
   }
 
-  updateSelf(ignoreAttrs) {
-    this.update(ignoreAttrs, true)
+  updateSelf() {
+    this.update(true)
   }
 
   removeAttribute(key) {
@@ -214,13 +210,8 @@ export default class WeElement extends HTMLElement {
     super.setAttribute(key, val)
   }
 
-  attrsToProps(ignoreAttrs) {
-    if (
-      ignoreAttrs ||
-      (this.store && this.store.ignoreAttrs) ||
-      this.props.ignoreAttrs
-    )
-      return
+  attrsToProps() {
+    if (this.props.ignoreAttrs) return
     const ele = this
     ele.props['css'] = ele.getAttribute('css')
     const attrs = this.constructor.propTypes

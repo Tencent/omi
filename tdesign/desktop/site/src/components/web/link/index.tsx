@@ -7,6 +7,7 @@ import '../../../../../src/link/_example/icon'
 import '../../../../../src/link/_example/size'
 import '../../../../../src/link/_example/theme'
 import '../../../../../src/link/_example/underline'
+import '../../../../../src/link/_example/icon'
 import * as marked from 'marked'
 
 import '../../../../code-box/index.tsx'
@@ -76,7 +77,6 @@ define(
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
-
             <code-box
               title="下划线文字链接"
               describe="在文字下加横线，表明此处为链接。"
@@ -93,11 +93,26 @@ define(
           `}
             >
               <div slot="demo" class={tw`px-5 py-5`}>
-                <t-link theme="default" underline> 跳转链接 </t-link>
-                <t-link theme="primary" underline> 跳转链接 </t-link>
-                <t-link theme="danger" underline> 跳转链接 </t-link>
-                <t-link theme="warning" underline> 跳转链接 </t-link>
-                <t-link theme="success" underline> 跳转链接 </t-link>
+                <t-link theme="default" underline>
+                  {' '}
+                  跳转链接{' '}
+                </t-link>
+                <t-link theme="primary" underline>
+                  {' '}
+                  跳转链接{' '}
+                </t-link>
+                <t-link theme="danger" underline>
+                  {' '}
+                  跳转链接{' '}
+                </t-link>
+                <t-link theme="warning" underline>
+                  {' '}
+                  跳转链接{' '}
+                </t-link>
+                <t-link theme="success" underline>
+                  {' '}
+                  跳转链接{' '}
+                </t-link>
               </div>
             </code-box>
 
@@ -122,7 +137,9 @@ define(
               带图标的文字链接 <a class="header-anchor" href="#带图标的文字链接"></a>
             </h4>
             <p>文字链接与图标搭配使用，通过图标快速了解链接所代表的含义。</p>
-            <demo-wrapper>icon待完善</demo-wrapper>
+            <demo-wrapper>
+              <link-icon />
+            </demo-wrapper>
             <h3 id="链接悬浮态样式的链接">
               链接悬浮态样式的链接 <a class="header-anchor" href="#链接悬浮态样式的链接"></a>
             </h3>

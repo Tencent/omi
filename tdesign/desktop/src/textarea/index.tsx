@@ -1,10 +1,13 @@
-import { OmiProps, WeElement, h, tag, classNames } from 'omi'
+import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { TextareaProps } from './types'
-import { TdClassNamePefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils/clsx'
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight'
 import { valueToNode } from '@babel/types'
-const TextareaClassNamePefix = (className: string) => TdClassNamePefix('textarea__') + className
+
+import { auto } from '@popperjs/core'
+const TextareaClassNamePrefix = (className: string) => TdClassNamePrefix('textarea__') + className
+
 
 @tag('t-textarea')
 export default class Textarea extends WeElement<TextareaProps> {
@@ -21,7 +24,7 @@ export default class Textarea extends WeElement<TextareaProps> {
   static propTypes = {
     allowInputOverMax: Boolean,
     autofocus: Boolean,
-    autosize: Boolean,
+    autosize: [Boolean, Object], 
     disabled: Boolean,
     readonly: Boolean,
 
@@ -47,66 +50,113 @@ export default class Textarea extends WeElement<TextareaProps> {
     onKeyup: Function,
   }
 
+  installed() {    
+    let node = this.textArea.current
+    let autosize = this.props.autosize
+    console.log(autosize)
+    if (autosize === true) {
+      node.addEventListener('input', () => {
+        let heightObj = calcTextareaHeight(node)
+        let clacMinHeight = heightObj.minHeight
+        let clacHeight = heightObj.height
+        node.style.minHeight = clacMinHeight
+        node.style.height = clacHeight   
+      })
+    } else if (typeof autosize === 'object') {
+        node.addEventListener('input', () => {
+          let heightObj = calcTextareaHeight(node, autosize?.minRows, autosize?.maxRows)
+          let clacMinHeight = heightObj.minHeight
+          let clacHeight = heightObj.height
+          node.style.minHeight = clacMinHeight
+          node.style.height = clacHeight   
+        })
+    }
+    let maxLength = this.props.maxcharacter
+
+    if(maxLength){
+      node.addEventListener("input", () => {
+        const text = node.value
+        const length = this.countCharacters(text)
+        if (length > maxLength) {
+          if(text[text.length-1].match('/[\u4e00-\u9fa5]/g')){
+            node.value = text.slice(0, maxLength-1)
+          }else{
+            node.value = text.slice(0, maxLength)
+          }
+        }
+      });
+    }
+  }
+
+  //textarea ref
+  textArea = createRef()
+
   getTextareaStatus(status: string) {
-    return TdClassNamePefix(`is-${status || ''}`)
+    return TdClassNamePrefix(`is-${status || ''}`)
   }
 
   getTipsStyle(status: string) {
-    return TextareaClassNamePefix(`tips--${status}`)
+    return TextareaClassNamePrefix(`tips--${status}`)
   }
 
-  getTextareaIsDisabled(disabled: boolean){
-    return TdClassNamePefix(`is-${disabled ? 'disabled' : ''}`)
+  getTextareaIsDisabled(disabled: boolean) {
+    return TdClassNamePrefix(`is-${disabled ? 'disabled' : ''}`)
   }
 
-  onBlur = (event: any) => {
+
+  countCharacters(text : string) {
+    // 按照一个中文汉字等于一个字符长度计算
+    const chineseCharacterRegex = /[\u4e00-\u9fa5]/g;
+    const chineseCharacters = text.match(chineseCharacterRegex) || [];
+    return text.length + chineseCharacters.length;
+  }
+
+  onBlur = (e: any) => {
     // console.log(event)
   }
 
-  handleTextChange = (event: any) => {
-    // console.log(event)
-    console.log(event)
-    console.log(this.textarea.value)
+  handleTextChange = (evt : any) => {
   }
 
-  onFocus = (event: any) => {
-    console.log(this.props.autosize)
+  onFocus = (e: any) => {
   }
 
-  onKeypress = (event: any) => {
+  onKeypress = (e: any) => {
     // console.log(event);
   }
-  onKeydown = (event: any) => {
+  onKeydown = (e: any) => {
     // console.log(event);
   }
-  onKeyup = (event: any) => {
+  onKeyup = (e: any) => {
     // console.log(event);
   }
 
   render(props: OmiProps<TextareaProps, any>, store: any) {
-    const { autofocus, autosize, placeholder, readonly, value, status, disabled, tips } = props
-
+    const { autofocus, autosize, placeholder, readonly, value, status, 
+      disabled, tips ,maxlength, maxcharacter} = props
+    
     return (
       <>
-        <div class={classNames(TdClassNamePefix('textarea'))}>
+        <div class={classNames(TdClassNamePrefix('textarea'))}>
           <textarea
-            class={classNames(TextareaClassNamePefix('inner'), 
-            this.getTextareaStatus(status),
-            this.getTextareaIsDisabled(disabled)
+            class={classNames(
+              TextareaClassNamePrefix('inner'),
+              this.getTextareaStatus(status),
+              this.getTextareaIsDisabled(disabled),
             )}
+            value={value}
             placeholder={placeholder}
             readonly={readonly}
             disabled={disabled}
             autofocus={autofocus}
+            maxlength={maxlength}
+            maxcharacter={maxcharacter}
             onChange={this.handleTextChange}
             onFocus={this.onFocus}
             onKeypress={this.onKeypress}
-            value={value}
-            ref={(e) => {
-              this.textarea = e
-            }}
+            ref={this.textArea}
           ></textarea>
-          {tips && <div class={classNames(TextareaClassNamePefix('tips'), this.getTipsStyle(status))}>{tips}</div>}
+          {tips && <div class={classNames(TextareaClassNamePrefix('tips'), this.getTipsStyle(status))}>{tips}</div>}
         </div>
       </>
     )
