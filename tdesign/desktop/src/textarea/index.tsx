@@ -19,6 +19,7 @@ export default class Textarea extends WeElement<TextareaProps> {
     autosize: false,
     disabled: false,
     readonly: false,
+    value:''
   }
 
   static propTypes = {
@@ -50,10 +51,14 @@ export default class Textarea extends WeElement<TextareaProps> {
     onKeyup: Function,
   }
 
-  installed() {    
+
+  value = ""
+
+  installed() {
     let node = this.textArea.current
+    this.value = node.value
+    // console.log(this.props)
     let autosize = this.props.autosize
-    console.log(autosize)
     if (autosize === true) {
       node.addEventListener('input', () => {
         let heightObj = calcTextareaHeight(node)
@@ -111,29 +116,35 @@ export default class Textarea extends WeElement<TextareaProps> {
     return text.length + chineseCharacters.length;
   }
 
-  onBlur = (e: any) => {
-    // console.log(event)
+
+  onblur = (event : Event) =>{
+    var textareaValue = event.currentTarget.value;
+    this.fire('my-blur', { event : event, value : textareaValue })
   }
 
-  handleTextChange = (evt : any) => {
+  onfocus = (event : Event) =>{
+    var textareaValue = event.currentTarget.value;
+    this.fire('my-focus', { event : event, value : textareaValue })
   }
+  onKeyup = (event : Event) =>{
+    var textareaValue = event.currentTarget.value;
+    this.fire('my-keyup', { event : event, value : textareaValue })
+  } 
 
-  onFocus = (e: any) => {
-  }
+  onKeypress = (event : Event) =>{
+    var textareaValue = event.currentTarget.value;
+    this.fire('my-keypress', { event : event, value : textareaValue })
+  } 
 
-  onKeypress = (e: any) => {
-    // console.log(event);
-  }
-  onKeydown = (e: any) => {
-    // console.log(event);
-  }
-  onKeyup = (e: any) => {
-    // console.log(event);
-  }
+  onKeydown = (event : Event) =>{
+    var textareaValue = event.currentTarget.value;
+    this.fire('my-keydown', { event : event, value : textareaValue })
+  } 
 
   render(props: OmiProps<TextareaProps, any>, store: any) {
     const { autofocus, autosize, placeholder, readonly, value, status, 
-      disabled, tips ,maxlength, maxcharacter} = props
+      disabled, tips ,maxlength, maxcharacter, onBlur, onChange, onKeydown,
+      onKeypress, onKeyup, onFocus} = props
     
     return (
       <>
@@ -151,9 +162,12 @@ export default class Textarea extends WeElement<TextareaProps> {
             autofocus={autofocus}
             maxlength={maxlength}
             maxcharacter={maxcharacter}
-            onChange={this.handleTextChange}
-            onFocus={this.onFocus}
-            onKeypress={this.onKeypress}
+            onBlur={(e) => {this.onblur(e)}}
+            onChange={onChange}
+            onFocus={(e) => {this.onfocus(e)}}
+            onKeyPress={(e) => {this.onKeypress(e)}}
+            onKeyDown={(e) =>{this.onKeydown(e)}}
+            onKeyUp={(e) =>{this.onKeyup(e)}}
             ref={this.textArea}
           ></textarea>
           {tips && <div class={classNames(TextareaClassNamePrefix('tips'), this.getTipsStyle(status))}>{tips}</div>}
