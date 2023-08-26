@@ -75,6 +75,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/textarea', () => {
+    import('./components/web/textarea/index').then(() => {
+      rootEl.data.tagName = 'page-textarea'
+      rootEl.update()
+    })
+  })
+
   route('/input', () => {
     import('./components/web/input').then(() => {
       rootEl.data.tagName = 'page-input'
