@@ -1,4 +1,4 @@
-import { h, tag, createRef, WeElement, OmiProps, classNames } from 'omi'
+import { h, tag, createRef, WeElement, OmiProps, classNames, getHost } from 'omi'
 import { PopupProps, PopupVisibleChangeContext } from './type'
 import isFunction from 'lodash/isFunction'
 import setStyle from '../_common/js/utils/set-style'
@@ -79,8 +79,6 @@ export default class Popup extends WeElement<
   popperRef = createRef()
   popper = null
   timeout = null
-  /** if a trusted action (opening or closing) is prevented, increase this flag */
-  visibleState = 0
   contentClicked = false
   hasDocumentEvent = false
   visible = false
@@ -103,11 +101,21 @@ export default class Popup extends WeElement<
     }
   }
 
-  emitPopVisible = (visible: boolean, context: PopupVisibleChangeContext) => {
+  getVisible = () => {
+    // controlled
+    if (this.props.visible != undefined) return this.props.visible
+    return this.visible
+  }
+
+  handlePopVisible = (visible: boolean, context: PopupVisibleChangeContext) => {
     if (this.props.disabled || visible === !!this.visible) return
-    if (!visible && this.visibleState > 1) return
     this.visible = visible
-    this.fire('visible-change', { visible, context })
+    this.update()
+    //set props visible
+    if (this.props.visible) {
+      return
+    }
+    this.handleDocumentEvent(visible)
     if (typeof this.props.onVisibleChange === 'function') {
       this.props.onVisibleChange(visible, context)
     }
@@ -117,34 +125,20 @@ export default class Popup extends WeElement<
     clearTimeout(this.timeout)
     this.timeout = setTimeout(
       () => {
-        this.emitPopVisible(true, context)
+        this.handlePopVisible(true, context)
       },
       this.hasTrigger().click ? 0 : this.normalizedDelay().open,
     )
-    if (!this.props.destroyOnClose && this.popperRef.current) {
-      const el = this.popperRef.current as HTMLElement
-      el.style.display = 'block'
-    }
-    this.update()
-    this.updateVisible(true)
-    this.updatePopper()
   }
 
   handleClose = (context: Pick<PopupVisibleChangeContext, 'trigger'>) => {
     clearTimeout(this.timeout)
     this.timeout = setTimeout(
       () => {
-        this.emitPopVisible(false, context)
+        this.handlePopVisible(false, context)
       },
       this.hasTrigger().click ? 0 : this.normalizedDelay().close,
     )
-    if (!this.props.destroyOnClose && this.popperRef.current) {
-      const el = this.popperRef.current as HTMLElement
-      el.style.display = 'none'
-    }
-    this.update()
-    this.updateVisible(false)
-    // this.updatePopper()
   }
 
   handleDocumentClick = (ev?: MouseEvent) => {
@@ -159,27 +153,16 @@ export default class Popup extends WeElement<
       if (triggerEl.contains(ev.target as Node)) return
       const popperEl = this.popperRef.current as HTMLElement
       if (popperEl?.contains(ev.target as Node)) return
-      this.visibleState = 0
-      this.emitPopVisible(false, { trigger: 'document', e: ev })
-      if (!this.props.destroyOnClose && this.popperRef.current) {
-        const el = this.popperRef.current as HTMLElement
-        el.style.display = 'none'
-      }
-      this.update()
-      this.updateVisible(false)
+      this.handlePopVisible(false, { trigger: 'document', e: ev })
     })
   }
 
   //when visible is changed
-  updateVisible = (visible: boolean) => {
+  handleDocumentEvent = (visible: boolean) => {
     if (visible) {
       if (!this.hasDocumentEvent) {
         document.addEventListener('mousedown', this.handleDocumentClick, true)
         this.hasDocumentEvent = true
-      }
-      //focus trigger esc
-      if (this.triggerRef.current && this.hasTrigger().focus) {
-        // once keydown
       }
     } else {
       document.removeEventListener('mousedown', this.handleDocumentClick, true)
@@ -223,23 +206,19 @@ export default class Popup extends WeElement<
     // TODO: watch trigger
   }
 
-  //   update() {
-  //     // this.updateTrigger()
-  //     this.updatePopper()
-  //   }
   handleToggle = (context: PopupVisibleChangeContext) => {
     const visible = !this.visible
-    this.updateVisible(visible)
     if (!visible) return
-    this.emitPopVisible(visible, context)
-    if (visible) {
-      if (!this.props.destroyOnClose && this.popperRef.current) {
-        const el = this.popperRef.current as HTMLElement
-        el.style.display = 'block'
-      }
-      this.updatePopper()
+    this.handlePopVisible(visible, context)
+  }
+
+  handleScroll(e: WheelEvent) {
+    this.props.onScroll?.({ e })
+    const debounceOnScrollBottom = debounce((e) => this.props.onScrollToBottom?.({ e }), 100)
+    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement
+    if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+      debounceOnScrollBottom(e)
     }
-    this.update()
   }
   getOverlayStyle(overlayStyle: PopupProps['overlayStyle']) {
     if (this.triggerRef.current && this.popperRef.current && typeof overlayStyle === 'function') {
@@ -251,15 +230,24 @@ export default class Popup extends WeElement<
   updatePopper = () => {
     this.popper = createPopper(this.triggerRef.current as HTMLElement, this.popperRef.current as HTMLElement, {
       placement: getPopperPlacement(this.props.placement as PopupProps['placement']),
-      //   onFirstUpdate: () => {
-      //     // setTimeout(() => {
-      //     //   this.updatePopper()
-      //     // }, 1000)
-      //     //
-      //     //   console.log('updatePopper')
-      //   },
-      ...this.props.popperOptions,
+      strategy: 'fixed',
     })
+  }
+
+  beforeUpdate() {
+    //deal visible
+    if (this.getVisible()) {
+      if (!this.props.destroyOnClose && this.popperRef.current) {
+        const el = this.popperRef.current as HTMLElement
+        el.style.display = 'block'
+      }
+      this.updatePopper()
+    } else {
+      if (!this.props.destroyOnClose && this.popperRef.current) {
+        const el = this.popperRef.current as HTMLElement
+        el.style.display = 'none'
+      }
+    }
   }
 
   render(
@@ -281,11 +269,6 @@ export default class Popup extends WeElement<
       props.overlayInnerClassName,
     )
 
-    // const overlay = h('div', { class: overlayClasses }, [props.content])
-    // const showOverlay = () => {
-    //   if (this.props.hideEmptyPopup && !this.props.content) return false
-    //   return this.visible || this.popperRef.current
-    // }
     return (
       <t-container>
         <t-trigger ref={this.triggerRef}>{props.children}</t-trigger>
@@ -302,8 +285,12 @@ export default class Popup extends WeElement<
             onMouseDown={() => (this.contentClicked = true)}
           >
             {/*  || this.popperRef.current */}
-            {(this.visible || this.popperRef.current) && (
-              <div class={overlayClasses} style={{ ...this.getOverlayStyle(props.overlayInnerStyle) }}>
+            {(this.getVisible() || this.popperRef.current) && (
+              <div
+                class={overlayClasses}
+                style={{ ...this.getOverlayStyle(props.overlayInnerStyle) }}
+                onScroll={this.handleScroll}
+              >
                 {props.content}
                 {props.showArrow ? <div class={`${componentName}__arrow`} /> : null}
               </div>
