@@ -1,11 +1,11 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { ListItemProps } from './types'
-import { TdClassNamePefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils/clsx'
 import './list-item-meta'
 
 
-const ListItemClassNamePefix = (className: string) => TdClassNamePefix('list-item__') + className
+const ListItemClassNamePefix = (className: string) => TdClassNamePrefix('list-item__') + className
 
 
 @tag('t-list-item')
@@ -23,20 +23,23 @@ export default class ListItem extends WeElement<ListItemProps> {
   }
 
   installed() {
-    console.log(this.props)
   }
-  onClick = () =>{
-    console.log(111)
+
+  handleClick(e: MouseEvent){
+    console.log(e)
   }
+
   render(props: OmiProps<ListItemProps, any>, store: any) {
     const { action, children, content } = props
     
+    const actionElement = action && <ul class={classNames(ListItemClassNamePefix(`action`))} >{action}</ul>;
+
     return (
       <>
-        <li class={classNames(TdClassNamePefix('list-item'))} onClick={this.onClick()} >
-          <div class={classNames(TdClassNamePefix('list-item-main'))}>
-            <slot></slot>
-            <slot name='action' class={classNames(ListItemClassNamePefix('action'))}></slot>
+        <li class={classNames(TdClassNamePrefix('list-item'))} onClick={this.handleCilck} >
+          <div class={classNames(TdClassNamePrefix('list-item-main'))}>
+            {children}
+            {action && actionElement}
           </div>
         </li>
       </>

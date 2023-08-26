@@ -43,10 +43,7 @@ define('my-counter', class extends WeElement {
   }
 })
 
-render(<my-counter />, 'body', {
-  // Here, you can ignore the propTypes in HTML mode under jsx/tsx
-  ignoreAttrs: true
-})
+render(<my-counter />, 'body')
 ```
 
 You can also use `my-counter` tag directly in HTML：

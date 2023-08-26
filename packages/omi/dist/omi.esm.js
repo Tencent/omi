@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.17  http://omijs.org
+ * Omi v6.25.19  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -138,10 +138,17 @@ function h(nodeName, attributes) {
       child,
       simple,
       i;
+
+  // jsx 嵌套的元素自动忽略  attrs
+  if (attributes) {
+    attributes.ignoreAttrs = true;
+  } else {
+    attributes = { ignoreAttrs: true };
+  }
   for (i = arguments.length; i-- > 2;) {
     stack.push(arguments[i]);
   }
-  if (attributes && attributes.children != null) {
+  if (attributes.children != null) {
     if (!stack.length) stack.push(attributes.children);
     delete attributes.children;
   }
@@ -176,8 +183,8 @@ function h(nodeName, attributes) {
   var p = {
     nodeName: nodeName,
     children: children,
-    attributes: attributes == null ? undefined : attributes,
-    key: attributes == null ? undefined : attributes.key
+    attributes: attributes,
+    key: attributes.key
 
     // if a "vnode hook" is defined, pass every created VNode to it
   };if (options.vnode !== undefined) options.vnode(p);
@@ -302,7 +309,7 @@ function setAccessor(node, name, old, value, isSvg, component) {
     if (extension[name]) {
       extension[name](node, value, component);
     }
-  } else if (name === 'key') {
+  } else if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null);
@@ -1019,7 +1026,7 @@ var WeElement = function (_HTMLElement) {
     this.isInstalled = false;
   };
 
-  WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+  WeElement.prototype.update = function update(updateSelf) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
@@ -1034,7 +1041,7 @@ var WeElement = function (_HTMLElement) {
         this.shadowRoot.appendChild(this._customStyleElement);
       }
     }
-    this.attrsToProps(ignoreAttrs);
+    this.attrsToProps();
 
     var rendered = this.render(this.props, this.store);
     this.rendered();
@@ -1042,10 +1049,6 @@ var WeElement = function (_HTMLElement) {
     this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
     this._willUpdate = false;
     this.updated();
-  };
-
-  WeElement.prototype.forceUpdate = function forceUpdate() {
-    this.update(true);
   };
 
   WeElement.prototype.updateProps = function updateProps(obj) {
@@ -1057,11 +1060,11 @@ var WeElement = function (_HTMLElement) {
         _this3.prevProps[key] = obj[key];
       }
     });
-    this.forceUpdate();
+    this.update();
   };
 
-  WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-    this.update(ignoreAttrs, true);
+  WeElement.prototype.updateSelf = function updateSelf() {
+    this.update(true);
   };
 
   WeElement.prototype.removeAttribute = function removeAttribute(key) {
@@ -1088,8 +1091,8 @@ var WeElement = function (_HTMLElement) {
     _HTMLElement.prototype.setAttribute.call(this, key, val);
   };
 
-  WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-    if (ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs) return;
+  WeElement.prototype.attrsToProps = function attrsToProps() {
+    if (this.props.ignoreAttrs) return;
     var ele = this;
     ele.props['css'] = ele.getAttribute('css');
     var attrs = this.constructor.propTypes;
@@ -1725,7 +1728,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.17';
+options.root.Omi.version = '6.25.19';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
