@@ -4,6 +4,7 @@ import '../../../../../src/rate/_example/base'
 import '../../../../../src/rate/_example/custom'
 import '../../../../../src/rate/_example/status'
 import '../../../../../src/rate/_example/size'
+import '../../../../../src/rate/_example/icon'
 import * as marked from 'marked'
 
 const docsHTML = marked.parse(`
@@ -105,7 +106,9 @@ define(
             <p>
               可以通过 <td-code text="icon"></td-code> 属性自定义高亮图标。
             </p>
-            <demo-wrapper>待完善</demo-wrapper>
+            <demo-wrapper>
+              <rate-icon />
+            </demo-wrapper>
           </div>
           <div style={this.isShow('api')} name="API">
             <div
