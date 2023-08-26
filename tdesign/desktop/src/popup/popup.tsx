@@ -1,11 +1,8 @@
 import { h, tag, createRef, WeElement, OmiProps, classNames, getHost } from 'omi'
 import { PopupProps, PopupVisibleChangeContext } from './type'
-import isFunction from 'lodash/isFunction'
-import setStyle from '../_common/js/utils/set-style'
 import debounce from 'lodash/debounce'
 import css from './style/index'
 import { createPopper, Placement } from '@popperjs/core'
-import { TNode } from '@src/common'
 import { attachListeners, getPopperPlacement, triggers } from './utils'
 import { getIEVersion } from '../utils/helper'
 import '@omiu/transition'
@@ -110,15 +107,11 @@ export default class Popup extends WeElement<
   handlePopVisible = (visible: boolean, context: PopupVisibleChangeContext) => {
     if (this.props.disabled || visible === !!this.visible) return
     this.visible = visible
-    this.update()
-    //set props visible
-    if (this.props.visible) {
-      return
-    }
     this.handleDocumentEvent(visible)
     if (typeof this.props.onVisibleChange === 'function') {
       this.props.onVisibleChange(visible, context)
     }
+    this.update()
   }
 
   handleOpen = (context: Pick<PopupVisibleChangeContext, 'trigger'>) => {

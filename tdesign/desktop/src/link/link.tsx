@@ -25,7 +25,7 @@ export default class Link extends WeElement<LinkProps> {
     target: String,
     theme: String,
     underline: Boolean,
-    onClick: Function, // need to test
+    onClick: Function,
   }
 
   handleClick = (e: MouseEvent) => {
