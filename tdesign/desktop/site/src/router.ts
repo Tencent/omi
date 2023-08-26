@@ -2,42 +2,27 @@ import { WeElement } from 'omi'
 import { route } from 'omi-router'
 
 /**
- * demo components
+ * demo components:
+  - 通过把组件名加入到 `components` 数组中，可以自动注册 demo 路由
+  - demo 的入口文件为 `./components/web/${componentName}/index.tsx`
  */
 const components = [
-  'breadcrumb',
-  'bottom-nav',
   'button',
-  'badge',
-  'cascader',
-  'color-picker',
-  'checkbox',
-  'hamburger-menu',
-  'tabs',
-  'slider',
-  'input',
-  'kanban',
-  'loading',
+  'icon',
   'link',
-  'toast',
-  'toggle-icon',
-  'card',
-  'radio',
-  'progress',
-  'pagination',
-  'time-picker',
-  'tag',
-  'tree',
+  'divider',
+  'space',
+  'input',
+  'input-adornment',
+  'slider',
+  'textarea',
+  'comment',
   'rate',
+  'alert',
   'message',
-  'dialog',
-  'avatar',
-  'action-sheet',
-  'switch',
-  'collapse',
+  'notification',
+  'popup',
 ]
-
-const charts = ['bar', 'line', 'scatter', 'pie', 'doughnut', 'radar', 'polar-area', 'bubble', 'barline']
 
 export function registerRouting(rootEl: any) {
   route('/', () => {
@@ -54,103 +39,14 @@ export function registerRouting(rootEl: any) {
     })
   })
 
-  route('/button', () => {
-    import('./components/web/button/button').then(() => {
-      rootEl.data.tagName = 'page-button'
-      rootEl.update()
-    })
-  })
-
-  route('/alert', () => {
-    import('./components/web/alert/index').then(() => {
-      rootEl.data.tagName = 'page-alert'
-      rootEl.update()
-    })
-  })
-
-  route('/slider', () => {
-    import('./components/web/slider/index').then(() => {
-      rootEl.data.tagName = 'page-slider'
-      rootEl.update()
-    })
-  })
-
-  route('/input', () => {
-    import('./components/web/input').then(() => {
-      rootEl.data.tagName = 'page-input'
-      rootEl.update()
-    })
-  })
-
-  route('/link', () => {
-    import('./components/web/link/index').then(() => {
-      rootEl.data.tagName = 'page-link'
-      rootEl.update()
-    })
-  })
-
-  route('/message', () => {
-    import('./components/web/message/index').then(() => {
-      rootEl.data.tagName = 'page-message'
-      rootEl.update()
-    })
-  })
-
-  route('/notification', () => {
-    import('./components/web/notification/index').then(() => {
-      rootEl.data.tagName = 'page-notification'
-      rootEl.update()
-    })
-  })
-
-  route('/divider', () => {
-    import('./components/web/divider/index').then(() => {
-      rootEl.data.tagName = 'page-divider'
-      rootEl.update()
-    })
-  })
-
-  route('/space', () => {
-    import('./components/web/space/index').then(() => {
-      rootEl.data.tagName = 'page-space'
-      rootEl.update()
-    })
-  })
-
-  route('/rate', () => {
-    import('./components/web/rate/index').then(() => {
-      rootEl.data.tagName = 'page-rate'
-      rootEl.update()
-    })
-  })
-
-  route('/comment', () => {
-    import('./components/web/comment/index').then(() => {
-      rootEl.data.tagName = 'page-comment'
-      rootEl.update()
-    })
-  })
-
-  route('/icon', () => {
-    import('./components/web/icon/index').then(() => {
-      rootEl.data.tagName = 'page-icon'
-      rootEl.update()
-    })
-  })
-
-  route('/input-adornment', () => {
-    import('./components/web/input-adornment/index').then(() => {
-      rootEl.data.tagName = 'page-input-adornment'
-      rootEl.update()
-    })
-  })
-
-  route('/popup', () => {
-    import('./components/web/popup/index').then(() => {
-      rootEl.data.tagName = 'page-popup'
-      rootEl.update()
-    })
-  })
+  components.map((componentName: string) =>
+    route(`/${componentName}`, () => {
+      import(`./components/web/${componentName}/index.tsx`).then(() => {
+        rootEl.data.tagName = `page-${componentName}`
+        rootEl.update()
+      })
+    }),
+  )
 
   route('*', function () {
     console.log('not found')
