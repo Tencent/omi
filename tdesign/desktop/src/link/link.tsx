@@ -29,6 +29,7 @@ export default class Link extends WeElement<LinkProps> {
   }
 
   handleClick = (e: MouseEvent) => {
+    e.stopPropagation()
     if (this.props.disabled) return
     this.props.onClick?.(e)
   }

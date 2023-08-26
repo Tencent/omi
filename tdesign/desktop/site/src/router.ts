@@ -145,6 +145,13 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/popup', () => {
+    import('./components/web/popup/index').then(() => {
+      rootEl.data.tagName = 'page-popup'
+      rootEl.update()
+    })
+  })
+
   route('*', function () {
     console.log('not found')
   })
