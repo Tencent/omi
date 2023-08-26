@@ -11,8 +11,8 @@ dist/
 _site
 _static_site
 package
-tmp*
-temp*
+# tmp*
+# temp*
 coverage
 test-report.html
 .idea/

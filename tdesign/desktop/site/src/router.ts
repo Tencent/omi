@@ -138,6 +138,20 @@ export function registerRouting(rootEl: any) {
     })
   })
 
+  route('/input-adornment', () => {
+    import('./components/web/input-adornment/index').then(() => {
+      rootEl.data.tagName = 'page-input-adornment'
+      rootEl.update()
+    })
+  })
+
+  route('/popup', () => {
+    import('./components/web/popup/index').then(() => {
+      rootEl.data.tagName = 'page-popup'
+      rootEl.update()
+    })
+  })
+
   route('*', function () {
     console.log('not found')
   })
