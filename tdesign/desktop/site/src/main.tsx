@@ -21,7 +21,7 @@ registerLocaleChange()
 import { registerRouting } from './router'
 import { watchHtmlMode } from './utils'
 
-import siteConfig from '../site.config'
+import siteConfig from '../site.config.mjs'
 
 const { docs, enDocs } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''))
 
@@ -30,41 +30,49 @@ const docsMap = {
   en: enDocs,
 }
 
-
 @tag('my-app')
 export default class extends WeElement {
   // static css = [sheet.target, fadeCSS, css.default ? css.default : css]
 
   data = {
-    tagName: 'page-overview'
+    tagName: 'page-overview',
+    pageName: 'overview',
+    pageTitle: '组件概览',
+    pageDescription: '将根据业务实践持续新增组件类型，敬请留意组件库更新日志。',
   }
-
 
   getAttach: any
   changeVersion: any
   options: any
+  mdSegment: { componentName: string; spline: string }
+  lastUpdated: string
+  store: any
+  tdHeader: any
+  tdDocAside: any
+  tdDocSearch: any
+  tdDocContent: any
+  tdDocHeader: any
 
   install() {
     this.lang = 'zh'
     this.mdSegment = {
       componentName: '测试',
-      spline: 'explain'
+      spline: 'explain',
     }
-    this.lastUpdated = '2023-08-19 00:00:00'
+    // TODO: 从 git 获取文件最新更新时间
+    this.lastUpdated = ''
   }
 
   installed() {
     // 监听根 html 主题变化更新相关 omi 组件
-    const observer = watchHtmlMode((themeMode) => {
+    const observer = watchHtmlMode((themeMode: any) => {
       this.store.themeMode = themeMode
       this.store.ui.overview.update()
-    });
+    })
 
     this.tdHeader.framework = 'omi'
     this.tdDocAside.routerList = docsMap[this.lang]
     this.tdDocAside.onchange = ({ detail }) => {
-
-
       route.to(detail)
       console.error(detail)
       // if (this.$route.path === detail) return
@@ -73,21 +81,33 @@ export default class extends WeElement {
       window.scrollTo(0, 0)
     }
 
-
-    this.tdDocSearch.docsearchInfo = { indexName: 'tdesign_doc_vue_next' }
+    this.tdDocSearch.docsearchInfo = { indexName: 'tdesign_doc_omi' }
     // this.initHistoryVersions()
   }
-
-
 
   render() {
     return (
       <td-doc-layout>
-        <td-header ref={(el) => { this.tdHeader = el }} slot="header">
-          <td-doc-search ref={(el) => { this.tdDocSearch = el }} slot="search" />
+        <td-header
+          ref={(el: any) => {
+            this.tdHeader = el
+          }}
+          slot="header"
+        >
+          <td-doc-search
+            ref={(el: any) => {
+              this.tdDocSearch = el
+            }}
+            slot="search"
+          />
         </td-header>
 
-        <td-doc-aside ref={(el) => { this.tdDocAside = el }} title="Omi for Web">
+        <td-doc-aside
+          ref={(el: any) => {
+            this.tdDocAside = el
+          }}
+          title="Omi for Web"
+        >
           <t-select
             id="historyVersion"
             slot="extra"
@@ -98,24 +118,25 @@ export default class extends WeElement {
           />
         </td-doc-aside>
 
-
-
-        <td-doc-content ref={(el) => { this.tdDocContent = el }} page-status="hidden">
+        <td-doc-content
+          ref={(el: any) => {
+            this.tdDocContent = el
+          }}
+          page-status="hidden"
+        >
           {/* https://github.com/TDesignOteam/tdesign-site/blob/main/components/src/components/td-doc-header/index.js */}
           <td-doc-header
             slot="doc-header"
-            docInfo={
-              {
-                title: '测试title', //todo 改成动态
-                desc: '测试描述'
-              }
-            }
-            ref={(el) => { this.tdDocHeader = el }}
+            docInfo={{
+              title: this.data.pageTitle, // 动态
+              desc: this.data.pageDescription,
+            }}
+            ref={(el: any) => {
+              this.tdDocHeader = el
+            }}
             spline={this.mdSegment.spline}
-            component-name={this.mdSegment.componentName}
-          >
-
-          </td-doc-header>
+            component-name={this.data.pageName}
+          ></td-doc-header>
           <div>
             <this.data.tagName></this.data.tagName>
           </div>
@@ -136,8 +157,8 @@ render(
   <my-app id="my-app"></my-app>,
   '#app',
   new Store({
-    themeMode: 'light'
-  })
+    themeMode: 'light',
+  }),
 )
 
 const app = document.getElementById('my-app')
