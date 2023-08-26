@@ -1,12 +1,12 @@
 // import tdesign style
 import '@common/style/web/docs.less'
 
-// import site webComponents
+// import site web components
 import 'tdesign-site-components'
 import 'tdesign-site-components/lib/styles/style.css'
 import 'tdesign-site-components/lib/styles/prism-theme.less'
 import 'tdesign-site-components/lib/styles/prism-theme-dark.less'
-// import icons webcomponents
+// import icons web components
 import 'tdesign-icons-view'
 import { route } from 'omi-router'
 import 'tdesign-theme-generator'
