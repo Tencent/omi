@@ -3,18 +3,25 @@ import css from './style'
 import { ButtonProps, ButtonShape, ButtonTheme, ButtonVariant } from './types'
 import { TdClassNamePrefix } from '../utils'
 import { SizeEnum } from '@src/common'
+import parseTNode from '../utils/parseTNode'
 
 @tag('t-button')
 export default class Button extends WeElement<ButtonProps> {
   static propTypes = {
-    disabled: Boolean,
-    loading: Boolean,
     block: Boolean,
+    content: Object,
+    disabled: Boolean,
     ghost: Boolean,
-
-    theme: String,
-    size: String,
+    href: String,
+    icon: Object,
+    loading: Boolean,
     shape: String,
+    size: String,
+    suffix: Object,
+    tag: String,
+    theme: String,
+    type: String,
+    variant: String,
   }
   static css = css as string
 
@@ -130,6 +137,7 @@ export default class Button extends WeElement<ButtonProps> {
         <span className="t-button__text">
           <slot></slot>
         </span>
+        {props.suffix && <span class={TdClassNamePrefix('button__suffix')}>{parseTNode(suffix)}</span>}
       </tagName>
     )
   }

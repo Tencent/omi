@@ -1,3 +1,4 @@
+import { isNumber } from 'lodash'
 /**
  *
  * @returns 获取 ie 浏览器版本
@@ -21,4 +22,13 @@ export function getIEVersion() {
   }
   // 不是ie浏览器
   return Number.MAX_SAFE_INTEGER
+}
+
+/**
+ * 兼容样式中支持number/string类型的传值 得出最后的结果。
+ * @param param number或string类型的可用于样式上的值
+ * @returns 可使用的样式值。
+ */
+export function pxCompat(param: string | number) {
+  return isNumber(param) ? `${param}px` : param
 }
