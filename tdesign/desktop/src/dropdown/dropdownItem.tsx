@@ -1,4 +1,4 @@
-import { h, tag, WeElement, OmiProps, classNames, createRef } from 'omi'
+import { h, tag, WeElement, OmiProps, classNames, createRef, getHost } from 'omi'
 import { TdDropdownItemProps, TdDropdownProps, DropdownOption } from './type'
 import css from './style/index'
 import { TdClassNamePrefix, pxCompat } from '../utils'
@@ -18,8 +18,8 @@ export default class DropdownItem extends WeElement<DropdownItemProps> {
     disabled: false,
     divider: false,
     theme: 'default',
-    maxColumnsWidth: 100,
-    minColumnsWidth: 10,
+    maxColumnWidth: 100,
+    minColumnWidth: 10,
   }
 
   static propTypes = {
@@ -30,9 +30,12 @@ export default class DropdownItem extends WeElement<DropdownItemProps> {
     prefixIcon: Object,
     theme: String,
     value: [String, Number, Object],
-    maxColumnsWidth: [String, Number],
-    minColumnsWidth: [String, Number],
+    maxColumnWidth: [String, Number],
+    minColumnWidth: [String, Number],
     isSubmenu: Boolean,
+  }
+  install() {
+    this.css = this.props.css
   }
 
   itemRef = createRef()

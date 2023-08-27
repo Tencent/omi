@@ -1,4 +1,4 @@
-import { h, tag, WeElement, OmiProps, classNames } from 'omi'
+import { h, tag, WeElement, OmiProps, classNames, getHost } from 'omi'
 import { TdDropdownProps, DropdownOption } from './type'
 import css from './style/index'
 import { toArray, omit } from 'lodash'
@@ -97,12 +97,16 @@ export default class Dropdown extends WeElement<TdDropdownProps> {
     this.props.onClick?.(data, context)
     this.update()
   }
-
+  install() {
+    this.css = getHost(this).css ? getHost(this).css + getHost(this).constructor.css : getHost(this).constructor.css
+  }
   beforeUpdate() {
     this.options = this.generateDropdownOptions(this.props.children, this.props.options)
   }
   render(props: OmiProps<TdDropdownProps>) {
-    const renderContent = <t-dropdown-menu {...props} options={this.options} onClick={this.handleMenuClick} />
+    const renderContent = (
+      <t-dropdown-menu css={this.css} {...props} options={this.options} onClick={this.handleMenuClick} />
+    )
     const popupParams = {
       disabled: props.disabled,
       placement: props.placement,
