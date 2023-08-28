@@ -3,6 +3,7 @@ import { h, tag, WeElement } from 'omi'
 import '../index'
 import '../../icon/thumb-up'
 import '../../icon/chat'
+import '../../icon/arrow-right'
 const classStyles = `
 <style>
 .comment-reply > .t-comment__inner > .t-comment__content > .t-comment__actions {
@@ -33,7 +34,7 @@ export default class replyComment extends WeElement {
         <>
             <span>评论作者名B</span>
             {/* <CaretRightSmallIcon size="small" /> */}
-            <span>-&gt;</span>
+            <t-icon-arrow-right></t-icon-arrow-right>
             <span>评论作者名A</span>
         </>
     );
