@@ -12,7 +12,6 @@ type DropdownItemProps = TdDropdownItemProps & {
 @tag('t-dropdown-item')
 export default class DropdownItem extends WeElement<DropdownItemProps> {
   static css = css as string
-
   static defaultProps = {
     active: false,
     disabled: false,
@@ -57,7 +56,7 @@ export default class DropdownItem extends WeElement<DropdownItemProps> {
           style={{ maxWidth: pxCompat(props.maxColumnWidth), minWidth: pxCompat(props.minColumnWidth), ...props.style }}
           ref={this.itemRef}
         >
-          {props.prefixIcon ? <div className={`${componentName}-icon`}>{props.prefixIcon}</div> : null}
+          {props.prefixIcon ? <div class={`${componentName}-icon`}>{props.prefixIcon}</div> : null}
           {props.children}
         </li>
       </>

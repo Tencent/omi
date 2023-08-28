@@ -5,7 +5,7 @@ import '../../button'
 
 @tag('dropdown-multiple')
 export default class DropdownMultiple extends WeElement {
-  static css = `ul, dl, ol {
+  dropdownCss = `ul, dl, ol {
     margin: 0;
     padding: 0;
     padding-left: 1.2em;
@@ -24,7 +24,6 @@ export default class DropdownMultiple extends WeElement {
         {
           content: '操作九',
           value: 9,
-          active: true,
         },
       ],
     },
@@ -125,7 +124,7 @@ export default class DropdownMultiple extends WeElement {
   ]
   render() {
     return (
-      <t-dropdown options={this.options} onClick={this.clickHandler} maxHeight={200}>
+      <t-dropdown css={this.dropdownCss} options={this.options} onClick={this.clickHandler} maxHeight={200}>
         <t-button theme="default" variant="outline" shape="square">
           <t-icon-ellipsis size="16" />
         </t-button>

@@ -229,7 +229,6 @@ export default class Popup extends WeElement<
 
   install() {
     this.css = getHost(this).css
-    console.log('popup css', this.css)
   }
 
   beforeUpdate() {

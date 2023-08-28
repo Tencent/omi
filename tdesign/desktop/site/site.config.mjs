@@ -175,14 +175,14 @@ export const docs = [
       //       component: () => import('tdesign-omi/breadcrumb/breadcrumb.md'),
       //       componentEn: () => import('tdesign-omi/breadcrumb/breadcrumb.en-US.md'),
       //     },
-      //     {
-      //       title: 'Dropdown 下拉菜单',
-      //       titleEn: 'Dropdown',
-      //       name: 'dropdown',
-      //       path: '/dropdown',
-      //       component: () => import('tdesign-omi/dropdown/dropdown.md'),
-      //       componentEn: () => import('tdesign-omi/dropdown/dropdown.en-US.md'),
-      //     },
+      {
+        title: 'Dropdown 下拉菜单',
+        titleEn: 'Dropdown',
+        name: 'dropdown',
+        path: '/dropdown',
+        //       component: () => import('tdesign-omi/dropdown/dropdown.md'),
+        //       componentEn: () => import('tdesign-omi/dropdown/dropdown.en-US.md'),
+      },
       //     {
       //       title: 'Menu 导航菜单',
       //       titleEn: 'Menu',
