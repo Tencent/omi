@@ -11,22 +11,25 @@ import { log } from 'console'
 
 export default class BasicComment extends WeElement {
     static css = 't-comment{}'
-    myTextInfo: HTMLElement
-    replyData = '回复功能待完善'
+    replyData = '';
+
 
     submitReply = () => {
-        this.replyData = this.myTextInfo.value;
-        alert(this.replyData)
+        alert('回复内容：\n' + this.replyData);
+    }
+
+
+    valueChange = (event: { target: { value: string } }) => {
+        this.replyData = event.target.value;
     }
 
 
     replyForm = (
         <t-space direction="vertical" align="end" style={{ width: '100%' }}>
-            <textarea ref={e => { this.myTextInfo = e }} cols="30" rows="10" style={{ width: 500, height: 50 }} placeholder='请输入回复内容'></textarea>
+            <t-textarea onChange={this.valueChange} cols="30" rows="10" style={{ width: 500, height: 50 }} placeholder='请输入回复内容'></t-textarea>
             <t-button style={{ float: 'right' }} onClick={this.submitReply} theme='primary'>回复</t-button>
         </t-space>
     );
-
 
 
     render() {
