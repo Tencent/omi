@@ -1,4 +1,4 @@
-import { h, tag, WeElement, OmiProps, createRef, classNames } from 'omi'
+import { h, tag, WeElement, OmiProps, createRef, classNames, getHost } from 'omi'
 import { TdDropdownProps, TdDropdownItemProps, DropdownOption } from './type'
 import css from './style/index'
 import './dropdownItem'
@@ -19,6 +19,14 @@ type DropDownMenuProps = {
 @tag('t-dropdown-menu')
 export default class DropdownMenu extends WeElement<DropDownMenuProps> {
   static css = css as string
+
+  dividerCss = `
+    .t-divider {
+      margin: var(--td-comp-margin-xs) var(--td-comp-margin-s) var(--td-comp-margin-xxs) var(--td-comp-margin-s) !important;
+      color: var(--td-brand-color-light) !important;
+      width: calc(100% - var(--td-comp-margin-s) * 2) !important;
+    }
+  `
 
   menuRef = createRef()
   calcScrollTopMap: { [key: number]: any } = {}
@@ -42,9 +50,14 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
     options: Array,
     onClick: Function,
   }
+
+  install() {
+    this.css = this.props.css
+  }
   handleScroll = (e: MouseEvent, deep = 0) => {
-    const { scrollTop } = e.target as HTMLElement
-    this.calcScrollTopMap = { ...this.calcScrollTopMap, [deep]: scrollTop }
+    if (!e.target) return
+    const el = e.target as HTMLElement
+    this.calcScrollTopMap = { ...this.calcScrollTopMap, [deep]: el.scrollTop }
     this.update()
   }
 
@@ -67,13 +80,14 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
         renderContent = (
           <div key={idx}>
             <t-dropdown-item
+              css={this.css}
               class={classNames(optionItem.class, `${this.dropdownItemClass}--suffix`)}
               {...optionItem}
               minColumnsWidth={this.props.minColumnWidth}
               maxColumnsWidth={this.props.maxColumnWidth}
               isSubmenu={true}
             >
-              <div class={`${this.dropdownItemClass}-context`}>
+              <div class={`${this.dropdownItemClass}-content`}>
                 {this.props.direction === 'right' ? (
                   <>
                     <span class={`${this.dropdownItemClass}-text`}>{optionItem.content}</span>
@@ -90,13 +104,22 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
                 )}
               </div>
               <div
-                className={classNames(`${this.dropdownClass}__submenu-wrapper`, {
+                class={classNames(`${this.dropdownClass}__submenu-wrapper`, {
                   [`${this.dropdownClass}__submenu-wrapper--${this.props.direction}`]: this.props.direction,
                 })}
-                style={{
-                  position: 'absolute',
-                  top: `${itemIdx * 30}px`,
-                }}
+                style={
+                  this.props.direction === 'right'
+                    ? {
+                        position: 'absolute',
+                        top: `${itemIdx * 30}px`,
+                        left: `${this.isOverMaxHeight ? 'calc(100% - 14px)' : 'calc(100% - 6px)'}`,
+                      }
+                    : {
+                        position: 'absolute',
+                        top: `${itemIdx * 30}px`,
+                        right: `${this.isOverMaxHeight ? 'calc(100% - 14px)' : 'calc(100% - 6px)'}`,
+                      }
+                }
               >
                 <div
                   class={classNames(`${this.dropdownClass}__submenu`, {
@@ -112,14 +135,19 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
                 </div>
               </div>
             </t-dropdown-item>
-            {optionItem.divider ? <t-divider /> : null}
+            {optionItem.divider ? <t-divider css={this.dividerCss} /> : null}
           </div>
         )
       } else {
+        /** avoid disturbing
+         * when children is null, will influence t-dropdown-item get the span
+         */
+        delete optionItem.children
         renderContent = (
           <div key={idx}>
             <t-dropdown-item
-              class={classNames(optionItem.class, this.dropdownItemClass)}
+              class={classNames(optionItem.class)}
+              css={this.css}
               {...optionItem}
               minColumnsWidth={this.props.minColumnWidth}
               maxColumnsWidth={this.props.maxColumnWidth}
@@ -132,7 +160,7 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
             >
               <span class={`${this.dropdownItemClass}-text`}>{optionItem.content}</span>
             </t-dropdown-item>
-            {optionItem.divider ? <t-divider /> : null}
+            {optionItem.divider ? <t-divider css={this.dividerCss} /> : null}
           </div>
         )
       }
@@ -155,9 +183,10 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
   }
 
   render(props: OmiProps<DropDownMenuProps>) {
+    const renderContent = this.renderOptions(props.options, 0)
     return (
       <div
-        className={classNames(this.dropdownMenuClass, `${this.dropdownMenuClass}--${props.direction}`, {
+        class={classNames(this.dropdownMenuClass, `${this.dropdownMenuClass}--${props.direction}`, {
           [`${this.dropdownMenuClass}--overflow`]: this.isOverMaxHeight,
         })}
         style={{
@@ -166,7 +195,7 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
         ref={this.menuRef}
         onScroll={this.throttleUpdate}
       >
-        {this.renderOptions(props.options, 0)}
+        {renderContent}
       </div>
     )
   }

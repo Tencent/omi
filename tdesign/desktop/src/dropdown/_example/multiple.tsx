@@ -5,6 +5,12 @@ import '../../button'
 
 @tag('dropdown-multiple')
 export default class DropdownMultiple extends WeElement {
+  dropdownCss = `ul, dl, ol {
+    margin: 0;
+    padding: 0;
+    padding-left: 1.2em;
+    line-height: 22px;
+}`
   getContent = () => <div>操作四</div>
 
   clickHandler = (data: any) => {
@@ -118,7 +124,7 @@ export default class DropdownMultiple extends WeElement {
   ]
   render() {
     return (
-      <t-dropdown options={this.options} onClick={this.clickHandler} maxHeight={200}>
+      <t-dropdown css={this.dropdownCss} options={this.options} onClick={this.clickHandler} maxHeight={200}>
         <t-button theme="default" variant="outline" shape="square">
           <t-icon-ellipsis size="16" />
         </t-button>
