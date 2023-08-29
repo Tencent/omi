@@ -1,5 +1,5 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
-import style from './style'
+import style from './style/index'
 import { ListItemProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
 import './list-item-meta'
@@ -22,7 +22,8 @@ export default class ListItem extends WeElement<ListItemProps> {
     onClick: Function,
   }
 
-  installed() {
+  install() {
+    // console.log(this.props)
   }
 
   handleClick(e: MouseEvent){

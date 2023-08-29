@@ -18,7 +18,7 @@ export default class ListItemMeta extends WeElement<ListItemMetaProps> {
     title: String,
   }
 
-  renderImage = (image: any) => {
+  renderImage = (image : any) => {
     return (
       <div class={classNames(ListItenMetaClassNamePrefix('avatar'))}>
         <img src={image} alt="" />

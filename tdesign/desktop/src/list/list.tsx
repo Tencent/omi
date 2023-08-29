@@ -7,11 +7,36 @@ const ListClassNamePrefix = (className: string) => TdClassNamePrefix('list__') +
 
 @tag('t-list')
 export default class BackTop extends WeElement<ListProps> {
+  stripeCss = `
+    .t-list-item:nth-child(even){
+      background: var(--td-bg-color-secondarycontainer) ;
+    }
+  `
+
+  splitCss = `
+    .t-list-item::after {
+      background: var(--td-border-level-1-color);
+    }
+  
+  `
+
+  smallSizeCss = `
+    .t-list-item {
+      padding: var(--td-comp-paddingTB-s) var(--td-comp-paddingLR-m) !important;
+    }
+  `
+
+  largeSizeCss = `
+    .t-list-item {
+      padding: var(--td-comp-paddingTB-l) var(--td-comp-paddingLR-xl) !important;
+    }
+  `
+
   static css = style
 
   static defaultProps = {
     layout: 'horizontal',
-    size: 'size',
+    size: 'medium',
     split: false,
     stripe: false,
   }
@@ -33,11 +58,59 @@ export default class BackTop extends WeElement<ListProps> {
     onScroll: Function,
   }
 
+  childrenlist
+
   install() {
+    
+    let that = this
+    this.childrenlist = this.props.children
+    if (this.props.stripe) {
+      this.childrenlist.map((item, index) => {
+        if ((index + 1) % 2 == 0) {
+          if (!item.attributes.css) {
+            item.attributes.css = ''
+          }
+          item.attributes.css += that.stripeCss
+        }
+      })
+    }
+
+    if (this.props.split) {
+      this.childrenlist.map((item,index) => {
+        if(index + 1 != this.childrenlist.length){
+          if (!item.attributes.css) {
+            item.attributes.css = ''
+          }
+          item.attributes.css += that.splitCss
+        }
+        
+      })
+    }
+    if(this.props.size){
+      if(this.props.size == 'small'){
+        this.childrenlist.map((item) => {
+          if (!item.attributes.css) {
+            item.attributes.css = ''
+          }
+          item.attributes.css += that.smallSizeCss
+        })
+      }
+      if(this.props.size == 'large'){
+        this.childrenlist.map((item) => {
+          if (!item.attributes.css) {
+            item.attributes.css = ''
+          }
+          item.attributes.css += that.largeSizeCss
+        })
+      }
+    }
+    if(this.props.onScroll){
+      
+    }
   }
-  getClasses(split:Boolean, stripe:Boolean) {
-    let cls:string[] = []
-    if(split){
+  getClasses(split: Boolean, stripe: Boolean) {
+    let cls: string[] = []
+    if (split) {
       cls.push(TdClassNamePrefix('list--split'))
     }
     if (stripe) {
@@ -46,41 +119,50 @@ export default class BackTop extends WeElement<ListProps> {
     return cls
   }
 
-  renderLoadElement(asyncLoading : string){
-    console.log(asyncLoading)
-    if(typeof asyncLoading == 'string' && asyncLoading){
+  renderLoadElement(asyncLoading : string) {
+    if (typeof asyncLoading == 'string' && asyncLoading) {
       return (
         <div
-      className={classNames(ListClassNamePrefix(`load`), {
-        [ListClassNamePrefix(`load--loading`)]: asyncLoading === 'loading',
-        [ListClassNamePrefix(`load--load-more`)]: asyncLoading === 'load-more',
-      })}
-      onClick={this.handleClickLoad}
-    >
-      {asyncLoading === 'loading' && (
-        <div>
-          {/* <Loading loading={true} /> */}
-          <span>正在加载中，请稍后</span>
+          className={classNames(ListClassNamePrefix(`load`), {
+            [ListClassNamePrefix(`load--loading`)]: asyncLoading === 'loading',
+            [ListClassNamePrefix(`load--load-more`)]: asyncLoading === 'load-more',
+          })}
+          onClick={this.handleClickLoad}
+        >
+          {asyncLoading === 'loading' && (
+            <div>
+              {/* <Loading loading={true} /> */}
+              <span>正在加载中，请稍后</span>
+            </div>
+          )}
+          {asyncLoading === 'load-more' && <span>点击加载更多</span>}
         </div>
-      )}
-      {asyncLoading === 'load-more' && <span>点击加载更多</span>}
-    </div>
       )
     }
   }
 
+  renderHeader(header : any){
+    return (<div class={classNames(ListClassNamePrefix('header'))}>{header}</div>)
+  }
+
+  renderFooter(footer : any){
+    return(
+      <div class={classNames(ListClassNamePrefix('footer'))}>{footer}</div>
+    )
+  }
+
   render(props: OmiProps<ListProps, any>, store: any) {
-    const { header, footer , split, stripe, children, asyncLoading} = props
+    const { header, footer, split, stripe, asyncLoading } = props
 
     return (
       <>
         <div class={classNames(TdClassNamePrefix('list'), ...this.getClasses(split, stripe))}>
-          {header && <div>{header}</div>}
+          {header && this.renderHeader(header)}
           <ul class={classNames(ListClassNamePrefix('inner'))}>
-            {this.children && <div>{children}</div>}
+            {this.childrenlist && <div>{this.childrenlist}</div>}
           </ul>
           {asyncLoading && this.renderLoadElement(asyncLoading)}
-          {footer && <div>{footer}</div>}
+          {footer && this.renderFooter(footer)}
         </div>
       </>
     )
