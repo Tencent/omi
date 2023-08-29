@@ -473,14 +473,12 @@ export const docs = [
       //       component: () => import('tdesign-omi/image-viewer/image-viewer.md'),
       //       componentEn: () => import('tdesign-omi/image-viewer/image-viewer.en-US.md'),
       //     },
-      //     {
-      //       title: 'List 列表',
-      //       titleEn: 'List',
-      //       name: 'list',
-      //       path: '/list',
-      //       component: () => import('tdesign-omi/list/list.md'),
-      //       componentEn: () => import('tdesign-omi/list/list.en-US.md'),
-      //     },
+          {
+            title: 'List 列表',
+            titleEn: 'List',
+            name: 'list',
+            path: '/list',
+          },
       //     {
       //       title: 'Loading 加载',
       //       titleEn: 'Loading',
