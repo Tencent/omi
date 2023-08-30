@@ -24,7 +24,8 @@ const components = [
   'notification',
   'popup',
   'dropdown',
-  'list'
+  'list',
+  'back-top'
 ]
 
 export function registerRouting(rootEl: any) {

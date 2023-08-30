@@ -159,14 +159,12 @@ export const docs = [
       //       component: () => import('tdesign-omi/anchor/anchor.md'),
       //       componentEn: () => import('tdesign-omi/anchor/anchor.en-US.md'),
       //     },
-      //     {
-      //       title: 'BackTop 回到顶部',
-      //       titleEn: 'BackTop',
-      //       name: 'back-top',
-      //       path: '/back-top',
-      //       component: () => import('tdesign-omi/back-top/back-top.md'),
-      //       componentEn: () => import('tdesign-omi/back-top/back-top.en-US.md'),
-      //     },
+          {
+            title: 'BackTop 回到顶部',
+            titleEn: 'BackTop',
+            name: 'back-top',
+            path: '/back-top',
+          },
       //     {
       //       title: 'Breadcrumb 面包屑',
       //       titleEn: 'Breadcrumb',
