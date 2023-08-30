@@ -6,6 +6,9 @@ import '../../../../../src/popup/_example/visible'
 import '../../../../../src/popup/_example/dynamic'
 import '../../../../../src/popup/_example/placement'
 import '../../../../../src/popup/_example/trigger'
+import '../../../../../src/popup/_example/destroy'
+import '../../../../../src/popup/_example/trigger-element'
+
 import * as marked from 'marked'
 
 const docsHTML = marked.parse(`
@@ -96,7 +99,9 @@ define(
                 触发元素 <a class="header-anchor" href="#触发元素"></a>
               </h3>
             </p>
-            <demo-wrapper>待完善</demo-wrapper>
+            <demo-wrapper>
+              <popup-trigger-element></popup-trigger-element>
+            </demo-wrapper>
             <h3 id="不同触发方式的弹出层">
               不同触发方式的弹出层 <a class="header-anchor" href="#不同触发方式的弹出层"></a>
             </h3>
@@ -155,7 +160,9 @@ define(
               可隐藏时销毁的弹出层 <a class="header-anchor" href="#可隐藏时销毁的弹出层"></a>
             </h3>
             <td-code text="destroyOnClose"></td-code> 用于控制浮层隐藏时是否销毁浮层内容。
-            <demo-wrapper>待完善</demo-wrapper>
+            <demo-wrapper>
+              <popup-destroy></popup-destroy>
+            </demo-wrapper>
             <h3 id="禁用状态的弹出层">
               禁用状态的弹出层 <a class="header-anchor" href="#禁用状态的弹出层"></a>
             </h3>

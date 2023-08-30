@@ -31,11 +31,9 @@ export default class Divider extends WeElement<DividerProps> {
       [`${classPrefix}-divider--with-text-${props.align}`]: showText,
     })
     return (
-      <>
-        <div class={dividerClassNames} style={props.style}>
-          {showText ? <span class={`${classPrefix}-divider__inner-text`}>{childNode}</span> : null}
-        </div>
-      </>
+      <div class={dividerClassNames} style={props.style}>
+        {showText ? <span class={`${classPrefix}-divider__inner-text`}>{childNode}</span> : null}
+      </div>
     )
   }
 }

@@ -123,7 +123,7 @@ export default class Dropdown extends WeElement<TdDropdownProps> {
     return (
       <t-popup
         expandAnimation={true}
-        // destroyOnClose={true}
+        destroyOnClose={true}
         visible={this.isPopupVisible}
         onVisibleChange={this.handleVisibleChange}
         {...popupParams}

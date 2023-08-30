@@ -24,9 +24,6 @@ export class Overlay extends WeElement {
     return <div>{props.children}</div>
   }
 }
-/**
- * TODO: destroyOnClose
- */
 
 @tag('t-popup')
 export default class Popup extends WeElement<
@@ -196,7 +193,6 @@ export default class Popup extends WeElement<
     this.updatePopper()
     this.updateTrigger()
     this.visible = this.props.visible
-    // TODO: watch trigger
   }
 
   handleToggle = (context: PopupVisibleChangeContext) => {
@@ -230,17 +226,21 @@ export default class Popup extends WeElement<
   beforeUpdate() {
     //deal visible
     if (this.getVisible()) {
-      if (!this.props.destroyOnClose && this.popperRef.current) {
+      if (this.popperRef.current) {
         const el = this.popperRef.current as HTMLElement
         el.style.display = 'block'
       }
       this.updatePopper()
     } else {
-      if (!this.props.destroyOnClose && this.popperRef.current) {
+      if (this.popperRef.current) {
         const el = this.popperRef.current as HTMLElement
         el.style.display = 'none'
       }
     }
+  }
+
+  handleBeforeEnter = () => {
+    this.updatePopper()
   }
 
   render(
@@ -264,31 +264,32 @@ export default class Popup extends WeElement<
 
     return (
       <t-container>
-        <t-trigger ref={this.triggerRef}>{props.children}</t-trigger>
+        <t-trigger ref={this.triggerRef}>{props.triggerElement ? props.triggerElement : props.children}</t-trigger>
         <o-transition
-          appear="true"
-          delay={DEFAULT_TRANSITION_TIMEOUT}
-          autoRemove={props.destroyOnClose}
+          appear
           name={props.expandAnimation ? `${componentName}--animation-expand` : `${componentName}--animation`}
+          onBeforeEnter={this.handleBeforeEnter}
         >
-          <div
-            class={popperClasses}
-            style={{ zIndex: props.zIndex, ...this.getOverlayStyle(props.overlayStyle) }}
-            ref={this.popperRef}
-            onMouseDown={() => (this.contentClicked = true)}
-          >
-            {/*  || this.popperRef.current */}
-            {(this.getVisible() || this.popperRef.current) && (
-              <div
-                class={overlayClasses}
-                style={{ ...this.getOverlayStyle(props.overlayInnerStyle) }}
-                onScroll={this.handleScroll}
-              >
-                {props.content}
-                {props.showArrow ? <div class={`${componentName}__arrow`} /> : null}
-              </div>
-            )}
-          </div>
+          {this.getVisible() || !props.destroyOnClose ? (
+            <div
+              class={popperClasses}
+              style={{ zIndex: props.zIndex, ...this.getOverlayStyle(props.overlayStyle) }}
+              ref={this.popperRef}
+              onMouseDown={() => (this.contentClicked = true)}
+            >
+              {/*  || this.popperRef.current */}
+              {(this.getVisible() || this.popperRef.current) && (
+                <div
+                  class={overlayClasses}
+                  style={{ ...this.getOverlayStyle(props.overlayInnerStyle) }}
+                  onScroll={this.handleScroll}
+                >
+                  {props.content}
+                  {props.showArrow ? <div class={`${componentName}__arrow`} /> : null}
+                </div>
+              )}
+            </div>
+          ) : null}
         </o-transition>
       </t-container>
     )
