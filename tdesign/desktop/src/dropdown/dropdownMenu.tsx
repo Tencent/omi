@@ -51,9 +51,6 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
     onClick: Function,
   }
 
-  install() {
-    this.css = this.props.css
-  }
   handleScroll = (e: MouseEvent, deep = 0) => {
     if (!e.target) return
     const el = e.target as HTMLElement
@@ -80,7 +77,7 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
         renderContent = (
           <div key={idx}>
             <t-dropdown-item
-              css={this.css}
+              css={this.props.css}
               class={classNames(optionItem.class, `${this.dropdownItemClass}--suffix`)}
               {...optionItem}
               minColumnsWidth={this.props.minColumnWidth}
@@ -146,8 +143,7 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
         renderContent = (
           <div key={idx}>
             <t-dropdown-item
-              class={classNames(optionItem.class)}
-              css={this.css}
+              css={this.props.css}
               {...optionItem}
               minColumnsWidth={this.props.minColumnWidth}
               maxColumnsWidth={this.props.maxColumnWidth}
@@ -157,6 +153,7 @@ export default class DropdownMenu extends WeElement<DropDownMenuProps> {
                   : (value: TdDropdownItemProps['value'], context: { e: MouseEvent }) =>
                       this.handleItemClick({ data: optionItem, context })
               }
+              class={classNames(optionItem.class)}
             >
               <span class={`${this.dropdownItemClass}-text`}>{optionItem.content}</span>
             </t-dropdown-item>

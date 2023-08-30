@@ -33,9 +33,6 @@ export default class DropdownItem extends WeElement<DropdownItemProps> {
     minColumnWidth: [String, Number],
     isSubmenu: Boolean,
   }
-  install() {
-    this.css = this.props.css
-  }
 
   itemRef = createRef()
   handleItemClick = (e: MouseEvent) => {
@@ -49,17 +46,15 @@ export default class DropdownItem extends WeElement<DropdownItemProps> {
       [`${componentName}--disabled`]: props.disabled,
     })
     return (
-      <>
-        <li
-          class={itemClassName}
-          onClick={this.handleItemClick}
-          style={{ maxWidth: pxCompat(props.maxColumnWidth), minWidth: pxCompat(props.minColumnWidth), ...props.style }}
-          ref={this.itemRef}
-        >
-          {props.prefixIcon ? <div class={`${componentName}-icon`}>{props.prefixIcon}</div> : null}
-          {props.children}
-        </li>
-      </>
+      <li
+        class={itemClassName}
+        onClick={this.handleItemClick}
+        style={{ maxWidth: pxCompat(props.maxColumnWidth), minWidth: pxCompat(props.minColumnWidth), ...props.style }}
+        ref={this.itemRef}
+      >
+        {props.prefixIcon ? <div class={`${componentName}-icon`}>{props.prefixIcon}</div> : null}
+        {props.children}
+      </li>
     )
   }
 }

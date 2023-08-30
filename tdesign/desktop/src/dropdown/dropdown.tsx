@@ -101,15 +101,13 @@ export default class Dropdown extends WeElement<TdDropdownProps> {
     this.props.onClick?.(data, context)
     this.update()
   }
-  install() {
-    this.css = this.props.css
-  }
+
   beforeUpdate() {
     this.options = this.generateDropdownOptions(this.props.children, this.props.options)
   }
   render(props: OmiProps<TdDropdownProps>) {
     const renderContent = (
-      <t-dropdown-menu css={this.css} {...props} options={this.options} onClick={this.handleMenuClick} />
+      <t-dropdown-menu css={props.css} {...props} options={this.options} onClick={this.handleMenuClick} />
     )
     const popupParams = {
       disabled: props.disabled,

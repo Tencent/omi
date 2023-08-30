@@ -227,10 +227,6 @@ export default class Popup extends WeElement<
     })
   }
 
-  install() {
-    this.css = getHost(this).css
-  }
-
   beforeUpdate() {
     //deal visible
     if (this.getVisible()) {
