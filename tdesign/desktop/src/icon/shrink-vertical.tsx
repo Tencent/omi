@@ -8,7 +8,7 @@ export default class ShrinkVertical extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ShrinkVertical extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 1.5V6.58579L15.5 4.08579L16.9142 5.5L12 10.4142L7.08579 5.5L8.5 4.08579L11 6.58579L11 1.5L13 1.5ZM21 13L3 13L3 11L21 11L21 13ZM12 13.5858L16.9142 18.5L15.5 19.9142L13 17.4142L13 22.5H11L11 17.4142L8.5 19.9142L7.08579 18.5L12 13.5858Z" />
+        <path
+          d="M13 1.5V6.58579L15.5 4.08579L16.9142 5.5L12 10.4142L7.08579 5.5L8.5 4.08579L11 6.58579L11 1.5L13 1.5ZM21 13L3 13L3 11L21 11L21 13ZM12 13.5858L16.9142 18.5L15.5 19.9142L13 17.4142L13 22.5H11L11 17.4142L8.5 19.9142L7.08579 18.5L12 13.5858Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

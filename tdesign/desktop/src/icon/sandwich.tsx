@@ -8,7 +8,7 @@ export default class Sandwich extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -45,6 +45,7 @@ export default class Sandwich extends WeElement<IconProps> {
           <path
             id="Union"
             d="M13.8 2.51531C14.6382 2.05807 15.6828 2.25718 16.2941 2.99074L21 8.63779V21.9998H3V8.40621L13.8 2.51531ZM5 9.99984V13.9998H19V9.99984H5ZM17.865 7.99984L14.7577 4.27111L7.92166 7.99984H17.865ZM19 15.9998H5V19.9998H19V15.9998Z"
+            fill="currentColor"
           />
         </g>
       </svg>

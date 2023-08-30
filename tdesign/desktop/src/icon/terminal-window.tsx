@@ -8,7 +8,7 @@ export default class TerminalWindow extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class TerminalWindow extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M23 3L1 3L1 21L23 21V3ZM3 10H21V19H3L3 10ZM3 8V5L21 5V8H3ZM7 17H5L5 12L7 12L7 17Z" />
+        <path
+          d="M23 3L1 3L1 21L23 21V3ZM3 10H21V19H3L3 10ZM3 8V5L21 5V8H3ZM7 17H5L5 12L7 12L7 17Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

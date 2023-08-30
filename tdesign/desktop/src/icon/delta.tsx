@@ -8,7 +8,7 @@ export default class Delta extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Delta extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M18.9999 2.09131V22.7894L3.17188 13.0491L18.9999 2.09131ZM6.82784 12.9506L16.9999 19.2103V5.90845L6.82784 12.9506Z" />
+        <path
+          d="M18.9999 2.09131V22.7894L3.17188 13.0491L18.9999 2.09131ZM6.82784 12.9506L16.9999 19.2103V5.90845L6.82784 12.9506Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

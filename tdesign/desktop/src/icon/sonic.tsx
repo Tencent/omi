@@ -8,7 +8,7 @@ export default class Sonic extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Sonic extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 2L13 22H11L11 2L13 2ZM9 6L9 18H7L7 6H9ZM17 6L17 18H15L15 6H17ZM5 9V15H3V9H5ZM21 9V15H19V9H21Z" />
+        <path
+          d="M13 2L13 22H11L11 2L13 2ZM9 6L9 18H7L7 6H9ZM17 6L17 18H15L15 6H17ZM5 9V15H3V9H5ZM21 9V15H19V9H21Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

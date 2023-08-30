@@ -8,7 +8,7 @@ export default class NavigationArrow extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class NavigationArrow extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M11.9996 1.76416L21.9456 21.656L11.9996 18.5479L2.05371 21.656L11.9996 1.76416ZM11.9996 6.2363L5.94557 18.3444L11.9996 16.4525L18.0537 18.3444L11.9996 6.2363Z" />
+        <path
+          d="M11.9996 1.76416L21.9456 21.656L11.9996 18.5479L2.05371 21.656L11.9996 1.76416ZM11.9996 6.2363L5.94557 18.3444L11.9996 16.4525L18.0537 18.3444L11.9996 6.2363Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

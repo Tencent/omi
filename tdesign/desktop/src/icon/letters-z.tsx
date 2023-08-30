@@ -8,7 +8,7 @@ export default class LettersZ extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class LettersZ extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M16.5714 5.1C16.5714 4.49249 16.0789 4 15.4714 4H7V6H14.5714V7.13531L7 16.1353V18.9C7 19.5075 7.49249 20 8.1 20H17V18H9V16.8647L16.5714 7.86469V5.1Z" />
+        <path
+          d="M16.5714 5.1C16.5714 4.49249 16.0789 4 15.4714 4H7V6H14.5714V7.13531L7 16.1353V18.9C7 19.5075 7.49249 20 8.1 20H17V18H9V16.8647L16.5714 7.86469V5.1Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

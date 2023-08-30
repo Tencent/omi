@@ -8,7 +8,7 @@ export default class Transform3 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Transform3 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M8 2.5L8 6H16.5858L20 2.58579L21.4142 4L18 7.41422V16H21.5V18H18V21.5H16V18L6 18L6 8H2.5V6H6L6 2.5L8 2.5ZM8 8L8 14.5858L14.5858 8H8ZM16 9.41422L9.41421 16L16 16V9.41422Z" />
+        <path
+          d="M8 2.5L8 6H16.5858L20 2.58579L21.4142 4L18 7.41422V16H21.5V18H18V21.5H16V18L6 18L6 8H2.5V6H6L6 2.5L8 2.5ZM8 8L8 14.5858L14.5858 8H8ZM16 9.41422L9.41421 16L16 16V9.41422Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

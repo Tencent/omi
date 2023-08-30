@@ -18,10 +18,6 @@ export default class Divider extends WeElement<DividerProps> {
     dashed: Boolean,
     layout: String,
   }
-  install() {
-    this.css = this.props.css
-    console.log(this.css)
-  }
 
   render(props: OmiProps<DividerProps>) {
     const classPrefix = 't'

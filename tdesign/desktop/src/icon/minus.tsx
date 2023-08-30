@@ -8,7 +8,7 @@ export default class Minus extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Minus extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M6.50195 11L17.502 11V13L6.50195 13L6.50195 11Z" />
+        <path d="M6.50195 11L17.502 11V13L6.50195 13L6.50195 11Z" fill="currentColor" />
       </svg>
     )
   }

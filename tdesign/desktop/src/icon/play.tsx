@@ -8,7 +8,7 @@ export default class Play extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Play extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M18.25 11.9998L8.5 17.6289L8.5 6.37061L18.25 11.9998Z" />
+        <path d="M18.25 11.9998L8.5 17.6289L8.5 6.37061L18.25 11.9998Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Pause extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,8 +41,8 @@ export default class Pause extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M11 17L11 7H8V17H11Z" />
-        <path d="M16 17L16 7H13L13 17H16Z" />
+        <path d="M11 17L11 7H8V17H11Z" fill="currentColor" />
+        <path d="M16 17L16 7H13L13 17H16Z" fill="currentColor" />
       </svg>
     )
   }

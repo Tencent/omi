@@ -8,7 +8,7 @@ export default class Catalog extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Catalog extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 1H21V23H3V1ZM5 3V21H19V3H5ZM8 7H16V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z" />
+        <path d="M3 1H21V23H3V1ZM5 3V21H19V3H5ZM8 7H16V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Hospital extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Hospital extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 2H20V4H19V8H22V22H2V8H5V4H4V2ZM7 4V10H4.0006L4 20H9V14H15V20H20V10H17V4H7ZM13 20V16H11V20H13ZM13 5V7H15V9H13V11H11V9H9V7H11V5H13Z" />
+        <path
+          d="M4 2H20V4H19V8H22V22H2V8H5V4H4V2ZM7 4V10H4.0006L4 20H9V14H15V20H20V10H17V4H7ZM13 20V16H11V20H13ZM13 5V7H15V9H13V11H11V9H9V7H11V5H13Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

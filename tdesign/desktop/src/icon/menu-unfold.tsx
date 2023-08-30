@@ -8,7 +8,7 @@ export default class MenuUnfold extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class MenuUnfold extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 4H22V6H2V4ZM22 9.57075V14.4292L18.1132 12L22 9.57075ZM2 13L2 11L17 11V13L2 13ZM2 20L2 18L22 18V20L2 20Z" />
+        <path
+          d="M2 4H22V6H2V4ZM22 9.57075V14.4292L18.1132 12L22 9.57075ZM2 13L2 11L17 11V13L2 13ZM2 20L2 18L22 18V20L2 20Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

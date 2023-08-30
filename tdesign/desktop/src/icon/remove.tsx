@@ -8,7 +8,7 @@ export default class Remove extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Remove extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 11L20 11V13L4 13L4 11Z" />
+        <path d="M4 11L20 11V13L4 13L4 11Z" fill="currentColor" />
       </svg>
     )
   }

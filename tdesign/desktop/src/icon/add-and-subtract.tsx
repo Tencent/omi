@@ -8,7 +8,7 @@ export default class AddAndSubtract extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class AddAndSubtract extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 1V9H21V11H13L13 19H11V11H3V9H11V1L13 1ZM3 20L21 20V22L3 22L3 20Z" />
+        <path d="M13 1V9H21V11H13L13 19H11V11H3V9H11V1L13 1ZM3 20L21 20V22L3 22L3 20Z" fill="currentColor" />
       </svg>
     )
   }

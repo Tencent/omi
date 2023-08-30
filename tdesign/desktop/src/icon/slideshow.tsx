@@ -8,7 +8,7 @@ export default class Slideshow extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Slideshow extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M6 3L18 3V21H6L6 3ZM8 5V19H16V5H8ZM1 5H4.5V19H1V17H2.5L2.5 7H1V5ZM19.5 5L23 5V7H21.5V17H23V19H19.5V5Z" />
+        <path
+          d="M6 3L18 3V21H6L6 3ZM8 5V19H16V5H8ZM1 5H4.5V19H1V17H2.5L2.5 7H1V5ZM19.5 5L23 5V7H21.5V17H23V19H19.5V5Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

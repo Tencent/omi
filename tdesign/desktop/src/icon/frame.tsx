@@ -8,7 +8,7 @@ export default class Frame extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Frame extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 11L11 11L11 4L4 4ZM13 4L13 11L20 11V4L13 4ZM20 13L13 13L13 20L20 20L20 13ZM11 20L11 13L4 13L4 20H11Z" />
+        <path
+          d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 11L11 11L11 4L4 4ZM13 4L13 11L20 11V4L13 4ZM20 13L13 13L13 20L20 20L20 13ZM11 20L11 13L4 13L4 20H11Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class ChevronRightS extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChevronRightS extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M15.6843 12L10.7345 16.9498L9.32031 15.5356L12.8558 12L9.32031 8.46451L10.7345 7.05029L15.6843 12Z" />
+        <path
+          d="M15.6843 12L10.7345 16.9498L9.32031 15.5356L12.8558 12L9.32031 8.46451L10.7345 7.05029L15.6843 12Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

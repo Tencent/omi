@@ -8,7 +8,7 @@ export default class CaretLeftSmall extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class CaretLeftSmall extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M14.5 5L14.5 19L7.5 12L14.5 5Z" />
+        <path d="M14.5 5L14.5 19L7.5 12L14.5 5Z" fill="currentColor" />
       </svg>
     )
   }

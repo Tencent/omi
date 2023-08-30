@@ -8,7 +8,7 @@ export default class Measurement extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Measurement extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M6 1L18 1V23H6L6 1ZM8 3V6H10.5V8H8L8 11H12V13H8L8 16H10.5V18H8V21H16L16 3L8 3Z" />
+        <path d="M6 1L18 1V23H6L6 1ZM8 3V6H10.5V8H8L8 11H12V13H8L8 16H10.5V18H8V21H16L16 3L8 3Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Error extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Error extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 2L13 16.5H11L11 2L13 2ZM11 19H13.0039V21.0039H11V19Z" />
+        <path d="M13 2L13 16.5H11L11 2L13 2ZM11 19H13.0039V21.0039H11V19Z" fill="currentColor" />
       </svg>
     )
   }

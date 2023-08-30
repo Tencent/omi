@@ -8,7 +8,7 @@ export default class SdCard1 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class SdCard1 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 2H15.5146L21 9.67953V22H3V2ZM12 4H11V7.5H9V4H8V7.5H6V4H5V20H19V10.3205L14.4854 4H14V7.5H12V4Z" />
+        <path
+          d="M3 2H15.5146L21 9.67953V22H3V2ZM12 4H11V7.5H9V4H8V7.5H6V4H5V20H19V10.3205L14.4854 4H14V7.5H12V4Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

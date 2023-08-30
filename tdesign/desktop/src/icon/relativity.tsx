@@ -8,7 +8,7 @@ export default class Relativity extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Relativity extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H15V9H22V22H9V15H2V2ZM11 15V20H20V11H15V15H11ZM13 9V4H4V13H9V9H13ZM13 11H11V13H13V11Z" />
+        <path
+          d="M2 2H15V9H22V22H9V15H2V2ZM11 15V20H20V11H15V15H11ZM13 9V4H4V13H9V9H13ZM13 11H11V13H13V11Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Ruler extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Ruler extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M6.71875 2H17.7539L13.6396 20H21.9995V22L1.71875 22L6.71875 2ZM11.588 20L15.2452 4H8.2803L7.6553 6.5H11.8745V8.5H7.1553L6.5303 11H10.7495V13H6.0303L5.4053 15.5H9.62453V17.5H4.9053L4.2803 20H11.588Z" />
+        <path
+          d="M6.71875 2H17.7539L13.6396 20H21.9995V22L1.71875 22L6.71875 2ZM11.588 20L15.2452 4H8.2803L7.6553 6.5H11.8745V8.5H7.1553L6.5303 11H10.7495V13H6.0303L5.4053 15.5H9.62453V17.5H4.9053L4.2803 20H11.588Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

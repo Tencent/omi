@@ -8,7 +8,7 @@ export default class Chart extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Chart extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM13 7V18H11V7H13ZM8 11V18H6V11H8ZM18 13V18H16V13H18Z" />
+        <path
+          d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM13 7V18H11V7H13ZM8 11V18H6V11H8ZM18 13V18H16V13H18Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

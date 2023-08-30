@@ -8,7 +8,7 @@ export default class Copy extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Copy extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H15V7.5H13V4H4V13H7.5V15H2V2ZM9 9H22V22H9V9ZM11 11V20H20V11H11Z" />
+        <path d="M2 2H15V7.5H13V4H4V13H7.5V15H2V2ZM9 9H22V22H9V9ZM11 11V20H20V11H11Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Calm1 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -43,7 +43,10 @@ export default class Calm1 extends WeElement<IconProps> {
       >
         <g id="&amp;#230;&amp;#183;&amp;#161;&amp;#229;&amp;#174;&amp;#154;-calm-1">
           <g id="Union">
-            <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM6 9H10V11H9V13H7V11H6V9ZM14 9H18V11H17V13H15V11H14V9ZM11 14H13.0039V16.0039H11V14Z" />
+            <path
+              d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM6 9H10V11H9V13H7V11H6V9ZM14 9H18V11H17V13H15V11H14V9ZM11 14H13.0039V16.0039H11V14Z"
+              fill="currentColor"
+            />
           </g>
         </g>
       </svg>

@@ -8,7 +8,7 @@ export default class RootList extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class RootList extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22L2 22V2ZM4 4V20L20 20V4H4ZM6 7.5L18 7.5V9.5L6 9.5V7.5ZM6 11.5L14 11.5V13.5L6 13.5L6 11.5Z" />
+        <path
+          d="M2 2H22V22L2 22V2ZM4 4V20L20 20V4H4ZM6 7.5L18 7.5V9.5L6 9.5V7.5ZM6 11.5L14 11.5V13.5L6 13.5L6 11.5Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

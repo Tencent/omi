@@ -8,7 +8,7 @@ export default class Leaderboard extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Leaderboard extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M8 3H16V11H22V21H2V9H8V3ZM10 19H14V5H10V19ZM16 19H20V13H16V19ZM8 19V11H4V19H8Z" />
+        <path d="M8 3H16V11H22V21H2V9H8V3ZM10 19H14V5H10V19ZM16 19H20V13H16V19ZM8 19V11H4V19H8Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Enter extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Enter extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M20.0002 4L20.0002 13C20.0002 15.2091 18.2093 17 16.0001 17L6.91437 17L9.41437 19.5L8.00015 20.9142L3.08594 16L8.00015 11.0858L9.41436 12.5L6.91436 15L16.0001 15C17.1047 15 18.0002 14.1046 18.0002 13L18.0002 4L20.0002 4Z" />
+        <path
+          d="M20.0002 4L20.0002 13C20.0002 15.2091 18.2093 17 16.0001 17L6.91437 17L9.41437 19.5L8.00015 20.9142L3.08594 16L8.00015 11.0858L9.41436 12.5L6.91436 15L16.0001 15C17.1047 15 18.0002 14.1046 18.0002 13L18.0002 4L20.0002 4Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

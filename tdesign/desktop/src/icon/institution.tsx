@@ -8,7 +8,7 @@ export default class Institution extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Institution extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M12 0.856079L22 6.41163V9.00004H2V6.41163L12 0.856079ZM5.05913 7.00004H18.9409L12 3.144L5.05913 7.00004ZM7 11V19H5V11H7ZM13 11V19H11V11H13ZM19 11V19H17V11H19ZM2 21H22V23H2V21Z" />
+        <path
+          d="M12 0.856079L22 6.41163V9.00004H2V6.41163L12 0.856079ZM5.05913 7.00004H18.9409L12 3.144L5.05913 7.00004ZM7 11V19H5V11H7ZM13 11V19H11V11H13ZM19 11V19H17V11H19ZM2 21H22V23H2V21Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }
