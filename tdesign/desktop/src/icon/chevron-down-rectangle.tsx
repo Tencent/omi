@@ -8,7 +8,7 @@ export default class ChevronDownRectangle extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChevronDownRectangle extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM8 9.08579L12 13.0858L16 9.08579L17.4142 10.5L12 15.9142L6.58579 10.5L8 9.08579Z" />
+        <path
+          d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM8 9.08579L12 13.0858L16 9.08579L17.4142 10.5L12 15.9142L6.58579 10.5L8 9.08579Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

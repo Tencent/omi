@@ -8,7 +8,7 @@ export default class Collage extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Collage extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 20H8.19783L11.7534 4L4 4ZM13.8022 4L12.1606 11.3872L20 14.523L20 4L13.8022 4ZM20 16.677L11.721 13.3654L10.2466 20L20 20V16.677Z" />
+        <path
+          d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 20H8.19783L11.7534 4L4 4ZM13.8022 4L12.1606 11.3872L20 14.523L20 4L13.8022 4ZM20 16.677L11.721 13.3654L10.2466 20L20 20V16.677Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

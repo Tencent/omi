@@ -8,7 +8,7 @@ export default class ScrollBar extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class ScrollBar extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M22 2L22 22H20L20 2L22 2ZM2 2L18 2L18 22L2 22L2 2ZM4 4L4 20L16 20L16 4L4 4Z" />
+        <path d="M22 2L22 22H20L20 2L22 2ZM2 2L18 2L18 22L2 22L2 2ZM4 4L4 20L16 20L16 4L4 4Z" fill="currentColor" />
       </svg>
     )
   }

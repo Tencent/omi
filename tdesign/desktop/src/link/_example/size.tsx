@@ -1,7 +1,7 @@
 import { h, tag, WeElement } from 'omi'
 
 import '../index'
-
+import '../../icon/jump'
 @tag('link-size')
 export default class LinkSize extends WeElement {
   static css = `t-link {
@@ -27,7 +27,7 @@ export default class LinkSize extends WeElement {
           <t-link theme="warning" size="small" disabled>
             跳转链接
           </t-link>
-          <t-link theme="success" size="small">
+          <t-link theme="success" size="small" suffixIcon={<t-icon-jump />}>
             跳转链接
           </t-link>
         </div>
@@ -44,7 +44,7 @@ export default class LinkSize extends WeElement {
           <t-link theme="warning" size="medium" disabled>
             跳转链接
           </t-link>
-          <t-link theme="success" size="medium">
+          <t-link theme="success" size="medium" suffixIcon={<t-icon-jump />}>
             跳转链接
           </t-link>
         </div>
@@ -61,7 +61,7 @@ export default class LinkSize extends WeElement {
           <t-link theme="warning" size="large" disabled>
             跳转链接
           </t-link>
-          <t-link theme="success" size="large">
+          <t-link theme="success" size="large" suffixIcon={<t-icon-jump />}>
             跳转链接
           </t-link>
         </div>

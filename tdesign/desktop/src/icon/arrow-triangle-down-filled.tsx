@@ -8,7 +8,7 @@ export default class ArrowTriangleDownFilled extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class ArrowTriangleDownFilled extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M15 12H19.5L12 22L4.5 12H9V2H15V12Z" />
+        <path d="M15 12H19.5L12 22L4.5 12H9V2H15V12Z" fill="currentColor" />
       </svg>
     )
   }

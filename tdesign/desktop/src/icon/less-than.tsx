@@ -8,7 +8,7 @@ export default class LessThan extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class LessThan extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M20.3643 4.37223L7.0155 12.0001L20.3643 19.628L19.372 21.3645L2.98438 12.0001L19.372 2.63574L20.3643 4.37223Z" />
+        <path
+          d="M20.3643 4.37223L7.0155 12.0001L20.3643 19.628L19.372 21.3645L2.98438 12.0001L19.372 2.63574L20.3643 4.37223Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

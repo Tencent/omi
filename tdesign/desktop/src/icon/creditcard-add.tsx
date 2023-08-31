@@ -8,7 +8,7 @@ export default class CreditcardAdd extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class CreditcardAdd extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 3L23 3V12H21V11H3L3 19H14V21H1L1 3ZM3 9H21V5L3 5L3 9ZM5 14H10V16H5V14ZM21 14V17H24V19H21V22H19V19H16V17H19V14H21Z" />
+        <path
+          d="M1 3L23 3V12H21V11H3L3 19H14V21H1L1 3ZM3 9H21V5L3 5L3 9ZM5 14H10V16H5V14ZM21 14V17H24V19H21V22H19V19H16V17H19V14H21Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

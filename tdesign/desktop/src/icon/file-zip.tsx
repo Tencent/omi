@@ -8,7 +8,7 @@ export default class FileZip extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class FileZip extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 1H15.4142L21 6.58579V23H3V1ZM5 3V21H19V9H13V3H11.0039V5.00391H9.00391V7H11.0039V9.00391H9.00391V11H11.0039V13.0039H9.00391V15.0039H7V13H9V11.0039H7V9H9V7.00391H7V5H9V3H5ZM15 3.41421V7H18.5858L15 3.41421Z" />
+        <path
+          d="M3 1H15.4142L21 6.58579V23H3V1ZM5 3V21H19V9H13V3H11.0039V5.00391H9.00391V7H11.0039V9.00391H9.00391V11H11.0039V13.0039H9.00391V15.0039H7V13H9V11.0039H7V9H9V7.00391H7V5H9V3H5ZM15 3.41421V7H18.5858L15 3.41421Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

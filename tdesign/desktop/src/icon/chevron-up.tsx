@@ -8,7 +8,7 @@ export default class ChevronUp extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChevronUp extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M17.5001 15.9142L12.0002 10.4142L6.50015 15.9142L5.08594 14.5L12.0002 7.58582L18.9144 14.5L17.5001 15.9142Z" />
+        <path
+          d="M17.5001 15.9142L12.0002 10.4142L6.50015 15.9142L5.08594 14.5L12.0002 7.58582L18.9144 14.5L17.5001 15.9142Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

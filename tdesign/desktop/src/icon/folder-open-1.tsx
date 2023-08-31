@@ -8,7 +8,7 @@ export default class FolderOpen1 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class FolderOpen1 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M23.844 9L20.244 21H0L8.08661e-07 2.5L7.36205 2.5L10.3621 5H20.5L20.5 9H23.844ZM18.5 9L18.5 7H9.63795L6.63795 4.5L2 4.5L2 13.1866L3.25597 9L18.5 9ZM2.34403 19H18.756L21.156 11L4.74403 11L2.34403 19Z" />
+        <path
+          d="M23.844 9L20.244 21H0L8.08661e-07 2.5L7.36205 2.5L10.3621 5H20.5L20.5 9H23.844ZM18.5 9L18.5 7H9.63795L6.63795 4.5L2 4.5L2 13.1866L3.25597 9L18.5 9ZM2.34403 19H18.756L21.156 11L4.74403 11L2.34403 19Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

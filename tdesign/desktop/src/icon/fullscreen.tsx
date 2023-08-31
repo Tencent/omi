@@ -8,7 +8,7 @@ export default class Fullscreen extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Fullscreen extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M12 4.5H19.5V12H17.5V7.91421L7.91421 17.5H12V19.5H4.5V12H6.5V16.0858L16.0858 6.5H12V4.5Z" />
+        <path
+          d="M12 4.5H19.5V12H17.5V7.91421L7.91421 17.5H12V19.5H4.5V12H6.5V16.0858L16.0858 6.5H12V4.5Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

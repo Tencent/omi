@@ -8,7 +8,7 @@ export default class TextformatUnderline extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class TextformatUnderline extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M18 3L18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12L6 3L8 3L8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12L16 3L18 3ZM4 20H20V22H4V20Z" />
+        <path
+          d="M18 3L18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12L6 3L8 3L8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12L16 3L18 3ZM4 20H20V22H4V20Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

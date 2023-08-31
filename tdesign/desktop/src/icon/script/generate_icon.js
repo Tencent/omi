@@ -23,13 +23,13 @@ function toTF(str) {
   return str
 }
 
-function deleteFill(children) {
+function resetFill(children) {
   children.map((child) => {
     if ('fill' in child.attributes) {
-      delete child.attributes['fill']
+      child.attributes['fill'] = 'currentColor'
     }
     if ('children' in child && child.children.length > 0) {
-      deleteFill(child.children)
+      resetFill(child.children)
     }
   })
 }
@@ -43,7 +43,7 @@ function generate_tsx() {
         console.log('svg文件读取报错: ', icon_name, err.message)
       }
       svgsonParse(data).then((json) => {
-        deleteFill(json.children)
+        resetFill(json.children)
         const svg_children = svgsonStringify(json.children)
         const code = `
 import { h, tag, WeElement, OmiProps, classNames } from 'omi'
@@ -56,7 +56,7 @@ export default class ${toTF(icon_name)} extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -122,5 +122,5 @@ function generate_index() {
   })
 }
 
-// generate_tsx()
+generate_tsx()
 // generate_index()

@@ -8,7 +8,7 @@ export default class Paste extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Paste extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2L7 2V4H4L4 7L2 7L2 2ZM11 2L16 2V7H14V4L11 4V2ZM9 9H22V22H9V9ZM11 11V20H20V11H11ZM4 10V13H7V15H2V10H4Z" />
+        <path
+          d="M2 2L7 2V4H4L4 7L2 7L2 2ZM11 2L16 2V7H14V4L11 4V2ZM9 9H22V22H9V9ZM11 11V20H20V11H11ZM4 10V13H7V15H2V10H4Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

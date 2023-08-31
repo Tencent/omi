@@ -8,7 +8,7 @@ export default class Dam4 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Dam4 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22H2V2ZM4 4V20H8V10H11V4H4ZM13 4V10H16V20H20V4H13ZM14 20V12H10V20H14Z" />
+        <path d="M2 2H22V22H2V2ZM4 4V20H8V10H11V4H4ZM13 4V10H16V20H20V4H13ZM14 20V12H10V20H14Z" fill="currentColor" />
       </svg>
     )
   }

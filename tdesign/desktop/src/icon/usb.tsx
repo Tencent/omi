@@ -8,7 +8,7 @@ export default class Usb extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Usb extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 2H20V11H22V22H2V11H4V2ZM4 13V20H20V13H4ZM18 11V4H6V11H18ZM8 6.49609H10.0039V8.5H8V6.49609ZM14 6.49609H16.0039V8.5H14V6.49609Z" />
+        <path
+          d="M4 2H20V11H22V22H2V11H4V2ZM4 13V20H20V13H4ZM18 11V4H6V11H18ZM8 6.49609H10.0039V8.5H8V6.49609ZM14 6.49609H16.0039V8.5H14V6.49609Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

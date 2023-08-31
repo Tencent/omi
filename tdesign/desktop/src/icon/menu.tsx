@@ -8,7 +8,7 @@ export default class Menu extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Menu extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 9.5L20 9.5V4L4 4ZM20 11.5L4 11.5L4 20L20 20L20 11.5ZM5.99609 6L8 6V8H7.99609V8.00391H5.99609L5.99609 6ZM10 6L18 6V8L10 8L10 6Z" />
+        <path
+          d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 9.5L20 9.5V4L4 4ZM20 11.5L4 11.5L4 20L20 20L20 11.5ZM5.99609 6L8 6V8H7.99609V8.00391H5.99609L5.99609 6ZM10 6L18 6V8L10 8L10 6Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

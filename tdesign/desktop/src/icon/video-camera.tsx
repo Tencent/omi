@@ -8,7 +8,7 @@ export default class VideoCamera extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class VideoCamera extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M0 4H17V8.43381L24 4.23381V19.7662L17 15.5662V20H0V4ZM15 6H2V18H15V6ZM17 13.2338L22 16.2338V7.76619L17 10.7662V13.2338Z" />
+        <path
+          d="M0 4H17V8.43381L24 4.23381V19.7662L17 15.5662V20H0V4ZM15 6H2V18H15V6ZM17 13.2338L22 16.2338V7.76619L17 10.7662V13.2338Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

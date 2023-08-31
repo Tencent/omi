@@ -8,7 +8,7 @@ export default class PageFirst extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class PageFirst extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M8.5 5V19H6.5V5H8.5ZM17.6642 6.75L12.4142 12L17.6642 17.25L16.25 18.6642L9.58579 12L16.25 5.33579L17.6642 6.75Z" />
+        <path
+          d="M8.5 5V19H6.5V5H8.5ZM17.6642 6.75L12.4142 12L17.6642 17.25L16.25 18.6642L9.58579 12L16.25 5.33579L17.6642 6.75Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

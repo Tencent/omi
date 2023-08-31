@@ -8,7 +8,7 @@ export default class Brackets extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Brackets extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 3.5H7V5.5H4V18.5H7V20.5H2V3.5ZM17 3.5H22V20.5H17V18.5H20V5.5H17V3.5Z" />
+        <path d="M2 3.5H7V5.5H4V18.5H7V20.5H2V3.5ZM17 3.5H22V20.5H17V18.5H20V5.5H17V3.5Z" fill="currentColor" />
       </svg>
     )
   }

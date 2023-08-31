@@ -8,7 +8,7 @@ export default class ChartColum extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChartColum extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 2V4L19 4V10H4V12L15 12V18H4V20H22V22H2L2 2L4 2ZM4 16L13 16V14L4 14L4 16ZM4 8L17 8V6L4 6L4 8Z" />
+        <path
+          d="M4 2V4L19 4V10H4V12L15 12V18H4V20H22V22H2L2 2L4 2ZM4 16L13 16V14L4 14L4 16ZM4 8L17 8V6L4 6L4 8Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

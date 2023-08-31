@@ -8,7 +8,7 @@ export default class Mobile extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Mobile extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 1H20V23H4V1ZM6 3V21H18V3H6ZM11 17H13.0039V19.0039H11V17Z" />
+        <path d="M4 1H20V23H4V1ZM6 3V21H18V3H6ZM11 17H13.0039V19.0039H11V17Z" fill="currentColor" />
       </svg>
     )
   }

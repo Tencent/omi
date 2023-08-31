@@ -8,7 +8,7 @@ export default class ArrowDown extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ArrowDown extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M11.0002 4.5L11.0002 16.0858L6.50015 11.5858L5.08594 13L12.0002 19.9142L18.9144 13L17.5001 11.5858L13.0002 16.0858L13.0002 4.5L11.0002 4.5Z" />
+        <path
+          d="M11.0002 4.5L11.0002 16.0858L6.50015 11.5858L5.08594 13L12.0002 19.9142L18.9144 13L17.5001 11.5858L13.0002 16.0858L13.0002 4.5L11.0002 4.5Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

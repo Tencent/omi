@@ -8,7 +8,7 @@ export default class Calculator1 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Calculator1 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 2H20V22H4V2ZM6 4V8H18V4H6ZM18 10H15V12H18V10ZM18 14H15L15 16H18V14ZM18 18H15V20H18V18ZM13 20V18H11V20H13ZM9 20V18H6V20H9ZM6 16H9L9 14H6V16ZM6 12H9V10H6V12ZM11 10V12H13V10H11ZM13 14H11L11 16H13V14Z" />
+        <path
+          d="M4 2H20V22H4V2ZM6 4V8H18V4H6ZM18 10H15V12H18V10ZM18 14H15L15 16H18V14ZM18 18H15V20H18V18ZM13 20V18H11V20H13ZM9 20V18H6V20H9ZM6 16H9L9 14H6V16ZM6 12H9V10H6V12ZM11 10V12H13V10H11ZM13 14H11L11 16H13V14Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

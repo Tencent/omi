@@ -8,7 +8,7 @@ export default class Stop extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Stop extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M8 8H16V16H8V8Z" />
+        <path d="M8 8H16V16H8V8Z" fill="currentColor" />
       </svg>
     )
   }

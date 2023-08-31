@@ -8,7 +8,7 @@ export default class BookmarkAdd extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class BookmarkAdd extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M20 0V3H23V5H20V8H18V5H15V3H18V0H20ZM4 3H13V5H6V19.0568L12 14.7711L18 19.0568V10H20V22.9432L12 17.2289L4 22.9432V3Z" />
+        <path
+          d="M20 0V3H23V5H20V8H18V5H15V3H18V0H20ZM4 3H13V5H6V19.0568L12 14.7711L18 19.0568V10H20V22.9432L12 17.2289L4 22.9432V3Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

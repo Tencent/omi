@@ -8,7 +8,7 @@ export default class Rotation extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Rotation extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 2V11C8.97056 11 13 15.0294 13 20H22V22H2V2H4ZM4 20H11C11 16.134 7.86599 13 4 13V20Z" />
+        <path
+          d="M4 2V11C8.97056 11 13 15.0294 13 20H22V22H2V2H4ZM4 20H11C11 16.134 7.86599 13 4 13V20Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Space extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Space extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 9L3 14L21 14V9H23V16L1 16L1 9H3Z" />
+        <path d="M3 9L3 14L21 14V9H23V16L1 16L1 9H3Z" fill="currentColor" />
       </svg>
     )
   }

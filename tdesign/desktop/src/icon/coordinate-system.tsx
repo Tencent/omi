@@ -8,7 +8,7 @@ export default class CoordinateSystem extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class CoordinateSystem extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M11.9995 1L23.2579 20.5H0.741211L11.9995 1ZM4.20531 18.5H19.7938L11.9995 5L4.20531 18.5ZM12.9995 9V12.5316L16.4079 15.372L15.1276 16.9084L11.9995 14.3017L8.8715 16.9084L7.59114 15.372L10.9995 12.5316V9H12.9995Z" />
+        <path
+          d="M11.9995 1L23.2579 20.5H0.741211L11.9995 1ZM4.20531 18.5H19.7938L11.9995 5L4.20531 18.5ZM12.9995 9V12.5316L16.4079 15.372L15.1276 16.9084L11.9995 14.3017L8.8715 16.9084L7.59114 15.372L10.9995 12.5316V9H12.9995Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

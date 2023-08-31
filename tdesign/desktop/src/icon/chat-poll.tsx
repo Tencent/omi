@@ -8,7 +8,7 @@ export default class ChatPoll extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChatPoll extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1.5 2H22.5V18H6.87574L1.5 22.7038V2ZM3.5 4V18.2962L6.12426 16H20.5V4H3.5ZM13 6V14H11V6H13ZM18 9V14H16V9H18ZM8 11V14H6V11H8Z" />
+        <path
+          d="M1.5 2H22.5V18H6.87574L1.5 22.7038V2ZM3.5 4V18.2962L6.12426 16H20.5V4H3.5ZM13 6V14H11V6H13ZM18 9V14H16V9H18ZM8 11V14H6V11H8Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

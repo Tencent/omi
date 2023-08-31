@@ -8,7 +8,7 @@ export default class FileAdd extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class FileAdd extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M3 1H15.4142L21 6.58579V12H19V9H13V3H5V21H12V23H3V1ZM15 3.41421V7H18.5858L15 3.41421ZM20 14V18H24V20H20V24H18V20H14V18H18V14H20Z" />
+        <path
+          d="M3 1H15.4142L21 6.58579V12H19V9H13V3H5V21H12V23H3V1ZM15 3.41421V7H18.5858L15 3.41421ZM20 14V18H24V20H20V24H18V20H14V18H18V14H20Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

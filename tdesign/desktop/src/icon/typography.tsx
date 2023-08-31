@@ -8,7 +8,7 @@ export default class Typography extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Typography extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 3L17 3V11L2 11L2 3ZM4 5L4 9L15 9L15 5L4 5ZM2 14L22 14L22 16L2 16L2 14ZM2 19L22 19V21L2 21L2 19Z" />
+        <path
+          d="M2 3L17 3V11L2 11L2 3ZM4 5L4 9L15 9L15 5L4 5ZM2 14L22 14L22 16L2 16L2 14ZM2 19L22 19V21L2 21L2 19Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

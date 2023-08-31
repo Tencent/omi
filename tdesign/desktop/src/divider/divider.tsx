@@ -18,10 +18,6 @@ export default class Divider extends WeElement<DividerProps> {
     dashed: Boolean,
     layout: String,
   }
-  install() {
-    this.css = this.props.css
-    console.log(this.css)
-  }
 
   render(props: OmiProps<DividerProps>) {
     const classPrefix = 't'
@@ -35,11 +31,9 @@ export default class Divider extends WeElement<DividerProps> {
       [`${classPrefix}-divider--with-text-${props.align}`]: showText,
     })
     return (
-      <>
-        <div class={dividerClassNames} style={props.style}>
-          {showText ? <span class={`${classPrefix}-divider__inner-text`}>{childNode}</span> : null}
-        </div>
-      </>
+      <div class={dividerClassNames} style={props.style}>
+        {showText ? <span class={`${classPrefix}-divider__inner-text`}>{childNode}</span> : null}
+      </div>
     )
   }
 }

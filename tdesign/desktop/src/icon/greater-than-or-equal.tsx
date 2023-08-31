@@ -8,7 +8,7 @@ export default class GreaterThanOrEqual extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class GreaterThanOrEqual extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4.4349 1.70361L21.7348 8.50002L4.4349 15.2964L3.7036 13.4349L16.2652 8.50002L3.7036 3.56512L4.4349 1.70361ZM3 19H21V21H3V19Z" />
+        <path
+          d="M4.4349 1.70361L21.7348 8.50002L4.4349 15.2964L3.7036 13.4349L16.2652 8.50002L3.7036 3.56512L4.4349 1.70361ZM3 19H21V21H3V19Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

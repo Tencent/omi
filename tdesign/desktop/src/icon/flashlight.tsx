@@ -8,7 +8,7 @@ export default class Flashlight extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Flashlight extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 0H20V7.41421L17 10.4142V24H7V10.4142L4 7.41421V0ZM6 2V3.5H18V2H6ZM18 5.5H6V6.58579L9 9.58579V22H15V9.58579L18 6.58579V5.5ZM11 10H13.0039V12.0039H11V10Z" />
+        <path
+          d="M4 0H20V7.41421L17 10.4142V24H7V10.4142L4 7.41421V0ZM6 2V3.5H18V2H6ZM18 5.5H6V6.58579L9 9.58579V22H15V9.58579L18 6.58579V5.5ZM11 10H13.0039V12.0039H11V10Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class ComponentDropdown extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ComponentDropdown extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V9H2V2ZM4 4V7H20V4H4ZM4 11L4 20L20 20V11H22V22L2 22L2 11H4ZM6 12L18 12V14L6 14V12ZM6 16L18 16V18H6V16Z" />
+        <path
+          d="M2 2H22V9H2V2ZM4 4V7H20V4H4ZM4 11L4 20L20 20V11H22V22L2 22L2 11H4ZM6 12L18 12V14L6 14V12ZM6 16L18 16V18H6V16Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }
