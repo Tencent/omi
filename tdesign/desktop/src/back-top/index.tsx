@@ -1,12 +1,21 @@
-import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
+import { OmiProps, WeElement, h, tag, classNames, createRef, extend, get, set } from 'omi'
 import style from './style'
-import { scrollTo } from '../utils/dom';
-import { BackTopProps } from './types'
+import { scrollTo } from '../utils/dom'
+// import useScroll from './useScroll'
+import { BackTopProps, UseScrollProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
 
 import '../icon/backtop'
 
 const BackTopClassNamePrefix = (className: string) => TdClassNamePrefix('back-top__') + className
+
+// extend('model', (el, path, scope) => {
+//   el.value = get(scope, path)
+//   el.addEventListener('input', () => {
+//     set(scope, path, el.value)
+//     scope.update()
+//   })
+// })
 
 @tag('t-back-top')
 export default class BackTop extends WeElement<BackTopProps> {
@@ -40,6 +49,42 @@ export default class BackTop extends WeElement<BackTopProps> {
     onClick: Function,
   }
 
+  // scrollProps = {
+  //   scrollLeft : 0,
+  //   scrollTop : 0
+  // }
+  // scrollLeft = 0
+  // scrollTop = {}
+
+  // useScroll = (props: UseScrollProps) => {
+  //   let that = this
+  //   const { target } = props;
+  
+  //   const [scrollLeft,] = [0,0];
+  //   const [scrollTop, setScrollTop] = [0,0];
+  
+  //   if (!target) return;
+  
+  //   const setPosition = () => {
+  //     if (target === document) {
+  //       that.scrollLeft = target.documentElement.scrollLeft
+  //       that.scrollTop = target.documentElement.scrollTop
+  //     } else {
+  //       that.scrollLeft = (target as HTMLElement).scrollLeft
+  //       that.scrollTop = (target as HTMLElement).scrollTop
+  //     }
+  //   };
+  //     target.addEventListener('scroll', setPosition);
+  //     return () => {
+  //       target.removeEventListener('scroll', setPosition);
+  //   };
+  
+  //   return {
+  //     scrollLeft,
+  //     scrollTop,
+  //   };
+  // };
+
   getContainer = (container: BackTopProps['container']) => {
     if (typeof container === 'string' && typeof document !== undefined) {
       if (container === 'body') {
@@ -58,6 +103,9 @@ export default class BackTop extends WeElement<BackTopProps> {
     return null
   };
   
+
+  
+
   getBackTo = () => {
     // if (!this.props.container) return 0
     // const targetNode = this.getContainer(this.props.container)
@@ -68,22 +116,28 @@ export default class BackTop extends WeElement<BackTopProps> {
     return 0
   }
 
+  scrollContainer
+
+  visibleHeight = (typeof this.props.visibleHeight == 'number' ? this.props.visibleHeight 
+  : parseInt(this.props.visibleHeight))
+  // scrollTop = useScroll({ target: this.scrollContainer })
 
   installed() {
+    this.scrollContainer = this.getContainer(this.props.container)
+    // console.log(this.scrollContainer)
     let that = this
     // console.log(document.querySelector(this.props.container));
     // console.log(this.getContainer(this.props.container))
-    let container = this.props.container.slice(1,this.props.container.length)
     // console.log(this.props.container.slice(1,this.props.container.length))
     // console.log(this.parentNode.children[0].classList[0])
-    let containerNode = null
+    // let containerNode = null
 
-    if(container == this.parentNode.children[0].classList[0]){
-      containerNode = this.parentNode.children[0].shadowRoot.children[1]
-    }
+    // if(container == this.parentNode.children[0].classList[0]){
+    //   containerNode = this.parentNode.children[0].shadowRoot.children[1]
+    // }
     
     let buttonNode = this.button.current
-    buttonNode.style.position = 'absolute'
+    // buttonNode.style.position = 'absolute'
     if(this.props.offset){
       buttonNode.style.right = this.props.offset[0]
       buttonNode.style.bottom = this.props.offset[1]
@@ -93,7 +147,6 @@ export default class BackTop extends WeElement<BackTopProps> {
     let scrollContainer = this.getContainer(this.props.container)
     buttonNode.addEventListener('click', () => {
       const backTo = that.getBackTo();
-      console.log(backTo)
       scrollTo(backTo, { container: scrollContainer, duration });
       // containerNode.scrollTop = 0
       // this.classList.remove(TdClassNamePrefix(`back-top--show`)) // 移除类名
@@ -106,9 +159,16 @@ export default class BackTop extends WeElement<BackTopProps> {
       visibleHeight = parseInt(this.props.visibleHeight)
     }
 
-    containerNode.addEventListener('scroll', () => {
-      const offsetTop = Math.abs(containerNode.scrollTop)
-      if (offsetTop > visibleHeight) {
+    scrollContainer.addEventListener('scroll', () => {
+      let offsetTop
+      if (scrollContainer === document) {
+        offsetTop = Math.abs(scrollContainer.documentElement.scrollTop)
+      } else {
+        offsetTop = Math.abs((scrollContainer as HTMLElement).scrollTop)
+      }
+      console.log(visibleHeight,'v')
+      console.log(offsetTop)
+      if (offsetTop >= visibleHeight) {
         buttonNode.classList.add(TdClassNamePrefix(`back-top--show`)) // 添加类名
       } else {
         buttonNode.classList.remove(TdClassNamePrefix(`back-top--show`)) // 移除类名
@@ -126,32 +186,49 @@ export default class BackTop extends WeElement<BackTopProps> {
     }
   }
 
-  getThemeClass(theme : string){
-    return TdClassNamePrefix(`back-top--theme-${theme}`)
+  // getThemeClass(theme : string){
+  //   return TdClassNamePrefix(`back-top--theme-${theme}`)
+  // }
+
+  // getShapeClass(shpae : string){
+  //   return TdClassNamePrefix(`back-top--${shpae}`)
+  // }
+
+  visible(){
+    let scrollContainer = this.getContainer(this.props.container)
+    let offsetTop = 0
+    if (scrollContainer === document) {
+      offsetTop = Math.abs(scrollContainer.documentElement.scrollTop)
+    } else {
+      offsetTop = Math.abs((scrollContainer as HTMLElement).scrollTop)
+    }
+    return offsetTop >= this.props.visibleHeight
   }
 
-  getShapeClass(shpae : string){
-    return TdClassNamePrefix(`back-top--${shpae}`)
-  }
 
+  cls(){
+      return classNames(
+        TdClassNamePrefix(`back-top`),
+        TdClassNamePrefix(`back-top--theme-${this.props.theme}`),
+        TdClassNamePrefix(`back-top--${this.props.shape}`),
+        {
+          [TdClassNamePrefix(`back-top--show`)]: this.visible(),
+          [TdClassNamePrefix(`size-s`)]: this.props.size === 'small',
+          [TdClassNamePrefix(`size-m`)]: this.props.size === 'medium',
+        },
+      )
+  } 
   //textarea ref
   button = createRef()
 
   render(props: OmiProps<BackTopProps, any>, store: any) {
     const { container, visibleHeight, offset, size, theme, shape } = props
 
-    
-
     return (
       <>
         <button
           type="button"
-
-          class={classNames(TdClassNamePrefix('back-top'),
-                  this.getSizeClass(size),
-                  this.getThemeClass(theme),
-                  this.getShapeClass(shape)
-                  )}
+          class={this.cls()}
           ref={this.button}
 
         >

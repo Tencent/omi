@@ -2,6 +2,7 @@
 
 import { TNode, TElement, SizeEnum } from '@src/common';
 
+import { AttachNodeReturnValue } from '../common'
 
 export type BackTopProps = {
 
@@ -20,3 +21,7 @@ export type BackTopProps = {
 
   onClick?: Function
 }
+
+export type UseScrollProps = {
+  target: AttachNodeReturnValue;
+};

@@ -2,7 +2,7 @@ import { WeElement, define, h, createRef } from 'omi'
 import '../common/index'
 import '../../../../../src/back-top/_example/back-top-base'
 import '../../../../../src/back-top/_example/back-top-duration'
-
+import '../../../../../src/back-top/_example/back-top-size'
 
 import * as marked from 'marked'
 
@@ -86,22 +86,27 @@ define(
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
-            <h3 id='基础的回到顶部'>
-            基础的回到顶部 <a class="header-anchor" href="#基础的回到顶部"></a></h3>
-              <p>默认距离页面右侧24px，距离页面底部80px，滚动动画时长200ms</p>
-              <demo-wrapper>
-                <back-top-base></back-top-base>
-              </demo-wrapper>
-            
-              <h3 id='可设置不同耗时的回到顶部'>
-              可设置不同耗时的回到顶部 <a class="header-anchor" href="#可设置不同耗时的回到顶部"></a></h3>
-              <demo-wrapper>
-                <back-top-duration></back-top-duration>
-              </demo-wrapper>
+            {/* <h3 id="基础的回到顶部">
+              基础的回到顶部 <a class="header-anchor" href="#基础的回到顶部"></a>
+            </h3>
+            <p>默认距离页面右侧24px，距离页面底部80px，滚动动画时长200ms</p>
+            <demo-wrapper>
+              <back-top-base></back-top-base>
+            </demo-wrapper>
 
+            <h3 id="可设置不同耗时的回到顶部">
+              可设置不同耗时的回到顶部 <a class="header-anchor" href="#可设置不同耗时的回到顶部"></a>
+            </h3>
+            <demo-wrapper>
+              <back-top-duration></back-top-duration>
+            </demo-wrapper> */}
 
-
-
+            <h3 id="不同组件尺寸的回到顶部">
+              不同组件尺寸的回到顶部 <a class="header-anchor" href="#不同组件尺寸的回到顶部"></a>
+            </h3>
+            <demo-wrapper>
+              <back-top-size></back-top-size>
+            </demo-wrapper>
           </div>
           <div style={this.isShow('api')} name="API">
             <div
