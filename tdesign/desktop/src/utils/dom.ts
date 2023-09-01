@@ -45,9 +45,7 @@ interface ScrollTopOptions {
 
 
 export const scrollTo = (target: number, opt: ScrollTopOptions) =>{
-  console.log(opt)
   const { container = window, duration = 450, easing = easeInOutCubic } = opt;
-  console.log(container,'容器')
   const scrollTop = getScroll(container);
   const startTime = Date.now();
   return new Promise((res) => {

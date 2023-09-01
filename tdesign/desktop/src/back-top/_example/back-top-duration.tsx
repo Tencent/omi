@@ -10,10 +10,16 @@ import '../../list/list'
 export default class backTopDuration extends WeElement {
   height = 300;
 
-  scrollCss = `.t-list{
+  scrollCss = `
+  .t-list{
     height: ` + this.height + `px !important;
     overflow: auto,
-  }`
+  }
+
+  .t-back-top{
+    position : absolute !important
+  }
+  `
 
   render() {
     return (
