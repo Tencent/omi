@@ -4,8 +4,8 @@ import '../index'
 
 import '../../space'
 
-@tag('back-top-size')
-export default class backTopSize extends WeElement {
+@tag('back-top-shape')
+export default class backTopShape extends WeElement {
   height = 300
 
   // scrollCss =
@@ -38,7 +38,8 @@ export default class backTopSize extends WeElement {
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
-                size="small"
+                shape="circle"
+                size="medium"
                 // offset={['400px', '316px']}
                 container={() => document}
               />
@@ -54,7 +55,8 @@ export default class backTopSize extends WeElement {
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
-                size="small"
+                size="medium"
+                shape="circle"
                 theme="primary"
                 // offset={['400px', '316px']}
                 container={() => document}
@@ -72,7 +74,8 @@ export default class backTopSize extends WeElement {
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
-                size="small"
+                size="medium"
+                shape="circle"
                 theme="dark"
                 // offset={['400px', '316px']}
                 container={() => document}

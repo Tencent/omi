@@ -4,8 +4,8 @@ import '../index'
 
 import '../../space'
 
-@tag('back-top-size')
-export default class backTopSize extends WeElement {
+@tag('back-top-theme')
+export default class backTopTheme extends WeElement {
   height = 300
 
   // scrollCss =
@@ -32,57 +32,99 @@ export default class backTopSize extends WeElement {
   render() {
     return (
       <h.f>
-        <div style="position: relative;">
+        <div style="position: relative; ">
           <t-space direction="vertical">
-            <t-space size={24}>
+            <t-space>
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
-                size="small"
-                // offset={['400px', '316px']}
+                size="medium"
                 container={() => document}
               />
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
                 size="medium"
-                // offset={['300px', '300px']}
+                theme='primary'
+                container={() => document}
+              />
+              <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="medium"
+                theme='dark'
                 container={() => document}
               />
             </t-space>
-            <t-space size={24}>
+            <t-space>
+            <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="medium"
+                shape="circle"
+                container={() => document}
+              />
+              <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="medium"
+                shape="circle"
+                theme='primary'
+                container={() => document}
+              />
+              <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="medium"
+                shape="circle"
+                theme='dark'
+                container={() => document}
+              />
+            </t-space>
+            <t-space>
+              <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="small"
+                container={() => document}
+              />
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
                 size="small"
                 theme="primary"
-                // offset={['400px', '316px']}
                 container={() => document}
               />
-              <t-back-top
-                css={this.withStyle}
-                visibleHeight={0}
-                size="medium"
-                theme="primary"
-                // offset={['300px', '300px']}
-                container={() => document}
-              />
-            </t-space>
-            <t-space size={24}>
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
                 size="small"
                 theme="dark"
-                // offset={['400px', '316px']}
+                container={() => document}
+              />
+            </t-space>
+            <t-space>
+              <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="small"
+                shape="circle"
                 container={() => document}
               />
               <t-back-top
                 css={this.withStyle}
                 visibleHeight={0}
-                size="medium"
+                size="small"
+                theme="primary"
+                shape="circle"
+                container={() => document}
+              />
+              <t-back-top
+                css={this.withStyle}
+                visibleHeight={0}
+                size="small"
                 theme="dark"
-                // offset={['300px', '300px']}
+                shape="circle"
                 container={() => document}
               />
             </t-space>

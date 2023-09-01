@@ -5,7 +5,7 @@ import { scrollTo } from '../utils/dom'
 import { BackTopProps, UseScrollProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
 
-import '../icon/backtop'
+import './backtop'
 
 const BackTopClassNamePrefix = (className: string) => TdClassNamePrefix('back-top__') + className
 
@@ -104,7 +104,17 @@ export default class BackTop extends WeElement<BackTopProps> {
   };
   
 
-  
+  defaultContent = (
+    <>
+      <t-icon-backtop class={classNames(BackTopClassNamePrefix('icon'))} size="medium"></t-icon-backtop>
+      <span class={classNames(BackTopClassNamePrefix('text'))}>TOP</span>
+    </>
+  );
+
+
+  renderChildren(content : any,cusContent :any){
+    return (content || cusContent || this.defaultContent)
+  } 
 
   getBackTo = () => {
     // if (!this.props.container) return 0
@@ -123,8 +133,8 @@ export default class BackTop extends WeElement<BackTopProps> {
   // scrollTop = useScroll({ target: this.scrollContainer })
 
   installed() {
+    
     this.scrollContainer = this.getContainer(this.props.container)
-    // console.log(this.scrollContainer)
     let that = this
     // console.log(document.querySelector(this.props.container));
     // console.log(this.getContainer(this.props.container))
@@ -166,8 +176,6 @@ export default class BackTop extends WeElement<BackTopProps> {
       } else {
         offsetTop = Math.abs((scrollContainer as HTMLElement).scrollTop)
       }
-      console.log(visibleHeight,'v')
-      console.log(offsetTop)
       if (offsetTop >= visibleHeight) {
         buttonNode.classList.add(TdClassNamePrefix(`back-top--show`)) // 添加类名
       } else {
@@ -218,22 +226,22 @@ export default class BackTop extends WeElement<BackTopProps> {
         },
       )
   } 
+
+
   //textarea ref
   button = createRef()
 
   render(props: OmiProps<BackTopProps, any>, store: any) {
-    const { container, visibleHeight, offset, size, theme, shape } = props
-
+    const { content } = props
+    const cusContent = props.default
     return (
       <>
         <button
           type="button"
           class={this.cls()}
           ref={this.button}
-
         >
-          <t-icon-backtop></t-icon-backtop>
-          <span class={classNames(BackTopClassNamePrefix('text'))}>TOP</span>
+          {this.renderChildren(content, cusContent)}
         </button>
       </>
     )
