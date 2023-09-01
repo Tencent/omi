@@ -8,7 +8,7 @@ export default class Tv2 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Tv2 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M0 3H24V18H0V3ZM2 5V16H22V5H2ZM4 20H20V22H4V20Z" />
+        <path d="M0 3H24V18H0V3ZM2 5V16H22V5H2ZM4 20H20V22H4V20Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Plus extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Plus extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 6.5V11L17.5 11V13L13 13V17.5H11L11 13L6.5 13L6.5 11H11L11 6.5L13 6.5Z" />
+        <path d="M13 6.5V11L17.5 11V13L13 13V17.5H11L11 13L6.5 13L6.5 11H11L11 6.5L13 6.5Z" fill="currentColor" />
       </svg>
     )
   }

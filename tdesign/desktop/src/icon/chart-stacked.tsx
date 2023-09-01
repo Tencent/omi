@@ -8,7 +8,7 @@ export default class ChartStacked extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChartStacked extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 2V20H6V9H12V20H14V5H20V20H22V22H2V2H4ZM18 20V16.5H16V20H18ZM16 14.5H18V7H16V14.5ZM10 20V16.5H8V20H10ZM8 14.5H10V11H8V14.5Z" />
+        <path
+          d="M4 2V20H6V9H12V20H14V5H20V20H22V22H2V2H4ZM18 20V16.5H16V20H18ZM16 14.5H18V7H16V14.5ZM10 20V16.5H8V20H10ZM8 14.5H10V11H8V14.5Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

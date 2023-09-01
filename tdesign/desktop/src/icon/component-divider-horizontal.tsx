@@ -8,7 +8,7 @@ export default class ComponentDividerHorizontal extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ComponentDividerHorizontal extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M13 2L13 22H11L11 2L13 2ZM2 5L9 5L9 19H2L2 5ZM4 7L4 17H7L7 7L4 7ZM15 5L22 5V19H15L15 5ZM17 7L17 17H20V7L17 7Z" />
+        <path
+          d="M13 2L13 22H11L11 2L13 2ZM2 5L9 5L9 19H2L2 5ZM4 7L4 17H7L7 7L4 7ZM15 5L22 5V19H15L15 5ZM17 7L17 17H20V7L17 7Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

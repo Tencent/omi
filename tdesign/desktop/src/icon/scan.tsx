@@ -8,7 +8,7 @@ export default class Scan extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Scan extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H9V4H4V9H2V2ZM15 2H22V9H20V4H15V2ZM2 11H22V13H2V11ZM4 15V20H9V22H2V15H4ZM22 15V22H15V20H20V15H22Z" />
+        <path
+          d="M2 2H9V4H4V9H2V2ZM15 2H22V9H20V4H15V2ZM2 11H22V13H2V11ZM4 15V20H9V22H2V15H4ZM22 15V22H15V20H20V15H22Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

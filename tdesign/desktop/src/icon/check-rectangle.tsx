@@ -8,7 +8,7 @@ export default class CheckRectangle extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class CheckRectangle extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM17.9142 9L10.5 16.4142L6.08579 12L7.5 10.5858L10.5 13.5858L16.5 7.58579L17.9142 9Z" />
+        <path
+          d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM17.9142 9L10.5 16.4142L6.08579 12L7.5 10.5858L10.5 13.5858L16.5 7.58579L17.9142 9Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

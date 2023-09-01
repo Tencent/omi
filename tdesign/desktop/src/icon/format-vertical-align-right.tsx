@@ -8,7 +8,7 @@ export default class FormatVerticalAlignRight extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class FormatVerticalAlignRight extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 4H3H21H22V6H21H3H2V4ZM8 11H9H21H22V13H21H9H8V11ZM3 18H2V20H3H21H22V18H21H3Z" />
+        <path d="M2 4H3H21H22V6H21H3H2V4ZM8 11H9H21H22V13H21H9H8V11ZM3 18H2V20H3H21H22V18H21H3Z" fill="currentColor" />
       </svg>
     )
   }

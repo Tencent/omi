@@ -8,7 +8,7 @@ export default class SwapLeft extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class SwapLeft extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M10.4144 8.99991L6.41437 12.9999L22.0002 12.9999V14.9999L1.58594 14.9999L9.00015 7.58569L10.4144 8.99991Z" />
+        <path
+          d="M10.4144 8.99991L6.41437 12.9999L22.0002 12.9999V14.9999L1.58594 14.9999L9.00015 7.58569L10.4144 8.99991Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

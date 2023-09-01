@@ -1,5 +1,6 @@
 import { WeElement } from 'omi'
 import { route } from 'omi-router'
+import getMetaData from './meta'
 
 /**
  * demo components:
@@ -22,6 +23,9 @@ const components = [
   'message',
   'notification',
   'popup',
+  'dropdown',
+  'list',
+  'back-top'
 ]
 
 export function registerRouting(rootEl: any) {
@@ -43,6 +47,10 @@ export function registerRouting(rootEl: any) {
     route(`/${componentName}`, () => {
       import(`./components/web/${componentName}/index.tsx`).then(() => {
         rootEl.data.tagName = `page-${componentName}`
+        rootEl.data.pageName = componentName
+        const metaData = getMetaData(componentName)
+        rootEl.data.pageTitle = metaData.title
+        rootEl.data.pageDescription = metaData.description
         rootEl.update()
       })
     }),

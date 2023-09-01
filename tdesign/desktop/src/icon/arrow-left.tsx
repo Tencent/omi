@@ -8,7 +8,7 @@ export default class ArrowLeft extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ArrowLeft extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M19.5002 13L7.91436 13L12.4144 17.5L11.0001 18.9142L4.08594 12L11.0001 5.08582L12.4144 6.50003L7.91436 11L19.5002 11V13Z" />
+        <path
+          d="M19.5002 13L7.91436 13L12.4144 17.5L11.0001 18.9142L4.08594 12L11.0001 5.08582L12.4144 6.50003L7.91436 11L19.5002 11V13Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

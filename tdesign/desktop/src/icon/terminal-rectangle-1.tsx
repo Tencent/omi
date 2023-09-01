@@ -8,7 +8,7 @@ export default class TerminalRectangle1 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class TerminalRectangle1 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 3H23V21H1V3ZM3 5V8H21V5H3ZM21 10H3V19H21V10ZM7 11.0858L10.4142 14.5L7 17.9142L5.58579 16.5L7.58579 14.5L5.58579 12.5L7 11.0858ZM12 15L18 15L18 17L12 17V15Z" />
+        <path
+          d="M1 3H23V21H1V3ZM3 5V8H21V5H3ZM21 10H3V19H21V10ZM7 11.0858L10.4142 14.5L7 17.9142L5.58579 16.5L7.58579 14.5L5.58579 12.5L7 11.0858ZM12 15L18 15L18 17L12 17V15Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

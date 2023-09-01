@@ -8,7 +8,7 @@ export default class LogoAdobePhotoshop1 extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class LogoAdobePhotoshop1 extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 20L20 20L20 13.5L19 13.5C17.9846 13.5 17.0109 13.9034 16.2929 14.6213L16 14.9142L16 18L14 18L14 11L16 11L16 12.3314C16.8987 11.7919 17.9343 11.5 19 11.5L20 11.5L20 4L4 4ZM8 6L8 16L13 16L13 18L6 18L6 6L8 6Z" />
+        <path
+          d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 20L20 20L20 13.5L19 13.5C17.9846 13.5 17.0109 13.9034 16.2929 14.6213L16 14.9142L16 18L14 18L14 11L16 11L16 12.3314C16.8987 11.7919 17.9343 11.5 19 11.5L20 11.5L20 4L4 4ZM8 6L8 16L13 16L13 18L6 18L6 6L8 6Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

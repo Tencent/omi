@@ -8,7 +8,7 @@ export default class FormatHorizontalAlignTop extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class FormatHorizontalAlignTop extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M6 2V22H4V2H6ZM13 2L13 16H11L11 2L13 2ZM20 2V22H18L18 2L20 2Z" />
+        <path d="M6 2V22H4V2H6ZM13 2L13 16H11L11 2L13 2ZM20 2V22H18L18 2L20 2Z" fill="currentColor" />
       </svg>
     )
   }

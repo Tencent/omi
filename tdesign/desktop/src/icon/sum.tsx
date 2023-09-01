@@ -8,7 +8,7 @@ export default class Sum extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Sum extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1.58594 3H21.0002V5H6.41436L13.4144 12L6.41437 19H21.0002V21H1.58594L10.5859 12L1.58594 3Z" />
+        <path
+          d="M1.58594 3H21.0002V5H6.41436L13.4144 12L6.41437 19H21.0002V21H1.58594L10.5859 12L1.58594 3Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

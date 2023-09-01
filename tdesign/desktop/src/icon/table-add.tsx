@@ -8,7 +8,7 @@ export default class TableAdd extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class TableAdd extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22H2V2ZM4 4V6H20V4H4ZM20 8H4V20H20V8ZM13 10V13H16V15H13V18H11V15H8V13H11V10H13Z" />
+        <path
+          d="M2 2H22V22H2V2ZM4 4V6H20V4H4ZM20 8H4V20H20V8ZM13 10V13H16V15H13V18H11V15H8V13H11V10H13Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

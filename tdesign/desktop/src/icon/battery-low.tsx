@@ -8,7 +8,7 @@ export default class BatteryLow extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class BatteryLow extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M0 5H21V19H0V5ZM2 7V17H19V7H2ZM6 9V15H4V9H6ZM24 9V15H22V9H24Z" />
+        <path d="M0 5H21V19H0V5ZM2 7V17H19V7H2ZM6 9V15H4V9H6ZM24 9V15H22V9H24Z" fill="currentColor" />
       </svg>
     )
   }

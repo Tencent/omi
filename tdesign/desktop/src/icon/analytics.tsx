@@ -8,7 +8,7 @@ export default class Analytics extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Analytics extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM18 8V11H16V8H18ZM13 10V13H11V10H13ZM8 12V18H6V12H8ZM18 13V18H16V13H18ZM13 15V18H11V15H13Z" />
+        <path
+          d="M2 2H22V22H2V2ZM4 4V20H20V4H4ZM18 8V11H16V8H18ZM13 10V13H11V10H13ZM8 12V18H6V12H8ZM18 13V18H16V13H18ZM13 15V18H11V15H13Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

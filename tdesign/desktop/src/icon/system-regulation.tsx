@@ -8,7 +8,7 @@ export default class SystemRegulation extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class SystemRegulation extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 1H23V18H1V1ZM3 3V16H21V3H3ZM9 5V10H7V5H9ZM13 5V8H11V5H13ZM17 5V10H15V5H17ZM13 9V14H11V9H13ZM9 11V14H7V11H9ZM17 11V14H15V11H17ZM3.22222 21H20.7778V23H3.22222V21Z" />
+        <path
+          d="M1 1H23V18H1V1ZM3 3V16H21V3H3ZM9 5V10H7V5H9ZM13 5V8H11V5H13ZM17 5V10H15V5H17ZM13 9V14H11V9H13ZM9 11V14H7V11H9ZM17 11V14H15V11H17ZM3.22222 21H20.7778V23H3.22222V21Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

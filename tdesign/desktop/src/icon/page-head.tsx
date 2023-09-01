@@ -8,7 +8,7 @@ export default class PageHead extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class PageHead extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M21 10V22H19V12L5 12L5 22H3L3 10L21 10ZM21 2V8L3 8L3 2L21 2ZM19 4L5 4V6L19 6V4Z" />
+        <path d="M21 10V22H19V12L5 12L5 22H3L3 10L21 10ZM21 2V8L3 8L3 2L21 2ZM19 4L5 4V6L19 6V4Z" fill="currentColor" />
       </svg>
     )
   }

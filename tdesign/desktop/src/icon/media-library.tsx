@@ -8,7 +8,7 @@ export default class MediaLibrary extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class MediaLibrary extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M5 2L19 2V4L5 4V2ZM3 5.5L21 5.5V7.5L3 7.5V5.5ZM1 9L23 9V22L1 22L1 9ZM3 11L3 20L21 20V11H3ZM9.75 12.4689L15 15.5L9.75 18.5311V12.4689Z" />
+        <path
+          d="M5 2L19 2V4L5 4V2ZM3 5.5L21 5.5V7.5L3 7.5V5.5ZM1 9L23 9V22L1 22L1 9ZM3 11L3 20L21 20V11H3ZM9.75 12.4689L15 15.5L9.75 18.5311V12.4689Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class ControlPlatform extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ControlPlatform extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M12 0.855957L22 6.41151V17.5883L12 23.1439L2 17.5883V6.41151L12 0.855957ZM4 8.89612V16.4115L11 20.3004V12.602L4 8.89612ZM13 20.3004L20 16.4115V8.89612L13 12.602V20.3004ZM12 10.8684L19.1196 7.09922L12 3.14387L4.88039 7.09922L12 10.8684Z" />
+        <path
+          d="M12 0.855957L22 6.41151V17.5883L12 23.1439L2 17.5883V6.41151L12 0.855957ZM4 8.89612V16.4115L11 20.3004V12.602L4 8.89612ZM13 20.3004L20 16.4115V8.89612L13 12.602V20.3004ZM12 10.8684L19.1196 7.09922L12 3.14387L4.88039 7.09922L12 10.8684Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

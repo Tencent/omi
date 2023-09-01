@@ -1,25 +1,24 @@
 import { WeElement, define, h, createRef } from 'omi'
 import '../common/index'
-import {
-  StarFilledIcon,
-  ActivityIcon,
-  AddAndSubtractIcon,
-  AddCircleIcon,
-  AddRectangleIcon,
-  AddIcon,
-  AddressBookIcon,
-} from '../../../../../src/icon/index'
 
+import '../../../../../src/icon/star-filled'
+import '../../../../../src/icon/activity'
+import '../../../../../src/icon/add-and-subtract'
+import '../../../../../src/icon/add-circle'
+import '../../../../../src/icon/add-rectangle'
+import '../../../../../src/icon/add'
+import '../../../../../src/icon/address-book'
 import '../../../../../src/space/index'
 import * as marked from 'marked'
 import '../../../../code-box/index.tsx'
+import '../../../../../src/icon/_example/icons'
 import '../../../../../src/icon/bookmark'
 
 import { tw } from 'omi-twind'
 const docsHTML = marked.parse(`
 
 ## API
-### IconSVG Props
+### Icon Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
@@ -73,35 +72,33 @@ define(
             <h3 id="Icon图标">
               Icon图标 <a class="header-anchor" href="#Icon图标"></a>
             </h3>
-            <h4 id="按需引入图标">
+            <h4 id="按需引入图标（推荐）">
               按需引入图标 <a class="header-anchor" href="#按需引入图标"></a>
             </h4>
             <code-box
               title="按需引入图标"
               describe={`可以通过
-              import { StarFilledIcon} from '../../../../../src/icon/index'或者
-            import '../../../../../src/icon/bookmark'
+              import '../../../../../src/icon/bookmark'
               的方式按需引入图标`}
               code={`
 \`\`\`html
-import {
-    StarFilledIcon,
-    ActivityIcon,
-    AddAndSubtractIcon,
-    AddCircleIcon,
-    AddRectangleIcon,
-    AddIcon,
-    AddressBookIcon,
-  } from '../../../../../src/icon/index'
 import '../../../../../src/icon/bookmark'
+import '../../../../../src/icon/star-filled'
+import '../../../../../src/icon/activity'
+import '../../../../../src/icon/add-and-subtract'
+import '../../../../../src/icon/add-circle'
+import '../../../../../src/icon/add-rectangle'
+import '../../../../../src/icon/add'
+import '../../../../../src/icon/address-book'
+
 <div>
     <t-space>
-        <ActivityIcon />
-        <AddAndSubtractIcon />
-        <AddCircleIcon />
-        <AddRectangleIcon />
-        <AddIcon />
-        <AddressBookIcon />
+        <t-icon-activity />
+        <t-icon-add-and-subtract />
+        <t-icon-add-circle />
+        <t-icon-add-rectangle />
+        <t-icon-add />
+        <t-icon-bookmark />
         <t-icon-bookmark/>
     </t-space>
 </div>
@@ -110,12 +107,11 @@ import '../../../../../src/icon/bookmark'
             >
               <div slot="demo" class={tw`px-5 py-5`}>
                 <t-space>
-                  <ActivityIcon />
-                  <AddAndSubtractIcon />
-                  <AddCircleIcon />
-                  <AddRectangleIcon />
-                  <AddIcon />
-                  <AddressBookIcon />
+                  <t-icon-activity />
+                  <t-icon-add-and-subtract />
+                  <t-icon-add-circle />
+                  <t-icon-add-rectangle />
+                  <t-icon-add />
                   <t-icon-bookmark />
                 </t-space>
               </div>
@@ -129,25 +125,25 @@ import '../../../../../src/icon/bookmark'
               style={{color: "red"}} 或者 style={{fill: "red"}}`}
               code={`
 \`\`\`html
-import { StarFilledIcon } from '../../../../../src/icon/index'
+import { t-icon-star-filled } from '../../../../../src/icon/index'
 <div>
     <t-space direction="vertical">
         <h4>Size: small | medium | large | 1.5em | 2em | 40px</h4>
         <t-space align="center">
-            <StarFilledIcon size="small"></StarFilledIcon>
-            <StarFilledIcon size="medium"></StarFilledIcon>
-            <StarFilledIcon size="large"></StarFilledIcon>
-            <StarFilledIcon size="1.5em"></StarFilledIcon>
-            <StarFilledIcon size="2em"></StarFilledIcon>
-            <StarFilledIcon size="40px"></StarFilledIcon>
+            <t-icon-star-filled size="small"></t-icon-star-filled>
+            <t-icon-star-filled size="medium"></t-icon-star-filled>
+            <t-icon-star-filled size="large"></t-icon-star-filled>
+            <t-icon-star-filled size="1.5em"></t-icon-star-filled>
+            <t-icon-star-filled size="2em"></t-icon-star-filled>
+            <t-icon-star-filled size="40px"></t-icon-star-filled>
         </t-space>
         <h4>Color</h4>
         <t-space align="center">
-            <StarFilledIcon></StarFilledIcon>
-            <StarFilledIcon style={{ color: '#0d5bdb' }}></StarFilledIcon>
-            <StarFilledIcon style={{ color: '#d54941' }}></StarFilledIcon>
-            <StarFilledIcon style={{ color: '#e47922' }}></StarFilledIcon>
-            <StarFilledIcon style={{ color: '#2ba471' }}></StarFilledIcon>
+            <t-icon-star-filled></t-icon-star-filled>
+            <t-icon-star-filled style={{ color: '#0d5bdb' }}></t-icon-star-filled>
+            <t-icon-star-filled style={{ color: '#d54941' }}></t-icon-star-filled>
+            <t-icon-star-filled style={{ color: '#e47922' }}></t-icon-star-filled>
+            <t-icon-star-filled style={{ color: '#2ba471' }}></t-icon-star-filled>
         </t-space>
     </t-space>
 </div>
@@ -158,24 +154,34 @@ import { StarFilledIcon } from '../../../../../src/icon/index'
                 <t-space direction="vertical">
                   <h4>Size: small | medium | large | 1.5em | 2em | 40px</h4>
                   <t-space align="center">
-                    <StarFilledIcon size="small"></StarFilledIcon>
-                    <StarFilledIcon size="medium"></StarFilledIcon>
-                    <StarFilledIcon size="large"></StarFilledIcon>
-                    <StarFilledIcon size="1.5em"></StarFilledIcon>
-                    <StarFilledIcon size="2em"></StarFilledIcon>
-                    <StarFilledIcon size="40px"></StarFilledIcon>
+                    <t-icon-star-filled size="small"></t-icon-star-filled>
+                    <t-icon-star-filled size="medium"></t-icon-star-filled>
+                    <t-icon-star-filled size="large"></t-icon-star-filled>
+                    <t-icon-star-filled size="1.5em"></t-icon-star-filled>
+                    <t-icon-star-filled size="2em"></t-icon-star-filled>
+                    <t-icon-star-filled size="40px"></t-icon-star-filled>
                   </t-space>
                   <h4>Color</h4>
                   <t-space align="center">
-                    <StarFilledIcon></StarFilledIcon>
-                    <StarFilledIcon style={{ color: '#0d5bdb' }}></StarFilledIcon>
-                    <StarFilledIcon style={{ color: '#d54941' }}></StarFilledIcon>
-                    <StarFilledIcon style={{ color: '#e47922' }}></StarFilledIcon>
-                    <StarFilledIcon style={{ color: '#2ba471' }}></StarFilledIcon>
+                    <t-icon-star-filled></t-icon-star-filled>
+                    <t-icon-star-filled style={{ color: '#0d5bdb' }}></t-icon-star-filled>
+                    <t-icon-star-filled style={{ color: '#d54941' }}></t-icon-star-filled>
+                    <t-icon-star-filled style={{ color: '#e47922' }}></t-icon-star-filled>
+                    <t-icon-star-filled style={{ color: '#2ba471' }}></t-icon-star-filled>
                   </t-space>
                 </t-space>
               </div>
             </code-box>
+            <h4 id="全局引入图标">
+              全局引入图标 <a class="header-anchor" href="#全局引入图标"></a>
+            </h4>
+            <p>可以通过 import '../../../../../src/icon' 的方式全局引入图标，直接调用需要的Icon组件</p>
+            <h3 id="图标总览">
+              图标总览 <a class="header-anchor" href="#图标总览"></a>
+            </h3>
+            <demo-wrapper>
+              <icon-icons></icon-icons>
+            </demo-wrapper>
           </div>
           <div style={this.isShow('api')} name="API">
             <div

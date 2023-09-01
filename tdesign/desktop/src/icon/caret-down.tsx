@@ -8,7 +8,7 @@ export default class CaretDown extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class CaretDown extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M12.0003 17.9143L21.4144 8.50009L2.58594 8.50009L12.0003 17.9143ZM7.41441 10.5001L16.586 10.5001L12.0003 15.0859L7.41441 10.5001Z" />
+        <path
+          d="M12.0003 17.9143L21.4144 8.50009L2.58594 8.50009L12.0003 17.9143ZM7.41441 10.5001L16.586 10.5001L12.0003 15.0859L7.41441 10.5001Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

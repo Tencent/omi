@@ -8,7 +8,7 @@ export default class Desktop extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Desktop extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 3H23V18H13V20H17V22H7V20H11V18H1V3ZM3 5V16H21V5H3Z" />
+        <path d="M1 3H23V18H13V20H17V22H7V20H11V18H1V3ZM3 5V16H21V5H3Z" fill="currentColor" />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class ArrowTriangleUp extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class ArrowTriangleUp extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M9 12V22H15V12H19.5L12 2L4.5 12H9ZM8.5 10L12 5.33333L15.5 10H13V20H11V10H8.5Z" />
+        <path d="M9 12V22H15V12H19.5L12 2L4.5 12H9ZM8.5 10L12 5.33333L15.5 10H13V20H11V10H8.5Z" fill="currentColor" />
       </svg>
     )
   }

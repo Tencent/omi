@@ -8,7 +8,7 @@ export default class TreeSquareDotVertical extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class TreeSquareDotVertical extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M17 4L20 4V7H17V4ZM15 6.5V9H22V2L15 2V4.5H11.3333V11H9V8.5H2L2 15.5H9V13H11.3333L11.3333 19.5H15V22H22V15H15V17.5H13.3333L13.3333 6.5H15ZM17 20V17H20V20H17ZM7 10.5V13.5H4L4 10.5H7Z" />
+        <path
+          d="M17 4L20 4V7H17V4ZM15 6.5V9H22V2L15 2V4.5H11.3333V11H9V8.5H2L2 15.5H9V13H11.3333L11.3333 19.5H15V22H22V15H15V17.5H13.3333L13.3333 6.5H15ZM17 20V17H20V20H17ZM7 10.5V13.5H4L4 10.5H7Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

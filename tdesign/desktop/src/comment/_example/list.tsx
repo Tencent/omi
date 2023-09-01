@@ -1,6 +1,8 @@
 import { h, tag, WeElement } from 'omi'
 
 import '../index'
+import '../../icon/thumb-up'
+import '../../icon/chat'
 
 @tag('comment-list')
 
@@ -10,10 +12,12 @@ export default class ListComment extends WeElement {
     static css = 't-comment{}'
     actions = [
         <div>
-            <span>6</span>
+            <t-icon-thumb-up size='16px'></t-icon-thumb-up>
+            <span> 6</span>
         </div>,
         <div>
-            <span>回复</span>
+            <t-icon-chat size='16px'></t-icon-chat>
+            <span> 回复</span>
         </div>,
     ];
 

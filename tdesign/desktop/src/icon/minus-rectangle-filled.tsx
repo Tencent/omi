@@ -8,7 +8,7 @@ export default class MinusRectangleFilled extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class MinusRectangleFilled extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2H22V22L2 22V2ZM6.5 11V13L17.5 13V11L6.5 11Z" />
+        <path d="M2 2H22V22L2 22V2ZM6.5 11V13L17.5 13V11L6.5 11Z" fill="currentColor" />
       </svg>
     )
   }

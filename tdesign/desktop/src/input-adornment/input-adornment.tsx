@@ -5,6 +5,7 @@ import Button from '../button';
 import { StyledProps } from '../common';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
+import '../input'
 
 @tag('t-input-adornment')
 export default class InputAdornment extends WeElement<InputAdornmentProps>{
@@ -58,7 +59,7 @@ export default class InputAdornment extends WeElement<InputAdornmentProps>{
             <div ref={props.ref} style={props.style} className={classNames(`${classPrefix}-input-adornment`, props.className)}>
                 {renderAddon('prepend', classPrefix, this.prepend)}
                 {/* {renderChildren()} */}
-                <input type="text" placeholder='请输入' style={{ width: 400 }} />
+                <t-input status="successs" tips="" align="left" size="large" style={{ width: 400 }} />
                 {renderAddon('append', classPrefix, this.append)}
             </div>
         );

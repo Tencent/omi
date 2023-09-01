@@ -8,7 +8,7 @@ export default class ChatMessage extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChatMessage extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1.5 22.7038L1.5 2L22.5 2V18H6.87574L1.5 22.7038ZM3.5 18.2962L6.12426 16H20.5V4L3.5 4L3.5 18.2962ZM13.0039 11H11V8.99609H13.0039V11ZM8.00391 11L6 11L6 8.99609H8.00391L8.00391 11ZM18.0039 11L16 11V8.99609H18.0039V11Z" />
+        <path
+          d="M1.5 22.7038L1.5 2L22.5 2V18H6.87574L1.5 22.7038ZM3.5 18.2962L6.12426 16H20.5V4L3.5 4L3.5 18.2962ZM13.0039 11H11V8.99609H13.0039V11ZM8.00391 11L6 11L6 8.99609H8.00391L8.00391 11ZM18.0039 11L16 11V8.99609H18.0039V11Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

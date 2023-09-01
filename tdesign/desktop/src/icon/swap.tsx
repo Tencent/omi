@@ -8,7 +8,7 @@ export default class Swap extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Swap extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M15.0002 3.08569L22.4144 10.4999L2.00015 10.4999V8.4999L17.5859 8.4999L13.5859 4.49991L15.0002 3.08569ZM22.0002 13.4999V15.4999L6.41437 15.4999L10.4144 19.4999L9.00015 20.9141L1.58594 13.4999L22.0002 13.4999Z" />
+        <path
+          d="M15.0002 3.08569L22.4144 10.4999L2.00015 10.4999V8.4999L17.5859 8.4999L13.5859 4.49991L15.0002 3.08569ZM22.0002 13.4999V15.4999L6.41437 15.4999L10.4144 19.4999L9.00015 20.9141L1.58594 13.4999L22.0002 13.4999Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Equal extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,7 @@ export default class Equal extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M4 7H20V9H4V7ZM4 15H20V17H4V15Z" />
+        <path d="M4 7H20V9H4V7ZM4 15H20V17H4V15Z" fill="currentColor" />
       </svg>
     )
   }

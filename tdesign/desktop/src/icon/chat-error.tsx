@@ -8,7 +8,7 @@ export default class ChatError extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class ChatError extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1.5 2H22.5V18H6.87574L1.5 22.7038V2ZM3.5 4V18.2962L6.12426 16H20.5V4H3.5ZM13 6V11H11V6H13ZM11 12H13.0039V14.0039H11V12Z" />
+        <path
+          d="M1.5 2H22.5V18H6.87574L1.5 22.7038V2ZM3.5 4V18.2962L6.12426 16H20.5V4H3.5ZM13 6V11H11V6H13ZM11 12H13.0039V14.0039H11V12Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

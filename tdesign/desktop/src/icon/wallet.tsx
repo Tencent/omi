@@ -8,7 +8,7 @@ export default class Wallet extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Wallet extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 3H16C17.6569 3 19 4.34315 19 6V7H23V21H1V3ZM3 9V19H21V9H3ZM3 7H17V6C17 5.44772 16.5523 5 16 5H3V7ZM16 13H19V15H16V13Z" />
+        <path
+          d="M1 3H16C17.6569 3 19 4.34315 19 6V7H23V21H1V3ZM3 9V19H21V9H3ZM3 7H17V6C17 5.44772 16.5523 5 16 5H3V7ZM16 13H19V15H16V13Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Sharpness extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Sharpness extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M20.5006 0.585693V19.4999H1.5864L20.5006 0.585693ZM6.41482 17.4999H18.5006V5.41412L6.41482 17.4999ZM20.5006 20.9999V22.9999L1.50098 22.9999L1.50098 20.9999L20.5006 20.9999Z" />
+        <path
+          d="M20.5006 0.585693V19.4999H1.5864L20.5006 0.585693ZM6.41482 17.4999H18.5006V5.41412L6.41482 17.4999ZM20.5006 20.9999V22.9999L1.50098 22.9999L1.50098 20.9999L20.5006 20.9999Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

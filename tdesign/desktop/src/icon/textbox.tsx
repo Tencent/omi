@@ -8,7 +8,7 @@ export default class Textbox extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Textbox extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 20L20 20L20 4L4 4ZM11 8.5L6 8.5V6.5L18 6.5V8.5L13 8.5V18H11V8.5Z" />
+        <path
+          d="M2 2L22 2L22 22L2 22L2 2ZM4 4L4 20L20 20L20 4L4 4ZM11 8.5L6 8.5V6.5L18 6.5V8.5L13 8.5V18H11V8.5Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class LogoWindowsFilled extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class LogoWindowsFilled extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M21.75 2.13525V11.75H12.25V3.4924L21.75 2.13525ZM10.75 4.11655V11.75H2.25V5.51482L10.75 4.11655ZM2.25 13.25H10.75V20.8248L2.25 20.0153V13.25ZM12.25 13.25H21.75V21.8673L12.25 20.4819V13.25Z" />
+        <path
+          d="M21.75 2.13525V11.75H12.25V3.4924L21.75 2.13525ZM10.75 4.11655V11.75H2.25V5.51482L10.75 4.11655ZM2.25 13.25H10.75V20.8248L2.25 20.0153V13.25ZM12.25 13.25H21.75V21.8673L12.25 20.4819V13.25Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

@@ -8,7 +8,7 @@ export default class Device extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class Device extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 2H23V6H21V4H3V17H12V19H1V2ZM14 8H24V22H14V8ZM16 10V20H22V10H16ZM17.998 16.998H20.002V19.002H17.998V16.998ZM5 20H12V22H5V20Z" />
+        <path
+          d="M1 2H23V6H21V4H3V17H12V19H1V2ZM14 8H24V22H14V8ZM16 10V20H22V10H16ZM17.998 16.998H20.002V19.002H17.998V16.998ZM5 20H12V22H5V20Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }

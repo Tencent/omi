@@ -8,7 +8,7 @@ export default class TrendingDown extends WeElement<IconProps> {
   static css = css as string
 
   static defaultProps = {
-    size: '24px',
+    size: '1em',
     style: { fill: '#000' },
   }
 
@@ -41,7 +41,10 @@ export default class TrendingDown extends WeElement<IconProps> {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M2.08594 7.49991L8.50016 13.9141L12.5002 9.91415L17.5859 14.9999L13.5002 14.9999V16.9999H21.0002V9.49991H19.0002V13.5857L12.5002 7.08572L8.50016 11.0857L3.50015 6.08569L2.08594 7.49991Z" />
+        <path
+          d="M2.08594 7.49991L8.50016 13.9141L12.5002 9.91415L17.5859 14.9999L13.5002 14.9999V16.9999H21.0002V9.49991H19.0002V13.5857L12.5002 7.08572L8.50016 11.0857L3.50015 6.08569L2.08594 7.49991Z"
+          fill="currentColor"
+        />
       </svg>
     )
   }
