@@ -1,4 +1,4 @@
-import { define, OmiProps, h, render, WeElement } from 'omi'
+import { define, OmiProps, h, render, WeElement, createRef } from 'omi'
 import "../../../../../src/message/index"
 
 import '../common/index'
@@ -23,18 +23,48 @@ onDurationEnd |	Function ||	TS 类型：() => void 计时结束后触发 | 	N
 `)
 
 const list:any = [];
+interface Props {
+  tab: string
+}
+define(
+  'page-message', 
+  class extends WeElement<Props> {
+    static defaultProps = {
+      tab: 'demo',
+    }
 
-define('page-message', class extends WeElement {
+    tab = ['demo', 'api', 'design']
+    tdDocHeader = createRef()
+    tdDocTabs = createRef()
+
+    static propTypes = {
+      tab: String,
+    }
+
+    updateTab = (t: string) => {
+      this.updateProps({
+        tab: t,
+      })
+    }
+
+    isShow(tabStr: string) {
+      return this.props.tab === tabStr ? { display: 'block' } : { display: 'none' }
+    }
+
+    installed() {
+      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+        this.updateTab(currentTab)
+      }
+    }
+
+
     render(props: {} | OmiProps<{}, any>, store: any) {
       return (
         <>
-          
+        <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
         <div style="padding:24px">
-          <code-box
-            title="Message全局提示"
-            describe="Message全局提示消息"
-            code={`
-              \`\`\`html
+          <h2>Message全局提示</h2>
+            <demo-wrapper>
               <div style="display:flex;">
                 <div direction="vertical" style="width:100%">
                   <t-message style="margin:12px;" duration={0} theme="info" content="This is my info" />
@@ -43,46 +73,19 @@ define('page-message', class extends WeElement {
                   <t-message style="margin:12px;" duration={0} theme="error" content="This is my error" />
                 </div>
               </div>
-              \`\`\`
-          `}
-          >
-            <h2>Message全局提示</h2>
-            <div style="display:flex;">
-              <div direction="vertical" style="width:100%">
-                <t-message style="margin:12px;" duration={0} theme="info" content="This is my info" />
-                <t-message style="margin:12px;" duration={0} theme="success" content="This is my success" />
-                <t-message style="margin:12px;" duration={0} theme="warning" content="This is my warning" />
-                <t-message style="margin:12px;" duration={0} theme="error" content="This is my error" />
-              </div>
-            </div>
-          </code-box>
-          <code-box
-            title="Message全局提示"
-            describe="Message带关闭按钮的全局提示消息"
-            code={`
-              \`\`\`html
+            </demo-wrapper>
+          
+          <h2>带关闭按钮的全局提示</h2>
+            <demo-wrapper>
               <div style="display:flex;">
                 <div direction="vertical" style="width:100%">
-                  <t-message style="margin:12px;" duration={0} theme="info" content="This is my info" closeBtn />
+                  <t-message style="margin:12px;" duration={0} theme="info" content="This is my info" closeBtn={true} />
                   <t-message style="margin:12px;" duration={0} theme="success" content="This is my success" closeBtn />
                   <t-message style="margin:12px;" duration={0} theme="warning" content="This is my warning" closeBtn />
                   <t-message style="margin:12px;" duration={0} theme="error" content="This is my error" closeBtn />
                 </div>
               </div>
-              \`\`\`
-          `}
-          >
-            <h2>带关闭按钮的全局提示</h2>
-            <div style="display:flex;">
-              <div direction="vertical" style="width:100%">
-                <t-message style="margin:12px;" duration={0} theme="info" content="This is my info" closeBtn />
-                <t-message style="margin:12px;" duration={0} theme="success" content="This is my success" closeBtn />
-                <t-message style="margin:12px;" duration={0} theme="warning" content="This is my warning" closeBtn />
-                <t-message style="margin:12px;" duration={0} theme="error" content="This is my error" closeBtn />
-              </div>
-            </div>
-          </code-box>
-          
+            </demo-wrapper>
         
 
           <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
