@@ -1,6 +1,8 @@
-import { define, OmiProps, h, render, WeElement } from 'omi'
+import { define, OmiProps, h, render, WeElement, createRef } from 'omi'
 import "../../../../../src/notification/index"
-
+import '../../../../../src/space/index'
+import '../../../../../src/button/index'
+import '../common/index'
 import * as marked from 'marked'
 
 const docsHtml = marked.parse(`
@@ -24,22 +26,78 @@ onDurationEnd |	Function |	 | 	TS 类型：() => void时结束时触发	| N
 `)
 
 
-define('page-notification', class extends WeElement {
+define(
+  'page-notification', 
+  class extends WeElement {
+    static defaultProps = {
+      tab: 'demo',
+    }
+
+    tab = ['demo', 'api', 'design']
+    tdDocHeader = createRef()
+    tdDocTabs = createRef()
+
+    static propTypes = {
+      tab: String,
+    }
+
+    updateTab = (t: string) => {
+      this.updateProps({
+        tab: t,
+      })
+    }
+
+    isShow(tabStr: string) {
+      return this.props.tab === tabStr ? { display: 'block' } : { display: 'none' }
+    }
+
+    installed() {
+      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+        this.updateTab(currentTab)
+      }
+    }
 
     render(props: {} | OmiProps<{}, any>, store: any) {
       return (
-        <div style="padding:24px">
-          <div style="display:flex;">
-            <div direction="vertical" style="width:100%">
+        <>
+        <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
+          <div style="padding:24px">
+          
+            <h2>基础的消息通知</h2>
+            <p>消息通知点击即会消失</p>
+            <demo-wrapper>
               <t-notification style="margin:12px;" duration={0} theme="info" title="info" content="This is my info" />
-              <t-notification style="margin:12px;" duration={0} theme="success" title="success" content="This is my success" />
-              <t-notification style="margin:12px;" duration={0} theme="warning" title="warning" content="This is my warning" />
-              <t-notification style="margin:12px;" duration={0} theme="error" title="error" content="This is my error" />
-            </div>
+            </demo-wrapper>
+
+            <h2>带图标的消息通知</h2>
+            <p>带图标的消息通知提供两种情况：普通消息通知和重要消息通知（如：系统错误等）。</p>
+            <demo-wrapper>
+              <t-space direction="vertical" size="large">
+                <t-notification duration={0} theme="info" title="info" content="This is my info.This is my info.This is my info.This is my info.This is my info.This is my info.This is my info." />
+                <t-notification duration={0} theme="success" title="success" content="This is my success" />
+                <t-notification duration={0} theme="warning" title="warning" content="This is my warning" />
+                <t-notification duration={0} theme="error" title="error" content="This is my error" />
+              </t-space>
+            </demo-wrapper>
+
+            <h2>带操作的消息通知</h2>
+            <p>带有操作的消息通知为用户提供下一步行动点，在消息提示框中进行简要快捷的交互。</p>
+            <demo-wrapper>
+              待补充
+            </demo-wrapper>
+            <h2>关闭提示</h2>
+            <p>如果不希望通过计时关闭，或者用户点击按钮关闭，也可以使用关闭函数。</p>
+            <demo-wrapper>
+              <t-button theme="primary">自由控制关闭时机</t-button>
+              <div>
+                待补充
+              </div>
+            </demo-wrapper>
+            <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
           </div>
-          <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
-  
-        </div>
+        </>
+
       );
+
     }
   })

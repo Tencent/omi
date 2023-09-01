@@ -10,20 +10,18 @@ export default class Message extends WeElement<MessageProps> {
   static css = style
 
   static defaultProps = {
-    closeBtn: true,
-    duration: 3000,
     content: 'my message',
     icon: true,
     theme: 'info',
+    closeBtn: ''
   }
 
   static propTypes = {
     className: String,
     style: String,
-    closeBtn: Boolean,
     content: String,
     duration: Number,
-    icon: Boolean,
+    icon: WeElement,
     theme: String,
     onClose: Function,
     onCloseBtnClick: Function,
@@ -37,9 +35,14 @@ export default class Message extends WeElement<MessageProps> {
   onCloseBtnClick = () => {
     this.parentElement.removeChild(this)
   }
+  onDurationEnd = (duration: number) => {
+    if(duration !== null){
+      setTimeout(() => this.parentElement.removeChild(this),duration);
+    }
+  }
 
   render(props: OmiProps<MessageProps, any>, store: any) {
-    const { theme, className, style, icon, content, closeBtn } = props
+    const { theme, className, style, icon, content, closeBtn, duration} = props
 
     const t = theme || 'success'
     return (
@@ -50,24 +53,27 @@ export default class Message extends WeElement<MessageProps> {
             TdClassNamePrefix('reset'),
             TdClassNamePrefix('message'),
             TdClassNamePrefix('is-closable'),
+            MessageClassNamePrefix('closeBtn'),
             this.getMessageTheme(theme),
+            this.onDurationEnd(duration),
             className,
           )}
         >
           {/*图标  */}
-          <svg
-            fill="none"
-            viewBox="0 0 24 24"
-            width="1em"
-            height="1em"
-            class={classNames(TdClassNamePrefix('icon'), TdClassNamePrefix('icon-check-circle-filled'))}
-          >
-            <path
-              fill="currentColor"
-              d="M12 23a11 11 0 100-22 11 11 0 000 22zM11 8.5v-2h2v2h-2zm2 1.5v7.5h-2V10h2z"
-            ></path>
-          </svg>
-
+          {
+            icon && <svg
+              fill="none"
+              viewBox="0 0 24 24"
+              width="1em"
+              height="1em"
+              class={classNames(TdClassNamePrefix('icon'), TdClassNamePrefix('icon-check-circle-filled'))}
+            >
+              <path
+                fill="currentColor"
+                d="M12 23a11 11 0 100-22 11 11 0 000 22zM11 8.5v-2h2v2h-2zm2 1.5v7.5h-2V10h2z"
+              ></path>
+            </svg>
+          }
           {/* 文字内容 */}
           {content && <div class={MessageClassNamePrefix('content')}>{content}</div>}
 
@@ -91,6 +97,7 @@ export default class Message extends WeElement<MessageProps> {
               ></path>
             </svg>
           )}
+          
         </div>
       </>
     )
