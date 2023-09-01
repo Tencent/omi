@@ -1,5 +1,5 @@
 import { h, tag, WeElement, OmiProps, classNames } from 'omi'
-import { IconProps } from './type'
+import { IconProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
 import css from './style/index'
 

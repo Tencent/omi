@@ -4,6 +4,14 @@ import { TNode, TElement, SizeEnum } from '@src/common';
 
 import { AttachNodeReturnValue } from '../common'
 
+export interface IconProps {
+  class?: String
+  style?: Object
+  size?: 'small' | 'medium' | 'large' | string | number
+  onClick?: (event: MouseEvent) => void
+}
+
+
 export type BackTopProps = {
 
   container?:string | Function
