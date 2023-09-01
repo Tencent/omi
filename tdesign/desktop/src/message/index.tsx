@@ -14,12 +14,12 @@ export default class Message extends WeElement<MessageProps> {
     content: 'my message',
     icon: true,
     theme: 'info',
+    closeBtn: false
   }
 
   static propTypes = {
     className: String,
     style: String,
-    closeBtn: Boolean,
     content: String,
     duration: Number,
     icon: Boolean,
@@ -49,6 +49,7 @@ export default class Message extends WeElement<MessageProps> {
             TdClassNamePrefix('reset'),
             TdClassNamePrefix('message'),
             TdClassNamePrefix('is-closable'),
+            MessageClassNamePrefix('closeBtn'),
             this.getMessageTheme(theme),
             className,
           )}
