@@ -3,6 +3,9 @@ import '../common/index'
 import '../../../../../src/back-top/_example/back-top-base'
 import '../../../../../src/back-top/_example/back-top-duration'
 import '../../../../../src/back-top/_example/back-top-size'
+import '../../../../../src/back-top/_example/back-top-shape'
+import '../../../../../src/back-top/_example/back-top-theme'
+import '../../../../../src/back-top/_example/back-top-custom'
 
 import * as marked from 'marked'
 
@@ -80,13 +83,14 @@ define(
         this.updateTab(currentTab)
       }
     }
+    
 
     render() {
       return (
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
-            {/* <h3 id="基础的回到顶部">
+            <h3 id="基础的回到顶部">
               基础的回到顶部 <a class="header-anchor" href="#基础的回到顶部"></a>
             </h3>
             <p>默认距离页面右侧24px，距离页面底部80px，滚动动画时长200ms</p>
@@ -99,7 +103,7 @@ define(
             </h3>
             <demo-wrapper>
               <back-top-duration></back-top-duration>
-            </demo-wrapper> */}
+            </demo-wrapper>
 
             <h3 id="不同组件尺寸的回到顶部">
               不同组件尺寸的回到顶部 <a class="header-anchor" href="#不同组件尺寸的回到顶部"></a>
@@ -107,7 +111,30 @@ define(
             <demo-wrapper>
               <back-top-size></back-top-size>
             </demo-wrapper>
+
+            <h3 id="不同组件主题的回到顶部">
+            不同组件形状的回到顶部 <a class="header-anchor" href="#不同组件形状的回到顶部"></a>
+            </h3>
+            <p>不同组件形状的回到顶部</p>
+            <demo-wrapper>
+              <back-top-shape></back-top-shape>
+            </demo-wrapper>
+
+            <h3 id="不同组件主题的回到顶部">
+            不同组件主题的回到顶部 <a class="header-anchor" href="#不同组件主题的回到顶部"></a>
+            </h3>
+            <demo-wrapper>
+              <back-top-theme></back-top-theme>
+            </demo-wrapper>
+
+            <h3 id="可自定义内容的回到顶部">
+            可自定义内容的回到顶部 <a class="header-anchor" href="#可自定义内容的回到顶部"></a>
+            </h3>
+            <demo-wrapper>
+              <back-top-custom></back-top-custom>
+            </demo-wrapper>
           </div>
+
           <div style={this.isShow('api')} name="API">
             <div
               style="margin-bottom:76px"
