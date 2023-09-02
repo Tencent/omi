@@ -1,25 +1,13 @@
-import Install from '@src/icon/install'
 import { OmiProps, WeElement, h, tag, render} from 'omi'
 
 import '../index'
 
 @tag('textarea-event')
 export default class TextareaEvent extends WeElement {
-  static css = `t-textarea {
-    margin : 10px;
-  }`
-
-  // onKeypress(value:string, e:any) {
-  //   console.log('onKeypress: ', value, e);
-  // }
 
   evtDetail: number
   value :string
   
-  
-  installed(){
-    
-  }
   onBlur = (evt : Event) =>{
     console.log('onBlur', evt.detail.value, evt.detail.event)
   }
@@ -39,7 +27,6 @@ export default class TextareaEvent extends WeElement {
   onKeydown = (evt : Event) =>{
     console.log('onKeydown', evt.detail.value, evt.detail.event)
   }
-
 
   render() {
     return (
