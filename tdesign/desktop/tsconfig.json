@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "target": "esnext",
     "outDir": "lib",
     "declaration": true,
@@ -19,6 +14,8 @@
     "strictNullChecks": false,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "ignoreDeprecations": "5.0",
     "resolveJsonModule": true,
     "allowJs": true,
     "jsx": "preserve",
@@ -26,24 +23,11 @@
     "paths": {
       "@src/*": ["src/*"],
       "@common/*": ["src/_common/*"],
-      "@test/utils": ["test/utils"],
+      "@test/utils": ["test/utils"]
     }
   },
-  "include": [
-    "./**/*.ts",
-    "./**/*.tsx",
-    "scripts/rollup.config.js"
-  ],
-  
-  "exclude": [
-    "node_modules",
-    "src/_common",
-    "dist",
-    "lib",
-    "cjs",
-    "esm",
-    "es",
-    "global.d.ts"
-  ],
+  "include": ["./**/*.ts", "./**/*.tsx", "scripts/rollup.config.js"],
+
+  "exclude": ["node_modules", "src/_common", "dist", "lib", "cjs", "esm", "es", "global.d.ts"],
   "compileOnSave": false
 }

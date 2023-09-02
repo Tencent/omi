@@ -1,0 +1,13 @@
+t-col > div {
+  min-height: 40px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  background-color: #366ef4;
+}
+
+t-col:nth-child(2n) > div {
+  background-color: #8eabff;
+}

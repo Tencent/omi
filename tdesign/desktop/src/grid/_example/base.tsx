@@ -1,7 +1,8 @@
 import { h, tag, WeElement } from 'omi'
 
 import '../index'
-import * as css from '../style/index'
+import css from '../style/index'
+import common from './common.css'
 const demoCols = [
   Array(12).fill(1),
   Array(6).fill(2),
@@ -10,12 +11,14 @@ const demoCols = [
   Array(2).fill(6),
   Array(1).fill(12),
 ]
+
 @tag('grid-base')
 export default class GridBase extends WeElement {
-  static css = css
+  static css = (css + common) as string
+
   render() {
     return (
-      <div style={{ width: '200px' }}>
+      <>
         {demoCols.map((cols, i) => (
           <t-row>
             {cols.map((col, j) => (
@@ -25,7 +28,7 @@ export default class GridBase extends WeElement {
             ))}
           </t-row>
         ))}
-      </div>
+      </>
     )
   }
 }
