@@ -118,6 +118,13 @@ const metaData = new Map([
       description: '用于承载过多的操作集合，通过下拉拓展的形式，收纳更多的操作。',
     },
   ],
+  [
+    'grid',
+    {
+      title: 'Grid 栅格',
+      description: '栅格是以规则的网格阵列来指导和规范网页中的版面布局以及信息分布，提高界面内布局的一致性，节约成本。',
+    },
+  ],
 ])
 
 const getMetaData = (componentName: string) => {
