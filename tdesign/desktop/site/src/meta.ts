@@ -119,6 +119,21 @@ const metaData = new Map([
     },
   ],
   [
+    'list',
+    {
+      title: 'List 列表',
+      description:
+        '列表用一个连续的列来显示多行元素，常用于具有相同构成及内容的模块批量展示，可承载多样化的信息内容，从纯文字到复杂的图文组合。',
+    },
+  ],
+  [
+    'back-top',
+    {
+      title: 'BackTop 返回顶部',
+      description: '用于返回页面顶部',
+    },
+  ],
+  [
     'grid',
     {
       title: 'Grid 栅格',
