@@ -1,63 +1,54 @@
 import { h, tag, WeElement, OmiProps, classNames, createRef } from 'omi'
 import { ColProps, RowProps } from './type'
-import gridStyle from './style/index'
-import isObject from 'lodash/isObject';
-import { create } from 'lodash';
-type FlexType = number | 'none' | 'auto' | string;
+import isObject from 'lodash/isObject'
+type FlexType = number | 'none' | 'auto' | string
 
 const calcColPadding = (gutter: RowProps['gutter'], currentSize: string) => {
-    const paddingObj = {};
-    if (typeof gutter === 'number') {
+  const paddingObj = {}
+  if (typeof gutter === 'number') {
+    Object.assign(paddingObj, {
+      paddingLeft: `${gutter / 2}px`,
+      paddingRight: `${gutter / 2}px`,
+    })
+  } else if (Array.isArray(gutter) && gutter.length) {
+    if (typeof gutter[0] === 'number') {
       Object.assign(paddingObj, {
-        paddingLeft: `${gutter / 2}px`,
-        paddingRight: `${gutter / 2}px`,
-      });
-    } else if (Array.isArray(gutter) && gutter.length) {
-      if (typeof gutter[0] === 'number') {
-        Object.assign(paddingObj, {
-          paddingLeft: `${gutter[0] / 2}px`,
-          paddingRight: `${gutter[0] / 2}px`,
-        });
-      }
-  
-      if (isObject(gutter[0]) && gutter[0][currentSize]) {
-        Object.assign(paddingObj, {
-          paddingLeft: `${gutter[0][currentSize] / 2}px`,
-          paddingRight: `${gutter[0][currentSize] / 2}px`,
-        });
-      }
-    } else if (isObject(gutter) && gutter[currentSize]) {
-      Object.assign(paddingObj, {
-        paddingLeft: `${gutter[currentSize] / 2}px`,
-        paddingRight: `${gutter[currentSize] / 2}px`,
-      });
+        paddingLeft: `${gutter[0] / 2}px`,
+        paddingRight: `${gutter[0] / 2}px`,
+      })
     }
-    return paddingObj;
-  };
-  
+
+    if (isObject(gutter[0]) && gutter[0][currentSize]) {
+      Object.assign(paddingObj, {
+        paddingLeft: `${gutter[0][currentSize] / 2}px`,
+        paddingRight: `${gutter[0][currentSize] / 2}px`,
+      })
+    }
+  } else if (isObject(gutter) && gutter[currentSize]) {
+    Object.assign(paddingObj, {
+      paddingLeft: `${gutter[currentSize] / 2}px`,
+      paddingRight: `${gutter[currentSize] / 2}px`,
+    })
+  }
+  return paddingObj
+}
+
 const parseFlex = (flex: FlexType) => {
-    if (typeof flex === 'number') {
-        return `${flex} ${flex} auto`;
-    }
+  if (typeof flex === 'number') {
+    return `${flex} ${flex} auto`
+  }
 
-    if (/^\d+(\.\d+)?(px|r?em|%)$/.test(flex)) {
-        return `0 0 ${flex}`;
-    }
+  if (/^\d+(\.\d+)?(px|r?em|%)$/.test(flex)) {
+    return `0 0 ${flex}`
+  }
 
-    return flex;
-};
+  return flex
+}
 
 @tag('t-col')
 export default class Col extends WeElement<ColProps> {
-  static css = gridStyle
-  
-  // install() {
-  //   this.css = getHost(this).constructor.css + this.css
-  //   // console.log(getHost(this));
-  // }
-
-  static defaultProps = { offset: 0, order: 0, pull: 0, push: 0, tag: 'div' };
-
+  static defaultProps = { offset: 0, order: 0, pull: 0, push: 0, tag: 'div' }
+  static isLightDom = true
   static propTypes = {
     flex: [String, Number],
     lg: [Number, Object],
@@ -73,71 +64,51 @@ export default class Col extends WeElement<ColProps> {
     xs: [Number, Object],
     xxl: [Number, Object],
   }
-  inject = [
-    'gutter', 'size'
-  ]
+
+  inject = ['gutter', 'size']
 
   tagRef = createRef()
   render(props: OmiProps<ColProps>) {
-    const {
-        flex,
-        offset,
-        order,
-        pull,
-        push,
-        span,
-        tag,
-        class,
-        children,
-        style,
-        ...otherColProps
-      } = props
+    const { flex, offset, order, pull, push, span, tag } = props
     const classPrefix = 't'
-    const allSizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+    const allSizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']
     const sizeClasses = allSizes.reduce((acc, currSize) => {
-        const sizeProp = props[currSize];
-        let sizeObj: any = {};
-        if (typeof sizeProp === 'number') {
-          sizeObj.span = sizeProp;
-        } else if (isObject(sizeProp)) {
-          sizeObj = sizeProp || {};
-        }
-        return {
-          ...acc,
-          [`${classPrefix}-col-${currSize}-${sizeObj.span}`]: sizeObj.span !== undefined,
-          [`${classPrefix}-col-${currSize}-order-${sizeObj.order}`]: parseInt(sizeObj.order, 10) >= 0,
-          [`${classPrefix}-col-${currSize}-offset-${sizeObj.offset}`]: parseInt(sizeObj.offset, 10) >= 0,
-          [`${classPrefix}-col-${currSize}-push-${sizeObj.push}`]: parseInt(sizeObj.push, 10) >= 0,
-          [`${classPrefix}-col-${currSize}-pull-${sizeObj.pull}`]: parseInt(sizeObj.pull, 10) >= 0,
-        };
-      }, {});
+      const sizeProp = props[currSize]
+      let sizeObj: any = {}
+      if (typeof sizeProp === 'number') {
+        sizeObj.span = sizeProp
+      } else if (isObject(sizeProp)) {
+        sizeObj = sizeProp || {}
+      }
+      return {
+        ...acc,
+        [`${classPrefix}-col-${currSize}-${sizeObj.span}`]: sizeObj.span !== undefined,
+        [`${classPrefix}-col-${currSize}-order-${sizeObj.order}`]: parseInt(sizeObj.order, 10) >= 0,
+        [`${classPrefix}-col-${currSize}-offset-${sizeObj.offset}`]: parseInt(sizeObj.offset, 10) >= 0,
+        [`${classPrefix}-col-${currSize}-push-${sizeObj.push}`]: parseInt(sizeObj.push, 10) >= 0,
+        [`${classPrefix}-col-${currSize}-pull-${sizeObj.pull}`]: parseInt(sizeObj.pull, 10) >= 0,
+      }
+    }, {})
     const colClassNames = classNames(
-        `${classPrefix}-col`,
-        props.class,
-        {
-          [`${classPrefix}-col-${span}`]: span !== undefined,
-          [`${classPrefix}-col-offset-${offset}`]: parseInt(offset as unknown as string, 10) >= 0,
-          [`${classPrefix}-col-pull-${pull}`]: parseInt(pull as unknown as string, 10) >= 0,
-          [`${classPrefix}-col-push-${push}`]: parseInt(push as unknown as string, 10) >= 0,
-          [`${classPrefix}-col-order-${order}`]: parseInt(order as unknown as string, 10) >= 0,
-        },
-        sizeClasses,
-      );
-
-      const colStyle = {
-        ...calcColPadding(this.injection.gutter, this.injection.size),
-        ...style
-      };
-      flex && (colStyle.flex = parseFlex(flex));
-      // this.className = colClassNames
-      // this.style = colStyle
-      // this.rootNode = this.tagRef.current
-    return (
-        <props.tag ref={this.tagRef} class={colClassNames} style={colStyle} {...otherColProps}>
-           {/* <> */}
-          {children}
-          {/* </> */}
-        </props.tag>
+      `${classPrefix}-col`,
+      props.class,
+      {
+        [`${classPrefix}-col-${span}`]: span !== undefined,
+        [`${classPrefix}-col-offset-${offset}`]: parseInt(offset as unknown as string, 10) >= 0,
+        [`${classPrefix}-col-pull-${pull}`]: parseInt(pull as unknown as string, 10) >= 0,
+        [`${classPrefix}-col-push-${push}`]: parseInt(push as unknown as string, 10) >= 0,
+        [`${classPrefix}-col-order-${order}`]: parseInt(order as unknown as string, 10) >= 0,
+      },
+      sizeClasses,
     )
+
+    const colStyle = calcColPadding(this.injection.gutter, this.injection.size)
+    flex && (colStyle['flex'] = parseFlex(flex))
+
+    this.className = colClassNames
+    Object.keys(colStyle).forEach((key) => {
+      this.style[key] = colStyle[key]
+    })
+    return <></>
   }
 }
