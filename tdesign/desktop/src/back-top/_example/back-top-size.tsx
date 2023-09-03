@@ -32,7 +32,7 @@ export default class backTopSize extends WeElement {
   render() {
     return (
       <h.f>
-        <div style="position: relative; min-height:400px">
+        <div style="position: relative;">
           <t-space direction="vertical">
             <t-space size={24}>
               <t-back-top

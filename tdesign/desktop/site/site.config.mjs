@@ -112,14 +112,14 @@ export const docs = [
         //       component: () => import('tdesign-omi/divider/divider.md'),
         //       componentEn: () => import('tdesign-omi/divider/divider.en-US.md'),
       },
-      //     {
-      //       title: 'Grid 栅格',
-      //       titleEn: 'Grid',
-      //       name: 'grid',
-      //       path: '/grid',
-      //       component: () => import('tdesign-omi/grid/grid.md'),
-      //       componentEn: () => import('tdesign-omi/grid/grid.en-US.md'),
-      //     },
+      {
+        title: 'Grid 栅格',
+        titleEn: 'Grid',
+        name: 'grid',
+        path: '/grid',
+        //       component: () => import('tdesign-omi/grid/grid.md'),
+        //       componentEn: () => import('tdesign-omi/grid/grid.en-US.md'),
+      },
       //     {
       //       title: 'Layout 布局',
       //       titleEn: 'Layout',
@@ -159,12 +159,12 @@ export const docs = [
       //       component: () => import('tdesign-omi/anchor/anchor.md'),
       //       componentEn: () => import('tdesign-omi/anchor/anchor.en-US.md'),
       //     },
-          {
-            title: 'BackTop 回到顶部',
-            titleEn: 'BackTop',
-            name: 'back-top',
-            path: '/back-top',
-          },
+      {
+        title: 'BackTop 回到顶部',
+        titleEn: 'BackTop',
+        name: 'back-top',
+        path: '/back-top',
+      },
       //     {
       //       title: 'Breadcrumb 面包屑',
       //       titleEn: 'Breadcrumb',
@@ -471,12 +471,12 @@ export const docs = [
       //       component: () => import('tdesign-omi/image-viewer/image-viewer.md'),
       //       componentEn: () => import('tdesign-omi/image-viewer/image-viewer.en-US.md'),
       //     },
-          {
-            title: 'List 列表',
-            titleEn: 'List',
-            name: 'list',
-            path: '/list',
-          },
+      {
+        title: 'List 列表',
+        titleEn: 'List',
+        name: 'list',
+        path: '/list',
+      },
       //     {
       //       title: 'Loading 加载',
       //       titleEn: 'Loading',

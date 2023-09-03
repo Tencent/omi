@@ -181,7 +181,7 @@
     }
     function idiff(dom, vnode, component, updateSelf) {
         if (dom && vnode && dom.props) dom.props.children = vnode.children;
-        var out = dom, prevSvgMode = isSvgMode;
+        var out = dom, prevSvgMode = isSvgMode, prevForeignObject = isForeignObject;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         if ('string' == typeof vnode || 'number' == typeof vnode) {
             if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || component)) {
@@ -202,10 +202,11 @@
             vnode.nodeName = key;
             break;
         }
-        isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
+        isForeignObject = 'foreignObject' === vnodeName;
+        isSvgMode = 'svg' === vnodeName ? !0 : isForeignObject ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
-            out = createNode(vnodeName, isSvgMode);
+            out = createNode(vnodeName, isForeignObject || isSvgMode);
             if (dom) {
                 while (dom.firstChild) out.appendChild(dom.firstChild);
                 if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
@@ -223,6 +224,7 @@
         diffAttributes(out, vnode.attributes, props, component, updateSelf);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
+        isForeignObject = prevForeignObject;
         return out;
     }
     function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
@@ -279,15 +281,15 @@
         var oldClone;
         if (dom.receiveProps) oldClone = Object.assign({}, old);
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
-            setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode, component);
+            setAccessor(dom, name, old[name], old[name] = void 0, isForeignObject || isSvgMode, component);
             if (isWeElement) delete dom.props[name];
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name] && 'ref' !== name) {
-            if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
+            if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isForeignObject || isSvgMode, component);
             var ccName = camelCase(name);
             dom.props[ccName] = old[ccName] = attrs[name];
         } else if (!('children' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
-            setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
+            setAccessor(dom, name, old[name], attrs[name], isForeignObject || isSvgMode, component);
             if (-1 !== dom.nodeName.indexOf('-')) {
                 dom.props = dom.props || {};
                 var _ccName = camelCase(name);
@@ -456,6 +458,7 @@
     var extension = {};
     var diffLevel = 0;
     var isSvgMode = !1;
+    var isForeignObject = !1;
     var hydrating = !1;
     !function(self) {
         function isObject(x) {
@@ -1013,7 +1016,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.19';
+    options.root.Omi.version = '6.25.20';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

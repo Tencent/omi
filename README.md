@@ -24,7 +24,6 @@ render(<hello-world msg='World' />, 'body')
 ```
 
 * [💯Omi Tutorial and Playground](https://omi.cdn-go.cn/play/latest/index.html)
-* [💯Omi Admin by Omiu](https://omi.cdn-go.cn/admin/latest/index.html)
 
 
 ## Why Omi?
@@ -59,57 +58,6 @@ $ cd my-app
 $ npm start           # develop
 $ npm run build       # release
 ```
-
-## Examples
-
-
-| **Project**                         | **Description**                           |
-| ------------------------------- | ----------------------------------- |
-| [snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/snake/dist/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
-|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| Making sure frameworks and custom elements can be BFFs 🍻 |
-| [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
-| [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
-| [omi-chart](https://github.com/Tencent/omi/tree/v6/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
-| [md2site](https://tencent.github.io/omi/assets/md2site/)| Static Site Generator with markdown powered by Omio.|
-| [omi-30-seconds](https://github.com/Tencent/omi/tree/v6/packages/omi-30-seconds)| Useful Omi snippets that you can understand in 30 seconds.|
-| [omi-canvas](https://github.com/Tencent/omi/tree/v6/packages/omi-canvas)| Perfect fusion of web components, jsx and canvas.|
-| [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
-| [omi-vscode](https://github.com/ZainChen/omi-vscode)| VSCode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
-| [omi-ex](https://github.com/Tencent/omi/tree/v6/packages/omi-ex)| Omi.js extension(TypeScript) |
-| [omi-transform](https://github.com/Tencent/omi/tree/v6/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
-| [omi-finger](https://github.com/Tencent/omi/tree/v6/packages/omi-finger)|Support touch and gesture events in your Omi project.|
-| [omi-touch](https://github.com/Tencent/omi/tree/v6/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
-| [omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
-| [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
-| [omi-cv](https://github.com/Wscats/CV) |Create a front-end engineer curriculum vitae, [Get Started!](http://wscats.github.io/CV/omi/build/index.html)|
-
-## Useful Resources
-
-| **Title Name**  | **Other language** | **Related**|
-| ----------------------------------------- | ------------------ |-----------------|
-|[Web Components bookmarks](https://www.notion.so/Web-Components-bookmarks-64066078f891433dbc74997dc4d64302)|||
-|[Snake-Eating Game Making with Web Components of Omi and MVP Architecture](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.md)|||
-|[Constructable Stylesheets: seamless reusable styles](https://developers.google.com/web/updates/2019/02/constructable-stylesheets)|||
-|[Web Components specifications](https://github.com/w3c/webcomponents)|||
-|[Web Components in a Nutshell](https://levelup.gitconnected.com/web-components-in-a-nutshell-1e114aa971b9)|||
-|[Using Web Components with React in 2019](https://www.grapecity.com/blogs/using-web-components-with-react-2019)|||
-|[Using Web Components in React](https://coryrylan.com/blog/using-web-components-in-react)|||
-|[Styling We Components Using A Shared Style Sheet](https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/)|
-|[Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)||
-|[Develop W3C Web Components with WebAssembly](https://medium.com/coinmonks/develop-w3c-web-components-with-webassembly-d65938284255)||
-| [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
-| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)|  [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)|
-|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
-|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
-|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
-|  [Web Components Org](https://www.webcomponents.org/introduction)|
-|  [Web Components: the Right Way](https://github.com/mateusortiz/webcomponents-the-right-way)|
-|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
-|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
-|  [Platform HTML5](https://platform.html5.org/)|
-| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)|
-|[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
-|[slotted](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::slotted)||
 
 <!-- 
 # Overview of the Readme
@@ -258,6 +206,59 @@ We very much welcome developers to contribute to Tencent's open source, and we w
 
 
 Please contact us for any questions. 
+
+
+
+## Examples
+
+
+| **Project**                         | **Description**                           |
+| ------------------------------- | ----------------------------------- |
+| [snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/snake) & [→ Touch the demo](https://tencent.github.io/omi/packages/snake/dist/index.html)| The Snake-Eating Game Based on MVP Architecture Written by Omi |
+|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| Making sure frameworks and custom elements can be BFFs 🍻 |
+| [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Build piano with Omi and Omi Snippets, [Enjoy now!](https://wscats.github.io/piano/build/)|
+| [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
+| [omi-chart](https://github.com/Tencent/omi/tree/v6/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
+| [md2site](https://tencent.github.io/omi/assets/md2site/)| Static Site Generator with markdown powered by Omio.|
+| [omi-30-seconds](https://github.com/Tencent/omi/tree/v6/packages/omi-30-seconds)| Useful Omi snippets that you can understand in 30 seconds.|
+| [omi-canvas](https://github.com/Tencent/omi/tree/v6/packages/omi-canvas)| Perfect fusion of web components, jsx and canvas.|
+| [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
+| [omi-vscode](https://github.com/ZainChen/omi-vscode)| VSCode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
+| [omi-ex](https://github.com/Tencent/omi/tree/v6/packages/omi-ex)| Omi.js extension(TypeScript) |
+| [omi-transform](https://github.com/Tencent/omi/tree/v6/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
+| [omi-finger](https://github.com/Tencent/omi/tree/v6/packages/omi-finger)|Support touch and gesture events in your Omi project.|
+| [omi-touch](https://github.com/Tencent/omi/tree/v6/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
+| [omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
+| [omie](https://github.com/Wscats/omi-electron) |Build cross platform desktop apps with Omi.js and Electron.js|
+| [omi-cv](https://github.com/Wscats/CV) |Create a front-end engineer curriculum vitae, [Get Started!](http://wscats.github.io/CV/omi/build/index.html)|
+
+## Useful Resources
+
+| **Title Name**  | **Other language** | **Related**|
+| ----------------------------------------- | ------------------ |-----------------|
+|[Web Components bookmarks](https://www.notion.so/Web-Components-bookmarks-64066078f891433dbc74997dc4d64302)|||
+|[Snake-Eating Game Making with Web Components of Omi and MVP Architecture](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.md)|||
+|[Constructable Stylesheets: seamless reusable styles](https://developers.google.com/web/updates/2019/02/constructable-stylesheets)|||
+|[Web Components specifications](https://github.com/w3c/webcomponents)|||
+|[Web Components in a Nutshell](https://levelup.gitconnected.com/web-components-in-a-nutshell-1e114aa971b9)|||
+|[Using Web Components with React in 2019](https://www.grapecity.com/blogs/using-web-components-with-react-2019)|||
+|[Using Web Components in React](https://coryrylan.com/blog/using-web-components-in-react)|||
+|[Styling We Components Using A Shared Style Sheet](https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/)|
+|[Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)||
+|[Develop W3C Web Components with WebAssembly](https://medium.com/coinmonks/develop-w3c-web-components-with-webassembly-d65938284255)||
+| [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)|  [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)|
+|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
+|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
+|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+|  [Web Components Org](https://www.webcomponents.org/introduction)|
+|  [Web Components: the Right Way](https://github.com/mateusortiz/webcomponents-the-right-way)|
+|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
+|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+|  [Platform HTML5](https://platform.html5.org/)|
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)|
+|[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
+|[slotted](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::slotted)||
 
 
 ## License
