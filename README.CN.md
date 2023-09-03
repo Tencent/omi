@@ -24,10 +24,7 @@ render(<hello-world msg='World' />, 'body')
 ```
 
 * [💯Omi 教程和游乐场](https://omi.cdn-go.cn/play/latest/index.html)
-* [💯国内加速访问 Omi Admin](https://omi.cdn-go.cn/admin/latest/index.html)
-
-
-[→ Omi 学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
+* [→ Omi 学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
 
 ### 特性
 
@@ -67,31 +64,6 @@ $ npm run build       # 编译发布
 ```
 
 > `npx omi-cli init-component my-component` 也支持(要求 npm v5.2.0+)
-
-
-### 一些例子
-
-| **项目**                         | **描述**                           |
-| ------------------------------- | ----------------------------------- |
-| [snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
-| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5  |
-|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| 框架和自定义元素无缝工作 |
-| [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Omi 钢琴, [开始演奏吧!](https://wscats.github.io/piano/build/)|
-| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
-| [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
-| [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
-| [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
-| [omi-vscode](https://github.com/ZainChen/omi-vscode)| VSCode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
-| [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
-| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
-| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
-| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi 项目中变得超级简单.|
-| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
-| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
-| [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
-|[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
-| [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
 
 
 ### TypeScript 里用法
@@ -198,27 +170,6 @@ export default class oButton extends WeElement<ButtonProps> {
 
 <img src="./assets/ts.png" alt="omi" width="427"/>
 
-## 必须收藏的资源
-
-* [使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.cn.md)
-* [Web Components 规范](https://github.com/w3c/webcomponents)
-* [如何通过小程序实现跨平台开发](https://developers.weixin.qq.com/community/develop/article/doc/00002cda45c930d87a380a74351813)
-* [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
-* [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)
-* [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
-* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
-* [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
-* [Platform HTML5](https://platform.html5.org/)
-* [Web Components 的力量](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)
-* [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
-* [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
-* [Web Components中引入外部CSS的3种方法](https://www.zhangxinxu.com/wordpress/2021/02/web-components-import-css/)
----
 
 <!-- 
 # 目录
@@ -259,6 +210,51 @@ Omi适用于所有主要浏览器的最新两个版本:
 
 感谢所有贡献者，欢迎更多人加入一起贡献。
 
+### 一些例子
+
+| **项目**                         | **描述**                           |
+| ------------------------------- | ----------------------------------- |
+| [snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/snake)| omi 写的 MVP 架构的贪吃蛇游戏 |
+| [omi-kbone-snake![](https://dntzhang.github.io/cax/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-kbone)| omi-kbone 写的 MVP 架构的跨端贪吃蛇游戏，支持小程序和 H5  |
+|[custom-elements-everywhere](https://custom-elements-everywhere.com/)| 框架和自定义元素无缝工作 |
+| [omi-piano![](https://dntzhang.github.io/cax/asset/hot.png)](https://github.com/Wscats/piano) |Omi 钢琴, [开始演奏吧!](https://wscats.github.io/piano/build/)|
+| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
+| [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
+| [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
+| [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
+| [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
+| [omi-vscode](https://github.com/ZainChen/omi-vscode)| VSCode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
+| [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
+| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
+| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
+| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi 项目中变得超级简单.|
+| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
+| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
+| [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
+|[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
+| [omie](https://github.com/Wscats/omi-electron) | Omi.js 和 Electron.js 打造跨平台桌面应用 |
+
+
+## 必须收藏的资源
+
+* [使用 MVP 架构和 Web Components(Omi) 开发贪吃蛇](https://github.com/Tencent/omi/blob/master/tutorial/omi-web-components-snake-game-mvp.cn.md)
+* [Web Components 规范](https://github.com/w3c/webcomponents)
+* [如何通过小程序实现跨平台开发](https://developers.weixin.qq.com/community/develop/article/doc/00002cda45c930d87a380a74351813)
+* [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
+* [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)
+* [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
+* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
+* [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
+* [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+* [Platform HTML5](https://platform.html5.org/)
+* [Web Components 的力量](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)
+* [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
+* [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
+* [Web Components中引入外部CSS的3种方法](https://www.zhangxinxu.com/wordpress/2021/02/web-components-import-css/)
 
 ## License
 
