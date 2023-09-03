@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.19  http://omijs.org
+ * Omi v6.25.20  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -391,7 +391,7 @@ var diffLevel = 0;
 
 /** Global flag indicating if the diff is currently within an SVG */
 var isSvgMode = false;
-
+var isForeignObject = false;
 /** Global flag indicating if the diff is performing hydration */
 var hydrating = false;
 
@@ -462,7 +462,8 @@ function idiff(dom, vnode, component, updateSelf) {
     dom.props.children = vnode.children;
   }
   var out = dom,
-      prevSvgMode = isSvgMode;
+      prevSvgMode = isSvgMode,
+      prevForeignObject = isForeignObject;
 
   // empty values (null, undefined, booleans) render as empty Text nodes
   if (vnode == null || typeof vnode === 'boolean') vnode = '';
@@ -501,12 +502,14 @@ function idiff(dom, vnode, component, updateSelf) {
     }
   }
   // Tracks entering and exiting SVG namespace when descending through the tree.
-  isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
+  isForeignObject = vnodeName === 'foreignObject';
+  isSvgMode = vnodeName === 'svg' ? true : isForeignObject ? false : isSvgMode;
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName);
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode);
+    // foreignObject 自身 isSvgMode 设置成 true，内部设置成 false
+    out = createNode(vnodeName, isForeignObject || isSvgMode);
 
     if (dom) {
       // move children into the replacement node
@@ -551,7 +554,7 @@ function idiff(dom, vnode, component, updateSelf) {
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode;
-
+  isForeignObject = prevForeignObject;
   return out;
 }
 
@@ -699,7 +702,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
-      setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode, component);
+      setAccessor(dom, name, old[name], old[name] = undefined, isForeignObject || isSvgMode, component);
       if (isWeElement) {
         delete dom.props[name];
         //update = true
@@ -711,13 +714,13 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
   for (name in attrs) {
     if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
-        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode, component);
+        setAccessor(dom, name, old[name], old[name] = attrs[name], isForeignObject || isSvgMode, component);
       }
       var ccName = camelCase(name);
       dom.props[ccName] = old[ccName] = attrs[name];
       //update = true
     } else if (name !== 'children' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-      setAccessor(dom, name, old[name], attrs[name], isSvgMode, component);
+      setAccessor(dom, name, old[name], attrs[name], isForeignObject || isSvgMode, component);
       //fix lazy load props missing
       if (dom.nodeName.indexOf('-') !== -1) {
         dom.props = dom.props || {};
@@ -1728,7 +1731,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.19';
+options.root.Omi.version = '6.25.20';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

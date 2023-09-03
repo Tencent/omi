@@ -12,7 +12,7 @@ export let diffLevel = 0
 
 /** Global flag indicating if the diff is currently within an SVG */
 let isSvgMode = false
-
+let isForeignObject = false
 /** Global flag indicating if the diff is performing hydration */
 let hydrating = false
 
@@ -83,7 +83,8 @@ function idiff(dom, vnode, component, updateSelf) {
     dom.props.children = vnode.children
   }
   let out = dom,
-    prevSvgMode = isSvgMode
+    prevSvgMode = isSvgMode,
+    prevForeignObject = isForeignObject
 
   // empty values (null, undefined, booleans) render as empty Text nodes
   if (vnode == null || typeof vnode === 'boolean') vnode = ''
@@ -127,17 +128,19 @@ function idiff(dom, vnode, component, updateSelf) {
     }
   }
   // Tracks entering and exiting SVG namespace when descending through the tree.
+  isForeignObject = vnodeName === 'foreignObject'
   isSvgMode =
     vnodeName === 'svg'
       ? true
-      : vnodeName === 'foreignObject'
+      : isForeignObject
       ? false
       : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
   if (!dom || !isNamedNode(dom, vnodeName)) {
-    out = createNode(vnodeName, isSvgMode)
+    // foreignObject 自身 isSvgMode 设置成 true，内部设置成 false
+    out = createNode(vnodeName, isForeignObject || isSvgMode)
 
     if (dom) {
       // move children into the replacement node
@@ -195,7 +198,7 @@ function idiff(dom, vnode, component, updateSelf) {
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
-
+  isForeignObject = prevForeignObject
   return out
 }
 
@@ -363,7 +366,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
         name,
         old[name],
         (old[name] = undefined),
-        isSvgMode,
+        isForeignObject || isSvgMode,
         component
       )
       if (isWeElement) {
@@ -382,7 +385,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
           name,
           old[name],
           (old[name] = attrs[name]),
-          isSvgMode,
+          isForeignObject || isSvgMode,
           component
         )
       }
@@ -395,7 +398,7 @@ function diffAttributes(dom, attrs, old, component, updateSelf) {
         attrs[name] !==
           (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
-      setAccessor(dom, name, old[name], attrs[name], isSvgMode, component)
+      setAccessor(dom, name, old[name], attrs[name], isForeignObject || isSvgMode, component)
       //fix lazy load props missing
       if (dom.nodeName.indexOf('-') !== -1) {
         dom.props = dom.props || {}
