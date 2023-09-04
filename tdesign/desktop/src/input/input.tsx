@@ -1,5 +1,5 @@
 import { h, OmiProps, tag, WeElement, render, classNames } from 'omi'
-import { InputProps } from './types'
+import { InputProps } from './type'
 import styles from './sytle'
 import { TdClassNamePrefix } from '../../src/utils'
 
@@ -10,7 +10,7 @@ export default class Input extends WeElement<InputProps> {
   static css = styles
 
   render(props: InputProps, store: any) {
-    const { autofocus, disabled, readOnly, showClearIconOnEmpty, align, size, status, type, autoWidth } = props
+    const { autofocus, disabled, readonly, showClearIconOnEmpty, align, size, status, type, autoWidth } = props
     const { placeholder, value, tips, autocomplete } = props
     const { onChange } = props
 
@@ -26,7 +26,7 @@ export default class Input extends WeElement<InputProps> {
           >
             <div
               class={classNames('t-input', TdClassNamePrefix(`is-${curStatus}`), TdClassNamePrefix(`align-${align}`), {
-                [TdClassNamePrefix(`is-readonly`)]: readOnly,
+                [TdClassNamePrefix(`is-readonly`)]: readonly,
                 [TdClassNamePrefix(`is-disabled`)]: disabled,
               })}
             >
@@ -34,7 +34,7 @@ export default class Input extends WeElement<InputProps> {
                 autocomplete={autocomplete}
                 autofocus={autofocus}
                 disabled={disabled}
-                readonly={readOnly}
+                readonly={readonly}
                 placeholder={placeholder || '请输入'}
                 type={type || 'text'}
                 class={InputClassNamePrefix('__inner')}
