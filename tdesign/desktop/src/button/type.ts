@@ -1,9 +1,5 @@
 import { SizeEnum, TElement, TNode } from '../common'
 
-export type ButtonTheme = 'default' | 'primary' | 'danger' | 'warning' | 'success'
-export type ButtonVariant = 'base' | 'outline' | 'dashed' | 'text'
-export type ButtonShape = 'rectangle' | 'square' | 'round' | 'circle'
-
 export type ButtonProps = {
   /**
    * 是否为块级元素

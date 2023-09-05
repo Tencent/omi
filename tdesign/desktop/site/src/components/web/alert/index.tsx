@@ -1,7 +1,7 @@
 import { define, OmiProps, h, render, WeElement } from 'omi'
-import "../../../../../src/alert/index"
-import { ButtonShape, ButtonTheme, ButtonVariant } from '@src/button/types';
-import { SizeEnum } from '@src/common';
+import '../../../../../src/alert/index'
+import { ButtonShape, ButtonTheme, ButtonVariant } from '@src/button/type'
+import { SizeEnum } from '@src/common'
 
 import * as marked from 'marked'
 
@@ -24,52 +24,59 @@ onClose |	Function |-	|	TS 类型：(context: { e: MouseEvent }) => void 关闭�
 onClosed |	Function | - |	TS 类型：(context: { e: TransitionEvent }) => void 告警提示框关闭动画结束后触发 |	N
 `)
 
-
 const operation = <span>相关操作</span>
 
-define('page-alert', class extends WeElement {
-
-  render(props: {} | OmiProps<{}, any>, store: any) {
-    return (
-      <div style="padding:24px">
-        <div style="display:flex;">
-          <div direction="vertical" style="width:100%">
-            <t-alert style="margin-bottom:16px" theme="info" message="这是一条消息" />
-            <t-alert style="margin-bottom:16px" theme="success" message="这是一条消息" />
-            <t-alert style="margin-bottom:16px" theme="warning" message="这是一条消息" />
-            <t-alert style="margin-bottom:16px" theme="error" message="这是一条消息" />
+define(
+  'page-alert',
+  class extends WeElement {
+    render(props: {} | OmiProps<{}, any>, store: any) {
+      return (
+        <div style="padding:24px">
+          <div style="display:flex;">
+            <div direction="vertical" style="width:100%">
+              <t-alert style="margin-bottom:16px" theme="info" message="这是一条消息" />
+              <t-alert style="margin-bottom:16px" theme="success" message="这是一条消息" />
+              <t-alert style="margin-bottom:16px" theme="warning" message="这是一条消息" />
+              <t-alert style="margin-bottom:16px" theme="error" message="这是一条消息" />
+            </div>
           </div>
-        </div>
 
-        <div direction="vertical" style="width:100%">
-          <t-alert operation={operation} title="这是一条普通的消息提示" style="margin-bottom:16px" theme="info" message="这是一条普通的消息提示描述，这是一条普通的消息提示描述" close />
-          <t-alert operation={operation} style="margin-bottom:16px" theme="success" message="这是一条消息" close />
-          <t-alert operation={operation} style="margin-bottom:16px" theme="warning" message="这是一条消息" close />
-          <t-alert operation={operation} style="margin-bottom:16px" theme="error" message="这是一条消息" close />
-        </div>
+          <div direction="vertical" style="width:100%">
+            <t-alert
+              operation={operation}
+              title="这是一条普通的消息提示"
+              style="margin-bottom:16px"
+              theme="info"
+              message="这是一条普通的消息提示描述，这是一条普通的消息提示描述"
+              close
+            />
+            <t-alert operation={operation} style="margin-bottom:16px" theme="success" message="这是一条消息" close />
+            <t-alert operation={operation} style="margin-bottom:16px" theme="warning" message="这是一条消息" close />
+            <t-alert operation={operation} style="margin-bottom:16px" theme="error" message="这是一条消息" close />
+          </div>
 
-        <div direction="vertical" style="width:100%">
-          <t-alert
-            title="这是一条普通的消息提示"
-            style="margin-bottom:16px" theme="info" message={
-              [
+          <div direction="vertical" style="width:100%">
+            <t-alert
+              title="这是一条普通的消息提示"
+              style="margin-bottom:16px"
+              theme="info"
+              message={[
                 '1.这是一条普通的消息提示描述，',
                 '2.这是一条普通的消息提示描述，',
                 '3.这是一条普通的消息提示描述，',
                 '4.这是一条普通的消息提示描述，',
                 '5.这是一条普通的消息提示描述，',
-              ]
-            }
-            maxLine={2}
-            close
-            onClose={() => console.log('1')}
-            onClosed={() => console.log('2')}
-          />
+              ]}
+              maxLine={2}
+              close
+              onClose={() => console.log('1')}
+              onClosed={() => console.log('2')}
+            />
+          </div>
+
+          <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
         </div>
-
-        <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
-
-      </div>
-    );
-  }
-})
+      )
+    }
+  },
+)
