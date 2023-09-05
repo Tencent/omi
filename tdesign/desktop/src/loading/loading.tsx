@@ -5,7 +5,7 @@ import './gradient'
 import css from './style/index'
 
 @tag('t-loading')
-export default class Link extends WeElement<LoadingProps> {
+export default class Loading extends WeElement<LoadingProps> {
   static css = css as string
 
   static defaultProps = {
@@ -25,7 +25,7 @@ export default class Link extends WeElement<LoadingProps> {
     content: Object,
     delay: Number,
     fullscreen: Boolean,
-    indicator: Object,
+    indicator: [Boolean, Object],
     inheritColor: Boolean,
     loading: Boolean,
     preventScrollThrough: Boolean,
@@ -36,7 +36,7 @@ export default class Link extends WeElement<LoadingProps> {
   }
 
   timer: ReturnType<typeof setTimeout>
-  showLoading: Boolean = false
+  showLoading: Boolean
   componentName = TdClassNamePrefix('loading')
   lockClass = `${this.componentName}--lock`
   textClass = `${this.componentName}__text`
@@ -46,16 +46,20 @@ export default class Link extends WeElement<LoadingProps> {
   fullscreenClass = `${this.componentName}__fullscreen`
   overlayClass = `${this.componentName}__overlay`
   relativeClass = `${this.componentName}__parent`
+  flag = false
 
   setTimer = () => {
     const { delay, loading } = this.props
-    this.showLoading = delay ? false : loading
     if (delay && loading) {
       this.timer = setTimeout(() => {
         this.showLoading = loading
+        this.flag = true
+        this.update()
       }, delay)
     } else {
       this.showLoading = loading
+      this.flag = true
+      this.update()
     }
   }
 
@@ -66,8 +70,15 @@ export default class Link extends WeElement<LoadingProps> {
     }
   }
 
-  install() {
-    this.setTimer()
+  beforeUpdate() {
+    if (this.props.loading === true && this.flag === false) {
+      this.setTimer()
+    }
+    if (this.flag === false || this.props.loading === false) {
+      this.showLoading = this.props.delay ? false : this.props.loading
+    } else {
+      this.flag = false
+    }
     this.setBodyClass()
   }
 
@@ -120,7 +131,6 @@ export default class Link extends WeElement<LoadingProps> {
       showLoading,
     } = this
     const { fullscreen, content, children, loading, showOverlay } = props
-
     const loadingStyle = this.calcStyles()
 
     const baseClasses = classNames(

@@ -142,7 +142,7 @@
     "markdown-it-anchor": "^8.1.0",
     "marked": "^7.0.2",
     "mitt": "^3.0.1",
-    "omi": "^6.25.18",
+    "omi": "^6.25.20",
     "omi-router": "^3.0.5",
     "omi-twind": "^0.0.4",
     "prismjs": "^1.24.0",

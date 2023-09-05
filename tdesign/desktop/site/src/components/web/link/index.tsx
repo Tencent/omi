@@ -67,7 +67,8 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }
@@ -172,9 +173,7 @@ define(
             <h3 id="不同尺寸的链接">
               不同尺寸的链接 <a class="header-anchor" href="#不同尺寸的链接"></a>
             </h3>
-            <p>
-              提供大、中（默认）、小三种尺寸。
-            </p>
+            <p>提供大、中（默认）、小三种尺寸。</p>
             <demo-wrapper>
               <link-size></link-size>
             </demo-wrapper>

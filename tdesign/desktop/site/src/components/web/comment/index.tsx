@@ -60,7 +60,8 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }

@@ -89,7 +89,6 @@ export default class Row extends WeElement<RowProps> {
     const currentSize = calcSize(window.innerWidth)
     if (currentSize !== this.size) {
       this.size = currentSize
-      console.log('newSize: ', this.size)
       // this.update()
     }
   }

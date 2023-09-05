@@ -92,7 +92,8 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }
@@ -101,32 +102,30 @@ define(
       return (
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
-          
+
           <div style={this.isShow('demo')} name="DEMO">
-          <td-doc-usage
-            language="markup"
-            panel="textarea"
-            code='<t-textarea
+            <td-doc-usage
+              language="markup"
+              panel="textarea"
+              code='<t-textarea
   allowInputOverMax={false}
   autofocus={false}
   autosize={false}
   placeholder="请输入内容"
   readonly={false}
 />'
-          >
-            <div slot="textarea" style="width: 100%; display: flex; align-items: center; justify-content: center;">
-              <t-textarea placeholder="请输入内容" style="width: 100%;"></t-textarea>
-            </div>
-          </td-doc-usage>
-
-
+            >
+              <div slot="textarea" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                <t-textarea placeholder="请输入内容" style="width: 100%;"></t-textarea>
+              </div>
+            </td-doc-usage>
 
             <h3 id="基本多行文本框">
               基本多行文本框 <a class="header-anchor" href="#基本多行文本框"></a>
             </h3>
             <p>用于多行文本的输入。</p>
-            <td-doc-demo 
-            code='import { OmiProps, WeElement, h, tag, render } from "omi"
+            <td-doc-demo
+              code='import { OmiProps, WeElement, h, tag, render } from "omi"
 import "../index"
 
 @tag("textarea-base")
@@ -138,21 +137,23 @@ export default class TextareaBase extends WeElement{
       <t-textarea placeholder="请输入文案，高度可自适应，最小3行，最大5行；autosize={minRows: 3, maxRows: 5}" autosize={{minRows: 3, maxRows: 5}}></t-textarea>
     </h.f>
   }
-}' language="jsx" mode="auto">
-            <div class='tdesign-demo-item__body'>
-              <div style="width: 100%;">
-                <textarea-base></textarea-base>
+}'
+              language="jsx"
+              mode="auto"
+            >
+              <div class="tdesign-demo-item__body">
+                <div style="width: 100%;">
+                  <textarea-base></textarea-base>
+                </div>
               </div>
-            </div>
             </td-doc-demo>
 
-
-            
             <h3 id="限制最大字符数">
               限制最大字符数 <a class="header-anchor" href="#限制最大字符数"></a>
             </h3>
             <p>用于多行文本的输入。</p>
-            <td-doc-demo code='import { OmiProps, WeElement, h, tag, render } from "omi"
+            <td-doc-demo
+              code='import { OmiProps, WeElement, h, tag, render } from "omi"
 
 import "../index"
 import "../../space/index"
@@ -169,14 +170,16 @@ export default class TextareaLimit extends WeElement{
     </h.f>
     
   }
-}' language="jsx" mode="auto">   
-              <div class='tdesign-demo-item__body'>
+}'
+              language="jsx"
+              mode="auto"
+            >
+              <div class="tdesign-demo-item__body">
                 <div style="width: 100%;">
                   <textarea-limit></textarea-limit>
                 </div>
               </div>
             </td-doc-demo>
-
 
             <h3 id="绑定 DOM 事件">
               绑定 DOM 事件 <a class="header-anchor" href="#绑定 DOM 事件"></a>
@@ -187,7 +190,7 @@ export default class TextareaLimit extends WeElement{
             </p>
 
             <td-doc-demo
-            code='import { OmiProps, WeElement, h, tag, render} from "omi"
+              code='import { OmiProps, WeElement, h, tag, render} from "omi"
 import "../index"
 
 @tag("textarea-event")
@@ -231,9 +234,11 @@ export default class TextareaEvent extends WeElement {
       </h.f>
     )
   }
-}' language="jsx" mode="auto">
-
-              <div class='tdesign-demo-item__body'>
+}'
+              language="jsx"
+              mode="auto"
+            >
+              <div class="tdesign-demo-item__body">
                 <div style="width: 100%;">
                   <textarea-event></textarea-event>
                 </div>
@@ -245,8 +250,8 @@ export default class TextareaEvent extends WeElement {
             </h3>
             <p>支持只读、禁用状态。</p>
 
-            <td-doc-demo 
-            code='import { OmiProps, WeElement, h, tag, render } from "omi"
+            <td-doc-demo
+              code='import { OmiProps, WeElement, h, tag, render } from "omi"
 
 import "../index"
 import "../../space/index"
@@ -267,8 +272,10 @@ export default class TextareaStatus extends WeElement{
     </h.f>
   }
 }'
-            language="jsx" mode="auto">
-              <div class='tdesign-demo-item__body'>
+              language="jsx"
+              mode="auto"
+            >
+              <div class="tdesign-demo-item__body">
                 <div style="width: 100%;">
                   <textarea-status></textarea-status>
                 </div>

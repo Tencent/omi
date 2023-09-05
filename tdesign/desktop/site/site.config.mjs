@@ -477,14 +477,14 @@ export const docs = [
         name: 'list',
         path: '/list',
       },
-      //     {
-      //       title: 'Loading 加载',
-      //       titleEn: 'Loading',
-      //       name: 'loading',
-      //       path: '/loading',
-      //       component: () => import('tdesign-omi/loading/loading.md'),
-      //       componentEn: () => import('tdesign-omi/loading/loading.en-US.md'),
-      //     },
+      {
+        title: 'Loading 加载',
+        titleEn: 'Loading',
+        name: 'loading',
+        path: '/loading',
+        //       component: () => import('tdesign-omi/loading/loading.md'),
+        //       componentEn: () => import('tdesign-omi/loading/loading.en-US.md'),
+      },
       //     {
       //       title: 'Progress 进度条',
       //       titleEn: 'Progress',
