@@ -27,6 +27,7 @@ const components = [
   'list',
   'back-top',
   'grid',
+  'loading',
   'avatar',
 ]
 

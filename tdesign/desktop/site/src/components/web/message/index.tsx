@@ -1,7 +1,11 @@
 import { define, OmiProps, h, render, WeElement, createRef } from 'omi'
+<<<<<<< HEAD
+import '../../../../../src/message/index'
+=======
 import "../../../../../src/message/index"
 import "../../../../../src/message/_example/close"
 import "../../../../../src/message/_example/closeAll"
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
 import '../../../../../src/space/index'
 import '../../../../../src/button/index'
 
@@ -26,17 +30,21 @@ onCloseBtnClick |	Function ||	TS 类型：(context: { e: MouseEvent }) => void �
 onDurationEnd |	Function ||	TS 类型：() => void 计时结束后触发 | 	N
 `)
 
+<<<<<<< HEAD
+const list: any = []
+=======
 const list:any = [];
 let flag:number = 0;
 let messageClose = document.querySelector("body > message-close").shadowRoot.querySelector("t-message")
 let messageAll = document.querySelector("body > message-close-all").shadowRoot.querySelector("t-space")
 let body = document.querySelector("body")
 
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
 interface Props {
   tab: string
 }
 define(
-  'page-message', 
+  'page-message',
   class extends WeElement<Props> {
     static defaultProps = {
       tab: 'demo',
@@ -60,11 +68,14 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }
 
+<<<<<<< HEAD
+=======
 
     closeToggle=()=>{
       if(flag===1){
@@ -82,12 +93,13 @@ define(
     closeAll = () =>{
 
     }
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
     render(props: {} | OmiProps<{}, any>, store: any) {
       return (
         <>
-        <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
-        <div style="padding:24px">
-          <h2>Message全局提示</h2>
+          <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
+          <div style="padding:24px">
+            <h2>Message全局提示</h2>
             <demo-wrapper>
               <t-space direction="vertical" size="large">
                 <t-message theme="info" content="This is my info" />
@@ -96,8 +108,8 @@ define(
                 <t-message theme="error" content="This is my error" />
               </t-space>
             </demo-wrapper>
-          
-          <h2>带关闭按钮的全局提示</h2>
+
+            <h2>带关闭按钮的全局提示</h2>
             <demo-wrapper>
               <t-space direction="vertical" size="large">
                 <t-message theme="info" content="This is my info" closeBtn />
@@ -106,18 +118,18 @@ define(
                 <t-message theme="error" content="This is my error" closeBtn />
               </t-space>
             </demo-wrapper>
-          
-          <h2>加载相应时间自动关闭</h2>
+
+            <h2>加载相应时间自动关闭</h2>
             <demo-wrapper>
-                <t-space direction="vertical" size="large">
-                  <t-message duration={3000} theme="info" content="This is my info (3s)" />
-                  <t-message duration={5000} theme="success" content="This is my success (5s)" />
-                  <t-message duration={8000} theme="warning" content="This is my warning (8s)" />
-                  <t-message duration={10000} theme="error" content="This is my error (10s)" />
-                </t-space>
+              <t-space direction="vertical" size="large">
+                <t-message duration={3000} theme="info" content="This is my info (3s)" />
+                <t-message duration={5000} theme="success" content="This is my success (5s)" />
+                <t-message duration={8000} theme="warning" content="This is my warning (8s)" />
+                <t-message duration={10000} theme="error" content="This is my error (10s)" />
+              </t-space>
             </demo-wrapper>
 
-          <h2>使用关闭函数控制全局提示</h2>
+            <h2>使用关闭函数控制全局提示</h2>
             <demo-wrapper>
               <t-button theme="primary" onClick={this.closeToggle}>自由控制关闭时机（打开/关闭）</t-button>
               <messsage-close></messsage-close>
@@ -126,6 +138,12 @@ define(
           <h2>关闭多条全局提示</h2>
           <demo-wrapper>
               <div>待完善</div>
+<<<<<<< HEAD
+              <t-button theme="primary">自由控制关闭时机（打开）</t-button>
+            </demo-wrapper>
+            <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
+          </div>
+=======
               <t-space>
                 <t-button theme="primary" onClick={this.openAll}>点击打开多个消息</t-button>
                 <t-button theme="primary" onClick={this.closeAll}>点击关闭所有消息</t-button> 
@@ -135,7 +153,9 @@ define(
           <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
 
         </div>
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
         </>
-      );
+      )
     }
-  })
+  },
+)
