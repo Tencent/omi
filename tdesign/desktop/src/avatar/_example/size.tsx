@@ -1,14 +1,15 @@
 import { h, tag, WeElement } from 'omi'
 
 import '../index'
+import '../../space'
 
 @tag('avatar-size')
 export default class AvatarSize extends WeElement {
     static css = 't-avatar{}'
     render() {
         return (
-            <div direction="vertical" size="large">
-                <div align="center">
+            <t-space direction="vertical" size="large">
+                <t-space align="center">
                     <t-avatar size="small" style={{ marginRight: '40px' }}>
                         W
                     </t-avatar>
@@ -21,8 +22,8 @@ export default class AvatarSize extends WeElement {
                     <t-avatar size="100px" style={{ marginRight: '40px' }}>
                         W
                     </t-avatar>
-                </div>
-                <div align="center">
+                </t-space>
+                <t-space align="center">
                     <t-avatar shape="round" size="small" style={{ marginRight: '40px' }}>
                         W
                     </t-avatar>
@@ -35,8 +36,8 @@ export default class AvatarSize extends WeElement {
                     <t-avatar shape="round" size="100px" style={{ marginRight: '40px' }}>
                         W
                     </t-avatar>
-                </div>
-                <div align="center">
+                </t-space>
+                <t-space align="center">
                     <t-avatar alt='test' image="https://tdesign.gtimg.com/site/avatar.jpg" shape="round" size="small" style={{ marginRight: '40px' }}>
                     </t-avatar>
                     <t-avatar image="https://tdesign.gtimg.com/site/avatar.jpg" shape="round" size="medium" style={{ marginRight: '40px' }}>
@@ -45,8 +46,8 @@ export default class AvatarSize extends WeElement {
                     </t-avatar>
                     <t-avatar image="https://tdesign.gtimg.com/site/avatar.jpg" shape="round" size="100px" style={{ marginRight: '40px' }}>
                     </t-avatar>
-                </div>
-            </div>
+                </t-space>
+            </t-space>
         );
     }
 }
