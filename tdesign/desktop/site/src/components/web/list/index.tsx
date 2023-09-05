@@ -10,7 +10,6 @@ import '../../../../../src/list/_example/list-async-loading'
 import '../../../../../src/list/_example/list-header-footer'
 import '../../../../../src/list/_example/list-scroll'
 
-
 import '../../../../../src/list/style/index'
 
 import * as marked from 'marked'
@@ -85,7 +84,8 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }
@@ -94,65 +94,73 @@ define(
       return (
         <>
           <div style={this.isShow('demo')} name="DEMO">
-            <h3 id='基础文字列表'>
-            基础文字列表 <a class="header-anchor" href="#基础文字列表"></a></h3>
-              <p>仅包含简单文字的列表。对较简单的信息进行陈列时使用。</p>
-              <demo-wrapper>
-                <list-base-text></list-base-text>
-              </demo-wrapper>
+            <h3 id="基础文字列表">
+              基础文字列表 <a class="header-anchor" href="#基础文字列表"></a>
+            </h3>
+            <p>仅包含简单文字的列表。对较简单的信息进行陈列时使用。</p>
+            <demo-wrapper>
+              <list-base-text></list-base-text>
+            </demo-wrapper>
 
-            <h3 id='多行文字列表'>
-            多行文字列表 <a class="header-anchor" href="#多行文字列表"></a></h3>
-              <p>仅包含主要文字及描述性文字的列表。对较复杂的，包含多个字段或内容的信息进行展示时使用。</p>
-              <demo-wrapper>
-                <list-multiple-text></list-multiple-text>
-              </demo-wrapper>
+            <h3 id="多行文字列表">
+              多行文字列表 <a class="header-anchor" href="#多行文字列表"></a>
+            </h3>
+            <p>仅包含主要文字及描述性文字的列表。对较复杂的，包含多个字段或内容的信息进行展示时使用。</p>
+            <demo-wrapper>
+              <list-multiple-text></list-multiple-text>
+            </demo-wrapper>
 
-              <h3 id='基础图文列表'>
-              基础图文列表 <a class="header-anchor" href="#基础图文列表"></a></h3>
-              <p>包含简单图文的列表。需使用图片和文字结合展示信息。</p>
-              <demo-wrapper>
-                <list-base-image-text></list-base-image-text>
-              </demo-wrapper>
+            <h3 id="基础图文列表">
+              基础图文列表 <a class="header-anchor" href="#基础图文列表"></a>
+            </h3>
+            <p>包含简单图文的列表。需使用图片和文字结合展示信息。</p>
+            <demo-wrapper>
+              <list-base-image-text></list-base-image-text>
+            </demo-wrapper>
 
-              <h3 id='带操作列表'>
-              带操作列表 <a class="header-anchor" href="#带操作列表"></a></h3>
-              <p>包含操作的列表。需要对所在列进行操作时使用。</p>
-              <demo-wrapper>
-                <list-with-action></list-with-action>
-              </demo-wrapper>
+            <h3 id="带操作列表">
+              带操作列表 <a class="header-anchor" href="#带操作列表"></a>
+            </h3>
+            <p>包含操作的列表。需要对所在列进行操作时使用。</p>
+            <demo-wrapper>
+              <list-with-action></list-with-action>
+            </demo-wrapper>
 
-              <h3 id='不同尺寸的列表'>
-              不同尺寸的列表 <a class="header-anchor" href="#不同尺寸的列表"></a></h3>
-              <p>提供大、中（默认）、小三种尺寸。</p>
-              <demo-wrapper>
-                <list-size></list-size>
-              </demo-wrapper>
+            <h3 id="不同尺寸的列表">
+              不同尺寸的列表 <a class="header-anchor" href="#不同尺寸的列表"></a>
+            </h3>
+            <p>提供大、中（默认）、小三种尺寸。</p>
+            <demo-wrapper>
+              <list-size></list-size>
+            </demo-wrapper>
 
-              <h3 id='斑马纹区分列表'>
-              斑马纹区分列表 <a class="header-anchor" href="#斑马纹区分列表"></a></h3>
-              <demo-wrapper>
-                <list-zebra></list-zebra>
-              </demo-wrapper>
+            <h3 id="斑马纹区分列表">
+              斑马纹区分列表 <a class="header-anchor" href="#斑马纹区分列表"></a>
+            </h3>
+            <demo-wrapper>
+              <list-zebra></list-zebra>
+            </demo-wrapper>
 
-              <h3 id='异步加载的列表'>
-              异步加载的列表 <a class="header-anchor" href="#异步加载的列表"></a></h3>
-              <demo-wrapper>
-                <list-async-loading></list-async-loading>
-              </demo-wrapper>
+            <h3 id="异步加载的列表">
+              异步加载的列表 <a class="header-anchor" href="#异步加载的列表"></a>
+            </h3>
+            <demo-wrapper>
+              <list-async-loading></list-async-loading>
+            </demo-wrapper>
 
-              <h3 id='带头部及尾部的列表'>
-              带头部及尾部的列表 <a class="header-anchor" href="#带头部及尾部的列表"></a></h3>
-              <demo-wrapper>
-                <list-header-footer></list-header-footer>
-              </demo-wrapper>
+            <h3 id="带头部及尾部的列表">
+              带头部及尾部的列表 <a class="header-anchor" href="#带头部及尾部的列表"></a>
+            </h3>
+            <demo-wrapper>
+              <list-header-footer></list-header-footer>
+            </demo-wrapper>
 
-              <h3 id='带滚动事件的列表'>
-              带滚动事件的列表 <a class="header-anchor" href="#带滚动事件的列表"></a></h3>
-              <demo-wrapper>
-                <list-scroll></list-scroll>
-              </demo-wrapper>
-
+            <h3 id="带滚动事件的列表">
+              带滚动事件的列表 <a class="header-anchor" href="#带滚动事件的列表"></a>
+            </h3>
+            <demo-wrapper>
+              <list-scroll></list-scroll>
+            </demo-wrapper>
           </div>
           <div style={this.isShow('api')} name="API">
             <div

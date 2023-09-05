@@ -26,27 +26,25 @@ export default class LoadingDelay extends WeElement {
   render() {
     const { loading, data, loadingData } = this
     return (
-      <div style={{ height: '100px', margin: '50px' }}>
-        <t-space direction="vertical">
-          <div>
-            <t-loading delay={500} size="small" loading={loading}></t-loading>
-            {data ? <div>{`loading 作为独立元素：${data}`}</div> : null}
-          </div>
-          <div>
-            <t-loading loading={loading} delay={500} size="small" showOverlay>
-              {<div>{data ? `loading 作为包裹元素：${data}` : ''}</div>}
-            </t-loading>
-          </div>
-          <div className="tdesign-demo-block-row">
-            <t-button onClick={loadingData} size="small">
-              快速重新加载数据（无loading）
-            </t-button>
-            <t-button onClick={() => loadingData(3000)} size="small">
-              慢速重新加载数据
-            </t-button>
-          </div>
-        </t-space>
-      </div>
+      <t-space direction="vertical">
+        <div>
+          <t-loading delay={500} size="small" loading={loading}></t-loading>
+          {data ? <div>{`loading 作为独立元素：${data}`}</div> : null}
+        </div>
+        <div>
+          <t-loading loading={loading} delay={500} size="small" showOverlay>
+            {<div>{data ? `loading 作为包裹元素：${data}` : ''}</div>}
+          </t-loading>
+        </div>
+        <div className="tdesign-demo-block-row">
+          <t-button onClick={loadingData} size="small">
+            快速重新加载数据（无loading）
+          </t-button>
+          <t-button onClick={() => loadingData(2000)} size="small">
+            慢速重新加载数据
+          </t-button>
+        </div>
+      </t-space>
     )
   }
 }

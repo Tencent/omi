@@ -79,11 +79,11 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }
-    
 
     render() {
       return (
@@ -113,7 +113,7 @@ define(
             </demo-wrapper>
 
             <h3 id="不同组件主题的回到顶部">
-            不同组件形状的回到顶部 <a class="header-anchor" href="#不同组件形状的回到顶部"></a>
+              不同组件形状的回到顶部 <a class="header-anchor" href="#不同组件形状的回到顶部"></a>
             </h3>
             <p>不同组件形状的回到顶部</p>
             <demo-wrapper>
@@ -121,14 +121,14 @@ define(
             </demo-wrapper>
 
             <h3 id="不同组件主题的回到顶部">
-            不同组件主题的回到顶部 <a class="header-anchor" href="#不同组件主题的回到顶部"></a>
+              不同组件主题的回到顶部 <a class="header-anchor" href="#不同组件主题的回到顶部"></a>
             </h3>
             <demo-wrapper>
               <back-top-theme></back-top-theme>
             </demo-wrapper>
 
             <h3 id="可自定义内容的回到顶部">
-            可自定义内容的回到顶部 <a class="header-anchor" href="#可自定义内容的回到顶部"></a>
+              可自定义内容的回到顶部 <a class="header-anchor" href="#可自定义内容的回到顶部"></a>
             </h3>
             <demo-wrapper>
               <back-top-custom></back-top-custom>

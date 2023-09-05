@@ -1,5 +1,5 @@
 import { define, OmiProps, h, render, WeElement, createRef } from 'omi'
-import "../../../../../src/message/index"
+import '../../../../../src/message/index'
 import '../../../../../src/space/index'
 import '../../../../../src/button/index'
 import '../common/index'
@@ -23,12 +23,12 @@ onCloseBtnClick |	Function ||	TS 类型：(context: { e: MouseEvent }) => void �
 onDurationEnd |	Function ||	TS 类型：() => void 计时结束后触发 | 	N
 `)
 
-const list:any = [];
+const list: any = []
 interface Props {
   tab: string
 }
 define(
-  'page-message', 
+  'page-message',
   class extends WeElement<Props> {
     static defaultProps = {
       tab: 'demo',
@@ -53,17 +53,18 @@ define(
     }
 
     installed() {
-      this.tdDocTabs.current.onchange = ({ detail: currentTab }) => {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
         this.updateTab(currentTab)
       }
     }
-    
+
     render(props: {} | OmiProps<{}, any>, store: any) {
       return (
         <>
-        <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
-        <div style="padding:24px">
-          <h2>Message全局提示</h2>
+          <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
+          <div style="padding:24px">
+            <h2>Message全局提示</h2>
             <demo-wrapper>
               <t-space direction="vertical" size="large">
                 <t-message theme="info" content="This is my info" />
@@ -72,8 +73,8 @@ define(
                 <t-message theme="error" content="This is my error" />
               </t-space>
             </demo-wrapper>
-          
-          <h2>带关闭按钮的全局提示</h2>
+
+            <h2>带关闭按钮的全局提示</h2>
             <demo-wrapper>
               <t-space direction="vertical" size="large">
                 <t-message theme="info" content="This is my info" closeBtn />
@@ -82,27 +83,26 @@ define(
                 <t-message theme="error" content="This is my error" closeBtn />
               </t-space>
             </demo-wrapper>
-          
-          <h2>加载相应时间自动关闭</h2>
+
+            <h2>加载相应时间自动关闭</h2>
             <demo-wrapper>
-                <t-space direction="vertical" size="large">
-                  <t-message duration={3000} theme="info" content="This is my info (3s)" />
-                  <t-message duration={5000} theme="success" content="This is my success (5s)" />
-                  <t-message duration={8000} theme="warning" content="This is my warning (8s)" />
-                  <t-message duration={10000} theme="error" content="This is my error (10s)" />
-                </t-space>
+              <t-space direction="vertical" size="large">
+                <t-message duration={3000} theme="info" content="This is my info (3s)" />
+                <t-message duration={5000} theme="success" content="This is my success (5s)" />
+                <t-message duration={8000} theme="warning" content="This is my warning (8s)" />
+                <t-message duration={10000} theme="error" content="This is my error (10s)" />
+              </t-space>
             </demo-wrapper>
 
-          <h2>使用关闭函数控制全局提示</h2>
+            <h2>使用关闭函数控制全局提示</h2>
             <demo-wrapper>
               <div>待完善</div>
               <t-button theme="primary">自由控制关闭时机（打开）</t-button>
-              
             </demo-wrapper>
-          <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
-  
-        </div>
+            <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
+          </div>
         </>
-      );
+      )
     }
-  })
+  },
+)

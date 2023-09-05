@@ -58,6 +58,7 @@ export default class Loading extends WeElement<LoadingProps> {
       }, delay)
     } else {
       this.showLoading = loading
+      this.flag = true
       this.update()
     }
   }
@@ -117,7 +118,6 @@ export default class Loading extends WeElement<LoadingProps> {
   }
 
   render(props: OmiProps<LoadingProps>) {
-    console.log('render: ', props)
     const {
       componentName,
       fullClass,
@@ -132,8 +132,6 @@ export default class Loading extends WeElement<LoadingProps> {
     } = this
     const { fullscreen, content, children, loading, showOverlay } = props
     const loadingStyle = this.calcStyles()
-    const contentNode = commonContent()
-    console.log('contentNode', contentNode, 'showLoading', showLoading)
 
     const baseClasses = classNames(
       centerClass,
@@ -151,7 +149,7 @@ export default class Loading extends WeElement<LoadingProps> {
     if (fullscreen) {
       return loading ? (
         <div class={classNames(componentName, fullscreenClass, centerClass, overlayClass)} style={calcStyles}>
-          <div class={baseClasses}>{contentNode}</div>
+          <div class={baseClasses}>{commonContent()}</div>
         </div>
       ) : null
     }
@@ -167,7 +165,7 @@ export default class Loading extends WeElement<LoadingProps> {
               })}
               style={calcStyles}
             >
-              {contentNode}
+              {commonContent()}
             </div>
           ) : null}
         </div>
@@ -178,7 +176,7 @@ export default class Loading extends WeElement<LoadingProps> {
 
     return loading ? (
       <div class={classNames(componentName, baseClasses)} style={calcStyles}>
-        {contentNode}
+        {commonContent()}
       </div>
     ) : null
   }
