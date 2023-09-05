@@ -27,6 +27,7 @@ const components = [
   'list',
   'back-top',
   'grid',
+  'avatar',
 ]
 
 export function registerRouting(rootEl: any) {
