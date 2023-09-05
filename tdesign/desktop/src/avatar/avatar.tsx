@@ -4,8 +4,8 @@ import parseTNode from '../utils/parseTNode'
 import css from './style/index'
 import { StyledProps } from '../common';
 import { size } from 'lodash';
-// import AvatarContext from './AvatarContext';
-// import AvatarGroup from './AvatarGroup';
+import AvatarContext from './avatar-context';
+import AvatarGroup from './avatar-group';
 // import Image, { ImageProps } from '../image';
 
 @tag('t-avatar')
@@ -18,7 +18,6 @@ export default class Avatar extends WeElement<AvatarProps>{
         icon: Object,
         image: String,
         shape: String,
-        // size: avatarSize,
         size: String,
         onError: Function,
         children: Object,
