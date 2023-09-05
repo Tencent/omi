@@ -2,6 +2,7 @@ import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { ListProps } from './types'
 import { TdClassNamePrefix } from '../utils/clsx'
+import "../loading/loading"
 
 const ListClassNamePrefix = (className: string) => TdClassNamePrefix('list__') + className
 
@@ -127,17 +128,24 @@ export default class BackTop extends WeElement<ListProps> {
             [ListClassNamePrefix(`load--loading`)]: asyncLoading === 'loading',
             [ListClassNamePrefix(`load--load-more`)]: asyncLoading === 'load-more',
           })}
-          onClick={this.handleClickLoad}
+          onClick={(e) => {this.handleClickLoad(e,asyncLoading)}}
         >
           {asyncLoading === 'loading' && (
             <div>
-              {/* <Loading loading={true} /> */}
+              <t-loading />
               <span>正在加载中，请稍后</span>
             </div>
           )}
           {asyncLoading === 'load-more' && <span>点击加载更多</span>}
         </div>
       )
+    }
+  }
+
+  handleClickLoad = ( e:Event ,asyncLoading : string) =>{
+    if (asyncLoading === 'load-more') {
+      console.log(e)
+      this.fire('loadMore', { event: e, })
     }
   }
 

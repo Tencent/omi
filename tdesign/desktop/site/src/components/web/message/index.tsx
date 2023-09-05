@@ -1,7 +1,14 @@
 import { define, OmiProps, h, render, WeElement, createRef } from 'omi'
+<<<<<<< HEAD
 import '../../../../../src/message/index'
+=======
+import "../../../../../src/message/index"
+import "../../../../../src/message/_example/close"
+import "../../../../../src/message/_example/closeAll"
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
 import '../../../../../src/space/index'
 import '../../../../../src/button/index'
+
 import '../common/index'
 import * as marked from 'marked'
 
@@ -23,7 +30,16 @@ onCloseBtnClick |	Function ||	TS 类型：(context: { e: MouseEvent }) => void �
 onDurationEnd |	Function ||	TS 类型：() => void 计时结束后触发 | 	N
 `)
 
+<<<<<<< HEAD
 const list: any = []
+=======
+const list:any = [];
+let flag:number = 0;
+let messageClose = document.querySelector("body > message-close").shadowRoot.querySelector("t-message")
+let messageAll = document.querySelector("body > message-close-all").shadowRoot.querySelector("t-space")
+let body = document.querySelector("body")
+
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
 interface Props {
   tab: string
 }
@@ -33,7 +49,6 @@ define(
     static defaultProps = {
       tab: 'demo',
     }
-
     tab = ['demo', 'api', 'design']
     tdDocHeader = createRef()
     tdDocTabs = createRef()
@@ -59,6 +74,26 @@ define(
       }
     }
 
+<<<<<<< HEAD
+=======
+
+    closeToggle=()=>{
+      if(flag===1){
+        flag = 0;
+        messageClose.style.display = "none"
+      }else{
+        flag=1;
+        messageClose.style.display = "block"
+      }
+     
+    }
+    openAll = () =>{
+      
+    }
+    closeAll = () =>{
+
+    }
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
     render(props: {} | OmiProps<{}, any>, store: any) {
       return (
         <>
@@ -96,11 +131,29 @@ define(
 
             <h2>使用关闭函数控制全局提示</h2>
             <demo-wrapper>
+              <t-button theme="primary" onClick={this.closeToggle}>自由控制关闭时机（打开/关闭）</t-button>
+              <messsage-close></messsage-close>
+            </demo-wrapper>
+
+          <h2>关闭多条全局提示</h2>
+          <demo-wrapper>
               <div>待完善</div>
+<<<<<<< HEAD
               <t-button theme="primary">自由控制关闭时机（打开）</t-button>
             </demo-wrapper>
             <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
           </div>
+=======
+              <t-space>
+                <t-button theme="primary" onClick={this.openAll}>点击打开多个消息</t-button>
+                <t-button theme="primary" onClick={this.closeAll}>点击关闭所有消息</t-button> 
+              </t-space>
+              <message-close-all></message-close-all>
+            </demo-wrapper>
+          <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
+
+        </div>
+>>>>>>> 54cb49420b5201950bb128e7cd7739cb8aca5224
         </>
       )
     }

@@ -35,11 +35,13 @@ export default class Message extends WeElement<MessageProps> {
   onCloseBtnClick = () => {
     this.parentElement.removeChild(this)
   }
+ 
   onDurationEnd = (duration: number) => {
     if(duration !== null){
       setTimeout(() => this.parentElement.removeChild(this),duration);
     }
   }
+  
 
   render(props: OmiProps<MessageProps, any>, store: any) {
     const { theme, className, style, icon, content, closeBtn, duration} = props
