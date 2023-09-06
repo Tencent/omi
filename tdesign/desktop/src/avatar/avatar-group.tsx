@@ -4,7 +4,7 @@ import { toArray, omit } from 'lodash'
 import style from './style/index'
 import Avatar from './avatar';
 import { PopupProps } from '../popup';
-import AvatarContextProvider from './avatar-context';
+import AvatarContext from './avatar-context';
 import { AvatarGroupProps } from './type';
 import { StyledProps } from '../common';
 import parseTNode from '../utils/parseTNode'
@@ -21,18 +21,17 @@ export default class AvatarGroup extends WeElement<AvatarGroupProps>{
         cascading: String,
         max: Number,
         size: String,
+        collapseAvatar: Object,
     }
     preClass = classNames(TdClassNamePrefix('avatar'))
     childrenList = toArray(this.children);
     allChildrenList: any
     install() {
-        if (this.childrenList.length > 0) {
-            this.allChildrenList = this.childrenList.map((child, index) =>
-                React.cloneElement(child, { key: `avatar-group-item-${index}`, ...child.props }),
-            );
-        }
-
-
+        // if (this.childrenList.length > 0) {
+        //     this.allChildrenList = this.childrenList.map((child, index) =>
+        //         React.cloneElement(child, { key: `avatar-group-item-${index}`, ...child.props }),
+        //     );
+        // }
         const groupClass = classNames(`${this.preClass}-group`, this.className, {
             [`${this.preClass}--offset-right`]: this.props.cascading === 'right-up',
             [`${this.preClass}--offset-left`]: this.props.cascading === 'left-up',
@@ -42,23 +41,23 @@ export default class AvatarGroup extends WeElement<AvatarGroupProps>{
         if (this.props.max && childrenCount > this.props.max) {
             const showList = this.allChildrenList.slice(0, this.props.max);
             const ellipsisAvatar = (
-                <Avatar className={`${this.preClass}__collapse`}>{parseTNode(collapseAvatar) || `+${childrenCount - max}`}</Avatar>
+                <Avatar className={`${this.preClass}__collapse`}>{parseTNode(this.props.collapseAvatar) /*|| `+${childrenCount - this.props.max}`*/}</Avatar>
             );
             showList.push(<div key="t-avatar__collapse">{ellipsisAvatar}</div>);
             return (
-                <AvatarContextProvider size={this.props.size}>
+                <div size={this.props.size}>
                     <div className={groupClass}>{showList}</div>
-                </AvatarContextProvider>
+                </div>
             );
         }
     }
     render(props: OmiProps<AvatarGroupProps, any>, store: any) {
         return (
-            <AvatarContextProvider size={this.props.size}>
-                <div className={groupClass} {...avatarGroupProps}>
+            <div size={this.props.size}>
+                {<div >
                     {this.allChildrenList}
-                </div>
-            </AvatarContextProvider>
+                </div>}
+            </div>
         );
     };
 }
