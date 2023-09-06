@@ -10,7 +10,7 @@ import '../../../../../src/link/_example/underline'
 import '../../../../../src/link/_example/icon'
 import * as marked from 'marked'
 
-import '../../../../code-box/index.tsx'
+import '../../../../code-box/index'
 
 import { tw, sheet } from 'omi-twind'
 
