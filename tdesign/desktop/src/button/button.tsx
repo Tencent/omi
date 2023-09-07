@@ -76,6 +76,13 @@ export default class Button extends WeElement<ButtonProps> {
     return subCss
   }
 
+  handleClick = (e: MouseEvent) => {
+    const { disabled, loading } = this.props
+    e.stopPropagation()
+    if (!disabled && !loading) {
+      this.props.onClick?.(e)
+    }
+  }
   render(props: OmiProps<ButtonProps>) {
     const { renderTag, renderTheme, generateSubCss } = this
     const {
@@ -130,7 +137,7 @@ export default class Button extends WeElement<ButtonProps> {
             [TdClassNamePrefix('size-full-width')]: block,
           },
         ),
-        onClick: !disabled && !loading ? onClick : undefined,
+        onClick: this.handleClick,
       },
       <>
         {loading ? <t-loading css={generateSubCss()} loading={loading} inheritColor={true}></t-loading> : icon}
