@@ -11,8 +11,8 @@ import '../../icon/thumb-up'
 import '../../icon/more'
 import gridCss from '../../grid/style'
 
-@tag('card-foot-actions')
-export default class CardFootActions extends WeElement {
+@tag('card-header-subtitle-footer-actions')
+export default class CardHeaderSubtitleFooterActions extends WeElement {
   options = [
     {
       content: '操作一',
