@@ -9,6 +9,7 @@ import '../../icon/chat'
 import '../../icon/share'
 import '../../icon/thumb-up'
 import '../../icon/more'
+import gridCss from '../../grid/style'
 
 @tag('card-foot-actions')
 export default class CardFootActions extends WeElement {
@@ -41,6 +42,7 @@ export default class CardFootActions extends WeElement {
         bordered
         cover="https://tdesign.gtimg.com/site/source/card-demo.png"
         style={{ width: '400px' }}
+        css={gridCss}
         footer={
           <t-row align="middle" justify="center">
             <t-col flex="auto" align="middle">

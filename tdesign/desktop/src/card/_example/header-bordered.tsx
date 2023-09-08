@@ -2,8 +2,8 @@ import { h, tag, WeElement } from 'omi'
 
 import '../index'
 
-@tag('card-header-all-props')
-export default class CardHeaderAllProps extends WeElement {
+@tag('card-header-bordered')
+export default class CardHeaderBordered extends WeElement {
   clickHandler = () => {
     alert('操作')
   }

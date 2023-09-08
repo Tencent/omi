@@ -2,8 +2,8 @@ import { h, tag, WeElement } from 'omi'
 
 import '../index'
 
-@tag('card-header-subtitle')
-export default class CardHeaderSubtitle extends WeElement {
+@tag('card-header')
+export default class CardHeader extends WeElement {
   clickHandler = () => {
     alert('操作')
   }
