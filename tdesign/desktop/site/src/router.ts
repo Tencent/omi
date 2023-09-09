@@ -29,6 +29,7 @@ const components = [
   'grid',
   'loading',
   'avatar',
+  'card',
 ]
 
 export function registerRouting(rootEl: any) {

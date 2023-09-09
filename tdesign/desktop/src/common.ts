@@ -1,4 +1,5 @@
 import { WeElement } from 'omi'
+import { TdClassNamePrefix } from './utils'
 
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? WeElement : (props: T) => WeElement
@@ -113,3 +114,31 @@ export interface ScrollToElementParams {
 
 export type ThemeCommon = 'default' | 'primary' | 'danger' | 'warning' | 'success'
 export type StatusEnum = 'default' | 'error' | 'warning' | 'success'
+
+export const commonClass = {
+  SIZE: {
+    default: '',
+    xs: TdClassNamePrefix('size-xs'),
+    small: TdClassNamePrefix('size-s'),
+    medium: TdClassNamePrefix('size-m'),
+    large: TdClassNamePrefix('size-l'),
+    xl: TdClassNamePrefix('size-xl'),
+    block: TdClassNamePrefix('size-full-width'),
+  },
+  STATUS: {
+    loading: TdClassNamePrefix('is-loading'),
+    disabled: TdClassNamePrefix('is-disabled'),
+    focused: TdClassNamePrefix('is-focused'),
+    success: TdClassNamePrefix('is-success'),
+    error: TdClassNamePrefix('is-error'),
+    warning: TdClassNamePrefix('is-warning'),
+    selected: TdClassNamePrefix('is-selected'),
+    active: TdClassNamePrefix('is-active'),
+    checked: TdClassNamePrefix('is-checked'),
+    current: TdClassNamePrefix('is-current'),
+    hidden: TdClassNamePrefix('is-hidden'),
+    visible: TdClassNamePrefix('is-visible'),
+    expanded: TdClassNamePrefix('is-expanded'),
+    indeterminate: TdClassNamePrefix('is-indeterminate'),
+  },
+}
