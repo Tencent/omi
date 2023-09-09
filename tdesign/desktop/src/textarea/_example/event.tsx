@@ -1,31 +1,30 @@
 import { OmiProps, WeElement, h, tag, render} from 'omi'
 
-import '../index'
+import '../textarea'
 
 @tag('textarea-event')
 export default class TextareaEvent extends WeElement {
 
-  evtDetail: number
-  value :string
+  value=''
   
-  onBlur = (evt : Event) =>{
-    console.log('onBlur', evt.detail.value, evt.detail.event)
+  onBlur = (value,{e}) =>{
+    console.log('onBlur: ', value, e);
   }
 
-  onFocus = (evt : Event) =>{
-    console.log('onFocus', evt.detail.value, evt.detail.event)
+  onFocus = (value,{e}) =>{
+    console.log('onFocus: ', value, e);
   }
 
-  onKeyup = (evt : Event) =>{
-    console.log('onKeyup', evt.detail.value, evt.detail.event)
+  onKeyup = (value,{e}) =>{
+    console.log('onKeyup',  value, e)
   }
 
-  onKeypress = (evt : Event) =>{
-    console.log('onKeypress', evt.detail.value, evt.detail.event)
+  onKeypress = (value,{e}) =>{
+    console.log('onKeypress', value, e)
   }
 
-  onKeydown = (evt : Event) =>{
-    console.log('onKeydown', evt.detail.value, evt.detail.event)
+  onKeydown = (value,{e}) =>{
+    console.log('onKeydown', value, e)
   }
 
   render() {
@@ -33,12 +32,12 @@ export default class TextareaEvent extends WeElement {
       <h.f>
         <t-textarea
           placeholder="请输入"
-          // value={this.value}
-          onMyBlur={this.onBlur}
-          onMyFocus={this.onFocus}
-          onMyKeypress={this.onKeypress}
-          onMyKeydown={this.onKeydown}
-          onMyKeyup={this.onKeyup}
+          value={this.value}
+          onBlur={this.onBlur}
+          onFocus={this.onFocus}
+          onKeypress={this.onKeypress}
+          onKeydown={this.onKeydown}
+          onKeyup={this.onKeyup}
         ></t-textarea>
       </h.f>
     )
