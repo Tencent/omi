@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.20  http://omijs.org
+ * Omi v6.25.21  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -195,8 +195,21 @@
     return p;
   }
 
-  // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+  var DOM_EVENT_MAP = {
+    onanimationcancel: 1,
+    oncompositionend: 1,
+    oncompositionstart: 1,
+    oncompositionupdate: 1,
+    onfocusin: 1,
+    onfocusout: 1,
+    onscrollend: 1,
+    ontouchcancel: 1,
+    ontouchend: 1,
+    ontouchmove: 1,
+    ontouchstart: 1
+
+    // DOM properties that should NOT have "px" added when numeric
+  };var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
   /**
    * Check if two nodes are equivalent.
@@ -378,7 +391,7 @@
   function bindEvent(node, name, value, old) {
     var useCapture = name !== (name = name.replace(/Capture$/, ''));
     var nameLower = name.toLowerCase();
-    name = (nameLower in node ? nameLower : name).slice(2);
+    name = (DOM_EVENT_MAP[nameLower] || nameLower in node ? nameLower : name).slice(2);
     if (value) {
       if (!old) {
         node.addEventListener(name, eventProxy$1, useCapture);
@@ -1734,7 +1747,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.25.20';
+  options.root.Omi.version = '6.25.21';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
