@@ -1,6 +1,6 @@
 import { TNode, TElement, SizeEnum, ClassName } from '../common';
  
- export interface InputProps {
+ export interface TdInputProps {
    /**
     * 文本内容位置，居左/居中/居右
     * @default left
@@ -125,13 +125,20 @@ import { TNode, TElement, SizeEnum, ClassName } from '../common';
    /**
     * 输入框值发生变化时触发。`trigger=initial` 表示传入的数据不符合预期，组件自动处理后触发 change 告知父组件。如：初始值长度超过 `maxlength` 限制
     */
+  //  onChange?: (
+  //    value: InputValue,
+  //    context?: {
+  //      e?: MouseEvent | CompositionEvent
+  //      trigger: 'input' | 'initial' | 'clear';
+  //    },
+  //  ) => void;
+
    onChange?: (
-     value: InputValue,
-     context?: {
-       e?: MouseEvent | CompositionEvent
-       trigger: 'input' | 'initial' | 'clear';
-     },
-   ) => void;
+    value: InputValue,
+    context?: {
+      e?: MouseEvent
+    },
+  ) => void;
    /**
     * 清空按钮点击时触发
     */
