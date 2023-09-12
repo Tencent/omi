@@ -140,6 +140,13 @@ const metaData = new Map([
       description: '栅格是以规则的网格阵列来指导和规范网页中的版面布局以及信息分布，提高界面内布局的一致性，节约成本。',
     },
   ],
+  [
+    'card',
+    {
+      title: 'Card 卡片',
+      description: '最基础的卡片容器，可承载文字、列表、图片、段落，常用于后台概览页面。',
+    },
+  ],
 ])
 
 const getMetaData = (componentName: string) => {

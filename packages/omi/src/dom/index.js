@@ -1,4 +1,4 @@
-import { IS_NON_DIMENSIONAL } from '../constants'
+import { IS_NON_DIMENSIONAL, DOM_EVENT_MAP } from '../constants'
 import { applyRef } from '../util'
 import options from '../options'
 import { extension } from '../extend'
@@ -138,7 +138,7 @@ function eventProxy(e) {
 function bindEvent(node, name, value, old) {
   let useCapture = name !== (name = name.replace(/Capture$/, ''))
   let nameLower = name.toLowerCase()
-  name = (nameLower in node ? nameLower : name).slice(2)
+  name = ((DOM_EVENT_MAP[nameLower] || nameLower in node) ? nameLower : name).slice(2)
   if (value) {
     if (!old) {
       node.addEventListener(name, eventProxy, useCapture)

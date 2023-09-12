@@ -2,15 +2,14 @@ import { h, tag, extractClass, WeElement, OmiProps, classNames, Ref } from 'omi'
 import { AvatarProps } from './type'
 import parseTNode from '../utils/parseTNode'
 import css from './style/index'
-import { StyledProps } from '../common';
-import AvatarContext from './avatar-context';
-import AvatarGroup from './avatar-group';
+import { StyledProps } from '../common'
+import AvatarContext from './avatar-context'
+import AvatarGroup from './avatar-group'
 // import Image, { ImageProps } from '../image';
 
-
 @tag('t-avatar')
-export default class Avatar extends WeElement<AvatarProps>{
-    static css = css as string;
+export default class Avatar extends WeElement<AvatarProps> {
+    static css = css as string
     static defaultProps = { hideOnLoadFailed: false, shape: 'circle' }
     static propsType = {
         alt: String,
@@ -23,23 +22,23 @@ export default class Avatar extends WeElement<AvatarProps>{
         children: Object,
         content: Object,
         style: Object,
-        imageProps: Object
+        imageProps: Object,
     }
     render(props: OmiProps<AvatarProps, any>, store: any) {
         const groupSize = ''
 
-        const classPrefix = 't';
-        let scale = 1;
-        const isImgExist = true;
+        const classPrefix = 't'
+        let scale = 1
+        const isImgExist = true
         let avatarRef: any
-        let avatarChildrenRef: { current: { offsetWidth: any; }; }
-        const gap = 4;
+        let avatarChildrenRef: { current: { offsetWidth: any } }
+        const gap = 4
         const handleScale = () => {
             if (!avatarChildrenRef.current || !avatarRef.current) {
-                return;
+                return
             }
-            const childrenWidth = avatarChildrenRef.current.offsetWidth;
-            const avatarWidth = avatarRef.current.offsetWidth;
+            const childrenWidth = avatarChildrenRef.current.offsetWidth
+            const avatarWidth = avatarRef.current.offsetWidth
 
             if (childrenWidth !== 0 && avatarWidth !== 0) {
                 if (gap * 2 < avatarWidth) {
@@ -109,5 +108,3 @@ export default class Avatar extends WeElement<AvatarProps>{
     };
 
 }
-
-
