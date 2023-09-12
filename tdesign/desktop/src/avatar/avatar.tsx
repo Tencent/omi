@@ -47,6 +47,8 @@ export default class Avatar extends WeElement<AvatarProps>{
                 }
             }
         };
+
+
         const SIZE = {
             default: String,
             xs: String,
@@ -77,14 +79,11 @@ export default class Avatar extends WeElement<AvatarProps>{
             [SIZE[props.size]]: !!SIZE[props.size],
             [`${preClass}--${props.shape}`]: !!props.shape,
             [`${preClass}__icon`]: !!props.icon,
-            [`${classPrefix}-size-s`]: props.size === 'small',
-            [`${classPrefix}-size-l`]: props.size === 'large',
-            [`${classPrefix}-size-m`]: props.size === 'medium',
-
         });
         let renderChildren: string | number | boolean | object
         if (props.image && isImgExist) {
             renderChildren = (<img src={props.image} alt={props.alt} style={imageStyle} />);
+
         } else if (props.icon) {
             renderChildren = props.icon;
         } else {
@@ -101,7 +100,8 @@ export default class Avatar extends WeElement<AvatarProps>{
             <div
                 ref={props.ref}
                 className={avatarClass}
-                style={props.style}
+                style={props.style, numSizeStyle}
+
             >
                 {renderChildren}
             </div>
