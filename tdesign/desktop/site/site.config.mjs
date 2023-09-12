@@ -517,14 +517,12 @@ export const docs = [
       //       component: () => import('tdesign-omi/table/table.md'),
       //       componentEn: () => import('tdesign-omi/table/table.en-US.md'),
       //     },
-      //     {
-      //       title: 'Tag 标签',
-      //       titleEn: 'Tag',
-      //       name: 'tag',
-      //       path: '/tag',
-      //       component: () => import('tdesign-omi/tag/tag.md'),
-      //       componentEn: () => import('tdesign-omi/tag/tag.en-US.md'),
-      //     },
+      {
+        title: 'Tag 标签',
+        titleEn: 'Tag',
+        name: 'tag',
+        path: '/tag',
+      },
       //     {
       //       title: 'Timeline 时间轴',
       //       titleEn: 'Timeline',
