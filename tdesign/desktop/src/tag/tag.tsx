@@ -2,15 +2,25 @@ import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { TagProps } from './type'
 import { TdClassNamePrefix } from '../utils/clsx'
-import "../icon/delete"
+import noop from '../utils/noop'
+import "../icon/close"
 import { AnyMxRecord } from 'dns'
-const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag__') + className
+const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + className
 
 
 @tag('t-tag')
 export default class Tag extends WeElement<TagProps> {
   static css = style
 
+  iconStyle = `
+  .t-icon{
+    margin-right: var(--td-comp-margin-xs);
+    width: calc(var(--td-font-size-body-medium) + 2px);
+    height: calc(var(--td-font-size-body-medium) + 2px);
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+  }
+  `
   static defaultProps = {
     closable: false,
     disabled: false,
@@ -19,6 +29,8 @@ export default class Tag extends WeElement<TagProps> {
     size: 'medium',
     theme: 'default',
     variant: 'dark',
+    onClick: noop,
+    onClose: noop,
   }
 
   static propTypes = {
@@ -40,32 +52,34 @@ export default class Tag extends WeElement<TagProps> {
 
   span = createRef()
 
-  installed(): void {
-    // console.log(this.titleAttribute)
+  installed(){
+    console.log(this.props)
   }
-  
-  tagClassPrefix = `t-tag`;
+
+  // tagClassPrefix = `t-tag`;
   cls(){
     return classNames(
       TdClassNamePrefix('tag'),
-      `${this.tagClassPrefix}--${this.props.theme}`,
-        `${this.tagClassPrefix}--${this.props.variant}`,
+      TagClassNamePrefix(`--${this.props.theme}`),
+      TagClassNamePrefix(`--${this.props.variant}`),
         {
-          [`${this.tagClassPrefix}--${this.props.shape}`]: this.props.shape !== 'square',
-          [`${this.tagClassPrefix}--ellipsis`]: !!this.props.maxWidth,
-          [`${this.tagClassPrefix}--disabled`]: this.props.disabled,
+          [TagClassNamePrefix(`--${this.props.shape}`)]: this.props.shape !== 'square',
+          [TagClassNamePrefix(`--ellipsis`)]: !!this.props.maxWidth,
+          [TagClassNamePrefix(`--disabled`)]: this.props.disabled,
+          [TdClassNamePrefix(`size-s`)]: this.props.size == 'small',
+          [TdClassNamePrefix(`size-l`)]: this.props.size == 'large',
         },
   
     )
   } 
 
   deleteIcon = (
-    <t-icon-delete
+    <t-icon-close
       onClick={(e) => {
         if (this.props.disabled) return;
-        onClose({ e });
+        this.fire('close',{event:e})
       }}
-      class={classNames(TagClassNamePrefix(`icon_close`))}
+      class={classNames(TagClassNamePrefix(`__icon_close`))}
     />
   )
   
@@ -75,20 +89,26 @@ export default class Tag extends WeElement<TagProps> {
 
 
   render(props: OmiProps<TagProps, any>, store: any) {
-    const {disabled, maxWidth, icon, children,content,closable, } = props
+    const {disabled, maxWidth, icon, children,content,closable,onClick,style } = props;
 
+    // (() => console.log(icon.attributes))()
+    if(icon){
+      icon.attributes['style'] = {}
+      icon.attributes.style['marginRight'] = 4
+    }
+    
     return (
       <>
         <span class={this.cls()}
         ref={this.span}
         onClick={(e) => {
           if (disabled) return;
-          this.onclick(e);
+          onClick({e});
         }}
         style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}>
         <>
           {icon}
-          <span class={maxWidth ? TdClassNamePrefix(`tag-text`) : undefined} {...this.getTitle(children)}>
+          <span class={maxWidth ? TagClassNamePrefix(`--text`) : undefined} {...this.getTitle(children)}>
             {children ?? content}
           </span>
           {closable && !disabled && this.deleteIcon}

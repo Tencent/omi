@@ -30,6 +30,7 @@ const components = [
   'loading',
   'avatar',
   'card',
+  'tag'
 ]
 
 export function registerRouting(rootEl: any) {
