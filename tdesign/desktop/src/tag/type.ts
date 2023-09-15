@@ -57,7 +57,7 @@ import { TNode, TElement, SizeEnum } from '../common';
    onClose?: (context: { e: MouseEvent }) => void;
  }
  
- export interface TdCheckTagProps {
+ export interface CheckTagProps {
    /**
     * 标签选中的状态，默认风格（theme=default）才有选中态
     */
