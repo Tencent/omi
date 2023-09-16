@@ -4,7 +4,6 @@ import { TagProps } from './type'
 import { TdClassNamePrefix } from '../utils/clsx'
 import noop from '../utils/noop'
 import "../icon/close"
-import { AnyMxRecord } from 'dns'
 const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + className
 
 
@@ -53,10 +52,9 @@ export default class Tag extends WeElement<TagProps> {
   span = createRef()
 
   installed(){
-    console.log(this.props)
+    // console.log(this.props)
   }
 
-  // tagClassPrefix = `t-tag`;
   cls(){
     return classNames(
       TdClassNamePrefix('tag'),

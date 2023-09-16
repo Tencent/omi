@@ -3,6 +3,7 @@ import '../common/index'
 import '../../../../../src/tag/_example/tag-base'
 import '../../../../../src/tag/_example/tag-icon'
 import '../../../../../src/tag/_example/tag-add'
+import '../../../../../src/tag/_example/tag-checkbox'
 import '../../../../../src/tag/_example/tag-maxwidth'
 import '../../../../../src/tag/_example/tag-size'
 import '../../../../../src/tag/_example/tag-shape'
@@ -90,7 +91,7 @@ define(
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
-            {/* <h3 id="基础标签">
+            <h3 id="基础标签">
             基础标签 <a class="header-anchor" href="#基础标签"></a>
             </h3>
             <p>基础标签为默认的标签样式。适用于常规表单。</p>
@@ -104,23 +105,31 @@ define(
             <p>在标签内嵌入图标。适用于用图标来辅助标签分类，或表达标签的属性。</p>
             <demo-wrapper>
               <tag-icon></tag-icon>
-            </demo-wrapper> */}
+            </demo-wrapper>
 
-            {/* <h3 id="可删除和添加标签">
+            <h3 id="可删除和添加标签">
             可删除和添加标签 <a class="header-anchor" href="#可删除和添加标签"></a>
             </h3>
             <p>可删除或添加的标签。添加标签可组合输入框组件使用。</p>
             <demo-wrapper>
               <tag-add></tag-add>
-            </demo-wrapper> */}
+            </demo-wrapper>
 
-            {/* <h3 id="超长省略文本标签">
+            <h3 id="可选择标签">
+            可选择标签 <a class="header-anchor" href="#可选择标签"></a>
+            </h3>
+            <p>标签有已选和未选两种状态，可以通过点击标签来切换。类似多选框的效果。</p>
+            <demo-wrapper>
+              <tag-checkbox></tag-checkbox>
+            </demo-wrapper>
+
+            <h3 id="超长省略文本标签">
             超长省略文本标签 <a class="header-anchor" href="#超长省略文本标签"></a>
             </h3>
             <p>通过 maxWidth 设置最大宽度，超出部分自动省略。</p>
             <demo-wrapper>
               <tag-maxwidth></tag-maxwidth>
-            </demo-wrapper> */}
+            </demo-wrapper>
 
             <h3 id="不同尺寸的标签">
             不同尺寸的标签 <a class="header-anchor" href="#不同尺寸的标签"></a>
@@ -136,6 +145,14 @@ define(
             <p>提供方形、圆角方形、标记型三种形状。</p>
             <demo-wrapper>
               <tag-shape></tag-shape>
+            </demo-wrapper>
+
+            <h3 id="可选择标签">
+            可选择标签 <a class="header-anchor" href="#可选择标签"></a>
+            </h3>
+            <p>标签有已选和未选两种状态，可以通过点击标签来切换。类似多选框的效果。</p>
+            <demo-wrapper>
+              <tag-checkbox></tag-checkbox>
             </demo-wrapper>
 
           </div>
