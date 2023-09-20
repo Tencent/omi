@@ -4,6 +4,8 @@ import { TagProps } from './type'
 import { TdClassNamePrefix } from '../utils/clsx'
 import noop from '../utils/noop'
 import "../icon/close"
+import ListItem from '@src/list/list-item'
+import { setThemePrimary } from '@omiu/common'
 const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + className
 
 
@@ -11,15 +13,25 @@ const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + cla
 export default class Tag extends WeElement<TagProps> {
   static css = style
 
-  iconStyle = `
-  .t-icon{
-    margin-right: var(--td-comp-margin-xs);
-    width: calc(var(--td-font-size-body-medium) + 2px);
-    height: calc(var(--td-font-size-body-medium) + 2px);
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-  }
-  `
+  // iconStyle = `
+  // .t-icon{
+  //   margin-right: var(--td-comp-margin-xs);
+  //   width: calc(var(--td-font-size-body-medium) + 2px);
+  //   height: calc(var(--td-font-size-body-medium) + 2px);
+  //   -ms-flex-negative: 0;
+  //   flex-shrink: 0;
+  // }
+  // `
+
+  // tagStyle = `.t-tag {
+  //     vertical-align: middle;
+  //     -webkit-animation: t-fade-in .2s ease-in-out;
+  //     animation: t-fade-in .2s ease-in-out;
+  //     margin: 3px var(--td-comp-margin-xs) 3px 0;
+  //   }
+  // `
+
+
   static defaultProps = {
     closable: false,
     disabled: false,
@@ -51,8 +63,9 @@ export default class Tag extends WeElement<TagProps> {
 
   span = createRef()
 
-  installed(){
-    // console.log(this.props)
+  install(){
+    // this.attributes.css += this.tagStyle
+    // console.log(this.attributes)
   }
 
   cls(){
@@ -77,7 +90,7 @@ export default class Tag extends WeElement<TagProps> {
         if (this.props.disabled) return;
         this.fire('close',{event:e})
       }}
-      class={classNames(TagClassNamePrefix(`__icon_close`))}
+      class={classNames(TagClassNamePrefix(`__icon-close`))}
     />
   )
   
@@ -98,6 +111,7 @@ export default class Tag extends WeElement<TagProps> {
     return (
       <>
         <span class={this.cls()}
+        part="my-part"
         ref={this.span}
         onClick={(e) => {
           if (disabled) return;

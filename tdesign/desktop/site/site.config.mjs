@@ -300,15 +300,13 @@ export const docs = [
       //       component: () => import('tdesign-omi/input-number/input-number.md'),
       //       componentEn: () => import('tdesign-omi/input-number/input-number.en-US.md'),
       //     },
-      //     {
-      //       title: 'TagInput 标签输入框',
-      //       titleEn: 'TagInput',
-      //       name: 'tag-input',
-      //       docType: 'form',
-      //       path: '/tag-input',
-      //       component: () => import('tdesign-omi/tag-input/tag-input.md'),
-      //       componentEn: () => import('tdesign-omi/tag-input/tag-input.en-US.md'),
-      //     },
+          {
+            title: 'TagInput 标签输入框',
+            titleEn: 'TagInput',
+            name: 'tag-input',
+            docType: 'form',
+            path: '/tag-input',
+          },
       //     {
       //       title: 'Radio 单选框',
       //       titleEn: 'Radio',
