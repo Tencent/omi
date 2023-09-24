@@ -1,6 +1,6 @@
 import { h, OmiProps, tag, WeElement, render, classNames, createRef, extend, get, set } from 'omi'
 import { TdInputProps } from './type'
-import inputSyle from './style'
+import style from './style'
 import { TdClassNamePrefix } from '../../src/utils'
 import noop from '../utils/noop'
 import { StyledProps, TNode, TElement } from '../common'
@@ -29,24 +29,40 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode 
   const result = parseTNode(icon)
   const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : ''
 
-  return result ? <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span> : null
+  return result ? <span class={classNames(InputClassNamePrefix(`__${type} ${iconClassName}`))}>{result}</span> : null
 }
 
 const isFunction = (arg: unknown) => typeof arg === 'function'
 
 @tag('t-input')
 export default class Input extends WeElement<InputProps> {
-
   static tagStyle = `.t-tag-input t-tag::part(my-part){
     vertical-align: middle;
     -webkit-animation: t-fade-in .2s ease-in-out;
     animation: t-fade-in .2s ease-in-out;
     margin: 3px var(--td-comp-margin-xs) 3px 0 !important;
-  }
+    } 
+  `
 
-`
+//   static labelStyle = `
+//     .t-tag-input--break-line:not(.t-is-empty) .t-tag-input__prefix {
+//       vertical-align: middle;
+//     }
 
-  static css = inputSyle + Input.tagStyle
+//     .t-tag-input .t-tag-input__prefix {
+//       margin-left: var(--td-comp-margin-xs);
+//       line-height: 1;
+//     }
+    
+//     .t-tag-input .t-tag-input__prefix {
+//       width: max-content;
+//       display: inline-block;
+//       margin-right: 8px;
+//     }
+//     `
+
+  // static css = inputSyle + Input.tagStyle + Input.labelStyle
+  static css = style + Input.tagStyle
 
   static defaultProps = {
     align: 'left',
@@ -77,8 +93,6 @@ export default class Input extends WeElement<InputProps> {
     value: String,
   }
 
-
-  
   inputRef = createRef()
   inputPreRef = createRef()
   wrapperRef = createRef()
@@ -94,8 +108,9 @@ export default class Input extends WeElement<InputProps> {
 
   isKeyUpEvent = false
 
-  install(){
-    // console.log(this.props)
+  install() {
+    // this.props.autoWidth = true
+    console.log(this.props)
   }
   installed() {
     let that = this
@@ -108,24 +123,20 @@ export default class Input extends WeElement<InputProps> {
       if (!this.props.autoWidth || !this.inputRef.current) return
       const { offsetWidth } = this.inputPreRef.current
       const { width } = this.inputPreRef.current.getBoundingClientRect()
-      console.log(offsetWidth, width)
       // 异步渲染场景下 getBoundingClientRect 宽度为 0，需要使用 offsetWidth
       const calcWidth = width < offsetWidth ? offsetWidth + 1 : width
       this.inputRef.current.style.width = `${calcWidth}px`
-    }
-    if (that.props.autoWidth) {
-      requestAnimationFrame(() => {
-        updateInputWidth()
-      })
-    }
+    };
+
     inputNode.addEventListener('input', (e) => {
       if (that.composingRef.current) {
         return
       } else {
-        that.value = inputNode.value
+        // that.value = inputNode.value
         // that.composingValue = inputNode.value
         const { limitNumber, getValueByLimitNumber, tStatus, onValidateChange } = useLengthLimit({
-          value: that.value === undefined ? undefined : String(that.value),
+          // value: that.value === undefined ? undefined : String(that.value),
+          value: that.props.value ? undefined : String(that.props.value),
           status: that.status,
           maxlength: that.props.maxlength,
           maxcharacter: that.props.maxcharacter,
@@ -133,9 +144,10 @@ export default class Input extends WeElement<InputProps> {
           onValidate: that.props.onValidate,
         })
         const limitedValue = getValueByLimitNumber(e.currentTarget.value)
-        that.value = limitedValue
+        // console.log(limitedValue)
+        // that.value = limitedValue
         that.composingValue = limitedValue
-        this.props.onChange?.(limitedValue)
+        that.props.onChange?.(limitedValue)
         if (that.props.autoWidth) {
           requestAnimationFrame(() => {
             updateInputWidth()
@@ -194,21 +206,18 @@ export default class Input extends WeElement<InputProps> {
       onValidate,
       onChange,
       ...restProps
-    } = props;
-    // const shadow = this.attachShadow({mode: "open"});
-    // let styleEle = document.createElement("style");
-    // console.log(shadow)
+    } = props
 
-    this.value = this.value==undefined ? this.props.defaultValue : this.value
+    // this.value = this.props.defaultValue ? this.props.defaultValue : this.props.value
     const { limitNumber, getValueByLimitNumber, tStatus, onValidateChange } = useLengthLimit({
-      value: this.value === undefined ? undefined : String(this.value),
+      value: this.props.value ? undefined : String(this.value),
       status,
       maxlength,
       maxcharacter,
       allowInputOverMax,
       onValidate,
     });
-
+    // (()=>{console.log(this.props.value)})();
     // that.attributes.css += inputSyle
     // if (this.value) {
     //   const limitedValue = getValueByLimitNumber(this.value);
@@ -228,7 +237,7 @@ export default class Input extends WeElement<InputProps> {
     }
 
     const suffixIconContent = renderIcon('t', 'suffix', parseTNode(suffixIconNew))
-    const labelContent = isFunction(label) ? label() : label
+    const labelContent = isFunction(label) ? label() : label;
     const suffixContent = isFunction(suffix) ? suffix() : suffix
 
     const limitNumberNode =
@@ -243,7 +252,7 @@ export default class Input extends WeElement<InputProps> {
       ) : null
 
     const curStatus = status || 'default'
-    const innerValue = this.composingRef.current ? this.composingValue : this.value ?? ''
+    const innerValue = this.composingRef.current ? this.composingValue : this.props.value ?? ''
 
     const formatDisplayValue = format && !this.isFocused ? format(innerValue) : innerValue
     const renderInput = (
@@ -253,7 +262,7 @@ export default class Input extends WeElement<InputProps> {
         ref={this.inputRef}
         placeholder={placeholder}
         type={this.renderType}
-        class={InputClassNamePrefix('__inner')}
+        class={'t-input__inner'}
         value={formatDisplayValue}
         readOnly={readonly}
         disabled={disabled}
@@ -269,11 +278,10 @@ export default class Input extends WeElement<InputProps> {
         onBlur={handleBlur}
         // onPaste={handlePaste}
         // name={name}
+        style="width: 0px;"
       />
-    );
-    // (()=>{
-    //   console.log(labelContent)
-    // })();
+    )
+
     const renderInputNode = (
       <div
         class={classNames(TdClassNamePrefix('input'), {
@@ -335,7 +343,7 @@ export default class Input extends WeElement<InputProps> {
           onValidate,
         })
         onValidateChange()
-        onChange(newStr)
+        onChange?.(newStr)
       }
     }
 
@@ -426,10 +434,13 @@ export default class Input extends WeElement<InputProps> {
 
     return (
       <div
-        class={classNames(InputClassNamePrefix('__wrap'), {
-          [InputClassNamePrefix('--auto-width')]: autoWidth && !keepWrapperWidth,
-        },
-        ...className)}
+        class={classNames(
+          InputClassNamePrefix('__wrap'),
+          {
+            [InputClassNamePrefix('--auto-width')]: autoWidth && !keepWrapperWidth,
+          },
+          ...className
+        )}
         // style={renderStyle}
         ref={this.wrapperRef}
         {...restProps}

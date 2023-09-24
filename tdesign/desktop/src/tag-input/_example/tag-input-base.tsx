@@ -1,12 +1,14 @@
 import { h, tag, WeElement } from 'omi'
 
 import '../index'
-
+import '../../space'
 
 @tag('tag-input-base')
 export default class TagInputBase extends WeElement {
 
   tags1 = ['Vue', 'React', 'Angular']
+  tags2 = ['Vue', 'React']
+  tags3 = ['Vue', 'React']
 
   
 
@@ -25,7 +27,8 @@ export default class TagInputBase extends WeElement {
     };
 
     return (
-      <t-tag-input 
+      <t-space direction="vertical" style={{width:'80%'}}>
+        <t-tag-input 
         value={this.tags1}
         onChange={onChange}
         clearable
@@ -33,8 +36,11 @@ export default class TagInputBase extends WeElement {
         onEnter={onTagInputEnter}
         placeholder="请输入"
         >
-
         </t-tag-input>
+        <t-tag-input value={this.tags2} label="Controlled: " placeholder="请输入" clearable />
+        <t-tag-input defaultValue={this.tags3} label="UnControlled: " placeholder="请输入" clearable />
+      </t-space>
+      
     )
   }
 }

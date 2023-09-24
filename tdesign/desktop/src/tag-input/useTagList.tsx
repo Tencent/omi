@@ -21,7 +21,7 @@ export default function useTagList(props: TagInputProps) {
   const { onRemove, max, minCollapsedNum, size, disabled, readonly, tagProps, tag, collapsedItems, getDragProps } =
     props
   // handle controlled property and uncontrolled property
-  const tagValue = props.value
+  const tagValue = props.value ? props.value : props.defaultValue
   // const [tagValue, setTagValue] = useControlled(props, 'value', props.onChange);
   // const [oldInputValue, setOldInputValue] = useState<InputValue>();
 
@@ -30,13 +30,12 @@ export default function useTagList(props: TagInputProps) {
     const arr = [...tagValue]
     arr.splice(p.index, 1)
     // setTagValue(arr, { trigger: 'tag-remove', ...p })
-    console.log(123)
     props?.onChange?.(arr, { ...p })
     onRemove?.({ ...p, trigger: 'tag-remove', value: arr })
   }
 
   const clearAll = (context: { e: MouseEvent }) => {
-    setTagValue([], { trigger: 'clear', e: context.e })
+    // setTagValue([], { trigger: 'clear', e: context.e })
   }
 
   // 按下 Enter 键，新增标签
@@ -53,6 +52,7 @@ export default function useTagList(props: TagInputProps) {
       //   e: context.e,
       // })
     }
+    // console.log(newValue)
     props?.onEnter?.(newValue, { ...context, inputValue: value })
   }
 
@@ -76,7 +76,6 @@ export default function useTagList(props: TagInputProps) {
   }
 
   const renderLabel = ({ displayNode, label }) => {
-    
     const newList = minCollapsedNum ? tagValue.slice(0, minCollapsedNum) : tagValue
     const list = displayNode
       ? [<>{displayNode}</>]
@@ -96,13 +95,13 @@ export default function useTagList(props: TagInputProps) {
             </t-tag>
           )
         })
-    // if (label) {
-    //   list?.unshift(
-    //     <div className={`${prefix}-tag-input__prefix`} key="label">
-    //       {label}
-    //     </div>,
-    //   );
-    // }
+    if (label) {
+      list?.unshift(
+        <div class={`t-tag-input__prefix`} key="label">
+          {label}
+        </div>
+      );
+    }
     // console.log(list)
     return list
   }
