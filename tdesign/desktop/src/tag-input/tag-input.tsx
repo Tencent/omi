@@ -1,11 +1,13 @@
 import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
-import { TdTagInputProps } from './type'
+import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type'
+// import { TdTagInputProps } from './type'
 import { TdClassNamePrefix } from '../utils/clsx'
 import { StyledProps } from '../common'
 import useTagList from './useTagList'
 // import useDragSorter from '../utils/userDragSorter';
 import '../input'
+import '../tag'
 import TInput, { InputValue, InputRef } from '../input'
 import noop from '../utils/noop'
 import '../icon/close'
@@ -20,15 +22,6 @@ export interface TagInputProps extends TdTagInputProps, StyledProps {}
 export default class TagInput extends WeElement<TagInputProps> {
   static css = style
 
-  iconStyle = `
-  .t-icon{
-    margin-right: var(--td-comp-margin-xs);
-    width: calc(var(--td-font-size-body-medium) + 2px);
-    height: calc(var(--td-font-size-body-medium) + 2px);
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-  }
-  `
   static defaultProps = {
     autoWidth: false,
     clearable: false,
@@ -103,7 +96,7 @@ export default class TagInput extends WeElement<TagInputProps> {
       onMouseenter,
       onMouseleave
     } = props
-    const tInputValue = this.props.inputValue
+
     // const { getDragProps } = useDragSorter({
     //   ...props,
     //   sortOnDraggable: props.dragSort,
@@ -118,17 +111,82 @@ export default class TagInput extends WeElement<TagInputProps> {
       // props.onClear?.({ e });
     };
 
-    const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel, onInputBackspaceKeyDown } =
-    useTagList({
-      ...props,
-      // getDragProps,
-    });
+    // const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel, onInputBackspaceKeyDown } =
+    // useTagList({
+    //   ...props,
+    //   // getDragProps,
+    // });
+    const isFunction = (arg: unknown) => typeof arg === 'function'
+
+    
+
+    const tagValue = props.value ? props.value : props.defaultValue
+    // 自定义 Tag 节点
+    const displayNode = isFunction(valueDisplay)
+      ? valueDisplay({
+          value: tagValue,
+          onClose: (index, item) => onClose({ index, item }),
+        })
+      : valueDisplay;
+
+    const onClose = (p: { e?: MouseEvent; index: number; item: string | number }) => {
+      const arr = [...tagValue]
+      arr.splice(p.index, 1)
+      // setTagValue(arr, { trigger: 'tag-remove', ...p })
+      props?.onChange?.(arr, { ...p })
+      // onRemove?.({ ...p, trigger: 'tag-remove', value: arr })
+    }
+
+    const onInnerEnter = (value: InputValue, context: { e: KeyboardEvent }) => {
+      const valueStr = value ? String(value).trim() : ''
+      let newValue: TagInputValue = tagValue
+      const isLimitExceeded = props.max && tagValue?.length >= props.max
+      if (valueStr && !isLimitExceeded) {
+        newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr]
+      }
+      if(!props.onEnter){
+        props.onChange(newValue, context)
+      }
+      props?.onEnter?.(newValue, { ...context, inputValue: value })
+    }
+
+    const renderLabel = ({ displayNode, label }) => {
+      // console.log(displayNode,label)
+      const newList = props.minCollapsedNum ? tagValue.slice(0, props.minCollapsedNum) : tagValue
+      const list = displayNode
+        ? [<>{displayNode}</>]
+        : newList?.map((item, index) => {
+            const tagContent = isFunction(props.tag) ? props.tag({ value: item }) : props.tag
+            return (
+              <t-tag
+                key={index}
+                size={size}
+                disabled={disabled}
+                onClose={(context) => onClose({ e: context.e, item, index })}
+                closable={!readonly && !disabled}
+                // {...getDragProps?.(index, item)}
+                {...props.tagProps}
+              >
+                {tagContent ?? item}
+              </t-tag>
+            )
+          })
+      if (label) {
+        list?.unshift(
+          <div class={`t-tag-input__prefix`} key="label">
+            {label}
+          </div>
+        );
+      }
+      // console.log(list)
+      return list
+    }
 
     const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
 
     const showClearIcon = Boolean(!readonly && !disabled && clearable && this.isHover && tagValue?.length);
 
-    const isFunction = (arg: unknown) => typeof arg === 'function'
+    
 
     const suffixIconNode = showClearIcon ? (
       <t-icon-close-circle-filled class={classNames(TagInputClassNamePrefix(`__suffix-clear`))} onClick={onClearClick} />
@@ -154,18 +212,14 @@ export default class TagInput extends WeElement<TagInputProps> {
 
     const onInputEnter = (value: InputValue, context: { e: KeyboardEvent }) => {
       onInnerEnter(value, context)
+      that.tInputValue = ''
+      that.update()
       // setTInputValue('', { e: context.e, trigger: 'enter' });
       // !isCompositionRef.current && onInnerEnter(value, context);
       // scrollToRight();
     };
 
-    // 自定义 Tag 节点
-    const displayNode = isFunction(valueDisplay)
-      ? valueDisplay({
-          value: tagValue,
-          onClose: (index, item) => onClose({ index, item }),
-        })
-      : valueDisplay;
+    
     
       
     // (() => console.log(renderLabel({ displayNode, label })))()
@@ -188,19 +242,21 @@ export default class TagInput extends WeElement<TagInputProps> {
       that.update()
       onMouseleave?.(context)
     };
-
+    // (()=>{console.log(this.tInputValue)})();
     return (
       <t-input
         ref={this.tagInputRef}
         value={this.tInputValue}
-        // onChange={(val, context) => {
-        //   setTInputValue(val, { ...context, trigger: 'input' });
-        // }}
-        // autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
+        onChange={(val, context) => {
+          console.log(val)
+          this.tInputValue = val
+          this.update()
+        }}
+        autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
         // onWheel={onWheel}
         // size={size}
-        // readonly={readonly}
-        // disabled={disabled}
+        readonly={readonly}
+        disabled={disabled}
         label={renderLabel({ displayNode, label })}
         className={classes}
         // style={props.style}
@@ -208,10 +264,10 @@ export default class TagInput extends WeElement<TagInputProps> {
         // status={status}
         // placeholder={tagInputPlaceholder}
         placeholder={tagInputPlaceholder}
-        // suffix={suffix}
+        suffix={suffix}
         suffixIcon={suffixIconNode}
         showInput={!inputProps?.readonly || !tagValue || !tagValue?.length}
-        // keepWrapperWidth={!autoWidth}
+        keepWrapperWidth={!autoWidth}
         // onPaste={onPaste}
         // onClick={onInnerClick}
         onEnter={onInputEnter}
@@ -228,12 +284,15 @@ export default class TagInput extends WeElement<TagInputProps> {
         // onFocus={(inputValue, context) => {
         //   onFocus?.(tagValue, { e: context.e, inputValue });
         // }}
-        // onBlur={(inputValue, context) => {
-        //   if (tInputValue) {
-        //     setTInputValue('', { e: context.e, trigger: 'blur' });
-        //   }
-        //   onBlur?.(tagValue, { e: context.e, inputValue: '' });
-        // }}
+        onBlur={(tInputValue, context) => {
+          console.log(tInputValue,'onblur')
+          if (tInputValue) {
+            this.tInputValue = ''
+            console.log(this.tInputValue)
+            this.update()
+          }
+          onBlur?.(tagValue, { e: context.e, inputValue: '' });
+        }}
         // onCompositionstart={onInputCompositionstart}
         // onCompositionend={onInputCompositionend}
         {...inputProps}

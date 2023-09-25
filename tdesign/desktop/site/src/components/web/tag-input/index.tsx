@@ -1,6 +1,7 @@
 import { WeElement, define, h, createRef } from 'omi'
 import '../common/index'
 import '../../../../../src/tag-input/_example/tag-input-base'
+import '../../../../../src/tag-input/_example/tag-input-excessTag'
 
 import * as marked from 'marked'
 
@@ -85,12 +86,22 @@ define(
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
-            <h3 id="基础标签输入框">
+            {/* <h3 id="基础标签输入框">
             基础标签输入框 <a class="header-anchor" href="#基础标签输入框"></a>
             </h3>
             <demo-wrapper>
               <tag-input-base></tag-input-base>
+            </demo-wrapper> */}
+
+            <h3 id="标签数量超出的输入框">
+            标签数量超出的输入框 <a class="header-anchor" href="#标签数量超出的输入框"></a>
+            </h3>
+            <p>使用 excessTagsDisplayType 控制标签超出时的呈现方式：横向滚动显示和换行显示，默认为换行显示。</p>
+            <demo-wrapper>
+              <tag-input-excess></tag-input-excess>
             </demo-wrapper>
+
+            
           </div>
 
           <div style={this.isShow('api')} name="API">
