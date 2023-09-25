@@ -1,5 +1,5 @@
 import {createRef, classNames, WeElement, tag, OmiProps} from 'omi'
-import { TdClassNamePefix } from '@src/utils'
+import { TdClassNamePefix } from '@src/utils/clsx'
 import { StyledProps } from '@src/common';
 import { CheckboxProps } from '@src/checkbox/type'
 import { TNode } from '@src/common';
