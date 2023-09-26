@@ -19,8 +19,6 @@
     "dev": "yarn start",
     "build": "vite build",
     "build:demo": "vite build",
-    "build:scss": "sass src/index.scss src/index.css",
-    "watch": "sass --watch src/index.scss src/index.css --no-source-map",
     "pretest": "yarn build",
     "test": "web-test-runner \"test/*.js\" --node-resolve"
   },

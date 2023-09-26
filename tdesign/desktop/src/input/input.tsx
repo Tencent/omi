@@ -29,14 +29,13 @@ const renderIcon = (classPrefix: string, type: 'prefix' | 'suffix', icon: TNode 
   const result = parseTNode(icon)
   const iconClassName = icon ? `${classPrefix}-input__${type}-icon` : ''
 
-  return result ? <span className={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span> : null
+  return result ? <span class={`${classPrefix}-input__${type} ${iconClassName}`}>{result}</span> : null
 }
 
 const isFunction = (arg: unknown) => typeof arg === 'function'
 
 @tag('t-input')
 export default class Input extends WeElement<InputProps> {
-
   static tagStyle = `.t-tag-input t-tag::part(my-part){
     vertical-align: middle;
     -webkit-animation: t-fade-in .2s ease-in-out;
@@ -77,8 +76,6 @@ export default class Input extends WeElement<InputProps> {
     value: String,
   }
 
-
-  
   inputRef = createRef()
   inputPreRef = createRef()
   wrapperRef = createRef()
@@ -94,7 +91,7 @@ export default class Input extends WeElement<InputProps> {
 
   isKeyUpEvent = false
 
-  install(){
+  install() {
     // console.log(this.props)
   }
   installed() {
@@ -194,12 +191,12 @@ export default class Input extends WeElement<InputProps> {
       onValidate,
       onChange,
       ...restProps
-    } = props;
+    } = props
     // const shadow = this.attachShadow({mode: "open"});
     // let styleEle = document.createElement("style");
     // console.log(shadow)
 
-    this.value = this.value==undefined ? this.props.defaultValue : this.value
+    this.value = this.value == undefined ? this.props.defaultValue : this.value
     const { limitNumber, getValueByLimitNumber, tStatus, onValidateChange } = useLengthLimit({
       value: this.value === undefined ? undefined : String(this.value),
       status,
@@ -207,7 +204,7 @@ export default class Input extends WeElement<InputProps> {
       maxcharacter,
       allowInputOverMax,
       onValidate,
-    });
+    })
 
     // that.attributes.css += inputSyle
     // if (this.value) {
@@ -270,7 +267,7 @@ export default class Input extends WeElement<InputProps> {
         // onPaste={handlePaste}
         // name={name}
       />
-    );
+    )
     // (()=>{
     //   console.log(labelContent)
     // })();
@@ -426,10 +423,13 @@ export default class Input extends WeElement<InputProps> {
 
     return (
       <div
-        class={classNames(InputClassNamePrefix('__wrap'), {
-          [InputClassNamePrefix('--auto-width')]: autoWidth && !keepWrapperWidth,
-        },
-        ...className)}
+        class={classNames(
+          InputClassNamePrefix('__wrap'),
+          {
+            [InputClassNamePrefix('--auto-width')]: autoWidth && !keepWrapperWidth,
+          },
+          className,
+        )}
         // style={renderStyle}
         ref={this.wrapperRef}
         {...restProps}
