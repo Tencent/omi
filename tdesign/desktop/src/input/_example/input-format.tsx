@@ -23,7 +23,6 @@ export default class InputForMat extends WeElement {
           value={this.inputValue}
           onChange={(value) => {
             this.inputValue = value
-            this.update()
           }}
           status={inputStatus}
           format={format}

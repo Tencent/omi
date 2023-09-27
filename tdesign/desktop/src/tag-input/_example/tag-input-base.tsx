@@ -13,16 +13,16 @@ export default class TagInputBase extends WeElement {
   
 
   render() {
-
+    let that = this
     const onTagInputEnter = (val, context) => {
-      this.tags1 = val
-      this.update()
+      that.tags1 = val
+      that.update()
       console.log(val, context)
     };
   
     const onChange = (val, context) => {
-      this.tags1 = val
-      this.update()
+      that.tags1 = val
+      that.update()
       console.log(val, context)
     };
 
