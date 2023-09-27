@@ -221,20 +221,8 @@ export default class Input extends WeElement<InputProps> {
       maxcharacter,
       allowInputOverMax,
       onValidate,
-<<<<<<< HEAD
     });
-=======
-    })
-    // (()=>{console.log(this.props.value)})();
-    // that.attributes.css += inputSyle
-    // if (this.value) {
-    //   const limitedValue = getValueByLimitNumber(this.value);
-    //   if (limitedValue.length !== this.value.length && !allowInputOverMax) {
-    //     onChange?.(limitedValue);
-    //   }
-    // }
->>>>>>> 303ab0f8700473f10ca365692f27afc6f058c749
-
+    
     const isShowClearIcon = ((clearable && this.value && !disabled) || showClearIconOnEmpty) && this.isHover
     const prefixIconContent = renderIcon('t', 'prefix', parseTNode(prefixIcon))
     let suffixIconNew = suffixIcon
