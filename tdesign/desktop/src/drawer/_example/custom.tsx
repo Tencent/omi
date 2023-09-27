@@ -3,8 +3,8 @@ import { h, tag, WeElement } from 'omi'
 import '../index'
 import '../../button'
 
-@tag('drawer-base')
-export default class DrawerBase extends WeElement {
+@tag('drawer-custom')
+export default class DrawerCustom extends WeElement {
   visible = false
 
   handleClick = () => {
@@ -22,9 +22,13 @@ export default class DrawerBase extends WeElement {
         <t-button theme="primary" onClick={handleClick}>
           打开抽屉
         </t-button>
-        <t-drawer header="抽屉标题" visible={visible} onClose={handleClose}>
-          <p>抽屉的内容</p>
-        </t-drawer>
+        <t-drawer
+          header={<div>自定义头部</div>}
+          body={<div>自定义内容</div>}
+          footer={<t-button theme="primary">自定义底部按钮</t-button>}
+          visible={visible}
+          onClose={handleClose}
+        ></t-drawer>
       </>
     )
   }

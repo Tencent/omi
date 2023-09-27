@@ -147,6 +147,13 @@ const metaData = new Map([
       description: '最基础的卡片容器，可承载文字、列表、图片、段落，常用于后台概览页面。',
     },
   ],
+  [
+    'drawer',
+    {
+      title: 'Drawer 抽屉',
+      description: '抽屉常通过单击临近的按钮控件打开，从屏幕边缘滑入的浮层面板，又称半屏弹窗。',
+    },
+  ],
 ])
 
 const getMetaData = (componentName: string) => {

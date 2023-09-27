@@ -44,22 +44,22 @@ export default class Input extends WeElement<InputProps> {
     } 
   `
 
-//   static labelStyle = `
-//     .t-tag-input--break-line:not(.t-is-empty) .t-tag-input__prefix {
-//       vertical-align: middle;
-//     }
+  //   static labelStyle = `
+  //     .t-tag-input--break-line:not(.t-is-empty) .t-tag-input__prefix {
+  //       vertical-align: middle;
+  //     }
 
-//     .t-tag-input .t-tag-input__prefix {
-//       margin-left: var(--td-comp-margin-xs);
-//       line-height: 1;
-//     }
-    
-//     .t-tag-input .t-tag-input__prefix {
-//       width: max-content;
-//       display: inline-block;
-//       margin-right: 8px;
-//     }
-//     `
+  //     .t-tag-input .t-tag-input__prefix {
+  //       margin-left: var(--td-comp-margin-xs);
+  //       line-height: 1;
+  //     }
+
+  //     .t-tag-input .t-tag-input__prefix {
+  //       width: max-content;
+  //       display: inline-block;
+  //       margin-right: 8px;
+  //     }
+  //     `
 
   // static css = inputSyle + Input.tagStyle + Input.labelStyle
   static css = style + Input.tagStyle
@@ -126,7 +126,7 @@ export default class Input extends WeElement<InputProps> {
       // 异步渲染场景下 getBoundingClientRect 宽度为 0，需要使用 offsetWidth
       const calcWidth = width < offsetWidth ? offsetWidth + 1 : width
       this.inputRef.current.style.width = `${calcWidth}px`
-    };
+    }
 
     inputNode.addEventListener('input', (e) => {
       if (that.composingRef.current) {
@@ -216,7 +216,7 @@ export default class Input extends WeElement<InputProps> {
       maxcharacter,
       allowInputOverMax,
       onValidate,
-    });
+    })
     // (()=>{console.log(this.props.value)})();
     // that.attributes.css += inputSyle
     // if (this.value) {
@@ -237,7 +237,7 @@ export default class Input extends WeElement<InputProps> {
     }
 
     const suffixIconContent = renderIcon('t', 'suffix', parseTNode(suffixIconNew))
-    const labelContent = isFunction(label) ? label() : label;
+    const labelContent = isFunction(label) ? label() : label
     const suffixContent = isFunction(suffix) ? suffix() : suffix
 
     const limitNumberNode =
@@ -281,7 +281,6 @@ export default class Input extends WeElement<InputProps> {
         style="width: 0px;"
       />
     )
-
     const renderInputNode = (
       <div
         class={classNames(TdClassNamePrefix('input'), {
@@ -439,7 +438,7 @@ export default class Input extends WeElement<InputProps> {
           {
             [InputClassNamePrefix('--auto-width')]: autoWidth && !keepWrapperWidth,
           },
-          ...className
+          className,
         )}
         // style={renderStyle}
         ref={this.wrapperRef}
