@@ -300,13 +300,13 @@ export const docs = [
       //       component: () => import('tdesign-omi/input-number/input-number.md'),
       //       componentEn: () => import('tdesign-omi/input-number/input-number.en-US.md'),
       //     },
-          {
-            title: 'TagInput 标签输入框',
-            titleEn: 'TagInput',
-            name: 'tag-input',
-            docType: 'form',
-            path: '/tag-input',
-          },
+      {
+        title: 'TagInput 标签输入框',
+        titleEn: 'TagInput',
+        name: 'tag-input',
+        docType: 'form',
+        path: '/tag-input',
+      },
       //     {
       //       title: 'Radio 单选框',
       //       titleEn: 'Radio',
@@ -585,14 +585,14 @@ export const docs = [
       //       component: () => import('tdesign-omi/dialog/dialog.md'),
       //       componentEn: () => import('tdesign-omi/dialog/dialog.en-US.md'),
       //     },
-      //     {
-      //       title: 'Drawer 抽屉',
-      //       titleEn: 'Drawer',
-      //       name: 'drawer',
-      //       path: '/drawer',
-      //       component: () => import('tdesign-omi/drawer/drawer.md'),
-      //       componentEn: () => import('tdesign-omi/drawer/drawer.en-US.md'),
-      //     },
+      {
+        title: 'Drawer 抽屉',
+        titleEn: 'Drawer',
+        name: 'drawer',
+        path: '/drawer',
+        //       component: () => import('tdesign-omi/drawer/drawer.md'),
+        //       componentEn: () => import('tdesign-omi/drawer/drawer.en-US.md'),
+      },
       //     {
       //       title: 'Guide 引导',
       //       titleEn: 'Guide',

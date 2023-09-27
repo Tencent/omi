@@ -31,7 +31,8 @@ const components = [
   'avatar',
   'card',
   'tag',
-  'tag-input'
+  'tag-input',
+  'drawer',
 ]
 
 export function registerRouting(rootEl: any) {

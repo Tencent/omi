@@ -73,6 +73,7 @@ export default class Drawer extends WeElement<DrawerProps> {
   maskRef = createRef()
   containerRef = createRef()
   drawerWrapperRef = createRef()
+  drawerTransRef = createRef()
   animationStartUpdateFlag = true
   footerBtnCss = `
     .t-button {
@@ -81,8 +82,8 @@ export default class Drawer extends WeElement<DrawerProps> {
   `
 
   dragSizeValue: string
-  draggableLineStyles = {}
-  contentWrapperStyle = {}
+  draggableLineStyles: Object
+  contentWrapperStyle: Object
   animationStart = false
   sizeValue: any
 
@@ -104,6 +105,7 @@ export default class Drawer extends WeElement<DrawerProps> {
         this.dragSizeValue = `${document.documentElement.clientHeight - y + 8}px`
       }
     }
+    this.update()
   }
 
   handleMouseup = () => {
@@ -155,7 +157,7 @@ export default class Drawer extends WeElement<DrawerProps> {
     const { visible, placement } = this.props
     const { animationStart, sizeValue } = this
     this.contentWrapperStyle = {
-      transform: visible && animationStart ? 'translateX(0)' : undefined,
+      transform: visible && animationStart ? 'translateX(0)' : '',
       width: ['left', 'right'].includes(placement) ? sizeValue : '',
       height: ['top', 'bottom'].includes(placement) ? sizeValue : '',
     }
@@ -163,11 +165,13 @@ export default class Drawer extends WeElement<DrawerProps> {
 
   onMaskClick = (e: MouseEvent) => {
     const { onOverlayClick, onClose, closeOnOverlayClick } = this.props
+    const flag = closeOnOverlayClick ?? true
     onOverlayClick?.({ e })
-    closeOnOverlayClick && onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY })
+    flag && onClose?.({ e, trigger: CloseTriggerType.CLICK_OVERLAY })
   }
   onClickCloseBtn = (e: MouseEvent) => {
     const { onCloseBtnClick, onClose } = this.props
+    this.updateProps({ visible: false }) // 触发onAfterLeave
     onCloseBtnClick?.({ e })
     onClose?.({ e, trigger: CloseTriggerType.CLICK_CLOSE_BTN })
   }
@@ -189,6 +193,7 @@ export default class Drawer extends WeElement<DrawerProps> {
   }
 
   beforeUpdate() {
+    console.log('update drawer')
     this.setSizeValue()
     this.setDraggableLineStyles()
     this.setContentWrapperStyle()
@@ -292,15 +297,21 @@ export default class Drawer extends WeElement<DrawerProps> {
     const renderBody = <div class={`${componentName}__body`}>{body || children}</div>
     const renderFooter = footer && <div class={`${componentName}__footer`}>{getFooter()}</div>
 
+    console.log('contentWrapperStyle: ', contentWrapperStyle)
     return (
       <o-transition
+        ref={this.drawerTransRef}
         appear={visible}
         disappear={!visible}
-        unmountOnExit={destroyOnClose}
+        autoRemove={destroyOnClose}
         // delay={{ appear: 10, enter: 10, exit: 300 }}
         delay={!visible ? 300 : 10}
-        onAfterEnter={() => updateAnimationStart(true)}
-        onAfterLeave={() => updateAnimationStart(false)}
+        onAfterEnter={() => {
+          console.log('onAfterEnter'), updateAnimationStart(true)
+        }}
+        onAfterLeave={() => {
+          console.log('onAfterLeave'), updateAnimationStart(false)
+        }}
       >
         <div ref={drawerWrapperRef}>
           <div
