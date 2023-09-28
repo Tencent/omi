@@ -67,6 +67,7 @@ export default function useLengthLimit(params: UseLengthLimitParams) {
   const innerStatus = () => {
     if (limitNumber()) {
       const [current, total] = limitNumber().split('/');
+      // console.log(Number(current), Number(total))
       return Number(current) > Number(total) ? 'error' : '';
     }
     return '';
@@ -80,7 +81,6 @@ export default function useLengthLimit(params: UseLengthLimitParams) {
   //   return '';
   // }, [limitNumber]);
 
-  // const tStatus = params.status || innerStatus()
   const tStatus = params.status || innerStatus()
   // const tStatus = useMemo(() => params.status || innerStatus, [params.status, innerStatus]);
 

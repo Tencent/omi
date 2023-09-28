@@ -40,7 +40,7 @@ export default class InputLenlimit extends WeElement {
       <t-input
         value={this.value3}
         onChange={(value) => {
-          console.log(value)
+          // console.log(value)
           this.value3 = value
           this.update()
         }}

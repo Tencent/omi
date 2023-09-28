@@ -13,6 +13,7 @@ import noop from '../utils/noop'
 import '../icon/close'
 import { clearScreenDown } from 'readline'
 import "../icon/close-circle-filled"
+import { takeRightWhile } from 'lodash'
 
 const TagInputClassNamePrefix = (className: string) => TdClassNamePrefix('tag-input') + className
 
@@ -65,12 +66,13 @@ export default class TagInput extends WeElement<TagInputProps> {
 
   install() {
     // console.log(this.props.inputProps)
-    
+    this.tagValue = this.props.value ? this.props.value : this.props.defaultValue
   }
 
   tagInputRef = createRef()
-  tInputValue
+  tInputValue = ''
   isHover
+  tagValue = []
 
   render(props: OmiProps<TagInputProps, any>, store: any) {
     let that = this
@@ -95,8 +97,8 @@ export default class TagInput extends WeElement<TagInputProps> {
       onBlur,
       onMouseenter,
       onMouseleave
-    } = props
-
+    } = props;
+    (()=>console.log(props.value))()
     // const { getDragProps } = useDragSorter({
     //   ...props,
     //   sortOnDraggable: props.dragSort,
@@ -110,7 +112,7 @@ export default class TagInput extends WeElement<TagInputProps> {
       // setTInputValue('', { e, trigger: 'clear' });
       // props.onClear?.({ e });
     };
-
+    const tagValue = props.value ? props.value : props.defaultValue
     // const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel, onInputBackspaceKeyDown } =
     // useTagList({
     //   ...props,
@@ -118,9 +120,6 @@ export default class TagInput extends WeElement<TagInputProps> {
     // });
     const isFunction = (arg: unknown) => typeof arg === 'function'
 
-    
-
-    const tagValue = props.value ? props.value : props.defaultValue
     // 自定义 Tag 节点
     const displayNode = isFunction(valueDisplay)
       ? valueDisplay({
@@ -132,6 +131,7 @@ export default class TagInput extends WeElement<TagInputProps> {
     const onClose = (p: { e?: MouseEvent; index: number; item: string | number }) => {
       const arr = [...tagValue]
       arr.splice(p.index, 1)
+      tagValue.splice(p.index, 1)
       // setTagValue(arr, { trigger: 'tag-remove', ...p })
       props?.onChange?.(arr, { ...p })
       // onRemove?.({ ...p, trigger: 'tag-remove', value: arr })
@@ -144,14 +144,13 @@ export default class TagInput extends WeElement<TagInputProps> {
       if (valueStr && !isLimitExceeded) {
         newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr]
       }
-      if(!props.onEnter){
-        props.onChange(newValue, context)
-      }
+      that.tInputValue = ''
+      console.log('注意',that.tInputValue)
+      if(!props.onEnter){props.onChange(newValue, {...context})}
       props?.onEnter?.(newValue, { ...context, inputValue: value })
     }
 
     const renderLabel = ({ displayNode, label }) => {
-      // console.log(displayNode,label)
       const newList = props.minCollapsedNum ? tagValue.slice(0, props.minCollapsedNum) : tagValue
       const list = displayNode
         ? [<>{displayNode}</>]
@@ -212,8 +211,6 @@ export default class TagInput extends WeElement<TagInputProps> {
 
     const onInputEnter = (value: InputValue, context: { e: KeyboardEvent }) => {
       onInnerEnter(value, context)
-      that.tInputValue = ''
-      that.update()
       // setTInputValue('', { e: context.e, trigger: 'enter' });
       // !isCompositionRef.current && onInnerEnter(value, context);
       // scrollToRight();
@@ -245,10 +242,10 @@ export default class TagInput extends WeElement<TagInputProps> {
     // (()=>{console.log(this.tInputValue)})();
     return (
       <t-input
-        ref={this.tagInputRef}
-        value={this.tInputValue}
+        ref={that.tagInputRef}
+        value={that.tInputValue}
         onChange={(val, context) => {
-          console.log(val)
+          // console.log(val)
           this.tInputValue = val
           this.update()
         }}
@@ -288,7 +285,6 @@ export default class TagInput extends WeElement<TagInputProps> {
           console.log(tInputValue,'onblur')
           if (tInputValue) {
             this.tInputValue = ''
-            console.log(this.tInputValue)
             this.update()
           }
           onBlur?.(tagValue, { e: context.e, inputValue: '' });

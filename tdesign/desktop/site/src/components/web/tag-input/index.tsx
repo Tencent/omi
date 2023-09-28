@@ -86,12 +86,12 @@ define(
         <>
           <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
           <div style={this.isShow('demo')} name="DEMO">
-            {/* <h3 id="基础标签输入框">
+            <h3 id="基础标签输入框">
             基础标签输入框 <a class="header-anchor" href="#基础标签输入框"></a>
             </h3>
             <demo-wrapper>
               <tag-input-base></tag-input-base>
-            </demo-wrapper> */}
+            </demo-wrapper>
 
             <h3 id="标签数量超出的输入框">
             标签数量超出的输入框 <a class="header-anchor" href="#标签数量超出的输入框"></a>
