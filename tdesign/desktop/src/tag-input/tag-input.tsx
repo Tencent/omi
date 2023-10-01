@@ -19,6 +19,8 @@ const TagInputClassNamePrefix = (className: string) => TdClassNamePrefix('tag-in
 
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
+const isFunction = (arg: unknown) => typeof arg === 'function'
+
 @tag('t-tag-input')
 export default class TagInput extends WeElement<TagInputProps> {
   static css = style
@@ -66,13 +68,84 @@ export default class TagInput extends WeElement<TagInputProps> {
 
   install() {
     // console.log(this.props.inputProps)
+    this.tagInputRef = createRef()
     this.tagValue = this.props.value ? this.props.value : this.props.defaultValue
   }
+  
+  installed(){
+    this.initScroll(this.tagInputRef)
+  }
 
-  tagInputRef = createRef()
+  tagInputRef
   tInputValue = ''
   isHover
   tagValue = []
+  mouseEnterTimer = null
+  scrollDistance
+  scrollElement
+
+  updateScrollElement = (element: HTMLDivElement) => {
+    this.scrollElement = element.current.children[0]
+  };
+
+  updateScrollDistance = () => {
+    if (!this.scrollElement) return;
+    this.scrollDistance = this.scrollElement.scrollWidth - this.scrollElement.clientWidth
+    // setScrollDistance(scrollElement.scrollWidth - scrollElement.clientWidth);
+  };
+
+  scrollTo = (distance: number) => {
+    if (isFunction(this.scrollElement?.scroll)) {
+      this.scrollElement.scroll({ left: distance, behavior: 'smooth' });
+    }
+  };
+
+  scrollToRight = () => {
+    this.updateScrollDistance();
+    this.scrollTo(this.scrollDistance);
+  };
+
+  scrollToLeft = () => {
+    this.scrollTo(0);
+  };
+
+  // TODO：MAC 电脑横向滚动，Windows 纵向滚动。当前只处理了横向滚动
+  // onWheel = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
+  //   if (readonly || disabled) return;
+  //   if (!scrollElement) return;
+  //   if (e.deltaX > 0) {
+  //     const distance = Math.min(scrollElement.scrollLeft + 120, scrollDistance);
+  //     scrollTo(distance);
+  //   } else {
+  //     const distance = Math.max(scrollElement.scrollLeft - 120, 0);
+  //     scrollTo(distance);
+  //   }
+  // };
+
+  // 鼠标 hover，自动滑动到最右侧，以便输入新标签
+  scrollToRightOnEnter = () => {
+    if (this.props.excessTagsDisplayType !== 'scroll') return;
+    // 一闪而过的 mousenter 不需要执行
+    this.mouseEnterTimer = setTimeout(() => {
+      this.scrollToRight();
+      clearTimeout(this.mouseEnterTimer);
+    }, 100);
+  };
+
+  scrollToLeftOnLeave = () => {
+    if (this.props.excessTagsDisplayType !== 'scroll') return;
+    this.scrollTo(0);
+    clearTimeout(this.mouseEnterTimer);
+  };
+
+  clearScroll = () => {
+    clearTimeout(this.mouseEnterTimer);
+  };
+
+  initScroll = (element: HTMLDivElement) => {
+    if (!element) return;
+    this.updateScrollElement(element);
+  };
 
   render(props: OmiProps<TagInputProps, any>, store: any) {
     let that = this
@@ -98,7 +171,11 @@ export default class TagInput extends WeElement<TagInputProps> {
       onMouseenter,
       onMouseleave
     } = props;
-    (()=>console.log(props.value))()
+    
+    
+   
+    
+    // initScroll(this.tagInputRef?.current.currentElement);
     // const { getDragProps } = useDragSorter({
     //   ...props,
     //   sortOnDraggable: props.dragSort,
@@ -145,8 +222,7 @@ export default class TagInput extends WeElement<TagInputProps> {
         newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr]
       }
       that.tInputValue = ''
-      console.log('注意',that.tInputValue)
-      if(!props.onEnter){props.onChange(newValue, {...context})}
+      if(!props.onEnter){props.onChange?.(newValue, {...context})}
       props?.onEnter?.(newValue, { ...context, inputValue: value })
     }
 
@@ -213,7 +289,7 @@ export default class TagInput extends WeElement<TagInputProps> {
       onInnerEnter(value, context)
       // setTInputValue('', { e: context.e, trigger: 'enter' });
       // !isCompositionRef.current && onInnerEnter(value, context);
-      // scrollToRight();
+      this.scrollToRight();
     };
 
     
@@ -271,12 +347,12 @@ export default class TagInput extends WeElement<TagInputProps> {
         // onKeydown={onInputBackspaceKeyDown}
         // onKeyup={onInputBackspaceKeyUp}
         onMouseenter={(context) => {
-          addHover(context);
-          // scrollToRightOnEnter();
+          addHover(context)
+          this.scrollToRightOnEnter()
         }}
         onMouseleave={(context) => {
-          cancelHover(context);
-          // scrollToLeftOnLeave();
+          cancelHover(context)
+          this.scrollToLeftOnLeave()
         }}
         // onFocus={(inputValue, context) => {
         //   onFocus?.(tagValue, { e: context.e, inputValue });

@@ -2,6 +2,7 @@ import { WeElement, define, h, createRef } from 'omi'
 import '../common/index'
 import '../../../../../src/tag-input/_example/tag-input-base'
 import '../../../../../src/tag-input/_example/tag-input-excessTag'
+import '../../../../../src/tag-input/_example/tag-input-limit'
 
 import * as marked from 'marked'
 
@@ -99,6 +100,14 @@ define(
             <p>使用 excessTagsDisplayType 控制标签超出时的呈现方式：横向滚动显示和换行显示，默认为换行显示。</p>
             <demo-wrapper>
               <tag-input-excess></tag-input-excess>
+            </demo-wrapper>
+
+            <h3 id="有数量限制的标签输入框">
+            有数量限制的标签输入框 <a class="header-anchor" href="#有数量限制的标签输入框"></a>
+            </h3>
+            <p>使用 max 控制最大标签数量。</p>
+            <demo-wrapper>
+              <tag-input-limit></tag-input-limit>
             </demo-wrapper>
 
             
