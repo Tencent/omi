@@ -40,7 +40,6 @@ export default class TagInputBase extends WeElement {
         <t-tag-input value={this.tags2} label="Controlled: " placeholder="请输入" clearable />
         <t-tag-input defaultValue={this.tags3} label="UnControlled: " placeholder="请输入" clearable />
       </t-space>
-      
     )
   }
 }

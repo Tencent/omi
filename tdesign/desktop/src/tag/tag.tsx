@@ -109,8 +109,8 @@ export default class Tag extends WeElement<TagProps> {
     }
     
     return (
-      <>
-        <span class={this.cls()}
+      <span 
+        class={this.cls()}
         part="my-part"
         ref={this.span}
         onClick={(e) => {
@@ -126,7 +126,6 @@ export default class Tag extends WeElement<TagProps> {
           {closable && !disabled && this.deleteIcon}
         </>
         </span>
-      </>
     )
   }
 }
