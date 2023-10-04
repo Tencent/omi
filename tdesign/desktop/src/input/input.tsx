@@ -40,8 +40,11 @@ export default class Input extends WeElement<InputProps> {
     vertical-align: middle;
     -webkit-animation: t-fade-in .2s ease-in-out;
     animation: t-fade-in .2s ease-in-out;
-    margin: 3px var(--td-comp-margin-xs) 3px 0 !important;
+    margin: 3px var(--td-comp-margin-xs) 3px 0;
     } 
+    .t-tag-input t-tag[size="small"]::part(my-part) {
+      margin: 1px var(--td-comp-margin-xs) 1px 0;
+    }
   `
 
   //   static labelStyle = `
@@ -118,7 +121,6 @@ export default class Input extends WeElement<InputProps> {
     let that = this
     this.renderType = this.props.type
     let inputNode = this.inputRef.current
-    
     const updateInputWidth = () => {
       if (!this.props.autoWidth || !this.inputRef.current) return
       const { offsetWidth } = this.inputPreRef.current
@@ -359,14 +361,15 @@ export default class Input extends WeElement<InputProps> {
       } = e
       that.value = ''
       key === 'Enter' && onEnter?.(value, { e })
-      onKeydown?.(value, { e })
+      console.log('ui',e)
+      props.onMyKeydown?.(value, { e })
     }
 
     function handleKeyUp(e: KeyboardEvent) {
       const {
         currentTarget: { value },
       } = e
-      onKeyup?.(value, { e })
+      props.onMyKeyup?.(value, { e })
     }
 
     function handleFocus(e: FocusEvent) {

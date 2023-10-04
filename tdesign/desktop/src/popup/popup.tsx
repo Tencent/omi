@@ -32,7 +32,16 @@ export default class Popup extends WeElement<
     updateScrollTop?: (content: HTMLElement) => void
   }
 > {
-  static css = css as string
+
+  static tagStyle = `
+    t-trigger::part(pop-tag) {
+      vertical-align: middle;
+      -webkit-animation: t-fade-in .2s ease-in-out;
+      animation: t-fade-in .2s ease-in-out;
+      margin: 3px var(--td-comp-margin-xs) 3px 0;
+    }
+  `
+  static css = css + Popup.tagStyle
 
   static defaultProps = {
     attach: 'body',
@@ -264,7 +273,7 @@ export default class Popup extends WeElement<
 
     return (
       <t-container>
-        <t-trigger ref={this.triggerRef}>{props.triggerElement ? props.triggerElement : props.children}</t-trigger>
+        <t-trigger ref={this.triggerRef} part="trigger">{props.triggerElement ? props.triggerElement : props.children}</t-trigger>
         <o-transition
           appear
           name={props.expandAnimation ? `${componentName}--animation-expand` : `${componentName}--animation`}

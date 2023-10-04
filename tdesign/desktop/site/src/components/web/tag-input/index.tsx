@@ -2,6 +2,14 @@ import { WeElement, define, h, createRef } from 'omi'
 import '../common/index'
 import '../../../../../src/tag-input/_example/tag-input-base'
 import '../../../../../src/tag-input/_example/tag-input-excessTag'
+import '../../../../../src/tag-input/_example/tag-input-limit'
+import '../../../../../src/tag-input/_example/tag-input-size'
+import '../../../../../src/tag-input/_example/tag-input-collapse'
+import '../../../../../src/tag-input/_example/tag-input-diy'
+import '../../../../../src/tag-input/_example/tag-input-status'
+import '../../../../../src/tag-input/_example/tag-input-theme'
+import '../../../../../src/tag-input/_example/tag-input-autoWidth'
+import '../../../../../src/tag-input/_example/tag-input-drag'
 
 import * as marked from 'marked'
 
@@ -101,7 +109,73 @@ define(
               <tag-input-excess></tag-input-excess>
             </demo-wrapper>
 
-            
+            <h3 id="有数量限制的标签输入框">
+            有数量限制的标签输入框 <a class="header-anchor" href="#有数量限制的标签输入框"></a>
+            </h3>
+            <p>使用 max 控制最大标签数量。</p>
+            <demo-wrapper>
+              <tag-input-limit></tag-input-limit>
+            </demo-wrapper>
+
+            <h3 id="不同尺寸的标签输入框">
+            不同尺寸的标签输入框 <a class="header-anchor" href="#不同尺寸的标签输入框"></a>
+            </h3>
+            <p>提供大、中（默认）、小三种不同尺寸的的标签输入框。</p>
+            <demo-wrapper>
+              <tag-input-size></tag-input-size>
+            </demo-wrapper>
+
+            <h3 id="可折叠过多标签的标签输入框">
+            可折叠过多标签的标签输入框 <a class="header-anchor" href="#可折叠过多标签的标签输入框"></a>
+            </h3>
+            <ul>
+              <li>mincollapsedNum 用于控制超出这个数量的标签折叠省略显示。</li>
+              <li>collapsedItems 用于自定义折叠标签呈现方式。</li>
+            </ul>
+            <demo-wrapper>
+              <tag-input-collapse></tag-input-collapse>
+            </demo-wrapper>
+
+            <h3 id="可自定义标签的标签输入框">
+            可自定义标签的标签输入框 <a class="header-anchor" href="#可自定义标签的标签输入框"></a>
+            </h3>
+            <ul>
+              <li>tag 用于定义单个标签的内容</li>
+              <li>valueDispaly 用于完全自定义全量标签内容</li>
+            </ul>
+            <demo-wrapper>
+              <tag-input-diy></tag-input-diy>
+            </demo-wrapper>
+
+            <h3 id="不同状态的标签输入框">
+            不同状态的标签输入框 <a class="header-anchor" href="#不同状态的标签输入框"></a>
+            </h3>
+            <p>标签输入框状态可分为：正常、只读、禁用、成功、告警、错误等，其中 成功、告警、错误 等状态一般用于表单验证。此特性继承至 Input 输入框组件。</p>
+            <demo-wrapper>
+              <tag-input-status></tag-input-status>
+            </demo-wrapper>
+
+            <h3 id="不同主题的标签输入框">
+            不同主题的标签输入框 <a class="header-anchor" href="#不同主题的标签输入框"></a>
+            </h3>
+            <p>使用 tagProps 控制标签的所有属性，如：颜色设置。</p>
+            <demo-wrapper>
+              <tag-input-theme></tag-input-theme>
+            </demo-wrapper>
+
+            <h3 id="宽度自适应的标签输入框">
+            宽度自适应的标签输入框 <a class="header-anchor" href="#宽度自适应的标签输入框"></a>
+            </h3>
+            <demo-wrapper>
+              <tag-input-auto></tag-input-auto>
+            </demo-wrapper>
+
+            <h3 id="可拖拽调整顺序的标签输入框">
+            可拖拽调整顺序的标签输入框 <a class="header-anchor" href="#可拖拽调整顺序的标签输入框"></a>
+            </h3>
+            <demo-wrapper>
+              <tag-input-drag></tag-input-drag>
+            </demo-wrapper>
           </div>
 
           <div style={this.isShow('api')} name="API">
