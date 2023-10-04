@@ -2,7 +2,7 @@ import { h, tag, WeElement, OmiProps, define, classNames, createRef, cloneElemen
 import { RateProps } from './type'
 import '../icon/star-filled'
 import css from './style/index'
-import { isElement, isObject } from 'lodash'
+import { isObject } from 'lodash'
 type IconProps = {
   size: string
   color: string

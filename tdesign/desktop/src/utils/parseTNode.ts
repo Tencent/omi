@@ -4,7 +4,7 @@ import { TNode } from '../common'
 import log from '../_common/js/log'
 
 // 解析 TNode 数据结构
-export default function parseTNode(
+export function parseTNode(
   renderNode: TNode | TNode<any> | undefined,
   renderParams?: any,
   defaultNode?: WeElement,

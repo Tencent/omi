@@ -1,17 +1,20 @@
-import { define, OmiProps, h, render, WeElement } from 'omi'
-import '../../../../../src/alert/index'
-import { ButtonShape, ButtonTheme, ButtonVariant } from '@src/button/type'
-import { SizeEnum } from '@src/common'
-
+import { WeElement, define, h, createRef } from 'omi'
+import '../common/index'
+import '../../../../../src/alert/_example/base'
+import '../../../../../src/alert/_example/close'
+import '../../../../../src/alert/_example/collapse'
+import '../../../../../src/alert/_example/icon'
+import '../../../../../src/alert/_example/operation'
+import '../../../../../src/alert/_example/title'
 import * as marked from 'marked'
 
-const docsHtml = marked.parse(`
+const docsHTML = marked.parse(`
 ## API
 ### Link Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
-className |	String |	- |	类名 |	N
+class |	String |	- |	类名 |	N
 style |	Object |	- 	|样式，TS 类型：React.CSSProperties |	N
 close |	TNode |	false |	关闭按钮。值为 true 则显示默认关闭按钮；值为 false 则不显示按钮；值类型为 string 则直接显示；值类型为 Function 则可以自定关闭按钮。TS 类型：string,boolean,TNode。通用类型定义 |	N
 icon |	TElement |	- |	图标。TS 类型：TNode。通用类型定义 |	N
@@ -23,59 +26,95 @@ title |	TNode |	- |	标题。TS 类型：string , TNode。通用类型定义 |	N
 onClose |	Function |-	|	TS 类型：(context: { e: MouseEvent }) => void 关闭按钮点击时触发 |	N
 onClosed |	Function | - |	TS 类型：(context: { e: TransitionEvent }) => void 告警提示框关闭动画结束后触发 |	N
 `)
-
-const operation = <span>相关操作</span>
+interface Props {
+  tab: string
+}
 
 define(
   'page-alert',
-  class extends WeElement {
-    render(props: {} | OmiProps<{}, any>, store: any) {
+  class extends WeElement<Props> {
+    static defaultProps = {
+      tab: 'demo',
+    }
+
+    tab = ['demo', 'api', 'design']
+    tdDocHeader = createRef()
+    tdDocTabs = createRef()
+
+    static propTypes = {
+      tab: String,
+    }
+
+    updateTab = (t: string) => {
+      this.updateProps({
+        tab: t,
+      })
+    }
+
+    isShow(tabStr: string) {
+      return this.props.tab === tabStr ? { display: 'block' } : { display: 'none' }
+    }
+
+    installed() {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
+        this.updateTab(currentTab)
+      }
+    }
+
+    render() {
       return (
-        <div style="padding:24px">
-          <div style="display:flex;">
-            <div direction="vertical" style="width:100%">
-              <t-alert style="margin-bottom:16px" theme="info" message="这是一条消息" />
-              <t-alert style="margin-bottom:16px" theme="success" message="这是一条消息" />
-              <t-alert style="margin-bottom:16px" theme="warning" message="这是一条消息" />
-              <t-alert style="margin-bottom:16px" theme="error" message="这是一条消息" />
-            </div>
+        <>
+          <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
+          <div style={this.isShow('demo')} name="DEMO">
+            <h3 id="基础警告">
+              基础警告 <a class="header-anchor" href="#基础警告"></a>
+            </h3>
+            <p>使用简洁文字提示的最基础警告条，包含 4 种情况的提示：普通消息，成功，警示，失败。</p>
+            <demo-wrapper>
+              <alert-base></alert-base>
+            </demo-wrapper>
+            <h3 id="带操作的警告">
+              带操作的警告 <a class="header-anchor" href="#带操作的警告"></a>
+            </h3>
+            <p>
+              当需要对此警告做操作，可以配置 <td-code text="operation"></td-code> 来增加相关操作。
+            </p>
+            <demo-wrapper>
+              <alert-operation></alert-operation>
+            </demo-wrapper>
+            <h3 id="带相关描述文字的警告">
+              带相关描述文字的警告 <a class="header-anchor" href="#带相关描述文字的警告"></a>
+            </h3>
+            <p>当信息内容较复杂时，可使用相关描述文字辅助说明。</p>
+            <demo-wrapper>
+              <alert-title></alert-title>
+            </demo-wrapper>
+            <h3 id="折叠的警告">
+              折叠的警告 <a class="header-anchor" href="#折叠的警告"></a>
+            </h3>
+            <p>当信息内容超过 2 行时，可使用折叠的方式将部分信息隐藏。</p>
+            <demo-wrapper>
+              <alert-collapse></alert-collapse>
+            </demo-wrapper>
+            <h3 id="自定义icon的警告">
+              自定义icon的警告 <a class="header-anchor" href="#自定义icon的警告"></a>
+            </h3>
+            <p>用户可以通过自定义icon的方式设置警告的icon</p>
+            <demo-wrapper>
+              <alert-icon></alert-icon>
+            </demo-wrapper>
           </div>
-
-          <div direction="vertical" style="width:100%">
-            <t-alert
-              operation={operation}
-              title="这是一条普通的消息提示"
-              style="margin-bottom:16px"
-              theme="info"
-              message="这是一条普通的消息提示描述，这是一条普通的消息提示描述"
-              close
-            />
-            <t-alert operation={operation} style="margin-bottom:16px" theme="success" message="这是一条消息" close />
-            <t-alert operation={operation} style="margin-bottom:16px" theme="warning" message="这是一条消息" close />
-            <t-alert operation={operation} style="margin-bottom:16px" theme="error" message="这是一条消息" close />
+          <div style={this.isShow('api')} name="API">
+            <div
+              style="margin-bottom:76px"
+              dangerouslySetInnerHTML={{
+                __html: docsHTML,
+              }}
+            ></div>
           </div>
-
-          <div direction="vertical" style="width:100%">
-            <t-alert
-              title="这是一条普通的消息提示"
-              style="margin-bottom:16px"
-              theme="info"
-              message={[
-                '1.这是一条普通的消息提示描述，',
-                '2.这是一条普通的消息提示描述，',
-                '3.这是一条普通的消息提示描述，',
-                '4.这是一条普通的消息提示描述，',
-                '5.这是一条普通的消息提示描述，',
-              ]}
-              maxLine={2}
-              close
-              onClose={() => console.log('1')}
-              onClosed={() => console.log('2')}
-            />
-          </div>
-
-          <div direction="vertical" style="width:100%" dangerouslySetInnerHTML={{ __html: docsHtml }}></div>
-        </div>
+          <div style={this.isShow('design')} name="DESIGN"></div>
+        </>
       )
     }
   },
