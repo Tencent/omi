@@ -125,8 +125,7 @@ export default class Alert extends WeElement<AlertProps> {
         ref={nodeRef}
         delay={transitionTime}
         onAfterLeave={() => {
-          console.log('onClosed')
-          onClosed()
+          onClosed?.()
         }}
       >
         <div
