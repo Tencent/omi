@@ -1,6 +1,6 @@
 import { TElement } from '../common'
 
-export interface RateProps {
+export interface TdRateProps {
   /**
    * 是否允许半选
    * @default false

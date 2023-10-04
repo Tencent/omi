@@ -1,6 +1,6 @@
 import { SizeEnum, TElement, TNode } from '../common'
 
-export type ButtonProps = {
+export interface TdButtonProps {
   /**
    * 是否为块级元素
    * @default false
@@ -74,4 +74,4 @@ export type ButtonProps = {
    * 点击时触发
    */
   onClick?: (e: MouseEvent) => void
-} & HTMLButtonElement
+}

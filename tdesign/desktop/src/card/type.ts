@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { TNode } from '../common'
 
-export interface CardProps {
+export interface TdCardProps {
   /**
    * 卡片操作区
    */

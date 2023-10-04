@@ -1,7 +1,7 @@
 import { ButtonProps } from '../button'
 import { TNode, Styles, AttachNode } from '../common'
 
-export interface DrawerProps {
+export interface TdDrawerProps {
   /**
    * 抽屉挂载的节点，默认挂在组件本身的位置。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
    */
@@ -118,7 +118,7 @@ export interface DrawerProps {
   onOverlayClick?: (context: { e: MouseEvent }) => void
 }
 
-export interface DrawerOptions extends Omit<DrawerProps, 'attach'> {
+export interface DrawerOptions extends Omit<TdDrawerProps, 'attach'> {
   /**
    * 抽屉挂载的节点。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body
    * @default 'body'

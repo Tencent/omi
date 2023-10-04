@@ -1,8 +1,9 @@
 import { h, tag, classNames, WeElement, OmiProps } from 'omi'
-import { LinkProps } from './type'
-import parseTNode from '../utils/parseTNode'
+import { TdLinkProps } from './type'
+import { parseTNode } from '../utils'
 import css from './style/index'
-
+import { StyledProps } from '../common'
+export interface LinkProps extends TdLinkProps, StyledProps {}
 @tag('t-link')
 export default class Link extends WeElement<LinkProps> {
   static css = css as string

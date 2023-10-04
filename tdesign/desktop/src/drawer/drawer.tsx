@@ -1,12 +1,13 @@
 import { h, createRef, tag, WeElement, OmiProps, classNames } from 'omi'
-import { DrawerProps, DrawerEventSource } from './type'
+import { TdDrawerProps, DrawerEventSource } from './type'
 import css from './style/index'
 import { TdClassNamePrefix } from '../../src/utils'
-
+import { isObject } from 'lodash'
 import '../icon/close'
 import '../button'
-import { isElement } from 'lodash'
 import '@omiu/transition'
+import { StyledProps } from '../common'
+export interface DrawerProps extends TdDrawerProps, StyledProps {}
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -14,7 +15,6 @@ export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_CANCEL_BTN: 'cancel',
   KEYDOWN_ESC: 'esc',
 }
-
 @tag('t-drawer')
 export default class Drawer extends WeElement<DrawerProps> {
   static css = css as string
@@ -239,7 +239,7 @@ export default class Drawer extends WeElement<DrawerProps> {
       containerRef,
       maskRef,
     } = this
-    const closeIcon = isElement(closeBtn) ? closeBtn : <t-icon-close></t-icon-close>
+    const closeIcon = isObject(closeBtn) ? closeBtn : <t-icon-close></t-icon-close>
 
     const getFooter = () => {
       if (footer !== true) return footer
@@ -256,8 +256,8 @@ export default class Drawer extends WeElement<DrawerProps> {
         </t-button>
       )
 
-      const renderCancelBtn = cancelBtn && isElement(cancelBtn) ? cancelBtn : defaultCancelBtn
-      const renderConfirmBtn = confirmBtn && isElement(confirmBtn) ? confirmBtn : defaultConfirmBtn
+      const renderCancelBtn = cancelBtn && isObject(cancelBtn) ? cancelBtn : defaultCancelBtn
+      const renderConfirmBtn = confirmBtn && isObject(confirmBtn) ? confirmBtn : defaultConfirmBtn
 
       const footerStyle = {
         display: 'flex',

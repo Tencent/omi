@@ -1,8 +1,9 @@
 import { h, tag, WeElement, OmiProps, classNames, createRef } from 'omi'
-import { RowProps } from './type'
+import { TdRowProps } from './type'
 import isObject from 'lodash/isObject'
 import { canUseDocument, getCssVarsValue } from '../utils/dom'
-import css from './style/index'
+import { StyledProps } from '../common'
+export interface RowProps extends TdRowProps, StyledProps {}
 const calcSize = (width: number) => {
   const smWidth = getCssVarsValue('--td-screen-sm') || 768
   const mdWidth = getCssVarsValue('--td-screen-md') || 992
@@ -95,7 +96,6 @@ export default class Row extends WeElement<RowProps> {
 
   install() {
     window.addEventListener('resize', this.updateSize)
-    // this.css = getHost(this).constructor.css + this.css
   }
 
   unintall() {

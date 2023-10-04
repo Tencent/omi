@@ -1,9 +1,10 @@
 import { h, tag, classNames, WeElement, OmiProps } from 'omi'
-import { LoadingProps } from './type'
+import { TdLoadingProps } from './type'
 import { addClass, removeClass, canUseDocument, TdClassNamePrefix } from '../utils'
 import './gradient'
 import css from './style/index'
-
+import { StyledProps } from '../common'
+export interface LoadingProps extends TdLoadingProps, StyledProps {}
 @tag('t-loading')
 export default class Loading extends WeElement<LoadingProps> {
   static css = css as string

@@ -19,8 +19,8 @@ export type ComponentType = any
 export type Styles = JSX.SVGAttributes
 
 export interface StyledProps {
-  className?: string
-  style?: Styles
+  class?: String
+  style?: Object
 }
 
 export interface UploadDisplayDragEvents {

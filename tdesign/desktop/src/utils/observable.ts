@@ -1,4 +1,4 @@
-export default function observable(target: any, propertyKey: string) {
+export function observable(target: any, propertyKey: string) {
   // 保存原始属性值
   let original = target[propertyKey]
 
@@ -17,5 +17,4 @@ export default function observable(target: any, propertyKey: string) {
       }
     },
   })
-  
 }

@@ -1,6 +1,6 @@
 import { TNode, SizeEnum } from '../common'
 
-export interface SpaceProps {
+export interface TdSpaceProps {
   /**
    * 对齐方式
    */
