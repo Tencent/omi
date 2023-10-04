@@ -1,7 +1,8 @@
 import { h, tag, WeElement, OmiProps, classNames } from 'omi'
-import { DividerProps } from './type'
+import { TdDividerProps } from './type'
 import css from './style/index'
-
+import { StyledProps } from '../common'
+export interface DividerProps extends TdDividerProps, StyledProps {}
 @tag('t-divider')
 export default class Divider extends WeElement<DividerProps> {
   static css = css as string

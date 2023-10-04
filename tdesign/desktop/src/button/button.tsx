@@ -1,9 +1,11 @@
-import { h, OmiProps, tag, WeElement, classNames, Attributes } from 'omi'
+import { h, OmiProps, tag, WeElement, classNames } from 'omi'
 import css from './style'
-import { ButtonProps } from './type'
-import { TdClassNamePrefix } from '../utils'
+import { TdButtonProps } from './type'
+import { TdClassNamePrefix, parseTNode } from '../utils'
 import '../loading'
-import parseTNode from '../utils/parseTNode'
+import { StyledProps } from '../common'
+
+export interface ButtonProps extends TdButtonProps, StyledProps {}
 
 @tag('t-button')
 export default class Button extends WeElement<ButtonProps> {
@@ -98,7 +100,7 @@ export default class Button extends WeElement<ButtonProps> {
       shape,
       children,
       content,
-      className,
+      class: String,
       suffix,
       href,
       tag,

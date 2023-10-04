@@ -1,11 +1,13 @@
 import { h, createRef, tag, WeElement, OmiProps, classNames } from 'omi'
-import { DrawerProps, DrawerEventSource } from './type'
+import { TdDrawerProps, DrawerEventSource } from './type'
 import css from './style/index'
 import { TdClassNamePrefix } from '../../src/utils'
 import { isObject } from 'lodash'
 import '../icon/close'
 import '../button'
 import '@omiu/transition'
+import { StyledProps } from '../common'
+export interface DrawerProps extends TdDrawerProps, StyledProps {}
 
 export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_OVERLAY: 'overlay',
@@ -13,7 +15,6 @@ export const CloseTriggerType: { [key: string]: DrawerEventSource } = {
   CLICK_CANCEL_BTN: 'cancel',
   KEYDOWN_ESC: 'esc',
 }
-
 @tag('t-drawer')
 export default class Drawer extends WeElement<DrawerProps> {
   static css = css as string

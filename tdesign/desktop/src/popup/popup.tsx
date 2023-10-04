@@ -1,26 +1,27 @@
 import { h, tag, createRef, WeElement, OmiProps, classNames, getHost } from 'omi'
-import { PopupProps, PopupVisibleChangeContext } from './type'
+import { TdPopupProps, PopupVisibleChangeContext } from './type'
 import debounce from 'lodash/debounce'
 import css from './style/index'
 import { createPopper, Placement } from '@popperjs/core'
 import { attachListeners, getPopperPlacement, triggers } from './utils'
 import { getIEVersion } from '../utils/helper'
 import '@omiu/transition'
-
+import { StyledProps } from '../common'
+export interface PopupProps extends TdPopupProps, StyledProps {}
 const injectionKey = '__T_POPUP'
 // 默认动画时长
 const DEFAULT_TRANSITION_TIMEOUT = 180
 
 @tag('t-trigger')
 export class Trigger extends WeElement {
-  render(props) {
+  render(props: any) {
     return props.children
   }
 }
 
 @tag('t-overlay')
 export class Overlay extends WeElement {
-  render(props) {
+  render(props: any) {
     return <div>{props.children}</div>
   }
 }
@@ -71,8 +72,8 @@ export default class Popup extends WeElement<
 
   triggerRef = createRef()
   popperRef = createRef()
-  popper = null
-  timeout = null
+  popper = null as any
+  timeout = null as any
   contentClicked = false
   hasDocumentEvent = false
   visible = false

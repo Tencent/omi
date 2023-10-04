@@ -1,8 +1,9 @@
 import { h, tag, WeElement, OmiProps, classNames } from 'omi'
-import { SpaceProps } from './type'
-
+import { TdSpaceProps } from './type'
 import css from './style/index'
 import { toArray } from 'lodash'
+import { StyledProps } from '../common'
+export interface SpaceProps extends TdSpaceProps, StyledProps {}
 const SizeMap = { small: '8px', medium: '16px', large: '24px' }
 @tag('t-space')
 export default class Link extends WeElement<SpaceProps> {

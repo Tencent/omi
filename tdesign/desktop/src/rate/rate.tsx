@@ -1,16 +1,13 @@
 import { h, tag, WeElement, OmiProps, define, classNames, createRef, cloneElement } from 'omi'
-import { RateProps } from './type'
+import { TdRateProps } from './type'
 import '../icon/star-filled'
 import css from './style/index'
 import { isObject } from 'lodash'
-type IconProps = {
-  size: string
-  color: string
-}
-
+import { StyledProps } from '../common'
+export interface RateProps extends TdRateProps, StyledProps {}
 @tag('rate-custom-icon')
 class RateCustomIcon extends WeElement {
-  render(props) {
+  render(props: any) {
     return cloneElement(props.icon, props)
   }
 }
@@ -51,7 +48,7 @@ export default class Rate extends WeElement<RateProps> {
 
   getStarValue = (event: MouseEvent, index: number) => {
     if (this.props.allowHalf) {
-      const rootNode = this.rootRef.current
+      const rootNode = this.rootRef.current as HTMLElement
       const { left } = rootNode.getBoundingClientRect()
       const firstStar = rootNode.firstChild as HTMLElement
       const { width } = firstStar.getBoundingClientRect()

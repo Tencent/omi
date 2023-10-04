@@ -1,9 +1,10 @@
 import { h, tag, WeElement, OmiProps, classNames, createRef } from 'omi'
-import { ColProps, RowProps } from './type'
+import { TdColProps, TdRowProps } from './type'
 import isObject from 'lodash/isObject'
+import { StyledProps } from '../common'
 type FlexType = number | 'none' | 'auto' | string
-
-const calcColPadding = (gutter: RowProps['gutter'], currentSize: string) => {
+export interface ColProps extends TdColProps, StyledProps {}
+const calcColPadding = (gutter: TdRowProps['gutter'], currentSize: string) => {
   const paddingObj = {}
   if (typeof gutter === 'number') {
     Object.assign(paddingObj, {

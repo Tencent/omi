@@ -1,6 +1,6 @@
 import { TNode } from '../common'
 
-export interface DividerProps {
+export interface TdDividerProps {
   /**
    * 文本位置（仅在水平分割线有效）
    * @default center
