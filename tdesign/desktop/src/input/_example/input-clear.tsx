@@ -14,7 +14,6 @@ export default class InputClear extends WeElement {
           clearable
           onChange={(value) => {
             this.inputValue = value
-            this.update()
           }}
           onClear={() => {
             console.log('onClear')

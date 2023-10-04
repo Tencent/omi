@@ -13,21 +13,24 @@ export interface InputGroupProps extends TdInputGroupProps {
 
 @tag('t-input-group')
 export default class InputGruop extends WeElement<InputGroupProps>{
+
+  static addStyle = `.t-input-group--separate t-input{
+    margin-left: var(--td-comp-margin-xxxl);
+  }`
   divRef = createRef()
-  static css = inputSyle
+  static css = inputSyle + InputGruop.addStyle
 
   install(): void {
-    // console.log(this.props.children)
+    console.log(this.props)
   }
 
-
   render(props: InputGroupProps, store: any) {
-    const { separate, ...wrapperProps } = props;
-    const addStyle = `
+    const { separate,children, ...wrapperProps } = props;
+    // const addStyle = `
     
-    t-input{
-      margin-left: var(--td-comp-margin-xxxl) !important;
-    }`;
+    // t-input{
+    //   margin-left: var(--td-comp-margin-xxxl) !important;
+    // }`;
 
 
 
@@ -40,32 +43,31 @@ export default class InputGruop extends WeElement<InputGroupProps>{
     //   }
     // })();
     // const groupChildren = this.children
-    function renderChildren() {
-      return props.children.map((item, index) => {
-        if(index>=1 && props.children[index-1].nodeName == props.children[index].nodeName){
+    // function renderChildren() {
+    //   return props.children.map((item, index) => {
+    //     if(index>=1 && props.children[index-1].nodeName == props.children[index].nodeName){
           
-          // if (!item.attributes.css) {
-          //   item.attributes.css = ''
-          // }
-          // item.attributes.css += addStyle
-          if(!item.attributes.style){
-            item.attributes.style = {}
-          }
-          // console.log(item.attributes.style)
-          item.attributes.style['marginLeft'] = 32
-        }
-        return (
-          <>
-            {item}
-          </>
-        )
-      })
-    }
+    //       // if (!item.attributes.css) {
+    //       //   item.attributes.css = ''
+    //       // }
+    //       // item.attributes.css += addStyle
+    //       if(!item.attributes.style){
+    //         item.attributes.style = {}
+    //       }
+    //       // console.log(item.attributes.style)
+    //       item.attributes.style['marginLeft'] = 32
+    //     }
+    //     return (
+    //       item
+    //     )
+    //   })
+    // }
 
     return (
       <div
         ref={this.divRef}
         // style={{overflow:'hidden'}}
+        style={{width:'100%'}}
         class={classNames(InputClassNamePrefix(`-group`),
         {
           [InputClassNamePrefix('-group--separate')] : !!separate
@@ -73,7 +75,7 @@ export default class InputGruop extends WeElement<InputGroupProps>{
         )}
         {...wrapperProps}
       >
-        {renderChildren()}
+        {children}
       </div>
     )
   }

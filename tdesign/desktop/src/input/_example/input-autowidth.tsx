@@ -13,7 +13,6 @@ export default class InputAutowidth extends WeElement {
           defaultValue="宽度自适应"
           onChange={(value) => {
             this.inputValue = value
-            this.update()
           }}
         />
       </div>

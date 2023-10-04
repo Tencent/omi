@@ -8,10 +8,10 @@ export default class TagInputExcess extends WeElement {
   tags1 = ['Vue', 'React']
 
   render() {
-
+    let that = this
     const onChange = (val, context) => {
-      this.tags1 = val
-      this.update()
+      that.tags1 = val
+      that.update()
       console.log(val, context)
     }
 

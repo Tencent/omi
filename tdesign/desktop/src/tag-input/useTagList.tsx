@@ -52,7 +52,11 @@ export default function useTagList(props: TagInputProps) {
       //   e: context.e,
       // })
     }
-    // console.log(newValue)
+    console.log(props.onEnter)
+    if(!props.onEnter){
+      console.log(111)
+      props.onChange('' ,{...context, inputValue: '' })
+    }
     props?.onEnter?.(newValue, { ...context, inputValue: value })
   }
 
