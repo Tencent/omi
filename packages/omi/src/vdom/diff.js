@@ -4,9 +4,6 @@ import { createNode, setAccessor, removeNode } from '../dom/index'
 import { camelCase, isArray, Fragment } from '../util'
 import options from '../options'
 
-/** Queue of components that have been mounted and are awaiting componentDidMount */
-export const mounts = []
-
 /** Diff recursion count, used to track the end of the diff cycle. */
 export let diffLevel = 0
 
