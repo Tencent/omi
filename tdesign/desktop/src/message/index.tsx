@@ -1,7 +1,7 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { MessageProps, MessageThemeList } from './types'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 
 const MessageClassNamePrefix = (className: string) => TdClassNamePrefix('message__') + className
 
@@ -13,7 +13,7 @@ export default class Message extends WeElement<MessageProps> {
     content: 'my message',
     icon: true,
     theme: 'info',
-    closeBtn: ''
+    closeBtn: '',
   }
 
   static propTypes = {
@@ -35,16 +35,15 @@ export default class Message extends WeElement<MessageProps> {
   onCloseBtnClick = () => {
     this.parentElement.removeChild(this)
   }
- 
+
   onDurationEnd = (duration: number) => {
-    if(duration !== null){
-      setTimeout(() => this.parentElement.removeChild(this),duration);
+    if (duration !== null) {
+      setTimeout(() => this.parentElement.removeChild(this), duration)
     }
   }
-  
 
   render(props: OmiProps<MessageProps, any>, store: any) {
-    const { theme, className, style, icon, content, closeBtn, duration} = props
+    const { theme, className, style, icon, content, closeBtn, duration } = props
 
     const t = theme || 'success'
     return (
@@ -62,8 +61,8 @@ export default class Message extends WeElement<MessageProps> {
           )}
         >
           {/*图标  */}
-          {
-            icon && <svg
+          {icon && (
+            <svg
               fill="none"
               viewBox="0 0 24 24"
               width="1em"
@@ -75,7 +74,7 @@ export default class Message extends WeElement<MessageProps> {
                 d="M12 23a11 11 0 100-22 11 11 0 000 22zM11 8.5v-2h2v2h-2zm2 1.5v7.5h-2V10h2z"
               ></path>
             </svg>
-          }
+          )}
           {/* 文字内容 */}
           {content && <div class={MessageClassNamePrefix('content')}>{content}</div>}
 
@@ -99,7 +98,6 @@ export default class Message extends WeElement<MessageProps> {
               ></path>
             </svg>
           )}
-          
         </div>
       </>
     )

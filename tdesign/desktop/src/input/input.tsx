@@ -1,11 +1,10 @@
 import { h, OmiProps, tag, WeElement, render, classNames, createRef, extend, get, set } from 'omi'
 import { TdInputProps } from './type'
 import style from './style'
-import { TdClassNamePrefix } from '../../src/utils'
+import { TdClassNamePrefix, parseTNode } from '../../src/utils'
 import noop from '../utils/noop'
 import { StyledProps, TNode, TElement } from '../common'
 import useLengthLimit from './useLengthLimit'
-import parseTNode from '../utils/parseTNode'
 import '../icon/close-circle-filled'
 import { create } from 'lodash'
 const InputClassNamePrefix = (name: string) => TdClassNamePrefix('input') + name
@@ -118,7 +117,7 @@ export default class Input extends WeElement<InputProps> {
     let that = this
     this.renderType = this.props.type
     let inputNode = this.inputRef.current
-    
+
     const updateInputWidth = () => {
       if (!this.props.autoWidth || !this.inputRef.current) return
       const { offsetWidth } = this.inputPreRef.current
@@ -151,7 +150,7 @@ export default class Input extends WeElement<InputProps> {
         that.value = limitedValue
         that.composingValue = limitedValue
         that.props.onChange?.(limitedValue)
-        if(!that.props.allowInputOverMax){
+        if (!that.props.allowInputOverMax) {
           that.update()
         }
         if (that.props.autoWidth) {
@@ -212,7 +211,7 @@ export default class Input extends WeElement<InputProps> {
       onValidate,
       onChange,
       ...restProps
-    } = props;
+    } = props
 
     const { limitNumber, getValueByLimitNumber, tStatus, onValidateChange } = useLengthLimit({
       value: this.value === undefined ? undefined : String(this.value),
@@ -221,8 +220,8 @@ export default class Input extends WeElement<InputProps> {
       maxcharacter,
       allowInputOverMax,
       onValidate,
-    });
-    
+    })
+
     const isShowClearIcon = ((clearable && this.value && !disabled) || showClearIconOnEmpty) && this.isHover
     const prefixIconContent = renderIcon('t', 'prefix', parseTNode(prefixIcon))
     let suffixIconNew = suffixIcon
@@ -248,7 +247,7 @@ export default class Input extends WeElement<InputProps> {
         </div>
       ) : null
 
-    const curStatus = status || 'default';
+    const curStatus = status || 'default'
 
     const innerValue = this.composingRef.current ? this.composingValue : this.value ?? ''
     const formatDisplayValue = format && !this.isFocused ? format(innerValue) : innerValue

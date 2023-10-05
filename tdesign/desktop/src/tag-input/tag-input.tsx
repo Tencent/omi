@@ -2,7 +2,7 @@ import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type'
 // import { TdTagInputProps } from './type'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import { StyledProps } from '../common'
 import useTagList from './useTagList'
 // import useDragSorter from '../utils/userDragSorter';
@@ -12,7 +12,7 @@ import TInput, { InputValue, InputRef } from '../input'
 import noop from '../utils/noop'
 import '../icon/close'
 import { clearScreenDown } from 'readline'
-import "../icon/close-circle-filled"
+import '../icon/close-circle-filled'
 import { takeRightWhile } from 'lodash'
 
 const TagInputClassNamePrefix = (className: string) => TdClassNamePrefix('tag-input') + className
@@ -96,9 +96,9 @@ export default class TagInput extends WeElement<TagInputProps> {
       onFocus,
       onBlur,
       onMouseenter,
-      onMouseleave
-    } = props;
-    (()=>console.log(props.value))()
+      onMouseleave,
+    } = props
+    ;(() => console.log(props.value))()
     // const { getDragProps } = useDragSorter({
     //   ...props,
     //   sortOnDraggable: props.dragSort,
@@ -111,7 +111,7 @@ export default class TagInput extends WeElement<TagInputProps> {
       // clearAll({ e });
       // setTInputValue('', { e, trigger: 'clear' });
       // props.onClear?.({ e });
-    };
+    }
     const tagValue = props.value ? props.value : props.defaultValue
     // const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel, onInputBackspaceKeyDown } =
     // useTagList({
@@ -126,7 +126,7 @@ export default class TagInput extends WeElement<TagInputProps> {
           value: tagValue,
           onClose: (index, item) => onClose({ index, item }),
         })
-      : valueDisplay;
+      : valueDisplay
 
     const onClose = (p: { e?: MouseEvent; index: number; item: string | number }) => {
       const arr = [...tagValue]
@@ -145,8 +145,10 @@ export default class TagInput extends WeElement<TagInputProps> {
         newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr]
       }
       that.tInputValue = ''
-      console.log('注意',that.tInputValue)
-      if(!props.onEnter){props.onChange(newValue, {...context})}
+      console.log('注意', that.tInputValue)
+      if (!props.onEnter) {
+        props.onChange(newValue, { ...context })
+      }
       props?.onEnter?.(newValue, { ...context, inputValue: value })
     }
 
@@ -174,71 +176,66 @@ export default class TagInput extends WeElement<TagInputProps> {
         list?.unshift(
           <div class={`t-tag-input__prefix`} key="label">
             {label}
-          </div>
-        );
+          </div>,
+        )
       }
       // console.log(list)
       return list
     }
 
-    const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
+    const tagInputPlaceholder = !tagValue?.length ? placeholder : ''
 
-    const showClearIcon = Boolean(!readonly && !disabled && clearable && this.isHover && tagValue?.length);
-
-    
+    const showClearIcon = Boolean(!readonly && !disabled && clearable && this.isHover && tagValue?.length)
 
     const suffixIconNode = showClearIcon ? (
-      <t-icon-close-circle-filled class={classNames(TagInputClassNamePrefix(`__suffix-clear`))} onClick={onClearClick} />
+      <t-icon-close-circle-filled
+        class={classNames(TagInputClassNamePrefix(`__suffix-clear`))}
+        onClick={onClearClick}
+      />
     ) : (
       suffixIcon
-    );
+    )
 
-    const isEmpty = !(Array.isArray(tagValue) && tagValue.length);
+    const isEmpty = !(Array.isArray(tagValue) && tagValue.length)
     const cls = () => {
-      return classNames(
-        
-      )
+      return classNames()
     }
-    const classes = [TdClassNamePrefix('tag-input'),
-        {
-          [TagInputClassNamePrefix(`--break-line`)]: this.props.excessTagsDisplayType === 'break-line',
-          [TagInputClassNamePrefix(`__with-suffix-icon`)]: !!suffixIconNode,
-          [TdClassNamePrefix(`is-empty`)]: isEmpty,
-          [TagInputClassNamePrefix(`--with-tag`)]: !isEmpty,
-        }
-      ]
-
+    const classes = [
+      TdClassNamePrefix('tag-input'),
+      {
+        [TagInputClassNamePrefix(`--break-line`)]: this.props.excessTagsDisplayType === 'break-line',
+        [TagInputClassNamePrefix(`__with-suffix-icon`)]: !!suffixIconNode,
+        [TdClassNamePrefix(`is-empty`)]: isEmpty,
+        [TagInputClassNamePrefix(`--with-tag`)]: !isEmpty,
+      },
+    ]
 
     const onInputEnter = (value: InputValue, context: { e: KeyboardEvent }) => {
       onInnerEnter(value, context)
       // setTInputValue('', { e: context.e, trigger: 'enter' });
       // !isCompositionRef.current && onInnerEnter(value, context);
       // scrollToRight();
-    };
+    }
 
-    
-    
-      
     // (() => console.log(renderLabel({ displayNode, label })))()
     // if(icon){
     //   icon.attributes['style'] = {}
     //   icon.attributes.style['marginRight'] = 4
     // }
-    
-    
+
     const addHover = (context) => {
       if (readonly || disabled) return
       that.isHover = true
       that.update()
       onMouseenter?.(context)
     }
-  
+
     const cancelHover = (context) => {
       if (readonly || disabled) return
       that.isHover = false
       that.update()
       onMouseleave?.(context)
-    };
+    }
     // (()=>{console.log(this.tInputValue)})();
     return (
       <t-input
@@ -271,23 +268,23 @@ export default class TagInput extends WeElement<TagInputProps> {
         // onKeydown={onInputBackspaceKeyDown}
         // onKeyup={onInputBackspaceKeyUp}
         onMouseenter={(context) => {
-          addHover(context);
+          addHover(context)
           // scrollToRightOnEnter();
         }}
         onMouseleave={(context) => {
-          cancelHover(context);
+          cancelHover(context)
           // scrollToLeftOnLeave();
         }}
         // onFocus={(inputValue, context) => {
         //   onFocus?.(tagValue, { e: context.e, inputValue });
         // }}
         onBlur={(tInputValue, context) => {
-          console.log(tInputValue,'onblur')
+          console.log(tInputValue, 'onblur')
           if (tInputValue) {
             this.tInputValue = ''
             this.update()
           }
-          onBlur?.(tagValue, { e: context.e, inputValue: '' });
+          onBlur?.(tagValue, { e: context.e, inputValue: '' })
         }}
         // onCompositionstart={onInputCompositionstart}
         // onCompositionend={onInputCompositionend}

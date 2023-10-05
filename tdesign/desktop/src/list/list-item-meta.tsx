@@ -1,7 +1,7 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { ListItemMetaProps } from './types'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import { StyledProps, TElement, TNode } from '../common'
 
 const ListItenMetaClassNamePrefix = (className: string) => TdClassNamePrefix('list-item__meta-') + className
@@ -18,7 +18,7 @@ export default class ListItemMeta extends WeElement<ListItemMetaProps> {
     title: String,
   }
 
-  renderImage = (image : any) => {
+  renderImage = (image: any) => {
     return (
       <div class={classNames(ListItenMetaClassNamePrefix('avatar'))}>
         <img src={image} alt="" />

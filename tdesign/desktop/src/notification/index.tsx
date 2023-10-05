@@ -1,7 +1,7 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { NotificationProps, NotificationThemeList } from './types'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 
 const NotificationClassNamePrefix = (className: string) => TdClassNamePrefix('notification__') + className
 

@@ -3,7 +3,7 @@ import style from './style'
 import { scrollTo } from '../utils/dom'
 // import useScroll from './useScroll'
 import { BackTopProps, UseScrollProps } from './types'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 
 import './backtop'
 
@@ -59,12 +59,12 @@ export default class BackTop extends WeElement<BackTopProps> {
   // useScroll = (props: UseScrollProps) => {
   //   let that = this
   //   const { target } = props;
-  
+
   //   const [scrollLeft,] = [0,0];
   //   const [scrollTop, setScrollTop] = [0,0];
-  
+
   //   if (!target) return;
-  
+
   //   const setPosition = () => {
   //     if (target === document) {
   //       that.scrollLeft = target.documentElement.scrollLeft
@@ -78,7 +78,7 @@ export default class BackTop extends WeElement<BackTopProps> {
   //     return () => {
   //       target.removeEventListener('scroll', setPosition);
   //   };
-  
+
   //   return {
   //     scrollLeft,
   //     scrollTop,
@@ -90,8 +90,8 @@ export default class BackTop extends WeElement<BackTopProps> {
       if (container === 'body') {
         return document
       }
-      container = container.slice(1,this.props.container.length)
-      if(container == this.parentNode.children[0].classList[0]){
+      container = container.slice(1, this.props.container.length)
+      if (container == this.parentNode.children[0].classList[0]) {
         let containerNode = this.parentNode.children[0].shadowRoot.children[1]
         return containerNode
       }
@@ -101,20 +101,18 @@ export default class BackTop extends WeElement<BackTopProps> {
       return container()
     }
     return null
-  };
-  
+  }
 
   defaultContent = (
     <>
       <t-icon-backtop class={classNames(BackTopClassNamePrefix('icon'))} size="medium"></t-icon-backtop>
       <span class={classNames(BackTopClassNamePrefix('text'))}>TOP</span>
     </>
-  );
+  )
 
-
-  renderChildren(content : any,cusContent :any){
-    return (content || cusContent || this.defaultContent)
-  } 
+  renderChildren(content: any, cusContent: any) {
+    return content || cusContent || this.defaultContent
+  }
 
   getBackTo = () => {
     // if (!this.props.container) return 0
@@ -128,12 +126,11 @@ export default class BackTop extends WeElement<BackTopProps> {
 
   scrollContainer
 
-  visibleHeight = (typeof this.props.visibleHeight == 'number' ? this.props.visibleHeight 
-  : parseInt(this.props.visibleHeight))
+  visibleHeight =
+    typeof this.props.visibleHeight == 'number' ? this.props.visibleHeight : parseInt(this.props.visibleHeight)
   // scrollTop = useScroll({ target: this.scrollContainer })
 
   installed() {
-    
     this.scrollContainer = this.getContainer(this.props.container)
     let that = this
     // console.log(document.querySelector(this.props.container));
@@ -145,10 +142,10 @@ export default class BackTop extends WeElement<BackTopProps> {
     // if(container == this.parentNode.children[0].classList[0]){
     //   containerNode = this.parentNode.children[0].shadowRoot.children[1]
     // }
-    
+
     let buttonNode = this.button.current
     // buttonNode.style.position = 'absolute'
-    if(this.props.offset){
+    if (this.props.offset) {
       buttonNode.style.right = this.props.offset[0]
       buttonNode.style.bottom = this.props.offset[1]
     }
@@ -156,8 +153,8 @@ export default class BackTop extends WeElement<BackTopProps> {
     let duration = this.props.duration
     let scrollContainer = this.getContainer(this.props.container)
     buttonNode.addEventListener('click', () => {
-      const backTo = that.getBackTo();
-      scrollTo(backTo, { container: scrollContainer, duration });
+      const backTo = that.getBackTo()
+      scrollTo(backTo, { container: scrollContainer, duration })
       // containerNode.scrollTop = 0
       // this.classList.remove(TdClassNamePrefix(`back-top--show`)) // 移除类名
     })
@@ -184,12 +181,10 @@ export default class BackTop extends WeElement<BackTopProps> {
     })
   }
 
-  
-  getSizeClass(size : string){
-    if(size == 'medium'){
+  getSizeClass(size: string) {
+    if (size == 'medium') {
       return TdClassNamePrefix(`size-m`)
-    }
-    else if(size == 'small'){
+    } else if (size == 'small') {
       return TdClassNamePrefix(`size-s`)
     }
   }
@@ -202,7 +197,7 @@ export default class BackTop extends WeElement<BackTopProps> {
   //   return TdClassNamePrefix(`back-top--${shpae}`)
   // }
 
-  visible(){
+  visible() {
     let scrollContainer = this.getContainer(this.props.container)
     let offsetTop = 0
     if (scrollContainer === document) {
@@ -213,20 +208,18 @@ export default class BackTop extends WeElement<BackTopProps> {
     return offsetTop >= this.props.visibleHeight
   }
 
-
-  cls(){
-      return classNames(
-        TdClassNamePrefix(`back-top`),
-        TdClassNamePrefix(`back-top--theme-${this.props.theme}`),
-        TdClassNamePrefix(`back-top--${this.props.shape}`),
-        {
-          [TdClassNamePrefix(`back-top--show`)]: this.visible(),
-          [TdClassNamePrefix(`size-s`)]: this.props.size === 'small',
-          [TdClassNamePrefix(`size-m`)]: this.props.size === 'medium',
-        },
-      )
-  } 
-
+  cls() {
+    return classNames(
+      TdClassNamePrefix(`back-top`),
+      TdClassNamePrefix(`back-top--theme-${this.props.theme}`),
+      TdClassNamePrefix(`back-top--${this.props.shape}`),
+      {
+        [TdClassNamePrefix(`back-top--show`)]: this.visible(),
+        [TdClassNamePrefix(`size-s`)]: this.props.size === 'small',
+        [TdClassNamePrefix(`size-m`)]: this.props.size === 'medium',
+      },
+    )
+  }
 
   //textarea ref
   button = createRef()
@@ -236,11 +229,7 @@ export default class BackTop extends WeElement<BackTopProps> {
     const cusContent = props.default
     return (
       <>
-        <button
-          type="button"
-          class={this.cls()}
-          ref={this.button}
-        >
+        <button type="button" class={this.cls()} ref={this.button}>
           {this.renderChildren(content, cusContent)}
         </button>
       </>
