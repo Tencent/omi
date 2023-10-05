@@ -1,15 +1,14 @@
 import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { TextareaProps } from './type'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import calcTextareaHeight from '../_common/js/utils/calcTextareaHeight'
 import noop from '../utils/noop'
 import { valueToNode } from '@babel/types'
-import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper';
+import { getCharacterLength, getUnicodeLength, limitUnicodeMaxLength } from '../_common/js/utils/helper'
 
 import { auto } from '@popperjs/core'
 const TextareaClassNamePrefix = (className: string) => TdClassNamePrefix('textarea__') + className
-
 
 @tag('t-textarea')
 export default class Textarea extends WeElement<TextareaProps> {
@@ -21,7 +20,7 @@ export default class Textarea extends WeElement<TextareaProps> {
     autosize: false,
     disabled: false,
     readonly: false,
-    value: ''
+    value: '',
   }
 
   static propTypes = {
@@ -53,10 +52,8 @@ export default class Textarea extends WeElement<TextareaProps> {
     onKeyup: Function,
   }
 
-
-  value = ""
+  value = ''
   isFocused = false
-
 
   eventPropsNames
   eventProps
@@ -84,24 +81,24 @@ export default class Textarea extends WeElement<TextareaProps> {
     this.eventProps = this.eventPropsNames.reduce((eventProps, key) => {
       Object.assign(eventProps, {
         [key]: (e) => {
-          if (disabled) return;
-          if (key === 'onFocus'){
+          if (disabled) return
+          if (key === 'onFocus') {
             this.isFocused = true
             this.update()
           }
-          if (key === 'onBlur'){
+          if (key === 'onBlur') {
             this.isFocused = false
             this.update()
-          } 
-          this.props[key](e.currentTarget.value, {e})
-          e.stopPropagation();
+          }
+          this.props[key](e.currentTarget.value, { e })
+          e.stopPropagation()
         },
-      });
+      })
       return eventProps
-    }, {});
+    }, {})
 
     this.update()
-    
+
     let node = this.textArea.current
     this.value = node.value
 
@@ -125,7 +122,7 @@ export default class Textarea extends WeElement<TextareaProps> {
 
     let maxLength = maxcharacter
     if (maxLength) {
-      node.addEventListener("input", () => {
+      node.addEventListener('input', () => {
         const text = node.value
         const length = this.countCharacters(text)
         if (length > maxLength) {
@@ -135,15 +132,15 @@ export default class Textarea extends WeElement<TextareaProps> {
             node.value = text.slice(0, maxLength)
           }
         }
-      });
+      })
     }
   }
 
   countCharacters(text: string) {
     // 按照一个中文汉字等于一个字符长度计算
-    const chineseCharacterRegex = /[\u4e00-\u9fa5]/g;
-    const chineseCharacters = text.match(chineseCharacterRegex) || [];
-    return text.length + chineseCharacters.length;
+    const chineseCharacterRegex = /[\u4e00-\u9fa5]/g
+    const chineseCharacters = text.match(chineseCharacterRegex) || []
+    return text.length + chineseCharacters.length
   }
   //textarea ref
   textArea = createRef()
@@ -160,9 +157,6 @@ export default class Textarea extends WeElement<TextareaProps> {
     return TdClassNamePrefix(`is-${disabled ? 'disabled' : ''}`)
   }
 
-
-  
-
   // eventProps = this.eventPropsNames.reduce((eventProps, key) => {
   //   Object.assign(eventProps, {
   //     [key]: (e) => {
@@ -174,7 +168,7 @@ export default class Textarea extends WeElement<TextareaProps> {
   //       if (key === 'onBlur'){
   //         this.isFocused = false
   //         this.update()
-  //       } 
+  //       }
   //       this.props[key](e.currentTarget.value, e);
   //     },
   //   });
@@ -204,38 +198,47 @@ export default class Textarea extends WeElement<TextareaProps> {
   //   this.fire('my-keydown', { event: event, value: textareaValue })
   // }
 
-  textareaClassPrefix = `t-textarea`;
-  cls(){
-    return classNames(
-      TextareaClassNamePrefix('inner'),
-      {
-        [`${this.textareaClassPrefix}-is-${this.props.status}`]: this.props.status,
-        [`${this.textareaClassPrefix}-is-disabled`]: this.props.disabled,
-        [`${this.textareaClassPrefix}-is-focused`]: this.isFocused,
-        [`${this.textareaClassPrefix}-resize-none`]: typeof this.props.autosize === 'object',
-      },
-    )
+  textareaClassPrefix = `t-textarea`
+  cls() {
+    return classNames(TextareaClassNamePrefix('inner'), {
+      [`${this.textareaClassPrefix}-is-${this.props.status}`]: this.props.status,
+      [`${this.textareaClassPrefix}-is-disabled`]: this.props.disabled,
+      [`${this.textareaClassPrefix}-is-focused`]: this.isFocused,
+      [`${this.textareaClassPrefix}-resize-none`]: typeof this.props.autosize === 'object',
+    })
   }
 
-  inputValueChangeHandle = (e: Event) =>{
-    const { target } = e;
-    let val = (target as HTMLInputElement).value;
+  inputValueChangeHandle = (e: Event) => {
+    const { target } = e
+    let val = (target as HTMLInputElement).value
     if (!this.props.allowInputOverMax && !this.textArea.current) {
-      val = limitUnicodeMaxLength(val, this.props.maxlength);
+      val = limitUnicodeMaxLength(val, this.props.maxlength)
       if (this.props.maxcharacter && this.props.maxcharacter >= 0) {
-        const stringInfo = getCharacterLength(val, this.props.maxcharacter);
-        val = typeof stringInfo === 'object' && stringInfo.characters;
+        const stringInfo = getCharacterLength(val, this.props.maxcharacter)
+        val = typeof stringInfo === 'object' && stringInfo.characters
       }
     }
     // setValue(val, { e });
-    this.value= val
+    this.value = val
     this.update()
   }
 
   render(props: OmiProps<TextareaProps, any>, store: any) {
-    const { autofocus, autosize, placeholder, readonly, value, status,
-      disabled, tips, maxlength, maxcharacter, onKeydown,
-      onKeypress, onKeyup } = props
+    const {
+      autofocus,
+      autosize,
+      placeholder,
+      readonly,
+      value,
+      status,
+      disabled,
+      tips,
+      maxlength,
+      maxcharacter,
+      onKeydown,
+      onKeypress,
+      onKeyup,
+    } = props
 
     return (
       <>
@@ -251,7 +254,9 @@ export default class Textarea extends WeElement<TextareaProps> {
             maxlength={maxlength}
             maxcharacter={maxcharacter}
             // onBlur={onBlur}
-            onChange={(e) => {this.inputValueChangeHandle(e)}}
+            onChange={(e) => {
+              this.inputValueChangeHandle(e)
+            }}
             // onFocus={(e) => { this.onfocus(e) }}
             onKeyPress={(e) => onKeypress(e.currentTarget.value, { e })}
             onKeyDown={(e) => onKeydown(e.currentTarget.value, { e })}

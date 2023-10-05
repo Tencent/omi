@@ -7,6 +7,8 @@ import Space from '../space'
 import '../icon/image'
 import '../icon/image-error'
 
+export interface ImageProps extends TdImageProps, StyledProps {}
+
 export type TImageProps = ImageProps &
     StyledProps & {
         onClick?: (e: MouseEvent) => void;

@@ -1,13 +1,12 @@
 import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { TagProps } from './type'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import noop from '../utils/noop'
-import "../icon/close"
+import '../icon/close'
 import ListItem from '@src/list/list-item'
 import { setThemePrimary } from '@omiu/common'
 const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + className
-
 
 @tag('t-tag')
 export default class Tag extends WeElement<TagProps> {
@@ -30,7 +29,6 @@ export default class Tag extends WeElement<TagProps> {
   //     margin: 3px var(--td-comp-margin-xs) 3px 0;
   //   }
   // `
-
 
   static defaultProps = {
     closable: false,
@@ -63,61 +61,60 @@ export default class Tag extends WeElement<TagProps> {
 
   span = createRef()
 
-  install(){
+  install() {
     // this.attributes.css += this.tagStyle
     // console.log(this.attributes)
   }
 
-  cls(){
+  cls() {
     return classNames(
       TdClassNamePrefix('tag'),
       TagClassNamePrefix(`--${this.props.theme}`),
       TagClassNamePrefix(`--${this.props.variant}`),
-        {
-          [TagClassNamePrefix(`--${this.props.shape}`)]: this.props.shape !== 'square',
-          [TagClassNamePrefix(`--ellipsis`)]: !!this.props.maxWidth,
-          [TagClassNamePrefix(`--disabled`)]: this.props.disabled,
-          [TdClassNamePrefix(`size-s`)]: this.props.size == 'small',
-          [TdClassNamePrefix(`size-l`)]: this.props.size == 'large',
-        },
-  
+      {
+        [TagClassNamePrefix(`--${this.props.shape}`)]: this.props.shape !== 'square',
+        [TagClassNamePrefix(`--ellipsis`)]: !!this.props.maxWidth,
+        [TagClassNamePrefix(`--disabled`)]: this.props.disabled,
+        [TdClassNamePrefix(`size-s`)]: this.props.size == 'small',
+        [TdClassNamePrefix(`size-l`)]: this.props.size == 'large',
+      },
     )
-  } 
+  }
 
   deleteIcon = (
     <t-icon-close
       onClick={(e) => {
-        if (this.props.disabled) return;
-        this.fire('close',{event:e})
+        if (this.props.disabled) return
+        this.fire('close', { event: e })
       }}
       class={classNames(TagClassNamePrefix(`__icon-close`))}
     />
   )
-  
-  getTitle(children : any){
-    if (children && typeof children === 'object') return {title: children[0]}
+
+  getTitle(children: any) {
+    if (children && typeof children === 'object') return { title: children[0] }
   }
 
-
   render(props: OmiProps<TagProps, any>, store: any) {
-    const {disabled, maxWidth, icon, children,content,closable,onClick,style } = props;
+    const { disabled, maxWidth, icon, children, content, closable, onClick, style } = props
 
     // (() => console.log(icon.attributes))()
-    if(icon){
+    if (icon) {
       icon.attributes['style'] = {}
       icon.attributes.style['marginRight'] = 4
     }
-    
+
     return (
-      <span 
+      <span
         class={this.cls()}
         part="my-part"
         ref={this.span}
         onClick={(e) => {
-          if (disabled) return;
-          onClick({e});
+          if (disabled) return
+          onClick({ e })
         }}
-        style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}>
+        style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
+      >
         <>
           {icon}
           <span class={maxWidth ? TagClassNamePrefix(`--text`) : undefined} {...this.getTitle(children)}>
@@ -125,7 +122,7 @@ export default class Tag extends WeElement<TagProps> {
           </span>
           {closable && !disabled && this.deleteIcon}
         </>
-        </span>
+      </span>
     )
   }
 }

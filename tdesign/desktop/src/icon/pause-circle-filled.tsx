@@ -1,6 +1,6 @@
 import { h, tag, WeElement, OmiProps, classNames } from 'omi'
 import { IconProps } from './type'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import css from './style/index'
 
 @tag('t-icon-pause-circle-filled')

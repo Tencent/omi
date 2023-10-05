@@ -1,9 +1,9 @@
 import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { CheckTagProps } from './type'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import noop from '../utils/noop'
-import "../icon/close"
+import '../icon/close'
 
 const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + className
 
@@ -33,7 +33,7 @@ export default class CheckTag extends WeElement<CheckTagProps> {
     children: String,
     content: String,
     size: String,
- 
+
     onClick: Function,
     onChange: Function,
   }
@@ -41,62 +41,57 @@ export default class CheckTag extends WeElement<CheckTagProps> {
   span = createRef()
   checked
   defaultChecked
-  install(){
+  install() {
     this.checked = this.props.checked
     this.defaultChecked = this.props.defaultChecked
   }
 
-  cls(){
+  cls() {
     return classNames(
       TdClassNamePrefix('tag'),
       TagClassNamePrefix(`--default`),
       TagClassNamePrefix(`--check`),
       TagClassNamePrefix(`--${this.props.size}`),
-        {
-          [TagClassNamePrefix(`--checked`)]: this.defaultChecked || this.checked,
-          [TagClassNamePrefix(`--disabled`)]: this.props.disabled,
-          [TdClassNamePrefix(`size-s`)]: this.props.size == 'small',
-          [TdClassNamePrefix(`size-l`)]: this.props.size == 'large',
-        },
-  
+      {
+        [TagClassNamePrefix(`--checked`)]: this.defaultChecked || this.checked,
+        [TagClassNamePrefix(`--disabled`)]: this.props.disabled,
+        [TdClassNamePrefix(`size-s`)]: this.props.size == 'small',
+        [TdClassNamePrefix(`size-l`)]: this.props.size == 'large',
+      },
     )
-  } 
-
-
-  
-
+  }
 
   render(props: OmiProps<CheckTagProps, any>, store: any) {
-    const { content, onClick = noop, disabled, children, size, onChange, ...tagOtherProps } = props;
+    const { content, onClick = noop, disabled, children, size, onChange, ...tagOtherProps } = props
     let that = this
-    this.checked = this.defaultChecked ? this.defaultChecked : this.checked;
+    this.checked = this.defaultChecked ? this.defaultChecked : this.checked
 
-    function onValueChange(value){
+    function onValueChange(value) {
       console.log(typeof that.defaultChecked)
       that.checked = !value
-      if(typeof that.defaultChecked != 'undefined'){
+      if (typeof that.defaultChecked != 'undefined') {
         that.defaultChecked = false
         that.update()
-      }else{
+      } else {
         onChange?.(!value)
       }
     }
 
     return (
       <span
-      ref={this.span}
-      class={this.cls()}
-      {...tagOtherProps}
-      onClick={(e) => {
-        if (disabled) {
-          return
-        }
-        onValueChange(this.checked)
-        onClick({ e })
-      }}
-    >
-      {children || content}
-    </span>
+        ref={this.span}
+        class={this.cls()}
+        {...tagOtherProps}
+        onClick={(e) => {
+          if (disabled) {
+            return
+          }
+          onValueChange(this.checked)
+          onClick({ e })
+        }}
+      >
+        {children || content}
+      </span>
     )
   }
 }

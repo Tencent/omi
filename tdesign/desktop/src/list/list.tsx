@@ -1,8 +1,8 @@
 import { OmiProps, WeElement, h, tag, classNames } from 'omi'
 import style from './style'
 import { ListProps } from './types'
-import { TdClassNamePrefix } from '../utils/clsx'
-import "../loading/loading"
+import { TdClassNamePrefix } from '../utils'
+import '../loading/loading'
 
 const ListClassNamePrefix = (className: string) => TdClassNamePrefix('list__') + className
 
@@ -62,7 +62,6 @@ export default class BackTop extends WeElement<ListProps> {
   childrenlist
 
   install() {
-    
     let that = this
     this.childrenlist = this.props.children
     if (this.props.stripe) {
@@ -77,18 +76,17 @@ export default class BackTop extends WeElement<ListProps> {
     }
 
     if (this.props.split) {
-      this.childrenlist.map((item,index) => {
-        if(index + 1 != this.childrenlist.length){
+      this.childrenlist.map((item, index) => {
+        if (index + 1 != this.childrenlist.length) {
           if (!item.attributes.css) {
             item.attributes.css = ''
           }
           item.attributes.css += that.splitCss
         }
-        
       })
     }
-    if(this.props.size){
-      if(this.props.size == 'small'){
+    if (this.props.size) {
+      if (this.props.size == 'small') {
         this.childrenlist.map((item) => {
           if (!item.attributes.css) {
             item.attributes.css = ''
@@ -96,7 +94,7 @@ export default class BackTop extends WeElement<ListProps> {
           item.attributes.css += that.smallSizeCss
         })
       }
-      if(this.props.size == 'large'){
+      if (this.props.size == 'large') {
         this.childrenlist.map((item) => {
           if (!item.attributes.css) {
             item.attributes.css = ''
@@ -105,8 +103,7 @@ export default class BackTop extends WeElement<ListProps> {
         })
       }
     }
-    if(this.props.onScroll){
-      
+    if (this.props.onScroll) {
     }
   }
   getClasses(split: Boolean, stripe: Boolean) {
@@ -120,7 +117,7 @@ export default class BackTop extends WeElement<ListProps> {
     return cls
   }
 
-  renderLoadElement(asyncLoading : string) {
+  renderLoadElement(asyncLoading: string) {
     if (typeof asyncLoading == 'string' && asyncLoading) {
       return (
         <div
@@ -128,7 +125,9 @@ export default class BackTop extends WeElement<ListProps> {
             [ListClassNamePrefix(`load--loading`)]: asyncLoading === 'loading',
             [ListClassNamePrefix(`load--load-more`)]: asyncLoading === 'load-more',
           })}
-          onClick={(e) => {this.handleClickLoad(e,asyncLoading)}}
+          onClick={(e) => {
+            this.handleClickLoad(e, asyncLoading)
+          }}
         >
           {asyncLoading === 'loading' && (
             <div>
@@ -142,21 +141,19 @@ export default class BackTop extends WeElement<ListProps> {
     }
   }
 
-  handleClickLoad = ( e:Event ,asyncLoading : string) =>{
+  handleClickLoad = (e: Event, asyncLoading: string) => {
     if (asyncLoading === 'load-more') {
       console.log(e)
-      this.fire('loadMore', { event: e, })
+      this.fire('loadMore', { event: e })
     }
   }
 
-  renderHeader(header : any){
-    return (<div class={classNames(ListClassNamePrefix('header'))}>{header}</div>)
+  renderHeader(header: any) {
+    return <div class={classNames(ListClassNamePrefix('header'))}>{header}</div>
   }
 
-  renderFooter(footer : any){
-    return(
-      <div class={classNames(ListClassNamePrefix('footer'))}>{footer}</div>
-    )
+  renderFooter(footer: any) {
+    return <div class={classNames(ListClassNamePrefix('footer'))}>{footer}</div>
   }
 
   render(props: OmiProps<ListProps, any>, store: any) {

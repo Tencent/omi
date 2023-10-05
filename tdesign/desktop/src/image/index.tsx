@@ -7,3 +7,4 @@ export type { ImageProps } from './type';
 export const Image = _Image;
 
 export default Image;
+

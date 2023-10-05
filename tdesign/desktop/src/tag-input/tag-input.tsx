@@ -2,7 +2,7 @@ import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { TagInputChangeContext, TagInputValue, TdTagInputProps } from './type'
 // import { TdTagInputProps } from './type'
-import { TdClassNamePrefix } from '../utils/clsx'
+import { TdClassNamePrefix } from '../utils'
 import { StyledProps } from '../common'
 import useTagList from './useTagList'
 // import useDragSorter from '../utils/userDragSorter';
@@ -12,7 +12,7 @@ import TInput, { InputValue, InputRef } from '../input'
 import noop from '../utils/noop'
 import '../icon/close'
 import { clearScreenDown } from 'readline'
-import "../icon/close-circle-filled"
+import '../icon/close-circle-filled'
 import { takeRightWhile } from 'lodash'
 
 const TagInputClassNamePrefix = (className: string) => TdClassNamePrefix('tag-input') + className
@@ -20,37 +20,34 @@ const TagInputClassNamePrefix = (className: string) => TdClassNamePrefix('tag-in
 export interface TagInputProps extends TdTagInputProps, StyledProps {}
 
 interface DragSortProps<T> {
-  sortOnDraggable: boolean;
-  onDragSort?: (context: DragSortContext<T>) => void;
+  sortOnDraggable: boolean
+  onDragSort?: (context: DragSortContext<T>) => void
   onDragOverCheck?: {
-    x?: boolean;
-    targetClassNameRegExp?: RegExp;
-  };
+    x?: boolean
+    targetClassNameRegExp?: RegExp
+  }
 }
 
-type DragFnType = (e?: DragEvent, index?: number, record?: any) => void;
+type DragFnType = (e?: DragEvent, index?: number, record?: any) => void
 interface DragSortInnerData {
-  dragging?: boolean;
-  draggable?: boolean;
-  onDragStart?: DragFnType;
-  onDragOver?: DragFnType;
-  onDrop?: DragFnType;
-  onDragEnd?: DragFnType;
+  dragging?: boolean
+  draggable?: boolean
+  onDragStart?: DragFnType
+  onDragOver?: DragFnType
+  onDrop?: DragFnType
+  onDragEnd?: DragFnType
 }
 
 interface DragSortInnerProps extends DragSortInnerData {
-  getDragProps?: (index?: number, record?: any) => DragSortInnerData;
+  getDragProps?: (index?: number, record?: any) => DragSortInnerData
 }
 
 interface DragSortContext<T> {
-  currentIndex: number;
-  current: T;
-  targetIndex: number;
-  target: T;
+  currentIndex: number
+  current: T
+  targetIndex: number
+  target: T
 }
-
-
-
 
 const isFunction = (arg: unknown) => typeof arg === 'function'
 
@@ -108,8 +105,8 @@ export default class TagInput extends WeElement<TagInputProps> {
     this.isDropped = null
     this.startInfo = { nodeX: 0, nodeWidth: 0, mouseX: 0 }
   }
-  
-  installed(){
+
+  installed() {
     this.initScroll(this.tagInputRef)
   }
 
@@ -127,28 +124,28 @@ export default class TagInput extends WeElement<TagInputProps> {
 
   updateScrollElement = (element: HTMLDivElement) => {
     this.scrollElement = element.current.children[0]
-  };
+  }
 
   updateScrollDistance = () => {
-    if (!this.scrollElement) return;
+    if (!this.scrollElement) return
     this.scrollDistance = this.scrollElement.scrollWidth - this.scrollElement.clientWidth
     // setScrollDistance(scrollElement.scrollWidth - scrollElement.clientWidth);
-  };
+  }
 
   scrollTo = (distance: number) => {
     if (isFunction(this.scrollElement?.scroll)) {
-      this.scrollElement.scroll({ left: distance, behavior: 'smooth' });
+      this.scrollElement.scroll({ left: distance, behavior: 'smooth' })
     }
-  };
+  }
 
   scrollToRight = () => {
-    this.updateScrollDistance();
-    this.scrollTo(this.scrollDistance);
-  };
+    this.updateScrollDistance()
+    this.scrollTo(this.scrollDistance)
+  }
 
   scrollToLeft = () => {
-    this.scrollTo(0);
-  };
+    this.scrollTo(0)
+  }
 
   // TODO：MAC 电脑横向滚动，Windows 纵向滚动。当前只处理了横向滚动
   // onWheel = ({ e }: { e: WheelEvent<HTMLDivElement> }) => {
@@ -165,28 +162,28 @@ export default class TagInput extends WeElement<TagInputProps> {
 
   // 鼠标 hover，自动滑动到最右侧，以便输入新标签
   scrollToRightOnEnter = () => {
-    if (this.props.excessTagsDisplayType !== 'scroll') return;
+    if (this.props.excessTagsDisplayType !== 'scroll') return
     // 一闪而过的 mousenter 不需要执行
     this.mouseEnterTimer = setTimeout(() => {
-      this.scrollToRight();
-      clearTimeout(this.mouseEnterTimer);
-    }, 100);
-  };
+      this.scrollToRight()
+      clearTimeout(this.mouseEnterTimer)
+    }, 100)
+  }
 
   scrollToLeftOnLeave = () => {
-    if (this.props.excessTagsDisplayType !== 'scroll') return;
-    this.scrollTo(0);
-    clearTimeout(this.mouseEnterTimer);
-  };
+    if (this.props.excessTagsDisplayType !== 'scroll') return
+    this.scrollTo(0)
+    clearTimeout(this.mouseEnterTimer)
+  }
 
   clearScroll = () => {
-    clearTimeout(this.mouseEnterTimer);
-  };
+    clearTimeout(this.mouseEnterTimer)
+  }
 
   initScroll = (element: HTMLDivElement) => {
-    if (!element) return;
-    this.updateScrollElement(element);
-  };
+    if (!element) return
+    this.updateScrollElement(element)
+  }
 
   render(props: OmiProps<TagInputProps, any>, store: any) {
     let that = this
@@ -210,48 +207,51 @@ export default class TagInput extends WeElement<TagInputProps> {
       onFocus,
       onBlur,
       onMouseenter,
-      onMouseleave
-    } = props;
-    
+      onMouseleave,
+    } = props
+
     function useDragSorter<T>(props: DragSortProps<T>): DragSortInnerProps {
-      const { sortOnDraggable, onDragSort, onDragOverCheck } = props;
+      const { sortOnDraggable, onDragSort, onDragOverCheck } = props
       // const [draggingIndex, setDraggingIndex] = useState(-1);
       // const [dragStartData, setDragStartData] = useState(null);
       // const [isDropped, setIsDropped] = useState(null);
       // const [startInfo, setStartInfo] = useState({ nodeX: 0, nodeWidth: 0, mouseX: 0 });
-    
+
       // const onDragSortRef = useRef(onDragSort);
 
       // const onDragSortRef = createRef();
       const onDragOver = (e, index, record: T) => {
-        e.preventDefault();
-        if (that.draggingIndex === index || that.draggingIndex === -1) return;
-        if (onDragOverCheck?.targetClassNameRegExp && !onDragOverCheck?.targetClassNameRegExp.test(e.target?.className)) {
-          return;
+        e.preventDefault()
+        if (that.draggingIndex === index || that.draggingIndex === -1) return
+        if (
+          onDragOverCheck?.targetClassNameRegExp &&
+          !onDragOverCheck?.targetClassNameRegExp.test(e.target?.className)
+        ) {
+          return
         }
         if (onDragOverCheck?.x) {
-          if (!that.startInfo.nodeWidth) return;
-  
-          const { x, width } = e.target.getBoundingClientRect();
-          const targetNodeMiddleX = x + width / 2;
-          const clientX = e.clientX || 0;
-          const draggingNodeLeft = clientX - (that.startInfo.mouseX - that.startInfo.nodeX);
-          const draggingNodeRight = draggingNodeLeft + that.startInfo.nodeWidth;
-  
-          let overlap = false;
+          if (!that.startInfo.nodeWidth) return
+
+          const { x, width } = e.target.getBoundingClientRect()
+          const targetNodeMiddleX = x + width / 2
+          const clientX = e.clientX || 0
+          const draggingNodeLeft = clientX - (that.startInfo.mouseX - that.startInfo.nodeX)
+          const draggingNodeRight = draggingNodeLeft + that.startInfo.nodeWidth
+
+          let overlap = false
           if (draggingNodeLeft > x && draggingNodeLeft < x + width) {
-            overlap = draggingNodeLeft < targetNodeMiddleX;
+            overlap = draggingNodeLeft < targetNodeMiddleX
           } else {
-            overlap = draggingNodeRight > targetNodeMiddleX;
+            overlap = draggingNodeRight > targetNodeMiddleX
           }
-          if (!overlap) return;
+          if (!overlap) return
         }
         onDragSort?.({
           currentIndex: that.draggingIndex,
           current: that.dragStartData,
           target: record,
           targetIndex: index,
-        });
+        })
         that.draggingIndex = index
         // setDraggingIndex(index);
       }
@@ -263,16 +263,16 @@ export default class TagInput extends WeElement<TagInputProps> {
       //     if (onDragOverCheck?.targetClassNameRegExp && !onDragOverCheck?.targetClassNameRegExp.test(e.target?.className)) {
       //       return;
       //     }
-    
+
       //     if (onDragOverCheck?.x) {
       //       if (!startInfo.nodeWidth) return;
-    
+
       //       const { x, width } = e.target.getBoundingClientRect();
       //       const targetNodeMiddleX = x + width / 2;
       //       const clientX = e.clientX || 0;
       //       const draggingNodeLeft = clientX - (startInfo.mouseX - startInfo.nodeX);
       //       const draggingNodeRight = draggingNodeLeft + startInfo.nodeWidth;
-    
+
       //       let overlap = false;
       //       if (draggingNodeLeft > x && draggingNodeLeft < x + width) {
       //         overlap = draggingNodeLeft < targetNodeMiddleX;
@@ -281,7 +281,7 @@ export default class TagInput extends WeElement<TagInputProps> {
       //       }
       //       if (!overlap) return;
       //     }
-    
+
       //     onDragSortRef.current?.({
       //       currentIndex: draggingIndex,
       //       current: dragStartData,
@@ -300,22 +300,22 @@ export default class TagInput extends WeElement<TagInputProps> {
       //     startInfo.nodeX,
       //   ],
       // );
-    
+
       if (!sortOnDraggable) {
-        return {};
+        return {}
       }
-    
+
       function onDragStart(e, index, record: T) {
-        that.draggingIndex = index;
-        that.dragStartData = record;
+        that.draggingIndex = index
+        that.dragStartData = record
         // setDraggingIndex(index);
         // setDragStartData(record);
         if (onDragOverCheck) {
-          const { x, width } = e.target.getBoundingClientRect();
-          that.startInfo={
+          const { x, width } = e.target.getBoundingClientRect()
+          that.startInfo = {
             nodeX: x,
             nodeWidth: width,
-            mouseX: e.clientX || 0
+            mouseX: e.clientX || 0,
           }
           // setStartInfo({
           //   nodeX: x,
@@ -324,7 +324,7 @@ export default class TagInput extends WeElement<TagInputProps> {
           // });
         }
       }
-    
+
       function onDrop() {
         that.isDropped = true
         // setIsDropped(true);
@@ -345,23 +345,23 @@ export default class TagInput extends WeElement<TagInputProps> {
           return {
             draggable: true,
             onDragStart: (e) => {
-              onDragStart(e, index, record);
+              onDragStart(e, index, record)
             },
             onDragOver: (e) => {
-              onDragOver(e, index, record);
+              onDragOver(e, index, record)
             },
             onDrop: () => {
-              onDrop();
+              onDrop()
             },
             onDragEnd: () => {
-              onDragEnd();
+              onDragEnd()
             },
-          };
+          }
         }
-        return {};
+        return {}
       }
-    
-      return { onDragStart, onDragOver, onDrop, onDragEnd, getDragProps, dragging: that.draggingIndex !== -1 };
+
+      return { onDragStart, onDragOver, onDrop, onDragEnd, getDragProps, dragging: that.draggingIndex !== -1 }
     }
 
     const { getDragProps } = useDragSorter({
@@ -371,13 +371,13 @@ export default class TagInput extends WeElement<TagInputProps> {
         x: true,
         targetClassNameRegExp: new RegExp(`^t-tag`),
       },
-    });
+    })
 
     const onClearClick = (e: MouseEvent) => {
       // clearAll({ e });
       // setTInputValue('', { e, trigger: 'clear' });
       // props.onClear?.({ e });
-    };
+    }
     const tagValue = props.value ? props.value : props.defaultValue
     // const { tagValue, onClose, onInnerEnter, onInputBackspaceKeyUp, clearAll, renderLabel, onInputBackspaceKeyDown } =
     // useTagList({
@@ -391,7 +391,7 @@ export default class TagInput extends WeElement<TagInputProps> {
           value: tagValue,
           onClose: (index, item) => onClose({ index, item }),
         })
-      : valueDisplay;
+      : valueDisplay
 
     const onClose = (p: { e?: MouseEvent; index: number; item: string | number }) => {
       const arr = [...tagValue]
@@ -410,32 +410,34 @@ export default class TagInput extends WeElement<TagInputProps> {
         newValue = tagValue instanceof Array ? tagValue.concat(String(valueStr)) : [valueStr]
       }
       that.tInputValue = ''
-      if(!props.onEnter){props.onChange?.(newValue, {...context})}
+      if (!props.onEnter) {
+        props.onChange?.(newValue, { ...context })
+      }
       props?.onEnter?.(newValue, { ...context, inputValue: value })
     }
 
     // 按下回退键，删除标签
     const onInputBackspaceKeyDown = (value: InputValue, context: { e: KeyboardEvent }) => {
-      if(!context) return
-      const { e } = context;
-      if (!tagValue || !tagValue.length) return;
+      if (!context) return
+      const { e } = context
+      if (!tagValue || !tagValue.length) return
       // 回车键删除，输入框值为空时，才允许 Backspace 删除标签
       if (!this.tInputValue && ['Backspace', 'NumpadDelete'].includes(e.key)) {
-        const index = tagValue.length - 1;
-        const item = tagValue[index];
-        const trigger = 'backspace';
-        const newValue = tagValue.slice(0, -1);
+        const index = tagValue.length - 1
+        const item = tagValue[index]
+        const trigger = 'backspace'
+        const newValue = tagValue.slice(0, -1)
         props.onChange(newValue, { e, index, item, trigger })
         // setTagValue(newValue, { e, index, item, trigger });
-        props.onRemove?.({ e, index, item, trigger, value: newValue });
+        props.onRemove?.({ e, index, item, trigger, value: newValue })
       }
     }
 
     const onInputBackspaceKeyUp = (value: InputValue) => {
-      if (!tagValue || !tagValue.length) return;
+      if (!tagValue || !tagValue.length) return
       this.tInputValue = value
       that.update()
-    };
+    }
 
     const renderLabel = ({ displayNode, label }) => {
       const newList = props.minCollapsedNum ? tagValue.slice(0, props.minCollapsedNum) : tagValue
@@ -462,7 +464,7 @@ export default class TagInput extends WeElement<TagInputProps> {
         list?.unshift(
           <div class={`t-tag-input__prefix`} key="label">
             {label}
-          </div>
+          </div>,
         )
       }
       if (newList.length !== tagValue.length) {
@@ -471,76 +473,71 @@ export default class TagInput extends WeElement<TagInputProps> {
           value: tagValue,
           count: tagValue.length - props.minCollapsedNum,
           collapsedTags: tagValue.slice(props.minCollapsedNum, tagValue.length),
-        };
-        const more = isFunction(props.collapsedItems) ? props.collapsedItems(params) : props.collapsedItems;
-        if(more){
+        }
+        const more = isFunction(props.collapsedItems) ? props.collapsedItems(params) : props.collapsedItems
+        if (more) {
           list.push(more)
-        }else{
+        } else {
           list.push(<t-tag size={size}>+{len}</t-tag>)
         }
       }
       return list
     }
 
-    const tagInputPlaceholder = !tagValue?.length ? placeholder : '';
+    const tagInputPlaceholder = !tagValue?.length ? placeholder : ''
 
-    const showClearIcon = Boolean(!readonly && !disabled && clearable && this.isHover && tagValue?.length);
-
-    
+    const showClearIcon = Boolean(!readonly && !disabled && clearable && this.isHover && tagValue?.length)
 
     const suffixIconNode = showClearIcon ? (
-      <t-icon-close-circle-filled class={classNames(TagInputClassNamePrefix(`__suffix-clear`))} onClick={onClearClick} />
+      <t-icon-close-circle-filled
+        class={classNames(TagInputClassNamePrefix(`__suffix-clear`))}
+        onClick={onClearClick}
+      />
     ) : (
       suffixIcon
-    );
+    )
 
-    const isEmpty = !(Array.isArray(tagValue) && tagValue.length);
+    const isEmpty = !(Array.isArray(tagValue) && tagValue.length)
     const cls = () => {
-      return classNames(
-        
-      )
+      return classNames()
     }
-    const classes = [TdClassNamePrefix('tag-input'),
-        {
-          [TagInputClassNamePrefix(`--break-line`)]: this.props.excessTagsDisplayType === 'break-line',
-          [TagInputClassNamePrefix(`__with-suffix-icon`)]: !!suffixIconNode,
-          [TdClassNamePrefix(`is-empty`)]: isEmpty,
-          [TagInputClassNamePrefix(`--with-tag`)]: !isEmpty,
-        },
-        props.className
-      ]
-
+    const classes = [
+      TdClassNamePrefix('tag-input'),
+      {
+        [TagInputClassNamePrefix(`--break-line`)]: this.props.excessTagsDisplayType === 'break-line',
+        [TagInputClassNamePrefix(`__with-suffix-icon`)]: !!suffixIconNode,
+        [TdClassNamePrefix(`is-empty`)]: isEmpty,
+        [TagInputClassNamePrefix(`--with-tag`)]: !isEmpty,
+      },
+      props.className,
+    ]
 
     const onInputEnter = (value: InputValue, context: { e: KeyboardEvent }) => {
       onInnerEnter(value, context)
       // setTInputValue('', { e: context.e, trigger: 'enter' });
       // !isCompositionRef.current && onInnerEnter(value, context);
-      this.scrollToRight();
-    };
+      this.scrollToRight()
+    }
 
-    
-    
-      
     // (() => console.log(renderLabel({ displayNode, label })))()
     // if(icon){
     //   icon.attributes['style'] = {}
     //   icon.attributes.style['marginRight'] = 4
     // }
-    
-    
+
     const addHover = (context) => {
       if (readonly || disabled) return
       that.isHover = true
       that.update()
       onMouseenter?.(context)
     }
-  
+
     const cancelHover = (context) => {
       if (readonly || disabled) return
       that.isHover = false
       that.update()
       onMouseleave?.(context)
-    };
+    }
     // (()=>{console.log(this.tInputValue)})();
     return (
       <t-input
@@ -559,7 +556,7 @@ export default class TagInput extends WeElement<TagInputProps> {
         label={renderLabel({ displayNode, label })}
         className={classes}
         // style={props.style}
-        tips={tips}  
+        tips={tips}
         status={status}
         placeholder={tagInputPlaceholder}
         suffix={suffix}
@@ -583,12 +580,12 @@ export default class TagInput extends WeElement<TagInputProps> {
         //   onFocus?.(tagValue, { e: context.e, inputValue });
         // }}
         onBlur={(tInputValue, context) => {
-          console.log(tInputValue,'onblur')
+          console.log(tInputValue, 'onblur')
           if (tInputValue) {
             this.tInputValue = ''
             this.update()
           }
-          onBlur?.(tagValue, { e: context.e, inputValue: '' });
+          onBlur?.(tagValue, { e: context.e, inputValue: '' })
         }}
         // onCompositionstart={onInputCompositionstart}
         // onCompositionend={onInputCompositionend}
