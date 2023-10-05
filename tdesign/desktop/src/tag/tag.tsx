@@ -105,26 +105,24 @@ export default class Tag extends WeElement<TagProps> {
     }
 
     return (
-      <>
-        <span
-          class={this.cls()}
-          part="my-part"
-          ref={this.span}
-          onClick={(e) => {
-            if (disabled) return
-            onClick({ e })
-          }}
-          style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
-        >
-          <>
-            {icon}
-            <span class={maxWidth ? TagClassNamePrefix(`--text`) : undefined} {...this.getTitle(children)}>
-              {children ?? content}
-            </span>
-            {closable && !disabled && this.deleteIcon}
-          </>
-        </span>
-      </>
+      <span
+        class={this.cls()}
+        part="my-part"
+        ref={this.span}
+        onClick={(e) => {
+          if (disabled) return
+          onClick({ e })
+        }}
+        style={maxWidth ? { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth, ...style } : style}
+      >
+        <>
+          {icon}
+          <span class={maxWidth ? TagClassNamePrefix(`--text`) : undefined} {...this.getTitle(children)}>
+            {children ?? content}
+          </span>
+          {closable && !disabled && this.deleteIcon}
+        </>
+      </span>
     )
   }
 }
