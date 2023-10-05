@@ -64,11 +64,11 @@ export interface TdImageProps {
   /**
    * 图片加载失败时触发: TODO :(context: { e: ImageEvent<HTMLImageElement> }) => void
    */
-  onError?: (context: { e: BlobEvent }) => void
+  onError?: (context: { e: Event }) => void
   /**
    * 图片加载完成时触发
    */
-  onLoad?: (context: { e: BlobEvent }) => void
+  onLoad?: (context: { e: Event }) => void
 }
 
 export interface ImageSrcset {
