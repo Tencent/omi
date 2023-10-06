@@ -573,7 +573,7 @@
                 }
                 if (provide) this.inject.forEach(function(injectKey) {
                     _this2.injection[injectKey] = provide[injectKey];
-                }); else throw 'The provide prop was not found on the parent node or the provide type is incorrect.';
+                });
             }
             this.attrsToProps();
             this.beforeInstall();
@@ -1029,7 +1029,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.21';
+    options.root.Omi.version = '6.25.22';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

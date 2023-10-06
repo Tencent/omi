@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.21  http://omijs.org
+ * Omi v6.25.22  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -952,8 +952,6 @@ var WeElement = function (_HTMLElement) {
         this.inject.forEach(function (injectKey) {
           _this2.injection[injectKey] = provide[injectKey];
         });
-      } else {
-        throw 'The provide prop was not found on the parent node or the provide type is incorrect.';
       }
     }
 
@@ -1744,7 +1742,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.21';
+options.root.Omi.version = '6.25.22';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };
