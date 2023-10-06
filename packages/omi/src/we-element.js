@@ -44,8 +44,6 @@ export default class WeElement extends HTMLElement {
         this.inject.forEach(injectKey => {
           this.injection[injectKey] = provide[injectKey]
         })
-      } else {
-        throw 'The provide prop was not found on the parent node or the provide type is incorrect.'
       }
     }
 
