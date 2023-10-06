@@ -161,6 +161,7 @@ const metaData = new Map([
       description: '用于展示图片素材。',
     },
   ],
+  ['avatar', { title: 'Avatar 头像', description: '用图标、图片、字符的形式展示用户或事物信息' }],
 ])
 
 const getMetaData = (componentName: string) => {

@@ -403,14 +403,14 @@ export const docs = [
     titleEn: 'Data Display',
     type: 'component', // 组件文档
     children: [
-      //     {
-      //       title: 'Avatar 头像',
-      //       titleEn: 'Avatar',
-      //       name: 'avatar',
-      //       path: '/avatar',
-      //       component: () => import('tdesign-omi/avatar/avatar.md'),
-      //       componentEn: () => import('tdesign-omi/avatar/avatar.en-US.md'),
-      //     },
+      {
+        title: 'Avatar 头像',
+        titleEn: 'Avatar',
+        name: 'avatar',
+        path: '/avatar',
+        //       component: () => import('tdesign-omi/avatar/avatar.md'),
+        //       componentEn: () => import('tdesign-omi/avatar/avatar.en-US.md'),
+      },
       //     {
       //       title: 'Badge 徽标',
       //       titleEn: 'Badge',

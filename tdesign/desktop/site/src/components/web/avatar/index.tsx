@@ -43,107 +43,107 @@ size | String | - | 尺寸,示例值:small/medium/large/24px/38px 等。优先�
 
 `)
 interface Props {
-    tab: string
+  tab: string
 }
 
 define(
-    'page-avatar',
-    class extends WeElement<Props> {
-        static defaultProps = {
-            tab: 'demo',
-        }
+  'page-avatar',
+  class extends WeElement<Props> {
+    static defaultProps = {
+      tab: 'demo',
+    }
 
-        tab = ['demo', 'api', 'design']
-        tdDocHeader = createRef()
-        tdDocTabs = createRef()
+    tab = ['demo', 'api', 'design']
+    tdDocHeader = createRef()
+    tdDocTabs = createRef()
 
-        static propTypes = {
-            tab: String,
-        }
+    static propTypes = {
+      tab: String,
+    }
 
-        updateTab = (t: string) => {
-            this.updateProps({
-                tab: t,
-            })
-        }
+    updateTab = (t: string) => {
+      this.updateProps({
+        tab: t,
+      })
+    }
 
-        isShow(tabStr: string) {
-            return this.props.tab === tabStr ? { display: 'block' } : { display: 'none' }
-        }
+    isShow(tabStr: string) {
+      return this.props.tab === tabStr ? { display: 'block' } : { display: 'none' }
+    }
 
-        installed() {
-            const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
-            tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
-                this.updateTab(currentTab)
-            }
-        }
+    installed() {
+      const tdDocTabsEl = this.tdDocTabs.current as HTMLElement
+      tdDocTabsEl.onchange = ({ detail: currentTab }: CustomEvent) => {
+        this.updateTab(currentTab)
+      }
+    }
 
-        render() {
-            return (
-                <>
-                    <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
-                    <div style={this.isShow('demo')} name="DEMO">
-                        <h3 id="头像类型">
-                            头像类型<a class="header-anchor" href="#头像类型"></a>
-                        </h3>
-                        <p>头像提供了 3 种不同类型的头像：图标头像、图片头像、字符头像</p>
-                        <demo-wrapper>
-                            <avatar-base></avatar-base>
-                        </demo-wrapper>
-                        <h4 id="头像形状">
-                            头像形状 <a class="header-anchor" href="#头像形状"></a>
-                        </h4>
-                        <p>头像默认支持两种形状：round、circle，用户也可自定义设置头像形状</p>
-                        <demo-wrapper>
-                            <avatar-shape></avatar-shape>
-                        </demo-wrapper>
-                        <h4 id="头像大小">
-                            头像大小 <a class="header-anchor" href="#头像大小"></a>
-                        </h4>
-                        <p>头像默认支持三种大小：small、medium、large，用户可自定义设置大小</p>
-                        <demo-wrapper>
-                            <avatar-size></avatar-size>
-                        </demo-wrapper>
-                        <h3 id="字符头像大小自适应">
-                            字符头像大小自适应 <a class="header-anchor" href="#字符头像大小自适应"></a>
-                        </h3>
-                        <p>头像支持字符自适应，即字符长度过长时，头像可自动调整字符以便呈现完整内容</p>
-                        <demo-wrapper>
-                            <avatar-adjust></avatar-adjust>
-                        </demo-wrapper>
-                        <h3 id="组合头像">
-                            组合头像 <a class="header-anchor" href="#组合头像"></a>
-                        </h3>
-                        <p>组合头像展示</p>
-                        <demo-wrapper>
-                            <avatar-group></avatar-group>
-                        </demo-wrapper>
-                        <h3 id="组合头像偏移方向">
-                            组合头像偏移方向 <a class="header-anchor" href="#组合头像偏移方向"></a>
-                        </h3>
-                        <p>组合头像可控制层叠方向</p>
-                        <demo-wrapper>
-                            <avatar-group-cascading></avatar-group-cascading>
-                        </demo-wrapper>
-                        <h3 id="组合头像个数">
-                            组合头像个数 <a class="header-anchor" href="#组合头像个数"></a>
-                        </h3>
-                        <p>组合头像可设置最大展示个数，超过则隐藏显示</p>
-                        <demo-wrapper>
-                            <avatar-group-max></avatar-group-max>
-                        </demo-wrapper>
-                    </div>
-                    <div style={this.isShow('api')} name="API">
-                        <div
-                            style="margin-bottom:76px"
-                            dangerouslySetInnerHTML={{
-                                __html: docsHTML,
-                            }}
-                        ></div>
-                    </div>
-                    <div style={this.isShow('design')} name="DESIGN"></div>
-                </>
-            )
-        }
-    },
+    render() {
+      return (
+        <>
+          <td-doc-tabs ref={this.tdDocTabs} tab={this.props.tab} style="display:block"></td-doc-tabs>
+          <div style={this.isShow('demo')} name="DEMO">
+            <h3 id="头像类型">
+              头像类型<a class="header-anchor" href="#头像类型"></a>
+            </h3>
+            <p>头像提供了 3 种不同类型的头像：图标头像、图片头像、字符头像</p>
+            <demo-wrapper>
+              <avatar-base></avatar-base>
+            </demo-wrapper>
+            <h4 id="头像形状">
+              头像形状 <a class="header-anchor" href="#头像形状"></a>
+            </h4>
+            <p>头像默认支持两种形状：round、circle，用户也可自定义设置头像形状</p>
+            <demo-wrapper>
+              <avatar-shape></avatar-shape>
+            </demo-wrapper>
+            <h4 id="头像大小">
+              头像大小 <a class="header-anchor" href="#头像大小"></a>
+            </h4>
+            <p>头像默认支持三种大小：small、medium、large，用户可自定义设置大小</p>
+            <demo-wrapper>
+              <avatar-size></avatar-size>
+            </demo-wrapper>
+            <h3 id="字符头像大小自适应">
+              字符头像大小自适应 <a class="header-anchor" href="#字符头像大小自适应"></a>
+            </h3>
+            <p>头像支持字符自适应，即字符长度过长时，头像可自动调整字符以便呈现完整内容</p>
+            <demo-wrapper>
+              <avatar-adjust></avatar-adjust>
+            </demo-wrapper>
+            <h3 id="组合头像">
+              组合头像 <a class="header-anchor" href="#组合头像"></a>
+            </h3>
+            <p>组合头像展示</p>
+            <demo-wrapper>
+              <avatar-group></avatar-group>
+            </demo-wrapper>
+            <h3 id="组合头像偏移方向">
+              组合头像偏移方向 <a class="header-anchor" href="#组合头像偏移方向"></a>
+            </h3>
+            <p>组合头像可控制层叠方向</p>
+            <demo-wrapper>
+              <avatar-group-cascading></avatar-group-cascading>
+            </demo-wrapper>
+            <h3 id="组合头像个数">
+              组合头像个数 <a class="header-anchor" href="#组合头像个数"></a>
+            </h3>
+            <p>组合头像可设置最大展示个数，超过则隐藏显示</p>
+            <demo-wrapper>
+              <avatar-group-max></avatar-group-max>
+            </demo-wrapper>
+          </div>
+          <div style={this.isShow('api')} name="API">
+            <div
+              style="margin-bottom:76px"
+              dangerouslySetInnerHTML={{
+                __html: docsHTML,
+              }}
+            ></div>
+          </div>
+          <div style={this.isShow('design')} name="DESIGN"></div>
+        </>
+      )
+    }
+  },
 )

@@ -1,0 +1,19 @@
+@import '../../_common/style/web/base.less';
+
+@import '../../_common/style/web/components/avatar/_var.less';
+
+@import '../../_common/style/web/components/avatar/_mixin.less';
+
+@import '../../_common/style/web/mixins/_reset.less';
+
+.@{prefix}-avatar {
+  .avatar-group-offset-right(@avatar-group-offset-medium) !important;
+
+  &.@{prefix}-size-s {
+    .avatar-group-offset-right(@avatar-group-offset-small);
+  }
+
+  &.@{prefix}-size-l {
+    .avatar-group-offset-right(@avatar-group-offset-large);
+  }
+}
