@@ -74,7 +74,7 @@ export default class Avatar extends WeElement<AvatarProps> {
       content,
       style,
       imageProps,
-      class: String,
+      class: className,
       ...avatarProps
     } = props
     const size = avatarSize === undefined ? groupSize : avatarSize

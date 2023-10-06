@@ -53,7 +53,7 @@ export interface TdAvatarProps {
   /**
    * 图片加载失败时触发: TODO ImageEvent ?
    */
-  onError?: (context: { e: BlobEvent }) => void
+  onError?: (context: { e: Event }) => void
 }
 
 export interface AvatarContextProps {

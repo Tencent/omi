@@ -70,7 +70,7 @@ export default class Alert extends WeElement<AlertProps> {
       close,
       maxLine,
       onClose,
-      class: String,
+      class: className,
       onClosed,
       ...alertProps
     } = props

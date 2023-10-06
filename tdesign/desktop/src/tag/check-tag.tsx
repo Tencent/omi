@@ -1,8 +1,7 @@
 import { OmiProps, WeElement, h, tag, classNames, createRef } from 'omi'
 import style from './style'
 import { CheckTagProps } from './type'
-import { TdClassNamePrefix } from '../utils'
-import noop from '../utils/noop'
+import { TdClassNamePrefix, noop } from '../utils'
 import '../icon/close'
 
 const TagClassNamePrefix = (className: string) => TdClassNamePrefix('tag') + className

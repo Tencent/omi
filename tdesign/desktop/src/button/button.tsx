@@ -100,7 +100,7 @@ export default class Button extends WeElement<ButtonProps> {
       shape,
       children,
       content,
-      class: String,
+      class: className,
       suffix,
       href,
       tag,

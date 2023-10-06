@@ -1,246 +1,244 @@
-import { h, tag, WeElement, classNames, OmiProps, createRef } from 'omi'
-import { ImageProps } from './type'
-import { StyledProps } from '@src/common'
-import  observe from '../_common/js/utils/observe'
-import css from './style'
-import Space from '../space'
-import '../icon/image'
+import { h, tag, WeElement, OmiProps, createRef, classNames } from 'omi'
+import css from './style/index'
+import { TdImageProps } from './type'
+import { StyledProps } from '../common'
+import { TdClassNamePrefix } from '../utils'
+import observe from '../_common/js/utils/observe'
 import '../icon/image-error'
-
+import '../icon/image-1'
+import '../space'
 export interface ImageProps extends TdImageProps, StyledProps {}
 
-export type TImageProps = ImageProps &
-    StyledProps & {
-        onClick?: (e: MouseEvent) => void;
-        onMouseDown?: (e: MouseEvent) => void;
-        draggable?: boolean;
-    };
-
 @tag('t-image')
-export default class Image extends WeElement<TImageProps>{
-    static css = css as string
+export default class Image extends WeElement<ImageProps> {
+  static css = css as string
 
-    static defaultProps = {
-        fit: 'fill',
-        gallery: false,
-        lazy: false,
-        overlayTrigger: 'always',
-        position: 'center',
-        shape: 'square',
+  static defaultProps = {
+    fit: 'fill',
+    gallery: false,
+    lazy: false,
+    overlayTrigger: 'always',
+    position: 'center',
+    shape: 'square',
+  }
+
+  static propTypes = {
+    alt: String,
+    error: Object,
+    fit: String,
+    gallery: Boolean,
+    lazy: Boolean,
+    loading: Object,
+    overlayContent: Object,
+    overlayTrigger: String,
+    placeholder: Object,
+    position: String,
+    shape: String,
+    src: String,
+    srcset: Object,
+    onError: Function,
+    onLoad: Function,
+  }
+
+  componentName = TdClassNamePrefix('image')
+  imageRef = createRef()
+  imageSrc: string //useMemo, local.replaceImageSrc(function replace image url)
+  shouldLoad: boolean
+  isLoaded = false
+  hasError = false
+  hasMouseEvent: boolean
+  shouldShowOverlay: boolean
+  observerRefValue = null as HTMLElement
+  io: any
+
+  handleLoadImage = () => {
+    this.shouldLoad = true
+    this.update()
+  }
+
+  handleLoad = (e: Event) => {
+    this.isLoaded = true
+    this.props.onLoad?.({ e })
+    this.update()
+  }
+
+  handleError = (e: Event) => {
+    this.hasError = true
+    this.props.onError?.({ e })
+    this.update()
+  }
+
+  handleToggleOverlay = (overlay: boolean) => {
+    this.shouldShowOverlay = overlay
+    this.update()
+  }
+  //observe
+  handleObserve = () => {
+    const { lazy } = this.props
+    const { imageRef, handleLoadImage } = this
+    if (!lazy || !imageRef?.current) {
+      return
+    }
+    if (this.observerRefValue === this.imageRef.current) {
+      return
+    }
+    this.observerRefValue = imageRef.current as HTMLElement
+    this.io = observe(this.observerRefValue, null, handleLoadImage, 0)
+  }
+
+  beforeUpdate() {
+    this.handleObserve()
+  }
+
+  install() {
+    const { src, lazy, overlayTrigger } = this.props
+    this.imageSrc = src
+    this.shouldLoad = !lazy
+    this.hasMouseEvent = overlayTrigger === 'hover'
+    this.shouldShowOverlay = !this.hasMouseEvent
+  }
+
+  installed() {
+    this.handleObserve()
+  }
+
+  uninstall() {
+    const { imageRef, io } = this
+    imageRef.current && io && io.unobserve(imageRef.current)
+  }
+
+  render(props: OmiProps<ImageProps>) {
+    const {
+      componentName,
+      isLoaded,
+      imageRef,
+      hasMouseEvent,
+      shouldShowOverlay,
+      hasError,
+      shouldLoad,
+      imageSrc,
+      handleToggleOverlay,
+      handleError,
+      handleLoad,
+    } = this
+    const {
+      class: className,
+      src,
+      style,
+      alt,
+      fit,
+      position,
+      shape,
+      placeholder,
+      loading,
+      error,
+      overlayTrigger,
+      lazy,
+      gallery,
+      overlayContent,
+      srcset,
+      onLoad,
+      onError,
+      ...rest
+    } = props
+
+    const renderOverlay = () => {
+      if (!overlayContent) {
+        return null
+      }
+      return (
+        <div
+          class={classNames(
+            `${componentName}__overlay-content`,
+            !shouldShowOverlay && `${componentName}__overlay-content--hidden`,
+          )}
+        >
+          {overlayContent}
+        </div>
+      )
     }
 
-    static propTypes = {
-        alt: String,
-        fallback: String,
-        fit: String,
-        gallery: Boolean,
-        lazy: Boolean,
-        overlayTrigger: String,
-        position: String,
-        referrerpolicy: String,
-        shape: String,
-        src: Object,
-        srcset: Object, 
+    const renderPlaceholder = () => {
+      if (!placeholder) {
+        return null
+      }
+      return <div class={`${componentName}__placeholder`}>{placeholder}</div>
     }
 
-
-    shouldLoad = !this.props.lazy
-    handleLoadImage = () => { this.shouldLoad = true }
-
-    imageRef = createRef()
-    imageNode = this.imageRef.current
-    observerRefValue: any = null
-
-    isLoaded = false
-    imageSrc = this.props.src
-    previewUrl = typeof this.imageSrc === 'string' ? this.imageSrc : ''
-    hasError = false
-    
-    installed() {
-        if (this.hasError && this.previewUrl) {
-            this.hasError = false
-        }
-        if (!this.props.lazy || !this.imageRef?.current) {
-            return
-        }
-        const io = observe(this.imageRef.current, null, this.handleLoadImage, 0)
-        this.observerRefValue = this.imageRef.current
-
-        return () => {
-            this.observerRefValue && io && io.unobserve(this.observerRefValue)
-        }
-
+    const renderGalleryShadow = () => {
+      if (!gallery) {
+        return null
+      }
+      return <div class={`${componentName}__gallery-shadow`} />
     }
-    render(props: TImageProps, store: any) {
-        const {
-            className,
-            src,
-            style,
-            alt,
-            fit,
-            position,
-            shape,
-            placeholder,
-            loading,
-            error,
-            overlayTrigger,
-            lazy,
-            gallery,
-            overlayContent,
-            srcset,
-            fallback,
-            onLoad,
-            onError,
-            ...restProps
-        } = props;
 
-        const classPrefix = 't'
+    const renderImage = (url: string) => (
+      <img
+        src={url}
+        onError={handleError}
+        onLoad={handleLoad}
+        class={classNames(componentName, `${componentName}--fit-${fit}`, `${componentName}--position-${position}`)}
+        alt={alt}
+      />
+    )
 
-        const handleLoad = (e: Event) => {
-            this.isLoaded = true
-            onLoad?.({ e })
-        }
+    const renderImageSrcset = () => (
+      <picture>
+        {Object.entries(props.srcset).map(([type, url]) => (
+          <source key={url} type={type} srcSet={url} />
+        ))}
+        {props.src && renderImage(props.src)}
+      </picture>
+    )
 
-        /*  useEffect(() => {
-              if (!lazy || !imageRef?.current) {
-                return;
-              }
-          
-              // https://stackoverflow.com/questions/67069827/cleanup-ref-issues-in-react
-              let observerRefValue = null;
-          
-              const io = observe(imageRef.current, null, handleLoadImage, 0);
-              observerRefValue = imageRef.current;
-          
-              return () => {
-                observerRefValue && io && io.unobserve(observerRefValue);
-              };
-            }, [lazy, imageRef]);
-        */
-        const handleError = (e: Event) => {
-            this.hasError = true
-            if (fallback) {
-                this.imageSrc = fallback
-                this.hasError = false
+    return (
+      <div
+        ref={imageRef}
+        class={classNames(
+          `${componentName}__wrapper`,
+          `${componentName}__wrapper--shape-${shape}`,
+          gallery && `${componentName}__wrapper--gallery`,
+          hasMouseEvent && `${componentName}__wrapper--need-hover`,
+          className,
+        )}
+        style={style}
+        {...(hasMouseEvent
+          ? {
+              onMouseEnter: () => handleToggleOverlay(true),
+              onMouseLeave: () => handleToggleOverlay(false),
             }
-            onError?.({ e })
-        }
-
-        const hasMouseEvent = overlayTrigger === 'hover'
-        let shouldShowOverlay = !hasMouseEvent
-        const handleToggleOverlay = (overlay: boolean) => {
-            shouldShowOverlay = overlay
-        }
-
-        const renderOverlay = () => {
-            if (!overlayContent) {
-                return null
-            }
-            return (
-                <div
-                    className={classNames(
-                        `${classPrefix}-image__overlay-content`,
-                        !shouldShowOverlay && `${classPrefix}-image__overlay-content--hidden`,
-                    )}
-                >
-                    {overlayContent}
-                </div>
-            )
-        }
-        const renderPlaceholder = () => {
-            if (!placeholder) {
-                return null
-            }
-            return <div className={`${classPrefix}-image__placeholder`}>{placeholder}</div>
-        };
-
-        const renderGalleryShadow = () => {
-            if (!gallery) {
-                return null
-            }
-            return <div className={`${classPrefix}-image__gallery-shadow`} />
-        }
-
-        const renderImage = () => {
-            const url = typeof this.imageSrc === 'string' ? this.imageSrc : this.previewUrl
-            return (
-                <img
-                    src={url}
-                    onError={handleError}
-                    onLoad={handleLoad}
-                    className={classNames(
-                        `${classPrefix}-image`,
-                        `${classPrefix}-image--fit-${fit}`,
-                        `${classPrefix}-image--position-${position}`,
-                    )}
-                    alt={alt}
-                />
-            )
-        }
-
-        const renderImageSrcset = () => (
-            <picture>
-                {Object.entries(srcset).map(([type, url]) => (
-                    <source key={url} type={type} srcSet={url} />
-                ))}
-                {props.src && renderImage()}
-            </picture>
-        )
-        
-        return (
-            <div
-                ref={this.imageRef}
-                className={classNames(
-                    `${classPrefix}-image__wrapper`,
-                    `${classPrefix}-image__wrapper--shape-${shape}`,
-                    gallery && `${classPrefix}-image__wrapper--gallery`,
-                    hasMouseEvent && `${classPrefix}-image__wrapper--need-hover`,
-                    className,
+          : null)}
+        {...rest}
+      >
+        {renderPlaceholder()}
+        {renderGalleryShadow()}
+        {!(hasError || !shouldLoad) && (
+          <>
+            {srcset && Object.keys(srcset).length ? renderImageSrcset() : renderImage(imageSrc)}
+            {!(hasError || !shouldLoad) && !isLoaded && (
+              <div class={`${componentName}__loading`}>
+                {loading || (
+                  <t-space direction="vertical" size={8} align="center">
+                    <t-icon-image-1 size={24} />
+                    图片加载中
+                  </t-space>
                 )}
-                style={style}
-                {...(hasMouseEvent
-                    ? {
-                        onMouseEnter: () => handleToggleOverlay(true),
-                        onMouseLeave: () => handleToggleOverlay(false),
-                    }
-                    : null)}
-                {...restProps}
-            >
-                {renderPlaceholder()}
-
-                {renderGalleryShadow()}
-
-                {!(this.hasError || !this.shouldLoad) && (
-                    <div>
-                        {srcset && Object.keys(srcset).length ? renderImageSrcset() : renderImage()}
-                        {!(this.hasError || !this.shouldLoad) && !this.isLoaded && (
-                            <div className={`${classPrefix}-image__loading`}>
-                                {loading || (
-                                    <t-space direction="vertical" size={8} align="center">
-                                        <t-icon-image size={24} />
-                                        {/* support loading = '' to hide loading text */}
-                                        {/* {typeof loading === 'string' ? loading : t(local.loadingText)} */}
-                                        {loading}
-                                    </t-space>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {this.hasError && (
-                    <div className={`${classPrefix}-image__error`}>
-                        {error || (
-                            <Space direction="vertical" size={8} align="center">
-                                <t-image-error size={24} />
-                                {/* {typeof error === 'string' ? error : t(local.errorText)} */}
-                                {error}
-                            </Space>
-                        )}
-                    </div>
-                )}
-                {renderOverlay()}
-            </div>
-        )
-    }
+              </div>
+            )}
+          </>
+        )}
+        {hasError && (
+          <div class={`${componentName}__error`}>
+            {error || (
+              <t-space direction="vertical" size={8} align="center">
+                <t-icon-image-error size={24} />
+                图片无法显示
+              </t-space>
+            )}
+          </div>
+        )}
+        {renderOverlay()}
+      </div>
+    )
+  }
 }

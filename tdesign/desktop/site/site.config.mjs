@@ -453,14 +453,14 @@ export const docs = [
         //       component: () => import('tdesign-omi/comment/comment.md'),
         //       componentEn: () => import('tdesign-omi/comment/comment.en-US.md'),
       },
-      //     {
-      //       title: 'Image 图片',
-      //       titleEn: 'Image',
-      //       name: 'image',
-      //       path: '/image',
-      //       component: () => import('tdesign-omi/image/image.md'),
-      //       componentEn: () => import('tdesign-omi/image/image.en-US.md'),
-      //     },
+      {
+        title: 'Image 图片',
+        titleEn: 'Image',
+        name: 'image',
+        path: '/image',
+        //       component: () => import('tdesign-omi/image/image.md'),
+        //       componentEn: () => import('tdesign-omi/image/image.en-US.md'),
+      },
       //     {
       //       title: 'ImageViewer 图片预览',
       //       titleEn: 'ImageViewer',

@@ -1,10 +1,9 @@
-import _Image from './image';
+import _Image from './image'
 
-import './style/index.js';
+import './style/index.js'
 
-export type { ImageProps } from './type';
+export type { ImageProps } from './image'
 
-export const Image = _Image;
+export const Image = _Image
 
-export default Image;
-
+export default Image
