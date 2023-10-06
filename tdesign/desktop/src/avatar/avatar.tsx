@@ -2,10 +2,9 @@ import { h, tag, createRef, WeElement, OmiProps, classNames } from 'omi'
 import { TdAvatarProps } from './type'
 import css from './style/index'
 import { StyledProps, commonClass } from '../common'
-import AvatarContext from './avatar-context'
-import AvatarGroup from './avatar-group'
 import { TdClassNamePrefix } from '../utils'
-// import Image, { ImageProps } from '../image';
+import '../image'
+import { ImageProps } from '../image'
 
 export interface AvatarProps extends TdAvatarProps, StyledProps {}
 
@@ -29,8 +28,8 @@ export default class Avatar extends WeElement<AvatarProps> {
   scale = 1
   gap = 4
   isImgExist = true
-  //TODO: context
-  groupSize = 'default'
+  inject = ['groupSize']
+  groupSize: any
   avatarRef = createRef()
   avatarChildrenRef = createRef()
   SIZE = commonClass['SIZE']
@@ -53,15 +52,26 @@ export default class Avatar extends WeElement<AvatarProps> {
     }
   }
 
-  //resizeObserver
+  handleImgLoadError: ImageProps['onError'] = (ctx) => {
+    const { hideOnLoadFailed, onError } = this.props
+    onError?.(ctx)
+    if (!hideOnLoadFailed) {
+      this.isImgExist = false
+      this.update()
+    }
+  }
 
+  //resizeObserver
+  beforeRender(): void {
+    // this.groupSize = this.injection ? this.injection.groupSize : null
+  }
   installed() {
     this.handleScale()
     this.update()
   }
 
-  render(props: OmiProps<AvatarProps, any>, store: any) {
-    const { SIZE, componentName, isImgExist, avatarRef, avatarChildrenRef, groupSize } = this
+  render(props: OmiProps<AvatarProps, any>) {
+    const { SIZE, componentName, isImgExist, groupSize, avatarRef, avatarChildrenRef, handleImgLoadError } = this
     const {
       alt,
       hideOnLoadFailed,
@@ -77,6 +87,7 @@ export default class Avatar extends WeElement<AvatarProps> {
       class: className,
       ...avatarProps
     } = props
+    // console.log('this.injection.groupSize: ', this.injection.groupSize)
     const size = avatarSize === undefined ? groupSize : avatarSize
 
     const numSizeStyle =
@@ -101,11 +112,10 @@ export default class Avatar extends WeElement<AvatarProps> {
       [`${componentName}--${shape}`]: !!shape,
       [`${componentName}__icon`]: !!icon,
     })
-
     let renderChildren: string | number | boolean | object
 
     if (image && isImgExist) {
-      renderChildren = <img src={image} alt={alt} style={imageStyle} />
+      renderChildren = <t-image src={image} alt={alt} style={imageStyle} onError={handleImgLoadError} {...imageProps} />
     } else if (icon) {
       renderChildren = icon
     } else {

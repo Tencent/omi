@@ -56,12 +56,7 @@ export interface TdAvatarProps {
   onError?: (context: { e: Event }) => void
 }
 
-export interface AvatarContextProps {
-  size?: string
-  children?: TNode | String
-}
-
-export interface AvatarGroupProps {
+export interface TdAvatarGroupProps {
   /**
    * 图片之间的层叠关系，可选值：左侧图片在上和右侧图片在上
    * @default 'right-up'

@@ -1,26 +1,15 @@
-import { h, tag, extractClass, WeElement, OmiProps, classNames, Ref, cloneElement } from 'omi'
-import { AvatarContextProps } from './type'
-import { toArray, omit } from 'lodash'
+import { h, tag, WeElement, OmiProps, classNames, cloneElement } from 'omi'
+import { toArray } from 'lodash'
 import style from './style/index'
-import Avatar from './avatar'
-import { PopupProps } from '../popup'
-import AvatarContext from './avatar-context'
-import { AvatarGroupProps } from './type'
+import './avatar'
+import { TdAvatarGroupProps } from './type'
 import { StyledProps } from '../common'
 import { parseTNode, TdClassNamePrefix } from '../utils'
-import log from '@src/_common/js/log'
 
-// const AvatarGroupClassNamePefix = (className: string) => TdClassNamePrefix('avatar-group__') + className
-@tag('t-avatar-group-temp')
-class AvatarGroupTemp extends WeElement {
-  render(props) {
-    return cloneElement(props, props)
-  }
-}
+export interface AvatarGroupProps extends TdAvatarGroupProps, StyledProps {}
 
 @tag('t-avatar-group')
 export default class AvatarGroup extends WeElement<AvatarGroupProps> {
-  classPrefix = 't'
   static css = style
   static defaultProps = { cascading: 'right-up' }
   static propTypes = {
@@ -30,47 +19,39 @@ export default class AvatarGroup extends WeElement<AvatarGroupProps> {
     collapseAvatar: Object,
     children: Object,
   }
-  preClass = classNames(TdClassNamePrefix('avatar'))
-  childrenList = toArray(this.children)
+  preClass = TdClassNamePrefix('avatar')
   allChildrenList: any
-  render(props: OmiProps<AvatarGroupProps, any>, store: any) {
-    console.log(this.childrenList.length)
 
-    if (this.childrenList.length > 0) {
-      this.allChildrenList = (
-        <a-avatar-group-temp
-          cascading={props.cascading}
-          max={props.max}
-          size={props.size}
-          collapseAvatar={props.collapseAvatar}
-        ></a-avatar-group-temp>
+  provide = { groupSize: undefined as any }
+
+  install() {
+    this.provide = { groupSize: this.props.size }
+  }
+
+  render(props: OmiProps<AvatarGroupProps, any>) {
+    const { preClass } = this
+    const { children, max, cascading, collapseAvatar } = props
+    const childrenList = toArray(children)
+
+    if (childrenList.length > 0) {
+      this.allChildrenList = childrenList.map((child, index) =>
+        cloneElement(child, { key: `avatar-group-item-${index}`, ...child.props }),
       )
-      console.log(this.allChildrenList)
     }
-    const groupClass = classNames(`${this.preClass}-group`, this.className, {
-      [`${this.preClass}--offset-right`]: props.cascading === 'right-up',
-      [`${this.preClass}--offset-left`]: props.cascading === 'left-up',
+    const groupClass = classNames(`${preClass}-group`, this.className, {
+      [`${preClass}--offset-right`]: cascading === 'right-up',
+      [`${preClass}--offset-left`]: cascading === 'left-up',
     })
 
-    const childrenCount = this.childrenList.length
-    if (props.max && childrenCount > props.max) {
-      const showList = this.allChildrenList.slice(0, props.max)
+    const childrenCount = childrenList.length
+    if (props.max && childrenCount > max) {
+      const showList = this.allChildrenList.slice(0, max)
       const ellipsisAvatar = (
-        <Avatar className={`${this.preClass}__collapse`}>
-          {parseTNode(this.props.collapseAvatar) /*|| `+${childrenCount - this.props.max}`*/}
-        </Avatar>
+        <t-avatar class={`${preClass}__collapse`}>{parseTNode(collapseAvatar) || `+${childrenCount - max}`}</t-avatar>
       )
       showList.push(<div key="t-avatar__collapse">{ellipsisAvatar}</div>)
-      return (
-        <div size={props.size}>
-          <div className={groupClass}>{showList}</div>
-        </div>
-      )
+      return <div class={groupClass}>{showList}</div>
     }
-    return (
-      <div size={props.size}>
-        <div className={groupClass}>{this.allChildrenList}</div>
-      </div>
-    )
+    return <div class={groupClass}>{this.allChildrenList}</div>
   }
 }
