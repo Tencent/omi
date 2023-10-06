@@ -93,7 +93,7 @@
     "karma-babel-preprocessor": "^7.0.0",
     "karma-chai-sinon": "^0.1.5",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.0.0",
+    "karma-coverage": "^2.2.1",
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.0.4",
     "karma-sauce-launcher": "^1.2.0",
@@ -121,7 +121,7 @@
     "sinon-chai": "^3.0.0",
     "to2to": "^1.0.2",
     "twind": "^0.16.16",
-    "typescript": "^2.8.1",
+    "typescript": "^4.1.0",
     "uglify-js": "^2.7.5",
     "webpack": "^4.3.0"
   },
