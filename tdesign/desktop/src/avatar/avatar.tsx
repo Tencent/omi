@@ -63,8 +63,9 @@ export default class Avatar extends WeElement<AvatarProps> {
 
   //resizeObserver
   beforeRender(): void {
-    // this.groupSize = this.injection ? this.injection.groupSize : null
+    this.groupSize = this.injection ? this.injection.groupSize : null
   }
+
   installed() {
     this.handleScale()
     this.update()
