@@ -278,12 +278,12 @@ function getLayoutRect(element) {
 }
 
 function contains(parent, child) {
-  var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+  var rootElement = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
 
   if (parent.contains(child)) {
     return true;
   } // then fallback to custom implementation with Shadow DOM support
-  else if (rootNode && isShadowRoot(rootNode)) {
+  else if (rootElement && isShadowRoot(rootElement)) {
     var next = child;
 
     do {
@@ -2385,7 +2385,7 @@ var Popover = /** @class */ (function (_super) {
     // safari版本14.1.2 不支持 e.path
     var path = e.path || (event.composedPath && event.composedPath());
     for (var i = 0, len = path.length; i < len; i++) {
-      if (path[i] === this.rootNode) {
+      if (path[i] === this.rootElement) {
         isShowEl = true;
         break;
       }

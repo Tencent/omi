@@ -108,7 +108,7 @@ export default class WeElement extends HTMLElement {
 
     const rendered = this.render(this.props, this.store)
 
-    this.rootNode = diff(null, rendered, null, this)
+    this.rootElement = diff(null, rendered, null, this)
     this.rendered()
 
     if (this.css) {
@@ -123,12 +123,12 @@ export default class WeElement extends HTMLElement {
       shadowRoot.appendChild(this._customStyleElement)
     }
 
-    if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function (item) {
+    if (isArray(this.rootElement)) {
+      this.rootElement.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
-      this.rootNode && shadowRoot.appendChild(this.rootNode)
+      this.rootElement && shadowRoot.appendChild(this.rootElement)
     }
     this.installed()
     this.isInstalled = true
@@ -159,8 +159,8 @@ export default class WeElement extends HTMLElement {
     const rendered = this.render(this.props, this.store)
     this.rendered()
 
-    this.rootNode = diff(
-      this.rootNode,
+    this.rootElement = diff(
+      this.rootElement,
       rendered,
       this.constructor.isLightDOM ? this : this.shadowRoot,
       this,

@@ -514,8 +514,8 @@ var domReady = _dready_0_0_1_dready || _domReady;
       _this.fire('mask-click');
     };
     _this.close = function () {
-      _this.rootNode.childNodes[0].leave();
-      _this.rootNode.childNodes[1].leave();
+      _this.rootElement.childNodes[0].leave();
+      _this.rootElement.childNodes[1].leave();
       _this.fire('close');
     };
     _this.onAfterLeave = function () {
@@ -527,8 +527,8 @@ var domReady = _dready_0_0_1_dready || _domReady;
     this.updateProps({
       visible: true
     });
-    this.rootNode.childNodes[0].enter();
-    this.rootNode.childNodes[1].enter();
+    this.rootElement.childNodes[0].enter();
+    this.rootElement.childNodes[1].enter();
     this.fire('open');
   };
   Dialog.prototype.render = function (props) {

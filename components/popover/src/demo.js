@@ -9,14 +9,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
       /******/
-}
+    }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
       /******/
-};
+    };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -27,7 +27,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
     /******/
-}
+  }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -41,19 +41,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
       /******/
-}
+    }
     /******/
-};
+  };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
       /******/
-}
+    }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
     /******/
-};
+  };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -70,7 +70,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
     /******/
-};
+  };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -80,7 +80,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
     /******/
-};
+  };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -399,10 +399,10 @@
         //# sourceMappingURL=index.esm.js.map
 
         /* WEBPACK VAR INJECTION */
-}.call(this, __webpack_require__(/*! ./../../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
+      }.call(this, __webpack_require__(/*! ./../../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/createPopper.js":
 /*!*******************************************************************************!*\
@@ -691,7 +691,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/contains.js":
 /*!*************************************************************************************!*\
@@ -706,12 +706,12 @@
 /* harmony import */ var _instanceOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instanceOf.js */ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/instanceOf.js");
 
       function contains(parent, child) {
-        var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+        var rootElement = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
 
         if (parent.contains(child)) {
           return true;
         } // then fallback to custom implementation with Shadow DOM support
-        else if (rootNode && Object(_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__["isShadowRoot"])(rootNode)) {
+        else if (rootElement && Object(_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__["isShadowRoot"])(rootElement)) {
           var next = child;
 
           do {
@@ -729,7 +729,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getBoundingClientRect.js":
 /*!**************************************************************************************************!*\
@@ -756,7 +756,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getClippingRect.js":
 /*!********************************************************************************************!*\
@@ -854,7 +854,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getCompositeRect.js":
 /*!*********************************************************************************************!*\
@@ -923,7 +923,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getComputedStyle.js":
 /*!*********************************************************************************************!*\
@@ -942,7 +942,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getDocumentElement.js":
 /*!***********************************************************************************************!*\
@@ -963,7 +963,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getDocumentRect.js":
 /*!********************************************************************************************!*\
@@ -1011,7 +1011,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getHTMLElementScroll.js":
 /*!*************************************************************************************************!*\
@@ -1031,7 +1031,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getLayoutRect.js":
 /*!******************************************************************************************!*\
@@ -1071,7 +1071,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getNodeName.js":
 /*!****************************************************************************************!*\
@@ -1088,7 +1088,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getNodeScroll.js":
 /*!******************************************************************************************!*\
@@ -1117,7 +1117,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getOffsetParent.js":
 /*!********************************************************************************************!*\
@@ -1201,7 +1201,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getParentNode.js":
 /*!******************************************************************************************!*\
@@ -1237,7 +1237,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getScrollParent.js":
 /*!********************************************************************************************!*\
@@ -1271,7 +1271,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getViewportRect.js":
 /*!********************************************************************************************!*\
@@ -1328,7 +1328,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getWindow.js":
 /*!**************************************************************************************!*\
@@ -1354,7 +1354,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getWindowScroll.js":
 /*!********************************************************************************************!*\
@@ -1379,7 +1379,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/getWindowScrollBarX.js":
 /*!************************************************************************************************!*\
@@ -1409,7 +1409,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/instanceOf.js":
 /*!***************************************************************************************!*\
@@ -1449,7 +1449,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/isScrollParent.js":
 /*!*******************************************************************************************!*\
@@ -1474,7 +1474,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/isTableElement.js":
 /*!*******************************************************************************************!*\
@@ -1493,7 +1493,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/dom-utils/listScrollParents.js":
 /*!**********************************************************************************************!*\
@@ -1537,7 +1537,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/enums.js":
 /*!************************************************************************!*\
@@ -1605,7 +1605,7 @@
       var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/index.js":
 /*!************************************************************************!*\
@@ -1707,7 +1707,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/applyStyles.js":
 /*!****************************************************************************************!*\
@@ -1806,7 +1806,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/arrow.js":
 /*!**********************************************************************************!*\
@@ -1930,7 +1930,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/computeStyles.js":
 /*!******************************************************************************************!*\
@@ -2106,7 +2106,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/eventListeners.js":
 /*!*******************************************************************************************!*\
@@ -2169,7 +2169,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/flip.js":
 /*!*********************************************************************************!*\
@@ -2336,7 +2336,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/hide.js":
 /*!*********************************************************************************!*\
@@ -2412,7 +2412,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/index.js":
 /*!**********************************************************************************!*\
@@ -2461,7 +2461,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/offset.js":
 /*!***********************************************************************************!*\
@@ -2530,7 +2530,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/popperOffsets.js":
 /*!******************************************************************************************!*\
@@ -2569,7 +2569,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/modifiers/preventOverflow.js":
 /*!********************************************************************************************!*\
@@ -2716,7 +2716,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/popper-lite.js":
 /*!******************************************************************************!*\
@@ -2751,7 +2751,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/popper.js":
 /*!*************************************************************************!*\
@@ -2822,7 +2822,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/computeAutoPlacement.js":
 /*!*********************************************************************************************!*\
@@ -2887,7 +2887,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/computeOffsets.js":
 /*!***************************************************************************************!*\
@@ -2975,7 +2975,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/debounce.js":
 /*!*********************************************************************************!*\
@@ -3004,7 +3004,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/detectOverflow.js":
 /*!***************************************************************************************!*\
@@ -3091,7 +3091,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/expandToHashMap.js":
 /*!****************************************************************************************!*\
@@ -3111,7 +3111,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/format.js":
 /*!*******************************************************************************!*\
@@ -3134,7 +3134,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getAltAxis.js":
 /*!***********************************************************************************!*\
@@ -3151,7 +3151,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getBasePlacement.js":
 /*!*****************************************************************************************!*\
@@ -3170,7 +3170,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getFreshSideObject.js":
 /*!*******************************************************************************************!*\
@@ -3192,7 +3192,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getMainAxisFromPlacement.js":
 /*!*************************************************************************************************!*\
@@ -3209,7 +3209,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getOppositePlacement.js":
 /*!*********************************************************************************************!*\
@@ -3234,7 +3234,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getOppositeVariationPlacement.js":
 /*!******************************************************************************************************!*\
@@ -3257,7 +3257,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/getVariation.js":
 /*!*************************************************************************************!*\
@@ -3274,7 +3274,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/math.js":
 /*!*****************************************************************************!*\
@@ -3293,7 +3293,7 @@
       var round = Math.round;
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/mergeByName.js":
 /*!************************************************************************************!*\
@@ -3321,7 +3321,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/mergePaddingObject.js":
 /*!*******************************************************************************************!*\
@@ -3340,7 +3340,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/orderModifiers.js":
 /*!***************************************************************************************!*\
@@ -3399,7 +3399,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/rectToClientRect.js":
 /*!*****************************************************************************************!*\
@@ -3421,7 +3421,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/uniqueBy.js":
 /*!*********************************************************************************!*\
@@ -3446,7 +3446,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/validateModifiers.js":
 /*!******************************************************************************************!*\
@@ -3538,7 +3538,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_@popperjs_core@2.9.2@@popperjs/core/lib/utils/within.js":
 /*!*******************************************************************************!*\
@@ -3557,7 +3557,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_resolve-url-loader@3.1.4@resolve-url-loader/index.js!./node_modules/_sass-loader@7.3.1@sass-loader/dist/cjs.js?!./src/index.scss":
 /*!****************************************************************************************************************************************************************************************************!*\
@@ -3577,7 +3577,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
 /*!*******************************************************************!*\
@@ -3665,7 +3665,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_omi@6.19.20@omi/dist/omi.esm.js":
 /*!*******************************************************!*\
@@ -4654,7 +4654,7 @@
 
             var rendered = this.render(this.props, this.store);
 
-            this.rootNode = diff(null, rendered, null, this);
+            this.rootElement = diff(null, rendered, null, this);
             this.rendered();
 
             if (this.props.css) {
@@ -4663,12 +4663,12 @@
               shadowRoot.appendChild(this._customStyleElement);
             }
 
-            if (isArray(this.rootNode)) {
-              this.rootNode.forEach(function (item) {
+            if (isArray(this.rootElement)) {
+              this.rootElement.forEach(function (item) {
                 shadowRoot.appendChild(item);
               });
             } else {
-              this.rootNode && shadowRoot.appendChild(this.rootNode);
+              this.rootElement && shadowRoot.appendChild(this.rootElement);
             }
             this.installed();
             this.isInstalled = true;
@@ -4705,7 +4705,7 @@
             var rendered = this.render(this.props, this.store);
             this.rendered();
 
-            this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
+            this.rootElement = diff(this.rootElement, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
             this._willUpdate = false;
             this.updated();
           };
@@ -5910,10 +5910,10 @@
         //# sourceMappingURL=omi.esm.js.map
 
         /* WEBPACK VAR INJECTION */
-}.call(this, __webpack_require__(/*! ./../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
+      }.call(this, __webpack_require__(/*! ./../../_webpack@4.46.0@webpack/buildin/global.js */ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js")))
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/_webpack@4.46.0@webpack/buildin/global.js":
 /*!***********************************!*\
@@ -5945,7 +5945,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./src/demo.tsx":
 /*!**********************!*\
@@ -6009,7 +6009,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./src/index.scss":
 /*!************************!*\
@@ -6029,7 +6029,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./src/index.tsx":
 /*!***********************!*\
@@ -6174,7 +6174,7 @@
 
 
       /***/
-})
+    })
 
   /******/
 });

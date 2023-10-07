@@ -9,14 +9,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
             /******/
-}
+        }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
             /******/
-};
+        };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -27,7 +27,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
         /******/
-}
+    }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -41,19 +41,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
             /******/
-}
+        }
         /******/
-};
+    };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
             /******/
-}
+        }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
         /******/
-};
+    };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -70,7 +70,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
         /******/
-};
+    };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -80,7 +80,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
         /******/
-};
+    };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -115,7 +115,7 @@
             }), 'DateRange'));
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/@omiu/icon/esm/utils/createSvgIcon.js":
 /*!************************************************************!*\
@@ -127,7 +127,7 @@
             throw new Error("Module parse failed: Unexpected token (12:15)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n|   define(hyphenate('OIcon' + displayName), class extends WeElement {\n| \n>     static css = `:host {\n|   fill: currentColor;\n|   width: 1em;");
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/@omiu/input/src/index.esm.js":
 /*!***************************************************!*\
@@ -732,7 +732,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/index.js":
 /*!**************************************************!*\
@@ -2802,7 +2802,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/l10n/default.js":
 /*!*********************************************************!*\
@@ -2889,7 +2889,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/l10n/zh.js":
 /*!****************************************************!*\
@@ -2959,7 +2959,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/types/options.js":
 /*!**********************************************************!*\
@@ -3058,7 +3058,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/utils/dates.js":
 /*!********************************************************!*\
@@ -3227,7 +3227,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/utils/dom.js":
 /*!******************************************************!*\
@@ -3301,7 +3301,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/utils/formatting.js":
 /*!*************************************************************!*\
@@ -3454,7 +3454,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/utils/index.js":
 /*!********************************************************!*\
@@ -3489,7 +3489,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/flatpickr/dist/esm/utils/polyfills.js":
 /*!************************************************************!*\
@@ -3524,7 +3524,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/omi/dist/omi.esm.js":
 /*!******************************************!*\
@@ -4396,7 +4396,7 @@
 
                         var rendered = this.render(this.props, this.store);
 
-                        this.rootNode = diff(null, rendered, null, this);
+                        this.rootElement = diff(null, rendered, null, this);
                         this.rendered();
 
                         if (this.css) {
@@ -4409,12 +4409,12 @@
                             shadowRoot.appendChild(this._customStyleElement);
                         }
 
-                        if (isArray(this.rootNode)) {
-                            this.rootNode.forEach(function (item) {
+                        if (isArray(this.rootElement)) {
+                            this.rootElement.forEach(function (item) {
                                 shadowRoot.appendChild(item);
                             });
                         } else {
-                            this.rootNode && shadowRoot.appendChild(this.rootNode);
+                            this.rootElement && shadowRoot.appendChild(this.rootElement);
                         }
                         this.installed();
                         this.isInstalled = true;
@@ -4439,7 +4439,7 @@
                         var rendered = this.render(this.props, this.store);
                         this.rendered();
 
-                        this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
+                        this.rootElement = diff(this.rootElement, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
                         this._willUpdate = false;
                         this.updated();
                     };
@@ -5127,10 +5127,10 @@
                 //# sourceMappingURL=omi.esm.js.map
 
                 /* WEBPACK VAR INJECTION */
-}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+            }.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
             /***/
-}),
+        }),
 
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
@@ -5162,7 +5162,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./src/demo.tsx":
 /*!**********************!*\
@@ -5232,7 +5232,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./src/index.tsx":
 /*!***********************!*\
@@ -5402,7 +5402,7 @@
 
 
             /***/
-}),
+        }),
 
 /***/ "./src/style.ts":
 /*!**********************!*\
@@ -5541,7 +5541,7 @@
 
 
             /***/
-})
+        })
 
     /******/
 });

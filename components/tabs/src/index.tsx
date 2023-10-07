@@ -79,11 +79,11 @@ export default class Tabs extends WeElement<Props>{
   }
 
   installed() {
-    this.baseRect = this.rootNode.getBoundingClientRect()
+    this.baseRect = this.rootElement.getBoundingClientRect()
     this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
 
     domReady(() => {
-      this.baseRect = this.rootNode.getBoundingClientRect()
+      this.baseRect = this.rootElement.getBoundingClientRect()
       this.setActiveBar(this['$tab' + this.props.activeIndex], this.props.activeIndex)
     })
   }

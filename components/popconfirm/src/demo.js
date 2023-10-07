@@ -9,14 +9,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
       /******/
-}
+    }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
       /******/
-};
+    };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -27,7 +27,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
     /******/
-}
+  }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -41,19 +41,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
       /******/
-}
+    }
     /******/
-};
+  };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
       /******/
-}
+    }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
     /******/
-};
+  };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -70,7 +70,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
     /******/
-};
+  };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -80,7 +80,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
     /******/
-};
+  };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -376,7 +376,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@omiu/icon/delete-outline.js":
 /*!***************************************************!*\
@@ -401,14 +401,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
               /******/
-}
+            }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
               /******/
-};
+            };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -419,7 +419,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
             /******/
-}
+          }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -433,19 +433,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
               /******/
-}
+            }
             /******/
-};
+          };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
               /******/
-}
+            }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
             /******/
-};
+          };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -462,7 +462,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
             /******/
-};
+          };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -472,7 +472,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
             /******/
-};
+          };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -484,7 +484,7 @@
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "./esm/delete-outline.js");
           /******/
-})
+        })
 /************************************************************************/
 /******/({
 
@@ -499,7 +499,7 @@
               eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar omi_1 = __webpack_require__(/*! omi */ \"omi\");\nvar createSvgIcon_1 = __webpack_require__(/*! ./utils/createSvgIcon */ \"./esm/utils/createSvgIcon.js\");\nexports.default = createSvgIcon_1.default(omi_1.h(\"path\", {\n    d: \"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z\"\n}), 'DeleteOutline');\n\n\n//# sourceURL=webpack://%5Bname%5D/./esm/delete-outline.js?");
 
               /***/
-}),
+            }),
 
 /***/ "./esm/utils/createSvgIcon.js":
 /*!************************************!*\
@@ -512,7 +512,7 @@
               eval("\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar omi_1 = __webpack_require__(/*! omi */ \"omi\");\nvar hyphenateRE = /\\B([A-Z])/g;\nvar hyphenate = function (str) {\n    return str.replace(hyphenateRE, '-$1').toLowerCase();\n};\nfunction createSvgIcon(path, displayName) {\n    omi_1.define(hyphenate('OIcon' + displayName), function (_) {\n        return omi_1.h('svg', __assign({ viewBox: \"0 0 24 24\", title: displayName }, _.props), path);\n    }, {\n        css: \":host {\\n  fill: currentColor;\\n  width: 1em;\\n  height: 1em;\\n  display: inline-block;\\n  vertical-align: -0.125em;\\n  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\n  flex-shrink: 0;\\n  user-select: none;\\n}\"\n    });\n}\nexports.default = createSvgIcon;\n\n\n//# sourceURL=webpack://%5Bname%5D/./esm/utils/createSvgIcon.js?");
 
               /***/
-}),
+            }),
 
 /***/ "omi":
 /*!******************************************************************************!*\
@@ -524,14 +524,14 @@
               eval("module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;\n\n//# sourceURL=webpack://%5Bname%5D/external_%7B%22commonjs%22:%22omi%22,%22commonjs2%22:%22omi%22,%22amd%22:%22omi%22,%22root%22:%22Omi%22%7D?");
 
               /***/
-})
+            })
 
           /******/
-})["default"];
+        })["default"];
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@omiu/icon/info.js":
 /*!*****************************************!*\
@@ -556,14 +556,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
               /******/
-}
+            }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
               /******/
-};
+            };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -574,7 +574,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
             /******/
-}
+          }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -588,19 +588,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
               /******/
-}
+            }
             /******/
-};
+          };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
               /******/
-}
+            }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
             /******/
-};
+          };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -617,7 +617,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
             /******/
-};
+          };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -627,7 +627,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
             /******/
-};
+          };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -639,7 +639,7 @@
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "./esm/info.js");
           /******/
-})
+        })
 /************************************************************************/
 /******/({
 
@@ -654,7 +654,7 @@
               eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar omi_1 = __webpack_require__(/*! omi */ \"omi\");\nvar createSvgIcon_1 = __webpack_require__(/*! ./utils/createSvgIcon */ \"./esm/utils/createSvgIcon.js\");\nexports.default = createSvgIcon_1.default(omi_1.h(\"path\", {\n    d: \"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\"\n}), 'Info');\n\n\n//# sourceURL=webpack://%5Bname%5D/./esm/info.js?");
 
               /***/
-}),
+            }),
 
 /***/ "./esm/utils/createSvgIcon.js":
 /*!************************************!*\
@@ -667,7 +667,7 @@
               eval("\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar omi_1 = __webpack_require__(/*! omi */ \"omi\");\nvar hyphenateRE = /\\B([A-Z])/g;\nvar hyphenate = function (str) {\n    return str.replace(hyphenateRE, '-$1').toLowerCase();\n};\nfunction createSvgIcon(path, displayName) {\n    omi_1.define(hyphenate('OIcon' + displayName), function (_) {\n        return omi_1.h('svg', __assign({ viewBox: \"0 0 24 24\", title: displayName }, _.props), path);\n    }, {\n        css: \":host {\\n  fill: currentColor;\\n  width: 1em;\\n  height: 1em;\\n  display: inline-block;\\n  vertical-align: -0.125em;\\n  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\\n  flex-shrink: 0;\\n  user-select: none;\\n}\"\n    });\n}\nexports.default = createSvgIcon;\n\n\n//# sourceURL=webpack://%5Bname%5D/./esm/utils/createSvgIcon.js?");
 
               /***/
-}),
+            }),
 
 /***/ "omi":
 /*!******************************************************************************!*\
@@ -679,14 +679,14 @@
               eval("module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;\n\n//# sourceURL=webpack://%5Bname%5D/external_%7B%22commonjs%22:%22omi%22,%22commonjs2%22:%22omi%22,%22amd%22:%22omi%22,%22root%22:%22Omi%22%7D?");
 
               /***/
-})
+            })
 
           /******/
-})["default"];
+        })["default"];
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/createPopper.js":
 /*!*********************************************************!*\
@@ -975,7 +975,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/contains.js":
 /*!***************************************************************!*\
@@ -990,12 +990,12 @@
 /* harmony import */ var _instanceOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instanceOf.js */ "./node_modules/@popperjs/core/lib/dom-utils/instanceOf.js");
 
       function contains(parent, child) {
-        var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+        var rootElement = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
 
         if (parent.contains(child)) {
           return true;
         } // then fallback to custom implementation with Shadow DOM support
-        else if (rootNode && Object(_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__["isShadowRoot"])(rootNode)) {
+        else if (rootElement && Object(_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__["isShadowRoot"])(rootElement)) {
           var next = child;
 
           do {
@@ -1013,7 +1013,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js":
 /*!****************************************************************************!*\
@@ -1040,7 +1040,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getClippingRect.js":
 /*!**********************************************************************!*\
@@ -1138,7 +1138,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getCompositeRect.js":
 /*!***********************************************************************!*\
@@ -1207,7 +1207,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getComputedStyle.js":
 /*!***********************************************************************!*\
@@ -1226,7 +1226,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js":
 /*!*************************************************************************!*\
@@ -1247,7 +1247,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getDocumentRect.js":
 /*!**********************************************************************!*\
@@ -1295,7 +1295,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getHTMLElementScroll.js":
 /*!***************************************************************************!*\
@@ -1315,7 +1315,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getLayoutRect.js":
 /*!********************************************************************!*\
@@ -1355,7 +1355,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getNodeName.js":
 /*!******************************************************************!*\
@@ -1372,7 +1372,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getNodeScroll.js":
 /*!********************************************************************!*\
@@ -1401,7 +1401,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getOffsetParent.js":
 /*!**********************************************************************!*\
@@ -1485,7 +1485,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getParentNode.js":
 /*!********************************************************************!*\
@@ -1521,7 +1521,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getScrollParent.js":
 /*!**********************************************************************!*\
@@ -1555,7 +1555,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getViewportRect.js":
 /*!**********************************************************************!*\
@@ -1612,7 +1612,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getWindow.js":
 /*!****************************************************************!*\
@@ -1638,7 +1638,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getWindowScroll.js":
 /*!**********************************************************************!*\
@@ -1663,7 +1663,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/getWindowScrollBarX.js":
 /*!**************************************************************************!*\
@@ -1693,7 +1693,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/instanceOf.js":
 /*!*****************************************************************!*\
@@ -1733,7 +1733,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/isScrollParent.js":
 /*!*********************************************************************!*\
@@ -1758,7 +1758,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/isTableElement.js":
 /*!*********************************************************************!*\
@@ -1777,7 +1777,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/dom-utils/listScrollParents.js":
 /*!************************************************************************!*\
@@ -1821,7 +1821,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/enums.js":
 /*!**************************************************!*\
@@ -1889,7 +1889,7 @@
       var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/index.js":
 /*!**************************************************!*\
@@ -1991,7 +1991,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/applyStyles.js":
 /*!******************************************************************!*\
@@ -2090,7 +2090,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/arrow.js":
 /*!************************************************************!*\
@@ -2214,7 +2214,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/computeStyles.js":
 /*!********************************************************************!*\
@@ -2390,7 +2390,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/eventListeners.js":
 /*!*********************************************************************!*\
@@ -2453,7 +2453,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/flip.js":
 /*!***********************************************************!*\
@@ -2620,7 +2620,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/hide.js":
 /*!***********************************************************!*\
@@ -2696,7 +2696,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/index.js":
 /*!************************************************************!*\
@@ -2745,7 +2745,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/offset.js":
 /*!*************************************************************!*\
@@ -2814,7 +2814,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/popperOffsets.js":
 /*!********************************************************************!*\
@@ -2853,7 +2853,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/modifiers/preventOverflow.js":
 /*!**********************************************************************!*\
@@ -3000,7 +3000,7 @@
       });
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/popper-lite.js":
 /*!********************************************************!*\
@@ -3035,7 +3035,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/popper.js":
 /*!***************************************************!*\
@@ -3106,7 +3106,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/computeAutoPlacement.js":
 /*!***********************************************************************!*\
@@ -3171,7 +3171,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/computeOffsets.js":
 /*!*****************************************************************!*\
@@ -3259,7 +3259,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/debounce.js":
 /*!***********************************************************!*\
@@ -3288,7 +3288,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/detectOverflow.js":
 /*!*****************************************************************!*\
@@ -3375,7 +3375,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/expandToHashMap.js":
 /*!******************************************************************!*\
@@ -3395,7 +3395,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/format.js":
 /*!*********************************************************!*\
@@ -3418,7 +3418,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getAltAxis.js":
 /*!*************************************************************!*\
@@ -3435,7 +3435,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getBasePlacement.js":
 /*!*******************************************************************!*\
@@ -3454,7 +3454,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getFreshSideObject.js":
 /*!*********************************************************************!*\
@@ -3476,7 +3476,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getMainAxisFromPlacement.js":
 /*!***************************************************************************!*\
@@ -3493,7 +3493,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getOppositePlacement.js":
 /*!***********************************************************************!*\
@@ -3518,7 +3518,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getOppositeVariationPlacement.js":
 /*!********************************************************************************!*\
@@ -3541,7 +3541,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/getVariation.js":
 /*!***************************************************************!*\
@@ -3558,7 +3558,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/math.js":
 /*!*******************************************************!*\
@@ -3577,7 +3577,7 @@
       var round = Math.round;
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/mergeByName.js":
 /*!**************************************************************!*\
@@ -3605,7 +3605,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/mergePaddingObject.js":
 /*!*********************************************************************!*\
@@ -3624,7 +3624,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/orderModifiers.js":
 /*!*****************************************************************!*\
@@ -3683,7 +3683,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/rectToClientRect.js":
 /*!*******************************************************************!*\
@@ -3705,7 +3705,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/uniqueBy.js":
 /*!***********************************************************!*\
@@ -3730,7 +3730,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/validateModifiers.js":
 /*!********************************************************************!*\
@@ -3822,7 +3822,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/@popperjs/core/lib/utils/within.js":
 /*!*********************************************************!*\
@@ -3841,7 +3841,7 @@
       }
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
 /*!*************************************************************************************************************************************!*\
@@ -3861,7 +3861,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/css-loader/lib/css-base.js":
 /*!*************************************************!*\
@@ -3949,7 +3949,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/omi/dist/omi.esm.js":
 /*!******************************************!*\
@@ -4936,7 +4936,7 @@
 
             var rendered = this.render(this.props, this.store);
 
-            this.rootNode = diff(null, rendered, null, this);
+            this.rootElement = diff(null, rendered, null, this);
             this.rendered();
 
             if (this.props.css) {
@@ -4945,12 +4945,12 @@
               shadowRoot.appendChild(this._customStyleElement);
             }
 
-            if (isArray(this.rootNode)) {
-              this.rootNode.forEach(function (item) {
+            if (isArray(this.rootElement)) {
+              this.rootElement.forEach(function (item) {
                 shadowRoot.appendChild(item);
               });
             } else {
-              this.rootNode && shadowRoot.appendChild(this.rootNode);
+              this.rootElement && shadowRoot.appendChild(this.rootElement);
             }
             this.installed();
             this._isInstalled = true;
@@ -4987,7 +4987,7 @@
             var rendered = this.render(this.props, this.store);
             this.rendered();
 
-            this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
+            this.rootElement = diff(this.rootElement, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
             this._willUpdate = false;
             this.updated();
           };
@@ -6196,10 +6196,10 @@
         //# sourceMappingURL=omi.esm.js.map
 
         /* WEBPACK VAR INJECTION */
-}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+      }.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
       /***/
-}),
+    }),
 
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
@@ -6231,7 +6231,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./src/demo.tsx":
 /*!**********************!*\
@@ -6306,7 +6306,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./src/index.scss":
 /*!************************!*\
@@ -6326,7 +6326,7 @@
 
 
       /***/
-}),
+    }),
 
 /***/ "./src/index.tsx":
 /*!***********************!*\
@@ -6452,7 +6452,7 @@
 
 
       /***/
-})
+    })
 
   /******/
 });

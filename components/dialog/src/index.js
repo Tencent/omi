@@ -19,14 +19,14 @@
 /******/ 		if (installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
         /******/
-}
+      }
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
         /******/
-};
+      };
 /******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
@@ -37,7 +37,7 @@
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
       /******/
-}
+    }
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
@@ -51,19 +51,19 @@
 /******/ 		if (!__webpack_require__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
         /******/
-}
+      }
       /******/
-};
+    };
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function (exports) {
 /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
         /******/
-}
+      }
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
       /******/
-};
+    };
 /******/
 /******/ 	// create a fake namespace object
 /******/ 	// mode & 1: value is a module id, require it
@@ -80,7 +80,7 @@
 /******/ 		if (mode & 2 && typeof value != 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
       /******/
-};
+    };
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function (module) {
@@ -90,7 +90,7 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
       /******/
-};
+    };
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
@@ -102,7 +102,7 @@
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.tsx");
     /******/
-})
+  })
 /************************************************************************/
 /******/({
 
@@ -261,7 +261,7 @@
 
 
         /***/
-}),
+      }),
 
 /***/ "./node_modules/css-loader/index.js!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js?!./src/index.scss":
 /*!*************************************************************************************************************************************!*\
@@ -281,7 +281,7 @@
 
 
         /***/
-}),
+      }),
 
 /***/ "./node_modules/css-loader/lib/css-base.js":
 /*!*************************************************!*\
@@ -369,7 +369,7 @@
 
 
         /***/
-}),
+      }),
 
 /***/ "./src/index.scss":
 /*!************************!*\
@@ -393,7 +393,7 @@
 
 
         /***/
-}),
+      }),
 
 /***/ "./src/index.tsx":
 /*!***********************!*\
@@ -435,8 +435,8 @@
               _this.fire('mask-click');
             };
             _this.close = function () {
-              _this.rootNode.childNodes[0].leave();
-              _this.rootNode.childNodes[1].leave();
+              _this.rootElement.childNodes[0].leave();
+              _this.rootElement.childNodes[1].leave();
               _this.fire('close');
             };
             _this.onAfterLeave = function () {
@@ -448,8 +448,8 @@
             this.updateProps({
               visible: true
             });
-            this.rootNode.childNodes[0].enter();
-            this.rootNode.childNodes[1].enter();
+            this.rootElement.childNodes[0].enter();
+            this.rootElement.childNodes[1].enter();
             this.fire('open');
           };
           Dialog.prototype.render = function (props) {
@@ -488,7 +488,7 @@
 
 
         /***/
-}),
+      }),
 
 /***/ "omi":
 /*!******************************************************************************!*\
@@ -500,9 +500,9 @@
         module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
         /***/
-})
+      })
 
     /******/
-})["default"];
+  })["default"];
 });
 //# sourceMappingURL=index.js.map
