@@ -110,7 +110,7 @@ declare namespace Omi {
 
     props: OmiProps<P> | P;
     prevProps: OmiProps<P> | P;
-    rootNode?: HTMLElement;
+    rootElement?: HTMLElement;
     normalizedNodeName?: string;
     elementId: number;
     isInstalled: boolean;
@@ -145,7 +145,7 @@ declare namespace Omi {
 
     props: OmiProps<P> | P;
     prevProps: OmiProps<P> | P;
-    rootNode?: HTMLElement;
+    rootElement?: HTMLElement;
     normalizedNodeName?: string;
     elementId: number;
     isInstalled: boolean;
