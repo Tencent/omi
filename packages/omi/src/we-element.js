@@ -54,7 +54,7 @@ export default class WeElement extends HTMLElement {
     this.afterInstall()
 
     let shadowRoot
-    if (this.constructor.isLightDom) {
+    if (this.constructor.isLightDOM) {
       shadowRoot = this
     } else {
       if (!this.shadowRoot) {
@@ -124,7 +124,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function(item) {
+      this.rootNode.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -162,7 +162,7 @@ export default class WeElement extends HTMLElement {
     this.rootNode = diff(
       this.rootNode,
       rendered,
-      this.constructor.isLightDom ? this : this.shadowRoot,
+      this.constructor.isLightDOM ? this : this.shadowRoot,
       this,
       updateSelf
     )
@@ -286,23 +286,23 @@ export default class WeElement extends HTMLElement {
     }
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 }

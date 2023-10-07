@@ -3,7 +3,7 @@ import { TdRowProps } from './type'
 import isObject from 'lodash/isObject'
 import { canUseDocument, getCssVarsValue } from '../utils/dom'
 import { StyledProps } from '../common'
-export interface RowProps extends TdRowProps, StyledProps {}
+export interface RowProps extends TdRowProps, StyledProps { }
 const calcSize = (width: number) => {
   const smWidth = getCssVarsValue('--td-screen-sm') || 768
   const mdWidth = getCssVarsValue('--td-screen-md') || 992
@@ -75,7 +75,7 @@ const calcRowStyle = (gutter: RowProps['gutter'], currentSize: string): object =
 @tag('t-row')
 export default class Row extends WeElement<RowProps> {
   static defaultProps = { align: 'top', gutter: 0, justify: 'start', tag: 'div' }
-  static isLightDom = true
+  static isLightDOM = true
   static propTypes = {
     align: String,
     gutter: [Number, Object, Array],

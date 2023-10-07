@@ -17,7 +17,7 @@ export default class TransitionGroup extends WeElement<Props>{
     delay: Number
   }
 
-  static isLightDom = true
+  static isLightDOM = true
 
   static defaultProps = {
     name: 'o'

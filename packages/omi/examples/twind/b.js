@@ -35,12 +35,12 @@
    */
   (function () {
     if (
-    // No Reflect, no classes, no need for shim because native custom elements
-    // require ES2015 classes or Reflect.
-    window.Reflect === undefined || window.customElements === undefined ||
-    // The webcomponentsjs custom elements polyfill doesn't require
-    // ES2015-compatible construction (`super()` or `Reflect.construct`).
-    window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+      // No Reflect, no classes, no need for shim because native custom elements
+      // require ES2015 classes or Reflect.
+      window.Reflect === undefined || window.customElements === undefined ||
+      // The webcomponentsjs custom elements polyfill doesn't require
+      // ES2015-compatible construction (`super()` or `Reflect.construct`).
+      window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
       return;
     }
     var BuiltInHTMLElement = HTMLElement;
@@ -71,7 +71,7 @@
   function extend(obj, props) {
     for (var i in props) {
       obj[i] = props[i];
-    }return obj;
+    } return obj;
   }
 
   /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -80,7 +80,7 @@
    */
   function applyRef(ref, value) {
     if (ref != null) {
-      if (typeof ref == 'function') ref(value);else ref.current = value;
+      if (typeof ref == 'function') ref(value); else ref.current = value;
     }
   }
 
@@ -193,10 +193,10 @@
 
   function h(nodeName, attributes) {
     var children = [],
-        lastSimple = void 0,
-        child = void 0,
-        simple = void 0,
-        i = void 0;
+      lastSimple = void 0,
+      child = void 0,
+      simple = void 0,
+      i = void 0;
     for (i = arguments.length; i-- > 2;) {
       stack.push(arguments[i]);
     }
@@ -213,7 +213,7 @@
         if (typeof child === 'boolean') child = null;
 
         if (simple = typeof nodeName !== 'function') {
-          if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+          if (child == null) child = ''; else if (typeof child === 'number') child = String(child); else if (typeof child !== 'string') simple = false;
         }
 
         if (simple && lastSimple) {
@@ -239,7 +239,7 @@
       key: attributes == null ? undefined : attributes.key
 
       // if a "vnode hook" is defined, pass every created VNode to it
-    };if (options.vnode !== undefined) options.vnode(p);
+    }; if (options.vnode !== undefined) options.vnode(p);
 
     return p;
   }
@@ -407,7 +407,7 @@
           node.removeEventListener('touchend', touchEnd, useCapture);
         }
       }
-  (node._listeners || (node._listeners = {}))[name] = value;
+      (node._listeners || (node._listeners = {}))[name] = value;
     } else if (node.nodeName === 'INPUT' && name === 'value') {
       node[name] = value == null ? '' : value;
     } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value !== '') {
@@ -416,7 +416,7 @@
       // IE & FF throw for certain property-value combinations.
       try {
         node[name] = value == null ? '' : value;
-      } catch (e) {}
+      } catch (e) { }
       if ((value == null || value === false) && name != 'spellcheck') node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
     } else {
       var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
@@ -424,7 +424,7 @@
       // should not be removed when the value is `false`. See:
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
       if (value == null || value === false) {
-        if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
+        if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
       } else if (typeof value !== 'function') {
         if (ns) {
           node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
@@ -535,7 +535,7 @@
       dom.props.children = vnode.children;
     }
     var out = dom,
-        prevSvgMode = isSvgMode;
+      prevSvgMode = isSvgMode;
 
     // empty values (null, undefined, booleans) render as empty Text nodes
     if (vnode == null || typeof vnode === 'boolean') vnode = '';
@@ -594,8 +594,8 @@
     }
 
     var fc = out.firstChild,
-        props = out[ATTR_KEY],
-        vchildren = vnode.children;
+      props = out[ATTR_KEY],
+      vchildren = vnode.children;
 
     if (props == null) {
       props = out[ATTR_KEY] = {};
@@ -612,10 +612,10 @@
     }
     // otherwise, if there are existing or new children, diff them:
     else if (vchildren && vchildren.length || fc != null) {
-        if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
-          innerDiffNode(out, vchildren, hydrating || props.dangerouslySetInnerHTML != null, component, updateSelf);
-        }
+      if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+        innerDiffNode(out, vchildren, hydrating || props.dangerouslySetInnerHTML != null, component, updateSelf);
       }
+    }
 
     // Apply attributes/props from VNode to the DOM Element:
     diffAttributes(out, vnode.attributes, props, component, updateSelf);
@@ -635,25 +635,25 @@
    */
   function innerDiffNode(dom, vchildren, isHydrating, component, updateSelf) {
     var originalChildren = dom.childNodes,
-        children = [],
-        keyed = {},
-        keyedLen = 0,
-        min = 0,
-        len = originalChildren.length,
-        childrenLen = 0,
-        vlen = vchildren ? vchildren.length : 0,
-        j = void 0,
-        c = void 0,
-        f = void 0,
-        vchild = void 0,
-        child = void 0;
+      children = [],
+      keyed = {},
+      keyedLen = 0,
+      min = 0,
+      len = originalChildren.length,
+      childrenLen = 0,
+      vlen = vchildren ? vchildren.length : 0,
+      j = void 0,
+      c = void 0,
+      f = void 0,
+      vchild = void 0,
+      child = void 0;
 
     // Build up a map of keyed children and an Array of unkeyed children:
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child[ATTR_KEY],
-            key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
+          props = _child[ATTR_KEY],
+          key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
           keyed[key] = _child;
@@ -679,16 +679,16 @@
         }
         // attempt to pluck a node of the same type from the existing children
         else if (!child && min < childrenLen) {
-            for (j = min; j < childrenLen; j++) {
-              if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-                child = c;
-                children[j] = undefined;
-                if (j === childrenLen - 1) childrenLen--;
-                if (j === min) min++;
-                break;
-              }
+          for (j = min; j < childrenLen; j++) {
+            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+              child = c;
+              children[j] = undefined;
+              if (j === childrenLen - 1) childrenLen--;
+              if (j === min) min++;
+              break;
             }
           }
+        }
 
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, component, updateSelf);
@@ -820,295 +820,295 @@
   var id = 0;
 
   var WeElement = (_temp = _class = function (_HTMLElement) {
-  	_inherits(WeElement, _HTMLElement);
+    _inherits(WeElement, _HTMLElement);
 
-  	function WeElement() {
-  		_classCallCheck(this, WeElement);
+    function WeElement() {
+      _classCallCheck(this, WeElement);
 
-  		var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+      var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-  		_this.props = Object.assign({}, _this.constructor.defaultProps);
-  		_this.elementId = id++;
-  		_this.computed = {};
-  		return _this;
-  	}
+      _this.props = Object.assign({}, _this.constructor.defaultProps);
+      _this.elementId = id++;
+      _this.computed = {};
+      return _this;
+    }
 
-  	WeElement.prototype.connectedCallback = function connectedCallback() {
-  		var p = this.parentNode;
-  		while (p && !this.store) {
-  			this.store = p.store;
-  			p = p.parentNode || p.host;
-  		}
+    WeElement.prototype.connectedCallback = function connectedCallback() {
+      var p = this.parentNode;
+      while (p && !this.store) {
+        this.store = p.store;
+        p = p.parentNode || p.host;
+      }
 
-  		this.attrsToProps();
+      this.attrsToProps();
 
-  		if (this.props.use) {
-  			this.use = this.props.use;
-  		}
+      if (this.props.use) {
+        this.use = this.props.use;
+      }
 
-  		if (this.props.useSelf) {
-  			this.use = this.props.useSelf;
-  		}
+      if (this.props.useSelf) {
+        this.use = this.props.useSelf;
+      }
 
-  		if (this.use) {
-  			var use = typeof this.use === 'function' ? this.use() : this.use;
+      if (this.use) {
+        var use = typeof this.use === 'function' ? this.use() : this.use;
 
-  			if (options.isMultiStore) {
-  				var _updatePath = {};
-  				var using = {};
-  				for (var storeName in use) {
-  					_updatePath[storeName] = {};
-  					using[storeName] = {};
-  					getPath(use[storeName], _updatePath, storeName);
-  					getUse(this.store[storeName].data, use[storeName], using, storeName);
-  					this.store[storeName].instances.push(this);
-  				}
-  				this.using = using;
-  				this._updatePath = _updatePath;
-  			} else {
-  				this._updatePath = getPath(use);
-  				this.using = getUse(this.store.data, use);
-  				this.store.instances.push(this);
-  			}
-  		}
-  		if (this.useSelf) {
-  			var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
-  			if (options.isMultiStore) {
-  				var _updatePath2 = {};
-  				var _using = {};
-  				for (var _storeName in _use) {
-  					getPath(_use[_storeName], _updatePath2, _storeName);
-  					getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
-  					this.store[_storeName].updateSelfInstances.push(this);
-  				}
-  				this.usingSelf = _using;
-  				this._updateSelfPath = _updatePath2;
-  			} else {
-  				this._updateSelfPath = getPath(_use);
-  				this.usingSelf = getUse(this.store.data, _use);
-  				this.store.updateSelfInstances.push(this);
-  			}
-  		}
+        if (options.isMultiStore) {
+          var _updatePath = {};
+          var using = {};
+          for (var storeName in use) {
+            _updatePath[storeName] = {};
+            using[storeName] = {};
+            getPath(use[storeName], _updatePath, storeName);
+            getUse(this.store[storeName].data, use[storeName], using, storeName);
+            this.store[storeName].instances.push(this);
+          }
+          this.using = using;
+          this._updatePath = _updatePath;
+        } else {
+          this._updatePath = getPath(use);
+          this.using = getUse(this.store.data, use);
+          this.store.instances.push(this);
+        }
+      }
+      if (this.useSelf) {
+        var _use = typeof this.useSelf === 'function' ? this.useSelf() : this.useSelf;
+        if (options.isMultiStore) {
+          var _updatePath2 = {};
+          var _using = {};
+          for (var _storeName in _use) {
+            getPath(_use[_storeName], _updatePath2, _storeName);
+            getUse(this.store[_storeName].data, _use[_storeName], _using, _storeName);
+            this.store[_storeName].updateSelfInstances.push(this);
+          }
+          this.usingSelf = _using;
+          this._updateSelfPath = _updatePath2;
+        } else {
+          this._updateSelfPath = getPath(_use);
+          this.usingSelf = getUse(this.store.data, _use);
+          this.store.updateSelfInstances.push(this);
+        }
+      }
 
-  		if (this.compute) {
-  			for (var key in this.compute) {
-  				this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
-  			}
-  		}
+      if (this.compute) {
+        for (var key in this.compute) {
+          this.computed[key] = this.compute[key].call(options.isMultiStore ? this.store : this.store.data);
+        }
+      }
 
-  		this.beforeInstall();
-  		this.install();
-  		this.afterInstall();
+      this.beforeInstall();
+      this.install();
+      this.afterInstall();
 
-  		var shadowRoot = void 0;
-  		if (this.constructor.isLightDom) {
-  			shadowRoot = this;
-  		} else {
+      var shadowRoot = void 0;
+      if (this.constructor.isLightDOM) {
+        shadowRoot = this;
+      } else {
 
-  			if (!this.shadowRoot) {
-  				shadowRoot = this.attachShadow({
-  					mode: 'open'
-  				});
-  			} else {
-  				shadowRoot = this.shadowRoot;
-  				var fc = void 0;
-  				while (fc = shadowRoot.firstChild) {
-  					shadowRoot.removeChild(fc);
-  				}
-  			}
-  		}
+        if (!this.shadowRoot) {
+          shadowRoot = this.attachShadow({
+            mode: 'open'
+          });
+        } else {
+          shadowRoot = this.shadowRoot;
+          var fc = void 0;
+          while (fc = shadowRoot.firstChild) {
+            shadowRoot.removeChild(fc);
+          }
+        }
+      }
 
-  		if (this.constructor.css) {
-  			if (typeof this.constructor.css === 'string') {
-  				console.log(1111);
-  				this.styleSheet = new CSSStyleSheet();
-  				this.styleSheet.replaceSync(this.constructor.css);
-  			} else {
-  				console.log(this.constructor.css);
-  				this.styleSheet = this.constructor.css;
-  			}
-  			shadowRoot.adoptedStyleSheets = [this.styleSheet];
-  		}
+      if (this.constructor.css) {
+        if (typeof this.constructor.css === 'string') {
+          console.log(1111);
+          this.styleSheet = new CSSStyleSheet();
+          this.styleSheet.replaceSync(this.constructor.css);
+        } else {
+          console.log(this.constructor.css);
+          this.styleSheet = this.constructor.css;
+        }
+        shadowRoot.adoptedStyleSheets = [this.styleSheet];
+      }
 
-  		if (this.css) {
-  			shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-  		}
+      if (this.css) {
+        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+      }
 
-  		this.beforeRender();
-  		options.afterInstall && options.afterInstall(this);
+      this.beforeRender();
+      options.afterInstall && options.afterInstall(this);
 
-  		var rendered = this.render(this.props, this.store);
+      var rendered = this.render(this.props, this.store);
 
-  		this.rootNode = diff(null, rendered, null, this);
-  		this.rendered();
+      this.rootNode = diff(null, rendered, null, this);
+      this.rendered();
 
-  		if (this.props.css) {
-  			this._customStyleElement = cssToDom(this.props.css);
-  			this._customStyleContent = this.props.css;
-  			shadowRoot.appendChild(this._customStyleElement);
-  		}
+      if (this.props.css) {
+        this._customStyleElement = cssToDom(this.props.css);
+        this._customStyleContent = this.props.css;
+        shadowRoot.appendChild(this._customStyleElement);
+      }
 
-  		if (isArray(this.rootNode)) {
-  			this.rootNode.forEach(function (item) {
-  				shadowRoot.appendChild(item);
-  			});
-  		} else {
-  			this.rootNode && shadowRoot.appendChild(this.rootNode);
-  		}
-  		this.installed();
-  		this._isInstalled = true;
-  	};
+      if (isArray(this.rootNode)) {
+        this.rootNode.forEach(function (item) {
+          shadowRoot.appendChild(item);
+        });
+      } else {
+        this.rootNode && shadowRoot.appendChild(this.rootNode);
+      }
+      this.installed();
+      this._isInstalled = true;
+    };
 
-  	WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-  		this.uninstall();
-  		this._isInstalled = false;
-  		if (this.store) {
-  			if (options.isMultiStore) {
-  				for (var key in this.store) {
-  					var current = this.store[key];
-  					removeItem(this, current.instances);
-  					removeItem(this, current.updateSelfInstances);
-  				}
-  			} else {
-  				removeItem(this, this.store.instances);
-  				removeItem(this, this.store.updateSelfInstances);
-  			}
-  		}
-  	};
+    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+      this.uninstall();
+      this._isInstalled = false;
+      if (this.store) {
+        if (options.isMultiStore) {
+          for (var key in this.store) {
+            var current = this.store[key];
+            removeItem(this, current.instances);
+            removeItem(this, current.updateSelfInstances);
+          }
+        } else {
+          removeItem(this, this.store.instances);
+          removeItem(this, this.store.updateSelfInstances);
+        }
+      }
+    };
 
-  	WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
-  		this._willUpdate = true;
-  		this.beforeUpdate();
-  		this.beforeRender();
-  		//fix null !== undefined
-  		if (this._customStyleContent != this.props.css) {
-  			this._customStyleContent = this.props.css;
-  			this._customStyleElement.textContent = this._customStyleContent;
-  		}
-  		this.attrsToProps(ignoreAttrs);
+    WeElement.prototype.update = function update(ignoreAttrs, updateSelf) {
+      this._willUpdate = true;
+      this.beforeUpdate();
+      this.beforeRender();
+      //fix null !== undefined
+      if (this._customStyleContent != this.props.css) {
+        this._customStyleContent = this.props.css;
+        this._customStyleElement.textContent = this._customStyleContent;
+      }
+      this.attrsToProps(ignoreAttrs);
 
-  		var rendered = this.render(this.props, this.store);
-  		this.rendered();
+      var rendered = this.render(this.props, this.store);
+      this.rendered();
 
-  		this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
-  		this._willUpdate = false;
-  		this.updated();
-  	};
+      this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
+      this._willUpdate = false;
+      this.updated();
+    };
 
-  	WeElement.prototype.forceUpdate = function forceUpdate() {
-  		this.update(true);
-  	};
+    WeElement.prototype.forceUpdate = function forceUpdate() {
+      this.update(true);
+    };
 
-  	WeElement.prototype.updateProps = function updateProps(obj) {
-  		var _this2 = this;
+    WeElement.prototype.updateProps = function updateProps(obj) {
+      var _this2 = this;
 
-  		Object.keys(obj).forEach(function (key) {
-  			_this2.props[key] = obj[key];
-  			if (_this2.prevProps) {
-  				_this2.prevProps[key] = obj[key];
-  			}
-  		});
-  		this.forceUpdate();
-  	};
+      Object.keys(obj).forEach(function (key) {
+        _this2.props[key] = obj[key];
+        if (_this2.prevProps) {
+          _this2.prevProps[key] = obj[key];
+        }
+      });
+      this.forceUpdate();
+    };
 
-  	WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
-  		this.update(ignoreAttrs, true);
-  	};
+    WeElement.prototype.updateSelf = function updateSelf(ignoreAttrs) {
+      this.update(ignoreAttrs, true);
+    };
 
-  	WeElement.prototype.removeAttribute = function removeAttribute(key) {
-  		_HTMLElement.prototype.removeAttribute.call(this, key);
-  		//Avoid executing removeAttribute methods before connectedCallback
-  		this._isInstalled && this.update();
-  	};
+    WeElement.prototype.removeAttribute = function removeAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+      //Avoid executing removeAttribute methods before connectedCallback
+      this._isInstalled && this.update();
+    };
 
-  	WeElement.prototype.setAttribute = function setAttribute(key, val) {
-  		if (val && typeof val === 'object') {
-  			_HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
-  		} else {
-  			_HTMLElement.prototype.setAttribute.call(this, key, val);
-  		}
-  		//Avoid executing setAttribute methods before connectedCallback
-  		this._isInstalled && this.update();
-  	};
+    WeElement.prototype.setAttribute = function setAttribute(key, val) {
+      if (val && typeof val === 'object') {
+        _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
+      } else {
+        _HTMLElement.prototype.setAttribute.call(this, key, val);
+      }
+      //Avoid executing setAttribute methods before connectedCallback
+      this._isInstalled && this.update();
+    };
 
-  	WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
-  		_HTMLElement.prototype.removeAttribute.call(this, key);
-  	};
+    WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+    };
 
-  	WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
-  		_HTMLElement.prototype.setAttribute.call(this, key, val);
-  	};
+    WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+      _HTMLElement.prototype.setAttribute.call(this, key, val);
+    };
 
-  	WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
-  		if (options.ignoreAttrs || ignoreAttrs) return;
-  		var ele = this;
-  		ele.props['css'] = ele.getAttribute('css');
-  		var attrs = this.constructor.propTypes;
-  		if (!attrs) return;
-  		Object.keys(attrs).forEach(function (key) {
-  			var type = attrs[key];
-  			var val = ele.getAttribute(hyphenate(key));
-  			if (val !== null) {
-  				switch (type) {
-  					case String:
-  						ele.props[key] = val;
-  						break;
-  					case Number:
-  						ele.props[key] = Number(val);
-  						break;
-  					case Boolean:
-  						if (val === 'false' || val === '0') {
-  							ele.props[key] = false;
-  						} else {
-  							ele.props[key] = true;
-  						}
-  						break;
-  					case Array:
-  					case Object:
-  						if (val[0] === ':') {
-  							ele.props[key] = getValByPath(val.substr(1), Omi.$);
-  						} else {
-  							ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
-  						}
-  						break;
-  				}
-  			} else {
-  				if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
-  					ele.props[key] = ele.constructor.defaultProps[key];
-  				} else {
-  					ele.props[key] = null;
-  				}
-  			}
-  		});
-  	};
+    WeElement.prototype.attrsToProps = function attrsToProps(ignoreAttrs) {
+      if (options.ignoreAttrs || ignoreAttrs) return;
+      var ele = this;
+      ele.props['css'] = ele.getAttribute('css');
+      var attrs = this.constructor.propTypes;
+      if (!attrs) return;
+      Object.keys(attrs).forEach(function (key) {
+        var type = attrs[key];
+        var val = ele.getAttribute(hyphenate(key));
+        if (val !== null) {
+          switch (type) {
+            case String:
+              ele.props[key] = val;
+              break;
+            case Number:
+              ele.props[key] = Number(val);
+              break;
+            case Boolean:
+              if (val === 'false' || val === '0') {
+                ele.props[key] = false;
+              } else {
+                ele.props[key] = true;
+              }
+              break;
+            case Array:
+            case Object:
+              if (val[0] === ':') {
+                ele.props[key] = getValByPath(val.substr(1), Omi.$);
+              } else {
+                ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+              }
+              break;
+          }
+        } else {
+          if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+            ele.props[key] = ele.constructor.defaultProps[key];
+          } else {
+            ele.props[key] = null;
+          }
+        }
+      });
+    };
 
-  	WeElement.prototype.fire = function fire(name, data) {
-  		this.dispatchEvent(new CustomEvent(name, {
-  			detail: data
-  		}));
-  	};
+    WeElement.prototype.fire = function fire(name, data) {
+      this.dispatchEvent(new CustomEvent(name, {
+        detail: data
+      }));
+    };
 
-  	WeElement.prototype.beforeInstall = function beforeInstall() {};
+    WeElement.prototype.beforeInstall = function beforeInstall() { };
 
-  	WeElement.prototype.install = function install() {};
+    WeElement.prototype.install = function install() { };
 
-  	WeElement.prototype.afterInstall = function afterInstall() {};
+    WeElement.prototype.afterInstall = function afterInstall() { };
 
-  	WeElement.prototype.installed = function installed() {};
+    WeElement.prototype.installed = function installed() { };
 
-  	WeElement.prototype.uninstall = function uninstall() {};
+    WeElement.prototype.uninstall = function uninstall() { };
 
-  	WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+    WeElement.prototype.beforeUpdate = function beforeUpdate() { };
 
-  	WeElement.prototype.updated = function updated() {};
+    WeElement.prototype.updated = function updated() { };
 
-  	WeElement.prototype.beforeRender = function beforeRender() {};
+    WeElement.prototype.beforeRender = function beforeRender() { };
 
-  	WeElement.prototype.rendered = function rendered() {};
+    WeElement.prototype.rendered = function rendered() { };
 
-  	WeElement.prototype.receiveProps = function receiveProps() {};
+    WeElement.prototype.receiveProps = function receiveProps() { };
 
-  	return WeElement;
+    return WeElement;
   }(HTMLElement), _class.is = 'WeElement', _temp);
 
   /*!
@@ -1224,7 +1224,7 @@
         }
         // when array element is set to `undefined`, should generate replace to `null`
         if (Array.isArray(target)) {
-  operation.op = 'replace', operation.value = null;
+          operation.op = 'replace', operation.value = null;
         }
         var oldValue = instance.proxifiedObjectsMap.get(target[key]);
         // was the deleted a proxified object?
@@ -1305,7 +1305,7 @@
       this.isObserving = true;
     }
     function pause() {
-      this.defaultCallback = function () {};
+      this.defaultCallback = function () { };
       this.isObserving = false;
     }
     /**
@@ -1683,7 +1683,7 @@
         };
 
         return Ele;
-      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _class.isLightDom = config.isLightDom, _temp2);
+      }(WeElement), _class.css = config.css, _class.propTypes = config.propTypes, _class.defaultProps = config.defaultProps, _class.isLightDOM = config.isLightDOM, _temp2);
 
       var _loop = function _loop(key) {
         if (typeof config[key] === 'function') {
@@ -1786,8 +1786,8 @@
 
   function extractClass() {
     var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
-        props = _Array$prototype$slic[0],
-        args = _Array$prototype$slic.slice(1);
+      props = _Array$prototype$slic[0],
+      args = _Array$prototype$slic.slice(1);
 
     if (props.class) {
       args.unshift(props.class);
@@ -1805,338 +1805,338 @@
     return JSON.stringify(obj);
   }
 
-  var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p],h="number"==typeof s?u[s]:s,a=r[++p];1===a?e[0]=h:3===a?e[1]=Object.assign(e[1]||{},h):5===a?(e[1]=e[1]||{})[r[++p]]=h:6===a?e[1][r[++p]]+=h+"":e.push(a?t.apply(null,n(t,h,u,["",null])):h);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],h=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,5,e):u>=5&&((e||!n&&5===u)&&(s.push(e,u,r), u=6), n&&(s.push(n,u,r), u=6)), e="";},a=0;a<n.length;a++){a&&(1===u&&h(), h(a));for(var f=0;f<n[a].length;f++)t=n[a][f], 1===u?"<"===t?(h(), s=[s], u=3):e+=t:4===u?"--"===e&&">"===t?(u=1, e=""):e=t+e[0]:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(h(), u=1):u&&("="===t?(u=5, r=e, e=""):"/"===t&&(u<5||">"===n[a][f+1])?(h(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,2), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(h(), u=2):e+=t), 3===u&&"!--"===e&&(u=4, s=s[0]);}return h(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
+  var n = function (t, r, u, e) { for (var p = 1; p < r.length; p++) { var s = r[p], h = "number" == typeof s ? u[s] : s, a = r[++p]; 1 === a ? e[0] = h : 3 === a ? e[1] = Object.assign(e[1] || {}, h) : 5 === a ? (e[1] = e[1] || {})[r[++p]] = h : 6 === a ? e[1][r[++p]] += h + "" : e.push(a ? t.apply(null, n(t, h, u, ["", null])) : h); } return e }, t = function (n) { for (var t, r, u = 1, e = "", p = "", s = [0], h = function (n) { 1 === u && (n || (e = e.replace(/^\s*\n\s*|\s*\n\s*$/g, ""))) ? s.push(n || e, 0) : 3 === u && (n || e) ? (s.push(n || e, 1), u = 2) : 2 === u && "..." === e && n ? s.push(n, 3) : 2 === u && e && !n ? s.push(!0, 5, e) : u >= 5 && ((e || !n && 5 === u) && (s.push(e, u, r), u = 6), n && (s.push(n, u, r), u = 6)), e = ""; }, a = 0; a < n.length; a++) { a && (1 === u && h(), h(a)); for (var f = 0; f < n[a].length; f++)t = n[a][f], 1 === u ? "<" === t ? (h(), s = [s], u = 3) : e += t : 4 === u ? "--" === e && ">" === t ? (u = 1, e = "") : e = t + e[0] : p ? t === p ? p = "" : e += t : '"' === t || "'" === t ? p = t : ">" === t ? (h(), u = 1) : u && ("=" === t ? (u = 5, r = e, e = "") : "/" === t && (u < 5 || ">" === n[a][f + 1]) ? (h(), 3 === u && (s = s[0]), u = s, (s = s[0]).push(u, 2), u = 0) : " " === t || "\t" === t || "\n" === t || "\r" === t ? (h(), u = 2) : e += t), 3 === u && "!--" === e && (u = 4, s = s[0]); } return h(), s }, r = "function" == typeof Map, u = r ? new Map : {}, e = r ? function (n) { var r = u.get(n); return r || u.set(n, r = t(n)), r } : function (n) { for (var r = "", e = 0; e < n.length; e++)r += n[e].length + "-" + n[e]; return u[r] || (u[r] = t(n)) }; function htm(t) { var r = n(this, e(t), arguments, []); return r.length > 1 ? r : r[0] }
 
   (function () {
 
-      if ('adoptedStyleSheets' in document) { return; }
+    if ('adoptedStyleSheets' in document) { return; }
 
-      var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
-      var bootstrapper = document.implementation.createHTMLDocument('boot');
-      var closedShadowRootRegistry = new WeakMap();
-      var _DOMException = typeof DOMException === 'object' ? Error : DOMException;
+    var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow;
+    var bootstrapper = document.implementation.createHTMLDocument('boot');
+    var closedShadowRootRegistry = new WeakMap();
+    var _DOMException = typeof DOMException === 'object' ? Error : DOMException;
 
-      var defineProperty = Object.defineProperty;
-      var forEach = Array.prototype.forEach;
-      var importPattern = /@import.+?;?$/gm;
-      function rejectImports(contents) {
-          var _contents = contents.replace(importPattern, '');
-          if (_contents !== contents) {
-              console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
-          }
-          return _contents.trim();
+    var defineProperty = Object.defineProperty;
+    var forEach = Array.prototype.forEach;
+    var importPattern = /@import.+?;?$/gm;
+    function rejectImports(contents) {
+      var _contents = contents.replace(importPattern, '');
+      if (_contents !== contents) {
+        console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
       }
-      function clearRules(sheet) {
-          for (var i = 0; i < sheet.cssRules.length; i++) {
-              sheet.deleteRule(0);
-          }
+      return _contents.trim();
+    }
+    function clearRules(sheet) {
+      for (var i = 0; i < sheet.cssRules.length; i++) {
+        sheet.deleteRule(0);
       }
-      function insertAllRules(from, to) {
-          forEach.call(from.cssRules, function (rule, i) {
-              to.insertRule(rule.cssText, i);
-          });
-      }
-      function isElementConnected(element) {
-          return 'isConnected' in element
-              ? element.isConnected
-              : document.contains(element);
-      }
-      function unique(arr) {
-          return arr.filter(function (value, index) { return arr.indexOf(value) === index; });
-      }
-      function diff(arr1, arr2) {
-          return arr1.filter(function (value) { return arr2.indexOf(value) === -1; });
-      }
-      function removeNode(node) {
-          node.parentNode.removeChild(node);
-      }
-      function getShadowRoot(element) {
-          return element.shadowRoot || closedShadowRootRegistry.get(element);
-      }
-
-      var cssStyleSheetMethods = [
-          'addImport',
-          'addPageRule',
-          'addRule',
-          'deleteRule',
-          'insertRule',
-          'removeImport',
-          'removeRule',
-      ];
-      var NonConstructedStyleSheet = CSSStyleSheet;
-      var nonConstructedProto = NonConstructedStyleSheet.prototype;
-      nonConstructedProto.replace = function () {
-          return Promise.reject(new _DOMException("Can't call replace on non-constructed CSSStyleSheets."));
-      };
-      nonConstructedProto.replaceSync = function () {
-          throw new _DOMException("Failed to execute 'replaceSync' on 'CSSStyleSheet': Can't call replaceSync on non-constructed CSSStyleSheets.");
-      };
-      function isCSSStyleSheetInstance(instance) {
-          return typeof instance === 'object'
-              ? proto$2.isPrototypeOf(instance) ||
-                  nonConstructedProto.isPrototypeOf(instance)
-              : false;
-      }
-      function isNonConstructedStyleSheetInstance(instance) {
-          return typeof instance === 'object'
-              ? nonConstructedProto.isPrototypeOf(instance)
-              : false;
-      }
-      var $basicStyleSheet = new WeakMap();
-      var $locations = new WeakMap();
-      var $adoptersByLocation = new WeakMap();
-      function addAdopterLocation(sheet, location) {
-          var adopter = document.createElement('style');
-          $adoptersByLocation.get(sheet).set(location, adopter);
-          $locations.get(sheet).push(location);
-          return adopter;
-      }
-      function getAdopterByLocation(sheet, location) {
-          return $adoptersByLocation.get(sheet).get(location);
-      }
-      function removeAdopterLocation(sheet, location) {
-          $adoptersByLocation.get(sheet).delete(location);
-          $locations.set(sheet, $locations.get(sheet).filter(function (_location) { return _location !== location; }));
-      }
-      function restyleAdopter(sheet, adopter) {
-          requestAnimationFrame(function () {
-              clearRules(adopter.sheet);
-              insertAllRules($basicStyleSheet.get(sheet), adopter.sheet);
-          });
-      }
-      function checkInvocationCorrectness(self) {
-          if (!$basicStyleSheet.has(self)) {
-              throw new TypeError('Illegal invocation');
-          }
-      }
-      function ConstructedStyleSheet() {
-          var self = this;
-          var style = document.createElement('style');
-          bootstrapper.body.appendChild(style);
-          $basicStyleSheet.set(self, style.sheet);
-          $locations.set(self, []);
-          $adoptersByLocation.set(self, new WeakMap());
-      }
-      var proto$2 = ConstructedStyleSheet.prototype;
-      proto$2.replace = function replace(contents) {
-          try {
-              this.replaceSync(contents);
-              return Promise.resolve(this);
-          }
-          catch (e) {
-              return Promise.reject(e);
-          }
-      };
-      proto$2.replaceSync = function replaceSync(contents) {
-          checkInvocationCorrectness(this);
-          if (typeof contents === 'string') {
-              var self_1 = this;
-              var style = $basicStyleSheet.get(self_1).ownerNode;
-              style.textContent = rejectImports(contents);
-              $basicStyleSheet.set(self_1, style.sheet);
-              $locations.get(self_1).forEach(function (location) {
-                  if (location.isConnected()) {
-                      restyleAdopter(self_1, getAdopterByLocation(self_1, location));
-                  }
-              });
-          }
-      };
-      defineProperty(proto$2, 'cssRules', {
-          configurable: true,
-          enumerable: true,
-          get: function cssRules() {
-              checkInvocationCorrectness(this);
-              return $basicStyleSheet.get(this).cssRules;
-          },
+    }
+    function insertAllRules(from, to) {
+      forEach.call(from.cssRules, function (rule, i) {
+        to.insertRule(rule.cssText, i);
       });
-      cssStyleSheetMethods.forEach(function (method) {
-          proto$2[method] = function () {
-              var self = this;
-              checkInvocationCorrectness(self);
-              var args = arguments;
-              var basic = $basicStyleSheet.get(self);
-              var locations = $locations.get(self);
-              var result = basic[method].apply(basic, args);
-              locations.forEach(function (location) {
-                  if (location.isConnected()) {
-                      var sheet = getAdopterByLocation(self, location).sheet;
-                      sheet[method].apply(sheet, args);
-                  }
-              });
-              return result;
-          };
-      });
-      defineProperty(ConstructedStyleSheet, Symbol.hasInstance, {
-          configurable: true,
-          value: isCSSStyleSheetInstance,
-      });
+    }
+    function isElementConnected(element) {
+      return 'isConnected' in element
+        ? element.isConnected
+        : document.contains(element);
+    }
+    function unique(arr) {
+      return arr.filter(function (value, index) { return arr.indexOf(value) === index; });
+    }
+    function diff(arr1, arr2) {
+      return arr1.filter(function (value) { return arr2.indexOf(value) === -1; });
+    }
+    function removeNode(node) {
+      node.parentNode.removeChild(node);
+    }
+    function getShadowRoot(element) {
+      return element.shadowRoot || closedShadowRootRegistry.get(element);
+    }
 
-      var defaultObserverOptions = {
-          childList: true,
-          subtree: true,
+    var cssStyleSheetMethods = [
+      'addImport',
+      'addPageRule',
+      'addRule',
+      'deleteRule',
+      'insertRule',
+      'removeImport',
+      'removeRule',
+    ];
+    var NonConstructedStyleSheet = CSSStyleSheet;
+    var nonConstructedProto = NonConstructedStyleSheet.prototype;
+    nonConstructedProto.replace = function () {
+      return Promise.reject(new _DOMException("Can't call replace on non-constructed CSSStyleSheets."));
+    };
+    nonConstructedProto.replaceSync = function () {
+      throw new _DOMException("Failed to execute 'replaceSync' on 'CSSStyleSheet': Can't call replaceSync on non-constructed CSSStyleSheets.");
+    };
+    function isCSSStyleSheetInstance(instance) {
+      return typeof instance === 'object'
+        ? proto$2.isPrototypeOf(instance) ||
+        nonConstructedProto.isPrototypeOf(instance)
+        : false;
+    }
+    function isNonConstructedStyleSheetInstance(instance) {
+      return typeof instance === 'object'
+        ? nonConstructedProto.isPrototypeOf(instance)
+        : false;
+    }
+    var $basicStyleSheet = new WeakMap();
+    var $locations = new WeakMap();
+    var $adoptersByLocation = new WeakMap();
+    function addAdopterLocation(sheet, location) {
+      var adopter = document.createElement('style');
+      $adoptersByLocation.get(sheet).set(location, adopter);
+      $locations.get(sheet).push(location);
+      return adopter;
+    }
+    function getAdopterByLocation(sheet, location) {
+      return $adoptersByLocation.get(sheet).get(location);
+    }
+    function removeAdopterLocation(sheet, location) {
+      $adoptersByLocation.get(sheet).delete(location);
+      $locations.set(sheet, $locations.get(sheet).filter(function (_location) { return _location !== location; }));
+    }
+    function restyleAdopter(sheet, adopter) {
+      requestAnimationFrame(function () {
+        clearRules(adopter.sheet);
+        insertAllRules($basicStyleSheet.get(sheet), adopter.sheet);
+      });
+    }
+    function checkInvocationCorrectness(self) {
+      if (!$basicStyleSheet.has(self)) {
+        throw new TypeError('Illegal invocation');
+      }
+    }
+    function ConstructedStyleSheet() {
+      var self = this;
+      var style = document.createElement('style');
+      bootstrapper.body.appendChild(style);
+      $basicStyleSheet.set(self, style.sheet);
+      $locations.set(self, []);
+      $adoptersByLocation.set(self, new WeakMap());
+    }
+    var proto$2 = ConstructedStyleSheet.prototype;
+    proto$2.replace = function replace(contents) {
+      try {
+        this.replaceSync(contents);
+        return Promise.resolve(this);
+      }
+      catch (e) {
+        return Promise.reject(e);
+      }
+    };
+    proto$2.replaceSync = function replaceSync(contents) {
+      checkInvocationCorrectness(this);
+      if (typeof contents === 'string') {
+        var self_1 = this;
+        var style = $basicStyleSheet.get(self_1).ownerNode;
+        style.textContent = rejectImports(contents);
+        $basicStyleSheet.set(self_1, style.sheet);
+        $locations.get(self_1).forEach(function (location) {
+          if (location.isConnected()) {
+            restyleAdopter(self_1, getAdopterByLocation(self_1, location));
+          }
+        });
+      }
+    };
+    defineProperty(proto$2, 'cssRules', {
+      configurable: true,
+      enumerable: true,
+      get: function cssRules() {
+        checkInvocationCorrectness(this);
+        return $basicStyleSheet.get(this).cssRules;
+      },
+    });
+    cssStyleSheetMethods.forEach(function (method) {
+      proto$2[method] = function () {
+        var self = this;
+        checkInvocationCorrectness(self);
+        var args = arguments;
+        var basic = $basicStyleSheet.get(self);
+        var locations = $locations.get(self);
+        var result = basic[method].apply(basic, args);
+        locations.forEach(function (location) {
+          if (location.isConnected()) {
+            var sheet = getAdopterByLocation(self, location).sheet;
+            sheet[method].apply(sheet, args);
+          }
+        });
+        return result;
       };
-      var locations = new WeakMap();
-      function getAssociatedLocation(element) {
-          var location = locations.get(element);
-          if (!location) {
-              location = new Location(element);
-              locations.set(element, location);
-          }
-          return location;
+    });
+    defineProperty(ConstructedStyleSheet, Symbol.hasInstance, {
+      configurable: true,
+      value: isCSSStyleSheetInstance,
+    });
+
+    var defaultObserverOptions = {
+      childList: true,
+      subtree: true,
+    };
+    var locations = new WeakMap();
+    function getAssociatedLocation(element) {
+      var location = locations.get(element);
+      if (!location) {
+        location = new Location(element);
+        locations.set(element, location);
       }
-      function attachAdoptedStyleSheetProperty(constructor) {
-          defineProperty(constructor.prototype, 'adoptedStyleSheets', {
-              configurable: true,
-              enumerable: true,
-              get: function () {
-                  return getAssociatedLocation(this).sheets;
-              },
-              set: function (sheets) {
-                  getAssociatedLocation(this).update(sheets);
-              },
-          });
+      return location;
+    }
+    function attachAdoptedStyleSheetProperty(constructor) {
+      defineProperty(constructor.prototype, 'adoptedStyleSheets', {
+        configurable: true,
+        enumerable: true,
+        get: function () {
+          return getAssociatedLocation(this).sheets;
+        },
+        set: function (sheets) {
+          getAssociatedLocation(this).update(sheets);
+        },
+      });
+    }
+    function traverseWebComponents(node, callback) {
+      var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function (foundNode) {
+        return getShadowRoot(foundNode)
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
+        null, false);
+      for (var next = void 0; (next = iter.nextNode());) {
+        callback(getShadowRoot(next));
       }
-      function traverseWebComponents(node, callback) {
-          var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function (foundNode) {
-              return getShadowRoot(foundNode)
-                  ? NodeFilter.FILTER_ACCEPT
-                  : NodeFilter.FILTER_REJECT;
-          },
-          null, false);
-          for (var next = void 0; (next = iter.nextNode());) {
-              callback(getShadowRoot(next));
-          }
-      }
-      var $element = new WeakMap();
-      var $uniqueSheets = new WeakMap();
-      var $observer = new WeakMap();
-      function isExistingAdopter(self, element) {
-          return (element instanceof HTMLStyleElement &&
-              $uniqueSheets.get(self).some(function (sheet) { return getAdopterByLocation(sheet, self); }));
-      }
-      function getAdopterContainer(self) {
-          var element = $element.get(self);
-          return element instanceof Document ? element.body : element;
-      }
-      function adopt(self) {
-          var styleList = document.createDocumentFragment();
-          var sheets = $uniqueSheets.get(self);
-          var observer = $observer.get(self);
-          var container = getAdopterContainer(self);
+    }
+    var $element = new WeakMap();
+    var $uniqueSheets = new WeakMap();
+    var $observer = new WeakMap();
+    function isExistingAdopter(self, element) {
+      return (element instanceof HTMLStyleElement &&
+        $uniqueSheets.get(self).some(function (sheet) { return getAdopterByLocation(sheet, self); }));
+    }
+    function getAdopterContainer(self) {
+      var element = $element.get(self);
+      return element instanceof Document ? element.body : element;
+    }
+    function adopt(self) {
+      var styleList = document.createDocumentFragment();
+      var sheets = $uniqueSheets.get(self);
+      var observer = $observer.get(self);
+      var container = getAdopterContainer(self);
+      observer.disconnect();
+      sheets.forEach(function (sheet) {
+        styleList.appendChild(getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self));
+      });
+      container.insertBefore(styleList, null);
+      observer.observe(container, defaultObserverOptions);
+      sheets.forEach(function (sheet) {
+        restyleAdopter(sheet, getAdopterByLocation(sheet, self));
+      });
+    }
+    function Location(element) {
+      var self = this;
+      self.sheets = [];
+      $element.set(self, element);
+      $uniqueSheets.set(self, []);
+      $observer.set(self, new MutationObserver(function (mutations, observer) {
+        if (!document) {
           observer.disconnect();
-          sheets.forEach(function (sheet) {
-              styleList.appendChild(getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self));
-          });
-          container.insertBefore(styleList, null);
-          observer.observe(container, defaultObserverOptions);
-          sheets.forEach(function (sheet) {
-              restyleAdopter(sheet, getAdopterByLocation(sheet, self));
-          });
-      }
-      function Location(element) {
-          var self = this;
-          self.sheets = [];
-          $element.set(self, element);
-          $uniqueSheets.set(self, []);
-          $observer.set(self, new MutationObserver(function (mutations, observer) {
-              if (!document) {
-                  observer.disconnect();
-                  return;
+          return;
+        }
+        mutations.forEach(function (mutation) {
+          if (!hasShadyCss) {
+            forEach.call(mutation.addedNodes, function (node) {
+              if (!(node instanceof Element)) {
+                return;
               }
-              mutations.forEach(function (mutation) {
-                  if (!hasShadyCss) {
-                      forEach.call(mutation.addedNodes, function (node) {
-                          if (!(node instanceof Element)) {
-                              return;
-                          }
-                          traverseWebComponents(node, function (root) {
-                              getAssociatedLocation(root).connect();
-                          });
-                      });
-                  }
-                  forEach.call(mutation.removedNodes, function (node) {
-                      if (!(node instanceof Element)) {
-                          return;
-                      }
-                      if (isExistingAdopter(self, node)) {
-                          adopt(self);
-                      }
-                      if (!hasShadyCss) {
-                          traverseWebComponents(node, function (root) {
-                              getAssociatedLocation(root).disconnect();
-                          });
-                      }
-                  });
+              traverseWebComponents(node, function (root) {
+                getAssociatedLocation(root).connect();
               });
-          }));
-      }
-      var proto$1 = Location.prototype;
-      proto$1.isConnected = function isConnected() {
-          var element = $element.get(this);
-          return element instanceof Document
-              ? element.readyState !== 'loading'
-              : isElementConnected(element.host);
-      };
-      proto$1.connect = function connect() {
-          var container = getAdopterContainer(this);
-          $observer.get(this).observe(container, defaultObserverOptions);
-          if ($uniqueSheets.get(this).length > 0) {
-              adopt(this);
+            });
           }
-          traverseWebComponents(container, function (root) {
-              getAssociatedLocation(root).connect();
-          });
-      };
-      proto$1.disconnect = function disconnect() {
-          $observer.get(this).disconnect();
-      };
-      proto$1.update = function update(sheets) {
-          var self = this;
-          var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
-          if (!Array.isArray(sheets)) {
-              throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
-          }
-          if (!sheets.every(isCSSStyleSheetInstance)) {
-              throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
-          }
-          if (sheets.some(isNonConstructedStyleSheetInstance)) {
-              throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
-          }
-          self.sheets = sheets;
-          var oldUniqueSheets = $uniqueSheets.get(self);
-          var uniqueSheets = unique(sheets);
-          var removedSheets = diff(oldUniqueSheets, uniqueSheets);
-          removedSheets.forEach(function (sheet) {
-              removeNode(getAdopterByLocation(sheet, self));
-              removeAdopterLocation(sheet, self);
-          });
-          $uniqueSheets.set(self, uniqueSheets);
-          if (self.isConnected() && uniqueSheets.length > 0) {
+          forEach.call(mutation.removedNodes, function (node) {
+            if (!(node instanceof Element)) {
+              return;
+            }
+            if (isExistingAdopter(self, node)) {
               adopt(self);
-          }
-      };
+            }
+            if (!hasShadyCss) {
+              traverseWebComponents(node, function (root) {
+                getAssociatedLocation(root).disconnect();
+              });
+            }
+          });
+        });
+      }));
+    }
+    var proto$1 = Location.prototype;
+    proto$1.isConnected = function isConnected() {
+      var element = $element.get(this);
+      return element instanceof Document
+        ? element.readyState !== 'loading'
+        : isElementConnected(element.host);
+    };
+    proto$1.connect = function connect() {
+      var container = getAdopterContainer(this);
+      $observer.get(this).observe(container, defaultObserverOptions);
+      if ($uniqueSheets.get(this).length > 0) {
+        adopt(this);
+      }
+      traverseWebComponents(container, function (root) {
+        getAssociatedLocation(root).connect();
+      });
+    };
+    proto$1.disconnect = function disconnect() {
+      $observer.get(this).disconnect();
+    };
+    proto$1.update = function update(sheets) {
+      var self = this;
+      var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
+      if (!Array.isArray(sheets)) {
+        throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
+      }
+      if (!sheets.every(isCSSStyleSheetInstance)) {
+        throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Failed to convert value to 'CSSStyleSheet'");
+      }
+      if (sheets.some(isNonConstructedStyleSheetInstance)) {
+        throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Can't adopt non-constructed stylesheets");
+      }
+      self.sheets = sheets;
+      var oldUniqueSheets = $uniqueSheets.get(self);
+      var uniqueSheets = unique(sheets);
+      var removedSheets = diff(oldUniqueSheets, uniqueSheets);
+      removedSheets.forEach(function (sheet) {
+        removeNode(getAdopterByLocation(sheet, self));
+        removeAdopterLocation(sheet, self);
+      });
+      $uniqueSheets.set(self, uniqueSheets);
+      if (self.isConnected() && uniqueSheets.length > 0) {
+        adopt(self);
+      }
+    };
 
-      window.CSSStyleSheet = ConstructedStyleSheet;
-      attachAdoptedStyleSheetProperty(Document);
-      if ('ShadowRoot' in window) {
-          attachAdoptedStyleSheetProperty(ShadowRoot);
-          var proto = Element.prototype;
-          var attach_1 = proto.attachShadow;
-          proto.attachShadow = function attachShadow(init) {
-              var root = attach_1.call(this, init);
-              if (init.mode === 'closed') {
-                  closedShadowRootRegistry.set(this, root);
-              }
-              return root;
-          };
-      }
-      var documentLocation = getAssociatedLocation(document);
-      if (documentLocation.isConnected()) {
-          documentLocation.connect();
-      }
-      else {
-          document.addEventListener('DOMContentLoaded', documentLocation.connect.bind(documentLocation));
-      }
+    window.CSSStyleSheet = ConstructedStyleSheet;
+    attachAdoptedStyleSheetProperty(Document);
+    if ('ShadowRoot' in window) {
+      attachAdoptedStyleSheetProperty(ShadowRoot);
+      var proto = Element.prototype;
+      var attach_1 = proto.attachShadow;
+      proto.attachShadow = function attachShadow(init) {
+        var root = attach_1.call(this, init);
+        if (init.mode === 'closed') {
+          closedShadowRootRegistry.set(this, root);
+        }
+        return root;
+      };
+    }
+    var documentLocation = getAssociatedLocation(document);
+    if (documentLocation.isConnected()) {
+      documentLocation.connect();
+    }
+    else {
+      document.addEventListener('DOMContentLoaded', documentLocation.connect.bind(documentLocation));
+    }
 
   }());
 
@@ -2145,7 +2145,7 @@
   var html = htm.bind(h);
 
   function createRef() {
-  	return {};
+    return {};
   }
 
   var $ = {};
@@ -2154,39 +2154,39 @@
   var elements = options.mapping;
 
   var omi = {
-  	tag: tag,
-  	WeElement: WeElement,
-  	Component: Component,
-  	render: render,
-  	h: h,
-  	createElement: h,
-  	options: options,
-  	define: define,
-  	cloneElement: cloneElement,
-  	getHost: getHost,
-  	rpx: rpx,
-  	defineElement: defineElement,
-  	classNames: classNames,
-  	extractClass: extractClass,
-  	createRef: createRef,
-  	html: html,
-  	htm: htm,
-  	o: o,
-  	elements: elements,
-  	$: $,
-  	extend: extend$1,
-  	get: get,
-  	set: set,
-  	bind: bind,
-  	unbind: unbind,
-  	JSONProxy: JSONPatcherProxy
+    tag: tag,
+    WeElement: WeElement,
+    Component: Component,
+    render: render,
+    h: h,
+    createElement: h,
+    options: options,
+    define: define,
+    cloneElement: cloneElement,
+    getHost: getHost,
+    rpx: rpx,
+    defineElement: defineElement,
+    classNames: classNames,
+    extractClass: extractClass,
+    createRef: createRef,
+    html: html,
+    htm: htm,
+    o: o,
+    elements: elements,
+    $: $,
+    extend: extend$1,
+    get: get,
+    set: set,
+    bind: bind,
+    unbind: unbind,
+    JSONProxy: JSONPatcherProxy
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
   options.root.Omi.version = '6.19.3';
 
-  var i=new Map([["align-self","-ms-grid-row-align"],["color-adjust","-webkit-print-color-adjust"],["column-gap","grid-column-gap"],["gap","grid-gap"],["grid-template-columns","-ms-grid-columns"],["grid-template-rows","-ms-grid-rows"],["justify-self","-ms-grid-column-align"],["margin-inline-end","-webkit-margin-end"],["margin-inline-start","-webkit-margin-start"],["overflow-wrap","word-wrap"],["padding-inline-end","-webkit-padding-end"],["padding-inline-start","-webkit-padding-start"],["row-gap","grid-row-gap"],["scroll-margin-bottom","scroll-snap-margin-bottom"],["scroll-margin-left","scroll-snap-margin-left"],["scroll-margin-right","scroll-snap-margin-right"],["scroll-margin-top","scroll-snap-margin-top"],["scroll-margin","scroll-snap-margin"],["text-combine-upright","-ms-text-combine-horizontal"]]);function r$1(r){return i.get(r)}function n$1(i){var r=/^(?:(text-(?:decoration$|e|or|si)|back(?:ground-cl|d|f)|box-d|(?:mask(?:$|-[ispro]|-cl)))|(tab-|column(?!-s)|text-align-l)|(ap)|(u|hy))/i.exec(i);return r?r[1]?1:r[2]?2:r[3]?3:5:0}function t$1(i,r){var n=/^(?:(pos)|(background-i)|((?:max-|min-)?(?:block-s|inl|he|widt))|(dis))/i.exec(i);return n?n[1]?/^sti/i.test(r)?1:0:n[2]?/^image-/i.test(r)?1:0:n[3]?"-"===r[3]?2:0:/^(inline-)?grid$/i.test(r)?4:0:0}
+  var i = new Map([["align-self", "-ms-grid-row-align"], ["color-adjust", "-webkit-print-color-adjust"], ["column-gap", "grid-column-gap"], ["gap", "grid-gap"], ["grid-template-columns", "-ms-grid-columns"], ["grid-template-rows", "-ms-grid-rows"], ["justify-self", "-ms-grid-column-align"], ["margin-inline-end", "-webkit-margin-end"], ["margin-inline-start", "-webkit-margin-start"], ["overflow-wrap", "word-wrap"], ["padding-inline-end", "-webkit-padding-end"], ["padding-inline-start", "-webkit-padding-start"], ["row-gap", "grid-row-gap"], ["scroll-margin-bottom", "scroll-snap-margin-bottom"], ["scroll-margin-left", "scroll-snap-margin-left"], ["scroll-margin-right", "scroll-snap-margin-right"], ["scroll-margin-top", "scroll-snap-margin-top"], ["scroll-margin", "scroll-snap-margin"], ["text-combine-upright", "-ms-text-combine-horizontal"]]); function r$1(r) { return i.get(r) } function n$1(i) { var r = /^(?:(text-(?:decoration$|e|or|si)|back(?:ground-cl|d|f)|box-d|(?:mask(?:$|-[ispro]|-cl)))|(tab-|column(?!-s)|text-align-l)|(ap)|(u|hy))/i.exec(i); return r ? r[1] ? 1 : r[2] ? 2 : r[3] ? 3 : 5 : 0 } function t$1(i, r) { var n = /^(?:(pos)|(background-i)|((?:max-|min-)?(?:block-s|inl|he|widt))|(dis))/i.exec(i); return n ? n[1] ? /^sti/i.test(r) ? 1 : 0 : n[2] ? /^image-/i.test(r) ? 1 : 0 : n[3] ? "-" === r[3] ? 2 : 0 : /^(inline-)?grid$/i.test(r) ? 4 : 0 : 0 }
 
   // src/internal/util.ts
   var includes = (value, search) => !!~value.indexOf(search);
@@ -2226,19 +2226,19 @@
     }
     return "@media " + join(screen.map((screen2) => {
       if (typeof screen2 == "string") {
-        screen2 = {min: screen2};
+        screen2 = { min: screen2 };
       }
       return screen2.raw || join(Object.keys(screen2).map((feature) => `(${feature}-width:${screen2[feature]})`), " and ");
     }), ",");
   };
   var cyrb32 = (value) => {
-    for (var h = 9, index = value.length; index--; ) {
+    for (var h = 9, index = value.length; index--;) {
       h = Math.imul(h ^ value.charCodeAt(index), 1597334677);
     }
     return "tw-" + ((h ^ h >>> 9) >>> 0).toString(36);
   };
   var sortedInsertionIndex = (array, element) => {
-    for (var low = 0, high = array.length; low < high; ) {
+    for (var low = 0, high = array.length; low < high;) {
       const pivot = high + low >> 1;
       if (array[pivot] <= element) {
         low = pivot + 1;
@@ -2281,7 +2281,7 @@
   };
   var parseString = (token, isVariant) => {
     let buffer = "";
-    for (let char, dynamic = false, position2 = 0; char = token[position2++]; ) {
+    for (let char, dynamic = false, position2 = 0; char = token[position2++];) {
       if (dynamic || char == "[") {
         buffer += char;
         dynamic = char != "]";
@@ -2449,7 +2449,7 @@
   };
 
   // src/twind/apply.ts
-  var applyFactory = (tokens, {css}) => css(parse(tokens));
+  var applyFactory = (tokens, { css }) => css(parse(tokens));
   var apply = (...tokens) => directive(applyFactory, tokens);
 
   // src/twind/helpers.ts
@@ -2475,8 +2475,8 @@
     br: ["bottom-right"]
   })[key]);
   var expandEdges = (key) => {
-    const parts = ({x: "lr", y: "tb"}[key] || key || "").split("").sort();
-    for (let index = parts.length; index--; ) {
+    const parts = ({ x: "lr", y: "tb" }[key] || key || "").split("").sort();
+    for (let index = parts.length; index--;) {
       if (!(parts[index] = {
         t: "top",
         r: "right",
@@ -2501,10 +2501,10 @@
   var propertyValue = (property2, separator) => (params, context, id) => (_ = join(params, separator)) && {
     [property2 || id]: _
   };
-  var themeProperty = (section) => (params, {theme: theme2}, id) => (_ = theme2(section || id, params)) && {
+  var themeProperty = (section) => (params, { theme: theme2 }, id) => (_ = theme2(section || id, params)) && {
     [section || id]: _
   };
-  var themePropertyFallback = (section, separator) => (params, {theme: theme2}, id) => (_ = theme2(section || id, params, join(params, separator))) && {
+  var themePropertyFallback = (section, separator) => (params, { theme: theme2 }, id) => (_ = theme2(section || id, params, join(params, separator))) && {
     [section || id]: _
   };
   var alias = (handler, name) => (params, context) => handler(params, context, name);
@@ -2517,7 +2517,7 @@
     ["--tw-" + key]: id,
     fontVariantNumeric: "var(--tw-ordinal,/*!*/ /*!*/) var(--tw-slashed-zero,/*!*/ /*!*/) var(--tw-numeric-figure,/*!*/ /*!*/) var(--tw-numeric-spacing,/*!*/ /*!*/) var(--tw-numeric-fraction,/*!*/ /*!*/)"
   });
-  var inset = (params, {theme: theme2}, id) => (_ = theme2("inset", params)) && {[id]: _};
+  var inset = (params, { theme: theme2 }, id) => (_ = theme2("inset", params)) && { [id]: _ };
   var opacityProperty = (params, theme2, id, section = id) => (_ = theme2(section + "Opacity", tail(params))) && {
     [`--tw-${id}-opacity`]: _
   };
@@ -2531,9 +2531,9 @@
   var withOpacityFallback = (property2, kind, color) => color && typeof color == "string" ? (_ = asRGBA(color, kind + "-opacity")) && _ !== color ? {
     [`--tw-${kind}-opacity`]: "1",
     [property2]: [color, _]
-  } : {[property2]: color} : void 0;
+  } : { [property2]: color } : void 0;
   var transparentTo = (color) => ($$1 = asRGBA(color, "", "0")) == _ ? "transparent" : $$1;
-  var reversableEdge = (params, {theme: theme2}, id, section, prefix, suffix) => (_ = {x: ["right", "left"], y: ["bottom", "top"]}[params[0]]) && ($$1 = `--tw-${id}-${params[0]}-reverse`) ? params[1] == "reverse" ? {
+  var reversableEdge = (params, { theme: theme2 }, id, section, prefix, suffix) => (_ = { x: ["right", "left"], y: ["bottom", "top"] }[params[0]]) && ($$1 = `--tw-${id}-${params[0]}-reverse`) ? params[1] == "reverse" ? {
     [$$1]: "1"
   } : {
     [$$1]: "0",
@@ -2543,10 +2543,10 @@
   var placeHelper = (property2, params) => params[0] && {
     [property2]: (includes("wun", (params[0] || "")[3]) ? "space-" : "") + params[0]
   };
-  var contentPluginFor = (property2) => (params) => includes(["start", "end"], params[0]) ? {[property2]: "flex-" + params[0]} : placeHelper(property2, params);
-  var gridPlugin = (kind) => (params, {theme: theme2}) => {
+  var contentPluginFor = (property2) => (params) => includes(["start", "end"], params[0]) ? { [property2]: "flex-" + params[0] } : placeHelper(property2, params);
+  var gridPlugin = (kind) => (params, { theme: theme2 }) => {
     if (_ = theme2("grid" + capitalize(kind), params, "")) {
-      return {["grid-" + kind]: _};
+      return { ["grid-" + kind]: _ };
     }
     switch (params[0]) {
       case "span":
@@ -2560,7 +2560,7 @@
         };
     }
   };
-  var border = (params, {theme: theme2}, id) => {
+  var border = (params, { theme: theme2 }, id) => {
     switch (params[0]) {
       case "solid":
       case "dashed":
@@ -2574,7 +2574,7 @@
       case "opacity":
         return opacityProperty(params, theme2, id);
     }
-    return (_ = theme2(id + "Width", params, "")) ? {borderWidth: _} : withOpacityFallback("borderColor", id, theme2(id + "Color", params));
+    return (_ = theme2(id + "Width", params, "")) ? { borderWidth: _ } : withOpacityFallback("borderColor", id, theme2(id + "Color", params));
   };
   var transform = (gpu) => (gpu ? "translate3d(var(--tw-translate-x,0),var(--tw-translate-y,0),0)" : "translateX(var(--tw-translate-x,0)) translateY(var(--tw-translate-y,0))") + " rotate(var(--tw-rotate,0)) skewX(var(--tw-skew-x,0)) skewY(var(--tw-skew-y,0)) scaleX(var(--tw-scale-x,1)) scaleY(var(--tw-scale-y,1))";
   var transformXYFunction = (params, context, id) => params[0] && (_ = context.theme(id, params[1] || params[0])) && {
@@ -2585,10 +2585,10 @@
   var edgesPluginFor = (key) => (params, context, id) => id[1] ? edges(context.theme(key, params), id[1], key) : themeProperty(key)(params, context, id);
   var padding = edgesPluginFor("padding");
   var margin = edgesPluginFor("margin");
-  var minMax = (params, {theme: theme2}, id) => (_ = {w: "width", h: "height"}[params[0]]) && {
+  var minMax = (params, { theme: theme2 }, id) => (_ = { w: "width", h: "height" }[params[0]]) && {
     [_ = `${id}${capitalize(_)}`]: theme2(_, tail(params))
   };
-  var filter = (params, {theme: theme2}, id) => {
+  var filter = (params, { theme: theme2 }, id) => {
     const parts = id.split("-");
     const prefix = parts[0] == "backdrop" ? parts[0] + "-" : "";
     if (!prefix) {
@@ -2607,7 +2607,7 @@
         "sepia",
         !prefix && "drop-shadow"
       ].filter(Boolean);
-      return params[1] == "none" ? {[prefix + "filter"]: "none"} : filters.reduce((css, key) => {
+      return params[1] == "none" ? { [prefix + "filter"]: "none" } : filters.reduce((css, key) => {
         css["--tw-" + prefix + key] = "var(--tw-empty,/*!*/ /*!*/)";
         return css;
       }, {
@@ -2622,13 +2622,13 @@
     };
   };
   var corePlugins = {
-    group: (params, {tag}, id) => tag(join([id, ...params])),
+    group: (params, { tag }, id) => tag(join([id, ...params])),
     hidden: alias(display, "none"),
     inline: display,
     block: display,
     contents: display,
     flow: display,
-    table: (params, context, id) => includes(["auto", "fixed"], params[0]) ? {tableLayout: params[0]} : display(params, context, id),
+    table: (params, context, id) => includes(["auto", "fixed"], params[0]) ? { tableLayout: params[0] } : display(params, context, id),
     flex(params, context, id) {
       switch (params[0]) {
         case "row":
@@ -2638,7 +2638,7 @@
           };
         case "nowrap":
         case "wrap":
-          return {flexWrap: join(params)};
+          return { flexWrap: join(params) };
         case "grow":
         case "shrink":
           _ = context.theme("flex" + capitalize(params[0]), tail(params), params[1] || 1);
@@ -2646,7 +2646,7 @@
             ["flex-" + params[0]]: "" + _
           };
       }
-      return (_ = context.theme("flex", params, "")) ? {flex: _} : display(params, context, id);
+      return (_ = context.theme("flex", params, "")) ? { flex: _ } : display(params, context, id);
     },
     grid(params, context, id) {
       switch (params[0]) {
@@ -2662,7 +2662,7 @@
       }
       return display(params, context, id);
     },
-    auto: (params, {theme: theme2}) => includes(["cols", "rows"], params[0]) && (_ = theme2("gridAuto" + capitalize(toColumnsOrRows(params[0])), tail(params), join(tail(params)))) && {
+    auto: (params, { theme: theme2 }) => includes(["cols", "rows"], params[0]) && (_ = theme2("gridAuto" + capitalize(toColumnsOrRows(params[0])), tail(params), join(tail(params)))) && {
       ["gridAuto-" + toColumnsOrRows(params[0])]: _
     },
     static: position,
@@ -2670,8 +2670,8 @@
     absolute: position,
     relative: position,
     sticky: position,
-    visible: {visibility: "visible"},
-    invisible: {visibility: "hidden"},
+    visible: { visibility: "visible" },
+    invisible: { visibility: "hidden" },
     antialiased: {
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale"
@@ -2707,22 +2707,22 @@
       clip: "auto"
     },
     resize: (params) => ({
-      resize: {x: "horizontal", y: "vertical"}[params[0]] || params[0] || "both"
+      resize: { x: "horizontal", y: "vertical" }[params[0]] || params[0] || "both"
     }),
-    box: (params) => params[0] && {boxSizing: params[0] + "-box"},
+    box: (params) => params[0] && { boxSizing: params[0] + "-box" },
     appearance: propertyValue(),
     cursor: themePropertyFallback(),
     float: propertyValue(),
     clear: propertyValue(),
     decoration: propertyValue("boxDecorationBreak"),
-    isolate: {isolation: "isolate"},
+    isolate: { isolation: "isolate" },
     isolation: propertyValue(),
     "mix-blend": propertyValue("mixBlendMode"),
     top: inset,
     right: inset,
     bottom: inset,
     left: inset,
-    inset: (params, {theme: theme2}) => (_ = expandEdges(params[0])) ? edges(theme2("inset", tail(params)), params[0]) : (_ = theme2("inset", params)) && {
+    inset: (params, { theme: theme2 }) => (_ = expandEdges(params[0])) ? edges(theme2("inset", tail(params)), params[0]) : (_ = theme2("inset", params)) && {
       top: _,
       right: _,
       bottom: _,
@@ -2743,7 +2743,7 @@
     "not-italic": alias(fontStyle, "normal"),
     "font-italic": alias(fontStyle, "italic"),
     "font-not-italic": alias(fontStyle, "normal"),
-    font: (params, context, id) => (_ = context.theme("fontFamily", params, "")) ? {fontFamily: _} : themeProperty("fontWeight")(params, context, id),
+    font: (params, context, id) => (_ = context.theme("fontFamily", params, "")) ? { fontFamily: _ } : themeProperty("fontWeight")(params, context, id),
     items: (params) => params[0] && {
       alignItems: includes(["start", "end"], params[0]) ? "flex-" + params[0] : join(params)
     },
@@ -2790,7 +2790,7 @@
     "pointer-events": propertyValue(),
     align: propertyValue("verticalAlign"),
     whitespace: propertyValue("whiteSpace"),
-    "normal-nums": {fontVariantNumeric: "normal"},
+    "normal-nums": { fontVariantNumeric: "normal" },
     ordinal: fontVariantNumeric("ordinal"),
     "slashed-zero": fontVariantNumeric("slashed-zero"),
     "lining-nums": fontVariantNumeric("numeric-figure"),
@@ -2799,8 +2799,8 @@
     "tabular-nums": fontVariantNumeric("numeric-spacing"),
     "diagonal-fractions": fontVariantNumeric("numeric-fraction"),
     "stacked-fractions": fontVariantNumeric("numeric-fraction"),
-    overflow: (params, context, id) => includes(["ellipsis", "clip"], params[0]) ? propertyValue("textOverflow")(params) : params[1] ? {["overflow-" + params[0]]: params[1]} : propertyValue()(params, context, id),
-    transform: (params) => params[0] == "none" ? {transform: "none"} : {
+    overflow: (params, context, id) => includes(["ellipsis", "clip"], params[0]) ? propertyValue("textOverflow")(params) : params[1] ? { ["overflow-" + params[0]]: params[1] } : propertyValue()(params, context, id),
+    transform: (params) => params[0] == "none" ? { transform: "none" } : {
       "--tw-translate-x": "0",
       "--tw-translate-y": "0",
       "--tw-rotate": "0",
@@ -2810,16 +2810,16 @@
       "--tw-scale-y": "1",
       transform: transform(params[0] == "gpu")
     },
-    rotate: (params, {theme: theme2}) => (_ = theme2("rotate", params)) && {
+    rotate: (params, { theme: theme2 }) => (_ = theme2("rotate", params)) && {
       "--tw-rotate": _,
       transform: [`rotate(${_})`, transform()]
     },
     scale: transformXYFunction,
     translate: transformXYFunction,
     skew: transformXYFunction,
-    gap: (params, context, id) => (_ = {x: "column", y: "row"}[params[0]]) ? {[_ + "Gap"]: context.theme("gap", tail(params))} : themeProperty("gap")(params, context, id),
-    stroke: (params, context, id) => (_ = context.theme("stroke", params, "")) ? {stroke: _} : themeProperty("strokeWidth")(params, context, id),
-    outline: (params, {theme: theme2}) => (_ = theme2("outline", params)) && {
+    gap: (params, context, id) => (_ = { x: "column", y: "row" }[params[0]]) ? { [_ + "Gap"]: context.theme("gap", tail(params)) } : themeProperty("gap")(params, context, id),
+    stroke: (params, context, id) => (_ = context.theme("stroke", params, "")) ? { stroke: _ } : themeProperty("strokeWidth")(params, context, id),
+    outline: (params, { theme: theme2 }) => (_ = theme2("outline", params)) && {
       outline: _[0],
       outlineOffset: _[1]
     },
@@ -2827,15 +2827,15 @@
       wordBreak: "normal",
       overflowWrap: "normal"
     },
-    "break-words": {overflowWrap: "break-word"},
-    "break-all": {wordBreak: "break-all"},
-    text(params, {theme: theme2}, id) {
+    "break-words": { overflowWrap: "break-word" },
+    "break-all": { wordBreak: "break-all" },
+    text(params, { theme: theme2 }, id) {
       switch (params[0]) {
         case "left":
         case "center":
         case "right":
         case "justify":
-          return {textAlign: params[0]};
+          return { textAlign: params[0] };
         case "uppercase":
         case "lowercase":
         case "capitalize":
@@ -2845,14 +2845,14 @@
       }
       const fontSize = theme2("fontSize", params, "");
       if (fontSize) {
-        return typeof fontSize == "string" ? {fontSize} : {
+        return typeof fontSize == "string" ? { fontSize } : {
           fontSize: fontSize[0],
-          ...typeof fontSize[1] == "string" ? {lineHeight: fontSize[1]} : fontSize[1]
+          ...typeof fontSize[1] == "string" ? { lineHeight: fontSize[1] } : fontSize[1]
         };
       }
       return withOpacityFallback("color", "text", theme2("textColor", params));
     },
-    bg(params, {theme: theme2}, id) {
+    bg(params, { theme: theme2 }, id) {
       switch (params[0]) {
         case "fixed":
         case "local":
@@ -2867,7 +2867,7 @@
         case "no":
           return params[1] == "repeat" && propertyValue("backgroundRepeat")(params);
         case "repeat":
-          return includes("xy", params[1]) ? propertyValue("backgroundRepeat")(params) : {backgroundRepeat: params[1] || params[0]};
+          return includes("xy", params[1]) ? propertyValue("backgroundRepeat")(params) : { backgroundRepeat: params[1] || params[0] };
         case "opacity":
           return opacityProperty(params, theme2, id, "background");
         case "clip":
@@ -2884,16 +2884,16 @@
             };
           }
       }
-      return (_ = theme2("backgroundPosition", params, "")) ? {backgroundPosition: _} : (_ = theme2("backgroundSize", params, "")) ? {backgroundSize: _} : (_ = theme2("backgroundImage", params, "")) ? {backgroundImage: _} : withOpacityFallback("backgroundColor", "bg", theme2("backgroundColor", params));
+      return (_ = theme2("backgroundPosition", params, "")) ? { backgroundPosition: _ } : (_ = theme2("backgroundSize", params, "")) ? { backgroundSize: _ } : (_ = theme2("backgroundImage", params, "")) ? { backgroundImage: _ } : withOpacityFallback("backgroundColor", "bg", theme2("backgroundColor", params));
     },
-    from: (params, {theme: theme2}) => (_ = theme2("gradientColorStops", params)) && {
+    from: (params, { theme: theme2 }) => (_ = theme2("gradientColorStops", params)) && {
       "--tw-gradient-from": _,
       "--tw-gradient-stops": `var(--tw-gradient-from),var(--tw-gradient-to,${transparentTo(_)})`
     },
-    via: (params, {theme: theme2}) => (_ = theme2("gradientColorStops", params)) && {
+    via: (params, { theme: theme2 }) => (_ = theme2("gradientColorStops", params)) && {
       "--tw-gradient-stops": `var(--tw-gradient-from),${_},var(--tw-gradient-to,${transparentTo(_)})`
     },
-    to: (params, {theme: theme2}) => (_ = theme2("gradientColorStops", params)) && {
+    to: (params, { theme: theme2 }) => (_ = theme2("gradientColorStops", params)) && {
       "--tw-gradient-to": _
     },
     border: (params, context, id) => expandEdges(params[0]) ? edges(context.theme("borderWidth", tail(params)), params[0], "border", "width") : border(params, context, id),
@@ -2903,10 +2903,10 @@
     space: (params, context, id) => (_ = reversableEdge(params, context, id, "space", "margin")) && {
       "&>:not([hidden])~:not([hidden])": _
     },
-    placeholder: (params, {theme: theme2}, id) => (_ = params[0] == "opacity" ? opacityProperty(params, theme2, id) : withOpacityFallback("color", "placeholder", theme2("placeholderColor", params))) && {
+    placeholder: (params, { theme: theme2 }, id) => (_ = params[0] == "opacity" ? opacityProperty(params, theme2, id) : withOpacityFallback("color", "placeholder", theme2("placeholderColor", params))) && {
       "&::placeholder": _
     },
-    shadow: (params, {theme: theme2}) => (_ = theme2("boxShadow", params)) && {
+    shadow: (params, { theme: theme2 }) => (_ = theme2("boxShadow", params)) && {
       ":global": {
         "*": {
           "--tw-shadow": "0 0 transparent"
@@ -2918,7 +2918,7 @@
         `var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow)`
       ]
     },
-    animate: (params, {theme: theme2, tag}) => {
+    animate: (params, { theme: theme2, tag }) => {
       if ($$1 = theme2("animation", params)) {
         const parts = $$1.split(" ");
         if ((_ = theme2("keyframes", parts[0], __ = {})) !== __) {
@@ -2927,13 +2927,13 @@
             ["@keyframes " + $$1]: _
           };
         }
-        return {animation: $$1};
+        return { animation: $$1 };
       }
     },
-    ring(params, {theme: theme2}, id) {
+    ring(params, { theme: theme2 }, id) {
       switch (params[0]) {
         case "inset":
-          return {"--tw-ring-inset": "inset"};
+          return { "--tw-ring-inset": "inset" };
         case "opacity":
           return opacityProperty(params, theme2, id);
         case "offset":
@@ -2962,17 +2962,17 @@
         "--tw-ring-color": asRGBA(theme2("ringColor", params), "ring-opacity")
       };
     },
-    object: (params, context, id) => includes(["contain", "cover", "fill", "none", "scale-down"], join(params)) ? {objectFit: join(params)} : themePropertyFallback("objectPosition", " ")(params, context, id),
-    list: (params, context, id) => join(params) == "item" ? display(params, context, id) : includes(["inside", "outside"], join(params)) ? {listStylePosition: params[0]} : themePropertyFallback("listStyleType")(params, context, id),
+    object: (params, context, id) => includes(["contain", "cover", "fill", "none", "scale-down"], join(params)) ? { objectFit: join(params) } : themePropertyFallback("objectPosition", " ")(params, context, id),
+    list: (params, context, id) => join(params) == "item" ? display(params, context, id) : includes(["inside", "outside"], join(params)) ? { listStylePosition: params[0] } : themePropertyFallback("listStyleType")(params, context, id),
     rounded: (params, context, id) => corners(context.theme("borderRadius", tail(params), ""), params[0], "border", "radius") || themeProperty("borderRadius")(params, context, id),
-    "transition-none": {transitionProperty: "none"},
-    transition: (params, {theme: theme2}) => ({
+    "transition-none": { transitionProperty: "none" },
+    transition: (params, { theme: theme2 }) => ({
       transitionProperty: theme2("transitionProperty", params),
       transitionTimingFunction: theme2("transitionTimingFunction", ""),
       transitionDuration: theme2("transitionDuration", "")
     }),
-    container: (params, {theme: theme2}) => {
-      const {screens = theme2("screens"), center, padding: padding2} = theme2("container");
+    container: (params, { theme: theme2 }) => {
+      const { screens = theme2("screens"), center, padding: padding2 } = theme2("container");
       const paddingFor = (screen) => (_ = padding2 && (typeof padding2 == "string" ? padding2 : padding2[screen] || padding2.DEFAULT)) ? {
         paddingRight: _,
         paddingLeft: _
@@ -2989,7 +2989,7 @@
         return rules2;
       }, {
         width: "100%",
-        ...center ? {marginRight: "auto", marginLeft: "auto"} : {},
+        ...center ? { marginRight: "auto", marginLeft: "auto" } : {},
         ...paddingFor("xs")
       });
     },
@@ -3008,34 +3008,34 @@
 
   // src/twind/preflight.ts
   var createPreflight = (theme2) => ({
-    ":root": {tabSize: 4},
-    "body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre,fieldset,ol,ul": {margin: "0"},
-    button: {backgroundColor: "transparent", backgroundImage: "none"},
-    'button,[type="button"],[type="reset"],[type="submit"]': {WebkitAppearance: "button"},
-    "button:focus": {outline: ["1px dotted", "5px auto -webkit-focus-ring-color"]},
-    "fieldset,ol,ul,legend": {padding: "0"},
-    "ol,ul": {listStyle: "none"},
+    ":root": { tabSize: 4 },
+    "body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre,fieldset,ol,ul": { margin: "0" },
+    button: { backgroundColor: "transparent", backgroundImage: "none" },
+    'button,[type="button"],[type="reset"],[type="submit"]': { WebkitAppearance: "button" },
+    "button:focus": { outline: ["1px dotted", "5px auto -webkit-focus-ring-color"] },
+    "fieldset,ol,ul,legend": { padding: "0" },
+    "ol,ul": { listStyle: "none" },
     html: {
       lineHeight: "1.5",
       WebkitTextSizeAdjust: "100%",
       fontFamily: theme2("fontFamily.sans", "ui-sans-serif,system-ui,sans-serif")
     },
-    body: {fontFamily: "inherit", lineHeight: "inherit"},
+    body: { fontFamily: "inherit", lineHeight: "inherit" },
     "*,::before,::after": {
       boxSizing: "border-box",
       border: `0 solid ${theme2("borderColor.DEFAULT", "currentColor")}`
     },
-    hr: {height: "0", color: "inherit", borderTopWidth: "1px"},
-    img: {borderStyle: "solid"},
-    textarea: {resize: "vertical"},
+    hr: { height: "0", color: "inherit", borderTopWidth: "1px" },
+    img: { borderStyle: "solid" },
+    textarea: { resize: "vertical" },
     "input::placeholder,textarea::placeholder": {
       opacity: "1",
       color: theme2("placeholderColor.DEFAULT", theme2("colors.gray.400", "#a1a1aa"))
     },
-    'button,[role="button"]': {cursor: "pointer"},
-    table: {textIndent: "0", borderColor: "inherit", borderCollapse: "collapse"},
-    "h1,h2,h3,h4,h5,h6": {fontSize: "inherit", fontWeight: "inherit"},
-    a: {color: "inherit", textDecoration: "inherit"},
+    'button,[role="button"]': { cursor: "pointer" },
+    table: { textIndent: "0", borderColor: "inherit", borderCollapse: "collapse" },
+    "h1,h2,h3,h4,h5,h6": { fontSize: "inherit", fontWeight: "inherit" },
+    a: { color: "inherit", textDecoration: "inherit" },
     "button,input,optgroup,select,textarea": {
       fontFamily: "inherit",
       fontSize: "100%",
@@ -3044,27 +3044,27 @@
       lineHeight: "inherit",
       color: "inherit"
     },
-    "button,select": {textTransform: "none"},
-    "::-moz-focus-inner": {borderStyle: "none", padding: "0"},
-    ":-moz-focusring": {outline: "1px dotted ButtonText"},
-    ":-moz-ui-invalid": {boxShadow: "none"},
-    progress: {verticalAlign: "baseline"},
-    "::-webkit-inner-spin-button,::-webkit-outer-spin-button": {height: "auto"},
-    '[type="search"]': {WebkitAppearance: "textfield", outlineOffset: "-2px"},
-    "::-webkit-search-decoration": {WebkitAppearance: "none"},
-    "::-webkit-file-upload-button": {WebkitAppearance: "button", font: "inherit"},
-    summary: {display: "list-item"},
-    "abbr[title]": {textDecoration: "underline dotted"},
-    "b,strong": {fontWeight: "bolder"},
+    "button,select": { textTransform: "none" },
+    "::-moz-focus-inner": { borderStyle: "none", padding: "0" },
+    ":-moz-focusring": { outline: "1px dotted ButtonText" },
+    ":-moz-ui-invalid": { boxShadow: "none" },
+    progress: { verticalAlign: "baseline" },
+    "::-webkit-inner-spin-button,::-webkit-outer-spin-button": { height: "auto" },
+    '[type="search"]': { WebkitAppearance: "textfield", outlineOffset: "-2px" },
+    "::-webkit-search-decoration": { WebkitAppearance: "none" },
+    "::-webkit-file-upload-button": { WebkitAppearance: "button", font: "inherit" },
+    summary: { display: "list-item" },
+    "abbr[title]": { textDecoration: "underline dotted" },
+    "b,strong": { fontWeight: "bolder" },
     "pre,code,kbd,samp": {
       fontFamily: theme2("fontFamily", "mono", "ui-monospace,monospace"),
       fontSize: "1em"
     },
-    "sub,sup": {fontSize: "75%", lineHeight: "0", position: "relative", verticalAlign: "baseline"},
-    sub: {bottom: "-0.25em"},
-    sup: {top: "-0.5em"},
-    "img,svg,video,canvas,audio,iframe,embed,object": {display: "block", verticalAlign: "middle"},
-    "img,video": {maxWidth: "100%", height: "auto"}
+    "sub,sup": { fontSize: "75%", lineHeight: "0", position: "relative", verticalAlign: "baseline" },
+    sub: { bottom: "-0.25em" },
+    sup: { top: "-0.5em" },
+    "img,svg,video,canvas,audio,iframe,embed,object": { display: "block", verticalAlign: "middle" },
+    "img,video": { maxWidth: "100%", height: "auto" }
   });
 
   // src/twind/variants.ts
@@ -3116,10 +3116,10 @@
   var mode = (report) => ({
     unknown(section, key = [], optional, context) {
       if (!optional) {
-        this.report({id: "UNKNOWN_THEME_VALUE", key: section + "." + join(key)}, context);
+        this.report({ id: "UNKNOWN_THEME_VALUE", key: section + "." + join(key) }, context);
       }
     },
-    report({id, ...info}) {
+    report({ id, ...info }) {
       return report(`[${id}] ${JSON.stringify(info)}`);
     }
   });
@@ -3397,7 +3397,7 @@
       "2xl": "0 25px 25px rgba(0, 0, 0, 0.15)",
       none: "0 0 #0000"
     },
-    fill: {current: "currentColor"},
+    fill: { current: "currentColor" },
     grayscale: {
       0: "0",
       DEFAULT: "100%"
@@ -3550,7 +3550,7 @@
       full: "100%",
       screen: "100vh"
     }),
-    maxWidth: (theme2, {breakpoints}) => ({
+    maxWidth: (theme2, { breakpoints }) => ({
       none: "none",
       0: "0rem",
       xs: "20rem",
@@ -3710,7 +3710,7 @@
   var handleArbitraryValues = (section, key) => (key = key[0] == "[" && key.slice(-1) == "]" && key.slice(1, -1)) && includes(section, "olor") == /^(#|(hsl|rgb)a?\(|[a-z]+$)/.test(key) && (includes(key, "calc(") ? key.replace(/(-?\d*\.?\d(?!\b-.+[,)](?![^+\-/*])\D)(?:%|[a-z]+)?|\))([+\-/*])/g, "$1 $2 ") : key);
   var makeThemeResolver = (config) => {
     const cache = new Map();
-    const theme2 = {...defaultTheme, ...config};
+    const theme2 = { ...defaultTheme, ...config };
     const deref = (theme3, section) => {
       const base = theme3 && theme3[section];
       const value = typeof base == "function" ? base(resolve, resolveContext) : base;
@@ -3725,7 +3725,7 @@
       }
       let base = cache.get(section);
       if (!base) {
-        cache.set(section, base = {...deref(theme2, section)});
+        cache.set(section, base = { ...deref(theme2, section) });
         Object.assign(base, deref(theme2.extend, section));
       }
       if (key != null) {
@@ -3761,16 +3761,16 @@
   var GROUP_RE = /^:(group(?:(?!-focus).+?)*)-(.+)$/;
   var NOT_PREFIX_RE = /^(:not)-(.+)/;
   var prepareVariantSelector = (variant) => variant[1] == "[" ? tail(variant) : variant;
-  var decorate = (darkMode, variants, {theme: theme2, tag}) => {
+  var decorate = (darkMode, variants, { theme: theme2, tag }) => {
     const applyVariant = (translation, variant) => {
       if (_2 = theme2("screens", tail(variant), "")) {
-        return {[buildMediaQuery(_2)]: translation};
+        return { [buildMediaQuery(_2)]: translation };
       }
       if (variant == ":dark" && darkMode == "class") {
-        return {".dark &": translation};
+        return { ".dark &": translation };
       }
       if (_2 = GROUP_RE.exec(variant)) {
-        return {[`.${escape(tag(_2[1]))}:${_2[2]} &`]: translation};
+        return { [`.${escape(tag(_2[1]))}:${_2[2]} &`]: translation };
       }
       return {
         [variants[tail(variant)] || "&" + variant.replace(NOT_PREFIX_RE, (_4, not, variant2) => not + "(" + prepareVariantSelector(":" + variant2) + ")")]: translation
@@ -3784,7 +3784,7 @@
   var responsivePrecedence = (css) => (((_3 = /(?:^|min-width: *)(\d+(?:.\d+)?)(p)?/.exec(css)) ? +_3[1] / (_3[2] ? 15 : 1) / 10 : 0) & 31) << 22;
   var seperatorPrecedence = (string) => {
     _3 = 0;
-    for (let index = string.length; index--; ) {
+    for (let index = string.length; index--;) {
       _3 += includes("-:,", string[index]);
     }
     return _3;
@@ -3816,7 +3816,7 @@
   // src/twind/serialize.ts
   var stringifyBlock = (body, selector) => selector + "{" + body + "}";
   var serialize = (prefix, variants, context) => {
-    const {theme: theme2, tag} = context;
+    const { theme: theme2, tag } = context;
     const tagVar = (_4, property2) => "--" + tag(property2);
     const tagVars = (value) => `${value}`.replace(/--(tw-[\w-]+)\b/g, tagVar);
     const stringifyDeclaration = (property2, value, important) => {
@@ -3833,7 +3833,7 @@
       let maxPropertyPresedence = 0;
       let numberOfDeclarations = 0;
       if (css["@apply"]) {
-        css = merge(evalThunk(apply(css["@apply"]), context), {...css, "@apply": void 0}, context);
+        css = merge(evalThunk(apply(css["@apply"]), context), { ...css, "@apply": void 0 }, context);
       }
       Object.keys(css).forEach((key) => {
         const value = evalThunk(css[key], context);
@@ -3862,7 +3862,7 @@
                 p: waypoints.reduce((sum, p) => sum + p.p, 0)
               });
             } else if (key[1] == "i") {
-              (Array.isArray(value) ? value : [value]).forEach((value2) => value2 && rules2.push({p: 0, r: `${key} ${value2};`}));
+              (Array.isArray(value) ? value : [value]).forEach((value2) => value2 && rules2.push({ p: 0, r: `${key} ${value2};` }));
             } else {
               if (key[2] == "c") {
                 key = buildMediaQuery(context.theme("screens", tail(key, 8).trim()));
@@ -3896,7 +3896,7 @@
     init((value = []) => sortedPrecedences = value);
     let insertedRules;
     init((value = new Set()) => insertedRules = value);
-    return ({r: css, p: presedence}) => {
+    return ({ r: css, p: presedence }) => {
       if (!insertedRules.has(css)) {
         insertedRules.add(css);
         const index = sortedInsertionIndex(sortedPrecedences, presedence);
@@ -3905,7 +3905,7 @@
           sortedPrecedences.splice(index, 0, presedence);
         } catch (error) {
           if (!/:-[mwo]/.test(css)) {
-            mode2.report({id: "INJECT_CSS_ERROR", css, error}, context);
+            mode2.report({ id: "INJECT_CSS_ERROR", css, error }, context);
           }
         }
       }
@@ -3914,16 +3914,16 @@
 
   // src/twind/configure.ts
   var sanitize = (value, defaultValue, disabled, enabled = defaultValue) => value === false ? disabled : value === true ? enabled : value || defaultValue;
-  var loadMode = (mode2) => (typeof mode2 == "string" ? {t: strict, a: warn, i: silent}[mode2[1]] : mode2) || warn;
+  var loadMode = (mode2) => (typeof mode2 == "string" ? { t: strict, a: warn, i: silent }[mode2[1]] : mode2) || warn;
   var stringifyVariant = (selector, variant) => selector + (variant[1] == ":" ? tail(variant, 2) + ":" : tail(variant)) + ":";
   var stringify2 = (rule, directive2 = rule.d) => typeof directive2 == "function" ? "" : rule.v.reduce(stringifyVariant, "") + (rule.i ? "!" : "") + (rule.n ? "-" : "") + directive2;
-  var COMPONENT_PROPS = {_: {value: "", writable: true}};
+  var COMPONENT_PROPS = { _: { value: "", writable: true } };
   var configure = (config = {}) => {
     const theme2 = makeThemeResolver(config.theme);
     const mode2 = loadMode(config.mode);
     const hash = sanitize(config.hash, false, false, cyrb32);
     const important = config.important;
-    let activeRule = {v: []};
+    let activeRule = { v: [] };
     let translateDepth = 0;
     const lastTranslations = [];
     const context = {
@@ -3959,7 +3959,7 @@
         }
       }
     };
-    const translate2 = translate({...corePlugins, ...config.plugins}, context);
+    const translate2 = translate({ ...corePlugins, ...config.plugins }, context);
     const doTranslate = (rule) => {
       const parentRule = activeRule;
       activeRule = rule;
@@ -3969,11 +3969,11 @@
         activeRule = parentRule;
       }
     };
-    const variants = {...coreVariants, ...config.variants};
+    const variants = { ...coreVariants, ...config.variants };
     const decorate2 = decorate(config.darkMode || "media", variants, context);
     const serialize2 = serialize(sanitize(config.prefix, autoprefix, noprefix), variants, context);
     const sheet = config.sheet || (typeof window == "undefined" ? voidSheet() : cssomSheet(config));
-    const {init = (callback) => callback()} = sheet;
+    const { init = (callback) => callback() } = sheet;
     const inject2 = inject(sheet, mode2, init, context);
     let idToClassName;
     init((value = new Map()) => idToClassName = value);
@@ -3981,7 +3981,7 @@
     const evaluateFunctions = (key, value) => key == "_" ? void 0 : typeof value == "function" ? JSON.stringify(evalThunk(value, context), evaluateFunctions) : value;
     const convert = (rule) => {
       if (!translateDepth && activeRule.v.length) {
-        rule = {...rule, v: [...activeRule.v, ...rule.v], $: ""};
+        rule = { ...rule, v: [...activeRule.v, ...rule.v], $: "" };
       }
       if (!rule.$) {
         rule.$ = stringify2(rule, inlineDirectiveName.get(rule.d));
@@ -4014,7 +4014,7 @@
             className = translation;
           } else {
             className = rule.$;
-            mode2.report({id: "UNKNOWN_DIRECTIVE", rule: className}, context);
+            mode2.report({ id: "UNKNOWN_DIRECTIVE", rule: className }, context);
           }
           if (translateDepth && typeof rule.d !== "function") {
             lastTranslations.push(className);
@@ -4031,11 +4031,11 @@
     const preflight = sanitize(config.preflight, identity, false);
     if (preflight) {
       const css = createPreflight(theme2);
-      const styles = serialize2(typeof preflight == "function" ? evalThunk(preflight(css, context), context) || css : {...css, ...preflight});
+      const styles = serialize2(typeof preflight == "function" ? evalThunk(preflight(css, context), context) || css : { ...css, ...preflight });
       init((injected = (styles.forEach(inject2), true)) => injected);
     }
     return {
-      init: () => mode2.report({id: "LATE_SETUP_CALL"}, context),
+      init: () => mode2.report({ id: "LATE_SETUP_CALL" }, context),
       process
     };
   };
@@ -4047,7 +4047,7 @@
       return process(tokens);
     };
     let init = (config2) => {
-      ({process, init} = configure(config2));
+      ({ process, init } = configure(config2));
     };
     if (config)
       init(config);
@@ -4074,7 +4074,7 @@
   };
 
   // src/twind/default.ts
-  var {tw, setup} = /* @__PURE__ */ create();
+  var { tw, setup } = /* @__PURE__ */ create();
 
   var _class$1, _temp$1;
 
@@ -4091,26 +4091,26 @@
   var sheet = cssomSheet({ target: new CSSStyleSheet() });
 
   var _create = create({ sheet: sheet }),
-      tw$1 = _create.tw;
+    tw$1 = _create.tw;
 
   define('twind-button', (_temp$1 = _class$1 = function (_WeElement) {
-  	_inherits$2(_class, _WeElement);
+    _inherits$2(_class, _WeElement);
 
-  	function _class() {
-  		_classCallCheck$2(this, _class);
+    function _class() {
+      _classCallCheck$2(this, _class);
 
-  		return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
-  	}
+      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+    }
 
-  	_class.prototype.render = function render$$1() {
-  		return Omi.h(
-  			'button',
-  			{ 'class': tw$1(_templateObject) },
-  			'twind button'
-  		);
-  	};
+    _class.prototype.render = function render$$1() {
+      return Omi.h(
+        'button',
+        { 'class': tw$1(_templateObject) },
+        'twind button'
+      );
+    };
 
-  	return _class;
+    return _class;
   }(WeElement), _class$1.css = sheet.target, _temp$1));
 
 }());

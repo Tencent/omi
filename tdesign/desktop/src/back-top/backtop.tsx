@@ -19,7 +19,7 @@ export default class Backtop extends WeElement<IconProps> {
     class: String,
   }
 
-  static isLightDom = true
+  static isLightDOM = true
 
   render(props: OmiProps<IconProps>) {
     const classPrefix = 't'

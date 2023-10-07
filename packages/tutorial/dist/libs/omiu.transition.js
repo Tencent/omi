@@ -357,7 +357,7 @@
             disappear: Boolean,
             delay: Number
           };
-          Transition.isLightDom = true;
+          Transition.isLightDOM = true;
           Transition.defaultProps = {
             name: 'o',
             delay: 0

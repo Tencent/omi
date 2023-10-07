@@ -25,7 +25,7 @@ export default class Counter extends WeElement<Props> {
     initialValues: Object
   }
 
-  static isLightDom = true
+  static isLightDOM = true
 
   touched = {}
 

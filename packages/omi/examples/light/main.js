@@ -6,7 +6,7 @@ define('my-component', class XX extends WeElement {
 		last: String
 	}
 
-	static isLightDom = true
+	static isLightDOM = true
 
 	render(props) {
 		return <div>

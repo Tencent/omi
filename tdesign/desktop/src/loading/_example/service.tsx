@@ -5,7 +5,7 @@ import '../../button'
 
 @tag('loading-service')
 export default class LoadingService extends WeElement {
-  //   static isLightDom = true
+  //   static isLightDOM = true
   handleFullscreen = () => {
     const loadInstance = loading(true)
 

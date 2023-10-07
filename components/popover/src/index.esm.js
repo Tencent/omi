@@ -24,37 +24,37 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics$1 = function(d, b) {
-    extendStatics$1 = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-    return extendStatics$1(d, b);
+var extendStatics$1 = function (d, b) {
+  extendStatics$1 = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+  return extendStatics$1(d, b);
 };
 
 function __extends$1(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    extendStatics$1(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  if (typeof b !== "function" && b !== null)
+    throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+  extendStatics$1(d, b);
+  function __() { this.constructor = d; }
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __assign = function () {
+  __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
 };
 
 function __decorate$1(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
 var top = 'top';
@@ -284,17 +284,17 @@ function contains(parent, child) {
     return true;
   } // then fallback to custom implementation with Shadow DOM support
   else if (rootNode && isShadowRoot(rootNode)) {
-      var next = child;
+    var next = child;
 
-      do {
-        if (next && parent.isSameNode(next)) {
-          return true;
-        } // $FlowFixMe[prop-missing]: need a better way to handle this...
+    do {
+      if (next && parent.isSameNode(next)) {
+        return true;
+      } // $FlowFixMe[prop-missing]: need a better way to handle this...
 
 
-        next = next.parentNode || next.host;
-      } while (next);
-    } // Give up, the result is false
+      next = next.parentNode || next.host;
+    } while (next);
+  } // Give up, the result is false
 
 
   return false;
@@ -311,7 +311,7 @@ function isTableElement(element) {
 function getDocumentElement(element) {
   // $FlowFixMe[incompatible-return]: assume body is always available
   return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
-  element.document) || window.document).documentElement;
+    element.document) || window.document).documentElement;
 }
 
 function getParentNode(element) {
@@ -324,7 +324,7 @@ function getParentNode(element) {
     // $FlowFixMe[prop-missing]
     element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
     element.parentNode || ( // DOM Element detected
-    isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
+      isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
     // $FlowFixMe[incompatible-call]: HTMLElement is a Node
     getDocumentElement(element) // fallback
 
@@ -333,7 +333,7 @@ function getParentNode(element) {
 
 function getTrueOffsetParent(element) {
   if (!isHTMLElement(element) || // https://github.com/popperjs/popper-core/issues/837
-  getComputedStyle(element).position === 'fixed') {
+    getComputedStyle(element).position === 'fixed') {
     return null;
   }
 
@@ -436,8 +436,8 @@ function arrow(_ref) {
   var _state$modifiersData$;
 
   var state = _ref.state,
-      name = _ref.name,
-      options = _ref.options;
+    name = _ref.name,
+    options = _ref.options;
   var arrowElement = state.elements.arrow;
   var popperOffsets = state.modifiersData.popperOffsets;
   var basePlacement = getBasePlacement(state.placement);
@@ -471,9 +471,9 @@ function arrow(_ref) {
 
 function effect$1(_ref2) {
   var state = _ref2.state,
-      options = _ref2.options;
+    options = _ref2.options;
   var _options$element = options.element,
-      arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
+    arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
 
   if (arrowElement == null) {
     return;
@@ -531,7 +531,7 @@ var unsetSides = {
 
 function roundOffsetsByDPR(_ref) {
   var x = _ref.x,
-      y = _ref.y;
+    y = _ref.y;
   var win = window;
   var dpr = win.devicePixelRatio || 1;
   return {
@@ -544,19 +544,19 @@ function mapToStyles(_ref2) {
   var _Object$assign2;
 
   var popper = _ref2.popper,
-      popperRect = _ref2.popperRect,
-      placement = _ref2.placement,
-      variation = _ref2.variation,
-      offsets = _ref2.offsets,
-      position = _ref2.position,
-      gpuAcceleration = _ref2.gpuAcceleration,
-      adaptive = _ref2.adaptive,
-      roundOffsets = _ref2.roundOffsets,
-      isFixed = _ref2.isFixed;
+    popperRect = _ref2.popperRect,
+    placement = _ref2.placement,
+    variation = _ref2.variation,
+    offsets = _ref2.offsets,
+    position = _ref2.position,
+    gpuAcceleration = _ref2.gpuAcceleration,
+    adaptive = _ref2.adaptive,
+    roundOffsets = _ref2.roundOffsets,
+    isFixed = _ref2.isFixed;
   var _offsets$x = offsets.x,
-      x = _offsets$x === void 0 ? 0 : _offsets$x,
-      _offsets$y = offsets.y,
-      y = _offsets$y === void 0 ? 0 : _offsets$y;
+    x = _offsets$x === void 0 ? 0 : _offsets$x,
+    _offsets$y = offsets.y,
+    y = _offsets$y === void 0 ? 0 : _offsets$y;
 
   var _ref3 = typeof roundOffsets === 'function' ? roundOffsets({
     x: x,
@@ -594,7 +594,7 @@ function mapToStyles(_ref2) {
     if (placement === top || (placement === left || placement === right) && variation === end) {
       sideY = bottom;
       var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
-      offsetParent[heightProp];
+        offsetParent[heightProp];
       y -= offsetY - popperRect.height;
       y *= gpuAcceleration ? 1 : -1;
     }
@@ -602,7 +602,7 @@ function mapToStyles(_ref2) {
     if (placement === left || (placement === top || placement === bottom) && variation === end) {
       sideX = right;
       var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
-      offsetParent[widthProp];
+        offsetParent[widthProp];
       x -= offsetX - popperRect.width;
       x *= gpuAcceleration ? 1 : -1;
     }
@@ -634,13 +634,13 @@ function mapToStyles(_ref2) {
 
 function computeStyles(_ref5) {
   var state = _ref5.state,
-      options = _ref5.options;
+    options = _ref5.options;
   var _options$gpuAccelerat = options.gpuAcceleration,
-      gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
-      _options$adaptive = options.adaptive,
-      adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
-      _options$roundOffsets = options.roundOffsets,
-      roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
+    gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
+    _options$adaptive = options.adaptive,
+    adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
+    _options$roundOffsets = options.roundOffsets,
+    roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
 
   if (process.env.NODE_ENV !== "production") {
     var transitionProperty = getComputedStyle(state.elements.popper).transitionProperty || '';
@@ -699,12 +699,12 @@ var passive = {
 
 function effect(_ref) {
   var state = _ref.state,
-      instance = _ref.instance,
-      options = _ref.options;
+    instance = _ref.instance,
+    options = _ref.options;
   var _options$scroll = options.scroll,
-      scroll = _options$scroll === void 0 ? true : _options$scroll,
-      _options$resize = options.resize,
-      resize = _options$resize === void 0 ? true : _options$resize;
+    scroll = _options$scroll === void 0 ? true : _options$scroll,
+    _options$resize = options.resize,
+    resize = _options$resize === void 0 ? true : _options$resize;
   var window = getWindow(state.elements.popper);
   var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
 
@@ -736,7 +736,7 @@ var eventListeners = {
   name: 'eventListeners',
   enabled: true,
   phase: 'write',
-  fn: function fn() {},
+  fn: function fn() { },
   effect: effect,
   data: {}
 };
@@ -850,9 +850,9 @@ function getDocumentRect(element) {
 function isScrollParent(element) {
   // Firefox wants us to check `-x` and `-y` variations as well
   var _getComputedStyle = getComputedStyle(element),
-      overflow = _getComputedStyle.overflow,
-      overflowX = _getComputedStyle.overflowX,
-      overflowY = _getComputedStyle.overflowY;
+    overflow = _getComputedStyle.overflow,
+    overflowX = _getComputedStyle.overflowX,
+    overflowY = _getComputedStyle.overflowY;
 
   return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
 }
@@ -890,7 +890,7 @@ function listScrollParents(element, list) {
   var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
   var updatedList = list.concat(target);
   return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
-  updatedList.concat(listScrollParents(getParentNode(target)));
+    updatedList.concat(listScrollParents(getParentNode(target)));
 }
 
 function rectToClientRect(rect) {
@@ -960,8 +960,8 @@ function getClippingRect(element, boundary, rootBoundary) {
 
 function computeOffsets(_ref) {
   var reference = _ref.reference,
-      element = _ref.element,
-      placement = _ref.placement;
+    element = _ref.element,
+    placement = _ref.placement;
   var basePlacement = placement ? getBasePlacement(placement) : null;
   var variation = placement ? getVariation(placement) : null;
   var commonX = reference.x + reference.width / 2 - element.width / 2;
@@ -1029,18 +1029,18 @@ function detectOverflow(state, options) {
   }
 
   var _options = options,
-      _options$placement = _options.placement,
-      placement = _options$placement === void 0 ? state.placement : _options$placement,
-      _options$boundary = _options.boundary,
-      boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
-      _options$rootBoundary = _options.rootBoundary,
-      rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
-      _options$elementConte = _options.elementContext,
-      elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
-      _options$altBoundary = _options.altBoundary,
-      altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
-      _options$padding = _options.padding,
-      padding = _options$padding === void 0 ? 0 : _options$padding;
+    _options$placement = _options.placement,
+    placement = _options$placement === void 0 ? state.placement : _options$placement,
+    _options$boundary = _options.boundary,
+    boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
+    _options$rootBoundary = _options.rootBoundary,
+    rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
+    _options$elementConte = _options.elementContext,
+    elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
+    _options$altBoundary = _options.altBoundary,
+    altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
+    _options$padding = _options.padding,
+    padding = _options$padding === void 0 ? 0 : _options$padding;
   var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
   var altContext = elementContext === popper ? reference : popper;
   var popperRect = state.rects.popper;
@@ -1083,13 +1083,13 @@ function computeAutoPlacement(state, options) {
   }
 
   var _options = options,
-      placement = _options.placement,
-      boundary = _options.boundary,
-      rootBoundary = _options.rootBoundary,
-      padding = _options.padding,
-      flipVariations = _options.flipVariations,
-      _options$allowedAutoP = _options.allowedAutoPlacements,
-      allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
+    placement = _options.placement,
+    boundary = _options.boundary,
+    rootBoundary = _options.rootBoundary,
+    padding = _options.padding,
+    flipVariations = _options.flipVariations,
+    _options$allowedAutoP = _options.allowedAutoPlacements,
+    allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
   var variation = getVariation(placement);
   var placements$1 = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
     return getVariation(placement) === variation;
@@ -1132,25 +1132,25 @@ function getExpandedFallbackPlacements(placement) {
 
 function flip(_ref) {
   var state = _ref.state,
-      options = _ref.options,
-      name = _ref.name;
+    options = _ref.options,
+    name = _ref.name;
 
   if (state.modifiersData[name]._skip) {
     return;
   }
 
   var _options$mainAxis = options.mainAxis,
-      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-      _options$altAxis = options.altAxis,
-      checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
-      specifiedFallbackPlacements = options.fallbackPlacements,
-      padding = options.padding,
-      boundary = options.boundary,
-      rootBoundary = options.rootBoundary,
-      altBoundary = options.altBoundary,
-      _options$flipVariatio = options.flipVariations,
-      flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
-      allowedAutoPlacements = options.allowedAutoPlacements;
+    checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+    _options$altAxis = options.altAxis,
+    checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
+    specifiedFallbackPlacements = options.fallbackPlacements,
+    padding = options.padding,
+    boundary = options.boundary,
+    rootBoundary = options.rootBoundary,
+    altBoundary = options.altBoundary,
+    _options$flipVariatio = options.flipVariations,
+    flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
+    allowedAutoPlacements = options.allowedAutoPlacements;
   var preferredPlacement = state.options.placement;
   var basePlacement = getBasePlacement(preferredPlacement);
   var isBasePlacement = basePlacement === preferredPlacement;
@@ -1285,7 +1285,7 @@ function isAnySideFullyClipped(overflow) {
 
 function hide(_ref) {
   var state = _ref.state,
-      name = _ref.name;
+    name = _ref.name;
   var referenceRect = state.rects.reference;
   var popperRect = state.rects.popper;
   var preventedOffsets = state.modifiersData.preventOverflow;
@@ -1327,8 +1327,8 @@ function distanceAndSkiddingToXY(placement, rects, offset) {
   var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
     placement: placement
   })) : offset,
-      skidding = _ref[0],
-      distance = _ref[1];
+    skidding = _ref[0],
+    distance = _ref[1];
 
   skidding = skidding || 0;
   distance = (distance || 0) * invertDistance;
@@ -1343,17 +1343,17 @@ function distanceAndSkiddingToXY(placement, rects, offset) {
 
 function offset(_ref2) {
   var state = _ref2.state,
-      options = _ref2.options,
-      name = _ref2.name;
+    options = _ref2.options,
+    name = _ref2.name;
   var _options$offset = options.offset,
-      offset = _options$offset === void 0 ? [0, 0] : _options$offset;
+    offset = _options$offset === void 0 ? [0, 0] : _options$offset;
   var data = placements.reduce(function (acc, placement) {
     acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
     return acc;
   }, {});
   var _data$state$placement = data[state.placement],
-      x = _data$state$placement.x,
-      y = _data$state$placement.y;
+    x = _data$state$placement.x,
+    y = _data$state$placement.y;
 
   if (state.modifiersData.popperOffsets != null) {
     state.modifiersData.popperOffsets.x += x;
@@ -1374,7 +1374,7 @@ var offset$1 = {
 
 function popperOffsets(_ref) {
   var state = _ref.state,
-      name = _ref.name;
+    name = _ref.name;
   // Offsets are the actual position the popper needs to have to be
   // properly positioned near its reference element
   // This is the most basic placement, and will be adjusted by
@@ -1402,20 +1402,20 @@ function getAltAxis(axis) {
 
 function preventOverflow(_ref) {
   var state = _ref.state,
-      options = _ref.options,
-      name = _ref.name;
+    options = _ref.options,
+    name = _ref.name;
   var _options$mainAxis = options.mainAxis,
-      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-      _options$altAxis = options.altAxis,
-      checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
-      boundary = options.boundary,
-      rootBoundary = options.rootBoundary,
-      altBoundary = options.altBoundary,
-      padding = options.padding,
-      _options$tether = options.tether,
-      tether = _options$tether === void 0 ? true : _options$tether,
-      _options$tetherOffset = options.tetherOffset,
-      tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
+    checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+    _options$altAxis = options.altAxis,
+    checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
+    boundary = options.boundary,
+    rootBoundary = options.rootBoundary,
+    altBoundary = options.altBoundary,
+    padding = options.padding,
+    _options$tether = options.tether,
+    tether = _options$tether === void 0 ? true : _options$tether,
+    _options$tetherOffset = options.tetherOffset,
+    tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
   var overflow = detectOverflow(state, {
     boundary: boundary,
     rootBoundary: rootBoundary,
@@ -1575,7 +1575,7 @@ function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
 
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
     if (getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
-    isScrollParent(documentElement)) {
+      isScrollParent(documentElement)) {
       scroll = getNodeScroll(offsetParent);
     }
 
@@ -1671,77 +1671,77 @@ var VALID_PROPERTIES = ['name', 'enabled', 'phase', 'fn', 'effect', 'requires', 
 function validateModifiers(modifiers) {
   modifiers.forEach(function (modifier) {
     [].concat(Object.keys(modifier), VALID_PROPERTIES) // IE11-compatible replacement for `new Set(iterable)`
-    .filter(function (value, index, self) {
-      return self.indexOf(value) === index;
-    }).forEach(function (key) {
-      switch (key) {
-        case 'name':
-          if (typeof modifier.name !== 'string') {
-            console.error(format(INVALID_MODIFIER_ERROR, String(modifier.name), '"name"', '"string"', "\"" + String(modifier.name) + "\""));
-          }
+      .filter(function (value, index, self) {
+        return self.indexOf(value) === index;
+      }).forEach(function (key) {
+        switch (key) {
+          case 'name':
+            if (typeof modifier.name !== 'string') {
+              console.error(format(INVALID_MODIFIER_ERROR, String(modifier.name), '"name"', '"string"', "\"" + String(modifier.name) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'enabled':
-          if (typeof modifier.enabled !== 'boolean') {
-            console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"enabled"', '"boolean"', "\"" + String(modifier.enabled) + "\""));
-          }
+          case 'enabled':
+            if (typeof modifier.enabled !== 'boolean') {
+              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"enabled"', '"boolean"', "\"" + String(modifier.enabled) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'phase':
-          if (modifierPhases.indexOf(modifier.phase) < 0) {
-            console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"phase"', "either " + modifierPhases.join(', '), "\"" + String(modifier.phase) + "\""));
-          }
+          case 'phase':
+            if (modifierPhases.indexOf(modifier.phase) < 0) {
+              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"phase"', "either " + modifierPhases.join(', '), "\"" + String(modifier.phase) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'fn':
-          if (typeof modifier.fn !== 'function') {
-            console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"fn"', '"function"', "\"" + String(modifier.fn) + "\""));
-          }
+          case 'fn':
+            if (typeof modifier.fn !== 'function') {
+              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"fn"', '"function"', "\"" + String(modifier.fn) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'effect':
-          if (modifier.effect != null && typeof modifier.effect !== 'function') {
-            console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"effect"', '"function"', "\"" + String(modifier.fn) + "\""));
-          }
+          case 'effect':
+            if (modifier.effect != null && typeof modifier.effect !== 'function') {
+              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"effect"', '"function"', "\"" + String(modifier.fn) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'requires':
-          if (modifier.requires != null && !Array.isArray(modifier.requires)) {
-            console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requires"', '"array"', "\"" + String(modifier.requires) + "\""));
-          }
+          case 'requires':
+            if (modifier.requires != null && !Array.isArray(modifier.requires)) {
+              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requires"', '"array"', "\"" + String(modifier.requires) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'requiresIfExists':
-          if (!Array.isArray(modifier.requiresIfExists)) {
-            console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requiresIfExists"', '"array"', "\"" + String(modifier.requiresIfExists) + "\""));
-          }
+          case 'requiresIfExists':
+            if (!Array.isArray(modifier.requiresIfExists)) {
+              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requiresIfExists"', '"array"', "\"" + String(modifier.requiresIfExists) + "\""));
+            }
 
-          break;
+            break;
 
-        case 'options':
-        case 'data':
-          break;
+          case 'options':
+          case 'data':
+            break;
 
-        default:
-          console.error("PopperJS: an invalid property has been provided to the \"" + modifier.name + "\" modifier, valid properties are " + VALID_PROPERTIES.map(function (s) {
-            return "\"" + s + "\"";
-          }).join(', ') + "; but \"" + key + "\" was provided.");
-      }
-
-      modifier.requires && modifier.requires.forEach(function (requirement) {
-        if (modifiers.find(function (mod) {
-          return mod.name === requirement;
-        }) == null) {
-          console.error(format(MISSING_DEPENDENCY_ERROR, String(modifier.name), requirement, requirement));
+          default:
+            console.error("PopperJS: an invalid property has been provided to the \"" + modifier.name + "\" modifier, valid properties are " + VALID_PROPERTIES.map(function (s) {
+              return "\"" + s + "\"";
+            }).join(', ') + "; but \"" + key + "\" was provided.");
         }
+
+        modifier.requires && modifier.requires.forEach(function (requirement) {
+          if (modifiers.find(function (mod) {
+            return mod.name === requirement;
+          }) == null) {
+            console.error(format(MISSING_DEPENDENCY_ERROR, String(modifier.name), requirement, requirement));
+          }
+        });
       });
-    });
   });
 }
 
@@ -1796,10 +1796,10 @@ function popperGenerator(generatorOptions) {
   }
 
   var _generatorOptions = generatorOptions,
-      _generatorOptions$def = _generatorOptions.defaultModifiers,
-      defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
-      _generatorOptions$def2 = _generatorOptions.defaultOptions,
-      defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
+    _generatorOptions$def = _generatorOptions.defaultModifiers,
+    defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
+    _generatorOptions$def2 = _generatorOptions.defaultOptions,
+    defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
   return function createPopper(reference, popper, options) {
     if (options === void 0) {
       options = defaultOptions;
@@ -1857,10 +1857,10 @@ function popperGenerator(generatorOptions) {
           }
 
           var _getComputedStyle = getComputedStyle(popper),
-              marginTop = _getComputedStyle.marginTop,
-              marginRight = _getComputedStyle.marginRight,
-              marginBottom = _getComputedStyle.marginBottom,
-              marginLeft = _getComputedStyle.marginLeft; // We no longer take into account `margins` on the popper, and it can
+            marginTop = _getComputedStyle.marginTop,
+            marginRight = _getComputedStyle.marginRight,
+            marginBottom = _getComputedStyle.marginBottom,
+            marginLeft = _getComputedStyle.marginLeft; // We no longer take into account `margins` on the popper, and it can
           // cause bugs with positioning, so we'll warn the consumer
 
 
@@ -1885,8 +1885,8 @@ function popperGenerator(generatorOptions) {
         }
 
         var _state$elements = state.elements,
-            reference = _state$elements.reference,
-            popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
+          reference = _state$elements.reference,
+          popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
         // anymore
 
         if (!areValidElements(reference, popper)) {
@@ -1935,10 +1935,10 @@ function popperGenerator(generatorOptions) {
           }
 
           var _state$orderedModifie = state.orderedModifiers[index],
-              fn = _state$orderedModifie.fn,
-              _state$orderedModifie2 = _state$orderedModifie.options,
-              _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
-              name = _state$orderedModifie.name;
+            fn = _state$orderedModifie.fn,
+            _state$orderedModifie2 = _state$orderedModifie.options,
+            _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
+            name = _state$orderedModifie.name;
 
           if (typeof fn === 'function') {
             state = fn({
@@ -1985,9 +1985,9 @@ function popperGenerator(generatorOptions) {
     function runModifierEffects() {
       state.orderedModifiers.forEach(function (_ref3) {
         var name = _ref3.name,
-            _ref3$options = _ref3.options,
-            options = _ref3$options === void 0 ? {} : _ref3$options,
-            effect = _ref3.effect;
+          _ref3$options = _ref3.options,
+          options = _ref3$options === void 0 ? {} : _ref3$options,
+          effect = _ref3.effect;
 
         if (typeof effect === 'function') {
           var cleanupFn = effect({
@@ -1997,7 +1997,7 @@ function popperGenerator(generatorOptions) {
             options: options
           });
 
-          var noopFn = function noopFn() {};
+          var noopFn = function noopFn() { };
 
           effectCleanupFns.push(cleanupFn || noopFn);
         }
@@ -2044,111 +2044,111 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
+var extendStatics = function (d, b) {
+  extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+  return extendStatics(d, b);
 };
 
 function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  extendStatics(d, b);
+  function __() { this.constructor = d; }
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
 function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
 function __awaiter(thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+  function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+    function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+    function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
 }
 
 function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
+  var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+  return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
+  function verb(n) { return function (v) { return step([n, v]); }; }
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+    while (_) try {
+      if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+      if (y = 0, t) op = [op[0] & 2, t.value];
+      switch (op[0]) {
+        case 0: case 1: t = op; break;
+        case 4: _.label++; return { value: op[1], done: false };
+        case 5: _.label++; y = op[1]; op = [0]; continue;
+        case 7: op = _.ops.pop(); _.trys.pop(); continue;
+        default:
+          if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+          if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+          if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+          if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+          if (t[2]) _.ops.pop();
+          _.trys.pop(); continue;
+      }
+      op = body.call(thisArg, _);
+    } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+    if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+  }
 }
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
 var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
-// if the module has no dependencies, the above pattern can be simplified to
-(function (root, factory) {
-  {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    module.exports = factory();
-  }
-}(commonjsGlobal, function () {
-
-  const readyCallbacks = [];
-  document.addEventListener('DOMContentLoaded', () => {
-    domReady.done = true;
-    readyCallbacks.forEach(callback => {
-      callback();
-    });
-  });
-
-  function domReady(callback) {
-    if (domReady.done) {
-      callback();
-      return
+  // if the module has no dependencies, the above pattern can be simplified to
+  (function (root, factory) {
+    {
+      // Node. Does not work with strict CommonJS, but
+      // only CommonJS-like environments that support module.exports,
+      // like Node.
+      module.exports = factory();
     }
-    readyCallbacks.push(callback);
-  }
+  }(commonjsGlobal, function () {
 
-  domReady.done = false;
+    const readyCallbacks = [];
+    document.addEventListener('DOMContentLoaded', () => {
+      domReady.done = true;
+      readyCallbacks.forEach(callback => {
+        callback();
+      });
+    });
+
+    function domReady(callback) {
+      if (domReady.done) {
+        callback();
+        return
+      }
+      readyCallbacks.push(callback);
+    }
+
+    domReady.done = false;
 
 
-  // Just return a value to define the module export.
-  // This example returns an object, but the module
-  // can return a function as the exported value.
-  return domReady
-}));
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return domReady
+  }));
 });
 
 var _domReady = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    'default': _dready_0_0_1_dready,
-    __moduleExports: _dready_0_0_1_dready
+  __proto__: null,
+  'default': _dready_0_0_1_dready,
+  __moduleExports: _dready_0_0_1_dready
 });
 
 /**
@@ -2162,296 +2162,298 @@ var _domReady = /*#__PURE__*/Object.freeze({
  */
 var domReady = _dready_0_0_1_dready || _domReady;
 /** @class */ ((function (_super) {
-    __extends(Transition, _super);
-    function Transition() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._show = true;
-        return _this;
+  __extends(Transition, _super);
+  function Transition() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this._show = true;
+    return _this;
+  }
+  Transition.prototype.installed = function () {
+    var _this = this;
+    domReady(function () {
+      if (_this.props.appear) {
+        _this.enter();
+      }
+      if (_this.props.leavingTime) {
+        setTimeout(function () {
+          _this.leave();
+        }, _this.props.leavingTime);
+      }
+    });
+  };
+  Transition.prototype.receiveProps = function () {
+    if (this.props.appear) {
+      this.enter();
     }
-    Transition.prototype.installed = function () {
-        var _this = this;
-        domReady(function () {
-            if (_this.props.appear) {
-                _this.enter();
-            }
-            if (_this.props.leavingTime) {
-                setTimeout(function () {
-                    _this.leave();
-                }, _this.props.leavingTime);
-            }
-        });
-    };
-    Transition.prototype.receiveProps = function () {
-        if (this.props.appear) {
-            this.enter();
+    if (this.props.disappear) {
+      this.leave();
+    }
+  };
+  Transition.prototype.toggle = function () {
+    return __awaiter(this, void 0, void 0, function () {
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            this._show = !this._show;
+            if (!this._show) return [3 /*break*/, 2];
+            return [4 /*yield*/, this.enter()];
+          case 1: return [2 /*return*/, _a.sent()];
+          case 2: return [4 /*yield*/, this.leave()];
+          case 3: return [2 /*return*/, _a.sent()];
         }
-        if (this.props.disappear) {
-            this.leave();
-        }
-    };
-    Transition.prototype.toggle = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this._show = !this._show;
-                        if (!this._show) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.enter()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                    case 2: return [4 /*yield*/, this.leave()];
-                    case 3: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    Transition.prototype.enter = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        var el = _this.children[0];
-                        if (el) {
-                            _this.fire('before-enter');
-                            el.classList.remove(_this.props.name + '-leave-active');
-                            el.classList.remove(_this.props.name + '-leave-to');
-                            el.classList.add(_this.props.name + '-enter');
-                            el.classList.add(_this.props.name + '-enter-active');
-                            _this.callback = function () {
-                                el.classList.remove(this.props.name + '-enter-active');
-                                this.fire('after-enter');
-                                this._show = true;
-                                resolve();
-                            }.bind(_this);
-                            _this.once('transitionend', _this.callback);
-                            _this.once('animationend', _this.callback);
-                            window.setTimeout(function () {
-                                el.classList.remove(this.props.name + '-enter');
-                                el.classList.add(this.props.name + '-enter-to');
-                                this.fire('enter');
-                            }.bind(_this), _this.props.delay);
-                        }
-                    })];
-            });
-        });
-    };
-    Transition.prototype.leave = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        var el = _this.children[0];
-                        if (el) {
-                            _this.fire('before-leave');
-                            el.classList.remove(_this.props.name + '-enter-active');
-                            el.classList.remove(_this.props.name + '-enter-to');
-                            el.classList.add(_this.props.name + '-leave');
-                            el.classList.add(_this.props.name + '-leave-active');
-                            _this.callback = function (e) {
-                                el.classList.remove(this.props.name + '-leave-active');
-                                this.fire('after-leave');
-                                this._show = false;
-                                if (this.props.autoRemove && this.parentNode) {
-                                    this.parentNode.removeChild(this);
-                                }
-                                resolve();
-                            }.bind(_this);
-                            _this.once('transitionend', _this.callback);
-                            _this.once('animationend', _this.callback);
-                            window.setTimeout(function () {
-                                el.classList.remove(this.props.name + '-leave');
-                                el.classList.add(this.props.name + '-leave-to');
-                                this.fire('leave');
-                            }.bind(_this), _this.props.delay);
-                        }
-                    })];
-            });
-        });
-    };
-    Transition.prototype.once = function (name, callback) {
-        var wrapCall = function () {
-            this.removeEventListener(name, wrapCall);
-            callback();
-        }.bind(this);
-        this.addEventListener(name, wrapCall);
-    };
-    Transition.prototype.render = function () {
-        return;
-    };
-    Transition.propTypes = {
-        name: String,
-        leavingTime: Number,
-        autoRemove: Boolean,
-        appear: Boolean,
-        disappear: Boolean,
-        delay: Number
-    };
-    Transition.isLightDom = true;
-    Transition.defaultProps = {
-        name: 'o',
-        delay: 0
-    };
-    Transition = __decorate([
-        tag('o-transition')
-    ], Transition);
-    return Transition;
+      });
+    });
+  };
+  Transition.prototype.enter = function () {
+    return __awaiter(this, void 0, void 0, function () {
+      var _this = this;
+      return __generator(this, function (_a) {
+        return [2 /*return*/, new Promise(function (resolve) {
+          var el = _this.children[0];
+          if (el) {
+            _this.fire('before-enter');
+            el.classList.remove(_this.props.name + '-leave-active');
+            el.classList.remove(_this.props.name + '-leave-to');
+            el.classList.add(_this.props.name + '-enter');
+            el.classList.add(_this.props.name + '-enter-active');
+            _this.callback = function () {
+              el.classList.remove(this.props.name + '-enter-active');
+              this.fire('after-enter');
+              this._show = true;
+              resolve();
+            }.bind(_this);
+            _this.once('transitionend', _this.callback);
+            _this.once('animationend', _this.callback);
+            window.setTimeout(function () {
+              el.classList.remove(this.props.name + '-enter');
+              el.classList.add(this.props.name + '-enter-to');
+              this.fire('enter');
+            }.bind(_this), _this.props.delay);
+          }
+        })];
+      });
+    });
+  };
+  Transition.prototype.leave = function () {
+    return __awaiter(this, void 0, void 0, function () {
+      var _this = this;
+      return __generator(this, function (_a) {
+        return [2 /*return*/, new Promise(function (resolve) {
+          var el = _this.children[0];
+          if (el) {
+            _this.fire('before-leave');
+            el.classList.remove(_this.props.name + '-enter-active');
+            el.classList.remove(_this.props.name + '-enter-to');
+            el.classList.add(_this.props.name + '-leave');
+            el.classList.add(_this.props.name + '-leave-active');
+            _this.callback = function (e) {
+              el.classList.remove(this.props.name + '-leave-active');
+              this.fire('after-leave');
+              this._show = false;
+              if (this.props.autoRemove && this.parentNode) {
+                this.parentNode.removeChild(this);
+              }
+              resolve();
+            }.bind(_this);
+            _this.once('transitionend', _this.callback);
+            _this.once('animationend', _this.callback);
+            window.setTimeout(function () {
+              el.classList.remove(this.props.name + '-leave');
+              el.classList.add(this.props.name + '-leave-to');
+              this.fire('leave');
+            }.bind(_this), _this.props.delay);
+          }
+        })];
+      });
+    });
+  };
+  Transition.prototype.once = function (name, callback) {
+    var wrapCall = function () {
+      this.removeEventListener(name, wrapCall);
+      callback();
+    }.bind(this);
+    this.addEventListener(name, wrapCall);
+  };
+  Transition.prototype.render = function () {
+    return;
+  };
+  Transition.propTypes = {
+    name: String,
+    leavingTime: Number,
+    autoRemove: Boolean,
+    appear: Boolean,
+    disappear: Boolean,
+    delay: Number
+  };
+  Transition.isLightDOM = true;
+  Transition.defaultProps = {
+    name: 'o',
+    delay: 0
+  };
+  Transition = __decorate([
+    tag('o-transition')
+  ], Transition);
+  return Transition;
 })(WeElement));
 
 var index = "/**\n * omiu tip css based on element ui css\n * Licensed under the MIT License\n * https://github.com/ElemeFE/element/blob/dev/LICENSE\n *\n * modified by dntzhang\n */\n:host {\n  display: inline-block; }\n\n:host([block]) {\n  display: block; }\n\n.tip {\n  position: absolute;\n  background: #fff;\n  min-width: 150px;\n  border-radius: 4px;\n  border: 1px solid #ebeef5;\n  z-index: 2000;\n  color: #606266;\n  line-height: 1.4;\n  text-align: justify;\n  font-size: 14px;\n  word-break: break-all;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  width: 100%; }\n\n.tip .tip-arrow,\n.tip .tip-arrow::after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid; }\n\n.tip .tip-arrow {\n  border-width: 6px; }\n\n.tip .tip-arrow::after {\n  content: \" \";\n  border-width: 5px; }\n\n.tip[data-popper-placement^=top] {\n  margin-bottom: 12px; }\n\n.tip[data-popper-placement^=top] .tip-arrow {\n  bottom: -6px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=top] .tip-arrow::after {\n  bottom: 1px;\n  margin-left: -5px;\n  border-top-color: #ebeef5;\n  border-bottom-width: 0; }\n\n.tip[data-popper-placement^=bottom] {\n  margin-top: 12px; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow {\n  top: -6px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=bottom] .tip-arrow::after {\n  top: 1px;\n  margin-left: -5px;\n  border-top-width: 0;\n  border-bottom-color: #ebeef5; }\n\n.tip[data-popper-placement^=right] {\n  margin-left: 12px; }\n\n.tip[data-popper-placement^=right] .tip-arrow {\n  left: -6px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=right] .tip-arrow::after {\n  bottom: -5px;\n  left: 1px;\n  border-right-color: #ebeef5;\n  border-left-width: 0; }\n\n.tip[data-popper-placement^=left] {\n  margin-right: 12px; }\n\n.tip[data-popper-placement^=left] .tip-arrow {\n  right: -6px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip[data-popper-placement^=left] .tip-arrow::after {\n  right: 1px;\n  bottom: -5px;\n  margin-left: -5px;\n  border-right-width: 0;\n  border-left-color: #ebeef5; }\n\n.tip.is-dark {\n  background: #ebeef5;\n  color: #FFF; }\n\n.tip.is-light {\n  background: #FFF; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow {\n  border-top-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=top] .tip-arrow::after {\n  border-top-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow {\n  border-bottom-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=bottom] .tip-arrow::after {\n  border-bottom-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow {\n  border-left-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=left] .tip-arrow::after {\n  border-left-color: #FFF; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow {\n  border-right-color: #ebeef5; }\n\n.tip.is-light[data-popper-placement^=right] .tip-arrow::after {\n  border-right-color: #FFF; }\n\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n  padding-top: 10px;\n  pointer-events: none; }\n\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1), padding-top 0.3s cubic-bezier(0.55, 0, 0.1, 1);\n  transition: opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1), padding-top 0.3s cubic-bezier(0.55, 0, 0.1, 1); }\n";
 
-var css = index;Object.freeze({
-    __proto__: null,
-    'default': index
+var css = index; Object.freeze({
+  __proto__: null,
+  'default': index
 });
 
 var Popover = /** @class */ (function (_super) {
-    __extends$1(Popover, _super);
-    function Popover() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onEnter = function (evt) {
-            clearTimeout(_this.timeout);
-            _this.isShow = !_this.isShow;
-            if (_this.isShow) {
-                _this.appear = true;
-                _this.disappear = false;
-            }
-            else {
-                _this.appear = false;
-                _this.disappear = true;
-            }
-            _this.update();
-            //html 模式过滤文本
-            var tip = _this.shadowRoot
-                .querySelector('slot')
-                .assignedNodes()
-                .find(function (node) { return node.nodeType !== 3; });
-            _this.popper && _this.popper.destroy();
-            _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
-                placement: _this.props.position,
-                modifiers: [
-                    {
-                        name: 'offset',
-                        options: {
-                            offset: [0, 8],
-                        },
-                    },
-                    {
-                        name: 'computeStyles',
-                        options: {
-                            adaptive: false,
-                        },
-                    },
-                ],
-            });
-            evt.stopPropagation();
-        };
-        _this.onLeave = function () {
-            _this.timeout = setTimeout(function () {
-                _this.leave();
-                _this.update();
-            }, 600);
-        };
-        _this.onEnterPopover = function (evt) {
-            clearTimeout(_this.timeout);
-            evt.stopPropagation();
-        };
-        _this.onLeavePopover = function () {
-            if (_this.props.trigger === 'hover') {
-                _this.timeout = setTimeout(function () {
-                    _this.leave();
-                    _this.update();
-                }, 600);
-            }
-        };
-        _this.isShow = false;
-        return _this;
-    }
-    Popover.prototype.installed = function () {
-        var _this = this;
-        window.addEventListener('click', function () {
-            // 手动模式
-            if (_this.props.trigger === 'manual')
-                return;
-            if (_this.isShow) {
-                _this.leave();
-                _this.update();
-            }
-        });
-        this._onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
-        // 只保留一个 popper，其他隐藏
-        document.addEventListener('mousedown', this._onDocumentMouseDown);
+  __extends$1(Popover, _super);
+  function Popover() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this.onEnter = function (evt) {
+      clearTimeout(_this.timeout);
+      _this.isShow = !_this.isShow;
+      if (_this.isShow) {
+        _this.appear = true;
+        _this.disappear = false;
+      }
+      else {
+        _this.appear = false;
+        _this.disappear = true;
+      }
+      _this.update();
+      //html 模式过滤文本
+      var tip = _this.shadowRoot
+        .querySelector('slot')
+        .assignedNodes()
+        .find(function (node) { return node.nodeType !== 3; });
+      _this.popper && _this.popper.destroy();
+      _this.popper = createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
+        placement: _this.props.position,
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 8],
+            },
+          },
+          {
+            name: 'computeStyles',
+            options: {
+              adaptive: false,
+            },
+          },
+        ],
+      });
+      evt.stopPropagation();
     };
-    Popover.prototype.onDocumentMouseDown = function (e) {
-        var isShowEl = false;
-        // safari版本14.1.2 不支持 e.path
-        var path = e.path || (event.composedPath && event.composedPath());
-        for (var i = 0, len = path.length; i < len; i++) {
-            if (path[i] === this.rootNode) {
-                isShowEl = true;
-                break;
-            }
-        }
-        if (!isShowEl) {
-            this.isShow = false;
-        }
-        this.update();
+    _this.onLeave = function () {
+      _this.timeout = setTimeout(function () {
+        _this.leave();
+        _this.update();
+      }, 600);
     };
-    Popover.prototype.updatePosition = function () {
-        this.popper.update();
+    _this.onEnterPopover = function (evt) {
+      clearTimeout(_this.timeout);
+      evt.stopPropagation();
     };
-    Popover.prototype.leave = function () {
-        var _this = this;
-        this.appear = false;
-        this.disappear = true;
-        setTimeout(function () {
-            _this.isShow = false;
+    _this.onLeavePopover = function () {
+      if (_this.props.trigger === 'hover') {
+        _this.timeout = setTimeout(function () {
+          _this.leave();
+          _this.update();
         }, 600);
+      }
     };
-    Popover.prototype.render = function (props) {
-        var _a;
-        var targetEvents = {
-            onMouseEnter: null,
-            onMouseLeave: null,
-            onClick: null,
-        };
-        if (props.trigger === 'click') {
-            targetEvents.onClick = this.onEnter;
-        }
-        else if (props.trigger === 'hover') {
-            targetEvents.onMouseEnter = this.onEnter;
-            targetEvents.onMouseLeave = this.onLeave;
-        }
-        return (h("div", { style: "position:relative" },
-            h("slot", __assign({}, targetEvents)),
-            h("o-transition", { appear: this.appear, disappear: this.disappear, name: "fade" },
-                h("div", { style: { display: this.isShow ? 'block' : 'none' }, class: classNames((_a = {
-                            tip: true
-                        },
-                        _a["is-" + props.effect] = props.effect,
-                        _a)) },
-                    h("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
-                    h("i", { class: "tip-arrow", "data-popper-arrow": true })))));
+    _this.isShow = false;
+    return _this;
+  }
+  Popover.prototype.installed = function () {
+    var _this = this;
+    window.addEventListener('click', function () {
+      // 手动模式
+      if (_this.props.trigger === 'manual')
+        return;
+      if (_this.isShow) {
+        _this.leave();
+        _this.update();
+      }
+    });
+    this._onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
+    // 只保留一个 popper，其他隐藏
+    document.addEventListener('mousedown', this._onDocumentMouseDown);
+  };
+  Popover.prototype.onDocumentMouseDown = function (e) {
+    var isShowEl = false;
+    // safari版本14.1.2 不支持 e.path
+    var path = e.path || (event.composedPath && event.composedPath());
+    for (var i = 0, len = path.length; i < len; i++) {
+      if (path[i] === this.rootNode) {
+        isShowEl = true;
+        break;
+      }
+    }
+    if (!isShowEl) {
+      this.isShow = false;
+    }
+    this.update();
+  };
+  Popover.prototype.updatePosition = function () {
+    this.popper.update();
+  };
+  Popover.prototype.leave = function () {
+    var _this = this;
+    this.appear = false;
+    this.disappear = true;
+    setTimeout(function () {
+      _this.isShow = false;
+    }, 600);
+  };
+  Popover.prototype.render = function (props) {
+    var _a;
+    var targetEvents = {
+      onMouseEnter: null,
+      onMouseLeave: null,
+      onClick: null,
     };
-    Popover.css = css;
-    Popover.defaultProps = {
-        effect: 'light',
-        position: 'bottom',
-        /**
-         * 触发方式
-         */
-        trigger: 'click',
-        block: false
-    };
-    Popover.propTypes = {
-        content: String,
-        effect: String,
-        position: String,
-        trigger: String,
-        block: Boolean
-    };
-    Popover = __decorate$1([
-        tag('o-popover')
-    ], Popover);
-    return Popover;
+    if (props.trigger === 'click') {
+      targetEvents.onClick = this.onEnter;
+    }
+    else if (props.trigger === 'hover') {
+      targetEvents.onMouseEnter = this.onEnter;
+      targetEvents.onMouseLeave = this.onLeave;
+    }
+    return (h("div", { style: "position:relative" },
+      h("slot", __assign({}, targetEvents)),
+      h("o-transition", { appear: this.appear, disappear: this.disappear, name: "fade" },
+        h("div", {
+          style: { display: this.isShow ? 'block' : 'none' }, class: classNames((_a = {
+            tip: true
+          },
+            _a["is-" + props.effect] = props.effect,
+            _a))
+        },
+          h("slot", { onMouseEnter: this.onEnterPopover, onMouseLeave: this.onLeavePopover, name: "popover" }),
+          h("i", { class: "tip-arrow", "data-popper-arrow": true })))));
+  };
+  Popover.css = css;
+  Popover.defaultProps = {
+    effect: 'light',
+    position: 'bottom',
+    /**
+     * 触发方式
+     */
+    trigger: 'click',
+    block: false
+  };
+  Popover.propTypes = {
+    content: String,
+    effect: String,
+    position: String,
+    trigger: String,
+    block: Boolean
+  };
+  Popover = __decorate$1([
+    tag('o-popover')
+  ], Popover);
+  return Popover;
 }(WeElement));
 
 export { Popover as default };

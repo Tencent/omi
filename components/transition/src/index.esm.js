@@ -24,7 +24,7 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
+var extendStatics = function (d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
@@ -55,8 +55,8 @@ function __awaiter(thisArg, _arguments, P, generator) {
 }
 
 function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -85,44 +85,44 @@ function __generator(thisArg, body) {
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+    return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
 var _dready_0_0_1_dready = createCommonjsModule(function (module, exports) {
-// if the module has no dependencies, the above pattern can be simplified to
-(function (root, factory) {
-  {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    module.exports = factory();
-  }
-}(commonjsGlobal, function () {
+    // if the module has no dependencies, the above pattern can be simplified to
+    (function (root, factory) {
+        {
+            // Node. Does not work with strict CommonJS, but
+            // only CommonJS-like environments that support module.exports,
+            // like Node.
+            module.exports = factory();
+        }
+    }(commonjsGlobal, function () {
 
-  const readyCallbacks = [];
-  document.addEventListener('DOMContentLoaded', () => {
-    domReady.done = true;
-    readyCallbacks.forEach(callback => {
-      callback();
-    });
-  });
+        const readyCallbacks = [];
+        document.addEventListener('DOMContentLoaded', () => {
+            domReady.done = true;
+            readyCallbacks.forEach(callback => {
+                callback();
+            });
+        });
 
-  function domReady(callback) {
-    if (domReady.done) {
-      callback();
-      return
-    }
-    readyCallbacks.push(callback);
-  }
+        function domReady(callback) {
+            if (domReady.done) {
+                callback();
+                return
+            }
+            readyCallbacks.push(callback);
+        }
 
-  domReady.done = false;
+        domReady.done = false;
 
 
-  // Just return a value to define the module export.
-  // This example returns an object, but the module
-  // can return a function as the exported value.
-  return domReady
-}));
+        // Just return a value to define the module export.
+        // This example returns an object, but the module
+        // can return a function as the exported value.
+        return domReady
+    }));
 });
 
 var _domReady = /*#__PURE__*/Object.freeze({
@@ -189,28 +189,28 @@ var Transition = /** @class */ (function (_super) {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve) {
-                        var el = _this.children[0];
-                        if (el) {
-                            _this.fire('before-enter');
-                            el.classList.remove(_this.props.name + '-leave-active');
-                            el.classList.remove(_this.props.name + '-leave-to');
-                            el.classList.add(_this.props.name + '-enter');
-                            el.classList.add(_this.props.name + '-enter-active');
-                            _this.callback = function () {
-                                el.classList.remove(this.props.name + '-enter-active');
-                                this.fire('after-enter');
-                                this._show = true;
-                                resolve();
-                            }.bind(_this);
-                            _this.once('transitionend', _this.callback);
-                            _this.once('animationend', _this.callback);
-                            window.setTimeout(function () {
-                                el.classList.remove(this.props.name + '-enter');
-                                el.classList.add(this.props.name + '-enter-to');
-                                this.fire('enter');
-                            }.bind(_this), _this.props.delay);
-                        }
-                    })];
+                    var el = _this.children[0];
+                    if (el) {
+                        _this.fire('before-enter');
+                        el.classList.remove(_this.props.name + '-leave-active');
+                        el.classList.remove(_this.props.name + '-leave-to');
+                        el.classList.add(_this.props.name + '-enter');
+                        el.classList.add(_this.props.name + '-enter-active');
+                        _this.callback = function () {
+                            el.classList.remove(this.props.name + '-enter-active');
+                            this.fire('after-enter');
+                            this._show = true;
+                            resolve();
+                        }.bind(_this);
+                        _this.once('transitionend', _this.callback);
+                        _this.once('animationend', _this.callback);
+                        window.setTimeout(function () {
+                            el.classList.remove(this.props.name + '-enter');
+                            el.classList.add(this.props.name + '-enter-to');
+                            this.fire('enter');
+                        }.bind(_this), _this.props.delay);
+                    }
+                })];
             });
         });
     };
@@ -219,31 +219,31 @@ var Transition = /** @class */ (function (_super) {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve) {
-                        var el = _this.children[0];
-                        if (el) {
-                            _this.fire('before-leave');
-                            el.classList.remove(_this.props.name + '-enter-active');
-                            el.classList.remove(_this.props.name + '-enter-to');
-                            el.classList.add(_this.props.name + '-leave');
-                            el.classList.add(_this.props.name + '-leave-active');
-                            _this.callback = function (e) {
-                                el.classList.remove(this.props.name + '-leave-active');
-                                this.fire('after-leave');
-                                this._show = false;
-                                if (this.props.autoRemove && this.parentNode) {
-                                    this.parentNode.removeChild(this);
-                                }
-                                resolve();
-                            }.bind(_this);
-                            _this.once('transitionend', _this.callback);
-                            _this.once('animationend', _this.callback);
-                            window.setTimeout(function () {
-                                el.classList.remove(this.props.name + '-leave');
-                                el.classList.add(this.props.name + '-leave-to');
-                                this.fire('leave');
-                            }.bind(_this), _this.props.delay);
-                        }
-                    })];
+                    var el = _this.children[0];
+                    if (el) {
+                        _this.fire('before-leave');
+                        el.classList.remove(_this.props.name + '-enter-active');
+                        el.classList.remove(_this.props.name + '-enter-to');
+                        el.classList.add(_this.props.name + '-leave');
+                        el.classList.add(_this.props.name + '-leave-active');
+                        _this.callback = function (e) {
+                            el.classList.remove(this.props.name + '-leave-active');
+                            this.fire('after-leave');
+                            this._show = false;
+                            if (this.props.autoRemove && this.parentNode) {
+                                this.parentNode.removeChild(this);
+                            }
+                            resolve();
+                        }.bind(_this);
+                        _this.once('transitionend', _this.callback);
+                        _this.once('animationend', _this.callback);
+                        window.setTimeout(function () {
+                            el.classList.remove(this.props.name + '-leave');
+                            el.classList.add(this.props.name + '-leave-to');
+                            this.fire('leave');
+                        }.bind(_this), _this.props.delay);
+                    }
+                })];
             });
         });
     };
@@ -265,7 +265,7 @@ var Transition = /** @class */ (function (_super) {
         disappear: Boolean,
         delay: Number
     };
-    Transition.isLightDom = true;
+    Transition.isLightDOM = true;
     Transition.defaultProps = {
         name: 'o',
         delay: 0

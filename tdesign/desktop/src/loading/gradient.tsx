@@ -6,7 +6,7 @@ import css from './style/index'
 export default class GradientLoading extends WeElement {
   static css = css
   conicRef = createRef()
-  static isLightDom = true
+  static isLightDOM = true
   // ref={this.conicRef} not used
   useCircleAdapter = () => {
     const el = this.conicRef.current as HTMLElement
