@@ -161,7 +161,8 @@ const metaData = new Map([
       description: '用于展示图片素材。',
     },
   ],
-  ['avatar', { title: 'Avatar 头像', description: '用图标、图片、字符的形式展示用户或事物信息' }],
+  ['avatar', { title: 'Avatar 头像', description: '用图标、图片、字符的形式展示用户或事物信息。' }],
+  ['switch', { title: 'Switch 开关', description: '用于两个互斥选项，用来打开或关闭选项的选择控件。' }],
 ])
 
 const getMetaData = (componentName: string) => {

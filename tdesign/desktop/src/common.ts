@@ -3,9 +3,8 @@ import { TdClassNamePrefix } from './utils'
 
 // TElement 表示 API 只接受传入组件
 export type TElement<T = undefined> = T extends undefined ? WeElement : (props: T) => WeElement
-// 1. TNode = ReactNode; 2. TNode<T> = (props: T) => ReactNode
-export type TNode<T = undefined> = T extends undefined ? WeElement : WeElement | ((props: T) => WeElement)
-
+export type OmiNode = WeElement | string | number | Iterable<OmiNode> | boolean | null | undefined
+export type TNode<T = undefined> = T extends undefined ? OmiNode : OmiNode | ((props: T) => OmiNode)
 export type AttachNodeReturnValue = HTMLElement | Element | Document
 export type AttachNode = CSSSelector | ((triggerNode?: HTMLElement) => AttachNodeReturnValue)
 

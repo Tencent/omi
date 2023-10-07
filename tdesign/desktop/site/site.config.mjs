@@ -348,14 +348,14 @@ export const docs = [
         //       component: () => import('tdesign-omi/slider/slider.md'),
         //       componentEn: () => import('tdesign-omi/slider/slider.en-US.md'),
       },
-      //     {
-      //       title: 'Switch 开关',
-      //       titleEn: 'Switch',
-      //       name: 'switch',
-      //       path: '/switch',
-      //       component: () => import('tdesign-omi/switch/switch.md'),
-      //       componentEn: () => import('tdesign-omi/switch/switch.en-US.md'),
-      //     },
+      {
+        title: 'Switch 开关',
+        titleEn: 'Switch',
+        name: 'switch',
+        path: '/switch',
+        //       component: () => import('tdesign-omi/switch/switch.md'),
+        //       componentEn: () => import('tdesign-omi/switch/switch.en-US.md'),
+      },
       {
         title: 'Textarea 多行文本框',
         titleEn: 'Textarea',

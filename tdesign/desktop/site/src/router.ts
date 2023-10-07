@@ -34,6 +34,7 @@ const components = [
   'tag-input',
   'drawer',
   'image',
+  'switch',
 ]
 
 export function registerRouting(rootEl: any) {
