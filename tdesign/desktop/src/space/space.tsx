@@ -6,7 +6,7 @@ import { StyledProps } from '../common'
 export interface SpaceProps extends TdSpaceProps, StyledProps {}
 const SizeMap = { small: '8px', medium: '16px', large: '24px' }
 @tag('t-space')
-export default class Link extends WeElement<SpaceProps> {
+export default class Space extends WeElement<SpaceProps> {
   static css = css as string
   static defaultProps = { breakLine: false, direction: 'horizontal', size: 'medium' }
   static propTypes = {

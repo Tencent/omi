@@ -10,7 +10,7 @@ import * as marked from 'marked'
 
 const docsHtml = marked.parse(`
 ## API
-### Link Props
+### Message Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 --  |  --  |  --  |  --  |  -- 
