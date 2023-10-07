@@ -35,6 +35,7 @@ const components = [
   'drawer',
   'image',
   'switch',
+  'progress',
 ]
 
 export function registerRouting(rootEl: any) {

@@ -1,0 +1,24 @@
+@import '../../_common/style/web/base.less';
+@import '../../_common/style/web/components/progress/_var.less';
+@import '../../_common/style/web/components/progress/_mixin.less';
+@import '../../_common/style/web/mixins/_reset.less';
+
+.@{prefix}-progress__icon {
+  font-size: @progress-icon-font-size;
+}
+
+.@{prefix}-progress-circle .@{prefix}-progress__icon {
+  font-size: @progress-icon-circle-font-size;
+}
+
+.@{prefix}-progress--status--success .@{prefix}-progress__icon {
+  color: @progress-success;
+}
+
+.@{prefix}-progress--status--warning .@{prefix}-progress__icon {
+  color: @progress-warning;
+}
+
+.@{prefix}-progress--status--error .@{prefix}-progress__icon {
+  color: @progress-error;
+}
