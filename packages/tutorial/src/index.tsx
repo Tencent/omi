@@ -8,12 +8,14 @@ import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
 // import { css } from "@codemirror/lang-css"
 import { route } from 'omi-router'
+// todo, 兼容 omi-next
 import { showLoading, hideLoading } from '@omiu/toast'
 import { files } from './files'
 import { tsBuild } from './ts-build'
 import { rollupBuild } from './rollup-build'
 
 import '@omiu/popover'
+// todo, 兼容 omi-next
 import '@omiu/link'
 import '@omiu/icon/esm/navigate-before'
 import '@omiu/icon/esm/navigate-next'
