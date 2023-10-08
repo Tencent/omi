@@ -3,7 +3,7 @@ import { diff } from './diff'
 import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
 import { VNode } from './vdom'
-import { setActiveComponent } from './signal'
+import { setActiveComponent } from './reactivity'
 
 let id = 0
 
