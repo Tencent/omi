@@ -1,0 +1,20 @@
+master:
+  push:
+    - docker:
+        image: node:16
+      wework:
+        title: $ORANGE_REPO_SLUG
+      stages:
+        - name: 跳转目录-安装依赖-执行构建
+          env:
+            NPM_REGISTRY: https://mirrors.tencent.com/npm/
+          script: ['npm install --registry=$NPM_REGISTRY --verbose','npm run doc']
+        - name: 同步文件至测试机
+          type: orange-ci:transfer
+          options:
+            dist: /docs
+            to: /data/sites/$ORANGE_REPO_SLUG/$ORANGE_BRANCH/
+            ips:
+              - 9.134.4.140
+            after:
+              - node /data/tangdao/server/src/orange.js
