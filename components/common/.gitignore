@@ -1,9 +1,0 @@
-dist/
-node_modules/
-
-.DS_Store
-
-# lock
-yarn.lock
-package-lock.json
-pnpm-lock.yaml
