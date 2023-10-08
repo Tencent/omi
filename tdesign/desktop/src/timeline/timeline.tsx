@@ -2,10 +2,11 @@ import { h, tag, WeElement, OmiProps, cloneElement, classNames } from 'omi'
 import { TdTimelineProps } from './type'
 import css from './style/index'
 import { toArray } from 'lodash'
-import { StyledProps, commonClass } from '../common'
-import { TdClassNamePrefix, parseTNode } from '../utils'
+import { StyledProps } from '../common'
+import { TdClassNamePrefix } from '../utils'
 import '../loading'
 import { getAlign } from './getAlign'
+import timelineItemCss from './style/timeline-item.less'
 
 export interface TimelineProps extends TdTimelineProps, StyledProps {}
 
@@ -27,10 +28,9 @@ export default class Timeline extends WeElement<TimelineProps> {
     theme: String,
   }
 
-  provide = {
+  itemProps = {
     theme: Timeline.defaultProps.theme,
     reverse: Timeline.defaultProps.reverse,
-    itemsStatus: [] as any,
     layout: Timeline.defaultProps.layout,
     globalAlign: Timeline.defaultProps.labelAlign,
     mode: Timeline.defaultProps.mode,
@@ -39,34 +39,36 @@ export default class Timeline extends WeElement<TimelineProps> {
   timelineItems: any
   itemsStatus: any
   hasLabelItem: any
-  install() {
-    const { theme, reverse, layout, labelAlign, mode } = this.props
+
+  updateItemProps = () => {
+    const { theme, reverse, layout, labelAlign: globalAlign, mode } = this.props
+    this.itemProps = {
+      theme: theme,
+      reverse: reverse,
+      layout: layout,
+      globalAlign: globalAlign,
+      mode: mode,
+    }
+  }
+  updateItemsStatus = () => {
     this.timelineItems = toArray(this.props.children).filter(
       (child: JSX.Element) => child.nodeName === 't-timeline-item',
     )
     this.itemsStatus = this.timelineItems.map((child: JSX.Element) => child.attributes?.dotColor || 'primary')
-    this.hasLabelItem = this.timelineItems.some((item: any) => !!item?.props?.label)
-    this.provide = {
-      theme: theme,
-      reverse: reverse,
-      itemsStatus: this.itemsStatus,
-      layout: layout,
-      globalAlign: labelAlign,
-      mode: mode,
-    }
+    this.hasLabelItem = this.timelineItems.some((item: any) => !!item?.attributes?.label)
+  }
+
+  beforeRender() {
+    this.updateItemProps()
+    this.updateItemsStatus()
+  }
+  install() {
+    this.updateItemProps()
+    this.updateItemsStatus()
   }
   render(props: OmiProps<TimelineProps>) {
-    const { componentName, timelineItems, hasLabelItem } = this
-    const {
-      theme = 'default',
-      labelAlign,
-      children,
-      class: className,
-      style,
-      reverse = false,
-      layout = 'vertical',
-      mode = 'alternate',
-    } = props
+    const { componentName, timelineItems, hasLabelItem, itemProps, itemsStatus } = this
+    const { labelAlign, class: className, style, reverse, layout, mode } = props
     const renderAlign = getAlign(labelAlign, layout)
 
     if (reverse) {
@@ -95,6 +97,9 @@ export default class Timeline extends WeElement<TimelineProps> {
             class: classNames([ele?.attributes?.class], {
               [`${componentName}-item--last`]: index === itemsCounts - 1,
             }),
+            status: itemsStatus[index],
+            ...itemProps,
+            css: timelineItemCss,
           }),
         )}
       </ul>

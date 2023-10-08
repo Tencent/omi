@@ -1,5 +1,5 @@
 import { h, tag, WeElement, OmiProps, classNames, cloneElement } from 'omi'
-import { TdTimelineItemProps } from './type'
+import { TdTimelineItemProps, TdTimelineProps } from './type'
 import css from './style/index'
 import { StyledProps } from '../common'
 import { TdClassNamePrefix, parseTNode } from '../utils'
@@ -10,6 +10,12 @@ import '../loading'
 const DefaultTheme = ['default', 'primary', 'success', 'warning', 'error']
 interface SubItem {
   index?: number
+  theme?: TdTimelineProps['theme']
+  reverse?: TdTimelineProps['reverse']
+  status?: any
+  layout?: TdTimelineProps['layout']
+  globalAlign?: TdTimelineProps['labelAlign']
+  mode?: TdTimelineProps['mode']
 }
 export interface TimelineItemProps extends TdTimelineItemProps, StyledProps, SubItem {}
 
@@ -28,25 +34,30 @@ export default class TimelineItem extends WeElement<TimelineItemProps> {
     index: Number,
   }
 
-  inject = ['theme', 'reverse', 'itemsStatus', 'layout', 'globalAlign', 'mode']
   componentName = TdClassNamePrefix('timeline-item')
 
   render(props: OmiProps<TimelineItemProps>) {
     const { componentName } = this
     const {
       class: className,
-      style = {},
+      style,
       dot,
-      dotColor = 'primary',
+      dotColor,
       labelAlign,
       children,
       index,
       content,
       label,
       loading = false,
+      theme,
+      reverse,
+      status,
+      layout,
+      globalAlign,
+      mode,
     } = props
 
-    const { theme, reverse, itemsStatus, layout, globalAlign, mode } = this.injection
+    console.log('item props: ', props)
     const renderAlign = getAlign(globalAlign, layout)
 
     // 计算节点模式 CSS 类名
@@ -71,7 +82,7 @@ export default class TimelineItem extends WeElement<TimelineItemProps> {
     let dotElement = undefined
     if (isObject(ele)) {
       dotElement = cloneElement(ele, {
-        class: classNames(ele?.props?.class, `${componentName}__dot-content`),
+        class: classNames(ele?.attributes?.class, `${componentName}__dot-content`),
       })
     }
 
@@ -79,6 +90,11 @@ export default class TimelineItem extends WeElement<TimelineItemProps> {
     const itemClassName = classNames(
       {
         [`${componentName}`]: true,
+        [`${componentName}-horizontal`]: layout === 'horizontal',
+        [`${componentName}-alternate`]: globalAlign === 'alternate',
+        [`${componentName}-label--alternate`]: mode === 'alternate',
+        [`${componentName}-global-left`]: globalAlign === 'left',
+        [`${componentName}-global-right`]: globalAlign === 'right',
         [`${getPositionClassName(index)}`]: true,
       },
       className,
@@ -88,7 +104,7 @@ export default class TimelineItem extends WeElement<TimelineItemProps> {
     const tailClassName = classNames({
       [`${componentName}__tail`]: true,
       [`${componentName}__tail--theme-${theme}`]: true,
-      [`${componentName}__tail--status-${itemsStatus[index]}`]: reverse,
+      [`${componentName}__tail--status-${status}`]: reverse,
     })
 
     // 圆圈类名
