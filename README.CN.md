@@ -8,7 +8,7 @@
 - 💒 使用 Constructable Stylesheets 轻松管理和共享样式
 
 ```tsx
-import { render, signal, tag, Component, h } from '@/index'
+import { render, signal, tag, Component, h } from 'omi'
 
 const count = signal(0)
 
