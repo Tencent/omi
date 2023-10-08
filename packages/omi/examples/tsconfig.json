@@ -19,7 +19,6 @@
       "dom"
     ],
     "types": [
-      "jest",
       "vite/client",
       "node"
     ],
