@@ -3,9 +3,9 @@ English | [简体中文](./README.CN.md)
 <p align="center"><img src="https://tencent.github.io/omi/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi - Web Components Framework</h2>
 
-- 📶 Signal-driven reactive programming
-- 🌐 Web Components + JSX for streamlined component-based development
-- 💒 Harness Constructable Stylesheets to easily manage and share styles
+- 📶 **Signal**-driven reactive programming
+- 🌐 **Web Components** + **JSX** for streamlined component-based development
+- 💒 Harness **Constructable Stylesheets** to easily manage and share styles
 
 ```tsx
 import { render, signal, tag, Component, h } from 'omi'
