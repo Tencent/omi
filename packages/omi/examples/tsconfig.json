@@ -31,7 +31,8 @@
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.tsx", 
+    "../omi.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -16,7 +16,8 @@
     "doc": "npx typedoc --out docs src"
   },
   "files": [
-    "dist"
+    "dist",
+    "omi.d.ts"
   ],
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
@@ -51,6 +52,7 @@
   },
   "type": "module",
   "source": "src/index.ts",
+  "types": "omi.d.ts",
   "exports": {
     "require": "./dist/omi.cjs",
     "default": "./dist/omi.modern.js"

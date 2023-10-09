@@ -18,7 +18,7 @@ function addTodo() {
   newItem.value = '' // Reset input value on add
 }
 
-function removeTodo(index) {
+function removeTodo(index: number) {
   todos.value.splice(index, 1)
   todos.value = [...todos.value]
 }
@@ -26,7 +26,10 @@ function removeTodo(index) {
 @tag('todo-list')
 class TodoList extends Component {
 
-  onInput = event => (newItem.value = event.target.value)
+  onInput = (event: Event) => {
+    const target = event.target as HTMLInputElement
+    newItem.value = target.value
+  }
 
   render() {
     return (

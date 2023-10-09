@@ -131,6 +131,7 @@ export class Component extends HTMLElement {
     this.applyAdoptedStyleSheets()
     this.beforeRender()
     setActiveComponent(this)
+    // @ts-ignore
     const rendered = this.render(this.props, this.store)
     setActiveComponent(null)
     this.rootElement = diff(null, rendered as VNode, null, this, false)
@@ -157,6 +158,7 @@ export class Component extends HTMLElement {
     this.beforeRender()
     this.attrsToProps()
     setActiveComponent(this)
+    // @ts-ignore
     const rendered = this.render(this.props, this.store)
     setActiveComponent(null)
     this.rendered()
@@ -281,8 +283,6 @@ export class Component extends HTMLElement {
       )
     }
   }
-
-  render(props: object, store?: unknown): VNode | undefined | null | void { }
 
   beforeInstall() { }
 

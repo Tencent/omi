@@ -6,5 +6,5 @@ switch (location.hash) {
     import('./signal')
     break
   default:
-    import('./base')
+    import('./todo-app')
 }
