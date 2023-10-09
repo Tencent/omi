@@ -2,6 +2,7 @@
 <h2 align="center">Omi - Web Components Framework</h2>
 
 - 📶 **Signal**-driven reactive programming
+- 💯 Both **object** oriented programming(OOP) and **data** oriented programming(DOP) are supported
 - 🌐 **Web Components** + **JSX** for streamlined component-based development
 - 💒 Harness **Constructable Stylesheets** to easily manage and share styles
 
@@ -39,7 +40,7 @@ render(<counter-demo />, document.body)
 ## Install 
 
 ```bash
-npm i omi@7.0.0-alpha0
+npm i omi@7.0.0-alpha1
 ```
 
 ## Usage
@@ -120,7 +121,7 @@ render(<todo-list />, document.body)
 ```
 
 
-### TodoApp with reactivity functions
+### TodoApp with Signal Class
 
 > Object oriented programming
 
