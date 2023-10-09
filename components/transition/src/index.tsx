@@ -34,7 +34,7 @@ export default class Transition extends WeElement<Props>{
     delay: Number
   }
 
-  static isLightDom = true
+  static isLightDOM = true
 
   static defaultProps = {
     name: 'o',

@@ -57,7 +57,7 @@ export default class OSlider extends WeElement<Props> {
   __$v2: any
   max: any
   min: any
-  rootNode: HTMLElement
+  rootElement: HTMLElement
   sliderOneRef: HTMLInputElement
   sliderTwoRef: HTMLInputElement
   sliderTrack: HTMLElement
@@ -141,8 +141,8 @@ export default class OSlider extends WeElement<Props> {
 
     console.assert(
       this.props.size === 'small' ||
-        this.props.size === 'normal' ||
-        this.props.size === 'large',
+      this.props.size === 'normal' ||
+      this.props.size === 'large',
       'invalid size option'
     )
     console.assert(
@@ -298,7 +298,7 @@ export default class OSlider extends WeElement<Props> {
       <div
         {...cls}
         ref={(e) => {
-          this.rootNode = e
+          this.rootElement = e
         }}
       >
         {this.props.tooltip ? (

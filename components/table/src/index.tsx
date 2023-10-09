@@ -115,23 +115,23 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
       const { bodyCellSpan } = cellSpanOption
 
       if (typeof bodyCellSpan === 'function') {
-          const result = bodyCellSpan({
-            row: rowData,
-            column
-          })
+        const result = bodyCellSpan({
+          row: rowData,
+          column
+        })
 
-          if (typeof result === 'object') {
-            rowspan = result.rowspan
-            colspan = result.colspan    
-          }
-      } 
+        if (typeof result === 'object') {
+          rowspan = result.rowspan
+          colspan = result.colspan
+        }
+      }
     }
-    
-    return {rowspan, colspan}
+
+    return { rowspan, colspan }
   }
 
   layout() {
-    const width = this.rootNode?.getBoundingClientRect().width
+    const width = this.rootElement?.getBoundingClientRect().width
     if (width) {
       let totalWidth = 0
       let noWidthColumnCount = 0
@@ -375,7 +375,7 @@ export default class Table<DataType> extends WeElement<Props<DataType>> {
                 })}
                 colSpan={colspan}
                 rowSpan={rowspan}
-                >
+              >
                 {/* <div class="cell"> */}
                 {index === 0 && props.checkbox && <o-checkbox
                   checked={item.checked}

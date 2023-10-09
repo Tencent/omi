@@ -8,19 +8,21 @@ import { EditorView, basicSetup } from "codemirror"
 import { javascript } from "@codemirror/lang-javascript"
 // import { css } from "@codemirror/lang-css"
 import { route } from 'omi-router'
+// todo, 兼容 omi-next
 import { showLoading, hideLoading } from '@omiu/toast'
 import { files } from './files'
 import { tsBuild } from './ts-build'
 import { rollupBuild } from './rollup-build'
 
 import '@omiu/popover'
+// todo, 兼容 omi-next
 import '@omiu/link'
-import '@omiu/icon/navigate-before'
-import '@omiu/icon/navigate-next'
+import '@omiu/icon/esm/navigate-before'
+import '@omiu/icon/esm/navigate-next'
 import '@omiu/tabs'
 import '@omiu/tree'
-import '@omiu/icon/git-hub'
-import '@omiu/icon/translate'
+import '@omiu/icon/esm/git-hub'
+import '@omiu/icon/esm/translate'
 
 interface TreeItem {
   id?: string
@@ -193,9 +195,9 @@ export default class extends WeElement {
 
   async loadSection(section) {
     this.section = section
-    // 本地 debug： 
-    // const url = 'https://omi.cdn-go.cn/play/latest/sections/'
-    const url = './sections/'
+    // 本地 debug：
+    const url = 'https://omi.cdn-go.cn/play/latest/sections/'
+    // const url = './sections/'
     showLoading()
     const urls = [
       `${url}${this.lan}/${section}/description.md`
@@ -341,19 +343,19 @@ export default class extends WeElement {
                 .o-tree-node__label {
                   font-size: 10px !important
                 }
-                
+
                 .o-tree-node__content {
                   padding-left: 5px !important
                 }
-                
+
                 .o-tree-node__expand-icon.is-leaf {
                   width: 0px !important;
                 }
-                
+
                 .o-tree-node__label {
                   padding-right: 12px !important;
                 }
-                
+
                 .o-tree-node__content>.o-tree-node__expand-icon {
                   padding: 2px !important;
                 }

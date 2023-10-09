@@ -24,7 +24,7 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
+var extendStatics = function (d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
@@ -126,7 +126,7 @@ var Transition = /** @class */ (function (_super) {
         leavingTime: Number,
         autoRemove: Boolean
     };
-    Transition.isLightDom = true;
+    Transition.isLightDOM = true;
     Transition.defaultProps = {
         name: 'o'
     };

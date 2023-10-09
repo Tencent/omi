@@ -36,6 +36,8 @@ const components = [
   'image',
   'switch',
   'progress',
+  'badge',
+  'skeleton',
 ]
 
 export function registerRouting(rootEl: any) {

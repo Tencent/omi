@@ -31,7 +31,7 @@ export default class Tree extends WeElement<Props> {
     //   this.prevBlurSelectedNode.selectedBlur = false
     // }
     node.selected = true
-    this.forceUpdate()
+    this.update()
     this.fire('node-click', node)
   }
 
@@ -62,7 +62,7 @@ export default class Tree extends WeElement<Props> {
       this._fold(node)
     })
 
-    this.forceUpdate()
+    this.update()
 
     this.fire('fold')
   }
@@ -80,13 +80,13 @@ export default class Tree extends WeElement<Props> {
     //这个if防止 enter 和这失去焦点冲突
     if (this.prevSelectedNode.editing) {
       this.prevSelectedNode.editing = false
-      this.forceUpdate()
+      this.update()
     }
   }
 
   onEditInputChange = (evt) => {
     this.prevSelectedNode.label = evt.target.value
-    this.forceUpdate()
+    this.update()
   }
 
   editInput
@@ -98,7 +98,7 @@ export default class Tree extends WeElement<Props> {
     //   this.prevSelectedNode.selectedBlur = true
     //   this.prevBlurSelectedNode = this.prevSelectedNode
     //   this.prevSelectedNode = null
-    //   this.forceUpdate()
+    //   this.update()
     // })
     // window.addEventListener('keydown', (evt) => {
     //   //enter
@@ -109,10 +109,10 @@ export default class Tree extends WeElement<Props> {
     //         this.prevSelectedNode.label = this.editInput.value
     //         //防止这个错误 Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
     //         this.editInput.blur()
-    //         this.forceUpdate()
+    //         this.update()
     //       } else {
     //         this.prevSelectedNode.editing = true
-    //         this.forceUpdate()
+    //         this.update()
     //         this.editInput.focus()
     //       }
     //     }

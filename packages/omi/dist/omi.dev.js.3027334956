@@ -903,7 +903,7 @@
   		this.afterInstall();
 
   		var shadowRoot;
-  		if (this.constructor.isLightDom) {
+  		if (this.constructor.isLightDOM) {
   			shadowRoot = this;
   		} else {
 
@@ -1682,7 +1682,7 @@
       Ele.css = config.css;
       Ele.propTypes = config.propTypes;
       Ele.defaultProps = config.defaultProps;
-      Ele.isLightDom = config.isLightDom;
+      Ele.isLightDOM = config.isLightDOM;
 
       var _loop = function _loop(key) {
         if (typeof config[key] === 'function') {

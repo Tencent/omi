@@ -60,7 +60,7 @@ export default class Popover extends WeElement<Props> {
     // @ts-ignore
     const path = evt.path || (evt.composedPath && evt.composedPath())
     for (let i = 0, len = path.length; i < len; i++) {
-      if (path[i] === this.rootNode) {
+      if (path[i] === this.rootElement) {
         isShowEl = true
         break
       }

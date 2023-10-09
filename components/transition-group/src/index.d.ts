@@ -12,7 +12,7 @@ export default class TransitionGroup extends WeElement<Props> {
         autoRemove: BooleanConstructor;
         delay: NumberConstructor;
     };
-    static isLightDom: boolean;
+    static isLightDOM: boolean;
     static defaultProps: {
         name: string;
     };
@@ -26,4 +26,4 @@ export default class TransitionGroup extends WeElement<Props> {
     update(parent: any): void;
     render(): void;
 }
-export {};
+export { };

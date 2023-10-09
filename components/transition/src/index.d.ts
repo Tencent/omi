@@ -25,7 +25,7 @@ export default class Transition extends WeElement<Props> {
         disappear: BooleanConstructor;
         delay: NumberConstructor;
     };
-    static isLightDom: boolean;
+    static isLightDOM: boolean;
     static defaultProps: {
         name: string;
         delay: number;
@@ -40,4 +40,4 @@ export default class Transition extends WeElement<Props> {
     once(name: any, callback: any): void;
     render(): void;
 }
-export {};
+export { };

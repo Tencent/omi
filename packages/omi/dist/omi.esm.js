@@ -1,5 +1,5 @@
 /**
- * Omi v6.25.22  http://omijs.org
+ * Omi v6.25.23  http://omijs.org
  * Front End Cross-Frameworks Framework.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -962,7 +962,7 @@ var WeElement = function (_HTMLElement) {
     this.afterInstall();
 
     var shadowRoot;
-    if (this.constructor.isLightDom) {
+    if (this.constructor.isLightDOM) {
       shadowRoot = this;
     } else {
       if (!this.shadowRoot) {
@@ -1011,7 +1011,7 @@ var WeElement = function (_HTMLElement) {
 
     var rendered = this.render(this.props, this.store);
 
-    this.rootNode = diff(null, rendered, null, this);
+    this.rootElement = diff(null, rendered, null, this);
     this.rendered();
 
     if (this.css) {
@@ -1024,12 +1024,12 @@ var WeElement = function (_HTMLElement) {
       shadowRoot.appendChild(this._customStyleElement);
     }
 
-    if (isArray(this.rootNode)) {
-      this.rootNode.forEach(function (item) {
+    if (isArray(this.rootElement)) {
+      this.rootElement.forEach(function (item) {
         shadowRoot.appendChild(item);
       });
     } else {
-      this.rootNode && shadowRoot.appendChild(this.rootNode);
+      this.rootElement && shadowRoot.appendChild(this.rootElement);
     }
     this.installed();
     this.isInstalled = true;
@@ -1060,7 +1060,7 @@ var WeElement = function (_HTMLElement) {
     var rendered = this.render(this.props, this.store);
     this.rendered();
 
-    this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
+    this.rootElement = diff(this.rootElement, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
     this._willUpdate = false;
     this.updated();
   };
@@ -1257,7 +1257,7 @@ function define(name, ctor, config) {
     Ele.css = config.css;
     Ele.propTypes = config.propTypes;
     Ele.defaultProps = config.defaultProps;
-    Ele.isLightDom = config.isLightDom;
+    Ele.isLightDOM = config.isLightDOM;
 
     var _loop = function _loop(key) {
       if (typeof config[key] === 'function') {
@@ -1706,7 +1706,7 @@ function o(obj) {
 h.f = Fragment;
 
 function createRef() {
-  return {};
+	return {};
 }
 
 var $ = {};
@@ -1715,34 +1715,34 @@ var defineElement = define;
 var elements = options.mapping;
 
 var omi = {
-  tag: tag,
-  WeElement: WeElement,
-  Component: Component,
-  render: render,
-  h: h,
-  createElement: h,
-  options: options,
-  define: define,
-  cloneElement: cloneElement,
-  getHost: getHost,
-  rpx: rpx,
-  defineElement: defineElement,
-  classNames: classNames,
-  extractClass: extractClass,
-  createRef: createRef,
-  o: o,
-  elements: elements,
-  $: $,
-  extend: extend$1,
-  get: get,
-  set: set,
-  bind: bind,
-  unbind: unbind
+	tag: tag,
+	WeElement: WeElement,
+	Component: Component,
+	render: render,
+	h: h,
+	createElement: h,
+	options: options,
+	define: define,
+	cloneElement: cloneElement,
+	getHost: getHost,
+	rpx: rpx,
+	defineElement: defineElement,
+	classNames: classNames,
+	extractClass: extractClass,
+	createRef: createRef,
+	o: o,
+	elements: elements,
+	$: $,
+	extend: extend$1,
+	get: get,
+	set: set,
+	bind: bind,
+	unbind: unbind
 };
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.25.22';
+options.root.Omi.version = '6.25.23';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, cloneElement, getHost, rpx, defineElement, classNames, extractClass, createRef, o, elements, $, extend$1 as extend, get, set, bind, unbind };

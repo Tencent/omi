@@ -1,4 +1,4 @@
-!function() {
+!function () {
     'use strict';
     function cssToDom(css) {
         var node = document.createElement('style');
@@ -6,7 +6,7 @@
         return node;
     }
     function camelCase(str) {
-        return str.replace(/-(\w)/g, function($, $1) {
+        return str.replace(/-(\w)/g, function ($, $1) {
             return $1.toUpperCase();
         });
     }
@@ -30,30 +30,30 @@
         return str.replace(hyphenateRE, '-$1').toLowerCase();
     }
     function capitalize(name) {
-        return name.replace(/\-(\w)/g, function(all, letter) {
+        return name.replace(/\-(\w)/g, function (all, letter) {
             return letter.toUpperCase();
-        }).replace(/^\S/, function(s) {
+        }).replace(/^\S/, function (s) {
             return s.toUpperCase();
         });
     }
     function getValByPath(path, current) {
         var arr = pathToArr(path);
-        arr.forEach(function(prop) {
+        arr.forEach(function (prop) {
             current = current[prop];
         });
         return current;
     }
     function h(nodeName, attributes) {
         var lastSimple, child, simple, i, children = [];
-        for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
+        for (i = arguments.length; i-- > 2;) stack.push(arguments[i]);
         if (attributes && null != attributes.children) {
             if (!stack.length) stack.push(attributes.children);
             delete attributes.children;
         }
-        while (stack.length) if ((child = stack.pop()) && void 0 !== child.pop) for (i = child.length; i--; ) stack.push(child[i]); else {
+        while (stack.length) if ((child = stack.pop()) && void 0 !== child.pop) for (i = child.length; i--;) stack.push(child[i]); else {
             if ('boolean' == typeof child) child = null;
             if (simple = 'function' != typeof nodeName) if (null == child) child = ''; else if ('number' == typeof child) child = String(child); else if ('string' != typeof child) simple = !1;
-            if (simple && lastSimple) children[children.length - 1] += child; else if (0 === children.length) children = [ child ]; else children.push(child);
+            if (simple && lastSimple) children[children.length - 1] += child; else if (0 === children.length) children = [child]; else children.push(child);
             lastSimple = simple;
         }
         if (nodeName === Fragment) return children;
@@ -112,7 +112,7 @@
         if ('className' === name) name = 'class';
         if ('o' == name[0] && '-' == name[1]) {
             if (extension[name]) extension[name](node, value, component);
-        } else if ('key' === name) ; else if ('ref' === name) {
+        } else if ('key' === name); else if ('ref' === name) {
             applyRef(old, null);
             applyRef(value, node);
         } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
@@ -128,7 +128,7 @@
         } else if ('o' == name[0] && 'n' == name[1]) bindEvent(node, name, value, old); else if ('INPUT' === node.nodeName && 'value' === name) node[name] = null == value ? '' : value; else if ('list' !== name && 'type' !== name && 'css' !== name && !isSvg && name in node && '' !== value) {
             try {
                 node[name] = null == value ? '' : value;
-            } catch (e) {}
+            } catch (e) { }
             if ((null == value || !1 === value) && 'spellcheck' != name) node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
@@ -157,12 +157,12 @@
             if (vnode && vnode.nodeName === Fragment) vnode = vnode.children;
             if (isArray(vnode)) if (parent) innerDiffNode(parent, vnode, hydrating, component, updateSelf); else {
                 ret = [];
-                vnode.forEach(function(item, index) {
+                vnode.forEach(function (item, index) {
                     var ele = idiff(0 === index ? dom : null, item, component, updateSelf);
                     ret.push(ele);
                 });
             } else {
-                if (isArray(dom)) dom.forEach(function(one, index) {
+                if (isArray(dom)) dom.forEach(function (one, index) {
                     if (0 === index) ret = idiff(one, vnode, component, updateSelf); else recollectNodeTree(one, !1);
                 }); else ret = idiff(dom, vnode, component, updateSelf);
                 if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -207,7 +207,7 @@
         var fc = out.firstChild, props = out.prevProps, vchildren = vnode.children;
         if (null == props) {
             props = out.prevProps = {};
-            for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
+            for (var a = out.attributes, i = a.length; i--;) props[a[i].name] = a[i].value;
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
@@ -339,16 +339,16 @@
             if ('string' == typeof config) config = {
                 css: config
             }; else config = config || {};
-            var Ele = function(_WeElement) {
+            var Ele = function (_WeElement) {
                 function Ele() {
                     var _temp, _this, _ret;
                     _classCallCheck$1(this, Ele);
                     for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
-                    return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
-                    _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
+                    return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))),
+                        _this.compute = config.compute, _temp), _possibleConstructorReturn$1(_this, _ret);
                 }
                 _inherits$1(Ele, _WeElement);
-                Ele.prototype.render = function() {
+                Ele.prototype.render = function () {
                     return ctor.call(this, this);
                 };
                 return Ele;
@@ -356,14 +356,14 @@
             Ele.css = config.css;
             Ele.propTypes = config.propTypes;
             Ele.defaultProps = config.defaultProps;
-            Ele.isLightDom = config.isLightDom;
-            for (var key in config) !function(key) {
-                if ('function' == typeof config[key]) Ele.prototype[key] = function() {
+            Ele.isLightDOM = config.isLightDOM;
+            for (var key in config) !function (key) {
+                if ('function' == typeof config[key]) Ele.prototype[key] = function () {
                     return config[key].apply(this, arguments);
                 };
             }(key);
-            storeHelpers.forEach(function(func) {
-                if (config[func] && 'function' !== config[func]) Ele.prototype[func] = function() {
+            storeHelpers.forEach(function (func) {
+                if (config[func] && 'function' !== config[func]) Ele.prototype[func] = function () {
                     return config[func];
                 };
             });
@@ -372,7 +372,7 @@
         }
     }
     function tag(name) {
-        return function(target) {
+        return function (target) {
             define(name, target);
         };
     }
@@ -384,7 +384,7 @@
         while (p) if (p.host) return p.host; else if (p.shadowRoot && p.shadowRoot.host) return p.shadowRoot.host; else p = p.parentNode;
     }
     function rpx(css) {
-        return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
+        return css.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
             return window.innerWidth * Number(b) / 750 + 'px';
         });
     }
@@ -423,17 +423,17 @@
     }
     var options = {
         store: null,
-        root: function() {
-            if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
+        root: function () {
+            if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function () {
                 return this;
             }(); else return global;
         }(),
         mapping: {}
     };
-    !function() {
+    !function () {
         if (void 0 !== window.Reflect && void 0 !== window.customElements && !window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
             var BuiltInHTMLElement = HTMLElement;
-            window.HTMLElement = function() {
+            window.HTMLElement = function () {
                 return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
             };
             HTMLElement.prototype = BuiltInHTMLElement.prototype;
@@ -450,7 +450,7 @@
     var isSvgMode = !1;
     var hydrating = !1;
     var id = 0;
-    var WeElement = function(_HTMLElement) {
+    var WeElement = function (_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
@@ -461,7 +461,7 @@
             return _this;
         }
         _inherits(WeElement, _HTMLElement);
-        WeElement.prototype.connectedCallback = function() {
+        WeElement.prototype.connectedCallback = function () {
             var _this2 = this;
             var p = this.parentNode;
             while (p && !this.store) {
@@ -476,7 +476,7 @@
                     provide = p.provide;
                     p = p.parentNode || p.host;
                 }
-                if (provide) this.inject.forEach(function(injectKey) {
+                if (provide) this.inject.forEach(function (injectKey) {
                     _this2.injection[injectKey] = provide[injectKey];
                 }); else throw 'The provide prop was not found on the parent node or the provide type is incorrect.';
             }
@@ -485,7 +485,7 @@
             this.install();
             this.afterInstall();
             var shadowRoot;
-            if (this.constructor.isLightDom) shadowRoot = this; else if (!this.shadowRoot) shadowRoot = this.attachShadow({
+            if (this.constructor.isLightDOM) shadowRoot = this; else if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
             }); else {
                 shadowRoot = this.shadowRoot;
@@ -498,10 +498,10 @@
                     if ('string' == typeof css) {
                         var styleSheet = new CSSStyleSheet();
                         styleSheet.replaceSync(css);
-                        shadowRoot.adoptedStyleSheets = [ styleSheet ];
+                        shadowRoot.adoptedStyleSheets = [styleSheet];
                     } else if ('[object Array]' === Object.prototype.toString.call(css)) {
                         var styleSheets = [];
-                        css.forEach(function(styleSheet) {
+                        css.forEach(function (styleSheet) {
                             if ('string' == typeof styleSheet) {
                                 var adoptedStyleSheet = new CSSStyleSheet();
                                 adoptedStyleSheet.replaceSync(styleSheet);
@@ -512,8 +512,8 @@
                     } else if (css.default && 'string' == typeof css.default) {
                         var _styleSheet = new CSSStyleSheet();
                         _styleSheet.replaceSync(css.default);
-                        shadowRoot.adoptedStyleSheets = [ _styleSheet ];
-                    } else shadowRoot.adoptedStyleSheets = [ css ];
+                        shadowRoot.adoptedStyleSheets = [_styleSheet];
+                    } else shadowRoot.adoptedStyleSheets = [css];
                     this.constructor.elementStyles = shadowRoot.adoptedStyleSheets;
                 }
             }
@@ -528,17 +528,17 @@
                 this.O = this.props.css;
                 shadowRoot.appendChild(this.N);
             }
-            if (isArray(this.rootNode)) this.rootNode.forEach(function(item) {
+            if (isArray(this.rootNode)) this.rootNode.forEach(function (item) {
                 shadowRoot.appendChild(item);
             }); else this.rootNode && shadowRoot.appendChild(this.rootNode);
             this.installed();
             this.isInstalled = !0;
         };
-        WeElement.prototype.disconnectedCallback = function() {
+        WeElement.prototype.disconnectedCallback = function () {
             this.uninstall();
             this.isInstalled = !1;
         };
-        WeElement.prototype.update = function(ignoreAttrs, updateSelf) {
+        WeElement.prototype.update = function (ignoreAttrs, updateSelf) {
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
@@ -549,67 +549,67 @@
             this.attrsToProps(ignoreAttrs);
             var rendered = this.render(this.props, this.store);
             this.rendered();
-            this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
+            this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
             this.J = !1;
             this.updated();
         };
-        WeElement.prototype.forceUpdate = function() {
+        WeElement.prototype.forceUpdate = function () {
             this.update(!0);
         };
-        WeElement.prototype.updateProps = function(obj) {
+        WeElement.prototype.updateProps = function (obj) {
             var _this3 = this;
-            Object.keys(obj).forEach(function(key) {
+            Object.keys(obj).forEach(function (key) {
                 _this3.props[key] = obj[key];
                 if (_this3.prevProps) _this3.prevProps[key] = obj[key];
             });
             this.forceUpdate();
         };
-        WeElement.prototype.updateSelf = function(ignoreAttrs) {
+        WeElement.prototype.updateSelf = function (ignoreAttrs) {
             this.update(ignoreAttrs, !0);
         };
-        WeElement.prototype.removeAttribute = function(key) {
+        WeElement.prototype.removeAttribute = function (key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
             this.isInstalled && this.update();
         };
-        WeElement.prototype.setAttribute = function(key, val) {
+        WeElement.prototype.setAttribute = function (key, val) {
             if (val && 'object' == typeof val) _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val)); else _HTMLElement.prototype.setAttribute.call(this, key, val);
             this.isInstalled && this.update();
         };
-        WeElement.prototype.pureRemoveAttribute = function(key) {
+        WeElement.prototype.pureRemoveAttribute = function (key) {
             _HTMLElement.prototype.removeAttribute.call(this, key);
         };
-        WeElement.prototype.pureSetAttribute = function(key, val) {
+        WeElement.prototype.pureSetAttribute = function (key, val) {
             _HTMLElement.prototype.setAttribute.call(this, key, val);
         };
-        WeElement.prototype.attrsToProps = function(ignoreAttrs) {
+        WeElement.prototype.attrsToProps = function (ignoreAttrs) {
             if (!(ignoreAttrs || this.store && this.store.ignoreAttrs || this.props.ignoreAttrs)) {
                 var ele = this;
                 ele.props.css = ele.getAttribute('css');
                 var attrs = this.constructor.propTypes;
-                if (attrs) Object.keys(attrs).forEach(function(key) {
+                if (attrs) Object.keys(attrs).forEach(function (key) {
                     var type = attrs[key];
                     var val = ele.getAttribute(hyphenate(key));
                     if (null !== val) switch (type) {
-                      case String:
-                        ele.props[key] = val;
-                        break;
+                        case String:
+                            ele.props[key] = val;
+                            break;
 
-                      case Number:
-                        ele.props[key] = Number(val);
-                        break;
+                        case Number:
+                            ele.props[key] = Number(val);
+                            break;
 
-                      case Boolean:
-                        if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
-                        break;
+                        case Boolean:
+                            if ('false' === val || '0' === val) ele.props[key] = !1; else ele.props[key] = !0;
+                            break;
 
-                      case Array:
-                      case Object:
-                        if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
+                        case Array:
+                        case Object:
+                            if (':' === val[0]) ele.props[key] = getValByPath(val.substr(1), Omi.$); else ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
                 });
             }
         };
-        WeElement.prototype.fire = function(name, data) {
+        WeElement.prototype.fire = function (name, data) {
             var handler = this.props['on' + capitalize(name)];
             if (handler) handler(new CustomEvent(name, {
                 detail: data
@@ -617,22 +617,22 @@
                 detail: data
             }));
         };
-        WeElement.prototype.beforeInstall = function() {};
-        WeElement.prototype.install = function() {};
-        WeElement.prototype.afterInstall = function() {};
-        WeElement.prototype.installed = function() {};
-        WeElement.prototype.uninstall = function() {};
-        WeElement.prototype.beforeUpdate = function() {};
-        WeElement.prototype.updated = function() {};
-        WeElement.prototype.beforeRender = function() {};
-        WeElement.prototype.rendered = function() {};
-        WeElement.prototype.receiveProps = function() {};
+        WeElement.prototype.beforeInstall = function () { };
+        WeElement.prototype.install = function () { };
+        WeElement.prototype.afterInstall = function () { };
+        WeElement.prototype.installed = function () { };
+        WeElement.prototype.uninstall = function () { };
+        WeElement.prototype.beforeUpdate = function () { };
+        WeElement.prototype.updated = function () { };
+        WeElement.prototype.beforeRender = function () { };
+        WeElement.prototype.rendered = function () { };
+        WeElement.prototype.receiveProps = function () { };
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
-    var storeHelpers = [ 'use', 'useSelf' ];
+    var storeHelpers = ['use', 'useSelf'];
     var hasOwn = {}.hasOwnProperty;
-    !function() {
+    !function () {
         function rejectImports(contents) {
             var _contents = contents.replace(importPattern, '');
             if (_contents !== contents) console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418');
@@ -642,7 +642,7 @@
             for (var i = 0; i < sheet.cssRules.length; i++) sheet.deleteRule(0);
         }
         function insertAllRules(from, to) {
-            forEach.call(from.cssRules, function(rule, i) {
+            forEach.call(from.cssRules, function (rule, i) {
                 to.insertRule(rule.cssText, i);
             });
         }
@@ -650,12 +650,12 @@
             return 'isConnected' in element ? element.isConnected : document.contains(element);
         }
         function unique(arr) {
-            return arr.filter(function(value, index) {
+            return arr.filter(function (value, index) {
                 return arr.indexOf(value) === index;
             });
         }
         function diff(arr1, arr2) {
-            return arr1.filter(function(value) {
+            return arr1.filter(function (value) {
                 return -1 === arr2.indexOf(value);
             });
         }
@@ -682,12 +682,12 @@
         }
         function removeAdopterLocation(sheet, location) {
             $adoptersByLocation.get(sheet).delete(location);
-            $locations.set(sheet, $locations.get(sheet).filter(function(_location) {
+            $locations.set(sheet, $locations.get(sheet).filter(function (_location) {
                 return _location !== location;
             }));
         }
         function restyleAdopter(sheet, adopter) {
-            requestAnimationFrame(function() {
+            requestAnimationFrame(function () {
                 clearRules(adopter.sheet);
                 insertAllRules($basicStyleSheet.get(sheet), adopter.sheet);
             });
@@ -715,22 +715,22 @@
             defineProperty(constructor.prototype, 'adoptedStyleSheets', {
                 configurable: !0,
                 enumerable: !0,
-                get: function() {
+                get: function () {
                     return getAssociatedLocation(this).sheets;
                 },
-                set: function(sheets) {
+                set: function (sheets) {
                     getAssociatedLocation(this).update(sheets);
                 }
             });
         }
         function traverseWebComponents(node, callback) {
-            var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function(foundNode) {
+            var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function (foundNode) {
                 return getShadowRoot(foundNode) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
             }, null, !1);
-            for (var next = void 0; next = iter.nextNode(); ) callback(getShadowRoot(next));
+            for (var next = void 0; next = iter.nextNode();) callback(getShadowRoot(next));
         }
         function isExistingAdopter(self, element) {
-            return element instanceof HTMLStyleElement && $uniqueSheets.get(self).some(function(sheet) {
+            return element instanceof HTMLStyleElement && $uniqueSheets.get(self).some(function (sheet) {
                 return getAdopterByLocation(sheet, self);
             });
         }
@@ -744,12 +744,12 @@
             var observer = $observer.get(self);
             var container = getAdopterContainer(self);
             observer.disconnect();
-            sheets.forEach(function(sheet) {
+            sheets.forEach(function (sheet) {
                 styleList.appendChild(getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self));
             });
             container.insertBefore(styleList, null);
             observer.observe(container, defaultObserverOptions);
-            sheets.forEach(function(sheet) {
+            sheets.forEach(function (sheet) {
                 restyleAdopter(sheet, getAdopterByLocation(sheet, self));
             });
         }
@@ -758,17 +758,17 @@
             self.sheets = [];
             $element.set(self, element);
             $uniqueSheets.set(self, []);
-            $observer.set(self, new MutationObserver(function(mutations, observer) {
-                if (document) mutations.forEach(function(mutation) {
-                    if (!hasShadyCss) forEach.call(mutation.addedNodes, function(node) {
-                        if (node instanceof Element) traverseWebComponents(node, function(root) {
+            $observer.set(self, new MutationObserver(function (mutations, observer) {
+                if (document) mutations.forEach(function (mutation) {
+                    if (!hasShadyCss) forEach.call(mutation.addedNodes, function (node) {
+                        if (node instanceof Element) traverseWebComponents(node, function (root) {
                             getAssociatedLocation(root).connect();
                         });
                     });
-                    forEach.call(mutation.removedNodes, function(node) {
+                    forEach.call(mutation.removedNodes, function (node) {
                         if (node instanceof Element) {
                             if (isExistingAdopter(self, node)) adopt(self);
-                            if (!hasShadyCss) traverseWebComponents(node, function(root) {
+                            if (!hasShadyCss) traverseWebComponents(node, function (root) {
                                 getAssociatedLocation(root).disconnect();
                             });
                         }
@@ -784,20 +784,20 @@
             var defineProperty = Object.defineProperty;
             var forEach = Array.prototype.forEach;
             var importPattern = /@import.+?;?$/gm;
-            var cssStyleSheetMethods = [ 'addImport', 'addPageRule', 'addRule', 'deleteRule', 'insertRule', 'removeImport', 'removeRule' ];
+            var cssStyleSheetMethods = ['addImport', 'addPageRule', 'addRule', 'deleteRule', 'insertRule', 'removeImport', 'removeRule'];
             var NonConstructedStyleSheet = CSSStyleSheet;
             var nonConstructedProto = NonConstructedStyleSheet.prototype;
-            nonConstructedProto.replace = function() {
+            nonConstructedProto.replace = function () {
                 return Promise.reject(new _DOMException("Can't call replace on non-constructed CSSStyleSheets."));
             };
-            nonConstructedProto.replaceSync = function() {
+            nonConstructedProto.replaceSync = function () {
                 throw new _DOMException("Failed to execute 'replaceSync' on 'CSSStyleSheet': Can't call replaceSync on non-constructed CSSStyleSheets.");
             };
             var $basicStyleSheet = new WeakMap();
             var $locations = new WeakMap();
             var $adoptersByLocation = new WeakMap();
             var proto$2 = ConstructedStyleSheet.prototype;
-            proto$2.replace = function(contents) {
+            proto$2.replace = function (contents) {
                 try {
                     this.replaceSync(contents);
                     return Promise.resolve(this);
@@ -805,14 +805,14 @@
                     return Promise.reject(e);
                 }
             };
-            proto$2.replaceSync = function(contents) {
+            proto$2.replaceSync = function (contents) {
                 checkInvocationCorrectness(this);
                 if ('string' == typeof contents) {
                     var self_1 = this;
                     var style = $basicStyleSheet.get(self_1).ownerNode;
                     style.textContent = rejectImports(contents);
                     $basicStyleSheet.set(self_1, style.sheet);
-                    $locations.get(self_1).forEach(function(location) {
+                    $locations.get(self_1).forEach(function (location) {
                         if (location.isConnected()) restyleAdopter(self_1, getAdopterByLocation(self_1, location));
                     });
                 }
@@ -820,20 +820,20 @@
             defineProperty(proto$2, 'cssRules', {
                 configurable: !0,
                 enumerable: !0,
-                get: function() {
+                get: function () {
                     checkInvocationCorrectness(this);
                     return $basicStyleSheet.get(this).cssRules;
                 }
             });
-            cssStyleSheetMethods.forEach(function(method) {
-                proto$2[method] = function() {
+            cssStyleSheetMethods.forEach(function (method) {
+                proto$2[method] = function () {
                     var self = this;
                     checkInvocationCorrectness(self);
                     var args = arguments;
                     var basic = $basicStyleSheet.get(self);
                     var locations = $locations.get(self);
                     var result = basic[method].apply(basic, args);
-                    locations.forEach(function(location) {
+                    locations.forEach(function (location) {
                         if (location.isConnected()) {
                             var sheet = getAdopterByLocation(self, location).sheet;
                             sheet[method].apply(sheet, args);
@@ -855,22 +855,22 @@
             var $uniqueSheets = new WeakMap();
             var $observer = new WeakMap();
             var proto$1 = Location.prototype;
-            proto$1.isConnected = function() {
+            proto$1.isConnected = function () {
                 var element = $element.get(this);
                 return element instanceof Document ? 'loading' !== element.readyState : isElementConnected(element.host);
             };
-            proto$1.connect = function() {
+            proto$1.connect = function () {
                 var container = getAdopterContainer(this);
                 $observer.get(this).observe(container, defaultObserverOptions);
                 if ($uniqueSheets.get(this).length > 0) adopt(this);
-                traverseWebComponents(container, function(root) {
+                traverseWebComponents(container, function (root) {
                     getAssociatedLocation(root).connect();
                 });
             };
-            proto$1.disconnect = function() {
+            proto$1.disconnect = function () {
                 $observer.get(this).disconnect();
             };
-            proto$1.update = function(sheets) {
+            proto$1.update = function (sheets) {
                 var self = this;
                 var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot';
                 if (!Array.isArray(sheets)) throw new TypeError("Failed to set the 'adoptedStyleSheets' property on " + locationType + ": Iterator getter is not callable.");
@@ -880,7 +880,7 @@
                 var oldUniqueSheets = $uniqueSheets.get(self);
                 var uniqueSheets = unique(sheets);
                 var removedSheets = diff(oldUniqueSheets, uniqueSheets);
-                removedSheets.forEach(function(sheet) {
+                removedSheets.forEach(function (sheet) {
                     removeNode(getAdopterByLocation(sheet, self));
                     removeAdopterLocation(sheet, self);
                 });
@@ -893,7 +893,7 @@
                 attachAdoptedStyleSheetProperty(ShadowRoot);
                 var proto = Element.prototype;
                 var attach_1 = proto.attachShadow;
-                proto.attachShadow = function(init) {
+                proto.attachShadow = function (init) {
                     var root = attach_1.call(this, init);
                     if ('closed' === init.mode) closedShadowRootRegistry.set(this, root);
                     return root;

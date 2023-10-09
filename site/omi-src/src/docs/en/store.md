@@ -214,7 +214,7 @@ define('my-component', _ => (
     css: 'h1 { color: red; }',
     propTypes: { },
     defaultProps: { },
-    isLightDom: true, //default is false
+    isLightDOM: true, //default is false
 
     //life cycle
     install() { }, 

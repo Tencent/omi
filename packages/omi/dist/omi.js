@@ -366,7 +366,7 @@
             Ele.css = config.css;
             Ele.propTypes = config.propTypes;
             Ele.defaultProps = config.defaultProps;
-            Ele.isLightDom = config.isLightDom;
+            Ele.isLightDOM = config.isLightDOM;
             for (var key in config) !function(key) {
                 if ('function' == typeof config[key]) Ele.prototype[key] = function() {
                     return config[key].apply(this, arguments);
@@ -580,7 +580,7 @@
             this.install();
             this.afterInstall();
             var shadowRoot;
-            if (this.constructor.isLightDom) shadowRoot = this; else if (!this.shadowRoot) shadowRoot = this.attachShadow({
+            if (this.constructor.isLightDOM) shadowRoot = this; else if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
             }); else {
                 shadowRoot = this.shadowRoot;
@@ -601,7 +601,7 @@
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             var rendered = this.render(this.props, this.store);
-            this.rootNode = diff(null, rendered, null, this);
+            this.rootElement = diff(null, rendered, null, this);
             this.rendered();
             if (this.css) shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
             if (this.props.css) {
@@ -609,9 +609,9 @@
                 this.O = this.props.css;
                 shadowRoot.appendChild(this.N);
             }
-            if (isArray(this.rootNode)) this.rootNode.forEach(function(item) {
+            if (isArray(this.rootElement)) this.rootElement.forEach(function(item) {
                 shadowRoot.appendChild(item);
-            }); else this.rootNode && shadowRoot.appendChild(this.rootNode);
+            }); else this.rootElement && shadowRoot.appendChild(this.rootElement);
             this.installed();
             this.isInstalled = !0;
         };
@@ -633,7 +633,7 @@
             this.attrsToProps();
             var rendered = this.render(this.props, this.store);
             this.rendered();
-            this.rootNode = diff(this.rootNode, rendered, this.constructor.isLightDom ? this : this.shadowRoot, this, updateSelf);
+            this.rootElement = diff(this.rootElement, rendered, this.constructor.isLightDOM ? this : this.shadowRoot, this, updateSelf);
             this.J = !1;
             this.updated();
         };
@@ -1029,7 +1029,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.25.22';
+    options.root.Omi.version = '6.25.23';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

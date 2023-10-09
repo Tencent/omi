@@ -3,7 +3,7 @@ import { TdColProps, TdRowProps } from './type'
 import isObject from 'lodash/isObject'
 import { StyledProps } from '../common'
 type FlexType = number | 'none' | 'auto' | string
-export interface ColProps extends TdColProps, StyledProps {}
+export interface ColProps extends TdColProps, StyledProps { }
 const calcColPadding = (gutter: TdRowProps['gutter'], currentSize: string) => {
   const paddingObj = {}
   if (typeof gutter === 'number') {
@@ -49,7 +49,7 @@ const parseFlex = (flex: FlexType) => {
 @tag('t-col')
 export default class Col extends WeElement<ColProps> {
   static defaultProps = { offset: 0, order: 0, pull: 0, push: 0, tag: 'div' }
-  static isLightDom = true
+  static isLightDOM = true
   static propTypes = {
     flex: [String, Number],
     lg: [Number, Object],

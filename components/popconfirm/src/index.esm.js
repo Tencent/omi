@@ -24,26 +24,26 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics$1 = function(d, b) {
-    extendStatics$1 = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-    return extendStatics$1(d, b);
+var extendStatics$1 = function (d, b) {
+  extendStatics$1 = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+  return extendStatics$1(d, b);
 };
 
 function __extends$1(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    extendStatics$1(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  if (typeof b !== "function" && b !== null)
+    throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+  extendStatics$1(d, b);
+  function __() { this.constructor = d; }
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
 function __decorate$1(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
 var top = 'top';
@@ -242,23 +242,23 @@ function getLayoutRect(element) {
 }
 
 function contains(parent, child) {
-  var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+  var rootElement = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
 
   if (parent.contains(child)) {
     return true;
   } // then fallback to custom implementation with Shadow DOM support
-  else if (rootNode && isShadowRoot(rootNode)) {
-      var next = child;
+  else if (rootElement && isShadowRoot(rootElement)) {
+    var next = child;
 
-      do {
-        if (next && parent.isSameNode(next)) {
-          return true;
-        } // $FlowFixMe[prop-missing]: need a better way to handle this...
+    do {
+      if (next && parent.isSameNode(next)) {
+        return true;
+      } // $FlowFixMe[prop-missing]: need a better way to handle this...
 
 
-        next = next.parentNode || next.host;
-      } while (next);
-    } // Give up, the result is false
+      next = next.parentNode || next.host;
+    } while (next);
+  } // Give up, the result is false
 
 
   return false;
@@ -275,7 +275,7 @@ function isTableElement(element) {
 function getDocumentElement(element) {
   // $FlowFixMe[incompatible-return]: assume body is always available
   return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
-  element.document) || window.document).documentElement;
+    element.document) || window.document).documentElement;
 }
 
 function getParentNode(element) {
@@ -288,7 +288,7 @@ function getParentNode(element) {
     // $FlowFixMe[prop-missing]
     element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
     element.parentNode || ( // DOM Element detected
-    isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
+      isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
     // $FlowFixMe[incompatible-call]: HTMLElement is a Node
     getDocumentElement(element) // fallback
 
@@ -297,7 +297,7 @@ function getParentNode(element) {
 
 function getTrueOffsetParent(element) {
   if (!isHTMLElement(element) || // https://github.com/popperjs/popper-core/issues/837
-  getComputedStyle(element).position === 'fixed') {
+    getComputedStyle(element).position === 'fixed') {
     return null;
   }
 
@@ -396,8 +396,8 @@ function arrow(_ref) {
   var _state$modifiersData$;
 
   var state = _ref.state,
-      name = _ref.name,
-      options = _ref.options;
+    name = _ref.name,
+    options = _ref.options;
   var arrowElement = state.elements.arrow;
   var popperOffsets = state.modifiersData.popperOffsets;
   var basePlacement = getBasePlacement(state.placement);
@@ -431,9 +431,9 @@ function arrow(_ref) {
 
 function effect$1(_ref2) {
   var state = _ref2.state,
-      options = _ref2.options;
+    options = _ref2.options;
   var _options$element = options.element,
-      arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
+    arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
 
   if (arrowElement == null) {
     return;
@@ -487,7 +487,7 @@ var unsetSides = {
 
 function roundOffsetsByDPR(_ref) {
   var x = _ref.x,
-      y = _ref.y;
+    y = _ref.y;
   var win = window;
   var dpr = win.devicePixelRatio || 1;
   return {
@@ -500,19 +500,19 @@ function mapToStyles(_ref2) {
   var _Object$assign2;
 
   var popper = _ref2.popper,
-      popperRect = _ref2.popperRect,
-      placement = _ref2.placement,
-      offsets = _ref2.offsets,
-      position = _ref2.position,
-      gpuAcceleration = _ref2.gpuAcceleration,
-      adaptive = _ref2.adaptive,
-      roundOffsets = _ref2.roundOffsets;
+    popperRect = _ref2.popperRect,
+    placement = _ref2.placement,
+    offsets = _ref2.offsets,
+    position = _ref2.position,
+    gpuAcceleration = _ref2.gpuAcceleration,
+    adaptive = _ref2.adaptive,
+    roundOffsets = _ref2.roundOffsets;
 
   var _ref3 = roundOffsets === true ? roundOffsetsByDPR(offsets) : typeof roundOffsets === 'function' ? roundOffsets(offsets) : offsets,
-      _ref3$x = _ref3.x,
-      x = _ref3$x === void 0 ? 0 : _ref3$x,
-      _ref3$y = _ref3.y,
-      y = _ref3$y === void 0 ? 0 : _ref3$y;
+    _ref3$x = _ref3.x,
+    x = _ref3$x === void 0 ? 0 : _ref3$x,
+    _ref3$y = _ref3.y,
+    y = _ref3$y === void 0 ? 0 : _ref3$y;
 
   var hasX = offsets.hasOwnProperty('x');
   var hasY = offsets.hasOwnProperty('y');
@@ -567,13 +567,13 @@ function mapToStyles(_ref2) {
 
 function computeStyles(_ref4) {
   var state = _ref4.state,
-      options = _ref4.options;
+    options = _ref4.options;
   var _options$gpuAccelerat = options.gpuAcceleration,
-      gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
-      _options$adaptive = options.adaptive,
-      adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
-      _options$roundOffsets = options.roundOffsets,
-      roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
+    gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
+    _options$adaptive = options.adaptive,
+    adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
+    _options$roundOffsets = options.roundOffsets,
+    roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
 
   if (process.env.NODE_ENV !== "production") {
     var transitionProperty = getComputedStyle(state.elements.popper).transitionProperty || '';
@@ -630,12 +630,12 @@ var passive = {
 
 function effect(_ref) {
   var state = _ref.state,
-      instance = _ref.instance,
-      options = _ref.options;
+    instance = _ref.instance,
+    options = _ref.options;
   var _options$scroll = options.scroll,
-      scroll = _options$scroll === void 0 ? true : _options$scroll,
-      _options$resize = options.resize,
-      resize = _options$resize === void 0 ? true : _options$resize;
+    scroll = _options$scroll === void 0 ? true : _options$scroll,
+    _options$resize = options.resize,
+    resize = _options$resize === void 0 ? true : _options$resize;
   var window = getWindow(state.elements.popper);
   var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
 
@@ -667,7 +667,7 @@ var eventListeners = {
   name: 'eventListeners',
   enabled: true,
   phase: 'write',
-  fn: function fn() {},
+  fn: function fn() { },
   effect: effect,
   data: {}
 };
@@ -781,9 +781,9 @@ function getDocumentRect(element) {
 function isScrollParent(element) {
   // Firefox wants us to check `-x` and `-y` variations as well
   var _getComputedStyle = getComputedStyle(element),
-      overflow = _getComputedStyle.overflow,
-      overflowX = _getComputedStyle.overflowX,
-      overflowY = _getComputedStyle.overflowY;
+    overflow = _getComputedStyle.overflow,
+    overflowX = _getComputedStyle.overflowX,
+    overflowY = _getComputedStyle.overflowY;
 
   return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
 }
@@ -821,7 +821,7 @@ function listScrollParents(element, list) {
   var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
   var updatedList = list.concat(target);
   return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
-  updatedList.concat(listScrollParents(getParentNode(target)));
+    updatedList.concat(listScrollParents(getParentNode(target)));
 }
 
 function rectToClientRect(rect) {
@@ -895,8 +895,8 @@ function getVariation(placement) {
 
 function computeOffsets(_ref) {
   var reference = _ref.reference,
-      element = _ref.element,
-      placement = _ref.placement;
+    element = _ref.element,
+    placement = _ref.placement;
   var basePlacement = placement ? getBasePlacement(placement) : null;
   var variation = placement ? getVariation(placement) : null;
   var commonX = reference.x + reference.width / 2 - element.width / 2;
@@ -964,18 +964,18 @@ function detectOverflow(state, options) {
   }
 
   var _options = options,
-      _options$placement = _options.placement,
-      placement = _options$placement === void 0 ? state.placement : _options$placement,
-      _options$boundary = _options.boundary,
-      boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
-      _options$rootBoundary = _options.rootBoundary,
-      rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
-      _options$elementConte = _options.elementContext,
-      elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
-      _options$altBoundary = _options.altBoundary,
-      altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
-      _options$padding = _options.padding,
-      padding = _options$padding === void 0 ? 0 : _options$padding;
+    _options$placement = _options.placement,
+    placement = _options$placement === void 0 ? state.placement : _options$placement,
+    _options$boundary = _options.boundary,
+    boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
+    _options$rootBoundary = _options.rootBoundary,
+    rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
+    _options$elementConte = _options.elementContext,
+    elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
+    _options$altBoundary = _options.altBoundary,
+    altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
+    _options$padding = _options.padding,
+    padding = _options$padding === void 0 ? 0 : _options$padding;
   var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
   var altContext = elementContext === popper ? reference : popper;
   var referenceElement = state.elements.reference;
@@ -1019,13 +1019,13 @@ function computeAutoPlacement(state, options) {
   }
 
   var _options = options,
-      placement = _options.placement,
-      boundary = _options.boundary,
-      rootBoundary = _options.rootBoundary,
-      padding = _options.padding,
-      flipVariations = _options.flipVariations,
-      _options$allowedAutoP = _options.allowedAutoPlacements,
-      allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
+    placement = _options.placement,
+    boundary = _options.boundary,
+    rootBoundary = _options.rootBoundary,
+    padding = _options.padding,
+    flipVariations = _options.flipVariations,
+    _options$allowedAutoP = _options.allowedAutoPlacements,
+    allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
   var variation = getVariation(placement);
   var placements$1 = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
     return getVariation(placement) === variation;
@@ -1068,25 +1068,25 @@ function getExpandedFallbackPlacements(placement) {
 
 function flip(_ref) {
   var state = _ref.state,
-      options = _ref.options,
-      name = _ref.name;
+    options = _ref.options,
+    name = _ref.name;
 
   if (state.modifiersData[name]._skip) {
     return;
   }
 
   var _options$mainAxis = options.mainAxis,
-      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-      _options$altAxis = options.altAxis,
-      checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
-      specifiedFallbackPlacements = options.fallbackPlacements,
-      padding = options.padding,
-      boundary = options.boundary,
-      rootBoundary = options.rootBoundary,
-      altBoundary = options.altBoundary,
-      _options$flipVariatio = options.flipVariations,
-      flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
-      allowedAutoPlacements = options.allowedAutoPlacements;
+    checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+    _options$altAxis = options.altAxis,
+    checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
+    specifiedFallbackPlacements = options.fallbackPlacements,
+    padding = options.padding,
+    boundary = options.boundary,
+    rootBoundary = options.rootBoundary,
+    altBoundary = options.altBoundary,
+    _options$flipVariatio = options.flipVariations,
+    flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
+    allowedAutoPlacements = options.allowedAutoPlacements;
   var preferredPlacement = state.options.placement;
   var basePlacement = getBasePlacement(preferredPlacement);
   var isBasePlacement = basePlacement === preferredPlacement;
@@ -1221,7 +1221,7 @@ function isAnySideFullyClipped(overflow) {
 
 function hide(_ref) {
   var state = _ref.state,
-      name = _ref.name;
+    name = _ref.name;
   var referenceRect = state.rects.reference;
   var popperRect = state.rects.popper;
   var preventedOffsets = state.modifiersData.preventOverflow;
@@ -1263,8 +1263,8 @@ function distanceAndSkiddingToXY(placement, rects, offset) {
   var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
     placement: placement
   })) : offset,
-      skidding = _ref[0],
-      distance = _ref[1];
+    skidding = _ref[0],
+    distance = _ref[1];
 
   skidding = skidding || 0;
   distance = (distance || 0) * invertDistance;
@@ -1279,17 +1279,17 @@ function distanceAndSkiddingToXY(placement, rects, offset) {
 
 function offset(_ref2) {
   var state = _ref2.state,
-      options = _ref2.options,
-      name = _ref2.name;
+    options = _ref2.options,
+    name = _ref2.name;
   var _options$offset = options.offset,
-      offset = _options$offset === void 0 ? [0, 0] : _options$offset;
+    offset = _options$offset === void 0 ? [0, 0] : _options$offset;
   var data = placements.reduce(function (acc, placement) {
     acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
     return acc;
   }, {});
   var _data$state$placement = data[state.placement],
-      x = _data$state$placement.x,
-      y = _data$state$placement.y;
+    x = _data$state$placement.x,
+    y = _data$state$placement.y;
 
   if (state.modifiersData.popperOffsets != null) {
     state.modifiersData.popperOffsets.x += x;
@@ -1310,7 +1310,7 @@ var offset$1 = {
 
 function popperOffsets(_ref) {
   var state = _ref.state,
-      name = _ref.name;
+    name = _ref.name;
   // Offsets are the actual position the popper needs to have to be
   // properly positioned near its reference element
   // This is the most basic placement, and will be adjusted by
@@ -1338,20 +1338,20 @@ function getAltAxis(axis) {
 
 function preventOverflow(_ref) {
   var state = _ref.state,
-      options = _ref.options,
-      name = _ref.name;
+    options = _ref.options,
+    name = _ref.name;
   var _options$mainAxis = options.mainAxis,
-      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-      _options$altAxis = options.altAxis,
-      checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
-      boundary = options.boundary,
-      rootBoundary = options.rootBoundary,
-      altBoundary = options.altBoundary,
-      padding = options.padding,
-      _options$tether = options.tether,
-      tether = _options$tether === void 0 ? true : _options$tether,
-      _options$tetherOffset = options.tetherOffset,
-      tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
+    checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+    _options$altAxis = options.altAxis,
+    checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
+    boundary = options.boundary,
+    rootBoundary = options.rootBoundary,
+    altBoundary = options.altBoundary,
+    padding = options.padding,
+    _options$tether = options.tether,
+    tether = _options$tether === void 0 ? true : _options$tether,
+    _options$tetherOffset = options.tetherOffset,
+    tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
   var overflow = detectOverflow(state, {
     boundary: boundary,
     rootBoundary: rootBoundary,
@@ -1484,7 +1484,7 @@ function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
 
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
     if (getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
-    isScrollParent(documentElement)) {
+      isScrollParent(documentElement)) {
       scroll = getNodeScroll(offsetParent);
     }
 
@@ -1700,10 +1700,10 @@ function popperGenerator(generatorOptions) {
   }
 
   var _generatorOptions = generatorOptions,
-      _generatorOptions$def = _generatorOptions.defaultModifiers,
-      defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
-      _generatorOptions$def2 = _generatorOptions.defaultOptions,
-      defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
+    _generatorOptions$def = _generatorOptions.defaultModifiers,
+    defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
+    _generatorOptions$def2 = _generatorOptions.defaultOptions,
+    defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
   return function createPopper(reference, popper, options) {
     if (options === void 0) {
       options = defaultOptions;
@@ -1760,10 +1760,10 @@ function popperGenerator(generatorOptions) {
           }
 
           var _getComputedStyle = getComputedStyle(popper),
-              marginTop = _getComputedStyle.marginTop,
-              marginRight = _getComputedStyle.marginRight,
-              marginBottom = _getComputedStyle.marginBottom,
-              marginLeft = _getComputedStyle.marginLeft; // We no longer take into account `margins` on the popper, and it can
+            marginTop = _getComputedStyle.marginTop,
+            marginRight = _getComputedStyle.marginRight,
+            marginBottom = _getComputedStyle.marginBottom,
+            marginLeft = _getComputedStyle.marginLeft; // We no longer take into account `margins` on the popper, and it can
           // cause bugs with positioning, so we'll warn the consumer
 
 
@@ -1788,8 +1788,8 @@ function popperGenerator(generatorOptions) {
         }
 
         var _state$elements = state.elements,
-            reference = _state$elements.reference,
-            popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
+          reference = _state$elements.reference,
+          popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
         // anymore
 
         if (!areValidElements(reference, popper)) {
@@ -1838,10 +1838,10 @@ function popperGenerator(generatorOptions) {
           }
 
           var _state$orderedModifie = state.orderedModifiers[index],
-              fn = _state$orderedModifie.fn,
-              _state$orderedModifie2 = _state$orderedModifie.options,
-              _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
-              name = _state$orderedModifie.name;
+            fn = _state$orderedModifie.fn,
+            _state$orderedModifie2 = _state$orderedModifie.options,
+            _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
+            name = _state$orderedModifie.name;
 
           if (typeof fn === 'function') {
             state = fn({
@@ -1888,9 +1888,9 @@ function popperGenerator(generatorOptions) {
     function runModifierEffects() {
       state.orderedModifiers.forEach(function (_ref3) {
         var name = _ref3.name,
-            _ref3$options = _ref3.options,
-            options = _ref3$options === void 0 ? {} : _ref3$options,
-            effect = _ref3.effect;
+          _ref3$options = _ref3.options,
+          options = _ref3$options === void 0 ? {} : _ref3$options,
+          effect = _ref3.effect;
 
         if (typeof effect === 'function') {
           var cleanupFn = effect({
@@ -1900,7 +1900,7 @@ function popperGenerator(generatorOptions) {
             options: options
           });
 
-          var noopFn = function noopFn() {};
+          var noopFn = function noopFn() { };
 
           effectCleanupFns.push(cleanupFn || noopFn);
         }
@@ -1947,35 +1947,35 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
+var extendStatics = function (d, b) {
+  extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+  return extendStatics(d, b);
 };
 
 function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  extendStatics(d, b);
+  function __() { this.constructor = d; }
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __assign = function () {
+  __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
 };
 
 function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
 
@@ -2135,55 +2135,55 @@ var css$1 = `:host {
 
 
 /** @class */ ((function (_super) {
-    __extends(Button, _super);
-    function Button() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Button.prototype.render = function (props) {
-        var _a;
-        return h("button", __assign({ disabled: props.disabled }, extractClass(props, 'o-button', (_a = {},
-            _a['o-button-' + props.type] = props.type,
-            _a['o-button-' + props.size] = props.size,
-            _a['is-plain'] = props.plain,
-            _a['is-round'] = props.round,
-            _a['is-circle'] = props.circle,
-            _a['is-disabled'] = props.disabled,
-            _a['is-block'] = props.block,
-            _a)), { type: props.nativeType }),
-            props.loading && [h("svg", { class: "loading", viewBox: "0 0 1024 1024", focusable: "false", "data-icon": "loading", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true" },
-                    h("path", { d: "M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z" })), ' '],
-            props.text,
-            h("slot", null));
-    };
-    Button.css = css$1;
-    Button.defaultProps = {
-        plain: false,
-        round: false,
-        circle: false,
-        loading: false,
-        disabled: false,
-        autofocus: false,
-        nativeType: 'button',
-        block: false
-    };
-    Button.propTypes = {
-        size: String,
-        type: String,
-        plain: Boolean,
-        round: Boolean,
-        circle: Boolean,
-        loading: Boolean,
-        disabled: Boolean,
-        icon: String,
-        autofocus: Boolean,
-        nativeType: String,
-        block: Boolean,
-        text: String
-    };
-    Button = __decorate([
-        tag('o-button')
-    ], Button);
-    return Button;
+  __extends(Button, _super);
+  function Button() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+  Button.prototype.render = function (props) {
+    var _a;
+    return h("button", __assign({ disabled: props.disabled }, extractClass(props, 'o-button', (_a = {},
+      _a['o-button-' + props.type] = props.type,
+      _a['o-button-' + props.size] = props.size,
+      _a['is-plain'] = props.plain,
+      _a['is-round'] = props.round,
+      _a['is-circle'] = props.circle,
+      _a['is-disabled'] = props.disabled,
+      _a['is-block'] = props.block,
+      _a)), { type: props.nativeType }),
+      props.loading && [h("svg", { class: "loading", viewBox: "0 0 1024 1024", focusable: "false", "data-icon": "loading", width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true" },
+        h("path", { d: "M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z" })), ' '],
+      props.text,
+      h("slot", null));
+  };
+  Button.css = css$1;
+  Button.defaultProps = {
+    plain: false,
+    round: false,
+    circle: false,
+    loading: false,
+    disabled: false,
+    autofocus: false,
+    nativeType: 'button',
+    block: false
+  };
+  Button.propTypes = {
+    size: String,
+    type: String,
+    plain: Boolean,
+    round: Boolean,
+    circle: Boolean,
+    loading: Boolean,
+    disabled: Boolean,
+    icon: String,
+    autofocus: Boolean,
+    nativeType: String,
+    block: Boolean,
+    text: String
+  };
+  Button = __decorate([
+    tag('o-button')
+  ], Button);
+  return Button;
 })(WeElement));
 
 
@@ -2327,89 +2327,91 @@ var css = `/**
 
 
 var ToolTip = /** @class */ (function (_super) {
-    __extends$1(ToolTip, _super);
-    function ToolTip() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.cancel = function () {
-            _this.isShow = false;
-            _this.update();
-            _this.fire('cancel');
-        };
-        _this.confirm = function () {
-            _this.isShow = false;
-            _this.update();
-            _this.fire('confirm');
-        };
-        _this.showConfirm = function (evt) {
-            _this.isShow = true;
-            _this.update();
-            var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
-            createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
-                placement: _this.props.position,
-                modifiers: [
-                    {
-                        name: 'offset',
-                        options: {
-                            offset: [0, 8],
-                        },
-                    },
-                ],
-            });
-        };
-        _this.isShow = false;
-        return _this;
-    }
-    ToolTip.prototype.install = function () {
-        var _this = this;
-        window.addEventListener('click', function (evt) {
-            var path = evt.path || (evt.composedPath && event.composedPath());
-            var isClickOutside = (path
-                ? path.indexOf(_this.popEl) < 0
-                : !_this.popEl.contains(evt.target)) && (path
-                ? path.indexOf(_this.refEl) < 0
-                : !_this.refEl.contains(evt.target));
-            if (!isClickOutside) {
-                return;
-            }
-            _this.isShow = false;
-            _this.update();
-        });
+  __extends$1(ToolTip, _super);
+  function ToolTip() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this.cancel = function () {
+      _this.isShow = false;
+      _this.update();
+      _this.fire('cancel');
     };
-    ToolTip.prototype.render = function (props) {
-        var _a;
-        var _this = this;
-        return h(h.f, null,
-            h("slot", { ref: function (e) { return _this.refEl = e; }, style: "cursor:pointer", onclick: this.showConfirm }),
-            h("div", { ref: function (e) { return _this.popEl = e; }, class: classNames((_a = {
-                        tip: true,
-                        show: this.isShow
-                    },
-                    _a["is-" + props.effect] = props.effect,
-                    _a)) },
-                h("p", { class: "content" },
-                    h("slot", { name: "icon" }),
-                    props.content),
-                h("div", { class: "btns" },
-                    h("o-button", { size: "mini", onclick: this.cancel }, props.cancelButtonText || '取消'),
-                    " ",
-                    h("o-button", { onclick: this.confirm, type: "primary", size: "mini" }, props.confirmButtonText || '确认')),
-                h("i", { class: "tip-arrow", "data-popper-arrow": true })));
+    _this.confirm = function () {
+      _this.isShow = false;
+      _this.update();
+      _this.fire('confirm');
     };
-    ToolTip.css = css;
-    ToolTip.defaultProps = {
-        content: '',
-        effect: 'light',
-        position: 'bottom'
+    _this.showConfirm = function (evt) {
+      _this.isShow = true;
+      _this.update();
+      var tip = _this.shadowRoot.querySelector('slot').assignedNodes()[0];
+      createPopper(tip, _this.shadowRoot.querySelector('.tip'), {
+        placement: _this.props.position,
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 8],
+            },
+          },
+        ],
+      });
     };
-    ToolTip.propTypes = {
-        content: String,
-        effect: String,
-        position: String
-    };
-    ToolTip = __decorate$1([
-        tag('o-popconfirm')
-    ], ToolTip);
-    return ToolTip;
+    _this.isShow = false;
+    return _this;
+  }
+  ToolTip.prototype.install = function () {
+    var _this = this;
+    window.addEventListener('click', function (evt) {
+      var path = evt.path || (evt.composedPath && event.composedPath());
+      var isClickOutside = (path
+        ? path.indexOf(_this.popEl) < 0
+        : !_this.popEl.contains(evt.target)) && (path
+          ? path.indexOf(_this.refEl) < 0
+          : !_this.refEl.contains(evt.target));
+      if (!isClickOutside) {
+        return;
+      }
+      _this.isShow = false;
+      _this.update();
+    });
+  };
+  ToolTip.prototype.render = function (props) {
+    var _a;
+    var _this = this;
+    return h(h.f, null,
+      h("slot", { ref: function (e) { return _this.refEl = e; }, style: "cursor:pointer", onclick: this.showConfirm }),
+      h("div", {
+        ref: function (e) { return _this.popEl = e; }, class: classNames((_a = {
+          tip: true,
+          show: this.isShow
+        },
+          _a["is-" + props.effect] = props.effect,
+          _a))
+      },
+        h("p", { class: "content" },
+          h("slot", { name: "icon" }),
+          props.content),
+        h("div", { class: "btns" },
+          h("o-button", { size: "mini", onclick: this.cancel }, props.cancelButtonText || '取消'),
+          " ",
+          h("o-button", { onclick: this.confirm, type: "primary", size: "mini" }, props.confirmButtonText || '确认')),
+        h("i", { class: "tip-arrow", "data-popper-arrow": true })));
+  };
+  ToolTip.css = css;
+  ToolTip.defaultProps = {
+    content: '',
+    effect: 'light',
+    position: 'bottom'
+  };
+  ToolTip.propTypes = {
+    content: String,
+    effect: String,
+    position: String
+  };
+  ToolTip = __decorate$1([
+    tag('o-popconfirm')
+  ], ToolTip);
+  return ToolTip;
 }(WeElement));
 
 export default ToolTip;

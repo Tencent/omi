@@ -32,8 +32,8 @@ export default class Dialog extends WeElement<Props> {
       visible: true
     })
 
-    this.rootNode.childNodes[0].enter()
-    this.rootNode.childNodes[1].enter()
+    this.rootElement.childNodes[0].enter()
+    this.rootElement.childNodes[1].enter()
     this.fire('open')
   }
 
@@ -42,8 +42,8 @@ export default class Dialog extends WeElement<Props> {
   }
 
   close = () => {
-    this.rootNode.childNodes[0].leave()
-    this.rootNode.childNodes[1].leave()
+    this.rootElement.childNodes[0].leave()
+    this.rootElement.childNodes[1].leave()
     this.fire('close')
   }
 

@@ -3,7 +3,7 @@ import { define, render, WeElement } from '../../src/omi'
 
 define('t-g', class extends WeElement {
 
-	static isLightDom = true
+	static isLightDOM = true
 
 	render(props) {
 		return props.list.map(props.renderItem)
