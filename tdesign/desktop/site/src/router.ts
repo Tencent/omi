@@ -38,6 +38,7 @@ const components = [
   'progress',
   'badge',
   'skeleton',
+  'timeline',
 ]
 
 export function registerRouting(rootEl: any) {

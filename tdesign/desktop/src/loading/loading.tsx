@@ -149,7 +149,7 @@ export default class Loading extends WeElement<LoadingProps> {
 
     if (fullscreen) {
       return loading ? (
-        <div class={classNames(componentName, fullscreenClass, centerClass, overlayClass)} style={calcStyles}>
+        <div class={classNames(componentName, fullscreenClass, centerClass, overlayClass)} style={loadingStyle}>
           <div class={baseClasses}>{commonContent()}</div>
         </div>
       ) : null
@@ -164,7 +164,7 @@ export default class Loading extends WeElement<LoadingProps> {
               class={classNames(componentName, baseClasses, fullClass, {
                 [overlayClass]: showOverlay,
               })}
-              style={calcStyles}
+              style={loadingStyle}
             >
               {commonContent()}
             </div>
@@ -176,7 +176,7 @@ export default class Loading extends WeElement<LoadingProps> {
     //TODO attach
 
     return loading ? (
-      <div class={classNames(componentName, baseClasses)} style={calcStyles}>
+      <div class={classNames(componentName, baseClasses)} style={loadingStyle}>
         {commonContent()}
       </div>
     ) : null

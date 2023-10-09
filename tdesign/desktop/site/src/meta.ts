@@ -164,6 +164,7 @@ const metaData = new Map([
   ['avatar', { title: 'Avatar 头像', description: '用图标、图片、字符的形式展示用户或事物信息。' }],
   ['switch', { title: 'Switch 开关', description: '用于两个互斥选项，用来打开或关闭选项的选择控件。' }],
   ['progress', { title: 'Progress 进度条', description: '展示操作的当前进度。' }],
+  ['timeline', { title: 'Timeline 时间轴', description: '用于时间轴展示。' }],
 ])
 
 const getMetaData = (componentName: string) => {

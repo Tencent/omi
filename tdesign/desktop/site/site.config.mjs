@@ -521,14 +521,14 @@ export const docs = [
         name: 'tag',
         path: '/tag',
       },
-      //     {
-      //       title: 'Timeline 时间轴',
-      //       titleEn: 'Timeline',
-      //       name: 'timeline',
-      //       path: '/timeline',
-      //       component: () => import('tdesign-omi/timeline/timeline.md'),
-      //       componentEn: () => import('tdesign-omi/timeline/timeline.en-US.md'),
-      //     },
+      {
+        title: 'Timeline 时间轴',
+        titleEn: 'Timeline',
+        name: 'timeline',
+        path: '/timeline',
+        //       component: () => import('tdesign-omi/timeline/timeline.md'),
+        //       componentEn: () => import('tdesign-omi/timeline/timeline.en-US.md'),
+      },
       //     {
       //       title: 'Tooltip 文字提示',
       //       titleEn: 'Tooltip',
