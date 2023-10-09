@@ -195,61 +195,55 @@ declare namespace Omi {
     event?: (event: Event) => Event;
   }
 
-  //props data center
-  var $: object
+  type EffectFn = () => void;
+  type ComputedFn<T> = () => T;
+  interface ReactivitySignal<T> {
+      value: T;
+      peek: () => T;
+  }
+  function setActiveComponent(component: Component | null): void;
+  function getActiveComponent(): Component | null;
+  /**
+   * Creates a signal with an initial value.
+   * @param initialValue - The initial value of the signal.
+   * @returns A signal object with `value` and `peek` properties.
+   */
+  function signal<T>(initialValue: T): ReactivitySignal<T>;
+  /**
+   * Creates a computed signal based on a function.
+   * @param fn - The function to compute the signal value.
+   * @returns A computed signal object.
+   */
+  function computed<T>(fn: ComputedFn<T>): ReactivitySignal<T>;
+  /**
+   * Creates an effect based on a function.
+   * @param fn - The function to create the effect.
+   */
+  function effect(fn: EffectFn): void;
+  /**
+   * Batches multiple updates into a single update.
+   * @param fn - The function to batch.
+   */
+  function batch(fn: EffectFn): void;
+  /**
+   * Runs all functions in the batch queue.
+   */
+  function runBatch(): void;
 
-  var elements: object
-}
-
-type EffectFn = () => void;
-type ComputedFn<T> = () => T;
-interface ReactivitySignal<T> {
-    value: T;
-    peek: () => T;
-}
-export declare function setActiveComponent(component: Omi.Component | null): void;
-export declare function getActiveComponent(): Omi.Component | null;
-/**
- * Creates a signal with an initial value.
- * @param initialValue - The initial value of the signal.
- * @returns A signal object with `value` and `peek` properties.
- */
-export declare function signal<T>(initialValue: T): ReactivitySignal<T>;
-/**
- * Creates a computed signal based on a function.
- * @param fn - The function to compute the signal value.
- * @returns A computed signal object.
- */
-export declare function computed<T>(fn: ComputedFn<T>): ReactivitySignal<T>;
-/**
- * Creates an effect based on a function.
- * @param fn - The function to create the effect.
- */
-export declare function effect(fn: EffectFn): void;
-/**
- * Batches multiple updates into a single update.
- * @param fn - The function to batch.
- */
-export declare function batch(fn: EffectFn): void;
-/**
- * Runs all functions in the batch queue.
- */
-export declare function runBatch(): void;
-export {};
-
-export declare class Signal<T> {
-  private _value;
-  private _signal;
-  constructor(initialValue: T);
-  get value(): T;
-  set value(newValue: T);
-  peek(): unknown;
-  computed(fn: () => T): Signal<T>;
-  effect(fn: () => void): void;
-  batch(fn: () => void): void;
-  setActiveComponent(component: any): void;
-  getActiveComponent(): Omi.Component | null;
-  update(fn?: (value: T) => void): void;
+  class Signal<T> {
+    private _value;
+    private _signal;
+    constructor(initialValue: T);
+    get value(): T;
+    set value(newValue: T);
+    peek(): unknown;
+    computed(fn: () => T): Signal<T>;
+    effect(fn: () => void): void;
+    batch(fn: () => void): void;
+    setActiveComponent(component: any): void;
+    getActiveComponent(): Component | null;
+    update(fn?: (value: T) => void): void;
+  }
 }
 
 
