@@ -1,1 +1,0 @@
-import{_ as s,o as n,c as a,Q as l}from"./chunks/framework.fdfddb73.js";const d=JSON.parse('{"title":"omi-kbone","description":"","frontmatter":{},"headers":[],"relativePath":"zh/kbone.md","filePath":"zh/kbone.md"}'),p={name:"zh/kbone.md"},o=l("",16),t=[o];function e(c,r,E,y,i,F){return n(),a("div",null,t)}const m=s(p,[["render",e]]);export{d as __pageData,m as default};

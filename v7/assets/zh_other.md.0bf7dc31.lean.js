@@ -1,1 +1,0 @@
-import{_ as t,o as e,c as r,Q as a}from"./chunks/framework.fdfddb73.js";const f=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"zh/other.md","filePath":"zh/other.md"}'),o={name:"zh/other.md"},i=a("",5),m=[i];function n(s,d,h,c,l,p){return e(),r("div",null,m)}const b=t(o,[["render",n]]);export{f as __pageData,b as default};
