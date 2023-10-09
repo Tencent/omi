@@ -43,7 +43,7 @@ render(<counter-demo />, document.body)
 ## 安装
 
 ```bash
-npm i omi@7.0.0-alpha2
+npm i omi
 ```
 
 
