@@ -40,7 +40,7 @@ render(<counter-demo />, document.body)
 ## Install 
 
 ```bash
-npm i omi@7.0.0-alpha1
+npm i omi@7.0.0-alpha2
 ```
 
 ## Usage

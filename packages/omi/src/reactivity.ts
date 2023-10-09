@@ -6,7 +6,7 @@ type ComputedFn<T> = () => T;
 let activeEffect: EffectFn | null = null
 let batchQueue: EffectFn[] = []
 
-interface Signal<T> {
+interface ReactivitySignal<T> {
   value: T;
   peek: () => T;
 }
@@ -25,13 +25,13 @@ export function getActiveComponent(): Component | null {
  * @param initialValue - The initial value of the signal.
  * @returns A signal object with `value` and `peek` properties.
  */
-export function signal<T>(initialValue: T): Signal<T> {
+export function signal<T>(initialValue: T): ReactivitySignal<T> {
   let value = initialValue
   const deps = new Set<EffectFn>()
   const depsComponents = new Set<Component>()
 
-  return new Proxy({} as Signal<T>, {
-    get(_, prop: keyof Signal<T>) {
+  return new Proxy({} as ReactivitySignal<T>, {
+    get(_, prop: keyof ReactivitySignal<T>) {
       if (prop === 'value') {
         if (activeEffect) deps.add(activeEffect)
         const component = getActiveComponent()
@@ -40,7 +40,7 @@ export function signal<T>(initialValue: T): Signal<T> {
       }
       if (prop === 'peek') return () => value
     },
-    set(_, prop: keyof Signal<T>, newValue: T) {
+    set(_, prop: keyof ReactivitySignal<T>, newValue: T) {
       if (prop === 'value') {
         value = newValue
         deps.forEach(fn => fn())
@@ -57,7 +57,7 @@ export function signal<T>(initialValue: T): Signal<T> {
  * @param fn - The function to compute the signal value.
  * @returns A computed signal object.
  */
-export function computed<T>(fn: ComputedFn<T>): Signal<T> {
+export function computed<T>(fn: ComputedFn<T>): ReactivitySignal<T> {
   const computedSignal = signal<T>(fn())
   effect(() => {
     computedSignal.value = fn()

@@ -6,6 +6,6 @@ export { classNames, extractClass } from './class'
 export { createRef } from './utils'
 export { signal, computed, effect, batch } from './reactivity'
 export { Signal } from './signal'
-export const version = '7.0.0-alpha1'
+export const version = '7.0.0-alpha2'
 
 
