@@ -47,7 +47,7 @@ npm i omi
 ```
 
 
-## Usage
+## 使用
 
 ### TodoApp 使用响应式函数
 
