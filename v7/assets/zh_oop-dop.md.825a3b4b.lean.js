@@ -1,0 +1,1 @@
+import{_ as s,o as n,c as a,Q as l}from"./chunks/framework.fdfddb73.js";const u=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"zh/oop-dop.md","filePath":"zh/oop-dop.md"}'),p={name:"zh/oop-dop.md"},o=l("",9),e=[o];function t(c,E,r,y,i,F){return n(),a("div",null,e)}const C=s(p,[["render",t]]);export{u as __pageData,C as default};
