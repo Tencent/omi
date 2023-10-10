@@ -197,7 +197,7 @@ declare namespace Omi {
 
   type EffectFn = () => void;
   type ComputedFn<T> = () => T;
-  interface ReactivitySignal<T> {
+  export interface SignalValue<T> {
       value: T;
       peek: () => T;
   }
@@ -208,13 +208,13 @@ declare namespace Omi {
    * @param initialValue - The initial value of the signal.
    * @returns A signal object with `value` and `peek` properties.
    */
-  function signal<T>(initialValue: T): ReactivitySignal<T>;
+  function signal<T>(initialValue: T): SignalValue<T>;
   /**
    * Creates a computed signal based on a function.
    * @param fn - The function to compute the signal value.
    * @returns A computed signal object.
    */
-  function computed<T>(fn: ComputedFn<T>): ReactivitySignal<T>;
+  function computed<T>(fn: ComputedFn<T>): SignalValue<T>;
   /**
    * Creates an effect based on a function.
    * @param fn - The function to create the effect.
