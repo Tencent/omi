@@ -1,9 +1,9 @@
 import { Placement } from '@popperjs/core'
-import { PopupProps } from './type'
+import { TdPopupProps } from './type'
 
 const triggers = ['click', 'hover', 'focus', 'context-menu'] as const
 
-function getPopperPlacement(placement: PopupProps['placement']) {
+function getPopperPlacement(placement: TdPopupProps['placement']) {
   return placement.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement
 }
 

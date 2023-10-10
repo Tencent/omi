@@ -33,7 +33,6 @@ export default class Popup extends WeElement<
     updateScrollTop?: (content: HTMLElement) => void
   }
 > {
-
   static tagStyle = `
     t-trigger::part(pop-tag) {
       vertical-align: middle;
@@ -232,6 +231,10 @@ export default class Popup extends WeElement<
       strategy: 'fixed',
     })
   }
+  setVisible = (visible: boolean) => {
+    const { handlePopVisible } = this
+    handlePopVisible(visible, { trigger: 'document' })
+  }
 
   beforeUpdate() {
     //deal visible
@@ -274,7 +277,9 @@ export default class Popup extends WeElement<
 
     return (
       <t-container>
-        <t-trigger ref={this.triggerRef} part="trigger">{props.triggerElement ? props.triggerElement : props.children}</t-trigger>
+        <t-trigger ref={this.triggerRef} part="trigger">
+          {props.triggerElement ? props.triggerElement : props.children}
+        </t-trigger>
         <o-transition
           appear
           name={props.expandAnimation ? `${componentName}--animation-expand` : `${componentName}--animation`}
