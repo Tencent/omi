@@ -1,1 +1,0 @@
-import{_ as s,o as a,c as n,Q as p}from"./chunks/framework.53595077.js";const F=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"zh/update.md","filePath":"zh/update.md"}'),l={name:"zh/update.md"},o=p("",10),e=[o];function t(c,r,E,y,i,d){return a(),n("div",null,e)}const u=s(l,[["render",t]]);export{F as __pageData,u as default};
