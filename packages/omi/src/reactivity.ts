@@ -9,6 +9,7 @@ let batchQueue: EffectFn[] = []
 interface SignalValue<T> {
   value: T;
   peek: () => T;
+  update: () => void;
 }
 let activeComponent: Component | null = null
 

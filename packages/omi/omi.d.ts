@@ -198,8 +198,9 @@ declare namespace Omi {
   type EffectFn = () => void;
   type ComputedFn<T> = () => T;
   export interface SignalValue<T> {
-      value: T;
-      peek: () => T;
+    value: T;
+    peek: () => T;
+    update: () => void;
   }
   function setActiveComponent(component: Component | null): void;
   function getActiveComponent(): Component | null;
