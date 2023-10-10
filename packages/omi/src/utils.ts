@@ -126,3 +126,13 @@ export function isNamedNode(node: ExtendedElement, nodeName: string): boolean {
 export function createRef() {
   return {}
 }
+
+export function isPrimitive(value: unknown) {
+  return (
+    typeof value === 'undefined' ||
+    typeof value === 'boolean' ||
+    typeof value === 'number' ||
+    typeof value === 'string' ||
+    typeof value === 'symbol'
+  )
+}

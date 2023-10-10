@@ -1,4 +1,5 @@
 import { Component } from './component'
+import { isPrimitive } from './utils'
 
 type EffectFn = () => void;
 type ComputedFn<T> = () => T;
@@ -52,9 +53,11 @@ export function signal<T>(initialValue: T): SignalValue<T> {
     },
     set(_, prop: keyof SignalValue<T>, newValue: T) {
       if (prop === 'value') {
-        value = newValue
-        deps.forEach(fn => fn())
-        depsComponents.forEach(component => component.update())
+        if(!isPrimitive(value) ||  !isPrimitive(newValue) || value !== newValue) {
+          value = newValue
+          deps.forEach(fn => fn())
+          depsComponents.forEach(component => component.update())
+        }    
         return true
       }
       return false

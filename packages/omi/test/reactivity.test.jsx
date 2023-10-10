@@ -101,6 +101,30 @@ describe('signal', () => {
   })
 
 
+  it('should get the value correctly', () => {
+    const testSignal = signal([1,2,3])
+    let effectTimes = 0
+    effect(() => {
+      console.log(testSignal.value)
+      effectTimes++
+    })
+    testSignal.value.push(4)
+    expect(effectTimes).toBe(1)
+  })
+
+  it('should get the value correctly', () => {
+    const testSignal = signal([1,2,3])
+    let effectTimes = 0
+    effect(() => {
+      console.log(testSignal.value)
+      effectTimes++
+    })
+    testSignal.value.push(4)
+    // same as testSignal.value = testSignal.value
+    testSignal.update()
+    expect(effectTimes).toBe(2)
+  })
+
 
 
   it('should update the value correctly', () => {

@@ -69,13 +69,14 @@ const completedCount = computed(() => {
 const newItem = signal('')
 
 function addTodo() {
-  todos.value = [...todos.value, { text: newItem.value, completed: false }]
-  newItem.value = '' // Reset input value on add
+  todos.value.push({ text: newItem.value, completed: false })
+  todos.update() // Trigger UI auto update
+  newItem.value = '' // Changing the value type can automatically update the UI
 }
 
 function removeTodo(index: number) {
   todos.value.splice(index, 1)
-  todos.value = [...todos.value]
+  todos.update() // Trigger UI auto update
 }
 
 @tag('todo-list')

@@ -14,13 +14,14 @@ const completedCount = computed(() => {
 const newItem = signal('')
 
 function addTodo() {
-  todos.value = [...todos.value, { text: newItem.value, completed: false }]
+  todos.value.push({ text: newItem.value, completed: false })
+  todos.update()
   newItem.value = '' // Reset input value on add
 }
 
 function removeTodo(index: number) {
   todos.value.splice(index, 1)
-  todos.value = [...todos.value]
+  todos.update()
 }
 
 @tag('todo-list')
@@ -46,7 +47,7 @@ class TodoList extends Component {
                     checked={todo.completed}
                     onInput={() => {
                       todo.completed = !todo.completed
-                      todos.value = [...todos.value]
+                      todos.update()
                     }}
                   />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}
