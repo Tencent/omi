@@ -37,8 +37,6 @@ export function signal<T>(initialValue: T): SignalValue<T> {
       if (prop === 'value') {
         if (activeEffect) {
           deps.add(activeEffect)
-          // @ts-ignore
-          activeEffect.deps.add({ deps, value })
         }
         const component = getActiveComponent()
         if (component) depsComponents.add(component)
@@ -91,18 +89,12 @@ export function effect(fn: EffectFn): () => void {
     fn()
     activeEffect = null
   }
-
-  effectFn.deps = deps
-
+  
   // Run the effect function for the first time
   effectFn()
 
   // Return a dispose function to cancel the effect
   return () => {
-    deps.forEach(dep => {
-      // @ts-ignore
-      dep.deps.delete(effectFn)
-    })
     deps.clear()
   }
 }
