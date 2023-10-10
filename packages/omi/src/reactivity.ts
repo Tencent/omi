@@ -82,14 +82,18 @@ export function computed<T>(fn: ComputedFn<T>): SignalValue<T> {
  */
 export function effect(fn: EffectFn): () => void {
   const deps = new Set<SignalValue<any>>()
+  let isRunning = false // Add a flag to check if the effect function is currently running
 
   // Create a new effect function to collect dependencies and run the original function
   const effectFn = () => {
+    if (isRunning) return // If the effect function is already running, return directly
+    isRunning = true // Start running the effect function
     activeEffect = effectFn
     fn()
     activeEffect = null
+    isRunning = false // Finish running the effect function
   }
-  
+
   // Run the effect function for the first time
   effectFn()
 

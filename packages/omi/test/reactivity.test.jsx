@@ -27,7 +27,6 @@ describe('signal', () => {
   })
 
   it('should get correct value', () => {
-
     const name = signal('Dnt')
     const surname = signal('Zhang')
     const fullName = computed(() => name.value + ' ' + surname.value)
@@ -36,18 +35,13 @@ describe('signal', () => {
     const dispose = effect(() => {
       effectTimes++
     })
-
     dispose()
-
     name.value = 'John'
-
     expect(effectTimes).toBe(1)
-
   })
 
 
   it('should get correct value', () => {
-
     const name = signal('Dnt')
     const surname = signal('Zhang')
     const fullName = computed(() => name.value + ' ' + surname.value)
@@ -57,15 +51,12 @@ describe('signal', () => {
       fullName.value
       effectTimes++
     })
-
     name.value = 'John'
-
     expect(effectTimes).toBe(2)
 
   })
 
   it('should get correct value', () => {
-
     const name = signal('Dnt')
     const surname = signal('Zhang')
     const fullName = computed(() => name.value + ' ' + surname.value)
@@ -74,16 +65,11 @@ describe('signal', () => {
     effect(() => {
       effectTimes++
     })
-
     name.value = 'John'
-
     expect(effectTimes).toBe(1)
-
   })
 
-
   it('should get correct value', () => {
-
     const name = signal('Dnt')
     const surname = signal('Zhang')
     const fullName = computed(() => name.peek() + ' ' + surname.value)
@@ -95,17 +81,15 @@ describe('signal', () => {
     })
 
     name.value = 'John'
-
     expect(effectTimes).toBe(1)
 
   })
-
 
   it('should get the value correctly', () => {
     const testSignal = signal([1,2,3])
     let effectTimes = 0
     effect(() => {
-      console.log(testSignal.value)
+      testSignal.value
       effectTimes++
     })
     testSignal.value.push(4)
@@ -116,7 +100,7 @@ describe('signal', () => {
     const testSignal = signal([1,2,3])
     let effectTimes = 0
     effect(() => {
-      console.log(testSignal.value)
+      testSignal.value
       effectTimes++
     })
     testSignal.value.push(4)
@@ -125,16 +109,12 @@ describe('signal', () => {
     expect(effectTimes).toBe(2)
   })
 
-
-
   it('should update the value correctly', () => {
     const testSignal = signal(10)
     testSignal.value = 20
     expect(testSignal.peek()).toBe(20)
   })
-
 })
-
 
 describe('computed', () => {
   it('should compute the correct value', () => {

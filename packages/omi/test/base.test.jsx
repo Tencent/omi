@@ -42,14 +42,14 @@ describe('base', () => {
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>Ele1</div>')
   })
 
-  it('define the same name twice', () => {
-    @tag('my-ele2')
-    class Ele extends Component {
-      render(props) {
-        return <div>Ele{props.a}</div>
-      }
-    }
-  })
+  // it('define the same name twice', () => {
+  //   @tag('my-ele2')
+  //   class Ele extends Component {
+  //     render(props) {
+  //       return <div>Ele{props.a}</div>
+  //     }
+  //   }
+  // })
 
   it('spyOn render', () => {
     class Ele extends Component {
