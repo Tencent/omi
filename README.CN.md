@@ -73,13 +73,14 @@ const completedCount = computed(() => {
 const newItem = signal('')
 
 function addTodo() {
-  todos.value = [...todos.value, { text: newItem.value, completed: false }]
-  newItem.value = '' // Reset input value on add
+  todos.value.push({ text: newItem.value, completed: false })
+  todos.update() // 非值类型的数据更新需要手动调用 update 方法
+  newItem.value = '' // 值类型的数据更新需会自动 update
 }
 
 function removeTodo(index: number) {
   todos.value.splice(index, 1)
-  todos.value = [...todos.value]
+  todos.update() // 非值类型的数据更新需要手动调用 update 方法
 }
 
 @tag('todo-list')
@@ -104,7 +105,7 @@ class TodoList extends Component {
                     checked={todo.completed}
                     onInput={() => {
                       todo.completed = !todo.completed
-                      todos.value = [...todos.value]
+                      todos.update()
                     }}
                   />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}

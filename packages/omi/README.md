@@ -101,7 +101,7 @@ class TodoList extends Component {
                     checked={todo.completed}
                     onInput={() => {
                       todo.completed = !todo.completed
-                      todos.value = [...todos.value]
+                      todos.update() // Trigger UI auto update
                     }}
                   />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}
