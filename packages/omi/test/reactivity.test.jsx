@@ -1,4 +1,4 @@
-import { signal, computed, effect, batch } from '@/index'
+import { signal, computed, effect, batch, setActiveComponent } from '@/index'
 
 describe('signal', () => {
   it('should initialize with the correct value', () => {
@@ -86,7 +86,7 @@ describe('signal', () => {
   })
 
   it('should get the value correctly', () => {
-    const testSignal = signal([1,2,3])
+    const testSignal = signal([1, 2, 3])
     let effectTimes = 0
     effect(() => {
       testSignal.value
@@ -97,7 +97,7 @@ describe('signal', () => {
   })
 
   it('should get the value correctly', () => {
-    const testSignal = signal([1,2,3])
+    const testSignal = signal([1, 2, 3])
     let effectTimes = 0
     effect(() => {
       testSignal.value
@@ -123,6 +123,38 @@ describe('computed', () => {
     expect(computedSignal.peek()).toBe(20)
     testSignal.value = 20
     expect(computedSignal.peek()).toBe(40)
+  })
+
+  it('should not dead loop', () => {
+    const todos = signal([
+      { text: 'Learn OMI', completed: true },
+    ])
+
+    const completedCount = computed(() => {
+      return todos.value.filter(todo => todo.completed)
+    })
+
+    function addTodo(text) {
+      todos.value.push({ text, completed: false })
+      todos.update()
+    }
+
+    const mockComponent = {
+      render() {
+        todos.value.map((todo, index) => { })
+        return completedCount.value.length
+      },
+
+      update() {
+        setActiveComponent(mockComponent)
+        this.render()
+        setActiveComponent(null)
+      },
+    }
+
+    mockComponent.update()
+    addTodo()
+    addTodo()
   })
 })
 
