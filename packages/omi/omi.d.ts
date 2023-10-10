@@ -220,7 +220,7 @@ declare namespace Omi {
    * Creates an effect based on a function.
    * @param fn - The function to create the effect.
    */
-  function effect(fn: EffectFn): void;
+  function effect(fn: EffectFn): () => void;
   /**
    * Batches multiple updates into a single update.
    * @param fn - The function to batch.

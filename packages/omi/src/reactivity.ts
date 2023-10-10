@@ -34,7 +34,11 @@ export function signal<T>(initialValue: T): SignalValue<T> {
   return new Proxy({} as SignalValue<T>, {
     get(_, prop: keyof SignalValue<T>) {
       if (prop === 'value') {
-        if (activeEffect) deps.add(activeEffect)
+        if (activeEffect) {
+          deps.add(activeEffect)
+          // @ts-ignore
+          activeEffect.deps.add({ deps, value })
+        }
         const component = getActiveComponent()
         if (component) depsComponents.add(component)
         return value
@@ -75,10 +79,29 @@ export function computed<T>(fn: ComputedFn<T>): SignalValue<T> {
  * Creates an effect based on a function.
  * @param fn - The function to create the effect.
  */
-export function effect(fn: EffectFn): void {
-  activeEffect = fn
-  fn()
-  activeEffect = null
+export function effect(fn: EffectFn): () => void {
+  const deps = new Set<SignalValue<any>>()
+
+  // Create a new effect function to collect dependencies and run the original function
+  const effectFn = () => {
+    activeEffect = effectFn
+    fn()
+    activeEffect = null
+  }
+
+  effectFn.deps = deps
+
+  // Run the effect function for the first time
+  effectFn()
+
+  // Return a dispose function to cancel the effect
+  return () => {
+    deps.forEach(dep => {
+      // @ts-ignore
+      dep.deps.delete(effectFn)
+    })
+    deps.clear()
+  }
 }
 
 /**
