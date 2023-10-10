@@ -73,8 +73,13 @@ const completedCount = computed(() => {
 const newItem = signal('')
 
 function addTodo() {
+  // api a，不会重新创建数组
   todos.value.push({ text: newItem.value, completed: false })
   todos.update() // 非值类型的数据更新需要手动调用 update 方法
+
+  // api b, 和上面的 api a 效果一样，但是会创建新的数组
+  // todos.value = [...todos.value, { text: newItem.value, completed: false }]
+
   newItem.value = '' // 值类型的数据更新需会自动 update
 }
 

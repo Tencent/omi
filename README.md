@@ -71,8 +71,13 @@ const completedCount = computed(() => {
 const newItem = signal('')
 
 function addTodo() {
+  // api a
   todos.value.push({ text: newItem.value, completed: false })
   todos.update() // Trigger UI auto update
+  
+  // api b, same as api a
+  // todos.value = [...todos.value, { text: newItem.value, completed: false }]
+
   newItem.value = '' // Changing the value type can automatically update the UI
 }
 
