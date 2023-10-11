@@ -141,7 +141,7 @@ export class Component extends HTMLElement {
         this.renderRoot?.appendChild(item)
       })
     } else {
-      this.renderRoot?.appendChild(this.rootElement as Element)
+      this.rootElement && this.renderRoot?.appendChild(this.rootElement as Element)
     }
     this.installed()
     this.isInstalled = true
