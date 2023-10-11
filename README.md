@@ -48,13 +48,13 @@ npm i omi
 ### Packages
 
 - Core packages
-  - [`omi`](./packages/omi) - Implementation of omi framework.
+  - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Implementation of omi framework.
 - Starter kits (not published to npm)
-  - [`omi-starter-ts`](./packages/omi-starter-ts) - A starter repo for building web app or reusable components using Omi in TypeScript base on Vite.
-  - [`omi-starter-js`](./packages/omi-starter-js) - A starter repo for building web app or reusable components using Omi in JavaScript base on Vite.
+  - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - A starter repo for building web app or reusable components using Omi in TypeScript base on Vite.
+  - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - A starter repo for building web app or reusable components using Omi in JavaScript base on Vite.
 - Examples (not published to npm)
-  - [`snake-game-2tier`](./packages/snake-game-2tier) - SNake Game with `Signal` class
-  - [`snake-game-3tier`](./packages/snake-game-3tier) - SNake Game with reactivity functions
+  - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - SNake Game with `Signal` class
+  - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - SNake Game with reactivity functions
 
 
 ## Usage
