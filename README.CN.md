@@ -234,6 +234,10 @@ render(<todo-list />, document.body)
   <img src="https://contrib.rocks/image?repo=Tencent/omi" />
 </a>
 
+## 微信群
+
+<img src="./wechat.png" alt="omi" width="300"/></p>
+
 ## License
 
 MIT © Tencent
