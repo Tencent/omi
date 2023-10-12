@@ -16,7 +16,7 @@ export default class extends Component {
             <img src={viteLogo} class="logo" alt="Vite logo" />
           </a>
           <a href="http://omijs.org" target="_blank">
-            <img src="https://omi.cdn-go.cn/admin/latest/home/omi.svg" class="logo omi" alt="Omi logo" />
+            <img src="https://omi.cdn-go.cn/s/latest/omi.svg" class="logo omi" alt="Omi logo" />
           </a>
         </div>
         <h1>Vite + Omi</h1>
