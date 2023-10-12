@@ -3,7 +3,7 @@ import { resolve } from "path";
 export default {
   esbuild: {
     jsxFactory: "h",
-    jsxFragment: "Fragment"
+    jsxFragment: "h.f"
   },
   build: {
     rollupOptions: {
