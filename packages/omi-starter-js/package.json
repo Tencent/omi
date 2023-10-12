@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "omi": "^7.0.0-rc4"
+    "omi": "^7.0.0"
   },
   "devDependencies": {
     "vite": "^4.4.5"
