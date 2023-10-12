@@ -46,6 +46,16 @@ render(<counter-demo />, document.body)
 npm i omi
 ```
 
+### 包
+
+- 核心包
+  - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Omi 框架的实现代码。
+- 入门套件 (未发布到 npm)
+  - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - 基于Vite + Omi + TypeScript 的模板。
+  - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - 基于Vite + Omi + JavaScript 的模板。
+- 综合性例子 (未发布到 npm)
+  - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - 基于 Omi `Signal` class 两层架构的贪吃蛇游戏。
+  - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - 基于 Omi 响应是函数三层架构的贪吃蛇游戏。
 
 ## 使用
 
