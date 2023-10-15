@@ -2,6 +2,7 @@
 <h2 align="center">Omi - Web Components Framework</h2>
 
 - 📶 **Signal**-driven reactive programming
+- ⚡ **Tiny** size, **Fast** performance
 - 💯 Both **object** oriented programming(OOP) and **data** oriented programming(DOP) are supported
 - 🌐 **Web Components** + **JSX** for streamlined component-based development
 - 💒 Harness **Constructable Stylesheets** to easily manage and share styles
