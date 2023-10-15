@@ -136,3 +136,18 @@ export function isPrimitive(value: unknown) {
     typeof value === 'symbol'
   )
 }
+
+export function bind(target: unknown, propertyKey: string, descriptor: PropertyDescriptor) {
+  return {
+    configurable: true,
+    get() {
+      const bound = descriptor.value.bind(this)
+      Object.defineProperty(this, propertyKey, {
+        value: bound,
+        configurable: true,
+        writable: true,
+      })
+      return bound
+    },
+  }
+}
