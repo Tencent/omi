@@ -245,6 +245,25 @@ declare namespace Omi {
     getActiveComponent(): Component | null;
     update(fn?: (value: T) => void): void;
   }
+
+  /**
+   * A tagged template function for CSS that supports JavaScript expressions.
+   * It concatenates the parts of the template string with the values of the expressions.
+   * It also checks if the values are safe to insert into CSS.
+   * The function returns a CSSStyleSheet object, which can be shared among multiple elements.
+   *
+   * @param {TemplateStringsArray} strings - The parts of the template string.
+   * @param {...unknown[]} values - The values of the expressions.
+   * @returns {CSSStyleSheet} The resulting CSSStyleSheet object.
+   * @throws {Error} If a value is not safe to insert into CSS.
+   */
+  function css(strings: TemplateStringsArray, ...values: unknown[]): CSSStyleSheet;
+
+  function bind(target: unknown, propertyKey: string, descriptor: PropertyDescriptor): {
+    configurable: boolean;
+    get(): any;
+  };
+
 }
 
 
