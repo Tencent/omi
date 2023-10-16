@@ -1,3 +1,5 @@
+import { bind } from 'omi'
+
 class Snake {
   body: number[]
   dir: 'up' | 'right' | 'down' | 'left'
@@ -30,19 +32,26 @@ class Snake {
     }
   }
 
-  turnUp = () => {
+  @bind
+  turnUp() {
     if (this.dir !== 'down')
       this.dir = 'up'
   }
-  turnRight = () => {
+
+  @bind
+  turnRight() {
     if (this.dir !== 'left')
       this.dir = 'right'
   }
-  turnDown = () => {
+
+  @bind
+  turnDown() {
     if (this.dir !== 'up')
       this.dir = 'down'
   }
-  turnLeft = () => {
+
+  @bind
+  turnLeft() {
     if (this.dir !== 'right')
       this.dir = 'left'
   }

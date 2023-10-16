@@ -11,6 +11,6 @@
     "vite": "^2.3.7"
   },
   "dependencies": {
-    "omi": "^7.0.0-beta2"
+    "omi": "latest"
   }
 }

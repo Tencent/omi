@@ -1,6 +1,6 @@
 import Game from '../model/game'
 import Snake from '../model/snake'
-import { SignalValue, signal } from 'omi'
+import { SignalValue, signal, bind } from 'omi'
 
 class Store {
   snake: Snake
@@ -22,23 +22,28 @@ class Store {
     this.state = signal( { map: game.map, paused: false })
   }
 
-  turnUp = () => {
+  @bind
+  turnUp() {
     this.snake.turnUp()
   }
 
-  turnRight = () => {
+  @bind
+  turnRight() {
     this.snake.turnRight()
   }
 
-  turnDown = () => {
+  @bind
+  turnDown() {
     this.snake.turnDown()
   }
 
-  turnLeft = () => {
+  @bind
+  turnLeft() {
     this.snake.turnLeft()
   }
 
-  pauseOrPlay = () => {
+  @bind
+  pauseOrPlay() {
     if (this.game.paused) {
       this.game.play()
       this.state.value.paused = false
@@ -49,11 +54,13 @@ class Store {
     this.state.update()
   }
 
-  reset = () => {
+  @bind
+  reset() {
     this.game.reset()
   }
 
-  toggleSpeed = () => {
+  @bind
+  toggleSpeed() {
     this.game.toggleSpeed()
   }
 }

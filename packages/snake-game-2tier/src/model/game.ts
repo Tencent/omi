@@ -1,5 +1,5 @@
 import Snake from './snake'
-import { Signal } from 'omi'
+import { Signal, bind } from 'omi'
 
 type SignalValueType = {
   map: number[][],
@@ -87,12 +87,14 @@ class Game extends Signal<SignalValueType>{
     this.value.paused = false
   }
 
-  pauseOrPlay = () => { 
+  @bind
+  pauseOrPlay() { 
     this.value.paused = !this.value.paused
     this.update()
   }
 
-  reset = () => {
+  @bind
+  reset() {
     this.value.paused = false
     this.interval = 500
     this.snake.body = [3, 1, 2, 1, 1, 1]
@@ -100,7 +102,8 @@ class Game extends Signal<SignalValueType>{
     this.snake.dir = 'right'
   }
 
-  toggleSpeed = () => {
+  @bind
+  toggleSpeed() {
     this.interval === 500 ? (this.interval = 150) : (this.interval = 500)
   }
 
