@@ -2,6 +2,9 @@ switch (location.hash) {
   case '#base':
     import('./base')
     break
+  case '#tdesign-icons-omi':
+    import('./tdesign-icons-omi')
+    break
   case '#signal':
     import('./signal')
     break
