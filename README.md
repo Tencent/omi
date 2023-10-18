@@ -46,7 +46,7 @@ render(<counter-demo />, document.body)
 npm i omi
 ```
 
- To quickly create an Omi + Vite + TS/JS project:
+To quickly create an Omi + Vite + TS/JS project:
 
 ```bash
 $ npx omi-cli init my-app    # or create js project by: npx omi-cli init-js my-app
