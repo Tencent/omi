@@ -236,6 +236,42 @@ render(<todo-list />, document.body)
 
 We won't discuss which method is good or bad here. You can choose either method using omi.
 
+## Auto Import h
+
+vite.config.js:
+
+```tsx
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    "jsxInject": "import { h } from 'omi'",
+  }
+})
+```
+
+You can inject code during construction, so you don't have to manually export `h`.
+
+## With Twind
+
+```tsx
+import { Component, define, h } from 'omi'
+
+import install from '@twind/with-web-components'
+import { defineConfig } from '@twind/core'
+import presetAutoprefix from '@twind/preset-autoprefix'
+import presetTailwind from '@twind/preset-tailwind'
+const withTwind = install(defineConfig({
+  presets: [presetAutoprefix(), presetTailwind()],
+}))
+
+define('my-app', class extends withTwind(Component) {
+  render() {
+    return <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  }
+})
+```
+
 ## Contributors
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">

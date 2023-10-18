@@ -240,6 +240,41 @@ render(<todo-list />, document.body)
 
 这里不讨论哪种方式(DOP,OOP)的好坏，使用 omi 两种方式都可以任意选择。
 
+## 自动导入 h
+
+vite.config.js:
+
+```tsx
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    "jsxInject": "import { h } from 'omi'",
+  }
+})
+```
+
+你可以在构建时候注入代码，这样就不用手动导出 `h`。
+
+## 集成 Twind
+
+```tsx
+import { Component, define, h } from 'omi'
+
+import install from '@twind/with-web-components'
+import { defineConfig } from '@twind/core'
+import presetAutoprefix from '@twind/preset-autoprefix'
+import presetTailwind from '@twind/preset-tailwind'
+const withTwind = install(defineConfig({
+  presets: [presetAutoprefix(), presetTailwind()],
+}))
+
+define('my-app', class extends withTwind(Component) {
+  render() {
+    return <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  }
+})
+```
 
 ## 贡献者
 
