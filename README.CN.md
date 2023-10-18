@@ -47,10 +47,20 @@ render(<counter-demo />, document.body)
 npm i omi
 ```
 
+快速创建 Omi + Vite + TS/JS 项目：
+
+```bash
+$ npx omi-cli init my-app    # 或者创建js项目: npx omi-cli init-js my-app
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
 ### 包
 
 - 核心包
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Omi 框架的实现代码。
+  - [`omi-cli`](https://github.com/omijs/cli) - 快速创建 Omi + Vite + TS/JS 项目。
 - 入门套件 (未发布到 npm)
   - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - 基于Vite + Omi + TypeScript 的模板。
   - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - 基于Vite + Omi + JavaScript 的模板。
