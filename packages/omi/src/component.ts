@@ -187,28 +187,20 @@ export class Component extends HTMLElement {
     this.update(true)
   }
 
-  removeAttribute(key: string): void {
-    super.removeAttribute(key)
+  removeProp(key: string): void {
+    this.removeAttribute(key)
     // Avoid executing removeAttribute methods before connectedCallback
     this.isInstalled && this.update()
   }
 
-  setAttribute(key: string, val: string | object): void {
+  setProp(key: string, val: string | object): void {
     if (val && typeof val === 'object') {
-      super.setAttribute(key, JSON.stringify(val))
+      this.setAttribute(key, JSON.stringify(val))
     } else {
-      super.setAttribute(key, val)
+      this.setAttribute(key, val)
     }
     // Avoid executing setAttribute methods before connectedCallback
     this.isInstalled && this.update()
-  }
-
-  nativeRemoveAttribute(key: string): void {
-    super.removeAttribute(key)
-  }
-
-  nativeSetAttribute(key: string, val: string): void {
-    super.setAttribute(key, val)
   }
 
   attrsToProps(): void {

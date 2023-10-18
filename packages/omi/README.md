@@ -44,15 +44,26 @@ render(<counter-demo />, document.body)
 npm i omi
 ```
 
+To quickly create an Omi + Vite + TS/JS project:
+
+```bash
+$ npx omi-cli init my-app    # or create js project by: npx omi-cli init-js my-app
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
 ### Packages
 
 - Core packages
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Implementation of omi framework.
+  - [`omi-cli`](https://github.com/omijs/cli) - To quickly create an Omi + Vite + TS/JS project.
 - Starter kits (not published to npm)
   - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - A starter repo for building web app or reusable components using Omi in TypeScript base on Vite.
   - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - A starter repo for building web app or reusable components using Omi in JavaScript base on Vite.
 - Components
-  - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - Cross framework icon collection based on tdesign design architecture and omi.
+  - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - Cross framework icon collection based on tdesign.
+  - [`tdesign-omi`](https://github.com/omijs/tdesign) - `[in progress...]`Cross framework components based on tdesign. [Preview](https://omijs.github.io/tdesign/)
 - Examples (not published to npm)
   - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - SNake Game with `Signal` class
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - SNake Game with reactivity functions
@@ -235,6 +246,43 @@ render(<todo-list />, document.body)
 ```
 
 We won't discuss which method is good or bad here. You can choose either method using omi.
+
+## Auto Import h
+
+vite.config.js:
+
+```tsx
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    "jsxInject": "import { h } from 'omi'",
+  }
+})
+```
+
+You can inject code during construction, so you don't have to manually export `h`.
+
+## With Twind
+
+```tsx
+import { Component, define, h } from 'omi'
+
+import install from '@twind/with-web-components'
+import { defineConfig } from '@twind/core'
+import presetAutoprefix from '@twind/preset-autoprefix'
+import presetTailwind from '@twind/preset-tailwind'
+const withTwind = install(defineConfig({
+  presets: [presetAutoprefix(), presetTailwind()],
+}))
+
+define('my-app', class extends withTwind(Component) {
+  render() {
+    return <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  }
+})
+```
+
 
 ## Contributors
 

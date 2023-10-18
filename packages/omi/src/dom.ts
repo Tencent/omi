@@ -16,8 +16,6 @@ export type ExtendedElement = (HTMLElement | SVGAElement | HTMLInputElement) & {
   }
   attributes: NamedNodeMap
   _component?: Component
-  nativeRemoveAttribute: Function
-  nativeSetAttribute: Function
   _listeners: Record<string, Function>
 } & Record<string, unknown>
 
@@ -110,7 +108,7 @@ export function setAccessor(
       node[name] = value == null ? '' : value
     } catch (e) { }
     if ((value == null || value === false) && name != 'spellcheck')
-      node.nativeRemoveAttribute ? node.nativeRemoveAttribute(name) : node.removeAttribute(name)
+      node.removeAttribute(name)
   } else {
     let ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''))
     // spellcheck is treated differently than all other boolean values and
@@ -123,7 +121,7 @@ export function setAccessor(
           name.toLowerCase()
         )
       else
-        node.nativeRemoveAttribute ? node.nativeRemoveAttribute(name) : node.removeAttribute(name)
+        node.removeAttribute(name)
     } else if (typeof value !== 'function') {
       if (ns) {
         node.setAttributeNS(
@@ -132,7 +130,7 @@ export function setAccessor(
           value
         )
       } else {
-        node.nativeSetAttribute ? node.nativeSetAttribute(name, value) : node.setAttribute(name, value)
+        node.setAttribute(name, value)
       }
     }
   }

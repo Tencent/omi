@@ -47,15 +47,26 @@ render(<counter-demo />, document.body)
 npm i omi
 ```
 
+快速创建 Omi + Vite + TS/JS 项目：
+
+```bash
+$ npx omi-cli init my-app    # 或者创建js项目: npx omi-cli init-js my-app
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
 ### 包
 
 - 核心包
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Omi 框架的实现代码。
+  - [`omi-cli`](https://github.com/omijs/cli) - 快速创建 Omi + Vite + TS/JS 项目。
 - 入门套件 (未发布到 npm)
   - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - 基于Vite + Omi + TypeScript 的模板。
   - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - 基于Vite + Omi + JavaScript 的模板。
 - Components
   - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - 基于 TDesign 和 Omi 的跨框架 icon 集合。
+  - [`tdesign-omi`](https://github.com/omijs/tdesign) - `[进行中...]`基于 TDesign 和 Omi 的跨框架 组件 集合。 [点击这里预览一下](https://omijs.github.io/tdesign/)
 - 综合性例子 (未发布到 npm)
   - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - 基于 Omi `Signal` class 两层架构的贪吃蛇游戏。
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - 基于 Omi 响应是函数三层架构的贪吃蛇游戏。
@@ -240,6 +251,41 @@ render(<todo-list />, document.body)
 
 这里不讨论哪种方式(DOP,OOP)的好坏，使用 omi 两种方式都可以任意选择。
 
+## 自动导入 h
+
+vite.config.js:
+
+```tsx
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    "jsxInject": "import { h } from 'omi'",
+  }
+})
+```
+
+你可以在构建时候注入代码，这样就不用手动导出 `h`。
+
+## 集成 Twind
+
+```tsx
+import { Component, define, h } from 'omi'
+
+import install from '@twind/with-web-components'
+import { defineConfig } from '@twind/core'
+import presetAutoprefix from '@twind/preset-autoprefix'
+import presetTailwind from '@twind/preset-tailwind'
+const withTwind = install(defineConfig({
+  presets: [presetAutoprefix(), presetTailwind()],
+}))
+
+define('my-app', class extends withTwind(Component) {
+  render() {
+    return <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  }
+})
+```
 
 ## 贡献者
 
