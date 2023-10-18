@@ -258,7 +258,9 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   esbuild: {
-    "jsxInject": "import { h } from 'omi'",
+    jsxInject: "import { h } from 'omi'",
+    jsxFactory: "h",
+    jsxFragment: "h.f"
   }
 })
 ```
