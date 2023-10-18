@@ -58,7 +58,7 @@ describe('attrs to props', () => {
     const node = genNode()
     define(node.name, Ele)
     const el = document.createElement(node.name)
-    el.setAttribute('name', '123')
+    el.setProp('name', '123')
     parentElement.appendChild(el)
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>123</div>')
   })
@@ -271,7 +271,7 @@ describe('attrs to props', () => {
   })
 
 
-  it('setAttribute', () => {
+  it('setProp', () => {
     class Ele extends Component {
       static propTypes = {
         info: Object
@@ -285,12 +285,12 @@ describe('attrs to props', () => {
     const node = genNode()
     define(node.name, Ele)
     const el = document.createElement(node.name)
-    el.setAttribute('info', '{"age":18}')
+    el.setProp('info', '{"age":18}')
     parentElement.appendChild(el)
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
   })
 
-  it('setAttribute2', () => {
+  it('setProp2', () => {
     class Ele extends Component {
       static propTypes = {
         info: Object
@@ -305,12 +305,12 @@ describe('attrs to props', () => {
     define(node.name, Ele)
     const el = document.createElement(node.name)
     parentElement.appendChild(el)
-    el.setAttribute('info', '{"age":18}')
+    el.setProp('info', '{"age":18}')
 
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
   })
 
-  it('removeAttribute', () => {
+  it('removeProp', () => {
     class Ele extends Component {
       static propTypes = {
         info: Object
@@ -325,12 +325,12 @@ describe('attrs to props', () => {
     define(node.name, Ele)
     const el = document.createElement(node.name)
     parentElement.appendChild(el)
-    el.setAttribute('info', { 'age': 18 })
-    el.removeAttribute('info')
+    el.setProp('info', { 'age': 18 })
+    el.removeProp('info')
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div></div>')
   })
 
-  it('removeAttribute2', () => {
+  it('removeProp2', () => {
     class Ele extends Component {
       static propTypes = {
         info: Object
@@ -345,9 +345,9 @@ describe('attrs to props', () => {
     define(node.name, Ele)
     const el = document.createElement(node.name)
     parentElement.appendChild(el)
-    el.setAttribute('info', { 'age': 18 })
+    el.setProp('info', { 'age': 18 })
     // will not update
-    el.nativeRemoveAttribute('info')
+    el.removeAttribute('info')
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
   })
 
@@ -367,7 +367,7 @@ describe('attrs to props', () => {
     define(node.name, Ele)
     const el = document.createElement(node.name)
     parentElement.appendChild(el)
-    el.setAttribute('info', { 'age': 18 })
+    el.setProp('info', { 'age': 18 })
     // will not update, work in jsx mode
     el.updateProps({
       info: {age: 19}
