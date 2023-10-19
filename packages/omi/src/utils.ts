@@ -97,6 +97,17 @@ export function createStyleSheet(style: string): CSSStyleSheet {
 }
 
 /**
+ * Creates a <style> element with the specified CSS content.
+ * @param css - The CSS content to be applied to the <style> element.
+ * @returns The created <style> element.
+ */
+export function createStyleElement(css: string): HTMLStyleElement {
+  const styleElement: HTMLStyleElement = document.createElement('style')
+  styleElement.textContent = css
+  return styleElement
+}
+
+/**
  * Check if two nodes are equivalent.
  * @param node - The DOM Node to compare.
  * @param vnode - The virtual DOM node to compare.

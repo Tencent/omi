@@ -7,6 +7,6 @@ export { createRef, bind } from './utils'
 export { signal, computed, effect, batch, setActiveComponent, getActiveComponent } from './reactivity'
 export { Signal } from './signal'
 export { css } from './css-tag'
-export const version = '7.1.2'
+export const version = '7.1.3'
 
 

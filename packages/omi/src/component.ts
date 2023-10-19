@@ -1,4 +1,4 @@
-import { isArray, hyphenate, capitalize, createStyleSheet } from './utils'
+import { isArray, hyphenate, capitalize, createStyleSheet, createStyleElement } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
@@ -34,6 +34,8 @@ export class Component extends HTMLElement {
   injection?: { [key: string]: unknown }
   renderRoot?: ExtendedElement | ShadowRoot | Component
   rootElement: ExtendedElement | ExtendedElement[] | null
+  private _customStyleContent: string | null
+  private _customStyleElement: HTMLStyleElement | null
 
   constructor() {
     super()
@@ -43,6 +45,8 @@ export class Component extends HTMLElement {
     this.isInstalled = false
     this.rootElement = null
     this.prevProps = null
+    this._customStyleContent = null
+    this._customStyleElement = null
   }
 
   injectObject() {
@@ -136,6 +140,13 @@ export class Component extends HTMLElement {
     setActiveComponent(null)
     this.rootElement = diff(null, rendered as VNode, null, this, false)
     this.rendered()
+
+    if (this.props.css) {
+      this._customStyleElement = createStyleElement(this.props.css as string)
+      this._customStyleContent = this.props.css as string
+      this.renderRoot?.appendChild(this._customStyleElement)
+    }
+
     if (isArray(this.rootElement)) {
       (this.rootElement as Element[]).forEach((item) => {
         this.renderRoot?.appendChild(item)
@@ -147,15 +158,24 @@ export class Component extends HTMLElement {
     this.isInstalled = true
   }
 
-  disconnectedCallback(): void {
-    this.uninstall()
-    this.isInstalled = false
+  private updateCustomStyle(): void {
+    // fix null !== undefined
+    if (this._customStyleContent != this.props.css) {
+      this._customStyleContent = this.props.css as string
+      if (this._customStyleElement) {
+        this._customStyleElement.textContent = this._customStyleContent
+      } else {
+        // When prop css initially has no value, but later has a value
+        this._customStyleElement = createStyleElement(this.props.css as string)
+        this.renderRoot?.appendChild(this._customStyleElement)
+      }
+    }
   }
 
   update(updateSelf?: boolean): void {
-
     this.beforeUpdate()
     this.beforeRender()
+    this.updateCustomStyle()
     this.attrsToProps()
     setActiveComponent(this)
     // @ts-ignore
@@ -206,6 +226,7 @@ export class Component extends HTMLElement {
   attrsToProps(): void {
     if (this.props.ignoreAttrs) return
     const ele = this
+    ele.props['css'] = ele.getAttribute('css')
     const attrs = (this.constructor as typeof Component).propTypes
     if (!attrs) return
     Object.keys(attrs).forEach((key) => {
