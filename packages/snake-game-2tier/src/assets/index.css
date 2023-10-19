@@ -1,0 +1,14 @@
+body {
+  background: #efcc19;
+  padding: 0;
+  margin: 0;
+  font: 20rpx/1 HanHei SC, PingHei, PingFang SC, STHeitiSC-Light, Helvetica Neue, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  cursor: default;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga", "kern";
+  direction: ltr;
+  text-align: left
+}
