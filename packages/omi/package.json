@@ -1,12 +1,12 @@
 {
   "name": "omi",
-  "version": "7.1.3",
+  "version": "7.1.4",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",
     "build-vite": "vite build",
     "build-vite:w": "vite build --watch",
-    "build": "microbundle",
+    "build": "microbundle --name Omi",
     "dev": "microbundle watch",
     "server": "live-server ./build --watch",
     "preview": "vite preview",
