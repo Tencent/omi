@@ -1,8 +1,8 @@
-import { isArray, hyphenate, capitalize, createStyleSheet, createStyleElement } from './utils'
+import { isArray, hyphenate, capitalize, createStyleSheet } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
-import { VNode } from './vdom'
+import { ObjectVNode, VNode } from './vdom'
 import { setActiveComponent } from './reactivity'
 
 let id = 0
@@ -34,8 +34,6 @@ export class Component extends HTMLElement {
   injection?: { [key: string]: unknown }
   renderRoot?: ExtendedElement | ShadowRoot | Component
   rootElement: ExtendedElement | ExtendedElement[] | null
-  private _customStyleContent: string | null
-  private _customStyleElement: HTMLStyleElement | null
 
   constructor() {
     super()
@@ -45,8 +43,6 @@ export class Component extends HTMLElement {
     this.isInstalled = false
     this.rootElement = null
     this.prevProps = null
-    this._customStyleContent = null
-    this._customStyleElement = null
   }
 
   injectObject() {
@@ -125,6 +121,22 @@ export class Component extends HTMLElement {
       )
     }
   }
+
+  appendStyleVNode(rendered: VNode | VNode[]) {
+    if(this.props.css && rendered) {
+      const styleVNode = {
+       nodeName: 'style',
+       attributes: {},
+       children: [this.props.css]
+     }
+     if((rendered as VNode[]).push) {
+      (rendered as VNode[]).push(styleVNode as ObjectVNode)
+     } else {
+       (rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
+     }
+   }
+  }
+
   connectedCallback(): void {
     this.injectObject()
     this.attrsToProps()
@@ -137,15 +149,11 @@ export class Component extends HTMLElement {
     setActiveComponent(this)
     // @ts-ignore
     const rendered = this.render(this.props, this.store)
+    this.appendStyleVNode(rendered)
     setActiveComponent(null)
     this.rootElement = diff(null, rendered as VNode, null, this, false)
     this.rendered()
 
-    if (this.props.css) {
-      this._customStyleElement = createStyleElement(this.props.css as string)
-      this._customStyleContent = this.props.css as string
-      this.renderRoot?.appendChild(this._customStyleElement)
-    }
 
     if (isArray(this.rootElement)) {
       (this.rootElement as Element[]).forEach((item) => {
@@ -158,28 +166,15 @@ export class Component extends HTMLElement {
     this.isInstalled = true
   }
 
-  private updateCustomStyle(): void {
-    // fix null !== undefined
-    if (this._customStyleContent != this.props.css) {
-      this._customStyleContent = this.props.css as string
-      if (this._customStyleElement) {
-        this._customStyleElement.textContent = this._customStyleContent
-      } else {
-        // When prop css initially has no value, but later has a value
-        this._customStyleElement = createStyleElement(this.props.css as string)
-        this.renderRoot?.appendChild(this._customStyleElement)
-      }
-    }
-  }
 
   update(updateSelf?: boolean): void {
     this.beforeUpdate()
     this.beforeRender()
-    this.updateCustomStyle()
     this.attrsToProps()
     setActiveComponent(this)
     // @ts-ignore
     const rendered = this.render(this.props, this.store)
+    this.appendStyleVNode(rendered)
     setActiveComponent(null)
     this.rendered()
 

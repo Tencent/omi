@@ -11,7 +11,7 @@ export type ObjectVNode = {
   nodeName: string | Function
   attributes: Attributes
   children: VNode[]
-  key: string | number | undefined
+  key?: string | number | undefined
 }
 
 export type VNode = ObjectVNode | string | number | boolean | null | undefined
