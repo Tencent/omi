@@ -29,12 +29,18 @@ export class Transition extends WeElement<Props>{
 
 
   installed() {
-    if (this.children[0]) {
-      this.prevDisplay = getComputedStyle(this.children[0]).display
+    const el = this.children[0] as HTMLElement
+    if (el) {
+      this.prevDisplay = getComputedStyle(el).display
     }
-    
+
     this.addEventListener('transitionend', debounce(this.onTransitionEnd.bind(this), 0))
     this.addEventListener('animationend', debounce(this.onTransitionEnd.bind(this), 0))
+
+    if (!this.props.show) {
+      el.style.display = 'none'
+    }
+
     ready(() => {
       if (this.props.show) {
         this.enter()

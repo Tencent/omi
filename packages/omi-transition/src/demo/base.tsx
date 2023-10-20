@@ -24,7 +24,6 @@ class MyApp extends Component {
   toggle = () => {
     this.show = !this.show
     this.update()
-
   }
 
   onAfterLeave = () => {

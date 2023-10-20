@@ -20,8 +20,39 @@ import 'omi-transition'
 
 ## Usage
 
-```html
-<o-transition></o-transition>
+```tsx
+import { render, signal, tag, Component, h } from 'omi'
+import 'omi-transition'
+
+const show = signal(false)
+
+@tag('transition-demo')
+class TransitionDemo extends Component {
+  static css = `
+    .fade-leave-to,
+    .fade-enter-from {
+      opacity: 0;
+      transform: translateX(15px);
+    }
+
+    .fade-leave-active,
+    .fade-enter-active {
+      transition: all 500ms ease-in;
+    }`
+
+  render() {
+    return (
+      <>
+        <button onClick={() => show.value = !show.value}>toggle</button>
+        <o-transition show={show.value} name="fade">
+          <h4>OMI</h4>
+        </o-transition>
+      </>
+    )
+  }
+}
+
+render(<transition-demo />, document.body)
 ```
 
 ## API

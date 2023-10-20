@@ -35,6 +35,7 @@
     "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^29.7.0",
     "microbundle": "^0.15.1",
+    "omi-transition": "^0.0.2",
     "tdesign-icons-omi": "latest",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
