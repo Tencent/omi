@@ -66,9 +66,9 @@ declare namespace Omi {
     installed?(): void;
     uninstall?(): void;
     beforeUpdate?(): void;
-    afterUpdate?(): void;
     updated?(): void;
     beforeRender?(): void;
+    rendered?(vnode: VNode | VNode[]): void;
     receiveProps?(props: OmiProps<P> | P, oldProps: OmiProps<P> | P): any;
     attrsToProps(): void;
     setAttribute(name: string, value: any): void;
@@ -80,9 +80,9 @@ declare namespace Omi {
     installed?(): void;
     uninstall?(): void;
     beforeUpdate?(): void;
-    afterUpdate?(): void;
     updated?(): void;
     beforeRender?(): void;
+    rendered?(vnode: VNode | VNode[]): void;
     receiveProps?(props: OmiProps<P> | P, oldProps: OmiProps<P> | P): any;
     attrsToProps(): void;
     setAttribute(name: string, value: any): void;

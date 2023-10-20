@@ -140,20 +140,17 @@ export class Component extends HTMLElement {
   connectedCallback(): void {
     this.injectObject()
     this.attrsToProps()
-    this.beforeInstall()
     this.install()
-    this.afterInstall()
     this.renderRoot = this.createRenderRoot()
     this.applyAdoptedStyleSheets()
-    this.beforeRender()
     setActiveComponent(this)
+    this.beforeRender()
     // @ts-ignore
     const rendered = this.render(this.props, this.store)
     this.appendStyleVNode(rendered)
+    this.rendered(rendered)
     setActiveComponent(null)
     this.rootElement = diff(null, rendered as VNode, null, this, false)
-    this.rendered()
-
 
     if (isArray(this.rootElement)) {
       (this.rootElement as Element[]).forEach((item) => {
@@ -169,14 +166,14 @@ export class Component extends HTMLElement {
 
   update(updateSelf?: boolean): void {
     this.beforeUpdate()
-    this.beforeRender()
     this.attrsToProps()
     setActiveComponent(this)
+    this.beforeRender()
     // @ts-ignore
     const rendered = this.render(this.props, this.store)
     this.appendStyleVNode(rendered)
+    this.rendered(rendered)
     setActiveComponent(null)
-    this.rendered()
 
     this.rootElement = diff(
       this.rootElement,
@@ -292,11 +289,7 @@ export class Component extends HTMLElement {
     }
   }
 
-  beforeInstall() { }
-
   install() { }
-
-  afterInstall() { }
 
   installed() { }
 
@@ -308,7 +301,7 @@ export class Component extends HTMLElement {
 
   beforeRender() { }
 
-  rendered() { }
+  rendered(vnode: VNode | VNode[]) { }
 
   receiveProps() { }
 }
