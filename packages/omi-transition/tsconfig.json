@@ -18,8 +18,9 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "jsxFactory": "h",
+    "jsxFragmentFactory": "h.f"
   },
   "include": [
     "src/**/*.ts",

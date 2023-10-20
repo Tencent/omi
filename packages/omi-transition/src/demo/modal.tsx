@@ -1,4 +1,4 @@
-import { tag, WeElement, h } from 'omi'
+import { tag, WeElement, h, OmiProps } from 'omi'
 import '../index'
 
 interface Props {
@@ -64,23 +64,15 @@ export default class TransitionDemo extends WeElement<Props> {
     transform: scale(1.1);
   }
   `
-  appear: boolean = false
-  disappear: boolean = false
+  private _show: boolean | undefined
 
-  // 第一次进入需要动画
   install() {
-    this.init()
+    this._show = this.props.show
   }
-
-  // 后续更新需要动画
-  receiveProps() {
-    this.init()
-  }
-
+ 
   // 关闭需要动画
   onClose = () => {
-    this.appear = false
-    this.disappear = true
+    this._show = false
     this.update()
   }
 
@@ -89,21 +81,13 @@ export default class TransitionDemo extends WeElement<Props> {
     this.fire('close')
   }
 
-  // 根据属性初始化 appear 和 disappear
-  init() {
-    if (this.props.show) {
-      this.appear = true
-      this.disappear = false
-    } else {
-      this.appear = false
-      this.disappear = true
-    }
+  receiveProps(props: Props | OmiProps<Props, any>,) {
+    this._show = props.show
   }
-
 
   render(props: Props) {
     return (
-      <o-transition appear={this.appear} disappear={this.disappear} onAfterLeave={this.onAfterLeave} name="modal">
+      <o-transition show={this._show}  onAfterLeave={this.onAfterLeave} name="modal">
         {props.show && <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-container">

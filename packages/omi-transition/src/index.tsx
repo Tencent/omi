@@ -2,24 +2,21 @@ import { tag, WeElement } from 'omi'
 
 interface Props {
   name: string
-  leaving?: number
   leavingTime?: number
   autoRemove?: boolean
-  appear?: boolean
-  disappear?: boolean
   delay?: number
+  show: boolean
 }
 
 @tag('o-transition')
-export default class Transition extends WeElement<Props>{
+export class Transition extends WeElement<Props>{
 
   static propTypes = {
     name: String,
     leavingTime: Number,
     autoRemove: Boolean,
-    appear: Boolean,
-    disappear: Boolean,
-    delay: Number
+    delay: Number,
+    show: Boolean
   }
 
   static isLightDOM = true
@@ -28,13 +25,18 @@ export default class Transition extends WeElement<Props>{
     name: 'o',
     delay: 0
   }
+  prevDisplay: string | undefined
 
-  _show = true
 
   installed() {
-
+    if (this.children[0]) {
+      this.prevDisplay = getComputedStyle(this.children[0]).display
+    }
+    
+    this.addEventListener('transitionend', debounce(this.onTransitionEnd.bind(this), 0))
+    this.addEventListener('animationend', debounce(this.onTransitionEnd.bind(this), 0))
     ready(() => {
-      if (this.props.appear) {
+      if (this.props.show) {
         this.enter()
       }
       if (this.props.leavingTime) {
@@ -46,92 +48,65 @@ export default class Transition extends WeElement<Props>{
   }
 
   receiveProps() {
-    if (this.props.appear) {
+    if (this.props.show) {
       this.enter()
-    }
-
-    if (this.props.disappear) {
+    } else {
       this.leave()
     }
   }
 
-  async toggle() {
-    this._show = !this._show
-    if (this._show)
-      return await this.enter()
-    else
-      return await this.leave()
-  }
-
   callback: (() => void) | undefined
 
-  async enter() {
-    return new Promise((resolve) => {
-      const el = this.children[0]
-      if (el) {
-        this.fire('before-enter')
-        el.classList.remove(this.props.name + '-leave-active')
-        el.classList.remove(this.props.name + '-leave-to')
-        el.classList.add(this.props.name + '-enter-from')
+  enter() {
+    (this.children[0] as HTMLElement).style.display = this.prevDisplay as string || ''
 
-        this.callback = () => {
-          el.classList.remove(this.props.name + '-enter-active')
-          this.fire('after-enter')
-          this._show = true
-          resolve(null)
-        }
+    const el = this.children[0]
+    if (el) {
+      this.fire('before-enter')
+      el.classList.remove(this.props.name + '-leave-active')
+      el.classList.remove(this.props.name + '-leave-to')
+      el.classList.add(this.props.name + '-enter-from')
 
-        this.once('transitionend', this.callback)
-        this.once('animationend', this.callback)
-
-        window.setTimeout(() => {
-          el.classList.add(this.props.name + '-enter-active')
-          el.classList.remove(this.props.name + '-enter-from')
-          el.classList.add(this.props.name + '-enter-to')
-          this.fire('enter')
-        }, this.props.delay)
-      }
-    })
-  }
-
-  async leave() {
-    return new Promise((resolve) => {
-      const el = this.children[0]
-      if (el) {
-        this.fire('before-leave')
-        el.classList.remove(this.props.name + '-enter-active')
-        el.classList.remove(this.props.name + '-enter-to')
-        el.classList.add(this.props.name + '-leave-from')
-
-        this.callback = () => {
-          el.classList.remove(this.props.name + '-leave-active')
-          this.fire('after-leave')
-          this._show = false
-          if (this.props.autoRemove && this.parentNode) {
-            this.parentNode.removeChild(this)
-          }
-          resolve(null)
-        }
-
-        this.once('transitionend', this.callback)
-        this.once('animationend', this.callback)
-
-        window.setTimeout(() => {
-          el.classList.add(this.props.name + '-leave-active')
-          el.classList.remove(this.props.name + '-leave-from')
-          el.classList.add(this.props.name + '-leave-to')
-          this.fire('leave')
-        }, this.props.delay)
-      }
-    })
-  }
-
-  once(name: string, callback: Function) {
-    const wrapCall =  () => {
-      this.removeEventListener(name, wrapCall)
-      callback()
+      window.setTimeout(() => {
+        el.classList.add(this.props.name + '-enter-active')
+        el.classList.remove(this.props.name + '-enter-from')
+        el.classList.add(this.props.name + '-enter-to')
+        this.fire('enter')
+      }, this.props.delay)
     }
-    this.addEventListener(name, wrapCall)
+  }
+
+  onTransitionEnd() {
+    // opacity 和 transform 各会执行一次，所以需要 debounce
+    const el = this.children[0] as HTMLElement
+    if (this.props.show) {
+      el.classList.remove(this.props.name + '-enter-active')
+      this.fire('after-enter')
+    } else {
+      el.classList.remove(this.props.name + '-leave-active')
+      this.fire('after-leave')
+      el.style.display = 'none'
+      if (this.props.autoRemove && this.parentNode) {
+        this.parentNode.removeChild(this)
+      }
+    }
+  }
+
+  leave() {
+    const el = this.children[0]
+    if (el) {
+      this.fire('before-leave')
+      el.classList.remove(this.props.name + '-enter-active')
+      el.classList.remove(this.props.name + '-enter-to')
+      el.classList.add(this.props.name + '-leave-from')
+
+      window.setTimeout(() => {
+        el.classList.add(this.props.name + '-leave-active')
+        el.classList.remove(this.props.name + '-leave-from')
+        el.classList.add(this.props.name + '-leave-to')
+        this.fire('leave')
+      }, this.props.delay)
+    }
   }
 
   render() {
@@ -139,12 +114,22 @@ export default class Transition extends WeElement<Props>{
   }
 }
 
-
 function ready(callback: () => void): void {
   if (document.readyState !== 'loading') {
-    callback();
+    callback()
   } else {
-    document.addEventListener('DOMContentLoaded', callback);
+    document.addEventListener('DOMContentLoaded', callback)
   }
 }
 
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout | null
+  return function (...args: any[]) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    timeout = setTimeout(() => {
+      func.apply(this, args)
+    }, wait);
+  }
+}
