@@ -1,0 +1,45 @@
+{
+  "name": "omi-transition",
+  "version": "0.0.1",
+  "description": "Define transition animation for entering and leaving",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "scripts": {
+    "start": "vite",
+    "dev": "yarn start",
+    "build": "vite build",
+    "build:demo": "vite build",
+    "pretest": "yarn build",
+    "test": "web-test-runner \"test/*.js\" --node-resolve"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "dependencies": {
+    "@omiu/common": "latest",
+    "omi": "latest"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.5.33",
+    "@types/node": "^16.4.13",
+    "@web/test-runner": "^0.13.15",
+    "sass": "^1.37.5",
+    "typescript": "^4.3.5",
+    "vite": "^2.4.4"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "omiu"
+  ],
+  "authors": [
+    "The Omi Authors (https://github.com/Tencent/omi/contributors)"
+  ],
+  "repository": "Tencent/omi",
+  "bugs": "https://github.com/Tencent/omi/issues/",
+  "homepage": "http://omijs.org"
+}
