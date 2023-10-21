@@ -8,6 +8,6 @@ export { signal, computed, effect, batch, setActiveComponent, getActiveComponent
 export { Signal } from './signal'
 export { css } from './css-tag'
 export { mixin } from './options'
-export const version = '7.1.8'
+export const version = '7.1.9'
 
 

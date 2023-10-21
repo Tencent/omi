@@ -172,6 +172,10 @@ export class Component extends HTMLElement {
     this.isInstalled = true
   }
 
+  disconnectedCallback(): void {
+    this.uninstall()
+    this.isInstalled = false
+  }
 
   update(updateSelf?: boolean): void {
     this.beforeUpdate()
