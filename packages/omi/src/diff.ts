@@ -34,9 +34,10 @@ export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNo
 
   if (isArray(vnode)) {
     if (parent) {
-      // don't use css and props.css when using h.f
+      // don't use props.css when using h.f? can we use now?
       // diff node list and vnode list
       innerDiffNode(parent, vnode as VNode[], hydrating, component as Component, updateSelf)
+      ret = parent.childNodes
     } else {
       // connectedCallback 的时候 parent 为 null
       ret = [];
@@ -48,7 +49,7 @@ export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNo
       })
     }
   } else {
-    if (isArray(dom)) {
+    if (isArray(dom) || dom instanceof NodeList) {
       (dom as ExtendedElement[]).forEach((child, index) => {
         if (index === 0) {
           ret = idiff(child, vnode as VNode, component as Component, updateSelf)
