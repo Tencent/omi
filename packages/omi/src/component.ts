@@ -4,6 +4,7 @@ import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
 import { ObjectVNode, VNode } from './vdom'
 import { setActiveComponent } from './reactivity'
+import { options } from './options'
 
 let id = 0
 
@@ -66,6 +67,14 @@ export class Component extends HTMLElement {
           this.injection[injectKey] = provide[injectKey]
         })
       }
+    }
+
+    for (const key in options.mixin) {
+      Object.defineProperty(this, key, {
+        get: () => {
+          return options.mixin[key]
+        },
+      })
     }
   }
 

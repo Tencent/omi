@@ -7,6 +7,7 @@ export { createRef, bind } from './utils'
 export { signal, computed, effect, batch, setActiveComponent, getActiveComponent } from './reactivity'
 export { Signal } from './signal'
 export { css } from './css-tag'
-export const version = '7.1.7'
+export { mixin } from './options'
+export const version = '7.1.8'
 
 

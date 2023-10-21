@@ -1,4 +1,4 @@
-import { define, render, Component, h, tag } from '@/index'
+import { define, render, Component, h, tag, mixin } from '@/index'
 
 import { genNode } from './gen-node'
 
@@ -169,5 +169,42 @@ describe('base', () => {
     render(<node.name />, parentElement)
 
     expect(parentElement.firstChild.innerHTML).toBe('<ul><li>a</li></ul>')
+  })
+
+  it('mixin', () => {
+    mixin({a: 1})
+    class Ele extends Component {
+      static isLightDOM = true
+    
+      render() {
+        expect(this.a).toBe(1)
+        return (
+          <ul>
+            <li>a</li>
+          </ul>
+        )
+      }
+    }
+    let node = genNode()
+    define(node.name, Ele)
+    render(<node.name />, parentElement)
+
+    mixin({a: {b: 2}})
+    class Ele2 extends Component {
+      static isLightDOM = true
+    
+      render() {
+        expect(this.a.b).toBe(2)
+        return (
+          <ul>
+            <li>a</li>
+          </ul>
+        )
+      }
+    }
+    node = genNode()
+    define(node.name, Ele2)
+    render(<node.name />, parentElement)
+
   })
 })
