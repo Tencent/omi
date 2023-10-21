@@ -59,12 +59,14 @@ $ npm run build       # release
 
 - Core packages
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Implementation of omi framework.
+  - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - Create SPA of omi framework.
   - [`omi-cli`](https://github.com/omijs/cli) - To quickly create an Omi + Vite + TS/JS project.
 - Starter kits (not published to npm)
   - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - A starter repo for building web app or reusable components using Omi in TypeScript base on Vite.
   - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - A starter repo for building web app or reusable components using Omi in JavaScript base on Vite.
 - Components
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - Applying animations when an component is entering and leaving the DOM.
+  - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - Handling asynchronous dependencies.
   - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - Cross framework icon collection based on tdesign.
   - [`tdesign-omi`](https://github.com/omijs/tdesign) - `[in progress...]`Cross framework components based on tdesign. [Preview](https://omijs.github.io/tdesign/)
 - Examples (not published to npm)
