@@ -132,8 +132,12 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
   vnodeName = String(vnodeName)
   if (!dom || !isNamedNode(dom as ExtendedElement, vnodeName)) {
     // foreignObject 自身 isSvgMode 设置成 true，内部设置成 false
+    // 创建 component 时，会执行构造函数
     out = createNode(vnodeName, isForeignObject || isSvgMode)
-
+    // 如果是组件，需要把 props 传递给组件，不然 install 里拿不到 props
+    if ((out.constructor as typeof Component)?.is === 'Component') {
+      Object.assign((out as Component).props, vnode.attributes)
+    }
     if (dom) {
       // move children into the replacement node
       while ((dom as ExtendedElement).firstChild) (out as HTMLElement).appendChild((dom as ExtendedElement).firstChild as Node)
