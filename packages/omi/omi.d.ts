@@ -188,7 +188,7 @@ declare namespace Omi {
   function bind(el: HTMLElement, type: string, handler: (event: Event) => any): void;
   function unbind(el: HTMLElement, type: string): void;
 
-  function rpx(css: string): string;
+  function mixin(obj: Record<string, unknown>): void;
 
   var options: {
     vnode?: (vnode: VNode<any>) => void;
