@@ -1,9 +1,14 @@
 import { define, Component, h } from 'omi'
 
+interface Props {
+  imports: Promise<unknown>[];
+  data: Function | null;
+}
+
 /**
  * Omi Suspense component
  */
-define('o-suspense', class extends Component {
+define('o-suspense', class extends Component<Props> {
   install() {
     this.handleTasks(this.props.imports)
   }
@@ -33,7 +38,9 @@ define('o-suspense', class extends Component {
         const results = await Promise.all(tasks)
         this.state = 'resolve'
         this.fire('resolve')
+        this.fire('data-loaded', results.pop())
       } catch (error) {
+        console.error(error)
         this.state = 'fallback'
         this.fire('fallback')
       }

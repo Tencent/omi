@@ -1,5 +1,4 @@
 import { define, Component } from 'omi'
-import { Router } from '../src/router'
 
 interface Props {
   imports: Promise<unknown>[];
@@ -28,7 +27,7 @@ define('o-suspense', class extends Component<Props> {
   async handleTasks(imports: Promise<unknown>[]) {
     const tasks = [...imports]
     if (this.props.data) {
-      tasks.push(this.props.data.bind(this.router)())
+      tasks.push(this.props.data())
     }
     if (tasks.length === 0) {
       this.state = 'pending'
@@ -49,7 +48,6 @@ define('o-suspense', class extends Component<Props> {
 
     this.update()
   }
-  router: Router | undefined
 
   /**
    * Renders the appropriate slot based on the current state
