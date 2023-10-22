@@ -136,6 +136,6 @@ export class RouterView extends Component<Props> {
   }
 
   render() {
-    return (this.currentRoute && this.currentRoute.render) ? this.currentRoute.render() : null
+    return (this.currentRoute && this.currentRoute.render) ? this.currentRoute.render(this) : null
   }
 }

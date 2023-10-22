@@ -1,6 +1,6 @@
 {
   "name": "omi-router",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Router for Omi",
   "main": "dist/index.es.js",
   "exports": {
@@ -14,7 +14,7 @@
     "build:demo": "vite build",
     "pretest": "yarn build",
     "test": "web-test-runner \"test/*.js\" --node-resolve",
-    "lint": "eslint 'src/**/*.{js,ts,tsx,jsx}' --fix"
+    "lint": "eslint 'src/**/*.{js,ts,tsx,jsx}' 'examples/**/*.{js,ts,tsx,jsx}' --fix"
   },
   "files": [
     "dist",

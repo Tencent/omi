@@ -1,5 +1,5 @@
 import { define, Component } from 'omi'
-import { Router } from '../src/router';
+import { Router } from '../src/router'
 
 interface Props {
   imports: Promise<unknown>[];
@@ -39,7 +39,7 @@ define('o-suspense', class extends Component<Props> {
         const results = await Promise.all(tasks)
         this.state = 'resolve'
         this.fire('resolve')
-        this.fire('data-loaded', results.pop());
+        this.fire('data-loaded', results.pop())
       } catch (error) {
         console.error(error)
         this.state = 'fallback'

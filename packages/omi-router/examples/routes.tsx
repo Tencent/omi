@@ -1,5 +1,7 @@
 import './suspense'
 import { userProfile, userPosts } from './state'
+import { fetchUserPosts, fetchUserProfile } from './api'
+import { Router } from '../src/router'
 
 export const routes = [
   {
@@ -10,16 +12,16 @@ export const routes = [
       return (
         <>
           <h1>Home</h1>
-          <a href="#/user/1/profile">User Profile </a><br />
-          <a href="#/user/2/posts">User Posts </a><br />
-          <a href="#/user/3/profile?a=1">User Profile with query</a>
+          <a href="#/user/1/profile">User1 Profile </a><br />
+          <a href="#/user/2/posts">User2 Posts </a><br />
+          <a href="#/user/3/profile?a=1">User3 Profile with query</a>
         </>
       )
     }
   },
   {
     path: '/user/:id/profile',
-    render() {
+    render(router: Router) {
       return (
         <o-suspense
           imports={[
@@ -27,28 +29,10 @@ export const routes = [
             import('./components/user-profile'),
           ]}
           data={async () => {
-            const fetchPromises = [
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  resolve({ name: 'omi', age: 5 })
-                }, 1000)
-              }),
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  resolve([
-                    { title: 'title1', content: 'content1' },
-                    { title: 'title2', content: 'content2' },
-                    { title: 'title3', content: 'content2' },
-                  ])
-                }, 1000)
-              })
-            ]
-            const responses = await Promise.all(fetchPromises)
-            return responses
+            return await fetchUserProfile(router?.params.id as string)
           }}
           onDataLoaded={(event: CustomEvent) => {
-            userProfile.value = event.detail[0]
-            userPosts.value = event.detail[1]
+            userProfile.value = event.detail
           }}
         >
           <div slot="pending">Loading user profile...</div>
@@ -62,13 +46,27 @@ export const routes = [
   },
   {
     path: '/user/:id/posts',
-    render() {
+    render(router: Router) {
       return (
-        <o-suspense imports={[
-          import('./components/user-info'),
-          import('./components/user-posts'),
-        ]}>
-          <div slot="fallback">Loading user posts...</div>
+        <o-suspense
+          imports={[
+            import('./components/user-info'),
+            import('./components/user-posts'),
+          ]}
+          data={async () => {
+            // fetch user profile and posts in parallel
+            const fetchPromises = [
+              fetchUserPosts(router?.params.id as string),
+              fetchUserProfile(router?.params.id as string)
+            ]
+            const responses = await Promise.all(fetchPromises)
+            return responses
+          }}
+          onDataLoaded={(event: CustomEvent) => {
+            userPosts.value = event.detail[0]
+          }}
+        >
+          <div slot="pending">Loading user posts...</div>
           <user-info>
             <user-posts></user-posts>
           </user-info>
