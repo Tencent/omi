@@ -2,13 +2,17 @@ import * as css from './index.css'
 import '../screen'
 import { WeElement, h, tag } from 'omi'
 import { rpx } from '../rpx'
+import { Store } from 'src/store'
 
 @tag('snake-game')
 export default class extends WeElement {
 
   static css = rpx(css.default)
 
-  render(props, store) {
+  store: Store
+
+  render() {
+    const { store } = this
     return (
       <div class="container">
         <h2>OMI SIGNAL DEMO</h2>

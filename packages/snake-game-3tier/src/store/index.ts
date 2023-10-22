@@ -2,7 +2,7 @@ import Game from '../model/game'
 import Snake from '../model/snake'
 import { SignalValue, signal, bind } from 'omi'
 
-class Store {
+export class Store {
   snake: Snake
   map: number[][]
   game: Game
@@ -65,4 +65,4 @@ class Store {
   }
 }
 
-export default new Store
+export const store = new Store

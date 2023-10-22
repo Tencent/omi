@@ -1,7 +1,11 @@
 
-import { render, h } from 'omi'
+import { render, h, mixin } from 'omi'
 import './ui/game/index'
-import store from './store/index'
+import { store } from './store/index'
 import './assets/index.css'
 
-render(<snake-game />, '#root', store)
+mixin({
+  store
+})
+
+render(<snake-game />, '#root')
