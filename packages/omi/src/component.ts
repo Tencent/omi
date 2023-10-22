@@ -30,7 +30,6 @@ export class Component extends HTMLElement {
   prevProps: Record<string, unknown> | null
   elementId: number
   isInstalled: boolean
-  store?: unknown
   inject?: string[]
   injection?: { [key: string]: unknown }
   renderRoot?: ExtendedElement | ShadowRoot | Component
@@ -48,7 +47,9 @@ export class Component extends HTMLElement {
 
   injectObject() {
     let p: ExtendedElement = this.parentNode as ExtendedElement
-    while (p && !this.store) {
+    // @ts-ignore deprecated
+    while (p && !this.store && !options.mixin.store) {
+      // @ts-ignore deprecated
       this.store = p.store
       p = (p.parentNode || p.host) as ExtendedElement
     }

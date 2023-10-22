@@ -7,7 +7,7 @@ type ComputedFn<T> = () => T;
 let activeEffect: EffectFn | null = null
 let batchQueue: EffectFn[] = []
 
-interface SignalValue<T> {
+export interface SignalValue<T> {
   value: T;
   peek: () => T;
   update: () => void;

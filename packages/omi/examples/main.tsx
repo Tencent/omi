@@ -8,6 +8,9 @@ switch (location.hash) {
   case '#signal':
     import('./signal')
     break
+  case '#bubble-sort':
+    import('./bubble-sort')
+    break
   case '#sharing-styles':
     import('./sharing-styles')
     break

@@ -1,4 +1,4 @@
-import { define, render, Component, h, tag, Component } from '@/index'
+import { define, render, Component, h, tag } from '@/index'
 
 const hyphenateRE = /\B([A-Z])/g
 const hyphenate = function (str) {
