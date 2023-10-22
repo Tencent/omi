@@ -1,16 +1,18 @@
 import * as css from './index.css'
 import { WeElement, h, tag } from 'omi'
 import { rpx } from '../rpx'
+import Game from 'src/model/game'
 
 @tag('game-screen')
 export default class extends WeElement {
 
   static css = rpx(css.default)
+  game: Game
 
-  render(props, store) {
+  render() {
     return (
       <div class="screen">
-        {store.value.map.map(row => {
+        {this.game.value.map.map(row => {
           return <p>
             {row.map(col => {
               if (col) {
