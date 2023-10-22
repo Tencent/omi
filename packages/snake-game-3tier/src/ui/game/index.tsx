@@ -1,11 +1,11 @@
 import * as css from './index.css'
 import '../screen'
-import { WeElement, h, tag } from 'omi'
+import { Component, h, tag } from 'omi'
 import { rpx } from '../rpx'
 import { Store } from 'src/store'
 
 @tag('snake-game')
-export default class extends WeElement {
+export default class extends Component {
 
   static css = rpx(css.default)
 
