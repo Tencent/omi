@@ -41,6 +41,9 @@ export class RouterView extends Component {
 
     this.routes = this.props.routes.map(route => {
       const keys: Key[] = []
+      if(route.render) {
+        route.render = route.render.bind(this)
+      }
       if(route.path === '*') {
         return { ...route, regex: /(.*)/ }
       }
@@ -135,7 +138,6 @@ export class RouterView extends Component {
 
   render() {
     const res =  this.currentRoute ? this.currentRoute.render() : null
-    console.log(res)
     return res
   }
 }

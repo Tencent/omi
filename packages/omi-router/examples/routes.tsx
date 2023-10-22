@@ -1,4 +1,5 @@
-import 'omi-suspense'
+import './suspense'
+import { userProfile, userPosts } from './state'
 
 export const routes = [
   {
@@ -9,9 +10,9 @@ export const routes = [
       return (
         <>
           <h1>Home</h1>
-          <a href="#/user/john/profile">User Profile </a><br />
-          <a href="#/user/bobby/posts">User Posts </a><br />
-          <a href="#/user/bobby/profile?a=1">User Profile with query</a>
+          <a href="#/user/1/profile">User Profile </a><br />
+          <a href="#/user/2/posts">User Posts </a><br />
+          <a href="#/user/3/profile?a=1">User Profile with query</a>
         </>
       )
     }
@@ -29,17 +30,25 @@ export const routes = [
             const fetchPromises = [
               new Promise((resolve, reject) => {
                 setTimeout(() => {
-                  resolve({ name: 'omi' })
+                  resolve({ name: 'omi', age: 5 })
                 }, 1000)
               }),
               new Promise((resolve, reject) => {
                 setTimeout(() => {
-                  resolve({ age: 5 })
+                  resolve([
+                    { title: 'title1', content: 'content1' },
+                    { title: 'title2', content: 'content2' },
+                    { title: 'title3', content: 'content2' },
+                  ])
                 }, 1000)
               })
             ]
             const responses = await Promise.all(fetchPromises)
             return responses
+          }}
+          onDataLoaded={(event: CustomEvent) => {
+            userProfile.value = event.detail[0]
+            userPosts.value = event.detail[1]
           }}
         >
           <div slot="pending">Loading user profile...</div>
