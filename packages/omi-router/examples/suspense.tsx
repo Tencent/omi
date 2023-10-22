@@ -1,9 +1,15 @@
 import { define, Component } from 'omi'
+import { Router } from '../src/router';
+
+interface Props {
+  imports: Promise<unknown>[];
+  data: Function | null;
+}
 
 /**
  * Omi Suspense component
  */
-define('o-suspense', class extends Component {
+define('o-suspense', class extends Component<Props> {
   install() {
     this.handleTasks(this.props.imports)
   }
@@ -33,8 +39,6 @@ define('o-suspense', class extends Component {
         const results = await Promise.all(tasks)
         this.state = 'resolve'
         this.fire('resolve')
-        console.log(results)
-        console.log(3333333)
         this.fire('data-loaded', results.pop());
       } catch (error) {
         console.error(error)
@@ -45,6 +49,7 @@ define('o-suspense', class extends Component {
 
     this.update()
   }
+  router: Router | undefined
 
   /**
    * Renders the appropriate slot based on the current state

@@ -77,7 +77,7 @@ export const routes = [
     }
   }, {
     path: '/before-enter/test',
-    beforeEnter: (to, from) => {
+    beforeEnter: (to: string, from: string) => {
       // reject the navigation
       return false
     },

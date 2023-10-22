@@ -1,12 +1,19 @@
-import { pathToRegexp, Key } from 'path-to-regexp'
-import { tag, Component, render } from 'omi'
+import { render } from 'omi'
 import './router-view'
+import { Route, RouterView } from './router-view'
 
 export class Router {
-  constructor(options) {
+  el: RouterView
+
+  constructor(options: { routes: Route[]; renderTo: string; store?: any }) {
     this.el = render(<router-view routes={options.routes} />, options.renderTo, options.store)
   }
 
+
+  params: Record<string, unknown>  = {}
+  query:  Record<string, unknown> = {} 
+  hash: string = ''
+  
   beforeEach(callback: Function) {
     this.el.beforeEach(callback)
   }

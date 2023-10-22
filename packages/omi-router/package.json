@@ -1,12 +1,12 @@
 {
   "name": "omi-router",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Router for Omi",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
   },
-  "types": "types/index.d.ts",
+  "types": "./dist/src/router.d.ts",
   "scripts": {
     "start": "vite",
     "dev": "yarn start",
@@ -33,7 +33,8 @@
     "omi-suspense": "^0.0.2",
     "sass": "^1.37.5",
     "typescript": "^4.3.5",
-    "vite": "^2.4.4"
+    "vite": "^2.4.4",
+    "vite-plugin-dts": "^3.6.0"
   },
   "license": "MIT",
   "keywords": [

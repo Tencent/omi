@@ -7,9 +7,9 @@ mixin({
   router: null
 })
 
-interface Route {
+export interface Route {
   path: string;
-  render: Function;
+  render?: Function;
   beforeEnter?: Function;
   meta?: object;
   transition?: string;
@@ -17,21 +17,21 @@ interface Route {
   regex?: RegExp;
 }
 
+interface Props {
+  routes: Route[];
+}
+
 @tag('router-view')
-export class RouterView extends Component {
+export class RouterView extends Component<Props> {
   currentRoute: Route | null = null
-  routes: Route[]
-  beforeEachCallback: Function
-  afterEachCallback: Function
+  routes: Route[] = []
+  beforeEachCallback: Function | undefined
+  afterEachCallback: Function | undefined
   isHashMode: boolean = true
 
-  params: object 
-  query: object 
-  hash: string
-
-  provide = {
-    router: this
-  }
+  params: Record<string, unknown>  = {}
+  query:  Record<string, unknown> = {} 
+  hash: string = ''
 
   install() {
      // 修改组件内部的 this.router 为当前 router-view 的实例
@@ -102,7 +102,7 @@ export class RouterView extends Component {
 
   private matchAndRender(path: string) {
     for (const route of this.routes) {
-      const match = route.regex.exec(path)
+      const match = route.regex?.exec(path)
       if (match) {
         if (route.beforeEnter) {
           const shouldProceed = route.beforeEnter({ path }, { path: window.location.pathname })
@@ -113,17 +113,16 @@ export class RouterView extends Component {
         this.currentRoute = route
         // 解析路径参数
         this.params = {}
-        route.keys.forEach((key, index) => {
-          this.params[key.name] = match[index + 1]
+        route.keys?.forEach((key, index) => {
+          this.params![key.name]! = match[index + 1]
         })
   
         // 解析查询参数
         const params = new URLSearchParams(this.getQueryPath())
         this.query = {}
-        for (const [key, value] of params.entries()) {
+        Array.from(params.entries()).forEach(([key, value]) => {
           this.query[key] = value
-        }
-  
+        })
         // 获取哈希值
         this.hash = window.location.hash
   
@@ -137,7 +136,6 @@ export class RouterView extends Component {
   }
 
   render() {
-    const res =  this.currentRoute ? this.currentRoute.render() : null
-    return res
+    return (this.currentRoute && this.currentRoute.render) ? this.currentRoute.render() : null
   }
 }
