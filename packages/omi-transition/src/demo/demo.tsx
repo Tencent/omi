@@ -1,10 +1,10 @@
-import { tag, WeElement, h, render, signal } from 'omi'
+import { tag, Component, h, render, signal } from 'omi'
 import './modal'
 
 const showModal = signal(false)
 
 @tag('transition-demo')
-export default class TransitionDemo extends WeElement {
+export default class TransitionDemo extends Component {
   render() {
     return (
       <div id="app">

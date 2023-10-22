@@ -1,4 +1,4 @@
-import { tag, WeElement, h, OmiProps } from 'omi'
+import { tag, Component, h, OmiProps } from 'omi'
 import '../index'
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 @tag('o-modal')
-export default class TransitionDemo extends WeElement<Props> {
+export default class TransitionDemo extends Component<Props> {
 
   static css = `
   .modal-mask {

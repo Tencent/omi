@@ -1,4 +1,4 @@
-import { tag, WeElement } from 'omi'
+import { tag, Component } from 'omi'
 
 interface Props {
   name: string
@@ -9,7 +9,7 @@ interface Props {
 }
 
 @tag('o-transition')
-export class Transition extends WeElement<Props>{
+export class Transition extends Component<Props>{
 
   static propTypes = {
     name: String,

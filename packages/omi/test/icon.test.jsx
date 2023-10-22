@@ -1,4 +1,4 @@
-import { define, render, Component, h, tag, WeElement } from '@/index'
+import { define, render, Component, h, tag, Component } from '@/index'
 
 const hyphenateRE = /\B([A-Z])/g
 const hyphenate = function (str) {
@@ -42,7 +42,7 @@ describe('icon', () => {
 
 function createSvgIcon(path, displayName) {
 
-  define(hyphenate('OIcon' + displayName), class extends WeElement {
+  define(hyphenate('OIcon' + displayName), class extends Component {
 
     render() {
       return h('svg', {
