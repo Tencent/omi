@@ -46,7 +46,7 @@ export function signal<T>(initialValue: T): SignalValue<T> {
       if (prop === 'update') return () => {
         value = value
         deps.forEach(fn => fn())
-        depsComponents.forEach(component => component.update())
+        depsComponents.forEach(component => component.update(true))
       }
     },
     set(_, prop: keyof SignalValue<T>, newValue: T) {
@@ -54,7 +54,7 @@ export function signal<T>(initialValue: T): SignalValue<T> {
         if(!isPrimitive(value) ||  !isPrimitive(newValue) || value !== newValue) {
           value = newValue
           deps.forEach(fn => fn())
-          depsComponents.forEach(component => component.update())
+          depsComponents.forEach(component => component.update(true))
         }    
         return true
       }

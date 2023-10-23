@@ -1,6 +1,83 @@
-import { signal, computed, effect, batch, setActiveComponent } from '@/index'
+import { signal, computed, effect, batch, setActiveComponent, tag, Component, render, h } from '@/index'
 
 describe('signal', () => {
+  let parentElement
+
+  beforeAll(() => {
+    parentElement = document.createElement('div')
+    document.body.appendChild(parentElement)
+  })
+
+  beforeEach(() => {
+    parentElement.innerHTML = ''
+  })
+
+  afterAll(() => {
+    parentElement.parentNode.removeChild(parentElement)
+    parentElement = null
+  })
+
+
+  it('should not repeat rendering', async () => {
+
+    const count = signal(0)
+
+    function add() {
+      count.value++
+    }
+
+    function sub() {
+      count.value--
+    }
+
+    let times = 0
+    @tag('grandson-el')
+    class GrandsonEl extends Component {
+      render() {
+        times++
+        return (
+          <>
+            <span>{count.value}</span>
+          </>
+        )
+      }
+    }
+
+    @tag('counter-demo')
+    class CounterDemo extends Component {
+      render() {
+        times++
+        return (
+          <>
+            <button onClick={sub}>-</button>
+            <span>{count.value}</span>
+            <button onClick={add}>+</button>
+            <grandson-el />
+          </>
+        )
+      }
+    }
+
+    @tag('my-app')
+    class MyApp extends Component {
+      render() {
+        times++
+        return (
+          <div>
+            <div>{count.value}</div>
+            <counter-demo />
+          </div>
+
+        )
+      }
+    }
+
+    render(<my-app />, parentElement)
+    count.value++
+    await Promise.resolve()
+    expect(times).toBe(6)
+  })
+
   it('should initialize with the correct value', () => {
     const testSignal = signal(10)
     expect(testSignal.peek()).toBe(10)
