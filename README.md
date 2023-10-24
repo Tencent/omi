@@ -271,7 +271,7 @@ export default defineConfig({
 
 You can inject code during construction, so you don't have to manually export `h`.
 
-## With Twind
+<!-- ## With Twind
 
 ```tsx
 import { Component, define, h } from 'omi'
@@ -289,7 +289,7 @@ define('my-app', class extends withTwind(Component) {
     return <h1 class="text-3xl font-bold underline">Hello world!</h1>
   }
 })
-```
+``` -->
 
 
 ## Contributors

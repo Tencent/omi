@@ -273,7 +273,7 @@ export default defineConfig({
 
 你可以在构建时候注入代码，这样就不用手动导出 `h`。
 
-## 集成 Twind
+<!-- ## 集成 Twind
 
 ```tsx
 import { Component, define, h } from 'omi'
@@ -291,7 +291,7 @@ define('my-app', class extends withTwind(Component) {
     return <h1 class="text-3xl font-bold underline">Hello world!</h1>
   }
 })
-```
+``` -->
 
 ## 贡献者
 
