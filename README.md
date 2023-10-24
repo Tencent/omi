@@ -55,6 +55,15 @@ $ npm start           # develop
 $ npm run build       # release
 ```
 
+To quickly create an Omi + Vite + TS + **Tailwindcss** project:
+
+```bash
+$ npx omi-cli init-tw my-app  
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
 ### Packages
 
 - Core packages

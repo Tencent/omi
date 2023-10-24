@@ -56,6 +56,15 @@ $ npm start           # develop
 $ npm run build       # release
 ```
 
+快速创建 Omi + Vite + TS/JS + **Tailwindcss** 项目：
+
+```bash
+$ npx omi-cli init-tw my-app  
+$ cd my-app           
+$ npm start           # develop
+$ npm run build       # release
+```
+
 ### 包
 
 - 核心包
