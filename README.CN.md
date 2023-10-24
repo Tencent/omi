@@ -305,7 +305,7 @@ define('my-app', class extends withTwind(Component) {
 ## 贡献者
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Tencent/omi" />
+  <img src="https://omi.cdn-go.cn/contributors.png" />
 </a>
 
 ## 微信群
