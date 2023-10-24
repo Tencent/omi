@@ -5,6 +5,7 @@ import { applyRef } from './utils'
 export type ExtendedElement = (HTMLElement | SVGAElement | HTMLInputElement) & {
   receiveProps: Function
   update: Function
+  queuedUpdate: Function
   store?: unknown
   className?: string
   props: Record<string, unknown>

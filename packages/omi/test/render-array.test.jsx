@@ -23,7 +23,7 @@ describe('render array', () => {
     parentElement = null
   })
 
-  it('render array 1', () => {
+  it('render array 1', async () => {
     define('my-element11', class extends Component {
 
       render(props) {
@@ -49,13 +49,14 @@ describe('render array', () => {
     })
 
     render(<my-app11 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Element5</div>')
 
 
 
   })
 
-  it('render array 2', () => {
+  it('render array 2', async () => {
     define('my-element12', class extends Component {
 
       render(props) {
@@ -81,12 +82,13 @@ describe('render array', () => {
     })
 
     render(<my-app12 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Hello</div><div>Element</div><div>Element2</div>')
   })
 
 
 
-  it('render array 3', () => {
+  it('render array 3', async () => {
     define('my-element13', class extends Component {
 
       render(props) {
@@ -112,12 +114,13 @@ describe('render array', () => {
     })
 
     render(<my-app13 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Hello2</div><div>Element</div><div>Element2</div>')
   })
 
 
 
-  it('render array 4', () => {
+  it('render array 4', async () => {
     define('my-element14', class extends Component {
 
       render(props) {
@@ -143,11 +146,12 @@ describe('render array', () => {
     })
 
     render(<my-app14 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Element5</div><div>Element</div>')
   })
 
 
-  it('render array 5', () => {
+  it('render array 5', async () => {
     define('my-element15', class extends Component {
 
       render(props) {
@@ -173,10 +177,11 @@ describe('render array', () => {
     })
 
     render(<my-app15 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Element5</div><div>Element</div>')
   })
 
-  it('render array 6', () => {
+  it('render array 6', async () => {
     define('my-element16', class extends Component {
 
       render(props) {
@@ -202,6 +207,7 @@ describe('render array', () => {
     })
 
     render(<my-app16 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Hello2</div>')
   })
 
@@ -236,7 +242,7 @@ describe('render array', () => {
   })
 
 
-  it('render array 8', () => {
+  it('render array 8', async () => {
     define('my-element18', class extends Component {
 
       render(props) {
@@ -262,11 +268,12 @@ describe('render array', () => {
     })
 
     render(<my-app18 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Element3</div><div>Element4</div><div>Element5</div>')
   })
 
 
-  it('render array 9', () => {
+  it('render array 9', async () => {
     define('my-element19', class extends Component {
 
       render(props) {
@@ -292,6 +299,7 @@ describe('render array', () => {
     })
 
     render(<my-app19 />, parentElement)
+    await Promise.resolve()
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>Element3</div>')
   })
 

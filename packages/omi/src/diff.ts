@@ -407,7 +407,7 @@ function diffAttributes(dom: ExtendedElement, attrs: Record<string, unknown>, ol
     // __hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     // if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
     if (dom.receiveProps(dom.props, oldClone) !== false) {
-      dom.update()
+      dom.queuedUpdate()
     }
     // }
   }

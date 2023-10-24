@@ -9,6 +9,6 @@ export type { SignalValue } from './reactivity'
 export { Signal } from './signal'
 export { css } from './css-tag'
 export { mixin } from './options'
-export const version = '7.1.12'
+export const version = '7.1.13'
 
 

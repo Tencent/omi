@@ -78,6 +78,91 @@ describe('signal', () => {
     expect(times).toBe(6)
   })
 
+  it('should update grandson-el2', async () => {
+
+    const count = signal(0)
+    let times = 0
+    function add() {
+      count.value++
+    }
+
+    function sub() {
+      count.value--
+    }
+
+    @tag('grandson-el1')
+    class GrandsonEl extends Component {
+      render() {
+        return (
+          <>
+            <span>{count.value}</span>
+            <grandson-el2 count={count.value} />
+          </>
+        )
+      }
+    }
+
+    @tag('grandson-el2')
+    class GrandsonEl2 extends Component {
+      render(props) {
+        times++
+        return (
+          <>
+            <span>{props.count}</span>
+          </>
+        )
+      }
+    }
+
+
+    @tag('counter-demo3')
+    class CounterDemo extends Component {
+
+      render() {
+
+        return (
+          <>
+            <button onClick={sub}>-</button>
+            <span>{count.value}</span>
+            <button onClick={add}>+</button>
+            <grandson-el1 />
+          </>
+        )
+      }
+    }
+
+    @tag('my-app2')
+    class MyApp extends Component {
+
+      render() {
+        return (
+          <div>
+            <div>{count.value}</div>
+            <counter-demo3 />
+          </div>
+
+        )
+      }
+    }
+
+    render(<my-app2 />, parentElement)
+   
+    count.value++
+    count.value++
+    count.value++
+    count.value++
+    await Promise.resolve()
+    count.value++
+    await Promise.resolve()
+    count.value++
+    await Promise.resolve()
+    await Promise.resolve()
+    expect(times).toBe(4)
+  })
+
+
+
+
   it('should initialize with the correct value', () => {
     const testSignal = signal(10)
     expect(testSignal.peek()).toBe(10)
@@ -222,14 +307,14 @@ describe('computed', () => {
         return completedCount.value.length
       },
 
-      update() {
+      queuedUpdate() {
         setActiveComponent(mockComponent)
         this.render()
         setActiveComponent(null)
       },
     }
 
-    mockComponent.update()
+    mockComponent.queuedUpdate()
     addTodo()
     addTodo()
   })

@@ -199,6 +199,18 @@ export class Component extends HTMLElement {
     this.updated()
   }
 
+  private updateQueued = false
+
+  queuedUpdate(): void {
+    if (!this.updateQueued) {
+      this.updateQueued = true
+      Promise.resolve().then(() => {
+        this.update()
+        this.updateQueued = false
+      })
+    }
+  }
+  
   updateProps(obj: Record<string, unknown>): void {
     Object.keys(obj).forEach((key) => {
       this.props[key] = obj[key]
