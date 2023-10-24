@@ -1,0 +1,27 @@
+{
+  "name": "omi-starter-ts",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "prettier --write src/**/*.{ts,tsx,scss,less,styl,html,md} && eslint --fix src/**/*.{ts,tsx}"
+  },
+  "dependencies": {
+    "omi": "latest"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.45.0",
+    "postcss": "^8.4.31",
+    "prettier": "3.0.3",
+    "sass": "^1.55.0",
+    "tailwindcss": "^3.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
+}
