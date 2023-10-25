@@ -55,10 +55,10 @@ $ npm start           # develop
 $ npm run build       # release
 ```
 
-To quickly create an Omi + Vite + TS + **Tailwindcss** project:
+To quickly create an Omi + **Router** + **Signal** + **Suspense** + **Tailwindcss** + Vite + TS project:
 
 ```bash
-$ npx omi-cli init-tw my-app  
+$ npx omi-cli init-spa my-app  
 $ cd my-app           
 $ npm start           # develop
 $ npm run build       # release
