@@ -1,10 +1,12 @@
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  padding: 1em;
+  width: 60px;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.omi:hover {
   filter: drop-shadow(0 0 2em #07c161a0);
 }

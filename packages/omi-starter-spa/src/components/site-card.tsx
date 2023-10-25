@@ -1,19 +1,14 @@
 import { tag, Component } from 'omi'
-import { tailwind } from './tailwind'
+import { tailwind } from '../tailwind'
 
-@tag('my-component')
+@tag('site-card')
 export class MyComponent extends Component {
   static css = [tailwind, `h1 { color: red }`]
 
   render() {
     return (
       <>
-        <h1 class='text-2xl'>Home (I'm red color.)</h1>
-        <div class='flex justify-center underline gap-2'>
-          <a href="#/user/john/profile">User Profile </a>
-          <a href="#/user/bobby/posts">User Posts </a>
-          <a href="#/user/bobby/profile?a=1">User Profile with query</a>
-        </div>
+        <h1 class="text-2xl">Home (I'm red color.)</h1>
 
         <figure class="md:flex bg-slate-100 rounded-xl overflow-hidden p-8 md:p-0 dark:bg-slate-800">
           <img

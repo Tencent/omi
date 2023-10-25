@@ -1,5 +1,6 @@
-import 'omi-suspense'
+import './components/suspense'
 import './index.css'
+import './components/site-header'
 
 export const routes = [
   {
@@ -8,14 +9,18 @@ export const routes = [
     meta: {},
     render() {
       return (
-        <o-suspense
-          imports={[
-            import('./home-page'),
-          ]}
-        >
-          <home-page />
-        </o-suspense>
-      
+        <>
+          <site-header></site-header>
+          <o-suspense
+            imports={[
+              import('./home-page'),
+            ]}
+          >
+            <home-page />
+          </o-suspense>
+        </>
+
+
       )
     }
   },
@@ -23,34 +28,38 @@ export const routes = [
     path: '/user/:id/profile',
     render() {
       return (
-        <o-suspense
-          imports={[
-            import('./components/user-info'),
-            import('./components/user-profile'),
-          ]}
-          data={async () => {
-            const fetchPromises = [
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  resolve({ name: 'omi' })
-                }, 1000)
-              }),
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  resolve({ age: 5 })
-                }, 1000)
-              })
-            ]
-            const responses = await Promise.all(fetchPromises)
-            return responses
-          }}
-        >
-          <div slot="pending">Loading user profile...</div>
-          <div slot="fallback">Sorry, we are unable to load the user profile at the moment. Please try again later.</div>
-          <user-info>
-            <user-profile></user-profile>
-          </user-info>
-        </o-suspense>
+        <>
+          <site-header></site-header>
+          <o-suspense
+            imports={[
+              import('./components/user-info'),
+              import('./components/user-profile'),
+            ]}
+            data={async () => {
+              const fetchPromises = [
+                new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    resolve({ name: 'omi' })
+                  }, 1000)
+                }),
+                new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    resolve({ age: 5 })
+                  }, 1000)
+                })
+              ]
+              const responses = await Promise.all(fetchPromises)
+              return responses
+            }}
+          >
+            <div slot="pending">Loading user profile...</div>
+            <div slot="fallback">Sorry, we are unable to load the user profile at the moment. Please try again later.</div>
+            <user-info>
+              <user-profile></user-profile>
+            </user-info>
+          </o-suspense>
+        </>
+
       )
     }
   },
@@ -58,15 +67,19 @@ export const routes = [
     path: '/user/:id/posts',
     render() {
       return (
-        <o-suspense imports={[
-          import('./components/user-info'),
-          import('./components/user-posts'),
-        ]}>
-          <div slot="fallback">Loading user posts...</div>
-          <user-info>
-            <user-posts></user-posts>
-          </user-info>
-        </o-suspense>
+        <>
+          <site-header></site-header>
+          <o-suspense imports={[
+            import('./components/user-info'),
+            import('./components/user-posts'),
+          ]}>
+            <div slot="fallback">Loading user posts...</div>
+            <user-info>
+              <user-posts></user-posts>
+            </user-info>
+          </o-suspense>
+        </>
+
       )
     }
   }, {
