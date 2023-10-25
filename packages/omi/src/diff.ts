@@ -230,14 +230,7 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
       if (key != null) {
         keyedLen++
         keyed[key as string] = child as Element
-      } else if (
-        props ||
-        ((child as ExtendedElement).splitText !== undefined
-          ? isHydrating
-            ? (child as Text).nodeValue?.trim()
-            : true
-          : isHydrating)
-      ) {
+      } else {
         children[childrenLen++] = child
       }
     }
@@ -259,7 +252,7 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
           }
         }
         // attempt to pluck a node of the same type from the existing children
-        else if (!child && min < childrenLen) {
+        else if (min < childrenLen) {
           for (j = min; j < childrenLen; j++) {
             if (
               children[j] !== undefined &&
