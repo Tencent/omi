@@ -1,2 +1,23 @@
-- 分层
-- 使用信号，而不是手动 update
+# Omi TypeScript + Tailwindcss starter
+
+## Setup
+
+Install dependencies:
+
+```bash
+npm i
+```
+
+## Development
+
+
+```bash
+npm start
+```
+
+## Build
+
+
+```bash
+npm run build
+```
