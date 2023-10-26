@@ -3,8 +3,8 @@
 
 - 📶 **Signal**-driven reactive programming
 - ⚡ **Tiny** size, **Fast** performance
+- 🌐 Everything you need: **Web Components**, **JSX**, Router, Suspense, Tailwindcss...
 - 💯 Both **object** oriented programming(OOP) and **data** oriented programming(DOP) are supported
-- 🌐 **Web Components** + **JSX** for streamlined component-based development
 - 💒 Harness **Constructable Stylesheets** to easily manage and share styles
 
 ```tsx
