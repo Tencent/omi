@@ -14,7 +14,7 @@ routes.tsx:
 import 'omi-suspense'
 import { userProfile, userPosts } from './state'
 import { fetchUserPosts, fetchUserProfile } from './api'
-import { Router } from '../src/router'
+import { Router } from 'omi-router'
 
 export const routes = [
   {
@@ -105,7 +105,7 @@ main.tsx:
 
 ```tsx
 import { routes } from './routes'
-import { Router} from '../src/router'
+import { Router} from 'omi-router'
 
 const router = new Router({
   routes,
