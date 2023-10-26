@@ -82,8 +82,6 @@ $ npm run build       # release
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - SNake Game with reactivity functions
 
 
-  <!-- - [`tdesign-omi`](https://github.com/omijs/tdesign) - `[in progress...]`Cross framework components based on tdesign. [Preview](https://omijs.github.io/tdesign/) -->
-
 ## Usage
 
 ### TodoApp with reactivity functions
