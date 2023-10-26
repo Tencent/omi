@@ -3,13 +3,13 @@ import { tag, Component, h, bind, classNames } from 'omi'
 @tag('o-ripple')
 class OmiRipple extends Component {
   static css = `
-  :host{
-    display: inline-block;
+  :host {
+    display: var(--o-ripple-display-type, inline-block);
   }
   
   .o-ripple {
     position: relative;
-    display: inline-block;
+    display: var(--o-ripple-display-type, inline-block);
     overflow: hidden;
   }
 
@@ -29,12 +29,20 @@ class OmiRipple extends Component {
   }
   `
 
+
+  installed() {
+    const slot = this.shadowRoot.querySelector('#slot')
+    const assignedNodes = slot.assignedNodes()
+    const displayType = window.getComputedStyle(assignedNodes[0]).display
+    this.style.setProperty('--o-ripple-display-type', displayType)
+  }
+
   ripple = false
   rippleStyle = {}
 
   @bind
   onClick(event) {
-    if(this.ripple) {
+    if (this.ripple) {
       return
     }
     const diameter = Math.max(this.rootElement.clientWidth, this.rootElement.clientHeight)
@@ -62,7 +70,7 @@ class OmiRipple extends Component {
   render() {
     return (
       <div class="o-ripple" onClick={this.onClick}>
-        <slot></slot>
+        <slot id="slot"></slot>
         <span style={this.rippleStyle} class={classNames({ ripple: this.ripple })}></span>
       </div>
     )
