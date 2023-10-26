@@ -233,6 +233,17 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
       } else {
         children[childrenLen++] = child
       }
+
+      // o-suspense 内依赖的组件是异步加载的webcomponents，其 props 为空，不会进入该条件导致children里没有
+      // 所以不会被移除，所以这里直接从 else if 改成 else
+      // else if(props ||
+      //   ((child as ExtendedElement).splitText !== undefined
+      //     ? isHydrating
+      //       ? (child as Text).nodeValue?.trim()
+      //       : true
+      //     : isHydrating)) {
+      //  children[childrenLen++] = child
+      // }
     }
   }
 
