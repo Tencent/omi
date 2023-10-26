@@ -76,6 +76,7 @@ $ npm run build       # release
 - Components
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - Applying animations when an component is entering and leaving the DOM.
   - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - Handling asynchronous dependencies.
+  - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - A lightweight component for adding ripple effects to user interface elements.
   - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - Cross framework icon collection based on tdesign.
 - Examples (not published to npm)
   - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - SNake Game with `Signal` class
@@ -308,3 +309,6 @@ define('my-app', class extends withTwind(Component) {
 ## License
 
 MIT © Tencent
+
+
+  <!-- - [`tdesign-omi`](https://github.com/omijs/tdesign) - `[in progress...]`Cross framework components based on tdesign. [Preview](https://omijs.github.io/tdesign/) -->
