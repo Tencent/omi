@@ -17,7 +17,7 @@ class OmiRipple extends Component {
     position: absolute; 
     border-radius: 50%;
     transform: scale(0);
-    animation: ripple 600ms linear;
+    animation: ripple 600ms ease-out;
     background-color: rgba(255, 255, 255, 0.7);
   }
 
@@ -34,6 +34,9 @@ class OmiRipple extends Component {
 
   @bind
   onClick(event) {
+    if(this.ripple) {
+      return
+    }
     const diameter = Math.max(this.rootElement.clientWidth, this.rootElement.clientHeight)
     const radius = diameter / 2
     const rect = this.rootElement.getBoundingClientRect()
