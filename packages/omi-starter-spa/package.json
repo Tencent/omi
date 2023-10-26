@@ -11,9 +11,9 @@
     "lint": "prettier --write src/**/*.{ts,tsx,scss,less,styl,html,md} && eslint --fix src/**/*.{ts,tsx}"
   },
   "dependencies": {
-    "omi": "^7.1.14",
-    "omi-router": "^4.0.3",
-    "omi-suspense": "^0.0.3"
+    "omi": "latest",
+    "omi-router": "latest",
+    "omi-suspense": "latest"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",

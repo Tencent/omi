@@ -23,10 +23,7 @@ export default class extends Component {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="http://localhost:5173/#/user/bobby/posts"
-                    class="hover:text-green-500 dark:hover:text-green-400"
-                  >
+                  <a href="#/user/bobby/posts" class="hover:text-green-500 dark:hover:text-green-400">
                     User Posts
                   </a>
                 </li>
