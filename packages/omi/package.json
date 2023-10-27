@@ -48,6 +48,7 @@
       "eslint --fix"
     ]
   },
+  "license": "MIT",
   "dependencies": {
     "construct-style-sheets-polyfill": "3.0.1",
     "weakmap-polyfill": "2.0.4"
