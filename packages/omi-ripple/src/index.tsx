@@ -1,15 +1,15 @@
 import { tag, Component, h, bind, classNames } from 'omi'
 
 @tag('o-ripple')
-class OmiRipple extends Component {
+export class OmiRipple extends Component {
   static css = `
   :host {
-    display: var(--o-ripple-display-type, inline-block);
+    display: inline-block;
   }
   
   .o-ripple {
     position: relative;
-    display: var(--o-ripple-display-type, inline-block);
+    display: inline-block;
     overflow: hidden;
   }
 
@@ -29,22 +29,16 @@ class OmiRipple extends Component {
   }
   `
 
-
-  installed() {
-    const slot = this.shadowRoot.querySelector('#slot')
-    const assignedNodes = slot.assignedNodes()
-    const displayType = window.getComputedStyle(assignedNodes[0]).display
-    this.style.setProperty('--o-ripple-display-type', displayType)
-  }
-
   ripple = false
   rippleStyle = {}
 
+  timeoutId = null
+  
   @bind
   onClick(event) {
-    if (this.ripple) {
-      return
-    }
+    this.ripple = false
+    clearTimeout(this.timeoutId)
+    this.update()
     const diameter = Math.max(this.rootElement.clientWidth, this.rootElement.clientHeight)
     const radius = diameter / 2
     const rect = this.rootElement.getBoundingClientRect()
@@ -61,7 +55,7 @@ class OmiRipple extends Component {
     this.ripple = true
     this.update()
 
-    setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.ripple = false
       this.update()
     }, 600)
