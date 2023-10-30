@@ -8,7 +8,7 @@ export class SpinnersPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 mx-5">
+      <div className="container my-12 !max-w-full">
         <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal">Basic example</h2>
 
         <code-showcase

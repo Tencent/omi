@@ -17,12 +17,12 @@ export default class extends Component {
   render() {
     return (
       <div class="relative lg:pt-2 flex items-center justify-between text-slate-700 font-semibold text-sm leading-6 dark:text-slate-200">
-        <a href="#/" class="flex items-center">
-          <img src="https://omi.cdn-go.cn/s/latest/omi.svg" class="p-4 w-16 logo" alt="Omi logo" />
+        <a href="#/" class="flex items-center text-xl">
+          <img src="https://omi.cdn-go.cn/s/latest/omi.svg" class="pr-4 pt-4 pb-4 pl-0 w-16 logo" alt="Omi logo" />
           OMI Elements
         </a>
         <div class="flex items-center">
-          <div class="md:flex items-center">
+          <div class="flex items-center">
             <nav>
               <ul class="flex items-center gap-x-8">
                 <li>
@@ -31,7 +31,11 @@ export default class extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="https://tw-elements.com/" target="_blank" class="hover:text-green-500 dark:hover:text-green-400">
+                  <a
+                    href="https://tw-elements.com/"
+                    target="_blank"
+                    class="hover:text-green-500 dark:hover:text-green-400"
+                  >
                     TW Elements
                   </a>
                 </li>

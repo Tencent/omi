@@ -2,7 +2,6 @@ import { tag, Component } from 'omi'
 import './components/button-link'
 import { tailwind } from '@/tailwind'
 import demoPages from './pages'
-import { Modal } from '@/lib/components/modal/index.tsx'
 
 @tag('home-page')
 export class ButtonLink extends Component {
@@ -11,7 +10,8 @@ export class ButtonLink extends Component {
   show = false
   render() {
     return (
-      <div class="container my-12 mx-5">
+      <div class="container my-12 !max-w-full">
+       
         {/* <button
           onClick={() => {
             this.show = true

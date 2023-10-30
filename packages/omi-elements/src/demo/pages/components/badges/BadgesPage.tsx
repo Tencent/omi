@@ -9,7 +9,7 @@ export default class BadgesPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 mx-5">
+      <div className="container my-12 !max-w-full">
         <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal">Basic examples</h2>
         <code-showcase
           code={`<h2 className="text-4xl font-medium leading-tight">

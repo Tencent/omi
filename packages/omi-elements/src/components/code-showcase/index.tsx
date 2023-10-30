@@ -94,7 +94,7 @@ export default class CodeShowcase extends Component<Props> {
             <div class="p-4">
               <slot></slot>
             </div>
-            <div class="hidden md:block mt-4 border-t p-4 rounded-b-lg bg-white dark:bg-neutral-800 text-center dark:border-neutral-600">
+            <div class="block mt-4 border-t p-4 rounded-b-lg bg-white dark:bg-neutral-800 text-center dark:border-neutral-600">
               <button
                 onClick={this.toogleShowCode}
                 class="inline-block rounded px-4 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary hover:bg-secondary-100 focus:bg-secondary-100 focus:outline-none focus:ring-0 active:text-primary-700 dark:text-primary-400 dark:hover:bg-white/10 dark:focus:bg-white/10 relative overflow-hidden align-bottom"

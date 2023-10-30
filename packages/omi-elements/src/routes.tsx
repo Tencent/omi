@@ -99,12 +99,137 @@ const components = [
     name: 'timeline',
     dep: () => import('./demo/pages/components/timeline/TimelinePage'),
   },
+  {
+    name: 'images',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/images/ImagesPage'),
+  },
+  {
+    name: 'icons',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/icons/IconsPage'),
+  },
+  {
+    name: 'mask',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/mask/MaskPage'),
+  },
+  {
+    name: 'hover-effect',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/hover-effects/HoverEffectPage'),
+  },
+  {
+    name: 'headings',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/headings/HeadingsPage'),
+  },
+  {
+    name: 'colors',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/colors/ColorsPage'),
+  },
+  {
+    name: 'dividers',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/dividers/DividersPage'),
+  },
+  {
+    name: 'figures',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/figures/FiguresPage'),
+  },
+  {
+    name: 'shadows',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/shadows/ShadowsPage'),
+  },
+  {
+    name: 'typography',
+    type: 'content-styles',
+    dep: () => import('./demo/pages/content-styles/typography/TypographyPage'),
+  },
+  {
+    name: 'tables',
+    type: 'data',
+    dep: () => import('./demo/pages/data/tables/TablesPage'),
+  },
+  {
+    name: 'file-input',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/file-input/FileInputPage'),
+  },
+  {
+    name: 'radio',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/radio/RadioPage'),
+  },
+  {
+    name: 'range',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/range/RangePage'),
+  },
+  {
+    name: 'switch',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/switch/SwitchPage'),
+  },
+  {
+    name: 'checkbox',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/checkbox/CheckboxPage'),
+  },
+  {
+    name: 'input',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/inputs/InputPage'),
+  },
+  {
+    name: 'form-templates',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/form-templates/FormTemplatesPage'),
+  },
+  {
+    name: 'login-form',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/login-form/LoginFormPage'),
+  },
+  {
+    name: 'registration-form',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/registration-form/RegistrationFormPage'),
+  },
+  {
+    name: 'search',
+    type: 'forms',
+    dep: () => import('./demo/pages/forms/search/SearchPage'),
+  },
+  {
+    name: 'ripple',
+    type: 'methods',
+    dep: () => import('./demo/pages/methods/ripple/RipplePage'),
+  },
+  {
+    name: 'breadcrumbs',
+    type: 'navigation',
+    dep: () => import('./demo/pages/navigation/breadcrumbs/BreadcrumbsPage'),
+  },
+  {
+    name: 'pagination',
+    type: 'navigation',
+    dep: () => import('./demo/pages/navigation/pagination/PaginationPage'),
+  },
+  {
+    name: 'footer',
+    type: 'navigation',
+    dep: () => import('./demo/pages/navigation/footer/FooterPage'),
+  },
   /* next component */
 ]
 
-components.forEach((component) => {
+components.forEach((component: { type?: string; name?: string; page?: string; dep: () => unknown }) => {
   routes.unshift({
-    path: `/components/${component.name}`,
+    path: `/${component.type ? component.type : 'components'}/${component.name}`,
     render() {
       component.page = `${component.name}-page`
       return (

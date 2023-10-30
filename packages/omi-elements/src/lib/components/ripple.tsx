@@ -9,7 +9,6 @@ export class Ripple extends Component {
   
   .o-ripple {
     position: relative;
-    display: inline-block;
     overflow: hidden;
   }
 

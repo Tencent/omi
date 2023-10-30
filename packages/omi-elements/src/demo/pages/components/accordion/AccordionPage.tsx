@@ -17,7 +17,7 @@ export default class AccordionPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 px-5">
+      <div className="container my-12 !max-w-full">
         {/* <!-- Section: Basic example --> */}
         <section>
           {/* <!-- Title --> */}

@@ -24,7 +24,7 @@ export default class ModalPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 mx-5 w-auto">
+      <div className="container my-12 !max-w-full w-auto">
         {/* <!-- Section: Simple notification --> */}
         <section>
           {/* <!-- Title --> */}

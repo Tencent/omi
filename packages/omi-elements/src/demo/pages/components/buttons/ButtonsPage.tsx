@@ -24,7 +24,7 @@ export class ButtonsPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 mx-5 mb-48">
+      <div className="container my-12 !max-w-full mb-48">
         {/* <!-- Section: Basic example --> */}
         <section>
           {/* <!-- Title --> */}
