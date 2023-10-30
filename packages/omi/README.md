@@ -2,6 +2,7 @@
 <h2 align="center">Omi - Web Components Framework</h2>
 
 - 📶 **Signal**-driven reactive programming
+- 🎉 [Tailwind Element Omi UI KIT](https://omi.cdn-go.cn/elements/latest/)
 - ⚡ **Tiny** size, **Fast** performance
 - 🌐 Everything you need: **Web Components**, **JSX**, Router, Suspense, Tailwindcss...
 - 💯 Both **object** oriented programming(OOP) and **data** oriented programming(DOP) are supported
