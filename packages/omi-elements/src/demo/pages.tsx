@@ -9,20 +9,20 @@ interface PagesSection {
 }
 
 const componentsPages: Pages[] = [
-  { name: 'buttons', path: '/components/buttons' },
-  { name: 'collapse', path: '/components/collapse' },
-  { name: 'rating', path: '/components/rating' },
-  { name: 'spinners', path: '/components/spinners' },
+  { name: 'accordion', path: '/components/accordion' },
   { name: 'avatar', path: '/components/avatar' },
   { name: 'badge', path: '/components/badges' },
-  { name: 'link', path: '/components/link' },
-  { name: 'accordion', path: '/components/accordion' },
+  { name: 'buttons', path: '/components/buttons' },
   { name: 'button-group', path: '/components/button-group' },
   { name: 'cards', path: '/components/cards' },
+  { name: 'collapse', path: '/components/collapse' },
+  { name: 'link', path: '/components/link' },
   { name: 'list-group', path: '/components/list-group' },
   { name: 'modal', path: '/components/modal' },
   { name: 'paragraphs', path: '/components/paragraphs' },
   { name: 'placeholders', path: '/components/placeholders' },
+  { name: 'rating', path: '/components/rating' },
+  { name: 'spinners', path: '/components/spinners' },
   { name: 'progress', path: '/components/progress' },
   { name: 'scroll-back-to-top-button', path: '/components/scroll-back-to-top-button' },
   { name: 'social-buttons', path: '/components/social-buttons' },
@@ -31,17 +31,6 @@ const componentsPages: Pages[] = [
 ]
 
 const contentStylesPages: Pages[] = [
-  { name: 'images', path: '/content-styles/images' },
-  { name: 'icons', path: '/content-styles/icons' },
-  { name: 'mask', path: '/content-styles/mask' },
-  {
-    name: 'hover effect',
-    path: '/content-styles/hover-effect',
-  },
-  {
-    name: 'headings',
-    path: '/content-styles/headings',
-  },
   { name: 'colors', path: '/content-styles/colors' },
   {
     name: 'dividers',
@@ -51,6 +40,17 @@ const contentStylesPages: Pages[] = [
     name: 'figures',
     path: '/content-styles/figures',
   },
+  {
+    name: 'hover effect',
+    path: '/content-styles/hover-effect',
+  },
+  {
+    name: 'headings',
+    path: '/content-styles/headings',
+  },
+  { name: 'icons', path: '/content-styles/icons' },
+  { name: 'images', path: '/content-styles/images' },
+  { name: 'mask', path: '/content-styles/mask' },
   {
     name: 'shadows',
     path: '/content-styles/shadows',
@@ -64,9 +64,22 @@ const contentStylesPages: Pages[] = [
 const dataPages: Pages[] = [{ name: 'tables', path: '/data/tables' }]
 
 const formsPages: Pages[] = [
+  { name: 'checkbox', path: '/forms/checkbox' },
+  {
+    name: 'form templates',
+    path: '/forms/form-templates',
+  },
   {
     name: 'file input',
     path: '/forms/file-input',
+  },
+  {
+    name: 'inputs',
+    path: '/forms/input',
+  },
+  {
+    name: 'login form',
+    path: '/forms/login-form',
   },
   {
     name: 'radio',
@@ -76,26 +89,13 @@ const formsPages: Pages[] = [
     name: 'range',
     path: '/forms/range',
   },
-  { name: 'switch', path: '/forms/switch' },
-  { name: 'checkbox', path: '/forms/checkbox' },
-  {
-    name: 'Inputs',
-    path: '/forms/input',
-  },
-  {
-    name: 'form templates',
-    path: '/forms/form-templates',
-  },
-  {
-    name: 'login form',
-    path: '/forms/login-form',
-  },
   {
     name: 'registration form',
     path: '/forms/registration-form',
   },
+  { name: 'switch', path: '/forms/switch' },
   {
-    name: 'Search',
+    name: 'search',
     path: '/forms/search',
   },
 ]
@@ -108,12 +108,12 @@ const navigationPages: Pages[] = [
     path: '/navigation/breadcrumbs',
   },
   {
-    name: 'pagination',
-    path: '/navigation/pagination',
-  },
-  {
     name: 'footer',
     path: '/navigation/footer',
+  },
+  {
+    name: 'pagination',
+    path: '/navigation/pagination',
   },
   // {
   //   name: 'tabs',
