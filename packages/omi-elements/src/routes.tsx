@@ -1,6 +1,7 @@
 import './components/suspense'
 import './index.css'
 import './components/site-header'
+import './components/side-nav'
 
 export const routes = [
   {
@@ -11,9 +12,12 @@ export const routes = [
       return (
         <>
           <site-header></site-header>
-          <o-suspense imports={[import('./demo/HomePage')]}>
-            <home-page />
-          </o-suspense>
+          <div class="flex">
+            <side-nav class="block w-60"></side-nav>
+            <o-suspense imports={[import('./demo/HomePage')]} class="flex-1 ml-10 mr-10 w-0">
+              <home-page />
+            </o-suspense>
+          </div>
         </>
       )
     },
@@ -21,7 +25,17 @@ export const routes = [
   {
     path: '*',
     render() {
-      return <h1>404</h1>
+      return (
+        <>
+          <site-header></site-header>
+          <div class="flex">
+            <side-nav class="block w-60"></side-nav>
+            <div class="flex-1 ml-10 mr-10 w-0 pt-10">
+              <h1 class="text-xl">In progress, coming soon....</h1>
+            </div>
+          </div>
+        </>
+      )
     },
   },
 ]
@@ -235,13 +249,16 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
       return (
         <>
           <site-header></site-header>
-          <o-suspense imports={[component.dep()]}>
-            <div slot="pending">Loading user profile...</div>
-            <div slot="fallback">
-              Sorry, we are unable to load the user profile at the moment. Please try again later.
-            </div>
-            <component.page />
-          </o-suspense>
+          <div class="flex">
+            <side-nav class="block w-60"></side-nav>
+            <o-suspense imports={[component.dep()]} class="flex-1 ml-10 mr-10 w-0">
+              <div slot="pending">Loading user profile...</div>
+              <div slot="fallback">
+                Sorry, we are unable to load the user profile at the moment. Please try again later.
+              </div>
+              <component.page />
+            </o-suspense>
+          </div>
         </>
       )
     },

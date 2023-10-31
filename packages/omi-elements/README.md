@@ -1,8 +1,8 @@
 # Omi Elements
 
-> Omi web components of tw elements[In Progress...].
+> Omi web components of tw elements.
 
-Click to preview[In Progress]: <b><a href="https://omi.cdn-go.cn/elements/latest/">https://omi.cdn-go.cn/elements/latest/</a></b>
+Click to preview: <b><a href="https://omi.cdn-go.cn/elements/latest/">https://omi.cdn-go.cn/elements/latest/</a></b>
 
 
 ## TW Elements [<img src="https://tecdn.b-cdn.net/img/logo/te-transparent-noshadows.webp" width="45" align="right" alt="tw-elements">](https://tw-elements.com/)<a href="https://www.npmjs.com/package/tw-elements"><img src="https://img.shields.io/npm/dt/tw-elements.svg" alt="Total Downloads"></a> <a href="https://github.com/mdbootstrap/TW-Elements/releases"><img src="https://img.shields.io/npm/v/tw-elements.svg" alt="Latest Release"></a> <a href="https://twitter.com/intent/tweet/?text=Thanks+@TWElement+for+creating+an+amazing+collection+of+open+source+components+for+@tailwindcss%20https://tw-elements.com/&hashtags=tailwindCSS,bootstrap,webdesign,javascript,100DaysOfCode,DevCommunity"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Let%20us%20know%20you%20were%20here%21&"></a>
@@ -13,7 +13,7 @@ TW Elements is a huge collection of free, interactive components for Tailwind CS
     <tbody>
     <tr>
       <td>
-          <a href="https://tw-elements.com/" alt="TW Elements tutorials" rel="dofollow">
+          <a href="https://omi.cdn-go.cn/elements/latest/" alt="TW Elements tutorials" rel="dofollow">
           		<img width="600" src="https://tecdn.b-cdn.net/img/components-big.jpg">
           </a>
       </td>
@@ -26,7 +26,7 @@ TW Elements is a huge collection of free, interactive components for Tailwind CS
          <li>Simple, 1 minute install</li>    
          <li>Free for personal & commercial use</li>
         </ul>
-        <p><b><a href="https://tw-elements.com/docs/standard/getting-started/quick-start/">Get started with TW Elements now!</a></b></p>
+        <p><b><a href="https://omi.cdn-go.cn/elements/latest/">Get started with TW Elements now!</a></b></p>
       </td>
     </tr>
    </tbody>
@@ -39,17 +39,17 @@ A collection of stunning components made with attention to the smallest details.
 <table>
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/datepicker/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/datepicker/">
             <img alt="Datepicker" src="https://mdbootstrap.com/img/tw-demo/datepicker.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/dropdown/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/dropdown/">
             <img alt="Dropdown" src="https://mdbootstrap.com/img/tw-demo/dropdown.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/modal/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/modal/">
             <img alt="Modal" src="https://mdbootstrap.com/img/tw-demo/modal.webp">
         </a>
     </td>
@@ -62,17 +62,17 @@ A collection of stunning components made with attention to the smallest details.
   
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/data/charts/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/data/charts/">
             <img alt="Charts" src="https://mdbootstrap.com/img/tw-demo/charts.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/tooltip/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/tooltip/">
             <img alt="Tooltips" src="https://mdbootstrap.com/img/tw-demo/tooltips-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/carousel/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/carousel/">
             <img alt="Carousel" src="https://mdbootstrap.com/img/tw-demo/carousel.webp">
         </a>
     </td>
@@ -85,17 +85,17 @@ A collection of stunning components made with attention to the smallest details.
   
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/accordion/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/accordion/">
             <img alt="Accordion" src="https://mdbootstrap.com/img/tw-demo/accordion.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/navigation/tabs/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/navigation/tabs/">
             <img alt="Tabs" src="https://mdbootstrap.com/img/tw-demo/tabs.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/stepper/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/stepper/">
             <img alt="Stepper" src="https://mdbootstrap.com/img/tw-demo/stepper.webp">
         </a>
     </td>
@@ -107,17 +107,17 @@ A collection of stunning components made with attention to the smallest details.
   </tr>
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/timepicker/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/timepicker/">
             <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/img/tw-demo/timepicker.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/navigation/footer/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/navigation/footer/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/img/tw-demo/footer.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/navigation/navbar/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/navigation/navbar/">
             <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/img/tw-demo/navbar.webp">
         </a>
     </td>
@@ -130,17 +130,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
     <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/alerts/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/alerts/">
             <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-pro/alert-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/avatar/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/avatar/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/avatar.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/badges/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/badges/">
             <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/badge-1.webp">
         </a>
     </td>
@@ -153,17 +153,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/button-group/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/button-group/">
             <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/button-group-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/buttons/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/buttons/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/button-2.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/cards/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/cards/">
             <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/card-1.webp">
         </a>
     </td>
@@ -176,17 +176,17 @@ A collection of stunning components made with attention to the smallest details.
 <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/chips/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/chips/">
             <img alt="Tailwind CSS Time picker" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/demo-new/assets/images/chips.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/collapse/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/collapse/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/collapse-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/gallery/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/gallery/">
             <img alt="Tailwind CSS Navbar" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/demo-new/assets/images/lightbox.webp">
         </a>
     </td>
@@ -199,17 +199,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/jumbotron/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/jumbotron/">
             <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/header-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/link/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/link/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/link.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/listgroup/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/list-group/">
             <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/list-group-1.webp">
         </a>
     </td>
@@ -222,17 +222,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/notifications/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/notifications/">
             <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/notification.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/paragraphs/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/paragraphs/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/paragraphs.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/placeholders/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/placeholders/">
             <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/placeholder-1.webp">
         </a>
     </td>
@@ -245,17 +245,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/popover/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/popover/">
             <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/popover-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/progress/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/progress/">
             <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/progress-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/rating/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/rating/">
             <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-pro/rating-1.webp">
         </a>
     </td>
@@ -268,17 +268,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/scroll-back-to-top-button/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/scroll-back-to-top-button/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/scroll-back-to-top.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/social-buttons/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/social-buttons/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/social-media.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/spinners/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/spinners/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/spinner-1.webp">
         </a>
     </td>
@@ -291,17 +291,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/timeline/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/timeline/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/timeline.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/toast/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/toast/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-pro/toast-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/tooltip/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/tooltip/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/tooltip-1.webp">
         </a>
     </td>
@@ -314,17 +314,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/video/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/video/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/video.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/video-carousel/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/video-carousel/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/video-carousel.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/checkbox/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/checkbox/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/checkbox-1.webp">
         </a>
     </td>
@@ -337,17 +337,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/file-input/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/file-input/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/file-upload.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/input-group/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/input-group/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/input-group.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/login-form/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/login-form/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/login-form.webp">
         </a>
     </td>
@@ -360,17 +360,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/radio/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/radio/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/radio-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/range/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/range/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/range-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/registration-form/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/registration-form/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/registration-form.webp">
         </a>
     </td>
@@ -383,17 +383,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/search/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/search/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/search-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/select/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/select/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-pro/select-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/switch/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/switch/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/switch.webp">
         </a>
     </td>
@@ -406,17 +406,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/forms/textarea/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/textarea/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/textarea.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/data/tables/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/data/tables/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/table-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/methods/ripple/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/methods/ripple/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/ripple.webp">
         </a>
     </td>
@@ -429,17 +429,17 @@ A collection of stunning components made with attention to the smallest details.
 <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/content-styles/animations/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/content-styles/animations/">
             <img alt="Tailwind Component" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/demo-new/assets/images/animations2.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/content-styles/mask/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/content-styles/mask/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/mask-1.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/content-styles/shadows/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/content-styles/shadows/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/components-free/shadow-1.webp">
         </a>
     </td>
@@ -452,17 +452,17 @@ A collection of stunning components made with attention to the smallest details.
   <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/data/datatables/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/data/datatables/">
             <img alt="Tailwind Component" src="https://mdbcdn.b-cdn.net/docs/standard/pro/demo/assets/images/datatable.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/lightbox/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/lightbox/">
             <img alt="Tailwind Component" src="https://mdbcdn.b-cdn.net/docs/standard/pro/demo/assets/images/lightbox.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/rating/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/rating/">
             <img alt="Tailwind Component" src="https://mdbcdn.b-cdn.net/docs/standard/pro/demo/assets/images/rating.webp">
         </a>
     </td>
@@ -475,12 +475,12 @@ A collection of stunning components made with attention to the smallest details.
 <!--New row-->
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/methods/scrollbar/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/methods/scrollbar/">
             <img alt="Tailwind Component" src="https://mdbcdn.b-cdn.net/docs/standard/pro/demo/assets/images/scrollbar.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/components/popconfirm/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/components/popconfirm/">
             <img alt="Tailwind Component" src="https://mdbcdn.b-cdn.net/docs/standard/pro/demo/assets/images/popconfirm.webp">
         </a>
     </td>
@@ -509,17 +509,17 @@ Responsive Landing page blocks built with Tailwind CSS. Plenty of design blocks 
 <table>
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/hero-sections/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/hero-sections/">
             <img alt="Hero" src="https://mdbootstrap.com/img/tw-demo/hero.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/pricing/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/pricing/">
             <img alt="Pricing" src="https://mdbootstrap.com/img/tw-demo/pricing.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/cta/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/cta/">
             <img alt="Call to action" src="https://mdbootstrap.com/img/tw-demo/cta.webp">
         </a>
     </td>
@@ -532,17 +532,17 @@ Responsive Landing page blocks built with Tailwind CSS. Plenty of design blocks 
   
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/features/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/features/">
             <img alt="Features" src="https://mdbootstrap.com/img/tw-demo/features.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/contact/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/contact/">
             <img alt="Contact" src="https://mdbootstrap.com/img/tw-demo/contact.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/news/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/news/">
             <img alt="News/blog" src="https://mdbootstrap.com/img/tw-demo/news.webp">
         </a>
     </td>
@@ -555,17 +555,17 @@ Responsive Landing page blocks built with Tailwind CSS. Plenty of design blocks 
   
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/team/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/team/">
             <img alt="Team" src="https://mdbootstrap.com/img/tw-demo/team.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/stats/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/stats/">
             <img alt="Tabs" src="https://mdbootstrap.com/img/tw-demo/stats.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/testimonials/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/testimonials/">
             <img alt="Stepper" src="https://mdbootstrap.com/img/tw-demo/testimonials.webp">
         </a>
     </td>
@@ -577,17 +577,17 @@ Responsive Landing page blocks built with Tailwind CSS. Plenty of design blocks 
   </tr>
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/content/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/content/">
             <img alt="Content" src="https://mdbootstrap.com/img/tw-demo/content.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/newsletter/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/newsletter/">
             <img alt="Newsletter" src="https://mdbootstrap.com/img/tw-demo/newsletter.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/project-sections/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/project-sections/">
             <img alt="Projects" src="https://mdbootstrap.com/img/tw-demo/projects.webp">
         </a>
     </td>
@@ -599,17 +599,17 @@ Responsive Landing page blocks built with Tailwind CSS. Plenty of design blocks 
   </tr>
   <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/headers/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/headers/">
             <img alt="Headers" src="https://mdbootstrap.com/img/tw-demo/headers.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/faq/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/faq/">
             <img alt="FAQ" src="https://mdbootstrap.com/img/tw-demo/faq.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/logo-clouds/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/logo-clouds/">
             <img alt="Logo Clouds" src="https://mdbootstrap.com/img/tw-demo/logo-clouds.webp">
         </a>
     </td>
@@ -621,12 +621,12 @@ Responsive Landing page blocks built with Tailwind CSS. Plenty of design blocks 
   </tr>
     <tr>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/banners/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/banners/">
             <img alt="Headers" src="https://mdbootstrap.com/img/tw-demo/banners.webp">
         </a>
     </td>
     <td>
-        <a href="https://tw-elements.com/docs/standard/designblocks/mega-menu/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/designblocks/mega-menu/">
             <img alt="FAQ" src="https://mdbootstrap.com/img/tw-demo/mega-menu.webp">
         </a>
     </td>
