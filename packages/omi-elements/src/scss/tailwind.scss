@@ -1,0 +1,22 @@
+@tailwind base;
+
+@layer base {
+  html {
+    @apply text-neutral-800;
+  }
+  html.dark {
+    @apply text-neutral-50;
+    @apply bg-neutral-800;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply mt-12 mb-2 text-5xl font-bold;
+}
+
+code {
+  @apply text-red-600 dark:text-red-400;
+}

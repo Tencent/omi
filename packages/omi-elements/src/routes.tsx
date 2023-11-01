@@ -3,6 +3,12 @@ import './index.css'
 import './components/site-header'
 import './components/side-nav'
 
+declare global {
+  interface Window {
+    refreshDark(): void
+  }
+}
+
 export const routes = [
   {
     path: '/',
@@ -14,7 +20,11 @@ export const routes = [
           <site-header></site-header>
           <div class="flex">
             <side-nav class="block w-60"></side-nav>
-            <o-suspense imports={[import('./demo/HomePage')]} class="flex-1 ml-10 mr-10 w-0">
+            <o-suspense
+              imports={[import('./demo/HomePage')]}
+              onDataLoaded={window.refreshDark}
+              class="flex-1 ml-10 mr-10 w-0"
+            >
               <home-page />
             </o-suspense>
           </div>
@@ -251,7 +261,7 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
           <site-header></site-header>
           <div class="flex">
             <side-nav class="block w-60"></side-nav>
-            <o-suspense imports={[component.dep()]} class="flex-1 ml-10 mr-10 w-0">
+            <o-suspense imports={[component.dep()]} onDataLoaded={window.refreshDark} class="flex-1 ml-10 mr-10 w-0">
               <div slot="pending">Loading user profile...</div>
               <div slot="fallback">
                 Sorry, we are unable to load the user profile at the moment. Please try again later.

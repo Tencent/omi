@@ -1,18 +1,34 @@
-import { tag, Component } from 'omi'
+import { tag, Component, bind } from 'omi'
 // import css from '../app.css?raw'
 import { tailwind } from '@/tailwind'
+
+declare global {
+  interface Window {
+    toogleDark(): void
+  }
+}
 
 @tag('site-header')
 export default class extends Component {
   static css = [
     tailwind,
     `
-  
   .logo:hover {
     filter: drop-shadow(0 0 2em #07c161a0);
   }
   `,
   ]
+
+  state = {
+    isDark: document.documentElement.classList.contains('dark'),
+  }
+
+  @bind
+  toggleDark() {
+    window.toogleDark()
+    this.state.isDark = !this.state.isDark
+    this.update()
+  }
 
   render() {
     return (
@@ -65,7 +81,7 @@ export default class extends Component {
             </div>
 
             <div class="absolute inset-y-0 right-0 flex items-center pr-0 sm:static sm:inset-auto sm:ml-4">
-              {/* <div id="theme-switcher" class="w-8">
+              <div id="theme-switcher" onClick={this.toggleDark} class="w-8">
                 <button
                   class="rounded-2 flex items-center justify-center whitespace-nowrap px-1.5 py-2 uppercase text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 sm:p-2"
                   type="button"
@@ -74,108 +90,33 @@ export default class extends Component {
                   data-te-dropdown-position="dropend"
                   aria-expanded="false"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="inline-block h-5 w-5"
-                  >
-                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path>
-                  </svg>
-                </button>
-                <ul
-                  class="absolute z-[1000] float-left m-0 hidden w-[120px] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-800 [&amp;[data-te-dropdown-show]]:block"
-                  aria-labelledby="themeSwitcher"
-                  data-te-dropdown-menu-ref=""
-                >
-                  <li class="text flex scale-[0.8] items-center justify-center py-1 font-bold text-gray-400">
-                    <svg class="-ml-1 fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="20" width="20">
-                      <path d="M7 17v-5.792H3L10 2l7 9.208h-4V17Zm1.5-1.5h3V9.708h2.438L10 4.438l-3.938 5.27H8.5ZM10 9.708Z"></path>
+                  {!this.state.isDark && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="inline-block h-5 w-5"
+                    >
+                      <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path>
                     </svg>
-                    <span class="ml-1 mr-2">+</span>
-                    <span>D</span>
-                  </li>
+                  )}
 
-                  <li></li>
-                  <li>
-                    <a
-                      class="block w-full whitespace-nowrap bg-transparent px-3 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 focus:bg-neutral-200 focus:outline-none active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-100 dark:hover:bg-neutral-600 focus:dark:bg-neutral-600"
-                      href="#"
-                      data-theme="light"
-                      data-te-dropdown-item-ref=""
+                  {this.state.isDark && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="inline-block h-4 w-4"
                     >
-                      <div class="pointer-events-none">
-                        <div class="inline-block w-[24px] text-center align-middle" data-theme-icon="light">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="inline-block h-5 w-5"
-                          >
-                            <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path>
-                          </svg>
-                        </div>
-                        <span data-theme-name="light">Light</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="block w-full whitespace-nowrap bg-transparent px-3 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 focus:bg-neutral-200 focus:outline-none active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-100 dark:hover:bg-neutral-600 focus:dark:bg-neutral-600"
-                      href="#"
-                      data-theme="dark"
-                      data-te-dropdown-item-ref=""
-                    >
-                      <div class="pointer-events-none">
-                        <div class="-mt-1 inline-block w-[24px] text-center align-middle" data-theme-icon="dark">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="inline-block h-4 w-4"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
-                              clip-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </div>
-                        <span data-theme-name="dark">Dark</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="block w-full whitespace-nowrap bg-transparent px-3 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 focus:bg-neutral-200 focus:outline-none active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-100 dark:hover:bg-neutral-600 focus:dark:bg-neutral-600"
-                      href="#"
-                      data-theme="system"
-                      data-te-dropdown-item-ref=""
-                    >
-                      <div class="pointer-events-none">
-                        <div class="inline-block w-[24px] text-center text-primary-500" data-theme-icon="system">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true"
-                            focusable="false"
-                            class="inline-block w-4"
-                            role="img"
-                            viewBox="0 0 640 512"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M128 32C92.7 32 64 60.7 64 96V352h64V96H512V352h64V96c0-35.3-28.7-64-64-64H128zM19.2 384C8.6 384 0 392.6 0 403.2C0 445.6 34.4 480 76.8 480H563.2c42.4 0 76.8-34.4 76.8-76.8c0-10.6-8.6-19.2-19.2-19.2H19.2z"
-                            ></path>
-                          </svg>
-                        </div>
-                        <span data-theme-name="system" class="text-primary-500">
-                          System
-                        </span>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div> */}
+                      <path
+                        fill-rule="evenodd"
+                        d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  )}
+                </button>
+              </div>
 
               <a
                 href="https://github.com/Tencent/omi/tree/master/packages/omi-elements"
