@@ -1,6 +1,9 @@
-import { render, Signal, tag, Component, h, computed } from '@/index'
+import { render, Signal, tag, Component, h, computed, registerDirective } from '@/index'
 
-type Todo = { text: string, completed: boolean }
+import autoAnimate from '@formkit/auto-animate'
+registerDirective('auto-animate', autoAnimate)
+
+type Todo = { text: string, completed: boolean, id: number }
 
 class TodoApp extends Signal<{ todos: Todo[], filter: string, newItem: string }> {
   completedCount: ReturnType<typeof computed>
@@ -12,7 +15,7 @@ class TodoApp extends Signal<{ todos: Todo[], filter: string, newItem: string }>
 
   addTodo = () => {
     // api a
-    this.value.todos.push({ text: this.value.newItem, completed: false })
+    this.value.todos.push({ text: this.value.newItem, completed: false, id: Math.random() })
     this.value.newItem = ''
     this.update()
 
@@ -36,10 +39,10 @@ class TodoApp extends Signal<{ todos: Todo[], filter: string, newItem: string }>
 }
 
 const todoApp = new TodoApp([
-  { text: 'Learn OMI', completed: true },
-  { text: 'Learn Web Components', completed: false },
-  { text: 'Learn JSX', completed: false },
-  { text: 'Learn Signal', completed: false }
+  { text: 'Learn OMI', completed: true, id: 1 },
+  { text: 'Learn Web Components', completed: false, id: 2  },
+  { text: 'Learn JSX', completed: false, id: 3  },
+  { text: 'Learn Signal', completed: false, id: 4  }
 ])
 
 @tag('todo-list')
@@ -56,10 +59,10 @@ class TodoList extends Component {
       <>
         <input type="text" value={todoApp.value.newItem} onInput={this.onInput} />
         <button onClick={addTodo}>Add</button>
-        <ul>
+        <ul o-auto-animate>
           {todos.map((todo, index) => {
             return (
-              <li>
+              <li key={todo.id}>
                 <label>
                   <input
                     type="checkbox"

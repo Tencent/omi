@@ -1,6 +1,7 @@
 import { Component } from './component'
 import { IS_NON_DIMENSIONAL, DOM_EVENT_MAP, EventTypes } from './constants'
 import { applyRef } from './utils'
+import { directives } from './directive'
 
 export type ExtendedElement = (HTMLElement | SVGAElement | HTMLInputElement) & {
   receiveProps: Function
@@ -65,13 +66,14 @@ export function setAccessor(
   value: any,
   isSvg: boolean
 ) {
-  if (name === 'className') name = 'class'
-  if (name === 'key' || name === 'ignoreAttrs') {
+  if (name[0] == 'o' && name[1] == '-') {
+    directives[name]?.(node, value)
+  } if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null)
     applyRef(value, node)
-  } else if (name === 'class' && !isSvg) {
+  } else if ((name === 'class' || name === 'className') && !isSvg) {
     node.className = value || ''
   } else if (name === 'style') {
     if (!value || typeof value === 'string' || typeof old === 'string') {

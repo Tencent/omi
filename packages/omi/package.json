@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",
@@ -26,6 +26,7 @@
     "@babel/plugin-transform-react-jsx": "^7.22.15",
     "@babel/preset-env": "^7.22.20",
     "@babel/preset-typescript": "^7.23.0",
+    "@formkit/auto-animate": "^0.8.0",
     "@types/jest": "^29.5.4",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.53.0",

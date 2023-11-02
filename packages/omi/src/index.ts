@@ -9,6 +9,7 @@ export type { SignalValue } from './reactivity'
 export { Signal } from './signal'
 export { css } from './css-tag'
 export { mixin } from './options'
-export const version = '7.2.0'
+export  { registerDirective } from './directive'
+export const version = '7.2.1'
 
 

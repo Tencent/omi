@@ -197,6 +197,13 @@ declare namespace Omi {
     event?: (event: Event) => Event;
   }
 
+  /**
+   * Registers a directive with the specified name and handler.
+   * @param name - The name of the directive.
+   * @param handler - The handler function for the directive.
+   */
+  function registerDirective(name: string, handler: Function): void;
+
   type EffectFn = () => void;
   type ComputedFn<T> = () => T;
   export interface SignalValue<T> {
