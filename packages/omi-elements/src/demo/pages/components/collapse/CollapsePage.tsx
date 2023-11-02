@@ -40,7 +40,7 @@ export class CollapsePage extends Component {
         {/* <!-- Section: Horizontal --> */}
         <section>
           {/* <!-- Title --> */}
-          <h2 className="mb-5 mt-5 text-3xl font-semibold leading-normal" id="horizontal" data-te-spy-item>
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="horizontal" data-te-spy-item>
             Horizontal
           </h2>
           {/* <!-- Description --> */}
@@ -57,7 +57,7 @@ export class CollapsePage extends Component {
         {/* <!-- Section: Multiple Targets --> */}
         <section>
           {/* <!-- Title --> */}
-          <h2 className="mb-5 mt-5 text-3xl font-semibold leading-normal" id="multiple_targets" data-te-spy-item>
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="multiple_targets" data-te-spy-item>
             Multiple targets
           </h2>
           {/* <!-- Description --> */}

@@ -2,7 +2,6 @@ import { tag, Component } from 'omi'
 import './components/button-link'
 import { tailwind } from '@/tailwind'
 import demoPages from './pages'
-import '../components/side-nav'
 
 @tag('home-page')
 export class ButtonLink extends Component {

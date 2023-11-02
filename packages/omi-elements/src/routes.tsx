@@ -2,6 +2,8 @@ import './components/suspense'
 import './index.css'
 import './components/site-header'
 import './components/side-nav'
+import './components/content-nav'
+import { updateMenu } from './components/content-nav'
 
 declare global {
   interface Window {
@@ -262,11 +264,17 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
           <div class="flex">
             <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
             <o-suspense imports={[component.dep()]} onDataLoaded={window.refreshDark} class="flex-1 ml-10 mr-10 w-0">
-              <div slot="pending">Loading user profile...</div>
-              <div slot="fallback">
-                Sorry, we are unable to load the user profile at the moment. Please try again later.
+              <div slot="pending">Loading...</div>
+              <div slot="fallback">Sorry, we are unable to load the content at the moment. Please try again later.</div>
+              <div class="flex">
+                <component.page
+                  onInstalled={(evt) => {
+                    updateMenu(evt.detail)
+                  }}
+                  class="flex-grow overflow-auto pr-0 lg:pr-40"
+                />
+                <content-nav class="w-0 lg:w-40 fixed top-20 right-10"></content-nav>
               </div>
-              <component.page />
             </o-suspense>
           </div>
         </>
