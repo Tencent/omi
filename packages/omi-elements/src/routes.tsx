@@ -19,7 +19,7 @@ export const routes = [
         <>
           <site-header></site-header>
           <div class="flex">
-            <side-nav class="block w-60"></side-nav>
+            <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
             <o-suspense
               imports={[import('./demo/HomePage')]}
               onDataLoaded={window.refreshDark}
@@ -260,7 +260,7 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
         <>
           <site-header></site-header>
           <div class="flex">
-            <side-nav class="block w-60"></side-nav>
+            <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
             <o-suspense imports={[component.dep()]} onDataLoaded={window.refreshDark} class="flex-1 ml-10 mr-10 w-0">
               <div slot="pending">Loading user profile...</div>
               <div slot="fallback">

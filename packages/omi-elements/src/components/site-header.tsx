@@ -1,6 +1,7 @@
 import { tag, Component, bind } from 'omi'
 // import css from '../app.css?raw'
 import { tailwind } from '@/tailwind'
+import { menuShow } from './side-nav'
 
 declare global {
   interface Window {
@@ -24,6 +25,12 @@ export default class extends Component {
   }
 
   @bind
+  showMenu(evt) {
+    evt.stopPropagation()
+    menuShow.value = true
+  }
+
+  @bind
   toggleDark() {
     window.toogleDark()
     this.state.isDark = !this.state.isDark
@@ -43,6 +50,7 @@ export default class extends Component {
               <div class="flex flex-shrink-0 items-center">
                 <div
                   id="hamburger"
+                  onClick={this.showMenu}
                   class="
               xl:hidden
              mr-4 flex text-neutral-400"
@@ -50,7 +58,7 @@ export default class extends Component {
                   data-te-target="#sidenav-main"
                   aria-expanded="true"
                 >
-                  <a href="#" class="text-neutral-400">
+                  <a href="javascript:void(0)" class="text-neutral-400">
                     <svg fill="hsl(224, 7.2%, 40%)" viewBox="0 0 100 80" width="20" height="20">
                       <rect width="80" height="14"></rect>
                       <rect y="30" width="80" height="14"></rect>

@@ -1,9 +1,21 @@
-import { tag, Component, classNames, bind } from 'omi'
+import { tag, Component, classNames, bind, signal } from 'omi'
 // import css from '../app.css?raw'
 import { tailwind } from '@/tailwind'
 
+export const menuShow = signal(window.innerWidth > 1024)
+
+window.addEventListener('resize', () => {
+  menuShow.value = window.innerWidth > 1024
+})
+
+window.addEventListener('click', () => {
+  if (window.innerWidth < 1024) {
+    menuShow.value = false
+  }
+})
+
 @tag('side-nav')
-export default class extends Component {
+export class SideNav extends Component {
   static css = [tailwind]
 
   state = {
@@ -25,8 +37,12 @@ export default class extends Component {
   render() {
     return (
       <nav
+        style={{
+          transition: 'all 0.3s linear 0s',
+          transform: menuShow.value ? 'translateX(0)' : 'translateX(-100%)',
+        }}
         id="sidenav-main"
-        class="fixed left-0 top-0 z-[1036] h-screen w-60 -translate-x-full bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-neutral-800 xl:data-[te-sidenav-hidden='false']:translate-x-0 sidenav-primary perfect-scrollbar ps--active-y group/ps [overflow-anchor:none] touch-none overflow-auto"
+        class="fixed left-0 top-0 z-[1036] h-screen w-60 -translate-x-full bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-neutral-800 lg:data-[te-sidenav-hidden='false']:translate-x-0 sidenav-primary perfect-scrollbar ps--active-y group/ps [overflow-anchor:none] touch-none overflow-auto"
         data-te-sidenav-init=""
         data-te-sidenav-mode-breakpoint-over="0"
         data-te-sidenav-mode-breakpoint-side="xl"
@@ -34,7 +50,6 @@ export default class extends Component {
         data-te-sidenav-mode="side"
         data-te-sidenav-content="#page-content"
         data-te-sidenav-accordion="true"
-        style="width: 240px; height: 100vh; position: fixed; transition: all 0.3s linear 0s; transform: translateX(0%);"
       >
         <a
           href="#/"
