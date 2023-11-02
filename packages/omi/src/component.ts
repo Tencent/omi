@@ -151,10 +151,12 @@ export class Component extends HTMLElement {
     this.injectObject()
     this.attrsToProps()
     this.install()
+    this.fire('install', this)
     this.renderRoot = this.createRenderRoot()
     this.applyAdoptedStyleSheets()
     setActiveComponent(this)
     this.beforeRender()
+    this.fire('beforeRender', this)
     // @ts-ignore
     const rendered = this.render(this.props, this.store)
     this.appendStyleVNode(rendered)
@@ -170,19 +172,23 @@ export class Component extends HTMLElement {
       this.rootElement && this.renderRoot?.appendChild(this.rootElement as Element)
     }
     this.installed()
+    this.fire('installed', this)
     this.isInstalled = true
   }
 
   disconnectedCallback(): void {
     this.uninstall()
+    this.fire('uninstall', this)
     this.isInstalled = false
   }
 
   update(updateSelf?: boolean): void {
     this.beforeUpdate()
+    this.fire('beforeUpdate', this)
     this.attrsToProps()
     setActiveComponent(this)
     this.beforeRender()
+    this.fire('beforeRender', this)
     // @ts-ignore
     const rendered = this.render(this.props, this.store)
     this.appendStyleVNode(rendered)
@@ -197,6 +203,7 @@ export class Component extends HTMLElement {
       !!updateSelf
     )
     this.updated()
+    this.fire('updated', this)
   }
 
   private updateQueued = false

@@ -83,5 +83,7 @@ class TodoList extends Component {
   }
 }
 
-render(<todo-list />, document.body)
+render(<todo-list onInstalled={()=>{
+  console.log('installed')  
+}} />, document.body)
 
