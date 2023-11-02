@@ -136,7 +136,7 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
     out = createNode(vnodeName, isForeignObject || isSvgMode)
     // 如果是组件，需要把 props 传递给组件，不然 install 里拿不到 props
     if ((out.constructor as typeof Component)?.is === 'Component') {
-      Object.assign((out as Component).props, vnode.attributes)
+      Object.assign((out as ExtendedElement).props, vnode.attributes)
     }
     if (dom) {
       // move children into the replacement node

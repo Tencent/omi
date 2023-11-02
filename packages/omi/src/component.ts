@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { isArray, hyphenate, capitalize, createStyleSheet } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -26,7 +27,8 @@ export class Component extends HTMLElement {
   static isLightDOM: boolean
   static noSlot: boolean
 
-  props: Record<string, unknown>
+  // 不能声明 props，不然懒加载的 props 执行完构造函数会变成 udnefined, 会导致元素升级为自定义元素之前的 props 丢失
+  // props: Record<string, unknown>
   prevProps: Record<string, unknown> | null
   elementId: number
   isInstalled: boolean
