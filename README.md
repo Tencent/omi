@@ -78,7 +78,7 @@ $ npm run build       # release
   - [`omi-starter-tailwind`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-tailwind) - A starter repo for building web app or reusable components using Omi + Tailwindcss + TypeScript + Vite.
   - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - A starter repo for building web app or reusable components using Omi in JavaScript base on Vite.
 - Components
-  - [`omi-auto-animate`](https://github.com/Tencent/omi/tree/master/packages/omi-animate) - Omi version of @formkit/auto-animate.
+  - [`omi-auto-animate`](https://github.com/Tencent/omi/tree/master/packages/omi-auto-animate) - Omi version of @formkit/auto-animate.
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - Applying animations when an component is entering and leaving the DOM.
   - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - Handling asynchronous dependencies.
   - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - A lightweight component for adding ripple effects to user interface elements.
