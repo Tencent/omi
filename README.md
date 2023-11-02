@@ -95,11 +95,11 @@ $ npm run build       # release
 - [Share via Facebook](https://www.facebook.com/sharer/sharer.php?u=http%3A//omijs.org)
 - [Share via LinkedIn](http://www.linkedin.com/shareArticle?url=http%3A%2F%2Fomijs.org%2F)
 - [Share via Pinterest](https://www.pinterest.com/pin/create/button?url=http://omijs.org/&media=https://repository-images.githubusercontent.com/36606437/66abfcfb-096b-4c9d-a290-77165213e605&description=Omi-Web%20Componnets%20Framework)
-- [Share via Reddit](https://reddit.com/submit?url=http://omijs.org/&title=web+%20components%20framework)
+- [Share via Reddit](https://reddit.com/submit?url=http://omijs.org/&title=web%20components%20framework)
 - [Share via StumbleUpon](https://www.stumbleupon.com/submit?url=http://omijs.org/&title=web%20components%20framework)
 - [Share via Vkontakte](https://vk.com/share.php?url=http://omijs.org/)
 - [Share via Weibo](https://service.weibo.com/share/share.php?url=https://omijs.org/&title=web%20components%20framework)
-- [Share via Hackernews](https://news.ycombinator.com/submitlink?u=http://omijs.org/&t=web+%20components%20framework)
+- [Share via Hackernews](https://news.ycombinator.com/submitlink?u=http://omijs.org/&t=web%20components%20framework)
 
 Thank you!
 
