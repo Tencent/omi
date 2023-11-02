@@ -1,6 +1,6 @@
 # omi-auto-animate
 
-> Omi version of [formkit/auto-animate](https://github.com/formkit/auto-animate)
+> Omi version of [@formkit/auto-animate](https://github.com/formkit/auto-animate)
 
 ## Install
 
