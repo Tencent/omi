@@ -15,7 +15,7 @@ registerDirective('transition', (dom: HTMLElement, options: { name: string, dela
   })
 
   observer.observe(dom, { attributes: true })
-  const show = dom.getAttribute('show') === 'true'
+  const show = dom.getAttribute('show') === 'true' || dom.getAttribute('show') === '1'
   updateClasses(dom, name, show, delay)
 })
 
