@@ -10,6 +10,6 @@ export { Signal } from './signal'
 export { css } from './css-tag'
 export { mixin } from './options'
 export  { registerDirective } from './directive'
-export const version = '7.3.2'
+export const version = '7.3.3'
 
 

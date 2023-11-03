@@ -66,6 +66,8 @@ export function setAccessor(
   value: any,
   isSvg: boolean
 ) {
+  if (name === 'className') name = 'class'
+
   if (name[0] == 'o' && name[1] == '-') {
     directives[name]?.(node, value)
   } if (name === 'key' || name === 'ignoreAttrs') {
@@ -73,7 +75,7 @@ export function setAccessor(
   } else if (name === 'ref') {
     applyRef(old, null)
     applyRef(value, node)
-  } else if ((name === 'class' || name === 'className') && !isSvg) {
+  } else if (name === 'class' && !isSvg) {
     node.className = value || ''
   } else if (name === 'style') {
     if (!value || typeof value === 'string' || typeof old === 'string') {
