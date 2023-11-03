@@ -376,7 +376,7 @@ function diffAttributes(dom: ExtendedElement, attrs: Record<string, unknown>, ol
   // add new & update changed attributes
   for (name in attrs) {
     if (isComponent && typeof attrs[name] === 'object' && name !== 'ref') {
-      if (name === 'style') {
+      if (name === 'style' || (name[0] === 'o' && name[1] === '-')) {
         setAccessor(
           dom,
           name,
