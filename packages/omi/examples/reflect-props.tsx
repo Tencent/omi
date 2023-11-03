@@ -58,7 +58,7 @@ define('todo-list', class TodoList extends Component {
       <>
         <input type="text" value={todoApp.value.newItem} onInput={this.onInput} />
         <button onClick={addTodo}>Add</button>
-        <my-el a="11" onInstalled={(el)=> {
+        <my-el myProp={11} onInstalled={(el)=> {
           console.log(el.detail,'installed')
         }}></my-el>
         <p>Completed count: {completedCount.value}</p>
@@ -68,9 +68,14 @@ define('todo-list', class TodoList extends Component {
 })
 
 
-
-setTimeout(() => {
   define('my-el', class TodoList extends Component {
+    static reflectProps = {
+      myProp: (propValue: number) => {
+        console.log(propValue)
+        return propValue + 2
+      }
+    }
+
     onInput = (event: Event) => {
       const target = event.target as HTMLInputElement
       todoApp.value.newItem = target.value
@@ -78,12 +83,12 @@ setTimeout(() => {
   
     render() {
       console.log('this.props', this.props)
-     return <div>b{this.props.a}b</div>
+     return <div>b{this.props.myProp}b</div>
       
     }
   })
   
-}, 1000)
+
 
 
 render(<todo-list onInstalled={()=>{

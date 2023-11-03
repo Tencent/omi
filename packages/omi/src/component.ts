@@ -19,9 +19,14 @@ type PropTypes = {
   [key: string]: PropType | Array<PropType>
 }
 
+type ReflectProps = {
+  [key: string]: boolean | ((propValue: any) => any)
+}
+
 export class Component extends HTMLElement {
   static is = 'Component'
   static defaultProps: Record<string, unknown>
+  static reflectProps: ReflectProps
   static propTypes: PropTypes
   static css: CSSItem | CSSItem[]
   static isLightDOM: boolean

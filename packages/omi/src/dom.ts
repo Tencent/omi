@@ -133,7 +133,14 @@ export function setAccessor(
           value
         )
       } else {
-        node.setAttribute(name, value)
+        if ((node.constructor as typeof Component).is === 'Component') {
+          const reflect = (node.constructor as typeof Component).reflectProps?.[name]
+          if(reflect) {
+            node.setAttribute(name, typeof reflect === 'function' ? reflect(value) : value)
+          }
+        } else {
+          node.setAttribute(name, value)
+        }
       }
     }
   }
