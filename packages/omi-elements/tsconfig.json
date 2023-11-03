@@ -22,6 +22,6 @@
   },
   "include": ["src"],
   // 编译的时候打开这个
-  // "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

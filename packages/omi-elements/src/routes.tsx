@@ -4,7 +4,10 @@ import './components/site-header'
 import './components/side-nav'
 import './components/content-nav'
 import { updateMenu } from './components/content-nav'
+import { signal } from 'omi'
+import './components/transition-directive'
 
+const showPage = signal(true)
 declare global {
   interface Window {
     refreshDark(): void
@@ -263,7 +266,12 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
           <site-header></site-header>
           <div class="flex">
             <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
-            <o-suspense imports={[component.dep()]} onDataLoaded={window.refreshDark} class="flex-1 ml-10 mr-10 w-0">
+            <o-suspense
+              minLoadingTime={500}
+              imports={[component.dep()]}
+              onDataLoaded={window.refreshDark}
+              class="flex-1 ml-10 mr-10 w-0"
+            >
               <div slot="pending" class="absolute top-20">
                 <div>
                   <strong>Loading...</strong>
@@ -275,15 +283,29 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
               </div>
 
               <div slot="fallback">Sorry, we are unable to load the content at the moment. Please try again later.</div>
-              <div class="flex">
+              <div
+                class="flex"
+                show={showPage.value}
+                o-transition={{
+                  name: 'fade',
+                  delay: 600,
+                }}
+              >
                 <component.page
                   onInstalled={(evt) => {
                     updateMenu(evt.detail)
                   }}
                   class="flex-grow overflow-auto pr-0 lg:pr-40"
                 />
-                <content-nav class="w-0 lg:w-40 fixed top-20 right-10"></content-nav>
               </div>
+              <content-nav
+                show={showPage.value}
+                o-transition={{
+                  name: 'fade',
+                  delay: 800,
+                }}
+                class="w-0 lg:w-40 fixed top-20 right-10"
+              ></content-nav>
             </o-suspense>
           </div>
         </>

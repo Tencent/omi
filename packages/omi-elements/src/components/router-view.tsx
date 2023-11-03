@@ -24,7 +24,20 @@ interface Props {
 
 @tag('router-view')
 export class RouterView extends Component<Props> {
-  static css = [tailwind]
+  static css = [
+    tailwind,
+    `
+  .fade-leave-to,
+  .fade-enter-from {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+  
+  .fade-leave-active,
+  .fade-enter-active {
+    transition: all 300ms ease-in;
+  }`,
+  ]
 
   currentRoute: Route | null = null
   routes: Route[] = []

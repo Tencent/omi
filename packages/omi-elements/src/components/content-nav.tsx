@@ -36,7 +36,10 @@ export function updateMenu(scopeEl) {
     }
   })
   contentMenu.value.menus = menus
-  contentMenu.value.active = menus[0].id
+  if (menus.length) {
+    contentMenu.value.active = menus[0].id
+  }
+
   contentMenu.update()
 }
 
