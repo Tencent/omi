@@ -264,7 +264,16 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
           <div class="flex">
             <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
             <o-suspense imports={[component.dep()]} onDataLoaded={window.refreshDark} class="flex-1 ml-10 mr-10 w-0">
-              <div slot="pending">Loading...</div>
+              <div slot="pending" class="absolute top-20">
+                <div>
+                  <strong>Loading...</strong>
+                  <div
+                    className="ml-auto inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status"
+                  ></div>
+                </div>
+              </div>
+
               <div slot="fallback">Sorry, we are unable to load the content at the moment. Please try again later.</div>
               <div class="flex">
                 <component.page

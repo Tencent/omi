@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.3.3",
-    "omi": "^7.3.1",
+    "omi": "^7.3.3",
     "omi-router": "^4.0.3",
     "omi-suspense": "^0.0.3",
     "prismjs": "^1.29.0"
