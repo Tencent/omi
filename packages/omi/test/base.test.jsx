@@ -1,4 +1,4 @@
-import { define, render, Component, h, tag, mixin } from '@/index'
+import { define, render, Component, h, tag, mixin, registerDirective } from '@/index'
 
 import { genNode } from './gen-node'
 
@@ -153,7 +153,7 @@ describe('base', () => {
   it('isLightDOM', () => {
     class Ele extends Component {
       static isLightDOM = true
-    
+
       render() {
         return (
           <ul>
@@ -171,11 +171,131 @@ describe('base', () => {
     expect(parentElement.firstChild.innerHTML).toBe('<ul><li>a</li></ul>')
   })
 
+  it('directive 1', () => {
+    let count = 0
+    registerDirective('test', (ele, value) => {
+      count++
+    })
+
+    class Ele extends Component {
+
+      render() {
+        return (
+          <ul o-test>
+            <li>a</li>
+          </ul>
+        )
+      }
+
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    render(<node.name />, parentElement)
+
+    expect(count).toBe(1)
+  })
+
+
+  it('directive 2', () => {
+    let testValue
+    registerDirective('test', (ele, value) => {
+      testValue = value
+    })
+
+    class Ele extends Component {
+
+      render() {
+        return (
+          <ul o-test={'abc'}>
+            <li>a</li>
+          </ul>
+        )
+      }
+
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    render(<node.name />, parentElement)
+
+    expect(testValue).toBe('abc')
+  })
+
+  it('directive 3', () => {
+    let testValue
+    registerDirective('test', (ele, value) => {
+      testValue = ele.props.show
+    })
+
+    class Ele extends Component {
+
+      render() {
+        return (
+          <ul>
+            <li>a</li>
+          </ul>
+        )
+      }
+
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    class Ele2 extends Component {
+      render() {
+        return (<node.name show={true} o-test={1} />)
+      }
+    }
+
+    const node2 = genNode()
+    define(node2.name, Ele2)
+
+    render(<node2.name />, parentElement)
+
+    expect(testValue).toBe(true)
+  })
+
+
+  it('hook 1', () => {
+
+    class Ele extends Component {
+      render() {
+        return (
+          <ul>
+            <li>a</li>
+          </ul>
+        )
+      }
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+
+    let testValue
+    let testValue2
+    let testValue3
+    render(<node.name
+      onBeforeRender={() => {
+        testValue3 = true
+      }}
+      onInstall={() => {
+        testValue2 = true
+      }} onInstalled={() => {
+        testValue = true
+      }} />, parentElement)
+
+    expect(testValue).toBe(true)
+    expect(testValue2).toBe(true)
+    expect(testValue3).toBe(true)
+  })
+
+
   it('mixin', () => {
-    mixin({a: 1})
+    mixin({ a: 1 })
     class Ele extends Component {
       static isLightDOM = true
-    
+
       render() {
         expect(this.a).toBe(1)
         return (
@@ -189,10 +309,10 @@ describe('base', () => {
     define(node.name, Ele)
     render(<node.name />, parentElement)
 
-    mixin({a: {b: 2}})
+    mixin({ a: { b: 2 } })
     class Ele2 extends Component {
       static isLightDOM = true
-    
+
       render() {
         expect(this.a.b).toBe(2)
         return (
