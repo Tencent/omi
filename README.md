@@ -321,6 +321,11 @@ define('my-app', class extends withTwind(Component) {
 ``` -->
 
 
+## Wechat Group
+
+<img src="./wechat.jpg" alt="omi" width="300"/></p>
+
+
 ## Contributors
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">

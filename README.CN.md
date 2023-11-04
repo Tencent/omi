@@ -329,7 +329,7 @@ define('my-app', class extends withTwind(Component) {
 
 ## 微信群
 
-<img src="./wechat.png" alt="omi" width="300"/></p>
+<img src="./wechat.jpg" alt="omi" width="300"/></p>
 
 ## License
 
