@@ -1,4 +1,3 @@
-import React from 'react'
 import TabsBasicExample from './examples/TabsBasicExample'
 import TabsFill from './examples/TabsFill'
 import TabsJustify from './examples/TabsJustify'

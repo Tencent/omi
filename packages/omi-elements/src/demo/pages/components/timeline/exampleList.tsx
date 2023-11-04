@@ -1,4 +1,3 @@
-import React from 'react'
 import TimelinePrimaryColor from './examples/TimelinePrimaryColor'
 import TimelineIcons from './examples/TimelineIcons'
 

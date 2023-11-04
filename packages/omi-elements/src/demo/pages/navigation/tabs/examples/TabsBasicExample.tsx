@@ -10,7 +10,6 @@ export default class TabsBasicExample extends Component {
     active: 'tab1',
   }
 
-  @bind
   handleBasicClick = (active: string) => {
     this.state.active = active
     this.update()

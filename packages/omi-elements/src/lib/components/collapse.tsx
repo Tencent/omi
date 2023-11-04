@@ -1,6 +1,14 @@
 import { tag, Component, classNames } from 'omi'
 import { tailwind } from '@/tailwind'
 
+type Props = {
+  scroll: boolean
+  horizontal: boolean
+  tag: string
+  show: boolean
+  onHide: () => void
+  onShow: () => void
+}
 const theme = {
   visible: '!visible',
   hidden: 'hidden',
@@ -15,7 +23,7 @@ const theme = {
 }
 
 @tag('o-collapse')
-export class Collapse extends Component {
+export class Collapse extends Component<Props> {
   static css = [
     tailwind,
     `
@@ -32,21 +40,21 @@ export class Collapse extends Component {
     scroll: false,
   }
 
-  showCollapse: false
-  collapseSize: undefined
-  transition: false
-  collapseElSlot = null
+  showCollapse: boolean = false
+  collapseSize: number = 0
+  transition: boolean = false
+  collapseElSlot: HTMLSlotElement | null = null
 
-  timeoutId = null
+  timeoutId: NodeJS.Timeout | null = null
 
   receiveProps() {
-    clearTimeout(this.timeoutId)
-    const el = this.collapseElSlot.assignedElements()[0]
+    this.timeoutId !== null && clearTimeout(this.timeoutId)
+    const el = this.collapseElSlot?.assignedElements()[0]
     if (this.collapseSize === undefined && this.showCollapse) {
       if (this.props.horizontal) {
-        this.collapseSize = el.scrollWidth
+        this.collapseSize = el?.scrollWidth || 0
       } else {
-        this.collapseSize = el.scrollHeight
+        this.collapseSize = el?.scrollHeight || 0
       }
       this.update()
     }
@@ -65,16 +73,16 @@ export class Collapse extends Component {
 
     if (this.showCollapse) {
       if (this.props.horizontal) {
-        this.collapseSize = el.scrollWidth || 0
+        this.collapseSize = el?.scrollWidth || 0
       } else {
-        this.collapseSize = el.scrollHeight || 0
+        this.collapseSize = el?.scrollHeight || 0
       }
     } else {
       this.collapseSize = 0
     }
   }
 
-  render(props) {
+  render(props: Props) {
     return (
       <props.tag
         style={props.horizontal ? { width: this.collapseSize } : { height: this.collapseSize }}
@@ -83,17 +91,13 @@ export class Collapse extends Component {
           theme.visible,
           this.transition &&
             theme.baseTransition &&
-            (this.props.horizontal ? `${theme.collapsingHorizontal}` : `${theme.collapsing}`),
+            (props.horizontal ? `${theme.collapsingHorizontal}` : `${theme.collapsing}`),
           !this.transition && !this.showCollapse && theme.hidden,
-          this.props.scroll && theme.scrollStyles,
+          props.scroll && theme.scrollStyles,
         )}
       >
         <slot ref={(el) => (this.collapseElSlot = el)}></slot>
       </props.tag>
     )
-  }
-
-  uninstall() {
-    window.removeEventListener('resize', this.handleResize)
   }
 }

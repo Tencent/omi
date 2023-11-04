@@ -1,4 +1,3 @@
-import React from 'react'
 import FooterAdvancedExample from './examples/FooterAdvancedExample'
 import FooterButtonsDarkExample from './examples/FooterButtonsDarkExample'
 import FooterCtaExample from './examples/FooterCtaExample'

@@ -11,7 +11,7 @@ export default class AccordionAlwaysOpen extends Component {
     collapse3: false,
   }
 
-  toggleShow(value) {
+  toggleShow(value: { collapse1: boolean; collapse2: boolean; collapse3: boolean }) {
     Object.assign(this.show, value)
     this.update()
   }

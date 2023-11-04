@@ -1,4 +1,3 @@
-import React from 'react'
 import BasicExample from './examples/BasicExample'
 
 export default [

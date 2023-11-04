@@ -1,9 +1,29 @@
-import { tag, Component, classNames, bind, createRef } from 'omi'
+import { tag, Component, classNames, bind, createRef, VNode } from 'omi'
 import { tailwind } from '@/tailwind'
 import InputTheme from './inputTheme'
 
+type Props = {
+  size: string
+  value: string
+  defaultValue: string
+  id: string
+  wrapperTag: string
+  label: string
+  onChange: (evt: Event) => void
+  children: VNode[]
+  labelRef: (el: HTMLElement) => void
+  type: string
+  onBlur: (evt: FocusEvent) => void
+  readonly: boolean
+  formWhite: boolean
+  counter: boolean
+  maxLength: number
+  customTheme: Record<string, string>
+  newValue: string
+}
+
 @tag('o-input')
-export class Input extends Component {
+export class Input extends Component<Props> {
   static css = [
     tailwind,
     `:host {
@@ -55,15 +75,15 @@ export class Input extends Component {
   }
 
   @bind
-  handleChange(event) {
-    this.state.value = event.target.value
+  handleChange(evt: Event) {
+    this.state.value = (evt.target as HTMLInputElement).value
     this.update()
   }
 
   @bind
-  onBlur(evt) {
-    this.state.value = evt.target.value
-    if (evt.target.value) {
+  onBlur(evt: Event) {
+    this.state.value = (evt.target as HTMLInputElement).value
+    if ((evt.target as HTMLInputElement).value) {
       this.state.active = true
     } else {
       this.state.active = false
@@ -72,7 +92,7 @@ export class Input extends Component {
     this.update()
   }
 
-  render(props) {
+  render(props: Props) {
     const theme = { ...InputTheme, ...props.customTheme }
     const {
       size,

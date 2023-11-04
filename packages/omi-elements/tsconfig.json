@@ -16,12 +16,17 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "omi-elements": ["./src/lib/index.tsx"],
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"],
-  // 编译的时候打开这个
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
+  // 忽略所有错误
+  // "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

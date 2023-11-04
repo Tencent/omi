@@ -1,4 +1,3 @@
-import React from 'react'
 import AccordionBasicExample from './examples/AccordionBasicExample'
 import AccordionFlush from './examples/AccordionFlush'
 import AccordionAlwaysOpen from './examples/AccordionAlwaysOpen'

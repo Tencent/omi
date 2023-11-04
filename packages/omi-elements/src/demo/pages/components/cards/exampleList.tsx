@@ -1,4 +1,3 @@
-import React from 'react'
 import CardBasicExample from './examples/CardBasicExample'
 import CardWithHeaderAndFooterExample from './examples/CardWithHeaderAndFooterExample'
 import CardWithImageExample from './examples/CardWithImageExample'

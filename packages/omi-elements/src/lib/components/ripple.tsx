@@ -31,15 +31,19 @@ export class Ripple extends Component {
   ripple = false
   rippleStyle = {}
 
-  timeoutId = null
+  timeoutId: NodeJS.Timeout | null = null
+
   @bind
-  onClick(event) {
+  onClick(event: MouseEvent) {
     this.ripple = false
-    clearTimeout(this.timeoutId)
+    if (this.timeoutId !== null) {
+      clearTimeout(this.timeoutId)
+    }
     this.update()
-    const diameter = Math.max(this.rootElement.clientWidth, this.rootElement.clientHeight)
+    const diameter = Math.max(this.rootElement?.clientWidth || 0, this.rootElement?.clientHeight || 0)
     const radius = diameter / 2
-    const rect = this.rootElement.getBoundingClientRect()
+    const rect = this.rootElement?.getBoundingClientRect()
+    if (!rect) return
     const left = event.clientX - rect.left - radius
     const top = event.clientY - rect.top - radius
 

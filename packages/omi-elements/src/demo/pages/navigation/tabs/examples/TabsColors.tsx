@@ -19,7 +19,16 @@ export default class TabsColors extends Component {
     },
   }
 
-  handleColorsClick(colorsActive) {
+  handleColorsClick(colorsActive: {
+    tab1: string
+    tab2: string
+    tab3: string
+    tab4: string
+    tab5: string
+    tab6: string
+    tab7: string
+    tab8: string
+  }) {
     this.state.colorsActive = colorsActive
     this.update()
   }

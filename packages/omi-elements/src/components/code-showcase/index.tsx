@@ -49,6 +49,7 @@ export default class CodeShowcase extends Component<Props> {
 
   @bind
   onCopy() {
+    // @ts-ignore
     copyToClipboard.default ? copyToClipboard.default(this.props.code) : copyToClipboard(this.props.code)
 
     clearTimeout(this.timeoutId as NodeJS.Timeout)

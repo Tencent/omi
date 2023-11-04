@@ -10,7 +10,7 @@ export default class FullscreenModal extends Component {
     showModal: false,
   }
 
-  setShowModal(show) {
+  setShowModal(show: boolean) {
     this.state.showModal = show
     this.update()
   }

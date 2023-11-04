@@ -1,4 +1,4 @@
-import { tag, Component, classNames, bind, createRef } from 'omi'
+import { tag, Component, classNames, bind, createRef, VNode } from 'omi'
 import { tailwind } from '@/tailwind'
 import tabsTheme from './tabsTheme'
 import tabsItemTheme from './tabsItemTheme'
@@ -10,12 +10,12 @@ interface TabsTheme {
 }
 
 interface TabsProps {
-  ref?: React.Ref<any>
   theme?: TabsTheme
   fill?: boolean
   justify?: boolean
   vertical?: boolean
   pills?: boolean
+  children: VNode[]
 }
 
 interface TabsItemTheme {
@@ -46,14 +46,15 @@ interface TabsItemTheme {
   activeDarkTabsLink?: string
 }
 
+type ColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark'
+
 interface TabsItemProps {
-  ref?: React.Ref<any>
   theme?: TabsItemTheme
-  tag?: React.ComponentProps<any>
+  tag?: string
   wrapperClass?: string
   active?: boolean
   disabled?: boolean
-  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark'
+  color?: ColorType
 }
 
 @tag('o-tabs')
@@ -65,7 +66,7 @@ export class Tabs extends Component {
 }`,
   ]
 
-  render(props) {
+  render(props: TabsProps) {
     const { fill, justify, vertical, pills } = props
 
     const tabsClasses = classNames(
@@ -115,7 +116,7 @@ export class Tabs extends Component {
 
     return (
       <ul class={tabsClasses} role="tablist">
-        {props.children.map((child) => {
+        {props.children.map((child: VNode) => {
           const { disabled, active, color = 'primary', wrapperClass, tag = 'a', ...others } = child.attributes
           const childTag = {
             name: tag,
@@ -133,10 +134,10 @@ export class Tabs extends Component {
             disabled ? (pills ? tabsItemTheme.disabledPillsLink : tabsItemTheme.disabledTabsLink) : '',
             pills && !disabled
               ? active
-                ? tabsColors[color].pills
+                ? tabsColors[color as ColorType].pills
                 : tabsItemTheme.inactivePillsLink
               : active
-              ? tabsColors[color].tabs
+              ? tabsColors[color as ColorType].tabs
               : tabsItemTheme.inactiveTabsLink,
           )
 

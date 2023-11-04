@@ -3,6 +3,7 @@ import { define, Component } from 'omi'
 interface Props {
   imports: Promise<unknown>[]
   data: Function | null
+  minLoadingTime: number
 }
 
 /**
@@ -28,12 +29,13 @@ define(
       minLoadingTime: 0,
     }
 
+    timeout: NodeJS.Timeout | null = null
     /**
      * Handles the tasks of components and updates the state accordingly
      * @param imports - Array of import promises
      */
     async handleTasks(imports: Promise<unknown>[]) {
-      clearTimeout(this.timeout)
+      this.timeout !== null && clearTimeout(this.timeout)
       let startTime = Date.now()
       const tasks = [...imports]
       if (this.props.data) {

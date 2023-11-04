@@ -1,4 +1,3 @@
-import React from 'react'
 import BasicExample from './examples/BasicExample'
 import ExampleV2 from './examples/ExampleV2'
 import ExampleV3 from './examples/ExampleV3'

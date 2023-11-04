@@ -1,4 +1,3 @@
-import React from 'react'
 import SearchBasicExample from './examples/SearchBasicExample'
 import SearchWithButtonExample from './examples/SearchWithButtonExample'
 import SearchWithLabelExample from './examples/SearchWithLabelExample'

@@ -1,4 +1,3 @@
-import React from 'react'
 import SocialButtonsSocialExample from './examples/SocialButtonsSocialExample'
 import SocialButtonsSampleBrands from './examples/SocialButtonsSampleBrands'
 import SocialButtonsFloatingSocial from './examples/SocialButtonsFloatingSocial'

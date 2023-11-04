@@ -4,8 +4,18 @@ import ModalDialogTheme from './modalDialogTheme'
 import ModalTheme from './modalTheme'
 import ModalContentTheme from './modalContentTheme'
 
+type Props = {
+  show: boolean
+  primaryButtonText: string
+  secondaryButtonText: string
+  title: string
+  staticBackdrop: boolean
+  size: 'xl' | 'lg' | 'sm' | 'fullscreen'
+  position: 'center' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+}
+
 @tag('o-modal')
-export class Modal extends Component {
+export class Modal extends Component<Props> {
   static css = [tailwind]
 
   state = {
@@ -65,7 +75,7 @@ export class Modal extends Component {
     this.fire('primary-button-click')
   }
 
-  receiveProps(props) {
+  receiveProps(props: Props) {
     if (this.props.show) {
       this.state.show = this.props.show
       // 确保过度动画一定出现
@@ -105,7 +115,9 @@ export class Modal extends Component {
             onClick={(evt) => evt.stopPropagation()}
             class={classNames({
               [ModalDialogTheme.wrapper]: true,
+              // @ts-ignore
               [ModalDialogTheme[this.props.position + '-hide']]: !this.state.transition,
+              // @ts-ignore
               [ModalDialogTheme[this.props.position + '-show']]: this.state.transition,
               '!scale-[1.02]': this.state.scaling,
               [ModalDialogTheme[this.props.position]]: true,

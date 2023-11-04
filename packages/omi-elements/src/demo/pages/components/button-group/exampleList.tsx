@@ -1,4 +1,3 @@
-import React from 'react'
 import ButtonGroupBasicExample from './examples/ButtonGroupBasicExample'
 import ButtonGroupActiveState from './examples/ButtonGroupActiveState'
 import ButtonGroupOutlineStyles from './examples/ButtonGroupOutlineStyles'

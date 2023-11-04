@@ -1,4 +1,3 @@
-import React from 'react'
 import RippleBasicExample from './examples/RippleBasicExample'
 import RippleImage from './examples/RippleImage'
 import RippleColors1 from './examples/RippleColors1'

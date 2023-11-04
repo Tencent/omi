@@ -24,7 +24,7 @@ export const routes = [
         <>
           <site-header></site-header>
           <div class="flex">
-            <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
+            <side-nav class="block w-0 lg:w-60" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <o-suspense
               imports={[import('./demo/HomePage')]}
               onDataLoaded={window.refreshDark}
@@ -270,7 +270,7 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
         <>
           <site-header></site-header>
           <div class="flex">
-            <side-nav class="block w-0 lg:w-60" onClick={(evt) => evt.stopPropagation()}></side-nav>
+            <side-nav class="block w-0 lg:w-60" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <o-suspense
               minLoadingTime={500}
               imports={[component.dep()]}
@@ -297,7 +297,7 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
                 }}
               >
                 <component.page
-                  onInstalled={(evt) => {
+                  onInstalled={(evt: CustomEvent) => {
                     updateMenu(evt.detail)
                   }}
                   class="flex-grow overflow-auto pr-0 lg:pr-40"

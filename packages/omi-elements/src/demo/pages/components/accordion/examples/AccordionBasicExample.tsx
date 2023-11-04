@@ -8,7 +8,7 @@ export default class AccordionBasicExample extends Component {
 
   activeElement = ''
 
-  handleClick(activeElement) {
+  handleClick(activeElement: string) {
     this.activeElement = activeElement
     this.update()
   }

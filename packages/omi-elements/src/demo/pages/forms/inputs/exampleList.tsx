@@ -1,4 +1,3 @@
-import React from 'react'
 import InputBasicExample from './examples/InputBasicExample'
 import InputSizing from './examples/InputSizing'
 import InputDisabled from './examples/InputDisabled'

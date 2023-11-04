@@ -25,7 +25,7 @@ export default class extends Component {
   }
 
   @bind
-  showMenu(evt) {
+  showMenu(evt: MouseEvent) {
     evt.stopPropagation()
     menuShow.value = true
   }

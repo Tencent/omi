@@ -19,17 +19,17 @@ export default class SizesExample extends Component {
     this.state.showModalSm = false
   }
 
-  setShowModalXL(show) {
+  setShowModalXL(show: boolean) {
     this.state.showModalXL = show
     this.update()
   }
 
-  setShowModalLg(show) {
+  setShowModalLg(show: boolean) {
     this.state.showModalLg = show
     this.update()
   }
 
-  setShowModalSm(show) {
+  setShowModalSm(show: boolean) {
     this.state.showModalSm = show
     this.update()
   }

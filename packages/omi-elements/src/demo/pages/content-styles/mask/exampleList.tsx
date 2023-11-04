@@ -1,4 +1,3 @@
-import React from 'react'
 import MaskWithRippleAndLinkExample from './examples/MaskWithRippleAndLinkExample'
 import MaskWithRippleExample from './examples/MaskWithRippleExample'
 

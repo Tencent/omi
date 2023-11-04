@@ -1,4 +1,3 @@
-import React from 'react'
 import PlaceholderBasicExample from './examples/PlaceholderBasicExample'
 
 export default [

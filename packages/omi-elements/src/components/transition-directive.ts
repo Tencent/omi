@@ -1,4 +1,4 @@
-import { registerDirective } from 'omi'
+import { registerDirective, Component } from 'omi'
 
 function debounce(func: (...args: any[]) => void, wait: number) {
   let timeout: NodeJS.Timeout | null
@@ -7,17 +7,21 @@ function debounce(func: (...args: any[]) => void, wait: number) {
       clearTimeout(timeout)
     }
     timeout = setTimeout(() => {
+      // @ts-ignore
       func.apply(this, args)
     }, wait)
   }
 }
 
-registerDirective('transition', (dom: HTMLElement, options: { name: string; delay?: number }) => {
+registerDirective('transition', (dom: HTMLElement | Component, options: { name: string; delay?: number }) => {
   const { name, delay = 0 } = options
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes' && mutation.attributeName === 'show') {
-        const show = dom.getAttribute('show') === 'true' || dom.getAttribute('show') === '1' || dom.props?.show
+        const show =
+          dom.getAttribute('show') === 'true' ||
+          dom.getAttribute('show') === '1' ||
+          (dom as Component<{ show: boolean }>).props?.show
         updateClasses(dom, name, show, delay)
       }
     })
@@ -33,7 +37,10 @@ registerDirective('transition', (dom: HTMLElement, options: { name: string; dela
   dom.addEventListener('transitionend', debounce(onTransitionEnd, 0))
   dom.addEventListener('animationend', debounce(onTransitionEnd, 0))
 
-  const show = dom.getAttribute('show') === 'true' || dom.getAttribute('show') === '1' || dom.props?.show
+  const show =
+    dom.getAttribute('show') === 'true' ||
+    dom.getAttribute('show') === '1' ||
+    (dom as Component<{ show: boolean }>).props?.show
 
   updateClasses(dom, name, show, delay)
 })
