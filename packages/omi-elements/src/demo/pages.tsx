@@ -115,10 +115,10 @@ const navigationPages: Pages[] = [
     name: 'pagination',
     path: '/navigation/pagination',
   },
-  // {
-  //   name: 'tabs',
-  //   path: '/navigation/tabs',
-  // },
+  {
+    name: 'tabs',
+    path: '/navigation/tabs',
+  },
   // {
   //   name: 'pills',
   //   path: '/navigation/pills',

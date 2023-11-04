@@ -253,6 +253,11 @@ const components = [
     type: 'navigation',
     dep: () => import('./demo/pages/navigation/footer/FooterPage'),
   },
+  {
+    name: 'tabs',
+    type: 'navigation',
+    dep: () => import('./demo/pages/navigation/tabs/TabsPage'),
+  },
   /* next component */
 ]
 

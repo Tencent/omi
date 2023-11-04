@@ -1,35 +1,53 @@
-import React, { useState } from 'react'
-import { TETabs, TETabsContent, TETabsItem, TETabsPane } from 'tw-elements-react'
+import { tag, Component, bind } from 'omi'
+import { Collapse, Ripple, Modal, Input } from 'omi-elements'
+import { tailwind } from '@/tailwind'
 
-export default function TabsWithButtons(): JSX.Element {
-  const [buttonActive, setButtonActive] = useState('tab1')
+@tag('tabs-with-buttons')
+export default class TabsWithButtons extends Component {
+  static css = [tailwind]
 
-  const handleButtonClick = (value: string) => {
-    if (value === buttonActive) {
-      return
-    }
-    setButtonActive(value)
+  state = {
+    active: 'tab1',
   }
 
-  return (
-    <div className="mb-3">
-      <TETabs>
-        <TETabsItem onClick={() => handleButtonClick('tab1')} active={buttonActive === 'tab1'} tag="button">
-          Home
-        </TETabsItem>
-        <TETabsItem onClick={() => handleButtonClick('tab2')} active={buttonActive === 'tab2'} tag="button">
-          Profile
-        </TETabsItem>
-        <TETabsItem onClick={() => handleButtonClick('tab3')} active={buttonActive === 'tab3'} tag="button">
-          Messages
-        </TETabsItem>
-      </TETabs>
+  handleButtonClick = (active: string) => {
+    this.state.active = active
+    this.update()
+  }
 
-      <TETabsContent>
-        <TETabsPane show={buttonActive === 'tab1'}>Tab 1 content button version</TETabsPane>
-        <TETabsPane show={buttonActive === 'tab2'}>Tab 2 content button version</TETabsPane>
-        <TETabsPane show={buttonActive === 'tab3'}>Tab 3 content button version</TETabsPane>
-      </TETabsContent>
-    </div>
-  )
+  render() {
+    return (
+      <div className="mb-3">
+        <o-tabs pills>
+          <o-tabs-item
+            onClick={() => this.handleButtonClick('tab1')}
+            active={this.state.active === 'tab1'}
+            tag="button"
+          >
+            Home
+          </o-tabs-item>
+          <o-tabs-item
+            onClick={() => this.handleButtonClick('tab2')}
+            active={this.state.active === 'tab2'}
+            tag="button"
+          >
+            Profile
+          </o-tabs-item>
+          <o-tabs-item
+            onClick={() => this.handleButtonClick('tab3')}
+            active={this.state.active === 'tab3'}
+            tag="button"
+          >
+            Messages
+          </o-tabs-item>
+        </o-tabs>
+
+        <div>
+          {this.state.active === 'tab1' && <div>Tab 1 content</div>}
+          {this.state.active === 'tab2' && <div>Tab 2 content</div>}
+          {this.state.active === 'tab3' && <div>Tab 3 content</div>}
+        </div>
+      </div>
+    )
+  }
 }

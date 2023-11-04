@@ -1,39 +1,46 @@
-import React, { useState } from 'react'
-import { TETabs, TETabsContent, TETabsItem, TETabsPane } from 'tw-elements-react'
+import { tag, Component, bind } from 'omi'
+import { Collapse, Ripple, Modal, Input, Tabs } from 'omi-elements'
+import { tailwind } from '@/tailwind'
 
-export default function TabsBasicExample(): JSX.Element {
-  const [basicActive, setBasicActive] = useState('tab1')
+@tag('tabs-basic-example')
+export default class TabsBasicExample extends Component {
+  static css = [tailwind]
 
-  const handleBasicClick = (value: string) => {
-    if (value === basicActive) {
-      return
-    }
-    setBasicActive(value)
+  state = {
+    active: 'tab1',
   }
 
-  return (
-    <div className="mb-3">
-      <TETabs>
-        <TETabsItem onClick={() => handleBasicClick('tab1')} active={basicActive === 'tab1'}>
-          Home
-        </TETabsItem>
-        <TETabsItem onClick={() => handleBasicClick('tab2')} active={basicActive === 'tab2'}>
-          Profile
-        </TETabsItem>
-        <TETabsItem onClick={() => handleBasicClick('tab3')} active={basicActive === 'tab3'}>
-          Messages
-        </TETabsItem>
-        <TETabsItem onClick={() => handleBasicClick('tab4')} active={basicActive === 'tab4'} disabled>
-          Contact
-        </TETabsItem>
-      </TETabs>
+  @bind
+  handleBasicClick = (active: string) => {
+    this.state.active = active
+    this.update()
+  }
 
-      <TETabsContent>
-        <TETabsPane show={basicActive === 'tab1'}>Tab 1 content</TETabsPane>
-        <TETabsPane show={basicActive === 'tab2'}>Tab 2 content</TETabsPane>
-        <TETabsPane show={basicActive === 'tab3'}>Tab 3 content</TETabsPane>
-        <TETabsPane show={basicActive === 'tab4'}>Tab 4 content</TETabsPane>
-      </TETabsContent>
-    </div>
-  )
+  render() {
+    return (
+      <div className="mb-3">
+        <o-tabs>
+          <o-tabs-item onClick={() => this.handleBasicClick('tab1')} active={this.state.active === 'tab1'}>
+            Home
+          </o-tabs-item>
+          <o-tabs-item onClick={() => this.handleBasicClick('tab2')} active={this.state.active === 'tab2'}>
+            Profile
+          </o-tabs-item>
+          <o-tabs-item onClick={() => this.handleBasicClick('tab3')} active={this.state.active === 'tab3'}>
+            Messages
+          </o-tabs-item>
+          <o-tabs-item onClick={() => this.handleBasicClick('tab4')} active={this.state.active === 'tab4'} disabled>
+            Contact
+          </o-tabs-item>
+        </o-tabs>
+
+        <div>
+          {this.state.active === 'tab1' && <div>Tab 1 content</div>}
+          {this.state.active === 'tab2' && <div>Tab 2 content</div>}
+          {this.state.active === 'tab3' && <div>Tab 3 content</div>}
+          {this.state.active === 'tab4' && <div>Tab 4 content</div>}
+        </div>
+      </div>
+    )
+  }
 }
