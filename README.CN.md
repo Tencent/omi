@@ -321,15 +321,16 @@ define('my-app', class extends withTwind(Component) {
 })
 ``` -->
 
-## 贡献者
-
-<a href="https://github.com/Tencent/omi/graphs/contributors">
-  <img src="https://omi.cdn-go.cn/contributors.png" />
-</a>
-
 ## 微信群
 
 <img src="./wechat.jpg" alt="omi" width="300"/></p>
+
+
+## 贡献者
+
+<a href="https://github.com/Tencent/omi/graphs/contributors">
+  <img src="https://omi.cdn-go.cn/contributors.png?a=1" />
+</a>
 
 ## License
 
