@@ -323,13 +323,13 @@ define('my-app', class extends withTwind(Component) {
 
 ## Wechat Group
 
-<img src="./wechat.jpg" alt="omi" width="300"/></p>
+<img src="./assets/wechat.jpg" alt="omi" width="300"/></p>
 
 
 ## Contributors
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">
-  <img src="https://omi.cdn-go.cn/contributors.png?a=1" />
+  <img src="./assets/contributors.png" />
 </a>
 
 ## License
