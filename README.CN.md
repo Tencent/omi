@@ -87,6 +87,7 @@ $ npm run build       # release
 - 综合性例子 (未发布到 npm)
   - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - 基于 Omi `Signal` class 两层架构的贪吃蛇游戏。
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - 基于 Omi 响应是函数三层架构的贪吃蛇游戏。
+  - [`omi-tutorial`](https://github.com/omijs/tutorial) - Omi 官方教程源代码。
 
 **如果你想帮助项目发展，可以先简单地与同行分享!**
 

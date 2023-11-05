@@ -86,6 +86,7 @@ $ npm run build       # release
 - Examples (not published to npm)
   - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - SNake Game with `Signal` class
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - SNake Game with reactivity functions
+  - [`omi-tutorial`](https://github.com/omijs/tutorial) - Source code of omi tutorial.
 
 
 **If you want to help the project grow, start by simply sharing it with your peers!**
