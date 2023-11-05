@@ -222,28 +222,22 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
   if (len !== 0) {
     for (let i = 0; i < len; i++) {
       let child = originalChildren[i],
-        props = (child as ExtendedElement).prevProps,
+      prevProps = (child as ExtendedElement).prevProps,
         key =
-          vlen && props
-            ? props.key
+          vlen && prevProps
+            ? prevProps.key
             : null
       if (key != null) {
         keyedLen++
         keyed[key as string] = child as Element
-      } else {
-        children[childrenLen++] = child
+      } else if(prevProps || // 拥有 prevProps 的进入 children，进入 children 后面才会被回收
+        ((child as ExtendedElement).splitText !== undefined
+          ? isHydrating
+            ? (child as Text).nodeValue?.trim()
+            : true
+          : isHydrating)) {
+       children[childrenLen++] = child
       }
-
-      // o-suspense 内依赖的组件是异步加载的webcomponents，其 props 为空，不会进入该条件导致children里没有
-      // 所以不会被移除，所以这里直接从 else if 改成 else
-      // else if(props ||
-      //   ((child as ExtendedElement).splitText !== undefined
-      //     ? isHydrating
-      //       ? (child as Text).nodeValue?.trim()
-      //       : true
-      //     : isHydrating)) {
-      //  children[childrenLen++] = child
-      // }
     }
   }
 

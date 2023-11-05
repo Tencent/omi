@@ -34,7 +34,8 @@ export class Component extends HTMLElement {
 
   // 不能声明 props，不然懒加载的 props 执行完构造函数会变成 udnefined, 会导致元素升级为自定义元素之前的 props 丢失
   // props: Record<string, unknown>
-  prevProps: Record<string, unknown> | null
+  // 不能声明 prevProps，不然懒加载的 prevProps 执行完构造函数会变成 udnefined, 会导致元素升级为自定义元素之前的 prevProps 丢失
+  // prevProps: Record<string, unknown> | null
   elementId: number
   isInstalled: boolean
   inject?: string[]
@@ -49,7 +50,6 @@ export class Component extends HTMLElement {
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
-    this.prevProps = null
   }
 
   injectObject() {
