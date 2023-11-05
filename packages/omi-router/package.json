@@ -1,6 +1,6 @@
 {
   "name": "omi-router",
-  "version": "4.0.3",
+  "version": "4.1.0",
   "description": "Router for Omi",
   "main": "dist/index.es.js",
   "exports": {
@@ -21,7 +21,7 @@
     "types"
   ],
   "dependencies": {
-    "omi": "^7.1.10",
+    "omi": "latest",
     "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
