@@ -17,18 +17,17 @@ declare global {
 export const routes = [
   {
     path: '/',
-    transition: 'fade',
     meta: {},
     render() {
       return (
         <>
           <site-header></site-header>
           <div class="flex">
-            <side-nav class="block w-0 lg:w-60" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
+            <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <o-suspense
               imports={[import('./demo/HomePage')]}
               onDataLoaded={window.refreshDark}
-              class="flex-1 ml-10 mr-10 w-0"
+              class="flex-1 ml-10 mr-10 lg:pl-60"
             >
               <home-page />
             </o-suspense>
@@ -270,14 +269,14 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
         <>
           <site-header></site-header>
           <div class="flex">
-            <side-nav class="block w-0 lg:w-60" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
+            <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <o-suspense
               minLoadingTime={500}
               imports={[component.dep()]}
               onDataLoaded={window.refreshDark}
               class="flex-1 ml-10 mr-10 w-0"
             >
-              <div slot="pending" class="absolute top-20">
+              <div slot="pending" class="absolute top-20 lg:left-72">
                 <div>
                   <strong>Loading...</strong>
                   <div
@@ -300,7 +299,7 @@ components.forEach((component: { type?: string; name?: string; page?: string; de
                   onInstalled={(evt: CustomEvent) => {
                     updateMenu(evt.detail)
                   }}
-                  class="flex-grow overflow-auto pr-0 lg:pr-40"
+                  class="flex-grow overflow-auto pr-0 lg:pr-40 lg:pl-60"
                 />
               </div>
               <content-nav
