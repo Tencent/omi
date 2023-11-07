@@ -35,7 +35,7 @@ export class SideNav extends Component {
   goBackHome(evt: MouseEvent) {
     evt.preventDefault()
     this.router?.push('/')
-    menuShow.value = false
+    menuShow.value = window.innerWidth > 1024
   }
 
   @bind
@@ -593,7 +593,7 @@ export class SideNav extends Component {
 
               <li class="mx-1 first:mt-1">
                 <a
-                  href="#/forms/inputs/"
+                  href="#/forms/input/"
                   class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
                   tabindex="0"
                 >

@@ -342,7 +342,7 @@ A collection of stunning components made with attention to the smallest details.
         </a>
     </td>
     <td>
-        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/input-group/">
+        <a href="https://omi.cdn-go.cn/elements/latest/#/forms/input/">
             <img alt="Tailwind Component" src="https://mdbootstrap.com/docs/standard/pro/demo/assets/images/input-group.webp">
         </a>
     </td>
