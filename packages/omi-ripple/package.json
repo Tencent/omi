@@ -1,6 +1,6 @@
 {
   "name": "omi-ripple",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",

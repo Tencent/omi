@@ -1,72 +1,55 @@
-import { tag, Component, h, bind, classNames } from 'omi'
+import { registerDirective } from 'omi'
 
-@tag('o-ripple')
-export class OmiRipple extends Component {
-  static css = `
-  :host {
-    display: inline-block;
-  }
-  
-  .o-ripple {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-  }
-
-  span.ripple {
-    position: absolute; 
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 600ms ease-out;
-    background-color: rgba(255, 255, 255, 0.7);
-  }
-
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 0;
+registerDirective('ripple', (el: HTMLElement, options: { color: string }) => {
+  // 插入 CSS
+  const style = document.createElement('style')
+  style.innerHTML = `
+    .ripple {
+      position: absolute; 
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 600ms ease-out;
+      background-color: rgba(255, 255, 255, 0.7);
     }
-  }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
   `
+  el.appendChild(style)
 
-  ripple = false
-  rippleStyle = {}
+  // 检查元素的 position 属性
+  const position = window.getComputedStyle(el).position
+ 
+  if (!position || position === 'static') {
+    el.style.position = 'relative'
+  }
 
-  timeoutId = null
-  
-  @bind
-  onClick(event) {
-    this.ripple = false
-    clearTimeout(this.timeoutId)
-    this.update()
-    const diameter = Math.max(this.rootElement.clientWidth, this.rootElement.clientHeight)
+  el.addEventListener('click', (event: MouseEvent) => {
+    // 创建涟漪元素
+    const diameter = Math.max(el.clientWidth || 0, el.clientHeight || 0)
     const radius = diameter / 2
-    const rect = this.rootElement.getBoundingClientRect()
+    const rect = el.getBoundingClientRect()
     const left = event.clientX - rect.left - radius
     const top = event.clientY - rect.top - radius
+    const ripple = document.createElement('div')
+    ripple.classList.add('ripple')
+    ripple.style.backgroundColor = options.color
 
-    this.rippleStyle = {
-      top: `${top}px`,
-      left: `${left}px`,
-      width: `${diameter}px`,
-      height: `${diameter}px`,
-    }
+    // 设置涟漪位置
+    ripple.style.left = `${left}px`
+    ripple.style.top = `${top}px`
+    ripple.style.width = `${diameter}px`
+    ripple.style.height = `${diameter}px`
+    // 添加涟漪到元素
+    el.appendChild(ripple)
 
-    this.ripple = true
-    this.update()
-
-    this.timeoutId = setTimeout(() => {
-      this.ripple = false
-      this.update()
-    }, 600)
-  }
-
-  render() {
-    return (
-      <div class="o-ripple" onClick={this.onClick}>
-        <slot id="slot"></slot>
-        <span style={this.rippleStyle} class={classNames({ ripple: this.ripple })}></span>
-      </div>
-    )
-  }
-}
+    // 涟漪播放完移除
+    ripple.addEventListener('animationend', () => {
+      ripple.remove()
+    })
+  })
+})

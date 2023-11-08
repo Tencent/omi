@@ -9,9 +9,6 @@ npm i omi-ripple
 
 ## Usage
 
-routes.tsx:
-
-
 ```tsx
 import { define, Component, h, render } from 'omi'
 import 'omi-ripple'
@@ -37,9 +34,7 @@ button {
 
   render() {
     return (
-      <o-ripple>
-        <button>Ripple Button</button>
-      </o-ripple>
+      <button o-ripple>Ripple Button</button>
     )
   }
 })

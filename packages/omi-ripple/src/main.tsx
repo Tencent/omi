@@ -22,11 +22,9 @@ button {
 
   render() {
     return (
-      <o-ripple>
-        <button>Ripple Button</button>
-      </o-ripple>
+      <button o-ripple>Ripple Button</button>
     )
   }
 })
 
-render(<my-demo></my-demo>, 'body')
+render(<my-demo />, 'body')
