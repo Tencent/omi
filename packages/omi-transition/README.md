@@ -44,8 +44,7 @@ class TransitionDemo extends Component {
     return (
       <>
         <button onClick={() => show.value = !show.value}>toggle</button>
-        <o-transition show={show.value} name="fade">
-          <h4>OMI</h4>
+        <h4 o-transition={{ name: "fade" }} show={show.value} >OMI</h4>
         </o-transition>
       </>
     )
@@ -57,31 +56,17 @@ render(<transition-demo />, document.body)
 
 ## API
 
-### Props
+### Options
 
 ```tsx
-{
-  name: string
-  show?: boolean
-  delay?: number
+interface TransitionOptions {
+  name: string;
+  delay?: number;
+  beforeEnter?: () => void;
+  enter?: () => void;
+  afterEnter?: () => void;
+  beforeLeave?: () => void;
+  leave?: () => void;
+  afterLeave?: () => void;
 }
 ```
-
-### Default Props
-
-```tsx
-{
-  name: 'o',
-  delay: 0
-}
-```
-### Events
-
-* before-enter
-* after-enter
-* enter
-* before-leave
-* after-leave
-* leave
-
-
