@@ -2,7 +2,7 @@
 
 Define transition animation for entering and leaving.
 
-<img src="https://gtimg.wechatpay.cn/resource/xres/img/202208/2494dd9ecc01582e53a0d22d085fd932_1468x346.png" width="700">
+<img src="./o-transition.png" width="700">
 
 - fade-enter-from: defines the start state of entering the transition
 - fade-enter-active: defines the state when the transition takes effect and is removed after the transition animation is completed
@@ -45,7 +45,6 @@ class TransitionDemo extends Component {
       <>
         <button onClick={() => show.value = !show.value}>toggle</button>
         <h4 o-transition={{ name: "fade" }} show={show.value} >OMI</h4>
-        </o-transition>
       </>
     )
   }
