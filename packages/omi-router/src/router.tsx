@@ -2,18 +2,28 @@ import { render } from 'omi'
 import './router-view'
 import { Route, RouterView } from './router-view'
 
+type Module = { default: string }
+type CSSItem = CSSStyleSheet | Module | string
+
 export class Router {
   el: RouterView
 
-  constructor(options: { routes: Route[]; renderTo: string; store?: any }) {
-    this.el = render(<router-view routes={options.routes} />, options.renderTo, options.store)
+  constructor(options: { routes: Route[]; renderTo: string, css: CSSItem[] }) {
+    this.el = render((
+      <router-view
+        onInstall={(evt: CustomEvent) => {
+          // @ts-ignore
+          evt.detail.constructor.css = options.css
+        }}
+        routes={options.routes}
+      />
+    ), options.renderTo)
   }
 
-
-  params: Record<string, unknown>  = {}
-  query:  Record<string, unknown> = {} 
+  params: Record<string, unknown> = {}
+  query: Record<string, unknown> = {}
   hash: string = ''
-  
+
   beforeEach(callback: Function) {
     this.el.beforeEach(callback)
   }

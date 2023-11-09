@@ -1,6 +1,5 @@
 import { pathToRegexp, Key } from 'path-to-regexp'
 import { tag, Component, mixin } from 'omi'
-import './router-view'
 
 // 先保证有 router 属性挂在 this 上
 mixin({
@@ -29,22 +28,22 @@ export class RouterView extends Component<Props> {
   afterEachCallback: Function | undefined
   isHashMode: boolean = true
 
-  params: Record<string, unknown>  = {}
-  query:  Record<string, unknown> = {} 
+  params: Record<string, unknown> = {}
+  query: Record<string, unknown> = {}
   hash: string = ''
 
   install() {
-     // 修改组件内部的 this.router 为当前 router-view 的实例
-     mixin({
+    // 修改组件内部的 this.router 为当前 router-view 的实例
+    mixin({
       router: this
     })
 
     this.routes = this.props.routes.map(route => {
       const keys: Key[] = []
-      if(route.render) {
+      if (route.render) {
         route.render = route.render.bind(this)
       }
-      if(route.path === '*') {
+      if (route.path === '*') {
         return { ...route, regex: /(.*)/ }
       }
       const regex = pathToRegexp(route.path, keys)
@@ -116,7 +115,7 @@ export class RouterView extends Component<Props> {
         route.keys?.forEach((key, index) => {
           this.params![key.name]! = match[index + 1]
         })
-  
+
         // 解析查询参数
         const params = new URLSearchParams(this.getQueryPath())
         this.query = {}
@@ -125,7 +124,7 @@ export class RouterView extends Component<Props> {
         })
         // 获取哈希值
         this.hash = window.location.hash
-  
+
         if (this.afterEachCallback) {
           this.afterEachCallback({ path }, { path: window.location.pathname })
         }
