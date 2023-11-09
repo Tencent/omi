@@ -66,6 +66,7 @@ let previousDisplay: string | null = null; // 添加这行代码来记录display
 
 function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: number, options: TransitionOptions) {
   if (show) {
+    isFirstRender = false;
     dom.style.display = previousDisplay || ''
     options.beforeEnter?.()
     dom.classList.remove(`${name}-leave-to`)
