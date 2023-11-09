@@ -34,9 +34,12 @@ class MyApp extends Component {
     return (
       <>
         <button onClick={this.toggle}>Toggle</button>
-        <o-transition onAfterLeave={this.onAfterLeave} show={this.show} name="fade">
-          <h4>OMI</h4>
-        </o-transition>
+        <h4 show={this.show}
+          o-transition={{
+            name: 'fade',
+            afterLeave: this.onAfterLeave
+          }}
+        >OMI</h4>
         <div>Bottom</div>
       </>
     )

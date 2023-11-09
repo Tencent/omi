@@ -5,7 +5,7 @@ import './components/side-nav'
 import './components/content-nav'
 import { updateMenu } from './components/content-nav'
 import { signal } from 'omi'
-import './components/transition-directive'
+import 'omi-transition'
 
 const showPage = signal(true)
 declare global {

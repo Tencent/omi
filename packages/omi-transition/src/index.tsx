@@ -1,130 +1,104 @@
-import { tag, Component } from 'omi'
+import { registerDirective, Component } from 'omi'
 
-interface Props {
-  name: string
-  leavingTime?: number
-  autoRemove?: boolean
-  delay?: number
-  show: boolean
+interface TransitionOptions {
+  name: string;
+  delay?: number;
+  beforeEnter?: () => void;
+  enter?: () => void;
+  afterEnter?: () => void;
+  beforeLeave?: () => void;
+  leave?: () => void;
+  afterLeave?: () => void;
 }
 
-@tag('o-transition')
-export class Transition extends Component<Props>{
 
-  static propTypes = {
-    name: String,
-    leavingTime: Number,
-    autoRemove: Boolean,
-    delay: Number,
-    show: Boolean
-  }
-
-  static isLightDOM = true
-
-  static defaultProps = {
-    name: 'o',
-    delay: 0
-  }
-  prevDisplay: string | undefined
-
-
-  installed() {
-    const el = this.children[0] as HTMLElement
-    if (el) {
-      this.prevDisplay = getComputedStyle(el).display
-    }
-
-    this.addEventListener('transitionend', debounce(this.onTransitionEnd.bind(this), 0))
-    this.addEventListener('animationend', debounce(this.onTransitionEnd.bind(this), 0))
-
-    if (!this.props.show) {
-      el.style.display = 'none'
-    }
-
-    ready(() => {
-      if (this.props.show) {
-        this.enter()
-      }
-      if (this.props.leavingTime) {
-        setTimeout(() => {
-          this.leave()
-        }, this.props.leavingTime)
+registerDirective('transition', (dom: HTMLElement | Component, options: TransitionOptions) => {
+  const { name, delay = 0 } = options
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'show') {
+        const show = getShowAttribute(dom)
+        updateClasses(dom, name, show, delay, options)
       }
     })
-  }
+  })
 
-  receiveProps() {
-    if (this.props.show) {
-      this.enter()
+  observer.observe(dom, { attributes: true })
+
+  const onTransitionEnd = debounce(() => {
+    console.log('onTransitionEnd')
+    const show = getShowAttribute(dom)
+    if (show) {
+      options.afterEnter?.()
     } else {
-      this.leave()
+      options.afterLeave?.()
+      dom.style.display = 'none' // 添加这行代码
     }
+    dom.classList.remove(`${name}-enter-active`)
+    dom.classList.remove(`${name}-leave-active`)
+  }, 0)
+
+  // 移除旧的事件监听器
+  if (dom['__onTransitionEnd']) {
+    dom.removeEventListener('transitionend', dom['__onTransitionEnd'])
+    dom.removeEventListener('animationend', dom['__onTransitionEnd'])
   }
 
-  callback: (() => void) | undefined
+  // 添加新的事件监听器
+  dom.addEventListener('transitionend', onTransitionEnd)
+  dom.addEventListener('animationend', onTransitionEnd)
 
-  enter() {
-    (this.children[0] as HTMLElement).style.display = this.prevDisplay as string || ''
+  // 将 onTransitionEnd 函数存储在元素上
 
-    const el = this.children[0]
-    if (el) {
-      this.fire('before-enter')
-      el.classList.remove(this.props.name + '-leave-active')
-      el.classList.remove(this.props.name + '-leave-to')
-      el.classList.add(this.props.name + '-enter-from')
+  dom['__onTransitionEnd'] = onTransitionEnd
 
-      window.setTimeout(() => {
-        el.classList.add(this.props.name + '-enter-active')
-        el.classList.remove(this.props.name + '-enter-from')
-        el.classList.add(this.props.name + '-enter-to')
-        this.fire('enter')
-      }, this.props.delay)
-    }
-  }
+  const show = getShowAttribute(dom)
+  updateClasses(dom, name, show, delay, options)
+})
 
-  onTransitionEnd() {
-    // opacity 和 transform 各会执行一次，所以需要 debounce
-    const el = this.children[0] as HTMLElement
-    if (this.props.show) {
-      el.classList.remove(this.props.name + '-enter-active')
-      this.fire('after-enter')
-    } else {
-      el.classList.remove(this.props.name + '-leave-active')
-      this.fire('after-leave')
-      el.style.display = 'none'
-      if (this.props.autoRemove && this.parentNode) {
-        this.parentNode.removeChild(this)
-      }
-    }
-  }
-
-  leave() {
-    const el = this.children[0]
-    if (el) {
-      this.fire('before-leave')
-      el.classList.remove(this.props.name + '-enter-active')
-      el.classList.remove(this.props.name + '-enter-to')
-      el.classList.add(this.props.name + '-leave-from')
-
-      window.setTimeout(() => {
-        el.classList.add(this.props.name + '-leave-active')
-        el.classList.remove(this.props.name + '-leave-from')
-        el.classList.add(this.props.name + '-leave-to')
-        this.fire('leave')
-      }, this.props.delay)
-    }
-  }
-
-  render() {
-    return
-  }
+function getShowAttribute(dom: HTMLElement | Component<{ show: boolean }>): boolean {
+  return dom.getAttribute('show') === 'true' ||
+    dom.getAttribute('show') === '1' ||
+    dom.props?.show
 }
+let isFirstRender = true; // 添加这行代码来记录是否是第一次渲染
+let previousDisplay: string | null = null; // 添加这行代码来记录display的值
 
-function ready(callback: () => void): void {
-  if (document.readyState !== 'loading') {
-    callback()
+function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: number, options: TransitionOptions) {
+  if (show) {
+    dom.style.display = previousDisplay || ''
+    options.beforeEnter?.()
+    dom.classList.remove(`${name}-leave-to`)
+    dom.classList.remove(`${name}-leave-active`)
+    dom.classList.add(`${name}-enter-from`)
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        options.enter?.()
+        dom.classList.remove(`${name}-enter-from`)
+        dom.classList.add(`${name}-enter-to`)
+        dom.classList.add(`${name}-enter-active`)
+      }, 1 + delay)
+    })
   } else {
-    document.addEventListener('DOMContentLoaded', callback)
+    previousDisplay = dom.style.display; // 记录display的值
+    options.beforeLeave?.()
+    if (isFirstRender) { // 如果是第一次渲染
+      dom.style.display = 'none'; // 直接隐藏元素
+      isFirstRender = false; // 更新 isFirstRender 的值
+    } else {
+      dom.classList.remove(`${name}-enter-to`)
+      dom.classList.remove(`${name}-enter-active`)
+      dom.classList.add(`${name}-leave-from`)
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          options.leave?.()
+          dom.classList.remove(`${name}-leave-from`)
+          dom.classList.add(`${name}-leave-to`)
+          dom.classList.add(`${name}-leave-active`)
+        }, 1 + delay)
+      })
+    }
+
   }
 }
 
@@ -136,6 +110,6 @@ function debounce(func: (...args: any[]) => void, wait: number) {
     }
     timeout = setTimeout(() => {
       func.apply(this, args)
-    }, wait);
+    }, wait)
   }
 }

@@ -1,4 +1,4 @@
-import { tag, Component, h, OmiProps } from 'omi'
+import { tag, Component, h } from 'omi'
 import '../index'
 
 interface Props {
@@ -64,54 +64,43 @@ export default class TransitionDemo extends Component<Props> {
     transform: scale(1.1);
   }
   `
-  private _show: boolean | undefined
-
-  install() {
-    this._show = this.props.show
-  }
- 
-  // 关闭需要动画
-  onClose = () => {
-    this._show = false
-    this.update()
-  }
 
   // 播放完动画再告诉父组件
-  onAfterLeave = () => {
+  onClose = () => {
     this.fire('close')
   }
 
-  receiveProps(props: Props | OmiProps<Props, any>,) {
-    this._show = props.show
-  }
 
   render(props: Props) {
     return (
-      <o-transition show={this._show}  onAfterLeave={this.onAfterLeave} name="modal">
-        {props.show && <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-container">
-              <div class="modal-header">
-                <slot name="header">default header</slot>
-              </div>
+      <div class="modal-mask"
+        show={props.show}
+        o-transition={{
+          name: 'modal'
+        }}
+      >
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="modal-header">
+              <slot name="header">default header</slot>
+            </div>
 
-              <div class="modal-body">
-                <slot name="body">default body</slot>
-              </div>
+            <div class="modal-body">
+              <slot name="body">default body</slot>
+            </div>
 
-              <div class="modal-footer">
-                <slot name="footer">
-                  default footer
-                  <button
-                    class="modal-default-button"
-                    onClick={this.onClose}
-                  >OK</button>
-                </slot>
-              </div>
+            <div class="modal-footer">
+              <slot name="footer">
+                default footer
+                <button
+                  class="modal-default-button"
+                  onClick={this.onClose}
+                >OK</button>
+              </slot>
             </div>
           </div>
-        </div>}
-      </o-transition>
+        </div>
+      </div>
     )
   }
 }
