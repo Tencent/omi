@@ -3,6 +3,7 @@ import { define, Component, h } from 'omi'
 interface Props {
   imports: Promise<unknown>[]
   data: Function | null
+  minLoadingTime: number
 }
 
 /**
@@ -25,13 +26,17 @@ define(
     static defaultProps = {
       imports: [],
       data: null,
+      minLoadingTime: 0,
     }
 
+    timeout: NodeJS.Timeout | null = null
     /**
      * Handles the tasks of components and updates the state accordingly
      * @param imports - Array of import promises
      */
     async handleTasks(imports: Promise<unknown>[]) {
+      this.timeout !== null && clearTimeout(this.timeout)
+      let startTime = Date.now()
       const tasks = [...imports]
       if (this.props.data) {
         tasks.push(this.props.data())
@@ -43,9 +48,21 @@ define(
 
         try {
           const results = await Promise.all(tasks)
-          this.state = 'resolve'
-          this.fire('resolve')
-          this.fire('data-loaded', results.pop())
+          let endTime = Date.now() // 记录加载完成的时间
+          let elapsedTime = endTime - startTime // 计算已经过去的时间
+          if (elapsedTime < this.props.minLoadingTime) {
+            this.timeout = setTimeout(() => {
+              this.state = 'resolve'
+              this.fire('resolve')
+              this.fire('data-loaded', results.pop())
+              this.update()
+            }, this.props.minLoadingTime - elapsedTime)
+          } else {
+            // 否则，立即隐藏加载指示器
+            this.state = 'resolve'
+            this.fire('resolve')
+            this.fire('data-loaded', results.pop())
+          }
         } catch (error) {
           console.error(error)
           this.state = 'fallback'

@@ -1,4 +1,4 @@
-import './components/suspense'
+import 'omi-suspense'
 import './index.css'
 import './components/site-header'
 import './components/side-nav'
