@@ -26,7 +26,6 @@ registerDirective('transition', (dom: HTMLElement | Component, options: Transiti
   observer.observe(dom, { attributes: true })
 
   const onTransitionEnd = debounce(() => {
-    console.log('onTransitionEnd')
     const show = getShowAttribute(dom)
     if (show) {
       options.afterEnter?.()

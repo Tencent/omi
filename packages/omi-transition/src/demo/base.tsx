@@ -1,8 +1,6 @@
 import { tag, render, h, Component } from 'omi'
 // 需要导入 Transition 组件
 import '../index'
-// 只写这行会被 tree shhaking 掉
-import { Transition } from '../index'
 
 @tag('my-app')
 class MyApp extends Component {
@@ -19,7 +17,6 @@ class MyApp extends Component {
     }`
 
   show = true
-  transition: Transition | undefined
 
   toggle = () => {
     this.show = !this.show
