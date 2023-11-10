@@ -323,7 +323,7 @@ define('my-app', class extends withTwind(Component) {
 ## Contributors
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">
-  <img src="https://omi.cdn-go.cn/contributors.png" />
+  <img src="https://raw.githubusercontent.com/Tencent/omi/master/assets/contributors.png" />
 </a>
 
 ## License

@@ -29,7 +29,11 @@ export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNo
     isSvgMode = parent != null && (parent as Element as SVGElement).ownerSVGElement !== undefined
 
     // hydration is indicated by the existing element to be diffed not having a prop cache
-    hydrating = dom != null && !('prevProps' in dom)
+    // hydrating = dom != null && !('prevProps' in dom)
+
+    // SSR is currently not supported
+    hydrating = false
+    
   }
 
   if (isArray(vnode)) {
@@ -227,6 +231,7 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
           vlen && prevProps
             ? prevProps.key
             : null
+            
       if (key != null) {
         keyedLen++
         keyed[key as string] = child as Element
