@@ -4,7 +4,9 @@ import { tailwind } from '@/tailwind'
 
 const router = new Router({
   routes,
-  css: [tailwind,`
+  css: [
+    tailwind,
+    `
   .fade-leave-to,
   .fade-enter-from {
     opacity: 0;
@@ -19,6 +21,7 @@ const router = new Router({
   o-tabs:not(:defined) > * {
     display: none;
   }
-  `],
+  `,
+  ],
   renderTo: '#app',
 })

@@ -1,6 +1,6 @@
 {
-  "name": "omi-elements",
-  "version": "0.0.0",
+  "name": "omiu",
+  "version": "1.0.0-alpha0",
   "description": "Hope to create the best web components.",
   "type": "module",
   "scripts": {
