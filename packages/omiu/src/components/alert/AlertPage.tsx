@@ -26,7 +26,8 @@ export class ButtonPage extends Component {
           </h2>
           {/* <!-- Description --> */}
           <p className="mb-3">
-            Use these default button styles with multiple colors to indicate an action or link within your website.
+            An alert displays a short, important message in a way that attracts the user's attention without
+            interrupting the user's task.
           </p>
 
           <code-showcase

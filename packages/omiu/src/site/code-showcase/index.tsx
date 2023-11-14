@@ -6,7 +6,7 @@ import 'prismjs/components/prism-jsx'
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-tsx'
 import * as copyToClipboard from 'copy-to-clipboard'
-import { Collapse } from 'omi-elements'
+import '../../components/collapse/collapse'
 
 type Props = {
   lan: string
@@ -125,7 +125,7 @@ export default class CodeShowcase extends Component<Props> {
           </div>
         </section>
 
-        <Collapse.tagName show={this.showCode}>
+        <o-collapse show={this.showCode}>
           <section id="code-section">
             <div class="pt-4">
               <div class="docs-pills">
@@ -146,7 +146,7 @@ export default class CodeShowcase extends Component<Props> {
                         data-te-toggle="pill"
                         data-te-target="#mdb_daddc35712f4511b23eecf513d016213420fa417"
                         data-te-nav-active=""
-                        href="#mdb_daddc35712f4511b23eecf513d016213420fa417"
+                        href="javascript:void(0)"
                         role="tab"
                       >
                         TSX
@@ -181,7 +181,7 @@ export default class CodeShowcase extends Component<Props> {
               </div>
             </div>
           </section>
-        </Collapse.tagName>
+        </o-collapse>
       </>
     )
   }

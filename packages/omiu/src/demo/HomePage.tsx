@@ -1,7 +1,7 @@
 import { tag, Component } from 'omi'
-import './components/button-link'
+import '@/components/button/button'
 import { tailwind } from '@/tailwind'
-import demoPages from './pages'
+import demoPages from '../pages'
 
 @tag('home-page')
 export class ButtonLink extends Component {
@@ -15,9 +15,9 @@ export class ButtonLink extends Component {
           <div class="mb-10" key={section}>
             {pages.length > 0 && <h2 class="uppercase text-2xl my-3">{section}</h2>}
             {pages.map(({ name, path }) => (
-              <button-link href={path} key={name}>
+              <o-button class="mb-1 mr-1" tag="a" href={`#${path}`} key={name}>
                 {name}
-              </button-link>
+              </o-button>
             ))}
           </div>
         ))}

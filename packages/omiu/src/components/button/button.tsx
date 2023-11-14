@@ -54,6 +54,8 @@ export class Button extends Component {
     color: 'primary',
     variant: 'contained',
     size: 'medium',
+    tag: 'button',
+    href: null,
     rounded: true,
     floating: false,
     disabled: false,
@@ -139,8 +141,9 @@ export class Button extends Component {
     }
 
     return (
-      <button
-        type="button"
+      <props.tag
+        type={props.tag === 'button' ? 'button' : null}
+        href={props.tag === 'a' ? props.href : null}
         o-ripple={props.ripple === false ? null : ''}
         class={classNames({
           [theme.common]: true,
@@ -156,7 +159,7 @@ export class Button extends Component {
         })}
       >
         <slot></slot>
-      </button>
+      </props.tag>
     )
   }
 }

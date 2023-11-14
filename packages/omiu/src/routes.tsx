@@ -6,6 +6,7 @@ import './site/content-nav'
 import { updateMenu } from './site/content-nav'
 import { signal } from 'omi'
 import 'omi-transition'
+import './lib/components/tabs/index'
 
 const showPage = signal(true)
 
@@ -59,6 +60,11 @@ export const routes = [
 
 const components = [
   {
+    name: 'accordion',
+    overview: () => import('./components/accordion/AccordionPage'),
+    api: () => import('./components/accordion/AccordionAPI'),
+  },
+  {
     name: 'alert',
     overview: () => import('./components/alert/AlertPage'),
     api: () => import('./components/alert/AlertAPI'),
@@ -68,6 +74,11 @@ const components = [
     overview: () => import('./components/button/ButtonPage'),
     api: () => import('./components/button/ButtonAPI'),
   },
+  {
+    name: 'collapse',
+    overview: () => import('./components/collapse/CollapsePage'),
+    api: () => import('./components/collapse/CollapseAPI'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {
@@ -75,7 +86,7 @@ components.forEach((component: { type?: string; name?: string; page?: string; ov
     path: `/${component.type ? component.type : 'components'}/${component.name}`,
     render() {
       component.page = `${component.name}-${activeTab.value === 'api' ? 'api' : 'page'}`
-      console.log(activeTab.value)
+
       return (
         <>
           <site-header></site-header>

@@ -9,14 +9,14 @@ interface PagesSection {
 }
 
 const componentsPages: Pages[] = [
-  // { name: 'accordion', path: '/components/accordion' },
+  { name: 'accordion', path: '/components/accordion' },
   // { name: 'avatar', path: '/components/avatar' },
   // { name: 'badge', path: '/components/badges' },
   { name: 'alert', path: '/components/alert' },
   { name: 'button', path: '/components/button' },
   // { name: 'button-group', path: '/components/button-group' },
   // { name: 'cards', path: '/components/cards' },
-  // { name: 'collapse', path: '/components/collapse' },
+  { name: 'collapse', path: '/components/collapse' },
   // { name: 'link', path: '/components/link' },
   // { name: 'list-group', path: '/components/list-group' },
   // { name: 'modal', path: '/components/modal' },
