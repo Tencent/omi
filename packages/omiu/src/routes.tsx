@@ -65,9 +65,19 @@ const components = [
     api: () => import('./components/accordion/AccordionAPI'),
   },
   {
+    name: 'avatar',
+    overview: () => import('./components/avatar/AvatarPage'),
+    api: () => import('./components/avatar/AvatarAPI'),
+  },
+  {
     name: 'alert',
     overview: () => import('./components/alert/AlertPage'),
     api: () => import('./components/alert/AlertAPI'),
+  },
+  {
+    name: 'badge',
+    overview: () => import('./components/badge/BadgePage'),
+    api: () => import('./components/badge/BadgeAPI'),
   },
   {
     name: 'button',

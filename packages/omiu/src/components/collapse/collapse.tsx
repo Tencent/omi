@@ -7,6 +7,7 @@ type Props = {
   tag: string
   rounded: boolean
   show: boolean
+  overflowAuto: boolean
   className: string
 }
 const theme = {
@@ -39,6 +40,7 @@ export class Collapse extends Component<Props> {
     rounded: true,
     horizontal: false,
     // scroll: false,
+    overflowAuto: true,
     className: '',
   }
 
@@ -106,7 +108,6 @@ export class Collapse extends Component<Props> {
 
       this.showCollapse = this.props.show
       this.transition = true
-      this.update()
 
       this.timeoutId = setTimeout(() => {
         this.transition = false
@@ -120,15 +121,19 @@ export class Collapse extends Component<Props> {
       }, 350)
     }
 
-    if (this.showCollapse) {
-      if (this.props.horizontal) {
-        this.collapseSize = el?.scrollWidth || 0
+    // 解决高度获取不正确
+    requestAnimationFrame(() => {
+      if (this.showCollapse) {
+        if (this.props.horizontal) {
+          this.collapseSize = el?.scrollWidth || 0
+        } else {
+          this.collapseSize = el?.scrollHeight || 0
+        }
       } else {
-        this.collapseSize = el?.scrollHeight || 0
+        this.collapseSize = 0
       }
-    } else {
-      this.collapseSize = 0
-    }
+      this.update()
+    })
   }
 
   render(props: Props) {
@@ -144,7 +149,7 @@ export class Collapse extends Component<Props> {
           !this.transition && !this.showCollapse && theme.hidden,
           // props.scroll && theme.scrollStyles,
           {
-            'overflow-auto': true,
+            'overflow-auto': props.overflowAuto,
           },
           props.className,
         )}

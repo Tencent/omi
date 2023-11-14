@@ -125,55 +125,53 @@ export default class CodeShowcase extends Component<Props> {
           </div>
         </section>
 
-        <o-collapse show={this.showCode}>
+        <o-collapse show={this.showCode} overflowAuto={false}>
           <section id="code-section">
-            <div class="pt-4">
-              <div class="docs-pills">
-                <div
-                  class="
+            <div class="docs-pills">
+              <div
+                class="
                   flex
                   justify-between
                   items-center
                   py-2
                   rounded-t-lg
                   border-t border-l border-r border-neutral-200 dark:border-neutral-600"
-                  style="padding-left: 0.6rem"
+                style="padding-left: 0.6rem"
+              >
+                <ul class="flex list-none flex-col flex-wrap pl-0 md:flex-row p-2" data-te-nav-ref="">
+                  <li>
+                    <a
+                      class="inline-block mx-[5px] rounded bg-[#F7F7F7] px-[20px] py-2.5 text-xs font-medium uppercase leading-none text-[#0000008c] shadow-none focus:outline-none focus:ring-0 data-[te-nav-active]:bg-[#E3EBF7] data-[te-nav-active]:text-[#285192]  dark:bg-neutral-600 dark:text-white dark:data-[te-nav-active]:bg-[#E3EBF7] dark:data-[te-nav-active]:text-[#285192]  "
+                      data-te-toggle="pill"
+                      data-te-target="#mdb_daddc35712f4511b23eecf513d016213420fa417"
+                      data-te-nav-active=""
+                      href="javascript:void(0)"
+                      role="tab"
+                    >
+                      TSX
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content">
+                <div
+                  class="hidden opacity-0 opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block mb-5"
+                  data-te-tab-active=""
+                  id="mdb_daddc35712f4511b23eecf513d016213420fa417"
+                  role="tabpanel"
                 >
-                  <ul class="flex list-none flex-col flex-wrap pl-0 md:flex-row p-2" data-te-nav-ref="">
-                    <li>
-                      <a
-                        class="inline-block mx-[5px] rounded bg-[#F7F7F7] px-[20px] py-2.5 text-xs font-medium uppercase leading-none text-[#0000008c] shadow-none focus:outline-none focus:ring-0 data-[te-nav-active]:bg-[#E3EBF7] data-[te-nav-active]:text-[#285192]  dark:bg-neutral-600 dark:text-white dark:data-[te-nav-active]:bg-[#E3EBF7] dark:data-[te-nav-active]:text-[#285192]  "
-                        data-te-toggle="pill"
-                        data-te-target="#mdb_daddc35712f4511b23eecf513d016213420fa417"
-                        data-te-nav-active=""
-                        href="javascript:void(0)"
-                        role="tab"
-                      >
-                        TSX
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content">
-                  <div
-                    class="hidden opacity-0 opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block mb-5"
-                    data-te-tab-active=""
-                    id="mdb_daddc35712f4511b23eecf513d016213420fa417"
-                    role="tabpanel"
-                  >
-                    <div class="code-toolbar">
-                      <pre>
-                        <code class={`language-${props.lan}`}>{props.code}</code>
-                      </pre>
-                      <div class="toolbar">
-                        <div class="toolbar-item">
-                          <button
-                            class="btn-copy-code text-gray-500 text-xs leading-[1.6] !top-[16px] bg-transparent font-bold uppercase text-sm px-4 py-2 outline-none focus:outline-none dark:text-gray-200"
-                            onClick={this.onCopy}
-                          >
-                            {this.copied ? 'Copied' : 'Copy'}
-                          </button>
-                        </div>
+                  <div class="code-toolbar">
+                    <pre>
+                      <code class={`language-${props.lan}`}>{props.code}</code>
+                    </pre>
+                    <div class="toolbar">
+                      <div class="toolbar-item">
+                        <button
+                          class="btn-copy-code text-gray-500 text-xs leading-[1.6] !top-[16px] bg-transparent font-bold uppercase text-sm px-4 py-2 outline-none focus:outline-none dark:text-gray-200"
+                          onClick={this.onCopy}
+                        >
+                          {this.copied ? 'Copied' : 'Copy'}
+                        </button>
                       </div>
                     </div>
                   </div>

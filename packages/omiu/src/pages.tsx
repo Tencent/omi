@@ -8,10 +8,10 @@ interface PagesSection {
   pages: Pages[]
 }
 
-const componentsPages: Pages[] = [
+export const componentsPages: Pages[] = [
   { name: 'accordion', path: '/components/accordion' },
-  // { name: 'avatar', path: '/components/avatar' },
-  // { name: 'badge', path: '/components/badges' },
+  { name: 'avatar', path: '/components/avatar' },
+  { name: 'badge', path: '/components/badge' },
   { name: 'alert', path: '/components/alert' },
   { name: 'button', path: '/components/button' },
   // { name: 'button-group', path: '/components/button-group' },
