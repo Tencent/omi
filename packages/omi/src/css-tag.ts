@@ -14,11 +14,18 @@ let styleSheetCache: { [key: string]: CSSStyleSheet } = {}
  * @returns {CSSStyleSheet} The resulting CSSStyleSheet object.
  * @throws {Error} If a value is not safe to insert into CSS.
  */
-export function css(strings: TemplateStringsArray, ...values: unknown[]): CSSStyleSheet {
+export function css(
+  strings: TemplateStringsArray,
+  ...values: unknown[]
+): CSSStyleSheet {
   let str = ''
   strings.forEach((string, i) => {
     // Check if the value is safe to insert into CSS
-    if (values[i] !== undefined && typeof values[i] !== 'string' && typeof values[i] !== 'number') {
+    if (
+      values[i] !== undefined &&
+      typeof values[i] !== 'string' &&
+      typeof values[i] !== 'number'
+    ) {
       throw new Error(`Unsupported value in CSS: ${values[i]}`)
     }
 

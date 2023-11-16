@@ -14,7 +14,7 @@ class CounterDemo extends Component {
   }
 
   installed() {
-    const p = document.createElement('p');
+    const p = document.createElement('p')
     p.textContent = 'hello'
     // 更新后消失
     this.refSpan.current.appendChild(p)

@@ -1,16 +1,16 @@
 import { Component } from './component'
 import { isPrimitive } from './utils'
 
-type EffectFn = () => void;
-type ComputedFn<T> = () => T;
+type EffectFn = () => void
+type ComputedFn<T> = () => T
 
 let activeEffect: EffectFn | null = null
 let batchQueue: EffectFn[] = []
 
 export interface SignalValue<T> {
-  value: T;
-  peek: () => T;
-  update: () => void;
+  value: T
+  peek: () => T
+  update: () => void
 }
 let activeComponent: Component | null = null
 
@@ -43,23 +43,28 @@ export function signal<T>(initialValue: T): SignalValue<T> {
         return value
       }
       if (prop === 'peek') return () => value
-      if (prop === 'update') return () => {
-        value = value
-        deps.forEach(fn => fn())
-        depsComponents.forEach(component => component.queuedUpdate())
-      }
+      if (prop === 'update')
+        return () => {
+          value = value
+          deps.forEach((fn) => fn())
+          depsComponents.forEach((component) => component.queuedUpdate())
+        }
     },
     set(_, prop: keyof SignalValue<T>, newValue: T) {
       if (prop === 'value') {
-        if(!isPrimitive(value) ||  !isPrimitive(newValue) || value !== newValue) {
+        if (
+          !isPrimitive(value) ||
+          !isPrimitive(newValue) ||
+          value !== newValue
+        ) {
           value = newValue
-          deps.forEach(fn => fn())
-          depsComponents.forEach(component => component.queuedUpdate())
-        }    
+          deps.forEach((fn) => fn())
+          depsComponents.forEach((component) => component.queuedUpdate())
+        }
         return true
       }
       return false
-    }
+    },
   })
 }
 

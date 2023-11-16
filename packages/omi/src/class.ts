@@ -9,8 +9,8 @@ const hasOwn = {}.hasOwnProperty
 
 type Value = string | number | boolean | undefined | null
 type Mapping = Record<string, unknown>
-interface ArgumentArray extends Array<Argument> { }
-interface ReadonlyArgumentArray extends ReadonlyArray<Argument> { }
+interface ArgumentArray extends Array<Argument> {}
+interface ReadonlyArgumentArray extends ReadonlyArray<Argument> {}
 type Argument = Value | Mapping | ArgumentArray | ReadonlyArgumentArray
 
 export function classNames(...args: ArgumentArray): string {
@@ -23,14 +23,14 @@ export function classNames(...args: ArgumentArray): string {
     const argType = typeof arg
 
     if (argType === 'string' || argType === 'number') {
-      classes.push(arg as (string | number))
+      classes.push(arg as string | number)
     } else if (Array.isArray(arg) && arg.length) {
       const inner = classNames(...arg)
       if (inner) {
         classes.push(inner)
       }
     } else if (argType === 'object') {
-      for (const key in (arg as Mapping)) {
+      for (const key in arg as Mapping) {
         if (hasOwn.call(arg, key) && (arg as Mapping)[key]) {
           classes.push(key)
         }
@@ -42,11 +42,14 @@ export function classNames(...args: ArgumentArray): string {
 }
 
 type PropsMapping = {
-  class?: Argument,
+  class?: Argument
   className?: Argument
 } & Mapping
 
-export function extractClass(props: PropsMapping, ...args: ArgumentArray): { class: string } | undefined {
+export function extractClass(
+  props: PropsMapping,
+  ...args: ArgumentArray
+): { class: string } | undefined {
   if (props.class) {
     args.unshift(props.class)
     delete props.class

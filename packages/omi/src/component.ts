@@ -46,7 +46,11 @@ export class Component extends HTMLElement {
   constructor() {
     super()
     // @ts-ignore fix lazy load props missing
-    this.props = Object.assign({}, (this.constructor as typeof Component).defaultProps, this.props)
+    this.props = Object.assign(
+      {},
+      (this.constructor as typeof Component).defaultProps,
+      this.props,
+    )
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
@@ -70,7 +74,7 @@ export class Component extends HTMLElement {
         p = (p.parentNode || p.host) as ExtendedElement
       }
       if (provide) {
-        this.inject.forEach(injectKey => {
+        this.inject.forEach((injectKey) => {
           // @ts-ignore
           this.injection[injectKey] = provide[injectKey]
         })
@@ -98,21 +102,24 @@ export class Component extends HTMLElement {
         return this.shadowRoot
       } else {
         return this.attachShadow({
-          mode: 'open'
+          mode: 'open',
         })
       }
     }
   }
 
   applyAdoptedStyleSheets() {
-    if (!(this.constructor as typeof Component).isLightDOM && !adoptedStyleSheetsMap.has(this.constructor)) {
+    if (
+      !(this.constructor as typeof Component).isLightDOM &&
+      !adoptedStyleSheetsMap.has(this.constructor)
+    ) {
       const css = (this.constructor as typeof Component).css
       if (css) {
         let styleSheets: CSSStyleSheet[] = []
         if (typeof css === 'string') {
           styleSheets = [createStyleSheet(css)]
         } else if (isArray(css)) {
-          styleSheets = (css as Module[]).map(styleSheet => {
+          styleSheets = (css as Module[]).map((styleSheet) => {
             if (typeof styleSheet === 'string') {
               return createStyleSheet(styleSheet)
             } else if (
@@ -124,34 +131,36 @@ export class Component extends HTMLElement {
               return styleSheet
             }
           }) as CSSStyleSheet[]
-        } else if ((css as Module).default && typeof (css as Module).default === 'string') {
+        } else if (
+          (css as Module).default &&
+          typeof (css as Module).default === 'string'
+        ) {
           styleSheets = [createStyleSheet((css as Module).default)]
         } else {
           styleSheets = [css as unknown as CSSStyleSheet]
         }
-        (this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
+        ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
       }
     } else {
-      (this.renderRoot as ShadowRoot).adoptedStyleSheets = adoptedStyleSheetsMap.get(
-        this.constructor
-      )
+      ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
+        adoptedStyleSheetsMap.get(this.constructor)
     }
   }
 
   appendStyleVNode(rendered: VNode | VNode[]) {
-    if(this.props.css && rendered) {
+    if (this.props.css && rendered) {
       const styleVNode = {
-       nodeName: 'style',
-       attributes: {},
-       children: [this.props.css]
-     }
-     if((rendered as VNode[]).push) {
-      (rendered as VNode[]).push(styleVNode as ObjectVNode)
-     } else {
-       (rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
-     }
-   }
+        nodeName: 'style',
+        attributes: {},
+        children: [this.props.css],
+      }
+      if ((rendered as VNode[]).push) {
+        ;(rendered as VNode[]).push(styleVNode as ObjectVNode)
+      } else {
+        ;(rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
+      }
+    }
   }
 
   connectedCallback(): void {
@@ -172,11 +181,12 @@ export class Component extends HTMLElement {
     this.rootElement = diff(null, rendered as VNode, null, this, false)
 
     if (isArray(this.rootElement)) {
-      (this.rootElement as Element[]).forEach((item) => {
+      ;(this.rootElement as Element[]).forEach((item) => {
         this.renderRoot?.appendChild(item)
       })
     } else {
-      this.rootElement && this.renderRoot?.appendChild(this.rootElement as Element)
+      this.rootElement &&
+        this.renderRoot?.appendChild(this.rootElement as Element)
     }
     this.installed()
     this.fire('installed', this)
@@ -207,7 +217,7 @@ export class Component extends HTMLElement {
       rendered as VNode,
       this.renderRoot as ExtendedElement,
       this,
-      !!updateSelf
+      !!updateSelf,
     )
     this.updated()
     this.fire('updated', this)
@@ -224,7 +234,7 @@ export class Component extends HTMLElement {
       })
     }
   }
-  
+
   updateProps(obj: Record<string, unknown>): void {
     Object.keys(obj).forEach((key) => {
       this.props[key] = obj[key]
@@ -291,7 +301,7 @@ export class Component extends HTMLElement {
                 ele.props[key] = JSON.parse(val)
               } catch (e) {
                 console.warn(
-                  `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`
+                  `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`,
                 )
               }
               matched = true
@@ -304,7 +314,9 @@ export class Component extends HTMLElement {
           (ele.constructor as typeof Component).defaultProps &&
           (ele.constructor as typeof Component).defaultProps.hasOwnProperty(key)
         ) {
-          ele.props[key] = (ele.constructor as typeof Component).defaultProps[key]
+          ele.props[key] = (ele.constructor as typeof Component).defaultProps[
+            key
+          ]
         } else {
           ele.props[key] = null
         }
@@ -317,31 +329,31 @@ export class Component extends HTMLElement {
     if (handler) {
       handler(
         new CustomEvent(name, {
-          detail: data
-        })
+          detail: data,
+        }),
       )
     } else {
       this.dispatchEvent(
         new CustomEvent(name, {
-          detail: data
-        })
+          detail: data,
+        }),
       )
     }
   }
 
-  install() { }
+  install() {}
 
-  installed() { }
+  installed() {}
 
-  uninstall() { }
+  uninstall() {}
 
-  beforeUpdate() { }
+  beforeUpdate() {}
 
-  updated() { }
+  updated() {}
 
-  beforeRender() { }
+  beforeRender() {}
 
-  rendered(vnode: VNode | VNode[]) { }
+  rendered(vnode: VNode | VNode[]) {}
 
-  receiveProps() { }
+  receiveProps() {}
 }

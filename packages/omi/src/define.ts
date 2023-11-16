@@ -5,7 +5,9 @@
  */
 export function define(tagName: string, ctor: CustomElementConstructor): void {
   if (customElements.get(tagName)) {
-    console.warn(`Failed to execute 'define' on 'CustomElementRegistry': the tag name "${tagName}" has already been used with this registry`)
+    console.warn(
+      `Failed to execute 'define' on 'CustomElementRegistry': the tag name "${tagName}" has already been used with this registry`,
+    )
     return
   }
   Object.defineProperty(ctor, 'tagName', { value: tagName, writable: false })

@@ -6,8 +6,8 @@ import './construct-style-sheets-polyfill'
  * Check if the environment has native custom elements support
  * and apply a shim for the HTMLElement constructor if needed.
  */
-(function () {
-  const w = typeof window !== 'undefined' ? window : global as any
+;(function () {
+  const w = typeof window !== 'undefined' ? window : (global as any)
   if (
     w.Reflect === undefined ||
     w.customElements === undefined ||
@@ -47,7 +47,10 @@ export function Fragment(props: { children: any }): any {
  * @param ref - The ref to apply.
  * @param value - The value to set or pass to the ref.
  */
-export function applyRef(ref: ((value: any) => void) | { current: any } | null, value: any): void {
+export function applyRef(
+  ref: ((value: any) => void) | { current: any } | null,
+  value: any,
+): void {
   if (ref != null) {
     if (typeof ref == 'function') ref(value)
     else ref.current = value
@@ -137,7 +140,11 @@ export function isPrimitive(value: unknown) {
   )
 }
 
-export function bind(target: unknown, propertyKey: string, descriptor: PropertyDescriptor) {
+export function bind(
+  target: unknown,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+) {
   return {
     configurable: true,
     get() {

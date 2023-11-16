@@ -1,9 +1,11 @@
 // @ts-nocheck
 
-(function () {
+;(function () {
   'use strict'
 
-  if (typeof document === 'undefined' || 'adoptedStyleSheets' in document) { return }
+  if (typeof document === 'undefined' || 'adoptedStyleSheets' in document) {
+    return
+  }
 
   var hasShadyCss = 'ShadyCSS' in window && !ShadyCSS.nativeShadow
   var bootstrapper = document.implementation.createHTMLDocument('boot')
@@ -16,7 +18,9 @@
   function rejectImports(contents) {
     var _contents = contents.replace(importPattern, '')
     if (_contents !== contents) {
-      console.warn('@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418')
+      console.warn(
+        '@import rules are not allowed here. See https://github.com/WICG/construct-stylesheets/issues/119#issuecomment-588352418',
+      )
     }
     return _contents.trim()
   }
@@ -36,10 +40,14 @@
       : document.contains(element)
   }
   function unique(arr) {
-    return arr.filter(function (value, index) { return arr.indexOf(value) === index })
+    return arr.filter(function (value, index) {
+      return arr.indexOf(value) === index
+    })
   }
   function diff(arr1, arr2) {
-    return arr1.filter(function (value) { return arr2.indexOf(value) === -1 })
+    return arr1.filter(function (value) {
+      return arr2.indexOf(value) === -1
+    })
   }
   function removeNode(node) {
     node.parentNode.removeChild(node)
@@ -60,15 +68,21 @@
   var NonConstructedStyleSheet = CSSStyleSheet
   var nonConstructedProto = NonConstructedStyleSheet.prototype
   nonConstructedProto.replace = function () {
-    return Promise.reject(new _DOMException('Can\'t call replace on non-constructed CSSStyleSheets.'))
+    return Promise.reject(
+      new _DOMException(
+        'Can\'t call replace on non-constructed CSSStyleSheets.',
+      ),
+    )
   }
   nonConstructedProto.replaceSync = function () {
-    throw new _DOMException('Failed to execute \'replaceSync\' on \'CSSStyleSheet\': Can\'t call replaceSync on non-constructed CSSStyleSheets.')
+    throw new _DOMException(
+      'Failed to execute \'replaceSync\' on \'CSSStyleSheet\': Can\'t call replaceSync on non-constructed CSSStyleSheets.',
+    )
   }
   function isCSSStyleSheetInstance(instance) {
     return typeof instance === 'object'
       ? proto$2.isPrototypeOf(instance) ||
-      nonConstructedProto.isPrototypeOf(instance)
+          nonConstructedProto.isPrototypeOf(instance)
       : false
   }
   function isNonConstructedStyleSheetInstance(instance) {
@@ -90,7 +104,12 @@
   }
   function removeAdopterLocation(sheet, location) {
     $adoptersByLocation.get(sheet).delete(location)
-    $locations.set(sheet, $locations.get(sheet).filter(function (_location) { return _location !== location }))
+    $locations.set(
+      sheet,
+      $locations.get(sheet).filter(function (_location) {
+        return _location !== location
+      }),
+    )
   }
   function restyleAdopter(sheet, adopter) {
     requestAnimationFrame(function () {
@@ -116,8 +135,7 @@
     try {
       this.replaceSync(contents)
       return Promise.resolve(this)
-    }
-    catch (e) {
+    } catch (e) {
       return Promise.reject(e)
     }
   }
@@ -191,13 +209,18 @@
     })
   }
   function traverseWebComponents(node, callback) {
-    var iter = document.createNodeIterator(node, NodeFilter.SHOW_ELEMENT, function (foundNode) {
-      return getShadowRoot(foundNode)
-        ? NodeFilter.FILTER_ACCEPT
-        : NodeFilter.FILTER_REJECT
-    },
-      null, false)
-    for (var next = void 0; (next = iter.nextNode());) {
+    var iter = document.createNodeIterator(
+      node,
+      NodeFilter.SHOW_ELEMENT,
+      function (foundNode) {
+        return getShadowRoot(foundNode)
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT
+      },
+      null,
+      false,
+    )
+    for (var next = void 0; (next = iter.nextNode()); ) {
       callback(getShadowRoot(next))
     }
   }
@@ -205,8 +228,12 @@
   var $uniqueSheets = new WeakMap()
   var $observer = new WeakMap()
   function isExistingAdopter(self, element) {
-    return (element instanceof HTMLStyleElement &&
-      $uniqueSheets.get(self).some(function (sheet) { return getAdopterByLocation(sheet, self) }))
+    return (
+      element instanceof HTMLStyleElement &&
+      $uniqueSheets.get(self).some(function (sheet) {
+        return getAdopterByLocation(sheet, self)
+      })
+    )
   }
   function getAdopterContainer(self) {
     var element = $element.get(self)
@@ -219,7 +246,9 @@
     var container = getAdopterContainer(self)
     observer.disconnect()
     sheets.forEach(function (sheet) {
-      styleList.appendChild(getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self))
+      styleList.appendChild(
+        getAdopterByLocation(sheet, self) || addAdopterLocation(sheet, self),
+      )
     })
     container.insertBefore(styleList, null)
     observer.observe(container, defaultObserverOptions)
@@ -232,37 +261,40 @@
     self.sheets = []
     $element.set(self, element)
     $uniqueSheets.set(self, [])
-    $observer.set(self, new MutationObserver(function (mutations, observer) {
-      if (!document) {
-        observer.disconnect()
-        return
-      }
-      mutations.forEach(function (mutation) {
-        if (!hasShadyCss) {
-          forEach.call(mutation.addedNodes, function (node) {
+    $observer.set(
+      self,
+      new MutationObserver(function (mutations, observer) {
+        if (!document) {
+          observer.disconnect()
+          return
+        }
+        mutations.forEach(function (mutation) {
+          if (!hasShadyCss) {
+            forEach.call(mutation.addedNodes, function (node) {
+              if (!(node instanceof Element)) {
+                return
+              }
+              traverseWebComponents(node, function (root) {
+                getAssociatedLocation(root).connect()
+              })
+            })
+          }
+          forEach.call(mutation.removedNodes, function (node) {
             if (!(node instanceof Element)) {
               return
             }
-            traverseWebComponents(node, function (root) {
-              getAssociatedLocation(root).connect()
-            })
+            if (isExistingAdopter(self, node)) {
+              adopt(self)
+            }
+            if (!hasShadyCss) {
+              traverseWebComponents(node, function (root) {
+                getAssociatedLocation(root).disconnect()
+              })
+            }
           })
-        }
-        forEach.call(mutation.removedNodes, function (node) {
-          if (!(node instanceof Element)) {
-            return
-          }
-          if (isExistingAdopter(self, node)) {
-            adopt(self)
-          }
-          if (!hasShadyCss) {
-            traverseWebComponents(node, function (root) {
-              getAssociatedLocation(root).disconnect()
-            })
-          }
         })
-      })
-    }))
+      }),
+    )
   }
   var proto$1 = Location.prototype
   proto$1.isConnected = function isConnected() {
@@ -286,15 +318,28 @@
   }
   proto$1.update = function update(sheets) {
     var self = this
-    var locationType = $element.get(self) === document ? 'Document' : 'ShadowRoot'
+    var locationType =
+      $element.get(self) === document ? 'Document' : 'ShadowRoot'
     if (!Array.isArray(sheets)) {
-      throw new TypeError('Failed to set the \'adoptedStyleSheets\' property on ' + locationType + ': Iterator getter is not callable.')
+      throw new TypeError(
+        'Failed to set the \'adoptedStyleSheets\' property on ' +
+          locationType +
+          ': Iterator getter is not callable.',
+      )
     }
     if (!sheets.every(isCSSStyleSheetInstance)) {
-      throw new TypeError('Failed to set the \'adoptedStyleSheets\' property on ' + locationType + ': Failed to convert value to \'CSSStyleSheet\'')
+      throw new TypeError(
+        'Failed to set the \'adoptedStyleSheets\' property on ' +
+          locationType +
+          ': Failed to convert value to \'CSSStyleSheet\'',
+      )
     }
     if (sheets.some(isNonConstructedStyleSheetInstance)) {
-      throw new TypeError('Failed to set the \'adoptedStyleSheets\' property on ' + locationType + ': Can\'t adopt non-constructed stylesheets')
+      throw new TypeError(
+        'Failed to set the \'adoptedStyleSheets\' property on ' +
+          locationType +
+          ': Can\'t adopt non-constructed stylesheets',
+      )
     }
     self.sheets = sheets
     var oldUniqueSheets = $uniqueSheets.get(self)
@@ -327,9 +372,10 @@
   var documentLocation = getAssociatedLocation(document)
   if (documentLocation.isConnected()) {
     documentLocation.connect()
+  } else {
+    document.addEventListener(
+      'DOMContentLoaded',
+      documentLocation.connect.bind(documentLocation),
+    )
   }
-  else {
-    document.addEventListener('DOMContentLoaded', documentLocation.connect.bind(documentLocation))
-  }
-
-}())
+})()

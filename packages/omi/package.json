@@ -10,7 +10,7 @@
     "dev": "microbundle watch",
     "server": "live-server ./build --watch",
     "preview": "vite preview",
-    "lint": "eslint 'src/**/*.{js,ts,tsx,jsx}' 'test/**/*.{js,ts,tsx,jsx}' 'examples/**/*.{js,ts,tsx,jsx}' --fix",
+    "lint": "prettier --write 'src/**/*.{js,ts,tsx,jsx}' && eslint 'src/**/*.{js,ts,tsx,jsx}' 'test/**/*.{js,ts,tsx,jsx}' 'examples/**/*.{js,ts,tsx,jsx}' --fix",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "doc": "npx typedoc --out docs src"
@@ -37,6 +37,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "microbundle": "^0.15.1",
     "omi-transition": "^0.0.2",
+    "prettier": "^3.1.0",
     "tdesign-icons-omi": "latest",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",

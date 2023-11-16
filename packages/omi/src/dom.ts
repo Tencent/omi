@@ -12,9 +12,11 @@ export type ExtendedElement = (HTMLElement | SVGAElement | HTMLInputElement) & {
   props: Record<string, unknown>
   splitText?: Function
   prevProps?: Record<string, unknown> & {
-    ref?: {
-      current?: unknown
-    } | Function
+    ref?:
+      | {
+          current?: unknown
+        }
+      | Function
   }
   attributes: NamedNodeMap
   _component?: Component
@@ -64,13 +66,14 @@ export function setAccessor(
   name: string,
   old: any,
   value: any,
-  isSvg: boolean
+  isSvg: boolean,
 ) {
   if (name === 'className') name = 'class'
 
   if (name[0] == 'o' && name[1] == '-') {
     directives[name]?.(node, value)
-  } if (name === 'key' || name === 'ignoreAttrs') {
+  }
+  if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
   } else if (name === 'ref') {
     applyRef(old, null)
@@ -86,7 +89,7 @@ export function setAccessor(
         for (let i in old) if (!(i in value)) (node.style as any)[i] = ''
       }
       for (let i in value) {
-        (node.style as any)[i] =
+        ;(node.style as any)[i] =
           typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false
             ? value[i] + 'px'
             : value[i]
@@ -97,7 +100,7 @@ export function setAccessor(
   } else if (name[0] == 'o' && name[1] == 'n') {
     bindEvent(node, name, value, old)
   } else if (node.nodeName === 'INPUT' && name === 'value') {
-    (node as HTMLInputElement).value = value == null ? '' : value
+    ;(node as HTMLInputElement).value = value == null ? '' : value
   } else if (
     name !== 'list' &&
     name !== 'type' &&
@@ -111,7 +114,7 @@ export function setAccessor(
     // IE & FF throw for certain property-value combinations.
     try {
       node[name] = value == null ? '' : value
-    } catch (e) { }
+    } catch (e) {}
     if ((value == null || value === false) && name != 'spellcheck')
       node.removeAttribute(name)
   } else {
@@ -123,22 +126,26 @@ export function setAccessor(
       if (ns)
         node.removeAttributeNS(
           'http://www.w3.org/1999/xlink',
-          name.toLowerCase()
+          name.toLowerCase(),
         )
-      else
-        node.removeAttribute(name)
+      else node.removeAttribute(name)
     } else if (typeof value !== 'function') {
       if (ns) {
         node.setAttributeNS(
           'http://www.w3.org/1999/xlink',
           name.toLowerCase(),
-          value
+          value,
         )
       } else {
         if ((node.constructor as typeof Component).is === 'Component') {
-          const reflect = (node.constructor as typeof Component).reflectProps?.[name]
-          if(reflect) {
-            node.setAttribute(name, typeof reflect === 'function' ? reflect(value) : value)
+          const reflect = (node.constructor as typeof Component).reflectProps?.[
+            name
+          ]
+          if (reflect) {
+            node.setAttribute(
+              name,
+              typeof reflect === 'function' ? reflect(value) : value,
+            )
           }
         } else {
           node.setAttribute(name, value)
@@ -161,7 +168,11 @@ function eventProxy(e: Event) {
 function bindEvent(node: ExtendedElement, name: string, value: any, old: any) {
   let useCapture = name !== (name = name.replace(/Capture$/, ''))
   let nameLower = name.toLowerCase()
-  name = ((DOM_EVENT_MAP[nameLower as EventTypes] || nameLower in node) ? nameLower : name).slice(2)
+  name = (
+    DOM_EVENT_MAP[nameLower as EventTypes] || nameLower in node
+      ? nameLower
+      : name
+  ).slice(2)
   if (value) {
     if (!old) {
       node.addEventListener(name, eventProxy, useCapture)
@@ -169,5 +180,5 @@ function bindEvent(node: ExtendedElement, name: string, value: any, old: any) {
   } else {
     node.removeEventListener(name, eventProxy, useCapture)
   }
-  ; (node._listeners || (node._listeners = {}))[name] = value
+  ;(node._listeners || (node._listeners = {}))[name] = value
 }

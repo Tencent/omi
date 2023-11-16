@@ -1,4 +1,11 @@
-import { signal, computed, effect, batch, setActiveComponent, getActiveComponent } from './reactivity'
+import {
+  signal,
+  computed,
+  effect,
+  batch,
+  setActiveComponent,
+  getActiveComponent,
+} from './reactivity'
 
 export class Signal<T> {
   private _value: T
@@ -45,5 +52,4 @@ export class Signal<T> {
     fn && fn(this._value)
     this.value = this.value
   }
-
 }

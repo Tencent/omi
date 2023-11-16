@@ -19,34 +19,52 @@ let hydrating = false
  *  @returns {Element} dom      The created/mutated element
  *  @private
  */
-export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNode | VNode[], parent: ExtendedElement | null, component: Component | null, updateSelf: boolean): ExtendedElement | ExtendedElement[] | null {
+export function diff(
+  dom: ExtendedElement | ExtendedElement[] | null,
+  vnode: VNode | VNode[],
+  parent: ExtendedElement | null,
+  component: Component | null,
+  updateSelf: boolean,
+): ExtendedElement | ExtendedElement[] | null {
   // first render return undefined
   if (!dom && !vnode) return null
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   let ret
   if (!diffLevel++) {
     // when first starting the diff, check if we're diffing an SVG or within an SVG
-    isSvgMode = parent != null && (parent as Element as SVGElement).ownerSVGElement !== undefined
+    isSvgMode =
+      parent != null &&
+      (parent as Element as SVGElement).ownerSVGElement !== undefined
 
     // hydration is indicated by the existing element to be diffed not having a prop cache
     // hydrating = dom != null && !('prevProps' in dom)
 
     // SSR is currently not supported
     hydrating = false
-    
   }
 
   if (isArray(vnode)) {
     if (parent) {
       // don't use props.css when using h.f? can we use now?
       // diff node list and vnode list
-      innerDiffNode(parent, vnode as VNode[], hydrating, component as Component, updateSelf)
+      innerDiffNode(
+        parent,
+        vnode as VNode[],
+        hydrating,
+        component as Component,
+        updateSelf,
+      )
       ret = parent.childNodes
     } else {
       // connectedCallback 的时候 parent 为 null
-      ret = [];
-      (vnode as unknown as VNode[]).forEach((item, index) => {
-        let ele = idiff(index === 0 ? dom : null, item, component as Component, updateSelf)
+      ret = []
+      ;(vnode as unknown as VNode[]).forEach((item, index) => {
+        let ele = idiff(
+          index === 0 ? dom : null,
+          item,
+          component as Component,
+          updateSelf,
+        )
         // 返回数组的情况下，在 Component 中进行了 shadowRoot.appendChild
         // 所有不会出现 vnode index 大于 0 丢失的情况
         ret.push(ele)
@@ -54,7 +72,7 @@ export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNo
     }
   } else {
     if (isArray(dom) || dom instanceof NodeList) {
-      (dom as ExtendedElement[]).forEach((child, index) => {
+      ;(dom as ExtendedElement[]).forEach((child, index) => {
         if (index === 0) {
           ret = idiff(child, vnode as VNode, component as Component, updateSelf)
         } else {
@@ -65,7 +83,8 @@ export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNo
       ret = idiff(dom, vnode as VNode, component as Component, updateSelf)
     }
     // append the element if its a new parent
-    if (parent && (ret as Node)?.parentNode !== parent) parent.appendChild((ret as Node))
+    if (parent && (ret as Node)?.parentNode !== parent)
+      parent.appendChild(ret as Node)
   }
 
   // diffLevel being reduced to 0 means we're exiting the diff
@@ -78,9 +97,14 @@ export function diff(dom: ExtendedElement | ExtendedElement[] | null, vnode: VNo
 }
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
-function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElement, vnode: VNode, component: Component, updateSelf: boolean) {
+function idiff(
+  dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElement,
+  vnode: VNode,
+  component: Component,
+  updateSelf: boolean,
+) {
   if (dom && vnode && (dom as ExtendedElement).props) {
-    (dom as ExtendedElement).props.children = (vnode as ObjectVNode).children
+    ;(dom as ExtendedElement).props.children = (vnode as ObjectVNode).children
   }
   let out = dom,
     prevSvgMode = isSvgMode,
@@ -100,19 +124,20 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
     ) {
       /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
       if ((dom as ExtendedElement).nodeValue != vnode) {
-        (dom as ExtendedElement).nodeValue = String(vnode)
+        ;(dom as ExtendedElement).nodeValue = String(vnode)
       }
     } else {
       // it wasn't a Text node: replace it with one and recycle the old Element
       out = document.createTextNode(String(vnode))
       if (dom) {
-        if ((dom as Text).parentNode) (dom as Text).parentNode?.replaceChild(out, (dom as Text))
+        if ((dom as Text).parentNode)
+          (dom as Text).parentNode?.replaceChild(out, dom as Text)
         recollectNodeTree(dom as ExtendedElement, true)
       }
     }
 
     if (out) {
-      (out as ExtendedElement).prevProps = {}
+      ;(out as ExtendedElement).prevProps = {}
     }
 
     return out
@@ -125,12 +150,7 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
 
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isForeignObject = vnodeName === 'foreignObject'
-  isSvgMode =
-    vnodeName === 'svg'
-      ? true
-      : isForeignObject
-        ? false
-        : isSvgMode
+  isSvgMode = vnodeName === 'svg' ? true : isForeignObject ? false : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
@@ -144,10 +164,17 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
     }
     if (dom) {
       // move children into the replacement node
-      while ((dom as ExtendedElement).firstChild) (out as HTMLElement).appendChild((dom as ExtendedElement).firstChild as Node)
+      while ((dom as ExtendedElement).firstChild)
+        (out as HTMLElement).appendChild(
+          (dom as ExtendedElement).firstChild as Node,
+        )
 
       // if the previous Element was mounted into the DOM, replace it inline
-      if ((dom as ExtendedElement).parentNode) (dom as ExtendedElement).parentNode?.replaceChild(out as HTMLElement, dom as ExtendedElement)
+      if ((dom as ExtendedElement).parentNode)
+        (dom as ExtendedElement).parentNode?.replaceChild(
+          out as HTMLElement,
+          dom as ExtendedElement,
+        )
 
       // recycle the old element (skips non-Element node types)
       recollectNodeTree(dom as ExtendedElement, true)
@@ -160,7 +187,7 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
 
   if (props == null) {
     props = (out as ExtendedElement).prevProps = {}
-    for (let a = (out as ExtendedElement).attributes, i = a.length; i--;)
+    for (let a = (out as ExtendedElement).attributes, i = a.length; i--; )
       props[a[i].name] = a[i].value
   }
 
@@ -180,21 +207,33 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
   }
   // otherwise, if there are existing or new children, diff them:
   else if ((vchildren && vchildren.length) || fc != null) {
-    if (!(((out as ExtendedElement).constructor as typeof Component).is == 'Component' && ((out as ExtendedElement).constructor as typeof Component).noSlot)) {
+    if (
+      !(
+        ((out as ExtendedElement).constructor as typeof Component).is ==
+          'Component' &&
+        ((out as ExtendedElement).constructor as typeof Component).noSlot
+      )
+    ) {
       innerDiffNode(
         out as ExtendedElement,
         vchildren,
         hydrating || props.unsafeHTML != null,
         component,
-        updateSelf
+        updateSelf,
       )
     }
   }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out as ExtendedElement, vnode.attributes, props, component, updateSelf)
+  diffAttributes(
+    out as ExtendedElement,
+    vnode.attributes,
+    props,
+    component,
+    updateSelf,
+  )
   if ((out as ExtendedElement).props) {
-    (out as ExtendedElement).props.children = vnode.children
+    ;(out as ExtendedElement).props.children = vnode.children
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
@@ -207,7 +246,13 @@ function idiff(dom: ExtendedElement | ExtendedElement[] | null | Text | HTMLElem
  *  @param {Array} vchildren    Array of VNodes to compare to `dom.childNodes`
  *  @param {Boolean} isHydrating  If `true`, consumes externally created elements similar to hydration
  */
-function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: boolean, component: Component, updateSelf: boolean) {
+function innerDiffNode(
+  dom: ExtendedElement,
+  vchildren: VNode[],
+  isHydrating: boolean,
+  component: Component,
+  updateSelf: boolean,
+) {
   let originalChildren = dom.childNodes,
     children = [],
     keyed: Record<string, Element | undefined> = {},
@@ -226,22 +271,21 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
   if (len !== 0) {
     for (let i = 0; i < len; i++) {
       let child = originalChildren[i],
-      prevProps = (child as ExtendedElement).prevProps,
-        key =
-          vlen && prevProps
-            ? prevProps.key
-            : null
-            
+        prevProps = (child as ExtendedElement).prevProps,
+        key = vlen && prevProps ? prevProps.key : null
+
       if (key != null) {
         keyedLen++
         keyed[key as string] = child as Element
-      } else if(prevProps || // 拥有 prevProps 的进入 children，进入 children 后面才会被回收
+      } else if (
+        prevProps || // 拥有 prevProps 的进入 children，进入 children 后面才会被回收
         ((child as ExtendedElement).splitText !== undefined
           ? isHydrating
             ? (child as Text).nodeValue?.trim()
             : true
-          : isHydrating)) {
-       children[childrenLen++] = child
+          : isHydrating)
+      ) {
+        children[childrenLen++] = child
       }
     }
   }
@@ -297,7 +341,8 @@ function innerDiffNode(dom: ExtendedElement, vchildren: VNode[], isHydrating: bo
   // remove unused keyed children:
   if (keyedLen) {
     for (let i in keyed)
-      if (keyed[i] !== undefined) recollectNodeTree(keyed[i] as ExtendedElement, false)
+      if (keyed[i] !== undefined)
+        recollectNodeTree(keyed[i] as ExtendedElement, false)
   }
 
   // remove orphaned unkeyed children:
@@ -347,7 +392,13 @@ export function removeChildren(node: ChildNode | null | undefined) {
  *  @param {Object} attrs    The desired end-state key-value attribute pairs
  *  @param {Object} old      Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom: ExtendedElement, attrs: Record<string, unknown>, old: Record<string, unknown>, component: Component, updateSelf: boolean) {
+function diffAttributes(
+  dom: ExtendedElement,
+  attrs: Record<string, unknown>,
+  old: Record<string, unknown>,
+  component: Component,
+  updateSelf: boolean,
+) {
   let name
   // let update = false
   let isComponent = dom.update
@@ -381,7 +432,7 @@ function diffAttributes(dom: ExtendedElement, attrs: Record<string, unknown>, ol
           name,
           old[name],
           (old[name] = attrs[name]),
-          isForeignObject || isSvgMode
+          isForeignObject || isSvgMode,
         )
       }
       let ccName = camelCase(name)
@@ -391,9 +442,15 @@ function diffAttributes(dom: ExtendedElement, attrs: Record<string, unknown>, ol
       name !== 'children' &&
       (!(name in old) ||
         attrs[name] !==
-        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
-      setAccessor(dom, name, old[name], attrs[name], isForeignObject || isSvgMode)
+      setAccessor(
+        dom,
+        name,
+        old[name],
+        attrs[name],
+        isForeignObject || isSvgMode,
+      )
       // fix lazy load props missing
       if (dom.nodeName.indexOf('-') !== -1) {
         dom.props = dom.props || {}

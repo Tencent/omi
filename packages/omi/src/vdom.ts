@@ -16,10 +16,13 @@ export type ObjectVNode = {
 
 export type VNode = ObjectVNode | string | number | boolean | null | undefined
 
-
 const stack: VNode[] = []
 
-export function createElement(nodeName: string | Function, attributes: Attributes, restChildren: VNode[]): VNode | VNode[] {
+export function createElement(
+  nodeName: string | Function,
+  attributes: Attributes,
+  restChildren: VNode[],
+): VNode | VNode[] {
   let children: VNode[] = [],
     lastSimple: boolean = false,
     child: VNode,
@@ -32,7 +35,7 @@ export function createElement(nodeName: string | Function, attributes: Attribute
   } else {
     attributes = { ignoreAttrs: true }
   }
-  for (i = arguments.length; i-- > 2;) {
+  for (i = arguments.length; i-- > 2; ) {
     stack.push(arguments[i])
   }
   if (attributes.children != null) {
@@ -40,8 +43,12 @@ export function createElement(nodeName: string | Function, attributes: Attribute
     delete attributes.children
   }
   while (stack.length) {
-    if ((child = (stack.pop() as VNode)) && (child as unknown as VNode[]).pop !== undefined) {
-      for (i = (child as unknown as VNode[]).length; i--;) stack.push((child as unknown as VNode[])[i])
+    if (
+      (child = stack.pop() as VNode) &&
+      (child as unknown as VNode[]).pop !== undefined
+    ) {
+      for (i = (child as unknown as VNode[]).length; i--; )
+        stack.push((child as unknown as VNode[])[i])
     } else {
       if (typeof child === 'boolean') child = null
 
@@ -52,7 +59,7 @@ export function createElement(nodeName: string | Function, attributes: Attribute
       }
 
       if (simple && lastSimple) {
-        children[children.length - 1] += (child as string)
+        children[children.length - 1] += child as string
       } else if (children.length === 0) {
         children = [child]
       } else {
@@ -87,10 +94,14 @@ createElement.f = Fragment
  * @param rest Any additional arguments will be used as replacement children.
  */
 
-export function cloneElement(vnode: ObjectVNode, props: Attributes, ...rest: VNode[]): VNode | VNode[] {
+export function cloneElement(
+  vnode: ObjectVNode,
+  props: Attributes,
+  ...rest: VNode[]
+): VNode | VNode[] {
   return createElement(
     vnode.nodeName,
     { ...vnode.attributes, ...props },
-    rest.length > 0 ? rest : vnode.children
+    rest.length > 0 ? rest : vnode.children,
   )
 }
