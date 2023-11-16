@@ -1,5 +1,5 @@
 import { Component } from './component'
-import { isPrimitive } from './utils'
+import { isPrimitive, isObject } from './utils'
 
 type EffectFn = () => void
 type ComputedFn<T> = () => T
@@ -127,4 +127,20 @@ export function runBatch(): void {
     const fn = batchQueue.shift()
     if (fn) fn()
   }
+}
+
+export type SignalObject<T> = {
+  [K in keyof T]: SignalValue<T[K]>
+}
+
+export function signalObject<T>(initialValues: T): SignalObject<T> {
+  const signals = Object.entries(initialValues as object).reduce(
+    (acc, [key, value]) => {
+      acc[key] = signal<T[keyof T]>(value as T[keyof T])
+      return acc
+    },
+    {} as { [key: string]: SignalValue<T[keyof T]> },
+  )
+
+  return signals as SignalObject<T>
 }

@@ -239,6 +239,11 @@ declare namespace Omi {
    * Runs all functions in the batch queue.
    */
   function runBatch(): void;
+  
+  type SignalObject<T> = {
+    [K in keyof T]: SignalValue<T[K]>;
+  };
+  function signalObject<T>(initialValues: T): SignalObject<T>;
 
   class Signal<T> {
     private _value;
