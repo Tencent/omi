@@ -85,6 +85,11 @@ const components = [
     api: () => import('./components/button/ButtonAPI'),
   },
   {
+    name: 'button-group',
+    overview: () => import('./components/button-group/ButtonGroupPage'),
+    api: () => import('./components/button-group/ButtonGroupAPI'),
+  },
+  {
     name: 'collapse',
     overview: () => import('./components/collapse/CollapsePage'),
     api: () => import('./components/collapse/CollapseAPI'),

@@ -16,6 +16,7 @@
 | className   | string                                                                          | -         | Allows adding custom class names to override default styles.     |
 | tag         | string                                                                          | button    | Defines the HTML tag used for the button element.                |
 | href        | string                                                                          | null      | Specifies the URL the button should navigate to when clicked.    |
+| active      | bool                                                                            | null      | Controls whether the button is selected.                         |
 
 ## Button 属性
 
@@ -35,3 +36,4 @@
 | className   | string                                                                          | -         | 允许添加自定义类名以覆盖默认样式。 |
 | tag         | string                                                                          | button    | 定义用于按钮元素的 HTML 标签。     |
 | href        | string                                                                          | null      | 指定点击按钮时应导航至的 URL。     |
+| active      | bool                                                                            | null      | 控制按钮是否被选中。               |

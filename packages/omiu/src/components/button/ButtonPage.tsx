@@ -35,6 +35,19 @@ export class ButtonPage extends Component {
         </section>
         {/* <!-- Section: Basic example --> */}
 
+        {/* <!-- Section: Basic example --> */}
+        <section>
+          {/* <!-- Title --> */}
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="basic_example" data-te-spy-item>
+            Active example
+          </h2>
+
+          <code-showcase code={`<o-button active={true}>Button</o-button>`}>
+            <o-button active={true}>Button</o-button>
+          </code-showcase>
+        </section>
+        {/* <!-- Section: Basic example --> */}
+
         {/* <!-- Section: With ripple --> */}
         <section>
           {/* <!-- Title --> */}

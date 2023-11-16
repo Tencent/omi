@@ -62,6 +62,7 @@ export class Button extends Component {
     fullWidth: false,
     roundedFull: false,
     uppercase: true,
+    active: false,
     className: '',
   }
 
@@ -79,6 +80,7 @@ export class Button extends Component {
 
   render(props) {
     const config = theme[props.color]
+    let active = ''
     let btnClass = ''
     switch (props.variant) {
       case 'contained':
@@ -89,12 +91,14 @@ export class Button extends Component {
           case 'warning':
           case 'danger':
             btnClass = `bg-${props.color} text-white hover:bg-${props.color}-600 focus:bg-${props.color}-600 active:bg-${props.color}-700`
+            active = `bg-${props.color}-700`
             break
 
           case 'secondary':
           case 'light':
           case 'dark':
             btnClass = `bg-${config.bg} text-${config.text} hover:bg-${config.hover} focus:bg-${config.focus} active:bg-${config.active}`
+            active = `bg-${config.active}`
             break
         }
 
@@ -107,14 +111,17 @@ export class Button extends Component {
           case 'warning':
           case 'danger':
             btnClass = `border-2 border-${props.color} text-${props.color} hover:border-${props.color}-600 focus:border-${props.color}-600 active:border-${props.color}-700 hover:text-${props.color}-600 focus:text-${props.color}-600 active:text-${props.color}-700 hover:bg-neutral-500  hover:bg-opacity-10`
+            active = `border-${props.color}-700 text-${props.color}-700`
             break
 
           case 'secondary':
             btnClass = `border-2 border-${config.bg} text-${config.text} hover:border-${config.hover} focus:border-${config.focus} active:border-${config.active} hover:text-${config.hover} focus:text-${config.focus} active:text-${config.active} hover:bg-neutral-500  hover:bg-opacity-10 dark:text-primary-100 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10`
+            active = `border-${config.active} text-${config.active}`
             break
           case 'light':
           case 'dark':
             btnClass = `border-2 border-${config.bg} text-${config.bg} hover:border-${config.hover} focus:border-${config.focus} active:border-${config.active} hover:text-${config.hover} focus:text-${config.focus} active:text-${config.active} hover:bg-neutral-500  hover:bg-opacity-10`
+            active = `border-${config.active} text-${config.active}`
             break
         }
 
@@ -127,14 +134,17 @@ export class Button extends Component {
           case 'warning':
           case 'danger':
             btnClass = `text-${props.color} hover:bg-${props.color}-600 focus:bg-${props.color}-600 active:bg-${props.color}-700 hover:text-${props.color}-600 focus:text-${props.color}-600 active:text-${props.color}-700 hover:bg-opacity-10 focus:bg-opacity-10 active:bg-opacity-10`
+            active = `bg-${props.color}-700 text-${props.color}-700`
             break
 
           case 'secondary':
             btnClass = `text-${config.text} hover:bg-${config.hover} focus:bg-${config.focus} active:bg-${config.active} hover:text-${config.hover} focus:text-${config.focus} active:text-${config.active} hover:bg-opacity-10 focus:bg-opacity-10 active:bg-opacity-10`
+            active = `bg-${config.active} text-${config.active} bg-opacity-10`
             break
           case 'light':
           case 'dark':
             btnClass = `text-${config.bg} hover:bg-${config.hover} focus:bg-${config.focus} active:bg-${config.active} hover:text-${config.hover} focus:text-${config.focus} active:text-${config.active} hover:bg-opacity-10 focus:bg-opacity-10 active:bg-opacity-10`
+            active = `bg-${config.active} text-${config.active} bg-opacity-10`
             break
         }
         break
@@ -156,6 +166,7 @@ export class Button extends Component {
           [theme.floating[props.size]]: props.floating,
           [theme.fullWidth]: props.fullWidth,
           uppercase: props.uppercase,
+          [active]: props.active && !props.disabled,
         })}
       >
         <slot></slot>
