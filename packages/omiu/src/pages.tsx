@@ -15,7 +15,7 @@ export const componentsPages: Pages[] = [
   { name: 'alert', path: '/components/alert' },
   { name: 'button', path: '/components/button' },
   { name: 'button-group', path: '/components/button-group' },
-  // { name: 'cards', path: '/components/cards' },
+  { name: 'card', path: '/components/card' },
   { name: 'collapse', path: '/components/collapse' },
   // { name: 'link', path: '/components/link' },
   // { name: 'list-group', path: '/components/list-group' },

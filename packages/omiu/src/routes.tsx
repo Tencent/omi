@@ -94,6 +94,11 @@ const components = [
     overview: () => import('./components/collapse/CollapsePage'),
     api: () => import('./components/collapse/CollapseAPI'),
   },
+  {
+    name: 'card',
+    overview: () => import('./components/card/CardPage'),
+    api: () => import('./components/card/CardAPI'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {
