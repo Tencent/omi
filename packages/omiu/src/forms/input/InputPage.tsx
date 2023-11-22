@@ -14,6 +14,7 @@ import InputPhoneNumber from './examples/InputPhoneNumber'
 import InputURL from './examples/InputURL'
 import InputHelperText from './examples/InputHelperText'
 import InputCharacterCounter from './examples/InputCharacterCounter'
+import InputTags from './examples/InputTags'
 
 import InputBasicExampleCode from './examples/InputBasicExample?raw'
 import InputSizingCode from './examples/InputSizing?raw'
@@ -27,6 +28,7 @@ import InputPhoneNumberCode from './examples/InputPhoneNumber?raw'
 import InputURLCode from './examples/InputURL?raw'
 import InputHelperTextCode from './examples/InputHelperText?raw'
 import InputCharacterCounterCode from './examples/InputCharacterCounter?raw'
+import InputTagsCode from './examples/InputTags?raw'
 
 @tag('input-page')
 export default class InputPage extends Component {
@@ -264,6 +266,19 @@ export default class InputPage extends Component {
           </p>
           <code-showcase code={InputCharacterCounterCode}>
             <InputCharacterCounter.tagName />
+          </code-showcase>
+        </section>
+        {/* <!-- Section: Character counter --> */}
+
+        {/* <!-- Section: Character counter --> */}
+        <section>
+          {/* <!-- Title --> */}
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="character_counter" data-te-spy-item>
+            Tags
+          </h2>
+
+          <code-showcase code={InputTagsCode}>
+            <InputTags.tagName />
           </code-showcase>
         </section>
         {/* <!-- Section: Character counter --> */}

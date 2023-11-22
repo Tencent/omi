@@ -1,5 +1,7 @@
 const InputTheme = {
   wrapper: 'relative',
+  tagWrapper: 'flex items-center flex-wrap transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] p-[5px]',
+  tagInput: 'w-[100px] py-[0.32rem] leading-[1.6] dark:text-gray-200 dark:placeholder:text-gray-200',
   input:
     'peer block min-h-[auto] w-full rounded border-0 bg-transparent outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none placeholder:opacity-0 disabled:bg-neutral-100 read-only:bg-neutral-100 dark:disabled:bg-neutral-700 dark:read-only:bg-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary',
   activeInput: 'placeholder:opacity-100',
