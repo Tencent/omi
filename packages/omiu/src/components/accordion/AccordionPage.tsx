@@ -6,7 +6,7 @@ import { tailwind } from '@/tailwind'
 import './accordion'
 
 @tag('accordion-page')
-export class ButtonPage extends Component {
+export class AccordionPage extends Component {
   static css = [
     tailwind,
     `

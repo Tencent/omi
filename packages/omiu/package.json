@@ -18,7 +18,8 @@
     "omi-router": "^4.1.1",
     "omi-suspense": "^0.0.5",
     "omi-transition": "^0.1.0",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "swiper": "^11.0.4"
   },
   "devDependencies": {
     "@types/markdown-it": "^13.0.6",

@@ -3,7 +3,7 @@ import { tailwind } from '@/tailwind'
 import '../collapse/collapse'
 
 @tag('o-accordion')
-export class Button extends Component {
+export class Accordion extends Component {
   static css = [
     tailwind,
     `:host {

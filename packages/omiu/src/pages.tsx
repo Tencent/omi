@@ -17,7 +17,7 @@ export const componentsPages: Pages[] = [
   { name: 'button-group', path: '/components/button-group' },
   { name: 'card', path: '/components/card' },
   { name: 'collapse', path: '/components/collapse' },
-  // { name: 'link', path: '/components/link' },
+  { name: 'swiper', path: '/components/swiper' },
   // { name: 'list-group', path: '/components/list-group' },
   // { name: 'modal', path: '/components/modal' },
   // { name: 'paragraphs', path: '/components/paragraphs' },

@@ -25,7 +25,9 @@ export class ButtonPage extends Component {
           </h2>
           {/* <!-- Description --> */}
           <p className="mb-3">
-            The Card component is a versatile and reusable UI component that displays content within a card-like container. It can be used to display images, text, and other types of content in a visually appealing and organized manner.
+            The Card component is a versatile and reusable UI component that displays content within a card-like
+            container. It can be used to display images, text, and other types of content in a visually appealing and
+            organized manner.
           </p>
 
           <code-showcase
@@ -48,10 +50,10 @@ export class ButtonPage extends Component {
               className="max-w-[22rem] mx-auto"
               title="Card title"
               footerInfo="Last updated 3 mins ago"
-              img="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg">
+              img="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
+            >
               <p slot="body">
-                Some quick example text to build on the card title and make up the
-                bulk of the card's content.
+                Some quick example text to build on the card title and make up the bulk of the card's content.
               </p>
               <div slot="footer">
                 <o-button class="mr-5">Home</o-button>
