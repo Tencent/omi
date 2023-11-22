@@ -64,41 +64,41 @@ const contentStylesPages: Pages[] = [
 
 const dataPages: Pages[] = [{ name: 'tables', path: '/data/tables' }]
 
-const formsPages: Pages[] = [
-  { name: 'checkbox', path: '/forms/checkbox' },
+export const formsPages: Pages[] = [
+  // { name: 'checkbox', path: '/forms/checkbox' },
+  // {
+  //   name: 'form templates',
+  //   path: '/forms/form-templates',
+  // },
+  // {
+  //   name: 'file input',
+  //   path: '/forms/file-input',
+  // },
   {
-    name: 'form templates',
-    path: '/forms/form-templates',
+    name: 'input',
+    path: '/components/input',
   },
-  {
-    name: 'file input',
-    path: '/forms/file-input',
-  },
-  {
-    name: 'inputs',
-    path: '/forms/input',
-  },
-  {
-    name: 'login form',
-    path: '/forms/login-form',
-  },
-  {
-    name: 'radio',
-    path: '/forms/radio',
-  },
-  {
-    name: 'range',
-    path: '/forms/range',
-  },
-  {
-    name: 'registration form',
-    path: '/forms/registration-form',
-  },
-  { name: 'switch', path: '/forms/switch' },
-  {
-    name: 'search',
-    path: '/forms/search',
-  },
+  // {
+  //   name: 'login form',
+  //   path: '/forms/login-form',
+  // },
+  // {
+  //   name: 'radio',
+  //   path: '/forms/radio',
+  // },
+  // {
+  //   name: 'range',
+  //   path: '/forms/range',
+  // },
+  // {
+  //   name: 'registration form',
+  //   path: '/forms/registration-form',
+  // },
+  // { name: 'switch', path: '/forms/switch' },
+  // {
+  //   name: 'search',
+  //   path: '/forms/search',
+  // },
 ]
 
 const methodsPages: Pages[] = [{ name: 'ripple', path: '/methods/ripple' }]
@@ -140,10 +140,10 @@ const demoPages: PagesSection[] = [
   //   section: 'data',
   //   pages: dataPages,
   // },
-  // {
-  //   section: 'forms',
-  //   pages: formsPages,
-  // },
+  {
+    section: 'forms',
+    pages: formsPages,
+  },
   // {
   //   section: 'methods',
   //   pages: methodsPages,

@@ -29,7 +29,7 @@ export const routes = [
           <div class="flex">
             <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <o-suspense
-              imports={[import('./demo/HomePage')]}
+              imports={[import('./home-page')]}
               onDataLoaded={window.refreshDark}
               class="flex-1 ml-10 mr-10 lg:pl-60"
             >
@@ -103,6 +103,12 @@ const components = [
     name: 'swiper',
     overview: () => import('./components/swiper/SwiperPage'),
     api: () => import('./components/swiper/SwiperAPI'),
+  },
+
+  {
+    name: 'input',
+    overview: () => import('./forms/input/InputPage'),
+    api: () => import('./forms/input/InputAPI'),
   },
 ]
 
