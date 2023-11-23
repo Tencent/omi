@@ -100,6 +100,11 @@ const components = [
     api: () => import('./components/card/CardAPI'),
   },
   {
+    name: 'chip',
+    overview: () => import('./components/chip/ChipPage'),
+    api: () => import('./components/chip/ChipAPI'),
+  },
+  {
     name: 'swiper',
     overview: () => import('./components/swiper/SwiperPage'),
     api: () => import('./components/swiper/SwiperAPI'),

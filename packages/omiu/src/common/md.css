@@ -204,6 +204,10 @@ th {
   padding: 4px 8px;
 }
 
+th {
+  white-space: nowrap;
+}
+
 img {
   max-width: 900px;
 }

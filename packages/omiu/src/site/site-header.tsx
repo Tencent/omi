@@ -127,7 +127,7 @@ export default class extends Component {
               </div>
 
               <a
-                href="https://github.com/Tencent/omi/tree/master/packages/omi-elements"
+                href="https://github.com/Tencent/omi/tree/master/packages/omiu"
                 target="_blank"
                 class="rounded-md px-1.5 py-2 text-sm font-medium text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 sm:p-2"
               >
