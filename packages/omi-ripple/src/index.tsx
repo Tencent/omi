@@ -14,7 +14,7 @@ registerDirective('ripple', (el: HTMLElement, options: { color: string }) => {
 
     @keyframes ripple {
       to {
-        transform: scale(4);
+        transform: scale(2);
         opacity: 0;
       }
     }
