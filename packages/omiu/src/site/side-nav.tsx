@@ -3,7 +3,7 @@ import { tag, Component, classNames, bind, signal } from 'omi'
 import { tailwind } from '@/tailwind'
 import { Router } from 'omi-router'
 import { activeTab } from '@/routes'
-import { componentsPages, formsPages, navigationPages } from '../pages'
+import { componentsPages, formsPages, navigationPages, dataPages } from '../pages'
 
 export const menuShow = signal(window.innerWidth > 1024)
 
@@ -28,7 +28,7 @@ export class SideNav extends Component {
   static css = [tailwind]
 
   state = {
-    actives: ['Components', 'Forms', 'Navigation'],
+    actives: ['Components', 'Forms', 'Navigation', 'Data'],
   }
 
   router: Router | null = null
@@ -282,6 +282,74 @@ export class SideNav extends Component {
                       tabindex="0"
                     >
                       {page.name.charAt(0).toUpperCase() + page.name.slice(1)}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+
+          <li class="relative">
+            <a
+              class="hover:bg-[rgba(59,113,202,0.05)] dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-[rgba(59,113,202,0.05)] focus:text-inherit focus:outline-none active:[rgba(59,113,202,0.05)] active:text-inherit active:outline-none motion-reduce:transition-none dark:focus:bg-white/10 dark:active:bg-white/10 flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none dark:text-gray-300 relative overflow-hidden inline-block align-bottom"
+              onClick={this.toggle}
+              data-type="Data"
+              role="button"
+              aria-expanded="false"
+              tabindex="0"
+            >
+              <span class="mr-4 [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+                  ></path>
+                </svg>
+              </span>
+              <span>Data</span>
+              <span
+                class={classNames({
+                  'absolute -right-1 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear motion-reduce:transition-none [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300':
+                    true,
+                  'rotate-180': this.state.actives.indexOf('Data') !== -1,
+                })}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                </svg>
+              </span>
+            </a>
+            <ul
+              class={classNames({
+                ' relative m-0 list-none p-0': true,
+                '!visible hidden': this.state.actives.indexOf('Data') === -1,
+              })}
+            >
+              {dataPages.map((page) => {
+                return (
+                  <li class="mx-1 first:mt-1">
+                    <a
+                      href="javascript:void()"
+                      onClick={(evt) => this.goTo(evt, page.path)}
+                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      tabindex="0"
+                    >
+                      {page.name == 'pdf' ? 'PDF' : page.name.charAt(0).toUpperCase() + page.name.slice(1)}
                     </a>
                   </li>
                 )

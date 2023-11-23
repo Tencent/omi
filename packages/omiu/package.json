@@ -11,6 +11,7 @@
     "lint": "prettier --write src && eslint --fix src"
   },
   "dependencies": {
+    "@bundled-es-modules/pdfjs-dist": "^3.6.172-alpha.1",
     "copy-to-clipboard": "^3.3.3",
     "markdown-it": "^13.0.2",
     "omi": "^7.3.5",

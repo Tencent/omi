@@ -122,6 +122,13 @@ const components = [
     overview: () => import('./navigation/tabs/TabsPage'),
     api: () => import('./navigation/tabs/TabsAPI'),
   },
+
+  {
+    name: 'pdf',
+    type: 'data',
+    overview: () => import('./data/pdf/PDFPage'),
+    api: () => import('./data/pdf/PDFAPI'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {

@@ -63,7 +63,10 @@ const contentStylesPages: Pages[] = [
   },
 ]
 
-const dataPages: Pages[] = [{ name: 'tables', path: '/data/tables' }]
+export const dataPages: Pages[] = [
+  // { name: 'tables', path: '/data/tables' },
+  { name: 'pdf', path: '/data/pdf' },
+]
 
 export const formsPages: Pages[] = [
   // { name: 'checkbox', path: '/forms/checkbox' },
@@ -137,10 +140,10 @@ const demoPages: PagesSection[] = [
   //   section: 'content styles',
   //   pages: contentStylesPages,
   // },
-  // {
-  //   section: 'data',
-  //   pages: dataPages,
-  // },
+  {
+    section: 'data',
+    pages: dataPages,
+  },
   {
     section: 'forms',
     pages: formsPages,
