@@ -158,6 +158,52 @@ export class ButtonPage extends Component {
         </section>
         {/* <!-- Section: Outline --> */}
 
+         {/* <!-- Section: Colors --> */}
+         <section>
+          {/* <!-- Title --> */}
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="outline" data-te-spy-item>
+            Colors
+          </h2>
+        
+
+          <code-showcase
+            code={`<o-button color="primary">Primary</o-button>
+<o-button color="secondary">Secondary</o-button>
+<o-button color="success">Success</o-button>
+<o-button color="info">Info</o-button>
+<o-button color="warning">Warning</o-button>
+<o-button color="danger">Danger</o-button>
+<o-button color="light">Light</o-button>
+<o-button color="dark">Dark</o-button>`}
+          >
+            <o-button color="primary">
+              Primary
+            </o-button>
+            <o-button color="secondary">
+              Secondary
+            </o-button>
+            <o-button color="success">
+              Success
+            </o-button>
+            <o-button color="info">
+              Info
+            </o-button>
+            <o-button color="warning">
+              Warning
+            </o-button>
+            <o-button color="danger">
+              Danger
+            </o-button>
+            <o-button color="light">
+              Light
+            </o-button>
+            <o-button color="dark">
+              Dark
+            </o-button>
+          </code-showcase>
+        </section>
+        {/* <!-- Section: Colors --> */}
+
         {/* <!-- Section: Rounded --> */}
         <section>
           {/* <!-- Title --> */}
