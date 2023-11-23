@@ -6,7 +6,7 @@ import './site/content-nav'
 import { updateMenu } from './site/content-nav'
 import { signal } from 'omi'
 import 'omi-transition'
-import './lib/components/tabs/index'
+import './navigation/tabs/tabs'
 
 const showPage = signal(true)
 
@@ -114,6 +114,13 @@ const components = [
     name: 'input',
     overview: () => import('./forms/input/InputPage'),
     api: () => import('./forms/input/InputAPI'),
+  },
+
+  {
+    name: 'tabs',
+    type: 'navigation',
+    overview: () => import('./navigation/tabs/TabsPage'),
+    api: () => import('./navigation/tabs/TabsAPI'),
   },
 ]
 

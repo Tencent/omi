@@ -48,7 +48,10 @@ export class Chip extends Component {
       : 'rgba(128,128,128,.7)'
 
     return (
-      <div o-ripple={{ color: rippleColor }} class={classNames(theme.root, theme[props.size], theme[props.outline], props.className)}>
+      <div
+        o-ripple={{ color: rippleColor }}
+        class={classNames(theme.root, theme[props.size], theme[props.outline], props.className)}
+      >
         {props.img && (
           <img
             class="my-0 -ml-[12px] mr-[8px] h-[inherit] w-[inherit] rounded-[100%]"
@@ -58,7 +61,10 @@ export class Chip extends Component {
         )}
         {props.tag}
         {props.closable && (
-          <span onClick={this.onClose} class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100">
+          <span
+            onClick={this.onClose}
+            class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

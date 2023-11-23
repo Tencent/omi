@@ -104,19 +104,19 @@ export const formsPages: Pages[] = [
 
 const methodsPages: Pages[] = [{ name: 'ripple', path: '/methods/ripple' }]
 
-const navigationPages: Pages[] = [
-  {
-    name: 'breadcrumbs',
-    path: '/navigation/breadcrumbs',
-  },
-  {
-    name: 'footer',
-    path: '/navigation/footer',
-  },
-  {
-    name: 'pagination',
-    path: '/navigation/pagination',
-  },
+export const navigationPages: Pages[] = [
+  // {
+  //   name: 'breadcrumbs',
+  //   path: '/navigation/breadcrumbs',
+  // },
+  // {
+  //   name: 'footer',
+  //   path: '/navigation/footer',
+  // },
+  // {
+  //   name: 'pagination',
+  //   path: '/navigation/pagination',
+  // },
   {
     name: 'tabs',
     path: '/navigation/tabs',
@@ -149,10 +149,10 @@ const demoPages: PagesSection[] = [
   //   section: 'methods',
   //   pages: methodsPages,
   // },
-  // {
-  //   section: 'navigation',
-  //   pages: navigationPages,
-  // },
+  {
+    section: 'navigation',
+    pages: navigationPages,
+  },
 ]
 
 export default demoPages
