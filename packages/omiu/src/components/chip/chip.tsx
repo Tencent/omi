@@ -38,8 +38,10 @@ export class Chip extends Component {
   }
 
   @bind
-  onClose() {
-    this.fire('close')
+  onClose(evt) {
+    this.fire('close', {
+      nativeEvent: evt,
+    })
   }
 
   render(props) {

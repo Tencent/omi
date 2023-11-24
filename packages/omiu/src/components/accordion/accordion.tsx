@@ -27,7 +27,7 @@ export class Accordion extends Component {
 
   actives_: string[] = []
 
-  onClick(name) {
+  onClick(name, evt) {
     this.actives_.indexOf(name) === -1 ? addString(this.actives_, name) : removeString(this.actives_, name)
     this.transition = true
     this.update()
@@ -37,7 +37,10 @@ export class Accordion extends Component {
       this.update()
     }, 350)
 
-    this.fire('change', this.actives_)
+    this.fire('change', {
+      actives: this.actives_,
+      nativeEvent: evt,
+    })
   }
 
   transition: boolean = false
@@ -56,7 +59,7 @@ export class Accordion extends Component {
                 },
               )}
             >
-              <h2 class="mb-0" onClick={() => this.onClick(child.attributes.name)}>
+              <h2 class="mb-0" onClick={(evt) => this.onClick(child.attributes.name, evt)}>
                 <button
                   class={classNames(
                     'group relative flex w-full items-center rounded-t-[15px] border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400',

@@ -44,9 +44,11 @@ export class SideNav extends Component {
   goTo(evt: MouseEvent, path) {
     evt.preventDefault()
     evt.stopPropagation()
-    this.router?.push(path)
-    menuShow.value = window.innerWidth > 1024
-    activeTab.value = 'overview'
+    if (this.router.currentRoute.path !== path) {
+      this.router?.push(path)
+      menuShow.value = window.innerWidth > 1024
+      activeTab.value = 'overview'
+    }
   }
 
   @bind

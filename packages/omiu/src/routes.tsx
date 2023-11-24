@@ -111,6 +111,12 @@ const components = [
   },
 
   {
+    name: 'dropdown',
+    overview: () => import('./components/dropdown/DropdownPage'),
+    api: () => import('./components/dropdown/DropdownAPI'),
+  },
+
+  {
     name: 'input',
     overview: () => import('./forms/input/InputPage'),
     api: () => import('./forms/input/InputAPI'),

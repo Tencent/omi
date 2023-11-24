@@ -31,22 +31,31 @@ export class SwiperComponent extends Component<Props> {
   ]
 
   @bind
-  onPreviusClick() {
+  onPreviusClick(evt) {
     this.swiper?.slidePrev()
-    this.fire('change', this.swiper!.realIndex)
+    this.fire('change', {
+      index: this.swiper!.realIndex,
+      nativeEvent: evt,
+    })
   }
 
   @bind
-  onNextClick() {
+  onNextClick(evt) {
     this.swiper?.slideNext()
-    this.fire('change', this.swiper!.realIndex)
+    this.fire('change', {
+      index: this.swiper!.realIndex,
+      nativeEvent: evt,
+    })
   }
 
   @bind
-  onPaginationClick(index: number) {
+  onPaginationClick(index: number, evt) {
     // https://www.swiper.com.cn/api/methods/417.html
     this.swiper?.slideToLoop(index)
-    this.fire('change', this.swiper!.realIndex)
+    this.fire('change', {
+      index,
+      nativeEvent: evt,
+    })
   }
 
   static defaultProps = {
@@ -160,7 +169,7 @@ export class SwiperComponent extends Component<Props> {
             {props.children.map((child, index) => {
               return (
                 <button
-                  onClick={() => this.onPaginationClick(index)}
+                  onClick={(evt) => this.onPaginationClick(index, evt)}
                   type="button"
                   class={classNames(theme.paginationButton, {
                     'opacity-50': props.index !== index,
