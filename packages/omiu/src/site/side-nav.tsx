@@ -86,7 +86,7 @@ export class SideNav extends Component {
         <a
           href="javascript:void(0)"
           onClick={this.goBackHome}
-          class=" flex items-center justify-center py-4 pr-3  bg-neutral-50 text-lg font-medium outline-none dark:text-neutral-100 dark:bg-neutral-800"
+          class="flex items-center justify-center py-4 pr-3  bg-neutral-50 text-lg font-medium outline-none dark:text-neutral-100 dark:bg-neutral-800"
           aria-current="page"
         >
           <img src="https://omi.cdn-go.cn/s/latest/omi.svg" class="pr-2 w-8 logo" alt="Omi logo" />

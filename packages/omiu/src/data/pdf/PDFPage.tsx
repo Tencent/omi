@@ -30,14 +30,30 @@ export class ButtonPage extends Component {
             Project.
           </p>
 
-          <code-showcase code={`<o-pdf
-  scale={1.5}
+          <code-showcase
+            code={`<o-pdf
   url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf">
-</o-pdf>`}>
+</o-pdf>`}
+          >
+            <o-pdf url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"></o-pdf>
+          </code-showcase>
+        </section>
+
+        <section>
+          {/* <!-- Title --> */}
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="basic_example" data-te-spy-item>
+            Scroll
+          </h2>
+
+          <code-showcase
+            code={`<o-pdf
+  url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf">
+</o-pdf>`}
+          >
             <o-pdf
-              scale={1.5}
-              url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf">
-            </o-pdf>
+              pagination={false}
+              url="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf"
+            ></o-pdf>
           </code-showcase>
         </section>
       </div>

@@ -22,7 +22,7 @@ export class Button extends Component {
   }
 
   static defaultProps = {
-    scale: 1
+    pagination: true,
   }
 
   installed() {
@@ -34,7 +34,6 @@ export class Button extends Component {
     this.pageRendering = false
     this.pageNumPending = null
     this.scale = this.props.scale
-    this.ctx = this.canvas.getContext('2d')
 
     /**
      * Asynchronously downloads PDF.
@@ -45,8 +44,23 @@ export class Button extends Component {
       this.state.pageCount = this.pdfDoc.numPages
       this.update()
 
-      // Initial/first page rendering
-      this.renderPage(this.pageNum)
+      if (this.props.pagination) {
+        this.ctx = this.canvas.getContext('2d')
+        this.renderPage(this.pageNum)
+      } else {
+        this.renderPages()
+      }
+
+      window.addEventListener(
+        'resize',
+        throttle(() => {
+          if (this.props.pagination) {
+            this.renderPage(this.pageNum)
+          } else {
+            this.renderPages()
+          }
+        }, 300),
+      )
     })
   }
 
@@ -58,14 +72,19 @@ export class Button extends Component {
     this.pageRendering = true
     // Using promise to fetch the page
     this.pdfDoc.getPage(num).then((page) => {
-      const viewport = page.getViewport({ scale: this.scale })
-      this.canvas.height = viewport.height
-      this.canvas.width = viewport.width
+      const viewport = page.getViewport({ scale: 1 })
+      const width = this.clientWidth || parseInt(this.style.width)
+      const scale = width / viewport.width
+
+      const scaledViewport = page.getViewport({ scale })
+
+      this.canvas.height = scaledViewport.height
+      this.canvas.width = scaledViewport.width
 
       // Render PDF page into canvas context
       const renderContext = {
         canvasContext: this.ctx,
-        viewport: viewport,
+        viewport: scaledViewport,
       }
       const renderTask = page.render(renderContext)
 
@@ -82,6 +101,34 @@ export class Button extends Component {
 
     this.state.pageNum = num
     this.update()
+  }
+
+  renderPages() {
+    this.container.innerHTML = ''
+    for (let pageNumber = 1; pageNumber <= this.pdfDoc.numPages; pageNumber++) {
+      this.pdfDoc.getPage(pageNumber).then((page) => {
+        const viewport = page.getViewport({ scale: 1 })
+        const width = this.clientWidth || parseInt(this.style.width)
+        const scale = width / viewport.width
+
+        const scaledViewport = page.getViewport({ scale })
+
+        const pdfCanvas = document.createElement('canvas')
+
+        pdfCanvas.width = scaledViewport.width
+        pdfCanvas.height = scaledViewport.height
+        this.container.appendChild(pdfCanvas)
+
+        const pdfContext = pdfCanvas.getContext('2d')
+
+        const renderContext = {
+          canvasContext: pdfContext,
+          viewport: scaledViewport,
+        }
+
+        page.render(renderContext)
+      })
+    }
   }
 
   queueRenderPage(num) {
@@ -113,16 +160,38 @@ export class Button extends Component {
   render(props) {
     return (
       <>
-        <div class="flex justify-between items-center">
-          <o-button variant="outlined" onClick={this.onPrevClick} class>Prev</o-button>
-          <span>
-             <span id="page_num">{this.state.pageNum}</span> / <span id="page_count">{this.state.pageCount}</span>
-          </span>
-          <o-button variant="outlined" onClick={this.onNextClick}>Next</o-button>
-        </div>
-
-        <canvas ref={(e) => (this.canvas = e)}></canvas>
+        {props.pagination && (
+          <div>
+            <div class="flex justify-between items-center">
+              <o-button variant="outlined" onClick={this.onPrevClick} class>
+                Prev
+              </o-button>
+              <span>
+                <span id="page_num">{this.state.pageNum}</span> / <span id="page_count">{this.state.pageCount}</span>
+              </span>
+              <o-button variant="outlined" onClick={this.onNextClick}>
+                Next
+              </o-button>
+            </div>
+            <canvas ref={(e) => (this.canvas = e)}></canvas>
+          </div>
+        )}
+        {!props.pagination && <div ref={(e) => (this.container = e)}></div>}
       </>
     )
+  }
+}
+
+function throttle(func, delay) {
+  let timeoutId
+  return function () {
+    const context = this
+    const args = arguments
+    if (!timeoutId) {
+      timeoutId = setTimeout(function () {
+        func.apply(context, args)
+        timeoutId = null
+      }, delay)
+    }
   }
 }
