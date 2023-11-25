@@ -21,6 +21,7 @@ export const componentsPages: Pages[] = [
   { name: 'swiper', path: '/components/swiper' },
   { name: 'dropdown', path: '/components/dropdown' },
   { name: 'lightbox', path: '/components/lightbox' },
+  { name: 'link', path: '/components/link' },
   // { name: 'modal', path: '/components/modal' },
   // { name: 'paragraphs', path: '/components/paragraphs' },
   // { name: 'placeholders', path: '/components/placeholders' },

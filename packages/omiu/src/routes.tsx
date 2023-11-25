@@ -141,6 +141,13 @@ const components = [
     overview: () => import('./data/pdf/page'),
     api: () => import('./data/pdf/api'),
   },
+
+  {
+    name: 'link',
+    type: 'components',
+    overview: () => import('./components/link/page'),
+    api: () => import('./components/link/api'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {
