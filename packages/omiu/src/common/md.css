@@ -243,6 +243,10 @@ h2 {
   font-weight: 600;
 }
 
+h2:not(:first-child) {
+  margin-top: 2rem;
+}
+
 h3 {
   font-size: 1.2em;
 }

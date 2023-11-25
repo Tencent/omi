@@ -19,6 +19,7 @@
     "omi-router": "^4.1.1",
     "omi-suspense": "^0.0.5",
     "omi-transition": "^0.1.0",
+    "photoswipe": "^5.4.2",
     "prismjs": "^1.29.0",
     "swiper": "^11.0.4"
   },

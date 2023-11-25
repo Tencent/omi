@@ -20,7 +20,7 @@ export const componentsPages: Pages[] = [
   { name: 'chip', path: '/components/chip' },
   { name: 'swiper', path: '/components/swiper' },
   { name: 'dropdown', path: '/components/dropdown' },
-  // { name: 'list-group', path: '/components/list-group' },
+  { name: 'lightbox', path: '/components/lightbox' },
   // { name: 'modal', path: '/components/modal' },
   // { name: 'paragraphs', path: '/components/paragraphs' },
   // { name: 'placeholders', path: '/components/placeholders' },

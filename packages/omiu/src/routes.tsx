@@ -61,79 +61,85 @@ export const routes = [
 const components = [
   {
     name: 'accordion',
-    overview: () => import('./components/accordion/AccordionPage'),
-    api: () => import('./components/accordion/AccordionAPI'),
+    overview: () => import('./components/accordion/page'),
+    api: () => import('./components/accordion/api'),
   },
   {
     name: 'avatar',
-    overview: () => import('./components/avatar/AvatarPage'),
-    api: () => import('./components/avatar/AvatarAPI'),
+    overview: () => import('./components/avatar/page'),
+    api: () => import('./components/avatar/api'),
   },
   {
     name: 'alert',
-    overview: () => import('./components/alert/AlertPage'),
-    api: () => import('./components/alert/AlertAPI'),
+    overview: () => import('./components/alert/page'),
+    api: () => import('./components/alert/api'),
   },
   {
     name: 'badge',
-    overview: () => import('./components/badge/BadgePage'),
-    api: () => import('./components/badge/BadgeAPI'),
+    overview: () => import('./components/badge/page'),
+    api: () => import('./components/badge/api'),
   },
   {
     name: 'button',
-    overview: () => import('./components/button/ButtonPage'),
-    api: () => import('./components/button/ButtonAPI'),
+    overview: () => import('./components/button/page'),
+    api: () => import('./components/button/api'),
   },
   {
     name: 'button-group',
-    overview: () => import('./components/button-group/ButtonGroupPage'),
-    api: () => import('./components/button-group/ButtonGroupAPI'),
+    overview: () => import('./components/button-group/page'),
+    api: () => import('./components/button-group/api'),
   },
   {
     name: 'collapse',
-    overview: () => import('./components/collapse/CollapsePage'),
-    api: () => import('./components/collapse/CollapseAPI'),
+    overview: () => import('./components/collapse/page'),
+    api: () => import('./components/collapse/api'),
   },
   {
     name: 'card',
-    overview: () => import('./components/card/CardPage'),
-    api: () => import('./components/card/CardAPI'),
+    overview: () => import('./components/card/page'),
+    api: () => import('./components/card/api'),
   },
   {
     name: 'chip',
-    overview: () => import('./components/chip/ChipPage'),
-    api: () => import('./components/chip/ChipAPI'),
+    overview: () => import('./components/chip/page'),
+    api: () => import('./components/chip/api'),
   },
   {
     name: 'swiper',
-    overview: () => import('./components/swiper/SwiperPage'),
-    api: () => import('./components/swiper/SwiperAPI'),
+    overview: () => import('./components/swiper/page'),
+    api: () => import('./components/swiper/api'),
   },
 
   {
     name: 'dropdown',
-    overview: () => import('./components/dropdown/DropdownPage'),
-    api: () => import('./components/dropdown/DropdownAPI'),
+    overview: () => import('./components/dropdown/page'),
+    api: () => import('./components/dropdown/api'),
+  },
+
+  {
+    name: 'lightbox',
+    overview: () => import('./components/lightbox/page'),
+    api: () => import('./components/lightbox/api'),
   },
 
   {
     name: 'input',
-    overview: () => import('./forms/input/InputPage'),
-    api: () => import('./forms/input/InputAPI'),
+    overview: () => import('./forms/input/page'),
+    api: () => import('./forms/input/api'),
   },
 
   {
     name: 'tabs',
     type: 'navigation',
-    overview: () => import('./navigation/tabs/TabsPage'),
-    api: () => import('./navigation/tabs/TabsAPI'),
+    overview: () => import('./navigation/tabs/page'),
+    api: () => import('./navigation/tabs/api'),
   },
 
   {
     name: 'pdf',
     type: 'data',
-    overview: () => import('./data/pdf/PDFPage'),
-    api: () => import('./data/pdf/PDFAPI'),
+    overview: () => import('./data/pdf/page'),
+    api: () => import('./data/pdf/api'),
   },
 ]
 
