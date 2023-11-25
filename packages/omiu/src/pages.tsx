@@ -67,7 +67,7 @@ const contentStylesPages: Pages[] = [
 
 export const dataPages: Pages[] = [
   // { name: 'tables', path: '/data/tables' },
-  { name: 'pdf', path: '/data/pdf' },
+  { name: 'PDF', path: '/data/pdf' },
 ]
 
 export const formsPages: Pages[] = [
@@ -131,11 +131,12 @@ export const navigationPages: Pages[] = [
   //   path: '/navigation/pills',
   // },
 ]
+export const designBlocksPages: Pages[] = [{ name: 'list', path: '/design-blocks/list' }]
 
 // list of pages with sections
 const demoPages: PagesSection[] = [
   {
-    section: 'components',
+    section: 'Components',
     pages: componentsPages,
   },
   // {
@@ -143,11 +144,11 @@ const demoPages: PagesSection[] = [
   //   pages: contentStylesPages,
   // },
   {
-    section: 'data',
+    section: 'Data',
     pages: dataPages,
   },
   {
-    section: 'forms',
+    section: 'Forms',
     pages: formsPages,
   },
   // {
@@ -155,8 +156,12 @@ const demoPages: PagesSection[] = [
   //   pages: methodsPages,
   // },
   {
-    section: 'navigation',
+    section: 'Navigation',
     pages: navigationPages,
+  },
+  {
+    section: 'Design Blocks',
+    pages: designBlocksPages,
   },
 ]
 

@@ -12,6 +12,7 @@ https://omi.cdn-go.cn/omiu/latest/
 
 * tailwindcss
 * tw-elements
+* flowbite
 * photo-swipe
 * swiper
 * pdfjs

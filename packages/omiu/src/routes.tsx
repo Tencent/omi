@@ -148,6 +148,12 @@ const components = [
     overview: () => import('./components/link/page'),
     api: () => import('./components/link/api'),
   },
+
+  {
+    name: 'list',
+    type: 'design-blocks',
+    overview: () => import('./design-blocks/list/page'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {
@@ -162,26 +168,28 @@ components.forEach((component: { type?: string; name?: string; page?: string; ov
           <div class="flex">
             <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <div class="flex-1 ml-10 mr-10 w-0 flex-grow overflow-auto pr-0 lg:pr-40 lg:pl-60">
-              <o-tabs pills class="pt-5">
-                <o-tabs-item
-                  onClick={() => {
-                    activeTab.value = 'overview'
-                  }}
-                  active={activeTab.value === 'overview'}
-                  tag="button"
-                >
-                  OVERVIEW
-                </o-tabs-item>
-                <o-tabs-item
-                  onClick={() => {
-                    activeTab.value = 'api'
-                  }}
-                  active={activeTab.value === 'api'}
-                  tag="button"
-                >
-                  API
-                </o-tabs-item>
-              </o-tabs>
+              {component.type !== 'design-blocks' && (
+                <o-tabs pills class="pt-5">
+                  <o-tabs-item
+                    onClick={() => {
+                      activeTab.value = 'overview'
+                    }}
+                    active={activeTab.value === 'overview'}
+                    tag="button"
+                  >
+                    OVERVIEW
+                  </o-tabs-item>
+                  <o-tabs-item
+                    onClick={() => {
+                      activeTab.value = 'api'
+                    }}
+                    active={activeTab.value === 'api'}
+                    tag="button"
+                  >
+                    API
+                  </o-tabs-item>
+                </o-tabs>
+              )}
               <o-suspense
                 minLoadingTime={300}
                 imports={[activeTab.value === 'api' ? component.api() : component.overview()]}

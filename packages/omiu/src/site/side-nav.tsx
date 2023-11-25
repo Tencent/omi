@@ -3,7 +3,7 @@ import { tag, Component, classNames, bind, signal } from 'omi'
 import { tailwind } from '@/tailwind'
 import { Router } from 'omi-router'
 import { activeTab } from '@/routes'
-import { componentsPages, formsPages, navigationPages, dataPages } from '../pages'
+import { componentsPages, formsPages, navigationPages, dataPages, designBlocksPages } from '../pages'
 
 export const menuShow = signal(window.innerWidth > 1024)
 
@@ -28,7 +28,7 @@ export class SideNav extends Component {
   static css = [tailwind]
 
   state = {
-    actives: ['Components', 'Forms', 'Navigation', 'Data'],
+    actives: ['Components', 'Forms', 'Navigation', 'Data', 'DesignBlocks'],
   }
 
   router: Router | null = null
@@ -352,6 +352,65 @@ export class SideNav extends Component {
                       tabindex="0"
                     >
                       {page.name == 'pdf' ? 'PDF' : page.name.charAt(0).toUpperCase() + page.name.slice(1)}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+
+          <li class="relative">
+            <a
+              class="hover:bg-[rgba(59,113,202,0.05)] dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-[rgba(59,113,202,0.05)] focus:text-inherit focus:outline-none active:[rgba(59,113,202,0.05)] active:text-inherit active:outline-none motion-reduce:transition-none dark:focus:bg-white/10 dark:active:bg-white/10 flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none dark:text-gray-300 relative overflow-hidden inline-block align-bottom"
+              onClick={this.toggle}
+              data-type="Data"
+              role="button"
+              aria-expanded="false"
+              tabindex="0"
+            >
+              <span class="mr-4 [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                  <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z"></path>
+                  <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z"></path>
+                  <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z"></path>
+                </svg>
+              </span>
+              <span>Design Blocks</span>
+              <span
+                class={classNames({
+                  'absolute -right-1 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear motion-reduce:transition-none [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300':
+                    true,
+                  'rotate-180': this.state.actives.indexOf('DesignBlocks') !== -1,
+                })}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                </svg>
+              </span>
+            </a>
+            <ul
+              class={classNames({
+                ' relative m-0 list-none p-0': true,
+                '!visible hidden': this.state.actives.indexOf('DesignBlocks') === -1,
+              })}
+            >
+              {designBlocksPages.map((page) => {
+                return (
+                  <li class="mx-1 first:mt-1">
+                    <a
+                      href="javascript:void()"
+                      onClick={(evt) => this.goTo(evt, page.path)}
+                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      tabindex="0"
+                    >
+                      {page.name.charAt(0).toUpperCase() + page.name.slice(1)}
                     </a>
                   </li>
                 )
