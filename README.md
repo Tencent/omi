@@ -69,10 +69,11 @@ $ npm run build       # release
 
 - Core packages
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Implementation of omi framework.
-  - [`omi-elements`](https://github.com/Tencent/omi/tree/master/packages/omi-elements) - Tailwind Element Omi UI KIT.
+  - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - Hope to create the best web components.
   - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - Create SPA of omi framework.
   - [`omi-cli`](https://github.com/omijs/cli) - To quickly create an Omi + Vite + TS/JS project.
 - Starter kits (not published to npm)
+  - [`omi-elements`](https://github.com/Tencent/omi/tree/master/packages/omi-elements) - Tailwind Element Omi UI KIT.
   - [`omi-starter-spa`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-spa) - A starter repo for building single page app using Omi + OmiRouter + Tailwindcss + TypeScript + Vite.
   - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - A starter repo for building web app or reusable components using Omi in TypeScript base on Vite.
   - [`omi-starter-tailwind`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-tailwind) - A starter repo for building web app or reusable components using Omi + Tailwindcss + TypeScript + Vite.
@@ -321,11 +322,6 @@ define('my-app', class extends withTwind(Component) {
   }
 })
 ``` -->
-
-
-## Wechat Group
-
-<img src="./assets/wechat.jpg" alt="omi" width="300"/></p>
 
 
 ## Contributors
