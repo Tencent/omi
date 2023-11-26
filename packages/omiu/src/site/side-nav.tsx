@@ -363,7 +363,7 @@ export class SideNav extends Component {
             <a
               class="hover:bg-[rgba(59,113,202,0.05)] dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-[rgba(59,113,202,0.05)] focus:text-inherit focus:outline-none active:[rgba(59,113,202,0.05)] active:text-inherit active:outline-none motion-reduce:transition-none dark:focus:bg-white/10 dark:active:bg-white/10 flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none dark:text-gray-300 relative overflow-hidden inline-block align-bottom"
               onClick={this.toggle}
-              data-type="Data"
+              data-type="DesignBlocks"
               role="button"
               aria-expanded="false"
               tabindex="0"

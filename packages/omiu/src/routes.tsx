@@ -154,6 +154,18 @@ const components = [
     type: 'design-blocks',
     overview: () => import('./design-blocks/list/page'),
   },
+
+  {
+    name: 'modal',
+    overview: () => import('./components/modal/page'),
+    api: () => import('./components/modal/api'),
+  },
+
+  {
+    name: 'skeleton',
+    overview: () => import('./components/skeleton/page'),
+    api: () => import('./components/skeleton/api'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {

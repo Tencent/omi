@@ -38,13 +38,13 @@ export class ButtonPage extends Component {
   shadow
   src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
 ></o-avatar>
-<o-avatar rounded shadow className="w-32" src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"></o-avatar>
+<o-avatar rounded shadow className="w-32" src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"></o-avatar>
 <o-avatar
   className="w-32 mx-auto mb-4"
   rounded
-  src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"
-  name="John Doe"
-  describe="Web designer"
+  src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"
+  name="Fang"
+  describe="Plane model"
 ></o-avatar>`}
           >
             <o-avatar className="w-32" roundedFull src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"></o-avatar>
@@ -54,13 +54,13 @@ export class ButtonPage extends Component {
               shadow
               src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
             ></o-avatar>
-            <o-avatar rounded shadow className="w-32" src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"></o-avatar>
+            <o-avatar rounded shadow className="w-32" src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"></o-avatar>
             <o-avatar
               className="w-32 mx-auto mb-4"
               rounded
-              src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"
-              name="John Doe"
-              describe="Web designer"
+              src="https://wx.gtimg.com/resource/feuploader/202106/e685db3a4545b05f6fa05b4cbd0b25f0_420x420.png"
+              name="Fang"
+              describe="Plane model"
             ></o-avatar>
           </code-showcase>
         </section>
