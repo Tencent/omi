@@ -24,7 +24,8 @@ export const componentsPages: Pages[] = [
   { name: 'link', path: '/components/link' },
   { name: 'modal', path: '/components/modal' },
   { name: 'skeleton', path: '/components/skeleton' },
-  // { name: 'placeholders', path: '/components/placeholders' },
+  { name: 'popconfirm', path: '/components/popconfirm' },
+  { name: 'popover', path: '/components/popover' },
   // { name: 'rating', path: '/components/rating' },
   // { name: 'spinners', path: '/components/spinners' },
   // { name: 'progress', path: '/components/progress' },
@@ -107,7 +108,9 @@ export const formsPages: Pages[] = [
   // },
 ]
 
-const methodsPages: Pages[] = [{ name: 'ripple', path: '/methods/ripple' }]
+export const directivesPages: Pages[] = [
+  // { name: 'ripple', path: '/directives/ripple' },
+]
 
 export const navigationPages: Pages[] = [
   // {
@@ -152,8 +155,8 @@ const demoPages: PagesSection[] = [
     pages: formsPages,
   },
   // {
-  //   section: 'methods',
-  //   pages: methodsPages,
+  //   section: 'directives',
+  //   pages: directivesPages,
   // },
   {
     section: 'Navigation',

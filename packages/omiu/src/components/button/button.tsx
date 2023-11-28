@@ -61,7 +61,7 @@ export class Button extends Component {
     disabled: false,
     fullWidth: false,
     roundedFull: false,
-    uppercase: true,
+    uppercase: false,
     active: false,
     className: '',
   }

@@ -12,7 +12,7 @@
 | disabled    | bool                                                                            | false     | Controls whether the button is disabled.                         |
 | fullWidth   | bool                                                                            | false     | Controls whether the button occupies the entire available width. |
 | roundedFull | bool                                                                            | false     | Controls whether the button has fully rounded corners.           |
-| uppercase   | bool                                                                            | true      | Controls whether the button text is uppercase.                   |
+| uppercase   | bool                                                                            | false     | Controls whether the button text is uppercase.                   |
 | className   | string                                                                          | -         | Allows adding custom class names to override default styles.     |
 | tag         | string                                                                          | button    | Defines the HTML tag used for the button element.                |
 | href        | string                                                                          | null      | Specifies the URL the button should navigate to when clicked.    |
@@ -32,7 +32,7 @@
 | disabled    | bool                                                                            | false     | 控制按钮是否禁用。                 |
 | fullWidth   | bool                                                                            | false     | 控制按钮是否占据整个可用宽度。     |
 | roundedFull | bool                                                                            | false     | 控制按钮是否具有完全圆角。         |
-| uppercase   | bool                                                                            | true      | 控制按钮文本是否为大写。           |
+| uppercase   | bool                                                                            | false     | 控制按钮文本是否为大写。           |
 | className   | string                                                                          | -         | 允许添加自定义类名以覆盖默认样式。 |
 | tag         | string                                                                          | button    | 定义用于按钮元素的 HTML 标签。     |
 | href        | string                                                                          | null      | 指定点击按钮时应导航至的 URL。     |

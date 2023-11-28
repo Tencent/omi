@@ -16,3 +16,4 @@ https://omi.cdn-go.cn/omiu/latest/
 * photo-swipe
 * swiper
 * pdfjs
+* popperjs

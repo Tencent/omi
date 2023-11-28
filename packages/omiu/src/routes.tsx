@@ -109,7 +109,11 @@ const components = [
     overview: () => import('./components/swiper/page'),
     api: () => import('./components/swiper/api'),
   },
-
+  {
+    name: 'skeleton',
+    overview: () => import('./components/skeleton/page'),
+    api: () => import('./components/skeleton/api'),
+  },
   {
     name: 'dropdown',
     overview: () => import('./components/dropdown/page'),
@@ -162,9 +166,15 @@ const components = [
   },
 
   {
-    name: 'skeleton',
-    overview: () => import('./components/skeleton/page'),
-    api: () => import('./components/skeleton/api'),
+    name: 'popconfirm',
+    overview: () => import('./components/popconfirm/page'),
+    api: () => import('./components/popconfirm/api'),
+  },
+
+  {
+    name: 'popover',
+    overview: () => import('./components/popover/page'),
+    api: () => import('./components/popover/api'),
   },
 ]
 
