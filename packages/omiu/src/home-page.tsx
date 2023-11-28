@@ -5,14 +5,32 @@ import demoPages from './pages'
 
 @tag('home-page')
 export class ButtonLink extends Component {
-  static css = [tailwind]
+  static css = [tailwind,
+  `
+  table {
+    display: block;
+    overflow: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  tr:nth-child(2n) {
+    background-color: #efefef;
+  }
+  
+  table th, table td {
+    padding: 6px 13px;
+    border: 1px solid #dfdfdf;
+  }
+  `
+  ]
 
   show = false
   render() {
 
     return (
 
-      <table>
+      <table class="w-full bg-white mx-auto text-gray-600 dark:text-900 mt-10 mb-96">
         <tr>
           <td>
             <a href="#/forms/datepicker/">
@@ -31,7 +49,7 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Datepicker</b></td>
+          <td align="center"><b>Datepicker✍️</b></td>
           <td align="center"><b>Dropdown</b></td>
           <td align="center"><b>Modal</b></td>
         </tr>
@@ -54,9 +72,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Charts</b></td>
-          <td align="center"><b>Tooltips</b></td>
-          <td align="center"><b>Carousel</b></td>
+          <td align="center"><b>Charts✍️</b></td>
+          <td align="center"><b>Tooltip✍️</b></td>
+          <td align="center"><b>Swiper</b></td>
         </tr>
 
         <tr>
@@ -79,7 +97,7 @@ export class ButtonLink extends Component {
         <tr>
           <td align="center"><b>Accordion</b></td>
           <td align="center"><b>Tabs</b></td>
-          <td align="center"><b>Stepper</b></td>
+          <td align="center"><b>Stepper✍️</b></td>
         </tr>
         <tr>
           <td>
@@ -99,9 +117,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Timepicker</b></td>
-          <td align="center"><b>Footer</b></td>
-          <td align="center"><b>Navbar</b></td>
+          <td align="center"><b>Timepicker✍️</b></td>
+          <td align="center"><b>Footer✍️</b></td>
+          <td align="center"><b>Navbar✍️</b></td>
         </tr>
 
         <tr>
@@ -122,7 +140,7 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Alerts</b></td>
+          <td align="center"><b>Alert</b></td>
           <td align="center"><b>Avatar</b></td>
           <td align="center"><b>Badges</b></td>
         </tr>
@@ -146,8 +164,8 @@ export class ButtonLink extends Component {
         </tr>
         <tr>
           <td align="center"><b>Button group</b></td>
-          <td align="center"><b>Buttons</b></td>
-          <td align="center"><b>Cards</b></td>
+          <td align="center"><b>Button</b></td>
+          <td align="center"><b>Card</b></td>
         </tr>
 
         <tr>
@@ -168,9 +186,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Chips</b></td>
+          <td align="center"><b>Chip</b></td>
           <td align="center"><b>Collapse</b></td>
-          <td align="center"><b>Gallery</b></td>
+          <td align="center"><b>Gallery✍️</b></td>
         </tr>
 
         <tr>
@@ -191,7 +209,7 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Jumbotron</b></td>
+          <td align="center"><b>Jumbotron✍️</b></td>
           <td align="center"><b>Link</b></td>
           <td align="center"><b>List</b></td>
         </tr>
@@ -214,9 +232,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Notifications</b></td>
-          <td align="center"><b>Paragraphs</b></td>
-          <td align="center"><b>Placeholders</b></td>
+          <td align="center"><b>Notifications✍️</b></td>
+          <td align="center"><b>Paragraphs✍️</b></td>
+          <td align="center"><b>Skeleton</b></td>
         </tr>
 
         <tr>
@@ -260,9 +278,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Scroll to top</b></td>
-          <td align="center"><b>Social buttons</b></td>
-          <td align="center"><b>Spinners</b></td>
+          <td align="center"><b>Scroll to top✍️</b></td>
+          <td align="center"><b>Social buttons✍️</b></td>
+          <td align="center"><b>Spinners✍️</b></td>
         </tr>
 
         <tr>
@@ -283,9 +301,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Timeline</b></td>
-          <td align="center"><b>Toast</b></td>
-          <td align="center"><b>Tooltip</b></td>
+          <td align="center"><b>Timeline✍️</b></td>
+          <td align="center"><b>Toast✍️</b></td>
+          <td align="center"><b>Tooltip✍️</b></td>
         </tr>
 
         <tr>
@@ -306,9 +324,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Video</b></td>
-          <td align="center"><b>Video carousel</b></td>
-          <td align="center"><b>Checkbox</b></td>
+          <td align="center"><b>Video✍️</b></td>
+          <td align="center"><b>Video carousel✍️</b></td>
+          <td align="center"><b>Checkbox✍️</b></td>
         </tr>
 
         <tr>
@@ -329,9 +347,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>File input</b></td>
-          <td align="center"><b>Input group</b></td>
-          <td align="center"><b>Login form</b></td>
+          <td align="center"><b>File input✍️</b></td>
+          <td align="center"><b>Input group✍️</b></td>
+          <td align="center"><b>Login form✍️</b></td>
         </tr>
 
         <tr>
@@ -352,9 +370,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Radio</b></td>
-          <td align="center"><b>Range</b></td>
-          <td align="center"><b>Registration form</b></td>
+          <td align="center"><b>Radio✍️</b></td>
+          <td align="center"><b>Range✍️</b></td>
+          <td align="center"><b>Registration form✍️</b></td>
         </tr>
 
         <tr>
@@ -375,9 +393,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Search</b></td>
-          <td align="center"><b>Select</b></td>
-          <td align="center"><b>Switch</b></td>
+          <td align="center"><b>Search✍️</b></td>
+          <td align="center"><b>Select✍️</b></td>
+          <td align="center"><b>Switch✍️</b></td>
         </tr>
 
         <tr>
@@ -398,9 +416,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Textarea</b></td>
-          <td align="center"><b>Tables</b></td>
-          <td align="center"><b>Ripple</b></td>
+          <td align="center"><b>Textarea✍️</b></td>
+          <td align="center"><b>Tables✍️</b></td>
+          <td align="center"><b>Ripple✍️</b></td>
         </tr>
 
         <tr>
@@ -421,9 +439,9 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Animations</b></td>
-          <td align="center"><b>Masks</b></td>
-          <td align="center"><b>Shadows</b></td>
+          <td align="center"><b>Animations✍️</b></td>
+          <td align="center"><b>Masks✍️</b></td>
+          <td align="center"><b>Shadows✍️</b></td>
         </tr>
 
         <tr>
@@ -444,7 +462,7 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Datatables</b></td>
+          <td align="center"><b>Datatables✍️</b></td>
           <td align="center"><b>Lightbox</b></td>
           <td align="center"><b>Rating</b></td>
         </tr>
@@ -467,7 +485,7 @@ export class ButtonLink extends Component {
           </td>
         </tr>
         <tr>
-          <td align="center"><b>Scrollbar</b></td>
+          <td align="center"><b>Scrollbar✍️</b></td>
           <td align="center"><b>Popconfirm</b></td>
           <td align="center"><b>More coming soon</b></td>
         </tr>

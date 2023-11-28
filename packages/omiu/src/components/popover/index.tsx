@@ -19,6 +19,7 @@ export class Popconfirm extends Component<Props> {
 
   static defaultProps = {
     show: false,
+    hover: false,
     placement: 'bottom',
   }
 
@@ -41,19 +42,7 @@ export class Popconfirm extends Component<Props> {
     })
   }
 
-  cancel = () => {
-    this.state.show = false
-    this.update()
-    this.fire('cancel')
-  }
-
-  confirm = () => {
-    this.state.show = false
-    this.update()
-    this.fire('confirm')
-  }
-
-  showConfirm = (evt) => {
+  showPopover = (evt) => {
     this.state.show = true
     this.update()
     const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
@@ -71,6 +60,17 @@ export class Popconfirm extends Component<Props> {
     })
   }
 
+  showPopoverByHover = (evt) => {
+    if (this.props.hover) {
+      this.showPopover(evt)
+    }
+  }
+
+  hidePopover = () => {
+    this.state.show = false
+    this.update()
+  }
+
   state = {
     show: false,
   }
@@ -78,7 +78,13 @@ export class Popconfirm extends Component<Props> {
   render(props) {
     return (
       <>
-        <slot ref={(e) => (this.refEl = e)} style="cursor:pointer" onclick={this.showConfirm}></slot>
+        <slot
+          ref={(e) => (this.refEl = e)}
+          style="cursor:pointer"
+          onClick={this.showPopover}
+          onMouseenter={this.showPopoverByHover}
+          onMouseleave={this.hidePopover}
+        ></slot>
         <div
           style="z-index: 10000"
           class={classNames('z-100', {

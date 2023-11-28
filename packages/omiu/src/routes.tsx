@@ -176,6 +176,18 @@ const components = [
     overview: () => import('./components/popover/page'),
     api: () => import('./components/popover/api'),
   },
+
+  {
+    name: 'progress',
+    overview: () => import('./components/progress/page'),
+    api: () => import('./components/progress/api'),
+  },
+
+  {
+    name: 'rating',
+    overview: () => import('./components/rating/page'),
+    api: () => import('./components/rating/api'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {

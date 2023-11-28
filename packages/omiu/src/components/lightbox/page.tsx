@@ -26,8 +26,8 @@ export class ButtonPage extends Component {
           </h2>
           {/* <!-- Description --> */}
           <p className="mb-3">
-            An alert displays a short, important message in a way that attracts the user's attention without
-            interrupting the user's task.
+            The lightbox component is a pop-up window that displays media content, such as images or videos, in a larger
+            size and with a dimmed background to highlight the content.
           </p>
 
           <code-showcase

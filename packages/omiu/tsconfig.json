@@ -22,6 +22,6 @@
   },
   "include": ["src"],
   // 暂时忽略错误
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -25,10 +25,7 @@ export class ButtonPage extends Component {
             Basic example
           </h2>
           {/* <!-- Description --> */}
-          <p className="mb-3">
-            The Avatar component is a versatile and customizable UI element that displays a user's profile image, name,
-            and description in an aesthetically pleasing manner.
-          </p>
+          <p className="mb-3">The badge component is a small graphical element that displays a piece of information.</p>
 
           <code-showcase
             code={`<o-badge dot>
