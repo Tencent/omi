@@ -1,6 +1,6 @@
 {
   "name": "omi-transition",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Define transition animation for entering and leaving",
   "main": "dist/index.es.js",
   "exports": {

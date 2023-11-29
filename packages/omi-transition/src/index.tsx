@@ -80,7 +80,9 @@ function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: num
       }, 1 + delay)
     })
   } else {
-    previousDisplay = dom.style.display; // 记录display的值
+    if (dom.style.display !== 'none') {
+      previousDisplay = dom.style.display; // 记录display的值
+    }
     options.beforeLeave?.()
     if (isFirstRender) { // 如果是第一次渲染
       dom.style.display = 'none'; // 直接隐藏元素
