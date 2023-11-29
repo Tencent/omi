@@ -8,6 +8,7 @@ registerDirective('ripple', (el: HTMLElement, options: { color: string }) => {
       position: absolute; 
       border-radius: 50%;
       transform: scale(0);
+      pointer-events: none;
       animation: ripple 600ms ease-out;
       background-color: rgba(255, 255, 255, 0.7);
     }
