@@ -78,7 +78,7 @@ export class RouterView extends Component<Props> {
   }
 
   push(path: string) {
-    history.pushState({}, '', path)
+    history.pushState({}, '', this.isHashMode ? `#${path}` : path)
     this.matchAndRender(path)
   }
 
