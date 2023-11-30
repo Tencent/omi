@@ -44,7 +44,6 @@ class TransitionDemo extends Component {
     return (
       <>
         <button onClick={() => show.value = !show.value}>toggle</button>
-        {/* ⚠️Note that the show needs to be written before the o-transition */}
         <h4 show={show.value} o-transition={{ name: "fade" }} >OMI</h4>
       </>
     )
