@@ -171,7 +171,7 @@ describe('base', () => {
     expect(parentElement.firstChild.innerHTML).toBe('<ul><li>a</li></ul>')
   })
 
-  it('directive 1', () => {
+  it('directive 1', async () => {
     let count = 0
     registerDirective('test', (ele, value) => {
       count++
@@ -193,11 +193,12 @@ describe('base', () => {
     define(node.name, Ele)
     render(<node.name />, parentElement)
 
+    await Promise.resolve()
     expect(count).toBe(1)
   })
 
 
-  it('directive 2', () => {
+  it('directive 2', async () => {
     let testValue
     registerDirective('test', (ele, value) => {
       testValue = value
@@ -219,10 +220,11 @@ describe('base', () => {
     define(node.name, Ele)
     render(<node.name />, parentElement)
 
+    await Promise.resolve()
     expect(testValue).toBe('abc')
   })
 
-  it('directive 3', () => {
+  it('directive 3', async () => {
     let testValue
     registerDirective('test', (ele, value) => {
       testValue = ele.props.show
@@ -253,9 +255,45 @@ describe('base', () => {
 
     render(<node2.name />, parentElement)
 
+    await Promise.resolve()
     expect(testValue).toBe(true)
   })
 
+
+  it('directive 4', async () => {
+    let testValue
+    registerDirective('test', (ele, value) => {
+      testValue = ele.props.show
+    })
+
+    class Ele extends Component {
+
+      render() {
+        return (
+          <ul>
+            <li>a</li>
+          </ul>
+        )
+      }
+
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    class Ele2 extends Component {
+      render() {
+        return (<node.name o-test={1} show={false} />)
+      }
+    }
+
+    const node2 = genNode()
+    define(node2.name, Ele2)
+
+    render(<node2.name />, parentElement)
+
+    await Promise.resolve()
+    expect(testValue).toBe(false)
+  })
 
   it('hook 1', () => {
 

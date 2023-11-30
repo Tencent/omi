@@ -71,7 +71,10 @@ export function setAccessor(
   if (name === 'className') name = 'class'
 
   if (name[0] == 'o' && name[1] == '-') {
-    directives[name]?.(node, value)
+    // 因为需要访问 node 上的属性，所以这里用 Promise.resolve().then
+    Promise.resolve().then(() => {
+      directives[name]?.(node, value)
+    })
   }
   if (name === 'key' || name === 'ignoreAttrs') {
     // ignore
