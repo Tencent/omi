@@ -79,7 +79,7 @@ export default class CodeShowcase extends Component<Props> {
         const lan = temp.split('-')[1] || 'markup'
         const pl = prismjs.languages[lan]
         if (temp && pl) {
-          code.innerHTML = prismjs.highlight(code.innerText, pl, lan).trim()
+          code.innerHTML = prismjs.highlight(code.dataset.code, pl, lan).trim()
         }
       }
     })
@@ -162,7 +162,7 @@ export default class CodeShowcase extends Component<Props> {
                 >
                   <div class="code-toolbar">
                     <pre>
-                      <code class={`language-${props.lan}`}>{props.code}</code>
+                      <code class={`language-${props.lan}`} data-code={props.code}></code>
                     </pre>
                     <div class="toolbar">
                       <div class="toolbar-item">

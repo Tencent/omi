@@ -188,6 +188,13 @@ const components = [
     overview: () => import('./components/rating/page'),
     api: () => import('./components/rating/api'),
   },
+
+  {
+    name: 'date-picker',
+    type: 'forms',
+    overview: () => import('./forms/date-picker/page'),
+    api: () => import('./forms/date-picker/api'),
+  },
 ]
 
 components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {

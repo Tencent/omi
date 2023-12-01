@@ -16,10 +16,10 @@
     "copy-to-clipboard": "^3.3.3",
     "markdown-it": "^13.0.2",
     "omi": "^7.3.5",
-    "omi-ripple": "^0.1.1",
-    "omi-router": "^4.1.1",
+    "omi-ripple": "^0.1.2",
+    "omi-router": "^4.1.2",
     "omi-suspense": "^0.0.5",
-    "omi-transition": "^0.1.0",
+    "omi-transition": "^0.1.6",
     "photoswipe": "^5.4.2",
     "prismjs": "^1.29.0",
     "swiper": "^11.0.4"

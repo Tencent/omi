@@ -263,14 +263,8 @@ export class ButtonPage extends Component {
         <section>
           {/* <!-- Title --> */}
           <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="basic_example" data-te-spy-item>
-            Basic example
+            Colors
           </h2>
-          {/* <!-- Description --> */}
-          <p className="mb-3">
-            A dropdown component is a user interface element that displays a list of selectable options in a collapsible
-            menu, allowing users to choose one option at a time.
-          </p>
-
           <code-showcase code={``}>
             <div class="flex">
               <o-dropdown

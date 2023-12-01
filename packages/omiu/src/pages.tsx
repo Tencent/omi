@@ -28,7 +28,6 @@ export const componentsPages: Pages[] = [
   { name: 'popover', path: '/components/popover' },
   { name: 'progress', path: '/components/progress' },
   { name: 'rating', path: '/components/rating' },
-  // { name: 'spinners', path: '/components/spinners' },
   // { name: 'progress', path: '/components/progress' },
   // { name: 'scroll-back-to-top-button', path: '/components/scroll-back-to-top-button' },
   // { name: 'social-buttons', path: '/components/social-buttons' },
@@ -82,6 +81,7 @@ export const formsPages: Pages[] = [
   //   name: 'file input',
   //   path: '/forms/file-input',
   // },
+  { name: 'date-picker', path: '/forms/date-picker' },
   {
     name: 'input',
     path: '/components/input',

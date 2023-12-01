@@ -2,6 +2,7 @@ import { tag, Component, classNames } from 'omi'
 import { createPopper } from '@popperjs/core'
 import { tailwind } from '@/tailwind'
 import '../../components/button/button'
+import 'omi-transition'
 
 interface Props {
   placement?: string
@@ -14,7 +15,18 @@ export class Popconfirm extends Component<Props> {
     tailwind,
     `:host {
   display: inline-block;
-}`,
+}
+
+.fade-leave-to,
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-leave-active,
+.fade-enter-active {
+  transition: opacity 300ms ease-in;
+}
+`,
   ]
 
   static defaultProps = {
@@ -43,11 +55,10 @@ export class Popconfirm extends Component<Props> {
   }
 
   showPopover = (evt) => {
-    this.state.show = true
-    this.update()
+    this.popper && this.popper.destroy()
     const tip = this.shadowRoot.querySelector('slot').assignedNodes()[0]
-    console.log(tip)
-    createPopper(tip, this.shadowRoot.querySelector('.tip'), {
+
+    this.popper = createPopper(tip, this.shadowRoot.querySelector('.tip'), {
       placement: this.props.placement,
       modifiers: [
         {
@@ -58,6 +69,9 @@ export class Popconfirm extends Component<Props> {
         },
       ],
     })
+
+    this.state.show = !this.state.show
+    this.update()
   }
 
   showPopoverByHover = (evt) => {
@@ -67,8 +81,10 @@ export class Popconfirm extends Component<Props> {
   }
 
   hidePopover = () => {
-    this.state.show = false
-    this.update()
+    if (this.props.hover) {
+      this.state.show = false
+      this.update()
+    }
   }
 
   state = {
@@ -86,12 +102,12 @@ export class Popconfirm extends Component<Props> {
           onMouseleave={this.hidePopover}
         ></slot>
         <div
+          show={this.state.show}
+          o-transition={{ name: 'fade' }}
           style="z-index: 10000"
           class={classNames('z-100', {
             fixed: true,
             tip: true,
-            block: this.state.show,
-            hidden: !this.state.show,
           })}
         >
           <slot name="content"></slot>
