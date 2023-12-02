@@ -17,3 +17,5 @@ https://omi.cdn-go.cn/omiu/latest/
 * swiper
 * pdfjs
 * popperjs
+* [VChart](https://www.visactor.io/vchart)
+* [VTable](https://visactor.io/vtable)

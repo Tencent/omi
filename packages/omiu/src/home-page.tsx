@@ -61,7 +61,7 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/data/charts/">
+            <a href="#/data/chart/">
               <img alt="Charts" src="https://mdbootstrap.com/img/tw-demo/charts.webp" />
             </a>
           </td>

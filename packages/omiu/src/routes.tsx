@@ -147,6 +147,13 @@ const components = [
   },
 
   {
+    name: 'chart',
+    type: 'data',
+    overview: () => import('./data/chart/page'),
+    api: () => import('./data/chart/api'),
+  },
+
+  {
     name: 'link',
     type: 'components',
     overview: () => import('./components/link/page'),

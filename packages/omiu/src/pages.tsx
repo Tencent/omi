@@ -67,7 +67,7 @@ const contentStylesPages: Pages[] = [
 ]
 
 export const dataPages: Pages[] = [
-  // { name: 'tables', path: '/data/tables' },
+  { name: 'chart', path: '/data/chart' },
   { name: 'PDF', path: '/data/pdf' },
 ]
 
