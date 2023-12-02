@@ -27,23 +27,24 @@ export class ButtonLink extends Component {
   ]
 
   show = false
+
   render() {
     return (
       <table class="w-full bg-white mx-auto text-gray-600 dark:text-900 mt-10 mb-96">
         <tr>
           <td>
             <a href="#/forms/date-picker/">
-              <img alt="DatePicker" src="https://mdbootstrap.com/img/tw-demo/datepicker.webp" />
+              <img alt="DatePicker" src="https://omi.cdn-go.cn/s/latest/omiu/datepicker.png" />
             </a>
           </td>
           <td>
             <a href="#/components/dropdown/">
-              <img alt="Dropdown" src="https://mdbootstrap.com/img/tw-demo/dropdown.webp" />
+              <img alt="Dropdown" src="https://omi.cdn-go.cn/s/latest/omiu/dropdown.png" />
             </a>
           </td>
           <td>
             <a href="#/components/modal/">
-              <img alt="Modal" src="https://mdbootstrap.com/img/tw-demo/modal.webp" />
+              <img alt="Modal" src="https://omi.cdn-go.cn/s/latest/omiu/modal.png" />
             </a>
           </td>
         </tr>
@@ -62,17 +63,17 @@ export class ButtonLink extends Component {
         <tr>
           <td>
             <a href="#/data/chart/">
-              <img alt="Charts" src="https://mdbootstrap.com/img/tw-demo/charts.webp" />
+              <img alt="Charts" src="https://omi.cdn-go.cn/s/latest/omiu/charts.png" />
             </a>
           </td>
           <td>
             <a href="#/components/tooltip/">
-              <img alt="Tooltips" src="https://mdbootstrap.com/img/tw-demo/tooltips-1.webp" />
+              <img alt="tooltip" src="https://omi.cdn-go.cn/s/latest/omiu/tooltip.png" />
             </a>
           </td>
           <td>
             <a href="#/components/swiper/">
-              <img alt="Carousel" src="https://mdbootstrap.com/img/tw-demo/carousel.webp" />
+              <img alt="swiper" src="https://omi.cdn-go.cn/s/latest/omiu/swiper.png" />
             </a>
           </td>
         </tr>
@@ -91,17 +92,17 @@ export class ButtonLink extends Component {
         <tr>
           <td>
             <a href="#/components/accordion/">
-              <img alt="Accordion" src="https://mdbootstrap.com/img/tw-demo/accordion.webp" />
+              <img alt="Accordion" src="https://omi.cdn-go.cn/s/latest/omiu/accordion.png" />
             </a>
           </td>
           <td>
             <a href="#/navigation/tabs/">
-              <img alt="Tabs" src="https://mdbootstrap.com/img/tw-demo/tabs.webp" />
+              <img alt="Tabs" src="https://omi.cdn-go.cn/s/latest/omiu/tabs.png" />
             </a>
           </td>
           <td>
             <a href="#/components/stepper/">
-              <img alt="Stepper" src="https://mdbootstrap.com/img/tw-demo/stepper.webp" />
+              <img alt="Stepper" src="https://omi.cdn-go.cn/s/latest/omiu/stepper.png" />
             </a>
           </td>
         </tr>
@@ -119,17 +120,17 @@ export class ButtonLink extends Component {
         <tr>
           <td>
             <a href="#/forms/timepicker/">
-              <img alt="Tailwind CSS Time picker" src="https://mdbootstrap.com/img/tw-demo/timepicker.webp" />
+              <img alt="Tailwind CSS Time picker" src="https://omi.cdn-go.cn/s/latest/omiu/timepicker.png" />
             </a>
           </td>
           <td>
             <a href="#/navigation/footer/">
-              <img alt="Tailwind CSS Tables" src="https://mdbootstrap.com/img/tw-demo/footer.webp" />
+              <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/footer.png" />
             </a>
           </td>
           <td>
             <a href="#/navigation/navbar/">
-              <img alt="Tailwind CSS Navbar" src="https://mdbootstrap.com/img/tw-demo/navbar.webp" />
+              <img alt="Tailwind CSS Navbar" src="https://omi.cdn-go.cn/s/latest/omiu/navbar.png" />
             </a>
           </td>
         </tr>
