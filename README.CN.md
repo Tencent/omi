@@ -304,26 +304,98 @@ export default defineConfig({
 
 你可以在构建时候注入代码，这样就不用手动导出 `h`。
 
-<!-- ## 集成 Twind
+
+## 定义跨框架组件
+
+在 Vue 中使用 Omi component 例子如下:
+
+![](./assets/omi-vue.gif)
+
+my-counter.ts:
 
 ```tsx
-import { Component, define, h } from 'omi'
+import { define, Component, h } from 'omi'
 
-import install from '@twind/with-web-components'
-import { defineConfig } from '@twind/core'
-import presetAutoprefix from '@twind/preset-autoprefix'
-import presetTailwind from '@twind/preset-tailwind'
-const withTwind = install(defineConfig({
-  presets: [presetAutoprefix(), presetTailwind()],
-}))
+define('my-counter', class extends Component {
 
-define('my-app', class extends withTwind(Component) {
-  render() {
-    return <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  static propTypes = {
+    count: Number
+  }
+
+  static observedAttributes = ['count']
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.state[name] = newValue
+    this.update()
+  }
+
+  state = {
+    count: null
+  }
+
+  install() {
+    this.state.count = this.props.count
+  }
+
+  sub = () => {
+    this.state.count--
+    this.update()
+    this.fire('change', this.state.count)
+  }
+
+  add = () => {
+    this.state.count++
+    this.update()
+    this.fire('change', this.state.count)
+  }
+
+  render(props) {
+    return [
+      h('button', { onClick: this.sub }, '-'),
+      h('span', null, this.state.count),
+      h('button', { onClick: this.add }, '+')
+    ]
   }
 })
-``` -->
+```
 
+Using in Vue3:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+// 导入 omi 组件
+import './my-counter'
+
+defineProps({
+  msg: String,
+})
+
+const count = ref(0)
+
+const change = (e) => {
+  count.value = e.detail
+}
+
+</script>
+
+<template>
+  <h1>{{ msg }}</h1>
+
+  <my-counter @change="change" :count="count" />
+  <p>
+    【Omi】 
+  </p>
+
+  <div class="card">
+    <button type="button" @click="count++">count is {{ count }}</button>
+    <p>
+     【Vue】 
+    </p>
+  </div>
+
+</template>
+```
 
 ## 贡献者
 
