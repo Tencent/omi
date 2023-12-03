@@ -3,25 +3,36 @@
 OMI 版本 WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。
 
 
-## Installation
+## 安装
 
 ```bash
 npm i omi-weui
 ```
 
-## Usage
+## 使用
 
 ```tsx
-import '@omi-weui/button'
+import { WeButton } from 'omi-weui'
+WeButton.define('we-button')
 ```
 
 在各个框架中使用:
 
 ```tsx
-<w-button>按钮</w-button>  // omi
-<w-button>按钮</w-button> // vue
-<w-button>按钮</w-button> // html
+<we-button type="warn">按钮</we-button>  // omi
+<we-button size="mini">按钮</we-button> // vue
+<we-button type="default">按钮</we-button> // react
+<we-button loading>按钮</we-button> // html
 ```
+或者直接:
+
+```tsx
+const btn = document.createElement('we-button')
+btn.innerText = '按钮'
+document.body.appendChild(btn)
+```
+
+
 
 ## License
 
