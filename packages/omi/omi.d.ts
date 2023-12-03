@@ -96,6 +96,7 @@ declare namespace Omi {
     // https://github.com/Microsoft/TypeScript/issues/24018
     static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[]
     static tagName: string
+    static define(name: string): void
 
     props: OmiProps<P> | P
     prevProps: OmiProps<P> | P
@@ -132,6 +133,7 @@ declare namespace Omi {
 
     static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[]
     static tagName: string
+    static define(name: string): void
 
     props: OmiProps<P> | P
     prevProps: OmiProps<P> | P

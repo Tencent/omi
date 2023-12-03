@@ -6,6 +6,7 @@ import 'weakmap-polyfill'
 import { ObjectVNode, VNode } from './vdom'
 import { setActiveComponent } from './reactivity'
 import { options } from './options'
+import { define } from './define'
 
 let id = 0
 
@@ -32,6 +33,10 @@ export class Component extends HTMLElement {
   static isLightDOM: boolean
   static noSlot: boolean
 
+  // 可以延迟定义，防止 import { }  被 tree-shaking 掉
+  static define(name: string): void {
+    define(name, this)
+  }
   // 不能声明 props，不然懒加载的 props 执行完构造函数会变成 udnefined, 会导致元素升级为自定义元素之前的 props 丢失
   // props: Record<string, unknown>
   // 不能声明 prevProps，不然懒加载的 prevProps 执行完构造函数会变成 udnefined, 会导致元素升级为自定义元素之前的 prevProps 丢失
