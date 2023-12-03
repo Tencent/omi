@@ -76,7 +76,9 @@ $ npm run build       # release
   - [`omi-starter-ts`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-ts) - A starter repo for building web app or reusable components using Omi in TypeScript base on Vite.
   - [`omi-starter-tailwind`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-tailwind) - A starter repo for building web app or reusable components using Omi + Tailwindcss + TypeScript + Vite.
   - [`omi-starter-js`](https://github.com/Tencent/omi/tree/master/packages/omi-starter-js) - A starter repo for building web app or reusable components using Omi in JavaScript base on Vite.
+  - [`omi-vue`](https://github.com/Tencent/omi/tree/master/packages/omi-vue) - Vue SFC + Vite + OMI + OMI-WeUI.
 - Components
+  - [`omi-weui`](https://github.com/Tencent/omi/tree/master/packages/omi-weui) - WeUI Components of omi.
   - [`omi-auto-animate`](https://github.com/Tencent/omi/tree/master/packages/omi-auto-animate) - Omi version of @formkit/auto-animate.
   - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - Handling asynchronous dependencies.
   - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - Cross framework icon collection based on tdesign.
@@ -320,6 +322,100 @@ define('my-app', class extends withTwind(Component) {
   }
 })
 ``` -->
+
+## Define Cross Framework Component
+
+The case of using Omi component in Vue is as follows:
+
+![](./assets/omi-vue.gif)
+
+my-counter.ts:
+
+```tsx
+import { define, Component, h } from 'omi'
+
+define('my-counter', class extends Component {
+
+  static propTypes = {
+    count: Number
+  }
+
+  static observedAttributes = ['count']
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.state[name] = newValue
+    this.update()
+  }
+
+  state = {
+    count: null
+  }
+
+  install() {
+    this.state.count = this.props.count
+  }
+
+  sub = () => {
+    this.state.count--
+    this.update()
+    this.fire('change', this.state.count)
+  }
+
+  add = () => {
+    this.state.count++
+    this.update()
+    this.fire('change', this.state.count)
+  }
+
+  render(props) {
+    return [
+      h('button', { onClick: this.sub }, '-'),
+      h('span', null, this.state.count),
+      h('button', { onClick: this.add }, '+')
+    ]
+  }
+})
+```
+
+Using in Vue3:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+// import omi component
+import './my-counter'
+
+defineProps({
+  msg: String,
+})
+
+const count = ref(0)
+
+const change = (e) => {
+  count.value = e.detail
+}
+
+</script>
+
+<template>
+  <h1>{{ msg }}</h1>
+
+  <my-counter @change="change" :count="count" />
+  <p>
+    【Omi】 
+  </p>
+
+  <div class="card">
+    <button type="button" @click="count++">count is {{ count }}</button>
+    <p>
+     【Vue】 
+    </p>
+  </div>
+
+</template>
+```
+
+
 
 ## Contributors
 
