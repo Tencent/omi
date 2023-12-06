@@ -3,7 +3,7 @@ import { tailwind } from '@/tailwind'
 import VChart from '@visactor/vchart'
 
 @tag('o-chart')
-export class Button extends Component {
+export class Chart extends Component {
   static css = [
     tailwind,
     `:host {

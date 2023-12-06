@@ -67,6 +67,7 @@ const contentStylesPages: Pages[] = [
 ]
 
 export const dataPages: Pages[] = [
+  { name: 'table', path: '/data/table' },
   { name: 'chart', path: '/data/chart' },
   { name: 'PDF', path: '/data/pdf' },
 ]
@@ -84,7 +85,7 @@ export const formsPages: Pages[] = [
   { name: 'date-picker', path: '/forms/date-picker' },
   {
     name: 'input',
-    path: '/components/input',
+    path: '/forms/input',
   },
   // {
   //   name: 'login form',

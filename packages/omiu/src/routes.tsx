@@ -128,6 +128,7 @@ const components = [
 
   {
     name: 'input',
+    type: 'forms',
     overview: () => import('./forms/input/page'),
     api: () => import('./forms/input/api'),
   },
@@ -151,6 +152,13 @@ const components = [
     type: 'data',
     overview: () => import('./data/chart/page'),
     api: () => import('./data/chart/api'),
+  },
+
+  {
+    name: 'table',
+    type: 'data',
+    overview: () => import('./data/table/page'),
+    api: () => import('./data/table/api'),
   },
 
   {

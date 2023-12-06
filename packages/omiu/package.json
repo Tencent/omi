@@ -14,6 +14,7 @@
     "@bundled-es-modules/pdfjs-dist": "^3.6.172-alpha.1",
     "@popperjs/core": "^2.11.8",
     "@visactor/vchart": "^1.7.2",
+    "@visactor/vtable": "^0.15.5-alpha.1",
     "copy-to-clipboard": "^3.3.3",
     "markdown-it": "^13.0.2",
     "omi": "^7.3.5",
