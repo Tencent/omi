@@ -35,7 +35,7 @@ export class ButtonPage extends Component {
   className="max-w-[22rem] mx-auto"
   title="Card title"
   footerInfo="Last updated 3 mins ago"
-  img="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg">
+  img="https://omi.cdn-go.cn/s/latest/omiu/nature1.png">
   <p slot="content">
     Some quick example text to build on the card title and make up the
     bulk of the card's content.
@@ -50,7 +50,7 @@ export class ButtonPage extends Component {
               className="max-w-[22rem] mx-auto"
               title="Card title"
               footerInfo="Last updated 3 mins ago"
-              img="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg"
+              img="https://omi.cdn-go.cn/s/latest/omiu/nature1.png"
             >
               <p slot="body">
                 Some quick example text to build on the card title and make up the bulk of the card's content.

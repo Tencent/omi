@@ -33,8 +33,8 @@ export class ButtonLink extends Component {
       <table class="w-full bg-white mx-auto text-gray-600 dark:text-900 mt-10 mb-96">
         <tr>
           <td>
-            <a href="#/forms/date-picker/">
-              <img alt="DatePicker" src="https://omi.cdn-go.cn/s/latest/omiu/datepicker.png" />
+            <a href="#/forms/calendar/">
+              <img alt="Calendar" src="https://omi.cdn-go.cn/s/latest/omiu/datepicker.png" />
             </a>
           </td>
           <td>
@@ -50,7 +50,7 @@ export class ButtonLink extends Component {
         </tr>
         <tr>
           <td align="center">
-            <b>Datepicker✍️</b>
+            <b>Calendar</b>
           </td>
           <td align="center">
             <b>Dropdown</b>

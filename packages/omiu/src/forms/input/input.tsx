@@ -1,4 +1,4 @@
-import { tag, Component, classNames, bind, createRef, VNode } from 'omi'
+import { tag, Component, classNames, bind, createRef, VNode, OmiProps } from 'omi'
 import { tailwind } from '@/tailwind'
 import InputTheme from './inputTheme'
 
@@ -86,6 +86,16 @@ export class Input extends Component<Props> {
     this.update()
   }
 
+  receiveProps(props: Props | OmiProps<Props, any>, oldProps: Props | OmiProps<Props, any>) {
+    if (props.value !== oldProps.value) {
+      this.state.value = props.value
+      if (this.state.value) {
+        this.state.active = true
+      }
+      this.update()
+    }
+  }
+
   @bind
   removeTag(tag) {
     this.state.tags.splice(this.state.tags.indexOf(tag), 1)
@@ -150,30 +160,30 @@ export class Input extends Component<Props> {
       size === 'lg'
         ? theme.inputSizeLg
         : size === 'base'
-        ? theme.inputSizeBase
-        : size === 'sm'
-        ? theme.inputSizeSm
-        : theme.inputSizeBase,
+          ? theme.inputSizeBase
+          : size === 'sm'
+            ? theme.inputSizeSm
+            : theme.inputSizeBase,
     )
 
     const labelClasses = classNames(
       theme.label,
       this.state.active && theme.activeLabel,
       this.state.active &&
-        (size === 'lg'
-          ? theme.activeLabelSizeLg
-          : size === 'base'
+      (size === 'lg'
+        ? theme.activeLabelSizeLg
+        : size === 'base'
           ? theme.activeLabelSizeBase
           : size === 'sm'
-          ? theme.activeLabelSizeSm
-          : theme.activeLabelSizeBase),
+            ? theme.activeLabelSizeSm
+            : theme.activeLabelSizeBase),
       size === 'lg'
         ? theme.labelSizeLg
         : size === 'base'
-        ? theme.labelSizeBase
-        : size === 'sm'
-        ? theme.labelSizeSm
-        : theme.labelSizeBase,
+          ? theme.labelSizeBase
+          : size === 'sm'
+            ? theme.labelSizeSm
+            : theme.labelSizeBase,
     )
 
     const notchLeadingClasses = classNames(
@@ -231,7 +241,7 @@ export class Input extends Component<Props> {
               )
             })}
           <props.tag
-            type={type}
+            type={type === 'date' ? 'text' : type}
             disabled={props.disabled}
             readOnly={readonly}
             class={classNames(inputClasses, {
@@ -253,6 +263,13 @@ export class Input extends Component<Props> {
               {label}
             </label>
           )}
+
+          {type === 'date' && <button type="button" class="pointer-events-none flex items-center justify-content-center [&>svg]:w-5 [&>svg]:h-5 absolute outline-none border-none bg-transparent right-0.5 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:text-primary focus:text-primary dark:hover:text-primary-400 dark:focus:text-primary-400 dark:text-neutral-200" data-te-datepicker-toggle-button-ref="" data-te-datepicker-toggle-ref="">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"></path>
+            </svg>
+          </button>}
+
 
           <div class={theme.notch}>
             <div class={notchLeadingClasses}></div>

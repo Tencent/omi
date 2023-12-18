@@ -1,9 +1,9 @@
-## DatePicker Props
+## Calendar Props
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 
-## DatePicker 属性
+## Calendar 属性
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |

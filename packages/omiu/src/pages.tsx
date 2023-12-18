@@ -82,7 +82,7 @@ export const formsPages: Pages[] = [
   //   name: 'file input',
   //   path: '/forms/file-input',
   // },
-  { name: 'date-picker', path: '/forms/date-picker' },
+  { name: 'calendar', path: '/forms/calendar' },
   {
     name: 'input',
     path: '/forms/input',

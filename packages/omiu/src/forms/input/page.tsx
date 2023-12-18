@@ -15,6 +15,7 @@ import InputURL from './examples/InputURL'
 import InputHelperText from './examples/InputHelperText'
 import InputCharacterCounter from './examples/InputCharacterCounter'
 import InputTags from './examples/InputTags'
+import InputDate from './examples/InputDate'
 
 import InputBasicExampleCode from './examples/InputBasicExample?raw'
 import InputSizingCode from './examples/InputSizing?raw'
@@ -29,6 +30,7 @@ import InputURLCode from './examples/InputURL?raw'
 import InputHelperTextCode from './examples/InputHelperText?raw'
 import InputCharacterCounterCode from './examples/InputCharacterCounter?raw'
 import InputTagsCode from './examples/InputTags?raw'
+import InputDateCode from './examples/InputDate?raw'
 
 @tag('input-page')
 export default class InputPage extends Component {
@@ -137,7 +139,7 @@ export default class InputPage extends Component {
 
           {/* <!-- Description --> */}
           <p className="mb-3">
-            The <code>&lt;TEInput type="email"&gt;&lt;/TEInput&gt;</code> defines a field for an e-mail address. The
+            The <code>&lt;o-input type="email"&gt;&lt;/o-input&gt;</code> defines a field for an e-mail address. The
             input value is automatically validated to ensure it is a properly formatted e-mail address.
           </p>
 
@@ -156,7 +158,7 @@ export default class InputPage extends Component {
 
           {/* <!-- Description --> */}
           <p className="mb-3">
-            The <code>&lt;TEInput type="password"&gt;&lt;/TEInput&gt;</code> defines a password field thus hiding
+            The <code>&lt;o-input type="password"&gt;&lt;/o-input&gt;</code> defines a password field thus hiding
             characters as sensitive information.
           </p>
 
@@ -175,7 +177,7 @@ export default class InputPage extends Component {
 
           {/* <!-- Description --> */}
           <p className="mb-3">
-            The <code>&lt;TEInput type="number"&gt;&lt;/TEInput&gt;</code> defines field for entering a number.
+            The <code>&lt;o-input type="number"&gt;&lt;/o-input&gt;</code> defines field for entering a number.
           </p>
 
           <code-showcase code={InputNumberCode}>
@@ -193,7 +195,7 @@ export default class InputPage extends Component {
 
           {/* <!-- Description --> */}
           <p className="mb-3">
-            The <code>&lt;TEInput type="tel"&gt;&lt;/TEInput&gt;</code> defines a field for entering a telephone number.
+            The <code>&lt;o-input type="tel"&gt;&lt;/o-input&gt;</code> defines a field for entering a telephone number.
           </p>
 
           <code-showcase code={InputPhoneNumberCode}>
@@ -211,7 +213,7 @@ export default class InputPage extends Component {
 
           {/* <!-- Description --> */}
           <p className="mb-3">
-            The <code>&lt;TEInput type="url"&gt;&lt;/TEInput&gt;</code> defines a field for entering a URL.
+            The <code>&lt;o-input type="url"&gt;&lt;/o-input&gt;</code> defines a field for entering a URL.
           </p>
 
           <code-showcase code={InputURLCode}>
@@ -279,6 +281,19 @@ export default class InputPage extends Component {
 
           <code-showcase code={InputTagsCode}>
             <InputTags.tagName />
+          </code-showcase>
+        </section>
+
+
+        {/* <!-- Section: Character counter --> */}
+        <section>
+          {/* <!-- Title --> */}
+          <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="character_counter" data-te-spy-item>
+            Date Picker
+          </h2>
+
+          <code-showcase code={InputDateCode}>
+            <InputDate.tagName />
           </code-showcase>
         </section>
         {/* <!-- Section: Character counter --> */}

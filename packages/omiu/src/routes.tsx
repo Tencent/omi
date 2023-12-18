@@ -205,10 +205,10 @@ const components = [
   },
 
   {
-    name: 'date-picker',
+    name: 'calendar',
     type: 'forms',
-    overview: () => import('./forms/date-picker/page'),
-    api: () => import('./forms/date-picker/api'),
+    overview: () => import('./forms/calendar/page'),
+    api: () => import('./forms/calendar/api'),
   },
 ]
 

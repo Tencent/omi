@@ -14,7 +14,6 @@ export class Table extends Component {
   ]
 
   static defaultProps = {
-    data: [],
     width: Math.min(window.innerWidth - 80, 800),
     height: 400,
     widthMode: 'standard',
@@ -22,15 +21,18 @@ export class Table extends Component {
   table: VTable.ListTable
 
   installed() {
-    const option = {
+    const options = {
       container: this.rootElement,
-      records: this.props.data,
+      records: this.props.records || this.props.data,
       columns: this.props.columns,
       widthMode: this.props.widthMode,
     }
 
     // 创建 vchart 实例
-    this.table = new VTable.ListTable(option)
+    this.table = new VTable.ListTable(options)
+
+    this.style.width = this.props.width + 'px'
+    this.style.height = this.props.height + 'px'
   }
 
   render(props) {

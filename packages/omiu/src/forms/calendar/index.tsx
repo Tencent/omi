@@ -12,8 +12,8 @@ const theme = {
 // data-te-datepicker-cell-selected
 // data-te-datepicker-cell-current
 
-@tag('o-date-picker')
-export class Button extends Component {
+@tag('o-calendar')
+export class CalendarComponent extends Component {
   static css = [
     tailwind,
     `:host {
@@ -49,6 +49,10 @@ export class Button extends Component {
     this.state.selectedMonth = Number(arr[1]) - 1
     this.state.selectedDay = Number(arr[2])
     this.update()
+    this.fire('select', {
+      date: evt.currentTarget.dataset.teDate,
+      nativeEvent: evt,
+    })
   }
 
   @bind
@@ -93,13 +97,15 @@ export class Button extends Component {
   }
 
   install(): void {
-    const arr = this.props.value.split('-')
-    this.state.currentYear = Number(arr[0])
-    this.state.currentMonth = Number(arr[1]) - 1
-    this.state.currentDay = Number(arr[2])
-    this.state.selectedYear = Number(arr[0])
-    this.state.selectedMonth = Number(arr[1]) - 1
-    this.state.selectedDay = Number(arr[2])
+    if( this.props.value) {
+      const arr = this.props.value.split('-')
+      this.state.currentYear = Number(arr[0])
+      this.state.currentMonth = Number(arr[1]) - 1
+      this.state.currentDay = Number(arr[2])
+      this.state.selectedYear = Number(arr[0])
+      this.state.selectedMonth = Number(arr[1]) - 1
+      this.state.selectedDay = Number(arr[2])
+    }
 
     this.calendar = new Calendar(this.props.value, this.props.locale)
     this.calendarMatrix = this.calendar.generateMonthCalendar()
@@ -125,11 +131,15 @@ export class Button extends Component {
     // 直接在一个日历上选择范围，默认是 false
     range: false,
     className: '',
+    hasFooter: false
   }
 
   render(props) {
     return (
-      <div class="flex flex-col w-[328px] h-[410px] bg-white rounded shadow-lg z-[1066] xs:max-md:landscape:w-[475px] xs:max-md:landscape:h-[360px] xs:max-md:landscape:flex-row dark:bg-zinc-700 animate-[fade-in_0.3s_both] px-[auto] motion-reduce:transition-none motion-reduce:animate-none">
+      <div class={classNames('flex flex-col w-[328px] bg-white rounded shadow-lg z-[1066] xs:max-md:landscape:w-[475px] xs:max-md:landscape:flex-row dark:bg-zinc-700 animate-[fade-in_0.3s_both] px-[auto] motion-reduce:transition-none motion-reduce:animate-none',{
+        'h-[410px] xs:max-md:landscape:h-[360px]': props.hasFooter,
+        'h-[354px] xs:max-md:landscape:h-[304px]': !props.hasFooter
+      })}>
         <div class="relative h-full">
           <div class="px-3 pt-2.5 pb-0 flex justify-between text-black/[64]">
             <o-popover>
@@ -315,7 +325,7 @@ export class Button extends Component {
             </table>
           </div>
 
-          <div class="h-14 flex absolute w-full bottom-0 justify-end items-center px-3">
+          {props.hasFooter && <div class="h-14 flex absolute w-full bottom-0 justify-end items-center px-3">
             <button
               class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 mr-auto"
               aria-label="Clear selection"
@@ -337,7 +347,7 @@ export class Button extends Component {
             >
               {this.calendar.translations.ok}
             </button>
-          </div>
+          </div>}
         </div>
       </div>
     )
