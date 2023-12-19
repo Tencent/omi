@@ -23,6 +23,7 @@ export class Router {
   params: Record<string, unknown> = {}
   query: Record<string, unknown> = {}
   hash: string = ''
+  currentRoute: Route | null = null
 
   beforeEach(callback: Function) {
     this.el.beforeEach(callback)
