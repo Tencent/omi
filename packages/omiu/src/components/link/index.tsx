@@ -42,14 +42,21 @@ export class Button extends Component {
     className: '',
   }
 
-  render(props) {
+  render(props: {
+    color: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'white' | 'black'
+    href?: string
+    disabled?: boolean
+    uppercase?: boolean
+    underline?: boolean | 'hover'
+    className?: string
+  }) {
     return (
       <a
         href={props.href}
         class={classNames(
           {
             [theme[props.color]]: true,
-            [theme.disable]: props.disabled,
+            [theme.disabled]: props.disabled,
             uppercase: props.uppercase,
             underline: props.underline,
             'decoration-transparent hover:decoration-inherit': props.underline === 'hover',

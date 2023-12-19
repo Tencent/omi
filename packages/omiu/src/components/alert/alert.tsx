@@ -79,7 +79,10 @@ export class Button extends Component {
     className: '',
   }
 
-  render(props) {
+  render(props: {
+    color: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'indigo' | 'light' | 'dark'
+    className?: string
+  }) {
     return (
       <div
         class={classNames(

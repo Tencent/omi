@@ -72,6 +72,7 @@ export class Popconfirm extends Component<Props> {
 
     this.state.show = !this.state.show
     this.update()
+    this.fire(this.state.show ? 'show' : 'hide')
   }
 
   showPopoverByHover = (evt) => {
@@ -84,6 +85,7 @@ export class Popconfirm extends Component<Props> {
     if (this.props.hover) {
       this.state.show = false
       this.update()
+      this.fire('hide')
     }
   }
 

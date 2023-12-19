@@ -38,13 +38,20 @@ export class Chip extends Component {
   }
 
   @bind
-  onClose(evt) {
+  onClose(evt: MouseEvent) {
     this.fire('close', {
       nativeEvent: evt,
     })
   }
 
-  render(props) {
+  render(props: {
+    outline: '' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark'
+    size: 'small' | 'medium' | 'large'
+    img: string
+    closable: boolean
+    tag: string
+    className?: string
+  }) {
     const rippleColor = document.documentElement.classList.contains('dark')
       ? 'rgba(200,200,200,.7)'
       : 'rgba(128,128,128,.7)'
@@ -52,6 +59,7 @@ export class Chip extends Component {
     return (
       <div
         o-ripple={{ color: rippleColor }}
+        // @ts-ignore
         class={classNames(theme.root, theme[props.size], theme[props.outline], props.className)}
       >
         {props.img && (

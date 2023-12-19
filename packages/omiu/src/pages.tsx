@@ -35,36 +35,36 @@ export const componentsPages: Pages[] = [
   /* next name and path */
 ]
 
-const contentStylesPages: Pages[] = [
-  { name: 'colors', path: '/content-styles/colors' },
-  {
-    name: 'dividers',
-    path: '/content-styles/dividers',
-  },
-  {
-    name: 'figures',
-    path: '/content-styles/figures',
-  },
-  {
-    name: 'hover effect',
-    path: '/content-styles/hover-effect',
-  },
-  {
-    name: 'headings',
-    path: '/content-styles/headings',
-  },
-  { name: 'icons', path: '/content-styles/icons' },
-  { name: 'images', path: '/content-styles/images' },
-  { name: 'mask', path: '/content-styles/mask' },
-  {
-    name: 'shadows',
-    path: '/content-styles/shadows',
-  },
-  {
-    name: 'typography',
-    path: '/content-styles/typography',
-  },
-]
+// const contentStylesPages: Pages[] = [
+//   { name: 'colors', path: '/content-styles/colors' },
+//   {
+//     name: 'dividers',
+//     path: '/content-styles/dividers',
+//   },
+//   {
+//     name: 'figures',
+//     path: '/content-styles/figures',
+//   },
+//   {
+//     name: 'hover effect',
+//     path: '/content-styles/hover-effect',
+//   },
+//   {
+//     name: 'headings',
+//     path: '/content-styles/headings',
+//   },
+//   { name: 'icons', path: '/content-styles/icons' },
+//   { name: 'images', path: '/content-styles/images' },
+//   { name: 'mask', path: '/content-styles/mask' },
+//   {
+//     name: 'shadows',
+//     path: '/content-styles/shadows',
+//   },
+//   {
+//     name: 'typography',
+//     path: '/content-styles/typography',
+//   },
+// ]
 
 export const dataPages: Pages[] = [
   { name: 'table', path: '/data/table' },

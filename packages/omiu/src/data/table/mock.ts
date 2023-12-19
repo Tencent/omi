@@ -730,7 +730,7 @@ export const treeColumns = [
     title: 'department',
     width: 'auto',
     tree: true,
-    fieldFormat(rec) {
+    fieldFormat(rec: { department: string; group: string; name: string }) {
       return rec['department'] ?? rec['group'] ?? rec['name']
     },
   },
@@ -738,7 +738,7 @@ export const treeColumns = [
     field: 'total_children',
     title: 'memebers count',
     width: 'auto',
-    fieldFormat(rec) {
+    fieldFormat(rec: { total_children: number; salary: string; position: string }) {
       if (rec?.['position']) {
         return `position:  ${rec['position']}`
       } else return rec?.['total_children']
@@ -748,7 +748,7 @@ export const treeColumns = [
     field: 'monthly_expense',
     title: 'monthly expense',
     width: 'auto',
-    fieldFormat(rec) {
+    fieldFormat(rec: { monthly_expense: string; salary: string }) {
       if (rec?.['salary']) {
         return `salary:  ${rec['salary']}`
       } else return rec?.['monthly_expense']

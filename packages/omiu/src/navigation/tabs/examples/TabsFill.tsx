@@ -1,5 +1,4 @@
-import { tag, Component, bind } from 'omi'
-import { Collapse, Ripple, Modal, Input } from 'omi-elements'
+import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
 
 @tag('tabs-fill')

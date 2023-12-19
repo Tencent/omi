@@ -75,7 +75,7 @@ export class Modal extends Component<Props> {
     this.fire('primary-button-click')
   }
 
-  receiveProps(props: Props) {
+  receiveProps() {
     if (this.props.show) {
       this.state.show = this.props.show
       // 确保过度动画一定出现

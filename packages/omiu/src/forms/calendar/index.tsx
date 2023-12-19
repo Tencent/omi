@@ -21,8 +21,8 @@ export class CalendarComponent extends Component {
   }
   `,
   ]
-  calendar: Calendar
-  calendarMatrix: string[][]
+  calendar: Calendar | null = null
+  calendarMatrix: string[][] = []
   state: {
     selectedYear: number | null
     selectedMonth: number | null
@@ -97,7 +97,7 @@ export class CalendarComponent extends Component {
   }
 
   install(): void {
-    if( this.props.value) {
+    if (this.props.value) {
       const arr = this.props.value.split('-')
       this.state.currentYear = Number(arr[0])
       this.state.currentMonth = Number(arr[1]) - 1
@@ -131,18 +131,52 @@ export class CalendarComponent extends Component {
     // 直接在一个日历上选择范围，默认是 false
     range: false,
     className: '',
-    hasFooter: false
+    hasFooter: false,
+  }
+
+  @bind
+  onYearShow() {
+    const currentYearElement = this.rootElement?.querySelector(`#year-${this.state.currentYear}`)
+    if (currentYearElement) {
+      // 获取元素在父容器中的位置
+      const prevScrollTop = currentYearElement.parentNode.scrollTop
+      const rect = currentYearElement.getBoundingClientRect()
+      const containerRect = currentYearElement.parentNode.getBoundingClientRect()
+      const offset = prevScrollTop + rect.top - containerRect.top
+      // 滚动父容器
+
+      currentYearElement.parentNode.scrollTop = offset
+    }
+  }
+
+  @bind
+  onMonthShow() {
+    const currentMonthElement = this.rootElement?.querySelector(`#month-${this.state.currentMonth}`)
+    if (currentMonthElement) {
+      // 获取元素在父容器中的位置
+      const prevScrollTop = currentMonthElement.parentNode.scrollTop
+      const rect = currentMonthElement.getBoundingClientRect()
+      const containerRect = currentMonthElement.parentNode.getBoundingClientRect()
+      const offset = prevScrollTop + rect.top - containerRect.top
+      // 滚动父容器
+      currentMonthElement.parentNode.scrollTop = offset
+    }
   }
 
   render(props) {
     return (
-      <div class={classNames('flex flex-col w-[328px] bg-white rounded shadow-lg z-[1066] xs:max-md:landscape:w-[475px] xs:max-md:landscape:flex-row dark:bg-zinc-700 animate-[fade-in_0.3s_both] px-[auto] motion-reduce:transition-none motion-reduce:animate-none',{
-        'h-[410px] xs:max-md:landscape:h-[360px]': props.hasFooter,
-        'h-[354px] xs:max-md:landscape:h-[304px]': !props.hasFooter
-      })}>
+      <div
+        class={classNames(
+          'flex flex-col w-[328px] bg-white rounded shadow-lg z-[1066] xs:max-md:landscape:w-[475px] xs:max-md:landscape:flex-row dark:bg-zinc-700 animate-[fade-in_0.3s_both] px-[auto] motion-reduce:transition-none motion-reduce:animate-none',
+          {
+            'h-[410px] xs:max-md:landscape:h-[360px]': props.hasFooter,
+            'h-[354px] xs:max-md:landscape:h-[304px]': !props.hasFooter,
+          },
+        )}
+      >
         <div class="relative h-full">
           <div class="px-3 pt-2.5 pb-0 flex justify-between text-black/[64]">
-            <o-popover>
+            <o-popover onShow={this.onYearShow}>
               <button
                 class="flex items-center outline-none p-2.5 text-neutral-500 font-medium text-[0.9rem] rounded shadow-none bg-transparent m-0 border-none hover:bg-neutral-200 focus:bg-neutral-200  dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
                 aria-label="Choose year and month"
@@ -171,6 +205,7 @@ export class CalendarComponent extends Component {
                       onClick={this.onYearClick}
                       aria-current="true"
                       data-year={year}
+                      id={`year-${year}`}
                       class={classNames('block w-full cursor-pointer p-2', {
                         'text-primary-600 bg-primary-100': this.state.currentYear === year,
                         'transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200':
@@ -184,7 +219,7 @@ export class CalendarComponent extends Component {
               </div>
             </o-popover>
 
-            <o-popover>
+            <o-popover onShow={this.onMonthShow}>
               <button
                 class="flex items-center outline-none p-2.5 text-neutral-500 font-medium text-[0.9rem] rounded shadow-none bg-transparent m-0 border-none hover:bg-neutral-200 focus:bg-neutral-200  dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
                 aria-label="Choose year and month"
@@ -212,6 +247,7 @@ export class CalendarComponent extends Component {
                       href="javascript:"
                       aria-current="true"
                       data-month={index}
+                      id={`month-${index}`}
                       onClick={this.onMonthClick}
                       class={classNames('block w-full cursor-pointer p-2', {
                         'text-primary-600 bg-primary-100': this.state.currentMonth === index,
@@ -325,29 +361,31 @@ export class CalendarComponent extends Component {
             </table>
           </div>
 
-          {props.hasFooter && <div class="h-14 flex absolute w-full bottom-0 justify-end items-center px-3">
-            <button
-              class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 mr-auto"
-              aria-label="Clear selection"
-              data-te-datepicker-clear-button-ref=""
-            >
-              {this.calendar.translations.clear}
-            </button>
-            <button
-              class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
-              aria-label="Cancel selection"
-              data-te-datepicker-cancel-button-ref=""
-            >
-              {this.calendar.translations.cancel}
-            </button>
-            <button
-              class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
-              aria-label="Confirm selection"
-              data-te-datepicker-ok-button-ref=""
-            >
-              {this.calendar.translations.ok}
-            </button>
-          </div>}
+          {props.hasFooter && (
+            <div class="h-14 flex absolute w-full bottom-0 justify-end items-center px-3">
+              <button
+                class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 mr-auto"
+                aria-label="Clear selection"
+                data-te-datepicker-clear-button-ref=""
+              >
+                {this.calendar.translations.clear}
+              </button>
+              <button
+                class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+                aria-label="Cancel selection"
+                data-te-datepicker-cancel-button-ref=""
+              >
+                {this.calendar.translations.cancel}
+              </button>
+              <button
+                class="outline-none bg-white text-primary border-none cursor-pointer py-0 px-2.5 uppercase text-[0.8rem] leading-10 font-medium h-10 tracking-[.1rem] rounded mb-2.5 hover:bg-neutral-200 focus:bg-neutral-200 dark:bg-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+                aria-label="Confirm selection"
+                data-te-datepicker-ok-button-ref=""
+              >
+                {this.calendar.translations.ok}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     )

@@ -1,4 +1,4 @@
-import { tag, Component, classNames, bind, createRef, VNode } from 'omi'
+import { tag, Component, classNames, VNode } from 'omi'
 import { tailwind } from '@/tailwind'
 import tabsTheme from './tabsTheme'
 import tabsItemTheme from './tabsItemTheme'
@@ -18,44 +18,44 @@ interface TabsProps {
   children: VNode[]
 }
 
-interface TabsItemTheme {
-  fillTabsItem?: string
-  justifyTabsItem?: string
-  verticalTabsItem?: string
-  tabsLink?: string
-  pillsLink?: string
-  inactiveTabsLink?: string
-  inactivePillsLink?: string
-  disabledTabsLink?: string
-  disabledPillsLink?: string
-  activePrimaryPillsLink?: string
-  activeSecondaryPillsLink?: string
-  activeSuccessPillsLink?: string
-  activeDangerPillsLink?: string
-  activeWarningPillsLink?: string
-  activeInfoPillsLink?: string
-  activeLightPillsLink?: string
-  activeDarkPillsLink?: string
-  activePrimaryTabsLink?: string
-  activeSecondaryTabsLink?: string
-  activeSuccessTabsLink?: string
-  activeDangerTabsLink?: string
-  activeWarningTabsLink?: string
-  activeInfoTabsLink?: string
-  activeLightTabsLink?: string
-  activeDarkTabsLink?: string
-}
+// interface TabsItemTheme {
+//   fillTabsItem?: string
+//   justifyTabsItem?: string
+//   verticalTabsItem?: string
+//   tabsLink?: string
+//   pillsLink?: string
+//   inactiveTabsLink?: string
+//   inactivePillsLink?: string
+//   disabledTabsLink?: string
+//   disabledPillsLink?: string
+//   activePrimaryPillsLink?: string
+//   activeSecondaryPillsLink?: string
+//   activeSuccessPillsLink?: string
+//   activeDangerPillsLink?: string
+//   activeWarningPillsLink?: string
+//   activeInfoPillsLink?: string
+//   activeLightPillsLink?: string
+//   activeDarkPillsLink?: string
+//   activePrimaryTabsLink?: string
+//   activeSecondaryTabsLink?: string
+//   activeSuccessTabsLink?: string
+//   activeDangerTabsLink?: string
+//   activeWarningTabsLink?: string
+//   activeInfoTabsLink?: string
+//   activeLightTabsLink?: string
+//   activeDarkTabsLink?: string
+// }
 
 type ColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark'
 
-interface TabsItemProps {
-  theme?: TabsItemTheme
-  tag?: string
-  wrapperClass?: string
-  active?: boolean
-  disabled?: boolean
-  color?: ColorType
-}
+// interface TabsItemProps {
+//   theme?: TabsItemTheme
+//   tag?: string
+//   wrapperClass?: string
+//   active?: boolean
+//   disabled?: boolean
+//   color?: ColorType
+// }
 
 @tag('o-tabs')
 export class Tabs extends Component {

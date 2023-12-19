@@ -1,4 +1,4 @@
-import { tag, Component, bind } from 'omi'
+import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
 import '../index'
 import '../../button/button'

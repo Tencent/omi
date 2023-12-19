@@ -212,84 +212,86 @@ const components = [
   },
 ]
 
-components.forEach((component: { type?: string; name?: string; page?: string; overview: () => unknown }) => {
-  routes.unshift({
-    path: `/${component.type ? component.type : 'components'}/${component.name}`,
-    render() {
-      component.page = `${component.name}-${activeTab.value === 'api' ? 'api' : 'page'}`
+components.forEach(
+  (component: { type?: string; name?: string; page?: string; overview: () => unknown; api?: () => unknown }) => {
+    routes.unshift({
+      path: `/${component.type ? component.type : 'components'}/${component.name}`,
+      render() {
+        component.page = `${component.name}-${activeTab.value === 'api' ? 'api' : 'page'}`
 
-      return (
-        <>
-          <site-header></site-header>
-          <div class="flex">
-            <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
-            <div class="flex-1 ml-10 mr-10 w-0 flex-grow overflow-auto pr-0 lg:pr-40 lg:pl-60">
-              {component.type !== 'design-blocks' && (
-                <o-tabs pills class="pt-5">
-                  <o-tabs-item
-                    onClick={() => {
-                      activeTab.value = 'overview'
-                    }}
-                    active={activeTab.value === 'overview'}
-                    tag="button"
-                  >
-                    OVERVIEW
-                  </o-tabs-item>
-                  <o-tabs-item
-                    onClick={() => {
-                      activeTab.value = 'api'
-                    }}
-                    active={activeTab.value === 'api'}
-                    tag="button"
-                  >
-                    API
-                  </o-tabs-item>
-                </o-tabs>
-              )}
-              <o-suspense
-                minLoadingTime={300}
-                imports={[activeTab.value === 'api' ? component.api() : component.overview()]}
-                onDataLoaded={window.refreshDark}
-              >
-                <div slot="pending" class="absolute top-40 lg:left-72">
-                  <div>
-                    <strong>Loading...</strong>
-                    <div
-                      className="ml-auto inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                      role="status"
-                    ></div>
-                  </div>
-                </div>
-
-                <div slot="fallback">
-                  Sorry, we are unable to load the content at the moment. Please try again later.
-                </div>
-                <div
-                  show={showPage.value}
-                  o-transition={{
-                    name: 'fade',
-                    delay: 400,
-                  }}
+        return (
+          <>
+            <site-header></site-header>
+            <div class="flex">
+              <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
+              <div class="flex-1 ml-10 mr-10 w-0 flex-grow overflow-auto pr-0 lg:pr-40 lg:pl-60">
+                {component.type !== 'design-blocks' && (
+                  <o-tabs pills class="pt-5">
+                    <o-tabs-item
+                      onClick={() => {
+                        activeTab.value = 'overview'
+                      }}
+                      active={activeTab.value === 'overview'}
+                      tag="button"
+                    >
+                      OVERVIEW
+                    </o-tabs-item>
+                    <o-tabs-item
+                      onClick={() => {
+                        activeTab.value = 'api'
+                      }}
+                      active={activeTab.value === 'api'}
+                      tag="button"
+                    >
+                      API
+                    </o-tabs-item>
+                  </o-tabs>
+                )}
+                <o-suspense
+                  minLoadingTime={300}
+                  imports={[activeTab.value === 'api' ? component.api?.() : component.overview()]}
+                  onDataLoaded={window.refreshDark}
                 >
-                  <component.page
-                    onInstalled={(evt: CustomEvent) => {
-                      updateMenu(evt.detail)
+                  <div slot="pending" class="absolute top-40 lg:left-72">
+                    <div>
+                      <strong>Loading...</strong>
+                      <div
+                        className="ml-auto inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        role="status"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div slot="fallback">
+                    Sorry, we are unable to load the content at the moment. Please try again later.
+                  </div>
+                  <div
+                    show={showPage.value}
+                    o-transition={{
+                      name: 'fade',
+                      delay: 400,
                     }}
-                  />
-                </div>
-                <content-nav
-                  show={showPage.value}
-                  o-transition={{
-                    name: 'fade',
-                    delay: 600,
-                  }}
-                  class="w-0 lg:w-40 fixed top-20 right-10"
-                ></content-nav>
-              </o-suspense>
+                  >
+                    <component.page
+                      onInstalled={(evt: CustomEvent) => {
+                        updateMenu(evt.detail)
+                      }}
+                    />
+                  </div>
+                  <content-nav
+                    show={showPage.value}
+                    o-transition={{
+                      name: 'fade',
+                      delay: 600,
+                    }}
+                    class="w-0 lg:w-40 fixed top-20 right-10"
+                  ></content-nav>
+                </o-suspense>
+              </div>
             </div>
-          </div>
-        </>
-      )
-    },
-  })
-})
+          </>
+        )
+      },
+    })
+  },
+)

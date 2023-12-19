@@ -361,8 +361,8 @@ export class ButtonPage extends Component {
                 mark: {
                   content: [
                     {
-                      key: (datum) => datum['type'],
-                      value: (datum) => datum['value'] + '%',
+                      key: (datum: { type: string; value: string }) => datum['type'],
+                      value: (datum: { type: string; value: string }) => datum['value'] + '%',
                     },
                   ],
                 },

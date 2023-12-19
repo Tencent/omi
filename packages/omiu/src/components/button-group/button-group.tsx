@@ -27,7 +27,22 @@ export class Button extends Component {
     uppercase: true,
   }
 
-  render(props) {
+  render(props: {
+    ripple: boolean
+    color: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'white' | 'black'
+    variant: 'contained' | 'outlined' | 'text'
+    size: 'small' | 'medium' | 'large'
+    tag: 'button' | 'a'
+    href?: string
+    rounded?: boolean
+    floating?: boolean
+    disabled?: boolean
+    fullWidth?: boolean
+    roundedFull?: boolean
+    uppercase?: boolean
+    className?: string
+    children: any[]
+  }) {
     const { children, ...rest } = props
     return (
       <>

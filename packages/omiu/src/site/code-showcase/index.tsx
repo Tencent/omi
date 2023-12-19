@@ -1,4 +1,4 @@
-import { tag, Component, bind, classNames } from 'omi'
+import { tag, Component, bind } from 'omi'
 import { tailwind } from '@/tailwind'
 import * as prismjs from 'prismjs'
 import prismStyle from './prism.css?raw'

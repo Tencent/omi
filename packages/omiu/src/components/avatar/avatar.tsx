@@ -2,7 +2,7 @@ import { tag, Component, classNames } from 'omi'
 import { tailwind } from '@/tailwind'
 
 @tag('o-avatar')
-export class Button extends Component {
+export class Avatar extends Component {
   static css = [
     tailwind,
     `:host {
@@ -11,7 +11,15 @@ export class Button extends Component {
   `,
   ]
 
-  render(props) {
+  render(props: {
+    src: string
+    roundedFull?: boolean
+    rounded?: boolean
+    shadow?: boolean
+    className?: string
+    name: string
+    describe: string
+  }) {
     return (
       <>
         <img

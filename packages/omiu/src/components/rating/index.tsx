@@ -2,8 +2,45 @@ import { tag, Component, classNames, bind } from 'omi'
 import { tailwind } from '@/tailwind'
 import './popover'
 
+type Props = {
+  /**
+   * 最大值
+   *
+   * @default 5
+   */
+  max: number
+
+  /**
+   * 标签
+   *
+   * @default []
+   */
+  labels: string[]
+
+  /**
+   * 当前值
+   *
+   * @default 0
+   */
+  value: number
+
+  /**
+   * 图标
+   *
+   * @default undefined
+   */
+  icon?: string
+
+  /**
+   * 类名
+   *
+   * @default ''
+   */
+  className?: string
+}
+
 @tag('o-rating')
-export class Rate extends Component {
+export class Rate extends Component<Props> {
   static css = [
     tailwind,
     `:host {
@@ -22,13 +59,17 @@ export class Rate extends Component {
     this.state.value = this.props.value
   }
 
-  state = {
+  state: {
+    value: number
+    current: number
+    focus: boolean
+  } = {
     value: 0,
     current: 0,
     focus: false,
   }
 
-  onMouseEnter(value) {
+  onMouseEnter(value: number) {
     this.state.current = value
     this.update()
   }
@@ -39,12 +80,12 @@ export class Rate extends Component {
     this.update()
   }
 
-  onClick(value) {
+  onClick(value: number) {
     this.state.value = value
     this.fire('change', value)
   }
 
-  render(props) {
+  render(props: Props) {
     return (
       <ul
         class="my-1 flex list-none gap-1 p-0"

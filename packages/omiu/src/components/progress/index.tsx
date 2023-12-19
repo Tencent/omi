@@ -2,7 +2,7 @@ import { tag, Component, classNames } from 'omi'
 import { tailwind } from '@/tailwind'
 
 @tag('o-progress')
-class Progress extends Component {
+export class Progress extends Component {
   static css = [
     tailwind,
     `
@@ -18,7 +18,7 @@ class Progress extends Component {
     label: false,
   }
 
-  render(props) {
+  render(props: { value: number; color?: string; label?: boolean; className?: string }) {
     return (
       <div class={classNames('bg-gray-200 dark:bg-gray-600', props.className)}>
         <div

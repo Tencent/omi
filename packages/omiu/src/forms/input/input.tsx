@@ -21,6 +21,7 @@ type Props = {
   disabled: boolean
   tag: string
   rows: number
+  tags: { label: string }[]
 }
 
 @tag('o-input')
@@ -54,7 +55,13 @@ export class Input extends Component<Props> {
     rows: 1,
   }
 
-  state = {
+  state: {
+    active: boolean
+    focus: boolean
+    value: string
+    tags: { label: string }[]
+    labelWidth: number
+  } = {
     active: false,
     focus: false,
     value: '',
@@ -71,6 +78,8 @@ export class Input extends Component<Props> {
   }
 
   labelReference = createRef()
+
+  inputRef: HTMLElement | null = null
 
   @bind
   onFocus() {
@@ -97,11 +106,13 @@ export class Input extends Component<Props> {
   }
 
   @bind
-  removeTag(tag) {
+  removeTag(tag: { label: string }, evt: MouseEvent) {
     this.state.tags.splice(this.state.tags.indexOf(tag), 1)
     this.update()
-    this.fire('change')
-    this.inputRef.focus()
+    this.fire('change', {
+      nativeEvent: evt,
+    })
+    this.inputRef?.focus()
   }
 
   @bind
@@ -125,7 +136,7 @@ export class Input extends Component<Props> {
   }
 
   @bind
-  onKeyUp(evt) {
+  onKeyUp(evt: KeyboardEvent) {
     // enter
     if (evt.keyCode === 13) {
       this.state.tags.push({ label: this.state.value })
@@ -137,22 +148,7 @@ export class Input extends Component<Props> {
 
   render(props: Props) {
     const theme = { ...InputTheme, ...props.customTheme }
-    const {
-      size,
-      value,
-      defaultValue,
-      id,
-      wrapperTag,
-      label,
-      children,
-      labelRef,
-      type,
-      readonly,
-      formWhite,
-      counter,
-      maxLength,
-      newValue,
-    } = props
+    const { size, defaultValue, id, label, children, type, readonly, formWhite, counter, maxLength } = props
 
     const inputClasses = classNames(
       theme.input,
@@ -160,30 +156,30 @@ export class Input extends Component<Props> {
       size === 'lg'
         ? theme.inputSizeLg
         : size === 'base'
-          ? theme.inputSizeBase
-          : size === 'sm'
-            ? theme.inputSizeSm
-            : theme.inputSizeBase,
+        ? theme.inputSizeBase
+        : size === 'sm'
+        ? theme.inputSizeSm
+        : theme.inputSizeBase,
     )
 
     const labelClasses = classNames(
       theme.label,
       this.state.active && theme.activeLabel,
       this.state.active &&
-      (size === 'lg'
-        ? theme.activeLabelSizeLg
-        : size === 'base'
+        (size === 'lg'
+          ? theme.activeLabelSizeLg
+          : size === 'base'
           ? theme.activeLabelSizeBase
           : size === 'sm'
-            ? theme.activeLabelSizeSm
-            : theme.activeLabelSizeBase),
+          ? theme.activeLabelSizeSm
+          : theme.activeLabelSizeBase),
       size === 'lg'
         ? theme.labelSizeLg
         : size === 'base'
-          ? theme.labelSizeBase
-          : size === 'sm'
-            ? theme.labelSizeSm
-            : theme.labelSizeBase,
+        ? theme.labelSizeBase
+        : size === 'sm'
+        ? theme.labelSizeSm
+        : theme.labelSizeBase,
     )
 
     const notchLeadingClasses = classNames(
@@ -218,12 +214,12 @@ export class Input extends Component<Props> {
           })}
         >
           {this.state.tags &&
-            this.state.tags.map((tag, index) => {
+            this.state.tags.map((tag: { label: string }) => {
               return (
                 <div class="flex justify-between items-center h-[32px] leading-loose py-[5px] px-[12px] mr-2 my-[5px] text-[13px] font-normal text-[#4f4f4f] cursor-pointer bg-[#eceff1] dark:text-white dark:bg-neutral-600 rounded-[16px] transition-[opacity] duration-300 ease-linear [word-wrap: break-word] shadow-none normal-case hover:!shadow-none active:bg-[#cacfd1] inline-block font-medium leading-normal text-[#4f4f4f] text-center no-underline align-middle cursor-pointer select-none border-[.125rem] border-solid border-transparent py-1.5 px-3 text-xs rounded">
                   <span>{tag.label}</span>
                   <span
-                    onClick={(e) => this.removeTag(tag)}
+                    onClick={(e: MouseEvent) => this.removeTag(tag, e)}
                     class="w-4 float-right pl-[8px] text-[16px] opacity-[.53] cursor-pointer fill-[#afafaf] hover:fill-[#8b8b8b] dark:fill-gray-400 dark:hover:fill-gray-100 transition-all duration-200 ease-in-out"
                   >
                     <svg
@@ -255,7 +251,7 @@ export class Input extends Component<Props> {
             defaultValue={defaultValue}
             rows={props.rows}
             id={id}
-            ref={(e) => (this.inputRef = e)}
+            ref={(e: HTMLElement) => (this.inputRef = e)}
             maxLength={maxLength}
           />
           {label && (
@@ -264,12 +260,22 @@ export class Input extends Component<Props> {
             </label>
           )}
 
-          {type === 'date' && <button type="button" class="pointer-events-none flex items-center justify-content-center [&>svg]:w-5 [&>svg]:h-5 absolute outline-none border-none bg-transparent right-0.5 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:text-primary focus:text-primary dark:hover:text-primary-400 dark:focus:text-primary-400 dark:text-neutral-200" data-te-datepicker-toggle-button-ref="" data-te-datepicker-toggle-ref="">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"></path>
-            </svg>
-          </button>}
-
+          {type === 'date' && (
+            <button
+              type="button"
+              class="pointer-events-none flex items-center justify-content-center [&>svg]:w-5 [&>svg]:h-5 absolute outline-none border-none bg-transparent right-0.5 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:text-primary focus:text-primary dark:hover:text-primary-400 dark:focus:text-primary-400 dark:text-neutral-200"
+              data-te-datepicker-toggle-button-ref=""
+              data-te-datepicker-toggle-ref=""
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          )}
 
           <div class={theme.notch}>
             <div class={notchLeadingClasses}></div>

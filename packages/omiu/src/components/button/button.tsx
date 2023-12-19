@@ -39,8 +39,27 @@ const theme = {
   disabled: 'pointer-events-none opacity-50',
 }
 
+type Colors = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark'
+type Props = {
+  ripple: boolean
+  color: Colors
+  variant: 'contained' | 'outlined' | 'text'
+  size: 'small' | 'medium' | 'large'
+  tag: 'button' | 'a'
+  href?: string
+  rounded?: boolean
+  floating?: boolean
+  disabled?: boolean
+  fullWidth?: boolean
+  roundedFull?: boolean
+  uppercase?: boolean
+  active?: boolean
+  className: string
+  children: any[]
+}
+
 @tag('o-button')
-export class Button extends Component {
+export class Button extends Component<Props> {
   static css = [
     tailwind,
     `:host {
@@ -78,7 +97,8 @@ export class Button extends Component {
     }
   }
 
-  render(props) {
+  render(props: Props) {
+    // @ts-ignore
     const config = theme[props.color]
     let active = ''
     let btnClass = ''
@@ -152,8 +172,8 @@ export class Button extends Component {
 
     return (
       <props.tag
-        type={props.tag === 'button' ? 'button' : null}
-        href={props.tag === 'a' ? props.href : null}
+        type={props.tag === 'button' ? 'button' : undefined}
+        href={props.tag === 'a' ? props.href : undefined}
         o-ripple={props.ripple === false ? null : ''}
         class={classNames({
           [theme.common]: true,
@@ -162,7 +182,7 @@ export class Button extends Component {
           [theme.rounded]: props.rounded && !props.roundedFull,
           [theme.roundedFull]: props.roundedFull,
           [props.className]: true,
-          [theme.disable]: props.disabled,
+          [theme.disabled]: props.disabled,
           [theme.floating[props.size]]: props.floating,
           [theme.fullWidth]: props.fullWidth,
           uppercase: props.uppercase,

@@ -19,7 +19,7 @@
     "markdown-it": "^13.0.2",
     "omi": "^7.3.5",
     "omi-ripple": "^0.1.2",
-    "omi-router": "^4.1.2",
+    "omi-router": "^4.1.3",
     "omi-suspense": "^0.0.5",
     "omi-transition": "^0.1.6",
     "photoswipe": "^5.4.2",

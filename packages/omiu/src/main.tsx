@@ -3,9 +3,10 @@ import { Router } from 'omi-router'
 import { tailwind } from '@/tailwind'
 
 // 为了被扫出来，不然样式丢失
+// @ts-ignore
 const classes = 'bg-success bg-danger bg-warning bg-info'
 
-const router = new Router({
+new Router({
   routes,
   css: [
     tailwind,

@@ -1,4 +1,4 @@
-import { tag, Component, bind } from 'omi'
+import { tag, Component } from 'omi'
 import '../input'
 import { tailwind } from '@/tailwind'
 
@@ -10,7 +10,7 @@ export default class InputDate extends Component {
   static css = [tailwind]
 
   state = {
-    date: ''
+    date: '',
   }
 
   render() {
@@ -19,12 +19,14 @@ export default class InputDate extends Component {
         <div className="relative mb-3 xl:w-96 pt-5">
           <o-popover placement="bottom">
             <o-input type="date" value={this.state.date} label="Date input"></o-input>
-            <o-calendar onSelect={e=>{
-              this.state.date = e.detail.date
-              this.update()
-            }} slot="content"></o-calendar>
+            <o-calendar
+              onSelect={(e: CustomEvent) => {
+                this.state.date = e.detail.date
+                this.update()
+              }}
+              slot="content"
+            ></o-calendar>
           </o-popover>
-
         </div>
       </div>
     )

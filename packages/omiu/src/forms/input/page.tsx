@@ -284,7 +284,6 @@ export default class InputPage extends Component {
           </code-showcase>
         </section>
 
-
         {/* <!-- Section: Character counter --> */}
         <section>
           {/* <!-- Title --> */}

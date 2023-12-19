@@ -11,7 +11,7 @@ export class Button extends Component {
   `,
   ]
 
-  render(props) {
+  render(props: { img?: string; title: string; footerInfo?: string; className?: string }) {
     return (
       <div
         class={classNames(

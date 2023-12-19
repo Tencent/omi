@@ -10,6 +10,7 @@ const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 @tag('markdown-renderer')
 export class MarkdownRenderer extends Component {
   static css = [tailwind, mdStyle, prismStyle]
+  md: any
 
   install() {
     // @ts-ignore
@@ -53,7 +54,7 @@ export class MarkdownRenderer extends Component {
     window.dispatchEvent(new Event('resize'))
   }
 
-  render(props) {
+  render(props: { content: string }) {
     return <div unsafeHTML={this.md.render(props.content)} class="mb-48"></div>
   }
 }

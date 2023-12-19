@@ -26,7 +26,7 @@ export class Button extends Component {
     showy: false,
   }
 
-  render(props) {
+  render(props: { className?: string; showy?: boolean; children?: any }) {
     return (
       <div
         class={classNames(

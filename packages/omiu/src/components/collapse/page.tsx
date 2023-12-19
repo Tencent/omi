@@ -1,7 +1,6 @@
 import { CollapseBasicExample } from './examples/CollapseBasicExample'
 import { CollapseHorizontal } from './examples/CollapseHorizontal'
 import { CollapseMultipleTargets } from './examples/CollapseMultipleTargets'
-import { CollapseWithScroll } from './examples/CollapseWithScroll'
 
 import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
@@ -10,7 +9,6 @@ import '@/site/code-showcase'
 import CollapseBasicExampleCode from './examples/CollapseBasicExample?raw'
 import CollapseHorizontalCode from './examples/CollapseHorizontal?raw'
 import CollapseMultipleTargetsCode from './examples/CollapseMultipleTargets?raw'
-import CollapseWithScrollCode from './examples/CollapseWithScroll?raw'
 
 @tag('collapse-page')
 export class CollapsePage extends Component {
