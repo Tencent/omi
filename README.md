@@ -417,6 +417,17 @@ const change = (e) => {
 </template>
 ```
 
+If you `fire` the `count-change` in an Omi component:
+
+```ts
+this.fire('count-change', this.state.count)
+```
+
+To use the component and listen for events in Vue:
+
+```html
+<my-counter @count-change="change" :count="count" />
+```
 
 
 ## Contributors

@@ -399,6 +399,19 @@ const change = (e) => {
 </template>
 ```
 
+如果在 omi 组件中使用:
+
+```ts
+this.fire('count-change', this.state.count)
+```
+
+在 vue 中使用组件监听事件如下:
+
+```html
+<my-counter @count-change="change" :count="count" />
+```
+
+
 ## 贡献者
 
 <a href="https://github.com/Tencent/omi/graphs/contributors">
