@@ -109,8 +109,7 @@ export function setAccessor(
     name !== 'type' &&
     name !== 'css' &&
     !isSvg &&
-    name in node &&
-    value !== ''
+    name in node
   ) {
     //value !== '' fix for selected, disabled, checked with pure element
     // Attempt to set a DOM property to the given value.

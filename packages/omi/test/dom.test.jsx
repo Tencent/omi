@@ -72,6 +72,47 @@ describe('dom', () => {
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div><span>abc</span></div>')
   })
 
+  it('form', () => {
+    class Ele extends Component {
+    
+      state = {
+        show: true,
+        value1: 'volvo',
+        value2: '',
+      }    
+
+      installed() {
+        this.state.show = false
+        this.update()
+      }
+     
+      render(props) {
+        return <div>
+        {this.state.show && <select id="cars" value={this.state.value1} onChange={this.onChange} name="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>}
+
+        <select id="cars2" value={this.state.value2} name="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+
+      </div>
+      }
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    render(<node.name />, parentElement)
+
+    expect(parentElement.firstChild.shadowRoot.querySelector('select').value).toBe('')
+  })
+
   it('string style', () => {
     class Ele extends Component {
     
