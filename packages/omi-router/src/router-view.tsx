@@ -14,6 +14,7 @@ export interface Route {
   transition?: string;
   keys?: Key[];
   regex?: RegExp;
+  redirect?: string;
 }
 
 interface Props {
@@ -103,6 +104,11 @@ export class RouterView extends Component<Props> {
     for (const route of this.routes) {
       const match = route.regex?.exec(path)
       if (match) {
+        if(route.redirect) {
+          const newPath = this.isHashMode ? `#${route.redirect}` : route.redirect;
+          window.location.href = window.location.origin + newPath;
+          return;
+        }
         if (route.beforeEnter) {
           const shouldProceed = route.beforeEnter({ path }, { path: window.location.pathname })
           if (shouldProceed === false) {
