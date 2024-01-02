@@ -1,6 +1,7 @@
 import { ExtendedElement } from './dom'
 import { ObjectVNode, VNode } from './vdom'
 import './construct-style-sheets-polyfill'
+import { Component } from './component'
 
 /**
  * Check if the environment has native custom elements support
@@ -110,7 +111,8 @@ export function isSameNodeType(node: ExtendedElement, vnode: VNode): boolean {
   if (typeof vnode === 'string' || typeof vnode === 'number') {
     return node.splitText !== undefined
   }
-  return isNamedNode(node, (vnode as ObjectVNode).nodeName as string)
+  const nodeName = (vnode as ObjectVNode).nodeName
+  return isNamedNode(node, typeof nodeName !== 'string' ? (nodeName as Component).tagName : nodeName)
 }
 
 /**
