@@ -24,7 +24,7 @@ function sub() {
 }
 
 @tag('counter-demo')
-class CounterDemo extends Component {
+export class CounterDemo extends Component {
   static css = 'span { color: red; }'
 
   render() {
@@ -37,10 +37,21 @@ class CounterDemo extends Component {
     )
   }
 }
-
-render(<counter-demo />, document.body)
 ```
 
+使用该组件:
+
+```tsx
+import { h } from 'omi'
+import './counter-demo'
+
+render(<counter-demo />, document.body)
+
+// 或者
+import { CounterDemo, Other } from './counter-demo'
+// 当需要导入其他东西的时候，防止被 tree shaking
+render(<CounterDemo.tagName />, document.body)
+```
 
 ## 安装
 

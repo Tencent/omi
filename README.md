@@ -24,7 +24,7 @@ function sub() {
 }
 
 @tag('counter-demo')
-class CounterDemo extends Component {
+export class CounterDemo extends Component {
   static css = 'span { color: red; }'
 
   render() {
@@ -37,8 +37,20 @@ class CounterDemo extends Component {
     )
   }
 }
+```
+
+Use this component:
+
+```tsx
+import { h } from 'omi'
+import './counter-demo'
 
 render(<counter-demo />, document.body)
+
+// or 
+import { CounterDemo, Other } from './counter-demo'
+// Prevent tree Shaking when importing other things
+render(<CounterDemo.tagName />, document.body)
 ```
 
 ## Install 
