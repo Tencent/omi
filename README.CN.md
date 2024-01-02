@@ -85,6 +85,7 @@ $ npm run build       # release
 - 核心包
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Omi 框架的实现代码。
   - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - 希望打造最好的 web 组件。
+  - [`omi-form`](https://github.com/Tencent/omi/tree/master/packages/omi-form) - 强大易用且跨框架的表单解决方案。
   - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - 创建单页应用。
   - [`omi-cli`](https://github.com/omijs/cli) - 快速创建 Omi + Vite + TS/JS 项目。
 - 入门套件 (未发布到 npm)

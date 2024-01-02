@@ -83,6 +83,7 @@ $ npm run build       # release
 - Core packages
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Implementation of omi framework.
   - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - Hope to create the best web components.
+  - [`omi-form`](https://github.com/Tencent/omi/tree/master/packages/omi-form) - Powerful, simple and cross frameworks form solution.
   - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - Create SPA of omi framework.
   - [`omi-cli`](https://github.com/omijs/cli) - To quickly create an Omi + Vite + TS/JS project.
 - Starter kits (not published to npm)
