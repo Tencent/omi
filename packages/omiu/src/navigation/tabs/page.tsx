@@ -40,7 +40,7 @@ export default class TabsPage extends Component {
           </p>
 
           <code-showcase code={TabsBasicExampleCode}>
-            <TabsBasicExample.tagName />
+            <TabsBasicExample />
           </code-showcase>
         </section>
         {/* <!-- Section: Basic example --> */}
@@ -58,7 +58,7 @@ export default class TabsPage extends Component {
             property. Notice that all horizontal space is occupied, but not every tabs item has the same width.
           </p>
           <code-showcase code={TabsFillCode}>
-            <TabsFill.tagName />
+            <TabsFill />
           </code-showcase>
         </section>
         {/* <!-- Section: Fill --> */}
@@ -78,7 +78,7 @@ export default class TabsPage extends Component {
           </p>
           <code-showcase code={TabsJustifyCode}>
             {' '}
-            <TabsJustify.tagName />
+            <TabsJustify />
           </code-showcase>
         </section>
         {/* <!-- Section: Justify --> */}
@@ -96,7 +96,7 @@ export default class TabsPage extends Component {
             to the wrapper <code>div</code>.
           </p>
           <code-showcase code={TabsVerticalCode}>
-            <TabsVertical.tagName />
+            <TabsVertical />
           </code-showcase>
         </section>
         {/* <!-- Section: Vertical --> */}
@@ -117,7 +117,7 @@ export default class TabsPage extends Component {
             instead of tabs to change the visible content.
           </p>
           <code-showcase code={TabsWithButtonsCode}>
-            <TabsWithButtons.tagName />
+            <TabsWithButtons />
           </code-showcase>
         </section>
         {/* <!-- Section: With buttons --> */}
@@ -135,7 +135,7 @@ export default class TabsPage extends Component {
             <code>o-tabs-item color="primary"</code>).
           </p>
           <code-showcase code={TabsColorsCode}>
-            <TabsColors.tagName />
+            <TabsColors />
           </code-showcase>
         </section>
         {/* <!-- Section: colors --> */}

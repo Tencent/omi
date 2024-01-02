@@ -53,7 +53,7 @@ export default class InputPage extends Component {
             <code>label</code> element connected via this <code>ID</code> with the input.
           </p>
           <code-showcase code={InputBasicExampleCode}>
-            <InputBasicExample.tagName />
+            <InputBasicExample />
           </code-showcase>
         </section>
         {/* <!-- Section: Basic example --> */}
@@ -72,7 +72,7 @@ export default class InputPage extends Component {
 
           <code-showcase code={InputSizingCode}>
             {' '}
-            <InputSizing.tagName />
+            <InputSizing />
           </code-showcase>
         </section>
         {/* <!-- Section: Sizing --> */}
@@ -90,7 +90,7 @@ export default class InputPage extends Component {
             pointer events.
           </p>
           <code-showcase code={InputDisabledCode}>
-            <InputDisabled.tagName />
+            <InputDisabled />
           </code-showcase>
         </section>
         {/* <!-- Section: Disabled --> */}
@@ -109,7 +109,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputReadOnlyCode}>
-            <InputReadOnly.tagName />
+            <InputReadOnly />
           </code-showcase>
         </section>
         {/* <!-- Section: Readonly --> */}
@@ -125,7 +125,7 @@ export default class InputPage extends Component {
           <p className="mb-3">Input types let you specified what data users should provide and help you validate it.</p>
 
           <code-showcase code={InputTextCode}>
-            <InputText.tagName />
+            <InputText />
           </code-showcase>
         </section>
         {/* <!-- Section: Text --> */}
@@ -144,7 +144,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputEmailCode}>
-            <InputEmail.tagName />
+            <InputEmail />
           </code-showcase>
         </section>
         {/* <!-- Section: Email --> */}
@@ -163,7 +163,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputPasswordCode}>
-            <InputPassword.tagName />
+            <InputPassword />
           </code-showcase>
         </section>
         {/* <!-- Section: Password --> */}
@@ -181,7 +181,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputNumberCode}>
-            <InputNumber.tagName />
+            <InputNumber />
           </code-showcase>
         </section>
         {/* <!-- Section: Number --> */}
@@ -199,7 +199,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputPhoneNumberCode}>
-            <InputPhoneNumber.tagName />
+            <InputPhoneNumber />
           </code-showcase>
         </section>
         {/* <!-- Section: Phone Number --> */}
@@ -217,7 +217,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputURLCode}>
-            <InputURL.tagName />
+            <InputURL />
           </code-showcase>
         </section>
         {/* <!-- Section: URL --> */}
@@ -248,7 +248,7 @@ export default class InputPage extends Component {
           </p>
 
           <code-showcase code={InputHelperTextCode}>
-            <InputHelperText.tagName />
+            <InputHelperText />
           </code-showcase>
         </section>
         {/* <!-- Section: Helper text --> */}
@@ -267,7 +267,7 @@ export default class InputPage extends Component {
             <code>maxLength</code> attribute to create a counter.
           </p>
           <code-showcase code={InputCharacterCounterCode}>
-            <InputCharacterCounter.tagName />
+            <InputCharacterCounter />
           </code-showcase>
         </section>
         {/* <!-- Section: Character counter --> */}
@@ -280,7 +280,7 @@ export default class InputPage extends Component {
           </h2>
 
           <code-showcase code={InputTagsCode}>
-            <InputTags.tagName />
+            <InputTags />
           </code-showcase>
         </section>
 
@@ -292,7 +292,7 @@ export default class InputPage extends Component {
           </h2>
 
           <code-showcase code={InputDateCode}>
-            <InputDate.tagName />
+            <InputDate />
           </code-showcase>
         </section>
         {/* <!-- Section: Character counter --> */}

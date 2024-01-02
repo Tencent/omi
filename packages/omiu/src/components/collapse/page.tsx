@@ -30,7 +30,7 @@ export class CollapsePage extends Component {
             <code>height</code> or <code>width</code> from its current value to 0.
           </p>
           <code-showcase code={CollapseBasicExampleCode}>
-            <CollapseBasicExample.tagName />
+            <CollapseBasicExample />
           </code-showcase>
         </section>
         {/* <!-- Section: Basic example --> */}
@@ -47,7 +47,7 @@ export class CollapsePage extends Component {
             immediate child element.
           </p>
           <code-showcase code={CollapseHorizontalCode}>
-            <CollapseHorizontal.tagName />
+            <CollapseHorizontal />
           </code-showcase>
         </section>
         {/* <!-- Section: Horizontal --> */}
@@ -65,7 +65,7 @@ export class CollapsePage extends Component {
           </p>
 
           <code-showcase code={CollapseMultipleTargetsCode}>
-            <CollapseMultipleTargets.tagName />
+            <CollapseMultipleTargets />
           </code-showcase>
         </section>
         {/* <!-- Section: Multiple Targets --> */}

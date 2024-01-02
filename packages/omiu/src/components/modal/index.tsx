@@ -31,6 +31,9 @@ export class Modal extends Component<Props> {
 
   install() {
     this.state.show = this.props.show
+    if (this.state.show) {
+      this.state.transition = true
+    }
   }
 
   @bind
@@ -195,7 +198,7 @@ export class Modal extends Component<Props> {
 
         <div
           class={classNames({
-            'transition-all duration-300 ease-in-out fixed top-0 left-0 z-[1040] bg-black w-screen h-screen': true,
+            'transition-opacity duration-300 ease-in-out fixed top-0 left-0 z-[1040] bg-black w-screen h-screen': true,
             'hidden opacity-0': !this.state.show,
             'opacity-0': this.state.show && !this.state.transition,
             'block opacity-50': this.state.transition,

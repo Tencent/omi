@@ -1,8 +1,30 @@
 import { defineConfig } from 'vite'
-import path from "path";
+import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: process.argv[4] === 'omiu' ? {
+    lib: {
+      entry: resolve(__dirname, 'src/index.tsx'),
+      name: 'index',
+      formats: ['es', 'umd'],
+      fileName: (format) => `index.${format}.js`
+    },
+    rollupOptions: {
+      external: ['omi'],
+      output: {
+        globals: {
+          omi: 'Omi',
+        },
+      },
+    }
+  }: {
+    rollupOptions: {
+      input: {
+        index: resolve(__dirname, 'index.html')
+      }
+    }
+  },
   base: './',
   esbuild: {
     jsxFactory: 'h',
@@ -11,8 +33,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "omi-elements": path.resolve("./src/lib/index.tsx"),
-      "@": path.resolve("./src/"),
+      "omi-elements": resolve("./src/lib/index.tsx"),
+      "@": resolve("./src/"),
     },
   },
 })

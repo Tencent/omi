@@ -35,7 +35,7 @@ export default class ModalPage extends Component {
           <p className="mb-3">Click the button to launch the modal.</p>
 
           <code-showcase code={BasicExampleCode}>
-            <BasicExample.tagName />
+            <BasicExample />
           </code-showcase>
         </section>
         {/* <!-- Section: Simple notification --> */}
@@ -56,7 +56,7 @@ export default class ModalPage extends Component {
           </p>
 
           <code-showcase code={StaticBackdropCode}>
-            <StaticBackdrop.tagName />
+            <StaticBackdrop />
           </code-showcase>
         </section>
         {/* <!-- Section: Static backdrop --> */}
@@ -77,7 +77,7 @@ export default class ModalPage extends Component {
           </p>
 
           <code-showcase code={ModalDialogScrollableCode}>
-            <ModalDialogScrollable.tagName />
+            <ModalDialogScrollable />
           </code-showcase>
         </section>
         {/* <!-- Section: Modal dialog scrollable --> */}
@@ -99,7 +99,7 @@ export default class ModalPage extends Component {
           </p>
 
           <code-showcase code={SizesExampleCode}>
-            <SizesExample.tagName />
+            <SizesExample />
           </code-showcase>
         </section>
         {/* <!-- Section: Sizes --> */}
@@ -122,7 +122,7 @@ export default class ModalPage extends Component {
           </p>
 
           <code-showcase code={PositionsExampleCode}>
-            <PositionsExample.tagName />
+            <PositionsExample />
           </code-showcase>
         </section>
         {/* <!-- Section: Positions --> */}
@@ -142,7 +142,7 @@ export default class ModalPage extends Component {
           </p>
 
           <code-showcase code={FullscreenModalCode}>
-            <FullscreenModal.tagName />
+            <FullscreenModal />
           </code-showcase>
         </section>
         {/* <!-- Section: Fullscreen modal --> */}
