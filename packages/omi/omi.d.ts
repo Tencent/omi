@@ -48,7 +48,7 @@ declare namespace Omi {
    * internal purposes.
    */
   interface VNode<P = any> {
-    nodeName: string;
+    nodeName: string | Component;
     attributes: P;
     children: Array<VNode<any> | string>;
     key?: Key | null;

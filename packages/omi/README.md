@@ -35,8 +35,23 @@ class CounterDemo extends Component {
     )
   }
 }
+```
+
+Use this component:
+
+```tsx
+import { h } from 'omi'
+import './counter-demo'
 
 render(<counter-demo />, document.body)
+
+// or 
+import { CounterDemo, Other } from './counter-demo'
+// Prevent tree Shaking when importing other things
+render(<CounterDemo />, document.body)
+
+// or
+document.body.appendChild(document.createElement('counter-demo'))
 ```
 
 ## Install 

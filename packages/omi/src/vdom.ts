@@ -1,3 +1,4 @@
+import { Component } from './component'
 import { Fragment } from './utils'
 
 export type Attributes = {
@@ -8,7 +9,7 @@ export type Attributes = {
 }
 
 export type ObjectVNode = {
-  nodeName: string | Function
+  nodeName: string | Function | Component
   attributes: Attributes
   children: VNode[]
   key?: string | number | undefined
@@ -100,7 +101,7 @@ export function cloneElement(
   ...rest: VNode[]
 ): VNode | VNode[] {
   return createElement(
-    vnode.nodeName,
+    vnode.nodeName as string,
     { ...vnode.attributes, ...props },
     rest.length > 0 ? rest : vnode.children,
   )

@@ -148,6 +148,26 @@ describe('base', () => {
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<ul><li>a</li><li>b</li></ul>')
   })
 
+  it('list rendering using constructor', () => {
+    class Ele extends Component {
+      a = [{ a: 'a' }, { a: 'b' }]
+      render() {
+        return (
+          <ul>
+            {this.a.map(item => <li key={item.a}>{item.a}</li>)}
+          </ul>
+        )
+      }
+
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    render(<Ele />, parentElement)
+
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<ul><li>a</li><li>b</li></ul>')
+  })
+
 
 
   it('isLightDOM', () => {

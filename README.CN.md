@@ -50,7 +50,10 @@ render(<counter-demo />, document.body)
 // 或者
 import { CounterDemo, Other } from './counter-demo'
 // 当需要导入其他东西的时候，防止被 tree shaking
-render(<CounterDemo.tagName />, document.body)
+render(<CounterDemo />, document.body)
+
+// 或者
+document.body.appendChild(document.createElement('counter-demo'))
 ```
 
 ## 安装
