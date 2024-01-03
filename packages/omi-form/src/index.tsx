@@ -348,7 +348,7 @@ export class Form extends Component<FormProps> {
           >
             <div class="inline-block whitespace-nowrap">
               <label class="flex items-center">
-                <span>{component.label}</span>{' '}
+                <span>{component.label}</span>
                 {renderComponent({
                   type: 'tooltip',
                   tooltip: component.tooltip,
