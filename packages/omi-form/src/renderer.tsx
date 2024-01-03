@@ -147,5 +147,24 @@ export const defaultRenderer: Record<string, Function> = {
 }
 
 export function registerRenderer(type: string, rendererFunc: Function) {
+  if (typeof rendererFunc !== 'function') {
+    throw new Error('rendererFunc must be a function')
+  }
   defaultRenderer[type] = rendererFunc
+}
+
+export function renderComponent(
+  component: FormComponent,
+  handleChange?: ChangeHandler
+) {
+  const renderer = defaultRenderer[component.type]
+  if (!renderer) {
+    throw new Error(`No renderer for component type "${component.type}"`)
+  }
+  try {
+    return renderer(component, handleChange)
+  } catch (e) {
+    console.error(e)
+    return null
+  }
 }

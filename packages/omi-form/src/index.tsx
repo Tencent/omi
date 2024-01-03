@@ -1,10 +1,11 @@
-import { Component, OmiProps, classNames, h, tag } from 'omi'
+import { Component, classNames, h, tag } from 'omi'
 import Joi, { Schema, ValidationResult, ValidationError } from 'joi'
 // @ts-ignore
 import formTheme from './theme.css?raw'
 import { localeErrorMessages } from './locale'
 export { registerLocale } from './locale'
-import { defaultRenderer } from './renderer'
+import { renderComponent } from './renderer'
+export { registerRenderer } from './renderer'
 import { DEFAULT_LABEL_WIDTH, PRIMARY_COLOR } from './constants'
 import { hexToHsl, deepCopy, extractValues, addPxIfNeeded } from './utils'
 
@@ -19,8 +20,8 @@ export interface FormComponent {
   components?: FormComponent[]
   value?: any
   error?: string | null
-  itemTemplate: FormComponent
-  dependsOn:
+  itemTemplate?: FormComponent
+  dependsOn?:
     | string
     | ((values: Record<string, any>) => boolean)
     | { name: string; value: any }
@@ -32,7 +33,7 @@ export interface FormComponent {
   tooltip?: string
   description?: string
   placeholder?: string
-  options: { value: string; label: string }[]
+  options?: { value: string; label: string }[]
   src?: string
   alt?: string
 }
@@ -53,7 +54,7 @@ interface FormConfig {
 }
 
 @tag('o-form')
-export class OForm extends Component<FormProps> {
+export class Form extends Component<FormProps> {
   static css = formTheme
 
   config: FormConfig = {
@@ -260,7 +261,7 @@ export class OForm extends Component<FormProps> {
       case 'checkbox':
       case 'radio':
       case 'textarea':
-        fieldElement = defaultRenderer[component.type](component, this.handleChange)
+        fieldElement = renderComponent(component, this.handleChange)
         break
 
       case 'list':
@@ -326,7 +327,7 @@ export class OForm extends Component<FormProps> {
 
       case 'divider':
       case 'img':
-        return defaultRenderer[component.type](component)
+        return renderComponent(component)
     }
 
     const labelAlign = this.config.labelStyle.align
@@ -351,7 +352,10 @@ export class OForm extends Component<FormProps> {
           >
             <div class="inline-block whitespace-nowrap">
               <label class="flex items-center">
-                <span>{component.label}</span> {defaultRenderer['tooltip'](component)}
+                <span>{component.label}</span> {renderComponent({
+                  type: 'tooltip',
+                  tooltip: component.tooltip,
+                })}
               </label>
             </div>
           </div>

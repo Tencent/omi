@@ -1,6 +1,18 @@
-import { Component, render, tag, h } from 'omi'
-import '../src/index.tsx'
-import formStyle from '../src/theme.css?raw'
+import { render, h } from 'omi'
+import { Form, registerRenderer } from '../src/index.js'
+
+// 重写 text 渲染器
+registerRenderer('text', (component) => {
+  return h(
+    'h1',
+    {
+      style: {
+        color: 'red',
+      },
+    },
+    [component.placeholder]
+  )
+})
 
 const config = {
   components: [
@@ -39,6 +51,17 @@ const config = {
       options: [
         { value: 'China', label: 'China' },
         { value: 'Chile', label: 'Chile' },
+      ],
+    },
+    {
+      type: 'radio',
+      name: 'gender',
+      label: 'Gender',
+      value: '',
+      placeholder: 'Gender',
+      options: [
+        { value: 'Male', label: 'Male' },
+        { value: 'female', label: 'female' },
       ],
     },
     {
@@ -118,9 +141,13 @@ const config = {
       type: 'checkbox',
       text: 'I want to recieve marketing emails',
     },
+    {
+      type: 'divider',
+    },
   ],
   submitButton: true,
   resetButton: true,
+  primaryColor: '#45a049',
   labelStyle: {
     // width: 125,
     align: 'top', // left, right, top
@@ -135,101 +162,4 @@ const config = {
   },
 }
 
-const formConfig = {
-  components: [
-    {
-      type: 'h1',
-      text: 'Form Options',
-    },
-    {
-      type: 'divider',
-    },
-    {
-      name: 'labelStyle',
-      type: 'group',
-      components: [
-        {
-          type: 'radio',
-          name: 'align',
-          label: 'Label Align',
-          value: 'top',
-          options: [
-            { value: 'left', label: 'Left' },
-            { value: 'right', label: 'Right' },
-            { value: 'top', label: 'Top' },
-          ],
-          column: 6,
-        },
-        {
-          type: 'text',
-          label: 'Label Width',
-          name: 'width',
-          placeholder: 'Label Width',
-          column: 6,
-        },
-      ],
-    },
-    {
-      label: 'Buttons',
-      name: 'buttons',
-      type: 'group',
-      components: [
-        {
-          type: 'checkbox',
-          value: true,
-          name: 'submitButton',
-          text: 'Submit Button',
-          column: 6,
-        },
-        {
-          type: 'checkbox',
-          value: true,
-          name: 'resetButton',
-          text: 'Reset Button',
-          column: 6,
-        },
-      ],
-    },
-  ],
-  submitButton: false,
-  resetButton: false,
-  labelStyle: {
-    width: 125,
-    align: 'top',
-  },
-  style: {
-    maxWidth: '600px',
-    margin: '0 auto',
-    padding: '40px',
-    background: '#fff',
-    borderRadius: '5px',
-    boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-  },
-}
-
-@tag('my-app')
-class MyApp extends Component {
-  static css = formStyle
-
-  onConfigChange = (e) => {
-    config.labelStyle = e.detail.values.labelStyle
-    config.submitButton = e.detail.values.buttons.submitButton
-    config.resetButton = e.detail.values.buttons.resetButton
-    this.update()
-  }
-
-  render() {
-    return (
-      <div class="flex gap-2" style="justify-content: center;">
-        <o-form config={config} style={{ width: 600 }} />
-        <o-form
-          config={formConfig}
-          onChange={this.onConfigChange}
-          style={{ width: 600 }}
-        />
-      </div>
-    )
-  }
-}
-
-render(<my-app />, 'body')
+render(<Form config={config} />, 'body')

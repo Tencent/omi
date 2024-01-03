@@ -1,4 +1,4 @@
-import { define, WeElement, render } from 'omi'
+import { render, h } from 'omi'
 import '../src/index.tsx'
 
 const config = {

@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -30,5 +31,8 @@ export default defineConfig({
     jsxFactory: 'h',
     jsxFragment: 'h.f',
     // jsxInject: `import { h } from 'omi'`
-  }
+  },
+  plugins: [dts({
+    entryRoot: 'src',
+  })]
 })
