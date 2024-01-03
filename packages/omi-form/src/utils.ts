@@ -242,7 +242,7 @@ export function extractValues(config: FormComponent[]): Record<string, any> {
       if (component.items) {
         for (let item of component.items) {
           if (item.type === 'group') {
-            item.components && list.push(extractValues(item.components))
+            list.push(extractValues([item]))
           } else {
             item.name && list.push({ [item.name]: item.value })
           }

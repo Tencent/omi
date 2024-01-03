@@ -18,7 +18,7 @@ describe('base', () => {
     parentElement = null
   })
 
-  it('renders form with components and buttons', () => {
+  it('renders form', () => {
     render(
       <o-form
         config={{
@@ -39,8 +39,8 @@ describe('base', () => {
                 description: 'Make sure it matches your legal name',
                 type: 'group',
                 components: [
-                  { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-                  { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
                 ],
               },
               items: [],
@@ -65,11 +65,11 @@ describe('base', () => {
     )
   })
 
-  it('renders form with components and buttons', () => {
+  it('renders form with input', () => {
     render(
       <o-form
         config={{
-          components: [{ type: 'text', name: 'name', placeholder: 'Name' }],
+          components: [{ type: 'input', name: 'name', placeholder: 'Name' }],
           submitButton: true,
           resetButton: true,
         }}
@@ -85,7 +85,7 @@ describe('base', () => {
     render(
       <o-form
         config={{
-          components: [{ type: 'text', name: 'name', placeholder: 'Name' }],
+          components: [{ type: 'input', name: 'name', placeholder: 'Name' }],
           submitButton: true,
           resetButton: true,
         }}
@@ -135,8 +135,8 @@ describe('base', () => {
                 description: 'Make sure it matches your legal name',
                 type: 'group',
                 components: [
-                  { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-                  { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
                 ],
               },
               items: [],
@@ -167,8 +167,8 @@ describe('base', () => {
                 description: 'Make sure it matches your legal name',
                 type: 'group',
                 components: [
-                  { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-                  { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
                 ],
               },
               items: [
@@ -177,8 +177,8 @@ describe('base', () => {
                   description: 'Make sure it matches your legal name',
                   type: 'group',
                   components: [
-                    { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-                    { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+                    { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+                    { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
                   ],
                 },
               ],
@@ -209,8 +209,8 @@ describe('base', () => {
                 description: 'Make sure it matches your legal name',
                 type: 'group',
                 components: [
-                  { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-                  { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+                  { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
                 ],
               },
               items: [
@@ -219,8 +219,8 @@ describe('base', () => {
                   description: 'Make sure it matches your legal name',
                   type: 'group',
                   components: [
-                    { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-                    { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+                    { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+                    { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
                   ],
                 },
               ],
@@ -257,7 +257,8 @@ describe('base', () => {
               ],
             },
             {
-              type: 'email',
+              type: 'input',
+              props: { type: 'email' },
               name: 'email',
               value: 'john.doe@example.com',
               dependsOn: {
@@ -293,7 +294,8 @@ describe('base', () => {
               ],
             },
             {
-              type: 'email',
+              type: 'input',
+              props: { type: 'email' },
               name: 'email',
               value: 'john.doe@example.com',
               dependsOn: {
@@ -329,7 +331,8 @@ describe('base', () => {
               ],
             },
             {
-              type: 'email',
+              type: 'input',
+              props: { type: 'email' },
               name: 'email',
               value: 'john.doe@example.com',
               dependsOn: "values.choice === '2'",

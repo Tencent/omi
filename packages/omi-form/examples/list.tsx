@@ -19,8 +19,8 @@ const config = {
         description: 'Make sure it matches your legal name',
         type: 'group',
         components: [
-          { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-          { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+          { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+          { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
         ],
       },
       items: [],

@@ -5,26 +5,28 @@ const config = {
   components: [
     {
       name: 'username',
-      type: 'text',
+      type: 'input',
     },
     {
       name: 'birth_year',
-      type: 'text',
+      type: 'input',
     },
     {
-      type: 'password',
+      type: 'input',
+      props: { type: 'password' },
       name: 'password',
     },
     {
-      type: 'password',
+      type: 'input',
+      props: { type: 'password' },
       name: 'repeat_password',
     },
     {
-      type: 'text',
+      type: 'input',
       name: 'access_token',
     },
     {
-      type: 'text',
+      type: 'input',
       name: 'email',
     },
   ],

@@ -250,13 +250,7 @@ export class Form extends Component<FormProps> {
 
     let fieldElement
     switch (component.type) {
-      case 'text':
-      case 'email':
-      case 'password':
-      case 'number':
-      case 'date':
-      case 'color':
-      case 'range':
+      case 'input':
       case 'select':
       case 'checkbox':
       case 'radio':
@@ -328,6 +322,8 @@ export class Form extends Component<FormProps> {
       case 'divider':
       case 'img':
         return renderComponent(component)
+      default:
+        throw new Error(`Unsupported type: ${component.type}`)
     }
 
     const labelAlign = this.config.labelStyle.align
@@ -352,7 +348,8 @@ export class Form extends Component<FormProps> {
           >
             <div class="inline-block whitespace-nowrap">
               <label class="flex items-center">
-                <span>{component.label}</span> {renderComponent({
+                <span>{component.label}</span>{' '}
+                {renderComponent({
                   type: 'tooltip',
                   tooltip: component.tooltip,
                 })}

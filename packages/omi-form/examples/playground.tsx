@@ -17,12 +17,12 @@ const config = {
       description: 'Make sure it matches your legal name',
       type: 'group',
       components: [
-        { type: 'text', value: '', placeholder: 'First Name', column: 6 },
-        { type: 'text', value: '', placeholder: 'Last Name', column: 6 },
+        { type: 'input', value: '', placeholder: 'First Name', column: 6 },
+        { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
       ],
     },
     {
-      type: 'text',
+      type: 'input',
       value: '',
       name: 'birthday',
       placeholder: 'Birthday',
@@ -50,9 +50,15 @@ const config = {
         tooltip: '',
         type: 'group',
         components: [
-          { type: 'text', name: 'type', value: '', placeholder: 'Phone Type', column: 6 },
           {
-            type: 'text',
+            type: 'input',
+            name: 'type',
+            value: '',
+            placeholder: 'Phone Type',
+            column: 6,
+          },
+          {
+            type: 'input',
             name: 'number',
             value: '',
             placeholder: 'Phone Number',
@@ -67,14 +73,14 @@ const config = {
           type: 'group',
           components: [
             {
-              type: 'text',
+              type: 'input',
               name: 'type',
               value: '',
               placeholder: 'Phone Type',
               column: 6,
             },
             {
-              type: 'text',
+              type: 'input',
               name: 'number',
               value: '',
               placeholder: 'Phone Number',
@@ -85,21 +91,21 @@ const config = {
       ],
     },
     {
-      type: 'email',
+      type: 'input',
       label: 'Email',
       placeholder: 'Email',
       value: 'john.doe@example.com',
       description: 'You will receive a confirmation letter to this email.',
     },
     {
-      type: 'password',
+      type: 'input',
       label: 'Password',
       name: 'password',
       placeholder: 'Password',
       value: '',
     },
     {
-      type: 'password',
+      type: 'input',
       label: 'Password Again',
       name: 'passwordConfirmation',
       placeholder: 'Password Again',
@@ -161,7 +167,7 @@ const formConfig = {
           column: 6,
         },
         {
-          type: 'text',
+          type: 'input',
           label: 'Label Width',
           name: 'width',
           placeholder: 'Label Width',

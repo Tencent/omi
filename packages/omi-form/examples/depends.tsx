@@ -14,7 +14,7 @@ const config = {
       ],
     },
     {
-      type: 'email',
+      type: 'input',
       name: 'email',
       value: 'john.doe@example.com',
       dependsOn: {
@@ -33,7 +33,7 @@ const config = {
       ],
     },
     {
-      type: 'email',
+      type: 'input',
       name: 'email2',
       value: 'john.doe@example.com',
       dependsOn: 'values.choice2 === "2"',

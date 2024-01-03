@@ -19,12 +19,12 @@ const config = {
         description: 'Make sure it matches your legal name',
         type: 'group',
         components: [
-          { type: 'text', value: '1', placeholder: 'First Name', column: 6 },
-          { type: 'text', value: '2', placeholder: 'Last Name', column: 6 },
+          { type: 'input', value: '1', placeholder: 'First Name', column: 6 },
+          { type: 'input', value: '2', placeholder: 'Last Name', column: 6 },
           {
             type: 'list',
-            itemTemplate: { type: 'text', value: '3', placeholder: 'First Name' },
-            items: [{ type: 'text', value: '3', placeholder: 'First Name' }],
+            itemTemplate: { type: 'input', value: '3', placeholder: 'First Name' },
+            items: [{ type: 'input', value: '3', placeholder: 'First Name' }],
           },
         ],
       },

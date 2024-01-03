@@ -3,39 +3,17 @@ import { FormComponent } from './index'
 
 type ChangeHandler = (component: FormComponent, value: string | boolean) => void
 
-function text(component: FormComponent, handleChange: ChangeHandler) {
+function input(component: FormComponent, handleChange: ChangeHandler) {
+  const type = component.props?.type || 'text'
   return (
     <input
-      type={component.type}
+      type={type}
       placeholder={component.placeholder}
       value={component.value}
       onChange={(e) => handleChange(component, (e.target as HTMLInputElement).value)}
+      {...component.props}
     />
   )
-}
-
-function password(component: FormComponent, handleChange: ChangeHandler) {
-  return text(component, handleChange)
-}
-
-function email(component: FormComponent, handleChange: ChangeHandler) {
-  return text(component, handleChange)
-}
-
-function number(component: FormComponent, handleChange: ChangeHandler) {
-  return text(component, handleChange)
-}
-
-function date(component: FormComponent, handleChange: ChangeHandler) {
-  return text(component, handleChange)
-}
-
-function color(component: FormComponent, handleChange: ChangeHandler) {
-  return text(component, handleChange)
-}
-
-function range(component: FormComponent, handleChange: ChangeHandler) {
-  return text(component, handleChange)
 }
 
 function select(component: FormComponent, handleChange: ChangeHandler) {
@@ -130,13 +108,7 @@ function tooltip(component: FormComponent) {
 }
 
 export const defaultRenderer: Record<string, Function> = {
-  text,
-  password,
-  email,
-  number,
-  date,
-  color,
-  range,
+  input,
   select,
   checkbox,
   radio,
@@ -153,10 +125,7 @@ export function registerRenderer(type: string, rendererFunc: Function) {
   defaultRenderer[type] = rendererFunc
 }
 
-export function renderComponent(
-  component: FormComponent,
-  handleChange?: ChangeHandler
-) {
+export function renderComponent(component: FormComponent, handleChange?: ChangeHandler) {
   const renderer = defaultRenderer[component.type]
   if (!renderer) {
     throw new Error(`No renderer for component type "${component.type}"`)
