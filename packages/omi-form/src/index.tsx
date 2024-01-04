@@ -70,6 +70,8 @@ export class Form extends Component<FormProps> {
 
   install() {
     Object.assign(this.config, this.props.config)
+
+    this.resetValues(this.props.values)
   }
 
   joiSchema?: Schema
@@ -165,8 +167,9 @@ export class Form extends Component<FormProps> {
       component.items.push(deepCopy(component.itemTemplate))
     }
 
-    this.update()
     this.values = extractValues(this.config.components)
+    this.resetValues(this.values)
+    this.update()
   }
 
   removeListItem = (component: FormComponent, index: number) => {
@@ -177,9 +180,8 @@ export class Form extends Component<FormProps> {
 
   handleChange = (component: FormComponent, value: string | boolean) => {
     component.value = value
-    this.values = extractValues(this.config.components)
-
     this.validate()
+    this.resetValues(this.values)
     this.update()
 
     this.fire('change', {
@@ -206,7 +208,29 @@ export class Form extends Component<FormProps> {
     return null
   }
 
-  renderField = (
+  getValueFromNestedStructure = (path: string, values: any): any => {
+    if (!path) {
+      return undefined
+    }
+    const pathParts = path.split('.')
+    let currentValue = values
+
+    for (const part of pathParts) {
+      if (currentValue === undefined || currentValue === null) {
+        return undefined
+      }
+
+      if (Array.isArray(currentValue) && /^\d+$/.test(part)) {
+        currentValue = currentValue[parseInt(part, 10)]
+      } else {
+        currentValue = currentValue[part]
+      }
+    }
+
+    return currentValue
+  }
+
+  renderComponent = (
     component: FormComponent,
     index: number,
     components: FormComponent[],
@@ -248,39 +272,42 @@ export class Form extends Component<FormProps> {
       }
     }
 
-    let fieldElement
+    let element
     switch (component.type) {
       case 'input':
       case 'select':
       case 'checkbox':
       case 'radio':
       case 'textarea':
-        fieldElement = renderComponent(component, this.handleChange)
+        element = renderComponent(component, this.handleChange)
         break
 
       case 'list':
-        fieldElement = (
+        element = (
           <div class="relative">
-            {component.items &&
-              component.items.length > 0 &&
-              component.items.map((item, i) => (
-                <div
-                  class={classNames('relative hover:[&>i]:opacity-100', {
-                    'mt-2': i > 0,
-                  })}
-                >
-                  {component.items &&
-                    this.renderField(item, i, component.items, level + 1)}
-                  <i
-                    class="minus icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0"
-                    onClick={() => this.removeListItem(component, i)}
-                  ></i>
-                  <i
-                    class="add icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0"
-                    onClick={() => this.addListItem(component, i)}
-                  ></i>
-                </div>
-              ))}
+            {component.items?.map((item, i) => (
+              <div
+                class={classNames('relative hover:[&>i]:opacity-100', {
+                  'mt-2': i > 0,
+                })}
+              >
+                {this.renderComponent(
+                  item,
+                  i,
+                  // @ts-ignore
+                  component.items,
+                  level + 1
+                )}
+                <i
+                  class="minus icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0"
+                  onClick={() => this.removeListItem(component, i)}
+                ></i>
+                <i
+                  class="add icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0"
+                  onClick={() => this.addListItem(component, i)}
+                ></i>
+              </div>
+            ))}
             <i
               class="add icon rounded-full inline-block cursor-pointer bg-white relative"
               onClick={() => this.addListItem(component)}
@@ -290,13 +317,18 @@ export class Form extends Component<FormProps> {
         break
 
       case 'group':
-        fieldElement = (
+        element = (
           <div class="grid">
-            {component.components?.map((childField, i) => (
-              <div style={`grid-column: span ${childField.column || 12}`}>
+            {component.components?.map((childComponent, i) => (
+              <div style={`grid-column: span ${childComponent.column || 12}`}>
                 <div class="w-full">
                   {component.components &&
-                    this.renderField(childField, i, component.components, level + 1)}
+                    this.renderComponent(
+                      childComponent,
+                      i,
+                      component.components,
+                      level + 1
+                    )}
                 </div>
               </div>
             ))}
@@ -306,7 +338,7 @@ export class Form extends Component<FormProps> {
 
       case 'custom':
         // @ts-ignore
-        fieldElement = <component.component {...component.props} />
+        element = <component.component {...component.props} />
         break
 
       case 'h1':
@@ -358,7 +390,7 @@ export class Form extends Component<FormProps> {
           </div>
         )}
         <div class="flex-1">
-          {fieldElement}
+          {element}
           {component.description && (
             <div class="text-6b7280 text-sm mt-1.5" style={'grid-column: span 12'}>
               {component.description}
@@ -395,6 +427,45 @@ export class Form extends Component<FormProps> {
     this.joiSchema = this.props.config?.validate?.(Joi)
   }
 
+  initValue = (component: FormComponent, level: number, path: string = '', values) => {
+    // Build the path for the current component
+    const currentPath = path
+      ? component.name
+        ? `${path}.${component.name}`
+        : path
+      : component.name
+
+    // Get the value from the nested values structure using the current path
+    const formValue = this.getValueFromNestedStructure(currentPath, values)
+
+    // Use the form-wide value if available, otherwise fallback to component.defaultValue
+    const value = formValue !== undefined ? formValue : component.defaultValue
+
+    // Update the component's value with the merged value
+    component.value = value
+
+    switch (component.type) {
+      case 'list':
+        component.items?.forEach((item, i) =>
+          this.initValue(item, level + 1, `${currentPath}.${i}`, values)
+        )
+
+        break
+
+      case 'group':
+        component.components?.forEach((childComponent) => {
+          this.initValue(childComponent, level + 1, currentPath, values)
+        })
+        break
+    }
+  }
+
+  resetValues(values) {
+    this.config.components.forEach((component) =>
+      this.initValue(component, 0, '', values)
+    )
+  }
+
   render(props: FormProps) {
     const marginStyle = {
       marginLeft:
@@ -411,7 +482,7 @@ export class Form extends Component<FormProps> {
       >
         {this.config.components.map((component, index) => (
           <div style={`grid-column: span ${component.column || 12}`}>
-            {this.renderField(component, index, this.config.components, 0)}
+            {this.renderComponent(component, index, this.config.components, 0)}
           </div>
         ))}
 

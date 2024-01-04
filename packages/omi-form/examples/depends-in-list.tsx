@@ -5,6 +5,7 @@ const config = {
   components: [
     {
       type: 'list',
+      name: 'myList',
       itemTemplate: {
         label: '',
         tooltip: '',
@@ -14,7 +15,7 @@ const config = {
           {
             type: 'select',
             name: 'choice',
-            value: '1',
+            defaultValue: '1',
             placeholder: 'Last Name',
             options: [
               { value: '1', label: 'Option 1' },
@@ -22,9 +23,9 @@ const config = {
             ],
           },
           {
-            type: 'text',
+            type: 'input',
             name: 'address',
-            value: 'xxx',
+            defaultValue: 'xxx',
             dependsOn: {
               name: 'choice',
               value: '2',

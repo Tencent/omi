@@ -13,18 +13,20 @@ const config = {
 
     {
       type: 'list',
+      name: 'myList',
       itemTemplate: {
         label: '',
         tooltip: '',
         description: 'Make sure it matches your legal name',
         type: 'group',
         components: [
-          { type: 'input', value: '1', placeholder: 'First Name', column: 6 },
-          { type: 'input', value: '2', placeholder: 'Last Name', column: 6 },
+          { type: 'input', name: 'first', defaultValue: '1', placeholder: 'First Name', column: 6 },
+          { type: 'input', name: 'last', defaultValue: '2', placeholder: 'Last Name', column: 6 },
           {
             type: 'list',
-            itemTemplate: { type: 'input', value: '3', placeholder: 'First Name' },
-            items: [{ type: 'input', value: '3', placeholder: 'First Name' }],
+            name: 'myNestedList',
+            itemTemplate: { type: 'input', name: 'first', defaultValue: '3', placeholder: 'First Name' },
+            items: [{ type: 'input', name: 'first', defaultValue: '3', placeholder: 'First Name' }],
           },
         ],
       },

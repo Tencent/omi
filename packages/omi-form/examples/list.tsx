@@ -13,14 +13,15 @@ const config = {
 
     {
       type: 'list',
+      name: 'myList',
       itemTemplate: {
         label: '',
         tooltip: '',
         description: 'Make sure it matches your legal name',
         type: 'group',
         components: [
-          { type: 'input', value: '', placeholder: 'First Name', column: 6 },
-          { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
+          { type: 'input', name: 'first', placeholder: 'First Name', column: 6 },
+          { type: 'input', name: 'last', placeholder: 'Last Name', column: 6 },
         ],
       },
       items: [],

@@ -6,7 +6,7 @@ const config = {
     {
       type: 'select',
       name: 'choice',
-      value: '',
+      defaultValue: '',
       placeholder: 'Last Name',
       options: [
         { value: '1', label: 'Option 1' },
@@ -16,7 +16,7 @@ const config = {
     {
       type: 'input',
       name: 'email',
-      value: 'john.doe@example.com',
+      defaultValue: 'john.doe@example.com',
       dependsOn: {
         name: 'choice',
         value: '2',
@@ -25,7 +25,7 @@ const config = {
     {
       type: 'select',
       name: 'choice2',
-      value: '',
+      defaultValue: '',
       placeholder: 'Last Name',
       options: [
         { value: '1', label: 'Option 1' },
@@ -35,7 +35,7 @@ const config = {
     {
       type: 'input',
       name: 'email2',
-      value: 'john.doe@example.com',
+      defaultValue: 'john.doe@example.com',
       dependsOn: 'values.choice2 === "2"',
     },
   ],

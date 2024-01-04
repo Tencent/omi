@@ -18,13 +18,25 @@ const config = {
       description: 'Make sure it matches your legal name',
       type: 'group',
       components: [
-        { type: 'input', name: 'first', value: '', placeholder: 'First Name', column: 6 },
-        { type: 'input', name: 'last', value: '', placeholder: 'Last Name', column: 6 },
+        {
+          type: 'input',
+          name: 'first',
+          defaultValue: 'o',
+          placeholder: 'First Name',
+          column: 6,
+        },
+        {
+          type: 'input',
+          name: 'last',
+          defaultValue: 'mi',
+          placeholder: 'Last Name',
+          column: 6,
+        },
       ],
     },
     {
       type: 'input',
-      value: '',
+      defaultValue: '',
       name: 'birthday',
       placeholder: 'Birthday',
       label: 'Birthday',

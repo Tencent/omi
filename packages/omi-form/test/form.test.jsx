@@ -61,7 +61,7 @@ describe('base', () => {
       parentElement
     )
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe(
-      '<form class="grid" style="max-width: 600px; margin: 0px auto; padding: 40px; background: rgb(255, 255, 255); border-radius: 5px; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);"><div style="grid-column: span 12;"><h1>List</h1></div><div style="grid-column: span 12;"><hr></div><div style="grid-column: span 12;"><div class="flex"><div class="inline-block items-center h-8 leading-8 text-sm pr-6 overflow-hidden text-right" style="width: 125px;"><div class="inline-block whitespace-nowrap"><label class="flex items-center"><span></span> </label></div></div><div class="flex-1"><div class="relative"><i class="add icon rounded-full inline-block cursor-pointer bg-white relative"></i></div></div></div></div><div class="flex gap-2" style="margin-left: 125px;"><button class="button submit-button" type="submit">Submit</button><button class="button reset-button" type="reset">Reset</button></div></form>'
+      '<form class="grid" style="max-width: 600px; margin: 0px auto; padding: 40px; background: rgb(255, 255, 255); border-radius: 5px; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);"><div style="grid-column: span 12;"><h1>List</h1></div><div style="grid-column: span 12;"><hr></div><div style="grid-column: span 12;"><div class="flex"><div class="inline-block items-center h-8 leading-8 text-sm pr-6 overflow-hidden text-right" style="width: 125px;"><div class="inline-block whitespace-nowrap"><label class="flex items-center"><span></span></label></div></div><div class="flex-1"><div class="relative"><i class="add icon rounded-full inline-block cursor-pointer bg-white relative"></i></div></div></div></div><div class="flex gap-2" style="margin-left: 125px;"><button class="button submit-button" type="submit">Submit</button><button class="button reset-button" type="reset">Reset</button></div></form>'
     )
   })
 
@@ -77,7 +77,7 @@ describe('base', () => {
       parentElement
     )
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe(
-      '<form class="grid" style=""><div style="grid-column: span 12;"><div class="flex"><div class="inline-block items-center h-8 leading-8 text-sm pr-6 overflow-hidden text-right" style="width: 125px;"><div class="inline-block whitespace-nowrap"><label class="flex items-center"><span></span> </label></div></div><div class="flex-1"><input type="text" placeholder="Name"></div></div></div><div class="flex gap-2" style="margin-left: 125px;"><button class="button submit-button" type="submit">Submit</button><button class="button reset-button" type="reset">Reset</button></div></form>'
+      '<form class="grid" style=""><div style="grid-column: span 12;"><div class="flex"><div class="inline-block items-center h-8 leading-8 text-sm pr-6 overflow-hidden text-right" style="width: 125px;"><div class="inline-block whitespace-nowrap"><label class="flex items-center"><span></span></label></div></div><div class="flex-1"><input type="text" placeholder="Name"></div></div></div><div class="flex gap-2" style="margin-left: 125px;"><button class="button submit-button" type="submit">Submit</button><button class="button reset-button" type="reset">Reset</button></div></form>'
     )
   })
 
@@ -241,7 +241,7 @@ describe('base', () => {
     expect(hsl[2]).toBe(50)
   })
 
-  it('linkage', () => {
+  it('linkage 1', () => {
     render(
       <o-form
         config={{
@@ -249,7 +249,7 @@ describe('base', () => {
             {
               type: 'select',
               name: 'choice',
-              value: '',
+              defaultValue: '',
               placeholder: 'Last Name',
               options: [
                 { value: '1', label: 'Option 1' },
@@ -278,7 +278,7 @@ describe('base', () => {
     expect(input).toBeNull()
   })
 
-  it('linkage', () => {
+  it('linkage 2', () => {
     render(
       <o-form
         config={{
@@ -286,7 +286,7 @@ describe('base', () => {
             {
               type: 'select',
               name: 'choice',
-              value: '2',
+              defaultValue: '2',
               placeholder: 'Last Name',
               options: [
                 { value: '1', label: 'Option 1' },
@@ -315,7 +315,7 @@ describe('base', () => {
     expect(input).not.toBeNull()
   })
 
-  it('linkage', () => {
+  it('linkage 3', () => {
     render(
       <o-form
         config={{
@@ -323,7 +323,7 @@ describe('base', () => {
             {
               type: 'select',
               name: 'choice',
-              value: '2',
+              defaultValue: '2',
               placeholder: 'Last Name',
               options: [
                 { value: '1', label: 'Option 1' },
