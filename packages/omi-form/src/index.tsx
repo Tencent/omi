@@ -232,7 +232,6 @@ export class Form extends Component<FormProps> {
 
   renderComponent = (
     component: FormComponent,
-    index: number,
     components: FormComponent[],
     level: number
   ) => {
@@ -293,7 +292,6 @@ export class Form extends Component<FormProps> {
               >
                 {this.renderComponent(
                   item,
-                  i,
                   // @ts-ignore
                   component.items,
                   level + 1
@@ -325,7 +323,6 @@ export class Form extends Component<FormProps> {
                   {component.components &&
                     this.renderComponent(
                       childComponent,
-                      i,
                       component.components,
                       level + 1
                     )}
@@ -482,7 +479,7 @@ export class Form extends Component<FormProps> {
       >
         {this.config.components.map((component, index) => (
           <div style={`grid-column: span ${component.column || 12}`}>
-            {this.renderComponent(component, index, this.config.components, 0)}
+            {this.renderComponent(component, this.config.components, 0)}
           </div>
         ))}
 

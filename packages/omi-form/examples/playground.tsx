@@ -17,13 +17,12 @@ const config = {
       description: 'Make sure it matches your legal name',
       type: 'group',
       components: [
-        { type: 'input', value: '', placeholder: 'First Name', column: 6 },
-        { type: 'input', value: '', placeholder: 'Last Name', column: 6 },
+        { type: 'input', name: 'first', placeholder: 'First Name', column: 6 },
+        { type: 'input', name: 'last', placeholder: 'Last Name', column: 6 },
       ],
     },
     {
       type: 'input',
-      value: '',
       name: 'birthday',
       placeholder: 'Birthday',
       label: 'Birthday',
@@ -93,6 +92,7 @@ const config = {
     {
       type: 'input',
       label: 'Email',
+      name: 'Email',
       placeholder: 'Email',
       value: 'john.doe@example.com',
       description: 'You will receive a confirmation letter to this email.',
@@ -118,10 +118,12 @@ const config = {
     // },
     {
       type: 'checkbox',
+      name: 'terms',
       text: 'I accept the Terms & Conditions & Privacy Policy',
     },
     {
       type: 'checkbox',
+      name: 'marketing',
       text: 'I want to recieve marketing emails',
     },
   ],
