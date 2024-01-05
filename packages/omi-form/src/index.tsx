@@ -6,7 +6,7 @@ import { localeErrorMessages } from './locale'
 export { registerLocale } from './locale'
 import { renderComponent } from './renderer'
 export { registerRenderer } from './renderer'
-import { DEFAULT_LABEL_WIDTH, PRIMARY_COLOR } from './constants'
+import { DEFAULT_LABEL_WIDTH, PRIMARY_COLOR, LIST_LEVEL_INDENT } from './constants'
 import { hexToHsl, deepCopy, extractValues, addPxIfNeeded } from './utils'
 
 interface FormProps {
@@ -283,7 +283,12 @@ export class Form extends Component<FormProps> {
 
       case 'list':
         element = (
-          <div class="relative">
+          <div
+            class="relative"
+            style={{
+              marginLeft: level * LIST_LEVEL_INDENT,
+            }}
+          >
             {component.items?.map((item, i) => (
               <div
                 class={classNames('relative hover:[&>i]:opacity-100', {
@@ -321,11 +326,7 @@ export class Form extends Component<FormProps> {
               <div style={`grid-column: span ${childComponent.column || 12}`}>
                 <div class="w-full">
                   {component.components &&
-                    this.renderComponent(
-                      childComponent,
-                      component.components,
-                      level + 1
-                    )}
+                    this.renderComponent(childComponent, component.components, level + 1)}
                 </div>
               </div>
             ))}
@@ -355,7 +356,9 @@ export class Form extends Component<FormProps> {
         throw new Error(`Unsupported type: ${component.type}`)
     }
 
-    const labelAlign = this.config.labelStyle.align
+    // 只有最外层的表单用 config.labelStyle
+    const labelAlign = level ? component.labelStyle?.align : this.config.labelStyle.align
+    const labelWidth = level ? component.labelStyle?.width : this.config.labelStyle.width
     return (
       <div
         class={classNames({
@@ -372,7 +375,7 @@ export class Form extends Component<FormProps> {
               }
             )}
             style={{
-              width: addPxIfNeeded(this.config.labelStyle.width),
+              width: labelAlign !== 'top' ? addPxIfNeeded(labelWidth) : undefined,
             }}
           >
             <div class="inline-block whitespace-nowrap">

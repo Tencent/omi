@@ -159,6 +159,9 @@ const formConfig = {
         {
           type: 'radio',
           name: 'align',
+          labelStyle: {
+            align: 'top',
+          },
           label: 'Label Align',
           value: 'top',
           options: [
@@ -171,6 +174,9 @@ const formConfig = {
         {
           type: 'input',
           label: 'Label Width',
+          labelStyle: {
+            align: 'top',
+          },
           name: 'width',
           placeholder: 'Label Width',
           column: 6,

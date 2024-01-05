@@ -241,8 +241,7 @@ export function extractValues(config: FormComponent[]): Record<string, any> {
             } else {
               Object.assign(group, list)
             }
-          }
-          else {
+          } else {
             if (subComponent.name) {
               group[subComponent.name] = subComponent.value
             }
@@ -261,7 +260,8 @@ export function extractValues(config: FormComponent[]): Record<string, any> {
         for (let item of component.items) {
           if (item.type === 'group') {
             list.push(extractValues([item]))
-          } if (item.type === 'list') {
+          }
+          if (item.type === 'list') {
             list.push(extractValues(item.items || []))
           } else {
             item.name && list.push({ [item.name]: item.value })

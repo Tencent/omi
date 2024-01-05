@@ -1,6 +1,6 @@
 {
   "name": "omi-form",
-  "version": "0.0.18",
+  "version": "0.0.23",
   "description": "Powerful, simple and cross frameworks form solution.",
   "main": "dist/index.es.js",
   "exports": {
@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "joi": "^17.11.0",
-    "omi": "^7.3.10",
+    "omi": "^7.4.2",
     "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
