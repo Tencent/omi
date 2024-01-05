@@ -144,7 +144,7 @@ function idiff(
   }
 
   let vnodeName = vnode.nodeName
-  if (typeof vnodeName !==  'string') {
+  if (typeof vnodeName !== 'string') {
     vnodeName = (vnodeName as Component).tagName
   }
 

@@ -84,18 +84,27 @@ export function setAccessor(
   } else if (name === 'class' && !isSvg) {
     node.className = value || ''
   } else if (name === 'style') {
-    if (!value || typeof value === 'string' || typeof old === 'string') {
-      node.style.cssText = value || ''
-    }
-    if (value && typeof value === 'object') {
-      if (typeof old !== 'string') {
-        for (let i in old) if (!(i in value)) (node.style as any)[i] = ''
+    if (typeof value == 'string') {
+      node.style.cssText = value
+    } else {
+      if (typeof old == 'string') {
+        node.style.cssText = old = ''
       }
-      for (let i in value) {
-        ;(node.style as any)[i] =
-          typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false
-            ? value[i] + 'px'
-            : value[i]
+
+      if (old) {
+        for (name in old) {
+          if (!(value && name in value)) {
+            setStyle(node.style, name, '')
+          }
+        }
+      }
+
+      if (value) {
+        for (name in value) {
+          if (!old || value[name] !== old[name]) {
+            setStyle(node.style, name, value[name])
+          }
+        }
       }
     }
   } else if (name === 'unsafeHTML') {
@@ -183,4 +192,20 @@ function bindEvent(node: ExtendedElement, name: string, value: any, old: any) {
     node.removeEventListener(name, eventProxy, useCapture)
   }
   ;(node._listeners || (node._listeners = {}))[name] = value
+}
+
+function setStyle(
+  style: CSSStyleDeclaration,
+  key: string,
+  value: string | number | null,
+) {
+  if (key[0] === '-') {
+    style.setProperty(key, value == null ? '' : value.toString())
+  } else if (value == null) {
+    ;(style as any)[key] = ''
+  } else if (typeof value != 'number' || IS_NON_DIMENSIONAL.test(key)) {
+    ;(style as any)[key] = value.toString()
+  } else {
+    ;(style as any)[key] = value + 'px'
+  }
 }

@@ -385,4 +385,31 @@ describe('base', () => {
     render(<node.name />, parentElement)
 
   })
+
+  it('style', () => {
+    let a = true
+    class Ele extends Component {
+
+      installed() {
+        a = false
+        this.update()
+      }
+      render() {
+        return (
+          <ul>
+            <li style={
+              {
+                width: a ? '100px' :undefined
+              }
+            }>a</li>
+          </ul>
+        )
+      }
+    }
+    let node = genNode()
+    define(node.name, Ele)
+    render(<Ele />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<ul><li style=\"\">a</li></ul>')
+
+  })
 })

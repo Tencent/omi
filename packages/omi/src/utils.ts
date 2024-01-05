@@ -112,7 +112,10 @@ export function isSameNodeType(node: ExtendedElement, vnode: VNode): boolean {
     return node.splitText !== undefined
   }
   const nodeName = (vnode as ObjectVNode).nodeName
-  return isNamedNode(node, typeof nodeName !== 'string' ? (nodeName as Component).tagName : nodeName)
+  return isNamedNode(
+    node,
+    typeof nodeName !== 'string' ? (nodeName as Component).tagName : nodeName,
+  )
 }
 
 /**
