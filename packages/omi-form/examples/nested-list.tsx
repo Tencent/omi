@@ -25,14 +25,14 @@ const config = {
             name: 'first',
             defaultValue: 'omi',
             placeholder: 'First Name',
-            column: 6,
+            span: 6,
           },
           {
             type: 'input',
             name: 'last',
             defaultValue: 'form',
             placeholder: 'Last Name',
-            column: 6,
+            span: 6,
           },
           {
             type: 'list',

@@ -20,8 +20,8 @@ const config = {
         description: 'Make sure it matches your legal name',
         type: 'group',
         components: [
-          { type: 'input', name: 'first', placeholder: 'First Name', column: 6 },
-          { type: 'input', name: 'last', placeholder: 'Last Name', column: 6 },
+          { type: 'input', name: 'first', placeholder: 'First Name', span: 6 },
+          { type: 'input', name: 'last', placeholder: 'Last Name', span: 6 },
         ],
       },
       items: [],

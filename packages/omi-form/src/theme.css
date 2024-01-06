@@ -30,10 +30,8 @@ hr {
   margin-top: 0.5rem;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 15px;
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .flex {
@@ -118,13 +116,6 @@ input::placeholder {
   width: 100%;
 }
 
-.icon {
-  width: 16px;
-  height: 16px;
-  right: -6px;
-  transition: all 0.2s ease-in-out;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
@@ -153,21 +144,6 @@ input::placeholder {
   opacity: 0;
 }
 
-.add {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm12-5.5V11h4.5v2H13v4.5h-2V13H6.5v-2H11V6.5h2z" fill="%236b7280"></path></svg>');
-  bottom: -3px;
-}
-
-.minus {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm5.5-1h11v2h-11v-2z" fill="%236b7280"></path></svg>');
-  top: -3px;
-}
-
-.add:hover,
-.minus:hover {
-  transform: scale(1.1);
-}
-
 .relative {
   position: relative;
 }
@@ -190,6 +166,104 @@ input::placeholder {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+select:focus,
+input:focus {
+  outline: 1px solid
+    hsl(
+      var(--omi-form-primary-hue),
+      var(--omi-form-primary-saturation),
+      var(--omi-form-primary-lightness)
+    );
+}
+
+input[type='checkbox']:focus {
+  outline: none;
+}
+
+input[type='radio']:focus {
+  outline: none;
+}
+
+input[type='radio'] {
+  accent-color: hsl(
+    var(--omi-form-primary-hue),
+    var(--omi-form-primary-saturation),
+    var(--omi-form-primary-lightness)
+  );
+}
+
+input[type='checkbox'] {
+  accent-color: hsl(
+    var(--omi-form-primary-hue),
+    var(--omi-form-primary-saturation),
+    var(--omi-form-primary-lightness)
+  );
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: auto;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0 8px;
+  position: absolute;
+  z-index: 100000;
+  top: 150%;
+  left: 10px;
+  margin-left: 0px;
+  transform: translateX(-50%);
+}
+
+.tooltip::after {
+  visibility: hidden;
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  top: 20px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover::after {
+  visibility: visible;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  right: -6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.add {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm12-5.5V11h4.5v2H13v4.5h-2V13H6.5v-2H11V6.5h2z" fill="%236b7280"></path></svg>');
+  bottom: -3px;
+}
+
+.minus {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm5.5-1h11v2h-11v-2z" fill="%236b7280"></path></svg>');
+  top: -3px;
+}
+
+.add:hover,
+.minus:hover {
+  transform: scale(1.1);
 }
 
 .button {
@@ -271,36 +345,262 @@ input::placeholder {
   background-color: #dddddd51;
 }
 
-select:focus,
-input:focus {
-  outline: 1px solid
-    hsl(
-      var(--omi-form-primary-hue),
-      var(--omi-form-primary-saturation),
-      var(--omi-form-primary-lightness)
-    );
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 15px;
 }
 
-input[type='checkbox']:focus {
-  outline: none;
+.col-span-1 {
+  grid-column: span 1;
 }
 
-input[type='radio']:focus {
-  outline: none;
+.col-span-2 {
+  grid-column: span 2;
 }
 
-input[type='radio'] {
-  accent-color: hsl(
-    var(--omi-form-primary-hue),
-    var(--omi-form-primary-saturation),
-    var(--omi-form-primary-lightness)
-  );
+.col-span-3 {
+  grid-column: span 3;
 }
 
-input[type='checkbox'] {
-  accent-color: hsl(
-    var(--omi-form-primary-hue),
-    var(--omi-form-primary-saturation),
-    var(--omi-form-primary-lightness)
-  );
+.col-span-4 {
+  grid-column: span 4;
+}
+
+.col-span-5 {
+  grid-column: span 5;
+}
+
+.col-span-6 {
+  grid-column: span 6;
+}
+
+.col-span-7 {
+  grid-column: span 7;
+}
+
+.col-span-8 {
+  grid-column: span 8;
+}
+
+.col-span-9 {
+  grid-column: span 9;
+}
+
+.col-span-10 {
+  grid-column: span 10;
+}
+
+.col-span-11 {
+  grid-column: span 11;
+}
+
+.col-span-12 {
+  grid-column: span 12;
+}
+
+/* Small devices (landscape phones, 640px and up) */
+@media (min-width: 640px) {
+  .sm\:col-span-1 {
+    grid-column: span 1;
+  }
+  .sm\:col-span-2 {
+    grid-column: span 2;
+  }
+  .sm\:col-span-3 {
+    grid-column: span 3;
+  }
+  .sm\:col-span-4 {
+    grid-column: span 4;
+  }
+  .sm\:col-span-5 {
+    grid-column: span 5;
+  }
+  .sm\:col-span-6 {
+    grid-column: span 6;
+  }
+  .sm\:col-span-7 {
+    grid-column: span 7;
+  }
+  .sm\:col-span-8 {
+    grid-column: span 8;
+  }
+  .sm\:col-span-9 {
+    grid-column: span 9;
+  }
+  .sm\:col-span-10 {
+    grid-column: span 10;
+  }
+  .sm\:col-span-11 {
+    grid-column: span 11;
+  }
+  .sm\:col-span-12 {
+    grid-column: span 12;
+  }
+
+  /* Add other col-span classes for small devices as needed */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .md\:col-span-1 {
+    grid-column: span 1;
+  }
+  .md\:col-span-2 {
+    grid-column: span 2;
+  }
+  .md\:col-span-3 {
+    grid-column: span 3;
+  }
+  .md\:col-span-4 {
+    grid-column: span 4;
+  }
+  .md\:col-span-5 {
+    grid-column: span 5;
+  }
+  .md\:col-span-6 {
+    grid-column: span 6;
+  }
+  .md\:col-span-7 {
+    grid-column: span 7;
+  }
+  .md\:col-span-8 {
+    grid-column: span 8;
+  }
+  .md\:col-span-9 {
+    grid-column: span 9;
+  }
+  .md\:col-span-10 {
+    grid-column: span 10;
+  }
+  .md\:col-span-11 {
+    grid-column: span 11;
+  }
+  .md\:col-span-12 {
+    grid-column: span 12;
+  }
+  /* Add other col-span classes for medium devices as needed */
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+  .lg\:col-span-1 {
+    grid-column: span 1;
+  }
+  .lg\:col-span-2 {
+    grid-column: span 2;
+  }
+  .lg\:col-span-3 {
+    grid-column: span 3;
+  }
+  .lg\:col-span-4 {
+    grid-column: span 4;
+  }
+  .lg\:col-span-5 {
+    grid-column: span 5;
+  }
+  .lg\:col-span-6 {
+    grid-column: span 6;
+  }
+  .lg\:col-span-7 {
+    grid-column: span 7;
+  }
+  .lg\:col-span-8 {
+    grid-column: span 8;
+  }
+  .lg\:col-span-9 {
+    grid-column: span 9;
+  }
+  .lg\:col-span-10 {
+    grid-column: span 10;
+  }
+  .lg\:col-span-11 {
+    grid-column: span 11;
+  }
+  .lg\:col-span-12 {
+    grid-column: span 12;
+  }
+  /* Add other col-span classes for large devices as needed */
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+  .xl\:col-span-1 {
+    grid-column: span 1;
+  }
+  .xl\:col-span-2 {
+    grid-column: span 2;
+  }
+  .xl\:col-span-3 {
+    grid-column: span 3;
+  }
+  .xl\:col-span-4 {
+    grid-column: span 4;
+  }
+  .xl\:col-span-5 {
+    grid-column: span 5;
+  }
+  .xl\:col-span-6 {
+    grid-column: span 6;
+  }
+  .xl\:col-span-7 {
+    grid-column: span 7;
+  }
+  .xl\:col-span-8 {
+    grid-column: span 8;
+  }
+  .xl\:col-span-9 {
+    grid-column: span 9;
+  }
+  .xl\:col-span-10 {
+    grid-column: span 10;
+  }
+  .xl\:col-span-11 {
+    grid-column: span 11;
+  }
+  .xl\:col-span-12 {
+    grid-column: span 12;
+  }
+  /* Add other col-span classes for extra large devices as needed */
+}
+
+/* Extra extra large devices (extra large desktops, 1536px and up) */
+@media (min-width: 1536px) {
+  .xxl\:col-span-1 {
+    grid-column: span 1;
+  }
+  .xxl\:col-span-2 {
+    grid-column: span 2;
+  }
+  .xxl\:col-span-3 {
+    grid-column: span 3;
+  }
+  .xxl\:col-span-4 {
+    grid-column: span 4;
+  }
+  .xxl\:col-span-5 {
+    grid-column: span 5;
+  }
+  .xxl\:col-span-6 {
+    grid-column: span 6;
+  }
+  .xxl\:col-span-7 {
+    grid-column: span 7;
+  }
+  .xxl\:col-span-8 {
+    grid-column: span 8;
+  }
+  .xxl\:col-span-9 {
+    grid-column: span 9;
+  }
+  .xxl\:col-span-10 {
+    grid-column: span 10;
+  }
+  .xxl\:col-span-11 {
+    grid-column: span 11;
+  }
+  .xxl\:col-span-12 {
+    grid-column: span 12;
+  }
+  /* Add other col-span classes for extra extra large devices as needed */
 }

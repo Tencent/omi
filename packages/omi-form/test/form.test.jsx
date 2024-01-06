@@ -345,7 +345,6 @@ describe('base', () => {
     expect(div).toBe('100px')
   })
 
-
   it('label style', () => {
     render(
       <o-form

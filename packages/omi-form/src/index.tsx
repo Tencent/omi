@@ -4,7 +4,7 @@ import Joi, { Schema, ValidationResult, ValidationError } from 'joi'
 import formTheme from './theme.css?raw'
 import { localeErrorMessages } from './locale'
 export { registerLocale } from './locale'
-import { renderComponent } from './renderer'
+import { renderComponent, defaultRenderer } from './renderer'
 export { registerRenderer } from './renderer'
 import { DEFAULT_LABEL_WIDTH, PRIMARY_COLOR, LIST_LEVEL_INDENT } from './constants'
 import { hexToHsl, deepCopy, extractValues, addPxIfNeeded } from './utils'
@@ -322,14 +322,28 @@ export class Form extends Component<FormProps> {
       case 'group':
         element = (
           <div class="grid">
-            {component.components?.map((childComponent, i) => (
-              <div style={`grid-column: span ${childComponent.column || 12}`}>
-                <div class="w-full">
-                  {component.components &&
-                    this.renderComponent(childComponent, component.components, level + 1)}
+            {component.components?.map((childComponent, i) => {
+              return (
+                <div
+                  class={classNames(`col-span-${childComponent.span || 12}`, {
+                    [`sm:col-span-${childComponent.sm}`]: childComponent.sm,
+                    [`md:col-span-${childComponent.md}`]: childComponent.md,
+                    [`lg:col-span-${childComponent.lg}`]: childComponent.lg,
+                    [`xl:col-span-${childComponent.xl}`]: childComponent.xl,
+                    [`xxl:col-span-${childComponent.xxl}`]: childComponent.xxl,
+                  })}
+                >
+                  <div class="w-full">
+                    {component.components &&
+                      this.renderComponent(
+                        childComponent,
+                        component.components,
+                        level + 1
+                      )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )
         break
@@ -353,7 +367,16 @@ export class Form extends Component<FormProps> {
       case 'img':
         return renderComponent(component)
       default:
-        throw new Error(`Unsupported type: ${component.type}`)
+        const renderer = defaultRenderer[component.type]
+        if (renderer) {
+          if (renderer.isFormComponent) {
+            element = renderComponent(component, this.handleChange)
+          } else {
+            return renderComponent(component, this.handleChange)
+          }
+        } else {
+          throw new Error(`Unsupported type: ${component.type}`)
+        }
     }
 
     // 只有最外层的表单用 config.labelStyle
@@ -367,19 +390,16 @@ export class Form extends Component<FormProps> {
       >
         {(component.label || (level === 0 && labelAlign !== 'top')) && (
           <div
-            class={classNames(
-              'inline-block items-center h-8 leading-8 text-sm pr-6 overflow-hidden',
-              {
-                'text-right': labelAlign === 'right',
-                'text-left': labelAlign !== 'right',
-              }
-            )}
+            class={classNames('inline-block items-center h-8 leading-8 text-sm pr-6', {
+              'text-right': labelAlign === 'right',
+              'text-left': labelAlign !== 'right',
+            })}
             style={{
               width: labelAlign !== 'top' ? addPxIfNeeded(labelWidth) : undefined,
             }}
           >
             <div class="inline-block whitespace-nowrap">
-              <label class="flex items-center">
+              <label class="flex items-center gap-1">
                 <span>{component.label}</span>
                 {renderComponent({
                   type: 'tooltip',
@@ -480,11 +500,21 @@ export class Form extends Component<FormProps> {
         class="grid"
         style={props.config.style}
       >
-        {this.config.components.map((component, index) => (
-          <div style={`grid-column: span ${component.column || 12}`}>
-            {this.renderComponent(component, this.config.components, 0)}
-          </div>
-        ))}
+        {this.config.components.map((component, index) => {
+          return (
+            <div
+              class={classNames(`col-span-${component.span || 12}`, {
+                [`sm:col-span-${component.sm}`]: component.sm,
+                [`md:col-span-${component.md}`]: component.md,
+                [`lg:col-span-${component.lg}`]: component.lg,
+                [`xl:col-span-${component.xl}`]: component.xl,
+                [`xxl:col-span-${component.xxl}`]: component.xxl,
+              })}
+            >
+              {this.renderComponent(component, this.config.components, 0)}
+            </div>
+          )
+        })}
 
         {this.config.error && (
           <div

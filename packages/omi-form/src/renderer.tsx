@@ -83,11 +83,7 @@ function img(component: FormComponent) {
 function tooltip(component: FormComponent) {
   if (!component.tooltip) return null
   return (
-    <span
-      class="block relative"
-      style={{ height: 20, width: 20, top: -1 }}
-      title={component.tooltip}
-    >
+    <span class="tooltip block relative" style={{ height: 20, width: 20, top: -1 }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -103,6 +99,8 @@ function tooltip(component: FormComponent) {
           clip-rule="evenodd"
         ></path>
       </svg>
+
+      <span class="tooltip-text">{component.tooltip}</span>
     </span>
   )
 }
@@ -118,11 +116,16 @@ export const defaultRenderer: Record<string, Function> = {
   tooltip,
 }
 
-export function registerRenderer(type: string, rendererFunc: Function) {
+export function registerRenderer(
+  type: string,
+  rendererFunc: Function,
+  isFormComponent = false
+) {
   if (typeof rendererFunc !== 'function') {
     throw new Error('rendererFunc must be a function')
   }
   defaultRenderer[type] = rendererFunc
+  defaultRenderer[type].isFormComponent = isFormComponent
 }
 
 export function renderComponent(component: FormComponent, handleChange?: ChangeHandler) {

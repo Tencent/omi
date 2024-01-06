@@ -67,17 +67,17 @@ render(<o-form config={config} />, 'body')
 //   description: 'Make sure it matches your legal name',
 //   type: 'group',
 //   components: [
-//     { type: 'text', name: 'first',  value: '', placeholder: 'First Name', column: 6 },
-//     { type: 'text', name: 'last', value: '', placeholder: 'Last Name', column: 6 }
+//     { type: 'text', name: 'first',  value: '', placeholder: 'First Name', span: 6 },
+//     { type: 'text', name: 'last', value: '', placeholder: 'Last Name', span: 6 }
 //   ]
 // },
 
 // {
 //   type: 'list',
 //   name: 'tags222',
-//   itemTemplate: { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', column: 6 },
+//   itemTemplate: { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', span: 6 },
 //   items: [
-//     { type: 'text', name: 'tag', value: '4', placeholder: 'First Name', column: 6 }
+//     { type: 'text', name: 'tag', value: '4', placeholder: 'First Name', span: 6 }
 //   ]
 // },
 // {
@@ -89,8 +89,8 @@ render(<o-form config={config} />, 'body')
 //     description: 'My Phones',
 //     type: 'group',
 //     components: [
-//       { type: 'text', name: 'type', value: '1', placeholder: 'First Name', column: 6 },
-//       { type: 'text', name: 'number', value: '2', placeholder: 'Last Name', column: 6 },
+//       { type: 'text', name: 'type', value: '1', placeholder: 'First Name', span: 6 },
+//       { type: 'text', name: 'number', value: '2', placeholder: 'Last Name', span: 6 },
 
 //       {
 //         type: 'list',
@@ -101,7 +101,7 @@ render(<o-form config={config} />, 'body')
 //           description: 'Tags of Phone',
 //           type: 'group',
 //           components: [
-//             { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', column: 6 },
+//             { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', span: 6 },
 //           ]
 //         },
 //         items: [
@@ -111,7 +111,7 @@ render(<o-form config={config} />, 'body')
 //             description: 'Tags of Phone',
 //             type: 'group',
 //             components: [
-//               { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', column: 6 },
+//               { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', span: 6 },
 //             ]
 //           }
 //         ]
@@ -120,9 +120,9 @@ render(<o-form config={config} />, 'body')
 //       {
 //         type: 'list',
 //         name: 'tags',
-//         itemTemplate: { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', column: 6 },
+//         itemTemplate: { type: 'text', name: 'tag', value: '3', placeholder: 'First Name', span: 6 },
 //         items: [
-//           { type: 'text', name: 'tag', value: '4', placeholder: 'First Name', column: 6 }
+//           { type: 'text', name: 'tag', value: '4', placeholder: 'First Name', span: 6 }
 //         ]
 //       }
 //     ]

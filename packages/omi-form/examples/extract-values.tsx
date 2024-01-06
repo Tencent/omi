@@ -38,8 +38,8 @@ const config = {
       description: 'Make sure it matches your legal name',
       type: 'group',
       components: [
-        { type: 'input', name: 'first', value: '', placeholder: 'First Name', column: 6 },
-        { type: 'input', name: 'last', value: '', placeholder: 'Last Name', column: 6 },
+        { type: 'input', name: 'first', value: '', placeholder: 'First Name', span: 6 },
+        { type: 'input', name: 'last', value: '', placeholder: 'Last Name', span: 6 },
       ],
     },
 
@@ -51,10 +51,10 @@ const config = {
         name: 'tag',
         value: '3',
         placeholder: 'First Name',
-        column: 6,
+        span: 6,
       },
       items: [
-        { type: 'input', name: 'tag', value: '4', placeholder: 'First Name', column: 6 },
+        { type: 'input', name: 'tag', value: '4', placeholder: 'First Name', span: 6 },
       ],
     },
     {
@@ -71,14 +71,14 @@ const config = {
             name: 'type',
             value: '1',
             placeholder: 'First Name',
-            column: 6,
+            span: 6,
           },
           {
             type: 'input',
             name: 'number',
             value: '2',
             placeholder: 'Last Name',
-            column: 6,
+            span: 6,
           },
 
           {
@@ -95,7 +95,7 @@ const config = {
                   name: 'tag',
                   value: '3',
                   placeholder: 'First Name',
-                  column: 6,
+                  span: 6,
                 },
               ],
             },
@@ -111,7 +111,7 @@ const config = {
                     name: 'tag',
                     value: '3',
                     placeholder: 'First Name',
-                    column: 6,
+                    span: 6,
                   },
                 ],
               },
@@ -126,7 +126,7 @@ const config = {
               name: 'tag',
               value: '3',
               placeholder: 'First Name',
-              column: 6,
+              span: 6,
             },
             items: [
               {
@@ -134,7 +134,7 @@ const config = {
                 name: 'tag',
                 value: '4',
                 placeholder: 'First Name',
-                column: 6,
+                span: 6,
               },
             ],
           },

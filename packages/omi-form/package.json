@@ -1,6 +1,6 @@
 {
   "name": "omi-form",
-  "version": "0.0.23",
+  "version": "0.0.27",
   "description": "Powerful, simple and cross frameworks form solution.",
   "main": "dist/index.es.js",
   "exports": {
