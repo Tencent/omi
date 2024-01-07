@@ -148,10 +148,6 @@ input::placeholder {
   position: relative;
 }
 
-.hover\:\[\&\>i\]\:opacity-100:hover > i {
-  opacity: 1;
-}
-
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -603,4 +599,8 @@ input[type='checkbox'] {
     grid-column: span 12;
   }
   /* Add other col-span classes for extra extra large devices as needed */
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
 }

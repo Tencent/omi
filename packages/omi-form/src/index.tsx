@@ -291,7 +291,7 @@ export class Form extends Component<FormProps> {
           >
             {component.items?.map((item, i) => (
               <div
-                class={classNames('relative hover:[&>i]:opacity-100', {
+                class={classNames('relative group', {
                   'mt-2': i > 0,
                 })}
               >
@@ -302,11 +302,11 @@ export class Form extends Component<FormProps> {
                   level + 1
                 )}
                 <i
-                  class="minus icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0"
+                  class="minus icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0 group-hover:opacity-100"
                   onClick={() => this.removeListItem(component, i)}
                 ></i>
                 <i
-                  class="add icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0"
+                  class="add icon rounded-full absolute inline-block cursor-pointer bg-white opacity-0 group-hover:opacity-100"
                   onClick={() => this.addListItem(component, i)}
                 ></i>
               </div>
