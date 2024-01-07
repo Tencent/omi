@@ -71,13 +71,14 @@ export class Form extends Component<FormProps> {
   install() {
     Object.assign(this.config, this.props.config)
 
-    this.resetValues(this.props.values)
+    this.resetValues(this.props.config.values)
   }
 
   joiSchema?: Schema
 
   receiveProps(props: FormProps) {
     Object.assign(this.config, props.config)
+    this.resetValues(props.config.values)
     this.initPrimaryColor()
     this.joiSchema = props.config?.validate?.(Joi)
   }

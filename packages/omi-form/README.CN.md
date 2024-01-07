@@ -164,6 +164,7 @@ const config = {
       type: 'divider',
     },
   ],
+  values: { },
   submitButton: true,
   resetButton: true,
   primaryColor: '#45a049',

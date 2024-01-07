@@ -6,7 +6,7 @@ const config = {
     {
       type: 'select',
       name: 'choice',
-      defaultValue: '',
+      defaultValue: '2',
       placeholder: 'Last Name',
       options: [
         { value: '1', label: 'Option 1' },
@@ -39,6 +39,10 @@ const config = {
       dependsOn: 'values.choice2 === "2"',
     },
   ],
+  values: {
+    choice: '1',
+    email: 'omi@qq.com'
+  },
   submitButton: true,
   resetButton: true,
   style: {
