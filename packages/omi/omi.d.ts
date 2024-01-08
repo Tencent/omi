@@ -54,7 +54,7 @@ declare namespace Omi {
     key?: Key | null;
   }
 
-  export type OmiProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> };
+  export type OmiProps<P, RefType = any> = P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> } & JSX.HTMLAttributes;
 
   type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 
@@ -116,7 +116,7 @@ declare namespace Omi {
 
     // Abstract methods don't infer argument types
     // https://github.com/Microsoft/TypeScript/issues/14887
-    abstract render(props: OmiProps<P> | P, store: any): void;
+    render(props: OmiProps<P> | P): void;
   }
 
   // The class type (not instance of class)
@@ -153,7 +153,7 @@ declare namespace Omi {
 
     // Abstract methods don't infer argument types
     // https://github.com/Microsoft/TypeScript/issues/14887
-    abstract render(props: OmiProps<P> | P, store: any): void;
+    render(props: OmiProps<P> | P): void;
   }
 
   function h<P>(
