@@ -19,6 +19,7 @@ export interface Route {
 
 interface Props {
   routes: Route[];
+  base?: string;
 }
 
 @tag('router-view')
@@ -32,12 +33,14 @@ export class RouterView extends Component<Props> {
   params: Record<string, unknown> = {}
   query: Record<string, unknown> = {}
   hash: string = ''
+  base: string = ''
 
   install() {
     // 修改组件内部的 this.router 为当前 router-view 的实例
     mixin({
       router: this
     })
+    this.base = this.props.base || ''
 
     this.routes = this.props.routes.map(route => {
       const keys: Key[] = []
@@ -104,9 +107,13 @@ export class RouterView extends Component<Props> {
     for (const route of this.routes) {
       const match = route.regex?.exec(path)
       if (match) {
-        if(route.redirect) {
-          const newPath = this.isHashMode ? `#${route.redirect}` : route.redirect;
-          window.location.href = window.location.origin + newPath;
+        if (route.redirect) {
+          if( this.isHashMode) {
+            window.location.hash = route.redirect
+          } else {
+            const newPath = this.base + route.redirect;
+            window.location.href = window.location.origin + newPath;
+          }
           return;
         }
         if (route.beforeEnter) {

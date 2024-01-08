@@ -6,6 +6,7 @@
 - 📶 信号 **Signal** 驱动的响应式编程
 - ⚡ **微小的**尺寸，**极速的**性能
 - 🎉 [官方 OMIU 源码](https://github.com/Tencent/omi/tree/master/packages/omiu) 进行中.. & [OMIU 预览](https://omi.cdn-go.cn/omiu/latest/)
+- 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form 游乐场](https://omi.cdn-go.cn/form/latest/play/)
 - 🌐 你要的一切都有: **Web Components**, **JSX**, Router, Suspense, Directive, Tailwindcss...
 - 💯 面向对象编程(OOP) 和 数据驱动编程(DOP) 两种范式都支持
 - 💒 使用 **Constructable Stylesheets** 轻松管理和共享样式
