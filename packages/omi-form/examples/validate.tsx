@@ -41,27 +41,44 @@ const config = {
   validate(Joi) {
     return Joi.object({
       username: Joi.string().alphanum().min(3).max(30).required(),
-      password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow('', null),
-      repeat_password: Joi.ref('password'),
-      access_token: Joi.alternatives().try(Joi.string().allow('', null), Joi.number()),
+      password: Joi.string().empty('').pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+      repeat_password: Joi.string().empty(''),
+      access_token: Joi.alternatives().try(Joi.string().empty(''), Joi.number()),
       birth_year: Joi.number().integer().min(1900).max(2013),
       email: Joi.string().email({
         minDomainSegments: 2,
         tlds: { allow: ['com', 'net'] },
       }),
+    }).custom((values, helpers) => {
+      if (values.password !== values.repeat_password) {
+        return helpers.error('custom', {
+          message: 'passwords do not match, 两次密码不匹配',
+        })
+      }
+      if (
+        (values.password && values.access_token) ||
+        (!values.password && !values.access_token)
+      ) {
+        return helpers.error('custom', {
+          message: {
+            en: 'Either password or access token must be provided',
+            zh: '密码或访问令牌只提供一个',
+          },
+        })
+      }
+      if (
+        (values.username && !values.birth_year) ||
+        (!values.username && values.birth_year)
+      ) {
+        return helpers.error('custom', {
+          message: {
+            en: 'Username and birth year must be provided together',
+            zh: '用户名和出生年必须一起提供',
+          },
+        })
+      }
+      return values
     })
-      .with('username', ['birth_year', 'email'])
-      .with('password', 'repeat_password')
-      .when(Joi.object({ password: Joi.string().valid('', null) }).unknown(), {
-        then: Joi.object({ access_token: Joi.not('', null) }),
-        otherwise: Joi.when(
-          Joi.object({ access_token: Joi.string().valid('', null) }).unknown(),
-          {
-            then: Joi.object({ password: Joi.not('', null) }),
-            otherwise: Joi.object().xor('password', 'access_token'),
-          }
-        ),
-      })
   },
 
   submitButton: true,

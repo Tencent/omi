@@ -1,6 +1,7 @@
 export const localeErrorMessages: Record<string, Record<string, string>> = {
   en: {
     root: 'value of form',
+    custom: '{#message.en || #message}',
   },
   zh: {
     root: '表单值',
@@ -13,6 +14,7 @@ export const localeErrorMessages: Record<string, Record<string, string>> = {
     'any.custom': '{#label} 未通过自定义验证',
     'any.default': '{#label} 在运行默认方法时抛出错误',
     'any.failover': '{#label} 在运行故障转移方法时抛出错误',
+    custom: '{#message.zh || #message.en || #message}',
     'any.invalid': '{#label} 包含无效值',
     'any.only': '{#label} 必须与 {#valids} 相同',
     'any.ref': '{#label} 引用了 {#ref}，它不是数字',
@@ -22,7 +24,7 @@ export const localeErrorMessages: Record<string, Record<string, string>> = {
     'object.xor': '{#label} 包含冲突字段 {#peers}',
     'alternatives.all': '{#label} 必须满足所有替代条件',
     'alternatives.any': '{#label} 必须满足任一替代条件',
-    'alternatives.match': '{#label} 必须匹配某个替代条件',
+    'alternatives.match': '{#label} 的类型不被允许',
     'alternatives.one': '{#label} 只能满足一个替代条件',
     'alternatives.types': '{#label} 的类型错误',
     'array.base': '{#label} 必须是数组',

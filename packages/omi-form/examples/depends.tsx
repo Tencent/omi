@@ -41,7 +41,7 @@ const config = {
   ],
   values: {
     choice: '1',
-    email: 'omi@qq.com'
+    email: 'omi@qq.com',
   },
   submitButton: true,
   resetButton: true,

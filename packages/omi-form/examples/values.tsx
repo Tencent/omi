@@ -9,7 +9,7 @@ const config = {
     },
     age: 18,
     country: 'China',
-    gender: 'male'
+    gender: 'male',
   },
   components: [
     {

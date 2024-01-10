@@ -40,10 +40,10 @@ export interface FormComponent {
 
 interface FormConfig {
   primaryColor?: string
-  components: FormComponent[]
-  submitButton: boolean
-  resetButton: boolean
-  labelStyle: {
+  components?: FormComponent[]
+  submitButton?: boolean
+  resetButton?: boolean
+  labelStyle?: {
     width: string | number
     align: 'left' | 'right' | 'top'
   }
