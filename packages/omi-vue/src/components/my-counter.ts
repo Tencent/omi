@@ -2,15 +2,15 @@ import { define, Component, h } from 'omi'
 
 define('my-counter', class extends Component {
 
-  static propTypes = {
-    count: Number
-  }
-
-  static observedAttributes = ['count']
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    this.state[name] = newValue
-    this.update()
+  static props = {
+    count: {
+      type: Number,
+      default: 0,
+      changed(newValue, oldValue) {
+        this.state.count = newValue
+        this.update()
+      }
+    }
   }
 
   state = {

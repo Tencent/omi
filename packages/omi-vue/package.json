@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "omi": "^7.3.8",
+    "omi": "^7.4.5",
     "omi-weui": "^0.0.10",
     "vue": "^3.3.8"
   },

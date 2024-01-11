@@ -89,6 +89,8 @@ declare namespace Omi {
     css?: (() => string) | string;
   }
 
+  type PropType = String | Number | Boolean | Array<any> | Object | Array<PropType>;
+
   abstract class WeElement<P = {}> {
     constructor();
 
@@ -97,7 +99,15 @@ declare namespace Omi {
     static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[]
     static tagName: string
     static define(name: string): void
-
+    static props?: {
+      [key: string]: {
+        type?: PropType;
+        default?: any;
+        reflect?: boolean | ((value: any) => any);
+        changed?: (newValue: any, oldValue: any) => void;
+      }
+    }
+    
     props: OmiProps<P> | P
     prevProps: OmiProps<P> | P
     rootElement?: HTMLElement
@@ -134,6 +144,14 @@ declare namespace Omi {
     static css?: string | CSSStyleSheet | (string | CSSStyleSheet)[]
     static tagName: string
     static define(name: string): void
+    static props?: {
+      [key: string]: {
+        type?: PropType;
+        default?: any;
+        reflect?: boolean | ((value: any) => any);
+        changed?: (newValue: any, oldValue: any) => void;
+      }
+    }
 
     props: OmiProps<P> | P
     prevProps: OmiProps<P> | P

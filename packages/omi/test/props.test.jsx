@@ -7,6 +7,7 @@ import {
   getHost,
   h
 } from '@/index'
+import { genNode } from './gen-node'
 
 describe('props', () => {
   let parentElement
@@ -145,5 +146,48 @@ describe('props', () => {
     expect(valA === valB).toBe(true)
   })
 
+  it('static props 1', () => {
+    let a = true
+    class Ele extends Component {
+      static props = {
+        count: {
+          default: 1
+        }
+      }
+      
+      render(props) {
+        return (
+          <div>{props.count}</div>
+        )
+      }
+    }
+    let node = genNode()
+    define(node.name, Ele)
+    render(<Ele />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>1</div>')
+
+  })
+
+  it('static props 2', () => {
+    let a = true
+    class Ele extends Component {
+      static props = {
+        count: {
+          default: 1,
+        }
+      }
+      
+      render(props) {
+        return (
+          <div>{props.count}</div>
+        )
+      }
+    }
+    let node = genNode()
+    define(node.name, Ele)
+    render(<Ele count={2} />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>2</div>')
+
+  })
 
 })

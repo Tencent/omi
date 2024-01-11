@@ -50,6 +50,25 @@ export class Component extends HTMLElement {
 
   constructor() {
     super()
+
+    if (!this.constructor.defaultProps) {
+      this.constructor.defaultProps = {}
+    }
+    if (!this.constructor.propTypes) {
+      this.constructor.propTypes = {}
+    }
+    if (!this.constructor.reflectProps) {
+      this.constructor.reflectProps = {}
+    }
+    if (this.constructor.props) {
+      for (const propName in this.constructor.props) {
+        const prop = this.constructor.props[propName]
+        this.constructor.defaultProps[propName] = prop.default
+        this.constructor.propTypes[propName] = prop.type
+        this.constructor.reflectProps[propName] = prop.reflect
+      }
+    }
+
     // @ts-ignore fix lazy load props missing
     this.props = Object.assign(
       {},
@@ -59,6 +78,19 @@ export class Component extends HTMLElement {
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (this.constructor.props && this.constructor.props[name]) {
+      const prop = this.constructor.props[name]
+      if (prop.changed) {
+        prop.changed.call(this, newValue, oldValue)
+      }
+    }
+  }
+
+  static get observedAttributes() {
+    return this.props ? Object.keys(this.props) : []
   }
 
   injectObject() {
