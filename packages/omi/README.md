@@ -346,13 +346,13 @@ The case of using Omi component in Vue is as follows:
 
 ![](./assets/omi-vue.gif)
 
-my-counter.ts:
+my-counter.tsx:
 
 ```tsx
-import { define, Component, h } from 'omi'
+import { tag, Component, h, bind } from 'omi'
 
-define('my-counter', class extends Component {
-
+@tag('my-counter')
+class MyCounter extends Component {
   static props = {
     count: {
       type: Number,
@@ -372,26 +372,30 @@ define('my-counter', class extends Component {
     this.state.count = this.props.count
   }
 
-  sub = () => {
+  @bind
+  sub() {
     this.state.count--
     this.update()
     this.fire('change', this.state.count)
   }
 
-  add = () => {
+  @bind
+  add() {
     this.state.count++
     this.update()
     this.fire('change', this.state.count)
   }
 
-  render(props) {
-    return [
-      h('button', { onClick: this.sub }, '-'),
-      h('span', null, this.state.count),
-      h('button', { onClick: this.add }, '+')
-    ]
+  render() {
+    return (
+      <>
+        <button onClick={this.sub}>-</button>
+        <span>{this.state.count}</span>
+        <button onClick={this.add}>+</button>
+      </>
+    )
   }
-})
+}
 ```
 
 Using in Vue3:
