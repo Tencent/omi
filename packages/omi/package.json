@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "7.4.5",
+  "version": "7.4.6",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",
@@ -59,8 +59,16 @@
   "source": "src/index.ts",
   "types": "omi.d.ts",
   "exports": {
-    "require": "./dist/omi.cjs",
-    "default": "./dist/omi.modern.js"
+    ".": {
+      "import": {
+        "types": "./omi.d.ts",
+        "default": "./dist/omi.modern.js"
+      },
+      "require": {
+        "types": "./omi.d.ts",
+        "default": "./dist/omi.cjs"
+      }
+    }
   },
   "main": "./dist/omi.cjs",
   "module": "./dist/omi.module.js",
