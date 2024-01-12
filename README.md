@@ -4,8 +4,8 @@ English | [简体中文](./README.CN.md)
 <h2 align="center">Omi - Web Components Framework</h2>
 
 - 📶 **Signal**-driven reactive programming
-- 🎉 [OMIU Preview](https://omi.cdn-go.cn/omiu/latest/) in progress & [OMIU Source Code](https://github.com/Tencent/omi/tree/master/packages/omiu)
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form Playground](https://omi.cdn-go.cn/form/latest/play/)
+- 🎉 [OMIU Preview](https://omi.cdn-go.cn/omiu/latest/) in progress & [OMIU Source Code](https://github.com/Tencent/omi/tree/master/packages/omiu)
 - ⚡ **Tiny** size, **Fast** performance
 - 🌐 Everything you need: **Web Components**, **JSX**, Function Components, Router, Suspense, Directive, Tailwindcss...
 - 💯 Both **object** oriented programming(OOP) and **data** oriented programming(DOP) are supported
