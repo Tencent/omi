@@ -5,7 +5,7 @@
 - 🎉 [OMIU Preview](https://omi.cdn-go.cn/omiu/latest/) in progress & [OMIU Source Code](https://github.com/Tencent/omi/tree/master/packages/omiu)
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form Playground](https://omi.cdn-go.cn/form/latest/play/)
 - ⚡ **Tiny** size, **Fast** performance
-- 🌐 Everything you need: **Web Components**, **JSX**, Router, Suspense, Directive, Tailwindcss...
+- 🌐 Everything you need: **Web Components**, **JSX**, Function Components, Router, Suspense, Directive, Tailwindcss...
 - 💯 Both **object** oriented programming(OOP) and **data** oriented programming(DOP) are supported
 - 💒 Harness **Constructable Stylesheets** to easily manage and share styles
 
