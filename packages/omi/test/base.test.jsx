@@ -399,7 +399,7 @@ describe('base', () => {
           <ul>
             <li style={
               {
-                width: a ? '100px' :undefined
+                width: a ? '100px' : undefined
               }
             }>a</li>
           </ul>
@@ -410,6 +410,35 @@ describe('base', () => {
     define(node.name, Ele)
     render(<Ele />, parentElement)
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<ul><li style=\"\">a</li></ul>')
+
+  })
+
+
+  it('constructor as tag name', () => {
+
+    class Ele extends Component {
+      render() {
+        return (
+          <span>a</span>
+        )
+      }
+    }
+    let node = genNode()
+    define(node.name, Ele)
+
+    class Ele2 extends Component {
+      render() {
+        return (
+          <div>
+            <Ele></Ele>
+          </div>
+        )
+      }
+    }
+    node = genNode()
+    define(node.name, Ele2)
+    render(<Ele2 />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.firstChild.firstChild.shadowRoot.innerHTML).toBe('<span>a</span>')
 
   })
 })
