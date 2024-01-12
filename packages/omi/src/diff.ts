@@ -144,9 +144,9 @@ function idiff(
   }
 
   let vnodeName = vnode.nodeName
-  if (typeof vnodeName !== 'string') {
-    vnodeName = (vnodeName as Component).tagName
-  }
+  // if (typeof vnodeName !== 'string') {
+  //   vnodeName = (vnodeName as Component).tagName
+  // }
 
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isForeignObject = vnodeName === 'foreignObject'

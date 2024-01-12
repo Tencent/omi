@@ -441,4 +441,28 @@ describe('base', () => {
     expect(parentElement.firstChild.shadowRoot.firstChild.firstChild.shadowRoot.innerHTML).toBe('<span>a</span>')
 
   })
+
+  it('rendering function', () => {
+
+    function ChildComponent(props) {
+      return (
+        <span>{props.msg}</span>
+      )
+    }
+
+    class ParentComponent extends Component {
+      render() {
+        return (
+          <div>
+            <ChildComponent msg="omi" />
+          </div>
+        )
+      }
+    }
+    let node = genNode()
+    define(node.name, ParentComponent)
+    render(<ParentComponent />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.firstChild.innerHTML).toBe('<span>omi</span>')
+
+  })
 })

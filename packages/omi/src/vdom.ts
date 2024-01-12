@@ -71,8 +71,17 @@ export function createElement(
     }
   }
 
+  // fragment component
   if (nodeName === Fragment) {
     return children
+  } else if (typeof nodeName === 'function') {
+    if ((nodeName as unknown as Component).tagName) {
+      // class component
+      nodeName = (nodeName as unknown as Component).tagName
+    } else {
+      // function component
+      return nodeName(attributes)
+    }
   }
 
   const p: VNode = {
