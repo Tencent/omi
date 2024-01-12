@@ -80,7 +80,7 @@ export function createElement(
       nodeName = (nodeName as unknown as Component).tagName
     } else {
       // function component
-      return nodeName(attributes)
+      return nodeName(attributes, children)
     }
   }
 

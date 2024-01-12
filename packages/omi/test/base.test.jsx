@@ -498,4 +498,39 @@ describe('base', () => {
     expect(parentElement.firstChild.shadowRoot.firstChild.innerHTML).toBe('<span>Hello omi</span>')
 
   })
+
+  it('rendering function 3', () => {
+
+    function ChildComponent(props, children) {
+      return (
+        <span>{props.msg}{children}</span>
+      )
+    }
+
+    class ParentComponent extends Component {
+      state = {
+        msg: 'omi'
+      }
+
+      render() {
+        return (
+          <div>
+            <ChildComponent msg={this.state.msg} >
+              <div style={{color:'red'}}>omi</div>
+            </ChildComponent>
+          </div>
+        )
+      }
+
+      installed() {
+        this.state.msg = 'Hello omi'
+        this.update()
+      }
+    }
+    let node = genNode()
+    define(node.name, ParentComponent)
+    render(<ParentComponent />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.firstChild.innerHTML).toBe('<span>Hello omi<div style="color: red;">omi</div></span>')
+
+  })
 })
