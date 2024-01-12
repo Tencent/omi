@@ -501,9 +501,9 @@ describe('base', () => {
 
   it('rendering function 3', () => {
 
-    function ChildComponent(props, children) {
+    function ChildComponent(props) {
       return (
-        <span>{props.msg}{children}</span>
+        <span>{props.msg}{props.children}</span>
       )
     }
 
