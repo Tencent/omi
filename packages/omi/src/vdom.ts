@@ -43,9 +43,6 @@ export function createElement(
   ...restChildren: VNode[] | unknown[]
 ): VNode | VNode[] {
   let children: VNode[] | undefined
-  if (arguments.length > 2) {
-    children = restChildren.flat() as VNode[]
-  }
 
   // jsx 嵌套的元素自动忽略  attrs
   if (attributes) {
@@ -54,12 +51,10 @@ export function createElement(
     attributes = { ignoreAttrs: true }
   }
 
-  if (attributes.children != null) {
-    if (children) {
-      children.push(...(attributes.children as VNode[]))
-    } else {
-      children = attributes.children as VNode[]
-    }
+  if (arguments.length > 2) {
+    children = restChildren.flat() as VNode[]
+  } else if (attributes.children != null) {
+    children = attributes.children as VNode[]
     delete attributes.children
   }
 
