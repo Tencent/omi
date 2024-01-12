@@ -64,7 +64,7 @@ describe('base', () => {
 
     expect(Ele.prototype.render).toHaveBeenCalledTimes(1)
     expect(Ele.prototype.render).toHaveBeenCalledWith(
-      { children: [], ignoreAttrs: true },
+      { ignoreAttrs: true },
       undefined
     )
     expect(Ele.prototype.render).toHaveReturnedWith(

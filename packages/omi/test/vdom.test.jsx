@@ -57,10 +57,10 @@ test('cloneElement should return a cloned vnode with updated children', () => {
   const newChildren = ['Hello, Jest!']
 
   // 调用 cloneElement 函数
-  const clonedVnode = cloneElement(vnode, {}, newChildren)
+  const clonedVNode = cloneElement(vnode, {}, newChildren)
 
   // 断言返回的虚拟节点与预期相等
-  expect(clonedVnode).toEqual({
+  expect(clonedVNode).toEqual({
     nodeName: 'div',
     attributes: {
       id: 'myDiv',
