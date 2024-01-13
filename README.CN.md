@@ -381,7 +381,7 @@ class MyCounter extends Component {
 }
 ```
 
-Using in Vue3:
+### 在 Vue3 中使用
 
 ```vue
 <script setup>
@@ -431,6 +431,46 @@ this.fire('count-change', this.state.count)
 <my-counter @count-change="change" :count="count" />
 ```
 
+
+### 在 React 中使用
+
+```tsx
+import { useState, useRef, useEffect } from 'react'
+import useEventListener from '@use-it/event-listener'
+import './my-counter'
+
+function App() {
+  const [count, setCount] = useState(100)
+  const myCounterRef = useRef(null)
+
+  useEffect(() => {
+    const counter = myCounterRef.current
+    if (counter) {
+      const handleChange = (evt) => {
+        setCount(evt.detail)
+      }
+      counter.addEventListener('change', handleChange)
+      return () => {
+        counter.removeEventListener('change', handleChange)
+      }
+    }
+  }, [])
+
+  return (
+    <>
+      <h1>Omi + React</h1>
+      <my-counter count={count} ref={myCounterRef}></my-counter>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+      </div>
+    </>
+  )
+}
+
+export default App
+```
 
 ## 贡献者
 
