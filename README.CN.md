@@ -5,7 +5,7 @@
 
 - 📶 信号 **Signal** 驱动的响应式编程
 - ⚡ **微小的**尺寸，**极速的**性能
-- 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form 游乐场](https://omi.cdn-go.cn/form/latest/play/)
+- 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form 游乐场](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi 图标](https://github.com/omijs/lucide-omi)
 - 🎉 [官方 OMIU 源码](https://github.com/Tencent/omi/tree/master/packages/omiu) 进行中.. & [OMIU 预览](https://omi.cdn-go.cn/omiu/latest/)
 - 🌐 你要的一切都有: **Web Components**, **JSX**, Function Components, Router, Suspense, Directive, Tailwindcss...
 - 💯 面向对象编程(OOP) 和 数据驱动编程(DOP) 两种范式都支持
@@ -85,8 +85,9 @@ $ npm run build       # release
 
 - 核心包
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Omi 框架的实现代码。
-  - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - 希望打造最好的 web 组件。
   - [`omi-form`](https://github.com/Tencent/omi/tree/master/packages/omi-form) - 强大易用且跨框架的表单解决方案。
+  - [`lucide-omi`](https://github.com/omijs/lucide-omi) - Lucide 的 Omi 图标集合。
+  - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - 希望打造最好的 web 组件。
   - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - 创建单页应用。
   - [`omi-cli`](https://github.com/omijs/cli) - 快速创建 Omi + Vite + TS/JS 项目。
 - 入门套件 (未发布到 npm)
@@ -100,7 +101,6 @@ $ npm run build       # release
   - [`omi-weui`](https://github.com/Tencent/omi/tree/master/packages/omi-weui) - Omi 版本的 WeUI。
   - [`omi-auto-animate`](https://github.com/Tencent/omi/tree/master/packages/omi-auto-animate) - Omi 版本的 @formkit/auto-animate。
   - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - 处理异步依赖。
-  - [`tdesign-icons-omi`](https://github.com/omijs/tdesign-icons) - 基于 TDesign 和 Omi 的跨框架 icon 集合。
 - 指令  
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - 提供进入和离开动画。
   - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - 用于为用户界面元素添加涟漪（ripple）效果。当用户与元素交互（例如点击按钮）时，涟漪效果会从交互点开始扩散开来。
