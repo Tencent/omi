@@ -176,6 +176,10 @@ export class Component extends HTMLElement {
         } else {
           styleSheets = [css as unknown as CSSStyleSheet]
         }
+  
+        // add globalCSS
+        styleSheets = [...styleSheets, ...options.globalCSS];
+  
         ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
       }
