@@ -182,6 +182,10 @@ export class Component extends HTMLElement {
   
         ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
+      } else {
+        if (options.globalCSS.length) {
+          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = options.globalCSS
+        }
       }
     } else {
       ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
