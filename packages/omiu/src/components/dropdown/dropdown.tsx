@@ -1,13 +1,13 @@
 import { tag, Component, classNames, bind } from 'omi'
 import { tailwind } from '@/tailwind'
-import '../../components/button/button'
+import '../../components/button/index'
 
 @tag('o-dropdown')
 export class Button extends Component {
   static css = [
     tailwind,
     `:host {
-    display: block;
+    display: inline-block;
   }
   `,
   ]

@@ -1,6 +1,6 @@
 import { tag, Component, classNames, bind } from 'omi'
 import { tailwind } from '@/tailwind'
-import '../../components/button/button'
+import '../../components/button/index'
 import pdfjs from '@bundled-es-modules/pdfjs-dist/build/pdf'
 import viewer from '@bundled-es-modules/pdfjs-dist/web/pdf_viewer'
 

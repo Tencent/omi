@@ -20,7 +20,7 @@ const TabsItemTheme = {
   activeLightPillsLink: '!bg-neutral-50 !text-neutral-600 dark:text-neutral-600',
   activeDarkPillsLink: '!bg-neutral-800 !text-neutral-50 dark:!bg-neutral-900 dark:text-neutral-50',
   activePrimaryTabsLink: 'text-primary border-primary dark:border-primary-400 dark:text-primary-400',
-  activeSecondaryTabsLink: 'text-secondary border-secondary dark:text-secondary',
+  activeSecondaryTabsLink: 'text-secondary-foreground border-secondary-foreground dark:text-secondary',
   activeSuccessTabsLink: 'border-success text-success dark:text-success',
   activeDangerTabsLink: 'border-danger text-danger dark:text-danger',
   activeWarningTabsLink: 'border-warning text-warning dark:text-warning',

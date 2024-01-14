@@ -6,7 +6,7 @@ import { tailwind } from '@/tailwind'
 import './index'
 
 import '../../components/popover/index'
-import '../../forms/input/input'
+import '../../forms/input/index'
 
 @tag('calendar-page')
 export class Page extends Component {

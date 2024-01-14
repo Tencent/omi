@@ -1,6 +1,6 @@
 import { tag, Component, bind } from 'omi'
 import { tailwind } from '@/tailwind'
-import '../../button/button'
+import '../../button/index'
 import '../collapse'
 
 @tag('collapse-basic-example')

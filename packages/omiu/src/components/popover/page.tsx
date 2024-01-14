@@ -2,7 +2,7 @@ import '@/site/code-showcase'
 
 import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
-import '../../components/button/button'
+import '../../components/button/index'
 import './index'
 
 @tag('popover-page')
@@ -257,7 +257,7 @@ export class ButtonPage extends Component {
             </o-popover>
 
             <o-popover placement="bottom">
-              <o-button>Popover Button</o-button>
+              <o-button>Popover Bottom</o-button>
               <div
                 slot="content"
                 id="popover-default"

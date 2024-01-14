@@ -2,8 +2,8 @@ import { tag, Component, classNames } from 'omi'
 import { tailwind } from '@/tailwind'
 
 const theme = {
-  primary: 'bg-primary-100 text-primary-700',
-  secondary: 'bg-secondary-100 text-secondary-800',
+  primary: 'bg-primary text-primary-foreground',
+  secondary: 'bg-secondary text-secondary-foreground',
   success: 'bg-success-100 text-success-700',
   danger: 'bg-danger-100 text-danger-700',
   warning: 'bg-warning-100 text-warning-800',

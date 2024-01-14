@@ -3,7 +3,7 @@ import '@/site/code-showcase'
 import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
 
-import './button'
+import './index'
 
 @tag('button-page')
 export class ButtonPage extends Component {

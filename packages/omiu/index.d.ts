@@ -1,4 +1,4 @@
-import { Component, OmiProps } from 'omi'
+import { Component } from 'omi'
 
 export interface ModalProps {
   show?: boolean;
@@ -11,7 +11,6 @@ export interface ModalProps {
 }
 
 export class Modal extends Component<ModalProps> {
-  render(props: ModalProps | OmiProps<ModalProps, any>, store: any): void;
   constructor(props?: ModalProps);
 }
 
@@ -33,6 +32,5 @@ export interface ButtonProps {
 }
 
 export class Button extends Component<ButtonProps> {
-  render(props: ButtonProps | OmiProps<ButtonProps, any>, store: any): void;
   constructor(props?: ButtonProps);
 }

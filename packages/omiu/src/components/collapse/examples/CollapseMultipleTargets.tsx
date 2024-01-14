@@ -1,5 +1,5 @@
 import { tag, Component, bind } from 'omi'
-import '../../button/button'
+import '../../button/index'
 import '../collapse'
 import { tailwind } from '@/tailwind'
 

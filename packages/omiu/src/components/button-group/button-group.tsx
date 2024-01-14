@@ -1,6 +1,6 @@
 import { tag, Component, classNames } from 'omi'
 import { tailwind } from '@/tailwind'
-import '../button/button'
+import '../button/index'
 
 @tag('o-button-group')
 export class Button extends Component {

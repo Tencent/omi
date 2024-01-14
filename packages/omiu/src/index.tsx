@@ -1,4 +1,5 @@
 import { Modal } from './components/modal/index'
-import { Button } from './components/button/button'
+import { Button } from './components/button'
+import { Input } from './forms/input'
 
-export { Modal, Button }
+export { Modal, Button, Input }

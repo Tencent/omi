@@ -2,7 +2,7 @@ import '@/site/code-showcase'
 
 import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
-import '../button/button'
+import '../button/index'
 import './card'
 
 @tag('card-page')
@@ -56,7 +56,7 @@ export class ButtonPage extends Component {
                 Some quick example text to build on the card title and make up the bulk of the card's content.
               </p>
               <div slot="footer">
-                <o-button class="mr-5">Home</o-button>
+                <o-button class="mr-3">Home</o-button>
                 <o-button>About</o-button>
               </div>
             </o-card>

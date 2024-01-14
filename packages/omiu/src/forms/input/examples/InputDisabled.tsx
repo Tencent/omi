@@ -1,5 +1,5 @@
 import { tag, Component } from 'omi'
-import '../input'
+import '../index'
 import { tailwind } from '@/tailwind'
 
 @tag('input-disabled')

@@ -1,7 +1,7 @@
 import { tag, Component, classNames } from 'omi'
 import { createPopper } from '@popperjs/core'
 import { tailwind } from '@/tailwind'
-import '../../components/button/button'
+import '../../components/button/index'
 
 interface Props {
   title?: string

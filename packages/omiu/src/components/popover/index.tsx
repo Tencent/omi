@@ -1,7 +1,7 @@
 import { tag, Component, classNames } from 'omi'
 import { createPopper } from '@popperjs/core'
 import { tailwind } from '@/tailwind'
-import '../../components/button/button'
+import '../../components/button/index'
 import 'omi-transition'
 
 interface Props {
@@ -108,6 +108,8 @@ export class Popconfirm extends Component<Props> {
           o-transition={{ name: 'fade' }}
           style="z-index: 10000"
           class={classNames('z-100', {
+            // 防止盖住别的元素
+            'pointer-events-none': !this.state.show,
             fixed: true,
             tip: true,
           })}

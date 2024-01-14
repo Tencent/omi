@@ -1,7 +1,7 @@
 import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
 import '../index'
-import '../../button/button'
+import '../../button/index'
 
 @tag('basic-example')
 export default class BasicExample extends Component {

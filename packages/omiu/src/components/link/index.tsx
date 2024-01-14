@@ -6,7 +6,7 @@ const theme = {
   primary:
     'text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600',
   secondary:
-    'text-secondary transition duration-150 ease-in-out hover:text-secondary-600 focus:text-secondary-600 active:text-secondary-700',
+    'text-secondary-foreground transition duration-150 ease-in-out hover:text-secondary-600 focus:text-secondary-600 active:text-secondary-700',
   success:
     'text-success transition duration-150 ease-in-out hover:text-success-600 focus:text-success-600 active:text-success-700',
   danger:

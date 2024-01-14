@@ -106,6 +106,14 @@ export class Button extends Component<Props> {
       case 'contained':
         switch (props.color) {
           case 'primary':
+            btnClass = `bg-${props.color} text-primary-foreground hover:bg-${props.color}-600 focus:bg-${props.color}-600 active:bg-${props.color}-700`
+            active = `bg-${props.color}-700`
+            break
+          case 'secondary':
+            btnClass = `bg-secondary text-secondary-foreground hover:bg-${config.hover} focus:bg-${config.focus} active:bg-${config.active}`
+            active = `bg-${config.active}`
+            break
+
           case 'success':
           case 'info':
           case 'warning':
@@ -114,7 +122,6 @@ export class Button extends Component<Props> {
             active = `bg-${props.color}-700`
             break
 
-          case 'secondary':
           case 'light':
           case 'dark':
             btnClass = `bg-${config.bg} text-${config.text} hover:bg-${config.hover} focus:bg-${config.focus} active:bg-${config.active}`

@@ -339,7 +339,13 @@ export class CalendarComponent extends Component {
                         return (
                           <td
                             onClick={this.onClick}
-                            class={classNames(theme.td)}
+                            class={classNames(theme.td, {
+                              'text-primary-foreground':
+                                `${year}-${month}-${day}` ===
+                                `${this.state.selectedYear}-${(this.state.selectedMonth as number) + 1}-${
+                                  this.state.selectedDay
+                                }`,
+                            })}
                             data-te-datepicker-cell-selected={
                               `${year}-${month}-${day}` ===
                               `${this.state.selectedYear}-${(this.state.selectedMonth as number) + 1}-${

@@ -266,7 +266,7 @@ export class ButtonPage extends Component {
             Colors
           </h2>
           <code-showcase code={``}>
-            <div class="flex">
+            <div>
               <o-dropdown
                 onClick={(evt) => {
                   console.log(evt.detail)

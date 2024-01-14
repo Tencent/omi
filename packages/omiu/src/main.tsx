@@ -1,6 +1,7 @@
 import { routes } from './routes'
 import { Router } from 'omi-router'
 import { tailwind } from '@/tailwind'
+import '../app/globals.css'
 
 // 为了被扫出来，不然样式丢失
 // @ts-ignore
