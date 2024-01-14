@@ -211,6 +211,7 @@ declare namespace Omi {
   function unbind(el: HTMLElement, type: string): void;
 
   function mixin(obj: Record<string, unknown>): void;
+  function globalCSS(css: CSSStyleSheet): void;
 
   var options: {
     vnode?: (vnode: VNode<any>) => void;
