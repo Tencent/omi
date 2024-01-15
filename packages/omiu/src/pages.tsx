@@ -82,10 +82,17 @@ export const formsPages: Pages[] = [
   //   name: 'file input',
   //   path: '/forms/file-input',
   // },
-  { name: 'calendar', path: '/forms/calendar' },
+  {
+    name: 'calendar',
+    path: '/forms/calendar',
+  },
   {
     name: 'input',
     path: '/forms/input',
+  },
+  {
+    name: 'checkbox',
+    path: '/forms/checkbox',
   },
   // {
   //   name: 'login form',

@@ -17,7 +17,7 @@ export class ButtonPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 !max-w-full mb-48">
+      <div className="!max-w-full mb-48">
         <section>
           <h2 className="mb-5 mt-0 text-3xl font-semibold leading-normal" id="basic_example" data-te-spy-item>
             Basic example

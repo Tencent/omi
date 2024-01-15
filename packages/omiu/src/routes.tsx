@@ -210,6 +210,13 @@ const components = [
     overview: () => import('./forms/calendar/page'),
     api: () => import('./forms/calendar/api'),
   },
+
+  {
+    name: 'checkbox',
+    type: 'forms',
+    overview: () => import('./forms/checkbox/page'),
+    api: () => import('./forms/checkbox/api'),
+  },
 ]
 
 components.forEach(

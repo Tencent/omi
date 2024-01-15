@@ -22,7 +22,7 @@ export class AccordionPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 !max-w-full mb-48">
+      <div className="!max-w-full mb-48">
         {/* <!-- Section: Basic example --> */}
         <section>
           {/* <!-- Title --> */}

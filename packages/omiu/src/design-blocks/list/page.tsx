@@ -9,7 +9,7 @@ export class ListPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 !max-w-full mb-48">
+      <div className="!max-w-full mb-48 mt-8">
         <o-alert>
           List design block from{' '}
           <a class="ml-2" href="https://flowbite.com/docs/typography/lists/">

@@ -16,7 +16,7 @@ export class CollapsePage extends Component {
 
   render() {
     return (
-      <div className="container my-12 !max-w-full">
+      <div className="!max-w-full mb-48">
         {/* <!-- Section: Basic example --> */}
         <section>
           {/* <!-- Title --> */}

@@ -22,7 +22,7 @@ export default class TabsPage extends Component {
 
   render() {
     return (
-      <div className="container my-12 mx-5">
+      <div className="!max-w-full mb-48">
         {/* <!-- Section: Basic example --> */}
         <section>
           {/* <!-- Title --> */}
