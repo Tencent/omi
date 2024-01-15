@@ -19,3 +19,8 @@ https://omi.cdn-go.cn/omiu/latest/
 * popperjs
 * [VChart](https://www.visactor.io/vchart)
 * [VTable](https://visactor.io/vtable)
+* tailwind-merge
+* class-variance-authority
+* markdown-it
+* prismjs
+* copy-to-clipboard
