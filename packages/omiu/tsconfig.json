@@ -24,7 +24,7 @@
     }
   },
   "include": ["src"],
-  // 暂时忽略错误
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
+  // 临时暂时忽略错误，但是类型会标红
+  // "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

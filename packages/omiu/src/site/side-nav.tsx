@@ -1,27 +1,9 @@
-import { tag, Component, classNames, bind, signal } from 'omi'
+import { tag, Component, classNames, bind } from 'omi'
 // import css from '../app.css?raw'
 import { tailwind } from '@/tailwind'
 import { Router } from 'omi-router'
-import { activeTab } from '@/routes'
+import { menuShow, currentPath, activeTab } from '@/store'
 import { componentsPages, formsPages, navigationPages, dataPages, designBlocksPages } from '../pages'
-
-export const menuShow = signal(window.innerWidth > 1024)
-
-window.addEventListener('resize', () => {
-  menuShow.value = window.innerWidth > 1024
-})
-
-window.addEventListener('click', () => {
-  if (window.innerWidth < 1024) {
-    menuShow.value = false
-  }
-})
-
-window.addEventListener('touchstart', () => {
-  if (window.innerWidth < 1024) {
-    menuShow.value = false
-  }
-})
 
 @tag('side-nav')
 export class SideNav extends Component {
@@ -48,6 +30,7 @@ export class SideNav extends Component {
       this.router?.push(path)
       menuShow.value = window.innerWidth > 1024
       activeTab.value = 'overview'
+      currentPath.value = path
     }
   }
 
@@ -143,7 +126,12 @@ export class SideNav extends Component {
                     <a
                       href="javascript:void()"
                       onClick={(evt) => this.goTo(evt, page.path)}
-                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      class={classNames(
+                        'flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear motion-reduce:transition-none dark:text-gray-300  relative overflow-hidden align-bottom hover:bg-primary hover:!text-primary-foreground ',
+                        {
+                          'bg-primary !text-primary-foreground': currentPath.value === page.path,
+                        },
+                      )}
                       tabindex="0"
                     >
                       {page.name.charAt(0).toUpperCase() + page.name.slice(1)}
@@ -211,7 +199,12 @@ export class SideNav extends Component {
                     <a
                       href="javascript:void()"
                       onClick={(evt) => this.goTo(evt, page.path)}
-                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      class={classNames(
+                        'flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear motion-reduce:transition-none dark:text-gray-300  relative overflow-hidden align-bottom hover:bg-primary hover:!text-primary-foreground ',
+                        {
+                          'bg-primary !text-primary-foreground': currentPath.value === page.path,
+                        },
+                      )}
                       tabindex="0"
                     >
                       {page.name.charAt(0).toUpperCase() + page.name.slice(1)}
@@ -280,7 +273,12 @@ export class SideNav extends Component {
                     <a
                       href="javascript:void()"
                       onClick={(evt) => this.goTo(evt, page.path)}
-                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      class={classNames(
+                        'flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear motion-reduce:transition-none dark:text-gray-300  relative overflow-hidden align-bottom hover:bg-primary hover:!text-primary-foreground ',
+                        {
+                          'bg-primary !text-primary-foreground': currentPath.value === page.path,
+                        },
+                      )}
                       tabindex="0"
                     >
                       {page.name.charAt(0).toUpperCase() + page.name.slice(1)}
@@ -348,7 +346,12 @@ export class SideNav extends Component {
                     <a
                       href="javascript:void()"
                       onClick={(evt) => this.goTo(evt, page.path)}
-                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      class={classNames(
+                        'flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear motion-reduce:transition-none dark:text-gray-300  relative overflow-hidden align-bottom hover:bg-primary hover:!text-primary-foreground ',
+                        {
+                          'bg-primary !text-primary-foreground': currentPath.value === page.path,
+                        },
+                      )}
                       tabindex="0"
                     >
                       {page.name == 'pdf' ? 'PDF' : page.name.charAt(0).toUpperCase() + page.name.slice(1)}
@@ -407,7 +410,12 @@ export class SideNav extends Component {
                     <a
                       href="javascript:void()"
                       onClick={(evt) => this.goTo(evt, page.path)}
-                      class="hover:bg-blue-100/20 dark:hover:bg-white/10 hover:text-inherit hover:outline-none focus:bg-blue-200/20 focus:text-inherit focus:outline-none active:bg-blue-200/20 active:text-inherit active:outline-none flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"
+                      class={classNames(
+                        'flex h-6 cursor-pointer items-center truncate rounded-[5px] py-4 pl-[3.4rem] pr-6 text-[0.78rem] text-gray-600 outline-none transition duration-300 ease-linear motion-reduce:transition-none dark:text-gray-300  relative overflow-hidden align-bottom hover:bg-primary hover:!text-primary-foreground ',
+                        {
+                          'bg-primary !text-primary-foreground': currentPath.value === page.path,
+                        },
+                      )}
                       tabindex="0"
                     >
                       {page.name.charAt(0).toUpperCase() + page.name.slice(1)}

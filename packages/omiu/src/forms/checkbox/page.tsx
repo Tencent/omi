@@ -40,7 +40,7 @@ export default class CheckPage extends Component {
             <div class="flex gap-3">
               <o-checkbox
                 label="Default checkbox"
-                onChange={(e) => console.log(e.detail)}
+                onChange={(e: CustomEvent) => console.log(e.detail)}
                 name="example"
                 value="example"
                 required

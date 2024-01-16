@@ -1,4 +1,4 @@
-import { tag, Component, classNames, OmiProps, bind } from 'omi'
+import { tag, Component, classNames, OmiProps, bind, VNode } from 'omi'
 import { tailwind } from '@/tailwind'
 import '../collapse/collapse'
 
@@ -31,7 +31,7 @@ export class SwiperComponent extends Component<Props> {
   ]
 
   @bind
-  onPreviusClick(evt) {
+  onPreviusClick(evt: Event) {
     this.swiper?.slidePrev()
     this.fire('change', {
       index: this.swiper!.realIndex,
@@ -40,7 +40,7 @@ export class SwiperComponent extends Component<Props> {
   }
 
   @bind
-  onNextClick(evt) {
+  onNextClick(evt: Event) {
     this.swiper?.slideNext()
     this.fire('change', {
       index: this.swiper!.realIndex,
@@ -49,7 +49,7 @@ export class SwiperComponent extends Component<Props> {
   }
 
   @bind
-  onPaginationClick(index: number, evt) {
+  onPaginationClick(index: number, evt: Event) {
     // https://www.swiper.com.cn/api/methods/417.html
     this.swiper?.slideToLoop(index)
     this.fire('change', {
@@ -102,11 +102,11 @@ export class SwiperComponent extends Component<Props> {
     return false
   }
 
-  render(props: Props) {
+  render(props: OmiProps<Props>) {
     return (
       <div class="swiper">
         <div class="swiper-wrapper">
-          {props.children.map((child, index) => {
+          {(props.children as VNode[])?.map((child) => {
             return <div class="swiper-slide">{child}</div>
           })}
         </div>

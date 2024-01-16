@@ -4,13 +4,9 @@ import './site/site-header'
 import './site/side-nav'
 import './site/content-nav'
 import { updateMenu } from './site/content-nav'
-import { signal } from 'omi'
+import { activeTab, showPage } from '@/store'
 import 'omi-transition'
 import './navigation/tabs/tabs'
-
-const showPage = signal(true)
-
-export const activeTab = signal('overview')
 
 declare global {
   interface Window {
@@ -29,7 +25,7 @@ export const routes = [
           <div class="flex">
             <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
             <o-suspense
-              imports={[import('./home-page')]}
+              imports={[import('./home')]}
               onDataLoaded={window.refreshDark}
               class="flex-1 ml-10 mr-10 lg:pl-60"
             >

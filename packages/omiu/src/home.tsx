@@ -50,22 +50,22 @@ export class ButtonLink extends Component {
       <table class="w-full bg-white mx-auto text-gray-600 dark:text-900 mt-10 mb-96">
         <tr>
           <td>
-            <a href="#/forms/calendar/">
+            <a href="#/forms/calendar">
               <img alt="Calendar" src="https://omi.cdn-go.cn/s/latest/omiu/datepicker.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/dropdown/">
+            <a href="#/components/dropdown">
               <img alt="Dropdown" src="https://omi.cdn-go.cn/s/latest/omiu/dropdown.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/modal/">
+            <a href="#/components/modal">
               <img alt="Modal" src="https://omi.cdn-go.cn/s/latest/omiu/modal.png" />
             </a>
           </td>
           <td>
-            <a href="#/data/chart/">
+            <a href="#/data/chart">
               <img alt="Charts" src="https://omi.cdn-go.cn/s/latest/omiu/charts.png" />
             </a>
           </td>
@@ -87,22 +87,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/data/table/">
+            <a href="#/data/table">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/table.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/swiper/">
+            <a href="#/components/swiper">
               <img alt="swiper" src="https://omi.cdn-go.cn/s/latest/omiu/swiper.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/accordion/">
+            <a href="#/components/accordion">
               <img alt="Accordion" src="https://omi.cdn-go.cn/s/latest/omiu/accordion.png" />
             </a>
           </td>
           <td>
-            <a href="#/navigation/tabs/">
+            <a href="#/navigation/tabs">
               <img alt="Tabs" src="https://omi.cdn-go.cn/s/latest/omiu/tabs.png" />
             </a>
           </td>
@@ -124,22 +124,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/alert/">
+            <a href="#/components/alert">
               <img alt="Tailwind CSS Time picker" src="https://omi.cdn-go.cn/s/latest/omiu//alert.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/avatar/">
+            <a href="#/components/avatar">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/avatar.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/badge/">
+            <a href="#/components/badge">
               <img alt="Tailwind CSS Navbar" src="https://omi.cdn-go.cn/s/latest/omiu/badge.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/stepper/">
+            <a href="#/components/stepper">
               <img alt="Stepper" src="https://omi.cdn-go.cn/s/latest/omiu/stepper.png" />
             </a>
           </td>
@@ -161,22 +161,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/button-group/">
+            <a href="#/components/button-group">
               <img alt="Tailwind CSS Time picker" src="https://omi.cdn-go.cn/s/latest/omiu/button-group.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/button/">
+            <a href="#/components/button">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu//button.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/card/">
+            <a href="#/components/card">
               <img alt="Tailwind CSS Navbar" src="https://omi.cdn-go.cn/s/latest/omiu/card.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/chip/">
+            <a href="#/components/chip">
               <img alt="chip" src="https://omi.cdn-go.cn/s/latest/omiu/chip.png" />
             </a>
           </td>
@@ -198,22 +198,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/collapse/">
+            <a href="#/components/collapse">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/collapse.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/lightbox/">
+            <a href="#/components/lightbox">
               <img alt="Tailwind CSS Navbar" src="https://omi.cdn-go.cn/s/latest/omiu/lightbox.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/checkbox/">
+            <a href="#/forms/checkbox">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/checkbox.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/link/">
+            <a href="#/components/link">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/link.png" />
             </a>
           </td>
@@ -235,22 +235,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/design-blocks/list/">
+            <a href="#/design-blocks/list">
               <img alt="Tailwind CSS Navbar" src="https://omi.cdn-go.cn/s/latest/omiu/list.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/notifications/">
+            <a href="#/components/notifications">
               <img alt="Tailwind CSS Time picker" src="https://omi.cdn-go.cn/s/latest/omiu/notification.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/paragraphs/">
+            <a href="#/components/paragraphs">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/paragraphs.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/skeleton/">
+            <a href="#/components/skeleton">
               <img alt="Tailwind CSS Navbar" src="https://omi.cdn-go.cn/s/latest/omiu/skeleton.png" />
             </a>
           </td>
@@ -272,22 +272,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/popover/">
+            <a href="#/components/popover">
               <img alt="Tailwind CSS Time picker" src="https://omi.cdn-go.cn/s/latest/omiu/popover.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/progress/">
+            <a href="#/components/progress">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/progress.png" />
             </a>
           </td>
           <td>
-            <a href="#/data/pdf/">
+            <a href="#/data/pdf">
               <img alt="Tailwind CSS Tables" src="https://omi.cdn-go.cn/s/latest/omiu/pdf2.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/tooltip/">
+            <a href="#/components/tooltip">
               <img alt="tooltip" src="https://omi.cdn-go.cn/s/latest/omiu/tooltip.png" />
             </a>
           </td>
@@ -309,22 +309,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/social-buttons/">
+            <a href="#/components/social-buttons">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/social-media.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/spinners/">
+            <a href="#/components/spinners">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/spinner.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/timeline/">
+            <a href="#/components/timeline">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/timeline.png" />
             </a>
           </td>
           <td>
-            <a href="#/components/toast/">
+            <a href="#/components/toast">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/toast.png" />
             </a>
           </td>
@@ -346,23 +346,23 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/tooltip/">
+            <a href="#/components/tooltip">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/tooltip2.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/file-input/">
+            <a href="#/forms/file-input">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/file-upload.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/input/">
+            <a href="#/forms/input">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/input-group.png" />
             </a>
           </td>
 
           <td>
-            <a href="#/components/popconfirm/">
+            <a href="#/components/popconfirm">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/popconfirm.png" />
             </a>
           </td>
@@ -384,22 +384,22 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/forms/radio/">
+            <a href="#/forms/radio">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/radio.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/range/">
+            <a href="#/forms/range">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/range.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/registration-form/">
+            <a href="#/forms/registration-form">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/registration-form.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/search/">
+            <a href="#/forms/search">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/search.png" />
             </a>
           </td>
@@ -421,23 +421,23 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/forms/select/">
+            <a href="#/forms/select">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/select.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/switch/">
+            <a href="#/forms/switch">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/swiper.png" />
             </a>
           </td>
           <td>
-            <a href="#/forms/input/">
+            <a href="#/forms/input">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/textarea.png" />
             </a>
           </td>
 
           <td>
-            <a href="#/methods/ripple/">
+            <a href="#/methods/ripple">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/ripple.png" />
             </a>
           </td>
@@ -460,7 +460,7 @@ export class ButtonLink extends Component {
 
         <tr>
           <td>
-            <a href="#/components/rating/">
+            <a href="#/components/rating">
               <img alt="Tailwind Component" src="https://omi.cdn-go.cn/s/latest/omiu/rating.png" />
             </a>
           </td>

@@ -80,7 +80,7 @@ export class Input extends Component<Props> {
   installed() {
     // 父容器动画没有播放完，导致获取不到 label 的宽度，所有 setTimeout 400
     setTimeout(() => {
-      this.state.labelWidth = this.labelReference?.current?.clientWidth * 0.8 + 8
+      this.state.labelWidth = (this.labelReference?.current as HTMLElement)?.clientWidth * 0.8 + 8
       this.update()
     }, 400)
   }

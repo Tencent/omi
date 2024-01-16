@@ -26,6 +26,7 @@ export type CheckboxProps = VariantProps<typeof checkboxVariants> & {
   indeterminate?: boolean
   disabled?: boolean
   checked?: boolean
+  label?: string
   // name?: string
   value?: string
   // required?: boolean
@@ -43,13 +44,14 @@ export class Checkbox extends Component<CheckboxProps> {
   onChange = (e: Event) => {
     this.fire('change', {
       nativeEvent: e,
-      checked: this.input.checked,
-      value: this.input.value,
+      checked: this.input?.checked,
+      value: this.input?.value,
     })
   }
+  input: HTMLInputElement | null = null
 
   render() {
-    const { className, indeterminate, disabled, checked, onChange, name, value, required, label, ...props } = this.props
+    const { className, indeterminate, disabled, checked, value, label, ...props } = this.props
 
     return (
       <>
@@ -57,7 +59,9 @@ export class Checkbox extends Component<CheckboxProps> {
           onChange={this.onChange}
           ref={(el) => {
             this.input = el
-            this.input.indeterminate = indeterminate
+            if (this.input) {
+              this.input.indeterminate = !!indeterminate
+            }
           }}
           className={cn(checkboxVariants({ indeterminate, disabled, className }))}
           type="checkbox"
@@ -65,6 +69,7 @@ export class Checkbox extends Component<CheckboxProps> {
           disabled={disabled}
           value={value}
           id="checkbox"
+          {...props}
         />
         {label && (
           <label

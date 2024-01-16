@@ -1,31 +1,6 @@
-import { tag, Component, signal } from 'omi'
+import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
-
-const contentMenu = signal<{ menus: { id: string | null; text: string | null }[]; active: string }>({
-  menus: [
-    {
-      id: 'basic',
-      text: 'Theme22',
-    },
-    {
-      id: 'shades',
-      text: 'Shades',
-    },
-    {
-      id: 'background',
-      text: 'Background',
-    },
-    {
-      id: 'text',
-      text: 'Text',
-    },
-    {
-      id: 'section-related-resources',
-      text: 'Related resources',
-    },
-  ],
-  active: 'basic',
-})
+import { contentMenu } from '@/store'
 
 export function updateMenu(scopeEl: HTMLElement) {
   const h2Elements = scopeEl.shadowRoot?.querySelectorAll('h2.mb-5.mt-0.text-3xl.font-semibold.leading-normal')

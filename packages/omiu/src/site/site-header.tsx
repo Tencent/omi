@@ -1,7 +1,7 @@
 import { tag, Component, bind } from 'omi'
 // import css from '../app.css?raw'
 import { tailwind } from '@/tailwind'
-import { menuShow } from './side-nav'
+import { menuShow } from '@/store'
 
 declare global {
   interface Window {

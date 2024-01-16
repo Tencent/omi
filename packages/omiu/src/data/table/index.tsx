@@ -1,9 +1,17 @@
-import { tag, Component, classNames, bind } from 'omi'
+import { tag, Component } from 'omi'
 import { tailwind } from '@/tailwind'
 import * as VTable from '@visactor/vtable'
 
+interface Props {
+  width: number
+  height: number
+  widthMode: 'standard' | 'flex'
+  records: any[]
+  columns: any[]
+  data: any[]
+}
 @tag('o-table')
-export class Table extends Component {
+export class Table extends Component<Props> {
   static css = [
     tailwind,
     `:host {
@@ -18,7 +26,8 @@ export class Table extends Component {
     height: 400,
     widthMode: 'standard',
   }
-  table: VTable.ListTable
+
+  table: VTable.ListTable | null = null
 
   installed() {
     const options = {
@@ -29,13 +38,14 @@ export class Table extends Component {
     }
 
     // 创建 vchart 实例
+    // @ts-ignore
     this.table = new VTable.ListTable(options)
 
     this.style.width = this.props.width + 'px'
     this.style.height = this.props.height + 'px'
   }
 
-  render(props) {
+  render(props: Props) {
     return (
       <div
         style={{
