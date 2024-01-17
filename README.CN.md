@@ -3,7 +3,7 @@
 <p align="center"><img src="https://omijs.github.io/home/assets/logo.svg" alt="omi" width="100"/></p>
 <h2 align="center">Omi - Web Components 框架</h2>
 
-- 📶 信号 **Signal** 驱动的响应式编程
+- 📶 信号 **Signal** 驱动的响应式编程，[reactive-signal](https://github.com/Tencent/omi/tree/master/packages/reactive-signal)强力驱动
 - ⚡ **微小的**尺寸，**极速的**性能
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form 游乐场](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi 图标](https://github.com/omijs/lucide-omi)
 - 🎉 [官方 OMIU 源码](https://github.com/Tencent/omi/tree/master/packages/omiu) 进行中.. & [OMIU 预览](https://omi.cdn-go.cn/omiu/latest/)
