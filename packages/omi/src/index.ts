@@ -10,12 +10,13 @@ export {
   effect,
   batch,
   setActiveComponent,
+  clearActiveComponent,
   getActiveComponent,
   signalObject,
-} from './reactivity'
-export type { SignalValue, SignalObject } from './reactivity'
-export { Signal } from './signal'
+} from 'reactive-signal'
+export type { SignalValue, SignalObject } from 'reactive-signal'
+export { Signal } from 'reactive-signal'
 export { css } from './css-tag'
 export { mixin, globalCSS } from './options'
 export { registerDirective } from './directive'
-export const version = '7.5.10'
+export const version = '7.6.0'

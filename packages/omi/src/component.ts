@@ -4,7 +4,7 @@ import { diff } from './diff'
 import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
 import { ObjectVNode, VNode } from './vdom'
-import { setActiveComponent } from './reactivity'
+import { setActiveComponent, clearActiveComponent } from 'reactive-signal'
 import { options } from './options'
 import { define } from './define'
 
@@ -222,7 +222,7 @@ export class Component extends HTMLElement {
     const rendered = this.render(this.props, this.store)
     this.appendStyleVNode(rendered)
     this.rendered(rendered)
-    setActiveComponent(null)
+    clearActiveComponent()
     this.rootElement = diff(null, rendered as VNode, null, this, false)
 
     if (isArray(this.rootElement)) {
@@ -255,7 +255,7 @@ export class Component extends HTMLElement {
     const rendered = this.render(this.props, this.store)
     this.appendStyleVNode(rendered)
     this.rendered(rendered)
-    setActiveComponent(null)
+    clearActiveComponent(null)
 
     this.rootElement = diff(
       this.rootElement,

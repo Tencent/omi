@@ -1,4 +1,4 @@
-import { signal, computed, effect, batch, setActiveComponent, tag, Component, render, h } from '@/index'
+import { signal, computed, effect, batch, setActiveComponent, clearActiveComponent, tag, Component, render, h } from '@/index'
 
 describe('signal', () => {
   let parentElement
@@ -310,7 +310,7 @@ describe('computed', () => {
       queuedUpdate() {
         setActiveComponent(mockComponent)
         this.render()
-        setActiveComponent(null)
+        clearActiveComponent()
       },
     }
 

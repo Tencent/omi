@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "7.5.10",
+  "version": "7.6.0",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",
@@ -53,6 +53,7 @@
   "license": "MIT",
   "dependencies": {
     "construct-style-sheets-polyfill": "3.0.1",
+    "reactive-signal": "^1.0.0-alpha0",
     "weakmap-polyfill": "2.0.4"
   },
   "type": "module",
