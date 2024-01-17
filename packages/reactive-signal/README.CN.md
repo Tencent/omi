@@ -1,4 +1,4 @@
-[English](https://github.com/dntzhang/omi-next/tree/main/packages/reactive-signal)  | 简体中文
+[English](https://github.com/Tencent/omi/tree/main/packages/reactive-signal)  | 简体中文
 
 <p align="center">
 <a href="http://omijs.org" target="_blank">
