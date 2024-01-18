@@ -1,4 +1,4 @@
-English | [简体中文](./README.CN.md) 
+English | [简体中文](https://github.com/Tencent/omi/blob/master/packages/reactive-signal/README.CN.md) 
 
 <p align="center">
 <a href="http://omijs.org" target="_blank">
