@@ -1,13 +1,19 @@
-import { effect, signal } from '@/index'
+import { batch, effect, signal } from '@/index'
 
 
 const count = signal(3)
 
 const dispose = effect(() => {
-  console.log(count.value)
+  console.error(count.value)
 })
 
-dispose()
+// dispose()
+
+batch(() => {
+  count.value = 1
+  count.value = 2
+  count.value = 3
+})
 
 count.value = 4
 

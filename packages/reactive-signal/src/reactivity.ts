@@ -6,7 +6,9 @@ type ComputedFn<T> = () => T
 let activeEffect:
   | (EffectFn & { deps?: Set<{ value: any; deps: Set<EffectFn> }> })
   | null = null
-let batchQueue: EffectFn[] = []
+let batchQueue: Set<EffectFn> = new Set()
+let effectsToRun: Set<EffectFn> = new Set()
+let inBatch = false; // Add a flag to check if we are in batch
 
 export interface SignalValue<T> {
   value: T
@@ -77,7 +79,7 @@ export function signal<T>(initialValue: T): SignalValue<T> {
           value !== newValue
         ) {
           value = newValue
-          deps.forEach((fn) => fn())
+          deps.forEach((fn) => inBatch ? effectsToRun.add(fn) : fn())
           depsComponents.forEach(
             (component) => component[component._tempActiveUpdateFnName!]?.(),
           )
@@ -137,9 +139,10 @@ export function effect(fn: EffectFn): () => void {
  * @param fn - The function to batch.
  */
 export function batch(fn: EffectFn): void {
-  batchQueue.push(fn)
-  if (batchQueue.length === 1) {
-    Promise.resolve().then(runBatch)
+  inBatch = true; // Start batch
+  batchQueue.add(fn)
+  if (batchQueue.size === 1) {
+    runBatch()
   }
 }
 
@@ -147,10 +150,17 @@ export function batch(fn: EffectFn): void {
  * Runs all functions in the batch queue.
  */
 export function runBatch(): void {
-  while (batchQueue.length) {
-    const fn = batchQueue.shift()
-    if (fn) fn()
+  while (batchQueue.size) {
+    const fn = batchQueue.values().next().value
+    if (fn) {
+      fn()
+      batchQueue.delete(fn)
+    }
   }
+
+  effectsToRun.forEach((effectFn) => effectFn())
+  effectsToRun.clear()
+  inBatch = false; // End batch
 }
 
 export type SignalObject<T> = {

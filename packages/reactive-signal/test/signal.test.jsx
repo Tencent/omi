@@ -37,7 +37,7 @@ describe('Signal', () => {
       testSignal.value = 20
       testSignal.value = 30
     })
-    expect(testValue).toBe(10)
+    expect(testValue).toBe(30)
   })
 
   it('should set and get active component correctly', () => {

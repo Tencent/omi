@@ -112,8 +112,8 @@ describe('computed', () => {
     batch(() => {
       count.value = 1
     })
-    expect(double.value).toBe(0)
-    expect(triple.value).toBe(0)
+    expect(double.value).toBe(2)
+    expect(triple.value).toBe(3)
   })
 
   it('should get correct value', async () => {
@@ -268,7 +268,23 @@ describe('batch', () => {
       testSignal.value = 30
       testSignal.value = 40
     })
-    expect(effectTimes).toBe(1)
+    expect(effectTimes).toBe(2)
+  })
+
+  it('should get the value correctly', async () => {
+    const testSignal = signal(10)
+    let effectTimes = 0
+    effect(() => {
+      testSignal.value
+      effectTimes++
+    })
+    batch(() => {
+      testSignal.value = 20
+      testSignal.value = 30
+      testSignal.value = 40
+    })
+    await Promise.resolve()
+    expect(effectTimes).toBe(2)
   })
 
 
@@ -287,7 +303,7 @@ describe('batch', () => {
       testSignal.value = 30
       testSignal.value = 40
     })
-    expect(effectTimes).toBe(2)
+    expect(effectTimes).toBe(3)
   })
   
   it('should get the value correctly', () => {
@@ -305,6 +321,6 @@ describe('batch', () => {
       testSignal.value = 30
       testSignal.value = 40
     })
-    expect(effectTimes).toBe(1)
+    expect(effectTimes).toBe(2)
   })
 })
