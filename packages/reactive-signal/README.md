@@ -2,7 +2,7 @@ English | [简体中文](./README.CN.md)
 
 <p align="center">
 <a href="http://omijs.org" target="_blank">
-<img src="./icon.svg" width="100" />
+<img src="https://raw.githubusercontent.com/Tencent/omi/master/packages/reactive-signal/icon.svg" width="100" />
 </a>
 </p>
 <h3 align="center">Reactive-Signal</h3>
