@@ -14,12 +14,12 @@ English | [简体中文](./README.CN.md)
 
 ## Features
 
-- **Ultra-Lightweight**: The library is incredibly tiny at just 0.6 KB, adding virtually no overhead to your project while providing powerful reactive programming capabilities.
+- **Ultra-Lightweight**: The library is incredibly tiny at just 0.6 KB.
+- **Easy-to-Use API**: A simple and intuitive API that makes it easy to get started with reactive programming in JavaScript.
 - **Reactive Data**: Easily create reactive data signals and computed signals to automatically update components when data changes.
 - **Effects**: Define side effects that automatically react to signal changes, making it simple to manage complex application logic.
 - **Batch Updates**: Efficiently batch multiple updates into a single update, reducing unnecessary re-renders and improving performance.
 - **Component Management**: Built-in functions to set and get active components, making it easy to integrate with your application's component system.
-- **Easy-to-Use API**: A simple and intuitive API that makes it easy to get started with reactive programming in JavaScript.
 - **Flexible**: Can be used with any JavaScript framework or library, or even in vanilla JavaScript projects.
 
 
@@ -61,6 +61,17 @@ batch(() => {
 ### `signal(initialValue)`
 
 Creates a signal with an initial value.
+
+```tsx
+const count = signal(0)
+// Using peek to get the value of the signal without creating a dependency
+count.peek() === count.value // true
+
+const todos = signal([])
+todos.value.push('Learn Reactive Programming')
+// Using update to change the value of the signal and trigger dependency updates
+todos.update()
+```
 
 ### `computed(fn)`
 
