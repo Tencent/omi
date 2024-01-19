@@ -6,5 +6,5 @@ export const userPosts = signal([])
 
 mixin({
   userProfile,
-  userPosts
+  userPosts,
 })

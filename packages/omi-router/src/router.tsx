@@ -8,8 +8,8 @@ type CSSItem = CSSStyleSheet | Module | string
 export class Router {
   el: RouterView
 
-  constructor(options: { routes: Route[]; renderTo: string, css?: CSSItem[], base?: string }) {
-    this.el = render((
+  constructor(options: { routes: Route[]; renderTo: string; css?: CSSItem[]; base?: string }) {
+    this.el = render(
       <router-view
         onInstall={(evt: CustomEvent) => {
           // @ts-ignore
@@ -17,8 +17,9 @@ export class Router {
         }}
         routes={options.routes}
         base={options.base}
-      />
-    ), options.renderTo)
+      />,
+      options.renderTo,
+    )
   }
 
   params: Record<string, unknown> = {}

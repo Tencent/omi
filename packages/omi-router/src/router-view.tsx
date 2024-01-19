@@ -3,23 +3,23 @@ import { tag, Component, mixin } from 'omi'
 
 // 先保证有 router 属性挂在 this 上
 mixin({
-  router: null
+  router: null,
 })
 
 export interface Route {
-  path: string;
-  render?: Function;
-  beforeEnter?: Function;
-  meta?: object;
-  transition?: string;
-  keys?: Key[];
-  regex?: RegExp;
-  redirect?: string;
+  path: string
+  render?: Function
+  beforeEnter?: Function
+  meta?: object
+  transition?: string
+  keys?: Key[]
+  regex?: RegExp
+  redirect?: string
 }
 
 interface Props {
-  routes: Route[];
-  base?: string;
+  routes: Route[]
+  base?: string
 }
 
 @tag('router-view')
@@ -38,11 +38,11 @@ export class RouterView extends Component<Props> {
   install() {
     // 修改组件内部的 this.router 为当前 router-view 的实例
     mixin({
-      router: this
+      router: this,
     })
     this.base = this.props.base || ''
 
-    this.routes = this.props.routes.map(route => {
+    this.routes = this.props.routes.map((route) => {
       const keys: Key[] = []
       if (route.render) {
         route.render = route.render.bind(this)
@@ -62,7 +62,7 @@ export class RouterView extends Component<Props> {
   }
 
   getRoutePath() {
-    return this.isHashMode ? (window.location.hash.split('?')[0].replace('#', '') || '/') : window.location.pathname
+    return this.isHashMode ? window.location.hash.split('?')[0].replace('#', '') || '/' : window.location.pathname
   }
 
   getQueryPath() {
@@ -108,13 +108,13 @@ export class RouterView extends Component<Props> {
       const match = route.regex?.exec(path)
       if (match) {
         if (route.redirect) {
-          if( this.isHashMode) {
+          if (this.isHashMode) {
             window.location.hash = route.redirect
           } else {
-            const newPath = this.base + route.redirect;
-            window.location.href = window.location.origin + newPath;
+            const newPath = this.base + route.redirect
+            window.location.href = window.location.origin + newPath
           }
-          return;
+          return
         }
         if (route.beforeEnter) {
           const shouldProceed = route.beforeEnter({ path }, { path: window.location.pathname })
@@ -148,6 +148,6 @@ export class RouterView extends Component<Props> {
   }
 
   render() {
-    return (this.currentRoute && this.currentRoute.render) ? this.currentRoute.render(this) : null
+    return this.currentRoute && this.currentRoute.render ? this.currentRoute.render(this) : null
   }
 }
