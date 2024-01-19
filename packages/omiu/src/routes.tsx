@@ -7,6 +7,7 @@ import { updateMenu } from './site/content-nav'
 import { activeTab, showPage } from '@/store'
 import 'omi-transition'
 import './navigation/tabs/tabs'
+import { VNode } from 'omi'
 
 declare global {
   interface Window {
@@ -14,25 +15,31 @@ declare global {
   }
 }
 
+const Layout = (props: { children: VNode }) => (
+  <>
+    <site-header></site-header>
+    <div class="flex">
+      <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
+      {props.children}
+    </div>
+  </>
+)
+
 export const routes = [
   {
     path: '/',
     meta: {},
     render() {
       return (
-        <>
-          <site-header></site-header>
-          <div class="flex">
-            <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
-            <o-suspense
-              imports={[import('./home')]}
-              onDataLoaded={window.refreshDark}
-              class="flex-1 ml-10 mr-10 lg:pl-60"
-            >
-              <home-page />
-            </o-suspense>
-          </div>
-        </>
+        <Layout>
+          <o-suspense
+            imports={[import('./home')]}
+            onDataLoaded={window.refreshDark}
+            class="flex-1 ml-10 mr-10 lg:pl-60"
+          >
+            <home-page />
+          </o-suspense>
+        </Layout>
       )
     },
   },
@@ -40,15 +47,9 @@ export const routes = [
     path: '*',
     render() {
       return (
-        <>
-          <site-header></site-header>
-          <div class="flex">
-            <side-nav class="block w-60"></side-nav>
-            <div class="flex-1 ml-10 mr-10 w-0 pt-10">
-              <h1 class="text-xl">In progress, coming soon....</h1>
-            </div>
-          </div>
-        </>
+        <Layout>
+          <h1 class="text-xl m-4 lg:pl-60">In progress, coming soon....</h1>
+        </Layout>
       )
     },
   },
@@ -223,76 +224,72 @@ components.forEach(
         component.page = `${component.name}-${activeTab.value === 'api' ? 'api' : 'page'}`
 
         return (
-          <>
-            <site-header></site-header>
-            <div class="flex">
-              <side-nav class="block" onClick={(evt: MouseEvent) => evt.stopPropagation()}></side-nav>
-              <div class="flex-1 ml-10 mr-10 w-0 flex-grow overflow-auto pr-0 lg:pr-40 lg:pl-60">
-                {component.type !== 'design-blocks' && (
-                  <o-tabs pills class="pt-5">
-                    <o-tabs-item
-                      onClick={() => {
-                        activeTab.value = 'overview'
-                      }}
-                      active={activeTab.value === 'overview'}
-                      tag="button"
-                    >
-                      OVERVIEW
-                    </o-tabs-item>
-                    <o-tabs-item
-                      onClick={() => {
-                        activeTab.value = 'api'
-                      }}
-                      active={activeTab.value === 'api'}
-                      tag="button"
-                    >
-                      API
-                    </o-tabs-item>
-                  </o-tabs>
-                )}
-                <o-suspense
-                  minLoadingTime={300}
-                  imports={[activeTab.value === 'api' ? component.api?.() : component.overview()]}
-                  onDataLoaded={window.refreshDark}
-                >
-                  <div slot="pending" class="absolute top-40 lg:left-72">
-                    <div>
-                      <strong>Loading...</strong>
-                      <div
-                        className="ml-auto inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                        role="status"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div slot="fallback">
-                    Sorry, we are unable to load the content at the moment. Please try again later.
-                  </div>
-                  <div
-                    show={showPage.value}
-                    o-transition={{
-                      name: 'fade',
-                      delay: 400,
+          <Layout>
+            <div class="flex-1 ml-10 mr-10 w-0 flex-grow overflow-auto pr-0 lg:pr-40 lg:pl-60">
+              {component.type !== 'design-blocks' && (
+                <o-tabs pills class="pt-5">
+                  <o-tabs-item
+                    onClick={() => {
+                      activeTab.value = 'overview'
                     }}
+                    active={activeTab.value === 'overview'}
+                    tag="button"
                   >
-                    <component.page
-                      onInstalled={(evt: CustomEvent) => {
-                        updateMenu(evt.detail)
-                      }}
-                    />
-                  </div>
-                  <content-nav
-                    show={showPage.value}
-                    o-transition={{
-                      name: 'fade',
-                      delay: 600,
+                    OVERVIEW
+                  </o-tabs-item>
+                  <o-tabs-item
+                    onClick={() => {
+                      activeTab.value = 'api'
                     }}
-                    class="w-0 lg:w-40 fixed top-20 right-10"
-                  ></content-nav>
-                </o-suspense>
-              </div>
+                    active={activeTab.value === 'api'}
+                    tag="button"
+                  >
+                    API
+                  </o-tabs-item>
+                </o-tabs>
+              )}
+              <o-suspense
+                minLoadingTime={300}
+                imports={[activeTab.value === 'api' ? component.api?.() : component.overview()]}
+                onDataLoaded={window.refreshDark}
+              >
+                <div slot="pending" class="absolute top-40 lg:left-72">
+                  <div>
+                    <strong>Loading...</strong>
+                    <div
+                      className="ml-auto inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                      role="status"
+                    ></div>
+                  </div>
+                </div>
+
+                <div slot="fallback">
+                  Sorry, we are unable to load the content at the moment. Please try again later.
+                </div>
+                <div
+                  show={showPage.value}
+                  o-transition={{
+                    name: 'fade',
+                    delay: 400,
+                  }}
+                >
+                  <component.page
+                    onInstalled={(evt: CustomEvent) => {
+                      updateMenu(evt.detail)
+                    }}
+                  />
+                </div>
+                <content-nav
+                  show={showPage.value}
+                  o-transition={{
+                    name: 'fade',
+                    delay: 600,
+                  }}
+                  class="w-0 lg:w-40 fixed top-20 right-10"
+                ></content-nav>
+              </o-suspense>
             </div>
-          </>
+          </Layout>
         )
       },
     })

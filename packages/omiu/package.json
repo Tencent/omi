@@ -24,7 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "copy-to-clipboard": "^3.3.3",
     "markdown-it": "^13.0.2",
-    "omi": "^7.5.9",
+    "omi": "^7.6.0",
     "omi-ripple": "^0.1.2",
     "omi-router": "^4.1.3",
     "omi-suspense": "^0.0.5",
