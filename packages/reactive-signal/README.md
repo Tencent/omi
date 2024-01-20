@@ -6,7 +6,7 @@ English | [简体中文](https://github.com/Tencent/omi/blob/master/packages/rea
 </a>
 </p>
 <h3 align="center">Reactive-Signal</h3>
-<p align="center">Reactive Programming in JavaScript </p>
+<p align="center">Reactive Programming in JavaScript(0.6KB) </p>
 <p align="center"><a href="https://www.npmjs.org/package/reactive-signal"><img src="https://img.shields.io/npm/v/reactive-signal.svg?style=flat" alt="npm"></a></p>
 
 
