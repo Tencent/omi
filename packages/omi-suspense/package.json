@@ -1,6 +1,6 @@
 {
   "name": "omi-suspense",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Handling asynchronous dependencies.",
   "scripts": {
     "start": "vite",

@@ -31,7 +31,7 @@ npm i omi-suspense
 </o-suspense>
 ```
 
-### Custom Render
+### Custom Render Functions
 
 
 ```tsx
@@ -46,6 +46,7 @@ npm i omi-suspense
   onLoaded={(event: CustomEvent) => {
     userProfile.value = event.detail[2]
   }}
+  pending={<div>Loading user profile...</div>}
   customRender={(results)=> {
     return (
       <user-info>
@@ -53,9 +54,10 @@ npm i omi-suspense
       </user-info>
     )
   }}
+  fallback={() => {
+    return <div>Sorry, we are unable to load the user profile at the moment. Please try again later.</div>
+  }}
 >
-  <div slot="pending">Loading user profile...</div>
-  <div slot="fallback">Sorry, we are unable to load the user profile at the moment. Please try again later.</div>
 </o-suspense>
 ```
 

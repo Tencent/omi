@@ -5,6 +5,8 @@ interface Props {
   data: Function | null
   minLoadingTime: number
   customRender: (results: unknown[]) => (VNode | VNode[])
+  pending: () => (VNode | VNode[]) | VNode | VNode[]
+  fallback: (error: unknown, results: unknown[]) => (VNode | VNode[]) | VNode | VNode[]
 }
 
 /**
@@ -14,6 +16,7 @@ define(
   'o-suspense',
   class extends Component<Props> {
     results: unknown[] | null = null
+    error: unknown
     install() {
       this.handleTasks(this.props.imports)
     }
@@ -58,7 +61,7 @@ define(
               this.state = 'resolve'
               this.fire('resolve')
               this.fire('loaded', results)
-              this.fire('data-loaded', results[results.length - 1])  
+              this.fire('data-loaded', results[results.length - 1])
               this.update()
             }, this.props.minLoadingTime - elapsedTime)
           } else {
@@ -70,8 +73,9 @@ define(
           }
         } catch (error) {
           console.error(error)
+          this.error = error
           this.state = 'fallback'
-          this.fire('fallback')
+          this.fire('fallback', error)
         }
       }
 
@@ -83,6 +87,9 @@ define(
      */
     render(props: Props) {
       if (this.state === 'pending') {
+        if (props.pending) {
+          return typeof props.pending === 'function' ? props.pending() : props.pending
+        }
         return <slot name="pending" />
       } else if (this.state === 'resolve') {
         if (props.customRender) {
@@ -90,6 +97,9 @@ define(
         }
         return <slot />
       } else {
+        if (props.fallback) {
+          return typeof props.fallback === 'function' ? props.fallback(this.error, this.results || []) : props.fallback
+        }
         return <slot name="fallback" />
       }
     }
