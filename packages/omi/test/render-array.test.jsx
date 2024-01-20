@@ -382,4 +382,45 @@ describe('render array', () => {
     render(<my-app21 />, parentElement)
     expect(parentElement.firstChild.shadowRoot.children[1].shadowRoot.innerHTML).toBe('<span>c</span><span>d</span>')
   })
+
+  it('render array 12', () => {
+    define('my-app22', class extends Component {
+      aa = 1
+      installed() {
+        this.aa = 2
+        this.update()
+        this.aa = 3
+        this.update()
+      }
+
+      render(props) {
+        if(this.aa === 1){
+          return (
+            <>
+              <span>a</span>
+              <span>b</span>
+              <span>c</span>
+            </>
+          )
+        }
+
+        if(this.aa === 2){
+          return (
+            <section>d</section>
+          )
+        }
+
+        if(this.aa === 3){
+          return (
+            <h1>e</h1>
+          )
+        }
+       
+       
+      }
+    })
+
+    render(<my-app22 />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<h1>e</h1>')
+  })
 })

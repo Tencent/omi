@@ -11,7 +11,6 @@ export function mixin(obj: Record<string, unknown>) {
 // 注入全局样式
 export function globalCSS(css: CSSStyleSheet) {
   if (!options.globalCSS.includes(css)) {
-    options.globalCSS.push(css);
+    options.globalCSS.push(css)
   }
 }
-

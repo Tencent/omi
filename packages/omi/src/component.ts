@@ -176,15 +176,15 @@ export class Component extends HTMLElement {
         } else {
           styleSheets = [css as unknown as CSSStyleSheet]
         }
-  
+
         // add globalCSS
-        styleSheets = [...options.globalCSS, ...styleSheets];
-  
+        styleSheets = [...options.globalCSS, ...styleSheets]
         ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
       } else {
         if (options.globalCSS.length) {
-          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = options.globalCSS
+          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
+            options.globalCSS
         }
       }
     } else {

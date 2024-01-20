@@ -132,7 +132,6 @@ export function createRef() {
   return {}
 }
 
-
 export function bind(
   target: unknown,
   propertyKey: string,
