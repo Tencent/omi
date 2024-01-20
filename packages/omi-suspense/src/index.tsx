@@ -1,9 +1,10 @@
-import { define, Component, h } from 'omi'
+import { define, Component, h, VNode } from 'omi'
 
 interface Props {
   imports: Promise<unknown>[]
   data: Function | null
   minLoadingTime: number
+  customRender: (results: unknown[]) => (VNode | VNode[])
 }
 
 /**
@@ -12,6 +13,7 @@ interface Props {
 define(
   'o-suspense',
   class extends Component<Props> {
+    results: unknown[] | null = null
     install() {
       this.handleTasks(this.props.imports)
     }
@@ -48,20 +50,23 @@ define(
 
         try {
           const results = await Promise.all(tasks)
+          this.results = results
           let endTime = Date.now() // 记录加载完成的时间
           let elapsedTime = endTime - startTime // 计算已经过去的时间
           if (elapsedTime < this.props.minLoadingTime) {
             this.timeout = setTimeout(() => {
               this.state = 'resolve'
               this.fire('resolve')
-              this.fire('data-loaded', results.pop())
+              this.fire('loaded', results)
+              this.fire('data-loaded', results[results.length - 1])  
               this.update()
             }, this.props.minLoadingTime - elapsedTime)
           } else {
             // 否则，立即隐藏加载指示器
             this.state = 'resolve'
             this.fire('resolve')
-            this.fire('data-loaded', results.pop())
+            this.fire('loaded', results)
+            this.fire('data-loaded', results[results.length - 1])
           }
         } catch (error) {
           console.error(error)
@@ -76,10 +81,13 @@ define(
     /**
      * Renders the appropriate slot based on the current state
      */
-    render() {
+    render(props: Props) {
       if (this.state === 'pending') {
         return <slot name="pending" />
       } else if (this.state === 'resolve') {
+        if (props.customRender) {
+          return props.customRender(this.results || [])
+        }
         return <slot />
       } else {
         return <slot name="fallback" />
