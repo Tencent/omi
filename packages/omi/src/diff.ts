@@ -72,15 +72,14 @@ export function diff(
     }
   } else {
     if (isArray(dom) || dom instanceof NodeList) {
-      // recollectNodeTree will remove dom from the DOM, so we need for loop, can't use forEach
-      for (let index = 0; index < (dom as ExtendedElement[]).length; index++) {
-        const child = (dom as ExtendedElement[])[index] as ExtendedElement
+      // recollectNodeTree will remove dom from the DOM, so we need [...dom] to make a copy
+      ;[...(dom as ExtendedElement[])].forEach((child, index) => {
         if (index === 0) {
           ret = idiff(child, vnode as VNode, component as Component, updateSelf)
         } else {
           recollectNodeTree(child, false)
         }
-      }
+      })
     } else {
       ret = idiff(dom, vnode as VNode, component as Component, updateSelf)
     }
