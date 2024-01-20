@@ -184,8 +184,8 @@ describe('signal', () => {
     batch(() => {
       count.value = 1
     })
-    expect(double.value).toBe(0)
-    expect(triple.value).toBe(0)
+    expect(double.value).toBe(2)
+    expect(triple.value).toBe(3)
   })
 
   it('should get correct value', () => {
