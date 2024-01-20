@@ -8,5 +8,5 @@ switch (location.hash) {
     break
 
   default:
-    import('./batch')
+    import('./base')
 }

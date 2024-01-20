@@ -230,6 +230,52 @@ describe('effect', () => {
 
   })
 
+  it('should get correct value', () => {
+    const count = signal(1)
+    const doubleCount = computed(() => count.value * 2)
+
+    let effectTimes = 0
+    effect(() => {
+      count.value
+      doubleCount.value
+      effectTimes++
+    })
+
+    count.value = 2
+    expect(doubleCount.value).toBe(4)
+    expect(effectTimes).toBe(2)
+  })
+
+  it('should get correct value', () => {
+    const count = signal(1)
+    const doubleCount = computed(() => count.value * 2)
+
+    let effectTimes = 0
+    effect(() => {
+      doubleCount.value
+      effectTimes++
+    })
+
+    count.value = 2
+    expect(doubleCount.value).toBe(4)
+    expect(effectTimes).toBe(2)
+  })
+
+  it('should get correct value', () => {
+    const count = signal(1)
+    const doubleCount = computed(() => count.value * 2)
+
+    let effectTimes = 0
+    effect(() => {
+      count.value
+      effectTimes++
+    })
+
+    count.value = 2
+    expect(doubleCount.value).toBe(4)
+    expect(effectTimes).toBe(2)
+  })
+
   it('should get the value correctly', () => {
     const testSignal = signal([1, 2, 3])
     let effectTimes = 0

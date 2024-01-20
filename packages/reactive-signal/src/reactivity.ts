@@ -8,7 +8,7 @@ let activeEffect:
   | null = null
 let batchQueue: Set<EffectFn> = new Set()
 let effectsToRun: Set<EffectFn> = new Set()
-let inBatch = false; // Add a flag to check if we are in batch
+let inBatch = false // Add a flag to check if we are in batch
 
 export interface SignalValue<T> {
   value: T
@@ -64,11 +64,14 @@ export function signal<T>(initialValue: T): SignalValue<T> {
       if (prop === 'peek') return () => value
       if (prop === 'update')
         return () => {
-          value = value
-          deps.forEach((fn) => fn())
-          depsComponents.forEach(
-            (component) => component[component._tempActiveUpdateFnName!]?.(),
-          )
+          // prevent duplicate effect execution caused by computed
+          batch(() => {
+            value = value
+            deps.forEach((fn) => (inBatch ? effectsToRun.add(fn) : fn()))
+            depsComponents.forEach(
+              (component) => component[component._tempActiveUpdateFnName!]?.(),
+            )
+          })
         }
     },
     set(_, prop: keyof SignalValue<T>, newValue: T) {
@@ -78,11 +81,14 @@ export function signal<T>(initialValue: T): SignalValue<T> {
           !isPrimitive(newValue) ||
           value !== newValue
         ) {
-          value = newValue
-          deps.forEach((fn) => inBatch ? effectsToRun.add(fn) : fn())
-          depsComponents.forEach(
-            (component) => component[component._tempActiveUpdateFnName!]?.(),
-          )
+          // prevent duplicate effect execution caused by computed
+          batch(() => {
+            value = newValue
+            deps.forEach((fn) => (inBatch ? effectsToRun.add(fn) : fn()))
+            depsComponents.forEach(
+              (component) => component[component._tempActiveUpdateFnName!]?.(),
+            )
+          })
         }
         return true
       }
@@ -139,7 +145,7 @@ export function effect(fn: EffectFn): () => void {
  * @param fn - The function to batch.
  */
 export function batch(fn: EffectFn): void {
-  inBatch = true; // Start batch
+  inBatch = true // Start batch
   batchQueue.add(fn)
   if (batchQueue.size === 1) {
     runBatch()
@@ -160,7 +166,7 @@ export function runBatch(): void {
 
   effectsToRun.forEach((effectFn) => effectFn())
   effectsToRun.clear()
-  inBatch = false; // End batch
+  inBatch = false // End batch
 }
 
 export type SignalObject<T> = {
