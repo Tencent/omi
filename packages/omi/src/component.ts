@@ -119,11 +119,13 @@ export class Component extends HTMLElement {
     }
 
     for (const key in options.mixin) {
-      Object.defineProperty(this, key, {
-        get: () => {
-          return options.mixin[key]
-        },
-      })
+      if (!this.hasOwnProperty(key)) {
+        Object.defineProperty(this, key, {
+          get: () => {
+            return options.mixin[key]
+          },
+        })
+      }
     }
   }
 
