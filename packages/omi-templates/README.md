@@ -1,4 +1,8 @@
-# Omi TypeScript + Tailwindcss starter
+# Omi Templates
+
+> 100+ OMI Tailwind Templates, coming...
+
+[](https://omi.cdn-go.cn/templates/latest/#/)
 
 ## Setup
 
