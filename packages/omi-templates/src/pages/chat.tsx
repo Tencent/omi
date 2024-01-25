@@ -3,7 +3,7 @@
  https://github.com/envomer/tailwindcss-chat 
 
 */
-export function Chat(props) {
+export function Chat() {
   return (
     <div class="w-full h-[calc(100vh-60px)] dark:brightness-90">
       <div class="flex h-full">

@@ -32,11 +32,11 @@ export class MarkdownRenderer extends Component {
     const codes = Array.from(this.shadowRoot?.querySelectorAll('code') || [])
     codes.forEach((code) => {
       const arr = code.className.match(/{([\S\s]*)}/)
-      let pre = code.parentNode
+      let pre = code.parentNode as HTMLElement
       if (arr) {
         pre.setAttribute('data-line', arr[1])
       }
-      if (code.className) {
+      if (code.className && pre) {
         pre.className = code.className
         const temp = code.className.match(/language-\w*/g)?.[0]
         const lan = temp?.split('-')[1] || 'markup'

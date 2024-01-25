@@ -1,7 +1,46 @@
 import { tag, Component, bind, classNames } from 'omi'
 
+type Props = {
+  menuItems: {
+    text: string
+    href: string
+    target: string
+    name: string
+    path: string
+    value: string
+    type: string
+    img?: string
+    inner?: string
+    children: any[]
+  }[]
+  active: string
+}
+
+type MenuItem = {
+  text: string
+  href: string
+  target: string
+  name: string
+  path: string
+  value: string
+  type: string
+  img?: string
+  inner?: string
+  children: any[]
+}
+
+type MenuItemChild = {
+  text: string
+  href: string
+  target: string
+  name: string
+  path: string
+  value: string
+  type: string
+}
+
 @tag('o-navbar')
-export class Navbar extends Component {
+export class Navbar extends Component<Props> {
   static css = `
   :host {
     display: block;
@@ -18,7 +57,7 @@ export class Navbar extends Component {
   }
 
   @bind
-  onMenuClick(evt, menuItem) {
+  onMenuClick(evt: MouseEvent, menuItem: MenuItem) {
     this.state.menu = false
     this.state.active = menuItem.value
     this.update()
@@ -29,7 +68,7 @@ export class Navbar extends Component {
   }
 
   @bind
-  onSubMenuClick(evt, menuItem) {
+  onSubMenuClick(evt: MouseEvent, menuItem: MenuItemChild) {
     this.state.menu = false
     evt.stopPropagation()
     this.state.active = menuItem.value
@@ -46,7 +85,7 @@ export class Navbar extends Component {
     this.update()
   }
 
-  renderMenuItemChild(menuItemChild) {
+  renderMenuItemChild(menuItemChild: MenuItemChild) {
     switch (menuItemChild.type) {
       case 'title':
         return (
@@ -158,7 +197,7 @@ export class Navbar extends Component {
           )}
         >
           <ul class="w-[288px] mx-auto md:w-full md:flex md:flex-row text-left">
-            {this.props.menuItems.map((menuItem) => {
+            {this.props.menuItems.map((menuItem: MenuItem) => {
               return (
                 <li
                   onClick={(evt) => this.onMenuClick(evt, menuItem)}
@@ -222,7 +261,7 @@ export class Navbar extends Component {
                     )}
                     {menuItem.children && (
                       <ul class="md:absolute md:left-1/2 md:-translate-x-1/2 w-auto  mt-2 text-sm md:text-base dark:bg-background bg-[#fafafa] md:border static text-gray-600 overflow-hidden md:shadow-md md:invisible group-hover:visible transition-all duration-200 delay-200 rounded-md hover:text-primary">
-                        {menuItem.children.map((menuItemChild) => {
+                        {menuItem.children.map((menuItemChild: MenuItemChild) => {
                           return this.renderMenuItemChild(menuItemChild)
                         })}
                       </ul>
