@@ -2,7 +2,7 @@
 
 > 100+ OMI Tailwind Templates, coming...
 
-[](https://omi.cdn-go.cn/templates/latest/#/)
+* [🎉Preview](https://omi.cdn-go.cn/templates/latest/#/)
 
 ## Setup
 
