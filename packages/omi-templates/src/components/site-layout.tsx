@@ -14,7 +14,7 @@ class NavbarWrapper extends Component {
 export function SiteLayout(props: { hideFooter?: boolean; current?: string; children?: VNode | VNode[] }) {
   return (
     <div class="bg-[#fafafa] pt-[56px] dark:bg-background dark:text-background-foreground">
-      <header class="bg-white dark:bg-background dark:text-background-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
+      <header class="bg-white dark:bg-background/10 dark:text-background-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
         <div class="container mx-auto flex justify-between items-center">
           <div class="text-xl font-bold">
             <a href="#" class="text-gray-800 dark:text-background-foreground">

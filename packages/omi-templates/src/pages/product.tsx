@@ -43,7 +43,7 @@ export function Product(props: { id: string }) {
             </svg>
           </div>
         </div>
-        <div class="md:w-[550px] w-full mt-4 md:mt-0 bg-background text-background-foreground">
+        <div class="md:w-[550px] w-full mt-4 md:mt-0">
           <h1 class="text-2xl font-bold">产品名称 - {props.id}</h1>
           <p class="text-md text-black mt-2 flex items-center">
             <span class="text-gray-500 w-32">价格:</span>{' '}

@@ -190,7 +190,7 @@ export class Navbar extends Component<Props> {
         </div>
         <div
           class={classNames(
-            'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow md:flex md:items-center md:static dark:bg-background text-background-foreground',
+            'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow dark:bg-background md:dark:bg-transparent md:flex md:items-center md:static text-background-foreground',
             {
               hidden: !this.state.menu,
             },
